@@ -295,7 +295,6 @@ end
 function UI_Game:init_goldUI()
     local vars = self.vars
 
-    vars['waveVisual']:setVisible(false)
     vars['goldNode']:setVisible(true)
 
     -- 금화 갯수 이미지 폰트 생성

@@ -119,7 +119,7 @@ end
 -------------------------------------
 -- function init_timeUI
 -------------------------------------
-function UI_GameColosseum:init_timeUI(time)
+function UI_GameColosseum:init_timeUI(display_wave, time)
     if (time) then
         self:setTime(time)
     end

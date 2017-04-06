@@ -542,6 +542,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 	t_event['attacker'] = attacker.m_activityCarrier.m_activityCarrierOwner
 	t_event['defender'] = self
 	t_event['is_critical'] = critical
+    t_event['i_x'] = i_x
+    t_event['i_y'] = i_y
 	
 	-- 방어와 관련된 이벤트 처리후 데미지 계산
 	do	
@@ -729,6 +731,8 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 		-- @LOG_CHAR
 		self.m_charLogRecorder:recordLog('be_damaged', damage)
 	end
+
+    self:dispatch('damaged', {['damage']=damage, ['i_x']=i_x, ['i_y']=i_y})
 
     -- 죽음 체크
     if (self.m_hp <= 0) and (self.m_bDead == false) then

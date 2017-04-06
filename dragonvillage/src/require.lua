@@ -214,6 +214,7 @@ local t_module = {
     'GameWorld_Touch',
     'GameWorld_Formation',
     'GameWorld_Unit',
+    'GameWorld_Gold',
     'GameState',
     'GameState_NestDungeon',
     'GameState_NestDungeon_Dragon',

@@ -23,6 +23,19 @@ function TableClass:setKey(key)
 end
 
 -------------------------------------
+-- function exists
+-------------------------------------
+function TableClass:exists(key)
+    local t_table = self.m_orgTable[key]
+
+    if t_table then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
 -- function get
 -------------------------------------
 function TableClass:get(key, skip_error_msg)

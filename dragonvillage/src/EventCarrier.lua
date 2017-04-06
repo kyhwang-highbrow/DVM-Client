@@ -16,6 +16,8 @@ EVENT_HIT_CARRIER['reduced_damage'] = 0
 EVENT_HIT_CARRIER['is_critical'] = false
 EVENT_HIT_CARRIER['attacker'] = ''
 EVENT_HIT_CARRIER['defender'] = ''
+EVENT_HIT_CARRIER['i_x'] = 0
+EVENT_HIT_CARRIER['i_y'] = 0
 
 ------------------------------
 -- event change hp

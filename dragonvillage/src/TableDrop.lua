@@ -50,3 +50,30 @@ function TableDrop:getStageStaminaType(stage_id)
     local stamina_type = self:getValue(stage_id, 'cost_type')
     return stamina_type
 end
+
+-------------------------------------
+-- function getStageBonusGoldInfo
+-- @breif 스테이지에서 보너스 골드 획득하는 정보
+-------------------------------------
+function TableDrop:getStageBonusGoldInfo(stage_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local gold_per_hit
+    local gold_per_damage
+    local gold_per_limit
+
+    if (not self:exists(stage_id)) then
+        gold_per_hit = 0
+        gold_per_damage = 0
+        gold_per_limit = 0
+    else
+        local t_table = self:get(stage_id)
+        gold_per_hit = t_table['gph']
+        gold_per_damage = t_table['gpd']
+        gold_per_limit = t_table['gpl']
+    end
+
+    return gold_per_hit, gold_per_damage, gold_per_limit
+end

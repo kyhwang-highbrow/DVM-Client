@@ -52,6 +52,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gameTimeScale = '',
         m_gameHighlight = '',
         m_dropItemMgr = '',
+        m_gameWorldGold = 'GameWorld_Gold',
 
         m_worldSize = '',
         m_worldScale = '',
@@ -86,8 +87,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_touchMotionStreak = 'cc.MotionStreak',
         m_touchPrevPos = '{x, y}',
         m_tCollisionTime = 'table',
-
-        m_snGold = 'SecurityNumber',
 
         m_mapManager = 'MapManager',
 		m_shakeMgr = 'ShakeManager',
@@ -195,11 +194,13 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 	self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
 
 	-- ## 모드별 분기 처리
+
+    local display_wave = true
+    local display_time = nil
+
 	-- 1. 모험 모드
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         self.m_gameState = GameState(self)
-		local display_wave = true
-		self.m_inGameUI:init_timeUI(display_wave, nil)
 
 	-- 2. 네스트 던전
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
@@ -219,15 +220,13 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
         elseif (dungeonMode == NEST_DUNGEON_GOLD) then
             self.m_gameState = GameState_SecretDungeon_Gold(self)
-            self.m_inGameUI:init_goldUI()
-			local display_wave = false
-            self.m_inGameUI:init_timeUI(display_wave, self.m_gameState.m_limitTime)
+			display_wave = false
+            display_time = display_wave, self.m_gameState.m_limitTime
 
 		else
 			error('네스트 던전 아이디가 잘못되어있습니다. 확인해주세요. ' .. self.m_stageID)
         end
 
-        self.m_inGameUI:init_timeUI(display_wave, nil)
 
 	-- 3. 비밀 던전
     elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
@@ -236,16 +235,15 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
         if (dungeonMode == SECRET_DUNGEON_GOLD) then
             self.m_gameState = GameState_SecretDungeon_Gold(self)
-            self.m_inGameUI:init_goldUI()
-			local display_wave = false
-            self.m_inGameUI:init_timeUI(display_wave, self.m_gameState.m_limitTime)
+            display_wave = false
+			display_time = self.m_gameState.m_limitTime
 
         elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
             self.m_gameState = GameState_SecretDungeon_Relation(self)
-
-            self.m_inGameUI:init_timeUI(display_wave, nil)
         end
     end
+
+    self.m_inGameUI:init_timeUI(display_wave, display_time)
 
     self.m_missileRange = {}
     self:setMissileRange()
@@ -445,25 +443,14 @@ end
 -- function initGold
 -------------------------------------
 function GameWorld:initGold()
-    self.m_snGold = SecurityNumber(0)
-end
-
--------------------------------------
--- function obtainGold
--------------------------------------
-function GameWorld:obtainGold(add_gold)
-    local prev_gold = self.m_snGold:get()
-
-    self.m_snGold:add(add_gold)
-
-    g_gameScene.m_inGameUI:setGold(self.m_snGold:get(), prev_gold)
+    self.m_gameWorldGold = GameWorld_Gold(self)
 end
 
 -------------------------------------
 -- function getGold
 -------------------------------------
 function GameWorld:getGold()
-    return self.m_snGold:get()
+    return math_floor(self.m_gameWorldGold:getObtainGold())
 end
 
 -------------------------------------

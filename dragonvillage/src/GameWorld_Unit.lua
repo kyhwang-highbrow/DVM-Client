@@ -56,6 +56,8 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
 	dragon:initState()
 	dragon:initFormation()
 
+    self:dispatch('make_dragon', {['dragon']=dragon, ['is_right']=bRightFormation})
+
     return dragon
 end
 
@@ -81,6 +83,8 @@ function GameWorld:makeMonsterNew(monster_id, level)
 	monster:init_monster(t_monster, monster_id, level, self.m_stageID)
     monster:initState()
 	monster:initFormation(body_size)
+
+    self:dispatch('make_monster', {['monster']=monster})
 
 	return monster
 end

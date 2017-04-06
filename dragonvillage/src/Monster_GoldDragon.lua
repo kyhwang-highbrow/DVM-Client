@@ -85,25 +85,6 @@ function Monster_GoldDragon.st_dying(owner, dt)
 end
 
 -------------------------------------
--- function setDamage
--------------------------------------
-function Monster_GoldDragon:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
-
-    -- TODO: 데미지에 따른 금화 획득
-    do
-        local base_gold, gold_per_damage = TableSecretDungeon():getGoldInfo(self.m_world.m_stageID)
-        local gold = base_gold + math_floor(damage / gold_per_damage)
-        self.m_world:obtainGold(gold)
-    end
-
-    -- TODO: 금화 떨어지는 이펙트
-    do
-        self:makeEffectGoldDrop(i_x, i_y)
-    end
-end
-
--------------------------------------
 -- function setHp
 -------------------------------------
 function Monster_GoldDragon:setHp(hp)
@@ -117,13 +98,4 @@ function Monster_GoldDragon:makeHPGauge(hp_ui_offset, force)
 
     self.m_statusNode = cc.Node:create()
     self.m_rootNode:addChild(self.m_statusNode)
-end
-
--------------------------------------
--- function makeEffectGoldDrop
--------------------------------------
-function Monster_GoldDragon:makeEffectGoldDrop(x, y)
-    local res = 'res/effect/effect_hit_gold/effect_hit_gold.vrp'
-    local idx = math_random(1, 3)
-    self.m_world:addInstantEffect(res, 'hit_' .. idx, x, y)
 end
