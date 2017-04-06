@@ -74,8 +74,8 @@ end
 function UI_NestDungeonListItem:refresh_dayLabel(major_day, days, mode)
     local vars = self.vars
 
-    -- 거대용 던전이 아닌 경우
-    if (mode ~= 1) then
+    -- 거대용, 거목던전은 요일던전 형태로 동작
+    if (mode ~= NEST_DUNGEON_DRAGON) and (mode ~= NEST_DUNGEON_TREE) then
         vars['dayLabel']:setString('')
         
         if vars['timeNode'] then
