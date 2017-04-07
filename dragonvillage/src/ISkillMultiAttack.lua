@@ -70,19 +70,21 @@ end
 
 -------------------------------------
 -- function setAttackInterval
--- @brief 스킬에 따라 오버라이딩 해서 사용
+-- @brief 공격 인터벌 설정
 -------------------------------------
 function ISkillMultiAttack:setAttackInterval()
 end
 
 -------------------------------------
 -- function onAppear
+-- @brief appear state에서 실행
 -------------------------------------
 function ISkillMultiAttack:onAppear()
 end
 
 -------------------------------------
 -- function enterAttack
+-- @brief 공격이 시작되는 시점에 실행
 -------------------------------------
 function ISkillMultiAttack:enterAttack()
 end
@@ -96,6 +98,7 @@ end
 
 -------------------------------------
 -- function onDisappear
+-- @brief disappear state에서 실행
 -------------------------------------
 function ISkillMultiAttack:onDisappear()
 end
