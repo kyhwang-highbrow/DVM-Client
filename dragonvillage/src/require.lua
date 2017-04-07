@@ -333,6 +333,7 @@ local t_module = {
     -- SKILL    
 	'Skill',
     'SkillLaser',
+	'SkillChainLightning',
 	'SkillThrowBuff',
     'SkillGuardian',
     'SkillHealSingle',

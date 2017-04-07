@@ -1896,6 +1896,9 @@
     <None Include="..\src\StructRuneSetObject.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillChainLightning.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
