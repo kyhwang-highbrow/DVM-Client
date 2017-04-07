@@ -399,9 +399,6 @@
     <None Include="..\src\SkillIndicator_Target.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillProtection.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\EffectHeal.lua">
       <Filter>lua</Filter>
     </None>
@@ -424,9 +421,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillIndicator_Crash.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillCrash.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ITopUserInfo_EventListener.lua">
@@ -570,25 +564,16 @@
     <None Include="..\src\CharacterStateDelegate.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillDispelMagic.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\StatusEffect_DotDmg.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillMeleeHack.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillAddAttack.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\StatusEffectIcon.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillCounterAttack.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillAttributeAmor.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ShaderCache.lua">
@@ -613,9 +598,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\CommonMissile_Release.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillRay.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ServerData.lua">
@@ -1077,12 +1059,6 @@
     <None Include="..\src\GameState_NestDungeon.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillChainLightning.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillLaser_Lightning.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\UI_LobbyUserInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1191,9 +1167,6 @@
     <None Include="..\src\EventCarrier.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillAoERound_Egg.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\ServerData_Runes.lua">
       <Filter>lua</Filter>
     </None>
@@ -1286,9 +1259,6 @@
     </None>
     <None Include="..\src\UI_ColosseumResult.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\SkillRapidShot_AddAttack.lua">
-      <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_AcquisitionRegionInformation.lua">
       <Filter>lua\UI</Filter>
@@ -1548,9 +1518,6 @@
     <None Include="..\src\ColosseumUserInfo.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillAoERound_Alien.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillAoERound_Sura.lua">
       <Filter>lua</Filter>
     </None>
@@ -1750,15 +1717,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\TableDragonExp.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillAoECone.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillAoECone_Spread.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillAoECone_Vertical.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillIndicator_AoECone_Vertical.lua">

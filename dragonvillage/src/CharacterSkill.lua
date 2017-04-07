@@ -120,7 +120,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 		-- [스킬]
 		else
-			-- 공용탄 영역
+			-- 공용탄 영역-------------------------------------------
 			if (skill_type == 'missile_move_ray') then
 				SkillRay:makeSkillInstance(self, t_skill, {})
 				return true
@@ -149,52 +149,21 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				CommonMissile_Multi:makeMissileInstance(self, t_skill)
 				return true
 
-			-- 스킬 영역
-
-			-- 패시브 스킬
-			elseif (skill_type == 'skill_react_armor') then
-				local x = self.m_attackOffsetX or 0
-				local y = self.m_attackOffsetY or 0
-				local is_hero = self.m_bLeftFormation
-				local attr = self:getAttribute()
-				local phys_group = self:getAttackPhysGroup()
-
-				self:doSkill_counteratk(t_skill, is_hero, phys_group, x, y, t_data)
-				return true
-
-
-			-- 구조 개선 후 ----------------------------------------------------
-
+			-- 스킬 영역-------------------------------------------
 			elseif (skill_type == 'skill_curve_twin') then
 				SkillLeafBlade:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_aoe_round') then
-				if (self.m_charTable['type'] == 'mutanteggdragon') then 
-					SkillAoERound_Egg:makeSkillInstance(self, t_skill, t_data)
-				elseif (self.m_charTable['type'] == 'aliendragon') then
-					SkillAoERound_Alien:makeSkillInstance(self, t_skill, t_data)
-				elseif (self.m_charTable['type'] == 'suradragon') then
-					SkillAoERound_Sura:makeSkillInstance(self, t_skill, t_data)
-				else
-					SkillAoERound:makeSkillInstance(self, t_skill, t_data)
-				end
+				SkillAoERound:makeSkillInstance(self, t_skill, t_data)
 				return true
 
+			elseif (skill_type == 'skill_aoe_round_sura') then
+				SkillAoERound_Sura:makeSkillInstance(self, t_skill, t_data)
+				return true
+				
 			elseif (skill_type == 'skill_aoe_wedge') then
 				SkillAoEWedge:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'skill_aoe_cone') then
-				SkillAoECone:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'skill_aoe_cone_spread') then
-				SkillAoECone_Spread:makeSkillInstance(self, t_skill, t_data)
-				return true
-			
-			elseif (skill_type == 'skill_aoe_cone_vertical') then
-				SkillAoECone_Vertical:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_aoe_square_width') then
@@ -203,6 +172,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 	
 			elseif (skill_type == 'skill_aoe_square_height') then
 				SkillAoESquare_Height:makeSkillInstance(self, t_skill, t_data)
+				return true
 
 			elseif (skill_type == 'skill_aoe_square_multi') then
 				SkillAoESquare_Wonder:makeSkillInstance(self, t_skill, t_data)
@@ -231,33 +201,13 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 			elseif (skill_type == 'skill_counterattack') then
 				SkillCounterAttack:makeSkillInstance(self, t_skill, t_data)
 				return true
-            
-			elseif (skill_type == 'skill_melee_atk') then
-				SkillMeleeHack:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'skill_protection') then
-				SkillProtection:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'skill_crash') then
-				SkillCrash:makeSkillInstance(self, t_skill, t_data)
-				return true
 
 			elseif (skill_type == 'skill_laser') then
 				SkillLaser:makeSkillInstance(self, t_skill, t_data) 
 				return true
 
-			elseif (skill_type == 'skill_laser_lightning') then
-				SkillLaser_Lightning:makeSkillInstance(self, t_skill, t_data) 
-				return true
-
 			elseif (skill_type == 'skill_lightning') then
 				SkillChainLightning:makeSkillInstance(self, t_skill, t_data) 
-				return true
-
-			elseif (skill_type == 'skill_dispel_harm') then
-				SkillDispelMagic:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_heal_single') then
@@ -268,28 +218,12 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillHealAround:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (skill_type == 'skill_guardian') then -- 파워드래곤 스킬 '수호'
+			elseif (skill_type == 'skill_guardian') then
 				SkillGuardian:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'skill_spider_web') then
-				SkillSpiderWeb:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'skill_status_effect_burst') then
-				SkillBurst:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'skill_status_effect_field_check') then
-				SkillFieldCheck:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_voltes_x') then
 				SkillVoltesX:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'skill_charge') then
-				SkillCharge:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_enumrate_normal') then
@@ -301,19 +235,15 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_enumrate_penetration') then
-				if (self.m_charTable['type'] == 'jaryong') then 
-					SkillEnumrate_Penetration_Jaryong:makeSkillInstance(self, t_skill, t_data)
-				else
-					SkillEnumrate_Penetration:makeSkillInstance(self, t_skill, t_data)
-				end
+				SkillEnumrate_Penetration:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+			elseif (skill_type == 'skill_enumrate_penetration_jaryong') then
+				SkillEnumrate_Penetration_Jaryong:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_rapid_shot') then
 				SkillRapidShot:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'skill_rapid_shot_add_attack') then
-				SkillRapidShot_AddAttack:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_linked_soul') then
@@ -324,12 +254,32 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillConditionalAddEffect:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			-- 특수 스킬들
+			-- 특수 스킬들 또는 몬스터 전용 스킬 .. (특수하게 처리)-------------------
 			elseif (skill_type == 'skill_summon') then
 				return SkillSummon:makeSkillInstance(self, t_skill, t_data)
 
 			elseif (skill_type == 'skill_heart_of_ruin') then
 				SkillHeartOfRuin:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+			elseif (skill_type == 'skill_charge') then
+				SkillCharge:makeSkillInstance(self, t_skill, t_data)
+				return true
+            
+			elseif (skill_type == 'skill_melee_atk') then
+				SkillMeleeHack:makeSkillInstance(self, t_skill, t_data)
+				return true
+				
+			elseif (skill_type == 'skill_spider_web') then
+				SkillSpiderWeb:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+			elseif (skill_type == 'skill_status_effect_burst') then
+				SkillBurst:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+			elseif (skill_type == 'skill_status_effect_field_check') then
+				SkillFieldCheck:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			end

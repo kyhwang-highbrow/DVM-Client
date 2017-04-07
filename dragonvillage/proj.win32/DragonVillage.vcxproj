@@ -369,11 +369,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\shader\shaderBlur.fsh" />
     <None Include="..\src\ShakeManager.lua" />
     <None Include="..\src\SimplePrimitivesDraw.lua" />
-    <None Include="..\src\SkillAoECone.lua" />
-    <None Include="..\src\SkillAoECone_Spread.lua" />
-    <None Include="..\src\SkillAoECone_Vertical.lua" />
-    <None Include="..\src\SkillAoERound_Alien.lua" />
-    <None Include="..\src\SkillAoERound_Egg.lua" />
     <None Include="..\src\SkillAoERound_Sura.lua" />
     <None Include="..\src\SkillAoESquare.lua" />
     <None Include="..\src\SkillAoESquare_Width.lua" />
@@ -381,7 +376,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillAoESquare_Wonder.lua" />
     <None Include="..\src\SkillAoEWedge.lua" />
     <None Include="..\src\SkillBurst.lua" />
-    <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillCharge.lua" />
     <None Include="..\src\SkillConditionalAddEffect.lua" />
     <None Include="..\src\SkillEnumrate.lua" />
@@ -400,11 +394,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_AoEWedge.lua" />
     <None Include="..\src\SkillIndicator_Penetration.lua" />
     <None Include="..\src\SkillIndicator_X.lua" />
-    <None Include="..\src\SkillLaser_Lightning.lua" />
     <None Include="..\src\SkillLeap.lua" />
     <None Include="..\src\SkillLinkedSoul.lua" />
     <None Include="..\src\SkillRapidShot.lua" />
-    <None Include="..\src\SkillRapidShot_AddAttack.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />
     <None Include="..\src\SkillTargetFinder.lua" />
     <None Include="..\src\SkillVoltesX.lua" />
@@ -504,7 +496,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_Laser.lua" />
     <None Include="..\src\SkillLaser.lua" />
     <None Include="..\src\SkillGuardian.lua" />
-    <None Include="..\src\SkillRay.lua" />
     <None Include="..\src\EffectLink.lua" />
     <None Include="..\src\main.lua" />
     <None Include="..\src\mainPatch.lua" />
@@ -559,14 +550,10 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ScrollMapLayer.lua" />
     <None Include="..\src\ShaderCache.lua" />
     <None Include="..\src\Skill.lua" />
-    <None Include="..\src\SkillAddAttack.lua" />
     <None Include="..\src\SkillAoERound.lua" />
-    <None Include="..\src\SkillAttributeAmor.lua" />
     <None Include="..\src\SkillThrowBuff.lua" />
     <None Include="..\src\SkillCounterAttack.lua" />
-    <None Include="..\src\SkillDispelMagic.lua" />
     <None Include="..\src\SkillExplosion.lua" />
-    <None Include="..\src\SkillCrash.lua" />
     <None Include="..\src\SkillHealAround.lua" />
     <None Include="..\src\SkillHealSingle.lua" />
     <None Include="..\src\SkillIndicator.lua" />
@@ -578,7 +565,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_Target.lua" />
     <None Include="..\src\SkillLeafBlade.lua" />
     <None Include="..\src\SkillMeleeHack.lua" />
-    <None Include="..\src\SkillProtection.lua" />
     <None Include="..\src\SkillRolling.lua" />
     <None Include="..\src\SkillShield.lua" />
     <None Include="..\src\SkillSpatter.lua" />

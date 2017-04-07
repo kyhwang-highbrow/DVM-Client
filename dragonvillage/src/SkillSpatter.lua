@@ -31,17 +31,17 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillSpatter:init_skill(motionstreak_res, count, std_pos_x, std_pos_y)
+function SkillSpatter:init_skill(motionstreak_res, count)
 	-- 멤버 변수
     self.m_spatterCount = 0
     self.m_spatterMaxCount = count
     self.m_spatterHealRate = self.m_powerRate / 100
 
-    self.m_stdPosX = std_pos_x
-    self.m_stdPosY = std_pos_y
+    self.m_stdPosX = self.m_owner.pos.x
+    self.m_stdPosY = self.m_owner.pos.y
 
-    self.m_prevPosX = std_pos_x
-    self.m_prevPosY = std_pos_y
+    self.m_prevPosX = self.m_stdPosX
+    self.m_prevPosY = self.m_stdPosY
 
 	self.m_lTargetList = self:findTarget()
 	self.m_targetIdx = 1
@@ -100,6 +100,7 @@ end
 -- function trySpatter
 -------------------------------------
 function SkillSpatter:trySpatter()
+	cclog(self.m_spatterCount, self.m_spatterMaxCount)
 	if (self.m_spatterCount >= self.m_spatterMaxCount) then
         self:changeState('dying')
         return false
@@ -177,7 +178,7 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, {})
-    skill:init_skill(motionstreak_res, range, count, owner.pos.x, owner.pos.y)
+    skill:init_skill(motionstreak_res, count)
 	skill:initState()
 
 	-- 3. state 시작 
