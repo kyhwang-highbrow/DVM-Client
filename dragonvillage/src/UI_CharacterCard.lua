@@ -179,7 +179,6 @@ function UI_CharacterCard:refresh_LeaderIcon()
             vars['leaderIcon']:setVisible(true)
         else
             local sprite = cc.Sprite:createWithSpriteFrameName('character_card_leader_icon.png')
-            sprite:setPosition(-46, 9)
             sprite:setDockPoint(CENTER_POINT)
             sprite:setAnchorPoint(CENTER_POINT)
             self.vars['clickBtn']:addChild(sprite, 2)
