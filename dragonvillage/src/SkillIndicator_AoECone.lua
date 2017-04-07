@@ -56,7 +56,8 @@ function SkillIndicator_AoECone:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 캐스팅 이펙트
-        local indicator = MakeAnimator(RES_INDICATOR['CONE'..self.m_skillAngle])
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target_cone_180')
+        local indicator = MakeAnimator(indicator_res)
         root_node:addChild(indicator.m_node)
 		indicator:setPosition(self:getAttackPosition())
 		indicator:setScale(self.m_indicatorScale)

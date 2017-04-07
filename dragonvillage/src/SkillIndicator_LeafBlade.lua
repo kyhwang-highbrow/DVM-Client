@@ -89,36 +89,39 @@ function SkillIndicator_LeafBlade:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 교차점 이펙트
-        local indicator = MakeAnimator(RES_INDICATOR['TARGET'])
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target')
+        local indicator = MakeAnimator(indicator_res)
         indicator:changeAni('enemy_start_idle', true)
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
     end
     
-    -- 베지어 곡선 이펙트 (상)
+	local indicator_res = g_constant:get('INDICATOR', 'RES', 'leaf')
+    
+	-- 베지어 곡선 이펙트 (상)
     do
-        local link_effect = EffectBezierLink(RES_INDICATOR['BEZIER'], 'circle')
+        local link_effect = EffectBezierLink(indicator_res)
         root_node:addChild(link_effect.m_node)
         self.m_indicatorBezierEffect1 = link_effect
     end
 
     -- 베지어 곡선 이펙트 (하)
     do
-        local link_effect = EffectBezierLink(RES_INDICATOR['BEZIER'], 'circle')
+        local link_effect = EffectBezierLink(indicator_res)
         root_node:addChild(link_effect.m_node)
         self.m_indicatorBezierEffect2 = link_effect
     end
 
     -- 직선 이펙트 (상)
     do
-        local link_effect = EffectLinearDot(RES_INDICATOR['BEZIER'], 'circle')
+        local link_effect = EffectLinearDot(indicator_res)
         root_node:addChild(link_effect.m_node)
         self.m_indicatorLinearEffect1 = link_effect
     end
 
     -- 직선 이펙트 (하)
     do
-        local link_effect = EffectLinearDot(RES_INDICATOR['BEZIER'], 'circle')
+        local link_effect = EffectLinearDot(indicator_res)
         root_node:addChild(link_effect.m_node)
         self.m_indicatorLinearEffect2 = link_effect
     end
@@ -211,73 +214,25 @@ end
 -- function onChangeTargetCount
 -------------------------------------
 function SkillIndicator_LeafBlade:onChangeTargetCount(old_target_count, cur_target_count)
-    if (not self.m_isPass) then
-        self:changeEffectNonePass()
-
-    else
-	    -- 활성화
-	    if (cur_target_count > 0) then
-		    self.m_indicatorEffect:changeAni('enemy_start_idle', true)
-		    self.m_indicatorBezierEffect1:changeAni('circle', true)
-		    self.m_indicatorBezierEffect2:changeAni('circle', true)
-		    self.m_indicatorLinearEffect1:changeAni('circle', true)
-		    self.m_indicatorLinearEffect2:changeAni('circle', true)
-
-	    -- 비활성화
-	    elseif (cur_target_count == 0) then
-		    self.m_indicatorEffect:changeAni('normal_start_idle', true)
-		    self.m_indicatorBezierEffect1:changeAni('circle_normal', true)
-		    self.m_indicatorBezierEffect2:changeAni('circle_normal', true)
-		    self.m_indicatorLinearEffect1:changeAni('circle_normal', true)
-		    self.m_indicatorLinearEffect2:changeAni('circle_normal', true)
-	    end
-    end
-end
-
--------------------------------------
--- function checkNonePass
--------------------------------------
-function SkillIndicator_LeafBlade:changeEffectNonePass()
-	-- 교차점 표시 부분
-	if (not self.m_target_1) and (not self.m_target_2) then
-		self.m_indicatorEffect:changeAni('normal_start_idle', true)
-	else
-		self.m_indicatorEffect:changeAni('enemy_start_idle', true)
-	end
-	
-	-- 탄1
-	if self.m_target_1 then
-		self:checkPosX(self.m_indicatorBezierEffect1.m_lEffectNode, self.m_target_1)
-		self:checkPosX(self.m_indicatorLinearEffect2.m_lEffectNode, self.m_target_1)
-	else
-		self.m_indicatorBezierEffect1:changeAni('circle', true)
-		self.m_indicatorLinearEffect2:changeAni('circle', true)
-	end
-	
-	-- 탄2
-	if self.m_target_2 then
-		self:checkPosX(self.m_indicatorBezierEffect2.m_lEffectNode, self.m_target_2)
-		self:checkPosX(self.m_indicatorLinearEffect1.m_lEffectNode, self.m_target_2)
-	else
-		self.m_indicatorBezierEffect2:changeAni('circle', true)
-		self.m_indicatorLinearEffect1:changeAni('circle', true)
-	end
-end
-
--------------------------------------
--- function checkPosX
--------------------------------------
-function SkillIndicator_LeafBlade:checkPosX(l_effect, target)
-	local pos_x = nil
-	
-	-- 위아래 나누어 타겟을 저장하기 때문에 x 좌표만 검사 한다 
-	for _, effect in pairs(l_effect) do
-		pos_x = effect.m_node:getPositionX() + self.m_hero.pos.x
-		if (pos_x > target.pos.x) then
-			effect:changeAni('circle_normal', true)
-		else
-			effect:changeAni('circle', true)
+	-- 활성화
+	if (cur_target_count > 0) then
+		if (old_target_count == 0) then
+			self.m_indicatorEffect:changeAni('enemy_start_idle', true)
 		end
+		self.m_indicatorBezierEffect1:setColor(COLOR_RED)
+		self.m_indicatorBezierEffect2:setColor(COLOR_RED)
+		self.m_indicatorLinearEffect1:setColor(COLOR_RED)
+		self.m_indicatorLinearEffect2:setColor(COLOR_RED)
+
+	-- 비활성화
+	elseif (cur_target_count == 0) then
+		if (old_target_count > 0) then
+			self.m_indicatorEffect:changeAni('normal_start_idle', true)
+		end
+		self.m_indicatorBezierEffect1:setColor(COLOR_CYAN)
+		self.m_indicatorBezierEffect2:setColor(COLOR_CYAN)
+		self.m_indicatorLinearEffect1:setColor(COLOR_CYAN)
+		self.m_indicatorLinearEffect2:setColor(COLOR_CYAN)
 	end
 end
 
@@ -285,10 +240,21 @@ end
 -- function onEnterAppear
 -------------------------------------
 function SkillIndicator_LeafBlade:onEnterAppear()
-    PARENT.onEnterAppear(self)
+	PARENT.onEnterAppear(self)
 
-    self.m_indicatorBezierEffect1.m_isAppear = true
-    self.m_indicatorBezierEffect2.m_isAppear = true
-    self.m_indicatorLinearEffect1.m_isAppear = true
-    self.m_indicatorLinearEffect2.m_isAppear = true
+	self.m_indicatorBezierEffect1:changeAni('appear', false, function(node)
+		node:changeAni('idle', true)
+	end)
+
+	self.m_indicatorBezierEffect2:changeAni('appear', false, function(node)
+		node:changeAni('idle', true)
+	end)
+
+	self.m_indicatorLinearEffect1:changeAni('appear', false, function(node)
+		node:changeAni('idle', true)
+	end)
+
+	self.m_indicatorLinearEffect2:changeAni('appear', false, function(node)
+		node:changeAni('idle', true)
+	end)
 end

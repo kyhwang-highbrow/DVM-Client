@@ -380,7 +380,8 @@ function SkillIndicator:makeTargetEffect(target_char)
         ani_name2 = 'idle'
     end
 
-    local indicator = MakeAnimator(RES_INDICATOR['EFFECT'])
+	local indicator_res = g_constant:get('INDICATOR', 'RES', 'effect')
+    local indicator = MakeAnimator(indicator_res)
     indicator:changeAni(ani_name1, false)
     indicator:addAniHandler(function() indicator:changeAni(ani_name2, true) end)
     indicator:setScale(0.1)

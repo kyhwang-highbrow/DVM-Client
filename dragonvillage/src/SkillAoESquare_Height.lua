@@ -25,8 +25,10 @@ function SkillAoESquare_Height:init_skill(hit)
 	self:setPosition(self.m_targetPos.x, cameraHomePosY)
 
 	-- @TODO 핑크벨 확인 위해 임시 처리
-	local pos_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - self.m_targetPos.x
-	self.m_animator:setPositionX(pos_x)
+	if (self.m_owner.m_charTable['type'] == 'mutanteggdragon') then
+		local pos_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - self.m_targetPos.x
+		self.m_animator:setPositionX(pos_x)
+	end
 end
 
 -------------------------------------
@@ -50,7 +52,10 @@ function SkillAoESquare_Height:adjustAnimator()
 	-- delay state 종료시 켜준다.
 	self.m_animator:setVisible(false) 
 
-	self.m_animator:setScaleX(self.m_resScale)
+	-- @TODO 핑크벨 확인 위해 임시 처리
+	if (not (self.m_owner.m_charTable['type'] == 'pinkbell')) then
+		self.m_animator:setScaleX(self.m_resScale)
+	end
 end
 
 -------------------------------------

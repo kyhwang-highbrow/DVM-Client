@@ -1155,12 +1155,6 @@
     <None Include="..\src\ConstantStatusEffect.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillAoESquare_Fairy.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillAoESquare_Heal.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillIndicator_AoESquare_Height.lua">
       <Filter>lua</Filter>
     </None>
@@ -1771,9 +1765,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillIndicator_AoECone.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillIndicator_AoECone_Spread.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillConditionalAddEffect.lua">

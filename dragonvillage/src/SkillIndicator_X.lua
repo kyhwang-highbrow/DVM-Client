@@ -50,14 +50,17 @@ function SkillIndicator_X:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- X
-        local indicator = MakeAnimator(RES_INDICATOR['X'])
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'voltes_x')
+        local indicator = MakeAnimator(indicator_res)
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
     end
 
     do -- Cursor
-        local indicator = MakeAnimator(RES_INDICATOR['X'])
-        indicator:changeAni('cursor', true)
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'round')
+        local indicator = MakeAnimator(indicator_res)
+        indicator:changeAni('skill_range_normal', true)
+		indicator:setScale(0.2)
         root_node:addChild(indicator.m_node)
         self.m_indicatorAddEffect = indicator
     end

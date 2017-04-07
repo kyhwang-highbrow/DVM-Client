@@ -321,8 +321,8 @@ local t_module = {
 
 	-- EFFECT
 	'EffectLink',
-    'EffectBezierLink',
     'EffectLinearDot',
+    'EffectBezierLink',
 	'EffectHeal',
 	'EffectLauncher',
     'EffectMotionStreak',
@@ -351,8 +351,6 @@ local t_module = {
     'SkillAoESquare',
     'SkillAoESquare_Height',
 	'SkillAoESquare_Width',
-    'SkillAoESquare_Heal',
-	'SkillAoESquare_Fairy',
 	'SkillAoESquare_Wonder',
 	'SkillAoECone',
 	'SkillAoECone_Spread',

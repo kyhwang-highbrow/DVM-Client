@@ -32,7 +32,7 @@ end
 -------------------------------------
 function SkillIndicator_AoESquare_Height:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 	local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
-    self.m_indicatorEffect:setPosition(touch_x - pos_x, cameraHomePosY - pos_y)
+    self.m_indicatorEffect:setPosition(touch_x - pos_x, cameraHomePosY - 600)
 end
 
 -------------------------------------
@@ -47,7 +47,7 @@ function SkillIndicator_AoESquare_Height:initIndicatorNode()
 
     do -- 캐스팅 이펙트
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'square_height')
-        local indicator = MakeAnimator(RES_INDICATOR['HEALING_WIND'])
+        local indicator = MakeAnimator(indicator_res)
         
 		indicator.m_node:setColor(COLOR_CYAN)
 		indicator:setScaleX(self.m_indicatorScale)

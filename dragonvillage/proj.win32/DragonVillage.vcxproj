@@ -377,7 +377,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillAoERound_Sura.lua" />
     <None Include="..\src\SkillAoESquare.lua" />
     <None Include="..\src\SkillAoESquare_Width.lua" />
-    <None Include="..\src\SkillAoESquare_Fairy.lua" />
     <None Include="..\src\SkillAoESquare_Height.lua" />
     <None Include="..\src\SkillAoESquare_Wonder.lua" />
     <None Include="..\src\SkillAoEWedge.lua" />
@@ -394,7 +393,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillHeartOfRuin.lua" />
     <None Include="..\src\SkillHelper.lua" />
     <None Include="..\src\SkillIndicator_AoECone.lua" />
-    <None Include="..\src\SkillIndicator_AoECone_Spread.lua" />
     <None Include="..\src\SkillIndicator_AoECone_Vertical.lua" />
     <None Include="..\src\SkillIndicator_AoESquare.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Multi.lua" />
@@ -570,7 +568,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillExplosion.lua" />
     <None Include="..\src\SkillCrash.lua" />
     <None Include="..\src\SkillHealAround.lua" />
-    <None Include="..\src\SkillAoESquare_Heal.lua" />
     <None Include="..\src\SkillHealSingle.lua" />
     <None Include="..\src\SkillIndicator.lua" />
     <None Include="..\src\SkillIndicatorMgr.lua" />

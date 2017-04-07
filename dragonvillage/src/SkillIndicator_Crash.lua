@@ -55,7 +55,8 @@ function SkillIndicator_Crash:initIndicatorNode()
 
 	-- 충돌후 파장 이펙트
     do
-        local indicator = MakeAnimator(RES_INDICATOR['COMMON'])
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target_cone_180')
+        local indicator = MakeAnimator(indicator_res)
         indicator:changeAni('fan_shape_enemy', true)
         indicator:setRotation(0)
         root_node:addChild(indicator.m_node)
@@ -64,7 +65,8 @@ function SkillIndicator_Crash:initIndicatorNode()
 
 	-- 타겟 링크이펙트
     do
-        local link_effect = EffectLink(RES_INDICATOR['TARGET'], 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target')
+        local link_effect = EffectLink(indicator_res, 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
         link_effect:doNotUseHead()
 		root_node:addChild(link_effect.m_node)
 		self.m_indicatorEffect = link_effect

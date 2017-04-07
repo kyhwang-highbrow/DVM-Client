@@ -57,7 +57,8 @@ function SkillIndicator_Target:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do
-        local link_effect = EffectLink(RES_INDICATOR['TARGET'], 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target')
+        local link_effect = EffectLink(indicator_res, 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
         link_effect:doNotUseHead()
 		root_node:addChild(link_effect.m_node)
         self.m_indicatorEffect = link_effect

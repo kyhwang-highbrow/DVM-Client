@@ -42,7 +42,8 @@ function SkillIndicator_AoECone_Vertical:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do
-        local indicator = MakeAnimator(RES_INDICATOR['CONE'..self.m_skillAngle])
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target_cone_180')
+        local indicator = MakeAnimator(indicator_res)
         indicator:changeAni('idle', true)
         indicator:setRotation(90)
 		indicator.m_node:setScaleY(self.m_skillRadius/504) --self.m_indicatorScale)

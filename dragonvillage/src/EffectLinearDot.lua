@@ -6,17 +6,14 @@ EffectLinearDot = class({
         m_resName = '',
         m_bar_visual = '',
         m_lEffectNode = 'CCNode',
-		m_isAppear = 'bool',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function EffectLinearDot:init(res_name, bar_visual)
+function EffectLinearDot:init(res_name)
     self.m_lEffectNode = {}
     self.m_resName = res_name
-    self.m_bar_visual = bar_visual
-	self.m_isAppear = true
 
     -- node 생성
     self.m_node = cc.Node:create()
@@ -51,30 +48,21 @@ function EffectLinearDot:refreshEffect(tar_x, tar_y, pos_x, pos_y, dir)
     end
 
 	-- 이펙트 생성 밑 불러오기
-	local effectNode = nil
+	local effect_animator = nil
 	for i, line_pos in ipairs(t_line_pos) do
 		if (nil == self.m_lEffectNode[i]) then
 			-- 없을 경우 생성 
-			effectNode = self:createWithParent(self.m_node, line_pos['x'], line_pos['y'], 0, self.m_resName, self.m_bar_visual, true)
-			effectNode.m_node:setAnchorPoint(cc.p(0.5, 0))
-			table.insert(self.m_lEffectNode, effectNode)
+			effect_animator = self:createWithParent(self.m_node, line_pos['x'], line_pos['y'], 0, self.m_resName, 'idle', false)
+			effect_animator.m_node:setAnchorPoint(cc.p(0.5, 0))
+			table.insert(self.m_lEffectNode, effect_animator)
 		else
 			-- 있을 경우 위치 지정
-			effectNode = self.m_lEffectNode[i]
-            effectNode:setPosition(line_pos['x'], line_pos['y'])
+			effect_animator = self.m_lEffectNode[i]
+            effect_animator:setPosition(line_pos['x'], line_pos['y'])
 		end
 
-        effectNode:setRotation(degree + 180)
+        effect_animator:setRotation(degree + 180)
     end
-		
-	-- 이펙트 등장 연출
-	if (self.m_isAppear) then 
-		for i, effectNode in ipairs(self.m_lEffectNode) do 
-			effectNode:setAlpha(0)
-			effectNode:runAction(cc.FadeIn:create(0.05 + g_constant:get('SKILL', 'LEAF_INDICATOR_EFFECT_DELAY') * i))
-		end
-		self.m_isAppear = false
-	end
 end
 
 -------------------------------------
@@ -90,28 +78,27 @@ function EffectLinearDot:createWithParent(parent, x, y, z_order, res_name, visua
 end
 
 -------------------------------------
--- function registCommonAppearAniHandler
--- @brief 공통 등장 에니메이션 핸들러 등록
+-- function changeAni
 -------------------------------------
-function EffectLinearDot:registCommonAppearAniHandler()
-	-- local function bar_ani_handler() self.m_effectNode:changeAni('bar_idle', true) end
-    -- self.m_effectNode:addAniHandler(bar_ani_handler)
+function EffectLinearDot:changeAni(ani_name, loop, cb)
+    local loop = (loop or false)
 
-    -- local function start_ani_handler() self.m_startPointNode:changeAni('start_idle', true) end
-    -- self.m_startPointNode:addAniHandler(start_ani_handler)
-
-    -- local function end_ani_handler() self.m_endPointNode:changeAni('end_idle', true) end
-    -- self.m_endPointNode:addAniHandler(end_ani_handler)
+    for i, animator in pairs(self.m_lEffectNode) do
+		animator:changeAni(ani_name, loop)
+		if (cb) then
+			animator:addAniHandler(function()
+				cb(animator)
+			end)
+		end
+	end
 end
 
 -------------------------------------
 -- function changeAni
 -------------------------------------
-function EffectLinearDot:changeAni(ani_name, loop)
-    local loop = (loop or false)
-
-    for i, v in pairs(self.m_lEffectNode) do
-		v:changeAni(ani_name, loop)
+function EffectLinearDot:setColor(color)
+    for i, animator in pairs(self.m_lEffectNode) do
+		animator:setColor(color)
 	end
 end
 
