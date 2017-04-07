@@ -86,10 +86,13 @@ function UI_DragonResearch:refresh()
     local doid = t_dragon_data['id']
     local dragon_type = table_dragon:getDragonType(did)
     
-    do -- 드래곤 리소스    
+    do -- 드래곤 리소스
+        local base_did = TableDragonType:getBaseDid(dragon_type)
+        local t_base_dragon = table_dragon:get(base_did)
+
         local evolution = MAX_DRAGON_EVOLUTION
         vars['dragonNode']:removeAllChildren()
-        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
+        local animator = AnimatorHelper:makeDragonAnimator(t_base_dragon['res'], evolution, t_base_dragon['attr'])
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         vars['dragonNode']:addChild(animator.m_node)
