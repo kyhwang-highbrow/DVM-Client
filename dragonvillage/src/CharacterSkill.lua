@@ -190,16 +190,12 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillRolling:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif string.find(skill_type, 'skill_spatter') then
+			elseif (skill_type == 'skill_spatter') then
 				SkillSpatter:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif string.find(skill_type, 'skill_buff') then
 				SkillThrowBuff:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'skill_counterattack') then
-				SkillCounterAttack:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_laser') then
@@ -257,6 +253,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 			-- 특수 스킬들 또는 몬스터 전용 스킬 .. (특수하게 처리)-------------------
 			elseif (skill_type == 'skill_summon') then
 				return SkillSummon:makeSkillInstance(self, t_skill, t_data)
+
+			elseif (skill_type == 'skill_counterattack') then
+				SkillCounterAttack:makeSkillInstance(self, t_skill, t_data)
+				return true
 
 			elseif (skill_type == 'skill_heart_of_ruin') then
 				SkillHeartOfRuin:makeSkillInstance(self, t_skill, t_data)

@@ -710,12 +710,6 @@ function Dragon:init_skillIndicator()
 	-- 원점 기준 원뿔형
 	elseif (indicator_type == 'wedge') then
 		self.m_skillIndicator = SkillIndicator_AoEWedge(self, t_skill)
-	
-	-- 타점 기준 원뿔형 수직
-	elseif (indicator_type == 'cone') then
-		self.m_skillIndicator = SkillIndicator_AoECone(self, t_skill)
-	elseif (indicator_type == 'cone_vertical') then
-		self.m_skillIndicator = SkillIndicator_AoECone_Vertical(self, t_skill)
 
 	-- 레이저
 	elseif (indicator_type == 'bar') then
@@ -734,10 +728,6 @@ function Dragon:init_skillIndicator()
 		self.m_skillIndicator = SkillIndicator_Penetration(self, t_skill)
 
 	------------------ 특수한 인디케이터들 ------------------
-	
-	-- 크래쉬(가루다)
-	elseif (indicator_type == 'target_cone') then
-		self.m_skillIndicator = SkillIndicator_Crash(self, t_skill)
 
 	-- 리프블레이드 (리프드래곤)
 	elseif (indicator_type == 'curve_twin') then

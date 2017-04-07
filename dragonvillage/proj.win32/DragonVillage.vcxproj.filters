@@ -420,9 +420,6 @@
     <None Include="..\src\MissileFix.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillIndicator_Crash.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\ITopUserInfo_EventListener.lua">
       <Filter>lua</Filter>
     </None>
@@ -1717,12 +1714,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\TableDragonExp.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillIndicator_AoECone_Vertical.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillIndicator_AoECone.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillConditionalAddEffect.lua">
