@@ -93,10 +93,10 @@ function UI_DragonRunes:initUI_runeSetFilter()
         if (set_id ~= 0) then
             local text = TableRuneSet:makeRuneSetEffectText(set_id)
             vars['setSortEffectLabel']:setString(text)
-            vars['setSortLabel']:setPositionY(10)
+            vars['setSortLabel']:setPositionX(-68)
         else
             vars['setSortEffectLabel']:setString('')
-            vars['setSortLabel']:setPositionY(0)
+            vars['setSortLabel']:setPositionX(0)
         end
     end
     uic_sort_list:setSortChangeCB(sort_change_cb)
