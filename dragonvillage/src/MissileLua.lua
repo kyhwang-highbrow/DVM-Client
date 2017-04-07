@@ -375,11 +375,6 @@ function MissileLua.lua_arrange_curve(owner)
 
 	local target_x = (pos_x - 640)
     local target_y = (pos_y - 50)
-    
-    if (owner.m_target) then
-        target_x = owner.m_target.pos.x
-        target_y = owner.m_target.pos.y
-    end
 
 	-- 받아오는 값
 	local height = owner.m_value1
@@ -389,15 +384,29 @@ function MissileLua.lua_arrange_curve(owner)
 	local attack_cb_func = owner.m_value5
     local loop = 1
 
-	-- 도착하면 탄을 없앤다
-	local cbFunction = cc.CallFunc:create(function()
-		attack_cb_func()
-		owner:changeState('dying')
-	end)
-
+	-- 초기 액션
 	local arrange_action = cc.MoveBy:create(0.1, arrange_pos)
 	local delay_action = cc.DelayTime:create(delay_time)
-    local jump_action = cc.JumpTo:create(jump_duration, cc.p(target_x, target_y), height, loop, true)
-	local after_delay_action = cc.DelayTime:create(0.1)  -- 도착후 바로 삭제하면 충돌인식이 되지않아 임의로 설정
-    owner.m_rootNode:runAction(cc.Sequence:create(arrange_action, delay_action, jump_action, after_delay_action, cbFunction))
+
+	-- 딜레이후 새롭게 타겟 찾아 공격 액션 실행
+	local set_target_function = cc.CallFunc:create(function() 
+	    if (owner.m_target) then
+			target_x = owner.m_target.pos.x
+			target_y = owner.m_target.pos.y
+
+		    local jump_action = cc.JumpTo:create(jump_duration, cc.p(target_x, target_y), height, loop, true)
+			local after_delay_action = cc.DelayTime:create(0.02)  -- 도착후 바로 삭제하면 충돌인식이 되지않아 임의로 설정
+			-- 도착하면 탄을 없앤다
+			local cb_function = cc.CallFunc:create(function()
+				attack_cb_func()
+				owner:changeState('dying')
+			end)
+
+			-- 실행
+			owner.m_rootNode:runAction(cc.Sequence:create(jump_action, after_delay_action, cb_function))
+		end
+	end)
+
+	-- 실행
+    owner.m_rootNode:runAction(cc.Sequence:create(arrange_action, delay_action, set_target_function))
 end
