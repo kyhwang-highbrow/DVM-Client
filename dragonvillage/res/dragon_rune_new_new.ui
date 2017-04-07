@@ -55,12 +55,12 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -82.000000;
+				y = -72.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 500;
-				height = 340;
+				height = 360;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -75,13 +75,13 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = 10.000000;
+					x = -68.000000;
+					y = -1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 188;
-					height = 48;
+					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -97,7 +97,7 @@
 					color = { 240; 215; 159; };
 					opacity = 255;
 					dimension_width = 188;
-					dimension_height = 48;
+					dimension_height = 60;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -115,8 +115,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = -13.000000;
+					x = 48.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -153,13 +153,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -48.000000;
-				y = 130.000000;
+				x = -101.000000;
+				y = 137.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 192;
-				height = 64;
+				width = 296;
+				height = 48;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -217,13 +217,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 117.000000;
-				y = 130.000000;
+				x = 116.000000;
+				y = 137.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 124;
-				height = 64;
+				height = 48;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -267,13 +267,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 218.000000;
-				y = 130.000000;
+				x = 217.000000;
+				y = 137.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 64;
-				height = 64;
+				height = 48;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -296,8 +296,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 510;
-				height = 85;
+				width = 502;
+				height = 82;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -305,7 +305,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/rune_slot_0201.png';
+				file_name = 'ui/frame/rune_slot_0107.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -316,6 +316,32 @@
 			[7] =
 			{
 				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 84;
+					height = 84;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'emptySlot1';
+					file_name = 'ui/frame/rune_slot_0201.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -334,15 +360,41 @@
 					visible = true;
 					lua_name = 'runeSlot1';
 				};
+				[3] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 84;
+					height = 84;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'selectSprite';
+					file_name = 'ui/frame/rune_slot_0207.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
-				x = -212.000000;
+				x = -210.000000;
 				y = 210.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 84;
+				height = 84;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -359,6 +411,32 @@
 			[8] =
 			{
 				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -0.000008;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 84;
+					height = 84;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'emptySlot2';
+					file_name = 'ui/frame/rune_slot_0202.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -379,13 +457,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -128.000000;
+				x = -126.000000;
 				y = 210.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 84;
+				height = 84;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -402,6 +480,32 @@
 			[9] =
 			{
 				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -0.000015;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 84;
+					height = 84;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'emptySlot3';
+					file_name = 'ui/frame/rune_slot_0203.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -427,8 +531,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 84;
+				height = 84;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -445,6 +549,32 @@
 			[10] =
 			{
 				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -0.000015;
+					y = -0.000002;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 84;
+					height = 84;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'emptySlot4';
+					file_name = 'ui/frame/rune_slot_0204.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -465,13 +595,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 43.000000;
+				x = 42.000000;
 				y = 210.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 84;
+				height = 84;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -488,6 +618,32 @@
 			[11] =
 			{
 				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -0.000015;
+					y = -0.000002;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 84;
+					height = 84;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'emptySlot5';
+					file_name = 'ui/frame/rune_slot_0205.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -508,13 +664,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 128.000000;
+				x = 126.000000;
 				y = 210.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 84;
+				height = 84;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -531,6 +687,32 @@
 			[12] =
 			{
 				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -0.000031;
+					y = -0.000002;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 84;
+					height = 84;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'emptySlot6';
+					file_name = 'ui/frame/rune_slot_0206.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -551,13 +733,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 213.000000;
+				x = 210.000000;
 				y = 210.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 84;
+				height = 84;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -937,7 +1119,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 136.000000;
-				y = -44.000000;
+				y = -74.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1001,7 +1183,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 140.000000;
+				y = 112.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1067,12 +1249,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = 50.000000;
+				y = 36.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 110;
-				height = 80;
+				height = 52;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1131,12 +1313,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 114.000000;
-				y = 50.000000;
+				y = 36.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 110;
-				height = 80;
+				height = 52;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1234,6 +1416,181 @@
 			lua_name = 'useMenu';
 		};
 		[5] =
+		{
+			[1] =
+			{
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/a_frame_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[2] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 200;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '모험 떠나기';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 200;
+					dimension_height = 60;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 85; 44; 25; };
+					has_shadow = false;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = 159.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 204;
+				height = 54;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'adventureBtn';
+				enable = true;
+				normal = 'ui/btn/a_btn_0101.png';
+				selected = 'ui/btn/a_btn_0102.png';
+				disable = '';
+				image_type = 1;
+			};
+			[3] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -35.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 330;
+				height = 120;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 24;
+				text = '인벤에 룬이 없어요!\n룬을 구하러 모험을 떠나볼까요?';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 216; 167; 108; };
+				opacity = 255;
+				dimension_width = 330;
+				dimension_height = 120;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 85; 44; 25; };
+				has_shadow = false;
+				shadow_color = { 85; 44; 25; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[4] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -3.000000;
+				y = 83.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 173;
+				height = 173;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/icon/emtpy_0102.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			type = 'Menu';
+			ui_name = '';
+			x = -85.000000;
+			y = 26.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 364;
+			height = 530;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'runeEmptyMenu';
+		};
+		[6] =
 		{
 			[1] =
 			{
@@ -1431,7 +1788,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 136.000000;
-				y = -44.000000;
+				y = -74.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1495,7 +1852,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 140.000000;
+				y = 112.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1561,12 +1918,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = -114.000000;
-				y = 50.000000;
+				y = 36.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 110;
-				height = 80;
+				height = 52;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1625,12 +1982,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = 50.000000;
+				y = 36.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 110;
-				height = 80;
+				height = 52;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1689,12 +2046,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 114.000000;
-				y = 50.000000;
+				y = 36.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 110;
-				height = 80;
+				height = 52;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1788,10 +2145,10 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'selectMenu';
 		};
-		[6] =
+		[7] =
 		{
 			[1] =
 			{
