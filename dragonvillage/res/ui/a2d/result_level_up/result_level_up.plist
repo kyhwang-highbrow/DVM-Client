@@ -11,11 +11,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{134,64}</string>
+                <string>{260,128}</string>
                 <key>spriteSourceSize</key>
-                <string>{136,64}</string>
+                <string>{260,128}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{134,64}}</string>
+                <string>{{1,1},{260,128}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{94,32}</string>
                 <key>textureRect</key>
-                <string>{{1,67},{94,32}}</string>
+                <string>{{263,1},{94,32}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -41,13 +41,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{35,40}</string>
+                <string>{53,26}</string>
                 <key>spriteSourceSize</key>
-                <string>{35,40}</string>
+                <string>{53,26}</string>
                 <key>textureRect</key>
-                <string>{{97,67},{35,40}}</string>
+                <string>{{359,1},{53,26}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>result_level_up_word_0102.png</key>
             <dict>
@@ -56,11 +56,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{35,40}</string>
+                <string>{49,38}</string>
                 <key>spriteSourceSize</key>
-                <string>{35,40}</string>
+                <string>{49,38}</string>
                 <key>textureRect</key>
-                <string>{{224,52},{35,40}}</string>
+                <string>{{263,91},{49,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -71,11 +71,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{36,40}</string>
+                <string>{43,54}</string>
                 <key>spriteSourceSize</key>
-                <string>{36,40}</string>
+                <string>{43,54}</string>
                 <key>textureRect</key>
-                <string>{{186,52},{36,40}}</string>
+                <string>{{263,35},{43,54}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{14,38}</string>
                 <key>textureRect</key>
-                <string>{{91,104},{14,38}}</string>
+                <string>{{376,115},{14,38}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -101,13 +101,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{45,49}</string>
+                <string>{45,18}</string>
                 <key>spriteSourceSize</key>
-                <string>{45,49}</string>
+                <string>{45,18}</string>
                 <key>textureRect</key>
-                <string>{{185,1},{45,49}}</string>
+                <string>{{414,1},{45,18}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>result_level_up_word_0202.png</key>
             <dict>
@@ -116,13 +116,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{45,49}</string>
+                <string>{41,30}</string>
                 <key>spriteSourceSize</key>
-                <string>{45,49}</string>
+                <string>{41,30}</string>
                 <key>textureRect</key>
-                <string>{{139,52},{45,49}}</string>
+                <string>{{314,83},{41,30}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>result_level_up_word_0203.png</key>
             <dict>
@@ -131,11 +131,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{46,49}</string>
+                <string>{35,46}</string>
                 <key>spriteSourceSize</key>
-                <string>{46,49}</string>
+                <string>{35,46}</string>
                 <key>textureRect</key>
-                <string>{{137,1},{46,49}}</string>
+                <string>{{308,35},{35,46}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -150,9 +150,9 @@
                 <key>spriteSourceSize</key>
                 <string>{24,48}</string>
                 <key>textureRect</key>
-                <string>{{232,1},{24,48}}</string>
+                <string>{{359,29},{24,48}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>result_level_up_word_e.png</key>
             <dict>
@@ -165,7 +165,7 @@
                 <key>spriteSourceSize</key>
                 <string>{34,28}</string>
                 <key>textureRect</key>
-                <string>{{1,101},{26,28}}</string>
+                <string>{{345,55},{26,28}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -180,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{34,28}</string>
                 <key>textureRect</key>
-                <string>{{31,101},{26,28}}</string>
+                <string>{{375,55},{26,28}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -195,9 +195,9 @@
                 <key>spriteSourceSize</key>
                 <string>{34,28}</string>
                 <key>textureRect</key>
-                <string>{{139,103},{16,28}}</string>
+                <string>{{416,48},{16,28}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>result_level_up_word_p.png</key>
             <dict>
@@ -210,9 +210,9 @@
                 <key>spriteSourceSize</key>
                 <string>{34,28}</string>
                 <key>textureRect</key>
-                <string>{{61,101},{26,28}}</string>
+                <string>{{406,78},{26,28}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>result_level_up_word_u.png</key>
             <dict>
@@ -225,9 +225,9 @@
                 <key>spriteSourceSize</key>
                 <string>{34,28}</string>
                 <key>textureRect</key>
-                <string>{{222,94},{30,28}}</string>
+                <string>{{376,83},{30,28}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>result_level_up_word_v.png</key>
             <dict>
@@ -240,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{34,28}</string>
                 <key>textureRect</key>
-                <string>{{186,94},{34,28}}</string>
+                <string>{{346,83},{34,28}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -256,9 +256,9 @@
             <key>realTextureFileName</key>
             <string>result_level_up.png</string>
             <key>size</key>
-            <string>{260,128}</string>
+            <string>{433,130}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:23dc41c0644b489b749878c417592321:da9b283c145e61a3aff4e927f2983db4:d5c639b976ac4461fc2eea440b559b4c$</string>
+            <string>$TexturePacker:SmartUpdate:9c6c21852cab2ae4e9756aa879ae7cef:712df267de377c4040f73cecaf4183fe:d5c639b976ac4461fc2eea440b559b4c$</string>
             <key>textureFileName</key>
             <string>result_level_up.png</string>
         </dict>

@@ -59,7 +59,7 @@
             <key>effect_weakness_res_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{442,2},{4,57}}</string>
+                <string>{{442,109},{4,57}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>effect_weakness_res_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{442,8},{40,30}}</string>
+                <string>{{442,210},{40,30}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -81,6 +81,32 @@
                 <string>{{0,0},{40,30}}</string>
                 <key>sourceSize</key>
                 <string>{40,30}</string>
+            </dict>
+            <key>effect_weakness_res_07.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{442,115},{93,54}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{6,7},{93,54}}</string>
+                <key>sourceSize</key>
+                <string>{105,68}</string>
+            </dict>
+            <key>effect_weakness_res_07_s.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{442,2},{105,68}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{105,68}}</string>
+                <key>sourceSize</key>
+                <string>{105,68}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -92,7 +118,7 @@
             <key>size</key>
             <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d77c166ba8005416ad54930d4ff87375$</string>
+            <string>$TexturePacker:SmartUpdate:4a614c9108daa23cce25508e16bae259$</string>
             <key>textureFileName</key>
             <string>effect_weakness.png</string>
         </dict>
