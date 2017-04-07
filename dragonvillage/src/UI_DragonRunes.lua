@@ -408,6 +408,7 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
     do -- 레어도
         local color = rune_obj:getRarityColor()
         vars['useRuneNameLabel']:setColor(color)
+        vars['useRarityNode']:setColor(color)
 
         local name = rune_obj:getRarityName()
         vars['useRarityLabel']:setString(name)
@@ -457,6 +458,7 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
     do -- 레어도
         local color = rune_obj:getRarityColor()
         vars['selectRuneNameLabel']:setColor(color)
+        vars['selectRarityNode']:setColor(color)
 
         local name = rune_obj:getRarityName()
         vars['selectRarityLabel']:setString(name)

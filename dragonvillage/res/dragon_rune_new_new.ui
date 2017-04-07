@@ -1192,7 +1192,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				type = 'Node';
+				type = 'Sprite';
 				ui_name = '';
 				x = -24.000000;
 				y = 234.000000;
@@ -1208,6 +1208,13 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'useRarityNode';
+				file_name = 'ui/frame/run_rarity_bg.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';
@@ -1743,7 +1750,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				type = 'Node';
+				type = 'Sprite';
 				ui_name = '';
 				x = -24.000000;
 				y = 234.000000;
@@ -1759,6 +1766,13 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'selectRarityNode';
+				file_name = 'ui/frame/run_rarity_bg.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';
