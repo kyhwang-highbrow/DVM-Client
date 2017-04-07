@@ -25,7 +25,7 @@ function SkillAoESquare_Height:init_skill(hit)
 	self:setPosition(self.m_targetPos.x, cameraHomePosY)
 
 	-- @TODO 핑크벨 확인 위해 임시 처리
-	if (self.m_owner.m_charTable['type'] == 'mutanteggdragon') then
+	if (self.m_owner.m_charTable['type'] == 'pinkbell') then
 		local pos_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - self.m_targetPos.x
 		self.m_animator:setPositionX(pos_x)
 	end
@@ -53,7 +53,8 @@ function SkillAoESquare_Height:adjustAnimator()
 	self.m_animator:setVisible(false) 
 
 	-- @TODO 핑크벨 확인 위해 임시 처리
-	if (not (self.m_owner.m_charTable['type'] == 'pinkbell')) then
+	if (self.m_owner.m_charTable['type'] == 'pinkbell') then
+	else
 		self.m_animator:setScaleX(self.m_resScale)
 	end
 end

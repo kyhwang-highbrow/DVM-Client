@@ -100,7 +100,6 @@ end
 -- function trySpatter
 -------------------------------------
 function SkillSpatter:trySpatter()
-	cclog(self.m_spatterCount, self.m_spatterMaxCount)
 	if (self.m_spatterCount >= self.m_spatterMaxCount) then
         self:changeState('dying')
         return false
