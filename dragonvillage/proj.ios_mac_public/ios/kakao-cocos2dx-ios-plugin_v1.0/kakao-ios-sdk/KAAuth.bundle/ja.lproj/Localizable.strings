@@ -1,0 +1,10 @@
+"StoryViewTitle" = "カカオストーリー";
+"StoryViewPlaceHoldText" = "テキストを入力する場合はタップしてください。";
+"CommonButtonCloseTitle" = "閉じる";
+"CommonButtonCancelTitle" = "キャンセル";
+"CommonButtonBackTitle" = "戻る";
+"CommonButtonUploadTitle" = "投稿";
+"CommonButtonInstall" = "設置";
+"StoryPostPrivacyOptionAll" = "全体公開";
+"StoryPostPrivacyOptionFriend" = "友達のみ";
+"KakaoTalkMustInstall" = "KakaoTalk must be installed in order to enjoy KakaoGame. Do you want to install KakaoTalk?";
