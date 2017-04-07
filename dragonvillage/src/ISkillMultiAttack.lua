@@ -13,7 +13,11 @@ ISkillMultiAttack = {
 -------------------------------------
 -- function init 
 -------------------------------------
-function ISkillMultiAttack:init()    
+function ISkillMultiAttack:init()
+    self.m_attackCount = 0
+    self.m_maxAttackCount = 0
+    self.m_hitInterval = ONE_FRAME * 5
+    self.m_multiAtkTimer = 0
 end
 
 -------------------------------------
