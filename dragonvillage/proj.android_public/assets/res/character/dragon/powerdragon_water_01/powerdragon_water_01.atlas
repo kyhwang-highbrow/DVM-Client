@@ -56,8 +56,8 @@ powerdragon_water_01_effect_04
 powerdragon_water_01_eye_01
   rotate: true
   xy: 450, 99
-  size: 38, 49
-  orig: 38, 49
+  size: 38, 56
+  orig: 38, 56
   offset: 0, 0
   index: -1
 powerdragon_water_01_head_01

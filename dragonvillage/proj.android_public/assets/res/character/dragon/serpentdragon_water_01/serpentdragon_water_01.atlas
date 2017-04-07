@@ -1,69 +1,69 @@
 
 serpentdragon_water_01.png
-size: 512,256
+size: 1024,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 serpentdragon_water_01_body_01
+  rotate: true
+  xy: 2, 2
+  size: 235, 295
+  orig: 235, 295
+  offset: 0, 0
+  index: -1
+serpentdragon_water_01_body_02
   rotate: false
-  xy: 2, 96
-  size: 159, 154
-  orig: 159, 154
+  xy: 467, 60
+  size: 150, 177
+  orig: 150, 177
   offset: 0, 0
   index: -1
 serpentdragon_water_01_eye_01
+  rotate: true
+  xy: 889, 200
+  size: 37, 42
+  orig: 37, 42
+  offset: 0, 0
+  index: -1
+serpentdragon_water_01_eye_03
   rotate: false
-  xy: 62, 3
-  size: 29, 32
-  orig: 29, 32
+  xy: 840, 199
+  size: 47, 38
+  orig: 47, 38
   offset: 0, 0
   index: -1
 serpentdragon_water_01_head_01
   rotate: false
-  xy: 163, 126
-  size: 116, 124
-  orig: 116, 124
+  xy: 299, 35
+  size: 166, 202
+  orig: 166, 202
   offset: 0, 0
   index: -1
 serpentdragon_water_01_head_03
   rotate: false
-  xy: 62, 37
+  xy: 713, 180
   size: 68, 57
   orig: 68, 57
   offset: 0, 0
   index: -1
 serpentdragon_water_01_head_05
   rotate: false
-  xy: 346, 196
+  xy: 783, 183
   size: 55, 54
   orig: 55, 54
   offset: 0, 0
   index: -1
 serpentdragon_water_01_head_06
   rotate: false
-  xy: 403, 204
-  size: 40, 46
-  orig: 40, 46
-  offset: 0, 0
-  index: -1
-serpentdragon_water_01_tail_01
-  rotate: false
-  xy: 281, 177
-  size: 63, 73
-  orig: 63, 73
+  xy: 619, 87
+  size: 68, 58
+  orig: 68, 58
   offset: 0, 0
   index: -1
 serpentdragon_water_01_wing_01
   rotate: false
-  xy: 2, 2
-  size: 58, 92
-  orig: 58, 92
-  offset: 0, 0
-  index: -1
-serpentdragon_water_01_wing_02
-  rotate: true
-  xy: 281, 127
-  size: 48, 62
-  orig: 48, 62
+  xy: 619, 147
+  size: 92, 90
+  orig: 92, 90
   offset: 0, 0
   index: -1

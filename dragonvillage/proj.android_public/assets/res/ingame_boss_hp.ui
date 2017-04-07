@@ -14,7 +14,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 836;
+				width = 706;
 				height = 45;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -35,12 +35,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 82.000000;
-				y = 6.000000;
+				x = 147.000000;
+				y = 5.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 782;
+				width = 652;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -65,12 +65,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 82.000000;
-				y = 6.000000;
+				x = 147.000000;
+				y = 5.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 782;
+				width = 652;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -95,12 +95,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 82.000000;
-				y = 6.000000;
+				x = 147.000000;
+				y = 5.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 782;
+				width = 652;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -125,12 +125,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 81.000000;
-				y = 6.000000;
+				x = 146.000000;
+				y = 5.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 782;
+				width = 652;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -155,12 +155,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 81.000000;
-				y = 6.000000;
+				x = 146.000000;
+				y = 5.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 782;
+				width = 652;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -185,12 +185,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 81.000000;
-				y = 6.000000;
+				x = 146.000000;
+				y = 5.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 782;
+				width = 652;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -215,12 +215,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 101.000000;
-				y = -13.000000;
+				x = 166.000000;
+				y = -14.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 744;
+				width = 614;
 				height = 5;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -245,7 +245,7 @@
 			{
 				type = 'Menu';
 				ui_name = '';
-				x = 100.000000;
+				x = 168.000000;
 				y = -48.000000;
 				dock_point = { 0.000000; 1.000000; };
 				anchor_point = { 0.000000; 1.000000; };
@@ -264,7 +264,7 @@
 			{
 				type = 'Menu';
 				ui_name = '';
-				x = -100.000000;
+				x = -168.000000;
 				y = -48.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 1.000000; };
@@ -279,10 +279,36 @@
 				visible = true;
 				lua_name = 'bossSkillNode';
 			};
+			[11] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 16.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 73;
+				height = 30;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/gauge/ingame_boss.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = -6.000000;
+			y = -10.000000;
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 1.000000; };
 			relative_size_type = 0;

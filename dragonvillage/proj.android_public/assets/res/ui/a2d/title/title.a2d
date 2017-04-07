@@ -43,7 +43,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'bg.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -57,30 +57,100 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'tamer_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pY":-10.000000
+										"frame":0, "sX":11.000000, "sY":11.000000, "mode":"Add"
 									},
 									{
-										"frame":1, "pY":-10.000000
+										"frame":1, "sX":11.000000, "sY":11.000000, "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'logo_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0101_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.900000, "sY":0.900000, "pY":-142.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000
 									},
 									{
-										"frame":1, "sX":0.900000, "sY":0.900000, "pY":-142.000000
+										"frame":1, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0102_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000
+									},
+									{
+										"frame":1, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0105_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000
+									},
+									{
+										"frame":1, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0104_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000
+									},
+									{
+										"frame":1, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0103_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000
+									},
+									{
+										"frame":1, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000, "sY":0.500000, "pY":-172.000000
+									},
+									{
+										"frame":1, "sX":0.500000, "sY":0.500000, "pY":-172.000000
 									}
 								]
 							}
@@ -98,7 +168,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'bg.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -112,30 +182,100 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'tamer_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pY":-10.000000
+										"frame":0, "sX":11.000000, "sY":11.000000, "mode":"Add"
 									},
 									{
-										"frame":1, "pY":-10.000000
+										"frame":1, "sX":11.000000, "sY":11.000000, "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'logo_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0101_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.900000, "sY":0.900000, "pY":-142.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000
 									},
 									{
-										"frame":1, "sX":0.900000, "sY":0.900000, "pY":-142.000000
+										"frame":1, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0102_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000
+									},
+									{
+										"frame":1, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0105_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000
+									},
+									{
+										"frame":1, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0104_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000
+									},
+									{
+										"frame":1, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0103_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000
+									},
+									{
+										"frame":1, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000, "sY":0.500000, "pY":-172.000000
+									},
+									{
+										"frame":1, "sX":0.500000, "sY":0.500000, "pY":-172.000000
 									}
 								]
 							}
@@ -153,7 +293,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'bg.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -163,283 +303,230 @@
 									},
 									{
 										"frame":59
-									},
-									{
-										"frame":99
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":11.000000, "sY":11.000000, "mode":"Add"
 									},
 									{
-										"frame":29, "pX":-289.000000, "pY":63.000000
-									},
-									{
-										"frame":59, "pX":-358.000000, "pY":71.000000
-									},
-									{
-										"frame":99, "pX":-358.000000, "pY":71.000000
+										"frame":59, "sX":11.000000, "sY":11.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0102.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000, "alpha":0
 									},
 									{
-										"frame":25, "pX":-267.000000, "pY":134.000000
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000
 									},
 									{
-										"frame":59, "pX":-296.000000, "pY":149.000000
-									},
-									{
-										"frame":99, "pX":-296.000000, "pY":149.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0103.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0101_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000
 									},
 									{
-										"frame":21, "pX":-168.000000, "pY":169.000000
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000, "alpha":216
 									},
 									{
-										"frame":59, "pX":-195.000000, "pY":199.000000
-									},
-									{
-										"frame":99, "pX":-195.000000, "pY":199.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0104.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0102.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000, "alpha":0
 									},
 									{
-										"frame":17, "pX":-41.000000, "pY":169.000000
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000
 									},
 									{
-										"frame":59, "pX":-56.000000, "pY":199.000000
-									},
-									{
-										"frame":99, "pX":-56.000000, "pY":199.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0105.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0102_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000
 									},
 									{
-										"frame":13, "pX":-208.000000, "pY":21.000000
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000, "alpha":216
 									},
 									{
-										"frame":59, "pX":-223.000000, "pY":21.000000
-									},
-									{
-										"frame":99, "pX":-223.000000, "pY":21.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0106.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0105.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000, "alpha":0
 									},
 									{
-										"frame":9, "pX":-102.000000, "pY":54.000000
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000
 									},
 									{
-										"frame":59, "pX":-120.000000, "pY":60.000000
-									},
-									{
-										"frame":99, "pX":-120.000000, "pY":60.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0105_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000
 									},
 									{
-										"frame":29, "pX":309.000000, "pY":190.000000
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000, "alpha":216
 									},
 									{
-										"frame":59, "pX":358.000000, "pY":220.000000
-									},
-									{
-										"frame":99, "pX":358.000000, "pY":220.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0202.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0104.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000, "alpha":0
 									},
 									{
-										"frame":25, "pX":394.000000, "pY":111.000000
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000
 									},
 									{
-										"frame":59, "pX":429.000000, "pY":122.000000
-									},
-									{
-										"frame":99, "pX":429.000000, "pY":122.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0203.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0104_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000
 									},
 									{
-										"frame":21, "pX":115.000000, "pY":189.000000
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000, "alpha":216
 									},
 									{
-										"frame":59, "pX":131.000000, "pY":219.000000
-									},
-									{
-										"frame":99, "pX":131.000000, "pY":219.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0204.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0103.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000, "alpha":0
 									},
 									{
-										"frame":17, "pX":269.000000, "pY":160.000000
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000
 									},
 									{
-										"frame":59, "pX":299.000000, "pY":176.000000
-									},
-									{
-										"frame":99, "pX":299.000000, "pY":176.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0205.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0103_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000
 									},
 									{
-										"frame":13, "pX":306.000000, "pY":68.000000
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000, "alpha":216
 									},
 									{
-										"frame":59, "pX":326.000000, "pY":72.000000
-									},
-									{
-										"frame":99, "pX":326.000000, "pY":72.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0206.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_dragon_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000, "pX":24.000000, "pY":18.000000
+										"frame":10, "sX":0.560000, "sY":0.520000, "pX":43.000000, "pY":-150.000000
 									},
 									{
-										"frame":9, "pX":154.000000, "pY":57.000000
+										"frame":18, "sX":1.030000, "sY":1.050000, "pX":108.000000, "pY":-72.000000
 									},
 									{
-										"frame":59, "pX":174.000000, "pY":64.000000
+										"frame":20, "sX":0.950000, "sY":0.950000, "pX":108.000000, "pY":-72.000000
 									},
 									{
-										"frame":99, "pX":174.000000, "pY":64.000000
+										"frame":22, "pX":108.000000, "pY":-72.000000
+									},
+									{
+										"frame":59, "pX":108.000000, "pY":-72.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'tamer_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pY":-10.000000
+										"frame":0, "sX":0.500000, "sY":0.500000, "pY":-172.000000
 									},
 									{
-										"frame":59, "sX":1.100000, "sY":1.100000, "pY":-10.000000
+										"frame":10, "sX":0.800000, "sY":0.800000, "pY":-172.000000
 									},
 									{
-										"frame":99, "sX":1.100000, "sY":1.100000, "pY":-10.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'logo_0101.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.900000, "sY":0.900000, "pY":-142.000000
-									},
-									{
-										"frame":59, "sX":0.900000, "sY":0.900000, "pY":-142.000000
-									},
-									{
-										"frame":99, "sX":0.900000, "sY":0.900000, "pY":-142.000000
+										"frame":59, "sX":0.800000, "sY":0.800000, "pY":-172.000000
 									}
 								]
 							},
@@ -450,13 +537,13 @@
 								"key_list":
 								[
 									{
-										"frame":45, "rotate":360.000000, "pX":311.000000, "pY":-63.000000, "alpha":0
+										"frame":31, "rotate":346.924927, "pX":199.000000, "pY":-108.000000, "alpha":18
 									},
 									{
-										"frame":59, "rotate":176.949142, "pX":311.000000, "pY":-63.000000
+										"frame":44, "rotate":176.949142, "pX":199.000000, "pY":-108.000000
 									},
 									{
-										"frame":74, "pX":311.000000, "pY":-63.000000, "alpha":0
+										"frame":59, "pX":199.000000, "pY":-108.000000, "alpha":0
 									}
 								]
 							}
@@ -474,7 +561,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'bg.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -488,215 +575,134 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg_s.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-358.000000, "pY":71.000000
+										"frame":0, "sX":11.000000, "sY":11.000000, "alpha":0, "mode":"Add"
 									},
 									{
-										"frame":59, "pX":-358.000000, "pY":71.000000
+										"frame":29, "sX":11.000000, "sY":11.000000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":59, "sX":11.000000, "sY":11.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0102.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-296.000000, "pY":149.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000
 									},
 									{
-										"frame":59, "pX":-296.000000, "pY":149.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":-335.000000, "pY":53.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0103.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0102.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-195.000000, "pY":199.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000
 									},
 									{
-										"frame":59, "pX":-195.000000, "pY":199.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":387.000000, "pY":77.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0104.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0105.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-56.000000, "pY":199.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000
 									},
 									{
-										"frame":59, "pX":-56.000000, "pY":199.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":96.000000, "pY":-4.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0105.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0104.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-223.000000, "pY":21.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000
 									},
 									{
-										"frame":59, "pX":-223.000000, "pY":21.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":-164.000000, "pY":-12.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0106.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_tamer_0103.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-120.000000, "pY":60.000000
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000
 									},
 									{
-										"frame":59, "pX":-120.000000, "pY":60.000000
+										"frame":59, "sX":0.900000, "sY":0.900000, "pX":-5.000000, "pY":-54.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_dragon_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":358.000000, "pY":220.000000
+										"frame":0, "pX":108.000000, "pY":-72.000000
 									},
 									{
-										"frame":59, "pX":358.000000, "pY":220.000000
+										"frame":59, "pX":108.000000, "pY":-72.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0202.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":429.000000, "pY":122.000000
+										"frame":0, "sX":0.800000, "sY":0.800000, "pY":-172.000000
 									},
 									{
-										"frame":59, "pX":429.000000, "pY":122.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0203.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pX":131.000000, "pY":219.000000
-									},
-									{
-										"frame":59, "pX":131.000000, "pY":219.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0204.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pX":299.000000, "pY":176.000000
-									},
-									{
-										"frame":59, "pX":299.000000, "pY":176.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0205.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pX":326.000000, "pY":72.000000
-									},
-									{
-										"frame":59, "pX":326.000000, "pY":72.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'dragon_0206.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pX":174.000000, "pY":64.000000
-									},
-									{
-										"frame":59, "pX":174.000000, "pY":64.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'tamer_0101.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":1.100000, "sY":1.100000, "pY":-10.000000
-									},
-									{
-										"frame":59, "sX":1.100000, "sY":1.100000, "pY":-10.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'logo_0101.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.900000, "sY":0.900000, "pY":-142.000000
-									},
-									{
-										"frame":59, "sX":0.900000, "sY":0.900000, "pY":-142.000000
+										"frame":59, "sX":0.800000, "sY":0.800000, "pY":-172.000000
 									}
 								]
 							},
 							{
 								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_dragon_light.png'",
 								"expand":false,
-								"apply":false,
+								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "rotate":360.000000, "pX":314.000000, "pY":-29.000000, "alpha":0
+										"frame":31, "rotate":346.924927, "pX":199.000000, "pY":-108.000000, "alpha":18
 									},
 									{
-										"frame":14, "rotate":176.949142, "pX":314.000000, "pY":-29.000000
+										"frame":44, "rotate":176.949142, "pX":199.000000, "pY":-108.000000
 									},
 									{
-										"frame":29, "pX":314.000000, "pY":-29.000000, "alpha":0
+										"frame":59, "pX":199.000000, "pY":-108.000000, "alpha":0
 									}
 								]
 							}

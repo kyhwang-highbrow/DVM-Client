@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/base_frame_01.png';
+				file_name = 'ui/frame/a_frame_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -33,10 +33,36 @@
 			};
 			[2] =
 			{
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 18.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 720;
+				height = 338;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/a_frame_03.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[3] =
+			{
 				type = 'Button';
 				ui_name = '';
-				x = -25.000000;
-				y = -5.000000;
+				x = 22.000000;
+				y = 23.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 1.000000; };
 				relative_size_type = 0;
@@ -50,12 +76,12 @@
 				visible = true;
 				lua_name = 'closeBtn';
 				enable = true;
-				normal = 'ui/btn/bookmark_0303.png';
-				selected = 'ui/btn/bookmark_0304.png';
+				normal = 'ui/btn/close_01.png';
+				selected = 'ui/btn/close_02.png';
 				disable = '';
 				image_type = 0;
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
@@ -65,8 +91,8 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 20.000000;
-							y = -2.000000;
+							x = 23.000000;
+							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
 							anchor_point = { 0.000000; 0.500000; };
 							relative_size_type = 0;
@@ -80,11 +106,11 @@
 							visible = true;
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 20;
-							text = '패배시 연속 모험 종료';
+							font_size = 26;
+							text = '패배시 연속 전투 종료';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 240; 215; 159; };
 							opacity = 255;
 							dimension_width = 500;
 							dimension_height = 50;
@@ -110,8 +136,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 32;
-							height = 33;
+							width = 54;
+							height = 54;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -119,7 +145,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'autoStartSprite1';
-							file_name = 'ui/btn/check_0102.png';
+							file_name = 'ui/icon/stage_box_check.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -129,7 +155,7 @@
 						};
 						type = 'Sprite';
 						ui_name = '';
-						x = -270.000000;
+						x = -307.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -154,11 +180,11 @@
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
-					y = 140.000000;
+					y = 96.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 640;
+					width = 670;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -168,7 +194,7 @@
 					visible = true;
 					lua_name = 'autoStartBtn1';
 					enable = true;
-					normal = '';
+					normal = 'ui/empty.png';
 					selected = '';
 					disable = '';
 					image_type = 0;
@@ -181,12 +207,12 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 20.000000;
-							y = -2.000000;
+							x = 23.000000;
+							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
 							anchor_point = { 0.000000; 0.500000; };
 							relative_size_type = 0;
-							width = 500;
+							width = 600;
 							height = 50;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
@@ -196,13 +222,13 @@
 							visible = true;
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 20;
-							text = '드래곤의 현재 승급 상태 중 레벨MAX가 되면 연속 모험 종료';
+							font_size = 26;
+							text = '드래곤의 현재 승급 상태 중 레벨 MAX가 되면 연속 전투 종료';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 240; 215; 159; };
 							opacity = 255;
-							dimension_width = 500;
+							dimension_width = 600;
 							dimension_height = 50;
 							letter_spacing = 0.000000;
 							has_stroke = false;
@@ -226,8 +252,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 32;
-							height = 33;
+							width = 54;
+							height = 54;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -235,7 +261,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'autoStartSprite2';
-							file_name = 'ui/btn/check_0102.png';
+							file_name = 'ui/icon/stage_box_check.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -245,7 +271,7 @@
 						};
 						type = 'Sprite';
 						ui_name = '';
-						x = -270.000000;
+						x = -307.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -270,11 +296,11 @@
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
-					y = 90.000000;
+					y = 48.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 640;
+					width = 670;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -284,7 +310,7 @@
 					visible = true;
 					lua_name = 'autoStartBtn2';
 					enable = true;
-					normal = '';
+					normal = 'ui/empty.png';
 					selected = '';
 					disable = '';
 					image_type = 0;
@@ -297,8 +323,8 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 20.000000;
-							y = -2.000000;
+							x = 23.000000;
+							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
 							anchor_point = { 0.000000; 0.500000; };
 							relative_size_type = 0;
@@ -312,11 +338,11 @@
 							visible = true;
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 20;
-							text = '드래곤의 인벤토리가 가득차면 연속 모험 종료';
+							font_size = 26;
+							text = '드래곤의 인벤토리가 가득차면 연속 전투 종료';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 240; 215; 159; };
 							opacity = 255;
 							dimension_width = 500;
 							dimension_height = 50;
@@ -342,8 +368,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 32;
-							height = 33;
+							width = 54;
+							height = 54;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -351,7 +377,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'autoStartSprite3';
-							file_name = 'ui/btn/check_0102.png';
+							file_name = 'ui/icon/stage_box_check.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -361,7 +387,7 @@
 						};
 						type = 'Sprite';
 						ui_name = '';
-						x = -270.000000;
+						x = -307.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -386,11 +412,11 @@
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
-					y = 40.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 640;
+					width = 670;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -400,7 +426,7 @@
 					visible = true;
 					lua_name = 'autoStartBtn3';
 					enable = true;
-					normal = '';
+					normal = 'ui/empty.png';
 					selected = '';
 					disable = '';
 					image_type = 0;
@@ -413,8 +439,8 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 20.000000;
-							y = -2.000000;
+							x = 23.000000;
+							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
 							anchor_point = { 0.000000; 0.500000; };
 							relative_size_type = 0;
@@ -428,11 +454,11 @@
 							visible = true;
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 20;
-							text = '룬 인벤토리가 가득차면 연속 모험 종료';
+							font_size = 26;
+							text = '룬 인벤토리가 가득차면 연속 전투 종료';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 240; 215; 159; };
 							opacity = 255;
 							dimension_width = 500;
 							dimension_height = 50;
@@ -458,8 +484,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 32;
-							height = 33;
+							width = 54;
+							height = 54;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -467,7 +493,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'autoStartSprite4';
-							file_name = 'ui/btn/check_0102.png';
+							file_name = 'ui/icon/stage_box_check.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -477,7 +503,7 @@
 						};
 						type = 'Sprite';
 						ui_name = '';
-						x = -270.000000;
+						x = -307.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -502,11 +528,11 @@
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
-					y = -10.000000;
+					y = -48.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 640;
+					width = 670;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -516,7 +542,7 @@
 					visible = true;
 					lua_name = 'autoStartBtn4';
 					enable = true;
-					normal = '';
+					normal = 'ui/empty.png';
 					selected = '';
 					disable = '';
 					image_type = 0;
@@ -529,8 +555,8 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 20.000000;
-							y = -2.000000;
+							x = 23.000000;
+							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
 							anchor_point = { 0.000000; 0.500000; };
 							relative_size_type = 0;
@@ -544,11 +570,11 @@
 							visible = true;
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 20;
-							text = '레이드 보스 등장시 연속 모험 종료';
+							font_size = 26;
+							text = '레이드 보스 등장시 연속 전투 종료';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 240; 215; 159; };
 							opacity = 255;
 							dimension_width = 500;
 							dimension_height = 50;
@@ -574,8 +600,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 32;
-							height = 33;
+							width = 54;
+							height = 54;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -583,7 +609,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'autoStartSprite5';
-							file_name = 'ui/btn/check_0102.png';
+							file_name = 'ui/icon/stage_box_check.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -593,7 +619,7 @@
 						};
 						type = 'Sprite';
 						ui_name = '';
-						x = -270.000000;
+						x = -307.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -618,11 +644,11 @@
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
-					y = -60.000000;
+					y = -96.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 640;
+					width = 670;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -632,152 +658,152 @@
 					visible = true;
 					lua_name = 'autoStartBtn5';
 					enable = true;
-					normal = '';
+					normal = 'ui/empty.png';
 					selected = '';
 					disable = '';
 					image_type = 0;
 				};
-				[6] =
+				type = 'Menu';
+				ui_name = '';
+				x = 0.000000;
+				y = 18.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 720;
+				height = 338;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'autoStartMenu';
+			};
+			[5] =
+			{
+				[1] =
 				{
-					[1] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 25.000000;
-						y = 4.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 197;
-						height = 60;
-						scale_x = 0.960000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 30;
-						text = '20회 연속';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 243; 236; 225; };
-						opacity = 255;
-						dimension_width = 197;
-						dimension_height = 60;
-						letter_spacing = 0.000000;
-						has_stroke = true;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 134; 50; 33; };
-						has_shadow = true;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 100;
-						shadow_direction = 0;
-						shadow_distance = 3.000000;
-					};
-					[2] =
-					{
-						type = 'Scale9Sprite';
-						ui_name = '';
-						x = -94.000000;
-						y = 4.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 36;
-						height = 36;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/btn/sub_01.png';
-						color = { 0; 0; 0; };
-						opacity = 100;
-						center_rect_x = 0;
-						center_rect_y = 0;
-						center_rect_width = 0;
-						center_rect_height = 0;
-					};
-					[3] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = -92.000000;
-						y = 9.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 32;
-						height = 33;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = false;
-						lua_name = 'autoStartOnSprite';
-						file_name = 'ui/btn/check_0101.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					type = 'Button';
+					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = 59.000000;
-					dock_point = { 0.500000; 0.000000; };
+					x = 25.000000;
+					y = 2.000000;
+					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 260;
-					height = 80;
+					width = 197;
+					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'autoStartOnBtn';
-					enable = true;
-					normal = 'ui/btn/btn_0101.png';
-					selected = 'ui/btn/btn_0102.png';
-					disable = 'ui/btn/btn_0102.png';
-					image_type = 1;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 30;
+					text = '20회 연속 전투';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 197;
+					dimension_height = 60;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 85; 44; 25; };
+					has_shadow = true;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
 				};
-				type = 'Menu';
+				[2] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = -105.000000;
+					y = 2.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 36;
+					height = 36;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/btn/sub_01.png';
+					color = { 0; 0; 0; };
+					opacity = 100;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[3] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -104.000000;
+					y = 6.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 54;
+					height = 54;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'autoStartOnSprite';
+					file_name = 'ui/icon/stage_box_check.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Button';
 				ui_name = '';
-				x = 0.000000;
-				y = -42.000000;
-				dock_point = { 0.500000; 0.500000; };
+				x = 3.000000;
+				y = 64.000000;
+				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 658;
-				height = 400;
+				width = 300;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'autoStartMenu';
+				lua_name = 'autoStartOnBtn';
+				enable = true;
+				normal = 'ui/btn/a_btn_0201.png';
+				selected = 'ui/btn/a_btn_0202.png';
+				disable = 'ui/btn/a_btn_0202.png';
+				image_type = 1;
 			};
-			[4] =
+			[6] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 174.000000;
+					y = 101.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -795,7 +821,7 @@
 					text = '드래곤 공격 스킬 사용';
 					h_alignment = 0;
 					v_alignment = 1;
-					color = { 255; 104; 32; };
+					color = { 255; 215; 0; };
 					opacity = 255;
 					dimension_width = 560;
 					dimension_height = 50;
@@ -817,7 +843,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 51.000000;
+					y = -22.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -835,7 +861,7 @@
 					text = '드래곤 치유 스킬 사용';
 					h_alignment = 0;
 					v_alignment = 1;
-					color = { 255; 104; 32; };
+					color = { 255; 215; 0; };
 					opacity = 255;
 					dimension_width = 560;
 					dimension_height = 50;
@@ -853,46 +879,6 @@
 					shadow_distance = 5.000000;
 				};
 				[3] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = -67.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 560;
-					height = 50;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
-					text = '테이머 스킬 사용';
-					h_alignment = 0;
-					v_alignment = 1;
-					color = { 255; 104; 32; };
-					opacity = 255;
-					dimension_width = 560;
-					dimension_height = 50;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 1.000000;
-					stroke_color = { 255; 255; 255; };
-					has_shadow = false;
-					shadow_color = { 255; 255; 255; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
-				[4] =
 				{
 					[1] =
 					{
@@ -919,7 +905,7 @@
 							text = '쿨 타임 돌아올 때마다 (현재 타겟에게)';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 161; 125; 93; };
 							opacity = 255;
 							dimension_width = 500;
 							dimension_height = 50;
@@ -945,8 +931,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 12;
-							height = 12;
+							width = 28;
+							height = 28;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -969,8 +955,8 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 18;
-						height = 18;
+						width = 28;
+						height = 28;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -989,7 +975,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
-					y = 140.000000;
+					y = 67.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1008,7 +994,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[5] =
+				[4] =
 				{
 					[1] =
 					{
@@ -1035,7 +1021,7 @@
 							text = '상대 스킬 사용시 (스킬 사용 대상에게)';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 161; 125; 93; };
 							opacity = 255;
 							dimension_width = 500;
 							dimension_height = 50;
@@ -1061,8 +1047,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 12;
-							height = 12;
+							width = 28;
+							height = 28;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -1085,8 +1071,8 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 18;
-						height = 18;
+						width = 28;
+						height = 28;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -1105,7 +1091,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
-					y = 100.000000;
+					y = 27.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1124,7 +1110,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[6] =
+				[5] =
 				{
 					[1] =
 					{
@@ -1151,7 +1137,7 @@
 							text = '쿨 타임 돌아올 때마다';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 161; 125; 93; };
 							opacity = 255;
 							dimension_width = 500;
 							dimension_height = 50;
@@ -1177,8 +1163,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 12;
-							height = 12;
+							width = 28;
+							height = 28;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -1201,8 +1187,8 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 18;
-						height = 18;
+						width = 28;
+						height = 28;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -1221,7 +1207,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
-					y = 17.000000;
+					y = -56.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1240,7 +1226,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[7] =
+				[6] =
 				{
 					[1] =
 					{
@@ -1267,7 +1253,7 @@
 							text = '아군 체력 낮아질 때만';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 161; 125; 93; };
 							opacity = 255;
 							dimension_width = 500;
 							dimension_height = 50;
@@ -1293,8 +1279,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 12;
-							height = 12;
+							width = 28;
+							height = 28;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -1317,8 +1303,8 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 18;
-						height = 18;
+						width = 28;
+						height = 28;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -1337,7 +1323,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
-					y = -23.000000;
+					y = -96.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1356,7 +1342,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[8] =
+				[7] =
 				{
 					[1] =
 					{
@@ -1383,7 +1369,7 @@
 							text = '1번 스킬 사용';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 255; 255; 255; };
 							opacity = 255;
 							dimension_width = 500;
 							dimension_height = 50;
@@ -1409,8 +1395,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 12;
-							height = 12;
+							width = 28;
+							height = 28;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -1433,8 +1419,8 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 18;
-						height = 18;
+						width = 28;
+						height = 28;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -1464,8 +1450,124 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'skillBtn5';
+					enable = true;
+					normal = '';
+					selected = '';
+					disable = '';
+					image_type = 0;
+				};
+				[8] =
+				{
+					[1] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 20.000000;
+							y = -2.000000;
+							dock_point = { 1.000000; 0.500000; };
+							anchor_point = { 0.000000; 0.500000; };
+							relative_size_type = 0;
+							width = 500;
+							height = 50;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 20;
+							text = '2번 스킬 사용';
+							h_alignment = 0;
+							v_alignment = 1;
+							color = { 255; 255; 255; };
+							opacity = 255;
+							dimension_width = 500;
+							dimension_height = 50;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 1.000000;
+							stroke_color = { 255; 255; 255; };
+							has_shadow = false;
+							shadow_color = { 255; 255; 255; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+						};
+						[2] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 28;
+							height = 28;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = false;
+							lua_name = 'skillSprite6';
+							file_name = 'ui/btn/check_0201.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Sprite';
+						ui_name = '';
+						x = -270.000000;
+						y = 2.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 28;
+						height = 28;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/btn/check_0200.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = 0.000000;
+					y = -140.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 640;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'skillBtn6';
 					enable = true;
 					normal = '';
 					selected = '';
@@ -1496,126 +1598,10 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 20;
-							text = '2번 스킬 사용';
-							h_alignment = 0;
-							v_alignment = 1;
-							color = { 132; 69; 0; };
-							opacity = 255;
-							dimension_width = 500;
-							dimension_height = 50;
-							letter_spacing = 0.000000;
-							has_stroke = false;
-							stroke_type = 0;
-							stroke_detail_level = 0;
-							is_sharp_text = true;
-							stroke_tickness = 1.000000;
-							stroke_color = { 255; 255; 255; };
-							has_shadow = false;
-							shadow_color = { 255; 255; 255; };
-							shadow_opacity = 255;
-							shadow_direction = 0;
-							shadow_distance = 5.000000;
-						};
-						[2] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = 0.000000;
-							y = 0.000000;
-							dock_point = { 0.500000; 0.500000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 12;
-							height = 12;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'skillSprite6';
-							file_name = 'ui/btn/check_0201.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						type = 'Sprite';
-						ui_name = '';
-						x = -270.000000;
-						y = 2.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 18;
-						height = 18;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/btn/check_0200.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					type = 'Button';
-					ui_name = '';
-					x = 0.000000;
-					y = -140.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 640;
-					height = 40;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'skillBtn6';
-					enable = true;
-					normal = '';
-					selected = '';
-					disable = '';
-					image_type = 0;
-				};
-				[10] =
-				{
-					[1] =
-					{
-						[1] =
-						{
-							type = 'LabelTTF';
-							ui_name = '';
-							x = 20.000000;
-							y = -2.000000;
-							dock_point = { 1.000000; 0.500000; };
-							anchor_point = { 0.000000; 0.500000; };
-							relative_size_type = 0;
-							width = 500;
-							height = 50;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = '';
-							font_name = 'font/common_font_01.ttf';
-							font_size = 20;
 							text = '3번 스킬 사용';
 							h_alignment = 0;
 							v_alignment = 1;
-							color = { 132; 69; 0; };
+							color = { 255; 255; 255; };
 							opacity = 255;
 							dimension_width = 500;
 							dimension_height = 50;
@@ -1641,8 +1627,8 @@
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 12;
-							height = 12;
+							width = 28;
+							height = 28;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -1665,8 +1651,8 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 18;
-						height = 18;
+						width = 28;
+						height = 28;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -1696,7 +1682,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'skillBtn7';
 					enable = true;
 					normal = '';
@@ -1707,28 +1693,28 @@
 				type = 'Menu';
 				ui_name = '';
 				x = 0.000000;
-				y = -42.000000;
+				y = 18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 658;
-				height = 400;
+				width = 720;
+				height = 338;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'skillMenu';
 			};
-			[5] =
+			[7] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = 4.000000;
+					x = 1.000000;
+					y = -1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1742,11 +1728,11 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 24;
 					text = '연속 전투 설정';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 240; 215; 159; };
 					opacity = 255;
 					dimension_width = 214;
 					dimension_height = 42;
@@ -1755,23 +1741,23 @@
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
-					stroke_tickness = 1.000000;
-					stroke_color = { 255; 255; 255; };
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
 					has_shadow = false;
-					shadow_color = { 255; 255; 255; };
+					shadow_color = { 0; 0; 0; };
 					shadow_opacity = 255;
 					shadow_direction = 0;
-					shadow_distance = 5.000000;
+					shadow_distance = 2.000000;
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -197.000000;
-				y = 206.000000;
+				x = -250.000000;
+				y = 189.000000;
 				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 220;
-				height = 60;
+				width = 200;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1779,20 +1765,20 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'autoStartBtn';
-				enable = false;
-				normal = 'ui/btn/sub_btn_0101.png';
-				selected = 'ui/btn/sub_btn_0102.png';
-				disable = 'ui/btn/btn_0101.png';
+				enable = true;
+				normal = 'ui/btn/a_tab_0103.png';
+				selected = 'ui/btn/a_tab_0102.png';
+				disable = 'ui/btn/a_tab_0101.png';
 				image_type = 1;
 			};
-			[6] =
+			[8] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 4.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1806,11 +1792,11 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 24;
 					text = '자동 스킬 설정';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 240; 215; 159; };
 					opacity = 255;
 					dimension_width = 214;
 					dimension_height = 42;
@@ -1819,23 +1805,23 @@
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
-					stroke_tickness = 1.000000;
-					stroke_color = { 255; 255; 255; };
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
 					has_shadow = false;
-					shadow_color = { 255; 255; 255; };
+					shadow_color = { 0; 0; 0; };
 					shadow_opacity = 255;
 					shadow_direction = 0;
-					shadow_distance = 5.000000;
+					shadow_distance = 2.000000;
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 26.000000;
-				y = 206.000000;
+				x = -50.000000;
+				y = 189.000000;
 				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 220;
-				height = 60;
+				width = 200;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1844,9 +1830,9 @@
 				visible = true;
 				lua_name = 'skillBtn';
 				enable = true;
-				normal = 'ui/btn/sub_btn_0101.png';
-				selected = 'ui/btn/sub_btn_0102.png';
-				disable = 'ui/btn/btn_0101.png';
+				normal = 'ui/btn/a_tab_0103.png';
+				selected = 'ui/btn/a_tab_0102.png';
+				disable = 'ui/btn/a_tab_0101.png';
 				image_type = 1;
 			};
 			type = 'Menu';
@@ -1856,8 +1842,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 776;
-			height = 615;
+			width = 770;
+			height = 540;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

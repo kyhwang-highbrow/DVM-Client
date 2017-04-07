@@ -1,26 +1,26 @@
 
 mutanteggdragon_earth_03.png
-size: 512,512
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 mutanteggdragon_earth_03_arm_01
-  rotate: true
-  xy: 324, 41
+  rotate: false
+  xy: 441, 287
   size: 50, 64
   orig: 50, 64
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_body_01
   rotate: false
-  xy: 2, 45
+  xy: 290, 348
   size: 148, 162
   orig: 148, 162
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_ear_01
-  rotate: true
-  xy: 400, 80
+  rotate: false
+  xy: 922, 431
   size: 61, 79
   orig: 61, 79
   offset: 0, 0
@@ -32,100 +32,114 @@ mutanteggdragon_earth_03_effect_01
   orig: 286, 301
   offset: 0, 0
   index: -1
+mutanteggdragon_earth_03_effect_02
+  rotate: false
+  xy: 288, 42
+  size: 70, 61
+  orig: 70, 61
+  offset: 0, 0
+  index: -1
 mutanteggdragon_earth_03_eggshell_01
   rotate: true
-  xy: 290, 216
+  xy: 184, 27
   size: 180, 102
   orig: 180, 102
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_eggshell_02
   rotate: false
-  xy: 290, 398
+  xy: 440, 398
   size: 178, 112
   orig: 178, 112
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_eggshell_03
-  rotate: true
-  xy: 152, 58
+  rotate: false
+  xy: 620, 426
   size: 149, 84
   orig: 149, 84
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_eggshell_04
-  rotate: true
-  xy: 394, 247
+  rotate: false
+  xy: 771, 426
   size: 149, 84
   orig: 149, 84
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_eggshell_05
-  rotate: true
-  xy: 238, 58
+  rotate: false
+  xy: 290, 262
   size: 149, 84
   orig: 149, 84
   offset: 0, 0
   index: -1
+mutanteggdragon_earth_03_eggshell_06
+  rotate: false
+  xy: 2, 8
+  size: 180, 199
+  orig: 180, 199
+  offset: 0, 0
+  index: -1
 mutanteggdragon_earth_03_eye_01
   rotate: false
-  xy: 390, 35
+  xy: 440, 353
   size: 53, 43
   orig: 53, 43
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_eye_02
   rotate: false
-  xy: 445, 35
+  xy: 495, 353
   size: 53, 43
   orig: 53, 43
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_face_01
   rotate: false
-  xy: 57, 25
+  xy: 620, 406
   size: 28, 18
   orig: 28, 18
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_leg_01
   rotate: true
-  xy: 2, 5
+  xy: 288, 2
   size: 38, 53
   orig: 38, 53
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_leg_02
   rotate: false
-  xy: 470, 401
+  xy: 985, 463
   size: 30, 47
   orig: 30, 47
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_mouth_01
-  rotate: false
-  xy: 470, 481
+  rotate: true
+  xy: 360, 63
   size: 40, 29
   orig: 40, 29
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_mouth_02
   rotate: false
-  xy: 470, 450
+  xy: 493, 322
   size: 40, 29
   orig: 40, 29
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_tail_01
-  rotate: true
-  xy: 324, 93
+  rotate: false
+  xy: 290, 186
   size: 121, 74
   orig: 121, 74
   offset: 0, 0
   index: -1
 mutanteggdragon_earth_03_wing_01
-  rotate: true
-  xy: 400, 143
+  rotate: false
+  xy: 288, 105
   size: 102, 79
   orig: 102, 79
   offset: 0, 0

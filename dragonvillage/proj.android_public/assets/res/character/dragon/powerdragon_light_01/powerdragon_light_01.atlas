@@ -56,8 +56,8 @@ powerdragon_light_01_effect_04
 powerdragon_light_01_eye_01
   rotate: true
   xy: 450, 99
-  size: 38, 39
-  orig: 38, 39
+  size: 38, 49
+  orig: 38, 49
   offset: 0, 0
   index: -1
 powerdragon_light_01_head_01

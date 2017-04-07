@@ -6,92 +6,127 @@ filter: Linear,Linear
 repeat: none
 taildragon_water_01_arm_01
   rotate: true
-  xy: 2, 2
-  size: 28, 60
-  orig: 28, 60
+  xy: 844, 115
+  size: 61, 89
+  orig: 61, 89
   offset: 0, 0
   index: -1
 taildragon_water_01_arm_02
   rotate: true
-  xy: 356, 138
-  size: 27, 55
-  orig: 27, 55
+  xy: 702, 16
+  size: 60, 90
+  orig: 60, 90
   offset: 0, 0
   index: -1
 taildragon_water_01_body_01
-  rotate: false
-  xy: 356, 167
-  size: 87, 87
-  orig: 87, 87
-  offset: 0, 0
-  index: -1
-taildragon_water_01_body_02
   rotate: true
-  xy: 237, 35
-  size: 87, 113
-  orig: 87, 113
-  offset: 0, 0
-  index: -1
-taildragon_water_01_body_03
-  rotate: false
-  xy: 445, 167
-  size: 87, 87
-  orig: 87, 87
-  offset: 0, 0
-  index: -1
-taildragon_water_01_body_04
-  rotate: false
-  xy: 534, 176
-  size: 87, 78
-  orig: 87, 78
-  offset: 0, 0
-  index: -1
-taildragon_water_01_body_05
-  rotate: false
-  xy: 623, 194
-  size: 87, 60
-  orig: 87, 60
-  offset: 0, 0
-  index: -1
-taildragon_water_01_effect_01
-  rotate: false
-  xy: 2, 32
-  size: 233, 222
-  orig: 233, 222
+  xy: 399, 5
+  size: 173, 190
+  orig: 173, 190
   offset: 0, 0
   index: -1
 taildragon_water_01_eye_01
   rotate: false
-  xy: 878, 218
-  size: 29, 36
-  orig: 29, 36
+  xy: 591, 7
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_water_01_eye_02
+  rotate: false
+  xy: 642, 7
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_water_01_foot_01
+  rotate: true
+  xy: 734, 178
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_water_01_foot_02
+  rotate: true
+  xy: 944, 177
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+taildragon_water_01_hair_01
+  rotate: false
+  xy: 771, 94
+  size: 71, 82
+  orig: 71, 82
+  offset: 0, 0
+  index: -1
+taildragon_water_01_hair_04
+  rotate: false
+  xy: 771, 94
+  size: 71, 82
+  orig: 71, 82
+  offset: 0, 0
+  index: -1
+taildragon_water_01_hand_01
+  rotate: false
+  xy: 935, 86
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_water_01_hand_02
+  rotate: false
+  xy: 794, 2
+  size: 60, 90
+  orig: 60, 90
   offset: 0, 0
   index: -1
 taildragon_water_01_head_01
   rotate: false
-  xy: 237, 124
-  size: 117, 130
-  orig: 117, 130
+  xy: 591, 48
+  size: 109, 130
+  orig: 109, 130
   offset: 0, 0
   index: -1
 taildragon_water_01_head_02
   rotate: false
-  xy: 64, 5
-  size: 30, 25
-  orig: 30, 25
+  xy: 199, 2
+  size: 41, 40
+  orig: 41, 40
   offset: 0, 0
   index: -1
 taildragon_water_01_leg_01
   rotate: true
-  xy: 712, 199
-  size: 55, 87
-  orig: 55, 87
+  xy: 839, 178
+  size: 66, 103
+  orig: 66, 103
   offset: 0, 0
   index: -1
 taildragon_water_01_leg_02
-  rotate: true
-  xy: 801, 199
-  size: 55, 75
-  orig: 55, 75
+  rotate: false
+  xy: 702, 78
+  size: 67, 98
+  orig: 67, 98
+  offset: 0, 0
+  index: -1
+taildragon_water_01_tail_01
+  rotate: false
+  xy: 399, 180
+  size: 333, 64
+  orig: 333, 64
+  offset: 0, 0
+  index: -1
+taildragon_water_01_tail_03
+  rotate: false
+  xy: 199, 44
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_water_01_tail_04
+  rotate: false
+  xy: 2, 11
+  size: 195, 233
+  orig: 195, 233
   offset: 0, 0
   index: -1

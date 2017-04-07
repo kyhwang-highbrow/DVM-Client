@@ -9,13 +9,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-19,5}</string>
                 <key>spriteSize</key>
-                <string>{62,59}</string>
+                <string>{24,52}</string>
                 <key>spriteSourceSize</key>
-                <string>{62,59}</string>
+                <string>{72,72}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{62,59}}</string>
+                <string>{{1,1},{24,52}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -31,9 +31,9 @@
             <key>realTextureFileName</key>
             <string>ingame_btn.png</string>
             <key>size</key>
-            <string>{64,61}</string>
+            <string>{26,54}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f10fd2e0121dd4d4c9be9c5875c87fbf:9680e2feec8501a911060e0900fba180:ce14db38d7e3885d010e29391a279102$</string>
+            <string>$TexturePacker:SmartUpdate:63df2b23c449d30ae50f245abd01195b:fb0b421cb7bd1d539b1b5c30829fe974:ce14db38d7e3885d010e29391a279102$</string>
             <key>textureFileName</key>
             <string>ingame_btn.png</string>
         </dict>

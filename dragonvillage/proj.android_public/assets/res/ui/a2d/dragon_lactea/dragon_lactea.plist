@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{431,38}</string>
                 <key>textureRect</key>
-                <string>{{1844,648},{431,38}}</string>
+                <string>{{507,989},{431,38}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -30,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{83,77}</string>
                 <key>textureRect</key>
-                <string>{{961,473},{83,77}}</string>
+                <string>{{685,1175},{83,77}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>lactea_effect_03.png</key>
             <dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{799,1465},{120,120}}</string>
+                <string>{{793,1275},{120,120}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,9 +60,9 @@
                 <key>spriteSourceSize</key>
                 <string>{380,343}</string>
                 <key>textureRect</key>
-                <string>{{579,473},{380,343}}</string>
+                <string>{{559,369},{380,343}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>lactea_effect_05.png</key>
             <dict>
@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{600,588}</string>
                 <key>textureRect</key>
-                <string>{{579,1},{504,470}}</string>
+                <string>{{1,989},{504,470}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{154,79}</string>
                 <key>textureRect</key>
-                <string>{{645,1619},{154,79}}</string>
+                <string>{{559,751},{154,79}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -105,7 +105,7 @@
                 <key>spriteSourceSize</key>
                 <string>{600,588}</string>
                 <key>textureRect</key>
-                <string>{{1660,1295},{366,366}}</string>
+                <string>{{559,1},{366,366}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -114,13 +114,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-1,0}</string>
+                <string>{-1,46}</string>
                 <key>spriteSize</key>
-                <string>{576,584}</string>
+                <string>{556,492}</string>
                 <key>spriteSourceSize</key>
                 <string>{600,588}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{576,584}}</string>
+                <string>{{1,1},{556,492}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -135,489 +135,9 @@
                 <key>spriteSourceSize</key>
                 <string>{600,588}</string>
                 <key>textureRect</key>
-                <string>{{1,587},{556,492}}</string>
+                <string>{{1,495},{556,492}}</string>
                 <key>textureRotated</key>
                 <false/>
-            </dict>
-            <key>lactea_fx_01.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1,1081},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_02.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{93,1081},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_03.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{185,1081},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_04.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{277,1081},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_05.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{369,1081},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_06.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{461,1081},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_07.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{553,1081},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_08.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1085,1},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_09.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1085,93},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_10.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1085,185},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_11.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1085,277},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_12.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1085,369},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_13.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1085,461},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_14.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1732,1},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_15.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1824,1},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_16.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1916,1},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_17.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{961,553},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_18.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{961,645},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_19.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{961,737},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_20.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{645,818},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_21.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{737,818},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_22.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{829,818},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_23.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{921,829},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_24.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{921,921},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_25.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{921,1013},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_26.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{921,1105},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_27.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{921,1197},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_28.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{921,1289},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_29.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{921,1381},{645,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lactea_fx_30.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1568,829},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_frame.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1660,648},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>lactea_fx_shape.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{645,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{645,90}</string>
-                <key>textureRect</key>
-                <string>{{1752,648},{645,90}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>lactea_light_01.png</key>
             <dict>
@@ -630,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{154,154}</string>
                 <key>textureRect</key>
-                <string>{{645,1465},{152,152}}</string>
+                <string>{{715,751},{152,152}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -645,7 +165,7 @@
                 <key>spriteSourceSize</key>
                 <string>{154,154}</string>
                 <key>textureRect</key>
-                <string>{{921,1473},{152,152}}</string>
+                <string>{{559,832},{152,152}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -660,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{154,154}</string>
                 <key>textureRect</key>
-                <string>{{1075,1473},{152,152}}</string>
+                <string>{{713,905},{152,152}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -675,7 +195,7 @@
                 <key>spriteSourceSize</key>
                 <string>{154,154}</string>
                 <key>textureRect</key>
-                <string>{{1229,1473},{152,152}}</string>
+                <string>{{559,986},{152,152}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -690,9 +210,9 @@
                 <key>spriteSourceSize</key>
                 <string>{166,152}</string>
                 <key>textureRect</key>
-                <string>{{801,1587},{98,128}}</string>
+                <string>{{793,1175},{98,128}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>lactea_point_02.png</key>
             <dict>
@@ -705,9 +225,9 @@
                 <key>spriteSourceSize</key>
                 <string>{166,152}</string>
                 <key>textureRect</key>
-                <string>{{1884,798},{132,136}}</string>
+                <string>{{547,1140},{132,136}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>lactea_point_03.png</key>
             <dict>
@@ -720,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{166,152}</string>
                 <key>textureRect</key>
-                <string>{{1884,648},{148,114}}</string>
+                <string>{{713,1059},{148,114}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>lactea_point_04.png</key>
             <dict>
@@ -735,7 +255,7 @@
                 <key>spriteSourceSize</key>
                 <string>{166,152}</string>
                 <key>textureRect</key>
-                <string>{{1884,936},{128,134}}</string>
+                <string>{{547,1274},{128,134}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -750,7 +270,7 @@
                 <key>spriteSourceSize</key>
                 <string>{166,152}</string>
                 <key>textureRect</key>
-                <string>{{1383,1473},{114,134}}</string>
+                <string>{{677,1274},{114,134}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -766,9 +286,9 @@
             <key>realTextureFileName</key>
             <string>dragon_lactea.png</string>
             <key>size</key>
-            <string>{2027,1727}</string>
+            <string>{926,1460}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9f227af214eb58364b7e8417ed9a3bc5:132a77fc855770e2e47a14f60518437f:2b351b2b297e40c2eeea0b3318f01762$</string>
+            <string>$TexturePacker:SmartUpdate:ae85eeee46b819386b635f7cee504acb:2f3260196599926e673ad69d402a3b29:2b351b2b297e40c2eeea0b3318f01762$</string>
             <key>textureFileName</key>
             <string>dragon_lactea.png</string>
         </dict>

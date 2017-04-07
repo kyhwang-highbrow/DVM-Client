@@ -56,8 +56,8 @@ powerdragon_dark_01_effect_04
 powerdragon_dark_01_eye_01
   rotate: true
   xy: 450, 99
-  size: 38, 39
-  orig: 38, 39
+  size: 38, 46
+  orig: 38, 46
   offset: 0, 0
   index: -1
 powerdragon_dark_01_head_01

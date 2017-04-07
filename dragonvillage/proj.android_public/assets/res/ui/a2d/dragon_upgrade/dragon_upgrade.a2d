@@ -27,13 +27,13 @@
 	"azVisualGroup":
 	[
 		{
-			"name":"res",
+			"name":"group",
 			"expand":true,
 			"apply":true,
 			"visual_list":
 			[
 				{
-					"name":"back_light",
+					"name":"dragon_levelup_gg",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -43,98 +43,82 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'result_upgrade_light_01.png'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_lighting'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":4.000000, "sY":4.000000, "pX":-2.000000, "pY":-3.000000, "alpha":128, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":18, "sX":2.000000, "sY":2.000000, "pY":-161.000000, "alpha":0
 									},
 									{
-										"frame":8, "sX":4.000000, "sY":4.000000, "pX":-2.000000, "pY":-3.000000, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":24, "pY":-161.000000
 									},
 									{
-										"frame":17, "sX":4.000000, "sY":4.000000, "pX":-2.000000, "pY":-3.000000, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":25, "sX":0.900000, "sY":0.900000, "pY":-161.000000
 									},
 									{
-										"frame":26, "sX":4.000000, "sY":4.000000, "pX":-2.000000, "pY":-3.000000, "alpha":0, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":27, "pY":-161.000000
+									},
+									{
+										"frame":31, "pX":33.000000, "pY":-148.000000
+									},
+									{
+										"frame":33, "pX":32.000000, "pY":-95.000000
+									},
+									{
+										"frame":35, "pY":-78.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'result_upgrade_light_02.png'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'re_light'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":6, "sX":4.000000, "sY":4.000000, "alpha":128, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":12, "pX":7.000000, "pY":-170.000000
 									},
 									{
-										"frame":14, "sX":4.000000, "sY":4.000000, "colorRGB":[255,255,255]
-, "mode":"Add"
-									},
-									{
-										"frame":22, "sX":4.000000, "sY":4.000000, "colorRGB":[255,255,255]
-, "mode":"Add"
-									},
-									{
-										"frame":32, "sX":4.000000, "sY":4.000000, "alpha":0, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":29, "pX":7.000000, "pY":-170.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'result_upgrade_light_03.png'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_material_frame'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":10, "sX":4.000000, "sY":4.000000, "alpha":128, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":0, "sX":0.860000, "pX":-4.000000, "pY":-175.000000
 									},
 									{
-										"frame":18, "sX":4.000000, "sY":4.000000, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":15, "sX":0.860000, "pX":-4.000000, "pY":-175.000000
 									},
 									{
-										"frame":27, "sX":4.000000, "sY":4.000000, "colorRGB":[255,255,255]
-, "mode":"Add"
-									},
-									{
-										"frame":38, "sX":4.000000, "sY":4.000000, "alpha":0, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":24, "sX":0.860000, "pX":-4.000000, "pY":-175.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'result_upgrade_light_04.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_line_fx_00.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":14, "sX":4.000000, "sY":4.000000, "alpha":128, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":35, "sX":-0.200000, "pX":41.000000, "pY":-80.000000, "mode":"Add"
 									},
 									{
-										"frame":22, "sX":4.000000, "sY":4.000000, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":37, "sX":0.650000, "sY":1.200000, "pX":41.000000, "pY":-80.000000, "mode":"Add"
 									},
 									{
-										"frame":32, "sX":4.000000, "sY":4.000000, "alpha":128, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":45, "sX":0.650000, "sY":1.172727, "pX":41.000000, "pY":-80.000000, "mode":"Add"
 									},
 									{
-										"frame":45, "sX":4.000000, "sY":4.000000, "alpha":0, "colorRGB":[255,255,255]
-, "mode":"Add"
+										"frame":59, "sX":0.650000, "pX":41.000000, "pY":-80.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							}
@@ -385,7 +369,7 @@
 					}
 				},
 				{
-					"name":"material_frame_fx",
+					"name":"skill_levelup_frame",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -470,215 +454,604 @@
 										"frame":59, "sX":0.800000, "sY":1.200000, "pX":1.000000, "pY":-77.000000, "alpha":0, "mode":"Add"
 									}
 								]
-							},
+							}
+						]
+					}
+				},
+				{
+					"name":"skill_levelup_gg_text",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_text_01.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_line_fx_00.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":37, "pX":-196.000000, "pY":47.000000
+										"frame":0, "sX":-0.200000, "sY":1.200000, "pX":1.000000, "mode":"Add"
 									},
 									{
-										"frame":40, "pX":-196.000000, "pY":67.000000
+										"frame":2, "sX":0.650000, "sY":1.200000, "pX":1.000000, "mode":"Add"
 									},
 									{
-										"frame":42, "pX":-196.000000, "pY":87.000000
-									},
-									{
-										"frame":44, "pX":-196.000000, "pY":67.000000
-									},
-									{
-										"frame":57, "pX":-196.000000, "pY":67.000000
-									},
-									{
-										"frame":60, "pX":-196.000000, "pY":67.000000, "alpha":0
+										"frame":24, "sX":0.650000, "sY":1.200000, "pX":1.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_text_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'dragon_levelup_text_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":39, "pX":-138.000000, "pY":47.000000
+										"frame":0, "sX":0.000000
 									},
 									{
-										"frame":42, "pX":-138.000000, "pY":67.000000
+										"frame":2, "sY":1.100000, "pY":40.000000
 									},
 									{
-										"frame":44, "pX":-138.000000, "pY":87.000000
+										"frame":4, "sX":1.100000, "pY":39.545456, "alpha":232
 									},
 									{
-										"frame":46, "pX":-138.000000, "pY":67.000000
+										"frame":6, "pY":39.090908, "alpha":209
 									},
 									{
-										"frame":59, "pX":-138.000000, "pY":67.000000
+										"frame":24, "pY":35.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"skill_levelup_text",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'skill_levelup_text_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
 									},
 									{
-										"frame":62, "pX":-138.000000, "pY":67.000000, "alpha":0
+										"frame":3, "sX":1.300000
+									},
+									{
+										"frame":6, "sY":1.300000
+									},
+									{
+										"frame":9, "sX":1.200000
+									},
+									{
+										"frame":12, "sY":1.200000
+									},
+									{
+										"frame":15, "sX":1.100000
+									},
+									{
+										"frame":18, "sY":1.100000
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":90
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_text_03.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'skill_levelup_text_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":41, "pX":-70.000000, "pY":47.000000
+										"frame":40, "alpha":0
 									},
 									{
-										"frame":44, "pX":-70.000000, "pY":67.000000
+										"frame":50
 									},
 									{
-										"frame":46, "pX":-70.000000, "pY":87.000000
+										"frame":70, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"slot_fx_01",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":0
 									},
 									{
-										"frame":48, "pX":-70.000000, "pY":67.000000
+										"frame":5
 									},
 									{
-										"frame":61, "pX":-70.000000, "pY":67.000000
+										"frame":20
 									},
 									{
-										"frame":64, "pX":-70.000000, "pY":67.000000, "alpha":0
+										"frame":45, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"slot_fx_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":50.000000, "alpha":0
+									},
+									{
+										"frame":5, "pX":50.000000
+									},
+									{
+										"frame":20, "pX":50.000000
+									},
+									{
+										"frame":45, "pX":50.000000, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_text_04.png'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":43, "pX":-12.000000, "pY":47.000000
+										"frame":5, "pX":-50.000000, "alpha":0
 									},
 									{
-										"frame":46, "pX":-12.000000, "pY":67.000000
+										"frame":10, "pX":-50.000000
 									},
 									{
-										"frame":48, "pX":-12.000000, "pY":87.000000
+										"frame":25, "pX":-50.000000
 									},
 									{
-										"frame":50, "pX":-12.000000, "pY":67.000000
+										"frame":45, "pX":-50.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"slot_fx_03",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-100.000000, "alpha":0
 									},
 									{
-										"frame":63, "pX":-12.000000, "pY":67.000000
+										"frame":5, "pX":-100.000000
 									},
 									{
-										"frame":66, "pX":-12.000000, "pY":67.000000, "alpha":0
+										"frame":20, "pX":-100.000000
+									},
+									{
+										"frame":45, "pX":-100.000000, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_text_05.png'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":45, "pX":46.000000, "pY":47.000000
+										"frame":5, "alpha":0
 									},
 									{
-										"frame":48, "pX":46.000000, "pY":67.000000
+										"frame":10
 									},
 									{
-										"frame":50, "pX":46.000000, "pY":87.000000
+										"frame":25
 									},
 									{
-										"frame":52, "pX":46.000000, "pY":67.000000
-									},
-									{
-										"frame":65, "pX":46.000000, "pY":67.000000
-									},
-									{
-										"frame":68, "pX":46.000000, "pY":67.000000, "alpha":0
+										"frame":45, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_text_06.png'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":47, "pX":122.000000, "pY":47.000000
+										"frame":10, "pX":100.000000, "alpha":0
 									},
 									{
-										"frame":50, "pX":122.000000, "pY":67.000000
+										"frame":15, "pX":100.000000
 									},
 									{
-										"frame":52, "pX":122.000000, "pY":87.000000
+										"frame":30, "pX":100.000000
 									},
 									{
-										"frame":54, "pX":122.000000, "pY":67.000000
+										"frame":45, "pX":100.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"slot_fx_04",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-150.000000, "alpha":0
 									},
 									{
-										"frame":67, "pX":122.000000, "pY":67.000000
+										"frame":5, "pX":-150.000000
 									},
 									{
-										"frame":70, "pX":122.000000, "pY":67.000000, "alpha":0
+										"frame":20, "pX":-150.000000
+									},
+									{
+										"frame":45, "pX":-150.000000, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_text_07.png'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":49, "pX":180.000000, "pY":47.000000
+										"frame":5, "pX":-50.000000, "alpha":0
 									},
 									{
-										"frame":52, "pX":180.000000, "pY":67.000000
+										"frame":10, "pX":-50.000000
 									},
 									{
-										"frame":54, "pX":180.000000, "pY":87.000000
+										"frame":25, "pX":-50.000000
 									},
 									{
-										"frame":56, "pX":180.000000, "pY":67.000000
-									},
-									{
-										"frame":69, "pX":180.000000, "pY":67.000000
-									},
-									{
-										"frame":72, "pX":180.000000, "pY":67.000000, "alpha":0
+										"frame":45, "pX":-50.000000, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_text_08.png'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":51, "pX":218.000000, "pY":47.000000
+										"frame":10, "pX":50.000000, "alpha":0
 									},
 									{
-										"frame":54, "pX":218.000000, "pY":67.000000
+										"frame":15, "pX":50.000000
 									},
 									{
-										"frame":56, "pX":218.000000, "pY":87.000000
+										"frame":30, "pX":50.000000
 									},
 									{
-										"frame":58, "pX":218.000000, "pY":67.000000
+										"frame":45, "pX":50.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "pX":150.000000, "alpha":0
 									},
 									{
-										"frame":71, "pX":218.000000, "pY":67.000000
+										"frame":20, "pX":150.000000
 									},
 									{
-										"frame":74, "pX":218.000000, "pY":67.000000, "alpha":0
+										"frame":35, "pX":150.000000
 									},
 									{
-										"frame":75, "pX":218.000000, "pY":67.000000, "alpha":0
+										"frame":45, "pX":150.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"slot_fx_05",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-200.000000, "alpha":0
+									},
+									{
+										"frame":5, "pX":-200.000000
+									},
+									{
+										"frame":20, "pX":-200.000000
+									},
+									{
+										"frame":45, "pX":-200.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "pX":-100.000000, "alpha":0
+									},
+									{
+										"frame":10, "pX":-100.000000
+									},
+									{
+										"frame":25, "pX":-100.000000
+									},
+									{
+										"frame":45, "pX":-100.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "alpha":0
+									},
+									{
+										"frame":15
+									},
+									{
+										"frame":30
+									},
+									{
+										"frame":45, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "pX":100.000000, "alpha":0
+									},
+									{
+										"frame":20, "pX":100.000000
+									},
+									{
+										"frame":35, "pX":100.000000
+									},
+									{
+										"frame":45, "pX":100.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'slot_fx_res'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "pX":200.000000, "alpha":0
+									},
+									{
+										"frame":25, "pX":200.000000
+									},
+									{
+										"frame":40, "pX":200.000000
+									},
+									{
+										"frame":45, "pX":200.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"back_light",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'result_upgrade_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.000000, "sY":4.000000, "pX":-2.000000, "pY":-3.000000, "alpha":128, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":4.000000, "sY":4.000000, "pX":-2.000000, "pY":-3.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":17, "sX":4.000000, "sY":4.000000, "pX":-2.000000, "pY":-3.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":4.000000, "sY":4.000000, "pX":-2.000000, "pY":-3.000000, "alpha":0, "colorRGB":[255,255,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'result_upgrade_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":4.000000, "sY":4.000000, "alpha":128, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":4.000000, "sY":4.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":22, "sX":4.000000, "sY":4.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":32, "sX":4.000000, "sY":4.000000, "alpha":0, "colorRGB":[255,255,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'result_upgrade_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "sX":4.000000, "sY":4.000000, "alpha":128, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":18, "sX":4.000000, "sY":4.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":27, "sX":4.000000, "sY":4.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":38, "sX":4.000000, "sY":4.000000, "alpha":0, "colorRGB":[255,255,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'result_upgrade_light_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":14, "sX":4.000000, "sY":4.000000, "alpha":128, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":22, "sX":4.000000, "sY":4.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":32, "sX":4.000000, "sY":4.000000, "alpha":128, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":45, "sX":4.000000, "sY":4.000000, "alpha":0, "colorRGB":[255,255,255]
+, "mode":"Add"
 									}
 								]
 							}
@@ -1453,7 +1826,7 @@
 								"key_list":
 								[
 									{
-										"frame":0, "alpha":128, "mode":"Add"
+										"frame":0, "alpha":0, "mode":"Add"
 									}
 								]
 							},
@@ -1501,7 +1874,7 @@
 					}
 				},
 				{
-					"name":"skill_levelup_frame",
+					"name":"slot_fx_res",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -1511,97 +1884,21 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_lighting'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'back_light'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":18, "sX":2.000000, "sY":2.000000, "pY":-161.000000, "alpha":0
+										"frame":0, "sX":0.300000, "sY":0.300000, "pX":4.000000, "pY":6.000000
 									},
 									{
-										"frame":24, "pY":-161.000000
-									},
-									{
-										"frame":25, "sX":0.900000, "sY":0.900000, "pY":-161.000000
-									},
-									{
-										"frame":27, "pY":-161.000000
-									},
-									{
-										"frame":31, "pX":33.000000, "pY":-148.000000
-									},
-									{
-										"frame":33, "pX":32.000000, "pY":-95.000000
-									},
-									{
-										"frame":35, "pY":-78.000000
+										"frame":45, "sX":0.300000, "sY":0.300000, "pX":4.000000, "pY":6.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'re_light'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":12, "pX":7.000000, "pY":-170.000000
-									},
-									{
-										"frame":29, "pX":7.000000, "pY":-170.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_material_frame'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.860000, "pX":-4.000000, "pY":-175.000000
-									},
-									{
-										"frame":15, "sX":0.860000, "pX":-4.000000, "pY":-175.000000
-									},
-									{
-										"frame":24, "sX":0.860000, "pX":-4.000000, "pY":-175.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_line_fx_00.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":35, "sX":-0.200000, "sY":1.200000, "pX":1.000000, "pY":-77.000000, "mode":"Add"
-									},
-									{
-										"frame":37, "sX":0.800000, "sY":1.200000, "pX":1.000000, "pY":-77.000000, "mode":"Add"
-									},
-									{
-										"frame":59, "sX":0.800000, "sY":1.200000, "pX":1.000000, "pY":-77.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"skill_levelup_text",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'skill_levelup_text_01.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'dragon_upgrade_slot.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1610,45 +1907,7 @@
 										"frame":0
 									},
 									{
-										"frame":3, "sX":1.300000
-									},
-									{
-										"frame":6, "sY":1.300000
-									},
-									{
-										"frame":9, "sX":1.200000
-									},
-									{
-										"frame":12, "sY":1.200000
-									},
-									{
-										"frame":15, "sX":1.100000
-									},
-									{
-										"frame":18, "sY":1.100000
-									},
-									{
-										"frame":21
-									},
-									{
-										"frame":90
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'skill_levelup_text_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":40, "alpha":0
-									},
-									{
-										"frame":50
-									},
-									{
-										"frame":70, "alpha":0
+										"frame":45
 									}
 								]
 							}

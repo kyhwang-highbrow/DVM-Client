@@ -1,5 +1,5 @@
 -- 드빌팀 개발자가 svn상의 src경로에서 작업할때만 적용
-DEVELOPMENT_SRC_VER = true
+DEVELOPMENT_SRC_VER = false
 
 -- 김성구의 개인 개발 버전
 DEVELOPMENT_SEONG_GOO_KIM = false

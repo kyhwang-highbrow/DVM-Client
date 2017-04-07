@@ -49,13 +49,10 @@
 								"key_list":
 								[
 									{
-										"frame":0, "alpha":0
+										"frame":0
 									},
 									{
-										"frame":19, "alpha":128
-									},
-									{
-										"frame":39, "alpha":0
+										"frame":39, "rotate":-360.000000
 									}
 								]
 							}

@@ -5,6 +5,32 @@
 	{
 		[1] =
 		{
+			type = 'Sprite';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 1280;
+			height = 960;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			file_name = 'bg/ui_bg_01.png';
+			color = { 255; 255; 255; };
+			opacity = 255;
+			flip_x = false;
+			flip_y = false;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[2] =
+		{
 			[1] =
 			{
 				type = 'Sprite';
@@ -306,12 +332,12 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -54.000000;
-					y = 2.000000;
+					x = -51.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 158;
+					width = 148;
 					height = 36;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -332,8 +358,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 8.000000;
-					y = 2.000000;
+					x = 6.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -358,8 +384,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -75.000000;
-					y = 0.000000;
+					x = -77.000000;
+					y = -2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -399,7 +425,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 84.000000;
-					y = 2.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -451,9 +477,9 @@
 				visible = true;
 				lua_name = 'enhanceBtn';
 				enable = true;
-				normal = 'ui/btn/btn_0101.png';
-				selected = 'ui/btn/btn_0102.png';
-				disable = 'ui/btn/btn_0102.png';
+				normal = 'ui/btn/stage_level_hard_01.png';
+				selected = 'ui/btn/stage_level_hard_02.png';
+				disable = 'ui/btn/stage_level_hard_02.png';
 				image_type = 1;
 			};
 			[11] =
@@ -772,7 +798,7 @@
 			visible = true;
 			lua_name = 'rightMenu';
 		};
-		[2] =
+		[3] =
 		{
 			[1] =
 			{
@@ -804,12 +830,12 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -38.000000;
-				y = 0.000000;
+				x = -30.000000;
+				y = -1.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 530;
+				width = 526;
 				height = 428;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1522,8 +1548,8 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = 48.000000;
-				y = 28.000000;
+				x = 62.000000;
+				y = 30.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1544,7 +1570,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 2.000000;
+					y = -1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1581,8 +1607,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 48.000000;
-				y = 246.000000;
+				x = 62.000000;
+				y = 248.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1596,8 +1622,8 @@
 				visible = true;
 				lua_name = 'sortSelectBtn';
 				enable = true;
-				normal = 'ui/btn/sub_btn_0101.png';
-				selected = 'ui/btn/sub_btn_0102.png';
+				normal = 'ui/btn/sub_0101.png';
+				selected = 'ui/btn/sub_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -1608,7 +1634,7 @@
 					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 2.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1631,8 +1657,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 161.000000;
-				y = 246.000000;
+				x = 175.000000;
+				y = 248.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1646,8 +1672,8 @@
 				visible = true;
 				lua_name = 'sortSelectOrderBtn';
 				enable = true;
-				normal = 'ui/btn/sub_btn_0101.png';
-				selected = 'ui/btn/sub_btn_0102.png';
+				normal = 'ui/btn/sub_0101.png';
+				selected = 'ui/btn/sub_0102.png';
 				disable = '';
 				image_type = 1;
 			};

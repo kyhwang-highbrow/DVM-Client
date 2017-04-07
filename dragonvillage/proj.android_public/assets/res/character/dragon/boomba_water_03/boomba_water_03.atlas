@@ -47,10 +47,31 @@ boomba_water_03_body_03
   offset: 0, 0
   index: -1
 boomba_water_03_effect_03
-  rotate: false
-  xy: 525, 172
+  rotate: true
+  xy: 649, 229
   size: 65, 56
   orig: 65, 56
+  offset: 0, 0
+  index: -1
+boomba_water_03_effect_04
+  rotate: true
+  xy: 525, 173
+  size: 55, 97
+  orig: 55, 97
+  offset: 0, 0
+  index: -1
+boomba_water_03_effect_05
+  rotate: true
+  xy: 242, 72
+  size: 55, 97
+  orig: 55, 97
+  offset: 0, 0
+  index: -1
+boomba_water_03_effect_06
+  rotate: false
+  xy: 651, 296
+  size: 55, 97
+  orig: 55, 97
   offset: 0, 0
   index: -1
 boomba_water_03_eye_01
@@ -62,21 +83,21 @@ boomba_water_03_eye_01
   index: -1
 boomba_water_03_foot_01
   rotate: true
-  xy: 242, 80
+  xy: 708, 298
   size: 47, 53
   orig: 47, 53
   offset: 0, 0
   index: -1
 boomba_water_03_foot_02
   rotate: false
-  xy: 592, 165
+  xy: 708, 347
   size: 55, 63
   orig: 55, 63
   offset: 0, 0
   index: -1
 boomba_water_03_hand_01
   rotate: false
-  xy: 297, 74
+  xy: 624, 174
   size: 47, 53
   orig: 47, 53
   offset: 0, 0
