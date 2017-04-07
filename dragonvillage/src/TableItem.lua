@@ -119,3 +119,32 @@ function TableItem:getRuneItemIDList()
 
     return l_ret
 end
+
+-------------------------------------
+-- function getFruitsListByAttr
+-- @brief 특정 속성의 열매 id 리스트를 리턴
+-------------------------------------
+function TableItem:getFruitsListByAttr(attr)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local function condition_func(t_table)
+        if (t_table['type'] ~= 'fruit') then
+            return false
+        end
+
+        if (t_table['attr'] ~= attr) then
+            return false
+        end
+
+        return true
+    end
+
+    local l_fruit_list = self:filterList_condition(condition_func)
+    table.sort(l_fruit_list, function(a, b)
+            return a['grade'] < b['grade']
+        end)
+
+    return l_fruit_list
+end

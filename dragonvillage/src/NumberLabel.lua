@@ -11,6 +11,8 @@ NumberLabel = class({
 
 		m_isScaleAction = 'boolean',
 		m_isTintAction = 'boolean',
+
+        m_tweenCallback = 'function',
     })
 
 -------------------------------------
@@ -45,12 +47,12 @@ function NumberLabel:setNumber(number, immediately)
 
     -- 숫자 변화
     if immediately then
-        self.m_label:setString(self.getNumberStr(curr_number))
+        self:getTweenCallback()(curr_number, self.m_label)
         return
     elseif (self.m_actionDuration <= 0) then
-        self.m_label:setString(self.getNumberStr(curr_number))
+        self:getTweenCallback()(curr_number, self.m_label)
     else
-        local tween = cc.ActionTweenForLua:create(self.m_actionDuration, prev_number, curr_number, NumberLabel.tweenCallback)
+        local tween = cc.ActionTweenForLua:create(self.m_actionDuration, prev_number, curr_number, self:getTweenCallback())
         self.m_label:runAction(tween)
     end
 
@@ -100,4 +102,50 @@ end
 -------------------------------------
 function NumberLabel:setTintAction(b)
 	self.m_isTintAction = b
+end
+
+-------------------------------------
+-- function setTweenCallback
+-- @param function tween_cb(number, label)
+-------------------------------------
+function NumberLabel:setTweenCallback(tween_cb)
+	self.m_tweenCallback = tween_cb
+
+    if tween_cb then
+        tween_cb(self.m_number, self.m_label)
+    end
+end
+
+-------------------------------------
+-- function getTweenCallback
+-------------------------------------
+function NumberLabel:getTweenCallback()
+    if self.m_tweenCallback then
+        return self.m_tweenCallback
+    else
+        return NumberLabel.tweenCallback
+    end
+end
+
+
+-------------------------------------
+-- class NumberLabel_Percent
+-------------------------------------
+NumberLabel_Percent = class(NumberLabel, {
+    })
+
+
+-------------------------------------
+-- function init
+-------------------------------------
+function NumberLabel_Percent:init(label, number, actionDuration)
+    self:setTweenCallback(NumberLabel_Percent.tweenCallback)
+end
+
+-------------------------------------
+-- function tweenCallback
+-------------------------------------
+function NumberLabel_Percent.tweenCallback(number, label)
+    local str = comma_value(math_floor(number)) .. '%'
+    label:setString(str)
 end

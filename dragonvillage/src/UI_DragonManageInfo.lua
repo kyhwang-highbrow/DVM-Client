@@ -328,7 +328,7 @@ end
 -- @brief 친밀도 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_friendshipBtn()
-    self:openSubManageUI(UI_DragonManagementFriendship)
+    self:openSubManageUI(UI_DragonFriendship)
 end
 
 -------------------------------------
