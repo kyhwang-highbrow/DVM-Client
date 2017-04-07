@@ -53,6 +53,7 @@ end
 -- function enterAttack
 -------------------------------------
 function SkillAoESquare_Wonder:enterAttack()
+	PARENT.enterAttack(self)
 	local l_pos_x = SkillHelper:calculatePositionX(self.m_lineCnt, self.m_space, self.pos.x)
 	local pos_y = self.pos.y
 
