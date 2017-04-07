@@ -1796,6 +1796,83 @@
 					}
 				},
 				{
+					"name":"bubble_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_bubble_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000, "cY":45.000000, "alpha":0
+									},
+									{
+										"frame":5, "cY":45.000000
+									},
+									{
+										"frame":7, "sX":1.100000, "sY":1.100000, "cY":45.000000
+									},
+									{
+										"frame":9, "cY":45.000000
+									},
+									{
+										"frame":26, "cY":45.000000
+									},
+									{
+										"frame":28, "sX":1.100000, "sY":1.100000, "cY":45.000000
+									},
+									{
+										"frame":30, "cY":45.000000
+									},
+									{
+										"frame":35, "sX":0.000000, "sY":0.000000, "cY":45.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_bubble'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000, "pY":48.000000, "alpha":0
+									},
+									{
+										"frame":5, "pY":48.000000
+									},
+									{
+										"frame":7, "sX":1.100000, "sY":1.100000, "pY":48.000000
+									},
+									{
+										"frame":9, "pY":48.000000
+									},
+									{
+										"frame":26, "pY":48.000000
+									},
+									{
+										"frame":28, "sX":1.100000, "sY":1.100000, "pY":48.000000
+									},
+									{
+										"frame":30, "pY":48.000000
+									},
+									{
+										"frame":35, "sX":0.000000, "sY":0.000000, "pY":48.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"charging",
 					"apply":true,
 					"fps":30,

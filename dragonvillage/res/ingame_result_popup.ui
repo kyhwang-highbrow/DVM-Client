@@ -503,8 +503,8 @@
 							relative_size_type = 0;
 							width = 100;
 							height = 100;
-							scale_x = 0.450000;
-							scale_y = 0.450000;
+							scale_x = 0.500000;
+							scale_y = 0.500000;
 							skew_x = 0.000000;
 							skew_y = 0.000000;
 							rotation = 0.000000;
@@ -593,6 +593,92 @@
 						};
 						[4] =
 						{
+							[1] =
+							{
+								type = 'ProgressTimer';
+								ui_name = '';
+								x = -0.000114;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = false;
+								lua_name = 'expAddGauge1';
+								file_name = 'ui/gauge/result_dragon_exp_0102.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+								progress_type = 4;
+								mid_point_x = 0.000000;
+								mid_point_y = 0.000000;
+								percentage = 100;
+							};
+							[2] =
+							{
+								type = 'ProgressTimer';
+								ui_name = '';
+								x = -0.000107;
+								y = 10.000046;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'expGauge1';
+								file_name = 'ui/gauge/result_dragon_exp_0102.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+								progress_type = 4;
+								mid_point_x = 0.000000;
+								mid_point_y = 0.000000;
+								percentage = 100;
+							};
+							[3] =
+							{
+								type = 'Sprite';
+								ui_name = '';
+								x = -0.000107;
+								y = 10.000046;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = false;
+								lua_name = 'maxSprite1';
+								file_name = 'ui/gauge/result_dragon_exp_0104.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+							};
 							type = 'Sprite';
 							ui_name = '';
 							x = 0.000000;
@@ -600,8 +686,8 @@
 							dock_point = { 0.500000; 0.000000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 100;
-							height = 16;
+							width = 104;
+							height = 20;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -610,7 +696,7 @@
 							visible = true;
 							lua_name = '';
 							file_name = 'ui/gauge/result_dragon_exp_0101.png';
-							color = { 0; 0; 0; };
+							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
 							flip_y = false;
@@ -618,92 +704,6 @@
 							dest_blend = 771;
 						};
 						[5] =
-						{
-							type = 'ProgressTimer';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'expAddGauge1';
-							file_name = 'ui/gauge/result_dragon_exp_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-							progress_type = 4;
-							mid_point_x = 0.000000;
-							mid_point_y = 0.000000;
-							percentage = 100;
-						};
-						[6] =
-						{
-							type = 'ProgressTimer';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'expGauge1';
-							file_name = 'ui/gauge/result_dragon_exp_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-							progress_type = 4;
-							mid_point_x = 0.000000;
-							mid_point_y = 0.000000;
-							percentage = 100;
-						};
-						[7] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'maxSprite1';
-							file_name = 'ui/gauge/result_dragon_exp_0104.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						[8] =
 						{
 							[1] =
 							{
@@ -748,7 +748,7 @@
 							visible = true;
 							lua_name = 'starNode1';
 						};
-						[9] =
+						[6] =
 						{
 							type = 'Visual';
 							ui_name = '';
@@ -775,7 +775,7 @@
 						};
 						type = 'Menu';
 						ui_name = '';
-						x = -340.000000;
+						x = -320.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -803,8 +803,8 @@
 							relative_size_type = 0;
 							width = 100;
 							height = 100;
-							scale_x = 0.450000;
-							scale_y = 0.450000;
+							scale_x = 0.500000;
+							scale_y = 0.500000;
 							skew_x = 0.000000;
 							skew_y = 0.000000;
 							rotation = 0.000000;
@@ -893,6 +893,92 @@
 						};
 						[4] =
 						{
+							[1] =
+							{
+								type = 'ProgressTimer';
+								ui_name = '';
+								x = -0.000107;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = false;
+								lua_name = 'expAddGauge2';
+								file_name = 'ui/gauge/result_dragon_exp_0102.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+								progress_type = 4;
+								mid_point_x = 0.000000;
+								mid_point_y = 0.000000;
+								percentage = 100;
+							};
+							[2] =
+							{
+								type = 'ProgressTimer';
+								ui_name = '';
+								x = -0.000107;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'expGauge2';
+								file_name = 'ui/gauge/result_dragon_exp_0102.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+								progress_type = 4;
+								mid_point_x = 0.000000;
+								mid_point_y = 0.000000;
+								percentage = 100;
+							};
+							[3] =
+							{
+								type = 'Sprite';
+								ui_name = '';
+								x = -0.000107;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = false;
+								lua_name = 'maxSprite2';
+								file_name = 'ui/gauge/result_dragon_exp_0104.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+							};
 							type = 'Sprite';
 							ui_name = '';
 							x = 0.000000;
@@ -900,8 +986,8 @@
 							dock_point = { 0.500000; 0.000000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 100;
-							height = 16;
+							width = 104;
+							height = 20;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -910,7 +996,7 @@
 							visible = true;
 							lua_name = '';
 							file_name = 'ui/gauge/result_dragon_exp_0101.png';
-							color = { 0; 0; 0; };
+							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
 							flip_y = false;
@@ -918,92 +1004,6 @@
 							dest_blend = 771;
 						};
 						[5] =
-						{
-							type = 'ProgressTimer';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'expAddGauge2';
-							file_name = 'ui/gauge/result_dragon_exp_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-							progress_type = 4;
-							mid_point_x = 0.000000;
-							mid_point_y = 0.000000;
-							percentage = 100;
-						};
-						[6] =
-						{
-							type = 'ProgressTimer';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'expGauge2';
-							file_name = 'ui/gauge/result_dragon_exp_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-							progress_type = 4;
-							mid_point_x = 0.000000;
-							mid_point_y = 0.000000;
-							percentage = 100;
-						};
-						[7] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'maxSprite2';
-							file_name = 'ui/gauge/result_dragon_exp_0104.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						[8] =
 						{
 							[1] =
 							{
@@ -1048,7 +1048,7 @@
 							visible = true;
 							lua_name = 'starNode2';
 						};
-						[9] =
+						[6] =
 						{
 							type = 'Visual';
 							ui_name = '';
@@ -1075,7 +1075,7 @@
 						};
 						type = 'Menu';
 						ui_name = '';
-						x = -170.000000;
+						x = -160.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -1103,8 +1103,8 @@
 							relative_size_type = 0;
 							width = 100;
 							height = 100;
-							scale_x = 0.450000;
-							scale_y = 0.450000;
+							scale_x = 0.500000;
+							scale_y = 0.500000;
 							skew_x = 0.000000;
 							skew_y = 0.000000;
 							rotation = 0.000000;
@@ -1193,6 +1193,92 @@
 						};
 						[4] =
 						{
+							[1] =
+							{
+								type = 'ProgressTimer';
+								ui_name = '';
+								x = -0.000122;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'expAddGauge3';
+								file_name = 'ui/gauge/result_dragon_exp_0102.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+								progress_type = 4;
+								mid_point_x = 0.000000;
+								mid_point_y = 0.000000;
+								percentage = 100;
+							};
+							[2] =
+							{
+								type = 'ProgressTimer';
+								ui_name = '';
+								x = -0.000122;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'expGauge3';
+								file_name = 'ui/gauge/result_dragon_exp_0102.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+								progress_type = 4;
+								mid_point_x = 0.000000;
+								mid_point_y = 0.000000;
+								percentage = 100;
+							};
+							[3] =
+							{
+								type = 'Sprite';
+								ui_name = '';
+								x = -0.000122;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = false;
+								lua_name = 'maxSprite3';
+								file_name = 'ui/gauge/result_dragon_exp_0104.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+							};
 							type = 'Sprite';
 							ui_name = '';
 							x = 0.000000;
@@ -1200,8 +1286,8 @@
 							dock_point = { 0.500000; 0.000000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 100;
-							height = 16;
+							width = 104;
+							height = 20;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -1210,7 +1296,7 @@
 							visible = true;
 							lua_name = '';
 							file_name = 'ui/gauge/result_dragon_exp_0101.png';
-							color = { 0; 0; 0; };
+							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
 							flip_y = false;
@@ -1218,92 +1304,6 @@
 							dest_blend = 771;
 						};
 						[5] =
-						{
-							type = 'ProgressTimer';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'expAddGauge3';
-							file_name = 'ui/gauge/result_dragon_exp_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-							progress_type = 4;
-							mid_point_x = 0.000000;
-							mid_point_y = 0.000000;
-							percentage = 100;
-						};
-						[6] =
-						{
-							type = 'ProgressTimer';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'expGauge3';
-							file_name = 'ui/gauge/result_dragon_exp_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-							progress_type = 4;
-							mid_point_x = 0.000000;
-							mid_point_y = 0.000000;
-							percentage = 100;
-						};
-						[7] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'maxSprite3';
-							file_name = 'ui/gauge/result_dragon_exp_0104.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						[8] =
 						{
 							[1] =
 							{
@@ -1348,7 +1348,7 @@
 							visible = true;
 							lua_name = 'starNode3';
 						};
-						[9] =
+						[6] =
 						{
 							type = 'Visual';
 							ui_name = '';
@@ -1403,8 +1403,8 @@
 							relative_size_type = 0;
 							width = 100;
 							height = 100;
-							scale_x = 0.450000;
-							scale_y = 0.450000;
+							scale_x = 0.500000;
+							scale_y = 0.500000;
 							skew_x = 0.000000;
 							skew_y = 0.000000;
 							rotation = 0.000000;
@@ -1493,6 +1493,92 @@
 						};
 						[4] =
 						{
+							[1] =
+							{
+								type = 'ProgressTimer';
+								ui_name = '';
+								x = -0.000122;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = false;
+								lua_name = 'expAddGauge4';
+								file_name = 'ui/gauge/result_dragon_exp_0102.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+								progress_type = 4;
+								mid_point_x = 0.000000;
+								mid_point_y = 0.000000;
+								percentage = 100;
+							};
+							[2] =
+							{
+								type = 'ProgressTimer';
+								ui_name = '';
+								x = -0.000122;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'expGauge4';
+								file_name = 'ui/gauge/result_dragon_exp_0102.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+								progress_type = 4;
+								mid_point_x = 0.000000;
+								mid_point_y = 0.000000;
+								percentage = 100;
+							};
+							[3] =
+							{
+								type = 'Sprite';
+								ui_name = '';
+								x = -0.000122;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = false;
+								lua_name = 'maxSprite4';
+								file_name = 'ui/gauge/result_dragon_exp_0104.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+							};
 							type = 'Sprite';
 							ui_name = '';
 							x = 0.000000;
@@ -1500,8 +1586,8 @@
 							dock_point = { 0.500000; 0.000000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 100;
-							height = 16;
+							width = 104;
+							height = 20;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -1510,7 +1596,7 @@
 							visible = true;
 							lua_name = '';
 							file_name = 'ui/gauge/result_dragon_exp_0101.png';
-							color = { 0; 0; 0; };
+							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
 							flip_y = false;
@@ -1518,92 +1604,6 @@
 							dest_blend = 771;
 						};
 						[5] =
-						{
-							type = 'ProgressTimer';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'expAddGauge4';
-							file_name = 'ui/gauge/result_dragon_exp_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-							progress_type = 4;
-							mid_point_x = 0.000000;
-							mid_point_y = 0.000000;
-							percentage = 100;
-						};
-						[6] =
-						{
-							type = 'ProgressTimer';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'expGauge4';
-							file_name = 'ui/gauge/result_dragon_exp_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-							progress_type = 4;
-							mid_point_x = 0.000000;
-							mid_point_y = 0.000000;
-							percentage = 100;
-						};
-						[7] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'maxSprite4';
-							file_name = 'ui/gauge/result_dragon_exp_0104.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						[8] =
 						{
 							[1] =
 							{
@@ -1648,7 +1648,7 @@
 							visible = true;
 							lua_name = 'starNode4';
 						};
-						[9] =
+						[6] =
 						{
 							type = 'Visual';
 							ui_name = '';
@@ -1675,7 +1675,7 @@
 						};
 						type = 'Menu';
 						ui_name = '';
-						x = 170.000000;
+						x = 160.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -1703,8 +1703,8 @@
 							relative_size_type = 0;
 							width = 100;
 							height = 100;
-							scale_x = 0.450000;
-							scale_y = 0.450000;
+							scale_x = 0.500000;
+							scale_y = 0.500000;
 							skew_x = 0.000000;
 							skew_y = 0.000000;
 							rotation = 0.000000;
@@ -1793,6 +1793,92 @@
 						};
 						[4] =
 						{
+							[1] =
+							{
+								type = 'ProgressTimer';
+								ui_name = '';
+								x = -0.000061;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = false;
+								lua_name = 'expAddGauge5';
+								file_name = 'ui/gauge/result_dragon_exp_0102.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+								progress_type = 4;
+								mid_point_x = 0.000000;
+								mid_point_y = 0.000000;
+								percentage = 100;
+							};
+							[2] =
+							{
+								type = 'ProgressTimer';
+								ui_name = '';
+								x = -0.000061;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'expGauge5';
+								file_name = 'ui/gauge/result_dragon_exp_0102.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+								progress_type = 4;
+								mid_point_x = 0.000000;
+								mid_point_y = 0.000000;
+								percentage = 100;
+							};
+							[3] =
+							{
+								type = 'Sprite';
+								ui_name = '';
+								x = -0.000061;
+								y = 10.000038;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 94;
+								height = 10;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = false;
+								lua_name = 'maxSprite5';
+								file_name = 'ui/gauge/result_dragon_exp_0104.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+							};
 							type = 'Sprite';
 							ui_name = '';
 							x = 0.000000;
@@ -1800,8 +1886,8 @@
 							dock_point = { 0.500000; 0.000000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 100;
-							height = 16;
+							width = 104;
+							height = 20;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -1810,7 +1896,7 @@
 							visible = true;
 							lua_name = '';
 							file_name = 'ui/gauge/result_dragon_exp_0101.png';
-							color = { 0; 0; 0; };
+							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
 							flip_y = false;
@@ -1818,92 +1904,6 @@
 							dest_blend = 771;
 						};
 						[5] =
-						{
-							type = 'ProgressTimer';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'expAddGauge5';
-							file_name = 'ui/gauge/result_dragon_exp_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-							progress_type = 4;
-							mid_point_x = 0.000000;
-							mid_point_y = 0.000000;
-							percentage = 100;
-						};
-						[6] =
-						{
-							type = 'ProgressTimer';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'expGauge5';
-							file_name = 'ui/gauge/result_dragon_exp_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-							progress_type = 4;
-							mid_point_x = 0.000000;
-							mid_point_y = 0.000000;
-							percentage = 100;
-						};
-						[7] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = -0.000122;
-							y = 31.000000;
-							dock_point = { 0.500000; 0.000000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 94;
-							height = 10;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'maxSprite5';
-							file_name = 'ui/gauge/result_dragon_exp_0104.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						[8] =
 						{
 							[1] =
 							{
@@ -1948,7 +1948,7 @@
 							visible = true;
 							lua_name = 'starNode5';
 						};
-						[9] =
+						[6] =
 						{
 							type = 'Visual';
 							ui_name = '';
@@ -1975,7 +1975,7 @@
 						};
 						type = 'Menu';
 						ui_name = '';
-						x = 340.000000;
+						x = 320.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
