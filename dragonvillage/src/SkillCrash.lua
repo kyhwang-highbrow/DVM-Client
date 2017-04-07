@@ -290,9 +290,9 @@ function SkillCrash:runAttack(x, y)
 
     -- 충격파 공격
     self.m_activityCarrier:setPowerRate(self.m_damageRateShockwave)
-    for i,target_char in ipairs(l_target) do
+    for i, target_char in ipairs(l_target) do
         if (self.m_collisionChar ~= target_char) then
-            self:attack(target_char)
+            self:attack(target_char, l_bodyKey[i])
         else
             target_count = (target_count - 1)
         end

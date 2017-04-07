@@ -24,6 +24,8 @@ GameDragonSkill = class(PARENT, {
         m_skillDescEffect = 'Animator',
         m_skillNameLabel = 'cc.Label',
         m_skillDescLabel = 'cc.Label',
+
+        m_bubble = 'Animator',
      })
 
 -------------------------------------
@@ -84,6 +86,14 @@ function GameDragonSkill:initUI()
 	self.m_skillDescLabel:setColor(cc.c3b(220,220,220))
     self.m_skillDescLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     descNode:addChild(self.m_skillDescLabel, 11)
+
+    -- 말풍선
+    self.m_bubble = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
+    self.m_bubble:setScale(1)
+    self.m_bubble:setVisual('skill_gauge', 'bubble_2')
+    self.m_bubble:setRepeat(false)
+    self.m_bubble:setVisible(false)
+    self.m_node:addChild(self.m_bubble.m_node)
 end
 
 -------------------------------------
@@ -163,10 +173,13 @@ function GameDragonSkill.update_live(self, dt)
             -- 드래곤 애니메이션
             dragon.m_animator:changeAni('skill_idle', false)
 
-            -- 애니메이션 속도 조정
+            -- 드래곤 애니메이션 속도 조정
             local duration = dragon:getAniDuration()
             dragon.m_animator:setTimeScale(duration / delayTime)
 
+            -- 말풍선
+            self:makeSpeechBubble(dragon)
+            
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
 
@@ -320,6 +333,24 @@ function GameDragonSkill:makeSkillDesc(dragon, delayTime)
 
     self.m_skillNameLabel:setString(Str(t_skill['t_name']))
     self.m_skillDescLabel:setString(IDragonSkillManager:getSkillDescPure(t_skill))
+end
+
+-------------------------------------
+-- function makeSkillDesc
+-- @brief 말풍선
+-------------------------------------
+function GameDragonSkill:makeSpeechBubble(dragon)
+    if (dragon.m_bLeftFormation) then
+        self.m_bubble:setPosition(300, 300)
+    else
+        self.m_bubble:setPosition(-300, 300)
+    end
+    
+    self.m_bubble:setFrame(0)
+    self.m_bubble:addAniHandler(function()
+        self.m_bubble:setVisible(false)
+    end)
+    self.m_bubble:setVisible(true)
 end
 
 -------------------------------------

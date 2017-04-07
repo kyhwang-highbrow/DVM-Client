@@ -327,7 +327,7 @@ end
 -- function attack
 -- @brief 공격 콜백을 실행시키고 hit 연출을 조작한다. 되도록 재정의 하지 않는다. 공격의 최소단위
 -------------------------------------
-function Skill:attack(target_char)
+function Skill:attack(target_char, body_key)
     -- 공격
     self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
     target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)

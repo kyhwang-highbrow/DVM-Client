@@ -90,7 +90,7 @@ end
 -------------------------------------
 function SkillAoECone:findTarget()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
-    return SkillTargetFinder:findTarget_AoEWedge(l_target, self.pos.x, self.pos.y, self.m_dir, self.m_range, self.m_angle)
+    return SkillTargetFinder:findTarget_AoECone(l_target, self.pos.x, self.pos.y, self.m_dir, self.m_range, self.m_angle)
     --[[
     local world = self.m_world
 	
