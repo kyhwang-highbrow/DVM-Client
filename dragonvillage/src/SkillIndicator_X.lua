@@ -95,7 +95,7 @@ function SkillIndicator_X:findTarget(pos_x, pos_y)
     
 	-- 레이저에 충돌된 모든 객체 리턴
 	for i = 1, 2 do 
-		local t_collision_obj = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, idx)
+		local t_collision_obj = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, i)
 		
 		for i, obj in pairs(t_collision_obj) do 
 			table.insert(t_ret, obj)

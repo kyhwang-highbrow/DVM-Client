@@ -79,8 +79,8 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 		return TargetRule_getTargetList_debuff(org_list)
 
 	-- 특수
-    elseif (type == 'fan_shape') then       return TargetRule_getTargetList_fan_shape(org_list, t_data)
-	elseif (type == 'rectangle') then		return TargetRule_getTargetList_rectangle(org_list, t_data)
+    --elseif (type == 'fan_shape') then       return TargetRule_getTargetList_fan_shape(org_list, t_data)
+	--elseif (type == 'rectangle') then		return TargetRule_getTargetList_rectangle(org_list, t_data)
 
 	--[[ 미사용
 	elseif (type == 'cp_low') then          return TargetRule_getTargetList_cp_low(org_list)
@@ -400,6 +400,7 @@ function TargetRule_getTargetList_debuff(org_list)
     return t_ret
 end
 
+--[[
 -------------------------------------
 -- function TargetRule_getTargetList_fan_shape
 -- @brief 부채꼴
@@ -509,6 +510,7 @@ function TargetRule_getTargetList_rectangle(org_list, t_data)
 	
     return t_ret, t_bodyKey
 end
+]]--
 
 ------------------------------------- 미사용 -------------------------------------
 

@@ -124,8 +124,8 @@ function SkillLaser.st_idle(owner, dt)
         owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
         owner.m_clearCount = owner.m_clearCount + 1
 
-        local t_collision_obj = owner:findTarget()
-		owner:runAttack(t_collision_obj)
+        local l_target, l_bodyKey = owner:findTarget()
+		owner:runAttack(l_target, l_bodyKey)
     end
 
     owner:refresh()

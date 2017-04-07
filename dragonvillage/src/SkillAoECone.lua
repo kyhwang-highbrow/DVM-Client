@@ -89,6 +89,9 @@ end
 -- @brief 공격 대상 찾음
 -------------------------------------
 function SkillAoECone:findTarget()
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    return SkillTargetFinder:findTarget_AoEWedge(l_target, self.pos.x, self.pos.y, self.m_dir, self.m_range, self.m_angle)
+    --[[
     local world = self.m_world
 	
 	local t_data = {}
@@ -101,6 +104,7 @@ function SkillAoECone:findTarget()
 	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', nil, 'fan_shape', t_data)
 
     return l_target
+    ]]--
 end
 
 -------------------------------------

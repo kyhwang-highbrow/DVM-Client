@@ -132,13 +132,15 @@ function SkillIndicator_AoERound:findTarget(x, y, range, isFixedOnTarget)
 	local pos_y = y
 
 	local l_ret
+    local l_bodyKey
+
 	if isFixedOnTarget then
 		local target_formation_mgr = self.m_hero:getFormationMgr(true)
 		l_ret = target_formation_mgr:findNearTarget(pos_x, pos_y, range, -1, EMPTY_TABLE)
 	else
 		local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
-		l_ret = SkillTargetFinder:findTarget_AoERound(l_target, pos_x, pos_y, range)
+		l_ret, l_bodyKey = SkillTargetFinder:findTarget_AoERound(l_target, pos_x, pos_y, range)
     end
     
-	return l_ret
+	return l_ret, l_bodyKey
 end

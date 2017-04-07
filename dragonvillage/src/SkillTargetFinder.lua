@@ -26,6 +26,37 @@ function SkillTargetFinder:findTarget_AoERound(l_target, x, y, range)
 end
 
 -------------------------------------
+-- function findTarget_AoECone
+-------------------------------------
+function SkillTargetFinder:findTarget_AoECone(l_target, x, y, dir, range, angle)
+    local l_target = l_target or {}
+	
+	local l_ret = {}
+    local l_bodyKey = {}
+    
+	for i, target in ipairs(l_target) do
+        local b, body_key = isCollision_Fan(target, x, y, dir, range, angle)
+		if (b) then
+            table.insert(l_ret, target)
+            table.insert(l_bodyKey, body_key)
+		end
+    end
+
+    return l_ret, l_bodyKey
+    --[[
+	local t_data = {
+		x = x,					-- 회전축 좌표 x
+		y = y,					-- 회전축 좌표 y
+		dir = dir,				-- 방향
+		radius = range,			-- 거리
+		angle_range = angle		-- 각도
+	}
+
+	return TargetRule_getTargetList_fan_shape(l_target, t_data)
+    ]]--
+end
+
+-------------------------------------
 -- function findTarget_AoESquare
 -------------------------------------
 function SkillTargetFinder:findTarget_AoESquare(l_target, x, y, width, height)
@@ -49,6 +80,22 @@ end
 -- function findTarget_AoEWedge
 -------------------------------------
 function SkillTargetFinder:findTarget_AoEWedge(l_target, x, y, dir, range, angle)
+    local l_target = l_target or {}
+	
+	local l_ret = {}
+    local l_bodyKey = {}
+    
+	for i, target in ipairs(l_target) do
+        local b, body_key = isCollision_Fan(target, x, y, dir, range, angle)
+		if (b) then
+            table.insert(l_ret, target)
+            table.insert(l_bodyKey, body_key)
+		end
+    end
+
+    return l_ret, l_bodyKey
+
+    --[[
 	local t_data = {
 		x = x,					-- 회전축 좌표 x
 		y = y,					-- 회전축 좌표 y
@@ -58,12 +105,59 @@ function SkillTargetFinder:findTarget_AoEWedge(l_target, x, y, dir, range, angle
 	}
 
 	return TargetRule_getTargetList_fan_shape(l_target, t_data)
+    ]]--
+end
+
+-------------------------------------
+-- function findTarget_Crash
+-------------------------------------
+function SkillTargetFinder:findTarget_Crash(l_target, x, y, dir, range, angle)
+    local l_target = l_target or {}
+	
+	local l_ret = {}
+    local l_bodyKey = {}
+    
+	for i, target in ipairs(l_target) do
+        local b, body_key = isCollision_Fan(target, x, y, dir, range, angle)
+		if (b) then
+            table.insert(l_ret, target)
+            table.insert(l_bodyKey, body_key)
+		end
+    end
+
+    return l_ret, l_bodyKey
+    --[[
+	local t_data = {
+		x = x,					-- 회전축 좌표 x
+		y = y,					-- 회전축 좌표 y
+		dir = dir,				-- 방향
+		radius = range,			-- 거리
+		angle_range = angle		-- 각도
+	}
+
+	return TargetRule_getTargetList_fan_shape(l_target, t_data)
+    ]]--
 end
 
 -------------------------------------
 -- function findTarget_Bar
 -------------------------------------
 function SkillTargetFinder:findTarget_Bar(l_target, start_x, start_y, end_x, end_y, thickness)
+    local l_target = l_target or {}
+	
+	local l_ret = {}
+    local l_bodyKey = {}
+    
+	for i, target in ipairs(l_target) do
+        local b, body_key = isCollision_Line(target, start_x, start_y, end_x, end_y, thickness)
+		if (b) then
+            table.insert(l_ret, target)
+            table.insert(l_bodyKey, body_key)
+		end
+    end
+
+    return l_ret, l_bodyKey
+    --[[
 	local t_data = {
 		x1 = start_x,
 		y1 = start_y,
@@ -73,4 +167,5 @@ function SkillTargetFinder:findTarget_Bar(l_target, start_x, start_y, end_x, end
 	}
 
 	return TargetRule_getTargetList_rectangle(l_target, t_data)
+    ]]--
 end

@@ -119,6 +119,7 @@ function SkillAoESquare_Wonder:findTarget()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
     
     local l_ret = {}
+    local l_bodyKey = {}
 
     local std_width = (self.m_skillWidth / 2)
 	local std_height = (self.m_skillHeight / 2)
@@ -129,13 +130,15 @@ function SkillAoESquare_Wonder:findTarget()
 	-- x 좌표값 리스트를 따라 충돌체크를 한다.
     for i, v in ipairs(l_target) do
 		for i, pos_x in pairs(l_pos_x) do
-			if isCollision_Rect(v, pos_x, y, std_width, std_height) then
+            local b, body_key = isCollision_Rect(v, pos_x, y, std_width, std_height)
+			if (b) then
 				table.insert(l_ret, v)
+                table.insert(l_bodyKey, body_key)
 			end
 		end
     end
 
-    return l_ret
+    return l_ret, l_bodyKey
 end
 
 -------------------------------------

@@ -57,11 +57,11 @@ end
 -- function runAttack
 -------------------------------------
 function SkillAoERound:runAttack()
-    local l_target = self:findTarget()
+    local l_target, l_bodyKey = self:findTarget()
 	
     for i, target_char in ipairs(l_target) do
         -- 공격
-        self:attack(target_char)
+        self:attack(target_char, l_bodyKey[i])
 		-- 타겟별 리소스
 		self:makeEffect(self.m_aoeRes, target_char.pos.x, target_char.pos.y)
     end

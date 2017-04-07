@@ -84,6 +84,9 @@ end
 -- function findTargetList
 -------------------------------------
 function SkillIndicator_AoECone:findTargetList(x, y, dir)
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    return SkillTargetFinder:findTarget_AoECone(l_target, self.m_hero.pos.x, self.m_hero.pos.y, dir, self.m_skillRadius, self.m_skillAngle)
+    --[[
     local world = self:getWorld()
 
     local t_data = {}
@@ -94,4 +97,5 @@ function SkillIndicator_AoECone:findTargetList(x, y, dir)
     t_data['radius'] = self.m_skillRadius
 
     return world:getTargetList(self.m_hero, self.m_hero.pos.x, self.m_hero.pos.y, 'enemy', nil, 'fan_shape', t_data)
+    ]]--
 end

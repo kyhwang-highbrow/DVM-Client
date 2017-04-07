@@ -100,3 +100,52 @@ function isCollision_Line(target, x1, y1, x2, y2, thickness)
 
     return false
 end
+
+-------------------------------------
+-- function isCollision_Fan
+-- @brief body size를 고려한 충돌 여부 판단, 부채꼴
+-------------------------------------
+function isCollision_Fan(target, x, y, dir, radius, angle_range)
+    local dir_min = dir - (angle_range/2)
+    local dir_max = dir + (angle_range/2)
+
+    local low_pos = getPointFromAngleAndDistance(dir_min, radius)
+    low_pos['x'] = (low_pos['x'] + x)
+    low_pos['y'] = (low_pos['y'] + y)
+    local high_pos = getPointFromAngleAndDistance(dir_max, radius)
+    high_pos['x'] = (high_pos['x'] + x)
+    high_pos['y'] = (high_pos['y'] + y)
+
+    local body_list = target:getBodyList()
+
+    for _, body in ipairs(body_list) do
+        local target_x = target.pos.x + body.x
+        local target_y = target.pos.y + body.y
+        local target_size = body.size
+
+        -- 거리 및 각도 체크
+        local distance = getDistance(x, y, target_x, target_y)
+        local degree = getDegree(x, y, target_x, target_y)
+        if ((radius + target_size) >= distance) and angleIsBetweenAngles(degree, dir_min, dir_max) then
+            return true, body['key']
+        end
+    end
+            
+    if (not isPass) then
+        -- 낮은 각도 라인 체크
+        local is_collision, body_key = isCollision_Line(target, x, y, low_pos['x'], low_pos['y'], 0)
+        if is_collision then
+            return true, body_key
+        end
+    end
+           
+    if (not isPass) then 
+        -- 높은 각도 라인 체크
+        local is_collision, body_key = isCollision_Line(target, x, y, high_pos['x'], high_pos['y'], 0)
+        if is_collision then
+            return true, body_key
+        end
+    end
+    
+    return false
+end

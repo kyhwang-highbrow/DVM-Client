@@ -306,9 +306,9 @@ end
 -- @brief findtarget으로 찾은 적에게 공격을 실행한다. 
 -------------------------------------
 function Skill:runAttack()
-	local l_target = self:findTarget()
+	local l_target, l_bodyKey = self:findTarget()
     for i, target_char in ipairs(l_target) do
-		self:attack(target_char)
+		self:attack(target_char, l_bodyKey[i])
     end
 
 	self:doCommonAttackEffect(l_target)

@@ -124,7 +124,7 @@ function SkillCrash.st_comeback(owner, dt)
         -- 충격파 발생
         local x = char.pos.x
         local y = char.pos.y
-        owner:attackShockwave(x, y)
+        owner:runAttack(x, y)
 
         char:setMoveHomePos(SPEED_COMEBACK)
     elseif (char.m_isOnTheMove == false) then
@@ -220,9 +220,26 @@ function SkillCrash:releaseCrashPhsyObject()
 end
 
 -------------------------------------
--- function attackShockwave
+-- function findTarget
+-- @brief 공격 대상 찾음
 -------------------------------------
-function SkillCrash:attackShockwave(x, y)
+function SkillCrash:findTarget()
+    local dir
+
+    if (self.m_owner.m_bLeftFormation) then
+        dir = 0
+    else
+        dir = 180
+    end
+
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    return SkillTargetFinder:findTarget_AoEWedge(l_target, self.m_owner.pos.x, self.m_owner.pos.y, dir, self.m_shockwaveRadius, 60)
+end
+
+-------------------------------------
+-- function runAttack
+-------------------------------------
+function SkillCrash:runAttack(x, y)
     local world = self.m_world
     local char = self.m_owner
     local is_left = char.m_bLeftFormation
@@ -244,8 +261,8 @@ function SkillCrash:attackShockwave(x, y)
         self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
         target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
     end
-
-
+    
+    --[[
     local t_data = {}
     t_data['x'] = x
     t_data['y'] = y
@@ -260,6 +277,8 @@ function SkillCrash:attackShockwave(x, y)
     end
 
     local l_target = world:getTargetList(self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, 'enemy', nil, 'fan_shape', t_data)
+    ]]--
+    local l_target, l_bodyKey = self:findTarget()
 
     -- 공격에 성공한 카운트
     local target_count = 0
@@ -273,8 +292,7 @@ function SkillCrash:attackShockwave(x, y)
     self.m_activityCarrier:setPowerRate(self.m_damageRateShockwave)
     for i,target_char in ipairs(l_target) do
         if (self.m_collisionChar ~= target_char) then
-            self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-            target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+            self:attack(target_char)
         else
             target_count = (target_count - 1)
         end

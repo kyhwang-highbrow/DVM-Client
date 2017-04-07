@@ -99,6 +99,18 @@ end
 -- function findShockwaveTarget
 -------------------------------------
 function SkillIndicator_Crash:findShockwaveTarget(x, y)
+    local dir
+
+    if (self.m_hero.m_bLeftFormation) then
+        dir = 0
+    else
+        dir = 180
+    end
+
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    return SkillTargetFinder:findTarget_AoECone(l_target, x, y, dir, self.m_skillRadius, 60)
+
+    --[[
     local world = self:getWorld()
 
     local t_data = {}
@@ -115,4 +127,5 @@ function SkillIndicator_Crash:findShockwaveTarget(x, y)
     end
 
     return world:getTargetList(self.m_hero, self.m_hero.pos.x, self.m_hero.pos.y, 'enemy', nil, 'fan_shape', t_data)
+    ]]--
 end

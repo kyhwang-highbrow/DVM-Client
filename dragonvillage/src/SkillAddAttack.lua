@@ -60,15 +60,18 @@ function SkillAddAttack:findTarget()
 	local l_target = self.m_owner:getTargetListByType('enemy_distance_line')
     
 	local l_ret = {}
+    local l_bodyKey = {}
     local distance = 0
 
     for _, target in pairs(l_target) do
-		if isCollision_Rect(target, x, y, self.m_rangeX, self.m_rangeY) then 
+        local b, body_key = isCollision_Rect(target, x, y, self.m_rangeX, self.m_rangeY)
+		if (b) then 
 			table.insert(l_ret, target)
+            table.insert(l_bodyKey, body_key)
 		end
     end
     
-    return l_ret
+    return l_ret, l_bodyKey
 end
 
 -------------------------------------

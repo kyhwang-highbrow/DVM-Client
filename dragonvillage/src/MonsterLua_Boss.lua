@@ -57,7 +57,6 @@ function MonsterLua_Boss:initScript(pattern_script_name, is_boss)
         self:initPhys(script['body'])
 
         self.m_bHasWeakPoint = true
-        self.m_remainTimeForWeakPoint = 2
     end
     
     -- HP 트리거 생성
@@ -141,9 +140,8 @@ function MonsterLua_Boss:update(dt)
             self.m_remainTimeForWeakPoint = self.m_remainTimeForWeakPoint - dt
 
             if (self.m_remainTimeForWeakPoint <= 0) then
-                self.body_list = randomShuffle(self.body_list)
-                self.m_weakPointKey = self.body_list[1]['key']
-                self.m_remainTimeForWeakPoint = 2
+                -- 약점 변화
+                self:changeWeakPoint()
             end
         end
     end
@@ -421,7 +419,6 @@ function MonsterLua_Boss:setHp(hp)
     end
 end
 
-
 -------------------------------------
 -- function makeHPGauge
 -------------------------------------
@@ -507,6 +504,42 @@ function MonsterLua_Boss:getBasePatternList()
     end
     
     return ret
+end
+
+-------------------------------------
+-- function changeWeakPoint
+-------------------------------------
+function MonsterLua_Boss:changeWeakPoint()
+    if (#self.body_list > 1) then
+        local t_temp = clone(self.body_list)
+        local prev_weak_body = table.remove(t_temp, 1)
+
+        t_temp = randomShuffle(t_temp)
+
+        table.insert(t_temp, prev_weak_body)
+
+        self.body_list = t_temp
+    end
+
+    --self.body_list = randomShuffle(self.body_list)
+
+    local weak_body = self.body_list[1]
+    self.m_weakPointKey = weak_body['key']
+    self.m_remainTimeForWeakPoint = 2
+
+    local animator = MakeAnimator('res/effect/effect_weakness/effect_weakness.vrp')
+    self:setTargetEffect(animator)
+                
+    animator:setPosition(weak_body['x'], weak_body['y'])
+    animator:changeAni('appear', false)
+    animator:addAniHandler(function()
+        animator:changeAni('disappear', false)
+        animator:addAniHandler(function()
+            animator:runAction(cc.CallFunc:create(function()
+                self:removeTargetEffect()
+            end))
+        end)
+    end)
 end
 
 -------------------------------------
