@@ -1,0 +1,163 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)lobby_sign.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+		{
+			"name":"lobby_sign_text",
+			"apply":true,
+			"res_id":""
+		}
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"sign_idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_sign.plist'<azSprite>'lobby_sign_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "cX":10.000000, "cY":70.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'lobby_sign_text'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":124.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"sign_off",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_sign.plist'<azSprite>'lobby_sign_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "cX":10.000000, "cY":70.000000
+									},
+									{
+										"frame":9, "sX":0.000000, "cX":10.000000, "cY":70.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'lobby_sign_text'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":124.000000
+									},
+									{
+										"frame":9, "sX":0.000000, "pY":124.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"sign_on",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_sign.plist'<azSprite>'lobby_sign_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "cX":10.000000, "cY":70.000000
+									},
+									{
+										"frame":9, "cX":10.000000, "cY":70.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'lobby_sign_text'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "pY":124.000000
+									},
+									{
+										"frame":9, "pY":124.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

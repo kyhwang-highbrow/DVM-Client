@@ -6,14 +6,14 @@ filter: Linear,Linear
 repeat: none
 littio_water_02_arm_01
   rotate: true
-  xy: 764, 81
+  xy: 363, 12
   size: 45, 76
   orig: 45, 76
   offset: 0, 0
   index: -1
 littio_water_02_arm_02
   rotate: true
-  xy: 842, 81
+  xy: 733, 17
   size: 45, 76
   orig: 45, 76
   offset: 0, 0
@@ -33,22 +33,22 @@ littio_water_02_body_02
   offset: 0, 0
   index: -1
 littio_water_02_body_03
-  rotate: true
-  xy: 866, 8
+  rotate: false
+  xy: 922, 59
   size: 71, 67
   orig: 71, 67
   offset: 0, 0
   index: -1
 littio_water_02_body_04
-  rotate: false
-  xy: 802, 2
+  rotate: true
+  xy: 764, 64
   size: 62, 77
   orig: 62, 77
   offset: 0, 0
   index: -1
 littio_water_02_eye_01
   rotate: false
-  xy: 920, 90
+  xy: 441, 21
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
@@ -62,14 +62,14 @@ littio_water_02_head_01
   index: -1
 littio_water_02_head_03
   rotate: false
-  xy: 664, 2
-  size: 67, 69
-  orig: 67, 69
+  xy: 843, 53
+  size: 77, 73
+  orig: 77, 73
   offset: 0, 0
   index: -1
 littio_water_02_head_04
   rotate: false
-  xy: 733, 2
+  xy: 664, 2
   size: 67, 69
   orig: 67, 69
   offset: 0, 0
@@ -89,8 +89,8 @@ littio_water_02_leg_02
   offset: 0, 0
   index: -1
 littio_water_02_mouth_01
-  rotate: false
-  xy: 958, 96
+  rotate: true
+  xy: 811, 25
   size: 37, 30
   orig: 37, 30
   offset: 0, 0

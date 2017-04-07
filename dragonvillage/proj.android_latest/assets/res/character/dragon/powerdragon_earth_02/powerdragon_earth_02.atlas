@@ -1,131 +1,131 @@
 
 powerdragon_earth_02.png
-size: 1024,256
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 powerdragon_earth_02_arm_01
-  rotate: true
-  xy: 131, 9
+  rotate: false
+  xy: 201, 80
   size: 78, 113
   orig: 78, 113
   offset: 0, 0
   index: -1
 powerdragon_earth_02_arm_02
   rotate: true
-  xy: 390, 150
+  xy: 217, 404
   size: 104, 191
   orig: 104, 191
   offset: 0, 0
   index: -1
 powerdragon_earth_02_arm_03
-  rotate: true
-  xy: 2, 9
+  rotate: false
+  xy: 121, 62
   size: 78, 127
   orig: 78, 127
   offset: 0, 0
   index: -1
 powerdragon_earth_02_arm_04
-  rotate: true
-  xy: 583, 137
+  rotate: false
+  xy: 2, 24
   size: 117, 165
   orig: 117, 165
   offset: 0, 0
   index: -1
 powerdragon_earth_02_body_01
   rotate: false
-  xy: 2, 89
+  xy: 2, 343
   size: 213, 165
   orig: 213, 165
   offset: 0, 0
   index: -1
 powerdragon_earth_02_body_02
   rotate: false
-  xy: 496, 61
+  xy: 281, 92
   size: 81, 87
   orig: 81, 87
   offset: 0, 0
   index: -1
 powerdragon_earth_02_body_03
   rotate: false
-  xy: 975, 104
+  xy: 346, 31
   size: 47, 59
   orig: 47, 59
   offset: 0, 0
   index: -1
 powerdragon_earth_02_body_04
   rotate: true
-  xy: 975, 165
+  xy: 357, 313
   size: 89, 47
   orig: 89, 47
   offset: 0, 0
   index: -1
 powerdragon_earth_02_effect_04
   rotate: false
-  xy: 217, 104
+  xy: 2, 191
   size: 171, 150
   orig: 171, 150
   offset: 0, 0
   index: -1
 powerdragon_earth_02_eye_01
   rotate: false
-  xy: 418, 38
-  size: 38, 39
-  orig: 38, 39
+  xy: 175, 294
+  size: 38, 47
+  orig: 38, 47
   offset: 0, 0
   index: -1
 powerdragon_earth_02_head_01
   rotate: false
-  xy: 750, 146
-  size: 116, 108
-  orig: 116, 108
+  xy: 217, 287
+  size: 138, 115
+  orig: 138, 115
   offset: 0, 0
   index: -1
 powerdragon_earth_02_head_02
-  rotate: false
-  xy: 868, 160
+  rotate: true
+  xy: 410, 403
   size: 105, 94
   orig: 105, 94
   offset: 0, 0
   index: -1
 powerdragon_earth_02_head_03
-  rotate: false
-  xy: 355, 14
+  rotate: true
+  xy: 281, 29
   size: 61, 63
   orig: 61, 63
   offset: 0, 0
   index: -1
 powerdragon_earth_02_head_04
-  rotate: false
-  xy: 579, 2
+  rotate: true
+  xy: 201, 17
   size: 61, 70
   orig: 61, 70
   offset: 0, 0
   index: -1
 powerdragon_earth_02_leg_01
-  rotate: true
-  xy: 579, 74
+  rotate: false
+  xy: 406, 324
   size: 61, 77
   orig: 61, 77
   offset: 0, 0
   index: -1
 powerdragon_earth_02_leg_02
   rotate: true
-  xy: 658, 77
+  xy: 121, 2
   size: 58, 72
   orig: 58, 72
   offset: 0, 0
   index: -1
 powerdragon_earth_02_wing_01
   rotate: true
-  xy: 246, 12
+  xy: 175, 195
   size: 90, 107
   orig: 90, 107
   offset: 0, 0
   index: -1
 powerdragon_earth_02_wing_02
-  rotate: true
-  xy: 390, 79
+  rotate: false
+  xy: 284, 181
   size: 69, 104
   orig: 69, 104
   offset: 0, 0

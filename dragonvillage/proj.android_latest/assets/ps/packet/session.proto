@@ -1,0 +1,29 @@
+package Network.packet;
+
+option java_outer_classname = "Session";
+
+message CLoginReq {
+	required string uid = 1;
+	optional string nickname = 2;
+	optional string sessionKey = 3;
+	optional int32 recvCounter = 4;
+	optional int32 offset = 5;
+}
+
+message SLoginRes {
+	required LoginResult ret = 1;
+	required string channelName = 2;
+	optional int32 numOfUsers = 3;
+	optional int32 encKey = 4;
+	optional string sessionKey = 5;
+	optional int32 sentCounter = 6;
+	optional string json = 7;
+}
+
+enum LoginResult {
+	Success = 0;
+	NoVacancy = 1;
+	RestartSession = 2;
+	UnknownError = 3;
+	InvalidAccess = 4;
+}

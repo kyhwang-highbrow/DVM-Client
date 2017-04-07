@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>missile_jaryong_res_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{46,156}}</string>
+                <key>offset</key>
+                <string>{-1,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{3,14},{46,156}}</string>
+                <key>sourceSize</key>
+                <string>{54,186}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>missile_jaryong.png</string>
+            <key>size</key>
+            <string>{64,256}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:0af0080204ac1d07e610a94630175874$</string>
+            <key>textureFileName</key>
+            <string>missile_jaryong.png</string>
+        </dict>
+    </dict>
+</plist>

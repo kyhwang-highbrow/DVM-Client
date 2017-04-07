@@ -14,7 +14,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
-				width = 0;
+				width = 6;
 				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/manage_detail_info_frame_02.png';
+				file_name = 'ui/frame/lobby_user_info_bg_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -33,74 +33,76 @@
 			};
 			[2] =
 			{
-				type = 'Button';
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 769;
+					height = 44;
+					scale_x = 0.920000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = '동일원종의 드래곤을 재료로 사용하여 스킬을 레벨업 할 수 있습니다.\n스킬 강화 시 오픈되어있는 스킬 중 랜덤으로 레벨업 됩니다.';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 247; 219; 34; };
+					opacity = 255;
+					dimension_width = 769;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 458.000000;
-				y = 248.000000;
+				x = 0.000000;
+				y = 235.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 78;
-				height = 80;
+				width = 724;
+				height = 62;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'closeBtn';
-				enable = true;
-				normal = 'ui/btn/bookmark_0301.png';
-				selected = 'ui/btn/bookmark_0302.png';
-				disable = '';
-				image_type = 0;
+				lua_name = '';
+				file_name = 'ui/frame/base_frame_13.png';
+				color = { 87; 64; 34; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
 			};
 			[3] =
 			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = 255.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 769;
-				height = 44;
-				scale_x = 0.920000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '동일원종의 드래곤을 재료로 사용하여 스킬을 레벨업 할 수 있습니다.\n스킬 강화 시 오픈되어있는 스킬 중 랜덤으로 레벨업 됩니다.';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 247; 219; 34; };
-				opacity = 255;
-				dimension_width = 769;
-				dimension_height = 44;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 3.000000;
-			};
-			[4] =
-			{
 				type = 'Button';
 				ui_name = '';
-				x = -351.000000;
-				y = 255.000000;
+				x = -332.000000;
+				y = 236.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -119,14 +121,14 @@
 				disable = '';
 				image_type = 0;
 			};
-			[5] =
+			[4] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 1.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -154,22 +156,22 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 134; 50; 33; };
+					stroke_color = { 69; 51; 63; };
 					has_shadow = true;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 100;
+					shadow_color = { 69; 51; 63; };
+					shadow_opacity = 180;
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -256.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = 59.000000;
+				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 300;
-				height = 60;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -178,19 +180,45 @@
 				visible = true;
 				lua_name = 'upgradeBtn';
 				enable = true;
-				normal = 'ui/btn/base_0101.png';
-				selected = 'ui/btn/base_0102.png';
+				normal = 'ui/btn/base_btn_0103.png';
+				selected = 'ui/btn/base_btn_0104.png';
 				disable = '';
 				image_type = 1;
 			};
-			[6] =
+			[5] =
 			{
 				[1] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 350;
+					height = 192;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frame/base_frame_13.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
 				{
 					type = 'Node';
 					ui_name = '';
 					x = -115.000000;
-					y = 42.000000;
+					y = 38.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -204,7 +232,7 @@
 					visible = true;
 					lua_name = 'skillNode0';
 				};
-				[2] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -244,7 +272,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[3] =
+				[4] =
 				{
 					[1] =
 					{
@@ -310,7 +338,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -350,7 +378,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -393,7 +421,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = -186.000000;
-				y = 109.000000;
+				y = 96.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -407,14 +435,40 @@
 				visible = true;
 				lua_name = '';
 			};
-			[7] =
+			[6] =
 			{
 				[1] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 350;
+					height = 192;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frame/base_frame_13.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
 				{
 					type = 'Node';
 					ui_name = '';
 					x = -115.000000;
-					y = 42.000000;
+					y = 38.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -428,7 +482,7 @@
 					visible = true;
 					lua_name = 'skillNode1';
 				};
-				[2] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -468,7 +522,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[3] =
+				[4] =
 				{
 					[1] =
 					{
@@ -490,7 +544,7 @@
 						lua_name = 'skillTypeLabel1';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 20;
-						text = '액티브';
+						text = '패시브';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 243; 236; 225; };
@@ -534,7 +588,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -574,7 +628,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -617,7 +671,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 187.000000;
-				y = 109.000000;
+				y = 96.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -631,14 +685,40 @@
 				visible = true;
 				lua_name = '';
 			};
-			[8] =
+			[7] =
 			{
 				[1] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 350;
+					height = 192;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frame/base_frame_13.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
 				{
 					type = 'Node';
 					ui_name = '';
 					x = -115.000000;
-					y = 42.000000;
+					y = 38.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -652,7 +732,7 @@
 					visible = true;
 					lua_name = 'skillNode2';
 				};
-				[2] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -692,7 +772,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[3] =
+				[4] =
 				{
 					[1] =
 					{
@@ -714,7 +794,7 @@
 						lua_name = 'skillTypeLabel2';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 20;
-						text = '액티브';
+						text = '패시브';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 243; 236; 225; };
@@ -758,7 +838,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -798,7 +878,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -838,7 +918,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[6] =
+				[7] =
 				{
 					[1] =
 					{
@@ -909,7 +989,7 @@
 					type = 'Scale9Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = -92.000000;
+					y = -113.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -922,7 +1002,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'lockNode3';
-					file_name = 'ui/frame/mini_bg_12.png';
+					file_name = 'ui/frame/base_frame_08.png';
 					color = { 87; 64; 34; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -933,7 +1013,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = -186.000000;
-				y = -111.000000;
+				y = -104.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -947,14 +1027,40 @@
 				visible = true;
 				lua_name = '';
 			};
-			[9] =
+			[8] =
 			{
 				[1] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 350;
+					height = 192;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frame/base_frame_13.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
 				{
 					type = 'Node';
 					ui_name = '';
 					x = -115.000000;
-					y = 42.000000;
+					y = 38.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -968,7 +1074,7 @@
 					visible = true;
 					lua_name = 'skillNode3';
 				};
-				[2] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1008,7 +1114,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[3] =
+				[4] =
 				{
 					[1] =
 					{
@@ -1074,7 +1180,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1114,7 +1220,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1154,7 +1260,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[6] =
+				[7] =
 				{
 					[1] =
 					{
@@ -1224,8 +1330,8 @@
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = 2.000000;
-					y = -92.000000;
+					x = 0.000000;
+					y = -113.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1238,7 +1344,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'lockNode4';
-					file_name = 'ui/frame/mini_bg_12.png';
+					file_name = 'ui/frame/base_frame_08.png';
 					color = { 87; 64; 34; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -1249,7 +1355,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 187.000000;
-				y = -111.000000;
+				y = -104.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1263,15 +1369,105 @@
 				visible = true;
 				lua_name = '';
 			};
+			[9] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = -22.000000;
+				y = -24.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 78;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'closeBtn';
+				enable = true;
+				normal = 'ui/btn/close_01.png';
+				selected = 'ui/btn/close_02.png';
+				disable = '';
+				image_type = 0;
+			};
+			[10] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 8.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 320;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 38;
+					text = '스킬 상세정보';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 243; 236; 225; };
+					opacity = 255;
+					dimension_width = 320;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 69; 51; 63; };
+					has_shadow = true;
+					shadow_color = { 69; 51; 63; };
+					shadow_opacity = 180;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -18.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 382;
+				height = 75;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/frame_title_bg_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = 0.000000;
+			y = -10.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 900;
-			height = 688;
+			width = 780;
+			height = 670;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

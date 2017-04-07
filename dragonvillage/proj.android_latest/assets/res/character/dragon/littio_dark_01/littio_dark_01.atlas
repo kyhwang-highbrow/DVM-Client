@@ -48,9 +48,9 @@ littio_dark_01_body_04
   index: -1
 littio_dark_01_eye_01
   rotate: false
-  xy: 798, 74
-  size: 44, 36
-  orig: 44, 36
+  xy: 798, 72
+  size: 44, 38
+  orig: 44, 38
   offset: 0, 0
   index: -1
 littio_dark_01_head_01

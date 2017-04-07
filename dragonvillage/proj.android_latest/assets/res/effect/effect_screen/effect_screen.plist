@@ -4,18 +4,70 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>effect_screen_fire_01.png</key>
+            <key>effect_screen_dark_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{640,800}}</string>
+                <string>{{2,2},{128,160}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{640,800}}</string>
+                <string>{{0,0},{128,160}}</string>
                 <key>sourceSize</key>
-                <string>{640,800}</string>
+                <string>{128,160}</string>
+            </dict>
+            <key>effect_screen_earth_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{132,2},{128,160}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,160}}</string>
+                <key>sourceSize</key>
+                <string>{128,160}</string>
+            </dict>
+            <key>effect_screen_fire_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{262,2},{128,160}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,160}}</string>
+                <key>sourceSize</key>
+                <string>{128,160}</string>
+            </dict>
+            <key>effect_screen_light_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{392,2},{128,160}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,160}}</string>
+                <key>sourceSize</key>
+                <string>{128,160}</string>
+            </dict>
+            <key>effect_screen_water_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{522,2},{128,160}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,160}}</string>
+                <key>sourceSize</key>
+                <string>{128,160}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -25,9 +77,9 @@
             <key>realTextureFileName</key>
             <string>effect_screen.png</string>
             <key>size</key>
-            <string>{644,804}</string>
+            <string>{652,164}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b1f0ea6c2811d1c2a71668294642416a:2d185a58e88d35f1494b12ae748a7d80:23e85d459961dc247594b31baebd28b0$</string>
+            <string>$TexturePacker:SmartUpdate:3560387042f0254e36338c47de75a412:1e2a648031cd5954f0128704eadd5f94:23e85d459961dc247594b31baebd28b0$</string>
             <key>textureFileName</key>
             <string>effect_screen.png</string>
         </dict>

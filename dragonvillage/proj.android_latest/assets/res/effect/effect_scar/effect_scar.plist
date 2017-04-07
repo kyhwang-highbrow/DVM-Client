@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>effect_scar_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{407,48}}</string>
+                <key>offset</key>
+                <string>{-15,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{87,1},{407,48}}</string>
+                <key>sourceSize</key>
+                <string>{611,50}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>effect_scar.png</string>
+            <key>size</key>
+            <string>{411,52}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:f375f29a49d12baaeb452b24dd9f5c1e:b53983011c841342a9927d35f8aca87e:081dce9811442e87985af9508e8b4add$</string>
+            <key>textureFileName</key>
+            <string>effect_scar.png</string>
+        </dict>
+    </dict>
+</plist>

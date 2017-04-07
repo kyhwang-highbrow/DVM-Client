@@ -41,7 +41,7 @@ crescentdragon_light_02_body_03
   index: -1
 crescentdragon_light_02_body_04
   rotate: true
-  xy: 862, 87
+  xy: 911, 87
   size: 39, 43
   orig: 39, 43
   offset: 0, 0
@@ -62,42 +62,42 @@ crescentdragon_light_02_effect_02
   index: -1
 crescentdragon_light_02_effect_03
   rotate: false
-  xy: 813, 92
+  xy: 862, 92
   size: 47, 34
   orig: 47, 34
   offset: 0, 0
   index: -1
 crescentdragon_light_02_eye_01
   rotate: false
-  xy: 739, 51
+  xy: 401, 19
   size: 32, 34
   orig: 32, 34
   offset: 0, 0
   index: -1
 crescentdragon_light_02_foot_01
   rotate: true
-  xy: 714, 87
+  xy: 763, 87
   size: 39, 45
   orig: 39, 45
   offset: 0, 0
   index: -1
 crescentdragon_light_02_foot_02
-  rotate: true
-  xy: 700, 55
+  rotate: false
+  xy: 369, 16
   size: 30, 37
   orig: 30, 37
   offset: 0, 0
   index: -1
 crescentdragon_light_02_hand_01
   rotate: true
-  xy: 761, 92
+  xy: 810, 92
   size: 34, 50
   orig: 34, 50
   offset: 0, 0
   index: -1
 crescentdragon_light_02_hand_02
   rotate: true
-  xy: 952, 91
+  xy: 956, 91
   size: 35, 43
   orig: 35, 43
   offset: 0, 0
@@ -111,16 +111,16 @@ crescentdragon_light_02_head_01
   index: -1
 crescentdragon_light_02_head_02
   rotate: false
-  xy: 773, 63
+  xy: 700, 54
   size: 37, 27
   orig: 37, 27
   offset: 0, 0
   index: -1
 crescentdragon_light_02_head_03
   rotate: true
-  xy: 907, 87
-  size: 39, 43
-  orig: 39, 43
+  xy: 714, 83
+  size: 43, 47
+  orig: 43, 47
   offset: 0, 0
   index: -1
 crescentdragon_light_02_head_04

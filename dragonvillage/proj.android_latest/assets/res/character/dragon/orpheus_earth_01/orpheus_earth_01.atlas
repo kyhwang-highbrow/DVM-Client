@@ -6,14 +6,14 @@ filter: Linear,Linear
 repeat: none
 orpheus_earth_01_arm_01
   rotate: false
-  xy: 246, 59
+  xy: 962, 196
   size: 58, 58
   orig: 58, 58
   offset: 0, 0
   index: -1
 orpheus_earth_01_arm_02
   rotate: false
-  xy: 306, 59
+  xy: 246, 59
   size: 58, 58
   orig: 58, 58
   offset: 0, 0
@@ -58,13 +58,6 @@ orpheus_earth_01_head_01
   xy: 2, 92
   size: 152, 162
   orig: 152, 162
-  offset: 0, 0
-  index: -1
-orpheus_earth_01_head_02
-  rotate: false
-  xy: 962, 181
-  size: 47, 73
-  orig: 47, 73
   offset: 0, 0
   index: -1
 orpheus_earth_01_head_03

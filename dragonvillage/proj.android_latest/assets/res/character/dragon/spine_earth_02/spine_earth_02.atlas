@@ -6,56 +6,28 @@ filter: Linear,Linear
 repeat: none
 spine_earth_02_arm_01
   rotate: false
-  xy: 525, 404
-  size: 109, 103
-  orig: 109, 103
+  xy: 287, 130
+  size: 115, 107
+  orig: 115, 107
   offset: 0, 0
   index: -1
 spine_earth_02_arm_02
-  rotate: false
-  xy: 636, 404
-  size: 109, 103
-  orig: 109, 103
-  offset: 0, 0
-  index: -1
-spine_earth_02_arm_03
   rotate: true
-  xy: 860, 416
-  size: 91, 104
-  orig: 91, 104
+  xy: 404, 23
+  size: 83, 105
+  orig: 83, 105
   offset: 0, 0
   index: -1
 spine_earth_02_body_01
   rotate: false
-  xy: 271, 214
-  size: 135, 115
-  orig: 135, 115
-  offset: 0, 0
-  index: -1
-spine_earth_02_body_02
-  rotate: true
-  xy: 512, 183
-  size: 60, 61
-  orig: 60, 61
-  offset: 0, 0
-  index: -1
-spine_earth_02_body_03
-  rotate: false
-  xy: 714, 341
-  size: 60, 61
-  orig: 60, 61
-  offset: 0, 0
-  index: -1
-spine_earth_02_body_04
-  rotate: false
-  xy: 408, 205
-  size: 102, 79
-  orig: 102, 79
+  xy: 2, 2
+  size: 194, 176
+  orig: 194, 176
   offset: 0, 0
   index: -1
 spine_earth_02_body_05
   rotate: false
-  xy: 747, 414
+  xy: 511, 6
   size: 111, 93
   orig: 111, 93
   offset: 0, 0
@@ -69,85 +41,92 @@ spine_earth_02_eff_01
   index: -1
 spine_earth_02_eye_01
   rotate: false
-  xy: 604, 252
-  size: 78, 73
-  orig: 78, 73
-  offset: 0, 0
-  index: -1
-spine_earth_02_foot_01
-  rotate: false
-  xy: 270, 55
-  size: 87, 86
-  orig: 87, 86
-  offset: 0, 0
-  index: -1
-spine_earth_02_foot_02
-  rotate: false
-  xy: 515, 245
-  size: 87, 86
-  orig: 87, 86
+  xy: 600, 188
+  size: 63, 59
+  orig: 63, 59
   offset: 0, 0
   index: -1
 spine_earth_02_hand_01
   rotate: true
-  xy: 409, 286
-  size: 91, 104
-  orig: 91, 104
+  xy: 287, 25
+  size: 103, 115
+  orig: 103, 115
   offset: 0, 0
   index: -1
 spine_earth_02_hand_02
   rotate: false
-  xy: 620, 327
-  size: 92, 75
-  orig: 92, 75
+  xy: 404, 108
+  size: 105, 117
+  orig: 105, 117
   offset: 0, 0
   index: -1
 spine_earth_02_head_01
-  rotate: true
-  xy: 140, 40
-  size: 138, 128
-  orig: 138, 128
-  offset: 0, 0
-  index: -1
-spine_earth_02_head_02
   rotate: false
-  xy: 409, 379
-  size: 114, 128
-  orig: 114, 128
+  xy: 747, 350
+  size: 136, 157
+  orig: 136, 157
   offset: 0, 0
   index: -1
 spine_earth_02_leg_01
   rotate: true
-  xy: 271, 143
-  size: 69, 93
-  orig: 69, 93
+  xy: 453, 227
+  size: 87, 124
+  orig: 87, 124
   offset: 0, 0
   index: -1
 spine_earth_02_leg_02
+  rotate: false
+  xy: 198, 54
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_earth_02_leg_03
+  rotate: false
+  xy: 511, 101
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_earth_02_leg_04
   rotate: true
-  xy: 525, 333
-  size: 69, 93
-  orig: 69, 93
+  xy: 601, 249
+  size: 87, 124
+  orig: 87, 124
   offset: 0, 0
   index: -1
 spine_earth_02_mouth_01
   rotate: false
-  xy: 140, 8
+  xy: 198, 22
   size: 37, 30
   orig: 37, 30
   offset: 0, 0
   index: -1
 spine_earth_02_wing_01
   rotate: false
-  xy: 2, 2
-  size: 136, 176
-  orig: 136, 176
+  xy: 885, 364
+  size: 108, 143
+  orig: 108, 143
   offset: 0, 0
   index: -1
 spine_earth_02_wing_02
   rotate: false
-  xy: 271, 331
-  size: 136, 176
-  orig: 136, 176
+  xy: 453, 316
+  size: 146, 191
+  orig: 146, 191
+  offset: 0, 0
+  index: -1
+spine_earth_02_wing_03
+  rotate: false
+  xy: 601, 338
+  size: 144, 169
+  orig: 144, 169
+  offset: 0, 0
+  index: -1
+spine_earth_02_wing_05
+  rotate: false
+  xy: 271, 239
+  size: 180, 268
+  orig: 180, 268
   offset: 0, 0
   index: -1

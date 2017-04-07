@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>effect_magic_gas_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{664,422}}</string>
+                <key>offset</key>
+                <string>{16,-2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{84,60},{664,422}}</string>
+                <key>sourceSize</key>
+                <string>{800,538}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>effect_magic_gas.png</string>
+            <key>size</key>
+            <string>{668,426}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:b81336ebf3b63eafbc5854d5f5cab6a3:c539c902524f8e39ffae7b2db51bf039:9ce7904217b898a8e6bd795619e910f0$</string>
+            <key>textureFileName</key>
+            <string>effect_magic_gas.png</string>
+        </dict>
+    </dict>
+</plist>

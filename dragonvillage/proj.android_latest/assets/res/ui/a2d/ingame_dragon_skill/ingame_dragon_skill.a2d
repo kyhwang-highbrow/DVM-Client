@@ -19,6 +19,11 @@
 	"azTag":
 	[
 		{
+			"name":"skill_bubble",
+			"apply":true,
+			"res_id":""
+		},
+		{
 			"name":"skill_dsc",
 			"apply":true,
 			"res_id":""
@@ -61,19 +66,19 @@
 										"frame":0, "sY":0.000000, "alpha":0
 									},
 									{
-										"frame":5
+										"frame":5, "sY":0.800000
 									},
 									{
-										"frame":7, "sY":1.100000
+										"frame":7
 									},
 									{
-										"frame":9
+										"frame":9, "sY":0.800000
 									},
 									{
-										"frame":35
+										"frame":35, "sY":0.800000
 									},
 									{
-										"frame":37, "sY":1.100000
+										"frame":37
 									},
 									{
 										"frame":39, "sY":0.000000, "alpha":0
@@ -90,28 +95,28 @@
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-1200.000000, "pY":25.000000, "alpha":0
+										"frame":0, "pX":-1200.000000, "pY":15.000000, "alpha":0
 									},
 									{
-										"frame":5, "pX":-1200.000000, "pY":25.000000, "alpha":0
+										"frame":5, "pX":-1200.000000, "pY":15.000000, "alpha":0
 									},
 									{
-										"frame":7, "pX":-200.000000, "pY":25.000000
+										"frame":7, "pX":-200.000000, "pY":15.000000
 									},
 									{
-										"frame":9, "pX":-35.000000, "pY":25.000000
+										"frame":9, "pX":-35.000000, "pY":15.000000
 									},
 									{
-										"frame":35, "pX":35.000000, "pY":25.000000
+										"frame":35, "pX":35.000000, "pY":15.000000
 									},
 									{
-										"frame":37, "pX":200.000000, "pY":25.000000
+										"frame":37, "pX":200.000000, "pY":15.000000
 									},
 									{
-										"frame":39, "pX":1200.000000, "pY":25.000000, "alpha":0
+										"frame":39, "pX":1200.000000, "pY":15.000000, "alpha":0
 									},
 									{
-										"frame":44, "pX":1200.000000, "pY":25.000000, "alpha":0
+										"frame":44, "pX":1200.000000, "pY":15.000000, "alpha":0
 									}
 								]
 							},
@@ -282,7 +287,34 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0043.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-6.000000, "cX":7.000000, "cY":1.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "rotate":360.000000, "pX":-6.000000, "cX":7.000000, "cY":1.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"charging_idle_CopyTo",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0043.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -298,7 +330,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0047.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0047.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -314,7 +346,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0051.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0051.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -330,7 +362,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0055.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0055.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -346,7 +378,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0057.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0057.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -362,7 +394,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0059.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0059.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -378,7 +410,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0063.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0063.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -394,7 +426,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0067.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0067.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -410,7 +442,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0071.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0071.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -426,7 +458,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0077.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0077.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -442,7 +474,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0075.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0075.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -458,7 +490,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0079.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_b_0079.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -477,211 +509,6 @@
 					}
 				},
 				{
-					"name":"charging_idle_CopyTo",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0102.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":1, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0103.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":2, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":3, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0104.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":4, "sX":0.800000, "sY":0.800000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":5, "sX":0.800000, "sY":0.800000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0105.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":6, "sX":0.900000, "sY":0.900000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":7, "sX":0.900000, "sY":0.900000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0102.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":8, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":9, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0103.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":10, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":11, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0104.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":12, "sX":0.800000, "sY":0.800000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":13, "sX":0.800000, "sY":0.800000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0105.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":14, "sX":0.900000, "sY":0.900000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":15, "sX":0.900000, "sY":0.900000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0102.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":16, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":17, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0103.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":18, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":19, "sX":0.700000, "sY":0.700000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0104.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":20, "sX":0.800000, "sY":0.800000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":21, "sX":0.800000, "sY":0.800000, "colorRGB":[255,255,255]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_charging_0105.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":22, "sX":0.900000, "sY":0.900000, "colorRGB":[255,255,255]
-
-									},
-									{
-										"frame":23, "sX":0.900000, "sY":0.900000, "colorRGB":[255,255,255]
-
-									}
-								]
-							}
-						]
-					}
-				},
-				{
 					"name":"fire",
 					"apply":true,
 					"fps":30,
@@ -692,7 +519,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0201.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -706,7 +533,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0202.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0202.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -720,7 +547,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0203.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0203.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -734,7 +561,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0204.png'",
+								"res_id":"<azProject>''<azBitmap>'E:\DragonVillage\res\ui\a2d\ingame_dragon_skill\ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0204.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -744,6 +571,976 @@
 									},
 									{
 										"frame":7
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_dark",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_dark_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_earth",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_earth_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_fire",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_fire_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_light",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_light_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_water",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_water_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
 									}
 								]
 							}
@@ -941,10 +1738,63 @@
 		},
 		{
 			"name":"skill_gauge",
-			"expand":false,
+			"expand":true,
 			"apply":true,
 			"visual_list":
 			[
+				{
+					"name":"bubble",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_bubble.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "cY":45.000000, "alpha":0
+									},
+									{
+										"frame":5, "cY":45.000000
+									},
+									{
+										"frame":30, "cY":45.000000
+									},
+									{
+										"frame":35, "cY":45.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_bubble'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":48.000000, "alpha":0
+									},
+									{
+										"frame":5, "pY":48.000000
+									},
+									{
+										"frame":30, "pY":48.000000
+									},
+									{
+										"frame":35, "pY":48.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
 				{
 					"name":"charging",
 					"apply":true,
@@ -1014,6 +1864,276 @@
 									},
 									{
 										"frame":15, "sX":0.500000, "sY":0.500000, "rotate":-46.000000, "pX":-36.000000, "pY":-2.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_dark",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_dark'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "pX":10.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_dark_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_dark_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_earth",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_earth'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "pX":10.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_earth_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_earth_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_fire",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_fire'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "pX":10.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_fire_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_fire_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_light",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_light'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "pX":10.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_light_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_light_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_water",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_water'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "pX":10.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_water_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_water_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "mode":"Add"
 									}
 								]
 							}
@@ -1107,6 +2227,390 @@
 					}
 				},
 				{
+					"name":"idle_dark",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.950000, "sY":0.900000, "alpha":204, "colorRGB":[230,106,255]
+, "mode":"Add"
+									},
+									{
+										"frame":12, "sY":0.950000, "alpha":204, "colorRGB":[230,106,255]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.950000, "sY":0.900000, "alpha":204, "colorRGB":[230,106,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":7, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[56,34,255]
+
+									},
+									{
+										"frame":23, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[56,34,255]
+
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"idle_earth",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.950000, "sY":0.900000, "alpha":204, "colorRGB":[111,255,121]
+, "mode":"Add"
+									},
+									{
+										"frame":12, "sY":0.950000, "alpha":204, "colorRGB":[111,255,121]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.950000, "sY":0.900000, "alpha":204, "colorRGB":[111,255,121]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":7, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[83,255,64]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[83,255,64]
+, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"idle_fire",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.950000, "sY":0.900000, "alpha":204, "colorRGB":[255,89,89]
+, "mode":"Add"
+									},
+									{
+										"frame":12, "sY":0.950000, "alpha":204, "colorRGB":[255,89,89]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.950000, "sY":0.900000, "alpha":204, "colorRGB":[255,89,89]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":7, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[255,111,62]
+
+									},
+									{
+										"frame":23, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[255,111,62]
+
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"idle_light",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.950000, "sY":0.900000, "alpha":204, "colorRGB":[253,240,79]
+, "mode":"Add"
+									},
+									{
+										"frame":12, "sY":0.950000, "alpha":204, "colorRGB":[253,240,79]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.950000, "sY":0.900000, "alpha":204, "colorRGB":[253,240,79]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.950000, "sY":0.900000, "alpha":204, "colorRGB":[255,181,81]
+, "mode":"Add"
+									},
+									{
+										"frame":12, "sY":0.950000, "alpha":204, "colorRGB":[255,181,81]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.950000, "sY":0.900000, "alpha":204, "colorRGB":[255,181,81]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":7, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.900000, "sY":0.900000, "pX":-34.000000, "pY":25.000000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[255,234,132]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[255,234,132]
+, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"idle_s_dark",
 					"apply":true,
 					"fps":30,
@@ -1163,12 +2667,157 @@
 
 									}
 								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.140000, "sY":0.140000, "rotate":72.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[242,83,255]
+
+									},
+									{
+										"frame":23, "sX":0.140000, "sY":0.140000, "rotate":72.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[242,83,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.140000, "sY":0.140000, "rotate":30.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[242,83,255]
+
+									},
+									{
+										"frame":23, "sX":0.140000, "sY":0.140000, "rotate":30.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[242,83,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "rotate":-19.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[242,83,255]
+
+									},
+									{
+										"frame":23, "sX":0.100000, "sY":0.100000, "rotate":-19.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[242,83,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "pX":-29.000000, "pY":2.000000, "colorRGB":[216,151,255]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.600000, "sY":0.600000, "pX":-29.000000, "pY":2.000000, "colorRGB":[216,151,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "pX":-33.000000, "pY":2.000000, "colorRGB":[242,83,255]
+
+									},
+									{
+										"frame":23, "sX":0.200000, "sY":0.200000, "pX":-33.000000, "pY":2.000000, "colorRGB":[242,83,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[242,83,255]
+
+									},
+									{
+										"frame":23, "sX":0.200000, "sY":0.200000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[242,83,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[0,0,0]
+
+									},
+									{
+										"frame":23, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[242,83,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'touch_skill_icon_dark.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-32.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":10, "pX":-32.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "pX":-32.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'touch_skill_fx_white.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-32.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "rotate":-360.000000, "pX":-32.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									}
+								]
 							}
 						]
 					}
 				},
 				{
-					"name":"idle_s_eart",
+					"name":"idle_s_earth",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -1222,6 +2871,149 @@
 									{
 										"frame":23, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[83,255,104]
 
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.140000, "sY":0.140000, "rotate":-31.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,255,104]
+
+									},
+									{
+										"frame":23, "sX":0.140000, "sY":0.140000, "rotate":-31.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,255,104]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.140000, "sY":0.140000, "rotate":-73.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,255,104]
+
+									},
+									{
+										"frame":23, "sX":0.140000, "sY":0.140000, "rotate":-73.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,255,104]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "rotate":-122.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[83,255,104]
+
+									},
+									{
+										"frame":23, "sX":0.100000, "sY":0.100000, "rotate":-122.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[83,255,104]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "pX":-29.000000, "pY":2.000000, "colorRGB":[145,255,125]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.600000, "sY":0.600000, "pX":-29.000000, "pY":2.000000, "colorRGB":[145,255,125]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,255,104]
+
+									},
+									{
+										"frame":23, "sX":0.200000, "sY":0.200000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,255,104]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,255,104]
+
+									},
+									{
+										"frame":23, "sX":0.200000, "sY":0.200000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,255,104]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[83,255,104]
+
+									},
+									{
+										"frame":23, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[83,255,104]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'touch_skill_icon_earth.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-32.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":10, "pX":-32.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "pX":-32.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'touch_skill_fx_white.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-32.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "rotate":-360.000000, "pX":-32.000000, "mode":"Add"
 									}
 								]
 							}
@@ -1285,6 +3077,149 @@
 
 									}
 								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.140000, "sY":0.140000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,83,83]
+
+									},
+									{
+										"frame":23, "sX":0.140000, "sY":0.140000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,83,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.140000, "sY":0.140000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,83,83]
+
+									},
+									{
+										"frame":23, "sX":0.140000, "sY":0.140000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,83,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[255,83,83]
+
+									},
+									{
+										"frame":23, "sX":0.100000, "sY":0.100000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[255,83,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "pX":-29.000000, "pY":2.000000, "colorRGB":[255,125,125]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.600000, "sY":0.600000, "pX":-29.000000, "pY":2.000000, "colorRGB":[255,125,125]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,83,83]
+
+									},
+									{
+										"frame":23, "sX":0.200000, "sY":0.200000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,83,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,83,83]
+
+									},
+									{
+										"frame":23, "sX":0.200000, "sY":0.200000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,83,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[255,83,83]
+
+									},
+									{
+										"frame":23, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[255,83,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'touch_skill_icon_fire.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-32.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":10, "pX":-32.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "pX":-32.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'touch_skill_fx_white.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-32.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "rotate":-360.000000, "pX":-32.000000, "mode":"Add"
+									}
+								]
 							}
 						]
 					}
@@ -1346,6 +3281,149 @@
 
 									}
 								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.140000, "sY":0.140000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,251,83]
+
+									},
+									{
+										"frame":23, "sX":0.140000, "sY":0.140000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,251,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.140000, "sY":0.140000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,251,83]
+
+									},
+									{
+										"frame":23, "sX":0.140000, "sY":0.140000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,251,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[255,251,83]
+
+									},
+									{
+										"frame":23, "sX":0.100000, "sY":0.100000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[255,251,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "pX":-29.000000, "pY":2.000000, "colorRGB":[245,255,125]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.600000, "sY":0.600000, "pX":-29.000000, "pY":2.000000, "colorRGB":[245,255,125]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,251,83]
+
+									},
+									{
+										"frame":23, "sX":0.200000, "sY":0.200000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,251,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,251,83]
+
+									},
+									{
+										"frame":23, "sX":0.200000, "sY":0.200000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[255,251,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[255,251,83]
+
+									},
+									{
+										"frame":23, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[255,251,83]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'touch_skill_icon_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-32.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":10, "pX":-32.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "pX":-32.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'touch_skill_fx_white.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-32.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "rotate":-360.000000, "pX":-32.000000, "mode":"Add"
+									}
+								]
 							}
 						]
 					}
@@ -1405,6 +3483,211 @@
 									{
 										"frame":23, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[83,173,255]
 
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.140000, "sY":0.140000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,173,255]
+
+									},
+									{
+										"frame":23, "sX":0.140000, "sY":0.140000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,173,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.140000, "sY":0.140000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,173,255]
+
+									},
+									{
+										"frame":23, "sX":0.140000, "sY":0.140000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,173,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[83,173,255]
+
+									},
+									{
+										"frame":23, "sX":0.100000, "sY":0.100000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[83,173,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "pX":-29.000000, "pY":2.000000, "colorRGB":[23,70,255]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.600000, "sY":0.600000, "pX":-29.000000, "pY":2.000000, "colorRGB":[23,70,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,173,255]
+
+									},
+									{
+										"frame":23, "sX":0.200000, "sY":0.200000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,173,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,173,255]
+
+									},
+									{
+										"frame":23, "sX":0.200000, "sY":0.200000, "rotate":-42.000000, "pX":-33.000000, "pY":2.000000, "colorRGB":[83,173,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[83,173,255]
+
+									},
+									{
+										"frame":23, "sX":0.160000, "sY":0.160000, "rotate":-91.000000, "pX":-32.000000, "pY":1.000000, "colorRGB":[83,173,255]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'touch_skill_icon_water.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-32.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":10, "pX":-32.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "pX":-32.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'touch_skill_fx_white.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-32.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "rotate":-360.000000, "pX":-32.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"idle_water",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_gauge_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.950000, "sY":0.900000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":12, "sY":0.950000, "alpha":204, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.950000, "sY":0.900000, "alpha":204, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[26,26,255]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[26,26,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[26,26,255]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":1.200000, "sY":1.200000, "pX":-24.000000, "pY":2.000000, "colorRGB":[26,26,255]
+, "mode":"Add"
 									}
 								]
 							}

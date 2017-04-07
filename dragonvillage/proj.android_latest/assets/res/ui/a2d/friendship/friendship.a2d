@@ -18,7 +18,16 @@
 	],
 	"azTag":
 	[
-
+		{
+			"name":"friendship_emoticon",
+			"apply":true,
+			"res_id":""
+		},
+		{
+			"name":"friendship_emoticon_gray",
+			"apply":true,
+			"res_id":""
+		}
 	],
 	"azParticle":
 	[
@@ -33,6 +42,185 @@
 			"visual_list":
 			[
 				{
+					"name":"emoticon_down",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azTag>'friendship_emoticon'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":5, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":16, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":21, "sX":0.500000, "sY":0.500000
+									},
+									{
+										"frame":24, "sX":0.810000, "sY":0.810000
+									},
+									{
+										"frame":27, "sX":0.700000, "sY":0.700000
+									},
+									{
+										"frame":30, "sX":0.810000, "sY":0.810000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"emoticon_idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.700000, "sY":0.700000, "pY":-1.000000
+									},
+									{
+										"frame":43, "rotate":180.355560, "pY":-1.000000
+									},
+									{
+										"frame":90, "sX":0.700000, "sY":0.700000, "rotate":360.000000, "pY":-1.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.550000, "sY":0.550000, "pY":-1.000000
+									},
+									{
+										"frame":43, "sX":0.650000, "sY":0.650000, "pY":-1.000000
+									},
+									{
+										"frame":90, "sX":0.550000, "sY":0.550000, "pY":-1.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'friendship_emoticon'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":90
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"emoticon_up",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azTag>'friendship_emoticon_gray'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.810000, "sY":0.810000
+									},
+									{
+										"frame":5, "sX":2.000000, "sY":2.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'friendship_emoticon'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.810000, "sY":0.810000, "alpha":0
+									},
+									{
+										"frame":5, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":7, "sX":1.800000, "sY":1.800000
+									},
+									{
+										"frame":10, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":30, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":37
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.050000, "sY":0.050000, "pX":-1.000000, "pY":2.000000
+									},
+									{
+										"frame":5, "sX":0.340000, "sY":0.340000, "pX":-1.000000, "pY":2.000000
+									},
+									{
+										"frame":7, "sX":0.300000, "sY":0.300000, "pX":-1.000000, "pY":2.000000
+									},
+									{
+										"frame":10, "sX":0.340000, "sY":0.340000, "pX":-1.000000, "pY":2.000000
+									},
+									{
+										"frame":34, "sX":0.400000, "sY":0.400000, "pX":-1.000000, "pY":2.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"friendship_down",
 					"apply":true,
 					"fps":30,
@@ -43,184 +231,73 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-204.000000, "pY":40.000000, "alpha":0
+										"frame":0, "pY":94.000000, "alpha":0
 									},
 									{
-										"frame":3, "pX":-204.000000
+										"frame":40
 									},
 									{
-										"frame":5, "pX":-204.000000, "pY":-40.000000
+										"frame":65, "sY":0.700000, "pY":-13.000000
 									},
 									{
-										"frame":7, "pX":-204.000000
+										"frame":68
 									},
 									{
-										"frame":27, "pX":-204.000000
+										"frame":71, "sY":0.800000, "pY":-13.000000
 									},
 									{
-										"frame":32, "pX":-204.000000, "alpha":0
+										"frame":74
+									},
+									{
+										"frame":80
 									}
 								]
-							},
+							}
+						]
+					}
+				},
+				{
+					"name":"friendship_down_disappear",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0102.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":2, "pX":-146.000000, "pY":40.000000, "alpha":0
+										"frame":0, "pY":94.000000, "alpha":0
 									},
 									{
-										"frame":5, "pX":-146.000000
+										"frame":40
 									},
 									{
-										"frame":7, "pX":-146.000000, "pY":-40.000000
+										"frame":65, "sY":0.700000, "pY":-13.000000
 									},
 									{
-										"frame":9, "pX":-146.000000
+										"frame":68
 									},
 									{
-										"frame":28, "pX":-146.000000
+										"frame":71, "sY":0.800000, "pY":-13.000000
 									},
 									{
-										"frame":33, "pX":-146.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0103.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":4, "pX":-86.000000, "pY":40.000000, "alpha":0
+										"frame":74
 									},
 									{
-										"frame":7, "pX":-86.000000
-									},
-									{
-										"frame":9, "pX":-86.000000, "pY":-40.000000
-									},
-									{
-										"frame":11, "pX":-86.000000
-									},
-									{
-										"frame":29, "pX":-86.000000
-									},
-									{
-										"frame":34, "pX":-86.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0104.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":6, "pX":-6.000000, "pY":40.000000, "alpha":0
-									},
-									{
-										"frame":9, "pX":-6.000000
-									},
-									{
-										"frame":11, "pX":-6.000000, "pY":-40.000000
-									},
-									{
-										"frame":13, "pX":-6.000000
-									},
-									{
-										"frame":30, "pX":-6.000000
-									},
-									{
-										"frame":35, "pX":-6.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0105.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":8, "pX":54.000000, "pY":40.000000, "alpha":0
-									},
-									{
-										"frame":11, "pX":54.000000
-									},
-									{
-										"frame":13, "pX":54.000000, "pY":-40.000000
-									},
-									{
-										"frame":15, "pX":54.000000
-									},
-									{
-										"frame":31, "pX":54.000000
-									},
-									{
-										"frame":36, "pX":54.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0106.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":10, "pX":135.000000, "pY":40.000000, "alpha":0
-									},
-									{
-										"frame":13, "pX":135.000000
-									},
-									{
-										"frame":15, "pX":135.000000, "pY":-40.000000
-									},
-									{
-										"frame":17, "pX":135.000000
-									},
-									{
-										"frame":32, "pX":135.000000
-									},
-									{
-										"frame":37, "pX":135.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0107.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":12, "pX":195.000000, "pY":40.000000, "alpha":0
-									},
-									{
-										"frame":15, "pX":195.000000
-									},
-									{
-										"frame":17, "pX":195.000000, "pY":-40.000000
-									},
-									{
-										"frame":19, "pX":195.000000
-									},
-									{
-										"frame":33, "pX":195.000000
-									},
-									{
-										"frame":38, "pX":195.000000, "alpha":0
+										"frame":90, "alpha":0
 									}
 								]
 							}
@@ -271,269 +348,122 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_heart.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "sY":0.000000
+										"frame":0
 									},
 									{
 										"frame":3, "sX":1.300000
 									},
 									{
-										"frame":5, "sY":1.300000
+										"frame":6, "sY":1.300000
 									},
 									{
-										"frame":7, "sX":1.200000
+										"frame":9, "sX":1.200000
 									},
 									{
-										"frame":9, "sY":1.200000
-									},
-									{
-										"frame":11, "sX":1.100000
-									},
-									{
-										"frame":13, "sY":1.100000
+										"frame":12, "sY":1.200000
 									},
 									{
 										"frame":15, "sX":1.100000
 									},
 									{
-										"frame":17, "sY":1.100000
+										"frame":18, "sY":1.100000
 									},
 									{
-										"frame":19, "sX":1.100000
+										"frame":21
 									},
 									{
-										"frame":21, "sY":1.100000
-									},
-									{
-										"frame":23, "sX":1.100000
-									},
-									{
-										"frame":25, "sY":1.100000
-									},
-									{
-										"frame":27, "sX":1.100000
-									},
-									{
-										"frame":29, "sY":1.100000
-									},
-									{
-										"frame":31, "sX":1.100000
-									},
-									{
-										"frame":34, "sX":0.000000, "sY":0.000000
+										"frame":80
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_light.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-210.000000, "pY":-40.000000, "alpha":0
+										"frame":40, "alpha":0
 									},
 									{
-										"frame":3, "pX":-210.000000
+										"frame":50
 									},
 									{
-										"frame":5, "pX":-210.000000, "pY":40.000000
-									},
-									{
-										"frame":7, "pX":-210.000000
-									},
-									{
-										"frame":27, "pX":-210.000000
-									},
-									{
-										"frame":32, "pX":-210.000000, "alpha":0
+										"frame":80, "alpha":0
 									}
 								]
-							},
+							}
+						]
+					}
+				},
+				{
+					"name":"friendship_up_disappear",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0102.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":2, "pX":-152.000000, "pY":-40.000000, "alpha":0
+										"frame":0
 									},
 									{
-										"frame":5, "pX":-152.000000
+										"frame":3, "sX":1.300000
 									},
 									{
-										"frame":7, "pX":-152.000000, "pY":40.000000
+										"frame":6, "sY":1.300000
 									},
 									{
-										"frame":9, "pX":-152.000000
+										"frame":9, "sX":1.200000
 									},
 									{
-										"frame":28, "pX":-152.000000
+										"frame":12, "sY":1.200000
 									},
 									{
-										"frame":33, "pX":-152.000000, "alpha":0
+										"frame":15, "sX":1.100000
+									},
+									{
+										"frame":18, "sY":1.100000
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":67
+									},
+									{
+										"frame":80, "alpha":0
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0103.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_light.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":4, "pX":-92.000000, "pY":-40.000000, "alpha":0
+										"frame":40, "alpha":0
 									},
 									{
-										"frame":7, "pX":-92.000000
+										"frame":50
 									},
 									{
-										"frame":9, "pX":-92.000000, "pY":40.000000
-									},
-									{
-										"frame":11, "pX":-92.000000
-									},
-									{
-										"frame":29, "pX":-92.000000
-									},
-									{
-										"frame":34, "pX":-92.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0104.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":6, "pX":-12.000000, "pY":-40.000000, "alpha":0
-									},
-									{
-										"frame":9, "pX":-12.000000
-									},
-									{
-										"frame":11, "pX":-12.000000, "pY":40.000000
-									},
-									{
-										"frame":13, "pX":-12.000000
-									},
-									{
-										"frame":30, "pX":-12.000000
-									},
-									{
-										"frame":35, "pX":-12.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0105.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":8, "pX":48.000000, "pY":-40.000000, "alpha":0
-									},
-									{
-										"frame":11, "pX":48.000000
-									},
-									{
-										"frame":13, "pX":48.000000, "pY":40.000000
-									},
-									{
-										"frame":15, "pX":48.000000
-									},
-									{
-										"frame":31, "pX":48.000000
-									},
-									{
-										"frame":36, "pX":48.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0106.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":10, "pX":129.000000, "pY":-40.000000, "alpha":0
-									},
-									{
-										"frame":13, "pX":129.000000
-									},
-									{
-										"frame":15, "pX":129.000000, "pY":40.000000
-									},
-									{
-										"frame":17, "pX":129.000000
-									},
-									{
-										"frame":32, "pX":129.000000
-									},
-									{
-										"frame":37, "pX":129.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0107.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":12, "pX":189.000000, "pY":-40.000000, "alpha":0
-									},
-									{
-										"frame":15, "pX":189.000000
-									},
-									{
-										"frame":17, "pX":189.000000, "pY":40.000000
-									},
-									{
-										"frame":19, "pX":189.000000
-									},
-									{
-										"frame":33, "pX":189.000000
-									},
-									{
-										"frame":38, "pX":189.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0108.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":14, "pX":231.000000, "pY":-40.000000, "alpha":0
-									},
-									{
-										"frame":17, "pX":231.000000
-									},
-									{
-										"frame":19, "pX":231.000000, "pY":40.000000
-									},
-									{
-										"frame":21, "pX":231.000000
-									},
-									{
-										"frame":34, "pX":231.000000
-									},
-									{
-										"frame":39, "pX":231.000000, "alpha":0
+										"frame":80, "alpha":0
 									}
 								]
 							}
@@ -1417,6 +1347,481 @@
 			"apply":false,
 			"visual_list":
 			[
+				{
+					"name":"friendship_down",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-204.000000, "pY":40.000000, "alpha":0
+									},
+									{
+										"frame":3, "pX":-204.000000
+									},
+									{
+										"frame":5, "pX":-204.000000, "pY":-40.000000
+									},
+									{
+										"frame":7, "pX":-204.000000
+									},
+									{
+										"frame":27, "pX":-204.000000
+									},
+									{
+										"frame":32, "pX":-204.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pX":-146.000000, "pY":40.000000, "alpha":0
+									},
+									{
+										"frame":5, "pX":-146.000000
+									},
+									{
+										"frame":7, "pX":-146.000000, "pY":-40.000000
+									},
+									{
+										"frame":9, "pX":-146.000000
+									},
+									{
+										"frame":28, "pX":-146.000000
+									},
+									{
+										"frame":33, "pX":-146.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-86.000000, "pY":40.000000, "alpha":0
+									},
+									{
+										"frame":7, "pX":-86.000000
+									},
+									{
+										"frame":9, "pX":-86.000000, "pY":-40.000000
+									},
+									{
+										"frame":11, "pX":-86.000000
+									},
+									{
+										"frame":29, "pX":-86.000000
+									},
+									{
+										"frame":34, "pX":-86.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":-6.000000, "pY":40.000000, "alpha":0
+									},
+									{
+										"frame":9, "pX":-6.000000
+									},
+									{
+										"frame":11, "pX":-6.000000, "pY":-40.000000
+									},
+									{
+										"frame":13, "pX":-6.000000
+									},
+									{
+										"frame":30, "pX":-6.000000
+									},
+									{
+										"frame":35, "pX":-6.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0105.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":54.000000, "pY":40.000000, "alpha":0
+									},
+									{
+										"frame":11, "pX":54.000000
+									},
+									{
+										"frame":13, "pX":54.000000, "pY":-40.000000
+									},
+									{
+										"frame":15, "pX":54.000000
+									},
+									{
+										"frame":31, "pX":54.000000
+									},
+									{
+										"frame":36, "pX":54.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0106.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":135.000000, "pY":40.000000, "alpha":0
+									},
+									{
+										"frame":13, "pX":135.000000
+									},
+									{
+										"frame":15, "pX":135.000000, "pY":-40.000000
+									},
+									{
+										"frame":17, "pX":135.000000
+									},
+									{
+										"frame":32, "pX":135.000000
+									},
+									{
+										"frame":37, "pX":135.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_down_0107.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":195.000000, "pY":40.000000, "alpha":0
+									},
+									{
+										"frame":15, "pX":195.000000
+									},
+									{
+										"frame":17, "pX":195.000000, "pY":-40.000000
+									},
+									{
+										"frame":19, "pX":195.000000
+									},
+									{
+										"frame":33, "pX":195.000000
+									},
+									{
+										"frame":38, "pX":195.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"friendship_up",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_heart.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000
+									},
+									{
+										"frame":3, "sX":1.300000
+									},
+									{
+										"frame":5, "sY":1.300000
+									},
+									{
+										"frame":7, "sX":1.200000
+									},
+									{
+										"frame":9, "sY":1.200000
+									},
+									{
+										"frame":11, "sX":1.100000
+									},
+									{
+										"frame":13, "sY":1.100000
+									},
+									{
+										"frame":15, "sX":1.100000
+									},
+									{
+										"frame":17, "sY":1.100000
+									},
+									{
+										"frame":19, "sX":1.100000
+									},
+									{
+										"frame":21, "sY":1.100000
+									},
+									{
+										"frame":23, "sX":1.100000
+									},
+									{
+										"frame":25, "sY":1.100000
+									},
+									{
+										"frame":27, "sX":1.100000
+									},
+									{
+										"frame":29, "sY":1.100000
+									},
+									{
+										"frame":31, "sX":1.100000
+									},
+									{
+										"frame":34, "sX":0.000000, "sY":0.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-210.000000, "pY":-40.000000, "alpha":0
+									},
+									{
+										"frame":3, "pX":-210.000000
+									},
+									{
+										"frame":5, "pX":-210.000000, "pY":40.000000
+									},
+									{
+										"frame":7, "pX":-210.000000
+									},
+									{
+										"frame":27, "pX":-210.000000
+									},
+									{
+										"frame":32, "pX":-210.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pX":-152.000000, "pY":-40.000000, "alpha":0
+									},
+									{
+										"frame":5, "pX":-152.000000
+									},
+									{
+										"frame":7, "pX":-152.000000, "pY":40.000000
+									},
+									{
+										"frame":9, "pX":-152.000000
+									},
+									{
+										"frame":28, "pX":-152.000000
+									},
+									{
+										"frame":33, "pX":-152.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-92.000000, "pY":-40.000000, "alpha":0
+									},
+									{
+										"frame":7, "pX":-92.000000
+									},
+									{
+										"frame":9, "pX":-92.000000, "pY":40.000000
+									},
+									{
+										"frame":11, "pX":-92.000000
+									},
+									{
+										"frame":29, "pX":-92.000000
+									},
+									{
+										"frame":34, "pX":-92.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":-12.000000, "pY":-40.000000, "alpha":0
+									},
+									{
+										"frame":9, "pX":-12.000000
+									},
+									{
+										"frame":11, "pX":-12.000000, "pY":40.000000
+									},
+									{
+										"frame":13, "pX":-12.000000
+									},
+									{
+										"frame":30, "pX":-12.000000
+									},
+									{
+										"frame":35, "pX":-12.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0105.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":48.000000, "pY":-40.000000, "alpha":0
+									},
+									{
+										"frame":11, "pX":48.000000
+									},
+									{
+										"frame":13, "pX":48.000000, "pY":40.000000
+									},
+									{
+										"frame":15, "pX":48.000000
+									},
+									{
+										"frame":31, "pX":48.000000
+									},
+									{
+										"frame":36, "pX":48.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0106.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":129.000000, "pY":-40.000000, "alpha":0
+									},
+									{
+										"frame":13, "pX":129.000000
+									},
+									{
+										"frame":15, "pX":129.000000, "pY":40.000000
+									},
+									{
+										"frame":17, "pX":129.000000
+									},
+									{
+										"frame":32, "pX":129.000000
+									},
+									{
+										"frame":37, "pX":129.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0107.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":189.000000, "pY":-40.000000, "alpha":0
+									},
+									{
+										"frame":15, "pX":189.000000
+									},
+									{
+										"frame":17, "pX":189.000000, "pY":40.000000
+									},
+									{
+										"frame":19, "pX":189.000000
+									},
+									{
+										"frame":33, "pX":189.000000
+									},
+									{
+										"frame":38, "pX":189.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_0108.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":14, "pX":231.000000, "pY":-40.000000, "alpha":0
+									},
+									{
+										"frame":17, "pX":231.000000
+									},
+									{
+										"frame":19, "pX":231.000000, "pY":40.000000
+									},
+									{
+										"frame":21, "pX":231.000000
+									},
+									{
+										"frame":34, "pX":231.000000
+									},
+									{
+										"frame":39, "pX":231.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
 				{
 					"name":"res_fx",
 					"apply":true,

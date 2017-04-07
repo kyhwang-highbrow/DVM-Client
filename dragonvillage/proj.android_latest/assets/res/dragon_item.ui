@@ -118,6 +118,32 @@
 				};
 				[4] =
 				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -46.000000;
+					y = 9.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 38;
+					height = 42;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'leaderSprite';
+					file_name = 'ui/icon/icon_leader.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[5] =
+				{
 					[1] =
 					{
 						type = 'Sprite';
@@ -161,7 +187,7 @@
 					visible = true;
 					lua_name = 'attrNode';
 				};
-				[5] =
+				[6] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -187,7 +213,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[6] =
+				[7] =
 				{
 					[1] =
 					{
@@ -232,7 +258,7 @@
 					visible = true;
 					lua_name = 'rarityNode';
 				};
-				[7] =
+				[8] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -251,18 +277,18 @@
 					visible = true;
 					lua_name = 'frameNode';
 				};
-				[8] =
+				[9] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -30.000000;
-					y = 1.000000;
+					x = -35.000000;
+					y = -27.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 51;
 					height = 34;
-					scale_x = 1.200000;
+					scale_x = 0.960000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
@@ -291,7 +317,7 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[9] =
+				[10] =
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
@@ -321,7 +347,7 @@
 					mid_point_y = 0.000000;
 					percentage = 100;
 				};
-				[10] =
+				[11] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -361,7 +387,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[11] =
+				[12] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -380,7 +406,7 @@
 					visible = false;
 					lua_name = 'roleNode';
 				};
-				[12] =
+				[13] =
 				{
 					type = 'Node';
 					ui_name = '';

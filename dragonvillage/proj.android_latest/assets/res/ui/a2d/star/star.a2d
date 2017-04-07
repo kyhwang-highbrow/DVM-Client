@@ -18,18 +18,11 @@
 	],
 	"azTag":
 	[
-		{
-			"name":"particle_radius_glow_1",
-			"apply":true,
-			"res_id":"<azProject>''<azParticle>'(PROJECT_PATH)..\..\particle\particle_radius_glow_1.plist'"
-		}
+
 	],
 	"azParticle":
 	[
-		{
-			"name":"(PROJECT_PATH)..\..\particle\particle_radius_glow_1.plist",
-			"apply":true
-		}
+
 	],
 	"azVisualGroup":
 	[
@@ -39,6 +32,4776 @@
 			"apply":true,
 			"visual_list":
 			[
+				{
+					"name":"eclv_01",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_03",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_04",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_05",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_06",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_07",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_08",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_09",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_10",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_11",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_12",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_3'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_13",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_14",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_15",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_16",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_17",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"eclv_18",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-130.000000
+									},
+									{
+										"frame":25, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-130.000000
+									},
+									{
+										"frame":90, "pX":-130.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-78.000000
+									},
+									{
+										"frame":29, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-78.000000
+									},
+									{
+										"frame":90, "pX":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":-26.000000
+									},
+									{
+										"frame":33, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":34, "pX":-26.000000
+									},
+									{
+										"frame":90, "pX":-26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":26.000000
+									},
+									{
+										"frame":37, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":38, "pX":26.000000
+									},
+									{
+										"frame":90, "pX":26.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":78.000000
+									},
+									{
+										"frame":43, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":44, "pX":78.000000
+									},
+									{
+										"frame":90, "pX":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_small_4'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":129.000000
+									},
+									{
+										"frame":49, "pX":129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":129.000000
+									},
+									{
+										"frame":90, "pX":129.000000
+									}
+								]
+							}
+						]
+					}
+				},
 				{
 					"name":"grade_06",
 					"apply":true,
@@ -105,27 +4868,13 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
 										"frame":26
-									},
-									{
-										"frame":90
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azTag>'particle_radius_glow_1'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
 									},
 									{
 										"frame":90
@@ -160,7 +4909,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -188,7 +4937,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -198,20 +4947,6 @@
 									},
 									{
 										"frame":90, "pX":26.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azTag>'particle_radius_glow_1'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":90
 									}
 								]
 							}
@@ -243,7 +4978,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -271,7 +5006,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -299,7 +5034,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -309,20 +5044,6 @@
 									},
 									{
 										"frame":90, "pX":50.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azTag>'particle_radius_glow_1'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":90
 									}
 								]
 							}
@@ -354,7 +5075,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -382,7 +5103,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -410,7 +5131,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -438,7 +5159,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -448,20 +5169,6 @@
 									},
 									{
 										"frame":90, "pX":78.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azTag>'particle_radius_glow_1'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":90
 									}
 								]
 							}
@@ -493,7 +5200,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -521,7 +5228,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -549,7 +5256,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -577,7 +5284,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -605,7 +5312,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -615,20 +5322,6 @@
 									},
 									{
 										"frame":90, "pX":100.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azTag>'particle_radius_glow_1'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":90
 									}
 								]
 							}
@@ -660,7 +5353,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -688,7 +5381,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -716,7 +5409,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -744,7 +5437,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -772,7 +5465,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -800,7 +5493,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -810,20 +5503,6 @@
 									},
 									{
 										"frame":90, "pX":129.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azTag>'particle_radius_glow_1'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":90
 									}
 								]
 							}
@@ -1277,7 +5956,397 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":13, "sX":1.360000, "sY":1.340000
+									},
+									{
+										"frame":17, "sX":1.112000, "sY":1.114666
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":25
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.700000, "sY":4.700000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":4, "sX":1.600000, "sY":1.600000, "mode":"Add"
+									},
+									{
+										"frame":9, "sX":1.300000, "sY":1.300000, "mode":"Add"
+									},
+									{
+										"frame":13, "sX":1.200000, "sY":1.200000, "mode":"Add"
+									},
+									{
+										"frame":17, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "rotate":-65.000000, "mode":"Add"
+									},
+									{
+										"frame":12, "sX":1.400000, "sY":1.400000, "rotate":-65.000000, "mode":"Add"
+									},
+									{
+										"frame":16, "sX":1.500000, "sY":1.500000, "rotate":-65.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":0.500000, "sY":0.500000, "rotate":121.000000, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":0.900000, "sY":0.900000, "rotate":121.000000, "mode":"Add"
+									},
+									{
+										"frame":19, "rotate":121.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":11, "sX":0.500000, "sY":0.500000, "mode":"Add"
+									},
+									{
+										"frame":18, "sX":0.900000, "sY":0.900000, "mode":"Add"
+									},
+									{
+										"frame":22, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000
+									},
+									{
+										"frame":6, "sX":0.204000, "sY":0.204000
+									},
+									{
+										"frame":13, "sX":0.274737, "sY":0.274737
+									},
+									{
+										"frame":19, "sX":0.291579, "sY":0.291579
+									},
+									{
+										"frame":25, "sX":0.300000, "sY":0.300000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_star_small_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":13, "sX":1.360000, "sY":1.340000
+									},
+									{
+										"frame":17, "sX":1.112000, "sY":1.114666
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":25
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.700000, "sY":4.700000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":4, "sX":1.600000, "sY":1.600000, "mode":"Add"
+									},
+									{
+										"frame":9, "sX":1.300000, "sY":1.300000, "mode":"Add"
+									},
+									{
+										"frame":13, "sX":1.200000, "sY":1.200000, "mode":"Add"
+									},
+									{
+										"frame":17, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "rotate":-65.000000, "mode":"Add"
+									},
+									{
+										"frame":12, "sX":1.400000, "sY":1.400000, "rotate":-65.000000, "mode":"Add"
+									},
+									{
+										"frame":16, "sX":1.500000, "sY":1.500000, "rotate":-65.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":0.500000, "sY":0.500000, "rotate":121.000000, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":0.900000, "sY":0.900000, "rotate":121.000000, "mode":"Add"
+									},
+									{
+										"frame":19, "rotate":121.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":11, "sX":0.500000, "sY":0.500000, "mode":"Add"
+									},
+									{
+										"frame":18, "sX":0.900000, "sY":0.900000, "mode":"Add"
+									},
+									{
+										"frame":22, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000
+									},
+									{
+										"frame":6, "sX":0.204000, "sY":0.204000
+									},
+									{
+										"frame":13, "sX":0.274737, "sY":0.274737
+									},
+									{
+										"frame":19, "sX":0.291579, "sY":0.291579
+									},
+									{
+										"frame":25, "sX":0.300000, "sY":0.300000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_star_small_3",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":13, "sX":1.360000, "sY":1.340000
+									},
+									{
+										"frame":17, "sX":1.112000, "sY":1.114666
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":25
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.700000, "sY":4.700000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":4, "sX":1.600000, "sY":1.600000, "mode":"Add"
+									},
+									{
+										"frame":9, "sX":1.300000, "sY":1.300000, "mode":"Add"
+									},
+									{
+										"frame":13, "sX":1.200000, "sY":1.200000, "mode":"Add"
+									},
+									{
+										"frame":17, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "rotate":-65.000000, "mode":"Add"
+									},
+									{
+										"frame":12, "sX":1.400000, "sY":1.400000, "rotate":-65.000000, "mode":"Add"
+									},
+									{
+										"frame":16, "sX":1.500000, "sY":1.500000, "rotate":-65.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":0.500000, "sY":0.500000, "rotate":121.000000, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":0.900000, "sY":0.900000, "rotate":121.000000, "mode":"Add"
+									},
+									{
+										"frame":19, "rotate":121.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":11, "sX":0.500000, "sY":0.500000, "mode":"Add"
+									},
+									{
+										"frame":18, "sX":0.900000, "sY":0.900000, "mode":"Add"
+									},
+									{
+										"frame":22, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'res_star_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000
+									},
+									{
+										"frame":6, "sX":0.204000, "sY":0.204000
+									},
+									{
+										"frame":13, "sX":0.274737, "sY":0.274737
+									},
+									{
+										"frame":19, "sX":0.291579, "sY":0.291579
+									},
+									{
+										"frame":25, "sX":0.300000, "sY":0.300000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_star_small_4",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_type_04.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":

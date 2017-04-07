@@ -1,0 +1,1242 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)dragon_bg_water.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_ocean.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":120
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_left_01_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-253.000000, "pY":-75.000000
+									},
+									{
+										"frame":120, "pX":-253.000000, "pY":-75.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_seaweed_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.700000, "sY":0.700000, "pX":-78.000000, "pY":-14.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":62, "sX":0.546000, "sY":0.777000, "rotate":12.000000, "pX":-81.000000, "pY":-14.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":120, "sX":0.700000, "sY":0.700000, "pX":-78.000000, "pY":-14.000000, "alpha":179, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_seaweed_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-337.000000, "pY":10.000000, "alpha":179, "mode":"Add", "hflip":"H"
+									},
+									{
+										"frame":54, "sX":0.810000, "sY":1.040000, "rotate":12.000000, "pX":-334.000000, "pY":10.000000, "alpha":179, "mode":"Add", "hflip":"H"
+									},
+									{
+										"frame":120, "pX":-337.000000, "pY":10.000000, "alpha":179, "mode":"Add", "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_seaweed_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-43.000000, "pY":-63.000000, "alpha":128
+									},
+									{
+										"frame":64, "sX":0.794503, "sY":0.996870, "rotate":-6.000000, "pX":-46.000000, "pY":-63.000000, "alpha":128
+									},
+									{
+										"frame":120, "pX":-43.000000, "pY":-63.000000, "alpha":128
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_seaweed_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-365.000000, "pY":-12.000000, "alpha":128
+									},
+									{
+										"frame":60, "rotate":-7.000000, "pX":-362.000000, "pY":-12.000000, "alpha":128
+									},
+									{
+										"frame":120, "pX":-365.000000, "pY":-12.000000, "alpha":128
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_stone_left_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-384.000000, "pY":83.000000
+									},
+									{
+										"frame":120, "pX":-384.000000, "pY":83.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_left_01_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-285.000000, "pY":-134.000000
+									},
+									{
+										"frame":59, "sX":0.938400, "sY":1.020100, "rotate":2.000000, "pX":-282.000000, "pY":-138.000000
+									},
+									{
+										"frame":120, "pX":-285.000000, "pY":-134.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_light_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.546480, "sY":1.199375, "rotate":11.000000, "pX":-394.000000, "pY":355.000000, "alpha":127, "mode":"Add"
+									},
+									{
+										"frame":58, "sX":0.737297, "sY":1.693568, "rotate":17.000000, "pX":-383.000000, "pY":360.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":120, "sX":0.546480, "sY":1.199375, "rotate":11.000000, "pX":-394.000000, "pY":355.000000, "alpha":127, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_left_01_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-497.000000, "pY":-27.000000
+									},
+									{
+										"frame":63, "sX":0.930000, "sY":1.010000, "rotate":-5.000000, "pX":-497.000000, "pY":-28.000000
+									},
+									{
+										"frame":120, "pX":-497.000000, "pY":-27.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_stone_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-418.000000, "pY":354.000000
+									},
+									{
+										"frame":120, "pX":-418.000000, "pY":354.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_stone_left_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-505.000000, "pY":-64.000000
+									},
+									{
+										"frame":120, "pX":-505.000000, "pY":-64.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_left_02_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-516.000000, "pY":-89.000000
+									},
+									{
+										"frame":66, "sX":0.930600, "sY":0.979200, "rotate":-4.000000, "pX":-515.000000, "pY":-89.000000
+									},
+									{
+										"frame":120, "pX":-516.000000, "pY":-89.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_left_02_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-515.000000, "pY":-170.000000, "colorRGB":[193,193,193]
+
+									},
+									{
+										"frame":64, "sX":0.940000, "sY":1.010000, "rotate":6.000000, "pX":-517.000000, "pY":-169.000000, "colorRGB":[193,193,193]
+
+									},
+									{
+										"frame":120, "pX":-515.000000, "pY":-170.000000, "colorRGB":[193,193,193]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_left_02_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-479.000000, "pY":-129.000000
+									},
+									{
+										"frame":63, "sX":0.960000, "sY":1.020000, "rotate":4.000000, "pX":-479.000000, "pY":-129.000000
+									},
+									{
+										"frame":120, "pX":-479.000000, "pY":-129.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_left_02_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-449.000000, "pY":-160.000000, "colorRGB":[230,230,230]
+
+									},
+									{
+										"frame":64, "sX":0.920700, "sY":0.988800, "rotate":-3.000000, "pX":-449.000000, "pY":-160.000000, "colorRGB":[230,230,230]
+
+									},
+									{
+										"frame":120, "pX":-449.000000, "pY":-160.000000, "colorRGB":[230,230,230]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_left_02_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-454.000000, "pY":-189.000000, "colorRGB":[192,192,192]
+
+									},
+									{
+										"frame":61, "sX":0.900900, "sY":0.948600, "rotate":5.000000, "pX":-455.000000, "pY":-188.000000, "colorRGB":[192,192,192]
+
+									},
+									{
+										"frame":120, "pX":-454.000000, "pY":-189.000000, "colorRGB":[192,192,192]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_left_02_06.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-414.000000, "pY":-224.000000
+									},
+									{
+										"frame":60, "rotate":10.000000, "pX":-416.000000, "pY":-224.000000
+									},
+									{
+										"frame":120, "pX":-414.000000, "pY":-224.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_left_02_07.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-389.000000, "pY":-234.000000
+									},
+									{
+										"frame":61, "sX":0.970000, "sY":0.910000, "pX":-389.000000, "pY":-235.000000
+									},
+									{
+										"frame":120, "pX":-389.000000, "pY":-234.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_01_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":159.000000, "pY":-173.000000, "colorRGB":[218,218,218]
+
+									},
+									{
+										"frame":60, "sX":0.920000, "sY":1.050000, "rotate":-7.000000, "pX":155.000000, "pY":-174.000000, "colorRGB":[218,218,218]
+
+									},
+									{
+										"frame":120, "pX":159.000000, "pY":-173.000000, "colorRGB":[218,218,218]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_01_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":112.000000, "pY":-185.000000
+									},
+									{
+										"frame":62, "sX":0.930000, "sY":0.990000, "rotate":4.000000, "pX":112.000000, "pY":-183.000000
+									},
+									{
+										"frame":120, "pX":112.000000, "pY":-185.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_02_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-98.000000, "pY":-64.000000
+									},
+									{
+										"frame":60, "sX":0.930000, "sY":1.030000, "rotate":7.000000, "pX":-100.000000, "pY":-65.000000
+									},
+									{
+										"frame":120, "pX":-98.000000, "pY":-64.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_02_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-124.000000, "pY":-172.000000
+									},
+									{
+										"frame":61, "sX":0.930000, "sY":1.020000, "rotate":3.000000, "pX":-124.000000, "pY":-171.000000
+									},
+									{
+										"frame":120, "pX":-124.000000, "pY":-172.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_02_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-11.000000, "pY":-64.000000
+									},
+									{
+										"frame":60, "sX":0.900000, "sY":1.040000, "rotate":-9.000000, "pX":-11.000000, "pY":-62.000000
+									},
+									{
+										"frame":120, "pX":-11.000000, "pY":-64.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_02_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":49.000000, "pY":-63.000000
+									},
+									{
+										"frame":61, "sX":0.930000, "sY":1.010000, "pX":49.000000, "pY":-65.000000
+									},
+									{
+										"frame":120, "pX":49.000000, "pY":-63.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_03_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-78.000000, "pY":-154.000000
+									},
+									{
+										"frame":58, "sX":0.900000, "sY":1.030000, "rotate":10.000000, "pX":-78.000000, "pY":-154.000000
+									},
+									{
+										"frame":120, "pX":-78.000000, "pY":-154.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_03_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-96.000000, "pY":-174.000000
+									},
+									{
+										"frame":61, "sX":0.850000, "sY":1.040000, "pX":-96.000000, "pY":-172.000000
+									},
+									{
+										"frame":120, "pX":-96.000000, "pY":-174.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_03_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-127.000000, "pY":-197.000000, "colorRGB":[215,215,215]
+
+									},
+									{
+										"frame":60, "rotate":-8.000000, "pX":-128.000000, "pY":-191.000000, "colorRGB":[215,215,215]
+
+									},
+									{
+										"frame":120, "pX":-127.000000, "pY":-197.000000, "colorRGB":[215,215,215]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_03_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-203.000000, "pY":-225.000000
+									},
+									{
+										"frame":62, "sX":0.950000, "sY":0.980000, "pX":-203.000000, "pY":-225.000000
+									},
+									{
+										"frame":120, "pX":-203.000000, "pY":-225.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_stone_right_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-40.000000, "pY":-213.000000
+									},
+									{
+										"frame":120, "pX":-40.000000, "pY":-213.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_light_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":5.733000, "sY":1.403900, "pX":-327.000000, "pY":-255.000000, "alpha":128
+									},
+									{
+										"frame":58, "sX":6.363630, "sY":0.744067, "pX":-327.000000, "pY":-192.000000, "alpha":128
+									},
+									{
+										"frame":120, "sX":5.733000, "sY":1.403900, "pX":-327.000000, "pY":-255.000000, "alpha":128
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_stone_left_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-283.000000, "pY":-202.000000
+									},
+									{
+										"frame":120, "pX":-283.000000, "pY":-202.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_seaweed_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":197.000000, "pY":-321.000000
+									},
+									{
+										"frame":63, "sX":1.170300, "sY":0.989800, "rotate":11.000000, "pX":197.000000, "pY":-321.000000
+									},
+									{
+										"frame":120, "pX":197.000000, "pY":-321.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_seaweed_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":427.000000, "pY":-241.000000
+									},
+									{
+										"frame":63, "sX":0.830000, "rotate":11.000000, "pX":427.000000, "pY":-241.000000
+									},
+									{
+										"frame":120, "pX":427.000000, "pY":-241.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_light_03_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-357.000000, "pY":-54.000000, "mode":"Add"
+									},
+									{
+										"frame":50, "sX":1.377400, "sY":1.393600, "pX":-357.000000, "pY":-47.000000, "mode":"Add"
+									},
+									{
+										"frame":84, "sX":0.979155, "sY":1.515053, "pX":-355.000000, "pY":-40.000000, "mode":"Add"
+									},
+									{
+										"frame":120, "pX":-357.000000, "pY":-54.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_light_03_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-17.000000, "pX":-445.000000, "pY":-21.000000, "mode":"Add"
+									},
+									{
+										"frame":50, "sX":1.377400, "sY":1.393600, "rotate":-17.000000, "pX":-445.000000, "pY":-14.000000, "mode":"Add"
+									},
+									{
+										"frame":84, "sX":0.979155, "sY":1.515053, "rotate":-17.000000, "pX":-443.000000, "pY":-7.000000, "mode":"Add"
+									},
+									{
+										"frame":120, "rotate":-17.000000, "pX":-445.000000, "pY":-21.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_light_03_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":18.000000, "pX":-69.000000, "pY":-82.000000, "mode":"Add"
+									},
+									{
+										"frame":50, "sX":1.377400, "sY":1.393600, "rotate":18.000000, "pX":-69.000000, "pY":-75.000000, "mode":"Add"
+									},
+									{
+										"frame":84, "sX":0.979155, "sY":1.515053, "rotate":18.000000, "pX":-67.000000, "pY":-68.000000, "mode":"Add"
+									},
+									{
+										"frame":120, "rotate":18.000000, "pX":-69.000000, "pY":-82.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_light_03_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-10.000000, "pX":62.000000, "pY":-64.000000, "mode":"Add"
+									},
+									{
+										"frame":50, "sX":1.377400, "sY":1.393600, "rotate":-10.000000, "pX":62.000000, "pY":-57.000000, "mode":"Add"
+									},
+									{
+										"frame":84, "sX":0.979155, "sY":1.515053, "rotate":-10.000000, "pX":64.000000, "pY":-50.000000, "mode":"Add"
+									},
+									{
+										"frame":91, "sX":0.983208, "sY":1.414904, "rotate":-10.000000, "pX":63.611115, "pY":-52.722221, "mode":"Add"
+									},
+									{
+										"frame":120, "rotate":-10.000000, "pX":62.000000, "pY":-64.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_stone_right_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":376.000000, "pY":-202.000000
+									},
+									{
+										"frame":120, "pX":376.000000, "pY":-202.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_03_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-179.000000, "pY":-256.000000
+									},
+									{
+										"frame":65, "sX":0.920000, "sY":1.020000, "pX":-179.000000, "pY":-256.000000
+									},
+									{
+										"frame":120, "pX":-179.000000, "pY":-256.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_04_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":29.000000, "pY":-171.000000
+									},
+									{
+										"frame":48, "sX":0.930000, "sY":1.020000, "rotate":7.000000, "pX":29.000000, "pY":-167.000000
+									},
+									{
+										"frame":120, "pX":29.000000, "pY":-171.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_coral_right_04_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":29.000000, "pY":-214.000000
+									},
+									{
+										"frame":62, "sX":0.930000, "sY":1.050000, "pX":29.000000, "pY":-214.000000
+									},
+									{
+										"frame":120, "pX":29.000000, "pY":-214.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_seaweed_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-219.000000, "pY":-246.000000
+									},
+									{
+										"frame":64, "sX":0.770000, "sY":0.960000, "rotate":11.000000, "pX":-219.000000, "pY":-246.000000
+									},
+									{
+										"frame":120, "pX":-219.000000, "pY":-246.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_seaweed_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-462.000000, "pY":-308.000000, "hflip":"H"
+									},
+									{
+										"frame":63, "sX":0.810000, "sY":1.010000, "rotate":11.000000, "pX":-462.000000, "pY":-308.000000, "hflip":"H"
+									},
+									{
+										"frame":120, "pX":-462.000000, "pY":-308.000000, "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_seaweed_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-272.000000, "pY":-332.000000
+									},
+									{
+										"frame":63, "sX":0.930000, "sY":1.050000, "rotate":11.000000, "pX":-272.000000, "pY":-332.000000
+									},
+									{
+										"frame":120, "pX":-272.000000, "pY":-332.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_seaweed_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-425.000000, "pY":-416.000000
+									},
+									{
+										"frame":120, "pX":-425.000000, "pY":-416.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_light_03_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":8.000000, "pX":-2.000000, "pY":-44.000000, "mode":"Add"
+									},
+									{
+										"frame":50, "sX":1.377400, "sY":1.393600, "rotate":8.000000, "pX":-2.000000, "pY":-37.000000, "mode":"Add"
+									},
+									{
+										"frame":84, "sX":0.979155, "sY":1.515053, "rotate":8.000000, "pY":-30.000000, "mode":"Add"
+									},
+									{
+										"frame":120, "rotate":8.000000, "pX":-2.000000, "pY":-44.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_light_02_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":-0.619412, "sY":0.909337, "rotate":43.000000, "pX":-157.000000, "pY":70.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":10, "sX":-0.653096, "sY":1.022168, "rotate":39.000004, "pX":-170.777786, "pY":81.555557, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":45, "sX":-0.616791, "sY":1.275368, "rotate":25.000000, "pX":-219.000000, "pY":122.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":120, "sX":-0.700000, "sY":1.083000, "pX":-294.000000, "pY":169.000000, "alpha":76, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_light_02_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":-0.619412, "sY":0.909337, "rotate":43.000000, "pX":-265.000000, "pY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":22, "sX":-0.653096, "sY":1.022168, "rotate":39.000004, "pX":-220.000000, "pY":49.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":68, "sX":-0.770988, "sY":1.417076, "rotate":25.000000, "pX":-178.000000, "pY":108.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":120, "sX":-0.700000, "sY":1.083000, "pX":-179.000000, "pY":160.000000, "alpha":76, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_light_02_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":-0.619412, "sY":0.909337, "rotate":43.000000, "pX":-396.000000, "pY":-188.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":11, "sX":-0.653096, "sY":1.022168, "rotate":39.000004, "pX":-340.000000, "pY":-157.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":76, "sX":-0.770988, "sY":1.417076, "rotate":25.000000, "pX":-248.000000, "pY":-116.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":120, "sX":-0.700000, "sY":1.083000, "pX":-197.000000, "pY":-95.000000, "alpha":76, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble_Copy'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "pX":-56.000000, "pY":-102.000000
+									},
+									{
+										"frame":64, "pX":-56.000000, "pY":-102.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble_Copy'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":53, "pX":-157.000000, "pY":25.000000
+									},
+									{
+										"frame":102, "pX":-157.000000, "pY":25.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble_Copy'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pX":-337.000000, "pY":-73.000000
+									},
+									{
+										"frame":51, "pX":-337.000000, "pY":-73.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble_Copy'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":29, "pX":-419.000000, "pY":-30.000000
+									},
+									{
+										"frame":78, "pX":-419.000000, "pY":-30.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble_Copy'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":50, "pX":-361.000000, "pY":-224.000000
+									},
+									{
+										"frame":99, "pX":-361.000000, "pY":-224.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble_Copy'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":37, "pX":48.000000, "pY":-140.000000
+									},
+									{
+										"frame":86, "pX":48.000000, "pY":-140.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"mini",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'group'<azVisual>'idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.700000, "sY":0.700000, "pX":411.000000, "pY":247.000000
+									},
+									{
+										"frame":120, "sX":0.700000, "sY":0.700000, "pX":411.000000, "pY":247.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"dragon_bg_water_bubble",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_bubble_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.490000, "sY":0.455000, "pX":-2.000000, "pY":-2.000000, "alpha":0
+									},
+									{
+										"frame":4, "sX":0.531667, "sY":0.570833, "pX":-2.000000, "pY":4.333334
+									},
+									{
+										"frame":12, "sX":0.615000, "sY":0.802500, "pX":-2.000000, "pY":17.000000
+									},
+									{
+										"frame":21, "sX":1.224750, "sY":0.873696, "pX":-2.000000, "pY":29.214285
+									},
+									{
+										"frame":34, "sX":0.832656, "sY":1.037210, "pX":-2.000000, "pY":36.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_bg_water_bubble_Copy",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-14.000000, "pY":4.000000
+									},
+									{
+										"frame":34, "pX":-14.000000, "pY":15.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":11, "pX":-14.000000, "pY":4.000000
+									},
+									{
+										"frame":45, "rotate":5.000000, "pX":-14.000000, "pY":4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":14, "sX":0.700000, "sY":0.700000, "rotate":17.000000, "pX":-14.000000, "pY":4.000000
+									},
+									{
+										"frame":48, "sX":0.700000, "sY":0.700000, "rotate":14.000000, "pX":-14.000000, "pY":4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":13, "sX":0.700000, "sY":0.700000, "rotate":40.000000, "pX":-15.000000, "pY":-13.000000
+									},
+									{
+										"frame":47, "sX":0.700000, "sY":0.700000, "rotate":37.000000, "pX":-15.000000, "pY":-4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_water_bubble'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "sX":0.700000, "sY":0.700000, "rotate":-8.000000, "pX":-20.000000, "pY":-6.000000, "hflip":"H"
+									},
+									{
+										"frame":27, "sX":0.700000, "sY":0.700000, "rotate":-9.250000, "pX":-18.000000, "pY":-4.000000, "hflip":"H"
+									},
+									{
+										"frame":46, "sX":0.700000, "sY":0.700000, "rotate":-11.000000, "pX":-14.000000, "pY":5.000000, "hflip":"H"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_bg_water_light_01",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":59.000000, "pY":-182.000000
+									},
+									{
+										"frame":1, "cX":59.000000, "cY":-182.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_bg_water_seaweed_01",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_seaweed_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "cX":-18.000000, "cY":115.000000
+									},
+									{
+										"frame":1, "cX":-18.000000, "cY":115.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_bg_water_seaweed_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_water.plist'<azSprite>'dragon_bg_water_seaweed_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "cX":-25.000000, "cY":103.000000
+									},
+									{
+										"frame":1, "cX":-25.000000, "cY":103.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

@@ -4,10 +4,36 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>effect_charge_line_dark.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{127,1773},{70,70}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{70,70}}</string>
+                <key>sourceSize</key>
+                <string>{70,70}</string>
+            </dict>
+            <key>effect_charge_line_earth_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{127,1845},{70,70}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{70,70}}</string>
+                <key>sourceSize</key>
+                <string>{70,70}</string>
+            </dict>
             <key>effect_charge_line_fire_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{70,70}}</string>
+                <string>{{2,1898},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +46,7 @@
             <key>effect_charge_line_fire_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,543},{172,134}}</string>
+                <string>{{2,905},{172,134}}</string>
                 <key>offset</key>
                 <string>{0,7}</string>
                 <key>rotated</key>
@@ -33,11 +59,11 @@
             <key>effect_charge_line_fire_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1631},{199,133}}</string>
+                <string>{{2,2},{199,133}}</string>
                 <key>offset</key>
                 <string>{0,6}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,27},{199,133}}</string>
                 <key>sourceSize</key>
@@ -46,7 +72,7 @@
             <key>effect_charge_line_fire_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1832},{200,148}}</string>
+                <string>{{2,1443},{200,148}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,11 +85,11 @@
             <key>effect_charge_line_fire_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1431},{198,162}}</string>
+                <string>{{2,137},{198,162}}</string>
                 <key>offset</key>
                 <string>{0,7}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{1,12},{198,162}}</string>
                 <key>sourceSize</key>
@@ -72,7 +98,7 @@
             <key>effect_charge_line_fire_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,821},{160,146}}</string>
+                <string>{{2,1041},{160,146}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
@@ -85,7 +111,7 @@
             <key>effect_charge_line_fire_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1272},{175,157}}</string>
+                <string>{{2,604},{175,157}}</string>
                 <key>offset</key>
                 <string>{-8,8}</string>
                 <key>rotated</key>
@@ -98,7 +124,7 @@
             <key>effect_charge_line_fire_08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1117},{185,153}}</string>
+                <string>{{2,301},{185,153}}</string>
                 <key>offset</key>
                 <string>{1,9}</string>
                 <key>rotated</key>
@@ -111,7 +137,7 @@
             <key>effect_charge_line_fire_09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,969},{178,146}}</string>
+                <string>{{2,456},{178,146}}</string>
                 <key>offset</key>
                 <string>{2,8}</string>
                 <key>rotated</key>
@@ -124,7 +150,7 @@
             <key>effect_charge_line_fire_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,679},{172,140}}</string>
+                <string>{{2,763},{172,140}}</string>
                 <key>offset</key>
                 <string>{2,8}</string>
                 <key>rotated</key>
@@ -137,7 +163,7 @@
             <key>effect_charge_line_fire_11.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,411},{160,130}}</string>
+                <string>{{2,1189},{160,130}}</string>
                 <key>offset</key>
                 <string>{4,9}</string>
                 <key>rotated</key>
@@ -150,11 +176,11 @@
             <key>effect_charge_line_fire_12.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{74,2},{154,120}}</string>
+                <string>{{2,1321},{154,120}}</string>
                 <key>offset</key>
                 <string>{4,5}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{13,21},{154,120}}</string>
                 <key>sourceSize</key>
@@ -163,7 +189,7 @@
             <key>effect_charge_line_fire_13.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,283},{134,126}}</string>
+                <string>{{2,1645},{134,126}}</string>
                 <key>offset</key>
                 <string>{2,3}</string>
                 <key>rotated</key>
@@ -176,7 +202,7 @@
             <key>effect_charge_line_fire_14.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,158},{123,123}}</string>
+                <string>{{2,1773},{123,123}}</string>
                 <key>offset</key>
                 <string>{5,1}</string>
                 <key>rotated</key>
@@ -186,6 +212,32 @@
                 <key>sourceSize</key>
                 <string>{157,157}</string>
             </dict>
+            <key>effect_charge_line_light.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,1970},{70,70}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{70,70}}</string>
+                <key>sourceSize</key>
+                <string>{70,70}</string>
+            </dict>
+            <key>effect_charge_line_water.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{74,1917},{70,70}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{70,70}}</string>
+                <key>sourceSize</key>
+                <string>{70,70}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -194,9 +246,9 @@
             <key>realTextureFileName</key>
             <string>effect_charge_line.png</string>
             <key>size</key>
-            <string>{196,2034}</string>
+            <string>{203,2042}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:831f0ee42e4de88d02e6f2262677e610:51127767115158bb27706cde3aec4d39:0af77aa936a990c2016f6b244a446551$</string>
+            <string>$TexturePacker:SmartUpdate:bc5b12ea025aa55edbd008e9c9b154e5:4cfe2cd437552cc90c15612b4bf510c5:0af77aa936a990c2016f6b244a446551$</string>
             <key>textureFileName</key>
             <string>effect_charge_line.png</string>
         </dict>
