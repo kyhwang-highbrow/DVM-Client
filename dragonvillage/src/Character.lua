@@ -30,7 +30,7 @@ Character = class(PARENT, {
         m_bDead = 'boolean',
         m_bInvincibility = 'boolean',   -- 무적 상태 여부
 		m_isSilence = 'boolean',		-- 침묵 (스킬 사용 불가 상태)
-		m_isImmuneSE = 'boolean',			-- 면역 (해로운 상태 효과 면역)
+		m_isImmuneSE = 'boolean',		-- 면역 (해로운 상태 효과 면역)
 
         -- @ for FormationMgr
         m_bLeftFormation = 'boolean',   -- 왼쪽 진형일 경우 true, 오른쪽 진형일 경우 false
@@ -119,10 +119,9 @@ Character = class(PARENT, {
 		-- @TODO 임시 추가 충돌박스
 		m_isSlaveCharacter = 'boolean', -- 이 물리객체가 다른 객체에 추가된 것인지 여부
 		m_masterCharacter = 'Character', -- 이 물리객체를 가진 Character
-		
-        -- @ 임시 변수() 보호막 스킬
-        m_buffProtection = 'Buff_Guardian',
-        m_lProtectionList = 'list',
+
+		-- @TODO 수호 스킬 관련 .. 없애고 싶은데....
+		m_guard = 'SkillGuard',	-- guard 되고 있는 상태(damage hijack)
 
 		-- @TODO 임시
         m_aiParam = '',
@@ -172,6 +171,8 @@ function Character:init(file_name, body, ...)
 
 	self.m_isSlaveCharacter = false
 	self.m_masterCharacter = nil
+	
+	self.m_guard = false
 
     self.m_posIdx = 0
     self.m_orgHomePosX = 0
@@ -397,7 +398,7 @@ end
 -------------------------------------
 -- function undergoAttack
 -------------------------------------
-function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
+function Character:undergoAttack(attacker, defender, i_x, i_y)
     if (not attacker.m_activityCarrier) then
         --cclog('attacker.m_activityCarrier nil')
         return
@@ -410,20 +411,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         return
     end
 
-	-- Buff_Protection(SkillGuardian) defender check
-    if (not is_protection) and self.m_lProtectionList and (table.count(self.m_lProtectionList) > 0) then
-        for i,v in pairs(self.m_lProtectionList) do
-            v:onHit()
-            local defender = v.m_owner
-            return defender:undergoAttack(attacker, defender, defender.pos.x, defender.pos.y, true)
-        end
-    end
+	-- guard 상태 체크
+    if (self.m_guard) then
+		-- Evnet Carrier 세팅
+		local t_event = clone(EVENT_HIT_CARRIER)
+		t_event['attacker'] = attacker
 
-    -- 하일라이트 여부
-    if (attacker.m_activityCarrier:isHighlight()) then 
-        --self.m_world.m_gameHighlight:addChar(self)
+		self:dispatch('guardian', t_event)
+		return
     end
-    
 
     -- 속성 효과
     local t_attr_effect = self:checkAttributeCounter(attacker.m_activityCarrier)
@@ -2035,6 +2031,20 @@ end
 -------------------------------------
 function Character:setImmuneSE(b)
 	self.m_isImmuneSE = b
+end
+
+-------------------------------------
+-- function setGuard
+-------------------------------------
+function Character:setGuard(skill)
+	self.m_guard = skill
+end
+
+-------------------------------------
+-- function getGuardSkill
+-------------------------------------
+function Character:getGuard()
+	return self.m_guard
 end
 
 -------------------------------------

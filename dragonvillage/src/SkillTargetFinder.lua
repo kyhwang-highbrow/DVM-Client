@@ -43,17 +43,6 @@ function SkillTargetFinder:findTarget_AoECone(l_target, x, y, dir, range, angle)
     end
 
     return l_ret, l_bodyKey
-    --[[
-	local t_data = {
-		x = x,					-- 회전축 좌표 x
-		y = y,					-- 회전축 좌표 y
-		dir = dir,				-- 방향
-		radius = range,			-- 거리
-		angle_range = angle		-- 각도
-	}
-
-	return TargetRule_getTargetList_fan_shape(l_target, t_data)
-    ]]--
 end
 
 -------------------------------------
@@ -94,18 +83,6 @@ function SkillTargetFinder:findTarget_AoEWedge(l_target, x, y, dir, range, angle
     end
 
     return l_ret, l_bodyKey
-
-    --[[
-	local t_data = {
-		x = x,					-- 회전축 좌표 x
-		y = y,					-- 회전축 좌표 y
-		dir = dir,				-- 방향
-		radius = range,			-- 거리
-		angle_range = angle		-- 각도
-	}
-
-	return TargetRule_getTargetList_fan_shape(l_target, t_data)
-    ]]--
 end
 
 -------------------------------------
@@ -126,17 +103,6 @@ function SkillTargetFinder:findTarget_Crash(l_target, x, y, dir, range, angle)
     end
 
     return l_ret, l_bodyKey
-    --[[
-	local t_data = {
-		x = x,					-- 회전축 좌표 x
-		y = y,					-- 회전축 좌표 y
-		dir = dir,				-- 방향
-		radius = range,			-- 거리
-		angle_range = angle		-- 각도
-	}
-
-	return TargetRule_getTargetList_fan_shape(l_target, t_data)
-    ]]--
 end
 
 -------------------------------------
@@ -157,15 +123,4 @@ function SkillTargetFinder:findTarget_Bar(l_target, start_x, start_y, end_x, end
     end
 
     return l_ret, l_bodyKey
-    --[[
-	local t_data = {
-		x1 = start_x,
-		y1 = start_y,
-		x2 = end_x,
-		y2 = end_y,
-		thickness = thickness
-	}
-
-	return TargetRule_getTargetList_rectangle(l_target, t_data)
-    ]]--
 end

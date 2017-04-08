@@ -267,8 +267,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\AnimatorVrp.lua" />
     <None Include="..\src\AreaOfEffectHelper.lua" />
     <None Include="..\src\ActivityCarrier.lua" />
-    <None Include="..\src\Buff.lua" />
-    <None Include="..\src\Buff_Guardian.lua" />
     <None Include="..\src\ChatClient.lua" />
     <None Include="..\src\CollisionHelper.lua" />
     <None Include="..\src\ColosseumUserInfo.lua" />
@@ -383,7 +381,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillEnumrate_Curve.lua" />
     <None Include="..\src\SkillEnumrate_Normal.lua" />
     <None Include="..\src\SkillEnumrate_Penetration.lua" />
-    <None Include="..\src\SkillEnumrate_Penetration_Jaryong.lua" />
     <None Include="..\src\SkillFieldCheck.lua" />
     <None Include="..\src\SkillHeartOfRuin.lua" />
     <None Include="..\src\SkillHelper.lua" />
@@ -394,7 +391,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_Penetration.lua" />
     <None Include="..\src\SkillIndicator_X.lua" />
     <None Include="..\src\SkillLeap.lua" />
-    <None Include="..\src\SkillLinkedSoul.lua" />
     <None Include="..\src\SkillRapidShot.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />
     <None Include="..\src\SkillTargetFinder.lua" />

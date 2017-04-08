@@ -1,4 +1,4 @@
-local PARENT = class(Skill, IEventListener:getCloneTable())
+local PARENT = Skill
 
 -------------------------------------
 -- class SkillCounterAttack

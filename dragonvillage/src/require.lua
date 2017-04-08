@@ -367,7 +367,6 @@ local t_module = {
 	'SkillEnumrate_Curve',
 	'SkillEnumrate_Normal',
 	'SkillEnumrate_Penetration',
-	'SkillLinkedSoul',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',
@@ -383,11 +382,7 @@ local t_module = {
 	'SkillIndicator_AoEWedge',
 	'SkillIndicator_X',
 	'SkillIndicator_Penetration',
-    
-	-- BUFF
-	'Buff',
-    'Buff_Guardian',
-    
+
 	'WaveMgr',
     'WaveMgr_SecretRelation',
     'WaveMgr_Colosseum',

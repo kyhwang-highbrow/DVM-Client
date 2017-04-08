@@ -384,9 +384,6 @@
     <None Include="..\src\MissileCurve.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\Buff.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\Counter.lua">
       <Filter>lua</Filter>
     </None>
@@ -1347,9 +1344,6 @@
     <None Include="..\src\UI_InventorySelectSellItems.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\SkillEnumrate_Penetration_Jaryong.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\IEventListener.lua">
       <Filter>lua</Filter>
     </None>
@@ -1358,9 +1352,6 @@
     </None>
     <None Include="..\src\UIC_Factory.lua">
       <Filter>lua\UIC</Filter>
-    </None>
-    <None Include="..\src\SkillLinkedSoul.lua">
-      <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_FriendRecommendUserListItem.lua">
       <Filter>lua\UI</Filter>
@@ -1706,9 +1697,6 @@
     </None>
     <None Include="..\src\UI_EventPopupTab_EventAttendance.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\Buff_Guardian.lua">
-      <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillAoESquare_Wonder.lua">
       <Filter>lua</Filter>
