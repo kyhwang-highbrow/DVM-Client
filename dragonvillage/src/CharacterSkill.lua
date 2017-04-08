@@ -237,6 +237,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 			elseif (skill_type == 'skill_rapid_shot') then
 				SkillRapidShot:makeSkillInstance(self, t_skill, t_data)
 				return true
+			
+			elseif (skill_type == 'skill_rapid_shot_add_atk') then
+				SkillRapidShot_AddAttack:makeSkillInstance(self, t_skill, t_data)
+				return true
 
 			elseif (skill_type == 'skill_linked_soul') then
 				SkillLinkedSoul:makeSkillInstance(self, t_skill, t_data)

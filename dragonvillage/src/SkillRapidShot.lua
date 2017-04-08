@@ -43,6 +43,7 @@ end
 function SkillRapidShot:initState()
 	self:setCommonState(self)
     self:addState('start', SkillRapidShot.st_idle, 'idle', true)
+	self:addState('end', SkillRapidShot.st_end, nil, false)
 end
 
 -------------------------------------
@@ -62,7 +63,16 @@ function SkillRapidShot.st_idle(owner, dt)
 	-- 탈출 조건 (모두 발사 또는 타겟 사망)
 	if (owner.m_skillCount > owner.m_attackCount) 
 		or (owner.m_targetChar.m_bDead) then
-        owner:changeState('dying')
+        owner:changeState('end')
+	end
+end
+
+-------------------------------------
+-- function st_end
+-------------------------------------
+function SkillRapidShot.st_end(owner, dt)
+	if (owner.m_stateTimer > 2) then
+		owner:changeState('dying')
 	end
 end
 

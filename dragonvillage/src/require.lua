@@ -363,6 +363,7 @@ local t_module = {
 	'SkillCharge',
 	'SkillContinuous',
     'SkillRapidShot',
+	'SkillRapidShot_AddAttack',
 	'SkillEnumrate',
 	'SkillEnumrate_Curve',
 	'SkillEnumrate_Normal',

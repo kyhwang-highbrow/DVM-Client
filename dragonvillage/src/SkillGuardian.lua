@@ -96,7 +96,7 @@ function SkillGuardian.st_end(owner, dt)
         owner.m_barrierEffect2:changeAni('barrier_disappear', false)
 
     elseif (owner.m_stateTimer >= 2) then
-		-- 적당히 diappear animation이 끝난 후 동작
+		-- 적당히 disappear animation이 끝난 후 동작
         owner:changeState('dying')
     end
 end

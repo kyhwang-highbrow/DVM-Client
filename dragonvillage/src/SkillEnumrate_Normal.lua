@@ -30,13 +30,19 @@ end
 -- function fireMissile
 -------------------------------------
 function SkillEnumrate_Normal:fireMissile(idx)
-    local char = self.m_owner
     local world = self.m_world
+    
+	local char = self.m_owner
+	local target_char = self.m_skillTargetList[idx]
+	if (not traget_char) or (target_char.m_bDead) then
+		local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+        target_char = l_target[1]
+	end
 
     local t_option = {}
 
     t_option['owner'] = char
-	t_option['target'] = self.m_skillTargetList[1]	-- @TODO 타겟 random 처리가 안됨
+	t_option['target'] = target_char
 
     t_option['pos_x'] = char.pos.x + self.m_skillStartPosList[idx].x
 	t_option['pos_y'] = char.pos.y + self.m_skillStartPosList[idx].y

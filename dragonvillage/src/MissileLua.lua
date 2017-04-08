@@ -316,7 +316,10 @@ function MissileLua.lua_bounce(owner)
 	-- 월드와 적군 리스트 세팅
 	local world = owner.m_owner.m_world
 	local l_target = owner.m_owner:getOpponentList()
-        
+	if (#l_target == 0) then 
+		owner:changeState('dying')
+	end
+
 	-- 필요한 변수 선언
 	local duration = 0.7
 	local loop = 1
@@ -342,7 +345,7 @@ function MissileLua.lua_bounce(owner)
 	local cbFunction2 = nil
 	local cbFunction = cc.CallFunc:create(function()
 		-- 탈출 조건
-		if (count >= max_count) then 
+		if (count >= max_count) or (#l_target == 0) then 
 			owner:changeState('dying')
 		end
 
