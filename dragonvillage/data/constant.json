@@ -222,20 +222,22 @@
         // 인디케이터 경로
         // ----------------------------------------------------
 		"RES" : {
+            "target" : "res/indicator/indicator_type_target/indicator_type_target.vrp",
+            "effect" : "res/indicator/indicator_effect_target/indicator_effect_target.vrp",
             "round" : "res/indicator/round/round.vrp",
             "square" : "",
             "square_width" : "res/indicator/square_witdh/square_witdh.vrp",
             "square_height" : "res/indicator/square_witdh/square_witdh.vrp",
             "fan" : "res/indicator/square_witdh/square_witdh.vrp",
             "bar" : "res/indicator/bar/bar.vrp",
-            "target" : "res/indicator/indicator_type_target/indicator_type_target.vrp",
-            "target_cone_90" : "",
-            "target_cone_180" : "",
+            "target_cone_30" : "res/indicator/target_cone_30/target_cone_30.vrp",
+            "target_cone_45" : "res/indicator/target_cone_45/target_cone_45.vrp",
+            "target_cone_60" : "res/indicator/target_cone_60/target_cone_60.vrp",
             "wedge20" : "res/indicator/wedge_20/wedge_20.vrp",
             "wedge30" : "res/indicator/wedge_30/wedge_30.vrp",
             "wedge40" : "res/indicator/wedge_40/wedge_40.vrp",
-            "leaf" : "",
-            "voltes_x" : ""
+            "leaf" : "res/indicator/bar/bar.vrp",
+            "voltes_x" : "res/indicator/voltes_x/voltes_x.vrp"
         }
     },
     
