@@ -19,8 +19,8 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoERound_Sura:init_skill(attack_count, range, aoe_res, add_attack_count)
-    PARENT.init_skill(self, attack_count, range, aoe_res, nil)
+function SkillAoERound_Sura:init_skill(attack_count, aoe_res, add_attack_count)
+    PARENT.init_skill(self, aoe_res, attack_count)
 
 	-- 변수 선언
 	self.m_addActivityCarrier = clone(self.m_activityCarrier)
@@ -142,8 +142,7 @@ function SkillAoERound_Sura:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local attack_count = t_skill['hit']	  -- 공격 횟수
-    local range = t_skill['val_1']		  -- 공격 반경
-	local add_attack_count = t_skill['val_2'] -- 추가 공격 한회당 발사하는 탄의 수
+	local add_attack_count = t_skill['val_1'] -- 추가 공격 한회당 발사하는 탄의 수
 	
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	-- 스킬 본연의 리소스
 	local aoe_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)		-- 추가 이펙트를 위해 저장
@@ -155,7 +154,7 @@ function SkillAoERound_Sura:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(attack_count, range, aoe_res, add_attack_count)
+    skill:init_skill(attack_count, aoe_res, add_attack_count)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -166,9 +165,4 @@ function SkillAoERound_Sura:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end

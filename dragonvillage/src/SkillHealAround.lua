@@ -106,6 +106,20 @@ function SkillHealAround:doHeal()
 end
 
 -------------------------------------
+-- function findTarget
+-- @brief 모든 공격 대상 찾음
+-- @default 직선거리에서 범위를 기준으로 충돌여부 판단
+-------------------------------------
+function SkillHealAround:findTarget()
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	local x = self.m_owner.pos.x
+	local y = self.m_owner.pos.y
+	local range = self.m_range
+
+	return SkillTargetFinder:findTarget_AoERound(l_target, x, y, range)
+end
+
+-------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillHealAround:makeSkillInstance(owner, t_skill, t_data)
