@@ -1108,6 +1108,10 @@ function Character:release()
     self.m_castingNode = nil
     self.m_castingGauge = nil
 
+	-- 이벤트 해제
+	self:release_EventDispatcher()
+    self:release_EventListener()
+
     PARENT.release(self)
 end
 

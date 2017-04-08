@@ -234,10 +234,6 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillEnumrate_Penetration:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (skill_type == 'skill_enumrate_penetration_jaryong') then
-				SkillEnumrate_Penetration_Jaryong:makeSkillInstance(self, t_skill, t_data)
-				return true
-
 			elseif (skill_type == 'skill_rapid_shot') then
 				SkillRapidShot:makeSkillInstance(self, t_skill, t_data)
 				return true

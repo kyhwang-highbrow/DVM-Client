@@ -572,6 +572,10 @@ function Skill:release()
 		self.m_world.m_lSkillList[self] = nil
 	end
 
+	-- 이벤트 해제
+	self:release_EventDispatcher()
+    self:release_EventListener()
+
 	PARENT.release(self)
 end
 
