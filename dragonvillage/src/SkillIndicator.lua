@@ -71,6 +71,9 @@ function SkillIndicator:init(hero, t_skill, ...)
 
 	-- 필요한 변수 지정
 	self:init_indicator(t_skill, ...)
+
+	-- indicator node 생성
+    self:initIndicatorNode()
 end
 
 -------------------------------------

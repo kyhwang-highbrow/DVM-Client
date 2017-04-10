@@ -76,15 +76,11 @@ function SkillIndicator_Target:onChangeTargetCount(old_target_count, cur_target_
 
     -- 활성화
     if (old_target_count == 0) and (cur_target_count > 0) then
-        self.m_indicatorEffect.m_startPointNode:changeAni(type .. '_start_idle', true)
-        self.m_indicatorEffect.m_effectNode:changeAni(type .. '_bar_idle', true)
-        self.m_indicatorEffect.m_endPointNode:changeAni(type .. '_end_idle', true)
+        self.m_indicatorAddEffect:activateIndicator(true)
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
-        self.m_indicatorEffect.m_startPointNode:changeAni('normal_start_idle', true)
-        self.m_indicatorEffect.m_effectNode:changeAni('normal_bar_idle', true)
-        self.m_indicatorEffect.m_endPointNode:changeAni('normal_end_idle', true)
+        self.m_indicatorAddEffect:activateIndicator(false)
     end
 end
 

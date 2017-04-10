@@ -367,6 +367,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\shader\shaderBlur.fsh" />
     <None Include="..\src\ShakeManager.lua" />
     <None Include="..\src\SimplePrimitivesDraw.lua" />
+    <None Include="..\src\SkillAoECone.lua" />
     <None Include="..\src\SkillAoERound_Sura.lua" />
     <None Include="..\src\SkillAoESquare.lua" />
     <None Include="..\src\SkillAoESquare_Width.lua" />
@@ -384,6 +385,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillFieldCheck.lua" />
     <None Include="..\src\SkillHeartOfRuin.lua" />
     <None Include="..\src\SkillHelper.lua" />
+    <None Include="..\src\SkillIndicator_AoECone.lua" />
     <None Include="..\src\SkillIndicator_AoESquare.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Multi.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Width.lua" />

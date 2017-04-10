@@ -710,6 +710,10 @@ function Dragon:init_skillIndicator()
 	elseif (indicator_type == 'wedge') then
 		self.m_skillIndicator = SkillIndicator_AoEWedge(self, t_skill)
 
+	-- 세로로 긴 직사각형
+	elseif (indicator_type == 'target_cone') then
+		self.m_skillIndicator = SkillIndicator_AoECone(self, t_skill)
+
 	-- 레이저
 	elseif (indicator_type == 'bar') then
 		self.m_skillIndicator = SkillIndicator_Laser(self, t_skill)
@@ -748,8 +752,6 @@ function Dragon:init_skillIndicator()
 		cclog('###############################################')
         return
 	end
-
-    self.m_skillIndicator:initIndicatorNode()
 end
 
 -------------------------------------

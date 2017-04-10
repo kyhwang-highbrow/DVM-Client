@@ -162,10 +162,6 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillAoERound_Sura:makeSkillInstance(self, t_skill, t_data)
 				return true
 				
-			elseif (skill_type == 'skill_aoe_wedge') then
-				SkillAoEWedge:makeSkillInstance(self, t_skill, t_data)
-				return true
-
 			elseif (skill_type == 'skill_aoe_square_width') then
 				SkillAoESquare_Width:makeSkillInstance(self, t_skill, t_data)
 				return true
@@ -176,6 +172,14 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 			elseif (skill_type == 'skill_aoe_square_multi') then
 				SkillAoESquare_Wonder:makeSkillInstance(self, t_skill, t_data)
+				return true
+			
+			elseif (skill_type == 'skill_aoe_cone') then
+				SkillAoECone:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+			elseif (skill_type == 'skill_aoe_wedge') then
+				SkillAoEWedge:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_leap_atk') then

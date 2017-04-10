@@ -83,7 +83,6 @@ function SkillIndicator_AoERound:initIndicatorNode()
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'round')
         local indicator = MakeAnimator(indicator_res)
         
-        indicator:changeAni('idle', false)
 		indicator.m_node:setColor(COLOR_CYAN)
 		indicator:setScale(self.m_indicatorScale)
 
@@ -109,18 +108,12 @@ function SkillIndicator_AoERound:onChangeTargetCount(old_target_count, cur_targe
     -- 활성화
     if (old_target_count == 0) and (cur_target_count > 0) then
 		self.m_indicatorEffect.m_node:setColor(COLOR_RED)
-        
-		self.m_indicatorAddEffect.m_startPointNode:changeAni('enemy_start_idle', true)
-        self.m_indicatorAddEffect.m_effectNode:changeAni('enemy_bar_idle', true)
-        self.m_indicatorAddEffect.m_endPointNode:changeAni('enemy_end_idle', true)
+		self.m_indicatorAddEffect:activateIndicator(true)
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
 		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
-        
-		self.m_indicatorAddEffect.m_startPointNode:changeAni('normal_start_idle', true)
-        self.m_indicatorAddEffect.m_effectNode:changeAni('normal_bar_idle', true)
-        self.m_indicatorAddEffect.m_endPointNode:changeAni('normal_end_idle', true)
+		self.m_indicatorAddEffect:activateIndicator(false)
     end
 end
 

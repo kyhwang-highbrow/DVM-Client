@@ -192,10 +192,29 @@ end
 -- @brief 구조상 필요
 -------------------------------------
 function EffectLink:changeAni(ani_name, loop)
+	cclog('EffectLink:changeAni(ani_name, loop)')
     local loop = (loop or false)
     self.m_startPointNode:changeAni('start_' .. ani_name, loop)
     self.m_effectNode:changeAni('bar_' .. ani_name, loop)
     self.m_endPointNode:changeAni('end_' .. ani_name, loop)
+end
+
+-------------------------------------
+-- function activateIndicator
+-- @brief 임시로 사용 .. 인디케이터에서만 쓰이는 애니메이션명이 있으니 제거하자
+-------------------------------------
+function EffectLink:activateIndicator(is_activate)
+    local loop = true
+	local ani_prefix
+	if (is_activate) then
+		ani_prefix = 'enemy_'
+	else
+		ani_prefix = 'normal_'
+	end
+
+    self.m_startPointNode:changeAni(ani_prefix .. 'start_idle', loop)
+    self.m_effectNode:changeAni(ani_prefix .. 'bar_idle', loop)
+    self.m_endPointNode:changeAni(ani_prefix .. 'end_idle', loop)
 end
 
 -------------------------------------
