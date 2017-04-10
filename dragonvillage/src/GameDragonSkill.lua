@@ -81,7 +81,7 @@ function GameDragonSkill:initUI()
     self.m_skillNameLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     titleNode:addChild(self.m_skillNameLabel, 11)
 
-    self.m_skillDescLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 30, 3, cc.size(800, 200), 1, 1)
+    self.m_skillDescLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 20, 3, cc.size(800, 200), 1, 1)
     self.m_skillDescLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	self.m_skillDescLabel:setDockPoint(cc.p(0, 0))
 	self.m_skillDescLabel:setColor(cc.c3b(220,220,220))
