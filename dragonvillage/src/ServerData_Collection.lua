@@ -20,7 +20,7 @@ ServerData_Collection = class({
         -- 콜렉션 포인트
         m_collectionPoint = 'number',
         m_collectionPointList = '',
-        m_tamerTitle = 'string', -- 테이머 칭호 (콜랙션 포인트로 칭호와 자수정을 받을 수 있음)
+        m_tamerTitle = 'string', -- 테이머 칭호 (콜랙션 포인트로 칭호와 다이아몬드를 받을 수 있음)
         m_currCpointRewardFocusKey = 'number',
 
         m_lastChangeTimeStamp = 'timestamp',

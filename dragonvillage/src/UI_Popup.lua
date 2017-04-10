@@ -359,7 +359,7 @@ function MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_bt
 
         -- 캐시가 충분히 있는지 체크
         if (cash < item_value) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('자수정이 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
             return
         end
     elseif (item_key == 'gold') then

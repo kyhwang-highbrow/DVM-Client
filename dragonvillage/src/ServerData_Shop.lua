@@ -57,7 +57,7 @@ function ServerData_Shop:canBuyProduct(price_type, price_value)
         local need_price_str = comma_value(price_value - user_price)
         local msg = ''
         if (price_type == 'cash') then
-            msg = Str('루비 {1}개가 부족합니다.', comma_value(need_price_str))
+            msg = Str('다이아몬드 {1}개가 부족합니다.', comma_value(need_price_str))
 
         elseif (price_type == 'gold') then
             msg = Str('골드 {1}개가 부족합니다.', comma_value(need_price_str))

@@ -446,7 +446,7 @@ function UI_Lobby:initInfoBoard()
         buff_board:addElement(buff_info)
 
         local buff_info = UI_NotificationInfoElement()
-        buff_info:setTitleText('{@YELLOW}[이벤트 중] 고급 드래곤 소환 250자수정->200자수정 {@RED}03:13:15{@YELLOW} 후 종료')
+        buff_info:setTitleText('{@YELLOW}[이벤트 중] 고급 드래곤 소환 250다이아몬드->200다이아몬드 {@RED}03:13:15{@YELLOW} 후 종료')
         buff_board:addElement(buff_info)
     end
 end

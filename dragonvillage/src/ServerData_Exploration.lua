@@ -341,7 +341,7 @@ end
 
 -------------------------------------
 -- function getImmediatelyCompleteCash
--- @brief 즉시 완료에 필요한 자수정 (탐험 시간 별)
+-- @brief 즉시 완료에 필요한 다이아몬드 (탐험 시간 별)
 -------------------------------------
 function ServerData_Exploration:getImmediatelyCompleteCash(hours)
     local key = tostring(hours) .. '_hours_Immediately_complete_cash'

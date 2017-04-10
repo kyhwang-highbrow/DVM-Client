@@ -169,9 +169,9 @@ function UI_Network:statusHandler(ret)
         return true
     end
 
-    -- not enough cash (자수정이 부족할 때)
+    -- not enough cash (다이아몬드가 부족할 때)
     if (status == -2102) then
-        self:makeShopPopup(Str('자수정이 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.CASH)
+        self:makeShopPopup(Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.CASH)
         return true
     end
 
