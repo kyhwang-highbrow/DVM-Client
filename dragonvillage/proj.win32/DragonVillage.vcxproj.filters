@@ -1902,6 +1902,9 @@
     <None Include="..\src\SkillIndicator_AoECone.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StructFriendshipObject.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

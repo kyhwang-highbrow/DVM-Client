@@ -61,6 +61,9 @@ function StructDragonObject:init(data)
     if data then
         self:applyTableData(data)
     end
+
+    -- 친밀도 오브젝트 생성
+    self['friendship'] = StructFriendshipObject(self['friendship'])
 end
 
 -------------------------------------
@@ -216,4 +219,12 @@ function StructDragonObject:getRuneSetStatus()
     local rune_set_obj = self:getStructRuneSetObject()
     local l_add_status, l_multi_status = rune_set_obj:getRuneSetStatus()
     return l_add_status, l_multi_status
+end
+
+-------------------------------------
+-- function getFriendshipObject
+-- @breif
+-------------------------------------
+function StructDragonObject:getFriendshipObject()
+    return self['friendship']
 end
