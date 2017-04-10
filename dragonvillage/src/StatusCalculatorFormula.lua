@@ -34,11 +34,11 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
         -- 드래곤들만 적용
         if (char_type == 'dragon') then
 
-            -- 진화 단계 보너스
-            evolution_stat = value_per_level * self.m_evolutionTable:getBonusStatusLv(evolution)
-
             -- 승급 단계 보너스
             grade_stat = value_per_level * self.m_gradeTable:getBonusStatusLv(grade)
+
+            -- 진화 단계 보너스
+            evolution_stat = value_per_level * self.m_evolutionTable:getBonusStatusLv(evolution)
 
             -- 초월 단계 보너스
             eclv_stat = value_per_level * self.m_gradeTable:getEclvBonusStatusLv(eclv)
@@ -47,9 +47,9 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
 		lv_stat = t_char[status_name]
 	end
 
-    local final_stat = base_stat + lv_stat + grade_stat + evolution_stat + eclv_stat
+    local basic_stat = base_stat + lv_stat + grade_stat + evolution_stat + eclv_stat
 
-    return final_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat
+    return basic_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat
 end
 
 -- # 세부 능력치의 실제 적용

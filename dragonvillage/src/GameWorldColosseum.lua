@@ -318,7 +318,6 @@ function GameWorldColosseum:makeEnemyDeck()
 
                 -- 진형 버프 적용
                 enemy.m_statusCalc:applyFormationBonus(formation, i)
-                --ccdump(enemy.m_statusCalc.m_lPassive)
             end
         end
     end

@@ -52,6 +52,7 @@ local t_module = {
     'StructRuneSetObject',
     'StructDragonObject',
 	'StructStatusEffect',
+    'StructIndividualStatus',
 
     -- Util
     'Action',

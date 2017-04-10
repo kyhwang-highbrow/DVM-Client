@@ -1,4 +1,4 @@
-L_STATUS_TYPE = {
+L_BASIC_STATUS_TYPE = {
         'atk',          -- 공격력
         'def',          -- 방어력
         'hp',           -- 생명력
@@ -10,21 +10,19 @@ L_STATUS_TYPE = {
         'cri_avoid',    -- 치명방어
         'hit_rate',     -- 적중률
         'avoid',        -- 회피
+    }
 
-		--------------------------------------------
-
+L_STATUS_TYPE = clone(L_BASIC_STATUS_TYPE)
+table.addList(L_STATUS_TYPE, {
 		'dmg_adj_rate',	-- 데미지 조정 계수
 		'attr_adj_rate', -- 속성 조정 계수
-    }
+    })
 
 -------------------------------------
 -- class StatusCalculator
 -------------------------------------
 StatusCalculator = class({
         m_lStatusList = 'list',
-
-        m_lPassive = 'list',
-        m_lPassiveAbs = 'list',
 
         -- 세부 능력치 적용
         m_attackTick = 'number',
@@ -52,13 +50,6 @@ function StatusCalculator:init(char_type, cid, lv, grade, evolution, eclv)
     end
     self.m_lStatusList = self:calcStatusList(char_type, cid, lv, grade, evolution, eclv)
 
-    self.m_lPassive = {}
-    self.m_lPassiveAbs = {}
-    for _,type in ipairs(L_STATUS_TYPE) do
-        self.m_lPassive[type] = 0
-        self.m_lPassiveAbs[type] = 0
-    end
-
     -- # 세부 능력치 적용
     self.m_attackTick = self:getAttackTick()
 end
@@ -70,17 +61,12 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
     local l_status = {}
 
     for _,status_name in pairs(L_STATUS_TYPE) do
-        local final_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat = self:calcStat(char_type, cid, status_name, lv, grade, evolution, eclv)
+        local basic_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat = self:calcStat(char_type, cid, status_name, lv, grade, evolution, eclv)
 
-        local t_status = {}
-        t_status['final'] = final_stat
-        t_status['base'] = base_stat
-        t_status['lv'] = lv_stat
-        t_status['grade'] = grade_stat
-        t_status['evolution'] = evolution_stat
-        t_status['eclv'] = eclv_stat
+        local indivisual_status = StructIndividualStatus()
+        indivisual_status:setBasicStat(base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat)
 
-        l_status[status_name] = t_status
+        l_status[status_name] = indivisual_status--t_status
     end
 
     return l_status
@@ -90,33 +76,13 @@ end
 -- function getFinalStat
 -------------------------------------
 function StatusCalculator:getFinalStat(stat_type)
-    local t_status = self.m_lStatusList[stat_type]
-    if (not t_status) then
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
         error('stat_type : ' .. stat_type)
     end
 
-    local stat_value = t_status['final']
-    if (not stat_value) then
-        error('final')
-    end
-
-    do -- 패시브 능력치 적용
-        -- %패시브 적용
-        local multiply = 0
-        multiply = (multiply + (self.m_lPassive[stat_type] / 100))
-		
-        if (multiply ~= 0) then
-            local passive_bonus = (stat_value * multiply)
-            stat_value = (stat_value + passive_bonus)
-        end
-
-        -- 버프 패시브 절대값 적용
-        if (self.m_lPassiveAbs[stat_type] ~= 0) then
-            stat_value = stat_value + self.m_lPassiveAbs[stat_type]
-        end
-    end
-
-    return stat_value
+    local final_stat = indivisual_status:getFinalStat()
+    return final_stat
 end
 
 -------------------------------------
@@ -146,8 +112,14 @@ end
 -------------------------------------
 -- function getAdjustRate
 -------------------------------------
-function StatusCalculator:getAdjustRate(type)
-    return self.m_lPassive[type] or 0
+function StatusCalculator:getAdjustRate(stat_type)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    local adj_rate = indivisual_status.m_buffMulti
+    return adj_rate
 end
 
 -------------------------------------
@@ -162,6 +134,11 @@ end
 -- @brief 연구 버프 적용
 -------------------------------------
 function StatusCalculator:applyDragonResearchBuff(rlv)
+    -- 임시로 막아둠
+    if true then
+        return
+    end
+
     if (self.m_charType ~= 'dragon') then
         return
     end
@@ -230,7 +207,7 @@ function StatusCalculator:applyFriendBuff(t_friend_buff)
     if (t_add_bonus) then
         for key, value in pairs(t_add_bonus) do
             local t_status = self.m_lStatusList[key]
-            t_status['final'] = t_status['final'] + value
+            t_status['basic_stat'] = t_status['basic_stat'] + value
         end
     end
 
@@ -269,6 +246,32 @@ function StatusCalculator:getCombatPower()
     end
 
     return math_floor(total_combat_power)
+end
+
+-------------------------------------
+-- function addBuffAdd
+-- @brief
+-------------------------------------
+function StatusCalculator:addBuffAdd(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    indivisual_status:addBuffAdd(value)
+end
+
+-------------------------------------
+-- function addBuffMulti
+-- @brief
+-------------------------------------
+function StatusCalculator:addBuffMulti(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    indivisual_status:addBuffMulti(value)
 end
 
 
@@ -326,14 +329,3 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
     return status_calc
 end
-
-
---[[
-(기본 능력치 + 레벨 능력치 + 승급 능력치 + 진화 능력치 + 초월 능력치)
-((이전값) * 룬 multi) + 룬 add
-(이전값) + 연구 능력치 + 친밀도 능력치
-((이전값) * 버프 multi ) + 버프 add
-
-
-버프 : 스킬 버프, 진형 버프, 친구 접속 버프
---]]

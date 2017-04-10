@@ -248,12 +248,12 @@ function StatusEffect:statusEffectApply_()
     
     -- %능력치 적용
     for key,value in pairs(self.m_lStatus) do
-        tar_char.m_statusCalc.m_lPassive[key] = tar_char.m_statusCalc.m_lPassive[key] + value
+        tar_char.m_statusCalc:addBuffMulti(key, value)
     end
 
     -- 절대값 능력치 적용
     for key,value in pairs(self.m_lStatusAbs) do
-        tar_char.m_statusCalc.m_lPassiveAbs[key] = tar_char.m_statusCalc.m_lPassiveAbs[key] + value
+        tar_char.m_statusCalc:addBuffAdd(key, value)
     end
     
     self.m_overlabCnt = (self.m_overlabCnt + 1)
@@ -300,12 +300,12 @@ function StatusEffect:statusEffectReset_()
     
     -- %능력치 원상 복귀
     for key,value in pairs(self.m_lStatus) do
-        tar_char.m_statusCalc.m_lPassive[key] = tar_char.m_statusCalc.m_lPassive[key] - value
+        tar_char.m_statusCalc:addBuffMulti(key, -value)
     end
 
     -- 절대값 능력치 원상 복귀
     for key,value in pairs(self.m_lStatusAbs) do
-        tar_char.m_statusCalc.m_lPassiveAbs[key] = tar_char.m_statusCalc.m_lPassiveAbs[key] - value
+        tar_char.m_statusCalc:addBuffAdd(key, -value)
     end
 
     self.m_overlabCnt = (self.m_overlabCnt - 1)
