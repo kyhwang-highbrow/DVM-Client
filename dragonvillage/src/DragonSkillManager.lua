@@ -142,21 +142,17 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
 
     local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
 
-    if isExistValue(skill_type, 'active', 'basic', 'touch') then
-
-        local l_existing_list = nil
-        if self.m_lSkillIndivisualInfo[skill_type] then
-            l_existing_list = self.m_lSkillIndivisualInfo[skill_type].m_lSkillLevelupIDList
-        end
-        self.m_lSkillIndivisualInfo[skill_type] = skill_indivisual_info
-        skill_indivisual_info:init_skillLevelupIDList(l_existing_list)
+	if isExistValue(skill_type, 'active', 'basic', 'touch') then
+		self.m_lSkillIndivisualInfo[skill_type] = skill_indivisual_info
     else
         table.insert(self.m_lSkillIndivisualInfo[skill_type], skill_indivisual_info)
-        skill_indivisual_info:init_skillLevelupIDList(nil)
     end
 
     -- 스킬 레벨 적용
     skill_indivisual_info:applySkillLevel()
+
+	-- 스킬 desc 세팅
+	skill_indivisual_info:applySkillDesc()
 end
 
 -------------------------------------
@@ -239,8 +235,8 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
     if (skill_type) and skill_id ~= 0 then
         local skill_lv = self:getSkillLevel(idx)
         local skill_indivisual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
-        skill_indivisual_info:init_skillLevelupIDList()
         skill_indivisual_info:applySkillLevel()
+		skill_indivisual_info:applySkillDesc()
         return skill_indivisual_info
     end
 end

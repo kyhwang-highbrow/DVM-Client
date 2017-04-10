@@ -43,6 +43,7 @@ function SkillHelper:makeStructStatusEffectList(t_skill)
 			local struct_status_effect = StructStatusEffect({
 				type = t_skill['add_option_type_' .. i],
 				target_type = t_skill['add_option_target_' .. i],
+				target_count = t_skill['add_option_target_count_' .. i],
 				trigger = t_skill['add_option_trigger_' .. i],
 				duration = t_skill['add_option_time_' .. i],
 				rate = t_skill['add_option_rate_' .. i],

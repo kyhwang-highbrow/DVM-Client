@@ -262,15 +262,16 @@ end
 -------------------------------------
 function Character:getTargetListByTable(t_skill)
 	local target_type = t_skill['target_type']
+	local target_count = t_skill['target_count']
     local target_formation = t_skill['target_formation']
-    return self:getTargetListByType(target_type, target_formation)
+    return self:getTargetListByType(target_type, target_count, target_formation)
 end
 
 -------------------------------------
 -- function getTargetListByType
 -- @param target_formation은 없어도 된다
 -------------------------------------
-function Character:getTargetListByType(target_type, target_formation)
+function Character:getTargetListByType(target_type, target_count, target_formation)
 	if (target_type == '') then 
 		error('타겟 타입이 없네요..ㅠ 테이블 수정해주세요')
 	end
@@ -284,17 +285,13 @@ function Character:getTargetListByType(target_type, target_formation)
 
 	--> target_rule = 'low_hp'
     local target_rule = string.gsub(target_type, '%l+_', '', 1)
-	target_rule = string.gsub(target_rule, '_%d+', '')				
 
 	--> target_count = 3
-	local target_count = string.match(target_type, '_%d+')
-	if (target_count) then
-		target_count = string.gsub(target_count, '_', '')	
-	end
+	local target_count = target_count
 
 	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule)
 	
-	if (target_count) then
+	if (target_count) and (type(target_count) == 'number') then
 		return table.getPartList(t_ret, target_count)
 	else
 		return t_ret

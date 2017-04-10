@@ -12,7 +12,6 @@ DragonSkillIndivisualInfo = class({
         m_timer = 'number',     -- 타임 공격 저장용
 
         m_skillLevel = 'number',
-        m_lSkillLevelupIDList = 'list', -- 스킬 레벨업이 적용된 ID 저장
     })
 
 -------------------------------------
@@ -28,105 +27,97 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
 end
 
 -------------------------------------
--- function init_skillLevelupIDList
--------------------------------------
-function DragonSkillIndivisualInfo:init_skillLevelupIDList(l_existing_list)
-    self.m_lSkillLevelupIDList = l_existing_list and clone(l_existing_list) or {}
-
-    local skill_id = self.m_skillID
-    
-    -- 1레벨부터 해당 레벨까지의 lvid를 저장
-    for i=1, self.m_skillLevel do
-        local skill_level_id = (skill_id * 100) + i
-        table.insert(self.m_lSkillLevelupIDList, skill_level_id)
-    end
-end
-
--------------------------------------
 -- function applySkillLevel
 -------------------------------------
 function DragonSkillIndivisualInfo:applySkillLevel()
-    local skill_id = self.m_skillID
-
+	local skill_id = self.m_skillID
     local table_skill = TABLE:get(self.m_charType .. '_skill')
-    self.m_tSkill = table_skill[skill_id]
 
-    if (not self.m_tSkill) then
+    if (not table_skill[skill_id]) then
         error('skill_id ' .. skill_id)
     end
 
     -- 값이 변경되므로 복사해서 사용
-    self.m_tSkill = clone(self.m_tSkill)
+    self.m_tSkill = clone(table_skill[skill_id])
+	
+	-- 레벨이 반영된 데이터 계산
+	local t_skill = self.m_tSkill
+	local skill_lv = self.m_skillLevel
+	for idx = 1, 5 do
+		local modify_column = SkillHelper:getValid(t_skill['mod_col_' .. idx])
+		local modify_value = SkillHelper:getValid(t_skill['mod_val_' .. idx])
+		
+		if (modify_column) then
+			local tar_data = SkillHelper:getValid(t_skill[modify_column])
 
-    local table_dragon_skill_modify = TABLE:get('dragon_skill_modify')
-    
-    local l_modify_list = {}
-    local t_last_modify_table = nil
+			if (tar_data) then
+				tar_data = tar_data + (modify_value * (skill_lv - 1))
+			end
 
-    for _,v in ipairs(self.m_lSkillLevelupIDList) do
-        local t_dragon_skill_modify = table_dragon_skill_modify[v]
-        
-        if t_dragon_skill_modify then
-            for i=1, 10 do
-                local column = t_dragon_skill_modify[string.format('col_%.2d', i)]
-                local modify = t_dragon_skill_modify[string.format('mod_%.2d', i)]
-                local value = t_dragon_skill_modify[string.format('val_%.2d', i)]
-
-                if column and (column ~= 'x') then
-                    local t_modify = l_modify_list[column]
-                    if (not t_modify) then
-                        t_modify = {column=column, modify=modify, value=value}
-                        l_modify_list[column] = t_modify
-                    else
-                        if (t_modify['modify'] ~= modify) then
-                            error('modify타입이 다르게 사용되었습니다. slid : ' .. v)
-                        end
-                        
-                        if (modify == 'exchange') then
-                            t_modify['value'] = value
-                        elseif (modify == 'add') then
-                            t_modify['value'] = (t_modify['value'] + tonumber(value))
-                        elseif (modify == 'multiply') then
-                            t_modify['value'] = (t_modify['value'] + tonumber(value))
-                        end
-                    end
-                end
-            end
-
-            -- 최후에 반영되는 테이블
-            t_last_modify_table = t_dragon_skill_modify
-        end
-    end
-
-
-    -- 스킬 레벨 modify 적용
-    for column, t_modify in pairs(l_modify_list) do
-        local modify = t_modify['modify']
-        local value = t_modify['value']
-
-        if (modify == 'exchange') then
-            self.m_tSkill[column] = value
-
-        elseif (modify == 'add') then
-            self.m_tSkill[column] = self.m_tSkill[column] + value
-
-        elseif (modify == 'multiply') then
-            self.m_tSkill[column] = self.m_tSkill[column] + (self.m_tSkill[column] * value)
-
-        end
-    end
-
-    -- 최후의 테이블로 설명필드 갱신
-    if t_last_modify_table then
-        self.m_tSkill['t_desc'] = t_last_modify_table['t_desc']
-        self.m_tSkill['desc_1'] = t_last_modify_table['desc_1']
-        self.m_tSkill['desc_2'] = t_last_modify_table['desc_2']
-        self.m_tSkill['desc_3'] = t_last_modify_table['desc_3']
-        self.m_tSkill['desc_4'] = t_last_modify_table['desc_4']
-        self.m_tSkill['desc_5'] = t_last_modify_table['desc_5']
-    end
+			-- 레벨 계산된 값으로 치환
+			t_skill[modify_column] = tar_data
+		end
+	end
 end
 
+-------------------------------------
+-- function applySkillDesc
+--@brief desc column에서 수정할 column명을 가져와 대체
+-------------------------------------
+function DragonSkillIndivisualInfo:applySkillDesc()
+	local t_skill = self.m_tSkill
+
+	for idx = 1, 5 do
+		local raw_data = t_skill['desc_' .. idx]
+		local desc_value
+
+		-- 1. 연산이 필요한지 확인하고 필요하다면 연산하여 산출
+		if string.find(raw_data, '[*+/-]') then
+			local operator = string.match(raw_data, '[*+/-]')
+			local l_parsed = seperate(raw_data, operator)
+
+			-- 숫자가 들어갔을 경우도 고려되어있다.
+			local column_name_1 = trim(l_parsed[1])
+			local value_1
+			if (tonumber(column_name_1)) then
+				value_1 = column_name_1
+			else
+				value_1 = t_skill[column_name_1]
+			end
+
+			-- 숫자가 들어갔을 경우도 고려되어있다.
+			local column_name_2 = trim(l_parsed[2])
+			local value_2
+			if (tonumber(column_name_2)) then
+				value_2 = column_name_2
+			else
+				value_2 = t_skill[column_name_2]
+			end
+
+			-- 연산자에 따른 실제 연산 실행
+			if (operator == '*') then
+				desc_value = value_1 * value_2
+			elseif (operator == '/') then
+				desc_value = value_1 / value_2
+			elseif (operator == '+') then
+				desc_value = value_1 + value_2
+			elseif (operator == '-') then
+				desc_value = value_1 - value_2
+			end
+		
+		-- 2. 단순 숫자라면 그대로 추출
+		elseif (type(raw_data) == 'number') then
+			desc_value = raw_data
+
+		-- 3. 이외는 column명으로 가정하고 테이블에서 추출
+		else
+			desc_value =  t_skill[raw_data]
+		end
+
+		-- 4. 실제 들어가야할 숫자로 치환
+		t_skill['desc_' .. idx] = desc_value
+	end
+end
 
 -------------------------------------
 -- function getSkillID
