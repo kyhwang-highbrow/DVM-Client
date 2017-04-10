@@ -1191,9 +1191,6 @@
     <None Include="..\src\UI_GameColosseum.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_RuneEnchantPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\RuneEnchantHelper.lua">
       <Filter>lua</Filter>
     </None>

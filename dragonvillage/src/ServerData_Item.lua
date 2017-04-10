@@ -127,7 +127,7 @@ function ServerData_Item:parseAddedItems_firstItem(added_items)
         local oid = first_item['oids'][1]
         for i,v in pairs(added_items['runes']) do
             if (oid == v['id']) then
-                t_sub_data = g_runesData:makeRuneInfomation(v)
+                t_sub_data = StructRuneObject(v)
                 break
             end
         end

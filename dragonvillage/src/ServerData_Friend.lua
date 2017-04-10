@@ -219,10 +219,6 @@ function ServerData_Friend:setSelectedShareFriendData(t_friend_info)
     if (self.m_selectedShareFriendData) then
         local t_dragon_data = self.m_selectedShareFriendData['leader']
         g_friendBuff:setParticipationFriendDragon(t_dragon_data)
-
-        for _, t_rune_data in pairs(self.m_selectedShareFriendData['runes']) do
-            t_rune_data['information'] = g_runesData:makeRuneInfomation(t_rune_data)
-        end
     end
 end
 

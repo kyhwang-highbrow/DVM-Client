@@ -157,10 +157,6 @@ end
 -------------------------------------
 function ColosseumUserInfo:setRunes(value)
     self.m_runes = value
-
-    for _,t_rune_data in pairs(self.m_runes) do
-        t_rune_data['information'] = g_runesData:makeRuneInfomation(t_rune_data)
-    end
 end
 
 -------------------------------------
