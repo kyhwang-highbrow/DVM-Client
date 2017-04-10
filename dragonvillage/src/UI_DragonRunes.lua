@@ -119,6 +119,9 @@ function UI_DragonRunes:initButton()
     vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
     vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
     vars['selectEnhanceBtn']:registerScriptTapHandler(function() self:click_selectEnhance() end)
+
+    -- 모험 떠나기
+    vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
 end
 
 -------------------------------------
@@ -152,12 +155,12 @@ end
 function UI_DragonRunes:initUI_runeTab(slot_idx)
     local vars = self.vars
     slot_idx = slot_idx or 1
-    self:addTab(1, vars['runeSlotBtn1'], vars['runeSlotSelectSprite1']) --, vars[l_rune_slot_name[1] .. 'TableViewNode'])
-    self:addTab(2, vars['runeSlotBtn2'], vars['runeSlotSelectSprite2']) --, vars[l_rune_slot_name[2] .. 'TableViewNode'])
-    self:addTab(3, vars['runeSlotBtn3'], vars['runeSlotSelectSprite3']) --, vars[l_rune_slot_name[3] .. 'TableViewNode'])
-    self:addTab(4, vars['runeSlotBtn4'], vars['runeSlotSelectSprite4']) --, vars[l_rune_slot_name[3] .. 'TableViewNode'])
-    self:addTab(5, vars['runeSlotBtn5'], vars['runeSlotSelectSprite5']) --, vars[l_rune_slot_name[3] .. 'TableViewNode'])
-    self:addTab(6, vars['runeSlotBtn6'], vars['runeSlotSelectSprite6']) --, vars[l_rune_slot_name[3] .. 'TableViewNode'])
+    self:addTab(1, vars['runeSlotBtn1'], vars['selectSprite1']) --, vars[l_rune_slot_name[1] .. 'TableViewNode'])
+    self:addTab(2, vars['runeSlotBtn2'], vars['selectSprite2']) --, vars[l_rune_slot_name[2] .. 'TableViewNode'])
+    self:addTab(3, vars['runeSlotBtn3'], vars['selectSprite3']) --, vars[l_rune_slot_name[3] .. 'TableViewNode'])
+    self:addTab(4, vars['runeSlotBtn4'], vars['selectSprite4']) --, vars[l_rune_slot_name[3] .. 'TableViewNode'])
+    self:addTab(5, vars['runeSlotBtn5'], vars['selectSprite5']) --, vars[l_rune_slot_name[3] .. 'TableViewNode'])
+    self:addTab(6, vars['runeSlotBtn6'], vars['selectSprite6']) --, vars[l_rune_slot_name[3] .. 'TableViewNode'])
     self:setTab(slot_idx)
 end
 
@@ -266,6 +269,8 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonRunes:refreshTableViewList()
+    local vars = self.vars
+
     local unequipped = true
     local slot = self.m_currTab
     local set_id = self.m_listFilterSetID
@@ -298,8 +303,33 @@ function UI_DragonRunes:refreshTableViewList()
         end
     end
 
+    -- 리스트에서 첫 룬 자동 선택
+    if (not self.m_selectedRuneObject) then
+        local first_item = self.m_tableViewTD.m_itemList[1]
+        if first_item and first_item['data'] then
+            self:setSelectedRuneObject(first_item['data'])
+        end
+    end
+
+    -- 조건에 맞는 룬이 없을 경우
+    vars['runeEmptyMenu']:setVisible(not self.m_selectedRuneObject)
+
     -- 드래곤이 장착 중인 6개의 룬 정보 갱신
     self:refreshEquippedRunes()
+
+
+    do -- 슬롯별 룬이 있는지 없는지 여부
+        local unequipped = true
+        local set_id = 0
+        for slot=1, 6 do
+            local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
+
+            local is_empty = (table.count(l_item_list) <= 0)
+            vars['emptySlot' .. slot]:setVisible(is_empty)
+        end
+    end
+
+    
 end
 
 -------------------------------------
@@ -421,6 +451,13 @@ end
 -------------------------------------
 function UI_DragonRunes:setSelectedRuneObject(rune_obj)
     local vars = self.vars
+
+    -- 하일라이트 삭제
+    if self.m_selectedRuneObject then
+        local roid = self.m_selectedRuneObject['roid']
+        self:setTableViewItemHighlight(roid, false)
+    end
+
     self.m_selectedRuneObject = rune_obj
 
     -- 룬 아이콘 삭제
@@ -463,6 +500,30 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
         local name = rune_obj:getRarityName()
         vars['selectRarityLabel']:setString(name)
     end
+
+    -- 하일라이트 추가
+    if self.m_selectedRuneObject then
+        local roid = self.m_selectedRuneObject['roid']
+        self:setTableViewItemHighlight(roid, true)
+    end
+end
+
+-------------------------------------
+-- function setTableViewItemHighlight
+-- @brief
+-------------------------------------
+function UI_DragonRunes:setTableViewItemHighlight(roid, visible)
+    local item = self.m_tableViewTD:getItem(roid)
+    if (not item) then
+        return
+    end
+
+    local ui = item['ui']
+    if (not ui) then
+        return
+    end
+
+    ui.vars['highlightSprite']:setVisible(visible)
 end
 
 -------------------------------------
@@ -588,6 +649,16 @@ function UI_DragonRunes:click_selectEnhance()
 
     ui:setCloseCB(close_cb)
 end
+
+-------------------------------------
+-- function click_adventureBtn
+-- @brief "모험 떠나기"
+-------------------------------------
+function UI_DragonRunes:click_adventureBtn()
+    local stage_id = g_localData:get('adventure_focus_stage')
+    g_adventureData:goToAdventureScene(stage_id)
+end
+
 
 -------------------------------------
 -- function click_equipBtn
