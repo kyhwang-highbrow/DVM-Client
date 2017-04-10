@@ -155,7 +155,7 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
     elseif (item_type == 'rune') then
         local rune_obj = t_sub_data or StructRuneObject({['rid'] = item_id})
         local slot = rune_obj['slot']
-        local rarity = rune_obj['rarity'] or 1
+        local rarity = rune_obj['rarity'] or 0
         local grade = rune_obj['grade']
         local set_id = rune_obj['set_id']
         local lv = rune_obj['lv']
@@ -187,7 +187,10 @@ end
 function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
     local rarity_str = ''
 
-    if (rarity == 1) then
+    if (rarity == 0) then
+        rarity_str = 'none'
+
+    elseif (rarity == 1) then
         rarity_str = 'common'
 
     elseif (rarity == 2) then
@@ -233,17 +236,7 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
             alphabet_sprite:setAnchorPoint(CENTER_POINT)
             rune_icon:addChild(alphabet_sprite)
 
-            local c3b = cc.c3b(255, 255, 255)
-
-            if (set_color == 'blue') then c3b = cc.c3b(0, 255, 255)
-            elseif (set_color == 'purple') then c3b = cc.c3b(221, 177, 255)
-            elseif (set_color == 'pink') then c3b = cc.c3b(253, 128, 255)
-            elseif (set_color == 'red') then c3b = cc.c3b(255, 157, 157)
-            elseif (set_color == 'bluegreen') then c3b = cc.c3b(106, 246, 205)
-            elseif (set_color == 'green') then c3b = cc.c3b(201, 255, 157)
-            elseif (set_color == 'orange') then c3b = cc.c3b(255, 190, 87)
-            elseif (set_color == 'yellow') then c3b = cc.c3b(255, 253, 87)
-            end
+            local c3b = TableRuneSet:getRuneSetColorC3b(set_id)
             alphabet_sprite:setColor(c3b)
         end
     end

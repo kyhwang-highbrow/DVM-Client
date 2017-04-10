@@ -133,6 +133,19 @@ function TableRuneSet:runeSetAnalysis(l_rid)
 end
 
 -------------------------------------
+-- function getRuneSetName
+-------------------------------------
+function TableRuneSet:getRuneSetName(set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local name = self:getValue(set_id, 't_name')
+
+    return Str(name)
+end
+
+-------------------------------------
 -- function getRuneSetColor
 -------------------------------------
 function TableRuneSet:getRuneSetColor(set_id)
@@ -143,6 +156,31 @@ function TableRuneSet:getRuneSetColor(set_id)
     local color = self:getValue(set_id, 'color')
 
     return color
+end
+
+-------------------------------------
+-- function getRuneSetColorC3b
+-------------------------------------
+function TableRuneSet:getRuneSetColorC3b(set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local set_color = self:getRuneSetColor(set_id)
+
+    local c3b = cc.c3b(255, 255, 255)
+
+    if (set_color == 'blue') then c3b = cc.c3b(0, 255, 255)
+    elseif (set_color == 'purple') then c3b = cc.c3b(221, 177, 255)
+    elseif (set_color == 'pink') then c3b = cc.c3b(253, 128, 255)
+    elseif (set_color == 'red') then c3b = cc.c3b(255, 157, 157)
+    elseif (set_color == 'bluegreen') then c3b = cc.c3b(106, 246, 205)
+    elseif (set_color == 'green') then c3b = cc.c3b(201, 255, 157)
+    elseif (set_color == 'orange') then c3b = cc.c3b(255, 190, 87)
+    elseif (set_color == 'yellow') then c3b = cc.c3b(255, 253, 87)
+    end
+
+    return c3b
 end
 
 -------------------------------------

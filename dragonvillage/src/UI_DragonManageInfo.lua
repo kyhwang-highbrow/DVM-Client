@@ -204,10 +204,29 @@ function UI_DragonManageInfo:refresh_dragonRunes(t_dragon_data, t_dragon)
         end
     end
 
-    -- 룬 세트
-    local rune_set_obj = t_dragon_data:getStructRuneSetObject()
-    local active_set_list = rune_set_obj:getActiveRuneSetList()
-    --ccdump(active_set_list)
+    do -- 룬 세트
+        local rune_set_obj = t_dragon_data:getStructRuneSetObject()
+        local active_set_list = rune_set_obj:getActiveRuneSetList()
+        vars['runeSetNode']:removeAllChildren()
+
+        local l_pos = getSortPosList(70, #active_set_list)
+        for i,set_id in ipairs(active_set_list) do
+            local ui = UI()
+            ui:load('dragon_management_info_rune_set.ui')
+
+            -- 색상 지정
+            local c3b = TableRuneSet:getRuneSetColorC3b(set_id)
+            ui.vars['runeBgSprite']:setColor(c3b)
+
+            -- 세트 이름
+            local set_name = TableRuneSet:getRuneSetName(set_id)
+            ui.vars['runeSetLabel']:setString(set_name)
+
+            -- AddCHild, 위치 지정
+            vars['runeSetNode']:addChild(ui.root)
+            ui.root:setPositionX(l_pos[i])
+        end
+    end
 end
 
 -------------------------------------
