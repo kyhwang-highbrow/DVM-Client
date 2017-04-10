@@ -6,92 +6,120 @@ filter: Linear,Linear
 repeat: none
 taildragon_dark_01_arm_01
   rotate: true
-  xy: 2, 2
-  size: 28, 60
-  orig: 28, 60
+  xy: 702, 2
+  size: 61, 89
+  orig: 61, 89
   offset: 0, 0
   index: -1
 taildragon_dark_01_arm_02
   rotate: true
-  xy: 358, 138
-  size: 27, 55
-  orig: 27, 55
+  xy: 841, 126
+  size: 60, 90
+  orig: 60, 90
   offset: 0, 0
   index: -1
 taildragon_dark_01_body_01
-  rotate: false
-  xy: 358, 167
-  size: 93, 87
-  orig: 93, 87
-  offset: 0, 0
-  index: -1
-taildragon_dark_01_body_02
   rotate: true
-  xy: 237, 35
-  size: 87, 113
-  orig: 87, 113
-  offset: 0, 0
-  index: -1
-taildragon_dark_01_body_03
-  rotate: false
-  xy: 453, 167
-  size: 87, 87
-  orig: 87, 87
-  offset: 0, 0
-  index: -1
-taildragon_dark_01_body_04
-  rotate: false
-  xy: 542, 176
-  size: 87, 78
-  orig: 87, 78
-  offset: 0, 0
-  index: -1
-taildragon_dark_01_body_05
-  rotate: false
-  xy: 631, 194
-  size: 87, 60
-  orig: 87, 60
-  offset: 0, 0
-  index: -1
-taildragon_dark_01_effect_01
-  rotate: false
-  xy: 2, 32
-  size: 233, 222
-  orig: 233, 222
+  xy: 399, 15
+  size: 173, 190
+  orig: 173, 190
   offset: 0, 0
   index: -1
 taildragon_dark_01_eye_01
   rotate: false
-  xy: 886, 213
-  size: 34, 41
-  orig: 34, 41
+  xy: 591, 17
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_eye_02
+  rotate: false
+  xy: 642, 17
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_foot_01
+  rotate: true
+  xy: 841, 188
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_foot_02
+  rotate: false
+  xy: 946, 176
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_hair_01
+  rotate: true
+  xy: 734, 170
+  size: 84, 105
+  orig: 84, 105
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_hand_01
+  rotate: true
+  xy: 933, 113
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_hand_02
+  rotate: true
+  xy: 839, 64
+  size: 60, 90
+  orig: 60, 90
   offset: 0, 0
   index: -1
 taildragon_dark_01_head_01
   rotate: false
-  xy: 237, 124
-  size: 119, 130
-  orig: 119, 130
+  xy: 591, 58
+  size: 109, 130
+  orig: 109, 130
   offset: 0, 0
   index: -1
 taildragon_dark_01_head_02
   rotate: false
-  xy: 64, 5
-  size: 30, 25
-  orig: 30, 25
+  xy: 931, 71
+  size: 41, 40
+  orig: 41, 40
   offset: 0, 0
   index: -1
 taildragon_dark_01_leg_01
-  rotate: true
-  xy: 720, 199
-  size: 55, 87
-  orig: 55, 87
+  rotate: false
+  xy: 702, 65
+  size: 66, 103
+  orig: 66, 103
   offset: 0, 0
   index: -1
 taildragon_dark_01_leg_02
-  rotate: true
-  xy: 809, 199
-  size: 55, 75
-  orig: 55, 75
+  rotate: false
+  xy: 770, 70
+  size: 67, 98
+  orig: 67, 98
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_tail_01
+  rotate: false
+  xy: 399, 190
+  size: 333, 64
+  orig: 333, 64
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_tail_03
+  rotate: false
+  xy: 199, 54
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_dark_01_tail_04
+  rotate: false
+  xy: 2, 21
+  size: 195, 233
+  orig: 195, 233
   offset: 0, 0
   index: -1
