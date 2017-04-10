@@ -35,6 +35,7 @@ function UI_IngameBossInfo:initUI()
     vars['bossSKillGauge']:setPercentage(0)
 
     -- 스킬별 버튼 생성
+    --[[
     for i = 1, 9 do
         local skill_id = t_boss['skill_' .. i]
         if (skill_id == '') then break end
@@ -45,6 +46,7 @@ function UI_IngameBossInfo:initUI()
 
         button:setPosition(x, y)
     end
+    ]]--
 end
 
 -------------------------------------
