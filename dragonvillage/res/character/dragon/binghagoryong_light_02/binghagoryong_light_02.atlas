@@ -1,0 +1,118 @@
+
+binghagoryong_light_02.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+binghagoryong_light_02_arm_01
+  rotate: false
+  xy: 108, 11
+  size: 72, 75
+  orig: 72, 75
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_arm_02
+  rotate: false
+  xy: 182, 13
+  size: 72, 75
+  orig: 72, 75
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_body_01
+  rotate: false
+  xy: 294, 143
+  size: 181, 110
+  orig: 181, 110
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_body_02
+  rotate: false
+  xy: 153, 90
+  size: 139, 163
+  orig: 139, 163
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_eye_01
+  rotate: false
+  xy: 959, 182
+  size: 50, 71
+  orig: 50, 71
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_foot_01
+  rotate: true
+  xy: 2, 2
+  size: 84, 104
+  orig: 84, 104
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_foot_02
+  rotate: false
+  xy: 407, 37
+  size: 84, 104
+  orig: 84, 104
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_hand_01
+  rotate: false
+  xy: 779, 142
+  size: 88, 111
+  orig: 88, 111
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_hand_02
+  rotate: false
+  xy: 869, 142
+  size: 88, 111
+  orig: 88, 111
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_head_01
+  rotate: true
+  xy: 644, 130
+  size: 123, 133
+  orig: 123, 133
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_head_02
+  rotate: true
+  xy: 639, 74
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_head_03
+  rotate: false
+  xy: 583, 81
+  size: 54, 67
+  orig: 54, 67
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_leg_01
+  rotate: true
+  xy: 294, 53
+  size: 88, 111
+  orig: 88, 111
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_leg_02
+  rotate: false
+  xy: 493, 37
+  size: 88, 111
+  orig: 88, 111
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_wing_01
+  rotate: false
+  xy: 2, 88
+  size: 149, 165
+  orig: 149, 165
+  offset: 0, 0
+  index: -1
+binghagoryong_light_02_wing_02
+  rotate: true
+  xy: 477, 150
+  size: 103, 165
+  orig: 103, 165
+  offset: 0, 0
+  index: -1
