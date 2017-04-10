@@ -26,6 +26,7 @@ GameDragonSkill = class(PARENT, {
         m_skillDescLabel = 'cc.Label',
 
         m_bubble = 'Animator',
+        m_speechLabel = 'cc.Label',
      })
 
 -------------------------------------
@@ -94,6 +95,14 @@ function GameDragonSkill:initUI()
     self.m_bubble:setRepeat(false)
     self.m_bubble:setVisible(false)
     self.m_node:addChild(self.m_bubble.m_node)
+    
+    local speechNode = self.m_bubble.m_node:getSocketNode('skill_bubble')
+
+    self.m_speechLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 24, 0, cc.size(340, 100), 1, 1)
+    self.m_speechLabel:setAnchorPoint(cc.p(0.5, 0.5))
+	self.m_speechLabel:setDockPoint(cc.p(0, 0))
+	self.m_speechLabel:setColor(cc.c3b(0,0,0))
+    speechNode:addChild(self.m_speechLabel)
 end
 
 -------------------------------------
@@ -341,9 +350,9 @@ end
 -------------------------------------
 function GameDragonSkill:makeSpeechBubble(dragon)
     if (dragon.m_bLeftFormation) then
-        self.m_bubble:setPosition(300, 300)
+        self.m_bubble:setPosition(300, 150)
     else
-        self.m_bubble:setPosition(-300, 300)
+        self.m_bubble:setPosition(-300, 150)
     end
     
     self.m_bubble:setFrame(0)
@@ -351,6 +360,25 @@ function GameDragonSkill:makeSpeechBubble(dragon)
         self.m_bubble:setVisible(false)
     end)
     self.m_bubble:setVisible(true)
+
+    -- 대사
+    local dragon_type = TableDragon():getDragonType(dragon.m_dragonID)
+    local t_dragonType = TableDragonType():get(dragon_type)
+    local flv = dragon.m_tDragonInfo['flv']
+    local idx = math_random(1, 2)
+    local key
+    
+    if (flv == 2) then
+        key = 't_good_shout' .. idx
+    elseif (flv == 3) then
+        key = 't_best_shout' .. idx
+    else
+        key = 't_normal_shout' .. idx
+    end
+    
+    if (t_dragonType[key]) then
+        self.m_speechLabel:setString(Str(t_dragonType[key]))
+    end
 end
 
 -------------------------------------

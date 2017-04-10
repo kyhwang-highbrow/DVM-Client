@@ -16,6 +16,7 @@ function TamerSpeechSystemColosseum:initUI()
     local ui = self.m_world.m_inGameUI
     
     -- 적군 테이머
+    --[[
     do
         self.m_enemyTamerAnimator = MakeAnimator('res/character/tamer/goni_i/goni_i.spine')
         self.m_enemyTamerAnimator.m_node:setMix('idle', 'summon', 0.1)
@@ -31,6 +32,7 @@ function TamerSpeechSystemColosseum:initUI()
 
         ui.vars['tamerNode2']:addChild(self.m_enemyTamerAnimator.m_node)
     end
+    ]]--
 end
 
 -------------------------------------
