@@ -211,11 +211,9 @@ function DropItemMgr:getItemFromPos(pos_x, pos_y)
     local near_distance = nil
     local selected_item = nil
 
-    cclog('## touch pos_x, pos_y : ' .. pos_x, pos_y)
     for _,item in ipairs(self.m_lItemlist) do
         if (not item:isObtained()) then
             local x, y = item:getCenterPos()
-            cclog('# item pos_x, pos_y : ' .. x, y)
 		    local distance = math_distance(x, y, pos_x, pos_y)
             if (not near_distance) or (distance < near_distance) then
                 near_distance = distance
