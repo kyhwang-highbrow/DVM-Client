@@ -216,19 +216,8 @@ end
 -- function getBodySize
 -------------------------------------
 function Monster:getBodySize(size_type)
-	local body = {0, 0, 50}
-
-	if (size_type == 's') then
-        body[3] = 30
-    elseif (size_type == 'm') then
-        body[3] = 40
-    elseif (size_type == 'l') then
-        body[3] = 60
-    elseif (size_type == 'xl') then
-        body[3] = 100
-	elseif (size_type == 'xxl') then
-        body[3] = 200
-    end
+	local size = g_constant:get('INGAME', 'BODY_SIZE')[size_type] or 50
+	local body = {0, 0, size}
 
 	return body
 end
