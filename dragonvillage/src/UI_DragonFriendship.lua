@@ -103,8 +103,6 @@ function UI_DragonFriendship:refresh()
 
     self:refreshFruits(attr)
 
-    self:setHeartGauge(80)
-
     self:refreshFriendship()
 end
 
@@ -122,6 +120,52 @@ function UI_DragonFriendship:refreshFriendship()
     local vars = self.vars
 
     local friendship_obj = t_dragon_data:getFriendshipObject()
+    local t_friendship_info = friendship_obj:getFriendshipInfo()
+
+    -- 친밀도 이름
+    if self:checkVarsKey('conditionLabel', t_friendship_info['name']) then
+        vars['conditionLabel']:setString(t_friendship_info['name'])
+    end
+
+    -- 대사
+    if self:checkVarsKey('conditionInfoLabel', t_friendship_info['desc']) then
+        vars['conditionInfoLabel']:setString(t_friendship_info['desc'])
+    end
+    
+    -- 경험치 게이지
+    if self:checkVarsKey('expGauge', t_friendship_info['exp_percent']) then
+        vars['expGauge']:stopAllActions()
+        vars['expGauge']:runAction(cc.ProgressTo:create(0.3, t_friendship_info['exp_percent']))
+
+        vars['expLabel']:setString(Str('{1}/{2}', friendship_obj['fexp'], t_friendship_info['max_exp']))
+    end
+
+    local percent = (friendship_obj['fatk'] / t_friendship_info['atk_max']) * 100
+    if self:checkVarsKey('atkGauge', percent) then
+        vars['atkGauge']:stopAllActions()
+        vars['atkGauge']:runAction(cc.ProgressTo:create(0.3, percent))
+
+        vars['atkLabel']:setString(Str('{1}/{2}', friendship_obj['fatk'], t_friendship_info['atk_max']))
+    end
+
+    local percent = (friendship_obj['fdef'] / t_friendship_info['def_max']) * 100
+    if self:checkVarsKey('defGauge', percent) then
+        vars['defGauge']:stopAllActions()
+        vars['defGauge']:runAction(cc.ProgressTo:create(0.3, percent))
+
+        vars['defLabel']:setString(Str('{1}/{2}', friendship_obj['fdef'], t_friendship_info['def_max']))
+    end
+
+    local percent = (friendship_obj['fhp'] / t_friendship_info['hp_max']) * 100
+    if self:checkVarsKey('hpGauge', percent) then
+        vars['hpGauge']:stopAllActions()
+        vars['hpGauge']:runAction(cc.ProgressTo:create(0.3, percent))
+
+        vars['hpLabel']:setString(Str('{1}/{2}', friendship_obj['fhp'], t_friendship_info['hp_max']))
+    end
+
+    -- 기분 게이지
+    self:setHeartGauge(t_friendship_info['feel_percent'])
 end
 
 -------------------------------------
@@ -162,9 +206,7 @@ function UI_DragonFriendship:refreshFruits(attr)
         vars['fruitNumberLabel' .. i]:setNumber(count)
 
 
-        vars['fruitBtn' .. i]:registerScriptTapHandler(function() 
-                self:feedDirecting(fid, vars['fruitBtn' .. i])
-            end)
+        vars['fruitBtn' .. i]:registerScriptTapHandler(function() self:click_fruitBtn(fid, vars['fruitBtn' .. i]) end)
     end
     --[[
     fruitBtn1
@@ -185,7 +227,9 @@ end
 -- function feedDirecting
 -- @brief 열매 날아가는 연출
 -------------------------------------
-function UI_DragonFriendship:feedDirecting(fruit_id, fruit_node)
+function UI_DragonFriendship:feedDirecting(fruit_id, fruit_node, finish_cb)
+    finish_cb = finish_cb or function() end
+
     local vars = self.vars
     local pos_x = 0
     local pos_y = 0
@@ -224,8 +268,123 @@ function UI_DragonFriendship:feedDirecting(fruit_id, fruit_node)
 		local action2 = cc.RotateTo:create(duration, -720)
         local spawn = cc.Spawn:create(cc.EaseIn:create(action, 1), action2)
         local scale_action = cc.ScaleTo:create(0.05, 0)
-		icon:runAction(cc.Sequence:create(spawn, scale_action, cc.RemoveSelf:create()))
+		icon:runAction(cc.Sequence:create(spawn, scale_action, cc.CallFunc:create(finish_cb), cc.RemoveSelf:create()))
     end
+end
+
+-------------------------------------
+-- function request_friendshipUp
+-------------------------------------
+function UI_DragonFriendship:request_friendshipUp(fid, fcnt, fcnt_120p, fcnt_150p, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+    local doid = self.m_selectDragonOID
+
+
+    local function success_cb(ret)
+        --[[
+        -- 드래곤 갱신
+        if ret['dragon'] then
+            g_dragonsData:applyDragonData(ret['dragon'])
+        end
+
+        -- 골드 갱신
+        if ret['gold'] then
+            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
+            g_topUserInfo:refreshData()
+        end
+
+        -- 열매 갯수 동기화
+        if ret['fruits'] then
+            g_serverData:applyServerData(ret['fruits'], 'user', 'fruits')
+        end
+
+        -- 서버에서 새로 받은 드래곤 정보로 갱신
+        self:setSelectDragonDataRefresh()
+
+        -- 드래곤 정보 갱신
+        self:refresh_dragonFriendshipInfo()
+
+        -- 열매 정보 갱신
+        self:refresh_fruitListTab(attr)
+        
+        self:friendshipDirecting(ret['is_flevelup'], ret['bonus_grade'], self.m_prevFriendshipData, ret['dragon'])
+
+        self.m_bChangeDragonList = true
+        --]]
+
+        finish_cb(ret)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/friendshipUp')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('fid', fid)
+    ui_network:setParam('fcnt', fcnt)
+    ui_network:setParam('fcnt_120p', fcnt_120p)
+    ui_network:setParam('fcnt_150p', fcnt_150p)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function response_friendshipUp
+-------------------------------------
+function UI_DragonFriendship:response_friendshipUp(ret)
+    -- 드래곤 갱신
+    if ret['dragon'] then
+        g_dragonsData:applyDragonData(ret['dragon'])
+    end
+
+    -- 열매 갯수 동기화
+    if ret['fruits'] then
+        g_serverData:applyServerData(ret['fruits'], 'user', 'fruits')
+    end
+
+    -- UI에서 관리하는 드래곤 정보 갱신
+    self:setSelectDragonDataRefresh()
+
+    self.m_bChangeDragonList = true
+end
+
+-------------------------------------
+-- function click_fruitBtn
+-- @brief
+-------------------------------------
+function UI_DragonFriendship:click_fruitBtn(fid, btn)
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        local fail_cb = function(ret)
+            self:refresh()
+        end
+
+        -- 서버와 통신
+        co:work()
+        local ret_cache
+        local function request_finish(ret)
+            ret_cache = ret
+            co.NEXT()
+        end
+        self:request_friendshipUp(fid, 1, 0, 0, request_finish, co.ESCAPE)
+        if co:waitWork() then return end
+
+        -- 열매 연출
+        co:work()
+        self:feedDirecting(fid, btn, co.NEXT)
+        if co:waitWork() then return end
+
+        self:response_friendshipUp(ret_cache)
+        self:refresh()
+
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
 end
 
 --@CHECK

@@ -250,7 +250,7 @@ end
 -------------------------------------
 function UI_Network:makeCommonPopup(msg)
     self:close()
-    MakeSimplePopup(POPUP_TYPE.OK, Str(msg))
+    MakeSimplePopup(POPUP_TYPE.OK, Str(msg), self.m_failCB)
 end
 
 

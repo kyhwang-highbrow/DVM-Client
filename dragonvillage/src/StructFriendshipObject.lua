@@ -24,7 +24,7 @@ function StructFriendshipObject:init(data)
     self['fdef'] = 0
     self['fhp'] = 0
 
-    if data and (type(data) == 'table') then
+    if data then
         self:applyTableData(data)
     end
 end
@@ -47,4 +47,30 @@ function StructFriendshipObject:applyTableData(data)
         local key = replacement[i] and replacement[i] or i
         self[key] = v
     end
+end
+
+-------------------------------------
+-- function getFriendshipInfo
+-- @breif
+-------------------------------------
+function StructFriendshipObject:getFriendshipInfo()
+    local table_friendship = TableFriendship()
+    local t_table = table_friendship:get(self['flv'])
+
+    -- 기분 게이지
+    local table_friendship_variables = TableFriendshipVariables()
+    local feel_percent = (self['ffeel'] / table_friendship_variables:getFeelMax()) * 100
+    feel_percent = math_clamp(feel_percent, 0, 100)
+
+    local t_friendship_info = {}
+    t_friendship_info['name'] = Str(t_table['t_name'])
+    t_friendship_info['desc'] = Str(t_table['t_desc'])
+    t_friendship_info['feel_percent'] = feel_percent
+    t_friendship_info['atk_max'] = table_friendship_variables:getAtkMax()
+    t_friendship_info['def_max'] = table_friendship_variables:getDefMax()
+    t_friendship_info['hp_max'] = table_friendship_variables:getHpMax()
+    t_friendship_info['max_exp'] = t_table['req_exp']
+    t_friendship_info['exp_percent'] = (self['fexp'] / t_friendship_info['max_exp']) * 100
+
+    return t_friendship_info
 end
