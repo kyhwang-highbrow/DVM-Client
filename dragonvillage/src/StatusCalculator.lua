@@ -329,6 +329,18 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
     status_calc:applyDragonResearchBuff(rlv)
 
     -- 친밀도(friendship)
+    do
+        local friendship_obj = t_dragon_data:getFriendshipObject()
+
+        local indivisual_status = status_calc.m_lStatusList['atk']
+        indivisual_status:setFriendshipStat(friendship_obj['fatk'])
+
+        local indivisual_status = status_calc.m_lStatusList['def']
+        indivisual_status:setFriendshipStat(friendship_obj['fdef'])
+
+        local indivisual_status = status_calc.m_lStatusList['hp']
+        indivisual_status:setFriendshipStat(friendship_obj['fhp'])
+    end
 
     -- 룬(rune) (개별 룬, 세트 포함)
     do
