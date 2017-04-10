@@ -16,6 +16,15 @@ L_STATUS_TYPE = clone(L_BASIC_STATUS_TYPE)
 table.addList(L_STATUS_TYPE, {
 		'dmg_adj_rate',	-- 데미지 조정 계수
 		'attr_adj_rate', -- 속성 조정 계수
+
+        -- 룬 세트가 추가되면서 추가된 능력치
+        'accuracy',     -- 효과 적중 +{1}%
+        'resistance',   -- 효과 저항 +{1}%
+        'drag_gauge',   -- 드래그 게이지 +{1} 충전 상태에서 시작
+        'drag_cool',    -- 드래그 스킬 쿨타임 +{1} 감소
+        'cool_actu',    -- 쿨타임 스킬 시간 +{1}%
+        'pass_chance',  -- 패시브 발동 +{1}%
+
     })
 
 -------------------------------------
@@ -60,13 +69,21 @@ end
 function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, eclv)
     local l_status = {}
 
-    for _,status_name in pairs(L_STATUS_TYPE) do
+    -- 기본 능력치들 계산
+    for _,status_name in pairs(L_BASIC_STATUS_TYPE) do
         local basic_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat = self:calcStat(char_type, cid, status_name, lv, grade, evolution, eclv)
 
-        local indivisual_status = StructIndividualStatus()
+        local indivisual_status = StructIndividualStatus(status_name)
         indivisual_status:setBasicStat(base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat)
 
         l_status[status_name] = indivisual_status--t_status
+    end
+
+    -- 확장 능력치들 구조 생성
+    for _,status_name in pairs(L_STATUS_TYPE) do
+        if (not l_status[status_name]) then
+            l_status[status_name] = StructIndividualStatus(status_name)
+        end
     end
 
     return l_status
@@ -134,11 +151,6 @@ end
 -- @brief 연구 버프 적용
 -------------------------------------
 function StatusCalculator:applyDragonResearchBuff(rlv)
-    -- 임시로 막아둠
-    if true then
-        return
-    end
-
     if (self.m_charType ~= 'dragon') then
         return
     end
@@ -147,9 +159,9 @@ function StatusCalculator:applyDragonResearchBuff(rlv)
     local dragon_type = TableDragon:getDragonType(did)
     local atk, def, hp = TableDragonResearch:getDragonResearchStatus(dragon_type, rlv)
 
-    self.m_lPassiveAbs['atk'] = (self.m_lPassiveAbs['atk'] + atk)
-    self.m_lPassiveAbs['def'] = (self.m_lPassiveAbs['def'] + def)
-    self.m_lPassiveAbs['hp'] = (self.m_lPassiveAbs['hp'] + hp)
+    self.m_lStatusList['atk']:setResearchStat(atk)
+    self.m_lStatusList['def']:setResearchStat(def)
+    self.m_lStatusList['hp']:setResearchStat(hp)
 end
 
 -------------------------------------
@@ -157,11 +169,6 @@ end
 -- @brief 진형 버프 적용 (다른 status effect처럼 패시브 형태로 동작함)
 -------------------------------------
 function StatusCalculator:applyFormationBonus(formation, slot_idx)
-    -- 임시로 막아둠
-    if true then
-        return
-    end
-
     local l_buff = TableFormation:getBuffList(formation, slot_idx)
 
     for i,v in ipairs(l_buff) do
@@ -172,15 +179,15 @@ function StatusCalculator:applyFormationBonus(formation, slot_idx)
         
         -- 공격력 상승
         elseif (buff_type == 'atk_up') then
-            self.m_lPassive['atk'] = (self.m_lPassive['atk'] + buff_value)
+            self:addBuffMulti('atk', buff_value)
 
         -- 방어력 상승
         elseif (buff_type == 'def_up') then
-            self.m_lPassive['def'] = (self.m_lPassive['def'] + buff_value)
+            self:addBuffMulti('def', buff_value)
         
         -- 공격력 하락
         elseif (buff_type == 'atk_down') then
-            self.m_lPassive['atk'] = (self.m_lPassive['atk'] - buff_value)
+            self:addBuffMulti('atk', -buff_value)
 
         else
             error('buff_type : ' .. buff_type)
@@ -193,11 +200,6 @@ end
 -- @brief 친구 버프 적용
 -------------------------------------
 function StatusCalculator:applyFriendBuff(t_friend_buff)
-    -- 임시로 막아둠
-    if true then
-        return
-    end
-
     if (not t_friend_buff) then
         return
     end
@@ -206,8 +208,7 @@ function StatusCalculator:applyFriendBuff(t_friend_buff)
     local t_add_bonus = t_friend_buff['add_status']
     if (t_add_bonus) then
         for key, value in pairs(t_add_bonus) do
-            local t_status = self.m_lStatusList[key]
-            t_status['basic_stat'] = t_status['basic_stat'] + value
+            self:addBuffAdd(key, value)
         end
     end
 
@@ -215,7 +216,7 @@ function StatusCalculator:applyFriendBuff(t_friend_buff)
     local t_multiply_bonus = t_friend_buff['multiply_status']
     if (t_multiply_bonus) then
         for key, value in pairs(t_multiply_bonus) do
-            self.m_lPassive[key] = (self.m_lPassive[key] + value)
+            self:addBuffMulti(key, value)
         end
     end
 end
@@ -230,19 +231,16 @@ function StatusCalculator:getCombatPower()
     local table_status = TableStatus()
 
     -- 능력치별 전투력 계수를 곱해서 전투력 합산
-    for stat_name,t_status in pairs(self.m_lStatusList) do
-        
-        if (not isExistValue(stat_name, 'dmg_adj_rate', 'attr_adj_rate')) then
-            -- 모든 연산이 끝난 후의 능력치 얻어옴
-            local final_stat = self:getFinalStat(stat_name)
+    for _,stat_name in pairs(L_BASIC_STATUS_TYPE) do
+        -- 모든 연산이 끝난 후의 능력치 얻어옴
+        local final_stat = self:getFinalStat(stat_name)
 
-            -- 능력치별 계수(coef)를 얻어옴
-            local coef = table_status:getValue(stat_name, 'combat_power_coef') or 0
+        -- 능력치별 계수(coef)를 얻어옴
+        local coef = table_status:getValue(stat_name, 'combat_power_coef') or 0
 
-            -- 능력치별 전투력 계산
-            local combat_power = (final_stat * coef)
-            total_combat_power = (total_combat_power + combat_power)
-        end
+        -- 능력치별 전투력 계산
+        local combat_power = (final_stat * coef)
+        total_combat_power = (total_combat_power + combat_power)
     end
 
     return math_floor(total_combat_power)
@@ -285,7 +283,6 @@ function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
     evolution = (evolution or 1)
 
     local status_calc = StatusCalculator('dragon', dragon_id, lv, grade, evolution, eclv)
-    status_calc:applyDragonResearchBuff(rlv or 0)
     return status_calc
 end
 
@@ -326,6 +323,26 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
     local eclv = t_dragon_data['eclv']
 
     local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
+
+    -- 연구(research)
+    local rlv = t_dragon_data['rlv']
+    status_calc:applyDragonResearchBuff(rlv)
+
+    -- 친밀도(friendship)
+
+    -- 룬(rune) (개별 룬, 세트 포함)
+    do
+        local l_add_status, l_multi_status = t_dragon_data:getRuneStatus()
+        for stat_type,value in pairs(l_add_status) do
+            local indivisual_status = status_calc.m_lStatusList[stat_type]
+            indivisual_status:setRuneAdd(value)
+        end
+
+        for stat_type,value in pairs(l_multi_status) do
+            local indivisual_status = status_calc.m_lStatusList[stat_type]
+            indivisual_status:setRuneMulti(value)
+        end
+    end
 
     return status_calc
 end

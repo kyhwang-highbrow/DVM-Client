@@ -73,3 +73,39 @@ function StructRuneSetObject:getActiveRuneSetList()
 
     return active_set_list
 end
+
+-------------------------------------
+-- function getRuneSetStatus
+-------------------------------------
+function StructRuneSetObject:getRuneSetStatus()
+    local table_option = TableOption()
+    local l_add_status = {}
+    local l_multi_status = {}
+
+    local active_set_list = self:getActiveRuneSetList()
+
+    local table_rune_set = TableRuneSet()
+    for _,set_id in pairs(active_set_list) do
+        local stat_type, action, value = table_rune_set:getRuneSetStatus(set_id)
+
+        if (action == 'add') then
+            if (not l_add_status[stat_type]) then
+                l_add_status[stat_type] = 0
+            end
+            l_add_status[stat_type] = l_add_status[stat_type] + value
+
+        elseif (action == 'multi') then
+            if (not l_multi_status[stat_type]) then
+                l_multi_status[stat_type] = 0
+            end
+            l_multi_status[stat_type] = l_multi_status[stat_type] + value
+
+        else
+            error('# action : ' .. action)
+
+        end
+
+    end
+
+    return l_add_status, l_multi_status
+end

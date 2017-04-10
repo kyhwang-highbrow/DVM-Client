@@ -168,6 +168,7 @@ function StructDragonObject:getRuneStatus()
     local l_add_status = {}
     local l_multi_status = {}
 
+    -- 개별 룬들의 능력치 합산
     for _,rune_obj in pairs(l_rune_obj) do
         local _l_add_status, _l_multi_status = rune_obj:getRuneStatus()
 
@@ -186,5 +187,33 @@ function StructDragonObject:getRuneStatus()
         end
     end
 
+    do -- 룬 세트 능력치 합산
+        local _l_add_status, _l_multi_status = self:getRuneSetStatus()
+
+        for key,value in pairs(_l_add_status) do
+            if (not l_add_status[key]) then
+                l_add_status[key] = 0
+            end
+            l_add_status[key] = l_add_status[key] + value
+        end
+
+        for key,value in pairs(_l_multi_status) do
+            if (not l_multi_status[key]) then
+                l_multi_status[key] = 0
+            end
+            l_multi_status[key] = l_multi_status[key] + value
+        end
+    end
+
+    return l_add_status, l_multi_status
+end
+
+-------------------------------------
+-- function getRuneSetStatus
+-- @breif
+-------------------------------------
+function StructDragonObject:getRuneSetStatus()
+    local rune_set_obj = self:getStructRuneSetObject()
+    local l_add_status, l_multi_status = rune_set_obj:getRuneSetStatus()
     return l_add_status, l_multi_status
 end

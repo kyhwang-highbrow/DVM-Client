@@ -144,3 +144,24 @@ function TableRuneSet:getRuneSetColor(set_id)
 
     return color
 end
+
+-------------------------------------
+-- function getRuneSetStatus
+--
+-------------------------------------
+function TableRuneSet:getRuneSetStatus(set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_table = self:get(set_id)
+    local key = t_table['key']
+
+    local table_option = TableOption()
+
+    local stat_type = table_option:getValue(key, 'status')
+    local action = table_option:getValue(key, 'action')
+    local value = t_table['value']
+
+    return stat_type, action, value
+end

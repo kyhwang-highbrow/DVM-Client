@@ -48,7 +48,9 @@ StructIndividualStatus = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function StructIndividualStatus:init()
+function StructIndividualStatus:init(status_name)
+    self.m_statusName = status_name
+
     self.m_baseStat = 0
 
     self.m_lvStat = 0
@@ -176,7 +178,7 @@ end
 -- function setRuneMulti
 -------------------------------------
 function StructIndividualStatus:setRuneMulti(rune_multi)
-    self.m_buffMulti = rune_multi
+    self.m_runeMulti = rune_multi
     self:setDirtyFinalStat()
 end
 

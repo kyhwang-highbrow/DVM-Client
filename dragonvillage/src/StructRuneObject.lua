@@ -369,19 +369,19 @@ function StructRuneObject:getRuneStatus()
         local option_string = self[v]
         local option, value = self:parseRuneOptionStr(option_string)
         if option then
-            local status = table_option:getValue(option, 'status')
+            local stat_type = table_option:getValue(option, 'status')
             local action = table_option:getValue(option, 'action')
             if (action == 'add') then
-                if (not l_add_status[status]) then
-                    l_add_status[status] = 0
+                if (not l_add_status[stat_type]) then
+                    l_add_status[stat_type] = 0
                 end
-                l_add_status[status] = l_add_status[status] + value
+                l_add_status[stat_type] = l_add_status[stat_type] + value
 
             elseif (action == 'multi') then
-                if (not l_multi_status[status]) then
-                    l_multi_status[status] = 0
+                if (not l_multi_status[stat_type]) then
+                    l_multi_status[stat_type] = 0
                 end
-                l_multi_status[status] = l_multi_status[status] + value
+                l_multi_status[stat_type] = l_multi_status[stat_type] + value
 
             else
                 error('# action : ' .. action)
