@@ -150,6 +150,7 @@ local t_module = {
 	'TableMonsterSkill',
     'TableEnemyMove',
     'TableFriendship',
+    'TableFriendshipVariables',
     'TableFriendBuff',
     'TableFruit',
     'TableUserLevel',

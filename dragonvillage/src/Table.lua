@@ -29,7 +29,6 @@ local TableInfo = {
         exp_tamer         = {'table_exp_tamer',             'lv_t',         false},
         item              = {'table_item',                  'item',         false},
         fruit             = {'table_fruit',                 'fid',          false},
-        friendship        = {'table_dragon_friendship',     'friendship',   false},
         friendbuff        = {'table_dragon_friendbuff',     'rarity',       false},
 
         item_sort_by_type = {'table_item',                  'full_type',    false},
@@ -52,7 +51,6 @@ local TableInfo = {
         evolution_info       = {'table_dragon_evolution_info','evolution',    false},
         enemy_move           = {'table_enemy_move',           'type',         true},
         evolution_item       = {'table_dragon_evolution_item','item_id',      false},
-        friendship_variables = {'table_dragon_friendship_variables',  'vari',         false},
         dragon_train_info    = {'table_dragon_train_info',  'grade',        false},
         table_rune_set       = {'table_rune_set',           'set_id',       false},
         dragon_unit          = {'table_dragon_unit',        'unit_id',      false},
@@ -70,6 +68,10 @@ local TableInfo_fromServer = {
         ['table_dragon_skill_enhance'] = {'table_dragon_skill_enhance', 'lv'},
         ['table_stamina_info'] = {'table_stamina_info', 'stamina_type'},
         ['table_dragon_research'] = {'table_dragon_research', 'lv'},
+
+        --  친밀도
+        ['table_dragon_friendship'] = {'table_dragon_friendship', 'friendship'},
+        ['table_dragon_friendship_variables'] = {'table_dragon_friendship_variables', 'var'},
     }
 
 -------------------------------------

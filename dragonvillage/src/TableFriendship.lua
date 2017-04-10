@@ -6,14 +6,17 @@ local PARENT = TableClass
 TableFriendship = class(PARENT, {
     })
 
+local THIS = TableFriendship
+
 -------------------------------------
 -- function init
 -------------------------------------
 function TableFriendship:init()
-    self.m_tableName = 'friendship'
+    self.m_tableName = 'table_dragon_friendship'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
+--[[
 -------------------------------------
 -- function isMaxFriendshipLevel
 -------------------------------------
@@ -63,3 +66,4 @@ function TableFriendship:getFriendshipLvAndExpInfo(t_dragon_data)
 
     return t_friendship_info
 end
+--]]

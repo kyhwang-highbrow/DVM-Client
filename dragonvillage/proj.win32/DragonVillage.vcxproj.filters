@@ -1905,6 +1905,9 @@
     <None Include="..\src\StructFriendshipObject.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableFriendshipVariables.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

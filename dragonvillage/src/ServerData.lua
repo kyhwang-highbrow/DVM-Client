@@ -480,6 +480,10 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
         self:setServerTable(ret, 'table_stamina_info')
         self:setServerTable(ret, 'table_dragon_research')
 
+        -- 친밀도 테이블
+        self:setServerTable(ret, 'table_dragon_friendship')
+        self:setServerTable(ret, 'table_dragon_friendship_variables')
+
         if finish_cb then
             finish_cb(ret)
         end

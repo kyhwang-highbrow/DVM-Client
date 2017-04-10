@@ -98,9 +98,9 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
 
     -- 친밀도
     if vars['friendshipLabel'] then
-        local t_friendship_info = TableFriendship:getFriendshipLvAndExpInfo(t_dragon_data)
-        vars['friendshipLabel']:setString(t_friendship_info['name'])
-        vars['friendshipGauge']:setPercentage(t_friendship_info['percentage'])
+        --local t_friendship_info = TableFriendship:getFriendshipLvAndExpInfo(t_dragon_data)
+        --vars['friendshipLabel']:setString(t_friendship_info['name'])
+        --vars['friendshipGauge']:setPercentage(t_friendship_info['percentage'])
     end
 
 
