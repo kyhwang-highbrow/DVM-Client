@@ -1,0 +1,139 @@
+
+frostdragon_water_03.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+frostdragon_water_03_arm_01
+  rotate: false
+  xy: 1687, 179
+  size: 101, 75
+  orig: 101, 75
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_arm_02
+  rotate: true
+  xy: 171, 6
+  size: 62, 75
+  orig: 62, 75
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_body_01
+  rotate: false
+  xy: 1086, 88
+  size: 186, 166
+  orig: 186, 166
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_body_02
+  rotate: false
+  xy: 410, 137
+  size: 259, 117
+  orig: 259, 117
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_effect_01
+  rotate: false
+  xy: 2, 70
+  size: 406, 184
+  orig: 406, 184
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_eye_01
+  rotate: true
+  xy: 2, 2
+  size: 66, 86
+  orig: 66, 86
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_eye_03
+  rotate: true
+  xy: 1560, 2
+  size: 106, 74
+  orig: 106, 74
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_foot_01
+  rotate: true
+  xy: 1086, 2
+  size: 84, 104
+  orig: 84, 104
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_foot_02
+  rotate: true
+  xy: 1192, 2
+  size: 84, 104
+  orig: 84, 104
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_hand_01
+  rotate: true
+  xy: 671, 129
+  size: 125, 218
+  orig: 125, 218
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_hand_02
+  rotate: false
+  xy: 1593, 133
+  size: 92, 121
+  orig: 92, 121
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_head_01
+  rotate: true
+  xy: 1425, 110
+  size: 144, 166
+  orig: 144, 166
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_head_02
+  rotate: true
+  xy: 410, 82
+  size: 53, 87
+  orig: 53, 87
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_head_03
+  rotate: false
+  xy: 1790, 196
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_head_04
+  rotate: true
+  xy: 90, 2
+  size: 66, 79
+  orig: 66, 79
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_leg_01
+  rotate: true
+  xy: 1425, 2
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_leg_02
+  rotate: false
+  xy: 1298, 9
+  size: 97, 78
+  orig: 97, 78
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_wing_01
+  rotate: true
+  xy: 891, 71
+  size: 183, 193
+  orig: 183, 193
+  offset: 0, 0
+  index: -1
+frostdragon_water_03_wing_02
+  rotate: false
+  xy: 1274, 89
+  size: 149, 165
+  orig: 149, 165
+  offset: 0, 0
+  index: -1

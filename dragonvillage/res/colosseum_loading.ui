@@ -48,7 +48,7 @@
 			visible = true;
 			lua_name = '';
 			color = { 0; 0; 0; };
-			opacity = 150;
+			opacity = 180;
 			src_blend = 770;
 			dest_blend = 771;
 		};
@@ -61,8 +61,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 194;
-			height = 194;
+			width = 262;
+			height = 214;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -89,8 +89,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 528;
-				height = 686;
+				width = 372;
+				height = 700;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -111,7 +111,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 16.000000;
+				y = -157.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -130,14 +130,14 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -149.000000;
+				y = 258.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 162;
 				height = 162;
-				scale_x = 0.800000;
-				scale_y = 0.800000;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -149,7 +149,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -201.000000;
+				y = 199.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -189,7 +189,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -237.000000;
+				y = 145.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -229,7 +229,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -1.000000;
-				y = -273.000000;
+				y = 109.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -292,8 +292,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 528;
-				height = 686;
+				width = 372;
+				height = 700;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -301,7 +301,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/colosseum_match_02.png';
+				file_name = 'ui/frame/colosseum_match_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -314,7 +314,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 16.000000;
+				y = -157.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -333,14 +333,14 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -149.000000;
+				y = 258.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 162;
 				height = 162;
-				scale_x = 0.800000;
-				scale_y = 0.800000;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -352,7 +352,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -201.000000;
+				y = 198.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -392,7 +392,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -237.000000;
+				y = 145.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -432,7 +432,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -1.000000;
-				y = -273.000000;
+				y = 109.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

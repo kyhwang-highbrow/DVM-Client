@@ -111,7 +111,7 @@
 					visible = true;
 					lua_name = 'rewardLabel2';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 24;
 					text = '{1}개';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -177,7 +177,7 @@
 					visible = true;
 					lua_name = 'gradeLabel2';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 24;
 					text = '{1}등급';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -243,7 +243,7 @@
 					visible = true;
 					lua_name = 'rewardLabel1';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 24;
 					text = '{1}개';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -309,7 +309,7 @@
 					visible = true;
 					lua_name = 'gradeLabel1';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 24;
 					text = '{1}등급';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -375,7 +375,7 @@
 					visible = true;
 					lua_name = 'rewardLabel3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 24;
 					text = '{1}개';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -441,7 +441,7 @@
 					visible = true;
 					lua_name = 'gradeLabel3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 24;
 					text = '{1}등급';
 					h_alignment = 0;
 					v_alignment = 1;

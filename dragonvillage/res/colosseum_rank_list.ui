@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/list_frame_0101.png';
+				file_name = 'ui/frame/a_list_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'myRankSprite';
-				file_name = 'ui/frame/list_frame_0103.png';
+				file_name = 'ui/frame/a_list_02.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -61,7 +61,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -336.000000;
+				x = -368.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -99,7 +99,7 @@
 				text = '100';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 71; 36; 20; };
+				color = { 240; 215; 159; };
 				opacity = 255;
 				dimension_width = 100;
 				dimension_height = 100;
@@ -120,7 +120,7 @@
 			{
 				type = 'Menu';
 				ui_name = '';
-				x = 100.000000;
+				x = 110.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
@@ -158,7 +158,7 @@
 				text = 'userNameLabel';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 71; 36; 20; };
+				color = { 240; 215; 159; };
 				opacity = 255;
 				dimension_width = 200;
 				dimension_height = 40;
@@ -227,7 +227,7 @@
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
 					width = 53;
-					height = 20;
+					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -240,10 +240,10 @@
 					text = '5000';
 					h_alignment = 0;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 240; 215; 159; };
 					opacity = 255;
 					dimension_width = 53;
-					dimension_height = 20;
+					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -273,8 +273,8 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/mini_bg_06.png';
-				color = { 71; 36; 20; };
+				file_name = 'ui/frame/a_frame_05.png';
+				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
 				center_rect_y = 0;
@@ -306,8 +306,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 1.000000;
-					y = 3.000000;
+					x = 0.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -321,7 +321,7 @@
 					visible = true;
 					lua_name = '';
 					file_name = 'ui/icon/detail_01.png';
-					color = { 255; 255; 255; };
+					color = { 240; 215; 159; };
 					opacity = 255;
 					flip_x = false;
 					flip_y = false;
@@ -336,7 +336,7 @@
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 56;
-				height = 60;
+				height = 56;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -345,8 +345,8 @@
 				visible = true;
 				lua_name = 'userButton';
 				enable = true;
-				normal = 'ui/btn/base_btn_0101.png';
-				selected = 'ui/btn/base_btn_0102.png';
+				normal = 'ui/btn/a_btn_0101.png';
+				selected = 'ui/btn/a_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -357,7 +357,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 780;
+			width = 840;
 			height = 100;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -389,8 +389,8 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/list_frame_0101.png';
-					color = { 210; 180; 140; };
+					file_name = 'ui/frame/a_frame_01.png';
+					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
 					center_rect_y = 0;
@@ -420,7 +420,7 @@
 					text = '다음 랭킹';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 71; 36; 20; };
+					color = { 240; 215; 159; };
 					opacity = 255;
 					dimension_width = 580;
 					dimension_height = 80;
@@ -444,7 +444,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 780;
+				width = 840;
 				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -457,7 +457,7 @@
 				normal = 'ui/empty.png';
 				selected = '';
 				disable = '';
-				image_type = 0;
+				image_type = 1;
 			};
 			type = 'Menu';
 			ui_name = '';
@@ -466,7 +466,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 780;
+			width = 840;
 			height = 100;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -498,8 +498,8 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/list_frame_0101.png';
-					color = { 210; 180; 140; };
+					file_name = 'ui/frame/a_frame_01.png';
+					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
 					center_rect_y = 0;
@@ -529,7 +529,7 @@
 					text = '이전 랭킹';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 71; 36; 20; };
+					color = { 240; 215; 159; };
 					opacity = 255;
 					dimension_width = 580;
 					dimension_height = 80;
@@ -553,7 +553,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 780;
+				width = 840;
 				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -575,7 +575,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 780;
+			width = 840;
 			height = 100;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -592,7 +592,7 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
-		width = -500;
+		width = -440;
 		height = -620;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
