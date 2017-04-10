@@ -52,6 +52,14 @@
         
         // DPS&HPS 업데이트 주기
         "DPS_INTERVAL" : 1,
+		
+		// ----------------------------------------------------
+        // 드래그 스킬 피드백 효과([시간, 값])
+        // ----------------------------------------------------
+		"FEEDBACK_BUFF_TANKER" : [ 5, 10 ],
+		"FEEDBACK_BUFF_DEALER" : [ 8, 10 ],
+		"FEEDBACK_BUFF_SUPPORTER" : [ 0, 10 ],
+		"FEEDBACK_BUFF_HEALER" : [ 0, 20 ],
         
         // ----------------------------------------------------
         // 피버모드
@@ -115,8 +123,8 @@
 			"block"			: 0,
 			
 			// supporter
-			"time_skill"	: 10,
-			"passive_skill"	: 10
+			"time_skill"	: 5,
+			"passive_skill"	: 5
 		}
     },
     

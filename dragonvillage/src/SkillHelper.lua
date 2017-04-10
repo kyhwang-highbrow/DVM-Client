@@ -181,24 +181,32 @@ function SkillHelper:getDragonActiveSkillBonusInfo(dragon)
     local status_effect_value
 
     if (role_type == 'tanker') then
+        local t_temp = g_constant:get('INGAME', 'FEEDBACK_BUFF_TANKER') or {}
+
         status_effect_type = 'feedback_defender'
-        status_effect_time = 5
-        status_effect_value = 10
+        status_effect_time = t_temp[1] or 5
+        status_effect_value = t_temp[2] or 10
         
     elseif (role_type == 'dealer') then
+        local t_temp = g_constant:get('INGAME', 'FEEDBACK_BUFF_DEALER') or {}
+
         status_effect_type = 'feedback_attacker'
-        status_effect_time = 8
-        status_effect_value = 10
+        status_effect_time = t_temp[1] or 8
+        status_effect_value = t_temp[2] or 10
 
     elseif (role_type == 'supporter') then
+        local t_temp = g_constant:get('INGAME', 'FEEDBACK_BUFF_SUPPORTER') or {}
+
         status_effect_type = 'feedback_supporter'
-        status_effect_time = 0
-        status_effect_value = 10
+        status_effect_time = t_temp[1] or 0
+        status_effect_value = t_temp[2] or 10
                 
     elseif (role_type == 'healer') then
+        local t_temp = g_constant:get('INGAME', 'FEEDBACK_BUFF_HEALER') or {}
+
         status_effect_type = 'feedback_healer'
-        status_effect_time = 0
-        status_effect_value = 20
+        status_effect_time = t_temp[1] or 0
+        status_effect_value = t_temp[2] or 20
 
     else
         return nil
