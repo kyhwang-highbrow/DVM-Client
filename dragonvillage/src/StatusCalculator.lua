@@ -177,46 +177,6 @@ function StatusCalculator:applyFriendshipBonus(l_bonus)
 end
 
 -------------------------------------
--- function applyRuneBonus
--- @brief 룬의 메인 옵션, 서브 옵션 능력치 적용
--------------------------------------
-function StatusCalculator:applyRuneBonus(l_bonus)
-    if (not l_bonus) then
-        return
-    end
-
-    for key, value in pairs(l_bonus) do
-        local t_status = self.m_lStatusList[key]
-        t_status['rune_bonus'] = value
-        t_status['final'] = t_status['final'] + value
-    end
-end
-
--------------------------------------
--- function applyRuneSetBonus
--- @brief 룬의 세트 효과 능력치 적용
--------------------------------------
-function StatusCalculator:applyRuneSetBonus(t_rune_set)
-    if (not t_rune_set) then
-        return
-    end
-
-    -- 절대값으로 상승하는 보너스
-    local t_add_bonus = t_rune_set['add_status']
-    for key, value in pairs(t_add_bonus) do
-        local t_status = self.m_lStatusList[key]
-        --t_status['rune_set_bonus'] = value -- 정보를 저장하는 의미가 있나 싶어서 추가하지 않음 Seong-goo Kim
-        t_status['final'] = t_status['final'] + value
-    end
-
-    -- 비율로 상승하는 보너스
-    local t_multiply_bonus = t_rune_set['multiply_status']
-    for key, value in pairs(t_multiply_bonus) do
-        self.m_lPassive[key] = (self.m_lPassive[key] + value)
-    end
-end
-
--------------------------------------
 -- function applyDragonResearchBuff
 -- @brief 연구 버프 적용
 -------------------------------------
@@ -325,15 +285,13 @@ end
 -- function MakeDragonStatusCalculator
 -- @brief
 -------------------------------------
-function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv, l_friendship_bonus, l_rune_bonus, t_rune_set)
+function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv, l_friendship_bonus)
     lv = (lv or 1)
     grade = (grade or 1)
     evolution = (evolution or 1)
 
     local status_calc = StatusCalculator('dragon', dragon_id, lv, grade, evolution, eclv)
     status_calc:applyFriendshipBonus(l_friendship_bonus)
-    status_calc:applyRuneBonus(l_rune_bonus)
-    status_calc:applyRuneSetBonus(t_rune_set)
     status_calc:applyDragonResearchBuff(rlv or 0)
     return status_calc
 end
@@ -358,11 +316,7 @@ function MakeOwnDragonStatusCalculator(doid, t_adjust_dragon_data)
         end
     end
 
-    -- 룬은 친밀도, 수련과 달리 Rune Object가 별도로 존재하여
-    -- 외부의 함수를 통해 룬 보너스 리스트를 얻어옴
-    local l_rune_bonus = g_dragonsData:getRuneBonusList(doid)
-
-    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bonus)
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
     return status_calc
 end
@@ -371,7 +325,7 @@ end
 -- function MakeDragonStatusCalculator_fromDragonDataTable
 -- @brief
 -------------------------------------
-function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bonus)
+function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
     local dragon_id = t_dragon_data['did']
     local lv = t_dragon_data['lv']
     local grade = t_dragon_data['grade']
@@ -385,11 +339,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bo
     l_friendship_bonus['def'] = t_dragon_data['def'] or 0
     l_friendship_bonus['hp'] = t_dragon_data['hp'] or 0
 
-    -- 룬 세트 보너스
-    local t_rune_set = t_dragon_data['rune_set']
-
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv,
-        l_friendship_bonus, l_rune_bonus, t_rune_set)
+    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv, l_friendship_bonus)
 
     return status_calc
 end

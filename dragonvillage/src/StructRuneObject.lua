@@ -41,6 +41,8 @@ StructRuneObject = class({
         owner_doid = 'doid', -- 룬을 장착 중인 드래곤 doid
     })
 
+StructRuneObject.OPTION_LIST = {'mopt', 'uopt', 'sopt_1', 'sopt_2', 'sopt_3', 'sopt_4'}
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -353,4 +355,40 @@ function StructRuneObject:getRarityColor(rarity)
     end
 
     return color
+end
+
+-------------------------------------
+-- function getRuneStatus
+-------------------------------------
+function StructRuneObject:getRuneStatus()
+    local table_option = TableOption()
+    local l_add_status = {}
+    local l_multi_status = {}
+
+    for i,v in pairs(StructRuneObject.OPTION_LIST) do
+        local option_string = self[v]
+        local option, value = self:parseRuneOptionStr(option_string)
+        if option then
+            local status = table_option:getValue(option, 'status')
+            local action = table_option:getValue(option, 'action')
+            if (action == 'add') then
+                if (not l_add_status[status]) then
+                    l_add_status[status] = 0
+                end
+                l_add_status[status] = l_add_status[status] + value
+
+            elseif (action == 'multi') then
+                if (not l_multi_status[status]) then
+                    l_multi_status[status] = 0
+                end
+                l_multi_status[status] = l_multi_status[status] + value
+
+            else
+                error('# action : ' .. action)
+
+            end
+        end
+    end
+
+    return l_add_status, l_multi_status
 end

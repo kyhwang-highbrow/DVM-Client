@@ -254,40 +254,8 @@ end
 -- function makeFriendDragonStatusCalculator
 -- @brief
 -------------------------------------
-function ServerData_Friend:makeFriendDragonStatusCalculator(t_dragon_data, l_runes_data)
-    -- 드래곤 룬 정보
-    local l_runes = t_dragon_data['runes']
-    local l_rune_obj_map = {}
-    local l_runes_for_set = {}
-    for _, roid in pairs(l_runes) do
-
-        local t_rune_data
-        
-        for _, v in pairs(l_runes_data) do
-            if (v['id'] == roid) then
-                t_rune_data = v
-                break
-            end
-        end
-
-        if (t_rune_data) then
-            l_rune_obj_map[roid] = t_rune_data
-            table.insert(l_runes_for_set, t_rune_data)
-        end
-    end
-
-    -- @delete_rune
-    --[[
-    -- 룬 세트 효과 지정
-    t_dragon_data['rune_set'] = g_runesData:makeRuneSetData(l_runes_for_set[1], l_runes_for_set[2], l_runes_for_set[3])
-
-    -- 룬은 친밀도, 수련과 달리 Rune Object가 별도로 존재하여
-    -- 외부의 함수를 통해 룬 보너스 리스트를 얻어옴
-    local l_rune_bonus = ServerData_Dragons:makeRuneBonusList(t_dragon_data, l_rune_obj_map)
-    --]]
-    local l_rune_bonus = {}
-
-    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bonus)
+function ServerData_Friend:makeFriendDragonStatusCalculator(t_dragon_data)
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 end
 
 -------------------------------------

@@ -157,3 +157,34 @@ function StructDragonObject:getStructRuneSetObject()
     rune_set_obj:setRuneObjectList(rune_obj_list)
     return rune_set_obj
 end
+
+-------------------------------------
+-- function getRuneStatus
+-- @breif
+-------------------------------------
+function StructDragonObject:getRuneStatus()
+    local l_rune_obj = self:getRuneObjectList()
+
+    local l_add_status = {}
+    local l_multi_status = {}
+
+    for _,rune_obj in pairs(l_rune_obj) do
+        local _l_add_status, _l_multi_status = rune_obj:getRuneStatus()
+
+        for key,value in pairs(_l_add_status) do
+            if (not l_add_status[key]) then
+                l_add_status[key] = 0
+            end
+            l_add_status[key] = l_add_status[key] + value
+        end
+
+        for key,value in pairs(_l_multi_status) do
+            if (not l_multi_status[key]) then
+                l_multi_status[key] = 0
+            end
+            l_multi_status[key] = l_multi_status[key] + value
+        end
+    end
+
+    return l_add_status, l_multi_status
+end
