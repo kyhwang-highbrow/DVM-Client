@@ -4,7 +4,9 @@
 -------------------------------------
 function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolution, eclv)
 	
-	if isExistValue(status_name, 'dmg_adj_rate', 'attr_adj_rate') then return 0, 0, 0, 0, 0 end 
+	if isExistValue(status_name, 'dmg_adj_rate', 'attr_adj_rate') then
+        return 0, 0, 0, 0, 0, 0
+    end 
 
     -- 케릭터 타입별 테이블 얻어옴
     local table_char = self.m_charTable

@@ -79,8 +79,6 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
         t_status['grade'] = grade_stat
         t_status['evolution'] = evolution_stat
         t_status['eclv'] = eclv_stat
-        t_status['friendship_bonus'] = 0
-        t_status['rune_bonus'] = 0
 
         l_status[status_name] = t_status
     end
@@ -135,7 +133,6 @@ end
 -------------------------------------
 function StatusCalculator:getFinalAddStatDisplay(stat_type)
     local t_status = self.m_lStatusList[stat_type]
-    local add_stat = t_status['friendship_bonus']
 
     add_stat = math_floor(add_stat)
     if (add_stat == 0) then
@@ -158,22 +155,6 @@ end
 -------------------------------------
 function StatusCalculator:getAttackTick()
     return self:calcAttackTick(self:getFinalStat('aspd'))
-end
-
-
--------------------------------------
--- function applyFriendshipBonus
--------------------------------------
-function StatusCalculator:applyFriendshipBonus(l_bonus)
-    if (not l_bonus) then
-        return
-    end
-
-    for key, value in pairs(l_bonus) do
-        local t_status = self.m_lStatusList[key]
-        t_status['friendship_bonus'] = value
-        t_status['final'] = t_status['final'] + value
-    end
 end
 
 -------------------------------------
@@ -199,6 +180,11 @@ end
 -- @brief 진형 버프 적용 (다른 status effect처럼 패시브 형태로 동작함)
 -------------------------------------
 function StatusCalculator:applyFormationBonus(formation, slot_idx)
+    -- 임시로 막아둠
+    if true then
+        return
+    end
+
     local l_buff = TableFormation:getBuffList(formation, slot_idx)
 
     for i,v in ipairs(l_buff) do
@@ -230,6 +216,11 @@ end
 -- @brief 친구 버프 적용
 -------------------------------------
 function StatusCalculator:applyFriendBuff(t_friend_buff)
+    -- 임시로 막아둠
+    if true then
+        return
+    end
+
     if (not t_friend_buff) then
         return
     end
@@ -285,13 +276,12 @@ end
 -- function MakeDragonStatusCalculator
 -- @brief
 -------------------------------------
-function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv, l_friendship_bonus)
+function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
     lv = (lv or 1)
     grade = (grade or 1)
     evolution = (evolution or 1)
 
     local status_calc = StatusCalculator('dragon', dragon_id, lv, grade, evolution, eclv)
-    status_calc:applyFriendshipBonus(l_friendship_bonus)
     status_calc:applyDragonResearchBuff(rlv or 0)
     return status_calc
 end
@@ -331,15 +321,19 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
     local eclv = t_dragon_data['eclv']
-    local rlv = t_dragon_data['rlv']
 
-    -- 친밀도 보너스
-    local l_friendship_bonus = {}
-    l_friendship_bonus['atk'] = t_dragon_data['atk'] or 0
-    l_friendship_bonus['def'] = t_dragon_data['def'] or 0
-    l_friendship_bonus['hp'] = t_dragon_data['hp'] or 0
-
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv, l_friendship_bonus)
+    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
 
     return status_calc
 end
+
+
+--[[
+(기본 능력치 + 레벨 능력치 + 승급 능력치 + 진화 능력치 + 초월 능력치)
+((이전값) * 룬 multi) + 룬 add
+(이전값) + 연구 능력치 + 친밀도 능력치
+((이전값) * 버프 multi ) + 버프 add
+
+
+버프 : 스킬 버프, 진형 버프, 친구 접속 버프
+--]]
