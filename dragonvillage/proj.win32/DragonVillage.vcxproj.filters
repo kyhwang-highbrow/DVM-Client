@@ -1896,6 +1896,12 @@
     <None Include="..\src\StructIndividualStatus.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillAoECone.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillIndicator_AoECone.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
