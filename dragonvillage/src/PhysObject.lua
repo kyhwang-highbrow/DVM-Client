@@ -197,8 +197,16 @@ end
 -- @param body
 -- @param getPos()
 -------------------------------------
-function PhysObject:getBody()
-    return self.body, self:getPos()
+function PhysObject:getBody(k)
+    if (k and self.body_list) then
+        for i, body in ipairs(self.body_list) do
+            if (body['key'] == k) then
+                return body
+            end
+        end
+    else
+        return self.body, self:getPos()
+    end
 end
 
 -------------------------------------
@@ -308,21 +316,18 @@ function PhysObject:isIntersectBody(opponentBody, x, y)
         end
     end
 
-    if (self.body_list) then
-        for i, body in ipairs(self.body_list) do
-            local b, x, y = check(self.body)
-            if (b) then
-                return true, x, y
-            end
-        end
-    else
-        local b, x, y = check(self.body)
+    local is_collision = false
+    local l_body = {}
+
+    for i, body in ipairs(self:getBodyList()) do
+        local b, x, y = check(body)
         if (b) then
-            return true, x, y
+            is_collision = true
+            table.insert(l_body, body)
         end
     end
-
-    return false
+    
+    return is_collision, l_body
 end
 
 -------------------------------------
@@ -470,11 +475,14 @@ function PhysObject:primitivesDraw(color)
 
     if (self.body_list) then
         for i, body in ipairs(self.body_list) do
+            --[[
             if (i == 1) then
                 cc.DrawPrimitives.drawColor4B(255, 0, 0, 127)
             else
                 cc.DrawPrimitives.drawColor4B(color[1], color[2], color[3], color[4])
             end
+            ]]--
+            cc.DrawPrimitives.drawColor4B(color[1], color[2], color[3], color[4])
             draw(body)
         end
     else

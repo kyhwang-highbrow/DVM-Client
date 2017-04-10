@@ -136,6 +136,7 @@ function MonsterLua_Boss:update(dt)
             self.m_triggerTime:checkTrigger(self.m_patternTime)
         end
 
+        --[[
         if (self.m_bHasWeakPoint) then
             self.m_remainTimeForWeakPoint = self.m_remainTimeForWeakPoint - dt
 
@@ -144,6 +145,7 @@ function MonsterLua_Boss:update(dt)
                 self:changeWeakPoint()
             end
         end
+        ]]--
     end
     
     return PARENT.update(self, dt)

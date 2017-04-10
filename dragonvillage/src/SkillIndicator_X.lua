@@ -24,7 +24,7 @@ function SkillIndicator_X:onTouchMoved(x, y)
 
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     
-	local t_collision_obj = self:findTarget(x, y)
+	local t_collision_obj, l_collision_bodys = self:findTarget(x, y)
     
     self.m_targetPosX = x
     self.m_targetPosY = y
@@ -34,7 +34,7 @@ function SkillIndicator_X:onTouchMoved(x, y)
 	self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
 
 	-- 하이라이트 갱신
-    self:setHighlightEffect(t_collision_obj)
+    self:setHighlightEffect(t_collision_obj, l_collision_bodys)
 end
 
 
@@ -89,6 +89,7 @@ end
 function SkillIndicator_X:findTarget(pos_x, pos_y)
 	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
 	local t_ret = {}
+    local t_ret_bodys = {}
 	
     local radius = 20
 	local std_width = (CRITERIA_RESOLUTION_X / 2)
@@ -98,14 +99,17 @@ function SkillIndicator_X:findTarget(pos_x, pos_y)
     
 	-- 레이저에 충돌된 모든 객체 리턴
 	for i = 1, 2 do 
-		local t_collision_obj = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, i)
+		local t_collision_obj, l_collision_bodys = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, i)
 		
-		for i, obj in pairs(t_collision_obj) do 
+		for i, obj in pairs(t_collision_obj) do
 			table.insert(t_ret, obj)
+		end
+        for i, body in pairs(l_collision_bodys) do
+			table.insert(t_ret_bodys, body)
 		end
     end
 	
-	return t_ret
+	return t_ret, t_ret_bodys
 end
 
 -------------------------------------

@@ -51,8 +51,8 @@ function SkillIndicator_AoECone:onTouchMoved(x, y)
 	self:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 
 	-- 하이라이트 갱신
-	local t_collision_obj = self:findTarget(touch_x, touch_y)
-    self:setHighlightEffect(t_collision_obj)
+	local t_collision_obj, l_collision_bodys = self:findTarget(touch_x, touch_y)
+    self:setHighlightEffect(t_collision_obj, l_collision_bodys)
 end
 
 -------------------------------------

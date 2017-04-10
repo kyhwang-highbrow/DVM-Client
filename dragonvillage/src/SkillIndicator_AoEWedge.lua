@@ -54,8 +54,8 @@ function SkillIndicator_AoEWedge:onTouchMoved(x, y)
 	self.m_indicatorEffect:setRotation(dir)
 
 	-- 하이라이트 갱신
-	local t_collision_obj = self:findTarget(dir)
-    self:setHighlightEffect(t_collision_obj)
+	local t_collision_obj, t_collision_bodys = self:findTarget(dir)
+    self:setHighlightEffect(t_collision_obj, t_collision_bodys)
 end
 
 -------------------------------------

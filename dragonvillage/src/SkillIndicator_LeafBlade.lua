@@ -11,23 +11,12 @@ SkillIndicator_LeafBlade = class(PARENT, {
 		-- 직선 이펙트
         m_indicatorLinearEffect1 = '',
         m_indicatorLinearEffect2 = '',
-
-		-- 리프블레이드 무관통 관련 변수
-		m_isPass = 'bool',
-		m_isCollision = 'bool', 
-		m_target_1 = '',
-		m_target_2 = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function SkillIndicator_LeafBlade:init(hero, t_skill)
-	self.m_isPass = true
-	self.m_isCollision = false
-	self.m_target_1 = nil
-	self.m_target_2 = nil
-
 	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'LEAF_ANGLE_LIMIT')
 	self.m_indicatorDistanceLimit = g_constant:get('SKILL', 'LEAF_DIST_LIMIT')
 end
@@ -56,7 +45,7 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
         tar_x, tar_y = adj_pos.x + pos_x, adj_pos.y + pos_y
     end
 
-    local t_collision_obj = self:findTarget(tar_x, tar_y)
+    local t_collision_obj, t_collision_bodys = self:findTarget(tar_x, tar_y)
     self.m_targetChar = t_collision_obj[1]
 	
     -- 4-1. 베지어 곡선 이펙트 위치 갱신
@@ -75,7 +64,7 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
     self.m_targetPosY = tar_y
 
 	-- 6. 공격 대상 하이라이트 이펙트 관리
-	self:setHighlightEffect(t_collision_obj)
+	self:setHighlightEffect(t_collision_obj, t_collision_bodys)
 end
 
 -------------------------------------
@@ -132,82 +121,78 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_LeafBlade:findTarget(x, y)
-    local world = self:getWorld()
-    local target_formation_mgr = self.m_hero:getFormationMgr(true)
-	
-	self.m_target_1 = nil 
-	self.m_target_2 = nil
+    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    	
+	local target_1 = nil 
+	local target_2 = nil
 
     local pos_x = self.m_hero.pos.x
     local pos_y = self.m_hero.pos.y
 
-	local l_target = {}
-
-    -- 베지어 곡선에 의한 충돌 리스트
-    local l_target1 = target_formation_mgr:findBezierTarget(x, y, pos_x, pos_y, 1)
-    local l_target2 = target_formation_mgr:findBezierTarget(x, y, pos_x, pos_y, -1)
-
-	-- 00. 무관통 탄일 경우 베지어 곡선에서 충돌 리스트가 있다면 탈출
-	if (not self.m_isPass) then 
-		if (#l_target1 > 0) then 
-			table.insert(l_target, l_target1[1])
-			self.m_target_1 = l_target1[1]
-		end
-		if (#l_target2 > 0) then 
-			table.insert(l_target, l_target2[1])
-			self.m_target_2 = l_target2[1]
-		end
-		if (#l_target > 0) and self.m_target_1 and self.m_target_2 then
-			--return l_target
-		end
-	end
-
-	-- 충돌체크에 필요한 변수 생성
+   	-- 베지어 곡선에 의한 충돌 리스트
+    local l_ret_bezier1, l_ret_bezier_bodys1 = SkillTargetFinder:findTarget_Bezier(l_target, x, y, pos_x, pos_y, 1)
+    local l_ret_bezier2, l_ret_bezier_bodys2 = SkillTargetFinder:findTarget_Bezier(l_target, x, y, pos_x, pos_y, -1)
+    
+    -- 충돌체크에 필요한 변수 생성
     local std_dist = 1000
 	local degree = getDegree(pos_x, pos_y, x, y)
 	local leaf_body_size = g_constant:get('SKILL', 'LEAF_COLLISION_SIZE')
 	local straight_angle = g_constant:get('SKILL', 'LEAF_STRAIGHT_ANGLE')
-	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
-
+	
     -- 직선에 의한 충돌 리스트 (상)
     local rad = math_rad(degree + straight_angle)
     local factor_y = math.tan(rad)
-    local t_target_line_1 = SkillTargetFinder:findTarget_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
+    local t_ret_line1, t_ret_line_bodys1 = SkillTargetFinder:findTarget_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
 
     -- 직선에 의한 충돌 리스트 (하)
     rad = math_rad(degree - straight_angle)
     factor_y = math.tan(rad)
-    local t_target_line_2 = SkillTargetFinder:findTarget_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
+    local t_ret_line2, t_ret_line_bodys2 = SkillTargetFinder:findTarget_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
 
-	-- 00. 무관통 탄의 경우 첫번째 오브젝트만 가져간다.
-    local l_target_line = {}
-    for i, target in pairs(t_target_line_1) do
-        table.insert(l_target_line, target)
-		if (not self.m_isPass) and (not self.m_target_2) then 
-			self.m_target_2 = target
-			break
-		end
-    end
-    for i, target in pairs(t_target_line_2) do
-        table.insert(l_target_line, target)
-		if (not self.m_isPass) and (not self.m_target_1) then 
-			self.m_target_1 = target
-			break
-		end
-    end
-	
 	-- 하나의 테이블로 합침
-	if (not self.m_isPass) then 
-		if (#l_target > 0) then 
-			return l_target
-		else
-			return l_target_line
-		end
-	else
-		l_target = table.merge(l_target1, l_target2)
-		l_target = table.merge(l_target, l_target_line)
-		return l_target
-	end 
+    -- 맵형태로 변경해서 중복값을 없앰
+    local m_temp = {}
+    local m_temp_bodys = {}
+    local l_temp = {
+        { l_ret_bezier1, l_ret_bezier_bodys1 },
+        { l_ret_bezier2, l_ret_bezier_bodys2 },
+        { t_ret_line1, t_ret_line_bodys1 },
+        { t_ret_line2, t_ret_line_bodys2 },
+    }
+
+    for _, list in ipairs(l_temp) do
+        local l_objs = list[1]
+        local l_bodys = list[2]
+
+        for i, v in ipairs(l_objs) do
+            m_temp[v] = v
+            if (not m_temp_bodys[v]) then
+                m_temp_bodys[v] = {}
+            end
+
+            local body_keys = l_bodys[i]
+            for _, k in ipairs(body_keys) do
+                m_temp_bodys[v][k] = true
+            end
+        end
+    end
+    
+    -- 다시 리스트 형태로 변환
+    local l_ret = {}
+    local l_ret_bodys = {}
+
+    for k, _ in pairs(m_temp) do
+        table.insert(l_ret, k)
+
+        local body_keys = {}
+        for k2, _ in pairs(m_temp_bodys[k]) do
+            table.insert(body_keys, k2)
+        end
+
+        table.insert(l_ret_bodys, body_keys)
+    end
+    
+    return l_ret, l_ret_bodys
 end
 
 -------------------------------------

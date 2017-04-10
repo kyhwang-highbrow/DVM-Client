@@ -67,7 +67,7 @@ Character = class(PARENT, {
 
         -- @ target
         m_targetChar = 'Character',
-        m_targetEffect = '',
+        m_mTargetEffect = '',
 
         -- @node UI
         m_unitInfoNode = 'cc.Node',
@@ -185,6 +185,8 @@ function Character:init(file_name, body, ...)
     self.m_bRoam = false
     self.m_roamTimer = 0
     self.m_hasItem = false
+
+    self.m_mTargetEffect = {}
 end
 
 -------------------------------------
@@ -1432,19 +1434,21 @@ end
 -------------------------------------
 -- function setTargetEffect
 -------------------------------------
-function Character:setTargetEffect(animator)
+function Character:setTargetEffect(animator, k)
     if (self.m_bDead) then return end
 
-    self:removeTargetEffect()
-    self.m_targetEffect = animator
-    if animator then
-		local root_node = self:getRootNode()
+    self:removeTargetEffect(k)
+    self.m_mTargetEffect[k] = animator
+
+    if (animator) then
+        local body = self:getBody(k)
+        local root_node = self:getRootNode()
         
 		if (self.m_isSlaveCharacter) then 
-			animator:setPosition(self.m_unitInfoOffset[1], self.m_unitInfoOffset[2])
+			animator:setPosition(self.m_unitInfoOffset[1] + body['x'], self.m_unitInfoOffset[2] + body['y'])
 			root_node:addChild(animator.m_node)
 		else
-			animator:setPosition(0,0)
+			animator:setPosition(body['x'], body['y'])
 			root_node:addChild(animator.m_node)
 		end
     end
@@ -1453,12 +1457,23 @@ end
 -------------------------------------
 -- function removeTargetEffect
 -------------------------------------
-function Character:removeTargetEffect()
+function Character:removeTargetEffect(k)
     if (self.m_bDead) then return end
 
-    if (self.m_targetEffect) then
-        self.m_targetEffect:release()
-        self.m_targetEffect = nil
+    local f_remove = function(k)
+        if (self.m_mTargetEffect[k]) then
+            self.m_mTargetEffect[k]:release()
+            self.m_mTargetEffect[k] = nil
+        end 
+    end
+
+    if (k) then
+        f_remove(k)
+    else
+        local body_list = self:getBodyList() 
+        for i, body in ipairs(body_list) do
+            f_remove(body['key'])
+        end
     end
 end
 

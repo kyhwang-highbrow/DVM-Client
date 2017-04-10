@@ -170,8 +170,6 @@ local unit = 1.0 / 20
 -- @param dt
 -------------------------------------
 function PhysWorld:update(dt)
-    --local work_cnt = 0
-
     -- 충돌 처리 시간 간격 지정
     local skip = false
     self.m_collisionTimer = self.m_collisionTimer - dt
@@ -250,16 +248,14 @@ function PhysWorld:update(dt)
                     x    = object.pos.x
                     y    = object.pos.y
                     check_phys_idx = {} -- posindex를 여러군데 걸쳤을 경우를 위해
-
+                    
 					-- 해당 오브젝트의 body에 해당하는 모든 idx를 순회
                     for x_idx = object.m_posIndexMinX, object.m_posIndexMaxX do
                         for y_idx = object.m_posIndexMinY, object.m_posIndexMaxY do
                     
 					        for _, enemy_key in pairs(l_enemy_key) do
                                 for _, enemy in pairs(self.m_objPosIndex[enemy_key][x_idx][y_idx]) do
-                                    --work_cnt = work_cnt + 1
-
-									-- 충돌리스트를 가져온다.
+                                    -- 충돌리스트를 가져온다.
                                     if enemy.m_ownerObject then
                                         t_collision = enemy.m_ownerObject.t_collision
                                     else
@@ -271,15 +267,23 @@ function PhysWorld:update(dt)
                                         
 										-- 해당 physobject와 충돌체크 했는지 저장
                                         check_phys_idx[enemy.phys_idx] = true
-										
-										-- 점과 점의 거리를 이용하여 충돌 여부 확인
-                                        ret, intersect_pos_x, intersect_pos_y = enemy:isIntersectBody(body, x, y)
-                                        if ret then
+
+                                        -- 점과 점의 거리를 이용하여 충돌 여부 확인
+                                        ret, bodys = enemy:isIntersectBody(body, x, y)
+
+                                        if (ret) then
 											-- 충돌 한 것으로 저장 (해당 오브젝트에 전달)
                                             t_collision[object_phys_idx] = true
+                                            
 											-- 충돌 콜백 실행
                                             enemy:runAtkCallback(object, intersect_pos_x, intersect_pos_y)
-                                            object:runDefCallback(enemy, intersect_pos_x, intersect_pos_y)
+
+                                            for i, body in ipairs(bodys) do
+                                                local intersect_pos_x = (enemy.pos.x + body.x + x) / 2
+                                                local intersect_pos_y = (enemy.pos.y + body.y + y) / 2
+
+                                                object:runDefCallback(enemy, intersect_pos_x, intersect_pos_y, body.key)
+                                            end
                                         end
                                     end
                                 end

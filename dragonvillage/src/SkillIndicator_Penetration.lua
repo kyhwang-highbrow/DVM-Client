@@ -83,8 +83,8 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
 		self.m_indicatorAddEffect:setPosition(touch_x, touch_y)
 
 		-- 하이라이트 갱신
-		local t_collision_obj = self:findTarget(l_attack_pos, l_dir)
-		self:setHighlightEffect(t_collision_obj)
+		local t_collision_obj, l_collision_bodys = self:findTarget(l_attack_pos, l_dir)
+		self:setHighlightEffect(t_collision_obj, l_collision_bodys)
 	end
 end
 
@@ -230,25 +230,37 @@ function SkillIndicator_Penetration:findTarget(l_attack_pos, l_dir)
 	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
 	
 	local t_ret = {}
+    local t_ret_bodys = {}
+    local t_temp = {}
+    local t_temp_bodys = {}
 	
 	local t_each
 	for i = 1, self.m_skillLineNum do
 		-- 각 줄의 충돌 체크
-		local t_collision_obj = self:findTargetEachLine(l_target, l_attack_pos[i], l_dir[i])
+		local t_collision_obj, l_collision_bodys = self:findTargetEachLine(l_target, l_attack_pos[i], l_dir[i])
 
 		for i, object in ipairs(t_collision_obj) do
 			-- 중복 제거 위한 처리
-			t_ret[object['phys_idx']] = object
+			t_temp[object['phys_idx']] = object
+		end
+        for i, body_key in ipairs(l_collision_bodys) do
+			-- 중복 제거 위한 처리
+            if (not t_temp_bodys[object['phys_idx']]) then
+                t_temp_bodys[object['phys_idx']] = {}
+            end
+			t_temp_bodys[object['phys_idx']][body_key] = true
 		end
 	end
 	
 	-- 인덱스 테이블로 다시 담는다
-	local t_ret_2 = {}
-	for i, object in pairs(t_ret) do 
-		table.insert(t_ret_2, object)
+	for i, object in pairs(t_temp) do
+		table.insert(t_ret, object)
+	end
+    for body_key, _ in pairs(t_temp_bodys) do
+		table.insert(t_ret_bodys, body_key)
 	end
 	
-	return t_ret_2
+	return t_ret, t_ret_bodys
 end
 
 -------------------------------------

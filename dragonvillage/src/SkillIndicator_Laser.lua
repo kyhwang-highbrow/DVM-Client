@@ -64,8 +64,8 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
     end
 
 	-- 하이라이트 갱신
-	local t_collision_obj = self:findTarget(pos_x, pos_y, dir)
-	self:setHighlightEffect(t_collision_obj)
+	local t_collision_obj, t_collision_bodys = self:findTarget(pos_x, pos_y, dir)
+	self:setHighlightEffect(t_collision_obj, t_collision_bodys)
 end
 
 -------------------------------------

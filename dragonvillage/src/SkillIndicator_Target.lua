@@ -23,7 +23,7 @@ function SkillIndicator_Target:onTouchMoved(x, y)
 
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
 
-    local t_collision_obj = self:findTarget(x, y)
+    local t_collision_obj, l_collision_bodys = self:findTarget(x, y)
     self.m_targetChar = t_collision_obj[1]
 
     if self.m_targetChar then
@@ -43,7 +43,7 @@ function SkillIndicator_Target:onTouchMoved(x, y)
     EffectLink_refresh(self.m_indicatorEffect, 0, 0, x - pos_x, y - pos_y)
 
 	-- 하이라이트 갱신
-    self:setHighlightEffect(t_collision_obj)
+    self:setHighlightEffect(t_collision_obj, l_collision_bodys)
 end
 
 -------------------------------------
@@ -89,8 +89,6 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_Target:findTarget(x, y)
-    local target_formation_mgr = self.m_hero:getFormationMgr(self.m_isOpposite)
-    local l_target = target_formation_mgr:findNearTarget(x, y, -1, 1, EMPTY_TABLE)
-    
-    return {l_target[1]}
+    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    return SkillTargetFinder:findTarget_Near(l_target, x, y, -1)
 end

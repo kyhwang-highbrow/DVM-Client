@@ -41,14 +41,14 @@ function SkillIndicator_AoERound:onTouchMoved(x, y)
     local touch_x, touch_y = x, y
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     
-	local t_collision_obj = self:findTarget(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
+	local t_collision_obj, l_collision_bodys = self:findTarget(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
     self.m_targetChar = t_collision_obj[1]
 	
 	if self.m_isFixedOnTarget and self.m_targetChar then
         touch_x = self.m_targetChar.pos.x
         touch_y = self.m_targetChar.pos.y
 		-- 다시계산한다..!
-		t_collision_obj = self:findTarget(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
+		t_collision_obj, l_collision_bodys = self:findTarget(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
     end
 
     self.m_targetPosX = touch_x
@@ -58,7 +58,7 @@ function SkillIndicator_AoERound:onTouchMoved(x, y)
 	self:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 
 	-- 하이라이트 갱신
-    self:setHighlightEffect(t_collision_obj)
+    self:setHighlightEffect(t_collision_obj, l_collision_bodys)
 end
 
 -------------------------------------
@@ -121,19 +121,19 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_AoERound:findTarget(x, y, range, isFixedOnTarget)
+    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+
 	local pos_x = x
 	local pos_y = y
 
 	local l_ret
-    local l_bodyKey
+    local l_bodys
 
 	if isFixedOnTarget then
-		local target_formation_mgr = self.m_hero:getFormationMgr(true)
-		l_ret = target_formation_mgr:findNearTarget(pos_x, pos_y, range, -1, EMPTY_TABLE)
+        l_ret, l_bodys = SkillTargetFinder:findTarget_Near(l_target, pos_x, pos_y, range)
 	else
-		local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
-		l_ret, l_bodyKey = SkillTargetFinder:findTarget_AoERound(l_target, pos_x, pos_y, range)
+		l_ret, l_bodys = SkillTargetFinder:findTarget_AoERound(l_target, pos_x, pos_y, range)
     end
     
-	return l_ret, l_bodyKey
+	return l_ret, l_bodys
 end

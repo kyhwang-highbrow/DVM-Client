@@ -159,10 +159,10 @@ end
 -- @brief findtarget으로 찾은 적에게 공격을 실행한다. 
 -------------------------------------
 function SkillVoltesX:runAttack(idx)
-	local t_target = self:findTarget(idx)
+	local l_target, l_bodys = self:findTarget(idx)
 	
-    for i,target_char in ipairs(t_target) do
-		self:attack(target_char)
+    for i, target_char in ipairs(l_target) do
+		self:attack(target_char, l_bodys[i])
     end
 	
 	self:doCommonAttackEffect(l_target)
@@ -182,13 +182,7 @@ function SkillVoltesX:findTarget(idx)
 	local target_x, target_y = self.m_targetPos.x, self.m_targetPos.y
 
 	-- 레이저에 충돌된 모든 객체 리턴
-	local t_collision_obj = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, idx)
-		
-	for i, obj in pairs(t_collision_obj) do 
-		table.insert(t_ret, obj)
-	end
-	
-	return t_ret
+	return self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, idx)
 end
 
 -------------------------------------

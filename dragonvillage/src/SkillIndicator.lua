@@ -48,6 +48,7 @@ SkillIndicator = class({
         m_attackPosOffsetY = 'number',
 
 		m_highlightList = '',
+        m_highlightBodyList = '',
 
         m_resultScore = 'number',
     })
@@ -131,6 +132,7 @@ function SkillIndicator:changeSIState(state)
     if (state == SI_STATE_READY) then
         self:setIndicatorVisible(false)
         self.m_highlightList = nil
+        self.m_highlightBodyList = nil
 
         self.m_targetDir = nil
         self.m_targetPosX = nil
@@ -270,46 +272,60 @@ function SkillIndicator:setIndicatorVisible(isVisible)
 end
 
 -------------------------------------
--- function setHighlight
+-- function setHighlightEffect
 -------------------------------------
-function SkillIndicator:setHighlightEffect(t_collision_obj)
+function SkillIndicator:setHighlightEffect(t_collision_obj, l_collision_bodys)
     local skill_indicator_mgr = self:getSkillIndicatorMgr()
 
     local old_target_count = 0
 
     local old_highlight_list = self.m_highlightList
+    local old_highlight_body_list = self.m_highlightBodyList
 
     if self.m_highlightList then
         old_target_count = #self.m_highlightList
     end
 
-    for i,target in ipairs(t_collision_obj) do      
+    for i, target in ipairs(t_collision_obj) do
         if (target ~= self.m_hero) then
-            self:makeTargetEffect(target)
+            for i, body_key in ipairs(l_collision_bodys[i]) do
+                self:makeTargetEffect(target, body_key)
+            end
         end
 
         skill_indicator_mgr:addTarget(target)
     end
 
     if old_highlight_list then
-        for i,v in ipairs(old_highlight_list) do
+        for i, v in ipairs(old_highlight_list) do
             local find = false
-            for _,v2 in ipairs(t_collision_obj) do
+            for j, v2 in ipairs(t_collision_obj) do
                 if (v == v2) then
                     find = true
-                    break
+                    for _, k in ipairs(old_highlight_body_list[i]) do
+                        local find_body = false
+                        for _, k2 in ipairs(l_collision_bodys[j]) do
+                            if (k == k2) then
+                                find_body = true
+                                break
+                            end
+                        end
+
+                        if (not find_body) then
+                            v:removeTargetEffect(k)
+                        end
+                    end
                 end
             end
-            if (find == false) then
-                if (v ~= self.m_hero) then
-                    skill_indicator_mgr:removeTarget(v)
-                end
+
+            if (not find) then
                 v:removeTargetEffect()
             end
         end
     end
 
     self.m_highlightList = t_collision_obj
+    self.m_highlightBodyList = l_collision_bodys
 
     local cur_target_count = #self.m_highlightList
     self:onChangeTargetCount(old_target_count, cur_target_count)
@@ -368,12 +384,12 @@ end
 -------------------------------------
 -- function makeTargetEffect
 -------------------------------------
-function SkillIndicator:makeTargetEffect(target_char)
-    if (target_char.m_targetEffect) then return end
+function SkillIndicator:makeTargetEffect(target_char, body_key)
+    if (body_key and target_char.m_mTargetEffect[body_key]) then return end
     if (self.m_siState ~= SI_STATE_APPEAR) then return end
-
-   local ani_name1
-   local ani_name2
+    
+    local ani_name1
+    local ani_name2
 
     if (self.m_hero.m_bLeftFormation == target_char.m_bLeftFormation) then
         ani_name1 = 'appear_ally'
@@ -390,7 +406,7 @@ function SkillIndicator:makeTargetEffect(target_char)
     indicator:setScale(0.1)
 	indicator:runAction(cc.ScaleTo:create(0.2, 1)) -- timescale 주의
 
-    target_char:setTargetEffect(indicator)
+    target_char:setTargetEffect(indicator, body_key)
     
 	-- 적군의 경우 속성 상성 표시
     if (self.m_hero.m_bLeftFormation ~= target_char.m_bLeftFormation) then

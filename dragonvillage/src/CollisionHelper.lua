@@ -4,16 +4,38 @@
 -- @return boolean
 -------------------------------------
 function isCollision(target, x, y, range)    
+    local is_collision = false
+    local l_body = {}
+    local l_temp = {}
+
+    if (range <= 0) then
+        return is_collision, l_body
+    end
+
     for _, body in ipairs(target:getBodyList()) do
         local target_x = target.pos.x + body['x']
 	    local target_y = target.pos.y + body['y']
-        local body_size = target.body['size']
+        local body_size = body['size']
 
 	    local distance = getDistance(x, y, target_x, target_y)
 	    if (distance - body_size < range) then
-            return true, body['key']
+            is_collision = true
+            table.insert(l_temp, { distance = distance, key = body['key'] })
         end
     end
+
+    -- 거리가 가까운 순서로 정렬
+    if (#l_temp > 1) then
+        table.sort(l_temp, function(a, b)
+            return a['distance'] < b['distance']
+        end)
+    end
+
+    for i, v in ipairs(l_temp) do
+        table.insert(l_body, v['key'])
+    end
+
+    return is_collision, l_body
 end
 
 -------------------------------------
@@ -22,15 +44,21 @@ end
 -- @return boolean
 -------------------------------------
 function isCollision_Rect(target, x, y, range_x, range_y)
+    local is_collision = false
+    local l_body = {}
+
     for _, body in ipairs(target:getBodyList()) do
-	    local target_x = target.pos.x + target.body['x']
-	    local target_y = target.pos.y + target.body['y']
-	    local body_size = target.body['size']
+	    local target_x = target.pos.x + body['x']
+	    local target_y = target.pos.y + body['y']
+	    local body_size = body['size']
 
         if ((math_abs(target_x - x) - body_size < range_x) and (math_abs(target_y - y) - body_size  < range_y)) then
-            return true, body['key']
+            is_collision = true
+            table.insert(l_body, body['key'])
         end
     end
+
+    return is_collision, l_body
 end
 
 -------------------------------------
@@ -38,6 +66,9 @@ end
 -- @brief body size를 고려한 충돌 여부 판단, 직선
 -------------------------------------
 function isCollision_Line(target, x1, y1, x2, y2, thickness)
+    local is_collision = false
+    local l_body = {}
+
     -- 충돌 처리 범위 확인
     local min_x, max_x
     if (x1 < x2) then
@@ -56,9 +87,7 @@ function isCollision_Line(target, x1, y1, x2, y2, thickness)
         max_y = y1 + thickness
     end
 
-    local body_list = target:getBodyList()
-
-    for _, body in ipairs(body_list) do
+    for _, body in ipairs(target:getBodyList()) do
         local target_x = target.pos.x + body.x
         local target_y = target.pos.y + body.y
         local target_size = body.size
@@ -94,11 +123,12 @@ function isCollision_Line(target, x1, y1, x2, y2, thickness)
 
         -- 충돌된 객체라면
         if (not_finish == false) then
-            return true, body['key']
+            is_collision = true
+            table.insert(l_body, body['key'])
         end
     end
 
-    return false
+    return is_collision, l_body
 end
 
 -------------------------------------
@@ -106,6 +136,10 @@ end
 -- @brief body size를 고려한 충돌 여부 판단, 부채꼴
 -------------------------------------
 function isCollision_Fan(target, x, y, dir, radius, angle_range)
+    local is_collision = false
+    local l_body = {}
+    local m_body = {}
+
     local dir_min = dir - (angle_range/2)
     local dir_max = dir + (angle_range/2)
 
@@ -116,9 +150,7 @@ function isCollision_Fan(target, x, y, dir, radius, angle_range)
     high_pos['x'] = (high_pos['x'] + x)
     high_pos['y'] = (high_pos['y'] + y)
 
-    local body_list = target:getBodyList()
-
-    for _, body in ipairs(body_list) do
+    for _, body in ipairs(target:getBodyList()) do
         local target_x = target.pos.x + body.x
         local target_y = target.pos.y + body.y
         local target_size = body.size
@@ -127,25 +159,67 @@ function isCollision_Fan(target, x, y, dir, radius, angle_range)
         local distance = getDistance(x, y, target_x, target_y)
         local degree = getDegree(x, y, target_x, target_y)
         if ((radius + target_size) >= distance) and angleIsBetweenAngles(degree, dir_min, dir_max) then
-            return true, body['key']
+            is_collision = true
+            m_body[body['key']] = true
         end
     end
             
-    if (not isPass) then
+    do
         -- 낮은 각도 라인 체크
-        local is_collision, body_key = isCollision_Line(target, x, y, low_pos['x'], low_pos['y'], 0)
-        if is_collision then
-            return true, body_key
+        local b, bodys = isCollision_Line(target, x, y, low_pos['x'], low_pos['y'], 0)
+        if (b) then
+            is_collision = true
+
+            for i, k in ipairs(bodys) do
+               m_body[k] = true
+            end
         end
     end
            
-    if (not isPass) then 
+    do
         -- 높은 각도 라인 체크
-        local is_collision, body_key = isCollision_Line(target, x, y, high_pos['x'], high_pos['y'], 0)
-        if is_collision then
-            return true, body_key
+        local b, bodys = isCollision_Line(target, x, y, high_pos['x'], high_pos['y'], 0)
+        if (b) then
+            is_collision = true
+            
+            for i, k in ipairs(bodys) do
+               m_body[k] = true
+            end
         end
     end
+
+    for k, _ in pairs(m_body) do
+        table.insert(l_body, k)
+    end
     
-    return false
+    return is_collision, l_body
+end
+
+-------------------------------------
+-- function isCollision_Fan
+-- @brief body size를 고려한 충돌 여부 판단, 부채꼴
+-------------------------------------
+function isCollision_Bezier(target, t_bezier_pos, thickness)
+    local is_collision = false
+    local l_body = {}
+    local m_body = {}
+
+    -- 가져온 베지어 곡선 좌표를 순회하면서 각각에서 근처에 위치한 적을 찾는다. 
+	for _, bezier_pos in pairs(t_bezier_pos) do
+        local b, bodys = isCollision(target, bezier_pos['x'], bezier_pos['y'], thickness)
+
+		if (b) then
+            is_collision = true
+            
+            for i, k in ipairs(bodys) do
+               m_body[k] = true
+            end
+		end
+    end
+
+    for k, _ in pairs(m_body) do
+        table.insert(l_body, k)
+    end
+
+    return is_collision, l_body
 end
