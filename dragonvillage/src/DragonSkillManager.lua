@@ -142,14 +142,18 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
 
     local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
 
+	local t_add_value = nil
 	if isExistValue(skill_type, 'active', 'basic', 'touch') then
+		if (self.m_lSkillIndivisualInfo[skill_type]) then
+			t_add_value = self.m_lSkillIndivisualInfo[skill_type].m_tAddedValue
+		end
 		self.m_lSkillIndivisualInfo[skill_type] = skill_indivisual_info
     else
         table.insert(self.m_lSkillIndivisualInfo[skill_type], skill_indivisual_info)
     end
 
     -- 스킬 레벨 적용
-    skill_indivisual_info:applySkillLevel()
+    skill_indivisual_info:applySkillLevel(t_add_value)
 
 	-- 스킬 desc 세팅
 	skill_indivisual_info:applySkillDesc()

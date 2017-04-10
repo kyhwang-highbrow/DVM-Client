@@ -12,6 +12,7 @@ DragonSkillIndivisualInfo = class({
         m_timer = 'number',     -- 타임 공격 저장용
 
         m_skillLevel = 'number',
+		m_tAddedValue = 'table',
     })
 
 -------------------------------------
@@ -24,12 +25,14 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     self.m_skillLevel = (skill_level or 1)
     self.m_turnCount = 0
     self.m_timer = 0
+
+	self.m_tAddedValue = {}
 end
 
 -------------------------------------
 -- function applySkillLevel
 -------------------------------------
-function DragonSkillIndivisualInfo:applySkillLevel()
+function DragonSkillIndivisualInfo:applySkillLevel(t_add_value)
 	local skill_id = self.m_skillID
     local table_skill = TABLE:get(self.m_charType .. '_skill')
 
@@ -45,17 +48,28 @@ function DragonSkillIndivisualInfo:applySkillLevel()
 	local skill_lv = self.m_skillLevel
 	for idx = 1, 5 do
 		local modify_column = SkillHelper:getValid(t_skill['mod_col_' .. idx])
-		local modify_value = SkillHelper:getValid(t_skill['mod_val_' .. idx])
-		
 		if (modify_column) then
-			local tar_data = SkillHelper:getValid(t_skill[modify_column])
 
+			-- 소수점 3째자리까지 계산
+			local modify_value_unit = SkillHelper:getValid(t_skill['mod_max_val_' .. idx]) / 69
+			modify_value_unit = math_floor(modify_value_unit * 1000)
+			modify_value_unit = modify_value_unit / 1000
+
+			local tar_data = SkillHelper:getValid(t_skill[modify_column])
 			if (tar_data) then
-				tar_data = tar_data + (modify_value * (skill_lv - 1))
+				local add_value = (modify_value_unit * (skill_lv - 1))
+				tar_data = tar_data + add_value
+				self.m_tAddedValue[modify_column] = add_value
 			end
 
 			-- 레벨 계산된 값으로 치환
 			t_skill[modify_column] = tar_data
+		end
+	end
+
+	if (t_add_value) then
+		for column, value in pairs(t_add_value) do
+			t_skill[column] = t_skill[column] + value
 		end
 	end
 end
