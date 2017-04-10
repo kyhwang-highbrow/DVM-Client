@@ -100,9 +100,10 @@
         // 드래곤 드래그 스킬 게이지 변경 관련
         // ----------------------------------------------------
         "DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE" : {
-			"max_inc_value_per_sec"	: 10,
+			"common_inc_value_per_sec"	: 0.5,
 			
 			// tanker
+			"max_inc_value_per_sec"	: 10,
 			"coef"			: 4,
 			"set_damage"	: 4,
 			

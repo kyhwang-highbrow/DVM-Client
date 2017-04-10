@@ -807,13 +807,15 @@ function Dragon:initActiveSkillCool(percentage)
     if (role_type == 'healer') then
         local cooldown = tonumber(t_skill['cooldown'])
         local global_cooltime = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
+        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
+        local common_inc_value_per_sec = t_temp['common_inc_value_per_sec'] or 0.5
         if (cooldown < global_cooltime) then
             cooldown = global_cooltime
         end
 
-        self.m_activeSkillIncValuePerSec = 0.5 + (100 / cooldown)
+        self.m_activeSkillIncValuePerSec = common_inc_value_per_sec + (100 / cooldown)
     else
-        self.m_activeSkillIncValuePerSec = 0.5
+        self.m_activeSkillIncValuePerSec = common_inc_value_per_sec
     end
                 
 	-- 스킬 게이지 초기화
