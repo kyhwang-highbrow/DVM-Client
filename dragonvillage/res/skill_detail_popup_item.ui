@@ -36,7 +36,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 100.000000;
+				y = 121.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -62,7 +62,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 100.000000;
+				y = 121.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -81,7 +81,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 35.000000;
+				y = 56.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -121,7 +121,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 5.000000;
+				y = 26.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -161,12 +161,12 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -65.000000;
+				y = -66.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 224;
-				height = 95;
+				height = 140;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -182,7 +182,7 @@
 				color = { 161; 125; 93; };
 				opacity = 255;
 				dimension_width = 224;
-				dimension_height = 95;
+				dimension_height = 140;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -352,7 +352,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = 58.000000;
+				y = 54.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -626,7 +626,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 161.000000;
+				y = 182.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -680,7 +680,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 250;
-			height = 440;
+			height = 480;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -697,7 +697,7 @@
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 0;
 		width = 250;
-		height = 440;
+		height = 480;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
 		skew_x = 0.000000;
