@@ -14,6 +14,7 @@ UIC_SortList = class(UIC_Node, {
         m_lSortData = '',
         m_mSortData = 'table',
 
+        m_bDirectHide = 'boolean',
         m_bShow = 'boolean',
         m_direction = '',
         m_selectSortType = '',
@@ -52,6 +53,7 @@ function UIC_SortList:init()
     self.m_buttonHeight = BUTTON_HEIGHT
     self.m_buttonMargin = BUTTON_MARGIN
 
+    self.m_bDirectHide = false
     self.m_bShow = false
 end
 
@@ -362,8 +364,13 @@ end
 -------------------------------------
 function UIC_SortList:click_sortTypeBtn(t_data)   
     self:setSelectSortType(t_data['sort_type'])
-    self:reserveHide()
-    self:show()
+
+    if self.m_bDirectHide then
+        self:hide()
+    else
+        self:reserveHide()
+        self:show()
+    end
 end
 
 -------------------------------------
@@ -463,6 +470,9 @@ function MakeUICSortList_runeManage(button, label)
     local x, y = button:getPosition()
 
     local uic = UIC_SortList()
+
+    uic.m_bDirectHide = true
+
     uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
@@ -473,6 +483,7 @@ function MakeUICSortList_runeManage(button, label)
 
     parent:addChild(uic.m_node)
 
+    uic:addSortType('set_id', Str('세트'))
     uic:addSortType('lv', Str('레벨'))
     uic:addSortType('grade', Str('등급'))
     uic:addSortType('rarity', Str('희귀도'))
@@ -486,6 +497,8 @@ function MakeUICSortList_runeManageFilter(button, label)
     local x, y = button:getPosition()
 
     local uic = UIC_SortList()
+
+    uic.m_bDirectHide = true
 
     -- 커스텀하게 조절
     uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
