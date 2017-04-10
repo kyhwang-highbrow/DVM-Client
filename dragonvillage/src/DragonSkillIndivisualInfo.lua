@@ -67,10 +67,12 @@ function DragonSkillIndivisualInfo:applySkillLevel(t_add_value)
 		end
 	end
 
+	-- 스킬을 덮어씌울때 덮어씌워진 스킬의 레벨 옵션을 그대로 갖고와 적용시킨다.
 	if (t_add_value) then
 		for column, value in pairs(t_add_value) do
 			t_skill[column] = t_skill[column] + value
 		end
+		self.m_tAddedValue = t_add_value
 	end
 end
 

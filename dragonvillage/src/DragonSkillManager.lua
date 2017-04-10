@@ -235,11 +235,23 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
         skill_id = t_character['skill_' .. idx]
 		skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
     end
+	-- @TODO
+	-- active 강화에게 기본 active의 added_value 를 주기 위해서
+	local t_add_value
+	if (idx == 3) then
+		if (self.m_lSkillIndivisualInfo[skill_type]) then
+			t_add_value = self.m_lSkillIndivisualInfo[skill_type].m_tAddedValue
+		end
+	end
 
     if (skill_type) and skill_id ~= 0 then
         local skill_lv = self:getSkillLevel(idx)
         local skill_indivisual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
-        skill_indivisual_info:applySkillLevel()
+		-- active 강화가 활성화 되지 않으면 기본 값이 나오도록...
+		if (skill_lv == 0) then
+			t_add_value = nil
+		end
+        skill_indivisual_info:applySkillLevel(t_add_value)
 		skill_indivisual_info:applySkillDesc()
         return skill_indivisual_info
     end
