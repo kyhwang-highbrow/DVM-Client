@@ -70,7 +70,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_AoESquare:findTarget(x, y)
-    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self:getProperTargetList()
     local x = x
 	local y = y
 	local width = (self.m_skillWidth / 2)

@@ -115,6 +115,6 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_AoECone:findTarget(x, y)
-    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self:getProperTargetList()
     return SkillTargetFinder:findTarget_AoECone(l_target, x, y, self.m_skillDir, self.m_skillRadius, self.m_skillAngle)
 end

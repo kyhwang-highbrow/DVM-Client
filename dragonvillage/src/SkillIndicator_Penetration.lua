@@ -227,7 +227,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_Penetration:findTarget(l_attack_pos, l_dir)
-	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	local l_target = self:getProperTargetList()
 	
 	local t_ret = {}
     local t_ret_bodys = {}

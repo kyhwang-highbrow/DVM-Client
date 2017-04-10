@@ -121,7 +121,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_AoERound:findTarget(x, y, range, isFixedOnTarget)
-    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self:getProperTargetList()
 
 	local pos_x = x
 	local pos_y = y

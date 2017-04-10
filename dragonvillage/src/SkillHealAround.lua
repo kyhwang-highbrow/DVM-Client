@@ -111,7 +111,7 @@ end
 -- @default 직선거리에서 범위를 기준으로 충돌여부 판단
 -------------------------------------
 function SkillHealAround:findTarget()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self:getProperTargetList()
 	local x = self.m_owner.pos.x
 	local y = self.m_owner.pos.y
 	local range = self.m_range

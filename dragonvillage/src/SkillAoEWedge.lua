@@ -101,7 +101,7 @@ end
 -- @brief 공격 대상 찾음
 -------------------------------------
 function SkillAoEWedge:findTarget()
-	local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	local l_target = self:getProperTargetList()
     return SkillTargetFinder:findTarget_AoEWedge(l_target, self.pos.x, self.pos.y, self.m_dir, self.m_range, self.m_angle)
 end
 

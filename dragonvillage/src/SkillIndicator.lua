@@ -40,8 +40,9 @@ SkillIndicator = class({
         m_targetPosY = '',
         m_targetChar = '',
 
-		m_targetFormation = 'str',
 		m_targetType = 'str',
+		m_targetLimit = 'num',
+		m_targetFormation = 'str',
 
         -- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
@@ -82,8 +83,9 @@ end
 -- @brief 멤버 변수 선언
 -------------------------------------
 function SkillIndicator:init_indicator(t_skill, ...)
-	self.m_targetType = t_skill['target_type']
-	self.m_targetFormation = t_skill['target_formation']
+	self.m_targetType = SkillHelper:getValid(t_skill['target_type'])
+	self.m_targetLimit = SkillHelper:getValid(t_skill['target_count'])
+	self.m_targetFormation = SkillHelper:getValid(t_skill['target_formation'])
 end
 
 -------------------------------------
@@ -461,6 +463,14 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator:findTarget(x, y)
+end
+
+-------------------------------------
+-- function findTarget
+-- @brief 타겟룰에 의해 적절한 타겟리스트 가져옴
+-------------------------------------
+function SkillIndicator:getProperTargetList()
+	return self.m_hero:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
 end
 
 -------------------------------------

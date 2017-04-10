@@ -124,7 +124,7 @@ end
 -- @brief 공격 횟수에 맞춰 랜덤한 타겟 리스트를 생성한다.
 -------------------------------------
 function SkillEnumrate:getSkillTargetList_Random()
-	local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	local l_target = self:getProperTargetList()
 	return l_target
 end
 

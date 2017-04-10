@@ -182,7 +182,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillLaser:findTarget()
-	local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	local l_target = self:getProperTargetList()
 	return SkillTargetFinder:findTarget_Bar(l_target, self.m_startPosX, self.m_startPosY, self.m_laserEndPosX, self.m_laserEndPosY, self.m_laserThickness/2)
 end
 

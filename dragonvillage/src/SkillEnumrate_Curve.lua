@@ -37,7 +37,7 @@ function SkillEnumrate_Curve:fireMissile(idx)
 	local char = self.m_owner
 	local target_char = self.m_skillTargetList[idx]
 	if (not traget_char) or (target_char.m_bDead) then
-		local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+		local l_target = self:getProperTargetList()
         target_char = l_target[1]
 	end
 

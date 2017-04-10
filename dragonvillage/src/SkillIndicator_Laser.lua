@@ -110,7 +110,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_Laser:findTarget(pos_x, pos_y, dir)
-	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	local l_target = self:getProperTargetList()
     local end_pos = getPointFromAngleAndDistance(dir, 2560)    
     local end_x = pos_x + end_pos['x']
     local end_y = pos_y + end_pos['y']

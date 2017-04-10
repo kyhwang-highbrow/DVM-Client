@@ -172,7 +172,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillVoltesX:findTarget(idx)
-	local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	local l_target = self:getProperTargetList()
 	local t_ret = {}
 	
     local radius = 20

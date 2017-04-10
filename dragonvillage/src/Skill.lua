@@ -24,6 +24,7 @@ Skill = class(PARENT, {
 		-- 타겟 관련 .. 
 		m_targetFormation = 'str',
 		m_targetType = 'str', -- 타겟 선택하는 룰
+		m_targetLimit = 'num', -- 선택할 타겟의 최대 수
 		m_targetChar = 'Character', 
 		m_targetPos = 'pos', -- 인디케이터에서 보낸 x, y 좌표
 		
@@ -193,8 +194,9 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
 	self.m_targetChar = t_data.target or self.m_targetChar
-	self.m_targetType = t_skill['target_type']
-	self.m_targetFormation = t_skill['target_formation']
+	self.m_targetType = SkillHelper:getValid(t_skill['target_type'])
+	self.m_targetLimit = SkillHelper:getValid(t_skill['target_count'])
+	self.m_targetFormation = SkillHelper:getValid(t_skill['target_formation'])
 
 	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
     self.m_bHighlight = t_data['highlight'] or false
@@ -382,12 +384,20 @@ end
 -- @default 직선거리에서 범위를 기준으로 충돌여부 판단
 -------------------------------------
 function Skill:findTarget()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self:getProperTargetList()
 	local x = self.m_targetPos.x
 	local y = self.m_targetPos.y
 	local range = self.m_range
 
 	return SkillTargetFinder:findTarget_AoERound(l_target, x, y, range)
+end
+
+-------------------------------------
+-- function findTarget
+-- @brief 타겟룰에 의해 적절한 타겟리스트 가져옴
+-------------------------------------
+function Skill:getProperTargetList()
+	return self.m_owner:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
 end
 
 -------------------------------------

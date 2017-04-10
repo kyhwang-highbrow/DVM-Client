@@ -32,7 +32,7 @@ function SkillChainLightning:init_skill(missile_res, target_count)
 	-- 멤버 변수 초기화
 	self.m_lightningRes = missile_res
 	self.m_physGroup = self.m_owner:getAttackPhysGroup()
-    self.m_tTargetList = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    self.m_tTargetList = self:getProperTargetList()
     self.m_tEffectList = {}
 end
 

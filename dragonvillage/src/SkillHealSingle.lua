@@ -94,7 +94,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillHealSingle:findTarget()
-    return self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    return self:getProperTargetList()
 end
 
 -------------------------------------

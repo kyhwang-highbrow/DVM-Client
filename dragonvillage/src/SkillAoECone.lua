@@ -97,7 +97,7 @@ end
 -- @brief 공격 대상 찾음
 -------------------------------------
 function SkillAoECone:findTarget()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self:getProperTargetList()
     return SkillTargetFinder:findTarget_AoECone(l_target, self.m_targetPos.x, self.m_targetPos.y, self.m_dir, self.m_range, self.m_angle)
 end
 

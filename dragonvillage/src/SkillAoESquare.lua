@@ -84,7 +84,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillAoESquare:findTarget()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self:getProperTargetList()
     local x = self.pos.x
 	local y = self.pos.y
 	local width = (self.m_skillWidth / 2)

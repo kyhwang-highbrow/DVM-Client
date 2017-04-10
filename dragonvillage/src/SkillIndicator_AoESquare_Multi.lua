@@ -85,7 +85,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_AoESquare_Multi:findTarget(x, y)
-    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self:getProperTargetList()
     
     local l_ret = {}
     local l_bodys = {}

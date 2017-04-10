@@ -87,7 +87,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_X:findTarget(pos_x, pos_y)
-	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	local l_target = self:getProperTargetList()
 	local t_ret = {}
     local t_ret_bodys = {}
 	
