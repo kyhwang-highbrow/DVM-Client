@@ -844,7 +844,7 @@
 			action_type = 3;
 			action_delay_1 = 0.000000;
 			action_delay_2 = 0.000000;
-			action_duration = 0.500000;
+			action_duration = 0.400000;
 			lua_name = 'actionNode';
 		};
 		type = 'Menu';

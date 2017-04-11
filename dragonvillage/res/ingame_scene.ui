@@ -1989,8 +1989,8 @@
 			action_duration = 0.500000;
 			lua_name = 'buffBtn';
 			enable = true;
-			normal = 'ui/btn/lobby_buff_01.png';
-			selected = 'ui/btn/lobby_buff_02.png';
+			normal = 'ui/btn/lobby_side_buff_0101.png';
+			selected = '';
 			disable = '';
 			image_type = 1;
 		};

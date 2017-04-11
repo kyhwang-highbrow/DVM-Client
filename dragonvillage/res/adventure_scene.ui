@@ -1163,8 +1163,8 @@
 					dock_point = { 1.000000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 80;
-					height = 80;
+					width = 84;
+					height = 84;
 					scale_x = 0.500000;
 					scale_y = 0.500000;
 					skew_x = 0.000000;
@@ -1172,7 +1172,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/btn/lobby_buff_01.png';
+					file_name = 'ui/btn/lobby_side_buff_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1274,8 +1274,8 @@
 					dock_point = { 1.000000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 80;
-					height = 80;
+					width = 84;
+					height = 84;
 					scale_x = 0.500000;
 					scale_y = 0.500000;
 					skew_x = 0.000000;
@@ -1283,7 +1283,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/btn/lobby_buff_01.png';
+					file_name = 'ui/btn/lobby_side_buff_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
