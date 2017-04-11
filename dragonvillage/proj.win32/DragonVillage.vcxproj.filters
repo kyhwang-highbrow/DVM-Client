@@ -1908,6 +1908,9 @@
     <None Include="..\src\SkillAoECone_Crash.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UIC_DragonAnimator.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

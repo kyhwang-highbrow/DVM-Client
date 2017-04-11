@@ -57,6 +57,13 @@ function UI_DragonFriendship:initUI()
     vars['fruitNumberLabel4'] = NumberLabel(vars['fruitLabel4'], 0, 0.3)
 
     self.m_fruitFeedPressHelper = UI_FruitFeedPress(self)
+
+    -- 드래곤 실리소스
+    if vars['dragonNode'] then
+        self.m_dragonAnimator = UIC_DragonAnimator()
+        self.m_dragonAnimator.vars['dragonNode']:setScale(1)
+        vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
+    end
 end
 
 -------------------------------------
@@ -93,15 +100,9 @@ function UI_DragonFriendship:refresh()
         vars['bgNode']:addChild(animator.m_node)
     end
 
-    do -- 드래곤 리소스
-        local evolution = t_dragon_data['evolution']
-        vars['dragonNode']:removeAllChildren()
-        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
-        animator:setDockPoint(cc.p(0.5, 0.5))
-        animator:setAnchorPoint(cc.p(0.5, 0.5))
-        animator:changeAni('idle', true)
-
-        vars['dragonNode']:addChild(animator.m_node)
+    -- 드래곤 실리소스
+    if self.m_dragonAnimator then
+        self.m_dragonAnimator:setDragonAnimator(t_dragon['did'], t_dragon_data['evolution'], t_dragon_data['friendship']['flv'])
     end
 
     self:refreshFruits(attr)

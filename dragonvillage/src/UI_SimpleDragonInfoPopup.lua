@@ -9,6 +9,7 @@ UI_SimpleDragonInfoPopup = class(PARENT, {
         m_tableDragon = 'TableDragon',
         m_idx = 'number',
         m_dragonInfoBoardUI = 'UI_DragonInfoBoard',
+        m_dragonAnimator = 'UIC_DragonAnimator',
      })
 
 -------------------------------------
@@ -48,6 +49,12 @@ function UI_SimpleDragonInfoPopup:initUI()
     -- 드래곤 정보 보드 생성
     self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
     self.vars['rightNode']:addChild(self.m_dragonInfoBoardUI.root)
+
+    -- 드래곤 실리소스
+    if vars['dragonNode'] then
+        self.m_dragonAnimator = UIC_DragonAnimator()
+        vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
+    end
 end
 
 -------------------------------------

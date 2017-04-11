@@ -412,6 +412,7 @@ local t_module = {
     'UIC_SortList',
     'UIC_Factory',
     'UIC_IndivisualStats',
+    'UIC_DragonAnimator',
 
 	-- UI
     'UI_BlockPopup',

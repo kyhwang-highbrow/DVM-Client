@@ -13,6 +13,7 @@ UI_DragonManage_Base = class(PARENT,{
 
         m_sortManagerDragon = 'SortManager_Dragon',
         m_uicSortList = '',
+        m_dragonAnimator = 'UIC_DragonAnimator',
     })
 
 -------------------------------------

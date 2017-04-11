@@ -51,6 +51,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_DragonManageInfo:initUI()
+    local vars = self.vars
     self:init_dragonTableView()
 
     -- 드래곤 정보 보드 생성
@@ -58,6 +59,12 @@ function UI_DragonManageInfo:initUI()
     self.m_dragonInfoBoardUI.vars['equipmentBtn']:setVisible(true)
     self.m_dragonInfoBoardUI.vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
     self.vars['rightNode']:addChild(self.m_dragonInfoBoardUI.root)
+
+    -- 드래곤 실리소스
+    if vars['dragonNode'] then
+        self.m_dragonAnimator = UIC_DragonAnimator()
+        vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
+    end
 end
 
 -------------------------------------
@@ -172,17 +179,8 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
     end
 
     -- 드래곤 실리소스
-    if vars['dragonNode'] then
-        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
-        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        vars['dragonNode']:removeAllChildren(false)
-        vars['dragonNode']:addChild(animator.m_node)
-
-        animator:changeAni('pose_1', false)
-        animator:addAniHandler(function() animator:changeAni('idle', true) end)
-        animator:setAlpha(0)
-        animator:runAction(cc.FadeIn:create(0.1))
+    if self.m_dragonAnimator then
+        self.m_dragonAnimator:setDragonAnimator(t_dragon['did'], t_dragon_data['evolution'], t_dragon_data['friendship']['flv'])
     end
 end
 
