@@ -284,18 +284,39 @@ end
 function UI_ColosseumReadyScene:click_startBtn()
     if (self:getDragonCount() <= 0) then
         UIManager:toastNotificationRed('최소 1명 이상은 출전시켜야 합니다.')
+        return
+    end
 
     -- 날개 소모
-    elseif (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
-        g_staminasData:staminaCharge(COLOSSEUM_STAGE_ID)
-                    
-    else
+    if (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
+        self:askCashPlay()
+        return
+    end
+        
+    local function next_func()
+        local is_cash = false
+        self:networkGameStart(is_cash)
+    end
+
+    self:checkChangeDeck(next_func)
+end
+
+-------------------------------------
+-- function askCashPlay
+-- @breif
+-------------------------------------
+function UI_ColosseumReadyScene:askCashPlay()
+    local function ok_btn_cb()
         local function next_func()
-            self:networkGameStart()
+            local is_cash = true
+            self:networkGameStart(is_cash)
         end
 
         self:checkChangeDeck(next_func)
     end
+
+    local msg = Str('입장권이 부족합니다.\n{@impossible}다이아몬드 1개{@default}를 사용해 진행하시겠습니까?')
+    UI_ConfirmPopup('cash', 1, msg, ok_btn_cb)
 end
 
 -------------------------------------
@@ -328,13 +349,13 @@ end
 -- function networkGameStart
 -- @breif
 -------------------------------------
-function UI_ColosseumReadyScene:networkGameStart()
+function UI_ColosseumReadyScene:networkGameStart(is_cash)
 	local function cb(ret)
         local scene = SceneGameColosseum()
         scene:runScene()
     end
 
-    g_colosseumData:request_colosseumStart(cb)
+    g_colosseumData:request_colosseumStart(is_cash, cb)
 end
 
 -------------------------------------

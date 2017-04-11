@@ -129,10 +129,9 @@ end
 -------------------------------------
 -- function request_colosseumStart
 -------------------------------------
-function ServerData_Colosseum:request_colosseumStart(cb)
+function ServerData_Colosseum:request_colosseumStart(is_cash, cb)
     -- 파라미터
     local uid = g_userData:get('uid')
-    local is_cash = 1 -- 캐시로 플레이 할 경우 (1이면 유료플레이)
 
     -- 콜백 함수
     local function success_cb(ret)
