@@ -4,6 +4,7 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonFriendship
 -------------------------------------
 UI_DragonFriendship = class(PARENT,{
+        m_fruitFeedPressHelper = 'UI_FruitFeedPress',
     })
 
 -------------------------------------
@@ -54,6 +55,8 @@ function UI_DragonFriendship:initUI()
     vars['fruitNumberLabel2'] = NumberLabel(vars['fruitLabel2'], 0, 0.3)
     vars['fruitNumberLabel3'] = NumberLabel(vars['fruitLabel3'], 0, 0.3)
     vars['fruitNumberLabel4'] = NumberLabel(vars['fruitLabel4'], 0, 0.3)
+
+    self.m_fruitFeedPressHelper = UI_FruitFeedPress(self)
 end
 
 -------------------------------------
@@ -206,7 +209,9 @@ function UI_DragonFriendship:refreshFruits(attr)
         vars['fruitNumberLabel' .. i]:setNumber(count)
 
 
-        vars['fruitBtn' .. i]:registerScriptTapHandler(function() self:click_fruitBtn(fid, vars['fruitBtn' .. i]) end)
+        local fruit_button = vars['fruitBtn' .. i]
+        fruit_button:registerScriptTapHandler(function() self:click_fruitBtn(fid, fruit_button) end)
+        fruit_button:registerScriptPressHandler(function() self:press_fruitBtn(fid, fruit_button, vars['fruitNumberLabel' .. i]) end)
     end
     --[[
     fruitBtn1
@@ -343,6 +348,10 @@ function UI_DragonFriendship:response_friendshipUp(ret)
         g_serverData:applyServerData(ret['fruits'], 'user', 'fruits')
     end
 
+    -- is_flevelup  bool
+    -- added_lactea num
+    -- lactea       num
+
     -- UI에서 관리하는 드래곤 정보 갱신
     self:setSelectDragonDataRefresh()
 
@@ -354,6 +363,12 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonFriendship:click_fruitBtn(fid, btn)
+
+    local count = g_userData:getFruitCount(fid)
+    if (count <= 0) then
+        UIManager:toastNotificationRed(Str('열매가 부족하네요!!'))
+        return
+    end
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
@@ -386,6 +401,77 @@ function UI_DragonFriendship:click_fruitBtn(fid, btn)
 
     Coroutine(coroutine_function)
 end
+
+-------------------------------------
+-- function pressProcess
+-- @brief
+-------------------------------------
+function UI_DragonFriendship:pressProcess(fid, fcnt, fcnt_120p, fcnt_150p)
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        local fail_cb = function(ret)
+            self:refresh()
+            co.ESCAPE()
+        end
+
+        -- 서버와 통신
+        co:work()
+        local ret_cache
+        local function request_finish(ret)
+            ret_cache = ret
+            co.NEXT()
+        end
+        self:request_friendshipUp(fid, fcnt, fcnt_120p, fcnt_150p, request_finish, fail_cb)
+        if co:waitWork() then return end
+
+
+        self:response_friendshipUp(ret_cache)
+        self:refresh()
+
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
+end
+
+-------------------------------------
+-- function press_fruitBtn
+-- @brief
+-------------------------------------
+function UI_DragonFriendship:press_fruitBtn(fid, btn, number_label)
+    self.m_fruitFeedPressHelper:fruitPressHandler(fid, btn, number_label)
+end
+
+-------------------------------------
+-- function showEmotionEffect
+-- @brief 감정 이펙트 연출
+-------------------------------------
+function UI_DragonFriendship:showEmotionEffect()
+    local vars = self.vars
+    local animator = MakeAnimator('res/ui/a2d/emotion/emotion.vrp')
+
+    do -- 에니메이션 지정
+        local sum_random = SumRandom()
+        sum_random:addItem(1, 'curious')
+        sum_random:addItem(2, 'exciting')
+        sum_random:addItem(2, 'like')
+        sum_random:addItem(2, 'love')
+        local ani_name = sum_random:getRandomValue()     
+        animator:changeAni(ani_name, false)
+    end
+
+    -- 위치 지정
+    animator:setPosition(-70, 200)
+    
+    -- 재생 후 삭제
+    local duration = animator.m_node:getDuration()
+    animator.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+    vars['dragonNode']:addChild(animator.m_node)
+end
+
+
 
 --@CHECK
 UI:checkCompileError(UI_DragonFriendship)

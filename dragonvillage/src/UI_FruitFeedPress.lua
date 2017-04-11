@@ -7,6 +7,7 @@ UI_FruitFeedPress = class({
         m_currFruitBtn = 'button',
         m_currFruitLabel = 'label',
         m_currFruitID = 'number',
+        m_friendshipObj = 'StructFriendshipObject',
         m_blockUI = 'UI_BlockPopup',
 
         m_timer = 'number',
@@ -16,13 +17,12 @@ UI_FruitFeedPress = class({
         m_fruitCount = 'number', -- 보유한 열매 갯수
         m_fruitExp = 'number', -- 열매 하나당 경험치
 
-        m_currFExp = 'number', -- 현재 경험치
-        m_currFReq = 'number', -- 레벨업까지 필요한 경험치
-
-        m_currGold = 'number',
-        m_fruitGold = 'number',
+        m_currFeel = 'number', -- 현재 기분
+        m_reqFeel = 'number', -- 레벨업까지 필요한 기분
 
         m_feedCount = 'number', -- 열매를 준 갯수
+        m_feedCount120p = 'number',
+        m_feedCount150p = 'number',
     })
 
 -------------------------------------
@@ -62,6 +62,8 @@ function UI_FruitFeedPress:fruitPressHandler(fruit_id, fruit_btn, fruit_label)
     if (self.m_currFruitBtn) then
         return
     end
+
+    self.m_friendshipObj = self.m_friendshipUI.m_selectDragonData:getFriendshipObject()
 
     if (not self:checkPressAvalable(fruit_id)) then
         return
@@ -106,14 +108,11 @@ end
 
 -------------------------------------
 -- function checkPressAvalable
+-- @brief
 -------------------------------------
 function UI_FruitFeedPress:checkPressAvalable(fruit_id)
     do-- 선택된 드래곤의 친밀도가 최대치인지 확인
-        local table_friendship = TableFriendship()
-        local t_dragon_data = self.m_friendshipUI.m_selectDragonData
-        local flv = t_dragon_data['flv']
-
-        if table_friendship:isMaxFriendshipLevel(flv) then
+        if self.m_friendshipObj:isMaxFriendshipLevel() then
             return false
         end
     end
@@ -122,18 +121,6 @@ function UI_FruitFeedPress:checkPressAvalable(fruit_id)
         local count = g_userData:getFruitCount(fruit_id)
         if (count <= 0) then
             UIManager:toastNotificationRed(Str('열매가 부족하네요!!'))
-            return false
-        end
-    end
-
-    do-- 골드 확인
-        local curr_gold = g_userData:get('gold')
-        local table_fruit = TableFruit()
-        local t_fruit = table_fruit:get(fruit_id)
-        local req_gold = t_fruit['req_gold']
-
-        if (curr_gold < req_gold) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
             return false
         end
     end
@@ -149,41 +136,17 @@ end
 -------------------------------------
 function UI_FruitFeedPress:initPressInfo(fruit_id)
     -- 보유한 열매 갯수
-    self.m_fruitCount =g_userData:getFruitCount(fruit_id)
-    
-    -- 열매 하나당 주는 경험치
-    local table_friendship = TableFriendship()
-    local t_dragon_data = self.m_friendshipUI.m_selectDragonData
-    local did = t_dragon_data['did']
-    local table_dragon = TableDragon()
-    local t_dragon = table_dragon:get(did)
-    local dragon_attr = t_dragon['attr']
+    self.m_fruitCount = g_userData:getFruitCount(fruit_id)
 
-    local table_fruit = TableFruit()
-    local t_fruit = table_fruit:get(fruit_id)
-    local fruit_attr = t_fruit['attr']
+    -- 기분업까지 필요한 feel
+    self.m_reqFeel = TableFriendshipVariables:getFeelMax()
 
-    self.m_fruitExp = t_fruit['exp']
-    if (dragon_attr == fruit_attr) then
-        self.m_fruitExp = (self.m_fruitExp * 1.5)
-    end
-
-    -- 드래곤의 현재 친밀도 필경
-    local table_friendship = TableFriendship()
-    local flv = t_dragon_data['flv']
-    local t_friendship = table_friendship:get(flv)
-    self.m_currFReq = t_friendship['req_exp']
-
-    -- 드래곤의 현재 친밀도 경험치
-    self.m_currFExp = t_dragon_data['fexp']
-
-    -- 현재 골드 저장
-    self.m_currGold = g_userData:get('gold')
-
-    -- 열매 하나당 필요한 골드
-    self.m_fruitGold = t_fruit['req_gold']
+    -- 드래곤의 현재 feel
+    self.m_currFeel = self.m_friendshipObj['ffeel']
 
     self.m_feedCount = 0
+    self.m_feedCount120p = 0
+    self.m_feedCount150p = 0
 end
 
 -------------------------------------
@@ -195,14 +158,8 @@ function UI_FruitFeedPress:canFeed()
         return false
     end
 
-    -- 2. 경험치가 남아있어야함
-    if (self.m_currFExp >= self.m_currFReq) then
-        return false
-    end
-
-    -- 3. 골드가 있어야함
-    if (self.m_currGold < self.m_fruitGold) then
-        UIManager:toastNotificationRed(Str('골드가 부족합니다.'))
+    -- 2. 기분이 남아있어야함
+    if (self.m_currFeel >= self.m_reqFeel) then
         return false
     end
 
@@ -214,17 +171,24 @@ end
 -- function feedFruit
 -------------------------------------
 function UI_FruitFeedPress:feedFruit()
-    -- 1. 골드 감소
-    self.m_currGold = (self.m_currGold - self.m_fruitGold)
-
     -- 2. 열매 감소
     self.m_fruitCount = (self.m_fruitCount - 1)
 
+    local feel, emoji = self.m_friendshipObj:makeFeelUpInfo(self.m_currFruitID)
+
     -- 3. 경험치 증가
-    self.m_currFExp = (self.m_currFExp + self.m_fruitExp)
+    self.m_currFeel = (self.m_currFeel + feel)
 
     -- 4. 열매를 준 갯수 카운트
-    self.m_feedCount = (self.m_feedCount + 1)
+    if (emoji == '100p') then
+        self.m_feedCount = (self.m_feedCount + 1)
+    elseif (emoji == '120p') then
+        self.m_feedCount120p = (self.m_feedCount120p + 1)
+    elseif (emoji == '150p') then
+        self.m_feedCount150p = (self.m_feedCount150p + 1)
+    else
+        error('emoji : ' .. emoji)
+    end
 
     self.m_friendshipUI:feedDirecting(self.m_currFruitID, self.m_currFruitBtn)
 
@@ -239,20 +203,15 @@ end
 function UI_FruitFeedPress:feedFruitUIRefresh()
     local vars = self.m_friendshipUI.vars
 
-    do -- 친밀도 경험치 표시
-        local cur_exp = self.m_currFExp
-        local req_exp = self.m_currFReq
-        vars['expLabel']:setString(Str('{1} / {2}', cur_exp, req_exp))
-        local percentage = (cur_exp / req_exp) * 100
-        vars['expGauge']:stopAllActions()
-        vars['expGauge']:runAction(cc.ProgressTo:create(0.3, percentage))
+    do -- 드래곤 기분 UI 갱신
+        local percentage = (self.m_currFeel / self.m_reqFeel) * 100
+        percentage = math_clamp(percentage, 0, 100)
+        local b_init = false
+        self.m_friendshipUI:setHeartGauge(percentage, b_init)
     end
 
     -- 열매 갯수
-    self.m_currFruitLabel:setString(comma_value(self.m_fruitCount))
-
-    -- 남은 골드 표시
-    g_topUserInfo:setGoldNumber(self.m_currGold)
+    self.m_currFruitLabel:setNumber(self.m_fruitCount)
 end
 
 -------------------------------------
@@ -261,10 +220,12 @@ end
 function UI_FruitFeedPress:finishPressFeed()
 
     -- 실제로 준 열매의 갯수가 있을 경우 통신
-    if (self.m_feedCount > 0) then
-        local fruit_id = self.m_currFruitID
-        local count = self.m_feedCount
-        self.m_friendshipUI:network_friendshipUp(fruit_id, count)
+    if (self.m_feedCount > 0) or (self.m_feedCount120p > 0) or (self.m_feedCount150p > 0) then
+        local fid = self.m_currFruitID
+        local fcnt = self.m_feedCount
+        local fcnt_120p = self.m_feedCount120p
+        local fcnt_150p = self.m_feedCount150p
+        self.m_friendshipUI:pressProcess(fid, fcnt, fcnt_120p, fcnt_150p)
     end
 
     self:resetFruitFeedPress()

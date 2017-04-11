@@ -16,15 +16,19 @@ function TableFriendship:init()
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
---[[
 -------------------------------------
 -- function isMaxFriendshipLevel
 -------------------------------------
 function TableFriendship:isMaxFriendshipLevel(flv)
-    local t_friendship = self:get(flv)
-    return (t_friendship['req_exp'] == 0)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local req_exp = self:getValue(flv, 'req_exp')
+    return (req_exp == 0) or (req_exp == '')
 end
 
+--[[
 -------------------------------------
 -- function getFriendshipLvAndExpInfo
 -- @brief 

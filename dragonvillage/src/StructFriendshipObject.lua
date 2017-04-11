@@ -76,3 +76,36 @@ function StructFriendshipObject:getFriendshipInfo()
 
     return t_friendship_info
 end
+
+-------------------------------------
+-- function isMaxFriendshipLevel
+-- @breif
+-------------------------------------
+function StructFriendshipObject:isMaxFriendshipLevel()
+    local flv = self['flv']
+    local is_max_friendship_lv = TableFriendship:isMaxFriendshipLevel(flv)
+    return is_max_friendship_lv
+end
+
+-------------------------------------
+-- function makeFeelUpInfo
+-- @breif 열매를 줄 때 보너스 확률 계산, 증가 feel 계산
+-------------------------------------
+function StructFriendshipObject:makeFeelUpInfo(fid)
+    local emoji = TableFriendshipVariables:getFeelUpEmoji()
+    local feel = TableFruit:getFruitFeel(fid)
+
+    if (emoji == '100p') then
+
+    elseif (emoji == '120p') then
+        feel = math_floor(feel * 1.2)
+
+    elseif (emoji == '150p') then
+        feel = math_floor(feel * 1.5)
+
+    else
+        error('emoji : ' .. emoji)
+    end
+
+    return feel, emoji
+end
