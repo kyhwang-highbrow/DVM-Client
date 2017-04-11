@@ -193,6 +193,12 @@ function UI_Network:statusHandler(ret)
         return true
     end
 
+    -- not exist user(콜로세움 적이 없을 때)
+    if (status == -1001) then
+        self:makeCommonPopup(Str('상대방을 검색하지 못하였습니다.\n잠시 후에 다시 시도해주세요.'))
+        return true
+    end
+
     self:makeFailPopup(nil, ret)
     return true
 end
