@@ -113,12 +113,12 @@ end
 -- function onEvent
 -------------------------------------
 function Tamer:onEvent(event_name, t_event, ...)
-	cclog(event_name)
 	if (event_name == 'dragon_summon') then
 		self:setTamerEventSkill()
 
 	else
 		if (self:checkEventSkill(TAMER_SKILL_EVENT, event_name)) then
+			self:getTargetOnEvent(t_event)
 			self:changeState('event')
 		end
 	end

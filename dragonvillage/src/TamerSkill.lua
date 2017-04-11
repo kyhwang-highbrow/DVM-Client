@@ -145,12 +145,21 @@ function Tamer:doSkill(skill_idx)
 	local skill_type = t_skill['skill_type']
 	
 	-- 타겟 확인
-	self:checkTarget(t_skill)
+	if (not self.m_targetChar) then
+		self:checkTarget(t_skill)
+	end
 	
 	-- 테이머 전용 스킬을 먼저 체크한다
 	if string.find(skill_type, 'tamer_skill_') then
-		-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
-		local l_target = self:getTargetListByTable(t_skill)
+		-- 1. 타겟리스트 생성
+		local l_target 
+		if (skill_idx == TAMER_SKILL_EVENT) then
+			-- 발동형 스킬의 경우 target_char를 가져오는.... 규칙을 정해야함.
+			l_target = {self.m_targetChar}
+		else
+			-- skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
+			l_target = self:getTargetListByTable(t_skill)
+		end
 			
 		-- 2. 상태효과 구조체
 		local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
@@ -160,10 +169,13 @@ function Tamer:doSkill(skill_idx)
 
 		-- 4. 스킬별 추가 효과
 		if (skill_type == 'tamer_skill_acitve_kesath') then
+			-- 케사스 액티브 : 아군 중 피가 제일 많은 녀석의 체력을 깎는다.
 			local hp_rate = (1 - (t_skill['val_1']/100))
 			for i, char in pairs(l_target) do
-				local curr_hp = char.m_hp
-				char:setHp(curr_hp * hp_rate)
+				local after_hp = (char.m_hp * hp_rate)
+				local damage = char.m_hp - after_hp
+				char:setHp(after_hp)
+				char:makeDamageFont(damage, char.pos.x, char.pos.y)
 			end
 		end
 
@@ -235,6 +247,22 @@ function Tamer:checkEventSkill(skill_idx, event_name)
 	end
 
 	return true
+end
+
+-------------------------------------
+-- function getTargetOnEvent
+-------------------------------------
+function Tamer:getTargetOnEvent(t_event)
+	local target_char
+	if string.find(event_name, 'under_atk') then
+		target_char = t_event['defender']
+	elseif string.find(event_name, 'hit') then
+		target_char = t_event['attacker']
+	else
+		target_char = t_event['char']
+	end
+			
+	self.m_targetChar = target_char
 end
 
 -------------------------------------
