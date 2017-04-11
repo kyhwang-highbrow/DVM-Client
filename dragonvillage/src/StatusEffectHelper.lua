@@ -326,6 +326,14 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     status_effect:initState()
     status_effect:changeState('start')
 
+	-- @EVENT 
+	if (StatusEffectHelper:isHarmful(status_effect)) then
+		local t_event = clone(EVENT_STATUS_EFFECT)
+		t_event['char'] = char
+		t_event['status_effect_name'] = status_effect.m_statusEffectName
+		char:dispatch('get_debuff', t_event)
+	end
+
     return status_effect
 end
 
@@ -396,48 +404,6 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 		-- 4. 인덱스 증가
 		idx = idx + 1
 	end
-end
-
--------------------------------------
--- function checkPassiveActivation
--- @brief 발동조건을 체크하여 활성화된 패시브인지 확인한다. 사용X
--------------------------------------
-function StatusEffectHelper:checkPassiveActivation(char, chance_value, t_status_effect)
-	if (chance_value == 'none') then
-		return true
-	elseif (chance_value == 'front') then
-		if (char:getFormationMgr():getFormation(char.pos.x, char.pos.y) == FORMATION_FRONT) then 
-			return true
-		end
-	elseif (chance_value == 'middle') then
-		if (char:getFormationMgr():getFormation(char.pos.x, char.pos.y) == FORMATION_MIDDLE) then 
-			return true
-		end
-	elseif (chance_value == 'rear') then
-		if (char:getFormationMgr():getFormation(char.pos.x, char.pos.y) == FORMATION_REAR) then 
-			return true
-		end
-	elseif (string.find(chance_value, 'attr')) then
-		local attr = t_status_effect['val_1']
-		local goal = t_status_effect['val_2']
-		local match_count = 0
-
-		-- characterlist 순회
-		-- @TODO list 가져오는것 수정해야함
-		for i, character in pairs(char:getFellowList()) do
-			if (character:getAttribute() == attr) then
-				match_count = match_count + 1
-			end
-			if (match_count >= goal) then
-				-- 조건 달성 시
-				return true
-			end
-		end
-	else
-		error('정의 되지 않은 패시브 발동 조건 : ' .. chance_value)
-	end
-
-	return false
 end
 
 -------------------------------------

@@ -35,3 +35,11 @@ EVENT_CHANGE_HP_CARRIER['max_hp'] = 0
 EVENT_DRAGON_SKILL_GAUGE = clone(EVENT_CARRIER)
 EVENT_DRAGON_SKILL_GAUGE['owner'] = ''
 EVENT_DRAGON_SKILL_GAUGE['percentage'] = 0
+
+------------------------------
+-- event status effect
+-- @brief 상태 효과 관련
+------------------------------
+EVENT_STATUS_EFFECT = clone(EVENT_CARRIER)
+EVENT_STATUS_EFFECT['char'] = ''
+EVENT_STATUS_EFFECT['status_effect_name'] = ''

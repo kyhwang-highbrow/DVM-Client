@@ -118,7 +118,7 @@ function Tamer:onEvent(event_name, t_event, ...)
 
 	else
 		if (self:checkEventSkill(TAMER_SKILL_EVENT, event_name)) then
-			self:getTargetOnEvent(t_event)
+			self:getTargetOnEvent(event_name, t_event)
 			self:changeState('event')
 		end
 	end

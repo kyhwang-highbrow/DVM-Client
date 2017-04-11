@@ -194,7 +194,6 @@ end
 -- function doSkillActive
 -------------------------------------
 function Tamer:doSkillActive()
-	cclog('############## Tamer:doSkillActive()')
     return self:doSkill(TAMER_SKILL_ACTIVE)
 end
 
@@ -202,7 +201,6 @@ end
 -- function doSkillEvent
 -------------------------------------
 function Tamer:doSkillEvent()
-	cclog('############### Tamer:doSkillEvent()')
     return self:doSkill(TAMER_SKILL_EVENT)
 end
 
@@ -219,7 +217,7 @@ end
 function Tamer:checkEventSkill(skill_idx, event_name)
 	-- 이미 실행중인지 체크
 	if (not self.m_bEventSKillUsable) then
-		return 
+		return false
 	end
 
 	local t_skill = self.m_lSkill[skill_idx]
@@ -252,7 +250,7 @@ end
 -------------------------------------
 -- function getTargetOnEvent
 -------------------------------------
-function Tamer:getTargetOnEvent(t_event)
+function Tamer:getTargetOnEvent(event_name, t_event)
 	local target_char
 	if string.find(event_name, 'under_atk') then
 		target_char = t_event['defender']
