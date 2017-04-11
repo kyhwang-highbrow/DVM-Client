@@ -177,7 +177,22 @@ function GameDragonSkill.update_live(self, dt)
     elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
             -- 카메라 줌인
-            world.m_gameCamera:setTarget(dragon, {scale = 3, time = delayTime / 4})
+            do
+                local offset_x = 0
+
+                if (dragon.m_bLeftFormation) then
+                    offset_x = 50
+                else
+                    offset_x = -50
+                end
+
+                world.m_gameCamera:setAction({
+                    pos_x = dragon.pos.x - (CRITERIA_RESOLUTION_X / 2) + offset_x,
+                    pos_y = dragon.pos.y,
+                    scale = 3,
+                    time = delayTime / 4
+                })
+            end
 
             -- 드래곤만 일시 정지 제외시킴
             world:setTemporaryPause(true, dragon)
