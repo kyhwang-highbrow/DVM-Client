@@ -145,6 +145,20 @@ function SkillHelper:printTargetNotExist(skill)
 end
 
 -------------------------------------
+-- function printAttackInfo
+-------------------------------------
+function SkillHelper:printAttackInfo(attacker, defender, attack_type, atk_dmg, def_pwr, damage)
+	cclog('######################################################')
+	cclog('공격자 : ' .. attacker:getName())
+	cclog('방어자 : ' .. defender:getName())
+	cclog('공격 타입 : ' .. attack_type)
+	cclog('--공격력 : ' .. atk_dmg)
+	cclog('--방어력 : ' .. def_pwr)
+	cclog('--데미지 : ' .. damage)
+	cclog('------------------------------------------------------')
+end
+
+-------------------------------------
 -- function makePassiveSkillSpeech
 -- @brief 드래곤 패시브 스킬 발동시 말풍선을 생성
 -------------------------------------

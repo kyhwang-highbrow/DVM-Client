@@ -399,11 +399,8 @@ end
 -------------------------------------
 function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
     if (not attacker.m_activityCarrier) then
-        --cclog('attacker.m_activityCarrier nil')
         return
     end
-
-    local attacker_char = attacker.m_activityCarrier.m_activityCarrierOwner
 
     -- 무적 상태 여부 체크
     if self.m_bInvincibility then
@@ -419,6 +416,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
 		self:dispatch('guardian', t_event)
 		return
     end
+
+	-- 공격자 정보
+    local attacker_char = attacker.m_activityCarrier.m_activityCarrierOwner
+    local attack_type, real_attack_type = attacker.m_activityCarrier:getAttackType()
 
     -- 속성 효과
     local t_attr_effect = self:checkAttributeCounter(attacker.m_activityCarrier)
@@ -473,7 +474,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
         critical = (math_random(1, 1000) <= (final_critical_chance * 10))
     end
 
-    local attr_bonus_dmg = 0 -- 속성에 의해 추가된 데미지
+    local attr_bonus_dmg = 0 -- 속성에 의해 추가된 데미지 @legacy
     do -- 데미지 관련
         local damage_multifly = 1
 
@@ -498,17 +499,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
     -- 속성 추가 데미지 별도로 사용하기 위해 ..! (과거에 인게임 화면에 출력)
     attr_bonus_dmg = math_floor(attr_bonus_dmg * attacker.m_activityCarrier:getPowerRate())
 	attr_bonus_dmg = math_min(attr_bonus_dmg, damage)
-		
-	if g_constant:get('DEBUG', 'PRINT_ATTACK_INFO') then
-		cclog('######################################################')
-		cclog('공격자 : ' .. attacker.m_activityCarrier.m_activityCarrierOwner:getName())
-		cclog('방어자 : ' .. defender:getName())
-		cclog('공격 타입 : ' .. attacker.m_activityCarrier:getAttackType())
-		cclog(' 공격력 : ' .. atk_dmg)
-		cclog(' 방어력 : ' .. def_pwr)
-		cclog(' 데미지 : ' .. damage)
-		cclog('------------------------------------------------------')
-    end
 
     -- 회피 계산
     if (self:checkAvoid(attacker.m_activityCarrier, t_attr_effect)) then
@@ -533,7 +523,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
 	local t_event = clone(EVENT_HIT_CARRIER)
 	t_event['damage'] = damage
 	t_event['reduced_damage'] = reduced_damage
-	t_event['attacker'] = attacker.m_activityCarrier.m_activityCarrierOwner
+	t_event['attacker'] = attacker_char
 	t_event['defender'] = self
 	t_event['is_critical'] = critical
     t_event['i_x'] = i_x
@@ -569,17 +559,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
 		end
 	end
 	
-	-- linked 효과 관련 이벤트 처리
-	do
-		self:dispatch('undergo_attack_linked_owner', t_event)
-		self:dispatch('undergo_attack_linked_target', t_event)
-		damage = t_event['damage']
-	end
-	
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
-    local attack_type, real_attack_type = attacker.m_activityCarrier:getAttackType()
     if (attack_type == 'active') then
-        
         if self:cancelSkill() then
             -- 적 스킬 공격 캔슬 성공시
             local attackerCharacter = attacker.m_activityCarrier.m_activityCarrierOwner
@@ -612,48 +593,74 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
     end
         	
 	-- 공격 데미지 전달
-    local t_info = {}
-    t_info['attack_type'] = attack_type
-    t_info['attr'] = attacker.m_activityCarrier.m_attribute
-    t_info['dmg_type'] = dmg_type
-	t_info['critical'] = critical
-    t_info['is_add_dmg'] = attacker.m_activityCarrier:getFlag('add_dmg')
-    t_info['body_key'] = body_key
-
-    self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+	do
+		local t_info = {}
+		t_info['attack_type'] = attack_type
+		t_info['attr'] = attacker.m_activityCarrier.m_attribute
+		t_info['dmg_type'] = dmg_type
+		t_info['critical'] = critical
+		t_info['is_add_dmg'] = attacker.m_activityCarrier:getFlag('add_dmg')
+		t_info['body_key'] = body_key
+	
+		self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+	end
 
     -- 상태이상 체크
     StatusEffectHelper:statusEffectCheck_onHit(attacker.m_activityCarrier, self)
 
-    -- 방어자 피격 이벤트 
-    self:dispatch('undergo_attack', {}, attacker.m_activityCarrier.m_activityCarrierOwner)
-	
 	-- @LOG_CHAR
 	self.m_charLogRecorder:recordLog('under_atk', 1)
-	self:dispatch('under_atk_turn')
-	self:dispatch('under_atk_rate')
+	
+	-- 방어자 이벤트 처리
+	do 
+		-- 피격
+		self:dispatch('undergo_attack', t_event)
+		self:dispatch('under_atk_turn')
+		self:dispatch('under_atk_rate')
+	
+		-- 크리로 피격
+		if (critical) then
+			self:dispatch('under_atk_cri', t_event)
+		end
+			
+		-- 일반 피격
+		if (attack_type == 'basic') then 
+			attacker_char:dispatch('under_atk_basic', t_event, self, attacker.m_activityCarrier)
 
-    -- 남은 체력이 20%이하일 경우 이벤트 발생
-    if (damage > 0) then
-        if ((self.m_hp / self.m_maxHp) <= 0.2) then
-            self:dispatch('character_weak', {}, self)
-        end
-    end
+		-- 액티브 피격
+		elseif (attack_type == 'active') then
+			attacker_char:dispatch('under_atk_active', t_event, self, attacker.m_activityCarrier)
+		end
 
-	-- 시전자 이벤트 
+		-- 남은 체력이 20%이하일 경우 이벤트 발생
+		if (damage > 0) then
+			if ((self.m_hp / self.m_maxHp) <= 0.2) then
+				self:dispatch('character_weak', {}, self)
+			end
+		end
+	end
+
+	-- 시전자 이벤트 처리
 	if (attacker_char) then
-        attacker_char:dispatch('hit', t_event)
+        -- 일반
+		attacker_char:dispatch('hit', t_event)
 
+		-- 크리티컬 
+		if (critical) then
+			attacker_char:dispatch('hit_cri', t_event)
+		end
+			
 		-- 적처치시 
-		if self.m_bDead then 
+		if (self.m_bDead) then 
 			attacker_char:dispatch('slain', t_event, self)
+		end
 		
 		-- 일반 공격시
-		elseif (attacker.m_activityCarrier:getAttackType() == 'basic') then 
+		if (attack_type == 'basic') then 
 			attacker_char:dispatch('hit_basic', t_event, self, attacker.m_activityCarrier)
 
 		-- 액티브 공격시
-		elseif (attacker.m_activityCarrier:getAttackType() == 'active') then
+		elseif (attack_type == 'active') then
 			attacker_char:dispatch('hit_active', t_event, self, attacker.m_activityCarrier)
 		end
     end
@@ -678,6 +685,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
 
     if (real_attack_type == 'active') then 
         self:runAction_Shake()
+    end
+
+	-- @DEBUG
+	if g_constant:get('DEBUG', 'PRINT_ATTACK_INFO') then
+		SkillHelper:printAttackInfo(attacker, defender, attack_type, atk_dmg, def_pwr, damage)
     end
 end
 
