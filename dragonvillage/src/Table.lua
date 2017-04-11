@@ -17,7 +17,6 @@ local TableInfo = {
         dragon              = {'table_dragon',              'did',          false},
         dragon_type         = {'table_dragon_type',         'type',         false},
         dragon_skill        = {'table_dragon_skill',        'sid',          false},
-        dragon_skill_modify = {'table_dragon_skill_modify', 'slid',         false},
         monster           = {'table_monster',               'mid',          false},
         monster_skill     = {'table_monster_skill',         'sid',          false},
         tamer             = {'table_tamer',                 'tid',          false},
