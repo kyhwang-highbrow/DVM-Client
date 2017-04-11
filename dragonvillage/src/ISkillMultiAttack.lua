@@ -45,14 +45,16 @@ function ISkillMultiAttack.st_attack(owner, dt)
     end
 	
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
-	-- 공격 횟수 초과시 탈출
-    if (owner.m_attackCount >= owner.m_maxAttackCount) then
-        owner:escapeAttack()
 	-- 반복 공격
-    elseif (owner.m_multiAtkTimer > owner.m_hitInterval) then
-        owner:runAttack()
-        owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
-		owner.m_attackCount = owner.m_attackCount + 1
+    if (owner.m_multiAtkTimer > owner.m_hitInterval) then
+		-- 공격 횟수 초과시 탈출
+		if (owner.m_attackCount >= owner.m_maxAttackCount) then
+			owner:escapeAttack()
+		else
+			owner:runAttack()
+			owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
+			owner.m_attackCount = owner.m_attackCount + 1
+		end
     end
 end
 

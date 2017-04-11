@@ -85,18 +85,19 @@ function SkillEnumrate.st_idle(owner, dt)
 		-- idle state 진입함과 동시에 탄 배치 좌표 및 공격 대상 리스트를 구한다.
 		owner.m_skillStartPosList = owner:getStartPosList()
 		owner.m_skillTargetList = owner:getSkillTargetList()
+		--owner.m_skillCount = 1
 	end
 
     owner.m_skillTimer = owner.m_skillTimer + dt
 	if (owner.m_skillTimer > owner.m_skillInterval) then
-		owner.m_skillTimer = owner.m_skillTimer - owner.m_skillInterval
-        owner:fireMissile(owner.m_skillCount)
-		owner.m_skillCount = owner.m_skillCount + 1
-	end
-
-	-- 탈출 조건 (모두 발사)
-	if (owner.m_skillCount > owner.m_skillLineNum) then
-        owner:changeState('dying')
+		-- 탈출 조건 (모두 발사)
+		if (owner.m_skillCount > owner.m_skillLineNum) then
+			owner:changeState('dying')
+		else
+			owner.m_skillTimer = owner.m_skillTimer - owner.m_skillInterval
+			owner:fireMissile(owner.m_skillCount)
+			owner.m_skillCount = owner.m_skillCount + 1
+		end
 	end
 end
 
@@ -234,6 +235,18 @@ function SkillEnumrate:getAttackDir(idx)
 	local start_pos = self.m_skillStartPosList[idx]
 	
     return getAdjustDegree(getDegree(start_pos.x, start_pos.y, tar_x, tar_y))
+end
+
+-------------------------------------
+-- function getNextTarget
+-------------------------------------
+function SkillEnumrate:getNextTarget(idx)
+	local target_char = self.m_skillTargetList[idx]
+	if (not target_char) or (target_char.m_bDead) then
+		local l_target = self:getProperTargetList()
+        target_char = l_target[1]
+	end
+	return target_char
 end
 
 -------------------------------------

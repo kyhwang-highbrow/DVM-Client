@@ -33,11 +33,7 @@ function SkillEnumrate_Normal:fireMissile(idx)
     local world = self.m_world
     
 	local char = self.m_owner
-	local target_char = self.m_skillTargetList[idx]
-	if (not traget_char) or (target_char.m_bDead) then
-		local l_target = self:getProperTargetList()
-        target_char = l_target[1]
-	end
+	local target_char = self:getNextTarget(idx)
 
     local t_option = {}
 
@@ -56,7 +52,7 @@ function SkillEnumrate_Normal:fireMissile(idx)
 
     t_option['speed'] = 0
 	t_option['h_limit_speed'] = 2000
-	t_option['accel'] = 50000
+	t_option['accel'] = 10000
 	t_option['accel_delay'] = self.m_skillTotalTime - (self.m_skillInterval * idx)
 
 	t_option['missile_type'] = 'NORMAL'

@@ -125,8 +125,8 @@ end
 -- @brief 공격이 종료되는 시점에 실행
 -------------------------------------
 function SkillAoECone_Crash:escapeAttack()
+	self:changeState('comeback')
 	self.m_animator:addAniHandler(function()
-		self:changeState('comeback')
 	end)
 end
 

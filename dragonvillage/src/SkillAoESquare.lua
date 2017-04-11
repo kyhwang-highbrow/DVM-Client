@@ -66,9 +66,7 @@ end
 -- @brief 공격이 종료되는 시점에 실행
 -------------------------------------
 function SkillAoESquare:escapeAttack()
-	self.m_animator:addAniHandler(function()
-		self:changeState('disappear')
-	end)
+	self:changeState('disappear')
 end
 
 -------------------------------------
@@ -76,7 +74,6 @@ end
 -------------------------------------
 function SkillAoESquare:setAttackInterval()
 	-- 이펙트 재생 단위 시간
-	--self.m_hitInterval = self.m_animator:getDuration()
 	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCount)
 end
 
