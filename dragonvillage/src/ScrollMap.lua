@@ -405,7 +405,10 @@ function ScrollMap:onEvent(event_name, t_event, ...)
                 
                 v:doAction(cc.Sequence:create(
                     cc.EaseIn:create(cc.MoveTo:create(1.5, cc.p(0, 0)), 2),
-                    cc.CallFunc:create(cbFunction)
+                    cc.CallFunc:create(function()
+                        animator:changeAni('idle', true)
+                        cbFunction()
+                    end)
                 ))
                 
             end
