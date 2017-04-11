@@ -64,6 +64,9 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
             table.insert(self.m_randomAnimationList, ani)
         end
     end
+
+    self.m_timeStamp = nil
+    self.vars['talkSprite']:setVisible(false)
 end
 
 -------------------------------------
