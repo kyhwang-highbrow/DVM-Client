@@ -47,8 +47,13 @@ function TableDrop:getStageStaminaType(stage_id)
         self = THIS()
     end
 
+    if (stage_id == COLOSSEUM_STAGE_ID) then
+        return 'pvp', 1
+    end
+
     local stamina_type = self:getValue(stage_id, 'cost_type')
-    return stamina_type
+    local req_count = self:getValue(stage_id, 'cost_value')
+    return stamina_type, req_count
 end
 
 -------------------------------------

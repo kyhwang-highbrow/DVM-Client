@@ -90,7 +90,9 @@ function ServerData_Staminas:updateStaminaInfo(stamina_type)
     local cnt = t_stamina_info['cnt']
     local max_cnt = t_stamina_info['max_cnt']
     local used_at = t_stamina_info['used_at'] or 0
-    local charging_time = t_stamina_info['charging_time']
+    local charging_time = TableStaminaInfo:getChargingTime(stamina_type)
+
+
 
     -- 사용 시간이 없을 경우(혹은 max일 경우 자동으로 0으로 설정???)
     if (used_at == 0) then
@@ -124,7 +126,11 @@ function ServerData_Staminas:updateStaminaInfo(stamina_type)
 	end
 
     -- 추가된 갯수 체크
-    local added = math_floor((server_time - used_at) / charging_time)
+    local added = 0
+    
+    if (0 < charging_time) then
+        added = math_floor((server_time - used_at) / charging_time)
+    end
 
     -- 다음 충전까지 남은 시간 계산
     local next_charge_time = server_time - (used_at + (added * charging_time))
@@ -204,13 +210,15 @@ end
 -- function checkStageStamina
 -------------------------------------
 function ServerData_Staminas:checkStageStamina(stage_id)
-    local table_drop = TABLE:get('drop')
-    local t_drop = table_drop[stage_id]
-
-    -- 'stamina' 추후에 타입별 stamina 사용 예정
-    --local stamina_type = t_drop['cost_type']
-    local stamina_type = 'st'
-    local req_count = t_drop['cost_value']
-
+    local stamina_type, req_count = TableDrop:getStageStaminaType(stage_id)
     return self:hasStaminaCount(stamina_type, req_count)
+end
+
+-------------------------------------
+-- function staminaCharge
+-------------------------------------
+function ServerData_Staminas:staminaCharge(stage_id)
+    local stamina_type, req_count = TableDrop:getStageStaminaType(stage_id)
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_stamina)
 end

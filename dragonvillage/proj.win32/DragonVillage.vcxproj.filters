@@ -1911,6 +1911,9 @@
     <None Include="..\src\UIC_DragonAnimator.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\TableStaminaInfo.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

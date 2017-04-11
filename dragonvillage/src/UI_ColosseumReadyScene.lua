@@ -286,8 +286,8 @@ function UI_ColosseumReadyScene:click_startBtn()
         UIManager:toastNotificationRed('최소 1명 이상은 출전시켜야 합니다.')
 
     -- 날개 소모
-    elseif (not g_staminasData:hasStaminaCount(self:getStageStaminaInfo())) then
-        MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
+    elseif (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
+        g_staminasData:staminaCharge(COLOSSEUM_STAGE_ID)
                     
     else
         local function next_func()

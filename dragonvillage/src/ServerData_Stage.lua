@@ -169,12 +169,6 @@ end
 -- function requestGameStart
 -------------------------------------
 function ServerData_Stage:requestGameStart(stage_id, deck_name, finish_cb)
-    -- 활동력 체크
-    local can_play, deficiency = g_staminasData:checkStageStamina(stage_id)
-    if (not can_play) then
-        MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
-    end
-
     local uid = g_userData:get('uid')
     local oid
 

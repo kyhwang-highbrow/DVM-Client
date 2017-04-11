@@ -177,6 +177,7 @@ local t_module = {
     'TableCalendar',
     'TableOption',
     'TableDropIngame',
+    'TableStaminaInfo',
 
     -- Interface
     'IEventDispatcher',
