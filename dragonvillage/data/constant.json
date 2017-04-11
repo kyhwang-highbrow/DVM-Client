@@ -2,12 +2,13 @@
     // 인게임에서 사용되는 변수들
     "INGAME" : {
         // body_size
-        "BODY_SIZE" : {
-            "s" : 30,
-            "m" : 40,
-            "l" : 60,
-            "xl" : 100,
-            "xxl" : 200
+        "DRAGON_BODY_SIZE" : 20,
+        "MONSTER_BODY_SIZE" : {
+            "s" : 10,
+            "m" : 20,
+            "l" : 30,
+            "xl" : 60,
+            "xxl" : 100
         },
         
         // 테이머와 관련된 상수

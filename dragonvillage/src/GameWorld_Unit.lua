@@ -49,7 +49,8 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     local t_dragon = table_dragon[dragon_id]
 
 	-- dragon 생성 시작
-    local dragon = Dragon(nil, {0, 0, 20})
+	local size = g_constant:get('INGAME', 'DRAGON_BODY_SIZE') or 20
+    local dragon = Dragon(nil, {0, 0, size})
     self:addToUnitList(dragon)
 
     dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
@@ -74,9 +75,9 @@ function GameWorld:makeMonsterNew(monster_id, level)
 
     -- Monster 생성
 	local body_size = Monster:getBodySize(t_monster['size_type'])
-    local monster = self:tryPatternMonster(t_monster, body)
+    local monster = self:tryPatternMonster(t_monster, body_size)
     if (not monster) then
-        monster = Monster(t_monster['res'], body)
+        monster = Monster(t_monster['res'], body_size)
     end
     self:addToUnitList(monster)
 

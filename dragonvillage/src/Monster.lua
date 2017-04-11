@@ -216,7 +216,7 @@ end
 -- function getBodySize
 -------------------------------------
 function Monster:getBodySize(size_type)
-	local size = g_constant:get('INGAME', 'BODY_SIZE')[size_type] or 50
+	local size = g_constant:get('INGAME', 'MONSTER_BODY_SIZE')[size_type] or 50
 	local body = {0, 0, size}
 
 	return body
