@@ -397,7 +397,7 @@ end
 -------------------------------------
 -- function undergoAttack
 -------------------------------------
-function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
+function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, is_guard)
     if (not attacker.m_activityCarrier) then
         return
     end
@@ -408,11 +408,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
     end
 
 	-- guard 상태 체크
-    if (self.m_guard) then
+    if (self.m_guard) and (is_guard) then
 		-- Evnet Carrier 세팅
 		local t_event = clone(EVENT_HIT_CARRIER)
 		t_event['attacker'] = attacker
-
+		-- @EVENT
 		self:dispatch('guardian', t_event)
 		return
     end
@@ -503,6 +503,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
     -- 회피 계산
     if (self:checkAvoid(attacker.m_activityCarrier, t_attr_effect)) then
         self:makeMissFont(i_x, i_y)
+		-- @EVENT
 		self:dispatch('avoid')
 
         -- 공격자가 드래곤일 경우 스킬 게이지 증가
@@ -531,10 +532,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
 	
 	-- 방어와 관련된 이벤트 처리후 데미지 계산
 	do	
-		-- 방어 이벤트 (에너지실드)
+		-- @EVENT 방어 이벤트 (에너지실드)
 		self:dispatch('hit_shield', t_event)
 
-		-- 방어 이벤트 (횟수)
+		-- @EVENT 방어 이벤트 (횟수)
 		self:dispatch('hit_barrier', t_event)
 	
 		damage = t_event['damage']
@@ -569,12 +570,12 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
                 if self.m_castingMarkGauge then
                     percentage = self.m_castingMarkGauge:getPercentage()
                 end
-
+				-- @EVENT
                 self:dispatch('character_casting_cancel', {}, attackerCharacter, percentage)
             end
         end
 
-        -- 적 스킬 공격에 피격시
+        -- @EVENT 적 스킬 공격에 피격시
         self:dispatch('character_damaged_skill', {}, self)
 
         -- 효과음
@@ -611,7 +612,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
 	-- @LOG_CHAR
 	self.m_charLogRecorder:recordLog('under_atk', 1)
 	
-	-- 방어자 이벤트 처리
+	-- @EVENT 방어자 이벤트 처리
 	do 
 		-- 피격
 		self:dispatch('under_atk', t_event)
@@ -642,7 +643,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
 		end
 	end
 
-	-- 시전자 이벤트 처리
+	-- @EVENT 시전자 이벤트 처리
 	if (attacker_char) then
         -- 일반
 		attacker_char:dispatch('hit', t_event)
