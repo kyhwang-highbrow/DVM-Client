@@ -81,11 +81,11 @@ function GameDragonSkill:initUI()
     self.m_skillNameLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     titleNode:addChild(self.m_skillNameLabel, 11)
 
-    self.m_skillDescLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 20, 3, cc.size(800, 200), 1, 1)
+    self.m_skillDescLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 20, 0, cc.size(800, 200), 1, 1)
     self.m_skillDescLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	self.m_skillDescLabel:setDockPoint(cc.p(0, 0))
 	self.m_skillDescLabel:setColor(cc.c3b(220,220,220))
-    self.m_skillDescLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
+    --self.m_skillDescLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     descNode:addChild(self.m_skillDescLabel, 11)
 
     -- 말풍선
@@ -186,6 +186,9 @@ function GameDragonSkill.update_live(self, dt)
             local duration = dragon:getAniDuration()
             dragon.m_animator:setTimeScale(duration / delayTime)
 
+            -- 유닛 정보 숨김
+            self:setVisible_UnitInfo(false)
+
             -- 말풍선
             self:makeSpeechBubble(dragon)
             
@@ -210,6 +213,9 @@ function GameDragonSkill.update_live(self, dt)
 
             -- 카메라 연출
             self:doCameraWork(dragon)
+
+            -- 유닛 정보 표시
+            self:setVisible_UnitInfo(true)
             
         elseif (self:isPassedStepTime(1.5)) then
             -- 카메라 초기화
@@ -461,6 +467,13 @@ function GameDragonSkill:doCameraWork(dragon)
             time = 0.25
         })
     end
+end
+
+-------------------------------------
+-- function setVisible_UnitInfo
+-------------------------------------
+function GameDragonSkill:setVisible_UnitInfo(b)
+    self.m_world.m_unitInfoNode:setVisible(b)
 end
 
 -------------------------------------

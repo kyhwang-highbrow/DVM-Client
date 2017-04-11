@@ -38,9 +38,6 @@ function SkillChainLightning:init_skill(missile_res, target_count)
     self.m_tEffectList = {}
 
     self.m_targetCount = target_count
-
-    cclog('target count1 = ' .. target_count)
-    cclog('target count2 = ' .. #self.m_tTargetList)
 end
 
 -------------------------------------
