@@ -73,28 +73,45 @@ function Tamer.st_active(owner, dt)
 	elseif (owner.m_isOnTheMove == false) and (owner.m_bActiveSKillUsable) then
 		owner.m_bActiveSKillUsable = false
 
-		local function cb_function()
-			owner.m_animator:changeAni('skill_2', false)
+		local t_skill = owner.m_lSkill[TAMER_SKILL_ACTIVE]
+		local res_1 = t_skill['res_1']	-- 전화면 컷씬 리소스
+		local res_2 = t_skill['res_2']	-- 스킬 발동 리소스
 
-			-- 애니메이션 종료시
-			owner:addAniHandler(function()
-				owner.m_rootNode:runAction(cc.Sequence:create(
-					cc.CallFunc:create(function() owner:doSkillActive() end),
-					cc.DelayTime:create(0.2),
-					cc.CallFunc:create(function()
-						-- 일시정지 해제
-						owner.m_world:setTemporaryPause(false, owner)
-						-- roam상태로 변경
-						owner:changeStateWithCheckHomePos('roam')
-						-- 애프터 이미지 해제
-						owner:setAfterImage(false)
-					end)
-				))
+		-- 전화면 컷씬 종료 콜백
+		local function cb_function()
+
+			-- 2. 테이머 스킬 시전 애니 & 스킬 발동 연출
+			owner.m_animator:changeAni('skill_2', false)
+			SkillHelper:makeEffectOnView(res_2, 'idle')
+
+			-- 테이머 애니메이션 종료 콜백
+			owner.m_animator:addAniHandler(function()
+				-- 3. 스킬 발동
+				local cb_func_action_1 = cc.CallFunc:create(function()
+					owner:doSkillActive()
+				end)
+
+				-- 4. 딜레이
+				local delay_action = cc.DelayTime:create(0.1)
+
+				-- 5. 스킬 종료
+				local cb_func_action_2 = cc.CallFunc:create(function()
+					-- 일시정지 해제
+					owner.m_world:setTemporaryPause(false, owner)
+					-- roam상태로 변경
+					owner:changeStateWithCheckHomePos('roam')
+					-- 애프터 이미지 해제
+					owner:setAfterImage(false)
+				end)
+
+				local sequence_action = cc.Sequence:create(cb_func_action_1, delay_action, cb_func_action_2)
+
+				owner.m_rootNode:runAction(sequence_action)
 			end)
 		end
 
-		local res = owner.m_lSkill[TAMER_SKILL_ACTIVE]['res_1']
-		SkillHelper:makeEffectOnView(res, 'idle', cb_function)
+		-- 1. 전화면 컷씬 연출 부터 시작
+		SkillHelper:makeEffectOnView(res_1, 'idle', cb_function)
     end
 end
 
