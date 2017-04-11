@@ -222,7 +222,7 @@ function DropItemMgr:getItemFromPos(pos_x, pos_y)
         end
     end
 
-    if near_distance and (near_distance <= 150) then
+    if near_distance and (near_distance <= 200) then
         return selected_item
     end
 
@@ -271,6 +271,12 @@ function DropItemMgr:onTouchBegan(touch, event)
 
     if (select_item and not select_item:isObtained()) then
         self:obtainItem(select_item)
+
+        -- 무조건 즉시 획득으로 임시 변경 sgkim 170411 (대표님 요구사항)
+        select_item:makeObtainEffect()
+        select_item:changeState('dying')
+
+        --[[
         -- 즉시 획득
         if self.m_bImmediatelyObtain then
             select_item:makeObtainEffect()
@@ -279,6 +285,7 @@ function DropItemMgr:onTouchBegan(touch, event)
         else
             self.m_world.m_tamer:doBringItem(select_item)
         end
+        --]]
         return true
     end
 
