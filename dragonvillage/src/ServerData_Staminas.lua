@@ -211,8 +211,43 @@ end
 -------------------------------------
 function ServerData_Staminas:checkStageStamina(stage_id)
     local stamina_type, req_count = TableDrop:getStageStaminaType(stage_id)
-    return self:hasStaminaCount(stamina_type, req_count)
+    
+    local is_enough, insufficient_num = self:hasStaminaCount(stamina_type, req_count)
+
+    if is_enough then
+        return true
+    end
+
+    return false
+
+    --[[
+    if self:canDailyCharge(stamina_type) then
+
+    end
+    --]]
 end
+
+-------------------------------------
+-- function canDailyCharge
+-- @breif 일일 충전이 가능한지 체크
+-------------------------------------
+function ServerData_Staminas:canDailyCharge(stamina_type)
+    local charge_limit = TableStaminaInfo:getDailyChargeLimit(stamina_type)
+
+    if (not charge_limit) then
+        return false
+    end
+
+    local t_stamina_info = self:getRef(stamina_type)
+    local charge_cnt = (t_stamina_info['charge_cnt'] or 0)
+
+    if (charge_cnt >= charge_limit) then
+        return false
+    end
+
+    return true
+end
+
 
 -------------------------------------
 -- function staminaCharge
@@ -220,5 +255,60 @@ end
 function ServerData_Staminas:staminaCharge(stage_id)
     local stamina_type, req_count = TableDrop:getStageStaminaType(stage_id)
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_stamina)
+
+    if (stamina_type == 'st') then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_stamina)
+    else
+        local charge_limit = TableStaminaInfo:getDailyChargeLimit(stamina_type)
+
+        if self:canDailyCharge(stamina_type) then
+            local t_stamina_info = self:getRef(stamina_type)
+            local charge_cnt = (t_stamina_info['charge_cnt'] or 0)
+            local price, cnt = TableStaminaInfo:getDailyChargeInfo(stamina_type, charge_cnt)
+            local msg = Str('입장권이 부족합니다.\n{@possible}입장권 {1}개{@default}를 충전하시겠습니까?\n{@impossible}(1일 {2}회 구매 가능. 현재 {3}회 구매)', cnt, charge_limit, charge_cnt)
+            
+            local function ok_btn_cb()
+                local cash = g_userData:get('cash')
+                if (cash < price) then
+                    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
+                    return true
+                end
+                
+                self:request_staminaCharge(stamina_type)
+            end
+
+            UI_ConfirmPopup('cash', price, msg, ok_btn_cb)
+        else
+            local msg = Str('입장권을 모두 소모하였습니다.\n오늘은 더 이상 구매할 수 없습니다.\n{@impossible}(1일 {1}회 구매 가능)', charge_limit)
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+        end
+    end
+end
+
+-------------------------------------
+-- function request_staminaCharge
+-------------------------------------
+function ServerData_Staminas:request_staminaCharge(stamina_type, finish_cb, fail_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        if finish_cb then
+            return finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/st_charge')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', stamina_type)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end

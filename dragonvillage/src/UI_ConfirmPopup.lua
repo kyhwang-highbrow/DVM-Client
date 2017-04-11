@@ -129,7 +129,9 @@ end
 -------------------------------------
 function UI_ConfirmPopup:click_okBtn()
     if self.m_cbOKBtn then
-        self.m_cbOKBtn()
+        if self.m_cbOKBtn() then
+            return
+        end
     end
 
     self:close()
