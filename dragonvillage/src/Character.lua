@@ -618,6 +618,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
     t_info['dmg_type'] = dmg_type
 	t_info['critical'] = critical
     t_info['is_add_dmg'] = attacker.m_activityCarrier:getFlag('add_dmg')
+    t_info['body_key'] = body_key
 
     self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 

@@ -525,16 +525,8 @@ function SkillIndicator:getTargetForHighlight()
         return {}
         --[[
         local l_target = self.m_hero:getTargetListByType(self.m_targetType)
-	    local target = nil
+	    local target = l_target[1]
 
-	    for i, v in pairs(l_target) do
-		    -- @TODO 추가된 캐릭터 일단 제외 
-		    if (not v.m_isSlaveCharacter) then 
-			    target = v
-			    break
-		    end
-	    end
-    
 	    if target then
 		    x = target.pos.x
             y = target.pos.y

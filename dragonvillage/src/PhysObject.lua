@@ -275,10 +275,10 @@ end
 -- @param i_x intersect_pos_x
 -- @param i_y intersect_pos_y
 -------------------------------------
-function PhysObject:runDefCallback(attacker, i_x, i_y)
+function PhysObject:runDefCallback(attacker, i_x, i_y, k)
     if self.callback_def then
         for _,v in ipairs(self.callback_def) do
-            if v(attacker, self, i_x, i_y) then break end
+            if v(attacker, self, i_x, i_y, k) then break end
         end
     end
 end

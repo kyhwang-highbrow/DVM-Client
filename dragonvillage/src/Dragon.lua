@@ -85,7 +85,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
 
 	-- 피격 처리
     self:addDefCallback(function(attacker, defender, i_x, i_y)
-        self:undergoAttack(attacker, defender, i_x, i_y)
+        self:undergoAttack(attacker, defender, i_x, i_y, 0)
     end)
 
 	-- @TODO character 수준으로 들어가야한다.

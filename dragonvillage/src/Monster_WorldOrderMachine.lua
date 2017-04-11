@@ -46,37 +46,8 @@ function Monster_WorldOrderMachine:initAnimatorMonster(file_name, attr)
 end
 
 -------------------------------------
--- function setAddPhysObject
+-- function threeWonderMagic
 -------------------------------------
-function Monster_WorldOrderMachine:setAddPhysObject()
-	-- 추가 object 추가
-	local add_body = {0, 0, 50}
-	local phys_obj = self:addPhysObject(self, PHYS.ENEMY, add_body, -220, -220, nil)
-    	
-    -- 피격 처리
-    phys_obj:addDefCallback(function(attacker, defender, i_x, i_y)
-		if (attacker.m_activityCarrier:getAttackType() == 'active') then 
-			
-			self.m_isMagicStateChanging = true
-			self.m_animator:changeAni('skill_1')
-			self.m_animator:addAniHandler(function()
-				self.m_isMagicStateChanging = false
-				self:changeState('attackDelay')
-				self:threeWonderMagic()
-			end)
-			
-		end
-    end)
-
-	-- 추가 object formation 등록
-	local formation_mgr = self:getFormationMgr()
-	local formation = formation_mgr:getFormation(self.pos.x, self.pos.y) 
-	formation_mgr:setChangePosCallback(phys_obj, formation)
-
-	-- 추가 object 일반 타겟 예외 처리
-	-- -- Character class 에서 복사해올때 임시로 처리
-end
-
 function Monster_WorldOrderMachine:threeWonderMagic()
 	if (self.m_isMagicStateChanging) then return end
 
@@ -168,6 +139,27 @@ function Monster_WorldOrderMachine:attack(target_char)
     -- 공격
     self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
     target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+end
+
+-------------------------------------
+-- function setDamage
+-------------------------------------
+function Monster_WorldOrderMachine:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+
+    if (t_info['body_key'] == 3) then
+        local type = attacker.m_activityCarrier:getAttackType()
+        if (attacker.m_activityCarrier:getAttackType() == 'active') then 
+			self.m_isMagicStateChanging = true
+			self.m_animator:changeAni('skill_1')
+			self.m_animator:addAniHandler(function()
+				self.m_isMagicStateChanging = false
+				self:changeState('attackDelay')
+				self:threeWonderMagic()
+			end)
+			
+		end
+    end
 end
 
 -------------------------------------

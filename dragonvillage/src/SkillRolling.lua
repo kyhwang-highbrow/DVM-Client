@@ -6,6 +6,8 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 SkillRolling = class(PARENT, {
 		-- 전체 타겟 Stack
 		m_lTargetList = 'Character list',
+        m_lBodyList = 'List',
+        m_targetBodyList = '',
 
 		-- 공격 횟수 관리 용
 		m_attackCnt = 'number',
@@ -47,8 +49,9 @@ function SkillRolling:init_skill(spin_res, atk_count)
 	self.m_attackCnt = 0
 	self.m_bMoving = false
 
-	self.m_lTargetList = self:findTarget()
+	self.m_lTargetList, self.m_lBodyList = self:findTarget()
 	self.m_targetChar = table.pop(self.m_lTargetList)
+    self.m_targetBodyList = table.pop(self.m_lBodyList)
 
 	-- 최초 위치 지정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
@@ -122,7 +125,11 @@ function SkillRolling.st_move(owner, dt)
 		local releaseFunc = cc.CallFunc:create(function() owner.m_spinAnimator:release(); owner.m_spinAnimator = nil end)
 
         -- 이동
-        local target_pos = cc.p(owner.m_targetChar.pos.x - 40, owner.m_targetChar.pos.y)
+        local body = owner.m_targetChar:getBody(owner.m_targetBodyList[1])
+        local target_pos = cc.p(
+            owner.m_targetChar.pos.x - 40 + body.x, 
+            owner.m_targetChar.pos.y + body.y
+        )
         local action = cc.MoveTo:create(0.2, target_pos)
 		local delay = cc.DelayTime:create(0.5)
 
@@ -153,7 +160,8 @@ function SkillRolling.st_attack(owner, dt)
 		if (owner.m_attackCnt == 0) then 
 			owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300) 
 		end
-		owner:runAttack(true) -- @TODO 구조 개선 필요
+		--owner:runAttack(true) -- @TODO 구조 개선 필요
+        owner:attack(owner.m_targetChar, {owner.m_targetBodyList[1]})
 
         owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
 		owner.m_attackCnt = owner.m_attackCnt + 1
@@ -187,9 +195,16 @@ function SkillRolling.st_move_attack(owner, dt)
 		if (not owner.m_targetChar) then
 			-- 1-1. 최대 충돌 갯수 체크
             local target = table.pop(owner.m_lTargetList)
-			if target then 
+            if target then 
 				owner.m_targetChar = target
 				owner.m_targetPos = target.pos
+
+                owner.m_targetBodyList = table.pop(owner.m_lBodyList)
+                local body = owner.m_targetChar:getBody(owner.m_targetBodyList[1])
+
+                owner.m_targetPos.x = owner.m_targetPos.x + body.x
+                owner.m_targetPos.y = owner.m_targetPos.y + body.y
+
 			else
 				owner:changeState('comeback')
 			end
@@ -213,7 +228,7 @@ function SkillRolling.st_move_attack(owner, dt)
 				owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300)
 
 				owner:runAttack(true) -- @TODO 구조 개선 필요
-				owner.m_bMoving = false
+                owner.m_bMoving = false
 			end)
 		
 			-- 2-3. 액션 실행 및 후 타겟 지움

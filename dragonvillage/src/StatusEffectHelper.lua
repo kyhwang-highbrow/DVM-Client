@@ -108,10 +108,6 @@ end
 -- @brief 상태 효과 발동
 -------------------------------------
 function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate, duration)
-    -- char validation
-	if (char.m_isSlaveCharacter) then 
-		return nil
-	end
     -- status effect validation
 	if (not status_effect_type) or (status_effect_type == '') then
         return nil

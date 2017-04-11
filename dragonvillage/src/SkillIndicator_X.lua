@@ -88,28 +88,59 @@ end
 -------------------------------------
 function SkillIndicator_X:findTarget(pos_x, pos_y)
 	local l_target = self:getProperTargetList()
-	local t_ret = {}
-    local t_ret_bodys = {}
-	
+		
     local radius = 20
 	local std_width = (CRITERIA_RESOLUTION_X / 2)
 	local std_height = (CRITERIA_RESOLUTION_Y / 2)
 	
 	local target_x, target_y = pos_x, pos_y
+
+    local t_collision_obj1, l_collision_bodys1 = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, 1)
+    local t_collision_obj2, l_collision_bodys2 = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, 2)
     
 	-- 레이저에 충돌된 모든 객체 리턴
-	for i = 1, 2 do 
-		local t_collision_obj, l_collision_bodys = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, i)
-		
-		for i, obj in pairs(t_collision_obj) do
-			table.insert(t_ret, obj)
-		end
-        for i, body in pairs(l_collision_bodys) do
-			table.insert(t_ret_bodys, body)
-		end
+    -- 하나의 테이블로 합침
+    -- 맵형태로 변경해서 중복값을 없앰
+    local m_temp = {}
+    local m_temp_bodys = {}
+    local l_temp = {
+        { t_collision_obj1, l_collision_bodys1 },
+        { t_collision_obj2, l_collision_bodys2 },
+    }
+
+	for _, list in ipairs(l_temp) do
+        local l_objs = list[1]
+        local l_bodys = list[2]
+
+        for i, v in ipairs(l_objs) do
+            m_temp[v] = v
+            if (not m_temp_bodys[v]) then
+                m_temp_bodys[v] = {}
+            end
+
+            local body_keys = l_bodys[i]
+            for _, k in ipairs(body_keys) do
+                m_temp_bodys[v][k] = true
+            end
+        end
+    end
+
+    -- 다시 리스트 형태로 변환
+    local l_ret = {}
+    local l_ret_bodys = {}
+
+    for k, _ in pairs(m_temp) do
+        table.insert(l_ret, k)
+
+        local body_keys = {}
+        for k2, _ in pairs(m_temp_bodys[k]) do
+            table.insert(body_keys, k2)
+        end
+
+        table.insert(l_ret_bodys, body_keys)
     end
 	
-	return t_ret, t_ret_bodys
+	return l_ret, l_ret_bodys
 end
 
 -------------------------------------

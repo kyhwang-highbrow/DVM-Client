@@ -34,8 +34,8 @@ function Monster:init_monster(t_monster, monster_id, level, stage_id)
 	self:initTriggerListener()		
 
     -- 피격 처리
-    self:addDefCallback(function(attacker, defender, i_x, i_y)
-        self:undergoAttack(attacker, defender, i_x, i_y, 0)
+    self:addDefCallback(function(attacker, defender, i_x, i_y, k)
+        self:undergoAttack(attacker, defender, i_x, i_y, k or 0)
     end)
 
 	-- @TODO character 수준으로 들어가야한다. + monster_id 는 고유하지 않다 
