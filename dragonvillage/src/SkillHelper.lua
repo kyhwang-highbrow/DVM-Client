@@ -121,6 +121,34 @@ function SkillHelper:makeEffect(world, res, x, y, ani_name, cb_function)
 end
 
 -------------------------------------
+-- function makeEffect
+-- @breif 좌표값에 영향을 안받는 레이어 수준에 이텍트 생성
+-------------------------------------
+function SkillHelper:makeEffectOnView(res, ani_name, cb_function)
+	-- 리소스 없을시 탈출
+	if (res == '') then return end
+	
+	local ani_name = ani_name or 'idle'
+
+    -- 이팩트 생성
+    local effect = MakeAnimator(res)
+	effect:changeAni(ani_name, false)
+
+	-- 1회 재생후 동작
+	local cb_ani = function() 
+		if (cb_function) then 
+			cb_function(effect)
+		end
+		effect.m_node:runAction(cc.RemoveSelf:create())
+	end
+	effect:addAniHandler(cb_ani)
+
+    g_gameScene.m_viewLayer:addChild(effect.m_node, 0)
+	
+	return effect
+end
+
+-------------------------------------
 -- function getSizeAndScale
 -------------------------------------
 function SkillHelper:getSizeAndScale(size_type, skill_size)    

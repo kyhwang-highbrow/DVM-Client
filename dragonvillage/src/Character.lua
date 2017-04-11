@@ -614,7 +614,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
 	-- 방어자 이벤트 처리
 	do 
 		-- 피격
-		self:dispatch('undergo_attack', t_event)
+		self:dispatch('under_atk', t_event)
+		
+		-- 피격 스킬용 이벤트
 		self:dispatch('under_atk_turn')
 		self:dispatch('under_atk_rate')
 	

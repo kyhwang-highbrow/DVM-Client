@@ -870,12 +870,6 @@
     <None Include="..\src_tool\SceneViewer.lua">
       <Filter>lua_tool</Filter>
     </None>
-    <None Include="..\src_tool\SceneWaveMaker.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\UI_WaveMaker.lua">
-      <Filter>lua_tool</Filter>
-    </None>
     <None Include="..\src_tool\entry_ui_viewer.lua">
       <Filter>lua_tool</Filter>
     </None>
@@ -883,9 +877,6 @@
       <Filter>lua_tool</Filter>
     </None>
     <None Include="..\src_tool\entry_wave_maker.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\redefine.lua">
       <Filter>lua_tool</Filter>
     </None>
     <None Include="..\src\ResPreloadHelper.lua">
@@ -1912,6 +1903,9 @@
       <Filter>lua\UIC</Filter>
     </None>
     <None Include="..\src\TableStaminaInfo.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\TamerSkill.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

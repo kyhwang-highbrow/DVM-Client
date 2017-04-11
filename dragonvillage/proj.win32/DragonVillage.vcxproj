@@ -641,6 +641,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableViewTD.lua" />
     <None Include="..\src\TableClass.lua" />
     <None Include="..\src\Tamer.lua" />
+    <None Include="..\src\TamerSkill.lua" />
     <None Include="..\src\TamerSpeechSystem.lua" />
     <None Include="..\src\TamerSpeechSystemColosseum.lua" />
     <None Include="..\src\TimeLib.lua" />
@@ -860,12 +861,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src_tool\entry_ui_viewer.lua" />
     <None Include="..\src_tool\entry_viewer.lua" />
     <None Include="..\src_tool\entry_wave_maker.lua" />
-    <None Include="..\src_tool\redefine.lua" />
     <None Include="..\src_tool\SceneIngameTest.lua" />
     <None Include="..\src_tool\SceneViewer.lua" />
-    <None Include="..\src_tool\SceneWaveMaker.lua" />
     <None Include="..\src_tool\Scene_UIViewer.lua" />
-    <None Include="..\src_tool\UI_WaveMaker.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

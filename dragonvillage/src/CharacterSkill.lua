@@ -57,8 +57,8 @@ function Character:doSkill(skill_id, x, y, t_data)
 end
 
 -------------------------------------
--- function do_script_shot
--- @brief 스크립트 탄막 실행 
+-- function doSkillBySkillTable
+-- @brief 스킬의 시발점
 -------------------------------------
 function Character:doSkillBySkillTable(t_skill, t_data)
     if (not t_skill) then
