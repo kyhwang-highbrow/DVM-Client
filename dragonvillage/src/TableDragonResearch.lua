@@ -58,3 +58,16 @@ function TableDragonResearch:getDragonResearchStatus(dragon_type, research_lv)
 
     return atk, def, hp
 end
+
+-------------------------------------
+-- function getDesc
+-------------------------------------
+function TableDragonResearch:getDesc(research_lv, type_name)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local desc = self:getValue(research_lv, 't_desc') or 'none'
+    desc = Str(desc, type_name)
+    return desc
+end
