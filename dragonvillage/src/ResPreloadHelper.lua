@@ -197,6 +197,7 @@ function getPreloadList_Tamer()
         g_userData:getTamerInfo('res_sd'),
 
         -- TODO: 컷씬도 정리되면 추가
+        'res/effect/cutscene_tamer_a_type/cutscene_tamer_a_type_t.plist'
     }
     
     return ret

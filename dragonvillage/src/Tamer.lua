@@ -405,7 +405,8 @@ function Tamer.st_active(owner, dt)
 			end)
 		end
 
-		local res = 'res/effect/cutscene_tamer_a_type/cutscene_tamer_a_type.vrp'
+        local type = owner.m_charTable['type']
+		local res = string.format('res/effect/cutscene_tamer_a_type/cutscene_tamer_a_type_%s.vrp', type)
         local tamerCut = MakeAnimator(res)
         g_gameScene.m_viewLayer:addChild(tamerCut.m_node)
         tamerCut:changeAni('idle', false)
