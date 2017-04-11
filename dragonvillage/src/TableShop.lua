@@ -96,6 +96,9 @@ function TableShop:makePriceIconRes(price_type)
     elseif (price_type == 'stamina') then
         res = 'res/ui/icon/inbox/inbox_staminas_st.png'
 
+    elseif (price_type == 'amethyst') then
+        res = 'res/ui/icon/inbox/inbox_amethyst.png'
+
     else
         --cclog('price_type : ' .. price_type)
     end
