@@ -41,6 +41,7 @@ function TableDragonType:getRandomSpeech(dragon_type, flv)
 
     local sum_random = SumRandom()
     
+    --[[
     if (flv <= 2) then
         sum_random:addItem(1, 't_phrase1')
     elseif (flv <= 6) then
@@ -51,6 +52,10 @@ function TableDragonType:getRandomSpeech(dragon_type, flv)
         sum_random:addItem(1, 't_phrase2')
         sum_random:addItem(1, 't_phrase3')
     end
+    --]]
+    sum_random:addItem(1, 't_phrase1')
+    sum_random:addItem(1, 't_phrase2')
+    sum_random:addItem(1, 't_phrase3')
     
     local key = sum_random:getRandomValue()
 
