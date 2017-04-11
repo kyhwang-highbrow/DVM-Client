@@ -220,7 +220,7 @@ end
 -- function changeDragonSelectFrame
 -- @brief 선택된 드래곤 카드에 프레임 표시
 -------------------------------------
-function UI_DragonManage_Base:changeDragonSelectFrame()
+function UI_DragonManage_Base:changeDragonSelectFrame(ui)
     -- 없으면 새로 생성
     if (not self.m_dragonSelectFrame) then
         self.m_dragonSelectFrame = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
@@ -235,7 +235,7 @@ function UI_DragonManage_Base:changeDragonSelectFrame()
     -- 테이블뷰에서 선택된 드래곤의 카드를 가져옴
     local dragon_object_id = self.m_selectDragonOID
     local t_item = self.m_tableViewExt.m_itemMap[dragon_object_id]
-    local ui = t_item['ui']
+    local ui = ui or t_item['ui']
 
     -- addChild 후 액션 실행(깜빡임)
     if ui then
@@ -305,6 +305,10 @@ function UI_DragonManage_Base:init_dragonTableView()
             self:createDragonCardCB(ui, data)
             ui.root:setScale(0.66)
             ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectDragonData(data['id']) end)
+
+            if (data['id'] == self.m_selectDragonOID) then
+                self:changeDragonSelectFrame(ui)
+            end
         end
 
         local table_view = UIC_TableView(list_table_node)
