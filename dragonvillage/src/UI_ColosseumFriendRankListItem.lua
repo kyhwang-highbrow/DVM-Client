@@ -27,8 +27,10 @@ function UI_ColosseumFriendRankListItem:refresh()
 
     -- 드래곤
     local dragon_card = user_info:getLeaderDragonCard()
-    dragon_card.root:setSwallowTouch(false)
-    vars['userNode']:addChild(dragon_card.root)
+    if dragon_card then
+        dragon_card.root:setSwallowTouch(false)
+        vars['userNode']:addChild(dragon_card.root)
+    end
 
     -- 랭킹
     vars['rankLabel']:setString(user_info:getFriendRankText())

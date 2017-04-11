@@ -215,7 +215,7 @@ end
 -- @brief 콜로세움 상대방의 능력치 계산기 생성
 -------------------------------------
 function ColosseumUserInfo:makeDragonStatusCalculator(doid)
-    local t_dragon_data = self:getDragon(doid)
+    local t_dragon_data = StructDragonObject(self:getDragon(doid))
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 end
 
@@ -430,6 +430,9 @@ end
 -------------------------------------
 function ColosseumUserInfo:getLeaderDragonCard()
     local t_dragon_data = self.m_leaderDragonData
+    if (t_dragon_data['did'] == 0) then
+        return nil
+    end
     local card = UI_DragonCard(t_dragon_data)
     return card
 end
