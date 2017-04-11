@@ -38,6 +38,9 @@ function TableShop:makeProductDesc(l_product)
 		if (product_type == 'cash') then
 			str = Str('다이아몬드 {1}개', value_str)
 
+        elseif (product_type == 'amethyst') then
+			str = Str('자수정 {1}개', value_str)
+
 		elseif (product_type == 'gold') then
 			str = Str('골드 {1}개', value_str)
 
