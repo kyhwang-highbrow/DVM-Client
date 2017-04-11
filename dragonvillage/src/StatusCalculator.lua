@@ -113,16 +113,10 @@ end
 -------------------------------------
 -- function getFinalAddStatDisplay
 -- @brief 친밀도, 수련으로 증가된 수치 표시 (추후 항목이 추가될 수 있음)
+-- 삭제 예정
 -------------------------------------
 function StatusCalculator:getFinalAddStatDisplay(stat_type)
-    local t_status = self.m_lStatusList[stat_type]
-
-    add_stat = math_floor(add_stat)
-    if (add_stat == 0) then
-        return ''
-    end
-
-    return '(+' .. math_floor(add_stat) .. ')'
+    return ''
 end
 
 
