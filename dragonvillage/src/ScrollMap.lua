@@ -399,6 +399,9 @@ function ScrollMap:onEvent(event_name, t_event, ...)
         for i, v in ipairs(self.m_tMapLayer) do
             if v.m_group == 'nest_dragon_body' then
                 v.m_rootNode:setPosition(-7000, 0)
+
+                local animator = v.m_animator
+                animator:changeAni('endwave_2', false)
                 
                 v:doAction(cc.Sequence:create(
                     cc.EaseIn:create(cc.MoveTo:create(1.5, cc.p(0, 0)), 2),
