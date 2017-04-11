@@ -214,6 +214,10 @@ function ServerData_Shop:network_ProductReceive(product_type, product_value, fin
         cash = (cash + product_value)
         return self:network_updateGoldAndCash(gold, cash, amethyst, honor, finish_cb, false)
 
+    elseif (product_type == 'amethyst') then
+        amethyst = (amethyst + product_value)
+        return self:network_updateGoldAndCash(gold, cash, amethyst, honor, finish_cb, false)
+
     elseif (product_type == 'gold') then
         gold = (gold + product_value)
         return self:network_updateGoldAndCash(gold, cash, amethyst, honor, finish_cb, false)
