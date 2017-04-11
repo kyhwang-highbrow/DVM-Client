@@ -618,8 +618,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, is_guar
 		self:dispatch('under_atk', t_event)
 		
 		-- 피격 스킬용 이벤트
-		self:dispatch('under_atk_turn')
-		self:dispatch('under_atk_rate')
+		self:dispatch('under_atk_turn', t_event)
+		self:dispatch('under_atk_rate', t_event)
 	
 		-- 크리로 피격
 		if (critical) then
