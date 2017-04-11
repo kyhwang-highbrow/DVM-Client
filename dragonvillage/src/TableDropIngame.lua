@@ -67,6 +67,7 @@ function TableDropIngame:decideDropItem(chapter_id)
     sum_random:addItem(t_table['cash_weight'], 'cash')
     sum_random:addItem(t_table['gold_weight'], 'gold')
     sum_random:addItem(t_table['lactea_weight'], 'lactea')
+    sum_random:addItem(t_table['amethyst_weight'] or 0, 'amethyst')
 
     local item_type = sum_random:getRandomValue()
 
