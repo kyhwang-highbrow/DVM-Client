@@ -24,7 +24,8 @@ function UI_TopUserInfo:init()
 
     self.m_lNumberLabel = {}
     self.m_lNumberLabel['gold'] = NumberLabel(vars['goldLabel'], 0, 0.3)
-    self.m_lNumberLabel['cash'] = NumberLabel(vars['rubyLabel'], 0, 0.3)
+    self.m_lNumberLabel['cash'] = NumberLabel(vars['cashLabel'], 0, 0.3)
+    self.m_lNumberLabel['amethyst'] = NumberLabel(vars['amethystLabel'], 0, 0.3)
     self.m_lNumberLabel['st_ad'] = NumberLabel(vars['actingPowerLabel'], 0, 0.3)
     self.m_lNumberLabel['fp'] = NumberLabel(vars['fpLabel'], 0, 0.3)
     self.m_lNumberLabel['lactea'] = NumberLabel(vars['lacteaLabel'], 0, 0.3)
@@ -48,11 +49,13 @@ function UI_TopUserInfo:refreshData()
 
     local gold = g_userData:get('gold')
     local cash = g_userData:get('cash')
+    local amethyst = g_userData:get('amethyst')
     local fp = g_userData:get('fp')
     local lactea = g_userData:get('lactea')
     
     self.m_lNumberLabel['gold']:setNumber(gold)
     self.m_lNumberLabel['cash']:setNumber(cash)
+    self.m_lNumberLabel['amethyst']:setNumber(amethyst)
 
     -- 스태미너
     local st_ad = g_staminasData:getStaminaCount(self.m_staminaType)
@@ -168,9 +171,10 @@ function UI_TopUserInfo:changeOwnerUI(ui)
         end
     end
 
-    -- lactea or fp
-    vars['lacteaNode']:setVisible(ui.m_bShowLactea)
-    vars['fpNode']:setVisible(not ui.m_bShowLactea)
+    -- 서브 재화
+    vars['amethystNode']:setVisible(ui.m_subCurrency == 'amethyst')
+    vars['lacteaNode']:setVisible(ui.m_subCurrency == 'lactea')
+    vars['fpNode']:setVisible(ui.m_subCurrency == 'fp')
 
     self:refreshData()
     self:doAction()

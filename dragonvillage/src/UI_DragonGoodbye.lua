@@ -23,9 +23,9 @@ function UI_DragonGoodbye:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_DragonGoodbye'
     self.m_bVisible = true or false
-    self.m_titleStr = Str('작별') or nil
+    self.m_titleStr = Str('라테아 획득') or nil
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
-    self.m_bShowLactea = true
+    self.m_subCurrency = 'lactea'
 end
 
 -------------------------------------

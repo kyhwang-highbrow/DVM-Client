@@ -393,6 +393,11 @@ function ServerData:networkCommonRespone_addedItems(ret)
         self:applyServerData(t_added_items['cash'], 'user', 'cash')    
     end
 
+    -- 자수정 (갱신)
+    if t_added_items['amethyst'] then
+        self:applyServerData(t_added_items['amethyst'], 'user', 'amethyst')
+    end
+
     -- 골드 (갱신)
     if t_added_items['gold'] then
         self:applyServerData(t_added_items['gold'], 'user', 'gold')

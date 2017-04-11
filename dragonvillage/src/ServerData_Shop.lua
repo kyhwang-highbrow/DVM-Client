@@ -36,6 +36,9 @@ function ServerData_Shop:canBuyProduct(price_type, price_value)
     elseif (price_type == 'cash') then
         user_price = g_userData:get('cash')
 
+    elseif (price_type == 'amethyst') then
+        user_price = g_userData:get('amethyst')
+
     elseif (price_type == 'gold') then
         user_price = g_userData:get('gold')
 	
@@ -43,7 +46,7 @@ function ServerData_Shop:canBuyProduct(price_type, price_value)
 		user_price = 9999999
 
 	elseif (price_type == 'honor') then
-		user_price = 9999999
+		user_price = g_userData:get('hornor')
 
     else
         error('price_type : ' .. price_type)
@@ -58,6 +61,9 @@ function ServerData_Shop:canBuyProduct(price_type, price_value)
         local msg = ''
         if (price_type == 'cash') then
             msg = Str('다이아몬드 {1}개가 부족합니다.', comma_value(need_price_str))
+
+        elseif (price_type == 'amethyst') then
+            msg = Str('자수정 {1}개가 부족합니다.', comma_value(need_price_str))
 
         elseif (price_type == 'gold') then
             msg = Str('골드 {1}개가 부족합니다.', comma_value(need_price_str))
@@ -156,7 +162,9 @@ end
 -------------------------------------
 function ServerData_Shop:network_ProductPay(price_type, price_value, finish_cb)
     local cash = g_userData:get('cash')
+    local amethyst = g_userData:get('amethyst')
     local gold = g_userData:get('gold')
+    local honor = g_userData:get('honor')
 
     do -- 재화 사용
         -- 지불
@@ -167,11 +175,17 @@ function ServerData_Shop:network_ProductPay(price_type, price_value, finish_cb)
         elseif (price_type == 'cash') then
             cash = (cash - price_value)
 
+        elseif (price_type == 'amethyst') then
+            amethyst = (amethyst - price_value)
+
         elseif (price_type == 'gold') then
             gold = (gold - price_value)
 
         elseif (price_type == 'money') then
+
 		elseif (price_type == 'honor') then
+            honor = (honor - price_value)
+
         else
             error('price_type : ' .. price_type)
         end
@@ -179,7 +193,7 @@ function ServerData_Shop:network_ProductPay(price_type, price_value, finish_cb)
 
     -- Network
     local b_revocable = true
-    return self:network_updateGoldAndCash(gold, cash, finish_cb, b_revocable)
+    return self:network_updateGoldAndCash(gold, cash, amethyst, honor, finish_cb, b_revocable)
 end
 
 -------------------------------------
@@ -188,7 +202,9 @@ end
 -------------------------------------
 function ServerData_Shop:network_ProductReceive(product_type, product_value, finish_cb)
     local cash = g_userData:get('cash')
+    local amethyst = g_userData:get('amethyst')
     local gold = g_userData:get('gold')
+    local honor = g_userData:get('honor')
     local staminas_st = g_staminasData:getStaminaCount('st')
 
     -- 구매 상품 추가
@@ -196,11 +212,11 @@ function ServerData_Shop:network_ProductReceive(product_type, product_value, fin
 
     elseif (product_type == 'cash') then
         cash = (cash + product_value)
-        return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
+        return self:network_updateGoldAndCash(gold, cash, amethyst, honor, finish_cb, false)
 
     elseif (product_type == 'gold') then
         gold = (gold + product_value)
-        return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
+        return self:network_updateGoldAndCash(gold, cash, amethyst, honor, finish_cb, false)
 
     elseif (product_type == 'stamina') then
         staminas_st = (staminas_st + product_value)
@@ -215,7 +231,7 @@ end
 -- function network_updateGoldAndCash
 -- @brief 골드, 캐시 동기화
 -------------------------------------
-function ServerData_Shop:network_updateGoldAndCash(gold, cash, finish_cb, b_revocable)
+function ServerData_Shop:network_updateGoldAndCash(gold, cash, amethyst, honor, finish_cb, b_revocable)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
@@ -234,6 +250,8 @@ function ServerData_Shop:network_updateGoldAndCash(gold, cash, finish_cb, b_revo
     ui_network:setParam('act', 'update')
     ui_network:setParam('gold', gold)
     ui_network:setParam('cash', cash)
+    ui_network:setParam('amethyst', amethyst)
+    ui_network:setParam('honor', honor)
     ui_network:setParam('staminas', 'st,100')
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:setRevocable(b_revocable)
