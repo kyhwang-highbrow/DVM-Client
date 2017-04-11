@@ -33,7 +33,7 @@
             <key>cutscene_tamer_a_type_fever_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{872,792},{124,128}}</string>
+                <string>{{1478,1304},{124,128}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>cutscene_tamer_a_type_fever_p_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{872,648},{142,149}}</string>
+                <string>{{1327,1162},{142,149}}</string>
                 <key>offset</key>
                 <string>{-7,3}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>cutscene_tamer_a_type_fever_p_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{872,499},{150,147}}</string>
+                <string>{{1480,1011},{150,147}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -137,11 +137,11 @@
             <key>cutscene_tamer_a_type_fever_p_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1849,478},{152,149}}</string>
+                <string>{{872,813},{152,149}}</string>
                 <key>offset</key>
                 <string>{-6,5}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,2},{152,149}}</string>
                 <key>sourceSize</key>
@@ -150,7 +150,7 @@
             <key>cutscene_tamer_a_type_fever_p_09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1849,629},{146,151}}</string>
+                <string>{{1175,1011},{146,151}}</string>
                 <key>offset</key>
                 <string>{-4,-1}</string>
                 <key>rotated</key>
@@ -163,7 +163,7 @@
             <key>cutscene_tamer_a_type_fever_p_circle_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1686,676},{128,128}}</string>
+                <string>{{1631,1284},{128,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -185,6 +185,227 @@
                 <string>{{1,2},{254,252}}</string>
                 <key>sourceSize</key>
                 <string>{256,256}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_40.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{872,1011},{149,152}}</string>
+                <key>offset</key>
+                <string>{-10,-7}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{105,111},{149,152}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_42.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1842,1093},{143,154}}</string>
+                <key>offset</key>
+                <string>{-13,-7}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{105,110},{143,154}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_44.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1175,1159},{149,150}}</string>
+                <key>offset</key>
+                <string>{-13,-8}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{102,113},{149,150}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_46.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1023,1011},{151,150}}</string>
+                <key>offset</key>
+                <string>{-12,-7}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{102,112},{151,150}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_48.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1480,1160},{149,142}}</string>
+                <key>offset</key>
+                <string>{-10,-6}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{105,115},{149,142}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_49.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1632,1138},{149,144}}</string>
+                <key>offset</key>
+                <string>{-10,-6}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{105,114},{149,144}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_51.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1783,1238},{147,148}}</string>
+                <key>offset</key>
+                <string>{-10,-5}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{106,111},{147,148}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_53.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1328,1011},{149,150}}</string>
+                <key>offset</key>
+                <string>{-12,-5}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{103,110},{149,150}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_55.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1686,985},{151,154}}</string>
+                <key>offset</key>
+                <string>{-13,-6}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{101,109},{151,154}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_57.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1843,941},{155,150}}</string>
+                <key>offset</key>
+                <string>{-14,-10}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{98,115},{155,150}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_58.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1686,829},{155,154}}</string>
+                <key>offset</key>
+                <string>{-13,-9}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{99,112},{155,154}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_60.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1849,478},{147,158}}</string>
+                <key>offset</key>
+                <string>{-12,-8}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{104,109},{147,158}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_62.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{872,656},{155,156}}</string>
+                <key>offset</key>
+                <string>{-12,-7}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{100,109},{155,156}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_64.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1849,627},{157,156}}</string>
+                <key>offset</key>
+                <string>{-12,-8}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{99,110},{157,156}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_66.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1844,785},{155,154}}</string>
+                <key>offset</key>
+                <string>{-15,-11}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{97,114},{155,154}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_67.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{872,499},{155,156}}</string>
+                <key>offset</key>
+                <string>{-14,-11}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{98,113},{155,156}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
+            </dict>
+            <key>cutscene_tamer_a_type_g_69.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1686,676},{151,156}}</string>
+                <key>offset</key>
+                <string>{-9,-12}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{105,114},{151,156}}</string>
+                <key>sourceSize</key>
+                <string>{379,360}</string>
             </dict>
             <key>cutscene_tamer_a_type_res_00.png</key>
             <dict>
@@ -228,11 +449,11 @@
             <key>cutscene_tamer_a_type_res_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1686,806},{285,294}}</string>
+                <string>{{872,1238},{285,294}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{285,294}}</string>
                 <key>sourceSize</key>
@@ -313,7 +534,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:874e8df15ee9d241b14a9319a927452f$</string>
+            <string>$TexturePacker:SmartUpdate:2541c53187f7fd0bf4a132e8eb28d467$</string>
             <key>textureFileName</key>
             <string>cutscene_tamer_a_type.png</string>
         </dict>
