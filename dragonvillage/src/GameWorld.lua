@@ -1014,7 +1014,7 @@ function GameWorld:onKeyReleased(keyCode, event)
         
         -- 테이머 스킬
         if (self.m_tamer) then
-            self.m_tamer:resetActiveSkillCool()
+            self.m_tamer:increaseActiveSkillCool(100)
         end
 
 	-- 미션 성공

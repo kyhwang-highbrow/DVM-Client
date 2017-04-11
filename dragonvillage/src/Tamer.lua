@@ -77,7 +77,7 @@ end
 -------------------------------------
 -- function initSkill
 -------------------------------------
-function Tamer:initSkill(file_name)
+function Tamer:initSkill()
     local t_tamer = self.m_charTable
 	local table_tamer_skill = TableTamerSkill()
 	
@@ -713,6 +713,17 @@ function Tamer:showToolTipActive()
 
     local tool_tip = UI_Tooltip_Skill(320, -220, str, true)
     tool_tip:autoRelease()
+end
+
+-------------------------------------
+-- function increaseActiveSkillCool
+-------------------------------------
+function Tamer:increaseActiveSkillCool(percentage)
+    local t_skill = self.m_lSkill[TAMER_SKILL_ACTIVE]
+
+    self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] = t_skill['cooldown'] 
+    
+    self.m_bActiveSKillUsable = true
 end
 
 -------------------------------------
