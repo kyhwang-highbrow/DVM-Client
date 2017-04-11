@@ -333,8 +333,8 @@ end
 -- @brief 스킬 설명
 -------------------------------------
 function GameDragonSkill:makeSkillDesc(dragon, delayTime)
-    local active_skill_id = dragon:getSkillID('active')
-    local t_skill = TableDragonSkill():get(active_skill_id)
+    local active_skill_info = dragon:getSkillIndivisualInfo('active')
+    local t_skill = active_skill_info.m_tSkill
 
     self.m_skillDescEffect.m_node:setFrame(0)
     self.m_skillDescEffect:setVisible(true)

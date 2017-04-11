@@ -13,6 +13,9 @@ IDragonSkillManager = {
 
         m_lSkillIndivisualInfo = 'list',
         m_lReserveTurnSkillID = 'number',
+
+		-- Indicator Tool Tip 등을 위해 일반 액티브 스킬은 따로 저장
+		m_normalActiveInfo = '',
     }
 
 -------------------------------------
@@ -46,6 +49,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
     -- 기본 드래그 스킬 지정
     if t_character['skill_active'] then
         self:setSkillID('active', t_character['skill_active'], self:getSkillLevel(0))
+		self.m_normalActiveInfo = self.m_lSkillIndivisualInfo['active']
     end
 
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
@@ -118,9 +122,8 @@ function IDragonSkillManager:initSkillIDList()
 	self.m_lSkillIndivisualInfo['under_atk_rate'] = {}
 	self.m_lSkillIndivisualInfo['under_atk_turn'] = {}
 
-	-- @TODO 삭제 예정
+	-- @TODO 수정 필요
     self.m_lSkillIndivisualInfo['passive'] = {}
-    self.m_lSkillIndivisualInfo['manual'] = {}
 end
 
 -------------------------------------

@@ -17,7 +17,7 @@ UI_Tooltip_Indicator = class(PARENT, {
 		m_richLabel2 = 'RichLabel',
 		m_richLabel3 = 'RichLabel',
 
-		m_tActiveSkillId = 'list',
+		m_lSkillDataList = 'list',
     })
 
 -------------------------------------
@@ -48,23 +48,21 @@ end
 -- function init_data
 -------------------------------------
 function UI_Tooltip_Indicator:init_data(dragon)
-	local dragon_id = dragon.m_dragonID
-	local t_dragon = TABLE:get('dragon')[dragon_id]
-	local dragon_evol = dragon.m_tDragonInfo['evolution']
-	
-	-- 1. 전체 드래곤 액티브 스킬을 체크한다.
-	-- key = skill id, value = 활성화 여부
-	-- @TODO 스킬 활성화 조건에 대해 체크해야함
-	local t_active_id = {} 
+	self.m_lSkillDataList = {}
 
-	table.insert(t_active_id, {	skill_id = t_dragon['skill_active'], isActivation = true})
-	local skill_id = t_dragon['skill_3']
-	if (TableDragonSkill():getSkillType(skill_id) == 'active') then 
-		table.insert(t_active_id, {	skill_id = skill_id, isActivation = dragon_evol == 3})
+	self.m_lSkillDataList['active_normal'] = dragon.m_normalActiveInfo
+
+	if (self.m_lSkillDataList['active_normal'] == dragon:getSkillIndivisualInfo('active')) then
+		local skill_id = dragon.m_charTable['skill_3']
+		local skill_lv = 0
+		local skill_indivisual_info = DragonSkillIndivisualInfo(dragon.m_charType, 'active', skill_id, skill_lv)
+		skill_indivisual_info:applySkillLevel()
+		skill_indivisual_info:applySkillDesc()
+
+		self.m_lSkillDataList['active_ultimate'] = skill_indivisual_info
+	else
+		self.m_lSkillDataList['active_ultimate'] = dragon:getSkillIndivisualInfo('active')
 	end
-	
-	-- 2. 멤버 변수에 저장
-	self.m_tActiveSkillId = t_active_id
 end
 
 -------------------------------------
@@ -72,12 +70,11 @@ end
 -- @brief public으로 사용
 -------------------------------------
 function UI_Tooltip_Indicator:displayData()
-	local char_type = 'dragon'
-	local skill_type = 'active'
-	local str = nil 
 	local idx = 1
-	for i, v in pairs(self.m_tActiveSkillId) do 
-		str = self:getSkillDescStr(char_type, v['skill_id'], skill_type, v['isActivation'])
+	for i, v in pairs(self.m_lSkillDataList) do
+		local t_skill = v.m_tSkill
+		local is_activated = (v.m_skillLevel > 0)
+		local str = self:getSkillDescStr(t_skill, is_activated)
         self:setSkillText(idx, str)
 		idx = idx + 1
 	end
@@ -123,28 +120,6 @@ function UI_Tooltip_Indicator:doAction(complete_func, no_action)
 
     self.m_bubbleImage:stopAllActions()
     self.m_bubbleImage:runAction(secuence)
-end
-
--------------------------------------
--- function makeTouchLayer
--------------------------------------
-function UI_Tooltip_Indicator:makeTouchLayer(target_node)
-    local listener = cc.EventListenerTouchOneByOne:create()
-    listener:registerScriptHandler(function(touch, event) return self.onTouch(self, touch, event) end, cc.Handler.EVENT_TOUCH_BEGAN)
-    listener:registerScriptHandler(function(touch, event) return self.onTouch(self, touch, event) end, cc.Handler.EVENT_TOUCH_MOVED)
-    listener:registerScriptHandler(function(touch, event) return self.onTouch(self, touch, event) end, cc.Handler.EVENT_TOUCH_ENDED)
-    listener:registerScriptHandler(function(touch, event) return self.onTouch(self, touch, event) end, cc.Handler.EVENT_TOUCH_CANCELLED)
-                
-    local eventDispatcher = target_node:getEventDispatcher()
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, target_node)
-end
-
--------------------------------------
--- function onTouch
--------------------------------------
-function UI_Tooltip_Indicator.onTouch(self, touch, event)
-    self:close()
-    return true
 end
 
 -------------------------------------
@@ -224,12 +199,9 @@ end
 -------------------------------------
 -- function getSkillDescStr
 -------------------------------------
-function UI_Tooltip_Indicator:getSkillDescStr(char_type, skill_id, skill_type, isActivation)
-    local table_skill = TABLE:get(char_type .. '_skill')
-    local t_skill = table_skill[skill_id]
-    
-	local name_color = isActivation and '{@ORANGE}' or '{@GRAY}'
-	local text_color = isActivation and '{@WHITE}' or '{@GRAY}'
+function UI_Tooltip_Indicator:getSkillDescStr(t_skill, is_activated)
+	local name_color = is_activated and '{@ORANGE}' or '{@GRAY}'
+	local text_color = is_activated and '{@WHITE}' or '{@GRAY}'
 
 	-- 1. 스킬 이름
     local skill_type_str = t_skill['t_name']
