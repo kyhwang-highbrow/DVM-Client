@@ -373,18 +373,19 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     end
 
     -- 이동 패턴 설정
-    if (self.m_world.m_enemyMovementMgr) then
+    do
+        if (not movement) then
+            movement = self.m_currWave
+        end
+
         -- 로밍 임시 처리
         if (movement == 'roam') then
             enemy.m_bRoam = true
-        else
-            if (not movement) then
-                movement = self.m_currWave
-            end
-
+        elseif (self.m_world.m_enemyMovementMgr) then
             self.m_world.m_enemyMovementMgr:addEnemy(movement, enemy)
         end
     end
+    
 
 	if enemy and enemy.m_hpNode then
         enemy.m_hpNode:setVisible(true)
