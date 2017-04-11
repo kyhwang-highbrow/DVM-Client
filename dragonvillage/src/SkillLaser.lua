@@ -189,21 +189,27 @@ end
 -------------------------------------
 -- function runAttack
 -------------------------------------
-function SkillLaser:runAttack(t_collision_obj)
+function SkillLaser:runAttack(t_collision_obj, t_collision_bodys)
 	if (not self.t_collision) then
 		return
 	end
 	
     for i, target in ipairs(t_collision_obj) do
-		-- 이미 충돌된 객체라면 리턴
-		if (self.t_collision[target.phys_idx]) then
-			return
-		end
+        local body_keys = t_collision_bodys[i]
 
-		-- 충돌, 공격 처리
-		self.t_collision[target.phys_idx] = true
-	
-		self:attack(target)
+        for i, body_key in ipairs(body_keys) do
+		    -- 이미 충돌된 객체라면 리턴
+		    if (not self.t_collision[target.phys_idx]) then
+			    self.t_collision[target.phys_idx] = {}
+		    end
+
+            if (not self.t_collision[target.phys_idx][body_key]) then
+		        -- 충돌, 공격 처리
+		        self.t_collision[target.phys_idx][body_key] = true
+
+		        self:attack(target, {body_key})
+            end
+        end
 	end
 
 	self:doCommonAttackEffect(t_collision_obj)

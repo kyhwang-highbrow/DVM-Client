@@ -335,7 +335,11 @@ function Skill:attack(target_char, bodys)
 
     if (bodys) then
         for i, k in ipairs(bodys) do
-            target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y, k)
+            -- 데미지 함수 내부에서 body위치를 계산해야할까...
+            local body = target_char:getBody(k)
+            local x = target_char.pos.x + body.x
+            local y = target_char.pos.y + body.y
+            target_char:runDefCallback(self, x, y, k)
         end
     else
         target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)

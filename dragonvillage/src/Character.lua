@@ -397,7 +397,7 @@ end
 -------------------------------------
 -- function undergoAttack
 -------------------------------------
-function Character:undergoAttack(attacker, defender, i_x, i_y)
+function Character:undergoAttack(attacker, defender, i_x, i_y, body_key)
     if (not attacker.m_activityCarrier) then
         --cclog('attacker.m_activityCarrier nil')
         return

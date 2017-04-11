@@ -7,6 +7,7 @@ function isCollision(target, x, y, range)
     local is_collision = false
     local l_body = {}
     local l_temp = {}
+    local distance = nil
 
     if (range <= 0) then
         return is_collision, l_body
@@ -35,7 +36,11 @@ function isCollision(target, x, y, range)
         table.insert(l_body, v['key'])
     end
 
-    return is_collision, l_body
+    if (l_temp[1]) then
+        distance = l_temp[1]['distance']
+    end
+    
+    return is_collision, l_body, distance
 end
 
 -------------------------------------

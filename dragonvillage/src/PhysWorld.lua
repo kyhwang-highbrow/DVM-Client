@@ -263,7 +263,7 @@ function PhysWorld:update(dt)
                                     end
 
 									-- 이미 충돌했는지 체크
-                                    if (not check_phys_idx[enemy.phys_idx]) and enemy.enable_body and (not t_collision[object_phys_idx]) then
+                                    if (not check_phys_idx[enemy.phys_idx] and enemy.enable_body) then
                                         
 										-- 해당 physobject와 충돌체크 했는지 저장
                                         check_phys_idx[enemy.phys_idx] = true
@@ -273,16 +273,22 @@ function PhysWorld:update(dt)
 
                                         if (ret) then
 											-- 충돌 한 것으로 저장 (해당 오브젝트에 전달)
-                                            t_collision[object_phys_idx] = true
+                                            if (not t_collision[object_phys_idx]) then
+                                                t_collision[object_phys_idx] = {}
+                                            end
                                             
-											-- 충돌 콜백 실행
-                                            enemy:runAtkCallback(object, intersect_pos_x, intersect_pos_y)
+											for i, body in ipairs(bodys) do
+                                                local body_key = body.key
+                                                if (not t_collision[object_phys_idx][body_key]) then
+                                                    t_collision[object_phys_idx][body_key] = true
 
-                                            for i, body in ipairs(bodys) do
-                                                local intersect_pos_x = (enemy.pos.x + body.x + x) / 2
-                                                local intersect_pos_y = (enemy.pos.y + body.y + y) / 2
+                                                    local intersect_pos_x = (enemy.pos.x + body.x + x) / 2
+                                                    local intersect_pos_y = (enemy.pos.y + body.y + y) / 2
 
-                                                object:runDefCallback(enemy, intersect_pos_x, intersect_pos_y, body.key)
+                                                    -- 충돌 콜백 실행
+                                                    enemy:runAtkCallback(object, intersect_pos_x, intersect_pos_y)
+                                                    object:runDefCallback(enemy, intersect_pos_x, intersect_pos_y, body_key)
+                                                end
                                             end
                                         end
                                     end

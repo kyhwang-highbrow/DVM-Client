@@ -384,6 +384,7 @@ function GameWorld:initTamer()
     self:addListener('dragon_summon', self)
     
     -- 테이머 대사
+    --[[
     self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
     
     self:addListener('dragon_summon', self.m_tamerSpeechSystem)
@@ -393,6 +394,7 @@ function GameWorld:initTamer()
     self:addListener('stage_clear', self.m_tamerSpeechSystem)
     self:addListener('friend_dragon_appear', self.m_tamerSpeechSystem)
     self:addListener('tamer_active_skill', self.m_tamerSpeechSystem)
+    ]]--
 end
 
 
@@ -745,7 +747,7 @@ function GameWorld:addEnemy(enemy)
     enemy:addListener('enemy_casting_start', self.m_gameAutoHero)
     
     -- 스킬 캐스팅 중 취소시 콜백 등록
-    enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
+    --enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
     --enemy:addListener('character_casting_cancel', self.m_gameFever)
 
     if (enemy.m_charType == 'dragon') then
@@ -806,7 +808,7 @@ end
 function GameWorld:addHero(hero, idx)
     self.m_mHeroList[idx] = hero
 
-    hero:addListener('character_dead', self.m_tamerSpeechSystem)
+    --hero:addListener('character_dead', self.m_tamerSpeechSystem)
 
     hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
@@ -818,8 +820,8 @@ function GameWorld:addHero(hero, idx)
         
     hero:addListener('hero_casting_start', self.m_gameAutoHero)
 
-    hero:addListener('character_weak', self.m_tamerSpeechSystem)
-    hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
+    --hero:addListener('character_weak', self.m_tamerSpeechSystem)
+    --hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
 end
 
 -------------------------------------

@@ -139,12 +139,28 @@ function SkillTargetFinder:findTarget_Near(l_target, x, y, range)
         range = 2500
     end
 
+    local l_temp = {}
+
     for i, target in ipairs(l_target) do
-        local b, bodys = isCollision(target, x, y, range)
+        local b, bodys, distance = isCollision(target, x, y, range)
 		if (b) then
-			table.insert(l_ret, target)
-            table.insert(l_ret_bodys, bodys)
+            table.insert(l_temp, {
+                distance = distance,
+                target = target,
+                bodys = bodys
+            })
 		end
+    end
+
+    if (#l_temp > 1) then
+        table.sort(l_temp, function(a, b)
+            return (a['distance'] < b['distance'])
+        end)
+    end
+
+    for i, v in ipairs(l_temp) do
+        table.insert(l_ret, v['target'])
+        table.insert(l_ret_bodys, v['bodys'])
     end
 
     return l_ret, l_ret_bodys
