@@ -7,12 +7,6 @@ local PARENT = class(Skill, ISkillMultiAttack:getCloneTable())
 SkillAoECone = class(PARENT, {
 		m_angle = 'num',
 		m_dir = 'num', 
-
-		m_attackCount = 'number',
-		m_maxAttackCount = 'number',
-		
-		m_hitInterval = 'number',
-		m_multiAtkTimer = 'dt',
      })
 
 -------------------------------------

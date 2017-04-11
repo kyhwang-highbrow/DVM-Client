@@ -350,6 +350,7 @@ local t_module = {
 	'SkillAoESquare_Width',
 	'SkillAoESquare_Wonder',
 	'SkillAoECone',
+	'SkillAoECone_Crash',
 	'SkillAoEWedge',
     'SkillLeafBlade',
     'SkillSummon',

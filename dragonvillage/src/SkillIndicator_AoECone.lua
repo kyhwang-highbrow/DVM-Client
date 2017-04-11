@@ -14,9 +14,6 @@ SkillIndicator_AoECone = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_AoECone:init(hero, t_skill)
-	self.m_skillRadius = g_constant:get('SKILL', 'CONE_RANGE')
-	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'ANGLE_LIMIT')
-	self.m_skillDir = t_skill['val_1']
 end
 
 -------------------------------------
@@ -24,6 +21,10 @@ end
 -------------------------------------
 function SkillIndicator_AoECone:init_indicator(t_skill)
 	PARENT.init_indicator(self, t_skill)
+
+	self.m_skillRadius = g_constant:get('SKILL', 'CONE_RANGE')
+	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'ANGLE_LIMIT')
+	self.m_skillDir = t_skill['val_1']
 
 	local skill_size = t_skill['skill_size']
 	if (skill_size) and (not (skill_size == '')) then
@@ -77,8 +78,9 @@ function SkillIndicator_AoECone:initIndicatorNode()
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target_cone_' .. self.m_skillAngle)
         local indicator = MakeAnimator(indicator_res)
 		
-		indicator.m_node:setColor(COLOR_CYAN)
+		indicator:setColor(COLOR_CYAN)
 		indicator:setPosition(self:getAttackPosition())
+		indicator:setRotation(self.m_skillDir)
         
 		root_node:addChild(indicator.m_node)
 		self.m_indicatorEffect = indicator

@@ -178,6 +178,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillAoECone:makeSkillInstance(self, t_skill, t_data)
 				return true
 
+			elseif (skill_type == 'skill_aoe_cone_crash') then
+				SkillAoECone_Crash:makeSkillInstance(self, t_skill, t_data)
+				return true
+
 			elseif (skill_type == 'skill_aoe_wedge') then
 				SkillAoEWedge:makeSkillInstance(self, t_skill, t_data)
 				return true
@@ -256,7 +260,8 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 			-- 특수 스킬들 또는 몬스터 전용 스킬 .. (특수하게 처리)-------------------
 			elseif (skill_type == 'skill_summon') then
-				return SkillSummon:makeSkillInstance(self, t_skill, t_data)
+				local is_success = SkillSummon:makeSkillInstance(self, t_skill, t_data)
+				return is_success
 
 			elseif (skill_type == 'skill_counterattack') then
 				SkillCounterAttack:makeSkillInstance(self, t_skill, t_data)
@@ -374,26 +379,6 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
             t_launcher_option['dir'] = skill_dir
         end
     end
-end
-
--------------------------------------
--- function doSkill_counteratk
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_counteratk(t_skill, is_hero, phys_group, x, y, t_data)
-
-    local skill = SkillAttributeAmor(nil)
-
-    -- Physics, Node, GameWorld에 등록
-    self.m_world.m_worldNode:addChild(skill.m_rootNode, 3)
-    self.m_world:addToSkillList(skill)
-
-    local pos_x = self.pos.x + x
-    local pos_y = self.pos.y + y
-
-    skill:setPosition(pos_x, pos_y)
-
-    skill:init_skill(self, res, x, y, t_skill, t_data)
 end
 
 -------------------------------------
