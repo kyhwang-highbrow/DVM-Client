@@ -125,7 +125,7 @@ function SkillRolling.st_move(owner, dt)
 		local releaseFunc = cc.CallFunc:create(function() owner.m_spinAnimator:release(); owner.m_spinAnimator = nil end)
 
         -- 이동
-        local body_key = table.pop(owner.m_targetBodyList)
+        local body_key = owner.m_targetBodyList[1]
         local body = owner.m_targetChar:getBody(body_key)
         local target_pos = cc.p(
             owner.m_targetChar.pos.x - 40 + body.x, 
@@ -205,7 +205,6 @@ function SkillRolling.st_move_attack(owner, dt)
             local target_pos = cc.p(owner.m_targetPos.x, owner.m_targetPos.y)
             local body_key = table.pop(owner.m_targetBodyList)
             if (body_key) then
-                cclog('SkillRolling.st_move_attack body_key = ' .. body_key)
                 local body = owner.m_targetChar:getBody(body_key)
 
                 target_pos.x = target_pos.x + body.x

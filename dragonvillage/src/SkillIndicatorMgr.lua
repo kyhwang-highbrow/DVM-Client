@@ -284,7 +284,11 @@ function SkillIndicatorMgr:setSelectHero(hero)
         hero.m_skillIndicator:setIndicatorTouchPos(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'])
         hero.m_skillIndicator:update()
 
+        -- 일시정지
         self.m_world:setTemporaryPause(true, hero)
+
+        -- 화면 쉐이킹 멈춤
+        self.m_world.m_shakeMgr:stopShake()
                 
         self.m_selectHero = hero
     else

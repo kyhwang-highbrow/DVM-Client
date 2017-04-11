@@ -141,6 +141,9 @@ function GameDragonSkill.update_live(self, dt)
             -- 일시 정지
             world:setTemporaryPause(true)
 
+            -- 화면 쉐이킹 멈춤
+            world.m_shakeMgr:stopShake()
+
             -- 도입부 컷씬
             self:makeSkillOpeningCut(dragon, function()
                 self:nextStep()

@@ -43,6 +43,9 @@ Skill = class(PARENT, {
 
         -- 스킬 종료시 피드백(보너스) 관련
         m_bonusLevel = 'number',
+
+        -- 하이라이트시 숨김 처리(TemporaryPause)
+        m_dataForTemporaryPause = '',
      })
 
 -------------------------------------
@@ -51,6 +54,7 @@ Skill = class(PARENT, {
 -- @param body
 -------------------------------------
 function Skill:init(file_name, body, ...)
+    self.m_dataForTemporaryPause = nil
 end
 
 -------------------------------------
@@ -339,6 +343,7 @@ function Skill:attack(target_char, bodys)
             local body = target_char:getBody(k)
             local x = target_char.pos.x + body.x
             local y = target_char.pos.y + body.y
+
             target_char:runDefCallback(self, x, y, k)
         end
     else
@@ -597,4 +602,27 @@ end
 -- @brief 사용할 변수 정리 및 실제 스킬 인스턴스를 생성하고 월드에 등록하는 부분
 -------------------------------------
 function Skill:makeSkillInstance()
+end
+
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function Skill:setTemporaryPause(pause)
+    if (PARENT.setTemporaryPause(self, pause)) then
+        if (pause) then
+            if (self.m_animator) then
+                self.m_dataForTemporaryPause = self.m_animator:isVisible()
+                self.m_animator:setVisible(false)
+            end
+        else
+            if (self.m_animator) then
+                if (self.m_dataForTemporaryPause ~= nil) then
+                    self.m_animator:setVisible(self.m_dataForTemporaryPause)
+                    self.m_dataForTemporaryPause = nil
+                else
+                    self.m_animator:setVisible(true)
+                end
+            end
+        end
+    end
 end

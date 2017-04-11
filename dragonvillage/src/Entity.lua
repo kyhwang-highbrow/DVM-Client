@@ -366,10 +366,14 @@ function Entity:setTemporaryPause(pause)
 
     if pause then
         action_mgr:pauseTarget(self.m_rootNode)
-        self.m_animator:setAnimationPause(true)
+        if (self.m_animator) then
+            self.m_animator:setAnimationPause(true)
+        end
     else
         action_mgr:resumeTarget(self.m_rootNode)
-        self.m_animator:setAnimationPause(false)
+        if (self.m_animator) then
+            self.m_animator:setAnimationPause(false)
+        end
     end
 
     return true

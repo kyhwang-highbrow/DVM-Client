@@ -1659,17 +1659,11 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         -- 맵 일시 정지
         self.m_mapManager:pause()
 
-        -- unit들 일시 정지
+        -- unit(missile, skill 포함)들 일시 정지
         for i,v in pairs(self.m_lUnitList) do
             v:setTemporaryPause(true)
         end
         
-        -- 미사일들 액션 정지
-        local action_mgr = cc.Director:getInstance():getActionManager()
-        for i,v in pairs(self.m_lMissileList) do
-            action_mgr:pauseTarget(v.m_rootNode)
-        end
-
         -- 스킬 사용 중인 드래곤은 일시 정지에서 제외 및 무적 상태
         if excluded_dragon then
             excluded_dragon:setTemporaryPause(false)
@@ -1682,17 +1676,11 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         -- 맵 일시 정지 해제
         self.m_mapManager:resume()
 
-        -- unit들 일시 정지 해제
+        -- unit(missile, skill 포함)들 일시 정지 해제
         for i,v in pairs(self.m_lUnitList) do
             v:setTemporaryPause(false)
         end
         
-        -- 미사일들 액션 재개
-        local action_mgr = cc.Director:getInstance():getActionManager()
-        for i,v in pairs(self.m_lMissileList) do
-            action_mgr:resumeTarget(v.m_rootNode)
-        end
-
         -- 스킬 사용 중인 드래곤 무적 해제
         if excluded_dragon then
             excluded_dragon.enable_body = true
