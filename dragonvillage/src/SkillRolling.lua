@@ -125,7 +125,8 @@ function SkillRolling.st_move(owner, dt)
 		local releaseFunc = cc.CallFunc:create(function() owner.m_spinAnimator:release(); owner.m_spinAnimator = nil end)
 
         -- 이동
-        local body = owner.m_targetChar:getBody(owner.m_targetBodyList[1])
+        local body_key = table.pop(owner.m_targetBodyList)
+        local body = owner.m_targetChar:getBody(body_key)
         local target_pos = cc.p(
             owner.m_targetChar.pos.x - 40 + body.x, 
             owner.m_targetChar.pos.y + body.y
@@ -182,10 +183,6 @@ end
 -- function st_move
 -------------------------------------
 function SkillRolling.st_move_attack(owner, dt)
-	if (owner.m_stateTimer == 0) then
-		owner.m_targetChar = nil
-	end
-
 	-- 잔상 효과
 	owner:updateAfterImage(dt)
 	
@@ -195,45 +192,53 @@ function SkillRolling.st_move_attack(owner, dt)
 		if (not owner.m_targetChar) then
 			-- 1-1. 최대 충돌 갯수 체크
             local target = table.pop(owner.m_lTargetList)
-            if target then 
+            if (target) then 
 				owner.m_targetChar = target
 				owner.m_targetPos = target.pos
-
                 owner.m_targetBodyList = table.pop(owner.m_lBodyList)
-                local body = owner.m_targetChar:getBody(owner.m_targetBodyList[1])
-
-                owner.m_targetPos.x = owner.m_targetPos.x + body.x
-                owner.m_targetPos.y = owner.m_targetPos.y + body.y
-
 			else
 				owner:changeState('comeback')
 			end
 
-		-- 2. 타겟이 있으면 이동 공격
-		else
-			-- 2-1. 이동
-			local target_pos = cc.p(owner.m_targetPos.x, owner.m_targetPos.y)
-			local action = cc.MoveTo:create(0.1, target_pos)
-			owner.m_bMoving = true
+        else
+            -- 2. 타겟이 있으면 이동 공격
+            local target_pos = cc.p(owner.m_targetPos.x, owner.m_targetPos.y)
+            local body_key = table.pop(owner.m_targetBodyList)
+            if (body_key) then
+                cclog('SkillRolling.st_move_attack body_key = ' .. body_key)
+                local body = owner.m_targetChar:getBody(body_key)
 
-			-- 2-2. state chnage 함수 콜
-			local cbFunc = cc.CallFunc:create(function() 
-				local animator = MakeAnimator('res/effect/effect_hit_01/effect_hit_01.vrp')
-				animator:changeAni('idle', true)
-				animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
+                target_pos.x = target_pos.x + body.x
+                target_pos.y = target_pos.y + body.y
 
-                local missileNode = owner.m_world:getMissileNode()
-                missileNode:addChild(animator.m_node)
-                
-				owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300)
+                -- 2-1. 이동
+			    local action = cc.MoveTo:create(0.1, target_pos)
+			    owner.m_bMoving = true
 
-				owner:runAttack(true) -- @TODO 구조 개선 필요
-                owner.m_bMoving = false
-			end)
-		
-			-- 2-3. 액션 실행 및 후 타겟 지움
-			owner.m_owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 2), cbFunc))
-			owner.m_targetChar = nil
+			    -- 2-2. state chnage 함수 콜
+			    local cbFunc = cc.CallFunc:create(function() 
+				    local animator = MakeAnimator('res/effect/effect_hit_01/effect_hit_01.vrp')
+				    animator:changeAni('idle', true)
+				    animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
+
+                    local missileNode = owner.m_world:getMissileNode()
+                    missileNode:addChild(animator.m_node)
+
+				    owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300)
+
+				    --owner:runAttack(true) -- @TODO 구조 개선 필요
+                    owner:attack(owner.m_targetChar, {body_key})
+                    owner.m_bMoving = false
+			    end)
+
+			    -- 2-3. 액션 실행 및 후 타겟 지움
+			    owner.m_owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 2), cbFunc))
+
+            else
+                owner.m_targetChar = nil
+                owner.m_targetBodyList = nil
+            end
+
 		end
 	end
 end

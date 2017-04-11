@@ -29,7 +29,7 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
                 if (dragon.m_bDead == false) and (dragon.m_charType == 'dragon') then
                     dragon.m_rootNode:setVisible(false)
                     dragon.m_hpNode:setVisible(false)
-                    dragon:changeState('idle')
+                    dragon:changeState('endwave_2')
                 end
             end
 
