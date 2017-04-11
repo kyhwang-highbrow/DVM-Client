@@ -16,6 +16,7 @@ product_id,t_name,display,group_type,price_type,slot_type,price_value,product_co
 30003,,true,stamina,cash,normal,250,stamina;170,0,,res/ui/icon/item/shop_staminas_st_03.png,,,
 30004,,true,stamina,cash,normal,500,stamina;350,0,,res/ui/icon/item/shop_staminas_st_04.png,,,
 30005,,true,stamina,cash,normal,1000,stamina;720,0,,res/ui/icon/item/shop_staminas_st_04.png,,,
+30006,,true,stamina,amethyst,normal,100,stamina;100,0,,res/ui/icon/item/shop_staminas_st_04.png,,,
 40001,,true,honor,honor,normal,40,700101;30,0,,res/ui/icon/item/shop_gold_01.png,,,
 40002,,true,honor,honor,normal,10,703001;1,0,permanent,res/ui/icon/item/shop_gold_01.png,테스트용 계정 1회 제한,,
 40003,,true,honor,honor,normal,100,703003;1,1,weekly,res/ui/icon/item/shop_gold_01.png,테스트용 주간1회제한,,
