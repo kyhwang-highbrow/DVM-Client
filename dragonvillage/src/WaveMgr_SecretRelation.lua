@@ -97,9 +97,7 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
     self.m_world.m_physWorld:addObject(PHYS.ENEMY, enemy)
     self.m_world:addEnemy(enemy)
 
-	enemy:setAddPhysObject()
-
-    self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
+	self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
 
 	-- 등장 움직임 설정
     if (EnemyAppear[appear_type]) then

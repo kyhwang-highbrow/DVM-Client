@@ -365,9 +365,7 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     self.m_world.m_physWorld:addObject(PHYS.ENEMY, enemy)
     self.m_world:addEnemy(enemy)
 
-	enemy:setAddPhysObject()
-
-    self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
+	self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
 
 	-- 등장 움직임 설정
     if (EnemyAppear[appear_type]) then
@@ -376,14 +374,14 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
 
     -- 이동 패턴 설정
     if (self.m_world.m_enemyMovementMgr) then
-        if (not movement) then
-            movement = self.m_currWave
-        end
-
         -- 로밍 임시 처리
         if (movement == 'roam') then
             enemy.m_bRoam = true
         else
+            if (not movement) then
+                movement = self.m_currWave
+            end
+
             self.m_world.m_enemyMovementMgr:addEnemy(movement, enemy)
         end
     end
