@@ -71,7 +71,7 @@
                 [
 					"130011;2;Appear;RO02;RF23;0.5"
 					"130011;2;Appear;RO06;RF25;0.5"
-					"132011;3;Basic;RO06;RB14;2;boss"
+					"132011;10;Basic;RO06;RB14;2;roam"
                 ]
             }
         }		
