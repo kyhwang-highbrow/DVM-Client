@@ -16,8 +16,8 @@
 				"h_limit_speed":900,
 				"accel_delay":0.2,
 				"offset":[0,0],
-                "dir":-5,
-				"dir_add":2.5,
+                "dir":-10,
+				"dir_add":5,
 				
                 "effect":
                 {
