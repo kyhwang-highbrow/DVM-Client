@@ -96,6 +96,7 @@ end
 -------------------------------------
 function UI_DragonRunesEnhance:click_enhanceBtn()
     local rune_obj = self.m_runeObject
+    local owner_doid = rune_obj['owner_doid']
     local roid = rune_obj['roid']
 
     local function finish_cb(ret)
@@ -108,5 +109,5 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
         end
     end
 
-    g_runesData:request_runeLevelup(roid, finish_cb)
+    g_runesData:request_runeLevelup(owner_doid, roid, finish_cb)
 end

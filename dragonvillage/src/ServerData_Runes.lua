@@ -142,7 +142,7 @@ end
 -- function request_runeLevelup
 -- @breif
 -------------------------------------
-function ServerData_Runes:request_runeLevelup(roid, finish_cb, fail_cb)
+function ServerData_Runes:request_runeLevelup(owner_doid, roid, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -153,6 +153,7 @@ function ServerData_Runes:request_runeLevelup(roid, finish_cb, fail_cb)
 
         if ret['modified_rune'] then
             ret['lvup_success'] = true
+            ret['modified_rune']['owner_doid'] = owner_doid
             self:applyRuneData(ret['modified_rune'])
         else
             ret['lvup_success'] = false
