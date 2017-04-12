@@ -13,8 +13,14 @@ UI_ColosseumReadyScene = class(PARENT,{
         -- 정렬 도우미
         m_dragonSortMgr = 'DragonSortManager',
 
+        -- 슬라이드 형 진형 선택 메뉴 관련 변수
         m_bOpenedFormationUI = 'boolean',
+		m_formationUIPosX = 'num',			-- 진형 선택 메뉴의 초기 x좌표
+		m_formationUIPosY = 'num',			-- 진형 선택 메뉴의 초기 y좌표
+		m_formationUIToMovePosX = 'num',	-- 진형 선택 메뉴가 화면밖으로 숨어 있을 곳의 x좌표
     })
+
+local DC_SCALE = 0.6
 
 -------------------------------------
 -- function init
@@ -135,7 +141,7 @@ function UI_ColosseumReadyScene:init_dragonTableView()
     list_table_node:removeAllChildren()
 
     local function create_func(ui, data)
-        ui.root:setScale(0.7)
+        ui.root:setScale(DC_SCALE)	-- UI 테이블뷰 사이즈가 변경될 시 조정
 
         local unique_id = data['id']
         self:refresh_dragonCard(unique_id)
@@ -147,12 +153,17 @@ function UI_ColosseumReadyScene:init_dragonTableView()
         end
 
         ui.vars['clickBtn']:registerScriptTapHandler(function() click_dragon_item() end)
+
+        -- 상성
+        local dragon_attr = TableDragon():getValue(data['did'], 'attr')
+        local stage_attr = self.m_stageAttr
+        ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
     end
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(110, 110)
-    table_view_td.m_nItemPerCell = 4
+    table_view_td.m_cellSize = cc.size(97, 94)	-- UI 테이블뷰 사이즈가 변경될 시 조정
+    table_view_td.m_nItemPerCell = 4			-- UI 테이블뷰 사이즈가 변경될 시 조정
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
 
     -- 리스트 설정
@@ -404,10 +415,26 @@ end
 
 -------------------------------------
 -- function getFormationUIPos
+-- @brief 진형 선택 메뉴의 좌표 관련 값들을 초기화 한다.
+-------------------------------------
+function UI_ColosseumReadyScene:initFormationUIPos()
+	local formation_ui = self.vars['fomationSetmenu']
+	local visibleSize = formation_ui:getContentSize()
+	
+	self.m_formationUIPosX, self.m_formationUIPosY = formation_ui:getPosition()
+	if (self.m_formationUIPosX > 0) then
+		self.m_formationUIToMovePosX = self.m_formationUIPosX + visibleSize['width']
+	else
+		self.m_formationUIToMovePosX = self.m_formationUIPosX - visibleSize['width']
+	end
+end
+
+-------------------------------------
+-- function getFormationUIPos
 -------------------------------------
 function UI_ColosseumReadyScene:getFormationUIPos()
-    local pos_x = -4
-    local pos_y = -30
+    local pos_x = self.m_formationUIPosX
+    local pos_y = self.m_formationUIPosY
     return pos_x, pos_y
 end
 
@@ -417,10 +444,11 @@ end
 -------------------------------------
 function UI_ColosseumReadyScene:initFormationUI()
     self.m_bOpenedFormationUI = false
+	self:initFormationUIPos()
+
     local pos_x, pos_y = self:getFormationUIPos()
     local node = self.vars['fomationSetmenu']
-    local visibleSize = node:getContentSize()
-    node:setPositionX(pos_x - visibleSize['width'])
+    node:setPositionX(self.m_formationUIToMovePosX)
     node:setVisible(false)
 end
 
@@ -451,8 +479,7 @@ function UI_ColosseumReadyScene:setFormationUIVisible(visible)
         local action = cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(pos_x, pos_y)), 2)
         cca.runAction(node, action, action_tag)
     else
-        local visibleSize = node:getContentSize()
-        local action = cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(pos_x - visibleSize['width'], pos_y)), 2)
+        local action = cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(self.m_formationUIToMovePosX, pos_y)), 2)
         action = cc.Sequence:create(action, cc.Hide:create())
         cca.runAction(node, action, action_tag)
     end

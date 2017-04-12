@@ -18,6 +18,9 @@ function UI_TamerManagePopup:init()
     local vars = self:load('tamer_manage_scene_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    -- 씬 전환 효과
+    self:sceneFadeInAction()
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_TamerManagePopup')
 
