@@ -308,12 +308,13 @@ function UI_GameResultNew:direction_showBox()
     local vars = self.vars
 
     -- 드래곤 레벨업 연출 node 끄기
-    vars['dragonResultNode']:setVisible(false)
+    --vars['dragonResultNode']:setVisible(false)
 
     vars['boxVisual']:setVisible(true)
     vars['boxVisual']:changeAni('box_01', false)
     vars['boxVisual']:addAniHandler(function()
-        vars['boxVisual']:changeAni('box_02', true)
+        --vars['boxVisual']:changeAni('box_02', true)
+        self:doNextWork()
     end)
 
     -- 연속 전투일 경우 상자 바로 오픈
@@ -358,7 +359,7 @@ end
 function UI_GameResultNew:direction_dropItem()
     local vars = self.vars
 
-    local interval = 170
+    local interval = 95
     local count = #self.m_lDropItemList
     local l_pos = getSortPosList(interval, count)
 
@@ -388,19 +389,15 @@ function UI_GameResultNew:direction_dropItem()
             local animator = MakeAnimator('res/item/item_marble/item_marble.vrp')
             animator:setAnchorPoint(cc.p(0.5, 0.5))
             animator:setDockPoint(cc.p(1, 1))
+            animator:setScale(0.85)
+            animator:setPosition(-20, -20)
             item_card.vars['clickBtn']:addChild(animator.m_node)
         end
-
+        item_card.root:setScale(0.6)
         vars['dropRewardMenu']:addChild(item_card.root)
 
         local pos_x = l_pos[i]
         item_card.root:setPositionX(pos_x)
-    end
-
-	local ui_width = 850
-    local width = (interval * count)
-    if (ui_width < width) then
-        vars['dropRewardMenu']:setScale(ui_width / width)
     end
 
     SoundMgr:playEffect('EFFECT', 'reward')
