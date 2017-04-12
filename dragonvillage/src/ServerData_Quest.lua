@@ -255,23 +255,7 @@ function ServerData_Quest:requestQuestReward(qid, cb_func)
 			isDirtyData = true
         end
 
-		-- @TODO 재화를 통일적으로 처리하는 방식 찾거나 만들어야함
-		if (ret['gold']) then
-			self:applyGoods(ret['gold'], 'gold')
-			isDirtyData = true
-		end
-		if (ret['cash']) then
-			self:applyGoods(ret['cash'], 'cash')
-			isDirtyData = true
-		end
-		if (ret['staminas']) then 
-			self:applyGoods(ret['staminas'], 'staminas')
-			isDirtyData = true
-		end
-		if (ret['lactea']) then
-			self:applyGoods(ret['lactea'], 'lactea')
-			isDirtyData = true
-		end
+        g_serverData:networkCommonRespone_addedItems(ret)
 		
 		-- @TODO 퀘스트 정보 테이블 새로 만듬 -> 추후에는 갱신할수 있도록....
 		if (isDirtyData) then 
