@@ -217,3 +217,23 @@ function getSkillType_byEvolution(evolution)
 
 	return str
 end
+
+-------------------------------------
+-- function getSkillType_Tamer
+-- @brief 테이머 스킬 이름
+-------------------------------------
+function getSkillType_Tamer(skill_idx)
+    local str = ''
+
+	if (skill_idx == 1) then
+        str = Str('액티브 스킬')
+    elseif (skill_idx == 2) then
+        str = Str('패시브 스킬')
+    elseif (skill_idx == 3) then
+        str = Str('패시브 스킬')
+    else
+        error('skill_idx : ' .. skill_idx)
+    end
+
+	return str
+end

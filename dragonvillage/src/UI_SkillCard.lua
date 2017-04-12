@@ -22,15 +22,12 @@ function UI_SkillCard:init(char_type, skill_id, skill_type, skill_lv)
     local icon = IconHelper:getSkillIcon(char_type, skill_id)
     vars['skillNode']:addChild(icon)
 
-    -- 액티브, 필살기 스킬 프레임
-    -- @TODO 액티브, 패시브 한글로 표시
-    if isExistValue(skill_type, 'active','touch') then
-        --vars['activeSprite']:setVisible(false)
-        vars['skillLabel']:setString('액티브')
+	-- 스킬 타입 텍스트
+	local skill_type_str = self:getSkillTypeStr(skill_type, false)
+    vars['skillLabel']:setString(skill_type_str)
+	if isExistValue(skill_type, 'active', 'touch') then
         vars['skillLabel']:setColor(cc.c3b(0,255,0))
     else
-        --vars['activeSprite']:setVisible(false)
-        vars['skillLabel']:setString('패시브')
         vars['skillLabel']:setColor(cc.c3b(255,255,30))
     end
 
@@ -49,7 +46,7 @@ function UI_SkillCard:getSkillName(skill_id, skill_type)
     local table_skill = TABLE:get(table_name)
     local t_skill = table_skill[skill_id]
 
-    local skill_type_str = getSkillTypeStr(skill_type, true)
+    local skill_type_str = self:getSkillTypeStr(skill_type, true)
 
     return Str(t_skill['t_name'] .. skill_type_str)
 end
@@ -69,8 +66,8 @@ end
 -------------------------------------
 -- function getSkillTypeStr
 -------------------------------------
-function UI_SkillCard:getSkillTypeStr(skill_type)
-    return getSkillTypeStr(skill_type, false)
+function UI_SkillCard:getSkillTypeStr(skill_type, is_use_brakets)
+    return getSkillTypeStr(skill_type, is_use_brakets)
 end
 
 -------------------------------------
@@ -95,7 +92,7 @@ function UI_SkillCard:getSkillDescStr(skill_id, skill_type)
     local table_skill = TABLE:get(table_name)
     local t_skill = table_skill[skill_id]
 
-    local skill_type_str = getSkillTypeStr(skill_type, true)
+    local skill_type_str = self:getSkillTypeStr(skill_type, true)
 
     local desc = IDragonSkillManager:getSkillDescPure(t_skill)
 

@@ -64,6 +64,7 @@ end
 -------------------------------------
 function UI_SkillDetailPopup_Tamer:show()
     self.root:setVisible(true)
+	g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_SkillDetailPopup_Tamer')
 end
 
 -------------------------------------
@@ -71,6 +72,7 @@ end
 -------------------------------------
 function UI_SkillDetailPopup_Tamer:hide()
     self.root:setVisible(false)
+	g_currScene:removeBackKeyListener(self)
 end
 
 -------------------------------------

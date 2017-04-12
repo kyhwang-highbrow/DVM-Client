@@ -35,8 +35,7 @@ function UI_SkillDetailPopupListItem_Tamer:initUI()
 
     do -- 스킬 타입
         local skill_idx = self.m_skillIdx
-        local evolution = skill_idx
-        local str = getSkillType_byEvolution(evolution)
+        local str = getSkillType_Tamer(skill_idx)
         vars['skillTypeLabel']:setString(str)
     end
 
