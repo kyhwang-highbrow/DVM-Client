@@ -6,9 +6,9 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_TamerManagePopup = class(PARENT, {
 		m_currTamerID = 'num',
 		m_selectedTamerID = 'num',
-		m_tamerTable = 'TableClass',
+		m_lTamerItemList = '',
 
-		m_lTamerProfileItemList = '',
+		m_skillUI = 'UI',
      })
 
 -------------------------------------
@@ -28,7 +28,9 @@ function UI_TamerManagePopup:init()
 	-- 멤버 변수
 	self.m_currTamerID = g_userData:getTamerInfo('tid')
 	self.m_selectedTamerID = self.m_currTamerID
-	self.m_lTamerProfileItemList = {}
+	self.m_lTamerItemList = {}
+	self.m_skillUI = UI_SkillDetailPopup_Tamer()
+	self.m_skillUI:hide()
 
 	-- 초기화
     self:initUI()
@@ -93,7 +95,7 @@ function UI_TamerManagePopup:initTamerItem()
 		end
 
 		-- 테이머 아이템 맵핑
-		self.m_lTamerProfileItemList[tamer_id] = tamer_item
+		self.m_lTamerItemList[tamer_id] = tamer_item
 
 		vars['profileNode' .. idx]:addChild(tamer_item.root)
 
@@ -107,7 +109,7 @@ end
 -------------------------------------
 function UI_TamerManagePopup:setTamerRes()
 	local vars = self.vars
-	local t_tamer = self.m_lTamerProfileItemList[self.m_selectedTamerID]:getTamerTable()
+	local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
 
 	-- 기존 이미지 정리
 	vars['tamerNode']:removeAllChildren(true)
@@ -132,7 +134,7 @@ end
 -------------------------------------
 function UI_TamerManagePopup:setTamerText()
 	local vars = self.vars
-	local t_tamer = self.m_lTamerProfileItemList[self.m_selectedTamerID]:getTamerTable()
+	local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
 
 	-- 테이머 이름
 	local tamer_name = t_tamer['t_name']
@@ -149,10 +151,11 @@ end
 -------------------------------------
 function UI_TamerManagePopup:setTamerSkill()
 	local vars = self.vars
-	local t_tamer = self.m_lTamerProfileItemList[self.m_selectedTamerID]:getTamerTable()
+	local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
 
 	local function func_skill_detail_btn()
-        UI_SkillDetailPopup_Tamer(t_tamer)
+        self.m_skillUI:show()
+		self.m_skillUI:refresh(t_tamer)
     end
 
 	-- 스킬1의 정보
@@ -236,7 +239,7 @@ function UI_TamerManagePopup:click_tamerBtn(tamer_item)
 	end
 
 	-- 기존 테이머 unSelect
-	local old_tamer_item = self.m_lTamerProfileItemList[self.m_selectedTamerID]
+	local old_tamer_item = self.m_lTamerItemList[self.m_selectedTamerID]
 	old_tamer_item:selectTamer(false)
 
 	-- 새로운 테이머 select
@@ -245,6 +248,12 @@ function UI_TamerManagePopup:click_tamerBtn(tamer_item)
 
 	-- refresh
 	self:refresh()
+
+	-- skill popup refresh
+	if (self.m_skillUI:isShow()) then
+		local t_tamer = tamer_item:getTamerTable()
+		self.m_skillUI:refresh(t_tamer)
+	end
 end
 
 -------------------------------------
@@ -257,11 +266,11 @@ function UI_TamerManagePopup:click_selectBtn()
 	-- 콜백
 	local function cb_func()
 		-- 기존 테이머 unUse
-		local old_tamer_item = self.m_lTamerProfileItemList[self.m_currTamerID]
+		local old_tamer_item = self.m_lTamerItemList[self.m_currTamerID]
 		old_tamer_item:setUseTamer(false)
 
 		-- 새로운 테이머 use
-		local new_tamer_item = self.m_lTamerProfileItemList[tamer_id]
+		local new_tamer_item = self.m_lTamerItemList[tamer_id]
 		new_tamer_item:setUseTamer(true)
 
 		-- 사용중 테이머 ID 갱신

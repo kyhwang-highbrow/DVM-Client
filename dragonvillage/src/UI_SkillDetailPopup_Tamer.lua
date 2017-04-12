@@ -12,12 +12,12 @@ UI_SkillDetailPopup_Tamer = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SkillDetailPopup_Tamer:init(t_tamer, is_simple_mode)
+function UI_SkillDetailPopup_Tamer:init(t_tamer)
     self.m_tableTamer = t_tamer
     self.m_bSimpleMode = is_simple_mode
 
     local vars = self:load('tamer_skill_detail_popup.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.NORMAL)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_SkillDetailPopup_Tamer')
@@ -44,10 +44,13 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_SkillDetailPopup_Tamer:refresh()
-    local t_tamer = self.m_tableTamer
-    local vars = self.vars
+function UI_SkillDetailPopup_Tamer:refresh(t_tamer)
+    local t_tamer = t_tamer or self.m_tableTamer
+	if (not t_tamer) then
+		return
+	end
 
+    local vars = self.vars
     local skill_mgr = MakeTamerSkill_Temp(t_tamer)
     for i= 1, 3 do
         vars['skillNode' .. i]:removeAllChildren()
@@ -57,10 +60,31 @@ function UI_SkillDetailPopup_Tamer:refresh()
 end
 
 -------------------------------------
+-- function show
+-------------------------------------
+function UI_SkillDetailPopup_Tamer:show()
+    self.root:setVisible(true)
+end
+
+-------------------------------------
+-- function hide
+-------------------------------------
+function UI_SkillDetailPopup_Tamer:hide()
+    self.root:setVisible(false)
+end
+
+-------------------------------------
+-- function isShow
+-------------------------------------
+function UI_SkillDetailPopup_Tamer:isShow()
+    return self.root:isVisible()
+end
+
+-------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_SkillDetailPopup_Tamer:click_closeBtn()
-    self:close()
+    self:hide()
 end
 
 --@CHECK
