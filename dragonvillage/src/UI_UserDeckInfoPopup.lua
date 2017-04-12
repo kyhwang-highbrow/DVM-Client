@@ -159,6 +159,13 @@ function RequestUserDeckInfoPopup(uid, deck_name)
     deck_name = (deck_name or '1')
 
     local function success_cb(ret)
+
+        if ret['dragons'] then
+            for i,v in pairs(ret['dragons']) do
+                ret['dragons'][i] = StructDragonObject(v)
+            end
+        end
+
         UI_UserDeckInfoPopup(ret)
         --UI_UserDeckInfoPopup(ret['lv'], ret['nick'], ret['guild_name'], ret['dragons'])
     end

@@ -184,8 +184,7 @@ function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
     local vars = self.vars
 
     -- 능력치 계산기
-    local doid = t_dragon_data['id']
-    local status_calc = MakeOwnDragonStatusCalculator(doid)
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
     vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))

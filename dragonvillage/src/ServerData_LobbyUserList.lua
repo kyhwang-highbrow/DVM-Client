@@ -95,6 +95,12 @@ end
 -- function applyLobbyUserInfo
 -------------------------------------
 function ServerData_LobbyUserList:applyLobbyUserInfo(lobby_user_info)
+    for i,v in pairs(lobby_user_info) do
+        if v['leader'] then
+            v['leader'] = StructDragonObject(v['leader'])
+        end
+    end
+
     self.m_serverData:applyServerData(lobby_user_info, 'lobby_user_list')
 
     -- 플레이어의 리더(lobby)드래곤의 doid를 저장
