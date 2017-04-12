@@ -13,6 +13,7 @@ UI_ExplorationReady = class(PARENT,{
         m_currDragonCnt = 'number',
         m_focusDeckSlotEffect = 'cc.Sprite',
         m_dragonSortManager = 'SortManager_Dragon',
+        m_bActive = 'boolean',
     })
 
 -------------------------------------
@@ -36,6 +37,7 @@ function UI_ExplorationReady:init(epr_id)
     self.m_selectedDragonMap = {}
     self.m_currSlotIdx = 1
     self.m_currDragonCnt = 0
+    self.m_bActive = false
 
     local vars = self:load('exploration_ready.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -321,6 +323,7 @@ function UI_ExplorationReady:click_explorationBtn()
     local function request()
         local function finish_cb(ret)
             UIManager:toastNotificationGreen('드래곤 5마리가 탐험을 떠났습니다.')
+            self.m_bActive = true
             self:close()
         end
 

@@ -58,10 +58,6 @@ function UI_ExplorationIng:initUI()
     local hours = my_location_info['hours']
     vars['timeLabel']:setString(Str('{1} 시간', hours))
 
-    -- 획득하는 경험치 표시
-    local add_exp = location_info[tostring(hours) .. '_hours_exp']
-    vars['expLabel']:setString(comma_value(add_exp))
-
     -- 획득하는 아이템 리스트
     local reward_items_str = location_info[tostring(hours) .. '_hours_items']
     local reward_items_list = g_itemData:parsePackageItemStr(reward_items_str)
@@ -109,6 +105,16 @@ function UI_ExplorationIng:initUI()
         local bg_node = vars['bgNode']
         ResHelper:makeUIAdventureChapterBG(bg_node, chapter)
     end
+
+    -- 모험의 order가 모험모드의 chapter로 간주한다
+    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
+    local chapter = location_info['order']
+
+    local res = string.format('res/ui/icon/stage_mini_%.2d.png', chapter)
+    local icon = cc.Sprite:create(res)
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+    vars['stageNode']:addChild(icon)
 end
 
 -------------------------------------
@@ -143,15 +149,19 @@ function UI_ExplorationIng:refresh()
         vars['cancelBtn']:setVisible(true)
         vars['completeBtn']:setVisible(true)
         vars['rewardBtn']:setVisible(false)
-        vars['timeLabelMenu']:setVisible(true)
+
+        vars['stateLabel']:setString(Str('탐험 중'))
 
     elseif (status == 'exploration_complete') then
-        vars['explorationTimeLabel']:setString('')
+        -- 탐험 시간
+        local hours = my_location_info['hours']
+        vars['timeLabel']:setString(Str('{1} 시간', hours))
 
         vars['cancelBtn']:setVisible(false)
         vars['completeBtn']:setVisible(false)
         vars['rewardBtn']:setVisible(true)
-        vars['timeLabelMenu']:setVisible(false)
+
+        vars['stateLabel']:setString(Str('탐험 완료'))
     end
 
 end
@@ -169,13 +179,12 @@ function UI_ExplorationIng:update(dt)
     local remain_time = (end_time - server_time)
 
     if remain_time > 0 then
+        -- 탐험 시간
         local time_str = datetime.makeTimeDesc(remain_time, true)
-        vars['explorationTimeLabel']:setString(Str('{1} 남음', time_str))
+        local hours = my_location_info['hours']
+        vars['timeLabel']:setString(Str('{1} 남음', time_str) .. '/' .. Str('{1} 시간', hours))
     else
         self:refresh()
-        --self.m_status = 'exploration_complete'
-        --vars['explorationTimeLabel']:setString('')
-        --self.root:unscheduleUpdate()
     end
 end
 

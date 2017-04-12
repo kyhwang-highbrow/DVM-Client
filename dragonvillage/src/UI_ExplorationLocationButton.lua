@@ -157,7 +157,12 @@ function UI_ExplorationLocationButton:click_clickBtn()
 
     elseif (self.m_status == 'exploration_idle') then
         local ui = UI_ExplorationReady(self.m_eprID)
-        ui:setCloseCB(function() self:refresh() end)
+        ui:setCloseCB(function()
+                self:refresh()
+                if (ui.m_bActive) then
+                    self:click_clickBtn()
+                end
+            end)
 
     elseif (self.m_status == 'exploration_ing') or (self.m_status == 'exploration_complete') then
         local ui = UI_ExplorationIng(self.m_eprID)

@@ -47,12 +47,6 @@ function UI_ExplorationResultPopup:initUI()
     local hours = self.m_hours
     vars['locationTimeLabel']:setString(Str('{1} {2} 시간', location, hours))
 
-    do -- 보상 아이템 갯수
-        local l_item_list = self.m_data['added_items']['items_list']
-        local item_cnt = #l_item_list
-        vars['rewardLabel']:setString(Str('탐험 보상으로 {1}개의 아이템을 얻었습니다.', item_cnt))
-    end
-
     do
         -- 획득하는 아이템 리스트
         local l_item_list = self.m_data['added_items']['items_list']
@@ -69,11 +63,6 @@ function UI_ExplorationResultPopup:initUI()
             ui.root:runAction(cc.Sequence:create(cc.DelayTime:create((i-1) * 0.025), cc.ScaleTo:create(0.25, scale)))
         end
     end
-    
-
-    -- 획득 경험치
-    local exp = location_info[tostring(hours) .. '_hours_exp']
-    vars['expLabel']:setString(comma_value(exp))
 
     do -- 드래곤 실리소스
         local l_dragon_list = self.m_data['modified_dragons']
@@ -132,6 +121,16 @@ function UI_ExplorationResultPopup:initUI()
         local bg_node = vars['bgNode']
         ResHelper:makeUIAdventureChapterBG(bg_node, chapter)
     end
+
+    -- 모험의 order가 모험모드의 chapter로 간주한다
+    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
+    local chapter = location_info['order']
+
+    local res = string.format('res/ui/icon/stage_mini_%.2d.png', chapter)
+    local icon = cc.Sprite:create(res)
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+    vars['stageNode']:addChild(icon)
 end
 
 -------------------------------------
