@@ -29,8 +29,23 @@ function StatusEffectHelper:statusEffectCheck_onHit(activity_carrier, defender)
 end
 
 -------------------------------------
+-- function doStatusEffectByTable
+-- @brief 별도의 타겟을 가져오지 않고 스킬 테이블 통해서 상태효과 시전
+-------------------------------------
+function StatusEffectHelper:doStatusEffectByTable(char, t_skill, cb_func)
+	-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
+	local l_target = char:getTargetListByTable(t_skill)
+			
+	-- 2. 상태효과 구조체
+	local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
+			
+	-- 3. 타겟에 상태효과생성
+	StatusEffectHelper:doStatusEffectByStruct(char, l_target, l_status_effect_struct, cb_func)
+end
+
+-------------------------------------
 -- function doStatusEffectByStruct
--- @brief statuseffect struct 사용함
+-- @brief 별도의 타겟을 받아와서 외부에서 상태효과 구조체 생성하여 상태효과 시전
 -------------------------------------
 function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_status_effect_struct, cb_invoke)
     -- 피격자가 사망했을 경우 리턴
@@ -138,7 +153,6 @@ end
 -- function setTriggerPassive
 -------------------------------------
 function StatusEffectHelper:setTriggerPassive(char, t_skill)
-	error('mskim에게 문의주세요 : setTriggerPassive')
 	--[[
 	-- 없앨지 말지 고민중
 	상태효과 자체가 이벤트를 처리하지 않고
@@ -149,14 +163,14 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	
 	과거) 캐릭터 -> 상태효과 발동 -> 상태효과 상존하면서 이벤트 체크
 	미래) 캐릭터 이벤트 체크 -> 스킬 실행 -> 상태효과 실행
+	]]
 
 	-- 상태효과 타입
-	local status_effect_type = self:getStatusEffectTableFromSkillTable(t_skill, 1)['type']
+	local status_effect_type = t_skill['add_option_type_1']
     
-	-- @TODO TableStatusEffect 도 만들어야함
 	local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type] or {}
-
+	
 	-- res attr parsing
     local res = t_status_effect['res']
 	if (res) then 
@@ -175,7 +189,6 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	char.m_world:addToUnitList(status_effect)
 
     return status_effect
-	]]
 end
 
 -------------------------------------
@@ -322,78 +335,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	end
 
     return status_effect
-end
-
--------------------------------------
--- function invokePassive
--------------------------------------
-function StatusEffectHelper:invokePassive(char, t_skill)
-	local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
-	
-	-- 1. 발동 조건 확인 (발동되지 않을 경우 리턴)
-	-- 기획 이슈로 제거
-
-	-- 2. 타겟 대상에 passive생성
-	local idx = 1
-	local effect_str = nil
-	local t_effect = nil
-	local type = nil 
-	local target_type = nil
-    local start_con = nil
-	local duration = nil
-	local rate = nil
-	local value_1 = nil
-	local value_2 = nil
-
-	while true do 
-		-- 1. 파싱할 구문 가져오고 탈출 체크
-		status_effect_struct = l_status_effect_struct[idx]
-		if (not status_effect_struct) then 
-			break 
-		end
-
-		-- 2. 파싱하여 규칙에 맞게 분배
-		type = status_effect_struct.m_type
-		target_type = status_effect_struct.m_targetType
-        trigger = status_effect_struct.m_trigger
-		duration = status_effect_struct.m_duration
-		rate = status_effect_struct.m_rate
-		value_1 = status_effect_struct.m_value1
-		value_2 = status_effect_struct.m_value2
-		
-		local function apply_world_passive_effect(char)
-			local world = char.m_world
-			-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-			if (not world.m_mPassiveEffect[char]) then
-				world.m_mPassiveEffect[char] = {}
-			end
-			world.m_mPassiveEffect[char][t_skill['t_name']] = true
-		end
-
-		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
-		
-		-- 스킬 타겟타입에 의한 타겟 리스트
-		if (target_type == 'target') then
-			local l_target = char:getTargetListByTable(t_skill)
-			for _, target in ipairs(l_target) do
-				StatusEffectHelper:invokeStatusEffect(owner, target, type, value_1, rate, duration)
-				apply_world_passive_effect(target)
-			end
-
-		-- 별도의 계산된 타겟 리스트 사용
-		elseif (target_type) then
-			local l_target = char:getTargetListByType(target_type, nil)
-			for _, target in ipairs(l_target) do
-				cclog(target_type, target:getName())
-				StatusEffectHelper:invokeStatusEffect(owner, target, type, value_1, rate, duration)
-				apply_world_passive_effect(target)
-			end
-
-		end
-
-		-- 4. 인덱스 증가
-		idx = idx + 1
-	end
 end
 
 -------------------------------------

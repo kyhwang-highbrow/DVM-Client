@@ -86,36 +86,28 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		local chance_value = t_skill['chance_value']
 
 		-- [패시브]
-		if string.find(skill_type, 'passive') then
-			-- 특수하게 정의된 것들
-			if (skill_type == 'passive_shield') then
-				SkillShield:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (skill_type == 'passive_continuous') then
-				SkillContinuous:makeSkillInstance(self, t_skill, t_data)
-				return true
-			else
-				-- 리더 버프 (기존 상시 패시브)
-				if (chance_value == 'none') then 
-					return StatusEffectHelper:invokePassive(self, t_skill)
-				
-				-- 트리거 설정하는 패시브
-				else
-					return StatusEffectHelper:setTriggerPassive(self, t_skill)
+		if (chance_type == 'passive') then
+			-- 리더 버프 (기존 상시 패시브)
+			if (chance_value == '') or (chance_value == 'start') then 
+				-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
+				local function apply_world_passive_effect(char)
+					local world = self.m_world
+					if (not world.m_mPassiveEffect[char]) then
+						world.m_mPassiveEffect[char] = {}
+					end
+					world.m_mPassiveEffect[char][t_skill['t_name']] = true
 				end
+
+				StatusEffectHelper:doStatusEffectByTable(self, t_skill, apply_world_passive_effect)
+				
+			-- 트리거 설정하는 패시브
+			else
+				return StatusEffectHelper:setTriggerPassive(self, t_skill)
 			end
-		
+
 		-- [상태 효과]만 거는 스킬
 		elseif string.find(skill_type, 'status_effect') then
-			-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
-			local l_target = self:getTargetListByTable(t_skill)
-			
-			-- 2. 상태효과 구조체
-			local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
-			
-			-- 3. 타겟에 상태효과생성
-			StatusEffectHelper:doStatusEffectByStruct(self, l_target, l_status_effect_struct)
+			StatusEffectHelper:doStatusEffectByTable(self, t_skill)
 			return true
 
 		-- [스킬]

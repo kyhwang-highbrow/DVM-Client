@@ -67,6 +67,7 @@ function Tamer:init_tamer(t_tamer, bLeftFormationend)
 
 	-- Tamer Skill 설정
 	self:initSkill()
+	self:initLogRecorder(t_tamer['tid'])
 
 	-- TAMER UI 생성
 	self.m_world.m_inGameUI:initTamerUI(self)

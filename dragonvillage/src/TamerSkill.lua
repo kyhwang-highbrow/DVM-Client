@@ -157,17 +157,27 @@ function Tamer:doSkill(skill_idx)
 		self:checkTarget(t_skill)
 	end
 	
-	-- 테이머 전용 스킬을 먼저 체크한다
-	if string.find(skill_type, 'tamer_skill_') then
+	-- [ACTIVE]
+	if string.find(skill_type, 'tamer_skill_active') then
+		-- 상태효과 시전
+		StatusEffectHelper:doStatusEffectByTable(self, t_skill, function()
+			-- 스킬별 추가 효과
+			if (skill_type == 'tamer_skill_active_kesath') then
+				-- 케사스 액티브 : 아군 중 피가 제일 많은 녀석의 체력을 깎는다.
+				local hp_rate = (1 - (t_skill['val_1']/100))
+				for i, char in pairs(l_target) do
+					local after_hp = (char.m_hp * hp_rate)
+					local damage = char.m_hp - after_hp
+					char:setHp(after_hp)
+					char:makeDamageFont(damage, char.pos.x, char.pos.y)
+				end
+			end
+		end)
+	
+	-- [EVENT]
+	elseif string.find(skill_type, 'tamer_skill_event') then
 		-- 1. 타겟리스트 생성
-		local l_target 
-		if (skill_idx == TAMER_SKILL_EVENT) then
-			-- 발동형 스킬의 경우 target_char를 가져오는.... 규칙을 정해야함.
-			l_target = {self.m_targetChar}
-		else
-			-- skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
-			l_target = self:getTargetListByTable(t_skill)
-		end
+		local l_target = {self.m_targetChar}
 			
 		-- 2. 상태효과 구조체
 		local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
@@ -175,24 +185,12 @@ function Tamer:doSkill(skill_idx)
 		-- 3. 타겟에 상태효과생성
 		StatusEffectHelper:doStatusEffectByStruct(self, l_target, l_status_effect_struct)
 
-		-- 4. 스킬별 추가 효과
-		if (skill_type == 'tamer_skill_acitve_kesath') then
-			-- 케사스 액티브 : 아군 중 피가 제일 많은 녀석의 체력을 깎는다.
-			local hp_rate = (1 - (t_skill['val_1']/100))
-			for i, char in pairs(l_target) do
-				local after_hp = (char.m_hp * hp_rate)
-				local damage = char.m_hp - after_hp
-				char:setHp(after_hp)
-				char:makeDamageFont(damage, char.pos.x, char.pos.y)
-			end
-		end
-
-	-- 일반 스킬로 보낸다.
+	-- [PASSIVE]
 	else
 		PARENT.doSkillBySkillTable(self, t_skill, nil)
 	end
 
-
+	-- 쿨타임 갱신
     self.m_lSkillCoolTimer[skill_idx] = t_skill['cooldown'] 
 
 	return true
