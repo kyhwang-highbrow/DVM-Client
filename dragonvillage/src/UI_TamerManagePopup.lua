@@ -119,7 +119,7 @@ function UI_TamerManagePopup:setTamerRes()
 	local illustration_res = t_tamer['res']
     local illustration_animator = MakeAnimator(illustration_res)
     vars['tamerNode']:addChild(illustration_animator.m_node)
-	self:adjustTamerIllustration(illustration_animator, t_tamer['type'])
+	--self:adjustTamerIllustration(illustration_animator, t_tamer['type'])
 
 	-- 테이머 SD
 	local sd_res = t_tamer['res_sd']
