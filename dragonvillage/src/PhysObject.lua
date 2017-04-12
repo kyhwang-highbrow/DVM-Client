@@ -304,30 +304,15 @@ end
 -- @param y
 -------------------------------------
 function PhysObject:isIntersectBody(opponentBody, x, y)
-    if (self.body.size <= 0) then return false end
+    if self.body.size <= 0 then return false end
 
-    local function check(body)
-        local d = math_pow(self.pos.x + body.x - (x + opponentBody.x), 2) + math_pow(self.pos.y + body.y - (y + opponentBody.y), 2)
-        local dist = math_sqrt(d)    
-        if dist < (opponentBody.size + body.size) then
-            return true, ((self.pos.x + body.x + x) / 2), ((self.pos.y + body.y + y) / 2)
-        else 
-            return false, 0, 0
-        end
+    local d = math_pow(self.pos.x + self.body.x - (x + opponentBody.x), 2) + math_pow(self.pos.y + self.body.y - (y + opponentBody.y), 2)
+    local dist = math_sqrt(d)    
+    if dist < (opponentBody.size + self.body.size) then
+        return true, ((self.pos.x + self.body.x + x) / 2), ((self.pos.y + self.body.y + y) / 2)
+    else 
+        return false, 0, 0
     end
-
-    local is_collision = false
-    local l_body = {}
-
-    for i, body in ipairs(self:getBodyList()) do
-        local b, x, y = check(body)
-        if (b) then
-            is_collision = true
-            table.insert(l_body, body)
-        end
-    end
-    
-    return is_collision, l_body
 end
 
 -------------------------------------

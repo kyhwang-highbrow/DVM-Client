@@ -53,7 +53,5 @@ function TableMonsterHitPos:getBodyList(mid)
         str = t_table['body_' .. idx]
     end
 
-    cclog('TableDragonType:getBodyList ret = ' .. luadump(ret))
-
     return ret
 end

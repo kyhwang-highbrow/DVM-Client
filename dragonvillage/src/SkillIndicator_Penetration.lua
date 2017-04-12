@@ -17,11 +17,6 @@ SkillIndicator_Penetration = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_Penetration:init(hero, t_skill)
-	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'ENUMRATE_ANGLE_LIMIT')
-	self.m_indicatorDistanceLimit = g_constant:get('SKILL', 'ENUMRATE_DIST_LIMIT')
-
-	self.m_lIndicatorEffectList = {}
-	self.m_lEffectList = {}
 end
 
 -------------------------------------
@@ -29,6 +24,12 @@ end
 -------------------------------------
 function SkillIndicator_Penetration:init_indicator(t_skill)
 	PARENT.init_indicator(self, t_skill)
+
+    self.m_indicatorAngleLimit = g_constant:get('SKILL', 'ENUMRATE_ANGLE_LIMIT')
+	self.m_indicatorDistanceLimit = g_constant:get('SKILL', 'ENUMRATE_DIST_LIMIT')
+
+	self.m_lIndicatorEffectList = {}
+	self.m_lEffectList = {}
 
 	local skill_size = t_skill['skill_size']
 	if (skill_size) and (not (skill_size == '')) then
@@ -242,24 +243,31 @@ function SkillIndicator_Penetration:findTarget(l_attack_pos, l_dir)
 		for i, object in ipairs(t_collision_obj) do
 			-- 중복 제거 위한 처리
 			t_temp[object['phys_idx']] = object
-		end
-        for i, body_key in ipairs(l_collision_bodys) do
-			-- 중복 제거 위한 처리
-            if (not t_temp_bodys[object['phys_idx']]) then
-                t_temp_bodys[object['phys_idx']] = {}
-            end
-			t_temp_bodys[object['phys_idx']][body_key] = true
+
+            local body_keys = l_collision_bodys[i]
+
+            for i, body_key in ipairs(body_keys) do
+			    -- 중복 제거 위한 처리
+                if (not t_temp_bodys[object['phys_idx']]) then
+                    t_temp_bodys[object['phys_idx']] = {}
+                end
+			    t_temp_bodys[object['phys_idx']][body_key] = true
+		    end
 		end
 	end
 	
 	-- 인덱스 테이블로 다시 담는다
-	for i, object in pairs(t_temp) do
+	for _, object in pairs(t_temp) do
 		table.insert(t_ret, object)
+
+        local body_keys = {}
+        for body_key, _ in pairs(t_temp_bodys[object['phys_idx']]) do
+            table.insert(body_keys, body_key)
+	    end
+
+        table.insert(t_ret_bodys, body_keys)
 	end
-    for body_key, _ in pairs(t_temp_bodys) do
-		table.insert(t_ret_bodys, body_key)
-	end
-	
+    	
 	return t_ret, t_ret_bodys
 end
 

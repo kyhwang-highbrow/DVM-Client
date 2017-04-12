@@ -190,6 +190,7 @@ function PhysWorld:update(dt)
 
     -- for문 안에서 변수를 재할당 하지 않도록 미리 선언
     local body = nil
+    local body_key = nil
     local object_phys_idx = nil
     local x = 0
     local y = 0
@@ -232,58 +233,56 @@ function PhysWorld:update(dt)
 
 			-- 다중 충돌 체크
             elseif (object.enable_body) then
-                body = object.body
+                --body = object.body
+                local bodys = object:getBodyList()
+                for i, v in ipairs(object:getBodyList()) do
+                    body = v
+                    body_key = v['key']
 
-                -- 충돌 idx
-                if object.m_ownerObject then
-                    object_phys_idx = object.m_ownerObject.phys_idx
-                else
-                    object_phys_idx = object.phys_idx
-                end
-                check_phys_idx = {}
+                    -- 충돌 idx
+                    if object.m_ownerObject then
+                        object_phys_idx = object.m_ownerObject.phys_idx
+                    else
+                        object_phys_idx = object.phys_idx
+                    end
+                    check_phys_idx = {}
 
-				-- 해당 phys group의 충돌체크할 상대의 키 리스트
-                l_enemy_key = self.m_collisionGroup[phys_key]
-                if l_enemy_key and body.size > 0 then
-                    x    = object.pos.x
-                    y    = object.pos.y
-                    check_phys_idx = {} -- posindex를 여러군데 걸쳤을 경우를 위해
+				    -- 해당 phys group의 충돌체크할 상대의 키 리스트
+                    l_enemy_key = self.m_collisionGroup[phys_key]
+                    if l_enemy_key and body.size > 0 then
+                        x    = object.pos.x
+                        y    = object.pos.y
+                        check_phys_idx = {} -- posindex를 여러군데 걸쳤을 경우를 위해
                     
-					-- 해당 오브젝트의 body에 해당하는 모든 idx를 순회
-                    for x_idx = object.m_posIndexMinX, object.m_posIndexMaxX do
-                        for y_idx = object.m_posIndexMinY, object.m_posIndexMaxY do
-                    
-					        for _, enemy_key in pairs(l_enemy_key) do
-                                for _, enemy in pairs(self.m_objPosIndex[enemy_key][x_idx][y_idx]) do
-                                    -- 충돌리스트를 가져온다.
-                                    if enemy.m_ownerObject then
-                                        t_collision = enemy.m_ownerObject.t_collision
-                                    else
-                                        t_collision = enemy.t_collision
-                                    end
+					    -- 해당 오브젝트의 body에 해당하는 모든 idx를 순회
+                        for x_idx = object.m_posIndexMinX, object.m_posIndexMaxX do
+                            for y_idx = object.m_posIndexMinY, object.m_posIndexMaxY do                    
+					            for _, enemy_key in pairs(l_enemy_key) do
+                                    for _, enemy in pairs(self.m_objPosIndex[enemy_key][x_idx][y_idx]) do
+                                        -- 충돌리스트를 가져온다.
+                                        if enemy.m_ownerObject then
+                                            t_collision = enemy.m_ownerObject.t_collision
+                                        else
+                                            t_collision = enemy.t_collision
+                                        end
 
-									-- 이미 충돌했는지 체크
-                                    if (not check_phys_idx[enemy.phys_idx] and enemy.enable_body) then
+									    -- 이미 충돌했는지 체크
+                                        if (not check_phys_idx[enemy.phys_idx] and enemy.enable_body) then
                                         
-										-- 해당 physobject와 충돌체크 했는지 저장
-                                        check_phys_idx[enemy.phys_idx] = true
+										    -- 해당 physobject와 충돌체크 했는지 저장
+                                            check_phys_idx[enemy.phys_idx] = true
 
-                                        -- 점과 점의 거리를 이용하여 충돌 여부 확인
-                                        ret, bodys = enemy:isIntersectBody(body, x, y)
+                                            -- 점과 점의 거리를 이용하여 충돌 여부 확인
+                                            ret, intersect_pos_x, intersect_pos_y = enemy:isIntersectBody(body, x, y)
 
-                                        if (ret) then
-											-- 충돌 한 것으로 저장 (해당 오브젝트에 전달)
-                                            if (not t_collision[object_phys_idx]) then
-                                                t_collision[object_phys_idx] = {}
-                                            end
-                                            
-											for i, body in ipairs(bodys) do
-                                                local body_key = body.key
+                                            if (ret) then
+											    -- 충돌 한 것으로 저장 (해당 오브젝트에 전달)
+                                                if (not t_collision[object_phys_idx]) then
+                                                    t_collision[object_phys_idx] = {}
+                                                end
+
                                                 if (not t_collision[object_phys_idx][body_key]) then
                                                     t_collision[object_phys_idx][body_key] = true
-
-                                                    local intersect_pos_x = (enemy.pos.x + body.x + x) / 2
-                                                    local intersect_pos_y = (enemy.pos.y + body.y + y) / 2
 
                                                     -- 충돌 콜백 실행
                                                     enemy:runAtkCallback(object, intersect_pos_x, intersect_pos_y)
@@ -297,6 +296,7 @@ function PhysWorld:update(dt)
                         end
                     end
                 end
+
             end
         end
     end
@@ -352,57 +352,66 @@ function PhysWorld:refreshPosInfo(phys_obj)
         end
     end
 
-    local size = phys_obj.body.size
+    local function setPosIndex(body)
 
-    local body_center_x = phys_obj.pos.x + phys_obj.body.x
-    local body_center_y = phys_obj.pos.y + phys_obj.body.y
+        local size = body.size
 
-    local pos_min_x = body_center_x - size
-    local pos_max_x = body_center_x + size
-    local pos_min_y = body_center_y - size
-    local pos_max_y = body_center_y + size
+        local body_center_x = phys_obj.pos.x + body.x
+        local body_center_y = phys_obj.pos.y + body.y
 
-    -- min_x 지정
-    phys_obj.m_posIndexMinX = #self.m_gridX + 1
-    for i,v in ipairs(self.m_gridX) do
-        if pos_min_x < v then
-            phys_obj.m_posIndexMinX = i
-            break
-        end    
-    end
+        local pos_min_x = body_center_x - size
+        local pos_max_x = body_center_x + size
+        local pos_min_y = body_center_y - size
+        local pos_max_y = body_center_y + size
 
-    -- max_x 지정
-    phys_obj.m_posIndexMaxX = #self.m_gridX + 1
-    for i,v in ipairs(self.m_gridX) do
-        if pos_max_x < v then
-            phys_obj.m_posIndexMaxX = i
-            break
-        end    
-    end
-
-    -- min_y 지정
-    phys_obj.m_posIndexMinY = #self.m_gridY + 1
-    for i,v in ipairs(self.m_gridY) do
-        if pos_min_y < v then
-            phys_obj.m_posIndexMinY = i
-            break
-        end    
-    end
-
-    -- max_y 지정
-    phys_obj.m_posIndexMaxY = #self.m_gridY + 1
-    for i,v in ipairs(self.m_gridY) do
-        if pos_max_y < v then
-            phys_obj.m_posIndexMaxY = i
-            break
-        end    
-    end
-
-    -- 새로운 인덱스 추가
-    for x=phys_obj.m_posIndexMinX, phys_obj.m_posIndexMaxX do
-        for y=phys_obj.m_posIndexMinY, phys_obj.m_posIndexMaxY do
-            self.m_objPosIndex[phys_obj.phys_key][x][y][phys_obj.phys_idx] = phys_obj
+        -- min_x 지정
+        phys_obj.m_posIndexMinX = #self.m_gridX + 1
+        for i,v in ipairs(self.m_gridX) do
+            if pos_min_x < v then
+                phys_obj.m_posIndexMinX = i
+                break
+            end    
         end
+
+        -- max_x 지정
+        phys_obj.m_posIndexMaxX = #self.m_gridX + 1
+        for i,v in ipairs(self.m_gridX) do
+            if pos_max_x < v then
+                phys_obj.m_posIndexMaxX = i
+                break
+            end    
+        end
+
+        -- min_y 지정
+        phys_obj.m_posIndexMinY = #self.m_gridY + 1
+        for i,v in ipairs(self.m_gridY) do
+            if pos_min_y < v then
+                phys_obj.m_posIndexMinY = i
+                break
+            end    
+        end
+
+        -- max_y 지정
+        phys_obj.m_posIndexMaxY = #self.m_gridY + 1
+        for i,v in ipairs(self.m_gridY) do
+            if pos_max_y < v then
+                phys_obj.m_posIndexMaxY = i
+                break
+            end    
+        end
+
+        -- 새로운 인덱스 추가
+        for x=phys_obj.m_posIndexMinX, phys_obj.m_posIndexMaxX do
+            for y=phys_obj.m_posIndexMinY, phys_obj.m_posIndexMaxY do
+                self.m_objPosIndex[phys_obj.phys_key][x][y][phys_obj.phys_idx] = phys_obj
+            end
+        end
+    end
+
+    local bodys = phys_obj:getBodyList()
+
+    for i, body in ipairs(bodys) do
+        setPosIndex(body)
     end
 
     phys_obj.m_dirtyPos = false
