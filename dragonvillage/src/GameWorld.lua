@@ -10,8 +10,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gameNode1 = 'cc.Node',
         m_gameNode2 = 'cc.Node',
         m_gameNode3 = 'cc.Node',
-        m_feverNode = 'cc.Node',
-
+        
         m_gridNode = 'cc.Node',
         m_bgNode = 'cc.Node',
         m_darkLayer = 'cc.LayerColor',
@@ -103,7 +102,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 -------------------------------------
 -- function init
 -------------------------------------
-function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, fever_node, ui, develop_mode)
+function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode)
     self.m_gameMode = game_mode
     self.m_stageID = stage_id
     self.m_inGameUI = ui
@@ -115,8 +114,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameNode1 = game_node1
     self.m_gameNode2 = game_node2
     self.m_gameNode3 = game_node3
-    self.m_feverNode = fever_node
-    
+        
     self.m_bDevelopMode = develop_mode or false
 
     self.m_bPreventControl = false
@@ -1530,8 +1528,6 @@ end
 -------------------------------------
 function GameWorld:onEvent(event_name, t_event, ...)
     if (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, t_event, ...)
-    elseif (event_name == 'fever_start') then   self.m_gameState:changeState(GAME_STATE_FIGHT_FEVER)
-    elseif (event_name == 'fever_end') then     self.m_gameState:changeState(GAME_STATE_FIGHT)
     elseif (event_name == 'dragon_summon') then
         self.m_tamer.m_animator:changeAni('i_summon', false)
         self.m_tamer.m_animator:addAniHandler(function()

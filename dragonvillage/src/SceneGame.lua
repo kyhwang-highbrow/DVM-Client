@@ -21,7 +21,6 @@ SceneGame = class(PerpleScene, {
         m_gameNode1 = 'cc.Node',        -- 게임 레이어 (배경, 유닛, 미사일 영역)
         m_gameNode2 = 'cc.Node',        -- 게임 레이어 (이펙트 및 폰트 영역)
         m_gameNode3 = 'cc.Node',        -- 게임 레이어 (pause, resume 제외하는 이펙트 및 폰트 영역)
-        m_feverNode = 'cc.Node',        -- 피버 레이어
         m_gameIndicatorNode = 'cc.Node',
         m_gameHighlightNode = 'cc.Node',    -- 하이라이트 레이어
         
@@ -127,10 +126,6 @@ function SceneGame:init_layer()
 						self.m_gameNode3 = cc.Node:create()
 						self.m_worldLayer:addChild(self.m_gameNode3)
 
-						-- 피버 레이어
-						self.m_feverNode = cc.Node:create()
-						self.m_worldLayer:addChild(self.m_feverNode)
-
 						-- 암전용 레이어
 						self.m_colorLayerForSkill = cc.LayerColor:create()
 						self.m_colorLayerForSkill:setColor(cc.c3b(0, 0, 0))
@@ -200,7 +195,7 @@ function SceneGame:prepare()
 
         -- 레이어 생성
         self:init_layer()
-        self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_feverNode, self.m_inGameUI, self.m_bDevelopMode)
+        self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
         self.m_gameWorld:initGame(self.m_stageName)
         
         -- 스크린 사이즈 초기화
@@ -273,10 +268,6 @@ function SceneGame:gamePause()
     end
 	
     doAllChildren(self.m_viewLayer, f_pause)
-	--self.m_shakeLayer:pause()
-    --doAllChildren(self.m_gameNode1, f_pause)
-    --doAllChildren(self.m_gameNode2, f_pause)
-    --doAllChildren(self.m_feverNode, f_pause)
 end
 
 -------------------------------------
@@ -290,10 +281,6 @@ function SceneGame:gameResume()
     end
 
     doAllChildren(self.m_viewLayer, f_resume)
-	--self.m_shakeLayer:resume()
-    --doAllChildren(self.m_gameNode1, f_resume)
-    --doAllChildren(self.m_gameNode2, f_resume)
-    --doAllChildren(self.m_feverNode, f_resume)
 end
 
 -------------------------------------

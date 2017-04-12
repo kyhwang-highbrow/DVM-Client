@@ -11,7 +11,7 @@ GameWorldColosseum = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, fever_node, ui, develop_mode)
+function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode)
     self.m_diedHeroTotalMaxHp = 0
     self.m_diedEnemyTotalMaxHp = 0
     
@@ -106,9 +106,23 @@ end
 -- function initTamer
 -------------------------------------
 function GameWorldColosseum:initTamer()
-    PARENT.initTamer(self)
+    -- 아군 테이머 생성
+    local t_tamer = g_userData:getTamerInfo()
+    self.m_tamer = self:makeTamerNew(t_tamer)
+    self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
+    self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     
-    -- TODO: 상대편 테이머 생성
+    -- 적군 테이머 생성
+    --[[
+    local user_info = g_colosseumData:getVsUserInfo()
+    local tid = user_info::getTamer()
+    local t_tamer = TableTamer():get(tid)
+    
+    self.m_tamer = self:makeTamerNew(t_tamer)
+    self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
+    self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
+    self:addListener('dragon_summon', self)
+    ]]--
 end
 
 -------------------------------------
@@ -286,7 +300,7 @@ end
 -- @TODO 상대편 덱 정보를 받아서 생성해야함
 -------------------------------------
 function GameWorldColosseum:makeEnemyDeck()
-    local user_info = g_colosseumData.m_vsUserInfo
+    local user_info = g_colosseumData:getVsUserInfo()
 
     -- 상대방의 덱 정보를 얻어옴
     local l_deck, formation = user_info:getDeck()

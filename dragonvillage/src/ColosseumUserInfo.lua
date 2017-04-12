@@ -18,6 +18,7 @@ ColosseumUserInfo = class({
         m_loseCnt = 'number',
         m_winCnt = 'number',
 
+        m_tamer = '',
         m_dragons = '',
         m_runes = '',
         m_deckInfo = '',  
@@ -46,6 +47,7 @@ function ColosseumUserInfo:init_default()
     self.m_lv = 1
     self.m_loseCnt = 0
     self.m_winCnt = 0
+    self.m_tamer = 0
     self.m_dragons = {}
     self.m_runes = {}
     self.m_deckInfo = {}
@@ -144,6 +146,14 @@ function ColosseumUserInfo:setIsPlayer(value)
 end
 
 -------------------------------------
+-- function setTamer
+-- @brief 사용중인 테이머
+-------------------------------------
+function ColosseumUserInfo:setTamer(tamer)
+    self.m_tamer = tamer
+end
+
+-------------------------------------
 -- function setDragons
 -- @brief 보유 드래곤
 -------------------------------------
@@ -167,6 +177,13 @@ function ColosseumUserInfo:setDeckInfo(value)
     self.m_deckInfo = value
 end
 
+-------------------------------------
+-- function getDeck
+-- @brief 사용중인 테이머
+-------------------------------------
+function ColosseumUserInfo:getTamer()
+    return self.m_tamer
+end
 
 -------------------------------------
 -- function getDeck

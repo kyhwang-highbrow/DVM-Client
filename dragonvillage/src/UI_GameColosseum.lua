@@ -43,7 +43,6 @@ function UI_GameColosseum:initButton()
 	local vars = self.vars
 
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
-	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
 end

@@ -174,7 +174,6 @@ function getPreloadList_Common()
     local ret = {
         'res/effect/effect_melee_charge/effect_melee_charge.plist',
         'res/effect/effect_missile_charge/effect_missile_charge.plist',
-        'res/effect/effect_fever/effect_fever.plist',
         'res/effect/effect_hit_01/effect_hit_01.plist',
         'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.plist',
         'res/effect/effect_skillcasting/effect_skillcasting.plist',

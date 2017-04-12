@@ -20,20 +20,22 @@ function UI_Game:initTamerUI(tamer)
 
 	-- @TODO 3개였다가 1개로 변경.. 추후에 확정되면 정리
 	for i = 1, 1 do
-		local res = tamer.m_lSkill[i]['res_icon']
-		local icon = cc.Sprite:create(res)
-		if icon then
-			icon:setDockPoint(cc.p(0.5, 0.5))
-			icon:setAnchorPoint(cc.p(0.5, 0.5))
-			vars['tamerSkillNode' .. i]:addChild(icon)
-		end
+        if (vars['tamerSkillNode' .. i]) then
+		    local res = tamer.m_lSkill[i]['res_icon']
+		    local icon = cc.Sprite:create(res)
+		    if icon then
+			    icon:setDockPoint(cc.p(0.5, 0.5))
+			    icon:setAnchorPoint(cc.p(0.5, 0.5))
+			    vars['tamerSkillNode' .. i]:addChild(icon)
+		    end
 		
-		if (i < 3) then
-			vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
-		else
-			vars['tamerSkillBtn' .. i]:setEnabled(false)
-			vars['tamerSkillGauge' .. i]:setPercentage(100)
-		end
+		    if (i < 3) then
+			    vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
+		    else
+			    vars['tamerSkillBtn' .. i]:setEnabled(false)
+			    vars['tamerSkillGauge' .. i]:setPercentage(100)
+		    end
+        end
 	end
 
 end

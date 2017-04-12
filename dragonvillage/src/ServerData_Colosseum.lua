@@ -162,6 +162,7 @@ function ServerData_Colosseum:response_colosseumStart(ret, cb)
     self.m_vsUserInfo:setTier(ret['vs_info']['tier']) -- 티어
     self.m_vsUserInfo:setNickname(ret['vs_info']['nickname']) -- 닉네임
     self.m_vsUserInfo:setUid(ret['vs_info']['uid']) -- UID
+    self.m_vsUserInfo:setTamer(ret['vs_info']['tamer']) -- 테이머
 
     self.m_vsUserInfo:setDragons(ret['vs_dragons'])
     self.m_vsUserInfo:setRunes(ret['vs_runes'])
