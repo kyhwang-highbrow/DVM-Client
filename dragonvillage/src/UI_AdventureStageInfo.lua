@@ -183,6 +183,29 @@ end
 -- function refresh_monsterList
 -------------------------------------
 function UI_AdventureStageInfo:refresh_monsterList()
+    local node = self.vars['monsterListNode']
+    --node:removeAllChildren()
+
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.6)
+    end
+
+    -- stage_id로 몬스터 아이콘 리스트
+    local stage_id = self.m_stageID
+    local l_item_list = g_stageData:getMonsterIDList(stage_id)
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(94, 98)
+    table_view:setCellUIClass(UI_MonsterCard, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setItemList(l_item_list)
+    table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
+
+    --[[
+    -- 인연던전때문에 참고용으로 코드를 남겨둠
     local vars = self.vars
     local stage_id = self.m_stageID
 
@@ -236,6 +259,7 @@ function UI_AdventureStageInfo:refresh_monsterList()
         table_view_ext:setItemInfo(l_monster_id)
         table_view_ext:update()
     end
+    --]]
 end
 
 -------------------------------------
@@ -243,34 +267,28 @@ end
 -- @brief 획득 가능 보상
 -------------------------------------
 function UI_AdventureStageInfo:refresh_rewardInfo()
+    local node = self.vars['dropListNode']
+    --node:removeAllChildren()
+
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.6)
+    end
+
     -- stage_id로 드랍정보를 얻어옴
     local stage_id = self.m_stageID
     local drop_helper = DropHelper(stage_id)
     local l_item_list = drop_helper:getDisplayItemList()
 
-    local list_table_node = self.vars['dropListNode']
-    list_table_node:removeAllChildren()
 
-    -- 리스트 아이템 생성 콜백
-    local function create_func(item)
-        local ui = item['ui']
-        ui.root:setDockPoint(cc.p(0, 0))
-        ui.root:setAnchorPoint(cc.p(0, 0))
-        ui.root:setScale(0.6)
-    end
-
-    -- 클릭 콜백 함수
-    local function click_item(item)
-        local ui = item['ui']
-        ui:click_clickBtn()
-    end
-
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.HORIZONTAL)
-    table_view_ext:setCellInfo(94, 90)
-    table_view_ext:setItemUIClass(UI_ItemCard, click_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    table_view_ext:setItemInfo(l_item_list)
-    table_view_ext:update()
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(94, 98)
+    table_view:setCellUIClass(UI_ItemCard, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setItemList(l_item_list)
+    table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
 end
 
 -------------------------------------
