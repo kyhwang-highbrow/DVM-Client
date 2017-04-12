@@ -103,6 +103,8 @@ end
 -- function initUI
 -------------------------------------
 function UI_ReadyScene:initUI()
+    local vars = self.vars
+
     self:init_dragonTableView()
     self:initFormationUI()
 
@@ -113,6 +115,14 @@ function UI_ReadyScene:initUI()
         vars['staminaNode']:addChild(icon)
     end
 
+    -- 배경
+    local attr = TableDrop:getStageAttr(self.m_stageID)
+    if self:checkVarsKey('bgNode', attr) then
+        vars['bgNode']:removeAllChildren()
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end
+
     self:initTab()
 
 
@@ -120,7 +130,8 @@ function UI_ReadyScene:initUI()
     local vars = self.vars
     vars['buffInfoBtn']:setVisible(false)
     vars['leaderBtn']:setVisible(false)
-    vars['leaderBtn']:setVisible(false)
+    vars['leaderSprite']:setVisible(false)
+    vars['cpNode']:setVisible(false)
 end
 
 -------------------------------------
@@ -132,7 +143,7 @@ function UI_ReadyScene:initTab()
     self:addTab('reward', vars['rewardInfoBtn'], vars['rewardListView'])
     self:addTab('monster', vars['mosnterInfoBtn'], vars['monsterListView'])
 
-    self:setTab('monster')
+    self:setTab('reward')
 end
 
 -------------------------------------
