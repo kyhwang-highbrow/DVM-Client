@@ -121,7 +121,7 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
                 if v1 == v2 then
                     t[header[i]] = tonumber(v2)
                 else
-                    t[header[i]] = string.gsub(v1, '\\n', '\n')
+                    t[header[i]] = string.gsub(v1, '\\\\n', '\n')
                 end
 
                 -- nil값 포함
