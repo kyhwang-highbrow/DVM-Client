@@ -55,7 +55,11 @@ end
 -- function selectTamer
 -------------------------------------
 function UI_TamerManageItem:selectTamer(is_select)
+	-- 선택 표시
 	self.vars['selectSprite']:setVisible(is_select)
+
+	-- 선택 액션
+	self.root:stopAllActions()
 	local time = 0.2
 	if (is_select) then
 		local move_action = cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 20)), 2)
@@ -70,6 +74,7 @@ end
 -- function setUseTamer
 -------------------------------------
 function UI_TamerManageItem:setUseTamer(is_use)
+	-- 사용중 표시
 	self.vars['useSprite']:setVisible(is_use)
 end
 

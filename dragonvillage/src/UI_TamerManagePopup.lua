@@ -122,6 +122,7 @@ function UI_TamerManagePopup:setTamerRes()
 	-- 테이머 SD
 	local sd_res = t_tamer['res_sd']
 	local sd_animator = MakeAnimator(sd_res)
+	sd_animator:setFlip(true)
     vars['tamerSdNode']:addChild(sd_animator.m_node)
 end
 
@@ -147,6 +148,26 @@ end
 -- @brief
 -------------------------------------
 function UI_TamerManagePopup:setTamerSkill()
+	local vars = self.vars
+	local t_tamer = self.m_lTamerProfileItemList[self.m_selectedTamerID]:getTamerTable()
+
+	local function func_skill_detail_btn()
+        UI_SkillDetailPopup_Tamer(t_tamer)
+    end
+
+	-- 스킬1의 정보
+	local skill_mgr = MakeTamerSkill_Temp(t_tamer)
+	local l_skill_icon = skill_mgr:getDragonSkillIconList()
+	for i = 1, 3 do 
+		local skill_icon = l_skill_icon[i]
+		if (skill_icon) then
+			vars['skillNode' .. i]:removeAllChildren()
+			vars['skillNode' .. i]:addChild(skill_icon.root)
+
+			skill_icon.vars['clickBtn']:registerScriptTapHandler(func_skill_detail_btn)
+			skill_icon.vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+		end
+	end
 end
 
 -------------------------------------

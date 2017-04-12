@@ -44,7 +44,9 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
     self:initSkillIDList()
 
     -- 기본 공격 지정
-    self:setSkillID('basic', t_character['skill_basic'], 1)
+	if (t_character['skill_basic']) then
+		self:setSkillID('basic', t_character['skill_basic'], 1)
+	end
 
     -- 기본 드래그 스킬 지정
     if t_character['skill_active'] then
@@ -58,8 +60,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
 	local table_skill = GetSkillTable(self.m_charType)
     for i = 1, max_idx do
         local skill_id = t_character['skill_' .. i]
-        local skill_type = table_skill:getSkillType(skill_id)
-
+		local skill_type = table_skill:getSkillType(skill_id)
         if skill_type and skill_id then
             self:setSkillID(skill_type, skill_id, self:getSkillLevel(i))
         end
@@ -226,6 +227,10 @@ end
 -- function getSkillIndivisualInfo_usingIdx
 -------------------------------------
 function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
+	if (self.m_charType == 'tamer') and (idx == 0) then 
+		return nil
+	end
+
     local t_character = self.m_charTable
 
     local skill_id
@@ -249,7 +254,7 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
 
     if (skill_type) and skill_id ~= 0 then
         local skill_lv = self:getSkillLevel(idx)
-        local skill_indivisual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
+        local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
 		-- active 강화가 활성화 되지 않으면 기본 값이 나오도록...
 		if (skill_lv == 0) then
 			t_add_value = nil
@@ -547,12 +552,39 @@ function MakeDragonSkillFromDragonData(t_dragon_data)
 end
 
 -------------------------------------
+-- function MakeTamerSkill_Temp
+-- @brief 테이머 스킬도 skillManager를 사용
+-------------------------------------
+function MakeTamerSkill_Temp(t_tamer)
+    local tamer_id = t_tamer['tid']
+    local skill_00_lv = 0
+    local skill_01_lv = 1
+    local skill_02_lv = 1
+    local skill_03_lv = 1
+
+	-- 드래곤 스킬 매니저 생성
+	local dragon_skill_mgr = DragonSkillManager()
+
+    -- 스킬 레벨 설정
+    dragon_skill_mgr:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
+
+    -- 스킬들 설정
+    local char_type = 'tamer'
+    local char_id = tamer_id
+    dragon_skill_mgr:initDragonSkillManager(char_type, char_id)
+
+    return dragon_skill_mgr
+end
+
+-------------------------------------
 -- function GetSkillTable
 -------------------------------------
 function GetSkillTable(char_type)
 	if (char_type == 'dragon') then
 		return TableDragonSkill()
-	else
+	elseif (char_type == 'monster') then
 		return TableMonsterSkill()
+	elseif (char_type == 'tamer') then
+		return TableTamerSkill()
 	end
 end

@@ -36,7 +36,6 @@ function UI_DragonDetailPopup:click_exitBtn()
     self:close()
 end
 
-
 -------------------------------------
 -- function initUI
 -------------------------------------

@@ -33,6 +33,63 @@
 			};
 			[2] =
 			{
+				type = 'Node';
+				ui_name = '';
+				x = -250.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 230;
+				height = 430;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'skillNode1';
+			};
+			[3] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 230;
+				height = 430;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'skillNode2';
+			};
+			[4] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 250.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 230;
+				height = 430;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'skillNode3';
+			};
+			[5] =
+			{
 				type = 'Button';
 				ui_name = '';
 				x = -20.000000;
@@ -54,63 +111,6 @@
 				selected = 'ui/btn/close_02.png';
 				disable = '';
 				image_type = 0;
-			};
-			[3] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = -250.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 230;
-				height = 430;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'skillNode1';
-			};
-			[4] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 230;
-				height = 430;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'skillNode2';
-			};
-			[5] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 250.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 230;
-				height = 430;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'skillNode3';
 			};
 			type = 'Menu';
 			ui_name = '';

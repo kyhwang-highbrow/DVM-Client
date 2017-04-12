@@ -28,7 +28,7 @@ end
 -------------------------------------
 function Tamer:setTamerEventSkill()
 	local t_skill = self.m_lSkill[TAMER_SKILL_EVENT]
-	local trigger_type = t_skill['chance_type']
+	local trigger_type = t_skill['chance_value']
 	if (trigger_type ~= '') then
 		for i, dragon in pairs(self.m_world:getDragonList()) do
 			dragon:addListener(trigger_type, self)
@@ -223,7 +223,7 @@ function Tamer:checkEventSkill(skill_idx, event_name)
 	local t_skill = self.m_lSkill[skill_idx]
 	
 	-- 적합한 이벤트 타입인지 체크
-	if (event_name ~= t_skill['chance_type']) then
+	if (event_name ~= t_skill['chance_value']) then
 		return false
 	end
 
@@ -238,7 +238,7 @@ function Tamer:checkEventSkill(skill_idx, event_name)
 	end
 
 	-- 발동 확률 체크 (100단위 사용 심플)
-	local chance_value = t_skill['chance_value']
+	local chance_value = t_skill['chance_value_2']
 	local random_100 = math_random(1, 100)
 	if (chance_value < random_100) then
 		return false

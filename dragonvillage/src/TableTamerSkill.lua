@@ -61,3 +61,50 @@ function TableTamerSkill:getSkillLevel()
 
 	return skill_lv
 end
+
+-------------------------------------
+-- function getSkillIcon
+-------------------------------------
+function TableTamerSkill:getSkillIcon(key)
+    local t_skill = self:get(key)
+
+    local res_name = t_skill['res_icon']
+    local sprite = cc.Sprite:create(res_name)
+
+    if (not sprite) then
+        sprite = cc.Sprite:create('res/ui/icon/skill/developing.png')
+    end
+
+    sprite:setDockPoint(cc.p(0.5, 0.5))
+    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+
+    return sprite
+end
+
+-------------------------------------
+-- function getSkillName
+-------------------------------------
+function TableTamerSkill:getSkillName(key)
+	if (not key) or (key == '') then return end
+    local t_skill = self:get(key)
+    return t_skill['t_name']
+end
+
+-------------------------------------
+-- function getSkillDesc
+-------------------------------------
+function TableTamerSkill:getSkillDesc(key)
+	if (not key) or (key == '') then return end
+    local t_skill = self:get(key)
+    local desc = IDragonSkillManager:getSkillDescPure(t_skill)
+    return desc
+end
+
+-------------------------------------
+-- function getSkillType
+-------------------------------------
+function TableTamerSkill:getSkillType(key)
+	if (not key) or (key == '') then return end
+    local t_skill = self:get(key)
+    return t_skill['chance_type']
+end

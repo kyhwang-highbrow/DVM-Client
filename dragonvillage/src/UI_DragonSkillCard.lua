@@ -15,8 +15,9 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
 
     local vars = self:load('skill_item_new.ui')
 
+	local char_type = skill_indivisual_info.m_charType
     local skill_id = skill_indivisual_info.m_skillID
-    local icon = IconHelper:getSkillIcon('dragon', skill_id)
+    local icon = IconHelper:getSkillIcon(char_type, skill_id)
     vars['skillNode']:addChild(icon)
 
     do -- 스킬 타입 표시

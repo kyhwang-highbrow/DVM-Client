@@ -516,8 +516,6 @@ local t_module = {
     'UI_ColosseumFirstRewardListItem',
     'UI_ColosseumRankingReward',
     'UI_ColosseumFirstReward',
-    'UI_TamerManagePopup',
-    'UI_TamerManageItem',
 	'UI_QuestPopup',
     'UI_QuestListItem',
     'UI_MailPopup',
@@ -597,6 +595,13 @@ local t_module = {
     'UI_DragonRunesEnhance',
     'UI_DragonFriendship',
 
+	-- 테이머 관리
+	'UI_TamerManagePopup',
+    'UI_TamerManageItem',
+	'UI_SkillDetailPopup_Tamer',
+    'UI_SkillDetailPopupListItem_Tamer',
+
+	-- 출석 이벤트
     'UI_AttendanceBasicListItem',
     'UI_AttendanceSpecialListItem',
 

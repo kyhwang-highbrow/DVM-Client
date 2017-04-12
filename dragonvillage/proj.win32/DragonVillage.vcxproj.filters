@@ -1908,6 +1908,12 @@
     <None Include="..\src\UI_TamerManageItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_SkillDetailPopupListItem_Tamer.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SkillDetailPopup_Tamer.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
