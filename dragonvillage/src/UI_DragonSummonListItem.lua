@@ -48,6 +48,10 @@ function UI_DragonSummonListItem:initUI()
         vars['textNode']:addChild(sprite)
     end
     
+
+    -- 무료 뽑기 관련 UI 숨김
+    vars['freeLabel']:setVisible(false)
+    vars['freeBtn']:setVisible(false)
 end
 
 -------------------------------------

@@ -117,7 +117,7 @@ function UI_DragonSummon:init_tableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(944 + 10, 545)
+    table_view.m_defaultCellSize = cc.size(584 + 10, 604)
     table_view:setCellUIClass(UI_DragonSummonListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
 
