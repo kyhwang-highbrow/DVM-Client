@@ -106,20 +106,15 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     end
 
 	local t_status_effect = TABLE:get('status_effect')[status_effect_type]
-	
-	-- 확률 검사
-	do
-		local se_acc = caster:getStat('accuracy')
-		local se_resist = target_char:getStat('resistance')
-		local adj_rate = (status_effect_rate + se_acc - se_resist)
+	local status_effect_group = t_status_effect['type']
 
-		if (math_random(1, 1000) > adj_rate * 10) then 
-			return nil
-		end
+	-- 확률 검사
+	if self:checkPermillRate(caster, target_char, status_effect_rate, status_effect_group) then
+		return nil
 	end
-	
+	 
 	-- 면역 효과
-	if (target_char.m_isImmuneSE) and self:isHarmful(t_status_effect['type']) then 
+	if (target_char.m_isImmuneSE) and self:isHarmful(status_effect_group) then 
 		return nil
 	end
     
@@ -424,6 +419,29 @@ function StatusEffectHelper:invokeStatusEffectForDev(char, res)
 
 	status_effect:initState()
     status_effect:changeState('start')
+end
+
+-------------------------------------
+-- function checkPermillRate
+-------------------------------------
+function StatusEffectHelper:checkPermillRate(caster, target_char, status_effect_rate, status_effect_group)
+	local is_helpful = self:isHarmful(status_effect_group)
+	
+	local se_acc = caster:getStat('accuracy')
+	local se_resist
+	if (is_helpful) then
+		se_resist = 0
+	else
+		se_resist = is_helpful and 0 or target_char:getStat('resistance')
+	end
+
+	local adj_rate = (status_effect_rate + se_acc - se_resist)
+
+	if (math_random(1, 1000) < adj_rate * 10) then 
+		return true
+	end
+
+	return false
 end
 
 -------------------------------------
