@@ -1,5 +1,5 @@
 type,pos_01,pos_02,pos_03,pos_04,pos_05,pos_06,pos_07,pos_08,pos_09,pos_10,pos_11,pos_12,pos_13,pos_14,pos_15,pos_16,pos_17,pos_18,pos_19,pos_20,pos_21,comment
-design,RF12,RF16,RF24,RM11,RM13,RM15,RM17,RM24,RB12,RB16,,,,,,,,,,,,
+design,RF12,RF14,RF16,RM12,RM14,RM16,RB13,RB15,RB22,RB24,RB26,,,,,,,,,,,
 wait,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,지정 시간동안 대기용으로 사용
 RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,
 RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,
@@ -82,7 +82,8 @@ c2_s4_3,RF12,RF16,RM11,RM17,RM14,RB24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드
 c2_s5_1,RF22,RB13,RM14,RB15,RF26,RF14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c2_s5_2,RF13,RF15,RM12,RM14,RM16,RB13,RB15,RB22,RB26,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c2_s5_3,RM24,RF22,RF26,RM21,RM27,RB24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c2_s6_1,RF12,RF14,RF16,RF23,RF25,RM11,RM17,RB13,RM24,RB15,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s6_1,RF12,RF14,RF16,RM12,RM14,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c2_s6_1_2,RM12,RM14,RM16,RF12,RF14,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c2_s6_2,RF14,RF23,RF25,RM14,RM22,RB13,RB15,RM26,RF11,RF17,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c2_s6_3,RF11,RF17,RF21,RF27,RM11,RM17,RM21,RM27,RB11,RB17,RB22,RB23,RB24,RB25,RB26,RM14,x,x,x,x,x,모험모드 기본 진형
 c2_s7_1,RB13,RB15,RM11,RM22,RM26,RM17,RF12,RF24,RF16,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
@@ -275,6 +276,8 @@ move_40,RF11,RF17,RF22,RF26,RM11,RM17,RM22,RM26,RB11,RB17,RM14,x,x,x,x,x,x,x,x,x
 set_1,RF22,RF22,RF22,RF26,RF26,RF26,RB24,RB24,RB24,x,x,x,x,x,x,x,x,x,x,x,x,3점 준비
 set_1_s,RF22,RF26,RB24,RF22,RF26,RB24,RF22,RF26,RB24,x,x,x,x,x,x,x,x,x,x,x,x,3점 준비 다른 버전
 set_2,RM12,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+movement_1_1,RF12,RF14,RF16,RM12,RM14,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+movement_1_2,RM12,RM14,RM16,RF12,RF14,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 relation_1_0,RB14,RF14,RF22,RF26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
 relation_1_1,RM11,RM13,RM15,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
 relation_1_2,RF23,RF25,RM23,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
