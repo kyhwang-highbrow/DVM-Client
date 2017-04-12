@@ -126,6 +126,7 @@ function TableRuneSet:runeSetAnalysis(l_rid)
         -- 필요한 갯수만큼 장착되었을 경우 활성화
         if (t_set_data['need_equip'] <= t_set_data['count']) then
             t_set_data['active'] = true
+            t_set_data['active_cnt'] = math_floor(t_set_data['count'] / t_set_data['need_equip'])
         end
     end
 

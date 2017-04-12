@@ -67,7 +67,9 @@ function StructRuneSetObject:getActiveRuneSetList()
     for i=1, RUNE_SLOT_MAX do
         local t_set_data = rune_set_analysis[i]
         if t_set_data and t_set_data['active'] then
-            table.insert(active_set_list, t_set_data['set_id'])
+            for j=1, t_set_data['active_cnt'] do
+                table.insert(active_set_list, t_set_data['set_id'])
+            end
         end
     end
 
