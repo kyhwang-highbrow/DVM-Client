@@ -83,6 +83,7 @@ function UI_DragonSummonListItem:initButton()
 
     -- 무료 소환
     vars['freeBtn']:registerScriptTapHandler(function() self:click_freeBtn(1) end)
+    vars['freeBtn']:setAutoShake(true)
 end
 
 -------------------------------------
