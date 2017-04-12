@@ -22,6 +22,8 @@ end
 -------------------------------------
 function UI_DragonInfoBoard:initUI()
     local vars = self.vars
+
+    vars['friendshipGauge']:setPercentage(0)
 end
 
 -------------------------------------
@@ -67,7 +69,7 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
         local lv = (t_dragon_data['lv'] or 1)
         local grade = (t_dragon_data['grade'] or 1)
         local eclv = (t_dragon_data['eclv'] or 0)
-        local lv_str = Str('{1}/{2}', lv, dragonMaxLevel(grade, eclv))
+        local lv_str = Str('레벨 {1}/{2}', lv, dragonMaxLevel(grade, eclv))
         vars['lvLabel']:setString(lv_str)
     end
 
@@ -97,10 +99,14 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
     end
 
     -- 친밀도
-    if vars['friendshipLabel'] then
-        --local t_friendship_info = TableFriendship:getFriendshipLvAndExpInfo(t_dragon_data)
-        --vars['friendshipLabel']:setString(t_friendship_info['name'])
-        --vars['friendshipGauge']:setPercentage(t_friendship_info['percentage'])
+    if vars['friendshipLabel'] and vars['friendshipGauge'] then
+        local friendship_obj = t_dragon_data:getFriendshipObject()
+        local t_friendship_info = friendship_obj:getFriendshipInfo()
+
+        vars['friendshipLabel']:setString(t_friendship_info['name'])
+
+        vars['friendshipGauge']:stopAllActions()
+        vars['friendshipGauge']:runAction(cc.ProgressTo:create(0.3, t_friendship_info['exp_percent']))
     end
 
 
