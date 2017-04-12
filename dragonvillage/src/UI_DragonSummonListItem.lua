@@ -6,6 +6,8 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 UI_DragonSummonListItem = class(PARENT, {
         m_tItemData = 'table',
         m_refreshCB = 'function',
+        m_freeType = 'string',
+        m_bFreeMode = 'boolean',
     })
 
 -------------------------------------
@@ -13,6 +15,7 @@ UI_DragonSummonListItem = class(PARENT, {
 -------------------------------------
 function UI_DragonSummonListItem:init(t_item_data)
     self.m_tItemData = t_item_data
+    self.m_bFreeMode = false
 
     local vars = self:load('dragon_summon_list_item.ui')
 
@@ -52,6 +55,18 @@ function UI_DragonSummonListItem:initUI()
     -- 무료 뽑기 관련 UI 숨김
     vars['freeLabel']:setVisible(false)
     vars['freeBtn']:setVisible(false)
+
+    do
+        local dsmid = t_item_data['dsmid']
+        local free_type = g_dragonSummonData:getFreeDragonSummonType(dsmid)
+
+        self.m_freeType = free_type
+
+        if free_type then
+            vars['freeLabel']:setVisible(true)
+            self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+        end
+    end
 end
 
 -------------------------------------
@@ -65,6 +80,9 @@ function UI_DragonSummonListItem:initButton()
 
     -- 단차 소환
     vars['buyBtn2']:registerScriptTapHandler(function() self:click_buyBtn(1) end)
+
+    -- 무료 소환
+    vars['freeBtn']:registerScriptTapHandler(function() self:click_freeBtn(1) end)
 end
 
 -------------------------------------
@@ -80,6 +98,31 @@ end
 -------------------------------------
 function UI_DragonSummonListItem:refresh()
     self:refresh_priceInfo()
+    self:refresh_freeSummon()
+end
+
+-------------------------------------
+-- function refresh_freeNormalSummon
+-------------------------------------
+function UI_DragonSummonListItem:refresh_freeSummon()
+    if (not self.m_freeType) then
+        return
+    end
+
+    local vars = self.vars
+    local free_type = self.m_freeType
+    if (not g_dragonSummonData:canFreeDragonSummon(free_type)) then
+        vars['buyBtn2']:setVisible(true)
+        vars['freeBtn']:setVisible(false)
+        self.m_bFreeMode = false
+    else
+        -- 이벤트 노드 hide
+        vars['eventPriceNode2']:setVisible(false)
+        vars['buyBtn2']:setVisible(false)
+        vars['freeBtn']:setVisible(true)
+        vars['freeLabel']:setString('')
+        self.m_bFreeMode = true
+    end
 end
 
 -------------------------------------
@@ -151,6 +194,7 @@ end
 function UI_DragonSummonListItem:click_buyBtn(type)
     -- 드래곤 소환에 필요한 매개변수들 생성
     local dsmid, price_type, price, is_discount = self:makeSummonRequestParams(type)
+    local is_free = false
 
     -- 컨펌 확인 콜백
     local function ok_cb()
@@ -164,12 +208,35 @@ function UI_DragonSummonListItem:click_buyBtn(type)
         end
 
         -- 서버에 드래곤 소환 요청
-        g_dragonSummonData:request_dragonSummon(dsmid, type, price_type, price, is_discount, finish_cb)
+        g_dragonSummonData:request_dragonSummon(dsmid, type, price_type, price, is_discount, is_free, finish_cb)
     end
 
     -- 구매 여부 확인
     local msg = self:makeSummonConfirmMsg(dsmid, price_type, price, is_discount, type)
     MakeSimplePopup_Confirm(price_type, price, msg, ok_cb, nil)
+end
+
+-------------------------------------
+-- function click_freeBtn
+-------------------------------------
+function UI_DragonSummonListItem:click_freeBtn()
+    local type = 1
+
+    -- 드래곤 소환에 필요한 매개변수들 생성
+    local dsmid, price_type, price, is_discount = self:makeSummonRequestParams(type)
+    local is_free = true
+
+    local function finish_cb(ret)
+        if self.m_refreshCB then
+            self.m_refreshCB()
+        end
+
+        local l_dragon_list = ret['added_dragons']
+        UI_GachaResult_Dragon(l_dragon_list)
+    end
+
+    -- 서버에 드래곤 소환 요청
+    g_dragonSummonData:request_dragonSummon(dsmid, type, price_type, price, is_discount, is_free, finish_cb)
 end
 
 -------------------------------------
@@ -238,4 +305,26 @@ function UI_DragonSummonListItem:makeSummonConfirmMsg(dsmid, price_type, price, 
     --msg = msg .. '\n' .. Str('이벤트 소환의 경우 횟수 제한이 있을 수 있습니다. 횟수는 "10+1회", "1회"가 동시 적용됩니다.')
 
     return msg
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_DragonSummonListItem:update(dt)
+    if (not self.m_freeType) then
+        return
+    end
+
+    if self.m_bFreeMode then
+        return
+    end
+
+    local free_type = self.m_freeType
+    local text = g_dragonSummonData:getFreeDragonSummonTimeText(free_type)
+    local vars = self.vars
+    vars['freeLabel']:setString(text)
+
+    if g_dragonSummonData:canFreeDragonSummon(free_type) then
+        self:refresh_freeSummon()
+    end
 end

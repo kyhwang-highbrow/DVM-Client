@@ -11,6 +11,9 @@ ServerData_DragonSummon = class({
         -- 유저의 진행 정보
         m_userSummonInfo = 'table',
         m_mileage = 'number', -- 마일리지 보유량
+
+        -- 무료 드래곤 소환 정보
+        m_freeSummonInfo = 'StructFreeDragonSummonInfo',
     })
 
 -------------------------------------
@@ -66,6 +69,11 @@ function ServerData_DragonSummon:organizeData(ret)
 
     self.m_userSummonInfo = table.listToMap(ret['user_summon_info'], 'dsmid')
     self.m_mileage = ret['mileage']
+
+    -- 무료 뽑기 데이터 갱신
+    if ret['free_summon_info'] then
+        self.m_freeSummonInfo = StructFreeDragonSummonInfo(ret['free_summon_info'])
+    end
 end
 
 -------------------------------------
@@ -164,7 +172,7 @@ end
 -------------------------------------
 -- function request_dragonSummon
 -------------------------------------
-function ServerData_DragonSummon:request_dragonSummon(dsmid, type, price_type, price, is_discount, finish_cb)
+function ServerData_DragonSummon:request_dragonSummon(dsmid, type, price_type, price, is_discount, is_free, finish_cb)
 
     -- 유저 ID
     local uid = g_userData:get('uid')
@@ -179,6 +187,11 @@ function ServerData_DragonSummon:request_dragonSummon(dsmid, type, price_type, p
 
         -- 마일리지 갱신
         self.m_mileage = ret['mileage']
+
+        -- 무료 뽑기 데이터 갱신
+        if ret['free_summon_info'] then
+            self.m_freeSummonInfo = StructFreeDragonSummonInfo(ret['free_summon_info'])
+        end
 
         local user_info = self:getUserSummonInfo(dsmid)
         user_info['purchase_cnt'] = (user_info['purchase_cnt'] + 1)
@@ -197,6 +210,7 @@ function ServerData_DragonSummon:request_dragonSummon(dsmid, type, price_type, p
     ui_network:setParam('type', type)
     ui_network:setParam('price_type', price_type)
     ui_network:setParam('price', price)
+    ui_network:setParam('is_free', is_free)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
@@ -256,4 +270,26 @@ function ServerData_DragonSummon:request_mileageReward(finish_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+
+-------------------------------------
+-- function getFreeDragonSummonType
+-------------------------------------
+function ServerData_DragonSummon:getFreeDragonSummonType(dsmid)
+    return self.m_freeSummonInfo:getFreeDragonSummonType(dsmid)
+end
+
+-------------------------------------
+-- function getFreeDragonSummonTimeText
+-------------------------------------
+function ServerData_DragonSummon:getFreeDragonSummonTimeText(free_type)
+    return self.m_freeSummonInfo:getFreeDragonSummonTimeText(free_type)
+end
+
+-------------------------------------
+-- function canFreeDragonSummon
+-------------------------------------
+function ServerData_DragonSummon:canFreeDragonSummon(free_type)
+    return self.m_freeSummonInfo:canFreeDragonSummon(free_type)
 end

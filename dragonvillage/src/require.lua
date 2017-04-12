@@ -54,6 +54,7 @@ local t_module = {
     'StructFriendshipObject',
 	'StructStatusEffect',
     'StructIndividualStatus',
+    'StructFreeDragonSummonInfo',
 
     -- Util
     'Action',

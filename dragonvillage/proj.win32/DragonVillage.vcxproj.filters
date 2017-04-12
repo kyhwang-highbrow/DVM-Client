@@ -1908,6 +1908,9 @@
     <None Include="..\src\TableItemRand.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StructFreeDragonSummonInfo.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
