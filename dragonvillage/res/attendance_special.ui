@@ -138,7 +138,7 @@
 					lua_name = 'quantityLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 30;
-					text = '자수정\n{0}개';
+					text = '다이아몬드\n{0}개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
