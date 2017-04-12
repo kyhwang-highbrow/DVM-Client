@@ -7,9 +7,6 @@ SkillGuardian = class(PARENT, {
 		m_res = 'string',
         m_duration = 'num',
 
-		m_preSKillTime = 'number',
-		m_skillInterval = 'number', 
-
         m_shieldEffect = 'Animator',
         m_barEffect = 'EffectLink',
         m_barrierEffect1 = 'Animator',
@@ -35,9 +32,6 @@ function SkillGuardian:init_skill(res, duration)
 	-- 멤버 변수
 	self.m_res = res
 	self.m_duration = duration
-
-	self.m_preSKillTime = self.m_duration
-	self.m_skillInterval = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
 end
 
 
@@ -212,13 +206,6 @@ end
 -- function onEvent
 -------------------------------------
 function SkillGuardian:onEvent(event_name, t_event, ...)
-	-- 쿨타임 적용
-	if (self.m_preSKillTime - self.m_duration > self.m_skillInterval) then
-		self.m_preSKillTime = self.m_duration
-	else
-		return
-	end
-
 	if (event_name == 'guardian') then
 		self:onHit()
 		local attacker = t_event['attacker']

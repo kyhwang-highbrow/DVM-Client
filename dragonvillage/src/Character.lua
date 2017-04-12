@@ -408,7 +408,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
 	-- guard 상태 체크
-    if (self.m_guard) and (is_guard) then
+    if (self.m_guard) and (not is_guard) then
 		-- Evnet Carrier 세팅
 		local t_event = clone(EVENT_HIT_CARRIER)
 		t_event['attacker'] = attacker
