@@ -115,14 +115,7 @@ end
 -- function onEvent
 -------------------------------------
 function Tamer:onEvent(event_name, t_event, ...)
-    -- 진형 정보가 있다면 체크
-    if (t_event and t_event['left_formation'] ~= nil) then
-        if (t_event['left_formation'] ~= self.m_bLeftFormation) then
-            return
-        end
-    end
-
-	if (event_name == 'dragon_summon') then
+    if (event_name == 'dragon_summon') then
 		self:setTamerEventSkill()
 
 	else
@@ -404,9 +397,6 @@ end
 -- function setTamerSkillDirecting
 -------------------------------------
 function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func)
-	local world = self.m_world
-	local l_dragon = world:getDragonList()
-
 	-- tamer action stop
 	self:stopAllActions()
 

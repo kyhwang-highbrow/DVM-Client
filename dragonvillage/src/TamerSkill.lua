@@ -30,7 +30,7 @@ function Tamer:setTamerEventSkill()
 	local t_skill = self.m_lSkill[TAMER_SKILL_EVENT]
 	local trigger_type = t_skill['chance_value']
 	if (trigger_type ~= '') then
-		for i, dragon in pairs(self.m_world:getDragonList()) do
+        for i, dragon in pairs(self:getFellowList()) do
 			dragon:addListener(trigger_type, self)
 		end
 	end
@@ -46,7 +46,7 @@ function Tamer.st_active(owner, dt)
 		local move_pos_y = cameraHomePosY + 200
 
 		local world = owner.m_world
-		local l_dragon = world:getDragonList()
+		local l_dragon = owner:getFellowList()
 		
 		-- tamer action stop
 		owner:stopAllActions()
