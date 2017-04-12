@@ -179,7 +179,7 @@ function UI_DragonManagementEvolution:refresh_currDragonInfo(t_dragon_data, t_dr
     local vars = self.vars
 
     -- 드래곤 이름
-    vars['dragonNameLabel']:setString(Str(t_dragon['t_name']))
+    vars['dragonNameLabel']:setString(t_dragon_data:getDragonNameWithEclv())
 
     do -- 드래곤 리소스
         local evolution = t_dragon_data['evolution']

@@ -126,7 +126,7 @@ function UI_DragonEclvupNew:refresh()
     end
 
     do -- 드래곤 이름
-        vars['dragonNameLabel']:setString(Str(t_dragon['t_name']))
+        vars['dragonNameLabel']:setString(t_dragon_data:getDragonNameWithEclv())
     end
     
     do -- 현재 레벨의 능력치 계산기

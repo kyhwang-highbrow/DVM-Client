@@ -66,7 +66,7 @@ function UI_DragonDetailPopup:refresh()
     local t_dragon = table_dragon[dragon_id]
 
     do -- 드래곤 이름    
-        vars['nameLabel']:setString(Str(t_dragon['t_name']))
+        vars['nameLabel']:setString(t_dragon_data:getDragonNameWithEclv())
     end
 
     do -- 드래곤 등급

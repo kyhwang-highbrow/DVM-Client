@@ -50,7 +50,7 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
 
     -- 드래곤 이름
     if vars['nameLabel'] then
-        vars['nameLabel']:setString(Str(t_dragon['t_name']))
+        vars['nameLabel']:setString(t_dragon_data:getDragonNameWithEclv())
     end
 
     -- 진화도 이름

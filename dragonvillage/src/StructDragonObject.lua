@@ -238,3 +238,17 @@ function StructDragonObject:getCombatPower()
     local combat_power = status_calc:getCombatPower()
     return combat_power
 end
+
+-------------------------------------
+-- function getDragonNameWithEclv
+-- @breif
+-------------------------------------
+function StructDragonObject:getDragonNameWithEclv()
+    local dragon_name = TableDragon:getDragonName(self['did'])
+
+    if (self['eclv'] > 0) then
+        dragon_name = dragon_name .. ' +' .. self['eclv']
+    end
+
+    return dragon_name
+end

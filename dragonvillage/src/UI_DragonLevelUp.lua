@@ -154,7 +154,7 @@ function UI_DragonLevelUp:refresh_dragonInfo()
     local t_dragon = table_dragon[t_dragon_data['did']]
 
     do -- 드래곤 이름
-        vars['dragonNameLabel']:setString(Str(t_dragon['t_name']))
+        vars['dragonNameLabel']:setString(t_dragon_data:getDragonNameWithEclv())
     end
     
     do -- 드래곤 현재 정보 카드
