@@ -57,7 +57,9 @@ function MonsterLua_Boss:initScript(pattern_script_name, mid, is_boss)
         self:initPhys(script['body'])
     else
         local body_list = TableMonsterHitPos():getBodyList(mid)
-        self:initPhys(body_list)
+        if (body_list) then
+            self:initPhys(body_list)
+        end
     end
     
     -- HP 트리거 생성

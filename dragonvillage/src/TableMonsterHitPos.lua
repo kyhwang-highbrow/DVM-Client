@@ -35,7 +35,7 @@ function TableMonsterHitPos:getBodyList(mid)
     local str = t_table['body_' .. idx]
 
     while (str) do
-        if (str == 'x' or str == '') then return end
+        if (str == 'x' or str == '') then break end
 
         local l_str = self:seperate(str, ';')
         local x = tonumber(l_str[1]) or 0
