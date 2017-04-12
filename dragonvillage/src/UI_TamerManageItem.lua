@@ -31,9 +31,8 @@ function UI_TamerManageItem:initUI()
 
 	-- 테이머 초상
 	local tamer_type = t_tamer['type']
-	local profile_res = string.format('res/ui/icon/tamer/tamer_profile_%s_0101.png', tamer_type)
-	local profile_animator = MakeAnimator(profile_res)
-    vars['tamerNode']:addChild(profile_animator.m_node)
+	local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
+    vars['tamerNode']:addChild(profile_icon)
 
 	-- 테이머 이름
 	local tamer_name = t_tamer['t_name']
