@@ -1,39 +1,34 @@
-qid,key,t_desc,type,unit,max_cnt,reward_max_cnt,reward
-10001,dlvup,드래곤 레벨업 1회,newbie,1,1,1,"lactea:100,cash:10,gold:5"
-10002,forch,드래곤 진형 변경 1회,newbie,1,1,1,"lactea:100,cash:10,gold:5"
-10003,devexpup,드래곤 진화 1회,newbie,1,1,1,"lactea:100,cash:10,gold:5"
-10004,dgb,드래곤 작별 1회,newbie,1,1,1,"lactea:100,cash:10,gold:5"
-10005,dgrup,드래곤 승급 1회,newbie,1,1,1,"lactea:100,cash:10,gold:5"
-10006,dsklvup,드래곤 스킬 레벨업 1회,newbie,1,1,1,"lactea:100,cash:10,gold:5"
-10007,req,룬 장착 1회,newbie,1,1,1,"lactea:100,cash:10,gold:5"
-10008,dafup,친밀도 상승 1회,newbie,1,1,1,"lactea:100,cash:10,gold:5"
-10009,colplay,콜로세움 참여 1회,newbie,1,1,1,"lactea:100,cash:10,gold:5"
-10010,fpbat,5마리 파티로 전투하기 1회,newbie,1,1,1,"lactea:100,cash:10,gold:5"
-10011,dget,드래곤 획득 3회,newbie,3,1,1,"lactea:100,cash:10,gold:5"
-10012,alclnew,초보자 퀘스트 모두 클리어,newbie_all,11,1,10,"lactea:100,cash:10,gold:5"
-20001,renc,룬 강화 {1}번,challenge,5,40,20,"lactea:15,gold:150,staminas_st:5"
-20002,devup,드래곤 진화 {1}번,challenge,5,40,40,"cash:2,gold:75,staminas_st:2"
-20003,idlvup,계정 레벨 {1}번,challenge,10,100,100,"cash:5,gold:100,lactea:2"
-20004,boxop,선물 상자 {1}회 열기,challenge,20,100,100,"cash:1,gold:5,staminas_st:1"
-20005,adv,탐험 {1}시간 하기,challenge,30,1000,200,"lactea:15,gold:100,cash:1"
-20006,shopuse,상점 {1}회 이용,challenge,30,10,10,"staminas_st:1,lactea:10,gold:100"
-20007,dgrup,드래곤 승급 {1}번,challenge,5,40,40,"cash:2,gold:75,staminas_st:2"
-20008,rgat,룬 소환 {1}번,challenge,10,20,20,"lactea:15,gold:150,staminas_st:5"
-20009,flvdr,70레벨 이상 드래곤 {1}마리 보유,challenge,3,5,5,"cash:2,gold:75,staminas_st:2"
-20010,colwin,콜로세움 승리 {1}회,challenge,5,40,40,"cash:2,gold:75,staminas_st:2"
-30001,rencexp,룬 강화 경험치 획득 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30002,boxop,선물 상자 개봉 5회,daily,5,1,1,"cash:10,gold:1000,staminas_st:5"
-30003,cashuse,자수정 사용하기 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30004,dgrexpup,드래곤 승급 경험치 획득 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30005,dafexpup,열매 먹이기 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30006,dtr,드래곤 수련 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30007,colplay,콜로세움 참여 5회,daily,5,1,1,"cash:10,gold:1000,staminas_st:5"
-30008,gdplay,거대용 격추 참여 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30009,gtplay,거목 던전 참여 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30010,nmplay,악몽 던전 참여 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30011,raidplay,레이드 참여 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30012,advplay,탐험 보내기 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30013,streaplay,모험 쉬움 플레이 10회,daily,10,1,1,"cash:10,gold:1000,staminas_st:5"
-30014,strnoplay,모험 일반이상 플레이 5회,daily,5,1,1,"cash:10,gold:1000,staminas_st:5"
-30015,frpse,우정 포인트 보내기 1회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5"
-30016,alcldai,일일 퀘스트 15개 클리어,daily_all,15,1,1,"cash:30,gold:3000,staminas_st:15"
+qid,key,t_desc,type,unit,max_cnt,reward_max_cnt,reward,score
+10001,d_lvup,드래곤 레벨업 {1}회,newbie,1,1,1,"lactea:100,cash:10,gold:5",10
+10002,form_ch,드래곤 진형 변경 {1}회,newbie,1,1,1,"lactea:100,cash:10,gold:5",10
+10003,d_evup,드래곤 진화 {1}회,newbie,1,1,1,"lactea:100,cash:10,gold:5",10
+10004,d_gb,드래곤 작별 {1}회,newbie,1,1,1,"lactea:100,cash:10,gold:5",10
+10005,d_grup,드래곤 승급 {1}회,newbie,1,1,1,"lactea:100,cash:10,gold:5",10
+10006,d_sklvup,드래곤 스킬 레벨업 {1}회,newbie,1,1,1,"lactea:100,cash:10,gold:5",10
+10007,r_eq,룬 장착 {1}회,newbie,1,1,1,"lactea:100,cash:10,gold:5",10
+10008,d_afup,친밀도 상승 {1}회,newbie,1,1,1,"lactea:100,cash:10,gold:5",10
+10009,col_play,콜로세움 참여 {1}회,newbie,1,1,1,"lactea:100,cash:10,gold:5",10
+10010,jam_party,5마리 파티로 전투하기 {1}회,newbie,1,1,1,"lactea:100,cash:10,gold:5",10
+10011,d_get,드래곤 획득 {1}회,newbie,3,1,1,"lactea:100,cash:10,gold:5",10
+10012,d_lvup,드래곤 레벨업 {1}회,newbie,5,1,1,"lactea:100,cash:10,gold:5",10
+10013,d_grup,드래곤 승급 {1}회,newbie,3,1,1,"lactea:100,cash:10,gold:5",10
+20001,u_login,{1}일 접속하기,challenge,1,7,2,"lactea:15,gold:150,staminas_st:5",20
+20002,r_enc,룬 강화 {1}번,challenge,5,8,4,"lactea:15,gold:150,staminas_st:5",20
+20003,d_evup,드래곤 진화 {1}번,challenge,5,8,4,"cash:2,gold:75,staminas_st:2",20
+20004,id_lvup,테이머 레벨 {1}달성,challenge,10,10,10,"cash:5,gold:100,lactea:2",20
+20005,box_op,선물 상자 {1}회 열기,challenge,20,5,5,"cash:1,gold:5,staminas_st:1",20
+20006,adv_time,탐험 {1}시간 하기,challenge,200,10,10,"lactea:15,gold:100,cash:1",20
+20007,shop_buy,상점 {1}회 이용,challenge,30,10,10,"staminas_st:1,lactea:10,gold:100",20
+20008,d_grup,드래곤 승급 {1}번,challenge,5,40,40,"cash:2,gold:75,staminas_st:2",20
+20009,r_get,룬 소환 {1}번,challenge,10,20,20,"lactea:15,gold:150,staminas_st:5",20
+20010,d_6grget,6등급 드래곤 {1}회 획득,challenge,3,5,5,"cash:2,gold:75,staminas_st:2",20
+20011,col_win,콜로세움 승리 {1}회,challenge,5,40,40,"cash:2,gold:75,staminas_st:2",20
+30001,r_enc,룬 강화 {1}회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5",5
+30002,box_op,선물 상자 개봉 {1}회,daily,5,1,1,"cash:10,gold:1000,staminas_st:5",5
+30003,cash_use,다이아몬드 사용하기 {1}회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5",5
+30004,d_afexpup,열매 먹이기 {1}회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5",5
+30005,col_play,콜로세움 참여 {1}회,daily,5,1,1,"cash:10,gold:1000,staminas_st:5",5
+30006,adv_play,탐험 완료 {1}회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5",5
+30007,norm_play,모험 {1}회 플레이,daily,10,1,1,"cash:10,gold:1000,staminas_st:5",5
+30008,fp_send,우정 포인트 보내기 {1}회,daily,1,1,1,"cash:10,gold:1000,staminas_st:5",5
+30009,dai_allc,일일 퀘스트 15개 클리어,daily_all,8,1,1,"cash:30,gold:3000,staminas_st:15",20
