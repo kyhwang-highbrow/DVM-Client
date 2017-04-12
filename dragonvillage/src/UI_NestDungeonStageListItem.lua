@@ -113,7 +113,7 @@ function UI_NestDungeonStageListItem:refresh_dropItem(t_data)
             local ui = UI_ItemCard(item_id)
             vars['rewardNode' .. i]:addChild(ui.root)
             ui.root:setSwallowTouch(false)
-            ui.root:setScale(0.55)
+            --ui.root:setScale(0.55)
 
             -- 보너스 아이템일 경우 @TODO sgkim 보너스 뱃지 붙여줄 것
             if table.find(l_bonus_item, tostring(item_id)) then
