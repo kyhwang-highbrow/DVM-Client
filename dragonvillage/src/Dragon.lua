@@ -74,22 +74,24 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
     self.m_bLeftFormation = bLeftFormation
 
 	-- 각종 init 함수 실행
-	self:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
-	self:initDragonSkillManager('dragon', dragon_id, evolution)
-    self:initActiveSkillCool() -- 스킬 쿨타임 지정
-	self:initAnimatorDragon(t_dragon['res'], evolution, attr, t_dragon['scale'])
-    self:makeCastingNode()
-    self:setStatusCalc(status_calc)
-    self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
-	self:initTriggerListener()
+	do
+		self:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
+		self:initDragonSkillManager('dragon', dragon_id, evolution)
+		self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
+    
+		self:initAnimatorDragon(t_dragon['res'], evolution, attr, t_dragon['scale'])
+		self:makeCastingNode()
+		self:initTriggerListener()
+		self:initLogRecorder(doid)
+		
+		self:initActiveSkillCool() -- 스킬 쿨타임 지정
+		self:initSkillIndicator()
+	end
 
 	-- 피격 처리
     self:addDefCallback(function(attacker, defender, i_x, i_y)
         self:undergoAttack(attacker, defender, i_x, i_y, 0)
     end)
-
-	-- @TODO character 수준으로 들어가야한다.
-    self.m_charLogRecorder = self.m_world.m_logRecorder:getLogRecorderChar(dragon_id)
 end
 
 -------------------------------------
@@ -647,46 +649,10 @@ function Dragon:setHp(hp)
 end
 
 -------------------------------------
--- function setStatusCalc
--------------------------------------
-function Dragon:setStatusCalc(status_calc)
-    self.m_statusCalc = status_calc
-
-    if (not self.m_statusCalc) then
-        return
-    end
-
-    -- hp 설정
-    local hp = self.m_statusCalc:getFinalStat('hp')
-    self.m_maxHp = hp
-    self.m_hp = hp
-end
-
--------------------------------------
--- function initStatus
--------------------------------------
-function Dragon:initStatus(t_char, level, grade, evolution, doid, eclv)
-    -- 캐릭터 테이블 설정
-    self.m_charTable = t_char
-	self.m_attribute = t_char['attr']
-	self.m_attributeOrg = t_char['attr']
-    self.m_lv = level
-
-    -- 능력치 설정이 되지 않은 경우
-    if (not self.m_statusCalc) then
-        local status_calc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution, eclv)
-        self:setStatusCalc(status_calc)
-    end
-
-    -- 스킬 인디케이터 초기화
-    self:init_skillIndicator()
-end
-
--------------------------------------
--- function init_skillIndicator
+-- function initSkillIndicator
 -- @brief 스킬 인디케이터 초기화
 -------------------------------------
-function Dragon:init_skillIndicator()
+function Dragon:initSkillIndicator()
     local t_char = self.m_charTable
     local t_skill = self:getLevelingSkillByType('active').m_tSkill
 

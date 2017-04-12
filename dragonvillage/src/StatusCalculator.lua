@@ -266,6 +266,15 @@ function StatusCalculator:addBuffMulti(stat_type, value)
     indivisual_status:addBuffMulti(value)
 end
 
+-------------------------------------
+-- function printAllStat
+-- @DEBUG
+-------------------------------------
+function StatusCalculator:printAllStat()
+	for stat_type, indivisual_status in pairs(self.m_lStatusList) do
+		cclog('- ' .. stat_type .. ' : ' .. indivisual_status:getFinalStat())
+	end
+end
 
 -------------------------------------
 -- function MakeDragonStatusCalculator

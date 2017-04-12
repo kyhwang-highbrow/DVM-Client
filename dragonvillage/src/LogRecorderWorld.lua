@@ -187,14 +187,13 @@ end
 -------------------------------------
 -- function getLogRecorderChar
 -------------------------------------
-function LogRecorderWorld:getLogRecorderChar(dragon_id)
-	if not (self.m_tCharLogTable[dragon_id]) then
-		self.m_tCharLogTable[dragon_id] = LogRecorderChar(dragon_id)
+function LogRecorderWorld:getLogRecorderChar(unique_id)
+	if not (self.m_tCharLogTable[unique_id]) then
+		self.m_tCharLogTable[unique_id] = LogRecorderChar(unique_id)
 	end
 
-	return self.m_tCharLogTable[dragon_id]
+	return self.m_tCharLogTable[unique_id]
 end
-
 
 -------------------------------------
 -- function printRecord

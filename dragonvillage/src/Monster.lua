@@ -27,19 +27,20 @@ function Monster:init_monster(t_monster, monster_id, level, stage_id)
     local level = level + t_drop['level']
 
     -- 각종 init 함수 실행
-	self:initDragonSkillManager('monster', monster_id, 6) -- monster는 skill_1~skill_6을 모두 사용
-    self:initStatus(t_monster, level, 0, 0, 0)
-    self:initAnimatorMonster(t_monster['res'], t_monster['attr'], t_monster['scale'])
-    self:makeCastingNode()
-	self:initTriggerListener()		
+	do
+		self:initDragonSkillManager('monster', monster_id, 6) -- monster는 skill_1~skill_6을 모두 사용
+		self:initStatus(t_monster, level, 0, 0, 0)
+
+		self:initAnimatorMonster(t_monster['res'], t_monster['attr'], t_monster['scale'])
+		self:makeCastingNode()
+		self:initTriggerListener()
+		self:initLogRecorder(monster_id)
+	end
 
     -- 피격 처리
     self:addDefCallback(function(attacker, defender, i_x, i_y, k, b)
         self:undergoAttack(attacker, defender, i_x, i_y, k or 0, b)
     end)
-
-	-- @TODO character 수준으로 들어가야한다. + monster_id 는 고유하지 않다 
-    self.m_charLogRecorder = self.m_world.m_logRecorder:getLogRecorderChar(monster_id)
 end
 
 -------------------------------------

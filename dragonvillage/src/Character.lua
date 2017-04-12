@@ -323,6 +323,7 @@ function Character:initStatus(t_char, level, grade, evolution, doid, eclv)
     self.m_charTable = t_char
 	self.m_attribute = t_char['attr']
 	self.m_attributeOrg = t_char['attr']
+    self.m_lv = level
 
     -- 능력치 계산기
     local grade = (grade or 1)
@@ -343,7 +344,17 @@ function Character:initStatus(t_char, level, grade, evolution, doid, eclv)
     local hp = self.m_statusCalc:getFinalStat('hp')
     self.m_maxHp = hp
     self.m_hp = hp
-    self.m_lv = level
+end
+
+-------------------------------------
+-- function initLogRecorder
+-------------------------------------
+function Character:initLogRecorder(unique_id)
+	if (unique_id) then
+		self.m_charLogRecorder = self.m_world.m_logRecorder:getLogRecorderChar(unique_id)
+	else
+		cclog('다음 id의 캐릭터가 LogRecorder를 생성하지 못했습니다. ' .. unique_id)
+	end
 end
 
 -------------------------------------
@@ -2172,4 +2183,26 @@ function Character:setTemporaryPause(pause)
             end
         end
     end
+end
+
+-------------------------------------
+-- function printAllInfomation
+-- @DEBUG
+-------------------------------------
+function Character:printAllInfomation()
+	cclog('-------------------------------------------------------')
+	cclog('NAME : ' .. self.m_charTable['t_name'])
+    cclog('CURR_STATE = ' .. self.m_state)
+    cclog('## STATUS EFFECT LIST ##')
+    for type, se in pairs(self:getStatusEffectList()) do
+		cclog('- ' .. type, se.m_overlabCnt)
+	end
+	cclog('## STATUS EFFECT OVERLAB LIST ##')
+	for type, se in pairs(self.m_tOverlabStatusEffect) do
+		cclog('- ' .. type)
+	end
+	cclog('## STAT LIST ##')
+	self.m_statusCalc:printAllStat()
+
+	cclog('=======================================================')
 end
