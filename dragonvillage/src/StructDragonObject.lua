@@ -228,3 +228,13 @@ end
 function StructDragonObject:getFriendshipObject()
     return self['friendship']
 end
+
+-------------------------------------
+-- function getCombatPower
+-- @breif
+-------------------------------------
+function StructDragonObject:getCombatPower()
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(self)
+    local combat_power = status_calc:getCombatPower()
+    return combat_power
+end

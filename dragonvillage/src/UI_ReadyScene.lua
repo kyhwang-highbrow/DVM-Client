@@ -45,6 +45,7 @@ function UI_ReadyScene:init(stage_id)
     self:refresh()
 	
 	self.m_readySceneDeck = UI_ReadyScene_Deck(self)
+    self.m_readySceneDeck:setOnDeckChangeCB(function() self:refresh_combatPower() end)
 	self:init_sortMgr()
 
     -- 자동 전투 off
@@ -131,7 +132,6 @@ function UI_ReadyScene:initUI()
     vars['buffInfoBtn']:setVisible(false)
     vars['leaderBtn']:setVisible(false)
     vars['leaderSprite']:setVisible(false)
-    vars['cpNode']:setVisible(false)
 end
 
 -------------------------------------
@@ -226,6 +226,22 @@ function UI_ReadyScene:refresh()
     end
 
     self:refresh_tamer()
+end
+
+-------------------------------------
+-- function refresh_combatPower
+-------------------------------------
+function UI_ReadyScene:refresh_combatPower()
+    local vars = self.vars
+
+    local stage_id = self.m_stageID
+    local recommend = TableStageDesc:getRecommendedCombatPower(stage_id)
+
+    vars['cp_Label2']:setString(comma_value(recommend))
+
+
+    local deck = self.m_readySceneDeck:getDeckCombatPower()
+    vars['cp_Label']:setString(comma_value(deck))
 end
 
 -------------------------------------

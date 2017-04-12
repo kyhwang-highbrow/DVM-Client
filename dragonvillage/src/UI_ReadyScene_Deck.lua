@@ -22,6 +22,10 @@ UI_ReadyScene_Deck = class({
 
 		-- 각 덱에 붙어있을 모션스트릭 리스트
 		m_lMotionStreakList = 'cc.motionStreak',
+
+        m_bDirtyDeck = 'boolean',
+
+        m_cbOnDeckChange = 'function',
     })
 
 local TOTAL_POS_CNT = 5
@@ -45,11 +49,14 @@ local DC_SCALE_PICK = 0.5
 function UI_ReadyScene_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
 	self.m_lMotionStreakList = {}
+    self.m_bDirtyDeck = true
 
 	self:initUI()
     self:initButton()
     self:init_deck()
     self:makeTouchLayer_formation(self.m_uiReadyScene.vars['formationNode'])
+
+    self.m_uiReadyScene.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -198,6 +205,8 @@ function UI_ReadyScene_Deck:clear_deck(skip_sort)
     if (not skip_sort) and self.m_uiReadyScene.m_dragonSortMgr then
         self.m_uiReadyScene.m_dragonSortMgr:changeSort()
     end
+
+    self:setDirtyDeck()
 end
 
 -------------------------------------
@@ -230,6 +239,8 @@ function UI_ReadyScene_Deck:init_deck()
     self:setFormation(formation)
 
     self.m_radioButtonFormation:setSelectedButton(formation)
+
+    self:setDirtyDeck()
 end
 
 -------------------------------------
@@ -377,6 +388,8 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
     if (not skip_sort) and self.m_uiReadyScene.m_dragonSortMgr then
         self.m_uiReadyScene.m_dragonSortMgr:changeSort()
     end
+
+    self:setDirtyDeck()
 end
 
 -------------------------------------
@@ -799,3 +812,51 @@ function UI_ReadyScene_Deck:moveSelectDragonCard(touch, event)
     local node = self.m_selectedDragonCard.root
     node:setPosition(local_location['x'], local_location['y'])
 end
+
+-------------------------------------
+-- function setDirtyDeck
+-- @brief
+-------------------------------------
+function UI_ReadyScene_Deck:setDirtyDeck()
+    self.m_bDirtyDeck = true
+end
+
+-------------------------------------
+-- function update
+-- @brief
+-------------------------------------
+function UI_ReadyScene_Deck:update(dt)
+    if self.m_bDirtyDeck then
+        if self.m_cbOnDeckChange then
+            self.m_cbOnDeckChange()
+        end
+    end
+
+    self.m_bDirtyDeck = false
+end
+
+-------------------------------------
+-- function getDeckCombatPower
+-- @brief
+-------------------------------------
+function UI_ReadyScene_Deck:getDeckCombatPower()
+    local combat_power = 0
+
+    for doid,_ in pairs(self.m_tDeckMap) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        if t_dragon_data then
+            combat_power = combat_power + t_dragon_data:getCombatPower()
+        end
+    end
+
+    return combat_power
+end
+
+-------------------------------------
+-- function setOnDeckChangeCB
+-- @brief
+-------------------------------------
+function UI_ReadyScene_Deck:setOnDeckChangeCB(func)
+    self.m_cbOnDeckChange = func
+end
+
