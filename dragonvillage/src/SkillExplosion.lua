@@ -57,7 +57,7 @@ function SkillExplosion:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
     local explosion_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local jump_res = t_skill['res_2']
-    local range = t_skill['val_1']
+    local range = tonumber(t_skill['val_1'])
 
 	-- 인스턴스 생성부
 	------------------------------------------------------

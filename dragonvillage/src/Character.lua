@@ -556,6 +556,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	t_event['is_critical'] = critical
     t_event['i_x'] = i_x
     t_event['i_y'] = i_y
+    t_event['left_formation'] = self.m_bLeftFormation
 	
 	-- 방어와 관련된 이벤트 처리후 데미지 계산
 	do	

@@ -388,6 +388,10 @@ function GameDragonSkill:makeSpeechBubble(dragon)
     -- 대사
     local dragon_type = TableDragon():getDragonType(dragon.m_dragonID)
     local t_dragonType = TableDragonType():get(dragon_type)
+    if (not t_dragonType) then
+        error('table_dragon_type에 없는 드래곤 : ' .. dragon_type)
+    end
+
     local flv = dragon.m_tDragonInfo['flv']
     local idx = math_random(1, 2)
     local key
