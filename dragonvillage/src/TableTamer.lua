@@ -26,3 +26,14 @@ function TableTamer:getTamerType(tamer_id)
 
     return self:getValue(tamer_id, 'type')
 end
+
+-------------------------------------
+-- function getCurrTamerTable
+-------------------------------------
+function TableTamer:getCurrTamerTable()
+    if (self == THIS) then
+        self = THIS()
+    end
+	local tamer_id = g_userData:getTamerInfo('tid')
+    return self:get(tamer_id)
+end

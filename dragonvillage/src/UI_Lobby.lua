@@ -515,7 +515,7 @@ function UI_Lobby:click_tamerBtn()
 		end
 	end
 
-    local ui = UI_TamerInfoPopup()
+    local ui = UI_TamerManagePopup()
 	ui:setCloseCB(close_cb)
 end
 

@@ -341,7 +341,7 @@ end
 -- @breif
 -------------------------------------
 function UI_ColosseumReadyScene:click_tamerBtn()
-    local ui = UI_TamerInfoPopup()
+    local ui = UI_TamerManagePopup()
 	ui:setCloseCB(function() self:refresh_tamer() end)
 end
 

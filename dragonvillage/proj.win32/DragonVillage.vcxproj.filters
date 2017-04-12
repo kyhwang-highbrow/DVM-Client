@@ -1104,12 +1104,6 @@
     <None Include="..\src\TableTamer.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_TamerSelectPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_TamerSelectItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\SkillAoESquare.lua">
       <Filter>lua</Filter>
     </None>
@@ -1456,9 +1450,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_AttendanceSpecialListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_TamerInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_ExplorationResultPopup.lua">
@@ -1907,6 +1898,12 @@
     </None>
     <None Include="..\src\TamerSkill.lua">
       <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_TamerManagePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_TamerManageItem.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

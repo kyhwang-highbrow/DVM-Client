@@ -840,9 +840,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_SkillDetailPopup.lua" />
     <None Include="..\src\UI_SkillDetailPopupListItem.lua" />
     <None Include="..\src\UI_TableViewCellClass.lua" />
-    <None Include="..\src\UI_TamerInfoPopup.lua" />
-    <None Include="..\src\UI_TamerSelectItem.lua" />
-    <None Include="..\src\UI_TamerSelectPopup.lua" />
+    <None Include="..\src\UI_TamerManageItem.lua" />
+    <None Include="..\src\UI_TamerManagePopup.lua" />
     <None Include="..\src\UI_TitleScene.lua" />
     <None Include="..\src\UI_TitleSceneLoading.lua" />
     <None Include="..\src\UI_Tooltip.lua" />
