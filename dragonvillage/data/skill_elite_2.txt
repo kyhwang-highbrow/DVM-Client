@@ -20,7 +20,7 @@
 				"offset":[0,0],
 				
 				"dir_array":[150,170,190],
-				"dir_add":10,			
+				"dir_add":10,
 				
 				
                 "effect":

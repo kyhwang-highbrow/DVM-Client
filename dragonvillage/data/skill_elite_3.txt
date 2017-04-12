@@ -8,10 +8,10 @@
 			{
 				"idx":1,
 				"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
-				"body":[0,0,30],
+				"body":[0,0,3],
                 "count":1,
                 "period":0.1,
-                "scale":1,
+                "scale":0.2,
 				"time":0,
 				"speed":1000,
 				"accel":-900,
@@ -19,11 +19,13 @@
 				"accel_delay":0,
 				"angular_velocity":0,
 				"offset":[0,0],
+				"size_up_time":1,
 				
 				
 				"dir_array":[0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340],
 				"dir_add":10,			
 				"missile_type":"pass",
+				"reset_time":0.5,
 				
                 "effect":
                 {
