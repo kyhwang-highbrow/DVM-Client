@@ -43,20 +43,6 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_bg.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":10.000000, "sY":10.000000
-									},
-									{
-										"frame":102, "sX":10.000000, "sY":10.000000
-									}
-								]
-							},
-							{
 								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'new_Visual'",
 								"expand":false,
 								"apply":true,
@@ -109,20 +95,6 @@
 						"apply":true,
 						"layer_list":
 						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_bg.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":10.000000, "sY":10.000000
-									},
-									{
-										"frame":29, "sX":10.000000, "sY":10.000000
-									}
-								]
-							},
 							{
 								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'new_Visual'",
 								"expand":false,
