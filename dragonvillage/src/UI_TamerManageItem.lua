@@ -59,14 +59,10 @@ function UI_TamerManageItem:selectTamer(is_select)
 	self.vars['selectSprite']:setVisible(is_select)
 
 	-- 선택 액션
-	self.root:stopAllActions()
-	local time = 0.2
 	if (is_select) then
-		local move_action = cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 20)), 2)
-		self.root:runAction(move_action)
+		self.root:setPositionY(20)
 	else
-		local move_action = cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 0)), 2)
-		self.root:runAction(move_action)
+		self.root:setPositionY(0)
 	end
 end
 
