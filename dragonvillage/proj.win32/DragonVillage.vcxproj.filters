@@ -624,9 +624,6 @@
     <None Include="..\src\ChargeSystem_Touch.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TamerSpeechSystem.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\UI_TopUserInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -781,9 +778,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\TableMonster.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\GameFever.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_SkillDetailPopup.lua">
@@ -1205,9 +1199,6 @@
     </None>
     <None Include="..\src\UI_InventoryTabEvolutionStone.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\TamerSpeechSystemColosseum.lua">
-      <Filter>lua</Filter>
     </None>
     <None Include="..\src\SortManager.lua">
       <Filter>lua</Filter>

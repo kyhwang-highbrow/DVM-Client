@@ -106,16 +106,9 @@ end
 -- function initTamer
 -------------------------------------
 function GameWorldColosseum:initTamer()
-    -- 테이머 대사
-    --[[
-    self.m_tamerSpeechSystem = TamerSpeechSystemColosseum(self)
+    PARENT.initTamer(self)
     
-    self:addListener('dragon_summon', self.m_tamerSpeechSystem)
-    self:addListener('game_start', self.m_tamerSpeechSystem)
-    self:addListener('wave_start', self.m_tamerSpeechSystem)
-    self:addListener('boss_wave', self.m_tamerSpeechSystem)
-    self:addListener('stage_clear', self.m_tamerSpeechSystem)
-    ]]--
+    -- TODO: 상대편 테이머 생성
 end
 
 -------------------------------------
@@ -140,10 +133,6 @@ function GameWorldColosseum:addEnemy(enemy)
     -- 스킬 캐스팅
     enemy:addListener('enemy_casting_start', self.m_gameAutoHero)
     
-    -- 스킬 캐스팅 중 취소시 콜백 등록
-    --enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
-    --enemy:addListener('character_casting_cancel', self.m_gameFever)
-
     -- 액티브 스킬 사용시
     enemy:addListener('enemy_active_skill', self.m_gameState)
     enemy:addListener('enemy_active_skill', self.m_gameAutoHero)

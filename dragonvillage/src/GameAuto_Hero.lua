@@ -1,14 +1,9 @@
 local PARENT = GameAuto
 
-local AI_FEVER_DELAY_TIME = 0.5
-
 -------------------------------------
 -- class GameAuto_Hero
 -------------------------------------
 GameAuto_Hero = class(PARENT, {
-        -- 피버 처리 관련
-        m_gameFever = 'GameFever',
-        m_aiFeverDelayTime = 'number',  -- 피버 모드 공격 딜레이 시간
 
         m_tCastingEnemyList = 'table',  -- 시전 중인 적 리스트
 
@@ -20,10 +15,6 @@ GameAuto_Hero = class(PARENT, {
 -- function init
 -------------------------------------
 function GameAuto_Hero:init(world)
-    self.m_gameFever = nil
-    
-    self.m_aiFeverDelayTime = AI_FEVER_DELAY_TIME
-
     self.m_tCastingEnemyList = {}
 
     self:initUI()
@@ -48,23 +39,10 @@ function GameAuto_Hero:initUI()
 end
 
 -------------------------------------
--- function bindGameFever
--------------------------------------
-function GameAuto_Hero:bindGameFever(gameFever)
-    self.m_gameFever = gameFever
-    self.m_gameFever:addListener('fever_attack', self)
-end
-
--------------------------------------
 -- function update
 -------------------------------------
 function GameAuto_Hero:update(dt)
-    if (self.m_gameFever and self.m_gameFever:isActive()) then
-        -- 피버모드가 활성화된 상태일 경우
-        self:update_fever(dt)
-    else
-        self:update_fight(dt)
-    end
+    self:update_fight(dt)
 end
 
 -------------------------------------
@@ -81,23 +59,6 @@ function GameAuto_Hero:update_fight(dt)
     end
 
     PARENT.update_fight(self, dt)
-end
-
--------------------------------------
--- function update_fever
--------------------------------------
-function GameAuto_Hero:update_fever(dt)
-    if (not self:isActive()) then return end
-
-    if (self.m_aiFeverDelayTime > 0) then
-        self.m_aiFeverDelayTime = self.m_aiFeverDelayTime - dt
-
-        if (self.m_aiFeverDelayTime < 0) then
-            self.m_aiFeverDelayTime = 0
-        end
-    else
-        self.m_gameFever:doAttack()
-    end
 end
 
 -------------------------------------
@@ -179,9 +140,6 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
         
     elseif (event_name == 'hero_active_skill') then
         self.m_aiDelayTime = self:getAiDelayTime()
-        
-    elseif (event_name == 'fever_attack') then
-        self.m_aiFeverDelayTime = AI_FEVER_DELAY_TIME
 
     end
 end

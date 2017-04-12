@@ -71,7 +71,6 @@ function UI_Game:initButton()
 
     vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
-	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
@@ -190,16 +189,6 @@ function UI_Game:click_pauseButton()
         UI_GamePause_SecretDungeon(stage_id, start_cb, end_cb)
     else
         UI_GamePause(stage_id, start_cb, end_cb)
-    end
-end
-
--------------------------------------
--- function click_feverButton
--------------------------------------
-function UI_Game:click_feverButton()
-	local game_fever = self.m_gameScene.m_gameWorld.m_gameFever
-    if (game_fever and not game_fever:isActive()) then
-        game_fever:addFeverPoint(100)
     end
 end
 

@@ -235,7 +235,6 @@ local t_module = {
     'GameAuto_Enemy',
     'GameCoolTime',
     'GameDragonSkill',
-    'GameFever',
     'GameCamera',
     'GameTimeScale',
     'GameHighlightMgr',
@@ -246,10 +245,6 @@ local t_module = {
 	'ActivityCarrier',
 	'EventCarrier',
 	
-	-- TAMER
-	'TamerSpeechSystem',
-    'TamerSpeechSystemColosseum',
-
     -- MAP
     'ScrollMap',
     'ScrollMapLayer',

@@ -719,11 +719,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     end
 
     -- 데미지 폰트 출력
-    if t_info['attack_type'] == 'fever' then
-        self:makeDamageEffectForFever(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'])
-    else
-        self:makeDamageEffect(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'], is_highlight)
-    end
+    self:makeDamageEffect(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'], is_highlight)
     self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['is_add_dmg'], is_highlight)
 
     -- 무적 체크 후 데미지 적용
@@ -837,21 +833,6 @@ function Character:makeDamageEffect(dmg_type, attr, x, y, dir, critical, is_high
     if (is_highlight) then
         --self.m_world.m_gameHighlight:addEffect(effect)
     end
-end
-
--------------------------------------
--- function makeDamageEffectForFever
--------------------------------------
-function Character:makeDamageEffectForFever(dmg_type, attr, x, y, dir, critical)
-    -- 피버 데미지
-    local effect = MakeAnimator('res/effect/effect_fever/effect_fever.vrp')
-    effect:changeAni('damage', false)
-    effect:setPosition(x, y)
-
-    local duration = effect:getDuration()
-    effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-  
-    self.m_world.m_feverNode:addChild(effect.m_node, DEPTH_DAMAGE_EFFECT)
 end
 
 -------------------------------------

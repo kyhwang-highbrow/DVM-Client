@@ -47,7 +47,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gameAutoEnemy = '',       -- 적군(드래곤) AI
         m_gameCoolTime = '',
         m_gameDragonSkill = '',
-        m_gameFever = '',
         m_gameCamera = '',
         m_gameTimeScale = '',
         m_gameHighlight = '',
@@ -76,9 +75,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 		-- 테이머 관련
         m_tamer = 'Tamer',
                         
-        -- 테이머 대사 및 표정
-        m_tamerSpeechSystem = 'TamerSpeechSystem',
-
         -- 조작 막음 여부
         m_bPreventControl = 'boolean',
 
@@ -179,11 +175,9 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameHighlight = GameHighlightMgr(self, self.m_darkLayer)
     self.m_gameCoolTime = GameCoolTime(self)
     self.m_gameDragonSkill = GameDragonSkill(self)
-    --self.m_gameFever = GameFever(self)
-    
+        
     -- 아군 자동시 AI
     self.m_gameAutoHero = GameAuto_Hero(self)
-    --self.m_gameAutoHero:bindGameFever(self.m_gameFever)
     self:addListener('auto_start', self.m_gameAutoHero)
     self:addListener('auto_end', self.m_gameAutoHero)
 
@@ -382,19 +376,6 @@ function GameWorld:initTamer()
     self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     self:addListener('dragon_summon', self)
-    
-    -- 테이머 대사
-    --[[
-    self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
-    
-    self:addListener('dragon_summon', self.m_tamerSpeechSystem)
-    self:addListener('game_start', self.m_tamerSpeechSystem)
-    self:addListener('wave_start', self.m_tamerSpeechSystem)
-    self:addListener('boss_wave', self.m_tamerSpeechSystem)
-    self:addListener('stage_clear', self.m_tamerSpeechSystem)
-    self:addListener('friend_dragon_appear', self.m_tamerSpeechSystem)
-    self:addListener('tamer_active_skill', self.m_tamerSpeechSystem)
-    ]]--
 end
 
 
@@ -746,10 +727,6 @@ function GameWorld:addEnemy(enemy)
     -- 스킬 캐스팅
     enemy:addListener('enemy_casting_start', self.m_gameAutoHero)
     
-    -- 스킬 캐스팅 중 취소시 콜백 등록
-    --enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
-    --enemy:addListener('character_casting_cancel', self.m_gameFever)
-
     if (enemy.m_charType == 'dragon') then
         enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
         enemy:addListener('enemy_active_skill', self.m_gameState)
@@ -807,8 +784,6 @@ end
 -------------------------------------
 function GameWorld:addHero(hero, idx)
     self.m_mHeroList[idx] = hero
-
-    --hero:addListener('character_dead', self.m_tamerSpeechSystem)
 
     hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
@@ -1114,13 +1089,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 			v.m_charLogRecorder:printRecord()
         end
 
-    -- 피버 모드 발동
-    elseif (keyCode == KEY_F) then    
-        if (self.m_gameFever and not self.m_gameFever:isActive()) then
-            self.m_gameFever:addFeverPoint(100)
-        end
-        
-	-- 스킬 다 죽이기
+    -- 스킬 다 죽이기
 	elseif (keyCode == KEY_K) then    
 		local count = self:cleanupSkill()
         

@@ -13,8 +13,6 @@ GAME_STATE_ENEMY_APPEAR = 99  -- 적 등장
 GAME_STATE_FIGHT = 100
 GAME_STATE_FIGHT_WAIT = 101
 
-GAME_STATE_FIGHT_FEVER = 104        -- 피버모드
-
 -- 파이널 웨이브 연출
 GAME_STATE_FINAL_WAVE = 201
 
@@ -104,7 +102,6 @@ function GameState:initState()
     self:addState(GAME_STATE_ENEMY_APPEAR,           GameState.update_enemy_appear)
     self:addState(GAME_STATE_FIGHT,                  GameState.update_fight)
     self:addState(GAME_STATE_FIGHT_WAIT,             GameState.update_fight_wait)
-    self:addState(GAME_STATE_FIGHT_FEVER,            GameState.update_fight_fever)
     self:addState(GAME_STATE_FINAL_WAVE,             GameState.update_final_wave) -- 마지막 웨이브 연출
     self:addState(GAME_STATE_BOSS_WAVE,              GameState.update_boss_wave)  -- 보스 웨이브 연출
     self:addState(GAME_STATE_SUCCESS_WAIT,           GameState.update_success_wait)
@@ -119,7 +116,7 @@ function GameState:update(dt)
     if (self.m_bPause) then return end
 
     -- 특정 상태에서만 타임 계산
-    if (isExistValue(self.m_state, GAME_STATE_FIGHT, GAME_STATE_FIGHT_FEVER)) then
+    if (isExistValue(self.m_state, GAME_STATE_FIGHT)) then
         -- 플레이 시간 계산
         self.m_fightTimer = self.m_fightTimer + dt
         
@@ -226,10 +223,6 @@ function GameState.update_fight(self, dt)
     
     if world.m_skillIndicatorMgr then
         world.m_skillIndicatorMgr:update(dt)
-    end
-
-    if world.m_gameFever then
-        world.m_gameFever:update(dt)
     end
 
     if world.m_gameAutoHero then
@@ -415,51 +408,6 @@ function GameState.update_enemy_appear(self, dt)
     
     -- 웨이브 매니져 업데이트
     world.m_waveMgr:update(dt)
-end
-
--------------------------------------
--- function update_fight_fever
--------------------------------------
-function GameState.update_fight_fever(self, dt)
-    local world = self.m_world
-        
-    if (self.m_stateTimer == 0) then
-        -- 인디케이터 삭제
-        if world.m_skillIndicatorMgr then
-            world.m_skillIndicatorMgr:clear(true)
-        end
-
-        -- 아군 드래곤 모든 행동 정지 및 자기 위치로 이동
-        for _, skill in pairs(world.m_lSkillList) do
-            if isInstanceOf(skill, Skill) and skill.m_owner and skill.m_owner.m_bLeftFormation then
-                skill:changeState('dying')
-            end
-		end
-
-        -- 적군은 계속 공격하도록 함
-        for i, enemy in ipairs(world:getEnemyList()) do
-            enemy:setWaitState(false)
-        end
-                        
-        -- 피버 모드 시작
-        world.m_gameFever:onStart()
-    end
-
-    if world.m_gameFever then
-        world.m_gameFever:update(dt)
-    end
-
-    if world.m_gameAutoHero then
-        world.m_gameAutoHero:update(dt)
-    end
-
-    if world.m_gameAutoEnemy then
-        world.m_gameAutoEnemy:update(dt) 
-    end
-
-    if world.m_enemyMovementMgr then
-        world.m_enemyMovementMgr:update(dt)
-    end
 end
 
 -------------------------------------
@@ -671,11 +619,11 @@ function GameState:changeState(state)
     local prev_state = self.m_state
     PARENT.changeState(self, state)
 
-    if (prev_state == GAME_STATE_FIGHT or prev_state == GAME_STATE_FIGHT_FEVER) then
+    if (prev_state == GAME_STATE_FIGHT) then
          self.m_world:setWaitAllCharacter(true)
     end
 
-    if (self.m_state == GAME_STATE_FIGHT or prev_state == GAME_STATE_FIGHT_FEVER) then
+    if (self.m_state == GAME_STATE_FIGHT) then
         self.m_world:setWaitAllCharacter(false)
     end
 end
