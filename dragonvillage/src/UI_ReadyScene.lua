@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_ReadyScene
@@ -104,7 +104,6 @@ end
 -------------------------------------
 function UI_ReadyScene:initUI()
     self:init_dragonTableView()
-    self:init_monsterTableView()
     self:initFormationUI()
 
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
@@ -112,6 +111,47 @@ function UI_ReadyScene:initUI()
         local type = TableDrop:getStageStaminaType(self.m_stageID)
         local icon = IconHelper:getStaminaInboxIcon(type)
         vars['staminaNode']:addChild(icon)
+    end
+
+    self:initTab()
+
+
+    -- 미구현으로 off
+    local vars = self.vars
+    vars['buffInfoBtn']:setVisible(false)
+    vars['leaderBtn']:setVisible(false)
+    vars['leaderBtn']:setVisible(false)
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_ReadyScene:initTab()
+    local vars = self.vars
+    self:addTab('buff', vars['buffInfoBtn'], vars['buffNode'])
+    self:addTab('reward', vars['rewardInfoBtn'], vars['rewardListView'])
+    self:addTab('monster', vars['mosnterInfoBtn'], vars['monsterListView'])
+
+    self:setTab('monster')
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_ReadyScene:onChangeTab(tab, first)
+    PARENT.onChangeTab(self, tab, first)
+
+    if (tab == 'buff') then
+
+    elseif (tab == 'reward') then
+        if first then
+            self:init_rewardListView()
+        end
+
+    elseif (tab == 'monster') then
+        if first then
+            self:init_monsterListView()
+        end
     end
 end
 
@@ -549,59 +589,57 @@ function UI_ReadyScene:getDragonCount()
 end
 
 -------------------------------------
--- function init_monsterTableView
+-- function init_monsterListView
 -------------------------------------
-function UI_ReadyScene:init_monsterTableView()
-    local vars = self.vars
-    local stage_id = self.m_stageID
+function UI_ReadyScene:init_monsterListView()
+    local node = self.vars['monsterListView']
+    node:removeAllChildren()
 
-    do -- 몬스터 아이콘 리스트
-        local l_monster_id = g_stageData:getMonsterIDList(stage_id)
-
-        local list_table_node = self.vars['enemyListView']
-        local cardUIClass = UI_MonsterCard
-        local cardUISize = 0.65
-        local width, height = cardUIClass:getCardSize(cardUISize)
-
-        -- 인연 던전의 경우
-        local game_mode = g_stageData:getGameMode(stage_id)
-        if (game_mode == GAME_MODE_SECRET_DUNGEON) then
-            local t_info = g_secretDungeonData:parseSecretDungeonID(stage_id)
-            if (t_info['dungeon_mode'] == SECRET_DUNGEON_RELATION) then
-                local makeUI = function(did)
-                    local t_dragon_data = {}
-                    t_dragon_data['did'] = did
-                    t_dragon_data['evolution'] = 1
-                    t_dragon_data['grade'] = 1
-                    t_dragon_data['skill_0'] = 1
-                    t_dragon_data['skill_1'] = 1
-                    t_dragon_data['skill_2'] = 0
-                    t_dragon_data['skill_3'] = 0
-
-                    local ui = UI_DragonCard(t_dragon_data)
-                    return ui
-                end
-
-                cardUIClass = makeUI
-            end
-        end
-
-        -- 리스트 아이템 생성 콜백
-        local function create_func(item)
-            local ui = item['ui']
-            ui.root:setScale(cardUISize)
-        end
-
-        -- 클릭 콜백 함수
-        local click_item = nil
-
-        -- 테이블뷰 초기화
-        local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.HORIZONTAL)
-        table_view_ext:setCellInfo(width, height)
-        table_view_ext:setItemUIClass(cardUIClass, click_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-        table_view_ext:setItemInfo(l_monster_id)
-        table_view_ext:update()
+    -- 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.6)
     end
+
+    -- stage_id로 몬스터 아이콘 리스트
+    local stage_id = self.m_stageID
+    local l_item_list = g_stageData:getMonsterIDList(stage_id)
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(94, 98)
+    table_view:setCellUIClass(UI_MonsterCard, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setItemList(l_item_list)
+    table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
+end
+
+-------------------------------------
+-- function init_rewardListView
+-- @brief 획득 가능 보상
+-------------------------------------
+function UI_ReadyScene:init_rewardListView()
+    local node = self.vars['rewardListView']
+    node:removeAllChildren()
+
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.6)
+    end
+
+    -- stage_id로 드랍정보를 얻어옴
+    local stage_id = self.m_stageID
+    local drop_helper = DropHelper(stage_id)
+    local l_item_list = drop_helper:getDisplayItemList()
+
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(94, 98)
+    table_view:setCellUIClass(UI_ItemCard, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setItemList(l_item_list)
+    table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
 end
 
 -------------------------------------
