@@ -30,10 +30,10 @@ function TableQuest:arrangeData()
     for qid, t_quest in pairs(self.m_orgTable) do
 		-- reward parsing
 		reward_str = t_quest['reward']
-		t_reward = seperate(reward_str, ',')
+		t_reward = self:seperate(reward_str, ',')
 		t_quest['t_reward'] = {}
 		for i, each_reward in pairs(t_reward) do 
-			reward_iv = seperate(each_reward, ':')
+			reward_iv = self:seperate(each_reward, ':')
 			t_quest['t_reward']['reward_type_'..i] = reward_iv[1]
 			t_quest['t_reward']['reward_unit_'..i] = reward_iv[2]
 		end

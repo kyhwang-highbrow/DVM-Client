@@ -142,8 +142,8 @@ function UI_QuestListItem:setRewardCard()
 	for i = 1, 3 do 
 		reward_type = t_reward['reward_type_' .. i]
 		reward_unit = t_reward['reward_unit_' .. i]
-		reward_count = reward_unit * math_min(self.m_goalCount, t_data['reward_max_cnt'])
-		if (reward_type) then
+		if (reward_type and reward_unit) then
+            reward_count = reward_unit * math_min(self.m_goalCount, t_data['reward_max_cnt'])
 		    reward_card = UI_RewardCard(reward_type, reward_count)
 			reward_card.root:setScale(0.7)
 			vars['rewardNode' .. i]:addChild(reward_card.root)
