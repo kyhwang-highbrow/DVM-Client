@@ -489,6 +489,9 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
         self:setServerTable(ret, 'table_dragon_friendship')
         self:setServerTable(ret, 'table_dragon_friendship_variables')
 
+        -- 아이템 관련
+        self:setServerTable(ret, 'table_item_rand')
+
         if finish_cb then
             finish_cb(ret)
         end

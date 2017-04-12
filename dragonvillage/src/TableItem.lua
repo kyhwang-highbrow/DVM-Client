@@ -149,3 +149,25 @@ function TableItem:getFruitsListByAttr(attr)
 
     return l_fruit_list
 end
+
+-------------------------------------
+-- function getDisplayItemIDList
+-- @brief UI에 표기할 아이템 ID 리턴
+-------------------------------------
+function TableItem:getDisplayItemIDList(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local type = self:getValue(item_id, 'type')
+    if (type ~= 'rand') then
+        return {item_id}
+    end
+
+    local icon = self:getValue(item_id, 'icon')
+    if icon and (icon ~= '') then
+        return {item_id}
+    end
+
+    return TableItemRand:getRandItemList(item_id)
+end

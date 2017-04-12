@@ -38,12 +38,19 @@ function DropHelper:getDisplayItemList()
     local table_drop = TABLE:get('drop')
     local t_drop = table_drop[self.m_stageID]
 
+    local table_item = TableItem()
+
     local l_ret = {}
     for i=0, 10 do
         local key = 'item_' .. i .. '_id'
         local item_id = t_drop[key]
         if item_id and (item_id ~= '') and (item_id ~= 0) then
-            table.insert(l_ret, item_id)
+
+            local l_iid = table_item:getDisplayItemIDList(item_id)
+            for _,dp_item_id in ipairs(l_iid) do
+                table.insert(l_ret, dp_item_id)
+            end
+
         end
     end
 

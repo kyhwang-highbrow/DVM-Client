@@ -72,6 +72,9 @@ local TableInfo_fromServer = {
         --  친밀도
         ['table_dragon_friendship'] = {'table_dragon_friendship', 'friendship'},
         ['table_dragon_friendship_variables'] = {'table_dragon_friendship_variables', 'var'},
+
+        -- 아이템 관련
+        ['table_item_rand'] = {'table_item_rand', 'rand_item_id'},
     }
 
 -------------------------------------

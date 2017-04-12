@@ -169,6 +169,7 @@ local t_module = {
     'TableRuneGrade',
     'TableRuneMoptStatus',
     'TableItem',
+    'TableItemRand',
 	'TableQuest',
 	'TableShop',
     'TableSecretDungeon',
