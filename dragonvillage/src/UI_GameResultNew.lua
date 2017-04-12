@@ -628,7 +628,7 @@ function UI_GameResultNew:click_nextBtn()
         g_stageData:setFocusStage(next_stage_id)
     end
 
-    g_adventureData:goToAdventureScene()
+    g_adventureData:goToAdventureScene(next_stage_id)
 end
 
 -------------------------------------
