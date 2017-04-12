@@ -77,7 +77,7 @@ function ServerData_NestDungeon:getNestDungeonListForUI()
         local t_remove = {}
         for i,v in ipairs(l_dungeon_list) do
             if (v['is_open'] == 0) then
-                table.insert(t_remove, 1, i)
+                --table.insert(t_remove, 1, i)
             end
         end
 
