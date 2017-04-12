@@ -82,7 +82,7 @@ function UI_DragonSummon:refresh()
 
     -- 마일리지 정보
     local mileage = g_dragonSummonData.m_mileage
-    vars['mileageLabel']:setString(Str('{1}회', mileage))
+    vars['mileageLabel']:setString(Str('{1}', mileage))
 
     local percentage = (mileage / 150) * 100
     vars['mileageGuage']:stopAllActions()

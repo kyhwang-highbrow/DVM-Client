@@ -204,7 +204,7 @@
 						lua_name = 'mileageLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 26;
-						text = '{1}회';
+						text = '{1}';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 255; 215; 0; };
@@ -379,7 +379,7 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 24;
-							text = '20회';
+							text = '20';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 255; 255; 255; };
@@ -520,7 +520,7 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 24;
-							text = '50회';
+							text = '50';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 255; 255; 255; };
@@ -661,7 +661,7 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 24;
-							text = '150회';
+							text = '150';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 255; 255; 255; };
