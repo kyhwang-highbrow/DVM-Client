@@ -52,6 +52,14 @@ end
 -------------------------------------
 function UI_Lobby:initUI()
     self:initCamera()
+
+    local vars = self.vars
+    do -- 테이머 아이콘 갱신
+        local type = g_userData:getTamerInfo('type')
+        local icon = IconHelper:getTamerProfileIcon(type)
+        vars['userNode']:removeAllChildren()
+        vars['userNode']:addChild(icon)
+    end
 end
 
 -------------------------------------
@@ -176,6 +184,14 @@ end
 -------------------------------------
 function UI_Lobby:refresh_userTamer()
     self.m_lobbyMap:refreshLobbyTamerUser()
+
+    local vars = self.vars
+    do -- 테이머 아이콘 갱신
+        local type = g_userData:getTamerInfo('type')
+        local icon = IconHelper:getTamerProfileIcon(type)
+        vars['userNode']:removeAllChildren()
+        vars['userNode']:addChild(icon)
+    end
 end
 
 -------------------------------------
@@ -284,22 +300,6 @@ function UI_Lobby:refresh_userInfo()
     local exp_percentage = table_user_level:getUserLevelExpPercentage(lv, exp)
     vars['userExpLabel']:setString(Str('{1}%', exp_percentage))
     vars['userExpGg']:setPercentage(exp_percentage)
-
-    -- 대표 드래곤 아이콘
-    --[[
-    local t_leader_dragon_data = g_dragonsData:getLeaderDragon()
-    if t_leader_dragon_data then
-        local dragon_id = t_leader_dragon_data['did']
-        local table_dragon = TABLE:get('dragon')
-        local t_dragon = table_dragon[dragon_id]
-
-        local sprite = IconHelper:getHeroIcon(t_dragon['icon'], t_leader_dragon_data['evolution'], t_dragon['attr'])
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        vars['userNode']:removeAllChildren()
-        vars['userNode']:addChild(sprite)
-    end
-    --]]
 end
 
 -------------------------------------

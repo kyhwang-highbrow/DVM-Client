@@ -447,3 +447,22 @@ function IconHelper:getStaminaInboxIcon(type)
 
     return icon
 end
+
+-------------------------------------
+-- function getTamerProfileIcon
+-- @breif
+-------------------------------------
+function IconHelper:getTamerProfileIcon(type)
+    local res = 'res/ui/icon/tamer/tamer_profile_' .. type .. '_0101.png'
+
+    local icon = cc.Sprite:create(res)
+
+    if (not icon) then
+        icon = cc.Sprite:create('res/ui/icon/item/developing.png')
+    end
+
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+
+    return icon
+end
