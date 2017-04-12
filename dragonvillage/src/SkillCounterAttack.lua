@@ -37,8 +37,8 @@ function SkillCounterAttack:init_skill(invoke_skill_id, duration, animation_name
 
 	-- 추가 리소스 있다면 effect 생성
 	if (effect_res) then
-		self.m_effect = self:makeEffect(effect_res, self.m_owner.pos.x, self.m_owner.pos.x)
-		self.m_effect:setVisible(false)
+		--self.m_effect = self:makeEffect(effect_res, self.m_owner.pos.x, self.m_owner.pos.x)
+		--self.m_effect:setVisible(false)
 	end
 
 	-- 스킬 캐스터 이벤트 처리
@@ -52,9 +52,9 @@ end
 -------------------------------------
 function SkillCounterAttack:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillCounterAttack.st_appear, nil, true)
-    self:addState('idle', SkillCounterAttack.st_idle, nil, true)
-	self:addState('disappear', SkillCounterAttack.st_disappear, nil, true)
+    self:addState('start', SkillCounterAttack.st_appear, 'appear', false)
+    self:addState('idle', SkillCounterAttack.st_idle, 'idle', true)
+	self:addState('disappear', SkillCounterAttack.st_disappear, 'disappear', false)
 end
 
 -------------------------------------
@@ -162,7 +162,7 @@ function SkillCounterAttack:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillCounterAttack(nil)
+    local skill = SkillCounterAttack(effect_res)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)

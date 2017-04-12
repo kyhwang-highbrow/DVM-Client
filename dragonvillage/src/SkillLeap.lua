@@ -19,15 +19,27 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillLeap:init_skill(jump_res, range)
+function SkillLeap:init_skill(jump_res)
 	PARENT.init_skill(self)
 	
-	-- 멤버 변수 
+	-- 멤버 변수
+	self.m_range = 10			-- 1인의 공격만 하므로 적당히..
 	self.m_jumpRes = jump_res
-	self.m_range = range
 	self.m_afterimageMove = 0
 
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
+end
+
+-------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillLeap:initSkillSize()
+	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
+		local t_data = SkillHelper:getSizeAndScale('round', self.m_skillSize)  
+
+		--self.m_resScale = t_data['scale']
+		--self.m_range = t_data['size']
+	end
 end
 
 -------------------------------------
@@ -75,11 +87,6 @@ function SkillLeap.st_move(owner, dt)
 
             local missileNode = owner.m_world:getMissileNode()
             missileNode:addChild(animator.m_node)
-
-            -- 하이라이트
-            if (owner.m_bHighlight) then
-                --owner.m_world.m_gameHighlight:addEffect(animator)
-            end
 		end 
 
         -- 2바퀴 돌면서 점프하는 액션
@@ -152,11 +159,6 @@ function SkillLeap:updateAfterImage(dt)
         local worldNode = char.m_world:getMissileNode('bottom')
         worldNode:addChild(accidental.m_node, 2)
 
-        -- 하이라이트
-        if (self.m_bHighlight) then
-            --self.m_world.m_gameHighlight:addEffect(accidental)
-        end
-        
         accidental:setScale(char.m_animator:getScale())
         accidental:setFlip(char.m_animator.m_bFlip)
         accidental.m_node:setOpacity(255 * 0.3)
@@ -189,7 +191,6 @@ function SkillLeap:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
     local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local jump_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
-    local range = t_skill['val_1']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -198,7 +199,7 @@ function SkillLeap:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(jump_res, range)
+    skill:init_skill(jump_res)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -209,9 +210,4 @@ function SkillLeap:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end
