@@ -7,7 +7,7 @@
             <key>skill_tamer_active_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{735,934},{229,229}}</string>
+                <string>{{2,1050},{229,229}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>skill_tamer_active_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{489,738},{244,241}}</string>
+                <string>{{489,753},{244,241}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>skill_tamer_active_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,1186},{70,70}}</string>
+                <string>{{947,1218},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>skill_tamer_active_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{372,1028},{88,88}}</string>
+                <string>{{369,1330},{88,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>skill_tamer_active_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{490,484},{254,252}}</string>
+                <string>{{764,694},{254,252}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>skill_tamer_active_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1186},{128,128}}</string>
+                <string>{{2,1449},{128,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>skill_tamer_active_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{204,1189},{82,87}}</string>
+                <string>{{345,1420},{82,87}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>skill_tamer_active_08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{735,799},{45,45}}</string>
+                <string>{{976,948},{45,45}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>skill_tamer_active_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{469,981},{200,166}}</string>
+                <string>{{2,1281},{200,166}}</string>
                 <key>offset</key>
                 <string>{0,-17}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>skill_tamer_active_12.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{735,846},{41,41}}</string>
+                <string>{{976,1045},{41,41}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,7 +163,7 @@
             <key>skill_tamer_active_dede_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{490,383},{99,272}}</string>
+                <string>{{490,652},{99,272}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -176,11 +176,11 @@
             <key>skill_tamer_active_dede_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1050},{134,200}}</string>
+                <string>{{233,1189},{134,200}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{134,200}}</string>
                 <key>sourceSize</key>
@@ -215,11 +215,11 @@
             <key>skill_tamer_active_durun_01_s.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{746,555},{49,196}}</string>
+                <string>{{471,1223},{49,196}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{49,196}}</string>
                 <key>sourceSize</key>
@@ -228,7 +228,7 @@
             <key>skill_tamer_active_durun_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{343,1118},{120,119}}</string>
+                <string>{{459,1369},{120,119}}</string>
                 <key>offset</key>
                 <string>{-1,-1}</string>
                 <key>rotated</key>
@@ -241,7 +241,7 @@
             <key>skill_tamer_active_durun_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,1258},{64,64}}</string>
+                <string>{{638,1274},{64,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -263,6 +263,110 @@
                 <string>{{16,16},{368,368}}</string>
                 <key>sourceSize</key>
                 <string>{400,400}</string>
+            </dict>
+            <key>skill_tamer_active_goni_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{735,948},{239,232}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{24,23},{239,232}}</string>
+                <key>sourceSize</key>
+                <string>{287,278}</string>
+            </dict>
+            <key>skill_tamer_active_goni_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{715,1182},{230,219}}</string>
+                <key>offset</key>
+                <string>{0,10}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{230,219}}</string>
+                <key>sourceSize</key>
+                <string>{230,239}</string>
+            </dict>
+            <key>skill_tamer_active_goni_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{372,939},{161,101}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{161,101}}</string>
+                <key>sourceSize</key>
+                <string>{161,101}</string>
+            </dict>
+            <key>skill_tamer_active_goni_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{466,1274},{170,93}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,93}}</string>
+                <key>sourceSize</key>
+                <string>{170,93}</string>
+            </dict>
+            <key>skill_tamer_active_kesath_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{490,383},{284,267}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{284,267}}</string>
+                <key>sourceSize</key>
+                <string>{284,267}</string>
+            </dict>
+            <key>skill_tamer_active_kesath_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{204,1391},{139,165}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{139,165}}</string>
+                <key>sourceSize</key>
+                <string>{139,165}</string>
+            </dict>
+            <key>skill_tamer_active_kesath_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{372,1102},{137,97}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{137,97}}</string>
+                <key>sourceSize</key>
+                <string>{137,97}</string>
+            </dict>
+            <key>skill_tamer_active_kesath_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{947,1290},{150,67}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{150,67}}</string>
+                <key>sourceSize</key>
+                <string>{150,67}</string>
             </dict>
             <key>skill_tamer_active_mokoji_01.png</key>
             <dict>
@@ -293,7 +397,7 @@
             <key>skill_tamer_active_mokoji_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{764,465},{33,88}}</string>
+                <string>{{976,1128},{33,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -371,7 +475,7 @@
             <key>skill_tamer_active_nuri_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{204,1050},{137,137}}</string>
+                <string>{{233,1050},{137,137}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -384,7 +488,7 @@
             <key>skill_tamer_active_nuri_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{372,939},{87,95}}</string>
+                <string>{{369,1241},{87,95}}</string>
                 <key>offset</key>
                 <string>{2,-2}</string>
                 <key>rotated</key>
@@ -397,7 +501,7 @@
             <key>skill_tamer_active_nuri_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{764,425},{38,38}}</string>
+                <string>{{976,1088},{38,38}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -410,7 +514,7 @@
             <key>skill_tamer_active_nuri_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{764,383},{38,40}}</string>
+                <string>{{764,652},{38,40}}</string>
                 <key>offset</key>
                 <string>{-1,-2}</string>
                 <key>rotated</key>
@@ -423,11 +527,11 @@
             <key>skill_tamer_active_nuri_05_s.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{735,753},{44,48}}</string>
+                <string>{{976,995},{44,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{44,48}}</string>
                 <key>sourceSize</key>
@@ -449,11 +553,11 @@
             <key>skill_tamer_active_nuri_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{797,694},{238,225}}</string>
+                <string>{{475,996},{238,225}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{24,21},{238,225}}</string>
                 <key>sourceSize</key>
@@ -469,7 +573,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:bd64a0103d73ef8b643313863fa1800d$</string>
+            <string>$TexturePacker:SmartUpdate:3a29c58dbf10bb754594a2e75c619bd0$</string>
             <key>textureFileName</key>
             <string>skill_tamer_active.png</string>
         </dict>
