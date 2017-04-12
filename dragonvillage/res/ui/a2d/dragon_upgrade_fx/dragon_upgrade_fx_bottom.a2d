@@ -10,6 +10,15 @@
 			[
 
 			]
+		},
+		{
+			"name":"(PROJECT_PATH)test.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
 		}
 	],
 	"azEventBox":
@@ -49,10 +58,10 @@
 								"key_list":
 								[
 									{
-										"frame":73, "sX":4.782100, "sY":4.563200
+										"frame":71, "sX":4.782100, "sY":4.563200
 									},
 									{
-										"frame":102, "sX":4.782100, "sY":4.563200
+										"frame":104, "sX":4.782100, "sY":4.563200
 									}
 								]
 							},
@@ -63,22 +72,126 @@
 								"key_list":
 								[
 									{
-										"frame":73, "sX":5.574400, "sY":5.953200
+										"frame":71, "sX":5.574400, "sY":5.953200
 									},
 									{
-										"frame":79, "sX":5.218491, "sY":5.187714
+										"frame":77, "sX":5.218491, "sY":5.187714
 									},
 									{
-										"frame":86, "sX":5.574400, "sY":5.953200
+										"frame":84, "sX":5.574400, "sY":5.953200
 									},
 									{
-										"frame":91, "sX":5.218491, "sY":5.187714
+										"frame":89, "sX":5.218491, "sY":5.187714
 									},
 									{
-										"frame":97, "sX":5.574400, "sY":5.953200
+										"frame":95, "sX":5.574400, "sY":5.953200
 									},
 									{
-										"frame":102, "sX":5.574400, "sY":5.953200
+										"frame":99, "sX":5.218491, "sY":5.187714
+									},
+									{
+										"frame":104, "sX":5.574400, "sY":5.953200
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'aline'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":66, "sX":1.899800, "sY":2.145000, "pX":-16.000000, "alpha":0, "colorRGB":[223,45,49]
+
+									},
+									{
+										"frame":72, "sX":4.451193, "sY":4.109606, "pX":-16.000000, "alpha":76, "colorRGB":[223,45,49]
+
+									},
+									{
+										"frame":104, "sX":9.644251, "sY":9.041132, "rotate":24.000000, "pX":-16.000000, "alpha":0, "colorRGB":[223,45,49]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'aline'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":66, "sX":1.899800, "sY":2.145000, "pX":-16.000000, "alpha":0, "colorRGB":[23,151,244]
+
+									},
+									{
+										"frame":72, "sX":4.451193, "sY":4.109606, "pX":-16.000000, "alpha":76, "colorRGB":[23,151,244]
+
+									},
+									{
+										"frame":104, "sX":9.644251, "sY":9.041132, "rotate":24.000000, "pX":-16.000000, "alpha":0, "colorRGB":[23,151,244]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'aline'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":66, "sX":1.899800, "sY":2.145000, "pX":-16.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":72, "sX":4.451193, "sY":4.109606, "pX":-16.000000, "alpha":76, "mode":"Add"
+									},
+									{
+										"frame":104, "sX":9.644251, "sY":9.041132, "rotate":24.000000, "pX":-16.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'star'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":73, "sX":2.947392, "sY":2.830500, "mode":"None"
+									},
+									{
+										"frame":98, "sX":2.947392, "sY":2.830500, "mode":"None"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'new_Visual_1'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":71, "sX":2.700000, "sY":2.700000, "mode":"Add"
+									},
+									{
+										"frame":87, "sX":2.700000, "sY":2.700000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'new_Visual_1'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":71, "sX":2.700000, "sY":2.700000, "rotate":-202.000000, "colorRGB":[255,21,238]
+, "mode":"Add"
+									},
+									{
+										"frame":104, "sX":2.700000, "sY":2.700000, "rotate":-202.000000, "colorRGB":[21,215,255]
+, "mode":"Add"
 									}
 								]
 							}
@@ -95,20 +208,6 @@
 						"apply":true,
 						"layer_list":
 						[
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'new_Visual'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":4.782100, "sY":4.563200
-									},
-									{
-										"frame":29, "sX":4.782100, "sY":4.563200
-									}
-								]
-							},
 							{
 								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_clight_01.png'",
 								"expand":false,
@@ -131,7 +230,56 @@
 										"frame":24, "sX":5.574400, "sY":5.953200
 									},
 									{
-										"frame":29, "sX":5.574400, "sY":5.953200
+										"frame":28, "sX":5.218491, "sY":5.187714
+									},
+									{
+										"frame":33, "sX":5.574400, "sY":5.953200
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'aline'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.451193, "sY":4.109606, "pX":-16.000000, "alpha":76, "colorRGB":[223,45,49]
+
+									},
+									{
+										"frame":33, "sX":9.644251, "sY":9.041132, "rotate":24.000000, "pX":-16.000000, "alpha":0, "colorRGB":[223,45,49]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'aline'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.451193, "sY":4.109606, "pX":-16.000000, "alpha":76, "colorRGB":[23,151,244]
+
+									},
+									{
+										"frame":33, "sX":9.644251, "sY":9.041132, "rotate":24.000000, "pX":-16.000000, "alpha":0, "colorRGB":[23,151,244]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'aline'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.451193, "sY":4.109606, "pX":-16.000000, "alpha":76, "mode":"Add"
+									},
+									{
+										"frame":33, "sX":9.644251, "sY":9.041132, "rotate":24.000000, "pX":-16.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							}
@@ -1061,6 +1209,86 @@
 										"frame":17, "alpha":0
 									}
 								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_aline_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "sX":0.500000, "sY":0.800000, "alpha":0
+									},
+									{
+										"frame":15
+									},
+									{
+										"frame":17
+									},
+									{
+										"frame":20, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_aline_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "sX":0.500000, "sY":0.800000, "alpha":0
+									},
+									{
+										"frame":18
+									},
+									{
+										"frame":20
+									},
+									{
+										"frame":23, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_aline_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "sX":0.500000, "sY":0.800000, "alpha":0
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":23
+									},
+									{
+										"frame":26, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_aline_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":21, "sX":0.500000, "sY":0.800000, "alpha":0
+									},
+									{
+										"frame":24
+									},
+									{
+										"frame":26
+									},
+									{
+										"frame":29
+									}
+								]
 							}
 						]
 					}
@@ -1575,6 +1803,226 @@
 									},
 									{
 										"frame":32, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":27, "alpha":0
+									},
+									{
+										"frame":30
+									},
+									{
+										"frame":32
+									},
+									{
+										"frame":35, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "alpha":0
+									},
+									{
+										"frame":33
+									},
+									{
+										"frame":35
+									},
+									{
+										"frame":38, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":33, "alpha":0
+									},
+									{
+										"frame":36
+									},
+									{
+										"frame":38
+									},
+									{
+										"frame":41, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":36, "alpha":0
+									},
+									{
+										"frame":39
+									},
+									{
+										"frame":41
+									},
+									{
+										"frame":44, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":39, "alpha":0
+									},
+									{
+										"frame":42
+									},
+									{
+										"frame":44
+									},
+									{
+										"frame":47, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":42, "alpha":0
+									},
+									{
+										"frame":45
+									},
+									{
+										"frame":47
+									},
+									{
+										"frame":50, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_06.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":45, "alpha":0
+									},
+									{
+										"frame":48
+									},
+									{
+										"frame":50
+									},
+									{
+										"frame":53, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_07.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":48, "alpha":0
+									},
+									{
+										"frame":51
+									},
+									{
+										"frame":53
+									},
+									{
+										"frame":56, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_08.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":51, "alpha":0
+									},
+									{
+										"frame":54
+									},
+									{
+										"frame":56
+									},
+									{
+										"frame":59, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_09.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":54, "alpha":0
+									},
+									{
+										"frame":57
+									},
+									{
+										"frame":59
+									},
+									{
+										"frame":62, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_sphere_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":57, "alpha":0
+									},
+									{
+										"frame":60
+									},
+									{
+										"frame":62
+									},
+									{
+										"frame":65, "alpha":0
 									}
 								]
 							}
