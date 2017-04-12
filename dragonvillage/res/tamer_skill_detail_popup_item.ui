@@ -543,6 +543,30 @@
 			};
 			[11] =
 			{
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 230;
+				height = 430;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'block';
+				enable = true;
+				normal = '';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[12] =
+			{
 				[1] =
 				{
 					type = 'LabelTTF';
@@ -607,7 +631,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[12] =
+			[13] =
 			{
 				type = 'Visual';
 				ui_name = '';

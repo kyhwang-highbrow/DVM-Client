@@ -29,6 +29,8 @@ function UI_TamerManagePopup:init()
 	self.m_currTamerID = g_userData:getTamerInfo('tid')
 	self.m_selectedTamerID = self.m_currTamerID
 	self.m_lTamerItemList = {}
+	
+	-- skill popup 생성
 	self.m_skillUI = UI_SkillDetailPopup_Tamer()
 	self.m_skillUI:hide()
 
@@ -292,6 +294,7 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_TamerManagePopup:click_exitBtn()
+	self.m_skillUI:close()
     self:close()
 end
 
