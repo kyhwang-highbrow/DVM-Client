@@ -15,7 +15,7 @@ Dragon = class(PARENT, {
 
         -- 스킬 게이지 관련
         m_activeSkillValue = 'number',
-        m_activeSkillIncValuePerSec = 'number', -- 초당 회복량
+        m_activeSkillIncValuePerSec = 'number', -- 초당 드래그 게이지 증가량
         m_activeSkillAccumValue = 'number',     -- 누적값(초당 최대 획득량 제한을 위함)
         m_activeSkillAccumTimer = 'number',
 
@@ -755,6 +755,7 @@ end
 
 -------------------------------------
 -- function initActiveSkillCool
+-- @brief 초당 드래그 게이지 증가량을 세팅한다.
 -------------------------------------
 function Dragon:initActiveSkillCool(percentage)
     local active_skill_id = self:getSkillID('active')
@@ -785,7 +786,11 @@ function Dragon:initActiveSkillCool(percentage)
     else
         self.m_activeSkillIncValuePerSec = common_inc_value_per_sec
     end
-                
+
+	-- @ RUNE
+	local inc_value_add_rate = self:getStat('drag_cool')
+	self.m_activeSkillIncValuePerSec = (self.m_activeSkillIncValuePerSec * (1 + (inc_value_add_rate/100)))
+	            
 	-- 스킬 게이지 초기화
 	self.m_activeSkillValue = 0
 
@@ -796,6 +801,7 @@ end
 
 -------------------------------------
 -- function increaseActiveSkillCool
+-- @brief 특정 이벤트로 인한 드래그 게이지 증가량
 -------------------------------------
 function Dragon:increaseActiveSkillCool(percentage)
     if (percentage == 0) then return end
@@ -816,6 +822,7 @@ end
 
 -------------------------------------
 -- function updateActiveSkillCool
+-- @brief 초당 드래그 게이지 증가
 -------------------------------------
 function Dragon:updateActiveSkillCool(dt)
 	-- @TODO 임시 처리
@@ -1071,7 +1078,9 @@ function Dragon:updateBasicTimeSkillTimer(dt)
 
     -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
     if (skill_info) then
-        local max = skill_info.m_tSkill['chance_value']
+		-- @ RUNE
+		local max_reduce_rate = self:getStat('cool_actu')
+        local max = skill_info.m_tSkill['chance_value'] * (1 - (max_reduce_rate/100))
         local cur = skill_info.m_timer
         local remain_time = max - cur
         

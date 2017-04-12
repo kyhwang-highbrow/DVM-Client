@@ -427,6 +427,7 @@ end
 function StatusEffectHelper:checkPermillRate(caster, target_char, status_effect_rate, status_effect_group)
 	local is_helpful = self:isHarmful(status_effect_group)
 	
+	-- @ RUNE
 	local se_acc = caster:getStat('accuracy')
 	local se_resist
 	if (is_helpful) then

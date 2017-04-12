@@ -23,7 +23,9 @@ table.addList(L_STATUS_TYPE, {
         'drag_gauge',   -- 드래그 게이지 +{1} 충전 상태에서 시작
         'drag_cool',    -- 드래그 스킬 쿨타임 +{1} 감소
         'cool_actu',    -- 쿨타임 스킬 시간 +{1}%
-        'pass_chance',  -- 패시브 발동 +{1}%
+
+		-- 기획 이슈로 제거
+        --'pass_chance',  -- 패시브 발동 +{1}% 
 
     })
 

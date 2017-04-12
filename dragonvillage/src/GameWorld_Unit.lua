@@ -174,7 +174,7 @@ function GameWorld:makeHeroDeck()
         end
     end
     
-    -- 아군 드래곤들은 게이지를 조정
+    -- 스테이지 최초 시작시 드래곤들의 드래그 / 액티브 스킬 게이지 랜덤하게 충전
     do
         local t_percentage = { 60, 80 }
         local t_temp = { 20, 40 }
@@ -186,7 +186,9 @@ function GameWorld:makeHeroDeck()
         t_percentage = randomShuffle(t_percentage)
 
         for i, dragon in ipairs(self:getDragonList()) do
-            dragon:initActiveSkillCool(t_percentage[i])
+			-- @ RUNE
+			local bonus_percentage = dragon:getStat('drag_gauge')
+            dragon:initActiveSkillCool(t_percentage[i] + bonus_percentage)
         end
     end
     
