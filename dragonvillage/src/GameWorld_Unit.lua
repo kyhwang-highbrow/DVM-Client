@@ -22,9 +22,15 @@ function GameWorld:makeTamerNew(t_tamer, bRightFormation)
     self.m_physWorld:addObject(PHYS.TAMER, tamer)
     
     tamer:setAnimatorScale(0.5)
-    tamer:setOrgHomePos(70, -250)
-    tamer:setPosition(70, -250)
     tamer:changeState('idle')
+
+    if (bLeftFormation) then
+        tamer:setOrgHomePos(70, -250)
+        tamer:setPosition(70, -250)
+    else
+        tamer:setOrgHomePos(CRITERIA_RESOLUTION_X - 70, -250)
+        tamer:setPosition(CRITERIA_RESOLUTION_X - 70, -250)
+    end
 
     return tamer
 end
@@ -54,6 +60,11 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     self:addToUnitList(dragon)
 
     dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
+
+    if (status_calc) then
+        dragon:setStatusCalc(status_calc)
+    end
+
 	dragon:initState()
 	dragon:initFormation()
 

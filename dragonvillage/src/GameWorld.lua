@@ -171,8 +171,12 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
     self.m_gameHighlight = GameHighlightMgr(self, self.m_darkLayer)
-    self.m_gameCoolTime = GameCoolTime(self)
     self.m_gameDragonSkill = GameDragonSkill(self)
+
+    -- 글로벌 쿨타임
+    self.m_gameCoolTime = GameCoolTime(self)
+    self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
+    self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
         
     -- 아군 자동시 AI
     self.m_gameAutoHero = GameAuto_Hero(self)
@@ -371,8 +375,6 @@ function GameWorld:initTamer()
 
     -- 테이머 생성
     self.m_tamer = self:makeTamerNew(t_tamer)
-    self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
-    self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     self:addListener('dragon_summon', self)
 end
 
@@ -1283,12 +1285,7 @@ function GameWorld:setBattleZone(formation, immediately, is_right)
         local pos_idx = unit:getPosIdx()
         local pos_x = l_pos_list[pos_idx]['x']
         local pos_y = l_pos_list[pos_idx]['y']
-
-        if (unit.m_charType == 'tamer') then
-            pos_x = 60
-            pos_y = -250
-        end
-
+        
         unit:setOrgHomePos(pos_x, pos_y)
 
         if immediately then

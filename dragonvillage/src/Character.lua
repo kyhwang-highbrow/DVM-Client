@@ -328,19 +328,34 @@ function Character:initStatus(t_char, level, grade, evolution, doid, eclv)
     -- 능력치 계산기
     local grade = (grade or 1)
     local evolution = (evolution or 1)
+    local statusCalc
 
     if (self.m_charType == 'dragon') then
         if doid then
-            self.m_statusCalc = MakeOwnDragonStatusCalculator(doid)
+            statusCalc = MakeOwnDragonStatusCalculator(doid)
         else
-            self.m_statusCalc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution, eclv)
+            statusCalc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution, eclv)
         end
     elseif (self.m_charType == 'monster') then
-        self.m_statusCalc = StatusCalculator(self.m_charType, self.m_charTable['mid'], level, grade, evolution, eclv)
+        statusCalc = StatusCalculator(self.m_charType, self.m_charTable['mid'], level, grade, evolution, eclv)
     else
         error('self.m_charType : ' .. self.m_charType)
     end
-    
+
+    self:setStatusCalc(statusCalc)
+end
+
+-------------------------------------
+-- function setStatusCalc
+-------------------------------------
+function Character:setStatusCalc(status_calc)
+    self.m_statusCalc = status_calc
+
+    if (not self.m_statusCalc) then
+        return
+    end
+
+    -- hp 설정
     local hp = self:getStat('hp')
     self.m_maxHp = hp
     self.m_hp = hp

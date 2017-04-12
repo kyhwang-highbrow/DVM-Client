@@ -2,14 +2,12 @@ local PARENT = GameState
 
 local HERO_TAMER_POS_X = 320 - 50
 local ENEMY_TAMER_POS_X = 960 + 50
-local TAMER_POS_Y = -550
+local TAMER_POS_Y = -450
 
 -------------------------------------
 -- class GameState_Colosseum
 -------------------------------------
 GameState_Colosseum = class(PARENT, {
-        m_heroTamerAvatar = 'Animator',     -- 아군 테이머
-        m_enemyTamerAvatar = 'Animator',    -- 적군 테이머
         m_bWin = 'boolean',
     })
 
@@ -17,8 +15,6 @@ GameState_Colosseum = class(PARENT, {
 -- function init
 -------------------------------------
 function GameState_Colosseum:init(world)
-    self:initTamerAvatar()
-
     -- 콜로세움은 제한시간 5분으로 고정
     self.m_limitTime = 300
 end
@@ -29,9 +25,9 @@ end
 -------------------------------------
 function GameState_Colosseum:initState()
     PARENT.initState(self)
+
     self:addState(GAME_STATE_START, GameState_Colosseum.update_start)
     self:addState(GAME_STATE_WAVE_INTERMISSION, GameState_Colosseum.update_wave_intermission)
-    self:addState(GAME_STATE_FIGHT, GameState_Colosseum.update_fight)
     self:addState(GAME_STATE_SUCCESS, GameState_Colosseum.update_success)
     self:addState(GAME_STATE_FAILURE, GameState_Colosseum.update_failure)
     self:addState(GAME_STATE_RESULT, GameState_Colosseum.update_result)
@@ -46,6 +42,9 @@ function GameState_Colosseum.update_start(self, dt)
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
+            -- 테이머 등장
+            self:readyTamer()
+
             -- 아군 적군 드래곤들을 모두 숨김
             self:disappearAllDragon()
 
@@ -73,10 +72,10 @@ function GameState_Colosseum.update_start(self, dt)
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
             -- 아군 드래곤 소환
-            self.m_heroTamerAvatar.m_node:resume()
+            world.m_tamer.m_animator.m_node:resume()
             
             -- 적군 드래곤 소환
-            self.m_enemyTamerAvatar.m_node:resume()
+            world.m_enemyTamer.m_animator.m_node:resume()
             
         elseif (self:isPassedStepTime(1)) then
             self:appearHero()
@@ -94,7 +93,7 @@ function GameState_Colosseum.update_start(self, dt)
     elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
             -- 카메라 초기화
-            self.m_world:changeCameraOption({
+            world:changeCameraOption({
                 pos_x = 0,
                 pos_y = 0,
                 scale = 1,
@@ -107,13 +106,22 @@ function GameState_Colosseum.update_start(self, dt)
 
     elseif (self:getStep() == 3) then
         if (self:isBeginningStep()) then
+            
+            if (world.m_tamer) then
+                world.m_tamer:setAnimatorScale(0.5)
+            end
+
+            if (world.m_enemyTamer) then
+                world.m_enemyTamer:setAnimatorScale(0.5)
+            end
+
             self:changeState(GAME_STATE_WAVE_INTERMISSION)
         end
     end
 end
 
 -------------------------------------
--- function update_fight
+-- function update_wave_intermission
 -------------------------------------
 function GameState_Colosseum.update_wave_intermission(self, dt)
     local world = self.m_world
@@ -144,6 +152,10 @@ function GameState_Colosseum.update_success(self, dt)
 
         -- 모든 적들을 죽임
         world:killAllEnemy()
+        world.m_enemyTamer:changeState('dying')
+
+        -- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
 
         world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
 
@@ -179,30 +191,37 @@ function GameState_Colosseum.update_failure(self, dt)
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
+            world.m_tamer:changeState('dying')
+
+        elseif (self:isPassedStepTime(1.5)) then
             if world.m_skillIndicatorMgr then
                 world.m_skillIndicatorMgr:clear(true)
             end
 
-            g_gameScene.m_inGameUI:doActionReverse(function()
-                g_gameScene.m_inGameUI.root:setVisible(false)
-            end)
-
             -- 스킬과 미사일도 다 날려 버리자
 	        world:removeMissileAndSkill()
             world:removeEnemyDebuffs()
-        end
-        
-        -- 적군 상태 체크
-        local b = true
+            world:cleanupItem()
 
-        for _, enemy in pairs(world:getEnemyList()) do
-            if (not enemy.m_bDead and enemy.m_state ~= 'wait') then
-                b = false
+            -- 기본 배속으로 변경
+            world.m_gameTimeScale:setBase(1)
+
+            g_gameScene.m_inGameUI:doActionReverse(function()
+                g_gameScene.m_inGameUI.root:setVisible(false)
+            end)
+        else
+            -- 적군 상태 체크
+            local b = true
+
+            for _, enemy in pairs(world:getEnemyList()) do
+                if (not enemy.m_bDead and enemy.m_state ~= 'wait') then
+                    b = false
+                end
             end
-        end
 
-        if (b or self:getStepTimer() >= 4) then
-            self:nextStep()
+            if (b or self:getStepTimer() >= 4) then
+                self:nextStep()
+            end
         end
     
     elseif (self:getStep() == 1) then
@@ -252,29 +271,24 @@ function GameState_Colosseum:disappearAllDragon()
 end
 
 -------------------------------------
--- function makeTamerAvater
+-- function readyTamer
 -------------------------------------
-function GameState_Colosseum:initTamerAvatar()
-    -- TODO: 유저의 테이머 정보로 설정되어야함
+function GameState_Colosseum:readyTamer()
+    local world = self.m_world
 
-    -- 아군 테이머
-    do
-        local res = g_userData:getTamerInfo('res_sd')
-        self.m_heroTamerAvatar = MakeAnimator(res)
-        self.m_heroTamerAvatar:changeAni('summon', false)
-        self.m_heroTamerAvatar:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
-        self.m_world:addChildWorld(self.m_heroTamerAvatar.m_node, WORLD_Z_ORDER.TAMER)
-        self.m_heroTamerAvatar.m_node:pause()
+    if (world.m_tamer) then
+        world.m_tamer:changeState('appear_colosseum')
+        world.m_tamer:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
+        world.m_tamer:setAnimatorScale(1)
+        world.m_tamer.m_animator.m_node:pause()
     end
 
-    -- 적군 테이머
-    do
-        self.m_enemyTamerAvatar = MakeAnimator('res/character/tamer/dede/dede.spine')
-        self.m_enemyTamerAvatar:changeAni('summon', false)
-        self.m_enemyTamerAvatar:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
-        self.m_enemyTamerAvatar:setFlip(true)
-        self.m_world:addChildWorld(self.m_enemyTamerAvatar.m_node, WORLD_Z_ORDER.TAMER)
-        self.m_enemyTamerAvatar.m_node:pause()
+    if (world.m_enemyTamer) then
+        world.m_enemyTamer:changeState('appear_colosseum')
+        world.m_enemyTamer:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
+        world.m_enemyTamer:setAnimatorScale(1)
+        world.m_enemyTamer.m_animator:setFlip(true)
+        world.m_enemyTamer.m_animator.m_node:pause()
     end
 end
 
@@ -289,6 +303,16 @@ function GameState_Colosseum:appearEnemy()
     end
 end
 
+-------------------------------------
+-- function fight
+-------------------------------------
+function GameState_Colosseum:fight()
+    PARENT.fight(self)
+
+    if (self.m_world.m_enemyTamer) then
+        self.m_world.m_enemyTamer:changeState('roam')
+    end
+end
 
 -------------------------------------
 -- function doDirectionForIntermission

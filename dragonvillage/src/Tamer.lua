@@ -90,6 +90,8 @@ end
 -------------------------------------
 function Tamer:initState()
     self:addState('appear', Tamer.st_appear, 'i_idle', true)
+    self:addState('appear_colosseum', Tamer.st_appear_colosseum, 'summon', false)
+
     self:addState('idle', PARENT.st_idle, 'i_idle', true)
     self:addState('roam', Tamer.st_roam, 'i_idle', true)
     self:addState('bring', Tamer.st_bring, 'i_idle', true)
@@ -145,7 +147,7 @@ end
 
 -------------------------------------
 -- function st_appear
--- @brief 테이머 배회
+-- @brief 테이머 등장
 -------------------------------------
 function Tamer.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
@@ -153,6 +155,15 @@ function Tamer.st_appear(owner, dt)
             owner:setPosition(-300, 0)
             owner:setMove(CRITERIA_RESOLUTION_X / 2 - 80, 0, 700)
         end
+    end
+end
+
+-------------------------------------
+-- function st_appear_colosseum
+-- @brief 테이머 등장(콜로세움)
+-------------------------------------
+function Tamer.st_appear_colosseum(owner, dt)
+    if (owner.m_stateTimer == 0) then
     end
 end
 
@@ -227,6 +238,10 @@ function Tamer:getRoamPos()
     -- 화면 좌측일 경우 곡선이동이 화면 밖으로 나가지 않도록 임시 처리...a
     if (random['x'] == 1 or random['y'] == 1 or random['x'] == 7) then
         course = 0
+    end
+
+    if (not self.m_bLeftFormation) then
+        tar_x = CRITERIA_RESOLUTION_X - tar_x
     end
 
     return tar_x, tar_y, tar_z, course
@@ -465,8 +480,14 @@ function Tamer:runAction_MoveZ(time, tar_z)
     end
 
     local tar_z = tar_z or TAMER_Z_POS
+    local scale = self.m_baseAnimatorScale * (1 - (0.003 * tar_z))
+    local scaleX = scale
 
-    local scale_action = cc.ScaleTo:create(time, self.m_baseAnimatorScale * (1 - (0.003 * tar_z)))
+    if (self.m_animator.m_bFlip) then
+        scaleX = -scaleX
+    end
+
+    local scale_action = cc.ScaleTo:create(time, scaleX, scale)
     local tint_action = cc.TintTo:create(time, 255 - tar_z, 255 - tar_z, 255 - tar_z)
     local action = cc.Spawn:create(scale_action, tint_action)
 

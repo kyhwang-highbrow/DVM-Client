@@ -234,6 +234,7 @@ end
 function ColosseumUserInfo:makeDragonStatusCalculator(doid)
     local t_dragon_data = StructDragonObject(self:getDragon(doid))
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
+    return status_calc
 end
 
 -------------------------------------

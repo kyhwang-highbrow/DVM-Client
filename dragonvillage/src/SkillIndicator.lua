@@ -133,6 +133,8 @@ function SkillIndicator:changeSIState(state)
 
     if (state == SI_STATE_READY) then
         self:setIndicatorVisible(false)
+
+        self.m_bDirty = true
         self.m_highlightList = nil
         self.m_highlightBodyList = nil
 
@@ -522,9 +524,10 @@ function SkillIndicator:getTargetForHighlight()
         y = self.m_targetPosY
 
     else
+        cclog('getTargetForHighlight no target')
         return {}
         --[[
-        local l_target = self.m_hero:getTargetListByType(self.m_targetType)
+        local l_target = self.m_hero:getProperTargetList()
 	    local target = l_target[1]
 
 	    if target then

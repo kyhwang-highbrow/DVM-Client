@@ -130,10 +130,18 @@ function Tamer.st_event(owner, dt)
 
 		-- 연출 세팅
 		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
-		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/4, cameraHomePosY + 200, TAMER_SKILL_EVENT, cb_func)
+
+        local pos_x = CRITERIA_RESOLUTION_X / 4
+        if (not self.m_bLeftFormation) then
+            pos_x = CRITERIA_RESOLUTION_X - pos_x
+        end
+
+		owner:setTamerSkillDirecting(pos_x, cameraHomePosY + 200, TAMER_SKILL_EVENT, cb_func)
 
         -- 이벤트
-        owner.m_world:dispatch('set_global_cool_time_passive')
+        if (self.m_bLeftFormation) then
+            owner.m_world:dispatch('set_global_cool_time_passive')
+        end
     end
 end
 

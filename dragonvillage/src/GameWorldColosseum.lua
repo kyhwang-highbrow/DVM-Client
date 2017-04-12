@@ -6,6 +6,8 @@ local PARENT = GameWorld
 GameWorldColosseum = class(PARENT, {
         m_diedHeroTotalMaxHp = 'number',    -- 죽은 아군들의 총 maxHp(죽었을때 상태로 저장)
         m_diedEnemyTotalMaxHp = 'number',    -- 죽은 적군들의 총 maxHp(죽었을때 상태로 저장)
+
+        m_enemyTamer = '',
     })
 
 -------------------------------------
@@ -107,22 +109,24 @@ end
 -------------------------------------
 function GameWorldColosseum:initTamer()
     -- 아군 테이머 생성
-    local t_tamer = g_userData:getTamerInfo()
-    self.m_tamer = self:makeTamerNew(t_tamer)
-    self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
-    self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
+    do
+        local t_tamer = g_userData:getTamerInfo()
+        self.m_tamer = self:makeTamerNew(t_tamer)
+    end
     
     -- 적군 테이머 생성
-    --[[
-    local user_info = g_colosseumData:getVsUserInfo()
-    local tid = user_info::getTamer()
-    local t_tamer = TableTamer():get(tid)
+    do
+        local user_info = g_colosseumData:getVsUserInfo()
+        local tid = user_info:getTamer()
+        local t_tamer = TableTamer():get(tid)
+
+        -- 설정이 제대로 안된 경우라면 고니로 강제 설정
+        if (not t_tamer) then
+            t_tamer = TableTamer():get(110001)
+        end
     
-    self.m_tamer = self:makeTamerNew(t_tamer)
-    self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
-    self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
-    self:addListener('dragon_summon', self)
-    ]]--
+        self.m_enemyTamer = self:makeTamerNew(t_tamer, true)
+    end
 end
 
 -------------------------------------
@@ -227,6 +231,7 @@ end
 function GameWorldColosseum:changeEnemyHomePosByCamera(offsetX, offsetY, move_time)
     local scale = self.m_gameCamera:getScale()
     local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
+    local gap_x, gap_y = self.m_gameCamera:getIntermissionOffset()
     local offsetX = offsetX or 0
     local offsetY = offsetY or 0
     local move_time = move_time or getInGameConstant(WAVE_INTERMISSION_TIME)
@@ -243,19 +248,23 @@ function GameWorldColosseum:changeEnemyHomePosByCamera(offsetX, offsetY, move_ti
                 homePosX = homePosX + 200
             end
 
-            local distance = getDistance(v.pos.x, v.pos.y, homePosX, homePosY)
-            if (distance > 0) then
-                local speed
-                if (move_time <= 0) then
-                    speed = 9999
-                else
-                    speed = distance / move_time
-                end
-
-                v:changeHomePos(homePosX, homePosY, speed)
-            end
+            v:changeHomePosByTime(homePosX, homePosY, move_time)
         end
     end
+
+    if (self.m_enemyTamer) then
+        -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
+        local homePosX = self.m_enemyTamer.pos.x + gap_x + offsetX
+        local homePosY = self.m_enemyTamer.pos.y + gap_y + offsetY
+
+        -- 카메라가 줌아웃된 상태라면 아군 위치 조정(차후 정리)
+        if (scale == 0.6) then
+            homePosX = homePosX - 200
+        end
+
+        self.m_enemyTamer:changeHomePosByTime(homePosX, homePosY, move_time)
+    end
+
 end
 
 -------------------------------------
