@@ -254,8 +254,8 @@ function TargetRule_getTargetList_stat(org_list, stat_type)
 	-- status Calculator를 통해 가져올수 있는 stat
 	else
 		table.sort(t_ret, function(a, b)
-			local a_stat = a.m_statusCalc:getFinalStat(target_stat)
-			local b_stat = b.m_statusCalc:getFinalStat(target_stat)
+			local a_stat = a:getStat(target_stat)
+			local b_stat = b:getStat(target_stat)
 			if (is_descending) then
 				return a_stat > b_stat
 			else

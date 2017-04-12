@@ -217,8 +217,8 @@ function UI_GameDPS:sortByValue(l_char_list, log_key)
 		local a_value = a.m_charLogRecorder:getLog(log_key)
 		local b_value = b.m_charLogRecorder:getLog(log_key)
 		if (a_value == 0) and (b_value == 0) then
-			local a_atk = a.m_statusCalc:getFinalStat('atk')
-			local b_atk = b.m_statusCalc:getFinalStat('atk')
+			local a_atk = a:getStat('atk')
+			local b_atk = b:getStat('atk')
 			return a_atk > b_atk
 		else
 			return a_value > b_value

@@ -649,7 +649,7 @@ end
 function Missile:fireAddScriptMissile()
     local start_x = self.pos.x 
     local start_y = self.pos.y
-	local owner = self.m_activityCarrier.m_activityCarrierOwner
+	local owner = self.m_activityCarrier:getActivityOwner()
 
     -- 미사일 런쳐 (target, dir, left or right)
     local missile_launcher = MissileLauncher(nil)

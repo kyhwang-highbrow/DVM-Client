@@ -82,7 +82,7 @@ function StatusEffect_Heal:doHeal()
 
 	-- 시전자의 데미지의 n% 회복
 	elseif (self.m_healType == 'atk') then 
-		local atk_dmg = self.m_caster.m_statusCalc:getFinalStat('atk')
+		local atk_dmg = self.m_caster:getStat('atk')
 		local heal = HealCalc_M(atk_dmg)
 		heal = (heal * self.m_healRate)
 		self.m_owner:healAbs(self.m_caster, heal, false)

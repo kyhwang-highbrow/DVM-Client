@@ -68,7 +68,7 @@ end
 function SkillHealSingle:doHeal_each(target)
     -- 타겟에 회복 수행, 이팩트 생성
     if target and (not target.m_bDead) then
-        local atk_dmg = self.m_owner.m_statusCalc:getFinalStat('atk')
+        local atk_dmg = self.m_owner:getStat('atk')
         local heal = HealCalc_M(atk_dmg)
 
         local effect = self.m_world:addInstantEffect(self.m_res, 'heal_effect', target.pos.x, target.pos.y)

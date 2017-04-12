@@ -21,23 +21,23 @@ end
 -------------------------------------
 -- function init_dotDmg
 -------------------------------------
-function StatusEffect_DotDmg:init_dotDmg(char, t_status_effect, status_effect_value, caster_activity_carrier)
+function StatusEffect_DotDmg:init_dotDmg(char, t_status_effect, status_effect_value, caster)
 	self.m_owner = char
 	local damage
 
 	-- 절대값 적용 
 	if (t_status_effect['abs_switch'] == 1) then 
 		damage = t_status_effect['dot_dmg']
+
 	-- 상대수치 적용
 	else
-		-- 데미지 계산
-		local atk_dmg_stat = caster_activity_carrier:getAtkDmgStat()
-		local atk_dmg = caster_activity_carrier:getStat(atk_dmg_stat)
-		-- 방어 무관
-		local def_pwr = 0 
+		-- 데미지 계산, 방어는 무시
+		local atk_dmg = caster:getStat('atk')
+		local def_pwr = 0
 		local damage_org = math_floor(DamageCalc_P(atk_dmg, def_pwr))
+
 		-- 속성 효과
-		local t_attr_effect = char:checkAttributeCounter(caster_activity_carrier)
+		local t_attr_effect = char:checkAttributeCounter(caster:getAttribute())
 		if t_attr_effect['damage'] then
 			damage = damage_org * (1 + (t_attr_effect['damage'] / 100))
 		else

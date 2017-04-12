@@ -222,3 +222,17 @@ end
 function ActivityCarrier:getAbsAttack()
 	return self.m_skillAddAtk
 end
+
+-------------------------------------
+-- function setActivityOwner
+-------------------------------------
+function ActivityCarrier:setActivityOwner(char)
+	self.m_activityCarrierOwner = char
+end
+
+-------------------------------------
+-- function getActivityOwner
+-------------------------------------
+function ActivityCarrier:getActivityOwner()
+	return self.m_activityCarrierOwner
+end

@@ -341,7 +341,7 @@ function Character:initStatus(t_char, level, grade, evolution, doid, eclv)
         error('self.m_charType : ' .. self.m_charType)
     end
     
-    local hp = self.m_statusCalc:getFinalStat('hp')
+    local hp = self:getStat('hp')
     self.m_maxHp = hp
     self.m_hp = hp
 end
@@ -361,9 +361,9 @@ end
 -- function checkAttributeCounter
 -- @brief 속성 상성
 -------------------------------------
-function Character:checkAttributeCounter(activity_carrier)
+function Character:checkAttributeCounter(tar_attr)
     -- 공격자 속성
-    local attacker_attr = attributeNumToStr(activity_carrier.m_attribute)
+    local attacker_attr = attributeNumToStr(tar_attr)
 	local attr_adj_rate = self.m_statusCalc:getAdjustRate('attr_adj_rate')
 
     -- 방어자 속성
@@ -393,7 +393,7 @@ function Character:checkAvoid(activity_carrier, t_attr_effect)
 		hit_rate = (hit_rate * hit_rates_multifly)
 	end
 
-	local avoid = self.m_statusCalc:getFinalStat('avoid')
+	local avoid = self:getStat('avoid')
 	local avoid_rates = CalcAvoidChance(hit_rate, avoid)
 
 	-- 회피율을 퍼밀 단위로 랜덤 연산
@@ -429,14 +429,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
 	-- 공격자 정보
-    local attacker_char = attacker.m_activityCarrier.m_activityCarrierOwner
-    local attack_type, real_attack_type = attacker.m_activityCarrier:getAttackType()
+	local attack_activity_carrier = attacker.m_activityCarrier
+    local attacker_char = attack_activity_carrier:getActivityOwner()
+    local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
 
     -- 속성 효과
-    local t_attr_effect = self:checkAttributeCounter(attacker.m_activityCarrier)
+    local t_attr_effect = self:checkAttributeCounter(attacker_char:getAttribute())
 
     -- 데미지 타입
-    local dmg_type = attacker.m_activityCarrier.m_damageType or DMG_TYPE_PHYSICAL
+    local dmg_type = attack_activity_carrier.m_damageType or DMG_TYPE_PHYSICAL
 
     -- 공격력 계산, 크리티컬 계산
     local atk_dmg, critical = 0, false
@@ -448,21 +449,21 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 데미지 계산
     do
 		-- 공격력으로 사용할 스탯
-		local atk_dmg_stat = attacker.m_activityCarrier:getAtkDmgStat()
+		local atk_dmg_stat = attack_activity_carrier:getAtkDmgStat()
 		if (atk_dmg_stat == 'x') then 
 			cclog('피격된 스킬이지만 power_source 가 x 입니다') 
 		end
-        atk_dmg = attacker.m_activityCarrier:getStat(atk_dmg_stat)
-        def_pwr = self.m_statusCalc:getFinalStat('def')
+        atk_dmg = attack_activity_carrier:getStat(atk_dmg_stat)
+        def_pwr = self:getStat('def')
 		
 		-- 스킬 계수 적용
-		atk_dmg = atk_dmg * attacker.m_activityCarrier:getPowerRate()
+		atk_dmg = atk_dmg * attack_activity_carrier:getPowerRate()
         
 		-- 스킬 추가 공격력 적용
-        atk_dmg = atk_dmg + attacker.m_activityCarrier:getAbsAttack()
+        atk_dmg = atk_dmg + attack_activity_carrier:getAbsAttack()
 		
 		-- 방어 무시 체크
-		if (attacker.m_activityCarrier:isIgnoreDef()) then 
+		if (attack_activity_carrier:isIgnoreDef()) then 
 			def_pwr = 0 
 		end
         
@@ -473,8 +474,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
     do -- 크리티컬(치명타) 계산
-        local critical_chance = attacker.m_activityCarrier:getStat('cri_chance')
-        local critical_avoid = self.m_statusCalc:getFinalStat('cri_avoid')
+        local critical_chance = attack_activity_carrier:getStat('cri_chance')
+        local critical_avoid = self:getStat('cri_avoid')
         local final_critical_chance = (critical_chance - critical_avoid)
 
         -- 속성 상성 적용
@@ -491,7 +492,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 크리티컬
         if critical then
-            damage_multifly = (attacker.m_activityCarrier:getStat('cri_dmg') / 100)
+            damage_multifly = (attack_activity_carrier:getStat('cri_dmg') / 100)
         end
 
         -- 속성
@@ -508,11 +509,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
     -- 속성 추가 데미지 별도로 사용하기 위해 ..! (과거에 인게임 화면에 출력)
-    attr_bonus_dmg = math_floor(attr_bonus_dmg * attacker.m_activityCarrier:getPowerRate())
+    attr_bonus_dmg = math_floor(attr_bonus_dmg * attack_activity_carrier:getPowerRate())
 	attr_bonus_dmg = math_min(attr_bonus_dmg, damage)
 
     -- 회피 계산
-    if (self:checkAvoid(attacker.m_activityCarrier, t_attr_effect)) then
+    if (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
         self:makeMissFont(i_x, i_y)
 		-- @EVENT
 		self:dispatch('avoid')
@@ -575,14 +576,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     if (attack_type == 'active') then
         if self:cancelSkill() then
             -- 적 스킬 공격 캔슬 성공시
-            local attackerCharacter = attacker.m_activityCarrier.m_activityCarrierOwner
-            if attackerCharacter then
+            if attacker_char then
                 local percentage = 0
                 if self.m_castingMarkGauge then
                     percentage = self.m_castingMarkGauge:getPercentage()
                 end
 				-- @EVENT
-                self:dispatch('character_casting_cancel', {}, attackerCharacter, percentage)
+                self:dispatch('character_casting_cancel', {}, attacker_char, percentage)
             end
         end
 
@@ -608,10 +608,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	do
 		local t_info = {}
 		t_info['attack_type'] = attack_type
-		t_info['attr'] = attacker.m_activityCarrier.m_attribute
+		t_info['attr'] = attack_activity_carrier.m_attribute
 		t_info['dmg_type'] = dmg_type
 		t_info['critical'] = critical
-		t_info['is_add_dmg'] = attacker.m_activityCarrier:getFlag('add_dmg')
+		t_info['is_add_dmg'] = attack_activity_carrier:getFlag('add_dmg')
 		t_info['body_key'] = body_key
 	
 		self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
@@ -619,7 +619,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
     -- 상태이상 체크
     if (not no_event) then
-        StatusEffectHelper:statusEffectCheck_onHit(attacker.m_activityCarrier, self)
+        StatusEffectHelper:statusEffectCheck_onHit(attack_activity_carrier, self)
     end
 
 	-- @LOG_CHAR
@@ -641,11 +641,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 			
 		-- 일반 피격
 		if (attack_type == 'basic') then 
-			attacker_char:dispatch('under_atk_basic', t_event, self, attacker.m_activityCarrier)
+			attacker_char:dispatch('under_atk_basic', t_event, self, attack_activity_carrier)
 
 		-- 액티브 피격
 		elseif (attack_type == 'active') then
-			attacker_char:dispatch('under_atk_active', t_event, self, attacker.m_activityCarrier)
+			attacker_char:dispatch('under_atk_active', t_event, self, attack_activity_carrier)
 		end
 	end
 
@@ -669,11 +669,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- 일반 공격시
         if (not no_event) then
 		    if (attack_type == 'basic') then 
-			    attacker_char:dispatch('hit_basic', t_event, self, attacker.m_activityCarrier)
+			    attacker_char:dispatch('hit_basic', t_event, self, attack_activity_carrier)
 
 		    -- 액티브 공격시
 		    elseif (attack_type == 'active') then
-			    attacker_char:dispatch('hit_active', t_event, self, attacker.m_activityCarrier)
+			    attacker_char:dispatch('hit_active', t_event, self, attack_activity_carrier)
 		    end
         end
     end
@@ -744,7 +744,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
 		-- @LOG_CHAR
         if (attacker) then
-		    attacker.m_activityCarrier.m_activityCarrierOwner.m_charLogRecorder:recordLog('damage', damage)
+		    attacker.m_activityCarrier:getActivityOwner().m_charLogRecorder:recordLog('damage', damage)
         end
 		-- @LOG_CHAR
 		self.m_charLogRecorder:recordLog('be_damaged', damage)
@@ -1539,8 +1539,8 @@ function Character:updateStat(dt)
 	end
 
 	-- 체력 버프 발동시 실시간 변화
-	if (self.m_statusCalc:getFinalStat('hp') ~= self.m_maxHp) then
-		local max_hp = self.m_statusCalc:getFinalStat('hp')
+	if (self:getStat('hp') ~= self.m_maxHp) then
+		local max_hp = self:getStat('hp')
 		local curr_hp_percent = self.m_hp/self.m_maxHp
 		self.m_maxHp = max_hp
 		self.m_hp = max_hp * curr_hp_percent
@@ -1767,7 +1767,7 @@ function Character:makeAttackDamageInstance(forced_skill_id)
     local activity_carrier = ActivityCarrier()
 
 	-- 시전자를 지정
-	activity_carrier.m_activityCarrierOwner = self
+	activity_carrier:setActivityOwner(self)
 
     -- 속성 지정
     activity_carrier.m_attribute = attributeStrToNum(self:getAttribute())
@@ -2038,6 +2038,18 @@ function Character:restore(restore_speed)
 
     -- 경직 가능 상태 설정
     self.m_bEnableSpasticity = true
+end
+
+-------------------------------------
+-- function getStat
+-- @brief 최종 계산된 스탯을 가져온다
+-------------------------------------
+function Character:getStat(stat_type)
+	-- @TODO
+	if (self.m_charType == 'tamer') then
+		return 0
+	end
+	return self.m_statusCalc:getFinalStat(stat_type)
 end
 
 -------------------------------------

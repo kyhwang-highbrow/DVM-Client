@@ -127,7 +127,7 @@ function SkillSpatter:spatterHeal(target_char)
     end
 
     -- 시전자의 공격력에 비례한 회복
-	local atk_dmg = self.m_owner.m_statusCalc:getFinalStat('atk')
+	local atk_dmg = self.m_owner:getStat('atk')
 	local heal = HealCalc_M(atk_dmg) * self.m_spatterHealRate
     target_char:healAbs(self.m_owner, heal, true)
 end

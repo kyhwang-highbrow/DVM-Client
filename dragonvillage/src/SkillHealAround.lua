@@ -95,7 +95,7 @@ end
 -- function doHeal
 -------------------------------------
 function SkillHealAround:doHeal()
-    local atk_dmg = self.m_owner.m_statusCalc:getFinalStat('atk')
+    local atk_dmg = self.m_owner:getStat('atk')
     local heal = HealCalc_M(atk_dmg)
 
     heal = (heal * self.m_healRate)

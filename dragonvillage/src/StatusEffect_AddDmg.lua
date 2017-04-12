@@ -22,11 +22,11 @@ end
 -------------------------------------
 -- function init_dotDmg
 -------------------------------------
-function StatusEffect_AddDmg:init_statusEffect(char, condition, power_rate, caster_activity_carrier)
+function StatusEffect_AddDmg:init_statusEffect(char, condition, power_rate, caster)
 	self.m_owner = char
 	self.m_isSatisfy = false
 	self.m_targetStatusEffectType = condition
-	self.m_activityCarrier = caster_activity_carrier
+	self.m_activityCarrier = caster:makeAttackDamageInstance()
 	self.m_activityCarrier:setPowerRate(power_rate)
 	self.m_activityCarrier:setFlag('add_dmg', true)
 
@@ -37,9 +37,9 @@ end
 -- function initState
 -------------------------------------
 function StatusEffect_AddDmg:initState()
-    self:addState('start', StatusEffect.st_start, 'center_start', false)
+    self:addState('start', StatusEffect_AddDmg.st_start, 'center_start', false)
     self:addState('idle', StatusEffect_AddDmg.st_idle, 'center_idle', false)
-    self:addState('end', StatusEffect.st_end, 'center_end', false)
+    self:addState('end', StatusEffect_AddDmg.st_end, 'center_end', false)
 	self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
 
@@ -75,6 +75,5 @@ end
 -- function doAddDamage
 -------------------------------------
 function StatusEffect_AddDmg:doAddDamage()
-	--self:runAtkCallback(target_char, self.m_owner.pos.x, self.m_owner.pos.y)
     self.m_owner:runDefCallback(self, self.m_owner.pos.x, self.m_owner.pos.y)
 end

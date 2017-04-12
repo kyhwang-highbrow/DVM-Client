@@ -2,9 +2,7 @@
 -- table StatusEffectHelper
 -- @brief 상태 효과 핼퍼
 -------------------------------------
-StatusEffectHelper = {
-	m_casterActivityCarrier = nil -- damage 가하는 상태효과 위해 설정
-}
+StatusEffectHelper = {}
 
 -------------------------------------
 -- function statusEffectCheck_onHit
@@ -22,13 +20,11 @@ function StatusEffectHelper:statusEffectCheck_onHit(activity_carrier, defender)
         return
     end
 
-	-- 캐스터의 acitivity_carrier 저장
-	self:setActivityCarrier(activity_carrier)
-
+	local attacker = activity_carrier:getActivityOwner()
     for type, t_content in pairs(activity_carrier.m_lStatusEffectRate) do
 		local value = t_content['value']
 		local rate = t_content['rate']
-        StatusEffectHelper:invokeStatusEffect(defender, type, value, rate)
+        StatusEffectHelper:invokeStatusEffect(attacker, defender, type, value, rate)
     end
 end
 
@@ -36,16 +32,11 @@ end
 -- function doStatusEffectByStruct
 -- @brief statuseffect struct 사용함
 -------------------------------------
-function StatusEffectHelper:doStatusEffectByStruct(owner, m_skill_target, l_status_effect_struct, cb_invoke)
+function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_status_effect_struct, cb_invoke)
     -- 피격자가 사망했을 경우 리턴
-    if (owner.m_bDead == true) then return end
+    if (caster.m_bDead == true) then return end
 
     local cb_invoke = cb_invoke or function() end
-	
-	-- 0. 캐스터의 acitivity_carrier 저장
-	if not (owner:getCharType() == 'tamer') then
-		self:setActivityCarrier(owner:makeAttackDamageInstance())
-	end
 
 	-- 1. 타겟 대상에 상태효과생성
 	local idx = 1
@@ -76,22 +67,24 @@ function StatusEffectHelper:doStatusEffectByStruct(owner, m_skill_target, l_stat
 		value_2 = status_effect_struct.m_value2
 
         -- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
+    
+	    -- 스킬로 부터 받은 타겟 리스트 사용
 		if (target_type == 'target') then
-            -- 스킬로 부터 받은 타겟 리스트 사용
-            if (not m_skill_target) then
-                error('doStatusEffectByStruct no m_skill_target')
+            if (not l_skill_target) then
+                error('doStatusEffectByStruct no l_skill_target')
             end
 
-			for _, target in ipairs(m_skill_target) do
-				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
+			for _, target in ipairs(l_skill_target) do
+				if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value_1, rate, duration)) then
                     cb_invoke(target)
                 end
 			end
+
+		-- 별도의 계산된 타겟 리스트 사용
 		elseif (target_type) then
-			-- 별도의 계산된 타겟 리스트 사용
-			local l_target = owner:getTargetListByType(target_type, nil)
+			local l_target = caster:getTargetListByType(target_type, nil)
 			for _, target in ipairs(l_target) do
-				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
+				if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value_1, rate, duration)) then
 					cb_invoke(target)
 				end
 			end
@@ -102,44 +95,48 @@ function StatusEffectHelper:doStatusEffectByStruct(owner, m_skill_target, l_stat
 	end
 end
 
-
 -------------------------------------
 -- function invokeStatusEffect
 -- @brief 상태 효과 발동
 -------------------------------------
-function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate, duration)
+function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effect_type, status_effect_value, status_effect_rate, duration)
     -- status effect validation
 	if (not status_effect_type) or (status_effect_type == '') then
         return nil
     end
+
+	local t_status_effect = TABLE:get('status_effect')[status_effect_type]
+	
 	-- 확률 검사
-    if (math_random(1, 1000) > status_effect_rate * 10) then 
+	do
+		local se_acc = caster:getStat('accuracy')
+		local se_resist = target_char:getStat('resistance')
+		local adj_rate = (status_effect_rate + se_acc - se_resist)
+
+		if (math_random(1, 1000) > adj_rate * 10) then 
+			return nil
+		end
+	end
+	
+	-- 면역 효과
+	if (target_char.m_isImmuneSE) and self:isHarmful(t_status_effect['type']) then 
 		return nil
 	end
     
-    local table_status_effect = TABLE:get('status_effect')
-    local t_status_effect = table_status_effect[status_effect_type]
-	
-	-- 면역 효과
-	if (char.m_isImmuneSE) and self:isHarmful(t_status_effect['type']) then 
-		return nil
+	-- 상태효과 생성 시작
+	local status_effect = nil
+	if (t_status_effect['overlab'] > 0) then
+		status_effect = target_char.m_tOverlabStatusEffect[status_effect_type]
 	end
 
-    assert(t_status_effect, 'status_effect_type : ' .. status_effect_type)
-	
-    local status_effect = nil
-    if (t_status_effect['overlab'] > 0) then
-        status_effect = char.m_tOverlabStatusEffect[status_effect_type]
-    end
+	if status_effect then
+		status_effect:statusEffectOverlab()
+	else
+		-- 상태 효과 생성
+		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_rate, duration)
+	end
 
-    if status_effect then
-        status_effect:statusEffectOverlab()
-    else
-        -- 상태 효과 생성
-        status_effect = StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate, duration)
-    end
-
-    return status_effect
+	return status_effect
 end
 
 -------------------------------------
@@ -190,7 +187,7 @@ end
 -- function makeStatusEffectInstance
 -- @comment 일반 status effect의 경우 rate가 필요없지만 패시브의 경우 실행 시점에서 확률체크하는 경우가 있다.
 -------------------------------------
-function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate, duration)
+function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_rate, duration)
     -- 테이블 가져옴
 	local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
@@ -203,7 +200,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	-- res attr parsing
     local res = t_status_effect['res']
 	if (res) then 
-		res = string.gsub(res, '@', char:getAttribute())
+		res = string.gsub(res, '@', target_char:getAttribute())
 	end
 	-- nil 처리
 	if (res == '') then 
@@ -222,10 +219,10 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
         if (status_effect_type == 'feedback_supporter') then
             status_effect = StatusEffect(res)
             -- 스킬 게이지 회복 타입은 status effect로 현재는 불가능하기 때문에 임시로...
-            char:increaseActiveSkillCool(value)
+            target_char:increaseActiveSkillCool(value)
         elseif (status_effect_type == 'feedback_healer') then
             status_effect = StatusEffect_Heal(res)
-		    status_effect:init_heal(char, t_status_effect, status_effect_value, duration)
+		    status_effect:init_heal(target_char, t_status_effect, status_effect_value, duration)
         else
             status_effect = StatusEffect(res)
         end
@@ -234,51 +231,49 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     elseif isExistValue(status_effect_type, 'passive_recovery') or
 		string.find(status_effect_type, 'heal') then
         status_effect = StatusEffect_Heal(res)
-		status_effect:init_heal(char, t_status_effect, status_effect_value, duration)
+		status_effect:init_heal(target_char, t_status_effect, status_effect_value, duration)
 		
 	----------- 도트 데미지 들어가는 패시브 ------------------
 	elseif (t_status_effect['type'] == 'dot_dmg') then
 		status_effect = StatusEffect_DotDmg(res)
-		local caster_activity_carrier = self:getActivityCarrier()
-		status_effect:init_dotDmg(char, t_status_effect, status_effect_value, caster_activity_carrier)
+		status_effect:init_dotDmg(target_char, t_status_effect, status_effect_value, caster)
 
 	----------- HP 보호막 ------------------
 	elseif (status_effect_type == 'barrier_protection') then
 		status_effect = StatusEffect_Protection(res)
 		local adj_value = t_status_effect['val_1'] * (status_effect_value / 100)
-		local shield_hp = char.m_maxHp * (adj_value / 100)
-		status_effect:init_trigger(char, shield_hp)
+		local shield_hp = target_char.m_maxHp * (adj_value / 100)
+		status_effect:init_trigger(target_char, shield_hp)
 	
 	----------- 데미지 경감 보호막 ------------------
 	elseif isExistValue(status_effect_type, 'resist', 'barrier_protection_darknix') then
 		status_effect = StatusEffect_Resist(res)
 		local adj_value = t_status_effect['dmg_adj_rate'] * (status_effect_value / 100)
 		local resist_rate = (adj_value / 100)
-		status_effect:init_trigger(char, resist_rate)
+		status_effect:init_trigger(target_char, resist_rate)
 
 	----------- 특이한 해제 조건을 가진 것들 ------------------
 	elseif isExistValue(status_effect_type, 'sleep') then
 		status_effect = StatusEffect_Trigger_Release(res)
-		status_effect:init_trigger(char, 'undergo_attack', {status_effect_type = status_effect_type, status_effect_value = status_effect_value, status_effect_rate = status_effect_rate})
+		status_effect:init_trigger(target_char, 'undergo_attack', {status_effect_type = status_effect_type, status_effect_value = status_effect_value, status_effect_rate = status_effect_rate})
 	
 	----------- 침묵 ------------------
 	elseif (status_effect_type == 'silence') then
 		status_effect = StatusEffect_Silence(res)
-		status_effect:init_status(char)
+		status_effect:init_status(target_char)
 	
 	----------- 속성 변경 ------------------
 	elseif (status_effect_type == 'attr_change') then
 		--@TODO 카운터 속성으로 변경, 추후 정리
 		status_effect = StatusEffect_AttributeChange(res)
-		local tar_attr = self:getActivityCarrier().m_activityCarrierOwner.m_targetChar:getAttribute()
-		status_effect:init_statusEffect(char, tar_attr)
+		local tar_attr = caster.m_targetChar:getAttribute()
+		status_effect:init_statusEffect(target_char, tar_attr)
 
 	----------- 조건부 추가 데미지 ------------------
 	elseif string.find(status_effect_type, 'add_dmg_') then
 		status_effect = StatusEffect_AddDmg(res)
 		local condition = string.gsub(status_effect_type, 'add_dmg_', '')
-		local caster_activity_carrier = self:getActivityCarrier()
-		status_effect:init_statusEffect(char, condition, status_effect_value, caster_activity_carrier)
+		status_effect:init_statusEffect(target_char, condition, status_effect_value, caster)
 
 
     else
@@ -309,16 +304,13 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     status_effect.m_maxOverlab = t_status_effect['overlab']
 
 	-- 대상 지정 
-	status_effect:setTargetChar(char)
+	status_effect:setTargetChar(target_char)
 
 	-- 시전자 지정
-	if (self:getActivityCarrier()) then
-		local caster = self:getActivityCarrier().m_activityCarrierOwner
-		status_effect:setCasterChar(caster)
-	end
+	status_effect:setCasterChar(caster)
         
 	-- 객체 생성
-    local world = char.m_world
+    local world = target_char.m_world
     --world.m_worldNode:addChild(status_effect.m_rootNode, WORLD_Z_ORDER.SE_EFFECT)
     world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
     world:addToUnitList(status_effect)
@@ -329,9 +321,9 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	-- @EVENT 
 	if (StatusEffectHelper:isHarmful(status_effect)) then
 		local t_event = clone(EVENT_STATUS_EFFECT)
-		t_event['char'] = char
+		t_event['char'] = target_char
 		t_event['status_effect_name'] = status_effect.m_statusEffectName
-		char:dispatch('get_debuff', t_event)
+		target_char:dispatch('get_debuff', t_event)
 	end
 
     return status_effect
@@ -384,21 +376,24 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 		end
 
 		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
+		
+		-- 스킬 타겟타입에 의한 타겟 리스트
 		if (target_type == 'target') then
-			-- 스킬 타겟타입에 의한 타겟 리스트
 			local l_target = char:getTargetListByTable(t_skill)
 			for _, target in ipairs(l_target) do
-				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+				StatusEffectHelper:invokeStatusEffect(owner, target, type, value_1, rate, duration)
 				apply_world_passive_effect(target)
 			end
+
+		-- 별도의 계산된 타겟 리스트 사용
 		elseif (target_type) then
-			-- 별도의 계산된 타겟 리스트 사용
 			local l_target = char:getTargetListByType(target_type, nil)
 			for _, target in ipairs(l_target) do
 				cclog(target_type, target:getName())
-				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+				StatusEffectHelper:invokeStatusEffect(owner, target, type, value_1, rate, duration)
 				apply_world_passive_effect(target)
 			end
+
 		end
 
 		-- 4. 인덱스 증가
@@ -506,22 +501,6 @@ function StatusEffectHelper:releaseStatusEffectAll(char)
 	for type, status_effect in pairs(char:getStatusEffectList()) do
 		status_effect:changeState('end')
 	end
-end
-
--------------------------------------
--- function setActivityCarrier
--------------------------------------
-function StatusEffectHelper:setActivityCarrier(activity_carrier)
-	if activity_carrier then 
-		self.m_casterActivityCarrier = activity_carrier:cloneForMissile()
-	end
-end
-
--------------------------------------
--- function getActivityCarrier
--------------------------------------
-function StatusEffectHelper:getActivityCarrier()
-	return self.m_casterActivityCarrier
 end
 
 -------------------------------------
