@@ -98,9 +98,9 @@ function UI_ShopPopup:makeQuestTableView(tab, node)
 	local l_ProductList = g_shopData:getProductList(tab)
 
 	-- cell size 분기 
-	local cell_size = cc.size(270, 464)
+	local cell_size = cc.size(250 + 10, 520)
 	if (tab == TableShop.RECOMMEND) then
-		cell_size = cc.size(370, 464)
+		cell_size = cc.size(350 + 10, 520)
 	end
 
     do -- 테이블 뷰 생성
