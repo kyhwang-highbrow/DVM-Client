@@ -15,6 +15,7 @@ UI_CharacterCard = class(PARENT, {
         m_starIconRes = 'string',
         m_charFrameRes = 'string',
         m_charLevelNumber = 'number',
+        m_charEclvNumber = 'number',
         m_attrSynastry = 'Animator', -- 속성 상성 이펙트
 
         m_bCheckVisible = 'boolean',
@@ -81,6 +82,11 @@ function UI_CharacterCard:refreshDragonInfo()
         local lv = t_dragon_data['lv']
         self:setLevelText(lv)
     end    
+
+    do -- 초월 지정
+        local eclv = t_dragon_data['eclv']
+        self:setEclvText(eclv)
+    end
 
     do -- 카드 프레임
         local res = 'character_card_frame_' .. t_dragon['rarity'] .. '.png'
@@ -224,14 +230,9 @@ end
 function UI_CharacterCard:refresh_gradeIcon()
     local t_dragon_data = self.m_dragonData
 
-    local res = ''
+   
     local grade = (t_dragon_data['grade'] or 1)
-    local eclv = (t_dragon_data['eclv'] or 0)
-    if (0 < eclv) then
-        res = string.format('character_card_eclv_%.2d.png', eclv)
-    else
-        res = 'character_card_star0' .. grade .. '.png'
-    end
+    local res = 'character_card_star0' .. grade .. '.png'
 
     if (self.m_starIconRes == res) then
         return
@@ -297,7 +298,7 @@ function UI_CharacterCard:setLevelText(level)
 
     local pos_x = -60
     local pos_y = -27
-    local font_size = 15
+    local font_size = 20
     if (level < 10) then
         lvSprite1:setVisible(true)
         lvSprite1:changeAni('digit_' .. level)
@@ -325,6 +326,63 @@ function UI_CharacterCard:setLevelText(level)
         lvSprite3:setVisible(true)
         lvSprite3:changeAni('digit_' .. math_floor(level % 10))
         lvSprite3:setPosition(pos_x + (font_size/2) + font_size + font_size, pos_y)
+    end
+end
+
+-------------------------------------
+-- function setEclvText
+-- @brief 초월 텍스트 지정
+-------------------------------------
+function UI_CharacterCard:setEclvText(eclv)
+    if (eclv == 0) then
+        return
+    end
+
+    if (self.m_charEclvNumber == eclv) then
+        return
+    end
+    self.m_charEclvNumber = eclv
+    
+
+    local vars = self.vars
+
+    local eclvSprite1 = vars['eclvSprite1']
+    local eclvSprite2 = vars['eclvSprite2']
+
+    if (not eclvSprite1) then
+        eclvSprite1 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
+        eclvSprite1:setDockPoint(CENTER_POINT)
+        eclvSprite1:setAnchorPoint(CENTER_POINT)
+        self.vars['clickBtn']:addChild(eclvSprite1.m_node, 5)
+        vars['eclvSprite1'] = eclvSprite1
+        eclvSprite1:changeAni('digit_0')
+    end
+
+    if (not eclvSprite2) then
+        eclvSprite2 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
+        eclvSprite2:setDockPoint(CENTER_POINT)
+        eclvSprite2:setAnchorPoint(CENTER_POINT)
+        self.vars['clickBtn']:addChild(eclvSprite2.m_node, 5)
+        vars['eclvSprite2'] = eclvSprite2
+        eclvSprite2:changeAni('digit_5')
+    end
+
+    local pos_x = 60
+    local pos_y = -27
+    local font_size = 20
+    if (eclv < 10) then
+        eclvSprite1:setVisible(true)
+        eclvSprite1:changeAni('digit_' .. eclv)
+        eclvSprite1:setPosition(pos_x - (font_size/2), pos_y)
+        eclvSprite2:setVisible(false)
+    else
+        eclvSprite1:setVisible(true)
+        eclvSprite1:changeAni('digit_' ..  math_floor(eclv / 10))
+        eclvSprite1:setPosition(pos_x - ((font_size/2) + font_size), pos_y)
+
+        eclvSprite2:setVisible(true)
+        eclvSprite2:changeAni('digit_' .. eclv % 10)
+        eclvSprite2:setPosition(pos_x - (font_size/2), pos_y)
     end
 end
 
