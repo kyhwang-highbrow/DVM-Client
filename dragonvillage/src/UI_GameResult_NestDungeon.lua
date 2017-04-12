@@ -26,7 +26,8 @@ end
 function UI_GameResult_NestDungeon:init_difficultyIcon(stage_id)
     local vars = self.vars
     vars['difficultySprite']:setVisible(false)
-    vars['titleLabel']:setPositionX(78)
+    vars['gradeLabel']:setVisible(false)
+    vars['titleLabel']:setPositionX(0)
     vars['titleLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 end
 

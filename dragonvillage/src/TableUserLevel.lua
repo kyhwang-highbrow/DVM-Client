@@ -44,11 +44,13 @@ end
 function TableUserLevel:getBetweenExp(low_lv, low_lv_exp, high_lv, high_lv_exp)
 
     if (high_lv < low_lv) then
-        error()
+        --error()
+        return 0
     end
 
     if (low_lv == high_lv) and (high_lv_exp < low_lv_exp) then
-        error()
+        --error()
+        return 0
     end
 
     local between_exp = 0
