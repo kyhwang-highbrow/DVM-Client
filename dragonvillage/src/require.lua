@@ -319,6 +319,7 @@ local t_module = {
 	'StatusEffect_Resist',
 	'StatusEffect_Silence',
 	'StatusEffect_AttributeChange',
+	'StatusEffect_Cure',
 
 	'StatusEffectIcon',
 

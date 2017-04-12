@@ -65,49 +65,6 @@ function SkillAoESquare_Wonder:enterAttack()
 			effect:setFlip(true)
 		end
 	end
-
-	-- wonder드래곤 고유 효과 실행
-	self:doSpecialEffect()
-end
-
--------------------------------------
--- function doSpecialEffect
--- @brief 시작 위치를 자유롭게 지정하여 실행
--------------------------------------
-function SkillAoESquare_Wonder:doSpecialEffect()
-	-- 동료 리스트 (랜덤한 순서)
-	local l_fellow = table.getRandomList(self.m_owner:getFellowList(), self.m_releaseTargetCnt)
-	
-	-- 해제
-	local idx = 1
-	local release_debuff_cnt = 0
-	-- 전체 디버프 해제 수만큼 돌면서
-	for i = 1, self.m_releaseDebuffCnt do
-		while true do
-			local fellow = l_fellow[idx]
-			-- 해제 해야 탈출
-			if (StatusEffectHelper:releaseHarmfulStatusEffect(fellow)) then
-				release_debuff_cnt = release_debuff_cnt + 1
-				idx = idx + 1
-				
-				-- 궁극 강화시 버프 적용 위해
-				StatusEffectHelper:doStatusEffectByStruct(self.m_owner, {}, self.m_lStatusEffect)
-
-				break
-			else
-				idx = idx + 1
-				-- 타겟 리스트 한바퀴 다 돌면 탈출
-				if (idx > #l_fellow) then
-					idx = 1
-					break
-				end
-			end
-		end
-	end
-
-	-- power_rate 다시 계산하여 적용
-	local adj_power_rate = self.m_powerRate + (self.m_addAtkPower * release_debuff_cnt)
-	self.m_activityCarrier:setPowerRate(adj_power_rate)
 end
 
 -------------------------------------

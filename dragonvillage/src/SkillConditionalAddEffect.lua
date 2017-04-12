@@ -67,7 +67,7 @@ function SkillConditionalAddEffect:checkCondition()
 		local l_fellow = table.sortRandom(self.m_owner:getFellowList())
 		for i, fellow in pairs(l_fellow) do
 			-- 해제 해야 탈출
-			if (StatusEffectHelper:releaseHarmfulStatusEffect(fellow)) then
+			if (StatusEffectHelper:releaseStatusEffectDebuff(fellow)) then
 				is_satisfy = true
 				self:makeEffect(self.m_addRes, fellow.pos.x, fellow.pos.y, 'center_start')
 				break

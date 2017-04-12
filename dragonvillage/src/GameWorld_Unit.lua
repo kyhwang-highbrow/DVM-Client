@@ -284,7 +284,7 @@ end
 function GameWorld:removeHeroDebuffs()
     for i, hero in ipairs(self:getDragonList()) do
         if (not hero.m_bDead) then
-            StatusEffectHelper:releaseStatusEffectDebuff(hero)
+            StatusEffectHelper:releaseStatusEffectDebuff_All(hero)
         end
     end
 end
@@ -295,7 +295,7 @@ end
 function GameWorld:removeEnemyDebuffs()
     for i, enemy in ipairs(self:getEnemyList()) do
         if (not enemy.m_bDead) then
-            StatusEffectHelper:releaseStatusEffectDebuff(enemy)
+            StatusEffectHelper:releaseStatusEffectDebuff_All(enemy)
         end
     end
 end
