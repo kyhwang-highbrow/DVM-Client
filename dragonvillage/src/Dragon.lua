@@ -84,7 +84,6 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
 		self:initTriggerListener()
 		self:initLogRecorder(doid)
 		
-		self:initActiveSkillCool() -- 스킬 쿨타임 지정
 		self:initSkillIndicator()
 	end
 
@@ -92,6 +91,16 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
     self:addDefCallback(function(attacker, defender, i_x, i_y)
         self:undergoAttack(attacker, defender, i_x, i_y, 0)
     end)
+end
+
+-------------------------------------
+-- function setStatusCalc
+-------------------------------------
+function Dragon:setStatusCalc(status_calc)
+    PARENT.setStatusCalc(self, status_calc)
+
+    -- 스킬 쿨타임 지정
+    self:initActiveSkillCool()
 end
 
 -------------------------------------
