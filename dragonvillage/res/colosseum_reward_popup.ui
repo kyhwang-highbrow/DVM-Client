@@ -13,9 +13,9 @@
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 1272;
-				height = 706;
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -42,7 +42,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 190;
+					width = 220;
 					height = 52;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -58,7 +58,7 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 190;
+					dimension_width = 220;
 					dimension_height = 52;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -75,13 +75,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -96.000000;
-				y = 293.000000;
-				dock_point = { 0.500000; 0.500000; };
+				x = -120.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 192;
-				height = 46;
+				width = 240;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -106,7 +106,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 190;
+					width = 220;
 					height = 52;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -122,7 +122,7 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 190;
+					dimension_width = 220;
 					dimension_height = 52;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -139,13 +139,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 96.000000;
-				y = 293.000000;
-				dock_point = { 0.500000; 0.500000; };
+				x = 120.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 192;
-				height = 46;
+				width = 240;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -160,32 +160,6 @@
 				image_type = 1;
 			};
 			[4] =
-			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = -16.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 1222;
-				height = 624;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/a_frame_03.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[5] =
 			{
 				[1] =
 				{
@@ -342,7 +316,7 @@
 				type = 'Menu';
 				ui_name = '';
 				x = 0.000000;
-				y = -17.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -356,7 +330,7 @@
 				visible = true;
 				lua_name = 'rankRewardNode';
 			};
-			[6] =
+			[5] =
 			{
 				[1] =
 				{
@@ -513,7 +487,7 @@
 				type = 'Menu';
 				ui_name = '';
 				x = 0.000000;
-				y = -17.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -527,12 +501,12 @@
 				visible = true;
 				lua_name = 'firstRewardNode';
 			};
-			[7] =
+			[6] =
 			{
 				type = 'Button';
 				ui_name = '';
-				x = -28.000000;
-				y = -29.000000;
+				x = -29.000000;
+				y = 36.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -554,12 +528,12 @@
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = 0.000000;
+			y = -33.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1272;
-			height = 706;
+			width = 1250;
+			height = 640;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

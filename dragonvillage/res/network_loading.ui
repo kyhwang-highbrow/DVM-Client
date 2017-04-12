@@ -26,7 +26,7 @@
 			text = 'loadingLabel';
 			h_alignment = 1;
 			v_alignment = 1;
-			color = { 243; 236; 225; };
+			color = { 255; 255; 255; };
 			opacity = 255;
 			dimension_width = 1120;
 			dimension_height = 60;

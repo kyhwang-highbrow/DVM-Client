@@ -423,7 +423,7 @@
 				visible = false;
 				lua_name = 'acceptBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0201.png';
+				normal = 'ui/btn/a_btn_0204.png';
 				selected = 'ui/btn/a_btn_0202.png';
 				disable = '';
 				image_type = 1;
@@ -478,7 +478,7 @@
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 100;
-				height = 80;
+				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -487,7 +487,7 @@
 				visible = false;
 				lua_name = 'refuseBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0203.png';
+				normal = 'ui/btn/a_btn_0201.png';
 				selected = 'ui/btn/a_btn_0202.png';
 				disable = '';
 				image_type = 1;
