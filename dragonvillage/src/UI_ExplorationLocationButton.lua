@@ -164,9 +164,20 @@ function UI_ExplorationLocationButton:click_clickBtn()
                 end
             end)
 
-    elseif (self.m_status == 'exploration_ing') or (self.m_status == 'exploration_complete') then
+    elseif (self.m_status == 'exploration_ing') then
         local ui = UI_ExplorationIng(self.m_eprID)
         ui:setCloseCB(function() self:refresh() end)
+
+    elseif (self.m_status == 'exploration_complete') then
+        local hours = my_location_info['hours']
+
+        local function finish_cb(ret)
+            local ui = UI_ExplorationResultPopup(self.m_eprID, hours, ret)
+            ui:setCloseCB(function() self:refresh() end)
+        end
+
+        local epr_id = self.m_eprID
+        g_explorationData:request_explorationReward(epr_id, finish_cb)
     end
 
 end
