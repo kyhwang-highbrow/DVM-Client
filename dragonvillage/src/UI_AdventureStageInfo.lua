@@ -66,6 +66,7 @@ function UI_AdventureStageInfo:initButton()
         vars['starButton']:registerScriptTapHandler(function() self:click_starButton() end)
     else
         vars['starButton']:setVisible(false)
+        vars['bossSprite']:setPositionY(0)
     end
 end
 
