@@ -223,7 +223,7 @@ function SkillGuardian:onEvent(event_name, t_event, ...)
 		self:onHit()
 		local attacker = t_event['attacker']
 		local defender = self.m_owner
-		defender:undergoAttack(attacker, defender, defender.pos.x, defender.pos.y, true)
+		defender:undergoAttack(attacker, defender, defender.pos.x, defender.pos.y, false, true)
 	end
 end
 

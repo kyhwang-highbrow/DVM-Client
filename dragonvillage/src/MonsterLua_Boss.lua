@@ -44,7 +44,7 @@ end
 -------------------------------------
 -- function initScript
 -------------------------------------
-function MonsterLua_Boss:initScript(pattern_script_name, is_boss)
+function MonsterLua_Boss:initScript(pattern_script_name, mid, is_boss)
     self.m_patternScriptName = pattern_script_name
 
     local script = TABLE:loadJsonTable(pattern_script_name)
@@ -55,8 +55,9 @@ function MonsterLua_Boss:initScript(pattern_script_name, is_boss)
     -- body 설정
     if script['body'] then
         self:initPhys(script['body'])
-
-        self.m_bHasWeakPoint = true
+    else
+        local body_list = TableMonsterHitPos():getBodyList(mid)
+        self:initPhys(body_list)
     end
     
     -- HP 트리거 생성

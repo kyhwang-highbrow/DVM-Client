@@ -127,7 +127,7 @@ function GameWorld:tryPatternMonster(t_monster, body)
     end
 
     monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
-    monster:initScript(script_name, is_boss)
+    monster:initScript(script_name, t_monster['mid'], is_boss)
     
     return monster
 end

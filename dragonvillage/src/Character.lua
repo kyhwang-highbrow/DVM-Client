@@ -397,7 +397,7 @@ end
 -------------------------------------
 -- function undergoAttack
 -------------------------------------
-function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, is_guard)
+function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_event, is_guard)
     if (not attacker.m_activityCarrier) then
         return
     end
@@ -607,13 +607,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, is_guar
 	end
 
     -- 상태이상 체크
-    StatusEffectHelper:statusEffectCheck_onHit(attacker.m_activityCarrier, self)
+    if (not no_event) then
+        StatusEffectHelper:statusEffectCheck_onHit(attacker.m_activityCarrier, self)
+    end
 
 	-- @LOG_CHAR
 	self.m_charLogRecorder:recordLog('under_atk', 1)
 	
 	-- @EVENT 방어자 이벤트 처리
-	do 
+	if (not no_event) then
 		-- 피격
 		self:dispatch('under_atk', t_event)
 		
@@ -634,19 +636,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, is_guar
 		elseif (attack_type == 'active') then
 			attacker_char:dispatch('under_atk_active', t_event, self, attacker.m_activityCarrier)
 		end
-
-		-- 남은 체력이 20%이하일 경우 이벤트 발생
-		if (damage > 0) then
-			if ((self.m_hp / self.m_maxHp) <= 0.2) then
-				self:dispatch('character_weak', {}, self)
-			end
-		end
 	end
 
 	-- @EVENT 시전자 이벤트 처리
 	if (attacker_char) then
         -- 일반
-		attacker_char:dispatch('hit', t_event)
+        if (not no_event) then
+		    attacker_char:dispatch('hit', t_event)
+        end
 
 		-- 크리티컬 
 		if (critical) then
@@ -659,35 +656,39 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, is_guar
 		end
 		
 		-- 일반 공격시
-		if (attack_type == 'basic') then 
-			attacker_char:dispatch('hit_basic', t_event, self, attacker.m_activityCarrier)
+        if (not no_event) then
+		    if (attack_type == 'basic') then 
+			    attacker_char:dispatch('hit_basic', t_event, self, attacker.m_activityCarrier)
 
-		-- 액티브 공격시
-		elseif (attack_type == 'active') then
-			attacker_char:dispatch('hit_active', t_event, self, attacker.m_activityCarrier)
-		end
+		    -- 액티브 공격시
+		    elseif (attack_type == 'active') then
+			    attacker_char:dispatch('hit_active', t_event, self, attacker.m_activityCarrier)
+		    end
+        end
     end
 
-    -- 공격자가 드래곤일 경우 스킬 게이지 증가
-    if (attacker_char) then
-        if (attacker_char.m_charType == 'dragon') then
-            local role_type = attacker_char.m_charTable['role']
+    if (not no_event) then
+        if (attacker_char) then
+            -- 히트시 스킬 게이지 증가
+            if (attacker_char.m_charType == 'dragon') then
+                local role_type = attacker_char.m_charTable['role']
 
-            if (role_type == 'dealer') then
-                if (real_attack_type == 'basic') then 
-                    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-                    if critical then
-                        attacker_char:increaseActiveSkillCool(t_temp['hit_basic_cri'])
-                    else
-                        attacker_char:increaseActiveSkillCool(t_temp['hit_basic'])
+                if (role_type == 'dealer') then
+                    if (real_attack_type == 'basic') then 
+                        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
+                        if critical then
+                            attacker_char:increaseActiveSkillCool(t_temp['hit_basic_cri'])
+                        else
+                            attacker_char:increaseActiveSkillCool(t_temp['hit_basic'])
+                        end
                     end
                 end
             end
-        end
-	end
+	    end
 
-    if (real_attack_type == 'active') then 
-        self:runAction_Shake()
+        if (real_attack_type == 'active') then 
+            self:runAction_Shake()
+        end
     end
 
 	-- @DEBUG

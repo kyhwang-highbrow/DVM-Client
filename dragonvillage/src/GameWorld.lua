@@ -819,9 +819,6 @@ function GameWorld:addHero(hero, idx)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
         
     hero:addListener('hero_casting_start', self.m_gameAutoHero)
-
-    --hero:addListener('character_weak', self.m_tamerSpeechSystem)
-    --hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
 end
 
 -------------------------------------

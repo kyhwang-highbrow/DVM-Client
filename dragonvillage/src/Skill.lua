@@ -44,7 +44,7 @@ Skill = class(PARENT, {
         -- 스킬 종료시 피드백(보너스) 관련
         m_bonusLevel = 'number',
 
-        -- 하이라이트시 숨김 처리(TemporaryPause)
+        -- 하이라이트시 숨김 처리
         m_dataForTemporaryPause = '',
      })
 
@@ -344,7 +344,11 @@ function Skill:attack(target_char, bodys)
             local x = target_char.pos.x + body.x
             local y = target_char.pos.y + body.y
 
-            target_char:runDefCallback(self, x, y, k)
+            if (i == 1) then
+                target_char:runDefCallback(self, x, y, k)
+            else
+                target_char:runDefCallback(self, x, y, k, true)
+            end
         end
     else
         target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)

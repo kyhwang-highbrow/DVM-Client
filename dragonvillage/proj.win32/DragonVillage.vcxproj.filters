@@ -1899,6 +1899,9 @@
     <None Include="..\src\TamerSkill.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableMonsterHitPos.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_TamerManagePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
