@@ -124,13 +124,13 @@ function UI_DragonResearch:refresh()
     local price = table_dragon_research:getDragonResearchPrice(research_lv)
     vars['priceLabel']:setString(comma_value(price))
 
-
-    local type_name = Str('고대 {1}', dragon_name)
-    local desc = table_dragon_research:getDesc(research_lv, type_name)
-    vars['dscLabel']:setString(desc)
-
     local base_did = TableDragonType:getBaseDid(dragon_type)
     local dragon_name = table_dragon:getDragonName(base_did)
+    local type_name = Str('고대 {1}', dragon_name)
+
+    local desc = table_dragon_research:getDesc(research_lv, type_name)
+    vars['dscLabel']:setString(desc)
+    
     vars['dragonNameLabel']:setString(type_name)
     self.m_name = type_name
 
