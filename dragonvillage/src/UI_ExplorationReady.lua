@@ -79,16 +79,7 @@ function UI_ExplorationReady:onChangeTab(tab, first)
     local vars = self.vars
 
     local hours = tab
-    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
-
-    -- 탐험 소요 시간 표시
-    vars['timeLabel']:setString(Str('{1} 시간', hours))
-    cca.uiReactionSlow(vars['timeLabel'])
-
-    -- 획득하는 경험치 표시
-    local add_exp = location_info[tostring(hours) .. '_hours_exp']
-    vars['expLabel']:setString(comma_value(add_exp))
-    cca.uiReactionSlow(vars['expLabel'])
+    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)    
 
     -- 획득하는 아이템 리스트
     local reward_items_str = location_info[tostring(hours) .. '_hours_items']
@@ -133,10 +124,11 @@ function UI_ExplorationReady:initUI()
     local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
     local chapter = location_info['order']
 
-    do -- 배경 이미지 생성
-        local bg_node = vars['bgNode']
-        ResHelper:makeUIAdventureChapterBG(bg_node, chapter)
-    end
+    local res = string.format('res/ui/icon/stage_mini_%.2d.png', chapter)
+    local icon = cc.Sprite:create(res)
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+    vars['stageNode']:addChild(icon)
 end
 
 -------------------------------------
