@@ -6,6 +6,8 @@ local PARENT = TableClass
 TableMonster = class(PARENT, {
     })
 
+local THIS = TableMonster
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -45,4 +47,35 @@ function TableMonster:getDesc_forToolTip(monster_id)
     local t_monster = self:get(monster_id)
     local str = '{@SKILL_NAME}' .. t_monster['t_name']
     return str
+end
+
+-------------------------------------
+-- function isBossMonster
+-- @brief 보스 몬스터인지 여부
+-------------------------------------
+function TableMonster:isBossMonster(monster_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local rarity = self:getValue(monster_id, 'rarity')
+    if (rarity == 'boss') then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function getMonsterRes
+-- @brief
+-------------------------------------
+function TableMonster:getMonsterRes(monster_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local res = self:getValue(monster_id, 'res')
+    local attr = self:getValue(monster_id, 'attr')
+    return res, attr
 end

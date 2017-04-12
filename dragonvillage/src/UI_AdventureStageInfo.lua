@@ -80,6 +80,10 @@ function UI_AdventureStageInfo:refresh()
     do -- 스테이지 이름
         local stage_name = g_stageData:getStageName(stage_id)
         vars['titleLabel']:setString(stage_name)
+
+        local string_width = vars['titleLabel']:getStringWidth()
+        local pos_x = -(string_width / 2)
+        vars['difficultyLabel']:setPositionX(pos_x - 10)
     end
 
     do -- 모험 소비 활동력
@@ -142,6 +146,20 @@ function UI_AdventureStageInfo:refresh()
         vars['staminaNode']:removeAllChildren()
         vars['staminaNode']:addChild(icon)
     end
+
+    do -- 보스 스테이지
+        local is_boss_stage, monster_id = TableStageDesc:isBossStage(stage_id)
+        vars['bossSprite']:setVisible(is_boss_stage)
+        vars['bossNode']:setVisible(is_boss_stage)
+
+        vars['bossNode']:removeAllChildren()
+        if is_boss_stage then
+            local res, attr = TableMonster:getMonsterRes(monster_id)
+            local animator = AnimatorHelper:makeMonsterAnimator(res, attr)
+            animator:changeAni('idle', true)
+            vars['bossNode']:addChild(animator.m_node)
+        end
+    end
 end
 
 -------------------------------------
@@ -184,7 +202,7 @@ end
 -------------------------------------
 function UI_AdventureStageInfo:refresh_monsterList()
     local node = self.vars['monsterListNode']
-    --node:removeAllChildren()
+    node:removeAllChildren()
 
 
     -- 생성 콜백
@@ -268,7 +286,7 @@ end
 -------------------------------------
 function UI_AdventureStageInfo:refresh_rewardInfo()
     local node = self.vars['dropListNode']
-    --node:removeAllChildren()
+    node:removeAllChildren()
 
 
     -- 생성 콜백

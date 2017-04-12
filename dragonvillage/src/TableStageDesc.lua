@@ -6,6 +6,8 @@ local PARENT = TableClass
 TableStageDesc = class(PARENT, {
     })
 
+local THIS = TableStageDesc
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -71,4 +73,30 @@ function TableStageDesc:getMonsterIDList(stage_id)
     end
 
     return l_moster_id or {}
+end
+
+
+-------------------------------------
+-- function isBossStage
+-- @brief 보스 스테이지인지 여부
+-------------------------------------
+function TableStageDesc:isBossStage(stage_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local l_moster_id = self:getMonsterIDList(stage_id)
+
+    local monster_id = l_moster_id[#l_moster_id]
+    if (not monster_id) then
+        return false
+    end
+
+    local is_boss_monster = TableMonster:isBossMonster(monster_id)
+
+    if is_boss_monster then
+        return true, monster_id
+    else
+        return false
+    end
 end
