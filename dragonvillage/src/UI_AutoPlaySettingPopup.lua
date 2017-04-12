@@ -6,7 +6,6 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_AutoPlaySettingPopup = class(PARENT, {
         m_radioButton_dragonAtkSkill = 'UIC_RadioButton',
         m_radioButton_dragonHealSkill = 'UIC_RadioButton',
-        m_radioButton_dragonTamerSkill = 'UIC_RadioButton',
     })
 
 UI_AutoPlaySettingPopup.TAB_SKILL = 1
@@ -82,17 +81,7 @@ function UI_AutoPlaySettingPopup:initButton(t_user_info)
     vars['skillBtn3']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     vars['skillBtn4']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     radio_button:addButton('at_cool', vars['skillBtn3'], vars['skillSprite3'])
-    radio_button:addButton('at_event', vars['skillBtn4'], vars['skillSprite4'])
-
-    local radio_button = UIC_RadioButton()
-    self.m_radioButton_dragonTamerSkill = radio_button
-    vars['skillBtn5']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-    vars['skillBtn6']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-    vars['skillBtn7']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-    radio_button:addButton(1, vars['skillBtn5'], vars['skillSprite5'])
-    radio_button:addButton(2, vars['skillBtn6'], vars['skillSprite6'])
-    radio_button:addButton(3, vars['skillBtn7'], vars['skillSprite7'])
-    
+    radio_button:addButton('at_event', vars['skillBtn4'], vars['skillSprite4'])    
 
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
 end
@@ -112,7 +101,6 @@ function UI_AutoPlaySettingPopup:refresh(t_user_info)
 
     self.m_radioButton_dragonAtkSkill:setSelectedButton(g_autoPlaySetting:get('dragon_atk_skill'))
     self.m_radioButton_dragonHealSkill:setSelectedButton(g_autoPlaySetting:get('dragon_heal_skill'))
-    self.m_radioButton_dragonTamerSkill:setSelectedButton(g_autoPlaySetting:get('tamer_skill'))
 
     vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay())
 end
@@ -131,7 +119,6 @@ function UI_AutoPlaySettingPopup:close()
 
     g_autoPlaySetting:set('dragon_atk_skill', self.m_radioButton_dragonAtkSkill.m_selectedButton)
     g_autoPlaySetting:set('dragon_heal_skill', self.m_radioButton_dragonHealSkill.m_selectedButton)
-    g_autoPlaySetting:set('tamer_skill', self.m_radioButton_dragonTamerSkill.m_selectedButton)
 
     g_autoPlaySetting:setAutoPlay(vars['autoStartOnBtn']:isChecked())
 

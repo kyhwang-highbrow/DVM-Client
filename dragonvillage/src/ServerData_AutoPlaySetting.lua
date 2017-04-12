@@ -35,9 +35,6 @@ function ServerData_AutoPlaySetting:init(server_data)
 
             -- 드래곤 치유 스킬 사용
             t_auto_play_setting['dragon_heal_skill'] = 'at_cool' or 'at_event'
-
-            -- 테이머 스킬 사용
-            t_auto_play_setting['tamer_skill'] = 1 or 2 or 3
         end
 
         -- 자동 모드 사용
