@@ -373,23 +373,13 @@ end
 -- @brief 말풍선
 -------------------------------------
 function GameDragonSkill:makeSpeechBubble(dragon)
-    if (dragon.m_bLeftFormation) then
-        self.m_bubble:setPosition(300, 150)
-    else
-        self.m_bubble:setPosition(-300, 150)
-    end
-    
-    self.m_bubble:setFrame(0)
-    self.m_bubble:addAniHandler(function()
-        self.m_bubble:setVisible(false)
-    end)
-    self.m_bubble:setVisible(true)
-
     -- 대사
     local dragon_type = TableDragon():getDragonType(dragon.m_dragonID)
     local t_dragonType = TableDragonType():get(dragon_type)
     if (not t_dragonType) then
-        error('table_dragon_type에 없는 드래곤 : ' .. dragon_type)
+        cclog('table_dragon_type에 없는 드래곤 : ' .. dragon_type)
+
+        t_dragonType = TableDragonType():get('powerdragon')
     end
 
     local flv = dragon.m_tDragonInfo['flv']
@@ -407,6 +397,19 @@ function GameDragonSkill:makeSpeechBubble(dragon)
     if (t_dragonType[key]) then
         self.m_speechLabel:setString(Str(t_dragonType[key]))
     end
+
+    if (dragon.m_bLeftFormation) then
+        self.m_bubble:setPosition(300, 150)
+    else
+        self.m_bubble:setPosition(-300, 150)
+    end
+    
+    self.m_bubble:setFrame(0)
+    self.m_bubble:addAniHandler(function()
+        self.m_bubble:setVisible(false)
+    end)
+    self.m_bubble:setVisible(true)
+
 end
 
 -------------------------------------

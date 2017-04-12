@@ -139,9 +139,9 @@ function Tamer.st_event(owner, dt)
 		owner:setTamerSkillDirecting(pos_x, cameraHomePosY + 200, TAMER_SKILL_EVENT, cb_func)
 
         -- 이벤트
-        if (owner.m_bLeftFormation) then
+        --if (owner.m_bLeftFormation) then
             owner.m_world:dispatch('set_global_cool_time_passive')
-        end
+        --end
     end
 end
 

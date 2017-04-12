@@ -99,6 +99,10 @@ end
 function Dragon:setStatusCalc(status_calc)
     PARENT.setStatusCalc(self, status_calc)
 
+    if (not self.m_statusCalc) then
+        return
+    end
+
     -- 스킬 쿨타임 지정
     self:initActiveSkillCool()
 end
