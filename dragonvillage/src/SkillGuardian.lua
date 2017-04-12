@@ -251,9 +251,9 @@ end
 -- function release
 -------------------------------------
 function SkillGuardian:release()
-    PARENT.release(self)
-
-    if (self.m_barEffect) then
+	self:onEnd()
+    
+	if (self.m_barEffect) then
         self.m_barEffect:release()
         self.m_barEffect = nil
     end
@@ -262,6 +262,8 @@ function SkillGuardian:release()
         self.m_shieldEffect:release()
         self.m_shieldEffect = nil
     end
+
+    PARENT.release(self)
 end
 
 -------------------------------------
