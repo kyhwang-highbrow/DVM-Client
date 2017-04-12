@@ -28,6 +28,10 @@ function SkillAoESquare_Height:init_skill(hit)
 	if (self.m_owner.m_charTable['type'] == 'pinkbell') then
 		local pos_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - self.m_targetPos.x
 		self.m_animator:setPositionX(pos_x)
+		-- 진형에 따라 리소스를 뒤집어준다.
+		if (not self.m_owner.m_bLeftFormation) then
+			effect:setFlip(true)
+		end	
 	end
 end
 

@@ -197,9 +197,8 @@ function SkillGuardian:onEnd()
 	local target_char = self.m_targetChar
 	if (target_char:getGuard() == self) then
 		target_char:setGuard(nil)
+		target_char:removeListener('guardian', self)
 	end
-
-    target_char:removeListener('guardian', self)
 end
 
 -------------------------------------

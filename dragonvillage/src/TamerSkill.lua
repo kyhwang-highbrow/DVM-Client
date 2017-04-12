@@ -132,7 +132,7 @@ function Tamer.st_event(owner, dt)
 		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
 
         local pos_x = CRITERIA_RESOLUTION_X / 4
-        if (not self.m_bLeftFormation) then
+        if (not owner.m_bLeftFormation) then
             pos_x = CRITERIA_RESOLUTION_X - pos_x
         end
 

@@ -112,12 +112,12 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 	if self:checkPermillRate(caster, target_char, status_effect_rate, status_effect_group) then
 		return nil
 	end
-	 
+
 	-- 면역 효과
 	if (target_char.m_isImmuneSE) and self:isHarmful(status_effect_group) then 
 		return nil
 	end
-    
+
 	-- 상태효과 생성 시작
 	local status_effect = nil
 	if (t_status_effect['overlab'] > 0) then
@@ -433,15 +433,17 @@ function StatusEffectHelper:checkPermillRate(caster, target_char, status_effect_
 	if (is_helpful) then
 		se_resist = 0
 	else
-		se_resist = is_helpful and 0 or target_char:getStat('resistance')
+		se_resist = target_char:getStat('resistance')
 	end
 
+	-- 확률 permill 로 체크
 	local adj_rate = (status_effect_rate + se_acc - se_resist)
-
-	if (math_random(1, 1000) < adj_rate * 10) then 
+	if (math_random(1, 1000) > adj_rate * 10) then
+		-- 실패
 		return true
 	end
 
+	-- 성공
 	return false
 end
 
