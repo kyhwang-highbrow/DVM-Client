@@ -3,15 +3,6 @@
 	"azBitmap":
 	[
 		{
-			"name":"(PROJECT_PATH)..\..\test.plist",
-			"expand":false,
-			"apply":true,
-			"sprite_list":
-			[
-
-			]
-		},
-		{
 			"name":"(PROJECT_PATH)dragon_upgrade_fx.plist",
 			"expand":false,
 			"apply":true,
