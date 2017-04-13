@@ -133,8 +133,8 @@
 			"block"			: 0,
 			
 			// supporter
-			"time_skill"	: 5,
-			"passive_skill"	: 5
+			"time_skill"	: 45,
+			"passive_skill"	: 15
 		}
     },
     

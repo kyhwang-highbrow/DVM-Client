@@ -7,6 +7,25 @@
 		{
 			type = 'Node';
 			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'bgNode';
+		};
+		[2] =
+		{
+			type = 'Node';
+			ui_name = '';
 			x = -488.000000;
 			y = 50.000000;
 			dock_point = { 0.500000; 0.000000; };
@@ -22,7 +41,7 @@
 			visible = true;
 			lua_name = 'tamerNode1';
 		};
-		[2] =
+		[3] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -41,12 +60,12 @@
 			visible = true;
 			lua_name = 'tamerNode2';
 		};
-		[3] =
+		[4] =
 		{
 			[1] =
 			{
 				type = 'LabelTTF';
-				ui_name = '';
+				ui_name = 'rich';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -98,7 +117,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'nameNode1';
 			file_name = 'ui/frame/result_status_bg.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
@@ -107,12 +126,12 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[4] =
+		[5] =
 		{
 			[1] =
 			{
 				type = 'LabelTTF';
-				ui_name = '';
+				ui_name = 'rich';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -164,7 +183,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'nameNode2';
 			file_name = 'ui/frame/result_status_bg.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
@@ -173,12 +192,12 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[5] =
+		[6] =
 		{
 			[1] =
 			{
 				type = 'LabelTTF';
-				ui_name = '';
+				ui_name = 'rich';
 				x = 0.000000;
 				y = 12.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -288,12 +307,12 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[6] =
+		[7] =
 		{
 			[1] =
 			{
 				type = 'LabelTTF';
-				ui_name = '';
+				ui_name = 'rich';
 				x = 0.000000;
 				y = 12.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -403,7 +422,73 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[7] =
+		[8] =
+		{
+			type = 'Node';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'titleNode';
+		};
+		[9] =
+		{
+			type = 'LayerColor';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'layerColor';
+			color = { 255; 255; 255; };
+			opacity = 0;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[10] =
+		{
+			type = 'Button';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'nextBtn';
+			enable = true;
+			normal = 'common/empty.png';
+			selected = '';
+			disable = '';
+			image_type = 0;
+		};
+		[11] =
 		{
 			[1] =
 			{
