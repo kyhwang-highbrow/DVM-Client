@@ -522,7 +522,8 @@ function UI_DragonUpgradeNew:upgradeDirecting(doid, t_prev_dragon_data, t_next_d
         
         -- 결과 팝업 (승급)
         if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
-            UI_DragonManageUpgradeResult(t_next_dragon_data, t_prev_dragon_data)
+            --UI_DragonManageUpgradeResult(t_next_dragon_data, t_prev_dragon_data)
+            UI_DragonUpgradeResult(t_next_dragon_data, t_prev_dragon_data)
         end
 
         -- UI 갱신

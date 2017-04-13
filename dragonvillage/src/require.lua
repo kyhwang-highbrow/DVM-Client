@@ -593,6 +593,7 @@ local t_module = {
     'UI_DragonRunesEnhance',
     'UI_DragonFriendship',
     'UI_DragonEvolutionResult',
+    'UI_DragonUpgradeResult',
 
 	-- 테이머 관리
 	'UI_TamerManagePopup',
