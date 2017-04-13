@@ -16,7 +16,7 @@
 				"angular_velocity":60,
 				"offset":[0,0],
 				"missile_type":"pass",
-				"reset_time":0.5,
+				"reset_time":1,
 				"vanish_time":3.05,
 				"dir_array":[0]
 				
@@ -32,7 +32,7 @@
 						"offset":[0,0],
 						"dir_array":[180],
 						"missile_type":"pass",
-						"reset_time":0.5,
+						"reset_time":1,
 						
 						"add_script":
 						[					
@@ -47,7 +47,7 @@
 								"dir_array":[90,210,330],
 								"missile_type":"pass",
 								"angular_velocity":-180,
-								"reset_time":0.5,
+								"reset_time":1,
 								"vanish_time":1
 							}
 						],
@@ -103,7 +103,7 @@
 						"offset":[0,0],
 						"dir_array":[180],
 						"missile_type":"pass",
-						"reset_time":0.5,
+						"reset_time":1,
 						
 						"add_script":
 						[
@@ -118,7 +118,7 @@
 								"dir_array":[90,210,330],
 								"missile_type":"pass",
 								"angular_velocity":-180,
-								"reset_time":0.5,
+								"reset_time":1,
 								"vanish_time":1
 							}
 						],
@@ -166,7 +166,7 @@
 				"dir_array":[0,45,90,135,180,225,270,315],
 				"dir_add":0,
 				"missile_type":"pass",
-				"reset_time":0.3,
+				"reset_time":1,
 				
 				"add_script":
 				[
@@ -179,7 +179,7 @@
 						"offset":[0,0],
 						"dir_array":[180],
 						"missile_type":"pass",
-						"reset_time":0.3,
+						"reset_time":1,
 						
 						"add_script":
 						[					
@@ -193,7 +193,7 @@
 								"dir_array":[90,210,330],
 								"angular_velocity":-180,
 								"missile_type":"pass",
-								"reset_time":0.3,
+								"reset_time":1,
 								"vanish_time":1
 							}
 						],
