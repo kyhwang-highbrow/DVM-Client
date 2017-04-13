@@ -120,6 +120,7 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(t_quest)
 
+        --[[
 		-- 오른쪽에서 등장하는 연출
 		local content_size = node:getContentSize()
 		table_view.m_cellUIAppearCB = function(ui)
@@ -129,6 +130,7 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
 
 			ui:cellMoveTo(0.5, cc.p(x, y))
 		end
+        --]]
     end
 end
 

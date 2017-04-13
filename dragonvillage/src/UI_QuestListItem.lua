@@ -108,12 +108,18 @@ function UI_QuestListItem:setVarsVisible()
 
 	-- 평시
 	local is_temp = (not self.m_isCleared) and (not is_activated_reward)
-	if string.find(self.m_questData['type'], '_all') then 
-		vars['doingBtn']:setVisible(is_temp)
-	else
-		-- @TODO 퀘스트 바로가기 막음
-		vars['questLinkBtn']:setVisible(false) --is_temp)
-	end
+    vars['doingBtn']:setVisible(is_temp)
+    vars['rewardBtn']:setVisible(not is_temp)
+
+    -- 초보자 퀘스트는 순차적으로 보상을 받을 수 있음
+    if (self.m_questData['type'] == 'newbie') then
+        if (g_questData.m_focusNewbieQid < self.m_questData['qid']) then
+            vars['questCompletNode']:setVisible(false)
+            vars['rewardBtn']:setVisible(false)
+            vars['doingBtn']:setVisible(false)
+            vars['lockBtn']:setVisible(true)
+        end
+    end
 end
 
 -------------------------------------
@@ -165,6 +171,9 @@ function UI_QuestListItem:setQuestProgress()
 	local cur_cnt = self.m_rawCount
 	
 	vars['questGauge']:runAction(cc.ProgressTo:create(0.5, (cur_cnt / goal_cnt) * 100)) 
+
+    -- 목표치보다 높게 표기되는 부분 보정
+    cur_cnt = math_min(cur_cnt, goal_cnt)
 	vars['questGaugeLabel']:setString(cur_cnt .. ' / ' .. goal_cnt)
 end
 

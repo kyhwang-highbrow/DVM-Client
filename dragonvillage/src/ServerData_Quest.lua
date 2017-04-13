@@ -8,6 +8,8 @@ ServerData_Quest = class({
 		m_workedData = 'table',
 
 		m_bDirtyQuestInfo = 'bool',
+
+        m_focusNewbieQid = '',
     })
 
 -------------------------------------
@@ -58,6 +60,8 @@ function ServerData_Quest:makeQuestFullData()
 	
 	local qid, t_server_quest
 
+    local focus_newbie_qid = nil
+
 	for i, t_quest in pairs(t_table_quest) do 
 		qid = t_quest['qid']
 		t_server_quest = self:getServerQuest(qid)
@@ -96,7 +100,16 @@ function ServerData_Quest:makeQuestFullData()
             t_quest['is_cleared'] = true
             t_quest['goal_cnt'] = t_quest['max_cnt']
 		end
-	end
+
+
+        -- 초보자 퀘스트 포커스 qid 검색
+        if (t_quest['type'] == 'newbie') and (not t_quest['is_cleared']) then
+            if (not focus_newbie_qid) or (t_quest['qid'] < focus_newbie_qid)  then
+                focus_newbie_qid = t_quest['qid']
+            end
+        end
+    end
+    self.m_focusNewbieQid = focus_newbie_qid
 
 	self.m_workedData = t_table_quest
 end
@@ -144,6 +157,14 @@ function ServerData_Quest:getQuestListByType(quest_type)
 	-- merge 해서 리턴
 	local t_ret = table.merge(l_reward_quest, l_normal_quest)
 	t_ret = table.merge(t_ret, l_completed_quest)
+
+
+    -- 초보자퀘스트는 qid로만 정렬
+    if (quest_type == 'newbie') then
+        table.sort(t_ret, function(a, b)
+            return (tonumber(a['qid']) < tonumber(b['qid']))
+	    end)
+    end
 	
 	return t_ret
 end
