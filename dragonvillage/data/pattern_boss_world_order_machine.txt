@@ -15,7 +15,7 @@
                 "hp_percent":75,
                 "pattern":
                 [
-					"m;RM22;500", "a;5", "w;3", "a;basic", "w;2", "a;basic", "a;4", "w;5", "a;2", "w;3", "m;RM24;500", "a;basic", "w;2", "a;basic", "w;2"
+					"a;5", "w;3", "a;basic", "w;2", "a;basic", "a;4", "w;5", "a;2", "w;3", "a;basic", "w;2", "a;basic", "w;2"
                 ]
             },
 			
@@ -23,7 +23,7 @@
                 "hp_percent":50,
                 "pattern":
                 [
-					"m;RM24;500", "a;3", "w;3", "a;2", "w;3", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;4", "w;4"
+					"a;3", "w;3", "a;2", "w;3", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;4", "w;4"
                 ]
             },
 			
@@ -31,7 +31,7 @@
                 "hp_percent":25,
                 "pattern":
                 [
-					"m;RM26;500", "a;2", "m;RM22;500", "a;2", "m;RM24;500", "a;3", "w;3", "a;basic", "w;2", "a;basic", "w;2", "a;4", "w;4"
+					"a;2", "a;2", "a;3", "w;3", "a;basic", "w;2", "a;basic", "w;2", "a;4", "w;4"
                 ]
             }
         ]

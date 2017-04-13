@@ -1,5 +1,5 @@
 type,pos_01,pos_02,pos_03,pos_04,pos_05,pos_06,pos_07,pos_08,pos_09,pos_10,pos_11,pos_12,pos_13,pos_14,pos_15,pos_16,pos_17,pos_18,pos_19,pos_20,pos_21,comment
-design,RF12,RF14,RF16,RM12,RM14,RM16,RB13,RB15,RB22,RB24,RB26,,,,,,,,,,,
+design,RM25,RB13,RB25,,,,,,,,,,,,,,,,,,,
 wait,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,지정 시간동안 대기용으로 사용
 RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,
 RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,
@@ -278,7 +278,10 @@ set_1_s,RF22,RF26,RB24,RF22,RF26,RB24,RF22,RF26,RB24,x,x,x,x,x,x,x,x,x,x,x,x,3�
 set_2,RM12,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 movement_1_1,RF12,RF14,RF16,RM12,RM14,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 movement_1_2,RM12,RM14,RM16,RF12,RF14,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-relation_1_0,RB14,RF14,RF22,RF26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
+triangle_turn_1,RM25,RB13,RB25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_turn_2,RM25,RB13,RB25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_turn_3,RB25,RM25,RB13,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+relation_1_0,RF14,RF22,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
 relation_1_1,RM11,RM13,RM15,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
 relation_1_2,RF23,RF25,RM23,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
 relation_2_0,RF12,RF16,RM24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용

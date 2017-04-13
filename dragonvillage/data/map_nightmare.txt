@@ -1,5 +1,5 @@
 {
-    "directing":"nightmare_shaky2",
+    "directing":"nightmare_ripple4",
 	"layer":
     [
     

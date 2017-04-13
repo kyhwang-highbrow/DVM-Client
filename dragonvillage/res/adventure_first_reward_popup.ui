@@ -156,7 +156,7 @@
 				visible = true;
 				lua_name = 'okBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0204.png';
+				normal = 'ui/btn/a_btn_0201.png';
 				selected = 'ui/btn/a_btn_0202.png';
 				disable = '';
 				image_type = 1;

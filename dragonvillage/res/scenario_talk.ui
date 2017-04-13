@@ -184,7 +184,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 481;
+				width = 480;
 				height = 154;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -200,7 +200,7 @@
 				v_alignment = 1;
 				color = { 42; 31; 21; };
 				opacity = 255;
-				dimension_width = 481;
+				dimension_width = 480;
 				dimension_height = 154;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -214,6 +214,55 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
+			};
+			[2] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = 12.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 540;
+				height = 180;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'nextBtn1';
+				enable = true;
+				normal = '';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[3] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = -40.000000;
+				y = 64.000000;
+				dock_point = { 1.000000; 0.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'nextVisual1';
+				file_name = 'ui/a2d/scenario/scenario.a2d';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;talk_next';
+				color = { 255; 255; 255; };
+				opacity = 255;
 			};
 			type = 'Scale9Sprite';
 			ui_name = '';
@@ -250,7 +299,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 481;
+				width = 480;
 				height = 154;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -266,7 +315,7 @@
 				v_alignment = 1;
 				color = { 42; 31; 21; };
 				opacity = 255;
-				dimension_width = 481;
+				dimension_width = 480;
 				dimension_height = 154;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -280,6 +329,55 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
+			};
+			[2] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = 12.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 540;
+				height = 180;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'nextBtn2';
+				enable = true;
+				normal = '';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[3] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = -40.000000;
+				y = 64.000000;
+				dock_point = { 1.000000; 0.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'nextVisual2';
+				file_name = 'ui/a2d/scenario/scenario.a2d';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;talk_next';
+				color = { 255; 255; 255; };
+				opacity = 255;
 			};
 			type = 'Scale9Sprite';
 			ui_name = '';
@@ -356,8 +454,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 22;
-				height = 16;
+				width = 26;
+				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
