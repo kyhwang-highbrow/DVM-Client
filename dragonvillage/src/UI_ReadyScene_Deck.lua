@@ -503,7 +503,9 @@ function UI_ReadyScene_Deck:updateFormation(formation, immediately)
 	end
 
 	-- 덩실 위치 조정
-	vars['formationNode']:runAction(cc.MoveBy:create(0.1, cc.p(0, -50)))
+    vars['formationNode']:stopAllActions()
+    local action = cc.Sequence:create(cc.MoveBy:create(0.1, cc.p(0, -50)), cc.MoveTo:create(0.1, cc.p(-79, 100)))
+	vars['formationNode']:runAction(action)
 
 	self:updateFormationInfo(formation)
 end
@@ -672,6 +674,7 @@ function UI_ReadyScene_Deck:onTouchBegan(touch, event)
     local bounding_box = vars['formationNode']:getBoundingBox()
     local local_location = vars['formationNode']:getParent():convertToNodeSpace(location)
     local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+
     if (not is_contain) then
         return false
     end
@@ -680,12 +683,15 @@ function UI_ReadyScene_Deck:onTouchBegan(touch, event)
     local local_location = vars['formationNode']:convertToNodeSpace(location)
 	
 	-- @TODO 보정을 해줘야한다... 왜지!
-	local_location = { x = local_location['x'] - 350, y = local_location['y'] - 200}
+	--local_location = { x = local_location['x'] - 350, y = local_location['y'] - 200}
 
     local select_idx = nil
     for i=1, TOTAL_POS_CNT do
         local btn_name = 'positionNode' .. string.format('%d', i)
         local btn_bounding_box = vars[btn_name]:getBoundingBox()
+
+        -- 가로로 넓은 영역을 정사각형으로 변경
+        btn_bounding_box['height'] = btn_bounding_box['width']
         local is_contain = cc.rectContainsPoint(btn_bounding_box, local_location)
 
         if (is_contain == true) then
