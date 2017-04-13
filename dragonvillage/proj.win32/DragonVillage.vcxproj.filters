@@ -1923,6 +1923,9 @@
     <None Include="..\src\UI_DragonEclvResult.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonLevelupResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

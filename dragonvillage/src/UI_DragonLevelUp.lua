@@ -447,37 +447,20 @@ function UI_DragonLevelUp:click_levelupBtn()
     end
 
     local function success_cb(ret)
+        local prev_lv = self.m_selectDragonData['lv']
+        local curr_lv = ret['modified_dragon']['lv']
 
-        -- 재료로 사용된 드래곤 삭제
-        if ret['deleted_dragons_oid'] then
-            for _,doid in pairs(ret['deleted_dragons_oid']) do
-                g_dragonsData:delDragonData(doid)
+        if (prev_lv == curr_lv) then
+            self:response_levelup(ret)
+        else
+            -- 드래곤 정보 갱신 (임시 위치)
+            g_dragonsData:applyDragonData(ret['modified_dragon'])
 
-                -- 드래곤 리스트 갱신
-                self.m_tableViewExt:delItem(doid)
+            local ui = UI_DragonLevelupResult(StructDragonObject(ret['modified_dragon']), prev_lv)
+            local function close_cb()
+                self:response_levelup(ret)
             end
-        end
-
-        -- 드래곤 정보 갱신
-        g_dragonsData:applyDragonData(ret['modified_dragon'])
-
-        -- 골드 갱신
-        if ret['gold'] then
-            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
-            g_topUserInfo:refreshData()
-        end
-
-        self.m_bChangeDragonList = true
-
-        self:setSelectDragonDataRefresh()
-
-        local doid = self.m_selectDragonOID
-        self:refresh_dragonIndivisual(doid)
-
-
-        local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
-        if (not possible) then
-            MakeSimplePopup(POPUP_TYPE.OK, msg, function() self:close() end)
+            ui:setCloseCB(close_cb)
         end
     end
 
@@ -502,6 +485,45 @@ function UI_DragonLevelUp:click_levelupBtn()
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+end
+
+-------------------------------------
+-- function response_levelup
+-- @brief
+-------------------------------------
+function UI_DragonLevelUp:response_levelup(ret)
+    -- 재료로 사용된 드래곤 삭제
+    if ret['deleted_dragons_oid'] then
+        for _,doid in pairs(ret['deleted_dragons_oid']) do
+            g_dragonsData:delDragonData(doid)
+
+            -- 드래곤 리스트 갱신
+            self.m_tableViewExt:delItem(doid)
+        end
+    end
+
+    -- 드래곤 정보 갱신
+    g_dragonsData:applyDragonData(ret['modified_dragon'])
+
+    -- 골드 갱신
+    if ret['gold'] then
+        g_serverData:applyServerData(ret['gold'], 'user', 'gold')
+        g_topUserInfo:refreshData()
+    end
+
+    self.m_bChangeDragonList = true
+
+    self:setSelectDragonDataRefresh()
+
+    local doid = self.m_selectDragonOID
+    self:refresh_dragonIndivisual(doid)
+
+
+    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
+    if (not possible) then
+        MakeSimplePopup(POPUP_TYPE.OK, msg, function() self:close() end)
+    end
+
 end
 
 --@CHECK
