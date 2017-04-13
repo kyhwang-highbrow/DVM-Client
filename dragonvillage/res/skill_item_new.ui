@@ -33,8 +33,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 106;
-				height = 106;
+				width = 112;
+				height = 112;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -54,8 +54,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 16.000000;
-				y = 11.000000;
+				x = 14.000000;
+				y = 9.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 1.000000; };
 				relative_size_type = 0;
@@ -69,7 +69,7 @@
 				visible = true;
 				lua_name = 'skllLvLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 28;
 				text = '0';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -158,8 +158,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 100;
-				height = 100;
+				width = 112;
+				height = 112;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -169,7 +169,7 @@
 				lua_name = 'lockSprite';
 				file_name = 'ui/frame/skill_lock.png';
 				color = { 255; 255; 255; };
-				opacity = 255;
+				opacity = 150;
 				flip_x = false;
 				flip_y = false;
 				src_blend = 770;
