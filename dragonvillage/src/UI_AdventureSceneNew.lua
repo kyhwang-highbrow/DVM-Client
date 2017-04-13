@@ -80,7 +80,7 @@ function UI_AdventureSceneNew:initButton()
     vars['normalBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(2) end)
     vars['hardBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(3) end)
 
-    -- 어려움 잠금
+    -- 지옥 잠금
     vars['lockSprite03']:setVisible(true)
 
     vars['devStageBtn']:registerScriptTapHandler(function()
@@ -484,7 +484,7 @@ end
 
 -------------------------------------
 -- function refresh_difficultyButtons
--- @brief 난이도 관련 버튼 갱신 (쉬움, 보통, 어려움)
+-- @brief 난이도 관련 버튼 갱신 (보통, 어려움, 지옥)
 -------------------------------------
 function UI_AdventureSceneNew:refresh_difficultyButtons()
     local vars = self.vars

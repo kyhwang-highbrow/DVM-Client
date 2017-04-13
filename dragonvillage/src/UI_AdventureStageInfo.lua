@@ -204,15 +204,15 @@ function UI_AdventureStageInfo:refresh_difficultyBadge()
 
         if (difficulty == 1) then
             vars['difficultyLabel']:setColor(cc.c3b(121, 186, 58))
-            vars['difficultyLabel']:setString(Str('쉬움'))
+            vars['difficultyLabel']:setString(Str('보통'))
 
         elseif (difficulty == 2) then
             vars['difficultyLabel']:setColor(cc.c3b(46, 162, 196))
-            vars['difficultyLabel']:setString(Str('보통'))
+            vars['difficultyLabel']:setString(Str('어려움'))
 
         elseif (difficulty == 3) then
             vars['difficultyLabel']:setColor(cc.c3b(196, 74, 46))
-            vars['difficultyLabel']:setString(Str('어려움'))
+            vars['difficultyLabel']:setString(Str('지옥'))
         end
     end
 end

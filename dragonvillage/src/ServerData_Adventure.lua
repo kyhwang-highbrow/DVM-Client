@@ -280,22 +280,13 @@ function ServerData_Adventure:getNextStageID(stage_id)
         return next_stage_id
     end
 
-    if (MAX_ADVENTURE_DIFFICULTY == difficulty) then
-        if (chapter < MAX_ADVENTURE_CHAPTER) then
-            local next_stage_id = makeAdventureID(difficulty, chapter + 1, 1)
-            return next_stage_id
-        else
-            return stage_id
-        end
-    end
-
-    if (1 == difficulty) and (chapter < MAX_ADVENTURE_CHAPTER) then
+    if (chapter < MAX_ADVENTURE_CHAPTER) then
         local next_stage_id = makeAdventureID(difficulty, chapter + 1, 1)
         return next_stage_id
     end
 
-    if (1 < difficulty) then
-        local next_stage_id = makeAdventureID(difficulty + 1, chapter, 1)
+    if (difficulty < MAX_ADVENTURE_DIFFICULTY) then
+        local next_stage_id = makeAdventureID(difficulty + 1, 1, 1)
         return next_stage_id
     end
 
@@ -410,19 +401,15 @@ function getPrevStageID(stage_id)
         return false
     end
 
-    if (difficulty == 1) then
-        if (stage == 1) then
-            return makeAdventureID(difficulty, chapter-1, MAX_ADVENTURE_STAGE)
-        else
-            return makeAdventureID(difficulty, chapter, stage-1)
-        end
-    else
-        if (stage == 1) then
-            return makeAdventureID(difficulty-1, chapter, MAX_ADVENTURE_STAGE)
-        else
-            return makeAdventureID(difficulty, chapter, stage-1)
-        end
+    if (chapter==1) and (stage==1) then
+        return makeAdventureID(difficulty-1, MAX_ADVENTURE_CHAPTER, MAX_ADVENTURE_STAGE)
     end
+
+    if (stage==1) then
+        return makeAdventureID(difficulty, chapter-1, MAX_ADVENTURE_STAGE)
+    end
+
+    return makeAdventureID(difficulty, chapter, stage-1)
 end
 
 -------------------------------------
@@ -453,13 +440,13 @@ function ServerData_Adventure:getStageCategoryStr(stage_id)
 
     local difficulty_str = ''
     if (difficulty == 1) then
-        difficulty_str = Str('쉬움')
-
-    elseif (difficulty == 2) then
         difficulty_str = Str('보통')
 
-    elseif (difficulty == 3) then
+    elseif (difficulty == 2) then
         difficulty_str = Str('어려움')
+
+    elseif (difficulty == 3) then
+        difficulty_str = Str('지옥')
 
     else
         error('difficulty : ' .. difficulty)
@@ -471,7 +458,7 @@ end
 
 -------------------------------------
 -- function isOpenGlobalChapter
--- @brief 해당 챕터의 쉬움 난이도가 열렸는지 여부
+-- @brief 해당 챕터의 보통 난이도가 열렸는지 여부
 -------------------------------------
 function ServerData_Adventure:isOpenGlobalChapter(chapter)
     local difficulty = 1
