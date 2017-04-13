@@ -94,3 +94,47 @@ function TableDrop:getStageAttr(stage_id)
     local attr = self:getValue(stage_id, 'attr')
     return attr
 end
+
+-------------------------------------
+-- function getStageHeroBuff
+-------------------------------------
+function TableDrop:getStageHeroBuff(stage_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local str = self:getValue(tonumber(stage_id), 'buff_user')
+    if (str == 'x' or str == '') then return end
+
+    local l_str = self:seperate(str, ';')
+    local ret = {}
+
+    ret['condition_type'] = l_str[1]
+    ret['condition_value'] = l_str[2]
+    ret['buff_type'] = l_str[3]
+    ret['buff_value'] = tonumber(l_str[4])
+
+    return ret
+end
+
+-------------------------------------
+-- function getStageEnemyBuff
+-------------------------------------
+function TableDrop:getStageEnemyBuff(stage_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local str = self:getValue(stage_id, 'buff_enemy')
+    if (str == 'x' or str == '') then return end
+
+    local l_str = self:seperate(str, ';')
+    local ret = {}
+
+    ret['condition_type'] = l_str[1]
+    ret['condition_value'] = l_str[2]
+    ret['buff_type'] = l_str[3]
+    ret['buff_value'] = tonumber(l_str[4])
+
+    return ret
+end

@@ -102,6 +102,9 @@ function GameWorld:makeMonsterNew(monster_id, level)
     monster:initState()
 	monster:initFormation(body_size)
 
+    -- 스테이지 버프 적용
+    monster.m_statusCalc:applyStageBonus(self.m_stageID, true)
+
     self:dispatch('make_monster', {['monster']=monster})
 
 	return monster
@@ -181,7 +184,7 @@ function GameWorld:makeHeroDeck()
                 -- 진형 버프 적용
                 hero.m_statusCalc:applyFormationBonus(formation, i)
 
-                -- 친구 버프 적용
+                -- 친구 드래곤 버프 적용
                 if (g_friendBuff) then
                     local t_friend_buff = g_friendBuff:getBuffData()
 
@@ -189,7 +192,7 @@ function GameWorld:makeHeroDeck()
                 end
 
                 -- 스테이지 버프 적용
-                --hero.m_statusCalc:applyStageBonus()
+                hero.m_statusCalc:applyStageBonus(self.m_stageID)
             end
         end
     end

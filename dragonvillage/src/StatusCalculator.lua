@@ -218,6 +218,65 @@ function StatusCalculator:applyFriendBuff(t_friend_buff)
 end
 
 -------------------------------------
+-- function applyStageBonus
+-- @brief 스테이지 보너스 적용
+-------------------------------------
+function StatusCalculator:applyStageBonus(stage_id, is_enemy)
+    local t_info
+
+    if (is_enemy) then
+        t_info = TableDrop():getStageEnemyBuff(stage_id)
+    else
+        t_info = TableDrop():getStageHeroBuff(stage_id)
+    end
+    if (not t_info) then return end
+    
+    local t_char = self.m_charTable[self.m_chapterID]
+    if (t_char[t_info['condition_type']] ~= t_info['condition_value']) then return end
+
+    local buff_type = t_info['buff_type']
+    local buff_value = t_info['buff_value']
+    
+    if (buff_type == '') then
+        
+    -- 공격력 상승
+    elseif (buff_type == 'atk_up') then
+        self:addBuffMulti('atk', buff_value)
+
+    -- 방어력 상승
+    elseif (buff_type == 'def_up') then
+        self:addBuffMulti('def', buff_value)
+        
+    -- 공격력 하락
+    elseif (buff_type == 'atk_down') then
+        self:addBuffMulti('atk', -buff_value)
+
+    -- 방어력 하락
+    elseif (buff_type == 'def_down') then
+        self:addBuffMulti('def', -buff_value)
+
+    -- 크리티컬 데미지 상승
+    elseif (buff_type == 'cri_dmg_up') then
+        self:addBuffMulti('cri_dmg', buff_value)
+
+    -- 크리티컬 데미지 하락
+    elseif (buff_type == 'cri_dmg_down') then
+        self:addBuffMulti('cri_dmg', -buff_value)
+
+    -- 체력 상승
+    elseif (buff_type == 'hp_up') then
+        self:addBuffMulti('hp', buff_value)
+
+    -- 체력 하락
+    elseif (buff_type == 'hp_down') then
+        self:addBuffMulti('hp', -buff_value)
+
+    else
+        error('buff_type : ' .. buff_type)
+    end
+end
+
+-------------------------------------
 -- function getCombatPower
 -- @brief 드래곤의 최종 전투력을 얻어옴
 --        UI에서 사용되는 함수이므로 패시브 발동은 제외

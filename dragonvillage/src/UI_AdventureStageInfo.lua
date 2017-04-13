@@ -8,6 +8,9 @@ UI_AdventureStageInfo = class(PARENT,{
         m_currTab = 'string', -- 'item' or 'monster'
         m_bInitItemTableView = 'boolean',
         m_bInitMonsterTableView = 'boolean',
+
+        m_orgWidth = 'number',
+        m_orgHeight = 'number',
     })
 
 -------------------------------------
@@ -43,6 +46,10 @@ end
 -- function initUI
 -------------------------------------
 function UI_AdventureStageInfo:initUI()
+    local size = self.vars['popupNode']:getContentSize()
+    self.m_orgWidth = size['width']
+    self.m_orgHeight = size['height']
+    
     self:click_tabBtn('item')
 end
 
@@ -109,6 +116,18 @@ function UI_AdventureStageInfo:refresh()
     do -- 스테이지 설명
         local desc = table_stage_desc:getStageDesc(stage_id)
         vars['dscLabel']:setString(desc)
+    end
+
+    do -- 스테이지 버프 설명
+        local desc = TableDrop():getValue(stage_id, 't_help')
+        if (desc and desc ~= '') then
+            vars['popupNode']:setContentSize(self.m_orgWidth, 600)
+            vars['buffLabel']:setVisible(true)
+            vars['buffLabel']:setString(desc)
+        else
+            vars['popupNode']:setContentSize(self.m_orgWidth, self.m_orgHeight)
+            vars['buffLabel']:setVisible(false)
+        end
     end
 
     -- 스테이조 난이도 뱃지
