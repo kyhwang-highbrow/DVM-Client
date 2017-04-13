@@ -160,20 +160,22 @@ function Tamer:doSkill(skill_idx)
 	-- [ACTIVE]
 	if string.find(skill_type, 'tamer_skill_active') then
 		-- 상태효과 시전
-		StatusEffectHelper:doStatusEffectByTable(self, t_skill, function()
-			-- 스킬별 추가 효과
-			if (skill_type == 'tamer_skill_active_kesath') then
-				-- 케사스 액티브 : 아군 중 피가 제일 많은 녀석의 체력을 깎는다.
-				local hp_rate = (1 - (t_skill['val_1']/100))
-				for i, char in pairs(l_target) do
-					local after_hp = (char.m_hp * hp_rate)
-					local damage = char.m_hp - after_hp
-					char:setHp(after_hp)
-					char:makeDamageFont(damage, char.pos.x, char.pos.y)
-				end
+		StatusEffectHelper:doStatusEffectByTable(self, t_skill)
+		
+		-- 스킬별 추가 효과
+		if (skill_type == 'tamer_skill_active_kesath') then
+			-- 케사스 액티브 : 아군 중 피가 제일 많은 녀석의 체력을 깎는다.
+			local hp_rate = (1 - (t_skill['val_1']/100))
+			local l_target = self:getTargetListByTable(t_skill)
+
+			for i, char in pairs(l_target) do
+				local after_hp = (char.m_hp * hp_rate)
+				local damage = char.m_hp - after_hp
+				char:setHp(after_hp)
+				char:makeDamageFont(damage, char.pos.x, char.pos.y)
 			end
-		end)
-	
+		end
+
 	-- [EVENT]
 	elseif string.find(skill_type, 'tamer_skill_event') then
 		-- 1. 타겟리스트 생성
