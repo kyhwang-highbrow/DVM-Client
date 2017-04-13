@@ -8,10 +8,6 @@ StructAdventureChapterAchieveInfo = class({
         received_12 = 'boolean',
         received_24 = 'boolean',
         received_36 = 'boolean',
-
-        -- 서버 업뎃 후 삭제 예정
-        received_8 = 'boolean',
-        received_16 = 'boolean',
     })
 
 -------------------------------------
