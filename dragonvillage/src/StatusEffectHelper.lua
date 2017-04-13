@@ -241,10 +241,16 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
         status_effect = StatusEffect_Heal(res)
 		status_effect:init_heal(target_char, t_status_effect, status_effect_value, duration)
 		
-	----------- 도트 데미지 들어가는 패시브 ------------------
-	elseif (t_status_effect['type'] == 'dot_dmg') then
-		status_effect = StatusEffect_DotDmg(res)
-		status_effect:init_dotDmg(target_char, t_status_effect, status_effect_value, caster)
+	----------- 도트 데미지 패시브 ------------------
+	elseif (status_effect_type == 'bleed') then
+		status_effect = StatusEffect_DotDmg_Bleed(res)
+		status_effect:init_dotDmg(target_char, caster, t_status_effect, status_effect_value)
+	elseif (status_effect_type == 'burn') then
+		status_effect = StatusEffect_DotDmg_Burn(res)
+		status_effect:init_dotDmg(target_char, caster, t_status_effect, status_effect_value)
+	elseif (status_effect_type == 'poison') then
+		status_effect = StatusEffect_DotDmg_Poison(res)
+		status_effect:init_dotDmg(target_char, caster, t_status_effect, status_effect_value)
 
 	----------- HP 보호막 ------------------
 	elseif (status_effect_type == 'barrier_protection') then

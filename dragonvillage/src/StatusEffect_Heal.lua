@@ -25,13 +25,13 @@ end
 function StatusEffect_Heal:init_heal(char, t_status_effect, status_effect_value, duration)
 	self.m_owner = char
 	self.m_healType = t_status_effect['val_1']
-	self.m_healRate = (t_status_effect['dot_heal']/100) * (status_effect_value/100)
+	self.m_healRate = (status_effect_value/100)
 	self.m_healInterval = t_status_effect['dot_interval']
 	self.m_healTimer = self.m_healInterval
 
 	-- 절대수치 힐의 경우
-	if (self.m_healType == 'hp_abs') then
-		self.m_healAbs = t_status_effect['dot_heal'] * (status_effect_value/100)
+	if (t_status_effect['abs_switch'] == 1) or (self.m_healType == 'hp_abs') then
+		self.m_healAbs = (status_effect_value)
 	end
 end
 

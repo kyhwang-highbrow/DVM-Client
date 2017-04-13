@@ -1,9 +1,14 @@
-local PARENT = StatusEffect_DotDmg
+local PARENT = class(StatusEffect_DotDmg, IEventListener:getCloneTable())
 
 -------------------------------------
 -- class StatusEffect_DotDmg_Bleed
 -------------------------------------
 StatusEffect_DotDmg_Bleed = class(PARENT, {
+		-- 횟수
+		m_maxDotCount = 'num',
+		m_dotCount = 'num',
+
+		m_trigger = 'str',
     })
 
 -------------------------------------
@@ -12,27 +17,45 @@ StatusEffect_DotDmg_Bleed = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect_DotDmg_Bleed:init(file_name, body)
+	self.m_trigger = 'under_atk'
 end
 
 -------------------------------------
--- function update
+-- function init_dotDmg
 -------------------------------------
-function StatusEffect_DotDmg_Bleed:update(dt)
-	local ret = PARENT.update(self, dt)
+function StatusEffect_DotDmg_Bleed:init_dotDmg(char, caster, t_status_effect, status_effect_value)
+	PARENT.init_dotDmg(self, char, caster, t_status_effect, status_effect_value)
 
-	if (self.m_state ~= 'end') then 
-		if (self.m_owner.m_bDead) then
+	-- 횟수 변수
+	self.m_maxDotCount = t_status_effect['duration']
+	self.m_dotCount = 0
+end
+
+-------------------------------------
+-- function onEvent
+-------------------------------------
+function StatusEffect_DotDmg_Bleed:onEvent(event_name, t_event, ...)
+	if (event_name == self.m_trigger) then
+		self:doDotDmg()
+		self.m_dotCount = self.m_dotCount + 1
+		if (self.m_dotCount >= self.m_maxDotCount) then
 			self:changeState('end')
 		end
-
-		-- 반복
-		self.m_dotTimer = self.m_dotTimer + dt
-		if (self.m_dotTimer > self.m_dotInterval) then
-			self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, self.m_dotDmg, nil)
-			self.m_dotTimer = self.m_dotTimer - self.m_dotInterval
-			self:changeState('start')
-		end
 	end
+end
 
-	return ret
+-------------------------------------
+-- function onStart_StatusEffect
+-------------------------------------
+function StatusEffect_DotDmg_Bleed:onStart_StatusEffect()
+	-- listner 등록
+	self.m_owner:addListener(self.m_trigger, self)
+end
+
+-------------------------------------
+-- function onEnd_StatusEffect
+-------------------------------------
+function StatusEffect_DotDmg_Bleed:onEnd_StatusEffect()
+	-- listener 해제
+	self.m_owner:removeListener(self.m_trigger, self)
 end

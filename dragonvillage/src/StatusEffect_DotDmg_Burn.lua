@@ -4,6 +4,9 @@ local PARENT = StatusEffect_DotDmg
 -- class StatusEffect_DotDmg_Burn
 -------------------------------------
 StatusEffect_DotDmg_Burn = class(PARENT, {
+		-- 시간
+		m_dotInterval = '',
+		m_dotTimer = '',
     })
 
 -------------------------------------
@@ -15,24 +18,28 @@ function StatusEffect_DotDmg_Burn:init(file_name, body)
 end
 
 -------------------------------------
--- function update
+-- function init_dotDmg
 -------------------------------------
-function StatusEffect_DotDmg_Burn:update(dt)
-	local ret = PARENT.update(self, dt)
+function StatusEffect_DotDmg_Burn:init_dotDmg(char, caster, t_status_effect, status_effect_value)
+	PARENT.init_dotDmg(self, char, caster, t_status_effect, status_effect_value)
 
-	if (self.m_state ~= 'end') then 
-		if (self.m_owner.m_bDead) then
-			self:changeState('end')
-		end
+	-- 시간 변수 (지속 시간은 외부에서 duration으로)
+	self.m_dotInterval = t_status_effect['dot_interval']
+	self.m_dotTimer = self.m_dotInterval
+end
 
-		-- 반복
-		self.m_dotTimer = self.m_dotTimer + dt
-		if (self.m_dotTimer > self.m_dotInterval) then
-			self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, self.m_dotDmg, nil)
-			self.m_dotTimer = self.m_dotTimer - self.m_dotInterval
-			self:changeState('start')
-		end
+-------------------------------------
+-- function onIdle
+-------------------------------------
+function StatusEffect_DotDmg_Burn:onIdle(dt)
+	if (self.m_owner.m_bDead) then
+		self:changeState('end')
 	end
 
-	return ret
+	-- 반복
+	self.m_dotTimer = self.m_dotTimer + dt
+	if (self.m_dotTimer > self.m_dotInterval) then
+		self:doDotDmg()
+		self.m_dotTimer = self.m_dotTimer - self.m_dotInterval
+	end
 end
