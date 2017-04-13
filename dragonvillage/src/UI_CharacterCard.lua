@@ -347,7 +347,7 @@ function UI_CharacterCard:setEclvText(eclv)
     local vars = self.vars
 
     local pos_x = 60
-    local pos_y = -27
+    local pos_y = 40
     local font_size = 20
 
     local eclvSprite1 = vars['eclvSprite1']
