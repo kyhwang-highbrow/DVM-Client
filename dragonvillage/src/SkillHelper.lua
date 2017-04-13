@@ -152,7 +152,7 @@ end
 -- function getSizeAndScale
 -------------------------------------
 function SkillHelper:getSizeAndScale(size_type, skill_size)    
-	local std_size = g_constant:get('INDICATOR', 'REAL_INDICATOR_SIZE', size_type)
+	local std_size = g_constant:get('INDICATOR', 'INDICATOR_RES_SIZE', size_type)
 	local t_size = g_constant:get('INDICATOR', 'INDICATOR_SIZE', size_type)
 	local size = t_size[skill_size]
 	local scale

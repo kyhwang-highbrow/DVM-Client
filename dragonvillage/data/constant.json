@@ -239,8 +239,8 @@
             "leaf" : [],
             "voltes_x" : []
         },
-        // 실제 인디케이터 리소스 사이즈
-        "REAL_INDICATOR_SIZE" : {
+        // 인디케이터 리소스 사이즈
+        "INDICATOR_RES_SIZE" : {
             "round" : 200,          // 반지름
             "square_width" : 300,   // 가로 길이
             "square_height" : 300,  // 세로 길이
