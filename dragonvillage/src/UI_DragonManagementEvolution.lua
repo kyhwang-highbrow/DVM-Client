@@ -423,7 +423,8 @@ function UI_DragonManagementEvolution:click_evolutionBtn()
         self.m_bChangeDragonList = true
 
         -- 팝업 연출
-        UI_DragonManageEvolutionResult(StructDragonObject(ret['dragon']))
+        --UI_DragonManageEvolutionResult(StructDragonObject(ret['dragon']))
+        UI_DragonEvolutionResult(StructDragonObject(ret['dragon']))
 
         -- 최대 진화도를 달성했을 경우
         if g_dragonsData:isMaxEvolution(doid) then
