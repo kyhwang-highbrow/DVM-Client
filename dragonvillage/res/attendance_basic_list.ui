@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'bgSprite';
-				file_name = 'ui/frame/list_frame_0201.png';
+				file_name = 'ui/frame/a_frame_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -200,7 +200,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'todayBgSprite';
-				file_name = 'ui/frame/list_frame_0202.png';
+				file_name = 'ui/frame/a_frame_10.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
