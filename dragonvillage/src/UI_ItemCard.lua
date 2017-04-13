@@ -189,19 +189,7 @@ function UI_ItemCard:getToolTipDesc()
     if (not t_item) then
         return '{@SKILL_NAME}none'
     end
-    local desc = ''
-
-    -- 열매 description은 아이템
-    if (t_item['type'] == 'fruit') then
-        if (t_item['t_desc'] == 'x') then
-            local full_type = t_item['full_type']
-            local table_fruit = TABLE:get('fruit')
-            local t_fruit = table_fruit[full_type]
-            desc = t_fruit['t_desc']
-        end
-    else
-        desc = t_item['t_desc']
-    end
+    local desc = t_item['t_desc']
 
     -- 설정된 별도의 이름이 있으면 우선 사용
     local name = (self.m_itemName or t_item['t_name'])
