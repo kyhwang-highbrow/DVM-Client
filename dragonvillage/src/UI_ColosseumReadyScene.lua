@@ -20,7 +20,7 @@ UI_ColosseumReadyScene = class(PARENT,{
 		m_formationUIToMovePosX = 'num',	-- 진형 선택 메뉴가 화면밖으로 숨어 있을 곳의 x좌표
     })
 
-local DC_SCALE = 0.6
+local DC_SCALE = 0.61
 
 -------------------------------------
 -- function init
@@ -42,7 +42,7 @@ function UI_ColosseumReadyScene:init()
     self:refresh()
 
 	self.m_stageAttr = nil
-    self.m_readySceneDeck = UI_ColosseumReadyScene_Deck(self)
+    self.m_readySceneDeck = UI_ReadyScene_Deck(self)
 	self:init_sortMgr()
 end
 

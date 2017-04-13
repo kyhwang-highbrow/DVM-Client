@@ -40,8 +40,8 @@ local ZORDER =
 
 local DC_POS_Y = 50
 local DC_SCALE_ON_PLATE = 0.7
-local DC_SCALE = 0.6
-local DC_SCALE_PICK = 0.5
+local DC_SCALE = 0.61
+local DC_SCALE_PICK = (DC_SCALE * 0.8)
 
 -------------------------------------
 -- function init
