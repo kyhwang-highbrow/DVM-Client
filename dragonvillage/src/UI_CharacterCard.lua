@@ -346,20 +346,37 @@ function UI_CharacterCard:setEclvText(eclv)
 
     local vars = self.vars
 
+    local pos_x = 60
+    local pos_y = -27
+    local font_size = 20
+
     local eclvSprite1 = vars['eclvSprite1']
     local eclvSprite2 = vars['eclvSprite2']
 
     if (not eclvSprite1) then
         eclvSprite1 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
+        eclvSprite1:setColor(cc.c3b(255, 225, 18))
         eclvSprite1:setDockPoint(CENTER_POINT)
         eclvSprite1:setAnchorPoint(CENTER_POINT)
         self.vars['clickBtn']:addChild(eclvSprite1.m_node, 5)
         vars['eclvSprite1'] = eclvSprite1
         eclvSprite1:changeAni('digit_0')
+
+        do -- 플러스 아이콘 추가
+            local digit_plus = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
+            digit_plus:setColor(cc.c3b(255, 225, 18))
+            digit_plus:setDockPoint(CENTER_POINT)
+            digit_plus:setAnchorPoint(CENTER_POINT)
+            digit_plus:changeAni('digit_plus')
+            eclvSprite1:addChild(digit_plus.m_node)
+            digit_plus:setPositionX(-font_size)
+        end
+        
     end
 
     if (not eclvSprite2) then
         eclvSprite2 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
+        eclvSprite2:setColor(cc.c3b(255, 225, 18))
         eclvSprite2:setDockPoint(CENTER_POINT)
         eclvSprite2:setAnchorPoint(CENTER_POINT)
         self.vars['clickBtn']:addChild(eclvSprite2.m_node, 5)
@@ -367,9 +384,6 @@ function UI_CharacterCard:setEclvText(eclv)
         eclvSprite2:changeAni('digit_5')
     end
 
-    local pos_x = 60
-    local pos_y = -27
-    local font_size = 20
     if (eclv < 10) then
         eclvSprite1:setVisible(true)
         eclvSprite1:changeAni('digit_' .. eclv)
