@@ -13,6 +13,7 @@ SkillCharge = class(PARENT, {
         m_physObject = 'PhysObject',	-- 돌진 바디
 		m_preCollisionTime = 'number',	-- 충돌 시간
 		m_chargePos = 'number',			-- 돌진 위치
+		m_atkPhysPosX = 'number',
      })
 
 -------------------------------------
@@ -40,7 +41,15 @@ function SkillCharge:init_skill(animation_name, effect_res, attack_count)
 	self.m_maxAttackCount = attack_count
 	self.m_preCollisionTime = 0
 	
-	self.m_chargePos = {x = 0, y = self.m_targetPos.y}
+	local pos_x
+	if self.m_owner.m_bLeftFormation then
+		pos_x = 2000
+		self.m_atkPhysPosX = self.m_owner.body.size * 3
+	else
+		pos_x = -500
+		self.m_atkPhysPosX = -(self.m_owner.body.size * 3)
+	end
+	self.m_chargePos = {x = pos_x, y = self.m_targetPos.y}
 end
 
 -------------------------------------
@@ -153,11 +162,6 @@ function SkillCharge:updateAfterImage(dt)
         local worldNode = char.m_world:getMissileNode('bottom')
         worldNode:addChild(accidental.m_node, 2)
 
-        -- 하이라이트
-        if (self.m_bHighlight) then
-            --char.m_world.m_gameHighlight:addEffect(accidental)
-        end
-
         accidental:setScale(char.m_animator:getScale())
         accidental:setFlip(char.m_animator.m_bFlip)
         accidental.m_node:setOpacity(255 * 0.3)
@@ -177,7 +181,7 @@ function SkillCharge:makeCrashPhsyObject()
     local char = self.m_owner
     local object_key = char:getAttackPhysGroup()
 
-    local phys_object = char:addPhysObject(char, object_key, {0, 0, 60}, -200, 0)
+    local phys_object = char:addPhysObject(char, object_key, {0, 0, char.body.size * 2}, self.m_atkPhysPosX, 0)
     phys_object:addAtkCallback(function(attacker, defender, i_x, i_y)
 		self:doChargeAttack(defender)
 		phys_object:clearCollisionObjectList()
@@ -272,9 +276,4 @@ function SkillCharge:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end
