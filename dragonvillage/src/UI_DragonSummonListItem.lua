@@ -115,12 +115,14 @@ function UI_DragonSummonListItem:refresh_freeSummon()
     if (not g_dragonSummonData:canFreeDragonSummon(free_type)) then
         vars['buyBtn2']:setVisible(true)
         vars['freeBtn']:setVisible(false)
+        vars['freeNode']:setVisible(true)
         self.m_bFreeMode = false
     else
         -- 이벤트 노드 hide
         vars['eventPriceNode2']:setVisible(false)
         vars['buyBtn2']:setVisible(false)
         vars['freeBtn']:setVisible(true)
+        vars['freeNode']:setVisible(false)
         vars['freeLabel']:setString('')
         self.m_bFreeMode = true
     end
