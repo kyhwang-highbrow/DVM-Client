@@ -202,15 +202,6 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
 
             self.m_selectHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
 
-            -- 타겟수에 따른 점수(%)값 저장
-            do
-                local count = table.count(self.m_targetList)
-                local max_count = table.count(self.m_world.m_tEnemyList)
-                
-                local score = (count / max_count) * 100
-                self.m_selectHero.m_skillIndicator.m_resultScore = score
-            end
-                        
             self:clear()
         end
     

@@ -236,11 +236,12 @@ end
 -- function update
 -------------------------------------
 function SkillIndicator:update()
+    self.m_indicatorRootNode:setPosition(self.m_hero.pos.x, self.m_hero.pos.y)
+
     if (not isExistValue(self.m_siState, SI_STATE_APPEAR, SI_STATE_IDLE)) then
         return
     end
 
-    self.m_indicatorRootNode:setPosition(self.m_hero.pos.x, self.m_hero.pos.y)
     self:onTouchMoved(self.m_indicatorTouchPosX, self.m_indicatorTouchPosY)
 	self.m_skillIndicatorMgr:updateToolTipUI(self.m_hero.pos.x, self.m_hero.pos.y, self.m_indicatorTouchPosX, self.m_indicatorTouchPosY)
 end
@@ -345,6 +346,15 @@ function SkillIndicator:onChangeTargetCount(old_target_count, cur_target_count)
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
 		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
+    end
+
+    -- 타겟수에 따른 점수(%)값 저장
+    do
+        local count = cur_target_count
+        local max_count = table.count(self.m_hero:getOpponentList())
+                
+        local score = (count / max_count) * 100
+        self.m_resultScore = score
     end
 end
 
@@ -482,17 +492,19 @@ function SkillIndicator:checkIndicatorLimit(angle, distance)
 	local is_change_angle, is_change_distance = true, true
 
 	-- 1. check angle
-	if (angle) then 
-		if (angle > self.m_indicatorAngleLimit) and (angle < 180) then 
-			angle = self.m_indicatorAngleLimit
-			is_change_angle = false
-		elseif (angle < (360 - self.m_indicatorAngleLimit)) and (angle > 180) then
-			angle = (360 - self.m_indicatorAngleLimit)
-			is_change_angle = false
-		else
-			is_change_angle = true
-		end
-	end
+    if (self.m_hero.m_bLeftFormation) then
+	    if (angle) then 
+		    if (angle > self.m_indicatorAngleLimit) and (angle < 180) then 
+			    angle = self.m_indicatorAngleLimit
+			    is_change_angle = false
+		    elseif (angle < (360 - self.m_indicatorAngleLimit)) and (angle > 180) then
+			    angle = (360 - self.m_indicatorAngleLimit)
+			    is_change_angle = false
+		    else
+			    is_change_angle = true
+		    end
+	    end
+    end
 
 	-- 2. check distance
 	if (distance) then
