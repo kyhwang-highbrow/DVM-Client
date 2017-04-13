@@ -93,6 +93,11 @@ function GameWorld:makeMonsterNew(monster_id, level)
     end
     self:addToUnitList(monster)
 
+    local body_list = TableMonsterHitPos():getBodyList(monster_id)
+    if (body_list) then
+        monster:initPhys(body_list)
+    end
+
 	monster:init_monster(t_monster, monster_id, level, self.m_stageID)
     monster:initState()
 	monster:initFormation(body_size)
@@ -182,6 +187,9 @@ function GameWorld:makeHeroDeck()
 
                     hero.m_statusCalc:applyFriendBuff(t_friend_buff)
                 end
+
+                -- 스테이지 버프 적용
+                --hero.m_statusCalc:applyStageBonus()
             end
         end
     end

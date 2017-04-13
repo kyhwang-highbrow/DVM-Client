@@ -352,7 +352,7 @@ function PhysWorld:refreshPosInfo(phys_obj)
         end
     end
 
-    local function setPosIndex(body)
+    local function setPosIndex(body, force)
 
         local size = body.size
 
@@ -365,39 +365,47 @@ function PhysWorld:refreshPosInfo(phys_obj)
         local pos_max_y = body_center_y + size
 
         -- min_x 지정
-        phys_obj.m_posIndexMinX = #self.m_gridX + 1
-        for i,v in ipairs(self.m_gridX) do
-            if pos_min_x < v then
-                phys_obj.m_posIndexMinX = i
-                break
-            end    
+        phys_obj.m_posIndexMinX = 1
+        if (not force) then
+            for i,v in ipairs(self.m_gridX) do
+                if pos_min_x < v then
+                    phys_obj.m_posIndexMinX = i
+                    break
+                end    
+            end
         end
 
         -- max_x 지정
         phys_obj.m_posIndexMaxX = #self.m_gridX + 1
-        for i,v in ipairs(self.m_gridX) do
-            if pos_max_x < v then
-                phys_obj.m_posIndexMaxX = i
-                break
-            end    
+        if (not force) then
+            for i,v in ipairs(self.m_gridX) do
+                if pos_max_x < v then
+                    phys_obj.m_posIndexMaxX = i
+                    break
+                end    
+            end
         end
 
         -- min_y 지정
-        phys_obj.m_posIndexMinY = #self.m_gridY + 1
-        for i,v in ipairs(self.m_gridY) do
-            if pos_min_y < v then
-                phys_obj.m_posIndexMinY = i
-                break
-            end    
+        phys_obj.m_posIndexMinY = 1
+        if (not force) then
+            for i,v in ipairs(self.m_gridY) do
+                if pos_min_y < v then
+                    phys_obj.m_posIndexMinY = i
+                    break
+                end    
+            end
         end
 
         -- max_y 지정
         phys_obj.m_posIndexMaxY = #self.m_gridY + 1
-        for i,v in ipairs(self.m_gridY) do
-            if pos_max_y < v then
-                phys_obj.m_posIndexMaxY = i
-                break
-            end    
+        if (not force) then
+            for i,v in ipairs(self.m_gridY) do
+                if pos_max_y < v then
+                    phys_obj.m_posIndexMaxY = i
+                    break
+                end    
+            end
         end
 
         -- 새로운 인덱스 추가
@@ -409,9 +417,10 @@ function PhysWorld:refreshPosInfo(phys_obj)
     end
 
     local bodys = phys_obj:getBodyList()
+    local force = (#bodys > 1)
 
     for i, body in ipairs(bodys) do
-        setPosIndex(body)
+        setPosIndex(body, force)
     end
 
     phys_obj.m_dirtyPos = false

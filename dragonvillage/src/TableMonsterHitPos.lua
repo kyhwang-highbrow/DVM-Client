@@ -27,7 +27,7 @@ function TableMonsterHitPos:getBodyList(mid)
         self = THIS()
     end
 
-    local t_table = self:get(mid)
+    local t_table = self.m_orgTable[mid]
     if (not t_table) then return end
 
     local ret = {}
