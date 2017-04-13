@@ -168,7 +168,7 @@ end
 -------------------------------------
 -- function requestGameStart
 -------------------------------------
-function ServerData_Stage:requestGameStart(stage_id, deck_name, finish_cb)
+function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, finish_cb)
     local uid = g_userData:get('uid')
     local oid
 
@@ -206,6 +206,7 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, finish_cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', stage_id)
     ui_network:setParam('deck_name', deck_name)
+    ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('friend', friend_uid)
     ui_network:setParam('oid', oid)
     ui_network:setSuccessCB(success_cb)

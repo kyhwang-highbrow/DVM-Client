@@ -598,7 +598,8 @@ function UI_GameResultNew:click_quickBtn()
     end
 
     local deck_name = g_deckData:getSelectedDeckName()
-    g_stageData:requestGameStart(self.m_stageID, deck_name, finish_cb)
+    local combat_power = g_deckData:getDeckCombatPower(deck_name)
+    g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
 end
 
 -------------------------------------

@@ -586,7 +586,8 @@ function UI_ReadyScene:networkGameStart()
     end
 
     local deck_name = g_deckData:getSelectedDeckName()
-    g_stageData:requestGameStart(self.m_stageID, deck_name, finish_cb)
+    local combat_power = self.m_readySceneDeck:getDeckCombatPower()
+    g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
 end
 
 -------------------------------------

@@ -134,3 +134,22 @@ function ServerData_Deck:setSelectedDeck(deck_name)
     self.m_serverData:applyServerData(deck_name, 'local', 'selected_deck')
     self.m_selectedDeck = deck_name
 end
+
+-------------------------------------
+-- function getDeckCombatPower
+-- @brief
+-------------------------------------
+function ServerData_Deck:getDeckCombatPower(deck_name)
+    local combat_power = 0
+
+    local l_deck = self:getDeck(deck_name)
+
+    for _,doid in pairs(l_deck) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        if t_dragon_data then
+            combat_power = combat_power + t_dragon_data:getCombatPower()
+        end
+    end
+
+    return combat_power
+end
