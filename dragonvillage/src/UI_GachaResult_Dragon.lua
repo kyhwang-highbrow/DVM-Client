@@ -117,6 +117,14 @@ function UI_GachaResult_Dragon:refresh()
         vars['dragonNode']:removeAllChildren(false)
         vars['dragonNode']:addChild(animator.m_node)
     end
+
+    -- 배경
+    local attr = TableDragon:getDragonAttr(did)
+    if self:checkVarsKey('bgNode', attr) then
+        vars['bgNode']:removeAllChildren()
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end
 end
 
 -------------------------------------
