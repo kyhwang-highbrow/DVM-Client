@@ -230,15 +230,6 @@ end
 -------------------------------------
 function UI_Game:click_buffButton()
     self.m_buffBoard:show()
-    
-    --[[
-    local tool_tip = UI_Tooltip_Buff(0, 0, str, true)
-
-    -- 자동 위치 지정
-    tool_tip:autoPositioning(self.vars['buffBtn'])
-
-    tool_tip:autoRelease(3)
-    --]]
 end
 
 -------------------------------------
@@ -247,6 +238,8 @@ end
 function UI_Game:click_panelBtn()
     if self.m_panelUI then
         self.m_panelUI:toggleVisibility()
+
+        g_autoPlaySetting:set('dragon_panel', self.m_panelUI.m_bVisible)
     end
 end
 
@@ -266,6 +259,10 @@ function UI_Game:init_dpsUI()
 
     self:addAction(panel.root, UI_ACTION_TYPE_BOTTOM, 0, 0.5)
     self:doActionReset()
+
+    if (not g_autoPlaySetting:get('dragon_panel')) then
+        self:toggleVisibility_PanelUI(false, true)
+    end
 end
 
 -------------------------------------
@@ -420,4 +417,18 @@ function UI_Game:setAutoPlayUI()
     vars['autoStartNode']:setVisible(g_autoPlaySetting:isAutoPlay())
     vars['autoStartNumberLabel']:setString(Str('{1}/20', g_autoPlaySetting:getAutoPlayCnt()))
     vars['autoStartVisual']:setVisible(g_autoPlaySetting:isAutoPlay())
+end
+
+-------------------------------------
+-- function toggleVisibility_PanelUI
+-------------------------------------
+function UI_Game:toggleVisibility_PanelUI(b, is_immediately)
+   if (not self.m_panelUI) then return end
+   if (b == self.m_panelUI.m_bVisible) then return end
+
+   self.m_panelUI:toggleVisibility()
+
+   if (is_immediately) then
+        self.m_panelUI.vars['panelMenu']:setVisible(b)
+   end
 end

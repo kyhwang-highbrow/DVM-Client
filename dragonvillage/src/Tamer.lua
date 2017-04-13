@@ -586,3 +586,10 @@ function Tamer:isRequiredHighLight()
 
     return false
 end
+
+-------------------------------------
+-- function isPlayingActiveSkill
+-------------------------------------
+function Tamer:isPlayingActiveSkill()
+    return (self.m_state == 'active')
+end

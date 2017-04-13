@@ -1408,6 +1408,11 @@ function GameWorld:isPossibleControl()
         return false
     end
 
+    -- 테이머 스킬 연출 중일 경우
+    if (self.m_tamer and self.m_tamer:isPlayingActiveSkill()) then
+        return false
+    end
+
     return true
 end
 
@@ -1584,6 +1589,10 @@ end
 function GameWorld:setTemporaryPause(pause, excluded_dragon)
     -- 일시 정지
     if (pause) then
+        -- 패널 UI 숨김
+        self.m_inGameUI:toggleVisibility_PanelUI(false)
+
+        -- 게임 정지
         self.m_gameState:pause()
         
         -- 맵 일시 정지
@@ -1599,8 +1608,13 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
             excluded_dragon:setTemporaryPause(false)
             excluded_dragon.enable_body = false
         end
-    -- 전투 재개
     else
+        -- 패널 UI 표시
+        if (g_autoPlaySetting:get('dragon_panel')) then
+            self.m_inGameUI:toggleVisibility_PanelUI(true)
+        end
+
+        -- 게임 재개
         self.m_gameState:resume()
 
         -- 맵 일시 정지 해제

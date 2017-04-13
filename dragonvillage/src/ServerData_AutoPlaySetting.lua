@@ -43,6 +43,9 @@ function ServerData_AutoPlaySetting:init(server_data)
         -- 빠른 모드 사용
         t_auto_play_setting['quick_mode'] = false
 
+        -- 패널 사용
+        t_auto_play_setting['dragon_panel'] = true
+
         self.m_serverData:applyServerData(t_auto_play_setting, 'auto_play_setting')
     end
 
@@ -54,7 +57,15 @@ end
 -- function get
 -------------------------------------
 function ServerData_AutoPlaySetting:get(key)
-    return self.m_serverData:get('auto_play_setting', key)
+    local ret = self.m_serverData:get('auto_play_setting', key)
+
+    if (ret == nil) then
+        if (key == 'dragon_panel') then
+            self:set(key, true)
+        end
+    end
+
+    return ret
 end
 
 -------------------------------------
