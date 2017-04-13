@@ -77,7 +77,8 @@ function UI_SkillCard:getSkillDescStrPure(skill_id, skill_type)
     local table_name = self.m_charType .. '_skill'
 
     local table_skill = TABLE:get(table_name)
-    local t_skill = table_skill[skill_id]
+    local t_skill = clone(table_skill[skill_id])
+	IDragonSkillManager:substituteSkillDesc(t_skill)
 
     local desc = IDragonSkillManager:getSkillDescPure(t_skill)
     return desc

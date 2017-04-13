@@ -438,15 +438,6 @@ function IDragonSkillManager:printSkillManager()
 end
 
 -------------------------------------
--- function getSkillDescPure
--- @brief 스킬 설명 리턴
--------------------------------------
-function IDragonSkillManager:getSkillDescPure(t_skill)
-    local desc = Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
-    return desc
-end
-
--------------------------------------
 -- function getLevelingSkill
 -- @param Skill type
 -- @brief 타입으로 찾아 레벨링된 스킬 테이블 반환
@@ -478,6 +469,74 @@ function IDragonSkillManager:getLevelingSkillById(skill_id)
 		end
 	end
 	return t_skill
+end
+
+-------------------------------------
+-- function substituteSkillDesc
+-- @brief desc column에서 수정할 column명을 가져와 대체
+-------------------------------------
+function IDragonSkillManager:substituteSkillDesc(t_skill)
+	for idx = 1, 5 do
+		local raw_data = t_skill['desc_' .. idx]
+		local desc_value
+
+		-- 1. 연산이 필요한지 확인하고 필요하다면 연산하여 산출
+		if string.find(raw_data, '[*+/-]') then
+			local operator = string.match(raw_data, '[*+/-]')
+			local l_parsed = seperate(raw_data, operator)
+
+			-- 숫자가 들어갔을 경우도 고려되어있다.
+			local column_name_1 = trim(l_parsed[1])
+			local value_1
+			if (tonumber(column_name_1)) then
+				value_1 = column_name_1
+			else
+				value_1 = t_skill[column_name_1]
+			end
+
+			-- 숫자가 들어갔을 경우도 고려되어있다.
+			local column_name_2 = trim(l_parsed[2])
+			local value_2
+			if (tonumber(column_name_2)) then
+				value_2 = column_name_2
+			else
+				value_2 = t_skill[column_name_2]
+			end
+
+			-- 연산자에 따른 실제 연산 실행
+			if (operator == '*') then
+				desc_value = value_1 * value_2
+			elseif (operator == '/') then
+				desc_value = value_1 / value_2
+			elseif (operator == '+') then
+				desc_value = value_1 + value_2
+			elseif (operator == '-') then
+				desc_value = value_1 - value_2
+			end
+		
+		-- 2. 단순 숫자라면 그대로 추출
+		elseif (type(raw_data) == 'number') then
+			desc_value = raw_data
+
+		-- 3. 이외는 column명으로 가정하고 테이블에서 추출
+		else
+			desc_value =  t_skill[raw_data]
+		end
+
+		-- 4. 실제 들어가야할 숫자로 치환
+		t_skill['desc_' .. idx] = desc_value
+	end
+
+	return t_skill
+end
+
+-------------------------------------
+-- function getSkillDescPure
+-- @brief 스킬 설명 리턴
+-------------------------------------
+function IDragonSkillManager:getSkillDescPure(t_skill)
+    local desc = Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
+    return desc
 end
 
 -------------------------------------
