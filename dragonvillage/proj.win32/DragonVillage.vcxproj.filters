@@ -1926,6 +1926,15 @@
     <None Include="..\src\UI_DragonLevelupResult.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StatusEffect_DotDmg_Poison.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\StatusEffect_DotDmg_Bleed.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\StatusEffect_DotDmg_Burn.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

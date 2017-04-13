@@ -15,7 +15,6 @@ StatusEffect_DotDmg = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect_DotDmg:init(file_name, body)
-	self:initState()
 end
 
 -------------------------------------
@@ -23,6 +22,20 @@ end
 -------------------------------------
 function StatusEffect_DotDmg:init_dotDmg(char, t_status_effect, status_effect_value, caster)
 	self.m_owner = char
+	local damage = self:calculateDotDmg(caster, t_status_effect)
+
+	-- 가중치 적용 시키면서 최소 데미지는 1로 세팅
+	self.m_dotDmg = math_max(1, damage * (status_effect_value / 100))
+	self.m_dotInterval = t_status_effect['dot_interval']
+	
+	-- 첫 틱에 데미지 들어가도록..
+	self.m_dotTimer = self.m_dotInterval
+end
+
+-------------------------------------
+-- function calculateDotDmg
+-------------------------------------
+function StatusEffect_DotDmg:calculateDotDmg(caster, t_status_effect)
 	local damage
 
 	-- 절대값 적용 
@@ -37,32 +50,19 @@ function StatusEffect_DotDmg:init_dotDmg(char, t_status_effect, status_effect_va
 		local damage_org = math_floor(DamageCalc_P(atk_dmg, def_pwr))
 
 		-- 속성 효과
-		local t_attr_effect = char:checkAttributeCounter(caster:getAttribute())
+		local t_attr_effect = self.m_owner:checkAttributeCounter(caster:getAttribute())
 		if t_attr_effect['damage'] then
 			damage = damage_org * (1 + (t_attr_effect['damage'] / 100))
 		else
 			damage = damage_org
 		end
+
 		-- 상태효과 타입별 데미지 계산
 		damage = damage * (t_status_effect['dot_dmg'] / 100)
+	
 	end
 
-	-- 가중치 적용 시키면서 최소 데미지는 1로 세팅
-	self.m_dotDmg = math_max(1, damage * (status_effect_value / 100))
-	self.m_dotInterval = t_status_effect['dot_interval']
-	
-	-- 첫 틱에 데미지 들어가도록..
-	self.m_dotTimer = self.m_dotInterval
-end
-
--------------------------------------
--- function initState
--------------------------------------
-function StatusEffect_DotDmg:initState()
-    self:addState('start', StatusEffect.st_start, 'center_start', false)
-    self:addState('idle', StatusEffect.st_idle, 'center_idle', false)
-    self:addState('end', StatusEffect.st_end, 'center_end', false)
-	self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
+	return damage
 end
 
 -------------------------------------
