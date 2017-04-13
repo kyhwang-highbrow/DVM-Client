@@ -75,7 +75,7 @@ function UI_ShopListItem:initUI()
     end
 
     -- 상품 이름
-	local product_name = 'xx 꾸러미'
+	local product_name = TableShop:makeProductName(self.m_lProductList)
     vars['itemLabel']:setString(product_name)
 
 	-- 가격 label

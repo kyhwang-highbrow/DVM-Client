@@ -25,6 +25,7 @@ ITEM_ID_MAP['lactea']       = 700004
 ITEM_ID_MAP['honor']        = 700005
 ITEM_ID_MAP['badge']        = 700006
 ITEM_ID_MAP['amethyst']     = 700007
+ITEM_ID_MAP['stamina']      = 700101
 ITEM_ID_MAP['staminas_st']  = 700101
 ITEM_ID_MAP['staminas_pvp'] = 700102
 

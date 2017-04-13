@@ -23,6 +23,23 @@ function TableShop:init(product_table)
 end
 
 -------------------------------------
+-- function makeProductName
+-- @breif 상품명
+-- @return str string
+-------------------------------------
+function TableShop:makeProductName(l_product)
+    local ret_str = ''
+    local l_product = l_product or {}
+
+    for product_type, product_value in pairs(l_product) do
+        local item_id = TableItem:getItemIDFromItemType(product_type) or tonumber(product_type)
+        ret_str = TableItem:getItemName(item_id)
+    end
+
+    return ret_str
+end
+
+-------------------------------------
 -- function makeProductDesc
 -- @breif 상품 설명 생성 = 상품 종류 + 상품 갯수 + 추가 상품 설명
 -- @return str string
@@ -31,6 +48,7 @@ function TableShop:makeProductDesc(l_product)
 	local l_product = l_product or {}
 	local ret_str = ''
 	
+
 	for product_type, product_value in pairs(l_product) do
 		local value_str = comma_value(product_value)
 		local str = ''
