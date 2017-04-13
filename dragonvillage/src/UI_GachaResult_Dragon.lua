@@ -3,7 +3,7 @@ local PARENT = UI
 -------------------------------------
 -- class UI_GachaResult_Dragon
 -------------------------------------
-UI_GachaResult_Dragon = class(PARENT, ITopUserInfo_EventListener:getCloneTable(),{
+UI_GachaResult_Dragon = class(PARENT, {
         m_lNumberLabel = 'list',
         m_lGachaDragonList = 'list',
      })
@@ -23,16 +23,6 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list)
     vars['okBtn']:registerScriptTapHandler(function() self:refresh() end)
 
     self:refresh()
-end
-
--------------------------------------
--- function initParentVariable
--- @brief
--------------------------------------
-function UI_GachaResult_Dragon:initParentVariable()
-    -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_GachaResult_Dragon'
-    self.m_bUseExitBtn = false
 end
 
 -------------------------------------
@@ -74,7 +64,7 @@ function UI_GachaResult_Dragon:refresh()
     local t_dragon = table_dragon[did]
     
     -- 등급
-    vars['starVisual']:changeAni('card_star_light_' .. grade)
+    vars['starVisual']:changeAni('result' .. grade)
 
     -- 이름
     vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
