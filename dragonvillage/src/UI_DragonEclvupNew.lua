@@ -307,14 +307,19 @@ function UI_DragonEclvupNew:click_transcendBtn()
 
         self.m_bChangeDragonList = true
 
-        -- 최대 초월 단계일 경우
-        if g_dragonsData:isMaxEclv(doid) then
-            UIManager:toastNotificationRed(Str('최고 초월 단계를 달성하셨습니다.'))
-            self:close()
-        else
-            self:refresh_dragonIndivisual(doid)
-            self:refresh()
+        local function close_cb()
+            -- 최대 초월 단계일 경우
+            if g_dragonsData:isMaxEclv(doid) then
+                UIManager:toastNotificationRed(Str('최고 초월 단계를 달성하셨습니다.'))
+                self:close()
+            else
+                self:refresh_dragonIndivisual(doid)
+                self:refresh()
+            end
         end
+
+        local ui = UI_DragonEclvResult(StructDragonObject(ret['modified_dragon']))
+        ui:setCloseCB(close_cb)
     end
 
     local ui_network = UI_Network()

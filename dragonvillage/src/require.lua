@@ -594,6 +594,7 @@ local t_module = {
     'UI_DragonFriendship',
     'UI_DragonEvolutionResult',
     'UI_DragonUpgradeResult',
+    'UI_DragonEclvResult',
 
 	-- 테이머 관리
 	'UI_TamerManagePopup',
