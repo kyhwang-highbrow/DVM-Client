@@ -432,10 +432,10 @@ function Dragon.st_skillIdle(owner, dt)
             -- 액티브 스킬 사용 이벤트 발생
             if (owner.m_bLeftFormation) then
                 owner:dispatch('hero_active_skill', {}, owner)
-                owner:dispatch('set_global_cool_time_active')
             else
                 owner:dispatch('enemy_active_skill', {}, owner)
             end
+            owner:dispatch('set_global_cool_time_active')
 
             -- 사운드
             local sound_name = owner:getSoundNameForSkill(owner.m_charTable['type'])

@@ -375,6 +375,10 @@ function GameWorld:initTamer()
 
     -- 테이머 생성
     self.m_tamer = self:makeTamerNew(t_tamer)
+
+    -- 테이머 UI 생성
+	self.m_inGameUI:initTamerUI(self.m_tamer)
+
     self:addListener('dragon_summon', self)
 end
 
@@ -1475,7 +1479,7 @@ end
 -------------------------------------
 -- function changeHeroHomePosByCamera
 -------------------------------------
-function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
+function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time, no_tamer)
     local scale = self.m_gameCamera:getScale()
     local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
     local gap_x, gap_y = self.m_gameCamera:getIntermissionOffset()
@@ -1499,7 +1503,7 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
         end
     end
 
-    if (self.m_tamer) then
+    if (not no_tamer and self.m_tamer) then
         -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
         local homePosX = self.m_tamer.pos.x + gap_x + offsetX
         local homePosY = self.m_tamer.pos.y + gap_y + offsetY

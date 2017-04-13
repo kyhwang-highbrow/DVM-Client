@@ -24,20 +24,6 @@ function GameAuto_Enemy:checkSkill(dragon, t_skill)
     --return false
 end
 
-
--------------------------------------
--- function doSkill
--- @brief 스킬 사용
--------------------------------------
-function GameAuto_Enemy:doSkill(dragon, t_skill, target)
-    PARENT.doSkill(self, dragon, t_skill, target)
-
-    -- 적군 스킬 캐스팅을 강제 설정
-    dragon.m_reservedSkillCastTime = COLOSSEUM__ENEMY_CASTING_TIME
-
-    dragon:changeState('casting')
-end
-
 -------------------------------------
 -- function isActive
 -------------------------------------

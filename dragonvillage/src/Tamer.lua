@@ -69,10 +69,18 @@ function Tamer:init_tamer(t_tamer, bLeftFormationend)
 	self:initSkill()
 	self:initLogRecorder(t_tamer['tid'])
 
-	-- TAMER UI 생성
-	self.m_world.m_inGameUI:initTamerUI(self)
-
 	self.m_world:addListener('dragon_summon', self)
+end
+
+-------------------------------------
+-- function initFormation
+-------------------------------------
+function Tamer:initFormation()
+	-- 진영에 따른 처리
+	if (self.m_bLeftFormation) then
+    else
+        self.m_animator:setFlip(true)
+    end
 end
 
 -------------------------------------

@@ -42,9 +42,6 @@ function GameState_Colosseum.update_start(self, dt)
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
-            -- 테이머 등장
-            self:readyTamer()
-
             -- 아군 적군 드래곤들을 모두 숨김
             self:disappearAllDragon()
 
@@ -64,8 +61,8 @@ function GameState_Colosseum.update_start(self, dt)
                 end
             })
 
-            world:changeHeroHomePosByCamera(0, 100, 0)
-            world:changeEnemyHomePosByCamera(0, 100, 0)
+            world:changeHeroHomePosByCamera(0, 100, 0, true)
+            world:changeEnemyHomePosByCamera(0, 100, 0, true)
 	    
         end
 
@@ -109,10 +106,12 @@ function GameState_Colosseum.update_start(self, dt)
             
             if (world.m_tamer) then
                 world.m_tamer:setAnimatorScale(0.5)
+                world.m_tamer.m_barrier:setVisible(true)
             end
 
             if (world.m_enemyTamer) then
                 world.m_enemyTamer:setAnimatorScale(0.5)
+                world.m_enemyTamer.m_barrier:setVisible(true)
             end
 
             self:changeState(GAME_STATE_WAVE_INTERMISSION)
@@ -267,28 +266,6 @@ function GameState_Colosseum:disappearAllDragon()
 
     for i, dragon in ipairs(self.m_world:getEnemyList()) do
         disappearDragon(dragon)
-    end
-end
-
--------------------------------------
--- function readyTamer
--------------------------------------
-function GameState_Colosseum:readyTamer()
-    local world = self.m_world
-
-    if (world.m_tamer) then
-        world.m_tamer:changeState('appear_colosseum')
-        world.m_tamer:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
-        world.m_tamer:setAnimatorScale(1)
-        world.m_tamer.m_animator.m_node:pause()
-    end
-
-    if (world.m_enemyTamer) then
-        world.m_enemyTamer:changeState('appear_colosseum')
-        world.m_enemyTamer:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
-        world.m_enemyTamer:setAnimatorScale(1)
-        world.m_enemyTamer.m_animator:setFlip(true)
-        world.m_enemyTamer.m_animator.m_node:pause()
     end
 end
 

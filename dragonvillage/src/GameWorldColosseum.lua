@@ -22,13 +22,13 @@ function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, ga
     if (g_autoPlaySetting:get('quick_mode')) then
         baseTimeScale = baseTimeScale * g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
     end
-    self.m_gameTimeScale:setBase(COLOSSEUM__TIME_SCALE)
+    self.m_gameTimeScale:setBase(baseTimeScale)
 
     -- 적군 AI
     self.m_gameAutoEnemy = GameAuto_Enemy(self, false)
 
     self.m_gameState = GameState_Colosseum(self)
-    self.m_inGameUI:init_timeUI(self.m_gameState.m_limitTime)
+    self.m_inGameUI:init_timeUI(false, self.m_gameState.m_limitTime)
 end
 
 
@@ -108,10 +108,20 @@ end
 -- function initTamer
 -------------------------------------
 function GameWorldColosseum:initTamer()
+    local HERO_TAMER_POS_X = 320 - 50
+    local ENEMY_TAMER_POS_X = 960 + 50
+    local TAMER_POS_Y = -600
+
     -- 아군 테이머 생성
     do
         local t_tamer = g_userData:getTamerInfo()
         self.m_tamer = self:makeTamerNew(t_tamer)
+        self.m_tamer:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
+        self.m_tamer:setAnimatorScale(1)
+        self.m_tamer:changeState('appear_colosseum')
+        self.m_tamer.m_animator.m_node:pause()
+
+        self.m_tamer.m_barrier:setVisible(false)
     end
     
     -- 적군 테이머 생성
@@ -126,19 +136,28 @@ function GameWorldColosseum:initTamer()
         end
     
         self.m_enemyTamer = self:makeTamerNew(t_tamer, true)
+        self.m_enemyTamer:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
+        self.m_enemyTamer:setAnimatorScale(1)
+        self.m_enemyTamer:changeState('appear_colosseum')
+        self.m_enemyTamer.m_animator.m_node:pause()
+
+        self.m_enemyTamer.m_barrier:setVisible(false)
     end
 end
 
 -------------------------------------
 -- function addHero
 -------------------------------------
-function GameWorld:addHero(hero, idx)
+function GameWorldColosseum:addHero(hero, idx)
     self.m_mHeroList[idx] = hero
 
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
     hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
+
+    -- HP 변경시 콜백 등록
+    hero:addListener('character_set_hp', self)
 end
 
 -------------------------------------
@@ -152,6 +171,9 @@ function GameWorldColosseum:addEnemy(enemy)
     enemy:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     enemy:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
+
+    -- HP 변경시 콜백 등록
+    enemy:addListener('character_set_hp', self)
 end
 
 
@@ -164,17 +186,6 @@ function GameWorldColosseum:removeEnemy(enemy)
 
     local idx = table.find(self.m_tEnemyList, enemy)
     table.remove(self.m_tEnemyList, idx)
-end
-
-
--------------------------------------
--- function addHero
--------------------------------------
-function GameWorldColosseum:addHero(hero, idx)
-    PARENT.addHero(self, hero, idx)
-
-    -- HP 변경시 콜백 등록
-    hero:addListener('character_set_hp', self)
 end
 
 -------------------------------------
@@ -223,7 +234,7 @@ end
 -------------------------------------
 -- function changeEnemyHomePosByCamera
 -------------------------------------
-function GameWorldColosseum:changeEnemyHomePosByCamera(offsetX, offsetY, move_time)
+function GameWorldColosseum:changeEnemyHomePosByCamera(offsetX, offsetY, move_time, no_tamer)
     local scale = self.m_gameCamera:getScale()
     local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
     local gap_x, gap_y = self.m_gameCamera:getIntermissionOffset()
@@ -247,7 +258,7 @@ function GameWorldColosseum:changeEnemyHomePosByCamera(offsetX, offsetY, move_ti
         end
     end
 
-    if (self.m_enemyTamer) then
+    if (not no_tamer and self.m_enemyTamer) then
         -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
         local homePosX = self.m_enemyTamer.pos.x + gap_x + offsetX
         local homePosY = self.m_enemyTamer.pos.y + gap_y + offsetY

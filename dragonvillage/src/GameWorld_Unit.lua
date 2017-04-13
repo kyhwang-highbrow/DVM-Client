@@ -11,8 +11,9 @@ function GameWorld:makeTamerNew(t_tamer, bRightFormation)
     
     tamer:initWorld(self)
     tamer:init_tamer(t_tamer, bLeftFormation)
+    tamer:initFormation()
     tamer:initState()
-    
+        
     -- 피격 처리
     tamer:addDefCallback(function(attacker, defender, i_x, i_y)
     end)
