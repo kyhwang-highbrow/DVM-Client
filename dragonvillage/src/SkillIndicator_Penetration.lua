@@ -241,17 +241,19 @@ function SkillIndicator_Penetration:findTarget(l_attack_pos, l_dir)
 		local t_collision_obj, l_collision_bodys = self:findTargetEachLine(l_target, l_attack_pos[i], l_dir[i])
 
 		for i, object in ipairs(t_collision_obj) do
+            local phys_idx = object['phys_idx']
+
 			-- 중복 제거 위한 처리
-			t_temp[object['phys_idx']] = object
+			t_temp[phys_idx] = object
 
             local body_keys = l_collision_bodys[i]
 
             for i, body_key in ipairs(body_keys) do
 			    -- 중복 제거 위한 처리
-                if (not t_temp_bodys[object['phys_idx']]) then
-                    t_temp_bodys[object['phys_idx']] = {}
+                if (not t_temp_bodys[phys_idx]) then
+                    t_temp_bodys[phys_idx] = {}
                 end
-			    t_temp_bodys[object['phys_idx']][body_key] = true
+			    t_temp_bodys[phys_idx][body_key] = true
 		    end
 		end
 	end

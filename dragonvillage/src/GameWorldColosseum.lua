@@ -130,33 +130,28 @@ function GameWorldColosseum:initTamer()
 end
 
 -------------------------------------
+-- function addHero
+-------------------------------------
+function GameWorld:addHero(hero, idx)
+    self.m_mHeroList[idx] = hero
+
+    hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
+    hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
+    hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
+    hero:addListener('hero_active_skill', self.m_gameAutoHero)
+end
+
+-------------------------------------
 -- function addEnemy
 -- @param enemy
 -------------------------------------
 function GameWorldColosseum:addEnemy(enemy)
-    
     table.insert(self.m_tEnemyList, enemy)
     
-    -- 죽음 콜백 등록
-    if self.m_dropItemMgr then
-        enemy:addListener('character_dead', self.m_dropItemMgr)
-    end
-
-    -- 스킬
     enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
-
-    -- 등장 완료 콜백 등록
-    enemy:addListener('enemy_appear_done', self.m_gameState)
-
-    -- 스킬 캐스팅
-    enemy:addListener('enemy_casting_start', self.m_gameAutoHero)
-    
-    -- 액티브 스킬 사용시
-    enemy:addListener('enemy_active_skill', self.m_gameState)
+    enemy:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
+    enemy:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
-    
-    -- HP 변경시 콜백 등록
-    enemy:addListener('character_set_hp', self)
 end
 
 

@@ -787,13 +787,9 @@ function GameWorld:addHero(hero, idx)
 
     hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
-    
-    hero:addListener('hero_basic_skill', self)
     hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
-        
-    hero:addListener('hero_casting_start', self.m_gameAutoHero)
 end
 
 -------------------------------------

@@ -264,7 +264,9 @@ function GameDragonSkill.update_live(self, dt)
         self.m_skillOpeningCutBg:setPosition(CRITERIA_RESOLUTION_X / 2 + curCameraPosX, curCameraPosY)
         self.m_skillOpeningCutBg:setScale(1 / curCameraScale)
 
-        if (not dragon.m_bLeftFormation) then
+        if (dragon.m_bLeftFormation) then
+            self.m_skillOpeningCutBg:setFlip(false)
+        else
             self.m_skillOpeningCutBg:setFlip(true)
         end
     end
@@ -348,7 +350,10 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
     self.m_skillOpeningCutTop:setPosition(0, 0)
     self.m_skillOpeningCutTop:setVisible(true)
 
-    if (not dragon.m_bLeftFormation) then
+    if (dragon.m_bLeftFormation) then
+        self.m_skillOpeningCutBg:setFlip(false)
+        self.m_skillOpeningCutTop:setFlip(false)
+    else
         self.m_skillOpeningCutBg:setFlip(true)
         self.m_skillOpeningCutTop:setFlip(true)
     end
@@ -528,7 +533,7 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local dragon = arg[1]
 
         if (self:isPlaying()) then
-        elseif (dragon.m_bLeftFormation) then
+        else
             self.m_dragon = dragon
 
             self:changeState(GAME_DRAGON_SKILL_LIVE2)

@@ -338,11 +338,6 @@ function Dragon.st_attack(owner, dt)
                 end
             end
         else
-            -- 기본 공격시 이벤트
-            if (owner.m_bLeftFormation) then
-                owner:dispatch('hero_basic_skill', {}, owner)
-            end
-
             -- 스킬 게이지 증가
             if (role_type == 'dealer') then
                 local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
