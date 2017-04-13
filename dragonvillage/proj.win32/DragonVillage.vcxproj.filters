@@ -1911,7 +1911,7 @@
     <None Include="..\src\StructFreeDragonSummonInfo.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\StatusEffect_Cure.lua">
+    <None Include="..\src\StatusEffect_Dispell.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

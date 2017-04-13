@@ -262,7 +262,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
 	----------- 디버프 해제 ------------------
 	elseif isExistValue(status_effect_type, 'cure') then
-		status_effect = StatusEffect_Cure(res)
+		status_effect = StatusEffect_Dispell(res)
 		status_effect:init_status(target_char, status_effect_value)
 	
 	----------- 특이한 해제 조건을 가진 것들 ------------------
