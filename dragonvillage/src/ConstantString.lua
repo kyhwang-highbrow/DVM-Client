@@ -22,22 +22,22 @@ function chapterName(chapter)
         return Str('절규하는 칠흑의 성')
 
     elseif (chapter == 7) then
-        return Str('미지정')
+        return Str('맹독의 샘')
 
     elseif (chapter == 8) then
-        return Str('미지정')
+        return Str('밤사냥꾼 둥지')
 
     elseif (chapter == 9) then
-        return Str('미지정')
+        return Str('심연의 바다')
 
     elseif (chapter == 10) then
-        return Str('미지정')
+        return Str('바이델 외곽 숲')
 
     elseif (chapter == 11) then
-        return Str('미지정')
+        return Str('황혼의 신전')
 
     elseif (chapter == 12) then
-        return Str('미지정')
+        return Str('부서진 검은 요새')
 
     else
         return Str('개발용')
@@ -69,22 +69,22 @@ function bossChapterName(chapter)
         return Str('다크닉스')
 
     elseif (chapter == 7) then
-        return Str('')
+        return Str('맹독거미여왕')
 
     elseif (chapter == 8) then
-        return Str('')
+        return Str('밤사냥꾼')
 
     elseif (chapter == 9) then
-        return Str('')
+        return Str('심연의 군주')
 
     elseif (chapter == 10) then
-        return Str('')
+        return Str('퀸즈라미아')
 
     elseif (chapter == 11) then
-        return Str('')
+        return Str('종말예언장치')
 
     elseif (chapter == 12) then
-        return Str('')
+        return Str('부활한 다크닉스')
 
     else
         return Str('개발용 or 미지정')
