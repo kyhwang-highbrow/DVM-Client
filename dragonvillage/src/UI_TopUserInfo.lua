@@ -59,7 +59,9 @@ function UI_TopUserInfo:refreshData()
 
     -- 스태미너
     local st_ad = g_staminasData:getStaminaCount(self.m_staminaType)
-    self.m_lNumberLabel['st_ad']:setNumber(st_ad)
+    local max_cnt = g_staminasData:getStaminaMaxCnt(self.m_staminaType)
+    --self.m_lNumberLabel['st_ad']:setNumber(st_ad)
+    vars['actingPowerLabel']:setString(Str('{1}/{2}', st_ad, max_cnt))
 
     local str = g_staminasData:getChargeRemainText(self.m_staminaType)
     vars['actingPowerTimeLabel']:setString(str)

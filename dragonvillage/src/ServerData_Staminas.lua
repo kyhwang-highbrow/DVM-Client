@@ -66,6 +66,24 @@ function ServerData_Staminas:getChargeRemainText(stamina_type)
 end
 
 -------------------------------------
+-- function getStaminaMaxCnt
+-- @brief
+-------------------------------------
+function ServerData_Staminas:getStaminaMaxCnt(stamina_type)
+    if (not self:isActive()) then
+        self:updateStaminaInfo(stamina_type)
+    end
+
+    local t_stamina_info = self:getRef(stamina_type)
+    if (not t_stamina_info) then
+        return 0
+    end
+
+    local max_cnt = t_stamina_info['max_cnt']
+    return max_cnt
+end
+
+-------------------------------------
 -- function hasStaminaCount
 -- @brief 특정 갯수를 보유했는지 확인
 -------------------------------------
