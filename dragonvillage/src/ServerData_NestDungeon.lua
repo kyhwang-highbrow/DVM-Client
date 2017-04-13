@@ -31,6 +31,11 @@ function ServerData_NestDungeon:applyNestDungeonInfo(data)
 
         -- 닫히는 시간이 임박했을 때를 위한 테스트 코드 (10초 후 갱신되도록)
         --v['next_invalid_at'] = (Timer:getServerTime() + 10) * 1000
+
+        -- next_valid_at 값이 없으면 현재 시간으로 입력
+        if (not v['next_valid_at']) then
+            v['next_valid_at'] = Timer:getServerTime() * 1000
+        end
     end
 
     self.m_bDirtyNestDungeonInfo = false
