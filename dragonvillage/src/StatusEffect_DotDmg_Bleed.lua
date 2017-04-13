@@ -27,8 +27,8 @@ function StatusEffect_DotDmg_Bleed:init_dotDmg(char, caster, t_status_effect, st
 	PARENT.init_dotDmg(self, char, caster, t_status_effect, status_effect_value)
 
 	-- 횟수 변수
-	self.m_maxDotCount = t_status_effect['duration']
-	self.m_dotCount = 0
+	--self.m_maxDotCount = t_status_effect['duration']
+	--self.m_dotCount = 0
 end
 
 -------------------------------------
@@ -37,10 +37,12 @@ end
 function StatusEffect_DotDmg_Bleed:onEvent(event_name, t_event, ...)
 	if (event_name == self.m_trigger) then
 		self:doDotDmg()
+		--[[ -- @TODO 기획 수정 중으로 횟수 제한 제거
 		self.m_dotCount = self.m_dotCount + 1
 		if (self.m_dotCount >= self.m_maxDotCount) then
 			self:changeState('end')
 		end
+		]]
 	end
 end
 
