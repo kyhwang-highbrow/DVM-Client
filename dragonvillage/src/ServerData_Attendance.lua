@@ -51,6 +51,8 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
     local function success_cb(ret)
         self.m_bDirtyAttendanceInfo = false
 
+        g_serverData:networkCommonRespone_addedItems(ret)
+
         do -- 출석 정보
             self.m_structAttendanceDataList = {}
             if ret['attendance_info'] then

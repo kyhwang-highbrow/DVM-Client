@@ -196,7 +196,8 @@ function UI_SkillDetailPopupListItem:click_enhanceBtn()
     end
     local cancel_btn_cb = nil
 
-    MakeSimplePopup_Confirm(item_type, item_value, '스킬을 강화하시겠습니까?', ok_btn_cb, cancel_btn_cb)
+    --MakeSimplePopup_Confirm(item_type, item_value, '스킬을 강화하시겠습니까?', ok_btn_cb, cancel_btn_cb)
+    ok_btn_cb()
 end
 
 
