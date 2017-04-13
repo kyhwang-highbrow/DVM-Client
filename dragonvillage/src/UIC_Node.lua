@@ -132,3 +132,15 @@ end
 function UIC_Node:getRotation()
     return self.m_node:getRotation()
 end
+
+function UIC_Node:isVisible()
+    return self.m_node:isVisible()
+end
+
+function UIC_Node:isRunning()
+    return self.m_node:isRunning()
+end
+
+function UIC_Node:registerScriptHandler(func)
+    return self.m_node:registerScriptHandler(func)
+end

@@ -29,6 +29,15 @@ function NumberLabel:init(label, number, actionDuration)
 	self.m_isTintAction = false
 
     label:setString(self.getNumberStr(self.m_number))
+
+    -- UI가 enter로 진입되었을 때 update함수 호출
+    label:registerScriptHandler(function(event)
+        if (event == 'enter') then
+            local number = self.m_number
+            self.m_number = 0
+            self:setNumber(number, true)
+        end
+    end)
 end
 
 -------------------------------------
