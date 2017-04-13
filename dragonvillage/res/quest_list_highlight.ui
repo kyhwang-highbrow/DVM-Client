@@ -257,7 +257,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'rewardBtn';
 				enable = true;
 				normal = 'ui/btn/a_btn_0204.png';
@@ -462,7 +462,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/list_frame_0101.png';
+					file_name = 'ui/frame/a_list_02.png';
 					color = { 0; 0; 0; };
 					opacity = 150;
 					center_rect_x = 0;

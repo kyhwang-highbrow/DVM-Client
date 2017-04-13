@@ -7,7 +7,7 @@
             <key>dragon_sphere_fx_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{596,276},{272,121}}</string>
+                <string>{{412,1668},{272,121}}</string>
                 <key>offset</key>
                 <string>{0,-4}</string>
                 <key>rotated</key>
@@ -20,11 +20,11 @@
             <key>dragon_sphere_fx_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{286,294},{272,129}}</string>
+                <string>{{1768,264},{272,129}}</string>
                 <key>offset</key>
                 <string>{0,-3}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,7},{272,129}}</string>
                 <key>sourceSize</key>
@@ -33,7 +33,7 @@
             <key>dragon_sphere_fx_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{286,568},{272,129}}</string>
+                <string>{{1316,398},{272,129}}</string>
                 <key>offset</key>
                 <string>{0,-4}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>dragon_sphere_fx_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{288,842},{272,131}}</string>
+                <string>{{1290,740},{272,131}}</string>
                 <key>offset</key>
                 <string>{0,-3}</string>
                 <key>rotated</key>
@@ -59,11 +59,11 @@
             <key>dragon_sphere_fx_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{581,857},{272,129}}</string>
+                <string>{{1116,1668},{272,129}}</string>
                 <key>offset</key>
                 <string>{0,-3}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,7},{272,129}}</string>
                 <key>sourceSize</key>
@@ -72,7 +72,7 @@
             <key>dragon_sphere_fx_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{746,1192},{272,129}}</string>
+                <string>{{1247,1642},{272,129}}</string>
                 <key>offset</key>
                 <string>{0,-3}</string>
                 <key>rotated</key>
@@ -85,11 +85,11 @@
             <key>dragon_sphere_fx_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{482,1642},{272,127}}</string>
+                <string>{{1378,1648},{272,127}}</string>
                 <key>offset</key>
                 <string>{0,-5}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,10},{272,127}}</string>
                 <key>sourceSize</key>
@@ -98,11 +98,11 @@
             <key>dragon_sphere_fx_08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{482,1771},{272,127}}</string>
+                <string>{{1507,1648},{272,127}}</string>
                 <key>offset</key>
                 <string>{0,-5}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,10},{272,127}}</string>
                 <key>sourceSize</key>
@@ -111,11 +111,11 @@
             <key>dragon_sphere_fx_09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1192,260},{272,127}}</string>
+                <string>{{1616,1044},{272,127}}</string>
                 <key>offset</key>
                 <string>{0,-5}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,10},{272,127}}</string>
                 <key>sourceSize</key>
@@ -124,410 +124,267 @@
             <key>dragon_sphere_fx_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{450,1900},{270,115}}</string>
+                <string>{{1921,395},{270,115}}</string>
                 <key>offset</key>
                 <string>{-1,3}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,8},{270,115}}</string>
                 <key>sourceSize</key>
                 <string>{272,137}</string>
             </dict>
-            <key>dragon_upgrade_alight_0003.png</key>
+            <key>dragon_upgrade_alight_09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1864,666},{16,16}}</string>
+                <string>{{1188,1230},{210,210}}</string>
                 <key>offset</key>
-                <string>{-4,-3}</string>
+                <string>{-6,9}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{148,115},{16,16}}</string>
+                <string>{{171,160},{210,210}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0007.png</key>
+            <key>dragon_upgrade_alight_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{356,1116},{48,48}}</string>
+                <string>{{1404,1044},{210,210}}</string>
                 <key>offset</key>
-                <string>{-5,-3}</string>
+                <string>{-6,8}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{131,99},{48,48}}</string>
+                <string>{{171,161},{210,210}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0011.png</key>
+            <key>dragon_upgrade_alight_11.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{870,276},{78,78}}</string>
+                <string>{{1400,1256},{210,210}}</string>
                 <key>offset</key>
-                <string>{-4,-3}</string>
+                <string>{-6,8}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{117,84},{78,78}}</string>
+                <string>{{171,161},{210,210}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0015.png</key>
+            <key>dragon_upgrade_alight_12.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1790,1911},{102,102}}</string>
+                <string>{{976,1258},{210,214}}</string>
                 <key>offset</key>
-                <string>{-4,-3}</string>
+                <string>{-6,9}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{105,72},{102,102}}</string>
+                <string>{{171,158},{210,214}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0019.png</key>
+            <key>dragon_upgrade_alight_13.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1860,1685},{102,102}}</string>
+                <string>{{1447,610},{228,226}}</string>
                 <key>offset</key>
-                <string>{-4,-3}</string>
+                <string>{-15,14}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{105,72},{102,102}}</string>
+                <string>{{153,147},{228,226}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0023.png</key>
+            <key>dragon_upgrade_alight_14.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1894,1789},{102,102}}</string>
+                <string>{{280,1791},{240,236}}</string>
                 <key>offset</key>
-                <string>{-4,-3}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{105,72},{102,102}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0027.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1894,1893},{102,102}}</string>
-                <key>offset</key>
-                <string>{-4,-3}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{105,72},{102,102}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0031.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{849,617},{102,102}}</string>
-                <key>offset</key>
-                <string>{-4,-3}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{105,72},{102,102}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0035.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1790,1805},{102,104}}</string>
-                <key>offset</key>
-                <string>{-4,-2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{105,70},{102,104}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0039.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1664,1562},{120,126}}</string>
-                <key>offset</key>
-                <string>{-3,-3}</string>
+                <string>{-21,18}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{97,60},{120,126}}</string>
+                <string>{{141,138},{240,236}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0043.png</key>
+            <key>dragon_upgrade_alight_15.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1645,1104},{152,150}}</string>
+                <string>{{1768,2},{254,260}}</string>
                 <key>offset</key>
-                <string>{-5,-4}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{79,49},{152,150}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0047.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1332,1843},{160,170}}</string>
-                <key>offset</key>
-                <string>{-18,-5}</string>
+                <string>{-28,29}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{62,40},{160,170}}</string>
+                <string>{{127,115},{254,260}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0051.png</key>
+            <key>dragon_upgrade_alight_16.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1692,714},{188,186}}</string>
+                <string>{{770,748},{282,312}}</string>
                 <key>offset</key>
-                <string>{-26,-6}</string>
+                <string>{-42,54}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{40,33},{188,186}}</string>
+                <string>{{99,64},{282,312}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0055.png</key>
+            <key>dragon_upgrade_alight_17.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{896,1438},{172,200}}</string>
+                <string>{{728,404},{308,342}}</string>
                 <key>offset</key>
-                <string>{-10,-2}</string>
+                <string>{-47,65}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{64,22},{172,200}}</string>
+                <string>{{81,38},{308,342}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0059.png</key>
+            <key>dragon_upgrade_alight_18.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{256,1694},{200,224}}</string>
+                <string>{{1038,398},{276,340}}</string>
                 <key>offset</key>
-                <string>{-6,6}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{54,2},{200,224}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0063.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{956,272},{238,234}}</string>
-                <key>offset</key>
-                <string>{-7,3}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{34,0},{238,234}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0067.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1466,264},{254,206}}</string>
-                <key>offset</key>
-                <string>{4,-12}</string>
+                <string>{-10,49}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{37,29},{254,206}}</string>
+                <string>{{134,55},{276,340}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0071.png</key>
+            <key>dragon_upgrade_alight_19.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{581,399},{270,216}}</string>
+                <string>{{416,466},{310,384}}</string>
                 <key>offset</key>
-                <string>{17,-11}</string>
+                <string>{-11,72}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{42,23},{270,216}}</string>
+                <string>{{116,10},{310,384}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0075.png</key>
+            <key>dragon_upgrade_alight_20.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1245,1191},{216,192}}</string>
+                <string>{{416,852},{352,358}}</string>
                 <key>offset</key>
-                <string>{17,-23}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{69,47},{216,192}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0079.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1306,1625},{216,184}}</string>
-                <key>offset</key>
-                <string>{7,-11}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{59,39},{216,184}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0083.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{845,988},{198,202}}</string>
-                <key>offset</key>
-                <string>{-15,-13}</string>
+                <string>{-15,35}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{46,32},{198,202}}</string>
+                <string>{{91,60},{352,358}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0087.png</key>
+            <key>dragon_upgrade_alight_21.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{982,512},{236,208}}</string>
+                <string>{{1378,2},{388,368}}</string>
                 <key>offset</key>
-                <string>{-23,-4}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{19,20},{236,208}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0091.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{256,1472},{224,220}}</string>
-                <key>offset</key>
-                <string>{-7,-8}</string>
+                <string>{-19,20}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{41,18},{224,220}}</string>
+                <string>{{69,70},{388,368}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0095.png</key>
+            <key>dragon_upgrade_alight_22.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{482,1432},{262,208}}</string>
+                <string>{{958,2},{418,394}}</string>
                 <key>offset</key>
-                <string>{-15,7}</string>
+                <string>{-28,23}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{14,9},{262,208}}</string>
+                <string>{{45,54},{418,394}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0099.png</key>
+            <key>dragon_upgrade_alight_23.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1070,1428},{210,178}}</string>
+                <string>{{2,466},{412,476}}</string>
                 <key>offset</key>
-                <string>{6,-18}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{61,49},{210,178}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0103.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1250,1409},{214,194}}</string>
-                <key>offset</key>
-                <string>{-10,-13}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{43,36},{214,194}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0107.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1694,472},{240,168}}</string>
-                <key>offset</key>
-                <string>{-16,15}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{24,21},{240,168}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0111.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{877,1192},{244,190}}</string>
-                <key>offset</key>
-                <string>{3,18}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{41,7},{244,190}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>dragon_upgrade_alight_0115.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1192,389},{250,198}}</string>
-                <key>offset</key>
-                <string>{24,13}</string>
+                <string>{-76,36}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{59,8},{250,198}}</string>
+                <string>{{0,0},{412,476}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
             </dict>
-            <key>dragon_upgrade_alight_0119.png</key>
+            <key>dragon_upgrade_alight_24.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{268,1180},{282,212}}</string>
+                <string>{{2,944},{420,412}}</string>
                 <key>offset</key>
-                <string>{19,4}</string>
+                <string>{-55,48}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{38,10},{282,212}}</string>
+                <string>{{17,20},{420,412}}</string>
                 <key>sourceSize</key>
-                <string>{320,240}</string>
+                <string>{564,548}</string>
+            </dict>
+            <key>dragon_upgrade_alight_25.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{484,462}}</string>
+                <key>offset</key>
+                <string>{-40,34}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,9},{484,462}}</string>
+                <key>sourceSize</key>
+                <string>{564,548}</string>
+            </dict>
+            <key>dragon_upgrade_alight_26.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,1366},{408,420}}</string>
+                <key>offset</key>
+                <string>{32,35}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{110,29},{408,420}}</string>
+                <key>sourceSize</key>
+                <string>{564,548}</string>
+            </dict>
+            <key>dragon_upgrade_alight_27.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{488,2},{400,468}}</string>
+                <key>offset</key>
+                <string>{14,40}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{96,0},{400,468}}</string>
+                <key>sourceSize</key>
+                <string>{564,548}</string>
             </dict>
             <key>dragon_upgrade_aline_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1645,1258},{150,150}}</string>
+                <string>{{1612,1318},{150,150}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -540,7 +397,7 @@
             <key>dragon_upgrade_aline_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1640,1410},{150,150}}</string>
+                <string>{{1893,863},{150,150}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -553,7 +410,7 @@
             <key>dragon_upgrade_aline_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1797,1165},{150,150}}</string>
+                <string>{{1893,1015},{150,150}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -566,7 +423,7 @@
             <key>dragon_upgrade_aline_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1797,1317},{150,150}}</string>
+                <string>{{1893,1167},{150,150}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -576,426 +433,23 @@
                 <key>sourceSize</key>
                 <string>{154,154}</string>
             </dict>
-            <key>dragon_upgrade_bg.png</key>
+            <key>dragon_upgrade_blight_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1664,1684},{128,96}}</string>
+                <string>{{1636,1846},{182,182}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{128,96}}</string>
-                <key>sourceSize</key>
-                <string>{128,96}</string>
-            </dict>
-            <key>dragon_upgrade_blight_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1407,779},{30,28}}</string>
-                <key>offset</key>
-                <string>{1,0}</string>
+                <string>{-16,10}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{194,142},{30,28}}</string>
+                <string>{{175,139},{182,182}}</string>
                 <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1998,1745},{48,46}}</string>
-                <key>offset</key>
-                <string>{4,1}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{188,132},{48,46}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{288,1116},{66,62}}</string>
-                <key>offset</key>
-                <string>{6,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{181,125},{66,62}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_05.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1964,1667},{80,76}}</string>
-                <key>offset</key>
-                <string>{6,2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{174,116},{80,76}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_06.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1949,1283},{96,90}}</string>
-                <key>offset</key>
-                <string>{8,3}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{168,108},{96,90}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_07.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1930,1469},{114,104}}</string>
-                <key>offset</key>
-                <string>{9,5}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{160,99},{114,104}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_08.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1792,1469},{136,120}}</string>
-                <key>offset</key>
-                <string>{8,5}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{148,91},{136,120}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_09.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1178,1882},{152,138}}</string>
-                <key>offset</key>
-                <string>{9,5}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{141,82},{152,138}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_10.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{421,956},{170,154}}</string>
-                <key>offset</key>
-                <string>{9,5}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{132,74},{170,154}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_11.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1492,1624},{188,170}}</string>
-                <key>offset</key>
-                <string>{10,5}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{124,66},{188,170}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_12.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1439,1104},{204,186}}</string>
-                <key>offset</key>
-                <string>{10,5}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{116,58},{204,186}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_13.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1045,988},{218,200}}</string>
-                <key>offset</key>
-                <string>{9,5}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{108,51},{218,200}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_14.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1750,256},{232,214}}</string>
-                <key>offset</key>
-                <string>{9,6}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{101,43},{232,214}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_15.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1444,472},{248,226}}</string>
-                <key>offset</key>
-                <string>{8,6}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{92,37},{248,226}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_16.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{482,1192},{262,238}}</string>
-                <key>offset</key>
-                <string>{8,6}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{85,31},{262,238}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_17.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,1472},{276,252}}</string>
-                <key>offset</key>
-                <string>{6,7}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{76,23},{276,252}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_blight_18.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,1180},{290,264}}</string>
-                <key>offset</key>
-                <string>{5,7}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{68,17},{290,264}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2004,2},{34,34}}</string>
-                <key>offset</key>
-                <string>{2,8}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{193,131},{34,34}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{870,356},{68,52}}</string>
-                <key>offset</key>
-                <string>{-7,14}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{167,116},{68,52}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1949,1381},{94,86}}</string>
-                <key>offset</key>
-                <string>{-9,12}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{152,101},{94,86}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1792,1591},{92,124}}</string>
-                <key>offset</key>
-                <string>{-1,21}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{161,73},{92,124}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_05.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{722,1908},{116,160}}</string>
-                <key>offset</key>
-                <string>{-11,21}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{139,55},{116,160}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_06.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{746,1466},{148,174}}</string>
-                <key>offset</key>
-                <string>{-19,26}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{115,43},{148,174}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_07.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{417,554},{162,206}}</string>
-                <key>offset</key>
-                <string>{-20,21}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{107,32},{162,206}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_08.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1265,969},{170,220}}</string>
-                <key>offset</key>
-                <string>{-21,19}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{102,27},{170,220}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_09.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{855,750},{184,236}}</string>
-                <key>offset</key>
-                <string>{-19,14}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{97,24},{184,236}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_10.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1161,779},{188,244}}</string>
-                <key>offset</key>
-                <string>{-19,11}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{95,23},{188,244}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_11.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1192,589},{188,248}}</string>
-                <key>offset</key>
-                <string>{-18,9}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{96,23},{188,248}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_12.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1442,700},{186,248}}</string>
-                <key>offset</key>
-                <string>{-19,7}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{96,25},{186,248}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_13.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{956,1640},{182,242}}</string>
-                <key>offset</key>
-                <string>{-16,4}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{101,31},{182,242}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
-            </dict>
-            <key>dragon_upgrade_bstar_14.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1069,1190},{174,236}}</string>
-                <key>offset</key>
-                <string>{-18,5}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{103,33},{174,236}}</string>
-                <key>sourceSize</key>
-                <string>{416,312}</string>
+                <string>{564,480}</string>
             </dict>
             <key>dragon_upgrade_circle_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1437,888},{214,214}}</string>
+                <string>{{1188,1014},{214,214}}</string>
                 <key>offset</key>
                 <string>{-1,-6}</string>
                 <key>rotated</key>
@@ -1008,7 +462,7 @@
             <key>dragon_upgrade_clight_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1882,866},{149,155}}</string>
+                <string>{{1764,1319},{149,155}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -1021,24 +475,37 @@
             <key>dragon_upgrade_light_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1306,1843},{24,24}}</string>
+                <string>{{1884,1471},{149,155}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{5,5},{24,24}}</string>
+                <string>{{0,0},{149,155}}</string>
                 <key>sourceSize</key>
-                <string>{34,34}</string>
+                <string>{149,155}</string>
+            </dict>
+            <key>dragon_upgrade_light_11.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1745,1204},{70,70}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{70,70}}</string>
+                <key>sourceSize</key>
+                <string>{70,70}</string>
             </dict>
             <key>dragon_upgrade_line_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{254,1896},{128,194}}</string>
+                <string>{{1915,667},{128,194}}</string>
                 <key>offset</key>
                 <string>{0,2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{34,1},{128,194}}</string>
                 <key>sourceSize</key>
@@ -1047,11 +514,11 @@
             <key>dragon_upgrade_line_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{982,1884},{138,194}}</string>
+                <string>{{1048,1062},{138,194}}</string>
                 <key>offset</key>
                 <string>{5,2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{34,1},{138,194}}</string>
                 <key>sourceSize</key>
@@ -1060,11 +527,11 @@
             <key>dragon_upgrade_line_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1446,1484},{138,192}}</string>
+                <string>{{1084,1474},{138,192}}</string>
                 <key>offset</key>
                 <string>{5,2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{34,2},{138,192}}</string>
                 <key>sourceSize</key>
@@ -1073,7 +540,7 @@
             <key>dragon_upgrade_line_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1446,1292},{192,190}}</string>
+                <string>{{890,1476},{192,190}}</string>
                 <key>offset</key>
                 <string>{0,2}</string>
                 <key>rotated</key>
@@ -1086,7 +553,7 @@
             <key>dragon_upgrade_line_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1864,472},{192,180}}</string>
+                <string>{{1800,1648},{192,180}}</string>
                 <key>offset</key>
                 <string>{0,2}</string>
                 <key>rotated</key>
@@ -1099,7 +566,7 @@
             <key>dragon_upgrade_line_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{421,762},{192,158}}</string>
+                <string>{{1653,838},{192,158}}</string>
                 <key>offset</key>
                 <string>{-1,2}</string>
                 <key>rotated</key>
@@ -1112,7 +579,7 @@
             <key>dragon_upgrade_line_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1494,1814},{188,148}}</string>
+                <string>{{1820,1842},{188,148}}</string>
                 <key>offset</key>
                 <string>{-1,6}</string>
                 <key>rotated</key>
@@ -1125,7 +592,7 @@
             <key>dragon_upgrade_line_08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1644,1814},{176,144}}</string>
+                <string>{{1596,1470},{176,144}}</string>
                 <key>offset</key>
                 <string>{-6,5}</string>
                 <key>rotated</key>
@@ -1138,11 +605,11 @@
             <key>dragon_upgrade_line_09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1863,1017},{170,146}}</string>
+                <string>{{1745,1032},{170,146}}</string>
                 <key>offset</key>
                 <string>{-4,7}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{9,20},{170,146}}</string>
                 <key>sourceSize</key>
@@ -1151,7 +618,7 @@
             <key>dragon_upgrade_line_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1882,666},{160,198}}</string>
+                <string>{{1224,1442},{160,198}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -1164,288 +631,262 @@
             <key>dragon_upgrade_star_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1750,2},{252,252}}</string>
+                <string>{{1817,1204},{52,74}}</string>
                 <key>offset</key>
-                <string>{-18,-12}</string>
+                <string>{1,4}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{106,150},{252,252}}</string>
+                <string>{{116,79},{52,74}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,894},{284,284}}</string>
+                <string>{{700,1916},{70,90}}</string>
                 <key>offset</key>
-                <string>{-17,-16}</string>
+                <string>{-1,-2}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{91,138},{284,284}}</string>
+                <string>{{105,77},{70,90}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
+            </dict>
+            <key>dragon_upgrade_star_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1921,1319},{118,150}}</string>
+                <key>offset</key>
+                <string>{-9,9}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{73,36},{118,150}}</string>
+                <key>sourceSize</key>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1488,2},{260,260}}</string>
+                <string>{{1742,1470},{140,176}}</string>
                 <key>offset</key>
-                <string>{-18,-5}</string>
+                <string>{-7,11}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{102,139},{260,260}}</string>
+                <string>{{64,21},{140,176}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
+            </dict>
+            <key>dragon_upgrade_star_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1636,1648},{162,196}}</string>
+                <key>offset</key>
+                <string>{-2,13}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{58,9},{162,196}}</string>
+                <key>sourceSize</key>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1653,902},{208,198}}</string>
+                <string>{{1386,1468},{178,208}}</string>
                 <key>offset</key>
-                <string>{-16,-12}</string>
+                <string>{3,12}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{130,177},{208,198}}</string>
+                <string>{{55,4},{178,208}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
+            </dict>
+            <key>dragon_upgrade_star_07.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{670,1476},{190,218}}</string>
+                <key>offset</key>
+                <string>{6,6}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{52,5},{190,218}}</string>
+                <key>sourceSize</key>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{581,617},{266,238}}</string>
+                <string>{{1423,838},{204,228}}</string>
                 <key>offset</key>
-                <string>{-19,-13}</string>
+                <string>{6,2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{98,158},{266,238}}</string>
+                <string>{{45,4},{204,228}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
+            </dict>
+            <key>dragon_upgrade_star_09.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1677,613},{220,236}}</string>
+                <key>offset</key>
+                <string>{4,-2}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{35,4},{220,236}}</string>
+                <key>sourceSize</key>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{896,2},{294,268}}</string>
+                <string>{{1447,372},{232,236}}</string>
                 <key>offset</key>
-                <string>{-16,-19}</string>
+                <string>{4,-2}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{87,149},{294,268}}</string>
+                <string>{{29,4},{232,236}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_11.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,598},{294,282}}</string>
+                <string>{{700,1668},{246,202}}</string>
                 <key>offset</key>
-                <string>{-12,-18}</string>
+                <string>{3,-19}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{91,141},{294,282}}</string>
+                <string>{{21,38},{246,202}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_12.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{302,2},{292,288}}</string>
+                <string>{{412,1430},{256,236}}</string>
                 <key>offset</key>
-                <string>{-13,-16}</string>
+                <string>{2,-2}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{91,136},{292,288}}</string>
+                <string>{{15,4},{256,236}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_13.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{298,290}}</string>
+                <string>{{1054,740},{268,234}}</string>
                 <key>offset</key>
-                <string>{-14,-14}</string>
+                <string>{1,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{87,133},{298,290}}</string>
+                <string>{{8,4},{268,234}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_14.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,294},{302,282}}</string>
+                <string>{{2,1788},{276,236}}</string>
                 <key>offset</key>
-                <string>{-15,-8}</string>
+                <string>{1,-2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{84,131},{302,282}}</string>
+                <string>{{4,4},{276,236}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_15.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{596,2},{298,272}}</string>
+                <string>{{416,1212},{282,216}}</string>
                 <key>offset</key>
-                <string>{-16,-9}</string>
+                <string>{0,-12}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{85,137},{298,272}}</string>
+                <string>{{0,24},{282,216}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_16.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1192,2},{294,256}}</string>
+                <string>{{700,1258},{274,216}}</string>
                 <key>offset</key>
-                <string>{-17,-7}</string>
+                <string>{-4,-12}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{86,143},{294,256}}</string>
+                <string>{{0,24},{274,216}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_17.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1750},{264,250}}</string>
+                <string>{{904,1668},{222,210}}</string>
                 <key>offset</key>
-                <string>{-7,-9}</string>
+                <string>{3,-7}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{111,148},{264,250}}</string>
+                <string>{{33,22},{222,210}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_18.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{577,988},{266,202}}</string>
+                <string>{{770,1062},{276,194}}</string>
                 <key>offset</key>
-                <string>{-5,-22}</string>
+                <string>{0,-19}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{112,185},{266,202}}</string>
+                <string>{{3,42},{276,194}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_19.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{756,1642},{264,198}}</string>
+                <string>{{518,1791},{238,180}}</string>
                 <key>offset</key>
-                <string>{-7,-20}</string>
+                <string>{20,-29}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{111,185},{264,198}}</string>
+                <string>{{42,59},{238,180}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
             <key>dragon_upgrade_star_20.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{417,292},{260,162}}</string>
+                <string>{{1681,395},{238,216}}</string>
                 <key>offset</key>
-                <string>{-7,-16}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{113,199},{260,162}}</string>
-                <key>sourceSize</key>
-                <string>{500,528}</string>
-            </dict>
-            <key>dragon_upgrade_star_21.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1140,1640},{240,164}}</string>
-                <key>offset</key>
-                <string>{0,-18}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{130,200},{240,164}}</string>
-                <key>sourceSize</key>
-                <string>{500,528}</string>
-            </dict>
-            <key>dragon_upgrade_star_22.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1041,750},{236,118}}</string>
-                <key>offset</key>
-                <string>{-2,-44}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{130,249},{236,118}}</string>
-                <key>sourceSize</key>
-                <string>{500,528}</string>
-            </dict>
-            <key>dragon_upgrade_star_23.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1949,1165},{94,116}}</string>
-                <key>offset</key>
-                <string>{-48,-48}</string>
+                <string>{21,-8}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{155,254},{94,116}}</string>
+                <string>{{43,20},{238,216}}</string>
                 <key>sourceSize</key>
-                <string>{500,528}</string>
-            </dict>
-            <key>dragon_upgrade_star_24.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{884,1908},{96,116}}</string>
-                <key>offset</key>
-                <string>{-49,-51}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{153,257},{96,116}}</string>
-                <key>sourceSize</key>
-                <string>{500,528}</string>
-            </dict>
-            <key>dragon_upgrade_star_25.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1762,1685},{96,118}}</string>
-                <key>offset</key>
-                <string>{-49,-53}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{153,258},{96,118}}</string>
-                <key>sourceSize</key>
-                <string>{500,528}</string>
-            </dict>
-            <key>dragon_upgrade_star_26.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1930,1575},{90,114}}</string>
-                <key>offset</key>
-                <string>{-48,-55}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{157,262},{90,114}}</string>
-                <key>sourceSize</key>
-                <string>{500,528}</string>
+                <string>{282,240}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -1455,9 +896,9 @@
             <key>realTextureFileName</key>
             <string>dragon_upgrade_fx.png</string>
             <key>size</key>
-            <string>{2046,2026}</string>
+            <string>{2045,2033}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:fa7b9dcbf42713d2504367f24ab304e6:0ca4a2ec857a21e1d0bcea973eaa9677:fff4f5474bc812e938140c39343f242b$</string>
+            <string>$TexturePacker:SmartUpdate:1aa9f606bb1ee995507fa26e4c1d6d2c:09964e19580f82b8a95cef961f5d1f29:fff4f5474bc812e938140c39343f242b$</string>
             <key>textureFileName</key>
             <string>dragon_upgrade_fx.png</string>
         </dict>
