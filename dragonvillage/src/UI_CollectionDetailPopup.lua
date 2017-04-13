@@ -15,6 +15,7 @@ UI_CollectionDetailPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_CollectionDetailPopup:init(l_dragons_item, init_idx)
+    ccdump('UI_CollectionDetailPopup:init(l_dragons_item, init_idx)')
     self.m_lDragonsItem = l_dragons_item
     self.m_currIdx = nil
 
@@ -140,7 +141,7 @@ function UI_CollectionDetailPopup:onChangeDragon()
 
     do -- 능력치
         local dragon_id = t_dragon['did']
-        local lv = 40
+        local lv = 125
         local grade = 6
         local evolution = self:getEvolutionNumber()
         local eclv = 0
@@ -342,7 +343,7 @@ function UI_CollectionDetailPopup:makeDragonData()
 
     local t_dragon_data = {}
     t_dragon_data['did'] = t_dragon['did']
-    t_dragon_data['lv'] = 40
+    t_dragon_data['lv'] = 125
     t_dragon_data['evolution'] = self:getEvolutionNumber()
     t_dragon_data['grade'] = 6
     t_dragon_data['eclv'] = 0

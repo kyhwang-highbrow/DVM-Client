@@ -612,7 +612,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '레벨40';
+					text = '레벨125';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -1148,8 +1148,8 @@
 						dock_point = { 1.000000; 1.000000; };
 						anchor_point = { 1.000000; 1.000000; };
 						relative_size_type = 0;
-						width = 18;
-						height = 18;
+						width = 26;
+						height = 26;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
