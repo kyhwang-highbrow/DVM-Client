@@ -21,7 +21,7 @@ end
 -------------------------------------
 function SkillSpiderWeb:init_skill()
 	PARENT.init_skill(self)
-	local struct_status_effect = StatusEffectHelper:parsingStatusEffectStr(self.m_lStatusEffect[1])
+	local struct_status_effect = self.m_lStatusEffect[1]
 	self.m_statusDuration = struct_status_effect.m_duration
 	self.m_statusName = struct_status_effect.m_type
 
@@ -113,7 +113,7 @@ function SkillSpiderWeb:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	  -- 광역 스킬 리소스
-	
+	cclog('123123123')
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
@@ -132,9 +132,4 @@ function SkillSpiderWeb:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end

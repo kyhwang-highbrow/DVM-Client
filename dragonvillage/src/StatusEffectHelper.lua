@@ -261,10 +261,10 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 		status_effect:init_trigger(target_char, resist_rate)
 
 	----------- 디버프 해제 ------------------
-	elseif isExistValue(status_effect_type, 'cure') then
+	elseif isExistValue(status_effect_type, 'cure', 'remove', 'invalid') then
 		status_effect = StatusEffect_Dispell(res)
-		status_effect:init_status(target_char, status_effect_value)
-	
+		status_effect:init_status(status_effect_type, status_effect_value)
+
 	----------- 특이한 해제 조건을 가진 것들 ------------------
 	elseif isExistValue(status_effect_type, 'sleep') then
 		status_effect = StatusEffect_Trigger_Release(res)
@@ -409,7 +409,6 @@ function StatusEffectHelper:releaseStatusEffectByType(char, status_effect_type)
 	for type, tar_status_effect in pairs(char:getStatusEffectList()) do
 		if (status_effect_type == type) then 
 			tar_status_effect:changeState('end')
-			char:removeStatusEffect(tar_status_effect)
 			break
 		end
 	end
@@ -424,9 +423,10 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt)
 	-- 피격자가 사망했을 경우 리턴
     if (char.m_bDead == true) then return end
 
-	-- 해제
-	local max_release_cnt = max_release_cnt or 1
+	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
+
+	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
         -- 해로운 효과 해제
 		if self:isHarmful(status_effect.m_type) then 
@@ -443,19 +443,31 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt)
 end
 
 -------------------------------------
--- function releaseStatusEffectDebuff
--- @brief 모든 debuff 상태효과 해제
+-- function releaseStatusEffectBuff
+-- @brief n개의 buff 상태효과 해제
+-- @return 해제 여부 boolean
 -------------------------------------
-function StatusEffectHelper:releaseStatusEffectDebuff_All(char)
+function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt)
 	-- 피격자가 사망했을 경우 리턴
     if (char.m_bDead == true) then return end
 
+	local max_release_cnt = max_release_cnt or 32
+	local release_cnt = 0
+
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
-        if self:isHarmful(status_effect.m_type) then 
+        -- 해로운 효과 해제
+		if self:isHelpful(status_effect.m_type) then 
 		    status_effect:changeState('end')
+			release_cnt = release_cnt + 1
         end
+		-- 갯수 체크
+		if (release_cnt >= max_release_cnt) then
+			break
+		end
 	end
+
+	return (release_cnt > 0)
 end
 
 -------------------------------------

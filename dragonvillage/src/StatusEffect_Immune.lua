@@ -19,7 +19,7 @@ end
 -------------------------------------
 function StatusEffect_Immune:init_status(char)
 	self.m_owner = char
-	StatusEffectHelper:releaseStatusEffectDebuff_All(char)
+	StatusEffectHelper:releaseStatusEffectDebuff(char)
 	char:setImmuneSE(true)
 end
 

@@ -78,18 +78,6 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 	elseif (type == 'debuff') then		
 		return TargetRule_getTargetList_debuff(org_list)
 
-	-- 특수
-    --elseif (type == 'fan_shape') then       return TargetRule_getTargetList_fan_shape(org_list, t_data)
-	--elseif (type == 'rectangle') then		return TargetRule_getTargetList_rectangle(org_list, t_data)
-
-	--[[ 미사용
-	elseif (type == 'cp_low') then          return TargetRule_getTargetList_cp_low(org_list)
-	elseif (type == 'cp_high') then         return TargetRule_getTargetList_cp_high(org_list)
-	elseif (type == 'physical_char') then      return TargetRule_getTargetList_charType(org_list, 'physical')
-	elseif (type == 'magical_char') then      return TargetRule_getTargetList_charType(org_list, 'magical')
-	elseif (type == 'front_line') then      return TargetRule_getTargetList_row(FORMATION_FRONT)
-	]]
-
 	else
         error("미구현 Target Rule!! : " .. type)
     end

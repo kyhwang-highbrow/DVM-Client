@@ -53,7 +53,7 @@ function SkillContinuous.st_idle(owner, dt)
 	-- 자기 자신 디버프 해제
 	elseif (owner.m_workingType == 'release_debuff') then
 		local char = owner.m_owner
-		if StatusEffectHelper:releaseStatusEffectDebuff(char) then
+		if StatusEffectHelper:releaseStatusEffectDebuff(char, 1) then
 			owner:makeEffect(owner.m_effectRes, char.pos.x, char.pos.y, 'center_idle')
 		end
 	end

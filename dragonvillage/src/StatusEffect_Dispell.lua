@@ -5,6 +5,7 @@ local PARENT = StatusEffect
 -- @breif 디버프 해제
 -------------------------------------
 StatusEffect_Dispell = class(PARENT, {
+		m_dispellType = 'str',
 		m_releaseCnt = 'number', 
      })
 
@@ -19,7 +20,8 @@ end
 -------------------------------------
 -- function init_status
 -------------------------------------
-function StatusEffect_Dispell:init_status(target_char, status_effect_value)
+function StatusEffect_Dispell:init_status(status_effect_type, status_effect_value)
+	self.m_dispellType = status_effect_type
 	self.m_releaseCnt = status_effect_value
 end
 
@@ -38,13 +40,33 @@ end
 -------------------------------------
 function StatusEffect_Dispell.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner:doCure()
+		if (owner.m_dispellType == 'cure') then
+			owner:dispellDebuff()
+		elseif (owner.m_dispellType == 'remove') then
+			owner:dispellBuff()
+		elseif (owner.m_dispellType == 'invalid') then
+			owner:dispellAll()
+		end
     end
 end
 
 -------------------------------------
--- function doCure
+-- function dispellDebuff
 -------------------------------------
-function StatusEffect_Dispell:doCure()
-	local is_cure = StatusEffectHelper:releaseStatusEffectDebuff(self.m_owner, self.m_releaseCnt)
+function StatusEffect_Dispell:dispellDebuff()
+	StatusEffectHelper:releaseStatusEffectDebuff(self.m_owner, self.m_releaseCnt)
+end
+
+-------------------------------------
+-- function dispellBuff
+-------------------------------------
+function StatusEffect_Dispell:dispellBuff()
+	StatusEffectHelper:releaseStatusEffectBuff(self.m_owner, self.m_releaseCnt)
+end
+
+-------------------------------------
+-- function dispellAll
+-------------------------------------
+function StatusEffect_Dispell:dispellAll()
+	StatusEffectHelper:releaseStatusEffectAll(self.m_owner, self.m_releaseCnt)
 end
