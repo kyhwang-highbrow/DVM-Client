@@ -531,8 +531,22 @@ function IDragonSkillManager:substituteSkillDesc(t_skill)
 end
 
 -------------------------------------
+-- function getSkillDescWithSubstituted
+-- @brief 스킬 설명 리턴
+-- @comment 날것의 스킬 테이블 사용, 내부에서 임의로 t_skill을 복사한후 substitute한다.
+-------------------------------------
+function IDragonSkillManager:getSkillDescWithSubstituted(t_skill)
+	local t_skill = clone(t_skill)
+	IDragonSkillManager:substituteSkillDesc(t_skill)
+
+    local desc = Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
+    return desc
+end
+
+-------------------------------------
 -- function getSkillDescPure
 -- @brief 스킬 설명 리턴
+-- @comment individual_info에서 재조립된 스킬테이블 사용
 -------------------------------------
 function IDragonSkillManager:getSkillDescPure(t_skill)
     local desc = Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])

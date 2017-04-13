@@ -202,7 +202,7 @@ function UI_Tooltip_Skill:getSkillDescStr(char_type, skill_id, skill_type)
 
     local skill_type_str = getSkillTypeStr(skill_type, true)
 
-    local desc = IDragonSkillManager:getSkillDescPure(t_skill)
+    local desc = IDragonSkillManager:getSkillDescWithSubstituted(t_skill)
 
     local str = '{@SKILL_NAME} ' .. t_skill['t_name'] .. skill_type_str .. '\n {@SKILL_DESC}' .. desc
     return str

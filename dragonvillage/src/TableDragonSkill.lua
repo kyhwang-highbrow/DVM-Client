@@ -48,7 +48,7 @@ end
 function TableDragonSkill:getSkillDesc(key)
 	if (not key) or (key == '') then return end
     local t_skill = self:get(key)
-    local desc = IDragonSkillManager:getSkillDescPure(t_skill)
+    local desc = IDragonSkillManager:getSkillDescWithSubstituted(t_skill)
     return desc
 end
 
