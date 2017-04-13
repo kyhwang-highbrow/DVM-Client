@@ -237,7 +237,7 @@
 					lua_name = 'easyLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '쉬움';
+					text = '보통';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 243; 236; 225; };
@@ -301,7 +301,7 @@
 					lua_name = 'normalLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '보통';
+					text = '어려움';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 243; 236; 225; };

@@ -89,7 +89,7 @@
 				
 				0:
 				[
-					"132032;1;Appear;BOSS;RM24;3;roam"
+					"132022;1;Appear;BOSS;RM24;3;roam"
 				],
 				
 				1:

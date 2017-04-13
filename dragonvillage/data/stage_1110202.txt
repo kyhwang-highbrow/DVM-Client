@@ -80,7 +80,7 @@
             {
 				0:
 				[
-					"132012;1;Basic;BOSS;RB14;3;roam"
+					"132022;1;Basic;BOSS;RB14;3;roam"
 				],
 				
 				0.2:

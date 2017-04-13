@@ -92,7 +92,7 @@
             {				
 				0:
 				[
-					"132022;10;Basic;BOSS;RM24;0.5;roam"
+					"132032;10;Basic;BOSS;RM24;0.5;roam"
 				],
 				
 				0.5:

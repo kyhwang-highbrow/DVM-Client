@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_canyon",
+    "bg":"map_ocean2",
 	"wave":
 	[
         {
@@ -11,51 +11,48 @@
                 "pos_x":0,
                 "pos_y":0
             },
-			
-			
             "wave":
             {
 				0:
 				[
-					"130011;1;Basic2;RB25;RF13;2"
-					"130013;1;Basic2;RB23;RF15;2"
-					"130021;1;Basic2;RM17;RM12;2"
-					"130023;1;Basic2;RM11;RM16;2"
-					"131061;1;Basic2;RF14;RB14;2"
+					"131012;1;Basic;RO04;RM14;1"
+				],
+				
+				2:
+				[
+					"130012;1;Appear;RO02;RF12;0.5"
+					"130012;1;Appear;RO06;RF16;0.5"
+					"130032;1;Appear;RO01;RB13;0.5"
+					"130032;1;Appear;RO07;RB15;0.5"
 				]
             }
         },
-		
-      	{   
-		    "idx":2,
+        {
+            "idx":2,
 			"camera":
             {
                 "scale":1,
                 "pos_x":0,
                 "pos_y":0
             },
-			
-			
-			"wave":
+            "wave":
             {
                 0:
                 [
-					"130011;1;Basic2;RB13;RF13;1.5"
-					"130011;1;Basic2;RM24;RF24;1.5"
-					"130011;1;Basic2;RB15;RF15;1.5"
-					"130023;1;Basic2;RF13;RB13;1.5"
-					"131061;1;Basic2;RF24;RM24;1.5"
-					"130023;1;Basic2;RF15;RB15;1.5"
+					"130012;1;Basic2;RB12;RF12;2"
+					"130012;1;Basic2;RF12;RF16;2"
+					"131012;1;Basic2;RF16;RB16;2"
+					"131012;1;Basic2;RB16;RB12;2"
 				],
 				
-				2:
-                [	
-					"131061;1;Basic2;RM16;RM12;1.5"
-					"131061;1;Basic2;RM12;RM16;1.5"
+				2.2:
+				[
+					"131012;1;Appear;RO04;RM14;0.5"
 				]
             }
         },
-		{   
+		
+        {
             "idx":3,
 			"camera":
             {
@@ -63,95 +60,30 @@
                 "pos_x":0,
                 "pos_y":0
             },
-			
-			"wave":
+            "wave":
             {
-                0:
-                [
-					"132051;1;Basic;RO07;RB24;1"
+				0:
+				[
+					"132012;1;Basic;BOSS;RB14;3;roam"
 				],
 				
-				1:
-                [	
-					"130011;1;Appear;RO02;RF12;0.5"
-					"130013;1;Appear;RO04;RF24;0.5"
-					"130011;1;Appear;RO06;RF16;0.5"
+				0.2:
+				[
+					"131012;1;Basic;RO04;RM21;0.5"
+					"131012;1;Basic;RO04;RM27;0.5"
 				],
 				
-				1.5:
-                [
-					"131061;1;Basic;TO08;RM21;0.5"
-					"131061;1;Basic;BO08;RM27;0.5"
+				0.4:
+				[
+					"130012;1;Appear;RO04;RF22;0.5"
+					"130012;1;Appear;RO04;RF26;0.5"
 				]
             }
-        }		
+        }
     ],
 	
 	"move":
 	{
-		1:
-		[
-			[
-				"wait;7",
-				"move_1;0.5", "wait;2",
-				"move_6;3", "wait;2",
-				"move_7;3", "wait;2",
-				"move_2;3", "wait;2",
-				"move_6;3", "wait;2",
-				"move_7;3", "wait;2",
-				"move_1;3", "wait;2",
-				"move_2;5", "wait;2",
-				"move_1;3", "wait;2",
-				"RM14;2",
-				"c3_s1_1;2",
-				"wait;3"
-			]
-		],
 		
-		2:
-		[
-			[
-				"wait;7",
-				"move_9;3", "wait;2",
-				"move_9_r;3", "wait;2",
-				"move_9;3", "wait;2",
-				"move_9_r;3", "wait;2",
-				"move_8;3", "wait;2",
-				"move_8_r2;3", "wait;2",
-				"move_8;3", "wait;2",
-				"move_8_r2;3", "wait;2",
-				"move_9_r;3", "wait;2",
-				"move_9;3", "wait;2",
-				"move_9_r;3", "wait;2",
-				"move_9;3", "wait;2",
-				"move_8_r2;3", "wait;2",
-				"move_8;3", "wait;2",
-				"move_8_r2;3", "wait;2",
-				"move_8;3", "wait;2",
-				"c3_s1_2;2",
-				"wait;3"
-			]
-		],
-		
-		3:
-		[
-			[
-				"wait;7",
-				"move_10;2", "wait;1",
-				"move_10_t1;2",
-				"move_10_t2;2",
-				"move_10_t3;2",
-				"move_10_t4;2",
-				"move_10_t5;2",
-				"move_10;2", "wait;10",
-				"move_10_t5;2",
-				"move_10_t4;2",
-				"move_10_t3;2",
-				"move_10_t2;2",
-				"move_10_t1;2",
-				"c3_s1_3;2",
-				"wait;3"
-			]
-		]
 	}
 }

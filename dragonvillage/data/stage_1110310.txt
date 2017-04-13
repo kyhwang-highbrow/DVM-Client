@@ -102,7 +102,7 @@
 				[
 					"130051;1;Appear;RO03;RB21;0.5;roam"
 					"130051;1;Appear;RO05;RB27;0.5;roam"
-					"132061;1;Basic;BOSS;RM24;2;roam"
+					"132013;1;Basic;BOSS;RM24;2;roam"
 				]
             }
         }

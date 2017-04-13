@@ -89,7 +89,7 @@
 					"130014;3;Basic2;RF14;RF14;3"
 					"131053;3;Basic2;RF24;RM12;3"
 					"131053;3;Basic2;RM14;RM16;3"
-					"132052;3;Basic2;RM24;RB14;3;roam"
+					"132014;3;Basic2;RM24;RB14;3;roam"
 					"130044;3;Basic2;RB14;RB21;3;roam"
 					"130044;3;Basic2;RB24;RB27;3;roam"
 				]

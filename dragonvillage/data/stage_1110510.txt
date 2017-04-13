@@ -92,12 +92,16 @@
             {
 				0:	
 				[
-					"132024;1;Basic2;RF14;RM22;2;roam"
+					"131043;1;Basic2;RF12;RB22;3"
+					"131111;1;Basic2;RF14;RB24;3"
+					"131052;1;Basic2;RF16;RB26;3"
 				],
 				
-				3:
+				1:
 				[
-					"132024;1;Appear;RO04;RM26;0.5;roam"
+					"130014;1;Appear;RO01;RF21;0.5;roam"
+					"132052;10;Appear;RO04;RF24;0.5;roam"
+					"130014;1;Appear;RO07;RF27;0.5;roam"
 				]
             }
         }
