@@ -557,7 +557,7 @@ function UI_AdventureSceneNew:refreshFirstReward(stage_id)
     end
 
     local ui = UI_AdventureFirstRewardButton(stage_id)
-    ui.root:setPosition(90, 30)
+    ui.root:setPosition(75, 15)
     
     self.m_lFirstRewardButtons[stage] = ui
     self.vars['stageDock0' .. stage]:addChild(ui.root)
