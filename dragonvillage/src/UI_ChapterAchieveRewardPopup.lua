@@ -18,9 +18,9 @@ function UI_ChapterAchieveRewardPopup:init(chapter_id, star)
     local t_chap_achieve_data = g_adventureData:getChapterAchieveData(chapter_id)
     local item_package_str = t_chap_achieve_data['reward_' .. star]
 
-    self:setRewardItemCardList_byItemPackageStr(item_package_str)
-
-    local chapter_achieve_info = g_adventureData:getChapterAchieveInfo(chapter_id)
+    if item_package_str then
+        self:setRewardItemCardList_byItemPackageStr(item_package_str)
+    end
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ChapterAchieveRewardPopup')

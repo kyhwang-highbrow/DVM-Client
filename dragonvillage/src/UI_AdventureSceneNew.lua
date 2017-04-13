@@ -98,9 +98,9 @@ function UI_AdventureSceneNew:initButton()
     end
 
     -- 챕터 별 달성 보상
-    vars['starBoxBtn8']:registerScriptTapHandler(function() self:click_starBoxBtn(8) end)
-    vars['starBoxBtn16']:registerScriptTapHandler(function() self:click_starBoxBtn(16) end)
+    vars['starBoxBtn12']:registerScriptTapHandler(function() self:click_starBoxBtn(12) end)
     vars['starBoxBtn24']:registerScriptTapHandler(function() self:click_starBoxBtn(24) end)
+    vars['starBoxBtn36']:registerScriptTapHandler(function() self:click_starBoxBtn(36) end)
 end
 
 -------------------------------------
@@ -392,7 +392,7 @@ function UI_AdventureSceneNew:refresh_MissionReward()
     local percentage = chapter_achieve_info:getAchievedStarsPercent()
     vars['starBoxGg']:setPercentage(percentage)
     
-    local l_star_sction = {8, 16, 24}
+    local l_star_sction = {12, 24, 36}
     for i,star in ipairs(l_star_sction) do
         local state = chapter_achieve_info:getRewardBoxState(star)
 

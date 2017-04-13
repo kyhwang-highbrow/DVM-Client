@@ -5,9 +5,13 @@
 StructAdventureChapterAchieveInfo = class({
         chapter_id = 'number',
         star = 'number',
+        received_12 = 'boolean',
+        received_24 = 'boolean',
+        received_36 = 'boolean',
+
+        -- 서버 업뎃 후 삭제 예정
         received_8 = 'boolean',
         received_16 = 'boolean',
-        received_24 = 'boolean',
     })
 
 -------------------------------------
@@ -41,7 +45,7 @@ end
 -------------------------------------
 function StructAdventureChapterAchieveInfo:getAchievedStarsPercent()
     local stars = self:getAchievedStars()
-    local max = 24
+    local max = 36
 
     local percent = (stars / max) * 100
     return percent
