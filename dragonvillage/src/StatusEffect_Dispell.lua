@@ -30,7 +30,7 @@ end
 -------------------------------------
 function StatusEffect_Dispell:initState()
     self:addState('start', StatusEffect_Dispell.st_start, 'center_start', false)
-    self:addState('idle', StatusEffect_Dispell.st_idle, 'center_idle', true)
+    self:addState('idle', StatusEffect_Dispell.st_idle, 'center_idle', false)
     self:addState('end', StatusEffect_Dispell.st_end, 'center_end', false)
     self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
@@ -40,6 +40,7 @@ end
 -------------------------------------
 function StatusEffect_Dispell.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
+		-- 디스펠 시전
 		if (owner.m_dispellType == 'cure') then
 			owner:dispellDebuff()
 		elseif (owner.m_dispellType == 'remove') then
@@ -47,11 +48,17 @@ function StatusEffect_Dispell.st_idle(owner, dt)
 		elseif (owner.m_dispellType == 'invalid') then
 			owner:dispellAll()
 		end
+
+		-- 애니 1회 동작후 종료
+		owner.m_animator:addAniHandler(function()
+			owner:changeState('end')
+		end)
     end
 end
 
 -------------------------------------
 -- function dispellDebuff
+-- @brief 디버프 해제
 -------------------------------------
 function StatusEffect_Dispell:dispellDebuff()
 	StatusEffectHelper:releaseStatusEffectDebuff(self.m_owner, self.m_releaseCnt)
@@ -59,6 +66,7 @@ end
 
 -------------------------------------
 -- function dispellBuff
+-- @brief 버프 해제
 -------------------------------------
 function StatusEffect_Dispell:dispellBuff()
 	StatusEffectHelper:releaseStatusEffectBuff(self.m_owner, self.m_releaseCnt)
@@ -66,7 +74,8 @@ end
 
 -------------------------------------
 -- function dispellAll
+-- @brief 전부 해제, 버프 숫자도 제한이 없다.
 -------------------------------------
 function StatusEffect_Dispell:dispellAll()
-	StatusEffectHelper:releaseStatusEffectAll(self.m_owner, self.m_releaseCnt)
+	StatusEffectHelper:releaseStatusEffectAll(self.m_owner)
 end
