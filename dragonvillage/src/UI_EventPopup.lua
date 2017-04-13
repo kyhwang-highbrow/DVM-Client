@@ -64,11 +64,32 @@ function UI_EventPopup:init_tableView()
 
     -- 생성 콜백
     local function create_func(ui, data)
+
+        local res
+        if (data.m_type == 'birthday_calendar') then
+            res = 'res/ui/event/icon_birthday_01.png'
+
+        elseif (data.m_type == 'attendance_basic_newbie') then
+            res = 'res/ui/event/icon_attendence_02.png'
+
+        elseif (data.m_type == 'attendance_event_open_event') then
+            res = 'res/ui/event/icon_attendence_01.png'
+
+        end
+
+        if res then
+            local icon = cc.Sprite:create(res)
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            ui.vars['iconNode']:removeAllChildren()
+            ui.vars['iconNode']:addChild(icon)
+        end
+
+        
     end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(250, 110 + 5)
+    table_view.m_defaultCellSize = cc.size(264, 104 + 5)
     table_view:setCellUIClass(UI_EventPopupTabButton, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
