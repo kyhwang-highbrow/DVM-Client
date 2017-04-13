@@ -16,9 +16,6 @@ function StageMissionMgr:init(log_recorder, stage_id)
 
 	-- 드롭테이블과 서버데이터에서 스테이지 미션 정보 받아옴
 	self:init_missionList(stage_id)
-
-	-- 미션 체크
-	--self:checkMission()
 end
 
 -------------------------------------
@@ -54,8 +51,7 @@ function StageMissionMgr:checkMission()
 			local mission_value = t_mission['mission_value']
 			local mission_value2 = t_mission['mission_value2']
 			local achieve_data = self.m_logRecorder:getLog(mission_key)
-			cclog(mission_key, mission_value, mission_value2)
-			ccdump(achieve_data)
+
 			self:checkMissionCondition(t_mission, mission_key, mission_value, mission_value2, achieve_data)
 		end
 	end
