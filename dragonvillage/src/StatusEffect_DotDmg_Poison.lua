@@ -12,6 +12,6 @@ StatusEffect_DotDmg_Poison = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect_DotDmg_Poison:init(file_name, body)
-	self.m_trigger = 'hit'
+	self.m_trigger = 'char_do_atk'
 end
 

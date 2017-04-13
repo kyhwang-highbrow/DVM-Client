@@ -826,6 +826,8 @@ function Character:doAttack(x, y)
             local basic_skill_id = self:getSkillID('basic')
             self:doSkill(basic_skill_id, x, y)
         end
+
+		self:dispatch('char_do_atk')
     end
 
     -- 예약된 스킬 정보 초기화
@@ -2045,11 +2047,6 @@ function Character:restore(restore_speed)
     -- 제 위치로 
 	if (self.pos.x ~= self.m_homePosX) then
 		self:setMoveHomePos(speed)
-	end
-
-	-- Visible On
-	if (self.m_animator) and (not self.m_animator:isVisible()) then
-		self.m_animator:setVisible(true)
 	end
 
     -- 경직 가능 상태 설정
