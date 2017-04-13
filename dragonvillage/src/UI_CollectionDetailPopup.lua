@@ -99,18 +99,18 @@ function UI_CollectionDetailPopup:onChangeDragon()
 
     local vars = self.vars
 
+
     -- 드래곤 이름
     vars['nameLabel']:setString(Str(t_dragon['t_name']))
 
-    do -- 드래곤 이미지 배경
+    -- 배경
+    local attr = t_dragon['attr']
+    if self:checkVarsKey('bgNode', attr) then    
         vars['bgNode']:removeAllChildren()
-        local attr = t_dragon['attr']
-        local res = 'res/bg/ui/collection_bg_' .. attr .. '.png'
-        local sprite = cc.Sprite:create(res)
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        vars['bgNode']:addChild(sprite)
-    end
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end   
+
 
     do -- 희귀도
         local rarity = t_dragon['rarity']
@@ -138,21 +138,6 @@ function UI_CollectionDetailPopup:onChangeDragon()
 
         vars['roleLabel']:setString(dragonRoleName(role_type))
     end    
-
-    do -- 능력치
-        local dragon_id = t_dragon['did']
-        local lv = 125
-        local grade = 6
-        local evolution = self:getEvolutionNumber()
-        local eclv = 0
-
-        -- 능력치 계산기
-        local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
-
-        vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
-        vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
-        vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
-    end
 
     do -- 인연 포인트
         -- 드래곤 아이콘
@@ -187,6 +172,7 @@ function UI_CollectionDetailPopup:onChangeEvolution()
     end
 
     local vars = self.vars
+    local t_dragon_data = self:makeDragonData()
 
     do -- 드래곤 인게임 리소스
         vars['dragonNode']:removeAllChildren()
@@ -197,8 +183,22 @@ function UI_CollectionDetailPopup:onChangeEvolution()
         vars['dragonNode']:addChild(animator.m_node)
     end
 
+    
+    do -- 능력치 계산기
+        local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
+        vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
+        vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
+        vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
+        vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
+        vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
+        vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
+        vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
+        vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
+        vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+    end
+
     do -- 스킬 아이콘 생성
-        local t_dragon_data = self:makeDragonData()
+        vars['cp_label']:setString(comma_value(t_dragon_data:getCombatPower()))
 
         -- 스킬 상세정보 팝업
         local function func_skill_detail_btn()
@@ -301,9 +301,7 @@ end
 -- @brief 드래곤 상세 보기 팝업
 -------------------------------------
 function UI_CollectionDetailPopup:click_detailBtn()
-    local t_dragon_data = self:makeDragonData()
-
-    UI_DragonDetailPopup(t_dragon_data)
+    self.vars['detailNode']:runAction(cc.ToggleVisibility:create())
 end
 
 -------------------------------------
@@ -341,9 +339,11 @@ function UI_CollectionDetailPopup:makeDragonData()
         return nil
     end
 
+    local grade = self:getEvolutionNumber()
+
     local t_dragon_data = {}
     t_dragon_data['did'] = t_dragon['did']
-    t_dragon_data['lv'] = 125
+    t_dragon_data['lv'] = TableGradeInfo:getMaxLv(grade)
     t_dragon_data['evolution'] = self:getEvolutionNumber()
     t_dragon_data['grade'] = 6
     t_dragon_data['eclv'] = 0
@@ -353,7 +353,7 @@ function UI_CollectionDetailPopup:makeDragonData()
     t_dragon_data['skill_2'] = (t_dragon_data['evolution'] >= 2) and 1 or 0
     t_dragon_data['skill_3'] = (t_dragon_data['evolution'] >= 3) and 1 or 0
     
-    return t_dragon_data
+    return StructDragonObject(t_dragon_data)
 end
 
 -------------------------------------
