@@ -1935,6 +1935,12 @@
     <None Include="..\src\StatusEffect_DotDmg_Burn.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_ScenarioPlayer.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ScenarioPlayer_Character.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

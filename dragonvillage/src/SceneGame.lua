@@ -222,11 +222,24 @@ end
 -- function prepareDone
 -------------------------------------
 function SceneGame:prepareDone()
-    self.m_scheduleNode = cc.Node:create()
-    self.m_scene:addChild(self.m_scheduleNode)
-    self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+    local function start()
+        self.m_containerLayer:setVisible(true)
+        self.m_scheduleNode = cc.Node:create()
+        self.m_scene:addChild(self.m_scheduleNode)
+        self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
     
-    self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
+        self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
+    end
+    
+    -- 임시 시나리오
+    if (self.m_stageID == 1110101) then
+        self.m_containerLayer:setVisible(false)
+        local ui = UI_ScenarioPlayer(1110101)
+        ui:setCloseCB(start)
+        return 
+    end
+
+    start()
 end
 
 -------------------------------------
