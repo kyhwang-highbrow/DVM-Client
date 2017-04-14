@@ -1,0 +1,10 @@
+key,r_desc,type,res
+누리,누리 일러스트 리소스,tamer_i,res/character/tamer/nuri_i/nuri_i.spine
+모코지,모코지 일러스트 리소스,tamer_i,res/character/tamer/mokoji_i/mokoji_i.spine
+케사스,케사스 일러스트 리소스,tamer_i,res/character/tamer/kesath_i/kesath_i.spine
+고니,고니 일러스트 리소스,tamer_i,res/character/tamer/goni_i/goni_i.spine
+두른,두른 일러스트 리소스,tamer_i,res/character/tamer/durun_i/durun_i.spine
+데데,데데 일러스트 리소스,tamer_i,res/character/tamer/dede_i/dede_i.spine
+부엉이,부엉이 몬스터,monster,res/scene/stage1_owl.png
+스테이지1,,bg,res/bg/ui/dragon_bg_earth/dragon_bg_earth.vrp
+스테이지6,,bg,res/scene/ch12_bg.png
