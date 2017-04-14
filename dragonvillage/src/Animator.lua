@@ -474,6 +474,15 @@ function Animator:addChild(node)
 end
 
 -------------------------------------
+-- function addChild
+-------------------------------------
+function Animator:setLocalZOrder(z_order)
+    if self.m_node then
+        return self.m_node:setLocalZOrder(z_order)
+    end
+end
+
+-------------------------------------
 -- function printAnimatorError
 -------------------------------------
 function Animator:printAnimatorError()

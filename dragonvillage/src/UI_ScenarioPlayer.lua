@@ -32,6 +32,39 @@ function UI_ScenarioPlayer:init(scenario_name)
     self:loadScenario(scenario_name)
     self.m_maxPage = table.count(self.m_scenarioTable)
 
+    do -- 레이어 순서 정리
+        local depth = 100
+
+        vars['skipBtn']:setLocalZOrder(depth)
+        depth = (depth -1)
+
+        vars['nextBtn']:setLocalZOrder(depth)
+        depth = (depth -1)
+
+        vars['nextVisual']:setLocalZOrder(depth)
+        depth = (depth -1)
+
+        vars['titleNode']:setLocalZOrder(depth)
+        depth = (depth -1)
+
+        vars['layerColor']:setLocalZOrder(depth)
+        depth = (depth -1)
+
+        vars['layerColor']:setLocalZOrder(depth)
+        depth = (depth -1)
+
+        vars['textMomoSprite1']:setLocalZOrder(depth)
+        vars['textMomoSprite2']:setLocalZOrder(depth)
+        vars['talkSprite1']:setLocalZOrder(depth)
+        vars['talkSprite2']:setLocalZOrder(depth)
+        depth = (depth -1)
+
+        vars['nameNode2']:setLocalZOrder(depth)
+        vars['nameNode1']:setLocalZOrder(depth)
+        depth = (depth -1)
+    end
+
+
     -- 캐릭터 관련
     self.m_mCharacter = {}
     self.m_mCharacter['left'] = UI_ScenarioPlayer_Character('left', vars['tamerNode1'], vars['nameNode1'], vars['nameLabel1'], vars['talkSprite1'], vars['talkLabel1'])

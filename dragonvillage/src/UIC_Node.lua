@@ -144,3 +144,7 @@ end
 function UIC_Node:registerScriptHandler(func)
     return self.m_node:registerScriptHandler(func)
 end
+
+function UIC_Node:setLocalZOrder(z_order)
+    return self.m_node:setLocalZOrder(z_order)
+end
