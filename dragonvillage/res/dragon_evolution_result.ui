@@ -972,7 +972,7 @@
 				text = '드래곤의 스킬이 잠금해제 되었습니다!';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 162; 230; 0; };
 				opacity = 255;
 				dimension_width = 630;
 				dimension_height = 70;

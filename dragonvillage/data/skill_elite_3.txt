@@ -8,7 +8,7 @@
 			{
 				"idx":1,
 				"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
-				"body":[0,0,3],
+				"body":[0,0,4],
                 "count":1,
                 "period":0.1,
                 "scale":0.2,

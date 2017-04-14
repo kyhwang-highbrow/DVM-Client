@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_dark_castle",
+    "bg":"map_sky_temple",
 	"wave":
 	[
         {

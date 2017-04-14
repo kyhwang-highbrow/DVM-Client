@@ -969,10 +969,10 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
-				text = '스킬레벨 최대치가 10 증가하였습니다!';
+				text = '스킬 강화 최대치가 10 증가하였습니다!';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 162; 230; 0; };
 				opacity = 255;
 				dimension_width = 630;
 				dimension_height = 70;

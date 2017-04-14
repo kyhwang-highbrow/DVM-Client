@@ -23,7 +23,7 @@ qid,key,t_desc,type,unit,max_cnt,reward_max_cnt,reward,score
 20011,d_evup,드래곤 진화 {1}번 시키기,challenge,10,20,5,cash:200,20
 20012,r_lv15cnt,룬 15레벨까지 강화 {1}번 하기,challenge,3,5,5,cash:1000,20
 20013,d_eclv6cnt,{1}마리의 드래곤을 6번 초월시키기,challenge,1,10,1,cash:1000,20
-20014,d_flv10cnt,{1} 마리의 드래곤을 친밀도 등급을 최대치까지 올리기,challenge,1,10,1,cash:1000,20
+20014,d_flv10cnt,드래곤 {1} 마리의 친밀도를 최대 등급까지 올리기,challenge,1,10,1,cash:1000,20
 30001,norm_play,모험 모드 {1}번 플레이하기,daily,10,1,1,staminas_st:50,5
 30002,nm_play,악몽던전 {1}번 플레이하기,daily,1,1,1,gold:7000,5
 30003,tree_play,거목 던전 {1}번 플레이하기,daily,1,1,1,gold:7000,5

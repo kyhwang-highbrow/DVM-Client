@@ -69,9 +69,9 @@
             {
                 0:
                 [
-					"130011;2;Appear;RO02;RF23;0.5"
-					"130011;2;Appear;RO06;RF25;0.5"
-					"132021;10;Basic;RO06;RB14;2;roam"
+					"130011;1;Appear;RO02;RF23;0.5"
+					"130011;1;Appear;RO06;RF25;0.5"
+					"132021;1;Basic;RO06;RB14;2;roam"
                 ]
             }
         }		
