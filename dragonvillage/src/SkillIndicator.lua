@@ -371,6 +371,7 @@ function SkillIndicator:setIndicatorDataByChar(char)
     self.m_targetPosX = x
     self.m_targetPosY = y
     self.m_targetChar = char
+    self.m_bDirty = true
 end
 
 -------------------------------------
