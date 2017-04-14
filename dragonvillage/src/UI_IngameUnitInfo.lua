@@ -44,7 +44,8 @@ function UI_IngameUnitInfo:initUI()
     end
 
     if (vars['levelLabel']) then
-        local lv = enemy.m_lv
+		-- @TODO level 임시로 찍지 않도록 함
+        local lv = ''--enemy.m_lv
         vars['levelLabel']:setString(lv)
     end
 
