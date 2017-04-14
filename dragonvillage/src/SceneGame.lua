@@ -232,9 +232,10 @@ function SceneGame:prepareDone()
     end
     
     -- 임시 시나리오
-    if (self.m_stageID == 1110101) then
+    local scenario_name = TableStageDesc:getScenarioName(self.m_stageID, 'snro_start')
+    if scenario_name then
         self.m_containerLayer:setVisible(false)
-        local ui = UI_ScenarioPlayer(1110101)
+        local ui = UI_ScenarioPlayer(scenario_name)
         ui:setCloseCB(start)
         return 
     end

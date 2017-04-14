@@ -21,7 +21,7 @@ UI_ScenarioPlayer = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ScenarioPlayer:init(scenario_id)
+function UI_ScenarioPlayer:init(scenario_name)
     local vars = self:load('scenario_talk.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -29,7 +29,7 @@ function UI_ScenarioPlayer:init(scenario_id)
     g_currScene:pushBackKeyListener(self, function() self:click_skip() end, 'UI_ScenarioPlayer')
 
     self.m_currPage = 0
-    self:loadScenario(scenario_id)
+    self:loadScenario(scenario_name)
     self.m_maxPage = table.count(self.m_scenarioTable)
 
     -- 캐릭터 관련
@@ -65,8 +65,8 @@ end
 -------------------------------------
 -- function loadScenario
 -------------------------------------
-function UI_ScenarioPlayer:loadScenario(scenario_id)
-    local filename = 'scenario_' .. scenario_id
+function UI_ScenarioPlayer:loadScenario(scenario_name)
+    local filename = scenario_name
     local content = TABLE:loadTableFile(filename, '.csv')
 
     local header = {}
@@ -187,7 +187,9 @@ function UI_ScenarioPlayer:showPage()
         if (t_page['char'] and t_page['char_pos']) then
             self.m_mCharacter[t_page['char_pos']]:setCharacter(t_page['char'])
 
-            self.m_mCharacter[t_page['char_pos']]:setCharText(Str(t_page['t_text']))
+            if t_page['t_text'] then
+                self.m_mCharacter[t_page['char_pos']]:setCharText(Str(t_page['t_text']))
+            end
 
             if t_page['t_char_name'] then
                 self.m_mCharacter[t_page['char_pos']]:setCharName(Str(t_page['t_char_name']))
@@ -204,6 +206,11 @@ function UI_ScenarioPlayer:showPage()
             local action = cc.Sequence:create(cc.DelayTime:create(t_page['auto_skip']), cc.CallFunc:create(function() self:next() end))
             self.m_autoSkipActionNode:runAction(action)
         end
+    end
+
+    do -- 이전에 disable시킨 것 해제
+        self.m_bSkipEnalbe = true
+        self.vars['skipBtn']:setVisible(true)
     end
 
     self:applyEffect(t_page['effect_1'])
@@ -226,7 +233,16 @@ function UI_ScenarioPlayer:applyEffect(effect)
 
     local vars = self.vars
 
-    if effect == 'whiteblack' then
+    if (effect == 'flash') then
+        vars['layerColor']:setColor(cc.c3b(255,255,255))
+        vars['layerColor']:setOpacity(255)
+        vars['layerColor']:runAction(cc.FadeOut:create(0.3))
+
+    elseif (effect == 'shaking') then
+        self:doShake()
+
+
+    elseif effect == 'whiteblack' then
         vars['layerColor']:setColor(cc.c3b(255,255,255))
         vars['layerColor']:setOpacity(0)
         vars['layerColor']:runAction(cc.FadeTo:create(0.3, 255))
@@ -339,4 +355,26 @@ function UI_ScenarioPlayer:effect_title(effect, val_1, val_2, val_3)
 
     local action = cc.Sequence:create(cc.FadeIn:create(0.5), cc.DelayTime:create(2), cc.FadeOut:create(0.5), cc.Hide:create())
     self.m_titleUI.root:runAction(action)
+end
+
+-------------------------------------
+-- function doShake
+-------------------------------------
+function UI_ScenarioPlayer:doShake()
+	-- 1. 변수 설정
+    local duration = duration or 0.5
+	local is_repeat = is_repeat or false
+    local interval =  interval or 0.2
+    local x, y = 50, 50
+
+	-- 2. 기존에 있던 액션 중지
+    --self:stopShake()
+    self.root:stopAllActions()
+
+	-- 3. 새로운 액션 설정 
+    local start_action = cc.MoveTo:create(0, cc.p(x, y))
+    local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), interval)
+	local sequence_action = cc.Sequence:create(start_action, end_action)
+
+    self.root:runAction(sequence_action)
 end

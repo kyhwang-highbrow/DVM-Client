@@ -113,3 +113,25 @@ function TableStageDesc:getRecommendedCombatPower(stage_id)
     local recomm_power = self:getValue(stage_id, 'recomm_power')
     return recomm_power
 end
+
+-------------------------------------
+-- function getScenarioName
+-- @brief
+-------------------------------------
+function TableStageDesc:getScenarioName(stage_id, trriger)
+    if (self == THIS) then
+        self = THIS()
+    end
+    
+    local t_table = self:get(stage_id)
+    if (not t_table) then
+        return
+    end
+
+    local scenario_name = t_table[trriger]
+    if (scenario_name == '') then
+        return nil
+    end
+
+    return scenario_name
+end
