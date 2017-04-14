@@ -144,6 +144,10 @@
         "ANGLE_LIMIT" : 60,
         "LONG_LENGTH" : 2048,
         
+        // #SkillAoeSquare_Charge
+        "AS_CHARGE_SPEED" : 5000,               // 돌진(돌격) 속도
+        "AS_COMEBACK_SPEED" : 1500,             // 돌진(돌격) 종료 후 제자리 위치 하는 속도
+        
         // # SkillAoeCone
         "CONE_RANGE" : 360,
         

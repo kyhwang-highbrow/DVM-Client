@@ -1,5 +1,10 @@
 local PARENT = class(Skill, IStateDelegate:getCloneTable())
 
+local SPEED_SET = 200
+local SPEED_COLLISION = 70
+local SPEED_MOVE = 1500
+local SPEED_COMEBACK = 1500
+
 -------------------------------------
 -- class SkillCharge
 -------------------------------------
@@ -24,11 +29,6 @@ SkillCharge = class(PARENT, {
 function SkillCharge:init(file_name, body, ...)    
 end
 
-local SPEED_SET = 200
-local SPEED_COLLISION = 70
-local SPEED_MOVE = 1500
-local SPEED_COMEBACK = 1500
-
 -------------------------------------
 -- function init_skill
 -------------------------------------
@@ -42,7 +42,7 @@ function SkillCharge:init_skill(animation_name, effect_res, attack_count)
 	self.m_preCollisionTime = 0
 	
 	local pos_x
-	if self.m_owner.m_bLeftFormation then
+	if (self.m_owner.m_bLeftFormation) then
 		pos_x = 2000
 		self.m_atkPhysPosX = self.m_owner.body.size * 3
 	else
@@ -87,7 +87,6 @@ function SkillCharge.st_ready(owner, dt)
 		char.m_animator:changeAni(owner.m_animationName .. '_appear', false) 
 		char.m_animator:addAniHandler(function() 
 			owner:changeState('charge')
-			char:setMove(owner.m_chargePos.x ,owner.m_chargePos.y, SPEED_MOVE)
 		end)	 
 	end
 end
@@ -100,9 +99,11 @@ function SkillCharge.st_charge(owner, dt)
     local char = owner.m_owner
 
     if (owner.m_stateTimer == 0) then
-        owner.m_afterimageMove = 0
-        owner:makeCrashPhsyObject()
+		char:setMove(owner.m_chargePos.x ,owner.m_chargePos.y, SPEED_MOVE)
 		char.m_animator:changeAni(owner.m_animationName .. '_idle', true) 
+        
+		owner.m_afterimageMove = 0
+        owner:makeCrashPhsyObject()
 
     elseif (char.m_isOnTheMove == false) then
         owner:changeState('comeback')

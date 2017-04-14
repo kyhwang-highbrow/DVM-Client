@@ -352,6 +352,7 @@ local t_module = {
     'SkillAoESquare',
     'SkillAoESquare_Height',
 	'SkillAoESquare_Width',
+	'SkillAoESquare_Charge',
 	'SkillAoESquare_Wonder',
 	'SkillAoECone',
 	'SkillAoECone_Crash',

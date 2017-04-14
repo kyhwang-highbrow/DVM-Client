@@ -1941,6 +1941,9 @@
     <None Include="..\src\UI_ScenarioPlayer_Character.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillAoESquare_Charge.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

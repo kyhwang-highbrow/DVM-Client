@@ -4,8 +4,6 @@ local PARENT = SkillAoESquare
 -- class SkillAoESquare_Width
 -------------------------------------
 SkillAoESquare_Width = class(PARENT, {
-        m_missileStartPosX = 'number',
-        m_missileDir = 'number'        
      })
 
 -------------------------------------
