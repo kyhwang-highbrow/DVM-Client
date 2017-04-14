@@ -204,6 +204,12 @@ function UI_ScenarioPlayer:showPage()
         end
     end
 
+    do -- 캐릭터 이펙트
+        if (t_page['char_pos'] and t_page['char_effect']) then
+            self.m_mCharacter[t_page['char_pos']]:applyCharEffect(t_page['char_effect'])
+        end
+    end
+
     -- 자동 넘김
     if (t_page['auto_skip']) then
         if (t_page['auto_skip'] == 0) then

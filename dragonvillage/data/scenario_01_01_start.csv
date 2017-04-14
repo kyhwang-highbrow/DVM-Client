@@ -1,4 +1,4 @@
-page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_name,char_pos,char_action,char_face,t_text,t_text_mono
+page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_name,char_pos,char_effect,char_face,t_text,t_text_mono
 1,title;1.빛의 기둥 A,skip_disable,,3,스테이지1,,,,,,,,,,
 2,,,,,,,,,고니,고니,left,,,좋아! 이 임무만 무사히 완수하면 \\n오늘 일은 끝이야.,
 3,,,,,,,,,고니,고니,left,,,"...잠, 잠깐만. 저건 몬스터?!",
