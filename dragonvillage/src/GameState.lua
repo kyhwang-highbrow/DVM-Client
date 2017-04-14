@@ -564,8 +564,25 @@ function GameState.update_success(self, dt)
 
     elseif (self.m_stateTimer >= 3.5) then
         if self.m_stateParam then
-            self:makeResultUI(true)
             self.m_stateParam = false
+
+            local function start()
+                --world.m_containerLayer:setVisible(true)
+                self:makeResultUI(true)
+            end
+    
+            -- 임시 시나리오
+            local world = self.m_world
+            local stage_id = world.m_stageID
+            local scenario_name = TableStageDesc:getScenarioName(stage_id, 'snro_finish')
+            if scenario_name then
+                --world.m_containerLayer:setVisible(false)
+                local ui = UI_ScenarioPlayer(scenario_name)
+                ui:setCloseCB(start)
+                return 
+            end
+
+            start()            
         end
     end
 end

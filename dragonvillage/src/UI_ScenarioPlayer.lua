@@ -84,6 +84,9 @@ function UI_ScenarioPlayer:loadScenario(scenario_name)
             if csv[1] == nil then break end
 
             for i=1,#header do
+                if (not csv[i]) then
+                    csv[i] = ''
+                end
                 v1 = trim(tostring(csv[i]))
                 v2 = string.match(v1, '%d+[.]?%d*')
                 if v2 then v2 = tostring(tonumber(v2)) end
@@ -168,6 +171,7 @@ end
 -- function showPage
 -------------------------------------
 function UI_ScenarioPlayer:showPage()
+    cclog('#UI_ScenarioPlayer page : ' .. self.m_currPage)
     local vars = self.vars
 
     do -- 이전 페이지에서 끊어줘야할 행동들
@@ -187,8 +191,9 @@ function UI_ScenarioPlayer:showPage()
         if (t_page['char'] and t_page['char_pos']) then
             self.m_mCharacter[t_page['char_pos']]:setCharacter(t_page['char'])
 
-            if t_page['t_text'] then
-                self.m_mCharacter[t_page['char_pos']]:setCharText(Str(t_page['t_text']))
+            local text = t_page['t_text'] or t_page['t_text_mono']
+            if text then
+                self.m_mCharacter[t_page['char_pos']]:setCharText(Str(text))
             end
 
             if t_page['t_char_name'] then
@@ -226,12 +231,15 @@ function UI_ScenarioPlayer:applyEffect(effect)
         return
     end
 
+    cclog('#UI_ScenarioPlayer effect : ' .. effect)
+
     local l_str = TableClass:seperate(effect, ';')
     local effect = l_str[1]
     local val_1 = l_str[2]
     local val_2 = l_str[3]
 
     local vars = self.vars
+    vars['layerBlend'] = vars['layerColor']
 
     if (effect == 'flash') then
         vars['layerColor']:setColor(cc.c3b(255,255,255))
