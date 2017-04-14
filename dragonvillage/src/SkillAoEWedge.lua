@@ -25,8 +25,8 @@ function SkillAoEWedge:init_skill(attack_count)
 	-- 멤버 변수
 	self.m_maxAttackCount = attack_count
     self.m_range = g_constant:get('SKILL', 'LONG_LENGTH')
-	self.m_dir = getDegree(self.m_owner.pos.x, self.m_owner.pos.y, self.m_targetPos.x, self.m_targetPos.y)
-
+	self.m_dir = getAdjustDegree(getDegree((self.m_owner.pos.x + self.m_attackPosOffsetX), (self.m_owner.pos.y + self.m_attackPosOffsetY), self.m_targetPos.x, self.m_targetPos.y))
+	
 	-- 위치 설정
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
@@ -99,7 +99,9 @@ end
 -------------------------------------
 function SkillAoEWedge:findTarget()
 	local l_target = self:getProperTargetList()
-    return SkillTargetFinder:findTarget_AoEWedge(l_target, self.pos.x, self.pos.y, self.m_dir, self.m_range, self.m_angle)
+	local pos_x = (self.pos.x + self.m_attackPosOffsetX)
+	local pos_y = (self.pos.y + self.m_attackPosOffsetY)
+    return SkillTargetFinder:findTarget_AoEWedge(l_target, pos_x, pos_y, self.m_dir, self.m_range, self.m_angle)
 end
 
 -------------------------------------
