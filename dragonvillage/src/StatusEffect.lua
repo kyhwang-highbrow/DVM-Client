@@ -359,7 +359,11 @@ function StatusEffect:setTemporaryPause(pause)
                 self.m_animator:setVisible(true)
             end
         end
+
+        return true
     end
+
+    return false
 end
 
 

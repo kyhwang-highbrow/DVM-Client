@@ -608,13 +608,6 @@ function Skill:release()
 end
 
 -------------------------------------
--- function makeSkillInstance
--- @brief 사용할 변수 정리 및 실제 스킬 인스턴스를 생성하고 월드에 등록하는 부분
--------------------------------------
-function Skill:makeSkillInstance()
-end
-
--------------------------------------
 -- function setTemporaryPause
 -------------------------------------
 function Skill:setTemporaryPause(pause)
@@ -634,5 +627,16 @@ function Skill:setTemporaryPause(pause)
                 end
             end
         end
+
+        return true
     end
+
+    return false
+end
+
+-------------------------------------
+-- function makeSkillInstance
+-- @brief 사용할 변수 정리 및 실제 스킬 인스턴스를 생성하고 월드에 등록하는 부분
+-------------------------------------
+function Skill:makeSkillInstance()
 end

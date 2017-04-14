@@ -157,7 +157,7 @@ function SkillChainLightning:updatePos()
     else
         for i,v in ipairs(self.m_tTargetList) do
             local effect = self.m_tEffectList[i]
-		    if (nil == effect) then return end 
+		    if (not effect) then return end 
 
             -- 상대좌표 사용
             local tar_x = (v.pos.x - self.pos.x)
@@ -169,6 +169,26 @@ function SkillChainLightning:updatePos()
             y = tar_y
         end
     end
+end
+
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function SkillChainLightning:setTemporaryPause(pause)
+    if (PARENT.setTemporaryPause(self, pause)) then
+        if (pause) then
+            for i, effect in ipairs(self.m_tEffectList) do
+                effect:setVisible(false)
+            end
+        else
+            for i, effect in ipairs(self.m_tEffectList) do
+                effect:setVisible(true)
+            end
+        end
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------

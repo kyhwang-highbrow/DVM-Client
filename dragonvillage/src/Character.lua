@@ -2208,7 +2208,11 @@ function Character:setTemporaryPause(pause)
                 self.m_roamTimer = 0
             end
         end
+
+        return true
     end
+
+    return false
 end
 
 -------------------------------------
