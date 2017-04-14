@@ -6,7 +6,7 @@ key,r_desc,type,res
 두른,두른 일러스트 리소스,tamer_i,res/character/tamer/durun_i/durun_i.spine
 데데,데데 일러스트 리소스,tamer_i,res/character/tamer/dede_i/dede_i.spine
 부엉이,부엉이 몬스터,monster,res/scene/stage1_owl.png
-퀸즈 스네이크,,monster,res/character/monster/boss_queenssnake_earth/boss_queenssnake_earth.spine
+퀸즈 스네이크,,monster,res/scene/stage1_boss_queenssnake.png
 검은 로브,,monster,res/scene/blackrobe_01.png
 검은 로브 간부,,monster,res/scene/blackrobeboss_01.png
 스테이지1,,bg,res/bg/ui/dragon_bg_earth/dragon_bg_earth.vrp
