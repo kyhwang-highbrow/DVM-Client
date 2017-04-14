@@ -6,7 +6,10 @@ UI_Game = class(UI, {
         m_buffBoard = 'UI_NotificationInfo',
         m_panelUI = '',
 
+        -- 테이머 UI 정보
         m_bVisible_TamerUI = '',
+        m_posX_TamerUI = '',
+        m_posY_TamerUI = '',
      })
 
 -------------------------------------
@@ -472,11 +475,11 @@ function UI_Game:toggleVisibility_TamerUI(b, is_immediately)
 
     if (b) then
         vars['tamerMenu']:setVisible(true)
-		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, 10)), 2)
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_TamerUI, self.m_posY_TamerUI)), 2)
         vars['tamerMenu']:stopAllActions()
         vars['tamerMenu']:runAction(move_action)
     else
-		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, -150)), 2)
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_TamerUI, self.m_posY_TamerUI - 150)), 2)
 		local seq_action = cc.Sequence:create(move_action, cc.Hide:create())
         vars['tamerMenu']:stopAllActions()
         vars['tamerMenu']:runAction(seq_action)

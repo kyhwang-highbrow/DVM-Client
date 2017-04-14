@@ -39,6 +39,8 @@ function UI_Game:initTamerUI(tamer)
 	end
 
     self.m_bVisible_TamerUI = true
+    self.m_posX_TamerUI = vars['tamerMenu']:getPositionX()
+    self.m_posY_TamerUI = vars['tamerMenu']:getPositionY()
 end
 
 -------------------------------------
