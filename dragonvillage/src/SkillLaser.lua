@@ -69,7 +69,7 @@ function SkillLaser:initSkillSize()
 	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
 		local t_data = SkillHelper:getSizeAndScale('bar', self.m_skillSize)  
 
-		self.m_resScale = t_data['scale']
+		--self.m_resScale = t_data['scale']
 		self.m_laserThickness = t_data['size']
 	end
 end
