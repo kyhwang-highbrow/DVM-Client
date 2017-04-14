@@ -181,6 +181,7 @@ local t_module = {
     'TableOption',
     'TableDropIngame',
     'TableStaminaInfo',
+    'TableScenarioResource',
 
     -- Interface
     'IEventDispatcher',

@@ -5,6 +5,54 @@
 	{
 		[1] =
 		{
+			type = 'Visual';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.a2d';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;idle';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[2] =
+		{
+			type = 'LayerColor';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 240;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			color = { 0; 0; 0; };
+			opacity = 180;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[3] =
+		{
 			[1] =
 			{
 				type = 'Scale9Sprite';
@@ -42,8 +90,8 @@
 					dock_point = { 1.000000; 1.000000; };
 					anchor_point = { 1.000000; 1.000000; };
 					relative_size_type = 0;
-					width = 18;
-					height = 18;
+					width = 26;
+					height = 26;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -132,8 +180,8 @@
 					dock_point = { 1.000000; 1.000000; };
 					anchor_point = { 1.000000; 1.000000; };
 					relative_size_type = 0;
-					width = 18;
-					height = 18;
+					width = 26;
+					height = 26;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -222,8 +270,8 @@
 					dock_point = { 1.000000; 1.000000; };
 					anchor_point = { 1.000000; 1.000000; };
 					relative_size_type = 0;
-					width = 18;
-					height = 18;
+					width = 26;
+					height = 26;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -312,8 +360,8 @@
 					dock_point = { 1.000000; 1.000000; };
 					anchor_point = { 1.000000; 1.000000; };
 					relative_size_type = 0;
-					width = 18;
-					height = 18;
+					width = 26;
+					height = 26;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -540,9 +588,9 @@
 						type = 'Button';
 						ui_name = '';
 						x = -220.000000;
-						y = -3.000000;
+						y = -43.000000;
 						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 80;
 						height = 80;
@@ -590,9 +638,9 @@
 						type = 'Button';
 						ui_name = '';
 						x = -132.000000;
-						y = -3.000000;
+						y = -43.000000;
 						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 80;
 						height = 80;
@@ -640,9 +688,9 @@
 						type = 'Button';
 						ui_name = '';
 						x = -44.000000;
-						y = -3.000000;
+						y = -43.000000;
 						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 80;
 						height = 80;
@@ -690,9 +738,9 @@
 						type = 'Button';
 						ui_name = '';
 						x = 44.000000;
-						y = -3.000000;
+						y = -43.000000;
 						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 80;
 						height = 80;
@@ -740,9 +788,9 @@
 						type = 'Button';
 						ui_name = '';
 						x = 132.000000;
-						y = -3.000000;
+						y = -43.000000;
 						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 80;
 						height = 80;
@@ -790,9 +838,9 @@
 						type = 'Button';
 						ui_name = '';
 						x = 220.000000;
-						y = -3.000000;
+						y = -43.000000;
 						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 80;
 						height = 80;

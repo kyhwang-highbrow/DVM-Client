@@ -1,3 +1,13 @@
+local T_CHAR_RES = {}
+T_CHAR_RES['queenssnake'] = 134011
+T_CHAR_RES['owl'] = 131031
+T_CHAR_RES['drak_robe'] = 132062
+T_CHAR_RES['drak_robe_executive'] = 132062
+
+local T_TAMER_I_RES = {}
+T_TAMER_I_RES['dale_i'] = 'res/character/tamer/dale_i/dale_i.spine'
+
+
 -------------------------------------
 -- class UI_ScenarioPlayer_Character
 -------------------------------------
@@ -58,6 +68,13 @@ function UI_ScenarioPlayer_Character:show(duration)
 end
 
 -------------------------------------
+-- function getCharacterResType
+-------------------------------------
+function UI_ScenarioPlayer_Character:getCharacterResType(key)
+    
+end
+
+-------------------------------------
 -- function setCharacter
 -------------------------------------
 function UI_ScenarioPlayer_Character:setCharacter(key)
@@ -71,11 +88,53 @@ function UI_ScenarioPlayer_Character:setCharacter(key)
     self.m_charAnimator:release()
    end
 
-   local res = string.format('res/character/tamer/%s/%s.spine', key, key)
-   self.m_charAnimator = MakeAnimator(res)
-   self.m_charAnimator:setAlpha(0)
-   self.m_charAnimator:runAction(cc.FadeIn:create(0.3))
-   self.m_charNode:addChild(self.m_charAnimator.m_node)
+    key = tostring(key)
+    
+    if T_CHAR_RES[key] then
+        self.m_charAnimator = MakeAnimator(res)
+        self.m_charAnimator:setAlpha(0)
+        self.m_charAnimator:runAction(cc.FadeIn:create(0.3))
+        self.m_charNode:addChild(self.m_charAnimator.m_node)
+        self.m_charAnimator:setPositionY(200)
+
+        self.m_charAnimator:setFlip(self.m_bCharFlip)
+
+        self:show()
+    end
+
+
+
+    local is_number = false
+    do       
+        local temp = string.match(key, '%d+[.]?%d*')
+        if temp then
+            temp = tostring(tonumber(key))
+        end
+        ccdump(temp)
+        if (key == temp) then
+            is_number = true
+        end
+    end
+
+    if is_number then
+        local monster_id = tonumber(key)
+        local res, attr = TableMonster:getMonsterRes(monster_id)
+        self.m_charAnimator = AnimatorHelper:makeMonsterAnimator(res, attr)
+        self.m_charAnimator:setAlpha(0)
+        self.m_charAnimator:runAction(cc.FadeIn:create(0.3))
+        self.m_charNode:addChild(self.m_charAnimator.m_node)
+        self.m_charAnimator:setPositionY(200)
+        self.m_charAnimator:setScale(1.3)
+    else
+        local res = string.format('res/character/tamer/%s/%s.spine', key, key)
+        self.m_charAnimator = MakeAnimator(res)
+        self.m_charAnimator:setAlpha(0)
+        self.m_charAnimator:runAction(cc.FadeIn:create(0.3))
+        self.m_charNode:addChild(self.m_charAnimator.m_node)
+    end
+
+
+
 
    self.m_charAnimator:setFlip(self.m_bCharFlip)
 

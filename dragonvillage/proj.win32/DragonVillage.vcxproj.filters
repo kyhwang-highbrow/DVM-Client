@@ -1944,6 +1944,9 @@
     <None Include="..\src\SkillAoESquare_Charge.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableScenarioResource.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -182,7 +182,8 @@ function UI_ScenarioPlayer:showPage()
 
     if (t_page['bg'] and (t_page['bg'] ~= self.m_bgName)) then
         vars['bgNode']:removeAllChildren()
-        local bg = MakeAnimator(t_page['bg'])
+        local bg_res = TableScenarioResource:getScenarioRes(t_page['bg'])
+        local bg = MakeAnimator(bg_res)
         vars['bgNode']:addChild(bg.m_node)
     end
 
@@ -216,6 +217,7 @@ function UI_ScenarioPlayer:showPage()
     do -- 이전에 disable시킨 것 해제
         self.m_bSkipEnalbe = true
         self.vars['skipBtn']:setVisible(true)
+        self.vars['nextVisual']:setVisible(true)
     end
 
     self:applyEffect(t_page['effect_1'])
@@ -332,10 +334,12 @@ function UI_ScenarioPlayer:applyEffect(effect)
     elseif effect == 'skip_disable' then
         self.m_bSkipEnalbe = false
         self.vars['skipBtn']:setVisible(false)
+        self.vars['nextVisual']:setVisible(false)
 
     elseif effect == 'skip_enable' then
         self.m_bSkipEnalbe = true
         self.vars['skipBtn']:setVisible(true)
+        self.vars['nextVisual']:setVisible(true)
 
     end
 end
@@ -357,12 +361,20 @@ function UI_ScenarioPlayer:effect_title(effect, val_1, val_2, val_3)
         doAllChildren(self.m_titleUI.root, function(node) node:setCascadeOpacityEnabled(true) end)
     end
     self.m_titleUI.vars['titleLabel']:setString(val_1)
-    self.m_titleUI.root:setVisible(true)
-    self.m_titleUI.root:stopAllActions()
-    self.m_titleUI.root:setOpacity(0)
 
-    local action = cc.Sequence:create(cc.FadeIn:create(0.5), cc.DelayTime:create(2), cc.FadeOut:create(0.5), cc.Hide:create())
+    self.m_titleUI.root:setVisible(true)
+    local action = cc.Sequence:create(cc.DelayTime:create(3), cc.Hide:create())
     self.m_titleUI.root:runAction(action)
+
+    self.m_titleUI.vars['menu']:stopAllActions()
+    self.m_titleUI.vars['menu']:setOpacity(0)
+    local action = cc.Sequence:create(cc.FadeIn:create(0.5), cc.DelayTime:create(2), cc.FadeOut:create(0.5))
+    self.m_titleUI.vars['menu']:runAction(action)
+
+    self.m_titleUI.vars['layerColor']:stopAllActions()
+    self.m_titleUI.vars['layerColor']:setOpacity(255)
+    local action = cc.Sequence:create(cc.DelayTime:create(2.5), cc.FadeOut:create(0.5))
+    self.m_titleUI.vars['layerColor']:runAction(action)
 end
 
 -------------------------------------
