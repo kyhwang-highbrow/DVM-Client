@@ -62,15 +62,16 @@ function DragonSkillIndivisualInfo:applySkillLevel(t_add_value)
 			if (tar_data) then
 				local add_value = (modify_value_unit * (skill_lv - 1))
 				tar_data = tar_data + add_value
-				-- 액티브 강화에서 사욯아기 위해 저장
+			
+				-- 액티브 강화에서 사용하기 위해 저장
 				self.m_tAddedValue[modify_column] = add_value
+				
+				-- 소수 2번째 자리 까지 남김
+				tar_data = (math_floor(tar_data * 100) / 100)
+				
+				-- 레벨 계산된 값으로 치환
+				t_skill[modify_column] = tar_data
 			end
-
-			-- 소수 2번째 자리 까지 남김
-			tar_data = (math_floor(tar_data * 100) / 100)
-
-			-- 레벨 계산된 값으로 치환
-			t_skill[modify_column] = tar_data
 		end
 	end
 
