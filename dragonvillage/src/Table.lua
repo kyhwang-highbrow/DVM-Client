@@ -115,6 +115,9 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
             -- 테이블에 nil값이 포함된 경우 예외처리
             local find_nil = false
             for i=1,#header do
+                if (csv[i] == nil) then
+                    csv[i] = ''
+                end
                 v1 = trim(tostring(csv[i]))
                 v2 = string.match(v1, '%d+[.]?%d*')
                 if v2 then v2 = tostring(tonumber(v2)) end
