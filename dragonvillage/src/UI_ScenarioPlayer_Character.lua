@@ -156,6 +156,8 @@ end
 function UI_ScenarioPlayer_Character:hideCharText()
     self.m_charTalkSprite:setVisible(false)
     self.m_charTalkLabel:setVisible(false)
+    self.m_charMonoSprite:setVisible(false)
+    self.m_charMonoLabel:setVisible(false)
 end
 
 -------------------------------------

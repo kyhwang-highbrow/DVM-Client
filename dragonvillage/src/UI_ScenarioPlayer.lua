@@ -213,16 +213,6 @@ function UI_ScenarioPlayer:showPage()
         end
     end
 
-    -- 자동 넘김
-    if (t_page['auto_skip']) then
-        if (t_page['auto_skip'] == 0) then
-            return self:next()
-        else
-            local action = cc.Sequence:create(cc.DelayTime:create(t_page['auto_skip']), cc.CallFunc:create(function() self:next() end))
-            self.m_autoSkipActionNode:runAction(action)
-        end
-    end
-
     do -- 이전에 disable시킨 것 해제
         self.m_bSkipEnalbe = true
         self.vars['skipBtn']:setVisible(true)
@@ -232,6 +222,16 @@ function UI_ScenarioPlayer:showPage()
     self:applyEffect(t_page['effect_1'])
     self:applyEffect(t_page['effect_2'])
     self:applyEffect(t_page['effect_3'])
+
+    -- 자동 넘김
+    if (t_page['auto_skip']) then
+        if (t_page['auto_skip'] == 0) then
+            return self:next()
+        else
+            local action = cc.Sequence:create(cc.DelayTime:create(t_page['auto_skip']), cc.CallFunc:create(function() self:next() end))
+            self.m_autoSkipActionNode:runAction(action)
+        end
+    end
 end
 
 -------------------------------------
@@ -334,6 +334,11 @@ function UI_ScenarioPlayer:applyEffect(effect)
 
     elseif (effect == 'title') then
         self:effect_title(effect, val_1, val_2, val_3)
+
+    elseif (effect == 'clear_char') then
+        for i,v in pairs(self.m_mCharacter) do
+            v:hide()
+        end
 
     elseif (effect == 'clear_text') or (effect == 'cleartext') then
         for i,v in pairs(self.m_mCharacter) do
