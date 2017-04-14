@@ -104,8 +104,8 @@
 					dock_point = { 1.000000; 1.000000; };
 					anchor_point = { 1.000000; 1.000000; };
 					relative_size_type = 0;
-					width = 18;
-					height = 18;
+					width = 26;
+					height = 26;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -194,8 +194,8 @@
 					dock_point = { 1.000000; 1.000000; };
 					anchor_point = { 1.000000; 1.000000; };
 					relative_size_type = 0;
-					width = 18;
-					height = 18;
+					width = 26;
+					height = 26;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -225,7 +225,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'unitBtn';
 				enable = true;
 				normal = 'ui/btn/a_tab_0103.png';

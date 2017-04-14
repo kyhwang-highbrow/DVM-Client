@@ -11,13 +11,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{26,29}</string>
+                <string>{28,28}</string>
                 <key>spriteSourceSize</key>
-                <string>{26,29}</string>
+                <string>{28,28}</string>
                 <key>textureRect</key>
-                <string>{{623,59},{26,29}}</string>
+                <string>{{623,59},{28,28}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>scenario_title_0101.png</key>
             <dict>
@@ -108,7 +108,7 @@
             <key>size</key>
             <string>{661,308}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:bad10cfa05412e2a371f03e738fdf1b5:3e6652e67c4a73b4b2fb0090f59282cb:49039388468ac82f6506fa03b2d56b56$</string>
+            <string>$TexturePacker:SmartUpdate:ae30b2f82b36e1c9fc9c4f0af45a29f3:bcd9563d686a106bf59c2f4bb997f2fa:49039388468ac82f6506fa03b2d56b56$</string>
             <key>textureFileName</key>
             <string>scenario.png</string>
         </dict>

@@ -58,6 +58,20 @@
 										"frame":80, "alpha":0
 									}
 								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)scenario.plist'<azSprite>'scenario_next_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":40
+									},
+									{
+										"frame":60, "sX":1.700000, "sY":1.700000, "alpha":0
+									}
+								]
 							}
 						]
 					}
