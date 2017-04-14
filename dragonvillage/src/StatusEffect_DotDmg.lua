@@ -85,4 +85,9 @@ end
 -------------------------------------
 function StatusEffect_DotDmg:doDotDmg()
 	self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, self.m_dotDmg, nil)
+
+	-- @LOG_CHAR : 공격자 데미지
+	self.m_caster.m_charLogRecorder:recordLog('damage', self.m_dotDmg)
+	-- @LOG_CHAR : 방어자 피해량
+	self.m_owner.m_charLogRecorder:recordLog('be_damaged', self.m_dotDmg)
 end
