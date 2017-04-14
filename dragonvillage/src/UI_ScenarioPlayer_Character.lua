@@ -65,10 +65,9 @@ function UI_ScenarioPlayer_Character:hide(duration)
     end
 
     if (self.m_charAnimator) then
-        self.m_charAnimator:release()
-        self.m_charAnimator = nil
-        self.m_charKey = nil
+        self.m_charAnimator:release()    
     end
+    self:resetCharacterAnimator()
 end
 
 -------------------------------------
@@ -166,6 +165,15 @@ function UI_ScenarioPlayer_Character:setCharName(name)
     self.m_charNameLabel:setString(name)
 end
 
+-------------------------------------
+-- function resetCharacterAnimator
+-------------------------------------
+function UI_ScenarioPlayer_Character:resetCharacterAnimator()
+    self.m_charAnimator = nil
+    self.m_charKey = nil
+    self.m_charNameNode:setVisible(false)
+    self.m_charNameLabel:setVisible(false)
+end
 
 -------------------------------------
 -- function applyCharEffect
@@ -194,10 +202,7 @@ function UI_ScenarioPlayer_Character:applyCharEffect(effect)
             local action = cc.Sequence:create(repeat_action, spawn, cc.CallFunc:create(release))
             animator:runAction(action)
 
-            self.m_charAnimator = nil
-            self.m_charKey = nil
-            self.m_charNameNode:setVisible(false)
-            self.m_charNameLabel:setVisible(false)
+            self:resetCharacterAnimator()
         end
 
     elseif (effect == 'silhouette') then
@@ -209,8 +214,7 @@ function UI_ScenarioPlayer_Character:applyCharEffect(effect)
     elseif (effect == 'clear_char') or (effect == 'clearchar') then
         if (self.m_charAnimator) then
             self.m_charAnimator:release()
-            self.m_charAnimator = nil
-            self.m_charKey = nil
+            self:resetCharacterAnimator()
         end
 
     elseif (effect == 'clear_text') or (effect == 'cleartext') then
