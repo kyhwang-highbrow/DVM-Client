@@ -43,24 +43,31 @@ function DragonSkillIndivisualInfo:applySkillLevel(t_add_value)
     -- 값이 변경되므로 복사해서 사용
     self.m_tSkill = clone(table_skill[skill_id])
 	
-	-- 레벨이 반영된 데이터 계산
+	-- 필요한 데이터 선언
 	local t_skill = self.m_tSkill
 	local skill_lv = self.m_skillLevel
+	local silll_max_lv = g_constant:get('SKILL', 'MAX_LEVEL') - 1
+
+	-- 레벨이 반영된 데이터 계산
 	for idx = 1, 5 do
 		local modify_column = SkillHelper:getValid(t_skill['mod_col_' .. idx])
 		if (modify_column) then
 
-			-- 소수점 3째자리까지 계산
-			local modify_value_unit = SkillHelper:getValid(t_skill['mod_max_val_' .. idx]) / 69
-			modify_value_unit = math_floor(modify_value_unit * 1000)
-			modify_value_unit = modify_value_unit / 1000
+			-- 레벨 계수 계산 
+			-- @TODO 스킬 최고레벨 70으로 가정하고 계산 향후에 
+			local modify_value_unit = SkillHelper:getValid(t_skill['mod_max_val_' .. idx]) / silll_max_lv
 
+			-- 레벨 계수 반영한 수치
 			local tar_data = SkillHelper:getValid(t_skill[modify_column])
 			if (tar_data) then
 				local add_value = (modify_value_unit * (skill_lv - 1))
 				tar_data = tar_data + add_value
+				-- 액티브 강화에서 사욯아기 위해 저장
 				self.m_tAddedValue[modify_column] = add_value
 			end
+
+			-- 소수 2번째 자리 까지 남김
+			tar_data = (math_floor(tar_data * 100) / 100)
 
 			-- 레벨 계산된 값으로 치환
 			t_skill[modify_column] = tar_data
