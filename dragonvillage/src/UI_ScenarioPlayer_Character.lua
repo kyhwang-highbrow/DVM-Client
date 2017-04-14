@@ -15,6 +15,9 @@ UI_ScenarioPlayer_Character = class({
         m_charTalkSprite = '',
         m_charTalkLabel = '',
 
+        m_charMonoSprite = '',
+        m_charMonoLabel = '',
+
         m_shakeNode = '',
 
         m_posX = '',
@@ -40,6 +43,14 @@ function UI_ScenarioPlayer_Character:init(pos_name, char_node, name_node, name_l
 end
 
 -------------------------------------
+-- function setMonoTextNode
+-------------------------------------
+function UI_ScenarioPlayer_Character:setMonoTextNode(node, label)
+    self.m_charMonoSprite = node
+    self.m_charMonoLabel = label
+end
+
+-------------------------------------
 -- function hide
 -------------------------------------
 function UI_ScenarioPlayer_Character:hide(duration)
@@ -49,6 +60,8 @@ function UI_ScenarioPlayer_Character:hide(duration)
         self.m_charNameLabel:setVisible(false)
         self.m_charTalkSprite:setVisible(false)
         self.m_charTalkLabel:setVisible(false)
+        self.m_charMonoSprite:setVisible(false)
+        self.m_charMonoLabel:setVisible(false)
     end
 
     if (self.m_charAnimator) then
@@ -66,8 +79,6 @@ function UI_ScenarioPlayer_Character:show(duration)
         self.m_charNode:setVisible(true)
         self.m_charNameNode:setVisible(true)
         self.m_charNameLabel:setVisible(true)
-        self.m_charTalkSprite:setVisible(true)
-        self.m_charTalkLabel:setVisible(true)
     end
 end
 
@@ -118,12 +129,26 @@ end
 -------------------------------------
 -- function setCharText
 -------------------------------------
-function UI_ScenarioPlayer_Character:setCharText(text)
-    self.m_charTalkSprite:setVisible(true)
-    self.m_charTalkSprite:stopAllActions()
-    cca.uiReaction(self.m_charTalkSprite)
-    self.m_charTalkLabel:setVisible(true)
-    self.m_charTalkLabel:setString(text)
+function UI_ScenarioPlayer_Character:setCharText(text, is_mono)
+    if is_mono then
+        self.m_charTalkSprite:setVisible(false)
+        self.m_charTalkLabel:setVisible(false)
+
+        self.m_charMonoSprite:setVisible(true)
+        self.m_charMonoSprite:stopAllActions()
+        cca.uiReaction(self.m_charMonoSprite)
+        self.m_charMonoLabel:setVisible(true)
+        self.m_charMonoLabel:setString(text)
+    else
+        self.m_charMonoSprite:setVisible(false)
+        self.m_charMonoLabel:setVisible(false)
+
+        self.m_charTalkSprite:setVisible(true)
+        self.m_charTalkSprite:stopAllActions()
+        cca.uiReaction(self.m_charTalkSprite)
+        self.m_charTalkLabel:setVisible(true)
+        self.m_charTalkLabel:setString(text)
+    end
 end
 
 -------------------------------------

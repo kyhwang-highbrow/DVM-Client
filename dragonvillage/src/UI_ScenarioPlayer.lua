@@ -35,10 +35,12 @@ function UI_ScenarioPlayer:init(scenario_name)
     -- 캐릭터 관련
     self.m_mCharacter = {}
     self.m_mCharacter['left'] = UI_ScenarioPlayer_Character('left', vars['tamerNode1'], vars['nameNode1'], vars['nameLabel1'], vars['talkSprite1'], vars['talkLabel1'])
+    self.m_mCharacter['left']:setMonoTextNode(vars['textMomoSprite1'], vars['textMomoLabel1'])
     self.m_mCharacter['left'].m_bCharFlip = false
     self.m_mCharacter['left']:hide()
 
     self.m_mCharacter['right'] = UI_ScenarioPlayer_Character('right', vars['tamerNode2'], vars['nameNode2'], vars['nameLabel2'], vars['talkSprite2'], vars['talkLabel2'])
+    self.m_mCharacter['right']:setMonoTextNode(vars['textMomoSprite2'], vars['textMomoLabel2'])
     self.m_mCharacter['right'].m_bCharFlip = true
     self.m_mCharacter['right']:hide()
 
@@ -192,9 +194,10 @@ function UI_ScenarioPlayer:showPage()
         if (t_page['char'] and t_page['char_pos']) then
             self.m_mCharacter[t_page['char_pos']]:setCharacter(t_page['char'])
 
-            local text = t_page['t_text'] or t_page['t_text_mono']
-            if text then
-                self.m_mCharacter[t_page['char_pos']]:setCharText(Str(text))
+            if t_page['t_text'] then
+                self.m_mCharacter[t_page['char_pos']]:setCharText(Str(t_page['t_text']))
+            elseif t_page['t_text_mono'] then
+                self.m_mCharacter[t_page['char_pos']]:setCharText(Str(t_page['t_text_mono']), true)
             end
 
             if t_page['t_char_name'] then
