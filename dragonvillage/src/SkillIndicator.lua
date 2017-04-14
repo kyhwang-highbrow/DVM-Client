@@ -98,7 +98,7 @@ function SkillIndicator:initAttackPosOffset(hero)
 
     local animator = hero.m_animator
     
-    local l_event_data = animator:getEventList('attack', 'attack')
+    local l_event_data = animator:getEventList('skill_disappear', 'attack')
 
     if (not l_event_data[1]) then
         return

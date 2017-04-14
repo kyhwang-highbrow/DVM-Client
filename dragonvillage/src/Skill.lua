@@ -454,7 +454,13 @@ function Skill:initAttackPosOffset()
 
     local animator = self.m_owner.m_animator
     
-    local l_event_data = animator:getEventList('attack', 'attack')
+    local l_event_data
+
+    if (self.m_chanceType == 'active') then
+        l_event_data = animator:getEventList('skill_disappear', 'attack')
+    else
+        l_event_data = animator:getEventList('attack', 'attack')
+    end
 
     if (not l_event_data[1]) then
         return
