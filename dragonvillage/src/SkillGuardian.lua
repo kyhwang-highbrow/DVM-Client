@@ -205,6 +205,8 @@ end
 -- function onEvent
 -------------------------------------
 function SkillGuardian:onEvent(event_name, t_event, ...)
+	PARENT.onEvent(self, event_name, t_event, ...)
+
 	if (event_name == 'guardian') then
 		self:onHit()
 		local attacker = t_event['attacker']

@@ -61,6 +61,8 @@ end
 -- function onEvent
 -------------------------------------
 function SkillShield:onEvent(event_name, t_event, ...)
+	PARENT.onEvent(self, event_name, t_event, ...)
+
 	if (not event_name == self.m_triggerName) then return end
 	
 	local char = t_event['owner']
