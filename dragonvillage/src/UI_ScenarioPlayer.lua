@@ -324,7 +324,7 @@ function UI_ScenarioPlayer:applyEffect(effect)
     elseif (effect == 'title') then
         self:effect_title(effect, val_1, val_2, val_3)
 
-    elseif (effect == 'clear_text') then
+    elseif (effect == 'clear_text') or (effect == 'cleartext') then
         for i,v in pairs(self.m_mCharacter) do
             v:hideCharText()
         end
