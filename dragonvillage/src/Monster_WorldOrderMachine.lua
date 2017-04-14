@@ -147,7 +147,7 @@ end
 function Monster_WorldOrderMachine:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
 
-    if (t_info['body_key'] == 3) then
+    if (t_info['body_key'] == 5) then
         local type = attacker.m_activityCarrier:getAttackType()
         if (attacker.m_activityCarrier:getAttackType() == 'active') then 
 			self.m_isMagicStateChanging = true
