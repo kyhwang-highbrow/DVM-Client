@@ -214,7 +214,7 @@ function GameDragonSkill.update_live(self, dt)
             SoundMgr:playEffect('EFFECT', 'skill_ready')
 
             -- 음성
-            playDragonVoice(dragon.m_charTable['type'])
+            --playDragonVoice(dragon.m_charTable['type'])
         
         elseif (self:isPassedStepTime(delayTime)) then
             -- 애니메이션 속도 되돌림
