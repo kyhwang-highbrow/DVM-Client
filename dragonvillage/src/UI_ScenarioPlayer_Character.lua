@@ -196,6 +196,8 @@ function UI_ScenarioPlayer_Character:applyCharEffect(effect)
 
             self.m_charAnimator = nil
             self.m_charKey = nil
+            self.m_charNameNode:setVisible(false)
+            self.m_charNameLabel:setVisible(false)
         end
 
     elseif (effect == 'silhouette') then
