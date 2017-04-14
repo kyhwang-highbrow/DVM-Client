@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/btn/result_btn_home.png';
+				file_name = 'ui/btn/result_btn_adventure_map.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
