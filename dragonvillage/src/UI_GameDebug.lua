@@ -332,7 +332,7 @@ function UI_GameDebug:makeTableView()
         local item = {}
         item['cb1'] = UI_GameDebug.nigthmareBgButton
         item['cb2'] = UI_GameDebug.nigthmareBgButton
-		item['str'] = '악몽던전 배경효과 : ' .. self.m_directStrength
+		item['str'] = '배경효과 off'
 
         table.insert(item_info, item)
     end
@@ -422,10 +422,11 @@ function UI_GameDebug.nigthmareBgButton(self, item, idx)
 	local l_direction = {'shaky', 'ripple', 'nightmare_shaky', 'nightmare_ripple'}
 	local direct_type = math_ceil(strength / 5)
 	local direct_stregth = (strength - ((direct_type - 1) * 5))
+	local direct_str = l_direction[direct_type] .. direct_stregth
 
 	g_gameScene.m_gameWorld.m_mapManager.m_node:stopAllActions()
-	g_gameScene.m_gameWorld.m_mapManager:setDirecting(l_direction[direct_type] .. direct_stregth)
-    item['label']:setString('악몽던전 배경효과 : ' .. strength)
+	g_gameScene.m_gameWorld.m_mapManager:setDirecting(direct_str)
+    item['label']:setString('배경효과 : ' .. direct_str)
 end
 
 -------------------------------------

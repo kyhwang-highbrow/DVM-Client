@@ -70,6 +70,7 @@ function ScrollMap:setDirecting(directing_type)
     local yScope = getInGameConstant(MAP_FLOATING_Y_SCOPE)
     local sequence
 	
+	-- [FLOATING]
     if (self.m_bgDirectingType == 'floating_1') then
         -- 위아래 흔들림
         sequence = cc.Sequence:create(
@@ -98,10 +99,12 @@ function ScrollMap:setDirecting(directing_type)
         
         sequence = cc.Spawn:create(move_action, rotate_action)
 
+	-- [DARKNIX 보스용]
     elseif (string.find(self.m_bgDirectingType, 'darknix')) then
         local effect_type = string.match(self.m_bgDirectingType, '%d')
 		local is_low_mode = isLowEndMode()
 
+		-- [SHAKY + RIPPLE]
         if (string.find(self.m_bgDirectingType, 'shakyripple')) then 
             sequence = cc.Spawn:create(
                 cc.Sequence:create(
@@ -113,6 +116,7 @@ function ScrollMap:setDirecting(directing_type)
 				)
             )
 
+		-- [SHAKY]
         elseif (string.find(self.m_bgDirectingType, 'shaky')) then
             -- shaky3d + tintto + gray shader 
 			-- 저사양 모드에선 gray shader 만 사용
@@ -131,11 +135,13 @@ function ScrollMap:setDirecting(directing_type)
 			end
         end
         
-
+	-- [GRAY SCALE]
 	elseif (string.find(self.m_bgDirectingType, 'nightmare')) then 
 		local effect_type = string.match(self.m_bgDirectingType, '%d')
 		local is_low_mode = isLowEndMode()
 
+		-- 추가 효과
+		-- [SHAKY]
         if (string.find(self.m_bgDirectingType, 'shaky')) then 
 			-- shaky3d + tintto + gray shader 
 			-- 저사양 모드에선 gray shader 만 사용
@@ -147,14 +153,7 @@ function ScrollMap:setDirecting(directing_type)
 				)
 			end
 
-			-- 별도로 암전 효과 및 그레이스케일 적용
-			for _, map_layer in pairs(self.m_tMapLayer) do
-                if (not is_low_mode) then 
-                    map_layer:doActionFromAnimator(cca.repeatTintToMoreDark(5, 100, 100, 100))
-                end
-                map_layer:setCustomShader(6,0)
-			end
-
+		-- [RIPPLE]
 		elseif (string.find(self.m_bgDirectingType, 'ripple')) then 
 			-- ripple3d + tintto + gray shader 
 			-- 저사양 모드에선 gray shader 만 사용
@@ -164,15 +163,17 @@ function ScrollMap:setDirecting(directing_type)
 					cca.getRipple3D(effect_type , duration)
 				)
 			end
-
-			-- 별도로 암전 효과 및 그레이스케일 적용
-			for _, map_layer in pairs(self.m_tMapLayer) do
-                if (not is_low_mode) then 
-                    map_layer:doActionFromAnimator(cca.repeatTintToMoreDark(5, 100, 100, 100))
-                end
-                map_layer:setCustomShader(6,0)
-			end
 		end
+
+		-- 별도로 암전 효과 및 그레이스케일 적용
+		for _, map_layer in pairs(self.m_tMapLayer) do
+            if (not is_low_mode) then 
+                map_layer:doActionFromAnimator(cca.repeatTintToMoreDark(5, 100, 100, 100))
+            end
+            map_layer:setCustomShader(6,0)
+		end
+
+	-- [SHAKY]
 	elseif (string.find(self.m_bgDirectingType, 'shaky')) then
 		local effect_type = string.match(self.m_bgDirectingType, '%d')
 		local duration = 0.001
@@ -181,7 +182,7 @@ function ScrollMap:setDirecting(directing_type)
 			cc.DelayTime:create(duration*100000)
         )
 
-
+	-- [RIPPLE]
 	elseif (string.find(self.m_bgDirectingType , 'ripple')) then
 		local effect_type = string.match(self.m_bgDirectingType, '%d')
 		local duration = 10
