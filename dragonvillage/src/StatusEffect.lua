@@ -345,7 +345,22 @@ function StatusEffect:changeState(state, forced)
     return ret
 end
 
-
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function StatusEffect:setTemporaryPause(pause)
+    if (PARENT.setTemporaryPause(self, pause)) then
+        if (pause) then
+            if (self.m_animator) then
+                self.m_animator:setVisible(false)
+            end
+        else
+            if (self.m_animator) then
+                self.m_animator:setVisible(true)
+            end
+        end
+    end
+end
 
 
 
