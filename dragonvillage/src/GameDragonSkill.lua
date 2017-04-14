@@ -458,13 +458,14 @@ function GameDragonSkill:doCameraWork(dragon)
     local active_skill_id = dragon:getSkillID('active')
     local t_skill = TableDragonSkill():get(active_skill_id)
     
-    local cameraWorkType = tonumber(t_skill['camera_work']) or 1
+    local cameraWorkType = t_skill['camera_work'] or 'close_up'
     local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
     local cameraHomeScale = world.m_gameCamera:getHomeScale()
     
     world.m_gameCamera:clearTarget()
 
-    if (cameraWorkType == 2) then
+	-- 전체 화면 줌 아웃
+    if (cameraWorkType == 'full') then
         world.m_gameCamera:setAction({
             pos_x = cameraHomePosX,
             pos_y = cameraHomePosY,
@@ -475,13 +476,15 @@ function GameDragonSkill:doCameraWork(dragon)
         -- 화면 쉐이킹
         world.m_shakeMgr:doShakeUpDown(25, 10)
 
-    elseif (cameraWorkType == 3) then
+	-- 사용자를 쫓아간다
+    elseif (cameraWorkType == 'tracking') then
         world.m_gameCamera:setTarget(dragon, {
             scale = 1.2,
             time = 0.25
         })
 
-    else
+	-- 반대 진형에 포커스 + 확대
+    elseif (cameraWorkType == 'close_up') then
         local pos_x
 
         if (dragon.m_bLeftFormation) then
