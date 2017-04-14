@@ -542,7 +542,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             end
         end
 
-		-- @LOG_CHAR
+		-- @LOG_CHAR : 방어자 회피 횟수
 		self.m_charLogRecorder:recordLog('avoid', 1)
         return
     end
@@ -638,7 +638,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         StatusEffectHelper:statusEffectCheck_onHit(attack_activity_carrier, self)
     end
 
-	-- @LOG_CHAR
+	-- @LOG_CHAR : 방어자 피격 횟수
 	self.m_charLogRecorder:recordLog('under_atk', 1)
 	
 	-- @EVENT 방어자 이벤트 처리
@@ -758,11 +758,11 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 		local damage = math_min(damage, self.m_hp)
 		self:setHp(self.m_hp - damage)
 
-		-- @LOG_CHAR
+		-- @LOG_CHAR : 공격자 데미지
         if (attacker) then
 		    attacker.m_activityCarrier:getActivityOwner().m_charLogRecorder:recordLog('damage', damage)
         end
-		-- @LOG_CHAR
+		-- @LOG_CHAR : 방어지 피해량
 		self.m_charLogRecorder:recordLog('be_damaged', damage)
 	end
 
@@ -770,7 +770,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     -- 죽음 체크
     if (self.m_hp <= 0) and (self.m_bDead == false) then
-		-- @LOG
+		-- @LOG : 보스 막타 타입
 		if (self:isBoss()) then
 			self.m_world.m_logRecorder:recordLog('finish_atk', t_info['attack_type'])
 		end
@@ -1078,8 +1078,9 @@ function Character:healAbs(caster, hp, b_make_effect)
         local effect = self.m_world:addInstantEffect(res, 'idle', pos_x, pos_y)
     end
 
-	-- @LOG_CHAR
+	-- @LOG_CHAR : 피회복자 피회복량
 	self.m_charLogRecorder:recordLog('be_healed', heal)
+	-- @LOG_CHAR : 회복시전자 회복량
 	if (caster) then
 		caster.m_charLogRecorder:recordLog('heal', heal)
 	end

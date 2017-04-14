@@ -496,7 +496,7 @@ function GameState.update_success_wait(self, dt)
 	    world:removeMissileAndSkill()
         world:removeHeroDebuffs()
                 
-		-- @LOG
+		-- @LOG : 스테이지 성공 시 클리어 시간
 		self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)
     end
 

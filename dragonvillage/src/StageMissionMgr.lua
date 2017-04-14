@@ -35,7 +35,7 @@ function StageMissionMgr:init_missionList(stage_id)
 		}
 	end
 
-	-- @LOG
+	-- @LOG : 스테이지 클리어 횟수
 	self.m_logRecorder:recordLog('clear_cnt', stage_info['clear_cnt'])
 end
 
