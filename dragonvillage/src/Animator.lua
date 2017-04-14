@@ -522,6 +522,7 @@ function MakeAnimator(file_name, skip_error_msg)
             cclog('## ' .. file_name)
             cclog('##############################################################')
             cclog('##############################################################')
+			__G__NOT_EXIST_RES = file_name
         end
     end
 
