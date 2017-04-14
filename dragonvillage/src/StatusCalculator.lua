@@ -222,6 +222,8 @@ end
 -- @brief 스테이지 보너스 적용
 -------------------------------------
 function StatusCalculator:applyStageBonus(stage_id, is_enemy)
+    if (stage_id == COLOSSEUM_STAGE_ID) then return end
+
     local t_info
 
     if (is_enemy) then

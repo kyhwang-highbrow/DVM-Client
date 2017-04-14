@@ -121,7 +121,7 @@ function UI_AdventureStageInfo:refresh()
     do -- 스테이지 버프 설명
         local desc = TableDrop():getValue(stage_id, 't_help')
         if (desc and desc ~= '') then
-            vars['popupNode']:setContentSize(self.m_orgWidth, 600)
+            vars['popupNode']:setContentSize(self.m_orgWidth, 450)
             vars['buffLabel']:setVisible(true)
             vars['buffLabel']:setString(desc)
         else

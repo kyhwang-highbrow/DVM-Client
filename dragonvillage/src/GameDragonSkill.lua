@@ -286,16 +286,14 @@ function GameDragonSkill.update_live2(self, dt)
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
             -- 카메라 줌인
-            if (not isInstanceOf(world, GameWorldColosseum)) then
-                local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
+            local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
             
-                world.m_gameCamera:setAction({
-                    pos_x = dragon.pos.x - (CRITERIA_RESOLUTION_X / 2),
-                    pos_y = dragon.pos.y,
-                    scale = 1.2,
-                    time = 0.25
-                })
-            end
+            world.m_gameCamera:setAction({
+                pos_x = dragon.pos.x - (CRITERIA_RESOLUTION_X / 2),
+                pos_y = dragon.pos.y,
+                scale = 1.2,
+                time = 0.25
+            })
 
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
