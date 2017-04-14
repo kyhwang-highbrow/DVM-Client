@@ -38,6 +38,7 @@ function UI_Game:initTamerUI(tamer)
         end
 	end
 
+    self.m_bVisible_TamerUI = true
 end
 
 -------------------------------------

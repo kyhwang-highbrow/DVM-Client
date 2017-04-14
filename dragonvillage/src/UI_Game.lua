@@ -5,6 +5,8 @@ UI_Game = class(UI, {
         m_gameScene = '',
         m_buffBoard = 'UI_NotificationInfo',
         m_panelUI = '',
+
+        m_bVisible_TamerUI = '',
      })
 
 -------------------------------------
@@ -420,6 +422,29 @@ function UI_Game:setAutoPlayUI()
 end
 
 -------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function UI_Game:setTemporaryPause(pause)
+    local vars = self.vars
+
+    if (pause) then
+        -- 패널 UI 숨김
+        self:toggleVisibility_PanelUI(false)
+
+        -- 테이머 UI 숨김
+        self:toggleVisibility_TamerUI(false)
+    else
+        -- 패널 UI 표시
+        if (g_autoPlaySetting:get('dragon_panel')) then
+            self:toggleVisibility_PanelUI(true)
+        end
+
+        -- 테이머 UI 표시
+        self:toggleVisibility_TamerUI(true)
+    end
+end
+
+-------------------------------------
 -- function toggleVisibility_PanelUI
 -------------------------------------
 function UI_Game:toggleVisibility_PanelUI(b, is_immediately)
@@ -430,5 +455,34 @@ function UI_Game:toggleVisibility_PanelUI(b, is_immediately)
 
    if (is_immediately) then
         self.m_panelUI.vars['panelMenu']:setVisible(b)
+   end
+end
+
+-------------------------------------
+-- function toggleVisibility_TamerUI
+-------------------------------------
+function UI_Game:toggleVisibility_TamerUI(b, is_immediately)
+    local vars = self.vars
+
+    if (not vars['tamerMenu']) then return end
+    if (self.m_bVisible_TamerUI == b) then return end
+    self.m_bVisible_TamerUI = b
+
+    local duration = 0.3
+
+    if (b) then
+        vars['tamerMenu']:setVisible(true)
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, 10)), 2)
+        vars['tamerMenu']:stopAllActions()
+        vars['tamerMenu']:runAction(move_action)
+    else
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, -150)), 2)
+		local seq_action = cc.Sequence:create(move_action, cc.Hide:create())
+        vars['tamerMenu']:stopAllActions()
+        vars['tamerMenu']:runAction(seq_action)
+    end
+
+    if (is_immediately) then
+        vars['tamerMenu']:setVisible(b)
    end
 end

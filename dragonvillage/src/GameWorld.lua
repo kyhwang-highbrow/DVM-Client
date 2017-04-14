@@ -1589,8 +1589,8 @@ end
 function GameWorld:setTemporaryPause(pause, excluded_dragon)
     -- 일시 정지
     if (pause) then
-        -- 패널 UI 숨김
-        self.m_inGameUI:toggleVisibility_PanelUI(false)
+        -- UI 일시 정지
+        self.m_inGameUI:setTemporaryPause(true)
 
         -- 게임 정지
         self.m_gameState:pause()
@@ -1609,10 +1609,8 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
             excluded_dragon.enable_body = false
         end
     else
-        -- 패널 UI 표시
-        if (g_autoPlaySetting:get('dragon_panel')) then
-            self.m_inGameUI:toggleVisibility_PanelUI(true)
-        end
+        -- UI 일시 정지 해제
+        self.m_inGameUI:setTemporaryPause(false)
 
         -- 게임 재개
         self.m_gameState:resume()
