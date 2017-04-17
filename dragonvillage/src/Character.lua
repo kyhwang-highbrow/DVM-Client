@@ -13,16 +13,16 @@ local SPEED_COMEBACK = 1500
 -- class Character
 -------------------------------------
 Character = class(PARENT, {
+		-- 캐릭터 기초 스탯
         m_lv = '',
         m_maxHp = '',
         m_hp = '',
-
 		m_attribute = '',
 		m_attributeOrg = '',
 
+		-- 기초 유틸
         m_statusCalc = '',
         m_stateDelegate = 'CharacterStateDelegate',
-
         m_activityCarrier = 'ActivityCarrier',
         m_charLogRecorder = 'LogRecorderChar',
 
@@ -1288,51 +1288,24 @@ function Character:update(dt)
     if (not self.m_bDead and not self.m_temporaryPause and self.m_world.m_gameState:isFight()) then
         -- 로밍 임시 처리
         if (self.m_bRoam) then
-            if (self.m_roamTimer <= 0) then
-                local time_range =  g_constant:get('INGAME', 'ENEMY_ROAM_TIME_RANGE')
-                local time = math_random(time_range[1] * 10, time_range[2] * 10) / 10
-
-                -- 랜덤한 위치를 뽑는다
-                local tar = getRandomWorldEnemyPos(self)
-                --self:changeHomePosByTime(tar.x, tar.y, self.m_roamTimer)
-
-                local bezier_range =  g_constant:get('INGAME', 'ENEMY_ROAM_BEZIER_RANGE')
-                local distance = math_random(bezier_range[1], bezier_range[2])
-                local bezier = getRandomBezier(tar.x, tar.y, self.pos.x, self.pos.y, distance)
-                local move_action = cc.BezierBy:create(time, bezier)
-
-                self:setHomePos(tar.x, tar.y)
-                cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
-                cca.runAction(self.m_rootNode, move_action, CHARACTER_ACTION_TAG__ROAM)
-
-                self.m_roamTimer = time
-            else
-                self.m_roamTimer = self.m_roamTimer - dt
-            end
-            self:syncAniAndPhys()
+			self:updateRoaming(dt)
         end
-
-        -- 쿨타임 스킬 타이머
+        
+		-- 쿨타임 스킬 타이머
         self:updateBasicTimeSkillTimer(dt)
     end
 
-    self:updateMove(dt)
-	self:updateStat(dt)
+	-- 이동 시 업데이트
+	if (self.m_isOnTheMove) then
+		self:updateMove(dt)
+	end
+		
+	-- 상태효과 아이콘 업데이트
 	self:updateStatusIcon(dt)
 
 	-- @TEST 디버깅용 디스플레이
     if (self.m_infoUI) then
-	    if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
-		    self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hp/self.m_maxHp*100))
-
-	    elseif g_constant:get('DEBUG', 'DISPLAY_UNIT_POS') then 
-		    self.m_infoUI.m_label:setString(string.format('%d, %d, %d, %d',self.pos.x, self.pos.y, self.m_homePosX, self.m_homePosY))
-
-	    elseif (g_constant:get('DEBUG', 'DISPLAY_UNIT_LOG')) then
-		    local key = g_constant:get('DEBUG', 'DISPLAY_UNIT_LOG')
-		    local log = self.m_charLogRecorder:getLog(key)
-		    self.m_infoUI.m_label:setString(string.format('%s : %d', key, log))
-	    end
+		self:updateDebugingInfo()
     end
 
     return PARENT.update(self, dt)
@@ -1341,11 +1314,7 @@ end
 -------------------------------------
 -- function updateMove
 -------------------------------------
-function Character:updateMove(dt)
-    if (not self.m_isOnTheMove) then
-        return
-    end
-
+function Character:updateMove()
     local body = self.body
 
     if self:isOverTargetPos() then
@@ -1549,20 +1518,52 @@ function Character:removeActivedSkill(skill)
 end
 
 -------------------------------------
--- function updateStat
--- @brief 각종 스탯이 실시간으로 변해야 할 경우
+-- function updateRoaming
+-- @brief roaming을 한다
 -------------------------------------
-function Character:updateStat(dt)
-	if (not self.m_statusCalc) then
-		return
-	end
+function Character:updateRoaming(dt)
+    if (self.m_roamTimer <= 0) then
+        local time_range =  g_constant:get('INGAME', 'ENEMY_ROAM_TIME_RANGE')
+        local time = math_random(time_range[1] * 10, time_range[2] * 10) / 10
 
-	-- 체력 버프 발동시 실시간 변화
-	if (self:getStat('hp') ~= self.m_maxHp) then
-		local max_hp = self:getStat('hp')
-		local curr_hp_percent = self.m_hp/self.m_maxHp
-		self.m_maxHp = max_hp
-		self.m_hp = max_hp * curr_hp_percent
+        -- 랜덤한 위치를 뽑는다
+        local tar = getRandomWorldEnemyPos(self)
+        --self:changeHomePosByTime(tar.x, tar.y, self.m_roamTimer)
+
+        local bezier_range =  g_constant:get('INGAME', 'ENEMY_ROAM_BEZIER_RANGE')
+        local distance = math_random(bezier_range[1], bezier_range[2])
+        local bezier = getRandomBezier(tar.x, tar.y, self.pos.x, self.pos.y, distance)
+        local move_action = cc.BezierBy:create(time, bezier)
+
+        self:setHomePos(tar.x, tar.y)
+        cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
+        cca.runAction(self.m_rootNode, move_action, CHARACTER_ACTION_TAG__ROAM)
+
+        self.m_roamTimer = time
+    else
+        self.m_roamTimer = self.m_roamTimer - dt
+    end
+    self:syncAniAndPhys()
+end
+
+-------------------------------------
+-- function updateDebugingInfo
+-- @brief 인게임 정보 출력용 업데이트
+-------------------------------------
+function Character:updateDebugingInfo()
+	-- 화면에 체력 표시
+	if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
+		self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hp/self.m_maxHp*100))
+
+	-- 화면에 좌표 표시
+	elseif g_constant:get('DEBUG', 'DISPLAY_UNIT_POS') then 
+		self.m_infoUI.m_label:setString(string.format('%d, %d, %d, %d',self.pos.x, self.pos.y, self.m_homePosX, self.m_homePosY))
+
+	-- 화면에 특정 로그 표시
+	elseif (g_constant:get('DEBUG', 'DISPLAY_UNIT_LOG')) then
+		local key = g_constant:get('DEBUG', 'DISPLAY_UNIT_LOG')
+		local log = self.m_charLogRecorder:getLog(key)
+		self.m_infoUI.m_label:setString(string.format('%s : %d', key, log))
 	end
 end
 

@@ -14,6 +14,10 @@ function Character:initTriggerListener()
 			end
 		end
 	end
+
+	-- 기본적으로 등록되어야 할 이벤트들
+	--self:addListener('get_debuff', self) -- 테이머만 사용중
+	self:addListener('stat_changed', self)
 end
 
 -------------------------------------
@@ -25,6 +29,11 @@ function Character:onEvent(event_name, t_event, ...)
 
 	elseif (event_name == 'under_atk_turn') then
 		self:onEvent_underAtkTurn()
+
+	elseif (event_name == 'get_debuff') then
+
+	elseif (event_name == 'stat_changed') then
+		self:onEvent_updateStat()
 
 	else
 		cclog(event_name)
@@ -74,4 +83,21 @@ function Character:onEvent_underAtkTurn()
 	
 	if (table.count(self.m_lSkillIndivisualInfo['under_atk_turn']) > 0) then
     end
+end
+
+-------------------------------------
+-- function onEvent_updateStat
+-------------------------------------
+function Character:onEvent_updateStat()
+	if (not self.m_statusCalc) then
+		return
+	end
+
+	-- 체력 버프 발동시 실시간 변화
+	if (self:getStat('hp') ~= self.m_maxHp) then
+		local max_hp = self:getStat('hp')
+		local curr_hp_percent = self.m_hp/self.m_maxHp
+		self.m_maxHp = max_hp
+		self.m_hp = max_hp * curr_hp_percent
+	end
 end

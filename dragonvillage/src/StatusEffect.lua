@@ -245,18 +245,26 @@ end
 -------------------------------------
 function StatusEffect:statusEffectApply_()
     local tar_char = self.m_owner
-    
+    local is_dirty_stat = false
+
     -- %능력치 적용
     for key,value in pairs(self.m_lStatus) do
         tar_char.m_statusCalc:addBuffMulti(key, value)
+		is_dirty_stat = true
     end
 
     -- 절대값 능력치 적용
     for key,value in pairs(self.m_lStatusAbs) do
         tar_char.m_statusCalc:addBuffAdd(key, value)
+		is_dirty_stat = true
     end
     
     self.m_overlabCnt = (self.m_overlabCnt + 1)
+
+	-- @EVENT : 스탯 변화 적용
+	if (is_dirty_stat) then
+		self.m_owner:dispatch('stat_changed')
+	end
 end
 
 -------------------------------------
@@ -280,13 +288,13 @@ function StatusEffect:statusEffectReset()
     end
 	
 	-- 스턴이었다면 스턴 해제
-	if self.m_owner and self.m_owner.m_state == 'stun' then
+	if self.m_owner and (self.m_owner.m_state == 'stun') then
 		self.m_owner:changeState('stun_esc')
 	end
 
 	-- 대상이 들고 있는 상태효과 리스트에서 제거
 	self.m_owner:removeStatusEffect(self)
-    
+
     self.m_bReset = true
 
     return true
@@ -297,18 +305,26 @@ end
 -------------------------------------
 function StatusEffect:statusEffectReset_()
     local tar_char = self.m_owner
+	local is_dirty_stat = false
     
     -- %능력치 원상 복귀
     for key,value in pairs(self.m_lStatus) do
         tar_char.m_statusCalc:addBuffMulti(key, -value)
+		is_dirty_stat = true
     end
 
     -- 절대값 능력치 원상 복귀
     for key,value in pairs(self.m_lStatusAbs) do
         tar_char.m_statusCalc:addBuffAdd(key, -value)
+		is_dirty_stat = true
     end
 
     self.m_overlabCnt = (self.m_overlabCnt - 1)
+
+	-- @EVENT : 스탯 변화 적용
+	if (is_dirty_stat) then
+		self.m_owner:dispatch('stat_changed')
+	end
 end
 
 -------------------------------------

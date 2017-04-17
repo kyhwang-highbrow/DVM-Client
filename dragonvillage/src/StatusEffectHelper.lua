@@ -339,6 +339,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
 	-- @EVENT 
 	if (StatusEffectHelper:isHarmful(status_effect)) then
+		-- 해로운 상태효과 걸렸을 시
 		local t_event = clone(EVENT_STATUS_EFFECT)
 		t_event['char'] = target_char
 		t_event['status_effect_name'] = status_effect.m_statusEffectName
