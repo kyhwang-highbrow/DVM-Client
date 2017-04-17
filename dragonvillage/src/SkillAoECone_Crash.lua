@@ -22,30 +22,10 @@ end
 -- function init_skill
 -------------------------------------
 function SkillAoECone_Crash:init_skill(dash_res, attack_count, dir)
-    PARENT.init_skill(self)
-
-	-- 멤버 변수
-	self.m_maxAttackCount = attack_count
-    self.m_range = g_constant:get('SKILL', 'CONE_RANGE')
-	self.m_dir = dir
+    PARENT.init_skill(self, attack_count, dir)
 
 	-- dash
 	self:initDashEffect(dash_res)
-
-	-- 위치 설정
-	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
-end
-
--------------------------------------
--- function initSkillSize
--------------------------------------
-function SkillAoECone_Crash:initSkillSize()
-	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
-		local t_data = SkillHelper:getSizeAndScale('target_cone', self.m_skillSize)  
-
-		--self.m_resScale = t_data['scale']
-		self.m_angle = t_data['size']
-	end
 end
 
 -------------------------------------
@@ -77,7 +57,7 @@ function SkillAoECone_Crash.st_move(owner, dt)
 		-- 캐릭터 이동 시작
 		char:setMove(owner.m_targetPos.x, owner.m_targetPos.y, MOVE_SPEED)
 		-- 스킬 이펙트 각도
-        owner:setRotation(char.movement_theta)
+        owner:setRotation(owner.m_dir)
 		-- 대쉬 이펙트 각도
 		owner.m_dashEffect:setRotation(char.movement_theta)
 		-- 스킬 이펙트 일단 가림

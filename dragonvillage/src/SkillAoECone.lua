@@ -26,7 +26,14 @@ function SkillAoECone:init_skill(attack_count, dir)
 	-- 멤버 변수
 	self.m_maxAttackCount = attack_count
     self.m_range = g_constant:get('SKILL', 'CONE_RANGE')
-	self.m_dir = dir
+	
+	-- 고정 각도
+	if (type(dir) == 'number') then
+		self.m_dir = dir
+	-- 변동 각도
+	else
+		self.m_dir = getAdjustDegree(getDegree(self.m_owner.pos.x, self.m_owner.pos.y, self.m_targetPos.x, self.m_targetPos.y))
+	end
 
 	-- 위치 설정
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)

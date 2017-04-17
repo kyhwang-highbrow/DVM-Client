@@ -8,6 +8,7 @@ SkillIndicator_AoECone = class(PARENT, {
 		m_skillRadius = 'num',
 		m_skillAngle = 'num',
 		m_skillDir = 'num',
+		m_isVariableDir = 'boolean'
     })
 	 
 -------------------------------------
@@ -24,7 +25,15 @@ function SkillIndicator_AoECone:init_indicator(t_skill)
 
 	self.m_skillRadius = g_constant:get('SKILL', 'CONE_RANGE')
 	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'ANGLE_LIMIT')
-	self.m_skillDir = t_skill['val_1']
+	
+	-- 고정 각도
+	if (type(t_skill['val_1']) == 'number') then
+		self.m_isVariableDir = false
+		self.m_skillDir = t_skill['val_1']
+	-- 변동 각도
+	else
+		self.m_isVariableDir = true
+	end
 
 	local skill_size = t_skill['skill_size']
 	if (skill_size) and (not (skill_size == '')) then
@@ -47,6 +56,9 @@ function SkillIndicator_AoECone:onTouchMoved(x, y)
 
 	self.m_targetPosX = touch_x
     self.m_targetPosY = touch_y
+	if (self.m_isVariableDir) then
+		self.m_skillDir = getAdjustDegree(getDegree(pos_x, pos_y, touch_x, touch_y))
+	end
 
 	-- 이펙트 위치
 	self:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
@@ -61,6 +73,7 @@ end
 -------------------------------------
 function SkillIndicator_AoECone:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 	self.m_indicatorEffect:setPosition(touch_x - pos_x, touch_y - pos_y)
+	self.m_indicatorEffect:setRotation(self.m_skillDir)
 	EffectLink_refresh(self.m_indicatorAddEffect, 0, 0, touch_x - pos_x, touch_y - pos_y)
 end
 
@@ -80,7 +93,7 @@ function SkillIndicator_AoECone:initIndicatorNode()
 		
 		indicator:setColor(COLOR_CYAN)
 		indicator:setPosition(self:getAttackPosition())
-		indicator:setRotation(self.m_skillDir)
+		indicator:setRotation(0)
         
 		root_node:addChild(indicator.m_node)
 		self.m_indicatorEffect = indicator
