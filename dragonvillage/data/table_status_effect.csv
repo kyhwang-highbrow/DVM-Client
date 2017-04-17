@@ -20,11 +20,11 @@ attr_change_dark,buff,속성 변환:어둠,,,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,
 def_up_overlab,buff,방어력 증가 오버랩,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,20,5,0,100,0,0,0,0,0,0,0,0,0,,0,,,,,5,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 atk_up_overlab,buff,공격력 증가 오버랩,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,20,5,100,0,0,0,0,0,0,0,0,0,0,,0,,,,,5,x,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 darknix,buff,파멸의 고동,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,99,999,20,0,0,0,10,0,0,0,0,0,0,,0,,,,,20,10,x,x,공격력 {1}% 증가. 치명 확률 {2}% 증가,
-heal,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,atk,,,,x,x,x,x,x,x
+heal,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,1,0,atk,,,,x,x,x,x,x,x
 heal2,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,0.3,0,atk,,,,x,x,x,x,x,x
-heal_abs,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,1,hp_abs,,,,x,x,x,x,x,x
-heal_per_hp,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,hp_target,,,,x,x,x,x,x,x
-heal_overlab,dot_heal,회복 오버랩,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,5,15,0,0,0,0,0,0,0,0,0,0,0,3,0,atk,,,,x,x,x,x,x,x
+heal_abs,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,1,1,hp_abs,,,,x,x,x,x,x,x
+heal_per_hp,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,1,0,hp_target,,,,x,x,x,x,x,x
+heal_overlab,dot_heal,회복 오버랩,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,5,15,0,0,0,0,0,0,0,0,0,0,0,1,0,atk,,,,x,x,x,x,x,x
 barrier_protection,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,20,0,0,0,0,0,0,0,0,0,0,0,,0,100,,,,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
 barrier_protection_abs,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,-1,0,0,0,0,0,0,0,0,0,0,0,,0,hit_abs,,,,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
 resist,barrier,피해 저항,res/effect/effect_shield/effect_shield.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,10,0,0,0,0,0,0,0,0,0,-100,0,,0,,,,,10,x,x,x,{duration}초 동안 받는 피해 {1}% 감소,최종 데미지에서 곱연산
