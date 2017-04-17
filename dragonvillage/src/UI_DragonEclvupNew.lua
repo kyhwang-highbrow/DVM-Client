@@ -189,7 +189,7 @@ function UI_DragonEclvupNew:refresh_materialTableView()
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
-        ui.root:setScale(0.7)
+        ui.root:setScale(0.66)
 
         -- 클릭 버튼 설정
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_material(data) end)
@@ -197,7 +197,7 @@ function UI_DragonEclvupNew:refresh_materialTableView()
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(105, 105)
+    table_view_td.m_cellSize = cc.size(100, 100)
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
     table_view_td:makeDefaultEmptyDescLabel(Str('초월에는 동일한 드래곤이 필요합니다.'))
