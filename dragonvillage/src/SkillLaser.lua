@@ -69,7 +69,7 @@ function SkillLaser:initSkillSize()
 	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
 		local t_data = SkillHelper:getSizeAndScale('bar', self.m_skillSize)  
 
-		--self.m_resScale = t_data['scale']
+		self.m_resScale = 1 --t_data['scale']
 		self.m_laserThickness = t_data['size']
 	end
 end
@@ -84,19 +84,12 @@ function SkillLaser:makeLaserLinkEffect(file_name)
 
     -- 저사양모드 ignore
     link_effect:setIgnoreLowEndMode(true)
-
     -- 'appear' -> 'idle' 에니메이션으로 자동 변경
     link_effect:registCommonAppearAniHandler()
-
-    do -- 이펙트 스케일 지정
-        local scale = self.m_resScale
-        link_effect.m_startPointNode:setScale(scale)
-        link_effect.m_effectNode:setScale(scale, 1)
-        link_effect.m_endPointNode:setScale(scale)
-    end
+	-- 이펙트 스케일 지정
+	link_effect:setScale(self.m_resScale)
 
     self.m_rootNode:addChild(link_effect.m_node)
-
     self.m_linkEffect = link_effect
 end
 
@@ -106,7 +99,7 @@ end
 function SkillLaser:initState()
 	self:setCommonState(self)
     self:addState('start', SkillLaser.st_idle, 'idle', true)
-    self:addState('disappear', SkillLaser.st_disappear, 'idle', true)
+    self:addState('disappear', SkillLaser.st_disappear, nil, true)
 end
 
 -------------------------------------
@@ -144,6 +137,7 @@ function SkillLaser.st_disappear(owner, dt)
         local function ani_handler()
             owner:changeState('dying')
         end
+		owner.m_linkEffect:setVisible(false)
         owner.m_linkEffect:changeCommonAni('disappear', false, ani_handler)
     end
 end

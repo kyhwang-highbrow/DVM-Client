@@ -69,6 +69,13 @@ function EffectLink:setVisible(visible)
 end
 
 -------------------------------------
+-- function setVisible
+-------------------------------------
+function EffectLink:setScale(scale)
+    self.m_node:setScale(scale)
+end
+
+-------------------------------------
 -- function rotate
 -------------------------------------
 function EffectLink_setRotation(self, degree)
