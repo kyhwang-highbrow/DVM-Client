@@ -15,6 +15,10 @@ function UI_DragonLevelupResult:init(dragon_object, prev_lv)
 
     self:sceneFadeInAction()
 
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonLevelupResult')
 

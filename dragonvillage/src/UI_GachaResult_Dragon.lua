@@ -17,6 +17,10 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list)
     local vars = self:load('gacha_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_GachaResult_Dragon')
 

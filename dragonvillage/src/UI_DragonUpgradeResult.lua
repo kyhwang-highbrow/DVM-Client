@@ -15,6 +15,10 @@ function UI_DragonUpgradeResult:init(dragon_object)
 
     self:sceneFadeInAction()
 
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonUpgradeResult')
 
