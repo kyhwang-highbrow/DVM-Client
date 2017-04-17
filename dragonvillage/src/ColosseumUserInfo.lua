@@ -243,7 +243,7 @@ end
 -------------------------------------
 function ColosseumUserInfo:getRankText(simple)
     if (not self.m_rank) then
-        return Str('기록이 없습니다.')
+        return Str('기록 없음')
     end
 
     if simple then
@@ -262,7 +262,7 @@ end
 -------------------------------------
 function ColosseumUserInfo:getFriendRankText()
     if (not self.m_friendRank) then
-        return Str('기록이 없습니다.')
+        return Str('기록 없음')
     end
 
     return Str('{1}위', comma_value(self.m_friendRank))
@@ -274,7 +274,7 @@ end
 -------------------------------------
 function ColosseumUserInfo:getRPText()
     if (not self.m_rp) then
-        return Str('기록이 없습니다.')
+        return Str('기록 없음')
     end
 
     local text = Str('{1}점', comma_value(self.m_rp))
@@ -298,7 +298,7 @@ end
 -------------------------------------
 function ColosseumUserInfo:getWinstreakText()
     if (not self.m_straight) then
-        return Str('기록이 없습니다.')
+        return Str('기록 없음')
     end
 
     local straight = math_max(self.m_straight, 0)

@@ -251,6 +251,7 @@ function UI_Lobby:initButton()
 	vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffBtn() end)
 	vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
+    vars['tamerBtn2']:registerScriptTapHandler(function() self:click_tamerBtn() end)
     vars['explorationBtn']:registerScriptTapHandler(function() self:click_explorationBtn() end) -- 탐험 버튼
     vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 도감 버튼
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 

@@ -190,7 +190,7 @@ function UI_Colosseum:init_weekRankTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(780, 100)
+    table_view.m_defaultCellSize = cc.size(840, 100 + 5)
     table_view:setCellUIClass(UI_ColosseumRankListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
@@ -257,7 +257,7 @@ function UI_Colosseum:init_topRankTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(780, 100)
+    table_view.m_defaultCellSize = cc.size(840, 100 + 5)
     table_view:setCellUIClass(UI_ColosseumRankListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
@@ -307,7 +307,7 @@ function UI_Colosseum:init_friendRankTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(780, 100)
+    table_view.m_defaultCellSize = cc.size(840, 100+5)
     table_view:setCellUIClass(UI_ColosseumFriendRankListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
