@@ -36,13 +36,21 @@ end
 -------------------------------------
 -- function load
 -------------------------------------
-function UI:load(url, isPermanent)
+function UI:load(url, isPermanent, keep_z_order)
     self.m_resName = url
-    self.root, self.vars = UILoader.load(self, url)
+    self.root, self.vars = UILoader.load(self, url, keep_z_order)
 	if isPermanent then
 		UILoader.setPermanent(url)
 	end
     return self.vars
+end
+
+-------------------------------------
+-- function load_keepZOrder
+-------------------------------------
+function UI:load_keepZOrder(url, isPermanent)
+    local keep_z_order = true
+    self:load(url, isPermanent, true)
 end
 
 -------------------------------------

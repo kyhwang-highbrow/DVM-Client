@@ -306,7 +306,7 @@ local function setPropsForProgressTimer(node, data)
     node:setPercentage(data.percentage)
 end
 
-local function loadNode(ui, data, vars, parent)
+local function loadNode(ui, data, vars, parent, keep_z_order)
     if not data.loaded then
         -- 저해상도(3GS)를 위해 Label을 강제로 ui property를 변경해준다.
         -- adjustLabelPropsForLowResolution(data)
@@ -583,11 +583,16 @@ local function loadNode(ui, data, vars, parent)
         ui:addAction(node, data.action_type, data.action_delay_1 + data.action_delay_2, data.action_duration)
     end
 
-    for _,v in ipairs(data) do
-        local child = loadNode(ui, v, vars, node)
+    for z_order,v in ipairs(data) do
+        local child = loadNode(ui, v, vars, node, keep_z_order)
+
         -- 소켓노드를 위한 예외처리...
         if child and v.type ~= 'SocketNode' then
-            node:addChild(child)
+            if keep_z_order then
+                node:addChild(child, z_order)
+            else
+                node:addChild(child)
+            end
         end
     end
 
@@ -681,13 +686,13 @@ function UILoader.checkTranslateUnit(str)
     return translate_str
 end
 
-function UILoader.load(ui, url)
+function UILoader.load(ui, url, keep_z_order)
 	if (not CHECK_UI_LOAD_TIME) then
 		local data = getUIFile(url)
 		data = setUIHeader(data)
 
 		local vars = {}
-		local root = loadNode(ui, data, vars)
+		local root = loadNode(ui, data, vars, nil, keep_z_order)
 
 		return root, vars
 	end
@@ -703,7 +708,7 @@ function UILoader.load(ui, url)
 	data = setUIHeader(data)
 
 	local vars = {}
-	local root = loadNode(ui, data, vars)
+	local root = loadNode(ui, data, vars, nil, keep_z_order)
 
 	-- record
 	stopwatch:record('UI Node load')

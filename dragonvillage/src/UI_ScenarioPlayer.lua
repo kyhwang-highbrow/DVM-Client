@@ -22,7 +22,7 @@ UI_ScenarioPlayer = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ScenarioPlayer:init(scenario_name)
-    local vars = self:load('scenario_talk.ui')
+    local vars = self:load_keepZOrder('scenario_talk.ui', false)
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -31,39 +31,6 @@ function UI_ScenarioPlayer:init(scenario_name)
     self.m_currPage = 0
     self:loadScenario(scenario_name)
     self.m_maxPage = table.count(self.m_scenarioTable)
-
-    do -- 레이어 순서 정리
-        local depth = 100
-
-        vars['skipBtn']:setLocalZOrder(depth)
-        depth = (depth -1)
-
-        vars['nextBtn']:setLocalZOrder(depth)
-        depth = (depth -1)
-
-        vars['nextVisual']:setLocalZOrder(depth)
-        depth = (depth -1)
-
-        vars['titleNode']:setLocalZOrder(depth)
-        depth = (depth -1)
-
-        vars['layerColor']:setLocalZOrder(depth)
-        depth = (depth -1)
-
-        vars['layerColor']:setLocalZOrder(depth)
-        depth = (depth -1)
-
-        vars['textMomoSprite1']:setLocalZOrder(depth)
-        vars['textMomoSprite2']:setLocalZOrder(depth)
-        vars['talkSprite1']:setLocalZOrder(depth)
-        vars['talkSprite2']:setLocalZOrder(depth)
-        depth = (depth -1)
-
-        vars['nameNode2']:setLocalZOrder(depth)
-        vars['nameNode1']:setLocalZOrder(depth)
-        depth = (depth -1)
-    end
-
 
     -- 캐릭터 관련
     self.m_mCharacter = {}

@@ -1575,9 +1575,6 @@
     <None Include="..\src\ServerData_Event.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_ColosseumReadyScene_Deck.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\ServerData_Adventure.lua">
       <Filter>lua</Filter>
     </None>

@@ -510,7 +510,6 @@ local t_module = {
     'UI_Colosseum',
 	'UI_ColosseumRewardPopup',
     'UI_ColosseumReadyScene',
-	'UI_ColosseumReadyScene_Deck',
     'UI_ColosseumLoading',
     'UI_ColosseumResult',
     'UI_ColosseumRankListItem',
