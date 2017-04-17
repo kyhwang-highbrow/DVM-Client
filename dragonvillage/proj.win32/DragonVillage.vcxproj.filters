@@ -1944,10 +1944,10 @@
     <None Include="..\src\TableScenarioResource.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_GameResult_StatisticsListItem.lua">
+    <None Include="..\src\UI_StatisticsListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_GameResult_StatisticsPopup.lua">
+    <None Include="..\src\UI_StatisticsPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

@@ -453,6 +453,8 @@ local t_module = {
 	'UI_GameDebug_RealTime',
     'UI_IngameDragonPanel',
     'UI_IngameDragonPanelItem',
+	'UI_StatisticsPopup',
+	'UI_StatisticsListItem',
     'UI_ReadyScene',
     'UI_ReadyScene_Deck',
     'UI_AdventureSceneNew',

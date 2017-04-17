@@ -1,18 +1,19 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
-local DPS_ACTION_DURATION = 0.2
-
 -------------------------------------
--- class UI_GameResult_StatisticsListItem
+-- class UI_StatisticsListItem
 -------------------------------------
-UI_GameResult_StatisticsListItem = class(PARENT, {
+UI_StatisticsListItem = class(PARENT, {
+		m_dragonInfo = 'data',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GameResult_StatisticsListItem:init(world)
-	local vars = self:load('')
+function UI_StatisticsListItem:init(dragon)
+	local vars = self:load('ingame_result_stats_popup_item_01.ui')
+
+	self.m_dragonInfo = dragon
 
 	-- UI 초기화
     self:initUI()
@@ -22,18 +23,18 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_GameResult_StatisticsListItem:initUI()
+function UI_StatisticsListItem:initUI()
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_GameResult_StatisticsListItem:initButton()
+function UI_StatisticsListItem:initButton()
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_GameResult_StatisticsListItem:refresh()
+function UI_StatisticsListItem:refresh()
 
 end
