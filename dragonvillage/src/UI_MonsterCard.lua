@@ -117,7 +117,7 @@ function UI_MonsterCard:makeAttrIcon(res)
     sprite:setDockPoint(CENTER_POINT)
     sprite:setAnchorPoint(CENTER_POINT)
     sprite:setScale(1.1)
-    sprite:setPosition(-46, 46)
+    sprite:setPosition(-54, 54)
     self.vars['clickBtn']:addChild(sprite, 2)
     vars['attrIcon'] = sprite
 end
