@@ -238,7 +238,7 @@ function Skill.st_delay(owner, dt)
 		owner:changeState('start')
 
         -- 스킬 사용시 발동되는 status effect를 적용
-		owner:dispatch(CON_SKILL_START)
+		owner:dispatch(CON_SKILL_START, {l_target = {owner.m_targetChar}})
     end
 end
 
@@ -256,7 +256,7 @@ function Skill.st_dying(owner, dt)
 		end
 
         -- 스킬 종료시 발동되는 status effect를 적용
-		owner:dispatch(CON_SKILL_END)
+		owner:dispatch(CON_SKILL_END, {l_target = {owner.m_targetChar}})
 
         -- 보너스 버프 효과 부여
         if (owner.m_bonusLevel > 0) then
