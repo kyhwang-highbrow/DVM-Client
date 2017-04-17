@@ -141,7 +141,11 @@ function UI_DragonFriendship:refreshFriendship()
         vars['expGauge']:stopAllActions()
         vars['expGauge']:runAction(cc.ProgressTo:create(0.3, t_friendship_info['exp_percent']))
 
-        vars['expLabel']:setString(Str('{1}/{2}', friendship_obj['fexp'], t_friendship_info['max_exp']))
+        if friendship_obj:isMaxFriendshipLevel() then
+            vars['expLabel']:setString(Str('최대 친밀도'))
+        else
+            vars['expLabel']:setString(Str('{1}/{2}', friendship_obj['fexp'], t_friendship_info['max_exp']))
+        end
     end
 
     local percent = (friendship_obj['fatk'] / t_friendship_info['atk_max']) * 100

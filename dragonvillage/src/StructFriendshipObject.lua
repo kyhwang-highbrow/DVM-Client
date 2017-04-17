@@ -71,7 +71,7 @@ function StructFriendshipObject:getFriendshipInfo()
     t_friendship_info['atk_max'] = table_friendship_variables:getAtkMax()
     t_friendship_info['def_max'] = table_friendship_variables:getDefMax()
     t_friendship_info['hp_max'] = table_friendship_variables:getHpMax()
-    t_friendship_info['max_exp'] = t_table['req_exp']
+    t_friendship_info['max_exp'] = table_friendship:getFriendshipReqExp(self['flv'])
     t_friendship_info['exp_percent'] = (self['fexp'] / t_friendship_info['max_exp']) * 100
 
     return t_friendship_info

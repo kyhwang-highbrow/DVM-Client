@@ -28,6 +28,38 @@ function TableFriendship:isMaxFriendshipLevel(flv)
     return (req_exp == 0) or (req_exp == '')
 end
 
+-------------------------------------
+-- function getFriendshipReqExp
+-------------------------------------
+function TableFriendship:getFriendshipReqExp(flv)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_table = self:get(flv)
+    if (not t_table) then
+        error('flv : ' .. flv)
+    end
+
+    -- 테이블의 key값이 중간에 바뀌어서 둘 다 처리
+    local req_exp = (t_table['cumulative_req_exp'] or t_table['req_exp'])
+
+    if (not req_exp) or (req_exp == 0) or (req_exp == '') then
+        return 0
+    end
+
+    -- 이전 레벨의 필요 경험치를 제거
+    if (0 < flv) then
+        local t_table = self:get(flv - 1)
+        local req_exp2 = (t_table['cumulative_req_exp'] or t_table['req_exp'])
+        req_exp = (req_exp - req_exp2)
+    end
+
+    return req_exp
+end
+
+
+
 --[[
 -------------------------------------
 -- function getFriendshipLvAndExpInfo
