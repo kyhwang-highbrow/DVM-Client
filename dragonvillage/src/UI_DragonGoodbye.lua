@@ -117,7 +117,7 @@ function UI_DragonGoodbye:init_dragonMaterialTableView()
 
     -- cell_size 지정
     local item_size = 150
-    local item_scale = 0.71
+    local item_scale = 0.66
     local cell_size = cc.size(item_size*item_scale, item_size*item_scale)
 
     -- 리스트 아이템 생성 콜백
