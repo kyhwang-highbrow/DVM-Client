@@ -67,6 +67,8 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
 
     self.m_timeStamp = nil
     self.vars['talkSprite']:setVisible(false)
+
+    self:click_dragonButton()
 end
 
 -------------------------------------
@@ -99,6 +101,11 @@ function UIC_DragonAnimator:click_dragonButton()
 
         self.vars['talkSprite']:runAction(cc.Sequence:create(cc.DelayTime:create(3), cc.Hide:create()))
     end
+
+    self.m_animator.m_node:stopAllActions()
+    self.m_animator.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(6), cc.CallFunc:create(function()
+            self:click_dragonButton()
+        end)))
 end
 
 -------------------------------------
