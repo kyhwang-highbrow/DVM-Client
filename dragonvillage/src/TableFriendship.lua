@@ -24,7 +24,7 @@ function TableFriendship:isMaxFriendshipLevel(flv)
         self = THIS()
     end
 
-    local req_exp = self:getValue(flv, 'req_exp')
+    local req_exp = self:getValue(flv, 'cumulative_req_exp')
     return (req_exp == 0) or (req_exp == '')
 end
 
@@ -41,8 +41,7 @@ function TableFriendship:getFriendshipReqExp(flv)
         error('flv : ' .. flv)
     end
 
-    -- 테이블의 key값이 중간에 바뀌어서 둘 다 처리
-    local req_exp = (t_table['cumulative_req_exp'] or t_table['req_exp'])
+    local req_exp = t_table['cumulative_req_exp']
 
     if (not req_exp) or (req_exp == 0) or (req_exp == '') then
         return 0
@@ -51,7 +50,7 @@ function TableFriendship:getFriendshipReqExp(flv)
     -- 이전 레벨의 필요 경험치를 제거
     if (0 < flv) then
         local t_table = self:get(flv - 1)
-        local req_exp2 = (t_table['cumulative_req_exp'] or t_table['req_exp'])
+        local req_exp2 = t_table['cumulative_req_exp']
         req_exp = (req_exp - req_exp2)
     end
 
