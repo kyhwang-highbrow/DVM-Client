@@ -50,7 +50,7 @@ end
 -------------------------------------
 function UI:load_keepZOrder(url, isPermanent)
     local keep_z_order = true
-    self:load(url, isPermanent, true)
+    return self:load(url, isPermanent, true)
 end
 
 -------------------------------------
