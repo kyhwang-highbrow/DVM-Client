@@ -313,21 +313,30 @@ function GameWorld:removeEnemyDebuffs()
 end
 
 -------------------------------------
--- function buffActivateAtStartup
--- @brief 시작 시 버프 발동
+-- function passiveActivate_Left
+-- @brief 시작 시 패시브 발동
 -------------------------------------
-function GameWorld:buffActivateAtStartup()
+function GameWorld:passiveActivate_Left()
     -- 테이머 버프
     if (self.m_tamer) then
         self.m_tamer:doSkillPassive()
     end
 
     -- 아군 버프
-    for _, list in ipairs({self:getDragonList(), self:getEnemyList()}) do
-        for _, unit in pairs(list) do
-            unit:doSkill_passive()
-        end
+    for _, dragon in ipairs(self:getDragonList()) do
+		dragon:doSkill_passive()
     end
     
     -- 친구 버프
+end
+
+-------------------------------------
+-- function passiveActivate_Right
+-- @brief 패시브 발동
+-------------------------------------
+function GameWorld:passiveActivate_Right()
+    -- 적 버프
+    for _, monster in ipairs(self:getEnemyList()) do
+		monster:doSkill_passive()
+    end
 end

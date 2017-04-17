@@ -102,9 +102,12 @@ function DynamicWave:update(dt)
             self.m_movement
             )
 
-		-- regen 정보가 있다면 monster에게 보내준다.
+		-- regen 정보가 있다면 (regen된 몬스터라면)
 		if (self.m_regenWaveInfo) then
+			-- 리젠 정보를 저장
 			monster:setRegenInfo(self.m_regenWaveInfo)
+			-- 강제로 패시브 동작
+			monster:doSkill_passive()
 		end
 
         -- 아이템을 드랍하는 몬스터라면
