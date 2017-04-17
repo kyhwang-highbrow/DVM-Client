@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_QuestPopup
 -------------------------------------
 UI_QuestPopup = class(PARENT, {
+        m_tableView = '',
     })
 
 -------------------------------------
@@ -75,6 +76,16 @@ function UI_QuestPopup:refresh()
 	self:setNotiRewardable()
 	-- 별도 퀘스트 UI는 직접 갱신
 	self:setAllClearListItem(self.m_currTab)
+
+    if (self.m_currTab == TableQuest.NEWBIE) then    
+	    local t_quest = g_questData:getQuestListByType(self.m_currTab)
+        self.m_tableView:mergeItemList(t_quest, function(item, data)
+                local ui = item['ui']
+                if ui then
+                    ui:refresh(data)
+                end
+            end)
+    end
 end
 
 -------------------------------------
@@ -120,6 +131,8 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(t_quest)
 
+        self.m_tableView = table_view
+
         --[[
 		-- 오른쪽에서 등장하는 연출
 		local content_size = node:getContentSize()
@@ -141,7 +154,9 @@ function UI_QuestPopup:setAllClearListItem(tab)
 	local node = self.vars['allClearNode']
 	node:removeAllChildren()
 
-	if (tab == TableQuest.CHALLENGE) then return end
+	if (tab == TableQuest.CHALLENGE) then
+        return
+    end
 
 	local t_quest = g_questData:getAllClearQuestTable(tab)
 	local ui = UI_QuestListItem(t_quest, true)

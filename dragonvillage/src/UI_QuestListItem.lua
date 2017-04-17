@@ -5,14 +5,6 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_QuestListItem = class(PARENT, {
         m_questData = 'table',
-
-		-- 각종 중요 숫자들은 테이블로 있으면 파악하기 힘들어 멤버 변수화
-		m_rawCount = 'num',
-		m_clearCount = 'num',
-		m_rewardCount = 'num',
-		m_goalCount = 'num',
-
-		m_isCleared = 'bool',
     })
 
 -------------------------------------
@@ -49,12 +41,6 @@ function UI_QuestListItem:setQuestData(t_data)
 	end
 	
     self.m_questData = t_data
-
-	self.m_rawCount = self.m_questData['rawcnt']
-	self.m_clearCount = self.m_questData['clearcnt']
-	self.m_rewardCount = self.m_questData['rewardcnt']
-	self.m_goalCount = self.m_questData['goal_cnt']
-	self.m_isCleared = self.m_questData['is_cleared'] or self:getIsCleared()
 end
 
 -------------------------------------
@@ -96,30 +82,34 @@ end
 -- @brief 퀘스트 진행 상태에 따라 visible on/off
 -------------------------------------
 function UI_QuestListItem:setVarsVisible()
+
+    local quest_data = self.m_questData
+
     local vars = self.vars
 	
-	-- 퀘스트 보상까지 전부 수령시 표시
-	vars['questCompletNode']:setVisible(self.m_isCleared)
-
-	-- 보상 수령 가능시
-	local is_activated_reward = (self.m_rewardCount < self.m_clearCount)
-	vars['rewardBtn']:setVisible(true) --is_activated_reward)
-	vars['rewardBtn']:setEnabled(is_activated_reward)
-
-	-- 평시
-	local is_temp = (not self.m_isCleared) and (not is_activated_reward)
-    vars['doingBtn']:setVisible(is_temp)
-    vars['rewardBtn']:setVisible(not is_temp)
-
-    -- 초보자 퀘스트는 순차적으로 보상을 받을 수 있음
-    if (self.m_questData['type'] == 'newbie') then
-        if (g_questData.m_focusNewbieQid < self.m_questData['qid']) then
+    if vars['lockBtn'] then
+        if quest_data:isLock() then
+            vars['lockBtn']:setVisible(true)
             vars['questCompletNode']:setVisible(false)
             vars['rewardBtn']:setVisible(false)
             vars['doingBtn']:setVisible(false)
-            vars['lockBtn']:setVisible(true)
+            return
+        else
+            vars['lockBtn']:setVisible(false)
         end
     end
+    if (quest_data == 10003) then
+        cclog('sdlkfjsdlkfjsd call!!!!')
+    end
+
+	-- 퀘스트 보상까지 전부 수령시 표시
+	vars['questCompletNode']:setVisible(quest_data:isQuestEnded())
+
+	-- 보상 수령 가능시
+	vars['rewardBtn']:setVisible(quest_data:hasReward())
+
+	-- 평시
+    vars['doingBtn']:setVisible((not quest_data:hasReward()) and (not quest_data:isQuestEnded()))
 end
 
 -------------------------------------
@@ -128,10 +118,8 @@ end
 -------------------------------------
 function UI_QuestListItem:setQuestDescLabel()
     local vars = self.vars
-	local t_data = self.m_questData
-	local goal_cnt = t_data['unit'] * self.m_goalCount
-
-	vars['questLabel']:setString(Str(t_data['t_desc'], goal_cnt))
+    local desc = self.m_questData:getQuestDesc()
+	vars['questLabel']:setString(desc)
 end
 
 -------------------------------------
@@ -140,23 +128,14 @@ end
 -------------------------------------
 function UI_QuestListItem:setRewardCard()
     local vars = self.vars
-	local t_data = self.m_questData
 
-	local reward_type, reward_unit, reward_card, reward_count = nil
-	local t_reward = t_data['t_reward']
+    local l_reward_info = self.m_questData:getRewardInfoList()
 
-	for i = 1, 3 do 
-		reward_type = t_reward['reward_type_' .. i]
-		reward_unit = t_reward['reward_unit_' .. i]
-		if (reward_type and reward_unit) then
-            reward_count = reward_unit * math_min(self.m_goalCount, t_data['reward_max_cnt'])
-		    reward_card = UI_RewardCard(reward_type, reward_count)
-			reward_card.root:setScale(0.7)
-			vars['rewardNode' .. i]:addChild(reward_card.root)
-		else
-			vars['rewardNode' .. i]:setVisible(false)
-		end
-	end
+    for i,v in ipairs(l_reward_info) do
+        local reward_card = UI_ItemCard(v['item_id'], v['count'])
+		reward_card.root:setScale(0.7)
+        vars['rewardNode' .. i]:addChild(reward_card.root)
+    end
 end
 
 -------------------------------------
@@ -165,16 +144,10 @@ end
 -------------------------------------
 function UI_QuestListItem:setQuestProgress()
     local vars = self.vars
-	local t_data = self.m_questData
+	local percentage, text = self.m_questData:getProgressInfo()
 	
-	local goal_cnt = t_data['unit'] * self.m_goalCount
-	local cur_cnt = self.m_rawCount
-	
-	vars['questGauge']:runAction(cc.ProgressTo:create(0.5, (cur_cnt / goal_cnt) * 100)) 
-
-    -- 목표치보다 높게 표기되는 부분 보정
-    cur_cnt = math_min(cur_cnt, goal_cnt)
-	vars['questGaugeLabel']:setString(cur_cnt .. ' / ' .. goal_cnt)
+	vars['questGauge']:runAction(cc.ProgressTo:create(0.5, percentage)) 
+	vars['questGaugeLabel']:setString(text)
 end
 
 -------------------------------------
@@ -188,17 +161,19 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
+
+    cclog('g_questData.m_focusNewbieQid : ' .. g_questData.m_focusNewbieQid)
+
 	local qid = self.m_questData['qid']
 	local cb_function = function(t_quest_data)
 		-- 보상 수령 팝업
-		local t_reward = clone(self.m_questData['t_reward'])
-		t_reward['reward_cnt'] = self.m_rewardCount
-		UI_RewardPopup(t_reward)
+		UI_RewardPopup()
 		
 		-- 갱신
 		self:refresh(t_quest_data)
 		ui_quest_popup:refresh()
 		g_topUserInfo:refreshData()
+        cclog('g_questData.m_focusNewbieQid : ' .. g_questData.m_focusNewbieQid)
 	end
 
 	g_questData:requestQuestReward(qid, cb_function)

@@ -1950,6 +1950,9 @@
     <None Include="..\src\UI_StatisticsPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructQuestData.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

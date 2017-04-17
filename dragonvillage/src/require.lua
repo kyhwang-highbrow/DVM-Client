@@ -55,6 +55,7 @@ local t_module = {
 	'StructStatusEffect',
     'StructIndividualStatus',
     'StructFreeDragonSummonInfo',
+    'StructQuestData',
 
     -- Util
     'Action',

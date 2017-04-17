@@ -47,6 +47,10 @@ end
 -------------------------------------
 function ServerData_Item:parsePackageItemStrIndivisual(package_item_str)
     local l_item_list = TableClass:seperate(package_item_str, ';')
+
+    if (#l_item_list <= 1) then
+        l_item_list = TableClass:seperate(package_item_str, ':')
+    end
     
     local first_data = l_item_list[1]
     local second_data = l_item_list[2]

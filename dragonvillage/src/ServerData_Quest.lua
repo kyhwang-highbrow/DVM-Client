@@ -57,15 +57,32 @@ end
 -------------------------------------
 function ServerData_Quest:makeQuestFullData()
 	local t_table_quest = clone(self.m_tableQuest.m_orgTable)
-	
-	local qid, t_server_quest
+
 
     local focus_newbie_qid = nil
+    local high_newbie_qid = nil
 
-	for i, t_quest in pairs(t_table_quest) do 
-		qid = t_quest['qid']
-		t_server_quest = self:getServerQuest(qid)
+    self.m_workedData = {}
 
+	for qid, t_quest in pairs(t_table_quest) do         
+		local t_server_quest = self:getServerQuest(qid)
+
+        local struct_quest_data = StructQuestData(t_server_quest)
+        self.m_workedData[qid] = struct_quest_data
+        
+
+        -- 초보자 퀘스트 포커스 qid 검색
+        if (struct_quest_data.m_type == 'newbie') and (not struct_quest_data:isQuestEnded()) then
+            if (not focus_newbie_qid) or (qid < focus_newbie_qid)  then
+                focus_newbie_qid = qid
+            end
+        end
+
+        if (not high_newbie_qid) or (high_newbie_qid < qid) then
+            high_newbie_qid = qid
+        end
+
+        --[[
         -- server data가 있다면 남아있는 퀘스트
 		if (t_server_quest) then 
 			-- 서버에서 주는것
@@ -108,10 +125,10 @@ function ServerData_Quest:makeQuestFullData()
                 focus_newbie_qid = t_quest['qid']
             end
         end
+        --]]
     end
-    self.m_focusNewbieQid = focus_newbie_qid
 
-	self.m_workedData = t_table_quest
+    self.m_focusNewbieQid = focus_newbie_qid or high_newbie_qid
 end
 
 -------------------------------------
@@ -121,7 +138,7 @@ function ServerData_Quest:getQuestListByType(quest_type)
 	-- type에 해당하는 퀘스트 뽑아냄
     local l_quest = {}
 	for i, quest in pairs(self.m_workedData) do 
-		if (quest['type'] == quest_type) then
+		if (quest.m_type == quest_type) then
 			table.insert(l_quest, quest)
 		end
 	end
@@ -132,14 +149,17 @@ function ServerData_Quest:getQuestListByType(quest_type)
 	local l_normal_quest = {}
 	for i, quest in pairs(l_quest) do
 		-- 보상 있는 퀘스트
-		if (quest['clearcnt'] > quest['rewardcnt']) then
+		if quest:hasReward() then
 			table.insert(l_reward_quest ,quest)
-		-- 완료한 퀘스트
-		elseif (quest['rewardcnt'] == quest['max_cnt']) then
-			table.insert(l_completed_quest, quest)
-		-- 남아있는 퀘스트
-		else
+		
+        -- 남아있는 퀘스트
+		elseif (not quest:isQuestEnded()) then
 			table.insert(l_normal_quest, quest)
+		
+        -- 완료한 퀘스트
+		else
+            table.insert(l_completed_quest, quest)
+			
 		end
 	end
 
@@ -175,11 +195,10 @@ end
 -------------------------------------
 function ServerData_Quest:getAllClearQuestTable(quest_type)
 	local all_clear_type = quest_type .. '_all'
-	local key = 'type'
 	local ret = nil
 
     for i,v in pairs(self.m_workedData) do
-        if (v[key] == all_clear_type) then
+        if (v.m_type == all_clear_type) then
             ret = clone(v)
 			break;
         end
@@ -198,9 +217,9 @@ function ServerData_Quest:hasRewardableQuest(quest_type)
 
 	-- type에 해당하는 퀘스트 뽑아냄
 	for i, quest in pairs(self.m_workedData) do 
-		if (quest['type'] == quest_type) then
+		if (quest.m_type == quest_type) then
             -- 보상 수령 가능한 상태
-			if (quest['clearcnt'] > quest['rewardcnt']) then
+			if quest:hasReward() then
                 is_exist = true
                 break
             end

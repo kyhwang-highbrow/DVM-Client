@@ -10,6 +10,8 @@ TableQuest = class(PARENT, {
 		NEWBIE = 'newbie'
     })
 
+local THIS = TableQuest
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -38,4 +40,73 @@ function TableQuest:arrangeData()
 			t_quest['t_reward']['reward_unit_'..i] = reward_iv[2]
 		end
 	end
+end
+
+-------------------------------------
+-- function getQuestType
+-------------------------------------
+function TableQuest:getQuestType(qid)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local type = self:getValue(qid, 'type')
+    return type
+end
+
+-------------------------------------
+-- function getMaxStep
+-------------------------------------
+function TableQuest:getMaxStep(qid)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local max_step = self:getValue(qid, 'max_cnt')
+    return max_step
+end
+
+-------------------------------------
+-- function getQuestDesc
+-------------------------------------
+function TableQuest:getQuestDesc(qid)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_desc = self:getValue(qid, 't_desc')
+    return t_desc
+end
+
+-------------------------------------
+-- function getQuestUnit
+-------------------------------------
+function TableQuest:getQuestUnit(qid)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local unit = self:getValue(qid, 'unit')
+    return unit
+end
+
+-------------------------------------
+-- function getRewardInfoList
+-------------------------------------
+function TableQuest:getRewardInfoList(qid, step)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local reward_str = self:getValue(qid, 'reward')
+    local l_item_list = ServerData_Item:parsePackageItemStr(reward_str)
+
+    local reward_max_cnt = self:getValue(qid, 'reward_max_cnt')
+    reward_max_cnt = math_min(reward_max_cnt, step)
+
+    for i,v in ipairs(l_item_list) do
+        v['count'] = (v['count'] * reward_max_cnt)
+    end
+
+    return l_item_list
 end
