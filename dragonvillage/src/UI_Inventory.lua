@@ -16,7 +16,7 @@ UI_Inventory = class(PARENT, {
 -------------------------------------
 function UI_Inventory:init()
     local vars = self:load('inventory.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_Inventory')

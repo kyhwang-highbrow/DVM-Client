@@ -17,7 +17,7 @@ function UI_MailPopup:init()
 	self.m_preRenewTime = 0
 
 	local vars = self:load('mail_popup.ui')
-	UIManager:open(self, UIManager.POPUP)
+	UIManager:open(self, UIManager.SCENE)
 
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_MailPopup')

@@ -11,7 +11,7 @@ UI_QuestPopup = class(PARENT, {
 -------------------------------------
 function UI_QuestPopup:init()
 	local vars = self:load('quest.ui')
-	UIManager:open(self, UIManager.POPUP)
+	UIManager:open(self, UIManager.SCENE)
 
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_QuestPopup')

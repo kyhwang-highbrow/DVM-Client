@@ -12,7 +12,7 @@ UI_ShopPopup = class(PARENT, {
 -------------------------------------
 function UI_ShopPopup:init()
     local vars = self:load('shop.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
     
 	-- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ShopPopup')
