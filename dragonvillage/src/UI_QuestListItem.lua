@@ -98,9 +98,6 @@ function UI_QuestListItem:setVarsVisible()
             vars['lockBtn']:setVisible(false)
         end
     end
-    if (quest_data == 10003) then
-        cclog('sdlkfjsdlkfjsd call!!!!')
-    end
 
 	-- 퀘스트 보상까지 전부 수령시 표시
 	vars['questCompletNode']:setVisible(quest_data:isQuestEnded())
@@ -161,9 +158,6 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
-
-    cclog('g_questData.m_focusNewbieQid : ' .. g_questData.m_focusNewbieQid)
-
 	local qid = self.m_questData['qid']
 	local cb_function = function(t_quest_data)
 		-- 보상 수령 팝업
@@ -173,7 +167,6 @@ function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
 		self:refresh(t_quest_data)
 		ui_quest_popup:refresh()
 		g_topUserInfo:refreshData()
-        cclog('g_questData.m_focusNewbieQid : ' .. g_questData.m_focusNewbieQid)
 	end
 
 	g_questData:requestQuestReward(qid, cb_function)

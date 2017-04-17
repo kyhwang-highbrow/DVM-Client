@@ -160,6 +160,7 @@ function UI_QuestPopup:setAllClearListItem(tab)
 
 	local t_quest = g_questData:getAllClearQuestTable(tab)
 	local ui = UI_QuestListItem(t_quest, true)
+    ui.vars['rewardBtn']:registerScriptTapHandler(function() ui:click_rewardBtn(self) end)
 	node:addChild(ui.root)
 end
 
