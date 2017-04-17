@@ -1271,7 +1271,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'moveBtn1';
-					enable = false;
+					enable = true;
 					normal = 'ui/empty.png';
 					selected = '';
 					disable = '';
@@ -1491,7 +1491,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'moveBtn2';
-					enable = false;
+					enable = true;
 					normal = 'ui/empty.png';
 					selected = '';
 					disable = '';
@@ -1711,7 +1711,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'moveBtn3';
-					enable = false;
+					enable = true;
 					normal = 'ui/empty.png';
 					selected = '';
 					disable = '';

@@ -5,6 +5,10 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonManagementEvolution = class(PARENT,{
         m_bEnoughSvolutionStones = 'boolean',
+
+        m_itemID1 = '',
+        m_itemID2 = '',
+        m_itemID3 = '',
     })
 
 -------------------------------------
@@ -80,6 +84,10 @@ end
 function UI_DragonManagementEvolution:initButton()
     local vars = self.vars
     vars['evolutionBtn']:registerScriptTapHandler(function() self:click_evolutionBtn() end)
+
+    vars['moveBtn1']:registerScriptTapHandler(function() self:click_evolutionStone(1) end)
+    vars['moveBtn2']:registerScriptTapHandler(function() self:click_evolutionStone(2) end)
+    vars['moveBtn3']:registerScriptTapHandler(function() self:click_evolutionStone(3) end)
 end
 
 -------------------------------------
@@ -316,6 +324,8 @@ function UI_DragonManagementEvolution:refresh_evolutionStones(t_dragon_data, t_d
         local item_id = t_dragon_evolution[evolution_str .. '_item' .. i]
         local item_value = t_dragon_evolution[evolution_str .. '_value' .. i]
 
+        self['m_itemID' .. i] = item_id
+
         local t_evolution_item = table_evolution_item[item_id]
 
         do -- 진화재료 이름
@@ -445,6 +455,14 @@ function UI_DragonManagementEvolution:click_evolutionBtn()
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+end
+
+-------------------------------------
+-- function click_evolutionStone
+-------------------------------------
+function UI_DragonManagementEvolution:click_evolutionStone(i)
+    local item_id = self['m_itemID' .. i]
+    UI_AcquisitionRegionInformation(item_id)
 end
 
 -------------------------------------
