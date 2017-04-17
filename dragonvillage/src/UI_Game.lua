@@ -259,11 +259,19 @@ function UI_Game:init_dpsUI()
 
     local dps_ui = UI_GameDPS(world)
     self.vars['dpsInfoNode']:addChild(dps_ui.root)
+end
 
+-------------------------------------
+-- function init_panelUI
+-- @brief 아군 스킬 패널 UI
+-------------------------------------
+function UI_Game:init_panelUI()
+	local world = self.m_gameScene.m_gameWorld
     local panel = UI_IngameDragonPanel(world)
     self.m_panelUI = panel
     self.root:addChild(panel.root)
 
+	-- 액션 등록
     self:addAction(panel.root, UI_ACTION_TYPE_BOTTOM, 0, 0.5)
     self:doActionReset()
 
@@ -278,7 +286,7 @@ end
 --        모든 기능은 UI_GameDebug안에서 구현
 -------------------------------------
 function UI_Game:init_debugUI()
-    local debug_ui = UI_GameDebug()
+    local debug_ui = UI_GameDebug(self.m_gameScene.m_gameWorld)
     self.root:addChild(debug_ui.root)
 end
 

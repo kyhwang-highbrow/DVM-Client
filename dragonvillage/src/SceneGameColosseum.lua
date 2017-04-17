@@ -67,6 +67,7 @@ function SceneGameColosseum:prepare()
 		end
 
 		self.m_inGameUI:init_dpsUI()
+		self.m_inGameUI:init_panelUI()
     end)
 end
 

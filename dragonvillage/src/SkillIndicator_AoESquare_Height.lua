@@ -31,7 +31,7 @@ end
 -- function setIndicatorPosition
 -------------------------------------
 function SkillIndicator_AoESquare_Height:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
-	local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
     self.m_indicatorEffect:setPosition(touch_x - pos_x, cameraHomePosY - 600)
 end
 

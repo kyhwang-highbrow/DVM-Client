@@ -41,12 +41,13 @@ end
 -------------------------------------
 function Tamer.st_active(owner, dt)
 	if (owner.m_stateTimer == 0) then
-		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+		local world = owner.m_world
+		local l_dragon = owner:getFellowList()
+		
+		local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
 		local move_pos_x = cameraHomePosX + CRITERIA_RESOLUTION_X/2
 		local move_pos_y = cameraHomePosY + 200
 
-		local world = owner.m_world
-		local l_dragon = owner:getFellowList()
 		
 		-- tamer action stop
 		owner:stopAllActions()
@@ -129,7 +130,7 @@ function Tamer.st_event(owner, dt)
 		end
 
 		-- 연출 세팅
-		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+		local cameraHomePosX, cameraHomePosY = owner.m_world.m_gameCamera:getHomePos()
 
         local pos_x = CRITERIA_RESOLUTION_X / 4
         if (not owner.m_bLeftFormation) then

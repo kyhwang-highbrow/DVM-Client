@@ -479,7 +479,7 @@ function GameState.update_boss_wave(self, dt)
         SoundMgr:playBGM(self.m_bgmBoss)
 
         -- 웨이브 표시 숨김
-        g_gameScene.m_inGameUI.vars['waveVisual']:setVisible(false)
+        self.m_world.m_inGameUI.vars['waveVisual']:setVisible(false)
 
     end
 end
@@ -557,8 +557,8 @@ function GameState.update_success(self, dt)
             end
         end
 
-        g_gameScene.m_inGameUI:doActionReverse(function()
-            g_gameScene.m_inGameUI.root:setVisible(false)
+        world.m_inGameUI:doActionReverse(function()
+            world.m_inGameUI.root:setVisible(false)
         end)
 
         self.m_stateParam = true
@@ -620,8 +620,8 @@ function GameState.update_failure(self, dt)
         -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)
 
-        g_gameScene.m_inGameUI:doActionReverse(function()
-            g_gameScene.m_inGameUI.root:setVisible(false)
+        world.m_inGameUI:doActionReverse(function()
+            world.m_inGameUI.root:setVisible(false)
         end)
         self:makeResultUI(false)
     end
@@ -989,7 +989,7 @@ end
 -- function setWave
 -------------------------------------
 function GameState:setWave(wave)
-    g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', wave))
+    self.m_world.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', wave))
 end
 
 -------------------------------------

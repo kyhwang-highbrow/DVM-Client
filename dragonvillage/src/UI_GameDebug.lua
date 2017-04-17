@@ -17,8 +17,8 @@ UI_GameDebug = class(UI,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GameDebug:init()
-	self.m_world =  g_gameScene.m_gameWorld
+function UI_GameDebug:init(world)
+	self.m_world =  world
 
     -- UI의 크기 지정(높이는 화면의 높이)
     local scr_size = cc.Director:getInstance():getWinSize()
@@ -241,7 +241,7 @@ function UI_GameDebug:makeTableView()
     end
 
     do -- 피격박스 on/off
-        if g_gameScene.m_gameWorld.m_physWorld then
+        if self.m_world.m_physWorld then
             local item = {}
             item['cb1'] = UI_GameDebug.physDebugButton
 
@@ -256,7 +256,7 @@ function UI_GameDebug:makeTableView()
                     end
                 end
 
-                g_gameScene.m_gameWorld.m_physWorld:addDebugChangeCB(self, cb)
+                self.m_world.m_physWorld:addDebugChangeCB(self, cb)
             end
 
             table.insert(item_info, item)
@@ -300,29 +300,29 @@ function UI_GameDebug:makeTableView()
                 end
             end
 
-            g_gameScene.m_gameWorld:addWorldScaleChangeCB(self, cb)
+            self.m_world:addWorldScaleChangeCB(self, cb)
         end
 
         table.insert(item_info, item)
     end
 
     do -- 화면 밝기
-        if g_gameScene.m_gameWorld.m_mapManager then
+        if self.m_world.m_mapManager then
             local item = {}
             item['cb1'] = UI_GameDebug.brightnessButton
             item['cb2'] = UI_GameDebug.brightnessButton  
-            item['str'] = '배경 밝기 ' .. g_gameScene.m_gameWorld.m_mapManager.m_colorScale .. ' %'
+            item['str'] = '배경 밝기 ' .. self.m_world.m_mapManager.m_colorScale .. ' %'
 
             table.insert(item_info, item)
         end
     end
 
     do -- Time Sacle
-        if g_gameScene.m_gameWorld.m_gameTimeScale then
+        if self.m_world.m_gameTimeScale then
             local item = {}
             item['cb1'] = UI_GameDebug.timeScaleButton
             item['cb2'] = UI_GameDebug.timeScaleButton
-            item['str'] = '게임 배속 X ' .. g_gameScene.m_gameWorld.m_gameTimeScale:getBase()
+            item['str'] = '게임 배속 X ' .. self.m_world.m_gameTimeScale:getBase()
 
             table.insert(item_info, item)
         end
@@ -353,7 +353,7 @@ function UI_GameDebug.worldScaleButton(self, item, idx)
         add_scale = -0.1
     end
 
-    local world = g_gameScene.m_gameWorld
+    local world = self.m_world
     local scale = world.m_worldScale + add_scale
     world:changeWorldScale(scale)
     --item['label']:setString(Str('월드 크기 X ' .. tostring(scale)))
@@ -372,7 +372,7 @@ function UI_GameDebug.brightnessButton(self, item, idx)
         add_scale = -10
     end
 
-    local map_mgr = g_gameScene.m_gameWorld.m_mapManager
+    local map_mgr = self.m_world.m_mapManager
     map_mgr.m_colorScale = math_clamp(map_mgr.m_colorScale + add_scale, 0, 100)
     
     local rgb = 255 * (map_mgr.m_colorScale / 100)
@@ -393,8 +393,8 @@ function UI_GameDebug.timeScaleButton(self, item, idx)
         add_scale = -0.1
     end
 
-    local scale = g_gameScene.m_gameWorld.m_gameTimeScale:getBase() + add_scale
-    g_gameScene.m_gameWorld.m_gameTimeScale:setBase(scale)
+    local scale = self.m_world.m_gameTimeScale:getBase() + add_scale
+    self.m_world.m_gameTimeScale:setBase(scale)
 
     item['label']:setString('게임 배속 X ' .. scale)
 end
@@ -424,8 +424,8 @@ function UI_GameDebug.nigthmareBgButton(self, item, idx)
 	local direct_stregth = (strength - ((direct_type - 1) * 5))
 	local direct_str = l_direction[direct_type] .. direct_stregth
 
-	g_gameScene.m_gameWorld.m_mapManager.m_node:stopAllActions()
-	g_gameScene.m_gameWorld.m_mapManager:setDirecting(direct_str)
+	self.m_world.m_mapManager.m_node:stopAllActions()
+	self.m_world.m_mapManager:setDirecting(direct_str)
     item['label']:setString('배경효과 : ' .. direct_str)
 end
 
@@ -448,7 +448,7 @@ end
 -------------------------------------
 function UI_GameDebug.physDebugButton(self, item, idx)
 
-    local phys_world = g_gameScene.m_gameWorld.m_physWorld
+    local phys_world = self.m_world.m_physWorld
     local debug = (not phys_world.m_bDebug)
     phys_world:setDebug(debug)
 end

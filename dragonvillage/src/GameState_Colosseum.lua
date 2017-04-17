@@ -132,7 +132,8 @@ function GameState_Colosseum.update_wave_intermission(self, dt)
     	
 	if (self.m_stateTimer > getInGameConstant(WAVE_INTERMISSION_TIME)) then
         world:dispatch('game_start')
-        world:buffActivateAtStartup()
+        world:passiveActivate_Left()
+		world:passiveActivate_Right()
         world.m_inGameUI:doAction()
 
         self:fight()
@@ -165,8 +166,8 @@ function GameState_Colosseum.update_success(self, dt)
             end
         end
 
-        g_gameScene.m_inGameUI:doActionReverse(function()
-            g_gameScene.m_inGameUI.root:setVisible(false)
+        world.m_inGameUI:doActionReverse(function()
+            world.m_inGameUI.root:setVisible(false)
         end)
 
         self.m_stateParam = true
@@ -205,8 +206,8 @@ function GameState_Colosseum.update_failure(self, dt)
             -- 기본 배속으로 변경
             world.m_gameTimeScale:setBase(1)
 
-            g_gameScene.m_inGameUI:doActionReverse(function()
-                g_gameScene.m_inGameUI.root:setVisible(false)
+            world.m_inGameUI:doActionReverse(function()
+                world.m_inGameUI.root:setVisible(false)
             end)
         else
             -- 적군 상태 체크

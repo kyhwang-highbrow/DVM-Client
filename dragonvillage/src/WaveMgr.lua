@@ -271,10 +271,12 @@ function WaveMgr:newScenario()
     local wave = self.m_currWave
     self.m_waveTimer = -1
 
+	local world = self.m_world
+
     -- TODO 160504
     do -- 웨이브 진행 정도
         local percent = ((wave / self.m_maxWave) * 100)
-        g_gameScene.m_inGameUI.vars['stageGauge']:runAction(cc.ProgressTo:create(0.1, percent))
+        world.m_inGameUI.vars['stageGauge']:runAction(cc.ProgressTo:create(0.1, percent))
     end
     
     if (not self.m_scriptData['wave'][wave]) then
@@ -286,8 +288,8 @@ function WaveMgr:newScenario()
 	
 	if (wave == 1) or (self.m_bDevelopMode == true) then 
 		-- 카메라 옵션 설정
-        self.m_world:changeCameraOption(t_data['camera'])
-        self.m_world:changeHeroHomePosByCamera()
+        world:changeCameraOption(t_data['camera'])
+        world:changeHeroHomePosByCamera()
 	end
 
     self:newScenario_dynamicWave(t_data)

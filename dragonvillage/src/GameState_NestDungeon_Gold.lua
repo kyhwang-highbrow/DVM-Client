@@ -47,8 +47,8 @@ function GameState_NestDungeon_Gold.update_success(self, dt)
             end
         end
 
-        g_gameScene.m_inGameUI:doActionReverse(function()
-            g_gameScene.m_inGameUI.root:setVisible(false)
+        world.m_inGameUI:doActionReverse(function()
+            world.m_inGameUI.root:setVisible(false)
         end)
 
         self.m_stateParam = true

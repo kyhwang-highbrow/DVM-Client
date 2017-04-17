@@ -1038,7 +1038,7 @@ function GameWorld:onKeyReleased(keyCode, event)
         end
 
     elseif (keyCode == KEY_S) then
-        g_gameScene.m_inGameUI.root:runAction(cc.ToggleVisibility:create())
+        self.m_inGameUI.root:runAction(cc.ToggleVisibility:create())
 
     -- 상태 효과 이펙트 확인
     elseif (keyCode == KEY_T) then    

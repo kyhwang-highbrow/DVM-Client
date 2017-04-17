@@ -21,7 +21,7 @@ function SkillAoESquare_Height:init_skill(hit)
     PARENT.init_skill(self, hit)
 
 	-- Y좌표값 중심으로 세팅
-	local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
 	self:setPosition(self.m_targetPos.x, cameraHomePosY)
 
 	-- @TODO 핑크벨 확인 위해 임시 처리

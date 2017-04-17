@@ -21,7 +21,7 @@ function SkillAoESquare_Width:init_skill(hit)
     PARENT.init_skill(self, hit)
 
 	-- X좌표값은 화면의 중심으로 세팅
-    local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
 	self:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), self.m_targetPos.y)
 end
 

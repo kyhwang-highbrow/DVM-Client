@@ -195,5 +195,5 @@ end
 -- function setWave
 -------------------------------------
 function GameState_SecretDungeon_Relation:setWave(wave)
-    g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('10wave_%02d', wave))
+    self.m_world.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('10wave_%02d', wave))
 end
