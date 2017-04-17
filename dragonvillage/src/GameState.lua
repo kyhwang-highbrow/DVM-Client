@@ -517,7 +517,10 @@ function GameState.update_success_wait(self, dt)
     end
 
     if (b or self.m_stateTimer >= 4) then
-        self:changeState(GAME_STATE_SUCCESS)
+        local enemy_count = #world:getEnemyList()
+        if (enemy_count <= 0) then
+            self:changeState(GAME_STATE_SUCCESS)
+        end
     end    
 end
 
@@ -867,7 +870,7 @@ function GameState:checkWaveClear()
     -- 클리어 여부 체크
     if (enemy_count <= 0) then
         -- 스킬 다 날려 버리자
-        world:cleanupSkill()
+        world:removeMissileAndSkill()
         world:removeHeroDebuffs()
 
         if world.m_waveMgr:isFinalWave() == false then
@@ -884,14 +887,16 @@ function GameState:checkWaveClear()
             
         for _, enemy in ipairs(world:getEnemyList()) do
             if (enemy.m_charTable['rarity'] == highestRariry) then
-                bExistBoss = true
+                if (not enemy.m_bDead) then
+                    bExistBoss = true
+                end
                 break
             end
         end
 
-        if not bExistBoss then
+        if (not bExistBoss) then
             -- 스킬 다 날려 버리자
-		    world:cleanupSkill()
+		    world:removeMissileAndSkill()
             world:removeHeroDebuffs()
 
             -- 모든 적들을 죽임
