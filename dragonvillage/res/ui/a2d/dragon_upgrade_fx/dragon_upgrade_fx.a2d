@@ -33,7 +33,7 @@
 			"visual_list":
 			[
 				{
-					"name":"appear",
+					"name":"bottom_appear",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -49,10 +49,10 @@
 								"key_list":
 								[
 									{
-										"frame":79, "sX":0.345171, "sY":1.159113
+										"frame":13, "sX":0.345171, "sY":1.159113
 									},
 									{
-										"frame":104, "sX":0.345171, "sY":1.159113
+										"frame":38, "sX":0.345171, "sY":1.159113
 									}
 								]
 							},
@@ -63,10 +63,10 @@
 								"key_list":
 								[
 									{
-										"frame":66, "sX":0.345171, "sY":1.159113, "rotate":-237.000000
+										"frame":0, "sX":0.345171, "sY":1.159113, "rotate":-237.000000
 									},
 									{
-										"frame":91, "sX":0.345171, "sY":1.159113, "rotate":-237.000000
+										"frame":25, "sX":0.345171, "sY":1.159113, "rotate":-237.000000
 									}
 								]
 							},
@@ -77,35 +77,15 @@
 								"key_list":
 								[
 									{
-										"frame":66, "sX":1.462846, "sY":1.522950, "pX":-16.000000, "alpha":0, "colorRGB":[223,45,49]
+										"frame":0, "sX":1.462846, "sY":1.522950, "pX":-16.000000, "alpha":0, "colorRGB":[223,45,49]
 
 									},
 									{
-										"frame":72, "sX":3.427418, "sY":2.917820, "pX":-16.000000, "alpha":76, "colorRGB":[223,45,49]
+										"frame":6, "sX":3.427418, "sY":2.917820, "pX":-16.000000, "alpha":76, "colorRGB":[223,45,49]
 
 									},
 									{
-										"frame":104, "sX":7.426073, "sY":6.419204, "rotate":24.000000, "pX":-16.000000, "alpha":0, "colorRGB":[223,45,49]
-
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'aline'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":66, "sX":1.462846, "sY":1.522950, "pX":-16.000000, "alpha":0, "colorRGB":[23,151,244]
-
-									},
-									{
-										"frame":72, "sX":3.427418, "sY":2.917820, "pX":-16.000000, "alpha":76, "colorRGB":[23,151,244]
-
-									},
-									{
-										"frame":104, "sX":7.426073, "sY":6.419204, "rotate":24.000000, "pX":-16.000000, "alpha":0, "colorRGB":[23,151,244]
+										"frame":38, "sX":7.426073, "sY":6.419204, "rotate":24.000000, "pX":-16.000000, "alpha":0, "colorRGB":[223,45,49]
 
 									}
 								]
@@ -117,13 +97,33 @@
 								"key_list":
 								[
 									{
-										"frame":66, "sX":1.462846, "sY":1.522950, "pX":-16.000000, "alpha":0, "mode":"Add"
+										"frame":0, "sX":1.462846, "sY":1.522950, "pX":-16.000000, "alpha":0, "colorRGB":[23,151,244]
+
 									},
 									{
-										"frame":72, "sX":3.427418, "sY":2.917820, "pX":-16.000000, "alpha":76, "mode":"Add"
+										"frame":6, "sX":3.427418, "sY":2.917820, "pX":-16.000000, "alpha":76, "colorRGB":[23,151,244]
+
 									},
 									{
-										"frame":104, "sX":7.426073, "sY":6.419204, "rotate":24.000000, "pX":-16.000000, "alpha":0, "mode":"Add"
+										"frame":38, "sX":7.426073, "sY":6.419204, "rotate":24.000000, "pX":-16.000000, "alpha":0, "colorRGB":[23,151,244]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'aline'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.462846, "sY":1.522950, "pX":-16.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":3.427418, "sY":2.917820, "pX":-16.000000, "alpha":76, "mode":"Add"
+									},
+									{
+										"frame":38, "sX":7.426073, "sY":6.419204, "rotate":24.000000, "pX":-16.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
@@ -134,10 +134,10 @@
 								"key_list":
 								[
 									{
-										"frame":72, "pX":1.000000, "pY":5.000000, "alpha":307
+										"frame":6, "pX":1.000000, "pY":5.000000, "alpha":307
 									},
 									{
-										"frame":104, "pX":1.000000, "pY":5.000000, "alpha":307
+										"frame":38, "pX":1.000000, "pY":5.000000, "alpha":307
 									}
 								]
 							},
@@ -148,10 +148,10 @@
 								"key_list":
 								[
 									{
-										"frame":66, "sX":3.039200, "sY":3.083100, "pX":-5.000000, "pY":12.000000, "mode":"Add"
+										"frame":0, "sX":3.039200, "sY":3.083100, "pX":-5.000000, "pY":12.000000, "mode":"Add"
 									},
 									{
-										"frame":99, "sX":3.039200, "sY":3.083100, "pX":-5.000000, "pY":12.000000, "mode":"Add"
+										"frame":33, "sX":3.039200, "sY":3.083100, "pX":-5.000000, "pY":12.000000, "mode":"Add"
 									}
 								]
 							},
@@ -162,11 +162,11 @@
 								"key_list":
 								[
 									{
-										"frame":66, "sX":3.039200, "sY":3.083100, "rotate":-91.000000, "pX":-5.000000, "pY":12.000000, "colorRGB":[225,66,43]
+										"frame":0, "sX":3.039200, "sY":3.083100, "rotate":-91.000000, "pX":-5.000000, "pY":12.000000, "colorRGB":[225,66,43]
 , "mode":"Add"
 									},
 									{
-										"frame":104, "sX":3.039200, "sY":3.083100, "rotate":-91.000000, "pX":-5.000000, "pY":12.000000, "colorRGB":[225,66,43]
+										"frame":38, "sX":3.039200, "sY":3.083100, "rotate":-91.000000, "pX":-5.000000, "pY":12.000000, "colorRGB":[225,66,43]
 , "mode":"Add"
 									}
 								]
@@ -178,11 +178,11 @@
 								"key_list":
 								[
 									{
-										"frame":66, "sX":2.188224, "sY":2.312325, "rotate":-176.000000, "pX":-5.000000, "pY":12.000000, "colorRGB":[128,255,255]
+										"frame":0, "sX":2.188224, "sY":2.312325, "rotate":-176.000000, "pX":-5.000000, "pY":12.000000, "colorRGB":[128,255,255]
 , "mode":"Add"
 									},
 									{
-										"frame":104, "sX":2.188224, "sY":2.312325, "rotate":-176.000000, "pX":-5.000000, "pY":12.000000, "colorRGB":[128,255,255]
+										"frame":38, "sX":2.188224, "sY":2.312325, "rotate":-176.000000, "pX":-5.000000, "pY":12.000000, "colorRGB":[128,255,255]
 , "mode":"Add"
 									}
 								]
@@ -194,22 +194,22 @@
 								"key_list":
 								[
 									{
-										"frame":71, "sX":4.292288, "sY":4.226772
+										"frame":5, "sX":4.292288, "sY":4.226772
 									},
 									{
-										"frame":77, "sX":4.018238, "sY":3.683277
+										"frame":11, "sX":4.018238, "sY":3.683277
 									},
 									{
-										"frame":84, "sX":4.292288, "sY":4.226772
+										"frame":18, "sX":4.292288, "sY":4.226772
 									},
 									{
-										"frame":90, "sX":4.018238, "sY":3.683277
+										"frame":24, "sX":4.018238, "sY":3.683277
 									},
 									{
-										"frame":97, "sX":4.292288, "sY":4.226772
+										"frame":31, "sX":4.292288, "sY":4.226772
 									},
 									{
-										"frame":104, "sX":4.292288, "sY":4.226772
+										"frame":38, "sX":4.292288, "sY":4.226772
 									}
 								]
 							}
@@ -217,7 +217,7 @@
 					}
 				},
 				{
-					"name":"idle",
+					"name":"bottom_idle",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -254,6 +254,426 @@
 									},
 									{
 										"frame":33, "sX":4.292288, "sY":4.226772
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"top_appear",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'blight'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.640900, "sY":1.715200, "pX":1.000000, "pY":5.000000, "alpha":307
+									},
+									{
+										"frame":35, "sX":1.640900, "sY":1.715200, "pX":1.000000, "pY":5.000000, "alpha":307
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'alight'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.640900, "sY":1.715200, "pX":17.000000, "pY":-13.000000, "alpha":0
+									},
+									{
+										"frame":4, "sX":1.640900, "sY":1.715200, "pX":17.000000, "pY":-13.000000
+									},
+									{
+										"frame":52, "sX":1.640900, "sY":1.715200, "pX":17.000000, "pY":-13.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'alight'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25, "sX":1.640900, "sY":1.715200, "pX":17.000000, "pY":-13.000000
+									},
+									{
+										"frame":64, "sX":1.640900, "sY":1.715200, "pX":17.000000, "pY":-13.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_alight_09.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":70, "sX":1.640900, "sY":1.715200, "pX":17.000000, "pY":-13.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_light_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":63, "sX":0.590724, "sY":0.754688, "pX":3.000000, "pY":-4.000000
+									},
+									{
+										"frame":66, "sX":3.507576, "sY":3.695780, "rotate":-77.000000, "pX":3.000000, "pY":-4.000000
+									},
+									{
+										"frame":70, "sX":71.489166, "sY":66.026474, "pX":3.000000, "pY":-4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'line'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.441074, "sY":0.355046, "pX":12.000000, "mode":"Add"
+									},
+									{
+										"frame":4, "sX":1.845838, "sY":1.298952, "pX":12.000000, "mode":"Add"
+									},
+									{
+										"frame":25, "sX":1.845838, "sY":1.298952, "pX":12.000000, "mode":"Add"
+									},
+									{
+										"frame":64, "sX":1.845838, "sY":1.298952, "pX":12.000000, "mode":"Add"
+									},
+									{
+										"frame":66, "sX":7.941956, "sY":6.534912, "pX":36.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_blight_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.131272, "sY":0.137216, "pX":13.000000, "pY":-6.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":4, "sX":1.640900, "sY":1.715200, "pX":13.000000, "pY":-6.000000, "mode":"Add"
+									},
+									{
+										"frame":68, "sX":0.820450, "sY":0.857600, "pX":13.000000, "pY":-6.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_blight_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":64, "sX":2.006179, "sY":1.986649, "pX":31.000000, "pY":-16.000000, "alpha":0, "colorRGB":[255,0,0]
+, "mode":"Add"
+									},
+									{
+										"frame":68, "sX":1.870626, "sY":1.852416, "pX":31.000000, "pY":-16.000000, "colorRGB":[255,0,0]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_blight_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":64, "sX":2.006179, "sY":1.986649, "pX":31.000000, "pY":-16.000000, "alpha":0, "colorRGB":[255,0,0]
+, "mode":"Add"
+									},
+									{
+										"frame":68, "sX":1.870626, "sY":1.852416, "pX":31.000000, "pY":-16.000000, "colorRGB":[255,0,0]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_blight_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":64, "sX":2.006179, "sY":1.986649, "pX":31.000000, "pY":-16.000000, "alpha":0, "colorRGB":[255,0,0]
+, "mode":"Add"
+									},
+									{
+										"frame":68, "sX":1.870626, "sY":1.852416, "pX":31.000000, "pY":-16.000000, "colorRGB":[255,0,0]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_blight_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":64, "sX":2.006179, "sY":1.986649, "pX":31.000000, "pY":-16.000000, "alpha":0, "colorRGB":[255,0,0]
+, "mode":"Add"
+									},
+									{
+										"frame":68, "sX":1.870626, "sY":1.852416, "pX":31.000000, "pY":-16.000000, "colorRGB":[255,0,0]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_circle_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":64, "sX":0.525088, "sY":0.274432, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":68, "sX":3.407821, "sY":0.771154, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_circle_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":64, "sX":0.525088, "sY":0.274432, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":68, "sX":3.407821, "sY":0.771154, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_circle_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":60, "sX":1.500000, "sY":1.500000, "pX":1.000000, "pY":5.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":64, "sX":1.500000, "sY":1.500000, "pX":1.000000, "pY":5.000000, "colorRGB":[234,147,28]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_circle_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":60, "sX":1.500000, "sY":1.500000, "pX":1.000000, "pY":5.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":64, "sX":1.500000, "sY":1.500000, "pX":1.000000, "pY":5.000000, "colorRGB":[234,147,28]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'effect_5'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.345171, "sY":1.159113
+									},
+									{
+										"frame":64, "sX":0.345171, "sY":1.159113
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'effect_5'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.345171, "sY":1.159113, "rotate":-237.000000
+									},
+									{
+										"frame":64, "sX":0.345171, "sY":1.159113, "rotate":-237.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'effect_5'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.345171, "sY":1.159113, "rotate":-81.000000
+									},
+									{
+										"frame":49, "sX":0.345171, "sY":1.159113, "rotate":-81.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res_group'<azVisual>'effect_5'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "sX":0.345171, "sY":1.159113, "rotate":-318.000000
+									},
+									{
+										"frame":64, "sX":0.345171, "sY":1.159113, "rotate":-318.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"top_disappear",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_alight_09.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.640900, "sY":1.715200, "pX":17.000000, "pY":-13.000000
+									},
+									{
+										"frame":2, "sX":1.640900, "sY":1.715200, "pX":17.000000, "pY":-13.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_light_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":71.489166, "sY":66.026474, "pX":3.000000, "pY":-4.000000
+									},
+									{
+										"frame":22, "sX":111.000000, "sY":111.000000, "pX":3.000000, "pY":-4.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_blight_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_blight_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_blight_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_blight_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_blight_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_circle_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":27.435919, "sY":5.368715, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":2, "sX":51.464016, "sY":9.966276, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade_fx.plist'<azSprite>'dragon_upgrade_circle_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":27.435919, "sY":5.368715, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":2, "sX":51.464016, "sY":9.966276, "pX":1.000000, "pY":-1.000000, "mode":"Add"
 									}
 								]
 							}

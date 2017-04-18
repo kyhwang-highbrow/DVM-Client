@@ -288,7 +288,7 @@
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = 0.000000;
+			y = -25.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -300,6 +300,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 4;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.300000;
 			lua_name = 'frameNode';
 		};
 		type = 'Menu';
@@ -317,10 +321,6 @@
 		skew_y = 0.000000;
 		rotation = 0.000000;
 		visible = true;
-		action_type = 2;
-		action_delay_1 = 0.100000;
-		action_delay_2 = 0.000000;
-		action_duration = 0.500000;
 		lua_name = '';
 	};
 };
