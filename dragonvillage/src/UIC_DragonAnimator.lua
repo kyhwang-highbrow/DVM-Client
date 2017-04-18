@@ -15,6 +15,7 @@ UIC_DragonAnimator = class(PARENT, {
         m_randomAnimationList = '',
 
         m_timeStamp = '',
+        m_bTalkEnable = '',
     })
 
 -------------------------------------
@@ -28,6 +29,8 @@ function UIC_DragonAnimator:init()
     self.vars['dragonButton']:registerScriptTapHandler(function() self:click_dragonButton() end)
     self.vars['dragonButton']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     self.vars['talkSprite']:setVisible(false)
+
+    self.m_bTalkEnable = true
 end
 
 
@@ -94,7 +97,7 @@ function UIC_DragonAnimator:click_dragonButton()
 
     self.m_animator:addAniHandler(ani_handler)
 
-    do
+    if self.m_bTalkEnable then
         self.vars['talkSprite']:setVisible(true)
         self.vars['talkSprite']:stopAllActions()
         self.vars['talkLabel']:setString(self:getDragonSpeech(self.m_did, self.m_friendshipLv))
@@ -116,3 +119,16 @@ function UIC_DragonAnimator:getDragonSpeech(did, flv)
     local speech = TableDragonType:getRandomSpeech(dragon_type, flv)
     return speech
 end
+
+-------------------------------------
+-- function setTalkEnable
+-------------------------------------
+function UIC_DragonAnimator:setTalkEnable(enable)
+    local vars = self.vars
+    
+    self.m_bTalkEnable = enable
+    if (not self.m_bTalkEnable) then
+        vars['talkSprite']:setVisible(false)
+    end
+end
+

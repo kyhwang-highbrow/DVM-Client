@@ -62,6 +62,7 @@ function UI_DragonLevelupResult:refresh(dragon_object, prev_lv)
     -- 드래곤 에니메이터
     if vars['dragonNode'] then
         local dragon_animator = UIC_DragonAnimator()
+        dragon_animator:setTalkEnable(false)
         vars['dragonNode']:addChild(dragon_animator.m_node)
         dragon_animator:setDragonAnimator(dragon_object['did'], dragon_object['evolution'], dragon_object['friendship']['flv'])
     end
