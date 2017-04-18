@@ -5,8 +5,9 @@ local PARENT = UI
 -- @breif
 -------------------------------------
 SkillHitEffectDirector = class(PARENT, {
+        m_hero = '',
         m_hitCount = 'number',
-        m_bonusText = 'string',
+        m_bonusLevel = 'string',
 
         m_rightNode = '',
         m_leftNode = '',
@@ -18,39 +19,46 @@ SkillHitEffectDirector = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillHitEffectDirector:init(owner, bonus_desc)
+function SkillHitEffectDirector:init(owner, bonus_level)
+    self.m_hero = owner
     self.m_hitCount = 0
-    self.m_bonusText = nil
+    self.m_bonusLevel = bonus_level or 0
     self.m_bEndSkill = false
     self.m_bEndAction = true
 
     local vars = self:load('ingame_hit.ui')
 
     local hit_node
-    if bonus_desc then
-        vars['bonusLabel']:setString(bonus_desc)
-        vars['bonusMenu']:setVisible(true)
-        vars['normalMenu']:setVisible(false)
-        hit_node = vars['bonusHitNode']
+    local bonus_label
 
-        self.m_rightNode = vars['bonusRightNode']
-        self.m_leftNode = vars['bonusLeftNode']
-    else
-        vars['bonusMenu']:setVisible(false)
-        vars['normalMenu']:setVisible(true)
-        hit_node = vars['normalHitNode']
+    for i = 1, 3 do
+        local b = (i - 1 == self.m_bonusLevel)
 
-        self.m_rightNode = vars['normalRightNode']
-        self.m_leftNode = vars['bonusLeftNode'] -- 일반은 왼쪽 노드가 없음
+        vars['hitMenu' .. i]:setVisible(b)
+
+        if (b) then
+            hit_node = vars['hitNode' .. i]
+            bonus_label = vars['bonusLabel' .. i]
+
+            self.m_leftNode = vars['leftNode' .. i]
+            self.m_rightNode = vars['rightNode' .. i]
+        end
     end
-
-    do
+    
+    if (hit_node) then
         local label = cc.Label:createWithBMFont('res/font/hit_bonus.fnt', '')
         label:setDockPoint(cc.p(1, 0.5))
         label:setAnchorPoint(cc.p(1, 0.5))
         label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         hit_node:addChild(label)
         vars['hitLabel'] = label
+    end
+
+    if (bonus_label) then
+        local desc = DragonSkillBonusHelper:getBonusDesc(self.m_hero, self.m_bonusLevel)
+        if (desc) then
+            bonus_label:setString(Str(desc))
+        end
     end
 
     self.root:setDockPoint(cc.p(0.5, 1))
@@ -120,5 +128,28 @@ end
 function SkillHitEffectDirector:checkRelease()
     if self.m_bEndSkill and self.m_bEndAction then
         self.root:removeFromParent()
+
+        if (self.m_bonusLevel > 0) then
+            local scr_size = cc.Director:getInstance():getWinSize()
+
+            local world = self.m_hero.m_world
+            local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
+
+            local t_param = {
+                res = 'res/effect/motion_streak_dragskill/motion_streak_dragskill_feedback.png',
+                x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2),
+                y = cameraHomePosY + (scr_size['height'] / 2) - 160,
+                tar_x = self.m_hero.pos.x,
+                tar_y = self.m_hero.pos.y,
+                course = 1,
+                cb_end = function()
+                    local x = self.m_hero.pos.x
+                    local y = self.m_hero.pos.y
+                    world:addInstantEffect('res/effect/motion_streak_dragskill/motion_streak_dragskill.vrp', 'idle', x, y)
+                end
+            }
+
+            EffectMotionStreak(self.m_hero.m_world, t_param)
+        end
     end
 end

@@ -111,7 +111,15 @@ function StatusEffect_Trigger:getTriggerFunction()
 		trigger_func = function()
 			local allyList = char:getFellowList()
 			StatusEffectHelper:doStatusEffectByStruct(char, allyList, SkillHelper:makeStructStatusEffectList(t_skill), function(target)
-				EffectMotionStreak(target.m_world, char.pos.x, char.pos.y, target.pos.x, target.pos.y, RES_SE_MS)
+                local t_param = {
+                    res = RES_SE_MS,
+                    x = char.pos.x,
+                    y = char.pos.y,
+                    tar_x = target.pos.x,
+                    tar_y = target.pos.y
+                }
+
+				EffectMotionStreak(target.m_world, t_param)
 			end)
 		end
 
@@ -152,7 +160,15 @@ function StatusEffect_Trigger:getTriggerFunction()
 			local defender = t_event['defender']
 			local target_list = char:getTargetListByTable(t_skill)
 			StatusEffectHelper:doStatusEffectByStruct(char, target_list, SkillHelper:makeStructStatusEffectList(t_skill), function(target)
-				EffectMotionStreak(target.m_world, defender.pos.x, defender.pos.y, target.pos.x, target.pos.y, RES_SE_MS)
+                local t_param = {
+                    res = RES_SE_MS,
+                    x = defender.pos.x,
+                    y = defender.pos.y,
+                    tar_x = target.pos.x,
+                    tar_y = target.pos.y
+                }
+
+				EffectMotionStreak(target.m_world, t_param)
 			end)
 		end
 

@@ -208,12 +208,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
     
     -- 생성
     if self.m_bSkillHitEffect then
-        local bonus_desc = nil
-        if (self.m_bonusLevel > 0) then
-            bonus_desc = DragonSkillBonusHelper:getBonusDesc(self.m_owner, self.m_bonusLevel)
-        end
-
-        self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner, bonus_desc)
+        self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner,  self.m_bonusLevel)
     end
 end
 
