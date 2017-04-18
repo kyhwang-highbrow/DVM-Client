@@ -78,10 +78,10 @@ function SkillIndicator_LeafBlade:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 교차점 이펙트
-		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target')
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'round')
         local indicator = MakeAnimator(indicator_res)
         
-		indicator:changeAni('start_idle', true)
+		indicator:setScale(0.3)
         self:initIndicatorEffect(indicator)
 
 		root_node:addChild(indicator.m_node)
@@ -204,23 +204,27 @@ end
 function SkillIndicator_LeafBlade:onChangeTargetCount(old_target_count, cur_target_count)
 	-- 활성화
 	if (cur_target_count > 0) then
-		if (old_target_count == 0) then
-			self.m_indicatorEffect:changeAni('enemy_start_idle', true)
+		-- 타겟수에 따른 보너스 등급 저장
+		self.m_bonus = DragonSkillBonusHelper:getBonusLevel(self.m_hero, cur_target_count)
+
+		if (self.m_preBonusLevel ~= self.m_bonus) then
+			self:onChangeIndicatorEffect(self.m_indicatorEffect, self.m_bonus, self.m_preBonusLevel)
+			self:onChangeIndicatorEffect(self.m_indicatorBezierEffect1, self.m_bonus, self.m_preBonusLevel)
+			self:onChangeIndicatorEffect(self.m_indicatorBezierEffect2, self.m_bonus, self.m_preBonusLevel)
+			self:onChangeIndicatorEffect(self.m_indicatorLinearEffect1, self.m_bonus, self.m_preBonusLevel)
+			self:onChangeIndicatorEffect(self.m_indicatorLinearEffect2, self.m_bonus, self.m_preBonusLevel)
+			self.m_preBonusLevel = self.m_bonus
 		end
-		self.m_indicatorBezierEffect1:setColor(COLOR_RED)
-		self.m_indicatorBezierEffect2:setColor(COLOR_RED)
-		self.m_indicatorLinearEffect1:setColor(COLOR_RED)
-		self.m_indicatorLinearEffect2:setColor(COLOR_RED)
 
 	-- 비활성화
-	elseif (cur_target_count == 0) then
-		if (old_target_count > 0) then
-			self.m_indicatorEffect:changeAni('normal_start_idle', true)
-		end
-		self.m_indicatorBezierEffect1:setColor(COLOR_CYAN)
-		self.m_indicatorBezierEffect2:setColor(COLOR_CYAN)
-		self.m_indicatorLinearEffect1:setColor(COLOR_CYAN)
-		self.m_indicatorLinearEffect2:setColor(COLOR_CYAN)
+	elseif (old_target_count > 0) and (cur_target_count == 0) then
+		self.m_bonus = 0
+		self:initIndicatorEffect(self.m_indicatorEffect)
+		self:initIndicatorEffect(self.m_indicatorBezierEffect1)
+		self:initIndicatorEffect(self.m_indicatorBezierEffect2)
+		self:initIndicatorEffect(self.m_indicatorLinearEffect1)
+		self:initIndicatorEffect(self.m_indicatorLinearEffect2)
+
 	end
 end
 

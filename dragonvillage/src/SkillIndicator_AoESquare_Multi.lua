@@ -69,15 +69,22 @@ end
 -------------------------------------
 function SkillIndicator_AoESquare_Multi:onChangeTargetCount(old_target_count, cur_target_count)
 	-- 활성화
-	if (old_target_count == 0) and (cur_target_count > 0) then
-		for _, indicator in pairs(self.m_lIndicatorEffectList) do
-			indicator.m_node:setColor(COLOR_RED)
+	if (cur_target_count > 0) then
+		-- 타겟수에 따른 보너스 등급 저장
+		self.m_bonus = DragonSkillBonusHelper:getBonusLevel(self.m_hero, cur_target_count)
+
+		if (self.m_preBonusLevel ~= self.m_bonus) then
+			for _, indicator in pairs(self.m_lIndicatorEffectList) do
+				self:onChangeIndicatorEffect(indicator, self.m_bonus, self.m_preBonusLevel)
+			end
+			self.m_preBonusLevel = self.m_bonus
 		end
 
 	-- 비활성화
 	elseif (old_target_count > 0) and (cur_target_count == 0) then
+		self.m_bonus = 0
 		for _, indicator in pairs(self.m_lIndicatorEffectList) do
-			indicator.m_node:setColor(COLOR_CYAN)
+			self:initIndicatorEffect(indicator)
 		end
 	end
 end

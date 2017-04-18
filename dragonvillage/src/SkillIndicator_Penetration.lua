@@ -115,8 +115,9 @@ function SkillIndicator_Penetration:initIndicatorNode()
 	local indicator_res = g_constant:get('INDICATOR', 'RES', 'round')
 	do
         local indicator = MakeAnimator(indicator_res)
-        indicator:setScale(0.1)
-        indicator:changeAni('skill_range_normal', true)
+        
+		indicator:setScale(0.1)
+
         root_node:addChild(indicator.m_node)
         self.m_indicatorAddEffect = indicator
     end
@@ -124,10 +125,10 @@ function SkillIndicator_Penetration:initIndicatorNode()
 	-- @TEST 좌표 확인용
     for i = 1, self.m_skillLineNum do
         local indicator = MakeAnimator(indicator_res)
+        
         indicator:setScale(0.1)
-        indicator:changeAni('skill_range_normal', true)
-		root_node:addChild(indicator.m_node)
 		
+		root_node:addChild(indicator.m_node)
 		table.insert(self.m_lEffectList, indicator)
     end
 
@@ -151,17 +152,24 @@ end
 -------------------------------------
 function SkillIndicator_Penetration:onChangeTargetCount(old_target_count, cur_target_count)
 	-- 활성화
-	if (old_target_count == 0) and (cur_target_count > 0) then
-		for _, indicator in pairs(self.m_lIndicatorEffectList) do
-			indicator.m_node:setColor(COLOR_RED)
+    if (cur_target_count > 0) then
+		-- 타겟수에 따른 보너스 등급 저장
+		self.m_bonus = DragonSkillBonusHelper:getBonusLevel(self.m_hero, cur_target_count)
+
+		if (self.m_preBonusLevel ~= self.m_bonus) then
+			for _, indicator in pairs(self.m_lIndicatorEffectList) do
+				self:onChangeIndicatorEffect(indicator, self.m_bonus, self.m_preBonusLevel)
+			end
+			self.m_preBonusLevel = self.m_bonus
 		end
 
-	-- 비활성화
-	elseif (old_target_count > 0) and (cur_target_count == 0) then
+    -- 비활성화
+    elseif (old_target_count > 0) and (cur_target_count == 0) then
+		self.m_bonus = 0
 		for _, indicator in pairs(self.m_lIndicatorEffectList) do
-			indicator.m_node:setColor(COLOR_CYAN)
+			self:initIndicatorEffect(indicator)
 		end
-	end
+    end
 end
 
 -------------------------------------
