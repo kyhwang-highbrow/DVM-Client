@@ -14,8 +14,8 @@
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 104;
-				height = 60;
+				width = 140;
+				height = 73;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -694,7 +694,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = 'x1.5';
+				text = 'x2';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
