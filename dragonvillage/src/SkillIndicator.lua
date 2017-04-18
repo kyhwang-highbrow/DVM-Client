@@ -51,6 +51,8 @@ SkillIndicator = class({
 		m_highlightList = '',
         m_highlightBodyList = '',
 
+		-- 인디케이터의 보너스 효과 레벨 관련
+		m_preBonusLevel = 'number',
         m_bonus = 'number',
     })
 
@@ -66,6 +68,7 @@ function SkillIndicator:init(hero, t_skill, ...)
     self.m_indicatorTouchPosY = hero.pos.y
     self.m_bDirty = true
 
+	self.m_preBonusLevel = 0
     self.m_bonus = 0
 
     -- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset 지정

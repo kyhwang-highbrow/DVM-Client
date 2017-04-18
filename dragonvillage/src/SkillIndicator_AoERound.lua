@@ -110,13 +110,37 @@ end
 -------------------------------------
 function SkillIndicator_AoERound:onChangeTargetCount(old_target_count, cur_target_count)
     -- 활성화
-    if (old_target_count == 0) and (cur_target_count > 0) then
-		self.m_indicatorEffect.m_node:setColor(COLOR_RED)
-		self.m_indicatorAddEffect:activateIndicator(true)
+    if (cur_target_count > 0) then
+		-- 타겟수에 따른 보너스 등급 저장
+		self.m_bonus = DragonSkillBonusHelper:getBonusLevel(self.m_hero, cur_target_count)
+
+		if (self.m_preBonusLevel ~= self.m_bonus) then
+			if (self.m_bonus == 0) then
+				self.m_indicatorEffect:changeAni('idle', true)
+				self.m_indicatorEffect.m_node:setColor(cc.c3b(50, 255, 0))
+			elseif (self.m_bonus == 1) then
+				self.m_indicatorEffect:changeAni('idle', true)
+				self.m_indicatorEffect.m_node:setColor(cc.c3b(250, 120, 0))
+			elseif (self.m_bonus == 2) then
+				self.m_indicatorEffect:changeAni('idle_2', true)
+				self.m_indicatorEffect.m_node:setColor(cc.c3b(255, 0, 0))
+			elseif (self.m_bonus == 3) then
+				self.m_indicatorEffect:changeAni('idle_2', true)
+				self.m_indicatorEffect.m_node:setColor(cc.c3b(255, 0, 255))
+			end
+
+			self.m_preBonusLevel = self.m_bonus
+		end
+
+		if (old_target_count == 0) then
+			self.m_indicatorAddEffect:activateIndicator(true)
+		end
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
+		self.m_bonus = 0
 		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
+		self.m_indicatorEffect:changeAni('idle', true)
 		self.m_indicatorAddEffect:activateIndicator(false)
     end
 end
