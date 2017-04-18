@@ -49,6 +49,8 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
         end
     end
 
+	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
+
     vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
     vars['againBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
@@ -195,6 +197,7 @@ function UI_GameResultNew:direction_start()
 
     self:setSuccessVisual()
 
+	vars['statsBtn']:setVisible(false)
     vars['homeBtn']:setVisible(false)
     vars['againBtn']:setVisible(false)
     vars['nextBtn']:setVisible(false)
@@ -435,6 +438,7 @@ end
 function UI_GameResultNew:direction_showButton()
     local vars = self.vars
 
+	vars['statsBtn']:setVisible(true)
     vars['skipBtn']:setVisible(false)
     vars['homeBtn']:setVisible(true)
     vars['againBtn']:setVisible(true)
@@ -600,6 +604,14 @@ function UI_GameResultNew:click_quickBtn()
     local deck_name = g_deckData:getSelectedDeckName()
     local combat_power = g_deckData:getDeckCombatPower(deck_name)
     g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+end
+
+-------------------------------------
+-- function click_statsBtn
+-------------------------------------
+function UI_GameResultNew:click_statsBtn()
+	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
+	UI_StatisticsPopup(g_gameScene.m_gameWorld)
 end
 
 -------------------------------------

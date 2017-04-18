@@ -5,6 +5,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -------------------------------------
 UI_StatisticsPopup = class(PARENT, {
 		m_charList = 'list',
+		m_tableView = 'tableView',
      })
 	
 -- TAB LIST
@@ -27,7 +28,7 @@ function UI_StatisticsPopup:init(world)
 	self:doAction(nil, false)
 
 	-- 멤버 변수 초기화
-	self.m_charList = table.clone(world:getDragonList())
+	self.m_charList = world.m_myDragons
 
 	-- UI 초기화
     self:initUI()
@@ -40,6 +41,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_StatisticsPopup:initUI()
+	self:makeTableView()
 end
 
 -------------------------------------
@@ -50,7 +52,7 @@ function UI_StatisticsPopup:initTab()
     self:addTab(UI_StatisticsPopup.TAB_DEALT, vars['dealtBtn'])
     self:addTab(UI_StatisticsPopup.TAB_TAKEN, vars['takenBtn'])
 	self:addTab(UI_StatisticsPopup.TAB_HEAL, vars['healingBtn'])
-    self:setTab(UI_StatisticsPopup.TAB_DEALT)
+	self:setTab(UI_StatisticsPopup.TAB_DEALT)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
@@ -67,42 +69,130 @@ end
 -- function refresh
 -------------------------------------
 function UI_StatisticsPopup:refresh()
-
 end
 
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
 function UI_StatisticsPopup:onChangeTab(tab, first)
+	cclog('UI_StatisticsPopup:onChangeTab(tab, first)')
 	local vars = self.vars
-	local node = vars['listNode1']
-	
-	-- 최초 생성만 실행
-	if (first) then 
-		self:makeQuestTableView(tab, node)
+	local l_item = self.m_tableView.m_itemList
+	local log_key = self:getLogKey(tab)
+
+	-- 해당 키의 최고 수치를 찾는다.
+	local best_value = self:findBestValue(l_item, log_key)
+
+	-- 해당 키로 정렬한다.
+	self:sortByValue(l_item, log_key)
+
+	-- ui에 적용시킨다.
+	for i, item in pairs(l_item) do
+		for key, _ in pairs(item) do
+			cclog(key)
+		end
+		local ui = item['ui'] or item['generated_ui']
+		if (ui) then
+			ui.m_rank = i
+			ui.m_logKey = log_key
+			ui.m_bestValue = best_value
+			ui:refresh()
+		end
 	end
+
+	self.m_tableView:setDirtyItemList()
 end
 
 -------------------------------------
--- function makeQuestTableView
+-- function makeTableView
 -------------------------------------
-function UI_StatisticsPopup:makeQuestTableView(tab, node)
+function UI_StatisticsPopup:makeTableView()
+	cclog('UI_StatisticsPopup:makeTableView()')
     local vars = self.vars
+	local node = vars['listNode1']
+	local l_char_list = self.m_charList
 
-	-- 아군 정보
-	local l_dragon = self.m_charList
-	
-    do -- 테이블 뷰 생성
-        node:removeAllChildren()
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(514, 95)
+    table_view:setCellUIClass(UI_StatisticsListItem, create_cb_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-        -- 테이블 뷰 인스턴스 생성
-        local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(514, 95)
-        table_view:setCellUIClass(UI_GameResult_StatisticsListItem, create_cb_func)
-        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList(l_dragon)
-    end
+	local make_item = true
+    table_view:setItemList(l_char_list, make_item)
+
+	self.m_tableView = table_view
 end
+
+-------------------------------------
+-- function findBestValue
+-- @breif 최고의 누적 수치를 찾는다.
+-------------------------------------
+function UI_StatisticsPopup:findBestValue(l_item, log_key)
+	local best_value = 1
+
+	for _, item in pairs(l_item) do
+		local char = item['data']
+		local log_recorder = char.m_charLogRecorder
+		local sum_value = log_recorder:getLog(log_key)
+		if (best_value < sum_value) then
+			best_value = sum_value
+		end
+	end
+
+	return best_value
+end
+
+-------------------------------------
+-- function sortByValue
+-- @breif 특정 값 순서대로 정렬한다 -> 값 0인 경우 공격력 순으로 정렬
+-------------------------------------
+function UI_StatisticsPopup:sortByValue(l_item, log_key)
+	table.sort(l_item, function(a, b)
+		local a_char = a['data']
+		local b_char = b['data']
+		local a_value = a_char.m_charLogRecorder:getLog(log_key)
+		local b_value = b_char.m_charLogRecorder:getLog(log_key)
+		if (a_value == 0) and (b_value == 0) then
+			local a_atk = a_char:getStat('atk')
+			local b_atk = b_char:getStat('atk')
+			return a_atk > b_atk
+		else
+			return a_value > b_value
+		end
+	end)
+end
+
+-------------------------------------
+-- function getLogKey
+-------------------------------------
+function UI_StatisticsPopup:getLogKey(key_idx)
+	local log_key
+
+	if (key_idx == UI_StatisticsPopup.TAB_DEALT) then
+		log_key = 'damage'
+
+	elseif (key_idx == UI_StatisticsPopup.TAB_TAKEN) then
+		log_key = 'be_damaged'
+
+	elseif (key_idx == UI_StatisticsPopup.TAB_HEAL) then
+		log_key = 'heal'
+
+	end
+
+	return log_key
+end
+
+
+
+
+
+
+
+
+
+
+
 
 -------------------------------------
 -- function click_exitBtn

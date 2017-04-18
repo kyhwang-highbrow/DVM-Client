@@ -5,8 +5,8 @@ local PARENT = Character
 -------------------------------------
 Dragon = class(PARENT, {
         -- 기본 정보
-        m_dragonID = '',    -- 드래곤의 고유 ID
-        m_tDragonInfo = 'table', -- 유저가 보유한 드래곤 정보
+        m_dragonID = '',			-- 드래곤 테이블 ID (did)
+        m_tDragonInfo = 'table',	-- 유저가 보유한 드래곤 정보
 		
 		m_skillIndicator = '',
 
