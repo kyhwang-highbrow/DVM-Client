@@ -35,12 +35,10 @@ function DragonSkillBonusHelper:getBonusLevel(dragon, score)
     return 0
 end
 
-
 -------------------------------------
--- function invokeBonus
--- @brief 드래곤 드래그 스킬 사용시 직군별 보너스 부여
+-- function getStatusEffectStruct
 -------------------------------------
-function DragonSkillBonusHelper:invokeBonus(dragon, bonus_level)
+function DragonSkillBonusHelper:getStatusEffectStruct(dragon, bonus_level)
     if (bonus_level == 0) then return end
 
     local t_info = TableDragonSkillBonus():get(dragon.m_dragonID)
@@ -52,7 +50,7 @@ function DragonSkillBonusHelper:invokeBonus(dragon, bonus_level)
     local l_str = seperate(string_value, ';')
     local status_effect_type = l_str[1]
     
-    -- 스테이터스 이펙트 적용
+    -- 스테이터스 이펙트 구조체 생성
 	local struct_status_effect = StructStatusEffect({
 		type = status_effect_type,
 		target_type = l_str[2],
@@ -64,15 +62,85 @@ function DragonSkillBonusHelper:invokeBonus(dragon, bonus_level)
 		value2 = 0
 	})
 
-    if (struct_status_effect) then
-        StatusEffectHelper:doStatusEffectByStruct(dragon, {dragon}, {struct_status_effect})
+    return struct_status_effect
+end
 
-        local desc = self:getBonusDesc(dragon, bonus_level)
-        local world = dragon.m_world
 
-		if (not world.m_mPassiveEffect[dragon]) then
-			world.m_mPassiveEffect[dragon] = {}
-		end
-		world.m_mPassiveEffect[dragon][desc] = true
+-------------------------------------
+-- function doInvoke
+-- @brief 드래곤 드래그 스킬 사용시 직군별 보너스 부여
+-------------------------------------
+function DragonSkillBonusHelper:doInvoke(dragon, bonus_level)
+    local struct_status_effect = self:getStatusEffectStruct(dragon, bonus_level)
+    if (not struct_status_effect) then return end
+
+    StatusEffectHelper:doStatusEffectByStruct(dragon, {dragon}, {struct_status_effect})
+
+    local desc = self:getBonusDesc(dragon, bonus_level)
+    local world = dragon.m_world
+
+	if (not world.m_mPassiveEffect[dragon]) then
+		world.m_mPassiveEffect[dragon] = {}
+	end
+	world.m_mPassiveEffect[dragon][desc] = true
+end
+
+-------------------------------------
+-- function doDirection
+-------------------------------------
+function DragonSkillBonusHelper:doDirection(dragon, l_target, bonus_level)
+    local struct_status_effect = self:getStatusEffectStruct(dragon, bonus_level)
+    if (not struct_status_effect) then return end
+
+    local world = dragon.m_world
+    local l_ally = dragon:getTargetListByType(struct_status_effect.m_targetType)
+
+    function makeEffectMotionStreak(dragon, target)
+        local t_param = {
+            res = 'res/effect/motion_streak_dragskill/motion_streak_dragskill_feedback.png',
+            x = target.pos.x,
+            y = target.pos.y,
+            tar_x = dragon.pos.x,
+            tar_y = dragon.pos.y,
+            cb_end = function()
+                local x = dragon.pos.x
+                local y = dragon.pos.y
+                world:addInstantEffect('res/effect/motion_streak_dragskill/motion_streak_dragskill.vrp', 'idle', x, y)
+            end
+        }
+
+        EffectMotionStreak(world, t_param)
+    end
+
+    local idx = 1
+
+    if (#l_ally >= #l_target) then
+        for i, ally in ipairs(l_ally) do
+            local target = l_target[idx]
+            if (not target) then
+                idx = 1
+                target = l_target[idx]
+            end
+
+            if (target) then
+                makeEffectMotionStreak(ally, target)
+            end
+
+            idx = idx + 1
+        end
+    else
+        for i, target in ipairs(l_target) do
+            local ally = l_ally[idx]
+            if (not ally) then
+                idx = 1
+                ally = l_ally[idx]
+            end
+
+            if (ally) then
+                makeEffectMotionStreak(ally, target)
+            end
+
+            idx = idx + 1
+        end
     end
 end

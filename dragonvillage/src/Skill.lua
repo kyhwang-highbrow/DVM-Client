@@ -43,6 +43,7 @@ Skill = class(PARENT, {
 
         -- 스킬 종료시 피드백(보너스) 관련
         m_bonusLevel = 'number',
+        m_hitTargetList = 'table',
 
         -- 하이라이트시 숨김 처리
         m_dataForTemporaryPause = '',
@@ -65,6 +66,7 @@ function Skill:init_skill()
 	-- 멤버 변수 
 	self.m_range = 0    
 	self.m_tSpecialTarget = {}
+    self.m_hitTargetList = {}
 
 	-- 세부 초기화 함수 실행
 	self:initActvityCarrier(self.m_powerRate, self.m_powerAbs)
@@ -248,13 +250,21 @@ function Skill.st_dying(owner, dt)
         -- 스킬 종료시 발동되는 status effect를 적용
 		owner:dispatch(CON_SKILL_END, {l_target = {owner.m_targetChar}})
 
-        -- 보너스 버프 효과 부여
+        -- 보너스 버프
         if (owner.m_bonusLevel > 0) then
+            local l_target = {}
+            for target, _ in pairs(owner.m_hitTargetList) do
+                table.insert(l_target, target)
+            end
+
             -- 효과 적용
-            DragonSkillBonusHelper:invokeBonus(owner.m_owner, owner.m_bonusLevel)
+            DragonSkillBonusHelper:doInvoke(owner.m_owner, owner.m_bonusLevel)
+
+            -- 연출
+            DragonSkillBonusHelper:doDirection(owner.m_owner, l_target, owner.m_bonusLevel)
         end
-        
-		return true
+
+        return true
     end
 end
 
@@ -372,6 +382,9 @@ function Skill:onAttack(target_char)
             self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
         end
     end
+
+    -- 피격된 대상 저장
+    self.m_hitTargetList[target_char] = true
 end
 
 -------------------------------------

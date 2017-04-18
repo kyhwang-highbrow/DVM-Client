@@ -90,13 +90,17 @@ function SkillHitEffectDirector:doWork(desc)
 
         self.m_bEndAction = false
         
-        local action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(-width/2, 0)), 0.2)
-        self.m_rightNode:setPositionX(width/2)
-        self.m_rightNode:runAction(action)
+        if (self.m_rightNode) then
+            local action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(-width/2, 0)), 0.2)
+            self.m_rightNode:setPositionX(width/2)
+            self.m_rightNode:runAction(action)
+        end
 
-        local action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(width/2, 0)), 0.2)
-        self.m_leftNode:setPositionX(-width/2)
-        self.m_leftNode:runAction(action)
+        if (self.m_leftNode) then
+            local action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(width/2, 0)), 0.2)
+            self.m_leftNode:setPositionX(-width/2)
+            self.m_leftNode:runAction(action)
+        end
 
         local function finish_cb()
             self.m_bEndAction = true
@@ -128,28 +132,5 @@ end
 function SkillHitEffectDirector:checkRelease()
     if self.m_bEndSkill and self.m_bEndAction then
         self.root:removeFromParent()
-
-        if (self.m_bonusLevel > 0) then
-            local scr_size = cc.Director:getInstance():getWinSize()
-
-            local world = self.m_hero.m_world
-            local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
-
-            local t_param = {
-                res = 'res/effect/motion_streak_dragskill/motion_streak_dragskill_feedback.png',
-                x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2),
-                y = cameraHomePosY + (scr_size['height'] / 2) - 160,
-                tar_x = self.m_hero.pos.x,
-                tar_y = self.m_hero.pos.y,
-                course = 1,
-                cb_end = function()
-                    local x = self.m_hero.pos.x
-                    local y = self.m_hero.pos.y
-                    world:addInstantEffect('res/effect/motion_streak_dragskill/motion_streak_dragskill.vrp', 'idle', x, y)
-                end
-            }
-
-            EffectMotionStreak(self.m_hero.m_world, t_param)
-        end
     end
 end
