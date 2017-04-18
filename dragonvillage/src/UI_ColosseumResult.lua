@@ -82,9 +82,18 @@ end
 -------------------------------------
 function UI_ColosseumResult:initButton()
     local vars = self.vars
+	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
     vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['retryBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
     vars['fastStartBtn']:registerScriptTapHandler(function() self:click_fastStartBtn() end)
+end
+
+-------------------------------------
+-- function click_statsBtn
+-------------------------------------
+function UI_ColosseumResult:click_statsBtn()
+	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
+	UI_StatisticsPopup(g_gameScene.m_gameWorld)
 end
 
 -------------------------------------

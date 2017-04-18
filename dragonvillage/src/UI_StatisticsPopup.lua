@@ -4,8 +4,13 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_StatisticsPopup
 -------------------------------------
 UI_StatisticsPopup = class(PARENT, {
-		m_charList = 'list',
-		m_tableView = 'tableView',
+		m_isColosseum = 'mode',
+		
+		m_charList_A = 'list',
+		m_charList_B = 'list',
+		
+		m_tableView_A = 'tableView',
+		m_tableView_B = 'tableView',
      })
 	
 -- TAB LIST
@@ -28,7 +33,9 @@ function UI_StatisticsPopup:init(world)
 	self:doAction(nil, false)
 
 	-- 멤버 변수 초기화
-	self.m_charList = world.m_myDragons
+	self.m_isColosseum = (world.m_gameMode == GAME_MODE_COLOSSEUM)
+	self.m_charList_A = world.m_myDragons
+	self.m_charList_B = (self.m_isColosseum) and world.m_lEnemyDragons or nil
 
 	-- UI 초기화
     self:initUI()
@@ -41,7 +48,44 @@ end
 -- function initUI
 -------------------------------------
 function UI_StatisticsPopup:initUI()
-	self:makeTableView()
+	local vars = self.vars
+	local node = vars['listNode1']
+
+	-- 모드에 따라 테이블 뷰 사이즈 조정
+	if (self.m_isColosseum) then
+		self.vars['frameNode']:setContentSize(1130, 600)
+	end
+
+	self.m_tableView_A = self:makeTableView(self.m_charList_A, vars['listNode1'])
+
+	if (self.m_isColosseum) then
+		
+		self.m_tableView_B = self:makeTableView(self.m_charList_B, vars['listNode2'])
+		
+		do
+			vars['userNode1']:setVisible(true)
+			local user_info = g_colosseumData.m_playerUserInfo
+			vars['name1']:setString(user_info.m_nickname)
+			local tamer_type = g_userData:getTamerInfo('type')
+			local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
+			vars['tamerNode1']:addChild(profile_icon)
+		end
+
+		do
+			local user_info = g_colosseumData.m_vsUserInfo
+			vars['userNode2']:setVisible(true)
+			vars['name2']:setString(user_info.m_nickname)
+
+			local tid = user_info:getTamer()
+			if (tid == 0) then
+				tid = 110001
+			end
+			local t_tamer = TableTamer():get(tid)
+			local tamer_type = t_tamer['type']
+			local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
+			vars['tamerNode2']:addChild(profile_icon)
+		end
+	end
 end
 
 -------------------------------------
@@ -75,8 +119,35 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_StatisticsPopup:onChangeTab(tab, first)
+	self:refreshTableView(self.m_tableView_A, tab)
+
+	if (self.m_isColosseum) then
+		self:refreshTableView(self.m_tableView_B, tab)
+	end
+end
+
+-------------------------------------
+-- function makeTableView
+-------------------------------------
+function UI_StatisticsPopup:makeTableView(l_char_list, node)
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(514, 95)
+    table_view:setCellUIClass(UI_StatisticsListItem, nil)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+
+	local make_item = true
+    table_view:setItemList(l_char_list, make_item)
+
+	return table_view
+end
+
+-------------------------------------
+-- function refreshTableView
+-------------------------------------
+function UI_StatisticsPopup:refreshTableView(table_view, tab)
 	local vars = self.vars
-	local l_item = self.m_tableView.m_itemList
+	local l_item = table_view.m_itemList
 	local log_key = self:getLogKey(tab)
 
 	-- 해당 키의 최고 수치를 찾는다.
@@ -96,27 +167,7 @@ function UI_StatisticsPopup:onChangeTab(tab, first)
 		end
 	end
 
-	self.m_tableView:setDirtyItemList()
-end
-
--------------------------------------
--- function makeTableView
--------------------------------------
-function UI_StatisticsPopup:makeTableView()
-    local vars = self.vars
-	local node = vars['listNode1']
-	local l_char_list = self.m_charList
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(514, 95)
-    table_view:setCellUIClass(UI_StatisticsListItem, create_cb_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-
-	local make_item = true
-    table_view:setItemList(l_char_list, make_item)
-
-	self.m_tableView = table_view
+	table_view:setDirtyItemList()
 end
 
 -------------------------------------

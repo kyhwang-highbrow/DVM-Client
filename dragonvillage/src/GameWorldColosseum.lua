@@ -8,6 +8,7 @@ GameWorldColosseum = class(PARENT, {
         m_diedEnemyTotalMaxHp = 'number',    -- 죽은 적군들의 총 maxHp(죽었을때 상태로 저장)
 
         m_enemyTamer = '',
+		m_lEnemyDragons = '',
     })
 
 -------------------------------------
@@ -16,6 +17,7 @@ GameWorldColosseum = class(PARENT, {
 function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode)
     self.m_diedHeroTotalMaxHp = 0
     self.m_diedEnemyTotalMaxHp = 0
+	self.m_lEnemyDragons = {}
     
     -- 타임 스케일 설정
     local baseTimeScale = COLOSSEUM__TIME_SCALE
@@ -328,6 +330,7 @@ function GameWorldColosseum:makeEnemyDeck()
             local is_right = true
             local enemy = self:makeDragonNew(t_dragon_data, is_right, status_calc)
             if (enemy) then
+				self.m_lEnemyDragons[i] = enemy
                 enemy:setPosIdx(tonumber(i))
 
                 self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)

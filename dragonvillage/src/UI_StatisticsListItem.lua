@@ -16,7 +16,14 @@ UI_StatisticsListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_StatisticsListItem:init(dragon)
-	local vars = self:load('ingame_result_stats_popup_item_01.ui')
+	local ui_name
+	if (dragon.m_bLeftFormation) then
+		ui_name = 'ingame_result_stats_popup_item_01.ui'
+	else
+		ui_name = 'ingame_result_stats_popup_item_02.ui'
+	end
+
+	local vars = self:load(ui_name) 
 
 	self.m_dragonData = dragon
 
