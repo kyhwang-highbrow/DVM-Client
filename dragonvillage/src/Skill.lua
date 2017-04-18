@@ -207,15 +207,14 @@ function Skill:setSkillParams(owner, t_skill, t_data)
     self.m_bonusLevel = 0
     
     if (t_data['score']) then
-        self.m_bonusLevel = SkillHelper:getDragonActiveSkillBonusLevel(t_skill, t_data['score'])
+        self.m_bonusLevel = DragonSkillBonusHelper:getBonusLevel(self.m_owner, t_data['score'])
     end
-
 
     -- 생성
     if self.m_bSkillHitEffect then
         local bonus_desc = nil
         if (self.m_bonusLevel > 0) then
-            bonus_desc = SkillHelper:getDragonActiveSkillBonusDesc(self.m_owner)
+            bonus_desc = DragonSkillBonusHelper:getBonusDesc(self.m_owner, self.m_bonusLevel)
         end
 
         self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner, bonus_desc)
@@ -261,7 +260,7 @@ function Skill.st_dying(owner, dt)
         -- 보너스 버프 효과 부여
         if (owner.m_bonusLevel > 0) then
             -- 효과 적용
-            SkillHelper:invokeDragonActiveSkillBonus(owner.m_owner, owner.m_bonusLevel)
+            DragonSkillBonusHelper:invokeBonus(owner.m_owner, owner.m_bonusLevel)
         end
         
 		return true

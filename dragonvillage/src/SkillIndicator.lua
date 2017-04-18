@@ -348,13 +348,9 @@ function SkillIndicator:onChangeTargetCount(old_target_count, cur_target_count)
 		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
     end
 
-    -- 타겟수에 따른 점수(%)값 저장
+    -- 타겟수에 따른 점수 저장
     do
-        local count = cur_target_count
-        local max_count = table.count(self.m_hero:getOpponentList())
-                
-        local score = (count / max_count) * 100
-        self.m_resultScore = score
+        self.m_resultScore = cur_target_count
     end
 end
 

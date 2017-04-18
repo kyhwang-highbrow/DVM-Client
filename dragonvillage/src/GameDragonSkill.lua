@@ -523,7 +523,7 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local score = dragon.m_skillIndicator.m_resultScore
 
         self.m_dragon = dragon
-        self.m_bonusLevel = SkillHelper:getDragonActiveSkillBonusLevel(t_skill, score)
+        self.m_bonusLevel = DragonSkillBonusHelper:getBonusLevel(dragon, score)
         self.m_targetPosX = dragon.m_skillIndicator.m_targetPosX
         self.m_targetPosY = dragon.m_skillIndicator.m_targetPosY
 

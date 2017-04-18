@@ -277,6 +277,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ConstantGameMode.lua" />
     <None Include="..\src\ConstantStatusEffect.lua" />
     <None Include="..\src\Coroutine.lua" />
+    <None Include="..\src\DragonSkillBonusHelper.lua" />
     <None Include="..\src\DropItem.lua" />
     <None Include="..\src\EffectLauncher.lua" />
     <None Include="..\src\EffectMotionStreak.lua" />
@@ -609,6 +610,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableCalendar.lua" />
     <None Include="..\src\TableColosseumReward.lua" />
     <None Include="..\src\TableDragon.lua" />
+    <None Include="..\src\TableDragonSkillBonus.lua" />
     <None Include="..\src\TableDragonExp.lua" />
     <None Include="..\src\TableDragonResearch.lua" />
     <None Include="..\src\TableDragonSkill.lua" />
