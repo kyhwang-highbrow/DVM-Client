@@ -123,8 +123,8 @@ function UI_TamerManagePopup:setTamerRes()
 	-- 테이머 일러스트
 	local illustration_res = t_tamer['res']
     local illustration_animator = MakeAnimator(illustration_res)
+	illustration_animator:changeAni('idle', true)
     vars['tamerNode']:addChild(illustration_animator.m_node)
-	--self:adjustTamerIllustration(illustration_animator, t_tamer['type'])
 
 	-- 테이머 SD
 	local sd_res = t_tamer['res_sd']
@@ -199,36 +199,6 @@ function UI_TamerManagePopup:refreshButtonState()
 			vars['selectBtn']:setVisible(true)
 
 		end
-	end
-end
-
--------------------------------------
--- function adjustTamerIllustration
--- @brief 테이머 개별로 예쁘게 보이게 수정해준다.
--------------------------------------
-function UI_TamerManagePopup:adjustTamerIllustration(illustration_animator, tamer_type)
-	if (tamer_type == 'goni') then
-		illustration_animator:setPositionY(-50)
-		illustration_animator:setFlip(true)
-		illustration_animator:setScale(1.3)
-
-	elseif (tamer_type == 'nuri') then	
-		illustration_animator:setScale(1.4)
-
-	elseif (tamer_type == 'dede') then
-		illustration_animator:setScale(1.4)
-
-	elseif (tamer_type == 'kesath') then
-		illustration_animator:setScale(1.3)
-
-	elseif (tamer_type == 'durun') then
-		illustration_animator:setPositionY(-150)
-		illustration_animator:setScale(1.3)
-
-	elseif (tamer_type == 'mokoji') then
-		illustration_animator:setFlip(true)
-		illustration_animator:setScale(1.1)
-
 	end
 end
 
