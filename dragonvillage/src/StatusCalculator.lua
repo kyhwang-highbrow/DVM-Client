@@ -168,26 +168,11 @@ function StatusCalculator:applyFormationBonus(formation, slot_idx)
     local l_buff = TableFormation:getBuffList(formation, slot_idx)
 
     for i,v in ipairs(l_buff) do
-        local buff_type = v['buff_type']
-        local buff_value = v['buff_value']
+        local action = v['action']
+        local status = v['status']
+        local value = v['value']
 
-        if (buff_type == '') then
-        
-        -- 공격력 상승
-        elseif (buff_type == 'atk_up') then
-            self:addBuffMulti('atk', buff_value)
-
-        -- 방어력 상승
-        elseif (buff_type == 'def_up') then
-            self:addBuffMulti('def', buff_value)
-        
-        -- 공격력 하락
-        elseif (buff_type == 'atk_down') then
-            self:addBuffMulti('atk', -buff_value)
-
-        else
-            error('buff_type : ' .. buff_type)
-        end
+        self:addOption(action, status, value)
     end
 end
 
@@ -327,6 +312,22 @@ function StatusCalculator:addBuffMulti(stat_type, value)
     end
 
     indivisual_status:addBuffMulti(value)
+end
+
+-------------------------------------
+-- function addOption
+-- @brief
+-------------------------------------
+function StatusCalculator:addOption(action, status, value)
+    if (action == 'multi') then
+        self:addBuffMulti(status, value)
+
+    elseif (action == 'add') then
+        self:addBuffAdd(status, value)
+
+    else
+        error('action : ' .. action)
+    end
 end
 
 -------------------------------------

@@ -1,3 +1,10 @@
+
+local T_FORMATION_NAME = {}
+T_FORMATION_NAME['a'] = 'attack'
+T_FORMATION_NAME['b'] = 'balance'
+T_FORMATION_NAME['c'] = 'defence'
+T_FORMATION_NAME['d'] = 'protect'
+
 -------------------------------------
 -- class UI_ReadyScene_Deck
 -------------------------------------
@@ -91,10 +98,10 @@ function UI_ReadyScene_Deck:initButton()
     -- 진형 선택 버튼
     local radio_button = UIC_RadioButton()
     self.m_radioButtonFormation = radio_button
-    radio_button:addButton('attack', vars['aFomationBtn'], vars['aFomationUseSprite'], function() self:setFormation('attack') end)
-    radio_button:addButton('balance', vars['bFomationBtn'], vars['bFomationUseSprite'], function() self:setFormation('balance') end)
-    radio_button:addButton('defence', vars['cFomationBtn'], vars['cFomationUseSprite'], function() self:setFormation('defence') end)
-    radio_button:addButton('protect', vars['dFomationBtn'], vars['dFomationUseSprite'], function() self:setFormation('protect') end)
+    radio_button:addButton(T_FORMATION_NAME['a'], vars['aFomationBtn'], vars['aFomationUseSprite'], function() self:setFormation(T_FORMATION_NAME['a']) end)
+    radio_button:addButton(T_FORMATION_NAME['b'], vars['bFomationBtn'], vars['bFomationUseSprite'], function() self:setFormation(T_FORMATION_NAME['b']) end)
+    radio_button:addButton(T_FORMATION_NAME['c'], vars['cFomationBtn'], vars['cFomationUseSprite'], function() self:setFormation(T_FORMATION_NAME['c']) end)
+    radio_button:addButton(T_FORMATION_NAME['d'], vars['dFomationBtn'], vars['dFomationUseSprite'], function() self:setFormation(T_FORMATION_NAME['d']) end)
 end
 
 -------------------------------------
@@ -241,6 +248,19 @@ function UI_ReadyScene_Deck:init_deck()
     self.m_radioButtonFormation:setSelectedButton(formation)
 
     self:setDirtyDeck()
+
+
+    do -- 진형들의 이름, 버프 내용 출력
+        local vars = self.m_uiReadyScene.vars
+
+        local table_formation = TableFormation()
+
+        for i,v in pairs(T_FORMATION_NAME) do
+            local name, desc = table_formation:getFormationNameAndDesc(v)
+            vars[tostring(i) .. 'FomationLabel']:setString(name)
+            vars[tostring(i) .. 'FomationdscLabel1']:setString(desc)
+        end
+    end
 end
 
 -------------------------------------
@@ -506,8 +526,6 @@ function UI_ReadyScene_Deck:updateFormation(formation, immediately)
     vars['formationNode']:stopAllActions()
     local action = cc.Sequence:create(cc.MoveBy:create(0.1, cc.p(0, -50)), cc.MoveTo:create(0.1, cc.p(-79, 100)))
 	vars['formationNode']:runAction(action)
-
-	self:updateFormationInfo(formation)
 end
 
 -------------------------------------
@@ -599,53 +617,6 @@ function UI_ReadyScene_Deck:getRotatedPosList(formation)
 
 	return ret_list
 end
-
--------------------------------------
--- function updateFormationInfo
--- @brief 진형 변경시 UI에 표시하는 텍스트 정보
--------------------------------------
-function UI_ReadyScene_Deck:updateFormationInfo(formation)
-	local vars = self.m_uiReadyScene.vars
-
-    local table_formation = TableFormation()
-
-    do -- 진형 아이콘
-        local node = vars['fomationIconNode']
-        node:removeAllChildren()
-        local icon = table_formation:makeFormationIcon(formation)
-        cca.uiReaction(icon, scale_x, scale_y)
-        node:addChild(icon)
-    end
-
-    -- 진형 이름
-    local t_formation = table_formation:get(formation)
-    vars['fomationLabel']:setString(Str(t_formation['t_name']))
-
-    -- 버프 설명
-    local l_buff_str = table_formation:getBuffStrList(formation)
-    for i=1, 10 do
-        local node = vars['fomationdscLabel' .. i]
-        local t_data = l_buff_str[i]
-        if (node and t_data) then
-            local str = t_data['str']
-            node:setString(str)
-
-            --local out_line_size = node:getOutlineSize()
-            local out_line_size = 1
-            local color_str = t_data['color']
-            local color = COLOR_4[color_str]
-            node:enableOutline(color)
-            node:enableShadow(color)
-
-        elseif (node) then
-            node:setString('')
-        else
-            break
-        end
-    end
-end
-
-
 
 -------------------------------------
 -- function makeTouchLayer

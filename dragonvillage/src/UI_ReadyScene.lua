@@ -186,21 +186,6 @@ function UI_ReadyScene:initButton()
     -- 진형 관린
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
     vars['fomationSetColseBtn']:registerScriptTapHandler(function() self:click_fomationSetColseBtn() end)
-
-    -- 1, 2, 3 팀
-    do
-        local radio_button = UIC_RadioButton()
-        radio_button:addButton('1', vars['deckBtn1'], nil, function() self:click_teamBtn('1') end)
-        radio_button:addButton('2', vars['deckBtn2'], nil, function() self:click_teamBtn('2') end)
-        radio_button:addButton('3', vars['deckBtn3'], nil, function() self:click_teamBtn('3') end)
-        radio_button:setSelectedButton(g_deckData:getSelectedDeckName())
-    end
-
-    do -- 친구 선택
-        vars['friendBtn'] = UIC_CheckBox(vars['friendBtn'].m_node, vars['friendOnSprite'], false)
-        vars['friendBtn']:setManualMode(true)
-        vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end)
-    end
 end
 
 -------------------------------------
@@ -527,7 +512,7 @@ end
 
 -------------------------------------
 -- function click_friendBtn
--- @breif
+-- @breif 임시 삭제되었음
 -------------------------------------
 function UI_ReadyScene:click_friendBtn()
     local ui = UI_FriendSelectPopup()

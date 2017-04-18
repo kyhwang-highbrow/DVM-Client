@@ -6,6 +6,8 @@ local PARENT = TableClass
 TableFormation = class(PARENT, {
     })
 
+local THIS = TableFormation
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -123,10 +125,11 @@ function TableFormation:getBuffList(formation, slot_idx)
             for _,target_idx in ipairs(l_targets) do
                 if (tonumber(target_idx) == slot_idx) then
                     local buff_type = t_formation[string.format('buff_type_%.2d', i)]
-                    local buff_value = t_formation[string.format('buff_value_%.2d', i)]
+                    local status, action = TableOption:parseOptionKey(buff_type)
+                    local value = t_formation[string.format('buff_value_%.2d', i)]
 
                     -- 버프 리스트에 추가
-                    table.insert(l_buff, {buff_type=buff_type, buff_value=buff_value})
+                    table.insert(l_buff, {['status']=status, ['action']=action, ['value']=value})
                 end
             end
         end
@@ -149,4 +152,36 @@ function TableFormation:getLocationInfo(formation)
     t_ret['rear'] = self:getCommaSeparatedValues(formation, 'rear')
     
     return t_ret
+end
+
+-------------------------------------
+-- function getFormationNameAndDesc
+-- @breif UI에서 사용되는 진형 이름, 버프 내용
+-------------------------------------
+function TableFormation:getFormationNameAndDesc(formation)
+    if (self == THIS) then
+        self = THIS()
+    end
+    
+    local t_table = self:get(formation)
+
+    local name = Str(t_table['t_name'])
+    local desc = ''
+
+    for i=1, 10 do
+        local buff_type = t_table[string.format('buff_type_%.2d', i)]
+        local buff_value = t_table[string.format('buff_value_%.2d', i)]
+
+        if (not buff_type) or (not buff_value) then
+        elseif (buff_type == '') or (buff_value == '') then
+        else
+            local str = TableOption:getOptionDesc(buff_type, buff_value)
+            if (desc ~= '') then
+                desc = desc .. ', '
+            end
+            desc = desc .. str
+        end
+    end
+
+    return name, desc
 end

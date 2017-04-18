@@ -17,6 +17,25 @@ function TableOption:init()
 end
 
 -------------------------------------
+-- function parseOptionKey
+-- @brief
+-------------------------------------
+function TableOption:parseOptionKey(option_str)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_table = self:get(option_str)
+    if (not t_table) then
+        error('option_str : ' .. option_str)
+    end
+    
+    local status = t_table['status']
+    local action = t_table['action']
+    return status, action
+end
+
+-------------------------------------
 -- function getRunePrefix
 -- @brief
 -------------------------------------
