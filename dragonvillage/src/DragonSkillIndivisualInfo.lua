@@ -60,17 +60,16 @@ function DragonSkillIndivisualInfo:applySkillLevel(t_add_value)
 			-- 레벨 계수 반영한 수치
 			local tar_data = SkillHelper:getValid(t_skill[modify_column])
 			if (tar_data) then
-				local add_value = (modify_value_unit * (skill_lv - 1))
-				tar_data = tar_data + add_value
-			
-				-- 액티브 강화에서 사용하기 위해 저장
-				self.m_tAddedValue[modify_column] = add_value
+				local lv_add_value = (modify_value_unit * (skill_lv - 1))
 				
 				-- 소수 2번째 자리 까지 남김
-				tar_data = (math_floor(tar_data * 100) / 100)
+				lv_add_value = (math_floor(lv_add_value * 100) / 100)
 				
+				-- 액티브 강화에서 사용하기 위해 저장
+				self.m_tAddedValue[modify_column] = lv_add_value
+			
 				-- 레벨 계산된 값으로 치환
-				t_skill[modify_column] = tar_data
+				t_skill[modify_column] = tar_data + lv_add_value
 			end
 		end
 	end
