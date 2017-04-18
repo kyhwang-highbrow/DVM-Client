@@ -660,6 +660,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UIC_CheckBox.lua" />
     <None Include="..\src\UIC_ClippingNode.lua" />
     <None Include="..\src\UIC_DragonAnimator.lua" />
+    <None Include="..\src\UIC_DragonAnimatorDirector.lua" />
     <None Include="..\src\UIC_Factory.lua" />
     <None Include="..\src\UIC_IndivisualStats.lua" />
     <None Include="..\src\UIC_LabelTTF.lua" />

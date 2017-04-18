@@ -5,31 +5,6 @@
 	{
 		[1] =
 		{
-			[1] =
-			{
-				type = 'Visual';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 0;
-				height = 0;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.a2d';
-				auto_play = true;
-				is_repeat = true;
-				visual_id = 'group;idle';
-				color = { 255; 255; 255; };
-				opacity = 255;
-			};
 			type = 'Node';
 			ui_name = '';
 			x = 0.000000;
@@ -48,31 +23,6 @@
 			lua_name = 'bgNode';
 		};
 		[2] =
-		{
-			type = 'Visual';
-			ui_name = '';
-			x = -0.000061;
-			y = -0.000015;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 0;
-			height = 0;
-			scale_x = 2.500000;
-			scale_y = 2.500000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-			file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
-			auto_play = true;
-			is_repeat = true;
-			visual_id = 'group;legend';
-			color = { 255; 255; 255; };
-			opacity = 255;
-		};
-		[3] =
 		{
 			type = 'LayerColor';
 			ui_name = '';
@@ -95,7 +45,7 @@
 			src_blend = 770;
 			dest_blend = 771;
 		};
-		[4] =
+		[3] =
 		{
 			[1] =
 			{
@@ -154,6 +104,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = '';
 				file_name = 'ui/frame/result_status_bg.png';
 				color = { 255; 255; 255; };
@@ -199,6 +153,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 3;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 70;
@@ -835,6 +793,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = '';
 				file_name = 'ui/frame/dragon_reserch_next.png';
 				color = { 255; 255; 255; };
@@ -861,6 +823,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = 'beforeLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
@@ -901,6 +867,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = 'afterLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 40;
@@ -1011,6 +981,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = '';
 				file_name = 'ui/gauge/dragon_levelup_bg.png';
 				color = { 255; 255; 255; };

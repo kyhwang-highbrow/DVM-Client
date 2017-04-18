@@ -422,6 +422,7 @@ local t_module = {
     'UIC_Factory',
     'UIC_IndivisualStats',
     'UIC_DragonAnimator',
+    'UIC_DragonAnimatorDirector',
 
 	-- UI
     'UI_BlockPopup',
