@@ -75,7 +75,6 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_StatisticsPopup:onChangeTab(tab, first)
-	cclog('UI_StatisticsPopup:onChangeTab(tab, first)')
 	local vars = self.vars
 	local l_item = self.m_tableView.m_itemList
 	local log_key = self:getLogKey(tab)
@@ -88,9 +87,6 @@ function UI_StatisticsPopup:onChangeTab(tab, first)
 
 	-- ui에 적용시킨다.
 	for i, item in pairs(l_item) do
-		for key, _ in pairs(item) do
-			cclog(key)
-		end
 		local ui = item['ui'] or item['generated_ui']
 		if (ui) then
 			ui.m_rank = i
@@ -107,7 +103,6 @@ end
 -- function makeTableView
 -------------------------------------
 function UI_StatisticsPopup:makeTableView()
-	cclog('UI_StatisticsPopup:makeTableView()')
     local vars = self.vars
 	local node = vars['listNode1']
 	local l_char_list = self.m_charList
