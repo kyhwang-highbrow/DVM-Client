@@ -24,6 +24,44 @@
 		};
 		[2] =
 		{
+			type = 'Node';
+			ui_name = '';
+			x = 488.000000;
+			y = -220.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'tamerNode2';
+		};
+		[3] =
+		{
+			type = 'Node';
+			ui_name = '';
+			x = -488.000000;
+			y = -220.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'tamerNode1';
+		};
+		[4] =
+		{
 			[1] =
 			{
 				type = 'LabelTTF';
@@ -33,7 +71,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 480;
+				width = 400;
 				height = 154;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -49,7 +87,7 @@
 				v_alignment = 1;
 				color = { 42; 31; 21; };
 				opacity = 255;
-				dimension_width = 480;
+				dimension_width = 400;
 				dimension_height = 154;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -120,7 +158,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 550;
+			width = 500;
 			height = 224;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -137,7 +175,7 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[3] =
+		[5] =
 		{
 			[1] =
 			{
@@ -148,7 +186,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 480;
+				width = 400;
 				height = 154;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -164,7 +202,7 @@
 				v_alignment = 1;
 				color = { 42; 31; 21; };
 				opacity = 255;
-				dimension_width = 480;
+				dimension_width = 400;
 				dimension_height = 154;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -235,7 +273,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 550;
+			width = 500;
 			height = 224;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -252,7 +290,7 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[4] =
+		[6] =
 		{
 			[1] =
 			{
@@ -263,7 +301,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 480;
+				width = 400;
 				height = 154;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -279,7 +317,7 @@
 				v_alignment = 1;
 				color = { 42; 31; 21; };
 				opacity = 255;
-				dimension_width = 480;
+				dimension_width = 400;
 				dimension_height = 154;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -301,14 +339,14 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 550;
+			width = 500;
 			height = 224;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = false;
+			visible = true;
 			lua_name = 'textMomoSprite2';
 			file_name = 'ui/frame/scenario_talk_think_right.png';
 			color = { 255; 255; 255; };
@@ -318,7 +356,7 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[5] =
+		[7] =
 		{
 			[1] =
 			{
@@ -329,7 +367,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 480;
+				width = 400;
 				height = 154;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -345,7 +383,7 @@
 				v_alignment = 1;
 				color = { 42; 31; 21; };
 				opacity = 255;
-				dimension_width = 480;
+				dimension_width = 400;
 				dimension_height = 154;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -367,14 +405,14 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 550;
+			width = 500;
 			height = 224;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = false;
+			visible = true;
 			lua_name = 'textMomoSprite1';
 			file_name = 'ui/frame/scenario_talk_think_left.png';
 			color = { 255; 255; 255; };
@@ -383,44 +421,6 @@
 			center_rect_y = 0;
 			center_rect_width = 0;
 			center_rect_height = 0;
-		};
-		[6] =
-		{
-			type = 'Node';
-			ui_name = '';
-			x = -488.000000;
-			y = -220.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = 'tamerNode1';
-		};
-		[7] =
-		{
-			type = 'Node';
-			ui_name = '';
-			x = 488.000000;
-			y = -220.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = 'tamerNode2';
 		};
 		[8] =
 		{

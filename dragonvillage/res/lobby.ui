@@ -626,6 +626,86 @@
 		{
 			[1] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -55.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 150;
+				height = 88;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/typo/kr/lobby_main_menu_colosseum.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -9.000000;
+				y = -11.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 1.000000; 1.000000; };
+				relative_size_type = 0;
+				width = 26;
+				height = 26;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'colosseumNotiSprite';
+				file_name = 'ui/btn/notification.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = -402.000000;
+			y = 86.000000;
+			dock_point = { 1.000000; 0.000000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 150;
+			height = 150;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			action_type = 4;
+			action_delay_1 = 0.020000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.400000;
+			lua_name = 'colosseumBtn';
+			enable = true;
+			normal = 'ui/btn/lobby_main_colosseum_0101.png';
+			selected = '';
+			disable = '';
+			image_type = 0;
+		};
+		[6] =
+		{
+			[1] =
+			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
@@ -716,7 +796,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[6] =
+		[7] =
 		{
 			[1] =
 			{
@@ -810,7 +890,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[7] =
+		[8] =
 		{
 			[1] =
 			{
@@ -904,7 +984,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[8] =
+		[9] =
 		{
 			[1] =
 			{
@@ -998,7 +1078,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[9] =
+		[10] =
 		{
 			[1] =
 			{
@@ -1092,7 +1172,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[10] =
+		[11] =
 		{
 			[1] =
 			{
@@ -1186,7 +1266,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[11] =
+		[12] =
 		{
 			[1] =
 			{
@@ -1320,7 +1400,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[12] =
+		[13] =
 		{
 			[1] =
 			{
@@ -1414,7 +1494,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[13] =
+		[14] =
 		{
 			[1] =
 			{
@@ -1508,7 +1588,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[14] =
+		[15] =
 		{
 			[1] =
 			{
@@ -1602,7 +1682,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[15] =
+		[16] =
 		{
 			[1] =
 			{
@@ -1762,7 +1842,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[16] =
+		[17] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -1790,7 +1870,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[17] =
+		[18] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -1813,7 +1893,7 @@
 			action_duration = 0.400000;
 			lua_name = 'buffNode';
 		};
-		[18] =
+		[19] =
 		{
 			[1] =
 			{

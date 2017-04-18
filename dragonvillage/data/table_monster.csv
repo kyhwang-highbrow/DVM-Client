@@ -41,14 +41,14 @@ mid,t_name,type,res,scale,pattern,rarity,size_type,icon,attr,target_formation,co
 131101,도마뱀 인간2,lizard_man_shaman,res/character/monster/elite_lizard_man_shaman_earth/elite_lizard_man_shaman_earth.spine,0.5,ignore,subboss,s,res/ui/icon/mon/lizard_man_shaman_@.png,earth,,4,230028,,,,,,,,,,1202,600,5132,0,5,50,5,0,5
 131111,고대문자:A,ancient_word_a,res/character/monster/common_ancient_word_a_earth/common_ancient_word_a_earth.spine,1,ignore,common,s,res/ui/icon/mon/ancient_word_a_@.png,earth,,2,230000,230049,,,,,,,,,648,500,3800,60,5,50,5,0,5
 131121,만드라고라:땅,mandragora,res/character/monster/common_mandragora_earth/common_mandragora_earth.spine,1,ignore,common,s,res/ui/icon/mon/mandragora_@.png,earth,,2,230053,230054,,,,,,,,,770,560,4940,0,5,50,5,0,5
-131131,땅 와이번,wyvern,res/character/monster/common_wyvern_earth/common_wyvern_earth.spine,1,ignore,common,s,res/ui/icon/mon/wyvern_@.png,earth,,2,230000,,,,,,,,,,1229,740,4752,0,5,50,5,0,5
+131131,땅 와이번,wyvern,res/character/monster/common_wyvern_@/common_wyvern_@.spine,1,ignore,common,s,res/ui/icon/mon/wyvern_@.png,earth,,2,230000,230061,,,,,,,,,1229,740,4752,0,5,50,5,0,5
 131012,해골 생선,bonefish,res/character/monster/common_bonefish_water/common_bonefish_water.spine,1,ignore,common,s,res/ui/icon/mon/bonefish_@.png,water,,2,230000,230020,,,,,,,,,1202,370,3600,0,5,50,5,0,5
 131022,복상어,blowshark,res/character/monster/common_blowshark_water/common_blowshark_water.spine,1,ignore,common,s,res/ui/icon/mon/blowshark_@.png,water,,2,230000,230012,,,,,,,,,959,1160,3900,0,5,50,5,0,5
 131032,소세지 문어,octopus,res/character/monster/common_octopus_water/common_octopus_water.spine,1,ignore,common,s,res/ui/icon/mon/octopus_@.png,water,,2,230000,230016,,,,,,,,,918,840,3564,0,5,50,5,0,5
 131042,악마날개,evil_wing,res/character/monster/common_evil_wing_water/common_evil_wing_water.spine,1,ignore,common,s,res/ui/icon/mon/evil_wing_@.png,water,,2,230000,230060,,,,,,,,,918,950,4500,0,5,50,5,0,5
 131052,고대문자:B,ancient_word_b,res/character/monster/common_ancient_word_b_water/common_ancient_word_b_water.spine,1,ignore,common,s,res/ui/icon/mon/ancient_word_b_@.png,water,,2,230000,230050,,,,,,,,,675,920,1080,0,5,50,5,0,5
 131062,만드라고라:물,mandragora,res/character/monster/common_mandragora_earth/common_mandragora_earth.spine,1,ignore,common,s,res/ui/icon/mon/mandragora_@.png,water,,2,230053,230054,,,,,,,,,851,590,4500,0,5,50,5,0,5
-131072,물 와이번,wyvern,res/character/monster/common_wyvern_earth/common_wyvern_earth.spine,1,ignore,common,s,res/ui/icon/mon/wyvern_@.png,water,,2,230000,,,,,,,,,,1229,740,3060,0,5,50,5,0,5
+131072,물 와이번,wyvern,res/character/monster/common_wyvern_@/common_wyvern_@.spine,1,ignore,common,s,res/ui/icon/mon/wyvern_@.png,water,,2,230000,230061,,,,,,,,,1229,740,3060,0,5,50,5,0,5
 131013,하피 주니어,harpy_junior,res/character/monster/common_harpy_junior_fire/common_harpy_junior_fire.spine,1,ignore,common,s,res/ui/icon/mon/harpy_junior_@.png,fire,,2,230000,230045,,,,,,,,,1229,360,3800,0,5,50,5,0,50
 131023,거미알,spider_egg,res/character/monster/spider_egg/spider_egg.spine,1,ignore,common,s,res/ui/icon/mon/spider_egg_@.png,fire,,2,234002,,,,,,,,,,1229,360,3800,150,5,50,5,0,5
 131033,용암정령,elemental_lava,res/character/monster/common_elemental_lava_fire/common_elemental_lava_fire.spine,1,ignore,common,s,res/ui/icon/mon/elemental_lava_@.png,fire,,2,230000,230046,,,,,,,,,675,950,3420,0,5,50,5,0,5
@@ -56,14 +56,14 @@ mid,t_name,type,res,scale,pattern,rarity,size_type,icon,attr,target_formation,co
 131053,기록 관리자,record_manager,res/character/monster/common_record_manager_fire/common_record_manager_fire.spine,1,ignore,common,s,res/ui/icon/mon/record_manager_@.png,fire,,2,230000,230052,,,,,,,,,810,550,3592,0,5,50,5,0,5
 131063,만드라고라:불,mandragora,res/character/monster/common_mandragora_earth/common_mandragora_earth.spine,1,ignore,common,s,res/ui/icon/mon/mandragora_@.png,fire,,2,230053,230054,,,,,,,,,810,530,3592,0,5,50,5,0,5
 131073,플라잉 스컬,flying_skull,res/character/monster/common_flying_skull_fire/common_flying_skull_fire.spine,1,ignore,common,s,res/ui/icon/mon/flying_skull_@.png,fire,,2,230000,230057,,,,,,,,,810,550,3592,0,5,50,5,0,5
-131083,불 와이번,wyvern,res/character/monster/common_wyvern_earth/common_wyvern_earth.spine,1,ignore,common,s,res/ui/icon/mon/wyvern_@.png,fire,,2,230000,,,,,,,,,,1229,740,3592,0,5,50,5,0,5
+131083,불 와이번,wyvern,res/character/monster/common_wyvern_@/common_wyvern_@.spine,1,ignore,common,s,res/ui/icon/mon/wyvern_@.png,fire,,2,230000,230061,,,,,,,,,1229,740,3592,0,5,50,5,0,5
 131014,픽시,pixie,res/character/monster/common_pixie_light/common_pixie_light.spine,1,ignore,common,s,res/ui/icon/mon/pixie_@.png,light,,2,230048,,,,,,,,,,1107,340,4200,0,20,50,15,10,30
 131024,만드라고라:빛,mandragora,res/character/monster/common_mandragora_earth/common_mandragora_earth.spine,1,ignore,common,s,res/ui/icon/mon/mandragora_@.png,light,,2,230053,230054,,,,,,,,,851,510,4620,0,5,50,5,0,5
-131034,빛 와이번,wyvern,res/character/monster/common_wyvern_earth/common_wyvern_earth.spine,1,ignore,common,s,res/ui/icon/mon/wyvern_@.png,light,,2,230000,,,,,,,,,,1229,740,4620,0,5,50,5,0,5
+131034,빛 와이번,wyvern,res/character/monster/common_wyvern_@/common_wyvern_@.spine,1,ignore,common,s,res/ui/icon/mon/wyvern_@.png,light,,2,230000,230061,,,,,,,,,1229,740,4620,0,5,50,5,0,5
 131045,만드라고라:어둠,mandragora,res/character/monster/common_mandragora_earth/common_mandragora_earth.spine,1,ignore,common,s,res/ui/icon/mon/mandragora_@.png,dark,,2,230053,230054,,,,,,,,,932,530,3600,0,5,50,5,0,5
 131055,루미에,lumiere,res/character/monster/common_lumiere_dark/common_lumiere_dark.spine,1,ignore,common,s,res/ui/icon/mon/lumiere_@.png,dark,,2,230000,230056,,,,,,,,,1107,430,5148,0,5,50,5,0,20
 131065,미니언,minion,res/character/monster/common_minion_dark/common_minion_dark.spine,1,ignore,common,s,res/ui/icon/mon/minion_@.png,dark,,2,230000,230058,,,,,,,,,851,520,3600,0,5,50,20,0,5
-131075,어둠 와이번,wyvern,res/character/monster/common_wyvern_earth/common_wyvern_earth.spine,1,ignore,common,s,res/ui/icon/mon/wyvern_@.png,dark,,2,230000,,,,,,,,,,1229,740,4860,0,5,50,5,0,5
+131075,어둠 와이번,wyvern,res/character/monster/common_wyvern_@/common_wyvern_@.spine,1,ignore,common,s,res/ui/icon/mon/wyvern_@.png,dark,,2,230000,230061,,,,,,,,,1229,740,4860,0,5,50,5,0,5
 131044,빛 미믹,mimic,res/character/monster/common_mimic_light/common_mimic_light.spine,1,ignore,common,s,res/ui/icon/mon/mimic_@.png,light,,2,230059,,,,,,,,,,1229,740,4200,0,5,50,5,0,5
 131054,보물 고블린,treasuregoblin,res/character/monster/common_treasuregoblin_light/common_treasuregoblin_light.spine,1,ignore,common,s,res/ui/icon/mon/treasuregoblin_@.png,light,,2,230015,,,,,,,,,,1229,740,5544,0,5,50,5,0,5
 131095,자수정 몬스터,amethystmonster,res/character/monster/common_amethystmonster_dark/common_amethystmonster_dark.spine,1,ignore,common,s,res/ui/icon/mon/amethystmonster_@.png,dark,,2,230015,,,,,,,,,,1229,740,4140,0,5,50,5,0,5
