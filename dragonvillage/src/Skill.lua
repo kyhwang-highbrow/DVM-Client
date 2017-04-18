@@ -204,12 +204,8 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 
 	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
     self.m_bHighlight = t_data['highlight'] or false
-    self.m_bonusLevel = 0
+    self.m_bonusLevel = t_data['bonus'] or 0
     
-    if (t_data['score']) then
-        self.m_bonusLevel = DragonSkillBonusHelper:getBonusLevel(self.m_owner, t_data['score'])
-    end
-
     -- 생성
     if self.m_bSkillHitEffect then
         local bonus_desc = nil

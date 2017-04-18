@@ -520,10 +520,10 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         -- 보너스 레벨 설정
         local active_skill_id = dragon:getSkillID('active')
         local t_skill = TableDragonSkill():get(active_skill_id)
-        local score = dragon.m_skillIndicator.m_resultScore
+        local bonus = dragon.m_skillIndicator.m_bonus
 
         self.m_dragon = dragon
-        self.m_bonusLevel = DragonSkillBonusHelper:getBonusLevel(dragon, score)
+        self.m_bonusLevel = bonus
         self.m_targetPosX = dragon.m_skillIndicator.m_targetPosX
         self.m_targetPosY = dragon.m_skillIndicator.m_targetPosY
 

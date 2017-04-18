@@ -51,7 +51,7 @@ SkillIndicator = class({
 		m_highlightList = '',
         m_highlightBodyList = '',
 
-        m_resultScore = 'number',
+        m_bonus = 'number',
     })
 
 -------------------------------------
@@ -66,7 +66,7 @@ function SkillIndicator:init(hero, t_skill, ...)
     self.m_indicatorTouchPosY = hero.pos.y
     self.m_bDirty = true
 
-    self.m_resultScore = 0
+    self.m_bonus = 0
 
     -- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset 지정
     self:initAttackPosOffset(hero)
@@ -142,7 +142,7 @@ function SkillIndicator:changeSIState(state)
         self.m_targetPosX = nil
         self.m_targetPosY = nil
         self.m_targetChar = nil
-        self.m_resultScore = 0
+        self.m_bonus = 0
 
     elseif (state == SI_STATE_APPEAR) then
         self:setIndicatorVisible(true)
@@ -348,9 +348,9 @@ function SkillIndicator:onChangeTargetCount(old_target_count, cur_target_count)
 		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
     end
 
-    -- 타겟수에 따른 점수 저장
+    -- 타겟수에 따른 보너스 등급 저장
     do
-        self.m_resultScore = cur_target_count
+        self.m_bonus = DragonSkillBonusHelper:getBonusLevel(self.m_hero, cur_target_count)
     end
 end
 
@@ -380,13 +380,13 @@ function SkillIndicator:getIndicatorData()
     t_data['x'] = self.m_targetPosX
     t_data['y'] = self.m_targetPosY
     t_data['target'] = self.m_targetChar
-    t_data['score'] = self.m_resultScore
+    t_data['bonus'] = self.m_bonus
     --[[
 	self.m_targetDir = nil
     self.m_targetPosX = nil
     self.m_targetPosY = nil
     self.m_targetChar = nil
-    self.m_resultScore = 0
+    self.m_bonus = 0
     ]]--
 
     return t_data
