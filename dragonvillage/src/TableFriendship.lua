@@ -57,7 +57,34 @@ function TableFriendship:getFriendshipReqExp(flv)
     return req_exp
 end
 
+-------------------------------------
+-- function getFriendshipName
+-------------------------------------
+function TableFriendship:getFriendshipName(flv)
+    if (self == THIS) then
+        self = THIS()
+    end
 
+    local name = self:getValue(flv, 't_name')
+    name = Str(name)
+    return name
+end
+
+-------------------------------------
+-- function getFriendshipIcon
+-------------------------------------
+function TableFriendship:getFriendshipIcon(flv)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local flv = (flv + 1) -- 리소스는 1번부터 시작
+    local res = string.format('res/ui/icon/friendship_emoticon_%.2d.png', flv)
+    local icon = cc.Sprite:create(res)
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+    return icon
+end
 
 --[[
 -------------------------------------

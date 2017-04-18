@@ -343,6 +343,9 @@ end
 -- function response_friendshipUp
 -------------------------------------
 function UI_DragonFriendship:response_friendshipUp(ret)
+    local before = self.m_selectDragonData
+    local before_flv = before:getFriendshipObject()['flv']
+
     -- 드래곤 갱신
     if ret['dragon'] then
         g_dragonsData:applyDragonData(ret['dragon'])
@@ -359,6 +362,11 @@ function UI_DragonFriendship:response_friendshipUp(ret)
 
     -- UI에서 관리하는 드래곤 정보 갱신
     self:setSelectDragonDataRefresh()
+
+    local flv = self.m_selectDragonData:getFriendshipObject()['flv']
+    if (before_flv < flv) then
+        UI_DragonManageFriendshipResult(self.m_selectDragonData)
+    end
 
     self.m_bChangeDragonList = true
 end
