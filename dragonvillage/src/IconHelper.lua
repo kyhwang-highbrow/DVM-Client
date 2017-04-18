@@ -256,6 +256,9 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
     -- 강화도 표시
     if lv then
         local str = Str('+{1}', lv)
+        if (lv <= 0) then
+            str = ''
+        end
         local label = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 26, 2, cc.size(250, 100), cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         label:setPosition(-60, -30)
         label:setDockPoint(CENTER_POINT)
