@@ -46,7 +46,15 @@ function SkillHitEffectDirector:init(owner, bonus_level)
     end
     
     if (hit_node) then
-        local label = cc.Label:createWithBMFont('res/font/hit_bonus.fnt', '')
+        local label
+        if (self.m_bonusLevel >= 2) then
+            label = cc.Label:createWithBMFont('res/font/hit_graet.fnt', '')
+        elseif (self.m_bonusLevel >= 1) then
+            label = cc.Label:createWithBMFont('res/font/hit_good.fnt', '')
+        else
+            label = cc.Label:createWithBMFont('res/font/hit_normal.fnt', '')
+        end
+
         label:setDockPoint(cc.p(1, 0.5))
         label:setAnchorPoint(cc.p(1, 0.5))
         label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)

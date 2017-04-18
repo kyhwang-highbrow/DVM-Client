@@ -94,6 +94,7 @@ function DragonSkillBonusHelper:doDirection(dragon, l_target, bonus_level)
 
     local world = dragon.m_world
     local l_ally = dragon:getTargetListByType(struct_status_effect.m_targetType)
+    local is_first = true
 
     function makeEffectMotionStreak(dragon, target)
         local t_param = {
@@ -103,9 +104,16 @@ function DragonSkillBonusHelper:doDirection(dragon, l_target, bonus_level)
             tar_x = dragon.pos.x,
             tar_y = dragon.pos.y,
             cb_end = function()
-                local x = dragon.pos.x
-                local y = dragon.pos.y
-                world:addInstantEffect('res/effect/motion_streak_dragskill/motion_streak_dragskill.vrp', 'idle', x, y)
+                if (is_first) then
+                    is_first = false
+                    
+                    world:addInstantEffect(
+                        'res/effect/motion_streak_dragskill/motion_streak_dragskill.vrp',
+                        'idle',
+                        dragon.pos.x,
+                        dragon.pos.y
+                    )
+                end
             end
         }
 
