@@ -105,7 +105,7 @@ function SkillIndicator_Penetration:initIndicatorNode()
         local indicator = MakeAnimator(indicator_res)
 		
 		indicator:setScaleX(self.m_indicatorScale)
-		indicator:setColor(COLOR_CYAN)
+		self:initIndicatorEffect(indicator)
 		
 		root_node:addChild(indicator.m_node)
 		table.insert(self.m_lIndicatorEffectList, indicator)

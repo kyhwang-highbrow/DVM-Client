@@ -79,16 +79,18 @@ KEY_Y = 145
 KEY_Z = 146
 
 -- COLOR
-COLOR_RED = cc.c3b(255, 0, 0)
-COLOR_CYAN = cc.c3b(0, 255, 255)
-COLOR_GREEN = cc.c3b(0, 0, 255)
-COLOR_BLACK = cc.c3b(0, 0, 0)
-COLOR_WHITE = cc.c3b(255, 255, 255)
+COLOR = {
+	white = cc.c3b(255, 255, 255),
+	black = cc.c3b(0, 0, 0),
+	red = cc.c3b(255, 0, 0),
+	green = cc.c3b(0, 255, 0),
+	blue = cc.c3b(0, 0, 255),
 
-COLOR_3 = {}
-COLOR_3['white'] = COLOR_WHITE
-COLOR_3['red'] = COLOR_RED
-COLOR_3['blue'] = cc.c3b(0, 0, 255)
+	cyan = cc.c3b(0, 255, 255),
+	light_green = cc.c3b(50, 255, 0),
+	orange = cc.c3b(250, 120, 0),
+	purple = cc.c3b(255, 0, 255)
+}
 
 COLOR_4 = {}
 COLOR_4['white'] = cc.c4b(255, 255, 255, 255)

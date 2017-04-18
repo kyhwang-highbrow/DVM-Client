@@ -58,32 +58,15 @@ function SkillIndicator_Target:initIndicatorNode()
 
     do
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target')
-        local link_effect = EffectLink(indicator_res, 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
-        link_effect:doNotUseHead()
+        local link_effect = EffectLink(indicator_res, 'bar_idle', 'start_idle', 'end_idle', 200, 200)
+        
+		link_effect:doNotUseHead()
+		self:initIndicatorEffect(link_effect)
+
 		root_node:addChild(link_effect.m_node)
         self.m_indicatorEffect = link_effect
     end
 end
-
--------------------------------------
--- function onChangeTargetCount
--------------------------------------
-function SkillIndicator_Target:onChangeTargetCount(old_target_count, cur_target_count)
-	local type = 'ally'
-	if self.m_isOpposite then
-		type = 'enemy'
-	end
-
-    -- 활성화
-    if (old_target_count == 0) and (cur_target_count > 0) then
-        self.m_indicatorAddEffect:activateIndicator(true)
-
-    -- 비활성화
-    elseif (old_target_count > 0) and (cur_target_count == 0) then
-        self.m_indicatorAddEffect:activateIndicator(false)
-    end
-end
-
 
 -------------------------------------
 -- function findTarget

@@ -55,10 +55,11 @@ function SkillIndicator_AoESquare_Multi:initIndicatorNode()
     for i = 1, self.m_lineCnt do
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'square_height')
         local indicator = MakeAnimator(indicator_res)
-        root_node:addChild(indicator.m_node)
-		indicator.m_node:setColor(COLOR_CYAN)
+		
+		indicator:setColor(COLOR['light_green'])
         indicator.m_node:setScaleX(self.m_indicatorScale)
 
+        root_node:addChild(indicator.m_node)
 		table.insert(self.m_lIndicatorEffectList, indicator)
     end
 end

@@ -344,17 +344,51 @@ end
 -------------------------------------
 function SkillIndicator:onChangeTargetCount(old_target_count, cur_target_count)
 	-- 활성화
-    if (old_target_count == 0) and (cur_target_count > 0) then
-		self.m_indicatorEffect.m_node:setColor(COLOR_RED)
+    if (cur_target_count > 0) then
+		-- 타겟수에 따른 보너스 등급 저장
+		self.m_bonus = DragonSkillBonusHelper:getBonusLevel(self.m_hero, cur_target_count)
+
+		if (self.m_preBonusLevel ~= self.m_bonus) then
+			self:onChangeIndicatorEffect(self.m_indicatorEffect, self.m_bonus, self.m_preBonusLevel)
+			self.m_preBonusLevel = self.m_bonus
+		end
+
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
-		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
+		self.m_bonus = 0
+		self:initIndicatorEffect(self.m_indicatorEffect)
     end
+end
 
-    -- 타겟수에 따른 보너스 등급 저장
-    do
-        self.m_bonus = DragonSkillBonusHelper:getBonusLevel(self.m_hero, cur_target_count)
-    end
+-------------------------------------
+-- function onChangeIndicatorEffect
+-- @brief 인디케이터 보너스 단계별로 다른 연출을 한다.
+-------------------------------------
+function SkillIndicator:onChangeIndicatorEffect(indicator, bonus_lv, pre_bonus_lv)
+	-- 인디케이터 색상 변경
+	if (bonus_lv <= 1) then
+		indicator:setColor(COLOR['orange'])
+	elseif (bonus_lv == 2) then
+		indicator:setColor(COLOR['red'])
+	elseif (bonus_lv == 3) then
+		indicator:setColor(COLOR['purple'])
+	end
+
+	-- 인디케이터 애니메이션 변경
+	if (pre_bonus_lv >= 2) and (bonus_lv < 2) then
+		indicator:changeAni('idle', true)
+	elseif (pre_bonus_lv < 2) and (bonus_lv >= 2) then
+		indicator:changeAni('idle_2', true)
+	end
+end
+
+-------------------------------------
+-- function initIndicatorEffect
+-- @brief 인디케이터 연출 초기화
+-------------------------------------
+function SkillIndicator:initIndicatorEffect(indicator)
+	indicator:setColor(COLOR['light_green'])
+	indicator:changeAni('idle', true)
 end
 
 -------------------------------------

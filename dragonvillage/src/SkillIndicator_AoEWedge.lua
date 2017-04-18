@@ -72,9 +72,9 @@ function SkillIndicator_AoEWedge:initIndicatorNode()
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'wedge'..self.m_skillAngle)
         local indicator = MakeAnimator(indicator_res)
 		
-		indicator.m_node:setColor(COLOR_CYAN)
 		indicator:setPosition(self:getAttackPosition())
 		indicator:setScale(self.m_indicatorScale)
+		self:initIndicatorEffect(indicator)
 
         root_node:addChild(indicator.m_node)
 		self.m_indicatorEffect = indicator

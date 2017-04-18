@@ -85,24 +85,10 @@ function SkillIndicator_Laser:initIndicatorNode()
 		indicator:setPosition(self.m_attackPosOffsetX, self.m_attackPosOffsetY)
         indicator:setScaleX(self.m_indicatorScale)
 		indicator:setScaleY(1)
+		self:initIndicatorEffect(indicator)
 
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
-    end
-end
-
-
--------------------------------------
--- function onChangeTargetCount
--------------------------------------
-function SkillIndicator_Laser:onChangeTargetCount(old_target_count, cur_target_count)
-    -- 활성화
-    if (old_target_count == 0) and (cur_target_count > 0) then
-        self.m_indicatorEffect.m_node:setColor(COLOR_RED)
-
-    -- 비활성화
-    elseif (old_target_count > 0) and (cur_target_count == 0) then
-        self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
     end
 end
 

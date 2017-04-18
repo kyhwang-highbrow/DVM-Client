@@ -199,7 +199,11 @@ end
 -- @brief 구조상 필요
 -------------------------------------
 function EffectLink:changeAni(ani_name, loop)
-	cclog('EffectLink:changeAni(ani_name, loop)')
+	-- @TODO 인디케이터에서 idle_2를 사용하는데  g_constant:get('INDICATOR', 'RES', 'target') 에는 없다.. 추후에 문제가 될수도...
+	if (ani_name == 'idle_2') then
+		ani_name = 'idle'
+	end
+
     local loop = (loop or false)
     self.m_startPointNode:changeAni('start_' .. ani_name, loop)
     self.m_effectNode:changeAni('bar_' .. ani_name, loop)
@@ -207,21 +211,12 @@ function EffectLink:changeAni(ani_name, loop)
 end
 
 -------------------------------------
--- function activateIndicator
--- @brief 임시로 사용 .. 인디케이터에서만 쓰이는 애니메이션명이 있으니 제거하자
+-- function setColor
 -------------------------------------
-function EffectLink:activateIndicator(is_activate)
-    local loop = true
-	local ani_prefix
-	if (is_activate) then
-		ani_prefix = 'enemy_'
-	else
-		ani_prefix = 'normal_'
-	end
-
-    self.m_startPointNode:changeAni(ani_prefix .. 'start_idle', loop)
-    self.m_effectNode:changeAni(ani_prefix .. 'bar_idle', loop)
-    self.m_endPointNode:changeAni(ani_prefix .. 'end_idle', loop)
+function EffectLink:setColor(color)
+    self.m_startPointNode:setColor(color)
+    self.m_effectNode:setColor(color)
+    self.m_endPointNode:setColor(color)
 end
 
 -------------------------------------

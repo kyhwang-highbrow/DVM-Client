@@ -59,7 +59,7 @@ function SkillIndicator_AoESquare:initIndicatorNode()
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'sqaure')
         local indicator = MakeAnimator(indicator_res)
 		
-		indicator.m_node:setColor(COLOR_CYAN)
+		self:initIndicatorEffect(indicator)
         
 		root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator

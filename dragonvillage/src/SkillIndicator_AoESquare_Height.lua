@@ -49,9 +49,9 @@ function SkillIndicator_AoESquare_Height:initIndicatorNode()
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'square_height')
         local indicator = MakeAnimator(indicator_res)
         
-		indicator.m_node:setColor(COLOR_CYAN)
 		indicator:setScaleX(self.m_indicatorScale)
 		indicator:setScaleY(1)
+		self:initIndicatorEffect(indicator)
         
 		root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator

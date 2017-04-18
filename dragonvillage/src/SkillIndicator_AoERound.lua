@@ -83,23 +83,26 @@ function SkillIndicator_AoERound:initIndicatorNode()
 
     local root_node = self.m_indicatorRootNode
 
+	-- 동그라미 인디케이터
     do
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'round')
         local indicator = MakeAnimator(indicator_res)
         
-		indicator.m_node:setColor(COLOR_CYAN)
 		indicator:setScale(self.m_indicatorScale)
+		self:initIndicatorEffect(indicator)
 
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
     end
 
+	-- 캐릭터로부터 연결된 인디케이터
     do
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target')
-        local link_effect = EffectLink(indicator_res, 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
+        local link_effect = EffectLink(indicator_res, 'bar_idle', 'start_idle', 'end_idle', 200, 200)
 		
 		link_effect:doNotUseHead()
-        
+        link_effect:setColor(COLOR['light_green'])
+
 		root_node:addChild(link_effect.m_node)
         self.m_indicatorAddEffect = link_effect
     end
@@ -115,33 +118,16 @@ function SkillIndicator_AoERound:onChangeTargetCount(old_target_count, cur_targe
 		self.m_bonus = DragonSkillBonusHelper:getBonusLevel(self.m_hero, cur_target_count)
 
 		if (self.m_preBonusLevel ~= self.m_bonus) then
-			if (self.m_bonus == 0) then
-				self.m_indicatorEffect:changeAni('idle', true)
-				self.m_indicatorEffect.m_node:setColor(cc.c3b(50, 255, 0))
-			elseif (self.m_bonus == 1) then
-				self.m_indicatorEffect:changeAni('idle', true)
-				self.m_indicatorEffect.m_node:setColor(cc.c3b(250, 120, 0))
-			elseif (self.m_bonus == 2) then
-				self.m_indicatorEffect:changeAni('idle_2', true)
-				self.m_indicatorEffect.m_node:setColor(cc.c3b(255, 0, 0))
-			elseif (self.m_bonus == 3) then
-				self.m_indicatorEffect:changeAni('idle_2', true)
-				self.m_indicatorEffect.m_node:setColor(cc.c3b(255, 0, 255))
-			end
-
+			self:onChangeIndicatorEffect(self.m_indicatorEffect, self.m_bonus, self.m_preBonusLevel)
+			self:onChangeIndicatorEffect(self.m_indicatorAddEffect, self.m_bonus, self.m_preBonusLevel)
 			self.m_preBonusLevel = self.m_bonus
-		end
-
-		if (old_target_count == 0) then
-			self.m_indicatorAddEffect:activateIndicator(true)
 		end
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
 		self.m_bonus = 0
-		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
-		self.m_indicatorEffect:changeAni('idle', true)
-		self.m_indicatorAddEffect:activateIndicator(false)
+		self:initIndicatorEffect(self.m_indicatorEffect)
+		self:initIndicatorEffect(self.m_indicatorAddEffect)
     end
 end
 

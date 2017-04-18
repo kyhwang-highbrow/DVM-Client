@@ -80,8 +80,11 @@ function SkillIndicator_LeafBlade:initIndicatorNode()
     do -- 교차점 이펙트
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target')
         local indicator = MakeAnimator(indicator_res)
-        indicator:changeAni('enemy_start_idle', true)
-        root_node:addChild(indicator.m_node)
+        
+		indicator:changeAni('start_idle', true)
+        self:initIndicatorEffect(indicator)
+
+		root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
     end
     
