@@ -17,7 +17,6 @@ function UI_DragonEvolutionResult:init(dragon_object)
 
     -- @UI_ACTION
     self:doActionReset()
-    self:doAction(nil, false)
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonEvolutionResult')
@@ -61,10 +60,13 @@ function UI_DragonEvolutionResult:refresh(dragon_object)
 
     -- 드래곤 에니메이터
     if vars['dragonNode'] then
-        local dragon_animator = UIC_DragonAnimator()
-        dragon_animator:setTalkEnable(false)
+        local dragon_animator = UIC_DragonAnimatorDirector()
         vars['dragonNode']:addChild(dragon_animator.m_node)
         dragon_animator:setDragonAnimator(dragon_object['did'], dragon_object['evolution'], dragon_object['friendship']['flv'])
+        local function cb()
+            self:doAction(nil, false)
+        end
+        dragon_animator:setDragonAppearCB(cb)
     end
 
     -- 진화 단계 텍스트
