@@ -68,8 +68,8 @@ function SkillIndicator:init(hero, t_skill, ...)
     self.m_indicatorTouchPosY = hero.pos.y
     self.m_bDirty = true
 
-	self.m_preBonusLevel = 0
-    self.m_bonus = 0
+	self.m_preBonusLevel = -1
+    self.m_bonus = -1
 
     -- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset 지정
     self:initAttackPosOffset(hero)
@@ -145,7 +145,7 @@ function SkillIndicator:changeSIState(state)
         self.m_targetPosX = nil
         self.m_targetPosY = nil
         self.m_targetChar = nil
-        self.m_bonus = 0
+        self.m_bonus = -1
 
     elseif (state == SI_STATE_APPEAR) then
         self:setIndicatorVisible(true)
@@ -350,14 +350,15 @@ function SkillIndicator:onChangeTargetCount(old_target_count, cur_target_count)
 
 		if (self.m_preBonusLevel ~= self.m_bonus) then
 			self:onChangeIndicatorEffect(self.m_indicatorEffect, self.m_bonus, self.m_preBonusLevel)
-			self.m_preBonusLevel = self.m_bonus
 		end
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
-		self.m_bonus = 0
+		self.m_bonus = -1
 		self:initIndicatorEffect(self.m_indicatorEffect)
     end
+
+	self.m_preBonusLevel = self.m_bonus
 end
 
 -------------------------------------
@@ -366,13 +367,10 @@ end
 -------------------------------------
 function SkillIndicator:onChangeIndicatorEffect(indicator, bonus_lv, pre_bonus_lv)
 	-- 인디케이터 색상 변경
-	if (bonus_lv <= 1) then
-		indicator:setColor(COLOR['orange'])
-	elseif (bonus_lv == 2) then
-		indicator:setColor(COLOR['red'])
-	elseif (bonus_lv == 3) then
-		indicator:setColor(COLOR['purple'])
-	end
+	local l_color_lv = g_constant:get('INDICATOR', 'COLOR_LEVEL')
+	local color_key = l_color_lv[tostring(bonus_lv)]
+	local color = COLOR[color_key]
+	indicator:setColor(color)
 
 	-- 인디케이터 애니메이션 변경
 	if (pre_bonus_lv >= 2) and (bonus_lv < 2) then
@@ -387,7 +385,7 @@ end
 -- @brief 인디케이터 연출 초기화
 -------------------------------------
 function SkillIndicator:initIndicatorEffect(indicator)
-	indicator:setColor(COLOR['light_green'])
+	indicator:setColor(COLOR['gray'])
 	indicator:changeAni('idle', true)
 end
 
@@ -423,7 +421,7 @@ function SkillIndicator:getIndicatorData()
     self.m_targetPosX = nil
     self.m_targetPosY = nil
     self.m_targetChar = nil
-    self.m_bonus = 0
+    self.m_bonus = -1
     ]]--
 
     return t_data

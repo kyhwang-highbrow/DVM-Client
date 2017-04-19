@@ -84,15 +84,16 @@ function SkillIndicator_X:onChangeTargetCount(old_target_count, cur_target_count
 		if (self.m_preBonusLevel ~= self.m_bonus) then
 			self:onChangeIndicatorEffect(self.m_indicatorEffect, self.m_bonus, self.m_preBonusLevel)
 			self:onChangeIndicatorEffect(self.m_indicatorAddEffect, self.m_bonus, self.m_preBonusLevel)
-			self.m_preBonusLevel = self.m_bonus
 		end
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
-		self.m_bonus = 0
+		self.m_bonus = -1
 		self:initIndicatorEffect(self.m_indicatorEffect)
 		self:initIndicatorEffect(self.m_indicatorAddEffect)
     end
+
+	self.m_preBonusLevel = self.m_bonus
 end
 
 -------------------------------------

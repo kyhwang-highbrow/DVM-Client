@@ -213,19 +213,19 @@ function SkillIndicator_LeafBlade:onChangeTargetCount(old_target_count, cur_targ
 			self:onChangeIndicatorEffect(self.m_indicatorBezierEffect2, self.m_bonus, self.m_preBonusLevel)
 			self:onChangeIndicatorEffect(self.m_indicatorLinearEffect1, self.m_bonus, self.m_preBonusLevel)
 			self:onChangeIndicatorEffect(self.m_indicatorLinearEffect2, self.m_bonus, self.m_preBonusLevel)
-			self.m_preBonusLevel = self.m_bonus
 		end
 
 	-- 비활성화
 	elseif (old_target_count > 0) and (cur_target_count == 0) then
-		self.m_bonus = 0
+		self.m_bonus = -1
 		self:initIndicatorEffect(self.m_indicatorEffect)
 		self:initIndicatorEffect(self.m_indicatorBezierEffect1)
 		self:initIndicatorEffect(self.m_indicatorBezierEffect2)
 		self:initIndicatorEffect(self.m_indicatorLinearEffect1)
 		self:initIndicatorEffect(self.m_indicatorLinearEffect2)
-
 	end
+
+	self.m_preBonusLevel = self.m_bonus
 end
 
 -------------------------------------

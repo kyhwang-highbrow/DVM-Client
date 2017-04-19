@@ -80,16 +80,22 @@ KEY_Z = 146
 
 -- COLOR
 COLOR = {
+	-- WB RGB
 	white = cc.c3b(255, 255, 255),
 	black = cc.c3b(0, 0, 0),
 	red = cc.c3b(255, 0, 0),
 	green = cc.c3b(0, 255, 0),
 	blue = cc.c3b(0, 0, 255),
 
+	-- indicator에서 사용
+	gray = cc.c3b(180, 180, 180),
+	yellow = cc.c3b(255, 255, 0),
+	orange = cc.c3b(250, 120, 0),
+	
+	-- 버려짐
 	cyan = cc.c3b(0, 255, 255),
 	light_green = cc.c3b(50, 255, 0),
-	orange = cc.c3b(250, 120, 0),
-	purple = cc.c3b(255, 0, 255)
+	purple = cc.c3b(255, 0, 255),
 }
 
 COLOR_4 = {}

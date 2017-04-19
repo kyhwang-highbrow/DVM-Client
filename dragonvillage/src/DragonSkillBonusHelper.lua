@@ -39,7 +39,7 @@ end
 -- function getStatusEffectStruct
 -------------------------------------
 function DragonSkillBonusHelper:getStatusEffectStruct(dragon, bonus_level)
-    if (bonus_level == 0) then return end
+    if (bonus_level == 0) or (bonus_level == -1) then return end
 
     local t_info = TableDragonSkillBonus():get(dragon.m_dragonID)
     if (not t_info) then return end

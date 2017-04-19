@@ -91,7 +91,7 @@ function SkillIndicator_AoECone:initIndicatorNode()
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target_cone_' .. self.m_skillAngle)
         local indicator = MakeAnimator(indicator_res)
 		
-		indicator:setColor(COLOR['light_green'])
+		self:initIndicatorEffect(indicator)
 		indicator:setPosition(self:getAttackPosition())
 		indicator:setRotation(0)
         
@@ -103,8 +103,8 @@ function SkillIndicator_AoECone:initIndicatorNode()
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target')
         local link_effect = EffectLink(indicator_res, 'bar_idle', 'start_idle', 'end_idle', 200, 200)
 		
+        self:initIndicatorEffect(link_effect)
 		link_effect:doNotUseHead()
-        link_effect:setColor(COLOR['light_green'])
 
 		root_node:addChild(link_effect.m_node)
         self.m_indicatorAddEffect = link_effect
@@ -123,19 +123,16 @@ function SkillIndicator_AoECone:onChangeTargetCount(old_target_count, cur_target
 		if (self.m_preBonusLevel ~= self.m_bonus) then
 			self:onChangeIndicatorEffect(self.m_indicatorEffect, self.m_bonus, self.m_preBonusLevel)
 			self:onChangeIndicatorEffect(self.m_indicatorAddEffect, self.m_bonus, self.m_preBonusLevel)
-			self.m_preBonusLevel = self.m_bonus
 		end
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
-		self.m_bonus = 0
-		
-		self.m_indicatorEffect:setColor(COLOR['light_green'])
-		self.m_indicatorEffect:changeAni('idle', true)
-
-		self.m_indicatorAddEffect:setColor(COLOR['light_green'])
-		self.m_indicatorAddEffect:changeAni('idle', true)
+		self.m_bonus = -1
+		self:initIndicatorEffect(self.m_indicatorEffect)
+		self:initIndicatorEffect(self.m_indicatorAddEffect)
     end
+
+	self.m_preBonusLevel = self.m_bonus
 end
 
 -------------------------------------

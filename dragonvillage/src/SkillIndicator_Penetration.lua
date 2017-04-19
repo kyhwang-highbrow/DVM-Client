@@ -104,7 +104,6 @@ function SkillIndicator_Penetration:initIndicatorNode()
     for i = 1, self.m_skillLineNum do
         local indicator = MakeAnimator(indicator_res)
 		
-		indicator:setScaleX(self.m_indicatorScale)
 		self:initIndicatorEffect(indicator)
 		
 		root_node:addChild(indicator.m_node)
@@ -160,16 +159,17 @@ function SkillIndicator_Penetration:onChangeTargetCount(old_target_count, cur_ta
 			for _, indicator in pairs(self.m_lIndicatorEffectList) do
 				self:onChangeIndicatorEffect(indicator, self.m_bonus, self.m_preBonusLevel)
 			end
-			self.m_preBonusLevel = self.m_bonus
 		end
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
-		self.m_bonus = 0
+		self.m_bonus = -1
 		for _, indicator in pairs(self.m_lIndicatorEffectList) do
 			self:initIndicatorEffect(indicator)
 		end
     end
+
+	self.m_preBonusLevel = self.m_bonus
 end
 
 -------------------------------------
