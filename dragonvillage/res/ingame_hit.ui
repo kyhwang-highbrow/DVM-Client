@@ -50,19 +50,19 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hitNode1';
+					lua_name = 'shotNode1';
 				};
 				[2] =
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 50.000000;
+					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 105;
-					height = 46;
+					width = 184;
+					height = 58;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -71,6 +71,51 @@
 					visible = true;
 					lua_name = '';
 					file_name = 'font/hit_normal_text.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[3] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = -10.000000;
+					y = -60.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 1.000000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'hitNode1';
+				};
+				[4] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = -60.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
+					relative_size_type = 0;
+					width = 68;
+					height = 38;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'font/hit_text.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -103,7 +148,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 700;
-			height = 54;
+			height = 64;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -150,7 +195,7 @@
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
 				width = 700;
-				height = 30;
+				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -172,8 +217,8 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -94.000000;
-					y = 14.000000;
+					x = -80.000000;
+					y = 20.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -185,19 +230,19 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hitNode2';
+					lua_name = 'shotNode2';
 				};
 				[2] =
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 90.000000;
-					y = 14.000000;
+					x = -20.000000;
+					y = 20.000000;
 					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 255;
-					height = 73;
+					width = 220;
+					height = 69;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -206,6 +251,51 @@
 					visible = true;
 					lua_name = '';
 					file_name = 'font/hit_good_text.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[3] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = -10.000000;
+					y = -84.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 1.000000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'hitNode2';
+				};
+				[4] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = -84.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
+					relative_size_type = 0;
+					width = 68;
+					height = 38;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'font/hit_text.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -237,7 +327,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -43.000000;
+					y = -38.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -251,7 +341,7 @@
 					visible = true;
 					lua_name = 'bonusLabel2';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 34;
 					text = '체력 10% 회복';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -344,7 +434,7 @@
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
 				width = 700;
-				height = 30;
+				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -367,7 +457,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = -94.000000;
-					y = 14.000000;
+					y = 20.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -379,19 +469,19 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hitNode3';
+					lua_name = 'shotNode3';
 				};
 				[2] =
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 90.000000;
-					y = 14.000000;
+					x = -38.000000;
+					y = 20.000000;
 					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 241;
-					height = 95;
+					width = 257;
+					height = 78;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -400,6 +490,51 @@
 					visible = true;
 					lua_name = '';
 					file_name = 'font/hit_great_text.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[3] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = -10.000000;
+					y = -90.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 1.000000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'hitNode3';
+				};
+				[4] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = -90.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
+					relative_size_type = 0;
+					width = 68;
+					height = 38;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'font/hit_text.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -431,7 +566,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -54.000000;
+					y = -48.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -445,7 +580,7 @@
 					visible = true;
 					lua_name = 'bonusLabel3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 34;
 					text = '체력 10% 회복';
 					h_alignment = 1;
 					v_alignment = 1;
