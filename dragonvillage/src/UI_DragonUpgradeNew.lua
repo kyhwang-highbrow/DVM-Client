@@ -191,6 +191,10 @@ function UI_DragonUpgradeNew:refresh()
         end
     end
 
+	-- 승급 가능 여부 처리
+	local upgradeable = g_dragonsData:checkUpgradeable(self.m_selectDragonOID)
+	vars['infoLabel']:setVisible(not upgradeable)
+
     self:refresh_dragonUpgradeMaterialTableView()
     self:refresh_upgrade(table_dragon, t_dragon_data)
     self:refresh_stats(t_dragon_data)
@@ -251,24 +255,6 @@ function UI_DragonUpgradeNew:refresh_upgrade(table_dragon, t_dragon_data)
         vars['priceLabel']:setString(comma_value(req_gold))
     end
 end
-
--------------------------------------
--- function getDragonList
--- @breif 하단 리스트뷰에 노출될 드래곤 리스트
--------------------------------------
-function UI_DragonUpgradeNew:getDragonList()
-    local l_item_list = g_dragonsData:getDragonsList()
-
-    for i,v in pairs(l_item_list) do
-        local doid = i
-        if (not g_dragonsData:checkUpgradeable(doid)) then
-            l_item_list[doid] = nil
-        end
-    end
-
-    return l_item_list
-end
-
 
 -------------------------------------
 -- function refresh_dragonUpgradeMaterialTableView
@@ -378,6 +364,36 @@ function UI_DragonUpgradeNew:refresh_sortUI()
 end
 
 -------------------------------------
+-- function createDragonCardCB
+-- @brief 드래곤 생성 콜백
+-------------------------------------
+function UI_DragonUpgradeNew:createDragonCardCB(ui, data)
+    local doid = data['id']
+
+    local upgradeable, msg = g_dragonsData:checkMaxUpgrade(doid)
+    if (not upgradeable) then
+        if ui then
+            ui:setShadowSpriteVisible(true)
+        end
+    end
+end
+
+-------------------------------------
+-- function checkDragonSelect
+-- @brief 선택이 가능한 드래곤인지 여부
+-------------------------------------
+function UI_DragonUpgradeNew:checkDragonSelect(doid)
+	local upgradeable, msg = g_dragonsData:checkMaxUpgrade(doid)
+
+    if upgradeable then
+        return true
+    else
+        UIManager:toastNotificationRed(msg)
+        return false
+    end
+end
+
+-------------------------------------
 -- function click_dragonUpgradeMaterial
 -------------------------------------
 function UI_DragonUpgradeNew:click_dragonUpgradeMaterial(data)
@@ -430,6 +446,14 @@ end
 -- function click_upgradeBtn
 -------------------------------------
 function UI_DragonUpgradeNew:click_upgradeBtn()
+	-- 승급 가능 여부
+	local upgradeable, msg = g_dragonsData:checkUpgradeable(self.m_selectDragonOID)
+	if (not upgradeable) then
+		UIManager:toastNotificationRed(msg)
+        return
+	end
+
+	-- 재료 요건 여부
     if (self.m_selectedMaterialCnt < self.m_selectedDragonGrade) then
         UIManager:toastNotificationRed(Str('같은 별 개수의 드래곤이 필요합니다.'))
         local vars = self.vars
