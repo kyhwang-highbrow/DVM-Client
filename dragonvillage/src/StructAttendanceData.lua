@@ -66,6 +66,12 @@ function StructAttendanceData:getBannerImg()
     elseif (self.category == 'newbie') then
         res = 'res/ui/event/attendance_banner_002.png'
 
+    elseif (self.category == 'comeback') then
+        res = 'res/ui/event/attendance_banner_003.png'
+
+    elseif (self.category == 'normal') then
+        res = 'res/ui/event/attendance_banner_004.png'
+
     end
 
     if (not res) then

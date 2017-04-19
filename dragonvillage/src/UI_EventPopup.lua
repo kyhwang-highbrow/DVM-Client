@@ -75,6 +75,12 @@ function UI_EventPopup:init_tableView()
         elseif (data.m_type == 'attendance_event_open_event') then
             res = 'res/ui/event/icon_attendence_01.png'
 
+        elseif (data.m_type == 'attendance_basic_comebackl') then
+            res = 'res/ui/event/icon_attendence_03.png'
+
+        elseif (data.m_type == 'attendance_basic_normal') then
+            res = 'res/ui/event/icon_attendence_04.png'
+
         end
 
         if res then

@@ -51,7 +51,7 @@ function StructEventPopupTab:getTabButtonName()
         if (self.m_category2 == 'basic') then
             return Str('출석')
         elseif (self.m_category2 == 'event') then
-            return Str('오픈\n이벤트')
+            return Str('이벤트')
         end
 
     elseif (self.m_category1 == 'birthday_calendar') then
