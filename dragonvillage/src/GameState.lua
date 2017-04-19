@@ -214,12 +214,12 @@ function GameState.update_fight(self, dt)
     -- 해당 웨이브의 모든 적이 등장한 상태일 경우
     if (world.m_waveMgr:isEmptyDynamicWaveList()) then
         -- 클리어 여부 체크
-        self:checkWaveClear()
-
-		-- regen wave가 있다면 전용 update 돌림
-		if (world.m_waveMgr:hasRegenWave()) then
-			world.m_waveMgr:update_regen(dt)
-		end
+        if (not self:checkWaveClear()) then
+            -- regen wave가 있다면 전용 update 돌림
+		    if (world.m_waveMgr:hasRegenWave()) then
+			    world.m_waveMgr:update_regen(dt)
+		    end
+        end
     end
     
     if world.m_skillIndicatorMgr then
@@ -323,6 +323,14 @@ function GameState.update_wave_intermission_wait(self, dt)
         if (world.m_skillIndicatorMgr) then
             world.m_skillIndicatorMgr:clear(true)
         end
+
+        -- 스킬 다 날려 버리자
+        world:removeMissileAndSkill()
+        world:removeHeroDebuffs()
+
+        -- 모든 적들을 죽임
+        world:killAllEnemy()
+
     end
 
     -- 드래곤 상태 체크
@@ -495,10 +503,13 @@ function GameState.update_success_wait(self, dt)
             world.m_skillIndicatorMgr:clear(true)
         end
 
-        -- 스킬과 미사일도 다 날려 버리자
-	    world:removeMissileAndSkill()
+        -- 스킬 다 날려 버리자
+		world:removeMissileAndSkill()
         world:removeHeroDebuffs()
-                
+
+        -- 모든 적들을 죽임
+        world:killAllEnemy()
+        
 		-- @LOG : 스테이지 성공 시 클리어 시간
 		self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)
     end
@@ -516,11 +527,13 @@ function GameState.update_success_wait(self, dt)
         b = false
     end
 
-    if (b or self.m_stateTimer >= 4) then
-        local enemy_count = #world:getEnemyList()
-        if (enemy_count <= 0) then
-            self:changeState(GAME_STATE_SUCCESS)
-        end
+    local enemy_count = #world:getEnemyList()
+    if (enemy_count <= 0) then
+        b = false
+    end
+
+    if (b or self.m_stateTimer >= 10) then
+        self:changeState(GAME_STATE_SUCCESS)
     end    
 end
 
@@ -869,16 +882,12 @@ function GameState:checkWaveClear()
 
     -- 클리어 여부 체크
     if (enemy_count <= 0) then
-        -- 스킬 다 날려 버리자
-        world:removeMissileAndSkill()
-        world:removeHeroDebuffs()
-
         if world.m_waveMgr:isFinalWave() == false then
 		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
 		else
 			self:changeState(GAME_STATE_SUCCESS_WAIT)
 		end
-        return
+        return true
 
     -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
     elseif ( not world.m_bDevelopMode and world.m_waveMgr:isFinalWave() ) then
@@ -895,16 +904,12 @@ function GameState:checkWaveClear()
         end
 
         if (not bExistBoss) then
-            -- 스킬 다 날려 버리자
-		    world:removeMissileAndSkill()
-            world:removeHeroDebuffs()
-
-            -- 모든 적들을 죽임
-            world:killAllEnemy()
             self:changeState(GAME_STATE_SUCCESS_WAIT)
-            return
+            return true
         end
     end
+
+    return false
 end
 
 -------------------------------------
