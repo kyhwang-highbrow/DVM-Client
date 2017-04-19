@@ -159,7 +159,7 @@ function Skill:update(dt)
     if (isInstanceOf(self, IStateDelegate)) then
         if (self.m_state ~= 'dying') then
 	        if (self.m_owner:checkToStopSkill()) then
-                self:changeState('dying')
+                self:changeState('dying', true)
             end
         end
     end
@@ -174,7 +174,22 @@ end
 -------------------------------------
 function Skill:setCommonState(skill)
 	skill:addState('delay', Skill.st_delay, nil, false)
+    skill:addState('dying_wait', Skill.st_dying_wait, nil, nil, 10)
     skill:addState('dying', Skill.st_dying, nil, nil, 10)
+end
+
+-------------------------------------
+-- function setCommonState
+-------------------------------------
+function Skill:changeState(state, forced)
+    if (self.m_bSkillHitEffect) then
+        if (state == 'dying' and not forced) then
+            state = 'dying_wait'
+        end
+    end
+
+    local ret = PARENT.changeState(self, state, forced)
+    return ret
 end
 
 -------------------------------------
@@ -231,6 +246,15 @@ function Skill.st_delay(owner, dt)
 
         -- 스킬 사용시 발동되는 status effect를 적용
 		owner:dispatch(CON_SKILL_START, {l_target = {owner.m_targetChar}})
+    end
+end
+
+-------------------------------------
+-- function st_dying_wait
+-------------------------------------
+function Skill.st_dying_wait(owner, dt)
+    if (owner.m_totalTimer >= 2) then
+        owner:changeState('dying', true)
     end
 end
 
@@ -362,9 +386,12 @@ end
 -- @brief 공격(attack) 직후 호출됨, 스킬에서 미사일 날릴 때 콜백으로도 사용
 -------------------------------------
 function Skill:onAttack(target_char)
+    -- 피격된 대상 저장
+    self.m_hitTargetList[target_char] = true
+
     -- 연출
 	if (self.m_skillHitEffctDirector) then 
-		self.m_skillHitEffctDirector:doWork(target_char)
+		self.m_skillHitEffctDirector:doWork(table.count(self.m_hitTargetList))
 	end
 
     -- 타격 카운트 갱신
@@ -382,9 +409,6 @@ function Skill:onAttack(target_char)
             self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
         end
     end
-
-    -- 피격된 대상 저장
-    self.m_hitTargetList[target_char] = true
 end
 
 -------------------------------------

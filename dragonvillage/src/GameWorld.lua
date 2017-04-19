@@ -501,7 +501,7 @@ function GameWorld:cleanupSkill()
 
     -- 스킬 다 날려 버리자
 	for _, v in pairs(self.m_lSkillList) do
-        v:changeState('dying')
+        v:changeState('dying', true)
         count = count + 1
     end
 

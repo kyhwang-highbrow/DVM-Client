@@ -28,6 +28,7 @@ function SkillHitEffectDirector:init(owner, bonus_level)
 
     local vars = self:load('ingame_hit.ui')
 
+    local shot_node
     local hit_node
     local bonus_label
 
@@ -37,6 +38,7 @@ function SkillHitEffectDirector:init(owner, bonus_level)
         vars['hitMenu' .. i]:setVisible(b)
 
         if (b) then
+            shot_node = vars['shotNode' .. i]
             hit_node = vars['hitNode' .. i]
             bonus_label = vars['bonusLabel' .. i]
 
@@ -44,8 +46,8 @@ function SkillHitEffectDirector:init(owner, bonus_level)
             self.m_rightNode = vars['rightNode' .. i]
         end
     end
-    
-    if (hit_node) then
+
+    if (shot_node) then
         local label
         if (self.m_bonusLevel >= 2) then
             label = cc.Label:createWithBMFont('res/font/hit_graet.fnt', '')
@@ -55,6 +57,16 @@ function SkillHitEffectDirector:init(owner, bonus_level)
             label = cc.Label:createWithBMFont('res/font/hit_normal.fnt', '')
         end
 
+        label:setDockPoint(cc.p(1, 0.5))
+        label:setAnchorPoint(cc.p(1, 0.5))
+        label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        shot_node:addChild(label)
+        vars['shotLabel'] = label
+    end
+    
+    if (hit_node) then
+        local label = cc.Label:createWithBMFont('res/font/hit_hit.fnt', '')
+        
         label:setDockPoint(cc.p(1, 0.5))
         label:setAnchorPoint(cc.p(1, 0.5))
         label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
@@ -83,7 +95,7 @@ end
 -------------------------------------
 -- function doWork
 -------------------------------------
-function SkillHitEffectDirector:doWork(desc)
+function SkillHitEffectDirector:doWork(count)
     if self.m_bEndSkill and self.m_bEndAction then
         return
     end
@@ -118,6 +130,13 @@ function SkillHitEffectDirector:doWork(desc)
         self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration * 2.5 / 3), cc.FadeOut:create(duration * 0.5 / 3)))
     end
 
+    local shot_label = vars['shotLabel']
+    if (shot_label) then
+        shot_label:setString(tostring(count))
+        shot_label:setScale(1.4)
+        shot_label:stopAllActions()
+        shot_label:runAction(cc.ScaleTo:create(0.15, 1))
+    end
 
     local hit_label = vars['hitLabel']
     hit_label:setString(tostring(self.m_hitCount))

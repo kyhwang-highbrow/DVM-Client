@@ -16,7 +16,7 @@ function SceneDV:init()
     self.m_bShowTopUserInfo = false
 	self.m_lSpineAni = {}
 	self.m_gridNode = cc.NodeGrid:create()
-	self.m_scene:addChild(self.m_gridNode)
+	self.m_scene:addChild(self.m_gridNode, 1)
 end
 
 -------------------------------------
@@ -184,6 +184,31 @@ function SceneDV:onKeyReleased(keyCode, event)
 
         local slotList = animator:getSlotList()
         --cclog('slotList = ' .. luadump(slotList))
+
+    elseif keyCode == KEY_4 then
+        do
+            local res_name = 'res/bg/ocean2/ocean2.vrp'
+            local animator = MakeAnimator(res_name)
+            animator:setPosition(0, 0)
+            animator:setScale(0.8)
+            animator:changeAni('layer_1_b', true)
+		    self.m_scene:addChild(animator.m_node, 0)
+        end
+        do
+            local res_name = 'res/bg/ocean2/ocean2.vrp'
+            local animator = MakeAnimator(res_name)
+            animator:setPosition(700, 800)
+            animator:setScale(0.8)
+            animator:changeAni('layer_3_a', true)
+		    self.m_gridNode:addChild(animator.m_node)
+        end
+
+        local duration = 0.001
+        local sequence = cc.Sequence:create(
+            cca.getShaky3D(2, duration),
+            cc.DelayTime:create(duration*100000)
+        )
+        self.m_gridNode:runAction(cc.RepeatForever:create(sequence))
 
     elseif (keyCode == KEY_UP_ARROW) then
         self:setTimeScale(10)
