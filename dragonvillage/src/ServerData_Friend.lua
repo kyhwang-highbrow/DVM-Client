@@ -920,6 +920,10 @@ end
 -- @brief 친구 접속 버프
 -------------------------------------
 function ServerData_Friend:getFriendOnlineBuff()
+    if true then
+        return {}, {}, {}
+    end
+
     local friend_list = self:getFriendList()
 
     local soulmate_buff = {}
