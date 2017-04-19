@@ -378,30 +378,11 @@ end
 -- @brief 말풍선
 -------------------------------------
 function GameDragonSkill:makeSpeechBubble(dragon)
-    -- 대사
-    local dragon_type = TableDragon():getDragonType(dragon.m_dragonID)
-    local t_dragonType = TableDragonType():get(dragon_type)
-    if (not t_dragonType) then
-        cclog('table_dragon_type에 없는 드래곤 : ' .. dragon_type)
-
-        t_dragonType = TableDragonType():get('powerdragon')
-    end
-
-    local flv = dragon.m_tDragonInfo['flv']
-    local idx = math_random(1, 2)
-    local key
     
-    if (flv == 2) then
-        key = 't_good_shout' .. idx
-    elseif (flv == 3) then
-        key = 't_best_shout' .. idx
-    else
-        key = 't_normal_shout' .. idx
-    end
-    
-    if (t_dragonType[key]) then
-        self.m_speechLabel:setString(Str(t_dragonType[key]))
-    end
+    local did = dragon.m_dragonID
+    local flv = dragon.m_tDragonInfo:getFlv()
+    local str = TableDragonPhrase:getDragonShout(did, flv)
+    self.m_speechLabel:setString(str)
 
     if (dragon.m_bLeftFormation) then
         self.m_bubble:setPosition(300, 150)

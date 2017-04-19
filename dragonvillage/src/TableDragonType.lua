@@ -29,38 +29,3 @@ function TableDragonType:getBaseDid(dragon_type)
 
     return self:getValue(dragon_type, 'base_did')
 end
-
--------------------------------------
--- function getRandomSpeech
--- @brief
--------------------------------------
-function TableDragonType:getRandomSpeech(dragon_type, flv)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local sum_random = SumRandom()
-    
-    --[[
-    if (flv <= 2) then
-        sum_random:addItem(1, 't_phrase1')
-    elseif (flv <= 6) then
-        sum_random:addItem(1, 't_phrase1')
-        sum_random:addItem(1, 't_phrase2')
-    else
-        sum_random:addItem(1, 't_phrase1')
-        sum_random:addItem(1, 't_phrase2')
-        sum_random:addItem(1, 't_phrase3')
-    end
-    --]]
-    sum_random:addItem(1, 't_phrase1')
-    sum_random:addItem(1, 't_phrase2')
-    sum_random:addItem(1, 't_phrase3')
-    
-    local key = sum_random:getRandomValue()
-
-    local speech = self:getValue(dragon_type, key)
-    speech = Str(speech)
-
-    return speech
-end

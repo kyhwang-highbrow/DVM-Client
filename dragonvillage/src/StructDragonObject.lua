@@ -231,6 +231,14 @@ function StructDragonObject:getFriendshipObject()
 end
 
 -------------------------------------
+-- function getFlv
+-- @breif
+-------------------------------------
+function StructDragonObject:getFlv()
+    return self['friendship']['flv']
+end
+
+-------------------------------------
 -- function getCombatPower
 -- @breif
 -------------------------------------

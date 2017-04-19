@@ -115,8 +115,7 @@ end
 -- function getDragonSpeech
 -------------------------------------
 function UIC_DragonAnimator:getDragonSpeech(did, flv)
-    local dragon_type = TableDragon:getDragonType(did)
-    local speech = TableDragonType:getRandomSpeech(dragon_type, flv)
+    local speech = TableDragonPhrase:getDragonPhrase(did, flv)
     return speech
 end
 
