@@ -101,6 +101,13 @@ function ServerData_Highlight:isHighlightQuest()
 end
 
 -------------------------------------
+-- function isHighlightMail
+-------------------------------------
+function ServerData_Highlight:isHighlightMail()
+    return (0 < self['mail_cnt'])
+end
+
+-------------------------------------
 -- function isHighlightDragon
 -------------------------------------
 function ServerData_Highlight:isHighlightDragon()

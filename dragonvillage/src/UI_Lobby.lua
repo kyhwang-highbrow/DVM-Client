@@ -303,6 +303,9 @@ function UI_Lobby:refresh_highlight()
     -- 퀘스트
     vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
 
+    -- 우편함
+    vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
+
     -- 드래곤
     vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
 end
