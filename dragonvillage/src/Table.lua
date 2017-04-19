@@ -56,6 +56,7 @@ local TableInfo = {
         dragon_train_info    = {'table_dragon_train_info',  'grade',        false},
         table_rune_set       = {'table_rune_set',           'set_id',       false},
         dragon_unit          = {'table_dragon_unit',        'unit_id',      false},
+        table_dragon_phrase = {'table_dragon_phrase',        'did',          false},
     }
 
 -------------------------------------

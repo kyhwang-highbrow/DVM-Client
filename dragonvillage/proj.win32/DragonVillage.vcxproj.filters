@@ -1959,6 +1959,9 @@
     <None Include="..\src\UIC_DragonAnimatorDirector.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\TableDragonPhrase.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

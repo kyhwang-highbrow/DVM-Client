@@ -185,6 +185,7 @@ local t_module = {
     'TableDropIngame',
     'TableStaminaInfo',
     'TableScenarioResource',
+    'TableDragonPhrase',
 
     -- Interface
     'IEventDispatcher',
