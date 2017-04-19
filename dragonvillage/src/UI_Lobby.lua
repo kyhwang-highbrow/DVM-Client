@@ -250,6 +250,7 @@ function UI_Lobby:initButton()
     local vars = self.vars
     
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
+	vars['colosseumBtn']:registerScriptTapHandler(function() self:click_colosseumBtn() end)
     vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end)
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end)
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
@@ -356,6 +357,14 @@ function UI_Lobby:click_adventureBtn()
     end
 
     refresh_adventure_server_data()
+end
+
+-------------------------------------
+-- function click_colosseumBtn
+-- @brief "콜로세움" 버튼
+-------------------------------------
+function UI_Lobby:click_colosseumBtn()
+    g_colosseumData:goToColosseumScene()
 end
 
 -------------------------------------
