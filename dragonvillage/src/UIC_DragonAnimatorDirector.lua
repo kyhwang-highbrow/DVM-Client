@@ -41,11 +41,8 @@ function UIC_DragonAnimatorDirector:start()
 
     self.m_topEffect:changeAni('top_appear')
     self.m_topEffect:addAniHandler(function() self:appearDragonAnimator()end)
+    self.m_bottomEffect:setVisible(false)
 
-    self.m_bottomEffect:changeAni('bottom_appear', false)
-    self.m_bottomEffect:addAniHandler(function()
-            self.m_bottomEffect:changeAni('bottom_idle', true)
-        end)
 
     self.vars['skipBtn']:setVisible(true)
 
@@ -68,7 +65,13 @@ end
 function UIC_DragonAnimatorDirector:appearDragonAnimator()
     local vars = self.vars
     self.m_topEffect:changeAni('top_disappear', false)
-    self.m_bottomEffect:changeAni('bottom_idle', true)
+    
+    self.m_bottomEffect:setVisible(true)
+    self.m_bottomEffect:changeAni('bottom_appear', false)
+    self.m_bottomEffect:addAniHandler(function()
+            self.m_bottomEffect:changeAni('bottom_idle', true)
+        end)
+
     self.m_animator:setVisible(true)
     vars['skipBtn']:setVisible(false)
 
