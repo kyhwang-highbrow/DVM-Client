@@ -609,8 +609,13 @@ end
 function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
     local t_ret = {}
 
+	-- @TODO 임시 처리 self formation
+	if (team_type == 'self') then
+		local t_org_list_1 = self.m_globalCharList
+        self:addList(t_ret, TargetRule_getTargetList('self', t_org_list_1, x, y, t_data))
+
     -- 항목에 데이터가 없다면 전, 중, 후 구별을 하지 않고 모두를 타겟
-	if (formation_type == '') or (not formation_type) then
+	elseif (formation_type == '') or (not formation_type) then
         local t_org_list_1 = self.m_globalCharList
         self:addList(t_ret, TargetRule_getTargetList(rule_type, t_org_list_1, x, y, t_data))
 

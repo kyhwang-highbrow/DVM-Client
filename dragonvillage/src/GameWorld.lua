@@ -1435,6 +1435,7 @@ end
 -------------------------------------
 function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
     local bLeftFormation = true
+	local t_data = t_data or {}
 
     if (char) then
         bLeftFormation = char.m_bLeftFormation
@@ -1442,8 +1443,15 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
     
     -- 팀 타입에 따른 델리게이트
     local for_mgr_delegate = nil
+	
+	-- @TODO 임시 처리
     if (team_type == 'self') then
-        return {char}
+		t_data['self'] = char
+        if (bLeftFormation) then
+            for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
+        else
+            for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
+        end
 
     elseif (team_type == 'ally') then
         if (bLeftFormation) then

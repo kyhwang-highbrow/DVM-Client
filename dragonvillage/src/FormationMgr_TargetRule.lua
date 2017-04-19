@@ -52,6 +52,9 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
     if (type == 'none') then                return TargetRule_getTargetList_none(org_list)
     elseif (type == 'random') then          return TargetRule_getTargetList_random(org_list)
     
+	-- self 
+	elseif (type == 'self') then			return TargetRule_getTargetList_self(org_list, t_data)
+
 	-- 거리 관련
 	elseif (type == 'distance_line') then   return TargetRule_getTargetList_distance_line(org_list, x, y)
 	elseif (type == 'far_line') then		return TargetRule_getTargetList_far_line(org_list, x, y)
@@ -98,6 +101,28 @@ function TargetRule_getTargetList_none(org_list)
 
     return t_ret
 end
+
+-------------------------------------
+-- function TargetRule_getTargetList_none
+-- @brief 자기 자신이 1번인 아군 리스트
+-------------------------------------
+function TargetRule_getTargetList_self(org_list, t_data)
+    local t_ret = {}
+	local self_char = t_data['self']
+	local t_char = table.sortRandom(table.clone(org_list))
+	
+	-- 자기 자신을 제일 먼저 넣는다.
+	table.insert(t_ret, self_char)
+
+    for i, char in pairs(t_char) do
+		if (char ~= self_char) then
+			table.insert(t_ret, char)
+		end
+    end
+
+    return t_ret
+end
+
 
 -------------------------------------
 -- function TargetRule_getTargetList_distance_line

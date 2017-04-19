@@ -20,7 +20,7 @@ end
 -------------------------------------
 function StatusEffect_AttributeChange:init_statusEffect(char, tar_attr)
 	self.m_owner = char
-	self.m_targetAttribute = getAttrDisadvantage(tar_attr)
+	self.m_targetAttribute = getAttrDisadvantage(char:getAttribute())
 end
 
 -------------------------------------
