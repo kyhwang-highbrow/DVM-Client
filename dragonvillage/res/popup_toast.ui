@@ -15,7 +15,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
 				width = 0;
-				height = 0;
+				height = -20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/result_status_bg.png';
+				file_name = 'ui/frame/popup_toast.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -54,7 +54,7 @@
 				text = 'messageLabel';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 255; 215; 0; };
 				opacity = 255;
 				dimension_width = 1190;
 				dimension_height = 95;
@@ -69,7 +69,7 @@
 				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
-				shadow_distance = 2.000000;
+				shadow_distance = 3.000000;
 			};
 			type = 'Menu';
 			ui_name = '';
