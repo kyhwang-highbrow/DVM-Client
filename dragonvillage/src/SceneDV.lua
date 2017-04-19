@@ -1,5 +1,5 @@
-DV_SCENE_ACTIVE = false
---DV_SCENE_ACTIVE = true
+--DV_SCENE_ACTIVE = false
+DV_SCENE_ACTIVE = true
 
 -------------------------------------
 -- class SceneDV
@@ -17,6 +17,8 @@ function SceneDV:init()
 	self.m_lSpineAni = {}
 	self.m_gridNode = cc.NodeGrid:create()
 	self.m_scene:addChild(self.m_gridNode, 1)
+
+
 end
 
 -------------------------------------
@@ -114,6 +116,17 @@ function SceneDV:onKeyReleased(keyCode, event)
 		local json_name = 'res/character/dragon/spine_earth_01/spine_earth_01.json'
 		self:setAni(json_name, rand_x, rand_y)
 
+    elseif keyCode == KEY_Z then
+        local duration = 1
+        local sequence = cc.Sequence:create(
+            cca.getShaky3D(2, 1),
+            cc.DelayTime:create(duration)
+        )
+        self.m_gridNode:runAction(cc.RepeatForever:create(sequence))
+
+    elseif keyCode == KEY_C then
+        self.m_gridNode:stopAllActions()
+
 	elseif keyCode == KEY_S then
 		local rand_x = math_random(100, 900)
 		local rand_y = math_random(200, 600)
@@ -202,13 +215,6 @@ function SceneDV:onKeyReleased(keyCode, event)
             animator:changeAni('layer_3_a', true)
 		    self.m_gridNode:addChild(animator.m_node)
         end
-
-        local duration = 1
-        local sequence = cc.Sequence:create(
-            cca.getShaky3D(2, 1),
-            cc.DelayTime:create(duration)
-        )
-        self.m_gridNode:runAction(cc.RepeatForever:create(sequence))
 
     elseif (keyCode == KEY_UP_ARROW) then
         self:setTimeScale(10)
