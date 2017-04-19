@@ -388,11 +388,6 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         end
     end
     
-
-	if enemy and enemy.m_hpNode then
-        enemy.m_hpNode:setVisible(true)
-    end
-
 	-- 마지막 웨이브인 경우 최대 등급 찾음
 	if (self:isFinalWave()) then
 		self:checkHighestRarity(enemy)

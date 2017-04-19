@@ -76,7 +76,8 @@ end
 function GameState:initUI()
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ui_boss_warning/ui_boss_warning.vrp')
     self.m_waveEffect:setVisible(false)
-    g_gameScene.m_containerLayer:addChild(self.m_waveEffect.m_node)
+    --g_gameScene.m_containerLayer:addChild(self.m_waveEffect.m_node)
+    self.m_world.m_inGameUI.root:addChild(self.m_waveEffect.m_node, 9)
 
     -- 웨이브
     self.m_waveNoti = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
@@ -456,7 +457,9 @@ function GameState.update_boss_wave(self, dt)
         end)
 
         SoundMgr:stopBGM()
-    
+
+        -- 웨이브 표시 숨김
+        self.m_world.m_inGameUI.vars['waveVisual']:setVisible(false)
 
     elseif (self:isBeginningStep(1)) then
         self.m_waveEffect:setVisible(true)
@@ -477,9 +480,6 @@ function GameState.update_boss_wave(self, dt)
 
         -- 보스 배경음
         SoundMgr:playBGM(self.m_bgmBoss)
-
-        -- 웨이브 표시 숨김
-        self.m_world.m_inGameUI.vars['waveVisual']:setVisible(false)
 
     end
 end

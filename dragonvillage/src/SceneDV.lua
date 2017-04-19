@@ -203,10 +203,10 @@ function SceneDV:onKeyReleased(keyCode, event)
 		    self.m_gridNode:addChild(animator.m_node)
         end
 
-        local duration = 0.001
+        local duration = 1
         local sequence = cc.Sequence:create(
-            cca.getShaky3D(2, duration),
-            cc.DelayTime:create(duration*100000)
+            cca.getShaky3D(2, 1),
+            cc.DelayTime:create(duration)
         )
         self.m_gridNode:runAction(cc.RepeatForever:create(sequence))
 
