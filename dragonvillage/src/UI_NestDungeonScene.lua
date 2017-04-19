@@ -7,12 +7,14 @@ UI_NestDungeonScene = class(PARENT, {
         m_tableView = 'UIC_TableView', -- 네스트 던전의 세부 모드들 리스트
         m_selectNestDungeonInfo = 'table', -- 현재 선택된 세부 모드
         m_bDirtyDungeonList = 'boolean',
+
+		m_dungeonType = 'string',		-- 네스트 던전 타입
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_NestDungeonScene:init(stage_id)
+function UI_NestDungeonScene:init(stage_id, dungeon_type)
     local vars = self:load('nest_dungeon_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -23,6 +25,8 @@ function UI_NestDungeonScene:init(stage_id)
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     --self:doActionReset()
     --self:doAction(nil, false)
+
+	self.m_dungeonType = dungeon_type
 
     self:initUI(stage_id)
     self:initButton()
@@ -54,6 +58,9 @@ function UI_NestDungeonScene:initUI(stage_id)
         local node = vars['tableViewNode']
         node:removeAllChildren()
 
+		-- 리스트 선 생성
+		local t_dungeon = g_nestDungeonData:getNestDungeonListForUIByType(self.m_dungeonType)
+
         -- 셀 아이템 생성 콜백
         local function create_func(ui, data)
             ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data) end)
@@ -65,7 +72,7 @@ function UI_NestDungeonScene:initUI(stage_id)
         table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
         table_view:setCellUIClass(UI_NestDungeonListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-        table_view:setItemList(g_nestDungeonData:getNestDungeonListForUI())
+        table_view:setItemList(t_dungeon)
 
         -- 정렬
         local function sort_func(a, b) 

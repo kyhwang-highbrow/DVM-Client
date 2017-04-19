@@ -55,10 +55,10 @@ end
 -------------------------------------
 function UI_BattleMenu:initButton()
     local vars = self.vars
-    vars['nestBtn']:registerScriptTapHandler(function() self:click_nestBtn() end)
-    vars['colosseumBtn']:registerScriptTapHandler(function() self:click_colosseumBtn() end)
-    vars['secretBtn']:registerScriptTapHandler(function() self:click_secretBtn() end)
-    vars['raidBtn']:registerScriptTapHandler(function() self:click_raidBtn() end)
+    vars['dragonBtn']:registerScriptTapHandler(function() self:click_dragonBtn() end)
+    vars['treeBtn']:registerScriptTapHandler(function() self:click_treeBtn() end)
+    vars['nightmareBtn']:registerScriptTapHandler(function() self:click_nightmareBtn() end)
+    vars['goldBtn']:registerScriptTapHandler(function() self:click_goldBtn() end)
 end
 
 -------------------------------------
@@ -68,31 +68,31 @@ function UI_BattleMenu:refresh()
 end
 
 -------------------------------------
--- function click_nestBtn
+-- function click_dragonBtn
 -------------------------------------
-function UI_BattleMenu:click_nestBtn()
-    g_nestDungeonData:goToNestDungeonScene()
+function UI_BattleMenu:click_dragonBtn()
+    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_DRAGON)
 end
 
 -------------------------------------
--- function click_colosseumBtn
+-- function click_treeBtn
 -------------------------------------
-function UI_BattleMenu:click_colosseumBtn()
-    g_colosseumData:goToColosseumScene()
+function UI_BattleMenu:click_treeBtn()
+    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_TREE)
 end
 
 -------------------------------------
--- function click_secretBtn
+-- function click_nightmareBtn
 -------------------------------------
-function UI_BattleMenu:click_secretBtn()
-    g_secretDungeonData:goToSecretDungeonScene()
+function UI_BattleMenu:click_nightmareBtn()
+	g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_NIGHTMARE)
 end
 
 -------------------------------------
--- function click_raidBtn
+-- function click_goldBtn
 -------------------------------------
-function UI_BattleMenu:click_raidBtn()
-    UIManager:toastNotificationRed('"레이드"는 준비 중입니다.')
+function UI_BattleMenu:click_goldBtn()
+    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_GOLD)
 end
 
 --@CHECK

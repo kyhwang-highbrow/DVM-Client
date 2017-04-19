@@ -96,6 +96,30 @@ function ServerData_NestDungeon:getNestDungeonListForUI()
 end
 
 -------------------------------------
+-- function getNestDungeonListForUIByType
+-- @brief 타입별 네스트 던전 리스트 항목 얻어옴 (UI 전용)
+-------------------------------------
+function ServerData_NestDungeon:getNestDungeonListForUIByType(d_type)
+    local t_dungeon_list = self:getNestDungeonListForUI()
+	if (not d_type) then
+		return t_dungeon_list
+	end
+
+	local t_ret = {}
+
+	for mode_id, dungeon in pairs(t_dungeon_list) do
+		local t_dungeon = g_nestDungeonData:parseNestDungeonID(mode_id)
+		local dungeon_mode = t_dungeon['dungeon_mode']
+		if (dungeon_mode == d_type) then
+			t_ret[mode_id] = dungeon
+		end
+	end
+
+    return t_ret
+end
+
+
+-------------------------------------
 -- function requestNestDungeonInfo
 -- @brief 서버로부터 네스트던전 open정보를 받아옴
 -------------------------------------
@@ -490,7 +514,7 @@ end
 -------------------------------------
 -- function goToNestDungeonScene
 -------------------------------------
-function ServerData_NestDungeon:goToNestDungeonScene(stage_id)
+function ServerData_NestDungeon:goToNestDungeonScene(stage_id, dungeon_type)
     local request_nest_dungeon_info
     local request_nest_dungeon_stage_list
     local replace_scene
@@ -507,8 +531,9 @@ function ServerData_NestDungeon:goToNestDungeonScene(stage_id)
 
     -- 네스트 던전 씬으로 전환
     replace_scene = function()
-        local scene = SceneNestDungeon(stage_id)
-        scene:runScene()
+		UI_NestDungeonScene(stage_id, dungeon_type)
+        --local scene = SceneNestDungeon(stage_id, dungeon_type)
+        --scene:runScene()
     end
 
     request_nest_dungeon_info()
