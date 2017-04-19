@@ -378,15 +378,15 @@ end
 -- function checkPermillRate
 -------------------------------------
 function StatusEffectHelper:checkPermillRate(caster, target_char, status_effect_rate, status_effect_group)
-	local is_helpful = self:isHarmful(status_effect_group)
+	local is_harmful = self:isHarmful(status_effect_group)
 	
 	-- @ RUNE
 	local se_acc = caster:getStat('accuracy')
 	local se_resist
-	if (is_helpful) then
-		se_resist = 0
-	else
+	if (is_harmful) then
 		se_resist = target_char:getStat('resistance')
+	else
+		se_resist = 0
 	end
 
 	-- 확률 permill 로 체크
