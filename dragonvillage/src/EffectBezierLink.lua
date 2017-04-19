@@ -36,7 +36,7 @@ function EffectBezierLink:refreshEffect(tar_x, tar_y, pos_x, pos_y, dir)
 	for i, bezier_pos in ipairs(t_bezier_pos) do
 		if (nil == self.m_lEffectAnimator[i]) then
 			-- 없을 경우 생성
-			effect_animator = self:createWithParent(self.m_node, bezier_pos['x'], bezier_pos['y'], 0, self.m_resName, 'idle', false)
+			effect_animator = self:createWithParent(self.m_node, bezier_pos['x'], bezier_pos['y'], 0, self.m_resName, 'idle', true)
 			effect_animator:setAnchorPoint(cc.p(0.5, 0))
 			table.insert(self.m_lEffectAnimator, effect_animator)
 		else

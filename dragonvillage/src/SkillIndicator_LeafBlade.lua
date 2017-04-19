@@ -207,13 +207,11 @@ function SkillIndicator_LeafBlade:onChangeTargetCount(old_target_count, cur_targ
 		-- 타겟수에 따른 보너스 등급 저장
 		self.m_bonus = DragonSkillBonusHelper:getBonusLevel(self.m_hero, cur_target_count)
 
-		if (self.m_preBonusLevel ~= self.m_bonus) then
-			self:onChangeIndicatorEffect(self.m_indicatorEffect, self.m_bonus, self.m_preBonusLevel)
-			self:onChangeIndicatorEffect(self.m_indicatorBezierEffect1, self.m_bonus, self.m_preBonusLevel)
-			self:onChangeIndicatorEffect(self.m_indicatorBezierEffect2, self.m_bonus, self.m_preBonusLevel)
-			self:onChangeIndicatorEffect(self.m_indicatorLinearEffect1, self.m_bonus, self.m_preBonusLevel)
-			self:onChangeIndicatorEffect(self.m_indicatorLinearEffect2, self.m_bonus, self.m_preBonusLevel)
-		end
+		self:onChangeIndicatorEffect(self.m_indicatorBezierEffect1, self.m_bonus, self.m_preBonusLevel)
+		self:onChangeIndicatorEffect(self.m_indicatorBezierEffect2, self.m_bonus, self.m_preBonusLevel)
+		self:onChangeIndicatorEffect(self.m_indicatorLinearEffect1, self.m_bonus, self.m_preBonusLevel)
+		self:onChangeIndicatorEffect(self.m_indicatorLinearEffect2, self.m_bonus, self.m_preBonusLevel)
+		self:onChangeIndicatorEffect(self.m_indicatorEffect, self.m_bonus, self.m_preBonusLevel)
 
 	-- 비활성화
 	elseif (old_target_count > 0) and (cur_target_count == 0) then
@@ -226,6 +224,26 @@ function SkillIndicator_LeafBlade:onChangeTargetCount(old_target_count, cur_targ
 	end
 
 	self.m_preBonusLevel = self.m_bonus
+end
+
+-------------------------------------
+-- function onChangeIndicatorEffect
+-- @brief 인디케이터 보너스 단계별로 다른 연출을 한다.
+-------------------------------------
+function SkillIndicator_LeafBlade:onChangeIndicatorEffect(indicator, bonus_lv, pre_bonus_lv)
+	-- 인디케이터 색상 변경
+	local l_color_lv = g_constant:get('INDICATOR', 'COLOR_LEVEL')
+	local color_key = l_color_lv[tostring(bonus_lv)]
+	local color = COLOR[color_key]
+	indicator:setColor(color)
+
+	-- 인디케이터 애니메이션 변경
+	if (pre_bonus_lv < 2) and (bonus_lv >= 2) then
+		indicator:changeAni('idle_2', true)
+	elseif (bonus_lv ~= pre_bonus_lv) then
+		-- @TODO 왜 이 리소스만 changeAni를 해야 setColor가 보일까
+		indicator:changeAni('idle', true)
+	end
 end
 
 -------------------------------------

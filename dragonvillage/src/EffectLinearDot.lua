@@ -57,7 +57,7 @@ function EffectLinearDot:refreshEffect(tar_x, tar_y, pos_x, pos_y, dir)
 	for i, line_pos in ipairs(t_line_pos) do
 		if (nil == self.m_lEffectAnimator[i]) then
 			-- 없을 경우 생성 
-			effect_animator = self:createWithParent(self.m_node, line_pos['x'], line_pos['y'], 0, self.m_resName, 'idle', false)
+			effect_animator = self:createWithParent(self.m_node, line_pos['x'], line_pos['y'], 0, self.m_resName, 'idle', true)
 			effect_animator.m_node:setAnchorPoint(cc.p(0.5, 0))
 			table.insert(self.m_lEffectAnimator, effect_animator)
 		else
