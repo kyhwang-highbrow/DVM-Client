@@ -15,8 +15,6 @@ UI_EventPopupTab_Birthday = class(PARENT,{
 function UI_EventPopupTab_Birthday:init(owner)
     local vars = self:load('event_birthday.ui')
 
-    vars['titleLabel'] = owner.vars['titleLabel']
-
     local year_month, t_time = Timer:getGameServerDate(true, true, false)
     self.m_year = t_time['year']
     
@@ -120,7 +118,6 @@ function UI_EventPopupTab_Birthday:changeMonth(month)
     self:refresh()
 
     self.m_titleText = Str('{1}월 드래곤 생일', month)
-    vars['titleLabel']:setString(self.m_titleText)
 
     if (self.m_currMonth <= 1) then
         vars['prevBtn']:setVisible(false)
@@ -172,5 +169,4 @@ end
 -------------------------------------
 function UI_EventPopupTab_Birthday:onEnterTab()
     local vars = self.vars
-    vars['titleLabel']:setString(self.m_titleText)
 end

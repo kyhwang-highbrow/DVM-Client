@@ -12,21 +12,28 @@ UI_EventPopupTab_EventAttendance = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventPopupTab_EventAttendance:init(owner, struct_event_popup_tab)
-    local vars = self:load('attendance_special.ui')
+    local vars = self:load('attendance_special_new.ui')
 
     self.m_structAttendanceData = struct_event_popup_tab.m_userData
-    vars['titleLabel'] = owner.vars['titleLabel']
     self.m_titleText = self.m_structAttendanceData['title_text']
 
-    vars['titleLabel']:setString(Str(self.m_titleText))
-    vars['descLabel']:setString('')
-    vars['helpLabel']:setString(Str(self.m_structAttendanceData['help_text']))
+    --vars['descLabel']:setString('')
+    --vars['helpLabel']:setString(Str(self.m_structAttendanceData['help_text']))
 
     self:initTableView()
 
     self:initLastDayInfo()
 
     self:checkTodayRewardPopup()
+
+    ccdump(self.m_structAttendanceData)
+
+    do
+        local banner_img = self.m_structAttendanceData:getBannerImg()
+        if banner_img then
+            vars['bannerNode']:addChild(banner_img)
+        end
+    end
 end
 
 -------------------------------------
@@ -85,8 +92,8 @@ function UI_EventPopupTab_EventAttendance:initTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(440, 108 + 10)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view.m_defaultCellSize = cc.size(184 + 10, 304)
+    --table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(UI_AttendanceSpecialListItem, create_func)
     table_view:setItemList(l_item_list)
 end
@@ -132,5 +139,4 @@ end
 -------------------------------------
 function UI_EventPopupTab_EventAttendance:onEnterTab()
     local vars = self.vars
-    vars['titleLabel']:setString(self.m_titleText)
 end

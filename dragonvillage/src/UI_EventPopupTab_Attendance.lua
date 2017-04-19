@@ -13,8 +13,6 @@ UI_EventPopupTab_Attendance = class(PARENT,{
 function UI_EventPopupTab_Attendance:init(owner)
     local vars = self:load('attendance_basic.ui')
 
-    vars['titleLabel'] = owner.vars['titleLabel']
-
     local struct_attendance_data = g_attendanceData:getBasicAttendance()
 
     local title_text = struct_attendance_data['title_text']
@@ -23,7 +21,6 @@ function UI_EventPopupTab_Attendance:init(owner)
     local today_step = struct_attendance_data['today_step']
 
     self.m_titleText = Str(title_text)
-    vars['titleLabel']:setString(self.m_titleText)
     vars['descLabel']:setString(Str(help_text))
     vars['dayLabel']:setString(Str('{1}일차', today_step))
 
@@ -87,5 +84,4 @@ end
 -------------------------------------
 function UI_EventPopupTab_Attendance:onEnterTab()
     local vars = self.vars
-    vars['titleLabel']:setString(self.m_titleText)
 end

@@ -13,7 +13,7 @@ UI_AttendanceSpecialListItem = class(PARENT, {
 function UI_AttendanceSpecialListItem:init(t_item_data)
     self.m_tItemData = t_item_data
 
-    local vars = self:load('attendance_special_list.ui')
+    local vars = self:load('attendance_special_list_new.ui')
 
     self:initUI()
     self:initButton()

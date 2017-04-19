@@ -13,7 +13,7 @@ UI_EventPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventPopup:init()
-    local vars = self:load('event_popup.ui')
+    local vars = self:load('event_popup_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -120,7 +120,7 @@ function UI_EventPopup:initTab()
         vars['eventNode']:addChild(continer_node)
         self.m_lContainerForEachType[type] = continer_node
 
-        self:addTab(type, ui.vars['listBtn'], continer_node)
+        self:addTab(type, ui.vars['listBtn'], continer_node, ui.vars['selectSprite'])
 
         if (not initial_tab) then
             initial_tab = type
