@@ -161,12 +161,12 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -53.000000;
+				y = -96.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 224;
-				height = 114;
+				height = 201;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -182,7 +182,7 @@
 				color = { 161; 125; 93; };
 				opacity = 255;
 				dimension_width = 224;
-				dimension_height = 114;
+				dimension_height = 201;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -531,7 +531,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'tempSprite';
 				file_name = 'ui/frame/a_frame_05.png';
 				color = { 255; 255; 255; };

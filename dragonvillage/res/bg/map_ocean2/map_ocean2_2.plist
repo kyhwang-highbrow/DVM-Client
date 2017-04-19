@@ -4,83 +4,83 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>map_ocean2_island_leaf_02.png</key>
+            <key>map_ocean2_land_easy_shadow_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{562,1558},{126,140}}</string>
+                <string>{{2,2},{1430,410}}</string>
                 <key>offset</key>
-                <string>{-129,236}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{832,206},{126,140}}</string>
-                <key>sourceSize</key>
-                <string>{2048,1024}</string>
-            </dict>
-            <key>map_ocean2_island_tree_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,774},{474,668}}</string>
-                <key>offset</key>
-                <string>{-384,-2}</string>
+                <string>{-3,-273}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{403,180},{474,668}}</string>
+                <string>{{306,580},{1430,410}}</string>
                 <key>sourceSize</key>
                 <string>{2048,1024}</string>
             </dict>
-            <key>map_ocean2_island_tree_03.png</key>
+            <key>map_ocean2_object_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{562,1342},{166,214}}</string>
+                <string>{{772,414},{627,345}}</string>
                 <key>offset</key>
-                <string>{-380,141}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{561,264},{166,214}}</string>
+                <string>{{243,384},{627,345}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1024}</string>
+                <string>{1113,1113}</string>
             </dict>
-            <key>map_ocean2_land_easy_island.png</key>
+            <key>map_ocean2_ship_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{770,764}}</string>
+                <string>{{2,414},{539,431}}</string>
                 <key>offset</key>
-                <string>{-373,-96}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{266,226},{770,764}}</string>
-                <key>sourceSize</key>
-                <string>{2048,1024}</string>
-            </dict>
-            <key>map_ocean2_land_easy_island_sand.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{478,774},{566,288}}</string>
-                <key>offset</key>
-                <string>{-302,102}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{439,266},{566,288}}</string>
-                <key>sourceSize</key>
-                <string>{2048,1024}</string>
-            </dict>
-            <key>map_ocean2_land_wave_02_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,1444},{558,280}}</string>
-                <key>offset</key>
-                <string>{-306,98}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{439,274},{558,280}}</string>
+                <string>{{287,341},{539,431}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1024}</string>
+                <string>{1113,1113}</string>
+            </dict>
+            <key>map_ocean2_smoke_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{543,414},{227,411}}</string>
+                <key>offset</key>
+                <string>{13,-3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{456,354},{227,411}}</string>
+                <key>sourceSize</key>
+                <string>{1113,1113}</string>
+            </dict>
+            <key>map_ocean2_stone_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{772,761},{177,165}}</string>
+                <key>offset</key>
+                <string>{-9,-11}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{459,485},{177,165}}</string>
+                <key>sourceSize</key>
+                <string>{1113,1113}</string>
+            </dict>
+            <key>map_ocean2_stone_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{951,761},{161,153}}</string>
+                <key>offset</key>
+                <string>{12,-13}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{488,493},{161,153}}</string>
+                <key>sourceSize</key>
+                <string>{1113,1113}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -90,9 +90,9 @@
             <key>realTextureFileName</key>
             <string>map_ocean2_2.png</string>
             <key>size</key>
-            <string>{768,1726}</string>
+            <string>{1434,928}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:73aa78585f35dd539016d587c91c8940:0469408722155ce44e527242413f02af:9bef70988f727135f9d5452acf6a0451$</string>
+            <string>$TexturePacker:SmartUpdate:1576971a8163e073b463cb42134d43a6:a4b88aa283e5d9643d96942ca197dcf5:9bef70988f727135f9d5452acf6a0451$</string>
             <key>textureFileName</key>
             <string>map_ocean2_2.png</string>
         </dict>
