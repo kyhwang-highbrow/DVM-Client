@@ -35,7 +35,9 @@ function UI_AttendanceSpecialListItem:initUI()
     --itemNode
 
     vars['dayLabel']:setString(Str('{1}일 차', t_item_data['step']))
-    vars['quantityLabel']:setString(comma_value(t_item_data['value']))
+
+    local item_name = TableItem():getValue(t_item_data['item_id'], 't_name')
+    vars['quantityLabel']:setString(Str('{1} X{2}', item_name, comma_value(t_item_data['value'])))
 end
 
 -------------------------------------

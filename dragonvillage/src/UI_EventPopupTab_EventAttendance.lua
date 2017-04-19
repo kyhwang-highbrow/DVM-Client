@@ -26,8 +26,6 @@ function UI_EventPopupTab_EventAttendance:init(owner, struct_event_popup_tab)
 
     self:checkTodayRewardPopup()
 
-    ccdump(self.m_structAttendanceData)
-
     do
         local banner_img = self.m_structAttendanceData:getBannerImg()
         if banner_img then
