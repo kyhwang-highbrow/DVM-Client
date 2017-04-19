@@ -13,6 +13,7 @@ ServerData_Highlight = class({
         quest_reward = '',
         explore_reward = '',
         summon_free = '',
+        mail_cnt = '',
         ----------------------------------------------
 
         ----------------------------------------------
@@ -25,6 +26,13 @@ ServerData_Highlight = class({
 -------------------------------------
 function ServerData_Highlight:init(server_data)
     self.m_serverData = server_data
+
+    self.attendance_reward = 0
+    self.attendance_event_reward = 0
+    self.quest_reward = 0
+    self.explore_reward = 0
+    self.summon_free = 0
+    self.mail_cnt = 0
 end
 
 -------------------------------------
@@ -75,21 +83,21 @@ end
 -- function isHighlightExploration
 -------------------------------------
 function ServerData_Highlight:isHighlightExploration()
-    return self['explore_reward']
+    return (0 < self['explore_reward'])
 end
 
 -------------------------------------
 -- function isHighlightDragonSummonFree
 -------------------------------------
 function ServerData_Highlight:isHighlightDragonSummonFree()
-    return self['summon_free']
+    return (0 < self['summon_free'])
 end
 
 -------------------------------------
 -- function isHighlightQuest
 -------------------------------------
 function ServerData_Highlight:isHighlightQuest()
-    return self['quest_reward']
+    return (0 < self['quest_reward'])
 end
 
 -------------------------------------
