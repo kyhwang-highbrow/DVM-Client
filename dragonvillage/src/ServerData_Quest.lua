@@ -295,6 +295,7 @@ function ServerData_Quest:requestQuestReward(qid, cb_func)
 			isDirtyData = true
         end
 
+        g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 		
 		-- @TODO 퀘스트 정보 테이블 새로 만듬 -> 추후에는 갱신할수 있도록....

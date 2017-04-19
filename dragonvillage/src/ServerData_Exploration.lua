@@ -268,6 +268,7 @@ function ServerData_Exploration:request_explorationImmediatelyComplete(epr_id, f
         end
         ret['before_dragons'] = before_dragons
 
+        g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
         -- 드래곤 정보 갱신
@@ -312,6 +313,7 @@ function ServerData_Exploration:request_explorationReward(epr_id, finish_cb)
         end
         ret['before_dragons'] = before_dragons
 
+        g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
         -- 드래곤 정보 갱신

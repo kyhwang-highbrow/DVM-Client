@@ -353,6 +353,9 @@ function ServerData:networkCommonRespone(ret)
     if (ret['quest_info']) then
         self:applyServerData(ret['quest_info'], 'quest_info')
     end
+
+    -- UI 하일라이트 정보 갱신
+    g_highlightData:applyHighlightInfo(ret)
 end
 
 -------------------------------------

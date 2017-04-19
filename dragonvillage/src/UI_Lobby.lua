@@ -7,6 +7,7 @@ UI_Lobby = class(PARENT,{
         m_lobbyMap = '',
         m_lobbyUserFirstMake = 'bool',
         m_infoBoard = 'UI_NotificationInfo',
+        m_hilightTimeStamp = '',
     })
 
 -------------------------------------
@@ -60,6 +61,8 @@ function UI_Lobby:initUI()
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(icon)
     end
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -99,6 +102,11 @@ function UI_Lobby:entryCoroutine()
         g_friendData:request_friendList(function() self:refreshFriendOnlineBuff() working = false end, true)
         while (working) do dt = coroutine.yield() end
         --]]
+
+        cclog('# 하일라이트 정보 받는 중')
+        working = true
+        g_highlightData:request_highlightInfo(function(ret) working = false end, fail_cb)
+        while (working) do dt = coroutine.yield() end
 
         cclog('# 출석 정보 받는 중')
         working = true
@@ -277,6 +285,22 @@ function UI_Lobby:refresh()
         local cb_func = function() self:refresh_lobbyUsers() end
         g_lobbyUserListData:requestLobbyUserList_UseUI(cb_func)
     end
+end
+
+-------------------------------------
+-- function refresh_highlight
+-------------------------------------
+function UI_Lobby:refresh_highlight()
+    local vars = self.vars
+
+    -- 탐험
+    vars['explorationNotiSprite']:setVisible(g_highlightData:isHighlightExploration())
+
+    -- 드래곤 소환 
+    vars['drawNotiSprite']:setVisible(g_highlightData:isHighlightDragonSummonFree())
+
+    -- 퀘스트
+    vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
 end
 
 -------------------------------------
@@ -557,6 +581,18 @@ function UI_Lobby:click_exitBtn()
     end
     MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('종료하시겠습니까?'), yes_cb)
 end
+
+-------------------------------------
+-- function update
+-- @brief
+-------------------------------------
+function UI_Lobby:update(dt)
+    if (g_highlightData.m_lastUpdateTime ~= self.m_hilightTimeStamp) then
+        self.m_hilightTimeStamp = g_highlightData.m_lastUpdateTime
+        self:refresh_highlight()
+    end
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_Lobby)
