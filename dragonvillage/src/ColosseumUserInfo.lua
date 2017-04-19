@@ -210,7 +210,7 @@ end
 function ColosseumUserInfo:getDragon(doid)
     for i,v in pairs(self.m_dragons) do
         if (v['id'] == doid) then
-            return clone(v)
+            return clone(StructDragonObject(v))
         end
     end
 end
