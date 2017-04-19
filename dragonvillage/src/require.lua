@@ -102,6 +102,7 @@ local t_module = {
     'ServerData_Collection',
     'ServerData_Event',
     'ServerData_DragonSummon',
+    'ServerData_Highlight',
     'UserData',
 	'ConstantData',
     'CollisionHelper',

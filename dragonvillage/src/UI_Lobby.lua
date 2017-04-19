@@ -86,6 +86,7 @@ function UI_Lobby:entryCoroutine()
         local block_popup = UI_BlockPopup()
         dt = coroutine.yield()
 
+        --[[
         -- 가챠 정보 받아옴
         cclog('# 가챠 정보 받는 중')
         working = true
@@ -95,8 +96,9 @@ function UI_Lobby:entryCoroutine()
         -- 친구 정보 받아옴
         cclog('# 친구 정보 받는 중')
         working = true
-         g_friendData:request_friendList(function() self:refreshFriendOnlineBuff() working = false end, true)
+        g_friendData:request_friendList(function() self:refreshFriendOnlineBuff() working = false end, true)
         while (working) do dt = coroutine.yield() end
+        --]]
 
         cclog('# 출석 정보 받는 중')
         working = true
