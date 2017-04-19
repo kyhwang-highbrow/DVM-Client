@@ -255,8 +255,8 @@
         // 인디케이터 보너스 별 색상
         "COLOR_LEVEL" : {
             "-1" : "gray",
-            "0" : "blue",
-            "1" : "green",
+            "0" : "sky_blue",
+            "1" : "light_green",
             "2" : "red"
         },
         
