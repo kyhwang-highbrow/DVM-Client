@@ -301,7 +301,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillRolling:findTarget()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
 	
 	local x = self.m_targetPos.x
 	local y = self.m_targetPos.y

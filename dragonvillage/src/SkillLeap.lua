@@ -167,22 +167,6 @@ function SkillLeap:updateAfterImage(dt)
     end
 end
 
-
--------------------------------------
--- function getDefaultTargetPos
--- @brief 디폴트 타겟 좌표
--------------------------------------
-function SkillLeap:getDefaultTargetPos()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType)
-    local target = l_target[1]
-
-    if target then
-        return target.pos.x, target.pos.y
-    else
-        return self.m_owner.pos.x, self.m_owner.pos.y
-    end
-end
-
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------

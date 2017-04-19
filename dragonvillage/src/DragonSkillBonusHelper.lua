@@ -93,7 +93,7 @@ function DragonSkillBonusHelper:doDirection(dragon, l_target, bonus_level)
     if (not struct_status_effect) then return end
 
     local world = dragon.m_world
-    local l_ally = dragon:getTargetListByType(struct_status_effect.m_targetType)
+    local l_ally = dragon:getTargetListByType(struct_status_effect.m_targetType, nil, nil)
     local m_effect = {}
 
     function makeEffectMotionStreak(dragon, target)

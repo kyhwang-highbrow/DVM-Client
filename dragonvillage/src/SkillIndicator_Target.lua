@@ -72,6 +72,6 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_Target:findTarget(x, y)
-    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
     return SkillTargetFinder:findTarget_Near(l_target, x, y, -1)
 end

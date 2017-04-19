@@ -124,7 +124,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_LeafBlade:findTarget(x, y)
-    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
     	
 	local target_1 = nil 
 	local target_2 = nil

@@ -57,7 +57,7 @@ end
 -------------------------------------
 function SkillFieldCheck:runAttack()
     -- 모든 대상 반환
-	local l_target = self.m_owner:getTargetListByType(self.m_fieldType .. '_none')
+	local l_target = self.m_owner:getTargetListByType(self.m_fieldType .. '_none', nil, nil)
 
 	-- 특정 상태효과를 지닌 대상 탐색
 	for _, target_char in pairs(l_target) do

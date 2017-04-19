@@ -86,6 +86,6 @@ end
 -------------------------------------
 function SkillIndicator_AoEWedge:findTarget(pos_x, pos_y, dir)
 	local char = self.m_hero
-	local l_target = char:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	local l_target = char:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
 	return SkillTargetFinder:findTarget_AoEWedge(l_target, pos_x, pos_y, dir, self.m_skillRange, self.m_skillAngle)
 end
