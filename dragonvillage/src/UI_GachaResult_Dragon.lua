@@ -19,7 +19,6 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list)
 
     -- @UI_ACTION
     self:doActionReset()
-    self:doAction(nil, false)
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_GachaResult_Dragon')
@@ -66,9 +65,9 @@ function UI_GachaResult_Dragon:refresh()
 
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[did]
-    
-    -- 등급
-    vars['starVisual']:changeAni('result' .. grade)
+
+	-- 연출을 위해 등급 숨김
+	vars['starVisual']:setVisible(false)
 
     -- 이름
     vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
@@ -115,11 +114,17 @@ function UI_GachaResult_Dragon:refresh()
 
     do -- 드래곤 실리소스
         vars['dragonNode']:removeAllChildren()
-        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
-        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        vars['dragonNode']:removeAllChildren(false)
-        vars['dragonNode']:addChild(animator.m_node)
+		local dragon_animator = UIC_DragonAnimatorDirector()
+		vars['dragonNode']:addChild(dragon_animator.m_node)
+        dragon_animator:setDragonAnimator(t_dragon['did'], evolution, nil)
+        local function cb()
+			-- 등급
+			vars['starVisual']:setVisible(true)
+			vars['starVisual']:changeAni('result' .. grade)
+			-- ui 연출
+            self:doAction(nil, false)
+        end
+        dragon_animator:setDragonAppearCB(cb)
     end
 
     -- 배경
