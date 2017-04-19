@@ -172,3 +172,15 @@ function TableItem:getDisplayItemIDList(item_id)
 
     return TableItemRand:getRandItemList(item_id)
 end
+
+-------------------------------------
+-- function getItemType
+-- @brief
+-------------------------------------
+function TableItem:getItemType(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(item_id, 'type')
+end

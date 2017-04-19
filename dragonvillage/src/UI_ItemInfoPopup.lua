@@ -40,8 +40,14 @@ function UI_ItemInfoPopup:initUI()
     local vars = self.vars
 
     do -- 아이템 아이콘
-        local item_card = UI_ItemCard(self.m_itemID, self.m_itemCount, self.m_tSubData)
+        local type = TableItem:getItemType(self.m_itemID)
+        if (type == 'dragon') and self.m_tSubData then
+            local item_card = UI_DragonCard(self.m_tSubData)
+            vars['itemNode']:addChild(item_card.root)
+        else
+            local item_card = UI_ItemCard(self.m_itemID, self.m_itemCount, self.m_tSubData)
         vars['itemNode']:addChild(item_card.root)
+        end
     end
 
     -- 아이템 설명
