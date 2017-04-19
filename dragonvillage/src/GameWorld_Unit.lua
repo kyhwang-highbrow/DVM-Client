@@ -104,6 +104,7 @@ function GameWorld:makeMonsterNew(monster_id, level)
 
     -- 스테이지 버프 적용
     monster.m_statusCalc:applyStageBonus(self.m_stageID, true)
+    monster:setStatusCalc(monster.m_statusCalc)
 
     self:dispatch('make_monster', {['monster']=monster})
 
@@ -193,6 +194,7 @@ function GameWorld:makeHeroDeck()
 
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
+                hero:setStatusCalc(hero.m_statusCalc)
             end
         end
     end
@@ -288,6 +290,10 @@ function GameWorld:joinFriendHero(posIdx)
 
         self.m_friendDragon.m_statusCalc:applyFriendBuff(t_friend_buff)
     end
+
+    -- 스테이지 버프 적용
+    self.m_friendDragon.m_statusCalc:applyStageBonus(self.m_stageID)
+    self.m_friendDragon:setStatusCalc(self.m_friendDragon.m_statusCalc)
 end
 
 -------------------------------------
