@@ -29,12 +29,12 @@ function UI_TamerManageItem:initUI()
 	local vars = self.vars
 	local t_tamer = self.m_tamerTable
 
-	-- Å×ÀÌ¸Ó ÃÊ»ó
+	-- í…Œì´ë¨¸ ì´ˆìƒ
 	local tamer_type = t_tamer['type']
 	local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
     vars['tamerNode']:addChild(profile_icon)
 
-	-- Å×ÀÌ¸Ó ÀÌ¸§
+	-- í…Œì´ë¨¸ ì´ë¦„
 	local tamer_name = t_tamer['t_name']
 	vars['tamerNameLabel']:setString(Str(tamer_name))
 end
@@ -55,10 +55,10 @@ end
 -- function selectTamer
 -------------------------------------
 function UI_TamerManageItem:selectTamer(is_select)
-	-- ¼±ÅÃ Ç¥½Ã
+	-- ì„ íƒ í‘œì‹œ
 	self.vars['selectSprite']:setVisible(is_select)
 
-	-- ¼±ÅÃ ¾×¼Ç
+	-- ì„ íƒ ì•¡ì…˜
 	if (is_select) then
 		self.root:setPositionY(20)
 	else
@@ -70,7 +70,7 @@ end
 -- function setUseTamer
 -------------------------------------
 function UI_TamerManageItem:setUseTamer(is_use)
-	-- »ç¿ëÁß Ç¥½Ã
+	-- ì‚¬ìš©ì¤‘ í‘œì‹œ
 	self.vars['useSprite']:setVisible(is_use)
 end
 
