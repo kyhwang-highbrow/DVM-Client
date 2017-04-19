@@ -336,7 +336,6 @@ local t_module = {
     'EffectLinearDot',
     'EffectBezierLink',
 	'EffectHeal',
-	'EffectLauncher',
     'EffectMotionStreak',
     
 	-- SKILL HELPER

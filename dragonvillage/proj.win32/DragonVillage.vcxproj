@@ -279,7 +279,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Coroutine.lua" />
     <None Include="..\src\DragonSkillBonusHelper.lua" />
     <None Include="..\src\DropItem.lua" />
-    <None Include="..\src\EffectLauncher.lua" />
     <None Include="..\src\EffectMotionStreak.lua" />
     <None Include="..\src\EnemyMovementMgr.lua" />
     <None Include="..\src\EventCarrier.lua" />

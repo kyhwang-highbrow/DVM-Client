@@ -1062,9 +1062,6 @@
     <None Include="..\src\UIC_CheckBox.lua">
       <Filter>lua\UIC</Filter>
     </None>
-    <None Include="..\src\EffectLauncher.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillVoltesX.lua">
       <Filter>lua</Filter>
     </None>

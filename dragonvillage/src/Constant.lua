@@ -98,12 +98,6 @@ COLOR = {
 	purple = cc.c3b(255, 0, 255),
 }
 
-COLOR_4 = {}
-COLOR_4['white'] = cc.c4b(255, 255, 255, 255)
-COLOR_4['red'] = cc.c4b(255, 0, 0, 255)
-COLOR_4['blue'] = cc.c4b(0, 0, 255, 255)
-COLOR_4['black'] = cc.c4b(0, 0, 0, 255)
-
 -- TEMP
 UNDER_LINE_PNG = 'res/common/underline.png'
 EMPTY_PNG = 'res/common/empty.png'
