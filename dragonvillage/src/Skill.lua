@@ -281,11 +281,8 @@ function Skill.st_dying(owner, dt)
                 table.insert(l_target, target)
             end
 
-            -- 효과 적용
-            DragonSkillBonusHelper:doInvoke(owner.m_owner, owner.m_bonusLevel)
-
-            -- 연출
-            DragonSkillBonusHelper:doDirection(owner.m_owner, l_target, owner.m_bonusLevel)
+            -- 보너스 효과 적용 및 연출
+            DragonSkillBonusHelper:doInvoke(owner.m_owner, l_target, owner.m_bonusLevel)
         end
 
         return true

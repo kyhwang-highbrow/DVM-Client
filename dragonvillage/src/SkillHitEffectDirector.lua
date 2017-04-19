@@ -139,10 +139,12 @@ function SkillHitEffectDirector:doWork(count)
     end
 
     local hit_label = vars['hitLabel']
-    hit_label:setString(tostring(self.m_hitCount))
-    hit_label:setScale(1.4)
-    hit_label:stopAllActions()
-    hit_label:runAction(cc.ScaleTo:create(0.15, 1))
+    if (hit_label) then
+        hit_label:setString(tostring(self.m_hitCount))
+        hit_label:setScale(1.4)
+        hit_label:stopAllActions()
+        hit_label:runAction(cc.ScaleTo:create(0.15, 1))
+    end
 end
 
 -------------------------------------

@@ -29,6 +29,47 @@ function StatusEffectHelper:statusEffectCheck_onHit(activity_carrier, defender)
 end
 
 -------------------------------------
+-- function doStatusEffect
+-- @brief 해당 파라미터의 정보로 상태효과를 시전하고 대상자 리스트를 리턴
+-------------------------------------
+function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_type, target_count, duration, rate, value_1, cb_invoke)
+    local l_ret = {} -- 상태효과가 적용된 대상 리스트
+
+    -- 스킬로 부터 받은 타겟 리스트 사용
+	if (target_type == 'target') then
+        if (not l_skill_target) then
+            error('doStatusEffectByStruct no l_skill_target')
+        end
+
+        local l_target = l_skill_target
+        for _, target in ipairs(l_target) do
+			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value_1, rate, duration)) then
+                table.insert(l_ret, target)
+
+                if (cb_invoke) then
+                    cb_invoke(target)
+                end
+            end
+		end
+
+	-- 별도의 계산된 타겟 리스트 사용
+	elseif (target_type) then
+		local l_target = caster:getTargetListByType(target_type, target_count)
+        for _, target in ipairs(l_target) do
+			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value_1, rate, duration)) then
+                table.insert(l_ret, target)
+
+                if (cb_invoke) then
+				    cb_invoke(target)
+                end
+			end
+		end
+	end
+
+    return l_ret
+end
+
+-------------------------------------
 -- function doStatusEffectByTable
 -- @brief 별도의 타겟을 가져오지 않고 스킬 테이블 통해서 상태효과 시전
 -------------------------------------
@@ -75,6 +116,7 @@ function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_sta
 		-- 2. 파싱하여 규칙에 맞게 분배
 		type = status_effect_struct.m_type
 		target_type = status_effect_struct.m_targetType
+        target_count = status_effect_struct.m_targetCount
         trigger = status_effect_struct.m_trigger
 		duration = status_effect_struct.m_duration
 		rate = status_effect_struct.m_rate
@@ -82,7 +124,10 @@ function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_sta
 		value_2 = status_effect_struct.m_value2
 
         -- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
-    
+        self:doStatusEffect(caster, l_skill_target, type, target_type, target_count,
+            duration, rate, value_1, cb_invoke)
+        
+        --[[
 	    -- 스킬로 부터 받은 타겟 리스트 사용
 		if (target_type == 'target') then
             if (not l_skill_target) then
@@ -97,13 +142,14 @@ function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_sta
 
 		-- 별도의 계산된 타겟 리스트 사용
 		elseif (target_type) then
-			local l_target = caster:getTargetListByType(target_type, nil)
+			local l_target = caster:getTargetListByType(target_type, target_count)
 			for _, target in ipairs(l_target) do
 				if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value_1, rate, duration)) then
 					cb_invoke(target)
 				end
 			end
 		end
+        ]]--
 
 		-- 4. 인덱스 증가
 		idx = idx + 1

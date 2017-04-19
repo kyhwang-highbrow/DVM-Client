@@ -4,6 +4,7 @@
 StructStatusEffect = class({
 		m_type = 'str',
 		m_targetType = 'str',
+        m_targetCount = 'num',
 		m_trigger = 'str',
 		m_duration = 'num',	
 		m_rate = 'num',
@@ -17,6 +18,7 @@ StructStatusEffect = class({
 function StructStatusEffect:init(data)
 	self.m_type = data['type']
 	self.m_targetType = data['target_type']
+    self.m_targetCount = data['target_count']
 	self.m_trigger = data['trigger']
 	self.m_duration = tonumber(data['duration'])
 	self.m_rate = tonumber(data['rate'])
