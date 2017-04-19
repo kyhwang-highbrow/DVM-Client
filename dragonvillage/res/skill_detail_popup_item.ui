@@ -36,8 +36,8 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 121.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -119.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 86;
@@ -62,8 +62,8 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 121.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -119.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 100;
@@ -81,8 +81,8 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 56.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -186.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 200;
@@ -121,8 +121,8 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 26.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -217.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 200;
@@ -161,12 +161,12 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -66.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -336.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 224;
-				height = 140;
+				width = 240;
+				height = 200;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -181,8 +181,8 @@
 				v_alignment = 0;
 				color = { 161; 125; 93; };
 				opacity = 255;
-				dimension_width = 224;
-				dimension_height = 140;
+				dimension_width = 240;
+				dimension_height = 200;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -197,6 +197,25 @@
 				shadow_distance = 5.000000;
 			};
 			[7] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = -310.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 224;
+				height = 140;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'skillDscNode';
+			};
+			[8] =
 			{
 				[1] =
 				{
@@ -371,7 +390,7 @@
 				disable = 'ui/btn/a_btn_0102.png';
 				image_type = 1;
 			};
-			[8] =
+			[9] =
 			{
 				[1] =
 				{
@@ -404,7 +423,7 @@
 					type = 'Scale9Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 307.000000;
+					y = 367.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -449,7 +468,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[9] =
+			[10] =
 			{
 				[1] =
 				{
@@ -515,7 +534,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[10] =
+			[11] =
 			{
 				[1] =
 				{
@@ -581,7 +600,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[11] =
+			[12] =
 			{
 				[1] =
 				{
@@ -626,8 +645,8 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 182.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -58.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 130;
@@ -647,13 +666,13 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[12] =
+			[13] =
 			{
 				type = 'Visual';
 				ui_name = '';
 				x = 0.000000;
-				y = 121.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -166.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 0;
@@ -679,8 +698,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 250;
-			height = 480;
+			width = 264;
+			height = 540;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -696,8 +715,8 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 0;
-		width = 250;
-		height = 480;
+		width = 264;
+		height = 540;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
 		skew_x = 0.000000;

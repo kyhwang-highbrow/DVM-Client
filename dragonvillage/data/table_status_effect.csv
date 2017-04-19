@@ -11,7 +11,7 @@ hit_rate_up,buff,적중률 증가,res/effect/effect_tactics_up/effect_tactics_up
 cri_dmg_up,buff,치명 피해 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/cri_dmg_up.png,x,false,3,15,0,0,0,0,0,100,0,0,0,0,0,,0,,,,,15,x,x,x,{1}초 동안 {2}만큼 치명 피해 증가,퍼센트+퍼센트 (합연산)
 attr_strengthen,buff,속성 강화,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,100,,0,,,,,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
 attr_weaken,buff,속성 약화,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,-100,,0,,,,,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
-attr_change,buff,속성 변환,res/effect/effect_wedjat/effect_wedjat.vrp,res/ui/icon/status_effect/electric_shock.png,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,,0,x,,,,x,x,x,x,x,x
+attr_change,buff,속성 변환,res/effect/effect_wedjat/effect_wedjat.vrp,res/ui/icon/status_effect/attr_change.png,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,,0,x,,,,x,x,x,x,x,x
 attr_change_earth,buff,속성 변환:땅,,,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,,0,earth,,,,x,x,x,x,x,x
 attr_change_water,buff,속성 변환:물,,,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,,0,water,,,,x,x,x,x,x,x
 attr_change_fire,buff,속성 변환:불,,,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,,0,fire,,,,x,x,x,x,x,x
