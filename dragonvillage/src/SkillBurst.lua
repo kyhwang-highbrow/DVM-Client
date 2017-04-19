@@ -54,7 +54,7 @@ end
 -- function runAttack
 -------------------------------------
 function SkillBurst:runAttack()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType)
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, nil)
 	
     for i, target_char in ipairs(l_target) do
 		-- 추가 데미지 여부 판별
