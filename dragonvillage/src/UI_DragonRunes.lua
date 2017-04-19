@@ -179,9 +179,13 @@ function UI_DragonRunes:init_tableViewTD()
     local function create_func(ui, data)
         ui.root:setScale(0.66)
 
-        --ui.m_dragonCard.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data) end)
         local rune_obj = data
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectedRuneObject(rune_obj) end)
+		
+		-- 선택된 룬 하이라이트
+		if (self.m_selectedRuneObject['roid'] == rune_obj['roid']) then
+			ui.vars['highlightSprite']:setVisible(true)
+		end
     end
 
     -- 테이블 뷰 인스턴스 생성
