@@ -57,6 +57,13 @@ function ServerData_Dragons:getDragonsList()
 end
 
 -------------------------------------
+-- function getDragonsListRef
+-------------------------------------
+function ServerData_Dragons:getDragonsListRef()
+    return self.m_serverData:getRef('dragons')
+end
+
+-------------------------------------
 -- function getDragonsList_specificDid
 -------------------------------------
 function ServerData_Dragons:getDragonsList_specificDid(did)
@@ -124,6 +131,7 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
 
     if (not dragon_obj) then
         self.m_dragonsCnt = self.m_dragonsCnt + 1
+        g_highlightData:addNewDoid(doid)
     end
 
     -- 룬 효과 체크
@@ -686,6 +694,9 @@ function ServerData_Dragons:request_dragonsInfo(finish_cb, fail_cb)
         self:applyDragonData_list(ret['dragons'])
 
         TABLE:setServerTable('table_dragon_skill_enhance', ret['table_dragon_skill_enhance'])
+
+        -- 새로 획득한 드래곤 확인
+        g_highlightData:loadNewDoidMap()
 
         if finish_cb then
             finish_cb(ret)

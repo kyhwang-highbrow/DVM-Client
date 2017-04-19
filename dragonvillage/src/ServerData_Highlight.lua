@@ -14,6 +14,10 @@ ServerData_Highlight = class({
         explore_reward = '',
         summon_free = '',
         ----------------------------------------------
+
+        ----------------------------------------------
+        m_newDoidMap = '',
+        ----------------------------------------------
     })
 
 -------------------------------------
@@ -86,4 +90,118 @@ end
 -------------------------------------
 function ServerData_Highlight:isHighlightQuest()
     return self['quest_reward']
+end
+
+-------------------------------------
+-- function isHighlightDragon
+-------------------------------------
+function ServerData_Highlight:isHighlightDragon()
+    local cnt = table.count(self.m_newDoidMap)
+
+    if (0 < cnt) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function getNewDoidMapFileName
+-------------------------------------
+function ServerData_Highlight:getNewDoidMapFileName()
+    local file = 'new_doid_map.json'
+    local path = cc.FileUtils:getInstance():getWritablePath()
+
+    local full_path = string.format('%s%s', path, file)
+    return full_path
+end
+
+-------------------------------------
+-- function loadNewDoidMap
+-------------------------------------
+function ServerData_Highlight:loadNewDoidMap()
+    self.m_newDoidMap = {}
+
+    local f = io.open(self:getNewDoidMapFileName(), 'r')
+    if f then
+        local content = f:read('*all')
+
+        if #content > 0 then
+            self.m_newDoidMap = json_decode(content)
+        end
+        f:close()
+    end
+
+
+    local dragons_map = g_dragonsData:getDragonsListRef()
+
+    -- 신규 드래곤이라고 관리되는 doid의 드래곤이 삭제되었을 경우를 위해 보정
+    for doid,_ in pairs(self.m_newDoidMap) do
+        if (not dragons_map[doid]) then
+            self.m_newDoidMap[doid] = nil
+        end
+    end
+    self:saveNewDoidMap()
+
+    self.m_lastUpdateTime = Timer:getServerTime()
+end
+
+-------------------------------------
+-- function saveNewDoidMap
+-------------------------------------
+function ServerData_Highlight:saveNewDoidMap()
+    local f = io.open(self:getNewDoidMapFileName(),'w')
+    if (not f) then
+        return false
+    end
+
+    -- cclog(luadump(self.m_newDoidMap))
+    local content = dkjson.encode(self.m_newDoidMap, {indent=true})
+    f:write(content)
+    f:close()
+
+    return true
+end
+
+-------------------------------------
+-- function addNewDoid
+-------------------------------------
+function ServerData_Highlight:addNewDoid(doid)
+    if (not self.m_newDoidMap) then
+        return
+    end
+
+    self.m_newDoidMap[doid] = true
+    self:saveNewDoidMap()
+
+    self.m_lastUpdateTime = Timer:getServerTime()
+end
+
+-------------------------------------
+-- function removeNewDoid
+-------------------------------------
+function ServerData_Highlight:removeNewDoid(doid)
+    if (not self.m_newDoidMap) then
+        return
+    end
+
+    self.m_newDoidMap[doid] = nil
+    self:saveNewDoidMap()
+
+    self.m_lastUpdateTime = Timer:getServerTime()
+end
+
+-------------------------------------
+-- function isNewDoid
+-------------------------------------
+function ServerData_Highlight:isNewDoid(doid)
+    if (not self.m_newDoidMap) then
+        return false
+    end
+
+    if self.m_newDoidMap[doid] then
+        return true
+    else
+        return false
+    end
 end

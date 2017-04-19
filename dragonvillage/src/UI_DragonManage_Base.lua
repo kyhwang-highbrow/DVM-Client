@@ -215,6 +215,9 @@ function UI_DragonManage_Base:setSelectDragonData(dragon_object_id, b_force)
 
     -- 선택된 드래곤이 변경되면 refresh함수를 호출
     self:refresh()
+
+    -- 신규 드래곤이면 삭제
+    g_highlightData:removeNewDoid(dragon_object_id)
 end
 
 -------------------------------------

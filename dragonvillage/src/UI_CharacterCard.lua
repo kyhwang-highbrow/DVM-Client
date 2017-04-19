@@ -532,6 +532,18 @@ function UI_DragonCard(t_dragon_data)
         end
     end
     ui.vars['clickBtn']:registerScriptPressHandler(func)
+
+    
+    -- 새로 획득한 드래곤 뱃지 (임시 코드)
+    if t_dragon_data:isNewDragon() then
+        local res = 'res/ui/btn/notification.png'
+        local sprite = cc.Sprite:create(res)
+        sprite:setDockPoint(cc.p(1, 1))
+        sprite:setAnchorPoint(cc.p(1, 1))
+        sprite:setScale(1.5)
+        ui.vars['clickBtn']:addChild(sprite, 100)
+    end
+
     return ui
 end
 

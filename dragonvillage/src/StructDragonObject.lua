@@ -261,3 +261,17 @@ function StructDragonObject:getDragonNameWithEclv()
 
     return dragon_name
 end
+
+-------------------------------------
+-- function isNewDragon
+-- @breif
+-------------------------------------
+function StructDragonObject:isNewDragon()
+    local doid = self['id']
+
+    if (not doid) then
+        return
+    end
+
+    return g_highlightData:isNewDoid(doid)
+end
