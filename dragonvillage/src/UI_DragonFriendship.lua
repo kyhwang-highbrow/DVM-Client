@@ -173,7 +173,12 @@ function UI_DragonFriendship:refreshFriendship()
     end
 
     -- 기분 게이지
-    self:setHeartGauge(t_friendship_info['feel_percent'])
+    if friendship_obj:isMaxFriendshipLevel() then
+        self:setHeartGauge(100)
+    else
+        self:setHeartGauge(t_friendship_info['feel_percent'])
+    end
+    
 end
 
 -------------------------------------
@@ -376,6 +381,17 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonFriendship:click_fruitBtn(fid, btn)
+    local t_dragon_data = self.m_selectDragonData
+
+    if (not t_dragon_data) then
+        return
+    end
+
+    local friendship_obj = t_dragon_data:getFriendshipObject()
+    if friendship_obj:isMaxFriendshipLevel() then
+        UIManager:toastNotificationRed(Str('최대 친밀도의 드래곤입니다.'))
+        return
+    end
 
     local count = g_userData:getFruitCount(fid)
     if (count <= 0) then
