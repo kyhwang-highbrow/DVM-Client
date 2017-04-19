@@ -73,7 +73,15 @@ function ServerData_Highlight:applyHighlightInfo(ret)
     end
     
     for key,value in pairs(t_highlight) do
-        self[key] = value
+        if (type(value) == 'boolean') then
+            if value then
+                self[key] = 1
+            else
+                self[key] = 0
+            end
+        else
+            self[key] = value
+        end
     end
 
     self.m_lastUpdateTime = Timer:getServerTime()
