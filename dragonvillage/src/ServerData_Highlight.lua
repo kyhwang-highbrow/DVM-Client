@@ -13,7 +13,7 @@ ServerData_Highlight = class({
         quest_reward = '',
         explore_reward = '',
         summon_free = '',
-        mail_cnt = '',
+        new_mail = '',
         ----------------------------------------------
 
         ----------------------------------------------
@@ -32,7 +32,7 @@ function ServerData_Highlight:init(server_data)
     self.quest_reward = 0
     self.explore_reward = 0
     self.summon_free = 0
-    self.mail_cnt = 0
+    self.new_mail = 0
 end
 
 -------------------------------------
@@ -112,7 +112,7 @@ end
 -- function isHighlightMail
 -------------------------------------
 function ServerData_Highlight:isHighlightMail()
-    return (0 < self['mail_cnt'])
+    return (0 < self['new_mail'])
 end
 
 -------------------------------------
