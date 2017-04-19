@@ -203,6 +203,10 @@ function UI_ScenarioPlayer:showPage()
             if t_page['t_char_name'] then
                 self.m_mCharacter[t_page['char_pos']]:setCharName(Str(t_page['t_char_name']))
             end
+
+            if t_page['char_ani'] then
+                self.m_mCharacter[t_page['char_pos']]:setCharAni(t_page['char_ani'])
+            end
             
         end
     end

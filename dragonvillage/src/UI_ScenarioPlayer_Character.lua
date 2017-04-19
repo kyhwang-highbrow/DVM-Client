@@ -228,19 +228,26 @@ end
 -- function doShake
 -------------------------------------
 function UI_ScenarioPlayer_Character:doShake(target)
-	-- 1. º¯¼ö ¼³Á¤
+	-- 1. ë³€ìˆ˜ ì„¤ì •
     local duration = duration or 0.5
 	local is_repeat = is_repeat or false
     local interval =  interval or 0.2
     local x, y = 30, 30
 
-	-- 2. ±âÁ¸¿¡ ÀÖ´ø ¾×¼Ç ÁßÁö
+	-- 2. ê¸°ì¡´ì— ìˆë˜ ì•¡ì…˜ ì¤‘ì§€
     target:stopAllActions()
 
-	-- 3. »õ·Î¿î ¾×¼Ç ¼³Á¤ 
+	-- 3. ìƒˆë¡œìš´ ì•¡ì…˜ ì„¤ì • 
     local start_action = cc.MoveTo:create(0, cc.p(x, y))
     local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), interval)
 	local sequence_action = cc.Sequence:create(start_action, end_action)
 
     target:runAction(sequence_action)
+end
+
+-------------------------------------
+-- function setCharAni
+-------------------------------------
+function UI_ScenarioPlayer_Character:setCharAni(ani)
+    self.m_charAnimator:changeAni(ani, true)
 end
