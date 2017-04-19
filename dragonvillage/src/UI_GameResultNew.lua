@@ -286,6 +286,7 @@ function UI_GameResultNew:direction_end()
         vars['skipLabel']:setVisible(false)
         vars['skipBtn']:setVisible(false)
 
+		vars['statsBtn']:setVisible(true)
         vars['retryBtn']:setVisible(true)
         vars['returnBtn']:setVisible(true)
 
