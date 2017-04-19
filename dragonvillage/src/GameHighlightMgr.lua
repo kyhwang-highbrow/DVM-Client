@@ -61,7 +61,6 @@ function GameHighlightMgr:update(dt)
         local dragons = dragon:getFellowList()
         local enemys = dragon.m_skillIndicator:getTargetForHighlight()
         
-        --Add({dragon})
         Add(dragons)
         Add(enemys)
     end

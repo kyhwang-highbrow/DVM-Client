@@ -586,7 +586,8 @@ function SkillIndicator:getTargetForHighlight()
 
     self:onTouchMoved(x, y)
 
-    return self.m_highlightList
+    local l_ret = self.m_highlightList or {}
+    return l_ret
 end
 
 -------------------------------------

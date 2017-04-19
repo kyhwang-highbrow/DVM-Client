@@ -91,7 +91,7 @@ function DragonSkillBonusHelper:doInvoke(dragon, l_target, bonus_level)
     -------------------------------------
     local world = dragon.m_world
 
-    -- 텍스트
+    -- 텍스트 표시
     do
         local desc = self:getBonusDesc(dragon, bonus_level)
         for i, dragon in ipairs(l_ally) do
@@ -102,7 +102,7 @@ function DragonSkillBonusHelper:doInvoke(dragon, l_target, bonus_level)
         end
     end
 
-    -- 이펙트
+    -- 이펙트 연출
     do
         local m_effect = {}
         function makeEffectMotionStreak(dragon, target)
