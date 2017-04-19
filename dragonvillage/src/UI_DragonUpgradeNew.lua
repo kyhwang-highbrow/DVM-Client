@@ -225,6 +225,7 @@ function UI_DragonUpgradeNew:refresh_stats(t_dragon_data)
     local chaged_dragon_data = {}
     local grade = t_dragon_data['grade']
     chaged_dragon_data['grade'] = math_min((grade + 1), MAX_DRAGON_GRADE)
+    chaged_dragon_data['lv'] = 1
     local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
 
     -- 변경된 레벨의 능력치

@@ -84,7 +84,11 @@ function UI_DragonUpgradeResult:refresh_status(dragon_object)
 
     local doid = dragon_object['id']
 
-    local status_calc = MakeOwnDragonStatusCalculator(doid, {['grade'] = dragon_object['grade'] - 1})
+    local chaged_dragon_data = {}
+    chaged_dragon_data['grade'] = (dragon_object['grade'] - 1)
+    chaged_dragon_data['lv'] = TableGradeInfo:getMaxLv(chaged_dragon_data['grade'])
+
+    local status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
     vars['atkLabel1']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['defLabel1']:setString(status_calc:getFinalStatDisplay('def'))
     vars['hpLabel1']:setString(status_calc:getFinalStatDisplay('hp'))
