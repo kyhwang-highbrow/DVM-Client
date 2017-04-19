@@ -24,6 +24,7 @@ PerpleScene = class
 
     m_timeScale = 'number',
     m_bShowTopUserInfo = 'boolean',
+	m_sceneName = 'string',
 }
 
 -------------------------------------

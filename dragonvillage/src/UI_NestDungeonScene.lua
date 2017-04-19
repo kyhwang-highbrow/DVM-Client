@@ -8,7 +8,11 @@ UI_NestDungeonScene = class(PARENT, {
         m_selectNestDungeonInfo = 'table', -- 현재 선택된 세부 모드
         m_bDirtyDungeonList = 'boolean',
 
+		m_stageID = 'num',
 		m_dungeonType = 'string',		-- 네스트 던전 타입
+		m_isIsolation = 'boolean',		-- 악몽, 황금 던전 구분
+		m_tempUI = 'UI',
+		m_tempData = 'table',
     })
 
 -------------------------------------
@@ -26,9 +30,10 @@ function UI_NestDungeonScene:init(stage_id, dungeon_type)
     --self:doActionReset()
     --self:doAction(nil, false)
 
+	self.m_stageID = stage_id
 	self.m_dungeonType = dungeon_type
 
-    self:initUI(stage_id)
+    self:initUI()
     self:initButton()
     self:refresh()
 
@@ -45,14 +50,25 @@ function UI_NestDungeonScene:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_NestDungeonScene'
     self.m_bUseExitBtn = true
-    self.m_titleStr = Str('네스트 던전')
+    if (self.m_dungeonType == NEST_DUNGEON_DRAGON) then
+		self.m_titleStr = Str('거대용 격추')
+	elseif (self.m_dungeonType == NEST_DUNGEON_TREE) then
+		self.m_titleStr = Str('거목 던전')
+	elseif (self.m_dungeonType == NEST_DUNGEON_NIGHTMARE) then
+		self.m_titleStr = Str('악몽 던전')
+	elseif (self.m_dungeonType == NEST_DUNGEON_GOLD) then
+		self.m_titleStr = Str('황금 던전')
+	end
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_NestDungeonScene:initUI(stage_id)
+function UI_NestDungeonScene:initUI()
     local vars = self.vars
+	
+	self.m_tempUI = nil
+	self.m_tempData = nil
 
     do -- 테이블 뷰 생성
         local node = vars['tableViewNode']
@@ -60,11 +76,22 @@ function UI_NestDungeonScene:initUI(stage_id)
 
 		-- 리스트 선 생성
 		local t_dungeon = g_nestDungeonData:getNestDungeonListForUIByType(self.m_dungeonType)
-
-        -- 셀 아이템 생성 콜백
-        local function create_func(ui, data)
-            ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data) end)
-        end
+        
+		-- 셀 아이템 생성 콜백
+		local create_func
+		local s_ui, s_data
+		if (table.count(t_dungeon) == 1) then
+			-- 1개 일때는 바로 열어주고 버튼을 등록하지 않음
+			create_func = function(ui, data)
+				self.m_tempUI = ui
+				self.m_tempData = data
+			end
+		else
+			-- 여러개일때는 버튼 등록
+			create_func = function(ui, data)
+				ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data) end)
+			end
+		end
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
@@ -88,17 +115,18 @@ function UI_NestDungeonScene:initUI(stage_id)
         table_view:makeAllItemUI()
 
         self.m_tableView = table_view
+		self.m_isIsolation = table.count(t_dungeon) == 1
     end
 
-    -- focus할 stage_id가 있을 경우 
-    if stage_id then
-        local dungeon_id = g_nestDungeonData:getDungeonIDFromStateID(stage_id)
 
+
+    -- focus할 stage_id가 있을 경우 
+    if self.m_stageID then
+        local dungeon_id = g_nestDungeonData:getDungeonIDFromStateID(self.m_stageID)
         for i,v in pairs(self.m_tableView.m_itemList) do
             if (dungeon_id == v['data']['mode_id']) then
                 local ui = self.m_tableView:getCellUI(v['unique_id'])
                 self:click_dungeonBtn(ui, v['data'], v['unique_id'])
-
                 -- 테이블 뷰에서 연출을 하기 위해 스케일이 변경된 상태 (원상복구를 위해 액션)
                 local scale_to = cc.ScaleTo:create(0.5, 1)
                 local action = cc.EaseInOut:create(scale_to, 2)
@@ -107,6 +135,10 @@ function UI_NestDungeonScene:initUI(stage_id)
                 break
             end
         end
+	-- @TODO 임시 처리
+	elseif (self.m_tempUI) then
+		self:click_dungeonBtn(self.m_tempUI, self.m_tempData)
+		self.m_tempUI.root:setScale(1)
     end
 end
 
@@ -163,11 +195,17 @@ end
 function UI_NestDungeonScene:click_exitBtn()
     if self.m_selectNestDungeonInfo then
         self:closeSubMenu()
-        return
+		if (not self.m_isIsolation) then
+			return
+		end
     end
 
-    local scene = SceneLobby()
-    scene:runScene()
+	if (g_currScene.m_sceneName == 'SceneNestDungeon') then
+		local scene = SceneLobby()
+		scene:runScene()
+	else
+		self:close()
+	end
 end
 
 

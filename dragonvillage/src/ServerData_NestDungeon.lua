@@ -215,6 +215,16 @@ function ServerData_NestDungeon:parseNestDungeonID(stage_id)
 end
 
 -------------------------------------
+-- function getDungeonMode
+-- @brief 네스트 
+--        거대용, 악몽, 거목
+-------------------------------------
+function ServerData_NestDungeon:getDungeonMode(stage_id)
+	local t_dungeon = g_nestDungeonData:parseNestDungeonID(stage_id)
+    return t_dungeon['dungeon_mode']
+end
+
+-------------------------------------
 -- function getDungeonIDFromStateID
 -- @brief
 -------------------------------------
