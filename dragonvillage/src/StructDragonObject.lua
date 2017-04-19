@@ -15,14 +15,6 @@ StructDragonObject = class({
 
         runes = 'table', -- 장착 룬 roid
 
-        -- 친밀도
-        flv = 'number',
-        fexp = 'number',
-        can_rollback = 'boolean',
-        def = '',
-        atk = '',
-        hp = '',
-
         skill_0 = 'number',
         skill_1 = 'number',
         skill_2 = 'number',

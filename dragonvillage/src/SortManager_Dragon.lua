@@ -226,8 +226,8 @@ function SortManager_Dragon:sort_friendship(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_value = a_data['flv']
-    local b_value = b_data['flv']
+    local a_value = a_data:getFlv()
+    local b_value = b_data:getFlv()
 
     -- 같을 경우 리턴
     if (a_value == b_value) then return nil end
