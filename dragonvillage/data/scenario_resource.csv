@@ -11,3 +11,4 @@ key,r_desc,type,res
 검은 로브 간부,,monster,res/scene/blackrobeboss_01.png
 스테이지1,,bg,res/bg/ui/dragon_bg_earth/dragon_bg_earth.vrp
 스테이지6,,bg,res/scene/ch12_bg.png
+로비,,bg,res/scene/lobby.png

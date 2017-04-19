@@ -49,7 +49,7 @@
         "SHAKE_CUSTOM_MAX_POS" : 15,
 
         // 빠른 모드시 배속
-        "QUICK_MODE_TIME_SCALE" : 1.25,
+        "QUICK_MODE_TIME_SCALE" : 1.5,
 		
 		// 적군 로밍 이동 시간
 		"ENEMY_ROAM_TIME_RANGE" : [ 1.5, 3 ],

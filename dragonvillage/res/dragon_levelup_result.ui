@@ -238,9 +238,9 @@
 				rotation = 0.000000;
 				visible = true;
 				action_type = 2;
-				action_delay_1 = 0.030000;
+				action_delay_1 = 0.800000;
 				action_delay_2 = 0.000000;
-				action_duration = 0.500000;
+				action_duration = 1.500000;
 				lua_name = 'okBtn';
 				enable = true;
 				normal = 'ui/btn/a_btn_0201.png';
@@ -414,7 +414,7 @@
 				action_type = 2;
 				action_delay_1 = 0.000000;
 				action_delay_2 = 0.000000;
-				action_duration = 0.500000;
+				action_duration = 1.500000;
 				lua_name = '';
 				file_name = 'ui/frame/result_status_bg.png';
 				color = { 255; 255; 255; };
@@ -588,9 +588,9 @@
 				rotation = 0.000000;
 				visible = true;
 				action_type = 2;
-				action_delay_1 = 0.010000;
+				action_delay_1 = 0.020000;
 				action_delay_2 = 0.000000;
-				action_duration = 0.500000;
+				action_duration = 1.500000;
 				lua_name = '';
 				file_name = 'ui/frame/result_status_bg.png';
 				color = { 255; 255; 255; };
@@ -764,9 +764,9 @@
 				rotation = 0.000000;
 				visible = true;
 				action_type = 2;
-				action_delay_1 = 0.020000;
+				action_delay_1 = 0.040000;
 				action_delay_2 = 0.000000;
-				action_duration = 0.500000;
+				action_duration = 1.500000;
 				lua_name = '';
 				file_name = 'ui/frame/result_status_bg.png';
 				color = { 255; 255; 255; };

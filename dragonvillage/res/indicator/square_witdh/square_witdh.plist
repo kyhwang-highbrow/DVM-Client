@@ -20,7 +20,7 @@
             <key>square_witdh_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,356},{494,352}}</string>
+                <string>{{504,2},{494,352}}</string>
                 <key>offset</key>
                 <string>{-3,0}</string>
                 <key>rotated</key>
@@ -33,20 +33,33 @@
             <key>square_witdh_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,710},{468,112}}</string>
+                <string>{{128,356},{468,112}}</string>
                 <key>offset</key>
                 <string>{16,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{32,29},{468,112}}</string>
+                <key>sourceSize</key>
+                <string>{500,170}</string>
+            </dict>
+            <key>square_witdh_03_s.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,356},{478,124}}</string>
+                <key>offset</key>
+                <string>{7,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{18,23},{478,124}}</string>
                 <key>sourceSize</key>
                 <string>{500,170}</string>
             </dict>
             <key>square_witdh_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{168,851},{54,112}}</string>
+                <string>{{132,826},{54,112}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +72,7 @@
             <key>square_witdh_line.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{472,710},{26,139}}</string>
+                <string>{{2,836},{26,139}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,11 +85,11 @@
             <key>square_witdh_select_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,851},{62,120}}</string>
+                <string>{{30,958},{62,120}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,25},{62,120}}</string>
                 <key>sourceSize</key>
@@ -85,7 +98,7 @@
             <key>square_witdh_select_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,851},{100,120}}</string>
+                <string>{{30,836},{100,120}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -103,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>square_witdh.png</string>
             <key>size</key>
-            <string>{512,1024}</string>
+            <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:0215d834a96e1ada97c3da81a8c59e8c$</string>
+            <string>$TexturePacker:SmartUpdate:3f46835da111d7a75ce8a8fae67017f4$</string>
             <key>textureFileName</key>
             <string>square_witdh.png</string>
         </dict>
