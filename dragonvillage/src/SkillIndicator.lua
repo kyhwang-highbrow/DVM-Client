@@ -398,8 +398,11 @@ end
 -------------------------------------
 function SkillIndicator:setIndicatorDataByChar(char)
     local pos_x, pos_y = self:getAttackPosition()
-    --local pos_x, pos_y = self.m_hero.pos.x, self.m_hero.pos.y
     local x, y = char:getPosition()
+    local body = char:getBody()
+    x = x + body.x
+    y = y + body.y
+
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
     
     self.m_targetDir = dir
