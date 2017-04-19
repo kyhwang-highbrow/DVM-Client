@@ -370,7 +370,7 @@ function SkillIndicator:onChangeIndicatorEffect(indicator, bonus_lv, pre_bonus_l
 	local l_color_lv = g_constant:get('INDICATOR', 'COLOR_LEVEL')
 	local color = l_color_lv[tostring(bonus_lv)]
 	if (type(color) == 'string') then
-		color = COLOR[color_key]
+		color = COLOR[color]
 	else
 		color = cc.c3b(color[1], color[2], color[3])
 	end
