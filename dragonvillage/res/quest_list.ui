@@ -542,7 +542,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 3;
 					width = 0;
-					height = 0;
+					height = -12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -550,7 +550,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/list_frame_0101.png';
+					file_name = 'ui/frame/a_list_01.png';
 					color = { 0; 0; 0; };
 					opacity = 150;
 					center_rect_x = 0;
