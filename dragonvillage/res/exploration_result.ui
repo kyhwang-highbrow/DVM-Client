@@ -480,7 +480,7 @@
 						type = 'Visual';
 						ui_name = '';
 						x = 0.000000;
-						y = -20.000000;
+						y = -128.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -754,7 +754,7 @@
 						type = 'Visual';
 						ui_name = '';
 						x = 0.000000;
-						y = -20.000000;
+						y = -128.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1028,7 +1028,7 @@
 						type = 'Visual';
 						ui_name = '';
 						x = 0.000000;
-						y = -20.000000;
+						y = -128.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1302,7 +1302,7 @@
 						type = 'Visual';
 						ui_name = '';
 						x = 0.000000;
-						y = -20.000000;
+						y = -128.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1576,7 +1576,7 @@
 						type = 'Visual';
 						ui_name = '';
 						x = 0.000000;
-						y = -20.000000;
+						y = -128.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
