@@ -175,11 +175,11 @@ function UI_CollectionDetailPopup:onChangeEvolution()
     local t_dragon_data = self:makeDragonData()
 
     do -- 드래곤 인게임 리소스
-        vars['dragonNode']:removeAllChildren()
         local evolution = self:getEvolutionNumber()
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+        vars['dragonNode']:removeAllChildren()
         vars['dragonNode']:addChild(animator.m_node)
     end
 
