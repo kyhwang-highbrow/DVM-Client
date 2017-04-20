@@ -133,9 +133,6 @@ function SkillHitEffectDirector:doWork(count)
     local shot_label = vars['shotLabel']
     if (shot_label) then
         shot_label:setString(tostring(count))
-        shot_label:setScale(1.4)
-        shot_label:stopAllActions()
-        shot_label:runAction(cc.ScaleTo:create(0.15, 1))
     end
 
     local hit_label = vars['hitLabel']
