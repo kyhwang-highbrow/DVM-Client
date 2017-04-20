@@ -19,7 +19,7 @@ page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_na
 18,cleartext,,,,손을 내미는 누리,,,,,,,,,,
 19,black;0,fadein,skip_enable,1,,,,,,,,,,,
 20,,skip_disable,,3,,,,,,,,,,,
-21,black;0,fadein,,,스테이지1,,,,누리,???,right,silhouette,,이런… 큰일이야. \\n심하게 다쳤어. \\n정신이 들어?,
+21,black;0,fadein,,,스테이지1,,,,누리,???,right,,,이런… 큰일이야. \\n심하게 다쳤어. \\n정신이 들어?,
 22,,,,,,,,,누리,???,right,,,,그보다… 여긴 대체 어디지?\\n처음 보는 풍경인데….
 23,,,,,,,,,고니,고니,left,,,당신은… \\n누…구.,
 24,,,,2,,,,,고니,고니,left,disappear_down,,으.........,
