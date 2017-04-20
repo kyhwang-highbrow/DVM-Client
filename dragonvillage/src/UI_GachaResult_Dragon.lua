@@ -15,7 +15,7 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list)
     self.m_lGachaDragonList = clone(l_gacha_dragon_list)
 
     local vars = self:load('gacha_result.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- @UI_ACTION
     self:doActionReset()

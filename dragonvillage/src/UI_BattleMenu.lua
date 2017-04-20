@@ -23,7 +23,7 @@ end
 -------------------------------------
 function UI_BattleMenu:init()
     local vars = self:load('battle_menu.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BattleMenu')
@@ -35,6 +35,8 @@ function UI_BattleMenu:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self:sceneFadeInAction()
 end
 
 -------------------------------------
