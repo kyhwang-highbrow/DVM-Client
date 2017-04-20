@@ -264,6 +264,13 @@ function Character:getTargetListByTable(t_skill)
 	local target_type = t_skill['target_type']
 	local target_count = t_skill['target_count']
     local target_formation = t_skill['target_formation']
+
+    if (target_type == '') then 
+        local sid = tostring(t_skill['sid'])
+        local name = tostring(t_skill['t_name'])
+		error('타겟 타입이 없네요..ㅠ 테이블 수정해주세요 ' .. sid .. ' ' .. name)
+	end
+
     return self:getTargetListByType(target_type, target_count, target_formation)
 end
 
