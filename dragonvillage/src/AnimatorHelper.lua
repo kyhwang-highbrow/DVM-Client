@@ -9,7 +9,7 @@ function AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
 	local animator = MakeAnimator(res_name)
 
     if (not animator.m_node) then
-        animator = MakeAnimator('res/character/dragon/developing_dragon/developing_dragon.spine')
+        animator = MakeAnimator('res/character/dragon/estimia_earth_03/estimia_earth_03.spine')
     end
 
     if animator then
