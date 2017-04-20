@@ -348,33 +348,33 @@
 		};
 		[4] =
 		{
-			type = 'Sprite';
-			ui_name = '';
-			x = 0.000000;
-			y = -38.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 1268;
-			height = 660;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-			file_name = 'ui/frame/colosseum_frame_01.png';
-			color = { 255; 255; 255; };
-			opacity = 255;
-			flip_x = false;
-			flip_y = false;
-			src_blend = 770;
-			dest_blend = 771;
-		};
-		[5] =
-		{
 			[1] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 340;
+				height = 644;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/colosseum_frame_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
 			{
 				[1] =
 				{
@@ -419,7 +419,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -164.000000;
+				y = -266.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -433,23 +433,23 @@
 				visible = true;
 				lua_name = 'readyBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0203.png';
+				normal = 'ui/btn/a_btn_0204.png';
 				selected = 'ui/btn/a_btn_0202.png';
 				disable = 'ui/btn/a_btn_0202.png';
 				image_type = 1;
 			};
-			[2] =
+			[3] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -84.000000;
+					y = -97.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 200;
+					width = 281;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -459,13 +459,13 @@
 					visible = true;
 					lua_name = 'myTierLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 34;
+					font_size = 28;
 					text = 'myTierLabel';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 200;
+					dimension_width = 281;
 					dimension_height = 50;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -483,7 +483,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 1.000000;
-				y = 237.000000;
+				y = 228.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -497,52 +497,12 @@
 				visible = true;
 				lua_name = 'myTierIconNode';
 			};
-			[3] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 59.000000;
-				y = 110.000000;
-				dock_point = { 0.000000; 0.500000; };
-				anchor_point = { 0.000000; 0.500000; };
-				relative_size_type = 0;
-				width = 93;
-				height = 40;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 18;
-				text = '현재 순위';
-				h_alignment = 0;
-				v_alignment = 1;
-				color = { 244; 224; 177; };
-				opacity = 255;
-				dimension_width = 93;
-				dimension_height = 40;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
 			[4] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 59.000000;
-				y = 77.000000;
+				y = 56.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -556,8 +516,8 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 18;
-				text = '현재 점수';
+				font_size = 22;
+				text = '순위';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 244; 224; 177; };
@@ -582,7 +542,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 59.000000;
-				y = 47.000000;
+				y = 23.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -596,8 +556,8 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 18;
-				text = '현재 승률';
+				font_size = 22;
+				text = '점수';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 244; 224; 177; };
@@ -622,7 +582,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 59.000000;
-				y = 16.000000;
+				y = -7.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -636,8 +596,8 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 18;
-				text = '현재 연승';
+				font_size = 22;
+				text = '승률';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 244; 224; 177; };
@@ -662,7 +622,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -61.000000;
-				y = 107.000000;
+				y = 56.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -676,7 +636,7 @@
 				visible = true;
 				lua_name = 'myRankLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 24;
 				text = '{0}위({0}%)';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -702,7 +662,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -60.000000;
-				y = 77.000000;
+				y = 23.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -716,7 +676,7 @@
 				visible = true;
 				lua_name = 'myPointLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 24;
 				text = '{0}점';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -742,7 +702,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -60.000000;
-				y = 47.000000;
+				y = -7.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -756,7 +716,7 @@
 				visible = true;
 				lua_name = 'myWinRateLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 24;
 				text = '{0}승{0}패({0}%)';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -780,11 +740,11 @@
 			[10] =
 			{
 				type = 'LabelTTF';
-				ui_name = '';
-				x = -60.000000;
-				y = 16.000000;
-				dock_point = { 1.000000; 0.500000; };
-				anchor_point = { 1.000000; 0.500000; };
+				ui_name = 'rich';
+				x = 19.000000;
+				y = -61.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 192;
 				height = 40;
@@ -797,22 +757,22 @@
 				lua_name = 'myWinstreakLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '{0}회';
-				h_alignment = 2;
+				text = '{0}회 연승 중!';
+				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 192;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -835,7 +795,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'timeGauge';
 					file_name = 'ui/gauge/colosseum_gg_01.png';
 					color = { 255; 255; 255; };
@@ -854,7 +814,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -1.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -891,15 +851,15 @@
 				};
 				[3] =
 				{
-					type = 'Sprite';
+					type = 'LabelTTF';
 					ui_name = '';
-					x = -133.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					x = 60.000000;
+					y = 30.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 30;
-					height = 30;
+					width = 262;
+					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -907,18 +867,32 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/time.png';
-					color = { 255; 255; 255; };
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = '시즌 종료까지';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 244; 224; 177; };
 					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
+					dimension_width = 262;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
 				};
 				type = 'Node';
 				ui_name = '';
-				x = 1.000000;
-				y = -35.000000;
+				x = 0.000000;
+				y = -141.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -977,7 +951,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = -72.000000;
-				y = -91.000000;
+				y = -193.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1041,7 +1015,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 72.000000;
-				y = -91.000000;
+				y = -193.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1062,12 +1036,12 @@
 			};
 			type = 'Menu';
 			ui_name = '';
-			x = 448.000000;
-			y = -36.000000;
+			x = 456.000000;
+			y = -27.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 383;
+			width = 340;
 			height = 644;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
