@@ -754,7 +754,7 @@ end
 function Dragon:changeState(state, forced)
     if self.m_bWaitState then
         if (not isExistValue(state, 'dying', 'dead')) then
-            return PARENT.changeState(self, 'wait', false)
+            return PARENT.changeState(self, 'wait', true)
         end
     end
 

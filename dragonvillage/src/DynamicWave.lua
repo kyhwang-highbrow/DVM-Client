@@ -108,6 +108,10 @@ function DynamicWave:update(dt)
 			monster:setRegenInfo(self.m_regenWaveInfo)
 			-- 강제로 패시브 동작
 			monster:doSkill_passive()
+            -- HP 즉시 표시
+            if(monster.m_hpNode) then
+                monster.m_hpNode:setVisible(true)
+            end
 		end
 
         -- 아이템을 드랍하는 몬스터라면

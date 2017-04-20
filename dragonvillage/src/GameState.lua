@@ -532,7 +532,7 @@ function GameState.update_success_wait(self, dt)
         b = false
     end
 
-    if (b or self.m_stateTimer >= 10) then
+    if (b or self.m_stateTimer >= 8) then
         self:changeState(GAME_STATE_SUCCESS)
     end    
 end
