@@ -202,7 +202,7 @@ function UI_CollectionDetailPopup:onChangeEvolution()
 
         -- 스킬 상세정보 팝업
         local function func_skill_detail_btn()
-            UI_SkillDetailPopup(t_dragon_data, true)
+            UI_SkillDetailPopup(t_dragon_data)
         end
 
         local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
