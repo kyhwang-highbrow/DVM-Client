@@ -17,6 +17,84 @@
                 <key>sourceSize</key>
                 <string>{361,361}</string>
             </dict>
+            <key>target_cone_45_45_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{365,30},{112,101}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{112,101}}</string>
+                <key>sourceSize</key>
+                <string>{112,101}</string>
+            </dict>
+            <key>target_cone_45_45_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{365,177},{87,87}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{87,87}}</string>
+                <key>sourceSize</key>
+                <string>{87,87}</string>
+            </dict>
+            <key>target_cone_45_45_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{454,178},{40,40}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{40,40}}</string>
+                <key>sourceSize</key>
+                <string>{40,40}</string>
+            </dict>
+            <key>target_cone_45_45_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{479,30},{27,27}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{27,27}}</string>
+                <key>sourceSize</key>
+                <string>{27,27}</string>
+            </dict>
+            <key>target_cone_45_45_06.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{365,133},{88,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{88,42}}</string>
+                <key>sourceSize</key>
+                <string>{88,42}</string>
+            </dict>
+            <key>target_cone_45_45_07.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{455,133},{43,43}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{43,43}}</string>
+                <key>sourceSize</key>
+                <string>{43,43}</string>
+            </dict>
             <key>target_cone_45_line.png</key>
             <dict>
                 <key>frame</key>
@@ -40,7 +118,7 @@
             <key>size</key>
             <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:debe8c8f7107455834ecd5182d8c611a$</string>
+            <string>$TexturePacker:SmartUpdate:405e18499c0885976eca856424cf4e46$</string>
             <key>textureFileName</key>
             <string>target_cone_45.png</string>
         </dict>

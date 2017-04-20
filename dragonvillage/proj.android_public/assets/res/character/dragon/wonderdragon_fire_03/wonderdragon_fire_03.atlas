@@ -1,0 +1,314 @@
+
+wonderdragon_fire_03.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wonderdragon_fire_03_arm_01
+  rotate: true
+  xy: 538, 72
+  size: 152, 110
+  orig: 152, 110
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_body_01
+  rotate: false
+  xy: 1198, 294
+  size: 194, 216
+  orig: 194, 216
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_body_01_03
+  rotate: false
+  xy: 1394, 294
+  size: 194, 216
+  orig: 194, 216
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_body_acc_01
+  rotate: false
+  xy: 2, 33
+  size: 340, 203
+  orig: 340, 203
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_body_neck_01
+  rotate: true
+  xy: 1785, 324
+  size: 186, 198
+  orig: 186, 198
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_body_shoulder_01
+  rotate: false
+  xy: 344, 104
+  size: 192, 120
+  orig: 192, 120
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_effect_01
+  rotate: true
+  xy: 966, 282
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_effect_02
+  rotate: false
+  xy: 1590, 317
+  size: 193, 193
+  orig: 193, 193
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_effect_03_0040
+  rotate: false
+  xy: 650, 82
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_effect_03_0042
+  rotate: false
+  xy: 1119, 140
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_effect_03_0044
+  rotate: false
+  xy: 1261, 152
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_effect_03_0046
+  rotate: false
+  xy: 1403, 152
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_effect_03_0048
+  rotate: false
+  xy: 1479, 10
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_effect_03_0050
+  rotate: false
+  xy: 1621, 57
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_effect_03_0052
+  rotate: false
+  xy: 792, 62
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_effect_03_0054
+  rotate: false
+  xy: 1785, 182
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_eye_01
+  rotate: true
+  xy: 2, 2
+  size: 29, 20
+  orig: 29, 20
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_eye_02
+  rotate: false
+  xy: 1226, 112
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_eye_03
+  rotate: false
+  xy: 1621, 3
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_eye_04
+  rotate: true
+  xy: 1545, 246
+  size: 46, 43
+  orig: 46, 43
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_hand_01_finger_1
+  rotate: true
+  xy: 1590, 199
+  size: 116, 175
+  orig: 116, 175
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_hand_01_finger_2
+  rotate: true
+  xy: 344, 14
+  size: 88, 174
+  orig: 88, 174
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_hand_01_finger_3
+  rotate: true
+  xy: 520, 4
+  size: 66, 125
+  orig: 66, 125
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_hand_02
+  rotate: true
+  xy: 682, 224
+  size: 128, 173
+  orig: 128, 173
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_hand_acc_01
+  rotate: false
+  xy: 626, 243
+  size: 35, 91
+  orig: 35, 91
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_hand_acc_02
+  rotate: true
+  xy: 1985, 328
+  size: 46, 61
+  orig: 46, 61
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_01
+  rotate: true
+  xy: 857, 204
+  size: 148, 107
+  orig: 148, 107
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_01_02
+  rotate: true
+  xy: 1261, 2
+  size: 148, 107
+  orig: 148, 107
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_01_03
+  rotate: true
+  xy: 1370, 2
+  size: 148, 107
+  orig: 148, 107
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_02
+  rotate: false
+  xy: 1763, 27
+  size: 80, 60
+  orig: 80, 60
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_02_02
+  rotate: false
+  xy: 1845, 27
+  size: 80, 60
+  orig: 80, 60
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_02_03
+  rotate: false
+  xy: 1927, 151
+  size: 80, 60
+  orig: 80, 60
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_acc_01
+  rotate: true
+  xy: 1927, 213
+  size: 109, 92
+  orig: 109, 92
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_acc_02
+  rotate: false
+  xy: 363, 281
+  size: 261, 53
+  orig: 261, 53
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_acc_03
+  rotate: false
+  xy: 363, 226
+  size: 261, 53
+  orig: 261, 53
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_armor_01
+  rotate: true
+  xy: 934, 67
+  size: 85, 149
+  orig: 85, 149
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_armor_02
+  rotate: false
+  xy: 1985, 376
+  size: 50, 134
+  orig: 50, 134
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_head_armor_03
+  rotate: true
+  xy: 1085, 64
+  size: 74, 139
+  orig: 74, 139
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_leg_01
+  rotate: true
+  xy: 1763, 89
+  size: 91, 137
+  orig: 91, 137
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_leg_02
+  rotate: true
+  xy: 966, 154
+  size: 126, 151
+  orig: 126, 151
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_mouth_01
+  rotate: true
+  xy: 934, 155
+  size: 47, 20
+  orig: 47, 20
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_tail_01
+  rotate: false
+  xy: 2, 238
+  size: 359, 272
+  orig: 359, 272
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_wing_01
+  rotate: false
+  xy: 363, 336
+  size: 317, 174
+  orig: 317, 174
+  offset: 0, 0
+  index: -1
+wonderdragon_fire_03_wing_02
+  rotate: false
+  xy: 682, 354
+  size: 282, 156
+  orig: 282, 156
+  offset: 0, 0
+  index: -1

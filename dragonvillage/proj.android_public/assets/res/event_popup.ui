@@ -7,15 +7,15 @@
 		{
 			[1] =
 			{
-				type = 'Sprite';
+				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 1280;
-				height = 720;
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -23,25 +23,25 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/event_frame.png';
+				file_name = 'ui/frame/a_frame_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
 			};
 			[2] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -485.000000;
-				y = -21.000000;
+				x = -474.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 260;
-				height = 640;
+				width = 280;
+				height = 670;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -54,8 +54,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 146.000000;
-				y = -38.000000;
+				x = 145.000000;
+				y = -27.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -71,15 +71,53 @@
 			};
 			[4] =
 			{
-				type = 'LabelTTF';
+				type = 'Node';
 				ui_name = '';
-				x = 146.000000;
-				y = 314.000000;
+				x = 145.000000;
+				y = -3.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 587;
-				height = 51;
+				width = 930;
+				height = 664;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'birthdayNode';
+			};
+			[5] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 145.000000;
+				y = 226.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 900;
+				height = 220;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'titleBgNode';
+			};
+			[6] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 145.000000;
+				y = 302.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 953;
+				height = 73;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -88,14 +126,14 @@
 				visible = true;
 				lua_name = 'titleLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
+				font_size = 40;
 				text = 'titleLabel';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 240; 215; 159; };
+				color = { 245; 181; 8; };
 				opacity = 255;
-				dimension_width = 587;
-				dimension_height = 51;
+				dimension_width = 953;
+				dimension_height = 73;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -109,14 +147,14 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[5] =
+			[7] =
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 611.000000;
-				y = 296.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				x = 20.000000;
+				y = 20.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 1.000000; 1.000000; };
 				relative_size_type = 0;
 				width = 80;
 				height = 80;
@@ -140,8 +178,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1280;
-			height = 720;
+			width = 1250;
+			height = 690;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

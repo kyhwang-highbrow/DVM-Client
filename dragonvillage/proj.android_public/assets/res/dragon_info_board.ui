@@ -469,7 +469,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -97.000000;
+					x = -121.000000;
 					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -486,7 +486,7 @@
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = 'Lv.{1}/{1}';
-					h_alignment = 0;
+					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
@@ -779,110 +779,6 @@
 				};
 				[7] =
 				{
-					type = 'Sprite';
-					ui_name = '';
-					x = -119.000000;
-					y = -138.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 72;
-					height = 72;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/frame/skill_slot.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[8] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = -39.000000;
-					y = -138.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 72;
-					height = 72;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/frame/skill_slot.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[9] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 40.000000;
-					y = -138.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 72;
-					height = 72;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/frame/skill_slot.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[10] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 120.000000;
-					y = -138.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 72;
-					height = 72;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/frame/skill_slot.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[11] =
-				{
 					type = 'Node';
 					ui_name = '';
 					x = 120.000000;
@@ -900,7 +796,7 @@
 					visible = true;
 					lua_name = 'skillNode3';
 				};
-				[12] =
+				[8] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -919,7 +815,7 @@
 					visible = true;
 					lua_name = 'skillNode2';
 				};
-				[13] =
+				[9] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -938,7 +834,7 @@
 					visible = true;
 					lua_name = 'skillNode1';
 				};
-				[14] =
+				[10] =
 				{
 					type = 'Node';
 					ui_name = '';
