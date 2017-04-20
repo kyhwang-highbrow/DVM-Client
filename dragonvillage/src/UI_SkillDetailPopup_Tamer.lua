@@ -19,8 +19,8 @@ function UI_SkillDetailPopup_Tamer:init(t_tamer)
     local vars = self:load('tamer_skill_detail_popup.ui')
     UIManager:open(self, UIManager.NORMAL)
 
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_SkillDetailPopup_Tamer')
+	-- @UI_ACTION
+    self:doActionReset()
 
     self:initUI()
     self:initButton()
@@ -63,16 +63,22 @@ end
 -- function show
 -------------------------------------
 function UI_SkillDetailPopup_Tamer:show()
-    self.root:setVisible(true)
-	g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_SkillDetailPopup_Tamer')
+	local function cb_func()
+		self.root:setVisible(true)
+		g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_SkillDetailPopup_Tamer')
+	end
+    self:doAction(cb_func, false)
 end
 
 -------------------------------------
 -- function hide
 -------------------------------------
 function UI_SkillDetailPopup_Tamer:hide()
-    self.root:setVisible(false)
-	g_currScene:removeBackKeyListener(self)
+	local function cb_func()
+		self.root:setVisible(false)
+		g_currScene:removeBackKeyListener(self)
+	end
+	self:doActionReverse(cb_func, 1, false)
 end
 
 -------------------------------------

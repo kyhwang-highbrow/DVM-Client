@@ -35,7 +35,6 @@ function UI_TamerManagePopup:init()
 	
 	-- skill popup 생성
 	self.m_skillUI = UI_SkillDetailPopup_Tamer()
-	self.m_skillUI:hide()
 
 	-- 초기화
     self:initUI()
