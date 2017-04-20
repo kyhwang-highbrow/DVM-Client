@@ -364,21 +364,33 @@ end
 -- function brightnessButton
 -------------------------------------
 function UI_GameDebug.brightnessButton(self, item, idx)
+    local map_mgr = self.m_world.m_mapManager
 
     local add_scale = nil
     if (idx == 1) then
         add_scale = 10
+        if (100 <= map_mgr.m_colorScale) then
+            add_scale = (-map_mgr.m_colorScale)
+        end
     elseif (idx == 2) then
         add_scale = -10
+        if (map_mgr.m_colorScale <= 0) then
+            add_scale = 100
+        end
     end
-
-    local map_mgr = self.m_world.m_mapManager
+    
     map_mgr.m_colorScale = math_clamp(map_mgr.m_colorScale + add_scale, 0, 100)
     
     local rgb = 255 * (map_mgr.m_colorScale / 100)
     map_mgr:tintTo(rgb, rgb, rgb, 0.5)
 
     item['label']:setString('배경 밝기 ' .. map_mgr.m_colorScale .. ' %')
+
+    if (map_mgr.m_colorScale <= 0) then
+        self.m_world.m_mapManager.m_node:setVisible(false)
+    else
+        self.m_world.m_mapManager.m_node:setVisible(true)
+    end
 end
 
 -------------------------------------
