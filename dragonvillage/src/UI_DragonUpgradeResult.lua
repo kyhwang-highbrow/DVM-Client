@@ -58,6 +58,8 @@ function UI_DragonUpgradeResult:refresh(dragon_object)
     -- 이름
     vars['dragonNameLabel']:setString(dragon_object:getDragonNameWithEclv())
 
+    vars['starVisual']:setVisible(false)
+
     -- 드래곤 에니메이터
     if vars['dragonNode'] then
         local dragon_animator = UIC_DragonAnimatorDirector()
@@ -65,12 +67,13 @@ function UI_DragonUpgradeResult:refresh(dragon_object)
         dragon_animator:setDragonAnimator(dragon_object['did'], dragon_object['evolution'], dragon_object['friendship']['flv'])
         local function cb()
             self:doAction(nil, false)
+
+            -- 등급 비주얼
+            vars['starVisual']:setVisible(true)
+            vars['starVisual']:changeAni('result' .. dragon_object['grade'])
         end
         dragon_animator:setDragonAppearCB(cb)
     end
-
-    -- 등급 비주얼
-    vars['starVisual']:changeAni('result' .. dragon_object['grade'])
 
     self:refresh_status(dragon_object)
 end
