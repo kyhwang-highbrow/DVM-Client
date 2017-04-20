@@ -57,6 +57,19 @@ function UI_GameResult_NestDungeon:click_nextBtn()
 end
 
 -------------------------------------
+-- function click_quickBtn
+-------------------------------------
+function UI_GameResult_NestDungeon:click_quickBtn()
+    if (not g_staminasData:checkStageStamina(self.m_stageID)) then
+        local msg = Str('입장권을 모두 소모하여 빠른 시작을 할 수 없습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+
+    PARENT.click_quickBtn(self)
+end
+
+-------------------------------------
 -- function makeRewardItem
 -------------------------------------
 function UI_GameResult_NestDungeon:makeRewardItem(i, v)
