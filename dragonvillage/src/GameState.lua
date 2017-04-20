@@ -528,7 +528,7 @@ function GameState.update_success_wait(self, dt)
     end
 
     local enemy_count = #world:getEnemyList()
-    if (enemy_count <= 0) then
+    if (enemy_count > 0) then
         b = false
     end
 
