@@ -159,7 +159,8 @@ function UI_MailPopup:click_rewardBtn(t_mail_data)
 				if (#ret['added_items']['dragons'] > 0) then
 					UI_GachaResult_Dragon(ret['added_items']['dragons'])
 				elseif (#ret['added_items']['runes'] > 0) then
-					UI_GachaResult_Rune(ret['added_items']['runes'])
+                    local item_id, count, t_sub_data = g_itemData:parseAddedItems_firstItem(ret['added_items'] or ret['add_items'])
+                    local ui = MakeSimpleRewarPopup(Str('룬'), item_id, count, t_sub_data)
 				else
 					UI_RewardPopup()
 				end
