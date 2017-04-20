@@ -396,6 +396,7 @@ function UI_Lobby:click_dragonManageBtn()
     local func = function()
         local ui = UI_DragonManageInfo()
         local function close_cb()
+            g_lobbyUserListData.m_bDirty = true
             self:sceneFadeInAction()
             self:refresh()
         end

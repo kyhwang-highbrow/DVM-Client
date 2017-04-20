@@ -8,6 +8,7 @@ ServerData_LobbyUserList = class({
 
         m_posX = '',
         m_posY = '',
+        m_bDirty = '',
     })
 
 -------------------------------------
@@ -15,6 +16,7 @@ ServerData_LobbyUserList = class({
 -------------------------------------
 function ServerData_LobbyUserList:init(server_data)
     self.m_serverData = server_data
+    self.m_bDirty = false
 end
 
 -------------------------------------
@@ -40,6 +42,7 @@ function ServerData_LobbyUserList:requestLobbyUserList(uid, success_cb, fail_cb)
 
     -- 성공 시 콜백 함수
     t_request['success'] = function(ret)
+        self.m_bDirty = true
         self:requestLobbyUserList_successCB(ret)
         success_cb(ret)
     end
@@ -180,7 +183,11 @@ end
 -- @brief 로비 유저 리스트 정보를 갱신해야 하는지 확인하는 함수
 -------------------------------------
 function ServerData_LobbyUserList:checkNeedUpdate_LobbyUserList()
-    
+
+    if (self.m_bDirty == true) then
+        return true
+    end
+
     do -- 0. 정보가 없는지 확인
         local l_lobby_user_list = self.m_serverData:get('lobby_user_list')
         if (not l_lobby_user_list) then
