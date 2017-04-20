@@ -178,6 +178,17 @@ function UI_AdventureStageInfo:refresh()
             local animator = AnimatorHelper:makeMonsterAnimator(res, attr)
             animator:changeAni('idle', true)
             vars['bossNode']:addChild(animator.m_node)
+            
+            -- 황금 던전 보스
+            if isExistValue(monster_id, 135031) then
+                animator:setScale(0.5)
+                animator:setPosition(200, 0)
+
+            -- 거목 던전 보스
+            elseif isExistValue(monster_id, 135021, 135022, 135023, 135024, 135025) then
+                animator:setScale(0.7)
+
+            end
         end
     end
 end
