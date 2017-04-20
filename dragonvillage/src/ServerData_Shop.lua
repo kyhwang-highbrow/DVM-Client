@@ -256,7 +256,6 @@ function ServerData_Shop:network_updateGoldAndCash(gold, cash, amethyst, honor, 
     ui_network:setParam('cash', cash)
     ui_network:setParam('amethyst', amethyst)
     ui_network:setParam('honor', honor)
-    ui_network:setParam('staminas', 'st,100')
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:setRevocable(b_revocable)
     ui_network:request()
