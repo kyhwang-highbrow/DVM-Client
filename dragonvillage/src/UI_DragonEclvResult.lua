@@ -11,7 +11,7 @@ UI_DragonEclvResult = class(PARENT, {
 -------------------------------------
 function UI_DragonEclvResult:init(dragon_object)
     local vars = self:load('dragon_transcend_result.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     self:sceneFadeInAction()
 

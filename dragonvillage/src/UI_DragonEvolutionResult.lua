@@ -11,7 +11,7 @@ UI_DragonEvolutionResult = class(PARENT, {
 -------------------------------------
 function UI_DragonEvolutionResult:init(dragon_object)
     local vars = self:load('dragon_evolution_result.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     self:sceneFadeInAction()
 

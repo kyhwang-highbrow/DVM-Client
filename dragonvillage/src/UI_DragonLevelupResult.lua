@@ -11,7 +11,7 @@ UI_DragonLevelupResult = class(PARENT, {
 -------------------------------------
 function UI_DragonLevelupResult:init(dragon_object, prev_lv)
     local vars = self:load('dragon_levelup_result.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     self:sceneFadeInAction()
 
