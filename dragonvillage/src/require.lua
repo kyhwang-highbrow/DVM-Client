@@ -596,7 +596,6 @@ local t_module = {
     'UI_SkillDetailPopupListItem',
     'UI_DragonGoodbye',   
     'UI_LobbyObject', 
-    'UI_DragonSkillLevelUpResult',
     'UI_DragonRunes',
     'UI_DragonRunesEnhance',
     'UI_DragonFriendship',
