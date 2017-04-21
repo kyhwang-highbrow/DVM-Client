@@ -98,14 +98,8 @@ function UI_DragonManageInfo:initButton()
     end
 
     do -- 좌상단 버튼들 초기화
-        -- 보기
-        vars['switchBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"보기" 미구현') end)
-
         -- 대표
         vars['leaderBtn']:registerScriptTapHandler(function() self:click_leaderBtn() end)
-
-        -- 평가
-        vars['assessBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"평가" 미구현') end)
 
         -- 잠금
         vars['lockBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"잠금" 미구현') end)
@@ -118,9 +112,6 @@ function UI_DragonManageInfo:initButton()
         -- 도감
         vars['collectionBtn']:setVisible(true)
         vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end)
-
-        -- 진화 단계 보기
-        vars['evolutionViewBtn']:registerScriptTapHandler(function() self:click_evolutionViewBtn() end)
     end
 
     do -- 기타 버튼
@@ -527,42 +518,13 @@ end
 
 -------------------------------------
 -- function click_collectionBtn
--- @brief 임시 도감
+-- @brief 도감
 -------------------------------------
 function UI_DragonManageInfo:click_collectionBtn()
     local function close_cb()
         self:checkDragonListRefresh()
     end
     g_collectionData:openCollectionPopup(close_cb)
-    --[[
-    local ui = UI_DragonManageInfoView()
-    ui:tempGstarInit()
-    --]]
-end
-
--------------------------------------
--- function click_evolutionViewBtn
--- @brief 드래곤 진화 단계 보기 팝업
--------------------------------------
-function UI_DragonManageInfo:click_evolutionViewBtn()
-    if (not self.m_selectDragonData) then
-        return
-    end
-
-    local l_dragon_id = {}
-    local curr_idx = nil
-
-    for idx, item in ipairs(self.m_tableViewExt.m_lItem) do
-        local data = item['data']
-        local did = data['did']
-        table.insert(l_dragon_id, did)
-
-        if (data['id'] == self.m_selectDragonOID) then
-            curr_idx = idx
-        end
-    end
-
-    UI_DragonManageInfoView(l_dragon_id, curr_idx)
 end
 
 -------------------------------------
