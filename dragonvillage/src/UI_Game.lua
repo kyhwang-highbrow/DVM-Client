@@ -257,7 +257,7 @@ end
 function UI_Game:init_dpsUI()
     local world = self.m_gameScene.m_gameWorld
 
-    local dps_ui = UI_GameDPS(world)
+    local dps_ui = UI_GameDPSPopup(world)
     self.vars['dpsInfoNode']:addChild(dps_ui.root)
 end
 

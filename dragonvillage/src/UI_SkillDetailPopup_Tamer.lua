@@ -64,7 +64,6 @@ end
 -------------------------------------
 function UI_SkillDetailPopup_Tamer:show()
 	local function cb_func()
-		self.root:setVisible(true)
 		g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_SkillDetailPopup_Tamer')
 	end
     self:doAction(cb_func, false)
@@ -75,7 +74,6 @@ end
 -------------------------------------
 function UI_SkillDetailPopup_Tamer:hide()
 	local function cb_func()
-		self.root:setVisible(false)
 		g_currScene:removeBackKeyListener(self)
 	end
 	self:doActionReverse(cb_func, 1, false)
