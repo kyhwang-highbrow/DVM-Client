@@ -62,13 +62,23 @@ end
 -- function initButton
 -------------------------------------
 function UI_ItemInfoPopup:initButton()
-    self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['locationBtn']:registerScriptTapHandler(function() self:click_locationBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ItemInfoPopup:refresh()
+end
+
+-------------------------------------
+-- function click_locationBtn
+-------------------------------------
+function UI_ItemInfoPopup:click_locationBtn()
+    local item_id = self.m_itemID
+    UI_AcquisitionRegionInformation(item_id)
 end
 
 

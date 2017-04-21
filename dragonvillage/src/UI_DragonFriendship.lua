@@ -396,6 +396,7 @@ function UI_DragonFriendship:click_fruitBtn(fid, btn)
     local count = g_userData:getFruitCount(fid)
     if (count <= 0) then
         UIManager:toastNotificationRed(Str('열매가 부족하네요!!'))
+        UI_ItemInfoPopup(fid)
         return
     end
 
