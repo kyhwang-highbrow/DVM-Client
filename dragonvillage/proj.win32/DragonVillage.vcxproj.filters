@@ -1068,9 +1068,6 @@
     <None Include="..\src\EffectMotionStreak.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_DragonExceedResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_BattleMenu.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1902,9 +1899,6 @@
     <None Include="..\src\UI_DragonUpgradeResult.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonEclvResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_DragonLevelupResult.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1952,6 +1946,9 @@
     </None>
     <None Include="..\src\ServerData_Highlight.lua">
       <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_DragonEclvResult.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

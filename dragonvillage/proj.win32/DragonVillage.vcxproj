@@ -727,7 +727,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonEclvResult.lua" />
     <None Include="..\src\UI_DragonEclvupNew.lua" />
     <None Include="..\src\UI_DragonEvolutionResult.lua" />
-    <None Include="..\src\UI_DragonExceedResult.lua" />
     <None Include="..\src\UI_DragonFriendship.lua" />
     <None Include="..\src\UI_DragonGoodbye.lua" />
     <None Include="..\src\UI_DragonInfoBoard.lua" />
