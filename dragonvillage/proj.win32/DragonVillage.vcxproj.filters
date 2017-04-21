@@ -663,9 +663,6 @@
     <None Include="..\src\UI_DragonManagementEvolution.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonManageUpgradeResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_EditBoxPopup.lua">
       <Filter>lua\UI</Filter>
     </None>

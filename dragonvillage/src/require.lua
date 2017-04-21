@@ -588,7 +588,6 @@ local t_module = {
     'UI_DragonUpgradeNew',
     'UI_DragonEclvupNew',
     'UI_DragonResearch',
-    'UI_DragonManageUpgradeResult',
     'UI_DragonManagementEvolution',
     'UI_DragonManageEvolutionResult',
     'UI_DragonManageFriendshipResult',
