@@ -12,8 +12,6 @@ UI_GameDPSPopup = class(PARENT, {
 		m_bDPS = 'bool',
 		m_logKey = 'str',
 
-		m_dpsNodePosY_top = 'num',
-		m_dpsNodePosY_gap = 'num',
 		m_rootWidth = 'num',
 
 		m_dpsTimer = 'timer',
@@ -36,9 +34,7 @@ function UI_GameDPSPopup:init(world)
 	self.m_bShow = true
 	self.m_bDPS = true
 	self.m_logKey = 'damage'
-	self.m_dpsNodePosY_top = vars['dpsNode1']:getPositionY()
-	self.m_dpsNodePosY_gap = vars['dpsNode1']:getPositionY() - vars['dpsNode2']:getPositionY()
-	self.m_rootWidth = vars['dpsNode1']:getContentSize()['width']
+	self.m_rootWidth = vars['listNode']:getContentSize()['width']
 	self.m_dpsTimer = 0
 	self.m_interval = g_constant:get('INGAME', 'DPS_INTERVAL')
 
@@ -61,10 +57,6 @@ function UI_GameDPSPopup:initUI()
 
 	-- 자체적으로 업데이트를 돌린다.
 	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-
-	for i = 1, 5 do
-		vars['dpsNode'..i]:setVisible(false)
-	end
 end
 
 -------------------------------------
