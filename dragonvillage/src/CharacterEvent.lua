@@ -47,7 +47,7 @@ function Character:onEvent_underAtkRate()
 	local sum_random = SumRandom()
 
     for i,v in pairs(self.m_lSkillIndivisualInfo['under_atk_rate']) do
-        local rate = (v.m_tSkill['chance_value'] * 100)
+        local rate = v.m_tSkill['chance_value']
         local skill_id = v.m_skillID
         sum_random:addItem(rate, skill_id)
     end
