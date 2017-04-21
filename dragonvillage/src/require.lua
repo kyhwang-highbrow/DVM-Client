@@ -496,7 +496,6 @@ local t_module = {
     'UI_SkillCard',
     'UI_DragonSkillCard',
     'UI_GachaResult_Dragon',
-	'UI_GachaResult_Rune',
     'UI_GuidePopup',
     'UI_NestDungeonScene',
     'UI_NestDungeonListItem',

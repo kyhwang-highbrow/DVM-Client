@@ -1401,9 +1401,6 @@
     <None Include="..\src\UI_GachaResult_Dragon.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_GachaResult_Rune.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ConfirmPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
