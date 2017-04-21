@@ -723,7 +723,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ColosseumResult.lua" />
     <None Include="..\src\UI_ColosseumRewardListItem.lua" />
     <None Include="..\src\UI_ColosseumRewardPopup.lua" />
-    <None Include="..\src\UI_DragonDetailPopup.lua" />
     <None Include="..\src\UI_DragonDevApiPopup.lua" />
     <None Include="..\src\UI_DragonEclvResult.lua" />
     <None Include="..\src\UI_DragonEclvupNew.lua" />

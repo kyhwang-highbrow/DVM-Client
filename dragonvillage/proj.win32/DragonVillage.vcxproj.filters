@@ -651,9 +651,6 @@
     <None Include="..\src\UI_ClassFormUseTopUserInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonDetailPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_DragonDevApiPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
