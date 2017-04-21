@@ -44,6 +44,10 @@ function AnimatorSpine:changeAni(animation_name, loop, checking)
         return
     end
 
+    if self.m_aniAttr then
+        animation_name = self:getAniNameAttr(animation_name)
+    end
+
     if (not checking) then
         if animation_name then
             if (not self.m_node:setAnimation(0, animation_name, loop)) then

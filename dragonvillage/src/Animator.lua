@@ -20,6 +20,9 @@ Animator = class({
 		m_aniRepeatIdx = 'number',
         m_timeScale = 'number', -- 0.0 ~ 1.0
         m_bAnimationPause = 'boolean',
+
+        m_aniMap = 'map',
+        m_aniAttr = 'string',
     })
 
 -------------------------------------
@@ -205,6 +208,39 @@ end
 -------------------------------------
 function Animator:setAnimationPause(pause)
     self.m_bAnimationPause = pause
+end
+
+-------------------------------------
+-- function setAniAttr
+-------------------------------------
+function Animator:setAniAttr(attr)
+    self.m_aniAttr = attr
+end
+
+-------------------------------------
+-- function getAniNameAttr
+-------------------------------------
+function Animator:getAniNameAttr(ani, attr)
+   if (not self.m_aniMap) then
+        local l_ani = self:getVisualList()
+        self.m_aniMap = {}
+        for i,v in pairs(l_ani) do
+            self.m_aniMap[v] = true
+        end
+   end
+
+   local attr = attr or self.m_aniAttr
+
+   if (not attr) then
+        return ani
+   end
+
+   local key = attr .. '_' .. ani
+   if self.m_aniMap[key] then
+        return key
+   else
+        return ani
+   end
 end
 
 
