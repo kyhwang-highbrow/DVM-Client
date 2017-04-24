@@ -42,8 +42,7 @@ function UI_Game:initUI()
 	local vars = self.vars
     
     vars['goldLabel']:setString('0')
-    vars['dragSkillLabel']:setString('0%')
-
+    
     -- 스테이지명 지정
     local stage_name = g_stageData:getStageName(self.m_gameScene.m_stageID)
     vars['stageLabel']:setString(stage_name)
@@ -366,36 +365,6 @@ function UI_Game:setTime(sec, is_limit)
 			vars['timeLabel']:setColor(cc.c3b(0, 255, 0))
 		end
 	end
-end
-
--------------------------------------
--- function setActiveSkillTime
--------------------------------------
-function UI_Game:setActiveSkillTime(cur, max)
-    local vars = self.vars
-
-    local percentage
-
-    if (max <= 0) then
-        percentage = 100
-    else
-        percentage = math_floor((cur / max) * 100)
-    end
-    
-    if (vars['dragSkillLabel']) then
-        local func = function(value, node)
-            node:setString(math_floor(value) .. '%')
-        end
-        local prev = vars['dragSkillGauge']:getPercentage()
-        local tween_action = cc.ActionTweenForLua:create(0.5, prev, percentage, func)
-
-        vars['dragSkillLabel']:stopAllActions()
-        vars['dragSkillLabel']:runAction(tween_action)
-    end
-
-    if (vars['dragSkillGauge']) then
-        vars['dragSkillGauge']:runAction(cc.ProgressTo:create(0.5, percentage))
-    end
 end
 
 -------------------------------------

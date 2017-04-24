@@ -273,12 +273,6 @@ function WaveMgr:newScenario()
 
 	local world = self.m_world
 
-    -- TODO 160504
-    do -- 웨이브 진행 정도
-        local percent = ((wave / self.m_maxWave) * 100)
-        world.m_inGameUI.vars['stageGauge']:runAction(cc.ProgressTo:create(0.1, percent))
-    end
-    
     if (not self.m_scriptData['wave'][wave]) then
         -- 다음 웨이브가 없다는 뜻(스테이지 클리어를 의미)
         return false
