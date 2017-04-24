@@ -19,8 +19,6 @@ Dragon = class(PARENT, {
         m_activeSkillAccumValue = 'number',     -- 누적값(초당 최대 획득량 제한을 위함)
         m_activeSkillAccumTimer = 'number',
 
-        m_dragSkillNode = '',
-        m_dragSkillNodeOffset = 'cc.p',
         m_skillPrepareEffect = '',
 
         m_afterimageMove = 'number',
@@ -48,9 +46,6 @@ function Dragon:init(file_name, body, ...)
     self.m_activeSkillIncValuePerSec = 0
     self.m_activeSkillAccumValue = 0
     self.m_activeSkillAccumTimer = -1
-
-    self.m_dragSkillNode = nil
-    self.m_dragSkillNodeOffset = cc.p(0, 0)
 
     self.m_bUseSelfAfterImage = false
     self.m_skillPrepareEffect = nil
@@ -551,14 +546,10 @@ function Dragon:release()
     if (self.m_hpNode) then
         self.m_hpNode:removeFromParent(true)
     end
-    if (self.m_dragSkillNode) then
-        self.m_dragSkillNode.m_node:removeFromParent(true)
-    end
-    
+        
     self.m_hpNode = nil
     self.m_hpGauge = nil
-    self.m_dragSkillNode = nil
-
+    
     Entity.release(self)
 end
 
@@ -614,12 +605,6 @@ function Dragon:makeHPGauge(hp_ui_offset)
     self.m_hpGauge = ui.vars['hpGauge']
     self.m_hpGauge2 = ui.vars['hpGauge2']
 
-    self.m_dragSkillNode = ui.vars['dragSkllFullVisual']
-    self.m_dragSkillNode.m_node:retain()
-    self.m_dragSkillNode.m_node:removeFromParent(true)
-    self.m_world.m_groundNode:addChild(self.m_dragSkillNode.m_node, 1)
-    self.m_dragSkillNode.m_node:release()
-        
     self.m_statusNode = self.m_hpNode
     
     --self.m_world.m_unitInfoNode:addChild(self.m_hpNode, 5)

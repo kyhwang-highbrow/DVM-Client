@@ -1016,46 +1016,6 @@
 		{
 			[1] =
 			{
-				type = 'SocketNode';
-				socket_name = 'skill_cancel_01';
-			};
-			[2] =
-			{
-				type = 'SocketNode';
-				socket_name = 'skill_cancel_02';
-			};
-			[3] =
-			{
-				type = 'SocketNode';
-				socket_name = 'fever_number';
-			};
-			type = 'Visual';
-			ui_name = '';
-			x = -102.000000;
-			y = 245.000000;
-			dock_point = { 1.000000; 0.500000; };
-			anchor_point = { 1.000000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			lua_name = 'skillCancelVisual';
-			file_name = 'ui/a2d/ingame_fever/ingame_fever.a2d';
-			auto_play = false;
-			is_repeat = false;
-			visual_id = 'fever;skill_cancel';
-			color = { 255; 255; 255; };
-			opacity = 255;
-		};
-		[11] =
-		{
-			[1] =
-			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
@@ -1120,7 +1080,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[12] =
+		[11] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1149,7 +1109,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[13] =
+		[12] =
 		{
 			[1] =
 			{
@@ -1217,7 +1177,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[14] =
+		[13] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1246,7 +1206,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[15] =
+		[14] =
 		{
 			[1] =
 			{
@@ -1354,7 +1314,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[16] =
+		[15] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1383,7 +1343,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[17] =
+		[16] =
 		{
 			[1] =
 			{
@@ -1451,7 +1411,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[18] =
+		[17] =
 		{
 			[1] =
 			{
@@ -1580,7 +1540,7 @@
 			action_duration = 0.500000;
 			lua_name = 'autoStartNode';
 		};
-		[19] =
+		[18] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -1608,7 +1568,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[20] =
+		[19] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -1631,7 +1591,7 @@
 			action_duration = 0.500000;
 			lua_name = 'buffNode';
 		};
-		[21] =
+		[20] =
 		{
 			type = 'Menu';
 			ui_name = '';

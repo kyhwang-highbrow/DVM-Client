@@ -181,7 +181,6 @@ function getPreloadList_Common()
         'res/effect/effect_skillcut_dragon/effect_skillcut_dragon.plist',
 
         'res/indicator/indicator_effect_target/indicator_effect_target.plist',
-        'res/ui/a2d/ingame_combo_text/ingame_combo_text.plist',
         'res/ui/a2d/enemy_skill_speech/enemy_skill_speech.plist',
         'res/ui/a2d/ingame_enemy/ingame_enemy.plist'
     }

@@ -89,32 +89,6 @@ function AnimatorHelper:makeMonsterAnimator(res_name, attr)
 end
 
 -------------------------------------
--- function makeMonsterAnimator
--------------------------------------
-function AnimatorHelper:makeInstanceHitComboffect(combo_name, cbFunction)
-	local animator = MakeAnimator('res/ui/a2d/ingame_combo_text/ingame_combo_text.vrp')
-	
-	-- 1. 생성 실패시 탈출
-	if (not animator) then return nil end
-
-	-- 2. 기본 중앙 정렬
-	animator:setAnchorPoint(0.5, 0.5)
-	animator:setDockPoint(0.5, 0.5)
-	
-	-- 3. ani 이름 있을 시 change 
-	if combo_name then
-		animator:changeAni(combo_name, false)
-	end
-
-	-- 4. 콜백 있을 시 등록
-	if cbFunction then
-		animator:addAniHandler(cbFunction)
-	end
-
-	return animator
-end
-
--------------------------------------
 -- function getDragonResName
 -------------------------------------
 function AnimatorHelper:getDragonResName(res_name, evolution, attr)
