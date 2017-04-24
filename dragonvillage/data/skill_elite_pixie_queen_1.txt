@@ -23,6 +23,7 @@
 				"missile_type":"pass",
 				"vanish_time":1.5,
 				"res_depth":"bottom",
+				"damage_rate":10,
 				
                 "effect":
                 {
@@ -51,6 +52,7 @@
 				"missile_type":"pass",
 				"vanish_time":1.5,
 				"res_depth":"bottom",
+				"damage_rate":10,
 				
                 "effect":
                 {
@@ -96,7 +98,8 @@
 						"angular_velocity":0,
 						"offset":[0,0],
 						"dir_array":['random'],
-						"dir_add":0
+						"dir_add":0,
+						"damage_rate":10
 					}
 				],
 				
