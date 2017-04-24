@@ -6,7 +6,7 @@
         "guide_dragon":120014,
         "t_desc":"오늘도 반가워!",
         "t_help":"출석 보너스는 매월 1일 초기화됩니다.",
-        "expiration":만료기한 타임스템프,
+        "expiration":"만료기한 타임스템프",
         "step_list":
         [
             {
