@@ -2,7 +2,7 @@
 	"layer":
     [
         {
-            "name":"배경"
+            "name":"ë°°ę˛˝"
             "speed":0
 			"list":
 			[
