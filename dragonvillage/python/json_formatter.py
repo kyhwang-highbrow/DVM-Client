@@ -7,11 +7,26 @@ import json
 DATA_ROOT = '../data/'
 INVALID_DATA_TABLE = []
 
-re_1 = re.compile(r'\"\s+\"')
-re_3 = re.compile(r'\"\s+(?P<num>\d)')
-re_4 = re.compile(r'(?P<num>\d)\s+\"')
-re_5 = re.compile(r'[}]\s+[{]"')
-re_6 = re.compile(r'[]]\s+[[]"')
+# 큰따옴표나 작은 따옴표
+RE_Q_1 = re.compile(r'"\s+"')
+RE_Q_2 = re.compile(r"'(?P<org>\w+)'")
+
+# 개행 전후로 문자나 숫자 사용
+RE_W_1 = re.compile(r'"\s+(?P<org>\w)')
+RE_W_2 = re.compile(r'(?P<org>\w)\s+"')
+
+# JsonObject의 키를 숫자로 사용
+RE_D = re.compile(r'(?P<org>\d+[.]*\d*)[:]')
+
+# 각괄호 [] 와 중괄호 {} 전후로 잘못된 개행
+RE_M_1 = re.compile(r'[}]\s+[{]')
+RE_M_2 = re.compile(r'[]]\s+[[]')
+
+RE_M_3 = re.compile(r'"\s+[[]')
+RE_M_4 = re.compile(r'[]]\s+"')
+
+RE_M_5 = re.compile(r'"\s+[{]')
+RE_M_6 = re.compile(r'[}]\s+"')
 
 ###################################
 # def getAllFilePath
@@ -32,7 +47,7 @@ def checkData(file_path_list):
     for file_path in file_path_list:
         if file_path.endswith('.txt'):
             if not validateJson(file_path):
-                print file_path
+                print "#### Check this!! " + file_path
                 break
 
 ###################################
@@ -43,26 +58,48 @@ def validateJson(file_path):
         try:
             json.load(json_data)
             return True
+
+        except UnicodeDecodeError:
+            print "### UnicodeDecodeError " + file_path
+            # UTF converter 실행
+            return True
+
         except ValueError:
+            print "### ValueError " + file_path
             makeValidJson(file_path)
-            return False
+            return True
 
 ###################################
 # def makeValidJson
 ###################################
 def makeValidJson(file_path):
+    whole_data = None
     with open(file_path, 'r') as json_data:
         whole_data = json_data.read()
 
-        whole_data = re_1.sub(r'","', whole_data)
+        whole_data = RE_Q_1.sub(r'",\n"', whole_data)
+        whole_data = RE_Q_2.sub(r'"\g<org>"', whole_data)
 
-        whole_data = re_3.sub(r'",\g<num>', whole_data)
-        whole_data = re_4.sub(r'\g<num>,"', whole_data)
+        whole_data = RE_W_1.sub(r'",\n\g<org>', whole_data)
+        whole_data = RE_W_2.sub(r'\g<org>,\n"', whole_data)
 
-        whole_data = re_5.sub(r'},{', whole_data)
-        whole_data = re_6.sub(r'],["', whole_data)
+        whole_data = RE_D.sub(r'"\g<org>":', whole_data)
 
-        print whole_data
+        whole_data = RE_M_1.sub(r'},\n{', whole_data)
+        whole_data = RE_M_2.sub(r'],\n[', whole_data)
+
+        whole_data = RE_M_3.sub(r'",\n[', whole_data)
+        whole_data = RE_M_4.sub(r'],\n"', whole_data)
+
+        whole_data = RE_M_5.sub(r'",\n{', whole_data)
+        whole_data = RE_M_6.sub(r'},\n"', whole_data)
+
+        #print whole_data
+
+    if whole_data:
+        with open(file_path, 'w') as new_json:
+            new_json.write(whole_data)
+            print "#### JSON FORMATTING DONE .. " + file_path
 
 ###################################
 # def main
