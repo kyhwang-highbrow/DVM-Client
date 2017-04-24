@@ -56,12 +56,20 @@ function UI_StatisticsPopup:initUI()
 		self.vars['frameNode']:setContentSize(1130, 600)
 	end
 
+	-- 입힌 데미지로 가정하고 log_key 생성
+	local log_key = self:getLogKey(UI_StatisticsPopup.TAB_DEALT)
+	
+	-- 정렬 후 테이블 뷰 생성
+	BattleStatisticsHelper:sortByValue(self.m_charList_A, log_key)
 	self.m_tableView_A = self:makeTableView(self.m_charList_A, vars['listNode1'])
 
+	-- 콜로세움 관련 처리
 	if (self.m_isColosseum) then
-		
+		-- 정렬 후 테이블 뷰 생성
+		BattleStatisticsHelper:sortByValue(self.m_charList_B, log_key)	
 		self.m_tableView_B = self:makeTableView(self.m_charList_B, vars['listNode2'])
 		
+		-- 유저 정보 출력
 		do
 			vars['userNode1']:setVisible(true)
 			local user_info = g_colosseumData.m_playerUserInfo
@@ -71,6 +79,7 @@ function UI_StatisticsPopup:initUI()
 			vars['tamerNode1']:addChild(profile_icon)
 		end
 
+		-- 상대 정보 출력
 		do
 			local user_info = g_colosseumData.m_vsUserInfo
 			vars['userNode2']:setVisible(true)
@@ -151,10 +160,10 @@ function UI_StatisticsPopup:refreshTableView(table_view, tab)
 	local log_key = self:getLogKey(tab)
 
 	-- 해당 키의 최고 수치를 찾는다.
-	local best_value = self:findBestValue(l_item, log_key)
+	local best_value = BattleStatisticsHelper:findBestValueForTable(l_item, log_key)
 
 	-- 해당 키로 정렬한다.
-	self:sortByValue(l_item, log_key)
+	BattleStatisticsHelper:sortByValueForTable(l_item, log_key)
 
 	-- ui에 적용시킨다.
 	for i, item in pairs(l_item) do
@@ -168,45 +177,6 @@ function UI_StatisticsPopup:refreshTableView(table_view, tab)
 	end
 
 	table_view:setDirtyItemList()
-end
-
--------------------------------------
--- function findBestValue
--- @breif 최고의 누적 수치를 찾는다.
--------------------------------------
-function UI_StatisticsPopup:findBestValue(l_item, log_key)
-	local best_value = 1
-
-	for _, item in pairs(l_item) do
-		local char = item['data']
-		local log_recorder = char.m_charLogRecorder
-		local sum_value = log_recorder:getLog(log_key)
-		if (best_value < sum_value) then
-			best_value = sum_value
-		end
-	end
-
-	return best_value
-end
-
--------------------------------------
--- function sortByValue
--- @breif 특정 값 순서대로 정렬한다 -> 값 0인 경우 공격력 순으로 정렬
--------------------------------------
-function UI_StatisticsPopup:sortByValue(l_item, log_key)
-	table.sort(l_item, function(a, b)
-		local a_char = a['data']
-		local b_char = b['data']
-		local a_value = a_char.m_charLogRecorder:getLog(log_key)
-		local b_value = b_char.m_charLogRecorder:getLog(log_key)
-		if (a_value == 0) and (b_value == 0) then
-			local a_atk = a_char:getStat('atk')
-			local b_atk = b_char:getStat('atk')
-			return a_atk > b_atk
-		else
-			return a_value > b_value
-		end
-	end)
 end
 
 -------------------------------------

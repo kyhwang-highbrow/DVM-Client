@@ -114,12 +114,11 @@ function UI_GameDPSPopup:refreshTableView(table_view, log_key)
 	local l_item = table_view.m_itemList
 
 	-- 해당 키의 최고 수치를 찾는다.
-	local best_value = self:findBestValue(l_item, log_key)
+	local best_value = BattleStatisticsHelper:findBestValueForTable(l_item, log_key)
 	-- dps 계산을 위한 플레이 시간
 	local lap_time = self.m_world.m_gameState.m_fightTimer
-
 	-- 해당 키로 정렬한다.
-	self:sortByValue(l_item, log_key)
+	BattleStatisticsHelper:sortByValueForTable(l_item, log_key)
 
 	-- ui에 적용시킨다.
 	for i, item in pairs(l_item) do
@@ -161,46 +160,6 @@ function UI_GameDPSPopup:setDpsOrHps()
 	local sprite = IconHelper:getIcon(res)
 	vars['dpsToggleNode']:addChild(sprite)
 end
-
--------------------------------------
--- function findBestValue
--- @breif 최고의 누적 수치를 찾는다.
--------------------------------------
-function UI_GameDPSPopup:findBestValue(l_item, log_key)
-	local best_value = 1
-
-	for _, item in pairs(l_item) do
-		local char = item['data']
-		local log_recorder = char.m_charLogRecorder
-		local sum_value = log_recorder:getLog(log_key)
-		if (best_value < sum_value) then
-			best_value = sum_value
-		end
-	end
-
-	return best_value
-end
-
--------------------------------------
--- function sortByValue
--- @breif 특정 값 순서대로 정렬한다 -> 값 0인 경우 공격력 순으로 정렬
--------------------------------------
-function UI_GameDPSPopup:sortByValue(l_item, log_key)
-	table.sort(l_item, function(a, b)
-		local a_char = a['data']
-		local b_char = b['data']
-		local a_value = a_char.m_charLogRecorder:getLog(log_key)
-		local b_value = b_char.m_charLogRecorder:getLog(log_key)
-		if (a_value == 0) and (b_value == 0) then
-			local a_atk = a_char:getStat('atk')
-			local b_atk = b_char:getStat('atk')
-			return a_atk > b_atk
-		else
-			return a_value > b_value
-		end
-	end)
-end
-
 
 
 

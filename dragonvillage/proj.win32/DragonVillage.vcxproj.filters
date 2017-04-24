@@ -1944,6 +1944,9 @@
     <None Include="..\src\UI_GameDPSListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\BattleStatisticsHelper.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

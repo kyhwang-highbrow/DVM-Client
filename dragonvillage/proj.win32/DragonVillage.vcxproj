@@ -267,6 +267,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\AnimatorVrp.lua" />
     <None Include="..\src\AreaOfEffectHelper.lua" />
     <None Include="..\src\ActivityCarrier.lua" />
+    <None Include="..\src\BattleStatisticsHelper.lua" />
     <None Include="..\src\ChatClient.lua" />
     <None Include="..\src\CollisionHelper.lua" />
     <None Include="..\src\ColosseumUserInfo.lua" />

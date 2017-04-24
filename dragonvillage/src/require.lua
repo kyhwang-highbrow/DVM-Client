@@ -638,6 +638,7 @@ local t_module = {
     'FormationMgr_TargetRule',
     'StatusCalculator',
     'StatusCalculatorFormula',
+	'BattleStatisticsHelper',
 
     'DragonCard',
     'TriggerHpPercent',
