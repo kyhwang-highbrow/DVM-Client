@@ -76,7 +76,9 @@ Missile = class(PARENT, {
 		m_addScriptTerm = '',
 		m_addScriptMax = '',
 		m_addScriptDead = 'bool',			-- add된 탄을 다쏘면 부모 미사일을 죽임.
-		m_addScriptRelative = 'bool',		-- 상대 각도 
+		m_addScriptRelative = 'bool',		-- 상대 각도
+        m_addScriptTargetList = 'table',    -- 부모 미사일 발사시 지정된 타겟 리스트
+        m_addScriptTargetIdx = 'table',     -- 부모 미사일의 target_idx
 		m_lAddScriptTime = 'list',			-- 탄 발사 시간을 저장해놓아 프레임 저하가 있어도 전부 발사되도록함
 		m_fireCnt = '',
 
@@ -124,6 +126,8 @@ function Missile:init(file_name, body, ...)
 	self.m_collisionCheckTime = nil
 
 	self.m_addScript = nil
+    self.m_addScriptTargetList = nil
+    self.m_addScriptTargetIdx = nil
 	self.m_fireCnt  = 0
 end
 
@@ -658,24 +662,31 @@ function Missile:fireAddScriptMissile()
     -- 속성 : activityCarrier 에 있는 것은 숫자기 때문에 변환해준다
 	local attr_name = attributeNumToStr(self.m_activityCarrier.m_attribute)
     t_launcher_option['attr_name'] = attr_name
+    t_launcher_option['target_list'] = self.m_addScriptTargetList
 
 	local is_hero = (owner.m_bLeftFormation)
 	local phys_group = owner:getAttackPhysGroup()
-    if is_hero then
-        t_launcher_option['target_pos'] = {start_x + 500, start_y}
-    else
-        t_launcher_option['target_pos'] = {start_x - 500, start_y}
-    end
-
+    
     -- AttackDamage 생성 및 상태효과 복사(테이블의 상태효과를 add_script에도 적용시킴)
-    local activity_carrier = owner:makeAttackDamageInstance(0519)
+    local activity_carrier = owner:makeAttackDamageInstance()
 	activity_carrier.m_lStatusEffectRate = clone(self.m_activityCarrier.m_lStatusEffectRate)
 	activity_carrier:setPowerRate(self.m_activityCarrier:getPowerRate() * 100)
     missile_launcher.m_bHeroMissile = is_hero
 
     self.m_world:addToUnitList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
-    missile_launcher:init_missileLauncherByScript(self.m_addScript, phys_group, activity_carrier, self.m_addScriptRelative, self.movement_theta)
+    
+    local t_param = {}
+
+    if (self.m_addScriptRelative) then
+        t_param['dir'] = self.movement_theta
+    end
+    if (self.m_addScriptTargetIdx) then
+        t_param['target_idx'] = self.m_addScriptTargetIdx
+    end
+
+
+    missile_launcher:init_missileLauncherByScript(self.m_addScript, phys_group, activity_carrier, t_param)
     missile_launcher.m_animator:changeAni('animation', true)
     missile_launcher:setPosition(start_x, start_y)
 end
@@ -689,10 +700,6 @@ function Missile:release()
 	if (world) then
 		world.m_lMissileList[self] = nil
 		world.m_lSpecailMissileList[self] = nil
-
-        if (world.m_gameHighlight) then
-            --world.m_gameHighlight.m_lMissileList[self] = nil
-        end
 	end
 
 	PARENT.release(self)

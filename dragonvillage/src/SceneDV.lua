@@ -154,18 +154,22 @@ function SceneDV:onKeyReleased(keyCode, event)
 
     elseif keyCode == KEY_1 then
 		local animator = MakeAnimator('res/character/monster/boss_gdragon_fire/boss_gdragon_head_fire.json')
-        animator:setPosition(400, 200)
+        animator:setPosition(200, 200)
 		self.m_scene:addChild(animator.m_node)
 
-        animator:changeAni('skill_3', true)
+        animator:changeAni('casting', true)
 
         local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
         animator.m_node:setGLProgram(shader)
 
         local slotList = animator:getSlotList()
         cclog('slotList = ' .. luadump(slotList))
-
-        animator.m_node:setSlotGLProgramName('boss_gdragon_fire_eff_01', cc.SHADER_POSITION_TEXTURE_COLOR)
+        
+        for i, slotName in ipairs(slotList) do
+            if startsWith(slotName, 'effect_') then
+                animator.m_node:setSlotGLProgramName(slotName, cc.SHADER_POSITION_TEXTURE_COLOR)
+            end
+        end
 
     elseif keyCode == KEY_2 then
 		local animator = MakeAnimator('res/character/monster/boss_drake_water/boss_drake_water.json')
@@ -214,7 +218,7 @@ function SceneDV:onKeyReleased(keyCode, event)
             animator:changeAni('layer_3_a', true)
 		    self.m_gridNode:addChild(animator.m_node)
         end
-
+        
     elseif (keyCode == KEY_UP_ARROW) then
         self:setTimeScale(10)
         

@@ -106,7 +106,7 @@ end
 -------------------------------------
 -- function init_missileLauncherByScript
 -------------------------------------
-function MissileLauncher:init_missileLauncherByScript(script_data, object_key, activity_carrier, is_relative_dir, parent_dir)
+function MissileLauncher:init_missileLauncherByScript(script_data, object_key, activity_carrier, t_param)
     self.m_objectKey = object_key
     self.m_attackIdx = 1
     self.m_activityCarrier = activity_carrier
@@ -132,10 +132,14 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
         end
 
 		-- 상대 각도 조정
-		if (is_relative_dir) then 
-			local dir = getAdjustDegree(parent_dir)
+        if (t_param['dir']) then 
+			local dir = getAdjustDegree(t_param['dir'])
 			v['dir'] = dir
 		end
+
+        if (t_param['target_idx']) then
+            v['target_idx'] = t_param['target_idx']
+        end
 
         table.insert(self.m_tAttackPattern[idx], i)
 
@@ -314,21 +318,18 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
     --    },
     ---------------------------------------------------
 
-    -- 공격 위치
-    local pos_x = owner.pos.x + attack_value['offset'][1]
-    local pos_y = owner.pos.y + attack_value['offset'][2]
+    -- 공격 대상
+    local l_target = self.m_launcherOption['target_list'] or {}
+    local l_target_idx
 
-	-- 카메라 기준이라면 캐릭터 위치를 받아오지 않는다.
-	if (attack_value['is_abs_pos']) then
-		pos_x = attack_value['offset'][1]
-		pos_y = attack_value['offset'][2]
-	end
-
-    if offset_add then
-        pos_x = pos_x + offset_add[1]
-        pos_y = pos_y + offset_add[2]
+    if (attack_value['target_idx']) then
+        l_target_idx = attack_value['target_idx']
+    else
+        l_target_idx = { 1 }
     end
 
+    local offset_x = attack_value['offset'][1]
+    local offset_y = attack_value['offset'][2]
     local physics_body = attack_value.body -- x, y, radius
     local speed = attack_value.speed or 0
 
@@ -351,93 +352,132 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		attack_value.dir_array = {math_random(start_num, end_num)}
 	end
 
-	for i=1, #attack_value.dir_array do
-		local t_option = {}
-		t_option['movement'] =			attack_value.movement
-		t_option['missile_res_name'] =	attack_value['res']
-		t_option['dir'] =				attack_value.dir_array[i] + dir_add
-		t_option['rotation'] =			attack_value.dir_array[i] + dir_add
-		t_option['no_rotate'] =			attack_value.no_rotate or false
-		t_option['pos_x'] =				pos_x
-		t_option['pos_y'] =				pos_y
-		t_option['speed'] =				speed
-		t_option['speed_reverse_time']=	attack_value.speed_reverse_time
-		t_option['l_limit_speed'] =		attack_value.l_limit_speed
-		t_option['h_limit_speed'] =		attack_value.h_limit_speed
-		t_option['scale'] =				attack_value.scale
-		t_option['physics_body'] =		physics_body
-		t_option['attack_damage'] =		(not attack_value.nodamage) and (not attack_value.gold) and owner.m_activityCarrier
-		t_option['damage_rate'] =		attack_value.damage_rate or (self.m_activityCarrier:getPowerRate() * 100)
-		t_option['accel'] =				attack_value.accel
-		t_option['accel_delay'] =		attack_value.accel_delay
-		t_option['accel_reverse_time']=	attack_value.accel_reverse_time
+    for _, target_idx in ipairs(l_target_idx) do
+        -- 공격 대상
+        local target = l_target[target_idx]
+        --if (not target) then break end
 
-		t_option['delete_time'] =		attack_value.delete_time
-		t_option['vanish_time'] =		attack_value.vanish_time
-		t_option['explosion_time'] =	attack_value.explosion_time
-		t_option['explosion_time2'] =	attack_value.explosion_time2
-		t_option['explosion_time3'] =	attack_value.explosion_time3
-		t_option['reset_time'] =		attack_value.reset_time
-		t_option['reset_time_delay'] =	attack_value.reset_time_delay
-		t_option['size_up_time'] =		attack_value.size_up_time
-		t_option['magnet_time'] =		attack_value.magnet_time
-		t_option['fadeout_time'] =		attack_value.fadeout_time
-		t_option['map_shake_time'] =	attack_value.map_shake_time
-		t_option['collision_check_time'] =	attack_value.collision_check_time
+        -- 공격 위치
+        if (type(offset_x) == 'string' and offset_x == 'target') then
+            local target = self.m_launcherOption['target']
+            local body = target:getBody()
+            pos_x = target.pos.x + body.x
+        elseif (attack_value['is_abs_pos']) then
+            -- 카메라 기준이라면 캐릭터 위치를 받아오지 않는다.
+            pos_x = offset_x
+        else
+            pos_x = owner.pos.x + offset_x   
+        end
 
-		t_option['depth'] =				depth
-		t_option['missile_type'] =		attack_value.missile_type
-		t_option['visual'] =			attack_value.visual
-		t_option['gold'] =				attack_value.gold
-		t_option['motion_streak'] =		attack_value.motion_streak
-		t_option['rotate_time'] =		attack_value.rotate_time
-		t_option['angular_velocity'] =	attack_value.angular_velocity
-		t_option['angular_velocity_time'] = attack_value.angular_velocity_time
-		t_option['value_1'] =			attack_value.value_1
-		t_option['object_key'] =		self.m_objectKey
-		t_option['effect'] =			attack_value['effect']
-		t_option['lua_param'] =			attack_value['lua_param']
+        if (type(offset_y) == 'string' and offset_y == 'target') then
+            local target = self.m_launcherOption['target']
+            local body = target:getBody()
+            pos_y = target.pos.y + body.y
+        elseif (attack_value['is_abs_pos']) then
+            -- 카메라 기준이라면 캐릭터 위치를 받아오지 않는다.
+            pos_y = offset_y
+        else
+            pos_y = owner.pos.y + offset_y   
+        end 
 
-		t_option['disable_body'] =		attack_value['disable_body']
-		t_option['bFixedAttack'] =		attack_value['bFixedAttack']
-		t_option['events'] =			attack_value['events']
-		t_option['res_depth'] =			attack_value['res_depth']
-		t_option['is_abs_pos'] =		attack_value['is_abs_pos'] or false
+	    if offset_add then
+            pos_x = pos_x + offset_add[1]
+            pos_y = pos_y + offset_add[2]
+        end
 
-		t_option['add_script'] =		attack_value['add_script']
-		t_option['add_script_start'] =	attack_value['add_script_start']
-		t_option['add_script_term'] =	attack_value['add_script_term']
-		t_option['add_script_max'] =	attack_value['add_script_max']
-		t_option['add_script_dead'] =	attack_value['add_script_dead']
-		t_option['add_script_relative'] =	attack_value['add_script_relative']
 
-		-- accel이 발사된 시간차와 상관없이 동시에 걸림
-		if attack_value.accel_delay_fix then
-			t_option['accel_delay'] = t_option['accel_delay'] or 0
-			t_option['accel_delay'] = t_option['accel_delay'] - time
-		end
+	    for i = 1, #attack_value.dir_array do
+		    local t_option = {}
+		    t_option['movement'] =			attack_value.movement
+		    t_option['missile_res_name'] =	attack_value['res']
+		    t_option['dir'] =				attack_value.dir_array[i] + dir_add
+		    t_option['rotation'] =			attack_value.dir_array[i] + dir_add
+		    t_option['no_rotate'] =			attack_value.no_rotate or false
+		    t_option['pos_x'] =				pos_x
+		    t_option['pos_y'] =				pos_y
+		    t_option['speed'] =				speed
+		    t_option['speed_reverse_time']=	attack_value.speed_reverse_time
+		    t_option['l_limit_speed'] =		attack_value.l_limit_speed
+		    t_option['h_limit_speed'] =		attack_value.h_limit_speed
+		    t_option['scale'] =				attack_value.scale
+		    t_option['physics_body'] =		physics_body
+		    t_option['attack_damage'] =		(not attack_value.nodamage) and (not attack_value.gold) and owner.m_activityCarrier
+		    t_option['damage_rate'] =		attack_value.damage_rate or (self.m_activityCarrier:getPowerRate() * 100)
+		    t_option['accel'] =				attack_value.accel
+		    t_option['accel_delay'] =		attack_value.accel_delay
+		    t_option['accel_reverse_time']=	attack_value.accel_reverse_time
 
-		-- 미사일이 사라지는 시간 통일
-		if attack_value.delete_time_fix then
-			t_option['delete_time'] = t_option['delete_time'] or 0
-			t_option['delete_time'] = t_option['delete_time'] - time
-		end
-		if attack_value.vanish_time_fix then
-			t_option['vanish_time'] = t_option['vanish_time'] or 0
-			t_option['vanish_time'] = t_option['vanish_time'] - time
-		end
-		if attack_value.fadeout_time_fix then
-			t_option['fadeout_time'] = t_option['fadeout_time'] or 0
-			t_option['fadeout_time'] = t_option['fadeout_time'] - time
-		end
+		    t_option['delete_time'] =		attack_value.delete_time
+		    t_option['vanish_time'] =		attack_value.vanish_time
+		    t_option['explosion_time'] =	attack_value.explosion_time
+		    t_option['explosion_time2'] =	attack_value.explosion_time2
+		    t_option['explosion_time3'] =	attack_value.explosion_time3
+		    t_option['reset_time'] =		attack_value.reset_time
+		    t_option['reset_time_delay'] =	attack_value.reset_time_delay
+		    t_option['size_up_time'] =		attack_value.size_up_time
+		    t_option['magnet_time'] =		attack_value.magnet_time
+		    t_option['fadeout_time'] =		attack_value.fadeout_time
+		    t_option['map_shake_time'] =	attack_value.map_shake_time
+		    t_option['collision_check_time'] =	attack_value.collision_check_time
 
-		-- 런쳐 옵션 체크
-		if self.m_launcherOption then
-			self:aplyLauncherOption(t_option)
-		end
+		    t_option['depth'] =				depth
+		    t_option['missile_type'] =		attack_value.missile_type
+		    t_option['visual'] =			attack_value.visual
+		    t_option['gold'] =				attack_value.gold
+		    t_option['motion_streak'] =		attack_value.motion_streak
+		    t_option['rotate_time'] =		attack_value.rotate_time
+		    t_option['angular_velocity'] =	attack_value.angular_velocity
+		    t_option['angular_velocity_time'] = attack_value.angular_velocity_time
+		    t_option['value_1'] =			attack_value.value_1
+		    t_option['object_key'] =		self.m_objectKey
+		    t_option['effect'] =			attack_value['effect']
+		    t_option['lua_param'] =			attack_value['lua_param']
 
-		self.m_world.m_missileFactory:makeMissile(t_option, self.m_bHeroMissile)
-	end
+		    t_option['disable_body'] =		attack_value['disable_body']
+		    t_option['bFixedAttack'] =		attack_value['bFixedAttack']
+		    t_option['events'] =			attack_value['events']
+		    t_option['res_depth'] =			attack_value['res_depth']
+		    t_option['is_abs_pos'] =		attack_value['is_abs_pos'] or false
+
+		    t_option['add_script'] =		attack_value['add_script']
+		    t_option['add_script_start'] =	attack_value['add_script_start']
+		    t_option['add_script_term'] =	attack_value['add_script_term']
+		    t_option['add_script_max'] =	attack_value['add_script_max']
+		    t_option['add_script_dead'] =	attack_value['add_script_dead']
+		    t_option['add_script_relative'] =	attack_value['add_script_relative']
+
+		    -- accel이 발사된 시간차와 상관없이 동시에 걸림
+		    if attack_value.accel_delay_fix then
+			    t_option['accel_delay'] = t_option['accel_delay'] or 0
+			    t_option['accel_delay'] = t_option['accel_delay'] - time
+		    end
+
+		    -- 미사일이 사라지는 시간 통일
+		    if attack_value.delete_time_fix then
+			    t_option['delete_time'] = t_option['delete_time'] or 0
+			    t_option['delete_time'] = t_option['delete_time'] - time
+		    end
+		    if attack_value.vanish_time_fix then
+			    t_option['vanish_time'] = t_option['vanish_time'] or 0
+			    t_option['vanish_time'] = t_option['vanish_time'] - time
+		    end
+		    if attack_value.fadeout_time_fix then
+			    t_option['fadeout_time'] = t_option['fadeout_time'] or 0
+			    t_option['fadeout_time'] = t_option['fadeout_time'] - time
+		    end
+
+            if (attack_value['target_idx']) then
+                t_option['target_idx'] = attack_value['target_idx']
+            end
+
+		    -- 런쳐 옵션 체크
+		    if self.m_launcherOption then
+			    self:applyLauncherOption(t_option, target_idx)
+		    end
+
+		    self.m_world.m_missileFactory:makeMissile(t_option, self.m_bHeroMissile)
+	    end
+    end
 
 	if dir_array_org then 
 		attack_value.dir_array = dir_array_org
@@ -446,9 +486,9 @@ end
 
 
 -------------------------------------
--- function aplyLauncherOption
+-- function applyLauncherOption
 -------------------------------------
-function MissileLauncher:aplyLauncherOption(t_option)
+function MissileLauncher:applyLauncherOption(t_option, target_idx)
     -- 런쳐상에 각도가 있을 경우
     if self.m_launcherOption['dir'] then
         t_option['dir'] = t_option['dir'] + self.m_launcherOption['dir']
@@ -460,7 +500,10 @@ function MissileLauncher:aplyLauncherOption(t_option)
         t_option['attr_name'] = self.m_launcherOption['attr_name']
     end
 
-    if self.m_launcherOption['target'] then
+    if (self.m_launcherOption['target_list']) then
+        t_option['target_list'] = self.m_launcherOption['target_list']
+        t_option['target'] = self.m_launcherOption['target_list'][target_idx]
+    elseif self.m_launcherOption['target'] then
         t_option['target'] = self.m_launcherOption['target']
     end
 

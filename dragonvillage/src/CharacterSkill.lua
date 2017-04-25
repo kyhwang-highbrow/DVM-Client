@@ -21,7 +21,6 @@ function Character:doSkill(skill_id, x, y, t_data)
     local y = y or self.m_attackOffsetY or 0
 	local t_data = t_data or {}
 
-    local is_hero = self.m_bLeftFormation
     local attr = self:getAttribute()
 	local t_skill = nil
 
@@ -41,17 +40,6 @@ function Character:doSkill(skill_id, x, y, t_data)
     if (not t_skill) then
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
     end
-	
-    self:checkTarget(t_skill, t_data)
-
-    if (not self.m_targetChar) then
-        return false
-    end
-
-    if (not t_skill) then
-        cclog('# 존재하지 않는 스킬 ID : ' .. skill_id)
-        error()
-    end
 
     return self:doSkillBySkillTable(t_skill, t_data)
 end
@@ -66,21 +54,25 @@ function Character:doSkillBySkillTable(t_skill, t_data)
     end
 	local t_data = t_data or {}
     local skill_form = t_skill['skill_form']
-    
+
     ----------------------------------------------
     -- [스크립트] (스크립트에서 읽어와 미사일 탄막 생성)
     if (skill_form == 'script') then
 		local x = self.m_attackOffsetX or 0
 		local y = self.m_attackOffsetY or 0
-		local is_hero = self.m_bLeftFormation
 		local attr = self:getAttribute()
 		local phys_group = self:getAttackPhysGroup()
 
-        self:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
-        return true
-
+        return self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
+        
     -- 코드형 스킬
     elseif (skill_form == 'code') then
+        self:checkTarget(t_skill, t_data)
+
+        if (not self.m_targetChar) then
+            return false
+        end
+
 		local skill_type = t_skill['skill_type']
 		local chance_type = t_skill['chance_type']
 		local chance_value = t_skill['chance_value']
@@ -300,7 +292,7 @@ end
 -- function do_script_shot
 -- @brief 스크립트 탄막 실행 
 -------------------------------------
-function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
+function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
 	
     local start_x = self.pos.x + x
     local start_y = self.pos.y + y
@@ -312,43 +304,37 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
     -- 비주얼명 지정
     t_launcher_option['attr_name'] = attr
 
-    -- 타겟이 있을 경우
-    if self.m_targetChar then
-        -- 브레스일 경우
-        if isExistValue(t_skill['skill_type'], 'skill_breath_1', 'skill_breath_2', 'skill_breath_3') then
-            if t_data['dir'] then
-                t_launcher_option['dir'] = t_data['dir']
-            else
-                t_launcher_option['dir'] = self:getBreathDegree(start_x, start_y, phys_group)
-            end
-        else
-            -- 타겟 지정
-            t_launcher_option['target'] = self.m_targetChar
-        end
-	else
-		-- 타겟 지정
-		self:checkTarget(t_skill)
-        t_launcher_option['target'] = self.m_targetChar
-    end
+    -- 타겟을 얻는다
+    local l_target = self:getTargetListByTable(t_skill)
+    if (#l_target == 0) then return false end
 
+    self.m_targetChar = l_target[1]
+
+    -- 브레스일 경우
+    if isExistValue(t_skill['skill_type'], 'skill_breath_1', 'skill_breath_2', 'skill_breath_3') then
+        if t_data['dir'] then
+            t_launcher_option['dir'] = t_data['dir']
+        else
+            t_launcher_option['dir'] = self:getBreathDegree(start_x, start_y, phys_group)
+        end
+    else
+        -- 타겟 지정
+        t_launcher_option['target'] = self.m_targetChar
+        t_launcher_option['target_list'] = l_target
+    end
+    	
 	-- 각도 지정
 	if (not t_launcher_option['dir']) then
         local degree = getDegree(start_x, start_y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
         t_launcher_option['dir'] = degree
 	end
-
-    if is_hero then
-        t_launcher_option['target_pos'] = {start_x + 500, start_y}
-    else
-        t_launcher_option['target_pos'] = {start_x - 500, start_y}
-    end
-
+    
     -- AttackDamage 생성
     local activity_carrier = self:makeAttackDamageInstance()
     activity_carrier:setPowerRate(t_skill['power_rate'])
 	activity_carrier:setAttackType(t_skill['chance_type'])
 	
-    missile_launcher.m_bHeroMissile = is_hero
+    missile_launcher.m_bHeroMissile = self.m_bLeftFormation
     self.m_world:addToMissileList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
     missile_launcher:init_missileLauncher(t_skill, phys_group, activity_carrier, 1)
@@ -375,6 +361,8 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
             t_launcher_option['dir'] = skill_dir
         end
     end
+
+    return true
 end
 
 -------------------------------------

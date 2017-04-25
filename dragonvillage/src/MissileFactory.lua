@@ -137,6 +137,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local missile_type =     MISSILE_TYPE[t_option['missile_type']]
     local visual =           t_option['visual'] or nil
     local target =           t_option['target']
+    local target_idx =       t_option['target_idx']
     local rotate_time =      t_option['rotate_time'] or nil
     local angular_velocity = t_option['angular_velocity'] or nil
     local angular_velocity_time = t_option['angular_velocity_time'] or nil
@@ -158,7 +159,8 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 	local add_script_max =		t_option['add_script_max'] or 1
 	local add_script_dead =		t_option['add_script_dead'] or false
 	local add_script_relative = t_option['add_script_relative']
-
+    local target_list =         t_option['target_list']
+    
     local is_highlight =        t_option['highlight'] or false
 
     --local parent =           t_option['parent']
@@ -191,12 +193,15 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 
     elseif (movement == 'guide') then
         missile = MissileGuide(missile_res_name, physics_body)
+        missile.m_target = target
 
 	elseif (movement == 'guid') then
 		missile = MissileGuid(missile_res_name, physics_body, is_hero)
+        missile.m_target = target
 
     elseif (movement == 'guid_strong') then
         missile = MissileGuid(missile_res_name, physics_body, is_hero)
+        missile.m_target = target
         missile.m_angularVelocityGuid = 720
         missile.m_straightWaitTime = 0
 
@@ -420,6 +425,9 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 			missile.m_addScriptMax = add_script_max
 			missile.m_addScriptDead = add_script_dead
 			missile.m_addScriptRelative = add_script_relative
+            missile.m_addScriptTargetList = target_list
+            missile.m_addScriptTargetIdx = target_idx
+
 			missile.m_lAddScriptTime = {}
 			local time = 0
 			for i = 1, add_script_max do

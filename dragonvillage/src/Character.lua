@@ -1790,7 +1790,7 @@ end
 -- function makeAttackDamageInstance
 -- @brief
 -------------------------------------
-function Character:makeAttackDamageInstance(forced_skill_id)
+function Character:makeAttackDamageInstance()
     local activity_carrier = ActivityCarrier()
 
 	-- 시전자를 지정
