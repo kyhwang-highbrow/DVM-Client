@@ -284,8 +284,7 @@ function Dragon:initWorld(game_world)
         game_world.m_dragonInfoNode:addChild(self.m_unitInfoNode)
 
         -- 하이라이트 노드 설정
-        self.m_unitInfoNode:setVisible(false)
-        --self:addHighlightNode(self.m_unitInfoNode)
+        self:addHighlightNode(self.m_unitInfoNode)
     end
 
     PARENT.initWorld(self, game_world)
@@ -1116,6 +1115,6 @@ function Dragon:runAction_Highlight(duration, level)
     PARENT.runAction_Highlight(self, duration, level)
     
     if (self.m_unitInfoNode) then
-        --self.m_unitInfoNode:setVisible(level == 255)
+        self.m_unitInfoNode:setVisible(level == 255)
     end
 end
