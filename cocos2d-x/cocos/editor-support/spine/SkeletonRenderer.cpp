@@ -153,7 +153,7 @@ void SkeletonRenderer::draw(Renderer* renderer, const Mat4& transform, bool tran
 void SkeletonRenderer::drawSkeleton(const Mat4 &transform, bool transformFlags) {
 	getGLProgramState()->apply(transform);
     GLProgram *baseGlProgram = getGLProgramState()->getGLProgram();
-    GLProgram *curGlProgram = nullptr;
+    GLProgram *curGlProgram = baseGlProgram;
 
 	Color3B nodeColor = getColor();
 	_skeleton->r = nodeColor.r / (float)255;
@@ -177,22 +177,18 @@ void SkeletonRenderer::drawSkeleton(const Mat4 &transform, bool transformFlags) 
         const char* slotGlProgramName = getSlotGLProgramName(std::string(slot->data->name));
         if (slotGlProgramName) {
             GLProgram* slotGlProgram = ShaderCache::getInstance()->getGLProgram(std::string(slotGlProgramName));
-            if (slotGlProgram) {
-                if (slotGlProgram != curGlProgram) {
-                    _batch->flush();
-
-                    curGlProgram = slotGlProgram;
-
-                    setGLProgram(slotGlProgram);
-                    getGLProgramState()->apply(transform);
-                }
+            if (slotGlProgram && slotGlProgram != curGlProgram) {
+                _batch->flush();
+                setGLProgram(slotGlProgram);
+                getGLProgramState()->apply(transform);
+                curGlProgram = slotGlProgram;
             }
         }
-        else if (curGlProgram) {
+        else if (baseGlProgram != curGlProgram) {
             _batch->flush();
             setGLProgram(baseGlProgram);
             getGLProgramState()->apply(transform);
-            curGlProgram = nullptr;
+            curGlProgram = baseGlProgram;
         }
         //
         
@@ -279,6 +275,12 @@ void SkeletonRenderer::drawSkeleton(const Mat4 &transform, bool transformFlags) 
         }
 	}
 	_batch->flush();
+
+    if (baseGlProgram != curGlProgram) {
+        setGLProgram(baseGlProgram);
+        getGLProgramState()->apply(transform);
+        curGlProgram = baseGlProgram;
+    }
 
 	if (_debugSlots || _debugBones) {
 		Director* director = Director::getInstance();
