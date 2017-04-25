@@ -18,7 +18,13 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_groundNode = 'cc.Node',
         m_worldNode = 'cc.Node',
         m_missiledNode = 'cc.Node',
+
+
 		m_unitInfoNode = 'cc.Node',
+        m_enemySpeechNode = 'cc.Node',
+
+        m_dragonInfoNode = 'cc.Node',
+        m_dragonSpeechNode = 'cc.Node',
 
         m_lUnitList = 'list',
 		m_lSkillList = 'table',
@@ -148,8 +154,21 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_missiledNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_missiledNode, INGAME_LAYER_Z_ORDER.MISSILE_LAYER)
 	
-	self.m_unitInfoNode = cc.Node:create()
-    self.m_gameNode1:addChild(self.m_unitInfoNode, INGAME_LAYER_Z_ORDER.UNIT_INFO_LAYER)
+    do -- 유닛 공통 레이어 (적군)
+	    self.m_unitInfoNode = cc.Node:create()
+        self.m_gameNode1:addChild(self.m_unitInfoNode, INGAME_LAYER_Z_ORDER.UNIT_INFO_LAYER)
+
+        self.m_enemySpeechNode = cc.Node:create()
+        self.m_gameNode1:addChild(self.m_enemySpeechNode, INGAME_LAYER_Z_ORDER.ENEMY_SPEECH_LAYER)
+    end
+
+    do -- 드래곤 공통 레이어
+        self.m_dragonInfoNode = cc.Node:create()
+        self.m_gameNode1:addChild(self.m_dragonInfoNode, INGAME_LAYER_Z_ORDER.DRAGON_INFO_LAYER)
+
+        self.m_dragonSpeechNode = cc.Node:create()
+        self.m_gameNode1:addChild(self.m_dragonSpeechNode, INGAME_LAYER_Z_ORDER.DRAGON_SPEECH_LAYER)
+    end
 
     self.m_lUnitList = {}
 	self.m_lSkillList = {}

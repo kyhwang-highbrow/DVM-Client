@@ -174,7 +174,12 @@ INGAME_LAYER_Z_ORDER =
     GRID_LAYER = 4,
     WORLD_LAYER = 5,
     MISSILE_LAYER = 6,
+
     UNIT_INFO_LAYER = 7,
+    ENEMY_SPEECH_LAYER = 8,
+
+    DRAGON_INFO_LAYER = 9,
+    DRAGON_SPEECH_LAYER = 10,
 }
 
 -- 스킬 시전후 스킬 시전 범위 나타내는 이펙트..빨간색

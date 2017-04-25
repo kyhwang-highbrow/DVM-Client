@@ -71,6 +71,8 @@ Character = class(PARENT, {
 
         -- @node UI
         m_unitInfoNode = 'cc.Node',
+        m_enemySpeechNode = 'cc.Node',
+        m_dragonSpeechNode = 'cc.Node',
 
         -- @hp UI
 		m_infoUI = '',
@@ -199,6 +201,7 @@ function Character:initWorld(game_world)
     if (not self.m_unitInfoNode) then
         self.m_unitInfoNode = cc.Node:create()
         self.m_world.m_unitInfoNode:addChild(self.m_unitInfoNode)
+        --self.m_world.m_unitInfoNode:setVisible(false)
 
         -- 하이라이트 노드 설정
         self:addHighlightNode(self.m_unitInfoNode)
@@ -1128,6 +1131,16 @@ function Character:release()
         self.m_unitInfoNode:removeFromParent(true)
     end
 
+    if (self.m_enemySpeechNode) then
+        self.m_enemySpeechNode:removeFromParent(true)
+        self.m_enemySpeechNode = nil
+    end
+
+    if (self.m_dragonSpeechNode) then
+        self.m_dragonSpeechNode:removeFromParent(true)
+        self.m_dragonSpeechNode = nil
+    end
+
     self.m_unitInfoNode = nil
 
     self.m_hpNode = nil
@@ -1200,7 +1213,7 @@ function Character:makeCastingNode()
     self.m_castingNode:setDockPoint(cc.p(0.5, 0.5))
     self.m_castingNode:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_castingNode:setVisible(false)
-    self.m_unitInfoNode:addChild(self.m_castingNode, 5)
+    self:getEnemySpeechNode():addChild(self.m_castingNode, 5)
 
     local ui = UI()
     ui:load('enemy_skill_speech.ui')
@@ -1239,6 +1252,14 @@ function Character:setPosition(x, y)
 
     if (self.m_cbChangePos) then
         self.m_cbChangePos(self)
+    end
+
+    if (self.m_dragonSpeechNode) then
+        self.m_dragonSpeechNode:setPosition(x, y)
+    end
+
+    if (self.m_enemySpeechNode) then
+        self.m_enemySpeechNode:setPosition(x, y)
     end
 end
 
@@ -2244,3 +2265,30 @@ function Character:printAllInfomation()
 
 	cclog('=======================================================')
 end
+
+-------------------------------------
+-- function getDragonSpeechNode
+-------------------------------------
+function Character:getDragonSpeechNode()
+    if (not self.m_dragonSpeechNode) then
+        self.m_dragonSpeechNode = cc.Node:create()
+        self.m_world.m_dragonSpeechNode:addChild(self.m_dragonSpeechNode)
+        self.m_dragonSpeechNode:setPosition(self.pos.x, self.pos.y)
+    end
+
+    return self.m_dragonSpeechNode
+end
+
+-------------------------------------
+-- function getEnemySpeechNode
+-------------------------------------
+function Character:getEnemySpeechNode()
+    if (not self.m_enemySpeechNode) then
+        self.m_enemySpeechNode = cc.Node:create()
+        self.m_world.m_enemySpeechNode:addChild(self.m_enemySpeechNode)
+        self.m_enemySpeechNode:setPosition(self.pos.x, self.pos.y)
+    end
+
+    return self.m_enemySpeechNode
+end
+

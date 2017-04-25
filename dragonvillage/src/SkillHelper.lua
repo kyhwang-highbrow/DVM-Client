@@ -201,7 +201,7 @@ function SkillHelper:makePassiveSkillSpeech(dragon, str)
     animatorWindow:setVisual('skill_gauge', 'bubble')
     animatorWindow:setRepeat(false)
     animatorWindow:setPosition(0, 50)
-    dragon.m_unitInfoNode:addChild(animatorWindow.m_node, 10)
+    dragon:getDragonSpeechNode():addChild(animatorWindow.m_node, 10)
 
     local duration = animatorWindow:getDuration()
     animatorWindow:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))

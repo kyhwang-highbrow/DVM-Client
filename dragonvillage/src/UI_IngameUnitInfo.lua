@@ -21,7 +21,8 @@ end
 -- function loadUI
 -------------------------------------
 function UI_IngameUnitInfo:loadUI()
-    local vars = self:load('ingame_enemy_info.ui')
+    --local vars = self:load('ingame_enemy_info.ui')
+    local vars = self:load_useSpriteFrames('ingame_enemy_info.ui')
     return vars
 end
 
@@ -34,8 +35,10 @@ function UI_IngameUnitInfo:initUI()
 
     if (vars['attrNode']) then
         local attr_str = enemy:getAttribute()
-        local res = 'res/ui/icon/attr/attr_' .. attr_str .. '.png'
-        local icon = cc.Sprite:create(res)
+        --local res = 'res/ui/icon/attr/attr_' .. attr_str .. '.png'
+        --local icon = cc.Sprite:create(res)
+        local res = 'ingame_enemy_info_attr_' .. attr_str .. '.png'
+        local icon = cc.Sprite:createWithSpriteFrameName(res)
         if icon then
             icon:setDockPoint(cc.p(0.5, 0.5))
             icon:setAnchorPoint(cc.p(0.5, 0.5))
@@ -44,6 +47,7 @@ function UI_IngameUnitInfo:initUI()
     end
 
     if (vars['levelLabel']) then
+        vars['levelLabel']:setVisible(false)
 		-- @TODO level 임시로 찍지 않도록 함
         local lv = ''--enemy.m_lv
         vars['levelLabel']:setString(lv)
