@@ -85,11 +85,11 @@ def makeValidJson(file_path):
 
         whole_data = RE_D.sub(r'"\g<org>":', whole_data)
 
-        whole_data = RE_M_1.sub(r'},\n{', whole_data)
-        whole_data = RE_M_2.sub(r'],\n[', whole_data)
+        whole_data = RE_M_1.sub(r'},{', whole_data)
+        whole_data = RE_M_2.sub(r'],[', whole_data)
 
-        whole_data = RE_M_3.sub(r'",\n[', whole_data)
-        whole_data = RE_M_4.sub(r'],\n"', whole_data)
+        whole_data = RE_M_3.sub(r'",[', whole_data)
+        whole_data = RE_M_4.sub(r'],"', whole_data)
 
         whole_data = RE_M_5.sub(r'",\n{', whole_data)
         whole_data = RE_M_6.sub(r'},\n"', whole_data)

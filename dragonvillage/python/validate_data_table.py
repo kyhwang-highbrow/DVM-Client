@@ -53,6 +53,8 @@ def validateData():
     # 파일 검증
     validateData_Dragon(table_data)
     validateData_Stage(table_data)
+    validateData_Skill()
+
 
 
 ######################################################################
@@ -69,6 +71,7 @@ def getAllFilePath(path):
             res.append(os.path.join(root, filename))
 
     return res
+
 
 
 ######################################################################
@@ -157,6 +160,9 @@ def makeDataTxt(file_path):
     return txt_dict
 
 
+
+
+
 ######################################################################
 # 3. 데이터 테이블 검증
 
@@ -194,7 +200,7 @@ def validateData_Stage(table_data):
             checkStageScript(t_data, file_path)
 
 ###################################
-# def checkCSVRow
+# def checkStageScript
 ###################################
 def checkStageScript(t_data, file_path):
     for t_wave in t_data.get("wave"):
@@ -205,7 +211,37 @@ def checkStageScript(t_data, file_path):
                     checkDictHasKey(MONSTER_TABLE, monster_id, file_path)
 
 ###################################
+# def validateData_Stage
+# @brief 드래곤 테이블 관련 테이블 did 검증
+###################################
+def validateData_Skill():
+    t_dragon_skill = makeDictCSV('../data/table_dragon_skill.csv', 'sid')
+    t_monster_skill = makeDictCSV('../data/table_monster_skill.csv', 'sid')
+
+    l_skill_column = ['skill_basic', 'skill_active']
+    for i in range(10):
+        l_skill_column.append("skill_" + str(i))
+
+    # 1. dragon
+    checkSkillTable(t_dragon_skill, DRAGON_TABLE, l_skill_column)
+
+    # 2. monster
+    checkSkillTable(t_monster_skill, MONSTER_TABLE, l_skill_column)
+
+###################################
+# def checkSkillTable
+###################################
+def checkSkillTable(skill_table, char_table, l_skill_column):
+    for t_char in char_table.values():
+        char_name = t_char.get('t_name').decode('utf-8')
+        for skill_column in l_skill_column:
+            skill_id = t_char.get(skill_column)
+            if skill_id:
+                checkDictHasKey(skill_table, skill_id, char_name)
+
+###################################
 # def checkDictHasKey
+# @brief 특정 사전에 특정 키값이 존재하는지 검사하여 없으면 에러 테이블 목록에 등록한다.
 ###################################
 def checkDictHasKey(table, key, file_path):
     key = key.strip()
@@ -244,7 +280,8 @@ def sendInvalidTableListBySlack():
     attachments_dict['title_link'] = 'https://drive.google.com/open?id=0Bzybp2XzPNq0flpmdEstcDJYOTdPbXFWcFpkWktZY0NxdnpyUHF1VENFX29jbnJLSGRvcFE'
     attachments_dict['fallback'] = "[DV_BOT] 테이블 오류 발견 !!"
     attachments_dict['text'] = makeInvalidStr()
-
+    print makeInvalidStr()
+    
     #attachments_dict['pretext'] = "pretext - python slack api TEST"
     #attachments_dict['mrkdwn_in'] = ["text", "pretext"]  # 마크다운을 적용시킬 인자들을 선택합니다.
 
@@ -277,7 +314,8 @@ def main():
 
     # 검증 결과 리포트
     if len(INVALID_DATA_TABLE) > 0:
-        sendInvalidTableListBySlack()
+        #sendInvalidTableListBySlack()
+        print makeInvalidStr()
         sys_error_code = 105
 
     print "## TABLE VALIDATION END"
