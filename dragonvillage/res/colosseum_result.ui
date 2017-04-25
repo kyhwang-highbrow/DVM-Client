@@ -33,12 +33,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 192.000000;
+				y = 218.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 264;
-				height = 238;
+				width = 240;
+				height = 252;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -58,8 +58,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 3.000000;
-				y = 106.000000;
+				x = 0.000000;
+				y = 60.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -73,7 +73,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 100;
+				font_size = 90;
 				text = '전투 승리';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -97,12 +97,12 @@
 			type = 'Sprite';
 			ui_name = '';
 			x = 200.000000;
-			y = 0.000000;
+			y = -32.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 524;
-			height = 542;
+			width = 484;
+			height = 576;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -125,12 +125,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 192.000000;
+				y = 218.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 264;
-				height = 238;
+				width = 240;
+				height = 252;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -150,8 +150,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 3.000000;
-				y = 106.000000;
+				x = 0.000000;
+				y = 60.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -165,7 +165,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 100;
+				font_size = 90;
 				text = '전투 패배';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -189,12 +189,12 @@
 			type = 'Sprite';
 			ui_name = '';
 			x = 200.000000;
-			y = 0.000000;
+			y = -32.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 524;
-			height = 542;
+			width = 484;
+			height = 576;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -216,8 +216,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -35.000000;
-				y = 2.000000;
+				x = -39.000000;
+				y = -25.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -256,8 +256,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -35.000000;
-				y = -39.000000;
+				x = -39.000000;
+				y = -66.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -296,8 +296,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -35.000000;
-				y = -81.000000;
+				x = -39.000000;
+				y = -108.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -336,8 +336,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 54.000000;
-				y = 2.000000;
+				x = 50.000000;
+				y = -25.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -376,8 +376,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 54.000000;
-				y = -39.000000;
+				x = 50.000000;
+				y = -66.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -416,8 +416,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 54.000000;
-				y = -81.000000;
+				x = 50.000000;
+				y = -108.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -456,8 +456,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -35.000000;
-				y = -181.000000;
+				x = -39.000000;
+				y = -202.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -496,8 +496,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -35.000000;
-				y = -146.000000;
+				x = -39.000000;
+				y = -167.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -536,8 +536,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 54.000000;
-				y = -181.000000;
+				x = 50.000000;
+				y = -202.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -575,12 +575,12 @@
 			type = 'Menu';
 			ui_name = '';
 			x = 200.000000;
-			y = 0.000000;
+			y = -32.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 524;
-			height = 542;
+			width = 484;
+			height = 576;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -679,7 +679,7 @@
 			type = 'Button';
 			ui_name = '';
 			x = -70.000000;
-			y = -180.000000;
+			y = -218.000000;
 			dock_point = { 1.000000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -769,7 +769,7 @@
 			type = 'Button';
 			ui_name = '';
 			x = -70.000000;
-			y = -80.000000;
+			y = -118.000000;
 			dock_point = { 1.000000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -859,7 +859,7 @@
 			type = 'Button';
 			ui_name = '';
 			x = -70.000000;
-			y = 20.000000;
+			y = -18.000000;
 			dock_point = { 1.000000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -949,7 +949,7 @@
 			type = 'Button';
 			ui_name = '';
 			x = -70.000000;
-			y = 280.000000;
+			y = 211.000000;
 			dock_point = { 1.000000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;

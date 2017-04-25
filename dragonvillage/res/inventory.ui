@@ -1135,7 +1135,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 28;
 					text = '일괄 판매';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -1199,7 +1199,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 28;
 					text = '판매';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -1504,7 +1504,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 28;
 					text = '획득 장소';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -1568,7 +1568,7 @@
 					visible = true;
 					lua_name = 'useLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 28;
 					text = 'useLabel';
 					h_alignment = 1;
 					v_alignment = 1;

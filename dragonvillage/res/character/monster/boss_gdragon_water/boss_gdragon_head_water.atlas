@@ -12,17 +12,17 @@ boss_gdragon_water_body_01
   offset: 0, 0
   index: -1
 boss_gdragon_water_eff_01
-  rotate: true
-  xy: 1944, 1413
+  rotate: false
+  xy: 1352, 1422
   size: 111, 102
   orig: 111, 102
   offset: 0, 0
   index: -1
-boss_gdragon_water_eye_01
+boss_gdragon_water_eff_02
   rotate: false
-  xy: 596, 796
-  size: 588, 552
-  orig: 588, 552
+  xy: 1186, 1246
+  size: 111, 102
+  orig: 111, 102
   offset: 0, 0
   index: -1
 boss_gdragon_water_hand_01
@@ -41,7 +41,7 @@ boss_gdragon_water_hand_02
   index: -1
 boss_gdragon_water_head_01
   rotate: false
-  xy: 596, 242
+  xy: 596, 796
   size: 588, 552
   orig: 588, 552
   offset: 0, 0
@@ -55,7 +55,7 @@ boss_gdragon_water_head_02
   index: -1
 boss_gdragon_water_jaw_01
   rotate: false
-  xy: 1352, 1250
+  xy: 596, 520
   size: 294, 274
   orig: 294, 274
   offset: 0, 0
@@ -69,7 +69,7 @@ boss_gdragon_water_jaw_02
   index: -1
 boss_gdragon_water_jaw_03
   rotate: false
-  xy: 1648, 1250
+  xy: 892, 520
   size: 294, 274
   orig: 294, 274
   offset: 0, 0

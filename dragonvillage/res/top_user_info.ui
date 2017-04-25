@@ -181,12 +181,12 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 69; 51; 63; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 69; 51; 63; };
-					shadow_opacity = 255;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				type = 'Button';
 				ui_name = '';
@@ -245,12 +245,12 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 69; 51; 63; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 69; 51; 63; };
-					shadow_opacity = 255;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				[2] =
 				{
@@ -337,12 +337,12 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 69; 51; 63; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 69; 51; 63; };
-					shadow_opacity = 255;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				[2] =
 				{
@@ -521,12 +521,12 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 69; 51; 63; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 69; 51; 63; };
-					shadow_opacity = 255;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				[2] =
 				{
@@ -731,12 +731,12 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 3.000000;
-					stroke_color = { 69; 51; 63; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 69; 51; 63; };
-					shadow_opacity = 255;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 4.000000;
+					shadow_distance = 2.000000;
 				};
 				type = 'Button';
 				ui_name = '';

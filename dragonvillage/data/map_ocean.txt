@@ -61,7 +61,6 @@
 		{
             "name":"초근경1"
             "speed":0.9
-			"directing":"shaky_2"
             "list":
             [
                 {"res":"res/bg/ocean/ocean.vrp" "animation":"layer_5_a" "width":1038}

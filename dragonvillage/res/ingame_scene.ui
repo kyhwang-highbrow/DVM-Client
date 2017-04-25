@@ -33,158 +33,6 @@
 		};
 		[2] =
 		{
-			type = 'LabelTTF';
-			ui_name = '';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.000000; 0.000000; };
-			anchor_point = { 0.000000; 0.000000; };
-			relative_size_type = 0;
-			width = 138;
-			height = 23;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			lua_name = '';
-			font_name = 'font/common_font_01.ttf';
-			font_size = 20;
-			text = 'cache';
-			h_alignment = 1;
-			v_alignment = 1;
-			color = { 255; 255; 255; };
-			opacity = 255;
-			dimension_width = 138;
-			dimension_height = 23;
-			letter_spacing = 0.000000;
-			has_stroke = false;
-			stroke_type = 0;
-			stroke_detail_level = 0;
-			is_sharp_text = true;
-			stroke_tickness = 1.000000;
-			stroke_color = { 255; 255; 255; };
-			has_shadow = false;
-			shadow_color = { 255; 255; 255; };
-			shadow_opacity = 255;
-			shadow_direction = 0;
-			shadow_distance = 5.000000;
-		};
-		[3] =
-		{
-			[1] =
-			{
-				type = 'ProgressTimer';
-				ui_name = '';
-				x = 0.000000;
-				y = -6.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
-				relative_size_type = 0;
-				width = 222;
-				height = 12;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'stageGauge';
-				file_name = 'ui/gauge_stage_bar_01.png';
-				color = { 255; 255; 0; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-				progress_type = 4;
-				mid_point_x = 0.000000;
-				mid_point_y = 0.000000;
-				percentage = 100;
-			};
-			[2] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = -10.000000;
-				y = 0.000000;
-				dock_point = { 0.000000; 0.500000; };
-				anchor_point = { 0.000000; 0.500000; };
-				relative_size_type = 0;
-				width = 30;
-				height = 30;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/gauge_stage_icon_01.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[3] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 5.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 0.500000; };
-				anchor_point = { 1.000000; 0.500000; };
-				relative_size_type = 0;
-				width = 20;
-				height = 21;
-				scale_x = 1.100000;
-				scale_y = 1.100000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/gauge_boss_icon_01.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			type = 'Sprite';
-			ui_name = '';
-			x = 0.000000;
-			y = -8.000000;
-			dock_point = { 0.500000; 1.000000; };
-			anchor_point = { 0.500000; 1.000000; };
-			relative_size_type = 0;
-			width = 234;
-			height = 24;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			action_type = 3;
-			action_delay_1 = 0.000000;
-			action_delay_2 = 0.000000;
-			action_duration = 0.500000;
-			lua_name = '';
-			file_name = 'ui/gauge_stage_bg.png';
-			color = { 255; 255; 255; };
-			opacity = 255;
-			flip_x = false;
-			flip_y = false;
-			src_blend = 770;
-			dest_blend = 771;
-		};
-		[4] =
-		{
 			[1] =
 			{
 				type = 'Sprite';
@@ -295,7 +143,7 @@
 			action_duration = 0.500000;
 			lua_name = 'goldNode';
 		};
-		[5] =
+		[3] =
 		{
 			[1] =
 			{
@@ -344,204 +192,7 @@
 			action_duration = 0.500000;
 			lua_name = 'timeNode';
 		};
-		[6] =
-		{
-			[1] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 690;
-				height = 48;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/gauge/special_boss_gg_bg.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[2] =
-			{
-				type = 'ProgressTimer';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 662;
-				height = 36;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'bossGauge';
-				file_name = 'ui/gauge/user_info_exp_gg.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-				progress_type = 4;
-				mid_point_x = 0.000000;
-				mid_point_y = 0.000000;
-				percentage = 100;
-			};
-			[3] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 690;
-				height = 52;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				action_type = 3;
-				action_delay_1 = 0.000000;
-				action_delay_2 = 0.000000;
-				action_duration = 0.500000;
-				lua_name = 'bossHpLabel';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
-				text = '{0}/{0}';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 690;
-				dimension_height = 52;
-				letter_spacing = 0.000000;
-				has_stroke = true;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 3.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			[4] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = -29.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 140;
-				height = 22;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'destroyBgSprite';
-				file_name = 'ui/gauge/special_boss_gg_bg_02.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[5] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = -27.000000;
-				y = -29.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 56;
-				height = 14;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'destroySprite1';
-				file_name = 'ui/gauge/special_boss_gg_sub.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[6] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 30.000000;
-				y = -29.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 56;
-				height = 14;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'destroySprite2';
-				file_name = 'ui/gauge/special_boss_gg_sub.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			type = 'Node';
-			ui_name = '';
-			x = 0.000000;
-			y = -47.000000;
-			dock_point = { 0.500000; 1.000000; };
-			anchor_point = { 0.500000; 1.000000; };
-			relative_size_type = 0;
-			width = 690;
-			height = 48;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			lua_name = 'bossNode';
-		};
-		[7] =
+		[4] =
 		{
 			[1] =
 			{
@@ -614,107 +265,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[8] =
-		{
-			[1] =
-			{
-				type = 'ProgressTimer';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 1047;
-				height = 10;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'dragSkillGauge';
-				file_name = 'ui/gauge/drag_skill_gg_0101.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-				progress_type = 4;
-				mid_point_x = 0.000000;
-				mid_point_y = 0.000000;
-				percentage = 0;
-			};
-			[2] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 485.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.000000; };
-				anchor_point = { 0.500000; 0.000000; };
-				relative_size_type = 0;
-				width = 85;
-				height = 62;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'dragSkillLabel';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '{0}%';
-				h_alignment = 2;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 85;
-				dimension_height = 62;
-				letter_spacing = 0.000000;
-				has_stroke = true;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 150;
-				shadow_direction = 0;
-				shadow_distance = 3.000000;
-			};
-			type = 'Sprite';
-			ui_name = '';
-			x = 104.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.000000; };
-			anchor_point = { 0.500000; 0.000000; };
-			relative_size_type = 0;
-			width = 1057;
-			height = 20;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			action_type = 4;
-			action_delay_1 = 0.000000;
-			action_delay_2 = 0.000000;
-			action_duration = 0.500000;
-			lua_name = '';
-			file_name = 'ui/gauge/drag_skill_gg_bg.png';
-			color = { 255; 255; 255; };
-			opacity = 255;
-			flip_x = false;
-			flip_y = false;
-			src_blend = 770;
-			dest_blend = 771;
-		};
-		[9] =
+		[5] =
 		{
 			[1] =
 			{
@@ -806,32 +357,6 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
-				lua_name = 'tamerSkillDisableNode';
-				file_name = 'ui/frame/ingame_pannel_tamer_0101.png';
-				color = { 255; 255; 255; };
-				opacity = 150;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[4] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 140;
-				height = 140;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
 				file_name = 'ui/frame/ingame_pannel_tamer_0102.png';
@@ -842,7 +367,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[5] =
+			[4] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -868,7 +393,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[6] =
+			[5] =
 			{
 				type = 'Visual';
 				ui_name = '';
@@ -893,7 +418,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[7] =
+			[6] =
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
@@ -923,7 +448,7 @@
 				mid_point_y = 0.500000;
 				percentage = 0;
 			};
-			[8] =
+			[7] =
 			{
 				[1] =
 				{
@@ -965,7 +490,7 @@
 				alpha_threshold = 0.000000;
 				is_invert = false;
 			};
-			[9] =
+			[8] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -1012,7 +537,7 @@
 			action_duration = 0.500000;
 			lua_name = 'tamerMenu';
 		};
-		[10] =
+		[6] =
 		{
 			[1] =
 			{
@@ -1080,7 +605,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[11] =
+		[7] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1109,7 +634,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[12] =
+		[8] =
 		{
 			[1] =
 			{
@@ -1177,7 +702,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[13] =
+		[9] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1206,7 +731,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[14] =
+		[10] =
 		{
 			[1] =
 			{
@@ -1267,7 +792,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 26;
 				text = 'x2';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -1314,7 +839,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[15] =
+		[11] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1343,7 +868,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[16] =
+		[12] =
 		{
 			[1] =
 			{
@@ -1411,7 +936,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[17] =
+		[13] =
 		{
 			[1] =
 			{
@@ -1540,7 +1065,7 @@
 			action_duration = 0.500000;
 			lua_name = 'autoStartNode';
 		};
-		[18] =
+		[14] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -1568,7 +1093,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[19] =
+		[15] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -1591,7 +1116,7 @@
 			action_duration = 0.500000;
 			lua_name = 'buffNode';
 		};
-		[20] =
+		[16] =
 		{
 			type = 'Menu';
 			ui_name = '';
