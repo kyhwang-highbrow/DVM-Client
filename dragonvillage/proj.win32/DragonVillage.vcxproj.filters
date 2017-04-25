@@ -1947,6 +1947,9 @@
     <None Include="..\src\BattleStatisticsHelper.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\FpsMeter.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

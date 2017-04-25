@@ -68,6 +68,7 @@ local t_module = {
     'RichLabel',
     'NumberLabel',
 	'NumberLabel_Pumping',
+    'FpsMeter',
     'LevelupDirector',
     'LevelupDirector_GameResult',
     'MapManager',
