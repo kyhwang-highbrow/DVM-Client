@@ -10,7 +10,7 @@
 			"camera_app_rate_scale":0
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_1_a" "pos_x":640 "pos_y":-640 "scale":1.1}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_1_a_@" "pos_x":640 "pos_y":-640 "scale":1.1}
 					
             ]
         }
@@ -22,7 +22,7 @@
 			"camera_app_rate_scale":0
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_2_a" "pos_x":640 "pos_y":-640 "scale":1.1}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_2_a_@" "pos_x":640 "pos_y":-640 "scale":1.1}
 					
             ]
         }
@@ -34,7 +34,7 @@
 			"camera_app_rate_scale":0
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_3_a" "pos_x":640 "pos_y":-640 "scale":1.1}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_3_a_@" "pos_x":640 "pos_y":-640 "scale":1.1}
 					
             ]
         }
@@ -46,7 +46,7 @@
 			"camera_app_rate_scale":0
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_4_a" "pos_x":640 "pos_y":-640 "scale":1.1}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_4_a_@" "pos_x":640 "pos_y":-640 "scale":1.1}
 					
             ]
         }
@@ -56,7 +56,7 @@
 			"speed":0
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"bg_tree_idle" "pos_x":1056 "pos_y":400 "scale":1.2}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"bg_tree_idle_@" "pos_x":1056 "pos_y":400 "scale":1.2}
             ]
         }
 		{
@@ -65,7 +65,7 @@
 			"speed":0
 			"list":
             [
-                {"res":"res/character/monster/boss_treant_earth/boss_treant_earth.spine" "animation":"boss_appear" "pos_x":1280 "pos_y":2560 "flip":true "pause":true "scale":1.2}
+                {"res":"res/character/monster/boss_treant_@/boss_treant_@.spine" "animation":"boss_appear" "pos_x":1280 "pos_y":2560 "flip":true "pause":true "scale":1.2}
             ]
         }
     ]

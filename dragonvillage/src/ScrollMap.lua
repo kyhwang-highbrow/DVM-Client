@@ -227,17 +227,19 @@ function ScrollMap:setBg(res, attr)
                 local res = data['res']
                 local real_offset_x = (data['pos_x'] or 0)
                 local real_offset_y = (data['pos_y'] or 0)
+                local animation = data['animation'] or 'idle'
                 local scale = (data['scale'] or 1)
                 local bFlip = (data['flip'] or false)
                 local bPause = (data['pause'] or false)
 
                 if (attr) then
                     res = string.gsub(res, '@', attr)
+                    animation = string.gsub(animation, '@', attr)
                 end
 
                 self:makeLayer({
                     res = res,
-                    animation = data['animation'],
+                    animation = animation,
                     offset_x = real_offset_x,
                     offset_y = real_offset_y,
                     scale = scale,
@@ -267,8 +269,11 @@ function ScrollMap:setBg(res, attr)
             
             for i, data in ipairs(v['list']) do
                 local res = data['res']
+                local animation = data['animation'] or 'idle'
+                
                 if (attr) then
                     res = string.gsub(res, '@', attr)
+                    animation = string.gsub(animation, '@', attr)
                 end
 
                 local real_offset_x = (data['pos_x'] or 0)
@@ -284,7 +289,7 @@ function ScrollMap:setBg(res, attr)
                 self:makeLayer({
                     type = type,
                     res = res,
-                    animation = data['animation'],
+                    animation = animation,
                     interval = interval,
                     offset_x = real_offset_x,
                     offset_y = real_offset_y,
