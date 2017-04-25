@@ -245,3 +245,11 @@ function stringExample()
     cclog(string.format('%.3d', 8)) -- 008
     cclog(string.format('%.2f', 8)) -- 8.00
 end
+
+function getFileName(url)
+    return url:match("(.+)%..+")
+end
+
+function getFileExtension(url)
+    return url:match('^.+(%..+)$')
+end

@@ -36,9 +36,9 @@ end
 -------------------------------------
 -- function load
 -------------------------------------
-function UI:load(url, isPermanent, keep_z_order)
+function UI:load(url, isPermanent, keep_z_order, use_sprite_frames)
     self.m_resName = url
-    self.root, self.vars = UILoader.load(self, url, keep_z_order)
+    self.root, self.vars = UILoader.load(self, url, keep_z_order, use_sprite_frames)
 	if isPermanent then
 		UILoader.setPermanent(url)
 	end
@@ -50,7 +50,24 @@ end
 -------------------------------------
 function UI:load_keepZOrder(url, isPermanent)
     local keep_z_order = true
-    return self:load(url, isPermanent, true)
+    local use_sprite_frames = false
+    return self:load(url, isPermanent, true, use_sprite_frames)
+end
+
+-------------------------------------
+-- function load_useSpriteFrames
+-------------------------------------
+function UI:load_useSpriteFrames(url, isPermanent)
+    local keep_z_order = false
+    local use_sprite_frames = true
+
+
+    --local file_name = url:match('([^/]+)$')
+    local file_name = getFileName(url)
+    local res = string.format('res/ui/a2d/%s/%s.plist', file_name, file_name)
+    cc.SpriteFrameCache:getInstance():addSpriteFrames(res)
+
+    return self:load(url, isPermanent, keep_z_order, use_sprite_frames)
 end
 
 -------------------------------------

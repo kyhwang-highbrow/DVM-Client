@@ -306,7 +306,7 @@ local function setPropsForProgressTimer(node, data)
     node:setPercentage(data.percentage)
 end
 
-local function loadNode(ui, data, vars, parent, keep_z_order)
+local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     if not data.loaded then
         -- 저해상도(3GS)를 위해 Label을 강제로 ui property를 변경해준다.
         -- adjustLabelPropsForLowResolution(data)
@@ -318,7 +318,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order)
     local type = data.type
     local ui_name = data.ui_name
     local var = data.lua_name
-
+        
     if data.font_name then
         --data.font_name = 'font/' .. Translate:getFontName()
         --data.font_name = 'font/krlangs'
@@ -511,7 +511,17 @@ local function loadNode(ui, data, vars, parent, keep_z_order)
     elseif type == 'Sprite' then
         UILoader.checkTranslate(data)
         local res = uiRoot .. data.file_name
-        node = cc.Sprite:create(res)
+
+        if use_sprite_frames then
+            -- 확장자를 포함한 파일명만 얻어옴
+            local file_name = res:match('([^/]+)$')
+
+            -- SpriteFrames를 통해 Sprite를 생성
+            node = cc.Sprite:createWithSpriteFrameName(file_name)
+        else
+            node = cc.Sprite:create(res)
+        end
+
         if (not node) then
             error(string.format('"%s"이(가) 없습니다.', res))
         end
@@ -584,7 +594,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order)
     end
 
     for z_order,v in ipairs(data) do
-        local child = loadNode(ui, v, vars, node, keep_z_order)
+        local child = loadNode(ui, v, vars, node, keep_z_order, use_sprite_frames)
 
         -- 소켓노드를 위한 예외처리...
         if child and v.type ~= 'SocketNode' then
@@ -686,13 +696,13 @@ function UILoader.checkTranslateUnit(str)
     return translate_str
 end
 
-function UILoader.load(ui, url, keep_z_order)
+function UILoader.load(ui, url, keep_z_order, use_sprite_frames)
 	if (not CHECK_UI_LOAD_TIME) then
 		local data = getUIFile(url)
 		data = setUIHeader(data)
 
 		local vars = {}
-		local root = loadNode(ui, data, vars, nil, keep_z_order)
+		local root = loadNode(ui, data, vars, nil, keep_z_order, use_sprite_frames)
 
 		return root, vars
 	end
@@ -708,7 +718,7 @@ function UILoader.load(ui, url, keep_z_order)
 	data = setUIHeader(data)
 
 	local vars = {}
-	local root = loadNode(ui, data, vars, nil, keep_z_order)
+	local root = loadNode(ui, data, vars, nil, keep_z_order, use_sprite_frames)
 
 	-- record
 	stopwatch:record('UI Node load')
