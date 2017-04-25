@@ -2,16 +2,15 @@
 
 import os
 import sys
-import re
 import csv
 import json
+import json_formatter
 
+# 전역 변수
 DATA_ROOT = '../data/'
-DRAGON_TABLE_PATH = '../data/table_dragon.csv'
 INVALID_DATA_TABLE = []
-
-DRAGON_TABLE = {}
-MONSTER_TABLE = {}
+DRAGON_TABLE = None
+MONSTER_TABLE = None
 
 ###################################
 # def install_and_import
@@ -31,6 +30,35 @@ def install_and_import(package):
 install_and_import('slacker')
 
 ###################################
+# def initGlobalVar
+###################################
+def initGlobalVar():
+    global DRAGON_TABLE
+    global MONSTER_TABLE
+    DRAGON_TABLE = makeDictCSV('../data/table_dragon.csv', 'did')
+    MONSTER_TABLE = makeDictCSV('../data/table_monster.csv', 'mid')
+
+
+###################################
+# def validateData
+# @brief data 검증 시작
+###################################
+def validateData():
+    # 전체 파일 경로 찾기
+    file_path_list = getAllFilePath(DATA_ROOT)
+
+    # 전체 파일 리스트 자료 정리 (딕셔너리화)
+    table_data = makeDictAllData(file_path_list)
+
+    # 파일 검증
+    validateData_Dragon(table_data)
+    validateData_Stage(table_data)
+
+
+######################################################################
+# 1. 전체 파일 경로 찾기
+
+###################################
 # def getAllFilePath
 # @brief 특정 폴더의 전체 파일 절대경로 리스트 반환
 ###################################
@@ -42,61 +70,9 @@ def getAllFilePath(path):
 
     return res
 
-###################################
-# def validateData
-# @brief data 검증 시작
-###################################
-def validateData():
-    file_path_list = getAllFilePath(DATA_ROOT)
 
-    # 전체 파일 리스트 자료 정리 (딕셔너리화)
-    table_data = makeDictAllData(file_path_list)
-
-    # 파일 검증
-    validateData_Dragon(table_data)
-
-
-
-
-###################################
-# def validateData_Dragon
-# @brief 드래곤 테이블 관련 테이블 did 검증
-###################################
-def validateData_Dragon(table_data):
-    t_dragon = makeDictCSV(os.path.abspath(DRAGON_TABLE_PATH), 'did')
-
-    for file_path, l_data in table_data.iteritems():
-        if file_path.find('table_dragon') > 0:
-            for t_row in l_data:
-                checkCSVRow(t_row, 'did', t_dragon, file_path)
-                checkCSVRow(t_row, 'base_did', t_dragon, file_path)
-
-###################################
-# def checkCSVRow
-###################################
-def checkCSVRow(t_row, key, table, file_path):
-    did_str = t_row.get(key)
-    if did_str:
-        if did_str.find(',') > 0:
-            l_did = did_str.split(',')
-            for did in l_did:
-                checkDictHasKey(table, did, file_path)
-        else:
-            checkDictHasKey(table, did_str, file_path)
-
-###################################
-# def checkDictHasKey
-###################################
-def checkDictHasKey(table, key, file_path):
-    key = key.strip()
-    if not table.get(key):
-        temp_dict = {}
-        path_extractor = re.findall(r"table_\w+[.]\w+", file_path)
-        temp_dict['path'] = path_extractor[0]
-        temp_dict['info'] = key
-        INVALID_DATA_TABLE.append(temp_dict)
-
-
+######################################################################
+# 2. 전체 파일 구조화
 
 ###################################
 # def makeDictAllData
@@ -175,26 +151,86 @@ def makeDataTxt(file_path):
         try:
             txt_dict = json.load(json_data)
         except ValueError:
-            print file_path
+            valid_json_str = json_formatter.makeValidJson(file_path)
+            txt_dict = json.loads(valid_json_str)
 
     return txt_dict
 
 
+######################################################################
+# 3. 데이터 테이블 검증
+
+###################################
+# def validateData_Dragon
+# @brief 드래곤 테이블 관련 테이블 did 검증
+###################################
+def validateData_Dragon(table_data):
+    for file_path, l_data in table_data.iteritems():
+        if file_path.find('table_dragon') > 0:
+            for t_row in l_data:
+                checkCSVRow(t_row, 'did', DRAGON_TABLE, file_path)
+                checkCSVRow(t_row, 'base_did', DRAGON_TABLE, file_path)
+
+###################################
+# def checkCSVRow
+###################################
+def checkCSVRow(t_row, key, table, file_path):
+    did_str = t_row.get(key)
+    if did_str:
+        if did_str.find(',') > 0:
+            l_did = did_str.split(',')
+            for did in l_did:
+                checkDictHasKey(table, did, file_path)
+        else:
+            checkDictHasKey(table, did_str, file_path)
+
+###################################
+# def validateData_Stage
+# @brief 드래곤 테이블 관련 테이블 did 검증
+###################################
+def validateData_Stage(table_data):
+    for file_path, t_data in table_data.iteritems():
+        if file_path.find('stage_') > 0 and file_path.endswith('.txt'):
+            checkStageScript(t_data, file_path)
+
+###################################
+# def checkCSVRow
+###################################
+def checkStageScript(t_data, file_path):
+    for t_wave in t_data.get("wave"):
+        for summon_info in t_wave.get("wave").values():
+            for script in summon_info:
+                monster_id = script.split(';')[0]
+                if monster_id.find('RandomDragon') == -1:
+                    checkDictHasKey(MONSTER_TABLE, monster_id, file_path)
+
+###################################
+# def checkDictHasKey
+###################################
+def checkDictHasKey(table, key, file_path):
+    key = key.strip()
+    if not table.get(key):
+        temp_dict = {}
+        temp_dict['path'] = file_path.replace(DATA_ROOT, "")
+        temp_dict['info'] = key
+        INVALID_DATA_TABLE.append(temp_dict)
 
 
 
 
+######################################################################
+# 3. 검증 결과 리포트 (출력 + 슬랙)
 
 ###################################
 # def makeInvalidStr
 # @brief 오류가 있는 테이블 목록을 예쁘게 출력될 텍스트로 만든다.
 ###################################
 def makeInvalidStr():
-    table_str = "@jykim\n"
+    table_str = "@hkkang @wjung @jykim\n"
     table_str += "##잘못된 데이터 목록##\n"
     for temp_dict in INVALID_DATA_TABLE:
         text = temp_dict.get('path') + '\t' + temp_dict.get('info')
-        table_str += text + "\n"
+        table_str += text.encode('utf-8') + "\n"
 
     return table_str
 
@@ -203,9 +239,6 @@ def makeInvalidStr():
 # @brief 슬랙으로 쏜다
 ###################################
 def sendInvalidTableListBySlack():
-    if len(INVALID_DATA_TABLE) == 0:
-        return
-
     attachments_dict = dict()
     attachments_dict['title'] = "[DV_BOT] TABLE VALIDATION"
     attachments_dict['title_link'] = 'https://drive.google.com/open?id=0Bzybp2XzPNq0flpmdEstcDJYOTdPbXFWcFpkWktZY0NxdnpyUHF1VENFX29jbnJLSGRvcFE'
@@ -232,21 +265,26 @@ def sendInvalidTableListBySlack():
 # def main
 ###################################
 def main():
+    print "## TABLE VALIDATION START"
+
     sys_error_code = 0
+
+    # 전역 변수 초기화
+    initGlobalVar()
+
+    # 데이터 검증
     validateData()
-    print makeInvalidStr()
-    try:
-        print "## table validation done"
-    except:
-        print "## there is some error"
+
+    # 검증 결과 리포트
+    if len(INVALID_DATA_TABLE) > 0:
+        sendInvalidTableListBySlack()
         sys_error_code = 105
-    finally:
-        print "## end"
-        #sendInvalidTableListBySlack()
-        sys.exit(sys_error_code)
+
+    print "## TABLE VALIDATION END"
+
+    sys.exit(sys_error_code)
 
 ###################################
-print "## start"
 ###################################
 if __name__ == '__main__':
     main()

@@ -94,25 +94,22 @@ def makeValidJson(file_path):
         whole_data = RE_M_5.sub(r'",\n{', whole_data)
         whole_data = RE_M_6.sub(r'},\n"', whole_data)
 
-        #print whole_data
-
     if whole_data:
-        with open(file_path, 'w') as new_json:
-            new_json.write(whole_data)
-            print "#### JSON FORMATTING DONE .. " + file_path
+        return whole_data
 
 ###################################
 # def main
 ###################################
 def main():
+    print "## JSON FORMATTER START"
     checkData(getAllFilePath(DATA_ROOT))
+    print "## JSON FORMATTER END"
 
 ###################################
-print "## start"
+# MAIN
 ###################################
-if __name__ == '__main__':
-    main()
-    print "## end"
-else:
-    print '## I am being imported from another module'
+# if __name__ == '__main__':
+#     main()
+# else:
+#     print '## I am being imported from another module'
     
