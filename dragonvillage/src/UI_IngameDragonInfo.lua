@@ -39,3 +39,30 @@ function UI_IngameDragonInfo:initUI()
 	self:makeDebugingLabel()
     self.m_label:setPosition(70, 0)
 end
+
+-------------------------------------
+-- function showSkillFullVisual
+-------------------------------------
+function UI_IngameDragonInfo:showSkillFullVisual(attr)
+    local vars = self.vars
+
+    vars['skllFullVisual']:setVisible(true)
+    vars['skllFullVisual']:setRepeat(false)
+    vars['skllFullVisual']:setVisual('skill_gauge', 'charging')
+    vars['skllFullVisual']:registerScriptLoopHandler(function()
+                vars['skllFullVisual']:setVisual('skill_gauge', 'idle_' .. attr)
+                vars['skllFullVisual']:setRepeat(true)
+
+                vars['skllFullVisual2']:setVisual('skill_gauge', 'idle_s_' .. attr)
+                vars['skllFullVisual2']:setVisible(true)
+            end)
+end
+
+-------------------------------------
+-- function hideSkillFullVisual
+-------------------------------------
+function UI_IngameDragonInfo:hideSkillFullVisual()
+    local vars = self.vars
+    vars['skllFullVisual']:setVisible(false)
+    vars['skllFullVisual2']:setVisible(false)
+end

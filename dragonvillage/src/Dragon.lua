@@ -855,20 +855,8 @@ function Dragon:updateActiveSkillCool(dt)
     if (self.m_activeSkillValue > 100) then
         self.m_activeSkillValue = 100
 
-        if (self.m_infoUI.vars['skllFullVisual']) then
-            self.m_infoUI.vars['skllFullVisual']:setVisible(true)
-            self.m_infoUI.vars['skllFullVisual']:setRepeat(false)
-            self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'charging')
-            self.m_infoUI.vars['skllFullVisual']:registerScriptLoopHandler(function()
-                local attr = self:getAttribute()
-
-                self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle_' .. attr)
-                self.m_infoUI.vars['skllFullVisual']:setRepeat(true)
-
-                self.m_infoUI.vars['skllFullVisual2']:setVisual('skill_gauge', 'idle_s_' .. attr)
-                self.m_infoUI.vars['skllFullVisual2']:setVisible(true)
-            end)
-        end
+        local attr = self:getAttribute()
+        self.m_infoUI:showSkillFullVisual(attr)
     end
 
     do -- 리스너에 전달
@@ -885,12 +873,7 @@ end
 function Dragon:resetActiveSkillCool()
     if self:isEndActiveSkillCool() then
         self.m_activeSkillValue = 0
-
-        if (self.m_infoUI.vars['skllFullVisual']) then
-            self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle')
-            self.m_infoUI.vars['skllFullVisual']:setVisible(false)
-            self.m_infoUI.vars['skllFullVisual2']:setVisible(false)
-        end
+        self.m_infoUI:hideSkillFullVisual()
         return true
     else
         return false
