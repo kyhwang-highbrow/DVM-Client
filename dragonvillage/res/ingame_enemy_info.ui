@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'hpGauge2';
-				file_name = 'ui/gauge/ingame_enemy_gg_03.png';
+				file_name = 'ui/a2d/ingame_enemy_info/ingame_enemy_info_gg_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'hpGauge';
-				file_name = 'ui/gauge/ingame_enemy_gg_01.png';
+				file_name = 'ui/a2d/ingame_enemy_info/ingame_enemy_info_gg_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -75,7 +75,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/gauge/active_bg.png';
+				file_name = 'ui/a2d/ingame_enemy_info/ingame_enemy_info_active_bg.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -158,7 +158,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/gauge/ingame_enemy_bg.png';
+			file_name = 'ui/a2d/ingame_enemy_info/ingame_enemy_info_bg.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
