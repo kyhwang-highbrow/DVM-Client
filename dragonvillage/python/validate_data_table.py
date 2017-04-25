@@ -314,8 +314,7 @@ def main():
 
     # 검증 결과 리포트
     if len(INVALID_DATA_TABLE) > 0:
-        #sendInvalidTableListBySlack()
-        print makeInvalidStr()
+        sendInvalidTableListBySlack()
         sys_error_code = 105
 
     print "## TABLE VALIDATION END"
