@@ -1950,6 +1950,9 @@
     <None Include="..\src\FpsMeter.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ServerData_Tamer.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
