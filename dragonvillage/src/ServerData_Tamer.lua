@@ -11,11 +11,7 @@ ServerData_Tamer = class({
 -------------------------------------
 function ServerData_Tamer:init(server_data)
     self.m_serverData = server_data
-	if (self:getRef()) then
-		self.m_mTamerMap = table.listToMap(self:getRef(), 'tid')
-	else
-		self.m_mTamerMap = {}
-	end
+	self:refreshTamerInfo(self:getRef())
 end
 
 -------------------------------------
@@ -23,6 +19,17 @@ end
 -------------------------------------
 function ServerData_Tamer:getRef(...)
     return self.m_serverData:getRef('tamers', ...)
+end
+
+-------------------------------------
+-- function refreshTamerInfo
+-------------------------------------
+function ServerData_Tamer:refreshTamerInfo(t_info)
+	if (t_info) then
+		self.m_mTamerMap = table.listToMap(t_info, 'tid')
+	else
+		self.m_mTamerMap = {}
+	end
 end
 
 -------------------------------------
@@ -65,16 +72,90 @@ function ServerData_Tamer:hasTamer(tamer_id)
 end
 
 -------------------------------------
+-- function getObtainableTamer
+-- @brief 획득 가능한 테이머 테이블 반환
+-------------------------------------
+function ServerData_Tamer:getObtainableTamer()
+	local t_ret = {}
+	for tid, t_tamer in pairs(TableTamer().m_orgTable) do
+		if not (self:hasTamer(tid)) then
+			local is_ok = self:checkTamerObtainCondition(t_tamer['obtain_condition'])
+			if (is_ok) then
+				t_ret[tid] = true
+			end
+		end
+	end
+
+	if (cb_func) then
+		cb_func()
+	end
+
+	return t_ret
+end
+
+-------------------------------------
+-- function checkTamerObtaining
+-- @brief 조건별 테이머 획득 가능 체크
+-------------------------------------
+function ServerData_Tamer:checkTamerObtainCondition(condition)
+	local is_clear = false
+	if (not condition) then
+		return is_clear
+	end
+
+	if (condition == 'clear_newbie_quest') then
+		-- @TODO : 퀘스트 체크
+
+	elseif (condition == 'clear_tutorial') then
+		-- @TODO : 튜토리얼 체크
+
+	elseif (string.find(condition, 'clear_chapter_')) then
+		local chapter = string.gsub(condition, 'clear_chapter_', '')
+		if (g_adventureData:isOpenChapter(1, chapter + 1)) then
+			is_clear = true
+		end
+	end
+
+	return is_clear
+end
+
+-------------------------------------
+-- function isHighlightTamer
+-------------------------------------
+function ServerData_Tamer:isHighlightTamer()
+	local t_obtainable_tamer = self:getObtainableTamer()
+	if (table.count(t_obtainable_tamer) > 0) then
+		return true
+	end
+
+	return false
+end
+
+-------------------------------------
+-- function isObtainable
+-------------------------------------
+function ServerData_Tamer:isObtainable(tid)
+	local t_obtainable_tamer = self:getObtainableTamer()
+	if (t_obtainable_tamer[tid]) then
+		return true
+	end
+
+	return false
+end
+
+
+-------------------------------------
 -- function request_setTamer
 -------------------------------------
-function ServerData_User:request_setTamer(tid, cb_func)
+function ServerData_Tamer:request_setTamer(tid, cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
 	local tid = tid
 
     -- 콜백 함수
     local function success_cb()
-        self:applyServerData(tid, 'tamer')
+        self.m_serverData:applyServerData(tid, 'user', 'tamer')
+
 		if (cb_func) then
 			cb_func()
 		end
@@ -94,14 +175,17 @@ end
 -------------------------------------
 -- function request_getTamer
 -------------------------------------
-function ServerData_User:request_getTamer(tid, cb_func)
+function ServerData_Tamer:request_getTamer(tid, cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
 	local tid = tid
 
     -- 콜백 함수
-    local function success_cb()
-        self:applyServerData(tid, 'tamer')
+    local function success_cb(ret)
+		table.insert(self:getRef(), ret['tamer'])
+		
+		self:refreshTamerInfo(self:getRef())
+		
 		if (cb_func) then
 			cb_func()
 		end
@@ -121,7 +205,7 @@ end
 -------------------------------------
 -- function request_tamerLevelUp
 -------------------------------------
-function ServerData_User:request_tamerLevelUp(tid, skill_idx, cb_func)
+function ServerData_Tamer:request_tamerLevelUp(tid, skill_idx, cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
 	local tid = tid
@@ -129,7 +213,10 @@ function ServerData_User:request_tamerLevelUp(tid, skill_idx, cb_func)
 
     -- 콜백 함수
     local function success_cb()
-        self:applyServerData(tid, 'tamer')
+		--table.insert(self:getRef(), ret['tamer'])
+		
+		self:refreshTamerInfo(self:getRef())
+
 		if (cb_func) then
 			cb_func()
 		end

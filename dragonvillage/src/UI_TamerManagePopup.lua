@@ -66,6 +66,7 @@ end
 function UI_TamerManagePopup:initButton()
     local vars = self.vars
 	vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
+	vars['obtainBtn']:registerScriptTapHandler(function() self:click_obtainBtn() end)
 end
 
 -------------------------------------
@@ -76,6 +77,7 @@ function UI_TamerManagePopup:refresh()
 	self:setTamerText()
 	self:setTamerSkill()
 	self:refreshButtonState()
+	self:refreshTamerItem()
 end
 
 -------------------------------------
@@ -130,6 +132,12 @@ function UI_TamerManagePopup:setTamerRes()
 	local sd_animator = MakeAnimator(sd_res)
 	sd_animator:setFlip(true)
     vars['tamerSdNode']:addChild(sd_animator.m_node)
+
+	-- 없는 테이머는 음영 처리
+	if (not g_tamerData:hasTamer(self.m_selectedTamerID)) then
+		illustration_animator:setColor(COLOR['deep_dark_gray'])
+		sd_animator:setColor(COLOR['deep_dark_gray'])
+	end
 end
 
 -------------------------------------
@@ -148,6 +156,7 @@ function UI_TamerManagePopup:setTamerText()
 	local tamer_desc = t_tamer['t_desc']
 	vars['tamerDscLabel']:setString(Str(tamer_desc))
 
+	-- 테이머 없을 시 획득 조건
 	if (not g_tamerData:hasTamer(self.m_selectedTamerID)) then
 		local obtain_desc = t_tamer['t_obtain_desc']
 		vars['lockLabel']:setString(Str(obtain_desc))
@@ -191,34 +200,64 @@ end
 function UI_TamerManagePopup:refreshButtonState()
 	local vars = self.vars
 
+	-- 테이머 있음
 	if (g_tamerData:hasTamer(self.m_selectedTamerID)) then
 		-- 현재 사용중인 경우
 		if (self.m_currTamerID == self.m_selectedTamerID) then
 			vars['useBtn']:setVisible(true)
 			vars['lockBtn']:setVisible(false)
 			vars['selectBtn']:setVisible(false)
+			vars['obtainBtn']:setVisible(false)
 
 			vars['selectBtn']:setEnabled(false)
+			vars['obtainBtn']:setEnabled(false)
 
 		-- 선택 가능한 경우
 		elseif (self.m_currTamerID ~= self.m_selectedTamerID) then
 			vars['useBtn']:setVisible(false)
 			vars['lockBtn']:setVisible(false)
 			vars['selectBtn']:setVisible(true)
+			vars['obtainBtn']:setVisible(false)
 
 			vars['selectBtn']:setEnabled(true)
-
+			vars['obtainBtn']:setEnabled(false)
 		end
 
-	-- 잠긴 경우
+	-- 테이머 없음
 	else
-		vars['useBtn']:setVisible(false)
-		vars['lockBtn']:setVisible(true)
-		vars['selectBtn']:setVisible(true)
+		-- 획득 가능
+		if (g_tamerData:isObtainable(self.m_selectedTamerID)) then
+			vars['useBtn']:setVisible(false)
+			vars['lockBtn']:setVisible(false)
+			vars['selectBtn']:setVisible(false)
+			vars['obtainBtn']:setVisible(true)
 
-		vars['selectBtn']:setEnabled(false)
+			vars['selectBtn']:setEnabled(false)
+			vars['obtainBtn']:setEnabled(true)
+
+		-- 불가
+		else
+			vars['useBtn']:setVisible(false)
+			vars['lockBtn']:setVisible(true)
+			vars['selectBtn']:setVisible(true)
+			vars['obtainBtn']:setVisible(false)
+
+			vars['selectBtn']:setEnabled(false)
+			vars['obtainBtn']:setEnabled(false)
+		end
 	end
 end
+
+-------------------------------------
+-- function refreshTamerItem
+-- @brief
+-------------------------------------
+function UI_TamerManagePopup:refreshTamerItem()
+	for i, v in pairs(self.m_lTamerItemList) do
+		v:refresh()
+	end
+end
+
 
 -------------------------------------
 -- function click_tamerBtn
@@ -278,7 +317,31 @@ function UI_TamerManagePopup:click_selectBtn()
 	end
 
 	-- 서버에 저장
-	g_userData:request_setTamer(tamer_id, cb_func)
+	g_tamerData:request_setTamer(tamer_id, cb_func)
+end
+
+-------------------------------------
+-- function click_obtainBtn
+-- @brief tamer 획득
+-------------------------------------
+function UI_TamerManagePopup:click_obtainBtn()
+	local tamer_id = self.m_selectedTamerID
+
+	-- 콜백
+	local function cb_func()
+		-- 획득한 테이머
+		local new_tamer_item = self.m_lTamerItemList[tamer_id]
+
+		-- 테이머 선택 확인 노티
+		local t_tamer = new_tamer_item:getTamerTable()
+		UIManager:toastNotificationGreen(Str('"{1}" 획득!!', t_tamer['t_name']))
+
+		-- ui 갱신
+		self:refresh()
+	end
+
+	-- 서버에 저장
+	g_tamerData:request_getTamer(tamer_id, cb_func)
 end
 
 -------------------------------------

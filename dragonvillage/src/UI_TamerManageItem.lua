@@ -49,6 +49,27 @@ end
 -- function refresh
 -------------------------------------
 function UI_TamerManageItem:refresh()
+	local vars = self.vars
+	local t_tamer = self.m_tamerTable
+	local tid = t_tamer['tid']
+	local icons = vars['tamerNode']:getChildren()
+
+	-- 없는 테이머는 음영 처리
+	if (not g_tamerData:hasTamer(tid)) then
+		for _, icon in pairs(icons) do
+			icon:setColor(COLOR['deep_dark_gray'])
+		end
+	else
+		for _, icon in pairs(icons) do
+			icon:setColor(COLOR['white'])
+		end
+	end
+
+	if (g_tamerData:isObtainable(tid)) then
+		vars['notiSprite']:setVisible(true)
+	else
+		vars['notiSprite']:setVisible(false)
+	end
 end
 
 -------------------------------------

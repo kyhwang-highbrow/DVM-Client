@@ -80,6 +80,8 @@ function ServerData_Adventure:request_adventureInfo(finish_cb, fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
+	return ui_network
 end
 
 -------------------------------------

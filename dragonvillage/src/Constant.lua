@@ -85,6 +85,7 @@ COLOR = {
 	light_gray = cc.c3b(210, 210, 210),
 	gray = cc.c3b(180, 180, 180),
 	deep_gray = cc.c3b(100, 100, 100),
+	deep_dark_gray = cc.c3b(50, 50, 50),
 	black = cc.c3b(0, 0, 0),
 	
 	-- 빨강

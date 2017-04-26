@@ -272,7 +272,8 @@ function UI_TitleScene:workGameLogin()
         
 		g_serverData:applyServerData(ret['user'], 'user')
 		g_serverData:applyServerData(ret['tamers'], 'tamers')
-        
+        g_tamerData:refreshTamerInfo(ret['tamers'])
+
 		g_serverData:unlockSaveData()
 
         -- server_info 정보를 갱신
@@ -343,6 +344,13 @@ function UI_TitleScene:workGetServerInfo()
         co:work()
         self.m_loadingUI:showLoading(Str('드래곤들을 부르는 중...'))
         local ui_network = g_dragonsData:request_dragonsInfo(co.NEXT, fail_cb)
+        ui_network:setLoadingMsg('')
+        if co:waitWork() then return end
+
+		-- 스테이지 리스트 받기
+        co:work()
+        self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...'))
+        local ui_network = g_adventureData:request_adventureInfo(co.NEXT, fail_cb)
         ui_network:setLoadingMsg('')
         if co:waitWork() then return end
 

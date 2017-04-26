@@ -62,8 +62,6 @@ function UI_Lobby:initUI()
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(icon)
     end
-
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -108,7 +106,7 @@ function UI_Lobby:entryCoroutine()
         working = true
         g_highlightData:request_highlightInfo(function(ret) working = false end, fail_cb)
         while (working) do dt = coroutine.yield() end
-
+		
         cclog('# 출석 정보 받는 중')
         working = true
         g_attendanceData:request_attendanceInfo(function(ret) working = false end)
@@ -125,6 +123,7 @@ function UI_Lobby:entryCoroutine()
         working = true
         self:doAction(function() working = false end, false)
         g_topUserInfo:doAction()
+		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
         while (working) do dt = coroutine.yield() end
 
         -- 터치 가능하도록 해제
@@ -311,6 +310,9 @@ function UI_Lobby:refresh_highlight()
 
     -- 드래곤
     vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
+
+    -- 테이머
+    vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
 end
 
 -------------------------------------
