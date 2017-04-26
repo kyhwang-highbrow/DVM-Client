@@ -97,7 +97,7 @@ function UI_SkillDetailPopupListItem:refresh()
 
     do -- 강화 가격 표시
         local skill_level = skill_indivisual_info:getSkillLevel()
-        local req_gold = TableDragonSkillEnhance:getDragonSkillEnhanceReqGold(skill_level)
+        local req_gold = TableReqGold:getDragonSkillEnhanceReqGold(skill_level)
         vars['priceLabel']:setString(comma_value(req_gold))
     end
 
@@ -187,7 +187,7 @@ function UI_SkillDetailPopupListItem:click_enhanceBtn()
 
     -- 확인 팝업
     local skill_level = skill_indivisual_info:getSkillLevel()
-    local req_gold = TableDragonSkillEnhance:getDragonSkillEnhanceReqGold(skill_level)
+    local req_gold = TableReqGold:getDragonSkillEnhanceReqGold(skill_level)
 
     local item_type = 'gold'
     local item_value = req_gold

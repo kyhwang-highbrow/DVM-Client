@@ -112,7 +112,7 @@ function UI_SkillDetailPopupListItem_Tamer:click_enhanceBtn()
 
     -- 확인 팝업
     local skill_level = skill_indivisual_info:getSkillLevel()
-    local req_gold = TableDragonSkillEnhance:getDragonSkillEnhanceReqGold(skill_level)
+    local req_gold = TableReqGold:getDragonSkillEnhanceReqGold(skill_level)
 
     local item_type = 'gold'
     local item_value = req_gold

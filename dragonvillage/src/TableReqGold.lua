@@ -1,17 +1,17 @@
 local PARENT = TableClass
 
 -------------------------------------
--- class TableDragonSkillEnhance
+-- class TableReqGold
 -------------------------------------
-TableDragonSkillEnhance = class(PARENT, {
+TableReqGold = class(PARENT, {
     })
 
-local THIS = TableDragonSkillEnhance
+local THIS = TableReqGold
 
 -------------------------------------
 -- function init
 -------------------------------------
-function TableDragonSkillEnhance:init()
+function TableReqGold:init()
     self.m_tableName = 'table_req_gold'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
@@ -19,7 +19,7 @@ end
 -------------------------------------
 -- function getDragonSkillEnhanceReqGold
 -------------------------------------
-function TableDragonSkillEnhance:getDragonSkillEnhanceReqGold(skill_lv)
+function TableReqGold:getDragonSkillEnhanceReqGold(skill_lv)
     if (self == THIS) then
         self = THIS()
     end
@@ -45,7 +45,7 @@ end
 -------------------------------------
 -- function getDragonSkillEnhanceReqGold
 -------------------------------------
-function TableDragonSkillEnhance:getReqGold(key, skill_lv)
+function TableReqGold:getReqGold(key, skill_lv)
     if (self == THIS) then
         self = THIS()
     end
@@ -71,20 +71,20 @@ end
 -------------------------------------
 -- function getReqGold_dragonSkill
 -------------------------------------
-function TableDragonSkillEnhance:getReqGold_dragonSkill(skill_lv)
+function TableReqGold:getReqGold_dragonSkill(skill_lv)
 	return self:getReqGold('dragon_skill', skill_lv)
 end
 
 -------------------------------------
 -- function getReqGold_tamerSkill
 -------------------------------------
-function TableDragonSkillEnhance:getReqGold_tamerSkill(skill_lv)
+function TableReqGold:getReqGold_tamerSkill(skill_lv)
 	return self:getReqGold('tamer_skill', skill_lv)
 end
 
 -------------------------------------
 -- function getReqGold_formation
 -------------------------------------
-function TableDragonSkillEnhance:getReqGold_formation(skill_lv)
+function TableReqGold:getReqGold_formation(skill_lv)
 	return self:getReqGold('formation', skill_lv)
 end

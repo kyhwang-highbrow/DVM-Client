@@ -1731,9 +1731,6 @@
     <None Include="..\src\UI_SkillDetailPopupListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\TableDragonSkillEnhance.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\UI_DragonEclvupNew.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1961,6 +1958,9 @@
     </None>
     <None Include="..\src\UI_ChatPopup.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TableReqGold.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
