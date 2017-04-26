@@ -68,6 +68,8 @@ end
 -- function update
 -------------------------------------
 function ScenePatch:update(dt)
+    self.m_patch_core:update()
+
     if (self.m_patch_core.m_totalSize <= 0) then
         self.m_vars['downloadLabel']:setString('')
         return

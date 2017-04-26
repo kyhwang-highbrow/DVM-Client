@@ -25,6 +25,8 @@ PatchCore = class({
 		m_totalSize = 'number',         -- 다운받아야 할 총 데이터양
 
         m_currDownloadRes = 'table',    -- 현재 다운받고 있는 리소스 데이터
+
+        m_doStepReady = 'boolean',
     })
 
 -------------------------------------
@@ -48,6 +50,7 @@ function PatchCore:init(type, app_ver)
     self.m_state = PATCH_STATE.request_patch_info
 	self.m_downloadedSize = 0
 	self.m_totalSize = 0
+    self.m_doStepReady = false
 
     -- 로컬 서버 사용 여부를 false로 지정
     ServerData:getInstance():applyServerData(false, 'cache', 'user_local_server')
@@ -57,6 +60,18 @@ end
 -- function doStep
 -------------------------------------
 function PatchCore:doStep()
+    self.m_doStepReady = true
+end
+
+-------------------------------------
+-- function doStep_
+-------------------------------------
+function PatchCore:doStep_()
+
+    if (not self.m_doStepReady) then
+        return
+    end
+    self.m_doStepReady = false
     
     -- 패치 정보 요청
     if (self.m_state == PATCH_STATE.request_patch_info) then
@@ -77,6 +92,16 @@ function PatchCore:doStep()
     elseif (self.m_state == PATCH_STATE.finish) then
         cclog('## PatchCore : finish')
         self:finish()
+    end
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function PatchCore:update()
+
+    if self.m_doStepReady then
+        self:doStep_()
     end
 end
 
