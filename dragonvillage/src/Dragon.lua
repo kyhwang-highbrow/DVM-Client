@@ -112,7 +112,7 @@ function Dragon:initFormation()
         self:makeHPGauge({0, -80})
     else
         self:changeState('move')
-        PARENT.makeHPGauge(self, {0, -80})
+        self:makeHPGauge({0, -80})
         self.m_animator:setFlip(true)
     end
 end
