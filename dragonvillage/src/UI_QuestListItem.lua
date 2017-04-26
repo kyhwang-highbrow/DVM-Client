@@ -161,7 +161,7 @@ function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
 	local qid = self.m_questData['qid']
 	local cb_function = function(t_quest_data)
 		-- 보상 수령 팝업
-		UI_RewardPopup()
+		UI_ToastPopup()
 		
 		-- 갱신
 		self:refresh(t_quest_data)

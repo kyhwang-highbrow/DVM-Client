@@ -483,7 +483,7 @@ local t_module = {
     'UI_SimpleDragonInfoPopup',
     'UI_DragonSummon',
     'UI_DragonSummonListItem',
-	'UI_RewardPopup',
+	'UI_ToastPopup',
     'UI_SecretFindPopup',
     'UI_Tooltip',
     'UI_Tooltip_Buff',

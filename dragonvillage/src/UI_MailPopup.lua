@@ -162,10 +162,10 @@ function UI_MailPopup:click_rewardBtn(t_mail_data)
                     local item_id, count, t_sub_data = g_itemData:parseAddedItems_firstItem(ret['added_items'] or ret['add_items'])
                     local ui = MakeSimpleRewarPopup(Str('룬'), item_id, count, t_sub_data)
 				else
-					UI_RewardPopup()
+					UI_ToastPopup()
 				end
 			else
-				UI_RewardPopup()
+				UI_ToastPopup()
 			end
 		end
 	end
@@ -190,7 +190,7 @@ function UI_MailPopup:click_rewardAllBtn()
 	local get_all_reward_cb = function() 
 		local function finish_cb(ret, mail_id_list)
 			if (ret['status'] == 0) then
-				UI_RewardPopup()
+				UI_ToastPopup()
 				for _, mail_id in pairs(mail_id_list) do
 					self.m_mTableView[self.m_currTab]:delItem(mail_id)
 				end

@@ -1260,9 +1260,6 @@
     <None Include="..\src\UI_FriendRequestListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_RewardPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_RuneBulkSalePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1961,6 +1958,9 @@
     </None>
     <None Include="..\src\RenderTextureBatchNode.lua">
       <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_ToastPopup.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

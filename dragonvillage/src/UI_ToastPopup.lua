@@ -1,18 +1,16 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_RewardPopup
+-- class UI_ToastPopup
 -------------------------------------
-UI_RewardPopup = class(PARENT,{
-		m_lRewardTable = 'Reward Table List',
+UI_ToastPopup = class(PARENT,{
+		m_toastMsg = 'string',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_RewardPopup:init(l_tReward)
-    self.m_lRewardTable = l_tReward
-
+function UI_ToastPopup:init(toast_str)
     local vars = self:load('popup_toast.ui')
     UIManager:open(self, UIManager.NORMAL)
 	
@@ -20,6 +18,8 @@ function UI_RewardPopup:init(l_tReward)
     self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
     self:doActionReset()
     self:doAction(nil, false)
+
+	self.m_toastMsg = toast_str or Str('보상을 수령하였습니다')
 
     self:initUI()
     self:initButton()
@@ -29,7 +29,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_RewardPopup:initUI()
+function UI_ToastPopup:initUI()
 	local cb_func = function()
 		self:close()
 	end
@@ -45,38 +45,23 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_RewardPopup:initButton()
+function UI_ToastPopup:initButton()
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_RewardPopup:refresh()
+function UI_ToastPopup:refresh()
 	local vars = self.vars
 
-	local toast_msg = self:getRewardStr()
+	local toast_msg = self.m_toastMsg
 	vars['messageLabel']:setString(toast_msg)
-end
-
--------------------------------------
--- function getRewardStr
--------------------------------------
-function UI_RewardPopup:getRewardStr()
-	local ret_str
-
-	if (false) then 
-
-	else
-		ret_str = Str('보상을 수령하였습니다')
-	end
-
-	return ret_str
 end
 
 -------------------------------------
 -- function close
 -------------------------------------
-function UI_RewardPopup:close()
+function UI_ToastPopup:close()
     if not self.enable then return end
 
     local function finish_cb()
@@ -88,4 +73,4 @@ function UI_RewardPopup:close()
 end
 
 --@CHECK
-UI:checkCompileError(UI_RewardPopup)
+UI:checkCompileError(UI_ToastPopup)
