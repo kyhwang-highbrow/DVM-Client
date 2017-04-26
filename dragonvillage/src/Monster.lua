@@ -6,6 +6,8 @@ local PARENT = Character
 Monster = class(PARENT, {
         m_bWaitState = 'boolean',
 		m_regenInfo = 'boolean',
+
+        m_lBodyToUseBone = 'table',     -- bone(spine)의 위치를 기준값으로 사용하는 body 리스트
      })
 
 -------------------------------------
@@ -17,6 +19,8 @@ function Monster:init(file_name, body, ...)
     self.m_charType = 'monster'
     self.m_bWaitState = false
 	self.m_regenInfo = nil
+
+    self.m_lBodyToUseBone = {}
 end
 
 -------------------------------------
@@ -96,6 +100,27 @@ function Monster:initAnimatorMonster(file_name, attr, scale)
 end
 
 -------------------------------------
+-- function initPhys
+-- @param body
+-------------------------------------
+function Monster:initPhys(body)
+    PARENT.initPhys(self, body)
+
+
+    if (self.m_animator and self.m_animator.m_type == ANIMATOR_TYPE_SPINE) then
+        local body_list = self:getBodyList()
+
+        for _, body in ipairs(body_list) do
+            if (body['bone']) then
+                self.m_animator.m_node:useBonePosition(body['bone'])
+
+                table.insert(self.m_lBodyToUseBone, body)
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function initState
 -------------------------------------
 function Monster:initState()
@@ -105,6 +130,23 @@ function Monster:initState()
     self:addState('casting', Monster.st_casting, 'idle', true)
 
     self:addState('wait', Monster.st_wait, 'idle', true)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function Monster:update(dt)
+    -- bone(spine)의 위치를 기준값으로 사용하는 body들의 좌표 갱신(현재는 offset없이 사용)
+    if (self.m_animator and self.m_animator.m_node) then
+        for _, body in ipairs(self.m_lBodyToUseBone) do
+            local pos = self.m_animator.m_node:getBonePosition(body['bone'])
+            
+            body.x = pos.x * self.m_animator.m_node:getScaleX()
+            body.y = pos.y * self.m_animator.m_node:getScaleY()
+        end
+    end 
+
+    return PARENT.update(self, dt)
 end
 
 -------------------------------------

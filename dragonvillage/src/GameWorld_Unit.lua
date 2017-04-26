@@ -93,14 +93,14 @@ function GameWorld:makeMonsterNew(monster_id, level)
     end
     self:addToUnitList(monster)
 
+    monster:init_monster(t_monster, monster_id, level, self.m_stageID)
+    monster:initState()
+	monster:initFormation(body_size)
+
     local body_list = TableMonsterHitPos():getBodyList(monster_id)
     if (body_list) then
         monster:initPhys(body_list)
     end
-
-	monster:init_monster(t_monster, monster_id, level, self.m_stageID)
-    monster:initState()
-	monster:initFormation(body_size)
 
     -- 스테이지 버프 적용
     monster.m_statusCalc:applyStageBonus(self.m_stageID, true)

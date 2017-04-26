@@ -96,13 +96,6 @@ function MonsterLua_Boss:initScript(pattern_script_name, mid, is_boss)
     end
 end
 
--------------------------------------
--- function initSound
--------------------------------------
-function MonsterLua_Boss:initSound()
-    
-end
-
 
 MonsterLua_Boss.st_attack = PARENT.st_attack
 

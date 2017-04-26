@@ -1,9 +1,7 @@
 local PARENT = TableClass
 
 -------------------------------------
--- class TableDragonType
--- @brief 드래곤 원종별로 정리된 테이블 (table_dragon에서 type이 같은 기준)
---        key값은 type ('powerdragon', 'taildragon')
+-- class TableMonsterHitPos
 -------------------------------------
 TableMonsterHitPos = class(PARENT, {
     })
@@ -41,11 +39,13 @@ function TableMonsterHitPos:getBodyList(mid)
         local x = tonumber(l_str[1]) or 0
         local y = tonumber(l_str[2]) or 0
         local size = tonumber(l_str[3]) or 0
+        local bone_name = l_str[4]
 
         local body = {}
         body[1] = x
         body[2] = y
         body[3] = size
+        body[4] = bone_name
 
         table.insert(ret, body)
 

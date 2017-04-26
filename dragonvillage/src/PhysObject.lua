@@ -89,19 +89,19 @@ function PhysObject:initPhys(body)
         local body = body_list[1]
 
         -- 기본 body
-        PhysObject_setBody(self, body[1] or 0, body[2] or 0, body[3] or 0)
+        PhysObject_setBody(self, body[1] or 0, body[2] or 0, body[3] or 0, body[4])
 
         -- body 리스트
         self.body_list = {}
 
         for i, v in ipairs(body_list) do
-            local data = { key = i, x = v[1], y = v[2], size = v[3] }
+            local data = { key = i, x = v[1], y = v[2], size = v[3], bone = v[4] }
 
             self:addBody(data)
         end
         
     else
-        PhysObject_setBody(self, body[1] or 0, body[2] or 0, body[3] or 0)
+        PhysObject_setBody(self, body[1] or 0, body[2] or 0, body[3] or 0, body[4])
 
     end
 end
@@ -178,17 +178,18 @@ end
 -------------------------------------
 -- function PhysObject_setBody
 -------------------------------------
-function PhysObject_setBody(self, x, y, size)
+function PhysObject_setBody(self, x, y, size, bone)
     if (not self.body) then
-        self.body = {key=0, x=x, y=y, size=size}
+        self.body = { key = 0, x = x, y = y, size = size, bone = bone }
         self.m_dirtyPos = true
     else
-        if (self.body.size~=size) or (self.body.x~=x) or (self.body.y~=y) then
+        if (self.body.size~=size) or (self.body.x~=x) or (self.body.y~=y) or (self.body.bone~=bone) then
             self.m_dirtyPos = true
         end
         self.body.x = x
         self.body.y = y
         self.body.size = size
+        self.body.bone = bone
     end
 end
 
@@ -226,14 +227,12 @@ end
 -- @param body
 -------------------------------------
 function PhysObject:getBodyList()
-    local ret = {}
+    local ret
 
     if (self.body_list) then
-        for i, body in ipairs(self.body_list) do
-            table.insert(ret, body)
-        end
+        ret = self.body_list
     else
-        table.insert(ret, self.body)
+        ret = { self.body }
     end
 
     return ret
@@ -460,13 +459,6 @@ function PhysObject:primitivesDraw(color)
 
     if (self.body_list) then
         for i, body in ipairs(self.body_list) do
-            --[[
-            if (i == 1) then
-                cc.DrawPrimitives.drawColor4B(255, 0, 0, 127)
-            else
-                cc.DrawPrimitives.drawColor4B(color[1], color[2], color[3], color[4])
-            end
-            ]]--
             cc.DrawPrimitives.drawColor4B(color[1], color[2], color[3], color[4])
             draw(body)
         end
