@@ -31,6 +31,9 @@ function ServerData:getInstance()
     -- 'user'
     g_userData = ServerData_User(g_serverData)
 
+    -- 'tamers'
+    g_tamerData = ServerData_Tamer(g_serverData)
+
     -- 'dragons'
     g_dragonsData = ServerData_Dragons(g_serverData)
 
@@ -497,6 +500,9 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
 
         -- 아이템 관련
         self:setServerTable(ret, 'table_item_rand')
+
+		-- 레벨업 필요 골드 모음
+		self:setServerTable(ret, 'table_req_gold')
 
         if finish_cb then
             finish_cb(ret)

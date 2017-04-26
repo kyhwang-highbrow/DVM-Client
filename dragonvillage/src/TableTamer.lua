@@ -34,6 +34,6 @@ function TableTamer:getCurrTamerTable()
     if (self == THIS) then
         self = THIS()
     end
-	local tamer_id = g_userData:getTamerInfo('tid')
+	local tamer_id = g_tamerData:getTamerInfo('tid')
     return self:get(tamer_id)
 end

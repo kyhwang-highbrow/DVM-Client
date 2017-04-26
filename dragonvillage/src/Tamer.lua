@@ -66,7 +66,15 @@ function Tamer:init_tamer(t_tamer, bLeftFormationend)
     self.m_bLeftFormation = bLeftFormationend
 
 	-- Tamer Skill 설정
+	self:setDragonSkillLevelList(5,6,7)
+	self:initDragonSkillManager('tamer', self.m_charTable['tid'])
 	self:initSkill()
+	
+	for i, v in pairs(self.m_lSkillIndivisualInfo['passive']) do
+		cclog(i, v:getSkillDesc(), v:getSkillLevel())
+	end
+	cclog(self.m_lSkillIndivisualInfo['active']:getSkillDesc())
+
 	self:initLogRecorder(t_tamer['tid'])
 
 	self.m_world:addListener('dragon_summon', self)
@@ -101,7 +109,7 @@ function Tamer:initState()
     self:addState('appear', Tamer.st_appear, 'i_idle', true)
     self:addState('appear_colosseum', Tamer.st_appear_colosseum, 'summon', false)
 
-    self:addState('idle', PARENT.st_idle, 'i_idle', true)
+    self:addState('idle', Tamer.st_idle, 'i_idle', true) 
     self:addState('roam', Tamer.st_roam, 'i_idle', true)
     self:addState('bring', Tamer.st_bring, 'i_idle', true)
 
@@ -109,15 +117,15 @@ function Tamer:initState()
 	self:addState('event', Tamer.st_event, 'skill_1', false)
 
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
-    self:addState('move', PARENT.st_move, 'i_idle', true)
+    self:addState('move', Tamer.st_move, 'i_idle', true)
 
     self:addState('success_pose', Tamer.st_success_pose, 'i_idle', true)
     self:addState('success_move', Tamer.st_success_move, 'i_idle', true)
 
     self:addState('dying', Tamer.st_dying, 'i_dying', false, PRIORITY.DYING)
-    self:addState('dead', PARENT.st_dead, nil, nil, PRIORITY.DEAD)
+    self:addState('dead', Tamer.st_dead, nil, nil, PRIORITY.DEAD)
 
-    self:addState('comeback', PARENT.st_comeback, 'i_idle', true)
+    self:addState('comeback', Tamer.st_comeback, 'i_idle', true)
 end
 
 -------------------------------------

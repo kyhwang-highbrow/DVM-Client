@@ -75,6 +75,7 @@ local t_module = {
     'LocalData',
     'ServerData',
     'ServerData_User',
+	'ServerData_Tamer',
     'ServerData_Dragons',
     'ServerData_DragonUnit',
     'ServerData_Deck',

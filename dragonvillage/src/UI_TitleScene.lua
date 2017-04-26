@@ -269,9 +269,11 @@ function UI_TitleScene:workGameLogin()
 
     local success_cb = function(ret)
         g_serverData:lockSaveData()
-        g_serverData:applyServerData(ret['user'], 'user')
-
-        g_serverData:unlockSaveData()
+        
+		g_serverData:applyServerData(ret['user'], 'user')
+		g_serverData:applyServerData(ret['tamers'], 'tamers')
+        
+		g_serverData:unlockSaveData()
 
         -- server_info 정보를 갱신
         g_serverData:networkCommonRespone(ret)

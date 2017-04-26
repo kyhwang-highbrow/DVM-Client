@@ -378,7 +378,7 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
         tamer = LobbyTamerBot(t_user_info)
     else
         tamer = LobbyTamer(t_user_info)
-        res = g_userData:getTamerInfo('res_sd')
+        res = g_tamerData:getTamerInfo('res_sd')
     end
 
 	tamer:initAnimator(res)
@@ -779,6 +779,6 @@ end
 -------------------------------------
 function LobbyMap:refreshLobbyTamerUser()
 	local lobby_tamer = self.m_lobbyTamerUser
-	local res = g_userData:getTamerInfo('res_sd')
+	local res = g_tamerData:getTamerInfo('res_sd')
 	lobby_tamer:initAnimator(res)
 end

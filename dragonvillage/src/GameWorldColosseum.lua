@@ -116,7 +116,7 @@ function GameWorldColosseum:initTamer()
 
     -- 아군 테이머 생성
     do
-        local t_tamer = g_userData:getTamerInfo()
+        local t_tamer = g_tamerData:getTamerInfo()
         self.m_tamer = self:makeTamerNew(t_tamer)
         self.m_tamer:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
         self.m_tamer:setAnimatorScale(1)

@@ -44,25 +44,6 @@ function TableTamerSkill:getTamerSkill(skill_id)
 end
 
 -------------------------------------
--- function getSkillLevel
--- @brief 유저 레벨에 따른 스킬의 레벨 계산
--------------------------------------
-function TableTamerSkill:getSkillLevel()
-	local user_lv = g_userData:get('lv')
-	
-	local skill_lv = 0
-	local tamer_skill_flow = g_constant:get('INGAME', 'TAMER_SKILL_FLOW')
-	for i, std_lv in ipairs(tamer_skill_flow) do
-		if (std_lv > user_lv) then
-			skill_lv = i - 1
-			break
-		end
-	end	
-
-	return skill_lv
-end
-
--------------------------------------
 -- function getSkillIcon
 -------------------------------------
 function TableTamerSkill:getSkillIcon(key)

@@ -57,7 +57,7 @@ function UI_Lobby:initUI()
 
     local vars = self.vars
     do -- 테이머 아이콘 갱신
-        local type = g_userData:getTamerInfo('type')
+        local type = g_tamerData:getTamerInfo('type')
         local icon = IconHelper:getTamerProfileIcon(type)
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(icon)
@@ -198,7 +198,7 @@ function UI_Lobby:refresh_userTamer()
 
     local vars = self.vars
     do -- 테이머 아이콘 갱신
-        local type = g_userData:getTamerInfo('type')
+        local type = g_tamerData:getTamerInfo('type')
         local icon = IconHelper:getTamerProfileIcon(type)
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(icon)
@@ -551,10 +551,10 @@ end
 -- function click_tamerBtn
 -------------------------------------
 function UI_Lobby:click_tamerBtn()
-	local before_tamer = g_userData:getTamerInfo('type')
+	local before_tamer = g_tamerData:getTamerInfo('type')
 
 	local function close_cb()
-		local curr_tamer = g_userData:getTamerInfo('type')
+		local curr_tamer = g_tamerData:getTamerInfo('type')
 
 		if (before_tamer ~= curr_tamer) then
 			self:refresh_userTamer()

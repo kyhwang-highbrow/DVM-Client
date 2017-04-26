@@ -85,7 +85,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
 
     -- 테이머
     do
-        local tamer_res = g_userData:getTamerInfo('res')
+        local tamer_res = g_tamerData:getTamerInfo('res')
         local animator = MakeAnimator(tamer_res)
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))

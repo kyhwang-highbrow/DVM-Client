@@ -29,7 +29,7 @@ function UI_TamerManagePopup:init()
     self:doAction(nil, false)
 
 	-- 멤버 변수
-	self.m_currTamerID = g_userData:getTamerInfo('tid')
+	self.m_currTamerID = g_tamerData:getTamerInfo('tid')
 	self.m_selectedTamerID = self.m_currTamerID
 	self.m_lTamerItemList = {}
 	

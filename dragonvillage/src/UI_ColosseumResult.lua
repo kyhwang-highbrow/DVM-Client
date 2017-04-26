@@ -52,7 +52,7 @@ function UI_ColosseumResult:initUI(is_win, t_data)
     end
     
     do -- 테이머
-        local tamer_res = g_userData:getTamerInfo('res')
+        local tamer_res = g_tamerData:getTamerInfo('res')
 		local animator = MakeAnimator(tamer_res)
 		if (animator) then
 			animator:setAnchorPoint(cc.p(0.5, 0.5))
