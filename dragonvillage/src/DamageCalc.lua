@@ -1,4 +1,4 @@
-local CONST_REDUNCTION_RATIO_P = 8
+local CONST_REDUNCTION_RATIO_P = 249
 
 -------------------------------------
 -- function DamageCalc_P
@@ -16,7 +16,7 @@ function DamageCalc_P(atk_dmg, def_pwr)
     local reduction_ratio = ReductionRatioCalc_P(atk_dmg)
 
     -- 모든 계수를 곱함
-    local damage = rand * (atk_dmg * (reduction_ratio + def_pwr) / (reduction_ratio + (10 * def_pwr)))
+    local damage = rand * (atk_dmg * (reduction_ratio + def_pwr) / (reduction_ratio + (251 * def_pwr)))
 	
 	return damage
 	
