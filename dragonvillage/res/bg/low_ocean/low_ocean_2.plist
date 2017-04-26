@@ -4,31 +4,57 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>bg_low_ocean_2_a.png</key>
+            <key>bg_low_ocean_bubble_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1994,750}}</string>
+                <string>{{830,805},{21,23}}</string>
                 <key>offset</key>
-                <string>{0,91}</string>
+                <string>{-2,-2}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{18,334},{1994,750}}</string>
+                <string>{{11,15},{21,23}}</string>
                 <key>sourceSize</key>
-                <string>{2030,1600}</string>
+                <string>{47,49}</string>
             </dict>
-            <key>bg_low_ocean_3_a.png</key>
+            <key>bg_low_ocean_fish.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,754},{1449,738}}</string>
+                <string>{{2,2},{776,842}}</string>
                 <key>offset</key>
-                <string>{0,-31}</string>
+                <string>{11,-35}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,62},{1449,738}}</string>
+                <string>{{294,324},{776,842}}</string>
                 <key>sourceSize</key>
-                <string>{1449,800}</string>
+                <string>{1342,1420}</string>
+            </dict>
+            <key>bg_low_ocean_light_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{780,2},{1251,801}}</string>
+                <key>offset</key>
+                <string>{-9,-8}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{23,73},{1251,801}}</string>
+                <key>sourceSize</key>
+                <string>{1315,931}</string>
+            </dict>
+            <key>bg_low_ocean_light_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{780,805},{48,46}}</string>
+                <key>offset</key>
+                <string>{-5,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{44,43},{48,46}}</string>
+                <key>sourceSize</key>
+                <string>{146,138}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -38,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>low_ocean_2.png</string>
             <key>size</key>
-            <string>{1998,1494}</string>
+            <string>{2033,853}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:76b60d7e05f7fbc98af24cb7c7ebdf64:c2236862bf71a650515b86095f330a19:7e0634a43e7e3d6a58b611ae0af69b2c$</string>
+            <string>$TexturePacker:SmartUpdate:91e284e8298e5294dc92a1fede71bbdd:b25a2ba25a6ce36e1241cf59ecc7fb51:7e0634a43e7e3d6a58b611ae0af69b2c$</string>
             <key>textureFileName</key>
             <string>low_ocean_2.png</string>
         </dict>

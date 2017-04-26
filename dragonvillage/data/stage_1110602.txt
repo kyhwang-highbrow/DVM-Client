@@ -24,7 +24,7 @@
 				0.2:
 				[
 					"130025;1;FadeIn;RO02;RM12;1"
-					"131055;1;FadeIn;RO04;RM14;1"
+					"131073;1;FadeIn;RO04;RM14;1;roam"
 					"130025;1;FadeIn;RO06;RM16;1"
 				],
 				
@@ -67,14 +67,8 @@
 
 				2.4:
 				[	
-					"130024;1;Appear;RO02;RB12;1"
-					"130024;1;Appear;RO06;RB16;1"
-				],
-
-				2.6:
-				[	
-					"130034;1;Appear;RO03;RB23;1"
-					"130034;1;Appear;RO05;RB25;1"
+					"131073;1;Appear;RO03;RB23;1;roam"
+					"131073;1;Appear;RO05;RB25;1;roam"
 				]
             }
         },
@@ -91,14 +85,14 @@
             {
                 0:
                 [
-					"131055;1;FadeIn;RO04;RF14;1"
-					"131055;1;FadeIn;RO01;RF21;1"
-					"131055;1;FadeIn;RO07;RF27;1"
+					"131073;1;FadeIn;RO04;RF14;1"
+					"131073;1;FadeIn;RO01;RF21;1"
+					"131073;1;FadeIn;RO07;RF27;1"
 				],
 
 				1.5:
 				[
-					"132015;1;FadeIn;RO04;RB14;1"
+					"132062;10;FadeIn;RO04;RB14;1;roam"
 				]
             }
         }		

@@ -16,7 +16,8 @@
 				"l_limit_speed":0,
 				"accel_delay":0.5,
 				"angular_velocity":0,
-				"offset":[0,0],
+				"is_abs_pos":true,
+				"offset":[1070,0],
 				"dir_array":[0],
 				"no_rotate":true,
 		
@@ -38,7 +39,8 @@
 						"offset":[0,0],
 						"dir_array":[0,45,90,135,180,225,270,315],
 						"delete_time":4.5,
-						"size_up_time":3
+						"size_up_time":3,
+						"missile_type":"pass",
 						"no_rotate":true
 					},
 					
@@ -59,7 +61,8 @@
 						"offset":[0,0],
 						"dir_array":[0,45,90,135,180,225,270,315],
 						"delete_time":4.5,
-						"size_up_time":3
+						"size_up_time":3,
+						"missile_type":"pass",
 						"no_rotate":true
 					}
 				],

@@ -7,6 +7,30 @@
 		{
 			[1] =
 			{
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 230;
+				height = 430;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'block';
+				enable = true;
+				normal = '';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[2] =
+			{
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
@@ -31,7 +55,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[2] =
+			[3] =
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
@@ -57,7 +81,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[3] =
+			[4] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -76,7 +100,7 @@
 				visible = true;
 				lua_name = 'skillNode';
 			};
-			[4] =
+			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -116,7 +140,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[5] =
+			[6] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -156,7 +180,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[6] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -196,7 +220,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[7] =
+			[8] =
 			{
 				[1] =
 				{
@@ -260,7 +284,7 @@
 				disable = 'ui/btn/a_btn_0202.png';
 				image_type = 1;
 			};
-			[8] =
+			[9] =
 			{
 				[1] =
 				{
@@ -293,7 +317,7 @@
 					type = 'Scale9Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 282.000000;
+					y = 296.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -338,7 +362,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[9] =
+			[10] =
 			{
 				[1] =
 				{
@@ -403,30 +427,6 @@
 				center_rect_y = 0;
 				center_rect_width = 0;
 				center_rect_height = 0;
-			};
-			[10] =
-			{
-				type = 'Button';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 230;
-				height = 430;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'block';
-				enable = true;
-				normal = '';
-				selected = '';
-				disable = '';
-				image_type = 0;
 			};
 			[11] =
 			{
@@ -493,31 +493,6 @@
 				center_rect_y = 0;
 				center_rect_width = 0;
 				center_rect_height = 0;
-			};
-			[12] =
-			{
-				type = 'Visual';
-				ui_name = '';
-				x = 0.000000;
-				y = 121.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 0;
-				height = 0;
-				scale_x = 0.850000;
-				scale_y = 0.850000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'EnhanceVisual';
-				file_name = 'ui/a2d/dragon_upgrade/dragon_upgrade.a2d';
-				auto_play = false;
-				is_repeat = false;
-				visual_id = 'group;slot_fx_01';
-				color = { 255; 255; 255; };
-				opacity = 255;
 			};
 			type = 'Menu';
 			ui_name = '';
