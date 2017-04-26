@@ -26,9 +26,6 @@ LobbyMap = class(PARENT, {
         m_lChangedPosTamers = 'list',
         m_lNearUserList = 'list',
 
-        -- 아이템 박스
-        m_lItemBox = 'list',
-
         m_touchTamer = '',
         m_dragonTouchIndicator = '',
 
@@ -53,7 +50,6 @@ function LobbyMap:init(parent, z_order)
     self.m_bUserPosDirty = true
     self.m_lChangedPosTamers = {}
     self.m_lNearUserList = {}
-    self.m_lItemBox = {} 
     self.m_lNearLobbyObjectList = {}
 end
 
@@ -109,10 +105,6 @@ function LobbyMap:onTouchBegan(touches, event)
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
 
-    if (self:onTouchBegan_touchBox() == true) then
-        return
-    end
-
     if (self:onTouchBegan_touchDragon() == true) then
         return
     end
@@ -156,29 +148,6 @@ function LobbyMap:onTouchEnded(touches, event)
     end
 
     self.m_dragonTouchIndicator:setVisible(false)
-end
-
--------------------------------------
--- function onTouchBegan_touchBox
--------------------------------------
-function LobbyMap:onTouchBegan_touchBox()
-    local node_pos = self.m_groudNode:convertToNodeSpace(self.m_touchPosition)
-
-    -- item_box 순회
-    for i,v in ipairs(self.m_lItemBox) do
-        -- item_box의 센터위치 얻어옴
-        local x, y = v.m_rootNode:getPosition()
-        y = y + 40
-
-        -- 터치된 item_box가 있을 경우
-        local distance = getDistance(node_pos['x'], node_pos['y'], x, y)
-        if (distance <= 80) then
-            self:onTouchBox(v)
-            return true
-        end
-    end
-
-    return false
 end
 
 -------------------------------------
@@ -679,34 +648,6 @@ function LobbyMap:updateUserTamerArea()
 
     self.m_bUserPosDirty = false
     self.m_lChangedPosTamers = {}
-end
-
--------------------------------------
--- function tempItemBox
--- @brief
--------------------------------------
-function LobbyMap:tempItemBox()
-    local item_box = LobbyItemBox()
-    item_box:initAnimator('res/ui/a2d/ui_dropbox/ui_dropbox.vrp')
-    item_box.m_animator:changeAni('ui_box_rainbow_idle', true)
-
-    local x, y = self:getLobbyMapRandomPos()
-
-    -- Y위치에 따라 ZOrder를 변경
-    local z_order = self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_TAMER, y)
-    
-    self.m_groudNode:addChild(item_box.m_rootNode, z_order)
-    item_box.m_rootNode:setPosition(x, y)
-
-    local lobby_shadow = LobbyShadow(1)
-    self.m_groudNode:addChild(lobby_shadow.m_rootNode, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_SHADOW))
-    lobby_shadow.m_rootNode:setPosition(x, y)
-    item_box.m_shadow = lobby_shadow
-   
-   
-   self.m_lItemBox = {} 
-
-   table.insert(self.m_lItemBox, item_box)
 end
 
 -------------------------------------

@@ -987,9 +987,6 @@
     <None Include="..\src\Monster_Tree.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\LobbyItemBox.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\LobbyDragon.lua">
       <Filter>lua</Filter>
     </None>

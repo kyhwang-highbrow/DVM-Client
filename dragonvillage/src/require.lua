@@ -442,7 +442,6 @@ local t_module = {
     'LobbyDragon',
     'LobbyShadow',
     'LobbyUserStatusUI',
-    'LobbyItemBox',
     'UI_RewardListPopup',
     'UI_Game',
 	'UI_GameTamer',

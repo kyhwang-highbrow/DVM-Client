@@ -309,7 +309,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ITabUI.lua" />
     <None Include="..\src\LobbyCharacter.lua" />
     <None Include="..\src\LobbyDragon.lua" />
-    <None Include="..\src\LobbyItemBox.lua" />
     <None Include="..\src\LobbyMap.lua" />
     <None Include="..\src\LobbyMapSpotMgr.lua" />
     <None Include="..\src\LobbyShadow.lua" />
