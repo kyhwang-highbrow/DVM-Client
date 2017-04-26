@@ -11,7 +11,11 @@ ServerData_Tamer = class({
 -------------------------------------
 function ServerData_Tamer:init(server_data)
     self.m_serverData = server_data
-	self.m_mTamerMap = table.listToMap(self:getRef(), 'tid')
+	if (self:getRef()) then
+		self.m_mTamerMap = table.listToMap(self:getRef(), 'tid')
+	else
+		self.m_mTamerMap = {}
+	end
 end
 
 -------------------------------------
