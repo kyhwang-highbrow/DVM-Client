@@ -83,6 +83,9 @@ public:
     void setSlotGLProgramName(const std::string& slotName, const std::string& glProgramName);
     std::string getSlotNameListLuaTable();
 
+    void useBonePosition(const std::string& boneName);
+    const cocos2d::Vec2 getBonePosition(const std::string& boneName) const;
+
 	/* Returns 0 if the bone was not found. */
 	spBone* findBone (const std::string& boneName) const;
 	/* Returns 0 if the slot was not found. */
@@ -145,6 +148,8 @@ protected:
         
     /* For slot-specific shader application */
     std::unordered_map<std::string, std::string> m_mapGLProgramName;
+
+    std::unordered_map<std::string, spBone*> m_mapBone;
 };
 
 }

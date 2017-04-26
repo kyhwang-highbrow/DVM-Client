@@ -104,6 +104,9 @@ SkeletonRenderer::~SkeletonRenderer () {
 	spSkeleton_dispose(_skeleton);
 	_batch->release();
 	FREE(_worldVertices);
+
+    m_mapGLProgramName.clear();
+    m_mapBone.clear();
 }
 
 void SkeletonRenderer::initWithData (spSkeletonData* skeletonData, bool ownsSkeletonData) {
@@ -419,6 +422,33 @@ std::string SkeletonRenderer::getSlotNameListLuaTable()
     s << "}" << std::endl;
 
     return s.str();
+}
+
+void SkeletonRenderer::useBonePosition(const std::string& boneName)
+{
+    spBone* pBone = findBone(boneName);
+
+    if (pBone == NULL)
+    {
+        CCLOG("\"%s\" not exist", boneName.c_str());
+        return;
+    }
+
+    m_mapBone.erase(boneName);
+    m_mapBone.insert(std::make_pair(boneName, pBone));
+}
+
+const Vec2 SkeletonRenderer::getBonePosition(const std::string& boneName) const
+{
+    auto it = m_mapBone.find(boneName);
+    if (it != m_mapBone.end())
+    {
+        spBone* pBone = it->second;
+        return Vec2(pBone->worldX, pBone->worldY);
+    }
+
+    CCLOG("\"%s\" not exist", boneName.c_str());
+    return Vec2(0, 0);
 }
 
 spBone* SkeletonRenderer::findBone (const std::string& boneName) const {
