@@ -631,9 +631,9 @@ end
 function MakeTamerSkill_Temp(t_tamer)
     local tamer_id = t_tamer['tid']
     local skill_00_lv = 0
-    local skill_01_lv = t_tamer['skill_lv_1']
-    local skill_02_lv = t_tamer['skill_lv_2']
-    local skill_03_lv = t_tamer['skill_lv_3']
+    local skill_01_lv = t_tamer['skill_lv1']
+    local skill_02_lv = t_tamer['skill_lv2']
+    local skill_03_lv = t_tamer['skill_lv3']
 
 	-- 드래곤 스킬 매니저 생성
 	local dragon_skill_mgr = DragonSkillManager()

@@ -147,6 +147,11 @@ function UI_TamerManagePopup:setTamerText()
 	-- 테이머 설명
 	local tamer_desc = t_tamer['t_desc']
 	vars['tamerDscLabel']:setString(Str(tamer_desc))
+
+	if (not g_tamerData:hasTamer(self.m_selectedTamerID)) then
+		local obtain_desc = t_tamer['t_obtain_desc']
+		vars['lockLabel']:setString(Str(obtain_desc))
+	end
 end
 
 -------------------------------------
@@ -155,16 +160,18 @@ end
 -------------------------------------
 function UI_TamerManagePopup:setTamerSkill()
 	local vars = self.vars
+	
 	local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
+	local t_tamer_data = g_tamerData:getTamerServerInfo(self.m_selectedTamerID)
 
-	local function func_skill_detail_btn()
+	-- 스킬 정보 및 스킬 상세보기 팝업 등록
+	local skill_mgr = MakeTamerSkill_Temp(t_tamer_data)
+	local l_skill_icon = skill_mgr:getDragonSkillIconList()
+	local func_skill_detail_btn = function()
         self.m_skillUI:show()
-		self.m_skillUI:refresh(t_tamer)
+		self.m_skillUI:refresh(t_tamer, skill_mgr)
     end
 
-	-- 스킬1의 정보
-	local skill_mgr = MakeTamerSkill_Temp(t_tamer)
-	local l_skill_icon = skill_mgr:getDragonSkillIconList()
 	for i = 1, 3 do 
 		local skill_icon = l_skill_icon[i]
 		if (skill_icon) then
@@ -184,20 +191,32 @@ end
 function UI_TamerManagePopup:refreshButtonState()
 	local vars = self.vars
 
-	-- 잠긴 경우
-	if (false) then
-	else
+	if (g_tamerData:hasTamer(self.m_selectedTamerID)) then
 		-- 현재 사용중인 경우
 		if (self.m_currTamerID == self.m_selectedTamerID) then
 			vars['useBtn']:setVisible(true)
+			vars['lockBtn']:setVisible(false)
 			vars['selectBtn']:setVisible(false)
+
+			vars['selectBtn']:setEnabled(false)
 
 		-- 선택 가능한 경우
 		elseif (self.m_currTamerID ~= self.m_selectedTamerID) then
 			vars['useBtn']:setVisible(false)
+			vars['lockBtn']:setVisible(false)
 			vars['selectBtn']:setVisible(true)
 
+			vars['selectBtn']:setEnabled(true)
+
 		end
+
+	-- 잠긴 경우
+	else
+		vars['useBtn']:setVisible(false)
+		vars['lockBtn']:setVisible(true)
+		vars['selectBtn']:setVisible(true)
+
+		vars['selectBtn']:setEnabled(false)
 	end
 end
 

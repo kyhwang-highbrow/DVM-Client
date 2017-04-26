@@ -418,7 +418,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'lockBtn';
-					enable = true;
+					enable = false;
 					normal = '';
 					selected = '';
 					disable = '';

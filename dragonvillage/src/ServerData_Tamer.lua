@@ -3,7 +3,7 @@
 -------------------------------------
 ServerData_Tamer = class({
         m_serverData = 'ServerData',
-
+		m_mTamerMap = 'map<tamer_id>'
     })
 
 -------------------------------------
@@ -11,6 +11,7 @@ ServerData_Tamer = class({
 -------------------------------------
 function ServerData_Tamer:init(server_data)
     self.m_serverData = server_data
+	self.m_mTamerMap = table.listToMap(self:getRef(), 'tid')
 end
 
 -------------------------------------
@@ -40,19 +41,23 @@ function ServerData_Tamer:getTamerInfo(key)
 end
 
 -------------------------------------
--- function getTamerSkillLvList
+-- function getTamerServerInfo
 -- @brief 테이머 스킬 레벨 정보 반환
--- @param key - 있으면 해당 필드의 값을 반환하고 없다면 전체 테이블 반환
 -------------------------------------
-function ServerData_Tamer:getTamerSkillLvList(tamer_id)
-	local tamer_list = self:getRef()
+function ServerData_Tamer:getTamerServerInfo(tamer_id)
+	return self.m_mTamerMap[tamer_id] or {tid = tamer_id}
+end
 
-	for _, t_tamer_info in pairs(tamer_list) do
-		if (tamer_id == t_tamer_info['tid']) then
-			return t_tamer_info
+-------------------------------------
+-- function hasTamer
+-- @brief 테이머 존재 여부 체크
+-------------------------------------
+function ServerData_Tamer:hasTamer(tamer_id)
+	if (self.m_mTamerMap[tamer_id]) then
+		return true
+	end 
 
-		end
-	end
+	return false
 end
 
 -------------------------------------

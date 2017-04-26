@@ -4,7 +4,6 @@ local PARENT = UI
 -- class UI_SkillDetailPopup_Tamer
 -------------------------------------
 UI_SkillDetailPopup_Tamer = class(PARENT, {
-        m_tableTamer = 'table',
         m_cbUpgradeBtn = 'function',
         m_bSimpleMode = 'boolean',
      })
@@ -13,7 +12,6 @@ UI_SkillDetailPopup_Tamer = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_SkillDetailPopup_Tamer:init(t_tamer)
-    self.m_tableTamer = t_tamer
     self.m_bSimpleMode = is_simple_mode
 
     local vars = self:load('tamer_skill_detail_popup.ui')
@@ -44,14 +42,18 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_SkillDetailPopup_Tamer:refresh(t_tamer)
-    local t_tamer = t_tamer or self.m_tableTamer
+function UI_SkillDetailPopup_Tamer:refresh(t_tamer, skill_mgr)
+    local t_tamer = t_tamer
 	if (not t_tamer) then
 		return
 	end
+	local skill_mgr = skill_mgr
+	if (not skill_mgr) then
+		local t_tamer_data = g_tamerData:getTamerServerInfo(t_tamer['tid'])
+		skill_mgr = MakeTamerSkill_Temp(t_tamer_data)
+	end
 
     local vars = self.vars
-    local skill_mgr = MakeTamerSkill_Temp(t_tamer)
     for i= 1, 3 do
         vars['skillNode' .. i]:removeAllChildren()
         local ui = UI_SkillDetailPopupListItem_Tamer(t_tamer, skill_mgr, i, self.m_bSimpleMode)
