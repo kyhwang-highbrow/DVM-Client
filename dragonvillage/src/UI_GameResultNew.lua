@@ -37,7 +37,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_lDropItemList = l_drop_item_list
     self.m_secretDungeon = secret_dungeon
 
-    local vars = self:load('ingame_result_popup.ui')
+    local vars = self:load('ingame_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- 스테이지를 클리어했을 경우 다음 스테이지 ID 지정

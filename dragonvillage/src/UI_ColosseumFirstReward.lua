@@ -11,7 +11,7 @@ UI_ColosseumFirstReward = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_ColosseumFirstReward:init(t_data)
-    local vars = self:load('colosseum_first_reward.ui')
+    local vars = self:load('colosseum_first_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
 	-- 멤버 변수 할당

@@ -18,7 +18,7 @@ function SceneLobby:onEnter()
     SoundMgr:playBGM('bgm_title')
 
     -- UI 캐싱
-    getUIFile('dragon_management_info_mini.ui')
+    getUIFile('dragon_info_mini.ui')
 
     UI_Lobby()
 end

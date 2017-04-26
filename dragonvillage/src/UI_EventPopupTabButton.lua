@@ -13,7 +13,7 @@ UI_EventPopupTabButton = class(PARENT, {
 function UI_EventPopupTabButton:init(struct_event_popup_tab)
     self.m_structEventPopupTab = struct_event_popup_tab
 
-    local vars = self:load('event_popup_list_item.ui')
+    local vars = self:load('event_item.ui')
 
     self:initUI()
     self:initButton()

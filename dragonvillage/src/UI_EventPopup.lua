@@ -13,7 +13,7 @@ UI_EventPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventPopup:init()
-    local vars = self:load('event_popup_new.ui')
+    local vars = self:load('event.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

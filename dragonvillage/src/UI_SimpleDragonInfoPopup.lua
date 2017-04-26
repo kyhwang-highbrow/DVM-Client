@@ -21,7 +21,7 @@ function UI_SimpleDragonInfoPopup:init(t_dragon_data)
     self.m_tDragonData = t_dragon_data
     self.m_dragonObjectID = t_dragon_data['id']
 
-    local vars = self:load('dragon_management_info_mini.ui')
+    local vars = self:load('dragon_info_mini.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정

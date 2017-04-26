@@ -14,7 +14,7 @@ UI_BirthdayCalendarDayElement = class(PARENT, {
 function UI_BirthdayCalendarDayElement:init(struct_calendar_day)
     self.m_structCalendarDay = struct_calendar_day
 
-    local vars = self:load('event_birthday_list.ui')
+    local vars = self:load('event_birthday_item.ui')
 
     self:refresh()
 end

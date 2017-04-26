@@ -25,7 +25,7 @@ end
 function UI_DragonRunesEnhance:init(rune_obj, attr)
     self.m_runeObject = rune_obj
 
-    local vars = self:load('dragon_rune_enhance_new.ui')
+    local vars = self:load('dragon_rune_enhance.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

@@ -14,7 +14,7 @@ UI_FriendListItem = class(PARENT, {
 function UI_FriendListItem:init(t_friend_info)
     self.m_friendUid = t_friend_info['uid']
     self.m_bManageMode = false
-    local vars = self:load('friend_list_01.ui')
+    local vars = self:load('friend_item_01.ui')
 
     self:initUI()
     self:initButton()

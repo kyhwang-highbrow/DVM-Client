@@ -13,7 +13,7 @@ UI_CollectionRelationPointDraw = class(PARENT,{
 function UI_CollectionRelationPointDraw:init(did)
     self.m_did = did
 
-    local vars = self:load('collection_relation_point_draw.ui')
+    local vars = self:load('collection_point_summon.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정

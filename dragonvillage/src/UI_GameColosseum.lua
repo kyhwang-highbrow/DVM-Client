@@ -9,7 +9,7 @@ UI_GameColosseum = class(PARENT, {})
 -- function getUIFileName
 -------------------------------------
 function UI_GameColosseum:getUIFileName()
-    return 'ingame_colosseum.ui'
+    return 'colosseum_ingame.ui'
 end
 
 -------------------------------------

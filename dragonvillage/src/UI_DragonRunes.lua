@@ -34,7 +34,7 @@ function UI_DragonRunes:init(doid, slot_idx)
     self.m_listFilterSetID = 0
     self.m_mEquippedRuneObjects = {}
 
-    local vars = self:load('dragon_rune_new_new.ui')
+    local vars = self:load('dragon_rune.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

@@ -13,7 +13,7 @@ UI_CollectionDragonCard = class(PARENT, {
 -------------------------------------
 function UI_CollectionDragonCard:init(t_item_data)
     self.m_tItemData = t_item_data
-    local vars = self:load('collection_dragon_card.ui')
+    local vars = self:load('collection_dragon_item.ui')
 
     self:initUI(t_item_data)
     self:initButton()

@@ -35,7 +35,7 @@ function UI_DragonUpgradeNew:init(doid)
     self.m_lSelectedMtrlList = {}
     self.m_mSelectedMtrMap = {}
 
-    local vars = self:load('dragon_management_upgrade_new2.ui')
+    local vars = self:load('dragon_upgrade.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

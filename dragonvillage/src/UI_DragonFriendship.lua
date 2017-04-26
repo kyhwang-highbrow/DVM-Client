@@ -23,7 +23,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonFriendship:init(doid)
-    local vars = self:load('dragon_management_friendship.ui')
+    local vars = self:load('dragon_friendship.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

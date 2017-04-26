@@ -12,7 +12,7 @@ UI_EventPopupTab_EventAttendance = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventPopupTab_EventAttendance:init(owner, struct_event_popup_tab)
-    local vars = self:load('attendance_special_new.ui')
+    local vars = self:load('event_attendance_special.ui')
 
     self.m_structAttendanceData = struct_event_popup_tab.m_userData
     self.m_titleText = self.m_structAttendanceData['title_text']

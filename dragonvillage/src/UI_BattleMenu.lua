@@ -22,7 +22,7 @@ end
 -- function init
 -------------------------------------
 function UI_BattleMenu:init()
-    local vars = self:load('battle_menu.ui')
+    local vars = self:load('dungeon_popup.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

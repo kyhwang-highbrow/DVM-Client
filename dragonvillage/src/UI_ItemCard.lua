@@ -30,7 +30,7 @@ function UI_ItemCard:setItemData()
     local t_item = table_item[self.m_itemID]
 
     if (not t_item) then
-        local vars = self:load('drop_item.ui')
+        local vars = self:load('icon_item_item.ui')
         return
         -- @delete_rune
         --error('item_id ' .. self.m_itemID)
@@ -56,7 +56,7 @@ function UI_ItemCard:init_commonItem(t_item, t_sub_data)
     local item_id = self.m_itemID
 	local count = self.m_itemCount
 
-    local vars = self:load('drop_item.ui')
+    local vars = self:load('icon_item_item.ui')
 
     local icon = IconHelper:getItemIcon(item_id, t_sub_data)
     vars['stoneNode']:addChild(icon)
@@ -103,7 +103,7 @@ end
 function UI_ItemCard:init_runeItem(t_item, t_sub_data)
     local item_id = self.m_itemID
 
-    local vars = self:load('drop_item.ui')
+    local vars = self:load('icon_item_item.ui')
 
     local icon = IconHelper:getItemIcon(item_id, t_sub_data)
     vars['stoneNode']:addChild(icon)

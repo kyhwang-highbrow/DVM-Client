@@ -24,7 +24,7 @@ end
 function UI_AdventureChapterSelectPopup:init(chapter)
     self.m_beginChapter = chapter
 
-    local vars = self:load('chapter_select_popup.ui')
+    local vars = self:load('adventure_chapter_select_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정

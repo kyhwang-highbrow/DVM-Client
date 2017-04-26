@@ -16,7 +16,7 @@ function UI_MailPopup:init()
 	self.m_mTableView = {}
 	self.m_preRenewTime = 0
 
-	local vars = self:load('mail_popup.ui')
+	local vars = self:load('mail.ui')
 	UIManager:open(self, UIManager.SCENE)
 
 	-- backkey 지정

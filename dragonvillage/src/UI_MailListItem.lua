@@ -15,7 +15,7 @@ function UI_MailListItem:init(t_data)
 	self.m_mailData = t_data
     
 	-- UI load
-	self:load('mail_list_item.ui')
+	self:load('mail_item.ui')
 
 	-- initialize
     self:initUI()

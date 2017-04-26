@@ -11,7 +11,7 @@ UI_ColosseumRankingReward = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_ColosseumRankingReward:init()
-    local vars = self:load('colosseum_ranking_reward.ui')
+    local vars = self:load('colosseum_ranking_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
 	-- 멤버 변수 할당

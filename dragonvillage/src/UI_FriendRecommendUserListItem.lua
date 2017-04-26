@@ -12,7 +12,7 @@ UI_FriendRecommendUserListItem = class(PARENT, {
 -------------------------------------
 function UI_FriendRecommendUserListItem:init(t_friend_info)
     self.m_tFriendInfo = t_friend_info
-    local vars = self:load('friend_list_02.ui')
+    local vars = self:load('friend_item_02.ui')
 
     self:initUI()
     self:initButton()

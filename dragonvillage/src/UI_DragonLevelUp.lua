@@ -27,7 +27,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonLevelUp:init(doid)
-    local vars = self:load('dragon_management_levelup_new.ui')
+    local vars = self:load('dragon_levelup_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

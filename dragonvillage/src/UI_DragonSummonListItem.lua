@@ -17,7 +17,7 @@ function UI_DragonSummonListItem:init(t_item_data)
     self.m_tItemData = t_item_data
     self.m_bFreeMode = false
 
-    local vars = self:load('dragon_summon_list_item.ui')
+    local vars = self:load('dragon_summon_item.ui')
 
     self:initUI()
     self:initButton()

@@ -16,7 +16,7 @@ function UI_BirthdayRewardSelectPopup:init(dragon_type)
     self.m_dragonType = dragon_type
     self.m_selectedDid = nil
 
-    local vars = self:load('event_birthday_reward_select.ui')
+    local vars = self:load('event_birthday_reward_select_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정

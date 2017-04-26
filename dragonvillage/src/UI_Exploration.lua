@@ -23,7 +23,7 @@ end
 -- function init
 -------------------------------------
 function UI_Exploration:init()
-    local vars = self:load('exploration_map_new.ui')
+    local vars = self:load('exploration_map.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

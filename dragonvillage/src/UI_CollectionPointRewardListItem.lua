@@ -13,7 +13,7 @@ UI_CollectionPointRewardListItem = class(PARENT, {
 function UI_CollectionPointRewardListItem:init(data)
     self.m_collectionPointID = data['req_point']
 
-    local vars = self:load('collection_point_reward_list.ui')
+    local vars = self:load('collection_point_popup_item.ui')
 
     self:initUI()
     self:initButton()

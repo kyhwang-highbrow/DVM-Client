@@ -19,7 +19,7 @@ function UI_SkillDetailPopupListItem:init(t_dragon_data, skill_mgr, skill_idx, i
     self.m_skillIdx = skill_idx
     self.m_bSimpleMode = is_simple_mode
 
-    local vars = self:load('skill_detail_popup_item.ui')
+    local vars = self:load('dragon_skill_detail_popup_item.ui')
   
     self:initUI()
     self:initButton()

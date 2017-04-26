@@ -29,7 +29,7 @@ local DC_SCALE = 0.61
 function UI_ReadyScene:init(stage_id)
     self:init_MemberVariable(stage_id)
 
-    local vars = self:load('ready_scene_new2.ui')
+    local vars = self:load('battle_ready.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- 씬 전환 효과

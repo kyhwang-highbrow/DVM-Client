@@ -11,7 +11,7 @@ UI_CollectionPointReward = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_CollectionPointReward:init()
-    local vars = self:load('collection_point_reward.ui')
+    local vars = self:load('collection_point_popup.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

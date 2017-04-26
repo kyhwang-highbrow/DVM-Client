@@ -13,7 +13,7 @@ UI_BirthdayRewardSelectListItem = class(PARENT, {
 function UI_BirthdayRewardSelectListItem:init(t_item_data)
     self.m_tItemData = t_item_data
 
-    local vars = self:load('event_birthday_reward_select_list.ui')
+    local vars = self:load('event_birthday_reward_select_popup_item.ui')
 
     self:initUI()
     self:initButton()

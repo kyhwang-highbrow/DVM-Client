@@ -29,15 +29,15 @@ function UI_LobbyObject:init(type)
     local ui_name = ''
 
     if (type == UI_LobbyObject.BATTLE) then
-        ui_name = 'lobby_battle.ui'
+        ui_name = 'lobby_btn_dungeon.ui'
     elseif (type == UI_LobbyObject.BOARD) then
-        ui_name = 'lobby_board.ui'
+        ui_name = 'lobby_btn_quest.ui'
     elseif (type == UI_LobbyObject.DRAGON_MANAGE) then
         ui_name = 'lobby_dragon_manage.ui'
     elseif (type == UI_LobbyObject.SHIP) then
-        ui_name = 'lobby_ship.ui'
+        ui_name = 'lobby_btn_adventure.ui'
     elseif (type == UI_LobbyObject.SHOP) then
-        ui_name = 'lobby_shop.ui'
+        ui_name = 'lobby_btn_shop.ui'
     end
 
     local vars = self:load(ui_name)

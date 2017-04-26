@@ -19,7 +19,7 @@ UI_NestDungeonScene = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_NestDungeonScene:init(stage_id, dungeon_type)
-    local vars = self:load('nest_dungeon_scene.ui')
+    local vars = self:load('dungeon_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

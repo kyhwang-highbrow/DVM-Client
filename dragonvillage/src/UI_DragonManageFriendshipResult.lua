@@ -10,7 +10,7 @@ UI_DragonManageFriendshipResult = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_DragonManageFriendshipResult:init(dragon_object)
-    local vars = self:load('dragon_management_friendship_result.ui')
+    local vars = self:load('dragon_friendship_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self:sceneFadeInAction()

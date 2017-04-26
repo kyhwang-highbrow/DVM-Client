@@ -19,7 +19,7 @@ function UI_QuestListItem:init(t_data, isHighlight)
 	if (isHighlight) then 
 		ui_name = 'quest_list_highlight.ui'
 	else
-		ui_name = 'quest_list.ui'
+		ui_name = 'quest_item.ui'
 	end
 	self:load(ui_name)
 

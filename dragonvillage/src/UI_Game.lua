@@ -16,7 +16,7 @@ UI_Game = class(UI, {
 -- function getUIFileName
 -------------------------------------
 function UI_Game:getUIFileName()
-    return 'ingame_scene.ui'
+    return 'ingame.ui'
 end
 
 -------------------------------------

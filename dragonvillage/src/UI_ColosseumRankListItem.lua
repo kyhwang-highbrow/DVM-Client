@@ -13,7 +13,7 @@ UI_ColosseumRankListItem = class(PARENT, {
 function UI_ColosseumRankListItem:init(t_item_data)
     self.m_colosseumUserInfo = t_item_data
 
-    local vars = self:load('colosseum_rank_list.ui')
+    local vars = self:load('colosseum_scene_item.ui')
 
     self:initUI()
     self:initButton()

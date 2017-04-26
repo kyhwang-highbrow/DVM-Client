@@ -29,7 +29,7 @@ end
 -- function init
 -------------------------------------
 function UI_Colosseum:init()
-    local vars = self:load('colosseum.ui')
+    local vars = self:load('colosseum_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

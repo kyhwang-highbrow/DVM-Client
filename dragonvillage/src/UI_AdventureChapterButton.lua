@@ -10,7 +10,7 @@ UI_AdventureChapterButton = class(UI, {
 -- function init
 -------------------------------------
 function UI_AdventureChapterButton:init(item)
-    local vars = self:load('chapter_select_btn.ui')
+    local vars = self:load('adventure_chapter_select_popup_item.ui')
 
     self:initUI()
     self:initButton()

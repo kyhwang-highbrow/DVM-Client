@@ -26,7 +26,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonManageInfo:init(doid)
-    local vars = self:load('dragon_management_info.ui')
+    local vars = self:load('dragon_manage.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -201,7 +201,7 @@ function UI_DragonManageInfo:refresh_dragonRunes(t_dragon_data, t_dragon)
         local l_pos = getSortPosList(70, #active_set_list)
         for i,set_id in ipairs(active_set_list) do
             local ui = UI()
-            ui:load('dragon_management_info_rune_set.ui')
+            ui:load('dragon_manage_rune_set.ui')
 
             -- 색상 지정
             local c3b = TableRuneSet:getRuneSetColorC3b(set_id)

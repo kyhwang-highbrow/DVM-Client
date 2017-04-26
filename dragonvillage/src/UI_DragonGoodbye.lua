@@ -34,7 +34,7 @@ end
 function UI_DragonGoodbye:init(excluded_dragons)
     self.m_excludedDragons = (excluded_dragons or {})
 
-    local vars = self:load('dragon_manage_sell.ui')
+    local vars = self:load('dragon_lactea.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

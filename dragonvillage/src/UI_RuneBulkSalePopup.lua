@@ -13,7 +13,7 @@ UI_RuneBulkSalePopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_RuneBulkSalePopup:init()
-    local vars = self:load('rune_bulk_sell_popup.ui')
+    local vars = self:load('inventory_sell_popup_02.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정

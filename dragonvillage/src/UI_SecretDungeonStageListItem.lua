@@ -12,7 +12,7 @@ UI_SecretDungeonStageListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_SecretDungeonStageListItem:init(t_data)
-    local vars = self:load('secret_dungeon_stage_list_item.ui')
+    local vars = self:load('secret_dungeon_stage_item.ui')
 
     self.m_stageTable = t_data
 

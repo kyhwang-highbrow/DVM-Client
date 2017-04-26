@@ -20,7 +20,7 @@ UI_AttendanceBasicListItem = class(PARENT, {
 function UI_AttendanceBasicListItem:init(item_data)
     self.m_tItemData = item_data
 
-    local vars = self:load('attendance_basic_list.ui')
+    local vars = self:load('event_attendance_basic_item.ui')
 
     self:initUI()
     self:initButton()
