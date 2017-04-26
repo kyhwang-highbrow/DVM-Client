@@ -26,6 +26,9 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_dragonInfoNode = 'cc.Node',
         m_dragonSpeechNode = 'cc.Node',
 
+        -- 드래곤의 잔상을 찍기 위한 배치노드
+        m_mDragonRenderTextureBatchNode = 'map',
+
         m_lUnitList = 'list',
 		m_lSkillList = 'table',
 		m_lMissileList = 'table',
@@ -169,6 +172,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         self.m_dragonSpeechNode = cc.Node:create()
         self.m_gameNode1:addChild(self.m_dragonSpeechNode, INGAME_LAYER_Z_ORDER.DRAGON_SPEECH_LAYER)
     end
+    
+    self.m_mDragonRenderTextureBatchNode = {}
 
     self.m_lUnitList = {}
 	self.m_lSkillList = {}
@@ -1655,4 +1660,25 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
             excluded_dragon.enable_body = true
         end
     end
+end
+
+-------------------------------------
+-- function getDragonBatchNodeSprite
+-- @brief 드래곤의 잔상을 찍는 sprite를 리턴
+-------------------------------------
+function GameWorld:getDragonBatchNodeSprite(res, scale)
+
+    -- map형태로 관리
+    if (not self.m_mDragonRenderTextureBatchNode[res]) then
+
+        -- spine리소스를 sprite화하여 배치노드를 생성
+        local rtbn = RenderTextureBatchNode()
+        rtbn:init_fromRes(res, scale)
+        self.m_worldNode:addChild(rtbn.m_batchNode)
+        self.m_mDragonRenderTextureBatchNode[res] = rtbn
+    end
+
+    -- 배치노드로부터 sprite를 얻어옴
+    local sprite = self.m_mDragonRenderTextureBatchNode[res]:getSprite()
+    return sprite
 end

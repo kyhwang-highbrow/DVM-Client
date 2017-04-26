@@ -943,10 +943,23 @@ function Dragon:updateAfterImage(dt)
         duration = math_clamp(duration, 0.3, 0.7)
 
         local res = self.m_animator.m_resName
+        local scale = self.m_animator:getScale()
+
+        -- GL calls를 줄이기 위해 월드를 통해 sprite를 얻어옴
+        local sprite = self.m_world:getDragonBatchNodeSprite(res, scale)
+        sprite:setFlippedX(self.m_animator.m_bFlip)
+        sprite:setOpacity(255 * 0.2)
+        sprite:setPosition(self.pos.x, self.pos.y)
+        
+        sprite:runAction(cc.MoveBy:create(duration, cc.p(speed / 2, 0)))
+        sprite:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
+
+        --[[
+        -- 혹시 몰라서 기존 코드는 남겨둠 sgkim 170426
+        local res = self.m_animator.m_resName
         local accidental = MakeAnimator(res)
         accidental:changeAni(self.m_animator.m_currAnimation)
         
-		local parent = self.m_rootNode:getParent()
         self.m_world.m_worldNode:addChild(accidental.m_node, 1)
         accidental:setScale(self.m_animator:getScale())
         accidental:setFlip(self.m_animator.m_bFlip)
@@ -955,6 +968,7 @@ function Dragon:updateAfterImage(dt)
         
         accidental.m_node:runAction(cc.MoveBy:create(duration, cc.p(speed / 2, 0)))
         accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
+        --]]
     end
 end
 

@@ -143,6 +143,7 @@ local t_module = {
 	'LogRecorderWorld',
 	'LogRecorderChar',
     'UINavigator',
+    'RenderTextureBatchNode',
 
     'ChatClient',
 
