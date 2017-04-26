@@ -20,6 +20,7 @@ function UI_Lobby:initParentVariable()
     self.m_bVisible = true
     self.m_titleStr = nil
     self.m_bUseExitBtn = false
+    self.m_bShowChatBtn = true
 end
 
 -------------------------------------

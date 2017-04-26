@@ -135,7 +135,7 @@ function ChatClient:dispatchEvent(_socket, t)
 
     if (name == SocketTCP.EVENT_CONNECTED) then
         --session 접속을 요청
-        --return self:requestLogin()
+        return self:requestLogin()
 
     elseif (name == SocketTCP.EVENT_CONNECT_FAILURE) then
         self.m_cbConnectFail({ret = 'Connect Failure'})

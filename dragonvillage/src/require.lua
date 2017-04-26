@@ -551,6 +551,9 @@ local t_module = {
     'UI_DragonInfoBoard',
     'UI_ScenarioPlayer',
     'UI_ScenarioPlayer_Character',
+    'UI_ChatPopup',
+    'UI_ChatList',
+    'UI_ChatListItem',
     
     -- 도감 관련
     'UI_Collection',

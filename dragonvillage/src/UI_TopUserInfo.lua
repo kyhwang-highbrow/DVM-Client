@@ -20,7 +20,7 @@ function UI_TopUserInfo:init()
     vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['st_ad_btn']:registerScriptTapHandler(function() self:click_st_ad_btn() end)
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
-    vars['chatBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"채팅" 미구현') end)
+    vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)
 
     self.m_lNumberLabel = {}
     self.m_lNumberLabel['gold'] = NumberLabel(vars['goldLabel'], 0, 0.3)
@@ -98,6 +98,13 @@ function UI_TopUserInfo:click_settingBtn()
 end
 
 -------------------------------------
+-- function click_chatBtn
+-------------------------------------
+function UI_TopUserInfo:click_chatBtn()
+    UI_ChatPopup()
+end
+
+-------------------------------------
 -- function pushOwnerUI
 -------------------------------------
 function UI_TopUserInfo:pushOwnerUI(ui)
@@ -172,6 +179,8 @@ function UI_TopUserInfo:changeOwnerUI(ui)
             g_staminasData:updateOff()
         end
     end
+
+    vars['chatBtn']:setVisible(ui.m_bShowChatBtn)
 
     -- 서브 재화
     vars['amethystNode']:setVisible(ui.m_subCurrency == 'amethyst')

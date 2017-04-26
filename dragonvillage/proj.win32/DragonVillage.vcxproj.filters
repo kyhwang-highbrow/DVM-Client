@@ -1953,6 +1953,15 @@
     <None Include="..\src\ServerData_Tamer.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_ChatList.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ChatListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ChatPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
