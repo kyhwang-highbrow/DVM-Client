@@ -7,7 +7,7 @@
             <key>map_ancient_forest_1_a_sky.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{644,658},{640,640}}</string>
+                <string>{{2,1316},{640,640}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>map_ancient_forest_branch_01_light.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1316},{446,480}}</string>
+                <string>{{1286,2},{446,480}}</string>
                 <key>offset</key>
                 <string>{-2,-1}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>map_ancient_forest_branch_01_water.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{450,1316},{446,480}}</string>
+                <string>{{1286,484},{446,480}}</string>
                 <key>offset</key>
                 <string>{-2,-1}</string>
                 <key>rotated</key>
@@ -82,14 +82,40 @@
                 <key>sourceSize</key>
                 <string>{586,586}</string>
             </dict>
-            <key>map_ancient_forest_bush_01_water.png</key>
+            <key>map_ancient_forest_bush_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1876,785},{192,142}}</string>
+                <string>{{1498,1866},{192,142}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{57,78},{192,142}}</string>
+                <key>sourceSize</key>
+                <string>{306,298}</string>
+            </dict>
+            <key>map_ancient_forest_bush_01_light.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{644,1861},{192,142}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{57,78},{192,142}}</string>
+                <key>sourceSize</key>
+                <string>{306,298}</string>
+            </dict>
+            <key>map_ancient_forest_bush_01_water.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{838,1861},{192,142}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{57,78},{192,142}}</string>
                 <key>sourceSize</key>
@@ -98,7 +124,20 @@
             <key>map_ancient_forest_bush_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{898,1300},{294,300}}</string>
+                <string>{{1268,966},{294,300}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{146,143},{294,300}}</string>
+                <key>sourceSize</key>
+                <string>{586,586}</string>
+            </dict>
+            <key>map_ancient_forest_bush_03_light.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1570,966},{294,300}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -108,23 +147,10 @@
                 <key>sourceSize</key>
                 <string>{586,586}</string>
             </dict>
-            <key>map_ancient_forest_bush_03_light.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1286,1205},{294,300}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{146,143},{294,300}}</string>
-                <key>sourceSize</key>
-                <string>{586,586}</string>
-            </dict>
             <key>map_ancient_forest_bush_03_water.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1588,1205},{294,300}}</string>
+                <string>{{1234,1262},{294,300}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +163,7 @@
             <key>map_ancient_forest_bush_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1194,1501},{262,224}}</string>
+                <string>{{1234,1564},{262,224}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +176,7 @@
             <key>map_ancient_forest_bush_05_light.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1458,1507},{262,224}}</string>
+                <string>{{1530,1268},{262,224}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,7 +189,7 @@
             <key>map_ancient_forest_bush_05_water.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1722,1507},{262,224}}</string>
+                <string>{{1234,1790},{262,224}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -176,7 +202,7 @@
             <key>map_ancient_forest_effectlight_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1286,2},{622,595}}</string>
+                <string>{{644,658},{622,595}}</string>
                 <key>offset</key>
                 <string>{-28,-14}</string>
                 <key>rotated</key>
@@ -189,11 +215,11 @@
             <key>map_ancient_forest_leaf_01_01_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1884,1157},{144,164}}</string>
+                <string>{{1692,1860},{144,164}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{81,67},{144,164}}</string>
                 <key>sourceSize</key>
@@ -202,11 +228,11 @@
             <key>map_ancient_forest_leaf_01_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1876,979},{176,142}}</string>
+                <string>{{1032,1861},{176,142}}</string>
                 <key>offset</key>
                 <string>{-2,-7}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{63,85},{176,142}}</string>
                 <key>sourceSize</key>
@@ -215,7 +241,7 @@
             <key>map_ancient_forest_leaf_01_03_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{898,1602},{208,258}}</string>
+                <string>{{1530,1494},{208,258}}</string>
                 <key>offset</key>
                 <string>{2,0}</string>
                 <key>rotated</key>
@@ -225,36 +251,36 @@
                 <key>sourceSize</key>
                 <string>{306,298}</string>
             </dict>
-            <key>map_ancient_forest_leaf_02_03_01.png</key>
+            <key>map_ancient_forest_leaf_02_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1876,599},{184,160}}</string>
+                <string>{{1684,1704},{154,148}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{62,69},{184,160}}</string>
+                <string>{{77,75},{154,148}}</string>
                 <key>sourceSize</key>
                 <string>{306,298}</string>
             </dict>
-            <key>map_ancient_forest_leaf_02_04_01.png</key>
+            <key>map_ancient_forest_leaf_02_03_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1910,2},{198,114}}</string>
+                <string>{{1498,1704},{184,160}}</string>
                 <key>offset</key>
-                <string>{-1,2}</string>
+                <string>{1,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{53,90},{198,114}}</string>
+                <string>{{62,69},{184,160}}</string>
                 <key>sourceSize</key>
                 <string>{306,298}</string>
             </dict>
             <key>map_ancient_forest_tree_down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1286,599},{588,604}}</string>
+                <string>{{644,1255},{588,604}}</string>
                 <key>offset</key>
                 <string>{346,-658}</string>
                 <key>rotated</key>
@@ -272,9 +298,9 @@
             <key>realTextureFileName</key>
             <string>map_ancient_forest_2.png</string>
             <key>size</key>
-            <string>{2038,1812}</string>
+            <string>{1866,2018}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a2bcef3e5d3fcfcb2c5ab01e6df6f0fc:79410d00074a82242840ca6c0a720ee4:3fd57242a5f4eb0e9540d411a1a5cf9d$</string>
+            <string>$TexturePacker:SmartUpdate:ab7ff2200b37b338cf2da4e4fb3667cf:53167d1173f36b444517fd3b226b61e3:3fd57242a5f4eb0e9540d411a1a5cf9d$</string>
             <key>textureFileName</key>
             <string>map_ancient_forest_2.png</string>
         </dict>
