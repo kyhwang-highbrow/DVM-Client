@@ -5,7 +5,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_CollectionDragonCard = class(PARENT, {
         m_tItemData = 'table',
-        m_dragonCard = 'UI_DragonCard',
+        m_dragonCardList = 'UI_DragonCard',
         m_cbDragonCardClick = '',
     })
 
@@ -35,8 +35,8 @@ function UI_CollectionDragonCard:init(t_item_data)
     local vars = self:load(self:getUIFile())
 
     self:initUI(t_item_data)
-    --self:initButton()
-    --self:refresh()
+    self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -51,23 +51,21 @@ function UI_CollectionDragonCard:initUI(t_item_data)
 
     -- 드래곤 아이콘 (해치, 해츨링, 성룡)
     local did = t_item_data['did']
+    self.m_dragonCardList = {}
     for i=1, MAX_DRAGON_EVOLUTION do
 
         local evolution = i
         local t_data = {['evolution'] = evolution}
-
         local card = MakeSimpleDragonCard(did, t_data)
         card.root:setSwallowTouch(false)
         card.vars['starIcon']:setVisible(false)
         vars['dragonNode' .. i]:addChild(card.root)
 
+        -- 버튼 터치
         card.vars['clickBtn']:registerScriptTapHandler(function() self.m_cbDragonCardClick(did, evolution) end)
 
-        --[[
-        local render = self:makeDragonCard(did, t_data, 0.6)
-        vars['dragonNode' .. i]:addChild(render)
-        vars['dragonNode' .. i]:setScale(1)
-        --]]
+        -- 리스트에 저장
+        self.m_dragonCardList[i] = card
     end
 end
 
@@ -83,6 +81,19 @@ end
 -------------------------------------
 function UI_CollectionDragonCard:refresh()
     local vars = self.vars
+
+    local did = self.m_tItemData['did']
+
+    -- 획득한적이 있는지 없는지 체크
+    local exist = g_collectionData:isExist(did)
+    for i,v in pairs(self.m_dragonCardList) do
+        v:setShadowSpriteVisible(not exist)
+
+        if (not exist) then
+            v.vars['shadowSprite']:setOpacity(127)
+        end
+    end
+
 
     --[[
     local did = self.m_tItemData['did']
