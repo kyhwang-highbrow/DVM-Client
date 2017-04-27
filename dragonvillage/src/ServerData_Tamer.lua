@@ -104,7 +104,7 @@ function ServerData_Tamer:checkTamerObtainCondition(condition)
 	end
 
 	if (condition == 'clear_newbie_quest') then
-		-- @TODO : 퀘스트 체크
+		is_clear = g_questData:isAllClear('newbie')
 
 	elseif (condition == 'clear_tutorial') then
 		-- @TODO : 튜토리얼 체크

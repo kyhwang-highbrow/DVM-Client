@@ -81,51 +81,6 @@ function ServerData_Quest:makeQuestFullData()
         if (not high_newbie_qid) or (high_newbie_qid < qid) then
             high_newbie_qid = qid
         end
-
-        --[[
-        -- server data가 있다면 남아있는 퀘스트
-		if (t_server_quest) then 
-			-- 서버에서 주는것
-            for i, v in pairs(t_server_quest) do 
-				t_quest[i] = v
-			end
-
-            -- 클라에서 만들어 사용하는것
-			t_quest['is_cleared'] = false
-            if (t_quest['clearcnt'] > t_quest['rewardcnt']) then
-                -- 아직 보상을 수령하지 않았다면 다음 목표를 노출하지 않는다.
-                t_quest['goal_cnt'] = t_quest['clearcnt']
-            else
-				-- 혹시 그래도 서버에서 정보를 보낼 경우를 위한 처리
-				if (t_quest['rewardcnt'] >= t_quest['max_cnt']) then 
-					-- 퀘스트를 전부 완료한 상태
-					t_quest['is_cleared'] = true
-					t_quest['goal_cnt'] = t_quest['clearcnt']
-				else
-					t_quest['goal_cnt'] = t_quest['clearcnt'] + 1
-				end
-            end
-
-        -- server data가 없다면 클리어 한것
-		else
-            -- 서버에서 주는것
-            t_quest['clearcnt'] = t_quest['max_cnt']
-            t_quest['rewardcnt'] = t_quest['max_cnt']
-            t_quest['rawcnt'] = (t_quest['max_cnt'] * t_quest['unit'])
-            
-            -- 클라에서 만들어 사용하는것
-            t_quest['is_cleared'] = true
-            t_quest['goal_cnt'] = t_quest['max_cnt']
-		end
-
-
-        -- 초보자 퀘스트 포커스 qid 검색
-        if (t_quest['type'] == 'newbie') and (not t_quest['is_cleared']) then
-            if (not focus_newbie_qid) or (t_quest['qid'] < focus_newbie_qid)  then
-                focus_newbie_qid = t_quest['qid']
-            end
-        end
-        --]]
     end
 
     self.m_focusNewbieQid = focus_newbie_qid or high_newbie_qid
@@ -230,6 +185,26 @@ function ServerData_Quest:hasRewardableQuest(quest_type)
 end
 
 -------------------------------------
+-- function isAllClear
+-- @brief 전부 클리어했는지 여부
+-------------------------------------
+function ServerData_Quest:isAllClear(quest_type)
+    local is_clear = true
+
+	-- type에 해당하는 퀘스트 뽑아냄
+	for i, quest in pairs(self.m_workedData) do
+		if (quest.m_type == quest_type) then
+			if (not quest:isQuestEnded()) then
+                is_clear = false
+                break
+            end
+		end
+	end
+
+	return is_clear
+end
+
+-------------------------------------
 -- function requestQuestInfo
 -- @brief 서버에 퀘스트 정보 요청
 -------------------------------------
@@ -263,6 +238,15 @@ end
 function ServerData_Quest:applyQuestInfo(data)
     self.m_serverData:applyServerData(data, 'quest_info')
     self.m_bDirtyQuestInfo = false
+end
+
+-------------------------------------
+-- function refreshQuestData
+-- @brief apply + 재구조화
+-------------------------------------
+function ServerData_Quest:refreshQuestData(data)
+    self:applyQuestInfo(data)
+    self:makeQuestFullData()
 end
 
 -------------------------------------
