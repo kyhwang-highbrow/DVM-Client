@@ -7,20 +7,20 @@
             <key>effect_blind_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{54,34}}</string>
+                <string>{{2,57},{50,28}}</string>
                 <key>offset</key>
-                <string>{3,-2}</string>
+                <string>{1,-5}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{91,100},{54,34}}</string>
+                <string>{{91,106},{50,28}}</string>
                 <key>sourceSize</key>
                 <string>{230,230}</string>
             </dict>
             <key>effect_blind_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,38},{53,53}}</string>
+                <string>{{2,2},{53,53}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -38,9 +38,9 @@
             <key>realTextureFileName</key>
             <string>effect_blind.png</string>
             <key>size</key>
-            <string>{58,93}</string>
+            <string>{57,87}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:13c3fe448dafaabc61f5fb877795c9a5$</string>
+            <string>$TexturePacker:SmartUpdate:7b30272f82bebe83bb2d44a1c06c48ee$</string>
             <key>textureFileName</key>
             <string>effect_blind.png</string>
         </dict>
