@@ -25,7 +25,7 @@ function UI_ColosseumRankingReward:init()
     self:refresh()
 
     -- 하위 UI가 모두 opacity값을 적용되도록
-    doAllChildren(self.root, function(node) node:setCascadeOpacityEnabled(true) end)
+    self:setOpacityChildren(true)
 
     -- @UI_ACTION
     self:doActionReset()

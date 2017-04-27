@@ -4,23 +4,23 @@ local PARENT = UI
 -- class UI_SkillDetailPopupListItem_Tamer
 -------------------------------------
 UI_SkillDetailPopupListItem_Tamer = class(PARENT, {
-        m_tableTamer = '',
-        m_skillMgr = '',
-        m_skillIdx = '',
-        m_bSimpleMode = '',
+        m_tableTamer = 'Table',
+        m_skillMgr = 'class',
+        m_skillIdx = 'num',
+		m_maxSkillLevel = 'num',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SkillDetailPopupListItem_Tamer:init(t_tamer, skill_mgr, skill_idx, is_simple_mode)
-    self.m_tableTamer = t_tamer
+function UI_SkillDetailPopupListItem_Tamer:init(t_tamer, skill_mgr, skill_idx)
+    local vars = self:load('tamer_skill_detail_popup_item.ui')
+    
+	self.m_tableTamer = t_tamer
     self.m_skillMgr = skill_mgr
     self.m_skillIdx = skill_idx
-    self.m_bSimpleMode = is_simple_mode
+	self.m_maxSkillLevel = g_userData:get('lv')
 
-    local vars = self:load('tamer_skill_detail_popup_item.ui')
-  
     self:initUI()
     self:initButton()
     self:refresh()
@@ -57,7 +57,7 @@ end
 -------------------------------------
 function UI_SkillDetailPopupListItem_Tamer:initButton()
     local vars = self.vars
-    --vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+    vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
 end
 
 -------------------------------------
@@ -66,25 +66,37 @@ end
 function UI_SkillDetailPopupListItem_Tamer:refresh()
     local vars = self.vars
     local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_skillIdx)
+    local skill_level = skill_indivisual_info:getSkillLevel()
+    local max_skill_lv = self.m_maxSkillLevel
 
     do -- 레벨 표시
-        local skill_level = skill_indivisual_info:getSkillLevel()
-        local max_lv_segment, max_lv = self:getSkillMaxLevel()
-        --vars['skillEnhanceLabel']:setString(Str('Lv.{1}/{2}', skill_level, max_lv_segment))
-		vars['skillEnhanceLabel']:setString(Str('Lv. {1}', skill_level))
+		vars['skillEnhanceLabel']:setString(Str('Lv.{1}/{2}', skill_level, max_skill_lv))
     end
 
     do -- 스킬 설명
         local desc = skill_indivisual_info:getSkillDesc()
         vars['skillDscLabel']:setString(desc)
     end
-end
 
--------------------------------------
--- function getSkillMaxLevel
--------------------------------------
-function UI_SkillDetailPopupListItem_Tamer:getSkillMaxLevel()
-    return 10
+	do	-- 강화 버튼
+		vars['lockSprite']:setVisible(false)
+		vars['maxSprite']:setVisible(false)
+		vars['enhanceBtn']:setVisible(false)
+
+		-- 미습득 상황
+		if (skill_level <= 0) then
+			vars['lockSprite']:setVisible(true)
+
+		-- 최대 레벨
+		elseif (max_skill_lv <= skill_level) then
+			vars['maxSprite']:setVisible(true)
+
+		-- 강화가 가능한 상태
+		else
+			vars['enhanceBtn']:setVisible(true)
+			vars['enhanceBtnLabel']:setString(Str('강화'))
+		end
+	end
 end
 
 -------------------------------------
@@ -93,35 +105,7 @@ end
 function UI_SkillDetailPopupListItem_Tamer:click_enhanceBtn()
     local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_skillIdx)
 
-    do -- 초월 구간별 최대 레벨 확인
-        local skill_level = skill_indivisual_info:getSkillLevel()
-        local max_lv_segment, max_lv = self:getSkillMaxLevel()
-
-        if (max_lv_segment <= skill_level) then
-            local msg = Str('드래곤 초월 단계에 따라 스킬 강화 최대치가 상승합니다.\n초월 화면으로 이동하시겠습니까?')
-            local function ok_cb()
-                local doid = self.m_tableTamer['id']
-                UINavigator:goTo_transcend(doid)
-                return true -- 팝업을 닫지 말라는 의미
-            end
-            MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
-            -- 초월 안내
-            return
-        end
-    end
-
-    -- 확인 팝업
-    local skill_level = skill_indivisual_info:getSkillLevel()
-    local req_gold = TableReqGold:getDragonSkillEnhanceReqGold(skill_level)
-
-    local item_type = 'gold'
-    local item_value = req_gold
-    local function ok_btn_cb()
-        self:request_skillEnhance()
-    end
-    local cancel_btn_cb = nil
-
-    MakeSimplePopup_Confirm(item_type, item_value, '스킬을 강화하시겠습니까?', ok_btn_cb, cancel_btn_cb)
+	UI_SkillEnhance(self.m_tableTamer, skill_indivisual_info)
 end
 
 
@@ -130,12 +114,12 @@ end
 -------------------------------------
 function UI_SkillDetailPopupListItem_Tamer:request_skillEnhance()
     local uid = g_userData:get('uid')
-    local doid = self.m_tableTamer['id']
+    local tid = self.m_tableTamer['tid']
     local skill = self.m_skillIdx
+	local level = 1
 
     local function success_cb(ret)
-        -- 드래곤 정보 갱신
-        g_dragonsData:applyDragonData(ret['modified_dragon'])
+        -- 정보 갱신
 
         -- 골드 갱신
         if ret['gold'] then
@@ -151,10 +135,11 @@ function UI_SkillDetailPopupListItem_Tamer:request_skillEnhance()
     end
 
     local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/skillup')
+    ui_network:setUrl('/users/lvup/tamer')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('doid', doid)
+    ui_network:setParam('tid', tid)
     ui_network:setParam('skill', skill)
+	ui_network:setParam('level', level)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()

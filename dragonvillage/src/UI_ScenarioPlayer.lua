@@ -376,7 +376,7 @@ function UI_ScenarioPlayer:effect_title(effect, val_1, val_2, val_3)
         self.vars['titleNode']:addChild(self.m_titleUI.root)
 
         -- 하위 UI가 모두 opacity값을 적용되도록
-        doAllChildren(self.m_titleUI.root, function(node) node:setCascadeOpacityEnabled(true) end)
+        self.m_titleUI:setOpacityChildren(true)
     end
     self.m_titleUI.vars['titleLabel']:setString(val_1)
 

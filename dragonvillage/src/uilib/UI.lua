@@ -428,6 +428,14 @@ function UI:sceneFadeOutAndCallFunc(func)
 end
 
 -------------------------------------
+-- function sceneFadeOutAndCallFunc
+-- @brief 하위 UI가 모두 opacity값을 적용되도록
+-------------------------------------
+function UI:setOpacityChildren(b)
+    doAllChildren(self.root, function(node) node:setCascadeOpacityEnabled(b) end)
+end
+
+-------------------------------------
 -- function initUI
 -- @brief 순수가상함수
 -------------------------------------
