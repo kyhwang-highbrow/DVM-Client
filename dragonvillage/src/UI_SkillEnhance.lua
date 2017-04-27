@@ -6,14 +6,22 @@ local PARENT = UI
 UI_SkillEnhance = class(PARENT, {
 		m_tableTamer = 'Table',
 		m_skillIndividualInfo = '',
+
+		m_skillIdx = 'num',
+		m_enhanceLevel = 'num',
+		m_maxSkillLevel = 'num',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SkillEnhance:init(t_tamer, skill_indivisual_info)
+function UI_SkillEnhance:init(t_tamer, skill_indivisual_info, skill_idx)
+	-- 멤버 변수
 	self.m_tableTamer = t_tamer
     self.m_skillIndividualInfo = skill_indivisual_info
+	self.m_skillIdx = skill_idx
+	self.m_enhanceLevel = skill_indivisual_info:getSkillLevel() + 1
+	self.m_maxSkillLevel = g_userData:get('lv')
 
     local vars = self:load('skill_enhance_popup.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -40,11 +48,13 @@ function UI_SkillEnhance:initUI()
 	local skill_indivisual_info = self.m_skillIndividualInfo
 	local skill_level = skill_indivisual_info:getSkillLevel()
 
-    do -- 스킬 아이콘
+    do -- 스킬 아이콘 1 & 2
 		local char_type = skill_indivisual_info.m_charType
         local skill_id = skill_indivisual_info:getSkillID()
         local icon = IconHelper:getSkillIcon(char_type, skill_id)
         vars['iconNode1']:addChild(icon)
+		local icon2 = IconHelper:getSkillIcon(char_type, skill_id)
+        vars['iconNode2']:addChild(icon2)
     end
 
     do -- LV + 스킬 이름
@@ -64,6 +74,10 @@ end
 -------------------------------------
 function UI_SkillEnhance:initButton()
     local vars = self.vars
+    vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+	vars['levelBtn1']:registerScriptTapHandler(function() self:click_levelBtn1() end)
+	vars['levelBtn2']:registerScriptTapHandler(function() self:click_levelBtn2() end)
+	vars['maxBtn']:registerScriptTapHandler(function() self:click_maxBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
@@ -71,6 +85,103 @@ end
 -- function refresh
 -------------------------------------
 function UI_SkillEnhance:refresh()
+	local vars = self.vars
+	local skill_indivisual_info = self.m_skillIndividualInfo
+	local skill_level = self.m_enhanceLevel
+
+    do -- LV + 스킬 이름
+        local name = skill_indivisual_info:getSkillName()
+		local title_str = string.format('LV.%d %s', skill_level, name)
+        vars['titleLabel2']:setString(title_str)
+    end
+
+	do -- 스킬 설명
+        local desc = self:getEnhanceSkillDesc(skill_indivisual_info.m_tSkill, skill_level)
+        vars['dscLabel2']:setString(desc)
+    end
+
+	do -- 강화 레벨 (증가량) + 강화 가격
+        local dt_level = self.m_enhanceLevel - skill_indivisual_info:getSkillLevel()
+		vars['levelLabel']:setString(dt_level)
+	end
+
+	do
+        local price = self:getSkillEnhancePrice()
+        vars['priceLabel']:setString(price)
+    end
+end
+
+-------------------------------------
+-- function getSkillEnhancePrice
+-------------------------------------
+function UI_SkillEnhance:getSkillEnhancePrice(dt_level)
+	local curr_skill_lv = self.m_skillIndividualInfo:getSkillLevel()
+	local skill_level = self.m_enhanceLevel
+
+	return TableReqGold:getTotalReqGold('tamer_skill', curr_skill_lv, skill_level)
+end
+
+-------------------------------------
+-- function getEnhanceSkillDesc
+-------------------------------------
+function UI_SkillEnhance:getEnhanceSkillDesc(t_skill, skill_lv)
+	local t_skill = clone(t_skill)
+	IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
+	IDragonSkillManager:substituteSkillDesc(t_skill)
+
+	return IDragonSkillManager:getSkillDescPure(t_skill)
+end
+
+-------------------------------------
+-- function click_enhanceBtn
+-------------------------------------
+function UI_SkillEnhance:click_enhanceBtn()
+    local tid = self.m_tableTamer['tid']
+    local skill_idx = self.m_skillIdx
+	local enhance_level = self.m_enhanceLevel
+	local function cb_func()
+		self:close()
+	end
+
+	g_tamerData:request_tamerSkillEnhance(tid, skill_idx, enhance_level, cb_func)
+end
+
+-------------------------------------
+-- function click_levelBtn1
+-------------------------------------
+function UI_SkillEnhance:click_levelBtn1()
+	self.m_enhanceLevel = self.m_enhanceLevel - 1
+	
+	local skill_level = self.m_skillIndividualInfo:getSkillLevel()
+	if (self.m_enhanceLevel < skill_level) then
+		self.m_enhanceLevel = skill_level
+		return
+	end
+
+	self:refresh()
+end
+
+-------------------------------------
+-- function click_levelBtn2
+-------------------------------------
+function UI_SkillEnhance:click_levelBtn2()
+	self.m_enhanceLevel = self.m_enhanceLevel + 1
+	
+	if (self.m_enhanceLevel > self.m_maxSkillLevel) then
+		self.m_enhanceLevel = self.m_maxSkillLevel
+		return
+	end
+
+	self:refresh()
+end
+
+-------------------------------------
+-- function click_maxBtn
+-------------------------------------
+function UI_SkillEnhance:click_maxBtn()
+	self.m_enhanceLevel = self.m_maxSkillLevel
+
+	self:refresh()
 end
 
 -------------------------------------
@@ -78,6 +189,8 @@ end
 -------------------------------------
 function UI_SkillEnhance:click_closeBtn()
 	local function cb_func()
+		-- 강화로 이뤄지지 않은 경우 콜백 X
+		self:setCloseCB(nil)
 		self:close()
 	end
 

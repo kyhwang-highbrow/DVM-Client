@@ -46,33 +46,9 @@ function DragonSkillIndivisualInfo:applySkillLevel(t_add_value)
 	-- 필요한 데이터 선언
 	local t_skill = self.m_tSkill
 	local skill_lv = self.m_skillLevel
-	local silll_max_lv = g_constant:get('SKILL', 'MAX_LEVEL') - 1
 
 	-- 레벨이 반영된 데이터 계산
-	for idx = 1, 5 do
-		local modify_column = SkillHelper:getValid(t_skill['mod_col_' .. idx])
-		if (modify_column) then
-
-			-- 레벨 계수 계산 
-			-- @TODO 스킬 최고레벨 70으로 가정하고 계산 향후에 
-			local modify_value_unit = SkillHelper:getValid(t_skill['mod_max_val_' .. idx]) / silll_max_lv
-
-			-- 레벨 계수 반영한 수치
-			local tar_data = SkillHelper:getValid(t_skill[modify_column])
-			if (tar_data) then
-				local lv_add_value = (modify_value_unit * (skill_lv - 1))
-				
-				-- 소수 2번째 자리 까지 남김
-				lv_add_value = (math_floor(lv_add_value * 100) / 100)
-				
-				-- 액티브 강화에서 사용하기 위해 저장
-				self.m_tAddedValue[modify_column] = lv_add_value
-			
-				-- 레벨 계산된 값으로 치환
-				t_skill[modify_column] = tar_data + lv_add_value
-			end
-		end
-	end
+	IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 
 	-- 스킬을 덮어씌울때 덮어씌워진 스킬의 레벨 옵션을 그대로 갖고와 적용시킨다.
 	if (t_add_value) then

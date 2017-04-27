@@ -475,56 +475,96 @@ end
 -- function substituteSkillDesc
 -- @brief desc column에서 수정할 column명을 가져와 대체
 -------------------------------------
+function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
+	-- 필요한 데이터 선언
+	local t_skill = t_skill or {}
+	local skill_lv = skill_lv or 1
+	local silll_max_lv = g_constant:get('SKILL', 'MAX_LEVEL') - 1
+
+	-- 레벨이 반영된 데이터 계산
+	for idx = 1, 5 do
+		local modify_column = SkillHelper:getValid(t_skill['mod_col_' .. idx])
+		if (modify_column) then
+
+			-- 레벨 계수 계산 
+			-- @TODO 스킬 최고레벨 70으로 가정하고 계산 향후에 
+			local modify_value_unit = SkillHelper:getValid(t_skill['mod_max_val_' .. idx]) / silll_max_lv
+
+			-- 레벨 계수 반영한 수치
+			local tar_data = SkillHelper:getValid(t_skill[modify_column])
+			if (tar_data) then
+				local lv_add_value = (modify_value_unit * (skill_lv - 1))
+				
+				-- 소수 2번째 자리 까지 남김
+				lv_add_value = (math_floor(lv_add_value * 100) / 100)
+				
+				-- 액티브 강화에서 사용하기 위해 저장
+				self.m_tAddedValue[modify_column] = lv_add_value
+			
+				-- 레벨 계산된 값으로 치환
+				t_skill[modify_column] = tar_data + lv_add_value
+			end
+		end
+	end
+
+	return t_skill
+end
+
+-------------------------------------
+-- function substituteSkillDesc
+-- @brief desc column에서 수정할 column명을 가져와 대체
+-------------------------------------
 function IDragonSkillManager:substituteSkillDesc(t_skill)
 	for idx = 1, 5 do
 		local raw_data = t_skill['desc_' .. idx]
-		local desc_value
+		if (raw_data) and (raw_data ~= '') then
+			local desc_value
+			-- 1. 연산이 필요한지 확인하고 필요하다면 연산하여 산출
+			if string.find(raw_data, '[*+/-]') then
+				local operator = string.match(raw_data, '[*+/-]')
+				local l_parsed = seperate(raw_data, operator)
 
-		-- 1. 연산이 필요한지 확인하고 필요하다면 연산하여 산출
-		if string.find(raw_data, '[*+/-]') then
-			local operator = string.match(raw_data, '[*+/-]')
-			local l_parsed = seperate(raw_data, operator)
+				-- 숫자가 들어갔을 경우도 고려되어있다.
+				local column_name_1 = trim(l_parsed[1])
+				local value_1
+				if (tonumber(column_name_1)) then
+					value_1 = column_name_1
+				else
+					value_1 = t_skill[column_name_1]
+				end
 
-			-- 숫자가 들어갔을 경우도 고려되어있다.
-			local column_name_1 = trim(l_parsed[1])
-			local value_1
-			if (tonumber(column_name_1)) then
-				value_1 = column_name_1
-			else
-				value_1 = t_skill[column_name_1]
-			end
+				-- 숫자가 들어갔을 경우도 고려되어있다.
+				local column_name_2 = trim(l_parsed[2])
+				local value_2
+				if (tonumber(column_name_2)) then
+					value_2 = column_name_2
+				else
+					value_2 = t_skill[column_name_2]
+				end
 
-			-- 숫자가 들어갔을 경우도 고려되어있다.
-			local column_name_2 = trim(l_parsed[2])
-			local value_2
-			if (tonumber(column_name_2)) then
-				value_2 = column_name_2
-			else
-				value_2 = t_skill[column_name_2]
-			end
-
-			-- 연산자에 따른 실제 연산 실행
-			if (operator == '*') then
-				desc_value = value_1 * value_2
-			elseif (operator == '/') then
-				desc_value = value_1 / value_2
-			elseif (operator == '+') then
-				desc_value = value_1 + value_2
-			elseif (operator == '-') then
-				desc_value = value_1 - value_2
-			end
+				-- 연산자에 따른 실제 연산 실행
+				if (operator == '*') then
+					desc_value = value_1 * value_2
+				elseif (operator == '/') then
+					desc_value = value_1 / value_2
+				elseif (operator == '+') then
+					desc_value = value_1 + value_2
+				elseif (operator == '-') then
+					desc_value = value_1 - value_2
+				end
 		
-		-- 2. 단순 숫자라면 그대로 추출
-		elseif (type(raw_data) == 'number') then
-			desc_value = raw_data
+			-- 2. 단순 숫자라면 그대로 추출
+			elseif (type(raw_data) == 'number') then
+				desc_value = raw_data
 
-		-- 3. 이외는 column명으로 가정하고 테이블에서 추출
-		else
-			desc_value =  t_skill[raw_data]
+			-- 3. 이외는 column명으로 가정하고 테이블에서 추출
+			else
+				desc_value =  t_skill[raw_data]
+			end
+
+			-- 4. 실제 들어가야할 숫자로 치환
+			t_skill['desc_' .. idx] = desc_value
 		end
-
-		-- 4. 실제 들어가야할 숫자로 치환
-		t_skill['desc_' .. idx] = desc_value
 	end
 
 	return t_skill
@@ -539,8 +579,7 @@ function IDragonSkillManager:getSkillDescWithSubstituted(t_skill)
 	local t_skill = clone(t_skill)
 	IDragonSkillManager:substituteSkillDesc(t_skill)
 
-    local desc = Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
-    return desc
+    return Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
 end
 
 -------------------------------------
@@ -549,8 +588,7 @@ end
 -- @comment individual_info에서 재조립된 스킬테이블 사용
 -------------------------------------
 function IDragonSkillManager:getSkillDescPure(t_skill)
-    local desc = Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
-    return desc
+    return Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
 end
 
 -------------------------------------

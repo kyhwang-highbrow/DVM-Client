@@ -78,7 +78,12 @@ function UI_SkillDetailPopup_Tamer:hide()
 	local function cb_func()
 		g_currScene:removeBackKeyListener(self)
 	end
+
 	self:doActionReverse(cb_func, 1, false)
+	-- 갱신을 위해
+	if (self.m_closeCB) then
+		self.m_closeCB()
+	end
 end
 
 -------------------------------------

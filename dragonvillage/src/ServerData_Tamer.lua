@@ -11,24 +11,39 @@ ServerData_Tamer = class({
 -------------------------------------
 function ServerData_Tamer:init(server_data)
     self.m_serverData = server_data
-	self:refreshTamerInfo(self:getRef())
+	self:reMappingTamerInfo()
 end
 
 -------------------------------------
 -- function getRef
 -------------------------------------
-function ServerData_Tamer:getRef(...)
-    return self.m_serverData:getRef('tamers', ...)
+function ServerData_Tamer:getTamerList()
+    return self.m_serverData:getRef('tamers')
 end
 
 -------------------------------------
--- function refreshTamerInfo
+-- function reMappingTamerInfo
 -------------------------------------
-function ServerData_Tamer:refreshTamerInfo(t_info)
+function ServerData_Tamer:reMappingTamerInfo(t_info)
+	local t_info = t_info or self:getTamerList()
 	if (t_info) then
 		self.m_mTamerMap = table.listToMap(t_info, 'tid')
 	else
 		self.m_mTamerMap = {}
+	end
+end
+
+-------------------------------------
+-- function reMappingTamerInfo
+-------------------------------------
+function ServerData_Tamer:applyTamerInfo(t_tamer)
+	local tamer_list = self:getTamerList()
+
+	for i, v in pairs(tamer_list) do
+		if (v['tid'] == t_tamer['tid']) then
+			tamer_list[i] = t_tamer
+			break
+		end
 	end
 end
 
@@ -190,9 +205,9 @@ function ServerData_Tamer:request_getTamer(tid, cb_func)
 
     -- 콜백 함수
     local function success_cb(ret)
-		table.insert(self:getRef(), ret['tamer'])
-		
-		self:refreshTamerInfo(self:getRef())
+		-- 테이머 정보 갱신
+		table.insert(self:getTamerList(), ret['tamer'])
+		self:reMappingTamerInfo()
 		
 		if (cb_func) then
 			cb_func()
@@ -211,19 +226,26 @@ function ServerData_Tamer:request_getTamer(tid, cb_func)
 end
 
 -------------------------------------
--- function request_tamerLevelUp
+-- function request_tamerSkillEnhance
 -------------------------------------
-function ServerData_Tamer:request_tamerLevelUp(tid, skill_idx, cb_func)
+function ServerData_Tamer:request_tamerSkillEnhance(tid, skill_idx, enhance_level, cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
 	local tid = tid
 	local skill_idx = skill_idx
+	local level = enhance_level
 
     -- 콜백 함수
-    local function success_cb()
-		--table.insert(self:getRef(), ret['tamer'])
-		
-		self:refreshTamerInfo(self:getRef())
+    local function success_cb(ret)
+		-- 테이머 정보 갱신
+		self:applyTamerInfo(ret['tamer'])
+		self:reMappingTamerInfo()
+
+		-- 골드 갱신
+        if ret['gold'] then
+            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
+            g_topUserInfo:refreshData()
+        end
 
 		if (cb_func) then
 			cb_func()
@@ -232,12 +254,12 @@ function ServerData_Tamer:request_tamerLevelUp(tid, skill_idx, cb_func)
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/users/set/tamer')
+    ui_network:setUrl('/users/lvup/tamer')
     ui_network:setParam('uid', uid)
-	ui_network:setParam('tid', tid)
-	ui_network:setParam('skill', skill_idx)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setRevocable(false)
-    ui_network:setReuse(false)
+    ui_network:setParam('tid', tid)
+    ui_network:setParam('skill', skill_idx)
+	ui_network:setParam('level', level)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
 end

@@ -88,3 +88,15 @@ end
 function TableReqGold:getReqGold_formation(skill_lv)
 	return self:getReqGold('formation', skill_lv)
 end
+
+-------------------------------------
+-- function getTotalReqGold
+-------------------------------------
+function TableReqGold:getTotalReqGold(type, curr_skill_lv, skill_lv)
+	local sum = 0
+	for i = curr_skill_lv, (skill_lv - 1) do
+		sum = sum + self:getReqGold(type, i)
+	end
+
+	return sum
+end

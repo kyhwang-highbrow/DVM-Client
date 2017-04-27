@@ -56,8 +56,8 @@ end
 -- function initButton
 -------------------------------------
 function UI_SkillDetailPopupListItem_Tamer:initButton()
-    local vars = self.vars
-    vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+	local vars = self.vars
+	vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
 end
 
 -------------------------------------
@@ -105,59 +105,23 @@ end
 function UI_SkillDetailPopupListItem_Tamer:click_enhanceBtn()
     local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_skillIdx)
 
-	UI_SkillEnhance(self.m_tableTamer, skill_indivisual_info)
-end
-
-
--------------------------------------
--- function request_skillEnhance
--------------------------------------
-function UI_SkillDetailPopupListItem_Tamer:request_skillEnhance()
-    local uid = g_userData:get('uid')
-    local tid = self.m_tableTamer['tid']
-    local skill = self.m_skillIdx
-	local level = 1
-
-    local function success_cb(ret)
-        -- 정보 갱신
-
-        -- 골드 갱신
-        if ret['gold'] then
-            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
-            g_topUserInfo:refreshData()
-        end
-
-        self:refresh_enhance()
-
-        self.vars['EnhanceVisual']:setVisible(true)
-        self.vars['EnhanceVisual']:changeAni('slot_fx_01', false)
-        self.vars['EnhanceVisual']:addAniHandler(function() self.vars['EnhanceVisual']:setVisible(false) end)
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl('/users/lvup/tamer')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('tid', tid)
-    ui_network:setParam('skill', skill)
-	ui_network:setParam('level', level)
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    ui_network:request()
+	local ui = UI_SkillEnhance(self.m_tableTamer, skill_indivisual_info, self.m_skillIdx)
+	local function close_cb()
+		self:refresh_enhance()
+	end
+	ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
 -- function refresh_enhance
 -------------------------------------
 function UI_SkillDetailPopupListItem_Tamer:refresh_enhance()
-    local old_dragon_data = self.m_tableTamer
-    local new_dragon_data = g_dragonsData:getDragonDataFromUid(old_dragon_data['id'])
+    self.vars['EnhanceVisual']:setVisible(true)
+    self.vars['EnhanceVisual']:changeAni('slot_fx_01', false)
+    self.vars['EnhanceVisual']:addAniHandler(function() self.vars['EnhanceVisual']:setVisible(false) end)
 
-    if (old_dragon_data['updated_at'] == new_dragon_data['updated_at']) then
-        return
-    end
-
-    self.m_tableTamer = new_dragon_data
-    self.m_skillMgr = MakeDragonSkillFromDragonData(self.m_tableTamer)
+	local t_tamer_data = g_tamerData:getTamerServerInfo(self.m_tableTamer['tid'])
+    self.m_skillMgr = MakeTamerSkill_Temp(t_tamer_data)
 
     self:refresh()
 end
