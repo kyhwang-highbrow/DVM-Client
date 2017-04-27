@@ -74,7 +74,7 @@ function UI_StatisticsPopup:initUI()
 			vars['userNode1']:setVisible(true)
 			local user_info = g_colosseumData.m_playerUserInfo
 			vars['name1']:setString(user_info.m_nickname)
-			local tamer_type = g_tamerData:getTamerInfo('type')
+			local tamer_type = g_tamerData:getCurrTamerTable('type')
 			local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
 			vars['tamerNode1']:addChild(profile_icon)
 		end

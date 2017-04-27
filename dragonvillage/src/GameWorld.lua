@@ -395,7 +395,7 @@ end
 -- function initTamer
 -------------------------------------
 function GameWorld:initTamer()
-    local t_tamer = g_tamerData:getTamerInfo()
+    local t_tamer = g_tamerData:getCurrTamerTable()
 
     -- 테이머 생성
     self.m_tamer = self:makeTamerNew(t_tamer)

@@ -192,7 +192,7 @@ end
 -------------------------------------
 function getPreloadList_Tamer()
 	local ret = {
-        g_tamerData:getTamerInfo('res_sd'),
+        g_tamerData:getCurrTamerTable('res_sd'),
 
         -- TODO: 컷씬도 정리되면 추가
         'res/effect/cutscene_tamer_a_type/cutscene_tamer_a_type_t.plist'

@@ -85,7 +85,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
 
     -- 테이머
     do
-		local t_tamer =  g_tamerData:getTamerInfo()
+		local t_tamer =  g_tamerData:getCurrTamerTable()
 
         local tamer_res = t_tamer['res']
         local animator = MakeAnimator(tamer_res)

@@ -48,11 +48,11 @@ function ServerData_Tamer:applyTamerInfo(t_tamer)
 end
 
 -------------------------------------
--- function getTamerInfo
+-- function getCurrTamerTable
 -- @brief 현재 테이머 정보
 -- @param key - 있으면 해당 필드의 값을 반환하고 없다면 전체 테이블 반환
 -------------------------------------
-function ServerData_Tamer:getTamerInfo(key)
+function ServerData_Tamer:getCurrTamerTable(key)
 	local tamer_id = self.m_serverData:getRef('user', 'tamer')
 	if (tamer_id == 0) then
 		tamer_id = g_constant:get('INGAME', 'TAMER_ID')
