@@ -52,13 +52,19 @@ function UI_ColosseumResult:initUI(is_win, t_data)
     end
     
     do -- 테이머
-        local tamer_res = g_tamerData:getTamerInfo('res')
+		local t_tamer =  g_tamerData:getTamerInfo()
+
+        local tamer_res = t_tamer['res']
 		local animator = MakeAnimator(tamer_res)
 		if (animator) then
 			animator:setAnchorPoint(cc.p(0.5, 0.5))
 			animator:setDockPoint(cc.p(0.5, 0.5))
 			vars['tamerNode']:addChild(animator.m_node)
 		end
+
+		-- 표정 적용
+		local face_ani = TableTamer:getTamerFace(t_tamer['type'], is_win)
+		animator:changeAni(face_ani, true)
     end
 
     -- 현재 점수

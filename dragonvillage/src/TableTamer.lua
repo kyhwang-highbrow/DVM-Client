@@ -57,3 +57,18 @@ function TableTamer:getTamerObtainDesc(t_tamer)
 
 	return Str(t_tamer['t_obtain_desc'], val_1, val_2)
 end
+
+-------------------------------------
+-- function getTamerFace
+-------------------------------------
+function TableTamer:getTamerFace(tamer_type, is_win)
+	local t_ani = g_constant:get('TAMER', 'FACE', tamer_type)
+	local ani_list
+	if (is_win) then
+		ani_list = t_ani['win']
+	else
+		ani_list = t_ani['lose']
+	end
+
+	return table.getRandom(ani_list)
+end

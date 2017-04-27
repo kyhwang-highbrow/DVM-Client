@@ -139,6 +139,37 @@
 		}
     },
     
+    // 테이머
+    "TAMER" : {
+        // 테이머 상황별 표정 리스트        
+        "FACE" : {
+            "goni" : {
+                "win" : ["happy", "idle", "thought"],
+                "lose" :["sorrow", "fury"]
+            },
+            "nuri" : {
+                "win" : ["happy", "idle", "thought"],
+                "lose" :["sorrow", "fury"]
+            },
+            "dede" : {
+                "win" : ["happy", "idle", "thought"],
+                "lose" :["sorrow", "fury"]
+            },
+            "kesath" : {
+                "win" : ["happy", "idle", "thought"],
+                "lose" :["sorrow", "fury"]
+            },
+            "durun" : {
+                "win" : ["happy", "idle", "thought"],
+                "lose" :["sorrow", "fury"]
+            },
+            "mokoji" : {
+                "win" : ["happy", "idle", "thought"],
+                "lose" :["sorrow", "fury"]
+            }
+        }
+    },
+    
     // 스킬 공용 & 개별
     "SKILL" : {
         //# Common
