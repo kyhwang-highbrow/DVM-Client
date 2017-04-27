@@ -50,7 +50,7 @@ function UI_SkillDetailPopup_Tamer:refresh(t_tamer, skill_mgr)
 	local skill_mgr = skill_mgr
 	if (not skill_mgr) then
 		local t_tamer_data = g_tamerData:getTamerServerInfo(t_tamer['tid'])
-		skill_mgr = MakeTamerSkill_Temp(t_tamer_data)
+		skill_mgr = MakeTamerSkillManager(t_tamer_data)
 	end
 
     local vars = self.vars

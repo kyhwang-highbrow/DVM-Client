@@ -175,7 +175,7 @@ function UI_TamerManagePopup:setTamerSkill()
 	local t_tamer_data = g_tamerData:getTamerServerInfo(self.m_selectedTamerID)
 
 	-- 스킬 정보 및 스킬 상세보기 팝업 등록
-	local skill_mgr = MakeTamerSkill_Temp(t_tamer_data)
+	local skill_mgr = MakeTamerSkillManager(t_tamer_data)
 	local l_skill_icon = skill_mgr:getDragonSkillIconList()
 	local func_skill_detail_btn = function()
         self.m_skillUI:show()

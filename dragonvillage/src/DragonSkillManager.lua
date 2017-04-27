@@ -499,7 +499,7 @@ function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 				lv_add_value = (math_floor(lv_add_value * 100) / 100)
 				
 				-- 액티브 강화에서 사용하기 위해 저장
-				self.m_tAddedValue[modify_column] = lv_add_value
+				--self.m_tAddedValue[modify_column] = lv_add_value
 			
 				-- 레벨 계산된 값으로 치환
 				t_skill[modify_column] = tar_data + lv_add_value
@@ -663,10 +663,10 @@ function MakeDragonSkillFromDragonData(t_dragon_data)
 end
 
 -------------------------------------
--- function MakeTamerSkill_Temp
+-- function MakeTamerSkillManager
 -- @brief 테이머 스킬도 skillManager를 사용
 -------------------------------------
-function MakeTamerSkill_Temp(t_tamer)
+function MakeTamerSkillManager(t_tamer)
     local tamer_id = t_tamer['tid']
     local skill_00_lv = 0
     local skill_01_lv = t_tamer['skill_lv1']

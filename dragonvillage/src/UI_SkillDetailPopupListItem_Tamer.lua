@@ -121,7 +121,7 @@ function UI_SkillDetailPopupListItem_Tamer:refresh_enhance()
     self.vars['EnhanceVisual']:addAniHandler(function() self.vars['EnhanceVisual']:setVisible(false) end)
 
 	local t_tamer_data = g_tamerData:getTamerServerInfo(self.m_tableTamer['tid'])
-    self.m_skillMgr = MakeTamerSkill_Temp(t_tamer_data)
+    self.m_skillMgr = MakeTamerSkillManager(t_tamer_data)
 
     self:refresh()
 end
