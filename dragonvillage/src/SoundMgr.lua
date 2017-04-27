@@ -58,6 +58,7 @@ SoundMgr = {
     m_multiplVolume = 1,
 
     m_bStopPreload = false,
+    m_cbPreloadFinish = nil,
     }
 
 -- 디버깅용
@@ -140,6 +141,11 @@ function SoundMgr:update(dt)
             cclog_sound('SoundLoad : %s', res)
             self.m_preload[res] = nil
             break
+        end
+
+        if self.m_cbPreloadFinish and self:isPreloadFinish() then
+            self.m_cbPreloadFinish()
+            self.m_cbPreloadFinish = nil
         end
     end
     

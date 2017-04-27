@@ -438,6 +438,10 @@ end
 function UI_TitleScene:workSoundPreload()
     if SoundMgr:isPreloadFinish() then
         self:doNextWork()
+    else
+        SoundMgr.m_cbPreloadFinish = function()
+            self:doNextWork()
+        end
     end
 end
 function UI_TitleScene:workSoundPreload_click()
