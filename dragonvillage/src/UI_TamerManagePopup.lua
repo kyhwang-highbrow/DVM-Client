@@ -158,7 +158,7 @@ function UI_TamerManagePopup:setTamerText()
 
 	-- 테이머 없을 시 획득 조건
 	if (not g_tamerData:hasTamer(self.m_selectedTamerID)) then
-		local obtain_desc = t_tamer['t_obtain_desc']
+		local obtain_desc = TableTamer:getTamerObtainDesc(t_tamer)
 		vars['lockLabel']:setString(Str(obtain_desc))
 	end
 end

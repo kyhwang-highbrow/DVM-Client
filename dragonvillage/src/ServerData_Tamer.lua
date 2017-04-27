@@ -109,10 +109,18 @@ function ServerData_Tamer:checkTamerObtainCondition(condition)
 	elseif (condition == 'clear_tutorial') then
 		-- @TODO : 튜토리얼 체크
 
-	elseif (string.find(condition, 'clear_chapter_')) then
-		local chapter = string.gsub(condition, 'clear_chapter_', '')
-		if (g_adventureData:isOpenChapter(1, chapter + 1)) then
-			is_clear = true
+	elseif (string.find(condition, 'clear_adventure_')) then
+		local raw_str = string.gsub(condition, 'clear_adventure_', '')
+		raw_str = seperate(raw_str, '_')
+
+		local difficulty = 1
+		local chapter = raw_str[1]
+		local stage = raw_str[2]
+		if (stage) then
+			local stage_id = makeAdventureID(difficulty, chapter, stage)
+			is_clear = g_adventureData:isClearStage(stage_id)
+		else
+			is_clear = g_adventureData:isClearChapter(difficulty, chapter)
 		end
 	end
 

@@ -233,9 +233,7 @@ function ServerData_Adventure:isOpenStage(stage_id)
     if (not prev_stage_id) then
         return true
     else
-        local stage_info = self:getStageInfo(prev_stage_id)
-        local is_open = (0 < stage_info['clear_cnt'])
-        return is_open
+        return self:isClearStage(prev_stage_id)
     end
 end
 
@@ -254,6 +252,29 @@ function ServerData_Adventure:isOpenChapter(difficulty, chapter)
 end
 
 -------------------------------------
+-- function isClearStage
+-- @brief 해당 스테이지 클리어 여부
+-------------------------------------
+function ServerData_Adventure:isClearStage(stage_id)
+    local stage_info = self:getStageInfo(stage_id)
+    return (0 < stage_info['clear_cnt'])
+end
+
+-------------------------------------
+-- function isClearChapter
+-- @brief 해당 챕터 클리어 여부
+-------------------------------------
+function ServerData_Adventure:isClearChapter(difficulty, chapter)
+    if (MAX_ADVENTURE_CHAPTER < chapter) then
+        return false
+    end
+
+    local stage = MAX_ADVENTURE_STAGE
+    local stage_id = makeAdventureID(difficulty, chapter, stage)
+    return self:isClearStage(stage_id)
+end
+
+-------------------------------------
 -- function getSimplePrevStageID
 -- @brief 같은 챕터 안에서 이전 스테이지
 -------------------------------------
@@ -267,8 +288,6 @@ function ServerData_Adventure:getSimplePrevStageID(stage_id)
 
     return nil
 end
-
-
 
 -------------------------------------
 -- function getNextStageID
