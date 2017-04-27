@@ -8,7 +8,7 @@ CHAT_CLIENT_CHANNEL_TYPE_NORMAL = 0 -- 일반 채널
 CHAT_CLIENT_CHANNEL_TYPE_GUILD = 1  -- 길드 채널(채널 offset을 적용하지 않음)
 
 cclogf = function(...)
-	print(string.format(...))
+	--print(string.format(...))
 end
 
 -------------------------------------
@@ -35,6 +35,7 @@ ChatClient = class({
     m_cbConnectFail = '',
     m_cbChangeChannelSuccess = '',
     m_cbChangeChannelFail = '',
+    m_cbChangeStatus = 'function',
     m_channelName = '',
     m_channelType = '',
     m_requestedChannelType = '',
@@ -157,7 +158,7 @@ function ChatClient:dispatchEvent(_socket, t)
 
             if r.ret == 'Success' then
                 -- 접속 완료, 채팅 주고받을 준비를 하자
-                self.m_status = 'Success'
+                self:setStatus('Success')
                 self.m_sendCounter = r['sentCounter'] or 0
                 self.m_channelName = r['channelName']
                 self.m_channelType = self.m_requestedChannelType
@@ -204,13 +205,13 @@ function ChatClient:dispatchEvent(_socket, t)
         return 0
 
     elseif (name == SocketTCP.EVENT_CLOSE) then
-        self.m_status = 'Closed'
+        self:setStatus('Closed')
         self.m_channelName = nil
         self.m_channelType = CHAT_CLIENT_CHANNEL_TYPE_NORMAL
         return 0
 
     elseif (name == SocketTCP.EVENT_CLOSED) then
-        self.m_status = 'Disconnected'
+        self:setStatus('Disconnected')
         self.m_channelName = nil
         self.m_channelType = CHAT_CLIENT_CHANNEL_TYPE_NORMAL
         return 0
@@ -233,7 +234,7 @@ function ChatClient:connect(t)
         self.m_cbConnectSuccess({ret = 'Success', channelName = self.m_channelName}, self.m_channelType, true)
     else
         self.m_socket:connect()
-        self.m_status = 'Connecting'
+        self:setStatus('Connecting')
     end
 end
 
@@ -247,7 +248,7 @@ function ChatClient:disconnect()
     self.m_channelName = nil
     self.m_channelType = CHAT_CLIENT_CHANNEL_TYPE_NORMAL
     self.m_requestedChannelType = CHAT_CLIENT_CHANNEL_TYPE_NORMAL
-    self.m_status = 'Disconnected'
+    self:setStatus('Disconnected')
 end
 
 -------------------------------------
@@ -489,4 +490,26 @@ end
 -------------------------------------
 function ChatClient:getNormalChannelRange()
     return NormalChatChannelRange
+end
+
+-------------------------------------
+-- function setStatus
+-- @brief
+-------------------------------------
+function ChatClient:setStatus(status)
+    self.m_status = status
+
+    if self.m_cbChangeStatus then
+        self.m_cbChangeStatus(status)
+    end
+end
+
+
+-------------------------------------
+-- function setChangeStatusCB
+-- @brief
+-- @param function(status)
+-------------------------------------
+function ChatClient:setChangeStatusCB(cb)
+    self.m_cbChangeStatus = cb
 end

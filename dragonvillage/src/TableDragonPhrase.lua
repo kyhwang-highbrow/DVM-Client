@@ -76,3 +76,37 @@ function TableDragonPhrase:getDragonShout(did, flv)
 
     return speech 
 end
+
+-------------------------------------
+-- function getRandomPhrase
+-------------------------------------
+function TableDragonPhrase:getRandomPhrase()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_row = self:getRandomRow()
+
+    local sum_random = SumRandom()
+
+    sum_random:addItem(1, 't_normal_phrase1')
+    sum_random:addItem(1, 't_normal_phrase2')
+    sum_random:addItem(1, 't_normal_phrase3')
+    sum_random:addItem(1, 't_good_phrase1')
+    sum_random:addItem(1, 't_good_phrase2')
+    sum_random:addItem(1, 't_good_phrase3')
+    sum_random:addItem(1, 't_best_phrase1')
+    sum_random:addItem(1, 't_best_phrase2')
+    sum_random:addItem(1, 't_best_phrase3')
+    sum_random:addItem(1, 't_normal_shout1')
+    sum_random:addItem(1, 't_normal_shout2')
+    sum_random:addItem(1, 't_good_shout1')
+    sum_random:addItem(1, 't_good_shout2')
+    sum_random:addItem(1, 't_best_shout1')
+    sum_random:addItem(1, 't_best_shout2')
+
+    local key = sum_random:getRandomValue()
+
+    local phrase = Str(t_row[key])
+    return phrase
+end

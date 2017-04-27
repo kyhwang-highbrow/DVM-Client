@@ -438,6 +438,8 @@ end
 -- @brief 사운드 프리로드
 -------------------------------------
 function UI_TitleScene:workSoundPreload()
+    ChatManager:initInstance()
+
     if SoundMgr:isPreloadFinish() then
         self:doNextWork()
     else

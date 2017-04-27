@@ -61,10 +61,13 @@ function UIC_RichLabel:init()
     self.m_hAlignment = cc.TEXT_ALIGNMENT_LEFT
     self.m_vAlignment = cc.VERTICAL_TEXT_ALIGNMENT_TOP
 
-    local function update(dt)
-        self:update(dt)
-    end
-    self.m_root:scheduleUpdateWithPriorityLua(update, 0)
+    -- UI가 enter로 진입되었을 때 update함수 호출
+    self.m_root:registerScriptHandler(function(event)
+        local function update(dt)
+            self:update(dt)
+        end
+        self.m_root:scheduleUpdateWithPriorityLua(update, 0)
+    end)    
 end
 
 

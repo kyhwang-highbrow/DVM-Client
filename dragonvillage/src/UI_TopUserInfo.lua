@@ -231,3 +231,21 @@ function UI_TopUserInfo:setStaminaType(stamina_type)
     local icon = IconHelper:getStaminaInboxIcon(stamina_type)
     vars['staminaIconNode']:addChild(icon)
 end
+
+-------------------------------------
+-- function chatBroadcast
+-------------------------------------
+function UI_TopUserInfo:chatBroadcast(t_data)
+    --ccdump(t_data)
+
+    local msg = t_data['message']
+    local nickname = t_data['nickname']
+    local uid = t_data['uid']
+
+    local rich_str = '{@SKILL_NAME}[' .. nickname .. '] {@SKILL_DESC}' .. msg
+    self.vars['chatBroadcastLabel']:setString(rich_str)
+    self.vars['chatBroadcastNode']:setVisible(true)
+    self.vars['chatBroadcastNode']:stopAllActions()
+    self.vars['chatBroadcastNode']:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.Hide:create()))
+    --cclog(rich_str)
+end

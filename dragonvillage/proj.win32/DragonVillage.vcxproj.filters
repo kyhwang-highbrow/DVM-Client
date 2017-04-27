@@ -1965,6 +1965,9 @@
     <None Include="..\src\UI_SkillEnhance.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ChatManager.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

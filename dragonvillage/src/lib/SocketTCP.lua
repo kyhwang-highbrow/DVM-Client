@@ -203,7 +203,7 @@ function SocketTCP:_onConnected()
             --__data = struct.unpack("c"..len, chunk)
             __data = chunk
             
-            cclog('read packet %d bytes', len)
+            --cclog('read packet %d bytes', len)
             
             self:dispatchEvent({name=SocketTCP.EVENT_DATA, data=__data})
         end        

@@ -4,7 +4,6 @@ local PARENT = UI
 -- class UI_ChatPopup
 -------------------------------------
 UI_ChatPopup = class(PARENT, {
-        m_chatClient = 'ChatClient',
         m_chatList = '',
      })
 
@@ -27,18 +26,7 @@ function UI_ChatPopup:init()
     self:initButton()
     self:refresh()
 
-    local uid = g_userData:get('uid')
-    local nick = g_userData:get('nick')
-    local chat_client = ChatClient('KR', uid, nick)
-
-    local t = {}
-    chat_client:connect(t)
-
-    chat_client.m_changedMsgQueueCb = function(msg)
-        self:msgQueueCB(msg)
-    end
-
-    self.m_chatClient = chat_client
+    g_chatManager.m_tempCB = function(msg) self:msgQueueCB(msg) end
 end
 
 
@@ -109,8 +97,9 @@ function UI_ChatPopup:click_enterBtn()
         return
     end
 
-    self.m_chatClient:sendNormalMsg(msg)
-    --vars['editBox']:setText('')
+    if g_chatManager:sendNormalMsg(msg) then
+        vars['editBox']:setText('')
+    end
 end
 
 
@@ -124,4 +113,12 @@ function UI_ChatPopup:msgQueueCB(msg)
     local content = UI_ChatListItem(msg)
     content.root:setAnchorPoint(0.5, 0)
     self.m_chatList:addContent(content.root, 50, 'type')
+end
+
+-------------------------------------
+-- function close
+-------------------------------------
+function UI_ChatPopup:close()
+    PARENT.close(self)
+    g_chatManager.m_tempCB = nil
 end

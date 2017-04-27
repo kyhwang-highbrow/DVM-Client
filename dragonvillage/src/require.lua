@@ -146,6 +146,7 @@ local t_module = {
     'RenderTextureBatchNode',
 
     'ChatClient',
+    'ChatManager',
 
     -- Table
     'TableStageDesc',
