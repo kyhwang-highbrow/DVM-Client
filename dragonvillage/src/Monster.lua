@@ -301,7 +301,34 @@ function Monster:reserveSkill(skill_id, no_use_pos)
                 self.m_reservedSkillCastTime = self.m_reservedSkillCastTime + move_time
             end
         end
+
+        -- 에니메이션 변경
+        self.m_tStateAni['attack'] = self:getAttackAnimationName(skill_id)
     end
     
     return true
+end
+
+
+-------------------------------------
+-- function getAttackAnimationName
+-------------------------------------
+function Monster:getAttackAnimationName(skill_id)
+    local default_ani = 'attack'
+    
+    -- 테이블 정보 가져옴
+    local table_name = self.m_charType .. '_skill'
+    local table_skill = TABLE:get(table_name)
+    local t_skill = table_skill[skill_id]
+
+    local animation_name = t_skill['animation']
+    if (not animation_name) then
+        return default_ani
+    end
+
+    if (animation_name == '') then
+        return default_ani
+    end
+
+    return animation_name
 end
