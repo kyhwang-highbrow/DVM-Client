@@ -119,6 +119,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workGetServerInfo')
     table.insert(self.m_lWorkList, 'workCollection')
     table.insert(self.m_lWorkList, 'workLobbyUserList')
+    table.insert(self.m_lWorkList, 'workSoundPreload')
     table.insert(self.m_lWorkList, 'workFinish')
     
 end
@@ -165,6 +166,7 @@ function UI_TitleScene:workTitleAni()
     local vars = self.vars
 
     SoundMgr:playBGM('bgm_intro')
+    SoundMgr.m_bStopPreload = true
 
     local function ani_handler()
         vars['animator']:changeAni('04_title_idle', true)
@@ -192,6 +194,8 @@ end
 -------------------------------------
 function UI_TitleScene:workCheckUserID()
     self.m_loadingUI:showLoading(Str('유저 계정 확인 중...'))
+
+    SoundMgr.m_bStopPreload = false
 
     local uid = g_serverData:get('local', 'uid')
     local idfa = g_serverData:get('local', 'idfa')
@@ -418,6 +422,19 @@ function UI_TitleScene:workLobbyUserList()
     g_lobbyUserListData:requestLobbyUserList(uid, success_cb, fail_cb)
 end
 function UI_TitleScene:workLobbyUserList_click()
+end
+
+
+-------------------------------------
+-- function workSoundPreload
+-- @brief 사운드 프리로드
+-------------------------------------
+function UI_TitleScene:workSoundPreload()
+    if SoundMgr:isPreloadFinish() then
+        self:doNextWork()
+    end
+end
+function UI_TitleScene:workSoundPreload_click()
 end
 
 -------------------------------------

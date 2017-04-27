@@ -56,6 +56,8 @@ SoundMgr = {
     -- fadein fadeout
     m_volumeState = VOLUME_STATE_NONE,
     m_multiplVolume = 1,
+
+    m_bStopPreload = false,
     }
 
 -- 디버깅용
@@ -131,12 +133,14 @@ end
 function SoundMgr:update(dt)
     SoundMgr.m_time = SoundMgr.m_time + dt
 
-    for res,_ in pairs(self.m_preload) do
-        cc.SimpleAudioEngine:getInstance():preloadEffect(res)
-        self.m_loadedSfx[res] = true
-        cclog_sound('SoundLoad : %s', res)
-        self.m_preload[res] = nil
-        break
+    if (not self.m_bStopPreload) then
+        for res,_ in pairs(self.m_preload) do
+            cc.SimpleAudioEngine:getInstance():preloadEffect(res)
+            self.m_loadedSfx[res] = true
+            cclog_sound('SoundLoad : %s', res)
+            self.m_preload[res] = nil
+            break
+        end
     end
     
     -- 정렬을 위한 임시 테이블 생성
@@ -214,6 +218,16 @@ function SoundMgr:update(dt)
 
     --SoundMgr:updateVolumeState(dt)
 end
+
+-------------------------------------
+-- function isPreloadFinish
+-- @param
+-------------------------------------
+function SoundMgr:isPreloadFinish()
+    local cnt = table.count(self.m_preload)
+    return (cnt <= 0)
+end
+
 
 --SoundMgr:entry()
 
