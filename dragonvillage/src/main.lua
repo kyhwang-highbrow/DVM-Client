@@ -85,6 +85,8 @@ local function main()
     collectgarbage("setstepmul", 5000)
 
     cc.Director:getInstance():setDisplayStats(false)
+    cc.Director:getInstance():setAnimationInterval(1 / 50)
+    
 
     -- 절전모드 설정(동작하지 않도록)
     cc.Director:getInstance():setIdleTimerDisabled(true)
