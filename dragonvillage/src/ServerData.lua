@@ -59,6 +59,9 @@ function ServerData:getInstance()
     -- 'secret_info'
     g_secretDungeonData = ServerData_SecretDungeon(g_serverData)
 
+    -- 고대의 탑
+    g_ancientTowerData = ServerData_AncientTower(g_serverData)
+
     -- 스테이지 관련 유틸
     g_stageData = ServerData_Stage(g_serverData)
 

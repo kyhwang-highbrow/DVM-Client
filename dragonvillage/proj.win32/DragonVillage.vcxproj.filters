@@ -1962,6 +1962,15 @@
     <None Include="..\src\UI_ToastPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SceneAncientTower.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_AncientTowerScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_AncientTower.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_SkillEnhance.lua">
       <Filter>lua\UI</Filter>
     </None>

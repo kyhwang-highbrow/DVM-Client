@@ -266,7 +266,7 @@ function UI_Lobby:initButton()
     vars['explorationBtn']:registerScriptTapHandler(function() self:click_explorationBtn() end) -- 탐험 버튼
     vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 도감 버튼
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
-    vars['guildBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"길드"는 준비 중입니다.') end) -- 길드
+    vars['guildBtn']:registerScriptTapHandler(function() self:click_guildBtn() end) -- 길드
     
 
     -- FGT버전에서 퀘스트 기능 숨김
@@ -590,6 +590,14 @@ end
 -------------------------------------
 function UI_Lobby:click_eventBtn()
     g_eventData:openEventPopup()
+end
+
+-------------------------------------
+-- function click_guildBtn
+-------------------------------------
+function UI_Lobby:click_guildBtn()
+    UIManager:toastNotificationRed('"길드"는 준비 중입니다.') end
+    --g_ancientTowerData:goToAncientTowerScene()
 end
 
 -------------------------------------

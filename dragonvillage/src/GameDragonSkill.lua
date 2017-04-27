@@ -1,8 +1,10 @@
 local PARENT = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable())
 
-GAME_DRAGON_SKILL_WAIT = 0
-GAME_DRAGON_SKILL_LIVE = 1
-GAME_DRAGON_SKILL_LIVE2 = 2
+local STATE = {
+    WAIT = 0,
+    PLAY_DRAG_SKILL = 1,
+    PLAY_TIME_SKILL = 2
+}
 
 -------------------------------------
 -- class GameDragonSkill
@@ -11,13 +13,12 @@ GameDragonSkill = class(PARENT, {
         m_world = 'GameWorld',
 
         m_node = 'cc.Node',
+
+        m_skipLevel = 'number',
         
         -- 스킬을 사용할 드래곤 정보
         m_dragon = 'Dragon',
-        m_bonusLevel = 'number',
-        m_targetPosX = 'number',
-        m_targetPosY = 'number',
-                
+                        
         m_skillOpeningCutBg = 'Animator',
         m_skillOpeningCutTop = 'Animator',
 
@@ -38,13 +39,12 @@ function GameDragonSkill:init(world)
     self.m_node = cc.Node:create()
     g_gameScene.m_viewLayer:addChild(self.m_node)
 
-    self.m_state = GAME_DRAGON_SKILL_WAIT
+    self.m_skipLevel = g_autoPlaySetting:get('skip_level')
+
+    self.m_state = STATE.WAIT
 
     self.m_dragon = nil
-    self.m_bonusLevel = 0
-    self.m_targetPosX = 0
-    self.m_targetPosY = 0
-    
+        
     self:initState()
     self:initUI()
 end
@@ -110,9 +110,9 @@ end
 -- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
 function GameDragonSkill:initState()
-    self:addState(GAME_DRAGON_SKILL_WAIT,   function(self, dt) end)
-    self:addState(GAME_DRAGON_SKILL_LIVE,   GameDragonSkill.update_live)
-    self:addState(GAME_DRAGON_SKILL_LIVE2,   GameDragonSkill.update_live2)
+    self:addState(STATE.WAIT,   function(self, dt) end)
+    self:addState(STATE.PLAY_DRAG_SKILL,   GameDragonSkill.st_playDragSkill)
+    self:addState(STATE.PLAY_TIME_SKILL,   GameDragonSkill.st_playTimeSkill)
 end
 
 -------------------------------------
@@ -123,9 +123,9 @@ function GameDragonSkill:update(dt)
 end
 
 -------------------------------------
--- function update_live
+-- function update_play_drag_skill
 -------------------------------------
-function GameDragonSkill.update_live(self, dt)
+function GameDragonSkill.st_playDragSkill(self, dt)
     local world = self.m_world
     local ui = self.m_world.m_inGameUI
     local dragon = self.m_dragon
@@ -135,65 +135,56 @@ function GameDragonSkill.update_live(self, dt)
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
-            -- UI 숨김
-            ui.root:setVisible(false)
-
             -- 일시 정지
             world:setTemporaryPause(true)
 
             -- 화면 쉐이킹 멈춤
             world.m_shakeMgr:stopShake()
 
-            -- 도입부 컷씬
-            self:makeSkillOpeningCut(dragon, function()
+            if (self.m_skipLevel > 0) then
                 self:nextStep()
-            end)
+            else
+                -- UI 숨김
+                ui.root:setVisible(false)
 
-            -- 스킬 이름 및 설명 문구를 표시
-            self:makeSkillDesc(dragon, delayTime)
+                -- 도입부 컷씬
+                self:makeSkillOpeningCut(dragon, function()
+                    self:nextStep()
+                end)
+
+                -- 스킬 이름 및 설명 문구를 표시
+                self:makeSkillDesc(dragon, delayTime)
+            end
         end
         
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
-            -- UI 표시
-            ui.root:setVisible(true)
 
-            -- 임시 처리... 레이어 교체
-            self.m_skillOpeningCutBg.m_node:retain()
-            self.m_skillOpeningCutBg.m_node:removeFromParent()
-            self.m_world.m_dragonSkillBgNode:addChild(self.m_skillOpeningCutBg.m_node)
-            self.m_skillOpeningCutBg.m_node:release()
+            if (self.m_skipLevel > 0) then
+                self:nextStep()
+            else
+                -- UI 표시
+                ui.root:setVisible(true)
 
-            self.m_skillOpeningCutBg:setVisible(true)
-            self.m_skillOpeningCutBg:changeAni('scene_3', false)
-            self.m_skillOpeningCutBg:addAniHandler(function()
-                self.m_skillOpeningCutBg:setVisible(false)
-            end)
+                -- 임시 처리... 레이어 교체
+                self.m_skillOpeningCutBg.m_node:retain()
+                self.m_skillOpeningCutBg.m_node:removeFromParent()
+                self.m_world.m_dragonSkillBgNode:addChild(self.m_skillOpeningCutBg.m_node)
+                self.m_skillOpeningCutBg.m_node:release()
 
-            self.m_skillOpeningCutTop:setVisible(false)
-            self:nextStep()
+                self.m_skillOpeningCutBg:setVisible(true)
+                self.m_skillOpeningCutBg:changeAni('scene_3', false)
+                self.m_skillOpeningCutBg:addAniHandler(function()
+                    self.m_skillOpeningCutBg:setVisible(false)
+                end)
+
+                self.m_skillOpeningCutTop:setVisible(false)
+                self:nextStep()
+            end
         end
 
     elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
-            -- 카메라 줌인
-            do
-                local offset_x = 0
-
-                if (dragon.m_bLeftFormation) then
-                    offset_x = 50
-                else
-                    offset_x = -50
-                end
-
-                world.m_gameCamera:setAction({
-                    pos_x = dragon.pos.x - (CRITERIA_RESOLUTION_X / 2) + offset_x,
-                    pos_y = dragon.pos.y,
-                    scale = 3,
-                    time = delayTime / 4
-                })
-            end
-
             -- 드래곤만 일시 정지 제외시킴
             world:setTemporaryPause(true, dragon)
 
@@ -204,18 +195,35 @@ function GameDragonSkill.update_live(self, dt)
             local duration = dragon:getAniDuration()
             dragon.m_animator:setTimeScale(duration / delayTime)
 
-            -- 유닛 정보 숨김
-            self:setVisible_UnitInfo(false)
+            if (self.m_skipLevel < 2) then
+                -- 카메라 줌인
+                do
+                    local offset_x = 0
 
-            -- 말풍선
-            self:makeSpeechBubble(dragon)
+                    if (dragon.m_bLeftFormation) then
+                        offset_x = 50
+                    else
+                        offset_x = -50
+                    end
+
+                    world.m_gameCamera:setAction({
+                        pos_x = dragon.pos.x - (CRITERIA_RESOLUTION_X / 2) + offset_x,
+                        pos_y = dragon.pos.y,
+                        scale = 3,
+                        time = delayTime / 4
+                    })
+                end
+
+                -- 유닛 정보 숨김
+                self:setVisible_UnitInfo(false)
+
+                -- 말풍선
+                self:makeSpeechBubble(dragon)
+            end
             
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
 
-            -- 음성
-            --playDragonVoice(dragon.m_charTable['type'])
-        
         elseif (self:isPassedStepTime(delayTime)) then
             -- 애니메이션 속도 되돌림
             dragon.m_animator:setTimeScale(1)
@@ -229,11 +237,13 @@ function GameDragonSkill.update_live(self, dt)
             -- 드래곤 스킬 애니메이션 시작
             dragon:changeState('skillIdle')
 
-            -- 카메라 연출
-            self:doCameraWork(dragon)
+            if (self.m_skipLevel < 2) then
+                -- 카메라 연출
+                self:doCameraWork(dragon)
 
-            -- 유닛 정보 표시
-            self:setVisible_UnitInfo(true)
+                -- 유닛 정보 표시
+                self:setVisible_UnitInfo(true)
+            end
             
         elseif (self:isPassedStepTime(1.5)) then
             -- 카메라 초기화
@@ -251,7 +261,7 @@ function GameDragonSkill.update_live(self, dt)
         if (self:isBeginningStep()) then
             self.m_dragon = nil
 
-            self:changeState(GAME_DRAGON_SKILL_WAIT)
+            self:changeState(STATE.WAIT)
 
             -- 스킬 시전 드래곤을 제외한 게임 오브젝트 resume
             world:setTemporaryPause(false, dragon)
@@ -273,9 +283,9 @@ function GameDragonSkill.update_live(self, dt)
 end
 
 -------------------------------------
--- function update_live2
+-- function st_playTimeSkill
 -------------------------------------
-function GameDragonSkill.update_live2(self, dt)
+function GameDragonSkill.st_playTimeSkill(self, dt)
     local world = self.m_world
     local dragon = self.m_dragon
     local timeScale = 1
@@ -285,15 +295,18 @@ function GameDragonSkill.update_live2(self, dt)
     
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
-            -- 카메라 줌인
-            local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
+
+            if (self.m_skipLevel < 2) then
+                -- 카메라 줌인
+                local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
             
-            world.m_gameCamera:setAction({
-                pos_x = dragon.pos.x - (CRITERIA_RESOLUTION_X / 2),
-                pos_y = dragon.pos.y,
-                scale = 1.2,
-                time = 0.25
-            })
+                world.m_gameCamera:setAction({
+                    pos_x = dragon.pos.x - (CRITERIA_RESOLUTION_X / 2),
+                    pos_y = dragon.pos.y,
+                    scale = 1.2,
+                    time = 0.25
+                })
+            end
 
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
@@ -304,7 +317,7 @@ function GameDragonSkill.update_live2(self, dt)
         elseif (self:isPassedStepTime(time1)) then
             self.m_dragon = nil
 
-            self:changeState(GAME_DRAGON_SKILL_WAIT)
+            self:changeState(STATE.WAIT)
         end
     end
 end
@@ -484,6 +497,13 @@ function GameDragonSkill:doCameraWork(dragon)
 end
 
 -------------------------------------
+-- function setSkipLevel
+-------------------------------------
+function GameDragonSkill:setSkipLevel(skip_level)
+    self.m_skipLevel = skip_level
+end
+
+-------------------------------------
 -- function setVisible_UnitInfo
 -------------------------------------
 function GameDragonSkill:setVisible_UnitInfo(b)
@@ -498,17 +518,9 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local arg = {...}
         local dragon = arg[1]
 
-        -- 보너스 레벨 설정
-        local active_skill_id = dragon:getSkillID('active')
-        local t_skill = TableDragonSkill():get(active_skill_id)
-        local bonus = dragon.m_skillIndicator.m_bonus
-
         self.m_dragon = dragon
-        self.m_bonusLevel = bonus or 0
-        self.m_targetPosX = dragon.m_skillIndicator.m_targetPosX
-        self.m_targetPosY = dragon.m_skillIndicator.m_targetPosY
-
-        self:changeState(GAME_DRAGON_SKILL_LIVE)
+        
+        self:changeState(STATE.PLAY_DRAG_SKILL)
 
     elseif (event_name == 'dragon_time_skill') then
         local arg = {...}
@@ -518,7 +530,7 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         else
             self.m_dragon = dragon
 
-            self:changeState(GAME_DRAGON_SKILL_LIVE2)
+            self:changeState(STATE.PLAY_TIME_SKILL)
         end
     end
 end
@@ -541,12 +553,12 @@ end
 -- function isPlayingActiveSkill
 -------------------------------------
 function GameDragonSkill:isPlayingActiveSkill()
-    return (self.m_state == GAME_DRAGON_SKILL_LIVE)
+    return (self.m_state == STATE.PLAY_DRAG_SKILL)
 end
 
 -------------------------------------
 -- function isPlayingTimeSkill
 -------------------------------------
 function GameDragonSkill:isPlayingTimeSkill()
-    return (self.m_state == GAME_DRAGON_SKILL_LIVE2)
+    return (self.m_state == STATE.PLAY_TIME_SKILL)
 end

@@ -330,6 +330,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\RenderTextureBatchNode.lua" />
     <None Include="..\src\ResHelper.lua" />
     <None Include="..\src\RuneEnchantHelper.lua" />
+    <None Include="..\src\SceneAncientTower.lua" />
     <None Include="..\src\SceneColosseum.lua" />
     <None Include="..\src\SceneGameColosseum.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
@@ -337,6 +338,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SecurityNumber.lua" />
     <None Include="..\src\ServerData_Adventure.lua" />
     <None Include="..\src\ServerData_AdventureFirstReward.lua" />
+    <None Include="..\src\ServerData_AncientTower.lua" />
     <None Include="..\src\ServerData_Attendance.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Birthday.lua" />
@@ -695,6 +697,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AdventureStageButton.lua" />
     <None Include="..\src\UI_AdventureStageInfo.lua" />
     <None Include="..\src\UI_AdventureStageMissionInfo.lua" />
+    <None Include="..\src\UI_AncientTowerScene.lua" />
     <None Include="..\src\UI_AttendanceBasicListItem.lua" />
     <None Include="..\src\UI_AttendanceSpecialListItem.lua" />
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />

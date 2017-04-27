@@ -79,6 +79,7 @@ function UI_Game:initButton()
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
     vars['panelBtn']:registerScriptTapHandler(function() self:click_panelBtn() end)
+    --vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
 end
 
 -------------------------------------
@@ -247,6 +248,21 @@ function UI_Game:click_panelBtn()
 
         g_autoPlaySetting:set('dragon_panel', self.m_panelUI.m_bVisible)
     end
+end
+
+-------------------------------------
+-- function click_skipBtn
+-------------------------------------
+function UI_Game:click_skipBtn()
+    g_autoPlaySetting:setNextSkipLevel()
+
+    local skip_level = g_autoPlaySetting:get('skip_level')
+
+    local gameDragonSkill = self.m_gameScene.m_gameWorld.m_gameDragonSkill
+    gameDragonSkill:setSkipLevel(skip_level)
+
+    local gameHighlight = self.m_gameScene.m_gameWorld.m_gameHighlight
+    gameHighlight:setSkipLevel(skip_level)
 end
 
 -------------------------------------

@@ -46,6 +46,9 @@ function ServerData_AutoPlaySetting:init(server_data)
         -- 패널 사용
         t_auto_play_setting['dragon_panel'] = true
 
+        -- 연출 스킵 단계
+        t_auto_play_setting['skip_level'] = 0
+
         self.m_serverData:applyServerData(t_auto_play_setting, 'auto_play_setting')
     end
 
@@ -62,6 +65,8 @@ function ServerData_AutoPlaySetting:get(key)
     if (ret == nil) then
         if (key == 'dragon_panel') then
             self:set(key, true)
+        elseif (key == 'skip_level') then
+            self:set(key, 0)
         end
     end
 
@@ -100,4 +105,19 @@ end
 -------------------------------------
 function ServerData_AutoPlaySetting:getAutoPlayCnt()
     return self.m_autoPlayCnt
+end
+
+-------------------------------------
+-- function setAutoPlay
+-------------------------------------
+function ServerData_AutoPlaySetting:setNextSkipLevel()
+    local skip_level = self:get('skip_level')
+
+    skip_level = skip_level + 1
+
+    if (skip_level > 2) then
+        skip_level = 0
+    end
+
+    self:set('skip_level', skip_level)
 end

@@ -12,6 +12,7 @@ ServerData_NestDungeon = class({
 -------------------------------------
 function ServerData_NestDungeon:init(server_data)
     self.m_serverData = server_data
+    self.m_nestDungeonInfoMap = {}
     self.m_bDirtyNestDungeonInfo = true
 end
 

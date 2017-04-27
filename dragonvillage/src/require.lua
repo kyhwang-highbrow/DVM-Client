@@ -84,6 +84,7 @@ local t_module = {
     'ServerData_AdventureFirstReward',
     'ServerData_NestDungeon',
     'ServerData_SecretDungeon',
+    'ServerData_AncientTower',
     'ServerData_Stage',
     'ServerData_LobbyUserList',
     'ServerData_AutoPlaySetting',
@@ -214,6 +215,7 @@ local t_module = {
     'SceneNestDungeon',
     'SceneSecretDungeon',
     'SceneColosseum',
+    'SceneAncientTower',
 
     -- Phys
 	'PhysWorld',
@@ -527,6 +529,7 @@ local t_module = {
     'UI_ColosseumFirstRewardListItem',
     'UI_ColosseumRankingReward',
     'UI_ColosseumFirstReward',
+    'UI_AncientTowerScene',
 	'UI_QuestPopup',
     'UI_QuestListItem',
     'UI_MailPopup',
