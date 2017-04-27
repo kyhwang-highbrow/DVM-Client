@@ -3,7 +3,6 @@
 -- @TODO Individual로 수정 예정
 -------------------------------------
 DragonSkillIndivisualInfo = class({
-        m_idx = 'number',       -- 스킬 순번
         m_charType = 'string',  -- 캐릭터 타입 'dragon', 'monster'
         m_skillID = 'number',   -- 스킬 ID
         m_skillType = 'string',
@@ -26,13 +25,13 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     self.m_turnCount = 0
     self.m_timer = 0
 
-	self.m_tAddedValue = {}
+	self.m_tAddedValue = nil
 end
 
 -------------------------------------
 -- function applySkillLevel
 -------------------------------------
-function DragonSkillIndivisualInfo:applySkillLevel(t_add_value)
+function DragonSkillIndivisualInfo:applySkillLevel()
 	local skill_id = self.m_skillID
     local table_skill = TABLE:get(self.m_charType .. '_skill')
 
@@ -48,14 +47,26 @@ function DragonSkillIndivisualInfo:applySkillLevel(t_add_value)
 	local skill_lv = self.m_skillLevel
 
 	-- 레벨이 반영된 데이터 계산
-	IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
+	local _, t_add_value = IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
+	self.m_tAddedValue = t_add_value
+end
+
+-------------------------------------
+-- function insertAddValue
+-- @brief 액티브 강화의 경우 기본 액티브의 레벨로 증가한 수치를 가져와 적용
+-------------------------------------
+function DragonSkillIndivisualInfo:insertAddValue(t_add_value)
+	if not (self.m_skillType == 'active') then
+		return 
+	end
+	if not (t_add_value) then
+		return
+	end
 
 	-- 스킬을 덮어씌울때 덮어씌워진 스킬의 레벨 옵션을 그대로 갖고와 적용시킨다.
-	if (t_add_value) then
-		for column, value in pairs(t_add_value) do
-			t_skill[column] = t_skill[column] + value
-		end
-		self.m_tAddedValue = t_add_value
+	local t_skill = self.m_tSkill
+	for column, value in pairs(t_add_value) do
+		self.m_tSkill[column] = self.m_tSkill[column] + value
 	end
 end
 

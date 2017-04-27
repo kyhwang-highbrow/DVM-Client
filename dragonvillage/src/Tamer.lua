@@ -66,14 +66,7 @@ function Tamer:init_tamer(t_tamer, bLeftFormationend)
     self.m_bLeftFormation = bLeftFormationend
 
 	-- Tamer Skill 설정
-	self:setDragonSkillLevelList(5,6,7)
-	self:initDragonSkillManager('tamer', self.m_charTable['tid'])
 	self:initSkill()
-	
-	for i, v in pairs(self.m_lSkillIndivisualInfo['passive']) do
-		cclog(i, v:getSkillDesc(), v:getSkillLevel())
-	end
-	cclog(self.m_lSkillIndivisualInfo['active']:getSkillDesc())
 
 	self:initLogRecorder(t_tamer['tid'])
 

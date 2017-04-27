@@ -12,13 +12,20 @@ local MAX_TAMER_SKILL = 3
 function Tamer:initSkill()
     local t_tamer = self.m_charTable
 	local table_tamer_skill = TableTamerSkill()
-	
+	local t_tamer_data = g_tamerData:getTamerServerInfo(t_tamer['tid'])
+
+	self:setDragonSkillLevelList(0, t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'])
+	self:initDragonSkillManager('tamer', t_tamer['tid'])
+
 	for i = 1, MAX_TAMER_SKILL do
 		local skill_id = t_tamer['skill_' .. i]
-		local t_skill = table_tamer_skill:getTamerSkill(skill_id)
+		local skill_info = self:getSkillInfoByID(skill_id)
+		if (skill_info) then
+			local t_skill = skill_info.m_tSkill
 
-		self.m_lSkill[i] = t_skill
-		self.m_lSkillCoolTimer[i] = t_skill['cooldown']
+			self.m_lSkill[i] = t_skill
+			self.m_lSkillCoolTimer[i] = t_skill['cooldown']
+		end
 	end
 end
 

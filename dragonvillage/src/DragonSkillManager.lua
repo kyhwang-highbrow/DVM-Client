@@ -12,6 +12,7 @@ IDragonSkillManager = {
         m_charTable = 'table',
 
         m_lSkillIndivisualInfo = 'list',
+		m_mSkillInfoMap = 'map',			-- 외부 접근용 맵테이블 key : skill_id
         m_lReserveTurnSkillID = 'number',
 
 		-- Indicator Tool Tip 등을 위해 일반 액티브 스킬은 따로 저장
@@ -35,6 +36,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
     self.m_charType = char_type
     self.m_charID = char_id
     self.m_openSkillCount = open_skill_count
+	self.m_mSkillInfoMap = {}
 
     -- 캐릭터 테이블 저장
     local table_dragon = TABLE:get(self.m_charType)
@@ -56,9 +58,8 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
 
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
-    local max_idx = open_skill_count
 	local table_skill = GetSkillTable(self.m_charType)
-    for i = 1, max_idx do
+    for i = 1, open_skill_count do
         local skill_id = t_character['skill_' .. i]
 		local skill_type = table_skill:getSkillType(skill_id)
         if skill_type and skill_id then
@@ -157,10 +158,14 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
     end
 
     -- 스킬 레벨 적용
-    skill_indivisual_info:applySkillLevel(t_add_value)
+    skill_indivisual_info:applySkillLevel()
+	skill_indivisual_info:insertAddValue(t_add_value)
 
 	-- 스킬 desc 세팅
 	skill_indivisual_info:applySkillDesc()
+
+	-- 맵으로 저장
+	self.m_mSkillInfoMap[skill_id] = skill_indivisual_info
 end
 
 -------------------------------------
@@ -224,13 +229,19 @@ function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
 end
 
 -------------------------------------
+-- function makeSkillIcon_usingIndex
+-------------------------------------
+function IDragonSkillManager:getSkillInfoByID(skill_id)
+    return self.m_mSkillInfoMap[skill_id]
+end
+
+-------------------------------------
 -- function getSkillIndivisualInfo_usingIdx
 -------------------------------------
 function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
 	if (self.m_charType == 'tamer') and (idx == 0) then 
 		return nil
 	end
-
     local t_character = self.m_charTable
 
     local skill_id
@@ -243,26 +254,22 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
         skill_id = t_character['skill_' .. idx]
 		skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
     end
-	-- @TODO
-	-- active 강화에게 기본 active의 added_value 를 주기 위해서
-	local t_add_value
-	if (idx == 3) then
-		if (self.m_lSkillIndivisualInfo[skill_type]) then
-			t_add_value = self.m_lSkillIndivisualInfo[skill_type].m_tAddedValue
+
+	local skill_indivisual_info = self:getSkillInfoByID(skill_id)
+	if (skill_indivisual_info) then
+		return skill_indivisual_info
+	else
+		-- UI용 skill_info 계산
+		if (skill_type) and skill_id ~= 0 then
+			local skill_lv = self:getSkillLevel(idx)
+			local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
+       
+			skill_indivisual_info:applySkillLevel()
+			skill_indivisual_info:applySkillDesc()
+
+			return skill_indivisual_info
 		end
 	end
-
-    if (skill_type) and skill_id ~= 0 then
-        local skill_lv = self:getSkillLevel(idx)
-        local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
-		-- active 강화가 활성화 되지 않으면 기본 값이 나오도록...
-		if (skill_lv == 0) then
-			t_add_value = nil
-		end
-        skill_indivisual_info:applySkillLevel(t_add_value)
-		skill_indivisual_info:applySkillDesc()
-        return skill_indivisual_info
-    end
 end
 
 -------------------------------------
@@ -452,35 +459,23 @@ end
 -- @brief id로 찾아 레벨링된 스킬 테이블 반환
 -------------------------------------
 function IDragonSkillManager:getLevelingSkillById(skill_id)
-	local t_skill = nil
-	for skill_type, skill_info in pairs(self.m_lSkillIndivisualInfo) do
-		if isExistValue(skill_type, 'active', 'basic', 'touch') then
-			if (skill_info and skill_info.m_skillID == skill_id) then
-				t_skill = skill_info.m_tSkill
-				break
-			end
-		else
-			for i, skill_info2 in pairs(skill_info) do
-				if (skill_info2.m_skillID == skill_id) then
-					t_skill = skill_info2.m_tSkill
-					break
-				end
-			end
-		end
+	local skill_info = self.m_mSkillInfoMap[skill_id]
+	if (skill_info) then
+		return skill_info.m_tSkill
 	end
-	return t_skill
 end
 
 -------------------------------------
--- function substituteSkillDesc
--- @brief desc column에서 수정할 column명을 가져와 대체
+-- function applySkillLevel
+-- @brief skill level에 따른 능력치를 계산하여 적용
 -------------------------------------
 function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 	-- 필요한 데이터 선언
 	local t_skill = t_skill or {}
 	local skill_lv = skill_lv or 1
 	local silll_max_lv = g_constant:get('SKILL', 'MAX_LEVEL') - 1
-
+	local t_add_value = {}
+	
 	-- 레벨이 반영된 데이터 계산
 	for idx = 1, 5 do
 		local modify_column = SkillHelper:getValid(t_skill['mod_col_' .. idx])
@@ -499,7 +494,7 @@ function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 				lv_add_value = (math_floor(lv_add_value * 100) / 100)
 				
 				-- 액티브 강화에서 사용하기 위해 저장
-				--self.m_tAddedValue[modify_column] = lv_add_value
+				t_add_value[modify_column] = lv_add_value
 			
 				-- 레벨 계산된 값으로 치환
 				t_skill[modify_column] = tar_data + lv_add_value
@@ -507,7 +502,7 @@ function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 		end
 	end
 
-	return t_skill
+	return t_skill, t_add_value
 end
 
 -------------------------------------
