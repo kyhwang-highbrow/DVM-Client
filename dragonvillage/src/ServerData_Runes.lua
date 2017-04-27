@@ -53,6 +53,8 @@ function ServerData_Runes:request_runesInfo(finish_cb, fail_cb)
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
+
+    return ui_network
 end
 
 -------------------------------------
