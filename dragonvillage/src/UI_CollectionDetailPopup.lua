@@ -14,8 +14,7 @@ UI_CollectionDetailPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_CollectionDetailPopup:init(l_dragons_item, init_idx)
-    ccdump('UI_CollectionDetailPopup:init(l_dragons_item, init_idx)')
+function UI_CollectionDetailPopup:init(l_dragons_item, init_idx, init_evolution)
     self.m_lDragonsItem = l_dragons_item
     self.m_currIdx = nil
 
@@ -30,7 +29,7 @@ function UI_CollectionDetailPopup:init(l_dragons_item, init_idx)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI()
+    self:initUI(init_evolution)
     self:initButton()
     self:refresh()
 
@@ -44,8 +43,8 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_CollectionDetailPopup:initUI()
-    self:initTab()
+function UI_CollectionDetailPopup:initUI(init_evolution)
+    self:initTab(init_evolution)
 end
 
 -------------------------------------
@@ -73,12 +72,24 @@ end
 -------------------------------------
 -- function initTab
 -------------------------------------
-function UI_CollectionDetailPopup:initTab()
+function UI_CollectionDetailPopup:initTab(init_evolution)
     local vars = self.vars
     self:addTab('hatch', vars['evolutionBtn1'])
     self:addTab('hatchling', vars['evolutionBtn2'])
     self:addTab('adult', vars['evolutionBtn3'])
-    self:setTab('adult')
+
+    if (init_evolution == 1) then
+        self:setTab('hatch')
+
+    elseif (init_evolution == 2) then
+        self:setTab('hatchling')
+
+    elseif (init_evolution == 3) then
+        self:setTab('adult')
+
+    else
+        self:setTab('adult')
+    end
 end
 
 -------------------------------------

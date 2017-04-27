@@ -136,18 +136,21 @@ function UI_CollectionTabDragon:init_TableViewTD()
 
     local l_item_list = {}
 
-    -- 생성 콜백
-    local scale = 0.8
-    local function create_func(ui, data)
-        ui.root:setScale(scale)
+    local width, height = UI_CollectionDragonCard:getUISize()
 
-        ui.m_dragonCard.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data) end)
+    local function click_cb(did, evolution)
+        self:click_dragonCard(did, evolution)
+    end
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        ui:setDragonCardClick(click_cb)
     end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size((150 * scale) + 2, (188 * scale) + 5)
-    table_view_td.m_nItemPerCell = 8
+    table_view_td.m_cellSize = cc.size(width + 7, height + 7)
+    table_view_td.m_nItemPerCell = 3
     table_view_td:setCellUIClass(UI_CollectionDragonCard, create_func)
     table_view_td:setItemList(l_item_list)
     --table_view_td:makeDefaultEmptyDescLabel(Str(''))
@@ -160,13 +163,12 @@ end
 -- function click_dragonCard
 -- @brief
 -------------------------------------
-function UI_CollectionTabDragon:click_dragonCard(data)
+function UI_CollectionTabDragon:click_dragonCard(did, evolution)
     local l_dragons_data = self.m_tableViewTD.m_itemList
-    local did = data['did']
     local item = self.m_tableViewTD:getItem(did)
     local init_idx = item['idx']
 
-    local ui = UI_CollectionDetailPopup(l_dragons_data, init_idx)
+    local ui = UI_CollectionDetailPopup(l_dragons_data, init_idx, evolution)
     local function close_cb()
         self:checkRefresh()
     end

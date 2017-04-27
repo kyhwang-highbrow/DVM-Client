@@ -572,7 +572,7 @@ end
 -------------------------------------
 -- function MakeSimpleDragonCard
 -------------------------------------
-function MakeSimpleDragonCard(did)
+function MakeSimpleDragonCard(did, t_data)
     local t_dragon_data = {}
     t_dragon_data['did'] = did
     t_dragon_data['lv'] = nil
@@ -582,6 +582,12 @@ function MakeSimpleDragonCard(did)
     t_dragon_data['skill_1'] = 1
     t_dragon_data['skill_2'] = 0
     t_dragon_data['skill_3'] = 0
+
+    if t_data then
+        for key,value in pairs(t_data) do
+            t_dragon_data[key] = value
+        end
+    end
 
     return UI_DragonCard(t_dragon_data)
 end
