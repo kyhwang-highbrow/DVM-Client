@@ -613,6 +613,7 @@ local t_module = {
     'UI_TamerManageItem',
 	'UI_SkillDetailPopup_Tamer',
     'UI_SkillDetailPopupListItem_Tamer',
+	'UI_SkillEnhance',
 
 	-- 출석 이벤트
     'UI_AttendanceBasicListItem',
