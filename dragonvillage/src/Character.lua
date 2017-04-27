@@ -53,6 +53,7 @@ Character = class(PARENT, {
         m_reservedSkillId = 'number',
         m_reservedSkillCastTime = 'number',
         m_reservedSkillAniEventTime = 'number', -- 스킬 애니메이션에서의 attack 이벤트 시간
+        
         m_isAddSkill = 'bool', -- 드래곤이 에약한 스킬이 basic_rate나 basic_turn 인 경우
         m_bActivePassive = 'bool',  -- 패시브 스킬 적용 여부
 
@@ -94,6 +95,7 @@ Character = class(PARENT, {
 
         -- @이동 관련
         m_isOnTheMove = 'boolean',
+        m_orderOnTheMove = 'number',    -- 현재 이동의 우선순위(높을 수록 우선순위 높음)
         m_bFixedPosHpNode = 'boolean',
         m_movement = 'EnemyMovement',
         
@@ -157,6 +159,7 @@ function Character:init(file_name, body, ...)
 
     self.m_bActivePassive = false
     self.m_isOnTheMove = false
+    self.m_orderOnTheMove = -1
     self.m_bFixedPosHpNode = false
 
     self.m_tOverlabStatusEffect = {}
@@ -217,7 +220,7 @@ function Character:initState()
     self:addState('attackDelay', Character.st_attackDelay, 'idle', true)
     self:addState('charge', Character.st_charge, 'idle', true)
     self:addState('casting', Character.st_casting, 'idle', true)
-
+    
     self:addState('dying', Character.st_dying, 'idle', false, PRIORITY.DYING)
     self:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)
 
@@ -1314,9 +1317,10 @@ function Character:update(dt)
     end
 
     if (not self.m_bDead and not self.m_temporaryPause and self.m_world.m_gameState:isFight()) then
-        -- 로밍 임시 처리
+        -- 로밍
         if (self.m_bRoam) then
 			self:updateRoaming(dt)
+            self:syncAniAndPhys()
         end
         
 		-- 쿨타임 스킬 타이머
@@ -1345,7 +1349,7 @@ end
 function Character:updateMove()
     local body = self.body
 
-    if self:isOverTargetPos() then
+    if self:isOverTargetPos(true) then
         self:setPosition(self.m_targetPosX, self.m_targetPosY)
         self:resetMove()
     end
@@ -1378,10 +1382,40 @@ function Character:updateBasicTimeSkillTimer(x, y, speed)
 end
 
 -------------------------------------
+-- function isPossibleMove
+-------------------------------------
+function Character:isPossibleMove(order)
+    local order = order or 0
+
+    if (self.m_bDead) then
+        return false
+    end
+
+    if (isExistValue(self.m_state, 'delegate', 'stun')) then
+        return false
+    end
+
+    if (self.m_isOnTheMove and order < self.m_orderOnTheMove) then
+        return false
+    end
+
+    if (order < 0) then
+        -- 설정된 공격 위치가 있었을 경우
+        if (self.m_state == 'attack' and self.m_reservedSkillPos) then
+            return false
+        end
+    end
+    
+    return true
+end
+
+-------------------------------------
 -- function setMove
 -------------------------------------
-function Character:setMove(x, y, speed)
+function Character:setMove(x, y, speed, order)
     self.m_isOnTheMove = true
+    self.m_orderOnTheMove = order or 0
+
     self:setTargetPos(x, y)
     self:setSpeed(speed)
 end
@@ -1400,30 +1434,38 @@ end
 -------------------------------------
 function Character:resetMove()
     self.m_isOnTheMove = false
+    self.m_orderOnTheMove = -1
+
     self:setSpeed(0)
+
+    if (self.m_movement) then
+        self.m_movement:doMove(self)
+    end
 end
 
 -------------------------------------
 -- function changeHomePos
 -------------------------------------
-function Character:changeHomePos(x, y, speed)
+function Character:changeHomePos(x, y, speed, order)
+    local order = order or 0
+
     self:setHomePos(x, y)
 
-    if (self.m_state == 'delegate') then return end
+    if (not self:isPossibleMove(order)) then return end
 
     local speed = speed or 500
-    self:setMove(x, y, speed)
+    self:setMove(x, y, speed, order)
 end
 
 -------------------------------------
 -- function changeHomePos
 -------------------------------------
-function Character:changeHomePosByTime(x, y, time)
+function Character:changeHomePosByTime(x, y, time, order)
+    local order = order or 0
+
     self:setHomePos(x, y)
 
-    if (self.m_state == 'delegate') then
-        return
-    end
+    if (not self:isPossibleMove(order)) then return end
 
     -- 거리를 계산하여 속도를 구함
     local cur_x, cur_y = self.pos.x, self.pos.y
@@ -1439,7 +1481,7 @@ function Character:changeHomePosByTime(x, y, time)
         speed = distance / time 
     end
     
-    self:setMove(x, y, speed)
+    self:setMove(x, y, speed, order)
 end
 
 -------------------------------------
@@ -1550,6 +1592,12 @@ end
 -- @brief roaming을 한다
 -------------------------------------
 function Character:updateRoaming(dt)
+    if (not self:isPossibleMove(-1)) then
+        cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
+        self.m_roamTimer = 0
+        return
+    end
+
     if (self.m_roamTimer <= 0) then
         local time_range =  g_constant:get('INGAME', 'ENEMY_ROAM_TIME_RANGE')
         local time = math_random(time_range[1] * 10, time_range[2] * 10) / 10
@@ -1571,7 +1619,6 @@ function Character:updateRoaming(dt)
     else
         self.m_roamTimer = self.m_roamTimer - dt
     end
-    self:syncAniAndPhys()
 end
 
 -------------------------------------
@@ -2020,7 +2067,7 @@ end
 -- @brief 사용될 스킬을 예약
 -------------------------------------
 function Character:reserveSkill(skill_id)
-    if not skill_id then return end
+    if not skill_id then return false end
 
     local t_skill = self:getSkillTable(skill_id)
     local cast_time = self:getCastTimeFromSkillID(skill_id)
@@ -2036,6 +2083,8 @@ function Character:reserveSkill(skill_id)
     self.m_reservedSkillId = skill_id
     self.m_reservedSkillCastTime = cast_time
     self.m_reservedSkillAniEventTime = event_time
+
+    return true
 end
 
 -------------------------------------
@@ -2229,13 +2278,10 @@ function Character:setTemporaryPause(pause)
 
             if (self.m_bRoam) then
                 cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
+                self.m_roamTimer = 0
             end
         else
             self:runAction_Floating()
-            
-            if (self.m_bRoam) then
-                self.m_roamTimer = 0
-            end
         end
 
         return true

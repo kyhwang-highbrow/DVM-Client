@@ -103,14 +103,14 @@ EnemyMovement = class(IEventListener:getCloneClass(), {
     -- function doMove
     -------------------------------------
     function EnemyMovement:doMove(enemy)
-        if (enemy.m_bDead) then return end
+        if (not enemy:isPossibleMove()) then return end
 
         local posIdx = enemy:getPosIdx()
         local key = TableEnemyMove():getMovePosKey(self.m_curType, posIdx)
         if (key) then
             local pos = getWorldEnemyPos(enemy, key)
 
-            enemy:changeHomePosByTime(pos.x, pos.y, self.m_remainTime)
+            enemy:changeHomePosByTime(pos.x, pos.y, self.m_remainTime, -1)
         end
     end
 

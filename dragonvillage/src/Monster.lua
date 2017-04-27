@@ -7,6 +7,8 @@ Monster = class(PARENT, {
         m_bWaitState = 'boolean',
 		m_regenInfo = 'boolean',
 
+        m_reservedSkillPos = 'cc.p',    -- 예약된 스킬이 가지는 특정 위치값(해당 위치로 이동해서 스킬 사용)
+
         m_lBodyToUseBone = 'table',     -- bone(spine)의 위치를 기준값으로 사용하는 body 리스트
      })
 
@@ -204,11 +206,16 @@ end
 -- function st_casting
 -------------------------------------
 function Monster.st_casting(owner, dt)
-    PARENT.st_casting(owner, dt)
-
-    if owner.m_state == 'casting' and owner.m_stateTimer == 0 then
+    if (owner.m_stateTimer == 0) then
         SoundMgr:playEffect('EFFECT', 'monster_skill_cast')
+
+        -- 스킬 사용 위치 정보가 있다면 해당 위치까지 이동시킴
+        if (owner.m_reservedSkillPos) then
+            owner:changeHomePosByTime(owner.m_reservedSkillPos.x, owner.m_reservedSkillPos.y, owner.m_reservedSkillCastTime)
+        end
     end
+
+    PARENT.st_casting(owner, dt)
 end
 
 -------------------------------------
@@ -263,4 +270,38 @@ function Monster:getBodySize(size_type)
 	local body = {0, 0, size}
 
 	return body
+end
+
+ 
+-------------------------------------
+-- function reserveSkill
+-- @brief 사용될 스킬을 예약
+-------------------------------------
+function Monster:reserveSkill(skill_id, no_use_pos)
+    self.m_reservedSkillPos = nil
+
+    if (not PARENT.reserveSkill(self, skill_id)) then
+        return false
+    end
+
+    if (not no_use_pos) then
+        -- 스킬 사용 위치값 저장
+        local t_skill = self:getSkillTable(skill_id)
+        if (t_skill['pos']) then
+            local l_str = seperate(t_skill['pos'], ';')
+            if (l_str) then
+                local random_idx = math_random(1, #l_str)
+                local key = l_str[random_idx]
+                local pos = getWorldEnemyPos(self, key)
+        
+                self.m_reservedSkillPos = pos
+        
+                -- 캐스팅 시간에 이동시간을 추가
+                local move_time = g_constant:get('INGAME', 'MONSTER_SKILL_MOVE_TIME') or 1
+                self.m_reservedSkillCastTime = self.m_reservedSkillCastTime + move_time
+            end
+        end
+    end
+    
+    return true
 end

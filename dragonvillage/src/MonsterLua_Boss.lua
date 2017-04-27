@@ -178,7 +178,7 @@ end
 function MonsterLua_Boss.st_casting(owner, dt)
     PARENT.st_casting(owner, dt)
 
-    if (owner.m_state == 'casting' and owner.m_stateTimer == 0) then
+    if (owner:isCasting() and owner.m_stateTimer == 0) then
         local eventList = owner.m_animator:getEventList('casting', 'casting')
         local eventData = eventList[1]
         if eventData then
@@ -240,8 +240,7 @@ end
 -- function st_pattern_move
 -------------------------------------
 function MonsterLua_Boss.st_pattern_move(owner, dt)
-    if owner:isOverTargetPos() then
-        owner:setPosition(owner.m_targetPosX, owner.m_targetPosY)
+    if owner:isOverTargetPos(true) then
         owner:setSpeed(0)
         owner:changeState('pattern_idle')
     end
@@ -334,9 +333,9 @@ function MonsterLua_Boss:doPattern(pattern)
 
         -- 스킬 예약
         local skill_id = self.m_charTable['skill_' .. self.m_patternAtkIdx]
-        self:reserveSkill(skill_id)
+        self:reserveSkill(skill_id, true)
 
-        if self.m_reservedSkillCastTime > 0 then
+        if (self.m_reservedSkillCastTime > 0) then
             self:changeState('casting')
         else
             self:changeState('attack')

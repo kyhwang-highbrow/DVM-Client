@@ -165,7 +165,7 @@ function Character.st_attackDelay(owner, dt)
     end
 
     if (owner.m_stateTimer >= owner.m_attackPeriod) then
-        if owner.m_reservedSkillCastTime > 0 then
+        if (owner.m_reservedSkillCastTime > 0) then
             owner:changeState('casting')
         else
             owner:changeState('charge')
@@ -196,7 +196,7 @@ end
 -- function st_casting
 -------------------------------------
 function Character.st_casting(owner, dt)
-    if owner.m_stateTimer == 0 then
+    if (owner.m_stateTimer == 0) then
         
         local cast_time = owner.m_reservedSkillCastTime
 

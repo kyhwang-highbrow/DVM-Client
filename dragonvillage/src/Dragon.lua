@@ -840,7 +840,7 @@ function Dragon:updateActiveSkillCool(dt)
 	end
 
     if (self.m_activeSkillValue < 100) then
-        if (self.m_state ~= 'casting') and (self.m_state ~= 'skillPrepare') then
+        if (not self:isCasting() and self.m_state ~= 'skillPrepare') then
             local add_value = self.m_activeSkillIncValuePerSec * dt
 
             self.m_activeSkillValue = self.m_activeSkillValue + add_value

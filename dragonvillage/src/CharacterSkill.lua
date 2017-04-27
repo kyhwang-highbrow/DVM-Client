@@ -459,7 +459,7 @@ function Character:cancelSkill()
     -- 17/03/31 스킬 캔슬 시스템 막음
     if true then return false end
 
-    if (self.m_state ~= 'casting') then return false end
+    if (not self:isCasting()) then return false end
 
     local timeScale = 0.2
 
