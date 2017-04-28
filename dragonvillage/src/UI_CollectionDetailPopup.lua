@@ -168,6 +168,9 @@ function UI_CollectionDetailPopup:onChangeDragon()
         -- 소환 가능 개수 표시
         local num_possible = math_floor(cur_rpoint / req_rpoint)
         vars['dscLabel']:setString(Str('{1}마리 소환 가능', num_possible))
+
+        -- 소환 가능 하일라이트
+        vars['notiSprite']:setVisible(num_possible > 0)
     end
 
     self:onChangeEvolution()
