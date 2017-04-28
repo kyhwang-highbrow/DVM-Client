@@ -94,18 +94,14 @@ function UI_CollectionDragonCard:refresh()
         end
     end
 
-
-    --[[
-    local did = self.m_tItemData['did']
-
     do -- 인연포인트
         -- 인연포인트 값 얻어오기
         local req_rpoint = TableDragon():getRelationPoint(did)
         local cur_rpoint = g_collectionData:getRelationPoint(did)
         
         -- 인연포인트 표시
-        local str = Str('{1}/{2}', comma_value(cur_rpoint), comma_value(req_rpoint))
-        vars['relationPointLabel']:setString(str)
+        --local str = Str('{1}/{2}', comma_value(cur_rpoint), comma_value(req_rpoint))
+        --vars['relationPointLabel']:setString(str)
 
         -- 하일라이트
         if (cur_rpoint >= req_rpoint) then
@@ -114,14 +110,6 @@ function UI_CollectionDragonCard:refresh()
             vars['notiSprite']:setVisible(false)
         end
     end
-
-    -- 획득한적이 있는지 없는지 체크
-    if (not g_collectionData:isExist(did)) then
-        vars['disableSprite']:setVisible(true)
-    else
-        vars['disableSprite']:setVisible(false)
-    end
-    --]]
 end
 
 
