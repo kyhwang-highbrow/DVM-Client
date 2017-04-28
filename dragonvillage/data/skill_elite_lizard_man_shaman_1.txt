@@ -17,11 +17,10 @@
 				"l_limit_speed":0,
 				"accel_delay":0.1,
 				"angular_velocity":0,
-				"offset":[-100,500],
+				"is_abs_pos":true,
+				"offset":[700,500],
 				"vanish_time":10,
-				"dir":-125,
-				"dir_add":5,
-				
+				"dir_array":['random',-125,-100],
 				
                 "effect":
                 {
@@ -44,10 +43,10 @@
 				"l_limit_speed":0,
 				"accel_delay":0.1,
 				"angular_velocity":0,
-				"offset":[-200,500],
+				"is_abs_pos":true,
+				"offset":[550,500],
 				"vanish_time":10,
-				"dir":-105,
-				"dir_add":-5,
+				"dir_array":['random',-125,-100],
 				
 				
                 "effect":
@@ -71,10 +70,10 @@
 				"l_limit_speed":0,
 				"accel_delay":0.1,
 				"angular_velocity":0,
-				"offset":[-300,500],
+				"is_abs_pos":true,
+				"offset":[400,500],
 				"vanish_time":10,
-				"dir":-125,
-				"dir_add":5,
+				"dir_array":['random',-125,-100],
 				
 				
                 "effect":
@@ -98,10 +97,10 @@
 				"l_limit_speed":0,
 				"accel_delay":0.1,
 				"angular_velocity":0,
-				"offset":[-400,500],
+				"is_abs_pos":true,
+				"offset":[250,500],
 				"vanish_time":10,
-				"dir":-115,
-				"dir_add":-5,
+				"dir_array":['random',-125,-100],
 				
 				
                 "effect":

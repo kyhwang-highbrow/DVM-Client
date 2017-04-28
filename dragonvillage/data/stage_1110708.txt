@@ -15,26 +15,26 @@
             {
 				0:
 				[
-					"131042;1;Appear;RO02;RF23;0.5;roam"
-					"131042;1;Appear;RO06;RB15;0.5;roam"
+					"131011;1;Appear;RO02;RF23;0.5;roam"
+					"131021;1;Appear;RO06;RB15;0.5;roam"
 				],
 				
 				0.2:
 				[
-					"131042;1;Appear;RO01;RM12;0.5;roam"
-					"131042;1;Appear;RO07;RM26;0.5;roam"
+					"131011;1;Appear;RO01;RM12;0.5;roam"
+					"131021;1;Appear;RO07;RM26;0.5;roam"
 				],
 				
 				0.4:
 				[
-					"131042;1;Appear;RO01;RM22;0.5;roam"	
-					"131042;1;Appear;RO07;RM16;0.5;roam"
+					"131011;1;Appear;RO01;RM22;0.5;roam"	
+					"131021;1;Appear;RO07;RM16;0.5;roam"
 				],
 				
 				0.6:
 				[
-					"131042;1;Appear;RO02;RB13;0.5;roam"
-					"131042;1;Appear;RO06;RF25;0.5;roam"
+					"131011;1;Appear;RO02;RB13;0.5;roam"
+					"131021;1;Appear;RO06;RF25;0.5;roam"
 				]
             }
         },
@@ -55,7 +55,7 @@
 				
 				0.1:
 				[
-					"131042;1;Appear;RO02;RF22;0.5;roam"
+					"131011;1;Appear;RO02;RF22;0.5;roam"
 				],
 				
 				0.2:
@@ -70,7 +70,7 @@
 				
 				0.4:
 				[
-					"131042;1;Appear;RO06;RF26;0.5;roam"
+					"131011;1;Appear;RO06;RF26;0.5;roam"
 				],
 				
 				0.5:
@@ -80,7 +80,7 @@
 				
 				0.6:
 				[
-					"131042;1;Appear;RO06;RM26;0.5;roam"
+					"131021;1;Appear;RO06;RM26;0.5;roam"
 				],
 				
 				0.7:
@@ -95,7 +95,7 @@
 				
 				0.9:
 				[
-					"131042;1;Appear;RO02;RM22;0.5;roam"
+					"131021;1;Appear;RO02;RM22;0.5;roam"
 				]
             }
         },
@@ -112,18 +112,27 @@
             {				
 				0:
 				[
-					"132071;1;Basic;BOSS;RM24;2;roam"
+					"132101;1;Basic;BOSS;RM24;2;roam"
 				],
 				
 				1.5:
 				[
-					"130012;1;Basic2;RB22;RF22;1"
-					"130012;1;Basic2;RB26;RF26;1"
-					"130053;1;Basic2;RB21;RM21;1"
-					"130052;1;Basic2;RB24;RB24;1"
-					"130051;1;Basic2;RB27;RM27;1"
+					"131021;1;Basic2;RM24;RF24;1"
+					"131021;1;Basic2;RM24;RM21;1"
+					"131021;1;Basic2;RM24;RB24;1"
+					"131021;1;Basic2;RM24;RM27;1"
 				]
-            }
+            },
+			
+			"regen":
+			{
+				0:
+				[
+					"130011;1;Basic;RO04;RF11;2"
+					"130011;1;Basic;RO04;RF14;2"
+					"130011;1;Basic;RO04;RF17;2"
+				]
+			}
         }		
     ],
 	

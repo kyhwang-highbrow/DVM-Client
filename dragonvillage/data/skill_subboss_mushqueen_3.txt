@@ -42,8 +42,7 @@
 				"offset":[-400,0],
                 "dir":90,
 				"missile_type":"pass"
-				"vanish_time":1.5,
-				"reset_time":1
+				"vanish_time":0.4
 			}
 		]
 	}
