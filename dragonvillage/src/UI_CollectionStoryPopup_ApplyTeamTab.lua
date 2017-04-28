@@ -15,7 +15,7 @@ end
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
-function UI_CollectionStoryPopup_ApplyTeamTab:onChangeTab(tab, first)
+function UI_CollectionStoryPopup_ApplyTeamTab:onEnterTab(first)
     if first then
 
     end

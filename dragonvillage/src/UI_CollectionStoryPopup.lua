@@ -63,8 +63,8 @@ end
 -------------------------------------
 function UI_CollectionStoryPopup:initTab()
     self.m_mTabUI = {}
-    self.m_mTabUI['applyTeam'] = UI_CollectionStoryPopup_DragonTeamTab(self)
-    self.m_mTabUI['dragonTeam'] = UI_CollectionStoryPopup_ApplyTeamTab(self)
+    self.m_mTabUI['applyTeam'] = UI_CollectionStoryPopup_ApplyTeamTab(self)
+    self.m_mTabUI['dragonTeam'] = UI_CollectionStoryPopup_DragonTeamTab(self)
     self.m_mTabUI['allTeam'] = UI_CollectionStoryPopup_AllTeamTab(self)
 
     local vars = self.vars
@@ -79,6 +79,6 @@ end
 -------------------------------------
 function UI_CollectionStoryPopup:onChangeTab(tab, first)
     if self.m_mTabUI[tab] then
-        self.m_mTabUI[tab]:onChangeTab(tab, first)
+        self.m_mTabUI[tab]:onEnterTab(first)
     end
 end

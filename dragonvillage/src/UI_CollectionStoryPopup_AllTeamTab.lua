@@ -15,7 +15,7 @@ end
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
-function UI_CollectionStoryPopup_AllTeamTab:onChangeTab(tab, first)
+function UI_CollectionStoryPopup_AllTeamTab:onEnterTab(first)
     self:init_TableView()
 end
 

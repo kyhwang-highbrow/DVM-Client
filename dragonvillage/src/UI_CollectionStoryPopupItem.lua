@@ -109,10 +109,16 @@ function UI_CollectionStoryPopupItem:refresh()
         vars['rewardLabel']:setVisible(false)
         vars['storyBtn']:setVisible(true)
     else
-        vars['rewardBtn']:setEnabled(true)
+        vars['rewardBtn']:setVisible(true)
         vars['rewardNode']:setVisible(true)
         vars['rewardLabel']:setVisible(true)
         vars['storyBtn']:setVisible(false)
+
+        if t_dragon_unit_data['active'] then
+            vars['rewardBtn']:setEnabled(true)
+        else
+            vars['rewardBtn']:setEnabled(false)
+        end
     end
 end
 
