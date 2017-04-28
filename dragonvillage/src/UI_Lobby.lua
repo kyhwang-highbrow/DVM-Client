@@ -596,8 +596,8 @@ end
 -- function click_guildBtn
 -------------------------------------
 function UI_Lobby:click_guildBtn()
-    UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
-    --g_ancientTowerData:goToAncientTowerScene()
+    --UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
+    g_ancientTowerData:goToAncientTowerScene()
 end
 
 -------------------------------------

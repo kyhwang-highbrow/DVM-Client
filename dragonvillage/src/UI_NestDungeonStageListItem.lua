@@ -41,6 +41,9 @@ end
 -------------------------------------
 function UI_NestDungeonStageListItem:initButton()
     local vars = self.vars
+    
+    vars['enterButton']:getParent():setSwallowTouch(false)
+
     vars['enterButton']:registerScriptTapHandler(function() self:enterButton() end)
 end
 

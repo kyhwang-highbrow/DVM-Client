@@ -1977,6 +1977,9 @@
     <None Include="..\src\ChatManager.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_AncientTowerListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

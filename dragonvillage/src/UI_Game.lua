@@ -256,7 +256,7 @@ end
 function UI_Game:click_skipBtn()
     g_autoPlaySetting:setNextSkipLevel()
 
-    local skip_level = g_autoPlaySetting:get('skip_level')
+    local skip_level = g_autoPlaySetting:get('skip_level') or 0
 
     local gameDragonSkill = self.m_gameScene.m_gameWorld.m_gameDragonSkill
     gameDragonSkill:setSkipLevel(skip_level)

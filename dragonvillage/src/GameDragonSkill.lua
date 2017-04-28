@@ -39,7 +39,7 @@ function GameDragonSkill:init(world)
     self.m_node = cc.Node:create()
     g_gameScene.m_viewLayer:addChild(self.m_node)
 
-    self.m_skipLevel = g_autoPlaySetting:get('skip_level')
+    self.m_skipLevel = g_autoPlaySetting:get('skip_level') or 0
 
     self.m_state = STATE.WAIT
 

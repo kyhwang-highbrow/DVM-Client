@@ -74,6 +74,30 @@ function ServerData_AncientTower:request_ancientTowerInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
+-- function getAcientTower_stageList
+-------------------------------------
+function ServerData_AncientTower:getAcientTower_stageList()
+    local table_drop = TableDrop()
+
+    local function condition_func(t_table)
+        local stage_id = t_table['stage']
+        local game_mode = g_stageData:getGameMode(stage_id)
+        return (game_mode == GAME_MODE_ANCIENT_TOWER)
+    end
+
+    -- 테이블에서 조건에 맞는 테이블만 리턴
+    local l_stage_list = table_drop:filterList_condition(condition_func)
+
+    -- stage(stage_id) 순서로 정렬
+    local function sort_func(a, b)
+        return a['stage'] < b['stage']
+    end
+    table.sort(l_stage_list, sort_func)
+
+    return l_stage_list
+end
+
+-------------------------------------
 -- function isOpenStage
 -- @brief stage_id에 해당하는 스테이지가 입장 가능한지를 리턴
 -------------------------------------
@@ -81,4 +105,12 @@ function ServerData_AncientTower:isOpenStage(stage_id)
     local is_open = (stage_id <= self.m_stageID)
 
     return is_open
+end
+
+-------------------------------------
+-- function isOpenStage
+-- @brief stage_id로부터 층 수를 얻음
+-------------------------------------
+function ServerData_AncientTower:getFloor(stage_id)
+    return (stage_id % 1000)
 end

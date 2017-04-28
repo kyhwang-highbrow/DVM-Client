@@ -16,7 +16,7 @@ GameHighlightMgr = class({
 function GameHighlightMgr:init(world, darkLayer)
     self.m_world = world
 
-    self.m_skipLevel = g_autoPlaySetting:get('skip_level')
+    self.m_skipLevel = g_autoPlaySetting:get('skip_level') or 0
 
     self.m_darkLevel = 0
 

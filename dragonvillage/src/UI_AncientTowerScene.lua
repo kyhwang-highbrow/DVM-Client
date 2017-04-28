@@ -13,7 +13,7 @@ UI_AncientTowerScene = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_AncientTowerScene:init()
-    local vars = self:load('ancient_tower_scene.ui')
+    local vars = self:load('tower_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -44,14 +44,14 @@ end
 -------------------------------------
 function UI_AncientTowerScene:initUI()
     local vars = self.vars
-	--[[
+	
 	do -- 테이블 뷰 생성
-        local node = vars['tableViewNode']
+        local node = vars['floorNode']
         node:removeAllChildren()
 
 		-- 층 생성
-		local t_dungeon = {}--g_nestDungeonData:getNestDungeonListForUIByType(self.m_dungeonType)
-        
+		local t_floor = g_ancientTowerData:getAcientTower_stageList()
+                
 		-- 셀 아이템 생성 콜백
 		local create_func = function(ui, data)
 			return true
@@ -59,15 +59,16 @@ function UI_AncientTowerScene:initUI()
 		
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(886, 120 + 10)
-        table_view:setCellUIClass(UI_NestDungeonListItem, create_func)
+        table_view._vordering = VerticalFillOrder['BOTTOM_UP']
+        table_view.m_defaultCellSize = cc.size(500, 130 + 10)
+        table_view:setCellUIClass(UI_AncientTowerListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList(t_dungeon)
+        table_view:setItemList(t_floor)
         table_view:makeAllItemUI()
 
         self.m_tableView = table_view
     end
-    ]]--
+    
 end
 
 -------------------------------------

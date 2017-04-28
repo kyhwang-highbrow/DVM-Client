@@ -530,6 +530,7 @@ local t_module = {
     'UI_ColosseumRankingReward',
     'UI_ColosseumFirstReward',
     'UI_AncientTowerScene',
+    'UI_AncientTowerListItem',
 	'UI_QuestPopup',
     'UI_QuestListItem',
     'UI_MailPopup',

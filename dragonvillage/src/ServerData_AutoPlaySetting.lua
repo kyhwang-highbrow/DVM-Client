@@ -111,7 +111,7 @@ end
 -- function setAutoPlay
 -------------------------------------
 function ServerData_AutoPlaySetting:setNextSkipLevel()
-    local skip_level = self:get('skip_level')
+    local skip_level = self:get('skip_level') or 0
 
     skip_level = skip_level + 1
 
