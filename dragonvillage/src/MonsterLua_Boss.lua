@@ -283,31 +283,6 @@ function MonsterLua_Boss:getNextPattern()
 end
 
 -------------------------------------
--- function getAttackAnimationName
--- @param
--------------------------------------
-function MonsterLua_Boss:getAttackAnimationName(idx_str)
-    local default_ani = 'attack'
-    local skill_id = self.m_charTable['skill_' .. idx_str]
-
-    -- 테이블 정보 가져옴
-    local table_name = self.m_charType .. '_skill'
-    local table_skill = TABLE:get(table_name)
-    local t_skill = table_skill[skill_id]
-
-    local animation_name = t_skill['animation']
-    if (not animation_name) then
-        return default_ani
-    end
-
-    if (animation_name == '') then
-        return default_ani
-    end
-
-    return animation_name
-end
-
--------------------------------------
 -- function doPattern
 -- @param idx
 -------------------------------------
@@ -328,12 +303,9 @@ function MonsterLua_Boss:doPattern(pattern)
     if (pattern_type == 'a') then
         self.m_patternAtkIdx = value_1
 
-        -- 에니메이션 변경
-        self.m_tStateAni['attack'] = self:getAttackAnimationName(self.m_patternAtkIdx)
-
         -- 스킬 예약
         local skill_id = self.m_charTable['skill_' .. self.m_patternAtkIdx]
-        self:reserveSkill(skill_id, true)
+        self:reserveSkill(skill_id)
 
         if (self.m_reservedSkillCastTime > 0) then
             self:changeState('casting')

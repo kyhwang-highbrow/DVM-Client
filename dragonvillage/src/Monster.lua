@@ -277,34 +277,33 @@ end
 -- function reserveSkill
 -- @brief 사용될 스킬을 예약
 -------------------------------------
-function Monster:reserveSkill(skill_id, no_use_pos)
+function Monster:reserveSkill(skill_id)
     self.m_reservedSkillPos = nil
 
     if (not PARENT.reserveSkill(self, skill_id)) then
         return false
     end
 
-    if (not no_use_pos) then
-        -- 스킬 사용 위치값 저장
-        local t_skill = self:getSkillTable(skill_id)
-        if (t_skill['pos']) then
-            local l_str = seperate(t_skill['pos'], ';')
-            if (l_str) then
-                local random_idx = math_random(1, #l_str)
-                local key = l_str[random_idx]
-                local pos = getWorldEnemyPos(self, key)
+    
+    -- 스킬 사용 위치값 저장
+    local t_skill = self:getSkillTable(skill_id)
+    if (t_skill['pos']) then
+        local l_str = seperate(t_skill['pos'], ';')
+        if (l_str) then
+            local random_idx = math_random(1, #l_str)
+            local key = l_str[random_idx]
+            local pos = getWorldEnemyPos(self, key)
         
-                self.m_reservedSkillPos = pos
+            self.m_reservedSkillPos = pos
         
-                -- 캐스팅 시간에 이동시간을 추가
-                local move_time = g_constant:get('INGAME', 'MONSTER_SKILL_MOVE_TIME') or 1
-                self.m_reservedSkillCastTime = self.m_reservedSkillCastTime + move_time
-            end
+            -- 캐스팅 시간에 이동시간을 추가
+            local move_time = g_constant:get('INGAME', 'MONSTER_SKILL_MOVE_TIME') or 1
+            self.m_reservedSkillCastTime = self.m_reservedSkillCastTime + move_time
         end
-
-        -- 에니메이션 변경
-        self.m_tStateAni['attack'] = self:getAttackAnimationName(skill_id)
     end
+    
+    -- 에니메이션 변경
+    self.m_tStateAni['attack'] = self:getAttackAnimationName(skill_id)
     
     return true
 end
