@@ -15,26 +15,26 @@
             {
 				0:
 				[
-					"131013;1;Appear;RO03;RF13;0.5;roam"
-					"131013;1;Appear;RO05;RB25;0.5;roam"
+					"131033;1;Appear;RO03;RF13;0.5"
+					"131071;1;Appear;RO05;RB25;0.5;roam"
 				],
 				
 				0.2:
 				[
-					"131013;1;Appear;RO01;RM11;0.5;roam"
-					"131013;1;Appear;RO07;RM27;0.5;roam"
+					"131033;1;Appear;RO01;RM11;0.5"
+					"131071;1;Appear;RO07;RM27;0.5;roam"
 				],
 				
 				0.4:
 				[
-					"131013;1;Appear;RO01;RM21;0.5;roam"	
-					"131013;1;Appear;RO07;RM17;0.5;roam"
+					"131071;1;Appear;RO01;RM21;0.5;roam"	
+					"131033;1;Appear;RO07;RM17;0.5"
 				],
 				
 				0.6:
 				[
-					"131013;1;Appear;RO03;RB23;0.5;roam"
-					"131013;1;Appear;RO05;RF15;0.5;roam"
+					"131071;1;Appear;RO03;RB23;0.5;roam"
+					"131033;1;Appear;RO05;RF15;0.5"
 				]
             }
         },
@@ -51,18 +51,18 @@
             {
                 0:
                 [
-					"130051;1;Appear;RO03;RM23;0.5"
-					"130053;1;Appear;RO05;RM25;0.5"
-					"130051;1;Appear;RO03;RB23;0.5"
-					"130053;1;Appear;RO05;RB25;0.5"
+					"130054;1;Appear;RO03;RM23;0.5"
+					"130055;1;Appear;RO05;RM25;0.5"
+					"131052;1;Appear;RO03;RB23;0.5"
+					"131111;1;Appear;RO05;RB25;0.5"
 				],
 				
 				0.5:
 				[
-					"131013;1;Appear;RO01;RF11;0.5"
-					"130013;1;Appear;RO03;RF13;0.5"
-					"130013;1;Appear;RO05;RF15;0.5"
-					"131013;1;Appear;RO07;RF17;0.5"
+					"131033;1;Appear;RO01;RF11;0.5"
+					"131033;1;Appear;RO03;RF13;0.5"
+					"131033;1;Appear;RO05;RF15;0.5"
+					"131033;1;Appear;RO07;RF17;0.5"
                 ]
             }
         },
@@ -81,35 +81,18 @@
 				
 				0:
 				[
-				"131031;3;Appear;RO02;RB11;0.5"
-				"131031;3;Appear;RO06;RB17;0.5"
-				"130053;3;Appear;RO04;RB24;0.5"
+					"131031;3;Appear;RO02;RB11;0.5"
+					"131031;3;Appear;RO06;RB17;0.5"
+					"130053;3;Appear;RO04;RB24;0.5"
 				],
 				
 				0.2:
 				[
-				"133021;10;Basic;TO10;RM14;2;roam"
+					"133051;10;Basic;TO10;RM14;2;roam"
 				]
             }
         }
-    ],
-	
-    "summon":
-    {
-        0:
-        [
-        "131041;3;Appear;RO04;RB21;0.5"
-		"131051;3;Appear;RO01;RB17;0.5"
-		],
-		
-		1:
-        [
-        "131041;3;Appear;RO04;RF21;0.5"
-		"131051;3;Appear;RO01;RF27;0.5"
-		"131041;3;Appear;RO01;RO01;0.5"
-		"131051;3;Appear;RO07;RO07;0.5"
-		]
-    },
+    ]
 	
 	"move":
 	{

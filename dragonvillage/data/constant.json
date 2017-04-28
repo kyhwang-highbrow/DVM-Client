@@ -144,28 +144,28 @@
         // 테이머 상황별 표정 리스트        
         "FACE" : {
             "goni" : {
-                "win" : ["happy", "idle", "thought"],
-                "lose" :["sorrow", "fury"]
+                "win" : ["happy"],
+                "lose" :["sorrow"]
             },
             "nuri" : {
-                "win" : ["happy", "idle", "thought"],
-                "lose" :["sorrow", "fury"]
+                "win" : ["happy"],
+                "lose" :["sorrow"]
             },
             "dede" : {
-                "win" : ["happy", "idle", "thought"],
-                "lose" :["sorrow", "fury"]
+                "win" : ["happy"],
+                "lose" :["sorrow"]
             },
             "kesath" : {
-                "win" : ["happy", "idle", "thought"],
-                "lose" :["sorrow", "fury"]
+                "win" : ["happy"],
+                "lose" :["fury"]
             },
             "durun" : {
-                "win" : ["happy", "idle", "thought"],
-                "lose" :["sorrow", "fury"]
+                "win" : ["thought"],
+                "lose" :["fury"]
             },
             "mokoji" : {
-                "win" : ["happy", "idle", "thought"],
-                "lose" :["sorrow", "fury"]
+                "win" : ["happy"],
+                "lose" :["sorrow"]
             }
         }
     },
