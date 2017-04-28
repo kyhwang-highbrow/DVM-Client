@@ -90,7 +90,9 @@ function ServerData_DragonUnit:getDragonUnitIDList()
     local t_ret = {}
 
     for i,v in pairs(t_dragon_unit.m_orgTable) do
-        table.insert(t_ret, i)
+        if (i~=9001) then
+            table.insert(t_ret, i)
+        end
     end
 
     return t_ret

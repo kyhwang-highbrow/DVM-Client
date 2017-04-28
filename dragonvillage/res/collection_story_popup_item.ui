@@ -221,7 +221,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 383.000000;
+				x = 521.000000;
 				y = -33.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -300,9 +300,9 @@
 				visible = true;
 				lua_name = 'rewardBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0201.png';
+				normal = 'ui/btn/a_btn_0204.png';
 				selected = 'ui/btn/a_btn_0202.png';
-				disable = '';
+				disable = 'ui/btn/a_btn_0208.png';
 				image_type = 1;
 			};
 			[8] =
@@ -314,10 +314,10 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 64;
-				height = 64;
-				scale_x = 0.700000;
-				scale_y = 0.700000;
+				width = 150;
+				height = 150;
+				scale_x = 0.400000;
+				scale_y = 0.400000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -500,7 +500,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 459.000000;
+				x = 598.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
@@ -519,7 +519,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 548.000000;
+				x = 687.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
@@ -538,7 +538,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 637.000000;
+				x = 776.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
@@ -557,7 +557,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 726.000000;
+				x = 865.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
@@ -576,7 +576,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 815.000000;
+				x = 954.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };

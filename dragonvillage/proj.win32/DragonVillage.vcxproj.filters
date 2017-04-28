@@ -1986,6 +1986,21 @@
     <None Include="..\src\UIC_ChatTableViewCell.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UI_CollectionStoryPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionStoryPopup_ApplyTeamTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionStoryPopup_DragonTeamTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionStoryPopup_AllTeamTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionStoryPopupItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -6,6 +6,8 @@ local PARENT = TableClass
 TableDragonUnit = class(PARENT, {
     })
 
+local THIS = TableDragonUnit
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -34,4 +36,15 @@ function TableDragonUnit:getUnitDragonList(unit_id)
     end
 
     return l_ret
+end
+
+-------------------------------------
+-- function getStoryScene
+-------------------------------------
+function TableDragonUnit:getStoryScene(unit_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(unit_id, 'scene_id')
 end

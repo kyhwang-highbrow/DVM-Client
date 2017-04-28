@@ -69,6 +69,7 @@ function UI_Collection:initButton()
 
     -- 콜랙션 포인트 보상 확인
     vars['collectionPointBtn']:registerScriptTapHandler(function() self:click_collectionPointBtn() end)
+    vars['unitBtn']:registerScriptTapHandler(function() self:click_unitBtn() end)
 end
 
 -------------------------------------
@@ -97,6 +98,13 @@ function UI_Collection:click_collectionPointBtn()
     ui:setCloseCB(close_cb)
 end
 
+-------------------------------------
+-- function click_unitBtn
+-- @brief
+-------------------------------------
+function UI_Collection:click_unitBtn()
+    UI_CollectionStoryPopup()
+end
 
 -------------------------------------
 -- function initTab
@@ -104,11 +112,11 @@ end
 function UI_Collection:initTab()
     self.m_mTabUI = {}
     self.m_mTabUI['dragon'] = UI_CollectionTabDragon(self)
-    self.m_mTabUI['unit'] = UI_CollectionTabUnit(self)
+    --self.m_mTabUI['unit'] = UI_CollectionTabUnit(self)
 
     local vars = self.vars
     self:addTab('dragon', vars['dragonBtn'], vars['dragonMenu'])
-    self:addTab('unit', vars['unitBtn'], vars['unitListNode'])
+    --self:addTab('unit', vars['unitBtn'], vars['unitListNode'])
     self:setTab('dragon')
 end
 

@@ -722,6 +722,11 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_CollectionPointReward.lua" />
     <None Include="..\src\UI_CollectionPointRewardListItem.lua" />
     <None Include="..\src\UI_CollectionRelationPointDraw.lua" />
+    <None Include="..\src\UI_CollectionStoryPopup.lua" />
+    <None Include="..\src\UI_CollectionStoryPopupItem.lua" />
+    <None Include="..\src\UI_CollectionStoryPopup_AllTeamTab.lua" />
+    <None Include="..\src\UI_CollectionStoryPopup_ApplyTeamTab.lua" />
+    <None Include="..\src\UI_CollectionStoryPopup_DragonTeamTab.lua" />
     <None Include="..\src\UI_CollectionTabDragon.lua" />
     <None Include="..\src\UI_CollectionTabUnit.lua" />
     <None Include="..\src\UI_CollectionUnitListItem.lua" />
