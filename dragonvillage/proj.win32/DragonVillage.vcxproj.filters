@@ -1980,6 +1980,12 @@
     <None Include="..\src\UI_AncientTowerListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UIC_ChatTableView.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\UIC_ChatTableViewCell.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
