@@ -16,8 +16,6 @@ function SceneDV:init()
 	self.m_lSpineAni = {}
 	self.m_gridNode = cc.NodeGrid:create()
 	self.m_scene:addChild(self.m_gridNode, 1)
-
-
 end
 
 -------------------------------------
@@ -26,6 +24,8 @@ end
 function SceneDV:onEnter()
     PerpleScene.onEnter(self)
 	self:doUpdate()
+
+    self:testChatTableView()
 end
 
 -------------------------------------
@@ -417,4 +417,24 @@ function SceneDV:effect3DTest()
 	--local action = cc.Ripple3D:create(3, {width = 32, height = 24}, scr_size, 200, 4, 160)
 	local action = cc.Shaky3D:create(3, {width = 10, height = 10}, 5, false)
 	self.m_gridNode:runAction(action)
+end
+
+-------------------------------------
+-- function testChatTableView
+-------------------------------------
+function SceneDV:testChatTableView()
+    local uic_node = UIC_Node:create()
+    uic_node:setNormalSize(600, 500)
+    uic_node:initGLNode()
+    self.m_scene:addChild(uic_node.m_node)
+
+	local chat_table_view = UIC_ChatTableView(uic_node.m_node)
+
+    local function create_func()
+    end
+
+    chat_table_view.m_defaultCellSize = cc.size(246 + 10, 364)
+    chat_table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    chat_table_view:setCellUIClass(UIC_ChatTableViewCell, create_func)
+    chat_table_view:setItemList({1,2,3,4,5})
 end

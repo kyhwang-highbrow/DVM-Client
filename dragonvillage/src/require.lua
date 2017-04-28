@@ -420,6 +420,8 @@ local t_module = {
     'UIC_TableView',
     'UIC_TableViewCell',
     'UIC_TableViewTD',
+    'UIC_ChatTableView',
+    'UIC_ChatTableViewCell',
     'UIC_RadioButton',
     'UIC_LabelTTF',
     'UIC_RichLabel',

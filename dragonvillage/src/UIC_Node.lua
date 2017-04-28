@@ -12,6 +12,42 @@ function UIC_Node:init(node)
     self.m_node = node
 end
 
+-------------------------------------
+-- function create
+-------------------------------------
+function UIC_Node:create()
+    local node = cc.Node:create()
+    node:setDockPoint(cc.p(0.5, 0.5))
+    node:setAnchorPoint(cc.p(0.5, 0.5))
+    return UIC_Node(node)
+end
+
+-------------------------------------
+-- function initGLNode
+-------------------------------------
+function UIC_Node:initGLNode()
+    -- glNode 생성
+    local glNode = cc.GLNode:create()
+    glNode:registerScriptDrawHandler(function(transform, transformUpdated) self:primitivesDraw(transform, transformUpdated) end)
+    self.m_node:addChild(glNode)
+end
+
+-------------------------------------
+-- function primitivesDraw
+-------------------------------------
+function UIC_Node:primitivesDraw(transform, transformUpdated)
+    kmGLPushMatrix()
+    kmGLLoadMatrix(transform)
+
+    local width, height = self.m_node:getNormalSize()
+    local origin = cc.p(0, 0)
+    local destination = cc.p(width, height)
+    local color = cc.c4f(0.2, 0.2, 0.2, 0.5)
+    cc.DrawPrimitives.drawSolidRect(origin, destination, color)
+
+    kmGLPopMatrix()
+end
+
 function UIC_Node:setEnabled(enable)
     return self.m_node:setEnabled(enable)
 end
