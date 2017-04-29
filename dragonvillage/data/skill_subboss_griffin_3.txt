@@ -65,6 +65,7 @@
 						"idx":1,
 						"res":"res/effect/effect_electric_shock/effect_electric_shock.vrp",
 						"visual":"center_idle"
+						"damage_rate":20,
 						"body":[0,0,20],
 						"count":1,
 						"period":0,
@@ -88,6 +89,7 @@
 						"idx":1,
 						"res":"res/effect/effect_electric_shock/effect_electric_shock.vrp",
 						"visual":"center_idle"
+						"damage_rate":20,
 						"body":[0,0,20],
 						"count":1,
 						"period":0,

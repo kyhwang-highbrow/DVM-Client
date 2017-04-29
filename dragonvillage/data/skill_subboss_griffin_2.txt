@@ -11,7 +11,8 @@
                 "period":0,
 				"speed":500,
 				"accel_delay":0,
-				"offset":[900,250],
+				"is_abs_pos":true,
+				"offset":[1600,0],
                 "dir_array":[-90],
 				
 				"add_script":
@@ -61,7 +62,8 @@
                 "period":0,
 				"speed":500,
 				"accel_delay":0,
-				"offset":[900,-350],
+				"is_abs_pos":true,
+				"offset":[1600,0],
                 "dir_array":[90],
 				
 				"add_script":
@@ -111,7 +113,8 @@
                 "period":0,
 				"speed":500,
 				"accel_delay":0,
-				"offset":[900,-350],
+				"is_abs_pos":true,
+				"offset":[1600,0],
                 "dir_array":[90],
 				
 				"add_script":
@@ -163,7 +166,8 @@
                 "period":0,
 				"speed":0,
 				"accel_delay":0,
-				"offset":[0,0],
+				"is_abs_pos":true,
+				"offset":[650,70],
                 "dir":90,
 				"vanish_time":6.5
 			}

@@ -15,35 +15,35 @@
             {
 				0:
 				[
-					"131071;1;Appear;RO04;RM24;0.5"
-					"131071;1;Appear;RO03;RB13;0.5"
-					"131071;1;Appear;RO05;RB15;0.5"
-					"131071;1;Appear;RO04;RB24;0.5"
+					"130061;1;Appear;RO04;RM24;0.5"
+					"130062;1;Appear;RO03;RB13;0.5"
+					"130063;1;Appear;RO05;RB15;0.5"
+					"130064;1;Appear;RO04;RB24;0.5"
 				],
 				
 				1:
 				[
-					"130011;1;Basic2;RB14;RF11;0.5"
+					"131065;1;Basic2;RB14;RF11;0.5"
 				],
 				
 				1.2:
 				[
-					"130013;1;Basic2;RB14;RF14;0.5"
+					"131065;1;Basic2;RB14;RF14;0.5"
 				],
 				
 				1.4:
 				[
-					"130011;1;Basic2;RB14;RF17;0.5"
+					"131065;1;Basic2;RB14;RF17;0.5"
 				],
 				
 				1.6:
 				[
-					"130053;1;Basic2;RB14;RF23;0.5;roam"
+					"130055;1;Basic2;RB14;RF23;0.5;roam"
 				],
 				
 				1.8:
 				[
-					"130053;1;Basic2;RB14;RF25;0.5;roam"
+					"130055;1;Basic2;RB14;RF25;0.5;roam"
 				]
             }
         },
@@ -59,14 +59,14 @@
             {
                 0:
                 [
-					"130013;1;Basic2;RF13;RF12;1"
-					"130013;1;Basic2;RF15;RF16;1"
-					"130013;1;Basic2;RF14;RF24;1"
-					"130063;1;Basic2;RB14;RM24;1"
-					"130063;1;Basic2;RB13;RB12;1"
+					"130015;1;Basic2;RF13;RF12;1"
+					"130015;1;Basic2;RF15;RF16;1"
+					"130015;1;Basic2;RF14;RF24;1"
+					"130061;1;Basic2;RB14;RM24;1"
+					"130062;1;Basic2;RB13;RB12;1"
 					"130063;1;Basic2;RB15;RB16;1"
-					"131061;1;Basic2;RM13;RM11;1;roam"
-					"131061;1;Basic2;RM15;RM17;1;roam"
+					"131042;1;Basic2;RM13;RM11;1;roam"
+					"131042;1;Basic2;RM15;RM17;1;roam"
                 ]		
             }
         },
@@ -84,22 +84,29 @@
 				0:
 				[
 					"131013;1;Basic2;RB13;RF13;2"
-					"131013;1;Basic2;RB15;RF15;2"
-					"131013;1;Basic2;RB22;RF21;2"
 					"131013;1;Basic2;RB26;RF27;2"
 				],
 				
 				1:
 				[
-					"132061;10;Basic;BOSS;RM24;2;roam"
+					"132131;10;Basic;BOSS;RM24;2;roam"
 				],
 				
 				1.5:
 				[
-					"130053;1;Appear;RO03;RB21;0.5;roam"
-					"130053;1;Appear;RO05;RB27;0.5;roam"
+					"130054;1;Appear;RO03;RB21;0.5;roam"
+					"130054;1;Appear;RO05;RB27;0.5;roam"
 				]
-            }
+            },
+			
+			"regen":
+			{
+				0:
+				[
+					"130054;1;Appear;RO03;RB21;0.5;roam"
+					"130054;1;Appear;RO05;RB27;0.5;roam"
+				]
+			}
         }
     ],
 	
