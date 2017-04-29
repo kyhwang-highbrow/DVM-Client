@@ -211,6 +211,14 @@ function TABLE:loadStageScript(filename, extention, remove_comment)
 end
 
 -------------------------------------
+-- function loadMapScript
+-------------------------------------
+function TABLE:loadMapScript(filename, extention, remove_comment)
+    local filename = 'map/' .. filename
+    return self:loadJsonTable(filename, extention, remove_comment)
+end
+
+-------------------------------------
 -- function setServerTable
 -------------------------------------
 function TABLE:setServerTable(table_name, table_data)

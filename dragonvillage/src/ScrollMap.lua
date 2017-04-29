@@ -208,7 +208,7 @@ function ScrollMap:setBg(res, attr)
     self.m_tMapLayer = {}
 
     -- 스크립트로 맵 생성
-    local script = TABLE:loadJsonTable(res)
+    local script = TABLE:loadMapScript(res)
     if not script then return end
     
     for _, v in ipairs(script['layer']) do
