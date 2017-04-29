@@ -7,54 +7,28 @@
             <key>effect_blind_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{62,76}}</string>
+                <string>{{2,57},{50,28}}</string>
                 <key>offset</key>
-                <string>{0,4}</string>
+                <string>{1,-5}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{84,73},{62,76}}</string>
-                <key>sourceSize</key>
-                <string>{230,230}</string>
-            </dict>
-            <key>effect_blind_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,80},{70,40}}</string>
-                <key>offset</key>
-                <string>{0,-15}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{80,110},{70,40}}</string>
+                <string>{{91,106},{50,28}}</string>
                 <key>sourceSize</key>
                 <string>{230,230}</string>
             </dict>
             <key>effect_blind_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{66,2},{64,54}}</string>
+                <string>{{2,2},{53,53}}</string>
                 <key>offset</key>
-                <string>{0,-1}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{18,24},{64,54}}</string>
-                <key>sourceSize</key>
-                <string>{100,100}</string>
-            </dict>
-            <key>effect_blind_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{74,68},{48,48}}</string>
-                <key>offset</key>
-                <string>{-15,4}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{11,22},{48,48}}</string>
+                <string>{{0,0},{53,53}}</string>
                 <key>sourceSize</key>
-                <string>{100,100}</string>
+                <string>{53,53}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -64,9 +38,9 @@
             <key>realTextureFileName</key>
             <string>effect_blind.png</string>
             <key>size</key>
-            <string>{124,122}</string>
+            <string>{57,87}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:638fb7f5caa22002db92f32c033a5b7a:3abb64752a6d3786c020b78d8fe848d2:dd42b5ef62057ef9c256d7b2c33c8b9c$</string>
+            <string>$TexturePacker:SmartUpdate:7b30272f82bebe83bb2d44a1c06c48ee$</string>
             <key>textureFileName</key>
             <string>effect_blind.png</string>
         </dict>

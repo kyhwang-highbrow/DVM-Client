@@ -367,6 +367,33 @@
 							}
 						]
 					}
+				},
+				{
+					"name":"digit_plus",
+					"apply":true,
+					"fps":10,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)character_card.plist'<azSprite>'character_card_typo_plus.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":1
+									}
+								]
+							}
+						]
+					}
 				}
 			]
 		}

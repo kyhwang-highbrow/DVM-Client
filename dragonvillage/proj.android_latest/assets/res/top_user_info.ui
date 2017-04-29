@@ -107,9 +107,9 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 583.000000;
+				x = -108.000000;
 				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
+				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 80;
@@ -119,7 +119,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'chatBtn';
 				enable = true;
 				normal = 'ui/btn/sub_chat_0101.png';
@@ -181,16 +181,16 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 69; 51; 63; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 69; 51; 63; };
-					shadow_opacity = 255;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 472.000000;
+				x = 401.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -211,72 +211,6 @@
 				image_type = 1;
 			};
 			[6] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = -5.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 130;
-					height = 40;
-					scale_x = 0.980000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'actingPowerTimeLabel';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
-					text = '{0}:{0}';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 130;
-					dimension_height = 40;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = true;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 394.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 136;
-				height = 42;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'timeNode';
-				file_name = 'ui/frame/base_frame_02.png';
-				color = { 255; 255; 255; };
-				opacity = 190;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[7] =
 			{
 				[1] =
 				{
@@ -311,12 +245,12 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 69; 51; 63; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 69; 51; 63; };
-					shadow_opacity = 255;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				[2] =
 				{
@@ -346,7 +280,7 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 284.000000;
+				x = 213.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -368,7 +302,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[8] =
+			[7] =
 			{
 				[1] =
 				{
@@ -387,7 +321,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'rubyLabel';
+					lua_name = 'cashLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
 					text = '{0}';
@@ -403,12 +337,12 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 69; 51; 63; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 69; 51; 63; };
-					shadow_opacity = 255;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				[2] =
 				{
@@ -438,7 +372,7 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 94.000000;
+				x = 23.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -451,7 +385,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'rubyNode';
+				lua_name = 'cashNode';
 				file_name = 'ui/frame/top_bg_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -460,7 +394,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[9] =
+			[8] =
 			{
 				[1] =
 				{
@@ -530,7 +464,99 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = -99.000000;
+				x = -170.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 180;
+				height = 44;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'fpNode';
+				file_name = 'ui/frame/top_bg_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[9] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -16.000000;
+					y = -3.000000;
+					dock_point = { 1.000000; 0.500000; };
+					anchor_point = { 1.000000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 49;
+					scale_x = 0.980000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'amethystLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 26;
+					text = '{0}';
+					h_alignment = 2;
+					v_alignment = 1;
+					color = { 243; 236; 225; };
+					opacity = 255;
+					dimension_width = 100;
+					dimension_height = 49;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 85; 44; 25; };
+					has_shadow = true;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -14.000000;
+					y = 2.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
+					relative_size_type = 0;
+					width = 60;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icon/inbox/inbox_amethyst.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = -170.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -543,7 +569,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'fpNode';
+				lua_name = 'amethystNode';
 				file_name = 'ui/frame/top_bg_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -622,7 +648,7 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = -99.000000;
+				x = -170.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -705,12 +731,12 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 3.000000;
-					stroke_color = { 69; 51; 63; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 69; 51; 63; };
-					shadow_opacity = 255;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 4.000000;
+					shadow_distance = 2.000000;
 				};
 				type = 'Button';
 				ui_name = '';
@@ -734,6 +760,138 @@
 				disable = '';
 				image_type = 0;
 			};
+			[13] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -13.000000;
+					y = 0.000000;
+					dock_point = { 1.000000; 0.500000; };
+					anchor_point = { 1.000000; 0.500000; };
+					relative_size_type = 0;
+					width = 130;
+					height = 40;
+					scale_x = 0.980000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'actingPowerTimeLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '{0}:{0}';
+					h_alignment = 2;
+					v_alignment = 1;
+					color = { 255; 215; 0; };
+					opacity = 255;
+					dimension_width = 130;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 69; 51; 63; };
+					has_shadow = true;
+					shadow_color = { 69; 51; 63; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 401.000000;
+				y = -39.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 180;
+				height = 36;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'timeNode';
+				file_name = 'ui/frame/top_bg_01.png';
+				color = { 255; 255; 255; };
+				opacity = 190;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[14] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 300;
+					height = 25;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'chatBroadcastLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = 'message';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 300;
+					dimension_height = 25;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = -10.000000;
+				y = -82.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 1.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 300;
+				height = 30;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'chatBroadcastNode';
+				file_name = 'ui/toast_notification.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
@@ -752,7 +910,7 @@
 			action_type = 3;
 			action_delay_1 = 0.000000;
 			action_delay_2 = 0.000000;
-			action_duration = 0.500000;
+			action_duration = 0.400000;
 			lua_name = 'actionNode';
 		};
 		type = 'Menu';

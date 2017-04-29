@@ -4,18 +4,18 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>bg_ocean_3_b.png</key>
+            <key>bg_ocean_5_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1448,1434}}</string>
+                <string>{{2,2},{1004,352}}</string>
                 <key>offset</key>
-                <string>{0,-59}</string>
+                <string>{10,-224}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,142},{1448,1434}}</string>
+                <string>{{20,448},{1004,352}}</string>
                 <key>sourceSize</key>
-                <string>{1448,1600}</string>
+                <string>{1024,800}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -25,9 +25,9 @@
             <key>realTextureFileName</key>
             <string>ocean_7.png</string>
             <key>size</key>
-            <string>{1438,1452}</string>
+            <string>{1008,356}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:58e16d62c36165c16749bb4f9fbe6983:d4fb34c6801351bc1066e63d5dc83e60:1afad114d38c1cfdfac9f7beb2c84e74$</string>
+            <string>$TexturePacker:SmartUpdate:1fdd3c3cc27ff01589a733eef628ac7c:68260b1863b46639ee5d853805379a58:58cd575257f9a300d6ec2a85e67d7fe4$</string>
             <key>textureFileName</key>
             <string>ocean_7.png</string>
         </dict>
