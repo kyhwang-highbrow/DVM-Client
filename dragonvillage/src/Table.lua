@@ -227,6 +227,14 @@ function TABLE:loadPatternScript(filename, extention, remove_comment)
 end
 
 -------------------------------------
+-- function loadSkillScript
+-------------------------------------
+function TABLE:loadSkillScript(filename, extention, remove_comment)
+    local filename = 'skill/' .. filename
+    return self:loadJsonTable(filename, extention, remove_comment)
+end
+
+-------------------------------------
 -- function setServerTable
 -------------------------------------
 function TABLE:setServerTable(table_name, table_data)

@@ -51,7 +51,7 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
 
     -- data파일에서 로드
     local script_name = t_skill['skill_type']
-    local script = TABLE:loadJsonTable(script_name)
+    local script = TABLE:loadSkillScript(script_name)
     if (not script) then
         error(script_name .. " DO NOT EXIST!!")
     end
