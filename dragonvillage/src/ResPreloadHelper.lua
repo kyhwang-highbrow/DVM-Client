@@ -5,7 +5,7 @@ local PRELOAD_FILE_NAME = '../data/preload.txt'
 -- @brief 해당 스킬 타입의 스크립트에 포함된 리소스명을 list의 테이블에 포함시킴
 -------------------------------------
 local function countSkillResListFromScript(list, type, attr)
-    local script = TABLE:loadJsonTable(type)
+    local script = TABLE:loadSkillScript(type)
     if (not list or not script) then return end
 
     local script_data = script[type]
@@ -57,7 +57,7 @@ function savePreloadFile()
     -- 2. 파일로 저장
     local path = cc.FileUtils:getInstance():fullPathForFilename(PRELOAD_FILE_NAME)
     local f = io.open(path, 'wb')
-    local contents = json.encode(preloadList)
+    local contents = dkjson.encode(preloadList, {indent=true})
     f:write(contents)
     f:close()
 end
@@ -275,7 +275,7 @@ function getPreloadList_Stage(stageName)
         table.insert(t_skillList, 'skill_' .. i)
     end
 
-    local script = TABLE:loadJsonTable(stageName)
+    local script = TABLE:loadStageScript(stageName)
     if script then
         for _, v in pairs(script['wave']) do
             if v['wave'] then
@@ -284,7 +284,11 @@ function getPreloadList_Stage(stageName)
                         local l_str = seperate(data, ';')
                         local enemy_id = tonumber(l_str[1])   -- 적군 ID
 
-                        local t_enemy = table_enemy:get(enemy_id)
+                        local t_enemy
+                        if enemy_id then
+                            t_enemy = table_enemy:get(enemy_id)
+                        end
+
                         if t_enemy then
                             -- 적군
                             local attr = t_enemy['attr']
