@@ -38,7 +38,7 @@ NS_CC_EXT_BEGIN
 
 #define SCROLL_DEACCEL_RATE  0.95f
 #define SCROLL_DEACCEL_DIST  1.0f
-#define BOUNCE_DURATION      0.15f
+#define BOUNCE_DURATION      0.5f
 #define INSET_RATIO          0.2f
 //#define MOVE_INCH            7.0f/160.0f
 #define MOVE_INCH            21.0f/160.0f
