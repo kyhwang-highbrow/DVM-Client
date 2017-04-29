@@ -124,7 +124,7 @@ function GameWorld:tryPatternMonster(t_monster, body)
     local is_boss = (rarity == 'boss')
 
     -- 테이블이 없을 경우 return
-    local script = TABLE:loadJsonTable(script_name)
+    local script = TABLE:loadPatternScript(script_name)
 	local is_pattern_ignore = (t_monster['pattern'] == 'ignore')
 	
     if (not script) or is_pattern_ignore then

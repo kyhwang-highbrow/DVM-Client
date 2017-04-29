@@ -47,7 +47,7 @@ end
 function MonsterLua_Boss:initScript(pattern_script_name, mid, is_boss)
     self.m_patternScriptName = pattern_script_name
 
-    local script = TABLE:loadJsonTable(pattern_script_name)
+    local script = TABLE:loadPatternScript(pattern_script_name)
     
     self.m_tOrgPattern = self:getBasePatternList()
     self.m_tCurrPattern = clone(self.m_tOrgPattern)
@@ -453,7 +453,7 @@ end
 -------------------------------------
 function MonsterLua_Boss:getBasePatternList()
     local pattern_script_name = self.m_patternScriptName
-    local script = TABLE:loadJsonTable(pattern_script_name)
+    local script = TABLE:loadPatternScript(pattern_script_name)
     local pattern_list_set = script[pattern_script_name]
     local pattern_list = pattern_list_set[math_random(1, #pattern_list_set)]
     local ret = {}
