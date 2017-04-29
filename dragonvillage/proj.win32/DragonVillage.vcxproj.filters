@@ -2001,6 +2001,9 @@
     <None Include="..\src\UI_CollectionStoryPopupItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Setting.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

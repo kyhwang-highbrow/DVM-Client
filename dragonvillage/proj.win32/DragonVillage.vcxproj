@@ -803,6 +803,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_GamePause_SecretDungeon.lua" />
     <None Include="..\src\UI_GameResult_Adventure.lua" />
     <None Include="..\src\UI_GameResult_SecretDungeon.lua" />
+    <None Include="..\src\UI_Setting.lua" />
     <None Include="..\src\UI_SkillEnhance.lua" />
     <None Include="..\src\UI_StatisticsListItem.lua" />
     <None Include="..\src\UI_StatisticsPopup.lua" />

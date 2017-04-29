@@ -80,7 +80,7 @@ function UI_SkillDetailPopup_Tamer:hide()
 	end
 
 	self:doActionReverse(cb_func, 1, false)
-	-- °»½ÅÀ» À§ÇØ
+	-- ê°±ì‹ ì„ ìœ„í•´
 	if (self.m_closeCB) then
 		self.m_closeCB()
 	end

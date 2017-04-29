@@ -94,6 +94,7 @@ end
 -- function click_settingBtn
 -------------------------------------
 function UI_TopUserInfo:click_settingBtn()
+    --UI_Setting()
     UI_SettingPopup()
 end
 

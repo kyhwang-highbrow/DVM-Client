@@ -29,11 +29,11 @@ function UI_CollectionStoryPopup_AllTeamTab:init_TableView()
 
     local l_item_list = g_dragonUnitData:getDragonUnitIDList()
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
     local function create_func(ui, data)
     end
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(1200, 150 + 5)
     table_view:setCellUIClass(UI_CollectionStoryPopupItem, create_func)

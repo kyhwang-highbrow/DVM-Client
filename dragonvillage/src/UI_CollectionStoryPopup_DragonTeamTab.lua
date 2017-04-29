@@ -65,7 +65,7 @@ function UI_CollectionStoryPopup_DragonTeamTab:init_tableViewDragonList()
     local scale = 0.7
     local width, height = 150 * scale, 150 * scale
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
     local function make_func(data)
         local ui = MakeSimpleDragonCard(data['did'])
         ui.vars['starIcon']:setVisible(false)
@@ -78,7 +78,7 @@ function UI_CollectionStoryPopup_DragonTeamTab:init_tableViewDragonList()
         return ui
     end
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
     local function create_func(ui, data)
         ui.root:setScale(scale)
         ui.vars['clickBtn']:registerScriptTapHandler(function()
@@ -87,7 +87,7 @@ function UI_CollectionStoryPopup_DragonTeamTab:init_tableViewDragonList()
             end)
     end
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = cc.size(width + 7, height + 7)
     table_view_td.m_nItemPerCell = 10
@@ -108,11 +108,11 @@ function UI_CollectionStoryPopup_DragonTeamTab:init_tableViewDragonUnitList()
 
     local l_item_list = g_dragonUnitData:getDragonUnitIDList()
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
     local function create_func(ui, data)
     end
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(1200, 150 + 5)
     table_view:setCellUIClass(UI_CollectionStoryPopupItem, create_func)

@@ -510,6 +510,7 @@ local t_module = {
     'UI_SecretDungeonScene',
     'UI_SecretDungeonStageListItem',
     'UI_EditBoxPopup',
+    'UI_Setting',
     'UI_SettingPopup',
     'UI_SettingPopup_Dev',
     'UI_DragonDevApiPopup',
