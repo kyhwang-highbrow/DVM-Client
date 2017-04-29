@@ -77,7 +77,7 @@ function WaveMgr:getScriptData()
 
     -- 파일에서 웨이브 정보를 얻어옴
     if (not self.m_scriptData) then
-        local script = TABLE:loadJsonTable(self.m_stageName)
+        local script = TABLE:loadStageScript(self.m_stageName)
         self.m_scriptData = script
     end
 
@@ -254,7 +254,7 @@ function WaveMgr:newScenario()
     -- 개발모드일 경우
     if (self.m_bDevelopMode == true) then
         -- 파일에서 웨이브 정보를 얻어옴
-        local script = TABLE:loadJsonTable(self.m_stageName)
+        local script = TABLE:loadStageScript(self.m_stageName)
         self.m_scriptData = script
 
         -- 개발스테이지는 [idx = 1] 인것을 찾아 사용

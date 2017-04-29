@@ -203,6 +203,14 @@ function TABLE:loadJsonTable(filename, extention, remove_comment)
 end
 
 -------------------------------------
+-- function loadStageScript
+-------------------------------------
+function TABLE:loadStageScript(filename, extention, remove_comment)
+    local filename = 'stage/' .. filename
+    return self:loadJsonTable(filename, extention, remove_comment)
+end
+
+-------------------------------------
 -- function setServerTable
 -------------------------------------
 function TABLE:setServerTable(table_name, table_data)
