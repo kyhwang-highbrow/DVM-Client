@@ -69,7 +69,7 @@ end
 -------------------------------------
 function UI_ScenarioPlayer:loadScenario(scenario_name)
     local filename = scenario_name
-    local content = TABLE:loadTableFile(filename, '.csv')
+    local content = TABLE:loadTableFile('scenario/' .. filename, '.csv')
 
     local header = {}
     local tables = {}

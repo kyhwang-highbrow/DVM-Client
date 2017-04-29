@@ -45,7 +45,7 @@ local TableInfo = {
         stage_mission     = {'table_stage_mission',		    'key',			false},
         calendar          = {'table_calendar',		        'month',		false},
         table_option      = {'table_option',		        'option',		false},
-        scenario_resource = {'scenario_resource',           'key',          false},
+        
 
         -- 드래곤 관리 관련
         grade_info           = {'table_dragon_grade_info',    'grade',        false},
@@ -57,6 +57,9 @@ local TableInfo = {
         table_rune_set       = {'table_rune_set',           'set_id',       false},
         dragon_unit          = {'table_dragon_unit',        'unit_id',      false},
         table_dragon_phrase = {'table_dragon_phrase',        'did',          false},
+
+
+        scenario_resource = {'scenario/scenario_resource', 'key', false},
     }
 
 -------------------------------------
