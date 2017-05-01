@@ -180,7 +180,7 @@ function UI_RecommendedDragonInfoPopup:makeTableView_dragon(tab)
 
 	do -- 테이블 뷰 생성
         node:removeAllChildren()
-		ccdump(l_data)
+
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(870, 125)
