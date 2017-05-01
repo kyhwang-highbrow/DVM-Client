@@ -31,6 +31,7 @@ ServerData_Collection = class({
 -------------------------------------
 function ServerData_Collection:init(server_data)
     self.m_serverData = server_data
+    self.m_mCollectionData = {}
     self.m_mDragonTypeCollectionData = {}
 end
 
@@ -99,7 +100,15 @@ function ServerData_Collection:response_collectionInfo(ret)
     g_dragonUnitData:setSelectedUnitID(ret['selected_unit'])
     g_dragonUnitData:organizeData(ret['unit'])
 
-    self.m_mCollectionData = ret['book']
+    do -- 드래곤 도감
+        for i,v in pairs(ret['book']) do
+            local did = tonumber(i)
+            local struct_collection_data = StructCollectionData(v)
+            struct_collection_data:setDragonID(did)
+
+            self.m_mCollectionData[did] = struct_collection_data
+        end
+    end
 
     do -- 드래곤 원종별 도감
         self.m_mDragonTypeCollectionData = ret['dragon_type']
@@ -145,17 +154,27 @@ function ServerData_Collection:openCollectionPopup(close_cb)
 end
 
 -------------------------------------
+-- function getCollectionData
+-- @brief
+-------------------------------------
+function ServerData_Collection:getCollectionData(did)
+    -- 정보가 없는 경우 생성
+    if (not self.m_mCollectionData[did]) then
+        local struct_collection_data = StructCollectionData()
+        struct_collection_data:setDragonID(did)
+        self.m_mCollectionData[did] = struct_collection_data
+    end
+
+    return self.m_mCollectionData[did]
+end
+
+-------------------------------------
 -- function isExist
 -- @brief 도감에 표시 여부
 -------------------------------------
 function ServerData_Collection:isExist(did)
-    local did_str = tostring(did)
-    local t_data = self.m_mCollectionData[did_str]
-    if (not t_data) then
-        return false
-    end
-
-    return t_data['exist']
+    local struct_collection_data = self:getCollectionData(did)
+    return struct_collection_data:isExist()
 end
 
 -------------------------------------
@@ -175,13 +194,8 @@ end
 -- @brief 인연포인트
 -------------------------------------
 function ServerData_Collection:getRelationPoint(did)
-    local did_str = tostring(did)
-    local t_data = self.m_mCollectionData[did_str]
-    if (not t_data) then
-        return 0
-    end
-
-    return t_data['relation'] or 0
+    local struct_collection_data = self:getCollectionData(did)
+    return struct_collection_data:getRelation()
 end
 
 -------------------------------------
@@ -189,16 +203,12 @@ end
 -- @brief 인연포인트
 -------------------------------------
 function ServerData_Collection:applyRelationPoints(relation_point_map)
-    if (not self.m_mCollectionData) then
-        self.m_mCollectionData = {}
-    end
-
     for i,v in pairs(relation_point_map) do
-        if (not self.m_mCollectionData[i]) then
-            self.m_mCollectionData[i] = {}
-        end
+        local did = tonumber(i)
+        local relation = v
 
-        self.m_mCollectionData[i]['relation'] = v
+        local struct_collection_data = self:getCollectionData(did)
+        struct_collection_data:setRelation(relation)
     end
 
     -- 마지막으로 데이터가 변경된 시간 갱신
@@ -210,16 +220,8 @@ end
 -- @brief 도감에 드래곤 등록
 -------------------------------------
 function ServerData_Collection:setDragonCollection(did)
-    local did = tostring(did)
-    if (not self.m_mCollectionData) then
-        self.m_mCollectionData = {}
-    end
-
-    if (not self.m_mCollectionData[did]) then
-        self.m_mCollectionData[did] = {}
-    end
-
-    self.m_mCollectionData[did]['exist'] = true
+    local struct_collection_data = self:getCollectionData(did)
+    struct_collection_data:setExist()
 
     do -- 드래곤 원종의 도감 정보
         local dragon_type = TableDragon():getValue(tonumber(did), 'type')

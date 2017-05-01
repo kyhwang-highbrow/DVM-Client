@@ -600,6 +600,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StructAdventureStageInfo.lua" />
     <None Include="..\src\StructAttendanceData.lua" />
     <None Include="..\src\StructCalendarDay.lua" />
+    <None Include="..\src\StructCollectionData.lua" />
     <None Include="..\src\StructDragonObject.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />
     <None Include="..\src\StructFreeDragonSummonInfo.lua" />
