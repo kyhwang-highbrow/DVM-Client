@@ -3,8 +3,45 @@
 -------------------------------------
 function UI_Setting:init_accountTab()
     local vars = self.vars
+
+    vars['facebookBtn']:registerScriptTapHandler(function() self:click_facebookBtn() end)
+    vars['gamecenterBtn']:registerScriptTapHandler(function() self:click_gamecenterBtn() end)
+    vars['googleBtn']:registerScriptTapHandler(function() self:click_googleBtn() end)
+    vars['highbrowBtn']:registerScriptTapHandler(function() self:click_highbrowBtn() end)
+
     vars['clearBtn']:registerScriptTapHandler(function() self:click_clearBtn() end)
     vars['logoutBtn']:registerScriptTapHandler(function() self:click_logoutBtn() end)
+
+    vars['gamecenterBtn']:setVisible(isIos())
+    vars['googleBtn']:setVisible(isAndroid() or isWin32())
+end
+
+-------------------------------------
+-- function click_facebookBtn
+-------------------------------------
+function UI_Setting:click_facebookBtn()
+    UIManager:toastNotificationRed(Str('준비 중입니다.'))
+end
+
+-------------------------------------
+-- function click_gamecenterBtn
+-------------------------------------
+function UI_Setting:click_gamecenterBtn()
+    UIManager:toastNotificationRed(Str('준비 중입니다.'))
+end
+
+-------------------------------------
+-- function click_googleBtn
+-------------------------------------
+function UI_Setting:click_googleBtn()
+    UIManager:toastNotificationRed(Str('준비 중입니다.'))
+end
+
+-------------------------------------
+-- function click_highbrowBtn
+-------------------------------------
+function UI_Setting:click_highbrowBtn()
+    UIManager:toastNotificationRed(Str('준비 중입니다.'))
 end
 
 -------------------------------------
