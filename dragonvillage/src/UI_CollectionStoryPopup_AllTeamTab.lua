@@ -27,7 +27,7 @@ function UI_CollectionStoryPopup_AllTeamTab:init_TableView()
     local node = self.vars['allTeamMenu']
     node:removeAllChildren()
 
-    local l_item_list = g_dragonUnitData:getDragonUnitIDList()
+    local l_item_list = g_dragonUnitData:getDragonUnitList()
 
     -- 생성 콜백
     local function create_func(ui, data)

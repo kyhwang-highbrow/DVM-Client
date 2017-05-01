@@ -67,10 +67,41 @@ function ServerData_DragonUnit:getDragonUnitList(did)
         self:organizeData(nil)
     end
 
+    if (not did) then
+        return self.m_mDragonUnitDataList
+    end
+
     local t_ret = {}
 
     for i,v in pairs(self.m_mDragonUnitDataList) do
         if v:containsDid(did) then
+            t_ret[i] = v
+        end
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function getDragonUnitList_deck
+-- @brief deck을 충족하는 리스트
+-------------------------------------
+function ServerData_DragonUnit:getDragonUnitList_deck(deck_name)
+    if self.m_bDirty then
+        self:organizeData(nil)
+    end
+
+    local l_deck, formation = g_deckData:getDeck(deck_name)
+    local l_dragons = {}
+    for i,v in pairs(l_deck) do
+        l_dragons[i] = g_dragonsData:getDragonDataFromUid(v)
+    end
+    
+
+    local t_ret = {}
+
+    for i,v in pairs(self.m_mDragonUnitDataList) do
+        if v:checkCondition_deck(l_dragons) then
             t_ret[i] = v
         end
     end

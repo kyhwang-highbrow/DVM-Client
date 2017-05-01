@@ -71,3 +71,24 @@ function StructDragonUnit:containsDid(did)
 
     return false
 end
+
+
+
+
+
+
+
+-------------------------------------
+-- function checkCondition_deck
+-- @brief
+-------------------------------------
+function StructDragonUnit:checkCondition_deck(l_dragons)
+    for _, struct_dragon_unit_condition in ipairs(self.m_lStructDragonUnitCondition) do
+        local ret = struct_dragon_unit_condition:checkCondition_dragons(l_dragons)
+        if (not ret) then
+            return false
+        end
+    end
+
+    return true
+end

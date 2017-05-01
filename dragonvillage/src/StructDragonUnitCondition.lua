@@ -159,3 +159,50 @@ function StructDragonUnitCondition:containsDid(did)
 
     return false
 end
+
+-------------------------------------
+-- function checkCondition_dragons
+-- @brief
+-------------------------------------
+function StructDragonUnitCondition:checkCondition_dragons(l_dragons)
+    local did = self['did']
+    local dragon_type = self['dragon_type']
+    local condition_type = self['condition_type']
+    local condition_value = self['condition_value']
+
+    if did then
+        for i,v in pairs(l_dragons) do
+            if (did == v['did']) then
+                if (condition_type == 'none') then
+                    return true
+
+                elseif (condition_type == 'grade') then
+                    return (v['grade'] >= condition_value)
+
+                elseif (condition_type == 'friendship') then
+                    return (v:getFlv() >= condition_value)
+
+                elseif (condition_type == 'research') then
+                    local research_lv = g_collectionData:getDragonResearchLevel_did(did)
+                    return (research_lv >= condition_value)
+
+                elseif (condition_type == 'evolution') then
+                    return (v['evolution'] >= condition_value)
+
+                else
+                    error('condition_type : ' .. condition_type)
+                end
+            end
+        end
+
+    elseif dragon_type then
+        for i,v in pairs(l_dragons) do
+            if (dragon_type == TableDragon:getDragonType(v['did'])) then
+                -- 아직 세부 조건은 처리하지 않음
+                return
+            end
+        end
+    end
+
+    return false
+end

@@ -112,11 +112,7 @@ function UI_CollectionStoryPopup_DragonTeamTab:init_tableViewDragonUnitList()
     local name = TableDragon:getDragonName(did)
     self.vars['dragonNameLabel']:setString(name)
 
-    local t_dragon_unit_list = g_dragonUnitData:getDragonUnitList(did)
-    local l_item_list = {}
-    for unit_id,_ in pairs(t_dragon_unit_list) do
-        table.insert(l_item_list, unit_id)
-    end
+    local l_item_list = g_dragonUnitData:getDragonUnitList(did)
 
     -- 생성 콜백
     local function create_func(ui, data)

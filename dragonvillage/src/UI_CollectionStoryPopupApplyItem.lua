@@ -1,9 +1,9 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
--- class UI_CollectionStoryPopupItem
+-- class UI_CollectionStoryPopupApplyItem
 -------------------------------------
-UI_CollectionStoryPopupItem = class(PARENT, {
+UI_CollectionStoryPopupApplyItem = class(PARENT, {
         m_dragonUnitID = 'number',
         m_lDragonCard = '',
     })
@@ -11,10 +11,10 @@ UI_CollectionStoryPopupItem = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_CollectionStoryPopupItem:init(struct_dragon_unit)
+function UI_CollectionStoryPopupApplyItem:init(struct_dragon_unit)
     self.m_dragonUnitID = struct_dragon_unit.m_unitID
 
-    local vars = self:load('collection_story_popup_item.ui')
+    local vars = self:load('collection_story_popup_item_01.ui')
 
     self:initUI()
     self:initButton()
@@ -24,7 +24,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_CollectionStoryPopupItem:initUI()
+function UI_CollectionStoryPopupApplyItem:initUI()
     local vars = self.vars
 
     local table_dragon_unit = TableDragonUnit()
@@ -69,7 +69,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_CollectionStoryPopupItem:initButton()
+function UI_CollectionStoryPopupApplyItem:initButton()
     local vars = self.vars
 
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
@@ -79,22 +79,26 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_CollectionStoryPopupItem:refresh()
+function UI_CollectionStoryPopupApplyItem:refresh()
     local vars = self.vars
 
     local t_dragon_unit_data = g_dragonUnitData:getDragonUnitData(self.m_dragonUnitID)
 
+    --[[
     for i,v in ipairs(t_dragon_unit_data.m_lStructDragonUnitCondition) do
         local exist = v:isSatisfiedCollectionData()
         local ui = self.m_lDragonCard[i]
         ui:setShadowSpriteVisible(not exist)
     end
+    --]]
 
     if t_dragon_unit_data.m_rewardReceived then
         vars['rewardBtn']:setVisible(false)
         vars['rewardNode']:setVisible(false)
         vars['rewardLabel']:setVisible(false)
         vars['storyBtn']:setVisible(true)
+
+        vars['buffSprite']:setVisible(true)
     else
         vars['rewardBtn']:setVisible(true)
         vars['rewardNode']:setVisible(true)
@@ -112,7 +116,7 @@ end
 -------------------------------------
 -- function click_srotyBtn
 -------------------------------------
-function UI_CollectionStoryPopupItem:click_srotyBtn()
+function UI_CollectionStoryPopupApplyItem:click_srotyBtn()
     local unit_id = self.m_dragonUnitID
     local scene_id = TableDragonUnit:getStoryScene(unit_id)
 
@@ -123,7 +127,7 @@ end
 -- function click_rewardBtn
 -- @brief
 -------------------------------------
-function UI_CollectionStoryPopupItem:click_rewardBtn()
+function UI_CollectionStoryPopupApplyItem:click_rewardBtn()
     local function finish_cb()
         self:refresh()
         self:click_srotyBtn()

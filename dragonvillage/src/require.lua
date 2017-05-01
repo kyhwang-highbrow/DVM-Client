@@ -594,6 +594,7 @@ local t_module = {
     'UI_CollectionStoryPopup_AllTeamTab',
     'UI_CollectionStoryPopup_DragonTeamTab',
     'UI_CollectionStoryPopupItem',
+    'UI_CollectionStoryPopupApplyItem',
 
     -- 친구 시스템 관련
     'UI_FriendPopup',
