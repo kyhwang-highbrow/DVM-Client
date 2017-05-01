@@ -35,7 +35,7 @@ function UI_RecommendedDragonInfoListItem_Dragon:initUI()
 	vars['dragonNode']:addChild(dragon_icon.root)
 	
 	-- 드래곤 이름
-	local dragon_name = Str('네임')
+	local dragon_name = TableDragon:getDragonName(did)
 	vars['nameLabel']:setString(dragon_name)
 
 	-- 퍼센트
