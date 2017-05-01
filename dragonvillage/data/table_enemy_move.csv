@@ -188,6 +188,7 @@ c6_s7_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c6_s8_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c6_s8_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c6_s8_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c9_s9_1,RB12,RM23,RM14,RF25,RF16,RF12,RF23,RM25,RB16,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 move_1,RF11,RF21,RM11,RM21,RB11,RB21,RF12,RF22,RM12,RM22,RB12,RB22,x,x,x,x,x,x,x,x,x,상단 두줄
 move_2,RF16,RF26,RM16,RM26,RB16,RB26,RF17,RF27,RM17,RM27,RB17,RB27,x,x,x,x,x,x,x,x,x,하단 두줄
 move_3,RF11,RF13,RF15,RF17,RF22,RF24,RF26,RM11,RM13,RM15,RM17,RM22,RM24,RM26,RB11,RB13,RB15,RB17,RB22,RB24,RB26,좌측부터 체스판 형태로 채우기
@@ -211,10 +212,10 @@ move_10_t5,RB12,RM11,RB16,RF12,RM17,RF16,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,move_1
 move_11,RF14,RF12,RF16,RF21,RF27,RF23,RF25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,전방 배치
 move_12,RB24,RB22,RB26,RB11,RB17,RB13,RB15,x,x,x,x,x,x,x,x,x,x,x,x,x,x,후방 배치
 move_13,RM14,RM12,RM16,RF14,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,열십자 배치
-move_14,RF12,RF16,RF23,RF25,RM23,RM25,RB12,RB16,RM14,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치
-move_14_t1,RB12,RF12,RM23,RF23,RM25,RF25,RB16,RF16,RM14,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치 회전
-move_14_t2,RB16,RB12,RM25,RM23,RF25,RF23,RF16,RF12,RM14,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치 회전
-move_14_t3,RF16,RB16,RF25,RM25,RF23,RM23,RF12,RB12,RM14,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치 회전
+move_14,RB12,RM23,RM14,RF25,RF16,RF12,RF23,RM25,RB16,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치
+move_14_t1,RB16,RM25,RM14,RF23,RF12,RB12,RM23,RF25,RF16,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치 회전
+move_14_t2,RF16,RF25,RM14,RM23,RB12,RB16,RM25,RF23,RF12,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치 회전
+move_14_t3,RF12,RF23,RM14,RM25,RB16,RF16,RF25,RM23,RB12,x,x,x,x,x,x,x,x,x,x,x,x,엑스 배치 회전
 move_15,RF12,RF16,RF24,RM12,RM16,RM24,RB12,RB16,RB24,x,x,x,x,x,x,x,x,x,x,x,x,중앙 체스판
 move_16,RF14,RF22,RF26,RM11,RM14,RM17,RM22,RM26,RB14,x,x,x,x,x,x,x,x,x,x,x,x,원형 배치
 move_17,RF11,RF17,RM11,RM17,RB11,RB17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,상하 듬성 배치
