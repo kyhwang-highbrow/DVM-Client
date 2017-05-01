@@ -35,15 +35,15 @@ function UI_CollectionStoryPopup_ApplyTeamTab:init_tableViewDragonUnitList(l_ret
 
     local l_item_list = l_ret
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
     local function create_func(ui, data)
     end
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(790, 150 + 5)
     table_view:setCellUIClass(UI_CollectionStoryPopupApplyItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
-    table_view:makeDefaultEmptyDescLabel(Str('Àû¿ë ÆÀ È¿°ú°¡ ¾ø½À´Ï´Ù.'))
+    table_view:makeDefaultEmptyDescLabel(Str('ì ìš© íŒ€ íš¨ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.'))
 end
