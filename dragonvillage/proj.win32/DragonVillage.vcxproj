@@ -761,6 +761,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonSkillCard.lua" />
     <None Include="..\src\UI_DragonSummon.lua" />
     <None Include="..\src\UI_DragonSummonListItem.lua" />
+    <None Include="..\src\UI_RecommendedDragonInfoPopup.lua" />
     <None Include="..\src\UI_DragonUpgradeNew.lua" />
     <None Include="..\src\UI_DragonUpgradeResult.lua" />
     <None Include="..\src\UI_EditBoxPopup.lua" />
@@ -803,6 +804,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_GamePause_SecretDungeon.lua" />
     <None Include="..\src\UI_GameResult_Adventure.lua" />
     <None Include="..\src\UI_GameResult_SecretDungeon.lua" />
+    <None Include="..\src\UI_RecommendedDragonInfoListItem_Dragon.lua" />
+    <None Include="..\src\UI_RecommendedDragonInfoListItem_Dungeon.lua" />
+    <None Include="..\src\UI_RecommendedDragonInfoListItem_Party.lua" />
     <None Include="..\src\UI_Setting.lua" />
     <None Include="..\src\UI_SettingAccountTab.lua" />
     <None Include="..\src\UI_SettingAlarmTab.lua" />

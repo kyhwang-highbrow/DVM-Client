@@ -568,7 +568,11 @@ local t_module = {
     'UI_ChatPopup',
     'UI_ChatList',
     'UI_ChatListItem',
-    
+    'UI_RecommendedDragonInfoPopup',
+	'UI_RecommendedDragonInfoListItem_Dungeon',
+	'UI_RecommendedDragonInfoListItem_Dragon',
+	'UI_RecommendedDragonInfoListItem_Party',
+
     -- 도감 관련
     'UI_Collection',
     'UI_CollectionDetailPopup',

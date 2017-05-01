@@ -181,6 +181,7 @@ end
 -------------------------------------
 function UI_NestDungeonScene:initButton()
     local vars = self.vars
+	vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
 end
 
 -------------------------------------
@@ -208,11 +209,19 @@ function UI_NestDungeonScene:click_exitBtn()
 	end
 end
 
+-------------------------------------
+-- function click_dragonInfoBtn
+-------------------------------------
+function UI_NestDungeonScene:click_dragonInfoBtn()
+	UI_RecommendedDragonInfoPopup(self.m_selectNestDungeonInfo)
+end
 
 -------------------------------------
 -- function click_dungeonBtn
 -------------------------------------
 function UI_NestDungeonScene:click_dungeonBtn(ui, data)
+	local vars = self.vars
+
     if self.m_selectNestDungeonInfo then
         self:closeSubMenu()
         return
@@ -238,24 +247,27 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data)
     ui:cellMoveTo(0.5, target_pos)
     --ui:cellMoveTo(0.5, cc.p(210, 360))
 
-    self.vars['tableViewNode']:setVisible(false)
+    vars['tableViewNode']:setVisible(false)
 
     self.m_selectNestDungeonInfo = {ui=ui, key=key, data=data}
 
     -- 0.5초 후 실행
-    self.vars['detailTableViewNode']:stopAllActions()
-    cca.reserveFunc(self.vars['detailTableViewNode'], 0.25, function() self:makeNestModeTableView() end)
+    vars['detailTableViewNode']:stopAllActions()
+    cca.reserveFunc(vars['detailTableViewNode'], 0.25, function() self:makeNestModeTableView() end)
 
     do -- 사용 스테미너 얻어오기
         local stamina_type = g_nestDungeonData:getNestModeStaminaType(data['mode_id'])
         g_topUserInfo:setStaminaType(stamina_type)
     end
+
+	vars['dragonInfoBtn']:setVisible(true)
 end
 
 -------------------------------------
 -- function closeSubMenu
 -------------------------------------
 function UI_NestDungeonScene:closeSubMenu()
+	local vars = self.vars
 
     -- 탑바의 입장권
     g_topUserInfo:setStaminaType('st')
@@ -265,10 +277,10 @@ function UI_NestDungeonScene:closeSubMenu()
     end
 
     -- 액션 stop
-    self.vars['detailTableViewNode']:stopAllActions()
+    vars['detailTableViewNode']:stopAllActions()
 
     -- 스테이지 리스트 테이블 뷰 삭제
-    self.vars['detailTableViewNode']:removeAllChildren()
+    vars['detailTableViewNode']:removeAllChildren()
 
     local ui = self.m_selectNestDungeonInfo['ui']
     local key = self.m_selectNestDungeonInfo['key']
@@ -291,8 +303,8 @@ function UI_NestDungeonScene:closeSubMenu()
 
     self.m_tableView:setDirtyItemList()
 
-    self.vars['tableViewNode']:setVisible(true)
-
+    vars['tableViewNode']:setVisible(true)
+	vars['dragonInfoBtn']:setVisible(false)
 
     for i,v in ipairs(self.m_tableView.m_itemList) do
         if (v['unique_id'] ~= key) then

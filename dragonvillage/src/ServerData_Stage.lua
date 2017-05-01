@@ -211,7 +211,30 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     ui_network:setParam('oid', oid)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
+end
 
+-------------------------------------
+-- function requestStageInfo
+-------------------------------------
+function ServerData_Stage:requestStageInfo(stage_id, finish_cb)
+    local uid = g_userData:get('uid')
+
+    -- 모드별 API 주소 분기처리
+    local api_url = '/game/stage/info'
+
+    local function success_cb(ret)
+		if (finish_cb) then
+			finish_cb()
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl(api_url)
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage_id)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
 end
 
 -------------------------------------

@@ -2019,6 +2019,18 @@
     <None Include="..\src\UI_SettingAccountTab.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_RecommendedDragonInfoListItem_Party.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_RecommendedDragonInfoListItem_Dragon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_RecommendedDragonInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_RecommendedDragonInfoListItem_Dungeon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
