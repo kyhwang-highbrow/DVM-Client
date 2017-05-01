@@ -221,7 +221,7 @@ end
 -- @brief 층수로부터 stage_id를 얻음
 -------------------------------------
 function ServerData_AncientTower:getEnemyDeBuffValue()
-    local count = self:getChallengingCount() * 10
+    local count = self:getChallengingCount()
     
     local t_info = g_constant:get('INGAME', 'ANCIENT_TOWER_VALUE')
 

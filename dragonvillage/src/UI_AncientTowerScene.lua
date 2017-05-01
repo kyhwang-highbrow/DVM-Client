@@ -100,6 +100,10 @@ function UI_AncientTowerScene:initUI()
         end
         table.sort(table_view.m_itemList, sort_func)
         table_view:makeAllItemUI()
+        
+        -- 현재 진행중인 층이 보이도록 임시 처리...
+        local offset = table_view:_offsetFromIndex(self.m_selectedFloor)
+        table_view.m_scrollView:setContentOffset(cc.p(0, -offset.y), false)
 
         self.m_tableView = table_view
     end

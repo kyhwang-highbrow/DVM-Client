@@ -48,3 +48,36 @@ end
 function UI_GameResult_AncientTower:click_nextBtn()
     g_ancientTowerData:goToAncientTowerScene()
 end
+
+-------------------------------------
+-- function direction_end
+-- @brief 종료 연출
+-------------------------------------
+function UI_GameResult_AncientTower:direction_end()
+    PARENT.direction_end(self)
+
+    local vars = self.vars
+
+    vars['againBtn']:setVisible(false)
+    vars['quickBtn']:setVisible(false)
+end
+
+-------------------------------------
+-- function direction_showButton
+-------------------------------------
+function UI_GameResult_AncientTower:direction_showButton()
+    PARENT.direction_showButton(self)
+
+    local vars = self.vars
+
+    vars['againBtn']:setVisible(false)
+    vars['quickBtn']:setVisible(false)
+end
+
+-------------------------------------
+-- function checkAutoPlay
+-- @brief
+-------------------------------------
+function UI_GameResult_AncientTower:checkAutoPlay()
+    return
+end
