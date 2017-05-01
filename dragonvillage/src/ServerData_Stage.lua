@@ -232,13 +232,12 @@ end
 -------------------------------------
 function ServerData_Stage:requestStageInfo(stage_id, finish_cb)
     local uid = g_userData:get('uid')
-
-    -- 모드별 API 주소 분기처리
-    local api_url = '/game/stage/info'
+    
+	local api_url = '/game/stage/info'
 
     local function success_cb(ret)
 		if (finish_cb) then
-			finish_cb()
+			finish_cb(ret)
 		end
     end
 

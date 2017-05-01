@@ -3,16 +3,16 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_RecommendedDragonInfoListItem_Dragon
 -------------------------------------
 UI_RecommendedDragonInfoListItem_Dragon = class(PARENT,{
+		m_tDragonInfo = ''
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_RecommendedDragonInfoListItem_Dragon:init(info)
-    self:load('dragon_ranking.ui')
+function UI_RecommendedDragonInfoListItem_Dragon:init(t_data)
+    self:load('dragon_ranking_dragon_item.ui')
 
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_RecommendedDragonInfoListItem_Dragon')
+	self.m_tDragonInfo = t_data
 
     self:initUI()
     self:initButton()
@@ -24,6 +24,27 @@ end
 -------------------------------------
 function UI_RecommendedDragonInfoListItem_Dragon:initUI()
     local vars = self.vars
+	local did = self.m_tDragonInfo['did']
+
+	-- 순위
+	local rank = self.m_tDragonInfo['rank']
+	vars['rankingLabel']:setString(rank)
+
+	-- 드래곤 카드
+	local dragon_icon = MakeSimpleDragonCard(did)
+	vars['dragonNode']:addChild(dragon_icon.root)
+	
+	-- 드래곤 이름
+	local dragon_name = Str('네임')
+	vars['nameLabel']:setString(dragon_name)
+
+	-- 퍼센트
+	local percent = self.m_tDragonInfo['percent']
+	vars['rankingGaugeLabel']:setString(string.format('%d%%', percent))
+	
+	-- 게이지 (액션)
+	vars['rankingGauge']:setPercentage(0)
+	vars['rankingGauge']:runAction(cc.ProgressTo:create(0.3, percent))
 end
 
 -------------------------------------
@@ -37,13 +58,6 @@ end
 -- function refresh
 -------------------------------------
 function UI_RecommendedDragonInfoListItem_Dragon:refresh()
-end
-
--------------------------------------
--- function click_exitBtn
--------------------------------------
-function UI_RecommendedDragonInfoListItem_Dragon:click_exitBtn()
-    self:close()
 end
 
 --@CHECK
