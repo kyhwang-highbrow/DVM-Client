@@ -107,3 +107,39 @@ end
 function StructDragonUnitCondition:isSatisfiedCollectionData()
     return self.m_satisfiedCollection
 end
+
+
+-------------------------------------
+-- function makeDragonConditionCard
+-- @brief UI에서 사용될 드래곤 조건 카드
+-------------------------------------
+function StructDragonUnitCondition:makeDragonConditionCard()
+    local did = self['did']
+
+    -- 드래곤의 타입으로 지정되었을 경우
+    if (not did) then
+        local dragon_type = self['dragon_type']
+        did = TableDragonType:getBaseDid(dragon_type)
+    end
+
+    local condition_type = self['condition_type']
+    local condition_value = self['condition_value']
+
+    local t_data = {}
+
+    -- 조건별로 카드에 정보 추가
+    if (condition_type == 'grade') then
+        t_data['grade'] = condition_value
+    elseif (condition_type == 'evolution') then
+        t_data['evolution'] = condition_value
+    end
+
+    local card = MakeSimpleDragonCard(did, t_data)
+
+    -- 등급이 조건이 아닌 경우 별 아이콘 제거
+    if (condition_type ~= 'grade') then
+        card.vars['starIcon']:setVisible(false)
+    end
+
+    return card
+end

@@ -47,16 +47,9 @@ function UI_CollectionStoryPopupItem:initUI()
     self.m_lDragonCard = {}
 
     for i,v in ipairs(t_dragon_unit_data.m_lStructDragonUnitCondition) do
-        local did = v['did']
 
-        if (not did) then
-            local dragon_type = v['dragon_type']
-            did = TableDragonType:getBaseDid(dragon_type)
-        end
-
-        local card = MakeSimpleDragonCard(did)
+        local card = v:makeDragonConditionCard()
         card.root:setSwallowTouch(false)
-        card.vars['starIcon']:setVisible(false)
         vars['dragonNode' .. i]:addChild(card.root)
 
         self.m_lDragonCard[i] = card
