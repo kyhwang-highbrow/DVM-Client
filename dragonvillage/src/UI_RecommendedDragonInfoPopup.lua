@@ -110,10 +110,9 @@ function UI_RecommendedDragonInfoPopup:initSortList()
 	
 	local uic_sort_list = self:makeUICSortList_DungeonLV(vars['levelBtn'], vars['levelLabel'])
     self.m_uicSortList = uic_sort_list
-	
+
 	-- 버튼을 통해 정렬이 변경되었을 경우
     local function sort_change_cb(sort_type)
-		--self.m_uicSortList:toggleVisibility()
 		self:refresh(nil, sort_type)
     end
 	uic_sort_list:setSortChangeCB(sort_change_cb)
@@ -124,8 +123,6 @@ end
 -------------------------------------
 function UI_RecommendedDragonInfoPopup:initButton()
     local vars = self.vars
-
-	vars['levelBtn']:registerScriptTapHandler(function() self:click_levelBtn() end)
 end
 
 -------------------------------------
@@ -252,10 +249,11 @@ function UI_RecommendedDragonInfoPopup:makeUICSortList_DungeonLV(button, label)
     local uic = UIC_SortList()
 	
 	uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
-    uic:setNormalSize(width, height)
+	uic.m_bDirectHide = true
+    
+	uic:setNormalSize(width, height)
     uic:setPosition(x, y)
     uic:init_container()
-	
 
     uic:setExtendButton(button)
     uic:setSortTypeLabel(label)
