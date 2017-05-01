@@ -110,6 +110,17 @@ function GameWorld:makeMonsterNew(monster_id, level)
 
     -- 스테이지 버프 적용
     monster.m_statusCalc:applyStageBonus(self.m_stageID, true)
+    
+    -- 고대의 탑일 경우 도전횟수에 따른 디버프 적용
+    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        local value = g_ancientTowerData:getEnemyDeBuffValue()
+        if (value < 0) then
+            monster.m_statusCalc:addBuffMulti('atk', value)
+            monster.m_statusCalc:addBuffMulti('def', value)
+            monster.m_statusCalc:addBuffMulti('hp', value)
+        end
+    end
+
     monster:setStatusCalc(monster.m_statusCalc)
 
     self:dispatch('make_monster', {['monster']=monster})

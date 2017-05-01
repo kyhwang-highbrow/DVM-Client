@@ -73,32 +73,6 @@
 		"FEEDBACK_BUFF_HEALER" : [ 0, 20 ],
         
         // ----------------------------------------------------
-        // 피버모드
-        // ----------------------------------------------------
-        // 피버모드 지속 시간
-        "FEVER_KEEP_TIME" : 6,
-
-        // 피버 포인트 증감 시간
-        "FEVER_POINT_UPDATE_TIME" : 0.5,
-
-        // 피버모드 이벤트별 점수
-        "FEVER_POINT_INCREMENT_VALUE" : {
-            "hero_basic_skill" : 0,
-            "hero_active_skill" : 35,
-            "hit_active" : 0,
-            "hit_active_buff" : 0,
-            "character_casting_cancel" : 0
-        },
-
-        // 피버모드 스킬 캔슬시 점수(현재 사용 안함)
-        "PERFECT_SKILL_CANCEL_FEVER_POINT" : 30,
-        "GREAT_SKILL_CANCEL_FEVER_POINT" : 25,
-        "GOOD_SKILL_CANCEL_FEVER_POINT" : 15,
-
-        // 피버모드 데미지 배율
-        "FEVER_ATTACK_DAMAGE_RATE" : 0.3,
-
-        // ----------------------------------------------------
         // 드래곤 액티브 스킬 연출 관련
         // ----------------------------------------------------
         "DRAGON_SKILL_DIRECTION_DURATION" : [
@@ -136,6 +110,22 @@
 			// supporter
 			"time_skill"	: 45,
 			"passive_skill"	: 15
+		},
+		
+		// ----------------------------------------------------
+        // 고대의 탑
+        // ----------------------------------------------------
+		"ANCIENT_TOWER_VALUE" : {
+			"buff_1_count"	: 10,
+			"buff_2_count"	: 20,
+			"buff_3_count"	: 30,
+			"buff_4_count"	: 40,
+			"buff_5_count"	: 50,
+			"buff_1_rate"	: -7,
+			"buff_2_rate"	: -14,
+			"buff_3_rate"	: -21,
+			"buff_4_rate"	: -28,
+			"buff_5_rate"	: -35
 		}
     },
     

@@ -261,6 +261,9 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
             self.m_gameState = GameState_SecretDungeon_Relation(self)
         end
+    -- 4. 고대의 탑
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        self.m_gameState = GameState_AncientTower(self)
     end
 
     self.m_inGameUI:init_timeUI(display_wave, display_time)

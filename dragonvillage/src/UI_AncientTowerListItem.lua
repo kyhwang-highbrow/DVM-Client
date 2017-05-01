@@ -18,6 +18,8 @@ function UI_AncientTowerListItem:init(t_data)
     self:initUI(t_data)
     self:initButton()
     self:refresh()
+
+    self.m_cellSize = cc.size(500, 130 + 10)
 end
 
 -------------------------------------
@@ -26,9 +28,19 @@ end
 function UI_AncientTowerListItem:initUI(t_data)
     local vars = self.vars
 
-    -- TODO: 클리어시 보상 표시
-    --local item_card = UI_ItemCard(item_id, count)
-    --vars['rewardNode']
+    -- 클리어시 보상 표시
+    local stage_id = self.m_stageTable['stage']
+    local t_info = TABLE:get('ancient_reward')[stage_id]
+    if (t_info) then
+        local l_str = seperate(t_info['reward_first'], ';')
+        local item_type = l_str[1]
+        local item_id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
+        local item_count = tonumber(l_str[2])
+
+        local item_card = UI_ItemCard(item_id, item_count)
+        item_card.vars['clickBtn']:setEnabled(false)
+        vars['rewardNode']:addChild(item_card.root)
+    end
 end
 
 -------------------------------------
@@ -36,7 +48,8 @@ end
 -------------------------------------
 function UI_AncientTowerListItem:initButton()
     local vars = self.vars
-    vars['floorBtn']:registerScriptTapHandler(function() self:click_floorButton() end)
+    
+    vars['floorBtn']:getParent():setSwallowTouch(false)
 end
 
 -------------------------------------
@@ -46,15 +59,8 @@ function UI_AncientTowerListItem:refresh()
     local vars = self.vars
 
     local stage_id = self.m_stageTable['stage']
-    local floor = g_ancientTowerData:getFloor(stage_id)
+    local floor = g_ancientTowerData:getFloorFromStageID(stage_id)
 
     vars['floorLabel']:setString(Str('{1}층', floor))
-    
-end
-
--------------------------------------
--- function click_floorButton
--------------------------------------
-function UI_AncientTowerListItem:click_floorButton()
-    -- TODO: 현재 층을 포커싱하고 오른쪽 상세 UI 갱신되어야함
+    vars['lockSprite']:setVisible(not g_ancientTowerData:isOpenStage(stage_id))
 end

@@ -442,6 +442,8 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         -- 던전 objectId
         local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
         oid = t_dungeon_info['id']
+    elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        api_url = '/game/ancient/finish'
     end
 
     -- 친구 접속 버프
@@ -612,7 +614,6 @@ end
 -- @breif 드랍 보상 데이터 처리
 -------------------------------------
 function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
-
     if (not ret['added_items']) then
         return
     end
@@ -649,6 +650,11 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
                 l_bonus_item[item_id] = 0
             end
             l_bonus_item[item_id] = l_bonus_item[item_id] + count
+
+        -- 첫 클리어 보상(고대의 탑에서 사용)
+        elseif (from == 'reward_first') then
+            local t_data = {item_id, count}
+            table.insert(drop_reward_list, t_data)
 
         end
     end

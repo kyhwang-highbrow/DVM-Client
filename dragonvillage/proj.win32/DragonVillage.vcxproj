@@ -293,6 +293,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameDragonSkill.lua" />
     <None Include="..\src\DropItemMgr.lua" />
     <None Include="..\src\GameHighlightMgr.lua" />
+    <None Include="..\src\GameState_AncientTower.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
     <None Include="..\src\GameState_NestDungeon.lua" />
     <None Include="..\src\GameState_NestDungeon_Dragon.lua" />
@@ -702,6 +703,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AdventureStageMissionInfo.lua" />
     <None Include="..\src\UI_AncientTowerListItem.lua" />
     <None Include="..\src\UI_AncientTowerScene.lua" />
+    <None Include="..\src\UI_AncientTowerSweepReward.lua" />
     <None Include="..\src\UI_AttendanceBasicListItem.lua" />
     <None Include="..\src\UI_AttendanceSpecialListItem.lua" />
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
@@ -804,6 +806,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_GamePause_Colosseum.lua" />
     <None Include="..\src\UI_GamePause_SecretDungeon.lua" />
     <None Include="..\src\UI_GameResult_Adventure.lua" />
+    <None Include="..\src\UI_GameResult_AncientTower.lua" />
     <None Include="..\src\UI_GameResult_SecretDungeon.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Dragon.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Dungeon.lua" />

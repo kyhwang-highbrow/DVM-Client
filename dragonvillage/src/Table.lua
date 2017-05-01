@@ -42,6 +42,7 @@ local TableInfo = {
 
 		quest			  = {'table_quest',					'qid',			false},
         colosseum_reward  = {'table_colosseum_reward',		'tier',			false},
+        ancient_reward    = {'table_ancient_reward',		'stage',		false},
         stage_mission     = {'table_stage_mission',		    'key',			false},
         calendar          = {'table_calendar',		        'month',		false},
         table_option      = {'table_option',		        'option',		false},

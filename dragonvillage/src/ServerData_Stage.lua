@@ -45,6 +45,10 @@ function ServerData_Stage:getStageName(stage_id)
         local id = t_dungeon_info['id']
         name = g_secretDungeonData:getStageName(id)
 
+    -- 고대의 탑
+    elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        name = g_ancientTowerData:getStageName(stage_id)
+
     -- 콜로세움 모드
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
         name = Str('콜로세움')
@@ -73,6 +77,10 @@ function ServerData_Stage:isOpenStage(stage_id)
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         ret = g_secretDungeonData:isOpenStage(stage_id)
 
+    -- 고대의 탑 모드
+    elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        ret = g_ancientTowerData:isOpenStage(stage_id)
+
     end
 
     return ret
@@ -97,6 +105,10 @@ function ServerData_Stage:getNextStage(stage_id)
     -- 비밀 던전 모드
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         ret = g_secretDungeonData:getNextStageID(stage_id)
+
+    -- 고대의 탑 모드
+    elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        ret = g_ancientTowerData:getNextStageID(stage_id)
     end
 
     return ret
@@ -185,6 +197,8 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         -- 던전 objectId
         local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
         oid = t_dungeon_info['id']
+    elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        api_url = '/game/ancient/start'
     end
 
     local function success_cb(ret)

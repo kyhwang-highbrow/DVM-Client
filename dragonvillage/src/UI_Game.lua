@@ -365,10 +365,11 @@ end
 function UI_Game:setTime(sec, is_limit)
     local vars = self.vars
 
+    local sec = math_floor(sec)
+
     local m = math_floor(sec / 60)
     local s = sec % 60
     local str = string.format('%02d:%02d', m, s)
-
     vars['timeLabel']:setString(str)
 
 	-- 제한시간이 있는 경우에 색상 부여
