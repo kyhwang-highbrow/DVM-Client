@@ -2040,6 +2040,15 @@
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Dungeon.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructCollectionData.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\StructDragonUnit.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\StructDragonUnitCondition.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

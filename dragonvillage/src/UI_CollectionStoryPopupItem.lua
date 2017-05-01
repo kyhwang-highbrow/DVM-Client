@@ -41,21 +41,16 @@ function UI_CollectionStoryPopupItem:initUI()
 
 
     local t_dragon_unit_data = g_dragonUnitData:getDragonUnitData(self.m_dragonUnitID)
-    local unit_list = t_dragon_unit_data['unit_list']
 
     local table_dragon = TableDragon()
 
     self.m_lDragonCard = {}
 
-    for i,v in ipairs(unit_list) do
-        local type = v['type']
-        local value = v['value']
+    for i,v in ipairs(t_dragon_unit_data.m_lStructDragonUnitCondition) do
+        local did = v['did']
 
-        local did
-        if (type == 'dragon') then
-            did = value
-        elseif (type == 'category') then
-            local dragon_type = value
+        if (not did) then
+            local dragon_type = v['dragon_type']
             did = TableDragonType:getBaseDid(dragon_type)
         end
 
@@ -68,7 +63,7 @@ function UI_CollectionStoryPopupItem:initUI()
     end
 
     do -- 보상 표시
-        local reward_str = t_dragon_unit_data['reward']
+        local reward_str = TableDragonUnit:getUnitRewardStr(self.m_dragonUnitID)
         local item_id, count = ServerData_Item:parsePackageItemStrIndivisual(reward_str)
         local icon = IconHelper:getItemIcon(item_id)
         vars['rewardNode']:addChild(icon)
@@ -95,15 +90,14 @@ function UI_CollectionStoryPopupItem:refresh()
     local vars = self.vars
 
     local t_dragon_unit_data = g_dragonUnitData:getDragonUnitData(self.m_dragonUnitID)
-    local unit_list = t_dragon_unit_data['unit_list']
 
-    for i,v in ipairs(unit_list) do
-        local exist = v['exist']
+    for i,v in ipairs(t_dragon_unit_data.m_lStructDragonUnitCondition) do
+        local exist = v:isSatisfiedCollectionData()
         local ui = self.m_lDragonCard[i]
         ui:setShadowSpriteVisible(not exist)
     end
 
-    if t_dragon_unit_data['received'] then
+    if t_dragon_unit_data.m_rewardReceived then
         vars['rewardBtn']:setVisible(false)
         vars['rewardNode']:setVisible(false)
         vars['rewardLabel']:setVisible(false)
@@ -114,7 +108,7 @@ function UI_CollectionStoryPopupItem:refresh()
         vars['rewardLabel']:setVisible(true)
         vars['storyBtn']:setVisible(false)
 
-        if t_dragon_unit_data['active'] then
+        if t_dragon_unit_data.m_satisfiedCollection then
             vars['rewardBtn']:setEnabled(true)
         else
             vars['rewardBtn']:setEnabled(false)

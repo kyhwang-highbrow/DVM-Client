@@ -57,6 +57,8 @@ local t_module = {
     'StructFreeDragonSummonInfo',
     'StructQuestData',
     'StructCollectionData',
+    'StructDragonUnit',
+    'StructDragonUnitCondition',
 
     -- Util
     'Action',

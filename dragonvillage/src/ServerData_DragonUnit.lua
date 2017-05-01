@@ -28,37 +28,18 @@ function ServerData_DragonUnit:organizeData(finish_unit_id_list)
     self.m_unitServerData = (finish_unit_id_list or self.m_unitServerData)
     
     -- 테이블에서 리스트업
-    local table_dragon_unit = TableDragonUnit()
-    self.m_mDragonUnitDataList = clone(table_dragon_unit.m_orgTable)
+    self.m_mDragonUnitDataList = {}
 
     local table_dragon_unit = TableDragonUnit()
 
-    for unit_id,v in pairs(self.m_mDragonUnitDataList) do
-
-        -- 조건 드래곤 리스트
-        v['unit_list'] = table_dragon_unit:getUnitDragonList(unit_id)
-
-        local active = true
-
-        for _,unit in ipairs(v['unit_list']) do
-            local type = unit['type']
-            local value = unit['value']
-
-            -- 드래곤이 있는지 체크
-            unit['exist'] = self:checkExistDragon(type, value)
-
-            if (not unit['exist']) then
-                active = false
-            end
-        end
-
-        -- 모든 드래곤이 포함되어 있으면 active가 true
-        v['active'] = active
+    for unit_id,v in pairs(table_dragon_unit.m_orgTable) do
+        local strunct_dragon_unit = StructDragonUnit(unit_id)
+        self.m_mDragonUnitDataList[unit_id] = strunct_dragon_unit
 
         if table.find(self.m_unitServerData, unit_id) then
-            v['received'] = true
+            strunct_dragon_unit.m_rewardReceived = true
         else
-            v['received'] = false
+            strunct_dragon_unit.m_rewardReceived = false
         end
     end
 
@@ -96,32 +77,6 @@ function ServerData_DragonUnit:getDragonUnitIDList()
     end
 
     return t_ret
-end
-
--------------------------------------
--- function checkExistDragon
--- @brief 무리 버프에서 사용되는 드래곤 항목(원종이 같은 드래곤들이거나 개별 드래곤)
--------------------------------------
-function ServerData_DragonUnit:checkExistDragon(type, value)
-    local l_dragons = self.m_serverData:getRef('dragons')
-
-    local table_dragon = TableDragon()
-
-    for _,t_dragon_data in pairs(l_dragons) do
-        if (type == 'dragon') then
-            if (t_dragon_data['did'] == value) then
-                return true
-            end
-        elseif (type == 'category') then
-            local did = t_dragon_data['did']
-            local dragon_type = table_dragon:getValue(did, 'type')
-            if (dragon_type == value) then
-                return true
-            end
-        end
-    end
-
-    return false
 end
 
 -------------------------------------

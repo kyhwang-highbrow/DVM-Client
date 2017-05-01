@@ -1,9 +1,11 @@
-unit_id,category,unit_type,unit_did,unit_group,reward,buff,t_name,t_condition,t_desc,scene_id
-1001,unit,"leafdragon, hurricane, applecheek",,9001,cash;100,atk;multi;5,채식주의자,풀만 먹나...? (조건 설명 text),공격력 +5%,scenario_01_12_start
-1002,unit,"lightningdragon, spine",,9001,cash;100,atk;add;50,배다른 형제,조건 설명 text,공격력 +50,scenario_01_12_start
-1003,unit,"bluedragon, serpentdragon, psykerdragon",,,cash;100,def;multi;5,물속이 편해,조건 설명 text,방어력 +5%,scenario_01_12_start
-1004,unit,"ladydragon, pinkbell",,,cash;100,def;add;50,분홍빛 향기,조건 설명 text,방어력 +50,scenario_01_12_start
-1005,unit,"lambgon, mutanteggdragon, clowndragon",,,cash;100,cri_chance;add;5,개구쟁이,조건 설명 text,크리티컬 확률 +5%,scenario_01_12_start
-1006,unit,"jaryong, sitael, suradragon",,,cash;100,hp_max;multi;10,대장군들,조건 설명 text,체력 +10%,scenario_01_12_start
-1007,unit,"pharaohdragon, crescentdragon, powerdragon",,,cash;100,hp_max;add;100,해와 달과 대지,조건 설명 text,체력 +100,scenario_01_12_start
-9001,group,,120011,,,,,조건 설명 text,,scenario_01_12_start
+unit_id,condition,category,unit_type,unit_did,unit_group,reward,buff,t_name,t_condition,t_desc,scene_id
+1001,"120011; grade; 1,
+120012; grade; 1,
+leafdragon; grade; 2",unit,"leafdragon, hurricane, applecheek",,9001,cash;100,atk;multi;5,채식주의자,풀만 먹나...? (조건 설명 text),공격력 +5%,scenario_01_12_start
+1002,,unit,"lightningdragon, spine",,9001,cash;100,atk;add;50,배다른 형제,조건 설명 text,공격력 +50,scenario_01_12_start
+1003,,unit,"bluedragon, serpentdragon, psykerdragon",,,cash;100,def;multi;5,물속이 편해,조건 설명 text,방어력 +5%,scenario_01_12_start
+1004,,unit,"ladydragon, pinkbell",,,cash;100,def;add;50,분홍빛 향기,조건 설명 text,방어력 +50,scenario_01_12_start
+1005,,unit,"lambgon, mutanteggdragon, clowndragon",,,cash;100,cri_chance;add;5,개구쟁이,조건 설명 text,크리티컬 확률 +5%,scenario_01_12_start
+1006,,unit,"jaryong, sitael, suradragon",,,cash;100,hp_max;multi;10,대장군들,조건 설명 text,체력 +10%,scenario_01_12_start
+1007,,unit,"pharaohdragon, crescentdragon, powerdragon",,,cash;100,hp_max;add;100,해와 달과 대지,조건 설명 text,체력 +100,scenario_01_12_start
+9001,,group,,120011,,,,,조건 설명 text,,scenario_01_12_start

@@ -17,28 +17,6 @@ function TableDragonUnit:init()
 end
 
 -------------------------------------
--- function getUnitDragonList
--------------------------------------
-function TableDragonUnit:getUnitDragonList(unit_id)
-    local t_table = self:get(unit_id)
-
-    local l_ret = {}
-
-    local trim_execution = true
-    local l_unit_type = self:getCommaSeparatedValues(unit_id, 'unit_type', trim_execution)
-    for i,v in ipairs(l_unit_type) do
-        table.insert(l_ret, {type='category', value=v})
-    end
-
-    local l_unit_did = self:getCommaSeparatedValues(unit_id, 'unit_did', trim_execution)
-    for i,v in ipairs(l_unit_did) do
-        table.insert(l_ret, {type='dragon', value=tonumber(v)})
-    end
-
-    return l_ret
-end
-
--------------------------------------
 -- function getStoryScene
 -------------------------------------
 function TableDragonUnit:getStoryScene(unit_id)
@@ -47,4 +25,26 @@ function TableDragonUnit:getStoryScene(unit_id)
     end
 
     return self:getValue(unit_id, 'scene_id')
+end
+
+-------------------------------------
+-- function getUnitConditionStr
+-------------------------------------
+function TableDragonUnit:getUnitConditionStr(unit_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(unit_id, 'condition')
+end
+
+-------------------------------------
+-- function getUnitRewardStr
+-------------------------------------
+function TableDragonUnit:getUnitRewardStr(unit_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(unit_id, 'reward')
 end

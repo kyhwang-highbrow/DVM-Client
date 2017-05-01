@@ -70,3 +70,24 @@ end
 function StructCollectionData:isExist()
     return self.exist
 end
+
+-------------------------------------
+-- function getGrade
+-------------------------------------
+function StructCollectionData:getGrade()
+    return self.grade
+end
+
+-------------------------------------
+-- function getFLv
+-------------------------------------
+function StructCollectionData:getFLv()
+    return self.flv
+end
+
+-------------------------------------
+-- function getEvolution
+-------------------------------------
+function StructCollectionData:getEvolution()
+    return self.evolution
+end
