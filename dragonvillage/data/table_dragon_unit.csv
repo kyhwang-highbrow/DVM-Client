@@ -14,18 +14,33 @@ unit_id,condition,reward,buff,t_name,t_condition,t_desc,scene_id
 120071; grade; 5",cash;100,atk;add;100,배다른 형제-2,"4등급 스파인, 5등급 번개고룡 필요",공격력 +100,scenario_01_12_start
 1013,"120223; grade; 5,
 120071; grade; 6",cash;150,atk;add;150,배다른 형제-3,"5등급 스파인, 6등급 번개고룡 필요",공격력 +150,scenario_01_12_start
-1021,,cash;50,def;multi;5,물속이 편해-1,,방어력 +5%,scenario_01_12_start
-1022,,cash;100,def;multi;10,물속이 편해-2,,방어력 +10%,scenario_01_12_start
-1023,,cash;150,def;multi;15,물속이 편해-3,,방어력 +15%,scenario_01_12_start
-1031,,cash;50,def;add;50,분홍빛 향기-1,,방어력 +50,scenario_01_12_start
-1032,,cash;100,def;add;100,분홍빛 향기-2,,방어력 +100,scenario_01_12_start
-1033,,cash;150,def;add;150,분홍빛 향기-3,,방어력 +150,scenario_01_12_start
-1041,,cash;50,cri_chance;add;5,개구쟁이-1,,크리티컬 확률 +5%,scenario_01_12_start
-1042,,cash;100,cri_chance;add;10,개구쟁이-2,,크리티컬 확률 +10%,scenario_01_12_start
-1043,,cash;150,cri_chance;add;15,개구쟁이-3,,크리티컬 확률 +15%,scenario_01_12_start
-1051,"120423; grade; 4,
-120384; grade; 4,
-120233; grade; 4",cash;50,hp_max;multi;5,대장군들-1,"4등급 자룡, 4등급 시타엘, 4등급 수라드래곤 필요",체력 +5%,scenario_01_12_start
+1021,"120181; grade; 3,
+120335; grade; 3,
+120122; grade; 4",cash;50,def;multi;5,물속이 편해-1,"3등급 테라 블루드래곤, 3등급 서펀트드래곤, 4등급 사이커드래곤 필요",방어력 +5%,scenario_01_12_start
+1022,"120181; grade; 4,
+120335; grade; 4,
+120122; grade; 4",cash;100,def;multi;10,물속이 편해-2,"3등급 테라 블루드래곤, 3등급 서펀트드래곤, 4등급 사이커드래곤 필요",방어력 +10%,scenario_01_12_start
+1023,"120181; grade; 5,
+120335; grade; 5,
+120122; grade; 5",cash;150,def;multi;15,물속이 편해-3,"3등급 테라 블루드래곤, 3등급 서펀트드래곤, 4등급 사이커드래곤 필요",방어력 +15%,scenario_01_12_start
+1031,"120371; grade; 3,
+120161; grade; 3",cash;50,def;add;50,분홍빛 향기-1,"3등급 테라 레이디드래곤, 3등급 테라 핑크벨 필요",방어력 +50,scenario_01_12_start
+1032,"120371; grade; 4,
+120161; grade; 4",cash;100,def;add;100,분홍빛 향기-2,"4등급 테라 레이디드래곤, 4등급 테라 핑크벨 필요",방어력 +100,scenario_01_12_start
+1033,"120371; grade; 5,
+120161; grade; 5",cash;150,def;add;150,분홍빛 향기-3,"5등급 테라 레이디드래곤, 5등급 테라 핑크벨 필요",방어력 +150,scenario_01_12_start
+1041,"120021; grade; 3,
+120151; grade; 3,
+120304; grade; 3",cash;50,cri_chance;add;5,개구쟁이-1,"3등급 램곤, 3등급 변종 에그드래곤,3등급 삐에로드래곤 필요",크리티컬 확률 +5%,scenario_01_12_start
+1042,"120021; grade; 4,
+120151; grade; 3,
+120304; grade; 3",cash;100,cri_chance;add;10,개구쟁이-2,"4등급 램곤, 4등급 변종 에그드래곤,4등급 삐에로드래곤 필요",크리티컬 확률 +10%,scenario_01_12_start
+1043,"120021; grade; 4,
+120151; grade; 4,
+120304; grade; 4",cash;150,cri_chance;add;15,개구쟁이-3,"5등급 램곤, 5등급 변종 에그드래곤,5등급 삐에로드래곤 필요",크리티컬 확률 +15%,scenario_01_12_start
+1051,"120423; grade; 5,
+120384; grade; 5,
+120233; grade; 5",cash;50,hp_max;multi;5,대장군들-1,"4등급 자룡, 4등급 시타엘, 4등급 수라드래곤 필요",체력 +5%,scenario_01_12_start
 1052,"120423; grade; 5,
 120384; grade; 5,
 120233; grade; 5",cash;100,hp_max;multi;10,대장군들-2,"5등급 자룡, 5등급 시타엘, 5등급 수라드래곤 필요",체력 +10%,scenario_01_12_start

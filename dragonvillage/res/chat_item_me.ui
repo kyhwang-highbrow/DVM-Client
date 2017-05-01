@@ -187,7 +187,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'chatSprite';
 				file_name = 'ui/frame/a_frame_08.png';
 				color = { 255; 190; 46; };
 				opacity = 255;
