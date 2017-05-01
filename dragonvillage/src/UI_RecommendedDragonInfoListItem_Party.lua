@@ -33,6 +33,7 @@ function UI_RecommendedDragonInfoListItem_Party:initUI()
 	for i, t_dragon_info in pairs(self.m_lPartyInfoList) do
 		local dragon_icon = UI_DragonCard(t_dragon_info)
 		vars['dragonNode' .. i]:addChild(dragon_icon.root)
+		dragon_icon.root:setSwallowTouch(false)
 	end
 end
 

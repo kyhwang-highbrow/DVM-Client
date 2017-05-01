@@ -33,7 +33,8 @@ function UI_RecommendedDragonInfoListItem_Dragon:initUI()
 	-- 드래곤 카드
 	local dragon_icon = MakeSimpleDragonCard(did)
 	vars['dragonNode']:addChild(dragon_icon.root)
-	
+	dragon_icon.root:setSwallowTouch(false)
+
 	-- 드래곤 이름
 	local dragon_name = TableDragon:getDragonName(did)
 	vars['nameLabel']:setString(dragon_name)
