@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_Setting
@@ -31,6 +31,7 @@ end
 -------------------------------------
 function UI_Setting:initUI()
     local vars = self.vars
+    self:initTab()
 end
 
 -------------------------------------
@@ -53,4 +54,36 @@ end
 -------------------------------------
 function UI_Setting:click_closeBtn()
     self:close()
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_Setting:initTab()
+    local tab_list = {}
+    table.insert(tab_list, 'game')
+    table.insert(tab_list, 'account')
+    table.insert(tab_list, 'alarm')
+    table.insert(tab_list, 'info')
+    table.insert(tab_list, 'dev')
+
+    local vars = self.vars
+    for i,v in ipairs(tab_list) do
+        local key = v
+        local btn = vars[v .. 'Btn']
+        local menu = vars[v .. 'Menu']
+        self:addTab(key, btn, menu)
+    end
+    
+    self:setTab('game')
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_Setting:onChangeTab(tab, first)
+    if first then
+        local func_name = 'init_' .. tab .. 'Tab'
+        self[func_name](self)
+    end
 end

@@ -2004,6 +2004,21 @@
     <None Include="..\src\UI_Setting.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_SettingDevTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SettingAlarmTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SettingGameTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SettingInfoTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SettingAccountTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
