@@ -29,3 +29,19 @@ function TableDragonType:getBaseDid(dragon_type)
 
     return self:getValue(dragon_type, 'base_did')
 end
+
+-------------------------------------
+-- function containsDid
+-- @brief
+-------------------------------------
+function TableDragonType:containsDid(dragon_type, did)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local l_did = self:getCommaSeparatedValues(dragon_type, 'did', true)
+
+    local idx = table.find(l_did, tostring(did))
+    return (nil ~= idx)
+end
+

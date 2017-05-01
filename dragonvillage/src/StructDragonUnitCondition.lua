@@ -129,7 +129,7 @@ function StructDragonUnitCondition:makeDragonConditionCard()
 
     -- 조건별로 카드에 정보 추가
     if (condition_type == 'grade') then
-        t_data['grade'] = condition_value
+        t_data['grade'] = math_max(condition_value, 1)
     elseif (condition_type == 'evolution') then
         t_data['evolution'] = condition_value
     end
@@ -142,4 +142,20 @@ function StructDragonUnitCondition:makeDragonConditionCard()
     end
 
     return card
+end
+
+-------------------------------------
+-- function containsDid
+-- @brief
+-------------------------------------
+function StructDragonUnitCondition:containsDid(did)
+    if (self['did'] == did) then
+        return true
+    end
+
+    if self['dragon_type'] then
+        return TableDragonType:containsDid(self['dragon_type'], did)
+    end
+
+    return false
 end

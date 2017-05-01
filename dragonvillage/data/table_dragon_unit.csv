@@ -1,11 +1,43 @@
-unit_id,condition,category,unit_type,unit_did,unit_group,reward,buff,t_name,t_condition,t_desc,scene_id
-1001,"120011; grade; 1,
-120012; grade; 1,
-leafdragon; grade; 2",unit,"leafdragon, hurricane, applecheek",,9001,cash;100,atk;multi;5,채식주의자,풀만 먹나...? (조건 설명 text),공격력 +5%,scenario_01_12_start
-1002,,unit,"lightningdragon, spine",,9001,cash;100,atk;add;50,배다른 형제,조건 설명 text,공격력 +50,scenario_01_12_start
-1003,,unit,"bluedragon, serpentdragon, psykerdragon",,,cash;100,def;multi;5,물속이 편해,조건 설명 text,방어력 +5%,scenario_01_12_start
-1004,,unit,"ladydragon, pinkbell",,,cash;100,def;add;50,분홍빛 향기,조건 설명 text,방어력 +50,scenario_01_12_start
-1005,,unit,"lambgon, mutanteggdragon, clowndragon",,,cash;100,cri_chance;add;5,개구쟁이,조건 설명 text,크리티컬 확률 +5%,scenario_01_12_start
-1006,,unit,"jaryong, sitael, suradragon",,,cash;100,hp_max;multi;10,대장군들,조건 설명 text,체력 +10%,scenario_01_12_start
-1007,,unit,"pharaohdragon, crescentdragon, powerdragon",,,cash;100,hp_max;add;100,해와 달과 대지,조건 설명 text,체력 +100,scenario_01_12_start
-9001,,group,,120011,,,,,조건 설명 text,,scenario_01_12_start
+unit_id,condition,reward,buff,t_name,t_condition,t_desc,scene_id
+1001,"120081; grade; 1,
+120051; grade; 3,
+120201; grade; 4",cash;50,atk;multi;5,채식주의자-1,"1등급 리프드래곤, 3등급 애플칙, 4등급 테라 허리케인 필요",공격력 +5%,scenario_01_12_start
+1002,"120081; grade; 3,
+120051; grade; 4,
+120201; grade; 5",cash;100,atk;multi;10,채식주의자-2,"3등급 리프드래곤, 4등급 애플칙, 5등급 테라 허리케인 필요",공격력 +10%,scenario_01_12_start
+1003,"120081; grade; 5,
+120051; grade; 5,
+120201; grade; 5",cash;150,atk;multi;15,채식주의자-3,"5등급 리프드래곤, 5등급 애플칙, 5등급 테라 허리케인 필요",공격력 +15%,scenario_01_12_start
+1011,"120223; grade; 3,
+120071; grade; 5",cash;50,atk;add;50,배다른 형제-1,"3등급 스파인, 5등급 번개고룡 필요",공격력 +50,scenario_01_12_start
+1012,"120223; grade; 4,
+120071; grade; 5",cash;100,atk;add;100,배다른 형제-2,"4등급 스파인, 5등급 번개고룡 필요",공격력 +100,scenario_01_12_start
+1013,"120223; grade; 5,
+120071; grade; 6",cash;150,atk;add;150,배다른 형제-3,"5등급 스파인, 6등급 번개고룡 필요",공격력 +150,scenario_01_12_start
+1021,,cash;50,def;multi;5,물속이 편해-1,,방어력 +5%,scenario_01_12_start
+1022,,cash;100,def;multi;10,물속이 편해-2,,방어력 +10%,scenario_01_12_start
+1023,,cash;150,def;multi;15,물속이 편해-3,,방어력 +15%,scenario_01_12_start
+1031,,cash;50,def;add;50,분홍빛 향기-1,,방어력 +50,scenario_01_12_start
+1032,,cash;100,def;add;100,분홍빛 향기-2,,방어력 +100,scenario_01_12_start
+1033,,cash;150,def;add;150,분홍빛 향기-3,,방어력 +150,scenario_01_12_start
+1041,,cash;50,cri_chance;add;5,개구쟁이-1,,크리티컬 확률 +5%,scenario_01_12_start
+1042,,cash;100,cri_chance;add;10,개구쟁이-2,,크리티컬 확률 +10%,scenario_01_12_start
+1043,,cash;150,cri_chance;add;15,개구쟁이-3,,크리티컬 확률 +15%,scenario_01_12_start
+1051,"120423; grade; 4,
+120384; grade; 4,
+120233; grade; 4",cash;50,hp_max;multi;5,대장군들-1,"4등급 자룡, 4등급 시타엘, 4등급 수라드래곤 필요",체력 +5%,scenario_01_12_start
+1052,"120423; grade; 5,
+120384; grade; 5,
+120233; grade; 5",cash;100,hp_max;multi;10,대장군들-2,"5등급 자룡, 5등급 시타엘, 5등급 수라드래곤 필요",체력 +10%,scenario_01_12_start
+1053,"120423; grade; 6,
+120384; grade; 6,
+120233; grade; 6",cash;150,hp_max;multi;15,대장군들-3,"6등급 자룡, 6등급 시타엘, 6등급 수라드래곤 필요",체력 +15%,scenario_01_12_start
+1061,"120314; grade; 3,
+120325; grade; 3,
+120011; grade; 5",cash;50,hp_max;add;100,해와 달과 대지-1,"3등급 파라오드래곤, 3등급 크래센트 드래곤, 5등급 파워드래곤 필요",체력 +100,scenario_01_12_start
+1062,"120314; grade; 4,
+120325; grade; 4,
+120011; grade; 5",cash;100,hp_max;add;250,해와 달과 대지-2,"4등급 파라오드래곤, 4등급 크래센트 드래곤, 5등급 파워드래곤 필요",체력 +250,scenario_01_12_start
+1063,"120314; grade; 5,
+120325; grade; 5,
+120011; grade; 5",cash;150,hp_max;add;500,해와 달과 대지-3,"5등급 파라오드래곤, 5등급 크래센트 드래곤, 5등급 파워드래곤 필요",체력 +500,scenario_01_12_start

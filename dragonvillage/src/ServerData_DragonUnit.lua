@@ -59,6 +59,27 @@ function ServerData_DragonUnit:getDragonUnitData(unit_id)
 end
 
 -------------------------------------
+-- function getDragonUnitList
+-- @brief did가 포함된 리스트 리턴
+-------------------------------------
+function ServerData_DragonUnit:getDragonUnitList(did)
+    if self.m_bDirty then
+        self:organizeData(nil)
+    end
+
+    local t_ret = {}
+
+    for i,v in pairs(self.m_mDragonUnitDataList) do
+        if v:containsDid(did) then
+            t_ret[i] = v
+        end
+    end
+
+    return t_ret
+end
+
+
+-------------------------------------
 -- function getDragonUnitIDList
 -------------------------------------
 function ServerData_DragonUnit:getDragonUnitIDList()

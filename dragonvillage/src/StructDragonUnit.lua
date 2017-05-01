@@ -57,3 +57,17 @@ function StructDragonUnit:checkCondition()
         end
     end
 end
+
+-------------------------------------
+-- function containsDid
+-- @brief
+-------------------------------------
+function StructDragonUnit:containsDid(did)
+    for _, struct_dragon_unit_condition in ipairs(self.m_lStructDragonUnitCondition) do
+        if struct_dragon_unit_condition:containsDid(did) then
+            return true
+        end
+    end
+
+    return false
+end

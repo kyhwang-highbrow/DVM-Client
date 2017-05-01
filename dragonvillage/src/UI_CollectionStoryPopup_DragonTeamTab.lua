@@ -106,7 +106,17 @@ function UI_CollectionStoryPopup_DragonTeamTab:init_tableViewDragonUnitList()
     local node = self.vars['dragonUnitListNode']
     node:removeAllChildren()
 
-    local l_item_list = g_dragonUnitData:getDragonUnitIDList()
+    local did = self.m_selectDragonID
+
+    -- 드래곤 이름
+    local name = TableDragon:getDragonName(did)
+    self.vars['dragonNameLabel']:setString(name)
+
+    local t_dragon_unit_list = g_dragonUnitData:getDragonUnitList(did)
+    local l_item_list = {}
+    for unit_id,_ in pairs(t_dragon_unit_list) do
+        table.insert(l_item_list, unit_id)
+    end
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -118,4 +128,5 @@ function UI_CollectionStoryPopup_DragonTeamTab:init_tableViewDragonUnitList()
     table_view:setCellUIClass(UI_CollectionStoryPopupItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
+    table_view:makeDefaultEmptyDescLabel(Str('이야기 준비 중'))
 end
