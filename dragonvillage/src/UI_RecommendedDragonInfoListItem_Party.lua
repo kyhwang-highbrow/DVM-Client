@@ -1,4 +1,5 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
+
 -------------------------------------
 -- class UI_RecommendedDragonInfoListItem_Party
 -------------------------------------
@@ -27,7 +28,7 @@ function UI_RecommendedDragonInfoListItem_Party:initUI()
     local vars = self.vars
 
 	-- 랭킹
-	vars['rankingLabel']:setString(Str('{1}', self.m_rank))
+	vars['rankingLabel']:setString(self.m_rank)
 
 	-- 드래곤 아이콘들
 	for i, t_dragon_info in pairs(self.m_lPartyInfoList) do

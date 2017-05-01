@@ -267,8 +267,8 @@ function UI_Lobby:initButton()
     vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 도감 버튼
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
     vars['guildBtn']:registerScriptTapHandler(function() self:click_guildBtn() end) -- 길드
+	vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end)
     
-
     -- FGT버전에서 퀘스트 기능 숨김
     if (TARGET_SERVER == 'FGT') then
         vars['questBtn']:setVisible(false)
@@ -598,6 +598,13 @@ end
 function UI_Lobby:click_guildBtn()
     --UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
     g_ancientTowerData:goToAncientTowerScene()
+end
+
+-------------------------------------
+-- function click_rankingBtn
+-------------------------------------
+function UI_Lobby:click_rankingBtn()
+    UI_OverallRankingPopup()
 end
 
 -------------------------------------

@@ -1,4 +1,5 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
+
 -------------------------------------
 -- class UI_RecommendedDragonInfoListItem_Dungeon
 -------------------------------------
