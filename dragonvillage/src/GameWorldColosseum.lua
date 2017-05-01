@@ -134,7 +134,8 @@ function GameWorldColosseum:initTamer()
 
         -- 설정이 제대로 안된 경우라면 고니로 강제 설정
         if (not t_tamer) then
-            t_tamer = TableTamer():get(110001)
+			local tid = g_constant:get('INGAME', 'TAMER_ID')
+            t_tamer = TableTamer():get(tid)
         end
     
         self.m_enemyTamer = self:makeTamerNew(t_tamer, true)

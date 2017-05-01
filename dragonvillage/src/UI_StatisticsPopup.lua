@@ -87,7 +87,7 @@ function UI_StatisticsPopup:initUI()
 
 			local tid = user_info:getTamer()
 			if (tid == 0) then
-				tid = 110001
+				tid = g_constant:get('INGAME', 'TAMER_ID')
 			end
 			local t_tamer = TableTamer():get(tid)
 			local tamer_type = t_tamer['type']
