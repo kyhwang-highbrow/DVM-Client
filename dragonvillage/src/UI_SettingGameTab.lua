@@ -14,6 +14,10 @@ function UI_Setting:init_gameTab()
     self:init_lowResModeSetting()
 
     vars['languageBtn']:registerScriptTapHandler(function() self:click_languageBtn() end)
+
+    -- 연출
+    vars['directOnBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('준비 중입니다.')) end)
+    vars['directOffBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('준비 중입니다.')) end)
 end
 
 -------------------------------------

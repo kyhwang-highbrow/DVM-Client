@@ -13,7 +13,7 @@ function UI_Setting:init()
     local vars = self:load('setting_popup_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
-    -- backkey 지정
+    -- backkey ě§ě 
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Setting')
 
     -- @UI_ACTION
