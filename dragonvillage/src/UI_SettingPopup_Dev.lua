@@ -10,6 +10,7 @@ function UI_SettingPopup:init_Dev()
     vars['allMaterialBtn']:registerScriptTapHandler(function() self:click_allMaterialBtn() end)
     vars['allRuneBtn']:registerScriptTapHandler(function() self:click_allRuneBtn() end)
     vars['allStaminaBtn']:registerScriptTapHandler(function() self:click_allStaminaBtn() end)
+	vars['allTamerBtn']:registerScriptTapHandler(function() self:click_allTamerBtn() end)
 end
 
 -------------------------------------
@@ -267,6 +268,47 @@ function UI_SettingPopup:click_allStaminaBtn()
         end
 
         UIManager:toastNotificationGreen('모든 입장권 추가!')
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
+end
+
+-------------------------------------
+-- function click_allTamerBtn
+-- @brief 모든 테이머 획득
+-------------------------------------
+function UI_SettingPopup:click_allTamerBtn()
+    local l_tid_list = {}
+    local table_tamer = TableTamer()
+    for i, _ in pairs(table_tamer.m_orgTable) do
+        table.insert(l_tid_list, i)
+    end
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        while (0 < #l_tid_list) do
+            co:work()
+			local tid = l_tid_list[1]
+			
+			-- 없는 테이머만 api를 호출한다.
+			if g_tamerData:hasTamer(tid) then
+				table.remove(l_tid_list, 1)
+				co.NEXT()
+			else
+				local function success_cb()
+					table.remove(l_tid_list, 1)
+					co.NEXT()
+				end
+				g_tamerData:request_getTamer(tid, success_cb)
+			end
+
+            if co:waitWork() then return end
+        end
+
+        UIManager:toastNotificationGreen('모든 테이머 획득!')
         co:close()
     end
 
