@@ -7,6 +7,8 @@ ChatManager = class({
         m_schedulerID = 'number',
 
         m_tempCB = '',
+
+        m_lMessage = '',
     })
 
 -------------------------------------
@@ -27,7 +29,7 @@ end
 -------------------------------------
 function ChatManager:init()
     self:initChatClient()
-
+    self.m_lMessage = {}
     local interval = 5
     self.m_schedulerID = scheduler.scheduleGlobal(function(dt) self:update(dt) end, interval)
 end
@@ -66,6 +68,8 @@ end
 -------------------------------------
 function ChatManager:msgQueueCB(msg)
     --cclog('# ChatManager:msgQueueCB(msg) ' .. msg['message'])
+
+    table.insert(self.m_lMessage, msg)
 
     if g_topUserInfo then
         g_topUserInfo:chatBroadcast(msg)

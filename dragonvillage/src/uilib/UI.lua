@@ -456,6 +456,13 @@ end
 function UI:refresh()
 end
 
+ -------------------------------------
+-- function onDestroyUI
+-- @breif
+-------------------------------------
+function UI:onDestroyUI()
+end
+
 -------------------------------------
 -- function checkCompileError
 -- @breif 클래스 순수가상함수 재정의 여부 검사

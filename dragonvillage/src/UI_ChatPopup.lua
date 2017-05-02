@@ -11,8 +11,8 @@ UI_ChatPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_ChatPopup:init()
-    local vars = self:load('chat.ui')
-    UIManager:open(self, UIManager.SCENE)
+    local vars = self:load('chat_new.ui')
+    UIManager:open(self, UIManager.NORMAL)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ChatPopup')
@@ -26,6 +26,10 @@ function UI_ChatPopup:init()
     self:initButton()
     self:refresh()
 
+    for i,msg in ipairs(g_chatManager.m_lMessage) do
+        self:msgQueueCB(msg)
+    end
+
     g_chatManager.m_tempCB = function(msg) self:msgQueueCB(msg) end
 end
 
@@ -36,7 +40,7 @@ end
 function UI_ChatPopup:initUI()
     local vars = self.vars
     
-    local list_table_node = vars['listNode']
+    local list_table_node = vars['chatNode']
 
     --[[
     -- 생성 콜백
@@ -58,7 +62,8 @@ function UI_ChatPopup:initUI()
     self.m_chatListView = table_view
     --]]
 
-    self.m_chatList = UI_ChatList(list_table_node, 1200, 540, 50)
+    local size = list_table_node:getContentSize()
+    self.m_chatList = UI_ChatList(list_table_node, size['width'], size['height'], 50)
 end
 
 -------------------------------------
@@ -112,13 +117,13 @@ function UI_ChatPopup:msgQueueCB(msg)
 
     local content = UI_ChatListItem(msg)
     content.root:setAnchorPoint(0.5, 0)
-    self.m_chatList:addContent(content.root, 50, 'type')
+    local height = content:getItemHeight()
+    self.m_chatList:addContent(content.root, height, 'type')
 end
 
 -------------------------------------
--- function close
+-- function onDestroyUI
 -------------------------------------
-function UI_ChatPopup:close()
-    PARENT.close(self)
+function UI_ChatPopup:onDestroyUI()
     g_chatManager.m_tempCB = nil
 end

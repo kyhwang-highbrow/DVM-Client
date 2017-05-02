@@ -23,7 +23,7 @@ function ITopUserInfo_EventListener:init()
     self.m_titleStr = nil
 	self.m_staminaType = 'st'
     self.m_subCurrency = 'amethyst'
-    self.m_bShowChatBtn = false
+    self.m_bShowChatBtn = true
 end
 
 -------------------------------------

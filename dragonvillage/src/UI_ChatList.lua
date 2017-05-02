@@ -242,8 +242,20 @@ end
 -------------------------------------
 -- function onTouchBegan
 -------------------------------------
-function UI_ChatList:onTouchBegan(touches, event)
-    return true
+function UI_ChatList:onTouchBegan(touche, event)
+    local location = touche:getLocation()
+
+    -- 영역을 벗어났는지 체크
+    local bounding_box = cc.rect(0, 0, self.m_width, self.m_height)
+    local local_location = self.m_root:getParent():convertToNodeSpace(location)
+    local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+
+    if is_contain then
+        event:stopPropagation()
+        return true
+    else
+        return false
+    end
 end
 
 -------------------------------------

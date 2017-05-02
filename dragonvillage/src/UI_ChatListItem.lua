@@ -13,6 +13,9 @@ UI_ChatListItem = class(PARENT, {
 function UI_ChatListItem:init(t_item_data)
     local vars = self:load('empty.ui')
 
+    self.root:setDockPoint(cc.p(0.5, 0))
+    self.root:setAnchorPoint(cc.p(0.5, 0))
+
     self:initUI()
     self:initButton()
     self:refresh()
@@ -23,9 +26,9 @@ function UI_ChatListItem:init(t_item_data)
 
     -- label의 속성들
     rich_label:setString(text)
-    rich_label:setFontSize(30)
+    rich_label:setFontSize(20)
     rich_label:setDimension(1200, 50)
-    rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_BOTTOM)
     rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 3)
     rich_label:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
 
@@ -56,4 +59,11 @@ end
 -- function refresh
 -------------------------------------
 function UI_ChatListItem:refresh()
+end
+
+-------------------------------------
+-- function getItemHeight
+-------------------------------------
+function UI_ChatListItem:getItemHeight()
+    return 30
 end

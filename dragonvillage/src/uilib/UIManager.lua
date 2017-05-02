@@ -84,6 +84,7 @@ end
 function UIManager:cleanUp()
     for i = #self.m_uiList, 1, -1 do
         local ui = self.m_uiList[i]
+        ui:onDestroyUI()
         self.m_uiLayer:removeChild(ui.root, true)
     end
     self.m_uiList = {}
@@ -245,6 +246,8 @@ function UIManager:close(ui)
 
     --TODO: 팝업 처리
     --CCDialogHelper:onClose(ui.root)
+
+    ui:onDestroyUI()
 
     self.m_uiLayer:removeChild(ui.root, true)
     table.remove(list, idx)

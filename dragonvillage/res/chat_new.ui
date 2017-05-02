@@ -7,6 +7,30 @@
 		{
 			[1] =
 			{
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'blockBtn';
+				enable = true;
+				normal = '';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[2] =
+			{
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
@@ -31,7 +55,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[2] =
+			[3] =
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
@@ -57,7 +81,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[3] =
+			[4] =
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
@@ -83,7 +107,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[4] =
+			[5] =
 			{
 				[1] =
 				{
@@ -147,7 +171,7 @@
 				disable = 'ui/btn/a_tab_0101.png';
 				image_type = 1;
 			};
-			[5] =
+			[6] =
 			{
 				[1] =
 				{
@@ -211,7 +235,7 @@
 				disable = 'ui/btn/a_tab_0101.png';
 				image_type = 1;
 			};
-			[6] =
+			[7] =
 			{
 				[1] =
 				{
@@ -275,7 +299,7 @@
 				disable = 'ui/btn/a_tab_0101.png';
 				image_type = 1;
 			};
-			[7] =
+			[8] =
 			{
 				[1] =
 				{
@@ -339,7 +363,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[8] =
+			[9] =
 			{
 				[1] =
 				{
@@ -429,7 +453,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[9] =
+			[10] =
 			{
 				type = 'EditBox';
 				ui_name = '';
@@ -464,7 +488,7 @@
 				pressed_bg = '';
 				disabled_bg = '';
 			};
-			[10] =
+			[11] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -488,7 +512,26 @@
 				disable = '';
 				image_type = 0;
 			};
-			[11] =
+			[12] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -22.000000;
+				y = 69.000000;
+				dock_point = { 1.000000; 0.000000; };
+				anchor_point = { 1.000000; 0.000000; };
+				relative_size_type = 3;
+				width = -44;
+				height = -148;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'whisperChatNode';
+			};
+			[13] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -507,11 +550,30 @@
 				visible = true;
 				lua_name = 'chatNode';
 			};
+			[14] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -22.000000;
+				y = 69.000000;
+				dock_point = { 1.000000; 0.000000; };
+				anchor_point = { 1.000000; 0.000000; };
+				relative_size_type = 3;
+				width = -44;
+				height = -148;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'guildChatNode';
+			};
 			type = 'Menu';
 			ui_name = '';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
+			x = -327.000000;
+			y = 292.000000;
+			dock_point = { 1.000000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 644;
