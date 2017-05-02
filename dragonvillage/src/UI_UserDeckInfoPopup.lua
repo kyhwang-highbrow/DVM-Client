@@ -167,7 +167,6 @@ function RequestUserDeckInfoPopup(uid, deck_name)
         end
 
         UI_UserDeckInfoPopup(ret)
-        --UI_UserDeckInfoPopup(ret['lv'], ret['nick'], ret['guild_name'], ret['dragons'])
     end
 
     local ui_network = UI_Network()

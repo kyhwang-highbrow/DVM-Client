@@ -1,4 +1,7 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
+
+local COMMON_UI_ACTION_TIME = 0.3
+
 -------------------------------------
 -- class UI_OverallRankingListItem
 -------------------------------------
@@ -25,11 +28,11 @@ end
 -------------------------------------
 function UI_OverallRankingListItem:initUI()
     local vars = self.vars
-	local did = self.m_tRankInfo
 
 	-- 랭킹
+	vars['rankingLabel'] = NumberLabel(vars['rankingLabel'], 0, COMMON_UI_ACTION_TIME)
 	local rank = self.m_tRankInfo['rank']
-	vars['rankingLabel']:setString(rank)
+	vars['rankingLabel']:setNumber(rank)
 
 	-- 리더 드래곤 아이콘
 	local dragon_icon = UI_DragonCard(self.m_tRankInfo['leader'])
@@ -62,7 +65,7 @@ function UI_OverallRankingListItem:refresh()
 	
 	-- 콜로세움 처리
 	if (self.m_isColosseum) then
-		vars['scoreLabel'].m_label:setPositionX(-190)
+		vars['scoreLabel'].m_label:runAction(cc.MoveTo:create(COMMON_UI_ACTION_TIME/2, cc.p(-190, 0)))
 		vars['pvpTierNode']:setVisible(true)
 
 		local tier = self.m_tRankInfo['tier']
@@ -82,7 +85,7 @@ end
 -- function click_detailBtn
 -------------------------------------
 function UI_OverallRankingListItem:click_detailBtn()
-	ccdisplay('유저 상세 정보 보기는 준비중입니다.')
+	RequestUserDeckInfoPopup(self.m_tRankInfo['uid'])
 end
 
 --@CHECK

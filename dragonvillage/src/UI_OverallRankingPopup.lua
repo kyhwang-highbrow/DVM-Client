@@ -110,6 +110,19 @@ function UI_OverallRankingPopup:refresh()
 		-- 스코어
 		local score = t_my_rank['rp']
 		vars['scoreLabel']:setNumber(score)
+
+		if (self.m_currTab == UI_OverallRankingPopup.COLOSSEUM) then
+			vars['scoreLabel'].m_label:runAction(cc.MoveTo:create(COMMON_UI_ACTION_TIME/2, cc.p(-190, 0)))
+			vars['pvpTierNode']:setVisible(true)
+			vars['pvpTierNode']:removeAllChildren()
+
+			local tier = t_my_rank['tier']
+			local icon = ColosseumUserInfo:makeTierIcon(tier, 'small')
+			vars['pvpTierNode']:addChild(icon)
+		else
+			vars['scoreLabel'].m_label:runAction(cc.MoveTo:create(COMMON_UI_ACTION_TIME, cc.p(-100, 0)))
+			vars['pvpTierNode']:setVisible(false)
+		end
 	end
 end
 

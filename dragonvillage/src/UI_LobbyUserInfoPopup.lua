@@ -104,5 +104,26 @@ function UI_LobbyUserInfoPopup:click_requestBtn(t_user_info)
     g_friendData:request_invite(friend_ui, finish_cb)
 end
 
+-------------------------------------
+-- function RequestUserDeckInfoPopup
+-------------------------------------
+function RequestUserInfoPopup(peer_uid)
+	-- 유저 ID
+    local uid = g_userData:get('uid')
+	local peer_uid = peer_uid
+
+    local function success_cb(ret)
+        UI_LobbyUserInfoPopup(ret)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setRevocable(true)
+    ui_network:setUrl('/users/get_user_info')
+	ui_network:setParam('uid', uid)
+    ui_network:setParam('peer', peer_uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()    
+end
+
 --@CHECK
 UI:checkCompileError(UI_LobbyUserInfoPopup)
