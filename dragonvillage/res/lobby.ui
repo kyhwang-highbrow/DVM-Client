@@ -1839,7 +1839,7 @@
 			action_duration = 0.400000;
 			lua_name = 'rankingBtn';
 			enable = true;
-			normal = 'ui/btn/lobby_side_event_0101.png';
+			normal = 'ui/btn/lobby_side_ranking_0101.png';
 			selected = '';
 			disable = '';
 			image_type = 1;
