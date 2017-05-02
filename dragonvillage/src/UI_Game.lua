@@ -10,6 +10,15 @@ UI_Game = class(UI, {
         m_bVisible_TamerUI = '',
         m_posX_TamerUI = '',
         m_posY_TamerUI = '',
+
+        -- 패널 버튼 이미지
+        m_panelBtnIcon1 = '',
+        m_panelBtnIcon2 = '',
+
+        -- 연출 버튼 이미지
+        m_effectBtnIcon1 = '',
+        m_effectBtnIcon2 = '',
+        m_effectBtnIcon3 = '',
      })
 
 -------------------------------------
@@ -79,7 +88,37 @@ function UI_Game:initButton()
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
     vars['panelBtn']:registerScriptTapHandler(function() self:click_panelBtn() end)
-    --vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
+    vars['effectBtn']:registerScriptTapHandler(function() self:click_effectBtn() end)
+
+    -- 패널 버튼 이미지
+    do
+        local b = g_autoPlaySetting:get('dragon_panel') or false
+
+        self.m_panelBtnIcon1 = MakeAnimator('res/ui/btn/ingame_top_panel_0101.png')
+        self.m_panelBtnIcon1:setVisible(not b)
+        vars['panelBtn']:addChild(self.m_panelBtnIcon1.m_node)
+
+        self.m_panelBtnIcon2 = MakeAnimator('res/ui/btn/ingame_top_panel_0102.png')
+        self.m_panelBtnIcon2:setVisible(b)
+        vars['panelBtn']:addChild(self.m_panelBtnIcon2.m_node)
+    end
+
+    -- 연출 버튼 이미지
+    do
+        local level = g_autoPlaySetting:get('skip_level') or 0
+
+        self.m_effectBtnIcon1 = MakeAnimator('res/ui/btn/ingame_top_effect_0103.png')
+        self.m_effectBtnIcon1:setVisible((level == 0))
+        vars['effectBtn']:addChild(self.m_effectBtnIcon1.m_node)
+
+        self.m_effectBtnIcon2 = MakeAnimator('res/ui/btn/ingame_top_effect_0102.png')
+        self.m_effectBtnIcon2:setVisible((level == 1))
+        vars['effectBtn']:addChild(self.m_effectBtnIcon2.m_node)
+
+        self.m_effectBtnIcon3 = MakeAnimator('res/ui/btn/ingame_top_effect_0101.png')
+        self.m_effectBtnIcon3:setVisible((level == 2))
+        vars['effectBtn']:addChild(self.m_effectBtnIcon3.m_node)
+    end
 end
 
 -------------------------------------
@@ -246,17 +285,24 @@ function UI_Game:click_panelBtn()
     if self.m_panelUI then
         self.m_panelUI:toggleVisibility()
 
+        self.m_panelBtnIcon1:setVisible(not self.m_panelUI.m_bVisible)
+        self.m_panelBtnIcon2:setVisible(self.m_panelUI.m_bVisible)
+
         g_autoPlaySetting:set('dragon_panel', self.m_panelUI.m_bVisible)
     end
 end
 
 -------------------------------------
--- function click_skipBtn
+-- function click_effectBtn
 -------------------------------------
-function UI_Game:click_skipBtn()
+function UI_Game:click_effectBtn()
     g_autoPlaySetting:setNextSkipLevel()
 
     local skip_level = g_autoPlaySetting:get('skip_level') or 0
+
+    self.m_effectBtnIcon1:setVisible((skip_level == 0))
+    self.m_effectBtnIcon2:setVisible((skip_level == 1))
+    self.m_effectBtnIcon3:setVisible((skip_level == 2))
 
     local gameDragonSkill = self.m_gameScene.m_gameWorld.m_gameDragonSkill
     gameDragonSkill:setSkipLevel(skip_level)
