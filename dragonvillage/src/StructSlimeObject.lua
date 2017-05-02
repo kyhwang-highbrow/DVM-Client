@@ -150,3 +150,11 @@ function StructSlimeObject:isNewDragon()
 
     return g_highlightData:isNewDoid(doid)
 end
+
+-------------------------------------
+-- function getFriendshipObject
+-- @breif
+-------------------------------------
+function StructSlimeObject:getFriendshipObject()
+    return StructFriendshipObject()
+end

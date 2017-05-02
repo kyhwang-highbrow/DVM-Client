@@ -1,9 +1,9 @@
 slime,t_name,material_type,type,res,test,scale,icon,pick_weight,rarity,role,attr,char_type,skill,atk_max,def_max,hp_max,aspd,cri_chance,cri_dmg,cri_avoid,hit_rate,avoid,t_desc
-129001,그린 슬라임,exp,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,material,earth,physical,200000,100,100,100,0,0,0,0,0,0,레벨업 재료로 사용하면 훨씬 많은 경험치를 제공하는 신비한 슬라임
-129002,블루 슬라임,exp,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,material,water,physical,200000,100,100,100,0,0,0,0,0,0,레벨업 재료로 사용하면 훨씬 많은 경험치를 제공하는 신비한 슬라임
-129003,레드 슬라임,exp,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,material,fire,physical,200000,100,100,100,0,0,0,0,0,0,레벨업 재료로 사용하면 훨씬 많은 경험치를 제공하는 신비한 슬라임
-129004,화이트 슬라임,exp,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,material,light,physical,200000,100,100,100,0,0,0,0,0,0,레벨업 재료로 사용하면 훨씬 많은 경험치를 제공하는 신비한 슬라임
-129005,블랙 슬라임,exp,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,material,dark,physical,200000,100,100,100,0,0,0,0,0,0,레벨업 재료로 사용하면 훨씬 많은 경험치를 제공하는 신비한 슬라임
-129113,슈퍼 슬라임,upgrade,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,material,light,physical,200000,100,100,100,0,0,0,0,0,0,등급 상승 재료로 사용할 수 있는 신비한 슬라임
-129114,슈퍼 슬라임,upgrade,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,material,light,physical,200000,100,100,100,0,0,0,0,0,0,등급 상승 재료로 사용할 수 있는 신비한 슬라임
-129115,슈퍼 슬라임,upgrade,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,material,light,physical,200000,100,100,100,0,0,0,0,0,0,등급 상승 재료로 사용할 수 있는 신비한 슬라임
+129001,그린 슬라임,exp,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,supporter,earth,physical,200000,100,100,100,0,0,0,0,0,0,레벨업 재료로 사용하면 훨씬 많은 경험치를 제공하는 신비한 슬라임
+129002,블루 슬라임,exp,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,supporter,water,physical,200000,100,100,100,0,0,0,0,0,0,레벨업 재료로 사용하면 훨씬 많은 경험치를 제공하는 신비한 슬라임
+129003,레드 슬라임,exp,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,supporter,fire,physical,200000,100,100,100,0,0,0,0,0,0,레벨업 재료로 사용하면 훨씬 많은 경험치를 제공하는 신비한 슬라임
+129004,화이트 슬라임,exp,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,supporter,light,physical,200000,100,100,100,0,0,0,0,0,0,레벨업 재료로 사용하면 훨씬 많은 경험치를 제공하는 신비한 슬라임
+129005,블랙 슬라임,exp,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,supporter,dark,physical,200000,100,100,100,0,0,0,0,0,0,레벨업 재료로 사용하면 훨씬 많은 경험치를 제공하는 신비한 슬라임
+129113,슈퍼 슬라임,upgrade,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,supporter,light,physical,200000,100,100,100,0,0,0,0,0,0,등급 상승 재료로 사용할 수 있는 신비한 슬라임
+129114,슈퍼 슬라임,upgrade,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,supporter,light,physical,200000,100,100,100,0,0,0,0,0,0,등급 상승 재료로 사용할 수 있는 신비한 슬라임
+129115,슈퍼 슬라임,upgrade,slime,res/character/dragon/slime_@_#/slime_@_#.spine,1,0.8,res/ui/icon/cha/slime_@_#.png,0,common,supporter,light,physical,200000,100,100,100,0,0,0,0,0,0,등급 상승 재료로 사용할 수 있는 신비한 슬라임

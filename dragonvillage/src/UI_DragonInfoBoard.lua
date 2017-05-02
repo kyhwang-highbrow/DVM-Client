@@ -44,6 +44,9 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
         return
     end
 
+    -- 슬라임인지 드래곤인지 여부
+    local is_slime_object = (t_dragon_data.m_objectType == 'slime')
+
     local vars = self.vars
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[t_dragon_data['did']]
@@ -71,11 +74,6 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
         local eclv = (t_dragon_data:getEclv() or 0)
         local lv_str = Str('레벨 {1}/{2}', lv, dragonMaxLevel(grade, eclv))
         vars['lvLabel']:setString(lv_str)
-    end
-
-
-    if (t_dragon_data.m_objectType ~= 'dragon') then
-        return
     end
 
     do -- 경혐치 exp
@@ -127,6 +125,15 @@ end
 function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
     local vars = self.vars
 
+    -- 슬라임인지 드래곤인지 여부
+    local is_slime_object = (t_dragon_data.m_objectType == 'slime')
+    if is_slime_object then
+        for i=0, MAX_DRAGON_EVOLUTION do
+            vars['skillNode' .. i]:removeAllChildren()
+        end
+        return
+    end
+
     local function func_skill_detail_btn()
         UI_SkillDetailPopup(t_dragon_data)
     end
@@ -154,7 +161,7 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
     local vars = self.vars
 
     do -- 희귀도
-        local rarity = t_dragon['rarity']
+        local rarity = t_dragon_data:getRarity()
         vars['rarityNode']:removeAllChildren()
         local icon = IconHelper:getRarityIcon(rarity)
         vars['rarityNode']:addChild(icon)
@@ -163,7 +170,7 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
     end
 
     do -- 드래곤 속성
-        local attr = t_dragon['attr']
+        local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
         local icon = IconHelper:getAttributeIcon(attr)
         vars['attrNode']:addChild(icon)
@@ -172,7 +179,7 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
     end
 
     do -- 드래곤 역할(role)
-        local role_type = t_dragon['role']
+        local role_type = t_dragon_data:getRole()
         vars['roleNode']:removeAllChildren()
         local icon = IconHelper:getRoleIcon(role_type)
         vars['roleNode']:addChild(icon)
@@ -187,6 +194,25 @@ end
 -------------------------------------
 function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
     local vars = self.vars
+
+    -- 슬라임인지 드래곤인지 여부
+    local is_slime_object = (t_dragon_data.m_objectType == 'slime')
+    if is_slime_object then
+        vars['atk_label']:setString('0')
+        vars['atk_spd_label']:setString('0')
+        vars['cri_chance_label']:setString('0')
+        vars['def_label']:setString('0')
+        vars['hp_label']:setString('0')
+        vars['cri_avoid_label']:setString('0')
+        vars['avoid_label']:setString('0')
+        vars['hit_rate_label']:setString('0')
+        vars['cri_dmg_label']:setString('0')
+
+        if vars['cp_label'] then
+            vars['cp_label']:setString('0')
+        end
+        return
+    end
 
     -- 능력치 계산기
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
