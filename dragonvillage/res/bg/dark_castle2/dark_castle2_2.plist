@@ -4,18 +4,148 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>dark_castle2_sky_02.png</key>
+            <key>dark_castle2_2_a_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1922,1600}}</string>
+                <string>{{2,1604},{350,1032}}</string>
+                <key>offset</key>
+                <string>{0,173}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{825,111},{350,1032}}</string>
+                <key>sourceSize</key>
+                <string>{2000,1600}</string>
+            </dict>
+            <key>dark_castle2_2_b.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{1134,1600}}</string>
+                <key>offset</key>
+                <string>{19,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{452,0},{1134,1600}}</string>
+                <key>sourceSize</key>
+                <string>{2000,1600}</string>
+            </dict>
+            <key>dark_castle2_2_torch.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1430,1882},{100,210}}</string>
+                <key>offset</key>
+                <string>{36,274}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{986,421},{100,210}}</string>
+                <key>sourceSize</key>
+                <string>{2000,1600}</string>
+            </dict>
+            <key>dark_castle2_2_torch_light_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{272,1956},{78,110}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{1922,1600}}</string>
+                <string>{{237,221},{78,110}}</string>
                 <key>sourceSize</key>
-                <string>{1922,1600}</string>
+                <string>{552,552}</string>
+            </dict>
+            <key>dark_castle2_2_torch_light_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1630,2},{80,120}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{236,216},{80,120}}</string>
+                <key>sourceSize</key>
+                <string>{552,552}</string>
+            </dict>
+            <key>dark_castle2_2_torch_light_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,1956},{90,126}}</string>
+                <key>offset</key>
+                <string>{6,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{237,213},{90,126}}</string>
+                <key>sourceSize</key>
+                <string>{552,552}</string>
+            </dict>
+            <key>dark_castle2_2_torch_light_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1630,124},{66,138}}</string>
+                <key>offset</key>
+                <string>{-5,8}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{238,199},{66,138}}</string>
+                <key>sourceSize</key>
+                <string>{552,552}</string>
+            </dict>
+            <key>dark_castle2_2_torch_light_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{130,1956},{84,140}}</string>
+                <key>offset</key>
+                <string>{8,7}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{242,199},{84,140}}</string>
+                <key>sourceSize</key>
+                <string>{552,552}</string>
+            </dict>
+            <key>dark_castle2_3_b.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1138,2},{490,1592}}</string>
+                <key>offset</key>
+                <string>{0,4}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{755,0},{490,1592}}</string>
+                <key>sourceSize</key>
+                <string>{2000,1600}</string>
+            </dict>
+            <key>dark_castle2_light_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1036,1604},{392,432}}</string>
+                <key>offset</key>
+                <string>{-244,23}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{520,161},{392,432}}</string>
+                <key>sourceSize</key>
+                <string>{1920,800}</string>
+            </dict>
+            <key>dark_castle2_light_yellow_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1430,1596},{280,284}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{136,134},{280,284}}</string>
+                <key>sourceSize</key>
+                <string>{552,552}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -25,9 +155,9 @@
             <key>realTextureFileName</key>
             <string>dark_castle2_2.png</string>
             <key>size</key>
-            <string>{1604,1926}</string>
+            <string>{1712,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5225d8dde3b73418aa2c34aa958c8b03:71b72324ebda7c5f871dae6b14f94c0e:fd04f23e6585a60c0e2f86f8e8ba62bc$</string>
+            <string>$TexturePacker:SmartUpdate:31a878eae2ade77ee1c439fcd94a2314:ea2cf80186351be4acbc0d1420debc02:3bb4a7e6804ba52f06d9b0e10c3c1596$</string>
             <key>textureFileName</key>
             <string>dark_castle2_2.png</string>
         </dict>
