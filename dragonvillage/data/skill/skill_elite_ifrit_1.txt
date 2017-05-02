@@ -7,7 +7,7 @@
 			{
 				"idx":1,
 				"res":"res/missile/missile_dot/mantra.png",
-				"body":[0,0,0],
+				"body":[0,0,60],
                 "count":1,
                 "period":0.1,
                 "scale":1.3,
@@ -25,7 +25,7 @@
 					{
 						"idx":1,
 						"res":"res/missile/missile_dot/mantra.png",
-						"body":[0,0,0],
+						"body":[0,0,60],
 						"count":1,
 						"scale":1.3,
 						"speed":300,
@@ -38,23 +38,26 @@
 						[					
 							{
 								"idx":1,
-								"res":"res/missile/missile_dot/mantra.png",
-								"body":[0,0,0],
-								"count":1,
-								"scale":1.3,
-								"speed":1500,
+								"res":"res/missile/missile_fire_red/missile_fire_red.vrp",
+								"body":[0,0,10],
+								"count":3,
+								"period":0,
+								"scale":1,
+								"speed":500,
 								"offset":[0,0],
-								"dir_array":[90,210,330],
+								"dir_array":['random'],
 								"missile_type":"pass",
-								"angular_velocity":-180,
+								"angular_velocity":0,
 								"reset_time":1,
-								"vanish_time":1
+								"damage_rate":10,
+								"vanish_time":1,
+								"no_rotate":true
 							}
 						],
 						
-						"add_script_start":1.3,
-						"add_script_term":0,
-						"add_script_max":1,
+						"add_script_start":0,
+						"add_script_term":0.05,
+						"add_script_max":50,
 						
 						"effect":
 						{
@@ -105,28 +108,6 @@
 						"missile_type":"pass",
 						"reset_time":1,
 						
-						"add_script":
-						[
-							{
-								"idx":1,
-								"res":"res/missile/missile_dot/mantra.png",
-								"body":[0,0,0],
-								"count":1,
-								"scale":0.8,
-								"speed":1500,
-								"offset":[0,0],
-								"dir_array":[90,210,330],
-								"missile_type":"pass",
-								"angular_velocity":-180,
-								"reset_time":1,
-								"vanish_time":1
-							}
-						],
-						
-						"add_script_start":1.3,
-						"add_script_term":0,
-						"add_script_max":1,
-						
 						"effect":
 						{
 							"motion_streak":"",
@@ -150,100 +131,34 @@
 			
 			{
 				"idx":1,
-				"body":[0,0,60],
-                "count":1,
-                "period":0.1,
-                "scale":1,
-				"time":0,
-				"speed":400,
-				"accel":-1000,
-				"l_limit_speed":0,
-				"accel_delay":0.2,
-				"accel_delay_fix":"true",
-				"angular_velocity":0,
-				"offset":[0,0],
-				"vanish_time":3.05,
-				"dir_array":[0,45,90,135,180,225,270,315],
-				"dir_add":0,
-				"missile_type":"pass",
-				"reset_time":1,
-				
-				"add_script":
-				[
-					{
-						"idx":1,
-						"body":[0,0,60],
-						"count":1,
-						"scale":1,
-						"speed":300,
-						"offset":[0,0],
-						"dir_array":[180],
-						"missile_type":"pass",
-						"reset_time":1,
-						
-						"add_script":
-						[					
-							{
-								"idx":1,
-								"body":[0,0,60],
-								"count":1,
-								"scale":1,
-								"speed":1500,
-								"offset":[0,0],
-								"dir_array":[90,210,330],
-								"angular_velocity":-180,
-								"missile_type":"pass",
-								"reset_time":1,
-								"vanish_time":1
-							}
-						],
-						
-						"add_script_start":1.3,
-						"add_script_term":0,
-						"add_script_max":1
-					}
-				],
-				
-				"add_script_start":3,
-				"add_script_term":0,
-				"add_script_max":1,
-				
-                "effect":
-                {
-                    "motion_streak":"",
-                    "rotation":false,
-                    "afterimage":false
-                }				
-			},
-			
-			{
-				"idx":1,
-				"res":"res/missile/missile_ring/missile_ring_@.vrp",
+				"res":"res/missile/missile_fire_red/missile_fire_red.vrp",
 				"body":[0,0,0],
                 "count":1,
                 "period":1,
-                "scale":0.5,
+                "scale":1,
 				"time":0,
 				"speed":-700
 				"angular_velocity":-180,
 				"offset":[5,-223],
 				"vanish_time":3,
-				"dir_array":[0]
+				"dir_array":[0],
+				"no_rotate":true
 			},
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_ring/missile_ring_@.vrp",
+				"res":"res/missile/missile_fire_red/missile_fire_red.vrp",
 				"body":[0,0,0],
                 "count":1,
                 "period":1,
-                "scale":0.5,
+                "scale":1,
 				"time":0,
 				"speed":-700
 				"angular_velocity":-180,
 				"offset":[5,223],
 				"vanish_time":3,
-				"dir_array":[180]
+				"dir_array":[180],
+				"no_rotate":true
 			}
 		]
 	}

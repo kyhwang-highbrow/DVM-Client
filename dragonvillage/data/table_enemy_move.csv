@@ -1,5 +1,5 @@
 type,pos_01,pos_02,pos_03,pos_04,pos_05,pos_06,pos_07,pos_08,pos_09,pos_10,pos_11,pos_12,pos_13,pos_14,pos_15,pos_16,pos_17,pos_18,pos_19,pos_20,pos_21,comment
-design,RM25,RB13,RB25,,,,,,,,,,,,,,,,,,,
+design,RF13,RF15,RF22,RF26,RM12,RM16,RM23,RM25,,,,,,,,,,,,,,
 wait,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,지정 시간동안 대기용으로 사용
 RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,
 RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,
@@ -189,6 +189,7 @@ c6_s8_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c6_s8_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c6_s8_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c9_s9_1,RB12,RM23,RM14,RF25,RF16,RF12,RF23,RM25,RB16,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c10_s10_1,RF23,RB15,RM12,RM26,RM22,RM16,RB13,RF25,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 move_1,RF11,RF21,RM11,RM21,RB11,RB21,RF12,RF22,RM12,RM22,RB12,RB22,x,x,x,x,x,x,x,x,x,상단 두줄
 move_2,RF16,RF26,RM16,RM26,RB16,RB26,RF17,RF27,RM17,RM27,RB17,RB27,x,x,x,x,x,x,x,x,x,하단 두줄
 move_3,RF11,RF13,RF15,RF17,RF22,RF24,RF26,RM11,RM13,RM15,RM17,RM22,RM24,RM26,RB11,RB13,RB15,RB17,RB22,RB24,RB26,좌측부터 체스판 형태로 채우기
@@ -279,6 +280,7 @@ set_1_s,RF22,RF26,RB24,RF22,RF26,RB24,RF22,RF26,RB24,x,x,x,x,x,x,x,x,x,x,x,x,3�
 set_2,RM12,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 movement_1_1,RF12,RF14,RF16,RM12,RM14,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 movement_1_2,RM12,RM14,RM16,RF12,RF14,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+movement_2,RF13,RB25,RM11,RM27,RM21,RM17,RB23,RF15,x,x,x,x,x,x,x,x,x,x,x,x,x,
 triangle_turn_1,RM25,RB13,RB25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 triangle_turn_2,RM25,RB13,RB25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 triangle_turn_3,RB25,RM25,RB13,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
