@@ -495,6 +495,9 @@ function UIC_RichLabel:getColor(color)
     COLOR['WHITE'] = cc.c3b(255,255,255)
     COLOR['YELLOW'] = cc.c3b(255,255,0)
     COLOR['RED'] = cc.c3b(255,0,0)
+    COLOR['BLUE'] = cc.c3b(0,0,255)
+
+    COLOR['DESC'] = cc.c3b(240, 215, 160)
 
     COLOR['SKILL_NAME'] = cc.c3b(255, 145, 0)
     COLOR['SKILL_DESC'] = cc.c3b(245, 233, 220)

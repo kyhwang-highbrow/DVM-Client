@@ -157,6 +157,7 @@ local t_module = {
 
     'ChatClient',
     'ChatManager',
+    'BroadcastMgr',
 
     -- Table
     'TableStageDesc',

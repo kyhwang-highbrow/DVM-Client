@@ -282,9 +282,9 @@ end
 function PerpleScene:onExit()
     UIManager:cleanUp()
 
-    if BroadcastMgr then
-        BroadcastMgr:setEnable(false)
-        BroadcastMgr:setEnableNotice(false)
+    if g_broadcastManager then
+        g_broadcastManager:setEnable(false)
+        g_broadcastManager:setEnableNotice(false)
     end
 
     --cclog('PerpleScene:onExit()')
@@ -388,12 +388,13 @@ end
 -- function initBroadcast
 -------------------------------------
 function PerpleScene:initBroadcast()
-    if (not BroadcastMgr) then
-        return
+    if (not g_broadcastManager) then
+        BroadcastMgr:initInstance()
     end
 
-    BroadcastMgr:setEnable(self.m_bShowPushUI)
-    BroadcastMgr:setEnableNotice(true) -- 운영 공지는 항상 활성화
+    --g_broadcastManager:setEnable(self.m_bShowPushUI)
+    g_broadcastManager:setEnable(true)
+    g_broadcastManager:setEnableNotice(true) -- 운영 공지는 항상 활성화
 end
 
 -------------------------------------

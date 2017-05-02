@@ -2052,6 +2052,9 @@
     <None Include="..\src\UI_OverallRankingListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\BroadcastMgr.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\ServerData_Ranking.lua">
       <Filter>lua</Filter>
     </None>

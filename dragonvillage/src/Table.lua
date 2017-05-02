@@ -47,6 +47,8 @@ local TableInfo = {
         calendar          = {'table_calendar',		        'month',		false},
         table_option      = {'table_option',		        'option',		false},
         table_slime       = {'table_slime',		            'slime',		false},
+
+		broadcast         = {'table_broadcast',		        'type',		    true},
         
 
         -- 드래곤 관리 관련
