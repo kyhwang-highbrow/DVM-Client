@@ -7,12 +7,14 @@ local MAX_DRAGON_GOODBYE_MATERIAL_MAX = 30 -- 한 번에 작별 가능한 드래
 UI_DragonGoodbye = class(PARENT,{
         m_bChangeDragonList = 'boolean',
         m_tableViewExtMaterial = 'TableViewExtension', -- 재료
-        m_tableViewExtSelectMaterial = 'TableViewExtension', -- 선택된 재료
         m_tableDragonTrainInfo = 'TableDragonTrainInfo',
         m_addLactea = 'number', -- 추가될 라테아 수
         m_dragonSortMgr = 'DragonSortManager',
 
         m_excludedDragons = '',
+
+
+        m_selectedMaterialMap = 'map',
     })
 
 -------------------------------------
@@ -33,6 +35,7 @@ end
 -------------------------------------
 function UI_DragonGoodbye:init(excluded_dragons)
     self.m_excludedDragons = (excluded_dragons or {})
+    self.m_selectedMaterialMap = {}
 
     local vars = self:load('dragon_lactea.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -81,7 +84,6 @@ end
 -------------------------------------
 function UI_DragonGoodbye:refresh()
     self:init_dragonMaterialTableView()
-    self:init_dragonUMaterialSelectTableView()
     self:refresh_lactea()
 end
 
@@ -122,12 +124,16 @@ function UI_DragonGoodbye:init_dragonMaterialTableView()
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
+        local doid = data['id']
         ui.root:setScale(item_scale)
         
         -- 드래곤 클릭 콜백 함수
         local function click_dragon_item()
-            local doid = data['id']
             self:click_dragonCard(doid)
+        end
+
+        if self.m_selectedMaterialMap[doid] then
+            ui:setShadowSpriteVisible(true)
         end
 
         ui.vars['clickBtn']:registerScriptTapHandler(click_dragon_item)
@@ -164,46 +170,11 @@ function UI_DragonGoodbye:makeMaterialList()
 end
 
 -------------------------------------
--- function init_dragonMaterialSelectTableView
--- @brief 선택된 드래곤 작별 재료 리스트 테이블 뷰
--------------------------------------
-function UI_DragonGoodbye:init_dragonUMaterialSelectTableView()
-    local list_table_node = self.vars['materialNode']
-    list_table_node:removeAllChildren()
-
-    local item_size = 150
-    local item_scale = 0.5
-    local item_adjust_size = (item_size * item_scale)
-
-    -- 생성
-    local function create_func(item)
-        local ui = item['ui']
-        ui.root:setScale(item_scale)
-    end
-
-    -- 드래곤 클릭 콜백 함수
-    local function click_dragon_item(item)
-        self:click_dragonCard(item['data']['id'])
-    end
-
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.HORIZONTAL)
-    table_view_ext:setCellInfo(item_adjust_size, item_adjust_size)  
-    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    table_view_ext:setItemInfo({})
-    table_view_ext:update()
-
-    self.m_tableViewExtSelectMaterial = table_view_ext
-end
-
--------------------------------------
 -- function click_dragonCard
 -------------------------------------
 function UI_DragonGoodbye:click_dragonCard(doid)
-    local selected_material_item = self.m_tableViewExtSelectMaterial:getItem(doid)
-
     -- 재료 해제
-    if selected_material_item then
+    if self.m_selectedMaterialMap[doid] then
         self:delMaterial(doid)
     -- 재료 추가
     else
@@ -215,7 +186,7 @@ end
 -- function click_sellBtn
 -------------------------------------
 function UI_DragonGoodbye:click_sellBtn()
-    local item_cnt = self.m_tableViewExtSelectMaterial:getItemCount()
+    local item_cnt = table.count(self.m_selectedMaterialMap)
 
     if (item_cnt <= 0) then
         UIManager:toastNotificationRed(Str('작별할 드래곤을 선택해주세요!'))
@@ -224,7 +195,7 @@ function UI_DragonGoodbye:click_sellBtn()
 
     local uid = g_userData:get('uid')
     local src_doids = nil
-    for _doid,_ in pairs(self.m_tableViewExtSelectMaterial.m_mapItem) do
+    for _doid,_ in pairs(self.m_selectedMaterialMap) do
         if (not src_doids) then
             src_doids = tostring(_doid)
         else
@@ -275,7 +246,6 @@ function UI_DragonGoodbye:goodbyeNetworkResponse(ret)
         g_topUserInfo:refreshData()
     end
 
-    self:init_dragonUMaterialSelectTableView()
     self:refresh_lactea()
 
     self.m_bChangeDragonList = true
@@ -291,17 +261,13 @@ function UI_DragonGoodbye:addMaterial(doid)
         return
     end
 
-    local item_cnt = self.m_tableViewExtSelectMaterial:getItemCount()
+    local item_cnt = table.count(self.m_selectedMaterialMap)
     if (item_cnt >= MAX_DRAGON_GOODBYE_MATERIAL_MAX) then
         UIManager:toastNotificationRed(Str('한 번에 최대 {1}마리만 작별할 수 있습니다.', MAX_DRAGON_GOODBYE_MATERIAL_MAX))
         return
     end
 
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-
-    -- 재료 추가
-    self.m_tableViewExtSelectMaterial:addItem(doid, t_dragon_data)
-    self.m_tableViewExtSelectMaterial:update()
+    self.m_selectedMaterialMap[doid] = true
 
     self:onChangeSelectedDragons(doid)
 end
@@ -311,9 +277,7 @@ end
 -------------------------------------
 function UI_DragonGoodbye:delMaterial(doid)
     -- 재료 해제
-    self.m_tableViewExtSelectMaterial:delItem(doid)
-    self.m_tableViewExtSelectMaterial:update()
-
+    self.m_selectedMaterialMap[doid] = nil
     self:onChangeSelectedDragons(doid)
 end
 
@@ -323,10 +287,6 @@ end
 -------------------------------------
 function UI_DragonGoodbye:refresh_materialDragonIndivisual(odid)
     if (not self.m_tableViewExtMaterial) then
-        return
-    end
-
-    if (not self.m_tableViewExtSelectMaterial) then
         return
     end
 
@@ -340,7 +300,7 @@ function UI_DragonGoodbye:refresh_materialDragonIndivisual(odid)
         return
     end
 
-    local is_selected = (self.m_tableViewExtSelectMaterial:getItem(odid) ~= nil)
+    local is_selected = (self.m_selectedMaterialMap[odid] ~= nil)
     ui:setShadowSpriteVisible(is_selected)
 end
 
@@ -358,7 +318,7 @@ function UI_DragonGoodbye:onChangeSelectedDragons(doid)
     local evolution = t_dragon_data['evolution']
     local lactea = self.m_tableDragonTrainInfo:getGoodbyeLacteaCnt(grade, evolution)
 
-    local is_selected = (self.m_tableViewExtSelectMaterial:getItem(doid) ~= nil)
+    local is_selected = (self.m_selectedMaterialMap[doid] ~= nil)
 
     if (is_selected) then
         self.m_addLactea = (self.m_addLactea + lactea)
@@ -368,7 +328,7 @@ function UI_DragonGoodbye:onChangeSelectedDragons(doid)
 
     local vars = self.vars
     vars['lacreaLabel2']:setString(Str('+{1}', comma_value(self.m_addLactea)))
-    local selected_dragon_cnt = self.m_tableViewExtSelectMaterial and self.m_tableViewExtSelectMaterial:getItemCount() or 0
+    local selected_dragon_cnt = table.count(self.m_selectedMaterialMap)
     vars['selectLabel']:setString(Str('{1} / {2}', selected_dragon_cnt, MAX_DRAGON_GOODBYE_MATERIAL_MAX))
 end
 

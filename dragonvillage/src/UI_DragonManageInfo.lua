@@ -162,7 +162,7 @@ function UI_DragonManageInfo:refresh_buttonState()
 
     do -- 우상단 버튼들 초기화
         -- 레벨업
-        vars['levelupBtn']:setEnabled(true)
+        vars['levelupBtn']:setEnabled(not is_slime_object)
 
         -- 승급
         vars['upgradeBtn']:setEnabled(not is_slime_object)
@@ -171,7 +171,7 @@ function UI_DragonManageInfo:refresh_buttonState()
         vars['transcendBtn']:setEnabled(not is_slime_object)
 
         -- 진화
-        vars['evolutionBtn']:setEnabled(true)
+        vars['evolutionBtn']:setEnabled(not is_slime_object)
 
         -- 친밀도
         vars['friendshipBtn']:setEnabled(not is_slime_object)
