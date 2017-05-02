@@ -378,12 +378,14 @@ function UI_Game:init_timeUI(display_wave, time)
     vars['timeNode']:setVisible(true)
 
     -- 시간 이미지 폰트 생성
+    --[[
     vars['timeLabel'] = cc.Label:createWithBMFont('res/font/gold_dungeon_time.fnt', '00:00')
     vars['timeLabel']:setAnchorPoint(cc.p(1, 0.5))
     vars['timeLabel']:setDockPoint(cc.p(1, 0.5))
     vars['timeLabel']:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
     vars['timeLabel']:setAdditionalKerning(0)
     vars['timeNode']:addChild(vars['timeLabel'])
+    ]]--
 
     if (time) then
         self:setTime(time)

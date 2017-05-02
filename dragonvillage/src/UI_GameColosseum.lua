@@ -45,6 +45,24 @@ function UI_GameColosseum:initButton()
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
+    vars['effectBtn']:registerScriptTapHandler(function() self:click_effectBtn() end)
+
+    -- 연출 버튼 이미지
+    do
+        local level = g_autoPlaySetting:get('skip_level') or 0
+
+        self.m_effectBtnIcon1 = MakeAnimator('res/ui/btn/ingame_top_effect_0103.png')
+        self.m_effectBtnIcon1:setVisible((level == 0))
+        vars['effectBtn']:addChild(self.m_effectBtnIcon1.m_node)
+
+        self.m_effectBtnIcon2 = MakeAnimator('res/ui/btn/ingame_top_effect_0102.png')
+        self.m_effectBtnIcon2:setVisible((level == 1))
+        vars['effectBtn']:addChild(self.m_effectBtnIcon2.m_node)
+
+        self.m_effectBtnIcon3 = MakeAnimator('res/ui/btn/ingame_top_effect_0101.png')
+        self.m_effectBtnIcon3:setVisible((level == 2))
+        vars['effectBtn']:addChild(self.m_effectBtnIcon3.m_node)
+    end
 end
 
 -------------------------------------
