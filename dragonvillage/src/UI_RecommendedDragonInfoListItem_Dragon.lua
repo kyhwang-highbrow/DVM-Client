@@ -42,7 +42,7 @@ function UI_RecommendedDragonInfoListItem_Dragon:initUI()
 
 	-- 퍼센트
 	local percent = self.m_tDragonInfo['percent']
-	vars['rankingGaugeLabel']:setString(string.format('%d%%', percent))
+	vars['rankingGaugeLabel']:setString(string.format('%.2f%%', percent))
 	
 	-- 게이지 (액션)
 	vars['rankingGauge']:setPercentage(0)
