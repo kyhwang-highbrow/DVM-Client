@@ -13,12 +13,6 @@ UI_ReadyScene = class(PARENT,{
 
         -- 정렬 도우미
         m_dragonSortMgr = 'DragonSortManager',
-
-		-- 슬라이드 형 진형 선택 메뉴 관련 변수
-        m_bOpenedFormationUI = 'boolean',
-		m_formationUIPosX = 'num',			-- 진형 선택 메뉴의 초기 x좌표
-		m_formationUIPosY = 'num',			-- 진형 선택 메뉴의 초기 y좌표
-		m_formationUIToMovePosX = 'num',	-- 진형 선택 메뉴가 화면밖으로 숨어 있을 곳의 x좌표
     })
 
 local DC_SCALE = 0.61
@@ -107,7 +101,6 @@ function UI_ReadyScene:initUI()
     local vars = self.vars
 
     self:init_dragonTableView()
-    self:initFormationUI()
 
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
         local vars = self.vars
@@ -125,7 +118,6 @@ function UI_ReadyScene:initUI()
     end
 
     self:initTab()
-
 
     -- 미구현으로 off
     local vars = self.vars
@@ -185,7 +177,6 @@ function UI_ReadyScene:initButton()
 
     -- 진형 관린
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
-    vars['fomationSetColseBtn']:registerScriptTapHandler(function() self:click_fomationSetColseBtn() end)
 end
 
 -------------------------------------
@@ -292,11 +283,7 @@ end
 -- function click_backBtn
 -------------------------------------
 function UI_ReadyScene:click_backBtn()
-    if (self.m_bOpenedFormationUI == true) then
-        self:setFormationUIVisible(false)
-    else
-        self:click_exitBtn()
-    end
+	self:click_exitBtn()
 end
 
 -------------------------------------
@@ -527,16 +514,15 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_fomationBtn()
-    --UIManager:toastNotificationRed('"진형 선택"은 준비 중입니다.')
-    self:toggleFormationUI()
-end
-
--------------------------------------
--- function click_fomationSetColseBtn
--- @breif
--------------------------------------
-function UI_ReadyScene:click_fomationSetColseBtn()
-    self:setFormationUIVisible(false)
+	-- m_readySceneDeck에서 현재 formation 받아와 전달
+	local curr_formation_type = self.m_readySceneDeck.m_currFormation
+    local ui = UI_FormationPopup(curr_formation_type)
+	
+	-- 종료하면서 선택된 formation을 m_readySceneDeck으로 전달
+	local function close_cb(formation_type)
+		self.m_readySceneDeck:setFormation(formation_type)
+	end
+	ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
@@ -677,78 +663,6 @@ end
 -------------------------------------
 function UI_ReadyScene:close()
     UI.close(self)
-end
-
--------------------------------------
--- function getFormationUIPos
--- @brief 진형 선택 메뉴의 좌표 관련 값들을 초기화 한다.
--------------------------------------
-function UI_ReadyScene:initFormationUIPos()
-	local formation_ui = self.vars['fomationSetmenu']
-	local visibleSize = formation_ui:getContentSize()
-	
-	self.m_formationUIPosX, self.m_formationUIPosY = formation_ui:getPosition()
-	if (self.m_formationUIPosX > 0) then
-		self.m_formationUIToMovePosX = self.m_formationUIPosX + visibleSize['width']
-	else
-		self.m_formationUIToMovePosX = self.m_formationUIPosX - visibleSize['width']
-	end
-end
-
--------------------------------------
--- function getFormationUIPos
--------------------------------------
-function UI_ReadyScene:getFormationUIPos()
-    local pos_x = self.m_formationUIPosX
-    local pos_y = self.m_formationUIPosY
-    return pos_x, pos_y
-end
-
--------------------------------------
--- function initFormationUI
--- @breif 포메이션 설정 UI를 화면 오른쪽으로 이동, visible off
--------------------------------------
-function UI_ReadyScene:initFormationUI()
-    self.m_bOpenedFormationUI = false
-	self:initFormationUIPos()
-
-    local pos_x, pos_y = self:getFormationUIPos()
-    local node = self.vars['fomationSetmenu']
-    node:setPositionX(self.m_formationUIToMovePosX)
-    node:setVisible(false)
-end
-
--------------------------------------
--- function toggleFormationUI
--------------------------------------
-function UI_ReadyScene:toggleFormationUI()
-    self:setFormationUIVisible(not self.m_bOpenedFormationUI)
-end
-
--------------------------------------
--- function setFormationUIVisible
--------------------------------------
-function UI_ReadyScene:setFormationUIVisible(visible)
-    if (self.m_bOpenedFormationUI == visible) then
-        return
-    end
-
-    self.m_bOpenedFormationUI = visible
-
-    local node = self.vars['fomationSetmenu']
-    local action_tag = 100
-
-    local pos_x, pos_y = self:getFormationUIPos()
-
-    if self.m_bOpenedFormationUI then
-        node:setVisible(true)
-        local action = cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(pos_x, pos_y)), 2)
-        cca.runAction(node, action, action_tag)
-    else
-        local action = cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(self.m_formationUIToMovePosX, pos_y)), 2)
-        action = cc.Sequence:create(action, cc.Hide:create())
-        cca.runAction(node, action, action_tag)
-    end
 end
 
 --@CHECK

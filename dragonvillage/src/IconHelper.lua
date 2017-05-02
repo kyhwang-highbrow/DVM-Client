@@ -210,8 +210,8 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
     end
 
     local bg = cc.Sprite:create('res/ui/icon/rune/rune_bg_' .. rarity_str .. '.png')
-    bg:setDockPoint(cc.p(0.5, 0.5))
-    bg:setAnchorPoint(cc.p(0.5, 0.5))
+    bg:setDockPoint(CENTER_POINT)
+    bg:setAnchorPoint(CENTER_POINT)
 
 
     local set_color = TableRuneSet:getRuneSetColor(set_id)
@@ -448,8 +448,8 @@ function IconHelper:getStaminaInboxIcon(type)
         icon = cc.Sprite:create('res/ui/icon/inbox/inbox_staminas_st.png')
     end
 
-    icon:setDockPoint(cc.p(0.5, 0.5))
-    icon:setAnchorPoint(cc.p(0.5, 0.5))
+    icon:setDockPoint(CENTER_POINT)
+    icon:setAnchorPoint(CENTER_POINT)
 
     return icon
 end
@@ -467,8 +467,32 @@ function IconHelper:getTamerProfileIcon(type)
         icon = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
-    icon:setDockPoint(cc.p(0.5, 0.5))
-    icon:setAnchorPoint(cc.p(0.5, 0.5))
+    icon:setDockPoint(CENTER_POINT)
+    icon:setAnchorPoint(CENTER_POINT)
 
     return icon
+end
+
+-------------------------------------
+-- function getFormationIcon
+-- @brief 진형 아이콘 생성
+-------------------------------------
+function IconHelper:getFormationIcon(formation_type, is_activated)
+	local sub_str = is_activated and '02' or '01'
+	if (formation_type == 'protect') then
+		ccdisplay('임시 처리 코드 통과 - formation_type ')
+		formation_type = 'critical'
+	end
+
+    local res_name = string.format('res/ui/icon/fomation/%s_%s.png', formation_type, sub_str)
+    local sprite = cc.Sprite:create(res_name)
+
+    if (not sprite) then
+        sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
+    end
+
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
+
+    return sprite
 end

@@ -24,6 +24,9 @@ function TableFormation:getFormationPositionList(formation, min_x, max_x, min_y,
         self = TableFormation()
     end
 
+	-- @TODO
+	local formation = self:temp(formation)
+
     local t_table = self:get(formation)
 
     local gap_x = (max_x - min_x)
@@ -53,26 +56,12 @@ function TableFormation:getFormationPositionList(formation, min_x, max_x, min_y,
 end
 
 -------------------------------------
--- function makeFormationIcon
--------------------------------------
-function TableFormation:makeFormationIcon(formation)
-    local res = 'res/ui/icon/fomation/fomation_' .. formation .. '.png'
-    local icon = cc.Sprite:create(res)
-
-    if (not icon) then
-        icon = cc.Sprite:create('res/ui/icon/skill/developing.png')
-    end
-
-    icon:setDockPoint(cc.p(0.5, 0.5))
-    icon:setAnchorPoint(cc.p(0.5, 0.5))
-
-    return icon
-end
-
--------------------------------------
 -- function getBuffStrList
 -------------------------------------
 function TableFormation:getBuffStrList(formation)
+	-- @TODO
+	local formation = self:temp(formation)
+
     local t_formation = self:get(formation)
 
     local l_buff_str = {}
@@ -104,6 +93,9 @@ function TableFormation:getBuffList(formation, slot_idx)
     if (self == TableFormation) then
         self = TableFormation()
     end
+
+	-- @TODO
+	local formation = self:temp(formation)
 
     local t_formation = self:get(formation)
 
@@ -146,12 +138,33 @@ function TableFormation:getLocationInfo(formation)
         self = TableFormation()
     end
 
+	-- @TODO
+	local formation = self:temp(formation)
+
     local t_ret = {}
     t_ret['front'] = self:getCommaSeparatedValues(formation, 'front')
     t_ret['middle'] = self:getCommaSeparatedValues(formation, 'middle')
     t_ret['rear'] = self:getCommaSeparatedValues(formation, 'rear')
     
     return t_ret
+end
+
+-------------------------------------
+-- function getFormationName
+-- @breif UI에서 사용되는 진형 이름
+-------------------------------------
+function TableFormation:getFormationName(formation)
+	if (self == THIS) then
+        self = THIS()
+    end
+    
+	-- @TODO
+	local formation = self:temp(formation)
+
+    local t_table = self:get(formation)
+    local name = Str(t_table['t_name'])
+
+	return name
 end
 
 -------------------------------------
@@ -162,7 +175,10 @@ function TableFormation:getFormationNameAndDesc(formation)
     if (self == THIS) then
         self = THIS()
     end
-    
+    	
+	-- @TODO
+	local formation = self:temp(formation)
+
     local t_table = self:get(formation)
 
     local name = Str(t_table['t_name'])
@@ -184,4 +200,16 @@ function TableFormation:getFormationNameAndDesc(formation)
     end
 
     return name, desc
+end
+
+-------------------------------------
+-- function 
+-- @TODO
+-------------------------------------
+function TableFormation:temp(formation)
+	if (formation == 'protect') then
+		formation = 'critical'
+		ccdisplay('임시 처리 코드 통과 - formation_type ')
+	end
+	return formation
 end

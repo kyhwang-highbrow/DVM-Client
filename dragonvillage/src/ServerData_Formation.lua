@@ -3,6 +3,7 @@
 -------------------------------------
 ServerData_Formation = class({
         m_serverData = 'ServerData',
+		m_formationData = 'table',
     })
 
 -------------------------------------
@@ -10,39 +11,58 @@ ServerData_Formation = class({
 -------------------------------------
 function ServerData_Formation:init(server_data)
     self.m_serverData = server_data
+	self:initFormation()
 end
 
 -------------------------------------
--- function init
+-- function initFormation
+-- @brief 진형 정보를 초기화 한다.
 -------------------------------------
-function ServerData_Formation:getRankData(rank_type)
-	local rank_type = rank_type or 0
-	
-	if (self.m_mRankingMap[rank_type]) then
-		return self.m_mRankingMap[rank_type]
+function ServerData_Formation:initFormation()
+	self.m_formationData = {
+		attack = {formation = 'attack',  formation_lv = 1},
+		balance = {formation = 'balance', formation_lv = 1},
+		defence = {formation = 'defence', formation_lv = 1},
+		protect = {formation = 'protect', formation_lv = 1},
+	}
+end
+
+-------------------------------------
+-- function getFormationLVList
+-------------------------------------
+function ServerData_Formation:getFormationLVList()
+	local l_formation_lv = self.m_serverData:get('user','formation_lv')
+	self:makeDataPretty(l_formation_lv)
+
+	return self.m_formationData
+end
+
+-------------------------------------
+-- function makeDataPretty
+-- @brief 서버로부터 가져온 정보를 사용하기 좋게 가공한다.
+-------------------------------------
+function ServerData_Formation:makeDataPretty(l_formation_lv)
+	for i, v in pairs(self.m_formationData) do
+		local idx = tostring(i)
+		local formation_lv = l_formation_lv[tostring(idx)]
+		if (formation_lv) then
+			v['formation_lv'] = formation_lv
+		end
 	end
 end
 
 -------------------------------------
--- function init
+-- function request_lvupFormation
 -------------------------------------
-function ServerData_Formation:setRankData(rank_type, rank_data)
-	local rank_type = rank_type or 0
-    self.m_mRankingMap[rank_type] = rank_data
-end
-
--------------------------------------
--- function request_getRank
--------------------------------------
-function ServerData_Formation:request_getRank(cb_func)
+function ServerData_Formation:request_lvupFormation(formation_type, cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
+	local formation_type = formation_type
 
     -- 콜백 함수
     local function success_cb(ret)
-
-		-- 한번 본 랭킹은 맵 형태로 저장
-		self:setRankData(rank_type, ret)
+		-- 적용
+		--self.m_serverData:applyServerData(ret, 'user','formation_lv')
 
 		if (cb_func) then
 			cb_func()
@@ -51,8 +71,9 @@ function ServerData_Formation:request_getRank(cb_func)
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/users/get/rank')
+    ui_network:setUrl('/users/lvup/deck')
     ui_network:setParam('uid', uid)
+	ui_network:setParam('formation', formation_type)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(false)
     ui_network:setReuse(false)

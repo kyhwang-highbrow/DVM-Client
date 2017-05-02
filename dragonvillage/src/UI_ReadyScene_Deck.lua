@@ -21,7 +21,6 @@ UI_ReadyScene_Deck = class({
         --
         m_lSettedDragonCard = 'list',
         m_currFormation = '',
-        m_radioButtonFormation = '',
 
         -- 드래그로 이동
         m_selectedDragonSlotIdx = 'number',
@@ -94,14 +93,6 @@ end
 -------------------------------------
 function UI_ReadyScene_Deck:initButton()
     local vars = self.m_uiReadyScene.vars
-
-    -- 진형 선택 버튼
-    local radio_button = UIC_RadioButton()
-    self.m_radioButtonFormation = radio_button
-    radio_button:addButton(T_FORMATION_NAME['a'], vars['aFomationBtn'], vars['aFomationUseSprite'], function() self:setFormation(T_FORMATION_NAME['a']) end)
-    radio_button:addButton(T_FORMATION_NAME['b'], vars['bFomationBtn'], vars['bFomationUseSprite'], function() self:setFormation(T_FORMATION_NAME['b']) end)
-    radio_button:addButton(T_FORMATION_NAME['c'], vars['cFomationBtn'], vars['cFomationUseSprite'], function() self:setFormation(T_FORMATION_NAME['c']) end)
-    radio_button:addButton(T_FORMATION_NAME['d'], vars['dFomationBtn'], vars['dFomationUseSprite'], function() self:setFormation(T_FORMATION_NAME['d']) end)
 end
 
 -------------------------------------
@@ -245,10 +236,7 @@ function UI_ReadyScene_Deck:init_deck()
 
     self:setFormation(formation)
 
-    self.m_radioButtonFormation:setSelectedButton(formation)
-
     self:setDirtyDeck()
-
 
     do -- 진형들의 이름, 버프 내용 출력
         local vars = self.m_uiReadyScene.vars
