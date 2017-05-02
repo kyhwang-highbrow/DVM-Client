@@ -6,6 +6,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_DragonManage_Base = class(PARENT,{
         m_selectDragonData = 'table',           -- 선택된 드래곤의 유저 데이터
         m_selectDragonOID = 'number',           -- 선택된 드래곤의 dragon object id
+        m_bSlimeObject = 'boolean',
         m_tableViewExt = 'TableViewExtension',  -- 하단의 드래곤 리스트 테이블 뷰
         m_dragonSelectFrame = 'sprite',         -- 선택된 드래곤의 카드에 표시
         m_bChangeDragonList = 'boolean',
@@ -185,8 +186,13 @@ end
 -- @brief 선택된 드래곤의 데이터를 최신으로 갱신
 -------------------------------------
 function UI_DragonManage_Base:setSelectDragonDataRefresh()
-    local dragon_object_id = self.m_selectDragonOID
-    self.m_selectDragonData = g_dragonsData:getDragonDataFromUid(dragon_object_id)
+    local object_id = self.m_selectDragonOID
+
+    if self.m_bSlimeObject then
+        self.m_selectDragonData = g_slimesData:getSlimeObject(object_id)
+    else
+        self.m_selectDragonData = g_dragonsData:getDragonDataFromUid(object_id)
+    end
 end
 
 -------------------------------------
@@ -214,6 +220,7 @@ function UI_DragonManage_Base:setSelectDragonData(object_id, b_force)
     -- 선택된 드래곤의 데이터를 최신으로 갱신
     self.m_selectDragonOID = object_id
     self.m_selectDragonData = object_data
+    self.m_bSlimeObject = (object_data.m_objectType == 'slime')
 
     -- 선택된 드래곤 카드에 프레임 표시
     self:changeDragonSelectFrame()

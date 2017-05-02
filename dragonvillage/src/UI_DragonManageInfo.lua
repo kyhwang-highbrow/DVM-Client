@@ -129,6 +129,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonManageInfo:refresh()
+    self:refresh_buttonState()
     local t_dragon_data = self.m_selectDragonData
 
     self.m_dragonInfoBoardUI:refresh(t_dragon_data)
@@ -151,6 +152,62 @@ function UI_DragonManageInfo:refresh()
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
 end
+
+-------------------------------------
+-- function refresh_buttonState
+-------------------------------------
+function UI_DragonManageInfo:refresh_buttonState()
+    local vars = self.vars
+    local is_slime_object = self.m_bSlimeObject
+
+    do -- 우상단 버튼들 초기화
+        -- 레벨업
+        vars['levelupBtn']:setEnabled(true)
+
+        -- 승급
+        vars['upgradeBtn']:setEnabled(not is_slime_object)
+
+        -- 초월
+        vars['transcendBtn']:setEnabled(not is_slime_object)
+
+        -- 진화
+        vars['evolutionBtn']:setEnabled(true)
+
+        -- 친밀도
+        vars['friendshipBtn']:setEnabled(not is_slime_object)
+
+        -- 룬
+        vars['runeBtn']:setEnabled(not is_slime_object)
+
+        -- 연구
+        vars['resechBtn']:setEnabled(not is_slime_object)
+    end
+
+    do -- 좌상단 버튼들 초기화
+        -- 대표
+        vars['leaderBtn']:setEnabled(not is_slime_object)
+
+        -- 잠금
+        vars['lockBtn']:setEnabled(not is_slime_object)
+
+        -- 작별
+        vars['sellBtn']:setEnabled(true)
+    end
+
+    do -- 기타 버튼
+        -- 장비 개별 버튼 1~3
+        vars['equipSlotBtn1']:setEnabled(not is_slime_object)
+        vars['equipSlotBtn2']:setEnabled(not is_slime_object)
+        vars['equipSlotBtn3']:setEnabled(not is_slime_object)
+        vars['equipSlotBtn4']:setEnabled(not is_slime_object)
+        vars['equipSlotBtn5']:setEnabled(not is_slime_object)
+        vars['equipSlotBtn6']:setEnabled(not is_slime_object)
+    end
+
+    -- 드래곤 개발 API
+    self.m_dragonInfoBoardUI.vars['equipmentBtn']:setEnabled(not is_slime_object)
+end
+
 
 -------------------------------------
 -- function refresh_dragonBasicInfo
