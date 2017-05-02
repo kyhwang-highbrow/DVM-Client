@@ -113,7 +113,6 @@ function RequestUserInfoPopup(peer_uid)
 	local peer_uid = peer_uid
 
     local function success_cb(ret)
-		ccdump(ret)
 		local t_user_info = ret['user_info']
         UI_LobbyUserInfoPopup(t_user_info)
     end

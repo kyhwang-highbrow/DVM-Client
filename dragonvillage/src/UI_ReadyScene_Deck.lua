@@ -237,18 +237,6 @@ function UI_ReadyScene_Deck:init_deck()
     self:setFormation(formation)
 
     self:setDirtyDeck()
-
-    do -- 진형들의 이름, 버프 내용 출력
-        local vars = self.m_uiReadyScene.vars
-
-        local table_formation = TableFormation()
-
-        for i,v in pairs(T_FORMATION_NAME) do
-            local name, desc = table_formation:getFormationNameAndDesc(v)
-            vars[tostring(i) .. 'FomationLabel']:setString(name)
-            vars[tostring(i) .. 'FomationdscLabel1']:setString(desc)
-        end
-    end
 end
 
 -------------------------------------
