@@ -113,12 +113,14 @@ function RequestUserInfoPopup(peer_uid)
 	local peer_uid = peer_uid
 
     local function success_cb(ret)
-        UI_LobbyUserInfoPopup(ret)
+		ccdump(ret)
+		local t_user_info = ret['user_info']
+        UI_LobbyUserInfoPopup(t_user_info)
     end
 
     local ui_network = UI_Network()
     ui_network:setRevocable(true)
-    ui_network:setUrl('/users/get_user_info')
+    ui_network:setUrl('/users/get/user_info')
 	ui_network:setParam('uid', uid)
     ui_network:setParam('peer', peer_uid)
     ui_network:setSuccessCB(success_cb)

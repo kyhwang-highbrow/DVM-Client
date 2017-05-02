@@ -85,7 +85,7 @@ end
 -- function click_detailBtn
 -------------------------------------
 function UI_OverallRankingListItem:click_detailBtn()
-	RequestUserDeckInfoPopup(self.m_tRankInfo['uid'])
+	RequestUserInfoPopup(self.m_tRankInfo['uid'])
 end
 
 --@CHECK
