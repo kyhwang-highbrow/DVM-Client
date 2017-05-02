@@ -451,6 +451,6 @@ function ColosseumUserInfo:getLeaderDragonCard()
     if (t_dragon_data['did'] == 0) then
         return nil
     end
-    local card = UI_DragonCard(t_dragon_data)
+    local card = UI_DragonCard(StructDragonObject(t_dragon_data))
     return card
 end

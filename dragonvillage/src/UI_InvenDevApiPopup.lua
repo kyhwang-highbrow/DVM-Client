@@ -101,8 +101,9 @@ function UI_InvenDevApiPopup:init_dragonTableView()
         local ui = item['ui']
         ui.root:setScale(item_scale)
 
-
-        local label = cc.Label:createWithTTF(item['data']['t_name'], 'res/font/common_font_01.ttf', 22, 1, cc.size(600, 50), 1, 1)
+        local did = item['data']
+        local name = TableDragon:getDragonName(did)
+        local label = cc.Label:createWithTTF(name, 'res/font/common_font_01.ttf', 22, 1, cc.size(600, 50), 1, 1)
         label:setDockPoint(cc.p(0.5, 0.5))
         label:setAnchorPoint(cc.p(0.5, 0.5))
         label:setPositionY(-50)
@@ -112,7 +113,7 @@ function UI_InvenDevApiPopup:init_dragonTableView()
     -- 드래곤 클릭 콜백 함수
     local function click_dragon_item(item)
         local data = item['data']
-        local did = data['did']
+        local did = data
 
         self:network_addDragon(did)
     end
@@ -121,11 +122,7 @@ function UI_InvenDevApiPopup:init_dragonTableView()
     local t_invalid_dragon = {}
     for i,v in pairs(table_dragon) do
         --if (v['test'] == 1) then
-            local copy_table = clone(v)
-            copy_table['lv'] = 1
-            copy_table['grade'] = 1
-            copy_table['evolution'] = 1
-            table.insert(t_invalid_dragon, copy_table)
+            table.insert(t_invalid_dragon, v['did'])
         --end
     end
 
@@ -140,7 +137,7 @@ function UI_InvenDevApiPopup:init_dragonTableView()
         local item_height = item_adjust_size
         table_view_ext:setCellInfo2(nItemPerCell, cell_width, cell_height, item_width, item_height)
     end 
-    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
+    table_view_ext:setItemUIClass(MakeSimpleDragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
     table_view_ext:setItemInfo(t_invalid_dragon)
     --table_view_ext:update()
 
@@ -149,7 +146,7 @@ function UI_InvenDevApiPopup:init_dragonTableView()
             local a = a['data']
             local b = b['data']
 
-            return a['did'] < b['did']
+            return a < b
         end
         table_view_ext:insertSortInfo('default', default_sort_func)
         table_view_ext:sortTableView('default')

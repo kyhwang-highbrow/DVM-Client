@@ -509,6 +509,10 @@ end
 
 
 function UI_DragonCard(t_dragon_data)
+    if t_dragon_data and (not t_dragon_data.m_objectType) then
+        t_dragon_data = StructDragonObject(t_dragon_data)
+    end
+
     local ui = UI_CharacterCard(t_dragon_data)
     local function func()
         local doid = t_dragon_data['id']
