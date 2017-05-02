@@ -516,6 +516,9 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
 		-- 레벨업 필요 골드 모음
 		self:setServerTable(ret, 'table_req_gold')
 
+        -- 라테아 테이블
+        self:setServerTable(ret, 'table_lactea')
+
         if finish_cb then
             finish_cb(ret)
         end

@@ -7,7 +7,6 @@ local MAX_DRAGON_GOODBYE_MATERIAL_MAX = 30 -- 한 번에 작별 가능한 드래
 UI_DragonGoodbye = class(PARENT,{
         m_bChangeDragonList = 'boolean',
         m_tableViewExtMaterial = 'TableViewExtension', -- 재료
-        m_tableDragonTrainInfo = 'TableDragonTrainInfo',
         m_addLactea = 'number', -- 추가될 라테아 수
         m_dragonSortMgr = 'DragonSortManager',
 
@@ -46,7 +45,6 @@ function UI_DragonGoodbye:init(excluded_dragons)
     self:sceneFadeInAction()
 
     self.m_bChangeDragonList = false
-    self.m_tableDragonTrainInfo = TableDragonTrainInfo()
     self.m_addLactea = 0
 
     self:initUI()
@@ -316,7 +314,7 @@ function UI_DragonGoodbye:onChangeSelectedDragons(doid)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
-    local lactea = self.m_tableDragonTrainInfo:getGoodbyeLacteaCnt(grade, evolution)
+    local lactea = TableLactea:getGoodbyeLacteaCnt(grade, evolution)
 
     local is_selected = (self.m_selectedMaterialMap[doid] ~= nil)
 

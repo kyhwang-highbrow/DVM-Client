@@ -85,6 +85,9 @@ local TableInfo_fromServer = {
 
         -- 아이템 관련
         ['table_item_rand'] = {'table_item_rand', 'rand_item_id'},
+
+        -- 라테아
+        ['table_lactea'] = {'table_lactea', 'grade'},
     }
 
 -------------------------------------
