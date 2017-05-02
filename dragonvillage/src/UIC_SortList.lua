@@ -433,15 +433,19 @@ end
 
 
 
-function MakeUICSortList_dragonManage(button, label)
+function MakeUICSortList_dragonManage(button, label, direction)
 
     local width, height = button:getNormalSize()
     local parent = button:getParent()
     local x, y = button:getPosition()
+    local direction = direction or UIC_SORT_LIST_BOT_TO_TOP
 
     local uic = UIC_SortList()
+    uic.m_direction = direction
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
     uic:init_container()
 
     uic:setExtendButton(button)
