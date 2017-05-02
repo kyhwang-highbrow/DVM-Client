@@ -516,6 +516,7 @@ local t_module = {
     'UI_SecretDungeonScene',
     'UI_SecretDungeonStageListItem',
     'UI_EditBoxPopup',
+    'UI_SimpleEditBoxPopup',
     'UI_Setting',
     'UI_SettingAccountTab',
     'UI_SettingAlarmTab',

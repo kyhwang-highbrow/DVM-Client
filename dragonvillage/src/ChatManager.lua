@@ -96,3 +96,26 @@ end
 function ChatManager:sendNormalMsg(msg)
     return self.m_chatClient:sendNormalMsg(msg)
 end
+
+-------------------------------------
+-- function getChannelName
+-- @brief
+-------------------------------------
+function ChatManager:getChannelName()
+    return self.m_chatClient.m_channelName
+end
+
+-------------------------------------
+-- function requestChangeChannel
+-- @brief
+-------------------------------------
+function ChatManager:requestChangeChannel(channel_num)
+    local t = {}
+    t['success'] = function(ret)
+        cclog('성공!!')
+    end
+    t['channelName'] = channel_num
+    t['channelType'] = CHAT_CLIENT_CHANNEL_TYPE_NORMAL
+  
+    self.m_chatClient:requestChangeChannel(t)
+end

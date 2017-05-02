@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_ChatPopup
@@ -41,29 +41,10 @@ function UI_ChatPopup:initUI()
     local vars = self.vars
     
     local list_table_node = vars['chatNode']
-
-    --[[
-    -- 생성 콜백
-    local function create_func(ui, data)
-    end
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(list_table_node)
-    table_view._vordering = VerticalFillOrder['BOTTOM_UP']
-
-    table_view.m_defaultCellSize = cc.size(1200, 50)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setCellUIClass(UI_ChatListItem, create_func)
-    table_view:setItemList({})
-
-    -- 리스트가 비었을 때
-    table_view:makeDefaultEmptyDescLabel(Str('메세지가 없습니다.'))
-
-    self.m_chatListView = table_view
-    --]]
-
     local size = list_table_node:getContentSize()
     self.m_chatList = UI_ChatList(list_table_node, size['width'], size['height'], 50)
+
+    self:initTab()
 end
 
 -------------------------------------
@@ -126,4 +107,67 @@ end
 -------------------------------------
 function UI_ChatPopup:onDestroyUI()
     g_chatManager.m_tempCB = nil
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_ChatPopup:initTab()
+    local vars = self.vars
+    self:addTab('general_chat', vars['generalTabBtn'], vars['chatNode'])
+    --self:addTab('guild_chat', vars['guildTabBtn'], vars['guildChatNode'])
+    self:addTab('whisper_chat', vars['whisperTapBtn'], vars['whisperChatNode'])
+    self:setTab('general_chat')
+
+    vars['guildTabBtn']:registerScriptTapHandler(function()
+            UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
+        end)
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_ChatPopup:onChangeTab(tab, first)
+    local vars = self.vars
+
+    if (tab == 'general_chat') then
+        local channel_name = g_chatManager:getChannelName()
+        local str = Str('채널 {1}', channel_name)
+        vars['sortOrderLabel']:setString(str)
+        vars['sortBtn']:registerScriptTapHandler(function() self:click_changeChannelBtn() end)
+    end
+end
+
+-------------------------------------
+-- function click_changeChannelBtn
+-------------------------------------
+function UI_ChatPopup:click_changeChannelBtn()
+    local edit_box = UI_SimpleEditBoxPopup()
+    edit_box:setPopupTitle(Str('이동할 채널 번호를 입력해주세요. (1~999)'))
+    edit_box:setPopupDsc(Str('이동할 채널 번호를 입력해주세요. (1~999)'))
+    edit_box:setPlaceHolder(Str('입력하세요.'))
+
+    local function confirm_cb(str)
+        local channel_num = tonumber(str)
+
+        if (not channel_num) then
+            UIManager:toastNotificationRed('1~999 사이의 숫자를 입력해주세요.')
+            return false
+        end
+
+        if (channel_num < 0 or 999 < channel_num) then
+            UIManager:toastNotificationRed('1~999 사이의 숫자를 입력해주세요.')
+            return false
+        end
+        return true
+    end
+    edit_box:setConfirmCB(confirm_cb)
+
+    local function close_cb(str)
+        local channel_name = edit_box.vars['editBox']:getText()
+        --g_serverData:applyServerData(text, 'local', 'idfa')
+        --self:doNextWork()
+        g_chatManager:requestChangeChannel(channel_name)
+    end
+    edit_box:setCloseCB(close_cb)
 end
