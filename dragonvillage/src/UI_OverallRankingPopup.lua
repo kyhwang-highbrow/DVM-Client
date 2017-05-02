@@ -1,5 +1,7 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
+local COMMON_UI_ACTION_TIME = 0.3
+
 -------------------------------------
 -- class UI_OverallRankingPopup
 -------------------------------------
@@ -52,6 +54,8 @@ end
 -------------------------------------
 function UI_OverallRankingPopup:initUI()
     local vars = self.vars
+
+	vars['scoreLabel'] = NumberLabel(vars['scoreLabel'], 0, COMMON_UI_ACTION_TIME)
 end
 
 -------------------------------------
@@ -91,8 +95,8 @@ function UI_OverallRankingPopup:refresh()
 		if (rank <= 100) then
 			vars['rankingLabel']:setString(rank)
 		else
-			local rank_ratio = math_floor(t_my_rank['rate'] * 1000) / 100
-			vars['rankingLabel']:setString(string.format('%f&&', rank_ratio))
+			local rank_ratio = t_my_rank['rate'] * 100
+			vars['rankingLabel']:setString(string.format('%.2f%%', rank_ratio))
 		end
 
 		-- 리더 드래곤 아이콘
@@ -105,7 +109,7 @@ function UI_OverallRankingPopup:refresh()
 
 		-- 스코어
 		local score = t_my_rank['rp']
-		vars['scoreLabel']:setString(score)
+		vars['scoreLabel']:setNumber(score)
 	end
 end
 
@@ -141,7 +145,7 @@ function UI_OverallRankingPopup:makeTableViewRanking(tab)
         node:removeAllChildren()
 
 		-- 생성 콜백
-		local function create_cb_func()
+		local function create_cb_func(ui)
 			if (tab == UI_OverallRankingPopup.COLOSSEUM) then
 				ui.m_isColosseum = true
 				ui:refresh()

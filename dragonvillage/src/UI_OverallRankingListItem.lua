@@ -41,8 +41,9 @@ function UI_OverallRankingListItem:initUI()
 	vars['nameLabel']:setString(user_name)
 
 	-- 스코어
+	vars['scoreLabel'] = NumberLabel(vars['scoreLabel'], 0, COMMON_UI_ACTION_TIME)
 	local score = self.m_tRankInfo['rp']
-	vars['scoreLabel']:setString(score)
+	vars['scoreLabel']:setNumber(score)
 end
 
 -------------------------------------
@@ -61,8 +62,12 @@ function UI_OverallRankingListItem:refresh()
 	
 	-- 콜로세움 처리
 	if (self.m_isColosseum) then
-		vars['scoreLabel']:setPositionX(-190)
+		vars['scoreLabel'].m_label:setPositionX(-190)
 		vars['pvpTierNode']:setVisible(true)
+
+		local tier = self.m_tRankInfo['tier']
+		local icon = ColosseumUserInfo:makeTierIcon(tier, 'small')
+		vars['pvpTierNode']:addChild(icon)
 	end
 end
 
@@ -76,8 +81,8 @@ end
 -------------------------------------
 -- function click_detailBtn
 -------------------------------------
-function UI_OverallRankingListItem:click_detailBtn(ui_quest_popup)
-	ccdisplay('ㅎㅎㅎㅎ')
+function UI_OverallRankingListItem:click_detailBtn()
+	ccdisplay('유저 상세 정보 보기는 준비중입니다.')
 end
 
 --@CHECK
