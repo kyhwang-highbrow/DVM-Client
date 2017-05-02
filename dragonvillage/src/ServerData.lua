@@ -120,6 +120,9 @@ function ServerData:getInstance()
     -- 하일라이트
     g_highlightData = ServerData_Highlight(g_serverData)
 
+	-- 랭킹
+    g_rankData = ServerData_Ranking(g_serverData)
+
     return g_serverData
 end
 

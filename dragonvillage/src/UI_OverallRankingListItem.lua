@@ -3,8 +3,8 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_OverallRankingListItem
 -------------------------------------
 UI_OverallRankingListItem = class(PARENT,{
-		m_tInfo = '',
-		m_rank = 'num'
+		m_tRankInfo = '',
+		m_isColosseum = 'bool',
     })
 
 -------------------------------------
@@ -12,10 +12,12 @@ UI_OverallRankingListItem = class(PARENT,{
 -------------------------------------
 function UI_OverallRankingListItem:init(t_data)
     self:load('total_ranking_item.ui')
-	
+
+	self:makeDataPretty(t_data)
+	self.m_isColosseum = false
+
     self:initUI()
     self:initButton()
-    self:refresh()
 end
 
 -------------------------------------
@@ -23,27 +25,24 @@ end
 -------------------------------------
 function UI_OverallRankingListItem:initUI()
     local vars = self.vars
-	local did
+	local did = self.m_tRankInfo
 
 	-- 랭킹
-	local rank = self.m_tDragonInfo['rank']
+	local rank = self.m_tRankInfo['rank']
 	vars['rankingLabel']:setString(rank)
 
-	-- 드래곤 아이콘
-	local dragon_icon = UI_DragonCard(t_dragon_info)
+	-- 리더 드래곤 아이콘
+	local dragon_icon = UI_DragonCard(self.m_tRankInfo['leader'])
 	vars['iconNode']:addChild(dragon_icon.root)
 	dragon_icon.root:setSwallowTouch(false)
 
-	-- 드래곤 이름
-	local dragon_name = TableDragon:getDragonName(did)
-	vars['nameLabel']:setString(dragon_name)
+	-- 유저 이름
+	local user_name = self.m_tRankInfo['nick']
+	vars['nameLabel']:setString(user_name)
 
 	-- 스코어
-	local score = 0
+	local score = self.m_tRankInfo['rp']
 	vars['scoreLabel']:setString(score)
-
-	-- 콜로세움 티어 아이콘
-	--vars['pvpTierNode']
 end
 
 -------------------------------------
@@ -58,6 +57,20 @@ end
 -- function refresh
 -------------------------------------
 function UI_OverallRankingListItem:refresh()
+	local vars = self.vars
+	
+	-- 콜로세움 처리
+	if (self.m_isColosseum) then
+		vars['scoreLabel']:setPositionX(-190)
+		vars['pvpTierNode']:setVisible(true)
+	end
+end
+
+-------------------------------------
+-- function click_detailBtn
+-------------------------------------
+function UI_OverallRankingListItem:makeDataPretty(t_data)
+	self.m_tRankInfo = t_data
 end
 
 -------------------------------------

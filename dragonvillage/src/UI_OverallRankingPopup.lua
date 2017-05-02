@@ -7,11 +7,11 @@ UI_OverallRankingPopup = class(PARENT,{
 		m_tableView = 'TableView',
     })
 
-UI_OverallRankingPopup.OVERALL = 1
-UI_OverallRankingPopup.COMBAT = 2
-UI_OverallRankingPopup.QUEST = 3
-UI_OverallRankingPopup.COLLOSEUM = 4
-UI_OverallRankingPopup.COLLECTION = 5
+UI_OverallRankingPopup.OVERALL = 0
+UI_OverallRankingPopup.COMBAT = 1
+UI_OverallRankingPopup.QUEST = 2
+UI_OverallRankingPopup.COLOSSEUM = 3
+UI_OverallRankingPopup.COLLECTION = 4
 
 -------------------------------------
 -- function init
@@ -28,13 +28,12 @@ function UI_OverallRankingPopup:init(info)
 
 	-- 통신 후 UI 출력
 	local cb_func = function()
+		self:initUI()
+		self:initTab()
+		self:initButton()
+		self:refresh()
 	end 
 	self:getStageServerInfo(cb_func)
-
-	self:initUI()
-	self:initTab()
-	self:initButton()
-	self:refresh()
 end
 
 -------------------------------------
@@ -63,7 +62,7 @@ function UI_OverallRankingPopup:initTab()
     self:addTab(UI_OverallRankingPopup.OVERALL, vars['totalBtn'], vars['totalNode'])
     self:addTab(UI_OverallRankingPopup.COMBAT, vars['cpBtn'], vars['cpNode'])
 	self:addTab(UI_OverallRankingPopup.QUEST, vars['questBtn'], vars['questNode'])
-	self:addTab(UI_OverallRankingPopup.COLLOSEUM, vars['pvpBtn'], vars['pvpNode'])
+	self:addTab(UI_OverallRankingPopup.COLOSSEUM, vars['pvpBtn'], vars['pvpNode'])
 	self:addTab(UI_OverallRankingPopup.COLLECTION, vars['collectionBtn'], vars['collectionNode'])
 
     self:setTab(UI_OverallRankingPopup.OVERALL)
@@ -81,7 +80,33 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_OverallRankingPopup:refresh(mode_id, dungeon_lv)
+function UI_OverallRankingPopup:refresh()
+	local vars = self.vars
+	-- my rank
+	do
+		local t_my_rank = g_rankData:getRankData(self.m_currTab)['my_rank']
+
+		-- rank
+		local rank = t_my_rank['rank']
+		if (rank <= 100) then
+			vars['rankingLabel']:setString(rank)
+		else
+			local rank_ratio = math_floor(t_my_rank['rate'] * 1000) / 100
+			vars['rankingLabel']:setString(string.format('%f&&', rank_ratio))
+		end
+
+		-- 리더 드래곤 아이콘
+		local dragon_icon = UI_DragonCard(t_my_rank['leader'])
+		vars['iconNode']:addChild(dragon_icon.root)
+
+		-- 유저 이름
+		local user_name = t_my_rank['nick']
+		vars['nameLabel']:setString(user_name)
+
+		-- 스코어
+		local score = t_my_rank['rp']
+		vars['scoreLabel']:setString(score)
+	end
 end
 
 -------------------------------------
@@ -92,7 +117,13 @@ function UI_OverallRankingPopup:onChangeTab(tab, first)
 	
 	-- 최초 생성만 실행
 	if (first) then
-		self:makeTableViewRanking(tab)
+		local function cb_func()
+			self:makeTableViewRanking(tab)
+			self:refresh()
+		end
+		g_rankData:request_getRank(tab, nil, cb_func)
+	else
+		self:refresh()
 	end
 end
 
@@ -104,19 +135,25 @@ function UI_OverallRankingPopup:makeTableViewRanking(tab)
 	local t_tab_data = self.m_mTabData[tab]
 	local node = t_tab_data['tab_node_list'][1]
 
+	local l_rank = g_rankData:getRankData(tab)['rank']
+
 	do -- 테이블 뷰 생성
         node:removeAllChildren()
 
 		-- 생성 콜백
-		local create_cb_func = function(ui)
+		local function create_cb_func()
+			if (tab == UI_OverallRankingPopup.COLOSSEUM) then
+				ui.m_isColosseum = true
+				ui:refresh()
+			end
 		end
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(320, 125)
+        table_view.m_defaultCellSize = cc.size(1200, 105)
         table_view:setCellUIClass(UI_OverallRankingListItem, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList({})
+        table_view:setItemList(l_rank)
 
         self.m_tableView = table_view
     end
@@ -127,6 +164,7 @@ end
 -- @brief 서버로 부터 정보를 가져와서 저장한다.
 -------------------------------------
 function UI_OverallRankingPopup:getStageServerInfo(cb_func)
+	g_rankData:request_getRank(nil, nil, cb_func)
 end
 
 -------------------------------------
