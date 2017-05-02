@@ -855,9 +855,6 @@
     <None Include="..\src\ResPreloadHelper.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TableDragonTrainInfo.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\GameWorld_Unit.lua">
       <Filter>lua</Filter>
     </None>
@@ -2077,6 +2074,9 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\ServerData_Formation.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\TableLactea.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>
