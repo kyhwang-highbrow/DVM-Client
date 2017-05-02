@@ -3,6 +3,8 @@
 -- @instance dragon_obj
 -------------------------------------
 StructDragonObject = class({
+        m_objectType = '',
+
         id = 'dragon_object_id',
         doid = 'dragon_object_id',
 
@@ -48,6 +50,7 @@ StructDragonObject = class({
 -- function init
 -------------------------------------
 function StructDragonObject:init(data)
+    self.m_objectType = 'dragon'
     self.rlv = 0
     self.m_mRuneObjects = nil
 

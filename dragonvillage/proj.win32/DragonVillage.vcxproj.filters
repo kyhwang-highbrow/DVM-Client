@@ -2061,6 +2061,12 @@
     <None Include="..\src\TableSlime.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StructSlimeObject.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ServerData_Slimes.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

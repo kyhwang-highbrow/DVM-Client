@@ -37,6 +37,9 @@ function ServerData:getInstance()
     -- 'dragons'
     g_dragonsData = ServerData_Dragons(g_serverData)
 
+    -- 슬라임
+    g_slimesData = ServerData_Slimes(g_serverData)
+
     -- 'dragon summon'
     g_dragonSummonData = ServerData_DragonSummon(g_serverData)
 

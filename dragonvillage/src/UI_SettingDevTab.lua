@@ -7,6 +7,7 @@ function UI_Setting:init_devTab()
     vars['invenBtn']:registerScriptTapHandler(function() self:click_invenBtn() end)
     vars['allClearBtn']:registerScriptTapHandler(function() self:click_allClearBtn() end)
     vars['allDragonBtn']:registerScriptTapHandler(function() self:click_allDragonBtn() end)
+    vars['allSlimeBtn']:registerScriptTapHandler(function() self:click_allSlimeBtn() end)
     vars['allFruitBtn']:registerScriptTapHandler(function() self:click_allFruitBtn() end)
     vars['allMaterialBtn']:registerScriptTapHandler(function() self:click_allMaterialBtn() end)
     vars['allRuneBtn']:registerScriptTapHandler(function() self:click_allRuneBtn() end)
@@ -83,6 +84,50 @@ function UI_Setting:click_allDragonBtn()
         else
             ui_network:close()
             UIManager:toastNotificationGreen('모든 드래곤 추가!')
+            UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+            --self.m_bRestart = true
+        end
+
+        if (ret and ret['dragons']) then
+            for _,t_dragon in pairs(ret['dragons']) do
+                g_dragonsData:applyDragonData(t_dragon)
+            end
+        end
+    end
+    ui_network:setSuccessCB(do_work)
+    do_work()
+end
+
+-------------------------------------
+-- function click_allSlimeBtn
+-- @brief 모든 슬라임 추가
+-------------------------------------
+function UI_Setting:click_allSlimeBtn()
+    local uid = g_userData:get('uid')
+    local table_slime = TableSlime()
+    local t_list = {}
+    for slime_id,_ in pairs(table_slime.m_orgTable) do
+        table.insert(t_list, slime_id)
+    end
+    local do_work
+
+    local ui_network = UI_Network()
+    ui_network:setReuse(true)
+    ui_network:setUrl('/slimes/add')
+    ui_network:setParam('uid', uid)
+
+    do_work = function(ret)
+        local slime_id = t_list[1]
+        
+        if slime_id then
+            table.remove(t_list, 1)
+            local msg = '"' .. table_slime:getValue(slime_id, 't_name') .. '" 추가 중...'
+            ui_network:setLoadingMsg(msg)
+            ui_network:setParam('sid', slime_id)
+            ui_network:request()
+        else
+            ui_network:close()
+            UIManager:toastNotificationGreen('모든 슬라임 추가!')
             UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
             --self.m_bRestart = true
         end

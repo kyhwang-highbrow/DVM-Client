@@ -692,6 +692,7 @@ function ServerData_Dragons:request_dragonsInfo(finish_cb, fail_cb)
         -- 드래곤 정보 갱신
         g_serverData:applyServerData({}, 'dragons') -- 로컬 세이브 데이터 초기화
         self:applyDragonData_list(ret['dragons'])
+        g_slimesData:applySlimeData_list(ret['slimes'] or {})
 
         -- 새로 획득한 드래곤 확인
         g_highlightData:loadNewDoidMap()

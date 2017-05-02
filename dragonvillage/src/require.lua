@@ -51,6 +51,7 @@ local t_module = {
     'StructRuneObject',
     'StructRuneSetObject',
     'StructDragonObject',
+    'StructSlimeObject',
     'StructFriendshipObject',
 	'StructStatusEffect',
     'StructIndividualStatus',
@@ -80,6 +81,7 @@ local t_module = {
     'ServerData_User',
 	'ServerData_Tamer',
     'ServerData_Dragons',
+    'ServerData_Slimes',
     'ServerData_DragonUnit',
     'ServerData_Deck',
     'ServerData_Staminas',
@@ -196,6 +198,7 @@ local t_module = {
     'TableStaminaInfo',
     'TableScenarioResource',
     'TableDragonPhrase',
+    'TableSlime',
 
     -- Interface
     'IEventDispatcher',
