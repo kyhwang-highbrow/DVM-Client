@@ -21,10 +21,6 @@ end
 -- @brief 작별 시 획득하는 라테아 양
 -------------------------------------
 function TableLactea:getGoodbyeLacteaCnt(dragon_grade, dragon_evolution)
-    if true then
-        return 100
-    end
-
     if (self == THIS) then
         self = THIS()
     end

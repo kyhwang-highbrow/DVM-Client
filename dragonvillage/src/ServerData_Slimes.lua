@@ -52,6 +52,20 @@ function ServerData_Slimes:applySlimeData(t_slime_data)
 end
 
 -------------------------------------
+-- function delSlimeObject
+-- @brief
+-------------------------------------
+function ServerData_Slimes:delSlimeObject(soid)
+    -- 슬라임 갯수 감소
+    if self.m_slimesObjectMap[soid] then
+        self.m_slimesCnt = self.m_slimesCnt - 1
+    end
+
+    self.m_slimesObjectMap[soid] = nil
+end
+
+
+-------------------------------------
 -- function getSlimeObject
 -- @brief
 -------------------------------------

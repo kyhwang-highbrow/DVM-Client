@@ -123,11 +123,12 @@ function UI_DragonGoodbye:init_dragonMaterialTableView()
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
         local doid = data['id']
+        local is_slime = (data.m_objectType == 'slime')
         ui.root:setScale(item_scale)
         
         -- 드래곤 클릭 콜백 함수
         local function click_dragon_item()
-            self:click_dragonCard(doid)
+            self:click_dragonCard(doid, is_slime)
         end
 
         if self.m_selectedMaterialMap[doid] then
@@ -155,28 +156,37 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonGoodbye:makeMaterialList()
-    local l_item_list = g_dragonsData:getDragonsList()
+    local l_dragon_list = g_dragonsData:getDragonsList()
+    local l_slime_list = g_slimesData:getSlimeList()
 
-    for i,v in pairs(l_item_list) do
-        local doid = i
-        if self.m_excludedDragons[doid] then
-            l_item_list[i] = nil
+    local l_object = {}
+    for key,value in pairs(l_dragon_list) do
+        l_object[key] = value
+    end
+
+    for key,value in pairs(l_slime_list) do
+        l_object[key] = value
+    end
+
+    for oid,v in pairs(l_object) do
+        if self.m_excludedDragons[oid] then
+            l_object[oid] = nil
         end
     end
 
-    return l_item_list
+    return l_object
 end
 
 -------------------------------------
 -- function click_dragonCard
 -------------------------------------
-function UI_DragonGoodbye:click_dragonCard(doid)
+function UI_DragonGoodbye:click_dragonCard(doid, is_slime)
     -- 재료 해제
     if self.m_selectedMaterialMap[doid] then
-        self:delMaterial(doid)
+        self:delMaterial(doid, is_slime)
     -- 재료 추가
     else
-        self:addMaterial(doid)
+        self:addMaterial(doid, is_slime)
     end
 end
 
@@ -193,21 +203,30 @@ function UI_DragonGoodbye:click_sellBtn()
 
     local uid = g_userData:get('uid')
     local src_doids = nil
-    for _doid,_ in pairs(self.m_selectedMaterialMap) do
-        if (not src_doids) then
-            src_doids = tostring(_doid)
-        else
-            src_doids = src_doids .. ',' .. tostring(_doid)
+    local src_soids = nil
+    for _doid,type in pairs(self.m_selectedMaterialMap) do
+        if (type == 'dragon') then
+            if (not src_doids) then
+                src_doids = tostring(_doid)
+            else
+                src_doids = src_doids .. ',' .. tostring(_doid)
+            end
+        elseif (type == 'slime') then
+            if (not src_soids) then
+                src_soids = tostring(_doid)
+            else
+                src_soids = src_soids .. ',' .. tostring(_doid)
+            end
         end
     end
 
-    self:goodbyeNetworkRequest(uid, src_doids)
+    self:goodbyeNetworkRequest(uid, src_doids, src_soids)
 end
 
 -------------------------------------
 -- function goodbyeNetworkRequest
 -------------------------------------
-function UI_DragonGoodbye:goodbyeNetworkRequest(uid, src_doids)
+function UI_DragonGoodbye:goodbyeNetworkRequest(uid, src_doids, src_soids)
     local function success_cb(ret)
         local function cb()
             self:goodbyeNetworkResponse(ret)
@@ -219,6 +238,7 @@ function UI_DragonGoodbye:goodbyeNetworkRequest(uid, src_doids)
     ui_network:setUrl('/dragons/goodbye')
     ui_network:setParam('uid', uid)
     ui_network:setParam('src_doids', src_doids)
+    ui_network:setParam('src_soids', src_soids)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
@@ -238,6 +258,16 @@ function UI_DragonGoodbye:goodbyeNetworkResponse(ret)
         end
     end
 
+    -- 슬라임
+    if ret['deleted_slimes_oid'] then
+        for _,soid in pairs(ret['deleted_slimes_oid']) do
+            g_slimesData:delSlimeObject(soid)
+
+            -- 리스트 갱신
+            self.m_tableViewExtMaterial:delItem(soid)
+        end
+    end
+
     -- 라테아 갱신
     if ret['lactea'] then
         g_serverData:applyServerData(ret['lactea'], 'user', 'lactea')
@@ -252,7 +282,7 @@ end
 -------------------------------------
 -- function addMaterial
 -------------------------------------
-function UI_DragonGoodbye:addMaterial(doid)
+function UI_DragonGoodbye:addMaterial(doid, is_slime)
 
     if (g_dragonsData:isLeaderDragon(doid) == true) then
         UIManager:toastNotificationRed(Str('리더로 설정된 드래곤은 작별할 수 없습니다.'))
@@ -265,7 +295,7 @@ function UI_DragonGoodbye:addMaterial(doid)
         return
     end
 
-    self.m_selectedMaterialMap[doid] = true
+    self.m_selectedMaterialMap[doid] = is_slime and 'slime' or 'dragon'
 
     self:onChangeSelectedDragons(doid)
 end
@@ -311,9 +341,13 @@ function UI_DragonGoodbye:onChangeSelectedDragons(doid)
     -- 드래곤 재료 리스트에서 선택된 드래곤 표시
     self:refresh_materialDragonIndivisual(doid)
 
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-    local grade = t_dragon_data['grade']
-    local evolution = t_dragon_data['evolution']
+    local object = g_dragonsData:getDragonDataFromUid(doid)
+    if (not object) then
+        object = g_slimesData:getSlimeObject(doid)
+    end
+
+    local grade = object['grade']
+    local evolution = object['evolution']
     local lactea = TableLactea:getGoodbyeLacteaCnt(grade, evolution)
 
     local is_selected = (self.m_selectedMaterialMap[doid] ~= nil)

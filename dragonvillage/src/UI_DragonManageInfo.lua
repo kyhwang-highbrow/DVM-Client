@@ -564,7 +564,7 @@ function UI_DragonManageInfo:click_sellBtn()
     local ui = UI_DragonGoodbye()
 
     -- 선택된 드래곤은 바로 추가하기 위해서
-    ui:addMaterial(self.m_selectDragonOID)
+    ui:addMaterial(self.m_selectDragonOID, self.m_bSlimeObject)
 
     -- UI종료 후 콜백
     local function close_cb()
