@@ -13,8 +13,12 @@ SortType['sort_func'] = 'function'
 -- @breif 정렬 관리자
 -------------------------------------
 SortManager = class({
-        m_mSortType = 'map[t_sort_type]',
+        m_mPreSortType = 'map[t_sort_type]',    
+        m_lPreSortOrder = 'list',
+
+        m_mSortType = 'map[t_sort_type]',    
         m_lSortOrder = 'list',
+
         m_defaultSortFunc = 'function',
         m_defaultSortAscending ='boolean',
     })
@@ -23,8 +27,43 @@ SortManager = class({
 -- function init
 -------------------------------------
 function SortManager:init()
+    self.m_mPreSortType = {}
+    self.m_lPreSortOrder = {}
+
     self.m_mSortType = {}
     self.m_lSortOrder = {}
+end
+
+-------------------------------------
+-- function addPreSortType
+-------------------------------------
+function SortManager:addPreSortType(name, ascending, sort_func, t_name)
+    local t_sort_type = clone(SortType)
+    t_sort_type['name'] = name
+    t_sort_type['t_name'] = t_name or Str('미지정')
+    t_sort_type['ascending'] = ascending
+    t_sort_type['sort_func'] = sort_func
+    --table.insert(self.m_mPreSortType, t_sort_type)
+    self.m_mPreSortType[name] = t_sort_type
+
+    self:pushPreSortOrder(name)
+end
+
+-------------------------------------
+-- function pushPreSortOrder
+-------------------------------------
+function SortManager:pushPreSortOrder(name, ascending)
+    local idx = table.find(self.m_lPreSortOrder, name)
+
+    if idx then
+        table.remove(self.m_lPreSortOrder, idx)
+    end
+
+    table.insert(self.m_lPreSortOrder, 1, name)
+
+    if (ascending ~= nil) and self.m_mSortType[name] then
+        self.m_mSortType[name]['ascending'] = ascending
+    end
 end
 
 -------------------------------------
@@ -78,6 +117,18 @@ end
 -- function sortFunction
 -------------------------------------
 function SortManager:sortFunction(a, b)
+    for _,sort_type in ipairs(self.m_lPreSortOrder) do
+        local t_sort_type = self.m_mPreSortType[sort_type]
+        local sort_func = t_sort_type['sort_func']
+        local ascending = t_sort_type['ascending']
+
+        local ret = sort_func(a, b, ascending)
+
+        if (ret ~= nil) then
+            return ret
+        end
+    end
+
     for _,sort_type in ipairs(self.m_lSortOrder) do
         local t_sort_type = self.m_mSortType[sort_type]
         local sort_func = t_sort_type['sort_func']

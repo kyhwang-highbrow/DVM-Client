@@ -20,6 +20,10 @@ end
 -- function getDragonPhrase
 -------------------------------------
 function TableDragonPhrase:getDragonPhrase(did, flv)
+    if TableSlime:isSlimeID(did) then
+        return Str('슬라임!!')
+    end
+
     if (self == THIS) then
         self = THIS()
     end

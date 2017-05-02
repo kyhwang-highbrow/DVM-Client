@@ -19,6 +19,10 @@ StructSlimeObject = class({
 
         -- 지울 것들
         uid = '',
+
+
+        -- 드래곤인척 하기 위해
+        did = '',
     })
 
 -------------------------------------
@@ -32,6 +36,7 @@ function StructSlimeObject:init(data)
     end
 
     self.soid = self.id
+    self.did = self.slime_id
 end
 
 -------------------------------------
@@ -48,3 +53,61 @@ function StructSlimeObject:applyTableData(data)
         self[key] = v
     end
 end
+
+-------------------------------------
+-- function getFlv
+-- @breif 드래곤인척하기위해
+-------------------------------------
+function StructSlimeObject:getFlv()
+    return 0
+end
+
+-------------------------------------
+-- function getRole
+-- @breif
+-------------------------------------
+function StructSlimeObject:getRole()
+    return TableSlime:getValue(self['slime_id'], 'role')
+end
+
+-------------------------------------
+-- function getAttr
+-- @breif
+-------------------------------------
+function StructSlimeObject:getAttr()
+    return TableSlime:getValue(self['slime_id'], 'attr')
+end
+
+-------------------------------------
+-- function getRarity
+-- @breif
+-------------------------------------
+function StructSlimeObject:getRarity()
+    return TableSlime:getValue(self['slime_id'], 'rarity')
+end
+
+-------------------------------------
+-- function getDragonNameWithEclv
+-- @breif
+-------------------------------------
+function StructSlimeObject:getDragonNameWithEclv()
+    local name = TableSlime:getValue(self['slime_id'], 't_name')
+    return name
+end
+
+-------------------------------------
+-- function getEclv
+-- @breif
+-------------------------------------
+function StructSlimeObject:getEclv()
+    return 0
+end
+
+-------------------------------------
+-- function getGrade
+-- @breif
+-------------------------------------
+function StructSlimeObject:getGrade()
+    return self['grade']
+end
+

@@ -132,10 +132,8 @@ function UI_Setting:click_allSlimeBtn()
             --self.m_bRestart = true
         end
 
-        if (ret and ret['dragons']) then
-            for _,t_dragon in pairs(ret['dragons']) do
-                g_dragonsData:applyDragonData(t_dragon)
-            end
+        if ret and ret['slimes'] then
+            g_slimesData:applySlimeData_list(ret['slimes'])
         end
     end
     ui_network:setSuccessCB(do_work)

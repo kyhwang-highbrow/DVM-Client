@@ -193,22 +193,27 @@ end
 -- function setSelectDragonData
 -- @brief 선택된 드래곤 설정
 -------------------------------------
-function UI_DragonManage_Base:setSelectDragonData(dragon_object_id, b_force)
-    if (not b_force) and (self.m_selectDragonOID == dragon_object_id) then
+function UI_DragonManage_Base:setSelectDragonData(object_id, b_force)
+    if (not b_force) and (self.m_selectDragonOID == object_id) then
         return
     end
 
-    if (not g_dragonsData:getDragonDataFromUid(dragon_object_id)) then
+    local object_data = g_dragonsData:getDragonDataFromUid(object_id)
+    if (not object_data) then
+        object_data = g_slimesData:getSlimeObject(object_id)
+    end
+
+    if (not object_data) then
         return self:setDefaultSelectDragon()
     end
 
-    if (not self:checkDragonSelect(dragon_object_id)) then
+    if (not self:checkDragonSelect(object_id)) then
         return
     end
 
     -- 선택된 드래곤의 데이터를 최신으로 갱신
-    self.m_selectDragonOID = dragon_object_id
-    self.m_selectDragonData = g_dragonsData:getDragonDataFromUid(dragon_object_id)
+    self.m_selectDragonOID = object_id
+    self.m_selectDragonData = object_data
 
     -- 선택된 드래곤 카드에 프레임 표시
     self:changeDragonSelectFrame()
@@ -217,7 +222,7 @@ function UI_DragonManage_Base:setSelectDragonData(dragon_object_id, b_force)
     self:refresh()
 
     -- 신규 드래곤이면 삭제
-    g_highlightData:removeNewDoid(dragon_object_id)
+    g_highlightData:removeNewDoid(object_id)
 end
 
 -------------------------------------
@@ -305,6 +310,14 @@ function UI_DragonManage_Base:init_dragonTableView()
     if (not self.m_tableViewExt) then
         local list_table_node = self.vars['listTableNode']
 
+        local function make_func(object)
+            if (object.m_objectType == 'dragon') then
+                return UI_DragonCard(object)
+            elseif (object.m_objectType == 'slime') then
+                return MakeSimpleDragonCard(120011)
+            end
+        end
+
         local function create_func(ui, data)
             self:createDragonCardCB(ui, data)
             ui.root:setScale(0.66)
@@ -317,7 +330,7 @@ function UI_DragonManage_Base:init_dragonTableView()
 
         local table_view = UIC_TableView(list_table_node)
         table_view.m_defaultCellSize = cc.size(100, 100)
-        table_view:setCellUIClass(UI_DragonCard, create_func)
+        table_view:setCellUIClass(make_func, create_func)
         self.m_tableViewExt = table_view
     end
 
@@ -331,7 +344,19 @@ end
 -------------------------------------
 function UI_DragonManage_Base:getDragonList()
     local l_item_list = g_dragonsData:getDragonsList()
-    return l_item_list
+
+    local l_slime_list = g_slimesData:getSlimeList()
+
+    local ret = {}
+    for key,value in pairs(l_item_list) do
+        ret[key] = value
+    end
+
+    for key,value in pairs(l_slime_list) do
+        ret[key] = value
+    end
+
+    return ret
 end
 
 -------------------------------------

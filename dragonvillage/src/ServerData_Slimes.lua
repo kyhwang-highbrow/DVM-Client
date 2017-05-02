@@ -58,3 +58,12 @@ end
 function ServerData_Slimes:getSlimeObject(soid)
     return self.m_slimesObjectMap[soid]
 end
+
+-------------------------------------
+-- function getSlimeList
+-- @brief
+-- 복사본을 리턴할까... 그냥 리턴할까...?
+-------------------------------------
+function ServerData_Slimes:getSlimeList()
+    return clone(self.m_slimesObjectMap)
+end

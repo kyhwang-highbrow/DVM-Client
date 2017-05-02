@@ -7,6 +7,7 @@ local PARENT = SortManager
 SortManager_Dragon = class(PARENT, {
         m_tableDragon = 'TableDragon',
 
+        m_mObjectTypeSortLevel = 'map',
         m_mRaritySortLevel = 'map',
         m_mAttrSortLevel = 'map',
         m_mRoleSortLevel = 'map',
@@ -17,6 +18,11 @@ SortManager_Dragon = class(PARENT, {
 -------------------------------------
 function SortManager_Dragon:init()
     self.m_tableDragon = TableDragon()
+
+    -- 오브젝트 타입별 레벨
+    self.m_mObjectTypeSortLevel = {}
+    self.m_mObjectTypeSortLevel['dragon'] = 100
+    self.m_mObjectTypeSortLevel['slime'] = 1
 
     -- 속성별 정렬 레벨
     self.m_mAttrSortLevel = {}
@@ -46,6 +52,7 @@ function SortManager_Dragon:init()
     self.m_mRoleSortLevel['dealer'] = 3
     self.m_mRoleSortLevel['tanker'] = 4
     
+    self:addPreSortType('object_type', false, function(a, b, ascending) return self:sort_object_type(a, b, ascending) end)
 
     self:addSortType('did', false, function(a, b, ascending) return self:sort_did(a, b, ascending) end)
     self:addSortType('role', false, function(a, b, ascending) return self:sort_role(a, b, ascending) end)
@@ -82,6 +89,29 @@ function SortManager_Dragon:getTopSortingName()
 end
 
 -------------------------------------
+-- function sort_object_type
+-- @brief 오브젝트 타입 (슬라임이 껴있을 수 있음)
+-------------------------------------
+function SortManager_Dragon:sort_object_type(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    local a_value = self.m_mObjectTypeSortLevel[a_data.m_objectType]
+    local b_value = self.m_mObjectTypeSortLevel[b_data.m_objectType]
+
+    -- 같을 경우 리턴
+    if (a_value == b_value) then
+        return nil
+    end
+
+    -- 오름차순 or 내림차순
+    if ascending then return a_value < b_value
+    else              return a_value > b_value
+    end
+end
+
+
+-------------------------------------
 -- function sort_did
 -- @brief 드래곤 ID
 -------------------------------------
@@ -111,8 +141,8 @@ function SortManager_Dragon:sort_role(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_role = self.m_tableDragon:getValue(a_data['did'], 'role')
-    local b_role = self.m_tableDragon:getValue(b_data['did'], 'role')
+    local a_role = a_data:getRole()
+    local b_role = b_data:getRole()
 
     local a_value = self.m_mRoleSortLevel[a_role]
     local b_value = self.m_mRoleSortLevel[b_role]
@@ -133,6 +163,11 @@ end
 function SortManager_Dragon:sort_atk(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
+
+    -- 드래곤이 아닐 경우(슬라임) skip 
+    if (a_data.m_objectType ~= 'draon') and (b_data.m_objectType ~= 'draon') then
+        return nil
+    end
 
     local a_sort_data = g_dragonsData:getDragonsSortData(a_data['id'])
     local b_sort_data = g_dragonsData:getDragonsSortData(b_data['id'])
@@ -157,6 +192,11 @@ function SortManager_Dragon:sort_def(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
+    -- 드래곤이 아닐 경우(슬라임) skip 
+    if (a_data.m_objectType ~= 'draon') and (b_data.m_objectType ~= 'draon') then
+        return nil
+    end
+
     local a_sort_data = g_dragonsData:getDragonsSortData(a_data['id'])
     local b_sort_data = g_dragonsData:getDragonsSortData(b_data['id'])
 
@@ -179,6 +219,11 @@ end
 function SortManager_Dragon:sort_hp(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
+    
+    -- 드래곤이 아닐 경우(슬라임) skip 
+    if (a_data.m_objectType ~= 'draon') and (b_data.m_objectType ~= 'draon') then
+        return nil
+    end
 
     local a_sort_data = g_dragonsData:getDragonsSortData(a_data['id'])
     local b_sort_data = g_dragonsData:getDragonsSortData(b_data['id'])
@@ -203,8 +248,8 @@ function SortManager_Dragon:sort_attr(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_attr = self.m_tableDragon:getValue(a_data['did'], 'attr')
-    local b_attr = self.m_tableDragon:getValue(b_data['did'], 'attr')
+    local a_attr = a_data:getAttr()
+    local b_attr = b_data:getAttr()
 
     local a_value = self.m_mAttrSortLevel[a_attr]
     local b_value = self.m_mAttrSortLevel[b_attr]
@@ -246,8 +291,8 @@ function SortManager_Dragon:sort_rarity(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_rarity = self.m_tableDragon:getValue(a_data['did'], 'rarity')
-    local b_rarity = self.m_tableDragon:getValue(b_data['did'], 'rarity')
+    local a_rarity = a_data:getRarity()
+    local b_rarity = b_data:getRarity()
 
     local a_value = self.m_mRaritySortLevel[a_rarity]
     local b_value = self.m_mRaritySortLevel[b_rarity]

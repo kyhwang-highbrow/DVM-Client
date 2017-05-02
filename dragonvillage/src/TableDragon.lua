@@ -180,3 +180,14 @@ function TableDragon:getMaxStatus(did, status_name)
     local max_status = self:getValue(did, status_name .. '_max')
     return max_status
 end
+
+-------------------------------------
+-- function getValue
+-------------------------------------
+function TableDragon:getValue(primary, column)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return PARENT.getValue(self, primary, column)
+end

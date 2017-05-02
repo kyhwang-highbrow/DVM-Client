@@ -270,3 +270,43 @@ function StructDragonObject:isNewDragon()
 
     return g_highlightData:isNewDoid(doid)
 end
+
+-------------------------------------
+-- function getRole
+-- @breif
+-------------------------------------
+function StructDragonObject:getRole()
+    return TableDragon:getValue(self['did'], 'role')
+end
+
+-------------------------------------
+-- function getAttr
+-- @breif
+-------------------------------------
+function StructDragonObject:getAttr()
+    return TableDragon:getValue(self['did'], 'attr')
+end
+
+-------------------------------------
+-- function getRarity
+-- @breif
+-------------------------------------
+function StructDragonObject:getRarity()
+    return TableDragon:getValue(self['did'], 'rarity')
+end
+
+-------------------------------------
+-- function getEclv
+-- @breif
+-------------------------------------
+function StructDragonObject:getEclv()
+    return self['eclv']
+end
+
+-------------------------------------
+-- function getGrade
+-- @breif
+-------------------------------------
+function StructDragonObject:getGrade()
+    return self['grade']
+end

@@ -160,7 +160,7 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
     local vars = self.vars
     local vars_key = self.vars_key
 
-    local attr = t_dragon['attr']
+    local attr = t_dragon_data:getAttr()
 
     -- 배경
     if self:checkVarsKey('attrBgNode', attr) then
@@ -171,7 +171,7 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
 
     -- 드래곤 실리소스
     if self.m_dragonAnimator then
-        self.m_dragonAnimator:setDragonAnimator(t_dragon['did'], t_dragon_data['evolution'], t_dragon_data['friendship']['flv'])
+        self.m_dragonAnimator:setDragonAnimator(t_dragon_data['did'], t_dragon_data['evolution'], t_dragon_data:getFlv())
     end
 end
 
@@ -181,6 +181,15 @@ end
 -------------------------------------
 function UI_DragonManageInfo:refresh_dragonRunes(t_dragon_data, t_dragon)
     local vars = self.vars
+
+    if (t_dragon_data.m_objectType ~= 'dragon') then
+        for slot=1, RUNE_SLOT_MAX do
+            vars['runeSlotNode' .. slot]:removeAllChildren()
+        end
+
+        vars['runeSetNode']:removeAllChildren()
+        return
+    end
 
     do -- 장착된 룬 표시
         for slot=1, RUNE_SLOT_MAX do

@@ -61,21 +61,26 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
 
     do -- 드래곤 등급
         vars['starNode']:removeAllChildren()
-        local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data['grade'], t_dragon_data['eclv'], 2)
+        local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data:getGrade(), t_dragon_data:getEclv(), 2)
         vars['starNode']:addChild(star_icon)
     end
 
     do -- 레벨
         local lv = (t_dragon_data['lv'] or 1)
-        local grade = (t_dragon_data['grade'] or 1)
-        local eclv = (t_dragon_data['eclv'] or 0)
+        local grade = (t_dragon_data:getGrade() or 1)
+        local eclv = (t_dragon_data:getEclv() or 0)
         local lv_str = Str('레벨 {1}/{2}', lv, dragonMaxLevel(grade, eclv))
         vars['lvLabel']:setString(lv_str)
     end
 
+
+    if (t_dragon_data.m_objectType ~= 'dragon') then
+        return
+    end
+
     do -- 경혐치 exp
-        local grade = (t_dragon_data['grade'] or 1)
-        local eclv = (t_dragon_data['eclv'] or 0)
+        local grade = (t_dragon_data:getGrade() or 1)
+        local eclv = (t_dragon_data:getEclv() or 0)
         local lv = (t_dragon_data['lv'] or 1)
         local exp = (t_dragon_data['exp'] or 0)
         local table_exp = TableDragonExp()

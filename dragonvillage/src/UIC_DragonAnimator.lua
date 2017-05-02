@@ -44,11 +44,20 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
         return
     end
 
+    local is_slime = TableSlime:isSlimeID(did)
+
     self.m_did = did
     self.m_evolution = evolution
     
-    local table_dragon = TableDragon()
-    local t_dragon = table_dragon:get(did)
+    local t_dragon
+    if is_slime then
+        local table_slime = TableSlime()
+        t_dragon = table_slime:get(did)
+    else
+        local table_dragon = TableDragon()
+        t_dragon = table_dragon:get(did)
+    end
+    
     local res_name = t_dragon['res']
     local attr = t_dragon['attr']
 
