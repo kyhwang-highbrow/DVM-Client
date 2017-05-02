@@ -126,6 +126,9 @@ function ServerData:getInstance()
 	-- 랭킹
     g_rankData = ServerData_Ranking(g_serverData)
 
+	-- 진형
+    g_formationData = ServerData_Formation(g_serverData)
+
     return g_serverData
 end
 

@@ -350,6 +350,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_DragonUnit.lua" />
     <None Include="..\src\ServerData_Event.lua" />
     <None Include="..\src\ServerData_Exploration.lua" />
+    <None Include="..\src\ServerData_Formation.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
     <None Include="..\src\ServerData_Gacha.lua" />
     <None Include="..\src\ServerData_Highlight.lua" />
@@ -771,6 +772,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonSkillCard.lua" />
     <None Include="..\src\UI_DragonSummon.lua" />
     <None Include="..\src\UI_DragonSummonListItem.lua" />
+    <None Include="..\src\UI_FormationListItem.lua" />
+    <None Include="..\src\UI_FormationPopup.lua" />
     <None Include="..\src\UI_OverallRankingListItem.lua" />
     <None Include="..\src\UI_OverallRankingPopup.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoPopup.lua" />

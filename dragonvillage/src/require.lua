@@ -61,22 +61,7 @@ local t_module = {
     'StructDragonUnit',
     'StructDragonUnitCondition',
 
-    -- Util
-    'Action',
-    'TimeLib',
-    'Table',
-    'TableClass',
-    'SecurityNumber',
-    'ResPreloadHelper',
-    'ResPreloadMgr',
-    'RichLabel',
-    'NumberLabel',
-	'NumberLabel_Pumping',
-    'FpsMeter',
-    'LevelupDirector',
-    'LevelupDirector_GameResult',
-    'MapManager',
-    'LocalData',
+	-- ServerData
     'ServerData',
     'ServerData_User',
 	'ServerData_Tamer',
@@ -112,6 +97,24 @@ local t_module = {
     'ServerData_DragonSummon',
     'ServerData_Highlight',
 	'ServerData_Ranking',
+	'ServerData_Formation',
+
+    -- Util
+    'Action',
+    'TimeLib',
+    'Table',
+    'TableClass',
+    'SecurityNumber',
+    'ResPreloadHelper',
+    'ResPreloadMgr',
+    'RichLabel',
+    'NumberLabel',
+	'NumberLabel_Pumping',
+    'FpsMeter',
+    'LevelupDirector',
+    'LevelupDirector_GameResult',
+    'MapManager',
+    'LocalData',
     'UserData',
 	'ConstantData',
     'CollisionHelper',
@@ -441,7 +444,7 @@ local t_module = {
     'UIC_DragonAnimator',
     'UIC_DragonAnimatorDirector',
 
-	-- UI
+	-- UI : 분류 없음
     'UI_BlockPopup',
     'UI_Network',
     'UI_NetworkLoading',
@@ -457,39 +460,6 @@ local t_module = {
     'LobbyShadow',
     'LobbyUserStatusUI',
     'UI_RewardListPopup',
-    'UI_Game',
-	'UI_GameTamer',
-    'UI_GameColosseum',
-    'UI_GameResultNew',
-    'UI_GameResult_Adventure',
-    'UI_GameResult_AncientTower',
-    'UI_GameResult_NestDungeon',
-    'UI_GameResult_SecretDungeon',
-    'UI_GamePause',
-    'UI_GamePause_NestDungeon',
-    'UI_GamePause_SecretDungeon',
-    'UI_GamePause_Colosseum',
-	'UI_GameDPSPopup',
-	'UI_GameDPSListItem',
-    'UI_GameDebug',
-	'UI_GameDebug_RealTime',
-    'UI_IngameDragonPanel',
-    'UI_IngameDragonPanelItem',
-	'UI_StatisticsPopup',
-	'UI_StatisticsListItem',
-    'UI_ReadyScene',
-    'UI_ReadyScene_Deck',
-    'UI_AdventureSceneNew',
-    'UI_AdventureChapterSelectPopup',
-    'UI_AdventureChapterButton',
-    'UI_AdventureStageButton',
-    'UI_AdventureFirstRewardPopup',
-    'UI_AdventureFirstRewardButton',
-    'UI_AdventureStageInfo',
-    'UI_AdventureStageMissionInfo',
-    'UI_IngameUnitInfo',
-    'UI_IngameDragonInfo',
-    'UI_IngameBossInfo',
     'UI_Popup',
     'UI_SimplePopup',
 	'UI_ConfirmPopup',
@@ -520,47 +490,15 @@ local t_module = {
     'UI_SecretDungeonStageListItem',
     'UI_EditBoxPopup',
     'UI_SimpleEditBoxPopup',
-    'UI_Setting',
-    'UI_SettingAccountTab',
-    'UI_SettingAlarmTab',
-    'UI_SettingDevTab',
-    'UI_SettingGameTab',
-    'UI_SettingInfoTab',
-    'UI_DragonDevApiPopup',
-    'UI_InvenDevApiPopup',
     'UI_MonsterCard',
     'UI_FruitFeedPress',
     'UI_LobbyUserInfoPopup',
     'UI_UserDeckInfoPopup',
-    'UI_AutoPlaySettingPopup',
     'UI_BattleMenu',
-    'UI_Colosseum',
-	'UI_ColosseumRewardPopup',
-    'UI_ColosseumReadyScene',
-    'UI_ColosseumLoading',
-    'UI_ColosseumResult',
-    'UI_ColosseumRankListItem',
-    'UI_ColosseumFriendRankListItem',
-    'UI_ColosseumRewardListItem',
-    'UI_ColosseumFirstRewardListItem',
-    'UI_ColosseumRankingReward',
-    'UI_ColosseumFirstReward',
-    'UI_AncientTowerScene',
-    'UI_AncientTowerListItem',
-    'UI_AncientTowerSweepReward',
 	'UI_QuestPopup',
     'UI_QuestListItem',
     'UI_MailPopup',
     'UI_MailListItem',
-    'UI_Inventory',
-    'UI_InventorySelectSellItems',
-    'UI_InventoryTab',
-    'UI_InventoryTabRune',
-    'UI_InventoryTabFruit',
-    'UI_InventoryTabEvolutionStone',
-    'UI_InventoryTabTicket',
-    'UI_InventorySellItems',
-    'UI_RuneBulkSalePopup',
     'UI_AcquisitionRegionInformation',
     'UI_AcquisitionRegionListItem',
     'UI_NotificationInfoElement',
@@ -574,11 +512,81 @@ local t_module = {
     'UI_DragonInfoBoard',
     'UI_ScenarioPlayer',
     'UI_ScenarioPlayer_Character',
-    'UI_ChatPopup',
-    'UI_ChatList',
-    'UI_ChatListItem',
+	'UI_FormationPopup',
+	'UI_FormationListItem',
 
-	-- 각종 랭킹
+	-- UI : 모험
+    'UI_AdventureSceneNew',
+    'UI_AdventureChapterSelectPopup',
+    'UI_AdventureChapterButton',
+    'UI_AdventureStageButton',
+    'UI_AdventureFirstRewardPopup',
+    'UI_AdventureFirstRewardButton',
+    'UI_AdventureStageInfo',
+    'UI_AdventureStageMissionInfo',
+    
+	-- UI : 모험 준비
+	'UI_ReadyScene',
+    'UI_ReadyScene_Deck',
+	
+	-- UI : 전투 통계
+	'UI_StatisticsPopup',
+	'UI_StatisticsListItem',
+
+	-- UI : 콜로세움
+    'UI_Colosseum',
+	'UI_ColosseumRewardPopup',
+    'UI_ColosseumReadyScene',
+    'UI_ColosseumLoading',
+    'UI_ColosseumResult',
+    'UI_ColosseumRankListItem',
+    'UI_ColosseumFriendRankListItem',
+    'UI_ColosseumRewardListItem',
+    'UI_ColosseumFirstRewardListItem',
+    'UI_ColosseumRankingReward',
+    'UI_ColosseumFirstReward',
+
+	-- UI : 고대의 탑
+    'UI_AncientTowerScene',
+    'UI_AncientTowerListItem',
+    'UI_AncientTowerSweepReward',
+
+	-- UI : 인게임
+	'UI_Game',
+	'UI_GameTamer',
+    'UI_GameColosseum',
+    'UI_GameResultNew',
+    'UI_GameResult_Adventure',
+    'UI_GameResult_AncientTower',
+    'UI_GameResult_NestDungeon',
+    'UI_GameResult_SecretDungeon',
+    'UI_GamePause',
+    'UI_GamePause_NestDungeon',
+    'UI_GamePause_SecretDungeon',
+    'UI_GamePause_Colosseum',
+	'UI_GameDPSPopup',
+	'UI_GameDPSListItem',
+    'UI_GameDebug',
+	'UI_GameDebug_RealTime',
+    'UI_IngameDragonPanel',
+    'UI_IngameDragonPanelItem',
+    'UI_IngameUnitInfo',
+    'UI_IngameDragonInfo',
+    'UI_IngameBossInfo',
+    'UI_AutoPlaySettingPopup',
+
+	-- UI : 인벤토리
+    'UI_Inventory',
+    'UI_InventorySelectSellItems',
+    'UI_InventoryTab',
+    'UI_InventoryTabRune',
+    'UI_InventoryTabFruit',
+    'UI_InventoryTabEvolutionStone',
+    'UI_InventoryTabTicket',
+    'UI_InventorySellItems',
+    'UI_RuneBulkSalePopup',
+
+	-- UI : 각종 랭킹
     'UI_RecommendedDragonInfoPopup',
 	'UI_RecommendedDragonInfoListItem_Dungeon',
 	'UI_RecommendedDragonInfoListItem_Dragon',
@@ -586,7 +594,7 @@ local t_module = {
 	'UI_OverallRankingPopup',
 	'UI_OverallRankingListItem',
 
-    -- 도감 관련
+    -- UI : 도감 관련
     'UI_Collection',
     'UI_CollectionDetailPopup',
     'UI_CollectionDragonCard',
@@ -603,7 +611,7 @@ local t_module = {
     'UI_CollectionStoryPopupItem',
     'UI_CollectionStoryPopupApplyItem',
 
-    -- 친구 시스템 관련
+    -- UI : 친구 시스템 관련
     'UI_FriendPopup',
     'UI_FriendPopupTab',
     'UI_FriendPopupTabFriends',
@@ -617,11 +625,11 @@ local t_module = {
     'UI_FriendSupportListItem',
     'UI_FriendDragonSupportRequestPopup',
     'UI_FriendDragonSupportPopup',
-    -- 친구 드래곤 선택
+    -- UI : 친구 드래곤 선택
     'UI_FriendSelectPopup',
     'UI_FriendSelectListItem',
 
-    -- UI 드래곤 관리 관련
+    -- UI : 드래곤 관리 관련
     'UI_DragonManage_Base',
     'UI_DragonManageInfo',
     'UI_DragonLevelUp',
@@ -644,25 +652,25 @@ local t_module = {
     'UI_DragonEclvResult',
     'UI_DragonLevelupResult',
 
-	-- 테이머 관리
+	-- UI : 테이머 관리
 	'UI_TamerManagePopup',
     'UI_TamerManageItem',
 	'UI_SkillDetailPopup_Tamer',
     'UI_SkillDetailPopupListItem_Tamer',
 	'UI_SkillEnhance',
 
-	-- 출석 이벤트
+	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',
     'UI_AttendanceSpecialListItem',
 
-    -- UI 탐험(exploration)
+    -- UI : 탐험(exploration)
     'UI_Exploration',
     'UI_ExplorationIng',
     'UI_ExplorationLocationButton',
     'UI_ExplorationReady',
     'UI_ExplorationResultPopup',
 
-    -- EVENT
+    -- UI : EVENT
     'UI_EventPopup',
     'UI_EventPopupTabButton',
     'UI_EventPopupTab_Birthday',
@@ -672,6 +680,22 @@ local t_module = {
     'UI_BirthdayRewardSelectPopup',
     'UI_BirthdayRewardSelectListItem',
 
+	-- UI : 채팅
+	'UI_ChatPopup',
+    'UI_ChatList',
+    'UI_ChatListItem',
+
+	-- UI : 설정
+	'UI_Setting',
+    'UI_SettingAccountTab',
+    'UI_SettingAlarmTab',
+    'UI_SettingDevTab',
+    'UI_SettingGameTab',
+    'UI_SettingInfoTab',
+    'UI_DragonDevApiPopup',
+    'UI_InvenDevApiPopup',
+
+	-- Util & Helper
     'DamageCalc',
     'IconHelper',
     'ResHelper',

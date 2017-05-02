@@ -2067,6 +2067,15 @@
     <None Include="..\src\ServerData_Slimes.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_FormationPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_FormationListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_Formation.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
