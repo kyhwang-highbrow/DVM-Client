@@ -111,3 +111,42 @@ function StructSlimeObject:getGrade()
     return self['grade']
 end
 
+-------------------------------------
+-- function getIconRes
+-- @breif
+-------------------------------------
+function StructSlimeObject:getIconRes()
+    local table_slime = TableSlime()
+    local t_slime = table_slime:get(self['slime_id'])
+
+    local res = t_slime['icon']
+    local evolution = self['evolution']
+    local attr = t_slime['attr']
+
+    res = string.gsub(res, '#', '0' .. evolution)
+    res = string.gsub(res, '@', attr)
+
+    return res
+end
+
+-------------------------------------
+-- function isLeader
+-- @breif
+-------------------------------------
+function StructSlimeObject:isLeader()
+    return false
+end
+
+-------------------------------------
+-- function isNewDragon
+-- @breif
+-------------------------------------
+function StructSlimeObject:isNewDragon()
+    local doid = self['id']
+
+    if (not doid) then
+        return
+    end
+
+    return g_highlightData:isNewDoid(doid)
+end

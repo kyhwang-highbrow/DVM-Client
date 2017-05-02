@@ -52,12 +52,12 @@ function UI_CharacterCard:refreshDragonInfo()
 
     local t_dragon_data = self.m_dragonData
     local did = t_dragon_data['did']
-
-    local table_dragon = TableDragon()
-    local t_dragon = table_dragon:get(did)
+    local attr = t_dragon_data:getAttr()
+    local eclv = t_dragon_data:getEclv()
+    local rarity = t_dragon_data:getRarity()
 
     do -- 속성 따른 배경 이미지(버튼)
-        local res = 'character_card_bg_' .. t_dragon['attr'] .. '.png'
+        local res = 'character_card_bg_' .. attr .. '.png'
         self:makeClickBtn(res)
     end
 
@@ -70,7 +70,7 @@ function UI_CharacterCard:refreshDragonInfo()
     end
         
     do -- 속성 아이콘 생성
-        local res = 'character_card_attr_' .. t_dragon['attr'] .. '.png'
+        local res = 'character_card_attr_' .. attr .. '.png'
         self:makeAttrIcon(res)
     end
 
@@ -84,12 +84,12 @@ function UI_CharacterCard:refreshDragonInfo()
     end    
 
     do -- 초월 지정
-        local eclv = t_dragon_data['eclv']
+        local eclv = eclv
         self:setEclvText(eclv)
     end
 
     do -- 카드 프레임
-        local res = 'character_card_frame_' .. t_dragon['rarity'] .. '.png'
+        local res = 'character_card_frame_' .. rarity .. '.png'
         self:makeFrame(res)
     end
 
@@ -128,26 +128,11 @@ function UI_CharacterCard:makeClickBtn(res)
 end
 
 -------------------------------------
--- function getDragonIconRes
--- @breif 드래곤 아이콘 리소스명 생성
--------------------------------------
-function UI_CharacterCard:getDragonIconRes(t_dragon_data, t_dragon)
-    local res = t_dragon['icon']
-    local evolution = t_dragon_data['evolution']
-    local attr = t_dragon['attr']
-
-    res = string.gsub(res, '#', '0' .. evolution)
-    res = string.gsub(res, '@', attr)
-
-    return res
-end
-
--------------------------------------
 -- function makeDragonIcon
 -- @brief 드래곤 아이콘 생성
 -------------------------------------
 function UI_CharacterCard:makeDragonIcon(t_dragon_data, t_dragon)
-    local res = self:getDragonIconRes(t_dragon_data, t_dragon)
+    local res = t_dragon_data:getIconRes()
     if (self.m_charIconRes == res) then
         return
     end
@@ -178,7 +163,7 @@ function UI_CharacterCard:refresh_LeaderIcon()
     local vars = self.vars
     local t_dragon_data = self.m_dragonData
 
-    local is_leader = (t_dragon_data['leader'] and (0 < table.count(t_dragon_data['leader'])))
+    local is_leader = t_dragon_data:isLeader()
 
     if is_leader then
         if vars['leaderIcon'] then
@@ -589,5 +574,5 @@ function MakeSimpleDragonCard(did, t_data)
         end
     end
 
-    return UI_DragonCard(t_dragon_data)
+    return UI_DragonCard(StructDragonObject(t_dragon_data))
 end

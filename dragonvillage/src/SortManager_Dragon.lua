@@ -141,8 +141,8 @@ function SortManager_Dragon:sort_role(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_role = a_data:getRole()
-    local b_role = b_data:getRole()
+    local a_role = a_data.getRole and a_data:getRole() or a_data['role']
+    local b_role = b_data.getRole and b_data:getRole() or b_data['role']
 
     local a_value = self.m_mRoleSortLevel[a_role]
     local b_value = self.m_mRoleSortLevel[b_role]
@@ -248,8 +248,8 @@ function SortManager_Dragon:sort_attr(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_attr = a_data:getAttr()
-    local b_attr = b_data:getAttr()
+    local a_attr = a_data.getAttr and a_data:getAttr() or a_data['attr']
+    local b_attr = b_data.getAttr and b_data:getAttr() or b_data['attr']
 
     local a_value = self.m_mAttrSortLevel[a_attr]
     local b_value = self.m_mAttrSortLevel[b_attr]
@@ -291,8 +291,8 @@ function SortManager_Dragon:sort_rarity(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_rarity = a_data:getRarity()
-    local b_rarity = b_data:getRarity()
+    local a_rarity = a_data.getRarity and a_data:getRarity() or a_data['rarity']
+    local b_rarity = a_data.getRarity and b_data:getRarity() or b_data['rarity']
 
     local a_value = self.m_mRaritySortLevel[a_rarity]
     local b_value = self.m_mRaritySortLevel[b_rarity]

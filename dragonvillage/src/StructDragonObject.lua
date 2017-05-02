@@ -310,3 +310,29 @@ end
 function StructDragonObject:getGrade()
     return self['grade']
 end
+
+-------------------------------------
+-- function getIconRes
+-- @breif
+-------------------------------------
+function StructDragonObject:getIconRes()
+    local table_dragon = TableDragon()
+    local t_dragon = table_dragon:get(self['did'])
+
+    local res = t_dragon['icon']
+    local evolution = self['evolution']
+    local attr = t_dragon['attr']
+
+    res = string.gsub(res, '#', '0' .. evolution)
+    res = string.gsub(res, '@', attr)
+
+    return res
+end
+
+-------------------------------------
+-- function isLeader
+-- @breif
+-------------------------------------
+function StructDragonObject:isLeader()
+    return (self['leader'] and (0 < table.count(self['leader'])))
+end
