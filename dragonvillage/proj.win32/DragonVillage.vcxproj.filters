@@ -708,12 +708,6 @@
     <None Include="..\src\UI_ReadyScene_Deck.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_SettingPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_SettingPopup_Dev.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ShopPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2063,6 +2057,9 @@
     </None>
     <None Include="..\src\UI_SimpleEditBoxPopup.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TableSlime.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

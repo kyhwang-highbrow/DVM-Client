@@ -46,6 +46,7 @@ local TableInfo = {
         stage_mission     = {'table_stage_mission',		    'key',			false},
         calendar          = {'table_calendar',		        'month',		false},
         table_option      = {'table_option',		        'option',		false},
+        table_slime       = {'table_slime',		            'slime',		false},
         
 
         -- 드래곤 관리 관련

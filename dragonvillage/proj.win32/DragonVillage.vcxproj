@@ -653,6 +653,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableScenarioResource.lua" />
     <None Include="..\src\TableSecretDungeon.lua" />
     <None Include="..\src\TableShop.lua" />
+    <None Include="..\src\TableSlime.lua" />
     <None Include="..\src\TableStageDesc.lua" />
     <None Include="..\src\TableStageMission.lua" />
     <None Include="..\src\TableStaminaInfo.lua" />
@@ -880,8 +881,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_SecretDungeonScene.lua" />
     <None Include="..\src\UI_SecretDungeonStageListItem.lua" />
     <None Include="..\src\UI_SecretFindPopup.lua" />
-    <None Include="..\src\UI_SettingPopup.lua" />
-    <None Include="..\src\UI_SettingPopup_Dev.lua" />
     <None Include="..\src\UI_ShopListItem.lua" />
     <None Include="..\src\UI_ShopPopup.lua" />
     <None Include="..\src\UI_ConfirmPopup.lua" />

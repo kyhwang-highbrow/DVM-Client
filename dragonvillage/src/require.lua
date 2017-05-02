@@ -523,8 +523,6 @@ local t_module = {
     'UI_SettingDevTab',
     'UI_SettingGameTab',
     'UI_SettingInfoTab',
-    'UI_SettingPopup',
-    'UI_SettingPopup_Dev',
     'UI_DragonDevApiPopup',
     'UI_InvenDevApiPopup',
     'UI_MonsterCard',
