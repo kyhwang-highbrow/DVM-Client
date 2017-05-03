@@ -2091,6 +2091,9 @@
     <None Include="..\src\UI_LoadingGuide.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ScenarioPlayer_Talk.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
