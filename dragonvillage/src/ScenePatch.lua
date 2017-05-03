@@ -29,6 +29,7 @@ function ScenePatch:onEnter()
     self.m_vars['okButton']:registerScriptTapHandler(function() self:click_screenBtn() end)
     self.m_vars['messageLabel']:setVisible(true)
     self.m_vars['messageLabel']:setString(Str('패치 확인 중...'))
+	self.m_vars['downloadGauge']:setPercentage(0)
 
     do -- 깜빡임 액션 지정
         local node = self.m_vars['messageLabel']
@@ -53,7 +54,7 @@ function ScenePatch:onEnter()
     end
 
     -- 추가 리소스 다운로드
-    local patch_core = PatchCore('patch', app_ver)
+    local patch_core = PatchCore(self, 'patch', app_ver)
 	self.m_patch_core = patch_core
     local finish_cb = function() self:finishPatch() end
     patch_core:setFinishCB(finish_cb)
@@ -69,41 +70,14 @@ end
 -- function update
 -------------------------------------
 function ScenePatch:update(dt)
-    self.m_patch_core:update()
-
-    if (self.m_patch_core.m_totalSize <= 0) then
-        self.m_vars['downloadLabel']:setString('')
-        return
-    end
-
-	local curr_size = self.m_patch_core.m_downloadedSize or 'Current Size'
-	local total_size = self.m_patch_core.m_totalSize or 'Total Size'
-	local down_percent = string.format('%.2f', curr_size / total_size * 100)
-	self.m_vars['downloadLabel']:setString(curr_size .. ' /' .. total_size .. '\n' .. down_percent .. '%')
+    self.m_patch_core:update(dt)
 end
-
 
 -------------------------------------
 -- function finishPatch
 -------------------------------------
 function ScenePatch:finishPatch()
     self.m_bFinishPatch = true
-
-    --[[
-    self.m_vars['messageLabel']:setVisible(true)
-    self.m_vars['messageLabel']:setString(Str('화면을 터치하세요.'))
-
-    self.m_vars['downloadLabel']:setVisible(false)
-
-    self:refreshPatchIdxLabel()
-
-    -- @TODO  임시 처리
-    self.m_vars['animator']:setVisual('group', '00')
-    self.m_vars['animator']:registerScriptLoopHandler(function()
-        -- C++ function(AppDelegate_Custom.cpp에 구현되어 있음)
-        finishPatch()
-    end)
-    --]]
 
     -- C++ function(AppDelegate_Custom.cpp에 구현되어 있음)
     finishPatch()

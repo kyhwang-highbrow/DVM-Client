@@ -27,7 +27,7 @@ end
 function UI_LoadingGuide:initUI(guide_type)
     local vars = self.vars
 
-	local t_loading = self:getLoadingTable(guide_type)
+	local t_loading = TableLoadingGuide():getGuideDataByWeight(guide_type)
 	
 	if (t_loading) then
 		-- 로딩 팁 이미지
@@ -60,18 +60,6 @@ end
 -- function refresh
 -------------------------------------
 function UI_LoadingGuide:refresh()
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_LoadingGuide:getLoadingTable(guide_type)
-	if (not guide_type) then
-		return
-	end
-
-	local l_loading = TableLoadingGuide():getGuideList(guide_type)
-	return table.getRandom(l_loading)
 end
 
 -------------------------------------

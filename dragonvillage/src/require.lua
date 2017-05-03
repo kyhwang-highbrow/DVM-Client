@@ -457,6 +457,7 @@ local t_module = {
     'UI_TitleScene',
     'UI_TitleSceneLoading',
 	'UI_LoadingGuide',
+	'UI_LoadingGuide_Patch',
     'UI_Lobby',
     'LobbyMapSpotMgr',
     'LobbyMap',

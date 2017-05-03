@@ -7,6 +7,8 @@ PATCH_STATE.download_patch_file = 2 -- 패치 파일 다운로드
 PATCH_STATE.decompression = 3       -- 패치 파일 압축 해제
 PATCH_STATE.finish = 10             -- 종료
 
+BYTE_TO_MB = 1024 * 1024
+
 -------------------------------------
 -- class PatchCore
 -------------------------------------
@@ -27,15 +29,20 @@ PatchCore = class({
         m_currDownloadRes = 'table',    -- 현재 다운받고 있는 리소스 데이터
 
         m_doStepReady = 'boolean',
+
+		m_patchScene = 'ScenePatch',
+		m_patchGuideUI = 'UI',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function PatchCore:init(type, app_ver)
+function PatchCore:init(scene, type, app_ver)
+	self.m_patchScene = scene
+	self.m_patchGuideUI = nil
     self.m_type = type
-
-    local patch_data = PatchData:getInstance()
+    
+	local patch_data = PatchData:getInstance()
     
     -- 추가 리소스 다운로드
     if (type == 'res') then
@@ -98,11 +105,28 @@ end
 -------------------------------------
 -- function update
 -------------------------------------
-function PatchCore:update()
-
+function PatchCore:update(dt)
     if self.m_doStepReady then
         self:doStep_()
     end
+
+	local vars = self.m_patchScene.m_vars
+	if (self.m_totalSize <= 0) or (self.m_downloadedSize <= 0) then
+        vars['downloadLabel']:setString('')
+        return
+    end
+
+	local curr_size = string.format('%.2f', self.m_downloadedSize/BYTE_TO_MB)
+	local total_size = string.format('%.2f', self.m_totalSize/BYTE_TO_MB)
+	local download_percent = curr_size / total_size * 100
+	local download_str = string.format('%.2f', download_percent)
+
+	vars['downloadLabel']:setString(curr_size .. 'MB /' .. total_size .. 'MB (' .. download_str .. '%)')
+	vars['downloadGauge']:setPercentage(download_percent)
+
+	if (self.m_patchGuideUI) then
+		self.m_patchGuideUI:update(dt)
+	end
 end
 
 -------------------------------------
@@ -190,17 +214,48 @@ function PatchCore:st_requestPatchInfo_successCB(ret)
             self.m_totalSize = self.m_totalSize + size
         end
     end
-	cclog('PATCH SIZE ' .. self.m_totalSize)
-    -- 일정 크기보다 클 경우 경고 메세지 출력할 것
-    -- '자동으로 추가 데이터가 다운로드 됩니다({0}MB). 설치 전에 WIFI 연결을 권장합니다.'
-    if (10000000 < self.m_totalSize) then
-        -- 메가바이트로 크기 환산
-        local size_mb = string.format('%.1f', self.m_totalSize / 1048576)
-    end
 
-    -- 다음 스텝으로 이동
-    self.m_state = PATCH_STATE.download_patch_file 
-    self:doStep()
+	cclog('## TOTAL PATCH SIZE ' .. self.m_totalSize)
+
+	-- 다음 스텝으로 이동
+	local function do_next_step()
+		self.m_state = PATCH_STATE.download_patch_file 
+		self:doStep()
+	end
+
+	-- 50MB 보다 클 경우 확인 메세지 출력
+	local std_size = 50 * BYTE_TO_MB
+    if (std_size < self.m_totalSize) then
+        -- 메가바이트로 크기 환산
+        local size_mb = string.format('%.2f', self.m_totalSize / BYTE_TO_MB)
+		local patch_str = Str('추가 데이터가 다운로드 됩니다.({1}MB).\n다운로드 하시겠습니까?\n[WIFI 연결을 권장하며 3G/LTE을 사용할 경우 과도한 요금이 부과 될 수 있습니다.]', size_mb)
+
+		-- 수락 -> 다운로드 시작 및 패치 가이드 UI 호출
+		local function ok_func()
+			do_next_step()
+
+			local vars = self.m_patchScene.m_vars
+			local ui = UI_LoadingGuide_Patch()
+			vars['animator']:setVisible(false)
+			vars['patchGuideNode']:addChild(ui.root)
+
+			self.m_patchGuideUI = ui
+		end
+
+		-- 거절 -> 앱 종료!
+		local function cancel_func()
+			local function close_cb()
+				cc.Director:getInstance():endToLua()
+			end
+			MakeSimplePopup(POPUP_TYPE.OK, Str('앱을 종료합니다.'), close_cb)
+		end
+
+		MakeSimplePopup(POPUP_TYPE.YES_NO, patch_str, ok_func, cancel_func)
+
+	else
+		do_next_step()
+
+    end
 end
 
 -------------------------------------

@@ -24,11 +24,46 @@ function TableLoadingGuide:getGuideList(guide_type)
 end
 
 -------------------------------------
--- function getGuideData
+-- function getGuideDataByWeight
+-- @brief weight 반영한 getter
 -------------------------------------
-function TableLoadingGuide:getGuideData(guide_type)
-	--local l_guide = 
+function TableLoadingGuide:getGuideDataByWeight(guide_type)
+	local l_guide = self:getGuideList(guide_type)
+	local weight_sum = 0
+
+	-- weight 의 합계를 구한다.
+	for i, v in pairs(l_guide) do
+		weight_sum = weight_sum + v['weight']
+	end
+
+	-- weigth에 의한 뽑기
+	local ret_data
+	local rand = math_random(weight_sum)
+	for i, v in pairs(l_guide) do
+		rand = rand - v['weight']
+		if (rand <= 0) then
+			ret_data = v
+			break
+		end
+	end
+
+	return ret_data
 end
+
+-------------------------------------
+-- function getGuideData_Order
+-- @brief 단순 util로 사용 .. 
+-------------------------------------
+function TableLoadingGuide:getGuideData_Order(l_table, order)
+	local ret_data
+	for i, v in pairs(l_table) do
+		if (v['order'] == order) then
+			ret_data = v
+			break
+		end
+	end
+	return ret_data
+end	
 
 -------------------------------------
 -- function getLoadingImg

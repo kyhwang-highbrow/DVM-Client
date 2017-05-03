@@ -41,6 +41,7 @@ function UI_TitleScene:initUI()
 
     vars['messageLabel']:setVisible(false)
     vars['downloadLabel']:setVisible(false)
+	vars['downloadGauge']:setVisible(false)
 
     do -- 앱버전과 패치 정보를 출력
         local patch_idx_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
