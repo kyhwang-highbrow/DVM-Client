@@ -25,7 +25,7 @@ function SceneDV:onEnter()
     PerpleScene.onEnter(self)
 	self:doUpdate()
 
-    self:testChatTableView()
+    self:scenarioTest()
 end
 
 -------------------------------------
@@ -437,4 +437,56 @@ function SceneDV:testChatTableView()
     chat_table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     chat_table_view:setCellUIClass(UIC_ChatTableViewCell, create_func)
     chat_table_view:setItemList({1,2,3,4,5})
+end
+
+-------------------------------------
+-- function socketTest
+-------------------------------------
+function SceneDV:socketTest()
+    local ip = 'dv-test.perplelab.com'
+    local port = '9013'
+
+    local tcp = socket.tcp()
+    tcp:settimeout(3)
+    
+    local __succ, __status = tcp:connect(ip, port)
+
+    --'connection refused'
+
+    ccdump(__succ)
+    ccdump(__status)
+
+    --tcp:close()
+    --tcp:send()
+    --tcp:shutdown()
+    --tcp:receive()
+end
+
+-------------------------------------
+-- function scenarioTest
+-------------------------------------
+function SceneDV:scenarioTest()
+    local l_scenario = {}
+    table.insert(l_scenario, 'scenario_01_01_start')
+    table.insert(l_scenario, 'scenario_01_01_finish')
+    table.insert(l_scenario, 'scenario_01_04_start')
+    table.insert(l_scenario, 'scenario_01_04_finish')
+    table.insert(l_scenario, 'scenario_01_08_start')
+    table.insert(l_scenario, 'scenario_01_08_finish')
+    table.insert(l_scenario, 'scenario_01_12_start')
+    table.insert(l_scenario, 'scenario_01_12_finish')
+
+    local doPlay = nil
+
+    doPlay = function()
+        if l_scenario[1] then
+            local scenario_name = l_scenario[1]
+            local ui = UI_ScenarioPlayer(scenario_name)
+            ui:setCloseCB(doPlay)
+
+            table.remove(l_scenario, 1)
+        end
+    end
+
+    doPlay()
 end
