@@ -96,6 +96,7 @@ function TableFormation:getBuffList(formation, slot_idx)
 
 	-- @TODO
 	local formation = self:temp(formation)
+	local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
 
     local t_formation = self:get(formation)
 
@@ -119,6 +120,8 @@ function TableFormation:getBuffList(formation, slot_idx)
                     local buff_type = t_formation[string.format('buff_type_%.2d', i)]
                     local status, action = TableOption:parseOptionKey(buff_type)
                     local value = t_formation[string.format('buff_value_%.2d', i)]
+					local max_value = t_formation[string.format('buff_value_%.2d_max', i)]
+					value = TableOption:getLevelingValue(value, max_value, formation_lv)
 
                     -- 버프 리스트에 추가
                     table.insert(l_buff, {['status']=status, ['action']=action, ['value']=value})
@@ -171,13 +174,14 @@ end
 -- function getFormationNameAndDesc
 -- @breif UI에서 사용되는 진형 이름, 버프 내용
 -------------------------------------
-function TableFormation:getFormatioDesc(formation)
+function TableFormation:getFormatioDesc(formation, formation_lv)
     if (self == THIS) then
         self = THIS()
     end
     	
 	-- @TODO
 	local formation = self:temp(formation)
+	local formation_lv = formation_lv or g_formationData:getFormationInfo(formation)['formation_lv']
 
     local t_table = self:get(formation)
 
@@ -186,10 +190,13 @@ function TableFormation:getFormatioDesc(formation)
     for i=1, 10 do
         local buff_type = t_table[string.format('buff_type_%.2d', i)]
         local buff_value = t_table[string.format('buff_value_%.2d', i)]
+		local buff_max_value = t_table[string.format('buff_value_%.2d_max', i)]
 
         if (not buff_type) or (not buff_value) then
         elseif (buff_type == '') or (buff_value == '') then
         else
+			buff_value = TableOption:getLevelingValue(buff_value, buff_max_value, formation_lv)
+			buff_value = math_floor(buff_value * 100) / 100
             local str = TableOption:getOptionDesc(buff_type, buff_value)
             if (desc ~= '') then
                 desc = desc .. ', '

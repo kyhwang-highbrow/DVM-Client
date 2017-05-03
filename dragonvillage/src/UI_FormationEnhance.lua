@@ -44,8 +44,11 @@ end
 -------------------------------------
 function UI_FormationEnhance:initUI()
 	local vars = self.vars
-	local formation_type = self.m_formation
+	
 	local table_formation = TableFormation()
+	
+	local formation_type = self.m_formation
+	local formation_lv = self.m_currFormationLV
 
     do -- 진형 아이콘 1 & 2
 		local icon = IconHelper:getFormationIcon(formation_type, true)
@@ -56,13 +59,12 @@ function UI_FormationEnhance:initUI()
 
     do -- LV + 진형 이름
         local formation_name = table_formation:getFormationName(formation_type)
-		local formation_lv = self.m_currFormationLV
 		local formation_str = string.format('Lv. %d %s', formation_lv, formation_name)
         vars['titleLabel1']:setString(formation_str)
     end
 
 	do -- 진형 설명
-        local desc = table_formation:getFormatioDesc(formation_type)
+        local desc = table_formation:getFormatioDesc(formation_type, formation_lv)
         vars['dscLabel1']:setString(desc)
     end
 end
@@ -85,18 +87,20 @@ end
 -------------------------------------
 function UI_FormationEnhance:refresh()
 	local vars = self.vars
-	local formation_type = self.m_formation
+	
 	local table_formation = TableFormation()
+	
+	local formation_type = self.m_formation
+	local formation_lv = self.m_enhanceLevel
 
     do -- LV + 진형 이름
         local formation_name = table_formation:getFormationName(formation_type)
-		local formation_lv = self.m_enhanceLevel
 		local formation_str = string.format('Lv. %d %s', formation_lv, formation_name)
         vars['titleLabel2']:setString(formation_str)
     end
 
 	do -- 진형 설명
-        local desc = table_formation:getFormatioDesc(formation_type)
+        local desc = table_formation:getFormatioDesc(formation_type, formation_lv)
         vars['dscLabel2']:setString(desc)
     end
 

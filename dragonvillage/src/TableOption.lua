@@ -65,3 +65,14 @@ function TableOption:getOptionDesc(option, val_1, val_2, val_3)
     local desc = Str(t_desc, val_1, val_2, val_3)
     return desc
 end
+
+-------------------------------------
+-- function getOptionDesc
+-- @brief
+-------------------------------------
+function TableOption:getLevelingValue(option_value, option_max_value, option_lv)
+	local formation_max_level = g_constant:get('FORMATION', 'MAX_LEVEL') - 1
+    local unit_value = (option_max_value - option_value) / formation_max_level
+
+    return option_value + (unit_value * option_lv)
+end
