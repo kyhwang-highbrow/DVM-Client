@@ -43,6 +43,7 @@ function UI_DragonUpgradeNew:init(doid)
 
     -- 정렬 매니저
     self.m_mtrlDragonSortManager = SortManager_Dragon()
+    self.m_mtrlDragonSortManager.m_mPreSortType['object_type']['ascending'] = true -- 슬라임이 앞쪽으로 정렬되도록 변경
 
     self:sceneFadeInAction()
 
