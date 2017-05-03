@@ -100,3 +100,22 @@ function ServerData_Slimes:possibleMaterialSlime_exp(soid)
 
     return false
 end
+
+-------------------------------------
+-- function possibleMaterialSlime_upgrade
+-- @brief
+-------------------------------------
+function ServerData_Slimes:possibleMaterialSlime_upgrade(soid)
+    local slime_object = self:getSlimeObject(soid)
+
+    if (not slime_object) then
+        return false, ''
+    end
+
+    local slime_type = slime_object:getSlimeType()
+    if (slime_type == 'upgrade') then
+        return true
+    end
+
+    return false
+end

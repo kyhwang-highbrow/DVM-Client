@@ -401,10 +401,14 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Dragons:checkUpgradeable(doid)
-    local t_dragon_data = self:getDragonDataFromUid(doid)
+    local t_dragon_data = self:getDragonObject(doid)
 
     if (not t_dragon_data) then
         return false
+    end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('슬라임은 승급 할 수 없습니다.')
     end
 
     local grade = t_dragon_data['grade']
@@ -430,10 +434,14 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Dragons:checkMaxUpgrade(doid)
-    local t_dragon_data = self:getDragonDataFromUid(doid)
+    local t_dragon_data = self:getDragonObject(doid)
 
     if (not t_dragon_data) then
         return false
+    end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('슬라임은 승급 할 수 없습니다.')
     end
 
     local grade = t_dragon_data['grade']
@@ -675,10 +683,14 @@ end
 -- @breif 레벨업이 가능한 상태인지 여부
 -------------------------------------
 function ServerData_Dragons:possibleDragonLevelUp(doid)
-    local t_dragon_data = self:getDragonDataFromUid(doid)
+    local t_dragon_data = self:getDragonObject(doid)
 
     if (not t_dragon_data) then
         return false
+    end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('슬라임은 레벨업 할 수 없습니다.')
     end
 
     local lv = t_dragon_data['lv']

@@ -295,20 +295,20 @@ end
 function UI_DragonUpgradeNew:getDragonUpgradeMaterialList(doid)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
     
-    local l_dragon_list = g_dragonsData:getDragonsList()-- clone된 데이터를 사용
+    local dragon_dic = g_dragonsData:getDragonListWithSlime()
 
-    -- 2. 자기 자신 드래곤 제외
-    l_dragon_list[doid] = nil
+    -- 자기 자신 드래곤 제외
+    dragon_dic[doid] = nil
 
-    for doid,v in pairs(l_dragon_list) do
+    for oid,v in pairs(dragon_dic) do
         if (v['grade'] < t_dragon_data['grade']) then
-            l_dragon_list[doid] = nil
-        elseif (not g_dragonsData:possibleMaterialDragon(doid)) then
-            l_dragon_list[doid] = nil
+            dragon_dic[oid] = nil
+        elseif (not g_dragonsData:possibleMaterialDragon(oid)) and (not g_slimesData:possibleMaterialSlime_upgrade(oid)) then
+            dragon_dic[oid] = nil
         end
     end
 
-    return l_dragon_list
+    return dragon_dic
 end
 
 -------------------------------------
@@ -469,13 +469,24 @@ function UI_DragonUpgradeNew:click_upgradeBtn()
     local uid = g_userData:get('uid')
     local doid = self.m_selectDragonOID
     local src_doids = ''
-    do
-        for _,v in pairs(self.m_lSelectedMtrlList) do
-            local _doid = v.m_dragonData['id']
+    local src_soids = ''
+    for _,v in pairs(self.m_lSelectedMtrlList) do
+        local _doid = v.m_dragonData['id']
+        local _dragon_object = g_dragonsData:getDragonObject(_doid)
+       
+        -- 드래곤     
+        if (_dragon_object.m_objectType == 'dragon') then
             if (src_doids == '') then
                 src_doids = tostring(_doid)
             else
                 src_doids = src_doids .. ',' .. tostring(_doid)
+            end
+        -- 슬라임
+        elseif (_dragon_object.m_objectType == 'slime') then
+            if (src_soids == '') then
+                src_soids = tostring(_doid)
+            else
+                src_soids = src_soids .. ',' .. tostring(_doid)
             end
         end
     end
@@ -490,6 +501,16 @@ function UI_DragonUpgradeNew:click_upgradeBtn()
 
                 -- 드래곤 리스트 갱신
                 self.m_tableViewExt:delItem(doid)
+            end
+        end
+
+        -- 슬라임
+        if ret['deleted_slimes_oid'] then
+            for _,soid in pairs(ret['deleted_slimes_oid']) do
+                g_slimesData:delSlimeObject(soid)
+
+                -- 리스트 갱신
+                self.m_tableViewExt:delItem(soid)
             end
         end
 
@@ -515,6 +536,7 @@ function UI_DragonUpgradeNew:click_upgradeBtn()
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
     ui_network:setParam('src_doids', src_doids)
+    ui_network:setParam('src_soids', src_soids)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
