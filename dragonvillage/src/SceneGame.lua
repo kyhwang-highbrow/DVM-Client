@@ -54,6 +54,8 @@ function SceneGame:init(game_key, stage_id, stage_name, develop_mode, stage_para
     self.m_stageName = stage_name
     self.m_stageParam = stage_param
 
+	self.m_sceneName = 'SceneGame'
+
     self.m_bUseLoadingUI = true
     self.m_bRemoveCache = true
 
@@ -64,6 +66,7 @@ function SceneGame:init(game_key, stage_id, stage_name, develop_mode, stage_para
 
     self:initFriendOnlineBuff()
     self:init_gameMode(stage_id)
+	self:init_loadingGuideType()
 end
 
 -------------------------------------
@@ -86,6 +89,40 @@ function SceneGame:init_gameMode(stage_id)
     else
         self.m_gameMode = g_stageData:getGameMode(self.m_stageID)
     end
+end
+
+-------------------------------------
+-- function init_loadingGuideType
+-- @brief 로딩가이드 타입
+-------------------------------------
+function SceneGame:init_loadingGuideType()
+	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+		self.m_loadingGuideType = 'in_adventure'
+
+	elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+		local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
+        local dungeon_mode = t_dungeon['dungeon_mode']
+
+		if (dungeon_mode == NEST_DUNGEON_DRAGON) then
+			self.m_loadingGuideType = 'in_nest_gd'
+
+		elseif (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
+			self.m_loadingGuideType = 'in_nest_nm'
+
+		elseif (dungeon_mode == NEST_DUNGEON_TREE) then
+			self.m_loadingGuideType = 'in_nest_tr'
+
+		elseif (dungeon_mode == NEST_DUNGEON_GOLD) then
+			self.m_loadingGuideType = 'in_nest_go'
+		end
+
+	elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
+		self.m_loadingGuideType = 'in_adventure'
+
+	elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+		self.m_loadingGuideType = 'in_adventure'
+
+	end
 end
 
 -------------------------------------

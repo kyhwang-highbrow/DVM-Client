@@ -625,7 +625,8 @@ end
 -- function click_homeBtn
 -------------------------------------
 function UI_GameResultNew:click_homeBtn()
-    local scene = SceneLobby()
+	local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
     scene:runScene()
 end
 

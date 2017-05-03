@@ -18,7 +18,8 @@ end
 -- function click_homeButton
 -------------------------------------
 function UI_GamePause_SecretDungeon:click_homeButton()
-    local scene = SceneLobby()
+	local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
     scene:runScene()
 end
 

@@ -8,8 +8,6 @@ PerpleScene = class
     m_scene = 'cc.Scene',           -- Cocos2d-x의 Scene클래스
     m_lPrepareFunc = 'table',       -- Scene을 준비하는 함수들의 리스트 큐의 형태로 하나씩 수행
 
-    m_bUseLoadingUI = 'boolean',    -- LoadingUI 사용 여부(false일 경우 Prepare가 동작하지 않음)
-    m_loadingUIDuration = 'number', -- LoadingUI가 반드시 보여져야 하는 시간(nil일 경우 무시)
     m_bShowPushUI = 'boolean',
     m_bRemoveCache = 'boolean',
     
@@ -24,7 +22,13 @@ PerpleScene = class
 
     m_timeScale = 'number',
     m_bShowTopUserInfo = 'boolean',
+	
 	m_sceneName = 'string',
+
+	-- loading guide
+    m_bUseLoadingUI = 'boolean',    -- LoadingUI 사용 여부(false일 경우 Prepare가 동작하지 않음)
+	m_loadingGuideType = 'string',
+    m_loadingUIDuration = 'number', -- LoadingUI가 반드시 보여져야 하는 시간(nil일 경우 무시)
 }
 
 -------------------------------------
@@ -34,7 +38,7 @@ function PerpleScene:init(param)
     self.m_scene = cc.Scene:create()
     self.m_lPrepareFunc = {}
     self.m_bUseLoadingUI = false
-    self.m_loadingUIDuration = 2
+    self.m_loadingUIDuration = 1
     self.m_bShowPushUI = true
     self.m_bRemoveCache = false
 
@@ -112,9 +116,10 @@ function PerpleScene:prepareRes()
         if (call_result==nil) or (call_result==true) then
             table.remove(self.m_lPrepareFunc, 1)
         end
-        return false
+
+        return false, #self.m_lPrepareFunc
     else
-        return true
+        return true, 0
     end
 end
 
@@ -305,7 +310,7 @@ end
 -- @brief scene전환 중 로딩화면 생성
 -------------------------------------
 function PerpleScene:makeLoadingUI()
-    return UI_LoadingGuide()
+    return UI_LoadingGuide(self)
 end
 
 -------------------------------------
@@ -416,7 +421,7 @@ function replaceScene(target_scene)
         local co_timer = 0
 
         --------------------------------------------------------------------------
-        do -- #1 fase out
+        --[[do -- #1 fase out
             if curr_scene then
                 -- cur_scene이 있으면 fade out 처리 후 replace scene
                 local duraition = 0.3
@@ -439,7 +444,18 @@ function replaceScene(target_scene)
                     dt = coroutine.yield()
                 end
             end
-        end
+        end--]]
+        --------------------------------------------------------------------------
+        
+        --------------------------------------------------------------------------
+        -- Loading UI 생성
+		do
+			target_scene.m_loadingUI = target_scene:makeLoadingUI()
+            target_scene.m_scene:addChild(target_scene.m_loadingUI.root, 99999)
+			target_scene.m_loadingUI:setLoadingGauge(5)
+            dt = coroutine.yield()
+            co_timer = co_timer + dt
+		end
         --------------------------------------------------------------------------
 
         --------------------------------------------------------------------------
@@ -452,26 +468,11 @@ function replaceScene(target_scene)
             target_scene.m_scene:release()
         end
         --------------------------------------------------------------------------
-        
-        --------------------------------------------------------------------------
-        -- Loading UI 생성
-        --if (target_scene.m_loadingUIDuration ~= 0) then
-            target_scene.m_loadingUI = target_scene:makeLoadingUI()
-            target_scene.m_scene:addChild(target_scene.m_loadingUI.root, 99999)
-            dt = coroutine.yield()
-            co_timer = co_timer + dt
-
-            -- 로딩 UI 정지
-            local function f_pause(node)
-                node:pause()
-            end
-            doAllChildren(target_scene.m_loadingUI.root, f_pause)
-        --end
-        --------------------------------------------------------------------------
 
         --------------------------------------------------------------------------
         do -- prepare
             target_scene:prepare()
+			target_scene.m_loadingUI:setLoadingGauge(19)
             dt = coroutine.yield()
             co_timer = co_timer + dt
         end
@@ -479,30 +480,42 @@ function replaceScene(target_scene)
 
         --------------------------------------------------------------------------
         do -- prepareRes
-            while not target_scene:prepareRes() do
+			local total_cnt = #target_scene.m_lPrepareFunc
+			local rest_cnt = 0
+			local curr_cnt = 0
+			local is_break
+			local percent
+            repeat
+				is_break, rest_cnt = target_scene:prepareRes()
+				curr_cnt = total_cnt - rest_cnt
+				if (total_cnt > 0) then
+					percent = 19 + ((69/total_cnt) * curr_cnt)
+				else
+					percent = 31
+				end
+				target_scene.m_loadingUI:setLoadingGauge(percent)
                 dt = coroutine.yield()
                 co_timer = co_timer + dt
-            end
+            until (is_break)
         end
         --------------------------------------------------------------------------
 
         --------------------------------------------------------------------------
         -- 로딩 UI 재생
         if target_scene.m_loadingUI then
-            local function f_resume(node)
-                node:resume()
-            end
-            doAllChildren(target_scene.m_loadingUI.root, f_resume)
-
             -- 기본 2초간의 로딩 시간
-            local loading_time = 2
+            local loading_time = 1
             if target_scene.m_loadingUIDuration then
                 loading_time = target_scene.m_loadingUIDuration
                 co_timer = 0
             end
 
             -- wait
+			local start_percent = target_scene.m_loadingUI:getLoadingGauge()
+			local percent = 0
             while co_timer < loading_time do
+				percent = start_percent + ((100 - start_percent) * co_timer/loading_time)
+				target_scene.m_loadingUI:setLoadingGauge(percent, true)
                 dt = coroutine.yield()
                 co_timer = co_timer + dt
             end

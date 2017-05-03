@@ -464,12 +464,8 @@ function UI_TitleScene:workFinish()
 end
 function UI_TitleScene:workFinish_click()
     -- 모든 작업이 끝난 경우 로비로 전환
-    local scene = SceneLobby()
-
-    -- 로딩 UI를 사용함(암전, 밝아짐 효과를 위해서)
-    scene.m_bUseLoadingUI = true
-    scene.m_loadingUIDuration = nil -- LoadingUI가 반드시 보여져야 하는 시간(nil일 경우 무시)
-
+	local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
     scene:runScene()
 end
 

@@ -116,7 +116,8 @@ end
 -- @brief "나가기" 버튼
 -------------------------------------
 function UI_ColosseumResult:click_exitBtn()
-    local scene = SceneLobby()
+	local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
     scene:runScene()
 end
 

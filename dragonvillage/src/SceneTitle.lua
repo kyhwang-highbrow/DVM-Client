@@ -12,6 +12,7 @@ SceneTitle = class(PARENT, {
 function SceneTitle:init()
     -- 상단 유저정보창 비활성화
     self.m_bShowTopUserInfo = false
+	self.m_sceneName = 'SceneTitle'
 end
 
 -------------------------------------

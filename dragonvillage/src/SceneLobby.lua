@@ -7,7 +7,12 @@ SceneLobby = class(PerpleScene, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SceneLobby:init(class_ui)
+function SceneLobby:init(is_use_loading)
+	self.m_sceneName = 'SceneLobby'
+
+	self.m_bUseLoadingUI = is_use_loading
+	self.m_loadingGuideType = 'all'
+	self.m_loadingUIDuration = 1
 end
 
 -------------------------------------

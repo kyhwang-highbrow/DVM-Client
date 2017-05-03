@@ -202,7 +202,8 @@ function UI_NestDungeonScene:click_exitBtn()
     end
 
 	if (g_currScene.m_sceneName == 'SceneNestDungeon') then
-		local scene = SceneLobby()
+		local is_use_loading = false
+		local scene = SceneLobby(is_use_loading)
 		scene:runScene()
 	else
 		self:close()

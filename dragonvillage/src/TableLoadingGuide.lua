@@ -17,7 +17,21 @@ function TableLoadingGuide:init()
 end
 
 -------------------------------------
--- function init
+-- function getGuideList
+-------------------------------------
+function TableLoadingGuide:getGuideList(guide_type)
+	return self:filterList('type', guide_type)
+end
+
+-------------------------------------
+-- function getGuideData
+-------------------------------------
+function TableLoadingGuide:getGuideData(guide_type)
+	--local l_guide = 
+end
+
+-------------------------------------
+-- function getLoadingImg
 -------------------------------------
 function TableLoadingGuide:getLoadingImg(gid)
 	local t_loading = self:get(gid)
@@ -27,7 +41,7 @@ function TableLoadingGuide:getLoadingImg(gid)
 end
 
 -------------------------------------
--- function init
+-- function getLoadingDesc
 -------------------------------------
 function TableLoadingGuide:getLoadingDesc(gid)
 	local t_loading = self:get(gid)

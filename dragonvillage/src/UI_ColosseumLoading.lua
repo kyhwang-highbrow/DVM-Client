@@ -128,3 +128,17 @@ function UI_ColosseumLoading:getTierName(tier)
 
     return str
 end
+
+-------------------------------------
+-- function setLoadingGauge
+-- @brief
+-------------------------------------
+function UI_ColosseumLoading:setLoadingGauge()
+end
+
+-------------------------------------
+-- function getLoadingGauge
+-------------------------------------
+function UI_ColosseumLoading:getLoadingGauge()
+	return 0
+end

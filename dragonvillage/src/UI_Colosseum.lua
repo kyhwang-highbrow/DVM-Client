@@ -57,7 +57,8 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_Colosseum:click_exitBtn()
-    local scene = SceneLobby()
+	local is_use_loading = false
+    local scene = SceneLobby(is_use_loading)
     scene:runScene()
 end
 

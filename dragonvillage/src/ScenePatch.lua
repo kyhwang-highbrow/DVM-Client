@@ -13,6 +13,7 @@ ScenePatch = class(PerpleScene, {
 function ScenePatch:init()
     self.m_bShowTopUserInfo = false
     self.m_bFinishPatch = false
+	self.m_sceneName = 'ScenePatch'
 end
 
 -------------------------------------
