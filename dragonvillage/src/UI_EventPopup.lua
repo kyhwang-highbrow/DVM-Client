@@ -81,6 +81,12 @@ function UI_EventPopup:init_tableView()
         elseif (data.m_type == 'attendance_basic_normal') then
             res = 'res/ui/event/icon_attendence_04.png'
 
+        elseif (string.match(data.m_type, 'exchange')) then
+            local t_info = data.m_userData
+            local exchange_type = t_info['group_type']
+            
+            --res = g_eventData:getResTabIcon(exchange_type)
+            res = 'res/ui/event/icon_attendence_04.png'
         end
 
         if res then
@@ -102,6 +108,11 @@ function UI_EventPopup:init_tableView()
     local make_item = true
     table_view:setItemList(l_item_list, make_item)
     --table_view_td:makeDefaultEmptyDescLabel(Str(''))
+
+    local function sort_func(a, b)
+        return a['data'].m_sortIdx < b['data'].m_sortIdx
+    end
+    table.sort(table_view.m_itemList, sort_func)
 
     
     self.m_tableView = table_view
@@ -186,6 +197,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
     -- 출석 (일반)
     elseif (tab == 'attendance_basic') then
         ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
+
+    -- 이벤트 교환소
+    elseif (string.match(tab, 'exchange')) then
+        ui = UI_EventPopupTab_Exchange(self, struct_event_popup_tab)
 
     else
         -- 출석체크 이벤트

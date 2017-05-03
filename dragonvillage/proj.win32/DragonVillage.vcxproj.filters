@@ -2079,6 +2079,15 @@
     <None Include="..\src\TableLactea.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_EventPopupTab_Exchange.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ExchangeProductListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_Exchange.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_FormationEnhance.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2093,6 +2102,12 @@
     </None>
     <None Include="..\src\UI_ScenarioPlayer_Talk.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TableExchange.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\StructExchangeProductData.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

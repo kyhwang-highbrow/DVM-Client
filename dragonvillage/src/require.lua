@@ -48,6 +48,7 @@ local t_module = {
     'StructAdventureStageInfo',
     'StructCalendarDay',
     'StructAttendanceData',
+    'StructExchangeProductData',
     'StructRuneObject',
     'StructRuneSetObject',
     'StructDragonObject',
@@ -90,6 +91,7 @@ local t_module = {
     'ServerData_Gacha',
     'ServerData_Attendance',
     'ServerData_Birthday',
+    'ServerData_Exchange',
     'ServerData_Exploration',
     'ServerData_HotTime',
     'ServerData_Collection',
@@ -205,6 +207,7 @@ local t_module = {
     'TableSlime',
     'TableSlimeExp',
 	'TableLoadingGuide',
+    'TableExchange',
 
     -- Interface
     'IEventDispatcher',
@@ -682,9 +685,11 @@ local t_module = {
     'UI_EventPopupTab_Birthday',
     'UI_EventPopupTab_Attendance',
     'UI_EventPopupTab_EventAttendance',
+    'UI_EventPopupTab_Exchange',
     'UI_BirthdayCalendarDayElement',
     'UI_BirthdayRewardSelectPopup',
     'UI_BirthdayRewardSelectListItem',
+    'UI_ExchangeProductListItem',
 
 	-- UI : 채팅
 	'UI_ChatPopup',

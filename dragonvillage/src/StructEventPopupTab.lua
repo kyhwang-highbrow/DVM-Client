@@ -20,6 +20,8 @@ StructEventPopupTab = class({
 -- function init
 -------------------------------------
 function StructEventPopupTab:init(category1, category2, category3)
+    self.m_sortIdx = 0
+
     self:setCategory(category1, category2, category3)
 end
 
@@ -56,6 +58,10 @@ function StructEventPopupTab:getTabButtonName()
 
     elseif (self.m_category1 == 'birthday_calendar') then
         return Str('드래곤 생일')
+
+    elseif (self.m_category1 == 'exchange') then
+        --self.m_userData['t_name']
+        return Str('교환소({1})', self.m_category2)
 
     end
 end

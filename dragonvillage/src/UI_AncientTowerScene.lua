@@ -216,7 +216,19 @@ end
 -- function click_readyBtn
 -------------------------------------
 function UI_AncientTowerScene:click_readyBtn()
-	UI_AdventureStageInfo(self.m_selectedStageID)
+	--UI_AdventureStageInfo(self.m_selectedStageID)
+    local func = function()
+        local stage_id = self.m_selectedStageID
+
+        local function close_cb()
+            self:sceneFadeInAction()
+        end
+
+        local ui = UI_ReadyScene(stage_id)
+        ui:setCloseCB(close_cb)
+    end
+
+    self:sceneFadeOutAndCallFunc(func)
 end
 
 -------------------------------------

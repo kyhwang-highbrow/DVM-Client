@@ -350,6 +350,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_DragonSummon.lua" />
     <None Include="..\src\ServerData_DragonUnit.lua" />
     <None Include="..\src\ServerData_Event.lua" />
+    <None Include="..\src\ServerData_Exchange.lua" />
     <None Include="..\src\ServerData_Exploration.lua" />
     <None Include="..\src\ServerData_Formation.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
@@ -610,6 +611,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StructDragonUnit.lua" />
     <None Include="..\src\StructDragonUnitCondition.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />
+    <None Include="..\src\StructExchangeProductData.lua" />
     <None Include="..\src\StructFreeDragonSummonInfo.lua" />
     <None Include="..\src\StructFriendshipObject.lua" />
     <None Include="..\src\StructIndividualStatus.lua" />
@@ -630,6 +632,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableDragonExp.lua" />
     <None Include="..\src\TableDragonResearch.lua" />
     <None Include="..\src\TableDragonSkill.lua" />
+    <None Include="..\src\TableExchange.lua" />
     <None Include="..\src\TableLactea.lua" />
     <None Include="..\src\TableLoadingGuide.lua" />
     <None Include="..\src\TableReqGold.lua" />
@@ -776,6 +779,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonSummon.lua" />
     <None Include="..\src\UI_DragonSummonListItem.lua" />
     <None Include="..\src\UI_FormationEnhance.lua" />
+    <None Include="..\src\UI_EventPopupTab_Exchange.lua" />
+    <None Include="..\src\UI_ExchangeProductListItem.lua" />
     <None Include="..\src\UI_FormationListItem.lua" />
     <None Include="..\src\UI_FormationPopup.lua" />
     <None Include="..\src\UI_LoadingGuide.lua" />

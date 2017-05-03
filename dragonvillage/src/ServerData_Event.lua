@@ -19,12 +19,28 @@ end
 function ServerData_Event:getEventPopupTabList()
     local item_list = {}
 
+    local idx = 1
+
     -- 출석 체크
-    for i,v in pairs(g_attendanceData.m_structAttendanceDataList) do
+    for i, v in pairs(g_attendanceData.m_structAttendanceDataList) do
         local event_popup_tab = StructEventPopupTab('attendance', v['attendance_type'], v['category'])
         item_list[event_popup_tab.m_type] = event_popup_tab
         event_popup_tab.m_userData = v
         event_popup_tab.m_hasNoti = v:hasReward()
+        event_popup_tab.m_sortIdx = idx
+
+        idx = idx + 1
+    end
+
+    -- 이벤트 교환소(현재는 상시 적용)
+    for i, v in ipairs(g_exchangeData.m_lExchange) do
+        local event_popup_tab = StructEventPopupTab('exchange', v['group_type'])
+        item_list[event_popup_tab.m_type] = event_popup_tab
+        event_popup_tab.m_userData = v
+        event_popup_tab.m_hasNoti = false
+        event_popup_tab.m_sortIdx = idx
+
+        idx = idx + 1
     end
 
     --[[

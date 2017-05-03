@@ -105,6 +105,9 @@ function ServerData:getInstance()
     -- 출석체크
     g_attendanceData = ServerData_Attendance(g_serverData)
 
+    -- 이벤트 교환소
+    g_exchangeData = ServerData_Exchange(g_serverData)
+
     -- 드래곤 생일
     g_birthdayData = ServerData_Birthday(g_serverData)
 

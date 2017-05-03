@@ -112,6 +112,11 @@ function UI_Lobby:entryCoroutine()
         g_attendanceData:request_attendanceInfo(function(ret) working = false end)
         while (working) do dt = coroutine.yield() end
 
+        cclog('# 교환소 정보 받는 중')
+        working = true
+        g_exchangeData:request_exchangeInfo(function(ret) working = false end)
+        while (working) do dt = coroutine.yield() end
+
         if g_eventData:hasReward() then
             working = true
             local ui = UI_EventPopup()
