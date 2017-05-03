@@ -533,6 +533,36 @@ function MakeUICSortList_runeManageFilter(button, label)
     return uic
 end
 
+function MakeUICSortList_teamList(button, label)
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+
+    uic.m_bDirectHide = true
+
+    uic.m_direction = UIC_SORT_LIST_BOT_TO_TOP
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+    uic:addSortType('1', Str('1팀'))
+    uic:addSortType('2', Str('2팀'))
+    uic:addSortType('3', Str('3팀'))
+    uic:addSortType('pvp', Str('콜로세움'))
+
+    return uic
+end
+
 
 -- show/hide
 -- addSortType (sort_type, sort_name)
