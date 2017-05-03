@@ -154,6 +154,17 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
         local eclv = 0
         sprite = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
 
+    -- 슬라임 아이콘 생성
+    elseif (item_type == 'slime') then
+        local t_slime_data = {}
+        t_slime_data['slime_id'] = t_item['did']
+        t_slime_data['evolution'] = t_item['evolution']
+        t_slime_data['grade'] = t_item['grade']
+
+        local card = UI_DragonCard(StructSlimeObject(t_slime_data))
+        card.vars['clickBtn']:setEnabled(false)
+        sprite = card.root
+
     -- 룬 아이콘 생성
     elseif (item_type == 'rune') then
         local rune_obj = t_sub_data or StructRuneObject({['rid'] = item_id})
