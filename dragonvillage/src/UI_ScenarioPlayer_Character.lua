@@ -10,18 +10,14 @@ UI_ScenarioPlayer_Character = class({
         m_bCharFlip = '',
 
         m_charNode = '',
-        m_charNameNode = '',
-        m_charNameLabel = '',
-        m_charTalkSprite = '',
-        m_charTalkLabel = '',
-
-        m_charMonoSprite = '',
-        m_charMonoLabel = '',
 
         m_shakeNode = '',
+        m_focusNode = '',
 
         m_posX = '',
         m_posY = '',
+
+        m_bSilhouette = 'boolean',
     })
 
 -------------------------------------
@@ -31,13 +27,12 @@ function UI_ScenarioPlayer_Character:init(pos_name, char_node, name_node, name_l
     self.m_posName = pos_name
 
     self.m_charNode = char_node
-    self.m_charNameNode = name_node
-    self.m_charNameLabel = name_label
-    self.m_charTalkSprite = talk_sprite
-    self.m_charTalkLabel = talk_label
 
     self.m_shakeNode = cc.Node:create()
     self.m_charNode:addChild(self.m_shakeNode)
+
+    self.m_focusNode = cc.Node:create()
+    self.m_shakeNode:addChild(self.m_focusNode)
 
     self.m_bCharFlip = false
 end
@@ -46,8 +41,6 @@ end
 -- function setMonoTextNode
 -------------------------------------
 function UI_ScenarioPlayer_Character:setMonoTextNode(node, label)
-    self.m_charMonoSprite = node
-    self.m_charMonoLabel = label
 end
 
 -------------------------------------
@@ -56,12 +49,6 @@ end
 function UI_ScenarioPlayer_Character:hide(duration)
     if (not duration) then
         self.m_charNode:setVisible(false)
-        self.m_charNameNode:setVisible(false)
-        self.m_charNameLabel:setVisible(false)
-        self.m_charTalkSprite:setVisible(false)
-        self.m_charTalkLabel:setVisible(false)
-        self.m_charMonoSprite:setVisible(false)
-        self.m_charMonoLabel:setVisible(false)
     end
 
     if (self.m_charAnimator) then
@@ -76,8 +63,6 @@ end
 function UI_ScenarioPlayer_Character:show(duration)
     if (not duration) then
         self.m_charNode:setVisible(true)
-        self.m_charNameNode:setVisible(true)
-        self.m_charNameLabel:setVisible(true)
     end
 end
 
@@ -119,52 +104,10 @@ function UI_ScenarioPlayer_Character:setCharacter(key)
 
     self.m_charAnimator:setAlpha(0)
     self.m_charAnimator:runAction(cc.FadeIn:create(0.3))
-    self.m_shakeNode:addChild(self.m_charAnimator.m_node)
+    self.m_focusNode:addChild(self.m_charAnimator.m_node)
     self.m_charAnimator:setFlip(self.m_bCharFlip)
 
     self:show()
-end
-
--------------------------------------
--- function setCharText
--------------------------------------
-function UI_ScenarioPlayer_Character:setCharText(text, is_mono)
-    if is_mono then
-        self.m_charTalkSprite:setVisible(false)
-        self.m_charTalkLabel:setVisible(false)
-
-        self.m_charMonoSprite:setVisible(true)
-        self.m_charMonoSprite:stopAllActions()
-        cca.uiReaction(self.m_charMonoSprite)
-        self.m_charMonoLabel:setVisible(true)
-        self.m_charMonoLabel:setString(text)
-    else
-        self.m_charMonoSprite:setVisible(false)
-        self.m_charMonoLabel:setVisible(false)
-
-        self.m_charTalkSprite:setVisible(true)
-        self.m_charTalkSprite:stopAllActions()
-        cca.uiReaction(self.m_charTalkSprite)
-        self.m_charTalkLabel:setVisible(true)
-        self.m_charTalkLabel:setString(text)
-    end
-end
-
--------------------------------------
--- function hideCharText
--------------------------------------
-function UI_ScenarioPlayer_Character:hideCharText()
-    self.m_charTalkSprite:setVisible(false)
-    self.m_charTalkLabel:setVisible(false)
-    self.m_charMonoSprite:setVisible(false)
-    self.m_charMonoLabel:setVisible(false)
-end
-
--------------------------------------
--- function setCharName
--------------------------------------
-function UI_ScenarioPlayer_Character:setCharName(name)
-    self.m_charNameLabel:setString(name)
 end
 
 -------------------------------------
@@ -173,14 +116,16 @@ end
 function UI_ScenarioPlayer_Character:resetCharacterAnimator()
     self.m_charAnimator = nil
     self.m_charKey = nil
-    self.m_charNameNode:setVisible(false)
-    self.m_charNameLabel:setVisible(false)
+    self.m_bSilhouette = false
 end
 
 -------------------------------------
 -- function applyCharEffect
 -------------------------------------
 function UI_ScenarioPlayer_Character:applyCharEffect(effect)
+    if (effect == 'clear_text') or (effect == 'cleartext') then
+        cclog('# warning!! : 더 이상 지원하지 않는 char_effect : ' .. effect)
+    end
 
     if (effect == 'shaking') then
         if (self.m_shakeNode) then
@@ -208,7 +153,7 @@ function UI_ScenarioPlayer_Character:applyCharEffect(effect)
         end
 
     elseif (effect == 'silhouette') then
-        self.m_charAnimator:setColor(cc.c3b(0, 0, 0))
+        self:setSilhouette(true)
 
     elseif (effect == 'clear') then
         self:hide()
@@ -218,9 +163,6 @@ function UI_ScenarioPlayer_Character:applyCharEffect(effect)
             self.m_charAnimator:release()
             self:resetCharacterAnimator()
         end
-
-    elseif (effect == 'clear_text') or (effect == 'cleartext') then
-        self:hideCharText()
     end
 end
 
@@ -250,4 +192,52 @@ end
 -------------------------------------
 function UI_ScenarioPlayer_Character:setCharAni(ani)
     self.m_charAnimator:changeAni(ani, true)
+end
+
+
+-------------------------------------
+-- function setFocus
+-------------------------------------
+function UI_ScenarioPlayer_Character:setFocus()
+    self.m_focusNode:stopAllActions()
+    local action = cc.ScaleTo:create(0.2, 1)
+    local ease_action = cc.EaseOut:create(action, 0.2)
+    self.m_focusNode:runAction(ease_action)
+
+    if self.m_charAnimator and (not self.m_bSilhouette) then
+        self.m_charAnimator:runAction(cc.TintTo:create(0.2, 255, 255, 255))
+    end
+end
+
+-------------------------------------
+-- function killFocus
+-------------------------------------
+function UI_ScenarioPlayer_Character:killFocus()
+    self.m_focusNode:stopAllActions()
+    local action = cc.ScaleTo:create(0.2, 0.95)
+    local ease_action = cc.EaseOut:create(action, 0.2)
+    self.m_focusNode:runAction(ease_action)
+
+    if self.m_charAnimator and (not self.m_bSilhouette) then
+        self.m_charAnimator:runAction(cc.TintTo:create(0.2, 127, 127, 127))
+    end
+end
+
+-------------------------------------
+-- function setSilhouette
+-------------------------------------
+function UI_ScenarioPlayer_Character:setSilhouette(silhouette)
+    if (self.m_bSilhouette == silhouette) then
+        return
+    end
+
+    self.m_bSilhouette = silhouette
+
+    if self.m_charAnimator then
+        if silhouette then
+            self.m_charAnimator:setColor(cc.c3b(0, 0, 0))
+        else
+            self.m_charAnimator:setColor(cc.c3b(255, 255, 255))
+        end
+    end
 end

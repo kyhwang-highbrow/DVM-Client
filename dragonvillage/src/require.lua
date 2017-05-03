@@ -516,6 +516,7 @@ local t_module = {
     'UI_DragonInfoBoard',
     'UI_ScenarioPlayer',
     'UI_ScenarioPlayer_Character',
+    'UI_ScenarioPlayer_Talk',
 	'UI_FormationPopup',
 	'UI_FormationListItem',
 	'UI_FormationEnhance',

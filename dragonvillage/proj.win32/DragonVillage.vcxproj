@@ -828,6 +828,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Dragon.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Dungeon.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Party.lua" />
+    <None Include="..\src\UI_ScenarioPlayer_Talk.lua" />
     <None Include="..\src\UI_Setting.lua" />
     <None Include="..\src\UI_SettingAccountTab.lua" />
     <None Include="..\src\UI_SettingAlarmTab.lua" />

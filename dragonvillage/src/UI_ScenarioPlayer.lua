@@ -14,16 +14,21 @@ UI_ScenarioPlayer = class(PARENT,{
 
         m_autoSkipActionNode = '',
 
+        m_focusCharacter = '',
         m_mCharacter = '',
         m_bSkipEnalbe = '',
+
+        m_scenarioPlayerTalk = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_ScenarioPlayer:init(scenario_name)
-    local vars = self:load_keepZOrder('scenario_talk.ui', false)
+    local vars = self:load_keepZOrder('scenario_talk_new.ui', false)
     UIManager:open(self, UIManager.SCENE)
+
+    self.m_scenarioPlayerTalk = UI_ScenarioPlayer_Talk(self)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_skip() end, 'UI_ScenarioPlayer')
@@ -192,23 +197,21 @@ function UI_ScenarioPlayer:showPage()
     -- 캐릭터
     do
         if (t_page['char'] and t_page['char_pos']) then
-            self.m_mCharacter[t_page['char_pos']]:setCharacter(t_page['char'])
-
-            if t_page['t_text'] then
-                self.m_mCharacter[t_page['char_pos']]:setCharText(Str(t_page['t_text']))
-            elseif t_page['t_text_mono'] then
-                self.m_mCharacter[t_page['char_pos']]:setCharText(Str(t_page['t_text_mono']), true)
-            end
-
-            if t_page['t_char_name'] then
-                self.m_mCharacter[t_page['char_pos']]:setCharName(Str(t_page['t_char_name']))
-            end
+            local character = self.m_mCharacter[t_page['char_pos']]
+            character:setCharacter(t_page['char'])
 
             if t_page['char_ani'] then
-                self.m_mCharacter[t_page['char_pos']]:setCharAni(t_page['char_ani'])
+                character:setCharAni(t_page['char_ani'])
             end
-            
+
+            self:setFocusCharacter(character)
         end
+    end
+
+    -- 대사
+    do
+        --self.m_scenarioPlayerTalk:setTalk(t_page['char_pos'], t_page['t_char_name'], t_page['t_text'] or t_page['t_text_mono'])
+        self.m_scenarioPlayerTalk:setTalk('none', t_page['t_char_name'], t_page['t_text'] or t_page['t_text_mono'])
     end
 
     do -- 캐릭터 이펙트
@@ -284,6 +287,7 @@ function UI_ScenarioPlayer:applyEffect(effect)
             self:removeHeroVisual(self.m_tHeroAnimator[i], i)
             self.m_tHeroAnimator[i] = nil
         end
+        self.m_scenarioPlayerTalk:hide()
 
     elseif effect == 'black' then
         vars['layerColor']:setColor(cc.c3b(0,0,0))
@@ -343,11 +347,10 @@ function UI_ScenarioPlayer:applyEffect(effect)
         for i,v in pairs(self.m_mCharacter) do
             v:hide()
         end
+        self.m_scenarioPlayerTalk:hide()
 
     elseif (effect == 'clear_text') or (effect == 'cleartext') then
-        for i,v in pairs(self.m_mCharacter) do
-            v:hideCharText()
-        end
+        self.m_scenarioPlayerTalk:hide()
 
     elseif effect == 'skip_disable' then
         self.m_bSkipEnalbe = false
@@ -415,4 +418,23 @@ function UI_ScenarioPlayer:doShake()
 	local sequence_action = cc.Sequence:create(start_action, end_action)
 
     self.root:runAction(sequence_action)
+end
+
+-------------------------------------
+-- function setFocusCharacter
+-------------------------------------
+function UI_ScenarioPlayer:setFocusCharacter(character)
+    if (self.m_focusCharacter == character) then
+        return
+    end
+
+    if self.m_focusCharacter then
+        self.m_focusCharacter:killFocus()
+    end
+
+    self.m_focusCharacter = character
+
+    if self.m_focusCharacter then
+        self.m_focusCharacter:setFocus()
+    end
 end
