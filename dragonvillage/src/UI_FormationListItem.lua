@@ -30,17 +30,6 @@ end
 -------------------------------------
 function UI_FormationListItem:initUI()
     local vars = self.vars
-	local formation_type = self.m_tFormationInfo['formation']
-	local table_formation = TableFormation()
-
-	-- 진형 이름
-	local formation_name = table_formation:getFormationName(formation_type)
-	local formation_lv = self.m_tFormationInfo['formation_lv']
-	local formation_str = string.format('%s Lv. %d', formation_name, formation_lv)
-	vars['fomationLabel']:setString(formation_str)
-
-	-- 진형 효과
-	vars['dscLabel']:setString('진형 효과')
 end
 
 -------------------------------------
@@ -57,7 +46,20 @@ end
 -------------------------------------
 function UI_FormationListItem:refresh()
 	local vars = self.vars
-	local formation_type = self.m_tFormationInfo['formation']
+	
+	local table_formation = TableFormation()
+	
+	local formation_type = self.m_formation
+	local formation_lv = self.m_tFormationInfo['formation_lv']
+
+	-- 진형 이름
+	local formation_name = table_formation:getFormationName(formation_type)
+	local formation_str = string.format('Lv. %d %s', formation_lv, formation_name)
+	vars['fomationLabel']:setString(formation_str)
+
+	-- 진형 효과
+	local desc = table_formation:getFormatioDesc(formation_type)
+	vars['dscLabel']:setString(desc)
 
 	-- icon
 	local icon = IconHelper:getFormationIcon(formation_type, self.m_isActivated)
@@ -80,7 +82,13 @@ end
 -- function click_enhanceBtn
 -------------------------------------
 function UI_FormationListItem:click_enhanceBtn()
-	ccdisplay('click_enhanceBtn')
+	local ui = UI_FormationEnhance(self.m_formation, self.m_tFormationInfo['formation_lv'])
+	
+	local function close_cb()
+		self:makeDataPretty(g_formationData:getFormationInfo(self.m_formation))
+		self:refresh()
+	end
+	ui:setCloseCB(close_cb)
 end
 
 --@CHECK

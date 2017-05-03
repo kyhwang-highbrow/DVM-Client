@@ -515,6 +515,7 @@ local t_module = {
     'UI_ScenarioPlayer_Character',
 	'UI_FormationPopup',
 	'UI_FormationListItem',
+	'UI_FormationEnhance',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

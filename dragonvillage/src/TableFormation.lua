@@ -171,6 +171,40 @@ end
 -- function getFormationNameAndDesc
 -- @breif UI에서 사용되는 진형 이름, 버프 내용
 -------------------------------------
+function TableFormation:getFormatioDesc(formation)
+    if (self == THIS) then
+        self = THIS()
+    end
+    	
+	-- @TODO
+	local formation = self:temp(formation)
+
+    local t_table = self:get(formation)
+
+    local desc = ''
+
+    for i=1, 10 do
+        local buff_type = t_table[string.format('buff_type_%.2d', i)]
+        local buff_value = t_table[string.format('buff_value_%.2d', i)]
+
+        if (not buff_type) or (not buff_value) then
+        elseif (buff_type == '') or (buff_value == '') then
+        else
+            local str = TableOption:getOptionDesc(buff_type, buff_value)
+            if (desc ~= '') then
+                desc = desc .. ', '
+            end
+            desc = desc .. str
+        end
+    end
+
+    return desc
+end
+
+-------------------------------------
+-- function getFormationNameAndDesc
+-- @breif UI에서 사용되는 진형 이름, 버프 내용
+-------------------------------------
 function TableFormation:getFormationNameAndDesc(formation)
     if (self == THIS) then
         self = THIS()

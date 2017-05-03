@@ -62,8 +62,7 @@ function UI_FormationPopup:makeTableViewFormation()
 	local vars = self.vars
 	local node = vars['listNode']
 
-	local l_formation = g_formationData:getFormationLVList()
-
+	local l_formation = g_formationData:getFormationInfoList()
 
 	do -- 테이블 뷰 생성
         node:removeAllChildren()
@@ -128,7 +127,7 @@ function UI_FormationPopup:click_closeBtn()
 
 		self:close()
 	end
-	self:doActionReverse(cb_func, 1, false)
+	self:doActionReverse(cb_func, 1/2, false)
 end
 
 
