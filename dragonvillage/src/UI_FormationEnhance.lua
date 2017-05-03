@@ -30,6 +30,9 @@ function UI_FormationEnhance:init(formation, formation_lv)
 	self.m_currFormationLV = formation_lv
 	self.m_enhanceLevel = formation_lv + 1
 	self.m_maxFormationLevel = g_userData:get('lv')
+	if (self.m_enhanceLevel > self.m_maxFormationLevel) then
+		self.m_enhanceLevel = self.m_maxFormationLevel
+	end
 
 	-- init
     self:initUI()
@@ -129,12 +132,16 @@ end
 -- function click_enhanceBtn
 -------------------------------------
 function UI_FormationEnhance:click_enhanceBtn()
-	local enhance_level = self.m_enhanceLevel
+	if (self.m_currFormationLV == self.m_maxFormationLevel) then
+		UIManager:toastNotificationGreen(Str('강화 레벨을 지정하셔야 합니다.'))
+		return
+	end
+
 	local function cb_func()
 		self:close()
 	end
 
-	g_formationData:request_lvupFormation(self.m_formation, enhance_level, cb_func)
+	g_formationData:request_lvupFormation(self.m_formation, self.m_enhanceLevel, cb_func)
 end
 
 -------------------------------------
@@ -160,6 +167,7 @@ function UI_FormationEnhance:click_levelBtn2()
 	
 	if (self.m_enhanceLevel > self.m_maxFormationLevel) then
 		self.m_enhanceLevel = self.m_maxFormationLevel
+		UIManager:toastNotificationGreen(Str('유저 레벨 이상 레벨업 하실 수 없습니다.'))
 		return
 	end
 

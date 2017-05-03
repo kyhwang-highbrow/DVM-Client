@@ -16,13 +16,6 @@ UI_SkillEnhance = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_SkillEnhance:init(t_tamer, skill_indivisual_info, skill_idx)
-	-- 멤버 변수
-	self.m_tableTamer = t_tamer
-    self.m_skillIndividualInfo = skill_indivisual_info
-	self.m_skillIdx = skill_idx
-	self.m_enhanceLevel = skill_indivisual_info:getSkillLevel() + 1
-	self.m_maxSkillLevel = g_userData:get('lv')
-
     local vars = self:load('skill_enhance_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 	
@@ -32,6 +25,16 @@ function UI_SkillEnhance:init(t_tamer, skill_indivisual_info, skill_idx)
 	-- @UI_ACTION
     self:doActionReset()
 	self:doAction(nil, false)
+
+	-- 멤버 변수
+	self.m_tableTamer = t_tamer
+    self.m_skillIndividualInfo = skill_indivisual_info
+	self.m_skillIdx = skill_idx
+	self.m_enhanceLevel = skill_indivisual_info:getSkillLevel() + 1
+	self.m_maxSkillLevel = g_userData:get('lv')
+	if (self.m_enhanceLevel > self.m_maxSkillLevel) then
+		self.m_enhanceLevel = self.m_maxSkillLevel
+	end
 
     self:initUI()
     self:initButton()
@@ -136,14 +139,17 @@ end
 -- function click_enhanceBtn
 -------------------------------------
 function UI_SkillEnhance:click_enhanceBtn()
+	if (self.m_skillIndividualInfo:getSkillLevel() == self.m_maxSkillLevel) then
+		UIManager:toastNotificationGreen(Str('강화 레벨을 지정하셔야 합니다.'))
+		return
+	end
+
     local tid = self.m_tableTamer['tid']
-    local skill_idx = self.m_skillIdx
-	local enhance_level = self.m_enhanceLevel
 	local function cb_func()
 		self:close()
 	end
 
-	g_tamerData:request_tamerSkillEnhance(tid, skill_idx, enhance_level, cb_func)
+	g_tamerData:request_tamerSkillEnhance(tid, self.m_skillIdx, self.m_enhanceLevel, cb_func)
 end
 
 -------------------------------------
@@ -169,6 +175,7 @@ function UI_SkillEnhance:click_levelBtn2()
 	
 	if (self.m_enhanceLevel > self.m_maxSkillLevel) then
 		self.m_enhanceLevel = self.m_maxSkillLevel
+		UIManager:toastNotificationGreen(Str('유저 레벨 이상 레벨업 하실 수 없습니다.'))
 		return
 	end
 

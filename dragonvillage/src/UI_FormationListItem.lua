@@ -68,6 +68,19 @@ function UI_FormationListItem:refresh()
 
 	-- 선택 진형
 	vars['selectSprite']:setVisible(self.m_isActivated)
+
+	-- 버튼 처리
+	vars['maxSprite']:setVisible(false)
+	vars['enhanceBtn']:setVisible(false)
+	
+	-- 최대 레벨
+	if (g_userData:get('lv') <= formation_lv) then
+		vars['maxSprite']:setVisible(true)
+
+	-- 강화가 가능한 상태
+	else
+		vars['enhanceBtn']:setVisible(true)
+	end
 end
 
 -------------------------------------
