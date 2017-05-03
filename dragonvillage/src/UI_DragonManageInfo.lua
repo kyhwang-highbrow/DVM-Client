@@ -575,6 +575,9 @@ function UI_DragonManageInfo:click_sellBtn()
             if (not g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)) then
                 self:setDefaultSelectDragon(nil)
             end
+
+            -- 정렬
+            self:apply_dragonSort_saveData()
         end
 
         self:sceneFadeInAction()
