@@ -563,9 +563,9 @@
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.000000; };
-			anchor_point = { 0.500000; 0.000000; };
+			y = -20.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 400;
 			height = 380;
@@ -575,7 +575,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'swallowTouchMenu';
 		};
 		type = 'Menu';
 		ui_name = '';
