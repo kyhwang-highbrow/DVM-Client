@@ -55,6 +55,7 @@ function SortManager_Dragon:init()
     self:addPreSortType('object_type', false, function(a, b, ascending) return self:sort_object_type(a, b, ascending) end)
 
     self:addSortType('did', false, function(a, b, ascending) return self:sort_did(a, b, ascending) end)
+    self:addSortType('combat_power', false, function(a, b, ascending) return self:sort_combat_power(a, b, ascending) end)
     self:addSortType('role', false, function(a, b, ascending) return self:sort_role(a, b, ascending) end)
     self:addSortType('atk', false, function(a, b, ascending) return self:sort_atk(a, b, ascending) end)
     self:addSortType('def', false, function(a, b, ascending) return self:sort_def(a, b, ascending) end)
@@ -134,6 +135,36 @@ function SortManager_Dragon:sort_did(a, b, ascending)
 end
 
 -------------------------------------
+-- function sort_combat_power
+-- @brief 전투력
+-------------------------------------
+function SortManager_Dragon:sort_combat_power(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    -- 드래곤이 아닐 경우(슬라임) skip 
+    if (a_data.m_objectType ~= 'dragon') or (b_data.m_objectType ~= 'dragon') then
+        return nil
+    end
+
+    local a_sort_data = g_dragonsData:getDragonsSortData(a_data['id'])
+    local b_sort_data = g_dragonsData:getDragonsSortData(b_data['id'])
+
+    local a_value = a_sort_data['combat_power']
+    local b_value = b_sort_data['combat_power']
+
+    -- 같을 경우 리턴
+    if (a_value == b_value) then
+        return nil
+    end
+
+    -- 오름차순 or 내림차순
+    if ascending then return a_value < b_value
+    else              return a_value > b_value
+    end
+end
+
+-------------------------------------
 -- function sort_role
 -- @brief 드래곤 역할
 -------------------------------------
@@ -165,7 +196,7 @@ function SortManager_Dragon:sort_atk(a, b, ascending)
     local b_data = b['data']
 
     -- 드래곤이 아닐 경우(슬라임) skip 
-    if (a_data.m_objectType ~= 'draon') and (b_data.m_objectType ~= 'draon') then
+    if (a_data.m_objectType ~= 'dragon') or (b_data.m_objectType ~= 'dragon') then
         return nil
     end
 
@@ -193,7 +224,7 @@ function SortManager_Dragon:sort_def(a, b, ascending)
     local b_data = b['data']
 
     -- 드래곤이 아닐 경우(슬라임) skip 
-    if (a_data.m_objectType ~= 'draon') and (b_data.m_objectType ~= 'draon') then
+    if (a_data.m_objectType ~= 'dragon') or (b_data.m_objectType ~= 'dragon') then
         return nil
     end
 
@@ -221,7 +252,7 @@ function SortManager_Dragon:sort_hp(a, b, ascending)
     local b_data = b['data']
     
     -- 드래곤이 아닐 경우(슬라임) skip 
-    if (a_data.m_objectType ~= 'draon') and (b_data.m_objectType ~= 'draon') then
+    if (a_data.m_objectType ~= 'dragon') or (b_data.m_objectType ~= 'dragon') then
         return nil
     end
 

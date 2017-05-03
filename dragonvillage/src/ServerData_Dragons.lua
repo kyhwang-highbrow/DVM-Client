@@ -508,6 +508,7 @@ function ServerData_Dragons:setDragonsSortData(doid)
     t_sort_data['evolution'] = t_dragon_data['evolution']
     t_sort_data['rarity'] = dragonRarityStrToNum(t_dragon['rarity'])
     t_sort_data['friendship'] = t_dragon_data:getFlv()
+    t_sort_data['combat_power'] = status_calc:getCombatPower()
 
     self.m_lSortData[doid] = t_sort_data
 end

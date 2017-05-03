@@ -453,6 +453,7 @@ function MakeUICSortList_dragonManage(button, label, direction)
 
     parent:addChild(uic.m_node)
 
+    uic:addSortType('combat_power', Str('전투력'))
     uic:addSortType('hp', Str('체력'))
     uic:addSortType('def', Str('방어력'))
     uic:addSortType('atk', Str('공격력'))
