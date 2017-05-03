@@ -3,6 +3,7 @@
 -------------------------------------
 UI_DragonLevelUpHelper = class({
         m_selectedDoid = 'string',
+        m_selectedDragonAttr = '',
         m_materialDoidMap = 'map',
         m_materialCount = 'number',
         m_maxMaterialCount = 'number',
@@ -26,6 +27,10 @@ UI_DragonLevelUpHelper = class({
 -------------------------------------
 function UI_DragonLevelUpHelper:init(doid, max_material_count)
     self.m_selectedDoid = doid
+    local dragon_object = g_dragonsData:getDragonObject(self.m_selectedDoid)
+    self.m_selectedDragonAttr = dragon_object:getAttr()
+
+
     self.m_materialDoidMap = {}
     self.m_materialCount = 0
     self.m_maxMaterialCount = max_material_count
@@ -60,17 +65,13 @@ end
 -- function addMaterial
 -------------------------------------
 function UI_DragonLevelUpHelper:addMaterial(doid)
-    self.m_materialDoidMap[doid] = true
+    local object_type, exp, price = self:getMaterialInfo(doid)
+
+    self.m_materialDoidMap[doid] = object_type
     self.m_materialCount = (self.m_materialCount + 1)
 
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-    local grade = t_dragon_data['grade']
-    local lv = t_dragon_data['lv']
-
-    local table_dragon_exp = TableDragonExp()
-
-    self.m_addExp = self.m_addExp + table_dragon_exp:getDragonGivingExp(grade, lv)
-    self.m_price = self.m_price + table_dragon_exp:getDragonReqGoldPerMtrl(grade, lv)
+    self.m_addExp = self.m_addExp + exp
+    self.m_price = self.m_price + price
 
     self:clacChangedLevelAndExp()
 end
@@ -79,27 +80,51 @@ end
 -- function deleteMaterial
 -------------------------------------
 function UI_DragonLevelUpHelper:deleteMaterial(doid)
+    local object_type, exp, price = self:getMaterialInfo(doid)
+
     self.m_materialDoidMap[doid] = nil
     self.m_materialCount = (self.m_materialCount - 1)
 
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-    local grade = t_dragon_data['grade']
-    local lv = t_dragon_data['lv']
-
-    local table_dragon_exp = TableDragonExp()
-
-    self.m_addExp = self.m_addExp - table_dragon_exp:getDragonGivingExp(grade, lv)
-    self.m_price = self.m_price - table_dragon_exp:getDragonReqGoldPerMtrl(grade, lv)
+    self.m_addExp = self.m_addExp - exp
+    self.m_price = self.m_price - price
 
     self:clacChangedLevelAndExp()
 end
 
+-------------------------------------
+-- function getMaterialInfo
+-------------------------------------
+function UI_DragonLevelUpHelper:getMaterialInfo(oid)
+    local dragon_object = g_dragonsData:getDragonObject(oid)
+
+    local object_type = dragon_object.m_objectType
+
+    local exp_table = nil
+    if (object_type == 'dragon') then
+        exp_table = TableDragonExp()
+
+    elseif (object_type == 'slime') then
+        exp_table = TableSlimeExp()
+
+    end
+
+    local grade = dragon_object['grade']
+    local lv = dragon_object['lv']
+    local exp = exp_table:getDragonGivingExp(grade, lv)
+    local price = exp_table:getDragonReqGoldPerMtrl(grade, lv)
+
+    if (self.m_selectedDragonAttr == dragon_object:getAttr()) then
+        exp = (exp * 1.5)
+    end
+
+    return object_type, exp, price
+end
 
 -------------------------------------
 -- function clacChangedLevelAndExp
 -------------------------------------
 function UI_DragonLevelUpHelper:clacChangedLevelAndExp()
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectedDoid)
+    local t_dragon_data = g_dragonsData:getDragonObject(self.m_selectedDoid)
     local grade = t_dragon_data['grade']
     
 

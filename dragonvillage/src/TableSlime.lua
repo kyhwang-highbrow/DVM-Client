@@ -35,6 +35,12 @@ function TableSlime:getDesc(slime_id)
     return Str(desc)
 end
 
+-------------------------------------
+-- function getMaterialType
+-------------------------------------
+function TableSlime:getMaterialType(slime_id)
+    return self:getValue(slime_id, 'material_type')
+end
 
 -------------------------------------
 -- function isSlimeID

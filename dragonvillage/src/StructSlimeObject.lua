@@ -167,3 +167,12 @@ function StructSlimeObject:getSlimeDesc()
     local slime_id = self['slime_id']
     return TableSlime:getDesc(slime_id)
 end
+
+-------------------------------------
+-- function getSlimeType
+-- @breif
+-------------------------------------
+function StructSlimeObject:getSlimeType()
+    local slime_id = self['slime_id']
+    return TableSlime:getMaterialType(slime_id)
+end

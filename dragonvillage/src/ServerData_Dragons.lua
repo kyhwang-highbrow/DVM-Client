@@ -46,14 +46,7 @@ end
 -------------------------------------
 function ServerData_Dragons:getDragonsList()
     local l_dragons = self.m_serverData:getRef('dragons')
-
-    local l_ret = {}
-    for _,v in pairs(l_dragons) do
-        local unique_id = v['id']
-        l_ret[unique_id] = clone(v)
-    end
-
-    return l_ret
+    return clone(l_dragons)
 end
 
 -------------------------------------
@@ -61,6 +54,26 @@ end
 -------------------------------------
 function ServerData_Dragons:getDragonsListRef()
     return self.m_serverData:getRef('dragons')
+end
+
+-------------------------------------
+-- function getDragonListWithSlime
+-------------------------------------
+function ServerData_Dragons:getDragonListWithSlime()
+    local dragon_dictionary = self:getDragonsListRef()
+    local slime_dictionary = g_slimesData:getSlimeList()
+
+    local ret_dictionary = {}
+
+    for key,value in pairs(dragon_dictionary) do
+        ret_dictionary[key] = value
+    end
+
+    for key,value in pairs(slime_dictionary) do
+        ret_dictionary[key] = value
+    end
+
+    return ret_dictionary
 end
 
 -------------------------------------
@@ -745,4 +758,26 @@ function ServerData_Dragons:checkResearchUpgradeable(doid)
     end
 
     return true
+end
+
+-------------------------------------
+-- function getDragonObject
+-- @brief 드래곤 오브젝트 리턴 (슬라임 포함)
+-------------------------------------
+function ServerData_Dragons:getDragonObject(oid)
+    local object = nil
+
+    -- 드래곤에서 검색
+    object = self.m_serverData:get('dragons', oid)
+    if (object) then
+        return object
+    end
+
+    -- 슬라임에서 검색
+    object = g_slimesData:getSlimeObject(oid)
+    if (object) then
+        return object
+    end
+
+    return object
 end

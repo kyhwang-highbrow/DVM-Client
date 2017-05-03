@@ -70,7 +70,7 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Slimes:getSlimeObject(soid)
-    return self.m_slimesObjectMap[soid]
+    return clone(self.m_slimesObjectMap[soid])
 end
 
 -------------------------------------
@@ -80,4 +80,23 @@ end
 -------------------------------------
 function ServerData_Slimes:getSlimeList()
     return clone(self.m_slimesObjectMap)
+end
+
+-------------------------------------
+-- function possibleMaterialSlime_exp
+-- @brief
+-------------------------------------
+function ServerData_Slimes:possibleMaterialSlime_exp(soid)
+    local slime_object = self:getSlimeObject(soid)
+
+    if (not slime_object) then
+        return false, ''
+    end
+
+    local slime_type = slime_object:getSlimeType()
+    if (slime_type == 'exp') then
+        return true
+    end
+
+    return false
 end

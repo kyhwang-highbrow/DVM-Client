@@ -2082,6 +2082,9 @@
     <None Include="..\src\UI_FormationEnhance.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableSlimeExp.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

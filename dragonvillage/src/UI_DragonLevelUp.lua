@@ -35,6 +35,7 @@ function UI_DragonLevelUp:init(doid)
 
     -- 정렬 매니저
     self.m_mtrlDragonSortManager = SortManager_Dragon()
+    self.m_mtrlDragonSortManager.m_mPreSortType['object_type']['ascending'] = true -- 슬라임이 앞쪽으로 정렬되도록 변경
 
     
 
@@ -213,19 +214,19 @@ end
 -- @brief 드래곤 레벨업 재료
 -------------------------------------
 function UI_DragonLevelUp:getDragonLevelupMaterialList(doid)
-    local l_dragon_list = g_dragonsData:getDragonsList()-- clone된 데이터를 사용
+    local dragon_dic = g_dragonsData:getDragonListWithSlime()
 
     -- 자기 자신 드래곤 제외
-    l_dragon_list[doid] = nil
+    dragon_dic[doid] = nil
 
     -- 재료로 사용 불가능한 드래곤 제외
-    for doid,v in pairs(l_dragon_list) do
-        if (not g_dragonsData:possibleMaterialDragon(doid)) then
-            l_dragon_list[doid] = nil
+    for oid,v in pairs(dragon_dic) do
+        if (not g_dragonsData:possibleMaterialDragon(oid)) and (not g_slimesData:possibleMaterialSlime_exp(oid)) then
+            dragon_dic[oid] = nil
         end
     end
 
-    return l_dragon_list
+    return dragon_dic
 end
 
 -------------------------------------
@@ -467,12 +468,21 @@ function UI_DragonLevelUp:click_levelupBtn()
     local uid = g_userData:get('uid')
     local doid = self.m_selectDragonOID
     local src_doids = ''
+    local src_soids = ''
     do
-        for _doid,_ in pairs(helper.m_materialDoidMap) do
-            if (src_doids == '') then
-                src_doids = tostring(_doid)
-            else
-                src_doids = src_doids .. ',' .. tostring(_doid)
+        for _doid,type in pairs(helper.m_materialDoidMap) do
+            if (type == 'dragon') then
+                if (src_doids == '') then
+                    src_doids = tostring(_doid)
+                else
+                    src_doids = src_doids .. ',' .. tostring(_doid)
+                end
+            elseif (type == 'slime') then
+                if (src_soids == '') then
+                    src_soids = tostring(_doid)
+                else
+                    src_soids = src_soids .. ',' .. tostring(_doid)
+                end
             end
         end
     end
@@ -482,6 +492,7 @@ function UI_DragonLevelUp:click_levelupBtn()
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
     ui_network:setParam('src_doids', src_doids)
+    ui_network:setParam('src_soids', src_soids)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
@@ -499,6 +510,16 @@ function UI_DragonLevelUp:response_levelup(ret)
 
             -- 드래곤 리스트 갱신
             self.m_tableViewExt:delItem(doid)
+        end
+    end
+
+    -- 슬라임
+    if ret['deleted_slimes_oid'] then
+        for _,soid in pairs(ret['deleted_slimes_oid']) do
+            g_slimesData:delSlimeObject(soid)
+
+            -- 리스트 갱신
+            self.m_tableViewExt:delItem(soid)
         end
     end
 

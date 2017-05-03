@@ -203,6 +203,7 @@ local t_module = {
     'TableScenarioResource',
     'TableDragonPhrase',
     'TableSlime',
+    'TableSlimeExp',
 
     -- Interface
     'IEventDispatcher',

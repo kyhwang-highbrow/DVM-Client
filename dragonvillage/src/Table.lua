@@ -47,6 +47,7 @@ local TableInfo = {
         calendar          = {'table_calendar',		        'month',		false},
         table_option      = {'table_option',		        'option',		false},
         table_slime       = {'table_slime',		            'slime',		false},
+        table_slime_exp   = {'table_slime_exp',             'eid',  		false},
 
 		broadcast         = {'table_broadcast',		        'type',		    true},
         
