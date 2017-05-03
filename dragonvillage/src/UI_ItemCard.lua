@@ -38,6 +38,8 @@ function UI_ItemCard:setItemData()
 	
     if (t_item['type'] == 'dragon') then
         self:init_dragonItem(t_item)
+    elseif (t_item['type'] == 'slime') then
+        self:init_slimeItem(t_item)
     elseif (t_item['type'] == 'rune') then
         self:init_runeItem(t_item, self.m_tSubData)
     elseif (t_item['type'] == 'relation_point') then
@@ -85,13 +87,30 @@ function UI_ItemCard:init_dragonItem(t_item, t_sub_data)
     local t_dragon_data = {}
     t_dragon_data['did'] = t_item['did']
     t_dragon_data['evolution'] = t_item['evolution']
-    t_dragon_data['grade'] = 1
+    t_dragon_data['grade'] = t_item['grade']
     t_dragon_data['skill_0'] = 1
     t_dragon_data['skill_1'] = 1
     t_dragon_data['skill_2'] = 0
     t_dragon_data['skill_3'] = 0
 
-    local dragon_card = UI_DragonCard(t_dragon_data)
+    local dragon_card = UI_DragonCard(StructDragonObject(t_dragon_data))
+    self.root = dragon_card.root
+    self.vars = dragon_card.vars
+    local vars = dragon_card.vars
+end
+
+-------------------------------------
+-- function init_slimeItem
+-------------------------------------
+function UI_ItemCard:init_slimeItem(t_item, t_sub_data)
+    local item_id = self.m_itemID
+
+    local t_slime_data = {}
+    t_slime_data['slime_id'] = t_item['did']
+    t_slime_data['evolution'] = t_item['evolution']
+    t_slime_data['grade'] = t_item['grade']
+
+    local dragon_card = UI_DragonCard(StructSlimeObject(t_slime_data))
     self.root = dragon_card.root
     self.vars = dragon_card.vars
     local vars = dragon_card.vars

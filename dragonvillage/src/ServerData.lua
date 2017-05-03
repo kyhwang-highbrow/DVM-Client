@@ -469,6 +469,11 @@ function ServerData:networkCommonRespone_addedItems(ret)
         g_dragonsData:applyDragonData_list(t_added_items['dragons'])
     end
 
+    -- 슬라임 (추가)
+    if t_added_items['slimes'] then
+        g_slimesData:applySlimeData_list(t_added_items['slimes'])
+    end
+
     -- 추가된 룬 적용 (추가)
     if t_added_items['runes'] then
         g_runesData:applyRuneData_list(t_added_items['runes'])
