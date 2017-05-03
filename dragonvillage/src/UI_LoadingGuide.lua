@@ -81,8 +81,9 @@ function UI_LoadingGuide:setLoadingGauge(percent, is_not_use_label)
 
 	if (vars['loadingGauge']) then
 		vars['loadingGauge']:setPercentage(percent)
+		vars['loadingLabel']:setString(string.format('%.2f%%', percent))
 		if (not is_not_use_label) then
-			self:setRandomLoadingStr()
+			--self:setRandomLoadingStr()
 		end
 	end
 end
