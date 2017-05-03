@@ -25,5 +25,17 @@ function SceneLobby:onEnter()
     -- UI 캐싱
     getUIFile('dragon_info_mini.ui')
 
-    UI_Lobby()
+	-- self.m_bUseLoadingUI가 false라면 prepare가 동작하지 않으므로 별도로 선언
+	if (not self.m_bUseLoadingUI) then
+		UI_Lobby()
+	end
+end
+
+-------------------------------------
+-- function prepare
+-------------------------------------
+function SceneLobby:prepare()
+	self:addLoading(function()
+		UI_Lobby()
+	end)
 end

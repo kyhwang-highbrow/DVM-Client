@@ -11,6 +11,10 @@ SceneAdventure = class(PerpleScene, {
 function SceneAdventure:init(start_stage_id)
     -- @TODO sgkim 넘어온 stage_id가 오픈되어있는지 검증할 필요가 있음
     self.m_startStageID = start_stage_id
+	
+	self.m_bUseLoadingUI = false
+	--self.m_loadingGuideType = 'all'
+    --self.m_loadingUIDuration = 0.3
 end
 
 -------------------------------------
@@ -19,12 +23,30 @@ end
 function SceneAdventure:onEnter()
     PerpleScene.onEnter(self)
     SoundMgr:playBGM('bgm_title')
-    
-    if self.m_startStageID then
-        local stage_id = self.m_startStageID
-        UI_AdventureSceneNew(stage_id)
-        UI_ReadyScene(stage_id)
-    else
-        UI_AdventureSceneNew()
-    end
+	
+	-- self.m_bUseLoadingUI가 false라면 prepare가 동작하지 않으므로 별도로 선언
+	if (not self.m_bUseLoadingUI) then
+		if self.m_startStageID then
+			local stage_id = self.m_startStageID
+			UI_AdventureSceneNew(stage_id)
+			UI_ReadyScene(stage_id)
+		else
+			UI_AdventureSceneNew()
+		end
+	end
+end
+
+-------------------------------------
+-- function prepare
+-------------------------------------
+function SceneAdventure:prepare()
+	self:addLoading(function()
+		if self.m_startStageID then
+			local stage_id = self.m_startStageID
+			UI_AdventureSceneNew(stage_id)
+			UI_ReadyScene(stage_id)
+		else
+			UI_AdventureSceneNew()
+		end
+	end)
 end

@@ -18,9 +18,7 @@ function UI_LoadingGuide:init(curr_scene)
 		self.m_lLoadingStrList = g_constant:get('UI', 'LOADING_TEXT')
 	end
 
-    self:initUI(guide_type)
-    self:initButton()
-    self:refresh()
+	self:initUI(guide_type)
 end
 
 -------------------------------------
@@ -34,7 +32,6 @@ function UI_LoadingGuide:initUI(guide_type)
 	if (t_loading) then
 		-- 로딩 팁 이미지
 		local tip_icon = IconHelper:getIcon(t_loading['res'])
-		tip_icon:setScale(0.5)
 		vars['tipNode']:addChild(tip_icon)
 
 		-- 로딩 팁 문구
@@ -93,7 +90,6 @@ end
 -------------------------------------
 function UI_LoadingGuide:setLoadingGauge(percent, is_not_use_label)
 	local vars = self.vars
-	cclog(percent)
 
 	if (vars['loadingGauge']) then
 		vars['loadingGauge']:setPercentage(percent)

@@ -218,9 +218,12 @@ function UI_Lobby:makeLobbyLayer(idx)
     node:setAnchorPoint(cc.p(0.5, 0.5))
 
     local skip_error_msg = true
-
-    local animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_left/lobby_layer_%.2d_left.vrp', idx, idx), skip_error_msg)
-    if (not animator.m_node) then
+	local animator = nil
+	
+	local res_name = string.format('res/lobby/lobby_layer_%.2d_left/lobby_layer_%.2d_left.vrp', idx, idx)
+	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
+		animator = MakeAnimator(res_name, skip_error_msg)
+    else
         animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_left.png', idx))
     end
     animator:setDockPoint(cc.p(0.5, 0.5))
@@ -228,16 +231,20 @@ function UI_Lobby:makeLobbyLayer(idx)
     animator:setPositionX(-1280)
     node:addChild(animator.m_node)
 
-    local animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_center/lobby_layer_%.2d_center.vrp', idx, idx), skip_error_msg)
-    if (not animator.m_node) then
+	local res_name = string.format('res/lobby/lobby_layer_%.2d_center/lobby_layer_%.2d_center.vrp', idx, idx)
+	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
+		animator = MakeAnimator(res_name, skip_error_msg)
+    else
         animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_center.png', idx))
     end
     animator:setDockPoint(cc.p(0.5, 0.5))
     animator:setAnchorPoint(cc.p(0.5, 0.5))
     node:addChild(animator.m_node)
 
-    local animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_right/lobby_layer_%.2d_right.vrp', idx, idx), skip_error_msg)
-    if (not animator.m_node) then
+	local res_name = string.format('res/lobby/lobby_layer_%.2d_right/lobby_layer_%.2d_right.vrp', idx, idx)
+	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
+		animator = MakeAnimator(res_name, skip_error_msg)
+	else
         animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_right.png', idx))
     end
     animator:setDockPoint(cc.p(0.5, 0.5))
@@ -357,12 +364,7 @@ function UI_Lobby:click_adventureBtn()
 
     -- 서버로부터 모험 데이터를 갱신
     refresh_adventure_server_data = function()
-        g_adventureData:request_adventureInfo(fede_out, function() end)
-    end
-
-    -- 페이드 아웃 연출
-    fede_out = function()
-        self:sceneFadeOutAndCallFunc(go_to_adventure_scene)
+        g_adventureData:request_adventureInfo(go_to_adventure_scene, function() end)
     end
 
     -- 모험(스테이지 선택) 씬으로 전환

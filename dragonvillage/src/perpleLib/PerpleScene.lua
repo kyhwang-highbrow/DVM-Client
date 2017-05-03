@@ -421,7 +421,7 @@ function replaceScene(target_scene)
         local co_timer = 0
 
         --------------------------------------------------------------------------
-        --[[do -- #1 fase out
+        do -- #1 fade out
             if curr_scene then
                 -- cur_scene이 있으면 fade out 처리 후 replace scene
                 local duraition = 0.3
@@ -444,7 +444,7 @@ function replaceScene(target_scene)
                     dt = coroutine.yield()
                 end
             end
-        end--]]
+        end
         --------------------------------------------------------------------------
         
         --------------------------------------------------------------------------
@@ -453,8 +453,8 @@ function replaceScene(target_scene)
 			target_scene.m_loadingUI = target_scene:makeLoadingUI()
             target_scene.m_scene:addChild(target_scene.m_loadingUI.root, 99999)
 			target_scene.m_loadingUI:setLoadingGauge(5)
-            dt = coroutine.yield()
-            co_timer = co_timer + dt
+			dt = coroutine.yield()
+			co_timer = co_timer + dt
 		end
         --------------------------------------------------------------------------
 
@@ -466,6 +466,8 @@ function replaceScene(target_scene)
                 cc.Director:getInstance():runWithScene(target_scene.m_scene)
             end
             target_scene.m_scene:release()
+			dt = coroutine.yield()
+			co_timer = co_timer + dt
         end
         --------------------------------------------------------------------------
 
@@ -480,16 +482,21 @@ function replaceScene(target_scene)
 
         --------------------------------------------------------------------------
         do -- prepareRes
+			-- 로딩게이지 관련 준비
 			local total_cnt = #target_scene.m_lPrepareFunc
 			local rest_cnt = 0
 			local curr_cnt = 0
 			local is_break
 			local percent
+			local unit_pcnt = math_clamp((100 / (total_cnt + 2)), 1, 23)
+
+			-- prepareRes 시작
             repeat
 				is_break, rest_cnt = target_scene:prepareRes()
 				curr_cnt = total_cnt - rest_cnt
+
 				if (total_cnt > 0) then
-					percent = 19 + ((69/total_cnt) * curr_cnt)
+					percent = 19 + (unit_pcnt * curr_cnt)
 				else
 					percent = 31
 				end
