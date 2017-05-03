@@ -158,3 +158,12 @@ end
 function StructSlimeObject:getFriendshipObject()
     return StructFriendshipObject()
 end
+
+-------------------------------------
+-- function getSlimeDesc
+-- @breif
+-------------------------------------
+function StructSlimeObject:getSlimeDesc()
+    local slime_id = self['slime_id']
+    return TableSlime:getDesc(slime_id)
+end

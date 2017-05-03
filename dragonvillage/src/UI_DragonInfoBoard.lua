@@ -131,8 +131,13 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
         for i=0, MAX_DRAGON_EVOLUTION do
             vars['skillNode' .. i]:removeAllChildren()
         end
+
+        vars['slimeSprite']:setVisible(true)
+        vars['slimeLabel']:setString(t_dragon_data:getSlimeDesc())
         return
     end
+
+    vars['slimeSprite']:setVisible(false)
 
     local function func_skill_detail_btn()
         UI_SkillDetailPopup(t_dragon_data)

@@ -28,6 +28,15 @@ function TableSlime:getValue(primary, column)
 end
 
 -------------------------------------
+-- function getDesc
+-------------------------------------
+function TableSlime:getDesc(slime_id)
+    local desc = self:getValue(slime_id, 't_desc')
+    return Str(desc)
+end
+
+
+-------------------------------------
 -- function isSlimeID
 -------------------------------------
 function TableSlime:isSlimeID(id)
