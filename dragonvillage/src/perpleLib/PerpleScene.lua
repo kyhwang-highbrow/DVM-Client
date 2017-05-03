@@ -305,45 +305,7 @@ end
 -- @brief scene전환 중 로딩화면 생성
 -------------------------------------
 function PerpleScene:makeLoadingUI()
-    -- 검은색 레이어 생성
-    local layer = cc.LayerColor:create()
-    layer:setAnchorPoint(cc.p(0, 0))
-    layer:setColor(cc.c3b(0, 0, 0))
-    layer:setOpacity(255)
-
-    if (self.m_loadingUIDuration > 0) then
-        -- 화면 사이즈 크기로 설정
-        local visibleSize = cc.Director:getInstance():getVisibleSize()
-        layer:setContentSize(visibleSize.width, visibleSize.height)
-
-        --[[
-        do
-            -- 메세지 지정
-            local msg = 'loading...'
-
-            -- 폰트 지정
-            local font = 'res/font/common_font_01.ttf'
-            --font = Translate:getFontPath()
-
-            -- label 생성
-            local label = cc.Label:createWithTTF(msg, font, 30, 0)
-            label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-            label:setAnchorPoint(cc.p(0.5, 0.5))
-            label:setDockPoint(cc.p(0.5, 0.5))
-            label:enableOutline(cc.c4b(0, 0, 0, 255), 3)
-            layer:addChild(label)
-        end
-        --]]
-
-        local ui = UI()
-        local vars = ui:load('network_loading.ui')
-        if vars['loadingLabel'] then
-            vars['loadingLabel']:setString(Str('로딩 중...'))
-        end
-        layer:addChild(ui.root)
-    end
-
-    return layer
+    return UI_LoadingGuide()
 end
 
 -------------------------------------
@@ -452,7 +414,7 @@ function replaceScene(target_scene)
     -- replaceScene
     local coroutine_function = coroutine.create(function(dt)
         local co_timer = 0
-        
+
         --------------------------------------------------------------------------
         do -- #1 fase out
             if curr_scene then
@@ -495,7 +457,7 @@ function replaceScene(target_scene)
         -- Loading UI 생성
         --if (target_scene.m_loadingUIDuration ~= 0) then
             target_scene.m_loadingUI = target_scene:makeLoadingUI()
-            target_scene.m_scene:addChild(target_scene.m_loadingUI, 99999)
+            target_scene.m_scene:addChild(target_scene.m_loadingUI.root, 99999)
             dt = coroutine.yield()
             co_timer = co_timer + dt
 
@@ -503,7 +465,7 @@ function replaceScene(target_scene)
             local function f_pause(node)
                 node:pause()
             end
-            doAllChildren(target_scene.m_loadingUI, f_pause)
+            doAllChildren(target_scene.m_loadingUI.root, f_pause)
         --end
         --------------------------------------------------------------------------
 
@@ -530,7 +492,7 @@ function replaceScene(target_scene)
             local function f_resume(node)
                 node:resume()
             end
-            doAllChildren(target_scene.m_loadingUI, f_resume)
+            doAllChildren(target_scene.m_loadingUI.root, f_resume)
 
             -- 기본 2초간의 로딩 시간
             local loading_time = 2
@@ -547,7 +509,7 @@ function replaceScene(target_scene)
 
             -- loading_ui delete
             if target_scene.m_loadingUI then
-                target_scene.m_loadingUI:removeFromParent(true)
+                target_scene.m_loadingUI.root:removeFromParent(true)
                 target_scene.m_loadingUI = nil
             end
         end

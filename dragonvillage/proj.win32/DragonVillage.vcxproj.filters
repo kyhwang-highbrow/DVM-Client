@@ -2085,6 +2085,12 @@
     <None Include="..\src\TableSlimeExp.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableLoadingGuide.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_LoadingGuide.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

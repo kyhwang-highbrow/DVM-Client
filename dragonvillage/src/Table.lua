@@ -50,6 +50,8 @@ local TableInfo = {
         table_slime_exp   = {'table_slime_exp',             'eid',  		false},
 
 		broadcast         = {'table_broadcast',		        'type',		    true},
+
+		loading_guide     = {'table_loading_guide',		    'gid',		    false},
         
 
         -- 드래곤 관리 관련

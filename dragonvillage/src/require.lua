@@ -204,6 +204,7 @@ local t_module = {
     'TableDragonPhrase',
     'TableSlime',
     'TableSlimeExp',
+	'TableLoadingGuide',
 
     -- Interface
     'IEventDispatcher',
@@ -452,6 +453,7 @@ local t_module = {
     'UI_NetworkLoading',
     'UI_TitleScene',
     'UI_TitleSceneLoading',
+	'UI_LoadingGuide',
     'UI_Lobby',
     'LobbyMapSpotMgr',
     'LobbyMap',
