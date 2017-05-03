@@ -8,6 +8,8 @@ item,category,t_name,t_desc,icon,type,full_type,attr,role,color,rarity,grade,evo
 700007,simple,자수정,자수정 획득,res/ui/icon/item/amethyst.png,amethyst,amethyst,,,,,,,,1,5000,,
 700101,simple,날개,활동력 획득,res/ui/icon/item/staminas_st.png,staminas_st,staminas_st,,,,,,,,1,330,,
 700102,simple,콜로세움 입장권,콜로세움 입장권 획득,res/ui/icon/item/staminas_pvp.png,staminas_pvp,staminas_pvp,,,,,,,,1,332,,
+700201,simple,캡슐,하이브로 프로모션 포인트,res/ui/icon/item/capsule.png,capsule,capsule,,,,,,,,1,500,,
+700202,simple,이벤트 재화,개발용 이벤트 재화,res/ui/icon/item/event.png,event,event,,,,,,,,1,500,,
 701010,stack,운석 잔해,일반 등급 드래곤의 진화 재료,res/ui/icon/item/evolution_stone_common_01.png,evolution_stone,evolution_stone_common_01,,,,common,1,,,1,104,,
 701020,stack,세계수의 씨앗,희귀 등급 드래곤의 진화 재료,res/ui/icon/item/evolution_stone_rare_01.png,evolution_stone,evolution_stone_rare_01,,,,rare,1,,,1,105,,
 701030,stack,영롱한 바위,영웅 등급 드래곤의 진화 재료,res/ui/icon/item/evolution_stone_hero_01.png,evolution_stone,evolution_stone_hero_01,,,,hero,1,,,1,106,,
