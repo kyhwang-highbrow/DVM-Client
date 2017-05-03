@@ -1981,13 +1981,19 @@ function Character:runAction_Floating()
 
     target_node:setPosition(0, 0)
 
+	local floating_x_max = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MAX_X_SCOPE')
+	local floating_y_max = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MAX_Y_SCOPE')
+	local floating_x_min = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MIN_X_SCOPE')
+	local floating_y_min = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MIN_Y_SCOPE')
+	local floating_time = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_TIME')
+
     local function getTime()
-        return math_random(5, 15) * 0.1 * CHARACTER_FLOATING_TIME / 2
+        return math_random(5, 15) * 0.1 * floating_time / 2
     end
 
     local sequence = cc.Sequence:create(
-        cc.MoveTo:create(getTime(), cc.p(math_random(-CHARACTER_FLOATING_MAX_X_SCOPE, -CHARACTER_FLOATING_MIN_X_SCOPE), math_random(-CHARACTER_FLOATING_MAX_Y_SCOPE, -CHARACTER_FLOATING_MIN_Y_SCOPE))),
-        cc.MoveTo:create(getTime(), cc.p(math_random(CHARACTER_FLOATING_MIN_X_SCOPE, CHARACTER_FLOATING_MAX_X_SCOPE), math_random(CHARACTER_FLOATING_MIN_Y_SCOPE, CHARACTER_FLOATING_MAX_Y_SCOPE)))
+        cc.MoveTo:create(getTime(), cc.p(math_random(-floating_x_max, -floating_x_min), math_random(-floating_y_max, -floating_y_min))),
+        cc.MoveTo:create(getTime(), cc.p(math_random(floating_x_min, floating_x_max), math_random(floating_y_min, floating_y_max)))
     )
 
     local action = cc.RepeatForever:create(sequence)

@@ -130,7 +130,7 @@ function GameState_Colosseum.update_wave_intermission(self, dt)
         self:doDirectionForIntermission()
     end
     	
-	if (self.m_stateTimer > getInGameConstant(WAVE_INTERMISSION_TIME)) then
+	if (self.m_stateTimer > getInGameConstant("WAVE_INTERMISSION_TIME")) then
         world:dispatch('game_start')
         world:passiveActivate_Left()
 		world:passiveActivate_Right()
@@ -300,7 +300,7 @@ function GameState_Colosseum:doDirectionForIntermission()
     	
     t_camera_info['pos_x'] = 0
 	t_camera_info['pos_y'] = 300
-	t_camera_info['time'] = getInGameConstant(WAVE_INTERMISSION_TIME)
+	t_camera_info['time'] = getInGameConstant("WAVE_INTERMISSION_TIME")
         
     -- 카메라 액션 설정
     self.m_world:changeCameraOption(t_camera_info)

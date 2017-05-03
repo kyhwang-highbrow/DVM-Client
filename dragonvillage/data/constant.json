@@ -129,6 +129,173 @@
 		}
     },
     
+    // game mode 별 연출 상수
+    "MODE_DIRECTING" : {
+        // #  드래곤/몬스터 배치 후 흔들림 랜덤 범위(-(min~max) ~ +(min~max))
+        "CHARACTER_FLOATING_MIN_X_SCOPE" : 5,
+        "CHARACTER_FLOATING_MAX_X_SCOPE" : 8,
+        "CHARACTER_FLOATING_MIN_Y_SCOPE" : 14,
+        "CHARACTER_FLOATING_MAX_Y_SCOPE" : 20,
+    
+        // #  드래곤/몬스터 배치 후 흔들림 반복 주기 시간(초)
+        "CHARACTER_FLOATING_TIME" : 1,
+
+        // 각 모드 별 통합 연출 상수
+        // 모험 모드
+        "ADVENTURE" : {
+            "1" : {
+                "MAP_FLOATING_Y_SCOPE" : 15,
+                "MAP_FLOATING_TIME" : 3.5,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "2" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "3" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "4" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "5" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "6" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "7" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "8" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "9" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "10" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "11" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "12" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "99" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            }
+        },
+        
+        // 네스트 던전
+        "NEST_DUNGEON" : {
+            "DARGON" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "NIGHTMARE" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "GOLD" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "TREE" : {
+                "MAP_FLOATING_Y_SCOPE" : 64,
+                "MAP_FLOATING_TIME" : 12,
+                "MAP_FLOATING_ROTATE_SCOPE" : 5,
+                "MAP_FLOATING_ROTATE_TIME" : 10,
+                "WAVE_INTERMISSION_TIME" : 2
+            }
+        },
+        
+        // 비밀 던전
+        "SECRET" : {
+            "GOLD" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            },
+            "RELATION" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            }
+        },
+        
+        // 콜로세움
+        "COLOSSEUM" : {
+            "MAP_FLOATING_Y_SCOPE" : 6,
+            "MAP_FLOATING_TIME" : 3,
+            "MAP_FLOATING_ROTATE_SCOPE" : 0,
+            "MAP_FLOATING_ROTATE_TIME" : 5,
+            "WAVE_INTERMISSION_TIME" : 1.5
+        }
+    },
+    
     // 테이머
     "TAMER" : {
         // 테이머 상황별 표정 리스트        
@@ -310,6 +477,17 @@
             "leaf" : "res/indicator/leaf/leaf.vrp",
             "voltes_x" : "res/indicator/voltes_x/voltes_x.vrp"
         }
+    },
+    
+    "UI" : {
+        "LOADING_TEXT" : [
+            "드래곤들 멱을 감는 중...",
+            "테이머 장비를 조이는 중...",
+            "드래곤들 발톱을 닦아주는 중...",
+            "떠날 곳 지도를 확인하는 중...",
+            "간식 거리를 챙기는 중...",
+            "드래곤들 날개를 닦아주는 중..."
+        ]
     },
     
     // 디버깅용

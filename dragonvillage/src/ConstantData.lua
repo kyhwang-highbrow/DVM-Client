@@ -37,6 +37,7 @@ end
 
 -------------------------------------
 -- function get
+-- @brief 레퍼런스를 반환
 -------------------------------------
 function ConstantData:get(...)
 	-- 윈도우에서는 매번 읽어 테스트하기 용이하도록 한다.
@@ -57,7 +58,7 @@ function ConstantData:get(...)
             container = container[key]
         else
             if (container[key] ~= nil) then
-                return clone(container[key])
+                return container[key]
             end
         end
     end

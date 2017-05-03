@@ -85,7 +85,7 @@ function GameState_NestDungeon_Tree:doDirectionForIntermission()
 		
 	if (world.m_bDevelopMode == false) then
         -- 네스트 던전일 경우 웨이브 스크립트에 있는 카메라 정보로 설정
-        t_camera_info['time'] = getInGameConstant(WAVE_INTERMISSION_TIME)
+        t_camera_info['time'] = getInGameConstant("WAVE_INTERMISSION_TIME")
 
         -- 마지막 웨이브 시작 연출
         if is_final_wave then

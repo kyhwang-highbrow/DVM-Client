@@ -1525,7 +1525,7 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time, no_tam
     local gap_x, gap_y = self.m_gameCamera:getIntermissionOffset()
     local offsetX = offsetX or 0
     local offsetY = offsetY or 0
-    local move_time = move_time or getInGameConstant(WAVE_INTERMISSION_TIME)
+    local move_time = move_time or getInGameConstant("WAVE_INTERMISSION_TIME")
 
     -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
     for i, v in ipairs(self:getDragonList()) do

@@ -259,7 +259,7 @@ end
 function GameState.update_wave_intermission(self, dt)
 	local world = self.m_world
 	local map_mgr = world.m_mapManager
-    local intermissionTime = getInGameConstant(WAVE_INTERMISSION_TIME)
+    local intermissionTime = getInGameConstant("WAVE_INTERMISSION_TIME")
 	local speed = 0
 
     if (self.m_stateTimer == 0) then
@@ -940,7 +940,7 @@ function GameState:doDirectionForIntermission()
 
         t_camera_info['pos_x'] = curCameraPosX
 		t_camera_info['pos_y'] = tRandomY[math_random(1, #tRandomY)]
-		t_camera_info['time'] = getInGameConstant(WAVE_INTERMISSION_TIME)
+		t_camera_info['time'] = getInGameConstant("WAVE_INTERMISSION_TIME")
         
     end
         

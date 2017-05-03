@@ -66,8 +66,8 @@ end
 function ScrollMap:setDirecting(directing_type)
     self.m_bgDirectingType = directing_type
 
-    local time = getInGameConstant(MAP_FLOATING_TIME) / 4
-    local yScope = getInGameConstant(MAP_FLOATING_Y_SCOPE)
+    local time = getInGameConstant("MAP_FLOATING_TIME") / 4
+    local yScope = getInGameConstant("MAP_FLOATING_Y_SCOPE")
     local sequence
 	
 	-- [FLOATING]
@@ -82,8 +82,8 @@ function ScrollMap:setDirecting(directing_type)
 
     elseif (self.m_bgDirectingType == 'floating_2') then
         -- 회전 쏠림
-        local rotateTime = getInGameConstant(MAP_FLOATING_ROTATE_TIME) / 2
-        local rotateScope = getInGameConstant(MAP_FLOATING_ROTATE_SCOPE)
+        local rotateTime = getInGameConstant("MAP_FLOATING_ROTATE_TIME") / 2
+        local rotateScope = getInGameConstant("MAP_FLOATING_ROTATE_SCOPE")
 
         local move_action = cc.Sequence:create(
             cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, yScope)), 2),
