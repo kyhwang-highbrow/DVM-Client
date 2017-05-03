@@ -73,7 +73,7 @@ function UI_GachaResult_Dragon:refresh()
     vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
 
     do -- 능력치
-        self:refresh_status(t_dragon, evolution)
+        self:refresh_status(t_gacha_dragon)
     end
 
     do -- 희귀도
@@ -140,12 +140,12 @@ end
 -- function refresh_status
 -- @brief 능력치 정보 갱신
 -------------------------------------
-function UI_GachaResult_Dragon:refresh_status(t_dragon, evolution)
+function UI_GachaResult_Dragon:refresh_status(t_dragon_data)
     local vars = self.vars
-    local dragon_id = t_dragon['did']
-    local lv = 1
-    local grade = 1
-    local evolution = evolution
+    local dragon_id = t_dragon_data['did']
+    local lv = t_dragon_data['lv'] or 1
+    local grade = t_dragon_data['grade'] or 1
+    local evolution = t_dragon_data['evolution'] or 1
     local eclv = eclv
 
     -- 능력치 계산기
