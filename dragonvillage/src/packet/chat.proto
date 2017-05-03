@@ -6,6 +6,11 @@ message CChatNormalMsg {
 	required string	message = 1;
 }
 
+message CChatWhisperMsg {
+	required string	message = 1;
+	required string nickname = 2;
+}
+
 message CChatChangeChannel {
 	required string channelName = 1;
 	optional ChatChannelType channelType = 2;
@@ -19,6 +24,11 @@ message SChatChangeChannel {
 }
 
 message SChatResponse {
+	required string	json = 1;
+	optional bytes dataBytes = 2;
+}
+
+message SWhisperResponse {
 	required string	json = 1;
 	optional bytes dataBytes = 2;
 }

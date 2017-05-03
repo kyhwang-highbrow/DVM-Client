@@ -8,6 +8,7 @@ message CLoginReq {
 	optional string sessionKey = 3;
 	optional int32 recvCounter = 4;
 	optional int32 offset = 5;
+	optional string did = 6;
 }
 
 message SLoginRes {
