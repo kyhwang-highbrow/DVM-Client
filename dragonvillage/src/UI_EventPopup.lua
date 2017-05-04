@@ -193,7 +193,7 @@ function UI_EventPopup:onChangeTab(tab, first)
             if (string.match(tab, 'exchange')) then
                 local item = self.m_tableView:getItem(tab)
                 local struct_event_popup_tab = item['data']
-                local curr_type = struct_event_popup_tab.m_userData['s_curr_type']
+                local curr_type = struct_event_popup_tab.m_userData['curr_type']
 
                 if (curr_type and curr_type ~= 'x') then
                     g_topUserInfo:setSubCurrency(curr_type)

@@ -9,6 +9,8 @@ UI_TopUserInfo = class(PARENT,{
 
         m_lNumberLabel = 'list',
 		m_staminaType = 'string',
+
+        m_mAddedSubCurrency = 'table'
     })
 
 -------------------------------------
@@ -30,6 +32,7 @@ function UI_TopUserInfo:init()
     self.m_lNumberLabel['fp'] = NumberLabel(vars['fpLabel'], 0, 0.3)
     self.m_lNumberLabel['lactea'] = NumberLabel(vars['lacteaLabel'], 0, 0.3)
     
+    self.m_mAddedSubCurrency = {}
 
     self:clearOwnerUI()
 
@@ -69,6 +72,11 @@ function UI_TopUserInfo:refreshData()
     self.m_lNumberLabel['fp']:setNumber(fp)
 
     self.m_lNumberLabel['lactea']:setNumber(lactea)
+
+    for k, numberLabel in pairs(self.m_mAddedSubCurrency) do
+        local value = g_userData:get(k) or 0
+        numberLabel:setNumber(value)
+    end
 end
 
 -------------------------------------
@@ -213,6 +221,52 @@ function UI_TopUserInfo:setSubCurrency(subCurrency)
     vars['amethystNode']:setVisible(subCurrency == 'amethyst')
     vars['lacteaNode']:setVisible(subCurrency == 'lactea')
     vars['fpNode']:setVisible(subCurrency == 'fp')
+
+    for k, _ in pairs(self.m_mAddedSubCurrency) do
+        if (vars[k .. 'Node']) then
+            vars[k .. 'Node']:setVisible(k == subCurrency)
+        end
+    end
+
+    -- 해당 재화 타입의 노드가 없다면 추가
+    if (not vars[subCurrency .. 'Node']) then
+        local t_item = TableItem():getRewardItem(subCurrency)
+        if (t_item) then
+            local node = cc.Node:create()
+            node:setDockPoint(CENTER_POINT)
+            node:setAnchorPoint(CENTER_POINT)
+            node:setPosition(-170, 0)
+            node:setContentSize(180, 44)
+            vars['actionNode']:addChild(node)
+
+            --local res_icon = t_item['icon']
+            local res_icon = string.format('res/ui/icon/inbox/inbox_%s.png', subCurrency)
+            local icon = cc.Sprite:create(res_icon)
+            if (icon) then
+                icon:setDockPoint(cc.p(0, 0.5))
+                icon:setAnchorPoint(cc.p(0, 0.5))
+                icon:setPosition(-14, 2)
+                icon:setContentSize(60, 60)
+                node:addChild(icon)
+            end
+
+            local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 26, 2, cc.size(100, 49), cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+            label:setDockPoint(cc.p(1, 0.5))
+            label:setAnchorPoint(cc.p(1, 0.5))
+            label:setPosition(-16, -3)
+            label:setContentSize(100, 49)
+            node:addChild(label)
+
+            vars[subCurrency .. 'Node'] = node
+            vars[subCurrency .. 'Label'] = label
+
+            local value = g_userData:get(subCurrency) or 0
+            local numberLabel = NumberLabel(label, 0, 0.3)
+            numberLabel:setNumber(value)
+
+            self.m_mAddedSubCurrency[subCurrency] = numberLabel
+        end
+    end
 end
 
 -------------------------------------
