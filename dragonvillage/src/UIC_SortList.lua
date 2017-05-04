@@ -534,7 +534,7 @@ function MakeUICSortList_runeManageFilter(button, label)
     return uic
 end
 
-function MakeUICSortList_teamList(button, label)
+function MakeUICSortList_teamList(button, label, type)
 
     local width, height = button:getNormalSize()
     local parent = button:getParent()
@@ -556,10 +556,16 @@ function MakeUICSortList_teamList(button, label)
 
     parent:addChild(uic.m_node)
 
-    uic:addSortType('1', Str('1팀'))
-    uic:addSortType('2', Str('2팀'))
-    uic:addSortType('3', Str('3팀'))
-    uic:addSortType('pvp', Str('콜로세움'))
+    if (type == 'adventure') then
+        uic:addSortType('1', Str('1팀'))
+        uic:addSortType('2', Str('2팀'))
+        uic:addSortType('3', Str('3팀'))
+    else
+        uic:addSortType('1', Str('1팀'))
+        uic:addSortType('2', Str('2팀'))
+        uic:addSortType('3', Str('3팀'))
+        uic:addSortType('pvp', Str('콜로세움'))
+    end
 
     return uic
 end

@@ -124,6 +124,8 @@ function UI_ReadyScene:initUI()
     vars['buffInfoBtn']:setVisible(false)
     vars['leaderBtn']:setVisible(false)
     vars['leaderSprite']:setVisible(false)
+
+    self:init_teamSelectBtn()
 end
 
 -------------------------------------
@@ -663,6 +665,25 @@ end
 -------------------------------------
 function UI_ReadyScene:close()
     UI.close(self)
+end
+
+-------------------------------------
+-- function init_teamSelectBtn
+-------------------------------------
+function UI_ReadyScene:init_teamSelectBtn()
+    local vars = self.vars
+    local uic_sort_list = MakeUICSortList_teamList(vars['teamBtn'], vars['teamLabel'], 'adventure')
+
+    -- 초기 선택 덱 설정
+    local deck_name = g_deckData:getSelectedDeckName()
+    uic_sort_list:setSelectSortType(deck_name)
+
+    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        local deck_name = sort_type
+        self:click_teamBtn(deck_name)
+    end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
 end
 
 --@CHECK
