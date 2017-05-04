@@ -535,8 +535,12 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_teamBuffBtn()
-    local curr_deck_name = g_deckData:getSelectedDeckName()
-    UI_CollectionStoryPopup('applyTeam', curr_deck_name)
+    local function next_func()
+        local curr_deck_name = g_deckData:getSelectedDeckName()
+        UI_CollectionStoryPopup('applyTeam', curr_deck_name)
+    end
+
+    self:checkChangeDeck(next_func)
 end
 
 -------------------------------------
