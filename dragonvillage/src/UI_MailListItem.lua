@@ -13,7 +13,7 @@ UI_MailListItem = class(PARENT, {
 function UI_MailListItem:init(t_data)
 	-- 멤버 변수
 	self.m_mailData = t_data
-    
+    ccdump(t_data)
 	-- UI load
 	self:load('mail_item.ui')
 
@@ -42,16 +42,19 @@ end
 -------------------------------------
 function UI_MailListItem:refresh()
     local vars = self.vars
-    local t_mail_data = self.m_mailData
+    local t_mail_data = self:makePrettyData(self.m_mailData)
 
-    -- 우편 메세지
-    vars['mailLabel']:setString(t_mail_data['msg'])
+    -- 우편 제목
+    vars['mailLabel']:setString(t_mail_data['title'])
+
+	-- 우편 본문
+    vars['infoLabel']:setString(t_mail_data['context'])
 
     -- 유효 기간 (남은 시간)
-    vars['timeLabel']:setString(g_mailData:getExpireRemainTimeStr(t_mail_data))
+    vars['timeLabel']:setString(g_mailData:getExpireRemainTimeStr(self.m_mailData))
 
     -- 아이템 아이콘
-    self:makeMailItemIcons(t_mail_data)
+    self:makeMailItemIcons(self.m_mailData)
 end
 
 -------------------------------------
@@ -70,4 +73,26 @@ function UI_MailListItem:makeMailItemIcons(t_mail_data)
 
         self.vars['rewardNode']:addChild(ui.root)
     end
+end
+
+-------------------------------------
+-- function makePrettyData
+-------------------------------------
+function UI_MailListItem:makePrettyData(t_mail_data)
+	local msg = t_mail_data['msg']
+	local t_mail_context = t_mail_data['msg_content']['data']
+	local event_type = t_mail_data['msg_content']['event']
+
+	-- 메일 제목
+	local mail_title = t_mail_context['title']
+
+	-- 메일 본문
+	local mail_context
+	if (msg == '') then
+		mail_context = t_mail_context['text']
+	else
+		mail_context = msg
+	end
+
+	return {title = mail_title, context = mail_context}
 end
