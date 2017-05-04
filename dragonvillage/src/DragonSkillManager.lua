@@ -479,7 +479,7 @@ function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 	-- 레벨이 반영된 데이터 계산
 	for idx = 1, 5 do
 		local modify_column = SkillHelper:getValid(t_skill['mod_col_' .. idx])
-		if (modify_column) then
+		if (modify_column) and (skill_lv > 0) then
 
 			-- 레벨 계수 계산 
 			-- @TODO 스킬 최고레벨 70으로 가정하고 계산 향후에 
