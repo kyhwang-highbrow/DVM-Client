@@ -711,6 +711,7 @@ local t_module = {
 
 	-- UI : 채팅
 	'UI_ChatPopup',
+    'UI_ChatPopup_WhisperTab',
     'UI_ChatList',
     'UI_ChatListItem',
 

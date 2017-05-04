@@ -4,6 +4,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_ChatPopup
 -------------------------------------
 UI_ChatPopup = class(PARENT, {
+        m_mTabUI = '',
         m_chatList = '',
      })
 
@@ -157,10 +158,13 @@ end
 -- function initTab
 -------------------------------------
 function UI_ChatPopup:initTab()
+    self.m_mTabUI = {}
+    self.m_mTabUI['whisper_chat'] = UI_ChatPopup_WhisperTab(self)
+
     local vars = self.vars
-    self:addTab('general_chat', vars['generalTabBtn'], vars['chatNode'])
+    self:addTab('general_chat', vars['generalTabBtn'], vars['generalMenu'])
     --self:addTab('guild_chat', vars['guildTabBtn'], vars['guildChatNode'])
-    self:addTab('whisper_chat', vars['whisperTapBtn'], vars['whisperChatNode'])
+    self:addTab('whisper_chat', vars['whisperTapBtn'], vars['whisperMenu'])
     self:setTab('general_chat')
 
     vars['guildTabBtn']:registerScriptTapHandler(function()
@@ -179,6 +183,10 @@ function UI_ChatPopup:onChangeTab(tab, first)
         local str = Str('채널 {1}', channel_name)
         vars['sortOrderLabel']:setString(str)
         vars['sortBtn']:registerScriptTapHandler(function() self:click_changeChannelBtn() end)
+    end
+
+    if self.m_mTabUI[tab] then
+        self.m_mTabUI[tab]:onEnterTab(first)
     end
 end
 

@@ -187,6 +187,19 @@ function ChatClient:dispatchEvent(_socket, t)
             end
             return 0
 
+        elseif (msg['pcode'] == 'S_WHISPER_RESPONSE') then
+            local r = self.m_chat.SChatResponse():Parse(msg['payload'])
+            cclog(luadump(r))
+            local raw = r['json']
+            if raw and type(raw) == 'string' then
+                local json = dkjson.decode(raw)
+                if json then
+                    --cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
+                    self:pushMsg(json)
+                end
+            end
+            return 0
+
         elseif (msg['pcode'] == 'S_CHAT_CHANGE_CHANNEL') then
             local r = self.m_chat.SChatChangeChannel():Parse(msg['payload'])
             cclogf('login result = %s, channel = %s', r['ret'], r['channelName'])
@@ -295,6 +308,22 @@ function ChatClient:sendNormalMsg(msg)
     local p = self.m_chat.CChatNormalMsg()
     p['message'] = msg
     self:write(self.m_Protocol.C_CHAT_NORMAL_MSG, p)
+    return true
+end
+
+-------------------------------------
+-- function sendWhisperMsg
+-- @brief
+-------------------------------------
+function ChatClient:sendWhisperMsg(peer_nickname, msg)
+    if (self.m_status ~= 'Success') then
+        return false
+    end
+
+    local p = self.m_chat.CChatWhisperMsg()
+    p['message'] = msg
+    p['nickname'] = peer_nickname
+    self:write(self.m_Protocol.C_CHAT_WHISPER_MSG, p)
     return true
 end
 

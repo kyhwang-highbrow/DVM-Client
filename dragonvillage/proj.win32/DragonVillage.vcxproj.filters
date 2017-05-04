@@ -2118,6 +2118,9 @@
     <None Include="..\src\SensitivityHelper.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_ChatPopup_WhisperTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

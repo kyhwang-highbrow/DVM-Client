@@ -30,7 +30,7 @@ end
 function ChatManager:init()
     self:initChatClient()
     self.m_lMessage = {}
-    local interval = 5
+    local interval = 60
     self.m_schedulerID = scheduler.scheduleGlobal(function(dt) self:update(dt) end, interval)
 end
 
@@ -121,6 +121,14 @@ end
 -------------------------------------
 function ChatManager:sendNormalMsg(msg)
     return self.m_chatClient:sendNormalMsg(msg)
+end
+
+-------------------------------------
+-- function sendWhisperMsg
+-- @brief
+-------------------------------------
+function ChatManager:sendWhisperMsg(peer_nickname, msg)
+    return self.m_chatClient:sendWhisperMsg(peer_nickname, msg)
 end
 
 -------------------------------------
