@@ -13,7 +13,7 @@ UI_MailListItem = class(PARENT, {
 function UI_MailListItem:init(t_data)
 	-- 멤버 변수
 	self.m_mailData = t_data
-    ccdump(t_data)
+
 	-- UI load
 	self:load('mail_item.ui')
 
