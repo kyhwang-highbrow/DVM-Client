@@ -163,21 +163,35 @@ end
 function LobbyMap:onTouchBegan_touchDragon()
     local touch_pos = self.m_touchPosition
 
+	-- 내 드래곤 터치 체크
+	if (self.m_lobbyTamerUser) then
+		if (self:checkDragonTouch(touch_pos, self.m_lobbyTamerUser)) then
+			local dragon = self.m_lobbyTamerUser.m_dragon
+			dragon.m_talkingNode:removeAllChildren()
+			SensitivityHelper:doActionBubbleText(dragon.m_talkingNode, dragon.m_dragonID, 'lobby_touch')
+
+			return true
+		end
+	end
+
+	-- 봇 드래곤 터치 체크
     for i,v in ipairs(self.m_lLobbyTamerBotOnly) do
-        if (self.m_touchTamer ~= v) and self:checkDragonTouch(touch_pos, v) then
-            self.m_touchTamer = v
+		if (self:checkDragonTouch(touch_pos, v)) then
+			if (self.m_touchTamer ~= v) then
+				self.m_touchTamer = v
 
-            -- 드래곤 터치 이펙트 출력
-            self.m_dragonTouchIndicator.m_node:retain()
-            self.m_dragonTouchIndicator.m_node:removeFromParent()
-            self.m_touchTamer.m_dragon.m_rootNode:addChild(self.m_dragonTouchIndicator.m_node, 5)
-            self.m_dragonTouchIndicator.m_node:release()
-            self.m_dragonTouchIndicator:setVisible(true)
-            self.m_dragonTouchIndicator:setPosition(0, 150)
-            self.m_dragonTouchIndicator:changeAni2('appear_ally', 'idle_ally', true)
+				-- 드래곤 터치 이펙트 출력
+				self.m_dragonTouchIndicator.m_node:retain()
+				self.m_dragonTouchIndicator.m_node:removeFromParent()
+				self.m_touchTamer.m_dragon.m_rootNode:addChild(self.m_dragonTouchIndicator.m_node, 5)
+				self.m_dragonTouchIndicator.m_node:release()
+				self.m_dragonTouchIndicator:setVisible(true)
+				self.m_dragonTouchIndicator:setPosition(0, 150)
+				self.m_dragonTouchIndicator:changeAni2('appear_ally', 'idle_ally', true)
+			end
 
-            return true
-        end
+			return true
+		end
     end
 
     return false 
@@ -363,7 +377,7 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
     tamer.m_animator:setFlip(flip)
 
     self:addLobbyTamer(tamer, is_bot, t_user_info)
-    self:addLobbyDragon(tamer, t_user_info, flip)
+    self:addLobbyDragon(tamer, is_bot, t_user_info)
 
     if is_bot then
         local pos = self:getRandomSpot(t_user_info['uid'])
@@ -434,7 +448,7 @@ end
 -------------------------------------
 -- function addLobbyDragon
 -------------------------------------
-function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
+function LobbyMap:addLobbyDragon(tamer, is_bot, t_user_info)
     -- 임시 랜덤 드래곤
     local table_dragon = TableDragon()
     local t_dragon = nil
@@ -453,7 +467,7 @@ function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
     local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
 
     -- 드래곤 생성
-    local lobby_dragon = LobbyDragon(t_dragon['did'])
+    local lobby_dragon = LobbyDragon(t_dragon['did'], is_bot)
     lobby_dragon:initAnimator(res)
     self.m_groudNode:addChild(lobby_dragon.m_rootNode)
 

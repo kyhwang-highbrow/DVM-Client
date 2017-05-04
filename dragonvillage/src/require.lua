@@ -156,6 +156,11 @@ local t_module = {
 	'LogRecorderChar',
     'UINavigator',
     'RenderTextureBatchNode',
+	'IconHelper',
+    'ResHelper',
+    'AnimatorHelper',
+	'SensitivityHelper',
+	'BattleStatisticsHelper',
 
     'ChatClient',
     'ChatManager',
@@ -427,6 +432,17 @@ local t_module = {
     'WaveMgr_SecretRelation',
     'WaveMgr_Colosseum',
     'DynamicWave',
+	
+	-- 인게임 Util
+    'DamageCalc',
+    'FormationMgr',
+    'FormationMgr_TargetRule',
+    'StatusCalculator',
+    'StatusCalculatorFormula',
+    'DragonCard',
+    'TriggerHpPercent',
+    'TriggerTime',
+    'EffectTimer',
 
     -- UIC (UI Component)
     'UIC_Node',
@@ -707,22 +723,6 @@ local t_module = {
     'UI_SettingInfoTab',
     'UI_DragonDevApiPopup',
     'UI_InvenDevApiPopup',
-
-	-- Util & Helper
-    'DamageCalc',
-    'IconHelper',
-    'ResHelper',
-    'AnimatorHelper',
-    'FormationMgr',
-    'FormationMgr_TargetRule',
-    'StatusCalculator',
-    'StatusCalculatorFormula',
-	'BattleStatisticsHelper',
-
-    'DragonCard',
-    'TriggerHpPercent',
-    'TriggerTime',
-    'EffectTimer',
 
     -- Network
     'Network',

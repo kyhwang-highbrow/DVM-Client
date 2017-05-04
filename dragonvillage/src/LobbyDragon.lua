@@ -11,19 +11,33 @@ LobbyDragon = class(PARENT, {
         m_targetY = '',
         m_targetTamer = '',
         m_bInitFirstPos = 'bool',
+
+		m_hasPresent = 'bool',
+		m_userDragon = 'bool',
+		m_talkingTimer = 'timer',
+		m_talkingNode = 'cc.Node',
      })
 
 LobbyDragon.MOVE_ACTION = 100
 LobbyDragon.DELAY_ACTION = 200
 LobbyDragon.SPEED = 400
 LobbyDragon.Y_OFFSET = 150
+LobbyDragon.PRESENT_HURRY_TIME = 5
 
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyDragon:init(did)
+function LobbyDragon:init(did, is_bot)
     self.m_dragonID = did
     self.m_bInitFirstPos = false
+
+	self.m_hasPresent = false
+	self.m_userDragon = not is_bot
+	self.m_talkingTimer = 0
+	
+	-- TalkingNode 생성
+	self.m_talkingNode = cc.Node:create()
+	self.m_rootNode:addChild(self.m_talkingNode)
 end
 
 -------------------------------------
@@ -40,8 +54,6 @@ function LobbyDragon:initAnimator(file_name)
         self.m_animator.m_node:setScale(0.5)
         self.m_animator.m_node:setPosition(0, LobbyDragon.Y_OFFSET)
     end
-
-    --SimplePrimitivesDraw(self.m_rootNode, 0, LobbyDragon.Y_OFFSET, 70)
 end
 
 -------------------------------------
@@ -166,4 +178,23 @@ function LobbyDragon:moveToTamer()
     end
 
     self:setMove(x, self.m_targetY, LobbyDragon.SPEED)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function LobbyDragon:update(dt)
+	PARENT.update(self, dt)
+
+	-- user의 dragon만 동작
+	if (self.m_userDragon) then
+		self.m_talkingTimer = self.m_talkingTimer + dt
+		-- 선물 재촉 대사
+		if (self.m_talkingTimer > LobbyDragon.PRESENT_HURRY_TIME) then
+			self.m_talkingNode:removeAllChildren()
+			SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'hurry_present', cb_func)
+
+			self.m_talkingTimer = self.m_talkingTimer - LobbyDragon.PRESENT_HURRY_TIME
+		end
+	end
 end

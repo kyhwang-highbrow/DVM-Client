@@ -114,3 +114,70 @@ function TableDragonPhrase:getRandomPhrase()
     local phrase = Str(t_row[key])
     return phrase
 end
+
+-------------------------------------
+-- function getRandomPhrase_LobbyTouch
+-------------------------------------
+function TableDragonPhrase:getRandomPhrase_LobbyTouch(did)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local sum_random = SumRandom()
+	for i = 1, 4 do
+		sum_random:addItem(1, 'lobby_touch' .. i)
+	end
+    local key = sum_random:getRandomValue()
+
+    local phrase = Str(self:getValue(did, key))
+    return phrase
+end
+
+
+-------------------------------------
+-- function getRandomPhrase_LobbyTouch
+-------------------------------------
+function TableDragonPhrase:getRandomPhrase_Sensitivity(did, case_type)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local sum_random = SumRandom()	
+	
+	if (case_type == 'lobby_touch') then
+		for i = 1, 4 do
+			sum_random:addItem(1, 'lobby_touch' .. i)
+		end
+	
+	elseif (case_type == 'hurry_present') then
+		sum_random:addItem(1, 'lobby_induce')
+	
+	elseif (case_type == 'get_present') then
+		sum_random:addItem(1, 'lobby_present')
+	
+	elseif (case_type == 'after_present') then
+		sum_random:addItem(1, 'lobby_end')
+
+	else
+		sum_random:addItem(1, 't_normal_phrase1')
+		sum_random:addItem(1, 't_normal_phrase2')
+		sum_random:addItem(1, 't_normal_phrase3')
+		sum_random:addItem(1, 't_good_phrase1')
+		sum_random:addItem(1, 't_good_phrase2')
+		sum_random:addItem(1, 't_good_phrase3')
+		sum_random:addItem(1, 't_best_phrase1')
+		sum_random:addItem(1, 't_best_phrase2')
+		sum_random:addItem(1, 't_best_phrase3')
+		sum_random:addItem(1, 't_normal_shout1')
+		sum_random:addItem(1, 't_normal_shout2')
+		sum_random:addItem(1, 't_good_shout1')
+		sum_random:addItem(1, 't_good_shout2')
+		sum_random:addItem(1, 't_best_shout1')
+		sum_random:addItem(1, 't_best_shout2')
+	end
+
+    local key = sum_random:getRandomValue()
+
+    local phrase = Str(self:getValue(did, key)) or '= - ='
+    return phrase
+end
