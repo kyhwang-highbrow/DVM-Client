@@ -77,14 +77,29 @@ function BroadcastMgr:update(dt)
             local data = self.m_tMessage[1]
             if (self.m_remainDelayTime <= 0) then
 		        local msg = self:makeMessage(data)
-                cclog('방송 : ' .. msg)
-
-                -- TODO : 방송 표시
-                --
+                local alive_time = self:getAliveTime(data)
+                local b = false
                 
-                table.remove(self.m_tMessage, 1)
+                -- 방송 표시
+                if (g_currScene) then
+                    if (g_currScene.m_sceneName == 'SceneGame' or g_currScene.m_sceneName == 'SceneGameColosseum') then
+                        if (g_currScene.m_inGameUI) then
+                            g_currScene.m_inGameUI:noticeBroadcast(msg, alive_time)
+                            b = true
+                        end
+                    end
+
+                    if (g_topUserInfo) then
+                        g_topUserInfo:noticeBroadcast(msg, alive_time)
+                        b = true
+                    end
+                end
+                                
+                if (b) then
+                    table.remove(self.m_tMessage, 1)
             
-                self.m_remainDelayTime = self:getAliveTime(data)
+                    self.m_remainDelayTime = alive_time
+                end
             else
                 self.m_remainDelayTime = self.m_remainDelayTime - dt
             end
@@ -113,6 +128,20 @@ function BroadcastMgr:requestMsg()
 
             table.insert(self.m_tMessage, v)
         end
+
+        -- 테스트
+        --[[
+        do
+            for i = 1, 100 do
+                local v = {
+                    timestamp = 1493709984 + i,
+                    event = 'rec',
+                    data = { nick = 'skim', uopt = 'def_add;17', rid = 710111 }
+                }
+                table.insert(self.m_tMessage, v)
+            end
+        end
+        ]]--
 
         -- 정렬
         table.sort(self.m_tMessage, function(a,b) return a['timestamp'] < b['timestamp'] end)

@@ -243,6 +243,18 @@ function UI_TopUserInfo:setStaminaType(stamina_type)
 end
 
 -------------------------------------
+-- function noticeBroadcast
+-------------------------------------
+function UI_TopUserInfo:noticeBroadcast(msg, duration)
+    local duration = duration or 2
+
+    self.vars['noticeBroadcastLabel']:setString(msg)
+    self.vars['noticeBroadcastNode']:setVisible(true)
+    self.vars['noticeBroadcastNode']:stopAllActions()
+    self.vars['noticeBroadcastNode']:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create()))
+end
+
+-------------------------------------
 -- function chatBroadcast
 -------------------------------------
 function UI_TopUserInfo:chatBroadcast(t_data)

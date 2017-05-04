@@ -533,3 +533,16 @@ function UI_Game:toggleVisibility_TamerUI(b, is_immediately)
         vars['tamerMenu']:setVisible(b)
    end
 end
+
+-------------------------------------
+-- function noticeBroadcast
+-------------------------------------
+function UI_Game:noticeBroadcast(msg, duration)
+    cclog('UI_Game:noticeBroadcast msg = ' .. msg)
+    local duration = duration or 2
+
+    self.vars['noticeBroadcastLabel']:setString(msg)
+    self.vars['noticeBroadcastNode']:setVisible(true)
+    self.vars['noticeBroadcastNode']:stopAllActions()
+    self.vars['noticeBroadcastNode']:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create()))
+end

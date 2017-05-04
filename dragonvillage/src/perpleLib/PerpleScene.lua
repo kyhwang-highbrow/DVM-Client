@@ -257,7 +257,7 @@ function PerpleScene:onEnter()
     --self:makeTouchLayer()
 
     -- BroadcastMgr
-    --self:initBroadcast()
+    self:initBroadcast()
 
     -- Watermark
     self:makeWatermark()
