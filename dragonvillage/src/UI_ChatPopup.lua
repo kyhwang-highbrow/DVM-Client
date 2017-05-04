@@ -31,6 +31,7 @@ function UI_ChatPopup:init()
     end
 
     g_chatManager.m_tempCB = function(msg) self:msgQueueCB(msg) end
+    self:refresh_connectStatus(g_chatManager.m_chatClient.m_status)
 end
 
 
@@ -96,10 +97,53 @@ function UI_ChatPopup:msgQueueCB(msg)
     local unique_id = Timer:getServerTime()
     --self.m_chatListView:addItem(unique_id, msg)
 
+    if (msg['type'] == 'enter_channel') then
+        if (self.m_currTab == 'general_chat') then
+            local str = Str('채널 {1}', msg['channelName'])
+            self.vars['sortOrderLabel']:setString(str)
+        end
+        return
+
+    elseif (msg['type'] == 'change_status') then
+        local status = msg['status']
+        self:refresh_connectStatus(status)
+        return
+    end
+
+
     local content = UI_ChatListItem(msg)
     content.root:setAnchorPoint(0.5, 0)
     local height = content:getItemHeight()
     self.m_chatList:addContent(content.root, height, 'type')
+end
+
+-------------------------------------
+-- function refresh_connectStatus
+-------------------------------------
+function UI_ChatPopup:refresh_connectStatus(status)
+    local vars = self.vars
+
+    if (status == 'Success') then
+        vars['connectLabel']:setString(Str('연결됨'))
+        vars['connectSprite']:stopAllActions()
+        vars['connectSprite']:runAction(cc.TintTo:create(0.2, 119, 255, 0))
+
+    elseif (status == 'Connecting') then
+        vars['connectLabel']:setString(Str('연결 중'))
+        vars['connectSprite']:stopAllActions()
+        vars['connectSprite']:runAction(cc.TintTo:create(0.2, 255, 255, 18))
+
+    elseif (status == 'Disconnected') then
+        vars['connectLabel']:setString(Str('연결 해제됨'))
+        vars['connectSprite']:stopAllActions()
+        vars['connectSprite']:runAction(cc.TintTo:create(0.2, 255, 35, 18))
+
+    elseif (status == 'Closed') then
+        vars['connectLabel']:setString(Str('연결 해제됨'))
+        vars['connectSprite']:stopAllActions()
+        vars['connectSprite']:runAction(cc.TintTo:create(0.2, 255, 35, 18))
+
+    end
 end
 
 -------------------------------------

@@ -34,6 +34,7 @@ ChatClient = class({
     m_cbConnectSuccess = '',
     m_cbConnectFail = '',
     m_cbChangeChannelSuccess = '',
+    m_cbOnEnterChannel = '',
     m_cbChangeChannelFail = '',
     m_cbChangeStatus = 'function',
     m_channelName = '',
@@ -63,6 +64,7 @@ function ChatClient:init(localeCode, uid, nickname)
         self.m_cbConnectSuccess = nil
         self.m_cbConnectFail = nil
         self.m_cbChangeChannelSuccess = nil
+        self.m_cbOnEnterChannel = function() end
         self.m_cbChangeChannelFail = nil
         self.m_channelName = nil
         self.m_channelType = CHAT_CLIENT_CHANNEL_TYPE_NORMAL
@@ -164,6 +166,7 @@ function ChatClient:dispatchEvent(_socket, t)
                 self.m_channelType = self.m_requestedChannelType
                 self.m_msgQueue = {}
                 self.m_cbConnectSuccess(r, self.m_channelType)
+                self.m_cbOnEnterChannel(r)
             else
                 -- 채팅 서버 로그인 실패, 채팅 창을 닫는다.
                 self:disconnect()
@@ -195,6 +198,7 @@ function ChatClient:dispatchEvent(_socket, t)
                 self.m_channelName = r['channelName']
                 self.m_channelType = self.m_requestedChannelType
                 self.m_cbChangeChannelSuccess(r)
+                self.m_cbOnEnterChannel(r)
             else
                 -- 채팅 서버 채널 변경 실패
                 self.m_cbChangeChannelFail(r)

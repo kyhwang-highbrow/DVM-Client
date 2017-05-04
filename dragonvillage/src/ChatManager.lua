@@ -48,6 +48,7 @@ function ChatManager:initChatClient()
     self.m_chatClient:setChangeStatusCB(function(status) self:onChangeStatus(status) end)
 
     self.m_chatClient.m_changedMsgQueueCb = function(msg) self:msgQueueCB(msg) end
+    self.m_chatClient.m_cbOnEnterChannel = function(r) self:onEnterChannel(r) end
 
     -- 연결을 시도 (성공 시 자동으로 채널 입장)
     local t = {}
@@ -60,6 +61,14 @@ end
 -------------------------------------
 function ChatManager:onChangeStatus(status)
     --cclog('# ChatManager:onChangeStatus(status) ' .. status)
+
+    local msg = {}
+    msg['type'] = 'change_status'
+    msg['status'] = status
+
+    if self.m_tempCB then
+        self.m_tempCB(msg)
+    end
 end
 
 -------------------------------------
@@ -74,6 +83,23 @@ function ChatManager:msgQueueCB(msg)
     if g_topUserInfo then
         g_topUserInfo:chatBroadcast(msg)
     end
+
+    if self.m_tempCB then
+        self.m_tempCB(msg)
+    end
+end
+
+-------------------------------------
+-- function onEnterChannel
+-- @brief
+-------------------------------------
+function ChatManager:onEnterChannel(r)
+    local ret = r['ret']
+    local channelName = r['channelName']
+
+    local msg = {}
+    msg['type'] = 'enter_channel'
+    msg['channelName'] = channelName
 
     if self.m_tempCB then
         self.m_tempCB(msg)
