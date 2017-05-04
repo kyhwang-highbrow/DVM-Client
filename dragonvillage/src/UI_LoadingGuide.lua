@@ -15,7 +15,7 @@ function UI_LoadingGuide:init(curr_scene)
 
 	local guide_type = curr_scene.m_loadingGuideType
 	if (guide_type) then
-		self.m_lLoadingStrList = g_constant:get('UI', 'LOADING_TEXT')
+		self.m_lLoadingStrList = table.sortRandom(g_constant:get('UI', 'LOADING_TEXT'))
 	end
 
 	self:initUI(guide_type)
@@ -40,6 +40,7 @@ function UI_LoadingGuide:initUI(guide_type)
 
 	else
 		vars['tipLabel']:setString('로딩 중')
+
 	end
 
 	-- 로딩 게이지 초기화
@@ -63,14 +64,18 @@ function UI_LoadingGuide:refresh()
 end
 
 -------------------------------------
--- function setLoadingGauge
+-- function setNextLoadingStr
 -------------------------------------
-function UI_LoadingGuide:setRandomLoadingStr()
+function UI_LoadingGuide:setNextLoadingStr()
 	if (not self.m_lLoadingStrList) then
 		return
 	end
-	local random_str = table.getRandom(self.m_lLoadingStrList)
-	self.vars['loadingLabel']:setString(random_str)
+
+	local random_str = self.m_lLoadingStrList[1]
+	if (random_str) then
+		self.vars['loadingLabel']:setString(random_str)
+		table.remove(self.m_lLoadingStrList, 1)
+	end
 end
 
 -------------------------------------
@@ -79,12 +84,9 @@ end
 function UI_LoadingGuide:setLoadingGauge(percent, is_not_use_label)
 	local vars = self.vars
 
-	if (vars['loadingGauge']) then
-		vars['loadingGauge']:setPercentage(percent)
-		vars['loadingLabel']:setString(string.format('%.2f%%', percent))
-		if (not is_not_use_label) then
-			--self:setRandomLoadingStr()
-		end
+	vars['loadingGauge']:setPercentage(percent)
+	if (not is_not_use_label) then
+		self:setNextLoadingStr()
 	end
 end
 
