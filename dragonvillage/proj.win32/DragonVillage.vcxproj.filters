@@ -1053,9 +1053,6 @@
     <None Include="..\src\EffectMotionStreak.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_BattleMenu.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_Colosseum.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2110,6 +2107,12 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_LoadingGuide_Patch.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DungeonMenu.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_BattleMenu.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

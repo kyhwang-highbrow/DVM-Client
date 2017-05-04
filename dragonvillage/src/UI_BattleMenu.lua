@@ -22,7 +22,7 @@ end
 -- function init
 -------------------------------------
 function UI_BattleMenu:init()
-    local vars = self:load('dungeon_popup.ui')
+    local vars = self:load('battle_popup.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -57,10 +57,8 @@ end
 -------------------------------------
 function UI_BattleMenu:initButton()
     local vars = self.vars
-    vars['dragonBtn']:registerScriptTapHandler(function() self:click_dragonBtn() end)
-    vars['treeBtn']:registerScriptTapHandler(function() self:click_treeBtn() end)
-    vars['nightmareBtn']:registerScriptTapHandler(function() self:click_nightmareBtn() end)
-    vars['goldBtn']:registerScriptTapHandler(function() self:click_goldBtn() end)
+    vars['colosseumBtn']:registerScriptTapHandler(function() self:click_colosseumBtn() end)
+    vars['towerBtn']:registerScriptTapHandler(function() self:click_towerBtn() end)
 end
 
 -------------------------------------
@@ -70,31 +68,17 @@ function UI_BattleMenu:refresh()
 end
 
 -------------------------------------
--- function click_dragonBtn
+-- function click_colosseumBtn
 -------------------------------------
-function UI_BattleMenu:click_dragonBtn()
-    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_DRAGON)
+function UI_BattleMenu:click_colosseumBtn()
+    g_colosseumData:goToColosseumScene()
 end
 
 -------------------------------------
--- function click_treeBtn
+-- function click_towerBtn
 -------------------------------------
-function UI_BattleMenu:click_treeBtn()
-    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_TREE)
-end
-
--------------------------------------
--- function click_nightmareBtn
--------------------------------------
-function UI_BattleMenu:click_nightmareBtn()
-	g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_NIGHTMARE)
-end
-
--------------------------------------
--- function click_goldBtn
--------------------------------------
-function UI_BattleMenu:click_goldBtn()
-    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_GOLD)
+function UI_BattleMenu:click_towerBtn()
+    g_ancientTowerData:goToAncientTowerScene()
 end
 
 --@CHECK

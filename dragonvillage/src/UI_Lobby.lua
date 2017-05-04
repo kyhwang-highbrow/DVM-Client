@@ -382,7 +382,7 @@ end
 -- @brief "콜로세움" 버튼
 -------------------------------------
 function UI_Lobby:click_colosseumBtn()
-    g_colosseumData:goToColosseumScene()
+    UI_BattleMenu()
 end
 
 -------------------------------------
@@ -395,7 +395,7 @@ function UI_Lobby:click_battleBtn()
         return
     end
 
-    UI_BattleMenu()
+    UI_DungeonMenu()
 end
 
 -------------------------------------
@@ -603,8 +603,7 @@ end
 -- function click_guildBtn
 -------------------------------------
 function UI_Lobby:click_guildBtn()
-    --UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
-    g_ancientTowerData:goToAncientTowerScene()
+    UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
 end
 
 -------------------------------------

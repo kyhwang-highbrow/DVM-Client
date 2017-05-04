@@ -52,8 +52,9 @@ end
 -------------------------------------
 function ServerData_AncientTower:goToAncientTowerScene()
     local function finish_cb()
-        local scene = SceneAncientTower()
-        scene:runScene()
+        UI_AncientTowerScene()
+        --local scene = SceneAncientTower()
+        --scene:runScene()
     end
 
     local function fail_cb()

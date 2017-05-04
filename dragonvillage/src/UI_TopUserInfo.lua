@@ -183,10 +183,8 @@ function UI_TopUserInfo:changeOwnerUI(ui)
     vars['chatBtn']:setVisible(ui.m_bShowChatBtn)
 
     -- 서브 재화
-    vars['amethystNode']:setVisible(ui.m_subCurrency == 'amethyst')
-    vars['lacteaNode']:setVisible(ui.m_subCurrency == 'lactea')
-    vars['fpNode']:setVisible(ui.m_subCurrency == 'fp')
-
+    self:setSubCurrency(ui.m_subCurrency)
+    
     self:refreshData()
     self:doAction()
 end
@@ -203,6 +201,18 @@ end
 -------------------------------------
 function UI_TopUserInfo:setGoldNumber(gold)
     self.m_lNumberLabel['gold']:setNumber(gold)
+end
+
+-------------------------------------
+-- function setSubCurrency
+-------------------------------------
+function UI_TopUserInfo:setSubCurrency(subCurrency)
+    local vars = self.vars
+
+    -- 서브 재화
+    vars['amethystNode']:setVisible(subCurrency == 'amethyst')
+    vars['lacteaNode']:setVisible(subCurrency == 'lactea')
+    vars['fpNode']:setVisible(subCurrency == 'fp')
 end
 
 -------------------------------------

@@ -502,6 +502,7 @@ local t_module = {
     'UI_FruitFeedPress',
     'UI_LobbyUserInfoPopup',
     'UI_UserDeckInfoPopup',
+    'UI_DungeonMenu',
     'UI_BattleMenu',
 	'UI_QuestPopup',
     'UI_QuestListItem',

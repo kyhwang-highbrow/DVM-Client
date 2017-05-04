@@ -57,9 +57,13 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_Colosseum:click_exitBtn()
-	local is_use_loading = false
-    local scene = SceneLobby(is_use_loading)
-    scene:runScene()
+	if (g_currScene.m_sceneName == 'SceneColosseum') then
+		local is_use_loading = false
+		local scene = SceneLobby(is_use_loading)
+		scene:runScene()
+	else
+		self:close()
+	end
 end
 
 -------------------------------------

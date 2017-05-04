@@ -34,8 +34,9 @@ end
 function ServerData_Colosseum:goToColosseumScene()
     local function cb()
 		if (self:getIsOpenColosseum()) then
-			local scene = SceneColosseum()
-			scene:runScene()
+            UI_Colosseum()
+			--local scene = SceneColosseum()
+			--scene:runScene()
 		else
 			UIManager:toastNotificationGreen('콜로세움 오픈 전입니다.\n오픈까지 ' .. self:getWeekTimeText())
 		end

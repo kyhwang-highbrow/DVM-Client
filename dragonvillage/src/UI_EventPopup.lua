@@ -40,6 +40,7 @@ function UI_EventPopup:initParentVariable()
     self.m_uiName = 'UI_EventPopup'
     self.m_titleStr = Str('이벤트')
     self.m_bUseExitBtn = true
+    self.m_subCurrency = 'amethyst'
 end
 
 -------------------------------------
@@ -183,6 +184,22 @@ function UI_EventPopup:onChangeTab(tab, first)
     local item = self.m_tableView:getItem(tab)
     if item and item['data'] then
         item['data'].m_hasNoti = false
+    end
+
+    do -- 교환소일 경우 해당 재화를 표시
+        if (g_topUserInfo) then
+            g_topUserInfo:setSubCurrency('amethyst')
+
+            if (string.match(tab, 'exchange')) then
+                local item = self.m_tableView:getItem(tab)
+                local struct_event_popup_tab = item['data']
+                local curr_type = struct_event_popup_tab.m_userData['s_curr_type']
+
+                if (curr_type and curr_type ~= 'x') then
+                    g_topUserInfo:setSubCurrency(curr_type)
+                end
+            end
+        end
     end
 end
 
