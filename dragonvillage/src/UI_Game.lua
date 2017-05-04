@@ -89,6 +89,7 @@ function UI_Game:initButton()
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
     vars['panelBtn']:registerScriptTapHandler(function() self:click_panelBtn() end)
     vars['effectBtn']:registerScriptTapHandler(function() self:click_effectBtn() end)
+    vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)
 
     -- 패널 버튼 이미지
     do
@@ -309,6 +310,13 @@ function UI_Game:click_effectBtn()
 
     local gameHighlight = self.m_gameScene.m_gameWorld.m_gameHighlight
     gameHighlight:setSkipLevel(skip_level)
+end
+
+-------------------------------------
+-- function click_chatBtn
+-------------------------------------
+function UI_Game:click_chatBtn()
+    UI_ChatPopup()
 end
 
 -------------------------------------
