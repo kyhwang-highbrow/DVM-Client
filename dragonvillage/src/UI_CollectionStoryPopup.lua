@@ -10,7 +10,7 @@ UI_CollectionStoryPopup = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_CollectionStoryPopup:init(t_item_data)
+function UI_CollectionStoryPopup:init(init_tab, init_team)
     local vars = self:load('collection_story_popup.ui')
 
     UIManager:open(self, UIManager.SCENE)
@@ -22,7 +22,7 @@ function UI_CollectionStoryPopup:init(t_item_data)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI()
+    self:initUI(init_tab, init_team)
     self:initButton()
     self:refresh()
 
@@ -32,9 +32,9 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_CollectionStoryPopup:initUI()
+function UI_CollectionStoryPopup:initUI(init_tab, init_team)
     local vars = self.vars
-    self:initTab()
+    self:initTab(init_tab, init_team)
 end
 
 -------------------------------------
@@ -61,9 +61,9 @@ end
 -------------------------------------
 -- function initTab
 -------------------------------------
-function UI_CollectionStoryPopup:initTab()
+function UI_CollectionStoryPopup:initTab(init_tab, init_team)
     self.m_mTabUI = {}
-    self.m_mTabUI['applyTeam'] = UI_CollectionStoryPopup_ApplyTeamTab(self)
+    self.m_mTabUI['applyTeam'] = UI_CollectionStoryPopup_ApplyTeamTab(self, init_team)
     self.m_mTabUI['dragonTeam'] = UI_CollectionStoryPopup_DragonTeamTab(self)
     self.m_mTabUI['allTeam'] = UI_CollectionStoryPopup_AllTeamTab(self)
 
@@ -71,7 +71,8 @@ function UI_CollectionStoryPopup:initTab()
     self:addTab('applyTeam', vars['applyTeamBtn'], vars['applyTeamMenu'])
     self:addTab('dragonTeam', vars['dragonTeamBtn'], vars['dragonTeamMenu'])
     self:addTab('allTeam', vars['allTeamBtn'], vars['allTeamMenu'])
-    self:setTab('dragonTeam')
+
+    self:setTab(init_tab or 'dragonTeam')
 end
 
 -------------------------------------

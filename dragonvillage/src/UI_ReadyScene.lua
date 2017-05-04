@@ -179,6 +179,9 @@ function UI_ReadyScene:initButton()
 
     -- 진형 관린
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
+
+    -- 도감 무리(스토리) 버프
+    vars['teamBuffBtn']:registerScriptTapHandler(function() self:click_teamBuffBtn() end)
 end
 
 -------------------------------------
@@ -525,6 +528,15 @@ function UI_ReadyScene:click_fomationBtn()
 		self.m_readySceneDeck:setFormation(formation_type)
 	end
 	ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_teamBuffBtn
+-- @breif
+-------------------------------------
+function UI_ReadyScene:click_teamBuffBtn()
+    local curr_deck_name = g_deckData:getSelectedDeckName()
+    UI_CollectionStoryPopup('applyTeam', curr_deck_name)
 end
 
 -------------------------------------

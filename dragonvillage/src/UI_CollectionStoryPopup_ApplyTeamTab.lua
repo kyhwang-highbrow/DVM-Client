@@ -8,15 +8,17 @@ UI_CollectionStoryPopup_ApplyTeamTab = class({
 		m_lMotionStreakList = 'cc.motionStreak',
 
         m_bFirstDeckAction = 'boolean',
+        m_initTeam = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_CollectionStoryPopup_ApplyTeamTab:init(ui)
+function UI_CollectionStoryPopup_ApplyTeamTab:init(ui, init_team)
     self.vars = ui.vars
     self.m_bFirstDeckAction = true
     self.vars['leaderSprite']:setVisible(false)
+    self.m_initTeam = init_team
 end
 
 -------------------------------------
@@ -43,7 +45,6 @@ function UI_CollectionStoryPopup_ApplyTeamTab:onEnterTab(first)
 
                 for i=1, 5 do
                     vars['chNode' .. i]:removeAllChildren()
-                    ccdump(l_deck[i])
                     local doid = l_deck[i]
                     if doid then
                         local dragon_object = g_dragonsData:getDragonObject(doid)
@@ -57,7 +58,7 @@ function UI_CollectionStoryPopup_ApplyTeamTab:onEnterTab(first)
         uic_sort_list:setSortChangeCB(sort_change_cb)
 
         -- 전체를 선택
-        uic_sort_list:setSelectSortType('1')
+        uic_sort_list:setSelectSortType(self.m_initTeam or '1')
     end
 end
 
