@@ -21,7 +21,7 @@ function UI_EventPopupTab_Exchange:init(owner, struct_event_popup_tab)
 
     do
         --local res = self.m_tableExchange['banner']
-        local res = 'res/ui/event/attendance_banner_001.png'
+        local res = 'res/ui/event/banner_exchange_01.png'
         local banner_img = cc.Sprite:create(res)
         if (banner_img) then
             banner_img:setDockPoint(cc.p(0.5, 0.5))

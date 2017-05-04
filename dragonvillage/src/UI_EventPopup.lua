@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITabUI:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_EventPopup
@@ -17,7 +17,7 @@ function UI_EventPopup:init()
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:closePopup() end, 'UI_EventPopup')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_EventPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -32,6 +32,17 @@ function UI_EventPopup:init()
 end
 
 -------------------------------------
+-- function initParentVariable
+-- @brief
+-------------------------------------
+function UI_EventPopup:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_EventPopup'
+    self.m_titleStr = Str('이벤트')
+    self.m_bUseExitBtn = true
+end
+
+-------------------------------------
 -- function initUI
 -------------------------------------
 function UI_EventPopup:initUI()
@@ -43,8 +54,6 @@ end
 -- function initButton
 -------------------------------------
 function UI_EventPopup:initButton()
-    local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:closePopup() end)
 end
 
 -------------------------------------
@@ -212,10 +221,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
     return ui
 end
 
+
 -------------------------------------
--- function closePopup
+-- function click_exitBtn
 -------------------------------------
-function UI_EventPopup:closePopup()
+function UI_EventPopup:click_exitBtn()
     if (not self:checkNotiList()) then
         self:close()
     end

@@ -36,6 +36,8 @@ function UI_ExchangeProductListItem:initUI()
     end
 
     do -- 지불 타입 아이콘
+        local price_type_count = 0
+
         for i = 1, 3 do
             local price_type = struct_data['m_priceType' .. i]
             local price_value = struct_data['m_priceValue' .. i]
@@ -51,9 +53,24 @@ function UI_ExchangeProductListItem:initUI()
 
                 local price_str = TableExchange:makePriceDesc(price_type, price_value)
                 vars['priceLabel' .. i]:setString(price_str)
+
+                vars['frameNode' .. i]:setVisible(true)
+
+                price_type_count = price_type_count + 1
             else
-                vars['priceLabel' .. i]:setString('')
+                vars['frameNode' .. i]:setVisible(false)
             end
+        end
+
+        -- 재료 수에 따라 ui 위치 및 크기 조정
+        if (price_type_count == 1) then
+            vars['frameNode1']:setPosition(0, 114)
+            vars['frameNode1']:setContentSize(368, 64)
+        elseif (price_type_count == 2) then
+            vars['frameNode1']:setPosition(-94, 114)
+            vars['frameNode1']:setContentSize(180, 64)
+            vars['frameNode2']:setPosition(94, 114)
+            vars['frameNode2']:setContentSize(180, 64)
         end
     end
 
@@ -95,6 +112,39 @@ end
 -- function click_exchangeBtn
 -------------------------------------
 function UI_ExchangeProductListItem:click_exchangeBtn()
-    -- TODO: 교환처리
+    local struct_data = self.m_structExchangeProductData
+    
+    for i = 1, 3 do
+        local price_type = struct_data['m_priceType' .. i]
+        local price_value = struct_data['m_priceValue' .. i]
 
+        if (price_type and price_value) then
+            local can_buy, msg = g_exchangeData:canBuyProduct(price_type, price_value)
+            if (not can_buy) then
+                UIManager:toastNotificationRed(msg)
+                self:nagativeAction()
+                return
+            end
+        end
+    end
+
+    local product_id = struct_data.m_pid
+    local product_name = TableShop:makeProductName(struct_data.m_lProductList)
+
+    local function ok_btn_cb()
+        g_exchangeData:request_exchange(product_id, function() self:refresh() end)
+    end
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('[{1}] 상품을 교환하시겠습니까?', product_name), ok_btn_cb)
+end
+
+-------------------------------------
+-- function nagativeAction
+-------------------------------------
+function UI_ExchangeProductListItem:nagativeAction()
+    local node = self.vars['exchangeBtn']
+
+    local start_action = cc.MoveTo:create(0.05, cc.p(-20, 44))
+    local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, 44)), 0.2)
+    node:runAction(cc.Sequence:create(start_action, end_action))
 end

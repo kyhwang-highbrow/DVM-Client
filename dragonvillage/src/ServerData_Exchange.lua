@@ -24,7 +24,7 @@ end
 
 -------------------------------------
 -- function ckechUpdateExchangeInfo
--- @brief 출석체크 정보가 갱신되어야하는지 여부를 확인
+-- @brief 정보가 갱신되어야하는지 여부를 확인
 -------------------------------------
 function ServerData_Exchange:ckechUpdateExchangeInfo()
     if self.m_bDirtyExchangeInfo then
@@ -39,7 +39,7 @@ end
 -- function request_exchangeInfo
 -------------------------------------
 function ServerData_Exchange:request_exchangeInfo(finish_cb, fail_cb)
-    -- 출석체크 정보가 갱신되어야하는지 여부를 확인
+    -- 정보가 갱신되어야하는지 여부를 확인
     self:ckechUpdateExchangeInfo()
 
     -- 갱신할 필요가 없으면 즉시 리턴
@@ -106,6 +106,36 @@ function ServerData_Exchange:request_exchangeInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
+-- function request_exchange
+-- @brief 교환소의 아이템으로 교환(구매)
+-------------------------------------
+function ServerData_Exchange:request_exchange(product_id, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)        
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        if (finish_cb) then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/exchange/buy')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('product_id', product_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function getProductList
 -------------------------------------
 function ServerData_Exchange:getProductList(exchange_type)
@@ -121,4 +151,34 @@ function ServerData_Exchange:getResTabIcon(exchange_type)
             return v['icon']
         end
     end
+end
+
+-------------------------------------
+-- function canBuyProduct
+-- @brief 구매 가능 여부 검사
+-------------------------------------
+function ServerData_Exchange:canBuyProduct(price_type, price_value)
+    local user_price = 0
+
+    -- 지불 재화 개수 저장
+    if (price_type == 'x') then
+        user_price = 0
+    else
+        user_price = g_userData:get(price_type)    
+    end
+
+    if (not user_price) then
+        error('price_type : ' .. price_type)
+    end
+
+    -- 개수 확인
+    if (price_value > user_price) then
+        local t_item = TableItem():getRewardItem(price_type)
+        local need_price_str = comma_value(price_value - user_price)
+        local msg = Str('{1} {2}개가 부족합니다.', t_item['t_name'], comma_value(need_price_str))
+        
+        return false, msg
+    end
+
+    return true
 end
