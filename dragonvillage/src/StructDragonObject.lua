@@ -27,6 +27,7 @@ StructDragonObject = class({
 
         updated_at = 'timestamp',
         created_at = 'timestamp',
+		played_at = 'timestamp',
 
         ----------------------------------------------
         -- 룬정보
