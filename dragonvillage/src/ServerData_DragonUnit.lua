@@ -111,6 +111,46 @@ end
 
 
 -------------------------------------
+-- function getDragonUnitList_deckBuff
+-- @brief deck을 충족하는 리스트
+-------------------------------------
+function ServerData_DragonUnit:getDragonUnitList_deckBuff(deck_name)
+    if self.m_bDirty then
+        self:organizeData(nil)
+    end
+
+    local l_deck, formation = g_deckData:getDeck(deck_name)
+    local l_dragons = {}
+    for i,v in pairs(l_deck) do
+        l_dragons[i] = g_dragonsData:getDragonDataFromUid(v)
+    end
+    
+
+    local t_ret = {}
+    local apply_buff_dictionary_data = {}
+    for i=1, 5 do
+        apply_buff_dictionary_data[i] = {}
+    end
+
+    for i,v in pairs(self.m_mDragonUnitDataList) do
+        if v.m_rewardReceived then
+            local ret, apply_buff_dictionary = v:checkCondition_deck(l_dragons)
+
+            if ret then
+                t_ret[i] = v
+
+                for idx, unit_id in pairs(apply_buff_dictionary) do
+                    table.insert(apply_buff_dictionary_data[idx], unit_id)
+                end
+            end
+        end
+    end
+
+    return apply_buff_dictionary_data
+end
+
+
+-------------------------------------
 -- function getDragonUnitIDList
 -------------------------------------
 function ServerData_DragonUnit:getDragonUnitIDList()

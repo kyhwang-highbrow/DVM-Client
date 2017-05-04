@@ -175,7 +175,7 @@ end
 -------------------------------------
 function GameWorld:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
-    local l_deck, formation = g_deckData:getDeck()
+    local l_deck, formation, deck_name = g_deckData:getDeck()
     self.m_deckFormation = formation
 
     -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
@@ -242,6 +242,24 @@ function GameWorld:makeHeroDeck()
             status_calc:addBuffMulti('atk', (friend_online_buff['atk'] or 0))
             status_calc:addBuffMulti('def', (friend_online_buff['def'] or 0))
         end
+    end
+
+
+    do -- 무리 버프
+        local unit_buff_dic = g_dragonUnitData:getDragonUnitList_deckBuff(deck_name)
+        for i,v in pairs(unit_buff_dic) do
+            
+            if (0 < table.count(v)) then
+                local status_calc = self.m_mHeroList[i].m_statusCalc
+
+                for _,unit_id in pairs(v) do
+                    
+                    local status, action, value = TableDragonUnit:getUnitBuff(unit_id)
+                    status_calc:addOption(action, status, value)
+                end
+            end
+        end
+        
     end
 end
 

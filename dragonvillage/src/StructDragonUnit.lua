@@ -83,12 +83,17 @@ end
 -- @brief
 -------------------------------------
 function StructDragonUnit:checkCondition_deck(l_dragons)
+
+    local apply_buff_dictionary = {}
+
     for _, struct_dragon_unit_condition in ipairs(self.m_lStructDragonUnitCondition) do
-        local ret = struct_dragon_unit_condition:checkCondition_dragons(l_dragons)
-        if (not ret) then
+        local ret_value, stop_dragon_idx = struct_dragon_unit_condition:checkCondition_dragons(l_dragons)
+        if (not ret_value) then
             return false
+        else
+            apply_buff_dictionary[stop_dragon_idx] = self.m_unitID
         end
     end
 
-    return true
+    return true, apply_buff_dictionary
 end

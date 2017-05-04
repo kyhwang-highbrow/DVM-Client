@@ -170,24 +170,39 @@ function StructDragonUnitCondition:checkCondition_dragons(l_dragons)
     local condition_type = self['condition_type']
     local condition_value = self['condition_value']
 
+    local stop_dragon_idx = nil
+    local ret_value = false
+
     if did then
         for i,v in pairs(l_dragons) do
             if (did == v['did']) then
                 if (condition_type == 'none') then
-                    return true
+                    stop_dragon_idx = i
+                    ret_value = true
 
                 elseif (condition_type == 'grade') then
-                    return (v['grade'] >= condition_value)
+                    if (v['grade'] >= condition_value) then
+                        stop_dragon_idx = i
+                        ret_value = true
+                    end
 
                 elseif (condition_type == 'friendship') then
-                    return (v:getFlv() >= condition_value)
+                    if (v:getFlv() >= condition_value) then
+                        stop_dragon_idx = i
+                        ret_value = true
+                    end
 
                 elseif (condition_type == 'research') then
-                    local research_lv = g_collectionData:getDragonResearchLevel_did(did)
-                    return (research_lv >= condition_value)
+                    if (v['rlv']>= condition_value) then
+                        stop_dragon_idx = i
+                        ret_value = true
+                    end
 
                 elseif (condition_type == 'evolution') then
-                    return (v['evolution'] >= condition_value)
+                    if (v['evolution'] >= condition_value) then
+                        stop_dragon_idx = i
+                        ret_value = true
+                    end
 
                 else
                     error('condition_type : ' .. condition_type)
@@ -204,5 +219,5 @@ function StructDragonUnitCondition:checkCondition_dragons(l_dragons)
         end
     end
 
-    return false
+    return ret_value, stop_dragon_idx
 end
