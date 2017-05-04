@@ -6,7 +6,7 @@ filter: Linear,Linear
 repeat: none
 optatio_fire_03_arm_01
   rotate: false
-  xy: 451, 113
+  xy: 784, 257
   size: 107, 85
   orig: 107, 85
   offset: 0, 0
@@ -19,8 +19,8 @@ optatio_fire_03_body_01
   offset: 0, 0
   index: -1
 optatio_fire_03_calf_01
-  rotate: false
-  xy: 1788, 336
+  rotate: true
+  xy: 1582, 243
   size: 59, 62
   orig: 59, 62
   offset: 0, 0
@@ -32,11 +32,95 @@ optatio_fire_03_effect_01
   orig: 228, 230
   offset: 0, 0
   index: -1
+optatio_fire_03_effect_01_003
+  rotate: false
+  xy: 490, 265
+  size: 138, 122
+  orig: 138, 122
+  offset: 0, 0
+  index: -1
 optatio_fire_03_effect_02
   rotate: false
-  xy: 1849, 357
+  xy: 1646, 254
   size: 56, 48
   orig: 56, 48
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_04_001
+  rotate: false
+  xy: 232, 33
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_04_002
+  rotate: false
+  xy: 1146, 241
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_04_003
+  rotate: false
+  xy: 1248, 265
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_04_004
+  rotate: false
+  xy: 94, 15
+  size: 14, 15
+  orig: 14, 15
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_04_005
+  rotate: false
+  xy: 1711, 283
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_04_007
+  rotate: false
+  xy: 1813, 297
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_05_002
+  rotate: true
+  xy: 1943, 347
+  size: 163, 103
+  orig: 163, 103
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_05_003
+  rotate: true
+  xy: 333, 266
+  size: 121, 155
+  orig: 121, 155
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_05_004
+  rotate: true
+  xy: 1769, 399
+  size: 111, 172
+  orig: 111, 172
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_05_005
+  rotate: true
+  xy: 1591, 385
+  size: 125, 176
+  orig: 125, 176
+  offset: 0, 0
+  index: -1
+optatio_fire_03_effect_05_006
+  rotate: true
+  xy: 710, 182
+  size: 75, 57
+  orig: 75, 57
   offset: 0, 0
   index: -1
 optatio_fire_03_elbow_01
@@ -48,14 +132,14 @@ optatio_fire_03_elbow_01
   index: -1
 optatio_fire_03_elbow_02
   rotate: false
-  xy: 449, 200
+  xy: 334, 45
   size: 110, 101
   orig: 110, 101
   offset: 0, 0
   index: -1
 optatio_fire_03_foot_01
   rotate: false
-  xy: 561, 213
+  xy: 1505, 265
   size: 75, 88
   orig: 75, 88
   offset: 0, 0
@@ -69,7 +153,7 @@ optatio_fire_03_hand_01
   index: -1
 optatio_fire_03_hand_02
   rotate: false
-  xy: 1709, 400
+  xy: 468, 153
   size: 118, 110
   orig: 118, 110
   offset: 0, 0
@@ -89,57 +173,50 @@ optatio_fire_03_head_01
   offset: 0, 0
   index: -1
 optatio_fire_03_leg_01
-  rotate: false
-  xy: 1951, 395
+  rotate: true
+  xy: 1029, 251
   size: 90, 115
   orig: 90, 115
   offset: 0, 0
   index: -1
 optatio_fire_03_lowerbody_01
   rotate: false
-  xy: 232, 43
+  xy: 1406, 263
   size: 97, 90
   orig: 97, 90
   offset: 0, 0
   index: -1
 optatio_fire_03_lowerbody_02
   rotate: false
-  xy: 333, 304
+  xy: 630, 259
   size: 152, 83
   orig: 152, 83
   offset: 0, 0
   index: -1
 optatio_fire_03_neck_01
   rotate: false
-  xy: 1829, 407
+  xy: 588, 154
   size: 120, 103
   orig: 120, 103
   offset: 0, 0
   index: -1
 optatio_fire_03_shoulder_01
-  rotate: false
-  xy: 1591, 375
+  rotate: true
+  xy: 331, 148
   size: 116, 135
   orig: 116, 135
   offset: 0, 0
   index: -1
-optatio_fire_03_shoulder_02
-  rotate: false
-  xy: 331, 184
-  size: 116, 118
-  orig: 116, 118
-  offset: 0, 0
-  index: -1
 optatio_fire_03_tail_01
   rotate: false
-  xy: 487, 303
+  xy: 893, 267
   size: 134, 84
   orig: 134, 84
   offset: 0, 0
   index: -1
 optatio_fire_03_tail_02
-  rotate: true
-  xy: 1709, 344
+  rotate: false
+  xy: 1350, 288
   size: 54, 77
   orig: 54, 77
   offset: 0, 0
@@ -153,14 +230,14 @@ optatio_fire_03_tail_03
   index: -1
 optatio_fire_03_thigh_01
   rotate: false
-  xy: 331, 22
+  xy: 769, 176
   size: 106, 79
   orig: 106, 79
   offset: 0, 0
   index: -1
 optatio_fire_03_wing_01
   rotate: true
-  xy: 331, 103
+  xy: 1591, 304
   size: 79, 118
   orig: 79, 118
   offset: 0, 0
