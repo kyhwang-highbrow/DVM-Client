@@ -177,7 +177,7 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, case_type)
 	end
 
     local key = sum_random:getRandomValue()
-
-    local phrase = Str(self:getValue(did, key)) or '= - ='
+	local speech = self:getValue(did, key) or '= - ='
+    local phrase = Str(speech)
     return phrase
 end
