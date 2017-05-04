@@ -189,12 +189,12 @@ function ChatClient:dispatchEvent(_socket, t)
 
         elseif (msg['pcode'] == 'S_WHISPER_RESPONSE') then
             local r = self.m_chat.SChatResponse():Parse(msg['payload'])
-            cclog(luadump(r))
             local raw = r['json']
             if raw and type(raw) == 'string' then
                 local json = dkjson.decode(raw)
                 if json then
                     --cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
+                    json['type'] = 'whisper'
                     self:pushMsg(json)
                 end
             end

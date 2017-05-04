@@ -12,7 +12,16 @@ UI_ChatPopup_WhisperTab = class({
 -------------------------------------
 function UI_ChatPopup_WhisperTab:init(ui)
     self.vars = ui.vars
+    local vars = self.vars
+    
     self.m_peerUserNickname = nil
+
+    local list_table_node = vars['whisperChatNode']
+    local size = list_table_node:getContentSize()
+    self.m_chatList = UI_ChatList(list_table_node, size['width'], size['height'], 50)
+
+    vars['enterBtn_whisper']:registerScriptTapHandler(function() self:click_enterBtn() end)
+    vars['whisperSetUserBtn']:registerScriptTapHandler(function() self:click_whisperSetUserBtn() end)
 end
 
 -------------------------------------
@@ -23,12 +32,6 @@ function UI_ChatPopup_WhisperTab:onEnterTab(first)
 
     if first then
 
-        local list_table_node = vars['whisperChatNode']
-        local size = list_table_node:getContentSize()
-        self.m_chatList = UI_ChatList(list_table_node, size['width'], size['height'], 50)
-
-        vars['enterBtn_whisper']:registerScriptTapHandler(function() self:click_enterBtn() end)
-        vars['whisperSetUserBtn']:registerScriptTapHandler(function() self:click_whisperSetUserBtn() end)
     end
 end
 
@@ -78,4 +81,14 @@ function UI_ChatPopup_WhisperTab:click_whisperSetUserBtn()
         
     end
     edit_box:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function msgQueueCB
+-------------------------------------
+function UI_ChatPopup_WhisperTab:msgQueueCB(msg)
+    local content = UI_ChatListItem(msg)
+    content.root:setAnchorPoint(0.5, 0)
+    local height = content:getItemHeight()
+    self.m_chatList:addContent(content.root, height, 'type')
 end

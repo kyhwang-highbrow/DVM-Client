@@ -109,6 +109,11 @@ function UI_ChatPopup:msgQueueCB(msg)
         local status = msg['status']
         self:refresh_connectStatus(status)
         return
+
+    elseif (msg['type'] == 'whisper') then
+        ccdump(msg)
+        self.m_mTabUI['whisper_chat']:msgQueueCB(msg)
+        return
     end
 
 
