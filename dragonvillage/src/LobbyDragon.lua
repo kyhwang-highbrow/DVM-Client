@@ -192,7 +192,7 @@ function LobbyDragon:update(dt)
 		-- 선물 재촉 대사
 		if (self.m_talkingTimer > LobbyDragon.PRESENT_HURRY_TIME) then
 			self.m_talkingNode:removeAllChildren()
-			SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'hurry_present', cb_func)
+			SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'lobby_hurry_present')
 
 			self.m_talkingTimer = self.m_talkingTimer - LobbyDragon.PRESENT_HURRY_TIME
 		end

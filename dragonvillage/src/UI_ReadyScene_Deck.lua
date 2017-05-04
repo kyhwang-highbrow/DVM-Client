@@ -300,6 +300,9 @@ function UI_ReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
     local dragon_attr = TableDragon():getValue(t_dragon_data['did'], 'attr')
     local stage_attr = self.m_uiReadyScene.m_stageAttr
     ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
+
+	-- 감성 말풍선
+	SensitivityHelper:doActionBubbleText(ui.root, t_dragon_data['did'], 'party_in')
 end
 
 -------------------------------------

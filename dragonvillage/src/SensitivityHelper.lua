@@ -11,7 +11,14 @@ function SensitivityHelper:doActionBubbleText(parent, did, case_type)
 	-- 2. 버블 텍스트 생성하여 부모에 붙임
 	local bubble_text = SensitivityHelper:getBubbleText(sens_str)
 	parent:addChild(bubble_text, 2)
-	bubble_text:setScale(0.1)
+	if string.find(case_type, 'lobby_') then
+		bubble_text:setPosition(50, 300)
+
+	elseif string.find(case_type, 'party_') then
+		bubble_text:setPosition(0, 100)
+
+	end
+
 	
 	-- 3. 띠용~ 후 페이드 아웃 하는 액션
 	local scale_action = cc.ScaleTo:create(0.17, 1.25)

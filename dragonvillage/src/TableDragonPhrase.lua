@@ -149,14 +149,20 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, case_type)
 			sum_random:addItem(1, 'lobby_touch' .. i)
 		end
 	
-	elseif (case_type == 'hurry_present') then
+	elseif (case_type == 'lobby_hurry_present') then
 		sum_random:addItem(1, 'lobby_induce')
 	
-	elseif (case_type == 'get_present') then
+	elseif (case_type == 'lobby_get_present') then
 		sum_random:addItem(1, 'lobby_present')
 	
-	elseif (case_type == 'after_present') then
+	elseif (case_type == 'lobby_after_present') then
 		sum_random:addItem(1, 'lobby_end')
+
+	elseif (case_type == 'party_in') then
+		sum_random:addItem(1, 'party_in')
+
+	elseif (case_type == 'party_out') then
+		sum_random:addItem(1, 'party_out')
 
 	else
 		sum_random:addItem(1, 't_normal_phrase1')
@@ -177,7 +183,9 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, case_type)
 	end
 
     local key = sum_random:getRandomValue()
+	
 	local speech = self:getValue(did, key) or '= - ='
+
     local phrase = Str(speech)
     return phrase
 end
