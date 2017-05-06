@@ -75,7 +75,8 @@ LOCAL_SRC_FILES := manual/CCLuaBridge.cpp \
           ../../../external/lua/luasocket/udp.c \
           ../../../external/lua/luasocket/unix.c \
           ../../../external/lua/luasocket/usocket.c \
-          ../../../external/lua/luacrypto/lcrypto.c
+          ../../../external/lua/luacrypto/lcrypto.c \
+          ../../../external/lua/lfs/lfs.c
 
 
 

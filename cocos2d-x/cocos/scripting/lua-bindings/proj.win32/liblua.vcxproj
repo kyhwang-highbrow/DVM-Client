@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\external\lua\lfs\lfs.c" />
     <ClCompile Include="..\..\..\..\external\lua\lpeg\lpcap.c" />
     <ClCompile Include="..\..\..\..\external\lua\lpeg\lpcode.c" />
     <ClCompile Include="..\..\..\..\external\lua\lpeg\lpprint.c" />
@@ -78,6 +79,7 @@
     <ClCompile Include="..\manual\tolua_fix.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\external\lua\lfs\lfs.h" />
     <ClInclude Include="..\..\..\..\external\lua\lpeg\lpcap.h" />
     <ClInclude Include="..\..\..\..\external\lua\lpeg\lpcode.h" />
     <ClInclude Include="..\..\..\..\external\lua\lpeg\lpprint.h" />

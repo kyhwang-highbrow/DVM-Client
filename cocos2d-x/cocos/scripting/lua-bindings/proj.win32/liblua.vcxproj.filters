@@ -28,6 +28,9 @@
     <Filter Include="luabins">
       <UniqueIdentifier>{66bcacf1-40e2-48a2-a907-e40b542871a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lfs">
+      <UniqueIdentifier>{eb3329e8-c847-400b-8dc1-8dbb70f83403}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\auto\lua_cocos2dx_auto.cpp">
@@ -224,6 +227,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\external\lua\luabins\write.c">
       <Filter>luabins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\lfs\lfs.c">
+      <Filter>lfs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -430,6 +436,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\external\lua\luabins\write.h">
       <Filter>luabins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\lfs\lfs.h">
+      <Filter>lfs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

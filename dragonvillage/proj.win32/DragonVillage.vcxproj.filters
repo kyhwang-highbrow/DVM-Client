@@ -2121,6 +2121,123 @@
     <None Include="..\src\UI_ChatPopup_WhisperTab.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\pl\app.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\array2d.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\class.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\compat.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\comprehension.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\config.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\data.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\Date.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\dir.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\file.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\func.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\import_into.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\init.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\input.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\lapp.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\lexer.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\List.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\luabalanced.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\Map.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\MultiMap.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\operator.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\OrderedMap.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\path.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\permute.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\pretty.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\seq.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\Set.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\sip.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\strict.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\stringio.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\stringx.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\tablex.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\template.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\test.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\text.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\types.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\url.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\utils.lua">
+      <Filter>pl</Filter>
+    </None>
+    <None Include="..\src\pl\xml.lua">
+      <Filter>pl</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -2167,6 +2284,9 @@
     </Filter>
     <Filter Include="shader">
       <UniqueIdentifier>{d7237c92-762d-43d6-9f44-e6871d5a460b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pl">
+      <UniqueIdentifier>{585171ef-5494-47d1-9209-a2e697d5d968}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -734,6 +734,9 @@ local t_module = {
 -- function loadModule
 -------------------------------------
 function loadModule()
+	-- penlight lua 라이브러리
+    pl = require'pl.import_into'()
+
     for i,v in ipairs(t_module) do
         require(v)
     end
