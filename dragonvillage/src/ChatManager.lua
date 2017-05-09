@@ -9,6 +9,8 @@ ChatManager = class({
         m_tempCB = '',
 
         m_lMessage = '',
+
+        m_normalChatContentList = '',
     })
 
 -------------------------------------
@@ -30,6 +32,7 @@ end
 function ChatManager:init()
     self:initChatClient()
     self.m_lMessage = {}
+    self.m_normalChatContentList = {}
     local interval = 60
     self.m_schedulerID = scheduler.scheduleGlobal(function(dt) self:update(dt) end, interval)
 end
@@ -78,6 +81,10 @@ end
 function ChatManager:msgQueueCB(msg)
     --cclog('# ChatManager:msgQueueCB(msg) ' .. msg['message'])
 
+    local chat_content = ChatContent(msg)
+    chat_content:setContentCategory('general')
+    self.m_normalChatContentList[chat_content.m_uuid] = chat_content
+
     table.insert(self.m_lMessage, msg)
 
     if g_topUserInfo then
@@ -85,7 +92,8 @@ function ChatManager:msgQueueCB(msg)
     end
 
     if self.m_tempCB then
-        self.m_tempCB(msg)
+        --self.m_tempCB(msg)
+        self.m_tempCB(chat_content)
     end
 end
 

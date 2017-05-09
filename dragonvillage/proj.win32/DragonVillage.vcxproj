@@ -270,6 +270,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\BattleStatisticsHelper.lua" />
     <None Include="..\src\BroadcastMgr.lua" />
     <None Include="..\src\ChatClient.lua" />
+    <None Include="..\src\ChatContent.lua" />
+    <None Include="..\src\ChatContentList.lua" />
     <None Include="..\src\ChatManager.lua" />
     <None Include="..\src\CollisionHelper.lua" />
     <None Include="..\src\ColosseumUserInfo.lua" />
@@ -722,6 +724,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UIC_Button.lua" />
     <None Include="..\src\UIC_ChatTableView.lua" />
     <None Include="..\src\UIC_ChatTableViewCell.lua" />
+    <None Include="..\src\UIC_ChatView.lua" />
     <None Include="..\src\UIC_CheckBox.lua" />
     <None Include="..\src\UIC_ClippingNode.lua" />
     <None Include="..\src\UIC_DragonAnimator.lua" />

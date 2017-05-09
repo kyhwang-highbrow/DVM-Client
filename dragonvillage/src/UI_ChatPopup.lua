@@ -6,6 +6,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_ChatPopup = class(PARENT, {
         m_mTabUI = '',
         m_chatList = '',
+        m_chatTableView = '',
      })
 
 -------------------------------------
@@ -42,11 +43,39 @@ end
 function UI_ChatPopup:initUI()
     local vars = self.vars
     
+    --[[
     local list_table_node = vars['chatNode']
     local size = list_table_node:getContentSize()
     self.m_chatList = UI_ChatList(list_table_node, size['width'], size['height'], 50)
+    --]]
+
+    self:init_tableView()
 
     self:initTab()
+end
+
+-------------------------------------
+-- function init_tableView
+-------------------------------------
+function UI_ChatPopup:init_tableView()
+    local vars = self.vars
+    local node = vars['chatNode']
+
+    local function create_func()
+
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(600, 50)
+    table_view._vordering = VerticalFillOrder['BOTTOM_UP']
+    --table_view.m_bUseEachSize = true
+    table_view:setCellUIClass(UI_ChatListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList({})
+    table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
+
+    self.m_chatTableView = table_view
 end
 
 -------------------------------------
@@ -94,9 +123,21 @@ end
 -------------------------------------
 -- function msgQueueCB
 -------------------------------------
-function UI_ChatPopup:msgQueueCB(msg)
-    local unique_id = Timer:getServerTime()
-    --self.m_chatListView:addItem(unique_id, msg)
+function UI_ChatPopup:msgQueueCB(chat_content)
+
+    local category = chat_content:getContentCategory()
+
+    ccdump(chat_content)
+
+    if (category == 'general') then
+        local uuid = chat_content.m_uuid
+        self.m_chatTableView:addItem(uuid, chat_content)
+    end
+
+
+    if true then
+        return
+    end
 
     if (msg['type'] == 'enter_channel') then
         if (self.m_currTab == 'general_chat') then
@@ -117,10 +158,14 @@ function UI_ChatPopup:msgQueueCB(msg)
     end
 
 
+    ccdump(msg)
+
+    --[[
     local content = UI_ChatListItem(msg)
     content.root:setAnchorPoint(0.5, 0)
     local height = content:getItemHeight()
     self.m_chatList:addContent(content.root, height, 'type')
+    --]]
 end
 
 -------------------------------------

@@ -1,0 +1,91 @@
+-------------------------------------
+-- class ChatContent
+-- @brief
+-------------------------------------
+ChatContent = class({
+        m_uuid = 'string',
+        m_timestamp = 'Timastamp',
+        m_contentCategory = 'string',
+        -- 'general' 일반 채팅
+        -- 'guild' 길드 채팅
+        -- 'whisper' 귓속말 채팅
+        m_contentType = 'string',
+
+        nickname = '',
+        guild = '',
+        uid = '',
+        message = '',
+        did = '',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function ChatContent:init(data)
+
+    -- 외부에서 전달받은 data 테이블로 초기화
+    if data then
+        self:applyTableData(data)
+    end
+
+    -- uuid 지정
+    if (not self.m_uuid) then
+        self.m_uuid = self:uuid()
+    end
+
+    -- timestamp 저장
+    if (not self.m_timestamp) then
+        self.m_timestamp = socket.gettime()
+    end
+end
+
+ChatContent.replacement = {
+        --['uid'] = 'm_uid',
+        --['did'] = 'm_did',
+        --['message'] = 'm_message',
+        --['nickname'] = 'm_nickname',
+    }
+
+-------------------------------------
+-- function applyTableData
+-- @breif 단순 데이터 table에서 struct로 맴버 변수를 설정하는 함수
+-------------------------------------
+function ChatContent:applyTableData(data)
+    ccdump(data)
+    -- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
+    local replacement = ChatContent.replacement
+
+    for i,v in pairs(data) do
+        local key = replacement[i] and replacement[i] or i
+        self[key] = v
+    end
+end
+
+-------------------------------------
+-- function uuid
+-- @breif
+-------------------------------------
+function ChatContent:uuid()
+    local random = math.random
+    local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+    return string.gsub(template, '[xy]', function (c)
+        local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
+        return string.format('%x', v)
+    end)
+end
+
+-------------------------------------
+-- function setContentCategory
+-- @breif
+-------------------------------------
+function ChatContent:setContentCategory(category)
+    self.m_contentCategory = category
+end
+
+-------------------------------------
+-- function getContentCategory
+-- @breif
+-------------------------------------
+function ChatContent:getContentCategory()
+    return self.m_contentCategory
+end

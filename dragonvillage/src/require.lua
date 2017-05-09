@@ -164,6 +164,8 @@ local t_module = {
 
     'ChatClient',
     'ChatManager',
+    'ChatContent',
+    'ChatContentList',
     'BroadcastMgr',
 
     -- Table
@@ -451,6 +453,7 @@ local t_module = {
     'UIC_ClippingNode',
     'UIC_TableViewProtocol',
     'UIC_TableView',
+    'UIC_ChatView',
     'UIC_TableViewCell',
     'UIC_TableViewTD',
     'UIC_ChatTableView',

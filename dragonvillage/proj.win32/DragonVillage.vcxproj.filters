@@ -2241,6 +2241,15 @@
     <None Include="..\src\WaveMgr_SecretRelation.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UIC_ChatView.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\ChatContentList.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ChatContent.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
