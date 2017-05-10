@@ -28,7 +28,7 @@ function SkillAoERound:init_skill(aoe_res, attack_count)
 	
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
 
-	self:makeRangeEffect(RES_RANGE, self.m_range)
+	--self:makeRangeEffect(RES_RANGE, self.m_range)
 end
 
 -------------------------------------
