@@ -168,6 +168,8 @@ function DropItem:makeObtainEffect()
     if (res) then
         local node = cc.Node:create()
         node:setPosition(self.pos.x, self.pos.y)
+		node:setOpacity(0)
+		node:setCascadeOpacityEnabled(true)
         self.m_world:addChild3(node, DEPTH_ITEM_GOLD)
 
         local icon = cc.Sprite:create(res)
@@ -189,7 +191,7 @@ function DropItem:makeObtainEffect()
             node:addChild(label)
         end
 
-        node:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+        node:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.5), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
         node:runAction(cc.Sequence:create(cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1)))
     end
 end
