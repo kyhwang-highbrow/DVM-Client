@@ -18,7 +18,6 @@ Skill = class(PARENT, {
 
 		m_skillSize = 'str',
 		m_resScale = 'str',
-		m_rangeEffect = 'a2d',
 		m_range = 'num',
 
 		-- 타겟 관련 .. 
@@ -269,10 +268,6 @@ function Skill.st_dying(owner, dt)
 		owner:onDying()
 
         owner.m_owner:restore()
-		
-		if (owner.m_rangeEffect) then
-			owner.m_rangeEffect:changeAni('disapper', false)
-		end
 
         -- 스킬 종료시 발동되는 status effect를 적용
 		owner:dispatch(CON_SKILL_END, {l_target = {owner.m_targetChar}})
@@ -582,24 +577,6 @@ end
 function Skill:makeEffect(res, x, y, ani_name, cb_function)
 	local effect = SkillHelper:makeEffect(self.m_world, res, x, y, ani_name, cb_function)
 	return effect
-end
-
--------------------------------------
--- function makeRangeEffect
--- @brief range effect를 생성한다.
--------------------------------------
-function Skill:makeRangeEffect(res_path, range)
-	-- 1. 생성
-	local effect = MakeAnimator(res_path)
-	effect:setScale(range/200)
-	self.m_rootNode:addChild(effect.m_node)
-	self.m_rangeEffect = effect
-
-	-- 2. appear 후 idle 반복 재생
-	effect:changeAni('appear', false)
-	effect:addAniHandler(function()
-		effect:changeAni('idle', true)
-	end)
 end
 
 -------------------------------------

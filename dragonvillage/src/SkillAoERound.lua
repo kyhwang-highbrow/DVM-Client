@@ -27,8 +27,6 @@ function SkillAoERound:init_skill(aoe_res, attack_count)
 	--self.m_hitInterval -> attack state에서 지정
 	
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
-
-	--self:makeRangeEffect(RES_RANGE, self.m_range)
 end
 
 -------------------------------------
@@ -105,30 +103,6 @@ end
 -- function doSpecialEffect (onHit)
 -------------------------------------
 function SkillAoERound:doSpecialEffect()
-end
-
--------------------------------------
--- function getPoisonAddDamage
--- @TODO 중독 추가 데미지 임시 구현!!!
--------------------------------------
-function SkillAoERound:getPoisonAddDamage(target_char)
-	local add_value = 0
-
-	if (self.m_addDamage) then 
-		if string.find(self.m_addDamage, ';') then	
-			local l_str = stringSplit(self.m_addDamage, ';')
-			local add_type = l_str[1]
-			add_Value = l_str[2]
-			for type, status_effect in pairs(target_char:getStatusEffectList()) do
-				if (status_effect.m_statusEffectName == add_type) then 
-					add_value = l_str[2]
-					break
-				end
-			end
-		end
-	end
-
-	return add_value
 end
 
 -------------------------------------
