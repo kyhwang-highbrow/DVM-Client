@@ -43,8 +43,11 @@ plSample.test = function()
     local function getFullPath(res)
         local sertch_paths = pl.List(cc.FileUtils:getInstance():getSearchPaths())
 
+        ccdump(sertch_paths)
+
         for i,v in ipairs(sertch_paths) do
             local fullpath = pl.path.join(v, res)
+            cclog(tostring(fullpath))
             if pl.path.exists(fullpath) then
                 fullpath = pl.path.abspath(fullpath)
                 cclog('Find!! ' .. fullpath)
