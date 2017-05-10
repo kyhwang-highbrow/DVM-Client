@@ -25,18 +25,18 @@ end
 
 -------------------------------------
 -- function getGuideDataByWeight
--- @brief weight ¹İ¿µÇÑ getter
+-- @brief weight ë°˜ì˜í•œ getter
 -------------------------------------
 function TableLoadingGuide:getGuideDataByWeight(guide_type)
 	local l_guide = self:getGuideList(guide_type)
 	local weight_sum = 0
 
-	-- weight ÀÇ ÇÕ°è¸¦ ±¸ÇÑ´Ù.
+	-- weight ì˜ í•©ê³„ë¥¼ êµ¬í•œë‹¤.
 	for i, v in pairs(l_guide) do
 		weight_sum = weight_sum + v['weight']
 	end
 
-	-- weigth¿¡ ÀÇÇÑ »Ì±â
+	-- weigthì— ì˜í•œ ë½‘ê¸°
 	local ret_data
 	local rand = math_random(weight_sum)
 	for i, v in pairs(l_guide) do
@@ -52,7 +52,7 @@ end
 
 -------------------------------------
 -- function getGuideData_Order
--- @brief ´Ü¼ø util·Î »ç¿ë .. 
+-- @brief ë‹¨ìˆœ utilë¡œ ì‚¬ìš© .. 
 -------------------------------------
 function TableLoadingGuide:getGuideData_Order(l_table, order)
 	local ret_data

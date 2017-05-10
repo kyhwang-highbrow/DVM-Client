@@ -38,7 +38,7 @@ plSample.rmtree = function()
 end
 
 
--- ios, aos¿¡¼­ lfsÄÚµå°¡ Àß µ¿ÀÛÇÏ´ÂÁö Å×½ºÆ®
+-- ios, aosì—ì„œ lfsì½”ë“œê°€ ì˜ ë™ì‘í•˜ëŠ”ì§€ í…ŒìŠ¤íŠ¸
 plSample.test = function()
     local function getFullPath(res)
         local sertch_paths = pl.List(cc.FileUtils:getInstance():getSearchPaths())

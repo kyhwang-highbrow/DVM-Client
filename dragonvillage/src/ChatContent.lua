@@ -7,13 +7,13 @@ ChatContent = class({
         m_timestamp = 'Timastamp',
         
         m_contentCategory = 'string',
-        -- 'general' ÀÏ¹İ Ã¤ÆÃ
-        -- 'guild' ±æµå Ã¤ÆÃ
-        -- 'whisper' ±Ó¼Ó¸» Ã¤ÆÃ
+        -- 'general' ì¼ë°˜ ì±„íŒ…
+        -- 'guild' ê¸¸ë“œ ì±„íŒ…
+        -- 'whisper' ê·“ì†ë§ ì±„íŒ…
 
         m_contentType = 'string',
-        -- 'my_msg' ³» ¸Ş¼¼Áö
-        -- 'msg' ÀÏ¹İ ¸Ş¼¼Áö (´Ù¸¥ »ç¶÷µé ¸Ş¼¼Áö)
+        -- 'my_msg' ë‚´ ë©”ì„¸ì§€
+        -- 'msg' ì¼ë°˜ ë©”ì„¸ì§€ (ë‹¤ë¥¸ ì‚¬ëŒë“¤ ë©”ì„¸ì§€)
 
         nickname = '',
         guild = '',
@@ -30,17 +30,17 @@ ChatContent = class({
 -------------------------------------
 function ChatContent:init(data)
 
-    -- ¿ÜºÎ¿¡¼­ Àü´Ş¹ŞÀº data Å×ÀÌºí·Î ÃÊ±âÈ­
+    -- ì™¸ë¶€ì—ì„œ ì „ë‹¬ë°›ì€ data í…Œì´ë¸”ë¡œ ì´ˆê¸°í™”
     if data then
         self:applyTableData(data)
     end
 
-    -- uuid ÁöÁ¤
+    -- uuid ì§€ì •
     if (not self.m_uuid) then
         self.m_uuid = self:uuid()
     end
 
-    -- timestamp ÀúÀå
+    -- timestamp ì €ì¥
     if (not self.m_timestamp) then
         self.m_timestamp = socket.gettime()
     end
@@ -61,11 +61,11 @@ ChatContent.replacement = {
 
 -------------------------------------
 -- function applyTableData
--- @breif ´Ü¼ø µ¥ÀÌÅÍ table¿¡¼­ struct·Î ¸É¹ö º¯¼ö¸¦ ¼³Á¤ÇÏ´Â ÇÔ¼ö
+-- @breif ë‹¨ìˆœ ë°ì´í„° tableì—ì„œ structë¡œ ë§´ë²„ ë³€ìˆ˜ë¥¼ ì„¤ì •í•˜ëŠ” í•¨ìˆ˜
 -------------------------------------
 function ChatContent:applyTableData(data)
     --ccdump(data)
-    -- ¼­¹ö¿¡¼­ key°ªÀ» ÁÙ¿©¼­ ¾´ °æ¿ì°¡ ÀÖ¾î¼­ º¯È¯ÇØÁØ´Ù
+    -- ì„œë²„ì—ì„œ keyê°’ì„ ì¤„ì—¬ì„œ ì“´ ê²½ìš°ê°€ ìˆì–´ì„œ ë³€í™˜í•´ì¤€ë‹¤
     local replacement = ChatContent.replacement
 
     for i,v in pairs(data) do
@@ -122,7 +122,7 @@ end
 
 -------------------------------------
 -- function getUserInfoStr
--- @breif ±æµå, ·¹º§, ´Ğ³×ÀÓ
+-- @breif ê¸¸ë“œ, ë ˆë²¨, ë‹‰ë„¤ì„
 -------------------------------------
 function ChatContent:getUserInfoStr()
     return self['nickname'] or ''
