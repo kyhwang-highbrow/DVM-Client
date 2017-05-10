@@ -719,6 +719,7 @@ local t_module = {
     'UI_ChatListItem',
     'UI_ChatListItem_msg',
     'UI_ChatListItem_myMsg',
+    'UI_ChatListItem_systemMsg',
 
 	-- UI : 설정
 	'UI_Setting',

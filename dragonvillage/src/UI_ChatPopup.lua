@@ -97,12 +97,16 @@ function UI_ChatPopup:click_enterBtn()
     local vars = self.vars
 
     local msg = vars['editBox']:getText()
-    if (string.len(msg) <= 0) then
+    local len = string.len(msg)
+    if (len <= 0) then
+        UIManager:toastNotificationRed('메시지를 입력하세요.')
         return
     end
 
     if g_chatManager:sendNormalMsg(msg) then
         vars['editBox']:setText('')
+    else
+        UIManager:toastNotificationRed('메시지 전송에 실패하였습니다.')
     end
 end
 
@@ -113,11 +117,21 @@ end
 function UI_ChatPopup:msgQueueCB(chat_content)
     local category = chat_content:getContentCategory()    
 
-    if (category == 'general') then
-        local uuid = chat_content.m_uuid
-        --self.m_chatTableView:addItem(uuid, chat_content)
+    -- 서버와의 연결 상태
+    if (category == 'change_status') then
+        local status = chat_content['message']
+        self:refresh_connectStatus(status)
 
+    elseif (category == 'general') then
+        local uuid = chat_content.m_uuid
         self.m_chatTableView:addChatContent(chat_content)
+
+        local content_type = chat_content:getContentType()
+        if (content_type == 'enter_channel') then
+            local channel = chat_content['message']
+            local str = Str('채널 {1}', channel)
+            self.vars['sortOrderLabel']:setString(str)
+        end
     end
 
 
@@ -125,19 +139,7 @@ function UI_ChatPopup:msgQueueCB(chat_content)
         return
     end
 
-    if (msg['type'] == 'enter_channel') then
-        if (self.m_currTab == 'general_chat') then
-            local str = Str('채널 {1}', msg['channelName'])
-            self.vars['sortOrderLabel']:setString(str)
-        end
-        return
-
-    elseif (msg['type'] == 'change_status') then
-        local status = msg['status']
-        self:refresh_connectStatus(status)
-        return
-
-    elseif (msg['type'] == 'whisper') then
+    if (msg['type'] == 'whisper') then
         --ccdump(msg)
         self.m_mTabUI['whisper_chat']:msgQueueCB(msg)
         return
@@ -212,7 +214,7 @@ function UI_ChatPopup:onChangeTab(tab, first)
 
     if (tab == 'general_chat') then
         local channel_name = g_chatManager:getChannelName()
-        local str = Str('채널 {1}', channel_name)
+        local str = Str('채널 {1}', channel_name or '')
         vars['sortOrderLabel']:setString(str)
         vars['sortBtn']:registerScriptTapHandler(function() self:click_changeChannelBtn() end)
     end
@@ -251,7 +253,9 @@ function UI_ChatPopup:click_changeChannelBtn()
         local channel_name = edit_box.vars['editBox']:getText()
         --g_serverData:applyServerData(text, 'local', 'idfa')
         --self:doNextWork()
-        g_chatManager:requestChangeChannel(channel_name)
+        if (not g_chatManager:requestChangeChannel(channel_name)) then
+            UIManager:toastNotificationRed('채널 이동 요청을 실패하였습니다.')
+        end
     end
     edit_box:setCloseCB(close_cb)
 end

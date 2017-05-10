@@ -91,7 +91,7 @@ function UIC_ChatView:update(dt)
                 t_item['ui'] = UI_ChatListItem_msg(chat_content)
 
             else
-                t_item['ui'] = UI_ChatListItem(chat_content)
+                t_item['ui'] = UI_ChatListItem_systemMsg(chat_content)
             end
 
             

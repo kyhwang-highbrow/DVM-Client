@@ -74,12 +74,12 @@ end
 function ChatManager:onChangeStatus(status)
     --cclog('# ChatManager:onChangeStatus(status) ' .. status)
 
-    local msg = {}
-    msg['type'] = 'change_status'
-    msg['status'] = status
+    local chat_content = ChatContent()
+    chat_content['message'] = status
+    chat_content:setContentCategory('change_status')
 
-    if self.m_tempCB then
-        self.m_tempCB(msg)
+    if self.m_chatPopup then
+        self.m_chatPopup:msgQueueCB(chat_content)
     end
 end
 
@@ -121,12 +121,15 @@ function ChatManager:onEnterChannel(r)
     local ret = r['ret']
     local channelName = r['channelName']
 
-    local msg = {}
-    msg['type'] = 'enter_channel'
-    msg['channelName'] = channelName
+    local chat_content = ChatContent()
+    chat_content:setContentCategory('general')
+    chat_content:setContentType('enter_channel')
+    chat_content['message'] = channelName
 
-    if self.m_tempCB then
-        self.m_tempCB(msg)
+    table.insert(self.m_lMessage, chat_content)
+
+    if self.m_chatPopup then
+        self.m_chatPopup:msgQueueCB(chat_content)
     end
 end
 
@@ -175,7 +178,7 @@ function ChatManager:requestChangeChannel(channel_num)
     t['channelName'] = channel_num
     t['channelType'] = CHAT_CLIENT_CHANNEL_TYPE_NORMAL
   
-    self.m_chatClient:requestChangeChannel(t)
+    return self.m_chatClient:requestChangeChannel(t)
 end
 
 -------------------------------------
@@ -205,6 +208,10 @@ function ChatManager:openChatPopup()
 
     UIManager:open(self.m_chatPopup, UIManager.NORMAL)
     self.m_chatPopup.closed = false
+
+    -- @UI_ACTION
+    self.m_chatPopup:doActionReset()
+    self.m_chatPopup:doAction()
 end
 
 -------------------------------------

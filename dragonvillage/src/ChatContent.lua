@@ -115,7 +115,7 @@ end
 -- function getContentType
 -- @breif
 -------------------------------------
-function ChatContent:getContentType(type)
+function ChatContent:getContentType()
     return self.m_contentType
 end
 
