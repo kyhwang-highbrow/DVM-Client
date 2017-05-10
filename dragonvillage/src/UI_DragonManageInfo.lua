@@ -545,7 +545,7 @@ function UI_DragonManageInfo:refreshLeaderIcon(modified_dragons)
         if item then
             item['data'] = clone(v)
             if item['ui'] then
-                item['ui'].m_dragonData = clone(v)
+                item['ui'].m_dragonData = StructDragonObject(v)
                 item['ui']:refresh_LeaderIcon()
             end
         end
