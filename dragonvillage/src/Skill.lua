@@ -149,6 +149,9 @@ function Skill:adjustAnimator()
  			self.m_animator:setScale(self.m_resScale)
 		end
 	end
+
+	-- 스킬 애니 속성 세팅
+	self.m_animator:setAniAttr(self.m_owner:getAttribute())
 end
 
 -------------------------------------

@@ -221,26 +221,30 @@ end
 -- function getAniNameAttr
 -------------------------------------
 function Animator:getAniNameAttr(ani, attr)
-   if (not self.m_aniMap) then
-        local l_ani = self:getVisualList()
-        self.m_aniMap = {}
-        for i,v in pairs(l_ani) do
-            self.m_aniMap[v] = true
-        end
-   end
+	if (not ani) then 
+		return 
+	end
 
-   local attr = attr or self.m_aniAttr
+	if (not self.m_aniMap) then
+		local l_ani = self:getVisualList()
+		self.m_aniMap = {}
+		for i,v in pairs(l_ani) do
+			self.m_aniMap[v] = true
+		end
+	end
 
-   if (not attr) then
-        return ani
-   end
+	local attr = attr or self.m_aniAttr
 
-   local key = attr .. '_' .. ani
-   if self.m_aniMap[key] then
-        return key
-   else
-        return ani
-   end
+	if (not attr) then
+		return ani
+	end
+
+	local key = attr .. '_' .. ani
+	if self.m_aniMap[key] then
+		return key
+	else
+		return ani
+	end
 end
 
 
