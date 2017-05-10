@@ -66,3 +66,42 @@ end
 function SensitivityHelper:getRandomSensStr(did, case_type)
 	return TableDragonPhrase:getRandomPhrase_Sensitivity(did, case_type)
 end
+
+-------------------------------------
+-- function makeObtainEffect
+-- @brief
+-------------------------------------
+function SensitivityHelper:makeObtainEffect(gift_type, gift_count, parent_node)
+    local type, count = gift_type, gift_count
+
+    local res = 'res/ui/icon/inbox/inbox_' .. type .. '.png'
+    if (res) then
+        local node = cc.Node:create()
+        node:setPosition(0, 250)
+		node:setOpacity(0)
+		node:setCascadeOpacityEnabled(true)
+        parent_node:addChild(node)
+
+        local icon = cc.Sprite:create(res)
+        if (icon) then
+            icon:setPositionX(-15)
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            node:addChild(icon)
+        end
+
+        local label = cc.Label:createWithBMFont('res/font/normal.fnt', '+' .. count)
+        if (label) then
+            local string_width = label:getStringWidth()
+            local offset_x = (string_width / 2)
+            label:setPositionX(offset_x)
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            label:setColor(cc.c3b(255, 255, 255))
+            node:addChild(label)
+        end
+
+        node:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.5), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
+        node:runAction(cc.Sequence:create(cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1)))
+    end
+end

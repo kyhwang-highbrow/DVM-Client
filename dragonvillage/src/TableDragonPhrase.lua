@@ -149,7 +149,7 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, case_type)
 			sum_random:addItem(1, 'lobby_touch' .. i)
 		end
 	
-	elseif (case_type == 'lobby_hurry_present') then
+	elseif (case_type == 'lobby_hurry_gift') then
 		sum_random:addItem(1, 'lobby_induce')
 	
 	elseif (case_type == 'lobby_get_present') then

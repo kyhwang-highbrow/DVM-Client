@@ -168,6 +168,46 @@ function ServerData_User:getEvolutionStonePackCount()
 end
 
 -------------------------------------
+-- function getDragonGiftTime
+-- @brief 드래곤이 선물을 주는 시간
+-------------------------------------
+function ServerData_User:getDragonGiftTime()
+    return self:get('lobby_gift_box_at') / 1000
+end
+
+-------------------------------------
+-- function requestDragonGift
+-- @brief 드래곤에게 선물을 요구
+-------------------------------------
+function ServerData_User:requestDragonGift(cb_func)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 받은 아이템 처리
+        g_serverData:networkCommonRespone_addedItems(ret)
+		-- 선물 받을 수 있는 시간 갱신
+		self:applyServerData(ret['lobby_gift_box_at'], 'lobby_gift_box_at')
+		-- 탑바 갱신
+		g_topUserInfo:refreshData()
+
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/lobby/gift')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function getTicketList
 -- @brief 보유중인 티켓 리스트 리턴(인벤토리에서 사용)
 -------------------------------------
