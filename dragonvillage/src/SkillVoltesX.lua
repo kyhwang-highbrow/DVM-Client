@@ -55,9 +55,9 @@ function SkillVoltesX:init_skill(attack_count, has_final_attack, final_attack_co
 
 	-- 궁극기 여부에 따라 애니메이션 이름 설정
 	if (self.m_hasFinalAttack) then
-		self.m_skillAniName = 'idle_02'
+		self.m_skillAniName = 'idle'
 	else
-		self.m_skillAniName = 'idle_01'
+		self.m_skillAniName = 'appear'
 	end
 
 	-- 스킬 위치 타겟 위치로 
