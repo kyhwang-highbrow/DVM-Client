@@ -93,14 +93,6 @@
 				0:
 				[
 					"132032;10;Basic;BOSS;RM24;0.5;roam"
-				],
-				
-				0.5:
-				[
-					"131022;3;Basic2;RB14;RF11;0.5;roam"
-					"131022;3;Basic2;RB14;RF17;0.5;roam"
-					"131022;3;Basic2;RB14;RB21;0.5;roam"
-					"131022;3;Basic2;RB14;RB27;0.5;roam"
 				]
             },
 			

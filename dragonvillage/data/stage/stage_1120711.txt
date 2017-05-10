@@ -27,8 +27,8 @@
 
 				2:
 				[
-					"131042;1;Appear;RO04;RM14;2;roam"
-					"131042;1;Appear;RO04;RM24;2;roam"
+					"131043;1;Appear;RO04;RM14;2;roam"
+					"131052;1;Appear;RO04;RM24;2;roam"
 				]
             }
         },
@@ -87,9 +87,9 @@
             {
 				0:
 				[
-					"131033;1;Basic;RO01;RF21;0.5"
-					"131033;1;Basic;RO07;RF27;0.5"
-					"132081;10;Basic;RO04;RM14;0.5;roam"
+					"131081;1;Basic;RO01;RF21;0.5"
+					"131081;1;Basic;RO07;RF27;0.5"
+					"132141;10;Basic;RO04;RM14;0.5;roam"
 					"131033;1;Basic;RO02;RM22;0.5"
 					"131033;1;Basic;RO06;RM26;0.5"
 				]

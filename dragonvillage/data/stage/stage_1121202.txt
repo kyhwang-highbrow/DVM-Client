@@ -17,20 +17,21 @@
             {
 				0:
 				[
-					"130015;1;FadeIn;RO03;RF13;1"
-					"130015;1;FadeIn;RO05;RF15;1"
+					"130015;1;FadeIn;RO01;RF11;1"
+					"131065;1;FadeIn;RO03;RF13;1"
+					"131065;1;FadeIn;RO05;RF15;1"
+					"130015;1;FadeIn;RO07;RF17;1"
 				],
 
 				0.2:
 				[
-					"130025;1;FadeIn;RO02;RM12;1"
-					"131055;1;FadeIn;RO04;RM14;1"
-					"130025;1;FadeIn;RO06;RM16;1"
+					"131073;1;FadeIn;RO02;RM12;1"
+					"131073;1;FadeIn;RO06;RM16;1"
 				],
 				
 				0.4:
 				[
-					"130034;1;FadeIn;RO04;RB14;1"
+					"131053;1;FadeIn;RO04;RB14;1"
 				]
             }
         },
@@ -49,32 +50,26 @@
             {
                 0:
                 [
-					"131055;1;FadeIn;RO02;RF22;2"
-					"131055;1;FadeIn;RO06;RF26;2"
-					"131055;1;FadeIn;RO04;RM24;2"
+					"131065;1;FadeIn;RO02;RF22;2"
+					"131065;1;FadeIn;RO06;RF26;2"
+					"131052;1;FadeIn;RO04;RM24;2;roam"
 				],
 
 				2:
 				[
-					"130015;1;Appear;RO04;RF14;1"
+					"131065;1;Appear;RO04;RF14;1"
 				],
 
 				2.2:
 				[	
-					"130025;1;Appear;RO01;RM21;1"
-					"130025;1;Appear;RO07;RM27;1"
+					"130022;1;Appear;RO01;RM21;1"
+					"130022;1;Appear;RO07;RM27;1"
 				],
 
 				2.4:
 				[	
-					"130024;1;Appear;RO02;RB12;1"
-					"130024;1;Appear;RO06;RB16;1"
-				],
-
-				2.6:
-				[	
-					"130034;1;Appear;RO03;RB23;1"
-					"130034;1;Appear;RO05;RB25;1"
+					"130055;1;Appear;RO03;RB23;1"
+					"130055;1;Appear;RO05;RB25;1"
 				]
             }
         },
@@ -91,25 +86,26 @@
             {
                 0:
                 [
-					"131055;1;FadeIn;RO04;RF14;1"
-					"131055;1;FadeIn;RO01;RF21;1"
-					"131055;1;FadeIn;RO07;RF27;1"
+					"130013;1;FadeIn;RO04;RF14;1"
+					"131073;1;FadeIn;RO01;RF21;1"
+					"131073;1;FadeIn;RO07;RF27;1"
 				],
 
 				1.5:
 				[
-					"132015;1;FadeIn;RO04;RB14;1"
+					"132122;10;FadeIn;RO04;RB14;1;roam"
 				]
-            }
-        }		
-    ],
-	
-    "summon":
-    {
-        0:
-        [
-        "131081;13;Appear;RO02;RM12;0.5"
-		"131081;13;Appear;RO06;RM16;0.5"
-		]
-    }
+            },
+			
+			"regen":
+			{
+				0:
+				[
+					"131073;1;FadeIn;RO04;RB24;1"
+					"130023;1;FadeIn;RO01;RB11;1"
+					"130023;1;FadeIn;RO07;RB17;1"
+				]
+			}
+        }
+    ]
 }

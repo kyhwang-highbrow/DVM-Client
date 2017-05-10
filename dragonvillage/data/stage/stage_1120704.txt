@@ -15,16 +15,16 @@
             {
 				0:
 				[
-					"131033;1;Basic;RO06;RF22;2"
+					"131011;1;Basic;RO06;RF22;2"
 					"130011;1;Basic;RO04;RF14;2"
-					"131033;1;Basic;RO02;RF26;2"
+					"131011;1;Basic;RO02;RF26;2"
 				],
 				
 				1:
 				[
-					"130053;1;Basic2;RB13;RM23;0.5;roam"
-					"130053;1;Basic2;RB15;RM25;0.5;roam"
-					"130032;1;Basic2;RB24;RB14;0.5"
+					"130051;1;Basic2;RB13;RM23;0.5;roam"
+					"130052;1;Basic2;RB15;RM25;0.5;roam"
+					"130033;1;Basic2;RB24;RB14;0.5"
 				]
             }
         },
@@ -41,13 +41,13 @@
             {
                 0:
                 [
-					"130053;1;Basic2;RF14;RM24;1;roam"
-					"130011;1;Basic2;RF21;RF12;1"
-					"130011;1;Basic2;RF27;RF16;1"
-					"131033;1;Basic2;RM12;RF23;1"
-					"131033;1;Basic2;RM16;RF25;1"
-					"130042;1;Basic2;RB23;RB13;1"
-					"130042;1;Basic2;RB25;RB15;1"
+					"131033;1;Basic2;RF21;RF12;1"
+					"131033;1;Basic2;RF27;RF16;1"
+					"131011;1;Basic2;RM12;RF23;1"
+					"131011;1;Basic2;RM16;RF25;1"
+					"130043;1;Basic2;RF14;RM24;1;roam"
+					"130052;1;Basic2;RB23;RB13;1"
+					"130052;1;Basic2;RB25;RB15;1"
 				]
             }
         },
@@ -64,25 +64,25 @@
             {
 				0:
 				[
-					"132071;10;Appear;RO04;RM24;0.5;roam"
+					"132141;10;Appear;RO04;RM24;0.5;roam"
 				],
 				
 				0.5:
 				[
-					"131033;1;Appear;RO02;RF22;3;roam"
-					"131033;1;Appear;RO06;RB16;3;roam"
+					"131011;1;Appear;RO02;RF22;3;roam"
+					"131011;1;Appear;RO06;RB16;3;roam"
 				],
 				
 				0.7:
 				[
-					"131033;1;Appear;RO04;RF14;3;roam"
-					"131033;1;Appear;RO04;RB24;3;roam"
+					"131011;1;Appear;RO04;RF14;3;roam"
+					"131011;1;Appear;RO04;RB24;3;roam"
 				],
 				
 				0.9:
 				[
-					"131033;1;Appear;RO06;RF26;3;roam"
-					"131033;1;Appear;RO02;RB12;3;roam"
+					"131011;1;Appear;RO06;RF26;3;roam"
+					"131011;1;Appear;RO02;RB12;3;roam"
 				]
             }
         }
