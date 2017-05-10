@@ -91,7 +91,7 @@ end
 -------------------------------------
 -- function click_dragonCard
 -------------------------------------
-function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data, skip_sort)
+function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
     local doid = t_dragon_data['id']
 
     if self.m_tDeckMap[doid] then
@@ -102,8 +102,15 @@ function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data, skip_sort)
         self:setSlot(self.m_focusDeckSlot, doid, skip_sort)
 
 		-- 감성 말풍선
+		local duration = idx and 0.5 * idx or 0.05
+		cclog(duration)
 		local ui = self.m_lSettedDragonCard[self.m_focusDeckSlot]
-		SensitivityHelper:doActionBubbleText(ui.root, t_dragon_data['did'], 'party_in')
+		local delay_action = cc.DelayTime:create(duration)
+		local cb_action = cc.CallFunc:create(function() 
+			SensitivityHelper:doActionBubbleText(ui.root, t_dragon_data['did'], 'party_in')
+		end)
+		local action = cc.Sequence:create(delay_action, cb_action)
+		ui.root:runAction(action)
     end
 
     self:refreshFocusDeckSlot()

@@ -305,8 +305,8 @@ end
 -------------------------------------
 -- function click_dragonCard
 -------------------------------------
-function UI_ReadyScene:click_dragonCard(t_dragon_data, skip_sort)
-    self.m_readySceneDeck:click_dragonCard(t_dragon_data, skip_sort)
+function UI_ReadyScene:click_dragonCard(t_dragon_data, skip_sort, idx)
+    self.m_readySceneDeck:click_dragonCard(t_dragon_data, skip_sort, idx)
 end
 
 -------------------------------------
@@ -380,7 +380,7 @@ function UI_ReadyScene:click_autoBtn()
     for i,t_dragon_data in pairs(l_auto_deck) do
         self.m_readySceneDeck:setFocusDeckSlotEffect(i)
         local skip_sort = true
-        self:click_dragonCard(t_dragon_data, skip_sort)
+        self:click_dragonCard(t_dragon_data, skip_sort, i)
     end
 
     -- 정렬

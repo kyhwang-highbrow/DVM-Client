@@ -166,13 +166,7 @@ function LobbyMap:onTouchBegan_touchDragon()
 	-- 내 드래곤 터치 체크
 	if (self.m_lobbyTamerUser) then
 		if (self:checkDragonTouch(touch_pos, self.m_lobbyTamerUser)) then
-			local dragon = self.m_lobbyTamerUser.m_dragon
-			if (dragon:hasGift()) then
-				dragon:takeGift()
-			else
-				dragon.m_talkingNode:removeAllChildren()
-				SensitivityHelper:doActionBubbleText(dragon.m_talkingNode, dragon.m_dragonID, 'lobby_touch')
-			end
+			self.m_lobbyTamerUser.m_dragon:clickUserDragon()
 			return true
 		end
 	end

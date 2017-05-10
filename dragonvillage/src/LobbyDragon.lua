@@ -13,6 +13,7 @@ LobbyDragon = class(PARENT, {
         m_bInitFirstPos = 'bool',
 
 		m_hasGift = 'bool',
+		m_hasSomethingToTalk = 'bool',
 		m_userDragon = 'bool',
 		m_talkingTimer = 'timer',
 		m_talkingNode = 'cc.Node',
@@ -33,6 +34,7 @@ function LobbyDragon:init(did, is_bot)
     self.m_bInitFirstPos = false
 
 	self.m_hasGift = false
+	self.m_hasSomethingToTalk = false
 	self.m_userDragon = not is_bot
 	self.m_talkingTimer = 0
 	
@@ -182,6 +184,22 @@ function LobbyDragon:moveToTamer()
 end
 
 -------------------------------------
+-- function update
+-------------------------------------
+function LobbyDragon:update(dt)
+	PARENT.update(self, dt)
+	
+	-- user의 dragon만 동작
+	if (self.m_userDragon) then
+		self:update_gift(dt)
+	end
+end
+
+-------------------------------------
+-- 감성 기능
+-------------------------------------
+
+-------------------------------------
 -- function hasGift
 -------------------------------------
 function LobbyDragon:hasGift()
@@ -189,10 +207,10 @@ function LobbyDragon:hasGift()
 end
 
 -------------------------------------
--- function takeGift
+-- function hasSomethingToTalk
 -------------------------------------
-function LobbyDragon:takeGift()
-	return self.m_hasGift
+function LobbyDragon:hasSomethingToTalk()
+	return self.m_hasSomethingToTalk
 end
 
 -------------------------------------
@@ -201,7 +219,7 @@ end
 function LobbyDragon:takeGift()
 	local function cb_func(ret)
 		-- 선물 획득 연출
-		local item = ret['items_list'][1]
+		local item = ret['added_items']['items_list'][1]
 		if (item) then
 			local item_id = item['item_id']
 			local gift_type = TableItem:getItemName(item_id)
@@ -214,20 +232,38 @@ function LobbyDragon:takeGift()
 		self.m_hasGift = false
 		cca.stopAction(self.m_animator.m_node, LobbyDragon.TINT_ACTION)
 		self.m_animator.m_node:setColor(COLOR['white'])
+
+		-- 선물 수령 후 최초 1회 대사 세팅
+		self.m_hasSomethingToTalk = true
 	end
 
 	g_userData:requestDragonGift(cb_func)
 end
 
 -------------------------------------
--- function update
+-- function clickUserDragon
 -------------------------------------
-function LobbyDragon:update(dt)
-	PARENT.update(self, dt)
+function LobbyDragon:clickUserDragon()
+	if (not self.m_userDragon) then
+		return
+	end
 	
-	-- user의 dragon만 동작
-	if (self.m_userDragon) then
-		self:update_gift(dt)
+	self.m_talkingNode:removeAllChildren()
+
+	-- 선물 수령
+	if (self:hasGift()) then
+		self:takeGift()
+		SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'lobby_get_gift')
+
+	-- 선물 주고 난 이후 최초 1회 대사
+	elseif (self:hasSomethingToTalk()) then
+		self.m_hasSomethingToTalk = false
+		SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'lobby_after_gift')
+
+	-- 평상시
+	else
+		SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'lobby_touch')
+
 	end
 end
 

@@ -42,11 +42,16 @@ end
 -- function getBubbleText
 -------------------------------------
 function SensitivityHelper:getBubbleText(txt_str)
+	-- 베이스 노드
+	local node = cc.Node:create()
+	node:setDockPoint(CENTER_POINT)
+	node:setAnchorPoint(CENTER_POINT)
+	node:setCascadeOpacityEnabled(true)
+
 	-- 말풍선 프레임
 	local sprite = cc.Sprite:create('res/ui/frame/dragon_info_bubble.png')
 	sprite:setDockPoint(CENTER_POINT)
 	sprite:setAnchorPoint(CENTER_POINT)
-	sprite:setPosition(50, 300)
 
 	-- 텍스트 (rich_label)
 	local rich_label = UIC_RichLabel()
@@ -64,8 +69,9 @@ function SensitivityHelper:getBubbleText(txt_str)
 	rich_label:setPosition(0, 12)
 
 	sprite:addChild(rich_label.m_node)
+	node:addChild(sprite)
 
-	return sprite
+	return node
 end
 
 -------------------------------------
