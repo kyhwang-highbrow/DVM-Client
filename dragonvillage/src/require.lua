@@ -61,6 +61,7 @@ local t_module = {
     'StructCollectionData',
     'StructDragonUnit',
     'StructDragonUnitCondition',
+    'StructUserInfo',
 
 	-- ServerData
     'ServerData',
@@ -544,6 +545,7 @@ local t_module = {
 	'UI_FormationPopup',
 	'UI_FormationListItem',
 	'UI_FormationEnhance',
+    'UI_UserInfoMini',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

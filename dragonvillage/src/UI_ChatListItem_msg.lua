@@ -49,6 +49,8 @@ function UI_ChatListItem_msg:init(chat_content)
         icon:setAnchorPoint(cc.p(0.5, 0.5))
         vars['profileNode']:addChild(icon)
     end
+
+    self:initButton()
 end
 
 -------------------------------------
@@ -63,6 +65,7 @@ end
 -------------------------------------
 function UI_ChatListItem_msg:initButton()
     local vars = self.vars
+    vars['clickBtn']:registerScriptTapHandler(function() self.m_chatContent:openUserInfoMini() end)
 end
 
 -------------------------------------

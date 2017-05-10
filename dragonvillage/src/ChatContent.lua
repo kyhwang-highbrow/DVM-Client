@@ -150,3 +150,20 @@ function ChatContent:makeTimeDesc()
     local desc = datetime.makeTimeDesc(sec, showSeconds, firstOnly)
     return desc
 end
+
+
+-------------------------------------
+-- function openUserInfoMini
+-- @breif
+-------------------------------------
+function ChatContent:openUserInfoMini()
+    local t_data = {}
+    t_data['uid'] = self['uid']
+    t_data['nickname'] = self['nickname']
+    t_data['lv'] = nil
+    t_data['leader_dragon_object'] = StructDragonObject({['did']=self.m_dragonID, ['evolution']=self.m_dragonEvolution})
+
+    local struct_user_info = StructUserInfo(t_data)
+
+    UI_UserInfoMini(struct_user_info)
+end

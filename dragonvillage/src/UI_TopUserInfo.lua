@@ -109,7 +109,7 @@ end
 -- function click_chatBtn
 -------------------------------------
 function UI_TopUserInfo:click_chatBtn()
-    g_chatManager:openChatPopup()
+    g_chatManager:toggleChatPopup()
 end
 
 -------------------------------------

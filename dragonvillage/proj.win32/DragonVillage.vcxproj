@@ -664,6 +664,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StructRuneSetObject.lua" />
     <None Include="..\src\StructSlimeObject.lua" />
     <None Include="..\src\StructStatusEffect.lua" />
+    <None Include="..\src\StructUserInfo.lua" />
     <None Include="..\src\SumRandom.lua" />
     <None Include="..\src\SwipeGesture.lua" />
     <None Include="..\src\Table.lua" />
@@ -968,6 +969,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Tooltip_Skill.lua" />
     <None Include="..\src\UI_TopUserInfo.lua" />
     <None Include="..\src\UI_UserDeckInfoPopup.lua" />
+    <None Include="..\src\UI_UserInfoMini.lua" />
     <None Include="..\src\UserData.lua" />
     <None Include="..\src\Util_BuffStringParser.lua" />
     <None Include="..\src\ValidationAssistant.lua" />

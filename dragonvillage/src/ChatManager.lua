@@ -199,7 +199,12 @@ function ChatManager:openChatPopup()
             if (ui ~= self.m_chatPopup) and (not self.m_chatPopup.closed) then
 
                 -- 채팅창을 닫지 않는 팝업 지정
-                if (ui.m_uiName ~= 'UI_SimpleEditBoxPopup') then
+                if (ui.m_uiName == 'UI_SimpleEditBoxPopup') then
+                elseif (ui.m_uiName == 'UI_UserInfoMini') then
+                elseif (ui.m_uiName == 'UI_UserDeckInfoPopup') then
+                elseif (ui.m_uiName == 'UI_LobbyUserInfoPopup') then
+                elseif (ui.m_uiName == 'UI_Network') then
+                else
                     self.m_chatPopup:close()
                 end
             end
@@ -227,4 +232,34 @@ function ChatManager:closeChatPopup()
     if self.m_chatPopup then
         self.m_chatPopup:close()
     end
+end
+
+-------------------------------------
+-- function toggleChatPopup
+-- @brief
+-------------------------------------
+function ChatManager:toggleChatPopup()
+    if (not self.m_chatPopup) then
+        self:openChatPopup()
+    else
+        if self.m_chatPopup.closed then
+            self:openChatPopup()
+        else
+            self:closeChatPopup()
+        end
+    end
+end
+
+-------------------------------------
+-- function openChatPopup_whisper
+-- @brief
+-------------------------------------
+function ChatManager:openChatPopup_whisper(nickname)
+    if (not self.m_chatPopup) then
+        self:openChatPopup()
+    elseif self.m_chatPopup.closed then
+        self:openChatPopup()
+    end
+
+    self.m_chatPopup:setWhisperUser(nickname)
 end

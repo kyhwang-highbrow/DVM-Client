@@ -53,6 +53,8 @@ StructDragonObject = class({
 function StructDragonObject:init(data)
     self.m_objectType = 'dragon'
     self.rlv = 0
+    self.lv = 0
+    self.grade = 0
     self.m_mRuneObjects = nil
 
     if data then

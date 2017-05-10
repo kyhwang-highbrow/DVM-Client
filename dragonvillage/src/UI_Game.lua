@@ -316,7 +316,7 @@ end
 -- function click_chatBtn
 -------------------------------------
 function UI_Game:click_chatBtn()
-    g_chatManager:openChatPopup()
+    g_chatManager:toggleChatPopup()
 end
 
 -------------------------------------

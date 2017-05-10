@@ -89,3 +89,16 @@ end
 function UI_ChatPopup_WhisperTab:msgQueueCB(chat_content)
     self.m_chatTableView:addChatContent(chat_content)
 end
+
+-------------------------------------
+-- function setPeerUserNickname
+-------------------------------------
+function UI_ChatPopup_WhisperTab:setPeerUserNickname(nickname)
+    self.m_peerUserNickname = nickname
+
+    if (not nickname) or (nickname == '') then
+        self.vars['whisperSetUserLabel']:setString('귓속말')
+    else
+        self.vars['whisperSetUserLabel']:setString(nickname)
+    end
+end

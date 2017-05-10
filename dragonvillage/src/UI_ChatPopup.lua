@@ -243,3 +243,11 @@ function UI_ChatPopup:click_changeChannelBtn()
     end
     edit_box:setCloseCB(close_cb)
 end
+
+-------------------------------------
+-- function setWhisperUser
+-------------------------------------
+function UI_ChatPopup:setWhisperUser(nickname)
+    self:setTab('whisper_chat')
+    self.m_mTabUI['whisper_chat']:setPeerUserNickname(nickname)
+end

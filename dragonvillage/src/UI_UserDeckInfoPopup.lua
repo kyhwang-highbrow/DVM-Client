@@ -11,6 +11,7 @@ UI_UserDeckInfoPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_UserDeckInfoPopup:init(t_data)
+    self.m_uiName = 'UI_UserDeckInfoPopup'
     self.m_tData = t_data
 
     local vars = self:load('user_deck_info_popup.ui')

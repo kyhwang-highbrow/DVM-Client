@@ -10,6 +10,7 @@ UI_LobbyUserInfoPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_LobbyUserInfoPopup:init(t_user_info)
+    self.m_uiName = 'UI_LobbyUserInfoPopup'
     local vars = self:load('lobby_user_info_02.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -49,7 +50,9 @@ function UI_LobbyUserInfoPopup:initButton(t_user_info)
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(t_user_info) end)
-    vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn(t_user_info) end)
+
+    local nickname = t_user_info['nick']
+    vars['whisperBtn']:registerScriptTapHandler(function() self:click_whisperBtn(nickname) end)
 end
 
 -------------------------------------
@@ -73,9 +76,6 @@ function UI_LobbyUserInfoPopup:refresh(t_user_info)
             UI_SimpleDragonInfoPopup(t_dragon_data)
         end
     end)
-
-    local uid = t_user_info['uid']
-    vars['requestBtn']:setVisible(not g_friendData.m_mInvitedUerList[uid])
 end
 
 -------------------------------------
@@ -88,20 +88,12 @@ function UI_LobbyUserInfoPopup:click_infoBtn(t_user_info)
 end
 
 -------------------------------------
--- function click_requestBtn
--- @brief 친구 요청
+-- function click_whisperBtn
+-- @brief
 -------------------------------------
-function UI_LobbyUserInfoPopup:click_requestBtn(t_user_info)
-    local t_friend_info = t_user_info
-
-    local function finish_cb(ret)
-        self.vars['requestBtn']:setVisible(false)
-        local msg = Str('[{1}]에게 친구 요청을 하였습니다.', t_friend_info['nick'])
-        UIManager:toastNotificationGreen(msg)
-    end
-
-    local friend_ui = t_friend_info['uid']
-    g_friendData:request_invite(friend_ui, finish_cb)
+function UI_LobbyUserInfoPopup:click_whisperBtn(nickname)
+   g_chatManager:openChatPopup_whisper(nickname)
+   self:close()
 end
 
 -------------------------------------

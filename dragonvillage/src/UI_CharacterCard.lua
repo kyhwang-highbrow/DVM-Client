@@ -215,20 +215,23 @@ end
 function UI_CharacterCard:refresh_gradeIcon()
     local t_dragon_data = self.m_dragonData
 
+    local vars = self.vars
+
+    if vars['starIcon'] then
+        vars['starIcon']:removeFromParent()
+    end
    
     local grade = (t_dragon_data['grade'] or 1)
+    if (grade <= 0) then
+        return
+    end
+
     local res = 'character_card_star0' .. grade .. '.png'
 
     if (self.m_starIconRes == res) then
         return
     end
     self.m_starIconRes = res
-
-    local vars = self.vars
-
-    if vars['starIcon'] then
-        vars['starIcon']:removeFromParent()
-    end
     
     local sprite = cc.Sprite:createWithSpriteFrameName(res)
     sprite:setDockPoint(CENTER_POINT)
@@ -284,7 +287,11 @@ function UI_CharacterCard:setLevelText(level)
     local pos_x = -60
     local pos_y = -27
     local font_size = 20
-    if (level < 10) then
+    if (level <= 0) then
+        lvSprite1:setVisible(false)
+        lvSprite2:setVisible(false)
+        lvSprite3:setVisible(false)
+    elseif (level < 10) then
         lvSprite1:setVisible(true)
         lvSprite1:changeAni('digit_' .. level)
         lvSprite1:setPosition(pos_x + (font_size/2), pos_y)

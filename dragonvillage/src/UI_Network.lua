@@ -20,6 +20,7 @@ UI_Network = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_Network:init()
+    self.m_uiName = 'UI_Network'
     local vars = self:load('network_loading.ui')
     UIManager:open(self, UIManager.LOADING)
 
