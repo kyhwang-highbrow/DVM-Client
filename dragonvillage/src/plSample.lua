@@ -36,3 +36,25 @@ plSample.rmtree = function()
         end
     end
 end
+
+
+-- ios, aos에서 lfs코드가 잘 동작하는지 테스트
+plSample.test = function()
+    local function getFullPath(res)
+        local sertch_paths = pl.List(cc.FileUtils:getInstance():getSearchPaths())
+
+        for i,v in ipairs(sertch_paths) do
+            local fullpath = pl.path.join(v, res)
+            if pl.path.exists(fullpath) then
+                fullpath = pl.path.abspath(fullpath)
+                cclog('Find!! ' .. fullpath)
+                cclog(pl.path.getsize(fullpath))
+                return fullpath
+            end
+        end
+    end
+
+    local res = 'res/adventure_chapter_select_popup_item.ui'
+    local fullpath = getFullPath(res)
+    ccdump(fullpath)
+end

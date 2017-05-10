@@ -12,6 +12,7 @@ function UI_Setting:init_devTab()
     vars['allMaterialBtn']:registerScriptTapHandler(function() self:click_allMaterialBtn() end)
     vars['allRuneBtn']:registerScriptTapHandler(function() self:click_allRuneBtn() end)
     vars['allStaminaBtn']:registerScriptTapHandler(function() self:click_allStaminaBtn() end)
+    vars['testCodeBtn']:registerScriptTapHandler(function() self:click_testCodeBtn() end)
     self:refresh_devTap()
 end
 
@@ -316,6 +317,15 @@ function UI_Setting:click_allStaminaBtn()
     end
 
     Coroutine(coroutine_function)
+end
+
+-------------------------------------
+-- function click_testCodeBtn
+-- @brief 테스트 코드
+-------------------------------------
+function UI_Setting:click_testCodeBtn()
+    require 'plSample'
+    plSample.test()
 end
 
 -------------------------------------
