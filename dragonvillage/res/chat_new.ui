@@ -384,25 +384,6 @@
 			};
 			[9] =
 			{
-				type = 'Node';
-				ui_name = '';
-				x = -22.000000;
-				y = 69.000000;
-				dock_point = { 1.000000; 0.000000; };
-				anchor_point = { 1.000000; 0.000000; };
-				relative_size_type = 3;
-				width = -44;
-				height = -148;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'whisperChatNode';
-			};
-			[10] =
-			{
 				[1] =
 				{
 					type = 'Scale9Sprite';
@@ -618,6 +599,25 @@
 					disable = '';
 					image_type = 1;
 				};
+				[6] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = -22.000000;
+					y = 69.000000;
+					dock_point = { 1.000000; 0.000000; };
+					anchor_point = { 1.000000; 0.000000; };
+					relative_size_type = 3;
+					width = -44;
+					height = -148;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'whisperChatNode';
+				};
 				type = 'Menu';
 				ui_name = '';
 				x = 0.000000;
@@ -635,7 +635,7 @@
 				visible = false;
 				lua_name = 'whisperMenu';
 			};
-			[11] =
+			[10] =
 			{
 				[1] =
 				{

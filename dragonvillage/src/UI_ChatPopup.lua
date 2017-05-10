@@ -133,7 +133,7 @@ function UI_ChatPopup:msgQueueCB(chat_content)
         end
 
     elseif (category == 'whisper') then
-        self.m_mTabUI['whisper_chat']:msgQueueCB(msg)
+        self.m_mTabUI['whisper_chat']:msgQueueCB(chat_content)
     end
 end
 
