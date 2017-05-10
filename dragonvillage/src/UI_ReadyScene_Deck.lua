@@ -103,11 +103,10 @@ function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
 
 		-- 감성 말풍선
 		local duration = idx and 0.5 * idx or 0.05
-		cclog(duration)
 		local ui = self.m_lSettedDragonCard[self.m_focusDeckSlot]
 		local delay_action = cc.DelayTime:create(duration)
 		local cb_action = cc.CallFunc:create(function() 
-			SensitivityHelper:doActionBubbleText(ui.root, t_dragon_data['did'], 'party_in')
+			SensitivityHelper:doActionBubbleText(ui.root, t_dragon_data['did'], nil, 'party_in')
 		end)
 		local action = cc.Sequence:create(delay_action, cb_action)
 		ui.root:runAction(action)
@@ -783,7 +782,7 @@ function UI_ReadyScene_Deck:moveSelectDragonCard(touch, event)
 			local pre_bubble = node:getChildByTag(TAG_BUBBLE)
 			if (not pre_bubble) then
 				local did = self.m_selectedDragonCard.m_dragonData['did']
-				SensitivityHelper:doActionBubbleText(node, did, 'party_out')
+				SensitivityHelper:doActionBubbleText(node, did, nil, 'party_out')
 			end
 		end
 	end

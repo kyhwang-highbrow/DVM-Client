@@ -6,9 +6,9 @@ TAG_BUBBLE = 101
 -- function doActionBubbleText
 -- @public 현재는 드래곤 전용이다 추후에 사용처가 늘어나면 범용성을 갖추어야 할것
 -------------------------------------
-function SensitivityHelper:doActionBubbleText(parent, did, case_type)
+function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type)
 	-- 상황별 문구 생성
-	local sens_str = SensitivityHelper:getRandomSensStr(did, case_type)
+	local sens_str = SensitivityHelper:getRandomSensStr(did, flv, case_type)
 
 	-- 이전 버블 텍스트가 있다면 삭제해버린다.
 	self:deleteBubbleText(parent)
@@ -77,8 +77,8 @@ end
 -------------------------------------
 -- function getBubbleText
 -------------------------------------
-function SensitivityHelper:getRandomSensStr(did, case_type)
-	return TableDragonPhrase:getRandomPhrase_Sensitivity(did, case_type)
+function SensitivityHelper:getRandomSensStr(did, flv, case_type)
+	return TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
 end
 
 -------------------------------------

@@ -82,6 +82,41 @@ function TableDragonPhrase:getDragonShout(did, flv)
 end
 
 -------------------------------------
+-- function getDragonPhrase
+-------------------------------------
+function TableDragonPhrase:addPhraseByFlv(sum_random, flv)
+    if (flv <= 2) then
+        sum_random:addItem(1, 't_normal_phrase1')
+        sum_random:addItem(1, 't_normal_phrase2')
+        sum_random:addItem(1, 't_normal_phrase3')
+    elseif (flv <= 6) then
+        sum_random:addItem(1, 't_good_phrase1')
+        sum_random:addItem(1, 't_good_phrase2')
+        sum_random:addItem(1, 't_good_phrase3')
+    else
+        sum_random:addItem(1, 't_best_phrase1')
+        sum_random:addItem(1, 't_best_phrase2')
+        sum_random:addItem(1, 't_best_phrase3')
+    end
+end
+
+-------------------------------------
+-- function getDragonPhrase
+-------------------------------------
+function TableDragonPhrase:addShotByFlv(sum_random, flv)
+    if (flv <= 2) then
+        sum_random:addItem(1, 't_normal_shout1')
+        sum_random:addItem(1, 't_normal_shout2')
+    elseif (flv <= 6) then
+        sum_random:addItem(1, 't_good_shout1')
+        sum_random:addItem(1, 't_good_shout2')
+    else
+        sum_random:addItem(1, 't_best_shout1')
+        sum_random:addItem(1, 't_best_shout2')
+    end
+end
+
+-------------------------------------
 -- function getRandomPhrase
 -------------------------------------
 function TableDragonPhrase:getRandomPhrase()
@@ -137,7 +172,7 @@ end
 -------------------------------------
 -- function getRandomPhrase_LobbyTouch
 -------------------------------------
-function TableDragonPhrase:getRandomPhrase_Sensitivity(did, case_type)
+function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
     if (self == THIS) then
         self = THIS()
     end
@@ -148,7 +183,9 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, case_type)
 		for i = 1, 4 do
 			sum_random:addItem(1, 'lobby_touch' .. i)
 		end
-	
+		self:addPhraseByFlv(sum_random, flv)
+		self:addShotByFlv(sum_random, flv)
+
 	elseif (case_type == 'lobby_hurry_gift') then
 		sum_random:addItem(1, 'lobby_induce')
 	

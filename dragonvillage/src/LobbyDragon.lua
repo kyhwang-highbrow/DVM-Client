@@ -5,6 +5,7 @@ local PARENT = LobbyCharacter
 -------------------------------------
 LobbyDragon = class(PARENT, {
         m_dragonID = 'number',
+		m_flv = 'number',
         m_bAwake = 'bool',
         m_bWating = 'bool',
         m_targetX = '',
@@ -29,9 +30,10 @@ LobbyDragon.GIFT_HURRY_TIME = 5
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyDragon:init(did, is_bot)
+function LobbyDragon:init(did, flv, is_bot)
     self.m_dragonID = did
     self.m_bInitFirstPos = false
+	self.m_flv = flv or 0
 
 	self.m_hasGift = false
 	self.m_hasSomethingToTalk = false
@@ -248,23 +250,26 @@ function LobbyDragon:clickUserDragon()
 		return
 	end
 	
-	self.m_talkingNode:removeAllChildren()
-
+	local case_type
 	-- 선물 수령
 	if (self:hasGift()) then
 		self:takeGift()
-		SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'lobby_get_gift')
+		case_type = 'lobby_get_gift'
 
 	-- 선물 주고 난 이후 최초 1회 대사
 	elseif (self:hasSomethingToTalk()) then
 		self.m_hasSomethingToTalk = false
-		SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'lobby_after_gift')
+		case_type = 'lobby_after_gift'
 
 	-- 평상시
 	else
-		SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'lobby_touch')
+		case_type = 'lobby_touch'
 
 	end
+
+	-- 감성 말풍선 실동작
+	self.m_talkingNode:removeAllChildren()
+	SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, self.m_flv, case_type)
 end
 
 -------------------------------------
@@ -291,7 +296,7 @@ function LobbyDragon:update_gift(dt)
 		-- 선물 재촉 대사
 		if (self.m_talkingTimer > LobbyDragon.GIFT_HURRY_TIME) then
 			self.m_talkingNode:removeAllChildren()
-			SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'lobby_hurry_gift')
+			SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, self.m_flv, 'lobby_hurry_gift')
 
 			self.m_talkingTimer = self.m_talkingTimer - LobbyDragon.GIFT_HURRY_TIME
 		end

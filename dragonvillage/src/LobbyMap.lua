@@ -453,6 +453,7 @@ function LobbyMap:addLobbyDragon(tamer, is_bot, t_user_info)
     local evolution = t_user_info['leader']['evolution']
 
     local did = t_user_info['leader']['did']
+	local flv = t_user_info['leader']['friendship']['flv']
 
     -- 서버에서 오류로 인해 did가 0으로 넘어오는 이슈가 있어서 예외처리함
     if (did == 0) then
@@ -464,7 +465,7 @@ function LobbyMap:addLobbyDragon(tamer, is_bot, t_user_info)
     local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
 
     -- 드래곤 생성
-    local lobby_dragon = LobbyDragon(t_dragon['did'], is_bot)
+    local lobby_dragon = LobbyDragon(t_dragon['did'], flv, is_bot)
     lobby_dragon:initAnimator(res)
     self.m_groudNode:addChild(lobby_dragon.m_rootNode)
 
