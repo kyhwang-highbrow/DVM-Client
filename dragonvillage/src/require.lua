@@ -717,6 +717,8 @@ local t_module = {
     'UI_ChatPopup_WhisperTab',
     'UI_ChatList',
     'UI_ChatListItem',
+    'UI_ChatListItem_msg',
+    'UI_ChatListItem_myMsg',
 
 	-- UI : 설정
 	'UI_Setting',

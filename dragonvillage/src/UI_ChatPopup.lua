@@ -6,6 +6,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_ChatPopup = class(PARENT, {
         m_mTabUI = '',
         m_chatList = '',
+
         m_chatTableView = '',
      })
 
@@ -14,7 +15,7 @@ UI_ChatPopup = class(PARENT, {
 -------------------------------------
 function UI_ChatPopup:init()
     local vars = self:load('chat_new.ui')
-    UIManager:open(self, UIManager.NORMAL)
+    --UIManager:open(self, UIManager.NORMAL)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ChatPopup')
@@ -32,7 +33,6 @@ function UI_ChatPopup:init()
         self:msgQueueCB(msg)
     end
 
-    g_chatManager.m_tempCB = function(msg) self:msgQueueCB(msg) end
     self:refresh_connectStatus(g_chatManager.m_chatClient.m_status)
 end
 
@@ -61,22 +61,9 @@ function UI_ChatPopup:init_tableView()
     local vars = self.vars
     local node = vars['chatNode']
 
-    local function create_func()
-
-    end
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(600, 50)
-    table_view._vordering = VerticalFillOrder['BOTTOM_UP']
-    --table_view.m_bUseEachSize = true
-    table_view:setCellUIClass(UI_ChatListItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList({})
-    table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
-
-    self.m_chatTableView = table_view
+    self.m_chatTableView = UIC_ChatView(node)
 end
+
 
 -------------------------------------
 -- function initButton
@@ -124,14 +111,13 @@ end
 -- function msgQueueCB
 -------------------------------------
 function UI_ChatPopup:msgQueueCB(chat_content)
-
-    local category = chat_content:getContentCategory()
-
-    ccdump(chat_content)
+    local category = chat_content:getContentCategory()    
 
     if (category == 'general') then
         local uuid = chat_content.m_uuid
-        self.m_chatTableView:addItem(uuid, chat_content)
+        --self.m_chatTableView:addItem(uuid, chat_content)
+
+        self.m_chatTableView:addChatContent(chat_content)
     end
 
 
@@ -152,13 +138,10 @@ function UI_ChatPopup:msgQueueCB(chat_content)
         return
 
     elseif (msg['type'] == 'whisper') then
-        ccdump(msg)
+        --ccdump(msg)
         self.m_mTabUI['whisper_chat']:msgQueueCB(msg)
         return
     end
-
-
-    ccdump(msg)
 
     --[[
     local content = UI_ChatListItem(msg)
@@ -201,7 +184,6 @@ end
 -- function onDestroyUI
 -------------------------------------
 function UI_ChatPopup:onDestroyUI()
-    g_chatManager.m_tempCB = nil
 end
 
 -------------------------------------

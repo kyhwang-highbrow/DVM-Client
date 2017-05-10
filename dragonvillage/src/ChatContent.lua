@@ -5,11 +5,15 @@
 ChatContent = class({
         m_uuid = 'string',
         m_timestamp = 'Timastamp',
+        
         m_contentCategory = 'string',
         -- 'general' 일반 채팅
         -- 'guild' 길드 채팅
         -- 'whisper' 귓속말 채팅
+
         m_contentType = 'string',
+        -- 'my_msg' 내 메세지
+        -- 'msg' 일반 메세지 (다른 사람들 메세지)
 
         nickname = '',
         guild = '',
@@ -51,7 +55,7 @@ ChatContent.replacement = {
 -- @breif 단순 데이터 table에서 struct로 맴버 변수를 설정하는 함수
 -------------------------------------
 function ChatContent:applyTableData(data)
-    ccdump(data)
+    --ccdump(data)
     -- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
     local replacement = ChatContent.replacement
 
@@ -88,4 +92,52 @@ end
 -------------------------------------
 function ChatContent:getContentCategory()
     return self.m_contentCategory
+end
+
+-------------------------------------
+-- function setContentType
+-- @breif
+-------------------------------------
+function ChatContent:setContentType(type)
+    self.m_contentType = type
+end
+
+-------------------------------------
+-- function getContentType
+-- @breif
+-------------------------------------
+function ChatContent:getContentType(type)
+    return self.m_contentType
+end
+
+
+-------------------------------------
+-- function getUserInfoStr
+-- @breif 길드, 레벨, 닉네임
+-------------------------------------
+function ChatContent:getUserInfoStr()
+    return self['nickname'] or ''
+end
+
+-------------------------------------
+-- function getMessage
+-- @breif
+-------------------------------------
+function ChatContent:getMessage()
+    return self['message'] or ''
+end
+
+-------------------------------------
+-- function makeTimeDesc
+-- @breif
+-------------------------------------
+function ChatContent:makeTimeDesc()
+    local curr_time = socket.gettime()
+
+    local sec = curr_time - self.m_timestamp
+
+    local showSeconds = false
+    local firstOnly = true
+    local desc = datetime.makeTimeDesc(sec, showSeconds, firstOnly)
+    return desc
 end

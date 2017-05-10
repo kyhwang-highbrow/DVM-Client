@@ -765,6 +765,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AttendanceSpecialListItem.lua" />
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
     <None Include="..\src\UI_BattleMenu.lua" />
+    <None Include="..\src\UI_ChatListItem_msg.lua" />
+    <None Include="..\src\UI_ChatListItem_myMsg.lua" />
     <None Include="..\src\UI_ChatPopup_WhisperTab.lua" />
     <None Include="..\src\UI_DungeonMenu.lua" />
     <None Include="..\src\UI_BirthdayCalendarDayElement.lua" />

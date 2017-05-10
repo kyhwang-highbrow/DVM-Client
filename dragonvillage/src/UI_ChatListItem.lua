@@ -11,6 +11,7 @@ UI_ChatListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_ChatListItem:init(chat_content)
+    --[[
     local vars = self:load('empty.ui')
 
     self.root:setNormalSize(100, 100)
@@ -42,6 +43,7 @@ function UI_ChatListItem:init(chat_content)
     --rich_label:setRotation(45)
 
     self.root:addChild(rich_label.m_node)
+    --]]
 end
 
 -------------------------------------

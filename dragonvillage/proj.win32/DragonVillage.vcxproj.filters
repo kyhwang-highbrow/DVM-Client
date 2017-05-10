@@ -2250,6 +2250,12 @@
     <None Include="..\src\ChatContent.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ChatListItem_myMsg.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ChatListItem_msg.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

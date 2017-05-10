@@ -11,6 +11,8 @@ ChatManager = class({
         m_lMessage = '',
 
         m_normalChatContentList = '',
+
+        m_chatPopup = '',
     })
 
 -------------------------------------
@@ -83,17 +85,24 @@ function ChatManager:msgQueueCB(msg)
 
     local chat_content = ChatContent(msg)
     chat_content:setContentCategory('general')
+
+    local uid = g_userData:get('uid')
+    if (chat_content['uid'] == uid) then
+        chat_content:setContentType('my_msg')
+    else
+        chat_content:setContentType('msg')
+    end
+
     self.m_normalChatContentList[chat_content.m_uuid] = chat_content
 
-    table.insert(self.m_lMessage, msg)
+    table.insert(self.m_lMessage, chat_content)
 
     if g_topUserInfo then
         g_topUserInfo:chatBroadcast(msg)
     end
 
-    if self.m_tempCB then
-        --self.m_tempCB(msg)
-        self.m_tempCB(chat_content)
+    if self.m_chatPopup then
+        self.m_chatPopup:msgQueueCB(chat_content)
     end
 end
 
@@ -160,4 +169,39 @@ function ChatManager:requestChangeChannel(channel_num)
     t['channelType'] = CHAT_CLIENT_CHANNEL_TYPE_NORMAL
   
     self.m_chatClient:requestChangeChannel(t)
+end
+
+-------------------------------------
+-- function openChatPopup
+-- @brief
+-------------------------------------
+function ChatManager:openChatPopup()
+    if (not self.m_chatPopup) then
+        self.m_chatPopup = UI_ChatPopup()
+        self.m_chatPopup.root:retain()
+
+        UIManager.m_cbUIOpen = function(ui)
+            if (ui ~= self.m_chatPopup) and (not self.m_chatPopup.closed) then
+                self.m_chatPopup:close()
+            end
+        end
+    end
+
+    local list = UIManager.m_uiList
+    if table.find(list, self.m_chatPopup) then
+        self.m_chatPopup:close()
+    end
+
+    UIManager:open(self.m_chatPopup, UIManager.NORMAL)
+    self.m_chatPopup.closed = false
+end
+
+-------------------------------------
+-- function closeChatPopup
+-- @brief
+-------------------------------------
+function ChatManager:closeChatPopup()
+    if self.m_chatPopup then
+        self.m_chatPopup:close()
+    end
 end

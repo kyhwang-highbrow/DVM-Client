@@ -25,6 +25,7 @@ UIManager = {
     m_topUserInfo = nil,
 
 	m_debugUI = nil, --'UI_GameDebug_RealTime',
+    m_cbUIOpen = nil,
 }
 
 -------------------------------------
@@ -226,6 +227,10 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
         if bNotBlendBGLayer then
             ui.vars['bgLayerColor']:setVisible(false)
         end
+    end
+
+    if self.m_cbUIOpen then
+        self.m_cbUIOpen(ui)
     end
 end
 
