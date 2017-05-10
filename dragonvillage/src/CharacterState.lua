@@ -134,6 +134,7 @@ function Character.st_attackDelay(owner, dt)
         -- 어떤 스킬을 사용할 것인지 결정
         local skill_id, is_add_skill
 
+        -- indie_time류 스킬로 인해 이전에 결정된 스킬이 있으면 사용하도록 함
         if (owner.m_prevReservedSkillId) then
             skill_id, is_add_skill = owner.m_prevReservedSkillId, owner.m_prevIsAddSkill
             owner.m_stateTimer = owner.m_prevAttackDelayTimer
@@ -146,7 +147,7 @@ function Character.st_attackDelay(owner, dt)
         end
 
 		-- 스킬 캐스팅 불가 처리
-		if owner.m_isSilence then
+		if (owner.m_isSilence) then
 			is_add_skill = false
 			skill_id = owner:getSkillID('basic')
 		end

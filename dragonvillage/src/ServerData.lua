@@ -411,80 +411,106 @@ function ServerData:networkCommonRespone_addedItems(ret)
         return
     end
 
+    t_added_items = clone(t_added_items)
 
     -- 캐시 (갱신)
     if t_added_items['cash'] then
-        self:applyServerData(t_added_items['cash'], 'user', 'cash')    
+        self:applyServerData(t_added_items['cash'], 'user', 'cash')
+        t_added_items['cash'] = nil
     end
 
     -- 자수정 (갱신)
     if t_added_items['amethyst'] then
         self:applyServerData(t_added_items['amethyst'], 'user', 'amethyst')
+        t_added_items['amethyst'] = nil
     end
 
     -- 골드 (갱신)
     if t_added_items['gold'] then
         self:applyServerData(t_added_items['gold'], 'user', 'gold')
+        t_added_items['gold'] = nil
     end
 
     -- 우정포인트 (갱신)
     if t_added_items['fp'] then
         self:applyServerData(t_added_items['fp'], 'user', 'fp')
+        t_added_items['fp'] = nil
     end
 
     -- 명예 (갱신)
     if t_added_items['honor'] then
         self:applyServerData(t_added_items['honor'], 'user', 'honor')
+        t_added_items['honor'] = nil
     end
 
     -- 훈장 (갱신)
     if t_added_items['badge'] then
         self:applyServerData(t_added_items['badge'], 'user', 'badge')
+        t_added_items['badge'] = nil
     end
 
     -- 라테아 (갱신)
     if t_added_items['lactea'] then
-        self:applyServerData(t_added_items['lactea'], 'user', 'lactea')    
+        self:applyServerData(t_added_items['lactea'], 'user', 'lactea')
+        t_added_items['lactea'] = nil
     end
 
     -- 열매 갯수 (전체 갱신)
     if t_added_items['fruits'] then
         self:applyServerData(t_added_items['fruits'], 'user', 'fruits')
+        t_added_items['fruits'] = nil
     end
 
     -- 진화 재료 갱신 (전체 갱신)
     if t_added_items['evolution_stones'] then
         self:applyServerData(t_added_items['evolution_stones'], 'user', 'evolution_stones')
+        t_added_items['evolution_stones'] = nil
     end
 
     -- 티켓 갱신 (전체 갱신)
     if t_added_items['tickets'] then
         self:applyServerData(t_added_items['tickets'], 'user', 'tickets')
+        t_added_items['tickets'] = nil
     end
 
     -- 스태미나 동기화 (전체 갱신)
     if (t_added_items['staminas']) then
         self:applyServerData(t_added_items['staminas'], 'user', 'staminas')
+        t_added_items['staminas'] = nil
     end
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then
         g_dragonsData:applyDragonData_list(t_added_items['dragons'])
+        t_added_items['dragons'] = nil
     end
 
     -- 슬라임 (추가)
     if t_added_items['slimes'] then
         g_slimesData:applySlimeData_list(t_added_items['slimes'])
+        t_added_items['slimes'] = nil
     end
 
     -- 추가된 룬 적용 (추가)
     if t_added_items['runes'] then
         g_runesData:applyRuneData_list(t_added_items['runes'])
+        t_added_items['runes'] = nil
     end
 
     -- 인연포인트 (전체 갱신)
     if (t_added_items['relation']) then
         g_collectionData:applyRelationPoints(t_added_items['relation'])
+        t_added_items['relation'] = nil
+    end
+
+    -- 이외에도 아이템 테이블에 존재하는 재화 정보는 갱신
+    for k, v in pairs(t_added_items) do
+        if (v) then
+            local t_item = TableItem():getRewardItem(k)
+            if (t_item) then
+                self:applyServerData(v, 'user', k)
+            end
+        end
     end
 end
 

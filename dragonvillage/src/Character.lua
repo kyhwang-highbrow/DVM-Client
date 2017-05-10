@@ -52,8 +52,7 @@ Character = class(PARENT, {
         -- @ 예약된 skill 정보
         m_reservedSkillId = 'number',
         m_reservedSkillCastTime = 'number',
-        m_reservedSkillAniEventTime = 'number', -- 스킬 애니메이션에서의 attack 이벤트 시간
-        
+                
         m_isAddSkill = 'bool', -- 드래곤이 에약한 스킬이 basic_rate나 basic_turn 인 경우
         m_bActivePassive = 'bool',  -- 패시브 스킬 적용 여부
 
@@ -2077,19 +2076,10 @@ function Character:reserveSkill(skill_id)
 
     local t_skill = self:getSkillTable(skill_id)
     local cast_time = self:getCastTimeFromSkillID(skill_id)
-    local event_time = 0
-
-    local ani = self.m_tStateAni['attack']
-    local eventList = self.m_animator:getEventList(ani, 'attack')
     
-    if eventList[1] then
-        event_time = eventList[1]['frames'] or 0
-    end
-
     self.m_reservedSkillId = skill_id
     self.m_reservedSkillCastTime = cast_time
-    self.m_reservedSkillAniEventTime = event_time
-
+    
     return true
 end
 

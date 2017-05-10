@@ -41,7 +41,7 @@ end
 
 -------------------------------------
 -- function getRewardItem
--- @brief 보상용 아이템 ID를 찾는다
+-- @brief 보상용 아이템을 찾는다
 -------------------------------------
 function TableItem:getRewardItem(reward_type)
     -- 단순 재화의 id가 지정된 경우
