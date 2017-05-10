@@ -43,6 +43,7 @@ function UI_ChatPopup_WhisperTab:click_enterBtn()
 
     if (not self.m_peerUserNickname) or (self.m_peerUserNickname == '') then
         UIManager:toastNotificationRed('귓속말 보낼 사용자의 닉네임을 입력하세요.')
+        return
     end
     
     local msg = vars['editBox_whisper']:getText()
@@ -87,8 +88,12 @@ end
 -- function msgQueueCB
 -------------------------------------
 function UI_ChatPopup_WhisperTab:msgQueueCB(msg)
+    --[[
     local content = UI_ChatListItem(msg)
     content.root:setAnchorPoint(0.5, 0)
     local height = content:getItemHeight()
     self.m_chatList:addContent(content.root, height, 'type')
+    --]]
+
+    --self.m_chatTableView:addChatContent(chat_content)
 end

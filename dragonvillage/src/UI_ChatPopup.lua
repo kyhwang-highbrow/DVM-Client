@@ -123,7 +123,6 @@ function UI_ChatPopup:msgQueueCB(chat_content)
         self:refresh_connectStatus(status)
 
     elseif (category == 'general') then
-        local uuid = chat_content.m_uuid
         self.m_chatTableView:addChatContent(chat_content)
 
         local content_type = chat_content:getContentType()
@@ -132,25 +131,10 @@ function UI_ChatPopup:msgQueueCB(chat_content)
             local str = Str('채널 {1}', channel)
             self.vars['sortOrderLabel']:setString(str)
         end
-    end
 
-
-    if true then
-        return
-    end
-
-    if (msg['type'] == 'whisper') then
-        --ccdump(msg)
+    elseif (category == 'whisper') then
         self.m_mTabUI['whisper_chat']:msgQueueCB(msg)
-        return
     end
-
-    --[[
-    local content = UI_ChatListItem(msg)
-    content.root:setAnchorPoint(0.5, 0)
-    local height = content:getItemHeight()
-    self.m_chatList:addContent(content.root, height, 'type')
-    --]]
 end
 
 -------------------------------------

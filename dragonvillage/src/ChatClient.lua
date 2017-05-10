@@ -184,6 +184,7 @@ function ChatClient:dispatchEvent(_socket, t)
                 local json = dkjson.decode(raw)
                 if json then
                     cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
+                    json['content_category'] = 'general'
                     self:pushMsg(json)
                 end
             end
@@ -196,7 +197,7 @@ function ChatClient:dispatchEvent(_socket, t)
                 local json = dkjson.decode(raw)
                 if json then
                     --cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
-                    json['type'] = 'whisper'
+                    json['content_category'] = 'whisper'
                     self:pushMsg(json)
                 end
             end

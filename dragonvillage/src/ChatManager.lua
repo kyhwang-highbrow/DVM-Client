@@ -90,8 +90,13 @@ end
 function ChatManager:msgQueueCB(msg)
     --cclog('# ChatManager:msgQueueCB(msg) ' .. msg['message'])
 
+
+
     local chat_content = ChatContent(msg)
-    chat_content:setContentCategory('general')
+
+    if (not chat_content.m_contentCategory) then
+        chat_content:setContentCategory('general')
+    end
 
     local uid = g_userData:get('uid')
     if (chat_content['uid'] == uid) then

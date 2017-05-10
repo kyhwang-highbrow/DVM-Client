@@ -53,7 +53,7 @@ function ChatContent:init(data)
 end
 
 ChatContent.replacement = {
-        --['uid'] = 'm_uid',
+        ['content_category'] = 'm_contentCategory',
         --['did'] = 'm_did',
         --['message'] = 'm_message',
         --['nickname'] = 'm_nickname',
