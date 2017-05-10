@@ -35,7 +35,8 @@ function SkillEnumrate_Penetration:fireMissile(idx)
     local t_option = {}
 
     t_option['owner'] = char
-
+	t_option['attr_name'] = char:getAttribute()
+	cclog(t_option['attr_name'])
     t_option['pos_x'] = char.pos.x + self.m_skillStartPosList[idx].x
 	t_option['pos_y'] = char.pos.y + self.m_skillStartPosList[idx].y
 	t_option['dir'] = self:getAttackDir(idx)
@@ -55,6 +56,7 @@ function SkillEnumrate_Penetration:fireMissile(idx)
     t_option['movement'] ='normal' 
 
     t_option['missile_res_name'] = self.m_missileRes
+	t_option['visual'] = 'idle'
 	t_option['scale'] = self.m_resScale
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes

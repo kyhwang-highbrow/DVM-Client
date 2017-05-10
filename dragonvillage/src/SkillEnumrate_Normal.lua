@@ -60,6 +60,7 @@ function SkillEnumrate_Normal:fireMissile(idx)
 	t_option['bFixedAttack'] = true
 
     t_option['missile_res_name'] = self.m_missileRes
+	t_option['visual'] = 'idle'
 	t_option['scale'] = self.m_resScale
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes

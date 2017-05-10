@@ -70,7 +70,7 @@ function SkillEnumrate_Curve:fireMissile(idx)
 
     t_option['missile_res_name'] = self.m_missileRes
 	t_option['scale'] = self.m_resScale
-	t_option['visual'] = ('move_' .. math_random(1, 5))
+	t_option['visual'] = 'idle'
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
 

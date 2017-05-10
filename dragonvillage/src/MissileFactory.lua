@@ -292,6 +292,9 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     if missile then
         missile.m_owner = owner
 
+		-- 스킬 애니 속성 세팅
+		missile.m_animator:setAniAttr(t_option['attr_name'])
+
         -- body가 지정되지 않았을 경우
         if (not physics_body) then
             local body_size = missile:getBodySizeFromAnimator()
