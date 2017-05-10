@@ -36,7 +36,7 @@ function SkillEnumrate_Penetration:fireMissile(idx)
 
     t_option['owner'] = char
 	t_option['attr_name'] = char:getAttribute()
-	cclog(t_option['attr_name'])
+
     t_option['pos_x'] = char.pos.x + self.m_skillStartPosList[idx].x
 	t_option['pos_y'] = char.pos.y + self.m_skillStartPosList[idx].y
 	t_option['dir'] = self:getAttackDir(idx)
