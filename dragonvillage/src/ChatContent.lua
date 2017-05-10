@@ -20,6 +20,9 @@ ChatContent = class({
         uid = '',
         message = '',
         did = '',
+
+        m_dragonID = '',
+        m_dragonEvolution = '',
     })
 
 -------------------------------------
@@ -40,6 +43,12 @@ function ChatContent:init(data)
     -- timestamp ¿˙¿Â
     if (not self.m_timestamp) then
         self.m_timestamp = socket.gettime()
+    end
+
+    if self.did then
+        local l_str = pl.stringx.split(self.did, ';')
+        self.m_dragonID = tonumber(l_str[1]) or 120011
+        self.m_dragonEvolution = tonumber(l_str[2]) or 1
     end
 end
 

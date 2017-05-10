@@ -96,6 +96,10 @@ function IconHelper:getDragonGradeIcon(grade, eclv, type)
     grade = (grade or 1)
     eclv = (eclv or 0)
     type = (type or 1)
+
+    if (grade <= 0) then
+        return nil
+    end
     
     -- !!!! 초월 표현 방식 변겨으로 인해 0으로 처리
     eclv = 0

@@ -20,6 +20,7 @@ ChatClient = class({
     m_socket = '',
     m_uid = '',
     m_nickname = '',
+    m_dragonInfo = '',
 
     -- ChatChannel에 있던 변수들
     m_status = '',
@@ -54,7 +55,7 @@ ChatClient = class({
 -- function init
 -- @brief 생성자
 -------------------------------------
-function ChatClient:init(localeCode, uid, nickname)
+function ChatClient:init(localeCode, uid, nickname, did)
     do -- 변수 초기화
         self.m_status = nil
         self.m_sendCounter = nil
@@ -96,6 +97,7 @@ function ChatClient:init(localeCode, uid, nickname)
 
     self.m_uid = uid
     self.m_nickname = nickname
+    self.m_dragonInfo = did
 end
 
 -------------------------------------
@@ -277,6 +279,7 @@ function ChatClient:requestLogin()
 
     p['uid'] = self.m_uid
 	p['nickname'] = self.m_nickname
+    p['did'] = self.m_dragonInfo
 
     p['sessionKey'] = ''
     --p.recvCounter = nil

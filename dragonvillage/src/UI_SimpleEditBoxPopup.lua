@@ -11,6 +11,8 @@ UI_SimpleEditBoxPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_SimpleEditBoxPopup:init()
+    self.m_uiName = 'UI_SimpleEditBoxPopup'
+
     local vars = self:load('chat_editbox_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 

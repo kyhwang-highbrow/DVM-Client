@@ -37,6 +37,18 @@ function UI_ChatListItem_msg:init(chat_content)
     end)
     -- 최초 한 번 실행하기 위해 1초를 넣음
     self:update(1)
+
+
+    do -- 리더 드래곤 아이콘
+        local dragon_id = chat_content.m_dragonID
+        local evolution = chat_content.m_dragonEvolution
+        local grade = 0
+        local eclv = 0
+        local icon = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
+        icon:setDockPoint(cc.p(0.5, 0.5))
+        icon:setAnchorPoint(cc.p(0.5, 0.5))
+        vars['profileNode']:addChild(icon)
+    end
 end
 
 -------------------------------------

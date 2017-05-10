@@ -48,8 +48,15 @@ function ChatManager:initChatClient()
     local uid = g_userData:get('uid')
     local nick = g_userData:get('nick')
 
+    -- 드래곤 정보 (일단 did만)
+    local leader_dragon = g_dragonsData:getLeaderDragon()
+    local did = tostring(leader_dragon['did'])
+    if leader_dragon['evolution'] then
+        did = did .. ';' .. leader_dragon['evolution']
+    end
+
     -- 채팅 socket의 상태 변화 콜백 등록
-    self.m_chatClient = ChatClient(localeCode, uid, nick)
+    self.m_chatClient = ChatClient(localeCode, uid, nick, did)
     self.m_chatClient:setChangeStatusCB(function(status) self:onChangeStatus(status) end)
 
     self.m_chatClient.m_changedMsgQueueCb = function(msg) self:msgQueueCB(msg) end
@@ -182,7 +189,11 @@ function ChatManager:openChatPopup()
 
         UIManager.m_cbUIOpen = function(ui)
             if (ui ~= self.m_chatPopup) and (not self.m_chatPopup.closed) then
-                self.m_chatPopup:close()
+
+                -- 채팅창을 닫지 않는 팝업 지정
+                if (ui.m_uiName ~= 'UI_SimpleEditBoxPopup') then
+                    self.m_chatPopup:close()
+                end
             end
         end
     end
