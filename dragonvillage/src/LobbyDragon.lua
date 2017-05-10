@@ -34,7 +34,7 @@ function LobbyDragon:init(did, flv, is_bot)
     self.m_dragonID = did
     self.m_bInitFirstPos = false
 	self.m_flv = flv or 0
-
+	
 	self.m_hasGift = false
 	self.m_hasSomethingToTalk = false
 	self.m_userDragon = not is_bot
@@ -221,18 +221,17 @@ end
 function LobbyDragon:takeGift()
 	local function cb_func(ret)
 		-- 선물 획득 연출
-		local item = ret['added_items']['items_list'][1]
-		if (item) then
-			local item_id = item['item_id']
-			local gift_type = TableItem:getItemName(item_id)
-			local gift_count = item['count']
-
+		local t_gift = ret['added_items']['items_list'][1]
+		if (t_gift) then
+			local item_id = t_gift['item_id']
+			local gift_type = TableItem:getItemType(item_id)
+			local gift_count = t_gift['count']
 			SensitivityHelper:makeObtainEffect(gift_type, gift_count, self.m_rootNode)
 		end
 
 		-- 선물 수령 처리
 		self.m_hasGift = false
-		cca.stopAction(self.m_animator.m_node, LobbyDragon.TINT_ACTION)
+		self.m_animator.m_node:stopAllActions()
 		self.m_animator.m_node:setColor(COLOR['white'])
 
 		-- 선물 수령 후 최초 1회 대사 세팅
