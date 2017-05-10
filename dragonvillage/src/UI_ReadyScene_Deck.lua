@@ -100,6 +100,10 @@ function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data, skip_sort)
         self:setFocusDeckSlotEffect(idx)
     else
         self:setSlot(self.m_focusDeckSlot, doid, skip_sort)
+
+		-- 감성 말풍선
+		local ui = self.m_lSettedDragonCard[self.m_focusDeckSlot]
+		SensitivityHelper:doActionBubbleText(ui.root, t_dragon_data['did'], 'party_in')
     end
 
     self:refreshFocusDeckSlot()
@@ -283,7 +287,6 @@ function UI_ReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
 	ui.root:setPosition(0, DC_POS_Y)
     cca.uiReactionSlow(ui.root, DC_SCALE_ON_PLATE, DC_SCALE_ON_PLATE, DC_SCALE_PICK)
     
-    
     -- 설정된 드래곤 표시 없애기
     ui:setReadySpriteVisible(false)
 
@@ -300,9 +303,6 @@ function UI_ReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
     local dragon_attr = TableDragon():getValue(t_dragon_data['did'], 'attr')
     local stage_attr = self.m_uiReadyScene.m_stageAttr
     ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
-
-	-- 감성 말풍선
-	SensitivityHelper:doActionBubbleText(ui.root, t_dragon_data['did'], 'party_in')
 end
 
 -------------------------------------
@@ -668,6 +668,9 @@ function UI_ReadyScene_Deck:onTouchBegan(touch, event)
         node:removeFromParent()
         vars['formationNode']:addChild(node)
         node:release()
+		
+		-- 감성 말풍선 삭제
+		SensitivityHelper:deleteBubbleText(node)
     end
 
     return true
@@ -703,7 +706,6 @@ function UI_ReadyScene_Deck:onTouchEnded(touch, event)
         return false
     end
 
-
     -- 가장 가까운 버튼 찾기
     local near_idx = nil
     local near_distance = nil
@@ -733,6 +735,9 @@ function UI_ReadyScene_Deck:onTouchEnded(touch, event)
         node:release()
 
         self:setFocusDeckSlotEffect(self.m_selectedDragonSlotIdx)
+
+		-- 감성 말풍선 삭제
+		SensitivityHelper:deleteBubbleText(node)
     else
         local near_idx_doid = self.m_lDeckList[self.m_selectedDragonSlotIdx]
         local selected_idx_doid = self.m_lDeckList[near_idx]
@@ -760,6 +765,21 @@ function UI_ReadyScene_Deck:moveSelectDragonCard(touch, event)
 
     local node = self.m_selectedDragonCard.root
     node:setPosition(local_location['x'], local_location['y'])
+		
+	-- 진형을 벗어나는지 체크하여 벗어났다면 감성 말풍선 띄운다.
+	do
+		local bounding_box = vars['formationNode']:getBoundingBox()
+		local local_location = vars['formationNode']:getParent():convertToNodeSpace(location)
+		local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+		if (not is_contain) then
+			-- 감성 말풍선
+			local pre_bubble = node:getChildByTag(TAG_BUBBLE)
+			if (not pre_bubble) then
+				local did = self.m_selectedDragonCard.m_dragonData['did']
+				SensitivityHelper:doActionBubbleText(node, did, 'party_out')
+			end
+		end
+	end
 end
 
 -------------------------------------

@@ -1,29 +1,37 @@
 SensitivityHelper = {}
 
+TAG_BUBBLE = 101
+
 -------------------------------------
 -- function doActionBubbleText
 -- @public 현재는 드래곤 전용이다 추후에 사용처가 늘어나면 범용성을 갖추어야 할것
 -------------------------------------
 function SensitivityHelper:doActionBubbleText(parent, did, case_type)
-	-- 1. 상황별 문구 생성
+	-- 상황별 문구 생성
 	local sens_str = SensitivityHelper:getRandomSensStr(did, case_type)
 
-	-- 2. 버블 텍스트 생성하여 부모에 붙임
+	-- 이전 버블 텍스트가 있다면 삭제해버린다.
+	self:deleteBubbleText(parent)
+
+	-- 버블 텍스트 생성하여 부모에 붙임
 	local bubble_text = SensitivityHelper:getBubbleText(sens_str)
+	bubble_text:setTag(TAG_BUBBLE)
 	parent:addChild(bubble_text, 2)
+
+	-- 상황별 변수 및 포지션 정리
+	local delay_time
 	if string.find(case_type, 'lobby_') then
 		bubble_text:setPosition(50, 300)
-
+		delay_time = 1.5
 	elseif string.find(case_type, 'party_') then
 		bubble_text:setPosition(0, 100)
-
+		delay_time = 0.5
 	end
-
 	
-	-- 3. 띠용~ 후 페이드 아웃 하는 액션
+	-- 띠용~ 후 페이드 아웃 하는 액션
 	local scale_action = cc.ScaleTo:create(0.17, 1.25)
 	local scale_action_2 = cc.ScaleTo:create(0.08, 1)
-	local delay_action = cc.DelayTime:create(1.5)
+	local delay_action = cc.DelayTime:create(delay_time)
 	local fade_action = cc.FadeOut:create(0.25)
 	local remove_action = cc.RemoveSelf:create()
 	local seq_action = cc.Sequence:create(scale_action, scale_action_2, delay_action, fade_action, remove_action)
@@ -65,6 +73,18 @@ end
 -------------------------------------
 function SensitivityHelper:getRandomSensStr(did, case_type)
 	return TableDragonPhrase:getRandomPhrase_Sensitivity(did, case_type)
+end
+
+-------------------------------------
+-- function deleteBubbleText
+-- @brief 버블 텍스트 바로 삭제
+-------------------------------------
+function SensitivityHelper:deleteBubbleText(parent)
+	local pre_bubble = parent:getChildByTag(TAG_BUBBLE)
+	if (pre_bubble) then
+		local remove_action = cc.RemoveSelf:create()
+		pre_bubble:runAction(remove_action)
+	end
 end
 
 -------------------------------------

@@ -181,7 +181,7 @@ end
 -------------------------------------
 function ServerData_User:requestDragonGift(cb_func)
     -- 파라미터
-    local uid = g_userData:get('uid')
+    local uid = self:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)

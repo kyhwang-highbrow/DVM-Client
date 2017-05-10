@@ -20,6 +20,7 @@ LobbyDragon = class(PARENT, {
 
 LobbyDragon.MOVE_ACTION = 100
 LobbyDragon.DELAY_ACTION = 200
+LobbyDragon.TINT_ACTION = 300
 LobbyDragon.SPEED = 400
 LobbyDragon.Y_OFFSET = 150
 LobbyDragon.GIFT_HURRY_TIME = 5
@@ -199,8 +200,20 @@ end
 -------------------------------------
 function LobbyDragon:takeGift()
 	local function cb_func(ret)
-		SensitivityHelper:makeObtainEffect('gold', 1000, self.m_rootNode)
+		-- 선물 획득 연출
+		local item = ret['items_list'][1]
+		if (item) then
+			local item_id = item['item_id']
+			local gift_type = TableItem:getItemName(item_id)
+			local gift_count = item['count']
+
+			SensitivityHelper:makeObtainEffect(gift_type, gift_count, self.m_rootNode)
+		end
+
+		-- 선물 수령 처리
 		self.m_hasGift = false
+		cca.stopAction(self.m_animator.m_node, LobbyDragon.TINT_ACTION)
+		self.m_animator.m_node:setColor(COLOR['white'])
 	end
 
 	g_userData:requestDragonGift(cb_func)
@@ -211,30 +224,51 @@ end
 -------------------------------------
 function LobbyDragon:update(dt)
 	PARENT.update(self, dt)
-
+	
 	-- user의 dragon만 동작
 	if (self.m_userDragon) then
-		-- 선물이 있는 경우
-		if (self.m_hasGift) then
+		self:update_gift(dt)
+	end
+end
 
-			self.m_talkingTimer = self.m_talkingTimer + dt
+-------------------------------------
+-- function update_gift
+-------------------------------------
+function LobbyDragon:update_gift(dt)
+	-- 선물이 있는 경우
+	if (self.m_hasGift) then
+		-- 선물이 가능할 경우 하이라이팅 위한 연출
+		if (self.m_talkingTimer == 0) then
+			local duration = 0.4
+			local tcr = 150
+			local tint_action = cc.RepeatForever:create(
+				cc.Sequence:create(
+					cc.TintTo:create(duration, tcr, tcr, tcr),
+					cc.TintTo:create(duration, 255, 255, 255)
+				)
+			)
+			self.m_animator:runAction(tint_action, LobbyDragon.TINT_ACTION)
+		end
 
-			-- 선물 재촉 대사
-			if (self.m_talkingTimer > LobbyDragon.GIFT_HURRY_TIME) then
-				self.m_talkingNode:removeAllChildren()
-				SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'lobby_hurry_gift')
+		self.m_talkingTimer = self.m_talkingTimer + dt
 
-				self.m_talkingTimer = self.m_talkingTimer - LobbyDragon.GIFT_HURRY_TIME
-			end
+		-- 선물 재촉 대사
+		if (self.m_talkingTimer > LobbyDragon.GIFT_HURRY_TIME) then
+			self.m_talkingNode:removeAllChildren()
+			SensitivityHelper:doActionBubbleText(self.m_talkingNode, self.m_dragonID, 'lobby_hurry_gift')
 
-		-- 선물이 없는 경우
-		else
-			local gift_time = g_userData:getDragonGiftTime()
-			local curr_time = socket.gettime()
+			self.m_talkingTimer = self.m_talkingTimer - LobbyDragon.GIFT_HURRY_TIME
+		end
 
-			if (curr_time > gift_time) then
-				self.m_hasGift = true
-			end
+	-- 선물이 없는 경우
+	else
+		local gift_time = g_userData:getDragonGiftTime()
+		local curr_time = Timer:getServerTime()
+
+		-- 선물 가능 상태로 전환
+		if (curr_time > gift_time) then
+			self.m_hasGift = true
+			self.m_talkingTimer = 0
 		end
 	end
 end
