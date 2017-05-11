@@ -12,7 +12,7 @@ UI_ReadyScene = class(PARENT,{
         m_readySceneDeck = 'UI_ReadyScene_Deck',
 
         -- 정렬 도우미
-        m_dragonSortMgr = 'DragonSortManager',
+		m_sortManagerDragon = '',
     })
 
 local DC_SCALE = 0.61
@@ -83,17 +83,99 @@ function UI_ReadyScene:checkDeckName()
 end
 
 -------------------------------------
+-- function condition_battle_gift
+-------------------------------------
+function UI_ReadyScene:condition_battle_gift(a, b)
+	local gift_dragon = g_dragonsData:getBattleGiftDragon()
+	if (a['data']['id'] == gift_dragon['id']) then
+		return true
+
+	elseif (b['data']['id'] == gift_dragon['id']) then
+		return false
+
+	else
+		return nil
+	end
+end
+
+-------------------------------------
+-- function condition_deck_idx
+-------------------------------------
+function UI_ReadyScene:condition_deck_idx(a, b)
+	for doid, v in pairs(self.m_readySceneDeck.m_tDeckMap) do
+	end
+
+    local a_deck_idx = self.m_readySceneDeck.m_tDeckMap[a['data']['id']] or 999
+    local b_deck_idx = self.m_readySceneDeck.m_tDeckMap[b['data']['id']]  or 999
+	 
+    -- 덱에 설정된 데이터로 우선 정렬
+    if (a_deck_idx ~= b_deck_idx) then
+        return a_deck_idx < b_deck_idx
+    end
+end
+
+-------------------------------------
 -- function init_sortMgr
 -------------------------------------
 function UI_ReadyScene:init_sortMgr(stage_id)
-    self.m_dragonSortMgr = DragonSortManagerReady(self.vars, self.m_tableViewExt)
 
-    local function func(doid)
-        return self.m_readySceneDeck.m_tDeckMap[doid]
+	-- 정렬 매니저 생성
+    self.m_sortManagerDragon = SortManager_Dragon()
+
+	-- 나중에 정리
+	do
+		local function cond(a, b)
+			return self:condition_deck_idx(a, b)
+		end
+		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
+	end
+	do
+		local function cond(a, b)
+			return self:condition_battle_gift(a, b)
+		end
+		self.m_sortManagerDragon:addPreSortType('battle_gift', false, cond)
+	end
+
+    -- 정렬 UI 생성
+    local vars = self.vars
+    local uic_sort_list = MakeUICSortList_dragonManage(vars['sortBtn'], vars['sortLabel'], UIC_SORT_LIST_TOP_TO_BOT)
+    --self.m_uicSortList = uic_sort_list
+    
+
+	    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        self.m_sortManagerDragon:pushSortOrder(sort_type)
+        self:apply_dragonSort()
     end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
 
-    self.m_dragonSortMgr:setIsSettedDragonFunc(func)
-    self.m_dragonSortMgr:changeSort()
+    -- 오름차순/내림차순 버튼
+    vars['sortOrderBtn']:registerScriptTapHandler(function()
+        local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)
+        self.m_sortManagerDragon:setAllAscending(ascending)
+        self:apply_dragonSort()
+        --self:save_dragonSortInfo()
+
+        vars['sortOrderSprite']:stopAllActions()
+        if ascending then
+            vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+        else
+            vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+        end
+    end)
+
+	-- 최초 정렬
+	self:apply_dragonSort()
+end
+
+-------------------------------------
+-- function apply_dragonSort
+-- @brief 테이블 뷰에 정렬 적용
+-------------------------------------
+function UI_ReadyScene:apply_dragonSort()
+    local list = self.m_tableViewExt.m_itemList
+    self.m_sortManagerDragon:sortExecution(list)
+    self.m_tableViewExt:setDirtyItemList()
 end
 
 -------------------------------------
@@ -320,8 +402,10 @@ function UI_ReadyScene:init_battleGift()
 		local did = gift_dragon['did']
 		local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, gift_dragon['evolution'])
 		self.vars['giftNode']:addChild(animator.m_node)
+		self.vars['giftNode']:setCascadeOpacityEnabled(true)
 		self.vars['giftNode']:setScale(0.7)
-		animator:setScale(0.5)
+		animator:setScale(0.4)
+		animator:setFlip(true)
 		cca.pickMePickMe(animator)
 		SensitivityHelper:doRepeatBubbleText(self.vars['giftNode'], did, nil, 'party_in_induce')
 	end
@@ -387,23 +471,6 @@ function UI_ReadyScene:click_dragonCard(t_dragon_data, skip_sort, idx)
 end
 
 -------------------------------------
--- function isSettedDragon
--------------------------------------
-function UI_ReadyScene:isSettedDragon(unique_id)
-    if (not self.m_lDeckDragonCard) then
-        return false
-    end
-
-    for i,v in pairs(self.m_lDeckDragonCard) do
-        if (v.m_dragonData['id'] == unique_id) then
-            return i
-        end
-    end
-
-    return false
-end
-
--------------------------------------
 -- function click_manageBtn
 -- @breif 드래곤 관리
 -------------------------------------
@@ -417,14 +484,7 @@ function UI_ReadyScene:click_manageBtn()
                 self.m_readySceneDeck:init_deck()
 
                 do -- 정렬 도우미
-                    self.m_dragonSortMgr = DragonSortManagerReady(self.vars, self.m_tableViewExt)
-
-                    local function func(doid)
-                        return self.m_readySceneDeck.m_tDeckMap[doid]
-                    end
-
-                    self.m_dragonSortMgr:setIsSettedDragonFunc(func)
-                    self.m_dragonSortMgr:changeSort()
+					self:apply_dragonSort()
                 end
             end
             self:sceneFadeInAction(func)
@@ -461,7 +521,7 @@ function UI_ReadyScene:click_autoBtn()
     end
 
     -- 정렬
-    self.m_dragonSortMgr:changeSort()
+    self:apply_dragonSort()
 end
 
 -------------------------------------
@@ -505,9 +565,7 @@ function UI_ReadyScene:changeTeam(deck_name)
     self.m_readySceneDeck:init_deck()
 
     -- 즉시 정렬
-    if self.m_dragonSortMgr then
-        self.m_dragonSortMgr:changeSort()
-    end
+    self:apply_dragonSort()
 end
 
 -------------------------------------

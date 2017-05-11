@@ -168,9 +168,22 @@ function TableDragonPhrase:getRandomPhrase_LobbyTouch(did)
     return phrase
 end
 
+-------------------------------------
+-- function getMailPhrase
+-------------------------------------
+function TableDragonPhrase:getMailPhrase(did)
+	if (self == THIS) then
+        self = THIS()
+    end
+	local key = 'mail_message'
+	local speech = self:getValue(did, key)
+
+    local phrase = Str(speech)
+    return phrase
+end
 
 -------------------------------------
--- function getRandomPhrase_LobbyTouch
+-- function getRandomPhrase_Sensitivity
 -------------------------------------
 function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
     if (self == THIS) then

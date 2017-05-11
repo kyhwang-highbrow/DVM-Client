@@ -115,12 +115,11 @@ function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
 
 		-- 감성 쪼르기 성공했다면 삭제
 		local gift_dragon = g_dragonsData:getBattleGiftDragon()
-		if (gift_dragon) and (self.m_uiReadyScene.vars['giftNode']) then
-			if (doid == gift_dragon['id']) then
+		if (gift_dragon) then
+			if (doid == gift_dragon['id']) and (self.m_uiReadyScene.vars['giftNode']) then
 				local fade_action = cc.FadeOut:create(1)
-				local remove_action = cc.RemoveSelf:create()
-				local sequence = cc.Sequence:create(fade_action, remove_action)
-				self.m_uiReadyScene.vars['giftNode']:setCascadeOpacityEnabled(true)
+				local hide = cc.Hide:create()
+				local sequence = cc.Sequence:create(fade_action, hide)
 				self.m_uiReadyScene.vars['giftNode']:runAction(sequence)
 			end
 		end
@@ -217,8 +216,8 @@ function UI_ReadyScene_Deck:clear_deck(skip_sort)
     self:setFocusDeckSlotEffect(1)
 
     -- 즉시 정렬
-    if (not skip_sort) and self.m_uiReadyScene.m_dragonSortMgr then
-        self.m_uiReadyScene.m_dragonSortMgr:changeSort()
+    if (not skip_sort) then
+        self.m_uiReadyScene:apply_dragonSort()
     end
 
     self:setDirtyDeck()
@@ -397,8 +396,8 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
     end
 
     -- 즉시 정렬
-    if (not skip_sort) and self.m_uiReadyScene.m_dragonSortMgr then
-        self.m_uiReadyScene.m_dragonSortMgr:changeSort()
+    if (not skip_sort) then
+        self.m_uiReadyScene:apply_dragonSort()
     end
 
     self:setDirtyDeck()

@@ -490,10 +490,10 @@
         ],
         
         "BATTLE_GIFT_STD" : {
-            "REGEN_HOUR" : 10,
-            "COMBAT_TOP_N" : 10,
-            "LV" : 2,
-            "HOUR" : 5
+            "REGEN_HOUR" : 24,          // 드래곤 선물 리젠 시간
+            "COMBAT_TOP_N" : 10,        // 전투력 상위 n명
+            "LV" : 2,                   // 레벨 제한 (이상)
+            "HOUR" : 48                 // 사용 시간 제한
         }
     },
     
