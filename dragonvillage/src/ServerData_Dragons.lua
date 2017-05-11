@@ -853,7 +853,7 @@ function ServerData_Dragons:getBattleGiftDragon()
 	local std_hour = g_constant:get('UI', 'BATTLE_GIFT_STD', 'HOUR')
 	for i, v in pairs(l_lv_check) do
 		local dragon_obj = self:getDragonDataFromUidRef(v['doid'])
-		date:set(curr_time - (dragon_obj['updated_at']/1000))
+		date:set(curr_time - (dragon_obj['played_at']/1000))
 		if (date:hour() > std_hour) then
 			table.insert(l_time_check, v) 
 		end
