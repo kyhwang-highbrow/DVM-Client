@@ -217,14 +217,7 @@ function UI_CharacterCard:refresh_gradeIcon()
 
     local vars = self.vars
 
-    if vars['starIcon'] then
-        vars['starIcon']:removeFromParent()
-    end
-   
     local grade = (t_dragon_data['grade'] or 1)
-    if (grade <= 0) then
-        return
-    end
 
     local res = 'character_card_star0' .. grade .. '.png'
 
@@ -232,6 +225,15 @@ function UI_CharacterCard:refresh_gradeIcon()
         return
     end
     self.m_starIconRes = res
+
+    if (grade <= 0) then
+        return
+    end
+
+    if vars['starIcon'] then
+        vars['starIcon']:removeFromParent()
+        vars['starIcon'] = nil
+    end
     
     local sprite = cc.Sprite:createWithSpriteFrameName(res)
     sprite:setDockPoint(CENTER_POINT)
