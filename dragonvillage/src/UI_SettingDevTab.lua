@@ -105,11 +105,11 @@ end
 -------------------------------------
 function UI_Setting:click_allSlimeBtn()
     local uid = g_userData:get('uid')
-    local table_slime = TableSlime()
-    local t_list = {}
-    for slime_id,_ in pairs(table_slime.m_orgTable) do
-        table.insert(t_list, slime_id)
-    end
+
+    -- 아이템 테이블의 type이 slime인 행들을 읽어서 슬라임 추가
+    local table_item = TableItem()
+    local t_list = table_item:filterList('type', 'slime')
+
     local do_work
 
     local ui_network = UI_Network()
@@ -118,13 +118,19 @@ function UI_Setting:click_allSlimeBtn()
     ui_network:setParam('uid', uid)
 
     do_work = function(ret)
-        local slime_id = t_list[1]
+        local t_data = t_list[1]
         
-        if slime_id then
+        if t_data then
+            local item_id = t_data['item']
+            local slime_id = t_data['did']
             table.remove(t_list, 1)
-            local msg = '"' .. table_slime:getValue(slime_id, 't_name') .. '" 추가 중...'
+            local msg = '"' .. table_item:getValue(item_id, 't_name') .. '" 추가 중...'
             ui_network:setLoadingMsg(msg)
             ui_network:setParam('sid', slime_id)
+
+            -- 아이템 테이블의 등급과 진화도로 슬라임을 추가
+            ui_network:setParam('grade', t_data['grade'])
+            ui_network:setParam('evolution', t_data['evolution'])
             ui_network:request()
         else
             ui_network:close()

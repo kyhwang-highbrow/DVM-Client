@@ -176,3 +176,21 @@ function StructSlimeObject:getSlimeType()
     local slime_id = self['slime_id']
     return TableSlime:getMaterialType(slime_id)
 end
+
+-------------------------------------
+-- function makeSlimeSkillIcon
+-- @breif
+-------------------------------------
+function StructSlimeObject:makeSlimeSkillIcon()
+    local slime_id = self['slime_id']
+    local material_type = TableSlime:getMaterialType(slime_id)
+
+    local res = 'res/ui/icon/skill/slime_' .. material_type .. '.png'
+    local icon = cc.Sprite:create(res)
+    if (not icon) then
+        return nil
+    end
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+    return icon
+end

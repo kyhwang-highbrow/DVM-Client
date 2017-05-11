@@ -134,6 +134,11 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 
         vars['slimeSprite']:setVisible(true)
         vars['slimeLabel']:setString(t_dragon_data:getSlimeDesc())
+
+        local icon = t_dragon_data:makeSlimeSkillIcon()
+        if icon then
+            vars['skillNode0']:addChild(icon)
+        end
         return
     end
 
