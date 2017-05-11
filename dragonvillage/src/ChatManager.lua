@@ -91,6 +91,11 @@ end
 function ChatManager:msgQueueCB(msg)
     --cclog('# ChatManager:msgQueueCB(msg) ' .. msg['message'])
 
+    -- 차단한 유저는 메세지를 보이지 않음
+    if (msg['uid'] and g_chatIgnoreList:isIgnore(msg['uid'])) then
+        return
+    end
+
     do
         if (msg['content_category'] == 'whisper') and (msg['status'] ~= 0) then
             UIManager:toastNotificationRed(Str('귓속말 전송에 실패하였습니다.'))
