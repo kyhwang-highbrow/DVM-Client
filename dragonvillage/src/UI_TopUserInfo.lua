@@ -300,12 +300,21 @@ end
 -- function noticeBroadcast
 -------------------------------------
 function UI_TopUserInfo:noticeBroadcast(msg, duration)
+    local vars = self.vars
     local duration = duration or 2
 
-    self.vars['noticeBroadcastLabel']:setString(msg)
-    self.vars['noticeBroadcastNode']:setVisible(true)
-    self.vars['noticeBroadcastNode']:stopAllActions()
-    self.vars['noticeBroadcastNode']:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create()))
+    vars['noticeBroadcastLabel']:setString(msg)
+    vars['noticeBroadcastNode']:setVisible(true)
+    vars['noticeBroadcastNode']:stopAllActions()
+    vars['noticeBroadcastNode']:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create()))
+    
+    local line_count = vars['noticeBroadcastLabel'].m_lineCount
+    if (line_count > 1) then
+        local size = cc.size(vars['noticeBroadcastNode']:getNormalSize())
+        size['height'] = 50
+        vars['noticeBroadcastNode']:setNormalSize(size)
+        vars['noticeBroadcastNode']:setUpdateChildrenTransform()
+    end
 end
 
 -------------------------------------

@@ -60,8 +60,7 @@ function StructEventPopupTab:getTabButtonName()
         return Str('드래곤 생일')
 
     elseif (self.m_category1 == 'exchange') then
-        --self.m_userData['t_name']
-        return Str('교환소({1})', self.m_category2)
+        return self.m_category3 .. '\n' .. Str('교환소')
 
     end
 end

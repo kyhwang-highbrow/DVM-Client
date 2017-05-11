@@ -82,14 +82,14 @@ function ServerData_Exchange:request_exchangeInfo(finish_cb, fail_cb)
                 -- 활성화 중인 이벤트 상품만 따로 저장
                 for i, v in ipairs(ret['table_exchange']) do
                     local exchange_type = v['group_type']
-                    local end_date = 0
+                    local end_date
 
                     if (v['limit_time_end_date'] ~= '') then
                         end_date = Timer:strToTimeStamp(v['limit_time_end_date'])
                     end
 
                     -- 판매가 종료된 상품
-                    if (end_date < server_time) then
+                    if (end_date and end_date < server_time) then
                         
                     elseif (self.m_mProductList[exchange_type]) then
                         table.insert(self.m_mProductList[exchange_type], StructExchangeProductData(v))

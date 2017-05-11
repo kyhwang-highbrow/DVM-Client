@@ -596,6 +596,7 @@ local t_module = {
     'UI_GameResult_NestDungeon',
     'UI_GameResult_SecretDungeon',
     'UI_GamePause',
+    'UI_GamePause_AncientTower',
     'UI_GamePause_NestDungeon',
     'UI_GamePause_SecretDungeon',
     'UI_GamePause_Colosseum',

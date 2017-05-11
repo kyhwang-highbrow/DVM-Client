@@ -234,6 +234,8 @@ function UI_Game:click_pauseButton()
         UI_GamePause_NestDungeon(stage_id, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         UI_GamePause_SecretDungeon(stage_id, start_cb, end_cb)
+    elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        UI_GamePause_AncientTower(stage_id, start_cb, end_cb)
     else
         UI_GamePause(stage_id, start_cb, end_cb)
     end
@@ -538,11 +540,19 @@ end
 -- function noticeBroadcast
 -------------------------------------
 function UI_Game:noticeBroadcast(msg, duration)
-    --cclog('UI_Game:noticeBroadcast msg = ' .. msg)
+    local vars = self.vars
     local duration = duration or 2
 
-    self.vars['noticeBroadcastLabel']:setString(msg)
-    self.vars['noticeBroadcastNode']:setVisible(true)
-    self.vars['noticeBroadcastNode']:stopAllActions()
-    self.vars['noticeBroadcastNode']:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create()))
+    vars['noticeBroadcastLabel']:setString(msg)
+    vars['noticeBroadcastNode']:setVisible(true)
+    vars['noticeBroadcastNode']:stopAllActions()
+    vars['noticeBroadcastNode']:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create()))
+
+    local line_count = vars['noticeBroadcastLabel'].m_lineCount
+    if (line_count > 1) then
+        local size = cc.size(vars['noticeBroadcastNode']:getNormalSize())
+        size['height'] = 50
+        vars['noticeBroadcastNode']:setNormalSize(size)
+        vars['noticeBroadcastNode']:setUpdateChildrenTransform()
+    end
 end

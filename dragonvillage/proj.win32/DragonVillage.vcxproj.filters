@@ -2274,6 +2274,9 @@
     <None Include="..\src\UI_ChatIgnoreListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_GamePause_AncientTower.lua">
+      <Filter>lua\UI</Filter>
+    </None>
     <None Include="..\src\SkillRush.lua">
       <Filter>lua\src</Filter>
     </None>

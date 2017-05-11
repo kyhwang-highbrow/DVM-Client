@@ -34,7 +34,7 @@ function ServerData_Event:getEventPopupTabList()
 
     -- 이벤트 교환소(현재는 상시 적용)
     for i, v in ipairs(g_exchangeData.m_lExchange) do
-        local event_popup_tab = StructEventPopupTab('exchange', v['group_type'])
+        local event_popup_tab = StructEventPopupTab('exchange', v['group_type'], v['t_name'])
         item_list[event_popup_tab.m_type] = event_popup_tab
         event_popup_tab.m_userData = v
         event_popup_tab.m_hasNoti = false
