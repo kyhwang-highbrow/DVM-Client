@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_MonsterCard
