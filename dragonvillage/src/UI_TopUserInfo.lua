@@ -312,6 +312,7 @@ end
 -- function chatBroadcast
 -------------------------------------
 function UI_TopUserInfo:chatBroadcast(t_data)
+    local vars = self.vars
     --ccdump(t_data)
 
     local msg = t_data['message']
@@ -324,4 +325,15 @@ function UI_TopUserInfo:chatBroadcast(t_data)
     self.vars['chatBroadcastNode']:stopAllActions()
     self.vars['chatBroadcastNode']:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.Hide:create()))
     --cclog(rich_str)
+
+    -- 리치텍스트의 가로 길이를 얻어옴
+    local label_width = self.vars['chatBroadcastLabel']:getStringWidth()
+
+    -- scale9sprite의 크기를 정함 (리치텍스트의 가로 길이를 참고해서)
+    local size = cc.size(vars['chatBroadcastNode']:getNormalSize())
+    size['width'] = math_max(label_width + 10, 30) -- 말풍선은 최소 30픽셀
+    vars['chatBroadcastNode']:setNormalSize(size)
+
+    -- scale9sprite의 setNormalSize를 했을 때 자식들의 layout이 제대로 반영되지 않아서 강제로 호출
+    self.vars['chatBroadcastNode']:setUpdateChildrenTransform()
 end

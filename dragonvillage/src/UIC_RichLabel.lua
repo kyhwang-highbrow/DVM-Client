@@ -575,6 +575,10 @@ end
 -- function getStringWidth
 -------------------------------------
 function UIC_RichLabel:getStringWidth()
+    if self.m_bDirty then
+        self:update(0)
+    end
+
     return self.m_contentWidth
 end
 
@@ -662,4 +666,3 @@ function UIC_RichLabel_Sample(parent_node)
     -- m_node맴버 변수를 addChild
     parent_node:addChild(rich_label.m_node)
 end
-
