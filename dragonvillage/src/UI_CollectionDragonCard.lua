@@ -58,7 +58,6 @@ function UI_CollectionDragonCard:initUI(t_item_data)
         local t_data = {['evolution'] = evolution}
         local card = MakeSimpleDragonCard(did, t_data)
         card.root:setSwallowTouch(false)
-        card.vars['starIcon']:setVisible(false)
         vars['dragonNode' .. i]:addChild(card.root)
 
         -- 버튼 터치

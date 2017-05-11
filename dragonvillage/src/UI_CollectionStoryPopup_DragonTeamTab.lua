@@ -68,7 +68,6 @@ function UI_CollectionStoryPopup_DragonTeamTab:init_tableViewDragonList()
     -- 생성 콜백
     local function make_func(data)
         local ui = MakeSimpleDragonCard(data['did'])
-        ui.vars['starIcon']:setVisible(false)
 
         if (not g_collectionData:isExist(data['did'])) then
             ui:setShadowSpriteVisible(true)

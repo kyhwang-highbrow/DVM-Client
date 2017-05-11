@@ -58,7 +58,6 @@ function UI_CollectionUnitListItem:initUI()
 
         local card = MakeSimpleDragonCard(did)
         card.root:setSwallowTouch(false)
-        card.vars['starIcon']:setVisible(false)
         vars['dragonNode' .. i]:addChild(card.root)
 
         self.m_lDragonCard[i] = card
