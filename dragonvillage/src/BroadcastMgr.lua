@@ -77,6 +77,8 @@ function BroadcastMgr:update(dt)
             local data = self.m_tMessage[1]
             if (self.m_remainDelayTime <= 0) then
 		        local msg = self:makeMessage(data)
+                if (not msg) then return end
+
                 local alive_time = self:getAliveTime(data)
                 local b = false
                 
@@ -160,7 +162,7 @@ end
 
 -------------------------------------
 -- function getAliveTime
--- @brief 메세지 노출 시간 지정
+-- @brief 메세지 노출 시간
 -------------------------------------
 function BroadcastMgr:getAliveTime(t_data)
     -- 다음 메세지가 있을 경우 짧게 유지
@@ -226,8 +228,13 @@ function BroadcastMgr:makeMessage(msg_info)
 
         elseif (value == 'uopt') then
             -- 옵션( def_add;17 )
-            local l_str = seperate(data['uopt'], ';')
+            local l_str = pl.stringx.split(data['uopt'], ';')
             local opiton_type = l_str[1]
+
+            if (not opiton_type) then
+                cclog('Invalid Broadcast Data : ' .. luadump(data))
+                return
+            end
 
             t_value[i] = TableOption():getValue(opiton_type, 't_prefix')
 
