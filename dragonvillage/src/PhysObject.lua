@@ -138,7 +138,10 @@ end
 -- @return x, y
 -------------------------------------
 function PhysObject:getCenterPos()
-    return self.pos.x + self.body.x, self.pos.y + self.body.y
+    local body_list = self:getBodyList()
+    local body = body_list[1]
+
+    return self.pos.x + body.x, self.pos.y + body.y
 end
 
 -------------------------------------
