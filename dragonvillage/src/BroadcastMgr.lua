@@ -238,7 +238,7 @@ function BroadcastMgr:makeMessage(msg_info)
 
             if (not opiton_type) then
                 cclog('Invalid Broadcast Data : ' .. luadump(data))
-                break
+                return
             end
 
             t_value[i] = TableOption():getValue(opiton_type, 't_prefix')
