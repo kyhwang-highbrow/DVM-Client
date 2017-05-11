@@ -115,7 +115,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '이 용과 싸우는게 아닙니다';
+					text = '최강이 되기 위한 도전을 해보세요!';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -139,8 +139,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 267.000000;
-					y = 92.000000;
+					x = 167.000000;
+					y = 253.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -163,13 +163,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -294.000000;
-				y = 0.000000;
+				x = -200.000000;
+				y = -11.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 576;
-				height = 288;
+				width = 386;
+				height = 608;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -178,7 +178,7 @@
 				visible = true;
 				lua_name = 'colosseumBtn';
 				enable = true;
-				normal = 'ui/btn/battle_dragon_01.png';
+				normal = 'ui/btn/battle_colosseum_01.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -245,7 +245,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '놀랍게도 고대의탑 입니다';
+					text = '탑을 올라가 보세요!';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -269,8 +269,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 267.000000;
-					y = 92.000000;
+					x = 167.000000;
+					y = 253.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -293,13 +293,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 294.000000;
-				y = 0.000000;
+				x = 200.000000;
+				y = -11.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 576;
-				height = 288;
+				width = 386;
+				height = 608;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -308,7 +308,7 @@
 				visible = true;
 				lua_name = 'towerBtn';
 				enable = true;
-				normal = 'ui/btn/battle_tree_01.png';
+				normal = 'ui/btn/battle_tower_01.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
