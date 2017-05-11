@@ -13,7 +13,7 @@ UI_MailListItem = class(PARENT, {
 function UI_MailListItem:init(t_data)
 	-- 멤버 변수
 	self.m_mailData = t_data
-
+	ccdump(t_data)
 	-- UI load
 	self:load('mail_item.ui')
 
@@ -79,19 +79,21 @@ end
 -- function makePrettyData
 -------------------------------------
 function UI_MailListItem:makePrettyData(t_mail_data)
-	local msg = t_mail_data['msg']
 	local t_mail_context = t_mail_data['msg_content']['data']
 	local event_type = t_mail_data['msg_content']['event']
 
+	local t_mail_text = MailHelper:getMailText(event_type, t_mail_context)
+
 	-- 메일 제목
-	local mail_title = t_mail_context['title']
+	local mail_title = t_mail_text['title']
+	if (mail_title == '') then
+		mail_title = t_mail_context['title']
+	end
 
 	-- 메일 본문
-	local mail_context
-	if (msg == '') then
-		mail_context = t_mail_context['text']
-	else
-		mail_context = msg
+	local mail_context = t_mail_text['context']
+	if (mail_context == '') then
+		mail_context = t_mail_data['msg']
 	end
 
 	return {title = mail_title, context = mail_context}
