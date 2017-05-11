@@ -74,10 +74,15 @@ function BroadcastMgr:update(dt)
 
         -- 일반 메세지 출력
         if (self.m_tMessage[1]) then
-            local data = self.m_tMessage[1]
             if (self.m_remainDelayTime <= 0) then
+                local data = self.m_tMessage[1]
 		        local msg = self:makeMessage(data)
-                if (not msg) then return end
+
+                -- 정상적인 메세지가 아닐 경우 패스시킴
+                if (not msg) then
+                    table.remove(self.m_tMessage, 1)
+                    return
+                end
 
                 local alive_time = self:getAliveTime(data)
                 local b = false
@@ -233,7 +238,7 @@ function BroadcastMgr:makeMessage(msg_info)
 
             if (not opiton_type) then
                 cclog('Invalid Broadcast Data : ' .. luadump(data))
-                return
+                break
             end
 
             t_value[i] = TableOption():getValue(opiton_type, 't_prefix')

@@ -128,19 +128,11 @@ function TableExchange:makePriceIconRes(price_type)
     elseif (price_type == 'lactea') then
         res = 'res/ui/icon/inbox/inbox_lactea.png'
 
-    elseif (price_type == 'lactea') then
-        res = 'res/ui/icon/inbox/inbox_lactea.png'
-
-    elseif (price_type == 'lactea') then
-        res = 'res/ui/icon/inbox/inbox_lactea.png'
-
-    elseif (price_type == 'capsule') then
-        res = 'res/ui/icon/inbox/inbox_essence.png'
-
     else
-        --cclog('price_type : ' .. price_type)
-    end
+        res = string.format('res/ui/icon/inbox/inbox_%s.png', price_type)
 
+    end
+    
     return res
 end
 
