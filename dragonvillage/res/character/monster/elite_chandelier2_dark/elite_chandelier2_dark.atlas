@@ -6,161 +6,161 @@ filter: Linear,Linear
 repeat: none
 elite_chandelier2_dark_arm_01
   rotate: false
-  xy: 1279, 79
+  xy: 1277, 77
   size: 67, 62
   orig: 67, 62
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_arm_02
   rotate: false
-  xy: 1348, 79
+  xy: 1346, 77
   size: 67, 62
   orig: 67, 62
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_body_01
   rotate: false
-  xy: 2, 2
+  xy: 0, 0
   size: 200, 233
   orig: 200, 233
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_body_02
   rotate: true
-  xy: 1846, 154
+  xy: 1844, 152
   size: 81, 101
   orig: 81, 101
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_body_03
   rotate: false
-  xy: 584, 37
+  xy: 582, 35
   size: 143, 198
   orig: 143, 198
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_body_04
   rotate: false
-  xy: 729, 37
+  xy: 727, 35
   size: 143, 198
   orig: 143, 198
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_body_05
   rotate: false
-  xy: 874, 37
+  xy: 872, 35
   size: 143, 198
   orig: 143, 198
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_body_06
   rotate: false
-  xy: 1019, 37
+  xy: 1017, 35
   size: 143, 198
   orig: 143, 198
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_effect_01
   rotate: false
-  xy: 204, 2
+  xy: 202, 0
   size: 200, 233
   orig: 200, 233
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_effect_02
   rotate: false
-  xy: 1417, 79
+  xy: 1415, 77
   size: 67, 62
   orig: 67, 62
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_effect_03
   rotate: false
-  xy: 1486, 79
+  xy: 1484, 77
   size: 67, 62
   orig: 67, 62
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_eye_01
   rotate: false
-  xy: 406, 6
+  xy: 404, 4
   size: 56, 25
   orig: 56, 25
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_eye_02
   rotate: false
-  xy: 1164, 49
+  xy: 1162, 47
   size: 56, 25
   orig: 56, 25
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_hand_01
   rotate: false
-  xy: 1279, 143
+  xy: 1277, 141
   size: 112, 92
   orig: 112, 92
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_hand_02
   rotate: false
-  xy: 1393, 143
+  xy: 1391, 141
   size: 112, 92
   orig: 112, 92
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_hand_03
   rotate: false
-  xy: 1507, 143
+  xy: 1505, 141
   size: 112, 92
   orig: 112, 92
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_head_01
   rotate: false
-  xy: 1949, 155
+  xy: 1947, 153
   size: 68, 80
   orig: 68, 80
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_head_02
   rotate: true
-  xy: 1621, 160
+  xy: 1619, 158
   size: 75, 115
   orig: 75, 115
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_head_03
   rotate: true
-  xy: 1738, 160
+  xy: 1736, 158
   size: 75, 106
   orig: 75, 106
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_head_04
   rotate: false
-  xy: 406, 33
+  xy: 404, 31
   size: 176, 202
   orig: 176, 202
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_head_05
   rotate: false
-  xy: 1164, 76
+  xy: 1162, 74
   size: 113, 159
   orig: 113, 159
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_mouth_01
   rotate: false
-  xy: 1555, 101
+  xy: 1553, 99
   size: 34, 40
   orig: 34, 40
   offset: 0, 0
   index: -1
 elite_chandelier2_dark_mouth_02
   rotate: false
-  xy: 1591, 101
+  xy: 1589, 99
   size: 34, 40
   orig: 34, 40
   offset: 0, 0
