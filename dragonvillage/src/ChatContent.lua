@@ -134,7 +134,18 @@ end
 -- @breif 길드, 레벨, 닉네임
 -------------------------------------
 function ChatContent:getUserInfoStr()
-    return self['nickname'] or ''
+    if (self:getContentCategory() == 'whisper') and (self:getContentType() == 'my_msg') then
+        local nickname = self['to']
+        local level = self['to_level']
+        local info_str = Str('Lv.{1} {2}', level, nickname)
+        return info_str
+    end
+
+    
+    local nickname = self['nickname']
+    local level = self['level']
+    local info_str = Str('Lv.{1} {2}', level, nickname)
+    return info_str
 end
 
 -------------------------------------
