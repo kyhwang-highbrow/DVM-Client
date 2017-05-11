@@ -43,6 +43,15 @@ end
 function UI_ChatPopup:initUI()
     local vars = self.vars
     
+    do -- 채팅 EditBox에서 입력 완료 후 바로 전송하기
+        local function editBoxTextEventHandle(strEventName,pSender)
+            if (strEventName == "return") then
+                self:click_enterBtn()
+            end
+        end
+        vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+    end
+
     --[[
     local list_table_node = vars['chatNode']
     local size = list_table_node:getContentSize()
@@ -300,4 +309,5 @@ end
 function UI_ChatPopup:setWhisperUser(nickname)
     self:setTab('whisper_chat')
     self.m_mTabUI['whisper_chat']:setPeerUserNickname(nickname)
+    self.m_mTabUI['whisper_chat'].vars['editBox_whisper']:openKeyboard()
 end

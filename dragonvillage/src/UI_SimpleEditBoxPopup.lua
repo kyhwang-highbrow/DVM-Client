@@ -62,9 +62,16 @@ function UI_SimpleEditBoxPopup:initUI()
     -- changed
     -- ended
     -- return
-    vars['editBox']:registerScriptEditBoxHandler(function(event)
-        --cclog('### event ' .. event)
-    end)
+    do -- 채팅 EditBox에서 입력 완료 후 바로 전송하기
+        local function editBoxTextEventHandle(strEventName,pSender)
+            if (strEventName == "return") then
+                self:click_okBtn()
+            end
+        end
+        vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+    end
+
+
 
     --vars['editBox']:openKeyboard()
 

@@ -21,6 +21,15 @@ function UI_ChatPopup_WhisperTab:init(ui)
 
     vars['enterBtn_whisper']:registerScriptTapHandler(function() self:click_enterBtn() end)
     vars['whisperSetUserBtn']:registerScriptTapHandler(function() self:click_whisperSetUserBtn() end)
+
+    do -- 채팅 EditBox에서 입력 완료 후 바로 전송하기
+        local function editBoxTextEventHandle(strEventName,pSender)
+            if (strEventName == "return") then
+                self:click_enterBtn()
+            end
+        end
+        vars['editBox_whisper']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+    end
 end
 
 -------------------------------------
