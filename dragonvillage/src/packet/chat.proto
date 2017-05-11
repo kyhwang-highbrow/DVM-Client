@@ -4,10 +4,6 @@ option java_outer_classname = "Chat";
 
 message CChatNormalMsg {
 	required string	message = 1;
-}
-
-message CChatWhisperMsg {
-	required string	message = 1;
 	required string nickname = 2;
 }
 

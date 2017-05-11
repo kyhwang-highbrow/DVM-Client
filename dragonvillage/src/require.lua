@@ -118,6 +118,7 @@ local t_module = {
     'LevelupDirector_GameResult',
     'MapManager',
     'LocalData',
+    'ChatIgnoreList',
     'UserData',
 	'ConstantData',
     'CollisionHelper',
@@ -723,6 +724,7 @@ local t_module = {
     'UI_ChatListItem_msg',
     'UI_ChatListItem_myMsg',
     'UI_ChatListItem_systemMsg',
+    'UI_ChatIgnoreListItem',
 
 	-- UI : 설정
 	'UI_Setting',

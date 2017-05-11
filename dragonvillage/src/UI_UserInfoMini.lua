@@ -60,6 +60,7 @@ function UI_UserInfoMini:initButton(t_user_info)
     end
 
     vars['whisperBtn']:registerScriptTapHandler(function() self:click_whisperBtn() end)
+    vars['blockBtn']:registerScriptTapHandler(function() self:click_blockBtn() end)
 end
 
 -------------------------------------
@@ -105,6 +106,18 @@ function UI_UserInfoMini:click_whisperBtn()
    g_chatManager:openChatPopup_whisper(nickname)
    self:close()
 end
+
+-------------------------------------
+-- function click_blockBtn
+-- @brief
+-------------------------------------
+function UI_UserInfoMini:click_blockBtn()
+    local uid = self.m_structUserInfo:getUid()
+    local nickname = self.m_structUserInfo:getNickname()
+    g_chatIgnoreList:addIgnore(uid, nickname)
+end
+
+
 
 
 

@@ -47,6 +47,7 @@ function ChatManager:initChatClient()
     local localeCode = 'KR'
     local uid = g_userData:get('uid')
     local nick = g_userData:get('nick')
+    local level = g_userData:get('lv')
 
     -- 드래곤 정보 (일단 did만)
     local leader_dragon = g_dragonsData:getLeaderDragon()
@@ -56,7 +57,7 @@ function ChatManager:initChatClient()
     end
 
     -- 채팅 socket의 상태 변화 콜백 등록
-    self.m_chatClient = ChatClient(localeCode, uid, nick, did)
+    self.m_chatClient = ChatClient(localeCode, uid, nick, did, level)
     self.m_chatClient:setChangeStatusCB(function(status) self:onChangeStatus(status) end)
 
     self.m_chatClient.m_changedMsgQueueCb = function(msg) self:msgQueueCB(msg) end
@@ -90,7 +91,12 @@ end
 function ChatManager:msgQueueCB(msg)
     --cclog('# ChatManager:msgQueueCB(msg) ' .. msg['message'])
 
-
+    do
+        if (msg['content_category'] == 'whisper') and (msg['status'] ~= 0) then
+            UIManager:toastNotificationRed(Str('귓속말 전송에 실패하였습니다.'))
+            return
+        end
+    end
 
     local chat_content = ChatContent(msg)
 
@@ -99,7 +105,8 @@ function ChatManager:msgQueueCB(msg)
     end
 
     local uid = g_userData:get('uid')
-    if (chat_content['uid'] == uid) then
+
+    if (chat_content['uid'] == uid) or (chat_content['nickname'] == self.m_chatClient.m_nickname) then
         chat_content:setContentType('my_msg')
     else
         chat_content:setContentType('msg')

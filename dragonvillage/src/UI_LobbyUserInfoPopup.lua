@@ -51,8 +51,10 @@ function UI_LobbyUserInfoPopup:initButton(t_user_info)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(t_user_info) end)
 
+    local uid = t_user_info['uid']
     local nickname = t_user_info['nick']
     vars['whisperBtn']:registerScriptTapHandler(function() self:click_whisperBtn(nickname) end)
+    vars['blockBtn']:registerScriptTapHandler(function() self:click_blockBtn(uid, nickname) end)
 end
 
 -------------------------------------
@@ -94,6 +96,14 @@ end
 function UI_LobbyUserInfoPopup:click_whisperBtn(nickname)
    g_chatManager:openChatPopup_whisper(nickname)
    self:close()
+end
+
+-------------------------------------
+-- function click_blockBtn
+-- @brief
+-------------------------------------
+function UI_LobbyUserInfoPopup:click_blockBtn(uid, nickname)
+    g_chatIgnoreList:addIgnore(uid, nickname)
 end
 
 -------------------------------------

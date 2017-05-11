@@ -16,10 +16,19 @@ ChatContent = class({
         -- 'msg' 일반 메세지 (다른 사람들 메세지)
 
         nickname = '',
+        level = 'number',
         guild = '',
         uid = '',
         message = '',
         did = '',
+
+        -- 귓속말에서 사용
+        to = '',
+        to_did = '',
+        to_level = 'number',
+
+        -- 공통
+        status = '',
 
         m_dragonID = '',
         m_dragonEvolution = '',

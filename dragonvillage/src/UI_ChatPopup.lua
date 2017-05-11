@@ -73,6 +73,7 @@ function UI_ChatPopup:initButton()
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end)
+    vars['blockListBtn']:registerScriptTapHandler(function() self:click_blockListBtn() end)
 end
 
 -------------------------------------
@@ -110,6 +111,54 @@ function UI_ChatPopup:click_enterBtn()
     end
 end
 
+-------------------------------------
+-- function click_blockListBtn
+-------------------------------------
+function UI_ChatPopup:click_blockListBtn()
+    local visible = (not self.vars['blockNode']:isVisible())
+    self.vars['blockNode']:setVisible(visible)
+
+    if visible then
+        self:refresh_blockUI()
+    end
+end
+
+-------------------------------------
+-- function refresh_blockUI
+-------------------------------------
+function UI_ChatPopup:refresh_blockUI()
+    local vars = self.vars
+
+    local str = Str('차단 목록 ({1}/30)', g_chatIgnoreList:getIgnoreCount())
+    vars['blockListLabel']:setString(str)
+
+    do
+        local node = vars['blockListNode']
+        node:removeAllChildren()
+
+        local l_item_list = g_chatIgnoreList:getIgnoreList()
+        local table_view
+
+        -- 생성 콜백
+        local function create_func(ui, data)
+            ui.vars['cancelBtn']:registerScriptTapHandler(function()
+                    local uid = data['uid']
+                    local nickname = data['nickname']
+                    g_chatIgnoreList:removeIgnore(uid, nickname)
+
+                    table_view:delItem(uid)
+                end)
+        end
+
+        -- 테이블 뷰 인스턴스 생성
+        table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(254, 100 + 3)
+        table_view:setCellUIClass(UI_ChatIgnoreListItem, create_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(l_item_list)
+
+    end
+end
 
 -------------------------------------
 -- function msgQueueCB
@@ -170,6 +219,7 @@ end
 -- function onDestroyUI
 -------------------------------------
 function UI_ChatPopup:onDestroyUI()
+    self.vars['blockNode']:setVisible(false)
 end
 
 -------------------------------------

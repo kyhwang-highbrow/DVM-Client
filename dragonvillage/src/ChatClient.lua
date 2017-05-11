@@ -21,6 +21,7 @@ ChatClient = class({
     m_uid = '',
     m_nickname = '',
     m_dragonInfo = '',
+    m_level = 'number',
 
     -- ChatChannel에 있던 변수들
     m_status = '',
@@ -55,7 +56,7 @@ ChatClient = class({
 -- function init
 -- @brief 생성자
 -------------------------------------
-function ChatClient:init(localeCode, uid, nickname, did)
+function ChatClient:init(localeCode, uid, nickname, did, level)
     do -- 변수 초기화
         self.m_status = nil
         self.m_sendCounter = nil
@@ -88,6 +89,11 @@ function ChatClient:init(localeCode, uid, nickname, did)
     ip = 'dv-test.perplelab.com'
     local port = '3927'
     port = '9013'
+
+    -- 원기님 로컬 테스트 채팅 서버
+    --local ip = '192.168.1.42'
+    --local port = '9013'
+
     --self.m_socket = SocketTCP(Network:getChatServerIP(), Network:getChatServerPort(), true)
     self.m_socket = SocketTCP(ip, port, true)
     self.m_socket.dispatchEvent = function(socket, t) return self:dispatchEvent(socket, t) end
@@ -98,6 +104,7 @@ function ChatClient:init(localeCode, uid, nickname, did)
     self.m_uid = uid
     self.m_nickname = nickname
     self.m_dragonInfo = did
+    self.m_level = level or 1
 end
 
 -------------------------------------
@@ -151,7 +158,9 @@ function ChatClient:dispatchEvent(_socket, t)
         return 0
 
 	elseif (name == SocketTCP.EVENT_DATA) then
+        
         local msg = self.m_protocol.ServerMessage():Parse(t['data'])
+        --ccdump(msg)
         cclogf('got pcode=%s', msg['pcode'])
         if (msg['pcode'] == 'S_LOGIN_RES') then
             local r = self.m_session.SLoginRes():Parse(msg['payload'])
@@ -281,6 +290,7 @@ function ChatClient:requestLogin()
     p['uid'] = self.m_uid
 	p['nickname'] = self.m_nickname
     p['did'] = self.m_dragonInfo
+    p['level'] = self.m_level
 
     p['sessionKey'] = ''
     --p.recvCounter = nil
@@ -311,6 +321,7 @@ function ChatClient:sendNormalMsg(msg)
 
     local p = self.m_chat.CChatNormalMsg()
     p['message'] = msg
+    p['nickname'] = ''
     self:write(self.m_Protocol.C_CHAT_NORMAL_MSG, p)
     return true
 end
@@ -324,7 +335,7 @@ function ChatClient:sendWhisperMsg(peer_nickname, msg)
         return false
     end
 
-    local p = self.m_chat.CChatWhisperMsg()
+    local p = self.m_chat.CChatNormalMsg()
     p['message'] = msg
     p['nickname'] = peer_nickname
     self:write(self.m_Protocol.C_CHAT_WHISPER_MSG, p)
