@@ -137,7 +137,7 @@ function ChatContent:getUserInfoStr()
     if (self:getContentCategory() == 'whisper') and (self:getContentType() == 'my_msg') then
         local nickname = self['to']
         local level = self['to_level']
-        local info_str = Str('Lv.{1} {2}', level, nickname)
+        local info_str = Str('Lv.{1} {2} {@C}◀', level, nickname)
         return info_str
     end
 
