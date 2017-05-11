@@ -488,6 +488,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         
 		-- 스킬 추가 공격력 적용
         atk_dmg = atk_dmg + attack_activity_carrier:getAbsAttack()
+
+        -- 드래그 스킬 추가 공격력 적용
+        if (attack_type == 'active') then
+            local drag_dmg_rate = attack_activity_carrier:getStat('drag_dmg') / 100
+            local drag_dmg = atk_dmg * drag_dmg_rate
+            atk_dmg = atk_dmg + drag_dmg
+        end
 		
 		-- 방어 무시 체크
 		if (attack_activity_carrier:isIgnoreDef()) then 
@@ -2152,6 +2159,21 @@ end
 -------------------------------------
 function Character:setImmuneSE(b)
 	self.m_isImmuneSE = b
+end
+
+-------------------------------------
+-- function isImmuneSE
+-------------------------------------
+function Character:isImmuneSE()
+	if (self.m_isImmuneSE) then
+        return true
+    end
+
+    if (self:getStat('debuff_time') <= -100) then
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------

@@ -538,7 +538,7 @@ end
 -- function noticeBroadcast
 -------------------------------------
 function UI_Game:noticeBroadcast(msg, duration)
-    cclog('UI_Game:noticeBroadcast msg = ' .. msg)
+    --cclog('UI_Game:noticeBroadcast msg = ' .. msg)
     local duration = duration or 2
 
     self.vars['noticeBroadcastLabel']:setString(msg)

@@ -24,6 +24,12 @@ table.addList(L_STATUS_TYPE, {
         'drag_cool',    -- 드래그 스킬 쿨타임 +{1} 감소
         'cool_actu',    -- 쿨타임 스킬 시간 +{1}%
 
+        -- 스테이지 버프로 추가된 능력치
+        'hp_drain',         -- 공격 명중시 피해량의 +{1}% 만큼 HP회복
+        'drag_dmg',         -- 드래그 스킬 데미지 +{1}% 만큼 증가
+        'heal_power',       -- 회복 스킬 효과 +{1}% 증가
+        'debuff_time',      -- 해로운 효과 지속 시간 +{1}% 증가
+
 		-- 기획 이슈로 제거
         --'pass_chance',  -- 패시브 발동 +{1}% 
 
@@ -223,44 +229,16 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
 
     local buff_type = t_info['buff_type']
     local buff_value = t_info['buff_value']
+
+    local t_option = TableOption():get(buff_type)
+    if (not t_option) then return end
+
+    local status_type = t_option['status']
+    if (not status_type) then return end
+
+    self:addOption(t_option['action'], status_type, buff_value)
     
-    if (buff_type == '') then
-        
-    -- 공격력 상승
-    elseif (buff_type == 'atk_up') then
-        self:addBuffMulti('atk', buff_value)
-
-    -- 방어력 상승
-    elseif (buff_type == 'def_up') then
-        self:addBuffMulti('def', buff_value)
-        
-    -- 공격력 하락
-    elseif (buff_type == 'atk_down') then
-        self:addBuffMulti('atk', -buff_value)
-
-    -- 방어력 하락
-    elseif (buff_type == 'def_down') then
-        self:addBuffMulti('def', -buff_value)
-
-    -- 크리티컬 데미지 상승
-    elseif (buff_type == 'cri_dmg_up') then
-        self:addBuffMulti('cri_dmg', buff_value)
-
-    -- 크리티컬 데미지 하락
-    elseif (buff_type == 'cri_dmg_down') then
-        self:addBuffMulti('cri_dmg', -buff_value)
-
-    -- 체력 상승
-    elseif (buff_type == 'hp_up') then
-        self:addBuffMulti('hp', buff_value)
-
-    -- 체력 하락
-    elseif (buff_type == 'hp_down') then
-        self:addBuffMulti('hp', -buff_value)
-
-    else
-        error('buff_type : ' .. buff_type)
-    end
+    --cclog('applyStageBonus ' .. Str(t_option['t_desc'], math_abs(buff_value)))
 end
 
 -------------------------------------

@@ -175,7 +175,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 	end
 
 	-- 면역 효과
-	if (target_char.m_isImmuneSE) and self:isHarmful(status_effect_group) then 
+	if (target_char:isImmuneSE() and self:isHarmful(status_effect_group)) then 
 		return nil
 	end
 
@@ -383,9 +383,14 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     status_effect:initState()
     status_effect:changeState('start')
 
-	-- @EVENT 
+	-- 해로운 상태효과 걸렸을 시
 	if (StatusEffectHelper:isHarmful(status_effect)) then
-		-- 해로운 상태효과 걸렸을 시
+        -- 대상의 스텟으로 지속시간 변경
+        local add_time = status_effect.m_duration * (target_char:getStat('debuff_time') / 100)
+        status_effect.m_duration = status_effect.m_duration + add_time
+        status_effect.m_durationTimer = status_effect.m_duration
+        
+		-- @EVENT 
 		local t_event = clone(EVENT_STATUS_EFFECT)
 		t_event['char'] = target_char
 		t_event['status_effect_name'] = status_effect.m_statusEffectName

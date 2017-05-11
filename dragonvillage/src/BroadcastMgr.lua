@@ -52,6 +52,10 @@ end
 function BroadcastMgr:update(dt)
     local cur_time = os.time()
 
+    -- 유저 정보가 없을 경우 표시하지 않음
+    local uid = g_userData:get('uid')
+    if (not uid) then return end
+
     -- 공지 메세지 우선 확인
     if (self.m_tNotice[1]) then
         local data = self.m_tNotice[1]
@@ -155,6 +159,7 @@ function BroadcastMgr:requestMsg()
     end
 
 	local t_request = {}
+    local uid = g_userData:get('uid')
 
     t_request['url'] = '/users/broadcast'
     t_request['method'] = 'POST'
