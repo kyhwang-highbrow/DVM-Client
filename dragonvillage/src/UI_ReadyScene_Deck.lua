@@ -99,33 +99,48 @@ function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
         self:setSlot(idx, nil, skip_sort)
         self:setFocusDeckSlotEffect(idx)
     else
-        self:setSlot(self.m_focusDeckSlot, doid, skip_sort)
+        local ret = self:setSlot(self.m_focusDeckSlot, doid, skip_sort)
 
-		-- 감성 말풍선
-		local duration = idx and 0.5 * idx or 0.05
-		local ui = self.m_lSettedDragonCard[self.m_focusDeckSlot]
-		local delay_action = cc.DelayTime:create(duration)
-		local cb_action = cc.CallFunc:create(function()
-			if (ui) then
-				SensitivityHelper:doActionBubbleText(ui.root, t_dragon_data['did'], nil, 'party_in')
-			end
-		end)
-		local action = cc.Sequence:create(delay_action, cb_action)
-		ui.root:runAction(action)
-
-		-- 감성 쪼르기 성공했다면 삭제
-		local gift_dragon = g_dragonsData:getBattleGiftDragon()
-		if (gift_dragon) then
-			if (doid == gift_dragon['id']) and (self.m_uiReadyScene.vars['giftNode']) then
-				local fade_action = cc.FadeOut:create(1)
-				local hide = cc.Hide:create()
-				local sequence = cc.Sequence:create(fade_action, hide)
-				self.m_uiReadyScene.vars['giftNode']:runAction(sequence)
-			end
-		end
+        -- 드래곤이 선택되었을 경우
+        if (ret == true) then
+            local delay_rate = idx
+            self:dragonPick(t_dragon_data, self.m_focusDeckSlot, delay_rate)
+        end
     end
 
     self:refreshFocusDeckSlot()
+end
+
+-------------------------------------
+-- function dragonPick
+-------------------------------------
+function UI_ReadyScene_Deck:dragonPick(t_dragon_data, focus_deck_slot, delay_rate)
+	-- 감성 말풍선
+    local ui = self.m_lSettedDragonCard[focus_deck_slot]
+    if ui then
+	    local duration = delay_rate and (0.5 * delay_rate) or 0.05
+        local did = t_dragon_data['did']
+	    local delay_action = cc.DelayTime:create(duration)
+	    local cb_action = cc.CallFunc:create(function()
+                SensitivityHelper:doActionBubbleText(ui.root, did, nil, 'party_in')
+		    end)
+	    local action = cc.Sequence:create(delay_action, cb_action)
+	    ui.root:runAction(action)
+    end
+
+    -- 감성 쪼르기 대상 드래곤이 선택되었으면 giftNode 숨김
+    if self.m_uiReadyScene.vars['giftNode'] then
+        local doid = t_dragon_data['id']
+        local gift_dragon = g_dragonsData:getBattleGiftDragon()
+        if (gift_dragon and (doid == gift_dragon['id'])) then
+
+            -- 페이드 아웃 후 hide처리
+            local fade_action = cc.FadeOut:create(1)
+            local hide = cc.Hide:create()
+            local sequence = cc.Sequence:create(fade_action, hide)
+            self.m_uiReadyScene.vars['giftNode']:runAction(sequence)
+        end
+    end
 end
 
 -------------------------------------
@@ -363,7 +378,7 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
         end
         if (count >= TOTAL_POS_CNT) then
             UIManager:toastNotificationRed('5명까지 출전할 수 있습니다.')
-            return
+            return false
         end
     end
 
@@ -401,6 +416,7 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
     end
 
     self:setDirtyDeck()
+    return true
 end
 
 -------------------------------------
