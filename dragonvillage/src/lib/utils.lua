@@ -107,6 +107,19 @@ function table.listToMap(t, key)
 end
 
 -------------------------------------
+-- function MapToList
+-- @brief 맵 -> 리스트
+-------------------------------------
+function table.MapToList(t)
+    local t_ret = {}
+	for _, v in pairs(t) do
+		table.insert(t_ret, v)
+	end
+
+	return t_ret
+end
+
+-------------------------------------
 -- function changeKeyToNumber
 -- @brief json에서 key값이 숫자일 경우 string으로 저장되는 이슈
 -------------------------------------

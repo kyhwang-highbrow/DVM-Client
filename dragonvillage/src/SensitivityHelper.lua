@@ -46,30 +46,30 @@ function SensitivityHelper:getBubbleText(txt_str)
 	local node = cc.Node:create()
 	node:setDockPoint(CENTER_POINT)
 	node:setAnchorPoint(CENTER_POINT)
-	node:setCascadeOpacityEnabled(true)
 
 	-- 말풍선 프레임
-	local sprite = cc.Sprite:create('res/ui/frame/dragon_info_bubble.png')
+	local sprite = cc.Scale9Sprite:create('res/ui/frame/dragon_info_bubble.png')
 	sprite:setDockPoint(CENTER_POINT)
 	sprite:setAnchorPoint(CENTER_POINT)
 
 	-- 텍스트 (rich_label)
 	local rich_label = UIC_RichLabel()
-
-    -- label의 속성들
     rich_label:setString(txt_str)
     rich_label:setFontSize(24)
     rich_label:setDimension(370, 70)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
     rich_label:enableOutline(cc.c4b(0, 0, 0, 255), 2)
     rich_label:enableShadow(cc.c4b(0 , 0, 0, 255), cc.size(2, -2), 1)
-
 	rich_label:setDockPoint(CENTER_POINT)
     rich_label:setAnchorPoint(CENTER_POINT)
 	rich_label:setPosition(0, 12)
 
+	-- addChild
 	sprite:addChild(rich_label.m_node)
 	node:addChild(sprite)
+
+	-- fade out을 위해 설정
+	doAllChildren(node, function(node) node:setCascadeOpacityEnabled(true) end)
 
 	return node
 end
@@ -135,7 +135,6 @@ end
 
 -------------------------------------
 -- function doRepeatBubbleText
--- @public 현재는 드래곤 전용이다 추후에 사용처가 늘어나면 범용성을 갖추어야 할것
 -------------------------------------
 function SensitivityHelper:doRepeatBubbleText(parent, did, flv, case_type)
 	-- 상황별 문구 생성
@@ -150,7 +149,7 @@ function SensitivityHelper:doRepeatBubbleText(parent, did, flv, case_type)
 	parent:addChild(bubble_text, 2)
 
 	-- 상황별 변수 및 포지션 정리
-	bubble_text:setPosition(0, 100)
+	bubble_text:setPosition(0, 150)
 	
 	-- 띠용~ 후 페이드 아웃 하는 액션
 	local fade_in = cc.FadeIn:create(0.25)

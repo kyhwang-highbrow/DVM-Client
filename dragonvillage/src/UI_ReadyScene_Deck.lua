@@ -105,11 +105,25 @@ function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
 		local duration = idx and 0.5 * idx or 0.05
 		local ui = self.m_lSettedDragonCard[self.m_focusDeckSlot]
 		local delay_action = cc.DelayTime:create(duration)
-		local cb_action = cc.CallFunc:create(function() 
-			SensitivityHelper:doActionBubbleText(ui.root, t_dragon_data['did'], nil, 'party_in')
+		local cb_action = cc.CallFunc:create(function()
+			if (ui) then
+				SensitivityHelper:doActionBubbleText(ui.root, t_dragon_data['did'], nil, 'party_in')
+			end
 		end)
 		local action = cc.Sequence:create(delay_action, cb_action)
 		ui.root:runAction(action)
+
+		-- 감성 쪼르기 성공했다면 삭제
+		local gift_dragon = g_dragonsData:getBattleGiftDragon()
+		if (gift_dragon) and (self.m_uiReadyScene.vars['giftNode']) then
+			if (doid == gift_dragon['id']) then
+				local fade_action = cc.FadeOut:create(1)
+				local remove_action = cc.RemoveSelf:create()
+				local sequence = cc.Sequence:create(fade_action, remove_action)
+				self.m_uiReadyScene.vars['giftNode']:setCascadeOpacityEnabled(true)
+				self.m_uiReadyScene.vars['giftNode']:runAction(sequence)
+			end
+		end
     end
 
     self:refreshFocusDeckSlot()

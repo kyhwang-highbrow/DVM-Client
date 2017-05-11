@@ -280,11 +280,18 @@ function LobbyDragon:update_gift(dt)
 		-- 선물이 가능할 경우 하이라이팅 위한 연출
 		if (self.m_talkingTimer == 0) then
 			local duration = 0.4
-			local tcr = 150
 			local tint_action = cc.RepeatForever:create(
 				cc.Sequence:create(
-					cc.TintTo:create(duration, tcr, tcr, tcr),
-					cc.TintTo:create(duration, 255, 255, 255)
+					cc.TintTo:create(duration, 255, 255, 255),
+					cc.TintTo:create(duration, math_random(255), math_random(255), math_random(255)),
+					cc.TintTo:create(duration, 255, 255, 255),
+					cc.TintTo:create(duration, math_random(255), math_random(255), math_random(255)),
+					cc.TintTo:create(duration, 255, 255, 255),
+					cc.TintTo:create(duration, math_random(255), math_random(255), math_random(255)),
+					cc.TintTo:create(duration, 255, 255, 255),
+					cc.TintTo:create(duration, math_random(255), math_random(255), math_random(255)),
+					cc.TintTo:create(duration, 255, 255, 255),
+					cc.TintTo:create(duration, math_random(255), math_random(255), math_random(255))
 				)
 			)
 			self.m_animator:runAction(tint_action, LobbyDragon.TINT_ACTION)

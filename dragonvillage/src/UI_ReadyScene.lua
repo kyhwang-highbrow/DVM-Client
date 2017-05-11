@@ -42,6 +42,8 @@ function UI_ReadyScene:init(stage_id)
     self.m_readySceneDeck:setOnDeckChangeCB(function() self:refresh_combatPower() end)
 	self:init_sortMgr()
 
+	self:init_battleGift()
+
     -- 자동 전투 off
     g_autoPlaySetting:setAutoPlay(false)
 end
@@ -251,11 +253,21 @@ function UI_ReadyScene:init_dragonTableView()
     local list_table_node = self.vars['listView']
     list_table_node:removeAllChildren()
 
+	local gift_dragon = g_dragonsData:getBattleGiftDragon()
+
     local function create_func(ui, data)
         ui.root:setScale(DC_SCALE)	-- UI 테이블뷰 사이즈가 변경될 시 조정
 
         local unique_id = data['id']
         self:refresh_dragonCard(unique_id)
+
+		-- 감성 말풍선과 감성 쉐이크
+		if (gift_dragon) then
+			if (unique_id == gift_dragon['id']) then
+				local repeat_action = cca.buttonShakeAction(3)
+				ui.root:runAction(repeat_action)
+			end
+		end
 
         -- 드래곤 클릭 콜백 함수
         local function click_dragon_item()
@@ -282,6 +294,68 @@ function UI_ReadyScene:init_dragonTableView()
     table_view_td:setItemList(l_dragon_list)
 
     self.m_tableViewExt = table_view_td
+end
+
+-------------------------------------
+-- function init_battleGift
+-------------------------------------
+function UI_ReadyScene:init_battleGift()
+	-- 대상 드래곤
+	local gift_dragon = g_dragonsData:getBattleGiftDragon()
+
+	-- 없다면 탈출
+	if (not gift_dragon) then
+		return
+	end
+
+	-- 이미 덱에 있다면 탈출
+	for doid, v in pairs(self.m_readySceneDeck.m_tDeckMap) do
+		if (doid == gift_dragon['id']) then
+			return
+		end
+	end
+
+	-- UI에 감성 쪼르기 
+	if (gift_dragon) then
+		local did = gift_dragon['did']
+		local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, gift_dragon['evolution'])
+		self.vars['giftNode']:addChild(animator.m_node)
+		self.vars['giftNode']:setScale(0.7)
+		animator:setScale(0.5)
+		cca.pickMePickMe(animator)
+		SensitivityHelper:doRepeatBubbleText(self.vars['giftNode'], did, nil, 'party_in_induce')
+	end
+end
+
+-------------------------------------
+-- function checkChangeDeck
+-------------------------------------
+function UI_ReadyScene:checkBattleGift(cb_func)
+    -- 대상 드래곤
+	local gift_dragon = g_dragonsData:getBattleGiftDragon()
+	
+	-- 없다면 탈출
+	if (not gift_dragon) then
+		return
+	end
+	
+	-- 이미 덱에 있다면 선물을 요청한다~~
+	local has_gift = false
+	for doid, v in pairs(self.m_readySceneDeck.m_tDeckMap) do
+		if (doid == gift_dragon['id']) then
+			has_gift = true
+			break
+		end
+	end
+
+	-- 게임 스타트
+	if (has_gift) then
+		g_dragonsData:request_battleGift(gift_dragon['did'], cb_func)
+	else
+		if (cb_func) then
+			cb_func()
+		end
+	end
 end
 
 -------------------------------------
@@ -461,6 +535,7 @@ function UI_ReadyScene:click_startBtn()
         local check_deck
         local check_dragon_inven
         local check_item_inven
+		local check_battle_gift
         local start_game
 
         -- 덱 변경 유무 확인 후 저장
@@ -481,7 +556,12 @@ function UI_ReadyScene:click_startBtn()
             local function manage_func()
                 UI_Inventory()
             end
-            g_inventoryData:checkMaximumItems(start_game, manage_func)
+            g_inventoryData:checkMaximumItems(check_battle_gift, manage_func)
+        end
+
+		-- 아이템 인벤토리 확인(최대 갯수 초과 시 획득 못함)
+        check_battle_gift = function()
+            self:checkBattleGift(start_game)
         end
 
         -- 게임 시작
