@@ -652,6 +652,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 	end
 
+    -- 공격자 HP 흡수 처리
+    if (attacker_char) then
+        local hp_drain = attacker_char:getStat('hp_drain')
+        if (hp_drain > 0) then
+            local heal_abs = damage * (hp_drain / 100)
+			attacker_char:healAbs(attacker_char, heal_abs, true)
+        end
+    end
+
     -- 상태이상 체크
     if (not no_event) then
         StatusEffectHelper:statusEffectCheck_onHit(attack_activity_carrier, self)
@@ -1082,6 +1091,14 @@ end
 -------------------------------------
 function Character:healAbs(caster, hp, b_make_effect)
     local hp = math_floor(hp)
+
+    -- 시전자 회복 스킬 효과 증가 처리
+    if (caster) then
+         local heal_power = caster:getStat('heal_power')
+         if (heal_power ~= 0) then
+            hp = hp + math_floor(hp * (heal_power / 100))
+         end
+    end
 
     local heal = hp
     local heal_for_text = hp
