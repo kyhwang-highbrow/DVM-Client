@@ -191,7 +191,7 @@ function UI_ChatPopup:msgQueueCB(chat_content)
         end
 
     elseif (category == 'whisper') then
-        self.m_mTabUI['whisper_chat']:msgQueueCB(chat_content)
+        self.m_mTabUI['whisper']:msgQueueCB(chat_content)
     end
 end
 
@@ -236,17 +236,31 @@ end
 -------------------------------------
 function UI_ChatPopup:initTab()
     self.m_mTabUI = {}
-    self.m_mTabUI['whisper_chat'] = UI_ChatPopup_WhisperTab(self)
+    self.m_mTabUI['whisper'] = UI_ChatPopup_WhisperTab(self)
 
     local vars = self.vars
-    self:addTab('general_chat', vars['generalTabBtn'], vars['generalMenu'])
+    self:addTab('general', vars['generalTabBtn'], vars['generalMenu'])
     --self:addTab('guild_chat', vars['guildTabBtn'], vars['guildChatNode'])
-    self:addTab('whisper_chat', vars['whisperTapBtn'], vars['whisperMenu'])
-    self:setTab('general_chat')
+    self:addTab('whisper', vars['whisperTapBtn'], vars['whisperMenu'])
+    self:setTab('general')
 
     vars['guildTabBtn']:registerScriptTapHandler(function()
             UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
         end)
+end
+
+-------------------------------------
+-- function openPopup
+-------------------------------------
+function UI_ChatPopup:openPopup()
+    UIManager:open(self, UIManager.NORMAL)
+    self.closed = false
+
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction()
+
+    self:onChangeTab(self.m_currTab, false)
 end
 
 -------------------------------------
@@ -255,7 +269,14 @@ end
 function UI_ChatPopup:onChangeTab(tab, first)
     local vars = self.vars
 
-    if (tab == 'general_chat') then
+    -- 뱃지 UI
+    if (tab == 'general') then
+        g_chatManager:removeNoti('general')
+    elseif (tab == 'whisper') then
+        g_chatManager:removeNoti('whisper')
+    end
+
+    if (tab == 'general') then
         local channel_name = g_chatManager:getChannelName()
         local str = Str('채널 {1}', channel_name or '')
         vars['sortOrderLabel']:setString(str)
@@ -307,7 +328,22 @@ end
 -- function setWhisperUser
 -------------------------------------
 function UI_ChatPopup:setWhisperUser(nickname)
-    self:setTab('whisper_chat')
-    self.m_mTabUI['whisper_chat']:setPeerUserNickname(nickname)
-    self.m_mTabUI['whisper_chat'].vars['editBox_whisper']:openKeyboard()
+    self:setTab('whisper')
+    self.m_mTabUI['whisper']:setPeerUserNickname(nickname)
+    self.m_mTabUI['whisper'].vars['editBox_whisper']:openKeyboard()
+end
+
+-------------------------------------
+-- function isVisibleCategory
+-------------------------------------
+function UI_ChatPopup:isVisibleCategory(category)
+    if self.closed then
+        return false
+    end
+
+    if (self.m_currTab == category) then
+        return true
+    end
+
+    return false
 end

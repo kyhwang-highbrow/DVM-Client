@@ -350,6 +350,32 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -7.000000;
+					y = -2.000000;
+					dock_point = { 1.000000; 1.000000; };
+					anchor_point = { 1.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 26;
+					height = 26;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'generalNotiSprite';
+					file_name = 'ui/btn/notification.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = 74.000000;
@@ -414,6 +440,32 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -7.000000;
+					y = -2.000000;
+					dock_point = { 1.000000; 1.000000; };
+					anchor_point = { 1.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 26;
+					height = 26;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'guildNotiSprite';
+					file_name = 'ui/btn/notification.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = 178.000000;
@@ -477,6 +529,32 @@
 					shadow_opacity = 150;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
+				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -7.000000;
+					y = -2.000000;
+					dock_point = { 1.000000; 1.000000; };
+					anchor_point = { 1.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 26;
+					height = 26;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'whisperNotiSprite';
+					file_name = 'ui/btn/notification.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
 				};
 				type = 'Button';
 				ui_name = '';

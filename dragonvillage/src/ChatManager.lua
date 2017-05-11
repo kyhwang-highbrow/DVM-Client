@@ -13,6 +13,10 @@ ChatManager = class({
         m_normalChatContentList = '',
 
         m_chatPopup = '',
+
+        -- 노티 뱃지
+        m_notiWhisper = 'boolean',
+        m_notiGeneral = 'boolean',
     })
 
 -------------------------------------
@@ -104,6 +108,7 @@ function ChatManager:msgQueueCB(msg)
     end
 
     local chat_content = ChatContent(msg)
+    self:setNoti(chat_content)
 
     if (not chat_content.m_contentCategory) then
         chat_content:setContentCategory('general')
@@ -127,6 +132,59 @@ function ChatManager:msgQueueCB(msg)
 
     if self.m_chatPopup then
         self.m_chatPopup:msgQueueCB(chat_content)
+    end
+end
+
+-------------------------------------
+-- function setNoti
+-- @brief
+-------------------------------------
+function ChatManager:setNoti(chat_content)
+    local category = chat_content:getContentCategory()
+
+    if (not self.m_chatPopup) or (not self.m_chatPopup:isVisibleCategory(category)) then
+        if (category == 'general') then
+            self.m_notiGeneral = true
+            self:onChangeNotiInfo()
+
+        elseif (category == 'whisper') then
+            self.m_notiWhisper = true
+            self:onChangeNotiInfo()
+
+        end
+    end
+    
+end
+
+-------------------------------------
+-- function removeNoti
+-- @brief
+-------------------------------------
+function ChatManager:removeNoti(category)
+    if (category == 'general') then
+        self.m_notiGeneral = false
+        self:onChangeNotiInfo()
+
+    elseif (category == 'whisper') then
+        self.m_notiWhisper = false
+        self:onChangeNotiInfo()
+
+    end
+end
+
+-------------------------------------
+-- function onChangeNotiInfo
+-- @brief
+-------------------------------------
+function ChatManager:onChangeNotiInfo()
+    if g_topUserInfo then
+        g_topUserInfo.vars['chatNotiSprite']:setVisible(self.m_notiGeneral or self.m_notiWhisper)
+    end
+
+
+    if self.m_chatPopup then
+        self.m_chatPopup.vars['generalNotiSprite']:setVisible(self.m_notiGeneral)
+        self.m_chatPopup.vars['whisperNotiSprite']:setVisible(self.m_notiWhisper)
     end
 end
 
@@ -228,12 +286,7 @@ function ChatManager:openChatPopup()
         self.m_chatPopup:close()
     end
 
-    UIManager:open(self.m_chatPopup, UIManager.NORMAL)
-    self.m_chatPopup.closed = false
-
-    -- @UI_ACTION
-    self.m_chatPopup:doActionReset()
-    self.m_chatPopup:doAction()
+    self.m_chatPopup:openPopup()
 end
 
 -------------------------------------
