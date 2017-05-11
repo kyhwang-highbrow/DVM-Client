@@ -6,6 +6,8 @@ local PARENT = UIC_Node
 UIC_ChatView = class(PARENT, {
         m_scrollView = 'cc.ScrollView',
 
+        m_showdItemList = '',
+
         m_itemList = '',
         m_itemPositions = '',
         m_bDirtyPos = 'boolean',
@@ -22,6 +24,8 @@ function UIC_ChatView:init(node)
     local content_size = node:getContentSize()
     self:makeScrollView(content_size)
 
+
+    self.m_showdItemList = {}
     self.m_contentStack = {}
     self.m_itemList = {}
 end
@@ -78,7 +82,11 @@ end
 -------------------------------------
 function UIC_ChatView:update(dt)
     if (0 < #self.m_contentStack) then
-        for _,chat_content in ipairs(self.m_contentStack) do
+        local count = 0
+
+        while (count < 1) and self.m_contentStack[1] do
+            local chat_content = self.m_contentStack[1]
+
             local t_item = {}
             t_item['data'] = chat_content
 
@@ -95,9 +103,11 @@ function UIC_ChatView:update(dt)
             end
 
             
+            t_item['ui'].root:setVisible(false)
             t_item['ui'].root:setDockPoint(cc.p(0.5, 0))
             t_item['ui'].root:setAnchorPoint(cc.p(0.5, 0.5))
             t_item['ui'].root:setPositionX(0)
+            t_item['ui'].root:setSwallowTouch(false)
 
             table.insert(self.m_itemList, t_item)
 
@@ -106,12 +116,17 @@ function UIC_ChatView:update(dt)
             _container:addChild(t_item['ui'].root)
 
             self:setDirtyPos()
+
+            do
+                table.remove(self.m_contentStack, 1)
+                count = (count + 1)
+            end
         end
-        self.m_contentStack = {}
     end
 
     if self.m_bDirtyPos then
         self:updateContentList()
+        self:scrollViewDidScroll()
     end
 end
 
@@ -119,9 +134,55 @@ end
 -- function scrollViewDidScroll
 -------------------------------------
 function UIC_ChatView:scrollViewDidScroll()
-    --local _container = self.m_scrollView:getContainer()
-    --local x, y = _container:getPosition()
-    --cclog('x, y', x, y)
+    -- 현재 컨테이너의 위치를 얻어옴
+    local offset = self.m_scrollView:getContentOffset()
+    offset['x'] = offset['x'] * -1
+    offset['y'] = offset['y'] * -1
+
+    -- 뷰사이즈를 얻어옴
+    local viewSize = self.m_scrollView:getViewSize()
+
+    local startIdx = 1
+    local endIdx = 1
+
+    -- 보여질 아이템의 시작 idx
+    for i,_y in ipairs(self.m_itemPositions) do
+        -- +1의 값은 i인덱스 아이템의 높이임
+        local item_max_y = self.m_itemPositions[i + 1]
+
+        -- 마지막 index는 총 높이를 저장하기 위해 있으므로 +1값이 없을 수 있음
+        if item_max_y then
+            -- 아이템의 최대 높이보다 낮은 경우 시작 startIdx로 지정
+            if (offset['y'] <= item_max_y) then
+                startIdx = i
+                break
+            end
+        end
+    end
+
+    -- 보여질 아이템의 마지막 idx
+    local top_y = offset['y'] + viewSize['height']
+    for i,_y in ipairs(self.m_itemPositions) do
+        if (_y <= top_y) then
+            endIdx = i
+        end
+    end
+    endIdx = math_min(endIdx, #self.m_itemPositions - 1)
+
+    -- 기존에 보이던 item visible off
+    for i,item in ipairs(self.m_showdItemList) do
+        local ui = item['ui']
+        ui.root:setVisible(false)
+    end
+    
+    -- 새롭게 보여져야 할 item visible on
+    self.m_showdItemList = {}
+    for i=startIdx, endIdx do
+        local item = self.m_itemList[i]
+        local ui = item['ui']
+        ui.root:setVisible(true)
+        table.insert(self.m_showdItemList, item)
+    end
 end
 
 -------------------------------------

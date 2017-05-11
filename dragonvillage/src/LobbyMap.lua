@@ -102,6 +102,12 @@ end
 -- function onTouchBegan
 -------------------------------------
 function LobbyMap:onTouchBegan(touches, event)
+
+    -- 터치 처리가 되었을 경우 skip
+    if event:isStopped() or (even.isStoppedForMenu and event:isStoppedForMenu()) then
+        return false
+    end
+
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
 
