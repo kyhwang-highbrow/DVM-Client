@@ -87,6 +87,10 @@ end
 -------------------------------------
 function UI_ReadyScene:condition_battle_gift(a, b)
 	local gift_dragon = g_dragonsData:getBattleGiftDragon()
+	if (not gift_dragon) then
+		return nil
+	end
+
 	if (a['data']['id'] == gift_dragon['id']) then
 		return true
 
@@ -129,7 +133,8 @@ function UI_ReadyScene:init_sortMgr(stage_id)
 		end
 		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
 	end
-	do
+	if SensitivityHelper:isPassedBattleGiftSeenOnce() then
+		-- 최적화에 필요한것이 많음
 		local function cond(a, b)
 			return self:condition_battle_gift(a, b)
 		end
@@ -343,11 +348,13 @@ function UI_ReadyScene:init_dragonTableView()
         local unique_id = data['id']
         self:refresh_dragonCard(unique_id)
 
-		-- 감성 말풍선과 감성 쉐이크
+		-- 감성 쉐이크
 		if (gift_dragon) then
-			if (unique_id == gift_dragon['id']) then
-				local repeat_action = cca.buttonShakeAction(3)
-				ui.root:runAction(repeat_action)
+			if SensitivityHelper:isPassedBattleGiftSeenOnce() then
+				if (unique_id == gift_dragon['id']) then
+					local repeat_action = cca.buttonShakeAction(3)
+					ui.root:runAction(repeat_action)
+				end
 			end
 		end
 
@@ -396,6 +403,11 @@ function UI_ReadyScene:init_battleGift()
 			return
 		end
 	end
+	
+	-- 선물 드래곤 본 시간 : 24시간 이내라면 탈출
+	if not SensitivityHelper:isPassedBattleGiftSeenOnce() then
+		return
+	end
 
 	-- UI에 감성 쪼르기 
 	if (gift_dragon) then
@@ -408,6 +420,9 @@ function UI_ReadyScene:init_battleGift()
 		animator:setFlip(true)
 		cca.pickMePickMe(animator)
 		SensitivityHelper:doRepeatBubbleText(self.vars['giftNode'], did, nil, 'party_in_induce')
+
+		-- 현재 본 시간을 저장
+		g_localData:applyLocalData(Timer:getServerTime(), 'battle_gift_dragon_seen_at')
 	end
 end
 

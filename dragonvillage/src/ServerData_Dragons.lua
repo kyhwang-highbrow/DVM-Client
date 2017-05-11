@@ -806,14 +806,13 @@ function ServerData_Dragons:getBattleGiftDragon()
 
 	-- 지난 드래곤 선물 시간 체크
 	local last_gift_at = g_userData:get('dragon_gift_at')
-	local date = pl.Date()
 	local curr_time = Timer:getServerTime()
-	date:set(curr_time - (last_gift_at / 1000))
+	local gap_hour = (curr_time - (last_gift_at / 1000)) / 60 / 60
 	
 	-- n시간 이내라면 탈출
 	local regen_hour = g_constant:get('UI', 'BATTLE_GIFT_STD', 'REGEN_HOUR')
 
-	if (date:hour() < regen_hour) then
+	if (gap_hour < regen_hour) then
 		return
 	end
 
@@ -854,8 +853,8 @@ function ServerData_Dragons:getBattleGiftDragon()
 	for i, v in pairs(l_lv_check) do
 		local dragon_obj = self:getDragonDataFromUidRef(v['doid'])
 		local played_at = dragon_obj['played_at'] or 0
-		date:set(curr_time - (played_at/1000))
-		if (date:hour() > std_hour) then
+		local gap_hour = (curr_time - (played_at/1000)) / 60 / 60
+		if (gap_hour > std_hour) then
 			table.insert(l_time_check, v) 
 		end
 	end
@@ -869,6 +868,7 @@ function ServerData_Dragons:getBattleGiftDragon()
 	-- 랜덤으로 드래곤 추출
 	dragon = table.getRandom(l_time_check)
 
+	-- 선물 드래곤 저장
 	g_localData:applyLocalData(dragon['doid'], 'battle_gift_dragon')
 
 	return dragon
@@ -885,6 +885,9 @@ function ServerData_Dragons:request_battleGift(did, cb_func)
     local function success_cb(ret)
 		-- 로컬에 저장한 doid 삭제
 		g_localData:applyLocalData(nil, 'battle_gift_dragon')
+		-- 선물 드래곤 본 시간 삭제
+		g_localData:applyLocalData(nil, 'battle_gift_dragon_seen_at')
+
 		-- 선물 받을 수 있는 시간 갱신
 		g_userData:applyServerData(ret['dragon_gift_at'], 'dragon_gift_at')
 
