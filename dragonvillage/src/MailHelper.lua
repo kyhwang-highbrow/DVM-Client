@@ -7,7 +7,7 @@ function MailHelper:getMailText(event_type, t_data)
 	local title = ''
 	local context = ''
 
-	-- µå·¡°ïÀÇ ¼±¹°
+	-- ë“œë˜ê³¤ì˜ ì„ ë¬¼
 	if (event_type == 'dg') then
 		local did = t_data['did']
 		

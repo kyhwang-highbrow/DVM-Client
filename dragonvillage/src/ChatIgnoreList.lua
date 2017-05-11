@@ -96,7 +96,7 @@ function ChatIgnoreList:addIgnore(uid, nickname)
     self.m_rootTable[uid] = nickname
     self:saveChatIgnoreListFile()
 
-    UIManager:toastNotificationRed(Str('{1}´ÔÀÇ Ã¤ÆÃÀ» Â÷´ÜÇÏ¿´½À´Ï´Ù.', nickname))
+    UIManager:toastNotificationRed(Str('{1}ë‹˜ì˜ ì±„íŒ…ì„ ì°¨ë‹¨í•˜ì˜€ìŠµë‹ˆë‹¤.', nickname))
 end
 
 -------------------------------------
@@ -106,7 +106,7 @@ function ChatIgnoreList:removeIgnore(uid, nickname)
     self.m_rootTable[uid] = nil
     self:saveChatIgnoreListFile()
 
-    UIManager:toastNotificationRed(Str('{1}´ÔÀÇ Â÷´ÜÇØÁ¦ÇÏ¿´½À´Ï´Ù.', nickname))
+    UIManager:toastNotificationRed(Str('{1}ë‹˜ì˜ ì°¨ë‹¨í•´ì œí•˜ì˜€ìŠµë‹ˆë‹¤.', nickname))
 end
 
 -------------------------------------
