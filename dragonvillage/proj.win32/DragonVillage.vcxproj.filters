@@ -2268,6 +2268,12 @@
     <None Include="..\src\MailHelper.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ChatIgnoreList.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_ChatIgnoreListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
