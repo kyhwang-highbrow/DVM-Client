@@ -161,6 +161,7 @@ local t_module = {
     'ResHelper',
     'AnimatorHelper',
 	'SensitivityHelper',
+	'MailHelper',
 	'BattleStatisticsHelper',
 
     'ChatClient',
