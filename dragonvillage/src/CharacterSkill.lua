@@ -263,6 +263,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillCharge:makeSkillInstance(self, t_skill, t_data)
 				return true
             
+			elseif (skill_type == 'skill_rush') then
+				SkillRush:makeSkillInstance(self, t_skill, t_data)
+				return true
+
 			elseif (skill_type == 'skill_melee_atk') then
 				SkillMeleeHack:makeSkillInstance(self, t_skill, t_data)
 				return true

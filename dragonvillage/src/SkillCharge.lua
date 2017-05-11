@@ -1,16 +1,10 @@
 local PARENT = class(Skill, IStateDelegate:getCloneTable())
 
-local SPEED_SET = 200
-local SPEED_COLLISION = 70
-local SPEED_MOVE = 1500
-local SPEED_COMEBACK = 1500
-
 -------------------------------------
 -- class SkillCharge
 -------------------------------------
 SkillCharge = class(PARENT, {
 		m_animationName = 'str', 
-		m_effect = 'Animator',
 		m_tAttackCount = 'num',
 		m_maxAttackCount = 'num',
 
@@ -18,7 +12,12 @@ SkillCharge = class(PARENT, {
         m_physObject = 'PhysObject',	-- 돌진 바디
 		m_preCollisionTime = 'number',	-- 충돌 시간
 		m_chargePos = 'number',			-- 돌진 위치
-		m_atkPhysPosX = 'number',
+		m_atkPhysPosX = 'number',		-- 돌진 바디 위치
+
+		m_speedSet = 'number',
+		m_speedMove = 'number',
+		m_speedComeback = 'number',
+		m_speedCollision = 'number',
      })
 
 -------------------------------------
@@ -32,7 +31,7 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillCharge:init_skill(animation_name, effect_res, attack_count)
+function SkillCharge:init_skill(attack_count, animation_name)
 	PARENT.init_skill(self)
 
 	-- 멤버변수
@@ -41,6 +40,11 @@ function SkillCharge:init_skill(animation_name, effect_res, attack_count)
 	self.m_maxAttackCount = attack_count
 	self.m_preCollisionTime = 0
 	
+	self.m_speedSet = 200
+	self.m_speedMove = 1500
+	self.m_speedComeback = 1500
+	self.m_speedCollision = 50
+
 	local pos_x
 	if (self.m_owner.m_bLeftFormation) then
 		pos_x = 2000
@@ -70,7 +74,7 @@ end
 function SkillCharge.st_set(owner, dt)
 	local char = owner.m_owner
 	if (owner.m_stateTimer == 0) then
-		char:setMove(char.pos.x , owner.m_chargePos.y, SPEED_SET)
+		char:setMove(char.pos.x , owner.m_chargePos.y, owner.m_speedSet)
 	elseif (char.m_isOnTheMove == false) then
         owner:changeState('ready')
 	end
@@ -99,7 +103,7 @@ function SkillCharge.st_charge(owner, dt)
     local char = owner.m_owner
 
     if (owner.m_stateTimer == 0) then
-		char:setMove(owner.m_chargePos.x ,owner.m_chargePos.y, SPEED_MOVE)
+		char:setMove(owner.m_chargePos.x ,owner.m_chargePos.y, owner.m_speedMove)
 		char.m_animator:changeAni(owner.m_animationName .. '_idle', true) 
         
 		owner.m_afterimageMove = 0
@@ -121,7 +125,7 @@ function SkillCharge.st_comeback(owner, dt)
 
     if (owner.m_stateTimer == 0) then
         owner:releaseCrashPhsyObject()
-		char:setMoveHomePos(SPEED_COMEBACK)
+		char:setMoveHomePos(owner.m_speedComeback)
 
     elseif (char.m_isOnTheMove == false) then
 		char.m_animator:changeAni(owner.m_animationName .. '_disappear', false) 
@@ -135,6 +139,11 @@ end
 function SkillCharge:update(dt)
     if (self.m_owner.m_bDead) then
         self:changeState('dying')
+	elseif (self.m_state == 'charge') then
+		if (self.m_stateTimer > self.m_preCollisionTime + 0.3) then
+			self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, self.m_speedMove)
+			self.m_preCollisionTime = self.m_stateTimer
+		end
     end
 
     return PARENT.update(self, dt)
@@ -176,7 +185,7 @@ end
 -------------------------------------
 function SkillCharge:makeCrashPhsyObject()
     if (self.m_physObject) then
-        error()
+        error('이미 충돌박스가 존재')
     end
 
     local char = self.m_owner
@@ -205,7 +214,6 @@ function SkillCharge:doChargeAttack(defender)
 	end
 	-- 최대 공격수 도달했다면 원속으로 복귀
 	if (self.m_tAttackCount[defender] > self.m_maxAttackCount) then 
-		self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, SPEED_MOVE)
 		return 
 	end
 	-- 공격 간격 설정
@@ -215,21 +223,15 @@ function SkillCharge:doChargeAttack(defender)
 
     -- 돌진 공격
     if defender then
-		-- 화면 떨림 연출
-        self.m_owner.m_world.m_shakeMgr:shakeBySpeed(math_random(335-20, 335+20), math_random(500, 1500))
-		
 		-- 공격 및 카운트
         self:attack(defender)
 		self.m_tAttackCount[defender] = self.m_tAttackCount[defender] + 1
 
 		-- 충돌 중에는 속도 줄임
-		self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, SPEED_COLLISION)
+		self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, self.m_speedCollision)
 
 		-- 충돌 시간 저장
 		self.m_preCollisionTime = self.m_stateTimer
-	else
-		-- 공격 대상이 없다면 정상 속도로 이동
-		self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, SPEED_MOVE)
     end
 end
 
@@ -266,7 +268,7 @@ function SkillCharge:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(animation_name, effect_res, attack_count)
+    skill:init_skill(attack_count, animation_name)
 	skill:initState()
 
 	-- 3. state 시작 

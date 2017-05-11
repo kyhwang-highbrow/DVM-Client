@@ -1,14 +1,9 @@
 local PARENT = SkillAoESquare
 
-local SPEED_MOVE = 1500
-
 -------------------------------------
 -- class SkillAoESquare_Charge
 -------------------------------------
 SkillAoESquare_Charge = class(PARENT, {
-		m_chargeEffectRes =  'str',
-		m_addEffectRes =  'str',
-
 		m_readyPosX = 'num',
 		m_chargePosX = 'num',
 
@@ -76,13 +71,13 @@ end
 function SkillAoESquare_Charge.st_ready(owner, dt)
 	-- 캐릭터가 사라지는 연출과 동시에 돌진 준비 좌표로 보냄
 	if (owner.m_stateTimer == 0) then
-		local res = 'res/effect/tamer_magic_1/tamer_magic_1.vrp'
+		local res = 'res/effect/effect_appear/effect_appear.spine'
 		local function cb_func() 
 			owner:changeState('charge') 
 		end
 
 		local char = owner.m_owner
-		owner:makeEffect(res, char.pos.x, char.pos.y, 'bomb', cb_func)
+		owner:makeEffect(res, char.pos.x, char.pos.y, 'idle', cb_func)
 		char:setPosition(owner.m_readyPosX, owner.m_targetPos.y)
 	end
 end
@@ -99,15 +94,13 @@ function SkillAoESquare_Charge.st_charge(owner, dt)
 
 	-- 캐릭터 돌격
 	if (owner.m_stateTimer == 0) then
-		char.m_animator:changeAni('skill_rush', true)
-		char:setMove(owner.m_chargePosX, owner.m_targetPos.y, SPEED_MOVE)
+		char:setMove(owner.m_chargePosX, owner.m_targetPos.y, owner.m_chargeSpeed)
 		owner.m_afterimageMove = 0
 
-	-- 이동 완료 시 홈 좌표로 보내고 다음 연출 준비
+	-- 이동 완료 시 다시 돌진 준비 좌표로 보내고 종료
 	elseif (char.m_isOnTheMove == false) then
-		char.m_animator:setVisible(false)
-		char:setPosition(char.m_homePosX, char.m_homePosY)
         owner:changeState('comeback')
+		char:setPosition(owner.m_readyPosX, char.m_homePosY)
 	
 	-- 애프터 이미지
     else
@@ -118,18 +111,19 @@ end
 
 -------------------------------------
 -- function st_comeback
--- @brief 스킬 종료 연출
+-- @brief 돌격 후 뒤에서부터 다시 나타나 제자리로 위치
 -------------------------------------
 function SkillAoESquare_Charge.st_comeback(owner, dt)
 	local char = owner.m_owner
 
 	-- 제자리로 이동
 	if (owner.m_stateTimer == 0) then
-		char.m_animator:setVisible(true)
-		char.m_animator:changeAni('skill_disappear', false)
-		char.m_animator:addAniHandler(function()
-			owner:changeState('dying')
-		end)
+		owner.m_owner:setMoveHomePos(owner.m_comebackSpeed)
+
+	-- 이동 완료시 종료
+    elseif (char.m_isOnTheMove == false) then
+        owner:changeState('dying')
+
     end
 end
 
@@ -150,7 +144,7 @@ end
 -- function setAttackInterval
 -------------------------------------
 function SkillAoESquare_Charge:setAttackInterval()
-	self.m_hitInterval = 0.8
+	self.m_hitInterval = 0.4
 end
 
 -------------------------------------

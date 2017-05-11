@@ -409,6 +409,7 @@ local t_module = {
 	'SkillFieldCheck',
 	'SkillVoltesX',
 	'SkillCharge',
+	'SkillRush',
 	'SkillContinuous',
     'SkillRapidShot',
 	'SkillRapidShot_AddAttack',

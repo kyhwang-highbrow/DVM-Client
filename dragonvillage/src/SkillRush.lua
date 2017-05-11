@@ -4,8 +4,11 @@ local PARENT = SkillCharge
 -- class SkillRush
 -------------------------------------
 SkillRush = class(PARENT, {
+		m_chargeRes = 'str',
+		m_chargeEffect = 'Effect',
+
 		m_readyPosX = 'num',
-		m_chargePosX = 'num',
+		m_atkPhysSize = 'num',
 
 		m_chargeSpeed = 'num',
 		m_comebackSpeed = 'num',
@@ -21,22 +24,32 @@ end
 
 -------------------------------------
 -- function init_skill
--- @brief 부모함수를 호출하지 않는다... 연결성이 약함
 -------------------------------------
-function SkillRush:init_skill(hit)
-	self.m_tAttackCount = {}
-	self.m_maxAttackCount = hit
-	self.m_preCollisionTime = 0
+function SkillRush:init_skill(hit, charge_res)
+	PARENT.init_skill(self, hit)
 
+	self.m_atkPhysSize = 150
+	self.m_speedMove = 1500
+	self.m_speedCollision = 100
+
+	local pos_x
 	if (self.m_owner.m_bLeftFormation) then
 		self.m_readyPosX = -500
-		self.m_chargePosX = 2000
+		pos_x = 2000
 	else
 		self.m_readyPosX = 2000
-		self.m_chargePosX = -500
+		pos_x = -500
 	end
 
-	self.m_chargeSpeed = 1500 -- g_constant:get('SKILL', 'AS_CHARGE_SPEED')
+	self.m_chargePos = {x = pos_x, y = self.m_targetPos.y}
+
+	-- 돌진 리소스 세팅
+	self.m_chargeEffect = MakeAnimator(charge_res)
+	self.m_chargeEffect:setAniAttr(self.m_owner:getAttribute())
+	self.m_owner.m_rootNode:addChild(self.m_chargeEffect.m_node)
+	self.m_chargeEffect:setVisible(false)
+	self.m_chargeEffect:setPositionX(-100)
+	self.m_chargeEffect:setScale(1.5)
 end
 
 -------------------------------------
@@ -56,7 +69,7 @@ end
 function SkillRush:initSkillSize()
 	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
 		local t_data = SkillHelper:getSizeAndScale('square_width', self.m_skillSize)  
-		self.m_atkPhysPosX = t_data['size']
+		self.m_atkPhysSize = t_data['size']
 	end
 end
 
@@ -87,15 +100,24 @@ function SkillRush.st_charge(owner, dt)
 
 	-- 캐릭터 돌격
 	if (owner.m_stateTimer == 0) then
+		char:setMove(owner.m_chargePos.x, owner.m_chargePos.y, owner.m_speedMove)
 		char.m_animator:changeAni('skill_rush', true)
-		char:setMove(owner.m_chargePosX, owner.m_targetPos.y, self.m_chargeSpeed)
+		
 		owner.m_afterimageMove = 0
 		owner:makeCrashPhsyObject()
+
+		owner.m_chargeEffect:setVisible(true)
+		owner.m_chargeEffect:changeAni('idle', true)
 
 	-- 이동 완료 시 홈 좌표로 보내고 다음 연출 준비
 	elseif (char.m_isOnTheMove == false) then
 		char.m_animator:setVisible(false)
 		char:setPosition(char.m_homePosX, char.m_homePosY)
+		char:setMoveHomePos(owner.m_speedComeback)
+
+		owner.m_chargeEffect.m_node:removeFromParent(true)
+		owner.m_chargeEffect = nil
+
         owner:changeState('comeback')
 	
 	-- 애프터 이미지
@@ -114,6 +136,7 @@ function SkillRush.st_comeback(owner, dt)
 
 	-- 제자리로 이동
 	if (owner.m_stateTimer == 0) then
+		char:setMoveHomePos(owner.m_speedComeback)
 		char.m_animator:setVisible(true)
 		char.m_animator:changeAni('skill_disappear', false)
 		char.m_animator:addAniHandler(function()
@@ -123,23 +146,44 @@ function SkillRush.st_comeback(owner, dt)
 end
 
 -------------------------------------
+-- function makeCrashPhsyObject
+-- @overriding
+-------------------------------------
+function SkillRush:makeCrashPhsyObject()
+    if (self.m_physObject) then
+        error('이미 충돌박스가 존재')
+    end
+
+    local char = self.m_owner
+    local object_key = char:getAttackPhysGroup()
+
+    local phys_object = char:addPhysObject(char, object_key, {0, 0, self.m_atkPhysSize/2}, 0, 0)
+    phys_object:addAtkCallback(function(attacker, defender, i_x, i_y)
+		self:doChargeAttack(defender)
+		phys_object:clearCollisionObjectList()
+    end)
+
+    self.m_physObject = phys_object
+end
+
+-------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillRush:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-	local charge_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
+	local charge_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
 
 	local hit = t_skill['hit'] -- 공격 횟수
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillRush(charge_res)
+    local skill = SkillRush(nil)
 	
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-	skill:init_skill(hit)
+	skill:init_skill(hit, charge_res)
 	skill:initState()
 
 	-- 3. state 시작 
