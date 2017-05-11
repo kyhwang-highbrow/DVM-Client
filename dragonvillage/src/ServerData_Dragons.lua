@@ -812,7 +812,7 @@ function ServerData_Dragons:getBattleGiftDragon()
 	
 	-- n시간 이내라면 탈출
 	local regen_hour = g_constant:get('UI', 'BATTLE_GIFT_STD', 'REGEN_HOUR')
-	cclog(date:hour())
+
 	if (date:hour() < regen_hour) then
 		return
 	end

@@ -334,8 +334,11 @@ function UI_ReadyScene:checkBattleGift(cb_func)
     -- 대상 드래곤
 	local gift_dragon = g_dragonsData:getBattleGiftDragon()
 	
-	-- 없다면 탈출
+	-- 없다면 콜백 호출하고 탈출
 	if (not gift_dragon) then
+		if (cb_func) then
+			cb_func()
+		end
 		return
 	end
 	
