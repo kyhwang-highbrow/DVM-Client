@@ -110,13 +110,13 @@ function SensitivityHelper:makeObtainEffect(gift_type, gift_count, parent_node)
 
         local icon = cc.Sprite:create(res)
         if (icon) then
-            icon:setPositionX(-15)
+            icon:setPositionX(-20)
             icon:setDockPoint(cc.p(0.5, 0.5))
             icon:setAnchorPoint(cc.p(0.5, 0.5))
             node:addChild(icon)
         end
 
-        local label = cc.Label:createWithBMFont('res/font/normal.fnt', '+' .. count)
+        local label = cc.Label:createWithTTF('+' .. count, 'res/font/common_font_01.ttf', 30, 2, cc.size(100, 100), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         if (label) then
             local string_width = label:getStringWidth()
             local offset_x = (string_width / 2)
@@ -124,10 +124,42 @@ function SensitivityHelper:makeObtainEffect(gift_type, gift_count, parent_node)
             label:setDockPoint(cc.p(0.5, 0.5))
             label:setAnchorPoint(cc.p(0.5, 0.5))
             label:setColor(cc.c3b(255, 255, 255))
+			label:setCascadeOpacityEnabled(true)
             node:addChild(label)
         end
 
         node:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.5), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
         node:runAction(cc.Sequence:create(cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1)))
     end
+end
+
+-------------------------------------
+-- function doRepeatBubbleText
+-- @public 현재는 드래곤 전용이다 추후에 사용처가 늘어나면 범용성을 갖추어야 할것
+-------------------------------------
+function SensitivityHelper:doRepeatBubbleText(parent, did, flv, case_type)
+	-- 상황별 문구 생성
+	local sens_str = SensitivityHelper:getRandomSensStr(did, flv, case_type)
+
+	-- 이전 버블 텍스트가 있다면 삭제해버린다.
+	self:deleteBubbleText(parent)
+
+	-- 버블 텍스트 생성하여 부모에 붙임
+	local bubble_text = SensitivityHelper:getBubbleText(sens_str)
+	bubble_text:setTag(TAG_BUBBLE)
+	parent:addChild(bubble_text, 2)
+
+	-- 상황별 변수 및 포지션 정리
+	bubble_text:setPosition(0, 100)
+	
+	-- 띠용~ 후 페이드 아웃 하는 액션
+	local fade_in = cc.FadeIn:create(0.25)
+	local delay_action = cc.DelayTime:create(1)
+	local fade_out = cc.FadeOut:create(0.25)
+	local post_delay = cc.DelayTime:create(4)
+	local seq_action = cc.Sequence:create(fade_in, delay_action, fade_out, post_delay)
+
+	bubble_text:runAction(cc.RepeatForever:create(seq_action))
+
+	return bubble_text
 end

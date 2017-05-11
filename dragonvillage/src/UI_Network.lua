@@ -123,6 +123,14 @@ function UI_Network:setLoadingMsg(msg)
 end
 
 -------------------------------------
+-- function hideLoading
+-------------------------------------
+function UI_Network:hideLoading()
+	self:setLoadingMsg('')
+	self.vars['bgLayerColor']:setVisible(false)
+end
+
+-------------------------------------
 -- function success
 -------------------------------------
 function UI_Network.success(self, ret)

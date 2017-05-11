@@ -205,6 +205,8 @@ function ServerData_User:requestDragonGift(cb_func)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
+	ui_network:hideLoading()
 end
 
 -------------------------------------

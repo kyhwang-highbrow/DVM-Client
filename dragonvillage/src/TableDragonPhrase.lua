@@ -201,6 +201,12 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
 	elseif (case_type == 'party_out') then
 		sum_random:addItem(1, 'party_out')
 
+	elseif (case_type == 'party_in_induce') then
+		sum_random:addItem(1, 'party_in_induce')
+	
+	elseif (case_type == 'fruit_induce') then
+		sum_random:addItem(1, 'fruit_induce')
+
 	else
 		sum_random:addItem(1, 't_normal_phrase1')
 		sum_random:addItem(1, 't_normal_phrase2')
