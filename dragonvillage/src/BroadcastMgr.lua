@@ -77,15 +77,14 @@ function BroadcastMgr:update(dt)
             if (self.m_remainDelayTime <= 0) then
                 local data = self.m_tMessage[1]
 		        local msg = self:makeMessage(data)
+                local alive_time = self:getAliveTime(data)
+                local b = false
 
                 -- 정상적인 메세지가 아닐 경우 패스시킴
                 if (not msg) then
                     table.remove(self.m_tMessage, 1)
                     return
                 end
-
-                local alive_time = self:getAliveTime(data)
-                local b = false
                 
                 -- 방송 표시
                 if (g_currScene) then
@@ -104,9 +103,9 @@ function BroadcastMgr:update(dt)
                                 
                 if (b) then
                     table.remove(self.m_tMessage, 1)
-            
-                    self.m_remainDelayTime = alive_time
                 end
+
+                self.m_remainDelayTime = alive_time
             else
                 self.m_remainDelayTime = self.m_remainDelayTime - dt
             end
@@ -223,12 +222,12 @@ function BroadcastMgr:makeMessage(msg_info)
             -- 룬 이름
             t_value[i] = TableItem():getValue(data['rid'], 't_name')
 
-        elseif (value == 'grade') then
+        elseif (value == 'grade' or value == 'd_grade') then
             -- 등급(룬의 경우는 승급이 존재하지 않음)
             if (data['rid']) then
                 t_value[i] = getDigit(data['rid'], 1, 1)
             else
-                t_value[i] = data['grade']
+                t_value[i] = data['grade'] or data['d_grade']
             end
 
         elseif (value == 'uopt') then
