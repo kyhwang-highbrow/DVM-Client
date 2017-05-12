@@ -248,11 +248,12 @@ end
 -- function pickMePickMe
 -------------------------------------
 function cca.pickMePickMe(node)
-	local jump_action = cc.JumpBy:create(0.2, cc.p(0, 0), 30, 1)
-	local delay = cc.DelayTime:create(0.3)
-	local start_action = cc.RotateTo:create(0.05, 10)
-	local shake_action = cc.EaseElasticOut:create(cc.RotateTo:create(0.5 * 2, 0), 0.1)
-	local sequence = cc.Sequence:create(jump_action, delay, start_action, shake_action, delay)
+	local jump_cnt = 3
+	local duration = jump_cnt * 0.3
+
+	local jump_action = cc.JumpBy:create(duration, cc.p(0, 0), 50, jump_cnt)
+	local delay = cc.DelayTime:create(1)
+	local sequence = cc.Sequence:create(jump_action, delay)
 
     cca.runAction(node, cc.RepeatForever:create(sequence))
 end

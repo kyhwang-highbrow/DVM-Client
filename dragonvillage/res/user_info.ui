@@ -491,22 +491,45 @@
 			};
 			[2] =
 			{
-				type = 'Node';
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'tamerNode';
+				};
+				type = 'ClippingNode';
 				ui_name = '';
 				x = 0.000000;
-				y = 0.000000;
+				y = -21.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 100;
-				height = 100;
+				width = 340;
+				height = 310;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'tamerNode';
+				lua_name = '';
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
 			};
 			[3] =
 			{
@@ -751,22 +774,45 @@
 			};
 			[2] =
 			{
-				type = 'Node';
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'dragonNode';
+				};
+				type = 'ClippingNode';
 				ui_name = '';
 				x = 0.000000;
-				y = 0.000000;
+				y = -21.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 100;
-				height = 100;
+				width = 340;
+				height = 310;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'dragonNode';
+				lua_name = '';
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
 			};
 			[3] =
 			{
@@ -957,7 +1003,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'starLabel';
+					lua_name = 'starNode';
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';

@@ -86,7 +86,7 @@ end
 -------------------------------------
 function UI_LobbyUserInfoPopup:click_infoBtn(t_user_info)
     local uid = t_user_info['uid']
-    RequestUserDeckInfoPopup(uid)
+    RequestUserInfoDetailPopup(uid)
 end
 
 -------------------------------------

@@ -240,7 +240,15 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
 
     local key = sum_random:getRandomValue()
 	
-	local speech = self:getValue(did, key) or '= - ='
+	local speech = self:getValue(did, key)
+
+	if (not speech) then
+		if (case_type == 'party_in_induce') then
+			speech = 'PICK ME !!'
+		else
+			speech = '야옹'
+		end
+	end
 
     local phrase = Str(speech)
     return phrase
