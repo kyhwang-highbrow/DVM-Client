@@ -50,11 +50,13 @@ end
 -- function update
 -------------------------------------
 function BroadcastMgr:update(dt)
-    local cur_time = os.time()
-
     -- 유저 정보가 없을 경우 표시하지 않음
+    if (not g_userData) then return end
+
     local uid = g_userData:get('uid')
     if (not uid) then return end
+
+    local cur_time = os.time()
 
     -- 공지 메세지 우선 확인
     if (self.m_tNotice[1]) then
