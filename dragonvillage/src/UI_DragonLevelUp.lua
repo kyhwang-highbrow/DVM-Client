@@ -188,6 +188,7 @@ function UI_DragonLevelUp:refresh_dragonLevelupMaterialTableView()
     local function create_func(ui, data)
         ui.root:setScale(0.66)
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
+        self:setAttrBonusLabel(ui)
     end
 
     -- 테이블뷰 생성
@@ -207,6 +208,47 @@ function UI_DragonLevelUp:refresh_dragonLevelupMaterialTableView()
 
     -- 정렬
     self:refresh_sortUI()
+end
+
+-------------------------------------
+-- function setAttrBonusLabel
+-- @brief 레벨업 할 드래곤과 재료 드래곤의 속성이 같으면 50% 추가 텍스트 표시
+-------------------------------------
+function UI_DragonLevelUp:setAttrBonusLabel(dragon_card)
+    local dragon_object = self.m_selectDragonData
+    if (not dragon_object) then
+        return
+    end
+
+    -- 레벨업 할 드래곤의 속성
+    local attr = dragon_object:getAttr()
+
+    -- 재료의 속성
+    local attr2 = dragon_card.m_dragonData:getAttr()
+
+    -- 속성이 도일할 경우
+    if (attr == attr2) then
+        local text = '+50%'
+        local font = 'res/font/common_font_01.ttf'
+        local fontSize = 50
+        local outlineSize = 2
+        local dimensions = cc.size(100, 100)
+        local hAlignment = cc.TEXT_ALIGNMENT_CENTER
+        local vAlignment = cc.VERTICAL_TEXT_ALIGNMENT_CENTER
+
+        local label = cc.Label:createWithTTF(text, font, fontSize, outlineSize, cc.size(100, 100), hAlignment, vAlignment)
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(0.5, 0.5))
+        dragon_card.vars['clickBtn']:addChild(label, 100)
+
+        -- 그림자 생성
+        local shadow_size = cc.size(0, -5)
+        label:enableShadow(cc.c4b(0, 0, 0, 255), shadow_size, 0)
+
+        -- 색상 지정
+        label:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.TintTo:create(1, 255, 0, 0), cc.TintTo:create(1, 0, 255, 0), cc.TintTo:create(1, 0, 0, 255))))
+        label:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(1.0, 0), cc.FadeTo:create(1.0, 255))))
+    end
 end
 
 -------------------------------------
