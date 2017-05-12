@@ -34,22 +34,22 @@ function TableFormation:getFormationPositionList(formation, min_x, max_x, min_y,
 
     local l_pos_list = {}
 
-    for i=1, 5 do
+    for i = 1, 5 do
         local pos_str = t_table[string.format('pos_%.2d', i)]
         local l_pos = seperate(pos_str, ',')
 
         local rate_x = (l_pos[1] / 100)
         local rate_y = (l_pos[2] / 100)
 
+        if (is_right) then
+            rate_x = 1 - rate_x
+        end
+
         local pos = {}
         pos['x'] = min_x + (gap_x * rate_x)
         pos['y'] = min_y + (gap_y * rate_y)
-
-        if (is_right) then
-            l_pos_list[6 - i] = pos
-        else
-            l_pos_list[i] = pos
-        end
+        
+        l_pos_list[i] = pos
     end
     
     return l_pos_list

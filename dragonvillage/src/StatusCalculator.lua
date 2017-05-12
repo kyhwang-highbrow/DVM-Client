@@ -157,6 +157,7 @@ function StatusCalculator:applyDragonResearchBuff(rlv)
         return
     end
 
+    local rlv = math_min(rlv, MAX_DRAGON_RESEARCH_LV)
     local did = self.m_chapterID
     local dragon_type = TableDragon:getDragonType(did)
     local atk, def, hp = TableDragonResearch:getDragonResearchStatus(dragon_type, rlv)
