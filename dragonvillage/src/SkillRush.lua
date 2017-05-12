@@ -56,7 +56,7 @@ function SkillRush:init_skill(hit, charge_res)
 		self.m_owner.m_rootNode:addChild(self.m_chargeEffect.m_node)
 		self.m_chargeEffect:setVisible(false)
 		self.m_chargeEffect:setPositionX(-100)
-		self.m_chargeEffect:setScale(1.5 * self.m_chargeScale)
+		self.m_chargeEffect:setScale(1.5)
 	end
 end
 
@@ -108,11 +108,11 @@ function SkillRush.st_charge(owner, dt)
 
 	-- 캐릭터 돌격 시작
 	if (owner.m_stateTimer == 0) then
-		owner.m_afterimageMove = 0
 		owner:makeCrashPhsyObject()
 
 		-- 이동 및 ani 변경
 		char:setMove(owner.m_chargePos.x, owner.m_chargePos.y, owner.m_speedMove)
+		char:setAfterImage(true)
 		char.m_animator:changeAni('skill_rush', true)
 
 		-- 돌격시 캐릭터 스케일 키움
@@ -131,11 +131,9 @@ function SkillRush.st_charge(owner, dt)
 		char.m_animator:setVisible(false)
 		char:setPosition(char.m_homePosX, char.m_homePosY)
 		char:setMoveHomePos(owner.m_speedComeback)
-        owner:changeState('comeback')
+		char:setAfterImage(false)
 
-	-- 애프터 이미지
-    else
-        owner:updateAfterImage(dt)
+        owner:changeState('comeback')
 
 	end
 end
@@ -176,6 +174,9 @@ function SkillRush:onStateDelegateExit()
 
 	-- 캐릭터 스케일 원복
 	self.m_owner.m_animator:setScale(self.m_originScale)
+
+	-- 잔상 해제
+	self.m_owner:setAfterImage(false)
 end
 
 -------------------------------------

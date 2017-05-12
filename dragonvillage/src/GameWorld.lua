@@ -1673,7 +1673,6 @@ function GameWorld:getDragonBatchNodeSprite(res, scale)
 
     -- map형태로 관리
     if (not self.m_mDragonRenderTextureBatchNode[res]) then
-
         -- spine리소스를 sprite화하여 배치노드를 생성
         local rtbn = RenderTextureBatchNode()
         rtbn:init_fromRes(res, scale)

@@ -8,7 +8,6 @@ SkillCharge = class(PARENT, {
 		m_tAttackCount = 'num',
 		m_maxAttackCount = 'num',
 
-        m_afterimageMove = 'number',
         m_physObject = 'PhysObject',	-- 돌진 바디
 		m_preCollisionTime = 'number',	-- 충돌 시간
 		m_chargePos = 'number',			-- 돌진 위치
@@ -105,14 +104,13 @@ function SkillCharge.st_charge(owner, dt)
     if (owner.m_stateTimer == 0) then
 		char:setMove(owner.m_chargePos.x ,owner.m_chargePos.y, owner.m_speedMove)
 		char.m_animator:changeAni(owner.m_animationName .. '_idle', true) 
-        
-		owner.m_afterimageMove = 0
+        char:setAfterImage(true)
+
         owner:makeCrashPhsyObject()
 
     elseif (char.m_isOnTheMove == false) then
         owner:changeState('comeback')
-    else
-        owner:updateAfterImage(dt)
+
     end
 end
 
@@ -129,7 +127,9 @@ function SkillCharge.st_comeback(owner, dt)
 
     elseif (char.m_isOnTheMove == false) then
 		char.m_animator:changeAni(owner.m_animationName .. '_disappear', false) 
+		char:setAfterImage(false)
 		owner:changeState('dying')
+
     end
 end
 
@@ -147,37 +147,6 @@ function SkillCharge:update(dt)
     end
 
     return PARENT.update(self, dt)
-end
-
--------------------------------------
--- function updateAfterImage
--------------------------------------
-function SkillCharge:updateAfterImage(dt)
-    local char = self.m_owner
-
-    -- 에프터이미지
-    self.m_afterimageMove = self.m_afterimageMove + (char.speed * dt)
-    local interval = 50
-
-    if (self.m_afterimageMove >= interval) then
-        self.m_afterimageMove = self.m_afterimageMove - interval
-        local duration = (interval / char.speed) * 1.5 -- 3개의 잔상이 보일 정도
-        duration = math_clamp(duration, 0.3, 0.7)
-
-        local res = char.m_animator.m_resName
-        local rotation = char.m_animator:getRotation()
-        local accidental = MakeAnimator(res)
-        accidental:changeAni(char.m_animator.m_currAnimation)
-        
-        local worldNode = char.m_world:getMissileNode('bottom')
-        worldNode:addChild(accidental.m_node, 2)
-
-        accidental:setScale(char.m_animator:getScale())
-        accidental:setFlip(char.m_animator.m_bFlip)
-        accidental.m_node:setOpacity(255 * 0.3)
-        accidental.m_node:setPosition(char.pos.x, char.pos.y)
-        accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
-    end
 end
 
 -------------------------------------

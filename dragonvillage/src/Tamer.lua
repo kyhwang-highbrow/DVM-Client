@@ -18,9 +18,8 @@ Tamer = class(PARENT, {
 
         m_barrier = '',
 
-        m_afterimageMove = 'number',
-        m_bUseSelfAfterImage = 'boolean',
         m_bWaitState = 'boolean',
+		m_isUseMovingAfterImage = 'boolean',
 
         m_lSkill = 'list',
         m_lSkillCoolTimer = 'list',
@@ -44,7 +43,7 @@ function Tamer:init(file_name, body, ...)
 	self.m_attribute = 'earth'
 
     self.m_bWaitState = false
-    self.m_bUseSelfAfterImage = false
+	self.m_isUseMovingAfterImage = false
 
     self.m_lSkill = {}
     self.m_lSkillCoolTimer = {}
@@ -140,8 +139,8 @@ end
 -- function update
 -------------------------------------
 function Tamer:update(dt)
-    if self.m_bUseSelfAfterImage then
-        self:updateAfterImage(dt)
+	if self.m_isUseMovingAfterImage then
+        self:updateMovingAfterImage(dt)
     end
 
     if (not self.m_bDead and self.m_world:isPossibleControl()) then
@@ -319,18 +318,8 @@ function Tamer.st_bring(owner, dt)
             end)
         ))
 
-        --[[
-        owner.m_animator:changeAni('i_summon', false)
-        owner.m_animator:addAniHandler(function()
-            owner.m_animator:changeAni('i_idle', true)
-        end)
-        ]]--
-
-        owner.m_afterimageMove = 0
         owner:setAfterImage(true)
-            
-    else
-        owner:updateAfterImage(dt)
+
     end
 end
 
@@ -393,12 +382,8 @@ end
 function Tamer.st_success_move(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:stopAllActions()
-        --local add_speed = (owner.pos['y'] / -100) * 100
         local add_speed = math_random(-2, 2) * 100
         owner:setMove(owner.pos.x + 2000, owner.pos.y, 1500 + add_speed)
-
-        owner.m_afterimageMove = 0
-
         owner:setAfterImage(true)
     end
 end
@@ -423,7 +408,6 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func
 	self:addAniHandler(function()
 
 		-- 애프터 이미지
-		self.m_afterimageMove = 0
 		self:setAfterImage(true)
 
 		local time = 0.4
@@ -511,17 +495,17 @@ function Tamer:setAnimatorScale(scale)
 end
 
 -------------------------------------
--- function setAfterImage
+-- function setMovingAfterImage
 -------------------------------------
-function Tamer:setAfterImage(b)
-    Dragon.setAfterImage(self, b)
+function Tamer:setMovingAfterImage(b)
+    Dragon.setMovingAfterImage(self, b)
 end
 
 -------------------------------------
--- function updateAfterImage
+-- function updateMovingAfterImage
 -------------------------------------
-function Tamer:updateAfterImage(dt)
-    Dragon.updateAfterImage(self, dt)
+function Tamer:updateMovingAfterImage(dt)
+    Dragon.updateMovingAfterImage(self, dt)
 end
 
 -------------------------------------

@@ -72,7 +72,6 @@ function Tamer.st_active(owner, dt)
 		owner:runAction_MoveZ(0.1, 0)
 			
 		-- 애프터 이미지
-		owner.m_afterimageMove = 0
 		owner:setAfterImage(true)
 
         -- 이벤트

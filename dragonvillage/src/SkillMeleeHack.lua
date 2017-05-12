@@ -4,7 +4,6 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 -- class SkillMeleeHack
 -------------------------------------
 SkillMeleeHack = class(PARENT, {
-        m_afterimageMove = 'number',
         m_moveSpeed = 'number',
         m_comebackSpeed = 'number',
      })
@@ -26,7 +25,6 @@ function SkillMeleeHack:init_skill(move_speed, comeback_speed)
 	-- 멤버 변수 
 	self.m_moveSpeed = move_speed
 	self.m_comebackSpeed = comeback_speed
-	self.m_afterimageMove = 0
 
     local char = self.m_owner
     local target_x = self.m_targetPos.x
@@ -69,15 +67,13 @@ function SkillMeleeHack.st_move(owner, dt)
     local char = owner.m_owner
 
     if (owner.m_stateTimer == 0) then
-        owner.m_afterimageMove = 0
         local ani_name, loop = owner:getCurrAniName()
         char.m_animator:changeAni(ani_name, loop)
+		char:setAfterImage(true)
 
     elseif (char.m_isOnTheMove == false) then
         owner:changeState('attack')
 
-    else
-        owner:updateAfterImage(dt)
     end
 end
 
@@ -107,8 +103,11 @@ function SkillMeleeHack.st_comeback(owner, dt)
 
     if (owner.m_stateTimer == 0) then
         char:setMoveHomePos(owner.m_comebackSpeed)
+
     elseif (char.m_isOnTheMove == false) then
+		char:setAfterImage(false)
         owner:changeState('dying')
+
     end
 end
 
@@ -126,46 +125,6 @@ function SkillMeleeHack:changeState(state, forced)
     end
 
     return PARENT.changeState(self, state, forced)
-end
-
--------------------------------------
--- function updateAfterImage
--------------------------------------
-function SkillMeleeHack:updateAfterImage(dt)
-    local char = self.m_owner
-
-    -- 에프터이미지
-    self.m_afterimageMove = self.m_afterimageMove + (char.speed * dt)
-
-    --local interval = char.body.size * 0.5 -- 반지름이기 때문에 2배
-    local interval = 50
-
-    if (self.m_afterimageMove >= interval) then
-        self.m_afterimageMove = self.m_afterimageMove - interval
-
-        local duration = (interval / char.speed) * 1.5 -- 3개의 잔상이 보일 정도
-        duration = math_clamp(duration, 0.3, 0.7)
-
-        local res = char.m_animator.m_resName
-        local rotation = char.m_animator:getRotation()
-        local accidental = MakeAnimator(res)
-        --accidental.m_node:setRotation(rotation)
-        accidental:changeAni(char.m_animator.m_currAnimation)
-        
-        local worldNode = char.m_world:getMissileNode('bottom')
-        worldNode:addChild(accidental.m_node, 2)
-
-        -- 하이라이트
-        if (self.m_bHighlight) then
-            --char.m_world.m_gameHighlight:addEffect(accidental)
-        end
-        
-        accidental:setScale(char.m_animator:getScale())
-        accidental:setFlip(char.m_animator.m_bFlip)
-        accidental.m_node:setOpacity(255 * 0.3)
-        accidental.m_node:setPosition(char.pos.x, char.pos.y)
-        accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
-    end
 end
 
 -------------------------------------

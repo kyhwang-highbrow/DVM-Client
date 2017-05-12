@@ -4,7 +4,6 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 -- class SkillLeap
 -------------------------------------
 SkillLeap = class(PARENT, {
-		m_afterimageMove = 'time',
 		m_jumpRes = 'str',
      })
 
@@ -25,7 +24,6 @@ function SkillLeap:init_skill(jump_res)
 	-- 멤버 변수
 	self.m_range = 10			-- 1인의 공격만 하므로 적당히..
 	self.m_jumpRes = jump_res
-	self.m_afterimageMove = 0
 
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 end
@@ -68,16 +66,13 @@ function SkillLeap:update(dt)
     return PARENT.update(self, dt)
 end
 
-
 -------------------------------------
 -- function st_move
 -------------------------------------
 function SkillLeap.st_move(owner, dt)
-	-- 잔상 효과
-	owner:updateAfterImage(dt)
-
     if (owner.m_stateTimer == 0) then
         owner.m_owner:resetMove()
+		owner.m_owner:setAfterImage(true)
 
 		-- 점프 이펙트
 		local animator = MakeAnimator(owner.m_jumpRes)
@@ -126,44 +121,13 @@ function SkillLeap.st_comeback(owner, dt)
         local action = cc.MoveTo:create(0.5, target_pos)
 		local action2 = cc.RotateTo:create(0.5, -360)
 		
-		-- state chnage 함수 콜
-		local cbFunc = cc.CallFunc:create(function() owner:changeState('dying')  end)
+		-- state change 함수 콜
+		local cbFunc = cc.CallFunc:create(function() 
+			owner.m_owner:setAfterImage(false)
+			owner:changeState('dying')  
+		end)
 
 		owner.m_owner:runAction(cc.Sequence:create(cc.Spawn:create(action, action2), cbFunc))
-    end
-end
-
--------------------------------------
--- function updateAfterImage
--------------------------------------
-function SkillLeap:updateAfterImage(dt)
-    local char = self.m_owner
-	
-    -- 에프터이미지
-    self.m_afterimageMove = self.m_afterimageMove + dt
-
-    local interval = 1/30
-
-    if (self.m_afterimageMove >= interval) then
-        self.m_afterimageMove = self.m_afterimageMove - interval
-
-        local duration = 0.3 -- 3개 잔상이 보일 정도?
-
-        local res = char.m_animator.m_resName
-        local rotation = math_random(0,360) --char.m_animator:getRotation()
-        local accidental = MakeAnimator(res)
-
-        accidental.m_node:setRotation(rotation)
-        accidental:changeAni(char.m_animator.m_currAnimation)
-
-        local worldNode = char.m_world:getMissileNode('bottom')
-        worldNode:addChild(accidental.m_node, 2)
-
-        accidental:setScale(char.m_animator:getScale())
-        accidental:setFlip(char.m_animator.m_bFlip)
-        accidental.m_node:setOpacity(255 * 0.3)
-        accidental.m_node:setPosition(char.pos.x, char.pos.y)
-        accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
     end
 end
 

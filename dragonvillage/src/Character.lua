@@ -80,6 +80,7 @@ Character = class(PARENT, {
         m_hpGauge = '',
         m_hpGauge2 = '',
         m_unitInfoOffset = 'UI_IngameDragonInfo/UI_IngameUnitInfo',
+        m_bFixedPosHpNode = 'boolean',
 
         -- @status UI
         m_statusNode = '',
@@ -95,7 +96,6 @@ Character = class(PARENT, {
         -- @이동 관련
         m_isOnTheMove = 'boolean',
         m_orderOnTheMove = 'number',    -- 현재 이동의 우선순위(높을 수록 우선순위 높음)
-        m_bFixedPosHpNode = 'boolean',
         m_movement = 'EnemyMovement',
         
         -- @ 위치 관련
@@ -117,6 +117,10 @@ Character = class(PARENT, {
         m_isSpasticity = 'boolean',     -- 경직 중 여부
         m_delaySpasticity = 'number',   -- 경직 남은 시간
 
+		-- 잔상(afterImage) 관련
+		m_afterimageTimer = 'number',
+		m_isUseAfterImage = 'boolean',
+
 		---------------------------------------------------------------------------------------
 
 		-- @TODO 임시 추가 충돌박스
@@ -131,7 +135,6 @@ Character = class(PARENT, {
         m_aiParamNum = '',
         m_sortValue = '',				-- 타겟 찾기 등의 정렬에서 임의로 사용
         m_sortRandomIdx = '',			-- 타겟 찾기 등의 정렬에서 임의로 사용
-
 
         -- 로밍 임시 처리
         m_bRoam = 'boolean',
@@ -172,6 +175,8 @@ function Character:init(file_name, body, ...)
     self.m_bInvincibility = false
 	self.m_isSilence = false
 	self.m_isImmuneSE = false
+
+	self.m_isUseAfterImage = false
 
 	self.m_isSlaveCharacter = false
 	self.m_masterCharacter = nil
@@ -1355,6 +1360,11 @@ function Character:update(dt)
 		self:updateMove(dt)
 	end
 		
+	-- 잔상 효과 업데이트
+	if (self.m_isUseAfterImage) then
+		self:updateAfterImage(dt)
+	end
+
 	-- 상태효과 아이콘 업데이트
 	self:updateStatusIcon(dt)
 
@@ -1375,6 +1385,32 @@ function Character:updateMove()
     if self:isOverTargetPos(true) then
         self:setPosition(self.m_targetPosX, self.m_targetPosY)
         self:resetMove()
+    end
+end
+
+-------------------------------------
+-- function updateAfterImage
+-------------------------------------
+function Character:updateAfterImage(dt)
+    self.m_afterimageTimer = self.m_afterimageTimer + (self.speed * dt)
+    local interval = 50
+
+    if (self.m_afterimageTimer >= interval) then
+        self.m_afterimageTimer = self.m_afterimageTimer - interval
+
+        local duration = (interval / self.speed) * 1.5 -- 3개의 잔상이 보일 정도
+        duration = math_clamp(duration, 0.3, 0.7)
+
+        local res = self.m_animator.m_resName
+		local scale = self.m_animator:getScale()
+
+       -- GL calls를 줄이기 위해 월드를 통해 sprite를 얻어옴
+        local sprite = self.m_world:getDragonBatchNodeSprite(res, scale)
+        sprite:setFlippedX(self.m_animator.m_bFlip)
+        sprite:setOpacity(255 * 0.3)
+        sprite:setPosition(self.pos.x, self.pos.y)
+
+        sprite:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
     end
 end
 
@@ -1505,6 +1541,14 @@ function Character:changeHomePosByTime(x, y, time, order)
     end
     
     self:setMove(x, y, speed, order)
+end
+
+-------------------------------------
+-- function setAfterImage
+-------------------------------------
+function Character:setAfterImage(b)
+    self.m_afterimageTimer = 0
+    self.m_isUseAfterImage = b
 end
 
 -------------------------------------

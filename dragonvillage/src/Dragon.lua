@@ -20,10 +20,8 @@ Dragon = class(PARENT, {
         m_activeSkillAccumTimer = 'number',
 
         m_skillPrepareEffect = '',
-
-        m_afterimageMove = 'number',
-
-        m_bUseSelfAfterImage = 'boolean',
+		
+        m_isUseMovingAfterImage = 'boolean',
 		m_bWaitState = 'boolean',
 		m_bActive = 'boolean',
      })
@@ -47,7 +45,7 @@ function Dragon:init(file_name, body, ...)
     self.m_activeSkillAccumValue = 0
     self.m_activeSkillAccumTimer = -1
 
-    self.m_bUseSelfAfterImage = false
+    self.m_isUseMovingAfterImage = false
     self.m_skillPrepareEffect = nil
 end
 
@@ -195,8 +193,8 @@ end
 -- function update
 -------------------------------------
 function Dragon:update(dt)
-    if self.m_bUseSelfAfterImage then
-        self:updateAfterImage(dt)
+    if self.m_isUseMovingAfterImage then
+        self:updateMovingAfterImage(dt)
     end
 
     -- 스킬 게이지 제한 타이머 갱신
@@ -535,12 +533,8 @@ end
 -------------------------------------
 function Dragon.st_success_move(owner, dt)
     if (owner.m_stateTimer == 0) then
-        --local add_speed = (owner.pos['y'] / -100) * 100
         local add_speed = math_random(-2, 2) * 100
         owner:setMove(owner.pos.x + 2000, owner.pos.y, 1500 + add_speed)
-
-        owner.m_afterimageMove = 0
-
         owner:setAfterImage(true)
     end
 end
@@ -917,27 +911,27 @@ function Dragon:isEndActiveSkillCool()
 end
 
 -------------------------------------
--- function setAfterImage
+-- function setMovingAfterImage
 -------------------------------------
-function Dragon:setAfterImage(b)
-    self.m_afterimageMove = 0
-    self.m_bUseSelfAfterImage = b
+function Dragon:setMovingAfterImage(b)
+    self.m_afterimageTimer = 0
+    self.m_isUseMovingAfterImage = b
 end
 
 -------------------------------------
--- function updateAfterImage
--- @TODO Dragon class에 추가 됨에 따라 각각 따로 구현되었던 updateAfterImage 통합 필요
+-- function updateMovingAfterImage
+-- @brief updateAfterImage와는 생성한 잔상이 직접 움직인다는 차이점이 있다.
 -------------------------------------
-function Dragon:updateAfterImage(dt)
+function Dragon:updateMovingAfterImage(dt)
     local speed = self.m_world.m_mapManager.m_speed
 
     -- 에프터이미지
-    self.m_afterimageMove = self.m_afterimageMove + (speed * dt)
+    self.m_afterimageTimer = self.m_afterimageTimer + (speed * dt)
 
     local interval = -30
 
-    if (self.m_afterimageMove <= interval) then
-        self.m_afterimageMove = self.m_afterimageMove - interval
+    if (self.m_afterimageTimer <= interval) then
+        self.m_afterimageTimer = self.m_afterimageTimer - interval
 
         local duration = (interval / speed) * 1.5 -- 3개의 잔상이 보일 정도
         duration = math_clamp(duration, 0.3, 0.7)
@@ -953,22 +947,6 @@ function Dragon:updateAfterImage(dt)
         
         sprite:runAction(cc.MoveBy:create(duration, cc.p(speed / 2, 0)))
         sprite:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
-
-        --[[
-        -- 혹시 몰라서 기존 코드는 남겨둠 sgkim 170426
-        local res = self.m_animator.m_resName
-        local accidental = MakeAnimator(res)
-        accidental:changeAni(self.m_animator.m_currAnimation)
-        
-        self.m_world.m_worldNode:addChild(accidental.m_node, 1)
-        accidental:setScale(self.m_animator:getScale())
-        accidental:setFlip(self.m_animator.m_bFlip)
-        accidental.m_node:setOpacity(255 * 0.2)
-        accidental.m_node:setPosition(self.pos.x, self.pos.y)
-        
-        accidental.m_node:runAction(cc.MoveBy:create(duration, cc.p(speed / 2, 0)))
-        accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
-        --]]
     end
 end
 

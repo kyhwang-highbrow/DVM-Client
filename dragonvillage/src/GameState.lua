@@ -275,12 +275,12 @@ function GameState.update_wave_intermission(self, dt)
                 v:changeStateWithCheckHomePos('idle')
                 
                 -- 잔상 연출 활성화
-                v:setAfterImage(true)
+                v:setMovingAfterImage(true)
             end
         end
 
         if (world.m_tamer) then
-            world.m_tamer:setAfterImage(true)
+            world.m_tamer:setMovingAfterImage(true)
         end
     end
 
@@ -301,12 +301,12 @@ function GameState.update_wave_intermission(self, dt)
 
         for _,dragon in pairs(world:getDragonList()) do
             if (not dragon.m_bDead) then
-                dragon:setAfterImage(false)
+                dragon:setMovingAfterImage(false)
             end
         end
 
         if (world.m_tamer) then
-            world.m_tamer:setAfterImage(false)
+            world.m_tamer:setMovingAfterImage(false)
         end
 
 		self:changeState(GAME_STATE_ENEMY_APPEAR)

@@ -7,8 +7,6 @@ SkillAoESquare_Charge = class(PARENT, {
 		m_readyPosX = 'num',
 		m_chargePosX = 'num',
 
-		m_afterimageMove = 'time',
-
 		m_chargeSpeed = 'num',
 		m_comebackSpeed = 'num',
      })
@@ -95,16 +93,12 @@ function SkillAoESquare_Charge.st_charge(owner, dt)
 	-- 캐릭터 돌격
 	if (owner.m_stateTimer == 0) then
 		char:setMove(owner.m_chargePosX, owner.m_targetPos.y, owner.m_chargeSpeed)
-		owner.m_afterimageMove = 0
+		char:setAfterImage(true)
 
 	-- 이동 완료 시 다시 돌진 준비 좌표로 보내고 종료
 	elseif (char.m_isOnTheMove == false) then
         owner:changeState('comeback')
 		char:setPosition(owner.m_readyPosX, char.m_homePosY)
-	
-	-- 애프터 이미지
-    else
-        owner:updateAfterImage(dt)
 
 	end
 end
@@ -118,7 +112,8 @@ function SkillAoESquare_Charge.st_comeback(owner, dt)
 
 	-- 제자리로 이동
 	if (owner.m_stateTimer == 0) then
-		owner.m_owner:setMoveHomePos(owner.m_comebackSpeed)
+		char:setMoveHomePos(owner.m_comebackSpeed)
+		char:setAfterImage(false)
 
 	-- 이동 완료시 종료
     elseif (char.m_isOnTheMove == false) then
@@ -154,38 +149,6 @@ end
 function SkillAoESquare_Charge:escapeAttack()
 	-- NOTHING TO DO
 end
-
--------------------------------------
--- function updateAfterImage
--------------------------------------
-function SkillAoESquare_Charge:updateAfterImage(dt)
-    local char = self.m_owner
-
-    -- 에프터이미지
-    self.m_afterimageMove = self.m_afterimageMove + (char.speed * dt)
-    local interval = 50
-
-    if (self.m_afterimageMove >= interval) then
-        self.m_afterimageMove = self.m_afterimageMove - interval
-        local duration = (interval / char.speed) * 1.5 -- 3개의 잔상이 보일 정도
-        duration = math_clamp(duration, 0.3, 0.7)
-
-        local res = char.m_animator.m_resName
-        local rotation = char.m_animator:getRotation()
-        local accidental = MakeAnimator(res)
-        accidental:changeAni(char.m_animator.m_currAnimation)
-        
-        local worldNode = char.m_world:getMissileNode('bottom')
-        worldNode:addChild(accidental.m_node, 2)
-
-        accidental:setScale(char.m_animator:getScale())
-        accidental:setFlip(char.m_animator.m_bFlip)
-        accidental.m_node:setOpacity(255 * 0.3)
-        accidental.m_node:setPosition(char.pos.x, char.pos.y)
-        accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
-    end
-end
-
 
 -------------------------------------
 -- function makeSkillInstance

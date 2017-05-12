@@ -19,9 +19,6 @@ SkillRolling = class(PARENT, {
 		-- 반복 공격 위한 시간 관리 용
         m_multiAtkTimer = 'dt',
         m_hitInterval = 'number',
-		
-		-- 잔상 시간 관리 용
-		m_afterimageMove = '',
 
 		-- 스핀 애니메이션 관련
 		m_spinRes = 'str',
@@ -45,7 +42,6 @@ function SkillRolling:init_skill(spin_res, atk_count)
 	-- 멤버 변수 
 	self.m_maxAttackCnt = atk_count
 	self.m_spinRes = spin_res
-	self.m_afterimageMove = 0
 	self.m_attackCnt = 0
 	self.m_bMoving = false
 
@@ -105,11 +101,9 @@ end
 -- function st_move
 -------------------------------------
 function SkillRolling.st_move(owner, dt)
-	-- 잔상 효과
-	owner:updateAfterImage(dt)
-
     if (owner.m_stateTimer == 0) then
-		owner.m_owner.m_animator:setVisible(false) 
+		owner.m_owner.m_animator:setVisible(false)
+
 		-- 스핀 이펙트
 		if (nil == owner.m_spinAnimator) then 
 			local animator = MakeAnimator(owner.m_spinRes)
@@ -183,9 +177,6 @@ end
 -- function st_move
 -------------------------------------
 function SkillRolling.st_move_attack(owner, dt)
-	-- 잔상 효과
-	owner:updateAfterImage(dt)
-	
 	-- a. 이동중인지 체크
 	if (not owner.m_bMoving) then 
 		-- 1. 다음 타겟을 검색
@@ -258,42 +249,6 @@ function SkillRolling.st_comeback(owner, dt)
 		end)
 		
 		owner.m_owner:runAction(cc.Sequence:create(cc.EaseOut:create(action, 2), cbFunc))
-    end
-end
-
--------------------------------------
--- function updateAfterImage
--------------------------------------
-function SkillRolling:updateAfterImage(dt)
-    local char = self
-	
-    -- 에프터이미지
-    self.m_afterimageMove = self.m_afterimageMove + dt
-
-    local interval = 1/30
-
-    if (self.m_afterimageMove >= interval) then
-        self.m_afterimageMove = self.m_afterimageMove - interval
-
-        local duration = 0.3 -- 3개 잔상이 보일 정도?
-
-        local res = char.m_animator.m_resName
-        local accidental = MakeAnimator(res)
-        accidental:changeAni(char.m_animator.m_currAnimation)
-
-        local worldNode = char.m_world:getMissileNode('bottom')
-        worldNode:addChild(accidental.m_node, 2)
-
-        -- 하이라이트
-        if (self.m_bHighlight) then
-            --char.m_world.m_gameHighlight:addEffect(accidental)
-        end
-        
-        accidental:setScale(char.m_animator:getScale())
-        accidental:setFlip(char.m_animator.m_bFlip)
-        accidental.m_node:setOpacity(255 * 0.3)
-        accidental.m_node:setPosition(char.pos.x, char.pos.y)
-        accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
     end
 end
 
