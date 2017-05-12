@@ -486,26 +486,25 @@ function Missile:updateMissileOption(dt)
         local interval = self.body.size * 0.2 -- 반지름이기 때문에 2배
 
         if (self.m_afterimageMove >= interval) then
-            self.m_afterimageMove = self.m_afterimageMove - interval
-            -- cclog('출력 출력 출력')
 
+            self.m_afterimageMove = self.m_afterimageMove - interval
+    
             local duration = (interval / self.speed) * 0.2 -- 3개의 잔상이 보일 정도
             duration = math_clamp(duration, 0.3, 0.7)
 
             local res = self.m_animator.m_resName
+			local scale = self.m_animator:getScale()
             local rotation = self.m_animator:getRotation()
-            local accidental = MakeAnimator(res)
-            accidental.m_node:setRotation(rotation)
-            accidental:changeAni(self.m_animator.m_currAnimation)
-            local parent = self.m_rootNode:getParent()
-            parent:addChild(accidental.m_node)
-            accidental.m_node:setScale(self.m_rootNode:getScale())
-            accidental.m_node:setOpacity(255 * 0.6)
-            accidental.m_node:setPosition(self.pos.x, self.pos.y)
-            accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration*duration, 0), cc.RemoveSelf:create()))
 
+			-- GL calls를 줄이기 위해 월드를 통해 sprite를 얻어옴
+			local sprite = self.m_world:getDragonBatchNodeSprite(res, scale)
+			sprite:setFlippedX(self.m_animator.m_bFlip)
+			sprite:setRotation(rotation)
+			sprite:setOpacity(255 * 0.3)
+			sprite:setPosition(self.pos.x, self.pos.y)
 
-            accidental.m_node:runAction(cc.ScaleTo:create(duration*duration, 0))
+            sprite:runAction(cc.Sequence:create(cc.FadeTo:create(duration*duration, 0), cc.RemoveSelf:create()))
+            sprite:runAction(cc.ScaleTo:create(duration*duration, 0))
         end
     end
 
