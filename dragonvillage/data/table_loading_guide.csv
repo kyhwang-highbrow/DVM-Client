@@ -1,46 +1,41 @@
 gid,type,order,weight,res,t_desc
-8001,patch,1,,res/scene/1_1b.png,(임시) 패치 가이드 - 1
-8002,patch,2,,res/scene/1_1b.png,(임시) 패치 가이드 - 2
-8003,patch,3,,res/scene/1_1b.png,(임시) 패치 가이드 - 3
-8004,patch,4,,res/scene/1_1b.png,(임시) 패치 가이드 - 4
-8005,patch,5,,res/scene/1_1b.png,(임시) 패치 가이드 - 5
-8006,patch,6,,res/scene/1_1b.png,(임시) 패치 가이드 - 6
-8007,patch,7,,res/scene/1_1b.png,(임시) 패치 가이드 - 7
-8008,patch,8,,res/scene/1_1b.png,(임시) 패치 가이드 - 8
-8009,patch,9,,res/scene/1_1b.png,(임시) 패치 가이드 - 9
-8010,patch,10,,res/scene/1_1b.png,(임시) 패치 가이드 - 10
-2101,in_nest_gd,,10,res/scene/1_1b.png,(임시) 거대용 가이드 - 1
-2102,in_nest_gd,,10,res/scene/1_1b.png,(임시) 거대용 가이드 - 2
-2103,in_nest_gd,,10,res/scene/1_1b.png,(임시) 거대용 가이드 - 3
-2104,in_nest_gd,,10,res/scene/1_1b.png,(임시) 거대용 가이드 - 4
-2105,in_nest_gd,,10,res/scene/1_1b.png,(임시) 거대용 가이드 - 5
-2201,in_nest_tr,,10,res/scene/1_1b.png,(임시) 거목 가이드 - 1
-2202,in_nest_tr,,10,res/scene/1_1b.png,(임시) 거목 가이드 - 2
-2203,in_nest_tr,,10,res/scene/1_1b.png,(임시) 거목 가이드 - 3
-2204,in_nest_tr,,10,res/scene/1_1b.png,(임시) 거목 가이드 - 4
-2205,in_nest_tr,,10,res/scene/1_1b.png,(임시) 거목 가이드 - 5
-2301,in_nest_nm,,10,res/scene/1_1b.png,(임시) 악몽 가이드 - 1
-2302,in_nest_nm,,10,res/scene/1_1b.png,(임시) 악몽 가이드 - 2
-2303,in_nest_nm,,10,res/scene/1_1b.png,(임시) 악몽 가이드 - 3
-2304,in_nest_nm,,10,res/scene/1_1b.png,(임시) 악몽 가이드 - 4
-2305,in_nest_nm,,10,res/scene/1_1b.png,(임시) 악몽 가이드 - 5
-2401,in_nest_go,,10,res/scene/1_1b.png,(임시) 황금 가이드 - 1
-2402,in_nest_go,,10,res/scene/1_1b.png,(임시) 황금 가이드 - 2
-2403,in_nest_go,,10,res/scene/1_1b.png,(임시) 황금 가이드 - 3
-2404,in_nest_go,,10,res/scene/1_1b.png,(임시) 황금 가이드 - 4
-2405,in_nest_go,,10,res/scene/1_1b.png,(임시) 황금 가이드 - 5
-9001,all,,10,res/scene/1_1b.png,(임시) 모든 상황 가이드 - 1
-9002,all,,10,res/scene/1_1b.png,(임시) 모든 상황 가이드 - 2
-9003,all,,10,res/scene/1_1b.png,(임시) 모든 상황 가이드 - 3
-9004,all,,10,res/scene/1_1b.png,(임시) 모든 상황 가이드 - 4
-9005,all,,10,res/scene/1_1b.png,(임시) 모든 상황 가이드 - 5
-3101,in_colosseum,,10,res/scene/1_1b.png,(임시) 콜로세움 가이드 - 1
-3102,in_colosseum,,10,res/scene/1_1b.png,(임시) 콜로세움 가이드 - 2
-3103,in_colosseum,,10,res/scene/1_1b.png,(임시) 콜로세움 가이드 - 3
-3104,in_colosseum,,10,res/scene/1_1b.png,(임시) 콜로세움 가이드 - 4
-3105,in_colosseum,,10,res/scene/1_1b.png,(임시) 콜로세움 가이드 - 5
-1101,in_adventure,,10,res/scene/1_1b.png,(임시) 모험모드 가이드 - 1
-1102,in_adventure,,10,res/scene/1_1b.png,(임시) 모험모드 가이드 - 2
-1103,in_adventure,,10,res/scene/1_1b.png,(임시) 모험모드 가이드 - 3
-1104,in_adventure,,10,res/scene/1_1b.png,(임시) 모험모드 가이드 - 4
-1105,in_adventure,,10,res/scene/1_1b.png,(임시) 모험모드 가이드 - 5
+8001,patch,1,,res/ui/loading_tip/tip_levelup.png,(임시) 패치 가이드 - 1
+8002,patch,2,,res/ui/loading_tip/tip_rarity.png,(임시) 패치 가이드 - 2
+8003,patch,3,,res/ui/loading_tip/tip_levelup.png,(임시) 패치 가이드 - 3
+8004,patch,4,,res/ui/loading_tip/tip_rarity.png,(임시) 패치 가이드 - 4
+8005,patch,5,,res/ui/loading_tip/tip_levelup.png,(임시) 패치 가이드 - 5
+8006,patch,6,,res/ui/loading_tip/tip_rarity.png,(임시) 패치 가이드 - 6
+8007,patch,7,,res/ui/loading_tip/tip_levelup.png,(임시) 패치 가이드 - 7
+8008,patch,8,,res/ui/loading_tip/tip_rarity.png,(임시) 패치 가이드 - 8
+8009,patch,9,,res/ui/loading_tip/tip_levelup.png,(임시) 패치 가이드 - 9
+8010,patch,10,,res/ui/loading_tip/tip_rarity.png,(임시) 패치 가이드 - 10
+2101,in_nest_gd,,10,res/ui/loading_tip/tip_levelup.png,(임시) 거대용 가이드 - 1
+2102,in_nest_gd,,10,res/ui/loading_tip/tip_rarity.png,(임시) 거대용 가이드 - 2
+2103,in_nest_gd,,10,res/ui/loading_tip/tip_levelup.png,(임시) 거대용 가이드 - 3
+2104,in_nest_gd,,10,res/ui/loading_tip/tip_rarity.png,(임시) 거대용 가이드 - 4
+2105,in_nest_gd,,10,res/ui/loading_tip/tip_levelup.png,(임시) 거대용 가이드 - 5
+2201,in_nest_tr,,10,res/ui/loading_tip/tip_rarity.png,(임시) 거목 가이드 - 1
+2202,in_nest_tr,,10,res/ui/loading_tip/tip_levelup.png,(임시) 거목 가이드 - 2
+2203,in_nest_tr,,10,res/ui/loading_tip/tip_rarity.png,(임시) 거목 가이드 - 3
+2204,in_nest_tr,,10,res/ui/loading_tip/tip_levelup.png,(임시) 거목 가이드 - 4
+2205,in_nest_tr,,10,res/ui/loading_tip/tip_rarity.png,(임시) 거목 가이드 - 5
+2301,in_nest_nm,,10,res/ui/loading_tip/tip_levelup.png,(임시) 악몽 가이드 - 1
+2302,in_nest_nm,,10,res/ui/loading_tip/tip_rarity.png,(임시) 악몽 가이드 - 2
+2303,in_nest_nm,,10,res/ui/loading_tip/tip_levelup.png,(임시) 악몽 가이드 - 3
+2304,in_nest_nm,,10,res/ui/loading_tip/tip_rarity.png,(임시) 악몽 가이드 - 4
+2305,in_nest_nm,,10,res/ui/loading_tip/tip_levelup.png,(임시) 악몽 가이드 - 5
+2401,in_nest_go,,10,res/ui/loading_tip/tip_rarity.png,(임시) 황금 가이드 - 1
+2402,in_nest_go,,10,res/ui/loading_tip/tip_levelup.png,(임시) 황금 가이드 - 2
+2403,in_nest_go,,10,res/ui/loading_tip/tip_rarity.png,(임시) 황금 가이드 - 3
+2404,in_nest_go,,10,res/ui/loading_tip/tip_levelup.png,(임시) 황금 가이드 - 4
+2405,in_nest_go,,10,res/ui/loading_tip/tip_rarity.png,(임시) 황금 가이드 - 5
+9001,all,,10,res/ui/loading_tip/tip_levelup.png,(임시) 모든 상황 가이드 - 1
+9002,all,,10,res/ui/loading_tip/tip_rarity.png,(임시) 모든 상황 가이드 - 2
+9003,all,,10,res/ui/loading_tip/tip_levelup.png,(임시) 모든 상황 가이드 - 3
+9004,all,,10,res/ui/loading_tip/tip_rarity.png,(임시) 모든 상황 가이드 - 4
+9005,all,,10,res/ui/loading_tip/tip_levelup.png,(임시) 모든 상황 가이드 - 5
+1101,in_adventure,,10,res/ui/loading_tip/tip_levelup.png,(임시) 모험모드 가이드 - 1
+1102,in_adventure,,10,res/ui/loading_tip/tip_rarity.png,(임시) 모험모드 가이드 - 2
+1103,in_adventure,,10,res/ui/loading_tip/tip_levelup.png,(임시) 모험모드 가이드 - 3
+1104,in_adventure,,10,res/ui/loading_tip/tip_rarity.png,(임시) 모험모드 가이드 - 4
+1105,in_adventure,,10,res/ui/loading_tip/tip_levelup.png,(임시) 모험모드 가이드 - 5
