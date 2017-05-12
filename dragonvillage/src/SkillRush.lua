@@ -7,6 +7,7 @@ SkillRush = class(PARENT, {
 		m_chargeRes = 'str',
 		m_chargeEffect = 'Effect',
 		m_chargeScale = 'num',
+		m_originScale = 'num',
 
 		m_readyPosX = 'num',
 		m_atkPhysSize = 'num',
@@ -32,18 +33,21 @@ function SkillRush:init_skill(hit, charge_res)
 	self.m_atkPhysSize = 150
 	self.m_speedMove = 1500
 	self.m_speedCollision = 100
-	self.m_chargeScale = 1.25
+	
+	-- 스케일 변수
+	self.m_originScale = self.m_owner.m_animator:getScale()
+	self.m_chargeScale = self.m_originScale * 1.25
 
-	local pos_x
+	-- 참조 좌표값 선언
+	self.m_chargePos = {x = 0, y = self.m_targetPos.y}
+	local std_pos_x = self.m_owner.m_homePosX
 	if (self.m_owner.m_bLeftFormation) then
-		self.m_readyPosX = -500
-		pos_x = 2000
+		self.m_readyPosX = std_pos_x - 800
+		self.m_chargePos.x = std_pos_x + 2000
 	else
-		self.m_readyPosX = 2000
-		pos_x = -500
+		self.m_readyPosX = std_pos_x + 800
+		self.m_chargePos.x = std_pos_x - 2000
 	end
-
-	self.m_chargePos = {x = pos_x, y = self.m_targetPos.y}
 
 	-- 돌진 리소스 세팅
 	do
@@ -112,8 +116,7 @@ function SkillRush.st_charge(owner, dt)
 		char.m_animator:changeAni('skill_rush', true)
 
 		-- 돌격시 캐릭터 스케일 키움
-		local scale = char.m_animator:getScale()
-		char.m_animator:setScale(owner.m_chargeScale * scale)
+		char.m_animator:setScale(owner.m_chargeScale)
 
 		-- 돌격 이펙트 추가
 		owner.m_chargeEffect:setVisible(true)
@@ -121,11 +124,15 @@ function SkillRush.st_charge(owner, dt)
 
 	-- 이동 완료 시 홈 좌표로 보내고 다음 연출 준비
 	elseif (char.m_isOnTheMove == false) then
+		-- 돌격 이펙트 삭제
+		owner.m_chargeEffect.m_node:removeFromParent(true)
+		owner.m_chargeEffect = nil
+
 		char.m_animator:setVisible(false)
 		char:setPosition(char.m_homePosX, char.m_homePosY)
 		char:setMoveHomePos(owner.m_speedComeback)
         owner:changeState('comeback')
-	
+
 	-- 애프터 이미지
     else
         owner:updateAfterImage(dt)
@@ -143,14 +150,9 @@ function SkillRush.st_comeback(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		-- 제자리로 이동
 		char:setMoveHomePos(owner.m_speedComeback)
-		
-		-- 돌격 이펙트 삭제
-		owner.m_chargeEffect.m_node:removeFromParent(true)
-		owner.m_chargeEffect = nil
 
 		-- 캐릭터 스케일 원복
-		local scale = char.m_animator:getScale()
-		char.m_animator:setScale(scale * (1 / owner.m_chargeScale))
+		char.m_animator:setScale(owner.m_originScale)
 
 		-- 복귀 연출
 		char.m_animator:setVisible(true)
@@ -173,9 +175,7 @@ function SkillRush:onStateDelegateExit()
 	end
 
 	-- 캐릭터 스케일 원복
-	local char = self.m_owner
-	local scale = char.m_animator:getScale()
-	char.m_animator:setScale(scale * (1 / self.m_chargeScale))
+	self.m_owner.m_animator:setScale(self.m_originScale)
 end
 
 -------------------------------------

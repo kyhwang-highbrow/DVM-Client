@@ -524,6 +524,7 @@ local t_module = {
     'UI_MonsterCard',
     'UI_FruitFeedPress',
     'UI_LobbyUserInfoPopup',
+	'UI_UserInfoDetailPopup',
     'UI_UserDeckInfoPopup',
     'UI_DungeonMenu',
     'UI_BattleMenu',
@@ -777,6 +778,7 @@ function reloadModule()
     end
 
     TABLE:init()
+	g_constant:readDataFile()
 
     -- 서버에서 받아서 저장 중인 테이블 적용
     for i,v in pairs(t_backup_server_table) do

@@ -40,12 +40,6 @@ end
 -- @brief 레퍼런스를 반환
 -------------------------------------
 function ConstantData:get(...)
-	-- 윈도우에서는 매번 읽어 테스트하기 용이하도록 한다.
-	-- @TODO 보류 -> 매프레임 읽는 것들이 많아 부하가 너무 크다
-	if (isWin32()) then
-		--self:readDataFile()
-	end
-	
     local args = {...}
     local cnt = #args
 

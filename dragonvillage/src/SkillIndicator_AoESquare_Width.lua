@@ -32,7 +32,8 @@ end
 -------------------------------------
 function SkillIndicator_AoESquare_Width:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
-    self.m_indicatorEffect:setPosition(cameraHomePosX - pos_x, touch_y - pos_y)
+	-- 400은 의미 없이 적당한 값
+    self.m_indicatorEffect:setPosition(cameraHomePosX - pos_x - 400, touch_y - pos_y)
 end
 
 -------------------------------------
