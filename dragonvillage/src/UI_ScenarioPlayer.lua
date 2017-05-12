@@ -187,11 +187,35 @@ function UI_ScenarioPlayer:showPage()
 
     local t_page = self.m_scenarioTable[self.m_currPage]
 
+    do -- 서술 (Narrate)
+        local t_narrate = t_page['t_narrate']
+        if t_narrate then
+            self:effect_narrate(t_narrate)
+        end
+    end
+
     if (t_page['bg'] and (t_page['bg'] ~= self.m_bgName)) then
         vars['bgNode']:removeAllChildren()
         local bg_res = TableScenarioResource:getScenarioRes(t_page['bg'])
         local bg = MakeAnimator(bg_res)
         vars['bgNode']:addChild(bg.m_node)
+    end
+
+    do -- 삽화
+        local illustration = t_page['illustration']
+        if illustration then
+
+            if (illustration == 'hide' or illustration == 'clear') then
+                vars['illustrationMenu']:setVisible(false)
+            else
+                vars['illustrationMenu']:setVisible(true)
+
+                vars['illustrationNode']:removeAllChildren()
+                local bg_res = TableScenarioResource:getScenarioRes(illustration)
+                local bg = MakeAnimator(bg_res)
+                vars['illustrationNode']:addChild(bg.m_node)
+            end
+        end
     end
 
     -- 캐릭터
@@ -396,6 +420,17 @@ function UI_ScenarioPlayer:effect_title(effect, val_1, val_2, val_3)
     self.m_titleUI.vars['layerColor']:setOpacity(255)
     local action = cc.Sequence:create(cc.DelayTime:create(2.5), cc.FadeOut:create(0.5))
     self.m_titleUI.vars['layerColor']:runAction(action)
+end
+
+-------------------------------------
+-- function effect_narrate
+-------------------------------------
+function UI_ScenarioPlayer:effect_narrate(t_narrate)
+    local ui = UI_ScenarioPlayer_Narrate(t_narrate)
+    local function close_cb()
+        self:next()
+    end
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

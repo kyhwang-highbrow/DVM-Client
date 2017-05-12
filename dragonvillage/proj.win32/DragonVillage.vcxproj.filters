@@ -2280,6 +2280,9 @@
     <None Include="..\src\SkillRush.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ScenarioPlayer_Narrate.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
