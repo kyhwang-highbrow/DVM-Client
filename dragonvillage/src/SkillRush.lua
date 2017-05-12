@@ -46,12 +46,14 @@ function SkillRush:init_skill(hit, charge_res)
 	self.m_chargePos = {x = pos_x, y = self.m_targetPos.y}
 
 	-- 돌진 리소스 세팅
-	self.m_chargeEffect = MakeAnimator(charge_res)
-	self.m_chargeEffect:setAniAttr(self.m_owner:getAttribute())
-	self.m_owner.m_rootNode:addChild(self.m_chargeEffect.m_node)
-	self.m_chargeEffect:setVisible(false)
-	self.m_chargeEffect:setPositionX(-100)
-	self.m_chargeEffect:setScale(1.5)
+	do
+		self.m_chargeEffect = MakeAnimator(charge_res)
+		self.m_chargeEffect:setAniAttr(self.m_owner:getAttribute())
+		self.m_owner.m_rootNode:addChild(self.m_chargeEffect.m_node)
+		self.m_chargeEffect:setVisible(false)
+		self.m_chargeEffect:setPositionX(-100)
+		self.m_chargeEffect:setScale(1.5 * self.m_chargeScale)
+	end
 end
 
 -------------------------------------
@@ -102,15 +104,16 @@ function SkillRush.st_charge(owner, dt)
 
 	-- 캐릭터 돌격 시작
 	if (owner.m_stateTimer == 0) then
+		owner.m_afterimageMove = 0
+		owner:makeCrashPhsyObject()
+
+		-- 이동 및 ani 변경
 		char:setMove(owner.m_chargePos.x, owner.m_chargePos.y, owner.m_speedMove)
 		char.m_animator:changeAni('skill_rush', true)
 
 		-- 돌격시 캐릭터 스케일 키움
 		local scale = char.m_animator:getScale()
 		char.m_animator:setScale(owner.m_chargeScale * scale)
-
-		owner.m_afterimageMove = 0
-		owner:makeCrashPhsyObject()
 
 		-- 돌격 이펙트 추가
 		owner.m_chargeEffect:setVisible(true)
@@ -121,11 +124,6 @@ function SkillRush.st_charge(owner, dt)
 		char.m_animator:setVisible(false)
 		char:setPosition(char.m_homePosX, char.m_homePosY)
 		char:setMoveHomePos(owner.m_speedComeback)
-
-		-- 돌격 이펙트 삭제
-		owner.m_chargeEffect.m_node:removeFromParent(true)
-		owner.m_chargeEffect = nil
-
         owner:changeState('comeback')
 	
 	-- 애프터 이미지
@@ -146,6 +144,10 @@ function SkillRush.st_comeback(owner, dt)
 		-- 제자리로 이동
 		char:setMoveHomePos(owner.m_speedComeback)
 		
+		-- 돌격 이펙트 삭제
+		owner.m_chargeEffect.m_node:removeFromParent(true)
+		owner.m_chargeEffect = nil
+
 		-- 캐릭터 스케일 원복
 		local scale = char.m_animator:getScale()
 		char.m_animator:setScale(scale * (1 / owner.m_chargeScale))
@@ -157,6 +159,23 @@ function SkillRush.st_comeback(owner, dt)
 			owner:changeState('dying')
 		end)
     end
+end
+
+-------------------------------------
+-- function onStateDelegateExit
+-- @brief 강제 종료 될 경우 원복 처리
+-------------------------------------
+function SkillRush:onStateDelegateExit()
+	-- 돌격 이펙트 삭제
+	if (self.m_chargeEffect) then
+		self.m_chargeEffect.m_node:removeFromParent(true)
+		self.m_chargeEffect = nil
+	end
+
+	-- 캐릭터 스케일 원복
+	local char = self.m_owner
+	local scale = char.m_animator:getScale()
+	char.m_animator:setScale(scale * (1 / self.m_chargeScale))
 end
 
 -------------------------------------
