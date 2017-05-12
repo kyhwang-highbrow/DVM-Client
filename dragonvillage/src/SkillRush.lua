@@ -6,6 +6,7 @@ local PARENT = SkillCharge
 SkillRush = class(PARENT, {
 		m_chargeRes = 'str',
 		m_chargeEffect = 'Effect',
+		m_chargeScale = 'num',
 
 		m_readyPosX = 'num',
 		m_atkPhysSize = 'num',
@@ -31,6 +32,7 @@ function SkillRush:init_skill(hit, charge_res)
 	self.m_atkPhysSize = 150
 	self.m_speedMove = 1500
 	self.m_speedCollision = 100
+	self.m_chargeScale = 1.25
 
 	local pos_x
 	if (self.m_owner.m_bLeftFormation) then
@@ -98,14 +100,19 @@ end
 function SkillRush.st_charge(owner, dt)
 	local char = owner.m_owner
 
-	-- 캐릭터 돌격
+	-- 캐릭터 돌격 시작
 	if (owner.m_stateTimer == 0) then
 		char:setMove(owner.m_chargePos.x, owner.m_chargePos.y, owner.m_speedMove)
 		char.m_animator:changeAni('skill_rush', true)
-		
+
+		-- 돌격시 캐릭터 스케일 키움
+		local scale = char.m_animator:getScale()
+		char.m_animator:setScale(owner.m_chargeScale * scale)
+
 		owner.m_afterimageMove = 0
 		owner:makeCrashPhsyObject()
 
+		-- 돌격 이펙트 추가
 		owner.m_chargeEffect:setVisible(true)
 		owner.m_chargeEffect:changeAni('idle', true)
 
@@ -115,6 +122,7 @@ function SkillRush.st_charge(owner, dt)
 		char:setPosition(char.m_homePosX, char.m_homePosY)
 		char:setMoveHomePos(owner.m_speedComeback)
 
+		-- 돌격 이펙트 삭제
 		owner.m_chargeEffect.m_node:removeFromParent(true)
 		owner.m_chargeEffect = nil
 
@@ -134,9 +142,15 @@ end
 function SkillRush.st_comeback(owner, dt)
 	local char = owner.m_owner
 
-	-- 제자리로 이동
 	if (owner.m_stateTimer == 0) then
+		-- 제자리로 이동
 		char:setMoveHomePos(owner.m_speedComeback)
+		
+		-- 캐릭터 스케일 원복
+		local scale = char.m_animator:getScale()
+		char.m_animator:setScale(scale * (1 / owner.m_chargeScale))
+
+		-- 복귀 연출
 		char.m_animator:setVisible(true)
 		char.m_animator:changeAni('skill_disappear', false)
 		char.m_animator:addAniHandler(function()
