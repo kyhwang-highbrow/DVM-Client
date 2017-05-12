@@ -99,6 +99,9 @@ function UI_DragonLevelUpHelper:getMaterialInfo(oid)
 
     local object_type = dragon_object.m_objectType
 
+    local exp
+    local price
+
     local exp_table = nil
     if (object_type == 'dragon') then
         exp_table = TableDragonExp()
@@ -106,13 +109,18 @@ function UI_DragonLevelUpHelper:getMaterialInfo(oid)
     elseif (object_type == 'slime') then
         exp_table = TableSlimeExp()
 
+        -- 슬라임 테이블에 경험치과 가격 정보가 있으면 우선 적용
+        exp, price = TableSlime:getGivingExpInfo(dragon_object['slime_id'])
     end
 
-    local grade = dragon_object['grade']
-    local lv = dragon_object['lv']
-    local exp = exp_table:getDragonGivingExp(grade, lv)
-    local price = exp_table:getDragonReqGoldPerMtrl(grade, lv)
-
+    if (not exp) and (not price) then
+        local grade = dragon_object['grade']
+        local lv = dragon_object['lv']
+        exp = exp_table:getDragonGivingExp(grade, lv)
+        price = exp_table:getDragonReqGoldPerMtrl(grade, lv)
+    end
+    
+    -- 동일 속성은 50% 추가 경험치
     if (self.m_selectedDragonAttr == dragon_object:getAttr()) then
         exp = (exp * 1.5)
     end
