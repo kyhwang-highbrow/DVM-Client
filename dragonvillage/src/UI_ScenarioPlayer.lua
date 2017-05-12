@@ -11,6 +11,8 @@ UI_ScenarioPlayer = class(PARENT,{
         m_titleUI = '',
 
         m_bgName = 'bg',
+        m_prevBgm = '',
+        m_currBgm = '',
 
         m_autoSkipActionNode = '',
 
@@ -29,6 +31,8 @@ function UI_ScenarioPlayer:init(scenario_name)
     UIManager:open(self, UIManager.SCENE)
 
     self.m_scenarioPlayerTalk = UI_ScenarioPlayer_Talk(self)
+
+    self.m_prevBgm = SoundMgr.m_currBgm
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_skip() end, 'UI_ScenarioPlayer')
@@ -241,6 +245,37 @@ function UI_ScenarioPlayer:showPage()
     do -- 캐릭터 이펙트
         if (t_page['char_pos'] and t_page['char_effect']) then
             self.m_mCharacter[t_page['char_pos']]:applyCharEffect(t_page['char_effect'])
+        end
+    end
+
+    do -- 사운드 (sound)
+        local bgm = t_page['bgm']
+        if bgm then
+            if (bgm == 'off') then
+                SoundMgr:stopBGM()
+            else
+                SoundMgr:playBGM(bgm)
+                self.m_currBgm = bgm
+            end
+        end
+
+        local bgm_action = t_page['bgm_action']
+        if bgm_action then
+            if (bgm_action == 'volume_down') then
+                SoundMgr:setMusicVolume(0.5)
+
+            elseif (bgm_action == 'volume_reset') then
+                SoundMgr:setMusicVolume(1)
+
+            elseif (bgm_action == 'off') then
+                SoundMgr:stopBGM()
+            end
+            
+        end
+
+        local sound = t_page['sound']
+        if sound then
+            SoundMgr:playEffect('EFFECT', sound)
         end
     end
 
@@ -471,5 +506,22 @@ function UI_ScenarioPlayer:setFocusCharacter(character)
 
     if self.m_focusCharacter then
         self.m_focusCharacter:setFocus()
+    end
+end
+
+-------------------------------------
+-- function onClose
+-------------------------------------
+function UI_ScenarioPlayer:onClose()
+    -- 볼륨 원복 (시나리오 재생 중 volume_down으로 50%로 줄었을 수 있음)
+    SoundMgr:setMusicVolume(1)
+
+    -- 시나리오 재생 전 BGM이 있었으면 다시 재생
+    if self.m_prevBgm then
+        SoundMgr:playBGM(self.m_prevBgm)
+
+    -- 시나리오에서 재생된 BGM이면 stop
+    elseif self.m_currBgm then
+        SoundMgr:stopBGM()
     end
 end
