@@ -152,6 +152,36 @@ function UI_ScenarioPlayer_Character:applyCharEffect(effect)
             self:resetCharacterAnimator()
         end
 
+    elseif (effect == 'disappear_side') then
+        if (self.m_charAnimator) then
+            
+            local animator = self.m_charAnimator 
+            local function release()
+                animator:release()
+            end
+
+            local pos = self.m_posName
+            local interval = 100
+
+            if (pos == 'left') then
+                interval = -interval
+
+            elseif (pos == 'right') then
+                interval = interval
+            end
+
+            local move_action = cc.Sequence:create(
+                cc.MoveBy:create( 0.2, cc.p(interval, 0)), cc.DelayTime:create( 0.5),
+                cc.MoveBy:create( 0.2, cc.p(interval, 0)), cc.DelayTime:create( 0.5),
+                cc.Spawn:create(cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.FadeOut:create(0.2)))
+
+            local action = cc.Sequence:create(move_action, cc.CallFunc:create(release))
+            animator:runAction(action)
+
+            self:resetCharacterAnimator()
+        end
+        
+
     elseif (effect == 'silhouette') then
         self:setSilhouette(true)
 
