@@ -303,7 +303,12 @@ function Monster:reserveSkill(skill_id)
     end
     
     -- 에니메이션 변경
-    self.m_tStateAni['attack'] = self:getAttackAnimationName(skill_id)
+    -- (근접 공격만 스킬 내부의 애니메이션을 변경하고 스킬 시작 직전 애니메이션은 attack으로 처리)
+    if (t_skill['skill_type'] == 'skill_melee_atk') then
+        self.m_tStateAni['attack'] = 'attack'
+    else
+        self.m_tStateAni['attack'] = self:getAttackAnimationName(skill_id)
+    end
     
     return true
 end
