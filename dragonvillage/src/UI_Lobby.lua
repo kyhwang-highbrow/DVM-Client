@@ -198,7 +198,7 @@ end
 -- @breif 유저의 로비맵 테이머를 갱신한다
 -------------------------------------
 function UI_Lobby:refresh_userTamer()
-    self.m_lobbyMap:refreshLobbyTamerUser()
+    self.m_lobbyMap:refreshUserTamer()
 
     local vars = self.vars
     do -- 테이머 아이콘 갱신
@@ -207,6 +207,14 @@ function UI_Lobby:refresh_userTamer()
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(icon)
     end
+end
+
+-------------------------------------
+-- function refresh_userTamer
+-- @breif 유저의 로비맵 테이머를 갱신한다
+-------------------------------------
+function UI_Lobby:refresh_userDragon()
+    self.m_lobbyMap:refreshUserDragon()
 end
 
 -------------------------------------
@@ -560,13 +568,23 @@ end
 -- function click_userInfoBtn
 -------------------------------------
 function UI_Lobby:click_userInfoBtn()
-	local before_tamer = g_tamerData:getCurrTamerTable('type')
+	local before_tamer = g_tamerData:getCurrTamerTable('tid')
+	local before_doid = g_userData:get('leaders', 'lobby')
 
+	-- 테이머와 대표드래곤 모두 바뀌었는지 검사
 	local function close_cb()
-		local curr_tamer = g_tamerData:getCurrTamerTable('type')
+		local curr_tamer = g_tamerData:getCurrTamerTable('tid')
+		local curr_doid = g_userData:get('leaders', 'lobby')
 
-		if (before_tamer ~= curr_tamer) then
+		if (before_doid ~= curr_doid) then
+			ccdisplay('UI_Lobby change doid')
+			local cb_func = function() self:refresh_lobbyUsers() end
+			g_lobbyUserListData:requestLobbyUserList_UseUI(cb_func)
+
+		elseif (before_tamer ~= curr_tamer) then
+			ccdisplay('UI_Lobby change tamer')
 			self:refresh_userTamer()
+
 		end
 	end
 
@@ -577,10 +595,10 @@ end
 -- function click_tamerBtn
 -------------------------------------
 function UI_Lobby:click_tamerBtn()
-	local before_tamer = g_tamerData:getCurrTamerTable('type')
+	local before_tamer = g_tamerData:getCurrTamerTable('tid')
 
 	local function close_cb()
-		local curr_tamer = g_tamerData:getCurrTamerTable('type')
+		local curr_tamer = g_tamerData:getCurrTamerTable('tid')
 
 		if (before_tamer ~= curr_tamer) then
 			self:refresh_userTamer()

@@ -247,6 +247,45 @@ function ServerData_Dragons:isLeaderDragon(doid)
 end
 
 -------------------------------------
+-- function request_setLeaderDragon
+-- @brief 리더드래곤의 정보를 얻어옴
+-------------------------------------
+function ServerData_Dragons:request_setLeaderDragon(type, doid, cb_func)
+	local uid = g_userData:get('uid')
+	local type = type or 'lobby'
+	local doid = doid
+
+	 local function success_cb(ret)
+		-- 서버에서 넘어온 드래곤 정보 저장
+		if (ret['modified_dragons']) then
+			for _,t_dragon in ipairs(ret['modified_dragons']) do
+				self:applyDragonData(t_dragon)
+			end
+		end
+
+		-- 서버레 리더 정보 저장
+		if (ret['leaders']) then
+			g_userData:applyServerData(ret['leaders'], 'leaders')
+		end
+
+		-- 개별 콜백 함수
+		if (cb_func) then
+			cb_func(ret)
+		end
+	end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/set_leader_dragon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', 'lobby')
+    ui_network:setParam('doid', doid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+
+end
+
+-------------------------------------
 -- function possibleMaterialDragon
 -- @brief 재료 드래곤으로 사용 가능한지 여부
 -------------------------------------
@@ -828,7 +867,7 @@ function ServerData_Dragons:getBattleGiftDragon()
 
 	-- 탈출 체크
 	if (#l_combat_top == 0) then
-		ccdisplay('전투력 조건 불충족')
+		--ccdisplay('전투력 조건 불충족')
 		return
 	end
 
@@ -843,7 +882,7 @@ function ServerData_Dragons:getBattleGiftDragon()
 
 	-- 탈출 체크
 	if (#l_lv_check == 0) then
-		ccdisplay('레벨 조건 불충족')
+		--ccdisplay('레벨 조건 불충족')
 		return
 	end
 
@@ -861,7 +900,7 @@ function ServerData_Dragons:getBattleGiftDragon()
 
 	-- 탈출 체크
 	if (#l_time_check == 0) then
-		ccdisplay('시간 조건 불충족')
+		--ccdisplay('시간 조건 불충족')
 		return
 	end
 

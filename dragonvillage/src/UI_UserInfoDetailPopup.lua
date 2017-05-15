@@ -258,8 +258,15 @@ function UI_UserInfoDetailPopup:makeContextByTitle(key, value)
 end
 
 -------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_UserInfoDetailPopup:click_exitBtn()
+	self:close()
+end
+
+-------------------------------------
 -- function click_profileBtn
--- @brief-------------------------------------
+-------------------------------------
 function UI_UserInfoDetailPopup:click_profileBtn()
 	ccdisplay('프로필 버튼은 준비중입니다.')
 end
@@ -268,12 +275,13 @@ end
 -- function click_tamerBtn
 -------------------------------------
 function UI_UserInfoDetailPopup:click_tamerBtn()
-	local before_tamer = g_tamerData:getCurrTamerTable('type')
+	local before_tamer = g_tamerData:getCurrTamerTable('tid')
 
 	local function close_cb()
-		local curr_tamer = g_tamerData:getCurrTamerTable('type')
+		local curr_tamer = g_tamerData:getCurrTamerTable('tid')
 
 		if (before_tamer ~= curr_tamer) then
+			self.m_tUserInfo['tamer'] = curr_tamer
 			self:refresh_tamer()
 		end
 	end

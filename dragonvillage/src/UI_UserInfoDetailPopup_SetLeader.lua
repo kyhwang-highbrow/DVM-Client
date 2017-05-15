@@ -11,7 +11,7 @@ UI_UserInfoDetailPopup_SetLeader = class(PARENT, {
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_DragonManage_Base:initParentVariable()
+function UI_UserInfoDetailPopup_SetLeader:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_bVisible = false
 end
@@ -26,9 +26,14 @@ function UI_UserInfoDetailPopup_SetLeader:init(t_user_info)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_UserInfoDetailPopup_SetLeader')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_UserInfoDetailPopup_SetLeader')
+
+	-- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
 
 	self.m_tUserInfo = t_user_info
+	self.m_selectDragonOID = t_user_info['leader']['id']
 
     self:initUI()
     self:initButton()
@@ -42,6 +47,7 @@ function UI_UserInfoDetailPopup_SetLeader:initUI()
     local vars = self.vars
 
 	self:init_dragonTableView()
+	self:init_dragonSortMgr()
     self:setDefaultSelectDragon(self.m_tUserInfo['leader']['id'])
 end
 
@@ -50,7 +56,8 @@ end
 -------------------------------------
 function UI_UserInfoDetailPopup_SetLeader:initButton()
     local vars = self.vars
-	--vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
+	vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
+	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
@@ -65,13 +72,13 @@ end
 -------------------------------------
 -- function refresh_dragon
 -------------------------------------
-function UI_UserInfoDetailPopup_SetLeader:refresh_dragon()
+function UI_UserInfoDetailPopup_SetLeader:refresh_dragon(t_dragon_data)
 	local vars = self.vars
 
 	vars['dragonNode']:removeAllChildren(true)
 	vars['starNode']:removeAllChildren(true)
 
-	local t_dragon_data = StructDragonObject(self.m_tUserInfo['leader'])
+	local t_dragon_data = StructDragonObject(t_dragon_data or self.m_tUserInfo['leader'])
 	local did = t_dragon_data['did']
 	local t_dragon = TableDragon():get(did)
 
@@ -89,10 +96,8 @@ function UI_UserInfoDetailPopup_SetLeader:refresh_dragon()
 	vars['nameLabel']:setString(dragon_name)
 end
 
-
 -------------------------------------
--- function refresh_dragonUpgradeMaterialTableView
--- @brief 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
+-- function init_dragonTableView
 -------------------------------------
 function UI_UserInfoDetailPopup_SetLeader:init_dragonTableView()    
     local list_table_node = self.vars['listNode']
@@ -101,9 +106,19 @@ function UI_UserInfoDetailPopup_SetLeader:init_dragonTableView()
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
         ui.root:setScale(0.66)
+		
+		-- 최초 선택 표시
+		if (data['id'] == self.m_selectDragonOID) then
+            self:changeDragonSelectFrame(ui)
+        end
 
         -- 클릭 버튼 설정
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonUpgradeMaterial(data) end)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() 
+			self:refresh_dragon(data)
+			self.m_selectDragonOID = data['id']
+			self.m_selectDragonData = data
+			self:changeDragonSelectFrame(ui)
+		end)
     end
 
     -- 테이블뷰 생성
@@ -116,6 +131,71 @@ function UI_UserInfoDetailPopup_SetLeader:init_dragonTableView()
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_item_list = self:getDragonList()
     self.m_tableViewExt:setItemList(l_item_list)
+end
+
+-------------------------------------
+-- function init_dragonSortMgr
+-------------------------------------
+function UI_UserInfoDetailPopup_SetLeader:init_dragonSortMgr()
+    -- 정렬 매니저 생성
+    self.m_sortManagerDragon = SortManager_Dragon()
+
+    -- 정렬 UI 생성
+    local vars = self.vars
+    local uic_sort_list = MakeUICSortList_dragonManage(vars['sortSelectBtn'], vars['sortSelectLabel'], UIC_SORT_LIST_TOP_TO_BOT)
+    self.m_uicSortList = uic_sort_list
+    
+
+    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        self.m_sortManagerDragon:pushSortOrder(sort_type)
+        self:apply_dragonSort()
+    end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
+
+    -- 오름차순/내림차순 버튼
+    vars['sortSelectOrderBtn']:registerScriptTapHandler(function()
+            local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)
+            self.m_sortManagerDragon:setAllAscending(ascending)
+            self:apply_dragonSort()
+
+            vars['sortSelectOrderSprite']:stopAllActions()
+            if ascending then
+                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+            else
+                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+            end
+        end)
+end
+
+-------------------------------------
+-- function click_selectBtn
+-------------------------------------
+function UI_UserInfoDetailPopup_SetLeader:click_selectBtn()
+	if (self.m_selectDragonData) then
+		if (self.m_selectDragonData['id'] ~= self.m_tUserInfo['leader']['id']) then
+			self.m_tUserInfo['leader'] = self.m_selectDragonData
+			g_dragonsData:request_setLeaderDragon('lobby', self.m_selectDragonOID)
+		end
+	end
+
+	self:click_closeBtn()
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_UserInfoDetailPopup_SetLeader:click_closeBtn()
+	-- 저장된 closeCB를 먼저 실행
+	self.m_closeCB()
+	self.m_closeCB = nil
+
+    local function finish_cb()
+        self:close()
+    end
+
+    -- @UI_ACTION
+    self:doActionReverse(finish_cb, 1, false)
 end
 
 --@CHECK

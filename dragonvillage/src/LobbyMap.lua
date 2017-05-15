@@ -350,24 +350,27 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
     local uid = g_serverData:get('local', 'uid')
     local is_bot = (tostring(uid) ~= t_user_info['uid'])
 	
-    local sum_random = SumRandom()
-    sum_random:addItem(1, 'res/character/tamer/dede/dede.spine')
-    sum_random:addItem(1, 'res/character/tamer/goni/goni.spine')
-	sum_random:addItem(1, 'res/character/tamer/nuri/nuri.spine')
-	sum_random:addItem(1, 'res/character/tamer/kesath/kesath.spine')
-	sum_random:addItem(1, 'res/character/tamer/durun/durun.spine')
-	sum_random:addItem(1, 'res/character/tamer/mokoji/mokoji.spine')
-    local res = sum_random:getRandomValue()
+	local tamer_res = nil
 
     local tamer
     if is_bot then
+		-- @TODO tamer id를 받아와야함
+		local sum_random = SumRandom()
+		sum_random:addItem(1, 'res/character/tamer/dede/dede.spine')
+		sum_random:addItem(1, 'res/character/tamer/goni/goni.spine')
+		sum_random:addItem(1, 'res/character/tamer/nuri/nuri.spine')
+		sum_random:addItem(1, 'res/character/tamer/kesath/kesath.spine')
+		sum_random:addItem(1, 'res/character/tamer/durun/durun.spine')
+		sum_random:addItem(1, 'res/character/tamer/mokoji/mokoji.spine')
+
         tamer = LobbyTamerBot(t_user_info)
+		tamer_res = sum_random:getRandomValue()
     else
         tamer = LobbyTamer(t_user_info)
-        res = g_tamerData:getCurrTamerTable('res_sd')
+        tamer_res = g_tamerData:getCurrTamerTable('res_sd')
     end
 
-	tamer:initAnimator(res)
+	tamer:initAnimator(tamer_res)
 
     local flip = (math_random(1, 2) == 1) and true or false
 
@@ -734,10 +737,19 @@ function LobbyMap:clearAllUser()
 end
 
 -------------------------------------
--- function refreshLobbyTamerUser
+-- function refreshUserTamer
 -------------------------------------
-function LobbyMap:refreshLobbyTamerUser()
+function LobbyMap:refreshUserTamer()
 	local lobby_tamer = self.m_lobbyTamerUser
 	local res = g_tamerData:getCurrTamerTable('res_sd')
 	lobby_tamer:initAnimator(res)
+end
+
+-------------------------------------
+-- function refreshUserLobbyDragon
+-------------------------------------
+function LobbyMap:refreshUserDragon()
+	local lobby_dragon = self.m_lobbyTamerUser.m_dragon
+	local res = g_tamerData:getCurrTamerTable('res_sd')
+	lobby_dragon:initAnimator(res)
 end

@@ -496,38 +496,17 @@ function UI_DragonManageInfo:click_leaderBtn()
     end
 
     local function yes_cb()
-        local uid = g_userData:get('uid')
-
-        local function success_cb(ret)
-
-            -- 서버에서 넘어온 드래곤 정보 저장
-            if (ret['modified_dragons']) then
-                self:refreshLeaderIcon(ret['modified_dragons'])
-                for _,t_dragon in ipairs(ret['modified_dragons']) do
-                    g_dragonsData:applyDragonData(t_dragon)
-                end
-            end
-
-            -- 서버레 리더 정보 저장
-            if (ret['leaders']) then
-                g_userData:applyServerData(ret['leaders'], 'leaders')
-            end
-
+        local function cb_func(ret)
             UIManager:toastNotificationGreen(Str('대표 드래곤으로 설정되었습니다.'))
             
+			self:refreshLeaderIcon(ret['modified_dragons'])
+
             -- 리더 드래곤 여부 표시
             self:setSelectDragonDataRefresh()
-            self:refresh_leaderDragon(t_dragon_data)
+            self:refresh_leaderDragon()
         end
 
-        local ui_network = UI_Network()
-        ui_network:setUrl('/users/set_leader_dragon')
-        ui_network:setParam('uid', uid)
-        ui_network:setParam('type', 'lobby')
-        ui_network:setParam('doid', self.m_selectDragonOID)
-        ui_network:setRevocable(true)
-        ui_network:setSuccessCB(success_cb)
-        ui_network:request()
+		g_dragonsData:request_setLeaderDragon('lobby', self.m_selectDragonOID, cb_func)
     end
 
     MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('대표 드래곤으로 설정하시겠습니까?'), yes_cb)
