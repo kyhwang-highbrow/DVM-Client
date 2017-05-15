@@ -577,18 +577,17 @@ function UI_Lobby:click_userInfoBtn()
 		local curr_doid = g_userData:get('leaders', 'lobby')
 
 		if (before_doid ~= curr_doid) then
-			ccdisplay('UI_Lobby change doid')
 			local cb_func = function() self:refresh_lobbyUsers() end
 			g_lobbyUserListData:requestLobbyUserList_UseUI(cb_func)
 
 		elseif (before_tamer ~= curr_tamer) then
-			ccdisplay('UI_Lobby change tamer')
 			self:refresh_userTamer()
 
 		end
 	end
 
-    RequestUserInfoDetailPopup(g_userData:get('uid'), close_cb)
+	local is_visit = false
+    RequestUserInfoDetailPopup(g_userData:get('uid'), is_visit, close_cb)
 end
 
 -------------------------------------
@@ -616,7 +615,7 @@ function UI_Lobby:click_explorationBtn()
     local function finish_cb()
         UI_Exploration()
     end
-
+	 
     g_explorationData:request_explorationInfo(finish_cb)
 end
 

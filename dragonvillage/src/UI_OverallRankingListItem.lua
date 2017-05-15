@@ -85,7 +85,8 @@ end
 -- function click_detailBtn
 -------------------------------------
 function UI_OverallRankingListItem:click_detailBtn()
-	RequestUserInfoDetailPopup(self.m_tRankInfo['uid'])
+	local is_visit = true
+	RequestUserInfoDetailPopup(self.m_tRankInfo['uid'], is_visit, nil)
 end
 
 --@CHECK

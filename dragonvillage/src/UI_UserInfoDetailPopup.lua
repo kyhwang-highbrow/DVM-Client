@@ -1,5 +1,32 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
+local L_KEY_INDEX = {
+	'created_at',
+	'login_days',
+	'clogin_max',
+	
+	'enter',
+	
+	'play_cnt',
+	'clr_stage_cnt',
+	'adv_time',
+	
+	'enter',
+	
+	'd_cnt',
+	'd_maxlv_cnt',
+	'd_6g_cnt',
+	'd_have_cnt',
+
+	'enter',
+
+	'ancient_stage',
+	'cpoint',
+	'tier',
+	'pvp_cnt',
+	'pvp_win',
+}
+
 -------------------------------------
 -- class UI_UserInfoDetailPopup
 -------------------------------------
@@ -34,7 +61,7 @@ function UI_UserInfoDetailPopup:init(t_user_info, is_visit)
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_UserInfoDetailPopup')
 
     self.m_tUserInfo = t_user_info
-	self.m_isVisit = not (t_user_info['uid'] == g_userData:get('uid'))
+	self.m_isVisit = is_visit or (t_user_info['uid'] ~= g_userData:get('uid'))
 
     self:initUI()
     self:initButton()
@@ -74,11 +101,7 @@ function UI_UserInfoDetailPopup:initUI()
 	vars['guildLabel']:setString(guild_name)
 	
 	-- 플레이 기록
-	do
-		local title_str, context_str = self:makeHistroyText()
-		vars['historyLabel1']:setString(title_str)
-		vars['historyLabel2']:setString(context_str)
-	end
+	self:init_historyView()
 end
 
 -------------------------------------
@@ -110,8 +133,11 @@ function UI_UserInfoDetailPopup:refresh_profile()
 
 	vars['iconNode']:removeAllChildren(true)
 
-	-- 프로필 아이콘
-	-- vars['iconNode']:addChild()
+	-- 프로필 아이콘 @TODO 임시처리
+	local t_dragon_data = StructDragonObject(self.m_tUserInfo['leader'])
+	local icon = UI_DragonCard(t_dragon_data)
+	icon.root:setScale(0.9)
+	vars['iconNode']:addChild(icon.root)
 end
 
 -------------------------------------
@@ -152,7 +178,7 @@ function UI_UserInfoDetailPopup:refresh_dragon()
 
 	-- 드래곤 애니
 	local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
-	animator:setScale(0.6)
+	animator:setScale(0.7)
 	vars['dragonNode']:addChild(animator.m_node)
 
 	-- 드래곤 별
@@ -164,7 +190,6 @@ function UI_UserInfoDetailPopup:refresh_dragon()
 	vars['dragonLabel']:setString(dragon_name)
 end
 
-
 -------------------------------------
 -- function setVisitMode
 -------------------------------------
@@ -173,53 +198,60 @@ function UI_UserInfoDetailPopup:setVisitMode()
 	vars['profileBtn']:setVisible(false)
 	vars['tamerBtn']:setVisible(false)
 	vars['dragonBtn']:setVisible(false)
-	vars['expLabel']:setVisible(false)
-	vars['expGuage']:setVisible(false)
-	vars['expGaugeBg']:setVisible(false)
 end
-
-local L_KEY_INDEX = {
-	'created_at',
-	'login_days',
-	'clogin_max',
-	
-	'enter',
-	
-	'play_cnt',
-	'clr_stage_cnt',
-	'adv_time',
-	
-	'enter',
-	
-	'd_cnt',
-	'd_maxlv_cnt',
-	'd_6g_cnt',
-	'd_have_cnt',
-
-	'enter',
-
-	'ancient_stage',
-	'cpoint',
-	'tier',
-	'pvp_cnt',
-	'pvp_win',
-}
 
 -------------------------------------
 -- function makeHistroyText
 -------------------------------------
-function UI_UserInfoDetailPopup:makeHistroyText()
+function UI_UserInfoDetailPopup:init_historyView()
+	local vars = self.vars
+	local node = vars['listNode']
+
+	-- 구조화된 플레이 기록 리스트
+	local l_item_list = self:makeHistoryList()
+
+	-- cell size 정의
+	local width = vars['listNode']:getContentSize()['width']
+	local height = 30 + 2
+
+	-- ui class 없이 생성
+	local create_func = function(data)
+		local ui = class(UI, ITableViewCell:getCloneTable())()
+		ui:load('user_info_history_item.ui')
+		
+		local vars = ui.vars
+		vars['historyLabel1']:setString(data['title'])
+		vars['historyLabel2']:setString(data['context'])
+
+		return ui
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(width, height)
+    table_view:setCellUIClass(create_func)
+	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
+end
+
+-------------------------------------
+-- function makeHistroyText
+-------------------------------------
+function UI_UserInfoDetailPopup:makeHistoryList()
 	local t_info = self.m_tUserInfo['info'] or {}
+	local l_ret = {}
 	local title_str = ''
 	local context_str = ''
 
 	for _, title in pairs(L_KEY_INDEX) do
 		context = t_info[title]
-		title_str = title_str .. getUserInfoTitle(title)  .. '\n'
-		context_str = context_str .. self:makeContextByTitle(title, context) .. '\n'
+		title_str = getUserInfoTitle(title)
+		context_str = self:makeContextByTitle(title, context)
+
+		table.insert(l_ret, {title = title_str, context = context_str})
 	end
 
-	return title_str, context_str
+	return l_ret
 end
 
 -------------------------------------
@@ -237,18 +269,27 @@ function UI_UserInfoDetailPopup:makeContextByTitle(key, value)
 	local str
 
 	if (key == 'pvp_win') then
+		local pvp_cnt = self.m_tUserInfo['info']['pvp_cnt']
+		
+		value = (pvp_cnt == 0) and (0) or (value/pvp_cnt) * 100
+
 		str = string.format('%.2f%%', value)
 
 	elseif (key == 'tier') then
 		str = ColosseumUserInfo:getTierName(value)
 
 	elseif (key == 'ancient_stage') then
-		str = value - 1401000
+		-- 스테이지id가 넘어오므로 층수에 해당하는 정보만 남긴다
+		str = value - ANCIENT_TOWER_STAGE_ID_START
 
 	elseif (key == 'created_at') then
+		-- 날짜 정보 세팅
 		local date = pl.Date()
 		date:set(value/1000)
-		str = pl.Date.Format:tostring(date)
+
+		-- 날짜 포맷 세팅
+		local date_format = pl.Date.Format('yyyy-mm-dd')
+		str = date_format:tostring(date)
 
 	else
 		str = value
@@ -311,14 +352,14 @@ end
 -------------------------------------
 -- function RequestUserDeckInfoPopup
 -------------------------------------
-function RequestUserInfoDetailPopup(peer_uid, close_cb)
+function RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb)
 	-- 유저 ID
     local uid = g_userData:get('uid')
 	local peer_uid = peer_uid
 
     local function success_cb(ret)
 		local t_user_info = ret['user_info']
-        local ui = UI_UserInfoDetailPopup(t_user_info)
+        local ui = UI_UserInfoDetailPopup(t_user_info, is_visit)
 		ui:setCloseCB(close_cb)
     end
 
