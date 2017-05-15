@@ -926,8 +926,7 @@ function Character:makeDamageFont(damage, x, y, critical, is_add_dmg)
 
 	-- 추가 데미지
     elseif (is_add_dmg) then
-        label:setScale(0.8)
-        label:setColor(cc.c3b(225, 229, 0))	-- 노랑
+		label:setColor(cc.c3b(225, 229, 0))	-- 노랑
 		label:setPosition(x, y)
 		label:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
         label:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
