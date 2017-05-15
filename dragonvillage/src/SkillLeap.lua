@@ -22,7 +22,6 @@ function SkillLeap:init_skill(jump_res)
 	PARENT.init_skill(self)
 	
 	-- 멤버 변수
-	self.m_range = 10			-- 1인의 공격만 하므로 적당히..
 	self.m_jumpRes = jump_res
 
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
@@ -36,7 +35,7 @@ function SkillLeap:initSkillSize()
 		local t_data = SkillHelper:getSizeAndScale('round', self.m_skillSize)  
 
 		--self.m_resScale = t_data['scale']
-		--self.m_range = t_data['size']
+		self.m_range = 1
 	end
 end
 
