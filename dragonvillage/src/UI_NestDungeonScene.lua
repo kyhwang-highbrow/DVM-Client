@@ -258,8 +258,8 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data)
 	cca.reserveFunc(vars['dragonInfoBtn'], 0.5, function() vars['dragonInfoBtn']:setVisible(true) end)
 
     do -- 사용 스테미너 얻어오기
-        local stamina_type = g_nestDungeonData:getNestModeStaminaType(data['mode_id'])
-        g_topUserInfo:setStaminaType(stamina_type)
+        self.m_staminaType = g_nestDungeonData:getNestModeStaminaType(data['mode_id'])
+        g_topUserInfo:setStaminaType(self.m_staminaType)
     end
 end
 
