@@ -122,7 +122,8 @@ function UI_ShopListItem:click_buyBtn()
 
     if can_buy then
 		local function ok_cb()
-			g_shopData:tempBuy(self.m_lProductList, self.m_priceType, self.m_priceValue)
+			--g_shopData:tempBuy(self.m_lProductList, self.m_priceType, self.m_priceValue)
+            g_shopData:request_buy(self.m_pid, function() self:refresh() end)
 		end
 
 		if (t_product['price_value'] > 0) then

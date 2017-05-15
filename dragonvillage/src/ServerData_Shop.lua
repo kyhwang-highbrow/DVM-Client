@@ -110,6 +110,38 @@ function ServerData_Shop:request_shopInfo(cb_func)
 end
 
 -------------------------------------
+-- function request_buy
+-- @brief 상품 구매
+-------------------------------------
+function ServerData_Shop:request_buy(product_id, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)        
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        g_topUserInfo:refreshData()
+
+        if (finish_cb) then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/buy')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('product_id', product_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function openShopPopup
 -- @brief
 --        1. 상점 리스트를 서버에서 받아옴
