@@ -62,7 +62,7 @@ function TableShop:makeProductDesc(l_product)
 		elseif (product_type == 'gold') then
 			str = Str('골드 {1}개', value_str)
 
-		elseif (product_type == 'stamina') then
+		elseif (product_type == 'staminas_st') then
 			str = Str('날개 {1}개', value_str)
 
 		else

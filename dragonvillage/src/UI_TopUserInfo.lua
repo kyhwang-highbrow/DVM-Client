@@ -309,7 +309,7 @@ function UI_TopUserInfo:noticeBroadcast(msg, duration)
     vars['noticeBroadcastNode']:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create()))
     
     local line_count = vars['noticeBroadcastLabel'].m_lineCount
-    if (line_count > 1) then
+    if (line_count and line_count > 1) then
         local size = cc.size(vars['noticeBroadcastNode']:getNormalSize())
         size['height'] = 50
         vars['noticeBroadcastNode']:setNormalSize(size)

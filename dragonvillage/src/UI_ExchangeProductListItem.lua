@@ -113,6 +113,16 @@ end
 -------------------------------------
 function UI_ExchangeProductListItem:click_exchangeBtn()
     local struct_data = self.m_structExchangeProductData
+
+    local function failNoti(msg)
+        UIManager:toastNotificationRed(msg)
+        self:nagativeAction()
+    end
+
+    if (struct_data.m_buyCount >= struct_data.m_maxBuyCount) then
+        failNoti(Str('더이상 구매할 수 없는 상품입니다.'))
+        return
+    end
     
     for i = 1, 3 do
         local price_type = struct_data['m_priceType' .. i]
@@ -121,8 +131,7 @@ function UI_ExchangeProductListItem:click_exchangeBtn()
         if (price_type and price_value) then
             local can_buy, msg = g_exchangeData:canBuyProduct(price_type, price_value)
             if (not can_buy) then
-                UIManager:toastNotificationRed(msg)
-                self:nagativeAction()
+                failNoti(msg)
                 return
             end
         end
