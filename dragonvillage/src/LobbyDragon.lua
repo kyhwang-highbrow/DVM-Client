@@ -14,6 +14,7 @@ LobbyDragon = class(PARENT, {
         m_bInitFirstPos = 'bool',
 
 		m_hasGift = 'bool',
+		m_giftAnimator = 'Animator',
 		m_hasSomethingToTalk = 'bool',
 		m_userDragon = 'bool',
 		m_talkingTimer = 'timer',
@@ -42,7 +43,7 @@ function LobbyDragon:init(did, flv, is_bot)
 	
 	-- TalkingNode 생성
 	self.m_talkingNode = cc.Node:create()
-	self.m_rootNode:addChild(self.m_talkingNode)
+	self.m_rootNode:addChild(self.m_talkingNode, 2)
 end
 
 -------------------------------------
@@ -231,8 +232,8 @@ function LobbyDragon:takeGift()
 
 		-- 선물 수령 처리
 		self.m_hasGift = false
-		self.m_animator.m_node:stopAllActions()
-		self.m_animator.m_node:setColor(COLOR['white'])
+		self.m_giftAnimator:runAction(cc.Sequence:create(cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+		self.m_giftAnimator = nil
 
 		-- 선물 수령 후 최초 1회 대사 세팅
 		self.m_hasSomethingToTalk = true
@@ -279,22 +280,13 @@ function LobbyDragon:update_gift(dt)
 	if (self.m_hasGift) then
 		-- 선물이 가능할 경우 하이라이팅 위한 연출
 		if (self.m_talkingTimer == 0) then
-			local duration = 0.4
-			local tint_action = cc.RepeatForever:create(
-				cc.Sequence:create(
-					cc.TintTo:create(duration, 255, 255, 255),
-					cc.TintTo:create(duration, math_random(255), math_random(255), math_random(255)),
-					cc.TintTo:create(duration, 255, 255, 255),
-					cc.TintTo:create(duration, math_random(255), math_random(255), math_random(255)),
-					cc.TintTo:create(duration, 255, 255, 255),
-					cc.TintTo:create(duration, math_random(255), math_random(255), math_random(255)),
-					cc.TintTo:create(duration, 255, 255, 255),
-					cc.TintTo:create(duration, math_random(255), math_random(255), math_random(255)),
-					cc.TintTo:create(duration, 255, 255, 255),
-					cc.TintTo:create(duration, math_random(255), math_random(255), math_random(255))
-				)
-			)
-			self.m_animator:runAction(tint_action, LobbyDragon.TINT_ACTION)
+			local animator = MakeAnimator('/res/ui/a2d/dragon_upgrade_fx/dragon_upgrade_fx.vrp')
+			
+			self.m_rootNode:addChild(animator.m_node)
+			animator:changeAni('bottom_idle', true)
+			animator:setPosition(0, LobbyDragon.Y_OFFSET)
+
+			self.m_giftAnimator = animator
 		end
 
 		self.m_talkingTimer = self.m_talkingTimer + dt
