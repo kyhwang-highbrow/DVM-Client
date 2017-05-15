@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_nest_tree",
+    "bg":"ancient_tower"
 	"camera":
 	{
 		"scale":0.8,

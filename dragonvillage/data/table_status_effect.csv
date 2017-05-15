@@ -17,7 +17,7 @@ attr_change_water,buff,속성 변환:물,,,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,
 attr_change_fire,buff,속성 변환:불,,,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,,0,fire,,,,x,x,x,x,x,x
 attr_change_light,buff,속성 변환:빛,,,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,,0,light,,,,x,x,x,x,x,x
 attr_change_dark,buff,속성 변환:어둠,,,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,,0,dark,,,,x,x,x,x,x,x
-hp_drain,buff,생명력 흡수,,res/ui/icon/status_effect/atk_up.png,x,false,1,10,0,0,0,0,0,0,0,0,0,100,0,0,,,,,,,,,,,,
+hp_drain,buff,생명력 흡수,,res/ui/icon/status_effect/atk_up.png,x,false,1,10,0,0,0,0,0,0,0,0,0,100,0,0,,1,,,,,,,,,,
 def_up_overlab,buff,방어력 증가 오버랩,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,20,5,0,100,0,0,0,0,0,0,0,0,0,0,,0,,,,,5,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 atk_up_overlab,buff,공격력 증가 오버랩,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,20,5,100,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,5,x,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 darknix,buff,파멸의 고동,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,99,999,20,0,0,0,10,0,0,0,0,0,0,0,,0,,,,,20,10,x,x,공격력 {1}% 증가. 치명 확률 {2}% 증가,
