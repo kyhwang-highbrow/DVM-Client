@@ -2286,6 +2286,12 @@
     <None Include="..\src\UI_UserInfoDetailPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_UserInfoDetailPopup_SetProfile.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_UserInfoDetailPopup_SetLeader.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

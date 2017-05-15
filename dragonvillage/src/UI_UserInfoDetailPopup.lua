@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_UserInfoDetailPopup
@@ -7,6 +7,19 @@ UI_UserInfoDetailPopup = class(PARENT, {
 	m_tUserInfo = 'table',
 	m_isVisit = 'bool',
 })
+
+-------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_UserInfoDetailPopup:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_UserInfoDetailPopup'
+    self.m_bVisible = true
+    self.m_titleStr = Str('유저 상세 정보')
+    self.m_bUseExitBtn = true
+    self.m_bShowChatBtn = true
+end
 
 -------------------------------------
 -- function init
@@ -43,9 +56,10 @@ function UI_UserInfoDetailPopup:initUI()
 	vars['levelLabel']:setString(string.format('LV. %d', lv))
 
 	-- 경험치 및 게이지
-	local exp_per = 50.19
-	vars['expLabel']:setString(string.format('%.2f%%', exp_per))
-	vars['expGuage']:setPercentage(exp_per)
+	local user_exp = g_userData:get('exp') or 519
+	local user_exp_per = TableUserLevel():getUserLevelExpPercentage(lv, user_exp)
+	vars['expLabel']:setString(string.format('%.2f%%', user_exp_per))
+	vars['expGuage']:setPercentage(user_exp_per)
 
 	-- 닉네임
 	local nick_name = self.m_tUserInfo['nick']
@@ -109,7 +123,7 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 	vars['tamerNode']:removeAllChildren(true)
 
 	-- 테이머 애니
-	local tamer_id = 110000 + math_random(6) -- self.m_tUserInfo['tamer']
+	local tamer_id = self.m_tUserInfo['tamer'] or 110000 + math_random(6)
 	local t_tamer = TableTamer():get(tamer_id)
 	local illustration_res = t_tamer['res']
 	local illustration_animator = MakeAnimator(illustration_res)
@@ -159,24 +173,36 @@ function UI_UserInfoDetailPopup:setVisitMode()
 	vars['profileBtn']:setVisible(false)
 	vars['tamerBtn']:setVisible(false)
 	vars['dragonBtn']:setVisible(false)
+	vars['expLabel']:setVisible(false)
+	vars['expGuage']:setVisible(false)
+	vars['expGaugeBg']:setVisible(false)
 end
 
-local T_TITLE = {
-	clr_stage_cnt = '클리어한 스테이지 수',
-    play_cnt = '게임 플레이 횟수',
-    clogin_max = '최대 연속 접속일',
-    pvp_win = '콜로세움 누적 승률',
-    tier = '현재 콜로세움 Tier',
-    ancient_stage = '현재 고대의 탑 층 수',
-    pvp_cnt = '콜로세움 누적 플레이 횟수',
-    adv_time = '총 탐험 시간',
-    d_6g_cnt = '6등급 드래곤의 수',
-    d_cnt = '만난 드래곤 수',
-    d_maxlv_cnt = 'Max 레벨 달성한 드래곤의 수',
-    d_have_cnt = '현재 보유한 드래곤 수',
-    created_at = '최초 접속일',
-    cpoint = '테이머 포인트',
-    login_days = '누적 접속일',
+local L_KEY_INDEX = {
+	'created_at',
+	'login_days',
+	'clogin_max',
+	
+	'enter',
+	
+	'play_cnt',
+	'clr_stage_cnt',
+	'adv_time',
+	
+	'enter',
+	
+	'd_cnt',
+	'd_maxlv_cnt',
+	'd_6g_cnt',
+	'd_have_cnt',
+
+	'enter',
+
+	'ancient_stage',
+	'cpoint',
+	'tier',
+	'pvp_cnt',
+	'pvp_win',
 }
 
 -------------------------------------
@@ -187,8 +213,9 @@ function UI_UserInfoDetailPopup:makeHistroyText()
 	local title_str = ''
 	local context_str = ''
 
-	for title, context in pairs(t_info) do
-		title_str = title_str .. self:makeTitleByKey(title)  .. '\n'
+	for _, title in pairs(L_KEY_INDEX) do
+		context = t_info[title]
+		title_str = title_str .. getUserInfoTitle(title)  .. '\n'
 		context_str = context_str .. self:makeContextByTitle(title, context) .. '\n'
 	end
 
@@ -196,18 +223,17 @@ function UI_UserInfoDetailPopup:makeHistroyText()
 end
 
 -------------------------------------
--- function makeTitleByKey
--------------------------------------
-function UI_UserInfoDetailPopup:makeTitleByKey(key)
-	local title = T_TITLE[key] or '미정의된 플레이 기록'
-	
-	return Str(title)
-end
-
--------------------------------------
 -- function makeContextByTitle
 -------------------------------------
 function UI_UserInfoDetailPopup:makeContextByTitle(key, value)
+	if (not value) then
+		if (key == 'enter') then
+			return ''
+		else
+			return '-'
+		end
+	end
+
 	local str
 
 	if (key == 'pvp_win') then
@@ -260,7 +286,18 @@ end
 -- function click_dragonBtn
 -------------------------------------
 function UI_UserInfoDetailPopup:click_dragonBtn()
-	ccdisplay('드래곤은 준비중입니다.')
+	local before_doid = self.m_tUserInfo['leader']['id']
+
+	local function close_cb()
+		local curr_doid = self.m_tUserInfo['leader']['id']
+
+		if (before_doid ~= curr_doid) then
+			self:refresh_dragon()
+		end
+	end
+
+	local ui = UI_UserInfoDetailPopup_SetLeader(self.m_tUserInfo)
+	ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

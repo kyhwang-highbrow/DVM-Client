@@ -524,7 +524,6 @@ local t_module = {
     'UI_MonsterCard',
     'UI_FruitFeedPress',
     'UI_LobbyUserInfoPopup',
-	'UI_UserInfoDetailPopup',
     'UI_UserDeckInfoPopup',
     'UI_DungeonMenu',
     'UI_BattleMenu',
@@ -696,6 +695,11 @@ local t_module = {
 	'UI_SkillDetailPopup_Tamer',
     'UI_SkillDetailPopupListItem_Tamer',
 	'UI_SkillEnhance',
+
+	-- UI: 유저 상세 정보
+	'UI_UserInfoDetailPopup',
+	'UI_UserInfoDetailPopup_SetLeader',
+	'UI_UserInfoDetailPopup_SetProfile',
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',

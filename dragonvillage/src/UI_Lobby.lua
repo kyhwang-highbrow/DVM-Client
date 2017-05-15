@@ -274,7 +274,7 @@ function UI_Lobby:initButton()
 	vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffBtn() end)
 	vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
-    vars['tamerBtn2']:registerScriptTapHandler(function() self:click_tamerBtn() end)
+    vars['tamerBtn2']:registerScriptTapHandler(function() self:click_userInfoBtn() end)
     vars['explorationBtn']:registerScriptTapHandler(function() self:click_explorationBtn() end) -- 탐험 버튼
     vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 도감 버튼
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
@@ -557,6 +557,23 @@ function UI_Lobby:click_buffBtn()
 end
 
 -------------------------------------
+-- function click_userInfoBtn
+-------------------------------------
+function UI_Lobby:click_userInfoBtn()
+	local before_tamer = g_tamerData:getCurrTamerTable('type')
+
+	local function close_cb()
+		local curr_tamer = g_tamerData:getCurrTamerTable('type')
+
+		if (before_tamer ~= curr_tamer) then
+			self:refresh_userTamer()
+		end
+	end
+
+    RequestUserInfoDetailPopup(g_userData:get('uid'), close_cb)
+end
+
+-------------------------------------
 -- function click_tamerBtn
 -------------------------------------
 function UI_Lobby:click_tamerBtn()
@@ -570,7 +587,8 @@ function UI_Lobby:click_tamerBtn()
 		end
 	end
 
-    RequestUserInfoDetailPopup(g_userData:get('uid'), close_cb)
+    local ui = UI_TamerManagePopup()
+	ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

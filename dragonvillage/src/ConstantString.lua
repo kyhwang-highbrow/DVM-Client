@@ -237,3 +237,31 @@ function getSkillType_Tamer(skill_idx)
 
 	return str
 end
+
+-------------------------------------
+-- function getUserInfoText
+-- @brief 유저 상세 정보의 텍스트
+-------------------------------------
+local T_TITLE = {
+	clr_stage_cnt = '클리어한 스테이지 수',
+    play_cnt = '게임 플레이 횟수',
+    clogin_max = '최대 연속 접속일',
+    pvp_win = '콜로세움 누적 승률',
+    tier = '현재 콜로세움 Tier',
+    ancient_stage = '현재 고대의 탑 층 수',
+    pvp_cnt = '콜로세움 누적 플레이 횟수',
+    adv_time = '총 탐험 시간',
+    d_6g_cnt = '6등급 드래곤의 수',
+    d_cnt = '만난 드래곤 수',
+    d_maxlv_cnt = 'Max 레벨 달성한 드래곤의 수',
+    d_have_cnt = '현재 보유한 드래곤 수',
+    created_at = '최초 접속일',
+    cpoint = '테이머 포인트',
+    login_days = '누적 접속일',
+	enter = '',
+}
+function getUserInfoTitle(key)
+    local title = T_TITLE[key] or Str('미정의된 플레이 기록')
+
+	return Str(title)
+end

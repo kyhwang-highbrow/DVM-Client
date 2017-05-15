@@ -976,6 +976,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_TopUserInfo.lua" />
     <None Include="..\src\UI_UserDeckInfoPopup.lua" />
     <None Include="..\src\UI_UserInfoDetailPopup.lua" />
+    <None Include="..\src\UI_UserInfoDetailPopup_SetLeader.lua" />
+    <None Include="..\src\UI_UserInfoDetailPopup_SetProfile.lua" />
     <None Include="..\src\UI_UserInfoMini.lua" />
     <None Include="..\src\UserData.lua" />
     <None Include="..\src\Util_BuffStringParser.lua" />
