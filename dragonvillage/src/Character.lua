@@ -1416,7 +1416,7 @@ end
 -------------------------------------
 -- function updateBasicTimeSkillTimer
 -------------------------------------
-function Character:updateBasicTimeSkillTimer(x, y, speed)
+function Character:updateBasicTimeSkillTimer(dt)
     if (self.m_bDead) then
 		return false
 	end
@@ -1435,7 +1435,16 @@ function Character:updateBasicTimeSkillTimer(x, y, speed)
         return false
     end
 
-    local ret = PARENT.updateBasicTimeSkillTimer(self, x, y, speed)
+    -- cool_actu 스텟 적용(쿨타임 감소)
+    do
+        -- @ RUNE
+        local rate = 1 + (self:getStat('cool_actu') / 100)
+        rate = math_max(rate , 0)
+
+        dt = dt * rate
+    end
+    
+    local ret = PARENT.updateBasicTimeSkillTimer(self, dt)
     return ret
 end
 

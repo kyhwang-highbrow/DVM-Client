@@ -1062,9 +1062,7 @@ function Dragon:updateBasicTimeSkillTimer(dt)
 
     -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
     if (skill_info) then
-		-- @ RUNE
-		local max_reduce_rate = self:getStat('cool_actu')
-        local max = skill_info.m_tSkill['chance_value'] * (1 - (max_reduce_rate/100))
+		local max = skill_info.m_tSkill['chance_value']
         local cur = skill_info.m_timer
         local remain_time = max - cur
         
