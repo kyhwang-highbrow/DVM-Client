@@ -129,6 +129,7 @@ local t_module = {
     'DragonSkillIndivisualInfo',
     'FriendBuffManager',
     'SumRandom',
+	'NumberLoop',
     'ValidationAssistant',
     'Counter',
     'Stopwatch',

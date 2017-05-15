@@ -32,6 +32,9 @@ PatchCore = class({
 
 		m_patchScene = 'ScenePatch',
 		m_patchGuideUI = 'UI',
+
+		m_patchLabel = 'cc.Label',
+		m_patchGauge = 'cc.ProgressBar',
     })
 
 -------------------------------------
@@ -58,6 +61,9 @@ function PatchCore:init(scene, type, app_ver)
 	self.m_downloadedSize = 0
 	self.m_totalSize = 0
     self.m_doStepReady = false
+
+	self.m_patchLabel = self.m_patchScene.m_vars['downloadLabel']
+	self.m_patchGauge = self.m_patchScene.m_vars['downloadGauge']
 
     -- 로컬 서버 사용 여부를 false로 지정
     ServerData:getInstance():applyServerData(false, 'cache', 'user_local_server')
@@ -110,20 +116,23 @@ function PatchCore:update(dt)
         self:doStep_()
     end
 
-	local vars = self.m_patchScene.m_vars
+	-- 다운로드 시작전 텍스트 안 보이게 함
 	if (self.m_totalSize <= 0) or (self.m_downloadedSize <= 0) then
-        vars['downloadLabel']:setString('')
+        self.m_patchLabel:setString('')
         return
     end
 
+	-- 다운로드 사이즈와 퍼센트 계산
 	local curr_size = string.format('%.2f', self.m_downloadedSize/BYTE_TO_MB)
 	local total_size = string.format('%.2f', self.m_totalSize/BYTE_TO_MB)
 	local download_percent = curr_size / total_size * 100
 	local download_str = string.format('%.2f', download_percent)
 
-	vars['downloadLabel']:setString(curr_size .. 'MB /' .. total_size .. 'MB (' .. download_str .. '%)')
-	vars['downloadGauge']:setPercentage(download_percent)
+	-- UI 출력 (패치 가이드가 있는 경우 패치가이드의 label과 gauge를 가리킨다)
+	self.m_patchLabel:setString(curr_size .. 'MB /' .. total_size .. 'MB (' .. download_str .. '%)')
+	self.m_patchGauge:setPercentage(download_percent)
 
+	-- 패치가이드 있을 시 패치가이드 업데이트
 	if (self.m_patchGuideUI) then
 		self.m_patchGuideUI:update(dt)
 	end
@@ -236,10 +245,19 @@ function PatchCore:st_requestPatchInfo_successCB(ret)
 
 			local vars = self.m_patchScene.m_vars
 			local ui = UI_LoadingGuide_Patch()
-			vars['animator']:setVisible(false)
 			vars['patchGuideNode']:addChild(ui.root)
 
 			self.m_patchGuideUI = ui
+
+			-- 가이드 ui의 object 등록
+			self.m_patchLabel = ui.vars['loadingLabel']
+			self.m_patchGauge = ui.vars['loadingGauge']
+
+			-- 사용하지 않는 object들 off
+			vars['animator']:setVisible(false)
+			vars['downloadLabel']:setVisible(false)
+			vars['downloadGauge']:setVisible(false)
+			vars['messageLabel']:setVisible(false)
 		end
 
 		-- 거절 -> 앱 종료!

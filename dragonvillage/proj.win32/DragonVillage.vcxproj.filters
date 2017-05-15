@@ -2292,6 +2292,9 @@
     <None Include="..\src\UI_UserInfoDetailPopup_SetLeader.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\NumberLoop.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
