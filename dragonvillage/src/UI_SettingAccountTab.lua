@@ -81,9 +81,7 @@ function UI_Setting:click_clearBtn()
 
     -- 3. 로컬 세이브 데이터 삭제 후 어플 재시작
     claer = function()
-        LocalData:getInstance():clearLocalDataFile()
-        ServerData:getInstance():clearServerDataFile()
-        UserData:getInstance():clearServerDataFile()
+        removeLocalFiles()
 
         -- AppDelegate_Custom.cpp에 구현되어 있음
         restart()
@@ -113,9 +111,7 @@ function UI_Setting:click_logoutBtn()
 
     -- 2. 로컬 세이브 데이터 삭제 후 어플 재시작
     claer = function()
-        LocalData:getInstance():clearLocalDataFile()
-        ServerData:getInstance():clearServerDataFile()
-        UserData:getInstance():clearServerDataFile()
+        removeLocalFiles()
 
         -- AppDelegate_Custom.cpp에 구현되어 있음
         restart()

@@ -2295,6 +2295,9 @@
     <None Include="..\src\NumberLoop.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ScenarioViewingHistory.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -101,6 +101,7 @@ local function main()
     TimeLib:initInstance()
     LocalData:getInstance()
     ChatIgnoreList:getInstance()
+    ScenarioViewingHistory:getInstance()
     ServerData:getInstance():applySetting()
     ServerData:getInstance():developCache()
     UserData:getInstance()
@@ -114,6 +115,21 @@ local function main()
 
     -- 프리로드 파일 생성시
     --savePreloadFile()
+end
+
+-------------------------------------
+-- function removeLocalFiles
+-------------------------------------
+function removeLocalFiles()
+    LocalData:getInstance():clearLocalDataFile()
+    ServerData:getInstance():clearServerDataFile()
+    UserData:getInstance():clearServerDataFile()
+
+    -- 채팅 차단
+    ChatIgnoreList:clearChatIgnoreListFile()
+
+    -- 시나리오 보기 설정
+    ScenarioViewingHistory:clearScenarioViewingHistoryFile()
 end
 
 local status, msg = xpcall(main, __G__TRACKBACK__)

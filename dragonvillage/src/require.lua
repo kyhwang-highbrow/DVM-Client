@@ -119,6 +119,7 @@ local t_module = {
     'MapManager',
     'LocalData',
     'ChatIgnoreList',
+    'ScenarioViewingHistory',
     'UserData',
 	'ConstantData',
     'CollisionHelper',
