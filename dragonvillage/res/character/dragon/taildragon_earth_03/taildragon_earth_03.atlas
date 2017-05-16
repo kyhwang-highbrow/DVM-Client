@@ -39,16 +39,23 @@ taildragon_earth_03_effect_02
   orig: 442, 340
   offset: 0, 0
   index: -1
+taildragon_earth_03_effect_03
+  rotate: false
+  xy: 735, 234
+  size: 74, 74
+  orig: 74, 74
+  offset: 0, 0
+  index: -1
 taildragon_earth_03_eye_01
   rotate: false
-  xy: 811, 269
+  xy: 887, 269
   size: 49, 39
   orig: 49, 39
   offset: 0, 0
   index: -1
 taildragon_earth_03_eye_02
   rotate: false
-  xy: 862, 269
+  xy: 938, 269
   size: 49, 39
   orig: 49, 39
   offset: 0, 0
@@ -76,14 +83,14 @@ taildragon_earth_03_hair_01
   index: -1
 taildragon_earth_03_hair_02
   rotate: false
-  xy: 956, 271
+  xy: 1032, 271
   size: 40, 37
   orig: 40, 37
   offset: 0, 0
   index: -1
 taildragon_earth_03_hair_03
   rotate: false
-  xy: 735, 234
+  xy: 811, 234
   size: 74, 74
   orig: 74, 74
   offset: 0, 0
@@ -118,7 +125,7 @@ taildragon_earth_03_head_01
   index: -1
 taildragon_earth_03_head_02
   rotate: false
-  xy: 913, 268
+  xy: 989, 268
   size: 41, 40
   orig: 41, 40
   offset: 0, 0
