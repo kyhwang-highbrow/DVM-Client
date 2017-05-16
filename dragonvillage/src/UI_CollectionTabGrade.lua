@@ -48,11 +48,11 @@ function UI_CollectionTabGrade:initUI()
 
     do -- 역할(role)
         local radio_button = UIC_RadioButton()
-        radio_button:addButton('all', vars['roleAllBtn'])
-        radio_button:addButton('tanker', vars['tankerBtn'])
-        radio_button:addButton('dealer', vars['dealerBtn'])
-        radio_button:addButton('supporter', vars['supporterBtn'])
-        radio_button:addButton('healer', vars['healerBtn'])
+        radio_button:addButton('all', vars['roleAllBtn2'])
+        radio_button:addButton('tanker', vars['tankerBtn2'])
+        radio_button:addButton('dealer', vars['dealerBtn2'])
+        radio_button:addButton('supporter', vars['supporterBtn2'])
+        radio_button:addButton('healer', vars['healerBtn2'])
         radio_button:setSelectedButton('all')
         radio_button:setChangeCB(function() self:onChangeOption() end)
         self.m_roleRadioButton = radio_button
@@ -60,12 +60,12 @@ function UI_CollectionTabGrade:initUI()
 
     do -- 속성(attribute)
         local radio_button = UIC_RadioButton()
-        radio_button:addButton('all', vars['attrAllBtn'])
-        radio_button:addButton('fire', vars['fireBtn'])
-        radio_button:addButton('water', vars['waterBtn'])
-        radio_button:addButton('earth', vars['earthBtn'])
-        radio_button:addButton('dark', vars['darkBtn'])
-        radio_button:addButton('light', vars['lightBtn'])
+        radio_button:addButton('all', vars['attrAllBtn2'])
+        radio_button:addButton('fire', vars['fireBtn2'])
+        radio_button:addButton('water', vars['waterBtn2'])
+        radio_button:addButton('earth', vars['earthBtn2'])
+        radio_button:addButton('dark', vars['darkBtn2'])
+        radio_button:addButton('light', vars['lightBtn2'])
         radio_button:setSelectedButton('all')
         radio_button:setChangeCB(function() self:onChangeOption() end)
         self.m_attrRadioButton = radio_button
@@ -163,19 +163,4 @@ end
 -------------------------------------
 function UI_CollectionTabGrade:click_dragonCard(did, grade)
 	ccdisplay(grade .. '등급 드래곤')
-end
-
--------------------------------------
--- function checkRefresh
--- @brief 도감 데이터가 변경되었는지 확인 후 변경되었으면 갱신
--------------------------------------
-function UI_CollectionTabGrade:checkRefresh()
-    local is_changed = g_collectionData:checkChange(self.m_collectionLastChangeTime)
-
-    if is_changed then
-        self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
-
-        -- 리스트 refresh
-        self.m_tableView:refreshAllItemUI()
-    end
 end

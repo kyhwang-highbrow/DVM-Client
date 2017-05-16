@@ -106,8 +106,8 @@ function UI_Collection:initTab()
 	self.m_mTabUI['grade'] = UI_CollectionTabGrade(self)
 
     local vars = self.vars
-    self:addTab('dragon', vars['dragonBtn'], vars['dragonListNode'])
-    self:addTab('grade', vars['gradeBtn'], vars['gradeListNode'])
+    self:addTab('dragon', vars['dragonBtn'], vars['dragonMenu'])
+    self:addTab('grade', vars['gradeBtn'], vars['gradeMenu'])
 
     self:setTab('dragon')
 end
