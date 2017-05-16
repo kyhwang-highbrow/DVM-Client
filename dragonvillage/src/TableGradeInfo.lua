@@ -183,3 +183,17 @@ function TableGradeInfo:getEclvUpgradeReqGold(eclv)
     local req_gold = self:getValue(key, 'req_gold')
     return req_gold
 end
+
+local T_ORIGIN_GRADE = {
+	common = 1,
+	rare = 3,
+	hero = 4,
+	legend = 5
+}
+-------------------------------------
+-- function getOriginGrade
+-- @breif 태생 등급을 리턴한다.
+-------------------------------------
+function TableGradeInfo:getOriginGrade(rarity)
+    return T_ORIGIN_GRADE[rarity] or 1
+end

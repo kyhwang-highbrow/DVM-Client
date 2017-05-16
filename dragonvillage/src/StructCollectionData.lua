@@ -9,6 +9,7 @@ StructCollectionData = class({
         evolution = 'number',
         flv = 'number',
         exist = 'boolean',
+		grade_lv_state = 'list<number>',
     })
 
 -------------------------------------
@@ -21,6 +22,7 @@ function StructCollectionData:init(data)
     self.evolution = 1
     self.flv = 0
     self.exist = false
+	self.grade_lv_state = nil
 
     if data then
         self:applyTableData(data)
@@ -31,8 +33,13 @@ end
 -- function applyTableData
 -------------------------------------
 function StructCollectionData:applyTableData(data)
+	-- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
+    local replacement = {}
+    replacement['g_lv'] = 'grade_lv_state'
+
     for i,v in pairs(data) do
-        self[i] = v
+        local key = replacement[i] and replacement[i] or i
+        self[key] = v
     end
 end
 
@@ -90,4 +97,11 @@ end
 -------------------------------------
 function StructCollectionData:getEvolution()
     return self.evolution
+end
+
+-------------------------------------
+-- function getGradeLvState
+-------------------------------------
+function StructCollectionData:getGradeLvState()
+    return {-1, -1, 0, 99, -1, 0} --self.grade_lv_state
 end

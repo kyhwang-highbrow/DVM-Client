@@ -106,7 +106,7 @@ function SensitivityHelper:makeObtainEffect(gift_type, gift_count, parent_node)
         node:setPosition(0, 250)
 		node:setOpacity(0)
 		node:setCascadeOpacityEnabled(true)
-        parent_node:addChild(node)
+        parent_node:addChild(node, 5)
 
         local icon = cc.Sprite:create(res)
         if (icon) then

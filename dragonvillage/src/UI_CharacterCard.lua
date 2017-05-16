@@ -479,7 +479,7 @@ function UI_CharacterCard:setAttrSynastry(attr_synastry)
         animator:setDockPoint(CENTER_POINT)
         animator:setAnchorPoint(CENTER_POINT)
         animator:setPosition(-15, 46)
-        self.vars['clickBtn']:addChild(animator.m_node, 15)
+        self.vars['clickBtn']:addChild(animator.m_node, 14)
         self.vars['attrSynastry'] = animator
     end
 
@@ -496,9 +496,10 @@ function UI_CharacterCard:setAttrSynastry(attr_synastry)
         end
     end
 end
+
 -------------------------------------
 -- function setCheckSpriteVisible
--- @brief 카드 음영 표시
+-- @brief 카드 체크 표시
 -------------------------------------
 function UI_CharacterCard:setCheckSpriteVisible(visible)
     if self.vars['checkSprite'] then
@@ -514,6 +515,43 @@ function UI_CharacterCard:setCheckSpriteVisible(visible)
     self.m_bCheckVisible = visible
 end
 
+-------------------------------------
+-- function setMaxLvSpriteVisible
+-- @brief max lv 달성 후 보상 완료 표시
+-------------------------------------
+function UI_CharacterCard:setMaxLvSpriteVisible(visible)
+    if self.vars['maxLvSprite'] then
+        self.vars['maxLvSprite']:setVisible(visible)
+    elseif (visible) then
+        local sprite = cc.Sprite:create('res/ui/icon/item/badge.png')
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setAnchorPoint(CENTER_POINT)
+		sprite:setScale(0.6)
+		sprite:setPositionX(-50)
+        self.vars['clickBtn']:addChild(sprite, 16)
+        self.vars['maxLvSprite'] = sprite
+    end
+
+    self.m_bCheckVisible = visible
+end
+
+-------------------------------------
+-- function setHighlightSpriteVisible
+-- @brief highlight 표시
+-------------------------------------
+function UI_CharacterCard:setHighlightSpriteVisible(visible)
+    if self.vars['highlightSprite'] then
+        self.vars['highlightSprite']:setVisible(visible)
+    elseif (visible) then
+        local sprite = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setAnchorPoint(CENTER_POINT)
+        self.vars['clickBtn']:addChild(sprite, 17)
+        self.vars['highlightSprite'] = sprite
+    end
+
+    self.m_bCheckVisible = visible
+end
 
 
 
