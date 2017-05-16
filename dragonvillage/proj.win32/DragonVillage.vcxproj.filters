@@ -2304,6 +2304,9 @@
     <None Include="..\src\UI_CollectionTabGrade.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableDragonCollection.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

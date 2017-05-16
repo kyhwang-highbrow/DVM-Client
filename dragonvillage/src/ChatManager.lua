@@ -274,6 +274,7 @@ function ChatManager:openChatPopup()
                 elseif (ui.m_uiName == 'UI_UserDeckInfoPopup') then
                 elseif (ui.m_uiName == 'UI_LobbyUserInfoPopup') then
                 elseif (ui.m_uiName == 'UI_Network') then
+                elseif (ui.m_uiName == 'UI_UserInfoDetailPopup') then
                 else
                     self.m_chatPopup:close()
                 end

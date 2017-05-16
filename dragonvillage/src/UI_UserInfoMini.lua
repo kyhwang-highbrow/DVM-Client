@@ -94,7 +94,8 @@ end
 -------------------------------------
 function UI_UserInfoMini:click_infoBtn()
     local uid = self.m_structUserInfo:getUid()
-    RequestUserDeckInfoPopup(uid)
+    local is_visit = true
+    RequestUserInfoDetailPopup(uid, is_visit)
 end
 
 -------------------------------------
