@@ -660,9 +660,6 @@
     <None Include="..\src\UI_CollectionTabDragon.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_CollectionTabUnit.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_CollectionUnitListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2297,6 +2294,15 @@
     </None>
     <None Include="..\src\ScenarioViewingHistory.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionEntrance.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionGradeCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionTabGrade.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

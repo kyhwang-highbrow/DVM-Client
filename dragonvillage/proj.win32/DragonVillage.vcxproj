@@ -776,6 +776,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ChatListItem_myMsg.lua" />
     <None Include="..\src\UI_ChatListItem_systemMsg.lua" />
     <None Include="..\src\UI_ChatPopup_WhisperTab.lua" />
+    <None Include="..\src\UI_CollectionEntrance.lua" />
+    <None Include="..\src\UI_CollectionGradeCard.lua" />
+    <None Include="..\src\UI_CollectionTabGrade.lua" />
     <None Include="..\src\UI_DungeonMenu.lua" />
     <None Include="..\src\UI_BirthdayCalendarDayElement.lua" />
     <None Include="..\src\UI_BirthdayRewardSelectListItem.lua" />
@@ -801,7 +804,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_CollectionStoryPopup_ApplyTeamTab.lua" />
     <None Include="..\src\UI_CollectionStoryPopup_DragonTeamTab.lua" />
     <None Include="..\src\UI_CollectionTabDragon.lua" />
-    <None Include="..\src\UI_CollectionTabUnit.lua" />
     <None Include="..\src\UI_CollectionUnitListItem.lua" />
     <None Include="..\src\UI_Colosseum.lua" />
     <None Include="..\src\UI_ColosseumFirstReward.lua" />

@@ -623,7 +623,7 @@ end
 -- function click_collectionBtn
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
-    g_collectionData:openCollectionPopup()
+    UI_CollectionEntrance()
 end
 
 -------------------------------------

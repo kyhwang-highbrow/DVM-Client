@@ -634,15 +634,19 @@ local t_module = {
 	'UI_OverallRankingListItem',
 
     -- UI : 도감 관련
-    'UI_Collection',
-    'UI_CollectionDetailPopup',
+	'UI_CollectionEntrance',
+    
+	'UI_Collection',
+    'UI_CollectionTabDragon',
     'UI_CollectionDragonCard',
+    'UI_CollectionTabGrade',
+	'UI_CollectionGradeCard',
+    'UI_CollectionDetailPopup',
     'UI_CollectionPointReward',
     'UI_CollectionPointRewardListItem',
     'UI_CollectionRelationPointDraw',
     'UI_CollectionUnitListItem',
-    'UI_CollectionTabUnit',
-    'UI_CollectionTabDragon',
+
     'UI_CollectionStoryPopup',
     'UI_CollectionStoryPopup_ApplyTeamTab',
     'UI_CollectionStoryPopup_AllTeamTab',
