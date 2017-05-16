@@ -530,9 +530,7 @@ function UI_CharacterCard:setMaxLvSpriteVisible(visible)
 		sprite:setPositionX(-50)
         self.vars['clickBtn']:addChild(sprite, 16)
         self.vars['maxLvSprite'] = sprite
-    end
-
-    self.m_bCheckVisible = visible
+	end
 end
 
 -------------------------------------
@@ -549,8 +547,6 @@ function UI_CharacterCard:setHighlightSpriteVisible(visible)
         self.vars['clickBtn']:addChild(sprite, 17)
         self.vars['highlightSprite'] = sprite
     end
-
-    self.m_bCheckVisible = visible
 end
 
 

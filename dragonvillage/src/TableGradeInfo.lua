@@ -195,5 +195,5 @@ local T_ORIGIN_GRADE = {
 -- @breif 태생 등급을 리턴한다.
 -------------------------------------
 function TableGradeInfo:getOriginGrade(rarity)
-    return T_ORIGIN_GRADE[rarity] or 1
+    return T_ORIGIN_GRADE[rarity]
 end

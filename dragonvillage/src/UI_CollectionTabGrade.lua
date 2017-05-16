@@ -137,15 +137,6 @@ function UI_CollectionTabGrade:init_TableViewTD()
 
     local width, height = UI_CollectionGradeCard:getUISize()
 
-    local function click_cb(did, grade)
-        self:click_dragonCard(did, grade)
-    end
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-        ui:setDragonCardClick(click_cb)
-    end
-
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(width, height + 7)
@@ -155,12 +146,4 @@ function UI_CollectionTabGrade:init_TableViewTD()
 
     -- 정렬
     self.m_tableView = table_view
-end
-
--------------------------------------
--- function click_dragonCard
--- @brief
--------------------------------------
-function UI_CollectionTabGrade:click_dragonCard(did, grade)
-	ccdisplay(grade .. '등급 드래곤')
 end

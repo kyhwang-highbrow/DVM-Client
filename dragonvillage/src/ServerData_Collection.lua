@@ -497,3 +497,36 @@ function ServerData_Collection:refresh_dragonResearchLevel(dragon_type, ret)
         end
     end
 end
+
+-------------------------------------
+-- function request_collectionPointReward
+-------------------------------------
+function ServerData_Collection:request_maxLvReward(did, grade, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+		-- 보상 수령 재화 처리
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+		-- collectionData 보상 수령한 상태로 조작
+		g_collectionData:getCollectionData(did)['grade_lv_state'][grade] = -1
+
+		-- UI 갱신 처리
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/maxlv/reward')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('did', did)
+	ui_network:setParam('grade', grade)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

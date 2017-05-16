@@ -35,7 +35,9 @@ end
 function StructCollectionData:applyTableData(data)
 	-- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
     local replacement = {}
-    replacement['g_lv'] = 'grade_lv_state'
+    replacement['evo'] = 'evolution'
+	replacement['rel'] = 'relation'
+	replacement['g_lv'] = 'grade_lv_state'
 
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
@@ -103,5 +105,5 @@ end
 -- function getGradeLvState
 -------------------------------------
 function StructCollectionData:getGradeLvState()
-    return {-1, -1, 0, 99, -1, 0} --self.grade_lv_state
+    return self.grade_lv_state
 end

@@ -69,7 +69,7 @@ function UI_CollectionGradeCard:initUI()
 		pos_idx = pos_idx + 1
 		card.root:setPositionX(pos_x)
         card.root:setSwallowTouch(false)
-        card.vars['clickBtn']:registerScriptTapHandler(function() self.m_cbDragonCardClick(did, grade) end)
+        card.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(did, grade) end)
         
 		vars['dragonNode']:addChild(card.root)
 
@@ -93,20 +93,20 @@ function UI_CollectionGradeCard:refresh()
 
     local did = self.m_tItemData['did']
 	local collection_struct = g_collectionData:getCollectionData(did)
-	local grade_lv_state = collection_struct:getGradeLvState()
+	local grade_lv_state = collection_struct:getGradeLvState() or {}
 
 	for grade, card in pairs(self.m_dragonCardList) do
 		local lv_state = grade_lv_state[grade]
 		
-		-- 미획득
-		if (lv_state == 0) then
+		-- 미획득 -> 음영처리
+		if (lv_state == 0) or (not lv_state) then
 			card:setShadowSpriteVisible(true)
 
-		-- 보상 기 수령
+		-- 보상 기 수령 -> 만렙 훈장
 		elseif (lv_state == -1) then
 			card:setMaxLvSpriteVisible(true)
 
-		-- 보상 수령 가능
+		-- 보상 수령 가능 -> 프레임 하이라이트
 		elseif TableGradeInfo:isMaxLevel(grade, nil, lv_state) then
 			card:setHighlightSpriteVisible(true)
 
@@ -115,10 +115,24 @@ function UI_CollectionGradeCard:refresh()
 end
 
 -------------------------------------
--- function setDragonCardClick
--- @brief
--- @param function(did, grade)
+-- function click_dragonCard
 -------------------------------------
-function UI_CollectionGradeCard:setDragonCardClick(cb)
-    self.m_cbDragonCardClick = cb
+function UI_CollectionGradeCard:click_dragonCard(did, grade)
+	local card = self.m_dragonCardList[grade]
+
+    -- 보상 없으면 탈출
+	if (not card.vars['highlightSprite']) then
+		return
+	end
+	-- 보상 받을 수 있는 상태가 아니면 탈출 (이 경우는 이미 받은 상태)
+	if (not card.vars['highlightSprite']:isVisible()) then
+		return
+	end
+
+	-- 보상 요청
+	local function cb_func(ret)
+		card:setHighlightSpriteVisible(false)
+		card:setMaxLvSpriteVisible(true)
+	end
+	g_collectionData:request_maxLvReward(did, grade, cb_func)
 end
