@@ -1,5 +1,5 @@
 {
-	"skill_typhoon_feather":
+	"skill_elite_owlbear_1":
 	{
 		"ver":2,
 		"attack_value":

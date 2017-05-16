@@ -1,0 +1,36 @@
+{
+	"skill_elite_gargoyle_2":
+	{
+		"ver":2,
+		"attack_value":
+		[
+			{
+				"idx":1,
+				"res":"res/missile/missile_bat/missile_bat.vrp",
+				"body":[0,0,20],
+                "count":18,
+                "period":0.1,
+                "scale":1,
+				"time":0,
+				"speed":600,
+				"accel":0,
+				"l_limit_speed":0,
+				"accel_delay":0.1,
+				"angular_velocity":-5,
+				"is_abs_pos":true,
+				"offset":[600,300],
+				"dir_array":['random',-130,-140],
+				"dir_add":0,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

@@ -7,11 +7,11 @@
             <key>effect_monsterdragon_e_0001.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1549,184},{160,180}}</string>
+                <string>{{1327,2},{160,180}}</string>
                 <key>offset</key>
                 <string>{4,2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{84,28},{160,180}}</string>
                 <key>sourceSize</key>
@@ -20,7 +20,7 @@
             <key>effect_monsterdragon_e_0003.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1416,832},{158,176}}</string>
+                <string>{{1440,637},{158,176}}</string>
                 <key>offset</key>
                 <string>{2,4}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>effect_monsterdragon_e_0005.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1662,536},{162,178}}</string>
+                <string>{{1665,170},{162,178}}</string>
                 <key>offset</key>
                 <string>{1,3}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>effect_monsterdragon_e_0007.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1852,500},{162,178}}</string>
+                <string>{{1847,168},{162,178}}</string>
                 <key>offset</key>
                 <string>{3,4}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>effect_monsterdragon_e_0009.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1863,170},{164,178}}</string>
+                <string>{{1847,2},{164,178}}</string>
                 <key>offset</key>
                 <string>{2,3}</string>
                 <key>rotated</key>
@@ -72,11 +72,11 @@
             <key>effect_monsterdragon_e_0011.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1494,396},{166,180}}</string>
+                <string>{{1665,2},{166,180}}</string>
                 <key>offset</key>
                 <string>{3,2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{80,28},{166,180}}</string>
                 <key>sourceSize</key>
@@ -85,11 +85,11 @@
             <key>effect_monsterdragon_e_0013.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1253,1422},{164,170}}</string>
+                <string>{{1155,2},{164,170}}</string>
                 <key>offset</key>
                 <string>{-1,1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{77,34},{164,170}}</string>
                 <key>sourceSize</key>
@@ -98,7 +98,7 @@
             <key>effect_monsterdragon_e_0015.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1863,2},{166,178}}</string>
+                <string>{{1327,164},{166,178}}</string>
                 <key>offset</key>
                 <string>{-1,3}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>effect_monsterdragon_e_0017.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1842,664},{166,176}}</string>
+                <string>{{1327,332},{166,176}}</string>
                 <key>offset</key>
                 <string>{-1,3}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>effect_monsterdragon_e_0019.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1695,2},{166,178}}</string>
+                <string>{{1497,1867},{166,178}}</string>
                 <key>offset</key>
                 <string>{1,3}</string>
                 <key>rotated</key>
@@ -137,11 +137,11 @@
             <key>effect_monsterdragon_e_0021.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1249,1052},{166,180}}</string>
+                <string>{{1432,1470},{166,180}}</string>
                 <key>offset</key>
                 <string>{3,2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{80,28},{166,180}}</string>
                 <key>sourceSize</key>
@@ -150,7 +150,7 @@
             <key>effect_monsterdragon_e_0023.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1856,336},{162,178}}</string>
+                <string>{{1317,1883},{162,178}}</string>
                 <key>offset</key>
                 <string>{3,4}</string>
                 <key>rotated</key>
@@ -163,7 +163,7 @@
             <key>effect_monsterdragon_e_0025.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1515,2},{178,180}}</string>
+                <string>{{943,662},{178,180}}</string>
                 <key>offset</key>
                 <string>{8,5}</string>
                 <key>rotated</key>
@@ -176,7 +176,7 @@
             <key>effect_monsterdragon_e_0027.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{798,672},{174,178}}</string>
+                <string>{{1335,1294},{174,178}}</string>
                 <key>offset</key>
                 <string>{3,1}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>effect_monsterdragon_e_0029.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1368,597},{168,180}}</string>
+                <string>{{1123,658},{168,180}}</string>
                 <key>offset</key>
                 <string>{6,2}</string>
                 <key>rotated</key>
@@ -368,14 +368,157 @@
                 <key>sourceSize</key>
                 <string>{691,518}</string>
             </dict>
+            <key>effect_monsterdragon_y_0080.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{574,1229},{41,48}}</string>
+                <key>offset</key>
+                <string>{-2,-5}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{16,15},{41,48}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
+            <key>effect_monsterdragon_y_0084.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{670,1229},{43,40}}</string>
+                <key>offset</key>
+                <string>{-4,-7}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{13,21},{43,40}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
+            <key>effect_monsterdragon_y_0088.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{761,1229},{35,46}}</string>
+                <key>offset</key>
+                <string>{-3,-3}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{18,14},{35,46}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
+            <key>effect_monsterdragon_y_0092.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{492,1229},{41,42}}</string>
+                <key>offset</key>
+                <string>{-4,-7}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{14,20},{41,42}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
+            <key>effect_monsterdragon_y_0096.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{535,1229},{37,42}}</string>
+                <key>offset</key>
+                <string>{-3,-7}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{17,20},{37,42}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
+            <key>effect_monsterdragon_y_0100.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{624,1229},{41,44}}</string>
+                <key>offset</key>
+                <string>{-3,-6}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{15,18},{41,44}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
+            <key>effect_monsterdragon_y_0104.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{715,1229},{39,44}}</string>
+                <key>offset</key>
+                <string>{0,-7}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{19,19},{39,44}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
+            <key>effect_monsterdragon_y_0108.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{809,1221},{35,44}}</string>
+                <key>offset</key>
+                <string>{-1,-5}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{20,17},{35,44}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
+            <key>effect_monsterdragon_y_0112.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{449,1229},{41,42}}</string>
+                <key>offset</key>
+                <string>{-3,-6}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{15,19},{41,42}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
+            <key>effect_monsterdragon_y_0116.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1136,1930},{45,46}}</string>
+                <key>offset</key>
+                <string>{0,-5}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{16,16},{45,46}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
+            <key>effect_monsterdragon_y_0120.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{406,1229},{41,42}}</string>
+                <key>offset</key>
+                <string>{2,-6}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{20,19},{41,42}}</string>
+                <key>sourceSize</key>
+                <string>{77,68}</string>
+            </dict>
             <key>effect_monsterdraon_s_0100.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1431,1010},{135,159}}</string>
+                <string>{{1845,332},{135,159}}</string>
                 <key>offset</key>
                 <string>{22,-53}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{153,242},{135,159}}</string>
                 <key>sourceSize</key>
@@ -384,7 +527,7 @@
             <key>effect_monsterdraon_s_0102.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1398,1220},{135,161}}</string>
+                <string>{{1656,334},{135,161}}</string>
                 <key>offset</key>
                 <string>{22,-52}</string>
                 <key>rotated</key>
@@ -397,11 +540,11 @@
             <key>effect_monsterdraon_s_0106.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1261,1220},{135,165}}</string>
+                <string>{{1500,500},{135,165}}</string>
                 <key>offset</key>
                 <string>{22,-50}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{153,236},{135,165}}</string>
                 <key>sourceSize</key>
@@ -410,11 +553,11 @@
             <key>effect_monsterdraon_s_0110.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1110,1052},{137,167}}</string>
+                <string>{{1155,168},{137,167}}</string>
                 <key>offset</key>
                 <string>{23,-49}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{153,234},{137,167}}</string>
                 <key>sourceSize</key>
@@ -423,7 +566,7 @@
             <key>effect_monsterdraon_s_0114.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1136,1910},{135,171}}</string>
+                <string>{{1327,500},{135,171}}</string>
                 <key>offset</key>
                 <string>{24,-47}</string>
                 <key>rotated</key>
@@ -436,7 +579,7 @@
             <key>effect_monsterdraon_s_0118.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1711,361},{139,173}}</string>
+                <string>{{1515,181},{139,173}}</string>
                 <key>offset</key>
                 <string>{22,-46}</string>
                 <key>rotated</key>
@@ -449,7 +592,7 @@
             <key>effect_monsterdraon_s_0122.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1711,182},{143,177}}</string>
+                <string>{{1515,2},{143,177}}</string>
                 <key>offset</key>
                 <string>{22,-44}</string>
                 <key>rotated</key>
@@ -462,11 +605,11 @@
             <key>effect_monsterdraon_s_0126.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1366,251},{143,181}}</string>
+                <string>{{798,662},{143,181}}</string>
                 <key>offset</key>
                 <string>{23,-43}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{150,221},{143,181}}</string>
                 <key>sourceSize</key>
@@ -475,7 +618,7 @@
             <key>effect_monsterdraon_s_0130.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1347,410},{145,185}}</string>
+                <string>{{1293,650},{145,185}}</string>
                 <key>offset</key>
                 <string>{22,-41}</string>
                 <key>rotated</key>
@@ -488,7 +631,7 @@
             <key>effect_monsterdraon_s_0134.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1219,655},{147,189}}</string>
+                <string>{{1283,1471},{147,189}}</string>
                 <key>offset</key>
                 <string>{21,-40}</string>
                 <key>rotated</key>
@@ -501,11 +644,11 @@
             <key>effect_monsterdraon_s_0138.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1265,846},{149,193}}</string>
+                <string>{{1140,1320},{149,193}}</string>
                 <key>offset</key>
                 <string>{20,-38}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{144,210},{149,193}}</string>
                 <key>sourceSize</key>
@@ -514,7 +657,7 @@
             <key>effect_monsterdraon_s_0142.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1112,1221},{147,199}}</string>
+                <string>{{1134,1476},{147,199}}</string>
                 <key>offset</key>
                 <string>{19,-36}</string>
                 <key>rotated</key>
@@ -527,7 +670,7 @@
             <key>effect_monsterdraon_s_0146.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1110,847},{153,203}}</string>
+                <string>{{979,1476},{153,203}}</string>
                 <key>offset</key>
                 <string>{19,-35}</string>
                 <key>rotated</key>
@@ -540,7 +683,7 @@
             <key>effect_monsterdraon_s_0150.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1155,255},{153,209}}</string>
+                <string>{{768,1525},{153,209}}</string>
                 <key>offset</key>
                 <string>{18,-33}</string>
                 <key>rotated</key>
@@ -553,7 +696,7 @@
             <key>effect_monsterdraon_s_0154.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{929,1458},{157,213}}</string>
+                <string>{{1478,1652},{157,213}}</string>
                 <key>offset</key>
                 <string>{18,-32}</string>
                 <key>rotated</key>
@@ -566,7 +709,7 @@
             <key>effect_monsterdraon_s_0158.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{768,1458},{159,219}}</string>
+                <string>{{1317,1662},{159,219}}</string>
                 <key>offset</key>
                 <string>{18,-30}</string>
                 <key>rotated</key>
@@ -579,7 +722,7 @@
             <key>effect_monsterdraon_s_0162.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1088,1456},{163,223}}</string>
+                <string>{{1311,1069},{163,223}}</string>
                 <key>offset</key>
                 <string>{17,-29}</string>
                 <key>rotated</key>
@@ -592,7 +735,7 @@
             <key>effect_monsterdraon_s_0166.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1136,1681},{165,227}}</string>
+                <string>{{1285,840},{165,227}}</string>
                 <key>offset</key>
                 <string>{17,-28}</string>
                 <key>rotated</key>
@@ -605,7 +748,7 @@
             <key>effect_monsterdraon_s_0170.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{941,1221},{169,233}}</string>
+                <string>{{1140,1085},{169,233}}</string>
                 <key>offset</key>
                 <string>{16,-26}</string>
                 <key>rotated</key>
@@ -618,7 +761,7 @@
             <key>effect_monsterdraon_s_0174.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{768,1221},{171,235}}</string>
+                <string>{{1154,413},{171,235}}</string>
                 <key>offset</key>
                 <string>{16,-25}</string>
                 <key>rotated</key>
@@ -631,11 +774,11 @@
             <key>effect_monsterdraon_s_0178.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{978,672},{173,239}}</string>
+                <string>{{1110,844},{173,239}}</string>
                 <key>offset</key>
                 <string>{16,-24}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{128,173},{173,239}}</string>
                 <key>sourceSize</key>
@@ -644,7 +787,7 @@
             <key>effect_monsterdraon_s_0182.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1170,410},{175,243}}</string>
+                <string>{{977,413},{175,243}}</string>
                 <key>offset</key>
                 <string>{16,-22}</string>
                 <key>rotated</key>
@@ -657,7 +800,7 @@
             <key>effect_monsterdraon_s_0186.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1336,2},{177,247}}</string>
+                <string>{{798,413},{177,247}}</string>
                 <key>offset</key>
                 <string>{16,-20}</string>
                 <key>rotated</key>
@@ -670,7 +813,7 @@
             <key>effect_monsterdraon_s_0190.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1155,2},{179,251}}</string>
+                <string>{{1136,1677},{179,251}}</string>
                 <key>offset</key>
                 <string>{16,-19}</string>
                 <key>rotated</key>
@@ -683,7 +826,7 @@
             <key>effect_monsterdraon_s_0194.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{985,413},{183,253}}</string>
+                <string>{{955,1221},{183,253}}</string>
                 <key>offset</key>
                 <string>{16,-18}</string>
                 <key>rotated</key>
@@ -696,7 +839,7 @@
             <key>effect_monsterdraon_s_0198.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{798,413},{185,257}}</string>
+                <string>{{768,1266},{185,257}}</string>
                 <key>offset</key>
                 <string>{15,-16}</string>
                 <key>rotated</key>
@@ -716,7 +859,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c80a8e1ab92c8dbb41f770bb7614e706$</string>
+            <string>$TexturePacker:SmartUpdate:d25a0dec50683551fe2b12c44368c93e$</string>
             <key>textureFileName</key>
             <string>effect_monsterdragon.png</string>
         </dict>
