@@ -129,7 +129,7 @@ function UI_UserInfoDetailPopup_SetLeader:init_dragonTableView()
     self.m_tableViewExt = table_view_td
 
     -- 재료로 사용 가능한 리스트를 얻어옴
-    local l_item_list = self:getDragonList()
+    local l_item_list = g_dragonsData:getDragonsList()
     self.m_tableViewExt:setItemList(l_item_list)
 end
 
