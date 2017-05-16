@@ -82,6 +82,7 @@ function UI_GameResult_SecretDungeon:direction_end()
         vars['skipLabel']:setVisible(true)
         vars['skipBtn']:setVisible(true)
 
+        vars['statsBtn']:setVisible(false)
         vars['retryBtn']:setVisible(false)
         vars['returnBtn']:setVisible(false)
     end
