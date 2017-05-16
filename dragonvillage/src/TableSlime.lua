@@ -56,21 +56,21 @@ end
 
 -------------------------------------
 -- function getGivingExpInfo
--- @brief exp ½½¶óÀÓÀ» µå·¡°ï ·¹º§¾÷ Àç·á·Î »ç¿ëÇßÀ» ¶§
---        ½½¶óÀÓ Å×ÀÌºí¿¡ exp¿Í goldÁ¤º¸°¡ ÀÖÀ¸¸é ¿ì¼± »ç¿ë
+-- @brief exp ìŠ¬ë¼ì„ì„ ë“œë˜ê³¤ ë ˆë²¨ì—… ì¬ë£Œë¡œ ì‚¬ìš©í–ˆì„ ë•Œ
+--        ìŠ¬ë¼ì„ í…Œì´ë¸”ì— expì™€ goldì •ë³´ê°€ ìˆìœ¼ë©´ ìš°ì„  ì‚¬ìš©
 -------------------------------------
 function TableSlime:getGivingExpInfo(id)
     if (self == THIS) then
         self = THIS()
     end
 
-    -- Àç·á·Î »ç¿ëµÉ ¶§ ÁÖ´Â °æÇèÄ¡
+    -- ì¬ë£Œë¡œ ì‚¬ìš©ë  ë•Œ ì£¼ëŠ” ê²½í—˜ì¹˜
     local giving_exp = self:getValue(id, 'giving_exp')
     if (giving_exp == '') then
         giving_exp = nil
     end
 
-    -- Àç·á·Î »ç¿ëµÉ ¶§ ¼Ò¸ğµÇ´Â °ñµå ·®
+    -- ì¬ë£Œë¡œ ì‚¬ìš©ë  ë•Œ ì†Œëª¨ë˜ëŠ” ê³¨ë“œ ëŸ‰
     local req_gold_per_mtrl = self:getValue(id, 'req_gold_per_mtrl')
     if (req_gold_per_mtrl == '') then
         req_gold_per_mtrl = nil
