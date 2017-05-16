@@ -4,27 +4,6 @@ size: 2048,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-boss_world_order_machine_light_ tooth_01
-  rotate: false
-  xy: 292, 29
-  size: 86, 87
-  orig: 86, 87
-  offset: 0, 0
-  index: -1
-boss_world_order_machine_light_ tooth_02
-  rotate: false
-  xy: 580, 206
-  size: 122, 123
-  orig: 122, 123
-  offset: 0, 0
-  index: -1
-boss_world_order_machine_light_ tooth_03
-  rotate: false
-  xy: 1735, 497
-  size: 192, 195
-  orig: 192, 195
-  offset: 0, 0
-  index: -1
 boss_world_order_machine_light_bead_01
   rotate: false
   xy: 1735, 332
@@ -69,14 +48,14 @@ boss_world_order_machine_light_button_03
   index: -1
 boss_world_order_machine_light_button_04
   rotate: false
-  xy: 1735, 128
+  xy: 292, 29
   size: 86, 87
   orig: 86, 87
   offset: 0, 0
   index: -1
 boss_world_order_machine_light_button_05
   rotate: false
-  xy: 1823, 243
+  xy: 1735, 128
   size: 86, 87
   orig: 86, 87
   offset: 0, 0
@@ -163,5 +142,26 @@ boss_world_order_machine_light_stone_02
   xy: 1937, 878
   size: 143, 93
   orig: 143, 93
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_tooth_01
+  rotate: false
+  xy: 1823, 243
+  size: 86, 87
+  orig: 86, 87
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_tooth_02
+  rotate: false
+  xy: 580, 206
+  size: 122, 123
+  orig: 122, 123
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_tooth_03
+  rotate: false
+  xy: 1735, 497
+  size: 192, 195
+  orig: 192, 195
   offset: 0, 0
   index: -1
