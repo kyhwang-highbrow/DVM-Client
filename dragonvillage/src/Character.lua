@@ -1133,7 +1133,8 @@ function Character:setHp(hp)
 	-- 죽었을시 탈출
 	if (self.m_bDead) then return end
 
-    self.m_hp = hp
+    self.m_hp = math_min(hp, self.m_maxHp)
+
 	local percentage = self.m_hp / self.m_maxHp
 
 	-- 체력바 가감 연출

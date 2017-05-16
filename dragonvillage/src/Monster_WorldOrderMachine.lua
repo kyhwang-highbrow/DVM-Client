@@ -5,7 +5,7 @@ local STATE_BABY_ATTACK = 2
 local STATE_STUN_ATTACK = 3
 
 local MAGIC_STATE_INTERVAL = {15, 1, 10}
-local MAGIC_STATE_VALUE = {450, 6, 'stun;target;hit;10;100;100'}
+local MAGIC_STATE_VALUE = {450, 6, 'stun;target;skill_hit;10;100;100'}
 local MAGIC_STATE_SHAKE_FACTOR = {700, 100, 300}
 
 local HUGE_EFFECT_RES = 'res/effect/skill_lightning/skill_lightning_fire.vrp'
@@ -122,7 +122,19 @@ function Monster_WorldOrderMachine:doMagicAttack()
 		-- effect
 		local effect = self:makeEffect(STUN_EFFECT_RES, target_char.pos.x, target_char.pos.y)
 		effect:addAniHandler(function() 
-			StatusEffectHelper:doStatusEffectByStruct(self, {target_char}, {self:getValue()})
+            local l_str = seperate(self:getValue(), ';')
+            local struct_status_effect = StructStatusEffect({
+		        type = l_str[1],
+		        target_type = l_str[2],
+                target_count = 1,
+		        trigger = l_str[3],
+		        duration = tonumber(l_str[4]),
+		        rate = tonumber(l_str[5]),
+		        value1 = tonumber(l_str[6]),
+		        value2 = 0
+	        })
+
+			StatusEffectHelper:doStatusEffectByStruct(self, {target_char}, {struct_status_effect})
 			effect.m_node:runAction(cc.RemoveSelf:create())
 		end)
 	end
