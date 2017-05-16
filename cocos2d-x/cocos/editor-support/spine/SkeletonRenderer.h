@@ -85,6 +85,8 @@ public:
 
     void useBonePosition(const std::string& boneName);
     const cocos2d::Vec2 getBonePosition(const std::string& boneName) const;
+    const cocos2d::Vec2 getBoneScale(const std::string& boneName) const;
+    bool isExistBone(const std::string& boneName);
 
 	/* Returns 0 if the bone was not found. */
 	spBone* findBone (const std::string& boneName) const;

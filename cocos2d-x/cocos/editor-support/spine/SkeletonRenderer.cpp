@@ -451,6 +451,28 @@ const Vec2 SkeletonRenderer::getBonePosition(const std::string& boneName) const
     return Vec2(0, 0);
 }
 
+const Vec2 SkeletonRenderer::getBoneScale(const std::string& boneName) const
+{
+    auto it = m_mapBone.find(boneName);
+    if (it != m_mapBone.end())
+    {
+        spBone* pBone = it->second;
+        return Vec2(pBone->scaleX, pBone->scaleY);
+    }
+
+    CCLOG("\"%s\" not exist", boneName.c_str());
+    return Vec2(0, 0);
+}
+
+bool SkeletonRenderer::isExistBone(const std::string& boneName)
+{
+    spBone* pBone = findBone(boneName);
+
+    if (pBone == NULL) return false;
+
+    return true;
+}
+
 spBone* SkeletonRenderer::findBone (const std::string& boneName) const {
 	return spSkeleton_findBone(_skeleton, boneName.c_str());
 }
