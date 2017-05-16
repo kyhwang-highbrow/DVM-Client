@@ -116,11 +116,7 @@ function ServerData_Collection:response_collectionInfo(ret)
 
     self.m_collectionPoint = ret['cpoint']
 
-    TABLE:setServerTable('table_dragon_collection', ret['table_dragon_collection'])
-
     -- 드래곤 도감 테이블
-    local table_dragon_collection = ret['table_dragon_collection']
-
     local table_dragon_collection = TableDragonCollection()
 
     self.m_collectionPointList = clone(table_dragon_collection.m_orgTable)
