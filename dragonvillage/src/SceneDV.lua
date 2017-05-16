@@ -25,7 +25,7 @@ function SceneDV:onEnter()
     PerpleScene.onEnter(self)
 	self:doUpdate()
 
-    self:scenarioTest()
+    --self:scenarioTest()
 end
 
 -------------------------------------
@@ -100,9 +100,59 @@ end
 -------------------------------------
 function SceneDV:setAni(res_name, x, y)
 	local ani = MakeAnimator(res_name)
-	ani:setPosition(x, y)
+    ani:setScale(0.4)
+    ani:setPosition(x, y)
 	table.insert(self.m_lSpineAni, ani)
 	self.m_gridNode:addChild(ani.m_node)
+end
+
+-------------------------------------
+-- function setMonsterDragon
+-------------------------------------
+function SceneDV:setMonsterDragon(res_name, x, y)
+    local scale = 1
+
+    local ani = MakeAnimator(res_name)
+    ani:setScale(scale)
+    ani:setFlip(true)
+	ani:setPosition(x, y)
+    table.insert(self.m_lSpineAni, ani)
+	self.m_gridNode:addChild(ani.m_node, 1)
+
+    local shader = ShaderCache:getShader(SHADER_DARK)
+    ani.m_node:setGLProgram(shader)
+    ani.m_node:useBonePosition('monstereye_s')
+    ani.m_node:useBonePosition('body')
+
+    do
+        -- 안광
+        local effect_eye = MakeAnimator('res/effect/effect_monsterdragon/effect_monsterdragon_eye.vrp')
+        effect_eye:changeAni('idle_s', true)
+        ani.m_node:addChild(effect_eye.m_node)
+
+        --[[
+        -- 이펙트
+        local effect1 = MakeAnimator('res/effect/effect_monsterdragon/effect_monsterdragon_b.vrp')
+        effect1:setScale(scale)
+        effect1:changeAni('idle', true)
+        self.m_gridNode:addChild(effect1.m_node, 0)
+
+        -- 이펙트
+        local effect2 = MakeAnimator('res/effect/effect_monsterdragon/effect_monsterdragon_f.vrp')
+        effect2:changeAni('idle', true)
+        ani.m_node:addChild(effect2.m_node)
+        ]]--
+    
+        self.m_scene:scheduleUpdateWithPriorityLua(function(dt)
+            local pos = ani.m_node:getBonePosition('monstereye_s')
+            effect_eye.m_node:setPosition(pos.x, pos.y)
+
+            pos = ani.m_node:getBonePosition('body')
+            --effect1.m_node:setPosition(pos.x + 900, pos.y + 350)
+            --effect2.m_node:setPosition(pos.x, pos.y)
+
+        end, 0)
+    end
 end
 
 -------------------------------------
@@ -110,10 +160,9 @@ end
 -------------------------------------
 function SceneDV:onKeyReleased(keyCode, event)
 	if keyCode == KEY_A then
-		local rand_x = math_random(100, 900)
-		local rand_y = math_random(200, 600)
-		local json_name = 'res/character/dragon/spine_earth_01/spine_earth_01.json'
-		self:setAni(json_name, rand_x, rand_y)
+        local json_name = 'res/character/dragon/godaeshinryong_light_03/godaeshinryong_light_03.json'
+        self:setAni(json_name, 400, 350)
+		self:setMonsterDragon(json_name, 900, 350)
 
     elseif keyCode == KEY_Z then
         local duration = 1
@@ -159,7 +208,7 @@ function SceneDV:onKeyReleased(keyCode, event)
 
         animator:changeAni('casting', true)
 
-        local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
+        local shader = ShaderCache:getShader(SHADER_DARK)
         animator.m_node:setGLProgram(shader)
 
         local slotList = animator:getSlotList()

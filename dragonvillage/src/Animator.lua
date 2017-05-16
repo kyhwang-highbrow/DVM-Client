@@ -23,6 +23,8 @@ Animator = class({
 
         m_aniMap = 'map',
         m_aniAttr = 'string',
+
+        m_baseShaderKey = 'string',
     })
 
 -------------------------------------
@@ -35,6 +37,20 @@ function Animator:init(file_name)
 	self.m_aniRepeatIdx = 1
     self.m_timeScale = 1
     self.m_bAnimationPause = false
+
+    self.m_baseShaderKey = cc.SHADER_POSITION_TEXTURE_COLOR
+end
+
+-------------------------------------
+-- function setBaseShader
+-------------------------------------
+function Animator:setBaseShader(shader_key)
+    if (shader_key) then
+        self.m_baseShaderKey = shader_key
+    end
+
+    local shader = ShaderCache:getShader(self.m_baseShaderKey)
+    self.m_node:setGLProgram(shader)
 end
 
 -------------------------------------

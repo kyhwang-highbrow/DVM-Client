@@ -2010,7 +2010,8 @@ function Character:runAction_Hit(attacker, dir)
             end),
             cc.DelayTime:create(delay),
             cc.CallFunc:create(function(node)
-                local shader = ShaderCache:getShader(cc.SHADER_POSITION_TEXTURE_COLOR)
+                local baseShaderKey = self.m_animator.m_baseShaderKey
+                local shader = ShaderCache:getShader(baseShaderKey)
                 self.m_animator.m_node:setGLProgram(shader)
             end)
         )        

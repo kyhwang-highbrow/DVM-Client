@@ -8,6 +8,8 @@ SHADER_RED = 'shader_red'
 SHADER_GREEN = 'shader_green'
 SHADER_BLUE = 'shader_blue'
 
+SHADER_DARK = 'shader_dark'
+
 POSITION_TEXTURE_COLOR_NO_MVP_VERTEX = 'shader/position_texture_color_noMvp_vertex.vsh'
 
 -------------------------------------
@@ -22,6 +24,8 @@ function ShaderCache:init()
     self:addShader(SHADER_RED, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/red.fsh')
     self:addShader(SHADER_GREEN, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/green.fsh')
     self:addShader(SHADER_BLUE, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/blue.fsh')
+
+    self:addShader(SHADER_DARK, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/dark.fsh')
 end
 
 -------------------------------------
