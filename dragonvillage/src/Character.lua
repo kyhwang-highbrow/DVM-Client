@@ -111,6 +111,7 @@ Character = class(PARENT, {
 		m_lStatusEffect = 'table',
         m_tOverlabStatusEffect = 'table',
 		m_lStatusIcon = 'sprite table',
+        m_mStatusEffectCC = 'table',    -- 적용중인 cc효과를 가진 status effect
 
         -- 피격시 경직 관련
         m_bEnableSpasticity = 'boolean',-- 경직 가능 활성화 여부
@@ -167,6 +168,7 @@ function Character:init(file_name, body, ...)
     self.m_tOverlabStatusEffect = {}
 	self.m_lStatusEffect = {}
 	self.m_lStatusIcon = {}
+    self.m_mStatusEffectCC = {}
 
     self.m_bEnableSpasticity = true
     self.m_isSpasticity = false
@@ -175,7 +177,7 @@ function Character:init(file_name, body, ...)
     self.m_bInvincibility = false
 	self.m_isSilence = false
 	self.m_isImmuneSE = false
-
+    
 	self.m_isUseAfterImage = false
 
 	self.m_isSlaveCharacter = false
@@ -2244,6 +2246,34 @@ function Character:isImmuneSE()
     end
 
     return false
+end
+
+-------------------------------------
+-- function addGroggy
+-------------------------------------
+function Character:addGroggy(statusEffectName)
+    self.m_mStatusEffectCC[statusEffectName] = true
+
+    if (self.m_state ~= 'stun') then
+        self:changeState('stun')
+    end
+end
+
+-------------------------------------
+-- function removeGroggy
+-------------------------------------
+function Character:removeGroggy(statusEffectName)
+    if (statusEffectName) then
+        self.m_mStatusEffectCC[statusEffectName] = nil
+    else
+        self.m_mStatusEffectCC = {}
+    end
+
+    if (table.count(self.m_mStatusEffectCC) == 0) then
+        if (self.m_state == 'stun') then
+            self:changeState('stun_esc')
+        end
+    end
 end
 
 -------------------------------------

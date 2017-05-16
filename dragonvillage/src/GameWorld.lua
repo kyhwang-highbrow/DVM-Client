@@ -1078,7 +1078,8 @@ function GameWorld:onKeyReleased(keyCode, event)
         end
 
 	-- 아군한테 상태효과 걸기
-    elseif (keyCode == KEY_Y) then    
+    elseif (keyCode == KEY_Y) then
+        --[[    
         for i,v in ipairs(self:getDragonList()) do
 			local test_res = g_constant:get('ART', 'STATUS_EFFECT_RES')
 			StatusEffectHelper:invokeStatusEffectForDev(v, test_res)
@@ -1086,6 +1087,11 @@ function GameWorld:onKeyReleased(keyCode, event)
 			cclog(v:getName())
 			v.m_charLogRecorder:printRecord()
         end
+        ]]--
+        local dragon_list = self:getDragonList()
+        local enemy_list = self:getEnemyList()
+        
+        StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'stun', 'target', 1, 5, 100, 100)
 
     -- 스킬 다 죽이기
 	elseif (keyCode == KEY_K) then    

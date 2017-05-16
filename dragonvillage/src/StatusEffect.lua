@@ -226,10 +226,10 @@ function StatusEffect:statusEffectApply()
     if (t_status_effect['overlab'] > 0) then
         self.m_owner.m_tOverlabStatusEffect[self.m_statusEffectName] = self
     end
-	
-	-- groggy 옵션이 있다면 stun 상태로 바꾼다. 이외의 부가적인 효과는 개별적으로 구현
-	if (t_status_effect['groggy'] == 'true') then 
-		self.m_owner:changeState('stun')
+
+    -- groggy 옵션이 있다면 stun 상태로 바꾼다. 이외의 부가적인 효과는 개별적으로 구현
+	if (t_status_effect['groggy'] == 'true') then
+		self.m_owner:addGroggy(self.m_statusEffectName)
 	end
 
     -- character에 status_effect 저장
@@ -287,9 +287,12 @@ function StatusEffect:statusEffectReset()
         self.m_owner.m_tOverlabStatusEffect[self.m_statusEffectName] = nil
     end
 	
-	-- 스턴이었다면 스턴 해제
-	if self.m_owner and (self.m_owner.m_state == 'stun') then
-		self.m_owner:changeState('stun_esc')
+	-- groggy 옵션이 있다면 해제
+    if (self.m_owner) then
+        local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
+        if (t_status_effect['groggy'] == 'true') then
+            self.m_owner:removeGroggy(self.m_statusEffectName)
+        end
 	end
 
 	-- 대상이 들고 있는 상태효과 리스트에서 제거
