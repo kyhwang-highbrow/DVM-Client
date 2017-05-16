@@ -570,6 +570,42 @@ function MakeUICSortList_teamList(button, label, type)
     return uic
 end
 
+-------------------------------------
+-- function MakeUICSortList_scenarioPlayerStting
+-- @brief 시나리오 재생 설정
+--        1. 최초 1회만 보기
+--        2. 항상 보기
+--        3. 항상 보지 않기
+-------------------------------------
+function MakeUICSortList_scenarioPlayerSetting(button, label, type)
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+
+    uic.m_bDirectHide = true
+
+    uic.m_direction = UIC_SORT_LIST_BOT_TO_TOP
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+    uic:addSortType('first', Str('최초 1회만 보기'))
+    uic:addSortType('always', Str('항상 보기'))
+    uic:addSortType('off', Str('항상 보지 않기'))
+
+    return uic
+end
+
 
 -- show/hide
 -- addSortType (sort_type, sort_name)

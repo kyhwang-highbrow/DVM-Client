@@ -18,6 +18,9 @@ function UI_Setting:init_gameTab()
     -- 연출
     vars['directOnBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('준비 중입니다.')) end)
     vars['directOffBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('준비 중입니다.')) end)
+
+    -- 시나리오 재생 설정
+    self:init_scenarioPlayerSetting()
 end
 
 -------------------------------------
@@ -105,6 +108,26 @@ function UI_Setting:init_lowResModeSetting()
     end
 
     radio_button:setChangeCB(change_cb)
+end
+
+-------------------------------------
+-- function init_scenarioPlayerSetting
+-- @brief 시나리오 재생 설정
+-------------------------------------
+function UI_Setting:init_scenarioPlayerSetting()
+    local vars = self.vars
+
+    local uic_sort_list = MakeUICSortList_scenarioPlayerSetting(vars['scenarioBtn'], vars['scenarioLabel'], 'first')
+    
+    -- 초기 선택 덱 설정
+    local setting = g_localData:get('scenario_playback_rules')
+    uic_sort_list:setSelectSortType(setting)
+
+    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        g_localData:applyLocalData(sort_type, 'scenario_playback_rules')
+    end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
 end
 
 -------------------------------------
