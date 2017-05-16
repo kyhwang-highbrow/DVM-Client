@@ -131,6 +131,7 @@ function UI_CollectionGradeCard:click_dragonCard(did, grade)
 
 	-- 보상 요청
 	local function cb_func(ret)
+		UI_ToastPopup()
 		card:setHighlightSpriteVisible(false)
 		card:setMaxLvSpriteVisible(true)
 	end

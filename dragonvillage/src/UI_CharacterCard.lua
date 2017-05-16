@@ -546,6 +546,9 @@ function UI_CharacterCard:setHighlightSpriteVisible(visible)
         sprite:setAnchorPoint(CENTER_POINT)
         self.vars['clickBtn']:addChild(sprite, 17)
         self.vars['highlightSprite'] = sprite
+
+		-- 깜빡임 액션
+        sprite:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255))))
     end
 end
 
