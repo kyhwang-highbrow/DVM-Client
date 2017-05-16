@@ -595,10 +595,12 @@ function GameState.update_success(self, dt)
             local stage_id = world.m_stageID
             local scenario_name = TableStageDesc:getScenarioName(stage_id, 'snro_finish')
             if scenario_name then
-                --world.m_containerLayer:setVisible(false)
-                local ui = UI_ScenarioPlayer(scenario_name)
-                ui:setCloseCB(start)
-                return 
+                local ui = g_scenarioViewingHistory:playScenario(scenario_name)
+                if ui then
+                    --world.m_containerLayer:setVisible(false)
+                    ui:setCloseCB(start)
+                    return 
+                end
             end
 
             start()            

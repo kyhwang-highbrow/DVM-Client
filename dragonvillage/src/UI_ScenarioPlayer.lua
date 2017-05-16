@@ -524,4 +524,6 @@ function UI_ScenarioPlayer:onClose()
     elseif self.m_currBgm then
         SoundMgr:stopBGM()
     end
+
+    PARENT.onClose(self)
 end

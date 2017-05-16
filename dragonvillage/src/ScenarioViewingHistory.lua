@@ -92,18 +92,59 @@ end
 -------------------------------------
 -- function addViewed
 -------------------------------------
-function ScenarioViewingHistory:addViewed(scenario_id)
-    self.m_rootTable[scenario_id] = true
+function ScenarioViewingHistory:addViewed(scenario_name)
+    self.m_rootTable[scenario_name] = true
     self:saveScenarioViewingHistoryFile()
 end
 
 -------------------------------------
 -- function isViewed
 -------------------------------------
-function ScenarioViewingHistory:isViewed(scenario_id)
-    if self.m_rootTable[scenario_id] then
+function ScenarioViewingHistory:isViewed(scenario_name)
+    if self.m_rootTable[scenario_name] then
         return true
     else
         return false
+    end
+end
+
+
+
+
+
+
+-------------------------------------
+-- function playScenario
+-------------------------------------
+function ScenarioViewingHistory:playScenario(scenario_name)
+    local setting = 'first'
+    local play = false
+
+    -- 설정 정보가 있으면 받아옴
+    if g_localData then
+        setting = g_localData:get('scenario_playback_rules')
+    end
+
+    -- 설정 정보에 따라 재생 여부 결정
+    if (setting == 'off') then
+        play = false
+
+    elseif (setting == 'always') then
+        play = true
+        
+    elseif (setting == 'first') then
+        if (not self:isViewed(scenario_name)) then
+            play = true
+            
+        end
+
+    end
+
+    -- 시청 기록에 등록
+    self:addViewed(scenario_name)
+
+    -- 재생
+    if play then
+        return UI_ScenarioPlayer(scenario_name)
     end
 end

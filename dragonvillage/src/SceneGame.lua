@@ -277,10 +277,13 @@ function SceneGame:prepareDone()
     -- 임시 시나리오
     local scenario_name = TableStageDesc:getScenarioName(self.m_stageID, 'snro_start')
     if scenario_name then
-        self.m_containerLayer:setVisible(false)
-        local ui = UI_ScenarioPlayer(scenario_name)
-        ui:setCloseCB(start)
-        return 
+        local ui = g_scenarioViewingHistory:playScenario(scenario_name)
+
+        if ui then
+            self.m_containerLayer:setVisible(false)
+            ui:setCloseCB(start)
+            return 
+        end
     end
 
     start()
