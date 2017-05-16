@@ -18,13 +18,6 @@ boss_gdragon_water_eff_01
   orig: 111, 102
   offset: 0, 0
   index: -1
-boss_gdragon_water_eff_02
-  rotate: false
-  xy: 1186, 1246
-  size: 111, 102
-  orig: 111, 102
-  offset: 0, 0
-  index: -1
 boss_gdragon_water_hand_01
   rotate: true
   xy: 1352, 1526
