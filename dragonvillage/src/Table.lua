@@ -80,6 +80,7 @@ local TableInfo_fromServer = {
         ['table_req_gold'] = {'table_req_gold', 'lv'},
         ['table_stamina_info'] = {'table_stamina_info', 'stamina_type'},
         ['table_dragon_research'] = {'table_dragon_research', 'lv'},
+        ['table_dragon_collection'] = {'table_dragon_collection', 'req_point'},
 
         --  친밀도
         ['table_dragon_friendship'] = {'table_dragon_friendship', 'friendship'},
@@ -247,6 +248,10 @@ end
 -- function setServerTable
 -------------------------------------
 function TABLE:setServerTable(table_name, table_data)
+    if (not table_data) then
+        return
+    end
+
 	if (not TableInfo_fromServer[table_name]) then
         error('table_name : ' .. table_name)
     end

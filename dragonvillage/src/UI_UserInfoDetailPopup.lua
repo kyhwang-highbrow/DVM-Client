@@ -93,11 +93,11 @@ function UI_UserInfoDetailPopup:initUI()
 	vars['nameLabel']:setString(nick_name)
 
 	-- 칭호
-	local title_str = self.m_tUserInfo['title'] or Str('칭호 없음')
+    local title_str = TableDragonCollection:getDragonCollectionTitle(self.m_tUserInfo['cpoint_reward'])
 	vars['titleLabel']:setString(title_str)
 
 	-- 길드
-	local guild_name = self.m_tUserInfo['guild'] or Str('길드 없음')
+	local guild_name = self.m_tUserInfo['guild'] or ''
 	vars['guildLabel']:setString(guild_name)
 	
 	-- 플레이 기록

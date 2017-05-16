@@ -220,6 +220,7 @@ local t_module = {
     'TableSlimeExp',
 	'TableLoadingGuide',
     'TableExchange',
+    'TableDragonCollection',
 
     -- Interface
     'IEventDispatcher',

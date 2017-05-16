@@ -343,7 +343,7 @@ function UI_Lobby:refresh_userInfo()
    local vars = self.vars
 
     -- TODO 어떤 기준으로 출력??
-    vars['userTitleLabel']:setString(Str('수습테이머'))
+    vars['userTitleLabel']:setString(g_collectionData:getTamerTitle())
 
     -- 닉네임
     local nickname = g_userData:get('nick')
