@@ -5,7 +5,7 @@
 	{
 		[1] =
 		{
-			type = 'Node';
+			type = 'Visual';
 			ui_name = '';
 			x = 0.000000;
 			y = 0.000000;
@@ -20,7 +20,13 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'bgNode';
+			lua_name = '';
+			file_name = 'ui/a2d/dragon_management_bg/dragon_management_bg.a2d';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;idle';
+			color = { 255; 255; 255; };
+			opacity = 255;
 		};
 		[2] =
 		{
@@ -54,31 +60,6 @@
 			{
 				[1] =
 				{
-					[1] =
-					{
-						type = 'Visual';
-						ui_name = '';
-						x = 0.000000;
-						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.400000;
-						scale_y = 0.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'attrVisual';
-						file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.a2d';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;idle';
-						color = { 255; 255; 255; };
-						opacity = 255;
-					};
 					type = 'ClippingNode';
 					ui_name = '';
 					x = 0.000000;
@@ -94,10 +75,10 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
-					stencil_type = 0;
-					stencil_img = '';
-					alpha_threshold = 1.000000;
+					lua_name = 'bgNode';
+					stencil_type = 1;
+					stencil_img = 'ui/frame/collection_detail_bg.png';
+					alpha_threshold = 0.000000;
 					is_invert = false;
 				};
 				[2] =
@@ -1209,12 +1190,12 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -227.000000;
+					y = -223.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 408;
-					height = 84;
+					height = 100;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1223,14 +1204,14 @@
 					visible = true;
 					lua_name = 'storyLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 20;
 					text = 'storyLabel';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 70; 35; 19; };
 					opacity = 255;
 					dimension_width = 408;
-					dimension_height = 84;
+					dimension_height = 100;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
