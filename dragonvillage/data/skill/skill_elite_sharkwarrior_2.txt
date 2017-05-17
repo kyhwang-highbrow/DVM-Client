@@ -21,7 +21,7 @@
 				"offset":['target','target'],
 				"dir":0,
 				"dir_add":0,
-				"delete_time":3
+				"delete_time":2.5
 			},
 			
 			{

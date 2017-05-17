@@ -114,7 +114,7 @@
 				
 				0:
 				[
-					"132012;1;Basic;BOSS;RM24;2;roam"
+					"140092;1;Basic;BOSS;RM24;2;roam"
 				],
 				
 				1.5:

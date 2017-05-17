@@ -66,7 +66,7 @@
 				
 				0:
 				[
-					"132012;10;Basic;BOSS;RB14;3;roam"
+					"140142;10;Basic;BOSS;RB14;3;roam"
 				],
 				
 				3.2:
