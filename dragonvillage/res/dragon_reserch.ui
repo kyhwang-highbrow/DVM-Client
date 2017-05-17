@@ -59,6 +59,31 @@
 			};
 			[2] =
 			{
+				type = 'Visual';
+				ui_name = '';
+				x = -181.000000;
+				y = 72.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'decoVisual';
+				file_name = 'ui/a2d/dragon_reserch/dragon_reserch.a2d';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;10';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[3] =
+			{
 				[1] =
 				{
 					[1] =
@@ -225,7 +250,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
@@ -498,7 +523,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'dscLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
@@ -523,6 +548,46 @@
 					shadow_distance = 5.000000;
 				};
 				[5] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 77.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 400;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 22;
+					text = '연구 적용 드래곤';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 190; 156; 87; };
+					opacity = 255;
+					dimension_width = 400;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -562,7 +627,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[6] =
+				[7] =
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
@@ -602,7 +667,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[7] =
+				[8] =
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
@@ -642,7 +707,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[8] =
+				[9] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -682,7 +747,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[9] =
+				[10] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -722,7 +787,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[10] =
+				[11] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -748,7 +813,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[11] =
+				[12] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -774,7 +839,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[12] =
+				[13] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -800,7 +865,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[13] =
+				[14] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -826,7 +891,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[14] =
+				[15] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -852,7 +917,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[15] =
+				[16] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -878,7 +943,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[16] =
+				[17] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -904,7 +969,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[17] =
+				[18] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -930,7 +995,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[18] =
+				[19] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -956,7 +1021,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[19] =
+				[20] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -982,7 +1047,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[20] =
+				[21] =
 				{
 					type = 'LayerColor';
 					ui_name = '';
@@ -1004,6 +1069,50 @@
 					opacity = 255;
 					src_blend = 770;
 					dest_blend = 771;
+				};
+				[22] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 29.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 925;
+					height = 150;
+					scale_x = 0.450000;
+					scale_y = 0.450000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'applyNode';
+				};
+				[23] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 4.000000;
+					y = 118.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'reserchVisual';
+					file_name = 'ui/a2d/dragon_reserch/dragon_reserch.a2d';
+					auto_play = true;
+					is_repeat = false;
+					visual_id = 'group;reserch_light_01';
+					color = { 255; 255; 255; };
+					opacity = 255;
 				};
 				type = 'Menu';
 				ui_name = '';
