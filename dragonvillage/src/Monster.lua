@@ -206,14 +206,14 @@ function Monster:update(dt)
         for bone_name, effect in pairs(self.m_mBoneEffect) do
             local pos = self.m_animator.m_node:getBonePosition(bone_name)
             local scale = self.m_animator.m_node:getBoneScale(bone_name)
-
+            
             if (effect.m_node:getParent() ~= self.m_animator.m_node) then
                 effect:setPositionX(self.pos.x + pos.x)
                 effect:setPositionY(self.pos.y + pos.y)
                 effect:setScale(self.m_animator:getScale() * scale.y)
             else
                 effect:setPosition(pos)
-                effect:setScale(scale)
+                effect:setScale(scale.y)
             end
         end
     end 
