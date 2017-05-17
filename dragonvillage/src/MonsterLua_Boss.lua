@@ -19,10 +19,6 @@ MonsterLua_Boss = class(PARENT, {
         m_patternTime = 'number',   -- TimeTrigger 발동시간 체크를 위한 누적 시간
 
         m_tEffectSound = 'table',
-
-        m_bHasWeakPoint = 'boolean',        -- 약점 시스템 사용 여부
-        m_weakPointKey = 'number',          -- 현재 약점 body의 키
-        m_remainTimeForWeakPoint = 'number',-- 약점 시스템 이동까지 남은 시간
      })
 
 -------------------------------------
@@ -35,10 +31,6 @@ function MonsterLua_Boss:init(file_name, body, ...)
 
     self.m_patternTime = 0
     self.m_tEffectSound = {}
-
-    self.m_bHasWeakPoint = false
-    self.m_weakPointKey = nil
-    self.m_remainTimeForWeakPoint = 0
 end
 
 -------------------------------------
@@ -126,17 +118,6 @@ function MonsterLua_Boss:update(dt)
         if (self.m_triggerTime) then
             self.m_triggerTime:checkTrigger(self.m_patternTime)
         end
-
-        --[[
-        if (self.m_bHasWeakPoint) then
-            self.m_remainTimeForWeakPoint = self.m_remainTimeForWeakPoint - dt
-
-            if (self.m_remainTimeForWeakPoint <= 0) then
-                -- 약점 변화
-                self:changeWeakPoint()
-            end
-        end
-        ]]--
     end
     
     return PARENT.update(self, dt)
@@ -358,20 +339,6 @@ function MonsterLua_Boss:doPattern(pattern)
 end
 
 -------------------------------------
--- function setDamage
--------------------------------------
-function MonsterLua_Boss:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
-    
-    if (self.m_bDead) then return end
-
-    -- 약점 대기 시간 감소
-    if (self.m_remainTimeForWeakPoint > 5) then
-        self.m_remainTimeForWeakPoint = 5
-    end
-end
-
--------------------------------------
 -- function setHp
 -------------------------------------
 function MonsterLua_Boss:setHp(hp)
@@ -468,42 +435,6 @@ function MonsterLua_Boss:getBasePatternList()
     end
     
     return ret
-end
-
--------------------------------------
--- function changeWeakPoint
--------------------------------------
-function MonsterLua_Boss:changeWeakPoint()
-    if (#self.body_list > 1) then
-        local t_temp = clone(self.body_list)
-        local prev_weak_body = table.remove(t_temp, 1)
-
-        t_temp = randomShuffle(t_temp)
-
-        table.insert(t_temp, prev_weak_body)
-
-        self.body_list = t_temp
-    end
-
-    --self.body_list = randomShuffle(self.body_list)
-
-    local weak_body = self.body_list[1]
-    self.m_weakPointKey = weak_body['key']
-    self.m_remainTimeForWeakPoint = 2
-
-    local animator = MakeAnimator('res/effect/effect_weakness/effect_weakness.vrp')
-    self:setTargetEffect(animator)
-                
-    animator:setPosition(weak_body['x'], weak_body['y'])
-    animator:changeAni('appear', false)
-    animator:addAniHandler(function()
-        animator:changeAni('disappear', false)
-        animator:addAniHandler(function()
-            animator:runAction(cc.CallFunc:create(function()
-                self:removeTargetEffect()
-            end))
-        end)
-    end)
 end
 
 -------------------------------------

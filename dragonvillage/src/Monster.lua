@@ -91,14 +91,14 @@ function Monster:init_monster(t_monster, monster_id, level, stage_id)
             end
 
             do -- 이펙트(앞 레이어)
-                local effect = makeDarkModeBoneEffect('root', 'res/effect/effect_monsterdragon/effect_monsterdragon_f.vrp')
+                local effect = makeDarkModeBoneEffect('center', 'res/effect/effect_monsterdragon/effect_monsterdragon_f.vrp')
                 if (effect) then
                     self.m_animator.m_node:addChild(effect.m_node)
                 end
             end
 
             do -- 이펙트(뒤 레이어)
-                local effect = makeDarkModeBoneEffect('root', 'res/effect/effect_monsterdragon/effect_monsterdragon_b.vrp')
+                local effect = makeDarkModeBoneEffect('center', 'res/effect/effect_monsterdragon/effect_monsterdragon_b.vrp')
                 if (effect) then
                     local scale = self.m_animator:getScale()
                     effect:setScale(scale)

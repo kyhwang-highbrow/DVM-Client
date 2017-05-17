@@ -246,7 +246,8 @@ end
 -- @brief id를 가지고 monster인지 판별
 -------------------------------------
 function isMonster(id)
-    return ( math_floor(id / 10000) == 13 )
+    local id  = math_floor(id / 10000)
+    return (id == 13 or id == 14)
 end
 
 -------------------------------------
