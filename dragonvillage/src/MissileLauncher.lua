@@ -352,14 +352,17 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		attack_value.dir_array = {math_random(start_num, end_num)}
 	end
 
-    for _, target_idx in ipairs(l_target_idx) do
+    for idx, target_idx in ipairs(l_target_idx) do
         -- 공격 대상
         local target = l_target[target_idx]
-        --if (not target) then break end
+        if (not target) then
+            if (idx > 1) then break end
+
+            target = self.m_launcherOption['target']
+        end
 
         -- 공격 위치
         if (type(offset_x) == 'string' and offset_x == 'target') then
-            local target = self.m_launcherOption['target']
             local body = target:getBody()
             pos_x = target.pos.x + body.x
         elseif (attack_value['is_abs_pos']) then
@@ -370,7 +373,6 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
         end
 
         if (type(offset_y) == 'string' and offset_y == 'target') then
-            local target = self.m_launcherOption['target']
             local body = target:getBody()
             pos_y = target.pos.y + body.y
         elseif (attack_value['is_abs_pos']) then
