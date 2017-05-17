@@ -210,7 +210,7 @@ function Monster:update(dt)
             if (effect.m_node:getParent() ~= self.m_animator.m_node) then
                 effect:setPositionX(self.pos.x + pos.x)
                 effect:setPositionY(self.pos.y + pos.y)
-                effect:setScale(self.m_animator.m_node:getScale() * scale)
+                effect:setScale(self.m_animator:getScale() * scale.y)
             else
                 effect:setPosition(pos)
                 effect:setScale(scale)
