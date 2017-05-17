@@ -124,6 +124,8 @@ end
 function UI_ScenarioPlayer:initUI()
     local vars = self.vars
 
+    vars['illustrationMenu']:setVisible(false)
+
     self.m_autoSkipActionNode = cc.Node:create()
     self.root:addChild(self.m_autoSkipActionNode)
 end
