@@ -323,8 +323,7 @@ function Entity:blockMatchingSlotShader(str)
 
     for i, slotName in ipairs(slotList) do
         if startsWith(slotName, str) then
-            local baseShaderKey = self.m_animator.m_baseShaderKey
-            self.m_animator.m_node:setSlotGLProgramName(slotName, baseShaderKey)
+            self.m_animator.m_node:setSlotGLProgramName(slotName, cc.SHADER_POSITION_TEXTURE_COLOR)
         end
     end
 end
