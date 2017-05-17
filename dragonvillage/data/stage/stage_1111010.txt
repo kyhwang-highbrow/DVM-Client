@@ -90,7 +90,7 @@
 					"131065;1;Basic2;RF14;RF14;0.5"
 					"131081;1;Basic2;RF24;RF22;1;"
 					"131081;1;Basic2;RF24;RF26;1;"
-					"132111;10;Basic2;RB14;RB14;0.5;roam"
+					"140193;10;Basic2;RB14;RB14;0.5;roam"
 				]
             },
 			"regen":

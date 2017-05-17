@@ -85,7 +85,7 @@
                 [
 					"131031;1;Basic;RB14;RF23;0.5;roam"
 					"131031;1;Basic;RB14;RF25;0.5;roam"
-					"132053;10;Basic;RO06;RB14;2;roam"
+					"140161;10;Basic;RO06;RB14;2;roam"
                 ]
             },
 			
