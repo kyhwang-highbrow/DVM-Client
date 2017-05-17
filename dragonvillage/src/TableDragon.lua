@@ -191,3 +191,18 @@ function TableDragon:getValue(primary, column)
 
     return PARENT.getValue(self, primary, column)
 end
+
+-------------------------------------
+-- function getDragonStoryStr
+-- @brief 도감에서 드래곤 스토리 출력 시 사용
+-------------------------------------
+function TableDragon:getDragonStoryStr(did)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local str = self:getValue(did, 't_desc')
+    str = Str(str)
+
+    return str
+end

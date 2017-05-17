@@ -173,6 +173,12 @@ function UI_CollectionDetailPopup:onChangeDragon()
         vars['notiSprite']:setVisible(num_possible > 0)
     end
 
+    do -- 드래곤 스토리
+        local did = t_dragon['did']
+        local story_str = TableDragon:getDragonStoryStr(did)
+        vars['storyLabel']:setString(story_str)
+    end
+
     self:onChangeEvolution()
 end
 
