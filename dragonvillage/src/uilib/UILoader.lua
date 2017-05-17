@@ -358,7 +358,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             , data.v_alignment
             )
         setPropsForLabel(node, data)
-    elseif (type == 'LabelTTF') and (ui_name == 'rich') then
+    elseif (type == 'LabelTTF') and ((ui_name == 'rich') or (ui_name == 'scroll')) then
     --    ccdump(data)
         local rich_label = UIC_RichLabel()
         node = rich_label.m_node
@@ -400,7 +400,16 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             rich_label:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0)
 		end
 
-        delegator = rich_label
+        
+
+        if (ui_name == 'scroll') then
+            delegator = UIC_ScrollLabel:create(rich_label)
+            node = delegator.m_node
+        elseif (ui_name == 'rich') then
+            delegator = rich_label
+        else
+            error('ui_name : ' .. ui_name)
+        end
 
     elseif type == 'LabelTTF' then
         -- CustomStroke타입은 create함수에서 stroke_tickness를 0으로 넘겨야 한다.

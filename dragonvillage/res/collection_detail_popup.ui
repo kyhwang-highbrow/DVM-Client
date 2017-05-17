@@ -1188,7 +1188,7 @@
 				[20] =
 				{
 					type = 'LabelTTF';
-					ui_name = '';
+					ui_name = 'scroll';
 					x = 0.000000;
 					y = -223.000000;
 					dock_point = { 0.500000; 0.500000; };

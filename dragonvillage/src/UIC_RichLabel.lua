@@ -584,6 +584,19 @@ end
 
 
 -------------------------------------
+-- function getStringHeight
+-------------------------------------
+function UIC_RichLabel:getStringHeight()
+    if self.m_bDirty then
+        self:update(0)
+    end
+
+    local line_height = self.m_fontSize * 1.1
+    local content_height = (self.m_lineCount * line_height)
+    return content_height
+end
+
+-------------------------------------
 -- function click_word
 -- @brief 버튼 클릭 핸들러
 -------------------------------------

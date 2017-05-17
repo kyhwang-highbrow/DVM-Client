@@ -2307,6 +2307,9 @@
     <None Include="..\src\TableDragonCollection.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UIC_ScrollLabel.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
