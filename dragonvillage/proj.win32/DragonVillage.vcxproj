@@ -283,6 +283,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ConstantGameMode.lua" />
     <None Include="..\src\ConstantStatusEffect.lua" />
     <None Include="..\src\Coroutine.lua" />
+    <None Include="..\src\DirectingCharacter.lua" />
     <None Include="..\src\DragonSkillBonusHelper.lua" />
     <None Include="..\src\DropItem.lua" />
     <None Include="..\src\EffectMotionStreak.lua" />
@@ -781,6 +782,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_CollectionEntrance.lua" />
     <None Include="..\src\UI_CollectionGradeCard.lua" />
     <None Include="..\src\UI_CollectionTabGrade.lua" />
+    <None Include="..\src\UI_Directing_DragonGoodBye.lua" />
     <None Include="..\src\UI_DungeonMenu.lua" />
     <None Include="..\src\UI_BirthdayCalendarDayElement.lua" />
     <None Include="..\src\UI_BirthdayRewardSelectListItem.lua" />

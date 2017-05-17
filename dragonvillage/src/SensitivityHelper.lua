@@ -3,12 +3,21 @@ SensitivityHelper = {}
 TAG_BUBBLE = 101
 
 -------------------------------------
+-- function doActionBubbleText_Extend
+-- @public 범용성을 위해 테이블 요소 사용
+-------------------------------------
+function SensitivityHelper:doActionBubbleText_Extend(t_param)
+	local t_param = t_param
+	SensitivityHelper:doActionBubbleText(t_param['parent'], t_param['did'], t_param['flv'], t_param['case_type'], t_param['custom_str'], t_param['cb_func'])
+end
+
+-------------------------------------
 -- function doActionBubbleText
 -- @public 현재는 드래곤 전용이다 추후에 사용처가 늘어나면 범용성을 갖추어야 할것
 -------------------------------------
-function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type)
+function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custom_str, cb_func)
 	-- 상황별 문구 생성
-	local sens_str = SensitivityHelper:getRandomSensStr(did, flv, case_type)
+	local sens_str = custom_str or SensitivityHelper:getRandomSensStr(did, flv, case_type)
 
 	-- 이전 버블 텍스트가 있다면 삭제해버린다.
 	self:deleteBubbleText(parent)
@@ -23,9 +32,19 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type)
 	if string.find(case_type, 'lobby_') then
 		bubble_text:setPosition(50, 300)
 		delay_time = 1.5
+
 	elseif string.find(case_type, 'party_') then
 		bubble_text:setPosition(0, 100)
 		delay_time = 0.5
+
+	elseif string.find(case_type, 'lactea_') then
+		bubble_text:setPosition(0, 200)
+		delay_time = 0.5
+	
+	elseif (case_type == 'lactea_tamer') then
+		bubble_text:setPosition(0, 200)
+		delay_time = 1.5
+		bubble_text:setScaleX(-1)
 	end
 	
 	-- 띠용~ 후 페이드 아웃 하는 액션
@@ -33,8 +52,9 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type)
 	local scale_action_2 = cc.ScaleTo:create(0.08, 1)
 	local delay_action = cc.DelayTime:create(delay_time)
 	local fade_action = cc.FadeOut:create(0.25)
+	local cb_action = cc.CallFunc:create(function() if (cb_func) then cb_func() end end)
 	local remove_action = cc.RemoveSelf:create()
-	local seq_action = cc.Sequence:create(scale_action, scale_action_2, delay_action, fade_action, remove_action)
+	local seq_action = cc.Sequence:create(scale_action, scale_action_2, delay_action, fade_action, cb_action, remove_action)
 	bubble_text:runAction(seq_action)
 end
 

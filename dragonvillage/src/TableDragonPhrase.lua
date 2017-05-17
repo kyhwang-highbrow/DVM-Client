@@ -220,6 +220,15 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
 	elseif (case_type == 'fruit_induce') then
 		sum_random:addItem(1, 'fruit_induce')
 
+	elseif (case_type == 'lactea_sorrow') then
+		sum_random:addItem(1, 'lactea_sorrow')
+
+	elseif (case_type == 'lactea_bye') then
+		sum_random:addItem(1, 'lactea_bye')
+
+	elseif (case_type == 'lactea_farewell') then
+		sum_random:addItem(1, 'lactea_farewell')
+
 	else
 		sum_random:addItem(1, 't_normal_phrase1')
 		sum_random:addItem(1, 't_normal_phrase2')
@@ -243,11 +252,7 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
 	local speech = self:getValue(did, key)
 
 	if (not speech) then
-		if (case_type == 'party_in_induce') then
-			speech = 'PICK ME !!'
-		else
-			speech = '야옹'
-		end
+		speech = '지정된 대사가 없습니다.'
 	end
 
     local phrase = Str(speech)

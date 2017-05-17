@@ -687,7 +687,7 @@ local t_module = {
     'UI_CharacterCard',
     'UI_SkillDetailPopup',
     'UI_SkillDetailPopupListItem',
-    'UI_DragonGoodbye',   
+    'UI_DragonGoodbye',
     'UI_LobbyObject', 
     'UI_DragonRunes',
     'UI_DragonRunesEnhance',
@@ -731,6 +731,10 @@ local t_module = {
     'UI_BirthdayRewardSelectPopup',
     'UI_BirthdayRewardSelectListItem',
     'UI_ExchangeProductListItem',
+
+	-- UI : 연출
+	'DirectingCharacter',
+	'UI_Directing_DragonGoodBye',
 
 	-- UI : 채팅
 	'UI_ChatPopup',
