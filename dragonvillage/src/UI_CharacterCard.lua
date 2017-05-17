@@ -553,6 +553,15 @@ function UI_CharacterCard:setHighlightSpriteVisible(visible)
     end
 end
 
+-------------------------------------
+-- function setButtonEnabled
+-- @brief
+-------------------------------------
+function UI_CharacterCard:setButtonEnabled(enable)
+    if self.vars['clickBtn'] then
+        self.vars['clickBtn']:setEnabled(enable)
+    end
+end
 
 
 function UI_DragonCard(t_dragon_data)

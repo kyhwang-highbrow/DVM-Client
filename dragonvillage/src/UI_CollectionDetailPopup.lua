@@ -6,6 +6,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_CollectionDetailPopup = class(PARENT,{
         m_lDragonsItem = 'list',
         m_currIdx = 'number',
+        m_dragonEvolutionIconList = '',
 
         -- refresh 체크 용도
         m_collectionLastChangeTime = 'timestamp',
@@ -179,6 +180,22 @@ function UI_CollectionDetailPopup:onChangeDragon()
         vars['storyLabel']:setString(story_str)
     end
 
+    do -- 진화단계별 아이콘
+        self.m_dragonEvolutionIconList = {}
+        for i=1, MAX_DRAGON_EVOLUTION do
+            local node = vars['evolutionNode' .. i]
+            node:removeAllChildren()
+
+            -- 진화단계별 아이콘 생성
+            local did = t_dragon['did']
+            local card = MakeSimpleDragonCard(did, {['evolution']=i})
+            card:setButtonEnabled(false) -- 아이콘의 버튼 사용하지 않음
+            node:addChild(card.root)
+
+            self.m_dragonEvolutionIconList[i] = card
+        end
+    end
+
     self:onChangeEvolution()
 end
 
@@ -193,6 +210,14 @@ function UI_CollectionDetailPopup:onChangeEvolution()
 
     local vars = self.vars
     local t_dragon_data = self:makeDragonData()
+
+    do -- 선택된 드래곤 진화단계 아이콘 하일라이트 표시
+        local evolution = self:getEvolutionNumber()
+        for i,v in pairs(self.m_dragonEvolutionIconList) do
+            local visible = (i == evolution)
+            v:setHighlightSpriteVisible(visible)
+        end
+    end
 
     do -- 드래곤 인게임 리소스
         local evolution = self:getEvolutionNumber()
