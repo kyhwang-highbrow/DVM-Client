@@ -11,6 +11,7 @@ Monster = class(PARENT, {
 
         m_lBodyToUseBone = 'table',     -- bone(spine)의 위치를 기준값으로 사용하는 body 리스트
 
+        -- 몬스터 드래곤 관련
         m_mBoneEffect = 'table',        -- 본 위치에 표시되는 추가 이펙트(m_mDarkModeBoneEffect[bone_name] = effect 형태로 사용)
      })
 
@@ -76,32 +77,26 @@ function Monster:init_monster(t_monster, monster_id, level, stage_id)
             end
 
             do -- 안광
-                local effect = makeDarkModeBoneEffect('monstereye_s', 'res/effect/effect_monsterdragon/effect_monsterdragon_eye.vrp', 'idle_s')
-                if (effect) then
-                    self.m_animator.m_node:addChild(effect.m_node)
-                end
-                local effect = makeDarkModeBoneEffect('monstereye_m', 'res/effect/effect_monsterdragon/effect_monsterdragon_eye.vrp', 'idle_m')
-                if (effect) then
-                    self.m_animator.m_node:addChild(effect.m_node)
-                end
-                local effect = makeDarkModeBoneEffect('monstereye_l', 'res/effect/effect_monsterdragon/effect_monsterdragon_eye.vrp', 'idle_l')
-                if (effect) then
-                    self.m_animator.m_node:addChild(effect.m_node)
+                for i = 1, 6 do
+                    local effect = makeDarkModeBoneEffect('monstereye_' .. i, 'res/effect/effect_monsterdragon/effect_monsterdragon_eye.vrp', 'idle')
+                    if (effect) then
+                        self.m_animator.m_node:addChild(effect.m_node)
+                    else
+                        break
+                    end
                 end
             end
 
             do -- 이펙트(앞 레이어)
-                local effect = makeDarkModeBoneEffect('center', 'res/effect/effect_monsterdragon/effect_monsterdragon_f.vrp')
+                local effect = makeDarkModeBoneEffect('monstereffect', 'res/effect/effect_monsterdragon/effect_monsterdragon_f.vrp')
                 if (effect) then
                     self.m_animator.m_node:addChild(effect.m_node)
                 end
             end
 
             do -- 이펙트(뒤 레이어)
-                local effect = makeDarkModeBoneEffect('center', 'res/effect/effect_monsterdragon/effect_monsterdragon_b.vrp')
+                local effect = makeDarkModeBoneEffect('monstereffect', 'res/effect/effect_monsterdragon/effect_monsterdragon_b.vrp')
                 if (effect) then
-                    local scale = self.m_animator:getScale()
-                    effect:setScale(scale)
                     self.m_world.m_groundNode:addChild(effect.m_node)
                 end
             end
@@ -210,12 +205,15 @@ function Monster:update(dt)
         -- bone의 위치를 기준값으로 사용할 추가 이펙트
         for bone_name, effect in pairs(self.m_mBoneEffect) do
             local pos = self.m_animator.m_node:getBonePosition(bone_name)
+            local scale = self.m_animator.m_node:getBoneScale(bone_name)
 
             if (effect.m_node:getParent() ~= self.m_animator.m_node) then
                 effect:setPositionX(self.pos.x + pos.x)
                 effect:setPositionY(self.pos.y + pos.y)
+                effect:setScale(self.m_animator.m_node:getScale() * scale)
             else
                 effect:setPosition(pos)
+                effect:setScale(scale)
             end
         end
     end 

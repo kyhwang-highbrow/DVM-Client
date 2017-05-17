@@ -121,13 +121,13 @@ function SceneDV:setMonsterDragon(res_name, x, y)
 
     local shader = ShaderCache:getShader(SHADER_DARK)
     ani.m_node:setGLProgram(shader)
-    ani.m_node:useBonePosition('monstereye_s')
-    ani.m_node:useBonePosition('body')
+    ani.m_node:useBonePosition('monstereye_1')
+    ani.m_node:useBonePosition('monstereffect')
 
     do
         -- 안광
         local effect_eye = MakeAnimator('res/effect/effect_monsterdragon/effect_monsterdragon_eye.vrp')
-        effect_eye:changeAni('idle_s', true)
+        effect_eye:changeAni('idle', true)
         ani.m_node:addChild(effect_eye.m_node)
 
         --[[
@@ -144,10 +144,10 @@ function SceneDV:setMonsterDragon(res_name, x, y)
         ]]--
     
         self.m_scene:scheduleUpdateWithPriorityLua(function(dt)
-            local pos = ani.m_node:getBonePosition('monstereye_s')
+            local pos = ani.m_node:getBonePosition('monstereye_1')
             effect_eye.m_node:setPosition(pos.x, pos.y)
 
-            pos = ani.m_node:getBonePosition('body')
+            pos = ani.m_node:getBonePosition('monstereffect')
             --effect1.m_node:setPosition(pos.x + 900, pos.y + 350)
             --effect2.m_node:setPosition(pos.x, pos.y)
 
