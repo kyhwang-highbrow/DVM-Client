@@ -16,6 +16,7 @@ MissileLauncher = class(Entity, {
 
         m_objectKey = '',
         m_bHeroMissile = '',
+        m_bUseTargetDir = '',
 
         -- 탄막 발사 종료 시간
         m_endTime = '',
@@ -34,6 +35,7 @@ MissileLauncher = class(Entity, {
 -------------------------------------
 function MissileLauncher:init(file_name, body)
     self.m_bHeroMissile = false
+    self.m_bUseTargetDir = false
 end
 
 -------------------------------------
@@ -491,8 +493,17 @@ end
 -- function applyLauncherOption
 -------------------------------------
 function MissileLauncher:applyLauncherOption(t_option, target_idx)
+    -- 타겟 각도를 사용하는 경우(이 경우 target_list는 반드시 존재해야함)
+    if (self.m_bUseTargetDir) then
+        local target = self.m_launcherOption['target_list'][target_idx]
+        if (target) then
+            local degree = getDegree(self.pos.x, self.pos.y, target.pos.x, target.pos.y)
+            t_option['dir'] = t_option['dir'] + degree
+            t_option['rotation'] = t_option['dir']
+        end
+
     -- 런쳐상에 각도가 있을 경우
-    if self.m_launcherOption['dir'] then
+    elseif (self.m_launcherOption['dir']) then
         t_option['dir'] = t_option['dir'] + self.m_launcherOption['dir']
         t_option['rotation'] = t_option['dir']
     end

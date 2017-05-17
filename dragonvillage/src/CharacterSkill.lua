@@ -339,6 +339,7 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
 	activity_carrier:setAttackType(t_skill['chance_type'])
 	
     missile_launcher.m_bHeroMissile = self.m_bLeftFormation
+    
     self.m_world:addToMissileList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
     missile_launcher:init_missileLauncher(t_skill, phys_group, activity_carrier, 1)
@@ -351,6 +352,7 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
         -- -1 : 타겟 방향으로 발사
         if (skill_dir == -1) then
             -- 위쪽 코드에서 타겟 방향으로 dir를 지정했음
+            missile_launcher.m_bUseTargetDir = true
 
         -- -2 : 진형에 따라 0 or 180으로 발사
         elseif (skill_dir == -2) then
