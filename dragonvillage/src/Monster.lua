@@ -12,7 +12,7 @@ Monster = class(PARENT, {
         m_lBodyToUseBone = 'table',     -- bone(spine)의 위치를 기준값으로 사용하는 body 리스트
 
         -- 몬스터 드래곤 관련
-        m_mBoneEffect = 'table',        -- 본 위치에 표시되는 추가 이펙트(m_mDarkModeBoneEffect[bone_name] = effect 형태로 사용)
+        m_mBoneEffect = 'table',        -- 본 위치에 표시되는 추가 이펙트(m_mBoneEffect[effect] = bone_name 형태로 사용)
      })
 
 -------------------------------------
@@ -71,7 +71,7 @@ function Monster:init_monster(t_monster, monster_id, level, stage_id)
                 local effect = MakeAnimator(res)
                 effect:changeAni(visual_name, true)
                 
-                self.m_mBoneEffect[bone_name] = effect
+                self.m_mBoneEffect[effect] = bone_name
 
                 return effect
             end
@@ -203,7 +203,7 @@ function Monster:update(dt)
         end
 
         -- bone의 위치를 기준값으로 사용할 추가 이펙트
-        for bone_name, effect in pairs(self.m_mBoneEffect) do
+        for effect, bone_name in pairs(self.m_mBoneEffect) do
             local pos = self.m_animator.m_node:getBonePosition(bone_name)
             local scale = self.m_animator.m_node:getBoneScale(bone_name)
             
@@ -311,7 +311,7 @@ end
 -- function release
 -------------------------------------
 function Monster:release()
-    for bone_name, effect in pairs(self.m_mBoneEffect) do
+    for effect, _ in pairs(self.m_mBoneEffect) do
         effect:release()
     end
 
