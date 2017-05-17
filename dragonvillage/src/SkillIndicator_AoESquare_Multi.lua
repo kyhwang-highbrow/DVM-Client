@@ -33,8 +33,11 @@ end
 -- function setIndicatorPosition
 -------------------------------------
 function SkillIndicator_AoESquare_Multi:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
+	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+	local camera_scale = self.m_world.m_gameCamera:getScale()
 	local scr_size = cc.Director:getInstance():getWinSize()
-	local indicator_y = -(scr_size.height/2) - 100
+
+	local indicator_y = (cameraHomePosY - pos_y - (scr_size['height']/2))/camera_scale
 	local l_pos_x = SkillHelper:calculatePositionX(self.m_lineCnt, self.m_space, touch_x - pos_x)
     
 	for i, indicator in pairs(self.m_lIndicatorEffectList) do
