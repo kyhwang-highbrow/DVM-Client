@@ -509,6 +509,8 @@ function ServerData_Collection:request_maxLvReward(did, grade, finish_cb)
     local function success_cb(ret)
 		-- 보상 수령 재화 처리
         g_serverData:networkCommonRespone_addedItems(ret)
+		-- 재화 갱신
+		g_topUserInfo:refreshData()
 
 		-- collectionData 보상 수령한 상태로 조작
 		g_collectionData:getCollectionData(did)['grade_lv_state'][grade] = -1

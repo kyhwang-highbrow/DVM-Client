@@ -218,6 +218,7 @@ function UI_CharacterCard:refresh_gradeIcon()
     local vars = self.vars
 
     local grade = (t_dragon_data['grade'] or 1)
+	grade = tonumber(grade)
 
     local res = 'character_card_star0' .. grade .. '.png'
 
