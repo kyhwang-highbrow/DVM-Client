@@ -170,7 +170,7 @@ function SkillIndicator:changeSIState(state)
         -- 타겟 이펙트 해제(테스트 필요)
         if (self.m_highlightList) then
             for i, v in ipairs(self.m_highlightList) do
-                v:removeTargetEffect()
+                self:removeAllTargetEffect(v)
             end
             self.m_highlightList = nil
         end
@@ -281,53 +281,50 @@ end
 
 -------------------------------------
 -- function setHighlightEffect
+-- @brief 현재는 하이라이트 리스트는 저장만하고 충돌되는 바디별 타겟 이펙트를 생성 및 삭제함
 -------------------------------------
 function SkillIndicator:setHighlightEffect(t_collision_obj, l_collision_bodys)
     local skill_indicator_mgr = self:getSkillIndicatorMgr()
-
     local old_target_count = 0
-
     local old_highlight_list = self.m_highlightList
-    local old_highlight_body_list = self.m_highlightBodyList
-
-    if self.m_highlightList then
-        old_target_count = #self.m_highlightList
-    end
-
-    for i, target in ipairs(t_collision_obj) do
-        if (target ~= self.m_hero) then
-            for i, body_key in ipairs(l_collision_bodys[i]) do
-                self:makeTargetEffect(target, body_key)
-            end
+    
+    -- body리스트를 맵형태로 변환
+    for i, _ in ipairs(l_collision_bodys) do
+        local temp = {}
+        for i, body_key in ipairs(l_collision_bodys[i]) do
+            temp[body_key] = true
         end
 
-        skill_indicator_mgr:addTarget(target)
+        l_collision_bodys[i] = temp
     end
 
-    if old_highlight_list then
+    -- 타겟 이펙트 삭제
+    if (old_highlight_list) then
         for i, v in ipairs(old_highlight_list) do
             local find = false
             for j, v2 in ipairs(t_collision_obj) do
                 if (v == v2) then
                     find = true
-                    for _, k in ipairs(old_highlight_body_list[i]) do
-                        local find_body = false
-                        for _, k2 in ipairs(l_collision_bodys[j]) do
-                            if (k == k2) then
-                                find_body = true
-                                break
-                            end
-                        end
-
-                        if (not find_body) then
-                            v:removeTargetEffect(k)
-                        end
-                    end
+                    break
                 end
             end
 
             if (not find) then
-                v:removeTargetEffect()
+                self:removeAllTargetEffect(v)
+            end
+        end
+    end
+
+    -- 타겟 이펙트 생성
+    for i, target in ipairs(t_collision_obj) do
+        local collisionBodyList = l_collision_bodys[i]
+
+        for _, body in ipairs(target:getBodyList()) do
+            local body_key = body['key']
+            if (collisionBodyList[body_key]) then
+                self:makeTargetEffect(target, body_key)
+            else
+                self:makeNonTargetEffect(target, body_key)
             end
         end
     end
@@ -438,8 +435,8 @@ end
 -- function makeTargetEffect
 -------------------------------------
 function SkillIndicator:makeTargetEffect(target_char, body_key)
-    if (body_key and target_char.m_mTargetEffect[body_key]) then return end
     if (self.m_siState ~= SI_STATE_APPEAR) then return end
+    if (target_char:isExistTargetEffect(body_key)) then return end
     
     local ani_name1
     local ani_name2
@@ -454,10 +451,16 @@ function SkillIndicator:makeTargetEffect(target_char, body_key)
 
 	local indicator_res = g_constant:get('INDICATOR', 'RES', 'effect')
     local indicator = MakeAnimator(indicator_res)
-    indicator:changeAni(ani_name1, false)
-    indicator:addAniHandler(function() indicator:changeAni(ani_name2, true) end)
-    indicator:setScale(0.1)
-	indicator:runAction(cc.ScaleTo:create(0.2, 1)) -- timescale 주의
+    
+    if (target_char:isExistNonTargetEffect(body_key)) then
+        indicator:changeAni(ani_name2, true)
+        indicator:setScale(1)
+    else
+        indicator:changeAni(ani_name1, false)
+        indicator:addAniHandler(function() indicator:changeAni(ani_name2, true) end)
+        indicator:setScale(0.1)
+	    indicator:runAction(cc.ScaleTo:create(0.2, 1)) -- timescale 주의
+    end
 
     target_char:setTargetEffect(indicator, body_key)
     
@@ -465,6 +468,34 @@ function SkillIndicator:makeTargetEffect(target_char, body_key)
     if (self.m_hero.m_bLeftFormation ~= target_char.m_bLeftFormation) then
 		self:makeAttributeEffect(target_char, indicator)
     end
+end
+
+-------------------------------------
+-- function makeNonTargetEffect
+-------------------------------------
+function SkillIndicator:makeNonTargetEffect(target_char, body_key)
+    if (self.m_siState ~= SI_STATE_APPEAR) then return end
+    if (target_char:isExistNonTargetEffect(body_key)) then return end
+
+    -- 적군만 표시
+    if (self.m_hero.m_bLeftFormation == target_char.m_bLeftFormation) then return end
+    
+    local ani_name1 = 'appear'
+    local ani_name2 = 'idle'
+    local indicator_res = g_constant:get('INDICATOR', 'RES', 'effect2')
+    local indicator = MakeAnimator(indicator_res)
+    
+    if (target_char:isExistTargetEffect(body_key)) then
+        indicator:changeAni(ani_name2, true)
+        indicator:setScale(1)
+    else
+        indicator:changeAni(ani_name1, false)
+        indicator:addAniHandler(function() indicator:changeAni(ani_name2, true) end)
+        indicator:setScale(0.1)
+	    indicator:runAction(cc.ScaleTo:create(0.2, 1)) -- timescale 주의
+    end
+
+    target_char:setNonTargetEffect(indicator, body_key)
 end
 
 -------------------------------------
@@ -490,6 +521,14 @@ function SkillIndicator:makeAttributeEffect(target_char, indicator)
 
         indicator.m_node:addChild(attrCounterNoti.m_node)
     end
+end
+
+-------------------------------------
+-- function removeAllTargetEffect
+-------------------------------------
+function SkillIndicator:removeAllTargetEffect(target_char)
+    target_char:removeTargetEffect()
+    target_char:removeNonTargetEffect()
 end
 
 -------------------------------------

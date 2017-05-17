@@ -68,6 +68,7 @@ Character = class(PARENT, {
         -- @ target
         m_targetChar = 'Character',
         m_mTargetEffect = '',
+        m_mNonTargetEffect = '',
 
         -- @node UI
         m_unitInfoNode = 'cc.Node',
@@ -198,6 +199,7 @@ function Character:init(file_name, body, ...)
     self.m_hasItem = false
 
     self.m_mTargetEffect = {}
+    self.m_mNonTargetEffect = {}
 end
 
 -------------------------------------
@@ -1574,12 +1576,23 @@ function Character:syncAniAndPhys()
 end
 
 -------------------------------------
+-- function isExistTargetEffect
+-------------------------------------
+function Character:isExistTargetEffect(k)
+    if (self.m_mTargetEffect[k]) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function setTargetEffect
 -------------------------------------
 function Character:setTargetEffect(animator, k)
     if (self.m_bDead) then return end
 
-    self:removeTargetEffect(k)
+    self:removeNonTargetEffect(k)
     self.m_mTargetEffect[k] = animator
 
     if (animator) then
@@ -1616,6 +1629,60 @@ function Character:removeTargetEffect(k)
         for i, body in ipairs(body_list) do
             f_remove(body['key'])
         end
+    end
+end
+
+-------------------------------------
+-- function isExistTargetEffect
+-------------------------------------
+function Character:isExistNonTargetEffect(k)
+    if (self.m_mNonTargetEffect[k]) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function setNonTargetEffect
+-------------------------------------
+function Character:setNonTargetEffect(animator, k)
+    if (self.m_bDead) then return end
+
+    self:removeTargetEffect(k)
+    self.m_mNonTargetEffect[k] = animator
+
+    if (animator) then
+        local body = self:getBody(k)
+        local root_node = self:getRootNode()
+        
+		if (self.m_isSlaveCharacter) then 
+			animator:setPosition(self.m_unitInfoOffset[1] + body['x'], self.m_unitInfoOffset[2] + body['y'])
+			root_node:addChild(animator.m_node)
+		else
+			animator:setPosition(body['x'], body['y'])
+			root_node:addChild(animator.m_node)
+		end
+    end
+end
+
+-------------------------------------
+-- function removeNonTargetEffect
+-------------------------------------
+function Character:removeNonTargetEffect(k)
+    if (self.m_bDead) then return end
+
+    if (k) then
+        if (self.m_mNonTargetEffect[k]) then
+            self.m_mNonTargetEffect[k]:release()
+            self.m_mNonTargetEffect[k] = nil
+        end 
+    else
+        for _, effect in pairs(self.m_mNonTargetEffect) do
+            effect:release()
+        end
+
+        self.m_mNonTargetEffect = {}
     end
 end
 

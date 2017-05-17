@@ -43,7 +43,7 @@ SkillIndicatorMgr = class({
         m_startTimer = 'number',
         m_firstTouchPos = '',
         m_firstTouchUIPos = '',
-        m_targetList = 'table',
+
 		m_uiToolTip = 'UI',
     })
 
@@ -63,8 +63,7 @@ function SkillIndicatorMgr:init(world)
     self.m_startTimer = 0
     self.m_firstTouchPos = nil
     self.m_firstTouchUIPos = nil
-	self.m_targetList = {}
-
+	
     self.m_uiToolTip = UI_Tooltip_Indicator()
     self.m_uiToolTip:setVisible(false)
 end
@@ -219,8 +218,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:clear(bAll)
     self.m_touchedHero = nil
-    self.m_targetList = {}
-
+    
     if (self.m_selectHero) then
         self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
         self.m_world:setTemporaryPause(false, self.m_selectHero)
@@ -260,8 +258,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:setSelectHero(hero)
     self.m_startTimer = 0
-    self.m_targetList = {}
-    
+        
     if (hero) then
         SoundMgr:playEffect('EFFECT', 'skill_touch')
 
@@ -286,22 +283,6 @@ function SkillIndicatorMgr:setSelectHero(hero)
         self.m_selectHero = nil
 
     end
-end
-
--------------------------------------
--- function addHighlightList
--------------------------------------
-function SkillIndicatorMgr:addTarget(char, zorder)
-    if (not self:isControlling()) then return end
-
-    self.m_targetList[char] = true
-end
-
--------------------------------------
--- function removeHighlightList
--------------------------------------
-function SkillIndicatorMgr:removeTarget(char)
-    self.m_targetList[char] = nil
 end
 
 -------------------------------------
