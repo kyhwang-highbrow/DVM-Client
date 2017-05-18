@@ -308,6 +308,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameState_SecretDungeon_Relation.lua" />
     <None Include="..\src\GameWorldColosseum.lua" />
     <None Include="..\src\GameWorld_Gold.lua" />
+    <None Include="..\src\GameWorld_KeyEvent.lua" />
     <None Include="..\src\GameWorld_Unit.lua" />
     <None Include="..\src\IEventListener.lua" />
     <None Include="..\src\IHighlight.lua" />

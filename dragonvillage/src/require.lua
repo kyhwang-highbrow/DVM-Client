@@ -264,6 +264,7 @@ local t_module = {
     'GameWorld_Formation',
     'GameWorld_Unit',
     'GameWorld_Gold',
+	'GameWorld_KeyEvent',
     'GameState',
     'GameState_AncientTower',
     'GameState_NestDungeon',
