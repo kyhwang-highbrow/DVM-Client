@@ -7,7 +7,6 @@ UI_AncientTowerScene = class(PARENT, {
         m_tableView = 'UIC_TableView', -- 탑 층 리스트
         
 		m_challengingFloor  = 'number',-- 현재 진행중인 층
-        m_selectedFloor     = 'number',-- 현재 선택된 층
         m_selectedStageID   = 'number',-- 현재 선택된 스테이지 아이디
     })
 
@@ -25,13 +24,12 @@ function UI_AncientTowerScene:init()
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_AncientTowerScene')
 
     -- 현재 진행중인 층
-
     local challengingFloor = g_ancientTowerData:getChallengingFloor()
     local challengingStageID = g_ancientTowerData:getChallengingStageID()
-
+    
     self.m_challengingFloor = challengingFloor
-    self.m_selectedFloor = challengingFloor
     self.m_selectedStageID = challengingStageID
+    --self.m_selectedStageID = 1401100
 	
     self:initUI()
     self:initTab()
@@ -64,24 +62,32 @@ function UI_AncientTowerScene:initUI()
 
 		-- 층 생성
 		local t_floor = g_ancientTowerData:getAcientTower_stageList()
-                
+        table.insert(t_floor, { stage = ANCIENT_TOWER_STAGE_ID_START, is_bottom = true })
+        table.insert(t_floor, { stage = g_ancientTowerData:getTopStageID() + 1, is_top = true })
+
 		-- 셀 아이템 생성 콜백
 		local create_func = function(ui, data)
-            ui.vars['floorBtn']:registerScriptTapHandler(function()
-                ui.vars['selectSprite']:setVisible(true)
+            if (data['is_bottom'] or data['is_top']) then
+                return
+            end
 
+            ui.vars['floorBtn']:registerScriptTapHandler(function()
                 self:selectFloor(data)
             end)
 
-            ui.vars['selectSprite']:setVisible(data['stage'] == self.m_selectedStageID)
+            local stage_id = data['stage']
+            if (stage_id == self.m_selectedStageID) then
+                self:changeFloorVisual(stage_id, ui)
+            end
 
 			return true
         end
 
         local make_func = function(data)
-            if (data['stage'] == 1401001) then
-                local ui = UI_AncientTowerListItem(data)
-                return ui
+            if (data['is_bottom']) then
+                return UI_AncientTowerListBottomItem(data)
+            elseif (data['is_top']) then
+                return UI_AncientTowerListTopItem(data)
             else
 			    return UI_AncientTowerListItem(data)
             end
@@ -95,17 +101,22 @@ function UI_AncientTowerScene:initUI()
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(t_floor)
 
+        self.m_tableView = table_view
+
         local function sort_func(a, b)
             return a['data']['stage'] < b['data']['stage']
         end
-        table.sort(table_view.m_itemList, sort_func)
-        table_view:makeAllItemUI()
+        table.sort(self.m_tableView.m_itemList, sort_func)
+        self.m_tableView:makeAllItemUI()
         
         -- 현재 진행중인 층이 보이도록 임시 처리...
-        local offset = table_view:_offsetFromIndex(self.m_selectedFloor)
-        table_view.m_scrollView:setContentOffset(cc.p(0, -offset.y), false)
-
-        self.m_tableView = table_view
+        local floor = g_ancientTowerData:getFloorFromStageID(self.m_selectedStageID)
+        
+        local scr_size = cc.Director:getInstance():getWinSize()
+        local offset = self.m_tableView:_offsetFromIndex(floor)
+        local offset_y = 150 * floor - (scr_size['height'] / 2)
+                
+        self.m_tableView.m_scrollView:setContentOffset(cc.p(0, -offset_y), true)
     end
     
     do -- 도전 횟수
@@ -150,15 +161,17 @@ function UI_AncientTowerScene:refresh()
     local vars = self.vars
 
     local stage_id = self.m_selectedStageID
+    local floor = g_ancientTowerData:getFloorFromStageID(stage_id)
+
     local t_drop = TableDrop():get(stage_id)
     local is_open = g_ancientTowerData:isOpenStage(stage_id)
-    local is_challenging_floor = (self.m_selectedFloor == g_ancientTowerData:getChallengingFloor())
+    local is_challenging_floor = (floor == g_ancientTowerData:getChallengingFloor())
     local sweep_count = g_ancientTowerData:getSweepCount()
 
     vars['weakenNode']:setVisible(is_challenging_floor)
 
     do -- 현재 포커싱된 층 수
-        vars['floorLabel']:setString(Str('고대의 탑 {1}층', self.m_selectedFloor))
+        vars['floorLabel']:setString(Str('고대의 탑 {1}층', floor))
     end
     
     do -- 보상
@@ -190,7 +203,7 @@ function UI_AncientTowerScene:refresh()
         vars['readyBtn']:setEnabled(is_open)
         vars['sweepBtn']:setEnabled(sweep_count == 0)
                         
-        if (is_challenging_floor and (self.m_challengingFloor > 0)) then
+        if (is_challenging_floor and (self.m_challengingFloor > 1)) then
             vars['readyBtn']:setPositionX(145)
             vars['sweepBtn']:setVisible(true)
         else
@@ -216,8 +229,7 @@ end
 -- function click_readyBtn
 -------------------------------------
 function UI_AncientTowerScene:click_readyBtn()
-	--UI_AdventureStageInfo(self.m_selectedStageID)
-    local func = function()
+	local func = function()
         local stage_id = self.m_selectedStageID
 
         local function close_cb()
@@ -298,15 +310,39 @@ function UI_AncientTowerScene:selectFloor(floor_info)
     local stage_id = floor_info['stage']
 
     if (self.m_selectedStageID ~= stage_id) then
-        local t_item = self.m_tableView.m_itemMap[self.m_selectedStageID]
-        local ui = ui or t_item['ui']
-        ui.vars['selectSprite']:setVisible(false)
-
+        local prev_stage_id = self.m_selectedStageID
+        
         self.m_selectedStageID = stage_id
-        self.m_selectedFloor = g_ancientTowerData:getFloorFromStageID(stage_id)
 
         self:refresh()
+
+        self:changeFloorVisual(prev_stage_id)
+        self:changeFloorVisual(self.m_selectedStageID)
     end
+end
+
+-------------------------------------
+-- function changeFloorVisual
+-------------------------------------
+function UI_AncientTowerScene:changeFloorVisual(stage_id, ui)
+    local t_item = self.m_tableView.m_itemMap[stage_id]
+    local ui = ui or t_item['ui']
+    
+    local is_selected = (stage_id == self.m_selectedStageID)
+    local is_opened = g_ancientTowerData:isOpenStage(stage_id)
+    local visual_id
+
+    if (is_selected) then
+        if (is_opened) then visual_id = 'select'
+        else                visual_id = 'lock_select'
+        end
+    else
+        if (is_opened) then visual_id = 'normal'
+        else                visual_id = 'lock'
+        end
+    end
+
+    ui.vars['towerVisual']:changeAni(visual_id, true)
 end
 
 --@CHECK

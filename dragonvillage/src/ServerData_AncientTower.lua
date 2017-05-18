@@ -12,6 +12,9 @@ ServerData_AncientTower = class({
         m_challengingFloor  = 'number',     -- 현재 진행중인 층    
         m_challengingCount  = 'number',     -- 도전 횟수
 
+        m_lStage            = 'table',
+        m_nStage            = 'number',
+
         m_sweepInfo         = 'number',     -- 소탕사용시의 스테이지 아이디(0이라면 아직 소탕을 사용 안한 경우)
     })
 
@@ -20,6 +23,8 @@ ServerData_AncientTower = class({
 -------------------------------------
 function ServerData_AncientTower:init(server_data)
     self.m_serverData = server_data
+    self.m_lStage = nil
+    self.m_nStage = 0
 end
 
 -------------------------------------
@@ -81,7 +86,12 @@ function ServerData_AncientTower:request_ancientTowerInfo(finish_cb, fail_cb)
 
         self.m_sweepInfo = ret['sweep_info']
 
-        if finish_cb then
+        if (not self.m_lStage) then
+            self.m_lStage = self:makeAcientTower_stageList()
+            self.m_nStage = table.count(self.m_lStage)
+        end
+
+         if finish_cb then
             return finish_cb(ret)
         end
     end
@@ -129,9 +139,9 @@ function ServerData_AncientTower:request_ancientTowerSweep(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function getAcientTower_stageList
+-- function makeAcientTower_stageList
 -------------------------------------
-function ServerData_AncientTower:getAcientTower_stageList()
+function ServerData_AncientTower:makeAcientTower_stageList()
     local table_drop = TableDrop()
 
     local function condition_func(t_table)
@@ -153,11 +163,32 @@ function ServerData_AncientTower:getAcientTower_stageList()
 end
 
 -------------------------------------
+-- function getAcientTower_stageList
+-------------------------------------
+function ServerData_AncientTower:getAcientTower_stageList()
+    return self.m_lStage
+end
+
+-------------------------------------
+-- function getAcientTower_stageCount
+-------------------------------------
+function ServerData_AncientTower:getAcientTower_stageCount()
+    return self.m_nStage
+end
+
+-------------------------------------
 -- function getChallengingStageID
 -- @brief 현재 도전중인 스테이지 아이디를 얻음
 -------------------------------------
 function ServerData_AncientTower:getChallengingStageID()
     return self.m_challengingStageID
+end
+
+-------------------------------------
+-- function getTopStageID
+-------------------------------------
+function ServerData_AncientTower:getTopStageID()
+    return (self.m_nStage + ANCIENT_TOWER_STAGE_ID_START)
 end
 
 -------------------------------------
@@ -219,7 +250,7 @@ end
 
 -------------------------------------
 -- function getEnemyDeBuffValue
--- @brief 층수로부터 stage_id를 얻음
+-- @brief 현재 도전 횟수에 따른 적 디버프값을 얻음
 -------------------------------------
 function ServerData_AncientTower:getEnemyDeBuffValue()
     local count = self:getChallengingCount()
