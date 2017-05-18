@@ -730,6 +730,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TimeLib.lua" />
     <None Include="..\src\TriggerHpPercent.lua" />
     <None Include="..\src\TriggerTime.lua" />
+    <None Include="..\src\UIC_BroadcastLabel.lua" />
     <None Include="..\src\UIC_Button.lua" />
     <None Include="..\src\UIC_ChatTableView.lua" />
     <None Include="..\src\UIC_ChatTableViewCell.lua" />

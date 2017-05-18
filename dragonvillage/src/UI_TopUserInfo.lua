@@ -10,7 +10,10 @@ UI_TopUserInfo = class(PARENT,{
         m_lNumberLabel = 'list',
 		m_staminaType = 'string',
 
-        m_mAddedSubCurrency = 'table'
+        m_mAddedSubCurrency = 'table',
+
+        m_broadcastLabel = 'UIC_BroadcastLabel',
+        m_chatBroadcastLabel = 'UIC_BroadcastLabel',
     })
 
 -------------------------------------
@@ -42,6 +45,10 @@ function UI_TopUserInfo:init()
             self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
         end
     end)
+
+
+    self.m_broadcastLabel = UIC_BroadcastLabel:create(vars['noticeBroadcastNode'], vars['noticeBroadcastLabel'])
+    self.m_chatBroadcastLabel = UIC_BroadcastLabel:create(vars['chatBroadcastNode'], vars['chatBroadcastLabel'])
 end
 
 -------------------------------------
@@ -301,6 +308,8 @@ end
 -------------------------------------
 function UI_TopUserInfo:noticeBroadcast(msg, duration)
     local vars = self.vars
+
+    --[[
     local duration = duration or 2
 
     vars['noticeBroadcastLabel']:setString(msg)
@@ -315,6 +324,9 @@ function UI_TopUserInfo:noticeBroadcast(msg, duration)
         vars['noticeBroadcastNode']:setNormalSize(size)
         vars['noticeBroadcastNode']:setUpdateChildrenTransform()
     end
+    --]]
+
+    self.m_broadcastLabel:setString(msg)
 end
 
 -------------------------------------
@@ -329,6 +341,8 @@ function UI_TopUserInfo:chatBroadcast(t_data)
     local uid = t_data['uid']
 
     local rich_str = '{@SKILL_NAME}[' .. nickname .. '] {@SKILL_DESC}' .. msg
+
+    --[[
     self.vars['chatBroadcastLabel']:setString(rich_str)
     self.vars['chatBroadcastNode']:setVisible(true)
     self.vars['chatBroadcastNode']:stopAllActions()
@@ -345,4 +359,7 @@ function UI_TopUserInfo:chatBroadcast(t_data)
 
     -- scale9sprite의 setNormalSize를 했을 때 자식들의 layout이 제대로 반영되지 않아서 강제로 호출
     self.vars['chatBroadcastNode']:setUpdateChildrenTransform()
+    --]]
+
+    self.m_chatBroadcastLabel:setString(rich_str)
 end

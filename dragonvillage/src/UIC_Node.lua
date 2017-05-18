@@ -184,3 +184,15 @@ end
 function UIC_Node:setLocalZOrder(z_order)
     return self.m_node:setLocalZOrder(z_order)
 end
+
+function UIC_Node:retain()
+    return self.m_node:retain()
+end
+
+function UIC_Node:release()
+    return self.m_node:release()
+end
+
+function UIC_Node:removeFromParent()
+    return self.m_node:removeFromParent()
+end

@@ -477,6 +477,7 @@ local t_module = {
     'UIC_DragonAnimator',
     'UIC_DragonAnimatorDirector',
     'UIC_ScrollLabel',
+    'UIC_BroadcastLabel',
 
 	-- UI : 분류 없음
     'UI_BlockPopup',

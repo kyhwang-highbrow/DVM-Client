@@ -863,8 +863,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 1280;
-					height = 50;
+					width = 400;
+					height = 25;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -879,8 +879,8 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 1280;
-					dimension_height = 50;
+					dimension_width = 400;
+					dimension_height = 25;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -897,11 +897,11 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = -10.000000;
-				y = -122.000000;
+				y = -120.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 300;
+				width = 400;
 				height = 30;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -929,7 +929,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 300;
+					width = 400;
 					height = 25;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -945,7 +945,7 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 300;
+					dimension_width = 400;
 					dimension_height = 25;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -967,7 +967,7 @@
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 500;
+				width = 400;
 				height = 30;
 				scale_x = 1.000000;
 				scale_y = 1.000000;

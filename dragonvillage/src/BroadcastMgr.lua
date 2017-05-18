@@ -178,7 +178,7 @@ end
 function BroadcastMgr:getAliveTime(t_data)
     -- 다음 메세지가 있을 경우 짧게 유지
     if (self.m_tMessage[1]) then
-        return 3
+        return 4.5
     else
 	    return 5
     end
