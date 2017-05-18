@@ -119,6 +119,14 @@ function SceneDV:setMonsterDragon(res_name, x, y)
     table.insert(self.m_lSpineAni, ani)
 	self.m_gridNode:addChild(ani.m_node, 1)
 
+    local slotList = ani:getSlotList()
+    for i, slotName in ipairs(slotList) do
+        if startsWith(slotName, 'effect_') then
+            --ani.m_node:setSlotGLProgramName(slotName, cc.SHADER_POSITION_TEXTURE_COLOR)
+            ani.m_node:setVisibleSlot(slotName, false)
+        end
+    end
+
     local shader = ShaderCache:getShader(SHADER_DARK)
     ani.m_node:setGLProgram(shader)
     ani.m_node:useBonePosition('monstereye_1')
@@ -160,7 +168,8 @@ end
 -------------------------------------
 function SceneDV:onKeyReleased(keyCode, event)
 	if keyCode == KEY_A then
-        local json_name = 'res/character/dragon/godaeshinryong_light_03/godaeshinryong_light_03.json'
+        --local json_name = 'res/character/dragon/godaeshinryong_light_03/godaeshinryong_light_03.json'
+        local json_name = 'res/character/dragon/pinkbell_earth_03/pinkbell_earth_03.json'
         self:setAni(json_name, 400, 350)
 		self:setMonsterDragon(json_name, 900, 350)
 

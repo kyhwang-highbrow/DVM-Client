@@ -350,6 +350,22 @@ function Entity:setMatchingSlotShader(str, shaderKey)
     end
 end
 
+-------------------------------------
+-- function blockMatchingSlotShader
+-- @brief 특정 네이밍 패턴을 가지는 슬롯들의 visible 설정
+-------------------------------------
+function Entity:setVisibleSlot(str, b)
+    if (not self.m_animator or not isInstanceOf(self.m_animator, AnimatorSpine)) then
+        return
+    end
+ 
+    local slotList = self.m_animator:getSlotList()
+    for i, slotName in ipairs(slotList) do
+        if startsWith(slotName, str) then
+            self.m_animator.m_node:setVisibleSlot(slotName, b)
+        end
+    end
+end
 
 -------------------------------------
 -- function setTemporaryPause

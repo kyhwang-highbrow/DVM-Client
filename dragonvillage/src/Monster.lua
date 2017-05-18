@@ -58,6 +58,9 @@ function Monster:init_monster(t_monster, monster_id, level, stage_id)
         -- 기본 쉐이더 변경
         self.m_animator:setBaseShader(SHADER_DARK)
 
+        -- 이펙트 슬롯 숨김
+        self:setVisibleSlot('effect_', false)
+
         if (self.m_animator.m_type == ANIMATOR_TYPE_SPINE) then
             local function makeDarkModeBoneEffect(bone_name, res, visual_name)
                 -- 해당 본이 존재하는지 체크
