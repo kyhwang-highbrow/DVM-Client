@@ -50,6 +50,9 @@ typedef struct spSlot {
 	int attachmentVerticesCount;
 	float* attachmentVertices;
 
+    // 2017.05.18 Sung-jin Kim
+    bool visible;
+
 #ifdef __cplusplus
 	spSlot() :
 		data(0),
@@ -58,7 +61,8 @@ typedef struct spSlot {
 		attachment(0),
 		attachmentVerticesCapacity(0),
 		attachmentVerticesCount(0),
-		attachmentVertices(0) {
+		attachmentVertices(0),
+        visible(true) {
 	}
 #endif
 } spSlot;
@@ -73,6 +77,9 @@ void spSlot_setAttachmentTime (spSlot* self, float time);
 float spSlot_getAttachmentTime (const spSlot* self);
 
 void spSlot_setToSetupPose (spSlot* self);
+
+// 2017.05.18 Sung-jin Kim
+void spSlot_setVisible(spSlot* self, bool visible);
 
 #ifdef SPINE_SHORT_NAMES
 typedef spSlot Slot;

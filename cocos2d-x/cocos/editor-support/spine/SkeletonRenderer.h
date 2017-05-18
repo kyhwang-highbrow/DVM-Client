@@ -82,6 +82,7 @@ public:
     const char* getSlotGLProgramName(const std::string& slotName) const;
     void setSlotGLProgramName(const std::string& slotName, const std::string& glProgramName);
     std::string getSlotNameListLuaTable();
+    void setVisibleSlot(const std::string& slotName, bool visible);
 
     void useBonePosition(const std::string& boneName);
     const cocos2d::Vec2 getBonePosition(const std::string& boneName) const;

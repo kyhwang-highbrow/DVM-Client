@@ -175,6 +175,7 @@ void SkeletonRenderer::drawSkeleton(const Mat4 &transform, bool transformFlags) 
     for (int i = 0, n = _skeleton->slotsCount; i < n; i++) {
         spSlot* slot = _skeleton->drawOrder[i];
         if (!slot->attachment) continue;
+        if (!slot->visible) continue;
 
         // For slot-specific shader application
         const char* slotGlProgramName = getSlotGLProgramName(std::string(slot->data->name));
@@ -422,6 +423,19 @@ std::string SkeletonRenderer::getSlotNameListLuaTable()
     s << "}" << std::endl;
 
     return s.str();
+}
+
+void SkeletonRenderer::setVisibleSlot(const std::string& slotName, bool visible)
+{
+    spSlot* pSlot = findSlot(slotName);
+    
+    if (pSlot == NULL)
+    {
+        CCLOG("\"%s\" not exist", slotName.c_str());
+        return;
+    }
+
+    spSlot_setVisible(pSlot, visible);
 }
 
 void SkeletonRenderer::useBonePosition(const std::string& boneName)

@@ -83,4 +83,9 @@ void spSlot_setToSetupPose (spSlot* self) {
 		}
 	}
 	spSlot_setAttachment(self, attachment);
+    spSlot_setVisible(self, true);
+}
+
+void spSlot_setVisible(spSlot* self, bool visible) {
+    self->visible = visible;
 }
