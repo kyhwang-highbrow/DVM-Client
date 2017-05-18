@@ -36,7 +36,7 @@ function DragonSkillIndivisualInfo:applySkillLevel()
     local table_skill = TABLE:get(self.m_charType .. '_skill')
 
     if (not table_skill[skill_id]) then
-        error('skill_id ' .. skill_id)
+        error('존재하지 않는 skill_id ' .. skill_id)
     end
 
     -- 값이 변경되므로 복사해서 사용

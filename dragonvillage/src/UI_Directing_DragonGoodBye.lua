@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_Directing_DragonGoodBye
 -------------------------------------
 UI_Directing_DragonGoodBye = class(PARENT,{
+		m_bgMap = 'Map',
 		m_tamer = 'Animator',
 		m_lDragonData = '',
 		m_tDragonChar = '',
@@ -87,10 +88,6 @@ function UI_Directing_DragonGoodBye:initUI()
 
 	local node = cc.Node:create()
 	self.root:addChild(node, 2)
-	self.vars['tamerNode'] = node
-
-	local node = cc.Node:create()
-	self.root:addChild(node, 2)
 	self.vars['aniNode'] = node
 
 	self:initBG()
@@ -114,6 +111,7 @@ end
 -- function initBG
 -------------------------------------
 function UI_Directing_DragonGoodBye:initBG()
+	
 	local res = 'res/scene/lobby.png'
 	local animator = MakeAnimator(res)
 	local scr_size = cc.Director:getInstance():getWinSize()
@@ -121,7 +119,47 @@ function UI_Directing_DragonGoodBye:initBG()
 	animator:setDockPoint(cc.p(0.5, 0))
 	animator:setPosition(scr_size['width']/2 - 250, 0)
 	self.vars['bgNode']:addChild(animator.m_node)
+	
+	--[[
+	self.vars['bgNode']:setLocalZOrder(-1)
+    local lobby_map = LobbyMap(self.vars['bgNode'])
+    self.m_bgMap = lobby_map
+    lobby_map:setContainerSize(1280*3, 960)
+
+	local scr_size = cc.Director:getInstance():getWinSize()
+    lobby_map:setPosition(scr_size['width']/2 - 250, 0)
+
+    lobby_map:addLayer(UI_Lobby:makeLobbyLayer(4), 0.7) -- 하늘
+    lobby_map:addLayer(UI_Lobby:makeLobbyLayer(3), 0.8) -- 마을
+    lobby_map:addLayer(UI_Lobby:makeLobbyLayer(2), 0.9) -- 분수
+
+    local lobby_ground = UI_Lobby:makeLobbyLayer(1) -- 땅
+    lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, self)
+    lobby_map.m_groudNode = lobby_ground
+	--]]
 end
+
+local T_POS = 
+{
+	{600, 200},
+	{600, 300},
+	{600, 400},
+	{600, 500},
+
+	{500, 250},
+	{500, 350},
+	{500, 450},
+
+	{700, 250},
+	{700, 350},
+	{700, 450},
+
+	{400, 300},
+	{400, 400},
+
+	{800, 300},
+	{800, 400},
+}
 
 -------------------------------------
 -- function initAnimators
@@ -135,18 +173,18 @@ function UI_Directing_DragonGoodBye:initAnimators()
 		local dir_tamer = DirectingCharacter(1)
 		dir_tamer:initAnimator(t_tamer['res_sd'])
 		dir_tamer:initShadow(-110)
-		dir_tamer.m_animator:changeAni('idle', true)
+		dir_tamer:changeAni('idle', true)
 		dir_tamer.m_animator:setFlip(true)
+		dir_tamer:setPosition(1100, 350)
 
-		vars['tamerNode']:addChild(dir_tamer.m_rootNode)
-		vars['tamerNode']:setPosition(1100, 350)
+		vars['aniNode']:addChild(dir_tamer.m_rootNode)
 		
-		self.m_tamer = animator
+		self.m_tamer = dir_tamer
 	end
 
 	-- 드래곤들
-	local idx = 1
-	for _, t_dragon_data in pairs(self.m_lDragonData) do
+	local l_pos = table.getRandomList(T_POS, table.count(self.m_lDragonData))
+	for idx, t_dragon_data in pairs(self.m_lDragonData) do
 		local did = t_dragon_data['did']
 		local doid = did--t_dragon_data['id']
 		
@@ -154,37 +192,21 @@ function UI_Directing_DragonGoodBye:initAnimators()
 		
 		local evolution = t_dragon_data['evolution']
 		local flv = t_dragon_data['flv']
+		local scale = 0.5
+		local pos = l_pos[idx]
 
 		-- dragon ani 생성
-		local scale = 0.5
-		local dir_dragon = DirectingCharacter(scale)
+		local dir_dragon = DirectingCharacter(scale, t_dragon_data)
 		dir_dragon:initAnimatorDragon(did, evolution)
 		dir_dragon:initShadow(-105)
-
-		local dcnt = table.count(self.m_lDragonData)
-		local gap = math_clamp(900/dcnt, 90, 200)
-		local start_x = 450 + (gap/2) * dcnt
-		local pos_y = 300
-
-		local pos_x = start_x - gap * (idx - 1)
-		dir_dragon:setPosition(pos_x, pos_y)
-		
-		dir_dragon:setPosition(math_random(300, 800), math_random(250, 450))
-
+		dir_dragon:setOpacityChildren(true)
 		dir_dragon:changeAni('idle', true)
-		vars['aniNode']:addChild(dir_dragon.m_rootNode)
+		dir_dragon:setPosition(pos[1], pos[2])
+
+		vars['aniNode']:addChild(dir_dragon.m_rootNode, 500 - pos[2])
 
 		-- map 등록
 		self.m_tDragonChar[doid] = dir_dragon
-		
-		-- 줄넘김 처리
-		if (pos_x - gap < 0) then
-			idx = 1
-			pos_y = pos_y + gap
-			start_x = start_x - gap/2
-		else
-			idx = idx + 1
-		end
 	end
 end
 
@@ -196,8 +218,7 @@ function UI_Directing_DragonGoodBye:doDirectingAction()
 
 	local idx = 1
 
-	local pre_act
-	local walk_act
+	local pre_delay
 	local tamer_bye
 
 	local uf_dragon_bye
@@ -209,35 +230,8 @@ function UI_Directing_DragonGoodBye:doDirectingAction()
 
 	local goodbye_forever
 
-	-- 사전에 뒤로 보내버림
-	pre_act = function()
-		for _, d_char in pairs(self.m_tDragonChar) do
-			local moveby = cc.MoveBy:create(0.01, cc.p(-1000, 0))
-			local delay = cc.DelayTime:create(0.5)
-			local cb_func = cc.CallFunc:create(function()
-				idx = self:checkStep(idx, dcnt, walk_act)
-			end)
-
-			d_char:runAction(cc.Sequence:create(moveby, delay, cb_func))
-		end
-	end
-
-	-- 화면이 밝아지고 드래곤들이 천천히 걸어나옴
-	walk_act = function()
-		for _, d_char in pairs(self.m_tDragonChar) do
-			local duration = math_random(150, 300)/100
-			local moveby = cc.MoveBy:create(duration, cc.p(1000, 0))
-			local delay = cc.DelayTime:create(0.5)
-			local cb_func = cc.CallFunc:create(function()
-				idx = self:checkStep(idx, dcnt, tamer_bye)
-			end)
-
-			d_char:runAction(cc.Sequence:create(moveby, delay, cb_func))
-		end
-	end
-
 	-- @temp
-	delay = function()
+	pre_delay = function()
 		local delay = cc.DelayTime:create(1)
 		local cb_func = cc.CallFunc:create(function()
 			tamer_bye()
@@ -246,17 +240,12 @@ function UI_Directing_DragonGoodBye:doDirectingAction()
 		self.root:runAction(cc.Sequence:create(delay, cb_func))
 	end
 
-
 	-- 테이머의 인사
 	tamer_bye = function()
-		SensitivityHelper:doActionBubbleText_Extend{
-			parent = self.vars['tamerNode'],
-			case_type = 'lactea_tamer', 
-			custom_str = Str('그동안 정말 고생 했어'), 
-			cb_func = function()
-				uf_dragon_bye()
-			end
-		}
+		local function cb_func()
+			uf_dragon_bye()
+		end
+		self.m_tamer:actSaying('lactea_tamer', Str('그동안 정말 고생 했어'), 0, cb_func)
 	end
 
 	-- 서먹한 드래곤들 중 대표가 인사
@@ -267,45 +256,40 @@ function UI_Directing_DragonGoodBye:doDirectingAction()
 			return
 		end
 
-		local t_dragon_data = self.m_lDragonData[1]
-		local d_char = self.m_tDragonChar[t_dragon_data['did']] -- self.m_tDragonChar[t_dragon_data['id']]
-
-		SensitivityHelper:doActionBubbleText_Extend{
-			parent = d_char.m_rootNode,
-			did = t_dragon_data['did'],
-			flv = t_dragon_data['flv'],
-			case_type = 'lactea_bye', 
-			cb_func = function()
-				uf_dragon_ascension()
+		for doid, d_char in pairs(self.m_tDragonChar) do
+			local t_dragon_data = d_char.m_tData
+			if (t_dragon_data['flv'] < 3) then
+				local function cb_func()
+					uf_dragon_ascension()
+				end
+				d_char:actSaying('lactea_bye', nil, 0, cb_func)
+				break
 			end
-		}
+		end
 	end
 
 	-- 서먹한 드래곤들 승천
 	uf_dragon_ascension = function()
-		-- 서먹한 드래곤 찾기
-		local l_doid = {}
+		-- 서먹한 드래곤 숫자 계산
+		local uf_dcnt = 0
 		for _, t_dragon_data in pairs(self.m_lDragonData) do
 			if (t_dragon_data['flv'] < 3) then
-				table.insert(l_doid, t_dragon_data['did']) --t_dragon_data['id']
+				uf_dcnt = uf_dcnt + 1
 			end
 		end
-		
-		local dragon_count = #l_doid
-		for _, doid in pairs(l_doid) do
-			local d_char = self.m_tDragonChar[doid]
-			local duration = math_random(200, 300)/100
 
-			local moveby = cc.MoveBy:create(duration, cc.p(0, 1000))
-			local fadeout = cc.FadeOut:create(duration)
-			local delay = cc.DelayTime:create(0.5)
-			local remove_self = cc.RemoveSelf:create()
-			local cb_func = cc.CallFunc:create(function()
-				self.m_tDragonChar[doid] = nil
-				idx = self:checkStep(idx, dragon_count, f_dragon_closing)
-			end)
+		-- 액션
+		for doid, d_char in pairs(self.m_tDragonChar) do
+			local t_dragon_data = d_char.m_tData
+			if (t_dragon_data['flv'] < 3) then
+				local duration = math_random(300, 400)/100
+				local function cb_func()
+					self.m_tDragonChar[doid] = nil
+					idx = self:checkStep(idx, uf_dcnt, f_dragon_closing)
+				end
 
-			d_char:runAction(cc.Sequence:create(cc.Spawn:create(moveby, fadeout), delay, remove_self, cb_func))
+				d_char:actAscension(duration, cb_func)
+			end
 		end
 	end
 	
@@ -318,63 +302,48 @@ function UI_Directing_DragonGoodBye:doDirectingAction()
 			goodbye_forever()
 		end
 		
+		local move_point = cc.p(100, 0)
+		local delay = 0
+		local function cb_func()
+			idx = self:checkStep(idx, dcnt, f_dragon_bye)
+		end
+
 		for _, d_char in pairs(self.m_tDragonChar) do
 			local duration = math_random(200, 250)/100
-
-			local moveby = cc.MoveBy:create(duration, cc.p(100, 0))
-			local delay = cc.DelayTime:create(1.5)
-			local cb_func = cc.CallFunc:create(function()
-				idx = self:checkStep(idx, dcnt, f_dragon_bye)
-			end)
-
-			d_char:runAction(cc.Sequence:create(moveby, delay, cb_func))
+			d_char:actMove(duration, move_point, delay, cb_func)
 		end
 	end
 	
 	-- 친한 드래곤들 저마다 한마디씩 인사
 	f_dragon_bye = function()
+		local case_type = 'lactea_farewell'
+		local function cb_func()
+			idx = self:checkStep(idx, dcnt, f_dragon_ascension)
+		end
+
 		local pos_idx = 1
-		for _, t_dragon_data in pairs(self.m_lDragonData) do
-			local doid = t_dragon_data['did']--t_dragon_data['id']
+		for _, d_char in pairs(self.m_tDragonChar) do
+			local delay = 0.5 * pos_idx
+			d_char:actSaying(case_type, nil, delay, cb_func)
+			d_char:actPose()
 
-			local d_char = self.m_tDragonChar[doid]
-			if (d_char) then
-				local delay = cc.DelayTime:create(0.5 * pos_idx)
-				local cb_func = cc.CallFunc:create(function()
-					SensitivityHelper:doActionBubbleText_Extend{
-						parent = d_char.m_rootNode,
-						did = t_dragon_data['did'],
-						flv = t_dragon_data['flv'],
-						case_type = 'lactea_farewell',
-						cb_func = function()
-							idx = self:checkStep(idx, dcnt, f_dragon_ascension)
-						end
-					}
-				end)
-
-				d_char:runAction(cc.Sequence:create(delay, cb_func))
-				pos_idx = pos_idx + 1
-			end
+			pos_idx = pos_idx + 1
 		end
 	end
 	
 	-- 친한 드래곤들 승천
 	f_dragon_ascension = function()
 		for doid, d_char in pairs(self.m_tDragonChar) do
-			local duration = math_random(200, 300)/100
-
-			local moveby = cc.MoveBy:create(duration, cc.p(0, 1000))
-			local fadeout = cc.FadeOut:create(duration)
-			local delay = cc.DelayTime:create(0.5)
-			local remove_self = cc.RemoveSelf:create()
-			local cb_func = cc.CallFunc:create(function()
+			local duration = math_random(700, 1000)/100
+			local function cb_func()
 				self.m_tDragonChar[doid] = nil
-				idx = self:checkStep(idx, dcnt, goodbye_forever)
-			end)
+				idx = self:checkStep(idx, dcnt, f_dragon_closing)
+			end
 
-			d_char:runAction(cc.Sequence:create(cc.Spawn:create(moveby, fadeout), delay, remove_self, cb_func))
+			d_char:actAscension(duration, cb_func)
 		end
 
+		self.m_tamer.m_animator:setFlip(false)
 	end
 
 	-- 라테아 획득 연출
@@ -383,7 +352,7 @@ function UI_Directing_DragonGoodBye:doDirectingAction()
 	end
 
 	-- start
-	delay()
+	pre_delay()
 end
 
 -------------------------------------

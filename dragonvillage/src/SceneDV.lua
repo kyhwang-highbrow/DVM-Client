@@ -25,6 +25,7 @@ function SceneDV:onEnter()
     PerpleScene.onEnter(self)
 	self:doUpdate()
 
+	UI_Directing_DragonGoodBye()
     --self:scenarioTest()
 end
 

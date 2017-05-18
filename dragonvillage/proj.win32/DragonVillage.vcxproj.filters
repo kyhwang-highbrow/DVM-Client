@@ -2310,9 +2310,11 @@
     <None Include="..\src\UIC_ScrollLabel.lua">
       <Filter>lua\UIC</Filter>
     </None>
-    <None Include="..\src\UI_Directing_DragonGoodBye.lua" />
     <None Include="..\src\DirectingCharacter.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_Directing_DragonGoodBye.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

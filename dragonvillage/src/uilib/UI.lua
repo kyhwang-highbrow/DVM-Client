@@ -428,7 +428,7 @@ function UI:sceneFadeOutAndCallFunc(func)
 end
 
 -------------------------------------
--- function sceneFadeOutAndCallFunc
+-- function setOpacityChildren
 -- @brief 하위 UI가 모두 opacity값을 적용되도록
 -------------------------------------
 function UI:setOpacityChildren(b)
