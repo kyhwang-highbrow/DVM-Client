@@ -459,6 +459,7 @@
 		"RES" : {
             "target" : "res/indicator/indicator_type_target/indicator_type_target.vrp",
             "effect" : "res/indicator/indicator_effect_target/indicator_effect_target.vrp",
+			"effect2": "res/indicator/weakpoint/weakpoint.vrp",
             "round" : "res/indicator/round/round.vrp",
             "square" : "",
             "square_width" : "res/indicator/square_witdh/square_witdh.vrp",

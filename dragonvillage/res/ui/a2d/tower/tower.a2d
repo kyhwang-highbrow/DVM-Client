@@ -92,6 +92,61 @@
 					}
 				},
 				{
+					"name":"lock_select",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)tower.plist'<azSprite>'tower_lock.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":140
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'select_light'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":140
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)tower.plist'<azSprite>'manage_lock.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-15.000000
+									},
+									{
+										"frame":140, "pY":-15.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"normal",
 					"apply":true,
 					"fps":10,

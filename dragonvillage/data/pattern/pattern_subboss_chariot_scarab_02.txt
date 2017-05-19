@@ -47,7 +47,7 @@
                 "time":60,
                 "pattern":
                 [
-                    "m;RB17;300", "a;5", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1.5"
+                    "m;RB17;300", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1.5"
                 ]
             },
 			
@@ -55,7 +55,7 @@
                 "time":75,
                 "pattern":
                 [
-					"m;RM21;300", "a;5", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1.5"
+					"m;RM21;300", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1.5"
                 ]
             }
         ]
