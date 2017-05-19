@@ -6,10 +6,9 @@ local PARENT = UI
 UI_Directing_DragonGoodBye = class(PARENT,{
 		m_bgMap = 'Map',
 		m_tamer = 'Animator',
-		m_lDragonData = '',
-		m_tDragonChar = '',
 
-		m_hasUnFriendlyDragon = 'bool',
+		m_tDragonChar = '',
+		m_lPosList = '',
     })
 
 -------------------------------------
@@ -17,65 +16,33 @@ UI_Directing_DragonGoodBye = class(PARENT,{
 -------------------------------------
 function UI_Directing_DragonGoodBye:init(doid_map)
     local vars = self:load('empty.ui')
-	UIManager:open(self, UIManager.SCENE)
-
-	self:sceneFadeInAction()
 
 	-- 멤버 변수
-	self.m_lDragonData = {}
 	self.m_tDragonChar = {}
-	self.m_hasUnFriendlyDragon = false
+	self.m_lPosList = 	{
+		{500, 200},
+		{500, 300},
+		{500, 400},
+		{500, 500},
 
-	-- @TEST
-	local doid_map = {}
-	doid_map[120213] = true
-	doid_map[120215] = true
-	doid_map[120122] = true
-	doid_map[120405] = true
+		{400, 250},
+		{400, 350},
+		{400, 450},
 
-	doid_map[120165] = true
-	doid_map[120355] = true
-	doid_map[120294] = true
-	doid_map[120162] = true
+		{600, 250},
+		{600, 350},
+		{600, 450},
 
-	doid_map[120395] = true
-	doid_map[120223] = true
+		{300, 300},
+		{300, 400},
 
-	self:makeDataPretty(doid_map)
+		{700, 300},
+		{700, 400},
+	}
+
     self:initUI()
     self:initButton()
     self:refresh()
-
-	self:doDirectingAction()
-end
-
-
--------------------------------------
--- function makeDataPretty
--------------------------------------
-function UI_Directing_DragonGoodBye:makeDataPretty(doid_map)
-	-- doid에서 데이터 순으로 정렬
-	for doid, _ in pairs(doid_map) do
-		local t_dragon_data = {
-			did = doid,
-			evolution = 3,
-			grade = 5,
-			flv = math_random(9)
-		}--g_dragonsData:getDragonDataFromUid(doid)
-		
-		-- 소통 미만의 드래곤인지 체크
-		if (t_dragon_data['flv'] < 3) then
-			self.m_hasUnFriendlyDragon = true
-		end
-
-		table.insert(self.m_lDragonData, t_dragon_data)
-	end
-
-	--[[친밀도 순으로 정렬
-	table.sort(self.m_lDragonData, function(a, b)
-		return a.flv < b.flv
-	end)
-	--]]
 end
 
 -------------------------------------
@@ -91,7 +58,6 @@ function UI_Directing_DragonGoodBye:initUI()
 	self.vars['aniNode'] = node
 
 	self:initBG()
-	self:initAnimators()
 end
 
 -------------------------------------
@@ -139,86 +105,116 @@ function UI_Directing_DragonGoodBye:initBG()
 	--]]
 end
 
-local T_POS = 
-{
-	{600, 200},
-	{600, 300},
-	{600, 400},
-	{600, 500},
-
-	{500, 250},
-	{500, 350},
-	{500, 450},
-
-	{700, 250},
-	{700, 350},
-	{700, 450},
-
-	{400, 300},
-	{400, 400},
-
-	{800, 300},
-	{800, 400},
-}
-
 -------------------------------------
 -- function initAnimators
 -------------------------------------
-function UI_Directing_DragonGoodBye:initAnimators()
+function UI_Directing_DragonGoodBye:makeTamerChar()
 	local vars = self.vars
 
-	-- 테이머
-	do
-		local t_tamer = TableTamer():get(110002) -- g_tamerData:getCurrTamerTable('res_sd')
-		local dir_tamer = DirectingCharacter(1)
-		dir_tamer:initAnimator(t_tamer['res_sd'])
-		dir_tamer:initShadow(-110)
-		dir_tamer:changeAni('idle', true)
-		dir_tamer.m_animator:setFlip(true)
-		dir_tamer:setPosition(1100, 350)
+	local res = g_tamerData:getCurrTamerTable('res_sd')
+	local dir_tamer = DirectingCharacter(1)
+	dir_tamer:initAnimator(res)
+	dir_tamer:initShadow(-110)
+	dir_tamer:changeAni('idle', true)
+	dir_tamer.m_animator:setFlip(true)
+	--dir_tamer:setPosition(1100, 350)
 
-		vars['aniNode']:addChild(dir_tamer.m_rootNode)
+	vars['aniNode']:addChild(dir_tamer.m_rootNode)
 		
-		self.m_tamer = dir_tamer
-	end
-
-	-- 드래곤들
-	local l_pos = table.getRandomList(T_POS, table.count(self.m_lDragonData))
-	for idx, t_dragon_data in pairs(self.m_lDragonData) do
-		local did = t_dragon_data['did']
-		local doid = did--t_dragon_data['id']
-		
-		--g_dragonsData:getDragonAnimator(doid)
-		
-		local evolution = t_dragon_data['evolution']
-		local flv = t_dragon_data['flv']
-		local scale = 0.5
-		local pos = l_pos[idx]
-
-		-- dragon ani 생성
-		local dir_dragon = DirectingCharacter(scale, t_dragon_data)
-		dir_dragon:initAnimatorDragon(did, evolution)
-		dir_dragon:initShadow(-105)
-		dir_dragon:setOpacityChildren(true)
-		dir_dragon:changeAni('idle', true)
-		dir_dragon:setPosition(pos[1], pos[2])
-
-		vars['aniNode']:addChild(dir_dragon.m_rootNode, 500 - pos[2])
-
-		-- map 등록
-		self.m_tDragonChar[doid] = dir_dragon
-	end
+	self.m_tamer = dir_tamer
 end
+
+-------------------------------------
+-- function makeDragonChar
+-------------------------------------
+function UI_Directing_DragonGoodBye:makeDragonChar(t_dragon_data)
+	local did = t_dragon_data['did']
+	local evolution = t_dragon_data['evolution']
+	local flv = t_dragon_data:getFlv()--['friendship']['flv']
+	local scale = 0.5
+	local pos = table.getRandom(self.m_lPosList)
+
+	-- dragon ani 생성
+	local dir_dragon = DirectingCharacter(scale, t_dragon_data)
+	dir_dragon:initAnimatorDragon(did, evolution)
+	dir_dragon:initShadow(-105)
+	dir_dragon:setOpacityChildren(true)
+	dir_dragon:changeAni('idle', true)
+	dir_dragon:setPosition(pos[1], pos[2])
+
+	self.vars['aniNode']:addChild(dir_dragon.m_rootNode, 500 - pos[2])
+
+	return dir_dragon
+end
+
+-------------------------------------
+-- function addDragonData
+-------------------------------------
+function UI_Directing_DragonGoodBye:addDragonData(doid)
+	-- @@@ 걸어 들어오면서 한마디
+	-- 애니 등록
+	local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+	local dir_dragon = self:makeDragonChar(t_dragon_data)
+	
+	-- map 등록
+	self.m_tDragonChar[doid] = dir_dragon
+
+	dir_dragon:actSaying('lactea_sorrow', nil, 0, nil)
+end
+
+-------------------------------------
+-- function delDragonData
+-------------------------------------
+function UI_Directing_DragonGoodBye:delDragonData(doid)
+	-- @@ 걸어 나가면서 야호~
+	-- 애니 삭제
+	local dir_dragon = self.m_tDragonChar[doid]
+	dir_dragon.m_rootNode:removeFromParent(true)
+	
+	-- map 삭제
+	self.m_tDragonChar[doid] = nil
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -------------------------------------
 -- function doDirectingAction
 -------------------------------------
-function UI_Directing_DragonGoodBye:doDirectingAction()
+function UI_Directing_DragonGoodBye:doDirectingAction(t_data, directing_cb_func)
+	-- 전체 드래곤 숫자
 	local dcnt = table.count(self.m_tDragonChar)
-
+	-- 소통 미만의 드래곤 카운트
+	local uf_dcnt = 0
+	local uf_dragon = nil
+	for _, dir_dragon in pairs(self.m_tDragonChar) do
+		local t_dragon_data = dir_dragon.m_tData
+		if (t_dragon_data:getFlv() < 3) then
+			uf_dcnt = uf_dcnt + 1
+			if (not uf_dragon) then
+				uf_dragon = dir_dragon
+			end
+		end
+	end
+	
+	-- step 용 idx
 	local idx = 1
 
-	local pre_delay
+	-- 함수 선정의
+	local tamer_walk_in
 	local tamer_bye
 
 	local uf_dragon_bye
@@ -228,18 +224,22 @@ function UI_Directing_DragonGoodBye:doDirectingAction()
 	local f_dragon_bye
 	local f_dragon_ascension
 
+	local tamer_walk_out
+
 	local goodbye_forever
 
-	-- @temp
-	pre_delay = function()
-		local delay = cc.DelayTime:create(1)
-		local cb_func = cc.CallFunc:create(function()
-			tamer_bye()
-		end)
+	-- 테이머 생성후 걸어서 나옴
+	tamer_walk_in = function()
+		self:makeTamerChar()
+		self.m_tamer:setPosition(1500, 350)
 
-		self.root:runAction(cc.Sequence:create(delay, cb_func))
+		local function cb_func()
+			tamer_bye()
+		end
+		self.m_tamer:actMove(2, cc.p(-400, 0), 1, cb_func)
 	end
 
+	-- @@ 걸어나온 후 인사
 	-- 테이머의 인사
 	tamer_bye = function()
 		local function cb_func()
@@ -250,38 +250,25 @@ function UI_Directing_DragonGoodBye:doDirectingAction()
 
 	-- 서먹한 드래곤들 중 대표가 인사
 	uf_dragon_bye = function()
-		-- 소통 미만 드래곤 존재 하지 않는다면 친밀 드래곤으로 보냄
-		if not (self.m_hasUnFriendlyDragon) then
+		-- 서먹한 드래곤 존재 하지 않는다면 친밀 드래곤으로 보냄
+		if (uf_dcnt == 0) then
 			f_dragon_closing()
 			return
 		end
 
-		for doid, d_char in pairs(self.m_tDragonChar) do
-			local t_dragon_data = d_char.m_tData
-			if (t_dragon_data['flv'] < 3) then
-				local function cb_func()
-					uf_dragon_ascension()
-				end
-				d_char:actSaying('lactea_bye', nil, 0, cb_func)
-				break
-			end
+		-- 서먹한 드래곤한테 인사를 시킨다.
+		local function cb_func()
+			uf_dragon_ascension()
 		end
+		uf_dragon:actSaying('lactea_bye', nil, 0, cb_func)
 	end
 
 	-- 서먹한 드래곤들 승천
 	uf_dragon_ascension = function()
-		-- 서먹한 드래곤 숫자 계산
-		local uf_dcnt = 0
-		for _, t_dragon_data in pairs(self.m_lDragonData) do
-			if (t_dragon_data['flv'] < 3) then
-				uf_dcnt = uf_dcnt + 1
-			end
-		end
-
 		-- 액션
 		for doid, d_char in pairs(self.m_tDragonChar) do
 			local t_dragon_data = d_char.m_tData
-			if (t_dragon_data['flv'] < 3) then
+			if (t_dragon_data:getFlv() < 3) then
 				local duration = math_random(300, 400)/100
 				local function cb_func()
 					self.m_tDragonChar[doid] = nil
@@ -292,14 +279,14 @@ function UI_Directing_DragonGoodBye:doDirectingAction()
 			end
 		end
 	end
-	
+
 	-- 친한 드래곤들 앞으로 이동
 	f_dragon_closing = function()
 		dcnt = table.count(self.m_tDragonChar)
 		
 		-- 드래곤이 남아있지 않다면 탈출
 		if (dcnt == 0) then
-			goodbye_forever()
+			tamer_walk_out()
 		end
 		
 		local move_point = cc.p(100, 0)
@@ -343,20 +330,46 @@ function UI_Directing_DragonGoodBye:doDirectingAction()
 			d_char:actAscension(duration, cb_func)
 		end
 
+		-- 테이머는 뒤돌아서서 화면 밖으로..
+		local function cb_func()
+			self.m_tamer.m_rootNode:removeFromParent()
+			self.m_tamer = nil
+		end
 		self.m_tamer.m_animator:setFlip(false)
+		self.m_tamer:actMove(5, cc.p(1500, 350), 5, cb_func)
+	end
+
+	-- tamer가 밖으로 걸어나감 : 친한 드래곤 있을 경우 패스
+	tamer_walk_out = function()
+		local function cb_func()
+			self.m_tamer.m_rootNode:removeFromParent()
+			self.m_tamer = nil
+		end
+		self.m_tamer.m_animator:setFlip(false)
+		self.m_tamer:actMove(5, cc.p(400, 0), 5, cb_func)
+
+		goodbye_forever()
 	end
 
 	-- 라테아 획득 연출
 	goodbye_forever = function()
-		ccdisplay('DONE')
+		if (directing_cb_func) then
+			directing_cb_func()
+		end
+
+
+
+		local reward_type = t_data['type']
+		local reward_value = t_data['value']
+		UI_ObtainPopup(reward_type, reward_value, Str('하늘 멀리 드래곤이 사라져 갑니다.\n드래곤이 남기고 간 라테아 [{1}]개를 획득했습니다.', reward_value))
 	end
 
 	-- start
-	pre_delay()
+	tamer_walk_in()
 end
 
 -------------------------------------
--- function doDirectingAction
+-- function checkStep
 -------------------------------------
 function UI_Directing_DragonGoodBye:checkStep(idx, dcnt, next_func)
 	idx = idx + 1

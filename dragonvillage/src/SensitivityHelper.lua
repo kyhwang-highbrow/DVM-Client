@@ -38,7 +38,7 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custo
 		delay_time = 0.5
 
 	elseif string.find(case_type, 'lactea_') then
-		bubble_text:setPosition(0, 200)
+		bubble_text:setPosition(0, 150)
 		delay_time = 0.5
 	
 	elseif (case_type == 'lactea_tamer') then

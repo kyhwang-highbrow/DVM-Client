@@ -500,6 +500,7 @@ local t_module = {
     'UI_Popup',
     'UI_SimplePopup',
 	'UI_ConfirmPopup',
+	'UI_ObtainPopup',
 	'UI_ErrorPopup',
     'UI_SimpleDragonInfoPopup',
     'UI_DragonSummon',

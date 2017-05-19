@@ -280,10 +280,10 @@ function LobbyDragon:update_gift(dt)
 	if (self.m_hasGift) then
 		-- 선물이 가능할 경우 하이라이팅 위한 연출
 		if (self.m_talkingTimer == 0) then
-			local animator = MakeAnimator('/res/ui/a2d/dragon_upgrade_fx/dragon_upgrade_fx.vrp')
+			local animator = MakeAnimator('/res/ui/a2d/lobby_dragon/lobby_dragon.vrp')
 			
 			self.m_rootNode:addChild(animator.m_node)
-			animator:changeAni('bottom_idle', true)
+			animator:changeAni('dragon_fx', true)
 			animator:setPosition(0, LobbyDragon.Y_OFFSET)
 
 			self.m_giftAnimator = animator

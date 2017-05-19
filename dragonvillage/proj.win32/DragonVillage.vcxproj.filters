@@ -2322,6 +2322,9 @@
     <None Include="..\src\UIC_BroadcastLabel.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UI_ObtainPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

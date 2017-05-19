@@ -151,15 +151,19 @@ end
 -------------------------------------
 -- function actMove
 -------------------------------------
-function DirectingCharacter:actMove(duration, move_point, delay, cb_func)
+function DirectingCharacter:actMove(duration, move_point, delay, move_cb_func)
+	self:changeAni('move', true)
 	local moveby = cc.MoveBy:create(duration, move_point)
-	local delay = cc.DelayTime:create(delay)
 	local cb_func = cc.CallFunc:create(function()
-		if (cb_func) then
-			cb_func()
+		self:changeAni('idle', true)
+	end)
+	local delay = cc.DelayTime:create(delay)
+	local cb_func2 = cc.CallFunc:create(function()
+		if (move_cb_func) then
+			move_cb_func()
 		end
 	end)
-	self.m_rootNode:runAction(cc.Sequence:create(moveby, delay, cb_func))
+	self.m_rootNode:runAction(cc.Sequence:create(moveby, cb_func, delay, cb_func2))
 end
 
 -------------------------------------
@@ -168,10 +172,13 @@ end
 function DirectingCharacter:actSaying(case_type, custom_str, delay, cb_func)
 	local delay = cc.DelayTime:create(delay or 0)
 	local cb_func = cc.CallFunc:create(function()
+		
+		local flv = (self.m_tData.getFlv) and self.m_tData:getFlv() or nil
+		
 		SensitivityHelper:doActionBubbleText_Extend{
 			parent = self.m_rootNode,
 			did = self.m_tData['did'],
-			flv = self.m_tData['flv'],
+			flv = flv,
 			case_type = case_type,
 			custom_str = custom_str,
 			cb_func = function()

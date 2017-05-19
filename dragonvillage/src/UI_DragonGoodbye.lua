@@ -8,15 +8,15 @@ UI_DragonGoodbye = class(PARENT,{
         m_bChangeDragonList = 'boolean',
         m_tableViewExtMaterial = 'TableViewExtension', -- 재료
         m_addLactea = 'number', -- 추가될 라테아 수
-
         m_excludedDragons = '',
-
-
         m_selectedMaterialMap = 'map',
 
         -- 정렬
         m_sortManagerDragon = '',
         m_uicSortList = '',
+
+		-- 연출
+		m_directingUI = '',
     })
 
 -------------------------------------
@@ -45,6 +45,10 @@ function UI_DragonGoodbye:init(excluded_dragons)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonGoodbye')
 
+	-- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
     self:sceneFadeInAction()
 
     self.m_bChangeDragonList = false
@@ -59,6 +63,8 @@ end
 -- function initUI
 -------------------------------------
 function UI_DragonGoodbye:initUI()
+	self.m_directingUI = UI_Directing_DragonGoodBye()
+	self.root:addChild(self.m_directingUI.root, -1)
 end
 
 -------------------------------------
@@ -85,7 +91,6 @@ function UI_DragonGoodbye:refresh_lactea()
     local vars = self.vars
     vars['infoLabel']:setString(Str('드래곤과 작별하여 라테아를 획득합니다.'))
     local lactea = g_userData:get('lactea')
-    vars['lacreaLabel1']:setString(comma_value(lactea))
 
     self.m_addLactea = 0
     vars['lacreaLabel2']:setString(Str('+{1}', comma_value(self.m_addLactea)))
@@ -345,6 +350,9 @@ function UI_DragonGoodbye:addMaterial(doid, is_slime)
     self.m_selectedMaterialMap[doid] = is_slime and 'slime' or 'dragon'
 
     self:onChangeSelectedDragons(doid)
+
+	-- 연출 추가
+	self.m_directingUI:addDragonData(doid)
 end
 
 -------------------------------------
@@ -354,6 +362,9 @@ function UI_DragonGoodbye:delMaterial(doid)
     -- 재료 해제
     self.m_selectedMaterialMap[doid] = nil
     self:onChangeSelectedDragons(doid)
+
+	-- 연출 삭제
+	self.m_directingUI:delDragonData(doid)
 end
 
 -------------------------------------
@@ -415,33 +426,23 @@ end
 -- function goodbyeDirecting
 -------------------------------------
 function UI_DragonGoodbye:goodbyeDirecting(cb)
-    -- 하위 UI의 터치를 막기 위해 사용
-    local block_ui = UI_BlockPopup()
+	self:doActionReverse(function()
+		local function cb_func()
+			if cb then
+				cb()
+			end
 
-    local directing_animation
-    local directing_result
+			--self:doActionReset()
+			self:doAction(nil, false)
 
-    -- 에니메이션 연출
-    directing_animation = function()
-        local animator = self.vars['lacteaVisual']
-
-        local function ani_handler()
-            animator:changeAni2('lectea_on_after', 'lectea_idle', false)
-            directing_result()
-        end
-        
-        animator:changeAni('lectea_on', false)
-        animator:addAniHandler(ani_handler)
-        SoundMgr:playEffect('EFFECT', 'exp_gauge')
-    end
-
-    -- 결과 연출
-    directing_result = function()
-        block_ui:close()
-        cb()
-    end
-
-    directing_animation()
+			g_topUserInfo:refreshData()
+		end
+		local t_data = {
+			type = 'lactea',
+			value = self.m_addLactea
+		}
+		self.m_directingUI:doDirectingAction(t_data, cb_func)
+	end, 1)
 end
 
 --@CHECK
