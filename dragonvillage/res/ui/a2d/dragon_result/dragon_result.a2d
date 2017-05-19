@@ -1,0 +1,461 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)dragon_result.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"flare_appear",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_flare_appear'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "mode":"Add"
+									},
+									{
+										"frame":3, "mode":"Add"
+									},
+									{
+										"frame":6, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":9, "mode":"Add"
+									},
+									{
+										"frame":14, "mode":"Add"
+									},
+									{
+										"frame":16, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":19, "alpha":255, "mode":"Add"
+									},
+									{
+										"frame":22, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":25, "mode":"Add"
+									},
+									{
+										"frame":50, "alpha":128, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"flare_idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "pX":-50.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":15, "pX":-87.500000, "mode":"Add"
+									},
+									{
+										"frame":44, "pX":-169.318176, "mode":"Add"
+									},
+									{
+										"frame":70, "pX":-300.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":13, "sX":0.500000, "sY":0.500000, "pX":32.000000, "pY":-28.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.500000, "sY":0.500000, "pX":-5.500000, "pY":-28.000000, "mode":"Add"
+									},
+									{
+										"frame":44, "sX":0.500000, "sY":0.500000, "pX":-87.318176, "pY":-28.000000, "mode":"Add"
+									},
+									{
+										"frame":59, "sX":0.500000, "sY":0.500000, "pX":-218.000000, "pY":-28.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "sX":0.300000, "sY":0.300000, "pX":94.000000, "pY":4.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":0.300000, "sY":0.300000, "pX":56.000000, "pY":4.000000, "mode":"Add"
+									},
+									{
+										"frame":51, "sX":0.300000, "sY":0.300000, "pX":-25.000000, "pY":4.000000, "mode":"Add"
+									},
+									{
+										"frame":66, "sX":0.300000, "sY":0.300000, "pX":-156.000000, "pY":4.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":0.300000, "sY":0.300000, "pX":18.000000, "pY":9.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":0.300000, "sY":0.300000, "pX":-20.000000, "pY":9.000000, "mode":"Add"
+									},
+									{
+										"frame":47, "sX":0.300000, "sY":0.300000, "pX":-101.000000, "pY":9.000000, "mode":"Add"
+									},
+									{
+										"frame":62, "sX":0.300000, "sY":0.300000, "pX":-232.000000, "pY":9.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "pX":137.000000, "pY":-22.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":15, "pX":175.000000, "pY":-22.000000, "mode":"Add"
+									},
+									{
+										"frame":44, "pX":257.000000, "pY":-22.000000, "mode":"Add"
+									},
+									{
+										"frame":70, "pX":387.000000, "pY":-22.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":13, "sX":0.500000, "sY":0.500000, "pX":134.000000, "pY":-3.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.500000, "sY":0.500000, "pX":152.000000, "pY":-3.000000, "mode":"Add"
+									},
+									{
+										"frame":44, "sX":0.500000, "sY":0.500000, "pX":202.000000, "pY":-3.000000, "mode":"Add"
+									},
+									{
+										"frame":59, "sX":0.500000, "sY":0.500000, "pX":302.000000, "pY":-3.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":13, "sX":0.500000, "sY":0.500000, "pX":231.000000, "pY":-37.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":0.500000, "sY":0.500000, "pX":249.000000, "pY":-37.000000, "mode":"Add"
+									},
+									{
+										"frame":44, "sX":0.500000, "sY":0.500000, "pX":299.000000, "pY":-37.000000, "mode":"Add"
+									},
+									{
+										"frame":59, "sX":0.500000, "sY":0.500000, "pX":466.000000, "pY":-37.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":40, "pX":-50.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":50, "pX":-87.500000, "mode":"Add"
+									},
+									{
+										"frame":79, "pX":-169.318176, "mode":"Add"
+									},
+									{
+										"frame":105, "pX":-300.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":48, "sX":0.500000, "sY":0.500000, "pX":32.000000, "pY":-28.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":58, "sX":0.500000, "sY":0.500000, "pX":-5.500000, "pY":-28.000000, "mode":"Add"
+									},
+									{
+										"frame":79, "sX":0.500000, "sY":0.500000, "pX":-87.318176, "pY":-28.000000, "mode":"Add"
+									},
+									{
+										"frame":94, "sX":0.500000, "sY":0.500000, "pX":-218.000000, "pY":-28.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":55, "sX":0.300000, "sY":0.300000, "pX":94.000000, "pY":4.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":65, "sX":0.300000, "sY":0.300000, "pX":56.000000, "pY":4.000000, "mode":"Add"
+									},
+									{
+										"frame":86, "sX":0.300000, "sY":0.300000, "pX":-25.000000, "pY":4.000000, "mode":"Add"
+									},
+									{
+										"frame":101, "sX":0.300000, "sY":0.300000, "pX":-156.000000, "pY":4.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":65, "sX":0.300000, "sY":0.300000, "pX":18.000000, "pY":9.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":75, "sX":0.300000, "sY":0.300000, "pX":-20.000000, "pY":9.000000, "mode":"Add"
+									},
+									{
+										"frame":96, "sX":0.300000, "sY":0.300000, "pX":-101.000000, "pY":9.000000, "mode":"Add"
+									},
+									{
+										"frame":111, "sX":0.300000, "sY":0.300000, "pX":-232.000000, "pY":9.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":40, "pX":137.000000, "pY":-22.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":50, "pX":175.000000, "pY":-22.000000, "mode":"Add"
+									},
+									{
+										"frame":79, "pX":257.000000, "pY":-22.000000, "mode":"Add"
+									},
+									{
+										"frame":105, "pX":387.000000, "pY":-22.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":70, "sX":0.500000, "sY":0.500000, "pX":134.000000, "pY":-3.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":80, "sX":0.500000, "sY":0.500000, "pX":152.000000, "pY":-3.000000, "mode":"Add"
+									},
+									{
+										"frame":101, "sX":0.500000, "sY":0.500000, "pX":202.000000, "pY":-3.000000, "mode":"Add"
+									},
+									{
+										"frame":116, "sX":0.500000, "sY":0.500000, "pX":302.000000, "pY":-3.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":48, "sX":0.500000, "sY":0.500000, "pX":231.000000, "pY":-37.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":58, "sX":0.500000, "sY":0.500000, "pX":249.000000, "pY":-37.000000, "mode":"Add"
+									},
+									{
+										"frame":79, "sX":0.500000, "sY":0.500000, "pX":299.000000, "pY":-37.000000, "mode":"Add"
+									},
+									{
+										"frame":94, "sX":0.500000, "sY":0.500000, "pX":466.000000, "pY":-37.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":77, "mode":"Add"
+									},
+									{
+										"frame":120, "alpha":128, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "sX":0.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":25, "mode":"Add"
+									},
+									{
+										"frame":45, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":120, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":false,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"res_flare_appear",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_result.plist'<azSprite>'dragon_result_flar_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "alpha":0
+									},
+									{
+										"frame":10
+									},
+									{
+										"frame":50
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

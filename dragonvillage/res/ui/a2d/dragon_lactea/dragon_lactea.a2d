@@ -28,12 +28,12 @@
 	[
 		{
 			"name":"group",
-			"expand":false,
+			"expand":true,
 			"apply":true,
 			"visual_list":
 			[
 				{
-					"name":"lectea_idle",
+					"name":"lectea_appear",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -43,13 +43,118 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_frame_01.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'dragon_lactea_fx_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0
+										"frame":0, "sY":0.000000, "pY":-1.000000, "cY":280.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":5, "sY":1.500000, "pY":-1.000000, "cY":280.000000, "mode":"Add"
+									},
+									{
+										"frame":30, "pY":-1.000000, "cY":280.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'dragon_lactea_fx_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":5, "sX":1.200000, "sY":1.200000, "mode":"Add"
+									},
+									{
+										"frame":90, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'dragon_lactea_fx_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":5, "sX":1.200000, "sY":1.200000, "mode":"Add"
+									},
+									{
+										"frame":90, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'dragon_lactea_fx_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "rotate":30.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":1.200000, "sY":1.200000, "rotate":30.000000, "mode":"Add"
+									},
+									{
+										"frame":40, "rotate":30.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'dragon_lactea_fx_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "rotate":120.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":35, "sX":1.200000, "sY":1.200000, "rotate":120.000000, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":120.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'dragon_lactea_fx_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "rotate":170.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":45, "sX":1.200000, "sY":1.200000, "rotate":170.000000, "mode":"Add"
+									},
+									{
+										"frame":70, "rotate":170.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'dragon_lactea_lactea_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "alpha":0
+									},
+									{
+										"frame":20
 									},
 									{
 										"frame":90
@@ -57,326 +162,19 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'res_'<azVisual>'res_line_02'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'dragon_lactea_lactea_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":10, "sX":0.200000, "colorRGB":[255,255,0]
-, "mode":"Add"
+										"frame":20, "alpha":0
 									},
 									{
-										"frame":49, "alpha":179, "colorRGB":[255,255,0]
-, "mode":"Add"
-									},
-									{
-										"frame":90, "sX":0.000000, "colorRGB":[255,255,0]
-, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res_'<azVisual>'res_line_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":10, "sX":0.200000, "colorRGB":[255,255,0]
-, "mode":"Add"
-									},
-									{
-										"frame":49, "alpha":179, "colorRGB":[255,255,0]
-, "mode":"Add"
-									},
-									{
-										"frame":90, "sX":0.000000, "colorRGB":[255,255,0]
-, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_frame_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
+										"frame":60, "alpha":255
 									},
 									{
 										"frame":90
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"lectea_on",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_frame_01.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":35
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res_'<azVisual>'res_line'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.000000
-									},
-									{
-										"frame":17
-									},
-									{
-										"frame":35, "sX":0.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_frame_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":35
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"lectea_on_after",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_frame_01.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":90
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res_'<azVisual>'res_line'",
-								"expand":false,
-								"apply":false,
-								"key_list":
-								[
-									{
-										"frame":21, "sX":0.200000, "mode":"Add"
-									},
-									{
-										"frame":42, "alpha":179, "mode":"Add"
-									},
-									{
-										"frame":61, "sX":0.200000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res_'<azVisual>'res_line'",
-								"expand":false,
-								"apply":false,
-								"key_list":
-								[
-									{
-										"frame":21, "sX":0.200000, "mode":"Add"
-									},
-									{
-										"frame":42, "alpha":179, "mode":"Add"
-									},
-									{
-										"frame":61, "sX":0.200000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_frame_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":90
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_frame_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":20, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":40, "alpha":179, "mode":"Add"
-									},
-									{
-										"frame":65, "alpha":255, "mode":"Add"
-									},
-									{
-										"frame":90, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_effect_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pX":-213.000000, "pY":-95.000000, "alpha":0
-									},
-									{
-										"frame":10, "pX":-213.000000, "pY":-95.000000, "mode":"Add"
-									},
-									{
-										"frame":65, "pX":-213.000000, "pY":-95.000000, "mode":"Add"
-									},
-									{
-										"frame":90, "pX":-213.000000, "pY":-95.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_effect_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":5, "pX":210.000000, "pY":-95.000000, "alpha":0
-									},
-									{
-										"frame":15, "pX":210.000000, "pY":-95.000000, "mode":"Add"
-									},
-									{
-										"frame":65, "pX":210.000000, "pY":-95.000000, "mode":"Add"
-									},
-									{
-										"frame":90, "pX":210.000000, "pY":-95.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_effect_03.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":10, "pX":-2.000000, "pY":89.000000, "alpha":0
-									},
-									{
-										"frame":20, "pX":-2.000000, "pY":89.000000, "mode":"Add"
-									},
-									{
-										"frame":65, "pX":-2.000000, "pY":89.000000, "mode":"Add"
-									},
-									{
-										"frame":90, "pX":-2.000000, "pY":89.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_effect_04.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":30, "pX":-1.000000, "pY":45.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":35, "pX":-1.000000, "pY":45.000000, "mode":"Add"
-									},
-									{
-										"frame":65, "pX":-1.000000, "pY":45.000000, "mode":"Add"
-									},
-									{
-										"frame":90, "pX":-1.000000, "pY":45.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_effect_05.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":42, "pY":-1.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":55, "pY":-1.000000, "mode":"Add"
-									},
-									{
-										"frame":70, "pY":-1.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_effect_06.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":55, "pX":-1.000000, "pY":4.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":70, "pX":-1.000000, "pY":4.000000, "mode":"Add"
-									},
-									{
-										"frame":80, "pX":-1.000000, "pY":4.000000, "mode":"Add"
-									},
-									{
-										"frame":90, "pX":-1.000000, "pY":4.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							}
@@ -386,491 +184,12 @@
 			]
 		},
 		{
-			"name":"res_",
+			"name":"res",
 			"expand":false,
-			"apply":false,
+			"apply":true,
 			"visual_list":
 			[
-				{
-					"name":"res_light",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_light_01.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":1.500000, "sY":1.500000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":3, "sX":1.500000, "sY":1.500000, "mode":"Add"
-									},
-									{
-										"frame":5, "sX":1.500000, "sY":1.500000, "mode":"Add"
-									},
-									{
-										"frame":8, "sX":1.500000, "sY":1.500000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_light_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":3, "sX":1.500000, "sY":1.500000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":6, "sX":1.500000, "sY":1.500000, "mode":"Add"
-									},
-									{
-										"frame":8, "sX":1.500000, "sY":1.500000, "mode":"Add"
-									},
-									{
-										"frame":11, "sX":1.500000, "sY":1.500000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_light_03.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":6, "sX":1.500000, "sY":1.500000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":9, "sX":1.500000, "sY":1.500000, "mode":"Add"
-									},
-									{
-										"frame":11, "sX":1.500000, "sY":1.500000, "mode":"Add"
-									},
-									{
-										"frame":14, "sX":1.500000, "sY":1.500000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_light_04.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":9, "sX":1.500000, "sY":1.500000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":12, "sX":1.500000, "sY":1.500000, "mode":"Add"
-									},
-									{
-										"frame":14, "sX":1.300000, "sY":1.300000, "mode":"Add"
-									},
-									{
-										"frame":17, "alpha":0, "mode":"Add"
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"res_lighting",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_01.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":3, "mode":"Add"
-									},
-									{
-										"frame":6, "mode":"Add"
-									},
-									{
-										"frame":9, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":3, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":6, "mode":"Add"
-									},
-									{
-										"frame":9, "mode":"Add"
-									},
-									{
-										"frame":12, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_03.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":6, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":9, "mode":"Add"
-									},
-									{
-										"frame":12, "mode":"Add"
-									},
-									{
-										"frame":15, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_04.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":9, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":12, "mode":"Add"
-									},
-									{
-										"frame":15, "mode":"Add"
-									},
-									{
-										"frame":18, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_05.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":12, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":15, "mode":"Add"
-									},
-									{
-										"frame":18, "mode":"Add"
-									},
-									{
-										"frame":21, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_04.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":15, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":18, "mode":"Add"
-									},
-									{
-										"frame":21, "mode":"Add"
-									},
-									{
-										"frame":24, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_01.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":18, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":21, "mode":"Add"
-									},
-									{
-										"frame":24, "mode":"Add"
-									},
-									{
-										"frame":27, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":21, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":24, "mode":"Add"
-									},
-									{
-										"frame":27, "mode":"Add"
-									},
-									{
-										"frame":30, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_01.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":15, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":18, "mode":"Add"
-									},
-									{
-										"frame":21, "mode":"Add"
-									},
-									{
-										"frame":24, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":18, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":21, "mode":"Add"
-									},
-									{
-										"frame":24, "mode":"Add"
-									},
-									{
-										"frame":27, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_03.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":21, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":24, "mode":"Add"
-									},
-									{
-										"frame":27, "mode":"Add"
-									},
-									{
-										"frame":30, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_04.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":24, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":27, "mode":"Add"
-									},
-									{
-										"frame":30, "mode":"Add"
-									},
-									{
-										"frame":33, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_05.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":27, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":30, "mode":"Add"
-									},
-									{
-										"frame":33, "mode":"Add"
-									},
-									{
-										"frame":36, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_04.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":30, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":33, "mode":"Add"
-									},
-									{
-										"frame":36, "mode":"Add"
-									},
-									{
-										"frame":39, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_01.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":33, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":36, "mode":"Add"
-									},
-									{
-										"frame":39, "mode":"Add"
-									},
-									{
-										"frame":42, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_point_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":36, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":39, "mode":"Add"
-									},
-									{
-										"frame":42, "mode":"Add"
-									},
-									{
-										"frame":45, "alpha":0, "mode":"Add"
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"res_line",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_effect_01.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pY":-132.000000
-									},
-									{
-										"frame":40, "pY":200.000000
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"res_line_02",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_lactea.plist'<azSprite>'lactea_effect_01.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pY":200.000000, "vflip":"V"
-									},
-									{
-										"frame":80, "pY":-132.000000, "vflip":"V"
-									}
-								]
-							}
-						]
-					}
-				}
+
 			]
 		}
 	],

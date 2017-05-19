@@ -138,6 +138,35 @@
 			};
 			[3] =
 			{
+				type = 'Visual';
+				ui_name = '';
+				x = 0.000000;
+				y = 288.999939;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				action_type = 3;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
+				lua_name = '';
+				file_name = 'ui/a2d/dragon_result/dragon_result.a2d';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;flare_idle';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[4] =
+			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
@@ -174,13 +203,13 @@
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
 				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
+				has_shadow = true;
 				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
-				shadow_distance = 5.000000;
+				shadow_distance = 3.000000;
 			};
-			[4] =
+			[5] =
 			{
 				[1] =
 				{
@@ -248,7 +277,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[5] =
+			[6] =
 			{
 				[1] =
 				{
@@ -424,7 +453,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[6] =
+			[7] =
 			{
 				[1] =
 				{
@@ -600,7 +629,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[7] =
+			[8] =
 			{
 				[1] =
 				{
@@ -776,7 +805,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[8] =
+			[9] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -806,7 +835,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[9] =
+			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -850,7 +879,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[10] =
+			[11] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -894,7 +923,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[11] =
+			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = 'rich';
