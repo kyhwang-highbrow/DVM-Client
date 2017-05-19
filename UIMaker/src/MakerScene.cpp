@@ -2091,18 +2091,11 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
         }
 		else if (field_name == "rel_width")
 		{
-			if (node->getRelativeSizeType() == kRelativeSizeRoot || 
-				node->getRelativeSizeType() == kRelativeSizeBoth ||
+			if (node->getRelativeSizeType() == kRelativeSizeBoth ||
                 node->getRelativeSizeType() == kRelativeSizeHorizontal)
             {
 				float width = static_cast<float>(reflect->GetInt32(msg, field));
-				if (node->getRelativeSizeType() == kRelativeSizeRoot)
-				{
-					auto cmpSize = node->getRootNode()->getNormalSize();
-					node->setRelativeSizeWidth(width, true, cmpSize);
-				}
-				else
-					node->setRelativeSizeWidth(width, true);
+				node->setRelativeSizeWidth(width, true);
 
                 if (!is_only_apply)
                 {
@@ -2119,18 +2112,11 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
 		}
 		else if (field_name == "rel_height")
 		{
-			if (node->getRelativeSizeType() == kRelativeSizeRoot ||
-				node->getRelativeSizeType() == kRelativeSizeBoth ||
+			if (node->getRelativeSizeType() == kRelativeSizeBoth ||
                 node->getRelativeSizeType() == kRelativeSizeVertical)
             {
                 float height = static_cast<float>(reflect->GetInt32(msg, field));
-				if (node->getRelativeSizeType() == kRelativeSizeRoot)
-				{
-					auto cmpSize = node->getRootNode()->getNormalSize();
-					node->setRelativeSizeHeight(height, true, cmpSize);
-				}
-				else
-					node->setRelativeSizeHeight(height, true);
+				node->setRelativeSizeHeight(height, true);
 
                 if (!is_only_apply)
                 {
@@ -2165,8 +2151,7 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
                 updateRelativeSizeWidthInTool(entity_id, node, size.width);
 				updateStencil(dynamic_cast<ClippingNode*>(node));
             }
-			else if ((node->getRelativeSizeType() == kRelativeSizeRoot || node->getRelativeSizeType() == kRelativeSizeBoth) 
-				&& !is_only_apply)
+			else if ((node->getRelativeSizeType() == kRelativeSizeBoth) && !is_only_apply)
 			{
 				Size size = node->getNormalSize();
 				size.width = static_cast<float>(reflect->GetInt32(msg, field));
@@ -2196,8 +2181,7 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
                 updateRelativeSizeHeightInTool(entity_id, node, size.height);
 				updateStencil(dynamic_cast<ClippingNode*>(node));
             }
-			else if ((node->getRelativeSizeType() == kRelativeSizeRoot || node->getRelativeSizeType() == kRelativeSizeBoth) 
-				&& !is_only_apply)
+			else if ((node->getRelativeSizeType() == kRelativeSizeBoth) & !is_only_apply)
 			{
 				Size size = node->getNormalSize();
 				size.height = static_cast<float>(reflect->GetInt32(msg, field));
@@ -3503,7 +3487,8 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, AzVisual* visual, const ::goog
 		{
 			if (reflect->GetBool(msg, field))
 			{
-				visual->scheduleUpdate();
+                visual->unscheduleAllSelectors();
+                visual->scheduleUpdate();
 			}
 			else
 			{
@@ -4105,10 +4090,6 @@ void CMakerScene::updateRelativeSizeInTool(CEntityMgr::ID entity_id, Node *node,
 void CMakerScene::updateRelativeSizeWidthInTool(CEntityMgr::ID entity_id, Node *node, float width)
 {
     auto parent = node->getParent();
-	if (node->getRelativeSizeType() == kRelativeSizeRoot)
-	{
-		parent = node->getRootNode();
-	}
     if (parent)
     {
         Size parentSize = parent->getNormalSize();
@@ -4122,10 +4103,6 @@ void CMakerScene::updateRelativeSizeWidthInTool(CEntityMgr::ID entity_id, Node *
 void CMakerScene::updateRelativeSizeHeightInTool(CEntityMgr::ID entity_id, Node *node, float height)
 {
     auto parent = node->getParent();
-	if (node->getRelativeSizeType() == kRelativeSizeRoot)
-	{
-		parent = node->getRootNode();
-	}
     if (parent)
     {
         Size parentSize = parent->getNormalSize();
