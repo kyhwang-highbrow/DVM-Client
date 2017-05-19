@@ -99,6 +99,9 @@ function UI_UserInfoDetailPopup:initUI()
 	-- 길드
 	local guild_name = self.m_tUserInfo['guild'] or ''
 	vars['guildLabel']:setString(guild_name)
+
+    -- 콜로세움 팀 보기 버튼
+    vars['deckBtn']:setVisible(self.m_bVisible)
 	
 	-- 플레이 기록
 	self:init_historyView()
@@ -112,6 +115,7 @@ function UI_UserInfoDetailPopup:initButton()
 	vars['profileBtn']:registerScriptTapHandler(function() self:click_profileBtn() end)
 	vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
 	vars['dragonBtn']:registerScriptTapHandler(function() self:click_dragonBtn() end)
+    vars['deckBtn']:registerScriptTapHandler(function() self:click_deckBtn() end)
 end
 
 -------------------------------------
@@ -347,6 +351,15 @@ function UI_UserInfoDetailPopup:click_dragonBtn()
 
 	local ui = UI_UserInfoDetailPopup_SetLeader(self.m_tUserInfo)
 	ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_deckBtn
+-------------------------------------
+function UI_UserInfoDetailPopup:click_deckBtn()
+    local uid = tonumber(self.m_tUserInfo['uid'])
+    local deck_name = 'pvp'
+    RequestUserDeckInfoPopup(uid, deck_name)
 end
 
 -------------------------------------

@@ -156,7 +156,8 @@ end
 -------------------------------------
 -- function RequestUserDeckInfoPopup
 -------------------------------------
-function RequestUserDeckInfoPopup(uid, deck_name)
+function RequestUserDeckInfoPopup(peer_uid, deck_name)
+    local uid = g_userData:get('uid')
     deck_name = (deck_name or '1')
 
     local function success_cb(ret)
@@ -174,6 +175,7 @@ function RequestUserDeckInfoPopup(uid, deck_name)
     ui_network:setRevocable(true)
     ui_network:setUrl('/users/get_user_deck')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('peer', peer_uid)
     ui_network:setParam('deck_name', deck_name)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()    
