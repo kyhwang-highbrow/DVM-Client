@@ -60,6 +60,7 @@ function UI_AncientTowerScene:initUI()
 	do -- 테이블 뷰 생성
         local node = vars['floorNode']
         node:removeAllChildren()
+        node:setContentSize(800, 720)
 
 		-- 층 생성
 		local t_floor = clone(g_ancientTowerData:getAcientTower_stageList())

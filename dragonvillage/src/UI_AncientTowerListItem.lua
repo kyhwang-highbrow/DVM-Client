@@ -19,7 +19,7 @@ UI_AncientTowerListItem = class(PARENT, {
         self:initButton()
         self:refresh()
 
-        self.m_cellSize = cc.size(500, 150)
+        self.m_cellSize = cc.size(800, 150)
     end
 
     -------------------------------------
@@ -89,7 +89,7 @@ UI_AncientTowerListBottomItem = class(PARENT, {})
         vars['floorBtn']:getParent():setSwallowTouch(false)
         vars['towerVisual']:changeAni('bottom', true)
     
-        self.m_cellSize = cc.size(500, 150)
+        self.m_cellSize = cc.size(800, 150)
     end
 
 -------------------------------------
@@ -107,5 +107,5 @@ UI_AncientTowerListTopItem = class(PARENT, {})
         vars['floorBtn']:getParent():setSwallowTouch(false)
         vars['towerVisual']:changeAni('top', true)
     
-        self.m_cellSize = cc.size(500, 300)
+        self.m_cellSize = cc.size(800, 300)
     end
