@@ -1112,6 +1112,7 @@ public:
 	virtual void setRepeat(bool v) override { _repeat = v;  _quad_maker.setRepeat(v); }
 
 	virtual std::string getVisualListLuaTable() override;
+    virtual void getVisualList(const std::string& bind_token, std::list<std::string>& visual_list) override;
 
     virtual void setCustomShader(int customShaderType, float arg);
 	virtual float getSocketPosX(const std::string& socket_name);
@@ -1203,6 +1204,7 @@ public:
 	};
 
 	virtual Node* getSocketNode(const std::string& socket_name) override;
+    virtual void getSocketNodeList(std::list<std::string>& socket_node_list) override;
 
 	virtual void clearSocketHandler() override;
 	virtual void enableSocketHandler(const std::string& socket_name) override;
@@ -1275,6 +1277,10 @@ AzVRP* AzVRP::create()
 	}
 	CC_SAFE_DELETE(vrp);
 	return nullptr;
+}
+bool AzVRP::setFile(const std::string& filename)
+{
+    return initWithFile(filename);
 }
 void AzVRP::removeCache(const std::string& filename)
 {
@@ -1942,6 +1948,21 @@ Node* AzVRP_IMPL::getSocketNode(const std::string& socket_name)
 	return binder;
 }
 
+void AzVRP_IMPL::getSocketNodeList(std::list<std::string>& socket_node_list)
+{
+    socket_node_list.clear();
+
+    if (!_vrp) return;
+
+    int count = _vrp->getSocketCount();
+    std::string name;
+    for (int i = 0; i < count; ++i)
+    {
+        name = _vrp->getSocketName(i);
+        socket_node_list.push_back(name);
+    }
+}
+
 std::string AzVRP_IMPL::getVisualListLuaTable()
 {
 	if (!_vrp) return "";
@@ -1962,6 +1983,24 @@ std::string AzVRP_IMPL::getVisualListLuaTable()
 	s << "}" << std::endl;
 
 	return s.str();
+}
+
+void AzVRP_IMPL::getVisualList(const std::string& bind_token, std::list<std::string>& visual_list)
+{
+    if (!_vrp) return;
+
+    visual_list.clear();
+
+    std::string group_name;
+    std::string name;
+    int count = _vrp->getVisualCount();
+    for (int i = 0; i < count; ++i)
+    {
+        auto visual = _vrp->getVisual(i, &group_name, &name);
+        if (!visual) continue;
+
+        visual_list.push_back(group_name + bind_token + name);
+    }
 }
 
 void AzVRP_IMPL::initEventShapeList()

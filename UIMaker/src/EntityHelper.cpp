@@ -161,7 +161,7 @@ void CEntityHelper::drawSelected()
         drawSelectedInfo(rotate_plate);
     }
 	
-	auto visual = dynamic_cast<AzVisual*>(m_node);
+    auto visual = dynamic_cast<AzVRP*>(m_node);
 	if (visual)
 	{
 		drawSelectedInfo(visual);
@@ -233,7 +233,7 @@ void CEntityHelper::drawSelectedInfo(RotatePlate* plate)
 
     drawCircle(Rect(0, 0, size.width, size.height), Color4B(255, 255, 0, 255), angle, 3);
 }
-void CEntityHelper::drawSelectedInfo(AzVisual* visual)
+void CEntityHelper::drawSelectedInfo(AzVRP* visual)
 {
 	if (!visual) return;
 

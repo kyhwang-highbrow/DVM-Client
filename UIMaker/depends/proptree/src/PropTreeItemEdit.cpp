@@ -300,7 +300,7 @@ void CPropTreeItemEdit::OnActivate(CPoint pt)
 			case ValueFormat_FILE_SOUND: ext = _T("*.ogg"); filter = _T("OGG (*.ogg)|*.ogg|MP3 (*.mp3)|*.mp3|Wave (*.wav)|*.wav|All Files (*.*)|*.*||"); break;
 			case ValueFormat_FILE_BMFONT: ext = _T("*.fnt"); filter = _T("BMFont (*.fnt)|*.fnt|All Files (*.*)|*.*||"); break;
 			case ValueFormat_FILE_TTF: ext = _T("*.ttf"); filter = _T("True Type Font (*.ttf)|*.ttf|All Files (*.*)|*.*||"); break;
-			case ValueFormat_FILE_VISUAL: ext = _T("*.a2d"); filter = _T("Visual (*.a2d)|*.a2d|All Files (*.*)|*.*||"); break;
+			case ValueFormat_FILE_VISUAL: ext = _T("*.vrp"); filter = _T("Visual (*.vrp)|*.vrp|All Files (*.*)|*.*||"); break;
 			case ValueFormat_FILE_PLIST: ext = _T("*.plist"); filter = _T("plist (*.plist)|*.plist|All Files (*.*)|*.*||"); break;
 			}
 

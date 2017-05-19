@@ -4,6 +4,7 @@
 #include "extensions/cocos-ext.h"
 
 #include "editor-support/anb/CCAzVisual.h"
+#include "editor-support/anb/CCAzVrp.h"
 
 namespace maker {
 	class Entity;
@@ -47,7 +48,7 @@ public:
 	void drawSelectedInfo(cocos2d::Sprite* sprite);
     void drawSelectedInfo(cocos2d::extension::Scale9Sprite* sprite);
     void drawSelectedInfo(cocos2d::RotatePlate* plate);
-    void drawSelectedInfo(cocos2d::AzVisual* visual);
+    void drawSelectedInfo(cocos2d::AzVRP* visual);
 	void drawSelectedInfo(cocos2d::Node* node);
 	void drawWorkspace(cocos2d::Node* node);
 

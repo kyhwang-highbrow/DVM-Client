@@ -983,7 +983,7 @@ maker::PICK_PART CMakerScene::getPickPart(const Node* node, const Point& point) 
 
 	Point locationInNode = node->convertToNodeSpace(point);
 
-	auto visual = dynamic_cast<const AzVisual*>(node);
+	auto visual = dynamic_cast<const AzVRP*>(node);
 	if (visual)
 	{
 		Rect rect = visual->getValidRect();
@@ -1145,7 +1145,7 @@ bool CMakerScene::isOverlap(const Node* node, const Point& rect_min, const Point
 	Point maxInNode = node->convertToNodeSpace(rect_max);
 	Rect rect_select_box = Rect(minInNode.x, minInNode.y, maxInNode.x - minInNode.x, maxInNode.y - minInNode.y);
 
-	auto visual = dynamic_cast<const AzVisual*>(node);
+	auto visual = dynamic_cast<const AzVRP*>(node);
 	if (visual)
 	{
 		Rect rect = visual->getValidRect();
@@ -1453,7 +1453,7 @@ cocos2d::Node* CMakerScene::onCmd_Create(cocos2d::Node* parent, CEntityMgr::ID e
 
 	if (properties.type() == maker::ENTITY__SocketNode)
 	{
-		auto visual = dynamic_cast<AzVisual*>(parent);
+		auto visual = dynamic_cast<AzVRP*>(parent);
 		if (visual)
 		{
 			return visual->getSocketNode(properties.socket_node().socket_name());
@@ -1519,7 +1519,7 @@ cocos2d::Node* CMakerScene::onCmd_Create(cocos2d::Node* parent, CEntityMgr::ID e
     case maker::ENTITY__Sprite: node = Sprite::create(); break;
     case maker::ENTITY__Scale9Sprite: node = Scale9Sprite::create(); break;
     case maker::ENTITY__ProgressTimer: node = ProgressTimer::create(Sprite::create()); break;
-    case maker::ENTITY__Visual: node = AzVisual::create(); break;
+    case maker::ENTITY__Visual: node = AzVRP::create(); break;
     case maker::ENTITY__Particle: node = ParticleSystemQuad::create(); break;
 	}
 
@@ -1791,7 +1791,7 @@ void CMakerScene::onCmd_Modify(CEntityMgr::ID entity_id, const maker::Properties
 		else if (field_type == "Scale9Sprite") apply(entity_id, dynamic_cast<Scale9Sprite*>(node), reflect->GetMessage(properties, field));
 		else if (field_type == "ProgressTimer") apply(entity_id, dynamic_cast<ProgressTimer*>(node), reflect->GetMessage(properties, field));
 		else if (field_type == "Guage") apply(entity_id, dynamic_cast<ProgressTimer*>(node), reflect->GetMessage(properties, field));
-		else if (field_type == "Visual") apply(entity_id, dynamic_cast<AzVisual*>(node), reflect->GetMessage(properties, field));
+		else if (field_type == "Visual") apply(entity_id, dynamic_cast<AzVRP*>(node), reflect->GetMessage(properties, field));
 		else if (field_type == "Particle") apply(entity_id, dynamic_cast<ParticleSystemQuad*>(node), reflect->GetMessage(properties, field));
         else if (field_type == "RotatePlate") apply(entity_id, dynamic_cast<RotatePlate*>(node), reflect->GetMessage(properties, field));
 		else
@@ -1880,7 +1880,7 @@ void CMakerScene::onCmd_SelectAppend(const maker::CMD& cmd)
 
 		if (entity_helper->isSelected())
 		{
-			auto visual = dynamic_cast<AzVisual*>(node);
+			auto visual = dynamic_cast<AzVRP*>(node);
 			if (visual)
 			{
 				applyToTool(entity_id, visual);
@@ -3383,7 +3383,7 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, ProgressTimer* progress_timer,
 		}
 	}
 }
-void CMakerScene::apply(CEntityMgr::ID entity_id, AzVisual* visual, const ::google::protobuf::Message& msg)
+void CMakerScene::apply(CEntityMgr::ID entity_id, AzVRP* visual, const ::google::protobuf::Message& msg)
 {
 	if (!visual) return;
 
@@ -3429,6 +3429,13 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, AzVisual* visual, const ::goog
 						}
 					}
 				}
+
+                // 툴에서 visual을 생성했을 때 width, height가 100, 100으로 설정되어 있는 부분 0, 0으로 보정
+                if (path == "")
+                {
+                    visual->setContentSize(Size(0, 0));
+                    applyToTool_ContentSize(entity_id, visual);
+                }
 
 				visual->setFile(path);
 
@@ -3477,7 +3484,7 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, AzVisual* visual, const ::goog
 				}
 				else
 				{
-					visual->setVisual(0, 0);
+					visual->setVisual(0);
 				}
 
                 applyToTool(entity_id, visual);
@@ -3719,7 +3726,7 @@ void CMakerScene::applyToTool_Position(CEntityMgr::ID entity_id, cocos2d::Node* 
 	CCMDPipe::initApplytoTool(cmd, entity_id, "Node", "x", CCMDPipe::VAR(position.x));
 	CCMDPipe::initApplytoTool(cmd, entity_id, "Node", "y", CCMDPipe::VAR(position.y));
 
-	applyToTool_SocketNodeList(cmd, dynamic_cast<cocos2d::AzVisual*>(node));
+	applyToTool_SocketNodeList(cmd, dynamic_cast<cocos2d::AzVRP*>(node));
 
 	CCMDPipe::getInstance()->send(cmd);
 }
@@ -3745,7 +3752,7 @@ void CMakerScene::applyToTool_ContentSize(CEntityMgr::ID entity_id, cocos2d::Nod
         break;
     }
 
-	applyToTool_SocketNodeList(cmd, dynamic_cast<cocos2d::AzVisual*>(node));
+	applyToTool_SocketNodeList(cmd, dynamic_cast<cocos2d::AzVRP*>(node));
 
 	CCMDPipe::getInstance()->send(cmd);
 }
@@ -3771,7 +3778,7 @@ void CMakerScene::applyToTool_RelativeSize(CEntityMgr::ID entity_id, cocos2d::No
         break;
     }
 
-    applyToTool_SocketNodeList(cmd, dynamic_cast<cocos2d::AzVisual*>(node));
+    applyToTool_SocketNodeList(cmd, dynamic_cast<cocos2d::AzVRP*>(node));
 
     CCMDPipe::getInstance()->send(cmd);
 }
@@ -3787,7 +3794,7 @@ void CMakerScene::applyToTool_ViewSize(CEntityMgr::ID entity_id, cocos2d::extens
 
 	CCMDPipe::getInstance()->send(cmd);
 }
-void CMakerScene::applyToTool(CEntityMgr::ID entity_id, cocos2d::AzVisual* visual)
+void CMakerScene::applyToTool(CEntityMgr::ID entity_id, cocos2d::AzVRP* visual)
 {
 	if (!visual) return;
 
@@ -3837,7 +3844,7 @@ void CMakerScene::applyToTool(CEntityMgr::ID entity_id, cocos2d::AzVisual* visua
 
 	CCMDPipe::getInstance()->send(cmd);
 }
-void CMakerScene::applyToTool_SocketNodeList(maker::CMD& cmd, cocos2d::AzVisual* visual)
+void CMakerScene::applyToTool_SocketNodeList(maker::CMD& cmd, cocos2d::AzVRP* visual)
 {
 	if (!visual) return;
 

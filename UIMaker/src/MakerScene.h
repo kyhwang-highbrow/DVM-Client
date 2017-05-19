@@ -152,7 +152,7 @@ protected:
 	void apply(CEntityMgr::ID entity_id, cocos2d::extension::TableView* table_view, const ::google::protobuf::Message& msg, bool is_only_apply);
 	void apply(CEntityMgr::ID entity_id, cocos2d::extension::Scale9Sprite* scale9sprite, const ::google::protobuf::Message& msg);
 	void apply(CEntityMgr::ID entity_id, cocos2d::ProgressTimer* progress_timer, const ::google::protobuf::Message& msg);
-	void apply(CEntityMgr::ID entity_id, cocos2d::AzVisual* visual, const ::google::protobuf::Message& msg);
+    void apply(CEntityMgr::ID entity_id, cocos2d::AzVRP* visual, const ::google::protobuf::Message& msg);
 	void apply(CEntityMgr::ID entity_id, cocos2d::ParticleSystemQuad* particle, const ::google::protobuf::Message& msg);
     void apply(CEntityMgr::ID entity_id, cocos2d::RotatePlate* rotate_plate, const ::google::protobuf::Message& msg);
 
@@ -167,8 +167,8 @@ protected:
 	void applyToTool_ContentSize(CEntityMgr::ID entity_id, cocos2d::Node* node, int flag = 0);
     void applyToTool_RelativeSize(CEntityMgr::ID entity_id, cocos2d::Node* node, int flag = 0);
     void applyToTool_ViewSize(CEntityMgr::ID entity_id, cocos2d::extension::TableView* table_view);
-	void applyToTool(CEntityMgr::ID entity_id, cocos2d::AzVisual* visual);
-	void applyToTool_SocketNodeList(maker::CMD& cmd, cocos2d::AzVisual* visual);
+    void applyToTool(CEntityMgr::ID entity_id, cocos2d::AzVRP* visual);
+    void applyToTool_SocketNodeList(maker::CMD& cmd, cocos2d::AzVRP* visual);
 	void applyToTool_Label(CEntityMgr::ID entity_id, cocos2d::Label* label, const std::string& type_name);
     void applyToTool_LabelDimension(CEntityMgr::ID entity_id, cocos2d::Label* label);
     void applyToTool_RotatePlateRadius(CEntityMgr::ID entity_id, cocos2d::RotatePlate* plate);

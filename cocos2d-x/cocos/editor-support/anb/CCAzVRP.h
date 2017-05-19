@@ -12,6 +12,7 @@ class CC_DLL AzVRP : public Node
 public:
 	static AzVRP* create();
 	static AzVRP* create(const std::string& filename);
+    bool setFile(const std::string& filename);
 	static void removeCache(const std::string& filename);
 	static void removeCacheAll();
 	static void removeUnusedCache();
@@ -35,6 +36,7 @@ public:
 	virtual bool setVisual(int visual_index) = 0;
 
 	virtual std::string getVisualListLuaTable() = 0;
+    virtual void getVisualList(const std::string& bind_token, std::list<std::string>& visual_list) = 0;
 
 	inline void setFrame(float v) { _frame = v; }
 	virtual void setRepeat(bool v) = 0;
@@ -152,6 +154,7 @@ public:
 public:
 	virtual bool bindVRP(const std::string& socket_name, AzVRP* vrp) = 0;
 	virtual Node* getSocketNode(const std::string& socket_name) = 0;
+    virtual void getSocketNodeList(std::list<std::string>& socket_node_list) = 0;
 
 	struct Socket
 	{
