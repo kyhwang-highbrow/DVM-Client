@@ -1234,6 +1234,9 @@ void CEntityListView::OnLButtonUp(UINT nFlags, CPoint point)
 				CEntityMgr::TYPE_SELECTED_ENTITIES selected_entities;
 				CEntityMgr::getInstance()->getSelectedNearestChildren(selected_entities);
 
+                // drag로 eneity들을 move시켰을 때 순서가 뒤바뀌지 않도록 처리
+                selected_entities.reverse();
+
 				auto dest_parent_type = dest_parent->properties().type();
 				for (auto entity : selected_entities)
 				{
