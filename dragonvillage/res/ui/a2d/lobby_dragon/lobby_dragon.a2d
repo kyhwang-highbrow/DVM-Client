@@ -1,0 +1,479 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)lobby_dragon.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"dragon_fx",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'star'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-246.000000
+									},
+									{
+										"frame":30, "pX":-246.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'star'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":19, "sX":0.800000, "sY":0.800000, "pX":-246.000000, "hflip":"H", "vflip":"V"
+									},
+									{
+										"frame":49, "sX":0.800000, "sY":0.800000, "pX":-246.000000, "hflip":"H", "vflip":"V"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'star'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":37, "sX":1.100000, "sY":1.100000, "pX":-246.000000
+									},
+									{
+										"frame":58, "pX":-246.000000
+									},
+									{
+										"frame":67, "pX":-246.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":false,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"star",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":1, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":2, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":1, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":2, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":3, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":3, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":4, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":4, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":5, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":5, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":6, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_06.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":6, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":7, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_07.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":7, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":8, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_08.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":7, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":8, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":9, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_09.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":9, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":10, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":10, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":11, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_11.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":11, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":12, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_12.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":11, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":12, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":13, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_13.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":13, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_14.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":14, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":15, "pX":1.000000, "pY":-1.000000, "alpha":170, "mode":"Add"
+									},
+									{
+										"frame":16, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_15.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":14, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":16, "pX":1.000000, "pY":-1.000000, "mode":"Add"
+									},
+									{
+										"frame":17, "pX":1.000000, "pY":-1.000000, "alpha":170, "mode":"Add"
+									},
+									{
+										"frame":18, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_16.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":18, "pX":1.000000, "pY":-1.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":19, "pX":1.000000, "pY":-1.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":20, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_17.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":20, "pX":1.000000, "pY":-1.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":21, "pX":1.000000, "pY":-1.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":22, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_18.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":22, "pX":1.000000, "pY":-1.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":23, "pX":1.000000, "pY":-1.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":24, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_19.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":22, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":24, "pX":1.000000, "pY":-1.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":25, "pX":1.000000, "pY":-1.000000, "alpha":170, "mode":"Add"
+									},
+									{
+										"frame":26, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_dragon.plist'<azSprite>'lobby_dragon_fx_fx_star_20.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":1.000000, "pY":-1.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":27, "pX":1.000000, "pY":-1.000000, "alpha":102, "mode":"Add"
+									},
+									{
+										"frame":30, "pX":1.000000, "pY":-1.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}
