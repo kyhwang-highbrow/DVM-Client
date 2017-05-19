@@ -684,7 +684,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'EnhanceVisual';
-				file_name = 'ui/a2d/dragon_upgrade/dragon_upgrade.a2d';
+				file_name = 'ui/a2d/dragon_upgrade/dragon_upgrade.vrp';
 				auto_play = false;
 				is_repeat = false;
 				visual_id = 'group;slot_fx_01';

@@ -44,7 +44,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
+			file_name = 'ui/a2d/rarity_light/rarity_light.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;legend';

@@ -298,7 +298,7 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'waveVisual';
-			file_name = 'ui/a2d/ingame_wave_gauge/ingame_wave_gauge.a2d';
+			file_name = 'ui/a2d/ingame_wave_gauge/ingame_wave_gauge.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'wave;01';
@@ -451,7 +451,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'tamerSkillVisual';
-				file_name = 'ui/a2d/ingame_panel/ingame_panel.a2d';
+				file_name = 'ui/a2d/ingame_panel/ingame_panel.vrp';
 				auto_play = true;
 				is_repeat = true;
 				visual_id = 'group;tamer_skill';
@@ -627,7 +627,7 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'autoStartVisual';
-			file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
+			file_name = 'ui/a2d/ingame_btn/ingame_btn.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;ingame_btn_idle';
@@ -684,7 +684,7 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'autoVisual';
-			file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
+			file_name = 'ui/a2d/ingame_btn/ingame_btn.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;ingame_btn_idle';
@@ -741,7 +741,7 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'speedVisual';
-			file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
+			file_name = 'ui/a2d/ingame_btn/ingame_btn.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;ingame_btn_idle';

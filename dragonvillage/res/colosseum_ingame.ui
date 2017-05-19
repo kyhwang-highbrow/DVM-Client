@@ -254,7 +254,7 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'autoVisual';
-			file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
+			file_name = 'ui/a2d/ingame_btn/ingame_btn.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;ingame_btn_idle';
@@ -283,7 +283,7 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'speedVisual';
-			file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
+			file_name = 'ui/a2d/ingame_btn/ingame_btn.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;ingame_btn_idle';

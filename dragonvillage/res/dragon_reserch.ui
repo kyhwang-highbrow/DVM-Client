@@ -75,7 +75,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'decoVisual';
-				file_name = 'ui/a2d/dragon_reserch/dragon_reserch.a2d';
+				file_name = 'ui/a2d/dragon_reserch/dragon_reserch.vrp';
 				auto_play = true;
 				is_repeat = true;
 				visual_id = 'group;10';
@@ -1107,7 +1107,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchVisual';
-					file_name = 'ui/a2d/dragon_reserch/dragon_reserch.a2d';
+					file_name = 'ui/a2d/dragon_reserch/dragon_reserch.vrp';
 					auto_play = true;
 					is_repeat = false;
 					visual_id = 'group;reserch_light_01';

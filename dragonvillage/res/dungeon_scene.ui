@@ -21,7 +21,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'bg/ui/nest_bg/nest_bg.a2d';
+			file_name = 'bg/ui/nest_bg/nest_bg.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;idle';

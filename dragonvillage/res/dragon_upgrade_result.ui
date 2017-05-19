@@ -158,7 +158,7 @@
 				action_delay_2 = 0.000000;
 				action_duration = 0.500000;
 				lua_name = '';
-				file_name = 'ui/a2d/dragon_result/dragon_result.a2d';
+				file_name = 'ui/a2d/dragon_result/dragon_result.vrp';
 				auto_play = true;
 				is_repeat = true;
 				visual_id = 'group;flare_idle';
@@ -823,7 +823,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'starVisual';
-				file_name = 'ui/a2d/star/star.a2d';
+				file_name = 'ui/a2d/star/star.vrp';
 				auto_play = true;
 				is_repeat = false;
 				visual_id = 'group;result6';
