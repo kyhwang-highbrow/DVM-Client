@@ -86,6 +86,7 @@ UI_AncientTowerListBottomItem = class(PARENT, {})
         local vars = self:load('tower_scene_item.ui')
 
         vars['floorLabel']:setVisible(false)
+        vars['floorBtn']:getParent():setSwallowTouch(false)
         vars['towerVisual']:changeAni('bottom', true)
     
         self.m_cellSize = cc.size(500, 150)
@@ -103,6 +104,7 @@ UI_AncientTowerListTopItem = class(PARENT, {})
         local vars = self:load('tower_scene_item.ui')
 
         vars['floorLabel']:setVisible(false)
+        vars['floorBtn']:getParent():setSwallowTouch(false)
         vars['towerVisual']:changeAni('top', true)
     
         self.m_cellSize = cc.size(500, 300)

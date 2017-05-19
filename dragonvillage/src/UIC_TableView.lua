@@ -644,6 +644,29 @@ function UIC_TableView:makeAllItemUI()
 end
 
 -------------------------------------
+-- function makeAllItemUINoAction
+-- @brief
+-------------------------------------
+function UIC_TableView:makeAllItemUINoAction()
+    for i,item in ipairs(self.m_itemList) do
+        if (not item['ui']) then
+            item['ui'] = self:makeItemUI(item['data'])
+            
+            -- 생성 예약 리스트에서 삭제
+            for i, v in ipairs(self.m_makeReserveQueue) do
+                if (item == v) then
+                    table.remove(self.m_makeReserveQueue, i)
+                    break
+                end
+            end
+        end
+    end
+
+    self:_updateCellPositions()
+    self:_updateContentSize()
+end
+
+-------------------------------------
 -- function getCellUI
 -- @brief
 -------------------------------------
@@ -716,6 +739,32 @@ function UIC_TableView:relocateContainerDefault(animated)
             self.m_scrollView:setContentOffset(cc.p(0, min_offset_y), animated)
         else
             self.m_scrollView:setContentOffset(cc.p(0, 0), animated)
+        end
+    end
+end
+
+-------------------------------------
+-- function relocateContainerFromIndex
+-- @brief 세로 모드의 BOTTOM_UP형태만 구현함
+-------------------------------------
+function UIC_TableView:relocateContainerFromIndex(idx, animated)
+    -- 가로
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+        
+    -- 세로
+    else
+        if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+            
+        else
+            local scr_size = cc.Director:getInstance():getWinSize()
+            local offset = self:_offsetFromIndex(idx)
+            local min_offset_x, min_offset_y = self:minContainerOffset()
+
+            local offset_y = -(offset['y'] - (scr_size['height'] / 2))
+            offset_y = math_max(offset_y, min_offset_y)
+            offset_y = math_min(offset_y, 0)
+
+            self.m_scrollView:setContentOffset(cc.p(0, offset_y), animated)
         end
     end
 end

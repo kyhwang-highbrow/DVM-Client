@@ -29,8 +29,7 @@ function UI_AncientTowerScene:init()
     
     self.m_challengingFloor = challengingFloor
     self.m_selectedStageID = challengingStageID
-    --self.m_selectedStageID = 1401100
-	
+    	
     self:initUI()
     self:initTab()
     self:initButton()
@@ -61,7 +60,7 @@ function UI_AncientTowerScene:initUI()
         node:removeAllChildren()
 
 		-- 층 생성
-		local t_floor = g_ancientTowerData:getAcientTower_stageList()
+		local t_floor = clone(g_ancientTowerData:getAcientTower_stageList())
         table.insert(t_floor, { stage = ANCIENT_TOWER_STAGE_ID_START, is_bottom = true })
         table.insert(t_floor, { stage = g_ancientTowerData:getTopStageID() + 1, is_top = true })
 
@@ -107,16 +106,12 @@ function UI_AncientTowerScene:initUI()
             return a['data']['stage'] < b['data']['stage']
         end
         table.sort(self.m_tableView.m_itemList, sort_func)
-        self.m_tableView:makeAllItemUI()
         
-        -- 현재 진행중인 층이 보이도록 임시 처리...
-        local floor = g_ancientTowerData:getFloorFromStageID(self.m_selectedStageID)
-        
-        local scr_size = cc.Director:getInstance():getWinSize()
-        local offset = self.m_tableView:_offsetFromIndex(floor)
-        local offset_y = 150 * floor - (scr_size['height'] / 2)
+        self.m_tableView:makeAllItemUINoAction()
                 
-        self.m_tableView.m_scrollView:setContentOffset(cc.p(0, -offset_y), true)
+        -- 현재 도전중인 층이 바로 보이도록 처리
+        local floor = g_ancientTowerData:getFloorFromStageID(self.m_selectedStageID)
+        self.m_tableView:relocateContainerFromIndex(floor + 1)
     end
     
     do -- 도전 횟수
