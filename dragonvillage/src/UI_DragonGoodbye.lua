@@ -93,7 +93,7 @@ function UI_DragonGoodbye:refresh_lactea()
     local lactea = g_userData:get('lactea')
 
     self.m_addLactea = 0
-    vars['lacreaLabel2']:setString(Str('+{1}', comma_value(self.m_addLactea)))
+    vars['lacreaLabel']:setString(Str('+{1}', comma_value(self.m_addLactea)))
     vars['selectLabel']:setString(Str('{1} / {2}', 0, MAX_DRAGON_GOODBYE_MATERIAL_MAX))
 end
 
@@ -417,7 +417,7 @@ function UI_DragonGoodbye:onChangeSelectedDragons(doid)
     end
 
     local vars = self.vars
-    vars['lacreaLabel2']:setString(Str('+{1}', comma_value(self.m_addLactea)))
+    vars['lacreaLabel']:setString(Str('+{1}', comma_value(self.m_addLactea)))
     local selected_dragon_cnt = table.count(self.m_selectedMaterialMap)
     vars['selectLabel']:setString(Str('{1} / {2}', selected_dragon_cnt, MAX_DRAGON_GOODBYE_MATERIAL_MAX))
 end
