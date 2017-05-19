@@ -36,6 +36,8 @@ function UI_AncientTowerScene:init()
     self:refresh()
 
     self:sceneFadeInAction()
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -93,14 +95,12 @@ function UI_AncientTowerScene:initUI()
         end
 		
         -- 테이블 뷰 인스턴스 생성
-        local table_view = UIC_TableView(node)
-        table_view.m_bUseEachSize = true
-        table_view._vordering = VerticalFillOrder['BOTTOM_UP']
-        table_view:setCellUIClass(make_func, create_func)
-        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList(t_floor)
-
-        self.m_tableView = table_view
+        self.m_tableView = UIC_TableView(node)
+        self.m_tableView.m_bUseEachSize = true
+        self.m_tableView._vordering = VerticalFillOrder['BOTTOM_UP']
+        self.m_tableView:setCellUIClass(make_func, create_func)
+        self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        self.m_tableView:setItemList(t_floor)
 
         local function sort_func(a, b)
             return a['data']['stage'] < b['data']['stage']
@@ -147,6 +147,29 @@ function UI_AncientTowerScene:initButton()
 
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
     vars['sweepBtn']:registerScriptTapHandler(function() self:click_sweepBtn() end)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_AncientTowerScene:update(dt)
+    local vars = self.vars
+
+    -- 고대의탑 테이블뷰 offset에 맞춰서 배경도 같이 스크롤 시킴
+
+    -- 테이블뷰의 현재 스크롤 비율을 계산
+    local _, min_offset = self.m_tableView:minContainerOffset()
+    local _, max_offset = self.m_tableView:maxContainerOffset()
+    local tower_offset = self.m_tableView.m_scrollView:getContentOffset()
+    local scroll_rate = (tower_offset['y'] - min_offset) / (max_offset - min_offset)
+
+    -- 배경 스크롤 좌표를 계산(화면 크기 고려)
+    local bg_size = vars['bgSprite']:getContentSize()
+    local scr_size = cc.Director:getInstance():getWinSize()
+    local bg_scope = bg_size['height'] - scr_size['height']
+    local bg_scroll_y = bg_scope * scroll_rate - (bg_scope / 2)
+
+    vars['bgSprite']:setPosition(0, bg_scroll_y)
 end
 
 -------------------------------------
