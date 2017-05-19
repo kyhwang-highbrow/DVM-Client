@@ -2103,6 +2103,10 @@ void CUIMakerDlg::OnClose()
 	CCMDPipe::destroyInstance();
 	CEntityMgr::destroyInstance();
 
+    // 프로그램이 종료될 때 PropTreeItem의 OnKillfocus함수가 호출되면서 발생하는 크래시를 방지하기 위해
+    // 미리 모든 PropTreeItem을 삭제
+    this->m_properties.DeleteAllItems();
+
 	CDialogEx::OnOK();
 }
 void CUIMakerDlg::onToggleDisplayStats()
