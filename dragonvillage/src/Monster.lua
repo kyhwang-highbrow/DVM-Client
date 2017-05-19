@@ -241,8 +241,7 @@ function Monster:setDead()
 
 	-- regen된 몹이라면 waveMgr에 알려준다.
 	if (self.m_regenInfo) then
-		local idx = self.m_regenInfo['idx']
-		self.m_world.m_waveMgr:setRegenDead(idx)
+		self.m_world.m_waveMgr:setRegenDead(self.m_regenInfo)
 	end
 end
 

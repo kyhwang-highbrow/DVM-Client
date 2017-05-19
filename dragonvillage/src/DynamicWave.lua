@@ -20,7 +20,7 @@ DynamicWave = class({
         m_enemyLevel = '',
         m_hasItem = 'boolean',
 
-		m_regenWaveInfo = 'table',
+		m_regenInfo = 'table',
     })
 
 -------------------------------------
@@ -29,7 +29,7 @@ DynamicWave = class({
 function DynamicWave:init(wave_mgr, data, delay)
     self.m_waveMgr = wave_mgr
     self.m_dynamicTimer = -1
-	self.m_regenWaveInfo = nil
+	self.m_regenInfo = nil
     self.m_hasItem = false
 
     
@@ -69,10 +69,10 @@ function DynamicWave:init(wave_mgr, data, delay)
 end
 
 -------------------------------------
--- function setRegenWaveInfo
+-- function setRegenInfo
 -------------------------------------
-function DynamicWave:setRegenWaveInfo(table)
-	self.m_regenWaveInfo = table
+function DynamicWave:setRegenInfo(table)
+	self.m_regenInfo = table
 end
 
 -------------------------------------
@@ -103,9 +103,9 @@ function DynamicWave:update(dt)
             )
 
 		-- regen 정보가 있다면 (regen된 몬스터라면)
-		if (self.m_regenWaveInfo) then
+		if (self.m_regenInfo) then
 			-- 리젠 정보를 저장
-			monster:setRegenInfo(self.m_regenWaveInfo)
+			monster:setRegenInfo(self.m_regenInfo)
 			-- 강제로 패시브 동작
 			monster:doSkill_passive()
             -- HP 즉시 표시

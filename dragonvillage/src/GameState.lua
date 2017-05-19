@@ -211,15 +211,9 @@ end
 function GameState.update_fight(self, dt)
     local world = self.m_world
 
-    -- 해당 웨이브의 모든 적이 등장한 상태일 경우
-    if (world.m_waveMgr:isEmptyDynamicWaveList()) then
-        -- 클리어 여부 체크
-        if (not self:checkWaveClear()) then
-            -- regen wave가 있다면 전용 update 돌림
-		    if (world.m_waveMgr:hasRegenWave()) then
-			    world.m_waveMgr:update_regen(dt)
-		    end
-        end
+    -- 클리어 여부 체크
+    if (not self:checkWaveClear()) then
+        world.m_waveMgr:update(dt)
     end
     
     if world.m_skillIndicatorMgr then
