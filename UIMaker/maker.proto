@@ -1,0 +1,603 @@
+package maker;
+
+enum DOCK_POINT {
+	DOCK__BOTTOM_LEFT = 0;
+	DOCK__BOTTOM_CENTER = 1;
+	DOCK__BOTTOM_RIGHT = 2;
+	DOCK__MIDDLE_LEFT = 3;
+	DOCK__MIDDLE_CENTER = 4;
+	DOCK__MIDDLE_RIGHT = 5;
+	DOCK__TOP_LEFT = 6;
+	DOCK__TOP_CENTER = 7;
+	DOCK__TOP_RIGHT = 8;
+}
+
+enum ANCHOR_POINT {
+	ANCHOR__BOTTOM_LEFT = 0;
+	ANCHOR__BOTTOM_CENTER = 1;
+	ANCHOR__BOTTOM_RIGHT = 2;
+	ANCHOR__MIDDLE_LEFT = 3;
+	ANCHOR__MIDDLE_CENTER = 4;
+	ANCHOR__MIDDLE_RIGHT = 5;
+	ANCHOR__TOP_LEFT = 6;
+	ANCHOR__TOP_CENTER = 7;
+	ANCHOR__TOP_RIGHT = 8;
+}
+
+enum BLEND_FUNCTION {
+	BLEND__GL_ZERO = 0;
+	BLEND__GL_ONE = 1;
+	BLEND__GL_SRC_COLOR = 0x0300;
+	BLEND__GL_DST_COLOR = 0x0306;
+	BLEND__GL_ONE_MINUS_SRC_COLOR = 0x0301;
+	BLEND__GL_ONE_MINUS_DST_COLOR = 0x0307;
+	BLEND__GL_SRC_ALPHA = 0x0302;
+	BLEND__GL_DST_ALPHA = 0x0304;
+	BLEND__GL_ONE_MINUS_SRC_ALPHA = 0x0303;
+	BLEND__GL_ONE_MINUS_DST_ALPHA = 0x0305;
+	BLEND__GL_SRC_ALPHA_SATURATE = 0x0308;
+}
+
+enum TEXT_ALIGNMENT_H {
+	TEXT_ALIGN_H__LEFT = 0;
+	TEXT_ALIGN_H__CENTER = 1;
+	TEXT_ALIGN_H__RIGHT = 2;
+}
+
+enum TEXT_ALIGNMENT_V {
+	TEXT_ALIGN_V__TOP = 0;
+	TEXT_ALIGN_V__CENTER = 1;
+	TEXT_ALIGN_V__BOTTOM = 2;
+}
+
+enum FILL_TYPE {
+	FILL__STRETCH = 0;
+	FILL__REPEAT = 1;
+}
+
+enum PROGRESS_TYPE {
+	PROGRESS__RADIAL_CW = 0;
+	PROGRESS__RADIAL_CCW = 1;
+	PROGRESS__TOP_TO_BOTTOM = 2;
+	PROGRESS__BOTTOM_TO_TOP = 3;
+	PROGRESS__LEFT_TO_RIGHT = 4;
+	PROGRESS__RIGHT_TO_LEFT = 5;
+}
+
+enum SCROLL_TYPE {
+	SCROLL__NONE = 0;
+	SCROLL__VERTICAL = 1;
+	SCROLL__HORIZONTAL = 2;
+	SCROLL__BOTH = 3;
+}
+
+enum PICK_PART {
+	PICK_PART__NONE = 0;
+	PICK_PART__CENTER = 1;
+	PICK_PART__TOP = 2;
+	PICK_PART__BOTTOM = 3;
+	PICK_PART__LEFT = 4;
+	PICK_PART__RIGHT = 5;
+	PICK_PART__LEFT_BOTTOM = 6;
+	PICK_PART__LEFT_TOP = 7;
+	PICK_PART__RIGHT_BOTTOM = 8;
+	PICK_PART__RIGHT_TOP = 9;
+
+	PICK_PART__SELECT_BOX = 10;
+	PICK_PART__SCROLL = 11;
+}
+
+enum STROKE_TYPE {
+    STROKE_TYPE__NORMAL = 0;
+    STROKE_TYPE__CUSTOM = 1;
+}
+
+enum SHADOW_DIRECTION {
+  SHADOW_DIR_90 = 0;
+  SHADOW_DIR_135 = 1;
+  SHADOW_DIR_45 = 2;
+};
+
+enum BUTTON_IMAGE_TYPE {
+    BUTTON_IMAGE_TYPE__SPRITE = 0;
+    BUTTON_IMAGE_TYPE__SCALE9SPRITE = 1;
+}
+
+enum EDITBOX_INPUT_MODE {
+    EDITBOX_INPUT_MODE__ANY = 0;
+    EDITBOX_INPUT_MODE__EMAIL_ADDRESS = 1;
+    EDITBOX_INPUT_MODE__NUMERIC = 2;
+    EDITBOX_INPUT_MODE__PHONE_NUMBER = 3;
+    EDITBOX_INPUT_MODE__URL = 4;
+    EDITBOX_INPUT_MODE__DECIMAL = 5;
+    EDITBOX_INPUT_MODE__SINGLE_LINE = 6;
+}
+
+enum EDITBOX_INPUT_FLAG {
+    EDITBOX_INPUT_FLAG__PASSWORD = 0;
+    EDITBOX_INPUT_FLAG__SENSITIVE = 1;
+    EDITBOX_INPUT_FLAG__INITIAL_CAPS_WORD = 2;
+    EDITBOX_INPUT_FLAG__INITIAL_CAPS_SENTENCE = 3;
+    EDITBOX_INPUT_FLAG__INTIAL_CAPS_ALL_CHARACTERS = 4;
+}
+
+enum EDITBOX_RETURN_TYPE {
+    EDITBOX_RETURN_TYPE__DEFAULT = 0;
+    EDITBOX_RETURN_TYPE__DONE = 1;
+    EDITBOX_RETURN_TYPE__SEND = 2;
+    EDITBOX_RETURN_TYPE__SEARCH = 3;
+    EDITBOX_RETURN_TYPE__GO = 4;
+}
+
+enum NODE_ACTION_TYPE {
+    NODE_ACTION_TYPE__NONE = 0;
+    NODE_ACTION_TYPE__LEFT = 1;
+    NODE_ACTION_TYPE__RIGHT = 2;
+    NODE_ACTION_TYPE__TOP = 3;
+    NODE_ACTION_TYPE__BOTTOM = 4;
+    NODE_ACTION_TYPE__SCALE = 5;
+    NODE_ACTION_TYPE__OPACITY = 6;
+    NODE_ACTION_TYPE__OPACITY_R = 7;
+    NODE_ACTION_TYPE__CUSTOM_1 = 8;
+    NODE_ACTION_TYPE__CUSTOM_2 = 9;
+    NODE_ACTION_TYPE__CUSTOM_3 = 10;
+}
+
+enum ROTATE_PLATE_ORIGIN_DIR {
+    ROTATE_PLATE_ORIGIN_DIR__DOWN = 0;
+    ROTATE_PLATE_ORIGIN_DIR__UP = 1;
+    ROTATE_PLATE_ORIGIN_DIR__LEFT = 2;
+    ROTATE_PLATE_ORIGIN_DIR__RIGHT = 3;
+}
+
+enum RELATIVE_SIZE_TYPE {
+    RELATIVE_SIZE_TYPE__NONE = 0;
+    RELATIVE_SIZE_TYPE__VERTICAL = 1;
+    RELATIVE_SIZE_TYPE__HORIZONTAL = 2;
+    RELATIVE_SIZE_TYPE__BOTH = 3;
+	RELATIVE_SIZE_TYPE__ROOT = 4;
+}
+
+enum STENCIL_TYPE {
+	SQUARE = 0;
+	CUSTOM = 1;
+}
+
+message COLOR {
+	required int32 r = 1 [default = 255];
+	required int32 g = 2 [default = 255];
+	required int32 b = 3 [default = 255];
+}
+
+message FILE {
+	required string path = 1 [default = ""];
+}
+
+message FILE_IMAGE {
+	required string path = 1 [default = ""];
+}
+
+message FILE_SOUND {
+	required string path = 1 [default = ""];
+}
+
+message FILE_BMFONT {
+	required string path = 1 [default = ""];
+}
+
+message FILE_TTF {
+	required string path = 1 [default = ""];
+}
+
+message FILE_VISUAL {
+	required string path = 1 [default = ""];
+}
+
+message FILE_PLIST {
+	required string path = 1 [default = ""];
+}
+
+message NAME_VISUAL_GROUP {
+	required string name = 1 [default = ""];
+}
+
+message NAME_VISUAL {
+	required string name = 1 [default = ""];
+}
+
+message Node {
+	optional string ui_name = 1 [default = ""];
+
+	optional float x = 2 [default = 0.0];
+	optional float y = 3 [default = 0.0];
+
+	optional DOCK_POINT dock_point = 4 [default = DOCK__MIDDLE_CENTER];
+	optional ANCHOR_POINT anchor_point = 5 [default = ANCHOR__MIDDLE_CENTER];
+
+    optional RELATIVE_SIZE_TYPE relative_size_type = 6 [default = RELATIVE_SIZE_TYPE__NONE];
+
+    optional int32 rel_width = 7 [default = 0];
+    optional int32 rel_height = 8 [default = 0];
+
+	optional int32 width = 9 [default = 100];
+	optional int32 height = 10 [default = 100];
+
+	optional float scale_x = 11 [default = 1.0];
+	optional float scale_y = 12 [default = 1.0];
+	optional float skew_x = 13 [default = 0.0];
+	optional float skew_y = 14 [default = 0.0];
+	optional float rotation = 15 [default = 0.0];
+
+	optional bool visible = 16 [default = true];
+
+    optional NODE_ACTION_TYPE action_type = 17 [default = NODE_ACTION_TYPE__NONE];
+    optional float action_delay_1 = 18 [default = 0];
+    optional float action_delay_2 = 19 [default = 0];
+    optional float action_duration = 20 [default = 0];
+
+    optional string lua_name = 21 [default = ""];
+}
+
+message ClippingNode {
+	optional STENCIL_TYPE stencil_type = 1 [default = SQUARE];
+	optional FILE_IMAGE stencil_img = 2;
+	optional float alpha_threshold = 3 [default = 1.0];
+    optional bool is_invert = 4 [default = false];
+}
+
+message LayerColor {
+	optional COLOR color = 1;
+	optional int32 opacity = 2 [default = 255];
+	optional BLEND_FUNCTION src_blend = 3 [default = BLEND__GL_SRC_ALPHA];
+	optional BLEND_FUNCTION dest_blend = 4 [default = BLEND__GL_ONE_MINUS_SRC_ALPHA];
+}
+
+message LayerGradient {
+	optional COLOR color = 1;
+	optional int32 opacity = 2 [default = 255];
+	optional BLEND_FUNCTION src_blend = 3 [default = BLEND__GL_SRC_ALPHA];
+	optional BLEND_FUNCTION dest_blend = 4 [default = BLEND__GL_ONE_MINUS_SRC_ALPHA];
+
+	optional COLOR start_color = 5;
+	optional COLOR end_color = 6;
+	optional int32 start_opacity = 7 [default = 255];
+	optional int32 end_opacity = 8 [default = 255];
+	optional float angle = 9 [default = 0.0];
+}
+
+message LabelSystemFont {
+	optional string font_name = 1 [default = "Helvetica"];
+	optional int32 font_size = 2 [default = 10];
+	optional string text = 3 [default = "New Label System Font"];
+	optional TEXT_ALIGNMENT_H h_alignment = 4 [default = TEXT_ALIGN_H__CENTER];
+	optional TEXT_ALIGNMENT_V v_alignment = 5 [default = TEXT_ALIGN_V__CENTER];
+	optional COLOR color = 6;
+	optional int32 opacity = 7 [default = 255];
+	optional int32 dimension_width = 8 [default = 0];
+	optional int32 dimension_height = 9 [default = 0];
+}
+
+message LabelTTF {
+	optional FILE_TTF font_name = 1;
+	optional int32 font_size = 2 [default = 10];
+	optional string text = 3 [default = "New Label TTF"];
+	optional TEXT_ALIGNMENT_H h_alignment = 4 [default = TEXT_ALIGN_H__CENTER];
+	optional TEXT_ALIGNMENT_V v_alignment = 5 [default = TEXT_ALIGN_V__CENTER];
+	optional COLOR color = 6;
+	optional int32 opacity = 7 [default = 255];
+	optional int32 dimension_width = 8 [default = 0];
+	optional int32 dimension_height = 9 [default = 0];
+	optional float letter_spacing = 10 [default = 0.0];
+
+	optional bool has_stroke = 21 [default = false];
+	optional STROKE_TYPE stroke_type = 22 [default = STROKE_TYPE__NORMAL];
+	optional int32 stroke_detail_level = 23 [default = 0];
+	optional bool is_sharp_text = 24 [default = true];
+	optional float stroke_tickness = 25 [default = 1.0];
+	optional COLOR stroke_color = 26;
+
+	optional bool has_shadow = 31 [default = false];
+	optional .maker.COLOR shadow_color = 32;
+	optional int32 shadow_opacity = 33 [default = 255];
+	optional .maker.SHADOW_DIRECTION shadow_direction = 34 [default = SHADOW_DIR_90];
+	optional float shadow_distance = 35 [default = 5];
+	//optional float shadow_blur = 36 [default = 0];
+}
+
+message LabelBMFont {
+	optional FILE_BMFONT font_name = 1;
+	optional int32 font_size = 2 [default = 10];
+	optional string text = 3 [default = "New Label BMFont"];
+	optional TEXT_ALIGNMENT_H h_alignment = 4 [default = TEXT_ALIGN_H__CENTER];
+	optional TEXT_ALIGNMENT_V v_alignment = 5 [default = TEXT_ALIGN_V__CENTER];
+	optional COLOR color = 6;
+	optional int32 opacity = 7 [default = 255];
+	optional int32 dimension_width = 8 [default = 0];
+	optional int32 dimension_height = 9 [default = 0];
+}
+
+message TextFieldTTF {
+	optional FILE_TTF font_name = 1;
+	optional int32 font_size = 2 [default = 10];
+	optional string text = 3 [default = "New TextField"];
+	optional TEXT_ALIGNMENT_H h_alignment = 4 [default = TEXT_ALIGN_H__CENTER];
+	optional TEXT_ALIGNMENT_V v_alignment = 5 [default = TEXT_ALIGN_V__CENTER];
+	optional COLOR color = 6;
+	optional int32 opacity = 7 [default = 255];
+	optional int32 dimension_width = 8 [default = 0];
+	optional int32 dimension_height = 9 [default = 0];
+
+	optional bool has_stroke = 10 [default = false];
+	optional float stroke_tickness = 11 [default = 1.0];
+	optional COLOR stroke_color = 12;
+}
+
+message EditBox {
+    optional bool enable = 1 [default = false];
+    optional EDITBOX_INPUT_MODE input_mode = 2 [default = EDITBOX_INPUT_MODE__SINGLE_LINE];
+    optional EDITBOX_INPUT_FLAG input_flag = 3 [default = EDITBOX_INPUT_FLAG__INTIAL_CAPS_ALL_CHARACTERS];
+    optional EDITBOX_RETURN_TYPE return_type = 4 [default = EDITBOX_RETURN_TYPE__DEFAULT];
+    optional int32 max_length = 5 [default = 0];
+    optional string text = 6 [default = ""];
+    optional string font_name = 7 [default = "Helvetica"];
+    optional int32 font_size = 8 [default = 20];
+    optional COLOR font_color = 9;
+    optional string placeholder = 10 [default = "텍스트를 입력하세요."];
+    optional string placeholder_font_name = 11 [default = "Helvetica"];
+    optional int32 placeholder_font_size = 12 [default = 20];
+    optional COLOR placeholder_font_color = 13;
+    optional FILE_IMAGE normal_bg = 14;
+    optional FILE_IMAGE pressed_bg = 15;
+    optional FILE_IMAGE disabled_bg = 16;
+}
+
+message Button {
+	optional bool enable = 1 [default = true];
+	optional FILE_IMAGE normal = 2;
+	optional FILE_IMAGE selected = 3;
+	optional FILE_IMAGE disable = 4;
+	optional BUTTON_IMAGE_TYPE image_type = 5 [default = BUTTON_IMAGE_TYPE__SPRITE];
+}
+
+message Sprite {
+	optional FILE_IMAGE file_name = 1;
+	optional COLOR color = 2;
+	optional int32 opacity = 3 [default = 255];
+	optional bool flip_x = 4 [default = false];
+	optional bool flip_y = 5 [default = false];
+	optional BLEND_FUNCTION src_blend = 6 [default = BLEND__GL_SRC_ALPHA];
+	optional BLEND_FUNCTION dest_blend = 7 [default = BLEND__GL_ONE_MINUS_SRC_ALPHA];
+}
+
+message Scale9Sprite {
+	optional FILE_IMAGE file_name = 1;
+	optional COLOR color = 2;
+	optional int32 opacity = 3 [default = 255];
+	optional int32 center_rect_x = 4 [default = 0];
+	optional int32 center_rect_y = 5 [default = 0];
+	optional int32 center_rect_width = 6 [default = 0];
+	optional int32 center_rect_height = 7 [default = 0];
+//	optional BLEND_FUNCTION src_blend = 8 [default = BLEND__GL_SRC_ALPHA];
+//	optional BLEND_FUNCTION dest_blend = 9 [default = BLEND__GL_ONE_MINUS_SRC_ALPHA];
+}
+
+message TableView {
+	optional SCROLL_TYPE scroll = 1 [default = SCROLL__BOTH];
+	optional bool bounce = 2 [default = true];
+	optional int32 view_width = 3 [default = 200];
+	optional int32 view_height = 4 [default = 200];
+	optional int32 cell_width = 5 [default = 60];
+	optional int32 cell_height = 6 [default = 60];
+//	optional int32 inner_width = 7 [default = 0];
+//	optional int32 inner_height = 8 [default = 0];
+}
+
+message ProgressTimer {
+	optional FILE_IMAGE file_name = 1;
+	optional COLOR color = 2;
+	optional int32 opacity = 3 [default = 255];
+	optional bool flip_x = 4 [default = false];
+	optional bool flip_y = 5 [default = false];
+	optional BLEND_FUNCTION src_blend = 6 [default = BLEND__GL_SRC_ALPHA];
+	optional BLEND_FUNCTION dest_blend = 7 [default = BLEND__GL_ONE_MINUS_SRC_ALPHA];
+
+	optional PROGRESS_TYPE progress_type = 8 [default = PROGRESS__RADIAL_CW];
+	optional float mid_point_x = 9 [default = 0.5];
+	optional float mid_point_y = 10 [default = 0.5];
+	optional int32 percentage = 11 [default = 75];
+}
+
+message Visual {
+	optional FILE_VISUAL file_name = 1;
+	optional bool auto_play = 2 [default = true];
+	optional bool is_repeat = 3 [default = true];
+	optional NAME_VISUAL visual_id = 4;
+//	optional string visual_group = 4 [default = ''];
+//	optional string visual = 5 [default = ''];
+	optional COLOR color = 6;
+	optional int32 opacity = 7 [default = 255];
+}
+
+message SocketNode {
+	optional string socket_name = 1;
+}
+
+message Particle {
+	optional FILE_PLIST file_name = 1;
+}
+
+message RotatePlate {
+    optional float radius_x = 1 [default = 100];
+    optional float radius_y = 2 [default = 50];
+    optional float min_scale = 3 [default = 0.5];
+    optional float max_scale = 4 [default = 1.0];
+    optional ROTATE_PLATE_ORIGIN_DIR origin_dir = 5 [default = ROTATE_PLATE_ORIGIN_DIR__DOWN];
+}
+
+enum ENTITY_TYPE {
+	ENTITY__Node = 10;
+	ENTITY__ClippingNode = 11;
+
+	ENTITY__LayerColor = 13;
+	ENTITY__LayerGradient = 14;
+
+	ENTITY__LabelSystemFont = 16;
+	ENTITY__LabelTTF = 17;
+//	ENTITY__LabelBMFont = 18;
+	ENTITY__TextFieldTTF = 18;
+
+    ENTITY__EditBox = 20;
+    ENTITY__TableView = 21;
+    ENTITY__RotatePlate = 22;
+
+	ENTITY__Menu = 24;
+	ENTITY__Button = 25;
+
+	ENTITY__Sprite = 27;
+	ENTITY__Scale9Sprite = 28;
+	ENTITY__ProgressTimer = 29;
+
+	ENTITY__Visual = 31;
+	ENTITY__Particle = 32;
+
+	ENTITY__NoNeedNode = 200;
+	ENTITY__SocketNode = 201;
+}
+
+message Properties {
+	required ENTITY_TYPE type = 1 [default = ENTITY__Node];
+
+	optional Node node = 10;
+	optional LayerColor layer_color = 11;
+	optional LayerGradient layer_gradient = 12;
+	optional LabelSystemFont label_syatem_font = 13;
+	optional LabelTTF label_ttf = 14;
+//	optional LabelBMFont label_bmfont = 15;
+	optional TextFieldTTF text_field_ttf = 15;
+    optional EditBox edit_box = 16;
+    optional TableView table_view = 17;
+    optional RotatePlate rotate_plate = 18;
+	optional Button button = 19;
+	optional Sprite sprite = 20;
+	optional Scale9Sprite scale_9_sprite = 21;
+	optional ProgressTimer progress_timer = 22;
+	optional Visual visual = 23;
+	optional Particle particle = 24;
+	optional ClippingNode clipping_node = 25;
+
+	optional SocketNode socket_node = 100;
+}
+
+message Entity {
+	required uint64 id = 1 [default = 0];
+	required bool expand = 2 [default = true];
+	optional bool selected = 3 [default = false];
+	optional bool parent_selected = 4 [default = false];
+
+	optional uint64 parent_id = 6 [default = 0];
+	required uint64 prev_id = 7 [default = 0];
+	optional uint64 dest_id = 8 [default = 0];
+	optional uint64 dest_parent_id = 9 [default = 0];
+	
+	optional bool lua_name_duplicated = 10 [default = false];
+	
+	optional Properties properties = 20;
+
+	repeated Entity children = 30;
+}
+
+enum CMD_TYPE {
+	CMD__Create = 1;
+	CMD__Remove = 2;
+	CMD__Modify = 3;
+	CMD__Move = 4;
+	CMD__Copy = 5;
+	CMD__Cut = 6;
+	CMD__Paste = 7;
+
+	CMD__SelectOne = 10;
+	CMD__SelectAppend = 11;
+	CMD__SelectBoxAppend = 12;
+
+	CMD__SizeToContent = 13;
+
+	CMD__Undo = 20;
+	CMD__Redo = 21;
+	CMD__History = 22;
+	CMD__LuaNames = 23;
+
+	CMD__ApplyToViewer = 30;
+	CMD__ClearViewer = 31;
+	CMD__EventToViewer = 32;
+
+	CMD__ApplyToTool = 40;
+	CMD__EventToTool = 41;
+
+	CMD__MoveViewer = 50;
+}
+
+enum EVENT_TO_TOOL {
+	EVENT__None = 1;
+
+	EVENT__Save = 11;
+	EVENT__SaveAs = 12;
+	EVENT__Open = 13;
+	EVENT__Close = 14;
+
+	EVENT__Copy = 21;
+	EVENT__Cut = 22;
+	EVENT__Paste = 23;
+	EVENT__Remove = 24;
+
+	EVENT__ToggleDisplayStats = 30;
+
+	EVENT__ReopenView = 40;
+	EVENT__NextResolution = 41;
+	EVENT__PrevResolution = 42;
+
+	EVENT__SpecResolution = 43;
+	EVENT__ConfResolution = 44;
+
+	EVENT__ToggleVisible = 50;
+}
+
+enum EVENT_TO_VIEWER {
+	VIEWER_EVENT__None = 1;
+
+	VIEWER_EVENT__StrokeSize1 = 11;
+	VIEWER_EVENT__StrokeSize2 = 12;
+	VIEWER_EVENT__StrokeSize3 = 13;
+	VIEWER_EVENT__StrokeSize4 = 14;
+	VIEWER_EVENT__GridOnOff = 20;
+	VIEWER_EVENT__GridOpacity = 21;
+	VIEWER_EVENT__ResetZoom = 22;
+	VIEWER_EVENT__ResetScroll = 23;
+}
+
+message CMD {
+	required uint64 id = 1 [default = 0];
+	required CMD_TYPE type = 2 [default = CMD__Create];
+
+	// for view window position update
+	optional int32 window_x = 10 [default = 0];
+	optional int32 window_y = 11 [default = 0];
+
+	// send envent to tool
+	optional EVENT_TO_TOOL event_id = 14 [default = EVENT__None];
+
+	// send envent to viewer
+	optional EVENT_TO_VIEWER viewer_event_id = 15 [default = VIEWER_EVENT__None];
+
+	// for cmd history - undo / redo
+	optional string description = 16 [default = ''];
+	optional uint64 update_to_cmd_id = 17 [default = 0];
+	optional bool dont_append_history = 18 [default = false];
+	optional bool can_merge_prev_cmd = 19 [default = false];
+
+	repeated Entity entities = 20;
+	repeated Entity backup_entities = 21;
+
+	// for help for select in list (ex) visual list
+	repeated string enum_list = 30;
+	repeated string socket_node_list = 31;
+}

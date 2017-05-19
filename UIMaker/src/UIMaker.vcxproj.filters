@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="model">
+      <UniqueIdentifier>{a09e77ce-7a29-4f1e-b21f-5bc7ff6c8a78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tool">
+      <UniqueIdentifier>{30fd5d20-9199-4cbf-a4d7-99faa153bda3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="viewer">
+      <UniqueIdentifier>{89ac5c2f-b655-4bd5-b9d5-d90e34897751}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UIMaker.reg" />
+    <None Include="res\UIMaker.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="..\maker.proto" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UIMaker.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CMDPipe.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="KLuaToken.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="tsqueue.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="History.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="UIMaker.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="UIMakerDlg.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Cocos2dXViewer.h">
+      <Filter>viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="AppDelegate.h">
+      <Filter>viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectBox.h">
+      <Filter>viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="maker.pb.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityMgr.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="MakerScene.h">
+      <Filter>viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityHelper.h">
+      <Filter>viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="EntitySelectedHelper.h">
+      <Filter>viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityListView.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="CSLock.h">
+      <Filter>viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaNameListView.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigParser.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CMDPipe.cpp">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="KLuaToken.cpp">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="History.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="UIMaker.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="UIMakerDlg.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Cocos2dXViewer.cpp">
+      <Filter>viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="AppDelegate.cpp">
+      <Filter>viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectBox.cpp">
+      <Filter>viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="maker.pb.cc">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityMgr.cpp">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="MakerScene.cpp">
+      <Filter>viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityHelper.cpp">
+      <Filter>viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="EntitySelectedHelper.cpp">
+      <Filter>viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityListView.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="CSLock.cpp">
+      <Filter>viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaNameListView.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigParser.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\UIMaker.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="D:\project\UIMaker\src\res\Squidward.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+{
+    "simulator_screen_size": [
+        {
+            "title": "UIMaker - 640x1138 (9:16)",
+            "width": 640,
+            "height": 1138
+        },
+        {
+            "title": "UIMaker - 1000x1000 (1:1)",
+            "width": 1000,
+            "height": 1000
+        }
+    ]
+}
