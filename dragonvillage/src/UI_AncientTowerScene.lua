@@ -103,6 +103,8 @@ function UI_AncientTowerScene:initUI()
         self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         self.m_tableView:setItemList(t_floor)
 
+        self.m_tableView.m_scrollView:setLimitedOffset(true)
+
         local function sort_func(a, b)
             return a['data']['stage'] < b['data']['stage']
         end
