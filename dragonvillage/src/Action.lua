@@ -257,3 +257,20 @@ function cca.pickMePickMe(node)
 
     cca.runAction(node, cc.RepeatForever:create(sequence))
 end
+
+-------------------------------------
+-- function actGetObject
+-------------------------------------
+function cca.actGetObject(node, tar_pos)
+	-- 부르르르 떠는 액션
+	local brrr = cc.MoveBy:create(0.05, cc.p(3, 0))
+	local sequence_brrr = cc.Sequence:create(brrr, brrr:reverse())
+	local repeat_brrr = cc.Repeat:create(sequence_brrr, 5)
+
+	-- 베지어 이동
+	local pos_x, pos_y = node:getPosition()
+	local bezier = getBezier(tar_pos.x, tar_pos.y, pos_x, pos_y, -1) -- -1은 아래를 향한 곡선
+	local bezier_act = cc.BezierBy:create(0.5, bezier, true)
+
+    cca.runAction(node, cc.Sequence:create(repeat_brrr, bezier_act))
+end

@@ -23,28 +23,19 @@ function UI_Directing_DragonGoodBye:init(doid_map)
 	-- 멤버 변수
 	self.m_tDragonChar = {}
 	self.m_lPosList = 	{
-		{500, 300},
-		{500, 400},
+		{-100, -100},
 		
-		{400, 350},
+		{-200, -50},
+		{-200, -150},
 		
-		{400, 250},
-		{400, 450},
-		
-		{500, 200},
-		{500, 500},
-
-		{300, 300},
-		{300, 400},
-
-		{200, 350},
-
-		--{600, 250},
-		--{600, 350},
-		--{600, 450},
-
-		--{700, 300},
-		--{700, 400},
+		{-300, -50},
+		{-300, -150},
+		--{-300, -250},
+	
+		{-400, 0},
+		{-400, -100},
+		{-400, -200},
+		--{-400, -300},
 	}
 
     self:initUI()
@@ -56,32 +47,45 @@ end
 -- function initUI
 -------------------------------------
 function UI_Directing_DragonGoodBye:initUI()
+	-- 배경 노드
 	local node = cc.Node:create()
+	node:setAnchorPoint(CENTER_POINT)
+	node:setDockPoint(CENTER_POINT)
 	self.root:addChild(node, 1)
 	self.vars['bgNode'] = node
 
+	-- 연출 노드
 	local node = cc.Node:create()
+	node:setAnchorPoint(CENTER_POINT)
+	node:setDockPoint(CENTER_POINT)
 	self.root:addChild(node, 2)
 	self.vars['aniNode'] = node
 
 	-- 스킵 버튼
 	do
-	    local node = cc.MenuItemImage:create('res/ui/btn/base_0106.png', 'res/ui/btn/base_0107.png', 1)
-        node:setDockPoint(cc.p(0, 1))
-        node:setAnchorPoint(cc.p(0, 1))
-        node:setPosition(30, -70)
+	    local node = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 1)
+        node:setDockPoint(cc.p(1, 1))
+        node:setAnchorPoint(CENTER_POINT)
+        node:setPosition(-96, -26)
+		node:setNormalSize(180, 40)
         UIC_Button(node)
 
         self.root:addChild(node, 3)
         self.vars['skipBtn'] = node
+		self.vars['skipBtn']:setVisible(false)
 
-		-- 버튼 라벨ㄴ
-		local label = cc.Label:createWithTTF('Skip', 'res/font/common_font_01.ttf', 25, 1, cc.size(100, 50), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER) 
+		-- 버튼 라벨
+		local label = cc.Label:createWithTTF(Str('건너뛰기'), 'res/font/common_font_01.ttf', 22, 1, cc.size(177, 31), cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER) 
 		label:setDockPoint(CENTER_POINT)
         label:setAnchorPoint(CENTER_POINT)
+		label:setPosition(-31, 0)
 		self.vars['skipBtn']:addChild(label)
 
-		self.vars['skipBtn']:setVisible(false)
+		local sprite = cc.Sprite:create('res/ui/icon/skip.png')
+		sprite:setDockPoint(CENTER_POINT)
+        sprite:setAnchorPoint(CENTER_POINT)
+		sprite:setPosition(72, 0)
+		self.vars['skipBtn']:addChild(sprite)
 	end
 
 	self:initBG()
@@ -104,32 +108,9 @@ end
 -- function initBG
 -------------------------------------
 function UI_Directing_DragonGoodBye:initBG()
-	
-	local res = 'res/scene/lobby.png'
+	local res = 'res/bg/ui/dragon_bg_earth/dragon_bg_earth.vrp'
 	local animator = MakeAnimator(res)
-	local scr_size = cc.Director:getInstance():getWinSize()
-	animator:setAnchorPoint(cc.p(0.5, 0))
-	animator:setDockPoint(cc.p(0.5, 0))
-	animator:setPosition(scr_size['width']/2 - 250, 0)
 	self.vars['bgNode']:addChild(animator.m_node)
-	
-	--[[
-	self.vars['bgNode']:setLocalZOrder(-1)
-    local lobby_map = LobbyMap(self.vars['bgNode'])
-    self.m_bgMap = lobby_map
-    lobby_map:setContainerSize(1280*3, 960)
-
-	local scr_size = cc.Director:getInstance():getWinSize()
-    lobby_map:setPosition(scr_size['width']/2 - 250, 0)
-
-    lobby_map:addLayer(UI_Lobby:makeLobbyLayer(4), 0.7) -- 하늘
-    lobby_map:addLayer(UI_Lobby:makeLobbyLayer(3), 0.8) -- 마을
-    lobby_map:addLayer(UI_Lobby:makeLobbyLayer(2), 0.9) -- 분수
-
-    local lobby_ground = UI_Lobby:makeLobbyLayer(1) -- 땅
-    lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, self)
-    lobby_map.m_groudNode = lobby_ground
-	--]]
 end
 
 -------------------------------------
@@ -139,10 +120,9 @@ function UI_Directing_DragonGoodBye:makeTamerChar()
 	local res = g_tamerData:getCurrTamerTable('res_sd')
 	local dir_tamer = DirectingCharacter(1)
 	dir_tamer:initAnimator(res)
-	dir_tamer:initShadow(-110)
+	dir_tamer:initShadow(-DirectingCharacter.SHADOW_POS_Y)
 	dir_tamer:changeAni('idle', true)
 	dir_tamer.m_animator:setFlip(true)
-	--dir_tamer:setPosition(1100, 350)
 
 	self.vars['aniNode']:addChild(dir_tamer.m_rootNode)
 		
@@ -157,7 +137,7 @@ function UI_Directing_DragonGoodBye:makeDragonChar(t_dragon_data)
 	local evolution = t_dragon_data['evolution']
 	local flv = t_dragon_data:getFlv()
 	local scale = 0.5
-	local pos = self.m_lPosList[table.count(self.m_tDragonChar) + 1]
+	local pos = self:getDragonPos()
 
 	-- dragon ani 생성
 	local dir_dragon = DirectingCharacter(scale, t_dragon_data)
@@ -173,10 +153,17 @@ function UI_Directing_DragonGoodBye:makeDragonChar(t_dragon_data)
 end
 
 -------------------------------------
+-- function getDragonPos
+-------------------------------------
+function UI_Directing_DragonGoodBye:getDragonPos()
+	return self.m_lPosList[table.count(self.m_tDragonChar) + 1]
+end
+
+-------------------------------------
 -- function addDragonData
 -------------------------------------
 function UI_Directing_DragonGoodBye:addDragonData(doid)
-	if (table.count(self.m_tDragonChar) >= 10) then
+	if (table.count(self.m_tDragonChar) >= table.count(self.m_lPosList)) then
 		return
 	end
 
@@ -273,7 +260,7 @@ function UI_Directing_DragonGoodBye:doDirectingAction(t_data, directing_cb_func)
 	-- 테이머 생성후 걸어서 나옴
 	tamer_walk_in = function()
 		self:makeTamerChar()
-		self.m_tamer:setPosition(1500, 350)
+		self.m_tamer:setPosition(800, -200)
 
 		local function cb_func()
 			tamer_bye()
@@ -330,14 +317,14 @@ function UI_Directing_DragonGoodBye:doDirectingAction(t_data, directing_cb_func)
 			dragon_gift()
 		end
 		
-		local move_point = cc.p(100, 0)
+		local move_point = cc.p(20, 0)
 		local delay = 0
 		local function cb_func()
 			idx = self:checkStep(idx, dcnt, f_dragon_bye)
 		end
 
 		for _, d_char in pairs(self.m_tDragonChar) do
-			local duration = math_random(200, 250)/100
+			local duration = math_random(100, 150)/100
 			d_char:actMove(duration, move_point, delay, cb_func)
 		end
 	end
@@ -377,13 +364,14 @@ function UI_Directing_DragonGoodBye:doDirectingAction(t_data, directing_cb_func)
 
 	-- 드래곤이 선물을 두고간다.
 	dragon_gift = function()
-		local scr_size = cc.Director:getInstance():getWinSize()
 		local animator = MakeAnimator('res/ui/a2d/dragon_lactea/dragon_lactea.vrp')
 		self.vars['aniNode']:addChild(animator.m_node)
 		
-		animator:setPosition(scr_size['width']/2, scr_size['height']/2 - 150)
+		animator:setPosition(0, -300)
 		animator:changeAni('lectea_appear', false)
 		animator:addAniHandler(function()
+			-- 선물 취득 액션
+			cca.actGetObject(animator.m_node, cc.p(-100, 500))
 			tamer_walk_out()
 		end)
 	end

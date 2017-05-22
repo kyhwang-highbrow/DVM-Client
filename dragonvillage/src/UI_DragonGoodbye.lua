@@ -426,21 +426,23 @@ end
 -- function goodbyeDirecting
 -------------------------------------
 function UI_DragonGoodbye:goodbyeDirecting(cb)
+	g_topUserInfo:hide()
 	self:doActionReverse(function()
+		local t_data = {
+			type = 'lactea',
+			value = self.m_addLactea
+		}
+
 		local function cb_func()
 			if cb then
 				cb()
 			end
 
-			--self:doActionReset()
 			self:doAction(nil, false)
-
+			g_topUserInfo:show()
 			g_topUserInfo:refreshData()
 		end
-		local t_data = {
-			type = 'lactea',
-			value = self.m_addLactea
-		}
+
 		self.m_directingUI:doDirectingAction(t_data, cb_func)
 	end, 1)
 end

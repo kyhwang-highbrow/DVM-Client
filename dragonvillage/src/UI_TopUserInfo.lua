@@ -363,3 +363,17 @@ function UI_TopUserInfo:chatBroadcast(t_data)
 
     self.m_chatBroadcastLabel:setString(rich_str)
 end
+
+-------------------------------------
+-- function hide
+-------------------------------------
+function UI_TopUserInfo:hide()
+	self.root:runAction(cc.MoveTo:create(0.5, cc.p(0, 200)))
+end
+
+-------------------------------------
+-- function hide
+-------------------------------------
+function UI_TopUserInfo:show()
+	self.root:runAction(cc.MoveTo:create(0.5, cc.p(0, 0)))
+end
