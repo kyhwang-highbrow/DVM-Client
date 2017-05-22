@@ -327,7 +327,7 @@ function UI_Directing_DragonGoodBye:doDirectingAction(t_data, directing_cb_func)
 		
 		-- 드래곤이 남아있지 않다면 탈출
 		if (dcnt == 0) then
-			tamer_walk_out()
+			dragon_gift()
 		end
 		
 		local move_point = cc.p(100, 0)

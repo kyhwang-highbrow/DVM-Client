@@ -38,7 +38,7 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custo
 		delay_time = 0.5
 
 	elseif string.find(case_type, 'lactea_') then
-		bubble_text:setPosition(0, 150)
+		bubble_text:setPosition(0, 120)
 		delay_time = 0.5
 	
 	elseif (case_type == 'lactea_tamer') then
@@ -68,9 +68,16 @@ function SensitivityHelper:getBubbleText(txt_str)
 	node:setAnchorPoint(CENTER_POINT)
 
 	-- 말풍선 프레임
-	local sprite = cc.Scale9Sprite:create('res/ui/frame/dragon_info_bubble.png')
-	sprite:setDockPoint(CENTER_POINT)
-	sprite:setAnchorPoint(CENTER_POINT)
+	local frame = cc.Scale9Sprite:create('res/ui/frame/a_dialogue_0102.png')
+	frame:setDockPoint(CENTER_POINT)
+	frame:setAnchorPoint(CENTER_POINT)
+
+	-- 말풍선 꼭지
+	local sprite = cc.Sprite:create('res/ui/frame/a_dialogue_0102_3.png')
+	sprite:setDockPoint(cc.p(0.5, 0))
+	sprite:setAnchorPoint(cc.p(0.5, 0))
+	sprite:setPositionY(-8)
+	frame:addChild(sprite)
 
 	-- 텍스트 (rich_label)
 	local rich_label = UIC_RichLabel()
@@ -80,16 +87,16 @@ function SensitivityHelper:getBubbleText(txt_str)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 	rich_label:setDockPoint(CENTER_POINT)
     rich_label:setAnchorPoint(CENTER_POINT)
-	rich_label:setPosition(0, 12)
+	rich_label:setPosition(0, 0)
 
 	-- label 사이즈로 프레임 조정
 	local width = rich_label:getStringWidth() + 50
-	local size = sprite:getContentSize()
-	sprite:setNormalSize(width, size['height'])
+	local size = frame:getContentSize()
+	frame:setNormalSize(width, size['height'])
 
 	-- addChild
-	sprite:addChild(rich_label.m_node)
-	node:addChild(sprite)
+	frame:addChild(rich_label.m_node)
+	node:addChild(frame)
 
 	-- fade out을 위해 설정
 	doAllChildren(node, function(node) node:setCascadeOpacityEnabled(true) end)
