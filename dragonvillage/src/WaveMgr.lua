@@ -20,12 +20,8 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
         m_highestRarity = 'number',     -- 하나의 웨이브 안에서 가장 높은 rarity
 
 		-- regen 전용
-		m_mRegenWaveData = 'table',	-- 리젠 정보를 저장
-		m_isRegenWave = 'bool',		-- regen Wave 가 있는지 여부
-		m_mRegenObjMap = 'table',   -- regen 으로 생성된 몬스터의 존재 여부 정보를 저장하기 위한 2차원 맵(리젠 그룹키, 그룹내 idx)
-
-        m_mRegenInterval = 'table',	-- regen 그룹별 리젠 주기 (constant.json에서 제어)
-        m_mRegenTimer = 'table',    -- regen 그룹별 리젠 시간
+        m_mRegenGroup = 'table',
+        m_isRegenWave = 'bool',		-- regen Wave 가 있는지 여부
     })
 
 -------------------------------------
@@ -58,12 +54,9 @@ function WaveMgr:init(world, stage_name, develop_mode)
     end
 
 	-- regen 전용 멤버 변수
-	self.m_isRegenWave = false
-	self.m_mRegenWaveData = nil
-	self.m_mRegenObjMap = {}
-
-	self.m_mRegenInterval = {}
-    self.m_mRegenTimer = {}
+    self.m_mRegenGroup = nil
+    self.m_isRegenWave = false
+	
 
     -- 리스너 등록
     self:addListener('change_wave', self.m_world)
@@ -203,28 +196,17 @@ function WaveMgr:checkSummonable(pos_key)
 end
 
 -------------------------------------
--- function checkRegenable
--- @brief 리젠 가능 여부
--------------------------------------
-function WaveMgr:checkRegenable(group_key)
-    return (self.m_mRegenObjMap[group_key] == nil)
-end
-
--------------------------------------
 -- function setRegenDead
 -- @brief 
 -------------------------------------
 function WaveMgr:setRegenDead(regen_info)
     local group_key = regen_info['group_key']
-    local idx_key = regen_info['idx_key']
+    local obj_key = regen_info['obj_key']
 
-    if (not self.m_mRegenObjMap[group_key]) then return end
+    local struct_group = self.m_mRegenGroup[group_key]
+    if (not struct_group) then return end
 
-	self.m_mRegenObjMap[group_key][idx_key] = nil
-
-    if (table.count(self.m_mRegenObjMap[group_key]) == 0) then
-        self.m_mRegenObjMap[group_key] = nil
-    end
+    struct_group:setObjInfo(obj_key, false)
 end
 
 -------------------------------------
@@ -232,11 +214,9 @@ end
 -- @brief script를 읽어 dynamic wave를 저장
 -------------------------------------
 function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
-	if not (l_data) then
-		return 
-	end
+	if not (l_data) then return end
 
-    local idx = 1
+    local obj_key = 1
 
 	for time, v in pairs(l_data) do
 		for _, data in pairs(v) do
@@ -245,15 +225,16 @@ function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
 			
 			if (group_key) then
 				-- regen wave라면 regen 정보를 저장
-                local regen_info = { group_key = group_key, idx_key = idx }
+                local regen_info = { group_key = group_key, obj_key = obj_key }
 				dynamic_wave:setRegenInfo(regen_info)
 
-                self.m_mRegenObjMap[group_key][idx] = true
+                local struct_group = self.m_mRegenGroup[group_key]
+                struct_group:setObjInfo(obj_key, true)
 			end
 			
 			table.insert(l_wave, dynamic_wave)
 
-            idx = idx + 1
+            obj_key = obj_key + 1
 		end
 	end
 end
@@ -313,24 +294,21 @@ function WaveMgr:newScenario_dynamicWave(t_data)
     self.m_highestRarity = 'common'
 
     -- wave 정보를 읽어 dynamic wave 세팅
-	self:setDynamicWave(self.m_lDynamicWave, t_data['wave'], false)
+	self:setDynamicWave(self.m_lDynamicWave, t_data['wave'])
 
 	-- 이전에 저장된 regen 데이터가 있으면 초기화 시킴
-	if (self.m_mRegenWaveData) then
-		self.m_isRegenWave = false
-		self.m_mRegenWaveData = nil
-		self.m_mRegenObjMap = {}
-	end
+    if (self.m_mRegenGroup) then
+        self.m_isRegenWave = false
+        self.m_mRegenGroup = nil
+    end
 
-	-- regen에 정보가 있다면 해당 몹을 지속적으로 소환하도록 세팅.
+    -- regen에 정보가 있다면 해당 몹을 지속적으로 소환하도록 세팅.
 	if (t_data['regen']) then
 		self.m_isRegenWave = true
-        self.m_mRegenWaveData = {}
+        self.m_mRegenGroup = {}
 
         for group_key, v in ipairs(t_data['regen']) do
-            self.m_mRegenWaveData[group_key] = v
-            self.m_mRegenInterval[group_key] = g_constant:get('INGAME', 'REGEN_APPEAR')
-            self.m_mRegenTimer[group_key] = 0
+            self.m_mRegenGroup[group_key] = StructWaveRegenGroup(group_key, v, g_constant:get('INGAME', 'REGEN_APPEAR'))
         end
 	end
 end
@@ -408,7 +386,7 @@ end
 -------------------------------------
 -- function update
 -------------------------------------
-function WaveMgr:update(dt)
+function WaveMgr:update(dt, no_regen)
     if (self.m_waveTimer == -1) then
         self.m_waveTimer = 0
     else
@@ -429,21 +407,13 @@ function WaveMgr:update(dt)
     end
 
     -- 리젠 웨이브
-    if (self.m_isRegenWave) then
-        for group_key, regen_wave in pairs(self.m_mRegenWaveData) do
-            -- 리젠 될 수 있는 상태인지 체크(그룹내의 적이 모두 죽었는지)
-            if (self:checkRegenable(group_key)) then
+    if (not no_regen and self.m_isRegenWave) then
+        for group_key, struct_group in pairs(self.m_mRegenGroup) do
+            local regen_wave = struct_group:update(dt)
+            if (regen_wave) then
+                struct_group:setInterval(g_constant:get('INGAME', 'REGEN_INTERVAL'))
 
-                -- 리젠 시간 체크
-                if (self.m_mRegenTimer[group_key] >= self.m_mRegenInterval[group_key]) then
-                    self.m_mRegenObjMap[group_key] = {}
-                    self.m_mRegenInterval[group_key] = g_constant:get('INGAME', 'REGEN_INTERVAL')
-                    self.m_mRegenTimer[group_key] = 0
-
-                    self:setDynamicWave(self.m_lDynamicWave, regen_wave, group_key)
-                else
-                    self.m_mRegenTimer[group_key] = self.m_mRegenTimer[group_key] + dt
-                end
+                self:setDynamicWave(self.m_lDynamicWave, regen_wave, group_key)
             end
         end
     end

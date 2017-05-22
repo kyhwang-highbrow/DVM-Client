@@ -413,7 +413,7 @@ function GameState.update_enemy_appear(self, dt)
     end
     
     -- 웨이브 매니져 업데이트
-    world.m_waveMgr:update(dt)
+    world.m_waveMgr:update(dt, true)
 end
 
 -------------------------------------

@@ -2325,6 +2325,9 @@
     <None Include="..\src\UI_ObtainPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructWaveRegenGroup.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
