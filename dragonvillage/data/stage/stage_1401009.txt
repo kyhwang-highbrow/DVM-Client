@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"ancient_tower"
+    "bg":"map_ancient_tower"
 	"camera":
 	{
 		"scale":0.8,
