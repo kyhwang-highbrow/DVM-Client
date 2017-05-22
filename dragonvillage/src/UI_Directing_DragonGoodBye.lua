@@ -22,21 +22,17 @@ function UI_Directing_DragonGoodBye:init(doid_map)
 
 	-- 멤버 변수
 	self.m_tDragonChar = {}
-	self.m_lPosList = 	{
-		{-100, -100},
-		
-		{-200, -50},
-		{-200, -150},
-		
-		{-300, -50},
-		{-300, -150},
-		--{-300, -250},
-	
-		{-400, 0},
-		{-400, -100},
-		{-400, -200},
-		--{-400, -300},
-	}
+	do
+		self.m_lPosList = {}
+		self.m_lPosList[1] = {is_used = false, doid = nil, pos = {-100, -100}}
+		self.m_lPosList[2] = {is_used = false, doid = nil, pos = {-200, -50}}
+		self.m_lPosList[3] = {is_used = false, doid = nil, pos = {-200, -150}}
+		self.m_lPosList[4] = {is_used = false, doid = nil, pos = {-300, -50}}
+		self.m_lPosList[5] = {is_used = false, doid = nil, pos = {-300, -150}}
+		self.m_lPosList[6] = {is_used = false, doid = nil, pos = {-400, 0}}
+		self.m_lPosList[7] = {is_used = false, doid = nil, pos = {-400, -100}}
+		self.m_lPosList[8] = {is_used = false, doid = nil, pos = {-400, -200}}
+	end
 
     self:initUI()
     self:initButton()
@@ -137,7 +133,7 @@ function UI_Directing_DragonGoodBye:makeDragonChar(t_dragon_data)
 	local evolution = t_dragon_data['evolution']
 	local flv = t_dragon_data:getFlv()
 	local scale = 0.5
-	local pos = self:getDragonPos()
+	local pos = self:getDragonPos(t_dragon_data['id'])
 
 	-- dragon ani 생성
 	local dir_dragon = DirectingCharacter(scale, t_dragon_data)
@@ -155,8 +151,15 @@ end
 -------------------------------------
 -- function getDragonPos
 -------------------------------------
-function UI_Directing_DragonGoodBye:getDragonPos()
-	return self.m_lPosList[table.count(self.m_tDragonChar) + 1]
+function UI_Directing_DragonGoodBye:getDragonPos(doid)
+	for idx, t_pos in ipairs(self.m_lPosList) do
+		if (t_pos['is_used'] == false) then
+			t_pos['is_used'] = true
+			t_pos['doid'] = doid
+
+			return t_pos['pos']
+		end
+	end
 end
 
 -------------------------------------
@@ -175,6 +178,7 @@ function UI_Directing_DragonGoodBye:addDragonData(doid)
 	-- map 등록
 	self.m_tDragonChar[doid] = dir_dragon
 
+	-- 등장하며 대사
 	dir_dragon:actSaying('lactea_sorrow', nil, 0, nil)
 end
 
@@ -190,9 +194,17 @@ function UI_Directing_DragonGoodBye:delDragonData(doid)
 	-- 애니 삭제
 	local dir_dragon = self.m_tDragonChar[doid]
 	dir_dragon.m_rootNode:removeFromParent(true)
-	
+
 	-- map 삭제
 	self.m_tDragonChar[doid] = nil
+
+	-- pos list 미사용 처리
+	for idx, t_pos in ipairs(self.m_lPosList) do
+		if (t_pos['doid'] == doid) then
+			t_pos['is_used'] = false
+			t_pos['doid'] = nil
+		end
+	end
 end
 
 
