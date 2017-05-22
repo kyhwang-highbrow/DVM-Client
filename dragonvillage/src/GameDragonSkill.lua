@@ -14,8 +14,9 @@ GameDragonSkill = class(PARENT, {
 
         m_node = 'cc.Node',
 
+        m_nextSkipLevel = 'number',
         m_skipLevel = 'number',
-        
+                
         -- 스킬을 사용할 드래곤 정보
         m_dragon = 'Dragon',
                         
@@ -39,7 +40,8 @@ function GameDragonSkill:init(world)
     self.m_node = cc.Node:create()
     g_gameScene.m_viewLayer:addChild(self.m_node)
 
-    self.m_skipLevel = g_autoPlaySetting:get('skip_level') or 0
+    self.m_nextSkipLevel = g_autoPlaySetting:get('skip_level') or 0
+    self.m_skipLevel = self.m_nextSkipLevel
 
     self.m_state = STATE.WAIT
 
@@ -500,7 +502,7 @@ end
 -- function setSkipLevel
 -------------------------------------
 function GameDragonSkill:setSkipLevel(skip_level)
-    self.m_skipLevel = skip_level
+    self.m_nextSkipLevel = skip_level
 end
 
 -------------------------------------
@@ -519,6 +521,7 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local dragon = arg[1]
 
         self.m_dragon = dragon
+        self.m_skipLevel = self.m_nextSkipLevel
         
         self:changeState(STATE.PLAY_DRAG_SKILL)
 
@@ -529,6 +532,7 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         if (self:isPlaying()) then
         else
             self.m_dragon = dragon
+            self.m_skipLevel = self.m_nextSkipLevel
 
             self:changeState(STATE.PLAY_TIME_SKILL)
         end

@@ -19,6 +19,9 @@ UI_Game = class(UI, {
         m_effectBtnIcon1 = '',
         m_effectBtnIcon2 = '',
         m_effectBtnIcon3 = '',
+
+        -- 방송 라벨
+        m_broadcastLabel = 'UIC_BroadcastLabel',
      })
 
 -------------------------------------
@@ -42,6 +45,8 @@ function UI_Game:init(game_scene)
 
     self:initUI()
 	self:initButton()
+
+    self.m_broadcastLabel = UIC_BroadcastLabel:create(vars['noticeBroadcastNode'], vars['noticeBroadcastLabel'])
 end
 
 -------------------------------------
@@ -292,6 +297,12 @@ function UI_Game:click_panelBtn()
         self.m_panelBtnIcon2:setVisible(self.m_panelUI.m_bVisible)
 
         g_autoPlaySetting:set('dragon_panel', self.m_panelUI.m_bVisible)
+
+        if (self.m_panelUI.m_bVisible) then
+            UIManager:toastNotificationGreen('하단 UI 표시')
+        else
+            UIManager:toastNotificationGreen('하단 UI 숨김')
+        end
     end
 end
 
@@ -312,6 +323,8 @@ function UI_Game:click_effectBtn()
 
     local gameHighlight = self.m_gameScene.m_gameWorld.m_gameHighlight
     gameHighlight:setSkipLevel(skip_level)
+
+    UIManager:toastNotificationGreen('연출 단계 ' .. (skip_level + 1))
 end
 
 -------------------------------------
@@ -540,19 +553,5 @@ end
 -- function noticeBroadcast
 -------------------------------------
 function UI_Game:noticeBroadcast(msg, duration)
-    local vars = self.vars
-    local duration = duration or 2
-
-    vars['noticeBroadcastLabel']:setString(msg)
-    vars['noticeBroadcastNode']:setVisible(true)
-    vars['noticeBroadcastNode']:stopAllActions()
-    vars['noticeBroadcastNode']:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create()))
-
-    local line_count = vars['noticeBroadcastLabel'].m_lineCount
-    if (line_count > 1) then
-        local size = cc.size(vars['noticeBroadcastNode']:getNormalSize())
-        size['height'] = 50
-        vars['noticeBroadcastNode']:setNormalSize(size)
-        vars['noticeBroadcastNode']:setUpdateChildrenTransform()
-    end
+    self.m_broadcastLabel:setString(msg)
 end
