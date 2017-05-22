@@ -127,6 +127,7 @@ end
 
 -------------------------------------
 -- function actAscension
+-- @brief 승천 액션
 -------------------------------------
 function DirectingCharacter:actAscension(duration, cb_func)
 	-- 드래곤은 승천
@@ -152,6 +153,7 @@ end
 
 -------------------------------------
 -- function actMove
+-- @brief duration동안 move_point로 움직인 후 delay 대기하고 cb_func실행
 -------------------------------------
 function DirectingCharacter:actMove(duration, move_point, delay, move_cb_func)
 	self:changeAni('move', true)
@@ -170,6 +172,7 @@ end
 
 -------------------------------------
 -- function actSaying
+-- @brief delay타임 후 말풍선 대화
 -------------------------------------
 function DirectingCharacter:actSaying(case_type, custom_str, delay, cb_func)
 	local delay = cc.DelayTime:create(delay or 0)
@@ -196,6 +199,7 @@ end
 
 -------------------------------------
 -- function actPose
+-- @brief pose를 1회 취함
 -------------------------------------
 function DirectingCharacter:actPose()
 	self:changeAni('pose_1', false)

@@ -30,21 +30,21 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custo
 	-- 상황별 변수 및 포지션 정리
 	local delay_time
 	if string.find(case_type, 'lobby_') then
-		bubble_text:setPosition(50, 300)
+		bubble_text:setPosition(50, 320)
 		delay_time = 1.5
 
 	elseif string.find(case_type, 'party_') then
 		bubble_text:setPosition(0, 100)
 		delay_time = 0.5
 
+	elseif (case_type == 'lactea_tamer') then
+		bubble_text:setPosition(0, 200)
+		delay_time = 0.5
+
 	elseif string.find(case_type, 'lactea_') then
 		bubble_text:setPosition(0, 120)
 		delay_time = 0.5
 	
-	elseif (case_type == 'lactea_tamer') then
-		bubble_text:setPosition(0, 200)
-		delay_time = 1.5
-		bubble_text:setScaleX(-1)
 	end
 	
 	-- 띠용~ 후 페이드 아웃 하는 액션
