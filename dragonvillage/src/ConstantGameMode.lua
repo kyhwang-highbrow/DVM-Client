@@ -78,6 +78,11 @@ function getInGameConstant(type)
 
         ret = t_game_mode_constant[game_mode_str][dungeon_str][type]
 
+    -- 고대의 탑
+    elseif gameMode == GAME_MODE_ANCIENT_TOWER then
+
+        ret = t_game_mode_constant[game_mode_str][type]
+
     -- 콜로세움
     elseif gameMode == GAME_MODE_COLOSSEUM then
 		
