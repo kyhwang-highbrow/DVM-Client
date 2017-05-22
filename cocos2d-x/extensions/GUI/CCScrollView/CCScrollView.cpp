@@ -67,6 +67,7 @@ ScrollView::ScrollView()
 , _container(nullptr)
 , _touchMoved(false)
 , _bounceable(false)
+, _limitedOffset(false)
 , _clippingToBounds(false)
 , _touchLength(0.0f)
 , _minScale(0.0f)
@@ -221,7 +222,7 @@ void ScrollView::setContentOffset(Vec2 offset, bool animated/* = false*/)
     }
     else
     { //set the container position directly
-        if (!_bounceable)
+        if (!_bounceable || _limitedOffset)
         {
             const Vec2 minOffset = this->minContainerOffset();
             const Vec2 maxOffset = this->maxContainerOffset();
@@ -429,7 +430,7 @@ void ScrollView::deaccelerateScrolling(float dt)
         maxInset = this->maxContainerOffset();
         minInset = this->minContainerOffset();
     }
-
+    
     newX = _container->getPosition().x;
     newY = _container->getPosition().y;
 

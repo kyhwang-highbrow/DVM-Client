@@ -172,6 +172,8 @@ public:
 	bool isTouchEnabled() const;
     bool isBounceable() const { return _bounceable; }
     void setBounceable(bool bBounceable) { _bounceable = bBounceable; }
+    bool isLimitedOffset() const { return _limitedOffset; }
+    void setLimitedOffset(bool bLimitedOffset) { _limitedOffset = bLimitedOffset; }
 
     virtual bool isDragging() const {return _dragging;}
     virtual bool isTouchMoved() const { return _touchMoved; }
@@ -332,6 +334,8 @@ protected:
      * Determines whether the scroll view is allowed to bounce or not.
      */
     bool _bounceable;
+
+    bool _limitedOffset;
 
     bool _clippingToBounds;
 
