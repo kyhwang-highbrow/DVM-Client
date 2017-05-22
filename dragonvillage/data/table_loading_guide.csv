@@ -29,11 +29,11 @@ gid,type,order,weight,res,t_desc
 2403,in_nest_go,,10,res/ui/loading_tip/tip_friendship.png,(임시) 황금 가이드 - 3
 2404,in_nest_go,,10,res/ui/loading_tip/tip_friendship_grade.png,(임시) 황금 가이드 - 4
 2405,in_nest_go,,10,res/ui/loading_tip/tip_reserch.png,(임시) 황금 가이드 - 5
-9001,all,,10,res/ui/loading_tip/tip_levelup.png,(임시) {@ORAGNE}레벨업{@WHITE}을 시킨다
-9002,all,,10,res/ui/loading_tip/tip_rarity.png,(임시) {@ORAGNE}귀족 {@WHITE}천민
-9003,all,,10,res/ui/loading_tip/tip_evolution.png,(임시) {@ORAGNE}진화 {@DEEPSKYBLUE}마린룩
-9004,all,,10,res/ui/loading_tip/tip_friendship.png,(임시) {@ORAGNE}친밀도{@WHITE}친밀도
-9005,all,,10,res/ui/loading_tip/tip_friendship_grade.png,(임시) {@ORAGNE}친밀도{@WHITE}등급
+9001,all,,10,res/ui/loading_tip/tip_levelup.png,(임시) {@ORANGE}레벨업{@WHITE}을 시킨다
+9002,all,,10,res/ui/loading_tip/tip_rarity.png,(임시) {@ORANGE}귀족 {@WHITE}천민
+9003,all,,10,res/ui/loading_tip/tip_evolution.png,(임시) {@ORANGE}진화 {@DEEPSKYBLUE}마린룩
+9004,all,,10,res/ui/loading_tip/tip_friendship.png,(임시) {@ORANGE}친밀도{@WHITE}친밀도
+9005,all,,10,res/ui/loading_tip/tip_friendship_grade.png,(임시) {@ORANGE}친밀도{@WHITE}등급
 1101,in_adventure,,10,res/ui/loading_tip/tip_friendship.png,(임시) 모험모드 가이드 - 1
 1102,in_adventure,,10,res/ui/loading_tip/tip_friendship_grade.png,(임시) 모험모드 가이드 - 2
 1103,in_adventure,,10,res/ui/loading_tip/tip_reserch.png,(임시) 모험모드 가이드 - 3
