@@ -54,7 +54,7 @@ function StatusEffect_DotDmg:calculateDotDmg(caster, t_status_effect, status_eff
 	local damage_org = math_floor(DamageCalc_P(atk_dmg, def_pwr))
 
 	-- 속성 효과
-	local t_attr_effect = self.m_owner:checkAttributeCounter(caster:getAttribute())
+	local t_attr_effect = self.m_owner:checkAttributeCounter(caster)
 	if t_attr_effect['damage'] then
 		damage = damage_org * (1 + (t_attr_effect['damage'] / 100))
 	else

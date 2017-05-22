@@ -397,15 +397,18 @@ end
 -- function checkAttributeCounter
 -- @brief 속성 상성
 -------------------------------------
-function Character:checkAttributeCounter(tar_attr)
+function Character:checkAttributeCounter(attacker_char)
     -- 공격자 속성
+	local tar_attr = attacker_char:getAttribute()
     local attacker_attr = attributeNumToStr(tar_attr)
-	local attr_adj_rate = self.m_statusCalc:getAdjustRate('attr_adj_rate')
+
+	local atk_attr_adj_rate = attacker_char.m_statusCalc:getAdjustRate('attr_adj_rate')
+	local def_attr_adj_rate = self.m_statusCalc:getAdjustRate('attr_adj_rate')
 
     -- 방어자 속성
     local defender_attr = self:getAttribute()
 
-    local t_attr_effect = getAttrSynastryEffect(attacker_attr, defender_attr, attr_adj_rate)
+    local t_attr_effect = getAttrSynastryEffect(attacker_attr, defender_attr, atk_attr_adj_rate, def_attr_adj_rate)
 
     return t_attr_effect
 end
@@ -470,7 +473,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
 
     -- 속성 효과
-    local t_attr_effect = self:checkAttributeCounter(attacker_char:getAttribute())
+    local t_attr_effect = self:checkAttributeCounter(attacker_char)
 
     -- 데미지 타입
     local dmg_type = attack_activity_carrier.m_damageType or DMG_TYPE_PHYSICAL
