@@ -17,7 +17,7 @@ end
 -------------------------------------
 function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custom_str, cb_func)
 	-- 상황별 문구 생성
-	local sens_str = custom_str or SensitivityHelper:getRandomSensStr(did, flv, case_type)
+	local sens_str = '{@BLACK}' .. (custom_str or SensitivityHelper:getRandomSensStr(did, flv, case_type))
 
 	-- 이전 버블 텍스트가 있다면 삭제해버린다.
 	self:deleteBubbleText(parent)
@@ -78,11 +78,14 @@ function SensitivityHelper:getBubbleText(txt_str)
     rich_label:setFontSize(24)
     rich_label:setDimension(370, 70)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-    rich_label:enableOutline(cc.c4b(0, 0, 0, 255), 2)
-    rich_label:enableShadow(cc.c4b(0 , 0, 0, 255), cc.size(2, -2), 1)
 	rich_label:setDockPoint(CENTER_POINT)
     rich_label:setAnchorPoint(CENTER_POINT)
 	rich_label:setPosition(0, 12)
+
+	-- label 사이즈로 프레임 조정
+	local width = rich_label:getStringWidth() + 50
+	local size = sprite:getContentSize()
+	sprite:setNormalSize(width, size['height'])
 
 	-- addChild
 	sprite:addChild(rich_label.m_node)
@@ -158,7 +161,7 @@ end
 -------------------------------------
 function SensitivityHelper:doRepeatBubbleText(parent, did, flv, case_type)
 	-- 상황별 문구 생성
-	local sens_str = SensitivityHelper:getRandomSensStr(did, flv, case_type)
+	local sens_str = '{@BLACK}' .. SensitivityHelper:getRandomSensStr(did, flv, case_type)
 
 	-- 이전 버블 텍스트가 있다면 삭제해버린다.
 	self:deleteBubbleText(parent)

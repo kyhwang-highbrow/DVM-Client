@@ -81,21 +81,21 @@ function UI_ObtainPopup:getObtainIcon(reward_type)
     if (reward_type == 'x') then
 
     elseif (reward_type == 'cash') then
-        res = 'res/ui/icon/inbox/inbox_cash.png'
+        res = 'res/ui/icon/item/cash.png'
 
     elseif (reward_type == 'gold') then
-        res = 'res/ui/icon/inbox/inbox_gold.png'
+        res = 'res/ui/icon/item/gold.png'
 
     elseif (reward_type == 'stamina_st') then
-        res = 'res/ui/icon/inbox/inbox_staminas_st.png'
+        res = 'res/ui/icon/item/staminas_st.png'
 
     elseif (reward_type == 'money') then
 
     elseif (reward_type == 'lactea') then
-        res = 'res/ui/icon/inbox/inbox_lactea.png'
+        res = 'res/ui/icon/item/lactea.png'
 
     elseif (reward_type == 'amethyst') then
-        res = 'res/ui/icon/inbox/inbox_amethyst.png'
+        res = 'res/ui/icon/item/amethyst.png'
 
     else
         error('price_type : ' .. price_type)

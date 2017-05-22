@@ -9,6 +9,8 @@ DirectingCharacter = class{
 		m_tData = '',
 	}
 
+DirectingCharacter.SHADOW_POS_Y = 105
+
 -------------------------------------
 -- function init
 -------------------------------------
