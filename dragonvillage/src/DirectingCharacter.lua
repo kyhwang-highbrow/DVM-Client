@@ -37,14 +37,26 @@ function DirectingCharacter:initAnimator(file_name)
 end
 
 -------------------------------------
--- function initAnimator
+-- function initAnimatorDragon
 -------------------------------------
 function DirectingCharacter:initAnimatorDragon(did, evolution)
     -- Animator 삭제
     self:releaseAnimator()
 
-    -- Animator 생성
-    self.m_animator = AnimatorHelper:makeDragonAnimator_usingDid(did, evolution)
+    local t_dragon
+    if TableSlime:isSlimeID(did) then
+        local table_slime = TableSlime()
+        t_dragon = table_slime:get(did)
+    else
+        local table_dragon = TableDragon()
+        t_dragon = table_dragon:get(did)
+    end
+
+	local res_name = t_dragon['res']
+    local attr = t_dragon['attr']
+    
+	-- Animator 생성
+    self.m_animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
     if self.m_animator.m_node then
         self.m_animator.m_node:setScale(self.m_scale)
         

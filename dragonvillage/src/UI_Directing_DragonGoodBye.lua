@@ -22,21 +22,26 @@ function UI_Directing_DragonGoodBye:init(doid_map)
 
 	-- 멤버 변수
 	self.m_tDragonChar = {}
-	do
-		self.m_lPosList = {}
-		self.m_lPosList[1] = {is_used = false, doid = nil, pos = {-100, -100}}
-		self.m_lPosList[2] = {is_used = false, doid = nil, pos = {-200, -50}}
-		self.m_lPosList[3] = {is_used = false, doid = nil, pos = {-200, -150}}
-		self.m_lPosList[4] = {is_used = false, doid = nil, pos = {-300, -50}}
-		self.m_lPosList[5] = {is_used = false, doid = nil, pos = {-300, -150}}
-		self.m_lPosList[6] = {is_used = false, doid = nil, pos = {-400, 0}}
-		self.m_lPosList[7] = {is_used = false, doid = nil, pos = {-400, -100}}
-		self.m_lPosList[8] = {is_used = false, doid = nil, pos = {-400, -200}}
-	end
-
+	self:init_posList()
+	 
     self:initUI()
     self:initButton()
     self:refresh()
+end
+
+-------------------------------------
+-- function init_posList
+-------------------------------------
+function UI_Directing_DragonGoodBye:init_posList()
+	self.m_lPosList = {}
+	self.m_lPosList[1] = {is_used = false, doid = nil, pos = {-100, -100}}
+	self.m_lPosList[2] = {is_used = false, doid = nil, pos = {-200, -50}}
+	self.m_lPosList[3] = {is_used = false, doid = nil, pos = {-200, -150}}
+	self.m_lPosList[4] = {is_used = false, doid = nil, pos = {-300, -50}}
+	self.m_lPosList[5] = {is_used = false, doid = nil, pos = {-300, -150}}
+	self.m_lPosList[6] = {is_used = false, doid = nil, pos = {-400, 0}}
+	self.m_lPosList[7] = {is_used = false, doid = nil, pos = {-400, -100}}
+	self.m_lPosList[8] = {is_used = false, doid = nil, pos = {-400, -200}}
 end
 
 -------------------------------------
@@ -58,31 +63,7 @@ function UI_Directing_DragonGoodBye:initUI()
 	self.vars['aniNode'] = node
 
 	-- 스킵 버튼
-	do
-	    local node = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 1)
-        node:setDockPoint(cc.p(1, 1))
-        node:setAnchorPoint(CENTER_POINT)
-        node:setPosition(-96, -26)
-		node:setNormalSize(180, 40)
-        UIC_Button(node)
-
-        self.root:addChild(node, 3)
-        self.vars['skipBtn'] = node
-		self.vars['skipBtn']:setVisible(false)
-
-		-- 버튼 라벨
-		local label = cc.Label:createWithTTF(Str('건너뛰기'), 'res/font/common_font_01.ttf', 22, 1, cc.size(177, 31), cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER) 
-		label:setDockPoint(CENTER_POINT)
-        label:setAnchorPoint(CENTER_POINT)
-		label:setPosition(-31, 0)
-		self.vars['skipBtn']:addChild(label)
-
-		local sprite = cc.Sprite:create('res/ui/icon/skip.png')
-		sprite:setDockPoint(CENTER_POINT)
-        sprite:setAnchorPoint(CENTER_POINT)
-		sprite:setPosition(72, 0)
-		self.vars['skipBtn']:addChild(sprite)
-	end
+	self:makeSkipBtn()
 
 	self:initBG()
 end
@@ -110,7 +91,36 @@ function UI_Directing_DragonGoodBye:initBG()
 end
 
 -------------------------------------
--- function initAnimators
+-- function makeSkipBtn
+-------------------------------------
+function UI_Directing_DragonGoodBye:makeSkipBtn()
+	local node = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 1)
+    node:setDockPoint(cc.p(1, 1))
+    node:setAnchorPoint(CENTER_POINT)
+    node:setPosition(-96, -26)
+	node:setNormalSize(180, 40)
+    UIC_Button(node)
+
+    self.root:addChild(node, 3)
+    self.vars['skipBtn'] = node
+	self.vars['skipBtn']:setVisible(false)
+
+	-- 버튼 라벨
+	local label = cc.Label:createWithTTF(Str('건너뛰기'), 'res/font/common_font_01.ttf', 22, 1, cc.size(177, 31), cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER) 
+	label:setDockPoint(CENTER_POINT)
+    label:setAnchorPoint(CENTER_POINT)
+	label:setPosition(-31, 0)
+	self.vars['skipBtn']:addChild(label)
+
+	local sprite = cc.Sprite:create('res/ui/icon/skip.png')
+	sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
+	sprite:setPosition(72, 0)
+	self.vars['skipBtn']:addChild(sprite)
+end
+
+-------------------------------------
+-- function makeTamerChar
 -------------------------------------
 function UI_Directing_DragonGoodBye:makeTamerChar()
 	local res = g_tamerData:getCurrTamerTable('res_sd')
@@ -173,6 +183,10 @@ function UI_Directing_DragonGoodBye:addDragonData(doid)
 	-- @@@ 걸어 들어오면서 한마디
 	-- 애니 등록
 	local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+	if (not t_dragon_data) then
+		t_dragon_data = g_slimesData:getSlimeObject(doid)
+	end
+
 	local dir_dragon = self:makeDragonChar(t_dragon_data)
 	
 	-- map 등록
@@ -203,10 +217,10 @@ function UI_Directing_DragonGoodBye:delDragonData(doid)
 		if (t_pos['doid'] == doid) then
 			t_pos['is_used'] = false
 			t_pos['doid'] = nil
+			break
 		end
 	end
 end
-
 
 
 
@@ -443,6 +457,7 @@ function UI_Directing_DragonGoodBye:goodbye_forever()
 	if (self.m_finalCB) then
 		self.m_finalCB()
 	end
+	self:init_posList()
 
 	-- 화면 정리
 	local fadeout = cc.FadeOut:create(1)
