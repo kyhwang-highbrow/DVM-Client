@@ -552,11 +552,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		damage_multifly = (damage_multifly + self.m_statusCalc:getAdjustRate('dmg_adj_rate') / 100)
 
         damage = (damage * damage_multifly)
+
+        -- 음수일 경우 0으로 변경
+        damage = math_max(damage, 0)
     end
 
     -- 속성 추가 데미지 별도로 사용하기 위해 ..! (과거에 인게임 화면에 출력)
-    attr_bonus_dmg = math_floor(attr_bonus_dmg * attack_activity_carrier:getPowerRate())
-	attr_bonus_dmg = math_min(attr_bonus_dmg, damage)
+    --attr_bonus_dmg = math_floor(attr_bonus_dmg * attack_activity_carrier:getPowerRate())
+	--attr_bonus_dmg = math_min(attr_bonus_dmg, damage)
 
     -- 회피 계산
     if (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
