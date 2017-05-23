@@ -36,7 +36,10 @@ SceneViewer = class(PerpleScene,{
 		m_physics_index = 'number',
 
 		m_dummy = 'vrp',
-		m_mapManager = 'map ani'
+		m_mapManager = 'map ani',
+
+        m_bDarkMode = 'boolean',
+        m_mBoneEffect = 'table',
 	})
 
 -------------------------------------
@@ -61,6 +64,9 @@ function SceneViewer:init()
 	self.m_bgName = 'map_canyon'
 
 	self.m_dummy = nil
+
+    self.m_bDarkMode = false
+    self.m_mBoneEffect = {}
 
 end
 
@@ -91,7 +97,12 @@ function SceneViewer:onEnter()
 		self:makeTouchLayer(self.m_effctNode)
 			
 		self.m_dragonScale = 0.4
-		self:makeHeroVisual()
+
+		if (self.m_bDarkMode) then
+            self:makeDarkModeHeroVisual()
+        else
+			self:makeHeroVisual()
+        end
 	end
 
 	-- scroll map node 
@@ -148,7 +159,11 @@ function SceneViewer:makeUI()
 		do -- 새로고침 버튼
 			local function touchEvent(sender,eventType)
 				if eventType == ccui.TouchEventType.ended then
-					self:makeHeroVisual()
+					if (self.m_bDarkMode) then
+                        self:makeDarkModeHeroVisual()
+                    else
+					    self:makeHeroVisual()
+                    end
 
                     self.m_dragonScale = 1
                     self.m_effctNode:setPosition(0, 0)
@@ -177,7 +192,12 @@ function SceneViewer:makeUI()
 				if eventType == ccui.TouchEventType.ended then
                     self.m_vrpResName = openFileDialog()
                     self.m_editBox:setText(self.m_vrpResName)
-					self:makeHeroVisual()
+
+					if (self.m_bDarkMode) then
+                        self:makeDarkModeHeroVisual()
+                    else
+					    self:makeHeroVisual()
+                    end
 				end
 			end
 
@@ -200,7 +220,12 @@ function SceneViewer:makeUI()
 			local function editBoxTextEventHandle(strEventName, pSender)
 				local edit = pSender
 				self.m_vrpResName = edit:getText()
-				self:makeHeroVisual()
+
+				if (self.m_bDarkMode) then
+                    self:makeDarkModeHeroVisual()
+                else
+					self:makeHeroVisual()
+                end
 			end
 
 			local editBoxSize = cc.size(600, 40)
@@ -229,7 +254,12 @@ function SceneViewer:makeUI()
 			local function editBoxTextEventHandle(strEventName, pSender)
 				local edit = pSender
 				self.m_visualName = edit:getText()
-				self:makeHeroVisual()
+
+				if (self.m_bDarkMode) then
+                    self:makeDarkModeHeroVisual()
+                else
+					self:makeHeroVisual()
+                end
 			end
 
 			local editBoxSize = cc.size(250, 40)
@@ -449,6 +479,39 @@ function SceneViewer:makeUI()
 			custom_button:addTouchEventListener(touchEvent)
 			self.m_uiNode:addChild(custom_button)
 		end
+        ----------------------------------------------------------------------
+
+		----------------------------------------------------------------------
+		do -- 다크 모드
+            local function touchEvent(sender,eventType)
+				if eventType == ccui.TouchEventType.ended then
+                    for effect, _ in pairs(self.m_mBoneEffect) do
+                        effect:release()
+                    end
+                    self.m_mBoneEffect = {}
+
+                    self.m_bDarkMode = not self.m_bDarkMode
+
+                    if (self.m_bDarkMode) then
+                        self:makeDarkModeHeroVisual()
+                    else
+					    self:makeHeroVisual()
+                    end
+				end
+			end
+
+			local button = ccui.Button:create()
+			button:setTitleFontName(FONT_PATH)
+			button:setTitleFontSize(20)
+			button:setTitleText('다크모드')
+
+			button:setTouchEnabled(true)
+			button:loadTextures("res/common/tool/a_button_0801.png", "res/common/tool/a_button_0802.png", "")
+			button:setPosition(50, 0)
+			button:setDockPoint(cc.p(0, 0.5))
+			button:addTouchEventListener(touchEvent)
+			self.m_uiNode:addChild(button)
+        end
 		----------------------------------------------------------------------
 
 		----------------------------------------------------------------------
@@ -482,7 +545,7 @@ function SceneViewer:makeUI()
 
 			button:setTouchEnabled(true)
 			button:loadTextures("res/common/tool/a_button_0801.png", "res/common/tool/a_button_0802.png", "")
-			button:setPosition(50, 50 - 50 * i)
+			button:setPosition(50, -50 * (i + 1))
 			button:setDockPoint(cc.p(0, 0.5))
 			button:addTouchEventListener(touchEvent)
 			self.m_uiNode:addChild(button)
@@ -537,6 +600,69 @@ function SceneViewer:makeHeroVisual()
 		self.m_zero_point:setVisible(false)
 	end
 
+end
+
+-------------------------------------
+-- function makeDarkModeHeroVisual
+-------------------------------------
+function SceneViewer:makeDarkModeHeroVisual()
+    self:makeHeroVisual()
+
+    -- 이미지 반전
+    self.m_animator:setFlip(true)
+
+    -- 기본 쉐이더 변경
+    self.m_animator:setBaseShader(SHADER_DARK)
+
+    -- 이펙트 슬롯 숨김
+    local slotList = self.m_animator:getSlotList()
+    for i, slotName in ipairs(slotList) do
+        if startsWith(slotName, 'effect_') then
+            self.m_animator.m_node:setVisibleSlot(slotName, false)
+        end
+    end
+
+    local function makeDarkModeBoneEffect(bone_name, res, visual_name)
+        -- 해당 본이 존재하는지 체크
+        if (not self.m_animator.m_node:isExistBone(bone_name)) then return end
+
+        local visual_name = visual_name or 'idle'
+
+        -- 본 위치 사용 준비
+        self.m_animator.m_node:useBonePosition(bone_name)
+
+        local effect = MakeAnimator(res)
+        effect:changeAni(visual_name, true)
+                
+        self.m_mBoneEffect[effect] = bone_name
+
+        return effect
+    end
+
+    do -- 안광
+        for i = 1, 6 do
+            local effect = makeDarkModeBoneEffect('monstereye_' .. i, 'res/effect/effect_monsterdragon/effect_monsterdragon_eye.vrp', 'idle')
+            if (effect) then
+                self.m_animator.m_node:addChild(effect.m_node)
+            else
+                break
+            end
+        end
+    end
+    --[[
+    do -- 이펙트(앞 레이어)
+        local effect = makeDarkModeBoneEffect('monstereffect', 'res/effect/effect_monsterdragon/effect_monsterdragon_f.vrp')
+        if (effect) then
+            self.m_animator.m_node:addChild(effect.m_node)
+        end
+    end
+    ]]--
+    do -- 이펙트(뒤 레이어)
+        local effect = makeDarkModeBoneEffect('monstereffect', 'res/effect/effect_monsterdragon/effect_monsterdragon_b.vrp')
+        if (effect) then
+            self.m_effctNode:addChild(effect.m_node, -1)
+        end
+    end
 end
 
 -------------------------------------
@@ -805,5 +931,22 @@ end
 function SceneViewer:update(dt)
 	if (self.m_mapManager) then
 		self.m_mapManager:update(dt)
+
+        self.m_mapNode:setVisible(not self.m_bDarkMode)
 	end
+
+    if (self.m_animator) then
+        for effect, bone_name in pairs(self.m_mBoneEffect) do
+            local pos = self.m_animator.m_node:getBonePosition(bone_name)
+            local scale = self.m_animator.m_node:getBoneScale(bone_name)
+
+            effect:setPosition(pos)
+            
+            if (effect.m_node:getParent() ~= self.m_animator.m_node) then
+                effect:setScale(self.m_animator:getScale() * scale.y)
+            else
+                effect:setScale(scale.y)
+            end
+        end
+    end
 end

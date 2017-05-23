@@ -42,6 +42,8 @@ SECRET_MODE[SECRET_DUNGEON_RELATION] = "RELATION"
 -- function getInGameConstant
 -------------------------------------
 function getInGameConstant(type)
+    if (not g_constant) then return end
+
     local ret = 0
 
     local gameMode = GAME_MODE_ADVENTURE

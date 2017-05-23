@@ -81,6 +81,8 @@ local function main()
 	logoScene:runScene()
     --]]
 
+    ShaderCache:init()
+
     local scene = SceneViewer()
     scene:runScene()
     

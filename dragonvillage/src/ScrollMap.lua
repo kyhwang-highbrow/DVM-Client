@@ -64,6 +64,8 @@ end
 -- @breif 배경 백판 연출 설정
 -------------------------------------
 function ScrollMap:setDirecting(directing_type)
+    if (not g_constant) then return end
+
     self.m_bgDirectingType = directing_type
 
     local time = getInGameConstant("MAP_FLOATING_TIME") / 4
