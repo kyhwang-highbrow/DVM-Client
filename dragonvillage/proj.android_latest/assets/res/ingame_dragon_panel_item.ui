@@ -40,7 +40,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'skillVisual2';
-					file_name = 'ui/a2d/ingame_dragon_skill/ingame_dragon_skill.a2d';
+					file_name = 'ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp';
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'skill_gauge;drag_idle_light_2';
@@ -189,7 +189,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'skillVisual';
-					file_name = 'ui/a2d/ingame_panel/ingame_panel.a2d';
+					file_name = 'ui/a2d/ingame_panel/ingame_panel.vrp';
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'group;dragon_drag_skill';
@@ -436,7 +436,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'normalSkillVisual';
-					file_name = 'ui/a2d/ingame_panel/ingame_panel.a2d';
+					file_name = 'ui/a2d/ingame_panel/ingame_panel.vrp';
 					auto_play = false;
 					is_repeat = false;
 					visual_id = 'group;dragon_normal_skill';

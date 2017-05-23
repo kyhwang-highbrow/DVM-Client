@@ -4,6 +4,7 @@ option java_outer_classname = "Chat";
 
 message CChatNormalMsg {
 	required string	message = 1;
+	required string nickname = 2;
 }
 
 message CChatChangeChannel {
@@ -19,6 +20,11 @@ message SChatChangeChannel {
 }
 
 message SChatResponse {
+	required string	json = 1;
+	optional bytes dataBytes = 2;
+}
+
+message SWhisperResponse {
 	required string	json = 1;
 	optional bytes dataBytes = 2;
 }

@@ -7,13 +7,13 @@
 		{
 			[1] =
 			{
-				type = 'Scale9Sprite';
+				type = 'Visual';
 				ui_name = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
+				relative_size_type = 0;
 				width = 0;
 				height = 0;
 				scale_x = 1.000000;
@@ -22,21 +22,20 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/base_0101.png';
+				lua_name = 'towerVisual';
+				file_name = 'ui/a2d/tower/tower.vrp';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;select';
 				color = { 255; 255; 255; };
 				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
 			};
 			[2] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -14.000000;
+				y = -19.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -100,7 +99,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 500;
-				height = 130;
+				height = 150;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -109,7 +108,7 @@
 				visible = true;
 				lua_name = 'floorBtn';
 				enable = true;
-				normal = '';
+				normal = 'ui/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -125,8 +124,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 80;
-					height = 80;
+					width = 60;
+					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -134,7 +133,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/icon_lock_0101.png';
+					file_name = 'ui/icon/manage_lock.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -145,12 +144,12 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 0.000000;
+				y = -14.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
-				width = -4;
-				height = -4;
+				relative_size_type = 0;
+				width = 72;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -191,7 +190,7 @@
 					text = 'CLEAR';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 215; 0; };
+					color = { 255; 225; 18; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 72;
@@ -266,7 +265,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 500;
-			height = 130;
+			height = 150;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -283,7 +282,7 @@
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
 		width = -780;
-		height = -590;
+		height = -570;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
 		skew_x = 0.000000;

@@ -38,7 +38,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'skllFullVisual';
-				file_name = 'ui/a2d/ingame_dragon_skill/ingame_dragon_skill.a2d';
+				file_name = 'ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp';
 				auto_play = true;
 				is_repeat = true;
 				visual_id = 'skill_gauge;idle';
@@ -245,7 +245,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'skllFullVisual2';
-				file_name = 'ui/a2d/ingame_dragon_skill/ingame_dragon_skill.a2d';
+				file_name = 'ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp';
 				auto_play = true;
 				is_repeat = true;
 				visual_id = 'skill_gauge;idle_s_dark';

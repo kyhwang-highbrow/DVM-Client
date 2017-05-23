@@ -21,7 +21,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.a2d';
+			file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;idle';
@@ -320,7 +320,7 @@
 						rotation = 0.000000;
 						visible = false;
 						lua_name = 'receiveVisual20';
-						file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
+						file_name = 'ui/a2d/rarity_light/rarity_light.vrp';
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;legend';
@@ -461,7 +461,7 @@
 						rotation = 0.000000;
 						visible = false;
 						lua_name = 'receiveVisual50';
-						file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
+						file_name = 'ui/a2d/rarity_light/rarity_light.vrp';
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;legend';
@@ -602,7 +602,7 @@
 						rotation = 0.000000;
 						visible = false;
 						lua_name = 'receiveVisual150';
-						file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
+						file_name = 'ui/a2d/rarity_light/rarity_light.vrp';
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;legend';

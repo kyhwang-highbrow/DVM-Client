@@ -536,7 +536,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/a2d/world_select_light/world_select_light.a2d';
+					file_name = 'ui/a2d/world_select_light/world_select_light.vrp';
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'light;idle';
@@ -1438,7 +1438,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = 'receiveVisual12';
-						file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
+						file_name = 'ui/a2d/rarity_light/rarity_light.vrp';
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;legend';
@@ -1631,7 +1631,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = 'receiveVisual24';
-						file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
+						file_name = 'ui/a2d/rarity_light/rarity_light.vrp';
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;legend';
@@ -1824,7 +1824,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = 'receiveVisual36';
-						file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
+						file_name = 'ui/a2d/rarity_light/rarity_light.vrp';
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;legend';

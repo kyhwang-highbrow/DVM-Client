@@ -8,6 +8,8 @@ message CLoginReq {
 	optional string sessionKey = 3;
 	optional int32 recvCounter = 4;
 	optional int32 offset = 5;
+	optional string did = 6;
+	optional int32 level = 7;
 }
 
 message SLoginRes {
@@ -18,6 +20,7 @@ message SLoginRes {
 	optional string sessionKey = 5;
 	optional int32 sentCounter = 6;
 	optional string json = 7;
+	optional string channelGuild = 8;
 }
 
 enum LoginResult {

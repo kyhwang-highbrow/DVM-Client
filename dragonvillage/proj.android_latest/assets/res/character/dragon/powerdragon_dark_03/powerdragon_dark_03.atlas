@@ -1,209 +1,146 @@
 
 powerdragon_dark_03.png
-size: 2048,256
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 powerdragon_dark_03_arm_01
-  rotate: true
-  xy: 1522, 41
-  size: 103, 113
-  orig: 103, 113
+  rotate: false
+  xy: 2, 778
+  size: 427, 593
+  orig: 427, 593
   offset: 0, 0
   index: -1
 powerdragon_dark_03_arm_02
-  rotate: true
-  xy: 1405, 146
-  size: 104, 173
-  orig: 104, 173
-  offset: 0, 0
-  index: -1
-powerdragon_dark_03_arm_03
-  rotate: true
-  xy: 370, 20
-  size: 78, 127
-  orig: 78, 127
-  offset: 0, 0
-  index: -1
-powerdragon_dark_03_arm_04
-  rotate: true
-  xy: 499, 15
-  size: 83, 109
-  orig: 83, 109
+  rotate: false
+  xy: 1436, 1498
+  size: 296, 489
+  orig: 296, 489
   offset: 0, 0
   index: -1
 powerdragon_dark_03_body_01
   rotate: false
-  xy: 1041, 65
-  size: 189, 185
-  orig: 189, 185
+  xy: 431, 934
+  size: 448, 437
+  orig: 448, 437
   offset: 0, 0
   index: -1
 powerdragon_dark_03_body_02
-  rotate: true
-  xy: 1637, 2
-  size: 81, 87
-  orig: 81, 87
+  rotate: false
+  xy: 375, 269
+  size: 336, 372
+  orig: 336, 372
   offset: 0, 0
   index: -1
 powerdragon_dark_03_body_03
   rotate: false
-  xy: 1810, 10
-  size: 47, 59
-  orig: 47, 59
+  xy: 713, 269
+  size: 336, 372
+  orig: 336, 372
   offset: 0, 0
   index: -1
-powerdragon_dark_03_body_04
+powerdragon_dark_03_eff_01
   rotate: false
-  xy: 1637, 85
-  size: 111, 59
-  orig: 111, 59
+  xy: 1427, 803
+  size: 172, 85
+  orig: 172, 85
   offset: 0, 0
   index: -1
-powerdragon_dark_03_body_05
+powerdragon_dark_03_eff_02
   rotate: false
-  xy: 232, 2
-  size: 136, 96
-  orig: 136, 96
+  xy: 881, 947
+  size: 172, 85
+  orig: 172, 85
   offset: 0, 0
   index: -1
-powerdragon_dark_03_effect_01
-  rotate: false
-  xy: 232, 100
-  size: 295, 150
-  orig: 295, 150
-  offset: 0, 0
-  index: -1
-powerdragon_dark_03_effect_02
-  rotate: false
-  xy: 529, 100
-  size: 295, 150
-  orig: 295, 150
-  offset: 0, 0
-  index: -1
-powerdragon_dark_03_effect_03
-  rotate: false
-  xy: 826, 100
-  size: 213, 150
-  orig: 213, 150
-  offset: 0, 0
-  index: -1
-powerdragon_dark_03_effect_04
-  rotate: false
-  xy: 1232, 100
-  size: 171, 150
-  orig: 171, 150
-  offset: 0, 0
-  index: -1
-powerdragon_dark_03_effect_05
-  rotate: false
-  xy: 2, 20
-  size: 228, 230
-  orig: 228, 230
-  offset: 0, 0
-  index: -1
-powerdragon_dark_03_effect_06
+powerdragon_dark_03_eff_03
   rotate: true
-  xy: 1580, 146
-  size: 104, 173
-  orig: 104, 173
+  xy: 1957, 1324
+  size: 172, 85
+  orig: 172, 85
   offset: 0, 0
   index: -1
-powerdragon_dark_03_effect_07
+powerdragon_dark_03_eff_04
   rotate: true
-  xy: 610, 15
-  size: 83, 109
-  orig: 83, 109
+  xy: 2, 214
+  size: 562, 371
+  orig: 562, 371
   offset: 0, 0
   index: -1
-powerdragon_dark_03_effect_11
-  rotate: true
-  xy: 1750, 71
-  size: 62, 97
-  orig: 62, 97
+powerdragon_dark_03_eff_05
+  rotate: false
+  xy: 2, 1373
+  size: 1003, 614
+  orig: 1003, 614
   offset: 0, 0
   index: -1
 powerdragon_dark_03_eye_01
   rotate: false
-  xy: 1370, 63
-  size: 32, 35
-  orig: 32, 35
-  offset: 0, 0
-  index: -1
-powerdragon_dark_03_eye_02
-  rotate: false
-  xy: 1849, 77
-  size: 38, 56
-  orig: 38, 56
+  xy: 1108, 1090
+  size: 317, 302
+  orig: 317, 302
   offset: 0, 0
   index: -1
 powerdragon_dark_03_foot_01
   rotate: true
-  xy: 1889, 74
-  size: 48, 55
-  orig: 48, 55
+  xy: 431, 643
+  size: 289, 420
+  orig: 289, 420
+  offset: 0, 0
+  index: -1
+powerdragon_dark_03_foot_02
+  rotate: false
+  xy: 1755, 1223
+  size: 200, 273
+  orig: 200, 273
   offset: 0, 0
   index: -1
 powerdragon_dark_03_hand_01
   rotate: false
-  xy: 721, 10
-  size: 95, 88
-  orig: 95, 88
+  xy: 1007, 1394
+  size: 427, 593
+  orig: 427, 593
   offset: 0, 0
   index: -1
 powerdragon_dark_03_hand_02
   rotate: false
-  xy: 1311, 37
-  size: 57, 61
-  orig: 57, 61
-  offset: 0, 0
-  index: -1
-powerdragon_dark_03_hand_03
-  rotate: false
-  xy: 818, 10
-  size: 95, 88
-  orig: 95, 88
+  xy: 1734, 1498
+  size: 296, 489
+  orig: 296, 489
   offset: 0, 0
   index: -1
 powerdragon_dark_03_head_01
   rotate: false
-  xy: 1755, 135
-  size: 138, 115
-  orig: 138, 115
+  xy: 1436, 1194
+  size: 317, 302
+  orig: 317, 302
   offset: 0, 0
   index: -1
-powerdragon_dark_03_head_02
+powerdragon_dark_03_jaw_01
   rotate: false
-  xy: 1405, 42
-  size: 115, 102
-  orig: 115, 102
+  xy: 1427, 890
+  size: 317, 302
+  orig: 317, 302
   offset: 0, 0
   index: -1
-powerdragon_dark_03_leg_01
-  rotate: true
-  xy: 1232, 37
-  size: 61, 77
-  orig: 61, 77
-  offset: 0, 0
-  index: -1
-powerdragon_dark_03_leg_02
-  rotate: true
-  xy: 1726, 7
-  size: 62, 82
-  orig: 62, 82
+powerdragon_dark_03_jaw_02
+  rotate: false
+  xy: 1108, 786
+  size: 317, 302
+  orig: 317, 302
   offset: 0, 0
   index: -1
 powerdragon_dark_03_wing_01
-  rotate: true
-  xy: 1895, 124
-  size: 126, 137
-  orig: 126, 137
+  rotate: false
+  xy: 2, 2
+  size: 368, 210
+  orig: 368, 210
   offset: 0, 0
   index: -1
 powerdragon_dark_03_wing_02
   rotate: true
-  xy: 915, 29
-  size: 69, 104
-  orig: 69, 104
+  xy: 881, 1034
+  size: 337, 225
+  orig: 337, 225
   offset: 0, 0
   index: -1

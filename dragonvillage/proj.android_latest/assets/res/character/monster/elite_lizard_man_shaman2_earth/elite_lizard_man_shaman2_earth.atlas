@@ -1,0 +1,111 @@
+
+elite_lizard_man_shaman2_earth.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_lizard_man_shaman2_earth_arm_01
+  rotate: false
+  xy: 504, 160
+  size: 116, 91
+  orig: 116, 91
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_arm_02
+  rotate: false
+  xy: 134, 72
+  size: 122, 81
+  orig: 122, 81
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_body_01
+  rotate: false
+  xy: 0, 26
+  size: 132, 127
+  orig: 132, 127
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_body_02
+  rotate: false
+  xy: 0, 0
+  size: 62, 24
+  orig: 62, 24
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_body_03
+  rotate: true
+  xy: 134, 2
+  size: 68, 85
+  orig: 68, 85
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_hand_01
+  rotate: false
+  xy: 704, 146
+  size: 56, 42
+  orig: 56, 42
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_head_01
+  rotate: true
+  xy: 317, 93
+  size: 158, 185
+  orig: 158, 185
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_head_02
+  rotate: false
+  xy: 221, 22
+  size: 19, 48
+  orig: 19, 48
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_head_03
+  rotate: true
+  xy: 622, 113
+  size: 75, 80
+  orig: 75, 80
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_leg_01
+  rotate: true
+  xy: 622, 190
+  size: 61, 138
+  orig: 61, 138
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_leg_02
+  rotate: true
+  xy: 762, 190
+  size: 61, 138
+  orig: 61, 138
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_mouth_01
+  rotate: false
+  xy: 258, 94
+  size: 54, 59
+  orig: 54, 59
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_tail_01
+  rotate: false
+  xy: 504, 65
+  size: 108, 93
+  orig: 108, 93
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_weapon_01
+  rotate: false
+  xy: 0, 155
+  size: 315, 96
+  orig: 315, 96
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman2_earth_weapon_02
+  rotate: false
+  xy: 902, 152
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1

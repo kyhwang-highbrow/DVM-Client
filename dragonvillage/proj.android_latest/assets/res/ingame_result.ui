@@ -33,7 +33,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = -484.000000;
-				y = -130.000000;
+				y = -174.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -715,7 +715,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'lvUpVisual5';
-							file_name = 'ui/a2d/result_level_up/result_level_up.a2d';
+							file_name = 'ui/a2d/result_level_up/result_level_up.vrp';
 							auto_play = false;
 							is_repeat = false;
 							visual_id = 'group;level_up_idle';
@@ -989,7 +989,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'lvUpVisual4';
-							file_name = 'ui/a2d/result_level_up/result_level_up.a2d';
+							file_name = 'ui/a2d/result_level_up/result_level_up.vrp';
 							auto_play = false;
 							is_repeat = false;
 							visual_id = 'group;level_up_idle';
@@ -1263,7 +1263,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'lvUpVisual3';
-							file_name = 'ui/a2d/result_level_up/result_level_up.a2d';
+							file_name = 'ui/a2d/result_level_up/result_level_up.vrp';
 							auto_play = false;
 							is_repeat = false;
 							visual_id = 'group;level_up_idle';
@@ -1537,7 +1537,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'lvUpVisual2';
-							file_name = 'ui/a2d/result_level_up/result_level_up.a2d';
+							file_name = 'ui/a2d/result_level_up/result_level_up.vrp';
 							auto_play = false;
 							is_repeat = false;
 							visual_id = 'group;level_up_idle';
@@ -1811,7 +1811,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'lvUpVisual1';
-							file_name = 'ui/a2d/result_level_up/result_level_up.a2d';
+							file_name = 'ui/a2d/result_level_up/result_level_up.vrp';
 							auto_play = false;
 							is_repeat = false;
 							visual_id = 'group;level_up_idle';
@@ -2135,7 +2135,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'boxVisual';
-					file_name = 'ui/a2d/result_box/result_box.a2d';
+					file_name = 'ui/a2d/result_box/result_box.vrp';
 					auto_play = false;
 					is_repeat = false;
 					visual_id = 'group;box_01';
@@ -2307,7 +2307,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'successVisual';
-				file_name = 'ui/a2d/result/result.a2d';
+				file_name = 'ui/a2d/result/result.vrp';
 				auto_play = false;
 				is_repeat = false;
 				visual_id = 'group;success_00';

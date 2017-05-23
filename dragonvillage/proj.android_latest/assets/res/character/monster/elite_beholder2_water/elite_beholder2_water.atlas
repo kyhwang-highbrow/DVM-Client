@@ -1,0 +1,111 @@
+
+elite_beholder2_water.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_beholder2_water_acc_01
+  rotate: false
+  xy: 650, 155
+  size: 143, 97
+  orig: 143, 97
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_acc_02
+  rotate: false
+  xy: 795, 114
+  size: 130, 53
+  orig: 130, 53
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_acc_03
+  rotate: false
+  xy: 0, 4
+  size: 53, 42
+  orig: 53, 42
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_acc_04
+  rotate: true
+  xy: 334, 0
+  size: 63, 60
+  orig: 63, 60
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_body_01
+  rotate: false
+  xy: 0, 48
+  size: 212, 204
+  orig: 212, 204
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_body_02
+  rotate: false
+  xy: 214, 54
+  size: 118, 198
+  orig: 118, 198
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_body_03
+  rotate: true
+  xy: 478, 0
+  size: 87, 111
+  orig: 87, 111
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_body_04
+  rotate: true
+  xy: 499, 135
+  size: 117, 149
+  orig: 117, 149
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_body_05
+  rotate: true
+  xy: 794, 16
+  size: 96, 111
+  orig: 96, 111
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_eye_01
+  rotate: false
+  xy: 334, 131
+  size: 163, 121
+  orig: 163, 121
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_eye_02
+  rotate: false
+  xy: 952, 175
+  size: 57, 77
+  orig: 57, 77
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_eye_03
+  rotate: false
+  xy: 396, 31
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_tail_01
+  rotate: true
+  xy: 795, 169
+  size: 83, 155
+  orig: 83, 155
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_throne_01
+  rotate: false
+  xy: 334, 65
+  size: 142, 64
+  orig: 142, 64
+  offset: 0, 0
+  index: -1
+elite_beholder2_water_throne_02
+  rotate: false
+  xy: 650, 89
+  size: 142, 64
+  orig: 142, 64
+  offset: 0, 0
+  index: -1

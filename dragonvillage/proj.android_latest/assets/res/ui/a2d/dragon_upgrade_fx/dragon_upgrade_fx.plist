@@ -4,901 +4,561 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>dragon_sphere_fx_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{412,1668},{272,121}}</string>
-                <key>offset</key>
-                <string>{0,-4}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,12},{272,121}}</string>
-                <key>sourceSize</key>
-                <string>{272,137}</string>
-            </dict>
-            <key>dragon_sphere_fx_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1768,264},{272,129}}</string>
-                <key>offset</key>
-                <string>{0,-3}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,7},{272,129}}</string>
-                <key>sourceSize</key>
-                <string>{272,137}</string>
-            </dict>
-            <key>dragon_sphere_fx_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1316,398},{272,129}}</string>
-                <key>offset</key>
-                <string>{0,-4}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,8},{272,129}}</string>
-                <key>sourceSize</key>
-                <string>{272,137}</string>
-            </dict>
-            <key>dragon_sphere_fx_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1290,740},{272,131}}</string>
-                <key>offset</key>
-                <string>{0,-3}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,6},{272,131}}</string>
-                <key>sourceSize</key>
-                <string>{272,137}</string>
-            </dict>
-            <key>dragon_sphere_fx_05.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1116,1668},{272,129}}</string>
-                <key>offset</key>
-                <string>{0,-3}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,7},{272,129}}</string>
-                <key>sourceSize</key>
-                <string>{272,137}</string>
-            </dict>
-            <key>dragon_sphere_fx_06.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1247,1642},{272,129}}</string>
-                <key>offset</key>
-                <string>{0,-3}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,7},{272,129}}</string>
-                <key>sourceSize</key>
-                <string>{272,137}</string>
-            </dict>
-            <key>dragon_sphere_fx_07.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1378,1648},{272,127}}</string>
-                <key>offset</key>
-                <string>{0,-5}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,10},{272,127}}</string>
-                <key>sourceSize</key>
-                <string>{272,137}</string>
-            </dict>
-            <key>dragon_sphere_fx_08.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1507,1648},{272,127}}</string>
-                <key>offset</key>
-                <string>{0,-5}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,10},{272,127}}</string>
-                <key>sourceSize</key>
-                <string>{272,137}</string>
-            </dict>
-            <key>dragon_sphere_fx_09.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1616,1044},{272,127}}</string>
-                <key>offset</key>
-                <string>{0,-5}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,10},{272,127}}</string>
-                <key>sourceSize</key>
-                <string>{272,137}</string>
-            </dict>
-            <key>dragon_sphere_fx_10.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1921,395},{270,115}}</string>
-                <key>offset</key>
-                <string>{-1,3}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,8},{270,115}}</string>
-                <key>sourceSize</key>
-                <string>{272,137}</string>
-            </dict>
-            <key>dragon_upgrade_alight_09.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1188,1230},{210,210}}</string>
-                <key>offset</key>
-                <string>{-6,9}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{171,160},{210,210}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_10.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1404,1044},{210,210}}</string>
-                <key>offset</key>
-                <string>{-6,8}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{171,161},{210,210}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_11.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1400,1256},{210,210}}</string>
-                <key>offset</key>
-                <string>{-6,8}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{171,161},{210,210}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_12.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{976,1258},{210,214}}</string>
-                <key>offset</key>
-                <string>{-6,9}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{171,158},{210,214}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_13.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1447,610},{228,226}}</string>
-                <key>offset</key>
-                <string>{-15,14}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{153,147},{228,226}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_14.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{280,1791},{240,236}}</string>
-                <key>offset</key>
-                <string>{-21,18}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{141,138},{240,236}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_15.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1768,2},{254,260}}</string>
-                <key>offset</key>
-                <string>{-28,29}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{127,115},{254,260}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_16.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{770,748},{282,312}}</string>
-                <key>offset</key>
-                <string>{-42,54}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{99,64},{282,312}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_17.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{728,404},{308,342}}</string>
-                <key>offset</key>
-                <string>{-47,65}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{81,38},{308,342}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_18.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1038,398},{276,340}}</string>
-                <key>offset</key>
-                <string>{-10,49}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{134,55},{276,340}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_19.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{416,466},{310,384}}</string>
-                <key>offset</key>
-                <string>{-11,72}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{116,10},{310,384}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_20.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{416,852},{352,358}}</string>
-                <key>offset</key>
-                <string>{-15,35}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{91,60},{352,358}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_21.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1378,2},{388,368}}</string>
-                <key>offset</key>
-                <string>{-19,20}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{69,70},{388,368}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_22.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{958,2},{418,394}}</string>
-                <key>offset</key>
-                <string>{-28,23}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{45,54},{418,394}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_23.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,466},{412,476}}</string>
-                <key>offset</key>
-                <string>{-76,36}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{412,476}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_24.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,944},{420,412}}</string>
-                <key>offset</key>
-                <string>{-55,48}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{17,20},{420,412}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_25.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{484,462}}</string>
-                <key>offset</key>
-                <string>{-40,34}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,9},{484,462}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_26.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,1366},{408,420}}</string>
-                <key>offset</key>
-                <string>{32,35}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{110,29},{408,420}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_alight_27.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{488,2},{400,468}}</string>
-                <key>offset</key>
-                <string>{14,40}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{96,0},{400,468}}</string>
-                <key>sourceSize</key>
-                <string>{564,548}</string>
-            </dict>
-            <key>dragon_upgrade_aline_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1612,1318},{150,150}}</string>
-                <key>offset</key>
-                <string>{1,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{3,3},{150,150}}</string>
-                <key>sourceSize</key>
-                <string>{154,154}</string>
-            </dict>
-            <key>dragon_upgrade_aline_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1893,863},{150,150}}</string>
-                <key>offset</key>
-                <string>{1,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{3,3},{150,150}}</string>
-                <key>sourceSize</key>
-                <string>{154,154}</string>
-            </dict>
-            <key>dragon_upgrade_aline_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1893,1015},{150,150}}</string>
-                <key>offset</key>
-                <string>{1,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{3,3},{150,150}}</string>
-                <key>sourceSize</key>
-                <string>{154,154}</string>
-            </dict>
-            <key>dragon_upgrade_aline_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1893,1167},{150,150}}</string>
-                <key>offset</key>
-                <string>{1,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{3,3},{150,150}}</string>
-                <key>sourceSize</key>
-                <string>{154,154}</string>
-            </dict>
             <key>dragon_upgrade_blight_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1636,1846},{182,182}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-16,10}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{175,139},{182,182}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{184,184}</string>
+                <key>spriteSourceSize</key>
                 <string>{564,480}</string>
+                <key>textureRect</key>
+                <string>{{1140,996},{184,184}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_circle_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1188,1014},{214,214}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-1,-6}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{17,24},{214,214}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{216,216}</string>
+                <key>spriteSourceSize</key>
                 <string>{250,250}</string>
+                <key>textureRect</key>
+                <string>{{928,1717},{216,216}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_clight_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1764,1319},{149,155}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{149,155}}</string>
-                <key>sourceSize</key>
-                <string>{149,155}</string>
+                <key>spriteSize</key>
+                <string>{632,602}</string>
+                <key>spriteSourceSize</key>
+                <string>{632,602}</string>
+                <key>textureRect</key>
+                <string>{{2,959},{632,602}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>dragon_upgrade_clight_02.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{865,955}</string>
+                <key>spriteSourceSize</key>
+                <string>{865,955}</string>
+                <key>textureRect</key>
+                <string>{{2,2},{865,955}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_light_10.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1884,1471},{149,155}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{149,155}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{149,155}</string>
+                <key>spriteSourceSize</key>
+                <string>{149,155}</string>
+                <key>textureRect</key>
+                <string>{{1146,1832},{149,155}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_light_11.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1745,1204},{70,70}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{70,70}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{70,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,70}</string>
+                <key>textureRect</key>
+                <string>{{1250,1182},{70,70}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_line_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1915,667},{128,194}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{34,1},{128,194}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{130,196}</string>
+                <key>spriteSourceSize</key>
                 <string>{196,200}</string>
+                <key>textureRect</key>
+                <string>{{418,1783},{130,196}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_line_02.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1048,1062},{138,194}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{5,2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{34,1},{138,194}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{140,196}</string>
+                <key>spriteSourceSize</key>
                 <string>{196,200}</string>
+                <key>textureRect</key>
+                <string>{{856,959},{140,196}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_line_03.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1084,1474},{138,192}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{5,2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{34,2},{138,192}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{140,194}</string>
+                <key>spriteSourceSize</key>
                 <string>{196,200}</string>
+                <key>textureRect</key>
+                <string>{{998,954},{140,194}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_line_04.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{890,1476},{192,190}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{2,3},{192,190}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{194,192}</string>
+                <key>spriteSourceSize</key>
                 <string>{196,200}</string>
+                <key>textureRect</key>
+                <string>{{550,1785},{194,192}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_line_05.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1800,1648},{192,180}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,2}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{2,8},{192,180}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{194,182}</string>
+                <key>spriteSourceSize</key>
                 <string>{196,200}</string>
+                <key>textureRect</key>
+                <string>{{744,1765},{194,182}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_line_06.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1653,838},{192,158}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-1,2}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{1,19},{192,158}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{194,160}</string>
+                <key>spriteSourceSize</key>
                 <string>{196,200}</string>
+                <key>textureRect</key>
+                <string>{{1054,1182},{194,160}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_line_07.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1820,1842},{188,148}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-1,6}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{3,20},{188,148}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{190,150}</string>
+                <key>spriteSourceSize</key>
                 <string>{196,200}</string>
+                <key>textureRect</key>
+                <string>{{1136,1466},{190,150}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_line_08.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1596,1470},{176,144}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-6,5}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{4,23},{176,144}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{178,146}</string>
+                <key>spriteSourceSize</key>
                 <string>{196,200}</string>
+                <key>textureRect</key>
+                <string>{{1146,704},{178,146}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_line_09.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1745,1032},{170,146}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-4,7}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{9,20},{170,146}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{172,148}</string>
+                <key>spriteSourceSize</key>
                 <string>{196,200}</string>
+                <key>textureRect</key>
+                <string>{{1146,1658},{172,148}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_line_10.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1224,1442},{160,198}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{18,1},{160,198}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{162,200}</string>
+                <key>spriteSourceSize</key>
                 <string>{196,200}</string>
+                <key>textureRect</key>
+                <string>{{1149,2},{162,200}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1817,1204},{52,74}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{1,4}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{116,79},{52,74}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{54,76}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{1250,1254},{54,76}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_02.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{700,1916},{70,90}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-1,-2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{105,77},{70,90}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{72,92}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{856,1157},{72,92}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_star_03.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1921,1319},{118,150}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-9,9}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{73,36},{118,150}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{120,152}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{1054,1344},{120,152}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_star_04.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1742,1470},{140,176}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-7,11}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{64,21},{140,176}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{142,178}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{1146,852},{142,178}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_star_05.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1636,1648},{162,196}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-2,13}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{58,9},{162,196}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{164,198}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{252,1801},{164,198}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_06.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1386,1468},{178,208}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{3,12}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{55,4},{178,208}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{180,210}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{1129,240},{180,210}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_07.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{670,1476},{190,218}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{6,6}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{52,5},{190,218}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{192,220}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{550,1563},{192,220}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_08.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1423,838},{204,228}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{6,2}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{45,4},{204,228}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{206,230}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{928,1485},{206,230}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_09.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1677,613},{220,236}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{4,-2}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{35,4},{220,236}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{222,236}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{869,716},{222,236}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_10.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1447,372},{232,236}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{4,-2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{29,4},{232,236}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{234,236}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{869,478},{234,236}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_11.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{700,1668},{246,202}}</string>
-                <key>offset</key>
-                <string>{3,-19}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{21,38},{246,202}}</string>
-                <key>sourceSize</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{3,-18}</string>
+                <key>spriteSize</key>
+                <string>{248,204}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{2,1801},{248,204}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_12.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{412,1430},{256,236}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{2,-2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{15,4},{256,236}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{258,236}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{869,240},{258,236}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_13.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1054,740},{268,234}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{1,-1}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{8,4},{268,234}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{270,236}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{2,1563},{270,236}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_14.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,1788},{276,236}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{1,-2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{4,4},{276,236}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{278,236}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{869,2},{278,236}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_15.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{416,1212},{282,216}}</string>
-                <key>offset</key>
-                <string>{0,-12}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,24},{282,216}}</string>
-                <key>sourceSize</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,-11}</string>
+                <key>spriteSize</key>
+                <string>{282,218}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{636,959},{282,218}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_star_16.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{700,1258},{274,216}}</string>
-                <key>offset</key>
-                <string>{-4,-12}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,24},{274,216}}</string>
-                <key>sourceSize</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-4,-11}</string>
+                <key>spriteSize</key>
+                <string>{274,218}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{274,1563},{274,218}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>dragon_upgrade_star_17.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{904,1668},{222,210}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{3,-7}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{33,22},{222,210}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{224,212}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{1105,478},{224,212}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_star_18.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{770,1062},{276,194}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,-19}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{3,42},{276,194}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{278,196}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{636,1243},{278,196}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_star_19.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{518,1791},{238,180}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{20,-29}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{42,59},{238,180}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{240,182}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{744,1523},{240,182}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dragon_upgrade_star_20.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1681,395},{238,216}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{21,-8}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{43,20},{238,216}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{240,218}</string>
+                <key>spriteSourceSize</key>
                 <string>{282,240}</string>
+                <key>textureRect</key>
+                <string>{{834,1243},{240,218}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>2</integer>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
             <key>realTextureFileName</key>
             <string>dragon_upgrade_fx.png</string>
             <key>size</key>
-            <string>{2045,2033}</string>
+            <string>{1326,2007}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1aa9f606bb1ee995507fa26e4c1d6d2c:09964e19580f82b8a95cef961f5d1f29:fff4f5474bc812e938140c39343f242b$</string>
+            <string>$TexturePacker:SmartUpdate:9acb2b7263b85f21d891aabbade3705f:c000e6a76f81949217c3b0c12efcd5c6:fff4f5474bc812e938140c39343f242b$</string>
             <key>textureFileName</key>
             <string>dragon_upgrade_fx.png</string>
         </dict>

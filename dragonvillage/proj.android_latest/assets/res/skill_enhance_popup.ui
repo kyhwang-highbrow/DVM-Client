@@ -872,7 +872,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				type = 'Node';
+				type = 'Menu';
 				ui_name = '';
 				x = 0.000000;
 				y = -144.000000;

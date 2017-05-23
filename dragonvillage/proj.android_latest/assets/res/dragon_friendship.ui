@@ -1009,7 +1009,7 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'friendshipFxVisual';
-			file_name = 'ui/a2d/friendship/friendship.a2d';
+			file_name = 'ui/a2d/friendship/friendship.vrp';
 			auto_play = false;
 			is_repeat = false;
 			visual_id = 'frindship;fx';
@@ -1199,7 +1199,7 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'friendshipVisual';
-			file_name = 'ui/a2d/friendship/friendship.a2d';
+			file_name = 'ui/a2d/friendship/friendship.vrp';
 			auto_play = false;
 			is_repeat = false;
 			visual_id = 'group;friendship_up_disappear';
