@@ -15,9 +15,9 @@ UIC_DragonAnimatorDirector = class(PARENT, {
 -- function init
 -------------------------------------
 function UIC_DragonAnimatorDirector:init()
-    local vars = self.vars
     self:setTalkEnable(false)
-
+	
+	-- UI class 구조 단순 차용
 	self:initUI()
 	self:initButton()
 end
@@ -26,6 +26,7 @@ end
 -- function initUI
 -------------------------------------
 function UIC_DragonAnimatorDirector:initUI()
+	-- 사용할 리소스 생성
 	local res_name = 'res/ui/a2d/dragon_upgrade_fx/dragon_upgrade_fx.vrp'
     self.m_topEffect = MakeAnimator(res_name)
     self.m_bottomEffect = MakeAnimator(res_name)
@@ -41,9 +42,9 @@ function UIC_DragonAnimatorDirector:initButton()
     self.vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
 end
 
-
 -------------------------------------
 -- function setDragonAnimator
+-- @ brief 연출 종료후 나타날 드래곤 리소스 생성
 -------------------------------------
 function UIC_DragonAnimatorDirector:setDragonAnimator(did, evolution, flv)
     PARENT.setDragonAnimator(self, did, evolution, flv)
@@ -52,6 +53,7 @@ end
 
 -------------------------------------
 -- function setDragonAppearCB
+-- @ brief 드래곤 리소스 보여준 후 실행할 콜백함수 등록
 -------------------------------------
 function UIC_DragonAnimatorDirector:setDragonAppearCB(cb)
     self.m_dragonAppearCB = cb
@@ -59,34 +61,39 @@ end
 
 -------------------------------------
 -- function startDirecting
+-- @brief 연출 시작
 -------------------------------------
 function UIC_DragonAnimatorDirector:startDirecting()
     local vars = self.vars
     
+	-- 연출을 위한 세팅
 	self.m_bottomEffect:setVisible(false)
     self.vars['skipBtn']:setVisible(true)
     self.m_skipBtnCnt = 0
 
+	-- 연출 시작
     self.m_topEffect:changeAni('top_appear')
     self.m_topEffect:addAniHandler(function() self:appearDragonAnimator()end)
 end
 
 -------------------------------------
 -- function appearDragonAnimator
+-- @brief 연출 마무리 하며 드래곤 등장
 -------------------------------------
 function UIC_DragonAnimatorDirector:appearDragonAnimator()
     local vars = self.vars
     self.m_topEffect:changeAni('top_disappear', false)
     
+	-- 드래곤 바닥에 깔 이펙트 보여줌
     self.m_bottomEffect:setVisible(true)
-    self.m_bottomEffect:changeAni('bottom_idle', false)
-    self.m_bottomEffect:addAniHandler(function()
-            self.m_bottomEffect:changeAni('bottom_idle', true)
-        end)
+    self.m_bottomEffect:changeAni('bottom_idle', true)
 
+	-- 드래곤 등장
     self.m_animator:setVisible(true)
+	-- 스킵 버튼 블럭
     vars['skipBtn']:setVisible(false)
 
+	-- 드래곤 등장 콜백
     if self.m_dragonAppearCB then
         self.m_dragonAppearCB()
     end
@@ -97,6 +104,7 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector:click_skipBtn()
     self.m_skipBtnCnt = (self.m_skipBtnCnt + 1)
+	-- 2회 클릭시 드래곤 바로 보여줌
     if (self.m_skipBtnCnt >= 2) then
         self:appearDragonAnimator()
     end
