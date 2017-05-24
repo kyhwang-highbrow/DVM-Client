@@ -2328,6 +2328,9 @@
     <None Include="..\src\StructWaveRegenGroup.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UIC_DragonAnimatorDirector_Summon.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
