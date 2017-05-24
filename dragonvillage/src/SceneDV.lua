@@ -25,8 +25,7 @@ function SceneDV:onEnter()
     PerpleScene.onEnter(self)
 	self:doUpdate()
 
-	UI_Directing_DragonGoodBye()
-    --self:scenarioTest()
+	self:penlightTest()
 end
 
 -------------------------------------
@@ -548,4 +547,25 @@ function SceneDV:scenarioTest()
     end
 
     doPlay()
+end
+
+-------------------------------------
+-- function penlightTest
+-------------------------------------
+function SceneDV:penlightTest()
+	local string_lambda = pl.utils.string_lambda
+
+	local add_step = string_lambda('|x|x+1')
+	cclog(add_step(1))
+
+	local polynomial = string_lambda("|x, y, z|x + 2 * y + 3 * z")
+	cclog(polynomial(1, 2, 3))
+
+	local l_sample = {1, 2, 3, 4, 5}
+	local t_sample = {one = 1, two = 2, three = 3}
+
+	ccdump(pl.func.tail(l_sample))
+
+	local str_sample = 'ac/dc'
+	ccdump(pl.utils.split(str_sample, '%s/'))
 end
