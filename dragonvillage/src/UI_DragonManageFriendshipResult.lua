@@ -67,6 +67,7 @@ function UI_DragonManageFriendshipResult:refresh(dragon_object)
             self:doAction(nil, false)
         end
         dragon_animator:setDragonAppearCB(cb)
+		dragon_animator:startDirecting()
     end
 
     local friendship_obj = dragon_object:getFriendshipObject()

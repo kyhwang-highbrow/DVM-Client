@@ -20,7 +20,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UIC_DragonAnimatorDirector:initUI()
+function UIC_DragonAnimatorDirector_Summon:initUI()
 	local res_name = 'res/ui/a2d/summon/summon.vrp'
     self.m_topEffect = MakeAnimator(res_name)
     self.m_bottomEffect = MakeAnimator(res_name)
@@ -32,7 +32,7 @@ end
 -------------------------------------
 -- function startDirecting
 -------------------------------------
-function UIC_DragonAnimatorDirector:startDirecting()
+function UIC_DragonAnimatorDirector_Summon:startDirecting()
     local vars = self.vars
 
 	-- init
@@ -42,25 +42,33 @@ function UIC_DragonAnimatorDirector:startDirecting()
     
 	-- start
     self.m_topEffect:changeAni('appear')
-    self.m_topEffect:addAniHandler(function() self:changeAni('idle') end)
+    self.m_topEffect:addAniHandler(function() self.m_topEffect:changeAni('idle', true) end)
 end
 
 -------------------------------------
 -- function continueDirecting
 -------------------------------------
-function UIC_DragonAnimatorDirector:continueDirecting()
+function UIC_DragonAnimatorDirector_Summon:continueDirecting()
 	local l_ani = {'crack_01', 'crack_02', 'crack_03', 'crack_04', 'top_appear'}
 	local is_loop = false
 	local function cb_func()
 		self:appearDragonAnimator()
 	end
 	self.m_topEffect:changeAni_Repeat(l_ani, is_loop, cb_func)
+
+	local cut_node = self.m_topEffect.m_node:getSocketNode('cut')
+	
+	local t_tamer = TableTamer():get(110002)
+	local illustration_res = t_tamer['res']
+    local illustration_animator = MakeAnimator(illustration_res)
+	illustration_animator:changeAni('idle', true)
+    cut_node:addChild(illustration_animator.m_node)
 end
 
 -------------------------------------
 -- function click_skipBtn
 -------------------------------------
-function UIC_DragonAnimatorDirector:click_skipBtn()
+function UIC_DragonAnimatorDirector_Summon:click_skipBtn()
     self.m_skipBtnCnt = (self.m_skipBtnCnt + 1)
 	if (self.m_skipBtnCnt == 1) then
 		self:continueDirecting()

@@ -67,6 +67,7 @@ function UI_DragonEvolutionResult:refresh(dragon_object)
             self:doAction(nil, false)
         end
         dragon_animator:setDragonAppearCB(cb)
+		dragon_animator:startDirecting()
     end
 
     -- 진화 단계 텍스트

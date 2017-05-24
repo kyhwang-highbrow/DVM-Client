@@ -91,7 +91,7 @@ end
 -- @param1 l_ani_name_list : 변경할 애니메이션 명을 담은 리스트
 -- @param2 loop : 애니메이션 리스트를 전부 돈 후에 반복할지 여부
 -------------------------------------
-function Animator:changeAni_Repeat(l_ani_name_list, loop)
+function Animator:changeAni_Repeat(l_ani_name_list, loop, final_cb_func)
 	local max_idx = #l_ani_name_list
 
 	-- 해당 인덱스의 애니메이션으로 변경
@@ -101,14 +101,20 @@ function Animator:changeAni_Repeat(l_ani_name_list, loop)
         
 	-- 인덱스 증가 및 반복 여부 체크해서 최대치라면 처음으로 되돌림
 	self.m_aniRepeatIdx = self.m_aniRepeatIdx + 1
-	if (loop) and (self.m_aniRepeatIdx > max_idx) then
-		self.m_aniRepeatIdx = 1
+	if (self.m_aniRepeatIdx > max_idx) then
+		if (loop) then
+			self.m_aniRepeatIdx = 1
+		else
+			if (final_cb_func) then
+				self:addAniHandler(final_cb_func)
+			end
+		end
 	end
 
 	-- 다음 인덱스 애니메이션 재생 할 재귀함수 콜백 등록
 	if (l_ani_name_list[self.m_aniRepeatIdx]) then
 		local function cb_func()
-			self:changeAni_Repeat(l_ani_name_list, loop)
+			self:changeAni_Repeat(l_ani_name_list, loop, final_cb_func)
 		end
         self:addAniHandler(cb_func)
 	else

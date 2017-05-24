@@ -477,6 +477,7 @@ local t_module = {
     'UIC_IndivisualStats',
     'UIC_DragonAnimator',
     'UIC_DragonAnimatorDirector',
+	'UIC_DragonAnimatorDirector_Summon',
     'UIC_ScrollLabel',
     'UIC_BroadcastLabel',
 

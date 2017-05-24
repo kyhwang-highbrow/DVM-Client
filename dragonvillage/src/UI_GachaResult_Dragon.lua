@@ -114,17 +114,20 @@ function UI_GachaResult_Dragon:refresh()
 
     do -- 드래곤 실리소스
         vars['dragonNode']:removeAllChildren()
-		local dragon_animator = UIC_DragonAnimatorDirector()
+		local dragon_animator = UIC_DragonAnimatorDirector_Summon()
 		vars['dragonNode']:addChild(dragon_animator.m_node)
-        dragon_animator:setDragonAnimator(t_dragon['did'], evolution, nil)
-        local function cb()
+        
+		local function cb()
 			-- 등급
 			vars['starVisual']:setVisible(true)
 			vars['starVisual']:changeAni('result' .. grade)
 			-- ui 연출
             self:doAction(nil, false)
         end
+
         dragon_animator:setDragonAppearCB(cb)
+        dragon_animator:setDragonAnimator(t_dragon['did'], evolution, nil)
+		dragon_animator:startDirecting()
     end
 
     -- 배경

@@ -67,6 +67,7 @@ function UI_DragonLevelupResult:refresh(dragon_object, prev_lv)
             self:doAction(nil, false)
         end
         dragon_animator:setDragonAppearCB(cb)
+		dragon_animator:startDirecting()
     end
 
     -- 레벨 표시

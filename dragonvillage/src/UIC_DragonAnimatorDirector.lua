@@ -18,36 +18,29 @@ function UIC_DragonAnimatorDirector:init()
     local vars = self.vars
     self:setTalkEnable(false)
 
-    self.m_topEffect = MakeAnimator('res/ui/a2d/dragon_upgrade_fx/dragon_upgrade_fx.vrp')
-
-    self.m_bottomEffect = MakeAnimator('res/ui/a2d/dragon_upgrade_fx/dragon_upgrade_fx.vrp')
-
-    vars['topEffectNode']:addChild(self.m_topEffect.m_node)
-    vars['bottomEffectNode']:addChild(self.m_bottomEffect.m_node)
-
-    vars['skipBtn']:registerScriptTapHandler(function() 
-            self.m_skipBtnCnt = (self.m_skipBtnCnt + 1)
-            if (self.m_skipBtnCnt >= 2) then
-                self:appearDragonAnimator()
-            end
-        end)
+	self:initUI()
+	self:initButton()
 end
 
 -------------------------------------
--- function start
+-- function initUI
 -------------------------------------
-function UIC_DragonAnimatorDirector:start()
-    local vars = self.vars
+function UIC_DragonAnimatorDirector:initUI()
+	local res_name = 'res/ui/a2d/dragon_upgrade_fx/dragon_upgrade_fx.vrp'
+    self.m_topEffect = MakeAnimator(res_name)
+    self.m_bottomEffect = MakeAnimator(res_name)
 
-    self.m_topEffect:changeAni('top_appear')
-    self.m_topEffect:addAniHandler(function() self:appearDragonAnimator()end)
-    self.m_bottomEffect:setVisible(false)
-
-
-    self.vars['skipBtn']:setVisible(true)
-
-    self.m_skipBtnCnt = 0
+    self.vars['topEffectNode']:addChild(self.m_topEffect.m_node)
+    self.vars['bottomEffectNode']:addChild(self.m_bottomEffect.m_node)
 end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UIC_DragonAnimatorDirector:initButton()
+    self.vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
+end
+
 
 -------------------------------------
 -- function setDragonAnimator
@@ -55,8 +48,27 @@ end
 function UIC_DragonAnimatorDirector:setDragonAnimator(did, evolution, flv)
     PARENT.setDragonAnimator(self, did, evolution, flv)
     self.m_animator:setVisible(false)
+end
 
-    self:start()
+-------------------------------------
+-- function setDragonAppearCB
+-------------------------------------
+function UIC_DragonAnimatorDirector:setDragonAppearCB(cb)
+    self.m_dragonAppearCB = cb
+end
+
+-------------------------------------
+-- function startDirecting
+-------------------------------------
+function UIC_DragonAnimatorDirector:startDirecting()
+    local vars = self.vars
+    
+	self.m_bottomEffect:setVisible(false)
+    self.vars['skipBtn']:setVisible(true)
+    self.m_skipBtnCnt = 0
+
+    self.m_topEffect:changeAni('top_appear')
+    self.m_topEffect:addAniHandler(function() self:appearDragonAnimator()end)
 end
 
 -------------------------------------
@@ -67,7 +79,7 @@ function UIC_DragonAnimatorDirector:appearDragonAnimator()
     self.m_topEffect:changeAni('top_disappear', false)
     
     self.m_bottomEffect:setVisible(true)
-    self.m_bottomEffect:changeAni('bottom_appear', false)
+    self.m_bottomEffect:changeAni('bottom_idle', false)
     self.m_bottomEffect:addAniHandler(function()
             self.m_bottomEffect:changeAni('bottom_idle', true)
         end)
@@ -81,8 +93,11 @@ function UIC_DragonAnimatorDirector:appearDragonAnimator()
 end
 
 -------------------------------------
--- function setDragonAppearCB
+-- function click_skipBtn
 -------------------------------------
-function UIC_DragonAnimatorDirector:setDragonAppearCB(cb)
-    self.m_dragonAppearCB = cb
+function UIC_DragonAnimatorDirector:click_skipBtn()
+    self.m_skipBtnCnt = (self.m_skipBtnCnt + 1)
+    if (self.m_skipBtnCnt >= 2) then
+        self:appearDragonAnimator()
+    end
 end
