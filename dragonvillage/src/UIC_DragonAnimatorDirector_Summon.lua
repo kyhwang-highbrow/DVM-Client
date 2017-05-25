@@ -47,7 +47,6 @@ function UIC_DragonAnimatorDirector_Summon:startDirecting()
 	-- 연출 세팅
     self.m_bottomEffect:setVisible(false)
     self.vars['skipBtn']:setVisible(true)
-    self.m_skipBtnCnt = 0
     self.m_currStep = 1
 	
 	-- 연출 시작
@@ -78,7 +77,7 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
 	local crack_ani = string.format('crack_%02d', self.m_currStep)
 	self.m_topEffect:changeAni(crack_ani, false)
 	self.m_topEffect:addAniHandler(function()
-		if (self.m_currStep == self.m_maxStep) then
+		if (self.m_currStep > self.m_maxStep) then
 			self:appearDragonAnimator()
 		else
 			self:directingIdle()
@@ -119,6 +118,10 @@ end
 -- function click_skipBtn
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:click_skipBtn()
+	if (self.m_currStep > self.m_maxStep) then
+		return
+	end
+
 	self:directingContinue()
 	self.m_currStep = self.m_currStep + 1
 end
