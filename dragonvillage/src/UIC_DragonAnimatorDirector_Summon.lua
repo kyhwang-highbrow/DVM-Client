@@ -50,21 +50,23 @@ function UIC_DragonAnimatorDirector_Summon:startDirecting()
     self.m_currStep = 1
 	
 	-- 연출 시작
-    self.m_topEffect:changeAni('appear')
-	self.m_topEffect:addAniHandler(function() 
-		self:directingIdle()
-	end)
+	self:directingIdle()
 end
 
 -------------------------------------
 -- function directingIdle
--- @brief 단계별 idle 연출 재생
+-- @brief 단계별 appear + idle 연출 재생
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:directingIdle()
 	self.vars['touchNode']:setVisible(true)
 
-	local idle_ani = string.format('idle_%02d', self.m_currStep)
-	self.m_topEffect:changeAni(idle_ani, true)
+	local appear_ani = string.format('appear_%02d', self.m_currStep)
+	self.m_topEffect:changeAni(appear_ani)
+
+	self.m_topEffect:addAniHandler(function() 
+		local idle_ani = string.format ('idle_%02d', self.m_currStep)
+		self.m_topEffect:changeAni(idle_ani, true)
+	end)
 end
 
 -------------------------------------
@@ -109,6 +111,7 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
 	local rarity = TableDragon:getValue(did, 'rarity')
 	self.m_maxStep = dragonRarityStrToNum(rarity)
 
+	-- 전설등급의 경우 추가 연출을 붙여준다
 	if (rarity == 'legend') then
 		self:setCutSceneImg()
 	end
@@ -118,6 +121,7 @@ end
 -- function click_skipBtn
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:click_skipBtn()
+	-- 마지막 스텝일 경우 입력을 받지 않는다.
 	if (self.m_currStep > self.m_maxStep) then
 		return
 	end

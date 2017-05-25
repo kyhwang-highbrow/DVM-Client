@@ -457,14 +457,12 @@ function UI_Directing_DragonGoodBye:goodbye_forever()
 	if (self.m_finalCB) then
 		self.m_finalCB()
 	end
+
+	self.m_tDragonChar = {}
 	self:init_posList()
 
 	-- 화면 정리
-	local fadeout = cc.FadeOut:create(1)
-	local callback = cc.CallFunc:create(function()
-		self.vars['aniNode']:removeAllChildren(true)
-	end)
-	self.vars['aniNode']:runAction(cc.Sequence:create(fadeout, callback))
+	cca.fadeOutAndRemoveChild(self.vars['aniNode'], 1)
 	self:activateSkip(false)
 
 	-- 수령 팝업

@@ -274,3 +274,19 @@ function cca.actGetObject(node, tar_pos)
 
     cca.runAction(node, cc.Sequence:create(repeat_brrr, bezier_act))
 end
+
+-------------------------------------
+-- function fadeOutAndRemoveChild
+-- @brief fade out 후에 자식들을 삭제하고 opcity를 원복
+-------------------------------------
+function cca.fadeOutAndRemoveChild(node, duration)
+	doAllChildren(node, function(child) child:setCascadeOpacityEnabled(true) end)
+
+	local fadeout = cc.FadeOut:create(duration)
+	local callback = cc.CallFunc:create(function()
+		node:removeAllChildren(true)
+		node:setOpacity(255)
+	end)
+
+	cca.runAction(node, cc.Sequence:create(fadeout, callback))
+end
