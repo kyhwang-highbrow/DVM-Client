@@ -9,6 +9,11 @@ StructUserInfo = class({
         m_lv = 'number',
         m_nickname = 'string',
         m_leaderDragonObject = '',
+
+
+        -- 로비 채팅에서 사용
+        m_tamerPosX = 'float',
+        m_tamerPosY = 'float',
     })
 
 -------------------------------------
@@ -17,6 +22,8 @@ StructUserInfo = class({
 function StructUserInfo:init(data)
     self.m_bStruct = true
     self.m_lv = 1
+    self.m_tamerPosX = 0
+    self.m_tamerPosY = 0
 
     if data then
         self:applyTableData(data)

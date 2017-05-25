@@ -137,12 +137,20 @@ end
 
 -------------------------------------
 -- function setStatus
--- @brief
+-- @brief 서버와의 연결 상태
 -------------------------------------
 function ChatClientSocket:setStatus(status)
     self.m_status = status
 
     self:dispatch('CHANGE_STATUS', status)
+end
+
+-------------------------------------
+-- function getStatus
+-- @brief
+-------------------------------------
+function ChatClientSocket:getStatus()
+    return self.m_status
 end
 
 -------------------------------------
@@ -152,9 +160,11 @@ end
 function ChatClientSocket:addRegularListener(listener)
     self:addListener('CHANGE_STATUS', listener)     -- 서버와의 연결 상태 변경
     self:addListener('RECEIVE_DATA', listener)      -- 서버로부터 데이터를 받음
+    self:addListener('CHANGE_USER_INFO', listener)  -- 플레이어 유저 정보 변경
 
     -- 즉시 데이터가 필요한 부분
     listener:onEvent('CHANGE_STATUS', self.m_status)
+    listener:onEvent('CHANGE_USER_INFO', self.m_user)
 end
 
 -------------------------------------
@@ -166,6 +176,8 @@ function ChatClientSocket:setUserInfo(t_data)
     self.m_user['nickname'] = t_data['nickname'] or self.m_user['nickname'] or ''
     self.m_user['did'] = t_data['did'] or self.m_user['did'] or ''
     self.m_user['level'] = t_data['level'] or self.m_user['level'] or 1
+
+    self:dispatch('CHANGE_USER_INFO', self.m_user)
 end
 
 -------------------------------------
@@ -198,7 +210,6 @@ function ChatClientSocket:write(pcode, msg)
     p['payload'], errMsg = msg:Serialize()
     p['packetId'] = 0
     p['recvCounter'] = 0
-
     if errMsg then
         cclogf(errMsg)
         return false

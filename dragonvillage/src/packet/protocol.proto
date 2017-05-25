@@ -23,19 +23,35 @@ message StringMessage {
 	required string	string = 1;
 }
 
+message CharacterMove {
+	optional string	uid = 1;
+    required float	x = 2;
+    required float	y = 3;
+}
+
 enum ProtocolCode {	
+    // session.protocol
 	C_LOGIN_REQ		= 10;
 	S_LOGIN_RES		= 11;
 	
-	//chat.proto
-	C_CHAT_NORMAL_MSG		= 100;
+	//chat.protocol
+	C_CHAT_NORMAL_MSG		= 1001;
+    S_CHAT_NORMAL_MSG       = 1002;
+    
+    C_CHARACTER_MOVE = 1003;
+    S_CHARACTER_MOVE = 1004;
+    
+    
+    
+    
+    
 	C_CHAT_WHISPER_MSG		= 101;
 	C_CHAT_GUILD_MSG		= 102;
 
 	C_CHAT_CHANGE_CHANNEL	= 200;
 	S_CHAT_CHANGE_CHANNEL	= 201;
 	
-	S_CHAT_RESPONSE			= 200;
+	
 	S_WHISPER_RESPONSE		= 202;
     
     // 로비 관련
@@ -51,4 +67,6 @@ enum ProtocolCode {
 
 	C_ERROR					= 9998;
 	S_ERROR					= 9999;
+    
+    // 새롭게 생성
 }

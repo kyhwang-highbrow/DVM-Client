@@ -1,10 +1,11 @@
 local PARENT = IEventListener:getCloneClass()
 
-local llog = function(...)
-    print('#[LobbyManager] : ', ...)
+local function log(...)
+    cclog(...)
 end
-local ldump = function(...)
-    ccdump('#[LobbyManager] : ', ...)
+
+local function dump(...)
+    ccdump(...)
 end
 
 -------------------------------------
@@ -15,6 +16,8 @@ LobbyManager = class(PARENT, {
         m_chatClientSocket = 'ChatClientSocket',
 
         m_lobbyChannelName = 'string',
+        m_playerUserInfo = 'StructUserInfo',
+        m_userInfoList = 'StructUserInfo(List)',
     })
 
 -------------------------------------
@@ -44,9 +47,18 @@ function LobbyManager:setChatClientSocket(chat_client_socket)
     self.m_chatClientSocket = chat_client_socket
 end
 
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+-- public functions
+-- 아래 코드는 외부에서 호출되는 함수들
+-----------------------------------------------------------------------------------------------------------------------
+
 -------------------------------------
 -- function changeLobbyChannel
--- @brief
+-- @brief 채널 변경 요청
 -------------------------------------
 function LobbyManager:changeLobbyChannel(channel_name)
 end
@@ -56,8 +68,6 @@ end
 -- @brief 추천 로비 채널 접속 요청
 -------------------------------------
 function LobbyManager:requestRecommendLobbyChannel()
-    cclog('###### requestRecommendLobbyChannel()')
-
     local ccs = self.m_chatClientSocket
     local p = ccs.m_protobufProtocol.StringMessage()
     p['string'] = ''
@@ -73,12 +83,82 @@ function LobbyManager:requestLobbyUserList()
 end
 
 -------------------------------------
+-- function sendNormalMsg
+-- @brief 일반 메세지 보내기
+-------------------------------------
+function LobbyManager:sendNormalMsg(msg)
+    -- 서버와 연결이 끊어진 상태
+    if (self:getStatus() ~= 'Success') then
+        log('서버와 연결이 끊어진 상태')
+        return false
+    end
+
+    -- 채널에 접속되지 않음
+    if (self.m_lobbyChannelName == nil) then
+        log('채널에 접속되지 않음')
+        return false
+    end
+
+    
+    local p = self:getProtobuf('chat').CChatNormalMsg()
+    p['message'] = msg
+    p['nickname'] = ''
+    self:write(self:getProtocolCode().C_CHAT_NORMAL_MSG, p)
+    return true
+end
+
+-------------------------------------
+-- function requestCharacterMove
+-- @brief 캐릭터 이동
+-------------------------------------
+function LobbyManager:requestCharacterMove(x, y)
+    -- 서버와 연결이 끊어진 상태
+    if (self:getStatus() ~= 'Success') then
+        log('서버와 연결이 끊어진 상태')
+        return false
+    end
+
+    -- 채널에 접속되지 않음
+    if (self.m_lobbyChannelName == nil) then
+        log('채널에 접속되지 않음')
+        return false
+    end
+
+    
+    local p = self:getProtobuf('protocol').CharacterMove()
+    --p['uid'] = 'string' -- 서버에서 session정보로 추가됨
+    p['x'] = x
+    p['y'] = y
+    self:write(self:getProtocolCode().C_CHARACTER_MOVE, p)
+    return true
+end
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+-- protected functions
+-- 아래 코드는 내부에서만 사용하는 함수
+-----------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------
 -- function onEvent
 -------------------------------------
 function LobbyManager:onEvent(event_name, t_event, ...)
 
     if (event_name == 'CHANGE_STATUS') then
         self:onEvent_CHANGE_STATUS(t_event)
+
+    elseif (event_name == 'CHANGE_USER_INFO') then
+        self:onEvent_CHANGE_USER_INFO(t_event)
 
     elseif (event_name == 'RECEIVE_DATA') then
         self:onEvent_RECEIVE_DATA(t_event)
@@ -91,12 +171,31 @@ end
 -------------------------------------
 function LobbyManager:onEvent_CHANGE_STATUS(t_event)
     local status = t_event
-    cclog(' ########### ' .. status)
     if (status == 'Success') then
         self:requestRecommendLobbyChannel()
     else
         self:reset()
     end
+end
+
+-------------------------------------
+-- function onEvent_CHANGE_USER_INFO
+-- @brief 플레이어 유저 정보 변경
+-------------------------------------
+function LobbyManager:onEvent_CHANGE_USER_INFO(t_event)
+    local user = t_event
+
+    -- Struct가 없으면 새로 생성
+    if (not self.m_playerUserInfo) then
+        local struct_user_info = StructUserInfo()
+        self.m_playerUserInfo = struct_user_info
+    end
+
+    -- 데이터 동기화
+    self.m_playerUserInfo.m_uid = user['uid']
+    self.m_playerUserInfo.m_lv = user['level']
+    self.m_playerUserInfo.m_nickname = user['nickname']
+    -- user['did']
 end
 
 -------------------------------------
@@ -108,9 +207,20 @@ function LobbyManager:onEvent_RECEIVE_DATA(t_event)
 
     local pcode = msg['pcode']
 
+    -- 채널 변경
     if (pcode == 'S_LOBBY_CHANGE_CHANNEL') then
         self:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
-        
+
+    -- 일반 메세지 받음 (내가 보낸 메세지도 받음)
+    elseif (pcode == 'S_CHAT_NORMAL_MSG') then
+        self:receiveData_S_CHAT_NORMAL_MSG(msg)
+
+    -- 캐릭터 이동
+    elseif (pcode == 'S_CHARACTER_MOVE') then
+        self:receiveData_S_CHARACTER_MOVE(msg)
+
+    else
+        log('pcode : ' .. pcode)    
     end
 end
 
@@ -123,11 +233,132 @@ function LobbyManager:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
     local payload = msg['payload']
     local r = ccs.m_protobufChat.SChatChangeChannel():Parse(payload)
 
+    -- 채널 변경 성공 (입장 성공)
     if (r['ret'] == 'Success') then
-        ccdump(r)
+        self.m_lobbyChannelName = r['channelName']
+        
+        local user_list = self:getProtobuf('session').SLobbyUserList():Parse(r['user'])
+        self:setUserList(user_list['user'])
     else
 
     end
+end
+
+-------------------------------------
+-- function receiveData_S_CHAT_NORMAL_MSG
+-- @brief 일반 메세지 받음 (내가 보낸 메세지도 받음)
+-------------------------------------
+function LobbyManager:receiveData_S_CHAT_NORMAL_MSG(msg)
+    local payload = msg['payload']
+    local r = self:getProtobuf('chat').SChatResponse():Parse(payload)
+
+    -- 채팅 내용은 json문자열로 받음
+    local raw = r['json']
+    if raw and (type(raw) == 'string') then
+        local json = dkjson.decode(raw)
+        if json then
+            cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
+        end
+    end
+end
+
+-------------------------------------
+-- function receiveData_S_CHARACTER_MOVE
+-- @brief 캐릭터 이동
+-------------------------------------
+function LobbyManager:receiveData_S_CHARACTER_MOVE(msg)
+    local payload = msg['payload']
+    local r = self:getProtobuf('protocol').CharacterMove():Parse(payload)
+
+    local uid = r['uid']
+    local x = r['x']
+    local y = r['y']
+
+    -- 내 위치는 통신 전에 동기화
+    local struct_user_info = self:getAnotherUserInfo(uid)
+    if struct_user_info then
+        struct_user_info.m_tamerPosX = x
+        struct_user_info.m_tamerPosY = y
+        ccdump(struct_user_info)
+    end
+end
+
+-------------------------------------
+-- function getStatus
+-- @brief 서버와의 연결 상태
+-------------------------------------
+function LobbyManager:getStatus()
+    local status = self.m_chatClientSocket:getStatus()
+    return status
+end
+
+-------------------------------------
+-- function getProtobuf
+-- @brief
+-------------------------------------
+function LobbyManager:getProtobuf(name)
+    if (name == 'session') then
+        return self.m_chatClientSocket.m_protobufSession
+
+    elseif (name == 'protocol') then
+        return self.m_chatClientSocket.m_protobufProtocol
+
+    elseif (name == 'chat') then
+        return self.m_chatClientSocket.m_protobufChat
+
+    else
+        error('name : ' .. name)
+    end
+end
+
+-------------------------------------
+-- function getProtocolCode
+-- @brief
+-------------------------------------
+function LobbyManager:getProtocolCode()
+    return self.m_chatClientSocket.m_protocolCode
+end
+
+-------------------------------------
+-- function write
+-- @brief
+-- @return boolean
+-------------------------------------
+function LobbyManager:write(pcode, msg)
+    return self.m_chatClientSocket:write(pcode, msg)
+end
+
+-------------------------------------
+-- function setUserList
+-- @brief
+-------------------------------------
+function LobbyManager:setUserList(user_list)
+    self.m_userInfoList = {}
+
+    local plauer_uid = g_userData:get('uid')
+    plauer_uid = tostring(plauer_uid)
+
+    for i,v in pairs(user_list) do
+        local uid = v['uid']
+        
+        if (plauer_uid~= uid) then
+            local struct_user_info = StructUserInfo()
+            struct_user_info.m_uid = v['uid']
+            struct_user_info.m_lv = v['level']
+            struct_user_info.m_nickname = v['nickname']
+            -- v['did'] -- 이거 어찌 처리하지
+
+            self.m_userInfoList[uid] = struct_user_info
+        end
+    end
+end
+
+-------------------------------------
+-- function getAnotherUserInfo
+-- @brief
+-------------------------------------
+function LobbyManager:getAnotherUserInfo(uid)
+    return self.m_userInfoList[uid]
 end
 
 -------------------------------------
@@ -135,4 +366,6 @@ end
 -------------------------------------
 function LobbyManager:reset()
     self.m_lobbyChannelName = nil
+    self.m_playerUserInfo = nil
+    self.m_userInfoList = nil
 end

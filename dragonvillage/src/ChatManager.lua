@@ -69,7 +69,7 @@ function ChatManager:initChatClient()
 
     -- 연결을 시도 (성공 시 자동으로 채널 입장)
     local t = {}
-    self.m_chatClient:connect(t)
+    --self.m_chatClient:connect(t)
 end
 
 -------------------------------------
