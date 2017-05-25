@@ -6,6 +6,9 @@ local PARENT = UI
 UI_GachaResult_Dragon = class(PARENT, {
         m_lNumberLabel = 'list',
         m_lGachaDragonList = 'list',
+		m_lDragonCardList = 'list',
+
+		m_currDragonAnimator = 'UIC_DragonAnimator',
      })
 
 -------------------------------------
@@ -21,18 +24,14 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list)
     self:doActionReset()
 
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_GachaResult_Dragon')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_GachaResult_Dragon')
+
+	-- 멤버 변수
+	self.m_lDragonCardList = {}
 
 	self:initUI()
 	self:initButton()
     self:refresh()
-end
-
--------------------------------------
--- function click_exitBtn
--------------------------------------
-function UI_GachaResult_Dragon:click_exitBtn()
-    self:close()
 end
 
 -------------------------------------
@@ -41,6 +40,7 @@ end
 function UI_GachaResult_Dragon:initUI()
 	if (table.count(self.m_lGachaDragonList) > 1) then
 		self.vars['skipBtn']:setVisible(true)
+		self:setDragonCardList()
 	end
 end
 
@@ -77,23 +77,39 @@ function UI_GachaResult_Dragon:refresh()
         vars['splashLayer']:runAction(cc.Sequence:create(cc.FadeOut:create(0.5), cc.Hide:create()))
     end
 
-    local did = t_gacha_dragon['did']
-    local grade = t_gacha_dragon['grade']
-    local evolution = t_gacha_dragon['evolution']
-
-    local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[did]
-
 	-- 연출을 위한 준비
 	vars['starVisual']:setVisible(false)
 	vars['bgNode']:removeAllChildren()
 	self:doActionReverse(nil, 0.1)
 
+	-- 드래곤 애니메이터 및 정보 갱신
+	self:refresh_dragon(t_gacha_dragon)
+
+	do 
+		local card = self.m_lDragonCardList[t_gacha_dragon]
+		if (card) then
+			card.root:setVisible(true)
+		end
+	end
+end
+
+-------------------------------------
+-- function refresh_dragon
+-------------------------------------
+function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
+	local vars = self.vars
+
+    local did = t_dragon_data['did']
+    local grade = t_dragon_data['grade']
+    local evolution = t_dragon_data['evolution']
+
+    local t_dragon = TableDragon():get(did)
+
     -- 이름
     vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
 
     do -- 능력치
-        self:refresh_status(t_gacha_dragon)
+        self:refresh_status(t_dragon_data)
     end
 
     do -- 희귀도
@@ -156,6 +172,8 @@ function UI_GachaResult_Dragon:refresh()
         dragon_animator:setDragonAppearCB(cb)
         dragon_animator:setDragonAnimator(t_dragon['did'], evolution, nil)
 		dragon_animator:startDirecting()
+
+		self.m_currDragonAnimator = dragon_animator
     end
 end
 
@@ -165,7 +183,8 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon:refresh_status(t_dragon_data)
     local vars = self.vars
-    local dragon_id = t_dragon_data['did']
+    
+	local dragon_id = t_dragon_data['did']
     local lv = t_dragon_data['lv'] or 1
     local grade = t_dragon_data['grade'] or 1
     local evolution = t_dragon_data['evolution'] or 1
@@ -180,8 +199,76 @@ function UI_GachaResult_Dragon:refresh_status(t_dragon_data)
 end
 
 -------------------------------------
+-- function setDragonCardList
+-------------------------------------
+function UI_GachaResult_Dragon:setDragonCardList()
+	self.m_lDragonCardList = {}
+
+	local card_node = self.vars['dragonIconNode']
+
+	local gap = 10								-- 카드 간격
+	local total_card = #self.m_lGachaDragonList	-- 총 카드 수
+	local card_width = 150						-- 카드 넓이
+
+	-- 시작 좌표
+	local pos_x = - 720 - (total_card * gap / 2)
+
+	for i, t_data in pairs(self.m_lGachaDragonList) do
+		t_data['lv'] = nil
+
+		-- 드래곤 카드 생성
+		local card = UI_DragonCard(StructDragonObject(t_data))
+		
+		-- 카드..처리
+		card.root:setPositionX(pos_x)
+		card.root:setVisible(false)
+		card_node:addChild(card.root)
+		
+		-- 카드 클릭시 드래곤을 보여준다.
+		card.vars['clickBtn']:registerScriptTapHandler(function()
+			self:refresh_dragon(t_data)
+		end)
+
+		-- 리스트에 저장 (연출을 위해)
+		self.m_lDragonCardList[t_data] = card
+
+		-- 다음 좌표 계산
+		pos_x = pos_x + (card_width + gap)
+	end
+
+	doAllChildren(card_node, function(node) node:setCascadeOpacityEnabled(true) end)
+end
+
+-------------------------------------
 -- function click_skipBtn
 -------------------------------------
 function UI_GachaResult_Dragon:click_skipBtn()
-	ccdisplay('click')
+	if (table.count(self.m_lGachaDragonList) > 1) then
+		-- 마지막 데이터만 남긴다.
+		local t_last_data = self.m_lGachaDragonList[#self.m_lGachaDragonList]
+		self.m_lGachaDragonList = {t_last_data}
+
+		-- 남은 드래곤 카드들도 오픈한다.
+		for _, card in pairs(self.m_lDragonCardList) do
+			card.root:setVisible(true)
+		end
+	end
+	
+	-- 마지막 드래곤 animator를 띄우고 마지막 연출을 실행한다.
+	self:refresh()
+	self.m_currDragonAnimator:directingContinue(true)
+
+	-- 스킵을 했다면 스킵 버튼을 가린다.
+	self.vars['skipBtn']:setVisible(false)
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_GachaResult_Dragon:click_closeBtn()
+	if (table.count(self.m_lGachaDragonList) > 1) then
+		self:click_skipBtn()
+	else
+		self:close()
+	end
 end

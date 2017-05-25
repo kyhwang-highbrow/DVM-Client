@@ -73,13 +73,18 @@ end
 -- function directingContinue
 -- @brief 단계별 crack 연출 재생
 -------------------------------------
-function UIC_DragonAnimatorDirector_Summon:directingContinue()
+function UIC_DragonAnimatorDirector_Summon:directingContinue(is_skip)
 	self.vars['touchNode']:setVisible(false)
+
+	-- 스킵의 경우 마지막 알로 보여준다.
+	if (is_skip) then
+		self.m_currStep = self.m_maxStep
+	end
 
 	local crack_ani = string.format('crack_%02d', self.m_currStep)
 	self.m_topEffect:changeAni(crack_ani, false)
 	self.m_topEffect:addAniHandler(function()
-		if (self.m_currStep > self.m_maxStep) then
+		if is_skip or (self.m_currStep > self.m_maxStep) then
 			self:appearDragonAnimator()
 		else
 			self:directingIdle()
