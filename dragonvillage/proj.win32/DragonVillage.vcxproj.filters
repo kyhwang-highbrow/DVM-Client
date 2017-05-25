@@ -2328,6 +2328,12 @@
     <None Include="..\src\StructWaveRegenGroup.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ICharacterStatusEffect.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StatusEffectUnit.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UIC_DragonAnimatorDirector_Summon.lua">
       <Filter>lua\UIC</Filter>
     </None>

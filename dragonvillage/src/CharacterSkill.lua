@@ -335,6 +335,7 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
     
     -- AttackDamage 생성
     local activity_carrier = self:makeAttackDamageInstance()
+    activity_carrier:setSkillId(t_skill['sid'])
     activity_carrier:setPowerRate(t_skill['power_rate'])
 	activity_carrier:setAttackType(t_skill['chance_type'])
 	

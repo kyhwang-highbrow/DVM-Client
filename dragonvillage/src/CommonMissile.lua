@@ -13,6 +13,7 @@ CommonMissile = class(PARENT, {
 		m_resScale = 'num',
 
 		m_activityCarrier = 'AttackDamage',
+        m_skillId = 'num',
 		m_powerRate = 'num',
 		m_chanceType = 'str',
 		m_lStatusEffect = 'List<StructStatusEffect>',
@@ -48,6 +49,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	self.m_resScale = SkillHelper:getValid(t_skill['res_scale'])
 	self.m_missileSpeed = SkillHelper:getValid(t_skill['val_3'], 1000)
 
+    self.m_skillId = t_skill['sid']
 	self.m_powerRate = t_skill['power_rate']
 	self.m_chanceType = t_skill['chance_type']
 	self.m_targetType = t_skill['target_type']
@@ -77,6 +79,7 @@ end
 function CommonMissile:initActvityCarrier()    
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
 
+    self.m_activityCarrier:setSkillId(self.m_skillId)
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
 	self.m_activityCarrier:setAttackType(self.m_chanceType)
     self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffect)

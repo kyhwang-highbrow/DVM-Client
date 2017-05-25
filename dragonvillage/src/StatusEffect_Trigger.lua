@@ -7,6 +7,8 @@ StatusEffect_Trigger = class(PARENT, {
 		m_triggerName = 'str',
 		m_statusEffectInterval = 'number',
 		m_triggerFunc = 'function',
+
+        m_tSkill = 'table',
     })
 
 -------------------------------------
@@ -25,7 +27,7 @@ end
 function StatusEffect_Trigger:init_trigger(char, trigger_name, t_skill)
 	self.m_owner = char
 	self.m_triggerName = trigger_name
-	self.m_subData = t_skill
+	self.m_tSkill = t_skill
 
 	self.m_triggerFunc = self:getTriggerFunction()
 
@@ -63,7 +65,6 @@ function StatusEffect_Trigger:release()
     self.m_owner:removeListener(self.m_triggerName, self)
     
 	--@ TODO 상태효과 관리 구조 재설계 필요
-	self:statusEffectReset()
 	PARENT.release(self)
 end
 
@@ -72,9 +73,10 @@ end
 -- @TODO 트리거에서 사용될 함수를 선 정의한다. 좀더 구조화할 방법 고려해야한다
 -------------------------------------
 function StatusEffect_Trigger:getTriggerFunction()
-	local t_skill = self.m_subData
+	local t_skill = self.m_tSkill
     local char = self.m_owner
 	local trigger_func = nil
+    local skill_id = t_skill['sid']
 	local skill_type = t_skill['skill_type']
 
 	if (skill_type == 'passive_summon_die') then
@@ -120,7 +122,7 @@ function StatusEffect_Trigger:getTriggerFunction()
                 }
 
 				EffectMotionStreak(target.m_world, t_param)
-			end)
+			end, skill_id)
 		end
 
 	elseif (skill_type == 'passive_vampire') then 
@@ -150,7 +152,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 		-- target_rule에 따른 대상 1한테 시전
 		trigger_func = function()
 			local target_list = char:getTargetListByTable(t_skill)
-			StatusEffectHelper:doStatusEffectByStruct(char, {target_list[1]}, SkillHelper:makeStructStatusEffectList(t_skill))
+			StatusEffectHelper:doStatusEffectByStruct(char, {target_list[1]}, SkillHelper:makeStructStatusEffectList(t_skill), nil, skill_id)
 		end
 
     elseif (skill_type == 'passive_target_ms_effect') then
@@ -169,14 +171,14 @@ function StatusEffect_Trigger:getTriggerFunction()
                 }
 
 				EffectMotionStreak(target.m_world, t_param)
-			end)
+			end, skill_id)
 		end
 
 	-- default : 상태효과 시전
 	----------------------------------------------------------------------
 	else
 		trigger_func = function(t_event)
-			StatusEffectHelper:doStatusEffectByStruct(char, {defender}, SkillHelper:makeStructStatusEffectList(t_skill))
+			StatusEffectHelper:doStatusEffectByStruct(char, {defender}, SkillHelper:makeStructStatusEffectList(t_skill), skill_id)
 		end
 	end
 

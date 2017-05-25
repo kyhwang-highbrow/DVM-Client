@@ -9,6 +9,9 @@ ActivityCarrier = class({
 
         m_lFinalStat = 'list',
 
+        -- 스킬 아이디
+        m_skillId = 'number',
+        
         -- 스킬 계수
         m_skillCoefficient = 'number',
 
@@ -32,6 +35,7 @@ ActivityCarrier = class({
 -------------------------------------
 function ActivityCarrier:init()
     self.m_lFinalStat = {}
+    self.m_skillId = nil
     self.m_skillCoefficient = 1
     self.m_skillAddAtk = 0
     self.m_lStatusEffectRate = {}
@@ -136,6 +140,20 @@ end
 -------------------------------------
 function ActivityCarrier:getAtkDmgStat()
 	return self.m_atkDmgStat
+end
+
+-------------------------------------
+-- function setSkillId
+-------------------------------------
+function ActivityCarrier:setSkillId(skill_id)
+    self.m_skillId = skill_id
+end
+
+-------------------------------------
+-- function getSkillId
+-------------------------------------
+function ActivityCarrier:getSkillId()
+    return self.m_skillId
 end
 
 -------------------------------------

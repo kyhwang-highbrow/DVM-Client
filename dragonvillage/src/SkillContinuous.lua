@@ -48,7 +48,7 @@ function SkillContinuous.st_idle(owner, dt)
 	-- 상태 효과 실행
 	if (owner.m_workingType  == 'default') then
 		local char_list = owner.m_owner:getFormationMgr(true):getEntireCharList()
-		StatusEffectHelper:doStatusEffectByStruct(owner.m_owner, char_list, owner.m_lStatusEffect)
+		StatusEffectHelper:doStatusEffectByStruct(owner.m_owner, char_list, owner.m_lStatusEffect, nil, owner.m_skillId)
 		
 	-- 자기 자신 디버프 해제
 	elseif (owner.m_workingType == 'release_debuff') then

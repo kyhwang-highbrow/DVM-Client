@@ -7,6 +7,7 @@ Skill = class(PARENT, {
         m_owner = 'Character',
         m_activityCarrier = 'ActivityCarrier',
 
+        m_skillId = 'number', -- 스킬 아이디
 		m_skillName = 'str',  -- 스킬 타입 명 ex) skill_expolosion 
 		m_chanceType = 'str',  -- 스킬 종류.. active or basic etc.
 
@@ -93,6 +94,7 @@ function Skill:initActvityCarrier(power_rate, power_abs)
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
 	self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
 	self.m_activityCarrier:setAttackType(self.m_chanceType)
+    self.m_activityCarrier:setSkillId(self.m_skillId)
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
     self.m_activityCarrier:setAbsAttack(power_abs)
 	
@@ -103,6 +105,9 @@ function Skill:initActvityCarrier(power_rate, power_abs)
 
     -- 피격시 하일라이트 여부
     self.m_activityCarrier:setHighlight(self.m_bHighlight)
+
+    -- 스킬 아이디 저장
+    self.m_activityCarrier:setFlag('skill_id', self.m_skillId)
 end
 
 -------------------------------------
@@ -212,6 +217,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_resScale = SkillHelper:getValid(t_skill['res_scale'])
 	self.m_skillSize = SkillHelper:getValid(t_skill['skill_size'])
 
+    self.m_skillId = t_skill['sid']
 	self.m_skillName = t_skill['skill_type']
 	self.m_chanceType = t_skill['chance_type']
 	
@@ -322,7 +328,7 @@ function Skill:doStatusEffect(start_con, t_target)
 		else
 			l_ret = t_target or self:findTarget()
 		end
-        StatusEffectHelper:doStatusEffectByStruct(self.m_owner, l_ret, lStatusEffect)
+        StatusEffectHelper:doStatusEffectByStruct(self.m_owner, l_ret, lStatusEffect, nil, self.m_skillId)
     end
 end
 

@@ -32,8 +32,6 @@ function StatusEffectIcon:init(char, status_effect)
 		self.m_icon = icon
 	end
 
-	--char.m_lStatusIcon[status_effect_type] = self
-	
 	if (self.m_icon) then
 		local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 0)
 		label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
@@ -78,7 +76,7 @@ function StatusEffectIcon:checkDuration()
 		self.m_bDelete = true 
         return
     end
-
+    --[[
 	-- 1. 제한 시간이 있는 상태 효과 
 	if (self.m_statusEffect.m_duration ~= -1) then 
 		-- 2. 남은 시간이 3초 이상인데 점멸 상태인 경우 -> 점멸 해제
@@ -93,6 +91,7 @@ function StatusEffectIcon:checkDuration()
 			self.m_bBlink = true 
 		end
 	end
+    ]]--
 
 	if (self.m_statusEffect.m_state == 'end') and (not self.m_bDelete) then
 		self:release()

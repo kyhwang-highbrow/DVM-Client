@@ -37,7 +37,7 @@ end
 -------------------------------------
 function StatusEffect_Silence.st_end(owner, dt)
 	if (owner.m_stateTimer == 0) then
-        owner:statusEffectReset()
+        owner:resetAll()
 		owner:addAniHandler(function()
 			owner.m_owner:setSilence(false)
 			owner:changeState('dying')

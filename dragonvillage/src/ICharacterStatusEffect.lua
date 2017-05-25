@@ -1,0 +1,154 @@
+-------------------------------------
+-- interface ICharacterStatusEffect
+-------------------------------------
+ICharacterStatusEffect = {
+    m_lStatusEffect = 'table',
+    m_lStatusIcon = 'sprite table',
+    m_mStatusEffectCC = 'table',    -- 적용중인 cc효과를 가진 status effect
+}
+
+-------------------------------------
+-- function init
+-------------------------------------
+function ICharacterStatusEffect:init()
+    self.m_lStatusEffect = {}
+	self.m_lStatusIcon = {}
+    self.m_mStatusEffectCC = {}
+end
+
+-------------------------------------
+-- function updateStatusEffect
+-------------------------------------
+function ICharacterStatusEffect:updateStatusEffect(dt)
+	local count = 1
+	for type, status_effect in pairs(self.m_lStatusEffect) do
+		self:setStatusIcon(status_effect, count)
+		count = count + 1
+	end
+
+	for i, v in pairs(self.m_lStatusIcon) do
+		v:update(dt)
+	end
+end
+
+
+-------------------------------------
+-- function setStatusIcon
+-------------------------------------
+function ICharacterStatusEffect:setStatusIcon(status_effect, idx)
+	local status_effect_type = status_effect:getTypeName()
+	local idx = idx 
+
+	-- icon 생성 또는 있는것에 접근
+	local icon = nil
+	if (self.m_lStatusIcon[status_effect_type]) then 
+		icon = self.m_lStatusIcon[status_effect_type]
+	else
+		icon = StatusEffectIcon(self, status_effect)
+
+        self.m_lStatusIcon[status_effect_type] = icon
+	end
+end
+
+-------------------------------------
+-- function removeStatusIcon
+-------------------------------------
+function ICharacterStatusEffect:removeStatusIcon(status_effect)
+	local status_effect_type = status_effect:getTypeName()
+	self.m_lStatusIcon[status_effect_type] = nil
+end
+
+
+-------------------------------------
+-- function insertStatusEffect
+-------------------------------------
+function ICharacterStatusEffect:insertStatusEffect(status_effect)
+	local effect_name = status_effect.m_statusEffectName
+	
+	if string.find(effect_name, 'buff_heal') then return end
+	if string.find(effect_name, 'passive') then return end
+
+	self.m_lStatusEffect[effect_name] = status_effect
+end
+
+-------------------------------------
+-- function removeStatusEffect
+-------------------------------------
+function ICharacterStatusEffect:removeStatusEffect(status_effect)
+	local effect_name = status_effect.m_statusEffectName
+	self.m_lStatusEffect[effect_name] = nil
+end
+
+-------------------------------------
+-- function getStatusEffect
+-------------------------------------
+function ICharacterStatusEffect:getStatusEffect(status_effect_type)
+	return self.m_lStatusEffect[status_effect_type]
+end
+
+-------------------------------------
+-- function getStatusEffectList
+-------------------------------------
+function ICharacterStatusEffect:getStatusEffectList()
+	return self.m_lStatusEffect
+end
+
+-------------------------------------
+-- function hasHarmfulStatusEffect
+-- @breif 해로운 상태효과가 있는지 검사한다.
+-------------------------------------
+function ICharacterStatusEffect:hasHarmfulStatusEffect()
+	for se_name, status_effect in pairs(self.m_lStatusEffect) do
+		if StatusEffectHelper:isHarmful(status_effect) then
+			return true
+		end
+	end
+
+	return false
+end
+
+-------------------------------------
+-- function hasHelpfulStatusEffect
+-- @breif 이로운 상태효과가 있는지 검사한다.
+-------------------------------------
+function ICharacterStatusEffect:hasHelpfulStatusEffect()
+	for se_name, status_effect in pairs(self.m_lStatusEffect) do
+		if StatusEffectHelper:isHelpful(status_effect) then
+			return true
+		end
+	end
+
+	return false
+end
+
+-------------------------------------
+-- function addGroggy
+-------------------------------------
+function ICharacterStatusEffect:addGroggy(statusEffectName)
+    self.m_mStatusEffectCC[statusEffectName] = true
+end
+
+-------------------------------------
+-- function removeGroggy
+-------------------------------------
+function ICharacterStatusEffect:removeGroggy(statusEffectName)
+    if (statusEffectName) then
+        self.m_mStatusEffectCC[statusEffectName] = nil
+    else
+        self.m_mStatusEffectCC = {}
+    end
+end
+
+-------------------------------------
+-- function getCloneTable
+-------------------------------------
+function ICharacterStatusEffect:getCloneTable()
+	return clone(ICharacterStatusEffect)
+end
+
+-------------------------------------
+-- function getCloneClass
+-------------------------------------
+function ICharacterStatusEffect:getCloneClass()
+	return class(clone(ICharacterStatusEffect))
+end

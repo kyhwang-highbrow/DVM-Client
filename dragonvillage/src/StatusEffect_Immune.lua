@@ -38,7 +38,7 @@ end
 -------------------------------------
 function StatusEffect_Immune.st_end(owner, dt)
 	if (owner.m_stateTimer == 0) then
-        owner:statusEffectReset()
+        owner:resetAll()
 		owner:addAniHandler(function()
 			owner.m_owner:setImmuneSE(false)
 			owner:changeState('dying')

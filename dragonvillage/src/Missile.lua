@@ -669,6 +669,7 @@ function Missile:fireAddScriptMissile()
     -- AttackDamage 생성 및 상태효과 복사(테이블의 상태효과를 add_script에도 적용시킴)
     local activity_carrier = owner:makeAttackDamageInstance()
 	activity_carrier.m_lStatusEffectRate = clone(self.m_activityCarrier.m_lStatusEffectRate)
+    activity_carrier:setSkillId(self.m_activityCarrier:getSkillId())
 	activity_carrier:setPowerRate(self.m_activityCarrier:getPowerRate() * 100)
     missile_launcher.m_bHeroMissile = is_hero
 

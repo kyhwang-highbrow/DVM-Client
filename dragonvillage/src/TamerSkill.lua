@@ -190,7 +190,7 @@ function Tamer:doSkill(skill_idx)
 		local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
 			
 		-- 3. 타겟에 상태효과생성
-		StatusEffectHelper:doStatusEffectByStruct(self, l_target, l_status_effect_struct)
+		StatusEffectHelper:doStatusEffectByStruct(self, l_target, l_status_effect_struct, nil, t_skill['sid'])
 
 	-- [PASSIVE]
 	else

@@ -940,11 +940,12 @@ function SceneViewer:update(dt)
             local pos = self.m_animator.m_node:getBonePosition(bone_name)
             local scale = self.m_animator.m_node:getBoneScale(bone_name)
 
-            effect:setPosition(pos)
-            
             if (effect.m_node:getParent() ~= self.m_animator.m_node) then
+                effect:setPositionX(-pos.x)
+                effect:setPositionY(pos.y)
                 effect:setScale(self.m_animator:getScale() * scale.y)
             else
+                effect:setPosition(pos)
                 effect:setScale(scale.y)
             end
         end

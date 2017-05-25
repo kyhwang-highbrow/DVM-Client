@@ -108,6 +108,7 @@ local t_module = {
 	'IEventListener',
     'IHighlight',
     'IStateHelper',
+    'ICharacterStatusEffect',
     'ITopUserInfo_EventListener',
     'ITabUI',
 	'ISkillMultiAttack',
@@ -355,6 +356,7 @@ local t_module = {
 
 	-- STATUS EFFECT
 	'StatusEffect',
+    'StatusEffectUnit',
     'StatusEffect_Trigger',
 	'StatusEffect_Trigger_Release',
 	'StatusEffect_Heal',

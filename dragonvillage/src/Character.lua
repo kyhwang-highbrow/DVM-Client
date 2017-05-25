@@ -1,4 +1,10 @@
-local PARENT = class(Entity, IEventListener:getCloneTable(), IEventDispatcher:getCloneTable(), IHighlight:getCloneTable(), IDragonSkillManager:getCloneTable())
+local PARENT = class(Entity,
+    IEventListener:getCloneTable(),
+    IEventDispatcher:getCloneTable(),
+    IHighlight:getCloneTable(),
+    ICharacterStatusEffect:getCloneTable(),
+    IDragonSkillManager:getCloneTable()
+)
 
 local CHARACTER_ACTION_TAG__ROAM = 0
 
@@ -108,13 +114,7 @@ Character = class(PARENT, {
         m_attackOffsetX = 'number',
         m_attackOffsetY = 'number',
 
-		-- 상태 효과 관련
-		m_lStatusEffect = 'table',
-        m_tOverlabStatusEffect = 'table',
-		m_lStatusIcon = 'sprite table',
-        m_mStatusEffectCC = 'table',    -- 적용중인 cc효과를 가진 status effect
-
-        -- 피격시 경직 관련
+		-- 피격시 경직 관련
         m_bEnableSpasticity = 'boolean',-- 경직 가능 활성화 여부
         m_isSpasticity = 'boolean',     -- 경직 중 여부
         m_delaySpasticity = 'number',   -- 경직 남은 시간
@@ -165,11 +165,6 @@ function Character:init(file_name, body, ...)
     self.m_isOnTheMove = false
     self.m_orderOnTheMove = -1
     self.m_bFixedPosHpNode = false
-
-    self.m_tOverlabStatusEffect = {}
-	self.m_lStatusEffect = {}
-	self.m_lStatusIcon = {}
-    self.m_mStatusEffectCC = {}
 
     self.m_bEnableSpasticity = true
     self.m_isSpasticity = false
@@ -1375,8 +1370,8 @@ function Character:update(dt)
 		self:updateAfterImage(dt)
 	end
 
-	-- 상태효과 아이콘 업데이트
-	self:updateStatusIcon(dt)
+	-- 상태효과 업데이트
+	self:updateStatusEffect(dt)
 
 	-- @TEST 디버깅용 디스플레이
     if (self.m_infoUI) then
@@ -1794,25 +1789,10 @@ function Character:updateDebugingInfo()
 end
 
 -------------------------------------
--- function updateStatusIcon
--------------------------------------
-function Character:updateStatusIcon(dt)
-	local count = 1
-	for type, status_effect in pairs(self.m_lStatusEffect) do
-		self:setStatusIcon(status_effect, count)
-		count = count + 1
-	end
-
-	for i, v in pairs(self.m_lStatusIcon) do
-		v:update(dt)
-	end
-
-end
-
--------------------------------------
 -- function setStatusIcon
 -------------------------------------
 function Character:setStatusIcon(status_effect, idx)
+    --PARENT.setStatusIcon(self, status_effect, idx)
 	local status_effect_type = status_effect:getTypeName()
 	local idx = idx 
 
@@ -1833,14 +1813,6 @@ function Character:setStatusIcon(status_effect, idx)
         icon.m_icon:setPosition(x, y)
         icon.m_icon:setScale(scale)
     end
-end
-
--------------------------------------
--- function removeStatusIcon
--------------------------------------
-function Character:removeStatusIcon(status_effect)
-	local status_effect_type = status_effect:getTypeName()
-	self.m_lStatusIcon[status_effect_type] = nil
 end
 
 -------------------------------------
@@ -1875,6 +1847,24 @@ function Character:getName()
 	else
 		return '까미'
 	end
+end
+
+-------------------------------------
+-- function getCharId
+-------------------------------------
+function Character:getCharId()
+    local char_id
+    if (self.m_charType == 'dragon') then
+        char_id = self.m_charTable['did']
+    elseif (self.m_charType == 'monster') then
+        char_id = self.m_charTable['mid']
+    elseif (self.m_charType == 'tamer') then
+        char_id = self.m_charTable['tid']
+    else
+        error('Character:getCharId error')
+    end
+        
+	return char_id
 end
 
 -------------------------------------
@@ -1947,62 +1937,6 @@ function Character:changeAttribute(tar_attr)
 			self.m_attribute = self.m_attributeOrg
 		end
 	end
-end
-
-
--------------------------------------
--- function insertStatusEffect
--------------------------------------
-function Character:insertStatusEffect(status_effect)
-	local effect_name = status_effect.m_statusEffectName
-	
-	if string.find(effect_name, 'buff_heal') then return end
-	if string.find(effect_name, 'passive') then return end
-
-	self.m_lStatusEffect[effect_name] = status_effect
-end
-
--------------------------------------
--- function removeStatusEffect
--------------------------------------
-function Character:removeStatusEffect(status_effect)
-	local effect_name = status_effect.m_statusEffectName
-	self.m_lStatusEffect[effect_name] = nil
-end
-
--------------------------------------
--- function getStatusEffectList
--------------------------------------
-function Character:getStatusEffectList()
-	return self.m_lStatusEffect
-end
-
--------------------------------------
--- function hasHarmfulStatusEffect
--- @breif 해로운 상태효과가 있는지 검사한다.
--------------------------------------
-function Character:hasHarmfulStatusEffect()
-	for se_name, status_effect in pairs(self.m_lStatusEffect) do
-		if StatusEffectHelper:isHarmful(status_effect) then
-			return true
-		end
-	end
-
-	return false
-end
-
--------------------------------------
--- function hasHelpfulStatusEffect
--- @breif 이로운 상태효과가 있는지 검사한다.
--------------------------------------
-function Character:hasHelpfulStatusEffect()
-	for se_name, status_effect in pairs(self.m_lStatusEffect) do
-		if StatusEffectHelper:isHelpful(status_effect) then
-			return true
-		end
-	end
-
-	return false
 end
 
 -------------------------------------
@@ -2326,6 +2260,7 @@ end
 -- function addGroggy
 -------------------------------------
 function Character:addGroggy(statusEffectName)
+    --PARENT.addGroggy(self, statusEffectName)
     self.m_mStatusEffectCC[statusEffectName] = true
 
     if (self.m_state ~= 'stun') then
@@ -2337,6 +2272,7 @@ end
 -- function removeGroggy
 -------------------------------------
 function Character:removeGroggy(statusEffectName)
+    --PARENT.removeGroggy(self, statusEffectName)
     if (statusEffectName) then
         self.m_mStatusEffectCC[statusEffectName] = nil
     else
@@ -2492,11 +2428,7 @@ function Character:printAllInfomation()
     cclog('CURR_STATE = ' .. self.m_state)
     cclog('## STATUS EFFECT LIST ##')
     for type, se in pairs(self:getStatusEffectList()) do
-		cclog('- ' .. type, se.m_overlabCnt)
-	end
-	cclog('## STATUS EFFECT OVERLAB LIST ##')
-	for type, se in pairs(self.m_tOverlabStatusEffect) do
-		cclog('- ' .. type)
+		cclog('- ' .. type, se.m_overlabCnt, luadump(se.m_bApply), luadump(se.m_bReset))
 	end
 	cclog('## STAT LIST ##')
 	self.m_statusCalc:printAllStat()
