@@ -23,8 +23,8 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list)
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_GachaResult_Dragon')
 
-    vars['okBtn']:registerScriptTapHandler(function() self:refresh() end)
-
+	self:initUI()
+	self:initButton()
     self:refresh()
 end
 
@@ -33,6 +33,24 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_GachaResult_Dragon:initUI()
+	if (table.count(self.m_lGachaDragonList) > 1) then
+		self.vars['skipBtn']:setVisible(true)
+	end
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_GachaResult_Dragon:initButton()
+	local vars = self.vars
+	vars['okBtn']:registerScriptTapHandler(function() self:refresh() end)
+    vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
 end
 
 -------------------------------------
@@ -66,8 +84,10 @@ function UI_GachaResult_Dragon:refresh()
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[did]
 
-	-- 연출을 위해 등급 숨김
+	-- 연출을 위한 준비
 	vars['starVisual']:setVisible(false)
+	vars['bgNode']:removeAllChildren()
+	self:doActionReverse(nil, 0.1)
 
     -- 이름
     vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
@@ -121,6 +141,14 @@ function UI_GachaResult_Dragon:refresh()
 			-- 등급
 			vars['starVisual']:setVisible(true)
 			vars['starVisual']:changeAni('result' .. grade)
+			
+			-- 배경
+			local attr = TableDragon:getDragonAttr(did)
+			if self:checkVarsKey('bgNode', attr) then
+				local animator = ResHelper:getUIDragonBG(attr, 'idle')
+				vars['bgNode']:addChild(animator.m_node)
+			end
+
 			-- ui 연출
             self:doAction(nil, false)
         end
@@ -128,14 +156,6 @@ function UI_GachaResult_Dragon:refresh()
         dragon_animator:setDragonAppearCB(cb)
         dragon_animator:setDragonAnimator(t_dragon['did'], evolution, nil)
 		dragon_animator:startDirecting()
-    end
-
-    -- 배경
-    local attr = TableDragon:getDragonAttr(did)
-    if self:checkVarsKey('bgNode', attr) then
-        vars['bgNode']:removeAllChildren()
-        local animator = ResHelper:getUIDragonBG(attr, 'idle')
-        vars['bgNode']:addChild(animator.m_node)
     end
 end
 
@@ -157,4 +177,11 @@ function UI_GachaResult_Dragon:refresh_status(t_dragon_data)
     vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
     vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+end
+
+-------------------------------------
+-- function click_skipBtn
+-------------------------------------
+function UI_GachaResult_Dragon:click_skipBtn()
+	ccdisplay('click')
 end

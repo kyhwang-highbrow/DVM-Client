@@ -29,10 +29,10 @@ function UIC_DragonAnimator:init()
     self.vars['dragonButton']:registerScriptTapHandler(function() self:click_dragonButton() end)
     self.vars['dragonButton']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     self.vars['talkSprite']:setVisible(false)
+	self.vars['touchNode']:setVisible(false)
 
     self.m_bTalkEnable = true
 end
-
 
 -------------------------------------
 -- function setDragonAnimator
