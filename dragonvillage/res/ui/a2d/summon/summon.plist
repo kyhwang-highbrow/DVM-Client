@@ -20,11 +20,11 @@
             <key>summon_eff_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1043,808},{114,112}}</string>
+                <string>{{1059,240},{114,112}}</string>
                 <key>offset</key>
                 <string>{-2,8}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{5,0},{114,112}}</string>
                 <key>sourceSize</key>
@@ -33,7 +33,7 @@
             <key>summon_eff_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1953,2},{386,70}}</string>
+                <string>{{1581,334},{386,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>summon_eff_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1043,678},{128,128}}</string>
+                <string>{{1043,386},{128,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>summon_eff_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{879,1589},{257,255}}</string>
+                <string>{{368,1041},{257,255}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,11 +72,11 @@
             <key>summon_eff_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{580,1820},{224,232}}</string>
+                <string>{{1659,1752},{224,232}}</string>
                 <key>offset</key>
                 <string>{-1,1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{15,11},{224,232}}</string>
                 <key>sourceSize</key>
@@ -85,11 +85,11 @@
             <key>summon_eff_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1424,1860},{190,183}}</string>
+                <string>{{626,1416},{190,183}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{190,183}}</string>
                 <key>sourceSize</key>
@@ -98,11 +98,11 @@
             <key>summon_eff_07_0104.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1043,494},{182,159}}</string>
+                <string>{{223,1870},{182,159}}</string>
                 <key>offset</key>
                 <string>{8,-7}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{169,196},{182,159}}</string>
                 <key>sourceSize</key>
@@ -111,7 +111,7 @@
             <key>summon_eff_08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1480,1565},{293,268}}</string>
+                <string>{{918,1752},{293,268}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,11 +124,11 @@
             <key>summon_eff_09_0030.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1150,1417},{318,328}}</string>
+                <string>{{1327,1249},{318,328}}</string>
                 <key>offset</key>
                 <string>{-16,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{94,25},{318,328}}</string>
                 <key>sourceSize</key>
@@ -137,7 +137,7 @@
             <key>summon_eff_09_0032.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1286},{330,330}}</string>
+                <string>{{811,1418},{330,330}}</string>
                 <key>offset</key>
                 <string>{-17,5}</string>
                 <key>rotated</key>
@@ -150,7 +150,7 @@
             <key>summon_eff_09_0034.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,946},{340,338}}</string>
+                <string>{{2,1530},{340,338}}</string>
                 <key>offset</key>
                 <string>{-13,5}</string>
                 <key>rotated</key>
@@ -163,7 +163,7 @@
             <key>summon_eff_09_0036.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,606},{338,350}}</string>
+                <string>{{1647,1076},{338,350}}</string>
                 <key>offset</key>
                 <string>{-9,3}</string>
                 <key>rotated</key>
@@ -176,7 +176,7 @@
             <key>summon_eff_09_0038.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1173,767},{352,368}}</string>
+                <string>{{1653,360},{352,368}}</string>
                 <key>offset</key>
                 <string>{-8,0}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>summon_eff_09_0040.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1587,2},{364,360}}</string>
+                <string>{{1653,714},{364,360}}</string>
                 <key>offset</key>
                 <string>{-8,8}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>summon_eff_09_0042.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1209,2},{376,356}}</string>
+                <string>{{1662,2},{376,356}}</string>
                 <key>offset</key>
                 <string>{-8,1}</string>
                 <key>rotated</key>
@@ -215,7 +215,7 @@
             <key>summon_eff_09_0044.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{636,818},{336,334}}</string>
+                <string>{{1647,1416},{336,334}}</string>
                 <key>offset</key>
                 <string>{-9,-17}</string>
                 <key>rotated</key>
@@ -228,11 +228,11 @@
             <key>summon_eff_09_0046.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{581,1468},{350,296}}</string>
+                <string>{{635,1033},{350,296}}</string>
                 <key>offset</key>
                 <string>{-7,6}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{87,34},{350,296}}</string>
                 <key>sourceSize</key>
@@ -241,7 +241,7 @@
             <key>summon_eff_09_0048.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1171,1121},{364,294}}</string>
+                <string>{{2,930},{364,294}}</string>
                 <key>offset</key>
                 <string>{-6,-1}</string>
                 <key>rotated</key>
@@ -254,11 +254,11 @@
             <key>summon_eff_09_0050.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1618},{346,302}}</string>
+                <string>{{2,1226},{346,302}}</string>
                 <key>offset</key>
                 <string>{-21,-2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{75,39},{346,302}}</string>
                 <key>sourceSize</key>
@@ -267,7 +267,7 @@
             <key>summon_eff_09_0052.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{587,1154},{338,312}}</string>
+                <string>{{987,1104},{338,312}}</string>
                 <key>offset</key>
                 <string>{-9,-4}</string>
                 <key>rotated</key>
@@ -280,11 +280,11 @@
             <key>summon_eff_09_0054.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{354,606},{354,280}}</string>
+                <string>{{1043,822},{354,280}}</string>
                 <key>offset</key>
                 <string>{-8,-11}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{84,59},{354,280}}</string>
                 <key>sourceSize</key>
@@ -293,7 +293,7 @@
             <key>summon_eff_09_0056.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1138,1737},{284,294}}</string>
+                <string>{{632,1752},{284,294}}</string>
                 <key>offset</key>
                 <string>{1,-11}</string>
                 <key>rotated</key>
@@ -306,7 +306,7 @@
             <key>summon_eff_09_0058.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1763,1528},{274,310}}</string>
+                <string>{{350,1298},{274,310}}</string>
                 <key>offset</key>
                 <string>{-1,-10}</string>
                 <key>rotated</key>
@@ -319,7 +319,7 @@
             <key>summon_eff_09_0060.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{306,1658},{286,272}}</string>
+                <string>{{1188,1752},{286,272}}</string>
                 <key>offset</key>
                 <string>{-3,10}</string>
                 <key>rotated</key>
@@ -332,7 +332,7 @@
             <key>summon_egg_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{636,494},{322,405}}</string>
+                <string>{{636,709},{322,405}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -345,7 +345,7 @@
             <key>summon_egg_01_s.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1533,360},{28,39}}</string>
+                <string>{{1059,356},{28,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -358,11 +358,11 @@
             <key>summon_egg_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1574,364},{322,405}}</string>
+                <string>{{2,606},{322,405}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{84,83},{322,405}}</string>
                 <key>sourceSize</key>
@@ -371,11 +371,11 @@
             <key>summon_egg_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1209,360},{322,405}}</string>
+                <string>{{1173,498},{322,405}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{84,83},{322,405}}</string>
                 <key>sourceSize</key>
@@ -384,24 +384,24 @@
             <key>summon_egg_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{636,2},{490,571}}</string>
+                <string>{{636,385},{322,405}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{490,571}}</string>
+                <string>{{84,83},{322,405}}</string>
                 <key>sourceSize</key>
                 <string>{490,571}</string>
             </dict>
             <key>summon_egg_s.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{334,1370},{245,286}}</string>
+                <string>{{344,1610},{245,286}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{245,286}}</string>
                 <key>sourceSize</key>
@@ -410,7 +410,7 @@
             <key>summon_eggcrack_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1750,1840},{202,246}}</string>
+                <string>{{1399,1045},{202,246}}</string>
                 <key>offset</key>
                 <string>{7,0}</string>
                 <key>rotated</key>
@@ -423,7 +423,7 @@
             <key>summon_eggcrack_01_e.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1537,1309},{224,254}}</string>
+                <string>{{409,785},{224,254}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -436,7 +436,7 @@
             <key>summon_eggcrack_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{927,1418},{169,219}}</string>
+                <string>{{2,1870},{169,219}}</string>
                 <key>offset</key>
                 <string>{-3,0}</string>
                 <key>rotated</key>
@@ -449,11 +449,11 @@
             <key>summon_eggcrack_02_e.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1860,813},{177,225}}</string>
+                <string>{{409,606},{177,225}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{177,225}}</string>
                 <key>sourceSize</key>
@@ -462,7 +462,7 @@
             <key>summon_eggcrack_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{974,922},{241,195}}</string>
+                <string>{{1462,1752},{241,195}}</string>
                 <key>offset</key>
                 <string>{1,-8}</string>
                 <key>rotated</key>
@@ -475,11 +475,11 @@
             <key>summon_eggcrack_03_e.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{927,1165},{251,221}}</string>
+                <string>{{1399,822},{251,221}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{251,221}}</string>
                 <key>sourceSize</key>
@@ -488,11 +488,11 @@
             <key>summon_eggcrack_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{344,962},{241,406}}</string>
+                <string>{{1173,255},{241,406}}</string>
                 <key>offset</key>
                 <string>{1,1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{6,39},{241,406}}</string>
                 <key>sourceSize</key>
@@ -501,11 +501,11 @@
             <key>summon_eggcrack_04_e.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1781,1040},{251,486}}</string>
+                <string>{{1174,2},{251,486}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{251,486}}</string>
                 <key>sourceSize</key>
@@ -514,7 +514,7 @@
             <key>summon_eggcrack_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1781,771},{77,77}}</string>
+                <string>{{1581,255},{77,77}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -527,11 +527,11 @@
             <key>summon_eggnest_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1543,771},{536,236}}</string>
+                <string>{{636,2},{536,236}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{536,236}}</string>
                 <key>sourceSize</key>
@@ -540,11 +540,11 @@
             <key>summon_eggnest_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1898,390},{421,143}}</string>
+                <string>{{636,240},{421,143}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{421,143}}</string>
                 <key>sourceSize</key>
@@ -560,7 +560,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:eedbe648a686069e802964c751b357a8$</string>
+            <string>$TexturePacker:SmartUpdate:a0310daf2e030aabeed38bd95ec9d5bc$</string>
             <key>textureFileName</key>
             <string>summon.png</string>
         </dict>
