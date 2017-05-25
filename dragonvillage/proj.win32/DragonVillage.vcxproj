@@ -270,6 +270,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\BattleStatisticsHelper.lua" />
     <None Include="..\src\BroadcastMgr.lua" />
     <None Include="..\src\ChatClient.lua" />
+    <None Include="..\src\ChatClientSocket.lua" />
     <None Include="..\src\ChatContent.lua" />
     <None Include="..\src\ChatContentList.lua" />
     <None Include="..\src\ChatIgnoreList.lua" />
@@ -317,6 +318,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ITabUI.lua" />
     <None Include="..\src\LobbyCharacter.lua" />
     <None Include="..\src\LobbyDragon.lua" />
+    <None Include="..\src\LobbyManager.lua" />
     <None Include="..\src\LobbyMap.lua" />
     <None Include="..\src\LobbyMapSpotMgr.lua" />
     <None Include="..\src\LobbyShadow.lua" />
@@ -992,6 +994,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_UserInfoDetailPopup_SetLeader.lua" />
     <None Include="..\src\UI_UserInfoDetailPopup_SetProfile.lua" />
     <None Include="..\src\UI_UserInfoMini.lua" />
+    <None Include="..\src\UI_Village.lua" />
     <None Include="..\src\UserData.lua" />
     <None Include="..\src\Util_BuffStringParser.lua" />
     <None Include="..\src\ValidationAssistant.lua" />

@@ -724,7 +724,7 @@ function LobbyMap:clearAllUser()
     end
 
     self.m_targetTamer = nil
-
+    self.m_lobbyTamerUser = nil
     self.m_lLobbyTamer = {}
     self.m_lLobbyTamerBotOnly = {}
 

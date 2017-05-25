@@ -103,6 +103,15 @@ local t_module = {
 	'ServerData_Ranking',
 	'ServerData_Formation',
 
+    -- Interface
+    'IEventDispatcher',
+	'IEventListener',
+    'IHighlight',
+    'IStateHelper',
+    'ITopUserInfo_EventListener',
+    'ITabUI',
+	'ISkillMultiAttack',
+
     -- Util
     'Action',
     'TimeLib',
@@ -169,6 +178,7 @@ local t_module = {
 	'BattleStatisticsHelper',
 
     'ChatClient',
+    'ChatClientSocket',
     'ChatManager',
     'ChatContent',
     'ChatContentList',
@@ -222,15 +232,6 @@ local t_module = {
 	'TableLoadingGuide',
     'TableExchange',
     'TableDragonCollection',
-
-    -- Interface
-    'IEventDispatcher',
-	'IEventListener',
-    'IHighlight',
-    'IStateHelper',
-    'ITopUserInfo_EventListener',
-    'ITabUI',
-	'ISkillMultiAttack',
 
     -- Scene
     'SceneCommon',
@@ -498,6 +499,7 @@ local t_module = {
     'LobbyDragon',
     'LobbyShadow',
     'LobbyUserStatusUI',
+    'LobbyManager',
     'UI_RewardListPopup',
     'UI_Popup',
     'UI_SimplePopup',
@@ -750,6 +752,7 @@ local t_module = {
     'UI_ChatListItem_myMsg',
     'UI_ChatListItem_systemMsg',
     'UI_ChatIgnoreListItem',
+    'UI_Village',
 
 	-- UI : 설정
 	'UI_Setting',

@@ -23,6 +23,17 @@ message SLoginRes {
 	optional string channelGuild = 8;
 }
 
+message SUser {
+    required string uid = 1;
+	optional string nickname = 2;
+    optional string did = 3;
+	optional int32 level = 4;
+}
+
+message SLobbyUserList {
+    repeated SUser user = 1;
+}
+
 enum LoginResult {
 	Success = 0;
 	NoVacancy = 1;

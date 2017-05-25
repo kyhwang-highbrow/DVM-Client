@@ -19,6 +19,10 @@ message AdminMessage {
 	required bytes			payload = 2;
 }
 
+message StringMessage {
+	required string	string = 1;
+}
+
 enum ProtocolCode {	
 	C_LOGIN_REQ		= 10;
 	S_LOGIN_RES		= 11;
@@ -32,7 +36,18 @@ enum ProtocolCode {
 	S_CHAT_CHANGE_CHANNEL	= 201;
 	
 	S_CHAT_RESPONSE			= 200;
-	S_WHISPER_RESPONSE			= 202;
+	S_WHISPER_RESPONSE		= 202;
+    
+    // 로비 관련
+    C_LOBBY_USER_LIST       = 301;
+    S_LOBBY_USER_LIST       = 302;
+    C_LOBBY_USER_ENTER      = 303;
+    S_LOBBY_USER_ENTER      = 304;
+    C_LOBBY_USER_LEAVE      = 305;
+    S_LOBBY_USER_LEAVE      = 306;
+    C_LOBBY_CHANGE_CHANNEL  = 307;
+    S_LOBBY_CHANGE_CHANNEL  = 307;
+    C_LOBBY_RECOMMEND_CHANNEL = 308;
 
 	C_ERROR					= 9998;
 	S_ERROR					= 9999;

@@ -2331,6 +2331,15 @@
     <None Include="..\src\UIC_DragonAnimatorDirector_Summon.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UI_Village.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ChatClientSocket.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\LobbyManager.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
