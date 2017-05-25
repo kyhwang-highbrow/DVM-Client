@@ -211,7 +211,7 @@ function Monster:update(dt)
             local scale = self.m_animator.m_node:getBoneScale(bone_name)
             
             if (effect.m_node:getParent() ~= self.m_animator.m_node) then
-                effect:setPositionX(self.pos.x + pos.x)
+                effect:setPositionX(self.pos.x - pos.x) -- 몬스터는 플립되서 사용되기 때문에 마이너스시킴
                 effect:setPositionY(self.pos.y + pos.y)
                 effect:setScale(self.m_animator:getScale() * scale.y)
             else
