@@ -219,6 +219,14 @@ function LobbyManager:onEvent_RECEIVE_DATA(t_event)
     elseif (pcode == 'S_CHARACTER_MOVE') then
         self:receiveData_S_CHARACTER_MOVE(msg)
 
+    -- 다른 유저 입장
+    elseif (pcode == 'S_LOBBY_USER_ENTER') then
+        self:receiveData_S_LOBBY_USER_ENTER(msg)
+
+    -- 다른 유저 퇴장
+    elseif (pcode == 'S_LOBBY_USER_LEAVE') then
+        self:receiveData_S_LOBBY_USER_LEAVE(msg)
+
     else
         log('pcode : ' .. pcode)    
     end
@@ -284,6 +292,31 @@ function LobbyManager:receiveData_S_CHARACTER_MOVE(msg)
 end
 
 -------------------------------------
+-- function receiveData_S_LOBBY_USER_ENTER
+-- @brief 캐릭터 입장
+-------------------------------------
+function LobbyManager:receiveData_S_LOBBY_USER_ENTER(msg)
+    local payload = msg['payload']
+    local server_user = self:getProtobuf('session').SUser():Parse(payload)
+
+    -- 유저 리스트에 추가
+    self:addUser(server_user)
+end
+
+-------------------------------------
+-- function receiveData_S_LOBBY_USER_LEAVE
+-- @brief 캐릭터 퇴장
+-------------------------------------
+function LobbyManager:receiveData_S_LOBBY_USER_LEAVE(msg)
+    local payload = msg['payload']
+    local server_user = self:getProtobuf('session').SUser():Parse(payload)
+    local uid = server_user['uid']
+
+    -- 유저 리스트에 삭제
+    self:removeUser(uid)
+end
+
+-------------------------------------
 -- function getStatus
 -- @brief 서버와의 연결 상태
 -------------------------------------
@@ -335,21 +368,53 @@ end
 function LobbyManager:setUserList(user_list)
     self.m_userInfoList = {}
 
-    local plauer_uid = g_userData:get('uid')
-    plauer_uid = tostring(plauer_uid)
+    local player_uid = g_userData:get('uid')
+    player_uid = tostring(player_uid)
 
     for i,v in pairs(user_list) do
         local uid = v['uid']
         
-        if (plauer_uid~= uid) then
-            local struct_user_info = StructUserInfo()
-            struct_user_info.m_uid = v['uid']
-            struct_user_info.m_lv = v['level']
-            struct_user_info.m_nickname = v['nickname']
-            -- v['did'] -- 이거 어찌 처리하지
-
-            self.m_userInfoList[uid] = struct_user_info
+        -- 플레이어 유저는 추가하지 않음
+        if (player_uid~= uid) then
+            self:addUser(v)
         end
+    end
+end
+
+-------------------------------------
+-- function addUser
+-- @brief 유저 추가
+-------------------------------------
+function LobbyManager:addUser(server_user)
+    local is_new_user = (self.m_userInfoList[uid] == nil)
+
+    local uid = server_user['uid']
+
+    local struct_user_info = StructUserInfo()
+    struct_user_info.m_uid = server_user['uid']
+    struct_user_info.m_lv = server_user['level']
+    struct_user_info.m_nickname = server_user['nickname']
+    -- server_user['did'] -- 이거 어찌 처리하지
+
+    self.m_userInfoList[uid] = struct_user_info
+
+    -- 새로운 유저
+    if is_new_user then
+        
+    end
+end
+
+-------------------------------------
+-- function removeUser
+-- @brief 유저 삭제
+-------------------------------------
+function LobbyManager:removeUser(uid)
+    local struct_user_info = self.m_userInfoList[uid]
+
+    if struct_user_info then
+        -- 무언가를... 해줘야함 (로비에서 캐릭터 삭제를 위해)
+
+        self.m_userInfoList[uid] = nil
     end
 end
 

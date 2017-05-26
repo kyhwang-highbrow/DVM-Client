@@ -38,9 +38,13 @@ enum ProtocolCode {
 	C_CHAT_NORMAL_MSG		= 1001;
     S_CHAT_NORMAL_MSG       = 1002;
     
+    // 로비에서 캐릭터들 이동 위치 동기화
     C_CHARACTER_MOVE = 1003;
     S_CHARACTER_MOVE = 1004;
     
+    // 로비 채널에 유저 입장, 퇴장
+    S_LOBBY_USER_ENTER      = 1005;
+    S_LOBBY_USER_LEAVE      = 1006;
     
     
     
@@ -57,10 +61,9 @@ enum ProtocolCode {
     // 로비 관련
     C_LOBBY_USER_LIST       = 301;
     S_LOBBY_USER_LIST       = 302;
-    C_LOBBY_USER_ENTER      = 303;
-    S_LOBBY_USER_ENTER      = 304;
+    
     C_LOBBY_USER_LEAVE      = 305;
-    S_LOBBY_USER_LEAVE      = 306;
+    
     C_LOBBY_CHANGE_CHANNEL  = 307;
     S_LOBBY_CHANGE_CHANNEL  = 307;
     C_LOBBY_RECOMMEND_CHANNEL = 308;

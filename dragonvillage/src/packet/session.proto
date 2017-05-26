@@ -28,6 +28,10 @@ message SUser {
 	optional string nickname = 2;
     optional string did = 3;
 	optional int32 level = 4;
+    
+    // 플레이어 위치
+    optional float x = 5;
+    optional float y = 6;
 }
 
 message SLobbyUserList {
