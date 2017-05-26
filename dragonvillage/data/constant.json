@@ -294,7 +294,7 @@
             "MAP_FLOATING_ROTATE_SCOPE" : 0,
             "MAP_FLOATING_ROTATE_TIME" : 5,
             "WAVE_INTERMISSION_TIME" : 1.5
-        }
+        },
         
         // 콜로세움
         "COLOSSEUM" : {
@@ -548,6 +548,7 @@
     
     // 리소스 테스트용
     "ART" : {
-        "STATUS_EFFECT_RES" : "res/effect/effect_burn/effect_burn.vrp"
+        "STATUS_EFFECT_RES" : "res/effect/effect_burn/effect_burn.vrp",
+        "SUMMON_TEST" : "legend"
     }
 }
