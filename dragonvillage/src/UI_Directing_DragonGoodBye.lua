@@ -34,14 +34,16 @@ end
 -------------------------------------
 function UI_Directing_DragonGoodBye:init_posList()
 	self.m_lPosList = {}
-	self.m_lPosList[1] = {is_used = false, doid = nil, pos = {-100, -100}}
-	self.m_lPosList[2] = {is_used = false, doid = nil, pos = {-200, -50}}
-	self.m_lPosList[3] = {is_used = false, doid = nil, pos = {-200, -150}}
-	self.m_lPosList[4] = {is_used = false, doid = nil, pos = {-300, -50}}
-	self.m_lPosList[5] = {is_used = false, doid = nil, pos = {-300, -150}}
-	self.m_lPosList[6] = {is_used = false, doid = nil, pos = {-400, 0}}
-	self.m_lPosList[7] = {is_used = false, doid = nil, pos = {-400, -100}}
-	self.m_lPosList[8] = {is_used = false, doid = nil, pos = {-400, -200}}
+	self.m_lPosList[1] = {is_used = false, doid = nil, pos = {-100, 50}}
+	self.m_lPosList[2] = {is_used = false, doid = nil, pos = {-210, 150}}
+	self.m_lPosList[3] = {is_used = false, doid = nil, pos = {-250, 50}}
+	self.m_lPosList[4] = {is_used = false, doid = nil, pos = {-230, -50}}
+	self.m_lPosList[5] = {is_used = false, doid = nil, pos = {-370, -100}}
+	self.m_lPosList[6] = {is_used = false, doid = nil, pos = {-380, 0}}
+	self.m_lPosList[7] = {is_used = false, doid = nil, pos = {-400, 100}}
+	self.m_lPosList[8] = {is_used = false, doid = nil, pos = {-350, 200}}
+	self.m_lPosList[9] = {is_used = false, doid = nil, pos = {-520, 150}}
+	self.m_lPosList[10] = {is_used = false, doid = nil, pos = {-500, -50}}
 end
 
 -------------------------------------
@@ -65,6 +67,7 @@ function UI_Directing_DragonGoodBye:initUI()
 	-- 스킵 버튼
 	self:makeSkipBtn()
 
+	-- 배경 생성
 	self:initBG()
 end
 
@@ -85,9 +88,14 @@ end
 -- function initBG
 -------------------------------------
 function UI_Directing_DragonGoodBye:initBG()
+	--[[
 	local res = 'res/bg/ui/dragon_bg_earth/dragon_bg_earth.vrp'
 	local animator = MakeAnimator(res)
 	self.vars['bgNode']:addChild(animator.m_node)
+	]]
+
+	local bg_map = ScrollMap(self.vars['bgNode'])
+    bg_map:setBg('map_nest_ether', 'fire')
 end
 
 -------------------------------------
@@ -123,11 +131,16 @@ end
 -- function makeTamerChar
 -------------------------------------
 function UI_Directing_DragonGoodBye:makeTamerChar()
+	if (self.m_tamer) then
+		return
+	end
+
 	local res = g_tamerData:getCurrTamerTable('res_sd')
 	local dir_tamer = DirectingCharacter(1)
 	dir_tamer:initAnimator(res)
-	dir_tamer:initShadow(-DirectingCharacter.SHADOW_POS_Y)
-	dir_tamer:changeAni('idle', true)
+	--dir_tamer:initShadow(-DirectingCharacter.SHADOW_POS_Y)
+	dir_tamer:changeAni('i_idle', true)
+	dir_tamer.m_animator:setScale(0.7)
 	dir_tamer.m_animator:setFlip(true)
 
 	self.vars['aniNode']:addChild(dir_tamer.m_rootNode)
@@ -148,7 +161,7 @@ function UI_Directing_DragonGoodBye:makeDragonChar(t_dragon_data)
 	-- dragon ani 생성
 	local dir_dragon = DirectingCharacter(scale, t_dragon_data)
 	dir_dragon:initAnimatorDragon(did, evolution)
-	dir_dragon:initShadow(-DirectingCharacter.SHADOW_POS_Y)
+	--dir_dragon:initShadow(-DirectingCharacter.SHADOW_POS_Y)
 	dir_dragon:setOpacityChildren(true)
 	dir_dragon:changeAni('idle', true)
 	dir_dragon:setPosition(pos[1], pos[2])
@@ -286,12 +299,12 @@ function UI_Directing_DragonGoodBye:doDirectingAction(t_data, directing_cb_func)
 	-- 테이머 생성후 걸어서 나옴
 	tamer_walk_in = function()
 		self:makeTamerChar()
-		self.m_tamer:setPosition(800, -200)
-
+		self.m_tamer:setPosition(300, -600)
+		
 		local function cb_func()
 			tamer_bye()
 		end
-		self.m_tamer:actMove(2, cc.p(-600, 0), 1, cb_func)
+		self.m_tamer:actMove_Fly(2, cc.p(0, 600), 1, cb_func)
 	end
 
 	-- 테이머의 인사
@@ -393,11 +406,11 @@ function UI_Directing_DragonGoodBye:doDirectingAction(t_data, directing_cb_func)
 		local animator = MakeAnimator('res/ui/a2d/dragon_lactea/dragon_lactea.vrp')
 		self.vars['aniNode']:addChild(animator.m_node)
 		
-		animator:setPosition(0, -300)
+		animator:setPosition(-300, 0)
 		animator:changeAni('lectea_appear', false)
 		animator:addAniHandler(function()
 			-- 선물 취득 액션
-			cca.actGetObject(animator.m_node, cc.p(-100, 500))
+			cca.actGetObject(animator.m_node, cc.p(1000, 0))
 			tamer_walk_out()
 		end)
 	end
@@ -409,7 +422,7 @@ function UI_Directing_DragonGoodBye:doDirectingAction(t_data, directing_cb_func)
 			self.m_tamer = nil
 		end
 		self.m_tamer.m_animator:setFlip(false)
-		self.m_tamer:actMove(5, cc.p(600, 0), 0, cb_func)
+		self.m_tamer:actMove_Fly(5, cc.p(0, -600), 0, cb_func)
 
 		goodbye_forever()
 	end
@@ -459,6 +472,7 @@ function UI_Directing_DragonGoodBye:goodbye_forever()
 	end
 
 	self.m_tDragonChar = {}
+	self.m_tamer = nil
 	self:init_posList()
 
 	-- 화면 정리
@@ -468,5 +482,5 @@ function UI_Directing_DragonGoodBye:goodbye_forever()
 	-- 수령 팝업
 	local reward_type = self.m_directingData['type']
 	local reward_value = self.m_directingData['value']
-	UI_ObtainPopup(reward_type, reward_value, Str('하늘 멀리 드래곤이 사라져 갑니다.\n드래곤이 남기고 간 라테아 [{1}]개를 획득했습니다.', reward_value))
+	UI_ObtainPopup(reward_type, reward_value, Str('상공 위로 떠나간 드래곤 그림자조차 보이지 않을 때 쯤 드래곤이 남기고 간 라테아 [{1}]개를 발견했습니다.', reward_value))
 end

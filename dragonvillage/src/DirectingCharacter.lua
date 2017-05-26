@@ -144,13 +144,15 @@ end
 function DirectingCharacter:actAscension(duration, cb_func)
 	-- 드래곤은 승천
 	local moveby = cc.EaseOut:create(cc.MoveBy:create(duration, cc.p(0, 1000)), 0.5)
-	local fadeout = cc.FadeOut:create(duration)
+	local fadeout = cc.FadeOut:create(10)
 	self.m_animator:runAction(cc.Sequence:create(cc.Spawn:create(moveby, fadeout)))
 
 	-- 그림자는 희미해지며 작아짐
-	local scale_to = cc.ScaleTo:create(duration, 0)
-	local fadeout2 = cc.FadeOut:create(duration)
-	self.m_shadow.m_rootNode:runAction(cc.Sequence:create(cc.Spawn:create(scale_to, fadeout2)))
+	if (self.m_shadow) then
+		local scale_to = cc.ScaleTo:create(duration, 0)
+		local fadeout2 = cc.FadeOut:create(duration)
+		self.m_shadow.m_rootNode:runAction(cc.Sequence:create(cc.Spawn:create(scale_to, fadeout2)))
+	end
 
 	-- 객체 삭제
 	local delay2 = cc.DelayTime:create(duration)
@@ -180,6 +182,21 @@ function DirectingCharacter:actMove(duration, move_point, delay, move_cb_func)
 		end
 	end)
 	self.m_rootNode:runAction(cc.Sequence:create(moveby, cb_func, delay, cb_func2))
+end
+
+-------------------------------------
+-- function actMove_Fly
+-- @brief 날면서 이동한다.
+-------------------------------------
+function DirectingCharacter:actMove_Fly(duration, move_point, delay, move_cb_func)
+	local moveby = cc.MoveBy:create(duration, move_point)
+	local delay = cc.DelayTime:create(delay)
+	local cb_func = cc.CallFunc:create(function()
+		if (move_cb_func) then
+			move_cb_func()
+		end
+	end)
+	self.m_rootNode:runAction(cc.Sequence:create(moveby, delay, cb_func))
 end
 
 -------------------------------------

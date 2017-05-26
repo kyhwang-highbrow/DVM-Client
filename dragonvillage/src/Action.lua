@@ -263,7 +263,7 @@ end
 -------------------------------------
 function cca.actGetObject(node, tar_pos)
 	-- 부르르르 떠는 액션
-	local brrr = cc.MoveBy:create(0.05, cc.p(3, 0))
+	local brrr = cc.MoveBy:create(0.05, cc.p(7, 0))
 	local sequence_brrr = cc.Sequence:create(brrr, brrr:reverse())
 	local repeat_brrr = cc.Repeat:create(sequence_brrr, 5)
 
