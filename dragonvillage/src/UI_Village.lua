@@ -33,10 +33,9 @@ end
 -- function initUI
 -------------------------------------
 function UI_Village:initUI()
-
-
     self:initChatClientSocket()
     self:initEditBox()
+    self:initWorld()
 end
 
 -------------------------------------
@@ -56,6 +55,19 @@ end
 
 
 -------------------------------------
+-- function initWorld
+-------------------------------------
+function UI_Village:initWorld()
+    local vars = self.vars
+    local lobby_map = LobbyMapFactory:createLobbyWorld(vars['worldNode'])
+
+    
+    -- 유저 설정
+    local struct_user_info = self.m_lobbyManager.m_playerUserInfo
+    lobby_map:makeLobbyTamerBot(struct_user_info)
+end
+
+-------------------------------------
 -- function initChatClientSocket
 -------------------------------------
 function UI_Village:initChatClientSocket()
@@ -63,11 +75,15 @@ function UI_Village:initChatClientSocket()
     local chat_client_socket = ChatClientSocket('192.168.1.63', '3927')
 
     -- 유저 정보 입력
+    local uid = g_serverData:get('local', 'uid')
+    local nickname = g_userData:get('nick')
+    local lv = g_userData:get('lv')
+
     local t_data = {}
-    t_data['uid'] = tostring(math_random(1, 999))--'501'
-    t_data['nickname'] = '김성구' .. t_data['uid']
+    t_data['uid'] = tostring(uid)
+    t_data['nickname'] = nickname
     t_data['did'] = '120014'
-    t_data['level'] = 99999
+    t_data['level'] = lv
     chat_client_socket:setUserInfo(t_data)
 
     -- 로비 매니저 생성

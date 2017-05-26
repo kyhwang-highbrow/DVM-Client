@@ -205,6 +205,11 @@ end
 -------------------------------------
 function LobbyMap:checkDragonTouch(touch_pos, tamer)
     local dragon = tamer.m_dragon
+
+    if (not dragon) then
+        return false
+    end
+
     --dragon.m_rootNode:getPosition()
     local world_pos = convertToWorldSpace(dragon.m_animator.m_node)
 
@@ -344,11 +349,12 @@ end
 -------------------------------------
 -- function makeLobbyTamerBot
 -------------------------------------
-function LobbyMap:makeLobbyTamerBot(t_user_info)
+function LobbyMap:makeLobbyTamerBot(struct_user_info)
     local lobby_map = self
     local lobby_ground = self.m_groudNode
-    local uid = g_serverData:get('local', 'uid')
-    local is_bot = (tostring(uid) ~= t_user_info['uid'])
+    local player_uid = g_serverData:get('local', 'uid')
+    local uid = struct_user_info:getUid()
+    local is_bot = (tostring(player_uid) ~= uid)
 	
 	local tamer_res = nil
 
@@ -363,10 +369,10 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
 		sum_random:addItem(1, 'res/character/tamer/durun/durun.spine')
 		sum_random:addItem(1, 'res/character/tamer/mokoji/mokoji.spine')
 
-        tamer = LobbyTamerBot(t_user_info)
+        tamer = LobbyTamerBot(struct_user_info)
 		tamer_res = sum_random:getRandomValue()
     else
-        tamer = LobbyTamer(t_user_info)
+        tamer = LobbyTamer(struct_user_info)
         tamer_res = g_tamerData:getCurrTamerTable('res_sd')
     end
 
@@ -382,15 +388,15 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
 
     tamer.m_animator:setFlip(flip)
 
-    self:addLobbyTamer(tamer, is_bot, t_user_info)
-    self:addLobbyDragon(tamer, is_bot, t_user_info)
+    self:addLobbyTamer(tamer, is_bot, struct_user_info)
+    self:addLobbyDragon(tamer, is_bot, struct_user_info)
 
     if is_bot then
-        local pos = self:getRandomSpot(t_user_info['uid'])
+        local pos = self:getRandomSpot(uid)
         tamer:setPosition(pos[1], pos[2])
 
         tamer.m_funcGetRandomPos = function()
-            local ret_pos = self:getRandomSpot(t_user_info['uid'])
+            local ret_pos = self:getRandomSpot(uid)
             return ret_pos[1], ret_pos[2]
         end
     else
@@ -455,10 +461,15 @@ end
 -- function addLobbyDragon
 -------------------------------------
 function LobbyMap:addLobbyDragon(tamer, is_bot, t_user_info)
+    if  true then
+        return
+    end
+
     -- 임시 랜덤 드래곤
     local table_dragon = TableDragon()
     local t_dragon = nil
 
+    local leader_dragon = t_user_info:getLeaderDragonObject()
     local evolution = t_user_info['leader']['evolution']
 
     local did = t_user_info['leader']['did']
@@ -548,7 +559,8 @@ function LobbyMap:onEvent(event_name, t_event, ...)
         -- 테이머의 이동일 경우
         if is_tamer then
             local uid = g_userData:get('uid')
-            if (tostring(uid) == lobby_tamer.m_userData['uid']) then
+            local bot_uid = tostring(lobby_tamer.m_userData:getUid())
+            if (tostring(uid) == bot_uid) then
                 self.m_bUserPosDirty = true
             else
                 table.insert(self.m_lChangedPosTamers, lobby_tamer)

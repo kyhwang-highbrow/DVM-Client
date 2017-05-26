@@ -79,22 +79,24 @@ function MakeLobbyObjectUI(parent, ui_lobby, type)
     local ui = UI_LobbyObject(type)
     parent:addChild(ui.root, 5)
 
-    if (type == UI_LobbyObject.BATTLE) then
-        ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_battleBtn() end)
+    if ui_lobby then
+        if (type == UI_LobbyObject.BATTLE) then
+            ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_battleBtn() end)
 
-    elseif (type == UI_LobbyObject.BOARD) then
-        ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_questBtn() end)
+        elseif (type == UI_LobbyObject.BOARD) then
+            ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_questBtn() end)
 
-    elseif (type == UI_LobbyObject.DRAGON_MANAGE) then
-        ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_dragonManageBtn() end)
+        elseif (type == UI_LobbyObject.DRAGON_MANAGE) then
+            ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_dragonManageBtn() end)
 
-    elseif (type == UI_LobbyObject.SHIP) then
-        ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_adventureBtn() end)
+        elseif (type == UI_LobbyObject.SHIP) then
+            ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_adventureBtn() end)
 
-    elseif (type == UI_LobbyObject.SHOP) then
-        ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_shopBtn() end)
-    else
-        error('type : ' .. type)
+        elseif (type == UI_LobbyObject.SHOP) then
+            ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_shopBtn() end)
+        else
+            error('type : ' .. type)
+        end
     end
 
 

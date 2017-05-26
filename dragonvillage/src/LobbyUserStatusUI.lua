@@ -5,7 +5,7 @@ local PARENT = class(UI, IEventDispatcher:getCloneTable(), IEventListener:getClo
 -------------------------------------
 LobbyUserStatusUI = class(PARENT, {
         m_rootNode = 'cc.Node',
-        m_tUserInfo = 'table',
+        m_tUserInfo = 'StructUserInfo',
      })
 
 -------------------------------------
@@ -52,11 +52,11 @@ function LobbyUserStatusUI:init_statusUI()
     local vars = self.vars
 
     -- 닉네임
-    local nickname = t_user_info['nick']
+    local nickname = t_user_info:getNickname()
     vars['nameLabel']:setString(nickname)
 
     -- 길드 이름
-    local guild_name = t_user_info['guild']
+    local guild_name = t_user_info:getGuild()
     vars['guildLabel']:setString(guild_name)
 
     -- 길드가 존재하지 않을 경우 정렬

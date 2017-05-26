@@ -177,6 +177,10 @@ end
 function UI_Lobby:refresh_lobbyUsers()
     self.m_lobbyMap:clearAllUser()
 
+    if true then
+        return
+    end
+
     -- 플레이어 유저의 Tamer만 생성하고 싶을 경우 true로 설정하세요.
     local user_only = false
 
@@ -187,6 +191,8 @@ function UI_Lobby:refresh_lobbyUsers()
         local l_lobby_user_list = g_lobbyUserListData:getLobbyUserList()
         for i,user_info in ipairs(l_lobby_user_list) do
             self.m_lobbyMap:makeLobbyTamerBot(user_info)
+
+            ccdump(user_info)
         end
     end
 

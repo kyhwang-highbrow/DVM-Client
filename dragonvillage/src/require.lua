@@ -495,6 +495,7 @@ local t_module = {
     'UI_Lobby',
     'LobbyMapSpotMgr',
     'LobbyMap',
+    'LobbyMapFactory',
     'LobbyCharacter',
     'LobbyTamer',
     'LobbyTamerBot',

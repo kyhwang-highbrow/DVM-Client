@@ -10,8 +10,8 @@ StructUserInfo = class({
         m_nickname = 'string',
         m_leaderDragonObject = '',
 
-
         -- 로비 채팅에서 사용
+        m_tamerID = 'string', -- ?? number??
         m_tamerPosX = 'float',
         m_tamerPosY = 'float',
     })
