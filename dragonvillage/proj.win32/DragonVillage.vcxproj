@@ -475,7 +475,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffectUnit.lua" />
     <None Include="..\src\StatusEffect_AddDmg.lua" />
     <None Include="..\src\StatusEffect_AttributeChange.lua" />
-    <None Include="..\src\StatusEffect_Barrier.lua" />
     <None Include="..\src\Camera.lua" />
     <None Include="..\src\CameraTouchHandler.lua" />
     <None Include="..\src\CameraTouchHandler_Lobby.lua" />
@@ -648,7 +647,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffect_DotDmg_Bleed.lua" />
     <None Include="..\src\StatusEffect_DotDmg_Burn.lua" />
     <None Include="..\src\StatusEffect_DotDmg_Poison.lua" />
-    <None Include="..\src\StatusEffect_Immune.lua" />
     <None Include="..\src\StatusEffect_Protection.lua" />
     <None Include="..\src\StatusEffect_Heal.lua" />
     <None Include="..\src\StatusEffect_Resist.lua" />

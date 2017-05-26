@@ -15,32 +15,21 @@ function StatusEffect_Silence:init(file_name, body)
 end
 
 -------------------------------------
--- function init_skill
+-- function onApplyCommon
+-- @brief 중첩과 관계없이 한번만 적용되어야하는 효과를 적용
 -------------------------------------
-function StatusEffect_Silence:init_status(char)
-	self.m_owner = char
-	char:setSilence(true)
+function StatusEffect_Silence:onApplyCommon()
+    StatusEffect.onApplyCommon(self)
+
+    self.m_owner:setSilence(true)
 end
 
 -------------------------------------
--- function initState
+-- function onUnapplyCommon
+-- @brief 중첩과 관계없이 한번만 적용되어야하는 효과를 해제
 -------------------------------------
-function StatusEffect_Silence:initState()
-    self:addState('start', StatusEffect.st_start, 'center_start', false)
-    self:addState('idle', StatusEffect.st_idle, 'center_idle', true)
-    self:addState('end', StatusEffect_Silence.st_end, 'center_end', false)
-	self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
-end
+function StatusEffect_Silence:onUnapplyCommon()
+    StatusEffect.onUnapplyCommon(self)
 
--------------------------------------
--- function st_end
--------------------------------------
-function StatusEffect_Silence.st_end(owner, dt)
-	if (owner.m_stateTimer == 0) then
-        owner:resetAll()
-		owner:addAniHandler(function()
-			owner.m_owner:setSilence(false)
-			owner:changeState('dying')
-		end)
-    end
+    self.m_owner:setSilence(false)
 end

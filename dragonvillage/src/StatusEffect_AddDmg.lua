@@ -37,10 +37,9 @@ end
 -- function initState
 -------------------------------------
 function StatusEffect_AddDmg:initState()
-    self:addState('start', StatusEffect_AddDmg.st_start, 'center_start', false)
+    PARENT.initState(self)
+
     self:addState('idle', StatusEffect_AddDmg.st_idle, 'center_idle', false)
-    self:addState('end', StatusEffect_AddDmg.st_end, 'center_end', false)
-	self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
 
 -------------------------------------

@@ -322,11 +322,22 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     -- 초기값 설정
     status_effect:initFromTable(t_status_effect, target_char)
 
-    -----------------------------------------------------------------
-    -- StatusEffectUnit 생성 및 추가
-    
+    -- 타켓에게 status_effect 저장
+	target_char:insertStatusEffect(status_effect)
+
+    -- 객체 생성
+    local world = target_char.m_world
+    world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
+    world:addToUnitList(status_effect)
+
+    status_effect:initState()
+    status_effect:changeState('start')
+
     -- 시간 지정 (skill table 에서 받아와서 덮어씌우거나 status effect table 값 사용)
     local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
+
+    -----------------------------------------------------------------
+    -- StatusEffectUnit 생성 및 추가
     status_effect:addUnit(caster, skill_id, status_effect_value, duration)
 
     -- 해로운 상태효과 걸렸을 시
@@ -337,14 +348,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 		t_event['status_effect_name'] = status_effect.m_statusEffectName
 		target_char:dispatch('get_debuff', t_event)
 	end
-    
-    -- 객체 생성
-    local world = target_char.m_world
-    world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
-    world:addToUnitList(status_effect)
-
-    status_effect:initState()
-    status_effect:changeState('start')
 
     return status_effect
 end

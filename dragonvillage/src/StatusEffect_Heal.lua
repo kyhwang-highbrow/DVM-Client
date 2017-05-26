@@ -39,16 +39,15 @@ end
 -- function initState
 -------------------------------------
 function StatusEffect_Heal:initState()
-    self:addState('start', StatusEffect.st_start, 'center_start', false)
+    PARENT.initState(self)
+
     self:addState('idle', StatusEffect_Heal.st_idle, 'center_idle', true)
-    self:addState('end', StatusEffect.st_end, 'center_end', false)
-	self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
 
 -------------------------------------
--- function onStart_StatusEffect
+-- function onApplyCommon
 -------------------------------------
-function StatusEffect_Heal:onStart_StatusEffect()
+function StatusEffect_Heal:onApplyCommon()
 	-- @TODO hael 애니메이션으로 인한 구조적 문제에 대한 임시방편 처리
 	self.m_durationTimer = self.m_durationTimer + self.m_animator:getDuration()
 end

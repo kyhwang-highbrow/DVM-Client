@@ -47,17 +47,21 @@ function StatusEffect_DotDmg_Bleed:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
--- function onStart_StatusEffect
+-- function onApplyCommon
 -------------------------------------
-function StatusEffect_DotDmg_Bleed:onStart_StatusEffect()
+function StatusEffect_DotDmg_Bleed:onApplyCommon()
 	-- listner 등록
 	self.m_owner:addListener(self.m_trigger, self)
+
+    return PARENT.onApplyCommon(self)
 end
 
 -------------------------------------
--- function onEnd_StatusEffect
+-- function onUnapplyCommon
 -------------------------------------
-function StatusEffect_DotDmg_Bleed:onEnd_StatusEffect()
+function StatusEffect_DotDmg_Bleed:onUnapplyCommon()
 	-- listener 해제
 	self.m_owner:removeListener(self.m_trigger, self)
+
+    return PARENT.onUnapplyCommon(self)
 end

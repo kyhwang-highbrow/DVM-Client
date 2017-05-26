@@ -105,9 +105,6 @@ function Skill:initActvityCarrier(power_rate, power_abs)
 
     -- 피격시 하일라이트 여부
     self.m_activityCarrier:setHighlight(self.m_bHighlight)
-
-    -- 스킬 아이디 저장
-    self.m_activityCarrier:setFlag('skill_id', self.m_skillId)
 end
 
 -------------------------------------

@@ -12,6 +12,8 @@ StatusEffectUnit = class({
         m_duration = 'number',      -- 지속 시간. 값이 -1일 경우 무제한
 
         m_durationTimer = 'number',
+
+        m_bApply = 'boolean'
     })
 
 -------------------------------------
@@ -20,6 +22,7 @@ StatusEffectUnit = class({
 -- @param body
 -------------------------------------
 function StatusEffectUnit:init(name, owner, caster, skill_id, value, duration)
+    cclog(name .. ' - ' .. duration)
     self.m_statusEffectName = name
 
     self.m_owner = owner
@@ -30,6 +33,8 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, duration)
 	self.m_duration = duration
 
     self.m_durationTimer = self.m_duration
+
+    self.m_bApply = false
 end
 
 -------------------------------------
@@ -49,11 +54,13 @@ function StatusEffectUnit:update(dt)
 end
 
 -------------------------------------
--- function apply
+-- function onApply
 -------------------------------------
-function StatusEffectUnit:apply(lStatus, lStatusAbs)
+function StatusEffectUnit:onApply(lStatus, lStatusAbs)
     local is_dirty_stat = false
     local value = self.m_value / 100
+
+    if (self.m_bApply) then return is_dirty_stat end
 
     -- %능력치 적용
     for key, rate in pairs(lStatus) do
@@ -67,15 +74,19 @@ function StatusEffectUnit:apply(lStatus, lStatusAbs)
 		is_dirty_stat = true
     end
 
+    self.m_bApply = true
+
     return is_dirty_stat
 end
 
 -------------------------------------
--- function reset
+-- function onUnapply
 -------------------------------------
-function StatusEffectUnit:reset(lStatus, lStatusAbs)
+function StatusEffectUnit:onUnapply(lStatus, lStatusAbs)
     local is_dirty_stat = false
     local value = self.m_value / 100
+
+    if (not self.m_bApply) then return is_dirty_stat end
     
     -- %능력치 원상 복귀
     for key, rate in pairs(lStatus) do
@@ -88,6 +99,8 @@ function StatusEffectUnit:reset(lStatus, lStatusAbs)
         self.m_owner.m_statusCalc:addBuffAdd(key, -rate * value)
 		is_dirty_stat = true
     end
+
+    self.m_bApply = false
 
     return is_dirty_stat
 end

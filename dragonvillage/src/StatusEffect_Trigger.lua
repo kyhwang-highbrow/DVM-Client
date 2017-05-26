@@ -30,8 +30,24 @@ function StatusEffect_Trigger:init_trigger(char, trigger_name, t_skill)
 	self.m_tSkill = t_skill
 
 	self.m_triggerFunc = self:getTriggerFunction()
+end
 
-	char:addListener(self.m_triggerName, self)
+-------------------------------------
+-- function onApplyCommon
+-------------------------------------
+function StatusEffect_Trigger:onApplyCommon()
+    self.m_owner:addListener(self.m_triggerName, self)
+
+    return PARENT.onApplyCommon(self)
+end
+
+-------------------------------------
+-- function onUnapplyCommon
+-------------------------------------
+function StatusEffect_Trigger:onUnapplyCommon()
+    self.m_owner:removeListener(self.m_triggerName, self)
+
+    return PARENT.onUnapplyCommon(self)
 end
 
 -------------------------------------

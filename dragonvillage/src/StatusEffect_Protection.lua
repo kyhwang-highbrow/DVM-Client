@@ -52,11 +52,11 @@ end
 -- function initState
 -------------------------------------
 function StatusEffect_Protection:initState()
-	self:addState('start', StatusEffect_Protection.st_appear, 'appear', false)
-    self:addState('idle', StatusEffect_Protection.st_idle, 'idle', true)
-	self:addState('hit', StatusEffect_Protection.st_hit, 'hit', false)
-	self:addState('end', StatusEffect_Protection.st_disappear, 'disappear', false)
-    self:addState('dying', function(owner, dt) owner:release(); return true end, nil, nil, 10)
+    PARENT.initState(self)
+
+	self:addState('start', PARENT.st_start, 'appear', false)
+    self:addState('idle', PARENT.st_idle, 'idle', true)
+	self:addState('end', PARENT.st_end, 'disappear', false)
 end
 
 -------------------------------------
@@ -67,57 +67,8 @@ function StatusEffect_Protection:update(dt)
 	if g_constant:get('DEBUG', 'DISPLAY_SHIELD_HP') then	
 		self.m_label:setString(string.format('%.1f / %.1f', self.m_shieldHP, self.m_shieldHPOrg))
 	end
-	if (self.m_state == 'idle') then
-		-- 1. 종료 : 시간 초과
-		self.m_durationTimer = self.m_durationTimer - dt
-		if (self.m_durationTimer < 0) then
-			self:changeState('end')
-			return
-		end
-
-		-- 2. 종료 : 캐릭터 사망
-		if (not self.m_owner) or self.m_owner.m_bDead then
-			self:changeState('end')
-		end
-	end
-
+    
     return PARENT.update(self, dt)
-end
-
--------------------------------------
--- function st_appear
--------------------------------------
-function StatusEffect_Protection.st_appear(owner, dt)
-	if (owner.m_stateTimer == 0) then
-		owner:addAniHandler(function() owner:changeState('idle') end)
-    end
-end
-
--------------------------------------
--- function st_idle
--------------------------------------
-function StatusEffect_Protection.st_idle(owner, dt)
-	if (owner.m_stateTimer == 0) then
-
-    end
-end
-
--------------------------------------
--- function st_hit
--------------------------------------
-function StatusEffect_Protection.st_hit(owner, dt)
-	if (owner.m_stateTimer == 0) then
-		owner:addAniHandler(function() owner:changeState('idle') end)
-    end
-end
-
--------------------------------------
--- function st_disappear
--------------------------------------
-function StatusEffect_Protection.st_disappear(owner, dt)
-	if (owner.m_stateTimer == 0) then
-		owner:addAniHandler(function() owner:changeState('dying') end)
-    end
 end
 
 -------------------------------------
@@ -131,7 +82,11 @@ function StatusEffect_Protection:getTriggerFunction()
 			-- 데미지를 전부 방어하고 hit effect
 			self.m_shieldHP = self.m_shieldHP - damage
 			damage = 0
-			self:changeState('hit')
+			
+            self.m_animator:changeAni('hit', false)
+            self:addAniHandler(function()
+                self.m_animator:changeAni('idle', true)
+            end)
 		else
 			-- 데미지를 일부만 방어하고 end
 			damage = damage - self.m_shieldHP

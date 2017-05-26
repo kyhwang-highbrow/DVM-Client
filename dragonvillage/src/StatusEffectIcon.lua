@@ -70,7 +70,7 @@ end
 -------------------------------------
 function StatusEffectIcon:checkDuration()
     -- 주체 대상이 해당 statusEffect를 가지고 있지 않은 상태라면 삭제 시킴
-    if (self.m_char.m_lStatusEffect[self.m_statusEffectName] == nil) then
+    if (self.m_char.m_mStatusEffect[self.m_statusEffectName] == nil) then
         self:release()
 		self.m_char:removeStatusIcon(self.m_statusEffect)
 		self.m_bDelete = true 

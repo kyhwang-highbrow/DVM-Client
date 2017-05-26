@@ -20,7 +20,7 @@ end
 -------------------------------------
 function StatusEffect_Trigger_Release:getTriggerFunction()
 	local trigger_func = function()
-		if (not self.m_bApply and not self.m_bReset) then
+		if (not self.m_bApply) then
 			-- 생성된 이후 아직 미적용 상태인 경우
 		else
 			self:changeState('end')

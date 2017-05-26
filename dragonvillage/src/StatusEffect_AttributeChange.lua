@@ -24,18 +24,22 @@ function StatusEffect_AttributeChange:init_statusEffect(char, tar_attr)
 end
 
 -------------------------------------
--- function onStart_StatusEffect
+-- function onApplyCommon
 -------------------------------------
-function StatusEffect_AttributeChange:onStart_StatusEffect()
-	self.m_owner:changeAttribute(self.m_targetAttribute)
+function StatusEffect_AttributeChange:onApplyCommon()
+    self.m_owner:changeAttribute(self.m_targetAttribute)
 	self:setAttributeColor(self.m_targetAttribute)
+
+    return PARENT.onApplyCommon(self)
 end
 
 -------------------------------------
--- function onEnd_StatusEffect
+-- function onUnapplyCommon
 -------------------------------------
-function StatusEffect_AttributeChange:onEnd_StatusEffect()
-	self.m_owner:changeAttribute(nil)
+function StatusEffect_AttributeChange:onUnapplyCommon()
+    self.m_owner:changeAttribute(nil)
+
+    return PARENT.onUnapplyCommon(self)
 end
 
 -------------------------------------

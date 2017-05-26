@@ -2,7 +2,7 @@
 -- interface ICharacterStatusEffect
 -------------------------------------
 ICharacterStatusEffect = {
-    m_lStatusEffect = 'table',
+    m_mStatusEffect = 'table',
     m_lStatusIcon = 'sprite table',
     m_mStatusEffectCC = 'table',    -- 적용중인 cc효과를 가진 status effect
 }
@@ -11,7 +11,7 @@ ICharacterStatusEffect = {
 -- function init
 -------------------------------------
 function ICharacterStatusEffect:init()
-    self.m_lStatusEffect = {}
+    self.m_mStatusEffect = {}
 	self.m_lStatusIcon = {}
     self.m_mStatusEffectCC = {}
 end
@@ -21,7 +21,7 @@ end
 -------------------------------------
 function ICharacterStatusEffect:updateStatusEffect(dt)
 	local count = 1
-	for type, status_effect in pairs(self.m_lStatusEffect) do
+	for type, status_effect in pairs(self.m_mStatusEffect) do
 		self:setStatusIcon(status_effect, count)
 		count = count + 1
 	end
@@ -68,7 +68,7 @@ function ICharacterStatusEffect:insertStatusEffect(status_effect)
 	if string.find(effect_name, 'buff_heal') then return end
 	if string.find(effect_name, 'passive') then return end
 
-	self.m_lStatusEffect[effect_name] = status_effect
+	self.m_mStatusEffect[effect_name] = status_effect
 end
 
 -------------------------------------
@@ -76,21 +76,21 @@ end
 -------------------------------------
 function ICharacterStatusEffect:removeStatusEffect(status_effect)
 	local effect_name = status_effect.m_statusEffectName
-	self.m_lStatusEffect[effect_name] = nil
+	self.m_mStatusEffect[effect_name] = nil
 end
 
 -------------------------------------
 -- function getStatusEffect
 -------------------------------------
 function ICharacterStatusEffect:getStatusEffect(status_effect_type)
-	return self.m_lStatusEffect[status_effect_type]
+	return self.m_mStatusEffect[status_effect_type]
 end
 
 -------------------------------------
 -- function getStatusEffectList
 -------------------------------------
 function ICharacterStatusEffect:getStatusEffectList()
-	return self.m_lStatusEffect
+	return self.m_mStatusEffect
 end
 
 -------------------------------------
@@ -98,7 +98,7 @@ end
 -- @breif 해로운 상태효과가 있는지 검사한다.
 -------------------------------------
 function ICharacterStatusEffect:hasHarmfulStatusEffect()
-	for se_name, status_effect in pairs(self.m_lStatusEffect) do
+	for _, status_effect in pairs(self.m_mStatusEffect) do
 		if StatusEffectHelper:isHarmful(status_effect) then
 			return true
 		end
@@ -112,7 +112,7 @@ end
 -- @breif 이로운 상태효과가 있는지 검사한다.
 -------------------------------------
 function ICharacterStatusEffect:hasHelpfulStatusEffect()
-	for se_name, status_effect in pairs(self.m_lStatusEffect) do
+	for _, status_effect in pairs(self.m_mStatusEffect) do
 		if StatusEffectHelper:isHelpful(status_effect) then
 			return true
 		end

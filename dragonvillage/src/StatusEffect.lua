@@ -14,7 +14,6 @@ StatusEffect = class(PARENT, {
         m_mUnit = 'table',  -- 시전자의 char_id값을 키값으로 StatusEffectUnit의 리스트를 가지는 맵
 
         m_bApply = 'boolean',
-        m_bReset = 'boolean',
         m_bDirtyPos = 'bollean',
         m_bHarmful = 'boolean',
 
@@ -38,7 +37,6 @@ function StatusEffect:init(file_name, body)
     self.m_mUnit = {}
 
     self.m_bApply = false
-    self.m_bReset = false
     self.m_bDirtyPos = true
     self.m_bHarmful = false
 
@@ -98,7 +96,11 @@ end
 function StatusEffect:release()
     PARENT.release(self)
 
-    self:resetAll()
+    -- 모든 효과 해제
+    self:unapplyAll()
+
+    -- 대상이 들고 있는 상태효과 리스트에서 제거
+	self.m_owner:removeStatusEffect(self)
 end
 
 -------------------------------------
@@ -106,12 +108,9 @@ end
 -------------------------------------
 function StatusEffect.st_start(owner, dt)
     if (owner.m_stateTimer == 0) then
-        -- 공통 효과 적용
-		owner:applyCommon()
-		
-		-- status effect 시작 된 후에 부가적인 효과 설정
-		owner:onStart_StatusEffect()
-        
+        -- 중첩에 상관없이 한번만 적용되어야하는 효과 적용
+		owner:onApplyCommon()
+		        
 		-- 에니메이션이 0프레임일 경우 즉시 상태를 변경
         local duration = owner.m_animator:getDuration()
         if (duration == 0) then
@@ -137,11 +136,8 @@ end
 -------------------------------------
 function StatusEffect.st_end(owner, dt)
     if (owner.m_stateTimer == 0) then
-        -- onstart 에서 설정한 부가 효과 해제
-		owner:onEnd_StatusEffect()
-		
-		-- status effect 해제
-		owner:resetAll()
+        -- 모든 효과 해제
+		owner:unapplyAll()
 		
 		owner:addAniHandler(function()
 			owner:changeState('dying')
@@ -150,56 +146,42 @@ function StatusEffect.st_end(owner, dt)
 end
 
 -------------------------------------
--- function onStart_StatusEffect
--------------------------------------
-function StatusEffect:onStart_StatusEffect()
-end
-
--------------------------------------
--- function onEnd_StatusEffect
--------------------------------------
-function StatusEffect:onEnd_StatusEffect()
-end
-
--------------------------------------
 -- function update
 -------------------------------------
 function StatusEffect:update(dt)
-    if (self.m_bApply and not self.m_bReset) then
-        if (self.m_owner.m_bDead) then
-            self:changeState('end')
+    if (self.m_owner.m_bDead) then
+        self:changeState('end')
 
+    elseif (self.m_bApply) then
+        -- 대상자의 디법 유지 시간 관련 스텟을 실시간으로 적용
+        local modified_dt
+
+        if (self.m_bHarmful) then
+            local rate = 1 / (1 + (self.m_owner:getStat('debuff_time') / 100))
+            modified_dt = dt * rate
         else
-            -- 대상자의 디법 유지 시간 관련 스텟을 실시간으로 계산
-            local modified_dt
+            modified_dt = dt
+        end
+        --
 
-            if (self.m_bHarmful) then
-                local rate = 1 / (1 + (self.m_owner:getStat('debuff_time') / 100))
-                modified_dt = dt * rate
-            else
-                modified_dt = dt
-            end
-            --
+        -- 개별 update
+        for _, list in pairs(self.m_mUnit) do
+            local t_remove = {}
 
-            -- 개별 update
-            for _, list in pairs(self.m_mUnit) do
-                local t_remove = {}
-
-                for i, unit in ipairs(list) do
-                    if (unit:update(modified_dt)) then
-                        table.insert(t_remove, 1, i)
-                        self:resetStatus(unit)
-                    end
-                end
-
-                for i, v in ipairs(t_remove) do
-                    table.remove(list, v)
+            for i, unit in ipairs(list) do
+                if (unit:update(modified_dt)) then
+                    table.insert(t_remove, 1, i)
+                    self:onUnapplyOverlab(unit)
                 end
             end
+
+            for i, v in ipairs(t_remove) do
+                table.remove(list, v)
+            end
+        end
             
-            if (self.m_overlabCnt <= 0) then
-                self:changeState('end')
-            end
+        if (self.m_overlabCnt <= 0) then
+            self:changeState('end')
         end
     end
 
@@ -255,10 +237,10 @@ function StatusEffect:insertStatus(type, value, is_abs)
 end
 
 -------------------------------------
--- function applyCommon
--- @brief 중첩처리해야하는 것(Status)를 제외한 공통 효과를 적용
+-- function onApplyCommon
+-- @brief 중첩과 관계없이 한번만 적용되어야하는 효과를 적용
 -------------------------------------
-function StatusEffect:applyCommon()
+function StatusEffect:onApplyCommon()
     if (self.m_bApply) then return false end
 
     local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
@@ -268,101 +250,83 @@ function StatusEffect:applyCommon()
 		self.m_owner:addGroggy(self.m_statusEffectName)
 	end
 
-    -- 타켓에게 status_effect 저장
-	self.m_owner:insertStatusEffect(self)
-
     self.m_bApply = true
 
     return true
 end
 
 -------------------------------------
--- function applyStatus
+-- function onUnapplyCommon
+-- @brief 중첩과 관계없이 한번만 적용되어야하는 효과를 해제
 -------------------------------------
-function StatusEffect:applyStatus(unit)
-    local b = unit:apply(self.m_lStatus, self.m_lStatusAbs)
-
-    self.m_overlabCnt = (self.m_overlabCnt + 1)
-        
-    if (b) then
-        -- @EVENT : 스탯 변화 적용(최대 체력)
-		self.m_owner:dispatch('stat_changed')
-	end
-end
-
--------------------------------------
--- function resetAll
--------------------------------------
-function StatusEffect:resetAll()
-    -- Common 해제
-    self:resetCommon()
-
-    -- Status 해제
-    self:resetStatusAll()
-end
-
--------------------------------------
--- function resetCommon
--------------------------------------
-function StatusEffect:resetCommon()
+function StatusEffect:onUnapplyCommon()
     if (not self.m_bApply) then return false end
-    if (self.m_bReset) then return false end
-
+    
     -- groggy 옵션이 있다면 해제
     local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
     if (t_status_effect['groggy'] == 'true') then
         self.m_owner:removeGroggy(self.m_statusEffectName)
     end
 	
-	-- 대상이 들고 있는 상태효과 리스트에서 제거
-	self.m_owner:removeStatusEffect(self)
-
-    self.m_bReset = true
+	self.m_bApply = false
 
     return true
 end
 
 -------------------------------------
--- function resetStatusAll
+-- function onApplyOverlab
+-- @brief 중첩될때마다 적용되어야하는 효과를 적용
 -------------------------------------
-function StatusEffect:resetStatusAll()
-    local bUpdated = false
+function StatusEffect:onApplyOverlab(unit)
+    local b = unit:onApply(self.m_lStatus, self.m_lStatusAbs)
 
-    for _, list in pairs(self.m_mUnit) do
-        for _, unit in ipairs(list) do
-            if (unit:reset(self.m_lStatus, self.m_lStatusAbs)) then
-                bUpdated = true
-            end
-        end
-    end
-
-    self.m_mUnit = {}
-    self.m_overlabCnt = 0
-
-    if (bUpdated) then
-        -- @EVENT : 스탯 변화 적용(최대 체력)
-		self.m_owner:dispatch('stat_changed')
-    end
+    self.m_overlabCnt = (self.m_overlabCnt + 1)
+            
+    return b
 end
 
 -------------------------------------
--- function resetStatus
+-- function onUnapplyOverlab
+-- @brief 중첩될때마다 적용되어야하는 효과를 해제
 -------------------------------------
-function StatusEffect:resetStatus(unit)
-    local b = unit:reset(self.m_lStatus, self.m_lStatusAbs)
+function StatusEffect:onUnapplyOverlab(unit)
+    local b = unit:onUnapply(self.m_lStatus, self.m_lStatusAbs)
 
     self.m_overlabCnt = (self.m_overlabCnt - 1)
-        
-    if (b) then
+            
+    return b
+end
+
+-------------------------------------
+-- function unapplyAll
+-------------------------------------
+function StatusEffect:unapplyAll()
+    -- 기본 효과 해제
+    do
+        self:onUnapplyCommon()
+    end
+    
+    -- 중첩 효과 해제
+    do
+        for _, list in pairs(self.m_mUnit) do
+            for _, unit in ipairs(list) do
+                self:onUnapplyOverlab(unit)
+            end
+        end
+
+        self.m_mUnit = {}
+        self.m_overlabCnt = 0
+
         -- @EVENT : 스탯 변화 적용(최대 체력)
 		self.m_owner:dispatch('stat_changed')
-	end
+    end
 end
 
 -------------------------------------
 -- function addUnit
 -------------------------------------
 function StatusEffect:addUnit(caster, skill_id, value, duration)
+    local char_id = caster:getCharId()
     local skill_id = skill_id or 999999
 
     if (self.m_state == 'end' or self.m_state == 'dying') then
@@ -371,19 +335,14 @@ function StatusEffect:addUnit(caster, skill_id, value, duration)
 
     local new_unit = StatusEffectUnit(self:getTypeName(), self.m_owner, caster, skill_id, value, duration)
 
-    
-    local char_id = caster:getCharId()
-    
-    -- 갱신(삭제 후 새로 적용하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
+    -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
     if (self.m_mUnit[char_id]) then
         for i, unit in ipairs(self.m_mUnit[char_id]) do
             if (unit.m_skillId == skill_id) then
                 -- 주체와 스킬id가 같을 경우 삭제 후 추가 시킴
                 local unit = table.remove(self.m_mUnit[char_id], i)
-                self:resetStatus(unit)
-
-                table.insert(self.m_mUnit[char_id], new_unit)
-                is_exist = true
+                self:onUnapplyOverlab(unit)
+                
                 break
             end
         end
@@ -391,16 +350,20 @@ function StatusEffect:addUnit(caster, skill_id, value, duration)
         self.m_mUnit[char_id] = {}
     end
 
+    -- 중첩 정보 추가
     table.insert(self.m_mUnit[char_id], new_unit)
     
-    -- Status 적용
-    self:applyStatus(new_unit)
+    -- 중첩시 효과 적용
+    self:onApplyOverlab(new_unit)
 
     -- 최대 중첩 횟수를 넘을 경우 젤 앞의 unit을 삭제
     if (self.m_overlabCnt > self.m_maxOverlab) then
         local unit = table.remove(self.m_mUnit[char_id], 1)
-        self:resetStatus(unit)
+        self:onUnapplyOverlab(unit)
     end
+
+    -- @EVENT : 스탯 변화 적용(최대 체력)
+	self.m_owner:dispatch('stat_changed')
 end
 
 -------------------------------------

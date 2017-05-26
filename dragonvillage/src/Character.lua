@@ -2428,7 +2428,7 @@ function Character:printAllInfomation()
     cclog('CURR_STATE = ' .. self.m_state)
     cclog('## STATUS EFFECT LIST ##')
     for type, se in pairs(self:getStatusEffectList()) do
-		cclog('- ' .. type, se.m_overlabCnt, luadump(se.m_bApply), luadump(se.m_bReset))
+		cclog('- ' .. type, se.m_overlabCnt, luadump(se.m_bApply))
 	end
 	cclog('## STAT LIST ##')
 	self.m_statusCalc:printAllStat()
