@@ -227,6 +227,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
 		-- 카드 클릭시 드래곤을 보여준다.
 		card.vars['clickBtn']:registerScriptTapHandler(function()
 			self:refresh_dragon(t_data)
+			self.m_currDragonAnimator:forceSkipDirecting()
 		end)
 
 		-- 리스트에 저장 (연출을 위해)
@@ -256,7 +257,7 @@ function UI_GachaResult_Dragon:click_skipBtn()
 	
 	-- 마지막 드래곤 animator를 띄우고 마지막 연출을 실행한다.
 	self:refresh()
-	self.m_currDragonAnimator:directingContinue(true)
+	self.m_currDragonAnimator:forceSkipDirecting()
 
 	-- 스킵을 했다면 스킵 버튼을 가린다.
 	self.vars['skipBtn']:setVisible(false)

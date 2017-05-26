@@ -73,18 +73,13 @@ end
 -- function directingContinue
 -- @brief 단계별 crack 연출 재생
 -------------------------------------
-function UIC_DragonAnimatorDirector_Summon:directingContinue(is_skip)
+function UIC_DragonAnimatorDirector_Summon:directingContinue()
 	self.vars['touchNode']:setVisible(false)
-
-	-- 스킵의 경우 마지막 알로 보여준다.
-	if (is_skip) then
-		self.m_currStep = self.m_maxStep
-	end
 
 	local crack_ani = string.format('crack_%02d', self.m_currStep)
 	self.m_topEffect:changeAni(crack_ani, false)
 	self.m_topEffect:addAniHandler(function()
-		if is_skip or (self.m_currStep > self.m_maxStep) then
+		if (self.m_currStep > self.m_maxStep) then
 			self:appearDragonAnimator()
 		else
 			self:directingIdle()
@@ -123,6 +118,17 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
 end
 
 -------------------------------------
+-- function appearDragonAnimator
+-- @brief top_appear연출 호출하고 드래곤 등장시킴
+-------------------------------------
+function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator()
+	self.m_topEffect:changeAni('top_appear', false)
+	self.m_topEffect:addAniHandler(function()
+		PARENT.appearDragonAnimator(self)
+	end)
+end
+
+-------------------------------------
 -- function click_skipBtn
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:click_skipBtn()
@@ -133,4 +139,17 @@ function UIC_DragonAnimatorDirector_Summon:click_skipBtn()
 
 	self:directingContinue()
 	self.m_currStep = self.m_currStep + 1
+end
+
+-------------------------------------
+-- function forceSkipDirecting
+-- @brief skip을 강제할때 필요한 세팅을 하고 드래곤을 등장 시킨다.
+-------------------------------------
+function UIC_DragonAnimatorDirector_Summon:forceSkipDirecting()
+	self.vars['touchNode']:setVisible(false)
+
+	self.m_currStep = self.m_maxStep + 1
+
+	-- top_appear연출 생략을 위해 부모함수 호출
+	PARENT.appearDragonAnimator(self)
 end
