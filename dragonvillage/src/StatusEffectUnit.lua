@@ -10,10 +10,11 @@ StatusEffectUnit = class({
 
         m_value = 'number',         -- 적용값
         m_duration = 'number',      -- 지속 시간. 값이 -1일 경우 무제한
-
         m_durationTimer = 'number',
 
-        m_bApply = 'boolean'
+        m_bApply = 'boolean',
+
+        m_tParam = 'table',         -- 추가 정보들을 저장하기 위한 맵형태의 테이블
     })
 
 -------------------------------------
@@ -22,7 +23,7 @@ StatusEffectUnit = class({
 -- @param body
 -------------------------------------
 function StatusEffectUnit:init(name, owner, caster, skill_id, value, duration)
-    cclog(name .. ' - ' .. duration)
+    --cclog(name .. ' - ' .. duration)
     self.m_statusEffectName = name
 
     self.m_owner = owner
@@ -35,14 +36,17 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, duration)
     self.m_durationTimer = self.m_duration
 
     self.m_bApply = false
+
+    self.m_tParam = {}
 end
 
 -------------------------------------
 -- function update
+-- @param modified_dt 디법 지속시간 스텟을 적용한 dt
 -------------------------------------
-function StatusEffectUnit:update(dt)
+function StatusEffectUnit:update(dt, modified_dt)
     if (self.m_duration ~= -1) then
-        self.m_durationTimer = (self.m_durationTimer - dt)
+        self.m_durationTimer = (self.m_durationTimer - modified_dt)
 
         if (self.m_durationTimer <= 0) then
             self.m_durationTimer = 0
@@ -110,4 +114,25 @@ end
 -------------------------------------
 function StatusEffectUnit:getValue()
     return self.m_value
+end
+
+-------------------------------------
+-- function getCaster
+-------------------------------------
+function StatusEffectUnit:getCaster()
+    return self.m_caster
+end
+
+-------------------------------------
+-- function setParam
+-------------------------------------
+function StatusEffectUnit:setParam(key, value)
+    self.m_tParam[key] = value
+end
+
+-------------------------------------
+-- function getParam
+-------------------------------------
+function StatusEffectUnit:getParam(key)
+    return self.m_tParam[key]
 end

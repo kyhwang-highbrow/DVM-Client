@@ -1941,21 +1941,6 @@
     <None Include="..\src\StatusEffect_Dispell.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\StatusEffect_DotDmg.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\StatusEffect_DotDmg_Bleed.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\StatusEffect_DotDmg_Burn.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\StatusEffect_DotDmg_Poison.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\StatusEffect_Heal.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StatusEffect_Protection.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -1966,9 +1951,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StatusEffect_Trigger.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\StatusEffect_Trigger_Release.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StatusEffectHelper.lua">
@@ -2342,6 +2324,27 @@
     </None>
     <None Include="..\src\LobbyMapFactory.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StatusEffect_Bleed.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StatusEffect_Poison.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StatusEffect_Sleep.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StatusEffect_PassiveSkill.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StatusEffectUnit_Dot.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StatusEffectUnit_Dot_Damage.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StatusEffectUnit_Dot_Heal.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

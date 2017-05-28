@@ -5,6 +5,7 @@ local PARENT = Entity
 -------------------------------------
 StatusEffect = class(PARENT, {
         m_statusEffectName = 'string',
+        m_overlabClass = 'class',
         
 		m_owner = 'Character',		-- 피시전자 & 상태효과의 대상
 		
@@ -31,6 +32,8 @@ StatusEffect = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect:init(file_name, body)
+    self.m_overlabClass = StatusEffectUnit
+
 	self.m_lStatus = {}
     self.m_lStatusAbs = {}
 
@@ -91,16 +94,23 @@ function StatusEffect:initState()
 end
 
 -------------------------------------
+-- function initFromTable
+-------------------------------------
+function StatusEffect:setOverlabClass(overlab_class)
+    self.m_overlabClass = overlab_class
+end
+
+-------------------------------------
 -- function release
 -------------------------------------
 function StatusEffect:release()
-    PARENT.release(self)
-
     -- 모든 효과 해제
     self:unapplyAll()
 
     -- 대상이 들고 있는 상태효과 리스트에서 제거
 	self.m_owner:removeStatusEffect(self)
+
+    PARENT.release(self)
 end
 
 -------------------------------------
@@ -169,7 +179,7 @@ function StatusEffect:update(dt)
             local t_remove = {}
 
             for i, unit in ipairs(list) do
-                if (unit:update(modified_dt)) then
+                if (unit:update(dt, modified_dt)) then
                     table.insert(t_remove, 1, i)
                     self:onUnapplyOverlab(unit)
                 end
@@ -185,7 +195,7 @@ function StatusEffect:update(dt)
         end
     end
 
-    local ret = Entity.update(self, dt)
+    local ret = PARENT.update(self, dt)
 
     -- 위치 갱신이 필요한지 확인
     self:checkPosDirty()
@@ -246,7 +256,7 @@ function StatusEffect:onApplyCommon()
     local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
 
     -- groggy 옵션이 있다면 stun 상태로 바꾼다. 이외의 부가적인 효과는 개별적으로 구현
-	if (t_status_effect['groggy'] == 'true') then
+	if (t_status_effect and t_status_effect['groggy'] == 'true') then
 		self.m_owner:addGroggy(self.m_statusEffectName)
 	end
 
@@ -264,7 +274,7 @@ function StatusEffect:onUnapplyCommon()
     
     -- groggy 옵션이 있다면 해제
     local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
-    if (t_status_effect['groggy'] == 'true') then
+    if (t_status_effect and t_status_effect['groggy'] == 'true') then
         self.m_owner:removeGroggy(self.m_statusEffectName)
     end
 	
@@ -333,7 +343,14 @@ function StatusEffect:addUnit(caster, skill_id, value, duration)
         self:changeState('start')
     end
 
-    local new_unit = StatusEffectUnit(self:getTypeName(), self.m_owner, caster, skill_id, value, duration)
+    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, duration)
+    
+    --[[
+    local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
+    if (t_status_effect['overlab_option'] == 1) then
+        -- TODO: 주체와 스킬 id가 같더라도 갱신시키지 않음
+    end
+    ]]--
 
     -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
     if (self.m_mUnit[char_id]) then
@@ -373,9 +390,11 @@ end
 -- @return boolean
 -------------------------------------
 function StatusEffect:changeState(state, forced)
+    if (self.m_state == state and isExistValue(self.m_state, 'end', 'dying')) then return false end
+
     local ret = PARENT.changeState(self, state, forced)
 
-    if (ret == true) and (state ~= 'dying') and (self.m_topEffect) then
+    if (ret) and (state ~= 'dying') and (self.m_topEffect) then
         local animation_name = string.gsub(self.m_tStateAni[state], 'center', 'top')
         self.m_topEffect:changeAni(animation_name, self.m_tStateAniLoop[state])
     end

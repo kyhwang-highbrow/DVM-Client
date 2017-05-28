@@ -255,18 +255,20 @@ function Monster.st_charge(owner, dt)
             -- 차지 이팩트 재생
             local res = 'res/effect/effect_attack_ready/effect_attack_ready.vrp'
             local animator = MakeAnimator(res)
-            animator:changeAni('idle', false)
-            owner.m_rootNode:addChild(animator.m_node)
-            local duration = animator:getDuration()
-            animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+            if (animator.m_node) then
+                animator:changeAni('idle', false)
+                owner.m_rootNode:addChild(animator.m_node)
+                local duration = animator:getDuration()
+                animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
 
-            local size_type = owner.m_charTable['size_type']
-            if (size_type == 's') then
-                animator:setPosition(0, -25)
-            elseif (size_type == 'm') then
-                animator:setPosition(0, -50)
-            elseif (size_type == 'l') then
-                animator:setPosition(0, -75)
+                local size_type = owner.m_charTable['size_type']
+                if (size_type == 's') then
+                    animator:setPosition(0, -25)
+                elseif (size_type == 'm') then
+                    animator:setPosition(0, -50)
+                elseif (size_type == 'l') then
+                    animator:setPosition(0, -75)
+                end
             end
         end
 

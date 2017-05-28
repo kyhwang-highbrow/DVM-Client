@@ -204,11 +204,15 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 
 	local trigger_name = t_skill['chance_value'] or 'undergo_attack'
 	
-	local status_effect = StatusEffect_Trigger(res)
-	status_effect:init_trigger(char, trigger_name, t_skill)
+	local status_effect = StatusEffect_PassiveSkill(res)
+	status_effect:init_passiveSkill(char, trigger_name, t_skill)
 	
-	char.m_world:addToUnitList(status_effect)
+    local world = char.m_world
+    world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
+    world:addToUnitList(status_effect)
 
+    status_effect:changeState('start')
+	
     return status_effect
 end
 
@@ -250,43 +254,37 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
             -- 스킬 게이지 회복 타입은 status effect로 현재는 불가능하기 때문에 임시로...
             target_char:increaseActiveSkillCool(value)
         elseif (status_effect_type == 'feedback_healer') then
-            status_effect = StatusEffect_Heal(res)
-		    status_effect:init_heal(target_char, t_status_effect, status_effect_value, duration)
+            status_effect = StatusEffect(res)
+            status_effect:setOverlabClass(StatusEffectUnit_Dot_Heal)
         else
             status_effect = StatusEffect(res)
         end
 
-	------------ 힐 --------------------------
+	------------ 도트 --------------------------
+    elseif (status_effect_type == 'burn') then
+		status_effect = StatusEffect(res)
+        status_effect:setOverlabClass(StatusEffectUnit_Dot_Damage)
+
     elseif isExistValue(status_effect_type, 'passive_recovery') or
 		string.find(status_effect_type, 'heal') then
-        status_effect = StatusEffect_Heal(res)
-		status_effect:init_heal(target_char, t_status_effect, status_effect_value, duration)
-		
-	----------- 도트 데미지 패시브 ------------------
+        status_effect = StatusEffect(res)
+        status_effect:setOverlabClass(StatusEffectUnit_Dot_Heal)
+        		
+	----------- 트리거 ------------------
 	elseif (status_effect_type == 'bleed') then
-		status_effect = StatusEffect_DotDmg_Bleed(res)
-		status_effect:init_dotDmg(target_char, caster, t_status_effect, status_effect_value)
-	elseif (status_effect_type == 'burn') then
-		status_effect = StatusEffect_DotDmg_Burn(res)
-		status_effect:init_dotDmg(target_char, caster, t_status_effect, status_effect_value)
+        status_effect = StatusEffect_Bleed(res)
+        
 	elseif (status_effect_type == 'poison') then
-		status_effect = StatusEffect_DotDmg_Poison(res)
-		status_effect:init_dotDmg(target_char, caster, t_status_effect, status_effect_value)
+        status_effect = StatusEffect_Poison(res)
 
 	----------- HP 보호막 ------------------
 	elseif (status_effect_type == 'barrier_protection') then
 		status_effect = StatusEffect_Protection(res)
-		local adj_value = t_status_effect['val_1'] * (status_effect_value / 100)
-		local shield_hp = target_char.m_maxHp * (adj_value / 100)
-		status_effect:init_trigger(target_char, shield_hp)
 	
 	----------- 데미지 경감 보호막 ------------------
 	elseif isExistValue(status_effect_type, 'resist', 'barrier_protection_darknix') then
 		status_effect = StatusEffect_Resist(res)
-		local adj_value = t_status_effect['dmg_adj_rate'] * (status_effect_value / 100)
-		local resist_rate = (adj_value / 100)
-		status_effect:init_trigger(target_char, resist_rate)
-
+		
 	----------- 디버프 해제 ------------------
 	elseif isExistValue(status_effect_type, 'cure', 'remove', 'invalid') then
 		status_effect = StatusEffect_Dispell(res)
@@ -294,8 +292,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
 	----------- 특이한 해제 조건을 가진 것들 ------------------
 	elseif isExistValue(status_effect_type, 'sleep') then
-		status_effect = StatusEffect_Trigger_Release(res)
-		status_effect:init_trigger(target_char, 'undergo_attack', {status_effect_type = status_effect_type, status_effect_value = status_effect_value, status_effect_rate = status_effect_rate})
+		status_effect = StatusEffect_Sleep(res)
 	
 	----------- 침묵 ------------------
 	elseif (status_effect_type == 'silence') then
@@ -330,7 +327,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
     world:addToUnitList(status_effect)
 
-    status_effect:initState()
     status_effect:changeState('start')
 
     -- 시간 지정 (skill table 에서 받아와서 덮어씌우거나 status effect table 값 사용)

@@ -20,7 +20,11 @@ function StatusEffect_Protection:init(file_name, body, ...)
 	-- 보호막은 트리거 쿨타임을 적용하지 않는다.
 	self.m_statusEffectInterval = 0
 
-    self:initState()
+    self.m_triggerName = 'hit_shield'
+    
+    self.m_shieldHP = 0
+    self.m_shieldHPOrg = 0
+
 	do
         local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 20, 2, cc.size(250, 100), 1, 1)
         label:setPosition(0, -100)
@@ -36,16 +40,6 @@ end
 -------------------------------------
 function StatusEffect_Protection:init_top(file_name)
 	-- top을 찍지 않는다
-end
-
--------------------------------------
--- function init_trigger
--------------------------------------
-function StatusEffect_Protection:init_trigger(char, shield_hp)
-	PARENT.init_trigger(self, char, 'hit_shield', nil)
-	
-	self.m_shieldHP = shield_hp or 519
-    self.m_shieldHPOrg = shield_hp or 519
 end
 
 -------------------------------------
@@ -69,6 +63,45 @@ function StatusEffect_Protection:update(dt)
 	end
     
     return PARENT.update(self, dt)
+end
+
+
+-------------------------------------
+-- function onApplyOverlab
+-- @brief 중첩될때마다 적용되어야하는 효과를 적용
+-------------------------------------
+function StatusEffect_Protection:onApplyOverlab(unit)
+    local b = PARENT.onApplyOverlab(self, unit)
+
+    local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
+    local adj_value = t_status_effect['val_1'] * (unit:getValue() / 100)
+	local shield_hp = self.m_owner.m_maxHp * (adj_value / 100)
+
+    -- 해당 정보를 임시 저장
+    unit:setParam('shield_hp', shield_hp)
+
+    -- 보호막 가산
+    self.m_shieldHP = self.m_shieldHP + shield_hp
+    self.m_shieldHPOrg = self.m_shieldHPOrg + shield_hp
+
+    return b
+end
+
+
+-------------------------------------
+-- function onUnapplyOverlab
+-- @brief 중첩될때마다 적용되어야하는 효과를 해제
+-------------------------------------
+function StatusEffect_Protection:onUnapplyOverlab(unit)
+    local b = PARENT.onUnapplyOverlab(self, unit)
+
+     -- 보호막 감산
+    local shield_hp = unit:getParam('shield_hp')
+
+    self.m_shieldHPOrg = self.m_shieldHPOrg - shield_hp
+    self.m_shieldHP = math_min(self.m_shieldHP, self.m_shieldHPOrg)
+            
+    return b
 end
 
 -------------------------------------

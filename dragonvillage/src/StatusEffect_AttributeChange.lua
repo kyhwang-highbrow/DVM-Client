@@ -27,19 +27,27 @@ end
 -- function onApplyCommon
 -------------------------------------
 function StatusEffect_AttributeChange:onApplyCommon()
-    self.m_owner:changeAttribute(self.m_targetAttribute)
-	self:setAttributeColor(self.m_targetAttribute)
+    local b = PARENT.onApplyCommon(self)
 
-    return PARENT.onApplyCommon(self)
+    if (b) then
+        self.m_owner:changeAttribute(self.m_targetAttribute)
+	    self:setAttributeColor(self.m_targetAttribute)
+    end
+
+    return b
 end
 
 -------------------------------------
 -- function onUnapplyCommon
 -------------------------------------
 function StatusEffect_AttributeChange:onUnapplyCommon()
-    self.m_owner:changeAttribute(nil)
+    local b = PARENT.onUnapplyCommon(self)
 
-    return PARENT.onUnapplyCommon(self)
+    if (b) then
+        self.m_owner:changeAttribute(nil)
+    end
+
+    return b
 end
 
 -------------------------------------

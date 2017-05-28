@@ -76,6 +76,8 @@ end
 -------------------------------------
 function ICharacterStatusEffect:removeStatusEffect(status_effect)
 	local effect_name = status_effect.m_statusEffectName
+    if (not effect_name) then return end
+
 	self.m_mStatusEffect[effect_name] = nil
 end
 
