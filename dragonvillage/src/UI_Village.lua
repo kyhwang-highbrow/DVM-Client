@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, IEventDispatcher:getCloneTable(), IEventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_Village
@@ -6,6 +6,7 @@ local PARENT = UI
 -------------------------------------
 UI_Village = class(PARENT, {
         m_lobbyManager = '',
+        m_lobbyMap = '',
     })
 
 -------------------------------------
@@ -43,8 +44,6 @@ end
 -------------------------------------
 function UI_Village:initButton()
     local vars = self.vars
-    vars['moveBtn1']:registerScriptTapHandler(function() self:click_moveBtn1() end)
-    vars['moveBtn2']:registerScriptTapHandler(function() self:click_moveBtn2() end)
 end
 
 -------------------------------------
@@ -60,11 +59,14 @@ end
 function UI_Village:initWorld()
     local vars = self.vars
     local lobby_map = LobbyMapFactory:createLobbyWorld(vars['worldNode'])
-
+    self.m_lobbyMap = lobby_map
     
     -- 유저 설정
     local struct_user_info = self.m_lobbyManager.m_playerUserInfo
     lobby_map:makeLobbyTamerBot(struct_user_info)
+
+     -- 이벤트 리스터 등록
+    lobby_map:addListener('LobbyMap_CHARACTER_MOVE', self)
 end
 
 -------------------------------------
@@ -91,6 +93,11 @@ function UI_Village:initChatClientSocket()
     lobby_manager:setChatClientSocket(chat_client_socket)
     chat_client_socket:addRegularListener(lobby_manager)
     self.m_lobbyManager = lobby_manager
+
+    -- 이벤트 리스터 등록
+    lobby_manager:addListener('LobbyManager_ADD_USER', self)
+    lobby_manager:addListener('LobbyManager_REMOVE_USER', self)
+    lobby_manager:addListener('LobbyManager_CHARACTER_MOVE', self)
 end
 
 -------------------------------------
@@ -121,15 +128,41 @@ function UI_Village:initEditBox()
 end
 
 -------------------------------------
--- function click_moveBtn1
+-- function onEvent
 -------------------------------------
-function UI_Village:click_moveBtn1()
-    self.m_lobbyManager:requestCharacterMove(math_random(1, 999), 100)
-end
+function UI_Village:onEvent(event_name, t_event, ...)
 
--------------------------------------
--- function click_moveBtn2
--------------------------------------
-function UI_Village:click_moveBtn2()
-    self.m_lobbyManager:requestCharacterMove(math_random(1, 999), 200)
+    -- 유저 입장
+    if (event_name == 'LobbyManager_ADD_USER') then
+        local struct_user_info = t_event
+        self.m_lobbyMap:makeLobbyTamerBot(struct_user_info)
+
+    -- 유저 퇴장
+    elseif (event_name == 'LobbyManager_REMOVE_USER') then
+        local struct_user_info = t_event
+        local uid = struct_user_info:getUid()
+        self.m_lobbyMap:removeLobbyTamer(uid)
+
+    -- 유저 이동
+    elseif (event_name == 'LobbyManager_CHARACTER_MOVE') then
+        local struct_user_info = t_event
+        local uid = struct_user_info:getUid()
+
+        for i,v in pairs(self.m_lobbyMap.m_lLobbyTamerBotOnly) do
+            if (uid == v.m_userData:getUid()) then
+                local x,y = struct_user_info:getPosition()
+                v:setMove(x, y, 400)
+            end
+        end
+
+
+
+    -- 유저 이동 (실시간 동기화 고민해볼 것 쿨타임 고려해봐!)
+    elseif (event_name == 'LobbyMap_CHARACTER_MOVE') then
+        local x, y = t_event['x'], t_event['y']
+        self.m_lobbyManager:requestCharacterMove(x, y)
+
+    else
+        cclog('[UI_Village] 정의되지 않은 event_name ' .. event_name)
+    end
 end

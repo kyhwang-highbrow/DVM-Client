@@ -1,4 +1,4 @@
-local PARENT = IEventListener:getCloneClass()
+local PARENT = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable())
 
 local function log(...)
     cclog(...)
@@ -114,13 +114,13 @@ end
 function LobbyManager:requestCharacterMove(x, y)
     -- 서버와 연결이 끊어진 상태
     if (self:getStatus() ~= 'Success') then
-        log('서버와 연결이 끊어진 상태')
+        --log('서버와 연결이 끊어진 상태')
         return false
     end
 
     -- 채널에 접속되지 않음
     if (self.m_lobbyChannelName == nil) then
-        log('채널에 접속되지 않음')
+        --log('채널에 접속되지 않음')
         return false
     end
 
@@ -287,7 +287,9 @@ function LobbyManager:receiveData_S_CHARACTER_MOVE(msg)
     if struct_user_info then
         struct_user_info.m_tamerPosX = x
         struct_user_info.m_tamerPosY = y
-        ccdump(struct_user_info)
+        
+        -- 이벤트
+        self:dispatch('LobbyManager_CHARACTER_MOVE', struct_user_info)
     end
 end
 
@@ -400,7 +402,7 @@ function LobbyManager:addUser(server_user)
 
     -- 새로운 유저
     if is_new_user then
-        
+        self:dispatch('LobbyManager_ADD_USER', struct_user_info)
     end
 end
 
@@ -412,8 +414,7 @@ function LobbyManager:removeUser(uid)
     local struct_user_info = self.m_userInfoList[uid]
 
     if struct_user_info then
-        -- 무언가를... 해줘야함 (로비에서 캐릭터 삭제를 위해)
-
+        self:dispatch('LobbyManager_REMOVE_USER', struct_user_info)
         self.m_userInfoList[uid] = nil
     end
 end

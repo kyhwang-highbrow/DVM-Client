@@ -101,3 +101,13 @@ end
 function StructUserInfo:getGuild()
     return ''
 end
+
+-------------------------------------
+-- function getPosition
+-- @breif
+-------------------------------------
+function StructUserInfo:getPosition()
+    local x = self.m_tamerPosX
+    local y = self.m_tamerPosY
+    return x, y
+end

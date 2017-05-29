@@ -5,7 +5,6 @@ local PARENT = LobbyCharacter
 -------------------------------------
 LobbyTamer = class(PARENT, {
         m_userData = '',
-        m_attackTarget = '',
         m_dragon = '',
         m_ui = '',
         m_idleTimer = 'number', -- 5초동안 정지 상태일 때 'pose_1'을 재생
@@ -47,7 +46,6 @@ end
 function LobbyTamer:initState()
     self:addState('idle', LobbyTamer.st_idle, 'idle', true)
     self:addState('move', LobbyTamer.st_move, 'move', true)
-    self:addState('attack', LobbyTamer.st_attack, 'attack_hack', false)
 end
 
 -------------------------------------
@@ -102,71 +100,14 @@ LobbyTamer.st_move = LobbyCharacter.st_move
 -- function onMoveEnd
 -------------------------------------
 function LobbyTamer:onMoveEnd()
-    if self.m_attackTarget then
-        self:changeState('attack')
-    else
-        self:changeState('idle')
-    end
+    self:changeState('idle')
     return true
-end
-
--------------------------------------
--- function st_attack
--------------------------------------
-function LobbyTamer.st_attack(self, dt)
-    if (self.m_stateTimer == 0) then
-
-        local user_x, user_y = self.m_rootNode:getPosition()
-        local box_x, box_y = self.m_attackTarget.m_rootNode:getPosition()
-
-        if (user_x ~= box_x) then
-            local flip = (box_x < user_x)
-            self.m_animator:setFlip(flip)
-        end
-
-        self.m_animator:addAniHandler(function()
-            if self.m_attackTarget then
-                self:changeState('attack')
-            else
-                self:changeState('idle')
-            end
-        end)
-    end
-end
-
--------------------------------------
--- function setAttack
--------------------------------------
-function LobbyTamer:setAttack(target)
-    local user_x, user_y = self.m_rootNode:getPosition()
-    local box_x, box_y = target.m_rootNode:getPosition()
-
-    local distance = getDistance(user_x, user_y, box_x, box_y)
-    if (distance <= 150) then
-        if (self.m_attackTarget == target) then
-            if (self.m_state == 'attack') then
-   
-            else
-                self:changeState('attack')
-            end
-        end
-    else
-        self.m_moveX = box_x + 100
-        self.m_moveY = box_y
-
-        self.m_moveSpeed = 400
-    
-        self:changeState('move')
-    end
-
-    self.m_attackTarget = target
 end
 
 -------------------------------------
 -- function setMove
 -------------------------------------
 function LobbyTamer:setMove(x, y, speed)
-    self.m_attackTarget = nil
     PARENT.setMove(self, x, y, speed)
 end
 

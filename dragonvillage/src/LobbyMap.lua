@@ -1,4 +1,4 @@
-local PARENT = class(Camera, IEventListener:getCloneTable(), LobbyMapSpotMgr:getCloneTable())
+local PARENT = class(Camera, IEventListener:getCloneTable(), IEventDispatcher:getCloneTable(), LobbyMapSpotMgr:getCloneTable())
 
 -------------------------------------
 -- class LobbyMap
@@ -157,13 +157,6 @@ function LobbyMap:onTouchEnded(touches, event)
 end
 
 -------------------------------------
--- function onTouchBox
--------------------------------------
-function LobbyMap:onTouchBox(item_box)
-    self.m_targetTamer:setAttack(item_box)
-end
-
--------------------------------------
 -- function onTouchBegan_touchDragon
 -------------------------------------
 function LobbyMap:onTouchBegan_touchDragon()
@@ -280,6 +273,13 @@ function LobbyMap:update(dt)
         return
     end
 
+    -- 플레이어 유저 이동
+    if self.m_bUserPosDirty then
+        local x, y = self.m_targetTamer.m_rootNode:getPosition()
+        self:dispatch('LobbyMap_CHARACTER_MOVE', {['x']=x, ['y']=y})
+    end
+
+
     if self.m_bPress then
         local node_pos = self.m_groudNode:convertToNodeSpace(self.m_touchPosition)
 
@@ -369,7 +369,8 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
 		sum_random:addItem(1, 'res/character/tamer/durun/durun.spine')
 		sum_random:addItem(1, 'res/character/tamer/mokoji/mokoji.spine')
 
-        tamer = LobbyTamerBot(struct_user_info)
+        --tamer = LobbyTamerBot(struct_user_info)
+        tamer = LobbyTamer(struct_user_info)
 		tamer_res = sum_random:getRandomValue()
     else
         tamer = LobbyTamer(struct_user_info)
@@ -392,6 +393,9 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
     self:addLobbyDragon(tamer, is_bot, struct_user_info)
 
     if is_bot then
+        local x, y = struct_user_info:getPosition()
+        tamer:setPosition(x, y)
+        --[[
         local pos = self:getRandomSpot(uid)
         tamer:setPosition(pos[1], pos[2])
 
@@ -399,6 +403,7 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
             local ret_pos = self:getRandomSpot(uid)
             return ret_pos[1], ret_pos[2]
         end
+        --]]
     else
         self.m_targetTamer = tamer
         local x, y = 0, -150
@@ -455,6 +460,33 @@ function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
 
     -- 테이머가 이동했을 때 LobbyMap에서 ZOrder와 Scale을 변경
     tamer:addListener('lobby_character_move', self)
+end
+
+-------------------------------------
+-- function removeLobbyTamer
+-------------------------------------
+function LobbyMap:removeLobbyTamer(uid)
+    local idx = nil
+    for i,v in pairs(self.m_lLobbyTamer) do
+        if (v.m_userData:getUid() == uid) then
+            idx = i
+            break
+        end
+    end
+
+    if (not idx) then
+        return
+    end
+
+    for i,v in pairs(self.m_lLobbyTamerBotOnly) do
+        if (v.m_userData:getUid() == uid) then
+            table.remove(self.m_lLobbyTamerBotOnly, i)
+            break
+        end
+    end
+
+    self.m_lLobbyTamer[idx]:release()
+    table.remove(self.m_lLobbyTamer, idx)
 end
 
 -------------------------------------
@@ -650,6 +682,7 @@ function LobbyMap:updateUserTamerArea()
 
     -- 확인할 리스트가 없으면 리턴
     if (#target_list <= 0) then
+        self.m_bUserPosDirty = false
         return
     end
 
@@ -659,7 +692,7 @@ function LobbyMap:updateUserTamerArea()
     -- 확인해야 할 테이머들과의 거리를 확인
     for i,bot in ipairs(target_list) do
         local bot_x, bot_y = bot.m_rootNode:getPosition()
-        local uid = bot.m_userData['uid']
+        local uid = bot.m_userData:getUid()
         local distance = getDistance(user_x, user_y, bot_x, bot_y)
 
         if (distance <= 150) then
