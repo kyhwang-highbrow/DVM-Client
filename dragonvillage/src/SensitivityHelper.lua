@@ -29,7 +29,11 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custo
 
 	-- 상황별 변수 및 포지션 정리
 	local delay_time
-	if string.find(case_type, 'lobby_') then
+    if pl.stringx.startswith(case_type, 'lobby_tamer') then
+        bubble_text:setPosition(0, 330)
+		delay_time = 1.5
+
+	elseif string.find(case_type, 'lobby_') then
 		bubble_text:setPosition(50, 320)
 		delay_time = 1.5
 
