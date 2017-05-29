@@ -192,7 +192,6 @@ end
 function ChatClientSocket:requestLogin()
     local p = self.m_user
 
-    cclog("######################################")
     if (self:write(self.m_protocolCode.C_LOGIN_REQ, p) == false) then
         -- 소켓 라이팅 실패, 로그인 실패로 처리
         self:disconnect()

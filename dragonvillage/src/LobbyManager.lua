@@ -425,3 +425,11 @@ function LobbyManager:reset()
     self.m_playerUserInfo = nil
     self.m_userInfoList = nil
 end
+
+-------------------------------------
+-- function onDestroy
+-------------------------------------
+function LobbyManager:onDestroy()
+    self:release_EventDispatcher()
+    self:release_EventListener()
+end

@@ -8,6 +8,7 @@ UI_Lobby = class(PARENT,{
         m_lobbyUserFirstMake = 'bool',
         m_infoBoard = 'UI_NotificationInfo',
         m_hilightTimeStamp = '',
+        m_lobbyWorldAdapter = 'LobbyWorldAdapter',
     })
 
 -------------------------------------
@@ -150,8 +151,10 @@ function UI_Lobby:initCamera()
     local lobby_ui = self
     local parent_node = vars['cameraNode']
     local chat_client_socket = g_chatClientSocket
+    local lobby_manager = g_lobbyManager
 
-    local lobby_world_adapter = LobbyWorldAdapter(self, parent_node, chat_client_socket)
+
+    self.m_lobbyWorldAdapter = LobbyWorldAdapter(self, parent_node, chat_client_socket, lobby_manager)
 
     --[[
     local vars = self.vars
@@ -688,6 +691,20 @@ function UI_Lobby:update(dt)
         self:refresh_highlight()
     end
 end
+
+-------------------------------------
+-- function onDestroyUI
+-- @brief
+-------------------------------------
+function UI_Lobby:onDestroyUI()
+    PARENT.onDestroyUI(self)
+
+    if (self.m_lobbyWorldAdapter) then
+        self.m_lobbyWorldAdapter:onDestroy()
+        self.m_lobbyWorldAdapter = nil
+    end
+end
+
 
 
 --@CHECK

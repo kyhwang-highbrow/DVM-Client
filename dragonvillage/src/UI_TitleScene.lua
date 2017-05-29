@@ -131,12 +131,26 @@ function UI_TitleScene:initChatClientSocket()
     t_data['did'] = did
     t_data['level'] = lv
     t_data['x'] = 0
-    t_data['y'] = -150
+    t_data['y'] = 0
     chat_client_socket:setUserInfo(t_data)
 
     -- 전역 변수로 설정
     g_chatClientSocket = chat_client_socket
+
+    self:initLobbyManager(chat_client_socket)
 end
+
+-------------------------------------
+-- function initLobbyManager
+-- @brief
+-------------------------------------
+function UI_TitleScene:initLobbyManager(chat_client_socket)
+    LobbyManager:initInstance()
+    local lobby_manager = g_lobbyManager
+    lobby_manager:setChatClientSocket(chat_client_socket)
+    chat_client_socket:addRegularListener(lobby_manager)
+end
+
 
 ------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------

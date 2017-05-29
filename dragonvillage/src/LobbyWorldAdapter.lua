@@ -10,40 +10,34 @@ LobbyWorldAdapter = class(PARENT, {
         m_lobbyUI = 'UI_Lobby',
         m_lobbyWolrdParentNode = 'cc.Node',
         m_chatClientSocket = '',
+        m_lobbyManager = '',
 
         -- 내부에서 생성하는 변수들
-        m_lobbyManager = '',
         m_lobbyMap = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyWorldAdapter:init(lobby_ui, parent_node, chat_client_socket)
+function LobbyWorldAdapter:init(lobby_ui, parent_node, chat_client_socket, lobby_manager)
     self.m_lobbyUI = lobby_ui
     self.m_lobbyWolrdParentNode = parent_node
     self.m_chatClientSocket = chat_client_socket
+    self.m_lobbyManager = lobby_manager
 
     self:init_lobbyManager()
     self:init_lobbyMap()
+    self:init_lobbyUserList()
 end
 
 -------------------------------------
 -- function init_lobbyManager
 -------------------------------------
 function LobbyWorldAdapter:init_lobbyManager()
-    local chat_client_socket = self.m_chatClientSocket
-
-    -- 로비 매니저 생성
-    local lobby_manager = LobbyManager()
-    lobby_manager:setChatClientSocket(chat_client_socket)
-    chat_client_socket:addRegularListener(lobby_manager)
-    self.m_lobbyManager = lobby_manager
-
     -- 이벤트 리스터 등록
-    lobby_manager:addListener('LobbyManager_ADD_USER', self)
-    lobby_manager:addListener('LobbyManager_REMOVE_USER', self)
-    lobby_manager:addListener('LobbyManager_CHARACTER_MOVE', self)
+    self.m_lobbyManager:addListener('LobbyManager_ADD_USER', self)
+    self.m_lobbyManager:addListener('LobbyManager_REMOVE_USER', self)
+    self.m_lobbyManager:addListener('LobbyManager_CHARACTER_MOVE', self)
 end
 
 -------------------------------------
@@ -55,9 +49,11 @@ function LobbyWorldAdapter:init_lobbyMap()
     local lobby_map = LobbyMapFactory:createLobbyWorld(parent_node)
     self.m_lobbyMap = lobby_map
     
-    -- 위치 랜덤으로 지정
+    
     local t_data = {}
-    t_data['x'], t_data['y'] = lobby_map:getRandomSpot()
+    if (not self.m_lobbyManager.m_playerUserInfo) then -- 위치 랜덤으로 지정 (처음에만)
+        t_data['x'], t_data['y'] = lobby_map:getRandomSpot()
+    end
     self.m_chatClientSocket:setUserInfo(t_data)
 
     -- 유저 설정
@@ -73,6 +69,29 @@ function LobbyWorldAdapter:init_lobbyMap()
      -- 이벤트 리스터 등록
     lobby_map:addListener('LobbyMap_CHARACTER_MOVE', self)
 end
+
+-------------------------------------
+-- function init_lobbyUserList
+-------------------------------------
+function LobbyWorldAdapter:init_lobbyUserList()
+    if (not self.m_lobbyManager) then
+        return
+    end
+
+    if (not self.m_lobbyManager.m_userInfoList) then
+        return
+    end
+
+    if (not self.m_lobbyMap) then
+        return
+    end
+
+    for i,v in pairs(self.m_lobbyManager.m_userInfoList) do
+        local t_event = v
+        self:onEvent('LobbyManager_ADD_USER', t_event)
+    end
+end
+
 
 -------------------------------------
 -- function onEvent
@@ -115,5 +134,18 @@ function LobbyWorldAdapter:onEvent(event_name, t_event, ...)
 
     else
         cclog('[UI_Village] 정의되지 않은 event_name ' .. event_name)
+    end
+end
+
+-------------------------------------
+-- function onDestroy
+-------------------------------------
+function LobbyWorldAdapter:onDestroy()
+    self:release_EventDispatcher()
+    self:release_EventListener()
+
+    if (self.m_lobbyMap) then
+        self.m_lobbyMap:onDestroy()
+        self.m_lobbyMap = nil
     end
 end

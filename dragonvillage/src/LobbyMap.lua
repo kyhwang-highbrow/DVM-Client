@@ -802,3 +802,11 @@ function LobbyMap:refreshUserDragon()
 	local res = g_tamerData:getCurrTamerTable('res_sd')
 	lobby_dragon:initAnimator(res)
 end
+
+-------------------------------------
+-- function onDestroy
+-------------------------------------
+function LobbyMap:onDestroy()
+    self:release_EventDispatcher()
+    self:release_EventListener()
+end
