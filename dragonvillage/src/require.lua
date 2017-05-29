@@ -757,7 +757,6 @@ local t_module = {
     'UI_ChatListItem_myMsg',
     'UI_ChatListItem_systemMsg',
     'UI_ChatIgnoreListItem',
-    'UI_Village',
 
 	-- UI : 설정
 	'UI_Setting',

@@ -26,7 +26,6 @@ function UI_TopUserInfo:init()
     vars['st_ad_btn']:registerScriptTapHandler(function() self:click_st_ad_btn() end)
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
     vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)
-    vars['chatBtn2']:registerScriptTapHandler(function() self:click_chatBtn2() end)
 
     self.m_lNumberLabel = {}
     self.m_lNumberLabel['gold'] = NumberLabel(vars['goldLabel'], 0, 0.3)
@@ -118,13 +117,6 @@ end
 -------------------------------------
 function UI_TopUserInfo:click_chatBtn()
     g_chatManager:toggleChatPopup()
-end
-
--------------------------------------
--- function click_chatBtn2
--------------------------------------
-function UI_TopUserInfo:click_chatBtn2()
-    UI_Village()
 end
 
 -------------------------------------

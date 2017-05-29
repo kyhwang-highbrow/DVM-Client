@@ -6,7 +6,7 @@ LobbyMapFactory = {}
 -------------------------------------
 -- function createLobbyWorld
 -------------------------------------
-function LobbyMapFactory:createLobbyWorld(parent_node)
+function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 
     local lobby_map = LobbyMap(parent_node)
     self.m_lobbyMap = lobby_map
@@ -18,7 +18,6 @@ function LobbyMapFactory:createLobbyWorld(parent_node)
 
     local lobby_ground = self:makeLobbyLayer(1) -- 땅
 
-    local ui_lobby = nil
     lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, ui_lobby)
     lobby_map.m_groudNode = lobby_ground
 

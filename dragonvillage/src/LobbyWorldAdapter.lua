@@ -46,7 +46,7 @@ end
 function LobbyWorldAdapter:init_lobbyMap()
     local parent_node = self.m_lobbyWolrdParentNode
 
-    local lobby_map = LobbyMapFactory:createLobbyWorld(parent_node)
+    local lobby_map = LobbyMapFactory:createLobbyWorld(parent_node, self.m_lobbyUI)
     self.m_lobbyMap = lobby_map
     
     
@@ -133,7 +133,7 @@ function LobbyWorldAdapter:onEvent(event_name, t_event, ...)
         self.m_lobbyManager:requestCharacterMove(x, y)
 
     else
-        cclog('[UI_Village] 정의되지 않은 event_name ' .. event_name)
+        cclog('[LobbyWorldAdapter] 정의되지 않은 event_name ' .. event_name)
     end
 end
 

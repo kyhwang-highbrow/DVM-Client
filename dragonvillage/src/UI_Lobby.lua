@@ -156,31 +156,19 @@ function UI_Lobby:initCamera()
 
     self.m_lobbyWorldAdapter = LobbyWorldAdapter(self, parent_node, chat_client_socket, lobby_manager)
 
-    --[[
-    local vars = self.vars
-    vars['cameraNode']:setLocalZOrder(-1)
-    local lobby_map = LobbyMap(vars['cameraNode'])
-    self.m_lobbyMap = lobby_map
-    lobby_map:setContainerSize(1280*3, 960)
-    
-    lobby_map:addLayer(self:makeLobbyLayer(4), 0.7) -- 하늘
-    lobby_map:addLayer(self:makeLobbyLayer(3), 0.8) -- 마을
-    lobby_map:addLayer(self:makeLobbyLayer(2), 0.9) -- 분수
 
-    local lobby_ground = self:makeLobbyLayer(1) -- 땅
-    lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, self)
-    lobby_map.m_groudNode = lobby_ground
+    do -- 로비에서 테이머가 걸어가면 UI들이 숨겨지도록 설정
+        local lobby_map = self.m_lobbyWorldAdapter.m_lobbyMap
+        lobby_map:setMoveStartCB(function()
+            self:doActionReverse()
+            g_topUserInfo:doActionReverse()
+        end)
 
-    lobby_map:setMoveStartCB(function()
-        self:doActionReverse()
-        g_topUserInfo:doActionReverse()
-    end)
-
-    lobby_map:setMoveEndCB(function()
-        self:doAction(nil, nil, 0.5)
-        g_topUserInfo:doAction(nil, nil, 0.5)
-    end)
-    --]]
+        lobby_map:setMoveEndCB(function()
+            self:doAction(nil, nil, 0.5)
+            g_topUserInfo:doAction(nil, nil, 0.5)
+        end)
+    end
 end
 
 -------------------------------------
@@ -238,52 +226,6 @@ end
 -------------------------------------
 function UI_Lobby:refresh_userDragon()
     self.m_lobbyMap:refreshUserDragon()
-end
-
--------------------------------------
--- function makeLobbyLayer
--------------------------------------
-function UI_Lobby:makeLobbyLayer(idx)
-    local node = cc.Node:create()
-    node:setDockPoint(cc.p(0.5, 0.5))
-    node:setAnchorPoint(cc.p(0.5, 0.5))
-
-    local skip_error_msg = true
-	local animator = nil
-	
-	local res_name = string.format('res/lobby/lobby_layer_%.2d_left/lobby_layer_%.2d_left.vrp', idx, idx)
-	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
-		animator = MakeAnimator(res_name, skip_error_msg)
-    else
-        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_left.png', idx))
-    end
-    animator:setDockPoint(cc.p(0.5, 0.5))
-    animator:setAnchorPoint(cc.p(0.5, 0.5))
-    animator:setPositionX(-1280)
-    node:addChild(animator.m_node)
-
-	local res_name = string.format('res/lobby/lobby_layer_%.2d_center/lobby_layer_%.2d_center.vrp', idx, idx)
-	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
-		animator = MakeAnimator(res_name, skip_error_msg)
-    else
-        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_center.png', idx))
-    end
-    animator:setDockPoint(cc.p(0.5, 0.5))
-    animator:setAnchorPoint(cc.p(0.5, 0.5))
-    node:addChild(animator.m_node)
-
-	local res_name = string.format('res/lobby/lobby_layer_%.2d_right/lobby_layer_%.2d_right.vrp', idx, idx)
-	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
-		animator = MakeAnimator(res_name, skip_error_msg)
-	else
-        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_right.png', idx))
-    end
-    animator:setDockPoint(cc.p(0.5, 0.5))
-    animator:setAnchorPoint(cc.p(0.5, 0.5))
-    animator:setPositionX(1280)
-    node:addChild(animator.m_node)
-
-    return node
 end
 
 -------------------------------------
