@@ -34,6 +34,9 @@ function ITopUserInfo_EventListener:init_after()
     if g_topUserInfo then
         g_topUserInfo:pushOwnerUI(self)
     end
+
+	-- @E.T.
+	g_errorTracker:set_lastUI(self.m_uiName)
 end
 
 -------------------------------------

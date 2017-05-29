@@ -111,12 +111,9 @@ function UI_ErrorPopup:setErrorStr(str)
 	end
 
 	local error_str = string.gsub(str, '\t', '    ') or '???'
-	if (__G__NOT_EXIST_RES) then
-		error_str = '### 리소스가 없어 발생한 문제입니다. :D ###\n  -- 없는 리소스 : ' .. __G__NOT_EXIST_RES .. ' --\n\n' .. error_str
-		__G__NOT_EXIST_RES = nil
-	end
+	local tracker_str = g_errorTracker:getTrackerText()
 
-	self.m_errorLabel:setString(error_str)
+	self.m_errorLabel:setString(tracker_str .. '\n' .. error_str)
 
 	if (not DEVELOPMENT_SRC_VER) or (not isWin32()) then
 		slack_api(error_str)

@@ -288,6 +288,9 @@ function UI_Network:request()
     else
         Network:SimpleRequest(t_request)
     end
+
+	-- @E.T.
+	g_errorTracker:set_lastAPI(self.m_url)
 end
 
 

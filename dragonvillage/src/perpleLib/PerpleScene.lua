@@ -75,6 +75,9 @@ function PerpleScene:runScene()
         cc.Director:getInstance():runWithScene(self.m_scene)
         self:prepareDone()
     end
+	
+	-- @E.T.
+	g_errorTracker:set_lastScene(self.m_sceneName)
 end
 
 -------------------------------------

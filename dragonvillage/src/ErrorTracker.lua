@@ -15,10 +15,6 @@ ErrorTracker = class({
 -------------------------------------
 function ErrorTracker:init()
 	getsetGenerator(ErrorTracker)	
-	self.lastScene = 'get_set_gen'
-	self.lastUI = 'get_set_gen'
-	self.lastAPI = 'get_set_gen'
-	self.lastFailedRes = 'get_set_gen'
 end
 
 -------------------------------------
@@ -33,6 +29,40 @@ function ErrorTracker:getInstance()
     return g_errorTracker
 end
 
+-------------------------------------
+-- function getTrackerText
+------------------------------------- 
+function ErrorTracker:getTrackerText(msg)
+    local os = getTargetOSName()
+    local uid = g_userData:get('uid')
+    local nick = g_userData:get('nick')
+    local ver = PatchData:getInstance():getAppVersionAndPatchIdxString()
+	local last_scene = g_errorTracker:get_lastScene()
+	local last_ui = g_errorTracker:get_lastUI()
+	local last_api = g_errorTracker:get_lastAPI()
+	local last_failed_res = g_errorTracker:get_lastFailedRes()
+    local msg = msg or 'kkami'
+
+	local templete = 
+[[
+@sgkim @skim @mskim @wlee ...
+=========================================
+nick : %s
+uid : %d
+os : %s
+info : %s
+last scene : %s
+last ui : %s
+last api : %s
+last failed res : %s
+=========================================
+%s
+]]
+
+	local text = string.format(templete, nick, uid, os, ver, last_scene, last_ui, last_api, last_failed_res, msg)
+
+	return text
+end
 
 
 
