@@ -267,6 +267,8 @@ function LobbyManager:receiveData_S_CHAT_NORMAL_MSG(msg)
         local json = dkjson.decode(raw)
         if json then
             --cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
+
+            self:dispatch('LobbyManager_CHAT_NORMAL_MSG', json)
         end
     end
 end

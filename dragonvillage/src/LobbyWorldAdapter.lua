@@ -35,6 +35,7 @@ end
 -------------------------------------
 function LobbyWorldAdapter:init_lobbyManager()
     -- 이벤트 리스터 등록
+    self.m_lobbyManager:addListener('LobbyManager_CHAT_NORMAL_MSG', self)
     self.m_lobbyManager:addListener('LobbyManager_ADD_USER', self)
     self.m_lobbyManager:addListener('LobbyManager_REMOVE_USER', self)
     self.m_lobbyManager:addListener('LobbyManager_CHARACTER_MOVE', self)
@@ -122,6 +123,17 @@ function LobbyWorldAdapter:onEvent(event_name, t_event, ...)
             if (uid == v.m_userData:getUid()) then
                 local x,y = struct_user_info:getPosition()
                 v:setMove(x, y, 400)
+            end
+        end
+
+    -- 유저 채팅
+    elseif (event_name == 'LobbyManager_CHAT_NORMAL_MSG') then
+        local json = t_event
+        local uid = json['uid']
+
+        for i,v in pairs(self.m_lobbyMap.m_lLobbyTamer) do
+            if (uid == v.m_userData:getUid()) then
+                SensitivityHelper:doActionBubbleText(v.m_rootNode, nil, nil, 'lobby_hurry_gift', json['message'])
             end
         end
 
