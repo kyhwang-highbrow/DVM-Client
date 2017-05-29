@@ -585,6 +585,7 @@ function MakeAnimator(file_name, skip_error_msg)
     end
 
     -- 파일 로드 실패 시 로그 출력
+	__G__NOT_EXIST_RES = nil
     if file_name and (file_name ~= '') and (not skip_error_msg) then
         if (not animator) or (not animator.m_node) then
             cclog('##############################################################')

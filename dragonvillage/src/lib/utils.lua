@@ -556,6 +556,26 @@ function ccdisplay(...)
     UIManager:toastNotificationGreen(str)
 end
 
+-------------------------------------
+-- function isNumber
+-------------------------------------
+function isNumber(v)
+	return v and (type(v) == 'number')
+end
+
+-------------------------------------
+-- function isString
+-------------------------------------
+function isString(v)
+	return v and (type(v) == 'string')
+end
+
+-------------------------------------
+-- function isTable
+-------------------------------------
+function isTable(v)
+	return v and (type(v) == 'table')
+end
 
 function convertToParentCoord(parent, target)
     local p, x, y = target, 0, 0
