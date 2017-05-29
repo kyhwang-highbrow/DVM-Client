@@ -112,8 +112,24 @@ function ChatManager:sendNormalMsg(msg)
     local p = self:getProtobuf('chat').CChatNormalMsg()
     p['message'] = msg
     p['nickname'] = ''
-    self:write(self:getProtocolCode().C_CHAT_NORMAL_MSG, p)
-    return true
+    return self:write(self:getProtocolCode().C_CHAT_NORMAL_MSG, p)
+end
+
+-------------------------------------
+-- function sendWhisperMsg
+-- @brief 귓속말 보내기
+-------------------------------------
+function ChatManager:sendWhisperMsg(peer_nickname, msg)
+    -- 서버와 연결이 끊어진 상태
+    if (self:getStatus() ~= 'Success') then
+        log('서버와 연결이 끊어진 상태')
+        return false
+    end
+    
+    local p = self:getProtobuf('chat').CChatNormalMsg()
+    p['message'] = msg
+    p['nickname'] = peer_nickname
+    return self:write(self:getProtocolCode().C_CHAT_WHISPER_MSG, p)
 end
 
 -------------------------------------
@@ -216,8 +232,12 @@ function ChatManager:onEvent_RECEIVE_DATA(t_event)
     elseif (pcode == 'S_CHAT_NORMAL_MSG') then
         self:receiveData_S_CHAT_NORMAL_MSG(msg)
 
+    -- 귓속말 메세지 받음 (내가 보낸 메세지도 받음)
+    elseif (pcode == 'S_WHISPER_RESPONSE') then
+        self:receiveData_S_WHISPER_RESPONSE(msg)
+
     else
-        log('pcode : ' .. pcode)    
+        log('# ChatManager:onEvent_RECEIVE_DATA() pcode : ' .. pcode)    
     end
 end
 
@@ -257,6 +277,27 @@ function ChatManager:receiveData_S_CHAT_NORMAL_MSG(msg)
         local json = dkjson.decode(raw)
         if json then
             --cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
+            json['content_category'] = 'general'
+            self:msgQueueCB(json)
+        end
+    end
+end
+
+-------------------------------------
+-- function receiveData_S_WHISPER_RESPONSE
+-- @brief 귓속말 메세지 받음 (내가 보낸 메세지도 받음)
+-------------------------------------
+function ChatManager:receiveData_S_WHISPER_RESPONSE(msg)
+    local payload = msg['payload']
+    local r = self:getProtobuf('chat').SChatResponse():Parse(payload)
+
+    -- 채팅 내용은 json문자열로 받음
+    local raw = r['json']
+    if raw and (type(raw) == 'string') then
+        local json = dkjson.decode(raw)
+        if json then
+            --cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
+            json['content_category'] = 'whisper'
             self:msgQueueCB(json)
         end
     end
@@ -349,7 +390,7 @@ function ChatManager:msgQueueCB(msg)
 
     local uid = g_userData:get('uid')
 
-    if (chat_content['uid'] == uid) then
+    if (chat_content['uid'] == tostring(uid)) then
         chat_content:setContentType('my_msg')
     else
         chat_content:setContentType('msg')

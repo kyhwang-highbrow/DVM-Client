@@ -146,7 +146,13 @@ function ChatContent:getUserInfoStr()
     local nickname = self['nickname']
     local level = self['level']
     local channelName = self['channelName']
-    local info_str = Str('Lv.{1} {2} {@C}(채널 {3})', level, nickname, channelName)
+
+    local info_str
+    if (self:getContentCategory() == 'whisper') then
+        info_str = Str('Lv.{1} {2}', level, nickname, channelName)
+    else
+        info_str = Str('Lv.{1} {2} {@C}(채널 {3})', level, nickname, channelName)
+    end
     return info_str
 end
 

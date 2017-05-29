@@ -59,11 +59,9 @@ function UI_ChatPopup_WhisperTab:click_enterBtn()
         return
     end
 
-    --[[
     if g_chatManager:sendWhisperMsg(self.m_peerUserNickname, msg) then
         vars['editBox_whisper']:setText('')
     end
-    --]]
 end
 
 -------------------------------------

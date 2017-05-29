@@ -205,8 +205,11 @@ function LobbyManager:onEvent_RECEIVE_DATA(t_event)
 
     local pcode = msg['pcode']
 
+    -- skip
+    if (pcode == 'S_WHISPER_RESPONSE') then
+
     -- 채널 변경
-    if (pcode == 'S_LOBBY_CHANGE_CHANNEL') then
+    elseif (pcode == 'S_LOBBY_CHANGE_CHANNEL') then
         self:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
 
     -- 일반 메세지 받음 (내가 보낸 메세지도 받음)
@@ -226,7 +229,7 @@ function LobbyManager:onEvent_RECEIVE_DATA(t_event)
         self:receiveData_S_LOBBY_USER_LEAVE(msg)
 
     else
-        log('pcode : ' .. pcode)    
+        log('# LobbyManager:onEvent_RECEIVE_DATA() pcode : ' .. pcode)    
     end
 end
 
@@ -263,7 +266,7 @@ function LobbyManager:receiveData_S_CHAT_NORMAL_MSG(msg)
     if raw and (type(raw) == 'string') then
         local json = dkjson.decode(raw)
         if json then
-            cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
+            --cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
         end
     end
 end
