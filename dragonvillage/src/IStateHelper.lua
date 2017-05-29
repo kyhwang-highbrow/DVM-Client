@@ -106,8 +106,6 @@ end
 -- @param priority : number
 -------------------------------------
 function IStateHelper:addState(state, func, priority)
-    local loop = loop and true
-
     self.m_tStateFunc[state] = func
     self.m_tStatePriority[state] = priority or 1
 end

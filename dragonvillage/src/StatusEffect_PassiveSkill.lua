@@ -140,7 +140,7 @@ function StatusEffect_PassiveSkill:getTriggerFunction()
 	----------------------------------------------------------------------
 	else
 		trigger_func = function(t_event)
-			StatusEffectHelper:doStatusEffectByStruct(char, {defender}, SkillHelper:makeStructStatusEffectList(t_skill), skill_id)
+			StatusEffectHelper:doStatusEffectByStruct(char, {defender}, SkillHelper:makeStructStatusEffectList(t_skill), nil, skill_id)
 		end
 	end
 

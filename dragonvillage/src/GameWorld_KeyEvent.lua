@@ -155,11 +155,11 @@ end
 -- @brief 아군에게 상태효과 강제 시전
 -------------------------------------
 function GameWorld:se_on_dragon()
-	local se_type = 'stun'
-    local dragon_list = self:getDragonList()
+	local dragon_list = self:getDragonList()
     local enemy_list = self:getEnemyList()
         
-    StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, se_type, 'target', 1, 5, 100, 100)
+    --StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'stun', 'target', 1, 5, 100, 100)
+    StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'darknix', 'target', 1, 5, 100, 100)
 end
 
 -------------------------------------

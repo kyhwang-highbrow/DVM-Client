@@ -297,7 +297,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	----------- 침묵 ------------------
 	elseif (status_effect_type == 'silence') then
 		status_effect = StatusEffect_Silence(res)
-		status_effect:init_status(target_char)
 	
 	----------- 속성 변경 ------------------
 	elseif (status_effect_type == 'attr_change') then
@@ -427,7 +426,7 @@ end
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt)
 	-- 피격자가 사망했을 경우 리턴
-    if (char.m_bDead == true) then return end
+    if (char.m_bDead) then return end
 
 	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
@@ -455,7 +454,7 @@ end
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt)
 	-- 피격자가 사망했을 경우 리턴
-    if (char.m_bDead == true) then return end
+    if (char.m_bDead) then return end
 
 	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
@@ -482,11 +481,11 @@ end
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectAll(char)
 	-- 피격자가 사망했을 경우 리턴
-    if (char.m_bDead == true) then return end
+    if (char.m_bDead) then return end
 
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
-		status_effect:changeState('end')
+        status_effect:changeState('end')
 	end
 end
 

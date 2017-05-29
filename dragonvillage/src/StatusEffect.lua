@@ -14,6 +14,7 @@ StatusEffect = class(PARENT, {
 
         m_mUnit = 'table',  -- 시전자의 char_id값을 키값으로 StatusEffectUnit의 리스트를 가지는 맵
 
+        m_bDead = 'boolean',
         m_bApply = 'boolean',
         m_bDirtyPos = 'bollean',
         m_bHarmful = 'boolean',
@@ -39,6 +40,7 @@ function StatusEffect:init(file_name, body)
 
     self.m_mUnit = {}
 
+    self.m_bDead = false
     self.m_bApply = false
     self.m_bDirtyPos = true
     self.m_bHarmful = false
@@ -107,10 +109,21 @@ function StatusEffect:release()
     -- 모든 효과 해제
     self:unapplyAll()
 
+    self:setDead()
+
+    PARENT.release(self)
+end
+
+-------------------------------------
+-- function setDead
+-------------------------------------
+function StatusEffect:setDead()
+    if (self.m_bDead) then return end
+
     -- 대상이 들고 있는 상태효과 리스트에서 제거
 	self.m_owner:removeStatusEffect(self)
 
-    PARENT.release(self)
+    self.m_bDead = true
 end
 
 -------------------------------------
@@ -149,9 +162,17 @@ function StatusEffect.st_end(owner, dt)
         -- 모든 효과 해제
 		owner:unapplyAll()
 		
-		owner:addAniHandler(function()
-			owner:changeState('dying')
-		end)
+        -- 에니메이션이 0프레임일 경우 즉시 상태를 변경
+        local duration = owner.m_animator:getDuration()
+        if (duration == 0) then
+            owner:setDead()
+            owner:changeState('dying')
+        else
+            owner:addAniHandler(function()
+                owner:setDead()
+                owner:changeState('dying')
+            end)
+        end
     end
 end
 
@@ -167,8 +188,12 @@ function StatusEffect:update(dt)
         local modified_dt
 
         if (self.m_bHarmful) then
-            local rate = 1 / (1 + (self.m_owner:getStat('debuff_time') / 100))
-            modified_dt = dt * rate
+            if (self.m_owner:isImmuneSE()) then
+                -- 즉시 해제
+                modified_dt = 9999
+            else
+                modified_dt = dt / (1 + (self.m_owner:getStat('debuff_time') / 100))
+            end
         else
             modified_dt = dt
         end
