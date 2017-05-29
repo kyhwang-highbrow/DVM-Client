@@ -5,6 +5,7 @@ local PARENT = class(UI, IEventDispatcher:getCloneTable(), IEventListener:getClo
 -- @brief
 -------------------------------------
 UI_Village = class(PARENT, {
+        m_chatClientSocket = '',
         m_lobbyManager = '',
         m_lobbyMap = '',
     })
@@ -61,9 +62,18 @@ function UI_Village:initWorld()
     local lobby_map = LobbyMapFactory:createLobbyWorld(vars['worldNode'])
     self.m_lobbyMap = lobby_map
     
+    -- 위치 랜덤으로 지정
+    local t_data = {}
+    t_data['x'], t_data['y'] = lobby_map:getRandomSpot()
+    self.m_chatClientSocket:setUserInfo(t_data)
+
     -- 유저 설정
     local struct_user_info = self.m_lobbyManager.m_playerUserInfo
-    lobby_map:makeLobbyTamerBot(struct_user_info)
+    local tamer_bot = lobby_map:makeLobbyTamerBot(struct_user_info)
+
+    -- 첫 위치 지정
+    local x, y = struct_user_info:getPosition()
+    tamer_bot:setPosition(x, y)
 
      -- 이벤트 리스터 등록
     lobby_map:addListener('LobbyMap_CHARACTER_MOVE', self)
@@ -78,14 +88,18 @@ function UI_Village:initChatClientSocket()
 
     -- 유저 정보 입력
     local uid = g_serverData:get('local', 'uid')
+    local tamer = g_userData:get('tamer')
     local nickname = g_userData:get('nick')
     local lv = g_userData:get('lv')
 
     local t_data = {}
     t_data['uid'] = tostring(uid)
+    t_data['tamer'] = tostring(tamer)
     t_data['nickname'] = nickname
     t_data['did'] = '120014'
     t_data['level'] = lv
+    t_data['x'] = 0
+    t_data['y'] = -150
     chat_client_socket:setUserInfo(t_data)
 
     -- 로비 매니저 생성
@@ -98,6 +112,8 @@ function UI_Village:initChatClientSocket()
     lobby_manager:addListener('LobbyManager_ADD_USER', self)
     lobby_manager:addListener('LobbyManager_REMOVE_USER', self)
     lobby_manager:addListener('LobbyManager_CHARACTER_MOVE', self)
+
+    self.m_chatClientSocket = chat_client_socket
 end
 
 -------------------------------------
@@ -135,7 +151,11 @@ function UI_Village:onEvent(event_name, t_event, ...)
     -- 유저 입장
     if (event_name == 'LobbyManager_ADD_USER') then
         local struct_user_info = t_event
-        self.m_lobbyMap:makeLobbyTamerBot(struct_user_info)
+        local tamer_bot = self.m_lobbyMap:makeLobbyTamerBot(struct_user_info)
+
+        -- 첫 위치 지정
+        local x, y = struct_user_info:getPosition()
+        tamer_bot:setPosition(x, y)
 
     -- 유저 퇴장
     elseif (event_name == 'LobbyManager_REMOVE_USER') then

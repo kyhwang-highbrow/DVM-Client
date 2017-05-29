@@ -41,6 +41,16 @@ end
 -- @breif 정해진 spot에 한 key만 해당 위치를 가질 수 있도록
 -------------------------------------
 function LobbyMapSpotMgr:getRandomSpot(key)
+
+    -- 임시로 사용
+    if (not key) then
+        local spot_cnt = #self.m_lSpotPos
+        local rand_idx = math_random(1, spot_cnt)
+        local ret_pos = self.m_lSpotPos[rand_idx]
+        return ret_pos[1], ret_pos[2]
+    end
+
+
     local spot_cnt = #self.m_lSpotPos
 
     -- 남아있는 spot 개수가 없으면 리턴

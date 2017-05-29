@@ -356,27 +356,16 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
     local uid = struct_user_info:getUid()
     local is_bot = (tostring(player_uid) ~= uid)
 	
-	local tamer_res = nil
-
     local tamer
     if is_bot then
-		-- @TODO tamer id를 받아와야함
-		local sum_random = SumRandom()
-		sum_random:addItem(1, 'res/character/tamer/dede/dede.spine')
-		sum_random:addItem(1, 'res/character/tamer/goni/goni.spine')
-		sum_random:addItem(1, 'res/character/tamer/nuri/nuri.spine')
-		sum_random:addItem(1, 'res/character/tamer/kesath/kesath.spine')
-		sum_random:addItem(1, 'res/character/tamer/durun/durun.spine')
-		sum_random:addItem(1, 'res/character/tamer/mokoji/mokoji.spine')
-
         --tamer = LobbyTamerBot(struct_user_info)
         tamer = LobbyTamer(struct_user_info)
-		tamer_res = sum_random:getRandomValue()
     else
         tamer = LobbyTamer(struct_user_info)
-        tamer_res = g_tamerData:getCurrTamerTable('res_sd')
     end
 
+    -- 테이머 리소스 (tamer id에 따라 받아옴)
+    local tamer_res = struct_user_info:getSDRes()
 	tamer:initAnimator(tamer_res)
 
     local flip = (math_random(1, 2) == 1) and true or false
@@ -413,6 +402,7 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
         tamer:setPosition(x, y)
         tamer:changeState('idle')
     end
+    return tamer
 end
 
 -------------------------------------
@@ -481,6 +471,13 @@ function LobbyMap:removeLobbyTamer(uid)
     for i,v in pairs(self.m_lLobbyTamerBotOnly) do
         if (v.m_userData:getUid() == uid) then
             table.remove(self.m_lLobbyTamerBotOnly, i)
+            break
+        end
+    end
+
+    for i,v in pairs(self.m_lChangedPosTamers) do
+        if (v.m_userData:getUid() == uid) then
+            table.remove(self.m_lChangedPosTamers, i)
             break
         end
     end

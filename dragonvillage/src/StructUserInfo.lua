@@ -111,3 +111,43 @@ function StructUserInfo:getPosition()
     local y = self.m_tamerPosY
     return x, y
 end
+
+
+-------------------------------------
+-- function getSDRes
+-- @breif
+-------------------------------------
+function StructUserInfo:getSDRes()
+    local tamer_id = tonumber(self.m_tamerID)
+
+    if (not tamer_id) then
+        error('tamer_id : ' .. tamer_id)
+    end
+
+    local res = TableTamer():getValue(tamer_id, 'res_sd')
+    return res
+end
+
+-------------------------------------
+-- function createSUser
+-- @breif 채팅 서버에서 사용하는 protobuf용 데이터를 활용한 생성
+-------------------------------------
+function StructUserInfo:createSUser(server_user)
+    local struct_user_info = StructUserInfo()
+    struct_user_info:syncSUser(server_user)
+    return struct_user_info
+end
+
+-------------------------------------
+-- function syncSUser
+-- @breif
+-------------------------------------
+function StructUserInfo:syncSUser(server_user)
+    self.m_uid = server_user['uid']
+    self.m_tamerID = server_user['tamer']
+    self.m_lv = server_user['level']
+    self.m_nickname = server_user['nickname']
+    self.m_tamerPosX = server_user['x']
+    self.m_tamerPosY = server_user['y']
+    -- server_user['did'] -- 이거 어찌 처리하지
+end

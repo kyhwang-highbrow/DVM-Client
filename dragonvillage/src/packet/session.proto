@@ -25,13 +25,14 @@ message SLoginRes {
 
 message SUser {
     required string uid = 1;
-	optional string nickname = 2;
-    optional string did = 3;
-	optional int32 level = 4;
+    optional string tamer = 2;
+	optional string nickname = 3;
+    optional string did = 4;
+	optional int32 level = 5;
     
     // 플레이어 위치
-    optional float x = 5;
-    optional float y = 6;
+    optional float x = 6;
+    optional float y = 7;
 }
 
 message SLobbyUserList {

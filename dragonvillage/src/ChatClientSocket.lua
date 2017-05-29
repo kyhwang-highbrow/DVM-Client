@@ -173,9 +173,14 @@ end
 -------------------------------------
 function ChatClientSocket:setUserInfo(t_data)
     self.m_user['uid'] = t_data['uid'] or self.m_user['uid'] or ''
+    self.m_user['tamer'] = t_data['tamer'] or self.m_user['tamer'] or ''
     self.m_user['nickname'] = t_data['nickname'] or self.m_user['nickname'] or ''
     self.m_user['did'] = t_data['did'] or self.m_user['did'] or ''
     self.m_user['level'] = t_data['level'] or self.m_user['level'] or 1
+
+    -- 테이머 위치
+    self.m_user['x'] = t_data['x'] or self.m_user['x'] or 0
+    self.m_user['y'] = t_data['y'] or self.m_user['y'] or 0
 
     self:dispatch('CHANGE_USER_INFO', self.m_user)
 end

@@ -183,19 +183,14 @@ end
 -- @brief 플레이어 유저 정보 변경
 -------------------------------------
 function LobbyManager:onEvent_CHANGE_USER_INFO(t_event)
-    local user = t_event
+    local server_user = t_event
 
     -- Struct가 없으면 새로 생성
     if (not self.m_playerUserInfo) then
-        local struct_user_info = StructUserInfo()
-        self.m_playerUserInfo = struct_user_info
+        self.m_playerUserInfo = StructUserInfo:createSUser(server_user)
+    else
+        self.m_playerUserInfo:syncSUser(server_user)
     end
-
-    -- 데이터 동기화
-    self.m_playerUserInfo.m_uid = user['uid']
-    self.m_playerUserInfo.m_lv = user['level']
-    self.m_playerUserInfo.m_nickname = user['nickname']
-    -- user['did']
 end
 
 -------------------------------------
@@ -388,16 +383,11 @@ end
 -- @brief 유저 추가
 -------------------------------------
 function LobbyManager:addUser(server_user)
+    local uid = server_user['uid']
     local is_new_user = (self.m_userInfoList[uid] == nil)
 
-    local uid = server_user['uid']
-
-    local struct_user_info = StructUserInfo()
-    struct_user_info.m_uid = server_user['uid']
-    struct_user_info.m_lv = server_user['level']
-    struct_user_info.m_nickname = server_user['nickname']
-    -- server_user['did'] -- 이거 어찌 처리하지
-
+    -- 유저 정보 생성
+    local struct_user_info = StructUserInfo:createSUser(server_user)
     self.m_userInfoList[uid] = struct_user_info
 
     -- 새로운 유저
