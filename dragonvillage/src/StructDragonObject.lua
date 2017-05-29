@@ -299,6 +299,14 @@ function StructDragonObject:getRarity()
 end
 
 -------------------------------------
+-- function getDid
+-- @breif
+-------------------------------------
+function StructDragonObject:getDid()
+    return self['did']
+end
+
+-------------------------------------
 -- function getEclv
 -- @breif
 -------------------------------------
@@ -312,6 +320,14 @@ end
 -------------------------------------
 function StructDragonObject:getGrade()
     return self['grade']
+end
+
+-------------------------------------
+-- function getEvolution
+-- @breif
+-------------------------------------
+function StructDragonObject:getEvolution()
+    return self['evolution']
 end
 
 -------------------------------------

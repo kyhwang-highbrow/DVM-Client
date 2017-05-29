@@ -144,11 +144,14 @@ function LobbyMap:onTouchEnded(touches, event)
     if self.m_touchTamer then
         if self:checkDragonTouch(touches[1]:getLocation(), self.m_touchTamer) then
             self.m_touchTamer:showEmotionEffect()
+            -- @TODO sgkim lobbychat
+            --[[
             local t_dragon_data = self.m_touchTamer.m_userData['leader']
             if (not t_dragon_data) then
                 t_dragon_data = UI_SimpleDragonInfoPopup:makeDragonData(self.m_touchTamer.m_dragon.m_dragonID)
             end
             UI_SimpleDragonInfoPopup(t_dragon_data)
+            --]]
         end
         self.m_touchTamer = nil
     end
@@ -382,8 +385,6 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
     self:addLobbyDragon(tamer, is_bot, struct_user_info)
 
     if is_bot then
-        local x, y = struct_user_info:getPosition()
-        tamer:setPosition(x, y)
         --[[
         local pos = self:getRandomSpot(uid)
         tamer:setPosition(pos[1], pos[2])
@@ -395,13 +396,20 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
         --]]
     else
         self.m_targetTamer = tamer
+
+        --[[
         local x, y = 0, -150
         if (g_lobbyUserListData.m_posX and g_lobbyUserListData.m_posY) then
             x, y = g_lobbyUserListData.m_posX, g_lobbyUserListData.m_posY
         end
         tamer:setPosition(x, y)
-        tamer:changeState('idle')
+        --]]
     end
+
+    -- 첫 위치 지정
+    local x, y = struct_user_info:getPosition()
+    tamer:setPosition(x, y)
+
     return tamer
 end
 
@@ -489,20 +497,19 @@ end
 -------------------------------------
 -- function addLobbyDragon
 -------------------------------------
-function LobbyMap:addLobbyDragon(tamer, is_bot, t_user_info)
-    if  true then
-        return
-    end
-
+function LobbyMap:addLobbyDragon(tamer, is_bot, struct_user_info)
     -- 임시 랜덤 드래곤
     local table_dragon = TableDragon()
     local t_dragon = nil
 
-    local leader_dragon = t_user_info:getLeaderDragonObject()
-    local evolution = t_user_info['leader']['evolution']
+    local leader_dragon = struct_user_info:getLeaderDragonObject()
+    if (not leader_dragon) then
+        return
+    end
 
-    local did = t_user_info['leader']['did']
-	local flv = t_user_info['leader']['friendship']['flv']
+    local evolution = leader_dragon:getEvolution()
+    local did = leader_dragon:getDid()
+	local flv = leader_dragon:getFlv()
 
     -- 서버에서 오류로 인해 did가 0으로 넘어오는 이슈가 있어서 예외처리함
     if (did == 0) then

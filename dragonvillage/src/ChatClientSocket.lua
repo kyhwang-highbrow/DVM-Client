@@ -280,3 +280,11 @@ function ChatClientSocket:disconnect()
     self.m_socket:disconnect()
     self:setStatus('Disconnected')
 end
+
+-------------------------------------
+-- function close
+-- @brief
+-------------------------------------
+function ChatClientSocket:close()
+    self.m_socket:close()
+end

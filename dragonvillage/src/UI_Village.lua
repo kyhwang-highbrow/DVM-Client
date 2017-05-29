@@ -69,6 +69,8 @@ function UI_Village:initWorld()
 
     -- 유저 설정
     local struct_user_info = self.m_lobbyManager.m_playerUserInfo
+    local leader_dragon = g_dragonsData:getLeaderDragon()
+    struct_user_info.m_leaderDragonObject = StructDragonObject(leader_dragon)
     local tamer_bot = lobby_map:makeLobbyTamerBot(struct_user_info)
 
     -- 첫 위치 지정
@@ -92,11 +94,18 @@ function UI_Village:initChatClientSocket()
     local nickname = g_userData:get('nick')
     local lv = g_userData:get('lv')
 
+    -- 리더 드래곤
+    local leader_dragon = g_dragonsData:getLeaderDragon()
+    local did = leader_dragon and tostring(leader_dragon['did']) or ''
+    if (did ~= '') then
+        did = did .. ';' .. leader_dragon['evolution']
+    end
+
     local t_data = {}
     t_data['uid'] = tostring(uid)
     t_data['tamer'] = tostring(tamer)
     t_data['nickname'] = nickname
-    t_data['did'] = '120014'
+    t_data['did'] = did
     t_data['level'] = lv
     t_data['x'] = 0
     t_data['y'] = -150
@@ -185,4 +194,11 @@ function UI_Village:onEvent(event_name, t_event, ...)
     else
         cclog('[UI_Village] 정의되지 않은 event_name ' .. event_name)
     end
+end
+
+-------------------------------------
+-- function onClose
+-------------------------------------
+function UI_Village:onClose()
+    self.m_chatClientSocket:close()
 end

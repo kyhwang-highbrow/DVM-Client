@@ -150,4 +150,22 @@ function StructUserInfo:syncSUser(server_user)
     self.m_tamerPosX = server_user['x']
     self.m_tamerPosY = server_user['y']
     -- server_user['did'] -- 이거 어찌 처리하지
+
+
+    -- 드래곤 정보
+    local did_str = server_user['did']
+    if (did_str and (did_str ~= '')) then
+
+        local str_list = pl.stringx.split(did_str, ';')
+
+        local data = {}
+        if str_list[1] then
+            data['did'] = tonumber(str_list[1])
+        end
+
+        if str_list[2] then
+            data['evolution'] = tonumber(str_list[2])
+        end
+        self.m_leaderDragonObject = StructDragonObject(data)
+    end
 end

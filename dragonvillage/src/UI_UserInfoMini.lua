@@ -77,15 +77,17 @@ function UI_UserInfoMini:refresh()
     vars['lvLabel']:setString(Str('레벨 {1}', user_info:getLv()))
 
     local dragon_object = user_info:getLeaderDragonObject()
-    local dragon_card = UI_DragonCard(dragon_object)
-    vars['dragonNode']:addChild(dragon_card.root)
+    if dragon_object then
+        local dragon_card = UI_DragonCard(dragon_object)
+        vars['dragonNode']:addChild(dragon_card.root)
     
-    dragon_card.vars['clickBtn']:registerScriptTapHandler(function()
-        local doid = dragon_object['id']
-        if doid and (doid ~= '') then
-            UI_SimpleDragonInfoPopup(dragon_object)
-        end
-    end)
+        dragon_card.vars['clickBtn']:registerScriptTapHandler(function()
+            local doid = dragon_object['id']
+            if doid and (doid ~= '') then
+                UI_SimpleDragonInfoPopup(dragon_object)
+            end
+        end)
+    end
 end
 
 -------------------------------------
