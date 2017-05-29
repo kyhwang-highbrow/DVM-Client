@@ -124,7 +124,10 @@ function LobbyManager:requestCharacterMove(x, y)
         return false
     end
 
-    
+    -- 플레이어 위치 정보 저장
+    self.m_chatClientSocket.m_user['x'] = x
+    self.m_chatClientSocket.m_user['y'] = y
+
     local p = self:getProtobuf('protocol').CharacterMove()
     --p['uid'] = 'string' -- 서버에서 session정보로 추가됨
     p['x'] = x
@@ -422,14 +425,8 @@ end
 -------------------------------------
 function LobbyManager:reset()
     self.m_lobbyChannelName = nil
-    self.m_playerUserInfo = nil
     self.m_userInfoList = nil
-end
 
--------------------------------------
--- function onDestroy
--------------------------------------
-function LobbyManager:onDestroy()
-    self:release_EventDispatcher()
-    self:release_EventListener()
+    -- 플레이어 정보는 초기화하지 않음
+    --self.m_playerUserInfo = nil
 end

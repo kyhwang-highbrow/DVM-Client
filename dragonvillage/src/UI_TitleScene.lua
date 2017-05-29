@@ -131,7 +131,13 @@ function UI_TitleScene:initChatClientSocket()
     t_data['did'] = did
     t_data['level'] = lv
     t_data['x'] = 0
-    t_data['y'] = 0
+    t_data['y'] = -150    
+    do -- 최초 랜덤 위치 지정
+        local x, y = LobbyMapSpotMgr:makeRandomSpot()
+        t_data['x'] = x
+        t_data['y'] = y
+    end
+
     chat_client_socket:setUserInfo(t_data)
 
     -- 전역 변수로 설정
@@ -146,9 +152,8 @@ end
 -------------------------------------
 function UI_TitleScene:initLobbyManager(chat_client_socket)
     LobbyManager:initInstance()
-    local lobby_manager = g_lobbyManager
-    lobby_manager:setChatClientSocket(chat_client_socket)
-    chat_client_socket:addRegularListener(lobby_manager)
+    g_lobbyManager:setChatClientSocket(chat_client_socket)
+    chat_client_socket:addRegularListener(g_lobbyManager)
 end
 
 
