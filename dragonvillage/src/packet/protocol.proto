@@ -48,28 +48,15 @@ enum ProtocolCode {
     
     C_LOBBY_CHANGE_CHANNEL  = 1007;
     S_LOBBY_CHANGE_CHANNEL  = 1008;
-    C_LOBBY_RECOMMEND_CHANNEL = 1009;
+    C_LOBBY_RECOMMEND_CHANNEL = 1009; 
     
-    
-    
-    
-	C_CHAT_WHISPER_MSG		= 101;
-	C_CHAT_GUILD_MSG		= 102;
+	C_CHAT_WHISPER_MSG		= 1011;
+    S_WHISPER_RESPONSE		= 1012;
 
 	C_CHAT_CHANGE_CHANNEL	= 200;
 	S_CHAT_CHANGE_CHANNEL	= 201;
 	
-	
-	S_WHISPER_RESPONSE		= 202;
-    
-    // 로비 관련
-    C_LOBBY_USER_LIST       = 301;
-    S_LOBBY_USER_LIST       = 302;
-    
-    C_LOBBY_USER_LEAVE      = 305;    
 
 	C_ERROR					= 9998;
 	S_ERROR					= 9999;
-    
-    // 새롭게 생성
 }

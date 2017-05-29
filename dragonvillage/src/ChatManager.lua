@@ -17,14 +17,7 @@ ChatManager = class(PARENT, {
 
         m_lobbyChannelName = 'string',
 
-
-
-
-
-        m_tempCB = '',
-
         m_lMessage = '',
-
         m_chatPopup = '',
 
         -- 노티 뱃지
@@ -251,15 +244,24 @@ function ChatManager:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
     local r = ccs.m_protobufChat.SChatChangeChannel():Parse(payload)
 
     -- 채널 변경 성공 (입장 성공)
-    if (r['ret'] == 'Success') then
+    local ret = r['ret']
+    if (ret == 'Success') then
         self.m_lobbyChannelName = r['channelName']
         
         -- 채팅 팝업에 정보 갱신
         if (self.m_chatPopup) then
             self.m_chatPopup:refresh_channelName(self.m_lobbyChannelName)
         end
-    else
 
+    -- 채널이 가득 참
+    elseif (ret == 'NoVacancy') then
+        cclog('채널에 입장하지 못함')
+        ccdump(r)
+
+    -- 채널이 존재하지 않음
+    elseif (ret == 'NotExist') then
+        cclog('채널에 입장하지 못함')
+        ccdump(r)
     end
 end
 
