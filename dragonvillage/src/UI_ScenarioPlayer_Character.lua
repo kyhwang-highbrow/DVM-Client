@@ -87,19 +87,19 @@ function UI_ScenarioPlayer_Character:setCharacter(key)
         self.m_charAnimator:release()
     end
 
+	local res = TableScenarioResource:getScenarioRes(key)
+	local res_type = TableScenarioResource:getScenarioResType(key)
 
-    local res = TableScenarioResource:getScenarioRes(key)
-    local type = TableScenarioResource:getScenarioResType(key)
+    self.m_posX = 0
+    self.m_posY = 0
 
-     self.m_posX = 0
-     self.m_posY = 0
+    self.m_charAnimator = MakeAnimator(res)
 
-    if type and (type == 'monster') then
-        self.m_charAnimator = MakeAnimator(res)
-        self.m_posY = 200
+    if (res_type == 'monster') then
         self.m_charAnimator:setPositionY(200)
-    else
-        self.m_charAnimator = MakeAnimator(res) 
+	elseif (res_type == 'dragon') then
+        self.m_charAnimator:setPositionY(250)
+		self.m_charAnimator:setScale(1.5)
     end
 
     self.m_charAnimator:setAlpha(0)

@@ -156,6 +156,19 @@ function TableDragon:getDragonName(did)
     return Str(dragon_name)
 end
 
+-------------------------------------
+-- function getDragonRes
+-------------------------------------
+function TableDragon:getDragonRes(did, evolution)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local res = self:getValue(did, 'res')
+	local attr = self:getValue(did, 'attr')
+	local evolution = evolution or 3
+    return AnimatorHelper:getDragonResName(res, evolution, attr)
+end
 
 -------------------------------------
 -- function getDragonAttr

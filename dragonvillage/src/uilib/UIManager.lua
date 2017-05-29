@@ -110,46 +110,46 @@ end
 function UIManager:open(ui, mode, bNotBlendBGLayer)
     local bNotBlendBGLayer = bNotBlendBGLayer or false
 
+	-- UI 인지 검사
     if not isInstanceOf(ui, UI) then
         error('not a UI')
     end
 
     local list = self.m_uiList
 
+	-- 이미 등록되어있는지 검사
     if table.find(list, ui) then
         error('attempt to open twice')
     end
 
+	-- UI 등록
     table.insert(list, ui)
 
-    local mode = mode or UIManager.NORMAL
-    local z_order = z_order
-
-    if (not z_order) then
-        if (mode == UIManager.SCENE) then
-            z_order = Z_ORDER_NORMAL
-
-        elseif (mode == UIManager.NORMAL) then
-            z_order = Z_ORDER_NORMAL
-
-        elseif (mode == UIManager.POPUP) then
-            z_order = Z_ORDER_NORMAL
-
-        elseif (mode == UIManager.TOOLTIP) then
-            z_order = Z_ORDER_TOOL_TIP
-
-        elseif (mode == UIManager.LOADING) then
-            z_order = Z_ORDER_NORMAL
-        
-        end
-    end
-
-    local function f_pause(node)
-        node:pause()
-    end
-
-    -- 다른 UI들은 off
+	-- mode 별 z_order
+    local z_order
     if (mode == UIManager.SCENE) then
+        z_order = Z_ORDER_NORMAL
+
+    elseif (mode == UIManager.NORMAL) then
+        z_order = Z_ORDER_NORMAL
+
+    elseif (mode == UIManager.POPUP) then
+        z_order = Z_ORDER_NORMAL
+
+    elseif (mode == UIManager.TOOLTIP) then
+        z_order = Z_ORDER_TOOL_TIP
+
+    elseif (mode == UIManager.LOADING) then
+        z_order = Z_ORDER_NORMAL
+        
+    end
+
+    -- SCENE mode인 경우 하위 UI를 전부 끄고 pause를 건다
+    if (mode == UIManager.SCENE) then
+		local function f_pause(node)
+			node:pause()
+		end
+
         local childs = self.m_uiLayer:getChildren()
         for _,child in ipairs(childs) do
             if child:isVisible() then
@@ -160,77 +160,75 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
         end
     end
     
-    self.m_uiLayer:addChild(ui.root, z_order)
-
+	-- mode가 있을 경우에만 addChild
+	if (mode) then
+		self.m_uiLayer:addChild(ui.root, z_order)
+	end
 
     -- 임시 터치 블록 영역 생성
     if (mode == UIManager.POPUP) or (mode == UIManager.LOADING) then
-        local visibleSize = cc.Director:getInstance():getVisibleSize()
-
-        --[[
-        -- 하위 UI가 클릭되지 않도록 버튼 생성
-        local img = EMPTY_PNG
-        local touchBlock = cc.MenuItemImage:create(img, img, img, 0)
-        touchBlock:setDockPoint(cc.p(0, 0))
-        touchBlock:setAnchorPoint(0, 0)
-        --touchBlock:setContentSize(visibleSize.width, visibleSize.height)
-        touchBlock:setRelativeSizeAndType(cc.size(0, 0), 3, false)
-        ui.root:addChild(touchBlock, -100)
-        --]]
-
-        -- 하위 UI가 클릭되지 않도록 레이어 생성
-        do
-            local layer = cc.Layer:create()
-            ui.root:addChild(layer, -100)
-
-            local function onTouch(touch, event)
-                if ui.root:isVisible() and layer:isVisible() then
-                    ui.root:resume()
-                    event:stopPropagation()
-                    return true
-                else
-                    return false
-                end
-            end
-            local listener = cc.EventListenerTouchOneByOne:create()
-            listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_BEGAN)
-            listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_MOVED)
-            listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_ENDED)
-            listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_CANCELLED)
-
-            local eventDispatcher = layer:getEventDispatcher()
-            eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
-        end
-
-        -- 배경을 어둡게
-        if (not ui.vars['bgLayerColor']) then
-            local layerColor = cc.LayerColor:create( cc.c4b(0,0,0,150) )
-            --[[
-            layerColor:setDockPoint(cc.p(0, 0))
-            layerColor:setAnchorPoint(0, 0)
-            layerColor:setRelativeSizeAndType(cc.size(0, 0), 3, false)
-            --]]
-
-            layerColor:setDockPoint(cc.p(0.5, 0.5))
-            layerColor:setAnchorPoint(cc.p(0.5, 0.5))
-            layerColor:setRelativeSizeAndType(cc.size(1280, 960), 1, false)
-
-            ui.root:addChild(layerColor, -100)
-            ui.vars['bgLayerColor'] = layerColor
-
-            -- 엑션에 추가
-            local t_action_data = ui:addAction(layerColor, UI_ACTION_TYPE_OPACITY, 0, 0.5)
-            ui:doActionReset_(t_action_data)
-            ui:doAction_Indivisual(t_action_data)
-        end
-
-        if bNotBlendBGLayer then
-            ui.vars['bgLayerColor']:setVisible(false)
-        end
+		self:makeTouchBlock(ui, bNotBlendBGLayer)
     end
 
     if self.m_cbUIOpen then
         self.m_cbUIOpen(ui)
+    end
+end
+
+-------------------------------------
+-- function makeTouchBlock
+-------------------------------------
+function UIManager:makeTouchBlock(ui, bNotBlendBGLayer)
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+
+    -- 하위 UI가 클릭되지 않도록 레이어 생성
+    do
+        local layer = cc.Layer:create()
+        ui.root:addChild(layer, -100)
+
+        local function onTouch(touch, event)
+            if ui.root:isVisible() and layer:isVisible() then
+                ui.root:resume()
+                event:stopPropagation()
+                return true
+            else
+                return false
+            end
+        end
+        local listener = cc.EventListenerTouchOneByOne:create()
+        listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_BEGAN)
+        listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_MOVED)
+        listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_ENDED)
+        listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_CANCELLED)
+
+        local eventDispatcher = layer:getEventDispatcher()
+        eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
+    end
+
+    -- 배경을 어둡게
+    if (not ui.vars['bgLayerColor']) then
+        local layerColor = cc.LayerColor:create( cc.c4b(0,0,0,150) )
+        --[[
+        layerColor:setDockPoint(cc.p(0, 0))
+        layerColor:setAnchorPoint(0, 0)
+        layerColor:setRelativeSizeAndType(cc.size(0, 0), 3, false)
+        --]]
+
+        layerColor:setDockPoint(cc.p(0.5, 0.5))
+        layerColor:setAnchorPoint(cc.p(0.5, 0.5))
+        layerColor:setRelativeSizeAndType(cc.size(1280, 960), 1, false)
+
+        ui.root:addChild(layerColor, -100)
+        ui.vars['bgLayerColor'] = layerColor
+
+        -- 엑션에 추가
+        local t_action_data = ui:addAction(layerColor, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+        ui:doActionReset_(t_action_data)
+        ui:doAction_Indivisual(t_action_data)
+    end
+
+    if bNotBlendBGLayer then
+        ui.vars['bgLayerColor']:setVisible(false)
     end
 end
 

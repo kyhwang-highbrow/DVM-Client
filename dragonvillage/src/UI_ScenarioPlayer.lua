@@ -18,7 +18,7 @@ UI_ScenarioPlayer = class(PARENT,{
 
         m_focusCharacter = '',
         m_mCharacter = '',
-        m_bSkipEnalbe = '',
+        m_bSkipEnable = '',
 
         m_scenarioPlayerTalk = '',
     })
@@ -26,19 +26,26 @@ UI_ScenarioPlayer = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ScenarioPlayer:init(scenario_name)
+function UI_ScenarioPlayer:init(scenario_name, is_simple_scenario)
     local vars = self:load_keepZOrder('scenario_talk_new.ui', false)
-    UIManager:open(self, UIManager.SCENE)
+	
+	if (is_simple_scenario) then
+		UIManager:open(self)
+		vars['skipBtn']:setVisible(false)
+		self.m_bSkipEnable = false
+	else
+		UIManager:open(self, UIManager.SCENE)
+		-- backkey 지정
+		g_currScene:pushBackKeyListener(self, function() self:click_skip() end, 'UI_ScenarioPlayer')
+		self.m_bSkipEnable = true
+	end
 
+	-- 멤버 변수
     self.m_scenarioPlayerTalk = UI_ScenarioPlayer_Talk(self)
-
-    self.m_prevBgm = SoundMgr.m_currBgm
-
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_skip() end, 'UI_ScenarioPlayer')
-
+    self.m_prevBgm = SoundMgr.m_currBgm 
     self.m_currPage = 0
-    self:loadScenario(scenario_name)
+
+	self:loadScenario(scenario_name)
     self.m_maxPage = table.count(self.m_scenarioTable)
 
     -- 캐릭터 관련
@@ -53,13 +60,13 @@ function UI_ScenarioPlayer:init(scenario_name)
     self.m_mCharacter['right'].m_bCharFlip = true
     self.m_mCharacter['right']:hide()
 
-    self.m_bSkipEnalbe = true
-    
     self:initUI()
     self:initButton()
     self:refresh()
 
-    self:next()
+	if (not is_simple_scenario) then
+		self:next()
+	end
 end
 
 -------------------------------------
@@ -119,6 +126,20 @@ function UI_ScenarioPlayer:loadScenario(scenario_name)
 end
 
 -------------------------------------
+-- function adjustScenarioTable
+-- @brief t_content로부터 key와 대체할 값을 가져와 scenarioTable 을 순회하며 변동 값을 적용시킨다.
+-------------------------------------
+function UI_ScenarioPlayer:adjustScenarioTable(t_content)
+	for _, t_scene in pairs(self.m_scenarioTable) do
+		for i, v in pairs(t_scene) do
+			if (t_content[v]) then
+				t_scene[i] = t_content[v]
+			end
+		end
+	end
+end
+
+-------------------------------------
 -- function initUI
 -------------------------------------
 function UI_ScenarioPlayer:initUI()
@@ -134,7 +155,7 @@ end
 -- function click_skip
 -------------------------------------
 function UI_ScenarioPlayer:click_skip()
-    if (not self.m_bSkipEnalbe) then
+    if (not self.m_bSkipEnable) then
         return
     end
 
@@ -145,7 +166,7 @@ end
 -- function click_next
 -------------------------------------
 function UI_ScenarioPlayer:click_next()
-    if (not self.m_bSkipEnalbe) then
+    if (not self.m_bSkipEnable) then
         return
     end
 
@@ -282,7 +303,7 @@ function UI_ScenarioPlayer:showPage()
     end
 
     do -- 이전에 disable시킨 것 해제
-        self.m_bSkipEnalbe = true
+        self.m_bSkipEnable = true
         self.vars['skipBtn']:setVisible(true)
         self.vars['nextVisual']:setVisible(true)
     end
@@ -414,12 +435,12 @@ function UI_ScenarioPlayer:applyEffect(effect)
         self.m_scenarioPlayerTalk:hide()
 
     elseif effect == 'skip_disable' then
-        self.m_bSkipEnalbe = false
+        self.m_bSkipEnable = false
         self.vars['skipBtn']:setVisible(false)
         self.vars['nextVisual']:setVisible(false)
 
     elseif effect == 'skip_enable' then
-        self.m_bSkipEnalbe = true
+        self.m_bSkipEnable = true
         self.vars['skipBtn']:setVisible(true)
         self.vars['nextVisual']:setVisible(true)
 

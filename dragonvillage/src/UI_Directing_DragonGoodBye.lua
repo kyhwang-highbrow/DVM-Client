@@ -14,6 +14,14 @@ UI_Directing_DragonGoodBye = class(PARENT,{
 		m_finalCB = 'function',
     })
 
+local Z_ORDER = {
+	BG = 1,
+	ANI = 2,
+	DIALOGUE = 3,
+
+	SKIP_BTN = 10
+}
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -54,14 +62,14 @@ function UI_Directing_DragonGoodBye:initUI()
 	local node = cc.Node:create()
 	node:setAnchorPoint(CENTER_POINT)
 	node:setDockPoint(CENTER_POINT)
-	self.root:addChild(node, 1)
+	self.root:addChild(node, Z_ORDER.BG)
 	self.vars['bgNode'] = node
 
 	-- 연출 노드
 	local node = cc.Node:create()
 	node:setAnchorPoint(CENTER_POINT)
 	node:setDockPoint(CENTER_POINT)
-	self.root:addChild(node, 2)
+	self.root:addChild(node, Z_ORDER.ANI)
 	self.vars['aniNode'] = node
 
 	-- 스킵 버튼
@@ -109,7 +117,7 @@ function UI_Directing_DragonGoodBye:makeSkipBtn()
 	node:setNormalSize(180, 40)
     UIC_Button(node)
 
-    self.root:addChild(node, 3)
+    self.root:addChild(node, Z_ORDER.SKIP_BTN)
     self.vars['skipBtn'] = node
 	self.vars['skipBtn']:setVisible(false)
 
@@ -282,7 +290,7 @@ function UI_Directing_DragonGoodBye:doDirectingAction(t_data, directing_cb_func)
 
 	-- 함수 선정의
 	local tamer_walk_in
-	local tamer_bye
+	local do_dialogue
 
 	local uf_dragon_bye
 	local uf_dragon_ascension
@@ -302,17 +310,33 @@ function UI_Directing_DragonGoodBye:doDirectingAction(t_data, directing_cb_func)
 		self.m_tamer:setPosition(300, -600)
 		
 		local function cb_func()
-			tamer_bye()
+			do_dialogue()
 		end
 		self.m_tamer:actMove_Fly(2, cc.p(0, 600), 1, cb_func)
 	end
 
-	-- 테이머의 인사
-	tamer_bye = function()
-		local function cb_func()
+	-- 다이얼로그 실행
+	do_dialogue = function()
+		local ui = UI_ScenarioPlayer('scenario_lactea', true)
+		self.root:addChild(ui.root, Z_ORDER.DIALOGUE)
+		
+		-- 시나리오 테이블에 현재 테이머와 드래곤 정보 입력
+		local tamer_name = g_tamerData:getCurrTamerTable('t_name')
+		local t_dragon_data = table.getFirst(self.m_tDragonChar).m_tData
+		local dragon_res = TableDragon:getDragonRes(t_dragon_data['did'], t_dragon_data['evolution'])
+		local t_rep_scenario = {
+			['tamer'] = tamer_name,
+			['dragon'] = dragon_res
+		}
+		ui:adjustScenarioTable(t_rep_scenario)
+
+		-- 시나리오 시작
+		ui:next()
+
+		ui:setCloseCB(function()
+			ui.root:removeFromParent(true)
 			uf_dragon_bye()
-		end
-		self.m_tamer:actSaying('lactea_tamer', Str('그동안 정말 고생 했어'), 0, cb_func)
+		end)
 	end
 
 	-- 서먹한 드래곤들 중 대표가 인사
