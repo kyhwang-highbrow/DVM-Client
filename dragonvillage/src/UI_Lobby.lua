@@ -146,6 +146,15 @@ end
 -------------------------------------
 function UI_Lobby:initCamera()
     local vars = self.vars
+
+    local lobby_ui = self
+    local parent_node = vars['cameraNode']
+    local chat_client_socket = g_chatClientSocket
+
+    local lobby_world_adapter = LobbyWorldAdapter(self, parent_node, chat_client_socket)
+
+    --[[
+    local vars = self.vars
     vars['cameraNode']:setLocalZOrder(-1)
     local lobby_map = LobbyMap(vars['cameraNode'])
     self.m_lobbyMap = lobby_map
@@ -168,6 +177,7 @@ function UI_Lobby:initCamera()
         self:doAction(nil, nil, 0.5)
         g_topUserInfo:doAction(nil, nil, 0.5)
     end)
+    --]]
 end
 
 -------------------------------------
@@ -175,6 +185,10 @@ end
 -- @breif 로비맵에 있는 모든 테이머를 삭제 후 새로 생성
 -------------------------------------
 function UI_Lobby:refresh_lobbyUsers()
+    if (not m_lobbyMap) then
+        return
+    end
+
     self.m_lobbyMap:clearAllUser()
 
     if true then

@@ -102,6 +102,42 @@ function UI_TitleScene:click_screenBtn()
     end
 end
 
+-------------------------------------
+-- function initChatClientSocket
+-- @brief 채팅 클라이언트 소켓 초기화
+-------------------------------------
+function UI_TitleScene:initChatClientSocket()
+    local ip = '192.168.1.63'
+    local port = '3927'
+    local chat_client_socket = ChatClientSocket(ip, port)
+
+    -- 유저 정보 입력
+    local uid = g_serverData:get('local', 'uid')
+    local tamer = g_userData:get('tamer')
+    local nickname = g_userData:get('nick')
+    local lv = g_userData:get('lv')
+
+    -- 리더 드래곤
+    local leader_dragon = g_dragonsData:getLeaderDragon()
+    local did = leader_dragon and tostring(leader_dragon['did']) or ''
+    if (did ~= '') then
+        did = did .. ';' .. leader_dragon['evolution']
+    end
+
+    local t_data = {}
+    t_data['uid'] = tostring(uid)
+    t_data['tamer'] = tostring(tamer)
+    t_data['nickname'] = nickname
+    t_data['did'] = did
+    t_data['level'] = lv
+    t_data['x'] = 0
+    t_data['y'] = -150
+    chat_client_socket:setUserInfo(t_data)
+
+    -- 전역 변수로 설정
+    g_chatClientSocket = chat_client_socket
+end
+
 ------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -434,7 +470,8 @@ end
 -- @brief 사운드 프리로드
 -------------------------------------
 function UI_TitleScene:workSoundPreload()
-    ChatManager:initInstance()
+    self:initChatClientSocket()
+    --ChatManager:initInstance()
 
     if SoundMgr:isPreloadFinish() then
         self:doNextWork()

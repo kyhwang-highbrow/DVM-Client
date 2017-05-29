@@ -2346,6 +2346,9 @@
     <None Include="..\src\StatusEffectUnit_Dot_Heal.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\LobbyWorldAdapter.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
