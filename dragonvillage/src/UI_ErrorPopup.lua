@@ -47,18 +47,18 @@ function UI_ErrorPopup:initUI(str)
 
 	-- error label
 	do
-		self.m_errorLabel = cc.Label:createWithTTF(
-			'',
-			'res/font/common_font_01.ttf', 
-			20, 
-			1, -- stroke
-			cc.size(scr_size['width'] - 200, scr_size['height']), 
-			cc.TEXT_ALIGNMENT_LEFT, 
-			cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+		-- rich_label 생성
+		local rich_label = UIC_RichLabel()
+		rich_label:setDimension(1000, 600)
+		rich_label:setFontSize(20)
+		rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+		rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
 
-		self.m_errorLabel:setDockPoint(cc.p(0.5, 0.5))
-		self.m_errorLabel:setAnchorPoint(cc.p(0.5, 0.5))
-		self.m_backLayer:addChild(self.m_errorLabel)
+		-- scroll label  생성
+		self.m_errorLabel = UIC_ScrollLabel:create(rich_label)
+		self.m_errorLabel:setDockPoint(CENTER_POINT)
+		self.m_errorLabel:setAnchorPoint(CENTER_POINT)
+		self.m_backLayer:addChild(self.m_errorLabel.m_node)
 	end
 
 	-- 복사 버튼
@@ -106,6 +106,10 @@ end
 -- function setErrorStr
 -------------------------------------
 function UI_ErrorPopup:setErrorStr(str)
+	if (not str) then
+		cclog('UI_ErrorPopup:setErrorStr(str) : nil parameter')
+	end
+
 	local error_str = string.gsub(str, '\t', '    ') or '???'
 	if (__G__NOT_EXIST_RES) then
 		error_str = '### 리소스가 없어 발생한 문제입니다. :D ###\n  -- 없는 리소스 : ' .. __G__NOT_EXIST_RES .. ' --\n\n' .. error_str
@@ -134,7 +138,3 @@ function UI_ErrorPopup:click_exitBtn()
     self:close()
 	IS_OPEN_ERROR_POPUP = false
 end
-
-
-__G__ERROR_POPUP = UI_ErrorPopup
-__G__NOT_EXIST_RES = nil

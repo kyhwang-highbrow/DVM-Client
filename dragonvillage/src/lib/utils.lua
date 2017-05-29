@@ -577,6 +577,35 @@ function isTable(v)
 	return v and (type(v) == 'table')
 end
 
+-------------------------------------
+-- function getsetGenerator
+-- @brief 지정된 멤버변수의 getter setter를 자동 생성한다.
+-------------------------------------
+function getsetGenerator(klass)
+	local class_name = getClassName(klass)
+	local func_loader = pl.utils.load
+	local templete = 
+	[[
+		function klass:get_var() return self.var end
+		function klass:set_var(v) self.var = v end
+	]]
+
+	local str, fucn
+	for var, v in pairs(klass) do
+		-- 자동생성하도록 지정된 멤버 변수를 찾는다.
+		if (v == 'get_set_gen') then
+			-- getter, setter 생성
+			str = clone(templete)
+			str = string.gsub(str, 'klass', class_name)
+			str = string.gsub(str, 'var', var)
+			
+			-- compile
+			func = func_loader(str)
+			func()
+		end
+	end
+end
+
 function convertToParentCoord(parent, target)
     local p, x, y = target, 0, 0
     repeat

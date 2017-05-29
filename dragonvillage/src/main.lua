@@ -14,7 +14,7 @@ cclog = function(...)
     print(...)
 end
 
-__G__ERROR_POPUP = nil
+UI_ErrorPopup = nil
 IS_OPEN_ERROR_POPUP = false
 -------------------------------------
 -- function __G__TRACKBACK__
@@ -28,9 +28,9 @@ function __G__TRACKBACK__(msg)
     cclog("----------------------------------------")
     	
 	-- 에러를 팝업으로 띄워서 출력
-	-- @TODO 디버깅 모드 처리해야함
-	if (not IS_OPEN_ERROR_POPUP) and __G__ERROR_POPUP then
-		__G__ERROR_POPUP(error_msg)
+	-- @TODO 디버깅 모드일 경우에만 출력되도록 수정해야함
+	if (not IS_OPEN_ERROR_POPUP) and UI_ErrorPopup then
+		UI_ErrorPopup(error_msg)
 		IS_OPEN_ERROR_POPUP = true
 	end
 
@@ -105,6 +105,7 @@ local function main()
     ServerData:getInstance():applySetting()
     ServerData:getInstance():developCache()
     UserData:getInstance()
+	ErrorTracker:getInstance()
 
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()

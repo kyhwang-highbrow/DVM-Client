@@ -2349,6 +2349,9 @@
     <None Include="..\src\LobbyWorldAdapter.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ErrorTracker.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

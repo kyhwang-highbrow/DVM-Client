@@ -114,6 +114,7 @@ local t_module = {
 	'ISkillMultiAttack',
 
     -- Util
+	'ErrorTracker',
     'Action',
     'TimeLib',
     'Table',
