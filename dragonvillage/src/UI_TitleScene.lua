@@ -144,6 +144,7 @@ function UI_TitleScene:initChatClientSocket()
     g_chatClientSocket = chat_client_socket
 
     self:initLobbyManager(chat_client_socket)
+    self:initChatManager(chat_client_socket)
 end
 
 -------------------------------------
@@ -154,6 +155,16 @@ function UI_TitleScene:initLobbyManager(chat_client_socket)
     LobbyManager:initInstance()
     g_lobbyManager:setChatClientSocket(chat_client_socket)
     chat_client_socket:addRegularListener(g_lobbyManager)
+end
+
+-------------------------------------
+-- function initChatManager
+-- @brief
+-------------------------------------
+function UI_TitleScene:initChatManager(chat_client_socket)
+    ChatManager:initInstance()
+    g_chatManager:setChatClientSocket(chat_client_socket)
+    chat_client_socket:addRegularListener(g_chatManager)
 end
 
 

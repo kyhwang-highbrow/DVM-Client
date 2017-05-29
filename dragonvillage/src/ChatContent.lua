@@ -15,6 +15,7 @@ ChatContent = class({
         -- 'my_msg' 내 메세지
         -- 'msg' 일반 메세지 (다른 사람들 메세지)
 
+        channelName = 'string',
         nickname = '',
         level = 'number',
         guild = '',
@@ -144,7 +145,8 @@ function ChatContent:getUserInfoStr()
     
     local nickname = self['nickname']
     local level = self['level']
-    local info_str = Str('Lv.{1} {2}', level, nickname)
+    local channelName = self['channelName']
+    local info_str = Str('Lv.{1} {2} {@C}(채널 {3})', level, nickname, channelName)
     return info_str
 end
 

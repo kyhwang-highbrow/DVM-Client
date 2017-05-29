@@ -366,6 +366,13 @@ end
 -- @brief
 -------------------------------------
 function LobbyManager:setUserList(user_list)
+    -- 기존 유저 삭제
+    if self.m_userInfoList then
+        for i,v in pairs(self.m_userInfoList) do
+            self:removeUser(v:getUid())
+        end
+    end
+
     self.m_userInfoList = {}
 
     local player_uid = g_userData:get('uid')

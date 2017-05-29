@@ -33,7 +33,7 @@ function UI_ChatPopup:init()
         self:msgQueueCB(msg)
     end
 
-    self:refresh_connectStatus(g_chatManager.m_chatClient.m_status)
+    self:refresh_connectStatus(g_chatManager:getStatus())
 end
 
 
@@ -196,6 +196,14 @@ function UI_ChatPopup:msgQueueCB(chat_content)
 end
 
 -------------------------------------
+-- function refresh_channelName
+-------------------------------------
+function UI_ChatPopup:refresh_channelName(channel_name)
+    local str = Str('채널 {1}', channel_name)
+    self.vars['sortOrderLabel']:setString(str)
+end
+
+-------------------------------------
 -- function refresh_connectStatus
 -------------------------------------
 function UI_ChatPopup:refresh_connectStatus(status)
@@ -243,10 +251,6 @@ function UI_ChatPopup:initTab()
     --self:addTab('guild_chat', vars['guildTabBtn'], vars['guildChatNode'])
     self:addTab('whisper', vars['whisperTapBtn'], vars['whisperMenu'])
     self:setTab('general')
-
-    vars['guildTabBtn']:registerScriptTapHandler(function()
-            UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
-        end)
 end
 
 -------------------------------------

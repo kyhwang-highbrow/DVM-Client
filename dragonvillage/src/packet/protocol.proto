@@ -46,6 +46,10 @@ enum ProtocolCode {
     S_LOBBY_USER_ENTER      = 1005;
     S_LOBBY_USER_LEAVE      = 1006;
     
+    C_LOBBY_CHANGE_CHANNEL  = 1007;
+    S_LOBBY_CHANGE_CHANNEL  = 1008;
+    C_LOBBY_RECOMMEND_CHANNEL = 1009;
+    
     
     
     
@@ -62,11 +66,7 @@ enum ProtocolCode {
     C_LOBBY_USER_LIST       = 301;
     S_LOBBY_USER_LIST       = 302;
     
-    C_LOBBY_USER_LEAVE      = 305;
-    
-    C_LOBBY_CHANGE_CHANNEL  = 307;
-    S_LOBBY_CHANGE_CHANNEL  = 307;
-    C_LOBBY_RECOMMEND_CHANNEL = 308;
+    C_LOBBY_USER_LEAVE      = 305;    
 
 	C_ERROR					= 9998;
 	S_ERROR					= 9999;
