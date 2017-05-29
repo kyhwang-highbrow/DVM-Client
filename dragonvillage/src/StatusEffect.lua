@@ -132,8 +132,8 @@ end
 function StatusEffect.st_start(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 중첩에 상관없이 한번만 적용되어야하는 효과 적용
-		owner:onApplyCommon()
-		        
+        owner:apply()
+				        
 		-- 에니메이션이 0프레임일 경우 즉시 상태를 변경
         local duration = owner.m_animator:getDuration()
         if (duration == 0) then
@@ -206,7 +206,7 @@ function StatusEffect:update(dt)
             for i, unit in ipairs(list) do
                 if (unit:update(dt, modified_dt)) then
                     table.insert(t_remove, 1, i)
-                    self:onUnapplyOverlab(unit)
+                    self:unapplyOverlab(unit)
                 end
             end
 
@@ -272,10 +272,10 @@ function StatusEffect:insertStatus(type, value, is_abs)
 end
 
 -------------------------------------
--- function onApplyCommon
--- @brief 중첩과 관계없이 한번만 적용되어야하는 효과를 적용
+-- function apply
+-- @brief 해당 상태 효과가 시작시 한번만 적용되어야하는 효과를 적용
 -------------------------------------
-function StatusEffect:onApplyCommon()
+function StatusEffect:apply()
     if (self.m_bApply) then return false end
 
     local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
@@ -287,14 +287,23 @@ function StatusEffect:onApplyCommon()
 
     self.m_bApply = true
 
+    self:onStart()
+
     return true
 end
 
 -------------------------------------
--- function onUnapplyCommon
--- @brief 중첩과 관계없이 한번만 적용되어야하는 효과를 해제
+-- function onStart
+-- @brief 해당 상태 효과가 시작시 호출
 -------------------------------------
-function StatusEffect:onUnapplyCommon()
+function StatusEffect:onStart()
+end
+
+-------------------------------------
+-- function unapply
+-- @brief 해당 상태 효과가 종료시 한번만 해제되어야하는 효과를 해제c
+-------------------------------------
+function StatusEffect:unapply()
     if (not self.m_bApply) then return false end
     
     -- groggy 옵션이 있다면 해제
@@ -305,31 +314,58 @@ function StatusEffect:onUnapplyCommon()
 	
 	self.m_bApply = false
 
+    self:onEnd()
+
     return true
 end
 
 -------------------------------------
--- function onApplyOverlab
+-- function onEnd
+-- @brief 해당 상태 효과가 종료시 호출
+-------------------------------------
+function StatusEffect:onEnd()
+end
+
+-------------------------------------
+-- function applyOverlab
 -- @brief 중첩될때마다 적용되어야하는 효과를 적용
 -------------------------------------
-function StatusEffect:onApplyOverlab(unit)
+function StatusEffect:applyOverlab(unit)
     local b = unit:onApply(self.m_lStatus, self.m_lStatusAbs)
 
     self.m_overlabCnt = (self.m_overlabCnt + 1)
+
+    self:onApplyOverlab(unit)
+            
+    return b
+end
+
+-------------------------------------
+-- function onApplyOverlab
+-- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
+-------------------------------------
+function StatusEffect:onApplyOverlab(unit)
+end
+
+-------------------------------------
+-- function unapplyOverlab
+-- @brief 중첩될때마다 적용되어야하는 효과를 해제
+-------------------------------------
+function StatusEffect:unapplyOverlab(unit)
+    local b = unit:onUnapply(self.m_lStatus, self.m_lStatusAbs)
+
+    self.m_overlabCnt = (self.m_overlabCnt - 1)
+
+    self:onUnapplyOverlab(unit)
             
     return b
 end
 
 -------------------------------------
 -- function onUnapplyOverlab
--- @brief 중첩될때마다 적용되어야하는 효과를 해제
+-- @brief 해당 상태효과가 중첩 해제될시마다 호출
 -------------------------------------
 function StatusEffect:onUnapplyOverlab(unit)
-    local b = unit:onUnapply(self.m_lStatus, self.m_lStatusAbs)
-
-    self.m_overlabCnt = (self.m_overlabCnt - 1)
-            
-    return b
 end
 
 -------------------------------------
@@ -338,14 +374,14 @@ end
 function StatusEffect:unapplyAll()
     -- 기본 효과 해제
     do
-        self:onUnapplyCommon()
+        self:unapply()
     end
     
     -- 중첩 효과 해제
     do
         for _, list in pairs(self.m_mUnit) do
             for _, unit in ipairs(list) do
-                self:onUnapplyOverlab(unit)
+                self:unapplyOverlab(unit)
             end
         end
 
@@ -379,7 +415,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, duration)
                 if (unit.m_skillId == skill_id) then
                     -- 주체와 스킬id가 같을 경우 삭제 후 추가 시킴
                     local unit = table.remove(self.m_mUnit[char_id], i)
-                    self:onUnapplyOverlab(unit)
+                    self:unapplyOverlab(unit)
                 
                     break
                 end
@@ -393,12 +429,12 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, duration)
     table.insert(self.m_mUnit[char_id], new_unit)
     
     -- 중첩시 효과 적용
-    self:onApplyOverlab(new_unit)
-
+    self:applyOverlab(new_unit)
+    
     -- 최대 중첩 횟수를 넘을 경우 젤 앞의 unit을 삭제
     if (self.m_maxOverlab > 0 and self.m_overlabCnt > self.m_maxOverlab) then
         local unit = table.remove(self.m_mUnit[char_id], 1)
-        self:onUnapplyOverlab(unit)
+        self:unapplyOverlab(unit)
     end
 
     -- @EVENT : 스탯 변화 적용(최대 체력)

@@ -142,6 +142,13 @@ function ICharacterStatusEffect:removeGroggy(statusEffectName)
 end
 
 -------------------------------------
+-- function hasGroggyStatusEffect
+-------------------------------------
+function ICharacterStatusEffect:hasGroggyStatusEffect()
+    return (table.count(self.m_mStatusEffectCC) > 0)
+end
+
+-------------------------------------
 -- function getCloneTable
 -------------------------------------
 function ICharacterStatusEffect:getCloneTable()

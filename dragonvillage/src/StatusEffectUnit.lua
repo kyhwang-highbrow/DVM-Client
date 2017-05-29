@@ -59,12 +59,13 @@ end
 
 -------------------------------------
 -- function onApply
+-- @brief 대응하는 상태효과에 해당 unit이 추가(중첩)될 때 호출
 -------------------------------------
 function StatusEffectUnit:onApply(lStatus, lStatusAbs)
     local is_dirty_stat = false
     local value = self.m_value / 100
 
-    if (self.m_bApply) then return is_dirty_stat end
+    if (self.m_bApply) then return false, is_dirty_stat end
 
     -- %능력치 적용
     for key, rate in pairs(lStatus) do
@@ -80,17 +81,18 @@ function StatusEffectUnit:onApply(lStatus, lStatusAbs)
 
     self.m_bApply = true
 
-    return is_dirty_stat
+    return true, is_dirty_stat
 end
 
 -------------------------------------
 -- function onUnapply
+-- @brief 대응하는 상태효과에 추가(중첩)되어있던 해당 unit이 해제될 때 호출
 -------------------------------------
 function StatusEffectUnit:onUnapply(lStatus, lStatusAbs)
     local is_dirty_stat = false
     local value = self.m_value / 100
 
-    if (not self.m_bApply) then return is_dirty_stat end
+    if (not self.m_bApply) then return false, is_dirty_stat end
     
     -- %능력치 원상 복귀
     for key, rate in pairs(lStatus) do
@@ -106,7 +108,7 @@ function StatusEffectUnit:onUnapply(lStatus, lStatusAbs)
 
     self.m_bApply = false
 
-    return is_dirty_stat
+    return true, is_dirty_stat
 end
 
 -------------------------------------

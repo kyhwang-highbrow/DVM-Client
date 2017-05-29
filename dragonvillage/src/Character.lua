@@ -1735,8 +1735,7 @@ end
 -------------------------------------
 function Character:updateRoaming(dt)
     if (not self:isPossibleMove(-1)) then
-        cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
-        self.m_roamTimer = 0
+        self:stopRoaming()
         return
     end
 
@@ -1746,7 +1745,6 @@ function Character:updateRoaming(dt)
 
         -- 랜덤한 위치를 뽑는다
         local tar = getRandomWorldEnemyPos(self)
-        --self:changeHomePosByTime(tar.x, tar.y, self.m_roamTimer)
 
         local bezier_range =  g_constant:get('INGAME', 'ENEMY_ROAM_BEZIER_RANGE')
         local distance = math_random(bezier_range[1], bezier_range[2])
@@ -1756,7 +1754,7 @@ function Character:updateRoaming(dt)
         self:setHomePos(tar.x, tar.y)
         cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
         cca.runAction(self.m_rootNode, move_action, CHARACTER_ACTION_TAG__ROAM)
-
+        
         self.m_roamTimer = time
     else
         self.m_roamTimer = self.m_roamTimer - dt
@@ -2256,9 +2254,8 @@ end
 -- function addGroggy
 -------------------------------------
 function Character:addGroggy(statusEffectName)
-    --PARENT.addGroggy(self, statusEffectName)
-    self.m_mStatusEffectCC[statusEffectName] = true
-
+    PARENT.addGroggy(self, statusEffectName)
+    
     if (self.m_state ~= 'stun') then
         self:changeState('stun')
     end
@@ -2268,14 +2265,9 @@ end
 -- function removeGroggy
 -------------------------------------
 function Character:removeGroggy(statusEffectName)
-    --PARENT.removeGroggy(self, statusEffectName)
-    if (statusEffectName) then
-        self.m_mStatusEffectCC[statusEffectName] = nil
-    else
-        self.m_mStatusEffectCC = {}
-    end
-
-    if (table.count(self.m_mStatusEffectCC) == 0) then
+    PARENT.removeGroggy(self, statusEffectName)
+    
+    if (not self:hasGroggyStatusEffect()) then
         if (self.m_state == 'stun') then
             self:changeState('stun_esc')
         end
@@ -2401,8 +2393,7 @@ function Character:setTemporaryPause(pause)
             cca.stopAction(target_node, CHARACTER_ACTION_TAG__FLOATING)
 
             if (self.m_bRoam) then
-                cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
-                self.m_roamTimer = 0
+                self:stopRoaming()
             end
         else
             self:runAction_Floating()
@@ -2412,6 +2403,14 @@ function Character:setTemporaryPause(pause)
     end
 
     return false
+end
+
+-------------------------------------
+-- function stopRoaming
+-------------------------------------
+function Character:stopRoaming()
+    cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
+    self.m_roamTimer = 1
 end
 
 -------------------------------------

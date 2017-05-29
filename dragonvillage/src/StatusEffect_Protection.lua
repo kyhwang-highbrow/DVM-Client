@@ -68,11 +68,9 @@ end
 
 -------------------------------------
 -- function onApplyOverlab
--- @brief 중첩될때마다 적용되어야하는 효과를 적용
+-- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
 -------------------------------------
 function StatusEffect_Protection:onApplyOverlab(unit)
-    local b = PARENT.onApplyOverlab(self, unit)
-
     local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
     local adj_value = t_status_effect['val_1'] * (unit:getValue() / 100)
 	local shield_hp = self.m_owner.m_maxHp * (adj_value / 100)
@@ -83,25 +81,19 @@ function StatusEffect_Protection:onApplyOverlab(unit)
     -- 보호막 가산
     self.m_shieldHP = self.m_shieldHP + shield_hp
     self.m_shieldHPOrg = self.m_shieldHPOrg + shield_hp
-
-    return b
 end
 
 
 -------------------------------------
 -- function onUnapplyOverlab
--- @brief 중첩될때마다 적용되어야하는 효과를 해제
+-- @brief 해당 상태효과가 중첩 해제될시마다 호출
 -------------------------------------
 function StatusEffect_Protection:onUnapplyOverlab(unit)
-    local b = PARENT.onUnapplyOverlab(self, unit)
-
-     -- 보호막 감산
+    -- 보호막 감산
     local shield_hp = unit:getParam('shield_hp')
 
     self.m_shieldHPOrg = self.m_shieldHPOrg - shield_hp
     self.m_shieldHP = math_min(self.m_shieldHP, self.m_shieldHPOrg)
-            
-    return b
 end
 
 -------------------------------------

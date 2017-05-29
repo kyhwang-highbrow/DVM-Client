@@ -43,11 +43,9 @@ end
 
 -------------------------------------
 -- function onApplyOverlab
--- @brief 중첩될때마다 적용되어야하는 효과를 적용
+-- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
 -------------------------------------
 function StatusEffect_Resist:onApplyOverlab(unit)
-    local b = PARENT.onApplyOverlab(self, unit)
-
     local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
     local adj_value = t_status_effect['dmg_adj_rate'] * (unit:getValue() / 100)
 	local resist_rate = (adj_value / 100)
@@ -57,23 +55,17 @@ function StatusEffect_Resist:onApplyOverlab(unit)
 
     -- 저항력 가산
     self.m_resistRate = self.m_resistRate + resist_rate
-
-    return b
 end
 
 -------------------------------------
 -- function onUnapplyOverlab
--- @brief 중첩될때마다 적용되어야하는 효과를 해제
+-- @brief 해당 상태효과가 중첩 해제될시마다 호출
 -------------------------------------
 function StatusEffect_Resist:onUnapplyOverlab(unit)
-    local b = PARENT.onUnapplyOverlab(self, unit)
-
-     -- 저항력 감산
+    -- 저항력 감산
     local resist_rate = unit:getParam('resist_rate')
 
     self.m_resistRate = self.m_resistRate - resist_rate
-            
-    return b
 end
 
 -------------------------------------

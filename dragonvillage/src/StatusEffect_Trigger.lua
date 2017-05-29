@@ -23,31 +23,19 @@ function StatusEffect_Trigger:init(file_name, body)
 end
 
 -------------------------------------
--- function onApplyCommon
+-- function onStart
 -------------------------------------
-function StatusEffect_Trigger:onApplyCommon()
-    local b = PARENT.onApplyCommon(self)
-
-    if (b) then
-        -- listner 등록
-        self.m_owner:addListener(self.m_triggerName, self)
-    end
-
-    return b
+function StatusEffect_Trigger:onStart()
+    -- listner 등록
+    self.m_owner:addListener(self.m_triggerName, self)
 end
 
 -------------------------------------
--- function onUnapplyCommon
+-- function onEnd
 -------------------------------------
-function StatusEffect_Trigger:onUnapplyCommon()
-    local b = PARENT.onUnapplyCommon(self)
-
-    if (b) then
-        -- listener 해제
-        self.m_owner:removeListener(self.m_triggerName, self)
-    end
-
-    return b
+function StatusEffect_Trigger:onEnd()
+    -- listener 해제
+    self.m_owner:removeListener(self.m_triggerName, self)
 end
 
 -------------------------------------

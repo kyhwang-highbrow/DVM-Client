@@ -25,11 +25,9 @@ end
 
 -------------------------------------
 -- function onApplyOverlab
--- @brief 중첩될때마다 적용되어야하는 효과를 적용
+-- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
 -------------------------------------
 function StatusEffect_Bleed:onApplyOverlab(unit)
-    local b = PARENT.onApplyOverlab(self, unit)
-
     -- 데미지 계산, 방어는 무시
     local caster = unit:getCaster()
     local damage
@@ -53,23 +51,17 @@ function StatusEffect_Bleed:onApplyOverlab(unit)
 	
     -- 데미지 가산
 	self.m_dmg = self.m_dmg + damage
-            
-    return b
 end
 
 -------------------------------------
 -- function onUnapplyOverlab
--- @brief 중첩될때마다 적용되어야하는 효과를 해제
+-- @brief 해당 상태효과가 중첩 해제될시마다 호출
 -------------------------------------
 function StatusEffect_Bleed:onUnapplyOverlab(unit)
-    local b = PARENT.onUnapplyOverlab(self, unit)
-
-     -- 데미지 감산
+    -- 데미지 감산
     local damage = unit:getParam('damage')
 
     self.m_dmg = self.m_dmg - damage
-            
-    return b
 end
 
 -------------------------------------

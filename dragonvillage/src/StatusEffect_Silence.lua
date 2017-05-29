@@ -15,25 +15,15 @@ function StatusEffect_Silence:init(file_name, body)
 end
 
 -------------------------------------
--- function onApplyCommon
--- @brief 중첩과 관계없이 한번만 적용되어야하는 효과를 적용
+-- function onStart
 -------------------------------------
-function StatusEffect_Silence:onApplyCommon()
-    local b = PARENT.onApplyCommon(self)
-
+function StatusEffect_Silence:onStart()
     self.m_owner:setSilence(true)
-
-    return b
 end
 
 -------------------------------------
--- function onUnapplyCommon
--- @brief 중첩과 관계없이 한번만 적용되어야하는 효과를 해제
+-- function onEnd
 -------------------------------------
-function StatusEffect_Silence:onUnapplyCommon()
-    local b = PARENT.onUnapplyCommon(self)
-
+function StatusEffect_Silence:onEnd()
     self.m_owner:setSilence(false)
-
-    return b
 end

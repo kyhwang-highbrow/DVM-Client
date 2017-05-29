@@ -352,8 +352,12 @@ end
 -------------------------------------
 function Character.st_stun(owner, dt)
 	if owner.m_stateTimer == 0 then
-		owner:restore(500)
 		owner:setSilence(true)
+
+        -- 로밍 액션 해제
+        if (owner.m_bRoam) then
+            owner:stopRoaming()
+        end
 
         -- 캐스팅 게이지
         if owner.m_castingNode then
