@@ -896,10 +896,6 @@ function Character:makeDamageEffect(dmg_type, attr, x, y, dir, critical, is_high
     effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
   
     self.m_world:addChild3(effect.m_node, DEPTH_DAMAGE_EFFECT)
-
-    if (is_highlight) then
-        --self.m_world.m_gameHighlight:addEffect(effect)
-    end
 end
 
 -------------------------------------
@@ -1339,10 +1335,10 @@ end
 -------------------------------------
 function Character:update(dt)
     -- 경직 중일 경우
-    if self.m_isSpasticity then
+    if (self.m_isSpasticity) then
         self.m_delaySpasticity = self.m_delaySpasticity - dt
 
-        if self.m_delaySpasticity <= 0 or self.m_bEnableSpasticity == false then
+        if (self.m_delaySpasticity <= 0 or not self.m_bEnableSpasticity) then
             self:setSpasticity(false)
         else
             return

@@ -70,10 +70,5 @@ function SkillSummon:makeSkillInstance(owner, t_skill, t_data)
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
 
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
-
 	return true
 end

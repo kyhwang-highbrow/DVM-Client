@@ -161,7 +161,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     if (status_effect) then
         -- 상태 효과 중첩 혹은 갱신
         local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
-        status_effect:addUnit(caster, skill_id, status_effect_value, duration)
+        status_effect:addOverlabUnit(caster, skill_id, status_effect_value, duration)
     else
         -- 상태 효과 생성
 		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_rate, duration, skill_id)
@@ -334,7 +334,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     -----------------------------------------------------------------
     -- StatusEffectUnit 생성 및 추가
-    status_effect:addUnit(caster, skill_id, status_effect_value, duration)
+    status_effect:addOverlabUnit(caster, skill_id, status_effect_value, duration)
 
     -- 해로운 상태효과 걸렸을 시
 	if (self:isHarmful(status_effect)) then

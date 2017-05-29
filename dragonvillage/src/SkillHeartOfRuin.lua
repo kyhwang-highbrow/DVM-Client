@@ -114,11 +114,6 @@ function SkillHeartOfRuin:makeSpecialEffect()
         local worldNode = world:getMissileNode('bottom', self.m_bHighlight)
         worldNode:addChild(effect.m_node, 4)
 
-        -- 하이라이트
-        if (self.m_bHighlight) then
-            --world.m_gameHighlight:addEffect(effect)
-        end
-        
         local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
         effect:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), cameraHomePosY)
         effect:setScale(0.6)
@@ -133,11 +128,6 @@ function SkillHeartOfRuin:makeSpecialEffect()
     
         local worldNode = world:getMissileNode('bottom', self.m_bHighlight)
         worldNode:addChild(effect.m_node, 3)
-
-        -- 하이라이트
-        if (self.m_bHighlight) then
-            --world.m_gameHighlight:addEffect(effect)
-        end
         
     end
 end
@@ -168,9 +158,4 @@ function SkillHeartOfRuin:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode('bottom')
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end

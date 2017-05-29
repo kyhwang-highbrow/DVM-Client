@@ -687,10 +687,6 @@ function GameWorld:addMissile(missile, object_key, res_depth, highlight)
 
 	local target_node = self:getMissileNode(depth_type)
     target_node:addChild(missile.m_rootNode, z_order)
-
-    if (highlight) then
-        --self.m_gameHighlight:addMissile(missile)
-    end
 end
 
 -------------------------------------
