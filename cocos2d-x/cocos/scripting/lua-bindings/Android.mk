@@ -23,24 +23,26 @@ LOCAL_SRC_FILES := manual/CCLuaBridge.cpp \
           manual/lua_cocos2dx_ui_manual.cpp \
           manual/lua_cocos2dx_spine_manual.cpp \
           manual/lua_cocos2dx_experimental_webview_manual.cpp \
+		  manual/lua_cocos2dx_experimental_video_manual.cpp \
           manual/lua_cocos2dx_physics_manual.cpp \
           manual/lua_cocos2dx_deprecated.cpp \
-            manual/lua_cocos2dx_anb_manual.cpp \
-            manual/lua_cocos2dx_perplelab_manual.cpp \
+		  manual/lua_cocos2dx_anb_manual.cpp \
+          manual/lua_cocos2dx_perplelab_manual.cpp \
           manual/lua_xml_http_request.cpp \
           manual/platform/android/CCLuaJavaBridge.cpp \
           manual/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxLuaJavaBridge.cpp \
           manual/tolua_fix.cpp \
           manual/lua_extensions.c \
-               manual/lua_struct.c \
-            auto/lua_cocos2dx_anb_auto.cpp \
-            auto/lua_cocos2dx_perplelab_auto.cpp \
+          manual/lua_struct.c \
+          auto/lua_cocos2dx_anb_auto.cpp \
+          auto/lua_cocos2dx_perplelab_auto.cpp \
           auto/lua_cocos2dx_auto.cpp \
           auto/lua_cocos2dx_extension_auto.cpp \
           auto/lua_cocos2dx_studio_auto.cpp \
           auto/lua_cocos2dx_ui_auto.cpp \
           auto/lua_cocos2dx_spine_auto.cpp \
           auto/lua_cocos2dx_experimental_webview_auto.cpp \
+		  auto/lua_cocos2dx_experimental_video_auto.cpp \
           auto/lua_cocos2dx_physics_auto.cpp \
           ../../../external/lua/tolua/tolua_event.c \
           ../../../external/lua/tolua/tolua_is.c \

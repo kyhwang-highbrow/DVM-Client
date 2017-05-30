@@ -82,6 +82,8 @@ namespace cocos2d {
 
                 virtual void setVisible(bool visible);
 
+                void setBounces(bool bounces);
+
                 static bool shouldStartLoading(const int viewTag, const std::string &url);
                 static void didFinishLoading(const int viewTag, const std::string &url);
                 static void didFailLoading(const int viewTag, const std::string &url);

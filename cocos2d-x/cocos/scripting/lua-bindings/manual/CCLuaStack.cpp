@@ -75,6 +75,8 @@ extern "C" {
 #include "lua_cocos2dx_perplelab_manual.hpp"
 #include "lua_cocos2dx_experimental_webview_auto.hpp"
 #include "lua_cocos2dx_experimental_webview_manual.hpp"
+#include "lua_cocos2dx_experimental_video_auto.hpp"
+#include "lua_cocos2dx_experimental_video_manual.hpp"
 
 namespace {
 int lua_print(lua_State * luastate)
@@ -188,6 +190,8 @@ bool LuaStack::init(void)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     register_all_cocos2dx_experimental_webview(_state);
     register_all_cocos2dx_experimental_webview_manual(_state);
+	register_all_cocos2dx_experimental_video(_state);
+	register_all_cocos2dx_experimental_video_manual(_state);
 #endif
 #if CC_USE_PHYSICS
     register_all_cocos2dx_physics(_state);

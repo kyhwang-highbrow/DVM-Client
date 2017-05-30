@@ -197,7 +197,13 @@ public:
      */
     ccWebViewCallback getOnJSCallback()const;
 
-    virtual void draw(Renderer *renderer, const Mat4 &transform, bool transformUpdated) override;
+    /**
+     * Set whether the webview bounces at end of scroll of WebView.
+     */
+    void setBounces(bool bounce);
+
+
+	virtual void draw(Renderer *renderer, const Mat4 &transform, bool transformUpdated) override;
 
     /**
      * Toggle visibility of WebView.

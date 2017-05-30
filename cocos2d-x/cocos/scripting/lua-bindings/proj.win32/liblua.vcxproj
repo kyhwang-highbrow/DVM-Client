@@ -46,6 +46,8 @@
     <ClCompile Include="..\..\..\..\external\lua\tolua\tolua_to.c" />
     <ClCompile Include="..\auto\lua_cocos2dx_anb_auto.cpp" />
     <ClCompile Include="..\auto\lua_cocos2dx_auto.cpp" />
+    <ClCompile Include="..\auto\lua_cocos2dx_experimental_video_auto.cpp" />
+    <ClCompile Include="..\auto\lua_cocos2dx_experimental_webview_auto.cpp" />
     <ClCompile Include="..\auto\lua_cocos2dx_extension_auto.cpp" />
     <ClCompile Include="..\auto\lua_cocos2dx_perplelab_auto.cpp" />
     <ClCompile Include="..\auto\lua_cocos2dx_physics_auto.cpp" />
@@ -117,6 +119,8 @@
     <ClInclude Include="..\..\..\..\external\lua\tolua\tolua_event.h" />
     <ClInclude Include="..\auto\lua_cocos2dx_anb_auto.hpp" />
     <ClInclude Include="..\auto\lua_cocos2dx_auto.hpp" />
+    <ClInclude Include="..\auto\lua_cocos2dx_experimental_video_auto.hpp" />
+    <ClInclude Include="..\auto\lua_cocos2dx_experimental_webview_auto.hpp" />
     <ClInclude Include="..\auto\lua_cocos2dx_extension_auto.hpp" />
     <ClInclude Include="..\auto\lua_cocos2dx_perplelab_auto.hpp" />
     <ClInclude Include="..\auto\lua_cocos2dx_physics_auto.hpp" />

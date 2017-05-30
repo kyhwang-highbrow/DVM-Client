@@ -71,6 +71,8 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
 
 - (void)setVisible:(bool)visible;
 
+- (void)setBounces:(bool)bounces;
+
 - (void)setFrameWithX:(float)x y:(float)y width:(float)width height:(float)height;
 
 - (void)setJavascriptInterfaceScheme:(const std::string &)scheme;
@@ -143,6 +145,10 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
 
 - (void)setVisible:(bool)visible {
     self.uiWebView.hidden = !visible;
+}
+
+- (void)setBounces:(bool)bounces {
+  self.uiWebView.scrollView.bounces = bounces;
 }
 
 - (void)setFrameWithX:(float)x y:(float)y width:(float)width height:(float)height {
