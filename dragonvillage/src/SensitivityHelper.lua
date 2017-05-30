@@ -12,6 +12,32 @@ function SensitivityHelper:doActionBubbleText_Extend(t_param)
 end
 
 -------------------------------------
+-- function doActionBubbleText_Formal
+-- @brief 범용으로 제작할 예정
+-------------------------------------
+function SensitivityHelper:doActionBubbleText_Formal(parent, bubble_str, delay, cb_func)
+-- 이전 버블 텍스트가 있다면 삭제해버린다.
+	self:deleteBubbleText(parent)
+
+	-- 버블 텍스트 생성하여 부모에 붙임
+	local bubble_text = SensitivityHelper:getBubbleText(bubble_str)
+	bubble_text:setTag(TAG_BUBBLE)
+	parent:addChild(bubble_text, 2)
+	
+	-- 띠용~ 후 페이드 아웃 하는 액션
+	local scale_action = cc.ScaleTo:create(0.17, 1.25)
+	local scale_action_2 = cc.ScaleTo:create(0.08, 1)
+	local delay_action = cc.DelayTime:create(delay)
+	local fade_action = cc.FadeOut:create(0.25)
+	local cb_action = cc.CallFunc:create(function() if (cb_func) then cb_func() end end)
+	local remove_action = cc.RemoveSelf:create()
+	local seq_action = cc.Sequence:create(scale_action, scale_action_2, delay_action, fade_action, cb_action, remove_action)
+	bubble_text:runAction(seq_action)
+
+	return bubble_text
+end
+
+-------------------------------------
 -- function doActionBubbleText
 -- @public 현재는 드래곤 전용이다 추후에 사용처가 늘어나면 범용성을 갖추어야 할것
 -------------------------------------
@@ -19,47 +45,34 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custo
 	-- 상황별 문구 생성
 	local sens_str = '{@BLACK}' .. (custom_str or SensitivityHelper:getRandomSensStr(did, flv, case_type))
 
-	-- 이전 버블 텍스트가 있다면 삭제해버린다.
-	self:deleteBubbleText(parent)
-
-	-- 버블 텍스트 생성하여 부모에 붙임
-	local bubble_text = SensitivityHelper:getBubbleText(sens_str)
-	bubble_text:setTag(TAG_BUBBLE)
-	parent:addChild(bubble_text, 2)
-
 	-- 상황별 변수 및 포지션 정리
 	local delay_time
-    if pl.stringx.startswith(case_type, 'lobby_tamer') then
-        bubble_text:setPosition(0, 330)
-		delay_time = 1.5
+	if pl.stringx.startswith(case_type, 'lobby_') then
+		if (case_type == 'lobby_tamer') then
+			pos_y = 330
+			delay_time = 1.5
+		else
+			pos_y = 300
+			delay_time = 1.5
+		end
 
-	elseif string.find(case_type, 'lobby_') then
-		bubble_text:setPosition(50, 320)
-		delay_time = 1.5
-
-	elseif string.find(case_type, 'party_') then
-		bubble_text:setPosition(0, 100)
-		delay_time = 0.5
-
-	elseif (case_type == 'lactea_tamer') then
-		bubble_text:setPosition(0, 200)
+	elseif pl.stringx.startswith(case_type, 'party_') then
+		pos_y = 100
 		delay_time = 0.5
 
 	elseif string.find(case_type, 'lactea_') then
-		bubble_text:setPosition(0, 120)
-		delay_time = 0.5
+		if (case_type == 'lactea_tamer') then
+			pos_y = 200
+			delay_time = 0.5
+		else
+			pos_y = 120
+			delay_time = 0.5
+		end
 	
 	end
 	
-	-- 띠용~ 후 페이드 아웃 하는 액션
-	local scale_action = cc.ScaleTo:create(0.17, 1.25)
-	local scale_action_2 = cc.ScaleTo:create(0.08, 1)
-	local delay_action = cc.DelayTime:create(delay_time)
-	local fade_action = cc.FadeOut:create(0.25)
-	local cb_action = cc.CallFunc:create(function() if (cb_func) then cb_func() end end)
-	local remove_action = cc.RemoveSelf:create()
-	local seq_action = cc.Sequence:create(scale_action, scale_action_2, delay_action, fade_action, cb_action, remove_action)
-	bubble_text:runAction(seq_action)
+	local bubble_text = self:doActionBubbleText_Formal(parent, sens_str, delay_time, cb_func)
+	bubble_text:setPosition(0, pos_y)
 end
 
 -------------------------------------

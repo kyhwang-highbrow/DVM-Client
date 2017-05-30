@@ -711,10 +711,10 @@ local t_module = {
     'UI_DragonLevelupResult',
 
 	-- UI : 드래곤 평가
-	'UI_DragonLevelupResult',
-	'UI_DragonLevelupResult',
-	'UI_DragonLevelupResult',
-	'UI_DragonLevelupResult',
+	'UI_DragonBoardPopup',
+	'UI_DragonBoardListItem',
+	'UI_DragonBoardPopup_Evaluate',
+	'UI_DragonBoardPopup_Write',
 
 	-- UI : 테이머 관리
 	'UI_TamerManagePopup',
