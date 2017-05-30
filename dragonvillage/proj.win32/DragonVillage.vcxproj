@@ -342,6 +342,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\NumberLabel_Pumping.lua" />
     <None Include="..\src\NumberLoop.lua" />
     <None Include="..\src\plSample.lua" />
+    <None Include="..\src\plSample_test.lua" />
     <None Include="..\src\pl\app.lua" />
     <None Include="..\src\pl\array2d.lua" />
     <None Include="..\src\pl\class.lua" />

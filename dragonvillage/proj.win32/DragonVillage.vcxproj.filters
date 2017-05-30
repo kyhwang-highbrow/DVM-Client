@@ -2364,6 +2364,9 @@
     <None Include="..\src\ServerData_DragonBoard.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\plSample_test.lua">
+      <Filter>lua\sample</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
