@@ -624,3 +624,48 @@ function SceneDV:penlightTest()
 
 	end
 end
+
+-------------------------------------
+-- function webViewTest
+-------------------------------------
+function SceneDV:webViewTest()
+    if isWin32() then return end 
+    local url = 'http://cafe.naver.com'
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+    local webview = ccexp.WebView:create()
+    webview:setAnchorPoint(cc.p(0, 0))
+    webview:setContentSize(visibleSize.width, visibleSize.height)
+    webview:loadURL(url)
+    webview:setBounces(false)
+    webview:setScalesPageToFit(true)
+    self.m_scene:addChild(webview)
+end
+
+-------------------------------------
+-- function videoPlayerTest
+-------------------------------------
+function SceneDV:videoPlayerTest()
+    if isWin32() then return end 
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+    local videoPlayer = ccexp.VideoPlayer:create()
+    videoPlayer:setAnchorPoint(cc.p(0, 0))
+    videoPlayer:setContentSize(visibleSize.width, visibleSize.height)
+    videoPlayer:setFileName("video/kakao_splash.mp4") -- test res
+    self.m_scene:addChild(videoPlayer)
+    videoPlayer:play()
+
+    local bStart = false
+    local function update_func(dt)
+        if not bStart and videoPlayer:isPlaying() then
+            cclog('video play start')
+            bStart = true
+        end
+
+        if bStart and not videoPlayer:isPlaying() then
+            cclog('video play end')
+            videoPlayer:unscheduleUpdate()
+        end
+    end
+
+    videoPlayer:scheduleUpdateWithPriorityLua(function(dt) update_func(dt) end, 0)   
+end
