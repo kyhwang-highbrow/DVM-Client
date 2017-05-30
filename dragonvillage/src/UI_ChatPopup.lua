@@ -297,35 +297,44 @@ end
 -------------------------------------
 function UI_ChatPopup:click_changeChannelBtn()
     local edit_box = UI_SimpleEditBoxPopup()
-    edit_box:setPopupTitle(Str('이동할 채널 번호를 입력해주세요. (1~999)'))
-    edit_box:setPopupDsc(Str('이동할 채널 번호를 입력해주세요. (1~999)'))
+    edit_box:setPopupTitle(Str('이동할 채널 번호를 입력해주세요. (1~9999)'))
+    edit_box:setPopupDsc(Str('이동할 채널 번호를 입력해주세요. (1~9999)'))
     edit_box:setPlaceHolder(Str('입력하세요.'))
 
     local function confirm_cb(str)
-        local channel_num = tonumber(str)
-
-        if (not channel_num) then
-            UIManager:toastNotificationRed('1~999 사이의 숫자를 입력해주세요.')
-            return false
-        end
-
-        if (channel_num < 0 or 999 < channel_num) then
-            UIManager:toastNotificationRed('1~999 사이의 숫자를 입력해주세요.')
-            return false
-        end
-        return true
+        return self:confirmChannelName(str)
     end
     edit_box:setConfirmCB(confirm_cb)
 
-    local function close_cb(str)
-        local channel_name = edit_box.vars['editBox']:getText()
-        --g_serverData:applyServerData(text, 'local', 'idfa')
-        --self:doNextWork()
-        if (not g_chatManager:requestChangeChannel(channel_name)) then
-            UIManager:toastNotificationRed('채널 이동 요청을 실패하였습니다.')
+    local function close_cb()
+        if (edit_box.m_retType == 'ok') then
+            local channel_name = edit_box.vars['editBox']:getText()
+        
+            if (not self:confirmChannelName(channel_name)) then
+                return
+            end
+
+            if (not g_chatManager:requestChangeChannel(channel_name)) then
+                UIManager:toastNotificationRed('채널 이동 요청을 실패하였습니다.')
+            end
         end
     end
     edit_box:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function confirmChannelName
+-- @brief 채널이 1~9999 사이의 숫자인지 체크
+-------------------------------------
+function UI_ChatPopup:confirmChannelName(channel_name)
+    local channel_num = tonumber(channel_name)
+
+    if (not channel_num) or (channel_num <= 0) or (9999 < channel_num) then
+        UIManager:toastNotificationRed('1~9999 사이의 숫자를 입력해주세요.')
+        return false
+    end
+
+    return true
 end
 
 -------------------------------------

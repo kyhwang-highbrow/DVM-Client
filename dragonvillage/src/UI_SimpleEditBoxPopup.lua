@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_SimpleEditBoxPopup = class(PARENT,{
         m_confirmCB = 'function',
+        m_retType = 'string', -- 'ok', 'cancel'
     })
 
 -------------------------------------
@@ -17,7 +18,7 @@ function UI_SimpleEditBoxPopup:init()
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_SimpleEditBoxPopup')
+    g_currScene:pushBackKeyListener(self, function() self:closeWithRetType('cancel') end, 'UI_SimpleEditBoxPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -91,7 +92,7 @@ end
 function UI_SimpleEditBoxPopup:initButton()
     local vars = self.vars
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
-    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:closeWithRetType('cancel') end)
 end
 
 -------------------------------------
@@ -144,6 +145,20 @@ function UI_SimpleEditBoxPopup:click_okBtn()
         end
     end
 
+    self:closeWithRetType('ok')
+end
+
+-------------------------------------
+-- function closeWithRetType
+-------------------------------------
+function UI_SimpleEditBoxPopup:closeWithRetType(ret_type)
+    if (ret_type == 'ok') then
+    elseif (ret_type == 'cancel') then
+    else
+        error('ret_type : ' .. ret_type)
+    end
+
+    self.m_retType = ret_type
     self:close()
 end
 
