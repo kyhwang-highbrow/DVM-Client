@@ -32,7 +32,7 @@ function UI_ReadyScene:init(stage_id)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_ReadyScene')
 
-	self:checkDeckName()
+	self:checkDeckProper()
     
 	self:initUI()
     self:initButton()
@@ -72,13 +72,14 @@ function UI_ReadyScene:init_MemberVariable(stage_id)
 end
 
 -------------------------------------
--- function checkDeckName
--- @brief 콜로세움 덱이라면 일반 슈팅덱으로 바꿔준다.
+-- function checkDeckProper
+-- @brief 해당 모드에 맞는 덱인지 체크하고 아니라면 바꿔준다.
 -------------------------------------
-function UI_ReadyScene:checkDeckName()
+function UI_ReadyScene:checkDeckProper()
+	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 	local curr_deck_name = g_deckData:getSelectedDeckName()
-	if string.find(curr_deck_name, 'pvp') then
-		g_deckData:setSelectedDeck('1')
+	if not (curr_mode == curr_deck_name) then
+		g_deckData:setSelectedDeck(curr_mode)
 	end
 end
 
@@ -214,7 +215,9 @@ function UI_ReadyScene:initUI()
     vars['leaderBtn']:setVisible(false)
     vars['leaderSprite']:setVisible(false)
 
-    self:init_teamSelectBtn()
+	-- 스펙에서 제외(17.05.30 kms)
+	vars['teamBtn']:setVisible(false)
+	vars['teamBuffBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -270,7 +273,7 @@ function UI_ReadyScene:initButton()
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
 
     -- 도감 무리(스토리) 버프
-    vars['teamBuffBtn']:registerScriptTapHandler(function() self:click_teamBuffBtn() end)
+    --vars['teamBuffBtn']:registerScriptTapHandler(function() self:click_teamBuffBtn() end)
 end
 
 -------------------------------------
@@ -837,25 +840,6 @@ end
 -------------------------------------
 function UI_ReadyScene:close()
     UI.close(self)
-end
-
--------------------------------------
--- function init_teamSelectBtn
--------------------------------------
-function UI_ReadyScene:init_teamSelectBtn()
-    local vars = self.vars
-    local uic_sort_list = MakeUICSortList_teamList(vars['teamBtn'], vars['teamLabel'], 'adventure')
-
-    -- 초기 선택 덱 설정
-    local deck_name = g_deckData:getSelectedDeckName()
-    uic_sort_list:setSelectSortType(deck_name)
-
-    -- 버튼을 통해 정렬이 변경되었을 경우
-    local function sort_change_cb(sort_type)
-        local deck_name = sort_type
-        self:click_teamBtn(deck_name)
-    end
-    uic_sort_list:setSortChangeCB(sort_change_cb)
 end
 
 --@CHECK
