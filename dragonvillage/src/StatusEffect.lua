@@ -19,6 +19,9 @@ StatusEffect = class(PARENT, {
         m_bDirtyPos = 'bollean',
         m_bHarmful = 'boolean',
 
+        m_bInfinity = 'boolean', -- 타이머없이 계속 유지되는지 여부
+        m_latestTimer = 'number',
+
         m_overlabCnt = 'number',
         m_maxOverlab = 'number', -- 0:중복 가능, 1:중복 불가능, 중첩 불가능, 지속 시간 초기화, 2이상:숫자만큼 중첩 가능, 지속 시간 초기화
 
@@ -44,6 +47,9 @@ function StatusEffect:init(file_name, body)
     self.m_bApply = false
     self.m_bDirtyPos = true
     self.m_bHarmful = false
+
+    self.m_bInfinity = false
+    self.m_latestTimer = 0
 
     self.m_overlabCnt = 0
     self.m_maxOverlab = 0
@@ -197,7 +203,6 @@ function StatusEffect:update(dt)
         else
             modified_dt = dt
         end
-        --
 
         -- 개별 update
         for _, list in pairs(self.m_mUnit) do
@@ -230,6 +235,9 @@ function StatusEffect:update(dt)
         self:updatePos()
     end
 
+    -- 타이머
+    self:updateLatestTimer(dt)
+
     return ret
 end
 
@@ -250,6 +258,14 @@ function StatusEffect:updatePos()
     self.m_bDirtyPos = false
 end
 
+-------------------------------------
+-- function updateLatestTimer
+-------------------------------------
+function StatusEffect:updateLatestTimer(dt)
+    if (self.m_bInfinity) then return end
+
+    self.m_latestTimer = self.m_latestTimer - dt
+end
 
 -------------------------------------
 -- function insertStatus
@@ -439,6 +455,32 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, duration)
 
     -- @EVENT : 스탯 변화 적용(최대 체력)
 	self.m_owner:dispatch('stat_changed')
+
+    -- 해당 상태효과의 종료시간을 구해서 저장
+    local latestTime = self:calcLatestTime()
+    self.m_bInfinity = (latestTime == -1)
+    self.m_latestTimer = latestTime
+end
+
+-------------------------------------
+-- function calcLatestTime
+-- @brief 해당 상태효과의 종료시간을 얻는다
+-------------------------------------
+function StatusEffect:calcLatestTime()
+    local latestTimer = 0
+
+    for _, list in pairs(self.m_mUnit) do
+        for i, unit in ipairs(list) do
+            if (unit.m_durationTimer ~= -1) then
+                latestTimer = math_max(latestTimer, unit.m_durationTimer)
+            else
+                latestTimer = -1
+                return latestTimer
+            end
+        end
+    end
+
+    return latestTimer
 end
 
 -------------------------------------
@@ -490,4 +532,18 @@ end
 -------------------------------------
 function StatusEffect:getTypeName()
     return self.m_statusEffectName
+end
+
+-------------------------------------
+-- function isInfinity
+-------------------------------------
+function StatusEffect:isInfinity()
+    return self.m_bInfinity
+end
+
+-------------------------------------
+-- function getLatestTimer
+-------------------------------------
+function StatusEffect:getLatestTimer()
+    return self.m_latestTimer
 end

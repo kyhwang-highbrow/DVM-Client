@@ -76,23 +76,35 @@ function StatusEffectIcon:checkDuration()
 		self.m_bDelete = true 
         return
     end
-    --[[
-	-- 1. 제한 시간이 있는 상태 효과 
-	if (self.m_statusEffect.m_duration ~= -1) then 
-		-- 2. 남은 시간이 3초 이상인데 점멸 상태인 경우 -> 점멸 해제
-		if (self.m_statusEffect.m_durationTimer > 3) and (self.m_bBlink) then
-			self.m_icon:setOpacity(255)
-			self.m_icon:stopAllActions()
-			self.m_bBlink = false
-		-- 3. 남은 시간이 3초 이하인데 점멸 상태가 아닌 경우 -> 점멸 시킴
-		elseif (self.m_statusEffect.m_durationTimer < 3) and (not self.m_bBlink) then 
-			local sequence = cc.Sequence:create(cc.FadeOut:create(0.5), cc.FadeIn:create(0.5))
+
+    -- 점멸 설정 함수
+    local function setBlink(b)
+        if (b == self.m_bBlink) then return end
+
+        if (b) then
+            local sequence = cc.Sequence:create(cc.FadeOut:create(0.5), cc.FadeIn:create(0.5))
 			self.m_icon:runAction(cc.RepeatForever:create(sequence))
-			self.m_bBlink = true 
+        else
+            self.m_icon:setOpacity(255)
+		    self.m_icon:stopAllActions()
+        end
+
+        self.m_bBlink = b
+    end
+    
+	-- 1. 제한 시간이 있는 상태 효과 
+	if (self.m_statusEffect:isInfinity()) then 
+        setBlink(true)
+    else
+		-- 2. 남은 시간이 3초 이상인데 점멸 상태인 경우 -> 점멸 해제
+		if (self.m_statusEffect:getLatestTimer() > 3) then
+			setBlink(false)
+		-- 3. 남은 시간이 3초 이하인데 점멸 상태가 아닌 경우 -> 점멸 시킴
+		elseif (self.m_statusEffect:getLatestTimer() < 3) then 
+			setBlink(true)
 		end
 	end
-    ]]--
-
+    
 	if (self.m_statusEffect.m_state == 'end') and (not self.m_bDelete) then
 		self:release()
 		self.m_char:removeStatusIcon(self.m_statusEffect)
