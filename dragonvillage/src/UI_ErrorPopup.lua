@@ -111,9 +111,9 @@ function UI_ErrorPopup:setErrorStr(str)
 	end
 
 	local error_str = string.gsub(str, '\t', '    ') or '???'
-	local tracker_str = g_errorTracker:getTrackerText()
+	local tracker_str = g_errorTracker:getTrackerText(error_str)
 
-	self.m_errorLabel:setString(tracker_str .. '\n' .. error_str)
+	self.m_errorLabel:setString(tracker_str)
 
 	if (not DEVELOPMENT_SRC_VER) or (not isWin32()) then
 		slack_api(error_str)

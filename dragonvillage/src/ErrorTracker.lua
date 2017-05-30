@@ -45,7 +45,6 @@ function ErrorTracker:getTrackerText(msg)
 
 	local templete = 
 [[
-@sgkim @skim @mskim @wlee ...
 =========================================
 nick : %s
 uid : %d
