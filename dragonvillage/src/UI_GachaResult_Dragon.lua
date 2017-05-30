@@ -4,11 +4,12 @@ local PARENT = UI
 -- class UI_GachaResult_Dragon
 -------------------------------------
 UI_GachaResult_Dragon = class(PARENT, {
-        m_lNumberLabel = 'list',
         m_lGachaDragonList = 'list',
 		m_lDragonCardList = 'list',
 
 		m_currDragonAnimator = 'UIC_DragonAnimator',
+
+		m_isDirecting = 'bool'
      })
 
 -------------------------------------
@@ -28,6 +29,7 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list)
 
 	-- 멤버 변수
 	self.m_lDragonCardList = {}
+	self.m_isDirecting = false
 
 	self:initUI()
 	self:initButton()
@@ -68,29 +70,31 @@ function UI_GachaResult_Dragon:refresh()
     local vars = self.vars
     SoundMgr:playEffect('EFFECT', 'reward')
 
-
-    do -- 챕터 전환 연출
-        vars['splashLayer']:setLocalZOrder(1)
-        vars['splashLayer']:setVisible(true)
-        vars['splashLayer']:stopAllActions()
-        vars['splashLayer']:setOpacity(255)
-        vars['splashLayer']:runAction(cc.Sequence:create(cc.FadeOut:create(0.5), cc.Hide:create()))
-    end
-
 	-- 연출을 위한 준비
+	self.m_isDirecting = true
 	vars['starVisual']:setVisible(false)
 	vars['bgNode']:removeAllChildren()
-	self:doActionReverse(nil, 0.1)
+	local function start_directing_cb()
+		do -- 챕터 전환 연출
+			vars['splashLayer']:setLocalZOrder(1)
+			vars['splashLayer']:setVisible(true)
+			vars['splashLayer']:stopAllActions()
+			vars['splashLayer']:setOpacity(255)
+			vars['splashLayer']:runAction(cc.Sequence:create(cc.FadeOut:create(0.5), cc.Hide:create()))
+		end
 
-	-- 드래곤 애니메이터 및 정보 갱신
-	self:refresh_dragon(t_gacha_dragon)
+		-- 드래곤 애니메이터 및 정보 갱신
+		self:refresh_dragon(t_gacha_dragon)
 
-	do 
+		-- 해당 드래곤 카드 visible on
 		local card = self.m_lDragonCardList[t_gacha_dragon]
 		if (card) then
 			card.root:setVisible(true)
 		end
 	end
+
+	-- ui 다시 집어넣고 연출 시작
+	self:doActionReverse(start_directing_cb, 0.2)
 end
 
 -------------------------------------
@@ -166,7 +170,10 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 			end
 
 			-- ui 연출
-            self:doAction(nil, false)
+			local function directing_done()
+				self.m_isDirecting = false
+			end
+            self:doAction(directing_done, false)
         end
 
         dragon_animator:setDragonAppearCB(cb)
@@ -226,8 +233,10 @@ function UI_GachaResult_Dragon:setDragonCardList()
 		
 		-- 카드 클릭시 드래곤을 보여준다.
 		card.vars['clickBtn']:registerScriptTapHandler(function()
-			self:refresh_dragon(t_data)
-			self.m_currDragonAnimator:forceSkipDirecting()
+			if (self.m_isDirecting == false) then
+				self:refresh_dragon(t_data)
+				self.m_currDragonAnimator:forceSkipDirecting()
+			end
 		end)
 
 		-- 리스트에 저장 (연출을 위해)
