@@ -214,10 +214,6 @@ function UI_ReadyScene:initUI()
     vars['buffInfoBtn']:setVisible(false)
     vars['leaderBtn']:setVisible(false)
     vars['leaderSprite']:setVisible(false)
-
-	-- 스펙에서 제외(17.05.30 kms)
-	vars['teamBtn']:setVisible(false)
-	vars['teamBuffBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -272,7 +268,7 @@ function UI_ReadyScene:initButton()
     -- 진형 관린
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
 
-    -- 도감 무리(스토리) 버프
+    -- 도감 무리(스토리) 버프 스펙에서 제외(17.05.30 kms)
     --vars['teamBuffBtn']:registerScriptTapHandler(function() self:click_teamBuffBtn() end)
 end
 

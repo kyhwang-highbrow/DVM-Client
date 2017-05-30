@@ -151,8 +151,8 @@ function UI_ColosseumReadyScene:initButton()
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
     vars['fomationSetColseBtn']:registerScriptTapHandler(function() self:click_fomationSetColseBtn() end)
 
-    -- 도감 무리(스토리) 버프
-    vars['teamBuffBtn']:registerScriptTapHandler(function() self:click_teamBuffBtn() end)
+    -- 도감 무리(스토리) 버프 스펙에서 제외(17.05.30 kms)
+    --vars['teamBuffBtn']:registerScriptTapHandler(function() self:click_teamBuffBtn() end)
 end
 
 -------------------------------------
