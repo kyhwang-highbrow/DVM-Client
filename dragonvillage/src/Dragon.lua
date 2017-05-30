@@ -540,8 +540,8 @@ end
 -- function release
 -------------------------------------
 function Dragon:release()
-    if self.m_world then
-        if self.m_bLeftFormation then
+    if (self.m_world) then
+        if (self.m_bLeftFormation) then
             self.m_world:removeHero(self)
 			-- @LOG : 죽은 아군 수 (소환을 하는 경우 추가 될 수 있음)
 			self.m_world.m_logRecorder:recordLog('death_cnt', 1)
@@ -552,12 +552,12 @@ function Dragon:release()
 
     if (self.m_hpNode) then
         self.m_hpNode:removeFromParent(true)
+        self.m_hpNode = nil
     end
         
-    self.m_hpNode = nil
     self.m_hpGauge = nil
     
-    Entity.release(self)
+    PARENT.release(self)
 end
 
 -------------------------------------
@@ -614,7 +614,6 @@ function Dragon:makeHPGauge(hp_ui_offset)
 
     self.m_statusNode = self.m_hpNode
     
-    --self.m_world.m_unitInfoNode:addChild(self.m_hpNode, 5)
     self.m_unitInfoNode:addChild(self.m_hpNode, 5)
 
     self.m_infoUI = ui

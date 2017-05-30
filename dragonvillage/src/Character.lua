@@ -66,9 +66,6 @@ Character = class(PARENT, {
         m_prevIsAddSkill = 'bool',
         m_prevAttackDelayTimer = 'number',
 
-        m_chargeSkill = '',
-        m_lActivedSkill = '',
-		
         m_comebackNextState = 'state',
 
         -- @ target
@@ -1680,52 +1677,6 @@ function Character:removeNonTargetEffect(k)
         end
 
         self.m_mNonTargetEffect = {}
-    end
-end
-
--------------------------------------
--- function addActivedSkill
--------------------------------------
-function Character:addActivedSkill(skill, name, allow_duplicate)
-    if (not self.m_lActivedSkill) then
-        self.m_lActivedSkill = {}
-    end
-
-    -- 초기값 지정
-    local allow_duplicate = allow_duplicate
-    if (allow_duplicate == nil) then
-        allow_duplicate = true
-    else
-        allow_duplicate = false
-    end
-
-    if (allow_duplicate == false) then
-        local l_remove = {}
-        for i,v in ipairs(self.m_lActivedSkill) do
-            if v['name'] == name then
-                table.insert(l_remove, v['skill'])
-            end
-        end
-
-        for i,v in ipairs(l_remove) do
-            self:removeActivedSkill(v)
-        end
-    end
-
-
-    table.insert(self.m_lActivedSkill, {skill=skill, name=name})
-end
-
--------------------------------------
--- function removeActivedSkill
--------------------------------------
-function Character:removeActivedSkill(skill)
-    for i,v in ipairs(self.m_lActivedSkill) do
-        if (v['skill'] == skill) then
-            skill:changeState('dying')
-            table.remove(self.m_lActivedSkill, i)
-            break
-        end
     end
 end
 
