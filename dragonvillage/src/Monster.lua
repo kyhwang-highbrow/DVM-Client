@@ -13,6 +13,10 @@ Monster = class(PARENT, {
 
         -- 몬스터 드래곤 관련
         m_mBoneEffect = 'table',        -- 본 위치에 표시되는 추가 이펙트(m_mBoneEffect[effect] = bone_name 형태로 사용)
+
+        -- 본 위치를 사용할 경우 본 동기화를 위해 별도로 수행될 스케줄의 ID
+        -- (해당 오브젝트의 pause 등의 상태에 상관없이 동기화 시키기 위함)
+        m_boneScheduleHandlerID = 'number', 
      })
 
 -------------------------------------
@@ -28,6 +32,7 @@ function Monster:init(file_name, body, ...)
     self.m_lBodyToUseBone = {}
 
     self.m_mBoneEffect = {}
+    self.m_boneScheduleHandlerID = nil
 end
 
 -------------------------------------
@@ -103,6 +108,11 @@ function Monster:init_monster(t_monster, monster_id, level, stage_id)
                     self.m_world.m_groundNode:addChild(effect.m_node)
                 end
             end
+
+            -- 본 정보의 동기화를 맞추기 위한 스케줄 추가
+            if (not self.m_boneScheduleHandlerID) then
+                self.m_boneScheduleHandlerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(function(dt) self:updateBonePos() end, 0, false)
+            end
         end
     end
 end
@@ -175,6 +185,11 @@ function Monster:initPhys(body)
                 self.m_animator.m_node:useBonePosition(body['bone'])
 
                 table.insert(self.m_lBodyToUseBone, body)
+
+                -- 본 정보의 동기화를 맞추기 위한 스케줄 추가
+                if (not self.m_boneScheduleHandlerID) then
+                    self.m_boneScheduleHandlerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(function(dt) self:updateBonePos() end, 0, false)
+                end
             end
         end
     end
@@ -193,9 +208,10 @@ function Monster:initState()
 end
 
 -------------------------------------
--- function update
+-- function updateBonePos
+-- @breif Spine Bone 정보로 갱신이 필요한 처리를 수행
 -------------------------------------
-function Monster:update(dt)
+function Monster:updateBonePos(dt)
     if (self.m_animator and self.m_animator.m_node) then
         -- bone(spine)의 위치를 기준값으로 사용하는 body들의 좌표 갱신(현재는 offset없이 사용)
         for _, body in ipairs(self.m_lBodyToUseBone) do
@@ -204,7 +220,7 @@ function Monster:update(dt)
             body.x = pos.x * self.m_animator.m_node:getScaleX()
             body.y = pos.y * self.m_animator.m_node:getScaleY()
         end
-
+        
         -- bone의 위치를 기준값으로 사용할 추가 이펙트
         for effect, bone_name in pairs(self.m_mBoneEffect) do
             local pos = self.m_animator.m_node:getBonePosition(bone_name)
@@ -219,9 +235,7 @@ function Monster:update(dt)
                 effect:setScale(scale.y)
             end
         end
-    end 
-
-    return PARENT.update(self, dt)
+    end
 end
 
 -------------------------------------
@@ -317,6 +331,11 @@ end
 function Monster:release()
     for effect, _ in pairs(self.m_mBoneEffect) do
         effect:release()
+    end
+
+    if (self.m_boneScheduleHandlerID) then
+        cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.m_boneScheduleHandlerID)
+        self.m_boneScheduleHandlerID = nil
     end
 
     PARENT.release(self)

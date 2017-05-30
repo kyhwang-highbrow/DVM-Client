@@ -24,6 +24,8 @@ Animator = class({
         m_aniMap = 'map',
         m_aniAttr = 'string',
 
+        m_bUseSchedule = 'boolean',
+
         m_baseShaderKey = 'string',
     })
 
@@ -37,6 +39,7 @@ function Animator:init(file_name)
 	self.m_aniRepeatIdx = 1
     self.m_timeScale = 1
     self.m_bAnimationPause = false
+    self.m_bUseSchedule = false
 
     self.m_baseShaderKey = cc.SHADER_POSITION_TEXTURE_COLOR
 end
@@ -503,6 +506,8 @@ end
 function Animator:scheduleUpdate(func)
     if self.m_node then
         self.m_node:scheduleUpdateWithPriorityLua(func, 0)
+
+        self.m_bUseSchedule = true
     end
 end
 
@@ -512,6 +517,10 @@ end
 -------------------------------------
 function Animator:release()
     if self.m_node then
+        if (self.m_bUseSchedule) then
+            self.m_node:unscheduleUpdate()
+        end
+
         self.m_node:removeFromParent(true)
         self.m_node = nil
     end

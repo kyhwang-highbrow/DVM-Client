@@ -137,10 +137,7 @@ end
 function Missile:initAnimator(file_name)
     -- Animator 삭제
     if self.m_animator then
-        if self.m_animator.m_node then
-            self.m_animator.m_node:removeFromParent(true)
-            self.m_animator.m_node = nil
-        end
+        self.m_animator:release()
         self.m_animator = nil
     end
 

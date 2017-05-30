@@ -15,7 +15,7 @@ function SceneDV:init()
     self.m_bShowTopUserInfo = false
 	self.m_lSpineAni = {}
 	self.m_gridNode = cc.NodeGrid:create()
-	self.m_scene:addChild(self.m_gridNode, 1)
+    self.m_scene:addChild(self.m_gridNode, 1)
 end
 
 -------------------------------------
@@ -116,6 +116,7 @@ function SceneDV:setMonsterDragon(res_name, x, y)
     ani:setScale(scale)
     ani:setFlip(true)
 	ani:setPosition(x, y)
+    ani:changeAni('attack', true)
     table.insert(self.m_lSpineAni, ani)
 	self.m_gridNode:addChild(ani.m_node, 1)
 
@@ -138,7 +139,6 @@ function SceneDV:setMonsterDragon(res_name, x, y)
         effect_eye:changeAni('idle', true)
         ani.m_node:addChild(effect_eye.m_node)
 
-        --[[
         -- 이펙트
         local effect1 = MakeAnimator('res/effect/effect_monsterdragon/effect_monsterdragon_b.vrp')
         effect1:setScale(scale)
@@ -149,17 +149,16 @@ function SceneDV:setMonsterDragon(res_name, x, y)
         local effect2 = MakeAnimator('res/effect/effect_monsterdragon/effect_monsterdragon_f.vrp')
         effect2:changeAni('idle', true)
         ani.m_node:addChild(effect2.m_node)
-        ]]--
-    
+            
         self.m_scene:scheduleUpdateWithPriorityLua(function(dt)
             local pos = ani.m_node:getBonePosition('monstereye_1')
             effect_eye.m_node:setPosition(pos.x, pos.y)
 
             pos = ani.m_node:getBonePosition('monstereffect')
-            --effect1.m_node:setPosition(pos.x + 900, pos.y + 350)
-            --effect2.m_node:setPosition(pos.x, pos.y)
+            effect1.m_node:setPosition(-pos.x + 900, pos.y + 350)
+            effect2.m_node:setPosition(pos.x, pos.y)
 
-        end, 0)
+        end)
     end
 end
 
@@ -169,7 +168,7 @@ end
 function SceneDV:onKeyReleased(keyCode, event)
 	if keyCode == KEY_A then
         --local json_name = 'res/character/dragon/godaeshinryong_light_03/godaeshinryong_light_03.json'
-        local json_name = 'res/character/dragon/pinkbell_earth_03/pinkbell_earth_03.json'
+        local json_name = 'res/character/dragon/orpheusdragon_earth_03/orpheusdragon_earth_03.json'
         self:setAni(json_name, 400, 350)
 		self:setMonsterDragon(json_name, 900, 350)
 
