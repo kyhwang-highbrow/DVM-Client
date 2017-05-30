@@ -106,6 +106,9 @@ function UI_DragonManageInfo:initButton()
 
         -- 작별
         vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
+
+		-- 평가
+		vars['assessBtn']:registerScriptTapHandler(function() self:click_assessBtn() end)
     end
 
     do -- 하단 버튼들 초기화
@@ -562,6 +565,14 @@ function UI_DragonManageInfo:click_sellBtn()
         self:sceneFadeInAction()
     end
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_assessBtn
+-- @brief 평가 게시판
+-------------------------------------
+function UI_DragonManageInfo:click_assessBtn()
+	UI_DragonBoardPopup(self.m_selectDragonData)
 end
 
 -------------------------------------

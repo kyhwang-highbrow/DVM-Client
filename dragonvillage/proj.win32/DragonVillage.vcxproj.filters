@@ -2361,6 +2361,9 @@
     <None Include="..\src\UI_DragonBoardPopup_Evaluate.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_DragonBoard.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

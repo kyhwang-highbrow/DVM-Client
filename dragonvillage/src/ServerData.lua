@@ -132,6 +132,9 @@ function ServerData:getInstance()
 	-- 진형
     g_formationData = ServerData_Formation(g_serverData)
 
+	-- 게시판
+    g_boardData = ServerData_DragonBoard(g_serverData)
+
     return g_serverData
 end
 
