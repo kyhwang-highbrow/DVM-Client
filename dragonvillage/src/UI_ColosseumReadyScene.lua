@@ -150,9 +150,6 @@ function UI_ColosseumReadyScene:initButton()
     -- 진형 관린
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
     vars['fomationSetColseBtn']:registerScriptTapHandler(function() self:click_fomationSetColseBtn() end)
-
-    -- 도감 무리(스토리) 버프 스펙에서 제외(17.05.30 kms)
-    --vars['teamBuffBtn']:registerScriptTapHandler(function() self:click_teamBuffBtn() end)
 end
 
 -------------------------------------
@@ -371,19 +368,6 @@ function UI_ColosseumReadyScene:click_fomationBtn()
 		self.m_readySceneDeck:setFormation(formation_type)
 	end
 	ui:setCloseCB(close_cb)
-end
-
--------------------------------------
--- function click_teamBuffBtn
--- @breif
--------------------------------------
-function UI_ColosseumReadyScene:click_teamBuffBtn()
-    local function next_func()
-        local curr_deck_name = 'pvp'
-        UI_CollectionStoryPopup('applyTeam', curr_deck_name)
-    end
-
-    self:checkChangeDeck(next_func)
 end
 
 -------------------------------------
