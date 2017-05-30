@@ -793,6 +793,10 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_CollectionGradeCard.lua" />
     <None Include="..\src\UI_CollectionTabGrade.lua" />
     <None Include="..\src\UI_Directing_DragonGoodBye.lua" />
+    <None Include="..\src\UI_DragonBoardListItem.lua" />
+    <None Include="..\src\UI_DragonBoardPopup.lua" />
+    <None Include="..\src\UI_DragonBoardPopup_Evaluate.lua" />
+    <None Include="..\src\UI_DragonBoardPopup_Write.lua" />
     <None Include="..\src\UI_DungeonMenu.lua" />
     <None Include="..\src\UI_BirthdayCalendarDayElement.lua" />
     <None Include="..\src\UI_BirthdayRewardSelectListItem.lua" />

@@ -2349,6 +2349,18 @@
     <None Include="..\src\ErrorTracker.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_DragonBoardPopup_Write.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonBoardListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonBoardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonBoardPopup_Evaluate.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
