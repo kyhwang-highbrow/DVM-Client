@@ -14,7 +14,6 @@ ErrorTracker = class({
 -- @brief 생성자
 -------------------------------------
 function ErrorTracker:init()
-	getsetGenerator(ErrorTracker)	
 end
 
 -------------------------------------
@@ -62,6 +61,10 @@ last failed res : %s
 
 	return text
 end
+
+-- @ generator
+getsetGenerator(ErrorTracker)
+
 
 
 
