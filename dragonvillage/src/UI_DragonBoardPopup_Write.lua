@@ -35,8 +35,16 @@ end
 function UI_DragonBoardPopup_Write:initUI()
 	local vars = self.vars
 
-	local REVIEW_MAX_LENGTH = 200
+	-- editbox 관련 설정
+	--[[
+	게시판 최대 글자수는 200자이고 editbox는 글자 처리에 제한이 있어
+	editbox는 텍스트 입력용도로만 사용하고 handler와 ui 표시는 
+	각각 editBtn, editLabel을 사용하는 구조이다.
+	]]
+	local REVIEW_MAX_LENGTH = 600
 	vars['editBox']:setMaxLength(REVIEW_MAX_LENGTH)
+	vars['editBox']:setInputMode(0) -- enum class InputMode : ANY
+	vars['editLabel']:setString('')
 end
 
 -------------------------------------
@@ -46,6 +54,18 @@ function UI_DragonBoardPopup_Write:initButton()
 	local vars = self.vars
 	vars['closeBtn']:registerScriptTapHandler(function() self:closeWithAction() end)
 	vars['writeBtn']:registerScriptTapHandler(function() self:click_writeBtn() end)
+	vars['editBtn']:registerScriptTapHandler(function() self:click_editBtn() end)
+
+	-- editBox handler 등록
+	local function editBoxTextEventHandle(strEventName, pSender)
+		cclog(strEventName, pSender)
+        if (strEventName == "return") then
+			-- editLabel에 글자를 찍어준다.
+            local context = vars['editBox']:getText()
+			vars['editLabel']:setString(context)
+        end
+    end
+    vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
 end
 
 -------------------------------------
@@ -56,13 +76,19 @@ function UI_DragonBoardPopup_Write:refresh()
 end
 
 -------------------------------------
+-- function click_editBtn
+-- @brief editBtn 클릭시 editBox를 통해 키보드를 open한다.
+-------------------------------------
+function UI_DragonBoardPopup_Write:click_editBtn()
+	self.vars['editBox']:openKeyboard()
+end
+
+-------------------------------------
 -- function click_writeBtn
 -------------------------------------
 function UI_DragonBoardPopup_Write:click_writeBtn()
 	local vars = self.vars
-
 	local context = vars['editBox']:getText()
-	ccdisplay(context)
 
 	if (context) then
 		local did = self.m_did
