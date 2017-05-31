@@ -1,3 +1,24 @@
+-------------------------------------
+-- function initState
+-------------------------------------
+function Character:initState()
+    self:addState('idle', Character.st_idle, 'idle', true)
+    self:addState('attack', Character.st_attack, 'attack', false)
+    self:addState('attackDelay', Character.st_attackDelay, 'idle', true)
+    self:addState('charge', Character.st_charge, 'idle', true)
+    self:addState('casting', Character.st_casting, 'idle', true)
+    
+    self:addState('dying', Character.st_dying, 'idle', false, PRIORITY.DYING)
+    self:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)
+
+    self:addState('delegate', Character.st_delegate, 'idle', true)
+    self:addState('wait', Character.st_wait, 'idle', true)
+    self:addState('move', Character.st_move, 'idle', true)
+
+	self:addState('stun', Character.st_stun, 'idle', true, PRIORITY.STUN)
+	self:addState('stun_esc', Character.st_stun_esc, 'idle', true, PRIORITY.STUN_ESC)
+    self:addState('comeback', Character.st_comeback, 'idle', true)
+end
 
 -------------------------------------
 -- function st_idle

@@ -251,12 +251,16 @@ end
 -- @overriding
 -------------------------------------
 function Monster:setDead()
-    PARENT.setDead(self)
+    local b = PARENT.setDead(self)
 
-	-- regen된 몹이라면 waveMgr에 알려준다.
-	if (self.m_regenInfo) then
-		self.m_world.m_waveMgr:setRegenDead(self.m_regenInfo)
-	end
+    if (b) then
+	    -- regen된 몹이라면 waveMgr에 알려준다.
+	    if (self.m_regenInfo) then
+		    self.m_world.m_waveMgr:setRegenDead(self.m_regenInfo)
+	    end
+    end
+
+    return b
 end
 
 -------------------------------------

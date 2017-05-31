@@ -212,28 +212,6 @@ function Character:initWorld(game_world)
 end
 
 -------------------------------------
--- function initState
--------------------------------------
-function Character:initState()
-    self:addState('idle', Character.st_idle, 'idle', true)
-    self:addState('attack', Character.st_attack, 'attack', false)
-    self:addState('attackDelay', Character.st_attackDelay, 'idle', true)
-    self:addState('charge', Character.st_charge, 'idle', true)
-    self:addState('casting', Character.st_casting, 'idle', true)
-    
-    self:addState('dying', Character.st_dying, 'idle', false, PRIORITY.DYING)
-    self:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)
-
-    self:addState('delegate', Character.st_delegate, 'idle', true)
-    self:addState('wait', Character.st_wait, 'idle', true)
-    self:addState('move', Character.st_move, 'idle', true)
-
-	self:addState('stun', Character.st_stun, 'idle', true, PRIORITY.STUN)
-	self:addState('stun_esc', Character.st_stun_esc, 'idle', true, PRIORITY.STUN_ESC)
-    self:addState('comeback', Character.st_comeback, 'idle', true)
-end
-
--------------------------------------
 -- function getPosIdx
 -------------------------------------
 function Character:getPosIdx()
@@ -252,14 +230,17 @@ end
 -- function setDead
 -------------------------------------
 function Character:setDead()
+    if (self.m_bDead) then return false end
+
     self:removeTargetEffect()
 
     self.m_bDead = true
-    self.m_cbChangePos = nil
     self:dispatch('character_dead', {}, self)
 
     -- 사망 처리 시 StateDelegate Kill!
     self:killStateDelegate()
+
+    return true
 end
 
 -------------------------------------
@@ -1175,6 +1156,9 @@ function Character:release()
     self.m_castingNode = nil
     self.m_castingGauge = nil
 
+    -- formationMgr
+    self.m_cbChangePos = nil
+
 	-- 이벤트 해제
 	self:release_EventDispatcher()
     self:release_EventListener()
@@ -1337,7 +1321,7 @@ function Character:update(dt)
         end
     end
 
-    if (not self.m_bDead and not self.m_temporaryPause and self.m_world.m_gameState:isFight()) then
+    if (not self.m_bDead and self.m_world.m_gameState:isFight()) then
         -- 로밍
         if (self.m_bRoam) then
 			self:updateRoaming(dt)
@@ -1602,8 +1586,6 @@ end
 -- function removeTargetEffect
 -------------------------------------
 function Character:removeTargetEffect(k)
-    if (self.m_bDead) then return end
-
     local f_remove = function(k)
         if (self.m_mTargetEffect[k]) then
             self.m_mTargetEffect[k]:release()
@@ -1659,8 +1641,6 @@ end
 -- function removeNonTargetEffect
 -------------------------------------
 function Character:removeNonTargetEffect(k)
-    if (self.m_bDead) then return end
-
     if (k) then
         if (self.m_mNonTargetEffect[k]) then
             self.m_mNonTargetEffect[k]:release()

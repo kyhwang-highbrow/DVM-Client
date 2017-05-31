@@ -40,6 +40,10 @@ MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'camera_move_right'
 MAP_KEY_FUNC[KEY_UP_ARROW] = 'camera_move_up'
 MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
 
+-- 테스트
+MAP_KEY_FUNC[KEY_5] = 'resurrect_dragon'
+MAP_KEY_FUNC[KEY_6] = 'kill_one_dragon'
+
 -------------------------------------
 -- function onKeyReleased
 -------------------------------------
@@ -198,13 +202,7 @@ end
 -- @brief 아군 소멸
 -------------------------------------
 function GameWorld:kill_dragon()
-    for i, v in ipairs(self:getDragonList()) do
-        if not v.m_bDead then
-            v:setDead()
-            v:setEnableBody(false)
-            v:changeState('dying')
-        end
-    end
+    self:killAllHero()
 end
 
 -------------------------------------
@@ -369,4 +367,32 @@ function GameWorld:set_physbox()
     local phys_world = self.m_physWorld
     local debug = (not phys_world.m_bDebug)
     phys_world:setDebug(debug)
+end
+
+-------------------------------------
+-- function resurrect_dragon
+-- @brief 아군 부활
+-------------------------------------
+function GameWorld:resurrect_dragon()
+    for _, v in pairs(self.m_mHeroList) do
+        if (v.m_bDead) then
+            local hp_rate = 0.2
+            v:doRevive(hp_rate)
+
+            self:participationHero(v)
+        end
+    end
+end
+
+-------------------------------------
+-- function kill_one_dragon
+-- @brief 아군 하나 죽이기
+-------------------------------------
+function GameWorld:kill_one_dragon()
+    for i, v in ipairs(self:getDragonList()) do
+        if not v.m_bDead then
+            v:setDamage(nil, v, v.pos.x, v.pos.y, 999999)
+            break
+        end
+    end
 end

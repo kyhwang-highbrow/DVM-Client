@@ -2364,6 +2364,9 @@
     <None Include="..\src\perpleLib\lua_csv.lua">
       <Filter>lua\perpleLib</Filter>
     </None>
+   <None Include="..\src\DragonState.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\LuaBridge.lua">
       <Filter>lua\src</Filter>
     </None>

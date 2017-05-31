@@ -326,6 +326,7 @@ local t_module = {
     'CharacterSkill',
     'CharacterStateDelegate',
     'Dragon',
+    'DragonState',
     'Monster',
     'MonsterLua_Boss',
     'Monster_GiantDragon',

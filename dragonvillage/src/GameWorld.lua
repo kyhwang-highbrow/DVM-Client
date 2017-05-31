@@ -479,7 +479,7 @@ function GameWorld:updateUnit(dt)
         if (not v.m_temporaryPause) then
 
             -- update 리턴값이 true이면 객체 삭제
-            if (v:update(dt) == true) then
+            if (v:update(dt)) then
                 table.insert(t_remove, 1, i)
                 v:release()
             end
@@ -793,7 +793,7 @@ end
 -- @brief
 -------------------------------------
 function GameWorld:killAllHero()
-    for i,v in pairs(self.m_mHeroList) do
+    for i,v in pairs(self:getDragonList()) do
         if (not v.m_bDead) then
             v:setDead()
             v:setEnableBody(false)
@@ -855,7 +855,7 @@ function GameWorld:removeHero(hero)
     end
 
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
-    local hero_count = table.count(self.m_mHeroList)
+    local hero_count = table.count(self:getDragonList())
     if (hero_count <= 0) then
         if (self.m_bDevelopMode) then 
 			-- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
@@ -1317,19 +1317,17 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time, no_tam
     local move_time = move_time or getInGameConstant("WAVE_INTERMISSION_TIME")
 
     -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
-    for i, v in ipairs(self:getDragonList()) do
-        if (v.m_bDead == false) then
-            -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
-            local homePosX = v.m_orgHomePosX + cameraHomePosX + offsetX
-            local homePosY = v.m_orgHomePosY + cameraHomePosY + offsetY
+    for _, v in pairs(self.m_mHeroList) do
+        -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
+        local homePosX = v.m_orgHomePosX + cameraHomePosX + offsetX
+        local homePosY = v.m_orgHomePosY + cameraHomePosY + offsetY
 
-            -- 카메라가 줌아웃된 상태라면 아군 위치 조정(차후 정리)
-            if (scale == 0.6) then
-                homePosX = homePosX - 200
-            end
-            
-            v:changeHomePosByTime(homePosX, homePosY, move_time)
+        -- 카메라가 줌아웃된 상태라면 아군 위치 조정(차후 정리)
+        if (scale == 0.6) then
+            homePosX = homePosX - 200
         end
+            
+        v:changeHomePosByTime(homePosX, homePosY, move_time)
     end
 
     if (not no_tamer and self.m_tamer) then
