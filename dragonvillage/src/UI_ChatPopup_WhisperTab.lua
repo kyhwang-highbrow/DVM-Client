@@ -29,6 +29,7 @@ function UI_ChatPopup_WhisperTab:init(ui)
             end
         end
         vars['editBox_whisper']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+        vars['editBox_whisper']:setMaxLength(CHAT_MAX_MESSAGE_LENGTH) -- 글자 입력 제한 40자
     end
 end
 
@@ -50,17 +51,22 @@ function UI_ChatPopup_WhisperTab:click_enterBtn()
     local vars = self.vars
 
     if (not self.m_peerUserNickname) or (self.m_peerUserNickname == '') then
-        UIManager:toastNotificationRed('귓속말 보낼 사용자의 닉네임을 입력하세요.')
+        UIManager:toastNotificationRed('귓속말 상대방 닉네임을 입력하세요.')
         return
     end
     
     local msg = vars['editBox_whisper']:getText()
-    if (string.len(msg) <= 0) then
+    local len = string.len(msg)
+    if (len <= 0) then
+        UIManager:toastNotificationRed('메시지를 입력하세요.')
         return
     end
 
     if g_chatManager:sendWhisperMsg(self.m_peerUserNickname, msg) then
         vars['editBox_whisper']:setText('')
+    else
+        local msg = Str('[{1}]유저를 찾을 수 없습니다.', self.m_peerUserNickname)
+        UIManager:toastNotificationRed(msg)
     end
 end
 
@@ -69,8 +75,8 @@ end
 -------------------------------------
 function UI_ChatPopup_WhisperTab:click_whisperSetUserBtn()
     local edit_box = UI_SimpleEditBoxPopup()
-    edit_box:setPopupTitle(Str('귓속말 보낼 사용자의 닉네임을 입력하세요.'))
-    edit_box:setPopupDsc(Str('귓속말 보낼 사용자의 닉네임을 입력하세요.'))
+    edit_box:setPopupTitle(Str('귓속말 상대방 닉네임을 입력하세요.'))
+    edit_box:setPopupDsc(Str('귓속말 상대방 닉네임을 입력하세요.'))
     edit_box:setPlaceHolder(Str('입력하세요.'))
 
     local function confirm_cb(str)
