@@ -2364,9 +2364,11 @@
     <None Include="..\src\plSample_test.lua">
       <Filter>lua\sample</Filter>
     </None>
-    <None Include="..\src\LuaBridge.lua" />
     <None Include="..\src\perpleLib\lua_csv.lua">
       <Filter>lua\perpleLib</Filter>
+    </None>
+    <None Include="..\src\LuaBridge.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
