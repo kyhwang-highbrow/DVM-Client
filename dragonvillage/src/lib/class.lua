@@ -92,6 +92,9 @@ function class(...)
     return super
 end
 
+-------------------------------------
+-- function isInstanceOf
+-------------------------------------
 function isInstanceOf(obj, cls)
     local mt = getmetatable(obj) -- getmetatable(nil/number) == nil
     if not mt then return false end
@@ -104,7 +107,9 @@ function isInstanceOf(obj, cls)
     return false
 end
 
-
+-------------------------------------
+-- function getClassName
+-------------------------------------
 function getClassName(class)
     for k, v in pairs(_G) do
         if (v == class) then
@@ -112,4 +117,33 @@ function getClassName(class)
         end
     end
     return nil
+end
+
+-------------------------------------
+-- function getsetGenerator
+-- @brief 지정된 멤버변수의 getter/setter를 자동 생성한다.
+-------------------------------------
+function getsetGenerator(klass)
+	local class_name = getClassName(klass)
+	local func_loader = pl.utils.load
+	local templete = 
+	[[
+		function klass:get_var() return self.var end
+		function klass:set_var(v) self.var = v end
+	]]
+
+	local code, fucn
+	for var, v in pairs(klass) do
+		-- 자동생성하도록 지정된 멤버 변수를 찾는다.
+		if (v == 'get_set_gen') then
+			-- getter, setter 생성
+			code = clone(templete)
+			code = string.gsub(code, 'klass', class_name)
+			code = string.gsub(code, 'var', var)
+			
+			-- compile
+			func = func_loader(code)
+			func()
+		end
+	end
 end
