@@ -1122,9 +1122,6 @@
     <None Include="..\src\ChargeSystem_Touch.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ChatClient.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ChatManager.lua">
       <Filter>lua\src</Filter>
     </None>

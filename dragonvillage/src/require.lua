@@ -180,7 +180,6 @@ local t_module = {
 	'MailHelper',
 	'BattleStatisticsHelper',
 
-    'ChatClient',
     'ChatClientSocket',
     'ChatManager',
     'ChatContent',
