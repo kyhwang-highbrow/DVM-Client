@@ -292,7 +292,7 @@
 				font_size = 24;
 				text = 'editLabel';
 				h_alignment = 0;
-				v_alignment = 1;
+				v_alignment = 0;
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 527;
