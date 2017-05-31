@@ -129,6 +129,23 @@ function ChatContent:getContentType()
     return self.m_contentType
 end
 
+-------------------------------------
+-- function setChannelName
+-- @breif
+-------------------------------------
+function ChatContent:setChannelName(channel_name)
+    self['channelName'] = channel_name
+end
+
+-------------------------------------
+-- function getChannelName
+-- @breif
+-------------------------------------
+function ChatContent:getChannelName()
+    return self['channelName']
+end
+
+
 
 -------------------------------------
 -- function getUserInfoStr

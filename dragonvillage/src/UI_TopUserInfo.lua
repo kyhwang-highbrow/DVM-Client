@@ -321,6 +321,10 @@ function UI_TopUserInfo:chatBroadcast(t_data)
     local nickname = t_data['nickname']
     local uid = t_data['uid']
 
+    if (not msg) or (not nickname) or (not uid) then
+        return
+    end
+
     local rich_str = '{@SKILL_NAME}[' .. nickname .. '] {@SKILL_DESC}' .. msg
 
     --[[

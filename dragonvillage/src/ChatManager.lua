@@ -256,15 +256,23 @@ function ChatManager:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
             self.m_chatPopup:refresh_channelName(self.m_lobbyChannelName)
         end
 
+        -- 채널 변경 컨텐츠 생성
+        local chat_content = ChatContent()
+        chat_content:setContentCategory('general')
+        chat_content:setContentType('enter_channel')
+        chat_content:setChannelName(r['channelName'])
+        self:chatContentQueue(chat_content)
+        
+
     -- 채널이 가득 참
     elseif (ret == 'NoVacancy') then
-        cclog('채널에 입장하지 못함')
-        ccdump(r)
-
+        local msg = Str('[{1}]번 채널에 인원이 가득 차 더 이상 입장할 수 없습니다.', r['channelName'])
+        UIManager:toastNotificationRed(msg)
+        
     -- 채널이 존재하지 않음
     elseif (ret == 'NotExist') then
-        cclog('채널에 입장하지 못함')
-        ccdump(r)
+        local msg = Str('[{1}]번 채널에 입장할 수 없습니다.')
+        UIManager:toastNotificationRed(msg)
     end
 end
 
@@ -278,14 +286,26 @@ function ChatManager:receiveData_S_CHAT_NORMAL_MSG(msg)
 
     -- 채팅 내용은 json문자열로 받음
     local raw = r['json']
-    if raw and (type(raw) == 'string') then
-        local json = dkjson.decode(raw)
-        if json then
-            --cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
-            json['content_category'] = 'general'
-            self:msgQueueCB(json)
-        end
+    if (not raw) or (type(raw) ~= 'string') then
+        return
     end
+
+    local json = dkjson.decode(raw)
+    if (not json) then
+        return
+    end
+
+    local chat_content = ChatContent(json)
+    chat_content:setContentCategory('general')
+
+    local uid = g_userData:get('uid')
+    if (chat_content['uid'] == tostring(uid)) then
+        chat_content:setContentType('my_msg')
+    else
+        chat_content:setContentType('msg')
+    end
+
+    self:chatContentQueue(chat_content)       
 end
 
 -------------------------------------
@@ -298,13 +318,33 @@ function ChatManager:receiveData_S_WHISPER_RESPONSE(msg)
 
     -- 채팅 내용은 json문자열로 받음
     local raw = r['json']
-    if raw and (type(raw) == 'string') then
-        local json = dkjson.decode(raw)
-        if json then
-            --cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
-            json['content_category'] = 'whisper'
-            self:msgQueueCB(json)
+    if (not raw) or (type(raw) ~= 'string') then
+        return
+    end
+
+    local json = dkjson.decode(raw)
+    if (not json) then
+        return
+    end
+
+    -- 귓속말 전송 or 수신 성공
+    if (json['status'] == 0) then
+        local chat_content = ChatContent(json)
+        chat_content:setContentCategory('whisper')
+
+        local uid = g_userData:get('uid')
+        if (chat_content['uid'] == tostring(uid)) then
+            chat_content:setContentType('my_msg')
+        else
+            chat_content:setContentType('msg')
         end
+
+        self:chatContentQueue(chat_content)
+
+    -- 귓속말 전송 실패
+    else
+        local msg = Str('[{1}]유저를 찾을 수 없습니다.', json['to'])
+        UIManager:toastNotificationRed(msg)
     end
 end
 
@@ -368,45 +408,16 @@ end
 
 
 -------------------------------------
--- function msgQueueCB
+-- function chatContentQueue
 -- @brief
 -------------------------------------
-function ChatManager:msgQueueCB(msg)
-    --cclog('# ChatManager:msgQueueCB(msg) ' .. msg['message'])
-
-    -- 차단한 유저는 메세지를 보이지 않음
-    if (msg['uid'] and g_chatIgnoreList:isIgnore(msg['uid'])) then
-        return
-    end
-
-    do
-        -- 귓속말 실패 시
-        if (msg['content_category'] == 'whisper') and (msg['status'] ~= 0) then
-            local msg = Str('[{1}]유저를 찾을 수 없습니다.', msg['to'])
-            UIManager:toastNotificationRed(msg)
-            return
-        end
-    end
-
-    local chat_content = ChatContent(msg)
+function ChatManager:chatContentQueue(chat_content)
     self:setNoti(chat_content)
-
-    if (not chat_content.m_contentCategory) then
-        chat_content:setContentCategory('general')
-    end
-
-    local uid = g_userData:get('uid')
-
-    if (chat_content['uid'] == tostring(uid)) then
-        chat_content:setContentType('my_msg')
-    else
-        chat_content:setContentType('msg')
-    end
 
     table.insert(self.m_lMessage, chat_content)
 
     if g_topUserInfo then
-        g_topUserInfo:chatBroadcast(msg)
+        g_topUserInfo:chatBroadcast(chat_content)
     end
 
     if self.m_chatPopup then

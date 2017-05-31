@@ -186,13 +186,6 @@ function UI_ChatPopup:msgQueueCB(chat_content)
     elseif (category == 'general') then
         self.m_chatTableView:addChatContent(chat_content)
 
-        local content_type = chat_content:getContentType()
-        if (content_type == 'enter_channel') then
-            local channel = chat_content['message']
-            local str = Str('채널 {1}', channel)
-            self.vars['sortOrderLabel']:setString(str)
-        end
-
     elseif (category == 'whisper') then
         self.m_mTabUI['whisper']:msgQueueCB(chat_content)
     end
