@@ -65,6 +65,7 @@ end
 function ICharacterStatusEffect:insertStatusEffect(status_effect)
 	local effect_name = status_effect.m_statusEffectName
 	
+    -- 해제되지 않고 계속 유지되는 것들은 리스트에 추가하지 않음
 	if string.find(effect_name, 'buff_heal') then return end
 	if string.find(effect_name, 'passive') then return end
 

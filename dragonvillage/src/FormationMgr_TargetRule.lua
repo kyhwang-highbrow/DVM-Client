@@ -430,22 +430,6 @@ function TargetRule_getTargetList_row(formation_type)
 end
 
 -------------------------------------
--- function TargetRule_getTargetList_charType
--- @brief 해당 공격 속성의 리스트 반환 (마법, 물리)
--------------------------------------
-function TargetRule_getTargetList_charType(org_list, char_type)
-    local t_ret = {}
-
-	for i, character in pairs(org_list) do
-		if (character:getCharAttackAttr() == char_type) then
-			table.insert(t_ret, character)
-		end
-	end
-
-    return t_ret
-end
-
--------------------------------------
 -- function TargetRule_getTargetList_hp_low
 -- @brief 낮은 HP%
 -------------------------------------

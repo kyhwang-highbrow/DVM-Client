@@ -5,8 +5,7 @@ ActivityCarrier = class({
 		m_activityCarrierOwner = 'character',
 
         m_attribute = 'attribute(number)',
-        m_damageType = 'DMG_TYPE(number)', -- DMG_TYPE_PHYSICAL or DMG_TYPE_MAGICAL
-
+        
         m_lFinalStat = 'list',
 
         -- 스킬 아이디
@@ -102,8 +101,7 @@ function ActivityCarrier:cloneForMissile()
 	
 	activity_carrier.m_activityCarrierOwner = self.m_activityCarrierOwner
 	activity_carrier.m_attribute = self.m_attribute
-	activity_carrier.m_damageType = self.m_damageType
-
+	
 	activity_carrier.m_lFinalStat = clone(self.m_lFinalStat)
 
     return activity_carrier

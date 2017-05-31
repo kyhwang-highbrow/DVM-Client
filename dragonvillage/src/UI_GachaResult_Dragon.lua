@@ -143,15 +143,6 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
         vars['roleLabel']:setString(dragonRoleName(role_type))
     end
 
-    do -- 드래곤 공격 타입(char_type)
-        local attack_type = t_dragon['char_type']
-        vars['charTypeNode']:removeAllChildren()
-        local icon = IconHelper:getAttackTypeIcon(attack_type)
-        vars['charTypeNode']:addChild(icon)
-
-        vars['charTypeLabel']:setString(dragonAttackTypeName(attack_type))
-    end
-
     do -- 드래곤 실리소스
         vars['dragonNode']:removeAllChildren()
 		local dragon_animator = UIC_DragonAnimatorDirector_Summon()

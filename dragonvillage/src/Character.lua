@@ -467,9 +467,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 속성 효과
     local t_attr_effect = self:checkAttributeCounter(attacker_char)
 
-    -- 데미지 타입
-    local dmg_type = attack_activity_carrier.m_damageType or DMG_TYPE_PHYSICAL
-
     -- 공격력 계산, 크리티컬 계산
     local atk_dmg, critical = 0, false
     local def_pwr = 0
@@ -651,7 +648,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		local t_info = {}
 		t_info['attack_type'] = attack_type
 		t_info['attr'] = attack_activity_carrier.m_attribute
-		t_info['dmg_type'] = dmg_type
 		t_info['critical'] = critical
 		t_info['is_add_dmg'] = attack_activity_carrier:getFlag('add_dmg')
 		t_info['body_key'] = body_key
@@ -781,7 +777,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     end
 
     -- 데미지 폰트 출력
-    self:makeDamageEffect(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'], is_highlight)
+    self:makeDamageEffect(t_info['attr'], i_x, i_y, dir, t_info['critical'], is_highlight)
     self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['is_add_dmg'], is_highlight)
 
     -- 무적 체크 후 데미지 적용
@@ -873,8 +869,7 @@ end
 -------------------------------------
 -- function makeDamageEffect
 -------------------------------------
-function Character:makeDamageEffect(dmg_type, attr, x, y, dir, critical, is_highlight)
-    local dmg_type = dmg_type or DMG_TYPE_PHYSICAL
+function Character:makeDamageEffect(attr, x, y, dir, critical, is_highlight)
     local attr = attr or ATTR_LIGHT
 
     -- 일반 데미지
@@ -1821,14 +1816,6 @@ function Character:getCharType()
 end
 
 -------------------------------------
--- function getCharAttackAttr
--- @return 공격 속성 physical or magical
--------------------------------------
-function Character:getCharAttackAttr()
-	return self.m_charTable['char_type']
-end
-
--------------------------------------
 -- function getRarity
 -- @return 희귀도 common/rare/hero/legend
 -------------------------------------
@@ -1896,9 +1883,6 @@ function Character:makeAttackDamageInstance()
 
     -- 속성 지정
     activity_carrier.m_attribute = attributeStrToNum(self:getAttribute())
-
-    -- 데미지 타입 지정
-    activity_carrier.m_damageType = DMG_TYPE_STR[self.m_charTable['char_type']]
 
     -- 세부 능력치 지정
 	activity_carrier:setStatuses(self.m_statusCalc)
