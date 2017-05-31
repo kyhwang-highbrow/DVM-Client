@@ -14,8 +14,7 @@ function UI_DragonBoardListItem:init(t_data)
     -- UI load
 	self:load('dragon_board_item.ui')
 	self.m_tBoard = t_data
-	ccdump(t_data)
-	
+
 	-- initialize
     self:initUI()
     self:initButton()
@@ -36,7 +35,11 @@ function UI_DragonBoardListItem:initUI()
 	vars['infoLabel']:setString(reviewer)
 
 	-- 테이머 아이콘 갱신
-    local type = g_tamerData:getCurrTamerTable('type')
+	local tid = t_data['tamer']
+	if (tid == 0) then
+		tid = 110002
+	end
+    local type = TableTamer:getTamerType(tid)
     local icon = IconHelper:getTamerProfileIcon(type)
     vars['profileNode']:removeAllChildren()
     vars['profileNode']:addChild(icon)
@@ -52,31 +55,59 @@ function UI_DragonBoardListItem:initUI()
 	local review = t_data['review']
 	vars['assessLabel']:setString(review)
 
-	-- 배경 처리
+	-- 내가 쓴 리뷰 처리
 	local is_mine = (nick == g_userData:get('nick'))
 	if (is_mine) then
 		vars['assessMySprite']:setVisible(true)
+		vars['recommandBtn']:setVisible(false)
+		vars['deleteBtn']:setVisible(true)
 	end
-
-	-- 좋아요
-	local like_cnt = t_data['like']
-	vars['recommandLabel']:setString(like_cnt)
-
-	-- 좋아요 버튼 처리
-	local is_likeable = (t_data['likeable'] and (not is_mine))
-	vars['recommandBtn']:setEnabled(is_likeable)
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_DragonBoardListItem:initButton()
+	local vars = self.vars
+
+	vars['recommandBtn']:registerScriptTapHandler(function() self:click_recommandBtn() end)
+	--vars['deleteBtn']:registerScriptTapHandler(function() self:click_deleteBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_DragonBoardListItem:refresh()
+	local vars = self.vars
+	local t_data = self.m_tBoard
+
+	-- 좋아요
+	local like_cnt = t_data['like']
+	vars['recommandLabel']:setString(like_cnt)
+
+	-- 좋아요 버튼 처리
+	local is_likeable = (t_data['likeable'])
+	vars['recommandBtn']:setEnabled(is_likeable)
+end
+
+-------------------------------------
+-- function click_recommandBtn
+-------------------------------------
+function UI_DragonBoardListItem:click_recommandBtn()
+	local function cb_func(t_data)
+		self.m_tBoard = t_data
+		self:refresh()
+	end
+	local revid = self.m_tBoard['id']
+	g_boardData:request_likeBoard(nil, revid , cb_func)
+end
+
+-------------------------------------
+-- function click_deleteBtn
+-------------------------------------
+function UI_DragonBoardListItem:click_deleteBtn()
+	local revid = self.m_tBoard['id']
+	g_boardData:request_deleteBoard(revid, nil)
 end
 
 --@CHECK

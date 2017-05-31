@@ -4,7 +4,8 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_DragonBoardPopup
 -------------------------------------
 UI_DragonBoardPopup = class(PARENT,{
-		m_tBoardData = '',
+		m_tBoardData = 'table',
+		m_did = 'number',
     })
 
 -------------------------------------
@@ -31,9 +32,12 @@ function UI_DragonBoardPopup:init(t_dragon_data)
     self:doActionReset()
     self:doAction(nil, false)
 
+	-- initialize
+	self.m_did = t_dragon_data['did']
+
     self:initUI()
     self:initButton()
-    self:refresh(t_dragon_data['did'])
+    self:refresh()
 end
 
 -------------------------------------
@@ -58,7 +62,8 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_DragonBoardPopup:refresh(did)
+function UI_DragonBoardPopup:refresh()
+	local did = self.m_did
 
 	local function cb_func()
 		local vars = self.vars
@@ -77,7 +82,7 @@ function UI_DragonBoardPopup:refresh(did)
 
 		-- 평점
 		local grade = t_board_data['rate']
-		vars['gradeGauge']:setPercentage(grade/5 * 100)
+		vars['gradeGauge']:runAction(cc.ProgressTo:create(0.3, grade/5 * 100))
 		vars['gradeLabel']:setString(Str('평점 {1}', string.format('%.1f', grade)))
 
 		-- tableView
@@ -94,14 +99,27 @@ function UI_DragonBoardPopup:makeTableView()
 	local node = self.vars['listNode']
 	node:removeAllChildren(true)
 
-	local t_item_list = self.m_tBoardData['boards']
+	local l_item_list = self.m_tBoardData['boards']
+	if (self.m_tBoardData['myboard']) then
+		table.insert(l_item_list, 1, self.m_tBoardData['myboard'])
+	end
+
+	-- 생성 콜백
+    local function create_func(ui, data)
+		-- 평가 삭제
+        local function click_deleteBtn()
+            ui:click_deleteBtn()
+			self:refresh()
+        end
+        ui.vars['deleteBtn']:registerScriptTapHandler(click_deleteBtn)
+    end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(884, 155)
-    table_view:setCellUIClass(UI_DragonBoardListItem, nil)
+    table_view:setCellUIClass(UI_DragonBoardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(t_item_list)
+    table_view:setItemList(l_item_list)
     table_view:makeDefaultEmptyDescLabel(Str('첫번째 리뷰를 남겨주세요!'))
 end
 
@@ -110,7 +128,11 @@ end
 -- @brief 평가 게시판
 -------------------------------------
 function UI_DragonBoardPopup:click_assessBtn()
-	UI_DragonBoardPopup_Evaluate()
+	local did = self.m_did
+	local my_rate = self.m_tBoardData['myrate']
+
+	local ui = UI_DragonBoardPopup_Evaluate(did, my_rate)
+	ui:setCloseCB(function() self:refresh() end)
 end
 
 -------------------------------------
@@ -118,7 +140,14 @@ end
 -- @brief 평가 게시판
 -------------------------------------
 function UI_DragonBoardPopup:click_writeBtn()
-	UI_DragonBoardPopup_Write()
+	if (self.m_tBoardData['myboard']) then
+		UIManager:toastNotificationGreen(Str('이미 평가 글을 작성했습니다. 나의 평가를 삭제하고 다시 작성해주세요.'))
+		return
+	end
+
+	local did = self.m_did
+	local ui = UI_DragonBoardPopup_Write(did)
+	ui:setCloseCB(function() self:refresh() end)
 end
 
 -------------------------------------

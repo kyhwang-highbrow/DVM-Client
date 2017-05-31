@@ -113,12 +113,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 94.000000;
+				x = 108.000000;
 				y = -16.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 670;
+				width = 656;
 				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -134,7 +134,7 @@
 				v_alignment = 1;
 				color = { 27; 20; 13; };
 				opacity = 255;
-				dimension_width = 670;
+				dimension_width = 656;
 				dimension_height = 100;
 				letter_spacing = 0.000000;
 				has_stroke = false;

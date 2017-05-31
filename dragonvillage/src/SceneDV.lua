@@ -552,9 +552,15 @@ end
 -- function penlightTest
 -------------------------------------
 function SceneDV:penlightTest()
+	require 'plSample'
+	require 'plSample_test'
+
 	for var, func in pairs(plSample) do
-		if type(func) == 'function' then
-			func()
+		if (pl.stringx.startswith(var, 'test_')) then
+			if (type(func) == 'function') then
+				print ('###################' .. var .. '######################')
+				func()
+			end
 		end
 	end
 end

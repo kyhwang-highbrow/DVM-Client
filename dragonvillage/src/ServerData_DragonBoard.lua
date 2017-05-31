@@ -23,6 +23,36 @@ function ServerData_DragonBoard:getBoards(did)
 end
 
 -------------------------------------
+-- function applyBoard
+-------------------------------------
+function ServerData_DragonBoard:applyBoard(did, t_data)
+	if (did) then
+		for i, t_board in pairs(self.m_mBoardMap[did]) do
+			if (t_board['id'] == t_data['id']) then
+				self.m_mBoardMap[did][i] = t_data
+			end
+		end
+
+	else
+		for did, l_board_list in pairs(self.m_mBoardMap) do
+			for i, t_board in pairs(l_board_list['boards']) do
+				if (t_board['id'] == t_data['id']) then
+					self.m_mBoardMap[did]['boards'][i] = t_data
+				end
+			end
+		end
+
+	end
+end
+
+-------------------------------------
+-- function applyData
+-------------------------------------
+function ServerData_DragonBoard:applyData(did, column, data)
+	self.m_mBoardMap[did][column] = data
+end
+
+-------------------------------------
 -- function request_dragonBoard
 -------------------------------------
 function ServerData_DragonBoard:request_dragonBoard(did, cb_func)
@@ -32,7 +62,6 @@ function ServerData_DragonBoard:request_dragonBoard(did, cb_func)
 
     -- 콜백 함수
     local function success_cb(ret)
-		--ret['get_at'] = Timer:getServerTime()
 		self.m_mBoardMap[did] = ret
 		if (cb_func) then
 			cb_func()
@@ -91,6 +120,8 @@ function ServerData_DragonBoard:request_rateBoard(did, rate, cb_func)
 
     -- 콜백 함수
     local function success_cb(ret)
+		self:applyData(did, 'rate', data)
+
 		if (cb_func) then
 			cb_func()
 		end
@@ -110,16 +141,19 @@ end
 
 -------------------------------------
 -- function request_likeBoard
+-- @param did : map 접근용
 -------------------------------------
-function ServerData_DragonBoard:request_likeBoard(revid , cb_func)
+function ServerData_DragonBoard:request_likeBoard(did, revid , cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
 	local revid = revid
 
     -- 콜백 함수
     local function success_cb(ret)
+		self:applyBoard(did, ret['board'])
+
 		if (cb_func) then
-			cb_func()
+			cb_func(ret['board'])
 		end
     end
 
