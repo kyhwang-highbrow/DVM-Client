@@ -4,7 +4,7 @@
 ICharacterStatusEffect = {
     m_mStatusEffect = 'table',
     m_lStatusIcon = 'sprite table',
-    m_mStatusEffectCC = 'table',    -- Àû¿ëÁßÀÎ ccÈ¿°ú¸¦ °¡Áø status effect
+    m_mStatusEffectCC = 'table',    -- ì ìš©ì¤‘ì¸ ccíš¨ê³¼ë¥¼ ê°€ì§„ status effect
 }
 
 -------------------------------------
@@ -39,7 +39,7 @@ function ICharacterStatusEffect:setStatusIcon(status_effect, idx)
 	local status_effect_type = status_effect:getTypeName()
 	local idx = idx 
 
-	-- icon »ı¼º ¶Ç´Â ÀÖ´Â°Í¿¡ Á¢±Ù
+	-- icon ìƒì„± ë˜ëŠ” ìˆëŠ”ê²ƒì— ì ‘ê·¼
 	local icon = nil
 	if (self.m_lStatusIcon[status_effect_type]) then 
 		icon = self.m_lStatusIcon[status_effect_type]
@@ -65,7 +65,7 @@ end
 function ICharacterStatusEffect:insertStatusEffect(status_effect)
 	local effect_name = status_effect.m_statusEffectName
 	
-    -- ÇØÁ¦µÇÁö ¾Ê°í °è¼Ó À¯ÁöµÇ´Â °ÍµéÀº ¸®½ºÆ®¿¡ Ãß°¡ÇÏÁö ¾ÊÀ½
+    -- í•´ì œë˜ì§€ ì•Šê³  ê³„ì† ìœ ì§€ë˜ëŠ” ê²ƒë“¤ì€ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•˜ì§€ ì•ŠìŒ
 	if string.find(effect_name, 'buff_heal') then return end
 	if string.find(effect_name, 'passive') then return end
 
@@ -98,7 +98,7 @@ end
 
 -------------------------------------
 -- function hasHarmfulStatusEffect
--- @breif ÇØ·Î¿î »óÅÂÈ¿°ú°¡ ÀÖ´ÂÁö °Ë»çÇÑ´Ù.
+-- @breif í•´ë¡œìš´ ìƒíƒœíš¨ê³¼ê°€ ìˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
 -------------------------------------
 function ICharacterStatusEffect:hasHarmfulStatusEffect()
 	for _, status_effect in pairs(self.m_mStatusEffect) do
@@ -112,7 +112,7 @@ end
 
 -------------------------------------
 -- function hasHelpfulStatusEffect
--- @breif ÀÌ·Î¿î »óÅÂÈ¿°ú°¡ ÀÖ´ÂÁö °Ë»çÇÑ´Ù.
+-- @breif ì´ë¡œìš´ ìƒíƒœíš¨ê³¼ê°€ ìˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
 -------------------------------------
 function ICharacterStatusEffect:hasHelpfulStatusEffect()
 	for _, status_effect in pairs(self.m_mStatusEffect) do

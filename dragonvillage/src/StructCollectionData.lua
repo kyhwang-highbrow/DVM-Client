@@ -33,7 +33,7 @@ end
 -- function applyTableData
 -------------------------------------
 function StructCollectionData:applyTableData(data)
-	-- ¼­¹ö¿¡¼­ key°ªÀ» ÁÙ¿©¼­ ¾´ °æ¿ì°¡ ÀÖ¾î¼­ º¯È¯ÇØÁØ´Ù
+	-- ì„œë²„ì—ì„œ keyê°’ì„ ì¤„ì—¬ì„œ ì“´ ê²½ìš°ê°€ ìˆì–´ì„œ ë³€í™˜í•´ì¤€ë‹¤
     local replacement = {}
     replacement['evo'] = 'evolution'
 	replacement['rel'] = 'relation'

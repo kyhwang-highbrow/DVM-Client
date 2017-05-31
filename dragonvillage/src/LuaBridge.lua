@@ -1,8 +1,8 @@
 -------------------------------------
 -- table LuaBridge
--- @breif cocos2d-x¿£Áø»ó¿¡¼­ÀÇ lua¿Í
---        windows¿¡¼­ °³¹ß¿ë stand alone lua.exe¿¡¼­
---        °¢±â ´Ù¸£°Ô µ¿ÀÛÇØ¾ß ÇÏ´Â ÇÔ¼öµéÀ» Á¤ÀÇ
+-- @breif cocos2d-xì—”ì§„ìƒì—ì„œì˜ luaì™€
+--        windowsì—ì„œ ê°œë°œìš© stand alone lua.exeì—ì„œ
+--        ê°ê¸° ë‹¤ë¥´ê²Œ ë™ìž‘í•´ì•¼ í•˜ëŠ” í•¨ìˆ˜ë“¤ì„ ì •ì˜
 -------------------------------------
 LuaBridge = {}
 
