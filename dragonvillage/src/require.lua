@@ -4,7 +4,6 @@ local t_module = {
     'lib/net',
     'lib/class',
     'lib/utils',
-    'lib/StringUtils',
     'lib/Translate',
     'lib/scheduler',
     'lib/SocketTCP',
@@ -21,6 +20,7 @@ local t_module = {
     'perpleLib/PerpleScene',
     'perpleLib/PerpleScene',
     'fixed_constant',
+    'LuaBridge',
     'SoundMgr',
     'SoundMgrController',
     'SoundMgrProtected',
@@ -786,7 +786,8 @@ local t_module = {
 -------------------------------------
 function loadModule()
 	-- penlight lua 라이브러리
-    pl = require'pl.import_into'()
+    pl = require 'pl.import_into'()
+    csv = require 'perpleLib/lua_csv'
 
     for i,v in ipairs(t_module) do
         require(v)

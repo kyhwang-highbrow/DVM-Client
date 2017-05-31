@@ -105,9 +105,6 @@
     <None Include="..\src\lib\SocketTCP.lua">
       <Filter>lua\lib</Filter>
     </None>
-    <None Include="..\src\lib\StringUtils.lua">
-      <Filter>lua\lib</Filter>
-    </None>
     <None Include="..\src\lib\Translate.lua">
       <Filter>lua\lib</Filter>
     </None>
@@ -2366,6 +2363,10 @@
     </None>
     <None Include="..\src\plSample_test.lua">
       <Filter>lua\sample</Filter>
+    </None>
+    <None Include="..\src\LuaBridge.lua" />
+    <None Include="..\src\perpleLib\lua_csv.lua">
+      <Filter>lua\perpleLib</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

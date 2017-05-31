@@ -109,7 +109,7 @@ end
 -------------------------------------
 function TABLE:loadCSVTable(filename, tablename, key, toString)
     local content = TABLE:loadTableFile(filename, '.csv')
-    if content == nil then
+    if (content == nil) then
         cclog('ksj failed to load table file(' .. filename .. ')')
         return
     end
@@ -117,52 +117,85 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
     local header = {}
     local tables = {}
 
-    for _,line in ipairs(seperate(content,'\r\n')) do
-        local csv = {}
-        local t = {}
-        local v1, v2
-        csv = ParseCSVLine(line)
-        if _ == 1 then
-            header = self:getCSVHeader(csv)
-            if not key then key = header[1] end
-        else
-            if csv[1] == nil then break end
+    local handle = csv.openstring(content, {})
+    local is_first_line = true
+    for r in handle:lines() do
+    
+        -- 해더 셋팅    
+        if is_first_line then
+            for i,v in ipairs(r) do
+                header[i] = v
+            end
 
-            -- 테이블에 nil값이 포함된 경우 예외처리
-            local find_nil = false
-            for i=1,#header do
-                if (csv[i] == nil) then
-                    csv[i] = ''
-                end
-                v1 = trim(tostring(csv[i]))
-                v2 = string.match(v1, '%d+[.]?%d*')
-                if v2 then v2 = tostring(tonumber(v2)) end
-                if v1 == v2 then
-                    t[header[i]] = tonumber(v2)
-                else
-                    t[header[i]] = string.gsub(v1, '\\\\n', '\n')
+            if (not key) then
+                key = header[1]
+            end
+
+            is_first_line = false
+        else
+            local t = {}
+            for i,v in ipairs(r) do
+                t[header[i]] = tonumber(v) or v
+            end
+
+            tables[t[key]] = t
+        end
+    end
+
+    handle:close()
+
+    -----------------------------------------------------------------------------------------
+    -- deprecated (sgkim 2017-05-31)
+    -- csv의 특정 값이 개행을 포함했을 때 문제를 해결하기 위해 새로운 csv 모듈을 적용함
+    if false then
+        for _,line in ipairs(seperate(content,'\r\n') or seperate(content,'\n')) do
+            local csv = {}
+            local t = {}
+            local v1, v2
+            csv = ParseCSVLine(line)
+            if _ == 1 then
+                header = self:getCSVHeader(csv)
+                if not key then key = header[1] end
+            else
+                if csv[1] == nil then break end
+
+                -- 테이블에 nil값이 포함된 경우 예외처리
+                local find_nil = false
+                for i=1,#header do
+                    if (csv[i] == nil) then
+                        csv[i] = ''
+                    end
+                    v1 = trim(tostring(csv[i]))
+                    v2 = string.match(v1, '%d+[.]?%d*')
+                    if v2 then v2 = tostring(tonumber(v2)) end
+                    if v1 == v2 then
+                        t[header[i]] = tonumber(v2)
+                    else
+                        t[header[i]] = string.gsub(v1, '\\\\n', '\n')
+                    end
+
+                    -- nil값 포함
+                    if t[header[i]] == nil then
+                        find_nil = true
+                        break
+                    end
                 end
 
                 -- nil값 포함
-                if t[header[i]] == nil then
-                    find_nil = true
+                if find_nil then
                     break
                 end
-            end
 
-            -- nil값 포함
-            if find_nil then
-                break
-            end
+                if toString then
+                    tables[tostring(t[key])] = t
+                else
+                    tables[t[key]] = t
+                end
 
-            if toString then
-                tables[tostring(t[key])] = t
-            else
-                tables[t[key]] = t
             end
-
         end
     end
+    -----------------------------------------------------------------------------------------
 
     TABLE[tablename] = tables
 end
@@ -176,7 +209,7 @@ function TABLE:loadTableFile(filename, extension)
     -- 윈도우가 아닐 경우 data_dat에서 테이블 로드
     if isWin32() == false then
         local dat_path = 'data_dat/' .. filename .. '.dat'
-        if cc.FileUtils:getInstance():isFileExist(dat_path) then
+        if LuaBridge:isFileExist(dat_path) then
             content = PerpUtils:GetEncrypedFileData(dat_path)
         end
     end
@@ -184,10 +217,10 @@ function TABLE:loadTableFile(filename, extension)
     -- data에서 파일 로드
     if not content then
         local path = 'data/' .. filename .. extension
-        if cc.FileUtils:getInstance():isFileExist(path) then
-            local filePath = cc.FileUtils:getInstance():fullPathForFilename(path)
+        if LuaBridge:isFileExist(path) then
+            local filePath = LuaBridge:fullPathForFilename(path)
             if (filePath ~= path) then
-                content = cc.FileUtils:getInstance():getStringFromFile(filePath)
+                content = LuaBridge:getStringFromFile(filePath)
             end
         end
     end
@@ -195,7 +228,7 @@ function TABLE:loadTableFile(filename, extension)
     -- data에서 파일 로드 실패 시 data_dat에서 파일 로드
     if not content then
         local dat_path = 'data_dat/' .. filename .. '.dat'
-        if cc.FileUtils:getInstance():isFileExist(dat_path) then
+        if LuaBridge:isFileExist(dat_path) then
             content = PerpUtils:GetEncrypedFileData(dat_path)
         end
     end
@@ -292,7 +325,7 @@ function TABLE:makeCol()
     for i,v in pairs(TableInfo) do
         if i ~= 'col' then
             local name = v[1]
-            local path = cc.FileUtils:getInstance():fullPathForFilename('data_dat/' .. name .. '.dat')
+            local path = LuaBridge:fullPathForFilename('data_dat/' .. name .. '.dat')
             local md5 = getMd5(path)
             f:write(name .. ',' .. md5 .. '\n')
         end

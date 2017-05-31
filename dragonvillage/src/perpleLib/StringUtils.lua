@@ -688,3 +688,11 @@ function ValidStrUtils:checkNickName_forGsp(str)
 
     return false
 end
+
+function getFileName(url)
+    return url:match("(.+)%..+")
+end
+
+function getFileExtension(url)
+    return url:match('^.+(%..+)$')
+end
