@@ -56,17 +56,17 @@ function isWin32()
     return (platform == 'Windows')
 end
 
-local serch_path_list = pl.stringx.split(package.path, ';')
-local SERCH_PATH = pl.List()
+local search_path_list = pl.stringx.split(package.path, ';')
+local SEARCH_PATH = pl.List()
 
-for i,v in ipairs(serch_path_list) do
+for i,v in ipairs(search_path_list) do
     local dir = pl.path.dirname(v)
     if (pl.path.isdir(dir) == true) then
         local path = pl.path.abspath(dir)
         --cclog(path)
-        --SERCH_PATH:put(path)
-        --SERCH_PATH:insert(1, path)
-        SERCH_PATH:append(path)
+        --SEARCH_PATH:put(path)
+        --SEARCH_PATH:insert(1, path)
+        SEARCH_PATH:append(path)
     end
 end
 
@@ -82,7 +82,7 @@ LuaBridge = {}
 -- function isFileExist
 -------------------------------------
 function LuaBridge:isFileExist(path)
-    for i,dir in ipairs(SERCH_PATH) do
+    for i,dir in ipairs(SEARCH_PATH) do
         local _path = pl.path.join(dir, path)
 
         -- 파일이 있으면 파일 경로를, 없으면 nil을 리턴
@@ -100,7 +100,7 @@ end
 function LuaBridge:fullPathForFilename(path)
     local full_path = nil
 
-    for i,dir in ipairs(SERCH_PATH) do
+    for i,dir in ipairs(SEARCH_PATH) do
         local _path = pl.path.join(dir, path)
 
         -- 파일이 있으면 파일 경로를, 없으면 nil을 리턴
