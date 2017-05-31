@@ -50,6 +50,7 @@ function UI_ChatPopup:initUI()
             end
         end
         vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+        vars['editBox']:setMaxLength(CHAT_MAX_MESSAGE_LENGTH) -- 글자 입력 제한 40자
     end
 
     --[[
@@ -107,6 +108,8 @@ function UI_ChatPopup:click_enterBtn()
     local vars = self.vars
 
     local msg = vars['editBox']:getText()
+    msg = utf8_sub(msg, CHAT_MAX_MESSAGE_LENGTH)
+
     local len = string.len(msg)
     if (len <= 0) then
         UIManager:toastNotificationRed('메시지를 입력하세요.')

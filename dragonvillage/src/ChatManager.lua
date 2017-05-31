@@ -1,3 +1,6 @@
+CHAT_MAX_CHANNEL = 9999 -- 채널 최대 (1~9999)
+CHAT_MAX_MESSAGE_LENGTH = 40 -- 메세지 최대 글자 수 (40자)
+
 local PARENT = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable())
 
 local function log(...)

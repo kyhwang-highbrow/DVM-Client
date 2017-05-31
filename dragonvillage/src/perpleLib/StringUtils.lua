@@ -268,48 +268,92 @@ function jumble(str)  --Jumbles @str
     return res
 end
 
-function u8touc(str) -- UTF-8 을 유니코드 테이블로
+-------------------------------------
+-- @function u8touc
+-- @brief UTF-8 을 유니코드 테이블로
+-------------------------------------
+function u8touc(str)
     local tbl = {}
-    local a = 1
-    for i=1, str:len() do
-        if str:byte(i) >= 0 and str:byte(i) <= 127 then
-            tbl[a] = str:byte(i)
-            a = a+1
-        elseif str:byte(i) >= 194 and str:byte(i) <= 223 then
-            tbl[a] = ((str:byte(i) - 192) * 64) + (str:byte(i+1) - 128)
-            i = i+1
-            a = a+1
-        elseif str:byte(i) >= 224 and str:byte(i) <= 239 then
-            tbl[a] = ((str:byte(i) - 224) * 64 * 64) + ((str:byte(i+1) - 128) * 64) + (str:byte(i+2) - 128)
-            i = i+2
-            a = a+1
-        elseif str:byte(i) >= 240 and str:byte(i) <= 244 then
-            print (str:byte(i,i+3))
-            i = i+3
-            a = a+1
+    local tbl_char_end_byte = {} -- 각 문자의 종료 byte index를 저장 (외부에서 문자열을 자를 때 사용하기 위함)
+    local byte_len = str:len() -- 문자열의 byte 길이
+    local str_len = 0 -- 문자열의 char 길이
+    
+    local i = 1 -- 문자의 시작 idx
+    while (i <= byte_len) do
+        -- 현재 문자의 byte
+        local char_byte = 0
+        if (str:byte(i) >= 0 and str:byte(i) <= 127) then
+            char_byte = 1
+        elseif (str:byte(i) >= 194 and str:byte(i) <= 223) then
+            char_byte = 2
+        elseif (str:byte(i) >= 224 and str:byte(i) <= 239) then
+            char_byte = 3
+        elseif (str:byte(i) >= 240 and str:byte(i) <= 244) then
+            char_byte = 4
+        else
+            break
         end
+
+        -- 현재 문자의 byte index가 문자열의 byte_len을 넘어설 경우 stop
+        if (byte_len < i+(char_byte-1)) then
+            break
+        end
+
+        -- 현재 문자의 byte별 처리
+        if (char_byte == 1) then
+            tbl[str_len] = str:byte(i)
+
+        elseif (char_byte == 2) then
+            tbl[str_len] = ((str:byte(i) - 192) * 64) + (str:byte(i+1) - 128)
+
+        elseif (char_byte == 3) then
+            tbl[str_len] = ((str:byte(i) - 224) * 64 * 64) + ((str:byte(i+1) - 128) * 64) + (str:byte(i+2) - 128)
+
+        elseif (char_byte == 4) then
+            print (str:byte(i,i+3)) -- sgkim 이건 뭐지???
+
+        end
+
+        -- byte index 증가
+        i = (i + char_byte)
+
+        -- 문자열 길이 증가
+        str_len = (str_len + 1)
+
+        -- 문자의 종료 byte를 저장
+        tbl_char_end_byte[str_len] = (i - 1)
     end
+
     -- for key,value in pairs(tbl) do tbl[key] = string.format("%04X", value) print(key, tbl[key]) end
-    return tbl
+    return tbl, str_len, tbl_char_end_byte
 end
 
+-------------------------------------
+-- @function uc_len
+-- @brief 실제 문자열의 길이 (byte 길이 X)
+-------------------------------------
 function uc_len(str)
-    if not str then return 0 end
-
-    local t = u8touc(str)
-    local len = table.getn(t)
-    --[[
-    local len = 0
-    for i, v in ipairs(t) do
-        if v > 255 then
-            len = len + 2
-        else
-            len = len + 1
-        end
+    if (not str) then
+        return 0
     end
-    ]]--
 
-    return len
+    local tbl, str_len, tbl_char_end_byte = u8touc(str)
+    return str_len
+end
+
+-------------------------------------
+-- @function utf8_sub
+-- @brief utf8인코딩의 문자열에서 문자 단위로 len길이 만큼만 자른 문자열 리턴
+-------------------------------------
+function utf8_sub(str, len)
+    local tbl, str_len, tbl_char_end_byte = u8touc(str)
+
+    -- len이 없으면 분석된 문자열의 길이로 수행
+    len = (len or str_len)
+    local target_len = math_min(str_len, len)
+
+    local _str = string.sub(str, 1, tbl_char_end_byte[target_len])
+    return _str
 end
 
 
