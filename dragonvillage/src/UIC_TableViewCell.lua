@@ -22,11 +22,18 @@ ITableViewCell = {
 -------------------------------------
 function ITableViewCell:init()
     -- cell 사이즈 설정 (UI의 실제 사이즈)
-    self.m_cellSize = cc.size(100, 100)
+    self.m_cellSize = nil
 
     -- TableView에서 cell의 visible상태를 관리하기 위한 변수들
     self.m_bOrgCellVisible = true
     self.m_cellVisibleRefCnt = 0
+end
+
+-------------------------------------
+-- function setCellSize
+-------------------------------------
+function ITableViewCell:setCellSize(cell_size)
+    self.m_cellSize = cell_size
 end
 
 -------------------------------------

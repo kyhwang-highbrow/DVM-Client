@@ -357,7 +357,7 @@ function UIC_TableView:tableCellSizeForIndex(idx)
     end
 
     local t_item = self.m_itemList[idx]
-    local ui = t_item['ui']
+    local ui = t_item['ui'] or t_item['generated_ui']
 
     if (not ui) then
         return self.m_defaultCellSize    
@@ -485,7 +485,6 @@ end
 
 function UIC_TableView:__offsetFromIndex(index)
     local offset = cc.p(0, 0)
-    local cellSize = cc.size(0, 0)
 
     -- 가로
     if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
@@ -871,6 +870,11 @@ function UIC_TableView:makeItemUI(data)
     end
     ui.root:setDockPoint(cc.p(0, 0))
     ui.root:setAnchorPoint(cc.p(0.5, 0.5))
+
+	-- cell size를 정의 하지 않는다면 디폴트 사이즈를 넣는다.
+	if (ui:getCellSize() == nil) then
+		ui:setCellSize(self.m_defaultCellSize)
+	end
 
     self.m_scrollView:addChild(ui.root)
 
