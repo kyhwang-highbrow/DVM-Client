@@ -1,4 +1,4 @@
-csv = require 'perpleLib/lua_csv'
+require 'perpleLib/csv'
 require 'perpleLib/StringUtils'
 require 'TableGradeInfo'
 require 'lfs'
@@ -9,61 +9,52 @@ require 'perpleLib/dkjson'
 
 
 g_dataRoot = '../data/'
-g_t_invalidData = {}
-g_table_dragon = nil
-g_table_monster = nil
-
-
-------------------------------------
--- function installAndImport
--- @brief Æ¯Á¤ Æú´õÀÇ ÀüÃ¼ ÆÄÀÏ Àı´ë°æ·Î ¸®½ºÆ® ¹İÈ¯
-------------------------------------
-function installAndImport(package)
-    local function requireFunction(package)
-        require(package)
-    end
-    isLoaded = pcall(requireFunction, package)
-    if (not isLoaded) then
-        --LuaRocks? ¸¦ ½á¼­ pip¿Í °°Àº ¿ªÇÒÀ» ÇÒ ÇÊ¿ä°¡ ÀÖÀ» °Í °°À½.
-    end
-    --package ¸Å°³º¯¼öÀÇ ÀÌ¸§À» °¡Áø Àü¿ªº¯¼ö¿¡ loadµÈ ¸ğµâÀ» ´ëÀÔÇØ¾ßÇÔ.
-end
-
---installAndImport('slack')
+g_invalidDataTable = {}
+g_dragonTable = nil
+g_monsterTable = nil
 
 
 ------------------------------------
 -- function initGlobalVar
 ------------------------------------
 function initGlobalVar()
-    g_table_dragon = makeDictCSV('../data/table_dragon.csv', 'did')
-    g_table_monster =  makeDictCSV('../data/table_monster.csv', 'mid') 
+    g_dragonTable = makeDictCSV(g_dataRoot .. 'table_dragon.csv', 'did')
+    g_monsterTable =  makeDictCSV(g_dataRoot .. 'table_monster.csv', 'mid') 
 end
+
+
 
 ------------------------------------
 -- function validateData
--- @brief data °ËÁõ ½ÃÀÛ
+-- @brief data ê²€ì¦ ì‹œì‘. ì „ì²´ íŒŒì¼ì˜ ê²½ë¡œë¥¼ ì°¾ì•„ ë¡œë“œí•œ ë’¤, íŒŒì¼ë“¤ì„ ì „ë¶€ ë”•ì…”ë„ˆë¦¬í™”í•œë‹¤. ê·¸ í›„ íŒŒì¼ ê²€ì¦ì„ ì‹œì‘.
 ------------------------------------
 function validateData()
-    -- ÀüÃ¼ ÆÄÀÏ °æ·Î Ã£±â
+    -- ì „ì²´ íŒŒì¼ ê²½ë¡œ ì°¾ê¸°
     local filePathList = getAllFilePath(g_dataRoot)
     
-    -- ÀüÃ¼ ÆÄÀÏ ¸®½ºÆ® ÀÚ·á Á¤¸® (µñ¼Å³Ê¸®È­)
+    -- ì „ì²´ íŒŒì¼ ë¦¬ìŠ¤íŠ¸ ìë£Œ ì •ë¦¬ (ë”•ì…”ë„ˆë¦¬í™”)
     local tableData = makeDictAllData(filePathList)
 
-    -- ÆÄÀÏ °ËÁõ
+    -- íŒŒì¼ ê²€ì¦ ì‹œì‘
     validateData_Dragon(tableData)
+
+    print("Dragon Table Validation Finished")
     validateData_Stage(tableData)
+    print("Stage Table Validation Finished")
+
     validateData_Skill()
+    print("Skill Table Validation Finished")
+
+    ccdump(makeInvalidStr())
 end
 
 
 ------------------------------------------------------------------------
--- 1. ÀüÃ¼ ÆÄÀÏ °æ·Î Ã£±â
+-- 1. ì „ì²´ íŒŒì¼ ê²½ë¡œ ì°¾ê¸°
 
 ------------------------------------
 -- function getAllFilePath
--- @brief Æ¯Á¤ Æú´õÀÇ ÀüÃ¼ ÆÄÀÏ Àı´ë°æ·Î ¸®½ºÆ® ¹İÈ¯
+-- @brief íŠ¹ì • í´ë”ì˜ ì „ì²´ íŒŒì¼ ì ˆëŒ€ê²½ë¡œ ë¦¬ìŠ¤íŠ¸ ë°˜í™˜
 ------------------------------------
 function getAllFilePath(path)
     local i, t, popen = 0, {}, io.popen
@@ -71,37 +62,37 @@ function getAllFilePath(path)
     for dir in pfile:lines() do
         table.insert(t, dir)  
     end
+
     pfile:close()
     return t
 end
 
 ------------------------------------------------------------------------
--- 2. ÀüÃ¼ ÆÄÀÏ ±¸Á¶È­
+-- 2. ì „ì²´ íŒŒì¼ êµ¬ì¡°í™”
 
 ------------------------------------
 -- function makeDictAllData
--- @brief ÆÄÀÏ °æ·Î ¸®½ºÆ®¸¦ ¹Ş¾Æ¼­ °¢ ÆÄÀÏÀ» µñ¼Å³Ê¸®È­ ÇÑ µñ¼Å³Ê¸® ¹İÈ¯
+-- @brief íŒŒì¼ ê²½ë¡œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•„ì„œ ê° íŒŒì¼ì„ ë”•ì…”ë„ˆë¦¬í™” í•œ ë”•ì…”ë„ˆë¦¬ ë°˜í™˜
 ------------------------------------
 function makeDictAllData(filePathList)
     local tableData = {}
-
     for _, filePath in ipairs(filePathList) do
         local lData = nil
         
-        if (string.sub(filePath, -4, -1) == '.csv') then
-            local lData = makeListCSV(filePath)
-        elseif (string.sub(filePath, -4, -1) == 'txt') then
-            local lData = makeDataTXT(filePath)
+        if (getFileExtension(filePath) == '.csv') then
+            lData = TABLE:loadCSVTable(pl.path.relpath(getFileName(filePath), lfs.currentdir() .. g_dataRoot))
+        elseif (getFileExtension(filePath) == '.txt') then
+            lData = TABLE:loadJsonTable(pl.path.relpath(getFileName(filePath), lfs.currentdir() .. g_dataRoot))
         end
-
         tableData[filePath] = lData
     end
+
     return tableData
 end
 
 ------------------------------------
 -- function makeListCSV
--- @brief csv¸¦ ¸®½ºÆ®·Î ¹İÈ¯
+-- @brief csvë¥¼ ë¦¬ìŠ¤íŠ¸ë¡œ ë°˜í™˜
 ------------------------------------
 function makeListCSV(filePath) 
     local file = io.open(filePath, "r")
@@ -119,12 +110,12 @@ function makeListCSV(filePath)
         idx = 1
         local t_row = {}
 
-        for _, value in ipairs(ParseCSVLine(line)) do -- ÇÑ ÁÙÀ» ÆÄ½Ì
+        for _, value in ipairs(ParseCSVLine(line)) do
             t_row[l_header[idx]] = value
             idx = idx + 1
         end
 
-        table.insert(l_csv, t_row) -- ÇÑ ÁÙÀÇ µ¥ÀÌÅÍ¸¦ ÀüÃ¼ csv ÆÄÀÏ µ¥ÀÌÅÍ¿¡ Ãß°¡
+        table.insert(l_csv, t_row)
         line = file:read()
     end
 
@@ -134,7 +125,7 @@ end
 
 ------------------------------------
 -- function makeDictCSV
--- @brief csv¸¦ Æ¯Á¤ °ªÀ» Ã£¾Æ¼­ Å°·Î ÇÏ´Â µñ¼Å³Ê¸®·Î ¹İÈ¯
+-- @brief csvë¥¼ íŠ¹ì • ê°’ì„ ì°¾ì•„ì„œ í‚¤ë¡œ í•˜ëŠ” ë”•ì…”ë„ˆë¦¬ë¡œ ë°˜í™˜
 ------------------------------------
 function makeDictCSV(filePath, key)
     local file = io.open(filePath, "r")
@@ -151,7 +142,7 @@ function makeDictCSV(filePath, key)
         idx = 1
         local t_row = {}
 
-        for _, value in ipairs(ParseCSVLine(line)) do -- ÇÑ ÁÙÀ» ÆÄ½Ì
+        for _, value in ipairs(ParseCSVLine(line)) do -- í•œ ì¤„ì„ íŒŒì‹±
             t_row[l_header[idx]] = value
             idx = idx + 1
         end
@@ -165,42 +156,35 @@ function makeDictCSV(filePath, key)
     return t_csv
 end
 
---json parsing ÇÊ¿ä
-------------------------------------
--- function makeDataTxt
-------------------------------------
-
-
---TEST ÇÊ¿ä
 ------------------------------------
 -- function validataData_Dragon
 ------------------------------------
 function validateData_Dragon(t_Data)
-
+    
      for filePath, l_data in pairs(t_Data) do
-
+      
         if (find(filePath, 'table_dragon') ~= nil) then
-
+            print(filePath)
             for _, t_row in pairs(l_data) do
-                checkCSVRow(t_row, 'did', g_table_dragon, filePath)
-                checkCSVRow(t_row, 'base_did', g_table_dragon, filePath)
+                checkCSVRow(t_row, 'did', g_dragonTable, filePath)
+                checkCSVRow(t_row, 'base_did', g_dragonTable, filePath)
             end
-
+            print(filePath .. "  validated")
         end
 
      end
 
 end
---TEST ÇÊ¿ä
+
 ------------------------------------
 -- function checkCSVRow
 ------------------------------------
- function checkCSVRow(t_row, key, table, filePath)
+function checkCSVRow(t_row, key, table, filePath)
     local didStr = t_row[key]
     if(didStr) then
         if(find(didStr, ',') ~= nil) then
-            local l_did = split(didStr, ',')
-            for did in pairs(l_did) do
+            local l_did = pl.stringx.split(didStr, ',')
+            for _, did in pairs(l_did) do
                 checkDictHasKey(table, did, filePath)
             end
         else
@@ -208,36 +192,35 @@ end
         end
     end
  end
- --TEST ÇÊ¿ä
+
 ------------------------------------
 -- function validateData_Stage`
--- @brief µå·¡°ï Å×ÀÌºí °ü·Ã Å×ÀÌºí did °ËÁõ
+-- @brief ë“œë˜ê³¤ í…Œì´ë¸” ê´€ë ¨ í…Œì´ë¸” did ê²€ì¦
 ------------------------------------
-function validateData_Stage(table_data) 
-    for filePath, t_data in ipairs(table_data) do
-        if ((find(filePath, 'stage_') ~= nil) and endswith(filePath, '.txt')) then
+function validateData_Stage(table_data)
+    for filePath, t_data in pairs(table_data) do
+        if ((find(filePath, 'stage_') ~= nil) and (getFileExtension(filePath) == '.txt')) then
             checkStageScript(t_data, filePath)
         end
     end
 end
 
---Test    ÇÊ¿ä
 ------------------------------------
 -- function checkStageScript
 ------------------------------------
 function checkStageScript(t_data, filePath)
     for _, t_wave in pairs(t_data['wave']) do
         for _, summonInfo in pairs(t_wave['wave']) do
-             for _, script in pairs(summon_info) do
-                local monster_id = split(script, ';')[0]
+             for _, script in pairs(summonInfo) do
+                local monster_id = pl.stringx.split(script, ';')[1]
                 if (find(monster_id, 'RandomDragon') == nil) then
-                    checkDictHasKey(g_table_monster, monster_id, filePath) 
+                    checkDictHasKey(g_monsterTable, monster_id, filePath) 
                 end
              end
         end
     end
 end
---TEST ÇÊ¿ä
+
 ------------------------------------
 -- function validateData_Skill
 ------------------------------------
@@ -246,73 +229,85 @@ function validateData_Skill()
     t_monster_skill = makeDictCSV('..//data//table_monster_skill.csv', 'sid')
 
     l_skill_column = {'skill_basic', 'skill_active'}
-    
+
     for i = 1, 10 do 
         table.insert(l_skill_column, 'skill_'.. tostring(i))
     end
 
     -- 1. dragon
-    checkSkillTable(t_dragon_skill, g_table_dragon, l_skill_column)
+    checkSkillTable(t_dragon_skill, g_dragonTable, l_skill_column)
 
     -- 2. monster
-    checkSkillTable(t_monster_skill, g_table_monster, l_skill_column)
+    checkSkillTable(t_monster_skill, g_monsterTable, l_skill_column)
 end
 
---TODO
+
 ------------------------------------
 -- function checkSkillTable
+-- @brief ìºë¦­í„°ì˜ ìŠ¤í‚¬ì´ ì¡´ì¬í•˜ëŠ” ìŠ¤í‚¬ì¸ì§€ ê²€ì‚¬
 ------------------------------------
 function checkSkillTable(skillTable, charTable, l_skillColumn)
-    for _, tChar in ipairs(charTable) do 
-        local charName = tChar['t_name']--TODO
+    
+    for t_char, _ in pairs(charTable) do 
+        local charName = charTable[t_char]['t_name']
+        for _, skillColumn in pairs(l_skillColumn) do
+            skillID = charTable[t_char][skillColumn]
+            
+            if (skillID ~= nil and skillID ~= '') then
+                checkDictHasKey(skillTable, skillID, charName)
+            end
+
+        end
+
     end
 end
+
 ------------------------------------
 -- function checkDictHasKey
--- @brief Æ¯Á¤ »çÀü¿¡ Æ¯Á¤ Å°°ªÀÌ Á¸ÀçÇÏ´ÂÁö °Ë»çÇÏ¿© ¾øÀ¸¸é ¿¡·¯ Å×ÀÌºí ¸ñ·Ï¿¡ µî·ÏÇÑ´Ù.
+-- @brief íŠ¹ì • ì‚¬ì „ì— íŠ¹ì • í‚¤ê°’ì´ ì¡´ì¬í•˜ëŠ”ì§€ ê²€ì‚¬í•˜ì—¬ ì—†ìœ¼ë©´ ì—ëŸ¬ í…Œì´ë¸” ëª©ë¡ì— ë“±ë¡í•œë‹¤.
 ------------------------------------
-function checkDictHasKey(table, key, filePath)
-    local key = strip(key)
-    if (not table.get(key)) then
+function checkDictHasKey(t, key, filePath)
+    if (t[pl.stringx.strip(tostring(key))] == nil) then
         local tempDict = {}
         tempDict['path'] = string.gsub(filePath, g_dataRoot, "")
         tempDict['info'] = key
-        table.insert(g_t_invalidData, tempDict)
+        table.insert(g_invalidDataTable, tempDict)
     end
 end
 
-------------------------------------------------------------------------
--- 3. °ËÁõ °á°ú ¸®Æ÷Æ® ( Ãâ·Â + ½½·¢ )
 
---TODO
+------------------------------------------------------------------------
+-- 3. ê²€ì¦ ê²°ê³¼ ë¦¬í¬íŠ¸ ( ì¶œë ¥ + ìŠ¬ë™ )
+
+
 ------------------------------------
 -- function makeInvalidStr
--- @brief ¿À·ù°¡ ÀÖ´Â Å×ÀÌºí ¸ñ·ÏÀ» ¿¹»Ú°Ô Ãâ·ÂµÉ ÅØ½ºÆ®·Î ¸¸µç´Ù.
+-- @brief ì˜¤ë¥˜ê°€ ìˆëŠ” í…Œì´ë¸” ëª©ë¡ì„ ì˜ˆì˜ê²Œ ì¶œë ¥ë  í…ìŠ¤íŠ¸ë¡œ ë§Œë“ ë‹¤.
 ------------------------------------
 function makeInvalidStr()
     table_str = "@hkkang @wjung @jykim\n"
-    table_str = table_str.."##Àß¸øµÈ µ¥ÀÌÅÍ ¸ñ·Ï##\n"
-    for _, tempDict in ipairs(g_t_invalidData) do
+    table_str = table_str.."##ì˜ëª»ëœ ë°ì´í„° ëª©ë¡##\n"
+    for _, tempDict in ipairs(g_invalidDataTable) do
         text = tempDict['path']..'\t'..tempDict['info']
         
     end  
 end
 
---TESTÇÊ¿ä
+--TESTí•„ìš”
 ------------------------------------
 -- function sendInvalidTableListBySlack
--- @brief ½½·¢À¸·Î ½ğ´Ù
+-- @brief ìŠ¬ë™ìœ¼ë¡œ ìœë‹¤
 ------------------------------------
 function sendInvalidTableListBySlack()
     local attachemntsDict = {}
     attachmentsDict['title'] = '[DV_BOT] TABLE VALIDATION'
     attachmentsDict['title_link'] = 'https://drive.google.com/open?id=0Bzybp2XzPNq0flpmdEstcDJYOTdPbXFWcFpkWktZY0NxdnpyUHF1VENFX29jbnJLSGRvcFE'
-    attachmentsDict['fallback'] = "[DV_BOT] Å×ÀÌºí ¿À·ù ¹ß°ß !!"
+    attachmentsDict['fallback'] = "[DV_BOT] í…Œì´ë¸” ì˜¤ë¥˜ ë°œê²¬ !!"
     attachmentsDict['text'] = makeInvalidStr()
     print (makeInvalidStr())
 
     --attachments_dict['pretext'] = "pretext - python slack api TEST"
-    --attachments_dict['mrkdwn_in'] = ["text", "pretext"]  # ¸¶Å©´Ù¿îÀ» Àû¿ë½ÃÅ³ ÀÎÀÚµéÀ» ¼±ÅÃÇÕ´Ï´Ù.
+    --attachments_dict['mrkdwn_in'] = ["text", "pretext"]  # ë§ˆí¬ë‹¤ìš´ì„ ì ìš©ì‹œí‚¬ ì¸ìë“¤ì„ ì„ íƒí•©ë‹ˆë‹¤.
 
     -- jykim : U1QEY8938
     -- wjung : U386T6HD5
@@ -324,5 +319,6 @@ function sendInvalidTableListBySlack()
 
     local attachments = attachmentsDict
 
-    slack:Message('C1RUT070B', 'µåºôº¿', nil, attachments, false)
+    slack:Message('C1RUT070B', 'ë“œë¹Œë´‡', nil, attachments, false)
 end
+

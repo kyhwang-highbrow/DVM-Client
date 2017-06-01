@@ -14,6 +14,7 @@ require 'perpleLib/StringUtils'
 require 'Table'
 require 'TableClass'
 require 'TableGradeInfo'
+require 'dataTableValidator'
 
 -------------------------------------
 -- function main
@@ -21,10 +22,18 @@ require 'TableGradeInfo'
 -------------------------------------
 function main()
     TABLE:init()
-
-    -- 잘 동작하는지 테스트 코드
-    local table_grade_info = TableGradeInfo()
-    ccdump(table_grade_info)
+    print("## TABLE VALIDATION START")
+    initGlobalVar()
+    validateData()
+    
+    --[[if( #(g_invalidDataTable) > 0 ) then
+        sendInvalidTableListBySlack()
+        
+    end]]
+    
+    
+    --ccdump(g_dragonTable)
+    --ccdump(g_monsterTable)
 end
 
 -------------------------------------
