@@ -432,8 +432,11 @@ end
 -- @brief 스킬 인디케이터 초기화
 -------------------------------------
 function Dragon:initSkillIndicator()
+    local skill_indivisual_info = self:getLevelingSkillByType('active')
+    if (not skill_indivisual_info) then return end
+
     local t_char = self.m_charTable
-    local t_skill = self:getLevelingSkillByType('active').m_tSkill
+    local t_skill = skill_indivisual_info.m_tSkill
 
 	local indicator_type = t_skill['indicator']
 		

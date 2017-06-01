@@ -136,7 +136,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
         return
     end
 
-    if (skill_type == '') then
+    if (skill_type == '' or skill_id == '') then
         return
     end
 
@@ -255,12 +255,12 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
 		skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
     end
 
-	local skill_indivisual_info = self:getSkillInfoByID(skill_id)
+    local skill_indivisual_info = self:getSkillInfoByID(skill_id)
 	if (skill_indivisual_info) then
 		return skill_indivisual_info
 	else
 		-- UI용 skill_info 계산
-		if (skill_type) and skill_id ~= 0 then
+		if (skill_type and skill_id ~= 0 and skill_id ~= '') then
 			local skill_lv = self:getSkillLevel(idx)
 			local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
        

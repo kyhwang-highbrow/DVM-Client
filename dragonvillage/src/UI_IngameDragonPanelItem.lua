@@ -81,8 +81,10 @@ function UI_IngameDragonPanelItem:initUI()
 
     do -- 드래곤 드래그 스킬 아이콘
         local skill_id = dragon:getSkillID('active')
-        local skill_icon = IconHelper:getSkillIcon('dragon', skill_id)
-        vars['skillIconNode']:addChild(skill_icon)
+        if (skill_id ~= 0) then
+            local skill_icon = IconHelper:getSkillIcon('dragon', skill_id)
+            vars['skillIconNode']:addChild(skill_icon)
+        end
     end
 end
 
