@@ -1671,9 +1671,6 @@
     <None Include="..\src\ServerData_Item.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_LobbyUserList.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ServerData_Mail.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2364,7 +2361,7 @@
     <None Include="..\src\perpleLib\lua_csv.lua">
       <Filter>lua\perpleLib</Filter>
     </None>
-   <None Include="..\src\DragonState.lua">
+    <None Include="..\src\DragonState.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\LuaBridge.lua">

@@ -293,8 +293,6 @@ function LobbyMap:update(dt)
 
         self.m_targetTamer:setMove(node_pos['x'], node_pos['y'], 400)
         self.m_lobbyIndicator:setPosition(node_pos['x'], node_pos['y'])
-        g_lobbyUserListData.m_posX = node_pos['x']
-        g_lobbyUserListData.m_posY = node_pos['y']
     end
 
     local x, y = self.m_targetTamer.m_rootNode:getPosition()
@@ -399,9 +397,6 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
 
         --[[
         local x, y = 0, -150
-        if (g_lobbyUserListData.m_posX and g_lobbyUserListData.m_posY) then
-            x, y = g_lobbyUserListData.m_posX, g_lobbyUserListData.m_posY
-        end
         tamer:setPosition(x, y)
         --]]
     end

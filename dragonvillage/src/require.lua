@@ -79,7 +79,6 @@ local t_module = {
     'ServerData_SecretDungeon',
     'ServerData_AncientTower',
     'ServerData_Stage',
-    'ServerData_LobbyUserList',
     'ServerData_AutoPlaySetting',
     'ServerData_Runes',
 	'ServerData_Quest',

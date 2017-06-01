@@ -4,8 +4,6 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_Lobby
 -------------------------------------
 UI_Lobby = class(PARENT,{
-        m_lobbyMap = '',
-        m_lobbyUserFirstMake = 'bool',
         m_infoBoard = 'UI_NotificationInfo',
         m_hilightTimeStamp = '',
         m_lobbyWorldAdapter = 'LobbyWorldAdapter',
@@ -54,15 +52,10 @@ end
 -- function initUI
 -------------------------------------
 function UI_Lobby:initUI()
-    self:initCamera()
+    self:initLobbyWorldAdapter()
 
-    local vars = self.vars
-    do -- 테이머 아이콘 갱신
-        local type = g_tamerData:getCurrTamerTable('type')
-        local icon = IconHelper:getTamerProfileIcon(type)
-        vars['userNode']:removeAllChildren()
-        vars['userNode']:addChild(icon)
-    end
+    -- 테이머 아이콘 갱신
+    self:refresh_userTamer()
 end
 
 -------------------------------------
@@ -143,9 +136,9 @@ end
 
 
 -------------------------------------
--- function initCamera
+-- function initLobbyWorldAdapter
 -------------------------------------
-function UI_Lobby:initCamera()
+function UI_Lobby:initLobbyWorldAdapter()
     local vars = self.vars
 
     local lobby_ui = self
@@ -172,45 +165,10 @@ function UI_Lobby:initCamera()
 end
 
 -------------------------------------
--- function refresh_lobbyUsers
--- @breif 로비맵에 있는 모든 테이머를 삭제 후 새로 생성
--------------------------------------
-function UI_Lobby:refresh_lobbyUsers()
-    if (not m_lobbyMap) then
-        return
-    end
-
-    self.m_lobbyMap:clearAllUser()
-
-    if true then
-        return
-    end
-
-    -- 플레이어 유저의 Tamer만 생성하고 싶을 경우 true로 설정하세요.
-    local user_only = false
-
-    if user_only then
-        local user_info = g_lobbyUserListData:getLobbyUser_playerOnly()
-        self.m_lobbyMap:makeLobbyTamerBot(user_info)
-    else
-        local l_lobby_user_list = g_lobbyUserListData:getLobbyUserList()
-        for i,user_info in ipairs(l_lobby_user_list) do
-            self.m_lobbyMap:makeLobbyTamerBot(user_info)
-
-            ccdump(user_info)
-        end
-    end
-
-    self.m_lobbyUserFirstMake = true
-end
-
--------------------------------------
 -- function refresh_userTamer
 -- @breif 유저의 로비맵 테이머를 갱신한다
 -------------------------------------
 function UI_Lobby:refresh_userTamer()
-    self.m_lobbyMap:refreshUserTamer()
-
     local vars = self.vars
     do -- 테이머 아이콘 갱신
         local type = g_tamerData:getCurrTamerTable('type')
@@ -218,14 +176,6 @@ function UI_Lobby:refresh_userTamer()
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(icon)
     end
-end
-
--------------------------------------
--- function refresh_userTamer
--- @breif 유저의 로비맵 테이머를 갱신한다
--------------------------------------
-function UI_Lobby:refresh_userDragon()
-    self.m_lobbyMap:refreshUserDragon()
 end
 
 -------------------------------------
@@ -267,12 +217,6 @@ function UI_Lobby:refresh()
 
     -- 유저 정보 갱신
     self:refresh_userInfo()
-
-    -- 로비 정보 갱신 (최초로 생성하거나 lobby_user_list정보의 업데이트가 필요한 경우)
-    if (not self.m_lobbyUserFirstMake) or (g_lobbyUserListData:checkNeedUpdate_LobbyUserList() == true) then
-        local cb_func = function() self:refresh_lobbyUsers() end
-        g_lobbyUserListData:requestLobbyUserList_UseUI(cb_func)
-    end
 end
 
 -------------------------------------
@@ -379,7 +323,6 @@ function UI_Lobby:click_dragonManageBtn()
     local func = function()
         local ui = UI_DragonManageInfo()
         local function close_cb()
-            g_lobbyUserListData.m_bDirty = true
             self:sceneFadeInAction()
             self:refresh()
         end
@@ -542,11 +485,13 @@ function UI_Lobby:click_userInfoBtn()
 		local curr_doid = g_userData:get('leaders', 'lobby')
 
 		if (before_doid ~= curr_doid) then
-			local cb_func = function() self:refresh_lobbyUsers() end
-			g_lobbyUserListData:requestLobbyUserList_UseUI(cb_func)
+            -- @TODO sgkim
+			-- 변경된 정보를 채팅 서버에 전송, Lobby월드 갱신 필요
 
 		elseif (before_tamer ~= curr_tamer) then
-			self:refresh_userTamer()
+			-- @TODO sgkim
+			-- 변경된 정보를 채팅 서버에 전송, Lobby월드 갱신 필요
+            self:refresh_userTamer()
 
 		end
 	end
@@ -565,7 +510,9 @@ function UI_Lobby:click_tamerBtn()
 		local curr_tamer = g_tamerData:getCurrTamerTable('tid')
 
 		if (before_tamer ~= curr_tamer) then
-			self:refresh_userTamer()
+			-- @TODO sgkim
+			-- 변경된 정보를 채팅 서버에 전송, Lobby월드 갱신 필요
+            self:refresh_userTamer()
 		end
 	end
 
