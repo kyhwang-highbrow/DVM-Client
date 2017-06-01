@@ -429,6 +429,11 @@ function ChatManager:chatContentQueue(chat_content)
 
     table.insert(self.m_lMessage, chat_content)
 
+    -- 100개가 넘어가면 삭제
+    while (100 < #self.m_lMessage) do
+        table.remove(self.m_lMessage, 1)
+    end
+
     if g_topUserInfo then
         g_topUserInfo:chatBroadcast(chat_content)
     end

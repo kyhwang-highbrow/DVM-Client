@@ -12,7 +12,7 @@ UIC_ChatView = class(PARENT, {
         m_itemPositions = '',
         m_bDirtyPos = 'boolean',
 
-        m_contentStack = '',
+        m_contentQueue = '',
     })
 
 -------------------------------------
@@ -26,7 +26,7 @@ function UIC_ChatView:init(node)
 
 
     self.m_showdItemList = {}
-    self.m_contentStack = {}
+    self.m_contentQueue = {}
     self.m_itemList = {}
 end
 
@@ -81,11 +81,11 @@ end
 -- function update
 -------------------------------------
 function UIC_ChatView:update(dt)
-    if (0 < #self.m_contentStack) then
+    if (0 < #self.m_contentQueue) then
         local count = 0
 
-        while (count < 1) and self.m_contentStack[1] do
-            local chat_content = self.m_contentStack[1]
+        while (count < 1) and self.m_contentQueue[1] do
+            local chat_content = self.m_contentQueue[1]
 
             local t_item = {}
             t_item['data'] = chat_content
@@ -109,16 +109,19 @@ function UIC_ChatView:update(dt)
             t_item['ui'].root:setPositionX(0)
             t_item['ui'].root:setSwallowTouch(false)
 
-            table.insert(self.m_itemList, t_item)
+            table.insert(self.m_itemList, 1, t_item)
 
             local _container = self.m_scrollView:getContainer()
             --ccdump(_container:getNormalSize())
             _container:addChild(t_item['ui'].root)
 
+            -- 아이템 수량 관리
+            self:manageItemCapacity()
+
             self:setDirtyPos()
 
             do
-                table.remove(self.m_contentStack, 1)
+                table.remove(self.m_contentQueue, 1)
                 count = (count + 1)
             end
         end
@@ -127,6 +130,29 @@ function UIC_ChatView:update(dt)
     if self.m_bDirtyPos then
         self:updateContentList()
         self:scrollViewDidScroll()
+    end
+end
+
+-------------------------------------
+-- function manageItemCapacity
+-- @breif 아이템 수량 관리
+-------------------------------------
+function UIC_ChatView:manageItemCapacity()
+    local capacity = 100
+
+    -- 100개 이전은 삭제
+    while (capacity < #self.m_itemList) do
+        local idx = #self.m_itemList
+        local remove_item = self.m_itemList[idx]
+        remove_item['ui'].root:removeFromParent()
+        table.remove(self.m_itemList, idx)
+
+        for i,v in pairs(self.m_showdItemList) do
+            if (v == remove_item) then
+                table.remove(self.m_showdItemList, i)
+                break
+            end
+        end
     end
 end
 
@@ -271,7 +297,12 @@ end
 -- function addChatContent
 -------------------------------------
 function UIC_ChatView:addChatContent(chat_content)
-    table.insert(self.m_contentStack, chat_content)
+    table.insert(self.m_contentQueue, chat_content)
+
+    -- 100개 이전 메세지는 삭제
+    while (100 < #self.m_contentQueue) do
+        table.remove(self.m_contentQueue, 1)
+    end
 end
 
 -------------------------------------

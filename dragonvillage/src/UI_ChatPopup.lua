@@ -5,8 +5,6 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -------------------------------------
 UI_ChatPopup = class(PARENT, {
         m_mTabUI = '',
-        m_chatList = '',
-
         m_chatTableView = '',
      })
 
@@ -52,12 +50,6 @@ function UI_ChatPopup:initUI()
         vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
         vars['editBox']:setMaxLength(CHAT_MAX_MESSAGE_LENGTH) -- 글자 입력 제한 40자
     end
-
-    --[[
-    local list_table_node = vars['chatNode']
-    local size = list_table_node:getContentSize()
-    self.m_chatList = UI_ChatList(list_table_node, size['width'], size['height'], 50)
-    --]]
 
     self:init_tableView()
 
