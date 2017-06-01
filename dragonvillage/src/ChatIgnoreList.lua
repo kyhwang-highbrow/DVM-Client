@@ -99,6 +99,11 @@ end
 -- function addIgnore
 -------------------------------------
 function ChatIgnoreList:addIgnore(uid, nickname)
+    if (self:getIgnoreCount() >= 30) then
+        UIManager:toastNotificationRed(Str('최대 {1}명 까지 차단이 가능합니다.', 30))
+        return
+    end
+
     self.m_rootTable['user_list'][uid] = nickname
     self:saveChatIgnoreListFile()
 
