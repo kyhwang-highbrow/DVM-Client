@@ -58,3 +58,47 @@ end
 function UIC_LabelTTF:getStringWidth()
     return self.m_node:getStringWidth()
 end
+
+-------------------------------------
+-- function setLineBreakWithoutSpace
+-- @brief 공백이 없는 경우에도 개행을 시킨다.
+-------------------------------------
+function UIC_LabelTTF:setLineBreakWithoutSpace(b)
+    return self.m_node:setLineBreakWithoutSpace(b)
+end
+
+-------------------------------------
+-- function getCommonLineHeight
+-- @brief font의 height
+-------------------------------------
+function UIC_LabelTTF:getCommonLineHeight()
+	--[[
+		내부적으로는 fontAtlass를 통해 생성된 font의 maxHeight를 그대로 전달받아 반환하는것
+		LabelTextFormatter::createStringSprites(Label *theLabel)에서
+		unsigned int totalHeight    = theLabel->_commonLineHeight * theLabel->_currNumLines;
+		와 같이 label의 전체 높이를 구할때 사용한다.
+		
+	]]
+	local font_height = self.m_node:getCommonLineHeight()
+	local scale = self.m_node:getScale()
+    return font_height * scale
+end
+
+-------------------------------------
+-- function getStringNumLines
+-------------------------------------
+function UIC_LabelTTF:getStringNumLines()
+	-- updateContent를 통하여 ComputeStringNumLines가 호출되어야 currLineNum 이 설정되므로 내부에서 호출해준다.
+	self.m_node:updateContent()	
+    return self.m_node:getStringNumLines()
+end
+
+-------------------------------------
+-- function getTotalHeight
+-- @brief font의 height
+-------------------------------------
+function UIC_LabelTTF:getTotalHeight()
+	local line_height = self:getCommonLineHeight()
+	local line_num = self:getStringNumLines()
+    return line_height * line_num
+end

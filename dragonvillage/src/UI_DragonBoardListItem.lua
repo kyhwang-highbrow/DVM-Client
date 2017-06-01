@@ -53,7 +53,7 @@ function UI_DragonBoardListItem:initUI()
 	
 	-- 내용
 	local review = t_data['review']
-	vars['assessLabel']:setString(review)
+	self:setContentWithAdjHeight(review)
 
 	-- 내가 쓴 리뷰 처리
 	local is_mine = (nick == g_userData:get('nick'))
@@ -71,7 +71,7 @@ function UI_DragonBoardListItem:initButton()
 	local vars = self.vars
 
 	vars['recommandBtn']:registerScriptTapHandler(function() self:click_recommandBtn() end)
-	--vars['deleteBtn']:registerScriptTapHandler(function() self:click_deleteBtn() end)
+	-- vars['deleteBtn'] -> 외부에서 등록
 end
 
 -------------------------------------
@@ -84,16 +84,51 @@ function UI_DragonBoardListItem:refresh()
 	-- 좋아요
 	local like_cnt = t_data['like']
 	vars['recommandLabel']:setString(like_cnt)
+end
 
-	-- 좋아요 버튼 처리
-	local is_likeable = (t_data['likeable'])
-	vars['recommandBtn']:setEnabled(is_likeable)
+-------------------------------------
+-- function setContentWithAdjHeight
+-------------------------------------
+function UI_DragonBoardListItem:setContentWithAdjHeight(review)
+	local vars = self.vars
+
+	-- set string (line 수를 알기 위해 사전에 함)
+	vars['assessLabel']:setString(review)
+	vars['assessLabel']:setLineBreakWithoutSpace(true)
+	local line = vars['assessLabel']:getStringNumLines()
+
+	if (line > 3) then
+		-- line수에 따라 label 영역 계산
+		local label_size = vars['assessLabel'].m_node:getContentSize()
+		local label_height = vars['assessLabel']:getTotalHeight()
+		vars['assessLabel'].m_node:setDimensions(label_size['width'], label_height)
+
+		-- label 보다 길도록 배경 사이즈 조정
+		local bg_size = vars['assessSprite']:getContentSize()
+		local bg_height = label_height + 15
+		vars['assessSprite']:setNormalSize(bg_size['width'], bg_height)
+		vars['assessMySprite']:setNormalSize(bg_size['width'], bg_height)
+
+		-- 배경보다 길도록 container 사이즈 조정
+		local con_size = vars['container']:getContentSize()
+		local con_height = bg_height + 50
+		local new_size = cc.size(con_size['width'], con_height)
+		vars['container']:setNormalSize(con_size['width'], con_height)
+		
+		-- cell size 저장
+		self:setCellSize(new_size)
+	end
 end
 
 -------------------------------------
 -- function click_recommandBtn
 -------------------------------------
 function UI_DragonBoardListItem:click_recommandBtn()
+	if (not self.m_tBoard['likeable']) then
+		UIManager:toastNotificationGreen(Str('이미 추천하셨어요.'))
+		return
+	end
+
 	local function cb_func(t_data)
 		self.m_tBoard = t_data
 		self:refresh()

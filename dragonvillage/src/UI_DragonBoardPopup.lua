@@ -99,9 +99,11 @@ function UI_DragonBoardPopup:makeTableView()
 	local node = self.vars['listNode']
 	node:removeAllChildren(true)
 
-	local l_item_list = self.m_tBoardData['boards']
+	local t_item_list = table.listToMap(self.m_tBoardData['boards'], 'id')
 	if (self.m_tBoardData['myboard']) then
-		table.insert(l_item_list, 1, self.m_tBoardData['myboard'])
+		local id = self.m_tBoardData['myboard']['id']
+		t_item_list[id] = self.m_tBoardData['myboard']
+		--table.insert(t_item_list, 1, self.m_tBoardData['myboard'])
 	end
 
 	-- 생성 콜백
@@ -116,10 +118,11 @@ function UI_DragonBoardPopup:makeTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
+	table_view.m_bUseEachSize = true
     table_view.m_defaultCellSize = cc.size(884, 155)
     table_view:setCellUIClass(UI_DragonBoardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list)
+    table_view:setItemList(t_item_list, true)
     table_view:makeDefaultEmptyDescLabel(Str('첫번째 리뷰를 남겨주세요!'))
 end
 
