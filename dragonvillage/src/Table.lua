@@ -197,7 +197,10 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
     end
     -----------------------------------------------------------------------------------------
 
-    TABLE[tablename] = tables
+    if tablename then
+        TABLE[tablename] = tables
+    end
+    return tables
 end
 
 -------------------------------------
