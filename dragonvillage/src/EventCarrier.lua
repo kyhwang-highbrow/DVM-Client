@@ -43,3 +43,11 @@ EVENT_DRAGON_SKILL_GAUGE['percentage'] = 0
 EVENT_STATUS_EFFECT = clone(EVENT_CARRIER)
 EVENT_STATUS_EFFECT['char'] = ''
 EVENT_STATUS_EFFECT['status_effect_name'] = ''
+
+------------------------------
+-- event dead
+-- @brief dead 관련 이벤트에서 사용
+------------------------------
+EVENT_DEAD_CARRIER = clone(EVENT_CARRIER)
+EVENT_DEAD_CARRIER['is_dead'] = true
+EVENT_DEAD_CARRIER['hp'] = 0

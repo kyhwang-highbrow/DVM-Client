@@ -432,7 +432,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
 	-- guard 상태 체크
     if (self.m_guard) and (not is_guard) then
-		-- Evnet Carrier 세팅
+		-- Event Carrier 세팅
 		local t_event = clone(EVENT_HIT_CARRIER)
 		t_event['attacker'] = attacker
 		-- @EVENT
@@ -551,7 +551,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         return
     end
     	
-	-- Evnet Carrier 세팅
+	-- Event Carrier 세팅
 	local t_event = clone(EVENT_HIT_CARRIER)
 	t_event['damage'] = damage
 	t_event['reduced_damage'] = reduced_damage
@@ -594,6 +594,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
     if (attack_type == 'active') then
+        --[[
+        -- 스킬 캔슬은 현재는 사용하지 않음
         if self:cancelSkill() then
             -- 적 스킬 공격 캔슬 성공시
             if attacker_char then
@@ -605,6 +607,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 self:dispatch('character_casting_cancel', {}, attacker_char, percentage)
             end
         end
+        ]]--
 
         -- @EVENT 적 스킬 공격에 피격시
         self:dispatch('character_damaged_skill', {}, self)
@@ -781,15 +784,25 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     self:dispatch('damaged', {['damage']=damage, ['i_x']=i_x, ['i_y']=i_y})
 
     -- 죽음 체크
-    if (self.m_hp <= 0) and (self.m_bDead == false) then
-		-- @LOG : 보스 막타 타입
-		if (self:isBoss()) then
-			self.m_world.m_logRecorder:recordLog('finish_atk', t_info['attack_type'])
-		end
+    if (self.m_hp <= 0) and (not self.m_bDead) then
+        -- Event Carrier 세팅
+	    local t_event = clone(EVENT_DEAD_CARRIER)
+        t_event['is_dead'] = true
+        t_event['hp'] = self.m_hp
 
-		self:dispatch('dead', {}, self)
-        self:setDead()
-        self:changeState('dying')
+	    self:dispatch('dead', t_event, self)
+
+        self.m_hp = t_event['hp']
+        
+        if (t_event['is_dead']) then
+            self:setDead()
+            self:changeState('dying')
+
+            -- @LOG : 보스 막타 타입
+		    if (self:isBoss()) then
+			    self.m_world.m_logRecorder:recordLog('finish_atk', t_info['attack_type'])
+		    end
+        end
     end
 
     -- 피격시 타격감을 위한 연출
@@ -1067,19 +1080,26 @@ end
 -------------------------------------
 -- function healAbs
 -------------------------------------
-function Character:healAbs(caster, hp, b_make_effect)
-    local hp = math_floor(hp)
+function Character:healAbs(caster, heal, b_make_effect)
+    local heal = math_floor(heal)
 
     -- 시전자 회복 스킬 효과 증가 처리
     if (caster) then
          local heal_power = caster:getStat('heal_power')
          if (heal_power ~= 0) then
-            hp = hp + math_floor(hp * (heal_power / 100))
+            heal = heal + math_floor(heal * (heal_power / 100))
          end
     end
 
-    local heal = hp
-    local heal_for_text = hp
+    -- 대상자 받는 치유 효과 증가 처리
+    do
+        local recovery_power = self:getStat('recovery_power')
+        if (recovery_power ~= 0) then
+            heal = heal + math_floor(heal * (recovery_power / 100))
+        end
+    end
+
+    local heal_for_text = heal
     heal = math_min(heal, (self.m_maxHp-self.m_hp))
 
     self:makeHealFont(heal_for_text)

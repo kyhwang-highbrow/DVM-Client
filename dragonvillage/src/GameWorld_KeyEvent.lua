@@ -161,7 +161,7 @@ end
 function GameWorld:se_on_dragon()
 	local dragon_list = self:getDragonList()
     local enemy_list = self:getEnemyList()
-        
+
     --StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'stun', 'target', 1, 5, 100, 100)
     StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'darknix', 'target', 1, 5, 100, 100)
 end
@@ -254,16 +254,6 @@ end
 function GameWorld:tamer_active_skill()
     if (self.m_tamer) then
         self.m_tamer:changeState('active')
-    end
-end
-
--------------------------------------
--- function tamer_event_skill
--- @brief 테이머 스킬 강제 시전 - 액티브
--------------------------------------
-function GameWorld:tamer_event_skill()
-    if (self.m_tamer) then
-		self.m_tamer:changeState('event')
     end
 end
 

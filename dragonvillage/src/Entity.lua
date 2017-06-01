@@ -140,6 +140,23 @@ function Entity:release()
 end
 
 -------------------------------------
+-- function updateState
+-- @brief 현재 상태에 대한 처리 이전에 호출되어야함
+-------------------------------------
+function Entity:updateState()
+    -- 상태가 시작할때 해당 애니메이션으로 설정
+    if (self.m_prevState ~= self.m_state or self.m_stateTimer == -1) then
+        if (self.m_animator) then
+            -- idle 애니메이션에 한해서 중복 체크
+            local check = isExistValue(self.m_state, 'idle', 'attackDelay', 'pattern_wait')
+            self.m_animator:changeAni(self.m_tStateAni[self.m_state], self.m_tStateAniLoop[self.m_state], check)
+        end
+    end
+
+    PARENT.updateState(self)
+end
+
+-------------------------------------
 -- function addState
 -- @param state : string
 -- @param func : function
@@ -180,15 +197,6 @@ function Entity:changeState(state, forced)
     end
 
     local changed = PARENT.changeState(self, state, forced)
-
-    if changed then
-        if self.m_animator then
-            -- idle 애니메이션에 한해서 중복 체크
-            local check = isExistValue(state, 'idle', 'attackDelay', 'pattern_wait')
-            self.m_animator:changeAni(self.m_tStateAni[state], self.m_tStateAniLoop[state], check)
-        end
-    end
-
     return changed
 end
 

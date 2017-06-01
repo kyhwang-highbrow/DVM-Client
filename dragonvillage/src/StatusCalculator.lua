@@ -30,6 +30,9 @@ table.addList(L_STATUS_TYPE, {
         'heal_power',       -- 회복 스킬 효과 +{1}% 증가
         'debuff_time',      -- 해로운 효과 지속 시간 +{1}% 증가
 
+        -- 전투 로직 개편의 추가 옵션을 위해 추가된 능력치
+        'recovery_power'    -- 받는 치유 효과 +{1}% 증가
+
 		-- 기획 이슈로 제거
         --'pass_chance',  -- 패시브 발동 +{1}% 
 

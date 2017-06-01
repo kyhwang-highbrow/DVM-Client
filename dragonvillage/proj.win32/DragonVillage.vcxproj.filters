@@ -2367,6 +2367,9 @@
     <None Include="..\src\LuaBridge.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StatusEffect_Zombie.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
