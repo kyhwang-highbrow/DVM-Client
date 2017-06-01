@@ -7,6 +7,9 @@ UI_DragonBoardPopup_Write = class(PARENT,{
 		m_did = 'number',
     })
 
+local REVIEW_MIN_LENGTH = 2
+local REVIEW_MAX_LENGTH = 200
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -41,10 +44,9 @@ function UI_DragonBoardPopup_Write:initUI()
 	editbox는 텍스트 입력용도로만 사용하고 handler와 ui 표시는 
 	각각 editBtn, editLabel을 사용하는 구조이다.
 	]]
-	local REVIEW_MAX_LENGTH = 600
 	vars['editBox']:setMaxLength(REVIEW_MAX_LENGTH)
-	vars['editBox']:setInputMode(0) -- enum class InputMode : ANY
-	vars['editLabel']:setString('')
+	vars['editBox']:setInputMode(cc.EDITBOX_INPUT_MODE_ANY)
+	vars['editLabel']:setString(Str('리뷰를 작성해 주세요'))
 end
 
 -------------------------------------
@@ -58,11 +60,14 @@ function UI_DragonBoardPopup_Write:initButton()
 
 	-- editBox handler 등록
 	local function editBoxTextEventHandle(strEventName, pSender)
-		cclog(strEventName, pSender)
         if (strEventName == "return") then
-			-- editLabel에 글자를 찍어준다.
-            local context = vars['editBox']:getText()
-			vars['editLabel']:setString(context)
+			-- @TODO 키보드 입력이 종료될 때 텍스트 검증을 한다.
+			local context, is_valid = self:validateEditText()
+
+			if (is_valid) then
+				-- editLabel에 글자를 찍어준다.
+				vars['editLabel']:setString(context)
+			end
         end
     end
     vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
@@ -73,6 +78,33 @@ end
 -------------------------------------
 function UI_DragonBoardPopup_Write:refresh()
 	local vars = self.vars
+end
+
+-------------------------------------
+-- function validateEditText
+-- @brief 글자 수, 비속어 등을 검증한다.
+-------------------------------------
+function UI_DragonBoardPopup_Write:validateEditText()
+	local vars = self.vars
+	local context = vars['editBox']:getText()
+	local is_valid = true
+
+	local str_len = uc_len(context)
+
+	-- 최소 글자는 경고 후 invalid
+	if (str_len < REVIEW_MIN_LENGTH) then
+		UIManager:toastNotificationGreen(Str('최소 2글자 이상 입력해주세요!'))
+		is_valid = false
+
+	-- 최대 글자는 경고 후 넘치는 부분 삭제
+	elseif (str_len > REVIEW_MAX_LENGTH) then
+		UIManager:toastNotificationGreen(Str('최대 글자수(200자)를 초과했어요!'))
+		context = utf8_sub(context, REVIEW_MAX_LENGTH)
+		vars['editBox']:setText(context)
+
+	end
+
+	return context, is_valid
 end
 
 -------------------------------------
@@ -88,9 +120,9 @@ end
 -------------------------------------
 function UI_DragonBoardPopup_Write:click_writeBtn()
 	local vars = self.vars
-	local context = vars['editBox']:getText()
+	local context, is_valid = self:validateEditText()
 
-	if (context) then
+	if (is_valid) then
 		local did = self.m_did
 		local function cb_func()
 			self:closeWithAction()
