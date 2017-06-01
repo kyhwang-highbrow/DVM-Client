@@ -19,6 +19,9 @@ function UI_Setting:init_gameTab()
     vars['directOnBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('준비 중입니다.')) end)
     vars['directOffBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('준비 중입니다.')) end)
 
+    -- 채팅 on/off
+    self:init_chatSetting()
+
     -- 시나리오 재생 설정
     self:init_scenarioPlayerSetting()
 end
@@ -105,6 +108,34 @@ function UI_Setting:init_lowResModeSetting()
             g_serverData:applyServerData(false, 'local', 'lowResMode')
         end
         g_serverData:applySetting()
+    end
+
+    radio_button:setChangeCB(change_cb)
+end
+
+-------------------------------------
+-- function init_chatSetting
+-- @brief 채팅 on/off
+-------------------------------------
+function UI_Setting:init_chatSetting()
+    local vars = self.vars
+
+    local radio_button = UIC_RadioButton()
+    radio_button:addButton('on', vars['chatOnBtn'])
+    radio_button:addButton('off', vars['chatOffBtn'])
+
+    if g_chatIgnoreList:isGlobalIgnore() then
+        radio_button:setSelectedButton('off')
+    else
+        radio_button:setSelectedButton('on')
+    end
+
+    local function change_cb(selected)
+        if (selected == 'on') then
+            g_chatIgnoreList:setGlobalIgnore(false)
+        elseif (selected == 'off') then
+            g_chatIgnoreList:setGlobalIgnore(true)
+        end
     end
 
     radio_button:setChangeCB(change_cb)

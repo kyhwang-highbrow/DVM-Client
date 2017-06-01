@@ -48,6 +48,10 @@ function ChatIgnoreList:loadChatIgnoreListFile()
 
         if #content > 0 then
             self.m_rootTable = json_decode(content)
+            if (not self.m_rootTable['user_list']) then
+                self.m_rootTable = self:makeDefaultChatIgnoreList()
+                self:saveChatIgnoreListFile()
+            end
         end
         f:close()
     else
@@ -61,6 +65,8 @@ end
 -------------------------------------
 function ChatIgnoreList:makeDefaultChatIgnoreList()
     local root_table = {}
+    root_table['user_list'] = {} -- 차단 유저 리스트
+    root_table['global_ignore'] = false -- 채팅 전체 무시
     return root_table
 end
 
@@ -93,7 +99,7 @@ end
 -- function addIgnore
 -------------------------------------
 function ChatIgnoreList:addIgnore(uid, nickname)
-    self.m_rootTable[uid] = nickname
+    self.m_rootTable['user_list'][uid] = nickname
     self:saveChatIgnoreListFile()
 
     UIManager:toastNotificationRed(Str('{1}님의 채팅을 차단하였습니다.', nickname))
@@ -103,7 +109,7 @@ end
 -- function removeIgnore
 -------------------------------------
 function ChatIgnoreList:removeIgnore(uid, nickname)
-    self.m_rootTable[uid] = nil
+    self.m_rootTable['user_list'][uid] = nil
     self:saveChatIgnoreListFile()
 
     UIManager:toastNotificationRed(Str('{1}님의 차단해제하였습니다.', nickname))
@@ -113,7 +119,7 @@ end
 -- function getIgnoreCount
 -------------------------------------
 function ChatIgnoreList:getIgnoreCount()
-    return table.count(self.m_rootTable)
+    return table.count(self.m_rootTable['user_list'])
 end
 
 -------------------------------------
@@ -122,7 +128,7 @@ end
 function ChatIgnoreList:getIgnoreList()
     local t_ret = {}
 
-    for uid,nickname in pairs(self.m_rootTable) do
+    for uid,nickname in pairs(self.m_rootTable['user_list']) do
         t_ret[uid] = {['uid']=uid, ['nickname']=nickname}
     end
 
@@ -133,9 +139,30 @@ end
 -- function isIgnore
 -------------------------------------
 function ChatIgnoreList:isIgnore(uid)
-    if self.m_rootTable[uid] then
+    if self.m_rootTable['user_list'][uid] then
         return true
     else
         return false
     end
+end
+
+-------------------------------------
+-- function setGlobalIgnore
+-------------------------------------
+function ChatIgnoreList:setGlobalIgnore(ignore)
+    self.m_rootTable['global_ignore'] = ignore
+    self:saveChatIgnoreListFile()
+
+    if (ignore) then
+        UIManager:toastNotificationRed(Str('채팅을 비활성화하였습니다.'))
+    else
+        UIManager:toastNotificationRed(Str('채팅을 활성화하였습니다.'))
+    end
+end
+
+-------------------------------------
+-- function isGlobalIgnore
+-------------------------------------
+function ChatIgnoreList:isGlobalIgnore()
+    return self.m_rootTable['global_ignore']
 end

@@ -105,6 +105,12 @@ end
 -- function click_enterBtn
 -------------------------------------
 function UI_ChatPopup:click_enterBtn()
+    -- 채팅 비활성화 시
+    if (g_chatIgnoreList:isGlobalIgnore()) then
+        UIManager:toastNotificationRed(Str('채팅이 비활성화 상태입니다.'))
+        return
+    end
+
     local vars = self.vars
 
     local msg = vars['editBox']:getText()
@@ -261,6 +267,12 @@ function UI_ChatPopup:openPopup()
     self:doAction()
 
     self:onChangeTab(self.m_currTab, false)
+
+    -- 채팅 비활성화 시
+    if (g_chatIgnoreList:isGlobalIgnore()) then
+        UIManager:toastNotificationRed(Str('채팅이 비활성화 상태입니다.'))
+        return
+    end
 end
 
 -------------------------------------

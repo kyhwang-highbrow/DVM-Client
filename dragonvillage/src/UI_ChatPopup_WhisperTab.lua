@@ -48,6 +48,12 @@ end
 -- function click_enterBtn
 -------------------------------------
 function UI_ChatPopup_WhisperTab:click_enterBtn()
+    -- 채팅 비활성화 시
+    if (g_chatIgnoreList:isGlobalIgnore()) then
+        UIManager:toastNotificationRed(Str('채팅이 비활성화 상태입니다.'))
+        return
+    end
+
     local vars = self.vars
 
     if (not self.m_peerUserNickname) or (self.m_peerUserNickname == '') then

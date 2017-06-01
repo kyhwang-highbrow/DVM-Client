@@ -214,7 +214,10 @@ function LobbyManager:onEvent_RECEIVE_DATA(t_event)
 
     -- 일반 메세지 받음 (내가 보낸 메세지도 받음)
     elseif (pcode == 'S_CHAT_NORMAL_MSG') then
-        self:receiveData_S_CHAT_NORMAL_MSG(msg)
+        -- 채팅 활성화 시에만 동작
+        if (not g_chatIgnoreList:isGlobalIgnore()) then
+            self:receiveData_S_CHAT_NORMAL_MSG(msg)
+        end
 
     -- 캐릭터 이동
     elseif (pcode == 'S_CHARACTER_MOVE') then

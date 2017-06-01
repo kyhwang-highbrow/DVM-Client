@@ -116,6 +116,12 @@ end
 -- @brief 귓속말 보내기
 -------------------------------------
 function ChatManager:sendWhisperMsg(peer_nickname, msg)
+    -- 채팅 비활성화 시
+    if (g_chatIgnoreList:isGlobalIgnore()) then
+        UIManager:toastNotificationRed(Str('채팅이 비활성화 상태입니다.'))
+        return
+    end
+
     -- 서버와 연결이 끊어진 상태
     if (self:getStatus() ~= 'Success') then
         log('서버와 연결이 끊어진 상태')
@@ -226,11 +232,17 @@ function ChatManager:onEvent_RECEIVE_DATA(t_event)
 
     -- 일반 메세지 받음 (내가 보낸 메세지도 받음)
     elseif (pcode == 'S_CHAT_NORMAL_MSG') then
-        self:receiveData_S_CHAT_NORMAL_MSG(msg)
+        -- 채팅 활성화 시에만 동작
+        if (not g_chatIgnoreList:isGlobalIgnore()) then
+            self:receiveData_S_CHAT_NORMAL_MSG(msg)
+        end
 
     -- 귓속말 메세지 받음 (내가 보낸 메세지도 받음)
     elseif (pcode == 'S_WHISPER_RESPONSE') then
-        self:receiveData_S_WHISPER_RESPONSE(msg)
+        -- 채팅 활성화 시에만 동작
+        if (not g_chatIgnoreList:isGlobalIgnore()) then
+            self:receiveData_S_WHISPER_RESPONSE(msg)
+        end
 
     else
         log('# ChatManager:onEvent_RECEIVE_DATA() pcode : ' .. pcode)    
@@ -509,6 +521,11 @@ end
 -- @brief
 -------------------------------------
 function ChatManager:setNoti(chat_content)
+    -- 채팅 비활성화 시 동작하지 않음
+    if (g_chatIgnoreList:isGlobalIgnore()) then
+        return
+    end
+
     local category = chat_content:getContentCategory()
 
     if (not self.m_chatPopup) or (not self.m_chatPopup:isVisibleCategory(category)) then
