@@ -107,8 +107,13 @@ end
 -- @brief 채팅 클라이언트 소켓 초기화
 -------------------------------------
 function UI_TitleScene:initChatClientSocket()
-    local ip = '192.168.1.63'
-    local port = '3927'
+    -- 김성구 로컬 서버
+    --local ip = '192.168.1.63'
+    --local port = '3927'
+
+    -- 테스트 채팅 서버
+    local ip = 'dv-test.perplelab.com'
+    local port = '9013'
     local chat_client_socket = ChatClientSocket(ip, port)
 
     -- 유저 정보 입력
