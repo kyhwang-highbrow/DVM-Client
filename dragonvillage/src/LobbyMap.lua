@@ -690,23 +690,25 @@ function LobbyMap:updateUserTamerArea()
     
     -- 확인해야 할 테이머들과의 거리를 확인
     for i,bot in ipairs(target_list) do
-        local bot_x, bot_y = bot.m_rootNode:getPosition()
-        local uid = bot.m_userData:getUid()
-        local distance = getDistance(user_x, user_y, bot_x, bot_y)
+        if (bot.m_rootNode) then
+            local bot_x, bot_y = bot.m_rootNode:getPosition()
+            local uid = bot.m_userData:getUid()
+            local distance = getDistance(user_x, user_y, bot_x, bot_y)
 
-        if (distance <= 150) then
-            if (not self.m_lNearUserList[uid]) then
-                --cclog('가까이 들어옴!!! ' .. uid)
-                bot:showEmotionEffect()
-                bot.m_ui:setActive(true)
+            if (distance <= 150) then
+                if (not self.m_lNearUserList[uid]) then
+                    --cclog('가까이 들어옴!!! ' .. uid)
+                    bot:showEmotionEffect()
+                    bot.m_ui:setActive(true)
+                end
+                self.m_lNearUserList[uid] = bot
+            else
+                if (self.m_lNearUserList[uid]) then
+                    --cclog('######## 멀어짐!!! ' .. uid)
+                    bot.m_ui:setActive(false)
+                end
+                self.m_lNearUserList[uid] = nil
             end
-            self.m_lNearUserList[uid] = bot
-        else
-            if (self.m_lNearUserList[uid]) then
-                --cclog('######## 멀어짐!!! ' .. uid)
-                bot.m_ui:setActive(false)
-            end
-            self.m_lNearUserList[uid] = nil
         end
     end
 
