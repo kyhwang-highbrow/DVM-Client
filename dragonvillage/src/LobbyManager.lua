@@ -194,6 +194,8 @@ function LobbyManager:onEvent_CHANGE_USER_INFO(t_event)
     else
         self.m_playerUserInfo:syncSUser(server_user)
     end
+
+    self:dispatch('LobbyManager_UPDATE_USER', self.m_playerUserInfo)
 end
 
 -------------------------------------
@@ -230,6 +232,10 @@ function LobbyManager:onEvent_RECEIVE_DATA(t_event)
     -- 다른 유저 퇴장
     elseif (pcode == 'S_LOBBY_USER_LEAVE') then
         self:receiveData_S_LOBBY_USER_LEAVE(msg)
+
+    -- 다른 유저 정보 변경
+    elseif (pcode == 'S_UPDATE_USER_INFO') then
+        self:receiveData_S_UPDATE_USER_INFO(msg)
 
     else
         log('# LobbyManager:onEvent_RECEIVE_DATA() pcode : ' .. pcode)    
@@ -322,6 +328,19 @@ function LobbyManager:receiveData_S_LOBBY_USER_LEAVE(msg)
 
     -- 유저 리스트에 삭제
     self:removeUser(uid)
+end
+
+-------------------------------------
+-- function receiveData_S_UPDATE_USER_INFO
+-- @brief 다른 유저 정보 변경
+-------------------------------------
+function LobbyManager:receiveData_S_UPDATE_USER_INFO(msg)
+    local payload = msg['payload']
+    local server_user = self:getProtobuf('session').SUser():Parse(payload)
+    local uid = server_user['uid']
+
+    -- 유저 갱신
+    self:updateUser(uid, server_user)
 end
 
 -------------------------------------
@@ -424,6 +443,19 @@ function LobbyManager:removeUser(uid)
     if struct_user_info then
         self:dispatch('LobbyManager_REMOVE_USER', struct_user_info)
         self.m_userInfoList[uid] = nil
+    end
+end
+
+-------------------------------------
+-- function updateUser
+-- @brief 유저 삭제
+-------------------------------------
+function LobbyManager:updateUser(uid, server_user)
+    local struct_user_info = self.m_userInfoList[uid]
+
+    if struct_user_info then
+        struct_user_info:syncSUser(server_user)
+        self:dispatch('LobbyManager_UPDATE_USER', struct_user_info)
     end
 end
 

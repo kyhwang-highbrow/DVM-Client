@@ -186,6 +186,39 @@ function ChatClientSocket:setUserInfo(t_data)
 end
 
 -------------------------------------
+-- function changeUserInfo
+-- @brief
+-------------------------------------
+function ChatClientSocket:changeUserInfo(t_data)
+    local need_sync = false
+
+    for _,key in ipairs({'tamer', 'nickname', 'did', 'level'}) do
+        if self:_checkNeedSync(t_data, key) then
+            need_sync = true
+            break
+        end
+    end
+
+    self:setUserInfo(t_data)
+
+    if need_sync then
+        self:requestUpdateUserInfo()
+    end
+end
+
+-------------------------------------
+-- function _checkNeedSync
+-- @brief 유저 정보가 변경되었을 때 서버와 동기화를 해야하는지 여부 체크
+-------------------------------------
+function ChatClientSocket:_checkNeedSync(t_data, key)
+    if t_data[key] and (self.m_user[key] ~= t_data[key]) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function requestLogin
 -- @brief
 -------------------------------------
@@ -200,6 +233,19 @@ function ChatClientSocket:requestLogin()
     end
 
     return 0
+end
+
+-------------------------------------
+-- function requestUpdateUserInfo
+-- @brief
+-------------------------------------
+function ChatClientSocket:requestUpdateUserInfo()
+    if (self.m_status ~= 'Success') then
+        return
+    end
+
+    local p = self.m_user
+    self:write(self.m_protocolCode.C_UPDATE_USER_INFO, p)
 end
 
 -------------------------------------
@@ -286,4 +332,36 @@ end
 -------------------------------------
 function ChatClientSocket:close()
     self.m_socket:close()
+end
+
+
+
+
+
+
+
+
+-------------------------------------
+-- function globalUpdatePlayerUserInfo
+-- @brief 로비에서 표현되는 유저의 정보가 변경되었을 경우 채팅서버에 알리기 위함
+-------------------------------------
+function ChatClientSocket:globalUpdatePlayerUserInfo()
+    local tamer = g_userData:get('tamer')
+    local nickname = g_userData:get('nick')
+    local lv = g_userData:get('lv')
+
+    -- 리더 드래곤
+    local leader_dragon = g_dragonsData:getLeaderDragon()
+    local did = leader_dragon and tostring(leader_dragon['did']) or ''
+    if (did ~= '') then
+        did = did .. ';' .. leader_dragon['evolution']
+    end
+
+    local t_data = {}
+    t_data['tamer'] = tostring(tamer)
+    t_data['nickname'] = nickname
+    t_data['did'] = did
+    t_data['level'] = lv
+
+    self:changeUserInfo(t_data)
 end

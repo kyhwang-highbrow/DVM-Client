@@ -33,6 +33,9 @@ enum ProtocolCode {
     // session.protocol
 	C_LOGIN_REQ		= 10;
 	S_LOGIN_RES		= 11;
+    
+    C_UPDATE_USER_INFO = 12;
+    S_UPDATE_USER_INFO = 13;
 	
 	//chat.protocol
 	C_CHAT_NORMAL_MSG		= 1001;
@@ -52,9 +55,6 @@ enum ProtocolCode {
     
 	C_CHAT_WHISPER_MSG		= 1011;
     S_WHISPER_RESPONSE		= 1012;
-
-	C_CHAT_CHANGE_CHANNEL	= 200;
-	S_CHAT_CHANGE_CHANNEL	= 201;
 	
 
 	C_ERROR					= 9998;

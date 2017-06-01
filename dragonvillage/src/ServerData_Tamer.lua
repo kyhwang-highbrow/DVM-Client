@@ -179,6 +179,11 @@ function ServerData_Tamer:request_setTamer(tid, cb_func)
     local function success_cb()
         self.m_serverData:applyServerData(tid, 'user', 'tamer')
 
+        -- 채팅 서버에 변경사항 적용
+        if g_chatClientSocket then
+            g_chatClientSocket:globalUpdatePlayerUserInfo()
+        end
+
 		if (cb_func) then
 			cb_func()
 		end

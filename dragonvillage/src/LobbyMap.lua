@@ -351,6 +351,10 @@ end
 -- function makeLobbyTamerBot
 -------------------------------------
 function LobbyMap:makeLobbyTamerBot(struct_user_info)
+
+    -- 복사를 해서 사용함 (변경 여부를 관리하기 위해)
+    local struct_user_info = clone(struct_user_info)
+
     local lobby_map = self
     local lobby_ground = self.m_groudNode
     local player_uid = g_serverData:get('local', 'uid')
@@ -487,6 +491,51 @@ function LobbyMap:removeLobbyTamer(uid)
 
     self.m_lLobbyTamer[idx]:release()
     table.remove(self.m_lLobbyTamer, idx)
+end
+
+-------------------------------------
+-- function updateLobbyTamer
+-- @breif 외부에서 테이머의 정보가 변경되었을 경우 (테이머, 드래곤, 유저 레벨, 유저 닉네임 등등등)
+-------------------------------------
+function LobbyMap:updateLobbyTamer(uid, struct_user_info)
+    local tamer = nil
+
+    for i,v in pairs(self.m_lLobbyTamer) do
+        if (v.m_userData:getUid() == uid) then
+            tamer = v
+        end
+    end
+
+    if (not tamer) then
+        return
+    end
+
+    -- 테이머가 변경되었을 경우
+    if (tamer.m_userData.m_tamerID ~= struct_user_info.m_tamerID) then
+        -- 테이머 리소스 (tamer id에 따라 받아옴)
+        local tamer_res = struct_user_info:getSDRes()
+	    tamer:initAnimator(tamer_res)
+    end
+
+    -- 리더 드래곤
+    local prev_dragon = tamer.m_userData:getLeaderDragonObject()
+    local curr_dragon = struct_user_info:getLeaderDragonObject()
+    if (prev_dragon:getDid() ~= curr_dragon:getDid()) or 
+        (prev_dragon:getEvolution() ~= curr_dragon:getEvolution()) then
+
+        -- did 변경
+        tamer.m_dragon.m_dragonID = curr_dragon:getDid()
+
+        -- res 변경
+        local res = curr_dragon:getIngameRes()
+        tamer.m_dragon:initAnimator(res)
+    end
+
+    -- 복사를 해서 사용함 (변경 여부를 관리하기 위해)
+    tamer.m_userData = clone(struct_user_info)
+
+    -- UI는 변경여부 상관없이 무조건 갱신 (퍼포먼스 이슈가 거의 없음)
+    tamer.m_ui:init_statusUI()
 end
 
 -------------------------------------

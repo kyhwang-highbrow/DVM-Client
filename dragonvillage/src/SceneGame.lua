@@ -571,6 +571,11 @@ function SceneGame:networkGameFinish_response_user_info(ret, t_result_ref)
     do -- 서버에서 넘어온 레벨과 경험치 적용
         if ret['lv'] then
             g_userData:applyServerData(ret['lv'], 'lv')
+
+            -- 채팅 서버에 변경사항 적용
+            if g_chatClientSocket then
+                g_chatClientSocket:globalUpdatePlayerUserInfo()
+            end
         end
 
         if ret['exp'] then

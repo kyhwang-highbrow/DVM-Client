@@ -149,8 +149,6 @@ function StructUserInfo:syncSUser(server_user)
     self.m_nickname = server_user['nickname']
     self.m_tamerPosX = server_user['x']
     self.m_tamerPosY = server_user['y']
-    -- server_user['did'] -- 이거 어찌 처리하지
-
 
     -- 드래곤 정보
     local did_str = server_user['did']

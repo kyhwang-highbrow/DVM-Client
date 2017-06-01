@@ -225,6 +225,7 @@ function ChatManager:onEvent_RECEIVE_DATA(t_event)
     if (pcode == 'S_LOBBY_USER_ENTER') then
     elseif (pcode == 'S_LOBBY_USER_LEAVE') then
     elseif (pcode == 'S_CHARACTER_MOVE') then
+    elseif (pcode == 'S_UPDATE_USER_INFO') then
 
     -- 채널 변경
     elseif (pcode == 'S_LOBBY_CHANGE_CHANNEL') then

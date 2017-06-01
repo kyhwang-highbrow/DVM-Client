@@ -39,6 +39,7 @@ function LobbyWorldAdapter:init_lobbyManager()
     self.m_lobbyManager:addListener('LobbyManager_ADD_USER', self)
     self.m_lobbyManager:addListener('LobbyManager_REMOVE_USER', self)
     self.m_lobbyManager:addListener('LobbyManager_CHARACTER_MOVE', self)
+    self.m_lobbyManager:addListener('LobbyManager_UPDATE_USER', self)
 end
 
 -------------------------------------
@@ -55,7 +56,7 @@ function LobbyWorldAdapter:init_lobbyMap()
     if (not self.m_lobbyManager.m_playerUserInfo) then -- 위치 랜덤으로 지정 (처음에만)
         t_data['x'], t_data['y'] = lobby_map:getRandomSpot()
     end
-    self.m_chatClientSocket:setUserInfo(t_data)
+    self.m_chatClientSocket:changeUserInfo(t_data)
 
     -- 유저 설정
     local struct_user_info = self.m_lobbyManager.m_playerUserInfo
@@ -136,6 +137,15 @@ function LobbyWorldAdapter:onEvent(event_name, t_event, ...)
                 SensitivityHelper:doActionBubbleText(v.m_rootNode, nil, nil, 'lobby_tamer', json['message'])
             end
         end
+
+    -- 유저 정보 갱신
+    elseif (event_name == 'LobbyManager_UPDATE_USER') then
+        local struct_user_info = t_event
+        local uid = struct_user_info:getUid()
+        self.m_lobbyMap:updateLobbyTamer(uid, struct_user_info)
+
+
+
 
 
 

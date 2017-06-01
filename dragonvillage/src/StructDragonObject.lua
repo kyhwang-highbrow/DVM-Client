@@ -349,6 +349,19 @@ function StructDragonObject:getIconRes()
 end
 
 -------------------------------------
+-- function getIngameRes
+-- @breif
+-------------------------------------
+function StructDragonObject:getIngameRes()
+    local table_dragon = TableDragon()
+    local t_dragon = table_dragon:get(self['did'])
+
+    local res = AnimatorHelper:getDragonResName(t_dragon['res'], self:getEvolution(), t_dragon['attr'])
+
+    return res
+end
+
+-------------------------------------
 -- function isLeader
 -- @breif
 -------------------------------------
