@@ -271,6 +271,16 @@ function table.pop(t)
 	return item
 end
 
+-------------------------------------
+-- function apply
+-- @brief 덮어씌우기
+-------------------------------------
+function table.apply(t_org, t_data)
+	for i, v in pairs(t_org) do
+		t_org[i] = t_data[i]
+	end
+end
+
 --###############################################
 -- utility funciton : datetime
 --###############################################

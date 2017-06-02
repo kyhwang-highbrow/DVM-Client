@@ -23,13 +23,25 @@ function ServerData_DragonBoard:getBoards(did)
 end
 
 -------------------------------------
+-- function makeDataPretty
+-------------------------------------
+function ServerData_DragonBoard:makeDataPretty(table_data)
+	local t_ret = {}
+	for i, t_data in ipairs(table_data) do
+		t_data['idx'] = i
+		t_ret[t_data['id']] = t_data
+	end
+	return t_ret
+end
+
+-------------------------------------
 -- function applyBoard
 -------------------------------------
 function ServerData_DragonBoard:applyBoard(did, t_data)
 	if (did) then
 		for i, t_board in pairs(self.m_mBoardMap[did]) do
 			if (t_board['id'] == t_data['id']) then
-				self.m_mBoardMap[did][i] = t_data
+				table.apply(self.m_mBoardMap[did][i], t_data)
 			end
 		end
 
@@ -37,19 +49,12 @@ function ServerData_DragonBoard:applyBoard(did, t_data)
 		for did, l_board_list in pairs(self.m_mBoardMap) do
 			for i, t_board in pairs(l_board_list['boards']) do
 				if (t_board['id'] == t_data['id']) then
-					self.m_mBoardMap[did]['boards'][i] = t_data
+					table.apply(self.m_mBoardMap[did]['boards'][i], t_data)
 				end
 			end
 		end
 
 	end
-end
-
--------------------------------------
--- function applyData
--------------------------------------
-function ServerData_DragonBoard:applyData(did, column, data)
-	self.m_mBoardMap[did][column] = data
 end
 
 -------------------------------------
@@ -62,6 +67,7 @@ function ServerData_DragonBoard:request_dragonBoard(did, cb_func)
 
     -- 콜백 함수
     local function success_cb(ret)
+		--ret['boards'] = self:makeDataPretty(ret['boards'])
 		self.m_mBoardMap[did] = ret
 		if (cb_func) then
 			cb_func()
@@ -120,7 +126,7 @@ function ServerData_DragonBoard:request_rateBoard(did, rate, cb_func)
 
     -- 콜백 함수
     local function success_cb(ret)
-		self:applyData(did, 'rate', data)
+		--self:applyData(did, 'rate', data)
 
 		if (cb_func) then
 			cb_func()

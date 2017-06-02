@@ -6,6 +6,8 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_DragonBoardPopup = class(PARENT,{
 		m_tBoardData = 'table',
 		m_did = 'number',
+		m_didSource = 'number',
+		m_attrRadioButton = 'RadioButton'
     })
 
 -------------------------------------
@@ -37,7 +39,7 @@ function UI_DragonBoardPopup:init(t_dragon_data)
 
     self:initUI()
     self:initButton()
-    self:refresh()
+    --self:refresh()
 end
 
 -------------------------------------
@@ -47,6 +49,32 @@ function UI_DragonBoardPopup:initUI()
 	local vars = self.vars
 	vars['gradeGauge']:setPercentage(0)
 	vars['gradeLabel']:setString(Str('평점 {1}', string.format('%.1f', 0)))
+
+	do -- 속성(attribute)
+        local radio_button = UIC_RadioButton()
+        radio_button:addButton('fire', vars['fireBtn'])
+        radio_button:addButton('water', vars['waterBtn'])
+        radio_button:addButton('earth', vars['earthBtn'])
+        radio_button:addButton('dark', vars['darkBtn'])
+        radio_button:addButton('light', vars['lightBtn'])
+        radio_button:setChangeCB(function() self:onChangeOption() end)
+        self.m_attrRadioButton = radio_button
+
+		local did = self.m_did
+		local did_source = math_floor(did / 10) * 10
+		self.m_didSource= did_source
+
+		for i = 1, 5 do
+			local t_dragon = TableDragon():get(did_source + i)
+			if (not t_dragon) then
+				local attr = attributeNumToStr(i)
+				vars[attr .. 'Btn']:setVisible(false)
+			end
+		end 
+
+		local attr = TableDragon:getDragonAttr(self.m_did)
+        self.m_attrRadioButton:setSelectedButton(attr)
+    end
 end
 
 -------------------------------------
@@ -99,11 +127,17 @@ function UI_DragonBoardPopup:makeTableView()
 	local node = self.vars['listNode']
 	node:removeAllChildren(true)
 
-	local t_item_list = table.listToMap(self.m_tBoardData['boards'], 'id')
+	local l_item_list = self.m_tBoardData['boards']
+
+	-- 내 기록이 있는 경우 최상단에 넣음
 	if (self.m_tBoardData['myboard']) then
-		local id = self.m_tBoardData['myboard']['id']
-		t_item_list[id] = self.m_tBoardData['myboard']
-		--table.insert(t_item_list, 1, self.m_tBoardData['myboard'])
+		local t_my_board = self.m_tBoardData['myboard']
+		for i, t_board in pairs(l_item_list) do
+			if (t_board['id'] == t_my_board['id']) then
+				table.remove(l_item_list, i)
+			end
+		end
+		table.insert(l_item_list, 1, self.m_tBoardData['myboard'])
 	end
 
 	-- 생성 콜백
@@ -122,8 +156,19 @@ function UI_DragonBoardPopup:makeTableView()
     table_view.m_defaultCellSize = cc.size(884, 155)
     table_view:setCellUIClass(UI_DragonBoardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(t_item_list, true)
+    table_view:setItemList(l_item_list, true)
     table_view:makeDefaultEmptyDescLabel(Str('첫번째 리뷰를 남겨주세요!'))
+end
+
+-------------------------------------
+-- function onChangeOption
+-- @brief
+-------------------------------------
+function UI_DragonBoardPopup:onChangeOption()
+    local attr_option = self.m_attrRadioButton.m_selectedButton
+	local attr_num = attributeStrToNum(attr_option)
+	self.m_did = self.m_didSource + attr_num
+	self:refresh()
 end
 
 -------------------------------------
