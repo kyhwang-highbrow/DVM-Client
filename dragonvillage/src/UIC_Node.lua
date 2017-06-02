@@ -113,6 +113,15 @@ function UIC_Node:setNormalSize(width, height)
     return ret
 end
 
+function UIC_Node:setContentSize(size)
+    return self.m_node:setContentSize(size)
+end
+
+
+function UIC_Node:getContentSize()
+    return self.m_node:getContentSize()
+end
+
 function UIC_Node:setDockPoint(dock_point)
     return self.m_node:setDockPoint(dock_point)
 end

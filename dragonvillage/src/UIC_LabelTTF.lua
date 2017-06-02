@@ -56,12 +56,21 @@ end
 -- function getStringWidth
 -------------------------------------
 function UIC_LabelTTF:getStringWidth()
-    return self.m_node:getStringWidth()
+    
+
+    -- labelì˜ getStringWidth() í•¨ìˆ˜ëŠ” ê°œí–‰ì„ í•˜ì§€ ì•Šì€ ìƒíƒœì˜ ë„“ì´ë¥¼ ë¦¬í…€í•¨
+    local str_width = self.m_node:getStringWidth()
+
+    -- str_widthê°€ contentSizeì˜ widthë³´ë‹¤ í´ ê²½ìš° ê°œí–‰ì„ ê³ ë ¤í•´ì„œ
+    -- contentSizeì˜ widthë¥¼ ë¦¬í„´í•˜ê²Œ í•¨
+    local size = self:getContentSize()
+    local ret_str_width = math_min(size['width'], str_width)
+    return ret_str_width
 end
 
 -------------------------------------
 -- function setLineBreakWithoutSpace
--- @brief °ø¹éÀÌ ¾ø´Â °æ¿ì¿¡µµ °³ÇàÀ» ½ÃÅ²´Ù.
+-- @brief ê³µë°±ì´ ì—†ëŠ” ê²½ìš°ì—ë„ ê°œí–‰ì„ ì‹œí‚¨ë‹¤.
 -------------------------------------
 function UIC_LabelTTF:setLineBreakWithoutSpace(b)
     return self.m_node:setLineBreakWithoutSpace(b)
@@ -69,14 +78,14 @@ end
 
 -------------------------------------
 -- function getCommonLineHeight
--- @brief fontÀÇ height
+-- @brief fontì˜ height
 -------------------------------------
 function UIC_LabelTTF:getCommonLineHeight()
 	--[[
-		³»ºÎÀûÀ¸·Î´Â fontAtlass¸¦ ÅëÇØ »ı¼ºµÈ fontÀÇ maxHeight¸¦ ±×´ë·Î Àü´Ş¹Ş¾Æ ¹İÈ¯ÇÏ´Â°Í
-		LabelTextFormatter::createStringSprites(Label *theLabel)¿¡¼­
+		ë‚´ë¶€ì ìœ¼ë¡œëŠ” fontAtlassë¥¼ í†µí•´ ìƒì„±ëœ fontì˜ maxHeightë¥¼ ê·¸ëŒ€ë¡œ ì „ë‹¬ë°›ì•„ ë°˜í™˜í•˜ëŠ”ê²ƒ
+		LabelTextFormatter::createStringSprites(Label *theLabel)ì—ì„œ
 		unsigned int totalHeight    = theLabel->_commonLineHeight * theLabel->_currNumLines;
-		¿Í °°ÀÌ labelÀÇ ÀüÃ¼ ³ôÀÌ¸¦ ±¸ÇÒ¶§ »ç¿ëÇÑ´Ù.
+		ì™€ ê°™ì´ labelì˜ ì „ì²´ ë†’ì´ë¥¼ êµ¬í• ë•Œ ì‚¬ìš©í•œë‹¤.
 		
 	]]
 	local font_height = self.m_node:getCommonLineHeight()
@@ -88,17 +97,25 @@ end
 -- function getStringNumLines
 -------------------------------------
 function UIC_LabelTTF:getStringNumLines()
-	-- updateContent¸¦ ÅëÇÏ¿© ComputeStringNumLines°¡ È£ÃâµÇ¾î¾ß currLineNum ÀÌ ¼³Á¤µÇ¹Ç·Î ³»ºÎ¿¡¼­ È£ÃâÇØÁØ´Ù.
+	-- updateContentë¥¼ í†µí•˜ì—¬ ComputeStringNumLinesê°€ í˜¸ì¶œë˜ì–´ì•¼ currLineNum ì´ ì„¤ì •ë˜ë¯€ë¡œ ë‚´ë¶€ì—ì„œ í˜¸ì¶œí•´ì¤€ë‹¤.
 	self.m_node:updateContent()	
     return self.m_node:getStringNumLines()
 end
 
 -------------------------------------
 -- function getTotalHeight
--- @brief fontÀÇ height
+-- @brief fontì˜ height
 -------------------------------------
 function UIC_LabelTTF:getTotalHeight()
 	local line_height = self:getCommonLineHeight()
 	local line_num = self:getStringNumLines()
     return line_height * line_num
+end
+
+-------------------------------------
+-- function setDimension
+-- @brief
+-------------------------------------
+function UIC_LabelTTF:setDimensions(width, height)
+    return self.m_node:setDimensions(width, height)
 end
