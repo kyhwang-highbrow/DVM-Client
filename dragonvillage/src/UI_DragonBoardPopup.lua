@@ -5,9 +5,14 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -------------------------------------
 UI_DragonBoardPopup = class(PARENT,{
 		m_tBoardData = 'table',
-		m_did = 'number',
+		
 		m_didSource = 'number',
-		m_attrRadioButton = 'RadioButton'
+		m_did = 'number',
+		m_offset = 'number',
+		m_order = 'string',
+		
+		m_attrRadioButton = 'UIC_RadioButton',
+		m_uicSortList = 'UIC_SortList',
     })
 
 -------------------------------------
@@ -47,34 +52,12 @@ end
 -------------------------------------
 function UI_DragonBoardPopup:initUI()
 	local vars = self.vars
+	
 	vars['gradeGauge']:setPercentage(0)
 	vars['gradeLabel']:setString(Str('평점 {1}', string.format('%.1f', 0)))
 
-	do -- 속성(attribute)
-        local radio_button = UIC_RadioButton()
-        radio_button:addButton('fire', vars['fireBtn'])
-        radio_button:addButton('water', vars['waterBtn'])
-        radio_button:addButton('earth', vars['earthBtn'])
-        radio_button:addButton('dark', vars['darkBtn'])
-        radio_button:addButton('light', vars['lightBtn'])
-        radio_button:setChangeCB(function() self:onChangeOption() end)
-        self.m_attrRadioButton = radio_button
-
-		local did = self.m_did
-		local did_source = math_floor(did / 10) * 10
-		self.m_didSource= did_source
-
-		for i = 1, 5 do
-			local t_dragon = TableDragon():get(did_source + i)
-			if (not t_dragon) then
-				local attr = attributeNumToStr(i)
-				vars[attr .. 'Btn']:setVisible(false)
-			end
-		end 
-
-		local attr = TableDragon:getDragonAttr(self.m_did)
-        self.m_attrRadioButton:setSelectedButton(attr)
-    end
+    self:makeAttrOptionRadioBtn()
+	self:makeUICSortList()
 end
 
 -------------------------------------
@@ -92,6 +75,8 @@ end
 -------------------------------------
 function UI_DragonBoardPopup:refresh()
 	local did = self.m_did
+	local offset = self.m_offset
+	local order = self.m_order
 
 	local function cb_func()
 		local vars = self.vars
@@ -117,7 +102,7 @@ function UI_DragonBoardPopup:refresh()
 		self:makeTableView()
 	end
 
-	g_boardData:request_dragonBoard(did, cb_func)
+	g_boardData:request_dragonBoard(did, offset, order, cb_func)
 end
 
 -------------------------------------
@@ -161,6 +146,72 @@ function UI_DragonBoardPopup:makeTableView()
 end
 
 -------------------------------------
+-- function makeAttrOptionRadioBtn
+-- @brief
+-------------------------------------
+function UI_DragonBoardPopup:makeAttrOptionRadioBtn()
+	local vars = self.vars
+
+	-- 속성별 버튼 정의
+    local radio_button = UIC_RadioButton()
+	radio_button:addButton('fire', vars['fireBtn'])
+	radio_button:addButton('water', vars['waterBtn'])
+	radio_button:addButton('earth', vars['earthBtn'])
+	radio_button:addButton('dark', vars['darkBtn'])
+	radio_button:addButton('light', vars['lightBtn'])
+	radio_button:setChangeCB(function() self:onChangeOption() end)
+	self.m_attrRadioButton = radio_button
+
+	-- 같은 종류의 드래곤을 속성별로 체크한다.
+	local did = self.m_did
+	local did_source = math_floor(did / 10) * 10
+	self.m_didSource= did_source
+	for i = 1, 5 do
+		local t_dragon = TableDragon():get(did_source + i)
+		if (not t_dragon) then
+			local attr = attributeNumToStr(i)
+			vars[attr .. 'Btn']:setVisible(false)
+		end
+	end 
+
+	-- 현재 드래곤을 선택된 값으로 한다 
+	local attr = TableDragon:getDragonAttr(self.m_did)
+	self.m_attrRadioButton:setSelectedButton(attr)
+end
+
+-------------------------------------
+-- function makeUICSortList
+-- @brief
+-------------------------------------
+function UI_DragonBoardPopup:makeUICSortList()
+	local button = self.vars['sortBtn']
+	local label = self.vars['sortLabel']
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+    uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+    uic:addSortType('time', Str('최신 순'))
+    uic:addSortType('like', Str('추천 순'))
+
+	self.m_uicSortList = uic
+	self.m_uicSortList:setSortChangeCB(function(sort_type) self:onSortChangeOption(sort_type) end)
+end
+
+-------------------------------------
 -- function onChangeOption
 -- @brief
 -------------------------------------
@@ -169,6 +220,16 @@ function UI_DragonBoardPopup:onChangeOption()
 	local attr_num = attributeStrToNum(attr_option)
 	self.m_did = self.m_didSource + attr_num
 	self:refresh()
+end
+
+-------------------------------------
+-- function onSortChangeOption
+-- @brief
+-------------------------------------
+function UI_DragonBoardPopup:onSortChangeOption(sort_type)
+	self.m_order = sort_type
+	self:refresh()
+	self.m_uicSortList:hide()
 end
 
 -------------------------------------

@@ -60,10 +60,12 @@ end
 -------------------------------------
 -- function request_dragonBoard
 -------------------------------------
-function ServerData_DragonBoard:request_dragonBoard(did, cb_func)
+function ServerData_DragonBoard:request_dragonBoard(did, offset, order, cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
 	local did = did
+	local offset = offset
+	local order = order
 
     -- 콜백 함수
     local function success_cb(ret)
@@ -79,6 +81,8 @@ function ServerData_DragonBoard:request_dragonBoard(did, cb_func)
     ui_network:setUrl('/dragons/board')
     ui_network:setParam('uid', uid)
 	ui_network:setParam('did', did)
+	ui_network:setParam('offset', offset)
+	ui_network:setParam('order', order)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
