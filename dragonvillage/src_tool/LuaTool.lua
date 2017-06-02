@@ -22,18 +22,15 @@ require 'dataTableValidator'
 -------------------------------------
 function main()
     TABLE:init()
-    print("## TABLE VALIDATION START")
+
     initGlobalVar()
+
     validateData()
     
-    --[[if( #(g_invalidDataTable) > 0 ) then
-        sendInvalidTableListBySlack()
-        
-    end]]
-    
-    
-    --ccdump(g_dragonTable)
-    --ccdump(g_monsterTable)
+    if( g_numOfInvalidData > 0 ) then
+        ccdump(sendInvalidTableListBySlack())
+    end
+
 end
 
 -------------------------------------
