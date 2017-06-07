@@ -139,8 +139,6 @@ function Character.st_attack(owner, dt)
     elseif (owner.m_bFinishAnimation and owner.m_bFinishAttack) then
         owner.m_attackAnimaDuration = owner.m_stateTimer
 
-        owner.m_bEnableSpasticity = true
-
         if (owner.m_state ~= 'delegate') then
             owner:changeState('attackDelay')
         end
@@ -152,6 +150,8 @@ end
 -------------------------------------
 function Character.st_attackDelay(owner, dt)
     if (owner.m_stateTimer == 0) then
+        owner.m_bEnableSpasticity = true
+
         -- 어떤 스킬을 사용할 것인지 결정
         local skill_id, is_add_skill
 

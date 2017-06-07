@@ -167,7 +167,7 @@ function SkillIndicator:changeSIState(state)
         -- 영웅 스킬 준비 이펙트 해제
         self.m_hero:removeSkillPrepareEffect()
 
-        -- 타겟 이펙트 해제(테스트 필요)
+        -- 타겟 이펙트 해제
         if (self.m_highlightList) then
             for i, v in ipairs(self.m_highlightList) do
                 self:removeAllTargetEffect(v)
@@ -643,4 +643,13 @@ function SkillIndicator:setIndicatorTouchPos(x, y)
     self.m_indicatorTouchPosX = x
     self.m_indicatorTouchPosY = y
     self.m_bDirty = true
+end
+
+-------------------------------------
+-- function isExistTarget
+-------------------------------------
+function SkillIndicator:isExistTarget()
+    if (not self.m_highlightList) then return false end
+
+    return (#self.m_highlightList > 0)
 end

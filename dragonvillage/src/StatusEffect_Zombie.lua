@@ -24,7 +24,9 @@ end
 function StatusEffect_Zombie:onEnd()
     PARENT.onEnd(self)
     
-    -- TODO: 종료시 사망처리
+    -- 종료시 사망처리
+    self.m_owner:setDead()
+    self.m_owner:changeState('dying')
 end
 
 -------------------------------------

@@ -174,7 +174,13 @@ end
 function SkillIndicatorMgr:onTouchEnded(touch, event)
     if (self.m_selectHero) then
         if (self.m_selectHero.m_bDead) then
-            self:clear(true)    
+            -- 스킬 사용 주체 대상이 이미 죽었을 경우 취소 처리
+            self:clear(true)
+
+        elseif (not self.m_selectHero.m_skillIndicator:isExistTarget()) then
+            -- 대상이 하나도 없을 경우 취소 처리
+            self:clear(true)
+              
         else
             ---------------------------------------------------
             -- 액티브 스킬 발동
@@ -220,7 +226,6 @@ function SkillIndicatorMgr:clear(bAll)
     self.m_touchedHero = nil
     
     if (self.m_selectHero) then
-        self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
         self.m_world:setTemporaryPause(false, self.m_selectHero)
         self:setSelectHero(nil)
         self.m_bSlowMode = false
@@ -280,8 +285,15 @@ function SkillIndicatorMgr:setSelectHero(hero)
                 
         self.m_selectHero = hero
     else
-        self.m_selectHero = nil
+        if (self.m_selectHero) then
+            self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
+            
+            if (self.m_selectHero.m_state == 'skillPrepare') then
+                self.m_selectHero:changeState('attackDelay')
+            end
+        end
 
+        self.m_selectHero = nil
     end
 end
 
