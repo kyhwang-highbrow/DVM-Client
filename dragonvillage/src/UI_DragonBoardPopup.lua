@@ -153,6 +153,7 @@ function UI_DragonBoardPopup:makeTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
 	table_view.m_bUseEachSize = true
+	table_view.m_refreshDuration = 0
     table_view.m_defaultCellSize = cc.size(884, 155)
     table_view:setCellUIClass(UI_DragonBoardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
@@ -174,13 +175,8 @@ end
 function UI_DragonBoardPopup:makeAttrOptionRadioBtn()
 	local vars = self.vars
 
-	-- 속성별 버튼 정의
+	-- radio button 선언
     local radio_button = UIC_RadioButton()
-	radio_button:addButton('fire', vars['fireBtn'])
-	radio_button:addButton('water', vars['waterBtn'])
-	radio_button:addButton('earth', vars['earthBtn'])
-	radio_button:addButton('dark', vars['darkBtn'])
-	radio_button:addButton('light', vars['lightBtn'])
 	radio_button:setChangeCB(function() self:onChangeOption() end)
 	self.m_attrRadioButton = radio_button
 
@@ -188,11 +184,18 @@ function UI_DragonBoardPopup:makeAttrOptionRadioBtn()
 	local did = self.m_did
 	local did_source = math_floor(did / 10) * 10
 	self.m_didSource= did_source
+
 	for i = 1, 5 do
 		local t_dragon = TableDragon():get(did_source + i)
-		if (not t_dragon) then
-			local attr = attributeNumToStr(i)
-			vars[attr .. 'Btn']:setVisible(false)
+		local attr = attributeNumToStr(i)
+		local attr_btn = vars[attr .. 'Btn']
+		-- 드래곤이 있다면 버튼 등록
+		if (t_dragon) then
+			radio_button:addButton(attr, attr_btn)
+		-- 드래곤이 없다면 버튼 enabled false 및 음영처리 
+		else
+			attr_btn:setEnabled(false)
+			attr_btn:setColor(COLOR['deep_dark_gray'])
 		end
 	end 
 
@@ -240,13 +243,13 @@ end
 -------------------------------------
 function UI_DragonBoardPopup:onScrollEnd()
 	self.m_offset = self.m_offset + OFFSET_GAP
+
 	local function cb_func(t_ret)
 		if (table.count(t_ret) > 0) then
 			self.m_tableView:addItemList(t_ret)
 		else
 			self.m_tableView:setScrollEndCB(nil)
 		end
-		self.m_tableView:setScrollLock(false)
 	end
 	g_boardData:request_dragonBoard(self.m_did, self.m_offset, self.m_order, cb_func)
 end
@@ -269,8 +272,6 @@ end
 -------------------------------------
 function UI_DragonBoardPopup:onSortChangeOption(sort_type)
 	self.m_order = sort_type
-	--self.m_uicSortList:toggleVisibility()
-	
 	self:requestBoard()
 end
 

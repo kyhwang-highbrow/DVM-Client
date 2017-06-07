@@ -48,6 +48,7 @@ UIC_TableView = class(PARENT, {
 		m_scrollEndStd = 'number',
 		m_scrollEndSprite = 'cc.Sprite',
 		m_scrollEndCB = 'function',
+		m_scrollEndIdx = 'number',
 
 		m_scrollLock = 'bool',
     })
@@ -173,7 +174,13 @@ function UIC_TableView:update(dt)
 
         -- 정렬
         local animated = true
-        self:expandTemp(self.m_refreshDuration, animated)
+        self:refreshCellsAndContainer(self.m_refreshDuration, animated)
+
+		--dirty후에 풀리도록 고정
+		self:setScrollLock(false)
+
+		-- 정렬된 cell들을 처리하는 의미
+		self:scrollViewDidScroll()
     end
 end
 
@@ -300,9 +307,7 @@ function UIC_TableView:scrollViewDidScroll()
 	end
 	
 	-- scroll end event
-    if (endIdx == cellsCount) then
-		self:scrollEndEventHandler(offset)
-	end
+	self:scrollEndEventHandler(offset, endIdx)
 
     -- 현재 보이는 item의 앞쪽 정리
     if (0 < #self._cellsUsed) then
@@ -352,18 +357,11 @@ function UIC_TableView:scrollViewDidScroll()
         local t_item = self.m_itemList[i]
 
         if (not t_item['ui']) then
-
             if (not t_item['reserved']) then
                 table.insert(self.m_makeReserveQueue, t_item)
                 t_item['reserved'] = true
             end
 
-            --[[
-            local data = t_item['data']
-            t_item['ui'] = self:makeItemUI(data)
-            local idx = t_item['idx']
-            self:updateCellAtIndex(idx)
-            --]]
         else
             t_item['ui']:setCellVisible(true)
         end
@@ -376,7 +374,7 @@ end
 -- function scrollEndEventHandler
 -- @brief 스크롤을 끝까지 했을때의 이벤트 처리
 -------------------------------------
-function UIC_TableView:scrollEndEventHandler(offset)
+function UIC_TableView:scrollEndEventHandler(offset, end_idx)
 	-- scroll end callback 있을 경우에만 동작
 	if (not self.m_scrollEndCB) then
 		return
@@ -417,6 +415,13 @@ function UIC_TableView:scrollEndEventHandler(offset)
 
 			-- 기준치의 3배 이상 스크롤 되었을 시 콜백 실행
 			if (curr_pos < - (self.m_scrollEndStd * 3)) then
+				self.m_scrollEndIdx = end_idx
+				--[[
+					scroll end callback 을 사용하다면 대체로 리스트를 추가적으로 불러오고 갱신할것으로 가정함
+					따라서 현재 마지막idx를 갱신한 후에 화면에 계속 출력할 수 있도록 idx를 저장한다.
+					다른 사용용도가 생긴다면 그때 추가 개발 할 예정
+				]]
+
 				self:setScrollLock(true)
 				self.m_scrollEndCB()
 			end
@@ -440,7 +445,7 @@ function UIC_TableView:tableCellSizeForIndex(idx)
         return self.m_defaultCellSize
     end
 
-    local t_item = self.m_itemList[idx]
+    local t_item = self.m_itemList[idx] or {}
     local ui = t_item['ui'] or t_item['generated_ui']
 
     if (not ui) then
@@ -531,8 +536,11 @@ function UIC_TableView:minContainerOffset()
     return x, y
 end
 
+-------------------------------------
+-- function _offsetFromIndex
+-------------------------------------
 function UIC_TableView:_offsetFromIndex(index)
-    local offset = self:__offsetFromIndex(index)
+    local offset = self:_makeIndexOffset(index)
 
     local cellSize = self:tableCellSizeForIndex(index)
 
@@ -567,20 +575,26 @@ function UIC_TableView:_offsetFromIndex(index)
     return offset
 end
 
-function UIC_TableView:__offsetFromIndex(index)
+-------------------------------------
+-- function _makeIndexOffset
+-------------------------------------
+function UIC_TableView:_makeIndexOffset(index)
     local offset = cc.p(0, 0)
 
     -- 가로
     if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
-        offset['x'] = self._vCellsPositions[index]
+        offset['x'] = self._vCellsPositions[index] or 0
     -- 세로
     else
-        offset['y'] = self._vCellsPositions[index]
+        offset['y'] = self._vCellsPositions[index] or 0
     end
 
     return offset
 end
 
+-------------------------------------
+-- function updateCellAtIndex
+-------------------------------------
 function UIC_TableView:updateCellAtIndex(idx)
     local offset = self:_offsetFromIndex(idx)
 
@@ -789,16 +803,16 @@ function UIC_TableView:relocateContainer(animated)
 
     oldPoint.x, oldPoint.y = scroll_view:getContainer():getPosition();
 
-    newX     = oldPoint.x;
-    newY     = oldPoint.y;
+    newX = oldPoint.x;
+    newY = oldPoint.y;
     if (self._direction == cc.SCROLLVIEW_DIRECTION_BOTH or self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
-        newX     = math_max(newX, min.x);
-        newX     = math_min(newX, max.x);
+        newX = math_max(newX, min.x);
+        newX = math_min(newX, max.x);
     end
 
     if (self._direction == cc.SCROLLVIEW_DIRECTION_BOTH or self._direction == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
-        newY     = math_min(newY, max.y);
-        newY     = math_max(newY, min.y);
+        newY = math_min(newY, max.y);
+        newY = math_max(newY, min.y);
     end
 
     if (newY ~= oldPoint.y or newX ~= oldPoint.x) then
@@ -827,29 +841,32 @@ function UIC_TableView:relocateContainerDefault(animated)
 end
 
 -------------------------------------
--- function relocateContainerFromIndex
--- @brief 세로 모드의 BOTTOM_UP형태만 구현함
+-- function relocateContainerFromIndex 
+-- @brief container 중앙에 해당 idx가 위치하도록 함
 -------------------------------------
 function UIC_TableView:relocateContainerFromIndex(idx, animated)
+	local view_size = self.m_scrollView:getViewSize()
+	local offset = self:_offsetFromIndex(idx)
+	local min_x, min_y = self:minContainerOffset()
+	local max_x, max_y = self:maxContainerOffset()
+
+	local pos_x, pos_y = 0, 0
+
     -- 가로
     if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
-        
+        pos_x = -(offset['x'] - (view_size['width'] / 2))
+		pos_x = math_max(pos_x, min_x)
+		pos_x = math_min(pos_x, max_x)
+
     -- 세로
-    else
-        if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
-            
-        else
-            local scr_size = cc.Director:getInstance():getWinSize()
-            local offset = self:_offsetFromIndex(idx)
-            local min_offset_x, min_offset_y = self:minContainerOffset()
+    elseif (self._direction == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
+		pos_y = -(offset['y'] - (view_size['height'] / 2))
+		pos_y = math_max(pos_y, min_y)
+		pos_y = math_min(pos_y, max_y)
 
-            local offset_y = -(offset['y'] - (scr_size['height'] / 2))
-            offset_y = math_max(offset_y, min_offset_y)
-            offset_y = math_min(offset_y, 0)
-
-            self.m_scrollView:setContentOffset(cc.p(0, offset_y), animated)
-        end
     end
+
+    self.m_scrollView:setContentOffset(cc.p(pos_x, pos_y), animated)
 end
 
 -------------------------------------
@@ -883,9 +900,9 @@ function UIC_TableView:clearCellsUsed()
 end
 
 -------------------------------------
--- function expandTemp
+-- function refreshCellsAndContainer
 -------------------------------------
-function UIC_TableView:expandTemp(duration, animated)
+function UIC_TableView:refreshCellsAndContainer(duration, animated)
     local duration = duration or 0.15
 
     -- 현재 보여지는 애들 리스트
@@ -899,12 +916,6 @@ function UIC_TableView:expandTemp(duration, animated)
 
     self:_updateCellPositions()
     self:_updateContentSize(true)
-    self:scrollViewDidScroll()
-
-    -- Item UI를 즉시 생성하기 위해  m_bFirstLocation를 true로 설정
-    self.m_bFirstLocation = true
-    self:scrollViewDidScroll()
-    self.m_bFirstLocation = false
 
     -- 변경 후 보여질 애들 리스트
     for i,v in ipairs(self._cellsUsed) do
@@ -932,7 +943,14 @@ function UIC_TableView:expandTemp(duration, animated)
     if (animated == nil) then
         animated = true
     end
-    self:relocateContainer(animated)
+
+	-- 외부에서 dirty가 들어오기 전에 scrollEndIdx 를 설정한다면 0,0이 아닌 해당 idx로 이동한다.
+	if (self.m_scrollEndIdx) then
+		self:relocateContainerFromIndex(self.m_scrollEndIdx, false)
+		self.m_scrollEndIdx = nil
+	else
+		self:relocateContainer(animated)
+	end
 end
 
 -------------------------------------
