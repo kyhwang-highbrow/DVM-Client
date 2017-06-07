@@ -16,21 +16,32 @@ function ServerData_DragonBoard:init(server_data)
 end
 
 -------------------------------------
--- function init
+-- function getBoards
 -------------------------------------
 function ServerData_DragonBoard:getBoards(did)
 	return self.m_mBoardMap[did]
 end
 
 -------------------------------------
+-- function getRate
+-------------------------------------
+function ServerData_DragonBoard:getRate(did)
+	return self.m_mBoardMap[did]['rate']
+end
+
+-------------------------------------
 -- function makeDataPretty
 -------------------------------------
-function ServerData_DragonBoard:makeDataPretty(table_data)
+function ServerData_DragonBoard:makeDataPretty(table_data, offset)
+	local offset = offset or 0
 	local t_ret = {}
+
 	for i, t_data in ipairs(table_data) do
-		t_data['idx'] = i
-		t_ret[t_data['id']] = t_data
+		local idx = i + offset
+		t_data['idx'] = idx
+		t_ret[idx] = t_data
 	end
+
 	return t_ret
 end
 
@@ -69,10 +80,43 @@ function ServerData_DragonBoard:request_dragonBoard(did, offset, order, cb_func)
 
     -- 콜백 함수
     local function success_cb(ret)
-		--ret['boards'] = self:makeDataPretty(ret['boards'])
-		self.m_mBoardMap[did] = ret
+		local l_board_list = ret['boards']
+
+		if (offset == 0) then
+			-- 초기화
+			self.m_mBoardMap[did] = nil
+
+			-- 내 기록이 있는 경우 최상단에 넣음
+			if (ret['myboard']) then
+				local t_my_board = ret['myboard']
+				for i, t_board in pairs(l_board_list) do
+					if (t_board['id'] == t_my_board['id']) then
+						table.remove(l_board_list, i)
+						break
+					end
+				end
+				table.insert(l_board_list, 1, t_my_board)
+			end
+		end
+
+		-- idx를 부여
+		l_board_list = self:makeDataPretty(l_board_list, offset)
+
+		-- 멤버 변수에 저장
+		if (self.m_mBoardMap[did]) then
+
+			-- idx 관리를 위해 덮어씌운다.
+			for i, t_board in pairs(l_board_list) do
+				local idx = t_board['idx']
+				self.m_mBoardMap[did]['boards'][idx] = t_board
+			end
+		else
+			self.m_mBoardMap[did] = ret
+		end
+
+		-- 콜백 실행
 		if (cb_func) then
-			cb_func()
+			cb_func(l_board_list)
 		end
     end
 
@@ -130,7 +174,10 @@ function ServerData_DragonBoard:request_rateBoard(did, rate, cb_func)
 
     -- 콜백 함수
     local function success_cb(ret)
-		--self:applyData(did, 'rate', data)
+		-- 평균 평점 갱신
+		self.m_mBoardMap[did]['rate'] = ret['rate']
+		-- 나의 평점 갱신
+		self.m_mBoardMap[did]['myrate'] = rate
 
 		if (cb_func) then
 			cb_func()

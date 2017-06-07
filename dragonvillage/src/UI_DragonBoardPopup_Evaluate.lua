@@ -95,7 +95,7 @@ function UI_DragonBoardPopup_Evaluate:click_okBtn()
 
 	local did = self.m_did
 	local rate = self.m_targetRate
-	local function cb_func()
+	local function cb_func(ret)
 		self:closeWithAction()
 	end
 	g_boardData:request_rateBoard(did, rate, cb_func)

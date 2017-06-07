@@ -43,6 +43,13 @@ UIC_TableView = class(PARENT, {
         -- 리스트가 비어있을 때 표시할 노드
         m_emptyDescNode = 'cc.Node',
         m_emptyDescLabel = 'cc.LabelTTF',
+
+		-- scroll end event
+		m_scrollEndStd = 'number',
+		m_scrollEndSprite = 'cc.Sprite',
+		m_scrollEndCB = 'function',
+
+		m_scrollLock = 'bool',
     })
 
 -------------------------------------
@@ -58,6 +65,11 @@ function UIC_TableView:init(node)
     self._vordering = VerticalFillOrder['TOP_DOWN']
     self.m_bFirstLocation = true
     self.m_bDirtyItemList = false
+	
+	local visible_size = cc.Director:getInstance():getVisibleSize()
+    local sensitivity = 0.1
+	self.m_scrollEndStd = visible_size['height'] * sensitivity
+	self.m_scrollLock = false
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
@@ -217,6 +229,8 @@ function UIC_TableView:_updateContentSize(skip_update_cells)
     end
 
     do -- 컨테이너의 사이즈를 다시 지정
+		size['height'] = math_max(viewSize['height'], size['height']) 
+
         self.m_scrollView:setContentSize(size)
         -- 자식 node들의 transform을 update(dockpoint의 영향이 있을수 있으므로)
         self.m_scrollView:setUpdateChildrenTransform()
@@ -244,6 +258,9 @@ function UIC_TableView:scrollViewDidScroll()
     if (0 == cellsCount) then
         return
     end
+	if (self.m_scrollLock) then
+		return
+	end
 
     local startIdx = 1
     local endIdx = 1
@@ -278,7 +295,11 @@ function UIC_TableView:scrollViewDidScroll()
     if (endIdx == -1) then
         endIdx = cellsCount
 	end
-    
+	
+    if (endIdx == cellsCount) then
+		self:scrollEndEventHandler(offset['y'])
+	end
+
     -- 현재 보이는 item의 앞쪽 정리
     if (0 < #self._cellsUsed) then
         local cell = self._cellsUsed[1]
@@ -347,6 +368,56 @@ function UIC_TableView:scrollViewDidScroll()
     end
 end
 
+-------------------------------------
+-- function scrollEndEventHandler
+-- @brief 스크롤을 끝까지 했을때의 이벤트 처리 / 
+-- @TODO 현재는 상->하 의 경우만 정의, 필요한 경우 추가 작업
+-------------------------------------
+function UIC_TableView:scrollEndEventHandler(offset_y)
+	-- scroll end callback 있을 경우에만 동작
+	if (not self.m_scrollEndCB) then
+		return
+	end
+
+	-- 기준치 이상 스크롤 되었을 시
+	if (offset_y < -self.m_scrollEndStd) then
+		-- 더불러오기 아이콘 생성
+		if (not self.m_scrollEndSprite) then
+			local spr = cc.Sprite:create('res/ui/btn/result_btn_retry.png')
+			self.m_scrollEndSprite = cc.ProgressTimer:create(spr)
+
+			self.m_scrollEndSprite:setDockPoint(cc.p(0.5, 0))
+			self.m_scrollEndSprite:setAnchorPoint(CENTER_POINT)
+			self.m_scrollEndSprite:setPercentage(0)
+			self.m_node:addChild(self.m_scrollEndSprite)
+
+		-- 더불러오기 아이콘 연출
+		else
+			local gap_percent = (- offset_y - self.m_scrollEndStd)/(self.m_scrollEndStd * 2)
+
+			-- 위치 조정
+			self.m_scrollEndSprite:setPositionY(- offset_y - self.m_scrollEndStd)
+			-- percent 계산
+			self.m_scrollEndSprite:setPercentage(gap_percent * 100)
+			-- 크기 살짝 조정
+			self.m_scrollEndSprite:setScale(1 + gap_percent * 0.2)
+
+			-- 기준치의 3배 이상 스크롤 되었을 시 콜백 실행
+			if (offset_y < - (self.m_scrollEndStd * 3)) then
+				self:setScrollLock(true)
+				self.m_scrollEndCB()
+			end
+		end
+
+	-- 기준치 이내라면 더불러오기 아이콘 삭제
+	else
+		if (self.m_scrollEndSprite) then
+			self.m_scrollEndSprite:stopAllActions()
+			self.m_scrollEndSprite:removeFromParent(true)
+			self.m_scrollEndSprite = nil
+		end
+	end
+end
 
 -------------------------------------
 -- function tableCellSizeForIndex
@@ -1024,6 +1095,26 @@ end
 -- function mergeItemList
 -- @breif
 -------------------------------------
+function UIC_TableView:addItemList(list)
+    local dirty = false
+
+    -- 새로 생긴 데이터 추가
+    for i, v in pairs(list) do
+        if (not self.m_itemMap[i]) then
+            self:addItem(i, v)
+            dirty = true
+        end
+    end
+
+    if dirty then
+        self:setDirtyItemList()
+    end
+end
+
+-------------------------------------
+-- function mergeItemList
+-- @breif
+-------------------------------------
 function UIC_TableView:mergeItemList(list, refresh_func)
     local dirty = false
 
@@ -1129,4 +1220,19 @@ function UIC_TableView:refreshAllItemUI()
             ui:refresh()
         end
     end
+end
+
+-------------------------------------
+-- function setScrollEndCB
+-------------------------------------
+function UIC_TableView:setScrollEndCB(cb_func)
+    self.m_scrollEndCB = cb_func
+end
+
+-------------------------------------
+-- function setScrollEndLock
+-------------------------------------
+function UIC_TableView:setScrollLock(b)
+	self.m_scrollView:setTouchEnabled(not b)
+    self.m_scrollLock = b
 end

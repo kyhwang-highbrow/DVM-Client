@@ -11,6 +11,7 @@ UI_DragonBoardPopup = class(PARENT,{
 		m_offset = 'number',
 		m_order = 'string',
 		
+		m_tableView = 'UIC_TableView',
 		m_attrRadioButton = 'UIC_RadioButton',
 		m_uicSortList = 'UIC_SortList',
     })
@@ -41,6 +42,7 @@ function UI_DragonBoardPopup:init(t_dragon_data)
 
 	-- initialize
 	self.m_did = t_dragon_data['did']
+	self.m_offset = 0
 
     self:initUI()
     self:initButton()
@@ -74,32 +76,52 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonBoardPopup:refresh()
+	local vars = self.vars
+	local did = self.m_did
+
+	local t_dragon = TableDragon():get(did)
+	local t_board_data = g_boardData:getBoards(did)
+	self.m_tBoardData = t_board_data
+
+	-- 이름
+	vars['dragonNameLabel']:setString(Str(t_dragon['t_name']))
+
+	-- 카드
+	vars['dragonNode']:removeAllChildren()
+	local card = MakeSimpleDragonCard(did)
+	vars['dragonNode']:addChild(card.root)
+
+	-- 평점
+	self:refresh_rate(t_board_data['rate'])
+
+	-- tableView
+	self:makeTableView()
+end
+
+-------------------------------------
+-- function refresh_rate
+-------------------------------------
+function UI_DragonBoardPopup:refresh_rate(rate)
+	local vars = self.vars
+	local rate = rate or g_boardData:getRate(self.m_did)
+
+	vars['gradeGauge']:runAction(cc.ProgressTo:create(0.3, rate/5 * 100))
+	vars['gradeLabel']:setString(Str('평점 {1}', string.format('%.1f', rate)))
+end
+
+-------------------------------------
+-- function requestBoard
+-- @brief 평가 게시물을 다시 요청하고 초기화한다.
+-------------------------------------
+function UI_DragonBoardPopup:requestBoard()
+	self.m_offset = 0
+
 	local did = self.m_did
 	local offset = self.m_offset
 	local order = self.m_order
 
 	local function cb_func()
-		local vars = self.vars
-
-		local t_dragon = TableDragon():get(did)
-		local t_board_data = g_boardData:getBoards(did)
-		self.m_tBoardData = t_board_data
-
-		-- 이름
-		vars['dragonNameLabel']:setString(Str(t_dragon['t_name']))
-
-		-- 카드
-		vars['dragonNode']:removeAllChildren()
-		local card = MakeSimpleDragonCard(did)
-		vars['dragonNode']:addChild(card.root)
-
-		-- 평점
-		local grade = t_board_data['rate']
-		vars['gradeGauge']:runAction(cc.ProgressTo:create(0.3, grade/5 * 100))
-		vars['gradeLabel']:setString(Str('평점 {1}', string.format('%.1f', grade)))
-
-		-- tableView
-		self:makeTableView()
+		self:refresh()
 	end
 
 	g_boardData:request_dragonBoard(did, offset, order, cb_func)
@@ -114,23 +136,12 @@ function UI_DragonBoardPopup:makeTableView()
 
 	local l_item_list = self.m_tBoardData['boards']
 
-	-- 내 기록이 있는 경우 최상단에 넣음
-	if (self.m_tBoardData['myboard']) then
-		local t_my_board = self.m_tBoardData['myboard']
-		for i, t_board in pairs(l_item_list) do
-			if (t_board['id'] == t_my_board['id']) then
-				table.remove(l_item_list, i)
-			end
-		end
-		table.insert(l_item_list, 1, self.m_tBoardData['myboard'])
-	end
-
 	-- 생성 콜백
     local function create_func(ui, data)
 		-- 평가 삭제
         local function click_deleteBtn()
             ui:click_deleteBtn()
-			self:refresh()
+			self:requestBoard() 
         end
         ui.vars['deleteBtn']:registerScriptTapHandler(click_deleteBtn)
     end
@@ -143,6 +154,11 @@ function UI_DragonBoardPopup:makeTableView()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list, true)
     table_view:makeDefaultEmptyDescLabel(Str('첫번째 리뷰를 남겨주세요!'))
+
+	-- 테이블 뷰 scroll end callback
+	table_view:setScrollEndCB(function() self:onScrollEnd() end)
+
+	self.m_tableView = table_view
 end
 
 -------------------------------------
@@ -212,41 +228,59 @@ function UI_DragonBoardPopup:makeUICSortList()
 end
 
 -------------------------------------
+-- function onScrollEnd
+-- @brief 다음 10개 게시물을 가져온다.
+-------------------------------------
+function UI_DragonBoardPopup:onScrollEnd()
+	self.m_offset = self.m_offset + 10
+	local function cb_func(t_ret)
+		self.m_tableView:addItemList(t_ret)
+		self.m_tableView:setScrollLock(false)
+	end
+	g_boardData:request_dragonBoard(self.m_did, self.m_offset, self.m_order, cb_func)
+end
+
+-------------------------------------
 -- function onChangeOption
--- @brief
+-- @brief 속성 변경하고 평가 테이블을 새로 생성한다.
 -------------------------------------
 function UI_DragonBoardPopup:onChangeOption()
     local attr_option = self.m_attrRadioButton.m_selectedButton
 	local attr_num = attributeStrToNum(attr_option)
 	self.m_did = self.m_didSource + attr_num
-	self:refresh()
+	
+	self:requestBoard()
 end
 
 -------------------------------------
 -- function onSortChangeOption
--- @brief
+-- @brief 정렬 순서를 변경하고 평가 테이블을 새로 생성한다.
 -------------------------------------
 function UI_DragonBoardPopup:onSortChangeOption(sort_type)
-	self.m_order = sort_type
-	self:refresh()
 	self.m_uicSortList:hide()
+	self.m_order = sort_type
+	
+	self:requestBoard()
 end
 
 -------------------------------------
 -- function click_assessBtn
--- @brief 평가 게시판
+-- @brief 별점
 -------------------------------------
 function UI_DragonBoardPopup:click_assessBtn()
 	local did = self.m_did
 	local my_rate = self.m_tBoardData['myrate']
 
 	local ui = UI_DragonBoardPopup_Evaluate(did, my_rate)
-	ui:setCloseCB(function() self:refresh() end)
+	local function close_cb()
+		self:refresh_rate()
+	end
+	ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
 -- function click_writeBtn
--- @brief 평가 게시판
+-- @brief 평가 쓰기
 -------------------------------------
 function UI_DragonBoardPopup:click_writeBtn()
 	if (self.m_tBoardData['myboard']) then
@@ -256,7 +290,10 @@ function UI_DragonBoardPopup:click_writeBtn()
 
 	local did = self.m_did
 	local ui = UI_DragonBoardPopup_Write(did)
-	ui:setCloseCB(function() self:refresh() end)
+	local function close_cb()
+		self:requestBoard() 
+	end
+	ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
