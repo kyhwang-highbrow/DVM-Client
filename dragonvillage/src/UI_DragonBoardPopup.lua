@@ -156,7 +156,9 @@ function UI_DragonBoardPopup:makeTableView()
     table_view:makeDefaultEmptyDescLabel(Str('첫번째 리뷰를 남겨주세요!'))
 
 	-- 테이블 뷰 scroll end callback
-	table_view:setScrollEndCB(function() self:onScrollEnd() end)
+	if (table.count(l_item_list) == 10) then
+		table_view:setScrollEndCB(function() self:onScrollEnd() end)
+	end
 
 	self.m_tableView = table_view
 end
@@ -234,7 +236,11 @@ end
 function UI_DragonBoardPopup:onScrollEnd()
 	self.m_offset = self.m_offset + 10
 	local function cb_func(t_ret)
-		self.m_tableView:addItemList(t_ret)
+		if (table.count(t_ret) > 0) then
+			self.m_tableView:addItemList(t_ret)
+		else
+			self.m_tableView:setScrollEndCB(nil)
+		end
 		self.m_tableView:setScrollLock(false)
 	end
 	g_boardData:request_dragonBoard(self.m_did, self.m_offset, self.m_order, cb_func)
