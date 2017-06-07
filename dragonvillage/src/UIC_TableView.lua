@@ -65,10 +65,7 @@ function UIC_TableView:init(node)
     self._vordering = VerticalFillOrder['TOP_DOWN']
     self.m_bFirstLocation = true
     self.m_bDirtyItemList = false
-	
-	local visible_size = cc.Director:getInstance():getVisibleSize()
-    local sensitivity = 0.1
-	self.m_scrollEndStd = visible_size['height'] * sensitivity
+
 	self.m_scrollLock = false
 
     -- 스크롤 뷰 생성
@@ -101,8 +98,8 @@ function UIC_TableView:makeScrollView(size)
     scroll_view:setDelegate()
 
     -- 스크롤 handler
-    local scrollViewDidScroll = function(view)
-        self:scrollViewDidScroll(view)
+    local scrollViewDidScroll = function()
+        self:scrollViewDidScroll()
     end
     scroll_view:registerScriptHandler(scrollViewDidScroll, cc.SCROLLVIEW_SCRIPT_SCROLL)
 
@@ -212,33 +209,39 @@ end
 -- function _updateContentSize
 -------------------------------------
 function UIC_TableView:_updateContentSize(skip_update_cells)
-    local size = cc.size(0, 0)
+    local content_size = cc.size(0, 0)
 
-    local cellsCount = #self.m_itemList
+    local cell_cnt = #self.m_itemList
 
-    local viewSize = self.m_scrollView:getViewSize()
+    local view_size = self.m_scrollView:getViewSize()
 
-    if (cellsCount > 0) then
-        local maxPosition = self._vCellsPositions[cellsCount + 1]
+	-- 컨테이너 사이즈 계산
+    if (cell_cnt > 0) then
+        local max_pos = self._vCellsPositions[cell_cnt + 1]
+		local width, height
 
+		-- 최소 view_size 크기는 유지하기 위해 math_max사용
         if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
-            size = cc.size(maxPosition, viewSize['height'])
+			width = math_max(view_size['width'], max_pos)
+			height = view_size['height']
         else
-            size = cc.size(viewSize['width'], maxPosition)
+		 	width = view_size['width']
+			height = math_max(view_size['height'], max_pos)
         end
+
+		content_size = cc.size(width, height)
     end
 
-    do -- 컨테이너의 사이즈를 다시 지정
-		size['height'] = math_max(viewSize['height'], size['height']) 
-
-        self.m_scrollView:setContentSize(size)
+	-- 컨테이너의 사이즈 적용
+    do
+        self.m_scrollView:setContentSize(content_size)
         -- 자식 node들의 transform을 update(dockpoint의 영향이 있을수 있으므로)
         self.m_scrollView:setUpdateChildrenTransform()
     end
 
     -- cell들의 위치를 업데이트
     if (not skip_update_cells) then
-        for i=1, cellsCount do
+        for i=1, cell_cnt do
             self:updateCellAtIndex(i)
         end
     end
@@ -296,8 +299,9 @@ function UIC_TableView:scrollViewDidScroll()
         endIdx = cellsCount
 	end
 	
+	-- scroll end event
     if (endIdx == cellsCount) then
-		self:scrollEndEventHandler(offset['y'])
+		self:scrollEndEventHandler(offset)
 	end
 
     -- 현재 보이는 item의 앞쪽 정리
@@ -370,17 +374,26 @@ end
 
 -------------------------------------
 -- function scrollEndEventHandler
--- @brief 스크롤을 끝까지 했을때의 이벤트 처리 / 
--- @TODO 현재는 상->하 의 경우만 정의, 필요한 경우 추가 작업
+-- @brief 스크롤을 끝까지 했을때의 이벤트 처리
 -------------------------------------
-function UIC_TableView:scrollEndEventHandler(offset_y)
+function UIC_TableView:scrollEndEventHandler(offset)
 	-- scroll end callback 있을 경우에만 동작
 	if (not self.m_scrollEndCB) then
 		return
 	end
 
+	-- 스크롤 방향에 따라 offset 구함
+	local curr_pos
+	if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+		curr_pos = offset['x']
+	elseif (self._direction == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
+		curr_pos = offset['y']
+	else
+		return
+	end
+
 	-- 기준치 이상 스크롤 되었을 시
-	if (offset_y < -self.m_scrollEndStd) then
+	if (curr_pos < -self.m_scrollEndStd) then
 		-- 더불러오기 아이콘 생성
 		if (not self.m_scrollEndSprite) then
 			local spr = cc.Sprite:create('res/ui/btn/result_btn_retry.png')
@@ -393,17 +406,17 @@ function UIC_TableView:scrollEndEventHandler(offset_y)
 
 		-- 더불러오기 아이콘 연출
 		else
-			local gap_percent = (- offset_y - self.m_scrollEndStd)/(self.m_scrollEndStd * 2)
+			local gap_percent = (- curr_pos - self.m_scrollEndStd)/(self.m_scrollEndStd * 2)
 
 			-- 위치 조정
-			self.m_scrollEndSprite:setPositionY(- offset_y - self.m_scrollEndStd)
+			self.m_scrollEndSprite:setPositionY(- curr_pos - self.m_scrollEndStd)
 			-- percent 계산
 			self.m_scrollEndSprite:setPercentage(gap_percent * 100)
 			-- 크기 살짝 조정
 			self.m_scrollEndSprite:setScale(1 + gap_percent * 0.2)
 
 			-- 기준치의 3배 이상 스크롤 되었을 시 콜백 실행
-			if (offset_y < - (self.m_scrollEndStd * 3)) then
+			if (curr_pos < - (self.m_scrollEndStd * 3)) then
 				self:setScrollLock(true)
 				self.m_scrollEndCB()
 			end
@@ -886,7 +899,7 @@ function UIC_TableView:expandTemp(duration, animated)
 
     self:_updateCellPositions()
     self:_updateContentSize(true)
-    self:scrollViewDidScroll(true)
+    self:scrollViewDidScroll()
 
     -- Item UI를 즉시 생성하기 위해  m_bFirstLocation를 true로 설정
     self.m_bFirstLocation = true
@@ -1226,7 +1239,24 @@ end
 -- function setScrollEndCB
 -------------------------------------
 function UIC_TableView:setScrollEndCB(cb_func)
+	-- SCROLLVIEW_DIRECTION_NONE 또는 SCROLLVIEW_DIRECTION_BOTH은 지원하지 않음
+	if (self._direction == cc.SCROLLVIEW_DIRECTION_NONE) or (self._direction == cc.SCROLLVIEW_DIRECTION_BOTH) then
+		error('해당 스크롤 타입은 scroll end call back을 지원하지 않습니다')
+	end
+
     self.m_scrollEndCB = cb_func
+
+	-- scrollEnd 기준 계산
+	if (not self.m_scrollEndStd) then
+		local visible_size = cc.Director:getInstance():getVisibleSize()
+		local sensitivity = 0.1
+
+		if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+			self.m_scrollEndStd = visible_size['width'] * sensitivity
+		elseif (self._direction == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
+			self.m_scrollEndStd = visible_size['height'] * sensitivity
+		end
+	end
 end
 
 -------------------------------------
