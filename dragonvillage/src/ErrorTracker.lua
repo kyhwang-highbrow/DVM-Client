@@ -36,10 +36,10 @@ function ErrorTracker:getTrackerText(msg)
     local uid = g_userData:get('uid')
     local nick = g_userData:get('nick')
     local ver = PatchData:getInstance():getAppVersionAndPatchIdxString()
-	local last_scene = g_errorTracker:get_lastScene()
-	local last_ui = g_errorTracker:get_lastUI()
-	local last_api = g_errorTracker:get_lastAPI()
-	local last_failed_res = g_errorTracker:get_lastFailedRes()
+	local last_scene = self:get_lastScene()
+	local last_ui = self:get_lastUI()
+	local last_api = self:get_lastAPI()
+	local last_failed_res = self:get_lastFailedRes() or 'null'
     local msg = msg or 'kkami'
 
 	local templete = 
@@ -64,3 +64,17 @@ end
 
 -- @ generator
 getsetGenerator(ErrorTracker, 'ErrorTracker')
+
+-------------------------------------
+-- function get_lastAPI
+------------------------------------- 
+function ErrorTracker:get_lastAPI()
+	return self.lastAPI 
+end
+
+-------------------------------------
+-- function set_lastAPI
+------------------------------------- 
+function ErrorTracker:set_lastAPI(v)
+	self.lastAPI = v
+end
