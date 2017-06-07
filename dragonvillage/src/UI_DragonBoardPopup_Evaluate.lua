@@ -4,6 +4,8 @@ local PARENT = UI
 -- class UI_DragonBoardPopup_Evaluate
 -------------------------------------
 UI_DragonBoardPopup_Evaluate = class(PARENT,{
+		m_reviewFunc = 'UI_DragonBoardPopup',
+
 		m_did = 'number',
 		m_myRate = 'number',
 		m_targetRate = 'number'
@@ -12,7 +14,7 @@ UI_DragonBoardPopup_Evaluate = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonBoardPopup_Evaluate:init(did, my_rate)
+function UI_DragonBoardPopup_Evaluate:init(did, my_rate, reveiw_func)
     local vars = self:load('dragon_board_assess.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -26,6 +28,7 @@ function UI_DragonBoardPopup_Evaluate:init(did, my_rate)
 	-- initialize
 	self.m_did = did
 	self.m_myRate = my_rate
+	self.m_reviewFunc = reveiw_func
 
     self:initUI()
     self:initButton()
@@ -52,6 +55,7 @@ function UI_DragonBoardPopup_Evaluate:initButton()
 		vars['assessBtn' .. i]:registerScriptTapHandler(function() self:click_assessBtn(i) end)
 	end
 	vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+	vars['reviewBtn']:registerScriptTapHandler(function() self:click_reviewBtn() end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:closeWithAction() end)
 end
 
@@ -99,6 +103,16 @@ function UI_DragonBoardPopup_Evaluate:click_okBtn()
 		self:closeWithAction()
 	end
 	g_boardData:request_rateBoard(did, rate, cb_func)
+end
+
+-------------------------------------
+-- function click_reviewBtn
+-------------------------------------
+function UI_DragonBoardPopup_Evaluate:click_reviewBtn()
+	self:doActionReverse(function() 
+		self:close() 
+		self.m_reviewFunc()
+	end, 0.5, false)
 end
 
 --@CHECK

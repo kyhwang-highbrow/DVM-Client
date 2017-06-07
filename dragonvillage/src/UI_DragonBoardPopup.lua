@@ -16,6 +16,8 @@ UI_DragonBoardPopup = class(PARENT,{
 		m_uicSortList = 'UIC_SortList',
     })
 
+local OFFSET_GAP = 10
+
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
@@ -158,7 +160,7 @@ function UI_DragonBoardPopup:makeTableView()
     table_view:makeDefaultEmptyDescLabel(Str('첫번째 리뷰를 남겨주세요!'))
 
 	-- 테이블 뷰 scroll end callback
-	if (table.count(l_item_list) == 10) then
+	if (table.count(l_item_list) == OFFSET_GAP) then
 		table_view:setScrollEndCB(function() self:onScrollEnd() end)
 	end
 
@@ -213,6 +215,7 @@ function UI_DragonBoardPopup:makeUICSortList()
 
     local uic = UIC_SortList()
     uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+	uic.m_bDirectHide = true
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
     uic:setDockPoint(button:getDockPoint())
@@ -233,10 +236,10 @@ end
 
 -------------------------------------
 -- function onScrollEnd
--- @brief 다음 10개 게시물을 가져온다.
+-- @brief 다음 OFFSET_GAP개 게시물을 가져온다.
 -------------------------------------
 function UI_DragonBoardPopup:onScrollEnd()
-	self.m_offset = self.m_offset + 10
+	self.m_offset = self.m_offset + OFFSET_GAP
 	local function cb_func(t_ret)
 		if (table.count(t_ret) > 0) then
 			self.m_tableView:addItemList(t_ret)
@@ -265,8 +268,8 @@ end
 -- @brief 정렬 순서를 변경하고 평가 테이블을 새로 생성한다.
 -------------------------------------
 function UI_DragonBoardPopup:onSortChangeOption(sort_type)
-	self.m_uicSortList:hide()
 	self.m_order = sort_type
+	--self.m_uicSortList:toggleVisibility()
 	
 	self:requestBoard()
 end
@@ -278,8 +281,9 @@ end
 function UI_DragonBoardPopup:click_assessBtn()
 	local did = self.m_did
 	local my_rate = self.m_tBoardData['myrate']
+	local reveiw_func = function() self:click_writeBtn() end
 
-	local ui = UI_DragonBoardPopup_Evaluate(did, my_rate)
+	local ui = UI_DragonBoardPopup_Evaluate(did, my_rate, reveiw_func)
 	local function close_cb()
 		self:refresh_rate()
 	end
