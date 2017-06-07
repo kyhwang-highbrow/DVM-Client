@@ -262,15 +262,16 @@ void EditBoxImplWin::openKeyboard()
 	if (placeHolder.length() == 0)
 		placeHolder = "Enter value";
 
-	char pText[100]= {0};
+	int buffer = 1024;
+	char pText[1024] = { 0 };
 	std::string text = getText();
 	if (text.length())
-		strncpy(pText, text.c_str(), 100);
+		strncpy(pText, text.c_str(), buffer);
 	GLView *glView = Director::getInstance()->getOpenGLView();
 	GLFWwindow *glfwWindow = glView->getWindow();
 	HWND hwnd = glfwGetWin32Window(glfwWindow);
     bool bMultiLine = (pEditBox->getInputMode() == EditBox::InputMode::ANY);
-	bool didChange = CWin32InputBox::InputBox("Input", placeHolder.c_str(), pText, 100, bMultiLine, hwnd) == IDOK;
+	bool didChange = CWin32InputBox::InputBox("Input", placeHolder.c_str(), pText, buffer, bMultiLine, hwnd) == IDOK;
 	
 	if (didChange) 	
 		setText(pText);
