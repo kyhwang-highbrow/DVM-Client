@@ -131,18 +131,22 @@ function getsetGenerator(klass, class_name)
 		function klass:set_var(v) self.var = v end
 	]]
 
-	local code, fucn
+	local code = ''
+    local fucn = nil
+
 	for var, v in pairs(klass) do
 		-- 자동생성하도록 지정된 멤버 변수를 찾는다.
 		if (v == 'get_set_gen') then
 			-- getter, setter 생성
-			code = clone(templete)
-			code = string.gsub(code, 'klass', class_name)
-			code = string.gsub(code, 'var', var)
-			
-			-- compile
-			func = func_loader(code)
-			func()
+			local each_code = clone(templete)
+			each_code = string.gsub(each_code, 'klass', class_name)
+			each_code = string.gsub(each_code, 'var', var)
+
+            code = code .. each_code .. '\n'
 		end
 	end
+
+    -- compile
+    func = func_loader(code)
+    func()
 end
