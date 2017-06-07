@@ -39,7 +39,7 @@ function ErrorTracker:getTrackerText(msg)
 	local last_scene = self:get_lastScene()
 	local last_ui = self:get_lastUI()
 	local last_api = self:get_lastAPI()
-	local last_failed_res = self:get_lastFailedRes() or 'null'
+	local last_failed_res = self:get_lastFailedRes()
     local msg = msg or 'kkami'
 
 	local templete = 
@@ -64,17 +64,3 @@ end
 
 -- @ generator
 getsetGenerator(ErrorTracker, 'ErrorTracker')
-
--------------------------------------
--- function get_lastAPI
-------------------------------------- 
-function ErrorTracker:get_lastAPI()
-	return self.lastAPI 
-end
-
--------------------------------------
--- function set_lastAPI
-------------------------------------- 
-function ErrorTracker:set_lastAPI(v)
-	self.lastAPI = v
-end
