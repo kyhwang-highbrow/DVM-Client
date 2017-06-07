@@ -143,6 +143,7 @@ function UI_Lobby:initLobbyWorldAdapter()
 
     local lobby_ui = self
     local parent_node = vars['cameraNode']
+    parent_node:setLocalZOrder(-1)
     local chat_client_socket = g_chatClientSocket
     local lobby_manager = g_lobbyManager
 
