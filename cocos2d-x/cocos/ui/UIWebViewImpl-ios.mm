@@ -148,7 +148,7 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
 }
 
 - (void)setBounces:(bool)bounces {
-  self.uiWebView.scrollView.bounces = bounces;
+    self.uiWebView.scrollView.bounces = bounces;
 }
 
 - (void)setFrameWithX:(float)x y:(float)y width:(float)width height:(float)height {
@@ -375,6 +375,10 @@ void WebViewImpl::draw(Renderer *renderer, const Mat4 &transform, bool transform
                                   width:width
                                  height:height];
     }
+}
+
+void WebViewImpl::setBounces(bool bounces){
+    [_uiWebViewWrapper setBounces:bounces];
 }
 
 void WebViewImpl::setVisible(bool visible){

@@ -139,7 +139,7 @@ using namespace cocos2d::experimental::ui;
         self.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
     }
     self.moviePlayer.allowsAirPlay = false;
-    self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
+    self.moviePlayer.controlStyle = MPMovieControlStyleNone;
     self.moviePlayer.view.userInteractionEnabled = true;
     
     auto clearColor = [UIColor clearColor];
@@ -169,7 +169,7 @@ using namespace cocos2d::experimental::ui;
     {
         if([self.moviePlayer playbackState] != MPMoviePlaybackStateStopped)
         {
-            _videoPlayer->onPlayEvent(VideoPlayer::EventType::COMPLETED);
+            _videoPlayer->onPlayEvent((int)VideoPlayer::EventType::COMPLETED);
         }
     }
 }
@@ -179,13 +179,13 @@ using namespace cocos2d::experimental::ui;
     MPMoviePlaybackState state = [self.moviePlayer playbackState];
     switch (state) {
         case MPMoviePlaybackStatePaused:
-            _videoPlayer->onPlayEvent(VideoPlayer::EventType::PAUSED);
+            _videoPlayer->onPlayEvent((int)VideoPlayer::EventType::PAUSED);
             break;
         case MPMoviePlaybackStateStopped:
-            _videoPlayer->onPlayEvent(VideoPlayer::EventType::STOPPED);
+            _videoPlayer->onPlayEvent((int)VideoPlayer::EventType::STOPPED);
             break;
         case MPMoviePlaybackStatePlaying:
-            _videoPlayer->onPlayEvent(VideoPlayer::EventType::PLAYING);
+            _videoPlayer->onPlayEvent((int)VideoPlayer::EventType::PLAYING);
             break;
         case MPMoviePlaybackStateInterrupted:
             break;
@@ -318,12 +318,12 @@ void VideoPlayer::draw(Renderer* renderer, const Mat4 &transform, bool transform
     
     if (transformUpdated)
     {
-        auto directorInstance = Director::getInstance();
-        auto glView = directorInstance->getOpenGLView();
+        auto direcrot = cocos2d::Director::getInstance();
+        auto glView = direcrot->getOpenGLView();
         auto frameSize = glView->getFrameSize();
-        auto scaleFactor = directorInstance->getContentScaleFactor();
-        
-        auto winSize = directorInstance->getWinSize();
+        auto scaleFactor = [static_cast<CCEAGLView *>(glView->getEAGLView()) contentScaleFactor];
+
+        auto winSize = direcrot->getWinSize();
         
         auto leftBottom = convertToWorldSpace(Vec2::ZERO);
         auto rightTop = convertToWorldSpace(Vec2(_contentSize.width,_contentSize.height));
@@ -335,12 +335,6 @@ void VideoPlayer::draw(Renderer* renderer, const Mat4 &transform, bool transform
                                                           :(rightTop.x - leftBottom.x) * glView->getScaleX() / scaleFactor
                                                           :( (rightTop.y - leftBottom.y) * glView->getScaleY()/scaleFactor)];
     }
-    
-#if CC_VIDEOPLAYER_DEBUG_DRAW
-    _customDebugDrawCommand.init(_globalZOrder);
-    _customDebugDrawCommand.func = CC_CALLBACK_0(VideoPlayer::drawDebugData, this);
-    renderer->addCommand(&_customDebugDrawCommand);
-#endif
 }
 
 bool VideoPlayer::isFullScreenEnabled()
@@ -447,9 +441,9 @@ void VideoPlayer::addEventListener(const VideoPlayer::ccVideoPlayerCallback& cal
     _eventCallback = callback;
 }
 
-void VideoPlayer::onPlayEvent(VideoPlayer::EventType event)
+void VideoPlayer::onPlayEvent(int event)
 {
-    if (event == VideoPlayer::EventType::PLAYING) {
+    if (event == (int)VideoPlayer::EventType::PLAYING) {
         _isPlaying = true;
     } else {
         _isPlaying = false;
