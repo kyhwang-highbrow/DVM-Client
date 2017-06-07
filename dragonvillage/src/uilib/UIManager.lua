@@ -86,6 +86,7 @@ function UIManager:cleanUp()
     for i = #self.m_uiList, 1, -1 do
         local ui = self.m_uiList[i]
         ui:onDestroyUI()
+        ui.closed = true
         self.m_uiLayer:removeChild(ui.root, true)
     end
     self.m_uiList = {}
