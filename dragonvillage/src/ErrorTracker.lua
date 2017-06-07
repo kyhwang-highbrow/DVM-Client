@@ -44,7 +44,7 @@ function ErrorTracker:getTrackerText(msg)
 
 	local templete = 
 [[
-=========================================
+==============DV BUG REPORT==============
 nick : %s
 uid : %d
 os : %s
@@ -63,13 +63,4 @@ last failed res : %s
 end
 
 -- @ generator
-getsetGenerator(ErrorTracker)
-
-
-
-
-
-
-
-
-
+getsetGenerator(ErrorTracker, 'ErrorTracker')

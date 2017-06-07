@@ -123,8 +123,7 @@ end
 -- function getsetGenerator
 -- @brief 지정된 멤버변수의 getter/setter를 자동 생성한다.
 -------------------------------------
-function getsetGenerator(klass)
-	local class_name = getClassName(klass)
+function getsetGenerator(klass, class_name)
 	local func_loader = pl.utils.load
 	local templete = 
 	[[
