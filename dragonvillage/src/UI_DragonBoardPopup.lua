@@ -55,6 +55,8 @@ end
 function UI_DragonBoardPopup:initUI()
 	local vars = self.vars
 	
+	-- 통신하는 동안 에쁘게 보이도록 수정
+	vars['dragonNameLabel']:setString('')
 	vars['gradeGauge']:setPercentage(0)
 	vars['gradeLabel']:setString(Str('평점 {1}', string.format('%.1f', 0)))
 
