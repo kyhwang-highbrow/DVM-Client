@@ -124,6 +124,20 @@ end
 -- @brief 지정된 멤버변수의 getter/setter를 자동 생성한다.
 -------------------------------------
 function getsetGenerator(klass, class_name)
+	-- 자동생성할 멤버 변수 수집
+	local l_gen_var = {}
+	for var, v in pairs(klass) do
+		-- 자동생성하도록 지정된 멤버 변수를 찾는다.
+		if (v == 'get_set_gen') then
+			table.insert(l_gen_var, var)
+		end
+	end
+
+	-- 대상 변수가 없다면 탈출
+	if (table.count(l_gen_var) == 0) then
+		return
+	end
+
 	local func_loader = pl.utils.load
 	local templete = 
 	[[
@@ -131,22 +145,17 @@ function getsetGenerator(klass, class_name)
 		function klass:set_var(v) self.var = v end
 	]]
 
-	local code = ''
-    local fucn = nil
+	-- 대상 멤버 변수 함수 생성
+	local code, func
+	for _, var in pairs(l_gen_var) do
+		-- getter, setter 생성
+		code = clone(templete)
+		code = string.gsub(code, 'klass', class_name)
+		code = string.gsub(code, 'var', var)
 
-	for var, v in pairs(klass) do
-		-- 자동생성하도록 지정된 멤버 변수를 찾는다.
-		if (v == 'get_set_gen') then
-			-- getter, setter 생성
-			local each_code = clone(templete)
-			each_code = string.gsub(each_code, 'klass', class_name)
-			each_code = string.gsub(each_code, 'var', var)
-
-            code = code .. each_code .. '\n'
-		end
+		-- compile
+		func = func_loader(code)
+		func()
 	end
-
-    -- compile
-    func = func_loader(code)
-    func()
-end
+end     
+ 
