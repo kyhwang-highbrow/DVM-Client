@@ -855,8 +855,14 @@ function GameWorld:removeHero(hero)
     end
 
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
-    local hero_count = table.count(self:getDragonList())
-    if (hero_count <= 0) then
+    local is_exist_dragon = false
+    for _, hero in pairs(self:getDragonList()) do
+        if (not hero.m_bDead) then
+            is_exist_dragon = true
+        end
+    end
+
+    if (is_exist_dragon) then
         if (self.m_bDevelopMode) then 
 			-- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
 			self.m_mHeroList = {}
