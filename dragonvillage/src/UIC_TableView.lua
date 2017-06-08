@@ -377,6 +377,7 @@ end
 function UIC_TableView:scrollEndEventHandler(offset, end_idx)
 	-- scroll end callback 있을 경우에만 동작
 	if (not self.m_scrollEndCB) then
+		self:releaseScrollEndSprite()
 		return
 	end
 
@@ -394,13 +395,7 @@ function UIC_TableView:scrollEndEventHandler(offset, end_idx)
 	if (curr_pos < -self.m_scrollEndStd) then
 		-- 더불러오기 아이콘 생성
 		if (not self.m_scrollEndSprite) then
-			local spr = cc.Sprite:create('res/ui/btn/result_btn_retry.png')
-			self.m_scrollEndSprite = cc.ProgressTimer:create(spr)
-
-			self.m_scrollEndSprite:setDockPoint(cc.p(0.5, 0))
-			self.m_scrollEndSprite:setAnchorPoint(CENTER_POINT)
-			self.m_scrollEndSprite:setPercentage(0)
-			self.m_node:addChild(self.m_scrollEndSprite)
+			self:makeScrollEndSprite()
 
 		-- 더불러오기 아이콘 연출
 		else
@@ -429,11 +424,31 @@ function UIC_TableView:scrollEndEventHandler(offset, end_idx)
 
 	-- 기준치 이내라면 더불러오기 아이콘 삭제
 	else
-		if (self.m_scrollEndSprite) then
-			self.m_scrollEndSprite:stopAllActions()
-			self.m_scrollEndSprite:removeFromParent(true)
-			self.m_scrollEndSprite = nil
-		end
+		self:releaseScrollEndSprite()
+	end
+end
+
+-------------------------------------
+-- function makeScrollEndSprite
+-------------------------------------
+function UIC_TableView:makeScrollEndSprite()
+	local spr = cc.Sprite:create('res/ui/btn/result_btn_retry.png')
+	self.m_scrollEndSprite = cc.ProgressTimer:create(spr)
+
+	self.m_scrollEndSprite:setDockPoint(cc.p(0.5, 0))
+	self.m_scrollEndSprite:setAnchorPoint(CENTER_POINT)
+	self.m_scrollEndSprite:setPercentage(0)
+	self.m_node:addChild(self.m_scrollEndSprite)
+end
+
+-------------------------------------
+-- function releaseScrollEndSprite
+-------------------------------------
+function UIC_TableView:releaseScrollEndSprite()
+	if (self.m_scrollEndSprite) then
+		self.m_scrollEndSprite:stopAllActions()
+		self.m_scrollEndSprite:removeFromParent(true)
+		self.m_scrollEndSprite = nil
 	end
 end
 

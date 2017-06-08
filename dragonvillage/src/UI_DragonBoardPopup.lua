@@ -132,7 +132,7 @@ function UI_DragonBoardPopup:requestBoard()
 end
 
 -------------------------------------
--- function makeMailTableView
+-- function makeTableView
 -------------------------------------
 function UI_DragonBoardPopup:makeTableView()
 	local node = self.vars['listNode']
@@ -245,10 +245,15 @@ function UI_DragonBoardPopup:onScrollEnd()
 	self.m_offset = self.m_offset + OFFSET_GAP
 
 	local function cb_func(t_ret)
+		-- 게시글이 있는 경우 추가
 		if (table.count(t_ret) > 0) then
 			self.m_tableView:addItemList(t_ret)
+
+		-- 게시글이 없는 경우 콜백 해제
 		else
 			self.m_tableView:setScrollEndCB(nil)
+			self.m_tableView:setDirtyItemList()
+			UIManager:toastNotificationGreen(Str('게시글을 모두 불러왔어요'))
 		end
 	end
 	g_boardData:request_dragonBoard(self.m_did, self.m_offset, self.m_order, cb_func)
