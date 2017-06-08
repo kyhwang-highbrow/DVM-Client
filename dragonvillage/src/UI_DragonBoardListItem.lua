@@ -140,9 +140,19 @@ end
 -------------------------------------
 -- function click_deleteBtn
 -------------------------------------
-function UI_DragonBoardListItem:click_deleteBtn()
+function UI_DragonBoardListItem:click_deleteBtn(cb_func)
+	local like_cnt = self.m_tBoard['like']
 	local revid = self.m_tBoard['id']
-	g_boardData:request_deleteBoard(revid, nil)
+	local function delete_func()
+		g_boardData:request_deleteBoard(revid, nil)
+		cb_func()
+	end
+
+	if (like_cnt > 0) then
+		MakeSimplePopup(POPUP_TYPE.YES_NO, Str('추천이 존재합니다. 정말 삭제하시겠습니까?'), delete_func, nil)
+	else
+		delete_func()
+	end
 end
 
 --@CHECK

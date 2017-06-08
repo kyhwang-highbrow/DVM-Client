@@ -144,9 +144,9 @@ function UI_DragonBoardPopup:makeTableView()
     local function create_func(ui, data)
 		-- 평가 삭제
         local function click_deleteBtn()
-            ui:click_deleteBtn()
-			self:requestBoard() 
+            ui:click_deleteBtn(function() self:requestBoard() end)
         end
+
         ui.vars['deleteBtn']:registerScriptTapHandler(click_deleteBtn)
     end
 
@@ -253,7 +253,7 @@ function UI_DragonBoardPopup:onScrollEnd()
 		else
 			self.m_tableView:setScrollEndCB(nil)
 			self.m_tableView:setDirtyItemList()
-			UIManager:toastNotificationGreen(Str('게시글을 모두 불러왔어요'))
+			UIManager:toastNotificationGreen(Str('게시글을 모두 불러왔습니다.'))
 		end
 	end
 	g_boardData:request_dragonBoard(self.m_did, self.m_offset, self.m_order, cb_func)
