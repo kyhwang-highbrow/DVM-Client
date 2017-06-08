@@ -219,3 +219,29 @@ function TableDragon:getDragonStoryStr(did)
 
     return str
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- function getCharTable
+-- @brief 드래곤 테이블 또는 슬라임 테이블 반환
+-------------------------------------
+function getCharTable(did)
+	local char_table
+	if (TableSlime:isSlimeID(did)) then
+		char_table = TableSlime()
+	else
+		char_table = TableDragon()
+	end
+	return char_table
+end

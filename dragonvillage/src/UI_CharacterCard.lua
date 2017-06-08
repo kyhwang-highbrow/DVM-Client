@@ -619,14 +619,10 @@ end
 -------------------------------------
 function MakeSimpleDragonCard(did, t_data)
     local t_dragon_data = {}
-    t_dragon_data['did'] = did
+	t_dragon_data['did'] = did
     t_dragon_data['lv'] = nil
     t_dragon_data['evolution'] = 3
     t_dragon_data['grade'] = nil
-    t_dragon_data['skill_0'] = 1
-    t_dragon_data['skill_1'] = 1
-    t_dragon_data['skill_2'] = 0
-    t_dragon_data['skill_3'] = 0
 
     if t_data then
         for key,value in pairs(t_data) do
@@ -634,5 +630,13 @@ function MakeSimpleDragonCard(did, t_data)
         end
     end
 
-    return UI_DragonCard(StructDragonObject(t_dragon_data))
+	local struct_data
+	if (TableSlime:isSlimeID(did)) then
+		t_dragon_data['slime_id'] = did
+		struct_data = StructSlimeObject(t_dragon_data)
+	else
+		struct_data = StructDragonObject(t_dragon_data)
+	end
+
+    return UI_DragonCard(struct_data)
 end

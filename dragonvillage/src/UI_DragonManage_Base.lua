@@ -319,14 +319,6 @@ function UI_DragonManage_Base:init_dragonTableView()
 
         local function make_func(object)
             return UI_DragonCard(object)
-
-            --[[
-            if (object.m_objectType == 'dragon') then
-                return UI_DragonCard(object)
-            elseif (object.m_objectType == 'slime') then
-                return MakeSimpleDragonCard(120011)
-            end
-            --]]
         end
 
         local function create_func(ui, data)

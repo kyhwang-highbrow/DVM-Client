@@ -10,7 +10,7 @@ UI_DragonBoardPopup = class(PARENT,{
 		m_did = 'number',
 		m_offset = 'number',
 		m_order = 'string',
-		
+
 		m_tableView = 'UIC_TableView',
 		m_attrRadioButton = 'UIC_RadioButton',
 		m_uicSortList = 'UIC_SortList',
@@ -83,12 +83,13 @@ function UI_DragonBoardPopup:refresh()
 	local vars = self.vars
 	local did = self.m_did
 
-	local t_dragon = TableDragon():get(did)
+	local table_char = getCharTable(did)
+	local t_char = table_char:get(did)
 	local t_board_data = g_boardData:getBoards(did)
 	self.m_tBoardData = t_board_data
 
 	-- 이름
-	vars['dragonNameLabel']:setString(Str(t_dragon['t_name']))
+	vars['dragonNameLabel']:setString(Str(t_char['t_name']))
 
 	-- 카드
 	vars['dragonNode']:removeAllChildren()
@@ -183,14 +184,16 @@ function UI_DragonBoardPopup:makeAttrOptionRadioBtn()
 	-- 같은 종류의 드래곤을 속성별로 체크한다.
 	local did = self.m_did
 	local did_source = math_floor(did / 10) * 10
-	self.m_didSource= did_source
+	self.m_didSource = did_source
+
+	local table_char = getCharTable(did)
 
 	for i = 1, 5 do
-		local t_dragon = TableDragon():get(did_source + i)
+		local t_char = table_char:get(did_source + i)
 		local attr = attributeNumToStr(i)
 		local attr_btn = vars[attr .. 'Btn']
 		-- 드래곤이 있다면 버튼 등록
-		if (t_dragon) then
+		if (t_char) then
 			radio_button:addButton(attr, attr_btn)
 		-- 드래곤이 없다면 버튼 enabled false 및 음영처리 
 		else
@@ -200,7 +203,7 @@ function UI_DragonBoardPopup:makeAttrOptionRadioBtn()
 	end 
 
 	-- 현재 드래곤을 선택된 값으로 한다 
-	local attr = TableDragon:getDragonAttr(self.m_did)
+	local attr = table_char:getValue(self.m_did, 'attr')
 	self.m_attrRadioButton:setSelectedButton(attr)
 end
 

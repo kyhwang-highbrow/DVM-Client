@@ -17,6 +17,18 @@ function TableDragonPhrase:init()
 end
 
 -------------------------------------
+-- function getValue
+-------------------------------------
+function TableDragonPhrase:getValue(primary, column)
+    local phrase = PARENT.getValue(self, primary, column)
+	if (phrase) then
+		return Str(phrase)
+	else
+		return Str('나는 대사 없는 드래곤')
+	end
+end
+
+-------------------------------------
 -- function getDragonPhrase
 -------------------------------------
 function TableDragonPhrase:getDragonPhrase(did, flv)
@@ -47,9 +59,7 @@ function TableDragonPhrase:getDragonPhrase(did, flv)
     local key = sum_random:getRandomValue()
 
     local speech = self:getValue(did, key)
-    speech = Str(speech)
-
-    return speech 
+    return speech
 end
 
 -------------------------------------
@@ -76,9 +86,7 @@ function TableDragonPhrase:getDragonShout(did, flv)
     local key = sum_random:getRandomValue()
 
     local speech = self:getValue(did, key)
-    speech = Str(speech)
-
-    return speech 
+    return speech
 end
 
 -------------------------------------
@@ -117,58 +125,6 @@ function TableDragonPhrase:addShotByFlv(sum_random, flv)
 end
 
 -------------------------------------
--- function getRandomPhrase
--------------------------------------
-function TableDragonPhrase:getRandomPhrase()
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local t_row = self:getRandomRow()
-
-    local sum_random = SumRandom()
-
-    sum_random:addItem(1, 't_normal_phrase1')
-    sum_random:addItem(1, 't_normal_phrase2')
-    sum_random:addItem(1, 't_normal_phrase3')
-    sum_random:addItem(1, 't_good_phrase1')
-    sum_random:addItem(1, 't_good_phrase2')
-    sum_random:addItem(1, 't_good_phrase3')
-    sum_random:addItem(1, 't_best_phrase1')
-    sum_random:addItem(1, 't_best_phrase2')
-    sum_random:addItem(1, 't_best_phrase3')
-    sum_random:addItem(1, 't_normal_shout1')
-    sum_random:addItem(1, 't_normal_shout2')
-    sum_random:addItem(1, 't_good_shout1')
-    sum_random:addItem(1, 't_good_shout2')
-    sum_random:addItem(1, 't_best_shout1')
-    sum_random:addItem(1, 't_best_shout2')
-
-    local key = sum_random:getRandomValue()
-
-    local phrase = Str(t_row[key])
-    return phrase
-end
-
--------------------------------------
--- function getRandomPhrase_LobbyTouch
--------------------------------------
-function TableDragonPhrase:getRandomPhrase_LobbyTouch(did)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local sum_random = SumRandom()
-	for i = 1, 4 do
-		sum_random:addItem(1, 'lobby_touch' .. i)
-	end
-    local key = sum_random:getRandomValue()
-
-    local phrase = Str(self:getValue(did, key))
-    return phrase
-end
-
--------------------------------------
 -- function getMailPhrase
 -------------------------------------
 function TableDragonPhrase:getMailPhrase(did)
@@ -176,10 +132,9 @@ function TableDragonPhrase:getMailPhrase(did)
         self = THIS()
     end
 	local key = 'mail_message'
-	local speech = self:getValue(did, key)
 
-    local phrase = Str(speech)
-    return phrase
+	local speech = self:getValue(did, key)
+    return speech
 end
 
 -------------------------------------
@@ -250,11 +205,5 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
     local key = sum_random:getRandomValue()
 	
 	local speech = self:getValue(did, key)
-
-	if (not speech) then
-		speech = '지정된 대사가 없습니다.'
-	end
-
-    local phrase = Str(speech)
-    return phrase
+    return speech
 end
