@@ -82,7 +82,7 @@ function UI_DragonManageInfo:initButton()
         vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
 
         -- 초월
-        vars['transcendBtn']:registerScriptTapHandler(function() self:click_transcendBtn() end)
+        --vars['transcendBtn']:registerScriptTapHandler(function() self:click_transcendBtn() end)
 
         -- 진화
         vars['evolutionBtn']:registerScriptTapHandler(function() self:click_evolutionBtn() end)
@@ -171,7 +171,7 @@ function UI_DragonManageInfo:refresh_buttonState()
         vars['upgradeBtn']:setEnabled(not is_slime_object)
 
         -- 초월
-        vars['transcendBtn']:setEnabled(not is_slime_object)
+        --vars['transcendBtn']:setEnabled(not is_slime_object)
 
         -- 진화
         vars['evolutionBtn']:setEnabled(not is_slime_object)
@@ -366,9 +366,10 @@ end
 
 -------------------------------------
 -- function click_transcendBtn
--- @brief 초월 버튼
+-- @brief 초월 버튼 - 삭제 예정
 -------------------------------------
 function UI_DragonManageInfo:click_transcendBtn()
+	--[[
     local doid = self.m_selectDragonOID
 
     do -- 초월 가능 여부 확인
@@ -380,6 +381,7 @@ function UI_DragonManageInfo:click_transcendBtn()
     end
 
     self:openSubManageUI(UI_DragonEclvupNew)
+	]]
 end
 
 
@@ -389,6 +391,13 @@ end
 -------------------------------------
 function UI_DragonManageInfo:click_evolutionBtn()
     local doid = self.m_selectDragonOID
+	local did = self.m_selectDragonData['did']
+	
+	-- 자코 검증
+	if (TableDragon:isUnderling(did)) then
+		UIManager:toastNotificationGreen(Str('자코는 진화가 불가능합니다.'))
+		return
+	end
 
     do -- 최대 진화도인지 확인
         if g_dragonsData:isMaxEvolution(doid) then

@@ -220,6 +220,17 @@ function TableDragon:getDragonStoryStr(did)
     return str
 end
 
+-------------------------------------
+-- function isUnderling
+-- @brief 도감에서 드래곤 스토리 출력 시 사용
+-------------------------------------
+function TableDragon:isUnderling(did)
+    if (self == THIS) then
+        self = THIS()
+    end
+    local underling = self:getValue(did, 'underling')
+    return (underling == 1)
+end
 
 
 
