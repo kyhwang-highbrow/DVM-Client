@@ -94,7 +94,7 @@ function UI_DragonManageInfo:initButton()
         vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
 
         -- 연구
-        vars['resechBtn']:registerScriptTapHandler(function() self:click_resechBtn() end)
+        --vars['resechBtn']:registerScriptTapHandler(function() self:click_resechBtn() end)
     end
 
     do -- 좌상단 버튼들 초기화
@@ -183,7 +183,7 @@ function UI_DragonManageInfo:refresh_buttonState()
         vars['runeBtn']:setEnabled(not is_slime_object)
 
         -- 연구
-        vars['resechBtn']:setEnabled(not is_slime_object)
+        --vars['resechBtn']:setEnabled(not is_slime_object)
     end
 
     do -- 좌상단 버튼들 초기화
@@ -479,6 +479,7 @@ end
 -- @brief 연구 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_resechBtn()
+	--[[
     local doid = self.m_selectDragonOID
 
     do -- 최대 등급인지 확인
@@ -490,6 +491,7 @@ function UI_DragonManageInfo:click_resechBtn()
     end
 
     self:openSubManageUI(UI_DragonResearch)
+	]]
 end
 
 -------------------------------------
