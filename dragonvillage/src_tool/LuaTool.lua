@@ -14,7 +14,7 @@ require 'perpleLib/StringUtils'
 require 'Table'
 require 'TableClass'
 require 'TableGradeInfo'
-require 'dataTableValidator'
+require 'DataTableValidator'
 
 -------------------------------------
 -- function main
@@ -22,13 +22,13 @@ require 'dataTableValidator'
 -------------------------------------
 function main()
     TABLE:init()
+    validator = DataTableValidator()
+    validator:init()
 
-    initGlobalVar()
-
-    validateData()
+    validator:validateData()
     
-    if( g_numOfInvalidData > 0 ) then
-        ccdump(sendInvalidTableListBySlack())
+    if( validator:getNumOfInvalidData() > 0 ) then
+        ccdump(validator:sendInvalidTableListBySlack())
     end
 
 end
