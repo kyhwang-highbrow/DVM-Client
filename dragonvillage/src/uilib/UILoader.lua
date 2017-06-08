@@ -548,8 +548,10 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         delegator = UIC_ClippingNode(node)
     elseif type == 'Visual' then
         local res_name = string.sub(data.file_name, 1, string.len(data.file_name) - 4)
-        local plist_name = res_name .. '.plist' --string.gsub (data.file_name, ".a2d", ".plist")
-        cc.SpriteFrameCache:getInstance():addSpriteFrames(uiRoot .. plist_name)
+
+        -- loadPlistFiles함수에서 자동으로 load되기때문에 주석처리 sgkim 2017-06-08
+        --local plist_name = res_name .. '.plist' --string.gsub (data.file_name, ".a2d", ".plist")
+        --cc.SpriteFrameCache:getInstance():addSpriteFrames(uiRoot .. plist_name)
 
         -- 번역 이미지 체크
         UILoader.checkTranslate_a2d(data)
