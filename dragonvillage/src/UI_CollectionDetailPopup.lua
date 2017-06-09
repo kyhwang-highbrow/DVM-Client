@@ -226,6 +226,10 @@ function UI_CollectionDetailPopup:onChangeEvolution()
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         vars['dragonNode']:removeAllChildren()
         vars['dragonNode']:addChild(animator.m_node)
+
+		-- 자코 추가 이후 리소스별 크기가 다른 문제가 있어 테이블에서 스케일을 참조하도록 함(인게임 스케일 사용)
+		-- 다만 1 ~ 1.5 사이값으로 제한 (mskim)
+		vars['dragonNode']:setScale(math_clamp(t_dragon['scale'], 1, 1.5))
     end
 
     

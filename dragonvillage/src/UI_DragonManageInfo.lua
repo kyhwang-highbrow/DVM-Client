@@ -395,7 +395,7 @@ function UI_DragonManageInfo:click_evolutionBtn()
 	
 	-- 자코 검증
 	if (TableDragon:isUnderling(did)) then
-		UIManager:toastNotificationGreen(Str('자코는 진화가 불가능합니다.'))
+		UIManager:toastNotificationGreen(Str('자코는 진화할 수 없습니다.'))
 		return
 	end
 

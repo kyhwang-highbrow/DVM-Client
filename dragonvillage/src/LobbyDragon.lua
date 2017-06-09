@@ -57,8 +57,15 @@ function LobbyDragon:initAnimator(file_name)
     self.m_animator = AnimatorHelper:makeDragonAnimator(file_name)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node, 1)
-        self.m_animator.m_node:setScale(0.5)
         self.m_animator.m_node:setPosition(0, LobbyDragon.Y_OFFSET)
+
+		local scale
+		if (string.find(file_name, 'common_')) then
+			scale = 1
+		else
+			scale = 0.5
+		end
+		self.m_animator.m_node:setScale(scale)
     end
 end
 

@@ -518,6 +518,11 @@ function ServerData_Dragons:checkEclvUpgradeable(doid)
         return false
     end
 
+	local did = t_dragon_data['did']
+	if (TableDragon:isUnderling(did)) then
+		return false, Str('자코는 진화할 수 없습니다.') 
+	end
+
     local eclv = t_dragon_data['eclv']
     if (eclv < MAX_DRAGON_ECLV) then
         return true

@@ -69,6 +69,10 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
     self.m_animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
     vars['dragonNode']:addChild(self.m_animator.m_node)
 
+	-- 자코 추가 이후 리소스별 크기가 다른 문제가 있어 테이블에서 스케일을 참조하도록 함(인게임 스케일 사용)
+	-- 다만 1 ~ 1.5 사이값으로 제한 (mskim)
+	vars['dragonNode']:setScale(math_clamp(t_dragon['scale'], 1, 1.5))
+
     -- 랜덤 에니메이션 리스트 생성
     self.m_randomAnimationList = {}
     for i,ani in ipairs(self.m_animator:getVisualList()) do
