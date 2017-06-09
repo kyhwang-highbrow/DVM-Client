@@ -1,5 +1,5 @@
 
-common_mushroom_monster_plant_earth.png
+common_monster_plant_earth.png
 size: 512,128
 format: RGBA8888
 filter: Linear,Linear
