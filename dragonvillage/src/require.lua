@@ -486,6 +486,7 @@ local t_module = {
 	'UIC_DragonAnimatorDirector_Summon',
     'UIC_ScrollLabel',
     'UIC_BroadcastLabel',
+    'UIC_EggPicker',
 
 	-- UI : 분류 없음
     'UI_BlockPopup',
