@@ -251,7 +251,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'friendBtn';
 				enable = true;
 				normal = 'ui/btn/a_tab_0103.png';
