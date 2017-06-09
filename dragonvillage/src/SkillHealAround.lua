@@ -4,7 +4,6 @@ local PARENT = Skill
 -- class SkillHealAround
 -------------------------------------
 SkillHealAround = class(PARENT, {
-        m_lTargetList = 'list',
         m_limitTime = '',
         m_multiHitTime = '',
         m_multiHitTimer = '',
@@ -33,7 +32,6 @@ function SkillHealAround:init_skill(duration, hit_cnt)
     self.m_multiHitTime = self.m_limitTime / hit_cnt -- 한 번 회복하는데 걸리는 시간(쿨타임)
     self.m_multiHitMax = hit_cnt - 1 -- 회복 횟수 (시간 계산 오차로 추가로 회복되는것 방지)
     self.m_healRate = (self.m_powerRate / 100)
-	self.m_lTargetList = self:findTarget()
 end
 
 -------------------------------------
@@ -76,8 +74,6 @@ function SkillHealAround.st_idle(owner, dt)
     if (owner.m_multiHitTimer >= owner.m_multiHitTime) and
         (owner.m_hitCount < owner.m_multiHitMax ) then
 
-        -- 타겟 지정
-        owner:findTarget()
         owner:doHeal()
 
         owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
@@ -97,26 +93,26 @@ end
 function SkillHealAround:doHeal()
     local atk_dmg = self.m_owner:getStat('atk')
     local heal = HealCalc_M(atk_dmg)
+    local collisions = self:findCollision()
 
     heal = (heal * self.m_healRate)
 
-    for i,v in pairs(self.m_lTargetList) do
-        v:healAbs(self.m_owner, heal, true)
+    for i, collision in pairs(collisions) do
+        local target = collision:getTarget()
+        target:healAbs(self.m_owner, heal, true)
     end
 end
 
 -------------------------------------
--- function findTarget
--- @brief 모든 공격 대상 찾음
--- @default 직선거리에서 범위를 기준으로 충돌여부 판단
+-- function findCollision
 -------------------------------------
-function SkillHealAround:findTarget()
+function SkillHealAround:findCollision()
     local l_target = self:getProperTargetList()
 	local x = self.m_owner.pos.x
 	local y = self.m_owner.pos.y
 	local range = self.m_range
 
-	return SkillTargetFinder:findTarget_AoERound(l_target, x, y, range)
+	return SkillTargetFinder:findCollision_AoERound(l_target, x, y, range)
 end
 
 -------------------------------------

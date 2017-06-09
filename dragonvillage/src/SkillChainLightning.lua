@@ -9,7 +9,7 @@ SkillChainLightning = class(PARENT, {
 		m_offsetX = 'number',
         m_offsetY = 'number',
 
-        m_tTargetList = 'List',		-- 타겟리스트의 숫자가 공격 대상의 수
+        m_lCollisionList = 'List',  -- 공격 가능한 타겟리스트의 숫자가 공격 대상의 수
         m_tEffectList = 'List',
 
         m_targetCount = 'number',   -- 바디별로 공격 대상수를 처리하기 위해 추가
@@ -34,8 +34,11 @@ function SkillChainLightning:init_skill(missile_res, target_count)
 	-- 멤버 변수 초기화
 	self.m_lightningRes = missile_res
 	self.m_physGroup = self.m_owner:getAttackPhysGroup()
-    self.m_tTargetList = self:getProperTargetList()
     self.m_tEffectList = {}
+
+    local l_target = self:getProperTargetList()
+    local pos_x, pos_y = self:getAttackPositionAtWorld()
+    self.m_lCollisionList = SkillTargetFinder:getCollisionFromTargetList(l_target, pos_x, pos_y)
 
     self.m_targetCount = target_count
 end
@@ -69,35 +72,18 @@ end
 -- function runAttack
 -------------------------------------
 function SkillChainLightning:runAttack()
-    -- 대상 숫자가 설정된 타겟수보다 부족할 경우 body단위로 피격 처리
-    if (self.m_targetCount > #self.m_tTargetList) then
-        local idx = 1
+    for i, collision in ipairs(self.m_lCollisionList) do
+        if (i > self.m_targetCount) then break end
 
-        for _, target_char in ipairs(self.m_tTargetList) do
-            local body_list = target_char:getBodyList()        
-            for _, body in ipairs(body_list) do
-                -- 공격
-                self:attack(target_char, {body['key']})
+        -- 공격
+        self:attack(collision)
 
-                -- 이펙트 생성
-                local effect = self:makeEffect(self.m_lightningRes, idx)
-                table.insert(self.m_tEffectList, effect)
-
-                idx = idx + 1
-            end
-        end
-    else
-        for i, target_char in ipairs(self.m_tTargetList) do
-            -- 공격
-            self:attack(target_char)
-
-            -- 이펙트 생성
-            local effect = self:makeEffect(self.m_lightningRes, i)
-            table.insert(self.m_tEffectList, effect)
-        end
+        -- 이펙트 생성
+        local effect = self:makeEffect(self.m_lightningRes, i)
+        table.insert(self.m_tEffectList, effect)
     end
 
-	self:doCommonAttackEffect(self.m_tTargetList)
+	self:doCommonAttackEffect()
 end
 
 -------------------------------------
@@ -133,41 +119,22 @@ function SkillChainLightning:updatePos()
     local x = 0
     local y = 0
 
-    if (self.m_targetCount > #self.m_tTargetList) then
-        local idx = 1
+    for i, collision in ipairs(self.m_lCollisionList) do
+        local effect = self.m_tEffectList[i]
+		if (not effect) then return end 
 
-        for _, v in ipairs(self.m_tTargetList) do
-            local body_list = v:getBodyList()        
-            for _, body in ipairs(body_list) do
-                local effect = self.m_tEffectList[idx]
-		        if (not effect) then return end
+        local target = collision:getTarget()
+        local body_key = collision:getBodyKey()
+        local body = target:getBody(body_key)
 
-                -- 상대좌표 사용
-                local tar_x = (v.pos.x - self.pos.x) + body.x
-                local tar_y = (v.pos.y - self.pos.y) + body.y
+        -- 상대좌표 사용
+        local tar_x = (target.pos.x - self.pos.x) + body.x
+        local tar_y = (target.pos.y - self.pos.y) + body.y
 
-		        EffectLink_refresh(effect, x, y, tar_x, tar_y)
+		EffectLink_refresh(effect, x, y, tar_x, tar_y)
 
-                x = tar_x
-                y = tar_y
-
-                idx = idx + 1
-            end
-        end
-    else
-        for i,v in ipairs(self.m_tTargetList) do
-            local effect = self.m_tEffectList[i]
-		    if (not effect) then return end 
-
-            -- 상대좌표 사용
-            local tar_x = (v.pos.x - self.pos.x)
-            local tar_y = (v.pos.y - self.pos.y)
-
-		    EffectLink_refresh(effect, x, y, tar_x, tar_y)
-
-            x = tar_x
-            y = tar_y
-        end
+        x = tar_x
+        y = tar_y
     end
 end
 

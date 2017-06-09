@@ -5,9 +5,8 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 -------------------------------------
 SkillRolling = class(PARENT, {
 		-- 전체 타겟 Stack
-		m_lTargetList = 'Character list',
-        m_lBodyList = 'List',
-        m_targetBodyList = '',
+		m_lCollisionList = '',
+        m_targetCollision = '',
 
 		-- 공격 횟수 관리 용
 		m_attackCnt = 'number',
@@ -45,9 +44,8 @@ function SkillRolling:init_skill(spin_res, atk_count)
 	self.m_attackCnt = 0
 	self.m_bMoving = false
 
-	self.m_lTargetList, self.m_lBodyList = self:findTarget()
-	self.m_targetChar = table.pop(self.m_lTargetList)
-    self.m_targetBodyList = table.pop(self.m_lBodyList)
+    self.m_lCollisionList = self:findCollision()
+    self.m_targetCollision = table.pop(self.m_lCollisionList)
 
 	-- 최초 위치 지정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
@@ -119,11 +117,13 @@ function SkillRolling.st_move(owner, dt)
 		local releaseFunc = cc.CallFunc:create(function() owner.m_spinAnimator:release(); owner.m_spinAnimator = nil end)
 
         -- 이동
-        local body_key = owner.m_targetBodyList[1]
-        local body = owner.m_targetChar:getBody(body_key)
+        local target = owner.m_targetCollision:getTarget()
+        local body_key = owner.m_targetCollision:getBodyKey()
+
+        local body = target:getBody(body_key)
         local target_pos = cc.p(
-            owner.m_targetChar.pos.x - 40 + body.x, 
-            owner.m_targetChar.pos.y + body.y
+            target.pos.x - 40 + body.x, 
+            target.pos.y + body.y
         )
         local action = cc.MoveTo:create(0.2, target_pos)
 		local delay = cc.DelayTime:create(0.5)
@@ -155,16 +155,19 @@ function SkillRolling.st_attack(owner, dt)
 		if (owner.m_attackCnt == 0) then 
 			owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300) 
 		end
-		--owner:runAttack(true) -- @TODO 구조 개선 필요
-        owner:attack(owner.m_targetChar, {owner.m_targetBodyList[1]})
+		
+        owner:attack(owner.m_targetCollision)
 
         owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
 		owner.m_attackCnt = owner.m_attackCnt + 1
     end
 	
 	-- 현재 공격 대상이 죽었다면 state move_attack 로 변경
-	if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
-		owner:changeState('moveAttack')
+    if (owner.m_targetCollision) then
+        local target = owner.m_targetCollision:getTarget()
+        if (target.m_bDead) then
+            owner:changeState('moveAttack')
+        end
 	end
 
 	-- 최대 공격 횟수 초과시 state move_attack 로 변경
@@ -180,55 +183,47 @@ function SkillRolling.st_move_attack(owner, dt)
 	-- a. 이동중인지 체크
 	if (not owner.m_bMoving) then 
 		-- 1. 다음 타겟을 검색
-		if (not owner.m_targetChar) then
+		if (not owner.m_targetCollision) then
 			-- 1-1. 최대 충돌 갯수 체크
-            local target = table.pop(owner.m_lTargetList)
-            if (target) then 
-				owner.m_targetChar = target
-				owner.m_targetPos = target.pos
-                owner.m_targetBodyList = table.pop(owner.m_lBodyList)
+            local collision = table.pop(owner.m_lCollisionList)
+            if (collision) then
+                owner.m_targetCollision = collision
 			else
 				owner:changeState('comeback')
 			end
 
         else
             -- 2. 타겟이 있으면 이동 공격
-            local target_pos = cc.p(owner.m_targetPos.x, owner.m_targetPos.y)
-            local body_key = table.pop(owner.m_targetBodyList)
-            if (body_key) then
-                local body = owner.m_targetChar:getBody(body_key)
+            local target = owner.m_targetCollision:getTarget()
+            local body_key = owner.m_targetCollision:getBodyKey()
 
-                target_pos.x = target_pos.x + body.x
-                target_pos.y = target_pos.y + body.y
+            local target_pos = cc.p(target.x, target.y)
+            local body = owner.m_targetCollision:getBody(body_key)
 
-                -- 2-1. 이동
-			    local action = cc.MoveTo:create(0.1, target_pos)
-			    owner.m_bMoving = true
+            target_pos.x = target_pos.x + body.x
+            target_pos.y = target_pos.y + body.y
 
-			    -- 2-2. state chnage 함수 콜
-			    local cbFunc = cc.CallFunc:create(function() 
-				    local animator = MakeAnimator('res/effect/effect_hit_01/effect_hit_01.vrp')
-				    animator:changeAni('idle', true)
-				    animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
+            -- 2-1. 이동
+			local action = cc.MoveTo:create(0.1, target_pos)
+			owner.m_bMoving = true
 
-                    local missileNode = owner.m_world:getMissileNode()
-                    missileNode:addChild(animator.m_node)
+			-- 2-2. state chnage 함수 콜
+			local cbFunc = cc.CallFunc:create(function() 
+				local animator = MakeAnimator('res/effect/effect_hit_01/effect_hit_01.vrp')
+				animator:changeAni('idle', true)
+				animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
 
-				    owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300)
+                local missileNode = owner.m_world:getMissileNode()
+                missileNode:addChild(animator.m_node)
 
-				    --owner:runAttack(true) -- @TODO 구조 개선 필요
-                    owner:attack(owner.m_targetChar, {body_key})
-                    owner.m_bMoving = false
-			    end)
+				owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300)
 
-			    -- 2-3. 액션 실행 및 후 타겟 지움
-			    owner.m_owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 2), cbFunc))
+				owner:attack(owner.m_targetCollision)
+                owner.m_bMoving = false
+			end)
 
-            else
-                owner.m_targetChar = nil
-                owner.m_targetBodyList = nil
-            end
-
+			-- 2-3. 액션 실행 및 후 타겟 지움
+			owner.m_owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 2), cbFunc))
 		end
 	end
 end
@@ -253,16 +248,16 @@ function SkillRolling.st_comeback(owner, dt)
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillRolling:findTarget()
+function SkillRolling:findCollision()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
 	
 	local x = self.m_targetPos.x
 	local y = self.m_targetPos.y
 	local range = self.m_range
 
-	return SkillTargetFinder:findTarget_Near(l_target, x, y, range)
+	return SkillTargetFinder:findCollision_AoERound(l_target, x, y, range)
 end
 
 -------------------------------------

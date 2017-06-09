@@ -55,19 +55,21 @@ end
 -- function runAttack
 -------------------------------------
 function SkillAoERound:runAttack()
-    local l_target, l_bodys = self:findTarget()
-	
-    for i, target_char in ipairs(l_target) do
-        -- 공격
-        self:attack(target_char, l_bodys[i])
-		-- 타겟별 리소스
-		self:makeEffect(self.m_aoeRes, target_char.pos.x, target_char.pos.y)
+    local l_target, l_collision = self:findTarget()
+
+    for _, collision in ipairs(l_collision) do
+        self:attack(collision)
+    end
+
+    -- 타겟별 리소스
+    for _, target in ipairs(l_target) do
+	    self:makeEffect(self.m_aoeRes, target.pos.x, target.pos.y)
     end
 
 	-- 특수한 부가 효과 구현
 	self:doSpecialEffect(l_target)
 
-	self:doCommonAttackEffect(l_target)
+	self:doCommonAttackEffect()
 end
 
 -------------------------------------
@@ -97,12 +99,6 @@ end
 -------------------------------------
 function SkillAoERound:escapeAttack()
 	self:changeState('disappear')
-end
-
--------------------------------------
--- function doSpecialEffect (onHit)
--------------------------------------
-function SkillAoERound:doSpecialEffect()
 end
 
 -------------------------------------

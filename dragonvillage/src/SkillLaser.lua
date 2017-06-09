@@ -117,8 +117,7 @@ function SkillLaser.st_idle(owner, dt)
         owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
         owner.m_clearCount = owner.m_clearCount + 1
 
-        local l_target, l_bodys = owner:findTarget()
-		owner:runAttack(l_target, l_bodys)
+        owner:runAttack()
     end
 
     owner:refresh()
@@ -173,11 +172,11 @@ function SkillLaser:refresh(force)
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillLaser:findTarget()
+function SkillLaser:findCollision()
 	local l_target = self:getProperTargetList()
-	return SkillTargetFinder:findTarget_Bar(l_target, self.m_startPosX, self.m_startPosY, self.m_laserEndPosX, self.m_laserEndPosY, self.m_laserThickness/2)
+	return SkillTargetFinder:findCollision_Bar(l_target, self.m_startPosX, self.m_startPosY, self.m_laserEndPosX, self.m_laserEndPosY, self.m_laserThickness/2)
 end
 
 -------------------------------------
@@ -187,26 +186,26 @@ function SkillLaser:runAttack(t_collision_obj, t_collision_bodys)
 	if (not self.t_collision) then
 		return
 	end
-	
-    for i, target in ipairs(t_collision_obj) do
-        local body_keys = t_collision_bodys[i]
 
-        for i, body_key in ipairs(body_keys) do
-		    -- 이미 충돌된 객체라면 리턴
-		    if (not self.t_collision[target.phys_idx]) then
-			    self.t_collision[target.phys_idx] = {}
-		    end
+    local collisions = self:findCollision()
 
-            if (not self.t_collision[target.phys_idx][body_key]) then
-		        -- 충돌, 공격 처리
-		        self.t_collision[target.phys_idx][body_key] = true
+    for _, collision in ipairs(collisions) do
+        local target = collision:getTarget()
+        local body_key = collision:getBodyKey()
 
-		        self:attack(target, {body_key})
-            end
+        if (not self.t_collision[target.phys_idx]) then
+			self.t_collision[target.phys_idx] = {}
+		end
+
+        if (not self.t_collision[target.phys_idx][body_key]) then
+		    -- 충돌, 공격 처리
+		    self.t_collision[target.phys_idx][body_key] = true
+            
+            self:attack(collision)
         end
-	end
-
-	self:doCommonAttackEffect(t_collision_obj)
+    end
+    
+	self:doCommonAttackEffect()
 end
 
 -------------------------------------

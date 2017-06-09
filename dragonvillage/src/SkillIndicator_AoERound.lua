@@ -41,18 +41,18 @@ function SkillIndicator_AoERound:onTouchMoved(x, y)
     local touch_x, touch_y = x, y
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     
-	local t_collision_obj, l_collision_bodys = self:findTarget(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
+	local l_collision = self:findCollision(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
+    local collision = l_collision[1]
     
-    self.m_targetChar = t_collision_obj[1]
-	
-	if self.m_isFixedOnTarget and self.m_targetChar then
-        local body_keys = l_collision_bodys[1]
-        local body = self.m_targetChar:getBody(body_keys[1])
-        
+    if self.m_isFixedOnTarget and collision then
+        self.m_targetChar = collision:getTarget()
+
+        local body = self.m_targetChar:getBody(collision:getBodyKey())
+               
         touch_x = self.m_targetChar.pos.x + body['x']
         touch_y = self.m_targetChar.pos.y + body['y']
 		-- 다시계산한다..!
-		t_collision_obj, l_collision_bodys = self:findTarget(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
+		l_collision = self:findCollision(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
     end
 
     self.m_targetPosX = touch_x
@@ -62,7 +62,7 @@ function SkillIndicator_AoERound:onTouchMoved(x, y)
 	self:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 
 	-- 하이라이트 갱신
-    self:setHighlightEffect(t_collision_obj, l_collision_bodys)
+    self:setHighlightEffect(l_collision)
 end
 
 -------------------------------------
@@ -133,22 +133,21 @@ function SkillIndicator_AoERound:onChangeTargetCount(old_target_count, cur_targe
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillIndicator_AoERound:findTarget(x, y, range, isFixedOnTarget)
+function SkillIndicator_AoERound:findCollision(x, y, range, isFixedOnTarget)
     local l_target = self:getProperTargetList()
 
 	local pos_x = x
 	local pos_y = y
 
 	local l_ret
-    local l_bodys
-
+    
 	if isFixedOnTarget then
-        l_ret, l_bodys = SkillTargetFinder:findTarget_Near(l_target, pos_x, pos_y, range)
+        l_ret = SkillTargetFinder:findCollision_AoERound(l_target, pos_x, pos_y, range)
 	else
-		l_ret, l_bodys = SkillTargetFinder:findTarget_AoERound(l_target, pos_x, pos_y, range)
+		l_ret = SkillTargetFinder:findCollision_AoERound(l_target, pos_x, pos_y, range)
     end
     
-	return l_ret, l_bodys
+	return l_ret
 end

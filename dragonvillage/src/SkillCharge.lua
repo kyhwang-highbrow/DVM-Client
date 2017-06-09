@@ -191,9 +191,12 @@ function SkillCharge:doChargeAttack(defender)
 	end
 
     -- 돌진 공격
-    if defender then
+    if (defender) then
+        local pos_x, pos_y = self:getAttackPositionAtWorld()
+        local l_collision = SkillTargetFinder:getCollisionFromTargetList({defender}, pos_x, pos_y)
+        
 		-- 공격 및 카운트
-        self:attack(defender)
+        self:attack(l_collision[1])
 		self.m_tAttackCount[defender] = self.m_tAttackCount[defender] + 1
 
 		-- 충돌 중에는 속도 줄임

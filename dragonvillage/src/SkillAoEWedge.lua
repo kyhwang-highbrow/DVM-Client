@@ -94,14 +94,14 @@ function SkillAoEWedge:escapeAttack()
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -- @brief 공격 대상 찾음
 -------------------------------------
-function SkillAoEWedge:findTarget()
+function SkillAoEWedge:findCollision()
 	local l_target = self:getProperTargetList()
 	local pos_x = (self.pos.x + self.m_attackPosOffsetX)
 	local pos_y = (self.pos.y + self.m_attackPosOffsetY)
-    return SkillTargetFinder:findTarget_AoEWedge(l_target, pos_x, pos_y, self.m_dir, self.m_range, self.m_angle)
+    return SkillTargetFinder:findCollision_AoECone(l_target, pos_x, pos_y, self.m_dir, self.m_range, self.m_angle)
 end
 
 -------------------------------------

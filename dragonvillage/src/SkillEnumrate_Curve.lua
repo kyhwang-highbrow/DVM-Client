@@ -36,7 +36,7 @@ function SkillEnumrate_Curve:fireMissile(idx)
     
 	local char = self.m_owner
 	local target_char = self:getNextTarget(idx)
-
+    
     local t_option = {}
 
     t_option['owner'] = char
@@ -62,9 +62,12 @@ function SkillEnumrate_Curve:fireMissile(idx)
 	t_option['lua_param']['value3'] = g_constant:get('SKILL', 'CURVE_FIRE_DELAY')
 	t_option['lua_param']['value4'] = self.m_skillStartPosList[idx]
 	if (target_char) then
+        local pos_x, pos_y = self:getAttackPositionAtWorld()
+        local l_collision = SkillTargetFinder:getCollisionFromTargetList({target_char}, pos_x, pos_y)
+
 		t_option['lua_param']['value5'] = function()
 			-- 공격
-			self:attack(target_char)
+			self:attack(l_collision[1])
 		end
 	end
 

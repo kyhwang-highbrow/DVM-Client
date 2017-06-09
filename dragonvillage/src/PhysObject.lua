@@ -276,6 +276,8 @@ end
 -- @param attacker
 -- @param i_x intersect_pos_x
 -- @param i_y intersect_pos_y
+-- @param k body_key
+-- @param b no_event
 -------------------------------------
 function PhysObject:runDefCallback(attacker, i_x, i_y, k, b)
     if self.callback_def then

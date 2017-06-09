@@ -54,8 +54,8 @@ function SkillIndicator_AoEWedge:onTouchMoved(x, y)
 	self.m_indicatorEffect:setRotation(dir)
 
 	-- 하이라이트 갱신
-	local t_collision_obj, t_collision_bodys = self:findTarget(pos_x, pos_y, dir)
-    self:setHighlightEffect(t_collision_obj, t_collision_bodys)
+	local l_collision = self:findCollision(pos_x, pos_y, dir)
+    self:setHighlightEffect(l_collision)
 end
 
 -------------------------------------
@@ -82,10 +82,10 @@ function SkillIndicator_AoEWedge:initIndicatorNode()
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillIndicator_AoEWedge:findTarget(pos_x, pos_y, dir)
+function SkillIndicator_AoEWedge:findCollision(pos_x, pos_y, dir)
 	local char = self.m_hero
 	local l_target = char:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
-	return SkillTargetFinder:findTarget_AoEWedge(l_target, pos_x, pos_y, dir, self.m_skillRange, self.m_skillAngle)
+	return SkillTargetFinder:findCollision_AoECone(l_target, pos_x, pos_y, dir, self.m_skillRange, self.m_skillAngle)
 end

@@ -78,16 +78,16 @@ function SkillAoESquare:setAttackInterval()
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillAoESquare:findTarget()
+function SkillAoESquare:findCollision()
     local l_target = self:getProperTargetList()
     local x = self.pos.x
 	local y = self.pos.y
 	local width = (self.m_skillWidth / 2)
 	local height = (self.m_skillHeight / 2)
 
-    return SkillTargetFinder:findTarget_AoESquare(l_target, x, y, width, height)
+    return SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height)
 end
 
 -------------------------------------

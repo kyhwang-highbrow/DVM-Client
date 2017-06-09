@@ -68,35 +68,21 @@ function SkillAoESquare_Wonder:enterAttack()
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillAoESquare_Wonder:findTarget()
+function SkillAoESquare_Wonder:findCollision()
     local x = self.pos.x
 	local y = self.pos.y	--> init_skill 단계에서 카메라 중심 좌표의 살짝 위로 설정되어있다.
 
     local l_target = self:getProperTargetList()
     
-    local l_ret = {}
-    local l_bodys = {}
-
     local std_width = (self.m_skillWidth / 2)
 	local std_height = (self.m_skillHeight / 2)
 
 	-- 좌우로 나열하기 위해 x 좌표값 리스트를 계산한다.
 	local l_pos_x = SkillHelper:calculatePositionX(self.m_lineCnt, self.m_space, x)
 
-	-- x 좌표값 리스트를 따라 충돌체크를 한다.
-    for i, v in ipairs(l_target) do
-		for i, pos_x in pairs(l_pos_x) do
-            local b, bodys = isCollision_Rect(v, pos_x, y, std_width, std_height)
-			if (b) then
-				table.insert(l_ret, v)
-                table.insert(l_bodys, bodys)
-			end
-		end
-    end
-
-    return l_ret, l_bodys
+    return SkillTargetFinder:findCollision_AoESquare_Multi(l_target, l_pos_x, y, std_width, std_height)
 end
 
 -------------------------------------

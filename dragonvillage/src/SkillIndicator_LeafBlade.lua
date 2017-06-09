@@ -45,8 +45,11 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
         tar_x, tar_y = adj_pos.x + pos_x, adj_pos.y + pos_y
     end
 
-    local t_collision_obj, t_collision_bodys = self:findTarget(tar_x, tar_y)
-    self.m_targetChar = t_collision_obj[1]
+    local l_collision = self:findCollision(tar_x, tar_y)
+
+    if (l_collision[1]) then
+        self.m_targetChar = l_collision[1]:getTarget()
+    end
 	
     -- 4-1. 베지어 곡선 이펙트 위치 갱신
     self.m_indicatorBezierEffect1:refreshEffect(tar_x, tar_y, pos_x, pos_y, 1)
@@ -64,7 +67,7 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
     self.m_targetPosY = tar_y
 
 	-- 6. 공격 대상 하이라이트 이펙트 관리
-	self:setHighlightEffect(t_collision_obj, t_collision_bodys)
+	self:setHighlightEffect(l_collision)
 end
 
 -------------------------------------
@@ -121,9 +124,9 @@ function SkillIndicator_LeafBlade:initIndicatorNode()
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillIndicator_LeafBlade:findTarget(x, y)
+function SkillIndicator_LeafBlade:findCollision(x, y)
     local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
     	
 	local target_1 = nil 
@@ -133,8 +136,8 @@ function SkillIndicator_LeafBlade:findTarget(x, y)
     local pos_y = self.m_hero.pos.y
 
    	-- 베지어 곡선에 의한 충돌 리스트
-    local l_ret_bezier1, l_ret_bezier_bodys1 = SkillTargetFinder:findTarget_Bezier(l_target, x, y, pos_x, pos_y, 1)
-    local l_ret_bezier2, l_ret_bezier_bodys2 = SkillTargetFinder:findTarget_Bezier(l_target, x, y, pos_x, pos_y, -1)
+    local collisions_bezier1 = SkillTargetFinder:findCollision_Bezier(l_target, x, y, pos_x, pos_y, 1)
+    local collisions_bezier2 = SkillTargetFinder:findCollision_Bezier(l_target, x, y, pos_x, pos_y, -1)
     
     -- 충돌체크에 필요한 변수 생성
     local std_dist = 1000
@@ -145,57 +148,50 @@ function SkillIndicator_LeafBlade:findTarget(x, y)
     -- 직선에 의한 충돌 리스트 (상)
     local rad = math_rad(degree + straight_angle)
     local factor_y = math.tan(rad)
-    local t_ret_line1, t_ret_line_bodys1 = SkillTargetFinder:findTarget_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
+    local collisions_bar1 = SkillTargetFinder:findCollision_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
 
     -- 직선에 의한 충돌 리스트 (하)
     rad = math_rad(degree - straight_angle)
     factor_y = math.tan(rad)
-    local t_ret_line2, t_ret_line_bodys2 = SkillTargetFinder:findTarget_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
+    local collisions_bar2 = SkillTargetFinder:findCollision_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
 
-	-- 하나의 테이블로 합침
-    -- 맵형태로 변경해서 중복값을 없앰
+	-- 맵형태로 임시 저장(중복 제거를 위함)
     local m_temp = {}
-    local m_temp_bodys = {}
     local l_temp = {
-        { l_ret_bezier1, l_ret_bezier_bodys1 },
-        { l_ret_bezier2, l_ret_bezier_bodys2 },
-        { t_ret_line1, t_ret_line_bodys1 },
-        { t_ret_line2, t_ret_line_bodys2 },
+        collisions_bezier1,
+        collisions_bezier2,
+        collisions_bar1,
+        collisions_bar2
     }
 
-    for _, list in ipairs(l_temp) do
-        local l_objs = list[1]
-        local l_bodys = list[2]
+    for _, collisions in ipairs(l_temp) do
+        for _, collision in ipairs(collisions) do
+            local target = collision:getTarget()
+            local body_key = collision:getBodyKey()
 
-        for i, v in ipairs(l_objs) do
-            m_temp[v] = v
-            if (not m_temp_bodys[v]) then
-                m_temp_bodys[v] = {}
+            if (not m_temp[target]) then
+                m_temp[target] = {}
             end
 
-            local body_keys = l_bodys[i]
-            for _, k in ipairs(body_keys) do
-                m_temp_bodys[v][k] = true
-            end
+            m_temp[target][body_key] = collision
         end
     end
     
-    -- 다시 리스트 형태로 변환
+    -- 인덱스 테이블로 다시 담는다
     local l_ret = {}
-    local l_ret_bodys = {}
-
-    for k, _ in pairs(m_temp) do
-        table.insert(l_ret, k)
-
-        local body_keys = {}
-        for k2, _ in pairs(m_temp_bodys[k]) do
-            table.insert(body_keys, k2)
-        end
-
-        table.insert(l_ret_bodys, body_keys)
-    end
     
-    return l_ret, l_ret_bodys
+    for _, map in pairs(m_temp) do
+        for _, collision in pairs(map) do
+            table.insert(l_ret, collision)
+        end
+    end
+
+    -- 거리순으로 정렬(필요할 경우)
+    table.sort(l_ret, function(a, b)
+        return (a:getDistance() < b:getDistance())
+    end)
+        
+    return l_ret
 end
 
 -------------------------------------

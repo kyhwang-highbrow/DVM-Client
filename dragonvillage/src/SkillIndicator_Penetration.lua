@@ -59,8 +59,19 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
     dir = t_ret['angle']
 	distance = t_ret['distance']
 
+    -- 최초 시작 위치가 제한 범위를 넘을 경우를 위한 처리
+    if (not t_ret['is_change']) then
+        if (not self.m_targetPosX or not self.m_targetPosY) then
+            t_ret['is_change'] = true
+
+            local point = getPointFromAngleAndDistance(dir, distance)
+            x = point.x + pos_x
+            y = point.y + pos_y
+        end
+    end
+
 	if (t_ret['is_change']) then 
-		-- root node 상에서 터치된 좌표 위치 환산
+        -- root node 상에서 터치된 좌표 위치 환산
 		local touch_x, touch_y = (x - pos_x), (y - pos_y)
 
 		-- @TODO 여기서 x, y 좌표를 보내게 되면 Skill에서 연산을 할때 위 touch_x, touch_y를 다시 구해야 한다...
@@ -84,8 +95,8 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
 		self.m_indicatorAddEffect:setPosition(touch_x, touch_y)
 
 		-- 하이라이트 갱신
-		local t_collision_obj, l_collision_bodys = self:findTarget(l_attack_pos, l_dir)
-		self:setHighlightEffect(t_collision_obj, l_collision_bodys)
+		local l_collision = self:findCollision(l_attack_pos, l_dir)
+		self:setHighlightEffect(l_collision)
 	end
 end
 
@@ -233,58 +244,46 @@ function SkillIndicator_Penetration:getAttackPositionList(touch_x, touch_y)
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillIndicator_Penetration:findTarget(l_attack_pos, l_dir)
+function SkillIndicator_Penetration:findCollision(l_attack_pos, l_dir)
 	local l_target = self:getProperTargetList()
 	
-	local t_ret = {}
-    local t_ret_bodys = {}
-    local t_temp = {}
-    local t_temp_bodys = {}
+	local m_temp = {}    	
 	
-	local t_each
 	for i = 1, self.m_skillLineNum do
 		-- 각 줄의 충돌 체크
-		local t_collision_obj, l_collision_bodys = self:findTargetEachLine(l_target, l_attack_pos[i], l_dir[i])
+		local collisions = self:findCollisionEachLine(l_target, l_attack_pos[i], l_dir[i])
 
-		for i, object in ipairs(t_collision_obj) do
-            local phys_idx = object['phys_idx']
+        -- 맵형태로 임시 저장(중복 제거를 위함)
+        for _, collision in ipairs(collisions) do
+            local target = collision:getTarget()
+            local body_key = collision:getBodyKey()
 
-			-- 중복 제거 위한 처리
-			t_temp[phys_idx] = object
+            if (not m_temp[target]) then
+                m_temp[target] = {}
+            end
 
-            local body_keys = l_collision_bodys[i]
-
-            for i, body_key in ipairs(body_keys) do
-			    -- 중복 제거 위한 처리
-                if (not t_temp_bodys[phys_idx]) then
-                    t_temp_bodys[phys_idx] = {}
-                end
-			    t_temp_bodys[phys_idx][body_key] = true
-		    end
-		end
+            m_temp[target][body_key] = collision
+        end
 	end
 	
 	-- 인덱스 테이블로 다시 담는다
-	for _, object in pairs(t_temp) do
-		table.insert(t_ret, object)
-
-        local body_keys = {}
-        for body_key, _ in pairs(t_temp_bodys[object['phys_idx']]) do
-            table.insert(body_keys, body_key)
-	    end
-
-        table.insert(t_ret_bodys, body_keys)
-	end
-    	
-	return t_ret, t_ret_bodys
+    local l_ret = {}
+    
+    for _, map in pairs(m_temp) do
+        for _, collision in pairs(map) do
+            table.insert(l_ret, collision)
+        end
+    end
+    
+	return l_ret
 end
 
 -------------------------------------
--- function findTargetEachLine
+-- function findCollisionEachLine
 -------------------------------------
-function SkillIndicator_Penetration:findTargetEachLine(l_target, start_pos, dir)
+function SkillIndicator_Penetration:findCollisionEachLine(l_target, start_pos, dir)
     -- 참조하는 좌표
 	local end_pos = getPointFromAngleAndDistance(dir, 2560)
 	local hero_pos = self.m_hero.pos
@@ -296,5 +295,5 @@ function SkillIndicator_Penetration:findTargetEachLine(l_target, start_pos, dir)
     local end_x = start_x + end_pos['x']
     local end_y = start_y + end_pos['y']
 
-	return SkillTargetFinder:findTarget_Bar(l_target, start_x, start_y, end_x, end_y, self.m_skillLineSize/2)
+	return SkillTargetFinder:findCollision_Bar(l_target, start_x, start_y, end_x, end_y, self.m_skillLineSize/2)
 end

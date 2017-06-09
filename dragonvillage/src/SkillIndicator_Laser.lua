@@ -64,8 +64,8 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
     end
 
 	-- 하이라이트 갱신
-	local t_collision_obj, t_collision_bodys = self:findTarget(pos_x, pos_y, dir)
-	self:setHighlightEffect(t_collision_obj, t_collision_bodys)
+	local l_collision = self:findCollision(pos_x, pos_y, dir)
+	self:setHighlightEffect(l_collision)
 end
 
 -------------------------------------
@@ -93,13 +93,13 @@ function SkillIndicator_Laser:initIndicatorNode()
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillIndicator_Laser:findTarget(pos_x, pos_y, dir)
+function SkillIndicator_Laser:findCollision(pos_x, pos_y, dir)
 	local l_target = self:getProperTargetList()
     local end_pos = getPointFromAngleAndDistance(dir, 2560)    
     local end_x = pos_x + end_pos['x']
     local end_y = pos_y + end_pos['y']
 
-	return SkillTargetFinder:findTarget_Bar(l_target, pos_x, pos_y, end_x, end_y, self.m_thickness/2)
+	return SkillTargetFinder:findCollision_Bar(l_target, pos_x, pos_y, end_x, end_y, self.m_thickness/2)
 end

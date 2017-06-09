@@ -63,6 +63,7 @@ local t_module = {
     'StructDragonUnitCondition',
     'StructUserInfo',
     'StructWaveRegenGroup',
+    'StructCollisionData',
 
 	-- ServerData
     'ServerData',

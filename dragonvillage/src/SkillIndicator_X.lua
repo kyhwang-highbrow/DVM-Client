@@ -24,7 +24,7 @@ function SkillIndicator_X:onTouchMoved(x, y)
 
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     
-	local t_collision_obj, l_collision_bodys = self:findTarget(x, y)
+	local l_collision = self:findCollision(x, y)
     
     self.m_targetPosX = x
     self.m_targetPosY = y
@@ -34,7 +34,7 @@ function SkillIndicator_X:onTouchMoved(x, y)
 	self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
 
 	-- 하이라이트 갱신
-    self:setHighlightEffect(t_collision_obj, l_collision_bodys)
+    self:setHighlightEffect(l_collision)
 end
 
 
@@ -97,9 +97,9 @@ function SkillIndicator_X:onChangeTargetCount(old_target_count, cur_target_count
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillIndicator_X:findTarget(pos_x, pos_y)
+function SkillIndicator_X:findCollision(pos_x, pos_y)
 	local l_target = self:getProperTargetList()
 		
     local radius = 20
@@ -108,63 +108,55 @@ function SkillIndicator_X:findTarget(pos_x, pos_y)
 	
 	local target_x, target_y = pos_x, pos_y
 
-    local t_collision_obj1, l_collision_bodys1 = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, 1)
-    local t_collision_obj2, l_collision_bodys2 = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, 2)
+    local collisions1 = self:findCollisionEachLine(l_target, target_x, target_y, std_width, std_height, 1)
+    local collisions2 = self:findCollisionEachLine(l_target, target_x, target_y, std_width, std_height, 2)
     
-	-- 레이저에 충돌된 모든 객체 리턴
-    -- 하나의 테이블로 합침
-    -- 맵형태로 변경해서 중복값을 없앰
+	-- 맵형태로 임시 저장(중복 제거를 위함)
     local m_temp = {}
-    local m_temp_bodys = {}
     local l_temp = {
-        { t_collision_obj1, l_collision_bodys1 },
-        { t_collision_obj2, l_collision_bodys2 },
+        collisions1,
+        collisions2
     }
 
-	for _, list in ipairs(l_temp) do
-        local l_objs = list[1]
-        local l_bodys = list[2]
+    for _, collisions in ipairs(l_temp) do
+        for _, collision in ipairs(collisions) do
+            local target = collision:getTarget()
+            local body_key = collision:getBodyKey()
 
-        for i, v in ipairs(l_objs) do
-            m_temp[v] = v
-            if (not m_temp_bodys[v]) then
-                m_temp_bodys[v] = {}
+            if (not m_temp[target]) then
+                m_temp[target] = {}
             end
 
-            local body_keys = l_bodys[i]
-            for _, k in ipairs(body_keys) do
-                m_temp_bodys[v][k] = true
-            end
+            m_temp[target][body_key] = collision
         end
     end
-
-    -- 다시 리스트 형태로 변환
+    
+    -- 인덱스 테이블로 다시 담는다
     local l_ret = {}
-    local l_ret_bodys = {}
-
-    for k, _ in pairs(m_temp) do
-        table.insert(l_ret, k)
-
-        local body_keys = {}
-        for k2, _ in pairs(m_temp_bodys[k]) do
-            table.insert(body_keys, k2)
+    
+    for _, map in pairs(m_temp) do
+        for _, collision in pairs(map) do
+            table.insert(l_ret, collision)
         end
-
-        table.insert(l_ret_bodys, body_keys)
     end
+
+    -- 거리순으로 정렬(필요할 경우)
+    table.sort(l_ret, function(a, b)
+        return (a:getDistance() < b:getDistance())
+    end)
 	
-	return l_ret, l_ret_bodys
+	return l_ret
 end
 
 -------------------------------------
--- function findTargetEachLine
+-- function findCollisionEachLine
 -------------------------------------
-function SkillIndicator_X:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, idx)
+function SkillIndicator_X:findCollisionEachLine(l_target, target_x, target_y, std_width, std_height, idx)
 	local start_x = target_x - std_width
 	local start_y = target_y - (std_height * (math_pow(-1, idx)))
 		
 	local end_x = target_x + std_width
 	local end_y = target_y + (std_height * (math_pow(-1, idx)))
 
-	return SkillTargetFinder:findTarget_Bar(l_target, start_x, start_y, end_x, end_y, self.m_lineSize/2)
+	return SkillTargetFinder:findCollision_Bar(l_target, start_x, start_y, end_x, end_y, self.m_lineSize/2)
 end

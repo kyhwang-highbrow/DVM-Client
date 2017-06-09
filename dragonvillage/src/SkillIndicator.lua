@@ -49,8 +49,7 @@ SkillIndicator = class({
         m_attackPosOffsetY = 'number',
 
 		m_highlightList = '',
-        m_highlightBodyList = '',
-
+        
 		-- 인디케이터의 보너스 효과 레벨 관련
 		m_preBonusLevel = 'number',
         m_bonus = 'number',
@@ -139,8 +138,7 @@ function SkillIndicator:changeSIState(state)
 
         self.m_bDirty = true
         self.m_highlightList = nil
-        self.m_highlightBodyList = nil
-
+        
         self.m_targetDir = nil
         self.m_targetPosX = nil
         self.m_targetPosY = nil
@@ -283,54 +281,69 @@ end
 -- function setHighlightEffect
 -- @brief 현재는 하이라이트 리스트는 저장만하고 충돌되는 바디별 타겟 이펙트를 생성 및 삭제함
 -------------------------------------
-function SkillIndicator:setHighlightEffect(t_collision_obj, l_collision_bodys)
+function SkillIndicator:setHighlightEffect(l_collision)
     local skill_indicator_mgr = self:getSkillIndicatorMgr()
     local old_target_count = 0
     local old_highlight_list = self.m_highlightList
-    
-    -- body리스트를 맵형태로 변환
-    for i, _ in ipairs(l_collision_bodys) do
-        local temp = {}
-        for i, body_key in ipairs(l_collision_bodys[i]) do
-            temp[body_key] = true
+
+    -- 이펙트 생성 및 해제 정보를 맵형태로 임시 저장
+    local map = {}
+
+    -- 새 충돌 정보로 이펙트 생성 정보 세팅
+    -- TODO: 타겟 카운트에 따라 처리되어야함
+    for _, collision in ipairs(l_collision) do
+        local target = collision:getTarget()
+
+        if (not map[target]) then
+            map[target] = {}
+
+            for _, body in ipairs(target:getBodyList()) do
+                map[target][body['key']] = 0
+            end
         end
 
-        l_collision_bodys[i] = temp
+        map[target][collision:getBodyKey()] = 1
     end
 
-    -- 타겟 이펙트 삭제
+    -- 이전 하이라이트 리스트의 이펙트 해제 정보 세팅
     if (old_highlight_list) then
+        old_target_count = #old_highlight_list
+
         for i, v in ipairs(old_highlight_list) do
-            local find = false
-            for j, v2 in ipairs(t_collision_obj) do
-                if (v == v2) then
-                    find = true
-                    break
+            if (not map[v]) then
+                map[v] = {}
+
+                for _, body in ipairs(v:getBodyList()) do
+                    map[v][body['key']] = -1
                 end
             end
-
-            if (not find) then
-                self:removeAllTargetEffect(v)
-            end
         end
     end
 
-    -- 타겟 이펙트 생성
-    for i, target in ipairs(t_collision_obj) do
-        local collisionBodyList = l_collision_bodys[i]
+    -- 맵정보로 이펙트 생성 및 해제,  하이라이트 리스트 생성
+    local highlightList = {}
 
-        for _, body in ipairs(target:getBodyList()) do
-            local body_key = body['key']
-            if (collisionBodyList[body_key]) then
+    for target, map_bodys in pairs(map) do
+        local is_created = true
+
+        for body_key, v in pairs(map_bodys) do
+            if (v == 1) then
                 self:makeTargetEffect(target, body_key)
-            else
+            elseif (v == 0) then
                 self:makeNonTargetEffect(target, body_key)
+            elseif (v == -1) then
+                self:removeAllTargetEffect(target)
+                is_created = false
+                break
             end
+        end
+
+        if (is_created) then
+            table.insert(highlightList, target)
         end
     end
 
-    self.m_highlightList = t_collision_obj
-    self.m_highlightBodyList = l_collision_bodys
+    self.m_highlightList = highlightList
 
     local cur_target_count = #self.m_highlightList
     self:onChangeTargetCount(old_target_count, cur_target_count)
@@ -550,13 +563,13 @@ function SkillIndicator:getAttackPosition()
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillIndicator:findTarget(x, y)
+function SkillIndicator:findCollision(x, y)
 end
 
 -------------------------------------
--- function findTarget
+-- function getProperTargetList
 -- @brief 타겟룰에 의해 적절한 타겟리스트 가져옴
 -------------------------------------
 function SkillIndicator:getProperTargetList()

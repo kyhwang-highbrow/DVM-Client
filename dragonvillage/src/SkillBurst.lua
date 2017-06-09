@@ -55,12 +55,17 @@ end
 -------------------------------------
 function SkillBurst:runAttack()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, nil)
+
+    local pos_x, pos_y = self:getAttackPositionAtWorld()
+    local l_collision = SkillTargetFinder:getCollisionFromTargetList(l_target, pos_x, pos_y)
 	
-    for i, target_char in ipairs(l_target) do
+    for _, collision in ipairs(l_collision) do
+        local target = collision:getTarget()
+
 		-- 추가 데미지 여부 판별
 		local has_target_status_effect = false
 		local multiply_value = 1
-		for type, status_effect in pairs(target_char:getStatusEffectList()) do
+		for type, status_effect in pairs(target:getStatusEffectList()) do
 			if (status_effect.m_statusEffectName == self.m_targetStatusEffectType) then 
 				multiply_value = self.m_multiplyDamageRate
 				has_target_status_effect = true 
@@ -72,10 +77,10 @@ function SkillBurst:runAttack()
 		self.m_activityCarrier:setPowerRate(self.m_powerRate * multiply_value)
 
         -- 공격
-        self:attack(target_char)
+        self:attack(collision)
 		
 		-- 이펙트 생성
-		local effect = self:makeEffect(self.m_burstRes, target_char.pos.x, target_char.pos.y)
+		local effect = self:makeEffect(self.m_burstRes, target.pos.x, target.pos.y)
 		if (has_target_status_effect) then 
 			effect:changeAni('effect_2', false)
 			effect.m_node:setScale(1.5)
@@ -85,14 +90,14 @@ function SkillBurst:runAttack()
 
 		-- 해당 상태효과 해제해야 할시 해제
 		if (self.m_isExtinguish) and has_target_status_effect then 
-			StatusEffectHelper:releaseStatusEffectByType(target_char, self.m_targetStatusEffectType)
+			StatusEffectHelper:releaseStatusEffectByType(target, self.m_targetStatusEffectType)
 		end 
     end
 	
 	-- shake
 	self.m_owner.m_world.m_shakeMgr:shakeBySpeed(math_random(335-20, 335+20), math_random(500, 1500))
 
-	self:doCommonAttackEffect(l_target)
+	self:doCommonAttackEffect()
 end
 
 -------------------------------------

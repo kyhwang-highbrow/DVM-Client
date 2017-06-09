@@ -331,22 +331,23 @@ end
 
 -------------------------------------
 -- function runAttack
--- @brief findtarget으로 찾은 적에게 공격을 실행한다. 
+-- @brief findCollision으로 찾은 body별로 공격
 -------------------------------------
 function Skill:runAttack()
-	local l_target, l_bodys = self:findTarget()
-    for i, target_char in ipairs(l_target) do
-		self:attack(target_char, l_bodys[i])
-    end
+    local collisions = self:findCollision()
 
-	self:doCommonAttackEffect(l_target)
+    for _, collision in ipairs(collisions) do
+        self:attack(collision)
+    end
+    
+	self:doCommonAttackEffect()
 end
 
 -------------------------------------
 -- function doCommonAttackEffect
 -- @breif 어택 이벤트와 관련된 처리
 -------------------------------------
-function Skill:doCommonAttackEffect(l_target)
+function Skill:doCommonAttackEffect()
 	-- 스킬이 제거할 수 있는 미사일 제거
 	self:removeDestructibleMissile()
 end
@@ -355,27 +356,21 @@ end
 -- function attack
 -- @brief 공격 콜백을 실행시키고 hit 연출을 조작한다. 되도록 재정의 하지 않는다. 공격의 최소단위
 -------------------------------------
-function Skill:attack(target_char, bodys)
+function Skill:attack(collision)
+    local target_char = collision:getTarget()
+    local body_key = collision:getBodyKey()
+    local body = target_char:getBody(body_key)
+
     -- 공격
     self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
 
-    if (bodys) then
-        for i, k in ipairs(bodys) do
-            -- 데미지 함수 내부에서 body위치를 계산해야할까...
-            local body = target_char:getBody(k)
-            local x = target_char.pos.x + body.x
-            local y = target_char.pos.y + body.y
+    local body = target_char:getBody(k)
+    local x = target_char.pos.x + body.x
+    local y = target_char.pos.y + body.y
 
-            if (i == 1) then
-                target_char:runDefCallback(self, x, y, k)
-            else
-                target_char:runDefCallback(self, x, y, k, true)
-            end
-        end
-    else
-        target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
-    end
-
+    target_char:runDefCallback(self, x, y, k)
+    --target_char:runDefCallback(self, x, y, k, true)
+    
 	self:onAttack(target_char)
 end
 
@@ -417,21 +412,46 @@ function Skill:doSpecialEffect()
 end
 
 -------------------------------------
--- function findTarget
--- @brief 모든 공격 대상 찾음
+-- function findCollision
+-- @brief 모든 충돌 대상 찾음(Body 기준)
 -- @default 직선거리에서 범위를 기준으로 충돌여부 판단
 -------------------------------------
-function Skill:findTarget()
+function Skill:findCollision()
     local l_target = self:getProperTargetList()
 	local x = self.m_targetPos.x
 	local y = self.m_targetPos.y
 	local range = self.m_range
 
-	return SkillTargetFinder:findTarget_AoERound(l_target, x, y, range)
+	return SkillTargetFinder:findCollision_AoERound(l_target, x, y, range)
 end
 
 -------------------------------------
 -- function findTarget
+-- @brief 모든 대상 찾음(Character 기준)
+-- @default 직선거리에서 범위를 기준으로 충돌여부 판단
+-------------------------------------
+function Skill:findTarget()
+    local l_collision = self:findCollision()
+    local m_temp = {}
+
+    -- 맵형태로 임시 저장(중복된 대상 처리를 위함)
+    for _, collision in ipairs(l_collision) do
+        local target = collision:getTarget()
+        m_temp[target] = collision
+    end
+
+    -- 리스트 형태로 변환
+    local l_target = {}
+
+    for _, collision in pairs(m_temp) do
+        table.insert(l_target, collision)
+    end
+
+	return l_target, l_collision
+end
+
+-------------------------------------
+-- function getProperTargetList
 -- @brief 타겟룰에 의해 적절한 타겟리스트 가져옴
 -------------------------------------
 function Skill:getProperTargetList()

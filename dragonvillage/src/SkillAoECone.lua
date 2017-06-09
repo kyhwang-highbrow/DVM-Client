@@ -91,12 +91,12 @@ function SkillAoECone:setAttackInterval()
 end
 
 -------------------------------------
--- function findTarget
--- @brief 공격 대상 찾음
+-- function findCollision
+-- @brief 모든 충돌 대상 찾음(Body 기준)
 -------------------------------------
-function SkillAoECone:findTarget()
+function SkillAoECone:findCollision()
     local l_target = self:getProperTargetList()
-    return SkillTargetFinder:findTarget_AoECone(l_target, self.m_targetPos.x, self.m_targetPos.y, self.m_dir, self.m_range, self.m_angle)
+    return SkillTargetFinder:findCollision_AoECone(l_target, self.m_targetPos.x, self.m_targetPos.y, self.m_dir, self.m_range, self.m_angle)
 end
 
 -------------------------------------

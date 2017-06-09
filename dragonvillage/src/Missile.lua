@@ -782,13 +782,6 @@ MissileHitCB.splash = function(attacker, defender, i_x, i_y)
     end
 end
 
--------------------------------------
--- function gold
--------------------------------------
-MissileHitCB.gold = function(attacker, defender, i_x, i_y)
-    ItemMgr:getMissileGold(i_x, i_y)
-end
-
 
 
 

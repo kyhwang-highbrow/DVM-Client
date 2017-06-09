@@ -33,7 +33,7 @@ function SkillIndicator_AoESquare:onTouchMoved(x, y)
 
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     
-	local t_collision_obj, t_collision_bodys = self:findTarget(x, y)
+	local l_collision = self:findCollision(x, y)
 
     self.m_targetPosX = x
     self.m_targetPosY = y
@@ -42,7 +42,7 @@ function SkillIndicator_AoESquare:onTouchMoved(x, y)
 	self:setIndicatorPosition(x, y, pos_x, pos_y)
 
 	-- 하이라이트 갱신
-    self:setHighlightEffect(t_collision_obj, t_collision_bodys)
+    self:setHighlightEffect(l_collision)
 end
 
 -------------------------------------
@@ -67,14 +67,14 @@ function SkillIndicator_AoESquare:initIndicatorNode()
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillIndicator_AoESquare:findTarget(x, y)
+function SkillIndicator_AoESquare:findCollision(x, y)
     local l_target = self:getProperTargetList()
     local x = x
 	local y = y
 	local width = (self.m_skillWidth / 2)
 	local height = (self.m_skillHeight / 2)
 
-    return SkillTargetFinder:findTarget_AoESquare(l_target, x, y, width, height)
+    return SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height)
 end

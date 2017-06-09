@@ -64,8 +64,8 @@ function SkillIndicator_AoECone:onTouchMoved(x, y)
 	self:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 
 	-- 하이라이트 갱신
-	local t_collision_obj, l_collision_bodys = self:findTarget(touch_x, touch_y)
-    self:setHighlightEffect(t_collision_obj, l_collision_bodys)
+	local l_collision = self:findCollision(touch_x, touch_y)
+    self:setHighlightEffect(l_collision)
 end
 
 -------------------------------------
@@ -136,9 +136,9 @@ function SkillIndicator_AoECone:onChangeTargetCount(old_target_count, cur_target
 end
 
 -------------------------------------
--- function findTarget
+-- function findCollision
 -------------------------------------
-function SkillIndicator_AoECone:findTarget(x, y)
+function SkillIndicator_AoECone:findCollision(x, y)
     local l_target = self:getProperTargetList()
-    return SkillTargetFinder:findTarget_AoECone(l_target, x, y, self.m_skillDir, self.m_skillRadius, self.m_skillAngle)
+    return SkillTargetFinder:findCollision_AoECone(l_target, x, y, self.m_skillDir, self.m_skillRadius, self.m_skillAngle)
 end
