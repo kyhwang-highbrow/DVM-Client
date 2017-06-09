@@ -181,6 +181,8 @@ public:
         EVENT_CUSTOM_ROTATEPLATE_ROTATED,
         EVENT_CUSTOM_ACTION_TWEEN_FOR_LUA, //added by sgkim (2016/07/09)
         EVENT_CUSTOM_ENDED = 11000,
+
+        EVENT_CUSTOM_SCROLLVIEW_RELOCATE = (SCROLLVIEW_SCROLL + 9), //added by sgkim (2017/06/08)
     };
 
     typedef int Handler;

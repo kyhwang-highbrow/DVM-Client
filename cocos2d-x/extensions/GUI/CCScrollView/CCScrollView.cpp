@@ -29,6 +29,7 @@
 #include "2d/CCActionInstant.h"
 #include "2d/CCActionInterval.h"
 #include "2d/CCActionTween.h"
+#include "2d/CCActionEase.h"
 #include "base/CCDirector.h"
 #include "renderer/CCRenderer.h"
 
@@ -242,11 +243,12 @@ void ScrollView::setContentOffset(Vec2 offset, bool animated/* = false*/)
 
 void ScrollView::setContentOffsetInDuration(Vec2 offset, float dt)
 {
-    FiniteTimeAction *scroll, *expire;
+    FiniteTimeAction *scroll, *ease, *expire;
 
     scroll = MoveTo::create(dt, offset);
+    ease = EaseInOut::create((ActionInterval*)scroll, 2);
     expire = CallFuncN::create(CC_CALLBACK_1(ScrollView::stoppedAnimatedScroll,this));
-    _container->runAction(Sequence::create(scroll, expire, nullptr));
+    _container->runAction(Sequence::create(ease, expire, nullptr));
     this->schedule(schedule_selector(ScrollView::performedAnimatedScroll));
 }
 
@@ -393,6 +395,11 @@ void ScrollView::relocateContainer(bool animated)
     if (newY != oldPoint.y || newX != oldPoint.x)
     {
         this->setContentOffset(Vec2(newX, newY), animated);
+    }
+
+    if (_delegate != NULL)
+    {
+        _delegate->scrollViewDidRelocateContainer(this);
     }
 }
 

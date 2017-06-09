@@ -68,6 +68,21 @@ public:
             }
         }
     }
+
+    virtual void scrollViewDidRelocateContainer(ScrollView* view) override
+    {
+        if (nullptr != view)
+        {
+            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)view, ScriptHandlerMgr::HandlerType::EVENT_CUSTOM_SCROLLVIEW_RELOCATE);
+            if (0 != handler)
+            {
+                CommonScriptData data(handler, "");
+                ScriptEvent event(kCommonEvent, (void*)&data);
+                LuaEngine::getInstance()->sendEvent(&event);
+            }
+
+        }
+    }
 };
 
 static int tolua_cocos2dx_ScrollView_setDelegate(lua_State* tolua_S)
@@ -1025,6 +1040,21 @@ public:
                 BasicScriptData data(view,&eventData);
                 LuaEngine::getInstance()->handleEvent(ScriptHandlerMgr::HandlerType::SCROLLVIEW_ZOOM, (void*)&data);
             }
+        }
+    }
+
+    virtual void scrollViewDidRelocateContainer(ScrollView* view) override
+    {
+        if (nullptr != view)
+        {
+            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)view, ScriptHandlerMgr::HandlerType::EVENT_CUSTOM_SCROLLVIEW_RELOCATE);
+            if (0 != handler)
+            {
+                LuaTableViewEventData eventData;
+                BasicScriptData data(view, &eventData);
+                LuaEngine::getInstance()->handleEvent(ScriptHandlerMgr::HandlerType::EVENT_CUSTOM_SCROLLVIEW_RELOCATE, (void*)&data);
+            }
+
         }
     }
     

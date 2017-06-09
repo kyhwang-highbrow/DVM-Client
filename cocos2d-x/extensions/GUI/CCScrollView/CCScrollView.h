@@ -58,6 +58,11 @@ public:
      * @lua NA
      */
     virtual void scrollViewDidZoom(ScrollView* view) = 0;
+    /**
+    * @js NA
+    * @lua NA
+    */
+    virtual void scrollViewDidRelocateContainer(ScrollView* view) = 0;
 };
 
 
