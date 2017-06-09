@@ -14,22 +14,33 @@ require 'perpleLib/StringUtils'
 require 'Table'
 require 'TableClass'
 require 'TableGradeInfo'
-require 'DataTableValidator'
-
+require 'UnusedFileExtractor'
+require 'os'
 -------------------------------------
 -- function main
 -- @brief
 -------------------------------------
 function main()
     TABLE:init()
-    validator = DataTableValidator()
-    validator:init()
+    --extractor = UnusedFileExtractor()
+    --extractor:init()
+    local path = lfs.currentdir()
+    local t = {}
+    local pfile = pl.dir.getallfiles('D:\\dragonvillage\\src\\frameworks\\dragonvillage\\src')
 
-    validator:validateData()
-    
-    if( validator:getNumOfInvalidData() > 0 ) then
-        ccdump(validator:sendInvalidTableListBySlack())
+    for _, dir in ipairs(pfile) do
+        table.insert(t, dir)  
     end
+    
+    print(#t)
+    for i = 1, #t do
+        os.execute('C:\\Users\\MS\\Downloads\\LuaSrcDiet-win32-bin-0.9.1\\LuaSrcDiet-win32-bin-0.9.1\\LuaSrcDiet.exe '.. t[i])
+        print(i)
+    end
+
+
+
+    --extractor:extractUnusedFile('.ui', '.lua')
 
 end
 
@@ -44,6 +55,7 @@ function __G__TRACKBACK__(msg)
     cclog(error_msg)
     cclog("----------------------------------------")
 
+
     return msg
 end
 
@@ -51,3 +63,4 @@ local status, msg = xpcall(main, __G__TRACKBACK__)
 if not status then
     error(msg)
 end
+
