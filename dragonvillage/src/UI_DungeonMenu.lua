@@ -61,6 +61,7 @@ function UI_DungeonMenu:initButton()
     vars['treeBtn']:registerScriptTapHandler(function() self:click_treeBtn() end)
     vars['nightmareBtn']:registerScriptTapHandler(function() self:click_nightmareBtn() end)
     vars['goldBtn']:registerScriptTapHandler(function() self:click_goldBtn() end)
+    vars['relationBtn']:registerScriptTapHandler(function() self:click_relationBtn() end)
 end
 
 -------------------------------------
@@ -95,6 +96,13 @@ end
 -------------------------------------
 function UI_DungeonMenu:click_goldBtn()
     g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_GOLD)
+end
+
+-------------------------------------
+-- function click_relationBtn
+-------------------------------------
+function UI_DungeonMenu:click_relationBtn()
+    g_secretDungeonData:goToSecretDungeonScene()
 end
 
 --@CHECK
