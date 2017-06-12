@@ -150,7 +150,6 @@ end
 -------------------------------------
 function UI_SkillDetailPopup:onChangeOption()
     local skill_idx = self.m_skillRadioBtn.m_selectedButton
-	ccdisplay('skill_idx : ' .. skill_idx)
 	self:refresh(skill_idx)
 end
 

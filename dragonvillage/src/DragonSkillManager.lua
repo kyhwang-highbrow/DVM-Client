@@ -75,7 +75,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolutio
     end
 
 	-- @TEST 활성화 스킬 확인 로그
-	if true then --g_constant:get('DEBUG', 'PRINT_DRAGON_SKILL') then 
+	if g_constant:get('DEBUG', 'PRINT_DRAGON_SKILL') then 
 		self:printSkillManager()
 	end
 end
