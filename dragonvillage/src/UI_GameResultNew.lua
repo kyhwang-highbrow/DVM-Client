@@ -508,11 +508,15 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
         local evolution = user_data['evolution']
         local grade = user_data['grade']
 		local attr = table_data['attr']
+		local scale = table_data['scale']
 
         local animaotr = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
         animaotr.m_node:setDockPoint(cc.p(0.5, 0.5))
         animaotr.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-        --animaotr.m_node:setScale(0.5)
+		
+		-- 자코 추가로 스케일 개별 적용
+        animaotr.m_node:setScale(math_clamp(scale, 1, 2))
+
         vars['dragonNode' .. i]:addChild(animaotr.m_node)
 
         do -- 드래곤 레벨, 경험치
