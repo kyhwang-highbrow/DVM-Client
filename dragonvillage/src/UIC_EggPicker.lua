@@ -83,8 +83,8 @@ function UIC_EggPicker:create(parent)
     end
 
     do  -- 컨테이너 비주얼로 보이게
-        local _container = scroll_view:getContainer()
-        UIC_Node(_container):initGLNode()
+        --local _container = scroll_view:getContainer()
+        --UIC_Node(_container):initGLNode()
     end
 
     return egg_picker
@@ -149,7 +149,7 @@ end
 -------------------------------------
 -- function addEgg
 -------------------------------------
-function UIC_EggPicker:addEgg()
+function UIC_EggPicker:addEgg(res)
 
     local normal_size = cc.size(self:getNormalSize())
     local size = cc.size(self.m_itemWidth, normal_size['height'])
@@ -177,9 +177,10 @@ function UIC_EggPicker:addEgg()
 
     table.insert(self.m_lItemList, menu)
 
-    local scale = 0.5
+    local scale = 0.666
     --local item = cc.Sprite:create('summon_egg_01.png')
-    local item = cc.Sprite:create('res/ui/icon/colosseum_result_01.png')
+    --local item = cc.Sprite:create('res/ui/icon/colosseum_result_01.png')
+    local item = cc.Sprite:create(res)
     item:setDockPoint(cc.p(0.5, 0.5))
     item:setAnchorPoint(cc.p(0.5, 0.5))
     item:setScale(scale)
