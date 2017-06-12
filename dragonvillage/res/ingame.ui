@@ -1240,6 +1240,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 4;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'manaSprite';
 			file_name = 'ui/gauge/ingame_mana_gg_bg.png';
 			color = { 255; 255; 255; };
