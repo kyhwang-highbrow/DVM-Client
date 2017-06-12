@@ -143,7 +143,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'incubatorBtn';
+			lua_name = 'incubateBtn';
 			enable = true;
 			normal = 'ui/btn/a_btn_0207.png';
 			selected = 'ui/btn/a_btn_0202.png';
@@ -207,7 +207,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'mixBtn';
+			lua_name = 'combineBtn';
 			enable = true;
 			normal = 'ui/btn/a_btn_0207.png';
 			selected = 'ui/btn/a_btn_0202.png';

@@ -2376,6 +2376,18 @@
     <None Include="..\src\UIC_EggPicker.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UI_Hatchery.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_HatcherySummonTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_HatcheryIncubateTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_HatcheryCombineTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

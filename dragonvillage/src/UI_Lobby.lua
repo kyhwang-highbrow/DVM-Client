@@ -370,7 +370,8 @@ end
 -- @brief 드래곤 소환 (가챠)
 -------------------------------------
 function UI_Lobby:click_drawBtn()
-    g_dragonSummonData:openDragonSummon()
+    --g_dragonSummonData:openDragonSummon()
+    UI_Hatchery()
 end
 
 -------------------------------------
