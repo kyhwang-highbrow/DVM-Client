@@ -9,14 +9,13 @@ message CChatNormalMsg {
 
 message CChatChangeChannel {
 	required string channelName = 1;
-	optional ChatChannelType channelType = 2;
-	optional int32 offset = 3;
 }
 
 message SChatChangeChannel {
 	required ChatChangeChannelResult ret = 1;
 	required string	channelName = 2;
 	optional int32 numOfUsers = 3;
+    optional bytes user = 4;
 }
 
 message SChatResponse {

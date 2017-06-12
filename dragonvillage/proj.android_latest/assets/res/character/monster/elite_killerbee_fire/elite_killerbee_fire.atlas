@@ -1,0 +1,181 @@
+
+elite_killerbee_fire.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_killerbee_fire_arm_01
+  rotate: true
+  xy: 127, 19
+  size: 22, 50
+  orig: 22, 50
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_arm_02
+  rotate: false
+  xy: 990, 166
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_body_01
+  rotate: false
+  xy: 340, 123
+  size: 124, 131
+  orig: 124, 131
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_body_02
+  rotate: true
+  xy: 365, 5
+  size: 65, 89
+  orig: 65, 89
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_body_03
+  rotate: true
+  xy: 761, 153
+  size: 101, 106
+  orig: 101, 106
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_effect_01
+  rotate: false
+  xy: 466, 164
+  size: 158, 90
+  orig: 158, 90
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_effect_02
+  rotate: true
+  xy: 466, 86
+  size: 76, 113
+  orig: 76, 113
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_eye_01
+  rotate: false
+  xy: 990, 202
+  size: 32, 52
+  orig: 32, 52
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_eye_02
+  rotate: true
+  xy: 581, 105
+  size: 18, 40
+  orig: 18, 40
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_eye_03
+  rotate: false
+  xy: 943, 138
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_eye_04
+  rotate: false
+  xy: 179, 29
+  size: 10, 12
+  orig: 10, 12
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_hand_01
+  rotate: false
+  xy: 304, 2
+  size: 59, 68
+  orig: 59, 68
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_hand_02
+  rotate: false
+  xy: 581, 125
+  size: 40, 37
+  orig: 40, 37
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_head_01
+  rotate: false
+  xy: 456, 11
+  size: 67, 73
+  orig: 67, 73
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_head_02
+  rotate: true
+  xy: 92, 2
+  size: 39, 33
+  orig: 39, 33
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_head_03
+  rotate: false
+  xy: 623, 122
+  size: 23, 33
+  orig: 23, 33
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_head_04
+  rotate: true
+  xy: 191, 23
+  size: 57, 111
+  orig: 57, 111
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_head_05
+  rotate: true
+  xy: 2, 13
+  size: 28, 88
+  orig: 28, 88
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_wepon_01
+  rotate: false
+  xy: 869, 130
+  size: 72, 46
+  orig: 72, 46
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_wing_01
+  rotate: true
+  xy: 626, 157
+  size: 97, 133
+  orig: 97, 133
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_wing_02
+  rotate: false
+  xy: 340, 72
+  size: 114, 49
+  orig: 114, 49
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_wing_03
+  rotate: true
+  xy: 869, 178
+  size: 76, 119
+  orig: 76, 119
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_wing_04
+  rotate: true
+  xy: 525, 8
+  size: 76, 50
+  orig: 76, 50
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_wingeffect_01
+  rotate: false
+  xy: 2, 43
+  size: 187, 211
+  orig: 187, 211
+  offset: 0, 0
+  index: -1
+elite_killerbee_fire_wingeffect_02
+  rotate: false
+  xy: 191, 82
+  size: 147, 172
+  orig: 147, 172
+  offset: 0, 0
+  index: -1

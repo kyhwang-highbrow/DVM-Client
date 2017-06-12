@@ -317,6 +317,32 @@
 			};
 			[8] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 60;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'starSprite5';
+					file_name = 'ui/btn/assess_star_02.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = 120.000000;
@@ -335,12 +361,38 @@
 				lua_name = 'assessBtn5';
 				enable = true;
 				normal = 'ui/btn/assess_star_01.png';
-				selected = 'ui/btn/assess_star_02.png';
-				disable = 'ui/btn/assess_star_02.png';
+				selected = '';
+				disable = '';
 				image_type = 0;
 			};
 			[9] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 60;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'starSprite4';
+					file_name = 'ui/btn/assess_star_02.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = 60.000000;
@@ -359,12 +411,38 @@
 				lua_name = 'assessBtn4';
 				enable = true;
 				normal = 'ui/btn/assess_star_01.png';
-				selected = 'ui/btn/assess_star_02.png';
-				disable = 'ui/btn/assess_star_02.png';
+				selected = '';
+				disable = '';
 				image_type = 0;
 			};
 			[10] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 60;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'starSprite3';
+					file_name = 'ui/btn/assess_star_02.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
@@ -383,12 +461,38 @@
 				lua_name = 'assessBtn3';
 				enable = true;
 				normal = 'ui/btn/assess_star_01.png';
-				selected = 'ui/btn/assess_star_02.png';
-				disable = 'ui/btn/assess_star_02.png';
+				selected = '';
+				disable = '';
 				image_type = 0;
 			};
 			[11] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 60;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'starSprite2';
+					file_name = 'ui/btn/assess_star_02.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = -60.000000;
@@ -407,12 +511,38 @@
 				lua_name = 'assessBtn2';
 				enable = true;
 				normal = 'ui/btn/assess_star_01.png';
-				selected = 'ui/btn/assess_star_02.png';
-				disable = 'ui/btn/assess_star_02.png';
+				selected = '';
+				disable = '';
 				image_type = 0;
 			};
 			[12] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 60;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'starSprite1';
+					file_name = 'ui/btn/assess_star_02.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = -120.000000;
@@ -431,8 +561,8 @@
 				lua_name = 'assessBtn1';
 				enable = true;
 				normal = 'ui/btn/assess_star_01.png';
-				selected = 'ui/btn/assess_star_02.png';
-				disable = 'ui/btn/assess_star_02.png';
+				selected = '';
+				disable = '';
 				image_type = 0;
 			};
 			[13] =
@@ -490,6 +620,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 1;
+			action_delay_1 = 0.100000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = '';
 		};
 		type = 'Menu';
