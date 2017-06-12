@@ -587,6 +587,7 @@ local t_module = {
 	-- UI : 모험 준비
 	'UI_ReadyScene',
     'UI_ReadyScene_Deck',
+	'UI_ReadyScene_LeaderPopup',
 	
 	-- UI : 전투 통계
 	'UI_StatisticsPopup',

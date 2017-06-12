@@ -697,7 +697,8 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_leaderBtn()
-	ccdisplay('리더 설정은 준비중입니다.')
+	local ui = UI_ReadyScene_LeaderPopup()
+	ui:setCloseCB(function() ccdisplay('후..') end)
 end
 
 -------------------------------------
