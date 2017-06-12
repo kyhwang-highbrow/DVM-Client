@@ -25,7 +25,7 @@ function UI_SkillCard:init(char_type, skill_id, skill_type, skill_lv)
 	-- 스킬 타입 텍스트
 	local skill_type_str = self:getSkillTypeStr(skill_type, false)
     vars['skillLabel']:setString(skill_type_str)
-	if isExistValue(skill_type, 'active', 'touch') then
+	if isExistValue(skill_type, 'active') then
         vars['skillLabel']:setColor(cc.c3b(0,255,0))
     else
         vars['skillLabel']:setColor(cc.c3b(255,255,30))

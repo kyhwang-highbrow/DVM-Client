@@ -7,7 +7,7 @@ function Character:initTriggerListener()
 
 	for skill_type, t_individual_info in pairs(self.m_lSkillIndivisualInfo) do
 		-- 이벤트 처리 할 가능성이 없는 스킬 타입 제외
-		if not isExistValue(skill_type, 'active', 'basic', 'touch') then
+		if not isExistValue(skill_type, 'active', 'basic', 'leader') then
 			-- 존재 여부는 갯수로 체크
 			if (table.count(t_individual_info) > 0) then
 				self:addListener(skill_type, self)

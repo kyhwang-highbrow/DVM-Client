@@ -55,12 +55,13 @@ function UI_SkillDetailPopup:refresh()
     local vars = self.vars
 
     local skill_mgr = MakeDragonSkillFromDragonData(dragon_object)
-    for i=0, MAX_DRAGON_EVOLUTION do
-    
+    for i = 0, MAX_DRAGON_EVOLUTION do
         vars['skillNode' .. i]:removeAllChildren()
-        local ui = UI_SkillDetailPopupListItem(dragon_object, skill_mgr, i, self.m_bSimpleMode)
-        vars['skillNode' .. i]:addChild(ui.root)
-
+		local skill_indivisual_info = skill_mgr:getSkillIndivisualInfo_usingIdx(i)
+		if (skill_indivisual_info) then
+			local ui = UI_SkillDetailPopupListItem(dragon_object, skill_indivisual_info, self.m_bSimpleMode)
+			vars['skillNode' .. i]:addChild(ui.root)
+		end
     end
 end
 

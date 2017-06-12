@@ -5,18 +5,16 @@ local PARENT = UI
 -------------------------------------
 UI_SkillDetailPopupListItem = class(PARENT, {
         m_dragonData = '',
-        m_skillMgr = '',
-        m_skillIdx = '',
+		m_skillIndividualInfo = '',
         m_bSimpleMode = '',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SkillDetailPopupListItem:init(t_dragon_data, skill_mgr, skill_idx, is_simple_mode)
+function UI_SkillDetailPopupListItem:init(t_dragon_data, skill_indivisual_info, is_simple_mode)
     self.m_dragonData = t_dragon_data
-    self.m_skillMgr = skill_mgr
-    self.m_skillIdx = skill_idx
+    self.m_skillIndividualInfo = skill_indivisual_info
     self.m_bSimpleMode = is_simple_mode
 
     local vars = self:load('dragon_skill_detail_popup_item.ui')
@@ -31,12 +29,10 @@ end
 -------------------------------------
 function UI_SkillDetailPopupListItem:initUI()
     local vars = self.vars
-    local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_skillIdx)
+    local skill_indivisual_info = self.m_skillIndividualInfo
 
     do -- 스킬 타입
-        local skill_idx = self.m_skillIdx
-        local evolution = skill_idx
-        local str = getSkillType_byEvolution(evolution)
+        local str = skill_indivisual_info:getSkillType()
         vars['skillTypeLabel']:setString(str)
     end
 
@@ -65,12 +61,14 @@ end
 -------------------------------------
 function UI_SkillDetailPopupListItem:refresh()
     local vars = self.vars
-    local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_skillIdx)
+    local skill_indivisual_info = self.m_skillIndividualInfo
 
     do -- 스킬 오픈 여부
+		--[[
         local skill_level = skill_indivisual_info:getSkillLevel()
         if (skill_level <= 0) then
             vars['skillOpenSprite']:setVisible(true)
+
             local skill_idx = self.m_skillIdx
             if (skill_idx == 2) then
                 vars['skillOpenLabel']:setString(Str('해츨링 스킬'))
@@ -80,8 +78,9 @@ function UI_SkillDetailPopupListItem:refresh()
                 error('skill_idx : ' .. skill_idx)
             end
         else
-            vars['skillOpenSprite']:setVisible(false)
         end
+		]]
+        vars['skillOpenSprite']:setVisible(false)
     end
 
     do -- 레벨 표시
@@ -141,6 +140,7 @@ end
 -- function getSkillMaxLevel
 -------------------------------------
 function UI_SkillDetailPopupListItem:getSkillMaxLevel()
+--[[
     local eclv = self.m_dragonData['eclv']
     local skill_idx = self.m_skillIdx
 
@@ -160,13 +160,17 @@ function UI_SkillDetailPopupListItem:getSkillMaxLevel()
     end
 
     return max_lv_segment, max_lv
+	]]
+
+	return 10, 10
 end
 
 -------------------------------------
 -- function click_enhanceBtn
 -------------------------------------
 function UI_SkillDetailPopupListItem:click_enhanceBtn()
-    local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_skillIdx)
+--[[
+    local skill_indivisual_info = self.m_skillIndividualInfo
 
     do -- 초월 구간별 최대 레벨 확인
         local skill_level = skill_indivisual_info:getSkillLevel()
@@ -198,6 +202,7 @@ function UI_SkillDetailPopupListItem:click_enhanceBtn()
 
     --MakeSimplePopup_Confirm(item_type, item_value, '스킬을 강화하시겠습니까?', ok_btn_cb, cancel_btn_cb)
     ok_btn_cb()
+	]]
 end
 
 
@@ -205,6 +210,7 @@ end
 -- function request_skillEnhance
 -------------------------------------
 function UI_SkillDetailPopupListItem:request_skillEnhance()
+--[[
     local uid = g_userData:get('uid')
     local doid = self.m_dragonData['id']
     local skill = self.m_skillIdx
@@ -234,12 +240,14 @@ function UI_SkillDetailPopupListItem:request_skillEnhance()
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+	]]
 end
 
 -------------------------------------
 -- function refresh_enhance
 -------------------------------------
 function UI_SkillDetailPopupListItem:refresh_enhance()
+--[[
     local old_dragon_data = self.m_dragonData
     local new_dragon_data = g_dragonsData:getDragonDataFromUid(old_dragon_data['id'])
 
@@ -248,7 +256,7 @@ function UI_SkillDetailPopupListItem:refresh_enhance()
     end
 
     self.m_dragonData = new_dragon_data
-    self.m_skillMgr = MakeDragonSkillFromDragonData(self.m_dragonData)
 
     self:refresh()
+	]]
 end

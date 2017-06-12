@@ -151,9 +151,9 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
     do -- 스킬 아이콘 생성
         local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
         local l_skill_icon = skill_mgr:getDragonSkillIconList()
-        for i=0, MAX_DRAGON_EVOLUTION do
+        for i = 0, MAX_DRAGON_EVOLUTION do
+            vars['skillNode' .. i]:removeAllChildren()
             if l_skill_icon[i] then
-                vars['skillNode' .. i]:removeAllChildren()
                 vars['skillNode' .. i]:addChild(l_skill_icon[i].root)
 
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(func_skill_detail_btn)

@@ -179,11 +179,11 @@ function getSkillTypeStr(skill_type, is_use_brakets)
     elseif (skill_type == 'passive') then
         skill_type_str = Str('패시브')
 
-    elseif (skill_type == 'touch') then
-        skill_type_str = Str('액티브')
-
     elseif (skill_type == 'active') then
         skill_type_str = Str('액티브')
+
+	elseif (skill_type == 'leader') then
+        skill_type_str = Str('리더 버프')
 
     else
         cclog('## 정의되지 않은 skill_type : ' .. skill_type)

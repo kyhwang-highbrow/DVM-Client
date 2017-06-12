@@ -110,6 +110,13 @@ function DragonSkillIndivisualInfo:getSkillLevel()
     return skill_level
 end
 
+-------------------------------------
+-- function getSkillLevel
+-------------------------------------
+function DragonSkillIndivisualInfo:getSkillType()
+    local skill_type = self.m_skillType
+    return skill_type
+end
 
 
 

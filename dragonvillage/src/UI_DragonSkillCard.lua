@@ -22,7 +22,7 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
 
     do -- 스킬 타입 표시
         local skill_type = skill_indivisual_info.m_skillType
-        if isExistValue(skill_type, 'active', 'touch') then
+        if isExistValue(skill_type, 'active') then
             --vars['activeSprite']:setVisible(false)
             vars['skillLabel']:setString('액티브')
             vars['skillLabel']:setColor(cc.c3b(0,255,0))

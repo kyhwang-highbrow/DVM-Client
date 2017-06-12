@@ -29,14 +29,12 @@ end
 -------------------------------------
 -- function initDragonSkillManager
 -------------------------------------
-function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_skill_count)
-    --open_skill_count = open_skill_count or 3
-    open_skill_count = 10
-
+function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolution_lv)
     self.m_charType = char_type
     self.m_charID = char_id
     self.m_openSkillCount = open_skill_count
 	self.m_mSkillInfoMap = {}
+
 
     -- 캐릭터 테이블 저장
     local table_dragon = TABLE:get(self.m_charType)
@@ -46,20 +44,37 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
     self:initSkillIDList()
 
     -- 기본 공격 지정
-	if (t_character['skill_basic']) then
+	if (t_character['skill_basic']) and (t_character['skill_basic'] ~= '') then
 		self:setSkillID('basic', t_character['skill_basic'], 1)
 	end
 
     -- 기본 드래그 스킬 지정
-    if t_character['skill_active'] then
+    if (t_character['skill_active']) and (t_character['skill_active'] ~= '') then
         self:setSkillID('active', t_character['skill_active'], self:getSkillLevel(0))
 		self.m_normalActiveInfo = self.m_lSkillIndivisualInfo['active']
+    end
+
+	-- 리더 버프 지정
+    if (t_character['skill_leader']) and (t_character['skill_leader'] ~= '') then
+		local leader_buff_type = t_character['skill_leader_type']
+		-- 리더 버프의 레벨은 1이 최대치이고 획득 시기에 따라 나뉨
+		local skill_lv
+		if (leader_buff_type == 'hatch') then
+			skill_lv = 1
+		elseif (leader_buff_type == 'adult') then
+			if (evolution_lv == 3) then
+				skill_lv = 1
+			else
+				skill_lv = 0
+			end
+		end
+        self:setSkillID('leader', t_character['skill_leader'], skill_lv)
     end
 
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
 	local table_skill = GetSkillTable(self.m_charType)
-    for i = 1, open_skill_count do
+    for i = 1, 10 do
         local skill_id = t_character['skill_' .. i]
 		local skill_type = table_skill:getSkillType(skill_id)
         if skill_type and skill_id then
@@ -80,9 +95,9 @@ end
 function IDragonSkillManager:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
     self.m_dragonSkillLevel = {}
     self.m_dragonSkillLevel[0] = skill_00_lv or 0 -- 액티브 스킬
-    self.m_dragonSkillLevel[1] = skill_01_lv or 0 -- 터치 스킬
-    self.m_dragonSkillLevel[2] = skill_02_lv or 0 -- 패시브 스킬
-    self.m_dragonSkillLevel[3] = skill_03_lv or 0 -- 액티브 강화
+    self.m_dragonSkillLevel[1] = skill_01_lv or 0
+    self.m_dragonSkillLevel[2] = skill_02_lv or 0
+    self.m_dragonSkillLevel[3] = skill_03_lv or 0 -- 성룡 스킬
 end
 
 -------------------------------------
@@ -111,8 +126,8 @@ function IDragonSkillManager:initSkillIDList()
     -- 타입별 기본 스킬 ID
     self.m_lSkillIndivisualInfo = {}
     self.m_lSkillIndivisualInfo['basic'] = false
-	self.m_lSkillIndivisualInfo['touch'] = false
     self.m_lSkillIndivisualInfo['active'] = false
+	self.m_lSkillIndivisualInfo['leader'] = false
 
     self.m_lSkillIndivisualInfo['basic_rate'] = {}
     self.m_lSkillIndivisualInfo['basic_turn'] = {}
@@ -148,7 +163,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
     local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
 
 	local t_add_value = nil
-	if isExistValue(skill_type, 'active', 'basic', 'touch') then
+	if isExistValue(skill_type, 'active', 'basic', 'leader') then
 		if (self.m_lSkillIndivisualInfo[skill_type]) then
 			t_add_value = self.m_lSkillIndivisualInfo[skill_type].m_tAddedValue
 		end
@@ -188,7 +203,7 @@ function IDragonSkillManager:getSkillID(skill_type)
     end
 
     -- 하나의 스킬만을 가지는 스킬 타입
-	if isExistValue(skill_type, 'active', 'basic', 'touch') then
+	if isExistValue(skill_type, 'active', 'basic', 'leader') then
         return skill_indivisual_info.m_skillID
 
     -- 다중의 스킬을 가질 수 있는 스킬 타입
@@ -250,9 +265,20 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
     if (idx == 0) then
         skill_id = t_character['skill_active']
         skill_type = 'active'
+
+	elseif (idx == 3) then
+		skill_id = t_character['skill_3']
+
+		-- skill_3이 비어있고 skill_laeder가 있다면 UI에서 표현하기 위해 skill_3 위치에서 표현
+		if (skill_id == '') and (t_character['skill_leader']) then
+			skill_id = t_character['skill_leader']
+		end
+		skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
+
     else
         skill_id = t_character['skill_' .. idx]
 		skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
+
     end
 
     local skill_indivisual_info = self:getSkillInfoByID(skill_id)
@@ -428,7 +454,7 @@ function IDragonSkillManager:printSkillManager()
     cclog('########DragonSkillManager##############')
 	cclog('dragon id : ' .. self.m_charID)
 	for type, skill in pairs(self.m_lSkillIndivisualInfo) do
-		if isExistValue(type, 'active', 'basic', 'touch') then
+		if isExistValue(type, 'active', 'basic', 'leader') then
 			if self.m_lSkillIndivisualInfo[type] then
 				cclog('type : ' .. type, 'skill : ' .. skill.m_tSkill['sid'] .. skill.m_tSkill['t_name'] .. ' lv.' .. skill.m_skillLevel)
 			end
@@ -619,8 +645,8 @@ function MakeDragonSkillManager(did, evolution_lv, skill_00_lv, skill_01_lv, ski
     -- 스킬들 설정
     local char_type = 'dragon'
     local char_id = did
-    local open_skill_count = evolution_lv
-    dragon_skill_mgr:initDragonSkillManager(char_type, char_id, open_skill_count)
+    local evolution_lv = evolution_lv
+    dragon_skill_mgr:initDragonSkillManager(char_type, char_id, evolution_lv)
 
     return dragon_skill_mgr
 end
