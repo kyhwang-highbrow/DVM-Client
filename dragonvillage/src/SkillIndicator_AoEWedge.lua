@@ -87,5 +87,10 @@ end
 function SkillIndicator_AoEWedge:findCollision(pos_x, pos_y, dir)
 	local char = self.m_hero
 	local l_target = char:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
-	return SkillTargetFinder:findCollision_AoECone(l_target, pos_x, pos_y, dir, self.m_skillRange, self.m_skillAngle)
+	local l_ret = SkillTargetFinder:findCollision_AoECone(l_target, pos_x, pos_y, dir, self.m_skillRange, self.m_skillAngle)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end

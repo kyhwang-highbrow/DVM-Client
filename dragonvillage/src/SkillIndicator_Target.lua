@@ -74,5 +74,10 @@ end
 -------------------------------------
 function SkillIndicator_Target:findCollision(x, y)
     local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
-    return SkillTargetFinder:findCollision_AoERound(l_target, x, y, -1)
+    local l_ret = SkillTargetFinder:findCollision_AoERound(l_target, x, y, -1)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end

@@ -144,6 +144,9 @@ function SkillIndicator_X:findCollision(pos_x, pos_y)
     table.sort(l_ret, function(a, b)
         return (a:getDistance() < b:getDistance())
     end)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
 	
 	return l_ret
 end

@@ -86,36 +86,35 @@ function GameAuto:proccess_dragon()
 
     for i, dragon in ipairs(allyList) do
         if (isInstanceOf(dragon, Dragon)) then
-            do  -- 드래그 스킬
-                local skill_id = dragon:getSkillID('active')
-                local t_skill = dragon:getLevelingSkillById(skill_id)
-                local isPossibleSkill = false
-                local target = nil
+            -- 드래그 스킬
+            local skill_id = dragon:getSkillID('active')
+            local t_skill = dragon:getLevelingSkillById(skill_id)
+            local isPossibleSkill = false
+            local target = nil
             
-                -- 스킬 사용 여부 체크
-                isPossibleSkill, target = self:checkSkill(dragon, t_skill)
+            -- 스킬 사용 여부 체크
+            isPossibleSkill, target = self:checkSkill(dragon, t_skill)
 
-                if (isPossibleSkill) then
-                    if (not target) then
-                        -- 대상을 찾는다
-                        target = self:findTarget(dragon, t_skill)
+            if (isPossibleSkill) then
+                if (not target) then
+                    -- 대상을 찾는다
+                    target = self:findTarget(dragon, t_skill)
+                end
+
+                if (target) then
+                    -- 스킬 사용
+                    self:doSkill(dragon, t_skill, target)
+
+                    -- AI 딜레이 시간 설정
+                    self.m_aiDelayTime = self:getAiDelayTime()
+
+                    -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
+                    local idx = table.find(self.m_tCastingEnemyList, target)
+                    if (idx) then
+                        table.remove(self.m_tCastingEnemyList, idx)
                     end
 
-                    if (target) then
-                        -- 스킬 사용
-                        self:doSkill(dragon, t_skill, target)
-
-                        -- AI 딜레이 시간 설정
-                        self.m_aiDelayTime = self:getAiDelayTime()
-
-                        -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
-                        local idx = table.find(self.m_tCastingEnemyList, target)
-                        if (idx) then
-                            table.remove(self.m_tCastingEnemyList, idx)
-                        end
-
-                        break
-                    end
+                    break
                 end
             end
         end
@@ -209,8 +208,8 @@ function GameAuto:doSkill(dragon, t_skill, target)
     -- 경직 중이라면 즉시 해제
     dragon:setSpasticity(false)
 
-    -- 스킬 쿹타임 초기상태로
-    dragon:resetActiveSkillCool()
+    -- 스킬 쿹타임 시작
+    dragon:startActiveSkillCoolTime()
     
     dragon:reserveSkill(t_skill['sid'])
 

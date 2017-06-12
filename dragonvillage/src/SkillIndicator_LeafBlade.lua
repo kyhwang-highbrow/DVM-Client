@@ -150,10 +150,16 @@ function SkillIndicator_LeafBlade:findCollision(x, y)
     local factor_y = math.tan(rad)
     local collisions_bar1 = SkillTargetFinder:findCollision_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
 
+    -- 타겟 수 만큼만 얻어옴
+    collisions_bar1 = table.getPartList(collisions_bar1, self.m_targetLimit)
+
     -- 직선에 의한 충돌 리스트 (하)
     rad = math_rad(degree - straight_angle)
     factor_y = math.tan(rad)
     local collisions_bar2 = SkillTargetFinder:findCollision_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
+
+    -- 타겟 수 만큼만 얻어옴
+    collisions_bar2 = table.getPartList(collisions_bar2, self.m_targetLimit)
 
 	-- 맵형태로 임시 저장(중복 제거를 위함)
     local m_temp = {}
@@ -190,7 +196,7 @@ function SkillIndicator_LeafBlade:findCollision(x, y)
     table.sort(l_ret, function(a, b)
         return (a:getDistance() < b:getDistance())
     end)
-        
+
     return l_ret
 end
 

@@ -99,6 +99,9 @@ function SkillLeafBlade:fireMissile()
     -- 하이라이트
     t_option['highlight'] = self.m_bHighlight
 
+    -- 타격 횟수 설정
+    t_option['max_hit_count'] = self.m_targetLimit
+
     -- 상탄
     t_option['lua_param']['value2'] = 'top'
     for i = 1, self.m_targetCount do 

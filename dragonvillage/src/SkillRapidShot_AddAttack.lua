@@ -104,6 +104,9 @@ function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
     -- 하이라이트
     t_option['highlight'] = self.m_bHighlight
 
+    -- 타격 횟수 설정
+    t_option['max_hit_count'] = self.m_targetLimit
+
     -- 발사
 	world.m_missileFactory:makeMissile(t_option)
 end

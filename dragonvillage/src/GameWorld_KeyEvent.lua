@@ -68,11 +68,6 @@ end
 -- @brief 스킬 충전
 -------------------------------------
 function GameWorld:skill_charge()
-    -- 드래곤 스킬
-    for _,dragon in pairs(self:getDragonList()) do
-        dragon:increaseActiveSkillCool(100)
-    end
-        
     -- 테이머 스킬
     if (self.m_tamer) then
         self.m_tamer:increaseActiveSkillCool(100)

@@ -96,7 +96,12 @@ end
 -------------------------------------
 function SkillAoECone:findCollision()
     local l_target = self:getProperTargetList()
-    return SkillTargetFinder:findCollision_AoECone(l_target, self.m_targetPos.x, self.m_targetPos.y, self.m_dir, self.m_range, self.m_angle)
+    local l_ret = SkillTargetFinder:findCollision_AoECone(l_target, self.m_targetPos.x, self.m_targetPos.y, self.m_dir, self.m_range, self.m_angle)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end
 
 -------------------------------------

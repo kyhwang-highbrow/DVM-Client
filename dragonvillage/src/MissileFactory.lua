@@ -160,8 +160,9 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 	local add_script_dead =		t_option['add_script_dead'] or false
 	local add_script_relative = t_option['add_script_relative']
     local target_list =         t_option['target_list']
-    
+        
     local is_highlight =        t_option['highlight'] or false
+    local max_hit_count =       t_option['max_hit_count']
 
     --local parent =           t_option['parent']
     --local sync_pos =         t_option['sync_pos'] or false
@@ -403,6 +404,8 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 
         elseif (missile_type == MISSILE_TYPE['PASS']) or (missile_type == MISSILE_TYPE['PASS_STRONG']) then
             missile:addAtkCallback(MissileHitCB.pass)
+
+            missile.m_remainHitCount = max_hit_count
 
         elseif missile_type == MISSILE_TYPE['PASS_LASER'] then
 

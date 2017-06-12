@@ -258,7 +258,7 @@ end
 -------------------------------------
 -- function getCollisionList_Bezier
 -------------------------------------
-function getCollisionList_Bezier(target, t_bezier_pos, thickness)
+function getCollisionList_Bezier(target, t_bezier_pos, thickness, x, y)
     local l_collision = {}
 
     -- 가져온 베지어 곡선 좌표를 순회하면서 각각에서 근처에 위치한 적을 찾는다. 
@@ -266,6 +266,9 @@ function getCollisionList_Bezier(target, t_bezier_pos, thickness)
         local collisions = getCollisionList(target, bezier_pos['x'], bezier_pos['y'], thickness)
 
         for i, collision in ipairs(collisions) do
+            -- 거리 계산을 다시해야함(시작 지점 기준)
+            collision.m_distance = getDistance(x, y, bezier_pos['x'], bezier_pos['y'])
+
             table.insert(l_collision, collision)
         end
     end

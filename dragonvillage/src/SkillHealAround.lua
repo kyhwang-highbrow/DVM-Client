@@ -112,7 +112,12 @@ function SkillHealAround:findCollision()
 	local y = self.m_owner.pos.y
 	local range = self.m_range
 
-	return SkillTargetFinder:findCollision_AoERound(l_target, x, y, range)
+	local l_ret = SkillTargetFinder:findCollision_AoERound(l_target, x, y, range)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end
 
 -------------------------------------

@@ -63,7 +63,10 @@ function SkillEnumrate_Penetration:fireMissile(idx)
 
     -- 하이라이트
     t_option['highlight'] = self.m_bHighlight
-    
+
+    -- 타격 횟수 설정
+    t_option['max_hit_count'] = self.m_targetLimit
+        
 	t_option['cbFunction'] = function(attacker, defender, x, y)
 		self:onAttack(defender)
 

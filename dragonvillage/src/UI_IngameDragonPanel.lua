@@ -8,6 +8,7 @@ UI_IngameDragonPanel = class(PARENT, {
         m_lPanelItemList = 'list',
         m_bVisible = '',
         m_bPossibleControl = 'boolean',
+        m_menuPosY = 'number',
      })
 
 -------------------------------------
@@ -18,6 +19,7 @@ function UI_IngameDragonPanel:init(world)
 	local vars = self:load('ingame_dragon_panel.ui')
     self.m_bVisible = true
     self.m_bPossibleControl = nil
+    self.m_menuPosY = vars['panelMenu']:getPositionY()
 
     self:initUI()
 	self:initButton()
@@ -91,7 +93,7 @@ function UI_IngameDragonPanel:toggleVisibility()
 
     if self.m_bVisible then
         vars['panelMenu']:setVisible(true)
-		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, 10)), 2)
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, self.m_menuPosY)), 2)
         vars['panelMenu']:stopAllActions()
         vars['panelMenu']:runAction(move_action)
     else

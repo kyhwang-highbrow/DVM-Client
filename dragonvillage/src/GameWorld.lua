@@ -73,6 +73,9 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         -- callback
         m_lWorldScaleChangeCB = 'list',
 
+        -- mana
+        m_heroMana = '',
+        
         -- # GameWorld_Formation
         m_leftFormationMgr = '',
         m_rightFormationMgr = '',

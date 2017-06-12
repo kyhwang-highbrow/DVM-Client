@@ -255,6 +255,9 @@ function SkillIndicator_Penetration:findCollision(l_attack_pos, l_dir)
 		-- 각 줄의 충돌 체크
 		local collisions = self:findCollisionEachLine(l_target, l_attack_pos[i], l_dir[i])
 
+        -- 타겟 수 만큼만 얻어옴(라인별)
+        collisions = table.getPartList(collisions, self.m_targetLimit)
+
         -- 맵형태로 임시 저장(중복 제거를 위함)
         for _, collision in ipairs(collisions) do
             local target = collision:getTarget()
@@ -276,8 +279,8 @@ function SkillIndicator_Penetration:findCollision(l_attack_pos, l_dir)
             table.insert(l_ret, collision)
         end
     end
-    
-	return l_ret
+
+    return l_ret
 end
 
 -------------------------------------

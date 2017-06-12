@@ -62,6 +62,8 @@ Missile = class(PARENT, {
 		m_bNoRotate = 'boolean',		-- 미사일 리소스 회전 여부
 
         m_passSpeed = 'number',         -- 관통형 미사일이 충돌되었을 때 0.08초간 멈추기 직전의 이동 속도
+
+        m_remainHitCount = 'number',    -- 남은 타격 횟수(nil일 경우 제한 없음)
         -------------------------------------------------------
 
         m_activityCarrier = '',
@@ -740,33 +742,14 @@ end
 -- function pass
 -------------------------------------
 MissileHitCB.pass = function(attacker, defender, i_x, i_y)
+    if (attacker.m_remainHitCount) then
+        attacker.m_remainHitCount = attacker.m_remainHitCount - 1
 
-    --[[
-    local function co_function(dt)
-        -- 현재 이동 속도 저장
-        if attacker.m_passSpeed == nil then
-            attacker.m_passSpeed = attacker.speed
-        end
-
-        attacker.speed = 0
-
-        local timer = 0
-        local time = 0.08
-        while true do
-            timer = timer + dt
-            if timer >= time then
-                -- 멈추기 전 속도로 되돌리기
-                attacker.speed = attacker.m_passSpeed
-                attacker.m_passSpeed = nil
-                break
-            end
-            dt = coroutine.yield()
+        if (attacker.m_remainHitCount <= 0) then
+            attacker:setEnableBody(false)
+            attacker:changeState('dying')
         end
     end
-
-    -- coroutine, type, allow_duplicate, overwrite, escape
-    attacker:addCoroutine(coroutine.create(co_function), 'wait', false, true, nil)
-    --]]
 end
 
 -------------------------------------

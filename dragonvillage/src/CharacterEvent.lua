@@ -35,8 +35,6 @@ function Character:onEvent(event_name, t_event, ...)
 	elseif (event_name == 'stat_changed') then
 		self:onEvent_updateStat()
 
-	else
-		cclog(event_name)
 	end
 end
 

@@ -251,8 +251,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
         if (status_effect_type == 'feedback_supporter') then
             status_effect = StatusEffect(res)
-            -- 스킬 게이지 회복 타입은 status effect로 현재는 불가능하기 때문에 임시로...
-            target_char:increaseActiveSkillCool(value)
         elseif (status_effect_type == 'feedback_healer') then
             status_effect = StatusEffect(res)
             status_effect:setOverlabClass(StatusEffectUnit_Dot_Heal)

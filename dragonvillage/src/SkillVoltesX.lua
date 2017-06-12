@@ -182,7 +182,12 @@ function SkillVoltesX:findCollision(idx)
 	local target_x, target_y = self.m_targetPos.x, self.m_targetPos.y
 
 	-- 레이저에 충돌된 모든 객체 리턴
-	return self:findCollisionEachLine(l_target, target_x, target_y, std_width, std_height, idx)
+	local l_ret = self:findCollisionEachLine(l_target, target_x, target_y, std_width, std_height, idx)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end
 
 -------------------------------------

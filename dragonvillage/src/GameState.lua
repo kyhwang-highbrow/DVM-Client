@@ -216,23 +216,28 @@ function GameState.update_fight(self, dt)
         world.m_waveMgr:update(dt)
     end
     
-    if world.m_skillIndicatorMgr then
+    if (world.m_skillIndicatorMgr) then
         world.m_skillIndicatorMgr:update(dt)
     end
 
-    if world.m_gameAutoHero then
+    if (world.m_gameAutoHero) then
         world.m_gameAutoHero:update(dt)
     end
 
-    if world.m_gameAutoEnemy then
+    if (world.m_gameAutoEnemy) then
         world.m_gameAutoEnemy:update(dt)
     end
 
-    if world.m_enemyMovementMgr then
+    if (world.m_enemyMovementMgr) then
         world.m_enemyMovementMgr:update(dt)
     end
 
-    do -- 드래곤 스킬 쿨타임 증가
+    -- 아군 마나
+    if (world.m_heroMana) then
+        world.m_heroMana:update(dt)
+    end
+
+    do -- 아군 스킬 쿨타임 증가
         for _,dragon in pairs(world:getDragonList()) do
             dragon:updateActiveSkillCool(dt)
         end

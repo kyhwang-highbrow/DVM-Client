@@ -189,8 +189,8 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             -- 경직 중이라면 즉시 해제
             self.m_selectHero:setSpasticity(false)
 
-            -- 스킬 쿹타임 초기상태로
-            self.m_selectHero:resetActiveSkillCool()
+            -- 스킬 쿹타임 시작
+            self.m_selectHero:startActiveSkillCoolTime()
 
             local active_skill_id = self.m_selectHero:getSkillID('active')
             local t_skill = TableDragonSkill():get(active_skill_id)

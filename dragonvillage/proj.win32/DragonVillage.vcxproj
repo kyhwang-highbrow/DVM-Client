@@ -300,6 +300,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameDragonSkill.lua" />
     <None Include="..\src\DropItemMgr.lua" />
     <None Include="..\src\GameHighlightMgr.lua" />
+    <None Include="..\src\GameMana.lua" />
     <None Include="..\src\GameState_AncientTower.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
     <None Include="..\src\GameState_NestDungeon.lua" />

@@ -164,7 +164,7 @@ function SkillTargetFinder:findCollision_Bezier(l_target, tar_x, tar_y, pos_x, p
     local leaf_body_size = g_constant:get('SKILL', 'LEAF_COLLISION_SIZE')
     
     for _, target in ipairs(l_target) do
-        local collisions = getCollisionList_Bezier(target, t_bezier_pos, leaf_body_size)
+        local collisions = getCollisionList_Bezier(target, t_bezier_pos, leaf_body_size, pos_x, pos_y)
 
         for _, collision in ipairs(collisions) do
             table.insert(l_ret, collision)

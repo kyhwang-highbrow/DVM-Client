@@ -148,6 +148,9 @@ function SkillIndicator_AoERound:findCollision(x, y, range, isFixedOnTarget)
 	else
 		l_ret = SkillTargetFinder:findCollision_AoERound(l_target, pos_x, pos_y, range)
     end
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
     
 	return l_ret
 end

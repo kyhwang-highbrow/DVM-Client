@@ -35,6 +35,8 @@ function UI_IngameDragonInfo:initUI()
         vars['attrNode']:addChild(icon)
     end
 
+    self:hideSkillFullVisual()
+
     -- 디버깅용 label
 	self:makeDebugingLabel()
     self.m_label:setPosition(70, 0)
@@ -45,6 +47,8 @@ end
 -------------------------------------
 function UI_IngameDragonInfo:showSkillFullVisual(attr)
     local vars = self.vars
+
+    if (vars['skllFullVisual']:isVisible()) then return end
 
     vars['skllFullVisual']:setVisible(true)
     vars['skllFullVisual']:setRepeat(false)

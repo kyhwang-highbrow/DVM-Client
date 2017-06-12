@@ -216,24 +216,6 @@ function GameWorld:makeHeroDeck()
         end
     end
     
-    -- 스테이지 최초 시작시 드래곤들의 드래그 / 액티브 스킬 게이지 랜덤하게 충전
-    do
-        local t_percentage = { 60, 80 }
-        local t_temp = { 20, 40 }
-
-        for i = 1, 3 do
-            table.insert(t_percentage, t_temp[math_random(1, 2)])
-        end
-
-        t_percentage = randomShuffle(t_percentage)
-
-        for i, dragon in ipairs(self:getDragonList()) do
-			-- @ RUNE
-			local bonus_percentage = dragon:getStat('drag_gauge')
-            dragon:initActiveSkillCool(t_percentage[i] + bonus_percentage)
-        end
-    end
-    
     -- 친구 접속 버프 적용
     local friend_online_buff = g_gameScene.m_totalOnlineBuffList -- g_gameScene말고 변수를 전달받아 처리할 것
     if friend_online_buff then
@@ -258,8 +240,17 @@ function GameWorld:makeHeroDeck()
                     status_calc:addOption(action, status, value)
                 end
             end
+        end 
+    end
+
+    do -- 마나
+        self.m_heroMana = GameMana(self, true)
+
+        for _, hero in pairs(self:getDragonList()) do
+            hero:addListener('dragon_active_skill', self.m_heroMana)
+
+            self.m_heroMana:addListener('change_mana', hero)
         end
-        
     end
 end
 

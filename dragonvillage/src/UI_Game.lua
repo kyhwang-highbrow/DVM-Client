@@ -79,6 +79,12 @@ function UI_Game:initUI()
     do
         self:initInfoBoard()
     end
+
+    -- 마나 게이지
+    do
+        vars['manaLabel']:setString(0)
+        vars['manaGauge']:setPercentage(0)
+    end
 end
 
 -------------------------------------
@@ -445,6 +451,21 @@ function UI_Game:setTime(sec, is_limit)
 			vars['timeLabel']:setColor(cc.c3b(0, 255, 0))
 		end
 	end
+end
+
+-------------------------------------
+-- function setMana
+-------------------------------------
+function UI_Game:setMana(mana, max_mana)
+    local vars = self.vars
+    local percentage = (mana / max_mana) * 100
+
+    vars['manaLabel']:setString(math_floor(mana))
+    
+    -- 마나바 가감 연출
+    vars['manaGauge']:setPercentage(percentage)
+    --local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ProgressTo:create(0.5, percentage))
+    --vars['manaGauge']:runAction(cc.EaseIn:create(action, 2))
 end
 
 -------------------------------------

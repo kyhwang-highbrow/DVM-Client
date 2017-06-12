@@ -79,6 +79,9 @@ function SkillEnumrate_Curve:fireMissile(idx)
 
     -- 하이라이트
     t_option['highlight'] = self.m_bHighlight
+
+    -- 타격 횟수 설정
+    t_option['max_hit_count'] = self.m_targetLimit
 	
 	-- fire!!
     world.m_missileFactory:makeMissile(t_option)

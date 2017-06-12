@@ -2373,6 +2373,9 @@
     <None Include="..\src\StructCollisionData.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\GameMana.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UIC_EggPicker.lua">
       <Filter>lua\UIC</Filter>
     </None>

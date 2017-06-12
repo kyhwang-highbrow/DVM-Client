@@ -422,7 +422,12 @@ function Skill:findCollision()
 	local y = self.m_targetPos.y
 	local range = self.m_range
 
-	return SkillTargetFinder:findCollision_AoERound(l_target, x, y, range)
+    local l_ret = SkillTargetFinder:findCollision_AoERound(l_target, x, y, range)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+	return l_ret
 end
 
 -------------------------------------
@@ -455,7 +460,13 @@ end
 -- @brief 타겟룰에 의해 적절한 타겟리스트 가져옴
 -------------------------------------
 function Skill:getProperTargetList()
-	return self.m_owner:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
+    local target_count = self.m_targetLimit
+
+    if (self.m_chanceType == 'active') then
+        target_count = nil
+    end
+
+	return self.m_owner:getTargetListByType(self.m_targetType, target_count, self.m_targetFormation)
 end
 
 -------------------------------------

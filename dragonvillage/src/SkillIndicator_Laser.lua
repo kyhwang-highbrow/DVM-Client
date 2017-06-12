@@ -101,5 +101,10 @@ function SkillIndicator_Laser:findCollision(pos_x, pos_y, dir)
     local end_x = pos_x + end_pos['x']
     local end_y = pos_y + end_pos['y']
 
-	return SkillTargetFinder:findCollision_Bar(l_target, pos_x, pos_y, end_x, end_y, self.m_thickness/2)
+	local l_ret = SkillTargetFinder:findCollision_Bar(l_target, pos_x, pos_y, end_x, end_y, self.m_thickness/2)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end

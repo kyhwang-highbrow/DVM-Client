@@ -105,5 +105,10 @@ function SkillIndicator_AoESquare_Multi:findCollision(x, y)
 	-- 좌우로 나열하기 위해 x 좌표값 리스트를 계산한다.
 	local l_pos_x = SkillHelper:calculatePositionX(self.m_lineCnt, self.m_space, x)
 
-	return SkillTargetFinder:findCollision_AoESquare_Multi(l_target, l_pos_x, y, std_width, std_height)
+	local l_ret = SkillTargetFinder:findCollision_AoESquare_Multi(l_target, l_pos_x, y, std_width, std_height)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end

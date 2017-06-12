@@ -65,6 +65,10 @@ function SkillIndicator_AoECone:onTouchMoved(x, y)
 
 	-- 하이라이트 갱신
 	local l_collision = self:findCollision(touch_x, touch_y)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_collision = table.getPartList(l_collision, self.m_targetLimit)
+
     self:setHighlightEffect(l_collision)
 end
 
@@ -140,5 +144,10 @@ end
 -------------------------------------
 function SkillIndicator_AoECone:findCollision(x, y)
     local l_target = self:getProperTargetList()
-    return SkillTargetFinder:findCollision_AoECone(l_target, x, y, self.m_skillDir, self.m_skillRadius, self.m_skillAngle)
+    local l_ret = SkillTargetFinder:findCollision_AoECone(l_target, x, y, self.m_skillDir, self.m_skillRadius, self.m_skillAngle)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end

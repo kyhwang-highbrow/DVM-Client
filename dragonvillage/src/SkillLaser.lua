@@ -176,7 +176,12 @@ end
 -------------------------------------
 function SkillLaser:findCollision()
 	local l_target = self:getProperTargetList()
-	return SkillTargetFinder:findCollision_Bar(l_target, self.m_startPosX, self.m_startPosY, self.m_laserEndPosX, self.m_laserEndPosY, self.m_laserThickness/2)
+	local l_ret = SkillTargetFinder:findCollision_Bar(l_target, self.m_startPosX, self.m_startPosY, self.m_laserEndPosX, self.m_laserEndPosY, self.m_laserThickness/2)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end
 
 -------------------------------------

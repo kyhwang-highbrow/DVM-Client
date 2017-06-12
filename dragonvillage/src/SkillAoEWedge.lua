@@ -101,7 +101,12 @@ function SkillAoEWedge:findCollision()
 	local l_target = self:getProperTargetList()
 	local pos_x = (self.pos.x + self.m_attackPosOffsetX)
 	local pos_y = (self.pos.y + self.m_attackPosOffsetY)
-    return SkillTargetFinder:findCollision_AoECone(l_target, pos_x, pos_y, self.m_dir, self.m_range, self.m_angle)
+    local l_ret = SkillTargetFinder:findCollision_AoECone(l_target, pos_x, pos_y, self.m_dir, self.m_range, self.m_angle)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end
 
 -------------------------------------

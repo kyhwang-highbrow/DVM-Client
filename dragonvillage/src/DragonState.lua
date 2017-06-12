@@ -50,23 +50,6 @@ function Dragon.st_attack(owner, dt)
             if (t_skill['chance_type'] == 'indie_time') then
                 owner:dispatch('dragon_time_skill', {}, owner)
             end
-            
-            -- 스킬 게이지 증가
-            if (role_type == 'supporter') then
-                local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-
-                if (t_skill['chance_type'] == 'indie_time') then
-                    owner:increaseActiveSkillCool(t_temp['time_skill'])
-                else
-                    owner:increaseActiveSkillCool(t_temp['passive_skill'])
-                end
-            end
-        else
-            -- 스킬 게이지 증가
-            if (role_type == 'dealer') then
-                local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-                owner:increaseActiveSkillCool(t_temp['basic_skill'])
-            end
         end
     end
 

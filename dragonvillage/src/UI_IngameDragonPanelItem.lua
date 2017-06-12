@@ -34,7 +34,8 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     dragon:addListener('character_dead', self)
 
     self:refreshHP(dragon.m_hp, dragon.m_maxHp)
-    self:refreshSkillGauge(dragon.m_activeSkillAccumValue)
+    self:refreshManaCost(dragon.m_activeSkillManaCost)
+    self:refreshSkillGauge(0)
 
     self:initUI()
 	self:initButton()
@@ -114,7 +115,7 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
 
     -- 드래곤 드래그 스킬 게이지 변경 Event
     elseif (event_name == 'dragon_skill_gauge') then
-        self:refreshSkillGauge(t_event['percentage'])
+        self:refreshSkillGauge(t_event['percentage'], t_event['enough_mana'])
 
     elseif (event_name == 'touch_began') then
         self:onTouchBegan(t_event)
@@ -153,6 +154,17 @@ function UI_IngameDragonPanelItem:refreshHP(hp, max_hp)
 end
 
 -------------------------------------
+-- function refreshManaCost
+-- @brief 드래곤 소비 마나 변경 Event
+-------------------------------------
+function UI_IngameDragonPanelItem:refreshManaCost(mana_cost)
+    local vars = self.vars
+    local mana_cost = math_floor(mana_cost)
+
+    vars['manaLabel']:setString(mana_cost)
+end
+
+-------------------------------------
 -- function refreshBasicTimeSkillGauge
 -- @brief 드래곤 basic_time 스킬 게이지 변경 Event
 -------------------------------------
@@ -172,21 +184,23 @@ end
 -- function refreshSkillGauge
 -- @brief 드래곤 드래그 스킬 게이지 변경 Event
 -------------------------------------
-function UI_IngameDragonPanelItem:refreshSkillGauge(percentage)
-    if (self.m_skillGaugePercentage == percentage) then
+function UI_IngameDragonPanelItem:refreshSkillGauge(percentage, enough_mana)
+    local vars = self.vars
+
+    if (self.m_skillGaugePercentage == percentage and vars['skillVisual']:isVisible() == enough_mana) then
         return
     end
+    
     local prev_percentage = self.m_skillGaugePercentage or 0
     self.m_skillGaugePercentage = percentage
 
-    local vars = self.vars
     vars['dragSKillGauge']:setPercentage(100 - percentage)
 
-    if (percentage >= 100) then
+    if (enough_mana) then
         vars['skillVisual']:setVisible(true)
         vars['skillVisual2']:setVisible(true)
         cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(25, 10)), 100)
-    elseif (prev_percentage >= 100) then
+    elseif (vars['skillVisual']:isVisible()) then
         vars['skillVisual']:setVisible(false)
         vars['skillVisual2']:setVisible(false)
         cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(25, -2)), 100)

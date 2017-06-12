@@ -13,11 +13,12 @@ Dragon = class(PARENT, {
         m_skillOffsetX = 'number',
         m_skillOffsetY = 'number',
 
-        -- 스킬 게이지 관련
-        m_activeSkillValue = 'number',
-        m_activeSkillIncValuePerSec = 'number', -- 초당 드래그 게이지 증가량
-        m_activeSkillAccumValue = 'number',     -- 누적값(초당 최대 획득량 제한을 위함)
-        m_activeSkillAccumTimer = 'number',
+        -- 스킬 마나
+        m_activeSkillManaCost = 'number',
+
+        -- 스킬 쿨타임
+        m_activeSkillCoolTimer = 'number',
+        m_activeSkillCoolTime = 'number',
 
         m_skillPrepareEffect = '',
 		
@@ -40,10 +41,10 @@ function Dragon:init(file_name, body, ...)
     self.m_skillOffsetX = 0
     self.m_skillOffsetY = 0
 
-    self.m_activeSkillValue = 0
-    self.m_activeSkillIncValuePerSec = 0
-    self.m_activeSkillAccumValue = 0
-    self.m_activeSkillAccumTimer = -1
+    self.m_activeSkillManaCost = 0
+
+    self.m_activeSkillCoolTimer = 0
+    self.m_activeSkillCoolTime = 0
 
     self.m_isUseMovingAfterImage = false
     self.m_skillPrepareEffect = nil
@@ -79,7 +80,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
 		
 		self:initSkillIndicator()
 	end
-
+    
 	-- 피격 처리
     self:addDefCallback(function(attacker, defender, i_x, i_y)
         self:undergoAttack(attacker, defender, i_x, i_y, 0)
@@ -94,6 +95,15 @@ function Dragon:setStatusCalc(status_calc)
 
     if (not self.m_statusCalc) then
         return
+    end
+
+    -- 스킬 마나 지정
+    do
+        local skill_indivisual_info = self:getLevelingSkillByType('active')
+        if (not skill_indivisual_info) then return end
+
+        local t_skill = skill_indivisual_info.m_tSkill
+        self.m_activeSkillManaCost = t_skill['req_mana'] or 0
     end
 
     -- 스킬 쿨타임 지정
@@ -164,26 +174,24 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
 end
 
 -------------------------------------
--- function setDamage
+-- function onEvent
 -------------------------------------
-function Dragon:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+function Dragon:onEvent(event_name, t_event, ...)
+    PARENT.onEvent(self, event_name, t_event, ...)
 
-    -- 피격시 스킬 게이지 증가
-    local role_type = self:getRole()
-    if (role_type == 'tanker') then
-        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-        local value
-        
-        -- 받은 피해가 전체 체력의 10%이상일 경우
-        if ((damage / self.m_maxHp) >= 0.1) then
-            value = t_temp['set_damage'] * t_temp['coef']
-        else
-            value = t_temp['set_damage']
+    if (event_name == 'change_mana') then
+        local arg = {...}
+        local mana = arg[1]
+
+        if (not self.m_bDead) then
+            if (mana >= self.m_activeSkillManaCost) then
+                local attr = self:getAttribute()
+                self.m_infoUI:showSkillFullVisual(attr)
+            else
+                self.m_infoUI:hideSkillFullVisual()
+            end
         end
-
-        self:increaseActiveSkillCool(value)
-    end
+	end
 end
 
 -------------------------------------
@@ -193,17 +201,7 @@ function Dragon:update(dt)
     if self.m_isUseMovingAfterImage then
         self:updateMovingAfterImage(dt)
     end
-
-    -- 스킬 게이지 제한 타이머 갱신
-    if (self.m_activeSkillAccumTimer >= 0) then
-        self.m_activeSkillAccumTimer = self.m_activeSkillAccumTimer + dt
-
-        if (self.m_activeSkillAccumTimer > 1) then
-            self.m_activeSkillAccumTimer = -1
-            self.m_activeSkillAccumValue = 0
-        end
-    end
-            
+                    
     return Character.update(self, dt)
 end
 
@@ -504,13 +502,11 @@ end
 
 -------------------------------------
 -- function initActiveSkillCool
--- @brief 초당 드래그 게이지 증가량을 세팅한다.
+-- @brief 드래그 쿨타임은 세팅
 -------------------------------------
-function Dragon:initActiveSkillCool(percentage)
+function Dragon:initActiveSkillCool()
     local active_skill_id = self:getSkillID('active')
-    if (active_skill_id == 0) then
-        return
-    end
+    if (active_skill_id == 0) then return end
 
     local table_skill = TABLE:get(self.m_charType .. '_skill')
     local t_skill = table_skill[active_skill_id]
@@ -519,54 +515,8 @@ function Dragon:initActiveSkillCool(percentage)
         return
     end
 
-    local role_type = self:getRole()
-    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-    local common_inc_value_per_sec = t_temp['common_inc_value_per_sec'] or 0.5
-
-	-- 초당 회복량 계산
-    if (role_type == 'healer') then
-        local cooldown = tonumber(t_skill['cooldown'])
-        local global_cooltime = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
-        if (cooldown < global_cooltime) then
-            cooldown = global_cooltime
-        end
-
-        self.m_activeSkillIncValuePerSec = common_inc_value_per_sec + (100 / cooldown)
-    else
-        self.m_activeSkillIncValuePerSec = common_inc_value_per_sec
-    end
-
-	-- @ RUNE
-	local inc_value_add_rate = self:getStat('drag_cool')
-	self.m_activeSkillIncValuePerSec = (self.m_activeSkillIncValuePerSec * (1 + (inc_value_add_rate/100)))
-	            
-	-- 스킬 게이지 초기화
-	self.m_activeSkillValue = 0
-
-    if (percentage) then
-        self:updateActiveSkillCool(percentage / self.m_activeSkillIncValuePerSec)
-    end
-end
-
--------------------------------------
--- function increaseActiveSkillCool
--- @brief 특정 이벤트로 인한 드래그 게이지 증가량
--------------------------------------
-function Dragon:increaseActiveSkillCool(percentage)
-    if (percentage == 0) then return end
-    
-    local role_type = self:getRole()
-    if (role_type == 'tanker') then    
-        -- 1초마다 최대 증가값을 넘었다면 증가 시키지 않음
-        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-        if (self.m_activeSkillAccumValue >= t_temp['max_inc_value_per_sec']) then
-            return
-        end
-    end
-
-    local add_time = (percentage / self.m_activeSkillIncValuePerSec)
-
-    self:updateActiveSkillCool(add_time)
+    self.m_activeSkillCoolTimer = 0
+    self.m_activeSkillCoolTime = tonumber(t_skill['cooldown'])
 end
 
 -------------------------------------
@@ -574,46 +524,38 @@ end
 -- @brief 초당 드래그 게이지 증가
 -------------------------------------
 function Dragon:updateActiveSkillCool(dt)
-	-- @TODO 임시 처리
-	if (self.m_bDead) then
-		return
-	end
-
-    if (self.m_activeSkillValue < 100) then
+	if (self.m_bDead) then return end
+    
+    -- 드래그 스킬 쿨타임 갱신
+    if (self.m_activeSkillCoolTimer > 0) then
         if (not self:isCasting() and self.m_state ~= 'skillPrepare') then
-            local add_value = self.m_activeSkillIncValuePerSec * dt
+            self.m_activeSkillCoolTimer = self.m_activeSkillCoolTimer - dt
 
-            self.m_activeSkillValue = self.m_activeSkillValue + add_value
-            self.m_activeSkillAccumValue = self.m_activeSkillAccumValue + add_value
-
-            if (self.m_activeSkillAccumTimer == -1) then
-                self.m_activeSkillAccumTimer = 0
+            if (self.m_activeSkillCoolTimer < 0) then
+                self.m_activeSkillCoolTimer = 0
             end
-        end    
-    end
-
-    if (self.m_activeSkillValue > 100) then
-        self.m_activeSkillValue = 100
-
-        local attr = self:getAttribute()
-        self.m_infoUI:showSkillFullVisual(attr)
+        end
     end
 
     do -- 리스너에 전달
 	    local t_event = clone(EVENT_DRAGON_SKILL_GAUGE)
 	    t_event['owner'] = self
-	    t_event['percentage'] = self.m_activeSkillValue
+	    t_event['percentage'] = (self.m_activeSkillCoolTime - self.m_activeSkillCoolTimer) / self.m_activeSkillCoolTime * 100
+        
+        if (self.m_bLeftFormation) then
+            t_event['enough_mana'] = (self.m_activeSkillManaCost <= self.m_world.m_heroMana:getCurrMana())
+        end
+
         self:dispatch('dragon_skill_gauge', t_event)
     end
 end
 
 -------------------------------------
--- function resetActiveSkillCool
+-- function startActiveSkillCoolTime
 -------------------------------------
-function Dragon:resetActiveSkillCool()
+function Dragon:startActiveSkillCoolTime()
     if self:isEndActiveSkillCool() then
-        self.m_activeSkillValue = 0
-        self.m_infoUI:hideSkillFullVisual()
+        self.m_activeSkillCoolTimer = self.m_activeSkillCoolTime
         return true
     else
         return false
@@ -628,9 +570,17 @@ function Dragon:isPossibleSkill()
 		return false
 	end
 
+    -- 쿨타임 체크
 	if (not self:isEndActiveSkillCool()) then
 		return false
 	end
+
+    -- 마나 체크
+    if (self.m_bLeftFormation) then
+        if (self.m_activeSkillManaCost > self.m_world.m_heroMana:getCurrMana()) then
+            return false
+        end
+    end
 
     if (self.m_isSilence) then
 		return false
@@ -653,7 +603,7 @@ end
 -- function isEndActiveSkillCool
 -------------------------------------
 function Dragon:isEndActiveSkillCool()
-    return (self.m_activeSkillValue >= 100)
+    return (self.m_activeSkillCoolTimer == 0)
 end
 
 -------------------------------------

@@ -536,16 +536,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         self:makeMissFont(i_x, i_y)
 		-- @EVENT
 		self:dispatch('avoid')
-
-        -- 공격자가 드래곤일 경우 스킬 게이지 증가
-        if (attacker_char and attacker_char.m_charType == 'dragon') then
-            local role_type = attacker_char.m_charTable['role']
-            if (role_type == 'dealer') then
-                local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-                attacker_char:increaseActiveSkillCool(t_temp['miss'])
-            end
-        end
-
+        
 		-- @LOG_CHAR : 방어자 회피 횟수
 		self.m_charLogRecorder:recordLog('avoid', 1)
         return
@@ -575,16 +566,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- 방어 처리 후 데미지 0이라면 방어 성공 처리
 		if (t_event['is_handled']) and (damage == 0) then 
 			self:makeShieldFont(i_x, i_y)
-
-            -- 공격자가 드래곤일 경우 스킬 게이지 증가
-            if (attacker_char and attacker_char.m_charType == 'dragon') then
-                local role_type = attacker_char.m_charTable['role']
-                if (role_type == 'dealer') then
-                    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-                    attacker_char:increaseActiveSkillCool(t_temp['block'])
-                end
-            end
-
+            
 			-- @LOG_CHAR
 			self.m_charLogRecorder:recordLog('shield', 1)
 
@@ -710,24 +692,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
     if (not no_event) then
-        if (attacker_char) then
-            -- 히트시 스킬 게이지 증가
-            if (attacker_char.m_charType == 'dragon') then
-                local role_type = attacker_char.m_charTable['role']
-
-                if (role_type == 'dealer') then
-                    if (real_attack_type == 'basic') then 
-                        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-                        if critical then
-                            attacker_char:increaseActiveSkillCool(t_temp['hit_basic_cri'])
-                        else
-                            attacker_char:increaseActiveSkillCool(t_temp['hit_basic'])
-                        end
-                    end
-                end
-            end
-	    end
-
         if (real_attack_type == 'active') then 
             self:runAction_Shake()
         end
