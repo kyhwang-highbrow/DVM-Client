@@ -212,7 +212,6 @@ function UI_ReadyScene:initUI()
     -- 미구현으로 off
     local vars = self.vars
     vars['buffInfoBtn']:setVisible(false)
-    vars['leaderBtn']:setVisible(false)
     vars['leaderSprite']:setVisible(false)
 end
 
@@ -264,6 +263,8 @@ function UI_ReadyScene:initButton()
 
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
     vars['tamerBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+
+	vars['leaderBtn']:registerScriptTapHandler(function() self:click_leaderBtn() end)
 
     -- 진형 관린
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
@@ -691,6 +692,13 @@ function UI_ReadyScene:click_tamerBtn()
 	ui:setCloseCB(function() self:refresh_tamer() end)
 end
 
+-------------------------------------
+-- function click_leaderBtn
+-- @breif
+-------------------------------------
+function UI_ReadyScene:click_leaderBtn()
+	ccdisplay('리더 설정은 준비중입니다.')
+end
 
 -------------------------------------
 -- function replaceGameScene
