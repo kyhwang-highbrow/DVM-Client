@@ -81,9 +81,6 @@ function UI_DragonManageInfo:initButton()
         -- 승급
         vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
 
-        -- 초월
-        --vars['transcendBtn']:registerScriptTapHandler(function() self:click_transcendBtn() end)
-
         -- 진화
         vars['evolutionBtn']:registerScriptTapHandler(function() self:click_evolutionBtn() end)
 
@@ -92,9 +89,6 @@ function UI_DragonManageInfo:initButton()
 
         -- 룬
         vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
-
-        -- 연구
-        --vars['resechBtn']:registerScriptTapHandler(function() self:click_resechBtn() end)
     end
 
     do -- 좌상단 버튼들 초기화
@@ -170,9 +164,6 @@ function UI_DragonManageInfo:refresh_buttonState()
         -- 승급
         vars['upgradeBtn']:setEnabled(not is_slime_object)
 
-        -- 초월
-        --vars['transcendBtn']:setEnabled(not is_slime_object)
-
         -- 진화
         vars['evolutionBtn']:setEnabled(not is_slime_object)
 
@@ -181,9 +172,6 @@ function UI_DragonManageInfo:refresh_buttonState()
 
         -- 룬
         vars['runeBtn']:setEnabled(not is_slime_object)
-
-        -- 연구
-        --vars['resechBtn']:setEnabled(not is_slime_object)
     end
 
     do -- 좌상단 버튼들 초기화
@@ -365,27 +353,6 @@ function UI_DragonManageInfo:click_upgradeBtn()
 end
 
 -------------------------------------
--- function click_transcendBtn
--- @brief 초월 버튼 - 삭제 예정
--------------------------------------
-function UI_DragonManageInfo:click_transcendBtn()
-	--[[
-    local doid = self.m_selectDragonOID
-
-    do -- 초월 가능 여부 확인
-        local upgradeable, msg = g_dragonsData:checkEclvUpgradeable(doid)
-        if (not upgradeable) then
-            UIManager:toastNotificationRed(msg)
-            return
-        end
-    end
-
-    self:openSubManageUI(UI_DragonEclvupNew)
-	]]
-end
-
-
--------------------------------------
 -- function click_evolutionBtn
 -- @brief 진화 버튼
 -------------------------------------
@@ -472,26 +439,6 @@ function UI_DragonManageInfo:click_equipmentBtn()
         self:refresh_dragonIndivisual(self.m_selectDragonOID)
     end
     ui:setCloseCB(close_cb)
-end
-
--------------------------------------
--- function click_resechBtn
--- @brief 연구 버튼
--------------------------------------
-function UI_DragonManageInfo:click_resechBtn()
-	--[[
-    local doid = self.m_selectDragonOID
-
-    do -- 최대 등급인지 확인
-        local upgradeable, msg = g_dragonsData:checkResearchUpgradeable(doid)
-        if (not upgradeable) then
-            UIManager:toastNotificationRed(msg)
-            return
-        end
-    end
-
-    self:openSubManageUI(UI_DragonResearch)
-	]]
 end
 
 -------------------------------------

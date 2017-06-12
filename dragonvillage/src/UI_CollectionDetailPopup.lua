@@ -256,7 +256,7 @@ function UI_CollectionDetailPopup:onChangeEvolution()
 
         local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
         local l_skill_icon = skill_mgr:getDragonSkillIconList()
-        for i=0, MAX_DRAGON_EVOLUTION do
+        for i=0, MAX_DRAGON_EVOLUTION do -- 추후에 수정해줘야...
             if l_skill_icon[i] then
                 vars['skillNode' .. i]:removeAllChildren()
                 vars['skillNode' .. i]:addChild(l_skill_icon[i].root)

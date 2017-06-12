@@ -125,10 +125,10 @@ end
 function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
     local vars = self.vars
 
-    -- 슬라임인지 드래곤인지 여부
+    -- 슬라임일 경우
     local is_slime_object = (t_dragon_data.m_objectType == 'slime')
     if is_slime_object then
-        for i=0, MAX_DRAGON_EVOLUTION do
+        for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
             vars['skillNode' .. i]:removeAllChildren()
         end
 
@@ -137,27 +137,37 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 
         local icon = t_dragon_data:makeSlimeSkillIcon()
         if icon then
-            vars['skillNode0']:addChild(icon)
+            vars['skillNodeLeader']:addChild(icon)
         end
         return
     end
 
+	-- 드래곤의 경우 
     vars['slimeSprite']:setVisible(false)
-
-    local function func_skill_detail_btn()
-        UI_SkillDetailPopup(t_dragon_data)
-    end
-
-    do -- 스킬 아이콘 생성
+    do 
         local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
         local l_skill_icon = skill_mgr:getDragonSkillIconList()
-        for i = 0, MAX_DRAGON_EVOLUTION do
-            vars['skillNode' .. i]:removeAllChildren()
-            if l_skill_icon[i] then
-                vars['skillNode' .. i]:addChild(l_skill_icon[i].root)
+        local function func_skill_detail_btn()
+			UI_SkillDetailPopup(t_dragon_data)
+		end
+
+		for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
+            local skill_node = vars['skillNode' .. i]
+			skill_node:removeAllChildren()
+            
+			-- 스킬 아이콘 생성
+			if l_skill_icon[i] then
+                skill_node:addChild(l_skill_icon[i].root)
+				l_skill_icon[i]:setLeaderLabelToggle(i == 'Leader')
 
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(func_skill_detail_btn)
                 l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+
+			-- 비어있는 스킬 아이콘 생성
+			else
+				local empty_skill_icon = IconHelper:getEmptySkillIcon()
+				skill_node:addChild(empty_skill_icon)
+
             end
         end
     end

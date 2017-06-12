@@ -168,22 +168,21 @@ end
 -------------------------------------
 function getSkillTypeStr(skill_type, is_use_brakets)
 	local skill_type_str = ''
-	local is_use_brakets = is_use_brakets or true
 
     if (skill_type == 'basic') then
         skill_type_str = Str('기본공격')
 
     elseif isExistValue(skill_type, 'basic_turn', 'basic_rate', 'indie_turn', 'indie_rate', 'indie_time', 'under_atk_turn', 'under_atk_rate') then
-        skill_type_str = Str('일반')
+        skill_type_str = Str('일반 스킬')
 
     elseif (skill_type == 'passive') then
-        skill_type_str = Str('패시브')
+        skill_type_str = Str('패시브 스킬')
 
     elseif (skill_type == 'active') then
-        skill_type_str = Str('액티브')
+        skill_type_str = Str('액티브 스킬')
 
 	elseif (skill_type == 'leader') then
-        skill_type_str = Str('리더 버프')
+        skill_type_str = Str('리더 스킬')
 
     else
         cclog('## 정의되지 않은 skill_type : ' .. skill_type)

@@ -17,11 +17,11 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
 
 	local char_type = skill_indivisual_info.m_charType
     local skill_id = skill_indivisual_info.m_skillID
+    local skill_type = skill_indivisual_info.m_skillType
     local icon = IconHelper:getSkillIcon(char_type, skill_id)
     vars['skillNode']:addChild(icon)
 
     do -- 스킬 타입 표시
-        local skill_type = skill_indivisual_info.m_skillType
         if isExistValue(skill_type, 'active') then
             --vars['activeSprite']:setVisible(false)
             vars['skillLabel']:setString('액티브')
@@ -35,8 +35,14 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
 
     do -- 스킬 lock
         local is_lock = (skill_indivisual_info.m_skillLevel <= 0)
-        vars['lockSprite']:setVisible(is_lock)
+        self:setLockSpriteVisible(is_lock)
     end
+
+	do -- leader 스킬
+		if (skill_type == 'leader') then
+			--self:setLeaderLabelToggle(true)
+		end
+	end
 
     -- 스킬 레벨
     vars['skllLvLabel']:setString(tostring(skill_indivisual_info.m_skillLevel))
@@ -90,4 +96,11 @@ end
 -------------------------------------
 function UI_DragonSkillCard:setSkillTypeVisible(visible)
 	self.vars['skillLabel']:setVisible(visible)
+end
+
+-------------------------------------
+-- function setLeaderLabelToggle
+-------------------------------------
+function UI_DragonSkillCard:setLeaderLabelToggle(visible)
+	self.vars['leaderLabel']:setVisible(visible)
 end

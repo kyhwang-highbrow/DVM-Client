@@ -7,6 +7,7 @@ IDragonSkillManager = {
         m_charID = 'number',
         m_openSkillCount = 'number',
         m_dragonSkillLevel = 'table', --드래곤일 경우에만 사용, 스킬 레벨 지정
+		m_evolutionLv = 'number',
 
         -- [internal variable]
         m_charTable = 'table',
@@ -40,6 +41,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolutio
     local table_dragon = TABLE:get(self.m_charType)
     local t_character = table_dragon[char_id]
     self.m_charTable = t_character
+	self.m_evolutionLv = evolution_lv
 
     self:initSkillIDList()
 
@@ -56,25 +58,15 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolutio
 
 	-- 리더 버프 지정
     if (t_character['skill_leader']) and (t_character['skill_leader'] ~= '') then
-		local leader_buff_type = t_character['skill_leader_type']
-		-- 리더 버프의 레벨은 1이 최대치이고 획득 시기에 따라 나뉨
-		local skill_lv
-		if (leader_buff_type == 'hatch') then
-			skill_lv = 1
-		elseif (leader_buff_type == 'adult') then
-			if (evolution_lv == 3) then
-				skill_lv = 1
-			else
-				skill_lv = 0
-			end
-		end
+		local skill_lv = self:getLeaderSkillLevel()
         self:setSkillID('leader', t_character['skill_leader'], skill_lv)
+		self.m_dragonSkillLevel['Leader'] = skill_lv
     end
 
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
 	local table_skill = GetSkillTable(self.m_charType)
-    for i = 1, 10 do
+    for i = 1, 5 do
         local skill_id = t_character['skill_' .. i]
 		local skill_type = table_skill:getSkillType(skill_id)
         if skill_type and skill_id then
@@ -83,7 +75,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolutio
     end
 
 	-- @TEST 활성화 스킬 확인 로그
-	if g_constant:get('DEBUG', 'PRINT_DRAGON_SKILL') then 
+	if true then --g_constant:get('DEBUG', 'PRINT_DRAGON_SKILL') then 
 		self:printSkillManager()
 	end
 end
@@ -114,6 +106,28 @@ function IDragonSkillManager:getSkillLevel(idx)
     end
 
     local skill_lv = self.m_dragonSkillLevel[idx] or 0
+    return skill_lv
+end
+
+-------------------------------------
+-- function getLeaderSkillLevel
+-- @brief 리더 버프의 레벨은 1이 최대치이고 획득 시기에 따라 나뉨
+-------------------------------------
+function IDragonSkillManager:getLeaderSkillLevel()
+	local leader_buff_type = self.m_charTable['skill_leader_type']
+	local evolution_lv = self.m_evolutionLv
+
+	local skill_lv
+	if (leader_buff_type == 'hatch') then
+		skill_lv = 1
+	elseif (leader_buff_type == 'adult') then
+		if (evolution_lv == 3) then
+			skill_lv = 1
+		else
+			skill_lv = 0
+		end
+	end
+
     return skill_lv
 end
 
@@ -219,39 +233,32 @@ function IDragonSkillManager:getSkillID(skill_type)
 end
 
 -------------------------------------
--- function getDragonSkillIconList
+-- function getSkillKeyList
 -------------------------------------
-function IDragonSkillManager:getDragonSkillIconList()
-    local l_skill_icon = {}
+function IDragonSkillManager:getSkillKeyList()
+	local l_ret = {'Leader'}
+	--[[
+		인게임에서 리더 스킬을 참조할때는 leader를 사용하지만 
+		UI에서는 node이름의 일관성을 위해 Leader를 사용한다.
+		
+		자세히 구분하자면 UI에서 스킬을 순서대로 찍기 위해 사용하는 
+		getSkillIndivisualInfo_usingIdx에서 idx로 Leader를 받아오며
+		skill_lv를 구할때도 key로 Leader를 사용하며
+		
+		인게임에서 리더 스킬을 참조하기 위해 사용하는 key는 leader이다.
+	]]
 
-    for i=0, 4 do
-        l_skill_icon[i] = self:makeSkillIcon_usingIndex(i)
-    end
+	-- 여기서 0은 active를 의미한다.. 가능하면 바꾸고 싶지만 server와 이름이 일치하지 않는 문제가 생긴다.
+	for i = 0, MAX_DRAGON_EVOLUTION do
+		table.insert(l_ret, i)
+	end
 
-    return l_skill_icon
-end
-
--------------------------------------
--- function makeSkillIcon_usingIndex
--------------------------------------
-function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
-    local skill_indivisual_info = self:getSkillIndivisualInfo_usingIdx(idx)
-    if skill_indivisual_info then
-        return UI_DragonSkillCard(skill_indivisual_info)
-    else
-        return nil
-    end
-end
-
--------------------------------------
--- function makeSkillIcon_usingIndex
--------------------------------------
-function IDragonSkillManager:getSkillInfoByID(skill_id)
-    return self.m_mSkillInfoMap[skill_id]
+	return l_ret
 end
 
 -------------------------------------
 -- function getSkillIndivisualInfo_usingIdx
+-- @brief idx 보다는 key에 가까워 짐
 -------------------------------------
 function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
 	if (self.m_charType == 'tamer') and (idx == 0) then 
@@ -262,7 +269,11 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
     local skill_id
     local skill_type
 
-    if (idx == 0) then
+	if (idx == 'Leader') then
+		skill_id = t_character['skill_leader']
+		skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
+
+    elseif (idx == 0) then
         skill_id = t_character['skill_active']
         skill_type = 'active'
 
@@ -297,6 +308,53 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
 		end
 	end
 end
+
+-------------------------------------
+-- function getDragonSkillIconList
+-------------------------------------
+function IDragonSkillManager:getDragonSkillIconList()
+    local l_skill_icon = {}
+
+    for _, i in ipairs(self:getSkillKeyList()) do
+        l_skill_icon[i] = self:makeSkillIcon_usingIndex(i)
+    end
+
+    return l_skill_icon
+end
+
+-------------------------------------
+-- function makeSkillIcon_usingIndex
+-------------------------------------
+function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
+    local skill_indivisual_info = self:getSkillIndivisualInfo_usingIdx(idx)
+    if skill_indivisual_info then
+        return UI_DragonSkillCard(skill_indivisual_info)
+    else
+        return nil
+    end
+end
+
+-------------------------------------
+-- function getSkillInfoByID
+-------------------------------------
+function IDragonSkillManager:getSkillInfoByID(skill_id)
+    return self.m_mSkillInfoMap[skill_id]
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -------------------------------------
 -- function checkSkillRate
