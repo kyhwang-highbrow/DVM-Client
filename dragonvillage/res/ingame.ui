@@ -1228,9 +1228,9 @@
 			type = 'Sprite';
 			ui_name = '';
 			x = 33.000000;
-			y = -348.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
+			y = 2.000000;
+			dock_point = { 0.500000; 0.000000; };
+			anchor_point = { 0.500000; 0.000000; };
 			relative_size_type = 0;
 			width = 716;
 			height = 20;
