@@ -23,10 +23,10 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
         local vars = self.vars
         local parent_node = vars['eggFickerNode']
 
-        -- UIC_EggPicker »ı¼º
+        -- UIC_EggPicker ìƒì„±
         local egg_picker = UIC_EggPicker:create(parent_node)
 
-        egg_picker.m_itemWidth = 200 -- ¾ËÀÇ °¡·Î Å©±â
+        egg_picker.m_itemWidth = 250 -- ì•Œì˜ ê°€ë¡œ í¬ê¸°
         egg_picker.m_nearItemScale = 0.66
 
         local l_agg_res = {}
@@ -44,7 +44,7 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
         table.insert(l_agg_res, 'water_egg')
         
 
-        -- 200°³ÀÇ ¾ÆÀÌÅÛ ÀÓ½Ã Ãß°¡
+        -- 200ê°œì˜ ì•„ì´í…œ ì„ì‹œ ì¶”ê°€
         for i=1, 200 do
             local rand_idx = math_random(1, #l_agg_res)
             local _res = l_agg_res[rand_idx]
@@ -52,7 +52,7 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
             egg_picker:addEgg(res)
         end
 
-        -- 10¹øÂ° ¾ÆÀÌÅÛÀ» Æ÷Ä¿½º
+        -- 10ë²ˆì§¸ ì•„ì´í…œì„ í¬ì»¤ìŠ¤
         --egg_picker:setFocus(10)
     end
 end

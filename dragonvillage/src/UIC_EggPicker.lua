@@ -177,7 +177,7 @@ function UIC_EggPicker:addEgg(res)
 
     table.insert(self.m_lItemList, menu)
 
-    local scale = 0.666
+    local scale = 0.8
     --local item = cc.Sprite:create('summon_egg_01.png')
     --local item = cc.Sprite:create('res/ui/icon/colosseum_result_01.png')
     local item = cc.Sprite:create(res)
