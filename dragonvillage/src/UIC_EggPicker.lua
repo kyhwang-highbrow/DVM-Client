@@ -276,6 +276,8 @@ function UIC_EggPicker:scrollViewDidScroll()
 
 
     self.m_currFocusIndex = idx
+    local l_curr_pos = {}
+    l_curr_pos[idx] = item_pos[idx]
 
     do -- 일단 딱 맞는다고 가정하고 짜보자
         local z_order = 10000
@@ -287,10 +289,12 @@ function UIC_EggPicker:scrollViewDidScroll()
         for i=idx-1, 1, -1 do
             if (i == (idx -1)) then
                 x = x - (item_width * self.m_focusItemScale / 2) - (item_width * self.m_nearItemScale / 2)
+                l_curr_pos[i] = x
                 item_list[i]:setPositionX(self.m_containerOffsetX + x)
                 item_list[i]:setScale(self.m_nearItemScale)
             else
                 x = x - (item_width * self.m_restItemScale)
+                l_curr_pos[i] = x
                 item_list[i]:setPositionX(self.m_containerOffsetX + x)
                 item_list[i]:setScale(self.m_nearItemScale)
             end
@@ -304,10 +308,12 @@ function UIC_EggPicker:scrollViewDidScroll()
         for i=idx+1, item_count, 1 do
             if (i == (idx +1)) then
                 x = x + (item_width * self.m_focusItemScale / 2) + (item_width * self.m_nearItemScale / 2)
+                l_curr_pos[i] = x
                 item_list[i]:setPositionX(self.m_containerOffsetX + x)
                 item_list[i]:setScale(self.m_nearItemScale)
             else
                 x = x + (item_width * self.m_restItemScale)
+                l_curr_pos[i] = x
                 item_list[i]:setPositionX(self.m_containerOffsetX + x)
                 item_list[i]:setScale(self.m_nearItemScale)
             end
@@ -331,7 +337,9 @@ function UIC_EggPicker:scrollViewDidScroll()
             rate = (gap / interval)
         end
             
-        x = item_pos[idx] + ((item_width / 2) * rate)
+        --local dist = (item_width * self.m_focusItemScale / 2) - (item_width * self.m_nearItemScale / 2)
+        local dist = (item_width * self.m_focusItemScale / 2) + (item_width * self.m_nearItemScale / 2) - interval
+        x = item_pos[idx] + (dist * rate)
         item_list[idx]:setPositionX(self.m_containerOffsetX + x)
         local std_scale = self.m_nearItemScale + (self.m_focusItemScale - self.m_nearItemScale) * (1 - math_abs(rate))
         item_list[idx]:setScale(std_scale)
@@ -340,21 +348,24 @@ function UIC_EggPicker:scrollViewDidScroll()
         if (rate <= 0) then
             local _idx = idx + 1
             if item_list[_idx] then
+                -- 크기 조정
                 local _scale = self.m_nearItemScale + (self.m_focusItemScale - self.m_nearItemScale) * (rate/-1)
                 item_list[_idx]:setScale(_scale)
 
-                local _x = x + (item_width * std_scale / 2) + (item_width * _scale / 2)
+                -- 위치 조정
+                _x = l_curr_pos[_idx] + (dist * rate)
                 item_list[_idx]:setPositionX(self.m_containerOffsetX + _x)
             end
-
         -- 왼쪽 아이템 위치 보정
         elseif (rate > 0) then
             local _idx = idx - 1
             if item_list[_idx] then
+                -- 크기 조정
                 local _scale = self.m_nearItemScale + (self.m_focusItemScale - self.m_nearItemScale) * (rate/1)
                 item_list[_idx]:setScale(_scale)
 
-                local _x = x - (item_width * std_scale / 2) - (item_width * _scale / 2)
+                -- 위치 조정
+                _x = l_curr_pos[_idx] + (dist * rate)
                 item_list[_idx]:setPositionX(self.m_containerOffsetX + _x)
             end
         end
