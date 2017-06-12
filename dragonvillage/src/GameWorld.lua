@@ -173,7 +173,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         self.m_gameNode1:addChild(self.m_dragonInfoNode, INGAME_LAYER_Z_ORDER.DRAGON_INFO_LAYER)
 
         self.m_dragonSpeechNode = cc.Node:create()
-        self.m_gameNode1:addChild(self.m_dragonSpeechNode, INGAME_LAYER_Z_ORDER.DRAGON_SPEECH_LAYER)
+        --self.m_gameNode1:addChild(self.m_dragonSpeechNode, INGAME_LAYER_Z_ORDER.DRAGON_SPEECH_LAYER)
+        self:addChild3(self.m_dragonSpeechNode, INGAME_LAYER_Z_ORDER.DRAGON_SPEECH_LAYER)
     end
     
     self.m_mDragonRenderTextureBatchNode = {}
@@ -423,9 +424,7 @@ DEPTH_ITEM_CHARGE = counter:get()
 DEPTH_DAMAGE_EFFECT = counter:get()
 DEPTH_INSTANT_EFFECT = counter:get()
 
-DEPTH_CHANCE_FONT = counter:get()
 DEPTH_DAMAGE_FONT = counter:get()
-DEPTH_CRITICAL_FONT = counter:get()
 DEPTH_HEAL_FONT = counter:get()
 DEPTH_MISS_FONT = counter:get()
 DEPTH_BLOCK_FONT = counter:get()

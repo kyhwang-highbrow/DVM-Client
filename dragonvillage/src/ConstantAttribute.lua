@@ -327,7 +327,7 @@ function getAttrSynastryEffect(attr1, attr2, atk_attr_adj_rate, def_attr_adj_rat
 		attr_dmg = attr_dmg + atk_attr_adj_rate + def_attr_adj_rate
 	end
 	
-    return t_attr_synastry_effect
+    return t_attr_synastry_effect, attr_synastry
 end
 
 -------------------------------------

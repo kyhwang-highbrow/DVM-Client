@@ -261,6 +261,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
     elseif (self:getStep() == 4) then
         if (self:isBeginningStep()) then
+            self.m_dragon:changeState('attackDelay')
             self.m_dragon = nil
 
             self:changeState(STATE.WAIT)

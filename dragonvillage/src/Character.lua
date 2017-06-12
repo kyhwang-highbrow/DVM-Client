@@ -381,9 +381,9 @@ function Character:checkAttributeCounter(attacker_char)
     -- 방어자 속성
     local defender_attr = self:getAttribute()
 
-    local t_attr_effect = getAttrSynastryEffect(attacker_attr, defender_attr, atk_attr_adj_rate, def_attr_adj_rate)
+    local t_attr_effect, attr_synastry = getAttrSynastryEffect(attacker_attr, defender_attr, atk_attr_adj_rate, def_attr_adj_rate)
 
-    return t_attr_effect
+    return t_attr_effect, attr_synastry
 end
 
 -------------------------------------
@@ -446,10 +446,12 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
 
     -- 속성 효과
-    local t_attr_effect = self:checkAttributeCounter(attacker_char)
+    local t_attr_effect, attr_synastry = self:checkAttributeCounter(attacker_char)
+    local is_bash = (attr_synastry == 1)
+    local is_miss = (attr_synastry == -1)
 
     -- 공격력 계산, 크리티컬 계산
-    local atk_dmg, critical = 0, false
+    local atk_dmg, is_critical = 0, false
     local def_pwr = 0
 
     local damage = 0
@@ -499,7 +501,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             final_critical_chance = (final_critical_chance + t_attr_effect['cri_chance'])
         end
 
-        critical = (math_random(1, 1000) <= (final_critical_chance * 10))
+        is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
     end
 
     local attr_bonus_dmg = 0 -- 속성에 의해 추가된 데미지 @legacy
@@ -507,7 +509,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local damage_multifly = 1
 
         -- 크리티컬
-        if critical then
+        if is_critical then
             damage_multifly = (attack_activity_carrier:getStat('cri_dmg') / 100)
         end
 
@@ -548,7 +550,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	t_event['reduced_damage'] = reduced_damage
 	t_event['attacker'] = attacker_char
 	t_event['defender'] = self
-	t_event['is_critical'] = critical
+	t_event['is_critical'] = is_critical
     t_event['i_x'] = i_x
     t_event['i_y'] = i_y
     t_event['left_formation'] = self.m_bLeftFormation
@@ -614,8 +616,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		local t_info = {}
 		t_info['attack_type'] = attack_type
 		t_info['attr'] = attack_activity_carrier.m_attribute
-		t_info['critical'] = critical
+		t_info['is_critical'] = is_critical
 		t_info['is_add_dmg'] = attack_activity_carrier:getFlag('add_dmg')
+        t_info['is_bash'] = is_bash
+        t_info['is_miss'] = is_miss
 		t_info['body_key'] = body_key
 	
 		self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
@@ -631,7 +635,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
     -- 상태이상 체크
-    if (not no_event) then
+    if (not no_event and not is_miss) then
         StatusEffectHelper:statusEffectCheck_onHit(attack_activity_carrier, self)
     end
 
@@ -648,7 +652,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		self:dispatch('under_atk_rate', t_event)
 	
 		-- 크리로 피격
-		if (critical) then
+		if (is_critical) then
 			self:dispatch('under_atk_cri', t_event)
 		end
 			
@@ -663,14 +667,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	end
 
 	-- @EVENT 시전자 이벤트 처리
-	if (attacker_char) then
+	if (attacker_char and not is_miss) then
         -- 일반
         if (not no_event) then
 		    attacker_char:dispatch('hit', t_event)
         end
 
 		-- 크리티컬 
-		if (critical) then
+		if (is_critical) then
 			attacker_char:dispatch('hit_cri', t_event)
 		end
 			
@@ -713,20 +717,16 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     local t_info = t_info or EMPTY_TABLE
     local dir = 0
-    local is_highlight = false
-
+    
     if (attacker) then
         if (isInstanceOf(attacker, PhysObject)) then
             dir = attacker.movement_theta
         end
-        if (attacker.m_activityCarrier:isHighlight()) then
-            is_highlight = true
-        end
     end
 
     -- 데미지 폰트 출력
-    self:makeDamageEffect(t_info['attr'], i_x, i_y, dir, t_info['critical'], is_highlight)
-    self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['is_add_dmg'], is_highlight)
+    self:makeDamageEffect(t_info['attr'], i_x, i_y, dir, t_info['is_critical'])
+    self:makeDamageFont(damage, i_x, i_y, t_info)
 
     -- 무적 체크 후 데미지 적용
 	if (self.m_bLeftFormation and g_constant:get('DEBUG', 'PLAYER_INVINCIBLE')) then
@@ -827,13 +827,13 @@ end
 -------------------------------------
 -- function makeDamageEffect
 -------------------------------------
-function Character:makeDamageEffect(attr, x, y, dir, critical, is_highlight)
+function Character:makeDamageEffect(attr, x, y, dir, is_critical)
     local attr = attr or ATTR_LIGHT
 
     -- 일반 데미지
     local effect = MakeAnimator('res/effect/effect_hit_01/effect_hit_01.vrp')
     
-    if critical then
+    if is_critical then
         effect:changeAni('idle_3', false)
     else
         local aniName = 'idle_' .. math_random(1, 2)
@@ -851,8 +851,14 @@ end
 -------------------------------------
 -- function makeDamageFont
 -------------------------------------
-function Character:makeDamageFont(damage, x, y, critical, is_add_dmg)
+function Character:makeDamageFont(damage, x, y, tParam)
     local y = y + 60
+    local tParam = tParam or {}
+
+    local is_critical = tParam['is_critical'] or false
+    local is_add_dmg = tParam['is_add_dmg'] or false
+    local is_bash = tParam['is_bash'] or false
+    local is_miss = tParam['is_miss'] or false
 
 	-- 0 데미지는 출력하지 않는다.
     if (damage == 0) then
@@ -862,92 +868,68 @@ function Character:makeDamageFont(damage, x, y, critical, is_add_dmg)
     -- 소수점 제거
     local damage = math_floor(damage)
 
+    -- root node 생성
+    local node = cc.Node:create()
+    node:setPosition(x, y)
+    
+    if (is_critical) then
+        node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 3.5), cc.ScaleTo:create(0.3, 1), cc.DelayTime:create(0.4), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
+        --node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.4), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+        node:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
+    else
+        node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+        node:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
+    end
+
+    self.m_world:addChild3(node, DEPTH_DAMAGE_FONT)
+    
 	-- label 생성
-	local font_res = 'res/font/normal.fnt'
-	if critical then
-		font_res = 'res/font/critical.fnt'	-- 보라계열
-	end
-    local label = cc.Label:createWithBMFont(font_res, comma_value(damage))
+    do
+        local font_res = 'res/font/normal.fnt'
+	    if (is_critical) then
+		    font_res = 'res/font/critical.fnt'	-- 보라계열
+	    end
+     
+        local label = cc.Label:createWithBMFont(font_res, comma_value(damage))
 
-	-- 크리티컬 데미지
-    if critical then
-        label:setPosition(x, y)
-        label:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.4), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
-        label:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
+        --[[
+	    -- 추가 데미지
+        if (is_add_dmg) then
+		    label:setColor(cc.c3b(225, 229, 0))	-- 노랑
+        ]]--
+        if (is_miss) then
+            -- 빚맞힘
+            label:setColor(cc.c3b(198, 198, 198))	-- 회색
+	    
+	    else
+            -- 일반 데미지
+            if (self.m_bLeftFormation) then
+                label:setColor(cc.c3b(235, 71, 42))	-- 빨강
+            end
+        end
+               
+	    node:addChild(label)
+    end
 
-	-- 추가 데미지
-    elseif (is_add_dmg) then
-		label:setColor(cc.c3b(225, 229, 0))	-- 노랑
-		label:setPosition(x, y)
-		label:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
-        label:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
+    -- 판정 표시
+    do
+        local sprite
 
-	-- 일반 데미지
-	else
-        if (self.m_bLeftFormation) then
-            label:setColor(cc.c3b(235, 71, 42))	-- 빨강
+        if (is_critical) then
+            sprite = cc.Sprite:create('res/font/ingame_critical.png')
+        elseif (is_bash) then
+            sprite = cc.Sprite:create('res/font/bash.png')
+        elseif (is_miss) then
+            sprite = cc.Sprite:create('res/font/miss.png')
         end
 
-        label:setPosition(x, y)
-        label:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
-        label:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
-        
-		--node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
-        --node:runAction(self:makeDmgFontAction())
+        if (sprite) then
+            sprite:setAnchorPoint(cc.p(0.5, 0.5))
+            sprite:setDockPoint(cc.p(0.5, 0.5))
+            sprite:setPosition(0, 25)
+            node:addChild(sprite)
+        end
     end
-
-	-- 월드에 출력
-	self.m_world:addChild3(label, DEPTH_DAMAGE_FONT)
-end
-
--------------------------------------
--- function makeDmgFontAction
--------------------------------------
-function Character:makeDmgFontAction()
-    local scale = 1
-
-    local sequence = cc.Sequence:create(
-        cc.ScaleTo:create(0.05, 1.5 * scale),
-        cc.ScaleTo:create(0.5, 0.5 * scale),
-        --cc.DelayTime:create(0.2),
-        --cc.FadeOut:create(0.3),
-        cc.RemoveSelf:create())
-
-    -- 이동
-    local bezier1
-    if self.m_bLeftFormation then
-        bezier1 = {
-            cc.p(0, 0),
-            cc.p(-20, 80),
-            cc.p(-40, 60),
-        }
-    else
-        bezier1 = {
-            cc.p(0, 0),
-            cc.p(20, 80),
-            cc.p(40, 60),
-        }
-    end
-    local bazier_action = cc.BezierBy:create(0.5, bezier1)
-
-    local sequence2 = cc.Sequence:create(
-        cc.DelayTime:create(0.05),
-        bazier_action)
-
-    local spawn = cc.Spawn:create(sequence, sequence2)
-
-    return spawn
-end
-
--------------------------------------
--- function makeDmgFontFadeOut
--------------------------------------
-function Character:makeDmgFontFadeOut(node)
-    local sequence = cc.Sequence:create(
-        cc.DelayTime:create(0.25),
-        cc.FadeOut:create(0.3))
-
-    node:runAction(sequence)
 end
 
 -------------------------------------
@@ -1021,14 +1003,6 @@ function Character:makeShieldFont(x, y)
     sprite:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
     sprite:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 170)), 1))
     self.m_world:addChild3(sprite, DEPTH_BLOCK_FONT)
-end
-
--------------------------------------
--- function dealPercent
--------------------------------------
-function Character:dealPercent(percent)
-    local damage = self.m_maxHp * percent
-	self:setDamage(nil, self, self.pos.x, self.pos.y, damage, t_info)
 end
 
 -------------------------------------
