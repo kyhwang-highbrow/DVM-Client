@@ -698,7 +698,7 @@ end
 -------------------------------------
 function UI_ReadyScene:click_leaderBtn()
 	local ui = UI_ReadyScene_LeaderPopup()
-	ui:setCloseCB(function() ccdisplay('후..') end)
+	ui:setCloseCB(function() ccdisplay('리더 설정 작업 예정') end)
 end
 
 -------------------------------------
