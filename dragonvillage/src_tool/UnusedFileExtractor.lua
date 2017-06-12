@@ -217,7 +217,7 @@ end
 --          실행 파일 경로에 생성
 -------------------------------------
 function UnusedFileExtractor:makeOutputFile(target_ext)
-    pl.utils.writefile('unused' .. target_ext .. 'Files.xml', self:makeXMLString())
+    pl.utils.writefile('output//unused' .. target_ext .. 'Files.xml', self:makeXMLString())
     print('\n "' .. lfs.currentdir() .. '\\unused' .. target_ext .. 'Files.xml"' .. ' 생성 완료\n\n\n\n')
 end
 
