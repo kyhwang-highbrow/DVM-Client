@@ -14,7 +14,7 @@ ServerData_Deck = class({
 -------------------------------------
 function ServerData_Deck:init(server_data)
     self.m_serverData = server_data
-    self.m_selectedDeck = self.m_serverData:get('local', 'selected_deck') or '1'
+    self.m_selectedDeck = self.m_serverData:get('local', 'selected_deck') or 'adv'
 end
 
 -------------------------------------
@@ -52,15 +52,17 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Deck:getDeck(type)
-    type = type or self.m_selectedDeck or '1'
+    type = type or self.m_selectedDeck or 'adv'
     local l_deck = self.m_serverData:get('deck')
 
-    local t_deck = nil
-    local formation = nil
-    for i,value in ipairs(l_deck) do
+    local t_deck
+    local formation
+	local leader
+    for i, value in ipairs(l_deck) do
         if (value['deckname'] == type) then
             t_deck = value['deck']
             formation = value['formation']
+			leader = value['leader']
         end
     end
 
@@ -72,10 +74,10 @@ function ServerData_Deck:getDeck(type)
             end
         end
         
-        return t_ret, self:adjustFormationName(formation), type
+        return t_ret, self:adjustFormationName(formation), type, leader
     end
 
-    return {}, self:adjustFormationName('default'), type
+    return {}, self:adjustFormationName('default'), type, 1
 end
 
 -------------------------------------

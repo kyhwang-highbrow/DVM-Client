@@ -578,9 +578,12 @@ function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 
                 if column and (column ~= '') then
                     local t_modify = t_modify_list[column]
+					
+					-- 해당 column 최초 적용 시
                     if (not t_modify) then
                         t_modify = {column=column, modify=modify, value=value}
                         t_modify_list[column] = t_modify
+
                     else
                         if (t_modify['modify'] ~= modify) then
                             error('modify타입이 다르게 사용되었습니다. slid : ' .. v)
@@ -687,8 +690,7 @@ end
 function IDragonSkillManager:getSkillDescWithSubstituted(t_skill)
 	local t_skill = clone(t_skill)
 	IDragonSkillManager:substituteSkillDesc(t_skill)
-
-    return Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
+    return self:getSkillDescPure(t_skill)
 end
 
 -------------------------------------

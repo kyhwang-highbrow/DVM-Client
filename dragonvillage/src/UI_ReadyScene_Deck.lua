@@ -6,20 +6,20 @@ UI_ReadyScene_Deck = class({
         m_focusDeckSlotEffect = 'cc.Sprite',
         m_focusDeckSlot = 'number', -- 다음에 설정할 덱
 
-
         -- slot idx, dragon object id
         m_lDeckList = 'table',
         m_tDeckMap = 'tabke',
 
-        --
+        -- deck info
         m_lSettedDragonCard = 'list',
-        m_currFormation = '',
+        m_currFormation = 'string',
+		m_currLeader = 'number', 
 
         -- 드래그로 이동
         m_selectedDragonSlotIdx = 'number',
         m_selectedDragonCard = 'UI_DragonCard',
 
-		-- 각 덱에 붙어있을 모션스트릭 리스트
+		-- 각 발판에 붙어있을 모션스트릭 리스트
 		m_lMotionStreakList = 'cc.motionStreak',
 
         m_bDirtyDeck = 'boolean',
@@ -251,7 +251,7 @@ function UI_ReadyScene_Deck:init_deck()
         self.m_lSettedDragonCard = {}
     end
 
-    local l_deck, formation = g_deckData:getDeck()
+    local l_deck, formation, deckname, leader = g_deckData:getDeck()
     l_deck = self:convertSimpleDeck(l_deck)
 
     self.m_lDeckList = {}
@@ -266,6 +266,7 @@ function UI_ReadyScene_Deck:init_deck()
     self:refreshFocusDeckSlot()
 
     self:setFormation(formation)
+	self.m_currLeader = leader
 
     self:setDirtyDeck()
 end
@@ -423,7 +424,7 @@ end
 -- function checkChangeDeck
 -------------------------------------
 function UI_ReadyScene_Deck:checkChangeDeck(next_func)
-    local l_deck, formation, deckname = g_deckData:getDeck()
+    local l_deck, formation, deckname, leader = g_deckData:getDeck()
 
     local b_change = false
 
@@ -452,6 +453,11 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
         b_change = true
     end
 
+	-- 리더가 변경되었을 경우
+	if (self.m_currLeader ~= leader) then
+		b_change = true
+	end
+
     if (b_change) then
         local uid = g_userData:get('uid')
 
@@ -473,6 +479,7 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
         ui_network:setParam('uid', uid)
         ui_network:setParam('deckname', deckname)
         ui_network:setParam('formation', self.m_currFormation)
+		ui_network:setParam('leader', 3) --self.m_currLeader)
         ui_network:setParam('edoid1', self.m_lDeckList[1] and self.m_lDeckList[1] or nil)
         ui_network:setParam('edoid2', self.m_lDeckList[2] and self.m_lDeckList[2] or nil)
         ui_network:setParam('edoid3', self.m_lDeckList[3] and self.m_lDeckList[3] or nil)
