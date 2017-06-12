@@ -250,6 +250,8 @@ end
 -- @brief 인덱스 테이블 앞에서부터 지정된 갯수만 추출
 -------------------------------------
 function table.getPartList(t, count)
+    if (not count) then return t end
+
 	local t_ret = {}
 	for i = 1, count do
 		if (t[i]) then
