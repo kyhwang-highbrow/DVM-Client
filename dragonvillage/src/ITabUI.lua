@@ -31,10 +31,26 @@ function ITabUI:addTab(tab, button, ...)
     t_tab_data['button'] = button
     t_tab_data['tab_node_list'] = {...}
     t_tab_data['first'] = true
+    t_tab_data['ui'] = nil
 
     self.m_mTabData[tab] = t_tab_data
 
-    button:registerScriptTapHandler(function() self:setTab(tab) end)
+    local function click()
+        self:setTab(tab)
+    end
+
+    button:registerScriptTapHandler(click)
+
+    return t_tab_data
+end
+
+-------------------------------------
+-- function addTabWidthTabUI
+-------------------------------------
+function ITabUI:addTabWidthTabUI(tab, button, ui, ...)
+    local t_tab_data = self:addTab(tab, button, ...)
+    t_tab_data['ui'] = ui
+    return t_tab_data
 end
 
 -------------------------------------
@@ -61,9 +77,8 @@ function ITabUI:setTab(tab, force)
 
     self.m_currTab = tab
 
-    self:activate(tab)
-
     local first = self.m_mTabData[self.m_currTab]['first']
+    self:activate(tab, first)
     self.m_mTabData[self.m_currTab]['first'] = false
 
     self:onChangeTab(self.m_currTab, first)
@@ -89,12 +104,17 @@ function ITabUI:deactivate(tab)
     for i,v in ipairs(t_tab_data['tab_node_list']) do
         v:setVisible(false)
     end
+
+    if t_tab_data['ui'] then
+        t_tab_data['ui']:onExitTab()
+        t_tab_data['ui']:setVisible(false)
+    end
 end
 
 -------------------------------------
 -- function activate
 -------------------------------------
-function ITabUI:activate(tab)
+function ITabUI:activate(tab, first)
     if (not tab) then
         return
     end
@@ -106,6 +126,11 @@ function ITabUI:activate(tab)
 
     for i,v in ipairs(t_tab_data['tab_node_list']) do
         v:setVisible(true)
+    end
+
+    if t_tab_data['ui'] then
+        t_tab_data['ui']:onEnterTab(first)
+        t_tab_data['ui']:setVisible(true)
     end
 end
 
@@ -151,4 +176,63 @@ end
 -------------------------------------
 function ITabUI:getCloneClass()
 	return class(clone(ITabUI))
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- interface UI_IndivisualTab
+-- @brief
+-------------------------------------
+UI_IndivisualTab = class(UI, {
+        m_ownerUI = '',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_IndivisualTab:init(owner_ui)
+    self.m_ownerUI = owner_ui
+
+    -- 아래의 형태로 사용하세요.
+    --local vars = self:load('event_exchange.ui')
+end
+
+-------------------------------------
+-- function onEnterTab
+-------------------------------------
+function UI_IndivisualTab:onEnterTab(first)
+    cclog('## UI_IndivisualTab:onEnterTab(first)')
+end
+
+-------------------------------------
+-- function onExitTab
+-------------------------------------
+function UI_IndivisualTab:onExitTab()
+    cclog('## UI_IndivisualTab:onExitTab()')
+end
+
+-------------------------------------
+-- function setVisible
+-------------------------------------
+function UI_IndivisualTab:setVisible(visible)
+    if (not self.root) then
+        return
+    end
+
+    self.root:setVisible(visible)
 end
