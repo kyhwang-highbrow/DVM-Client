@@ -557,36 +557,66 @@ function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 	-- 필요한 데이터 선언
 	local t_skill = t_skill or {}
 	local skill_lv = skill_lv or 1
-	local silll_max_lv = g_constant:get('SKILL', 'MAX_LEVEL') - 1
-	local t_add_value = {}
-	
-	-- 레벨이 반영된 데이터 계산
-	for idx = 1, 5 do
-		local modify_column = SkillHelper:getValid(t_skill['mod_col_' .. idx])
-		if (modify_column) and (skill_lv > 0) then
 
-			-- 레벨 계수 계산 
-			-- @TODO 스킬 최고레벨 70으로 가정하고 계산 향후에 
-			local modify_value_unit = SkillHelper:getValid(t_skill['mod_max_val_' .. idx]) / silll_max_lv
+	local table_dragon_skill_modify = TABLE:get('dragon_skill_modify')
+    
+	local skill_id = t_skill['sid']
+	local mod_skill = (skill_id * 100)
 
-			-- 레벨 계수 반영한 수치
-			local tar_data = SkillHelper:getValid(t_skill[modify_column])
-			if (tar_data) then
-				local lv_add_value = (modify_value_unit * (skill_lv - 1))
-				
-				-- 소수 2번째 자리 까지 남김
-				lv_add_value = (math_floor(lv_add_value * 100) / 100)
-				
-				-- 액티브 강화에서 사용하기 위해 저장
-				t_add_value[modify_column] = lv_add_value
-			
-				-- 레벨 계산된 값으로 치환
-				t_skill[modify_column] = tar_data + lv_add_value
-			end
-		end
-	end
+    local t_modify_list = {}
 
-	return t_skill, t_add_value
+	-- modify table을 순회하며 해당 레벨까지의 수치 증가량을 수집한다.
+    for i = 1, skill_lv do
+		local mod_skill_id = mod_skill + i
+        local t_dragon_skill_modify = table_dragon_skill_modify[mod_skill_id]
+        
+        if t_dragon_skill_modify then
+            for i = 1, 5 do
+                local column = t_dragon_skill_modify[string.format('col_%.2d', i)]
+                local modify = t_dragon_skill_modify[string.format('mod_%.2d', i)]
+                local value = t_dragon_skill_modify[string.format('val_%.2d', i)]
+
+                if column and (column ~= '') then
+                    local t_modify = t_modify_list[column]
+                    if (not t_modify) then
+                        t_modify = {column=column, modify=modify, value=value}
+                        t_modify_list[column] = t_modify
+                    else
+                        if (t_modify['modify'] ~= modify) then
+                            error('modify타입이 다르게 사용되었습니다. slid : ' .. v)
+                        end
+                        
+                        if (modify == 'exchange') then
+                            t_modify['value'] = value
+                        elseif (modify == 'add') then
+                            t_modify['value'] = (t_modify['value'] + value)
+                        elseif (modify == 'multiply') then
+                            t_modify['value'] = (t_modify['value'] + value)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- 수집한 수치 증가량을 t_skill에 적용한다.
+    for column, t_modify in pairs(t_modify_list) do
+        local modify = t_modify['modify']
+        local value = t_modify['value']
+
+        if (modify == 'exchange') then
+            t_skill[column] = value
+
+        elseif (modify == 'add') then
+            t_skill[column] = t_skill[column] + value
+
+        elseif (modify == 'multiply') then
+            t_skill[column] = t_skill[column] + (t_skill[column] * value)
+
+        end
+    end
+
+	return t_skill, t_modify_list -- skill 성룡 강화시 사용
 end
 
 -------------------------------------

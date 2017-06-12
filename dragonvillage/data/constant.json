@@ -342,7 +342,6 @@
         //# Common
         "ANGLE_LIMIT" : 60,
         "LONG_LENGTH" : 2048,
-        "MAX_LEVEL" : 70,                       // 스킬의 최고 레벨 .. 스킬 레벨당 옵션 증가량에 영향을 준다.
         
         // #SkillAoeSquare_Charge
         "AS_CHARGE_SPEED" : 5000,               // 돌진(돌격) 속도
