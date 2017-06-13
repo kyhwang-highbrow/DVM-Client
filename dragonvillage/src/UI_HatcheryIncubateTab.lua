@@ -57,6 +57,12 @@ function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
 
         -- 리스트 갱신
         self:refreshEggList()
+
+        -- 
+        local egg_picker = self.m_eggPicker
+        if egg_picker.m_currFocusIndex then
+            egg_picker:setFocus(egg_picker.m_currFocusIndex, 0.5)
+        end
     end
 
     local function fail_cb()

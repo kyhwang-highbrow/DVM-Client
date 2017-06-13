@@ -24,8 +24,14 @@ function ServerData_Eggs:request_incubate(egg_id, cnt, finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
 
+        -- Eggs 갱신
+        g_serverData:networkCommonRespone(ret)
+
         -- 드래곤들 추가
         g_dragonsData:applyDragonData_list(ret['added_dragons'])
+
+        -- 슬라임들 추가
+        g_slimesData:applySlimeData_list(ret['added_slimes'])
 
         if finish_cb then
             finish_cb(ret)
