@@ -28,7 +28,7 @@ function GameMana:init(world, left_formation)
 
     self.m_prevValue = 0
     self.m_value = 0
-    self.m_incValuePerSec = 0.2
+    self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL')
 end
 
 -------------------------------------

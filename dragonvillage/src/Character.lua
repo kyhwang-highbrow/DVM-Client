@@ -980,7 +980,7 @@ end
 function Character:makeMissFont(x, y)
 
     -- 일반 데미지
-    local sprite = cc.Sprite:create('res/font/miss.png')
+    local sprite = cc.Sprite:create('res/font/dodge.png')
 
     local scale = 1
 
