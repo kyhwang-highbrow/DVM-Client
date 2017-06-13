@@ -19,7 +19,7 @@ function UI_InvenDevApiPopup:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_InvenDevApiPopup')
 
-    self.m_lTabNameList = {'dragon', 'evolutionStone', 'fruit', 'rune'}
+    self.m_lTabNameList = {'dragon', 'evolutionStone', 'fruit', 'rune', 'egg'}
     self.m_lInitData = {}
 
     self:initUI()
@@ -69,6 +69,8 @@ function UI_InvenDevApiPopup:click_tabBtn(tab_name)
         self:init_evolutionStoneTableView()
     elseif (tab_name == 'rune') then
         self:init_runeTableView()
+    elseif (tab_name == 'egg') then
+        self:init_eggTableView()
     end
 end
 
@@ -471,6 +473,92 @@ function UI_InvenDevApiPopup:network_addRune(rune_id)
     ui_network:setParam('rid', rune_id)
 
     local msg = '룬 추가 중'
+    ui_network:setLoadingMsg(msg)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function init_eggTableView
+-- @brief 알 테이블 리스트
+-------------------------------------
+function UI_InvenDevApiPopup:init_eggTableView()
+    if self.m_lInitData['egg'] then
+        return
+    end
+    self.m_lInitData['egg'] = true
+
+    local list_table_node = self.vars['eggListNode']
+    list_table_node:removeAllChildren()
+
+    local table_item = TableItem()
+    local l_egg_list = table_item:filterList('type', 'egg')
+    local l_item_list = {}
+    for i,v in ipairs(l_egg_list) do
+        local egg_id = v['item']
+        table.insert(l_item_list, egg_id)
+    end
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        local egg_id = data
+
+        ui.vars['clickBtn']:registerScriptTapHandler(function()
+            self:request_addEgg(egg_id, ui)
+        end)
+
+        ui.vars['numberLabel']:setVisible(true)
+        local count = g_eggsData:getEggCount(egg_id)
+        ui.vars['numberLabel']:setString(comma_value(count))
+
+        local name = table_item:getValue(egg_id, 't_name')
+        local label = cc.Label:createWithTTF(name, 'res/font/common_font_01.ttf', 20, 1, cc.size(600, 50), 1, 1)
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(0.5, 0.5))
+        label:setPositionY(50)
+        ui.root:addChild(label)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td.m_cellSize = cc.size(150, 150)
+    table_view_td.m_nItemPerCell = 5
+    table_view_td:setCellUIClass(UI_ItemCard, create_func)
+    table_view_td:setItemList(l_item_list)
+end
+
+-------------------------------------
+-- function request_addEgg
+-- @brief 알 추가
+-------------------------------------
+function UI_InvenDevApiPopup:request_addEgg(egg_id, ui)
+    local uid = g_userData:get('uid')
+
+    local table_item = TableItem()
+    local name = table_item:getValue(egg_id, 't_name')
+
+    local function success_cb(ret)
+        if ret['user'] then
+            g_serverData:applyServerData(ret['user'], 'user')
+        end
+
+        if ui then-- UI 갱신
+            local count = g_eggsData:getEggCount(egg_id)
+            ui.vars['numberLabel']:setString(comma_value(count))
+        end
+
+        UIManager:toastNotificationRed('"' .. name .. '" 1개가 추가되었습니다.')
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setRevocable(true)
+    ui_network:setUrl('/users/manage')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('act', 'increase')
+    ui_network:setParam('key', 'eggs')
+    ui_network:setParam('value', tostring(egg_id) .. ',' .. tostring(1))
+
+    local msg = '"' .. name .. '" 1개 추가 중...'
     ui_network:setLoadingMsg(msg)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()

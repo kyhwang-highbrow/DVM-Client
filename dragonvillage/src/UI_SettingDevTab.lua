@@ -13,6 +13,7 @@ function UI_Setting:init_devTab()
     vars['allRuneBtn']:registerScriptTapHandler(function() self:click_allRuneBtn() end)
     vars['allStaminaBtn']:registerScriptTapHandler(function() self:click_allStaminaBtn() end)
     vars['testCodeBtn']:registerScriptTapHandler(function() self:click_testCodeBtn() end)
+    vars['allEggBtn']:registerScriptTapHandler(function() self:click_allEggBtn() end)
     self:refresh_devTap()
 end
 
@@ -332,6 +333,54 @@ end
 function UI_Setting:click_testCodeBtn()
     require 'plSample'
     plSample.test()
+end
+
+-------------------------------------
+-- function click_allEggBtn
+-- @brief 모든 알 추가
+-------------------------------------
+function UI_Setting:click_allEggBtn()
+    local uid = g_userData:get('uid')
+    local table_item = TableItem()
+    local l_egg_list = table_item:filterList('type', 'egg')
+    local t_list = {}
+    for i,v in ipairs(l_egg_list) do
+        local egg_id = v['item']
+        table.insert(t_list, egg_id)
+    end
+    local do_work
+
+    local ui_network = UI_Network()
+    ui_network:setReuse(true)
+    ui_network:setUrl('/users/manage')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('act', 'increase')
+    ui_network:setParam('key', 'eggs')
+
+    do_work = function(ret)
+        local id = t_list[1]
+        
+        if id then
+            table.remove(t_list, 1)
+            local name = table_item:getValue(id, 't_name')
+            local msg = '"' .. name .. '" 추가 중...'
+            ui_network:setLoadingMsg(msg)
+            ui_network:setParam('value', tostring(id) .. ',' .. tostring(1))
+            ui_network:request()
+        else
+            ui_network:close()
+            UIManager:toastNotificationGreen('모든 알 추가!')
+            UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+            --self.m_bRestart = true
+
+            -- 한 번에 저장
+            if (ret and ret['user']) then
+                g_serverData:applyServerData(ret['user'], 'user')
+            end
+        end
+    end
+    ui_network:setSuccessCB(do_work)
+    do_work()
 end
 
 -------------------------------------

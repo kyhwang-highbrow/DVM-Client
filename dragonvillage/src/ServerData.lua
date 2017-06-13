@@ -74,6 +74,9 @@ function ServerData:getInstance()
     -- 룬
     g_runesData = ServerData_Runes(g_serverData)
 
+    -- 알 (eggs)
+    g_eggsData = ServerData_Eggs(g_serverData)
+
 	-- 퀘스트
     g_questData = ServerData_Quest(g_serverData)
 
@@ -351,6 +354,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['fruits'], 'user', 'fruits')
         end
 
+        -- 알 갯수
+        if ret['eggs'] then
+            self:applyServerData(ret['eggs'], 'user', 'eggs')
+        end
+
         -- 진화 재료 갱신
         if ret['evolution_stones'] then
             self:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
@@ -459,6 +467,12 @@ function ServerData:networkCommonRespone_addedItems(ret)
     if t_added_items['fruits'] then
         self:applyServerData(t_added_items['fruits'], 'user', 'fruits')
         t_added_items['fruits'] = nil
+    end
+
+    -- 알 갯수 (전체 갱신)
+    if t_added_items['eggs'] then
+        self:applyServerData(t_added_items['eggs'], 'user', 'eggs')
+        t_added_items['eggs'] = nil
     end
 
     -- 진화 재료 갱신 (전체 갱신)

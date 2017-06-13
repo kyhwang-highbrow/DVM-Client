@@ -103,6 +103,7 @@ local t_module = {
 	'ServerData_Ranking',
 	'ServerData_Formation',
 	'ServerData_DragonBoard',
+    'ServerData_Eggs',
 
     -- Interface
     'IEventDispatcher',

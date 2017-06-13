@@ -171,7 +171,7 @@ function UIC_EggPicker:addEgg(res)
         menu:addChild(node)
         menu:setSwallowTouch(false)
         node:registerScriptTapHandler(function()
-                self:setFocus(idx)
+                self:click_egg(idx)
             end)
     end
 
@@ -393,7 +393,7 @@ function UIC_EggPicker:scrollViewDidScroll()
 end
 
 -------------------------------------
--- function focus
+-- function setFocus
 -------------------------------------
 function UIC_EggPicker:setFocus(idx, duration)
     local pos = self.m_lItemPosLIst[idx] 
@@ -413,4 +413,21 @@ function UIC_EggPicker:setFocus(idx, duration)
     container:stopAllActions()
 
     self.m_node:setContentOffsetInDuration(cc.p(offset_x, 0), duration);
+end
+
+-------------------------------------
+-- function click_egg
+-------------------------------------
+function UIC_EggPicker:click_egg(idx)
+    if (self.m_currFocusIndex == idx) then
+
+        local function finish_cb(ret)
+            local l_dragon_list = ret['added_dragons']
+            UI_GachaResult_Dragon(l_dragon_list)
+        end
+
+        g_eggsData:request_incubate(703007, finish_cb, fail_cb)
+    else
+        self:setFocus(idx)
+    end
 end
