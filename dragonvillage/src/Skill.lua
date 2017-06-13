@@ -448,8 +448,8 @@ function Skill:findTarget()
     -- 리스트 형태로 변환
     local l_target = {}
 
-    for _, collision in pairs(m_temp) do
-        table.insert(l_target, collision)
+    for target, _ in pairs(m_temp) do
+        table.insert(l_target, target)
     end
 
 	return l_target, l_collision
