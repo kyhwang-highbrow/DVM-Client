@@ -512,7 +512,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\DragonCard.lua" />
     <None Include="..\src\DragonSkillIndivisualInfo.lua" />
     <None Include="..\src\DragonSkillManager.lua" />
-    <None Include="..\src\DragonSortManager.lua" />
     <None Include="..\src\DropHelper.lua" />
     <None Include="..\src\DynamicWave.lua" />
     <None Include="..\src\EffectBezierLink.lua" />

@@ -163,7 +163,6 @@ local t_module = {
     'SortManager_Fruit',
     'SortManager_EvolutionStone',
     'SortManager_Dragon',
-    'DragonSortManager',
     'RuneEnchantHelper',
     'SimplePrimitivesDraw',
     'Util_BuffStringParser',

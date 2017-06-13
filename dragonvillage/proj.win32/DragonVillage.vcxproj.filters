@@ -1212,9 +1212,6 @@
     <None Include="..\src\DragonSkillManager.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\DragonSortManager.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\DropHelper.lua">
       <Filter>lua\src</Filter>
     </None>
