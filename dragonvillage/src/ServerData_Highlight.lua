@@ -14,6 +14,8 @@ ServerData_Highlight = class({
         explore_reward = '',
         summon_free = '',
         new_mail = '',
+        invite = '',
+        fpoint_send = '',
         ----------------------------------------------
 
         ----------------------------------------------
