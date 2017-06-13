@@ -8,8 +8,8 @@
             "speed":0.2
             "list":
             [
-                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_1_a" "width":1920}
-                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_1_b" "width":1920}
+                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_1_a" "width":3840}
+               
             ]
         }
         
@@ -54,7 +54,15 @@
 				{"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_4_c" "width":1880}
 		    ]
         }
-		
+			{
+            "name":"빛"
+            "speed":0.7
+            "list":
+            [
+                {"res":"res/bg/volcano2/volcano2.vrp" "animation":"layer_4_light" "width":1480}
+           
+		    ]
+        }
 		{
             "name":"초근경1"
             "speed":0.9
