@@ -103,6 +103,13 @@ function ServerData_Dragons:getDragonDataFromUid(doid)
     if dragon_obj then
         return clone(dragon_obj)
     end
+    
+    -- 임시 친구 드래곤까지 검사
+    local friend_dragon_obj = g_friendData:getDragonDataFromDoid(doid)
+
+    if friend_dragon_obj then
+        return clone(friend_dragon_obj)
+    end
 
     return nil
 end
@@ -910,11 +917,13 @@ function ServerData_Dragons:getBattleGiftDragon()
 	local std_hour = g_constant:get('UI', 'BATTLE_GIFT_STD', 'HOUR')
 	for i, v in pairs(l_lv_check) do
 		local dragon_obj = self:getDragonDataFromUidRef(v['doid'])
-		local played_at = dragon_obj['played_at'] or 0
-		local gap_hour = (curr_time - (played_at/1000)) / 60 / 60
-		if (gap_hour > std_hour) then
-			table.insert(l_time_check, v) 
-		end
+        if dragon_obj then
+            local played_at = dragon_obj['played_at'] or 0
+		    local gap_hour = (curr_time - (played_at/1000)) / 60 / 60
+		    if (gap_hour > std_hour) then
+			    table.insert(l_time_check, v) 
+		    end
+        end
 	end
 
 	-- 탈출 체크

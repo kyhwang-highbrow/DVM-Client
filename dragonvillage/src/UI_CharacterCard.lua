@@ -452,6 +452,22 @@ function UI_CharacterCard:setReadySpriteVisible(visible)
 end
 
 -------------------------------------
+-- function setFriendSpriteVisible
+-- @brief 친구마크 표시
+-------------------------------------
+function UI_CharacterCard:setFriendSpriteVisible(visible)
+    if self.vars['friendSprite'] then
+        self.vars['friendSprite']:setVisible(visible)
+    elseif (visible) then
+        local sprite = cc.Sprite:createWithSpriteFrameName('character_card_friend.png')
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setAnchorPoint(CENTER_POINT)
+        self.vars['clickBtn']:addChild(sprite, 12)
+        self.vars['friendSprite'] = sprite
+    end
+end
+
+-------------------------------------
 -- function setSkillSpriteVisible
 -- @brief 승급 재료 스킬상승 아이콘 표시
 -------------------------------------
@@ -578,7 +594,6 @@ function UI_DragonCard(t_dragon_data)
     end
     ui.vars['clickBtn']:registerScriptPressHandler(func)
 
-    
     -- 새로 획득한 드래곤 뱃지 (임시 코드)
     if t_dragon_data.isNewDragon and t_dragon_data:isNewDragon() then
         local res = 'res/ui/btn/notification.png'
@@ -589,8 +604,68 @@ function UI_DragonCard(t_dragon_data)
         ui.vars['clickBtn']:addChild(sprite, 100)
     end
 
+    -- 친구 드래곤일 경우 친구 마크 추가
+    local is_friend_dragon = g_friendData:checkFriendDragonFromDoid(t_dragon_data['id'])
+    ui:setFriendSpriteVisible(is_friend_dragon)
+
     return ui
 end
+
+
+-------------------------------------
+-- function UI_FriendDragonCard
+-------------------------------------
+function UI_FriendDragonCard(t_dragon_data)
+    if t_dragon_data and (not t_dragon_data.m_objectType) then
+        t_dragon_data = StructDragonObject(t_dragon_data)
+    end
+
+    local ui = UI_CharacterCard(t_dragon_data)
+    local function func()
+        local doid = t_dragon_data['id']
+        if doid and (doid ~= '') then
+            UI_SimpleDragonInfoPopup(t_dragon_data)
+        end
+    end
+
+    ui.vars['clickBtn']:registerScriptPressHandler(func)
+    
+    local friend_info = g_friendData:getFriendInfoFromDoid(t_dragon_data['id'])
+    local zorder = 99
+
+    -- 친구 마크 추가
+    ui:setFriendSpriteVisible(true)
+    
+    -- 쿨타임 추가 - 중앙
+    if friend_info['used_time'] > 0 then
+        local sprite = cc.Sprite:createWithSpriteFrameName('character_card_bg.png')
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setAnchorPoint(CENTER_POINT)
+        sprite:setOpacity(150)
+        ui.vars['clickBtn']:addChild(sprite, zorder)
+
+        local cool_time = g_friendData:getDragonUseCoolStr(friend_info)
+        local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 25, 2, cc.size(140, 60), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        label:setDockPoint(CENTER_POINT)
+        label:setAnchorPoint(CENTER_POINT)
+        label:setPosition(0, 0)
+        label:setString(cool_time)
+        ui.vars['clickBtn']:addChild(label, zorder)
+    end
+
+    -- 친구 닉네임 추가 - 하단 중앙
+    do
+        local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 25, 2, cc.size(140, 30), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        label:setDockPoint(cc.p(0.5, 0.0))
+        label:setAnchorPoint(cc.p(0.5, 1.0))
+        label:setPosition(0, 0)
+        label:setString(friend_info['nick'])
+        ui.vars['clickBtn']:addChild(label, 5)
+    end
+    
+    return ui
+end
+
 
 function UI_RelationCard(t_dragon_data)
     local ui = UI_CharacterCard(t_dragon_data)

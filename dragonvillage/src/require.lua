@@ -164,6 +164,7 @@ local t_module = {
     'SortManager_Fruit',
     'SortManager_EvolutionStone',
     'SortManager_Dragon',
+    'SortManager_Friend',
     'RuneEnchantHelper',
     'SimplePrimitivesDraw',
     'Util_BuffStringParser',
@@ -588,6 +589,7 @@ local t_module = {
 	-- UI : 모험 준비
 	'UI_ReadyScene',
     'UI_ReadyScene_Deck',
+    'UI_ReadyScene_Select',
 	'UI_ReadyScene_LeaderPopup',
 	
 	-- UI : 전투 통계

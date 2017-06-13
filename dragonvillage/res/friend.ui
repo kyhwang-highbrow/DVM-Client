@@ -537,7 +537,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'drawBtn';
 				enable = true;
 				normal = 'ui/btn/a_btn_0201.png';

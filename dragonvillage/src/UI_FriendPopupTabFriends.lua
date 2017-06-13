@@ -4,6 +4,7 @@ local PARENT = UI_FriendPopupTab
 -- class UI_FriendPopupTabFriends
 -------------------------------------
 UI_FriendPopupTabFriends = class(PARENT, {
+        m_friendSortManager = 'SortManager_Friend',
         m_tableView = 'UIC_TableView',
         m_bManageMode = 'boolean',
      })
@@ -78,10 +79,12 @@ function UI_FriendPopupTabFriends:init_tableView()
     table_view:setItemList(l_item_list)
 
     -- 리스트가 비었을 때
-    table_view:makeDefaultEmptyDescLabel(Str('친구가 한명도 없어요 T.T'))
+    table_view:makeDefaultEmptyDescLabel(Str('친구가 없습니다.\n친구와 우정 징표를 주고받을 수 있습니다.\n친구를 추가해보세요!'))
 
     -- 정렬
-    g_friendData:sortForFriendList(table_view.m_itemList)
+    local sort_manager = SortManager_Friend()
+    sort_manager:sortExecution(table_view.m_itemList)
+    self.m_friendSortManager = sort_manager
 
     self.m_tableView = table_view
 end

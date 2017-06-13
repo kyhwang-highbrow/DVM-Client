@@ -414,6 +414,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Exploration.lua" />
     <None Include="..\src\ServerData_Formation.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
+    <None Include="..\src\ServerData_Friend_Old.lua" />
     <None Include="..\src\ServerData_Gacha.lua" />
     <None Include="..\src\ServerData_Highlight.lua" />
     <None Include="..\src\ServerData_HotTime.lua" />
@@ -476,6 +477,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SortManager.lua" />
     <None Include="..\src\SortManager_Dragon.lua" />
     <None Include="..\src\SortManager_EvolutionStone.lua" />
+    <None Include="..\src\SortManager_Friend.lua" />
     <None Include="..\src\SortManager_Fruit.lua" />
     <None Include="..\src\SortManager_Rune.lua" />
     <None Include="..\src\StageMissionMgr.lua" />
@@ -876,7 +878,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ObtainPopup.lua" />
     <None Include="..\src\UI_OverallRankingListItem.lua" />
     <None Include="..\src\UI_OverallRankingPopup.lua" />
-    <None Include="..\src\UI_ReadyScene_LeaderPopup.lua" />
+	<None Include="..\src\UI_ReadyScene_LeaderPopup.lua" />
+    <None Include="..\src\UI_ReadyScene_Select.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoPopup.lua" />
     <None Include="..\src\UI_DragonUpgradeNew.lua" />
     <None Include="..\src\UI_DragonUpgradeResult.lua" />

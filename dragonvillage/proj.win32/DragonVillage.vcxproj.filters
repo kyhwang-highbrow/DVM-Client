@@ -285,6 +285,9 @@
     <None Include="..\src\UI_ReadyScene_Deck.lua">
       <Filter>lua\UI</Filter>
     </None>
+	<None Include="..\src\UI_ReadyScene_Select.lua">
+      <Filter>lua\UI</Filter>
+    </None>
     <None Include="..\src\UI_ShopPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1897,6 +1900,9 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\SortManager_Rune.lua">
+      <Filter>lua\src</Filter>
+    </None>
+	<None Include="..\src\SortManager_Friend.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\SoundMgr.lua">

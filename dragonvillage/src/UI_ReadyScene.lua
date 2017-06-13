@@ -6,16 +6,17 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 UI_ReadyScene = class(PARENT,{
         m_stageID = 'number',
         m_stageAttr = 'attr',
-        m_tableViewExt = 'TableViewExtension',
+
+        -- UI_ReadyScene_Select 관련 변수
+        m_readySceneSelect = 'UI_ReadyScene_Select',
 
         -- UI_ReadyScene_Deck 관련 변수
         m_readySceneDeck = 'UI_ReadyScene_Deck',
 
         -- 정렬 도우미
 		m_sortManagerDragon = '',
+        m_sortManagerFriendDragon = '',
     })
-
-local DC_SCALE = 0.61
 
 -------------------------------------
 -- function init
@@ -38,8 +39,11 @@ function UI_ReadyScene:init(stage_id)
     self:initButton()
     self:refresh()
 	
+    self.m_readySceneSelect = UI_ReadyScene_Select(self)
+
 	self.m_readySceneDeck = UI_ReadyScene_Deck(self)
     self.m_readySceneDeck:setOnDeckChangeCB(function() self:refresh_combatPower() end)
+
 	self:init_sortMgr()
 
 	self:init_battleGift()
@@ -120,20 +124,37 @@ function UI_ReadyScene:condition_deck_idx(a, b)
 end
 
 -------------------------------------
+-- function condition_cool_time
+-------------------------------------
+function UI_ReadyScene:condition_cool_time(a,b)
+    local a_value = g_friendData:getDragonCoolTimeFromDoid(a['data']['id']) or 0
+    local b_value = g_friendData:getDragonCoolTimeFromDoid(b['data']['id']) or 0
+
+    if (a_value == b_value) then
+        return nil
+    end
+
+    return a_value < b_value
+end
+
+-------------------------------------
 -- function init_sortMgr
 -------------------------------------
 function UI_ReadyScene:init_sortMgr(stage_id)
 
 	-- 정렬 매니저 생성
     self.m_sortManagerDragon = SortManager_Dragon()
-
+    self.m_sortManagerFriendDragon = SortManager_Dragon()
+    
 	-- 나중에 정리
 	do
 		local function cond(a, b)
 			return self:condition_deck_idx(a, b)
 		end
 		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
+        self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)
 	end
+
 	if SensitivityHelper:isPassedBattleGiftSeenOnce() then
 		-- 최적화에 필요한것이 많음
 		local function cond(a, b)
@@ -142,15 +163,22 @@ function UI_ReadyScene:init_sortMgr(stage_id)
 		self.m_sortManagerDragon:addPreSortType('battle_gift', false, cond)
 	end
 
+    -- 친구 드래곤인 경우 쿨타임 정렬 추가
+    local function cond(a, b)
+		return self:condition_cool_time(a, b)
+	end
+    self.m_sortManagerFriendDragon:addPreSortType('used_time', false, cond)
+
     -- 정렬 UI 생성
     local vars = self.vars
     local uic_sort_list = MakeUICSortList_dragonManage(vars['sortBtn'], vars['sortLabel'], UIC_SORT_LIST_TOP_TO_BOT)
     --self.m_uicSortList = uic_sort_list
     
 
-	    -- 버튼을 통해 정렬이 변경되었을 경우
+	-- 버튼을 통해 정렬이 변경되었을 경우
     local function sort_change_cb(sort_type)
         self.m_sortManagerDragon:pushSortOrder(sort_type)
+        self.m_sortManagerFriendDragon:pushSortOrder(sort_type)
         self:apply_dragonSort()
     end
     uic_sort_list:setSortChangeCB(sort_change_cb)
@@ -159,6 +187,7 @@ function UI_ReadyScene:init_sortMgr(stage_id)
     vars['sortOrderBtn']:registerScriptTapHandler(function()
         local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)
         self.m_sortManagerDragon:setAllAscending(ascending)
+        self.m_sortManagerFriendDragon:setAllAscending(ascending)
         self:apply_dragonSort()
         --self:save_dragonSortInfo()
 
@@ -179,9 +208,16 @@ end
 -- @brief 테이블 뷰에 정렬 적용
 -------------------------------------
 function UI_ReadyScene:apply_dragonSort()
-    local list = self.m_tableViewExt.m_itemList
-    self.m_sortManagerDragon:sortExecution(list)
-    self.m_tableViewExt:setDirtyItemList()
+    -- 정렬은 본인/친구 테이블 양쪽에 모두 적용
+    local table_view_mine = self.m_readySceneSelect.m_tableViewExtMine
+    if (table_view_mine== nil) then return end
+    self.m_sortManagerDragon:sortExecution(table_view_mine.m_itemList)
+    table_view_mine:setDirtyItemList()
+
+    local table_view_friend = self.m_readySceneSelect.m_tableViewExtFriend
+    if (table_view_friend== nil) then return end
+    self.m_sortManagerFriendDragon:sortExecution(table_view_friend.m_itemList)
+    table_view_friend:setDirtyItemList()
 end
 
 -------------------------------------
@@ -189,8 +225,6 @@ end
 -------------------------------------
 function UI_ReadyScene:initUI()
     local vars = self.vars
-
-    self:init_dragonTableView()
 
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
         local vars = self.vars
@@ -331,58 +365,6 @@ function UI_ReadyScene:refresh_tamer()
 end
 
 -------------------------------------
--- function init_dragonTableView
--------------------------------------
-function UI_ReadyScene:init_dragonTableView()
-    local list_table_node = self.vars['listView']
-    list_table_node:removeAllChildren()
-
-	local gift_dragon = g_dragonsData:getBattleGiftDragon()
-
-    local function create_func(ui, data)
-        ui.root:setScale(DC_SCALE)	-- UI 테이블뷰 사이즈가 변경될 시 조정
-
-        local unique_id = data['id']
-        self:refresh_dragonCard(unique_id)
-
-		-- 감성 쉐이크
-		if (gift_dragon) then
-			if SensitivityHelper:isPassedBattleGiftSeenOnce() then
-				if (unique_id == gift_dragon['id']) then
-					local repeat_action = cca.buttonShakeAction(3)
-					ui.root:runAction(repeat_action)
-				end
-			end
-		end
-
-        -- 드래곤 클릭 콜백 함수
-        local function click_dragon_item()
-            local t_dragon_data = data
-            self:click_dragonCard(t_dragon_data)
-        end
-
-        ui.vars['clickBtn']:registerScriptTapHandler(function() click_dragon_item() end)
-
-        -- 상성
-        local dragon_attr = TableDragon():getValue(data['did'], 'attr')
-        local stage_attr = self.m_stageAttr
-        ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
-    end
-
-    -- 테이블뷰 생성
-    local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(97, 94)	-- UI 테이블뷰 사이즈가 변경될 시 조정
-    table_view_td.m_nItemPerCell = 4			-- UI 테이블뷰 사이즈가 변경될 시 조정
-    table_view_td:setCellUIClass(UI_DragonCard, create_func)
-
-    -- 리스트 설정
-    local l_dragon_list = g_dragonsData:getDragonsList()
-    table_view_td:setItemList(l_dragon_list)
-
-    self.m_tableViewExt = table_view_td
-end
-
--------------------------------------
 -- function init_battleGift
 -------------------------------------
 function UI_ReadyScene:init_battleGift()
@@ -492,7 +474,7 @@ function UI_ReadyScene:click_manageBtn()
         local function close_cb()
             local function func()
                 self:refresh()
-                self:init_dragonTableView()
+                self.m_readySceneSelect:init_dragonTableView()
                 self.m_readySceneDeck:init_deck()
 
                 do -- 정렬 도우미
@@ -564,7 +546,8 @@ function UI_ReadyScene:changeTeam(deck_name)
     -- 재료에서 "출전" 중 이라고 표시된 드래곤 해제
     for i,v in pairs(self.m_readySceneDeck.m_lDeckList) do
         local doid = v
-        local item = self.m_tableViewExt:getItem(doid)
+        local table_view = self.m_readySceneSelect:getTableView()
+        local item = table_view:getItem(doid)
         if (item and item['ui']) then
             item['ui']:setReadySpriteVisible(false)
         end

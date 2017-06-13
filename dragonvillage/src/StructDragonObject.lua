@@ -45,6 +45,8 @@ StructDragonObject = class({
         train_slot = '',
         train_max_reward = '',
         rune_set = '',
+
+        is_struct = '',
     })
 
 -------------------------------------
@@ -56,6 +58,7 @@ function StructDragonObject:init(data)
     self.lv = 0
     self.grade = 0
     self.m_mRuneObjects = nil
+    self.is_struct = true
 
     if data then
         self:applyTableData(data)

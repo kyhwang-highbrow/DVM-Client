@@ -281,7 +281,7 @@ function UI_Network:request()
 
     t_request['success'] = function(ret) UI_Network.success(self, ret) end
     t_request['fail'] = function(ret) UI_Network.fail(self, ret) end
-
+    
     if (self.m_bHmac == true) then
         -- 우선 둘 다 simpleRequest를 사용
         Network:SimpleRequest(t_request)

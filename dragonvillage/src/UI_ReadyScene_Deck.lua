@@ -345,7 +345,7 @@ end
 -- @brief 장착여부에 따른 테이블뷰에 있는 카드 갱신
 -------------------------------------
 function UI_ReadyScene_Deck:refresh_dragonCard(doid)
-    local item = self.m_uiReadyScene.m_tableViewExt.m_itemMap[doid]
+    local item = self.m_uiReadyScene.m_readySceneSelect:getTableView().m_itemMap[doid]
     local is_setted = self.m_tDeckMap[doid]
 
     if (not item) then
@@ -383,6 +383,10 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
         end
     end
 
+    -- 친구 드래곤 중복 선택 체크
+    if g_friendData:checkSetSlotCondition(doid) then
+        return false
+    end
 
     -- 설정되어 있는 덱 해제
     if self.m_lDeckList[idx] then
@@ -400,6 +404,9 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
 
         -- 드래곤 리스트 갱신
         self:refresh_dragonCard(prev_doid)
+
+        -- 친구 드래곤 해제
+        g_friendData:delSettedFriendDragonCard(prev_doid)
     end
 
     -- 새롭게 생성
@@ -409,6 +416,9 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
 
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         self:makeSettedDragonCard(t_dragon_data, idx)
+
+        -- 친구 드래곤 선택 체크
+        g_friendData:makeSettedFriendDragonCard(doid)
     end
 
     -- 즉시 정렬
@@ -480,15 +490,26 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
         ui_network:setParam('deckname', deckname)
         ui_network:setParam('formation', self.m_currFormation)
 		ui_network:setParam('leader', 3) --self.m_currLeader)
-        ui_network:setParam('edoid1', self.m_lDeckList[1] and self.m_lDeckList[1] or nil)
-        ui_network:setParam('edoid2', self.m_lDeckList[2] and self.m_lDeckList[2] or nil)
-        ui_network:setParam('edoid3', self.m_lDeckList[3] and self.m_lDeckList[3] or nil)
-        ui_network:setParam('edoid4', self.m_lDeckList[4] and self.m_lDeckList[4] or nil)
-        ui_network:setParam('edoid5', self.m_lDeckList[5] and self.m_lDeckList[5] or nil)
-        ui_network:setParam('edoid6', self.m_lDeckList[6] and self.m_lDeckList[6] or nil)
-        ui_network:setParam('edoid7', self.m_lDeckList[7] and self.m_lDeckList[7] or nil)
-        ui_network:setParam('edoid8', self.m_lDeckList[8] and self.m_lDeckList[8] or nil)
-        ui_network:setParam('edoid9', self.m_lDeckList[9] and self.m_lDeckList[9] or nil)
+
+        -- 친구 드래곤 체크 (친구 드래곤일 경우 저장하지 않음)
+        local set_param 
+        set_param = function(doid)
+            if doid and g_friendData:checkFriendDragonFromDoid(doid) then 
+                return nil 
+            end
+
+            return doid or nil          
+        end 
+        
+        ui_network:setParam('edoid1', set_param(self.m_lDeckList[1]))
+        ui_network:setParam('edoid2', set_param(self.m_lDeckList[2]))
+        ui_network:setParam('edoid3', set_param(self.m_lDeckList[3]))
+        ui_network:setParam('edoid4', set_param(self.m_lDeckList[4]))
+        ui_network:setParam('edoid5', set_param(self.m_lDeckList[5]))
+        ui_network:setParam('edoid6', set_param(self.m_lDeckList[6]))
+        ui_network:setParam('edoid7', set_param(self.m_lDeckList[7]))
+        ui_network:setParam('edoid8', set_param(self.m_lDeckList[8]))
+        ui_network:setParam('edoid9', set_param(self.m_lDeckList[9]))
         ui_network:setSuccessCB(success_cb)
         ui_network:request()
     else

@@ -118,6 +118,20 @@ function ServerData_Highlight:isHighlightMail()
 end
 
 -------------------------------------
+-- function isHighlightFpointSend
+-------------------------------------
+function ServerData_Highlight:isHighlightFpointSend()
+    return (0 < self['fpoint_send'])
+end
+
+-------------------------------------
+-- function isHighlightFrinedInvite
+-------------------------------------
+function ServerData_Highlight:isHighlightFrinedInvite()
+    return (0 < self['invite'])
+end
+
+-------------------------------------
 -- function isHighlightDragon
 -------------------------------------
 function ServerData_Highlight:isHighlightDragon()

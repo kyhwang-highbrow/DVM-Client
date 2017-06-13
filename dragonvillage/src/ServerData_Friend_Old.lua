@@ -9,13 +9,11 @@ ServerData_Friend = class({
         m_lRecommendUserList = 'list',
         m_lFriendUserList = 'list',
         m_lFriendInviteList = 'list',
-        m_lFriendDragonsList = 'list',
 
         m_mInvitedUerList = 'map', -- 클라이언트가 켜져있는 동안 친구초대를 한 유저의 uid 저장
         m_mSentFpUserList = 'map', -- 오늘 우정포인트를 보낸 유저 리스트
-        
-        -- 선택된 친구 드래곤 
-        m_selectedSharedFriendDragon = '',
+
+        m_myDragonSupportRequestInfo = '', -- 플레이어의 드래곤 지원 요청 정보
 
         -- 선택된 공유 친구 데이터
         m_selectedShareFriendData = '',
@@ -25,11 +23,10 @@ ServerData_Friend = class({
 -- function init
 -------------------------------------
 function ServerData_Friend:init(server_data)
-    self.m_serverData           = server_data
-    self.m_mInvitedUerList      = {}
-    self.m_mSentFpUserList      = {}
-    self.m_lFriendDragonsList   = {}
-    self.m_lRecommendUserList   = {}
+    self.m_serverData = server_data
+    self.m_mInvitedUerList = {}
+    self.m_mSentFpUserList = {}
+    self.m_lRecommendUserList = {}
 end
 
 -------------------------------------
@@ -162,8 +159,6 @@ function ServerData_Friend:request_friendList(finish_cb, force)
             self.m_lFriendUserList[uid] = v
         end
 
-        self:setDragonsList()
-
         if finish_cb then
             finish_cb(ret)
         end
@@ -247,7 +242,8 @@ function ServerData_Friend:getParticipationFriendDragon()
     end
 
     self.m_selectedShareFriendData = nil
-    return StructDragonObject(t_friend_info['leader']), t_friend_info['runes']
+
+    return t_friend_info['leader'], t_friend_info['runes']
 end
 
 -------------------------------------
@@ -382,13 +378,24 @@ end
 -------------------------------------
 -- function updateFriendUser_usedTime
 -- @brief 친구 드래곤 사용 시간 업데이트
--- t_friend_info['used_time'] 친구 드래곤을 사용 가능한 시점 (타임스템프)
+-- t_friend_info['cool_time'] 친구 드래곤을 사용 가능한 시점 (타임스템프)
 -------------------------------------
 function ServerData_Friend:updateFriendUser_usedTime(t_friend_info)
     local server_time = Timer:getServerTime()
+
+    -- 소울메이트가 접속 중이면 사용 가능
+    if (t_friend_info['friendtype'] == 3) then
+        if (t_friend_info['is_online'] == true) then
+            t_friend_info['enable_use'] = true
+        else
+            t_friend_info['enable_use'] = false
+        end        
+        return
+    end
+
     -- 쿨타임 체크 후 사용 가능 여부표시
-    local used_time = (t_friend_info['used_time'] / 1000)
-    if (used_time == 0) or (used_time <= server_time) then
+    local cool_time = (t_friend_info['cool_time'] / 1000)
+    if (cool_time == 0) or (cool_time <= server_time) then
         t_friend_info['enable_use'] = true
     else
         t_friend_info['enable_use'] = false
@@ -445,26 +452,147 @@ end
 -- @brief 드래곤 사용 시간
 -------------------------------------
 function ServerData_Friend:getDragonUseCoolStr(t_friend_info)
-    local used_time = (t_friend_info['used_time'] / 1000)
-    local server_time = Timer:getServerTime()
-        
-    if (used_time == 0) then
-        return '미사용'
-    elseif (server_time < used_time) then
-        local gap = (used_time - server_time)
-        local showSeconds = true
-        local firstOnly = false
-        local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
-        local str = Str('{1} 후 \n사용 가능', text)
-        return str
+    -- 소울메이트의 경우
+    if (t_friend_info['friendtype'] == 3) then
+        if t_friend_info['is_online'] then
+            return Str('접속 중')
+        else
+            return Str('비접속 (접속 유지 시 사용 가능)')
+        end
     else
-        local gap = (server_time - used_time)
-        local showSeconds = true
-        local firstOnly = false
-        local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
-        local str = Str('{1} 전에 \n사용함', text)
-        return str
+        local cool_time = (t_friend_info['cool_time'] / 1000)
+        local server_time = Timer:getServerTime()
+        
+        if (cool_time == 0) then
+            return '미사용'
+        elseif (server_time < cool_time) then
+            local gap = (cool_time - server_time)
+            local showSeconds = true
+            local firstOnly = false
+            local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
+            local str = Str('{1} 후 사용 가능', text)
+            return str
+        else
+            local gap = (server_time - cool_time)
+            local showSeconds = true
+            local firstOnly = false
+            local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
+            local str = Str('{1} 전에 사용함', text)
+            return str
+        end
     end
+end
+
+-------------------------------------
+-- function sortForFriendDragonSelectList
+-- @brief 친구 드래곤 선택 리스트에서 정렬
+-------------------------------------
+function ServerData_Friend:sortForFriendDragonSelectList(sort_target_list)
+    local sort_manager = SortManager()
+
+    -- 드래곤의 레벨로 정렬
+    sort_manager:addSortType('level', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_dragon = a_data['leader']
+            local b_dragon = b_data['leader']
+
+            -- 레벨 높은 순서
+            if (a_dragon['lv'] ~= b_dragon['lv']) then
+                return a_dragon['lv'] > b_dragon['lv']
+
+            -- 등급 높은 순서
+            elseif (a_dragon['grade'] ~= b_dragon['grade']) then
+                return a_dragon['grade'] > b_dragon['grade']
+
+            -- 진화단계 높은 순서
+            else
+                return a_dragon['evolution'] > b_dragon['evolution']
+            end
+        end)
+
+    -- 시간
+    sort_manager:addSortType('time', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_value = a_data['cool_time']
+            local b_value = b_data['cool_time']
+
+            if (a_value == b_value) then
+                return nil
+            end
+
+            return a_value < b_value
+        end)
+
+    -- 사용 가능한 드래곤부터 정렬
+    sort_manager:addSortType('enable', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            -- 비교하는 두 대상 중 하나만 사용 가능할 경우
+            if (a_data['enable_use'] ~= b_data['enable_use']) then
+                if a_data['enable_use'] then
+                    return true
+                else
+                    return false
+                end
+            else
+                return nil
+            end
+        end)
+
+    -- 친구 타입 정렬
+    sort_manager:addSortType('type', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_value = a_data['friendtype']
+            local b_value = b_data['friendtype']
+
+            if (a_value == b_value) then
+                return nil
+            end
+           
+            return a_value > b_value
+        end)
+
+    sort_manager:sortExecution(sort_target_list)
+end
+
+-------------------------------------
+-- function sortForFriendList
+-- @brief 친구 리스트에서 정렬
+-------------------------------------
+function ServerData_Friend:sortForFriendList(sort_target_list)
+    local sort_manager = SortManager()
+
+    -- 드래곤의 레벨로 정렬
+    sort_manager:addSortType('time', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            return a_data['last_active'] > b_data['last_active']
+        end)
+
+    -- 친구 타입 정렬
+    sort_manager:addSortType('type', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_type = a_data['friendtype']
+            local b_type = b_data['friendtype']
+
+            if (a_type ~= b_type) then
+                return a_type > b_type 
+            end
+
+            return nil
+        end)
+
+    sort_manager:sortExecution(sort_target_list)
 end
 
 -------------------------------------
@@ -521,6 +649,11 @@ function ServerData_Friend:response_friendCommon(ret)
            self.m_mSentFpUserList[v] = true 
         end
     end
+
+    -- 나의 드래곤 지원 요청 정보
+    if ret['my_need_info'] then
+        self.m_myDragonSupportRequestInfo = ret['my_need_info']
+    end
 end
 
 
@@ -541,6 +674,84 @@ function ServerData_Friend:getByeDailyLimit()
     local cnt = 3
     return cnt
 end
+
+-------------------------------------
+-- function getDragonSupportRequestList
+-- @brief 드래곤 지원 요청 리스트
+-------------------------------------
+function ServerData_Friend:getDragonSupportRequestList()
+    local l_friend_map = self:getFriendList()
+
+    local l_request_list = {}
+
+    for i,v in pairs(l_friend_map) do
+        local is_empty = table.isEmpty(v['need_did'])
+        if (not is_empty) then
+            local value, did = table.getFirst(v['need_did'])
+
+            if did and (value == '') then
+                table.insert(l_request_list, v)
+            end
+        end
+    end
+
+    return l_request_list
+end
+
+
+local T_NEED_INFO = {}
+T_NEED_INFO['did'] = nil
+T_NEED_INFO['support_finish'] = false
+T_NEED_INFO['requested_at'] = 0
+T_NEED_INFO['fp_reward'] = 0
+
+-------------------------------------
+-- function parseDragonSupportRequestInfo
+-- @brief 드래곤 지원 정보 분석
+-------------------------------------
+function ServerData_Friend:parseDragonSupportRequestInfo(l_need_info)
+    local t_need_info = clone(T_NEED_INFO)
+
+    if table.isEmpty(l_need_info) then
+        return t_need_info
+    end
+
+    local value, did = table.getFirst(l_need_info)
+    t_need_info['did'] = tonumber(did)
+
+    local rarity = TableDragon():getValue(t_need_info['did'], 'rarity')
+
+    if (rarity == 'common') then
+        t_need_info['fp_reward'] = 100
+
+    elseif (rarity == 'rare') then
+        t_need_info['fp_reward'] = 500
+
+    elseif (rarity == 'hero') then
+        t_need_info['fp_reward'] = 1000
+
+    elseif (rarity == 'legend') then
+        t_need_info['fp_reward']= 5000
+
+    end
+
+    if (value == '') then
+        t_need_info['support_finish'] = false
+    else
+        t_need_info['support_finish'] = true
+    end
+    
+    return t_need_info
+end
+
+-------------------------------------
+-- function getMyDragonSupporRequesttInfo
+-- @brief 나의 드래곤 요청 정보 분석
+-------------------------------------
+function ServerData_Friend:getMyDragonSupporRequesttInfo()
+    return self:parseDragonSupportRequestInfo(self.m_myDragonSupportRequestInfo)
+end
+
 
 -------------------------------------
 -- function request_sendFp
@@ -598,133 +809,111 @@ function ServerData_Friend:isSentFp(friend_uid)
     return self.m_mSentFpUserList[friend_uid]
 end
 
--------------------------------------
--- function setDragonsList
--------------------------------------
-function ServerData_Friend:setDragonsList()
-    self.m_lFriendDragonsList = {}
 
-    for _, v in pairs(self.m_lFriendUserList) do
-        local t_friend_info = v
-        local t_dragon_data = StructDragonObject(t_friend_info['leader'])
-        table.insert(self.m_lFriendDragonsList, t_dragon_data)
+-------------------------------------
+-- function availabilityOfDragonSupportRequests
+-- @brief 드래곤 지원 요청 가능성
+-------------------------------------
+function ServerData_Friend:availabilityOfDragonSupportRequests(dragon_rarity)
+    -- dragon_rarity :'common', 'rare', 'hero', 'legend'
+    local time_stamp = self.m_friendSystemStatus['need_dragon_cool_' .. dragon_rarity]
+
+    local server_time = Timer:getServerTime()
+    time_stamp = (time_stamp / 1000)
+
+    if (time_stamp == 0) or (time_stamp <= server_time) then
+        return true
+    else
+        return false, time_stamp - server_time
     end
 end
 
 -------------------------------------
--- function getDragonsList
+-- function getDragonSupportRequestCooltimeText
+-- @brief 드래곤 요청 희귀도별 문자열
 -------------------------------------
-function ServerData_Friend:getDragonsList()
-    return self.m_lFriendDragonsList
-end
+function ServerData_Friend:getDragonSupportRequestCooltimeText(dragon_rarity)
+    local availability, remain_time = self:availabilityOfDragonSupportRequests(dragon_rarity)
 
--------------------------------------
--- function getDragonDataFromDoid
--------------------------------------
-function ServerData_Friend:getDragonDataFromDoid(doid)
-    for _, v in ipairs(self.m_lFriendDragonsList) do
-        if v['id'] == doid then
-            return v
-        end
-    end
-    
-    return nil
-end
-
--------------------------------------
--- function checkFriendDragonFromDoid
--------------------------------------
-function ServerData_Friend:checkFriendDragonFromDoid(doid)
-    for _, v in ipairs(self.m_lFriendDragonsList) do
-        if v['id'] == doid then
-            return true
-        end
-    end
-    
-    return false
-end
-
--------------------------------------
--- function getDragonCoolTimeFromDoid
--- @brief 드래곤 쿨타임 정보는 드래곤객체가 아닌 친구객체에서 가져와야함
--------------------------------------
-function ServerData_Friend:getDragonCoolTimeFromDoid(doid)
-    if (doid) and (not self:checkFriendDragonFromDoid(doid)) then return nil end
-    local friend_info = self:getFriendInfoFromDoid(doid)
-    return friend_info['used_time'] or nil
-end
-
--------------------------------------
--- function delSettedFriendDragonCard
--- @brief 친구 드래곤 슬롯 해제
--------------------------------------
-function ServerData_Friend:delSettedFriendDragonCard(doid)
-    if (not self:checkFriendDragonFromDoid(doid)) then return end
-    if (self.m_selectedSharedFriendDragon) and
-       (self.m_selectedSharedFriendDragon == doid) then
-        self.m_selectedSharedFriendDragon = nil
-        self.m_selectedShareFriendData = nil
+    if availability then
+        return Str('지원 요청 가능')
+    else
+        local showSeconds = true
+        return Str('{1} 남음', datetime.makeTimeDesc(remain_time, showSeconds))
     end
 end
 
 -------------------------------------
--- function makeSettedFriendDragonCard
--- @brief 친구 드래곤 슬롯 세팅
+-- function request_setNeedDragon
+-- @brief 드래곤 지원 요청
 -------------------------------------
-function ServerData_Friend:makeSettedFriendDragonCard(doid)
-    if (not self:checkFriendDragonFromDoid(doid)) then return end
-    if (not self.m_selectedSharedFriendDragon) then
-        self.m_selectedSharedFriendDragon = doid
-        self.m_selectedShareFriendData = self:getFriendInfoFromDoid(self.m_selectedSharedFriendDragon)
-    end
-end
+function ServerData_Friend:request_setNeedDragon(did, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
 
--------------------------------------
--- function checkSetSlotCondition
--- @brief 친구 드래곤 슬롯 세팅 조건 검사
--------------------------------------
-function ServerData_Friend:checkSetSlotCondition(doid)
-    
-    if (self:checkFriendDragonFromDoid(doid)) then
-        -- 쿨타임이 남아 있는 친구
-        local cool_time = self:getDragonCoolTimeFromDoid(doid)
-        if (cool_time) and (cool_time > 0) then 
-            -- 팝업 추가?
-            return true
-        end
+    -- 콜백 함수
+    local function success_cb(ret)
+        self:response_friendCommon(ret)
 
-        -- 이미 선택된 친구가 있음
-        if (self.m_selectedSharedFriendDragon) and (self.m_selectedSharedFriendDragon ~= doid) then 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('친구 드래곤은 전투에 한 명만 참여할 수 있습니다'))
-            return true
+        if finish_cb then
+            finish_cb(ret)
         end
     end
 
-    return false
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/set_need_dragon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('did', did)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end
 
 -------------------------------------
--- function getSaveDeckParam
--- @brief 친구 드래곤 저장시 친구 드래곤은 param 넘기지 않음
+-- function request_sendNeedDragon
+-- @brief 드래곤 지원
 -------------------------------------
-function ServerData_Friend:getSaveDeckParam(doid)
-    if (doid) and (self:checkFriendDragonFromDoid(doid)) then return nil end
-    return doid or nil
-end
+function ServerData_Friend:request_sendNeedDragon(fuid, doid, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
 
--------------------------------------
--- function getFriendInfoFromDoid
--------------------------------------
-function ServerData_Friend:getFriendInfoFromDoid(doid)
-    for _, v in pairs(self.m_lFriendUserList) do
-        local t_friend_info = v
-        if t_friend_info['leader']['id'] == doid then
-            return t_friend_info
+    -- 콜백 함수
+    local function success_cb(ret)
+        self:response_friendCommon(ret)
+
+        -- 재료로 사용된 드래곤 삭제
+        if ret['deleted_dragons_oid'] then
+            for _,doid in pairs(ret['deleted_dragons_oid']) do
+                g_dragonsData:delDragonData(doid)
+            end
+        end
+
+        -- 지원 드래곤 정보에 내 uid를 입력
+        local t_friend_info = self.m_lFriendUserList[fuid]
+        local first, key = table.getFirst(t_friend_info['need_did'])
+        t_friend_info['need_did'][key] = uid
+
+        if finish_cb then
+            finish_cb(ret)
         end
     end
-    
-    return nil
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/send_need_dragon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('fuid', fuid)
+    ui_network:setParam('doid', doid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end
+
+
+
 
 -------------------------------------
 -- function getFriendOnlineBuff
