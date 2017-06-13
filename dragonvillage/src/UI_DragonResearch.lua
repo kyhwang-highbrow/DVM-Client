@@ -1,3 +1,4 @@
+--[[
 local PARENT = UI_DragonManage_Base
 
 -------------------------------------
@@ -263,3 +264,4 @@ end
 
 --@CHECK
 UI:checkCompileError(UI_DragonResearch)
+]]

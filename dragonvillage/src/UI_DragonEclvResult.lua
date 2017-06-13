@@ -1,3 +1,4 @@
+--[[
 local PARENT = UI
 
 -------------------------------------
@@ -92,3 +93,4 @@ function UI_DragonEclvResult:refresh_status(dragon_object)
     vars['defLabel2']:setString(status_calc:getFinalStatDisplay('def'))
     vars['hpLabel2']:setString(status_calc:getFinalStatDisplay('hp'))
 end
+]]
