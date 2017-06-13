@@ -26,6 +26,8 @@ UIC_Button = class(PARENT, {
         m_actionType = '',
 
         m_bAutoShakeAction = 'boolean', -- 버튼을 흔드는 액션 사용 여부
+
+		m_blockMsg = 'str', -- button block 할 경우 팝업 메세지
     })
 
 UIC_Button.ACTION_TYPE_NORMAL = 1
@@ -303,4 +305,12 @@ function UIC_Button:setAutoShake(auto_shake)
     if (self.m_buttonState == UIC_BUTTON_NORMAL) then
         self:onButtonStateChange(self.m_buttonState)
     end
+end
+
+-------------------------------------
+-- function setBlockMsg
+-- @brief 버튼을 block하고 클릭시 toast메세지를 띄운다. refresh되는 곳에서 사용하기 위해서는 다소 수정 필요
+-------------------------------------
+function UIC_Button:setBlockMsg(msg)
+    self.m_clickFunc = function() ccdisplay(msg) end
 end

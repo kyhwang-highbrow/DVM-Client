@@ -140,10 +140,13 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
             vars['skillNodeLeader']:addChild(icon)
         end
         return
+
+	else
+		vars['slimeSprite']:setVisible(false)
+
     end
 
 	-- 드래곤의 경우 
-    vars['slimeSprite']:setVisible(false)
     do 
         local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
         local l_skill_icon = skill_mgr:getDragonSkillIconList()

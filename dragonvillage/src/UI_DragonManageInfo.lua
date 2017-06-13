@@ -74,7 +74,8 @@ end
 function UI_DragonManageInfo:initButton()
     local vars = self.vars
     
-    do -- 우상단 버튼들 초기화
+	-- 우측 버튼
+    do 
         -- 레벨업
         vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
 
@@ -87,11 +88,15 @@ function UI_DragonManageInfo:initButton()
         -- 친밀도
         vars['friendshipBtn']:registerScriptTapHandler(function() self:click_friendshipBtn() end)
 
-        -- 룬
-        vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
+		-- 친밀도
+        vars['skillEnhanceBtn']:registerScriptTapHandler(function() self:click_skillEnhanceBtn() end)
     end
 
-    do -- 좌상단 버튼들 초기화
+	-- 좌측 버튼
+    do 
+        -- 룬
+        vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
+
         -- 대표
         vars['leaderBtn']:registerScriptTapHandler(function() self:click_leaderBtn() end)
 
@@ -105,9 +110,9 @@ function UI_DragonManageInfo:initButton()
 		vars['assessBtn']:registerScriptTapHandler(function() self:click_assessBtn() end)
     end
 
-    do -- 하단 버튼들 초기화
+	-- 하단 버튼
+    do 
         -- 도감
-        vars['collectionBtn']:setVisible(true)
         vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end)
     end
 
@@ -157,7 +162,8 @@ function UI_DragonManageInfo:refresh_buttonState()
     local vars = self.vars
     local is_slime_object = self.m_bSlimeObject
 
-    do -- 우상단 버튼들 초기화
+	-- 우측 버튼들 초기화
+    do 
         -- 레벨업
         vars['levelupBtn']:setEnabled(not is_slime_object)
 
@@ -170,11 +176,15 @@ function UI_DragonManageInfo:refresh_buttonState()
         -- 친밀도
         vars['friendshipBtn']:setEnabled(not is_slime_object)
 
-        -- 룬
-        vars['runeBtn']:setEnabled(not is_slime_object)
+		-- 스킬 강화
+        vars['skillEnhanceBtn']:setEnabled(not is_slime_object)
     end
 
-    do -- 좌상단 버튼들 초기화
+	-- 좌측 버튼들 초기화
+    do 
+		-- 룬
+		vars['runeBtn']:setEnabled(not is_slime_object)
+
         -- 대표
         vars['leaderBtn']:setEnabled(not is_slime_object)
 
@@ -382,6 +392,14 @@ end
 -------------------------------------
 function UI_DragonManageInfo:click_friendshipBtn()
     self:openSubManageUI(UI_DragonFriendship)
+end
+
+-------------------------------------
+-- function click_skillEnhanceBtn
+-- @brief 친밀도 버튼
+-------------------------------------
+function UI_DragonManageInfo:click_skillEnhanceBtn()
+    self:openSubManageUI(UI_DragonSkillEnhance)
 end
 
 -------------------------------------
