@@ -36,6 +36,12 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
         end
         egg_picker:setItemClickCB(click_egg)
 
+
+        local function onChangeCurrEgg(t_item, idx)
+            self:onChangeCurrEgg(t_item, idx)
+        end
+        egg_picker:setChangeCurrFocusIndexCB(onChangeCurrEgg)
+
         self:refreshEggList()
     end
 end
@@ -76,7 +82,22 @@ function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
     g_eggsData:request_incubate(egg_id, cnt, finish_cb, fail_cb)
 end
 
-local is_first = true
+-------------------------------------
+-- function onChangeCurrEgg
+-------------------------------------
+function UI_HatcheryIncubateTab:onChangeCurrEgg(t_item, idx)
+    local t_data = t_item['data']
+    local egg_id = tonumber(t_data['egg_id'])
+    local cnt = t_data['count']
+
+    local vars = self.vars
+    local table_item = TableItem()
+    local name = table_item:getValue(egg_id, 't_name')
+    vars['nameLabel']:setString(name)
+
+    local desc = table_item:getValue(egg_id, 't_desc')
+    vars['descLabel']:setString(desc)
+end
 
 -------------------------------------
 -- function refreshEggList
@@ -87,10 +108,6 @@ function UI_HatcheryIncubateTab:refreshEggList()
     egg_picker:clearAllItems()
         
     local l_item_list = g_eggsData:getEggListForUI()
-    if (is_first == false) then
-        table.remove(l_item_list, 1)
-    end
-
     local table_item = TableItem()
     
 

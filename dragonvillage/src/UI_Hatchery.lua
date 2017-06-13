@@ -86,5 +86,5 @@ function UI_Hatchery:initTab()
     self:addTabWidthTabUI('combine', vars['combineBtn'], combine_tab)    -- 조합
     self:addTabWidthTabUI('relation', vars['relationBtn'], relation_tab) -- 인연
 
-    self:setTab('summon')
+    self:setTab('incubate')
 end

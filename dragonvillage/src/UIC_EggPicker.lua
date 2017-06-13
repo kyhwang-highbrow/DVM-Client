@@ -26,6 +26,7 @@ UIC_EggPicker = class(PARENT, {
         m_showItemList = '',
 
         m_itemClickCB = 'function',
+        m_changeCurrFocusIndexCB = 'function',
     })
 
 -------------------------------------
@@ -285,8 +286,7 @@ function UIC_EggPicker:scrollViewDidScroll()
     end
     idx = math_round(idx) -- 사사오입
 
-
-    self.m_currFocusIndex = idx
+    self:setCurrFocusIndex(idx)
     local l_curr_pos = {}
     l_curr_pos[idx] = item_pos[idx]
 
@@ -458,6 +458,30 @@ function UIC_EggPicker:clearAllItems()
 
     self.m_lItemList = {}
     self.m_showItemList = {}
+    self.m_currFocusIndex = nil
 
     self:scrollViewDidScroll()
+end
+
+-------------------------------------
+-- function setChangeCurrFocusIndexCB
+-------------------------------------
+function UIC_EggPicker:setChangeCurrFocusIndexCB(func)
+    self.m_changeCurrFocusIndexCB = func
+end
+
+-------------------------------------
+-- function setCurrFocusIndex
+-------------------------------------
+function UIC_EggPicker:setCurrFocusIndex(idx)
+    if (self.m_currFocusIndex == idx) then
+        return
+    end
+
+    self.m_currFocusIndex = idx
+
+    if self.m_changeCurrFocusIndexCB then
+        local t_item = self.m_lItemList[idx]
+        self.m_changeCurrFocusIndexCB(t_item, idx)
+    end
 end
