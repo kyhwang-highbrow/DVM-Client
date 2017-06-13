@@ -7,14 +7,22 @@ UI_DragonManage_Base = class(PARENT,{
         m_selectDragonData = 'table',           -- 선택된 드래곤의 유저 데이터
         m_selectDragonOID = 'number',           -- 선택된 드래곤의 dragon object id
         m_bSlimeObject = 'boolean',
-        m_tableViewExt = 'TableViewExtension',  -- 하단의 드래곤 리스트 테이블 뷰
         m_dragonSelectFrame = 'sprite',         -- 선택된 드래곤의 카드에 표시
         m_bChangeDragonList = 'boolean',
+        
+		m_dragonAnimator = 'UIC_DragonAnimator',
 
+		-- 테이블뷰
+        m_tableViewExt = 'TableViewExtension',  -- 하단의 드래곤 리스트 테이블 뷰
+		m_mtrlTableViewTD = 'UIC_TableViewTD', -- 재료
 
-        m_sortManagerDragon = 'SortManager_Dragon',
-        m_uicSortList = '',
-        m_dragonAnimator = 'UIC_DragonAnimator',
+		-- sort list
+        m_uicSortList = 'UIC_SortList',
+		m_uicMtrlSortList = 'UIC_SortList',
+        
+		-- 정렬 도우미
+		m_sortManagerDragon = 'SortManager_Dragon',
+        m_mtrlDragonSortManager = 'SortManager_Dragon',
     })
 
 -------------------------------------
@@ -40,105 +48,6 @@ function UI_DragonManage_Base:init()
     -- 드래곤들의 덱설정 여부 데이터 갱신
     g_deckData:resetDragonDeckInfo()
 
-end
-
--------------------------------------
--- function init_dragonSortMgr
--- @brief 정렬 도우미
--------------------------------------
-function UI_DragonManage_Base:init_dragonSortMgr()
-    -- 정렬 매니저 생성
-    self.m_sortManagerDragon = SortManager_Dragon()
-
-    -- 정렬 UI 생성
-    local vars = self.vars
-    local uic_sort_list = MakeUICSortList_dragonManage(vars['sortBtn'], vars['sortLabel'])
-    self.m_uicSortList = uic_sort_list
-    
-
-    -- 버튼을 통해 정렬이 변경되었을 경우
-    local function sort_change_cb(sort_type)
-        self.m_sortManagerDragon:pushSortOrder(sort_type)
-        self:apply_dragonSort()
-        self:save_dragonSortInfo()
-    end
-    uic_sort_list:setSortChangeCB(sort_change_cb)
-
-    -- 오름차순/내림차순 버튼
-    vars['sortOrderBtn']:registerScriptTapHandler(function()
-            local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)
-            self.m_sortManagerDragon:setAllAscending(ascending)
-            self:apply_dragonSort()
-            self:save_dragonSortInfo()
-
-            vars['sortOrderSprite']:stopAllActions()
-            if ascending then
-                vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
-            else
-                vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
-            end
-        end)
-
-    -- 세이브데이터에 있는 정렬 값을 적용
-    self:apply_dragonSort_saveData()
-end
-
--------------------------------------
--- function apply_dragonSort_saveData
--- @brief 세이브데이터에 있는 정렬 순서 적용
--------------------------------------
-function UI_DragonManage_Base:apply_dragonSort_saveData()
-    local l_order = g_localData:get('dragon_sort', 'order')
-    local ascending = g_localData:get('dragon_sort', 'ascending')
-
-    local sort_type
-    for i=#l_order, 1, -1 do
-        sort_type = l_order[i]
-        self.m_sortManagerDragon:pushSortOrder(sort_type)
-    end
-    self.m_sortManagerDragon:setAllAscending(ascending)
-
-    self.m_uicSortList:setSelectSortType(sort_type)
-
-
-    do -- 오름차순, 내림차순 아이콘
-        local vars = self.vars
-        vars['sortOrderSprite']:stopAllActions()
-        if ascending then
-            vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
-        else
-            vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
-        end
-    end
-end
-
--------------------------------------
--- function apply_dragonSort
--- @brief 테이블 뷰에 정렬 적용
--------------------------------------
-function UI_DragonManage_Base:apply_dragonSort()
-    local list = self.m_tableViewExt.m_itemList
-    self.m_sortManagerDragon:sortExecution(list)
-    self.m_tableViewExt:setDirtyItemList()
-end
-
--------------------------------------
--- function save_dragonSortInfo
--- @brief 새로운 정렬 설정을 세이브 데이터에 적용
--------------------------------------
-function UI_DragonManage_Base:save_dragonSortInfo()
-
-    g_localData:lockSaveData()
-
-    -- 정렬 순서 저장
-    local sort_order = self.m_sortManagerDragon.m_lSortOrder
-    g_localData:applyLocalData(sort_order, 'dragon_sort', 'order')
-
-    -- 오름차순, 내림차순 저장
-    local ascending = self.m_sortManagerDragon.m_defaultSortAscending
-    g_localData:applyLocalData(ascending, 'dragon_sort', 'ascending')
-
-    g_localData:unlockSaveData()
 end
 
 -------------------------------------
@@ -376,6 +285,225 @@ end
 -------------------------------------
 function UI_DragonManage_Base:checkDragonSelect(doid)
     return true
+end
+
+-------------------------------------
+-- function init_dragonSortMgr
+-- @brief 정렬 도우미
+-------------------------------------
+function UI_DragonManage_Base:init_dragonSortMgr()
+    -- 정렬 매니저 생성
+    self.m_sortManagerDragon = SortManager_Dragon()
+
+	local sort_mgr = self.m_sortManagerDragon
+	local table_view = self.m_tableViewExt
+
+    -- 정렬 UI 생성
+    local vars = self.vars
+    local uic_sort_list = MakeUICSortList_dragonManage(vars['sortBtn'], vars['sortLabel'])
+    self.m_uicSortList = uic_sort_list
+    
+
+    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        sort_mgr:pushSortOrder(sort_type)
+        self:apply_dragonSort()
+        self:save_dragonSortInfo()
+    end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
+
+    -- 오름차순/내림차순 버튼
+    vars['sortOrderBtn']:registerScriptTapHandler(function()
+            local ascending = (not sort_mgr.m_defaultSortAscending)
+            sort_mgr:setAllAscending(ascending)
+            self:apply_dragonSort()
+            self:save_dragonSortInfo()
+
+			local order_spr = vars['sortOrderSprite']
+            order_spr:stopAllActions()
+            if ascending then
+                order_spr:runAction(cc.RotateTo:create(0.15, 180))
+            else
+                order_spr:runAction(cc.RotateTo:create(0.15, 0))
+            end
+        end)
+
+    -- 세이브데이터에 있는 정렬 값을 적용
+    self:apply_dragonSort_saveData()
+end
+
+-------------------------------------
+-- function apply_dragonSort_saveData
+-- @brief 세이브데이터에 있는 정렬 순서 적용
+-------------------------------------
+function UI_DragonManage_Base:apply_dragonSort_saveData()
+    local l_order = g_localData:get('dragon_sort', 'order')
+    local ascending = g_localData:get('dragon_sort', 'ascending')
+
+    local sort_type
+    for i=#l_order, 1, -1 do
+        sort_type = l_order[i]
+        self.m_sortManagerDragon:pushSortOrder(sort_type)
+    end
+    self.m_sortManagerDragon:setAllAscending(ascending)
+
+    self.m_uicSortList:setSelectSortType(sort_type)
+
+
+    do -- 오름차순, 내림차순 아이콘
+        local vars = self.vars
+        vars['sortOrderSprite']:stopAllActions()
+        if ascending then
+            vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+        else
+            vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+        end
+    end
+end
+
+-------------------------------------
+-- function apply_dragonSort
+-- @brief 테이블 뷰에 정렬 적용
+-------------------------------------
+function UI_DragonManage_Base:apply_dragonSort()
+    local list = self.m_tableViewExt.m_itemList
+    self.m_sortManagerDragon:sortExecution(list)
+    self.m_tableViewExt:setDirtyItemList()
+end
+
+-------------------------------------
+-- function save_dragonSortInfo
+-- @brief 새로운 정렬 설정을 세이브 데이터에 적용
+-------------------------------------
+function UI_DragonManage_Base:save_dragonSortInfo()
+    g_localData:lockSaveData()
+
+    -- 정렬 순서 저장
+    local sort_order = self.m_sortManagerDragon.m_lSortOrder
+    g_localData:applyLocalData(sort_order, 'dragon_sort', 'order')
+
+    -- 오름차순, 내림차순 저장
+    local ascending = self.m_sortManagerDragon.m_defaultSortAscending
+    g_localData:applyLocalData(ascending, 'dragon_sort', 'ascending')
+
+    g_localData:unlockSaveData()
+end
+
+-------------------------------------
+-- function refresh_dragonMaterialTableView
+-- @brief 재료 테이블 뷰 갱신
+-------------------------------------
+function UI_DragonManage_Base:refresh_dragonMaterialTableView()   
+    local list_table_node = self.vars['materialTableViewNode']
+    list_table_node:removeAllChildren()
+
+    -- 리스트 아이템 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.66)
+        -- 클릭 버튼 설정
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
+
+		self:createMtrlDragonCardCB(ui, data)
+    end
+
+    -- 테이블뷰 생성
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td.m_cellSize = cc.size(100, 100)
+    table_view_td.m_nItemPerCell = 5
+    table_view_td:setCellUIClass(UI_DragonCard, create_func)
+    self.m_mtrlTableViewTD = table_view_td
+
+    -- 리스트가 비었을 때
+    table_view_td:makeDefaultEmptyDescLabel(Str('도와줄 드래곤이 없어요 ㅠㅠ'))
+
+    -- 재료로 사용 가능한 리스트를 얻어옴
+    local l_dragon_list = self:getDragonMaterialList(self.m_selectDragonOID)
+    self.m_mtrlTableViewTD:setItemList(l_dragon_list)
+	
+	self:apply_mtrlDragonSort()
+end
+
+-------------------------------------
+-- function createMtrlDragonCardCB
+-- @brief 재료 카드 만든 후..
+-------------------------------------
+function UI_DragonManage_Base:createMtrlDragonCardCB(ui, data)
+end
+
+-------------------------------------
+-- function getDragonMaterialList
+-- @brief 재료 리스트를 반환
+-------------------------------------
+function UI_DragonManage_Base:getDragonMaterialList(doid)
+	error('미정의된 함수 getDragonMaterialList')
+end
+
+-------------------------------------
+-- function click_dragonUpgradeMaterial
+-------------------------------------
+function UI_DragonManage_Base:click_dragonMaterial(data)
+	error('미정의된 함수 click_dragonMaterial')
+end
+
+-------------------------------------
+-- function init_mtrDragonSortMgr
+-- @brief 정렬 도우미 - 재료드래곤
+-- @commnet 재료드래곤 테이블은 로컬에 정렬 방식을 저장하지 않는다
+-------------------------------------
+function UI_DragonManage_Base:init_mtrDragonSortMgr()
+    -- 정렬 매니저 생성
+    self.m_mtrlDragonSortManager = SortManager_Dragon()
+	self.m_mtrlDragonSortManager.m_mPreSortType['object_type']['ascending'] = true -- 슬라임이 앞쪽으로 정렬되도록 변경
+
+	local sort_mgr = self.m_mtrlDragonSortManager
+    
+	-- 정렬 UI 생성
+    local vars = self.vars
+    local uic_sort_list = MakeUICSortList_dragonManage(vars['sortSelectBtn'], vars['sortSelectLabel'], UIC_SORT_LIST_TOP_TO_BOT)
+    self.m_uicMtrlSortList = uic_sort_list
+    
+    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        sort_mgr:pushSortOrder(sort_type)
+		self:apply_mtrlDragonSort()
+    end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
+
+    -- 오름차순/내림차순 버튼
+    vars['sortSelectOrderBtn']:registerScriptTapHandler(function()
+        local ascending = (not sort_mgr.m_defaultSortAscending)
+        sort_mgr:setAllAscending(ascending)
+		self:apply_mtrlDragonSort()
+
+		local order_spr = vars['sortSelectOrderSprite']
+        order_spr:stopAllActions()
+        if ascending then
+            order_spr:runAction(cc.RotateTo:create(0.15, 180))
+        else
+            order_spr:runAction(cc.RotateTo:create(0.15, 0))
+        end
+    end)
+
+	-- 기본값으로 정렬 적용
+	self:apply_mtrlDragonSort()
+end
+
+-------------------------------------
+-- function apply_mtrlDragonSort
+-- @brief 재료 테이블 뷰에 정렬 적용
+-------------------------------------
+function UI_DragonManage_Base:apply_mtrlDragonSort()
+	-- 최초 refresh 할 때에는 sortManager가 생성되기 전이므로 예외처리
+	if (not self.m_mtrlDragonSortManager) then
+		return
+	end
+
+	local sort_mgr = self.m_mtrlDragonSortManager
+	local table_view = self.m_mtrlTableViewTD
+
+	local list = table_view.m_itemList
+	sort_mgr:sortExecution(list)
+	table_view:setDirtyItemList()
 end
 
 --@CHECK

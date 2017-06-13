@@ -4,9 +4,6 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonSkillEnhance
 -------------------------------------
 UI_DragonSkillEnhance = class(PARENT,{
-        m_mtrlTableViewTD = '', -- 재료
-        m_mtrlDragonSortManager = 'SortManager_Dragon',
-
 		-- 재료
         m_selectedMtr = '',
     })
@@ -33,20 +30,18 @@ function UI_DragonSkillEnhance:init(doid)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonSkillEnhance')
 
-    -- 정렬 매니저
-    self.m_mtrlDragonSortManager = SortManager_Dragon()
-
     self:sceneFadeInAction()
 
     self:initUI()
     self:initButton()
     self:refresh()
-
-    -- 정렬 도우미
-    self:init_dragonSortMgr()
-
+ 
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)
+	
+	-- 정렬 도우미
+    self:init_dragonSortMgr()
+	self:init_mtrDragonSortMgr()
 end
 
 -------------------------------------
@@ -125,8 +120,8 @@ function UI_DragonSkillEnhance:refresh()
 	vars['infoLabel']:setVisible(not upgradeable)
 	]]
 
-    self:refresh_dragonMaterialTableView()
 	self:refresh_skillIcon()
+    self:refresh_dragonMaterialTableView()
 end
 
 -------------------------------------
@@ -165,38 +160,11 @@ function UI_DragonSkillEnhance:refresh_skillIcon()
 end
 
 -------------------------------------
--- function refresh_dragonMaterialTableView
--- @brief 재료 테이블 뷰 갱신 : 스킬 강화
+-- function getDragonMaterialList
+-- @brief 재료리스트 : 스킬강화
+-- @override
 -------------------------------------
-function UI_DragonSkillEnhance:refresh_dragonMaterialTableView()    
-    local list_table_node = self.vars['materialTableViewNode']
-    list_table_node:removeAllChildren()
-
-    -- 리스트 아이템 생성 콜백
-    local function create_func(ui, data)
-        ui.root:setScale(0.66)
-
-        -- 클릭 버튼 설정
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
-    end
-
-    -- 테이블뷰 생성
-    local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(100, 100)
-    table_view_td.m_nItemPerCell = 5
-    table_view_td:setCellUIClass(UI_DragonCard, create_func)
-    self.m_mtrlTableViewTD = table_view_td
-
-    -- 재료로 사용 가능한 리스트를 얻어옴
-    local l_dragon_list = self:getDragonSkillEnhanceMaterialList(self.m_selectDragonOID)
-    self.m_mtrlTableViewTD:setItemList(l_dragon_list)
-end
-
--------------------------------------
--- function getDragonUpgradeMaterialList
--- @brief 드래곤 스킬 강화 재료(다른 드래곤) 리스트
--------------------------------------
-function UI_DragonSkillEnhance:getDragonSkillEnhanceMaterialList(doid)
+function UI_DragonSkillEnhance:getDragonMaterialList(doid)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
     
 	-- 슬라임 포함하지 않은 리스트
@@ -223,6 +191,7 @@ end
 -------------------------------------
 -- function createDragonCardCB
 -- @brief 드래곤 생성 콜백
+-- @override
 -------------------------------------
 function UI_DragonSkillEnhance:createDragonCardCB(ui, data)
 	-- @TODO 
@@ -232,6 +201,7 @@ end
 -------------------------------------
 -- function checkDragonSelect
 -- @brief 선택이 가능한 드래곤인지 여부
+-- @override
 -------------------------------------
 function UI_DragonSkillEnhance:checkDragonSelect(doid)
 	--[[
@@ -248,7 +218,8 @@ function UI_DragonSkillEnhance:checkDragonSelect(doid)
 end
 
 -------------------------------------
--- function click_dragonUpgradeMaterial
+-- function click_dragonMaterial
+-- @override
 -------------------------------------
 function UI_DragonSkillEnhance:click_dragonMaterial(data)
     local vars = self.vars
@@ -279,9 +250,9 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
 end
 
 -------------------------------------
--- function click_upgradeBtn
+-- function click_enhanceBtn
 -------------------------------------
-function UI_DragonSkillEnhance:click_upgradeBtn()
+function UI_DragonSkillEnhance:click_enhanceBtn()
 	-- 승급 가능 여부
 	--[[
 	local upgradeable, msg = g_dragonsData:checkUpgradeable(self.m_selectDragonOID)

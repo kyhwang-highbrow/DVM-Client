@@ -5,9 +5,6 @@ local MAX_DRAGON_LEVELUP_MATERIAL_MAX = 30 -- 한 번에 사용 가능한 재료
 -- class UI_DragonLevelUp
 -------------------------------------
 UI_DragonLevelUp = class(PARENT,{
-        m_mtrlTableViewTD = '', -- 재료
-        m_mtrlDragonSortManager = 'SortManager_Dragon',
-
         m_dragonLevelUpUIHelper = 'UI_DragonLevelUpHelper',
     })
 
@@ -33,24 +30,18 @@ function UI_DragonLevelUp:init(doid)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonLevelUp')
 
-    -- 정렬 매니저
-    self.m_mtrlDragonSortManager = SortManager_Dragon()
-    self.m_mtrlDragonSortManager.m_mPreSortType['object_type']['ascending'] = true -- 슬라임이 앞쪽으로 정렬되도록 변경
-
-    
-
     self:sceneFadeInAction()
 
     self:initUI()
+    self:initButton()
+    self:refresh()
 
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)
 
-    self:initButton()
-    self:refresh()
-
     -- 정렬 도우미
     self:init_dragonSortMgr()
+	self:init_mtrDragonSortMgr()
 end
 
 -------------------------------------
@@ -98,20 +89,6 @@ end
 function UI_DragonLevelUp:initButton()
     local vars = self.vars
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
-
-    do -- 정렬 관련 버튼들
-        vars['sortSelectOrderBtn']:registerScriptTapHandler(function() self:clcik_sortSelectOrderBtn() end)
-
-        vars['sortSelectBtn']:registerScriptTapHandler(function() self:click_sortSelectBtn() end)
-        vars['sortSelectHpBtn']:registerScriptTapHandler(function() self:click_sortBtn('hp') end)
-        vars['sortSelectDefBtn']:registerScriptTapHandler(function() self:click_sortBtn('def') end)
-        vars['sortSelectAtkBtn']:registerScriptTapHandler(function() self:click_sortBtn('atk') end)
-        vars['sortSelectAttrBtn']:registerScriptTapHandler(function() self:click_sortBtn('attr') end)
-        vars['sortSelectLvBtn']:registerScriptTapHandler(function() self:click_sortBtn('lv') end)
-        vars['sortSelectGradeBtn']:registerScriptTapHandler(function() self:click_sortBtn('grade') end)
-        vars['sortSelectRarityBtn']:registerScriptTapHandler(function() self:click_sortBtn('rarity') end)
-        vars['sortSelectFriendshipBtn']:registerScriptTapHandler(function() self:click_sortBtn('friendship') end)
-    end
 end
 
 -------------------------------------
@@ -121,9 +98,11 @@ function UI_DragonLevelUp:refresh()
     if self.m_selectDragonOID then
         self.m_dragonLevelUpUIHelper = UI_DragonLevelUpHelper(self.m_selectDragonOID, MAX_DRAGON_LEVELUP_MATERIAL_MAX)
     end
+
     self:refresh_dragonInfo()
-    self:refresh_dragonLevelupMaterialTableView()
     self:refresh_selectedMaterial()
+    
+	self:refresh_dragonMaterialTableView()
 end
 
 -------------------------------------
@@ -177,37 +156,11 @@ function UI_DragonLevelUp:refresh_dragonInfo()
 end
 
 -------------------------------------
--- function refresh_dragonLevelupMaterialTableView
--- @brief 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
+-- function createMtrlDragonCardCB
+-- @override
 -------------------------------------
-function UI_DragonLevelUp:refresh_dragonLevelupMaterialTableView()
-    local list_table_node = self.vars['materialTableViewNode']
-    list_table_node:removeAllChildren()
-
-    -- 리스트 아이템 생성 콜백
-    local function create_func(ui, data)
-        ui.root:setScale(0.66)
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
-        self:setAttrBonusLabel(ui)
-    end
-
-    -- 테이블뷰 생성
-    local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(100, 100)
-    table_view_td.m_nItemPerCell = 5
-    table_view_td:setCellUIClass(UI_DragonCard, create_func)
-    
-    -- 리스트가 비었을 때
-    table_view_td:makeDefaultEmptyDescLabel(Str('레벨업을 도와줄 드래곤이 없어요 ㅠㅠ\n(리더로 설정되거나 탐험 중인 드래곤은 사용할 수 없습니다)'))
-
-    self.m_mtrlTableViewTD = table_view_td
-
-    -- 재료로 사용 가능한 리스트를 얻어옴
-    local l_dragon_list = self:getDragonLevelupMaterialList(self.m_selectDragonOID)
-    self.m_mtrlTableViewTD:setItemList(l_dragon_list)
-
-    -- 정렬
-    self:refresh_sortUI()
+function UI_DragonLevelUp:createMtrlDragonCardCB(ui, data)
+	self:setAttrBonusLabel(ui)
 end
 
 -------------------------------------
@@ -252,14 +205,15 @@ function UI_DragonLevelUp:setAttrBonusLabel(dragon_card)
 end
 
 -------------------------------------
--- function getDragonLevelupMaterialList
--- @brief 드래곤 레벨업 재료
+-- function getDragonMaterialList
+-- @brief 재료리스트 : 레벨업
+-- @override
 -------------------------------------
-function UI_DragonLevelUp:getDragonLevelupMaterialList(doid)
+function UI_DragonLevelUp:getDragonMaterialList(doid)
     local dragon_dic = g_dragonsData:getDragonListWithSlime()
 
     -- 자기 자신 드래곤 제외
-    dragon_dic[doid] = nil
+    --dragon_dic[doid] = nil
 
     -- 재료로 사용 불가능한 드래곤 제외
     for oid,v in pairs(dragon_dic) do
@@ -272,90 +226,8 @@ function UI_DragonLevelUp:getDragonLevelupMaterialList(doid)
 end
 
 -------------------------------------
--- function clcik_sortSelectOrderBtn
--------------------------------------
-function UI_DragonLevelUp:clcik_sortSelectOrderBtn()
-    local sort_manager = self.m_mtrlDragonSortManager
-    sort_manager:setAllAscending(not sort_manager.m_defaultSortAscending)
-    self:refresh_sortUI()
-end
-
--------------------------------------
--- function click_sortSelectBtn
--------------------------------------
-function UI_DragonLevelUp:click_sortSelectBtn()
-    local vars = self.vars
-    vars['sortSelectNode']:runAction(cc.ToggleVisibility:create())
-end
-
--------------------------------------
--- function click_sortBtn
--------------------------------------
-function UI_DragonLevelUp:click_sortBtn(sort_type)
-    local sort_manager = self.m_mtrlDragonSortManager
-    sort_manager:pushSortOrder(sort_type)
-    self:refresh_sortUI()
-end
-
--------------------------------------
--- function refresh_sortUI
--------------------------------------
-function UI_DragonLevelUp:refresh_sortUI()
-    local vars = self.vars
-
-    local sort_manager = self.m_mtrlDragonSortManager
-
-    -- 테이블 뷰 정렬
-    local table_view = self.m_mtrlTableViewTD
-    sort_manager:sortExecution(table_view.m_itemList)
-    table_view:setDirtyItemList()
-
-    -- 선택된 정렬 이름
-    local sort_type = sort_manager:getTopSortingType()
-    local sort_name = sort_manager:getSortName(sort_type)
-    vars['sortSelectLabel']:setString(sort_name)
-
-    -- 오름차순일경우
-    if sort_manager.m_defaultSortAscending then
-        vars['sortSelectOrderSprite']:setScaleY(-1)
-    -- 내림차순일경우
-    else
-        vars['sortSelectOrderSprite']:setScaleY(1)
-    end
-end
-
--------------------------------------
--- function createDragonCardCB
--- @brief 드래곤 생성 콜백
--------------------------------------
-function UI_DragonLevelUp:createDragonCardCB(ui, data)
-    local doid = data['id']
-
-    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
-    if (not possible) then
-        if ui then
-            ui:setShadowSpriteVisible(true)
-        end
-    end
-end
-
--------------------------------------
--- function checkDragonSelect
--- @brief 선택이 가능한 드래곤인지 여부
--------------------------------------
-function UI_DragonLevelUp:checkDragonSelect(doid)
-    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
-
-    if possible then
-        return true
-    else
-        UIManager:toastNotificationRed(msg)
-        return false
-    end
-end
-
--------------------------------------
 -- function click_dragonMaterial
+-- @override
 -------------------------------------
 function UI_DragonLevelUp:click_dragonMaterial(t_dragon_data)
     local doid = t_dragon_data['id']
@@ -475,6 +347,38 @@ function UI_DragonLevelUp:refresh_stats(t_dragon_data, lv)
     vars['atkStats']:setAfterStats(changed_atk)
     vars['defStats']:setAfterStats(changed_def)
     vars['hpStats']:setAfterStats(changed_hp)
+end
+
+-------------------------------------
+-- function createDragonCardCB
+-- @brief 드래곤 생성 콜백
+-- @override
+-------------------------------------
+function UI_DragonLevelUp:createDragonCardCB(ui, data)
+    local doid = data['id']
+
+    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
+    if (not possible) then
+        if ui then
+            ui:setShadowSpriteVisible(true)
+        end
+    end
+end
+
+-------------------------------------
+-- function checkDragonSelect
+-- @brief 선택이 가능한 드래곤인지 여부
+-- @override
+-------------------------------------
+function UI_DragonLevelUp:checkDragonSelect(doid)
+    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
+
+    if possible then
+        return true
+    else
+        UIManager:toastNotificationRed(msg)
+        return false
+    end
 end
 
 -------------------------------------

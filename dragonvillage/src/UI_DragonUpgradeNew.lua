@@ -4,9 +4,6 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonUpgradeNew
 -------------------------------------
 UI_DragonUpgradeNew = class(PARENT,{
-        m_mtrlTableViewTD = '', -- 재료
-        m_mtrlDragonSortManager = 'SortManager_Dragon',
-
         --- 재료 중에서 선택된 드래곤
         m_lSelectedMtrlList = 'list',
         m_mSelectedMtrMap = 'map',
@@ -32,30 +29,28 @@ end
 -- function init
 -------------------------------------
 function UI_DragonUpgradeNew:init(doid)
-    self.m_lSelectedMtrlList = {}
-    self.m_mSelectedMtrMap = {}
-
     local vars = self:load('dragon_upgrade.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonUpgradeNew')
-
-    -- 정렬 매니저
-    self.m_mtrlDragonSortManager = SortManager_Dragon()
-    self.m_mtrlDragonSortManager.m_mPreSortType['object_type']['ascending'] = true -- 슬라임이 앞쪽으로 정렬되도록 변경
-
+	
     self:sceneFadeInAction()
+	
+	-- initialize
+    self.m_lSelectedMtrlList = {}
+    self.m_mSelectedMtrMap = {}
 
     self:initUI()
     self:initButton()
     self:refresh()
 
-    -- 정렬 도우미
-    self:init_dragonSortMgr()
-
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)
+
+    -- 정렬 도우미
+    self:init_dragonSortMgr()
+	self:init_mtrDragonSortMgr()
 end
 
 -------------------------------------
@@ -97,20 +92,6 @@ end
 function UI_DragonUpgradeNew:initButton()
     local vars = self.vars
     vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
-
-    do -- 정렬 관련 버튼들
-        vars['sortSelectOrderBtn']:registerScriptTapHandler(function() self:clcik_sortSelectOrderBtn() end)
-
-        vars['sortSelectBtn']:registerScriptTapHandler(function() self:click_sortSelectBtn() end)
-        vars['sortSelectHpBtn']:registerScriptTapHandler(function() self:click_sortBtn('hp') end)
-        vars['sortSelectDefBtn']:registerScriptTapHandler(function() self:click_sortBtn('def') end)
-        vars['sortSelectAtkBtn']:registerScriptTapHandler(function() self:click_sortBtn('atk') end)
-        vars['sortSelectAttrBtn']:registerScriptTapHandler(function() self:click_sortBtn('attr') end)
-        vars['sortSelectLvBtn']:registerScriptTapHandler(function() self:click_sortBtn('lv') end)
-        vars['sortSelectGradeBtn']:registerScriptTapHandler(function() self:click_sortBtn('grade') end)
-        vars['sortSelectRarityBtn']:registerScriptTapHandler(function() self:click_sortBtn('rarity') end)
-        vars['sortSelectFriendshipBtn']:registerScriptTapHandler(function() self:click_sortBtn('friendship') end)
-    end
 end
 
 -------------------------------------
@@ -196,9 +177,10 @@ function UI_DragonUpgradeNew:refresh()
 	local upgradeable = g_dragonsData:checkUpgradeable(self.m_selectDragonOID)
 	vars['infoLabel']:setVisible(not upgradeable)
 
-    self:refresh_dragonUpgradeMaterialTableView()
     self:refresh_upgrade(table_dragon, t_dragon_data)
     self:refresh_stats(t_dragon_data)
+	
+    self:refresh_dragonMaterialTableView()
 end
 
 -------------------------------------
@@ -259,41 +241,11 @@ function UI_DragonUpgradeNew:refresh_upgrade(table_dragon, t_dragon_data)
 end
 
 -------------------------------------
--- function refresh_dragonUpgradeMaterialTableView
--- @brief 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
+-- function getDragonMaterialList
+-- @brief 재료리스트 : 승급
+-- @override
 -------------------------------------
-function UI_DragonUpgradeNew:refresh_dragonUpgradeMaterialTableView()    
-    local list_table_node = self.vars['materialTableViewNode']
-    list_table_node:removeAllChildren()
-
-    -- 리스트 아이템 생성 콜백
-    local function create_func(ui, data)
-        ui.root:setScale(0.66)
-
-        -- 클릭 버튼 설정
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonUpgradeMaterial(data) end)
-    end
-
-    -- 테이블뷰 생성
-    local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(100, 100)
-    table_view_td.m_nItemPerCell = 5
-    table_view_td:setCellUIClass(UI_DragonCard, create_func)
-    self.m_mtrlTableViewTD = table_view_td
-
-    -- 재료로 사용 가능한 리스트를 얻어옴
-    local l_dragon_list = self:getDragonUpgradeMaterialList(self.m_selectDragonOID)
-    self.m_mtrlTableViewTD:setItemList(l_dragon_list)
-
-    -- 정렬
-    self:refresh_sortUI()
-end
-
--------------------------------------
--- function getDragonUpgradeMaterialList
--- @brief 드래곤 승급 재료(다른 드래곤) 리스트
--------------------------------------
-function UI_DragonUpgradeNew:getDragonUpgradeMaterialList(doid)
+function UI_DragonUpgradeNew:getDragonMaterialList(doid)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
     
     local dragon_dic = g_dragonsData:getDragonListWithSlime()
@@ -313,61 +265,9 @@ function UI_DragonUpgradeNew:getDragonUpgradeMaterialList(doid)
 end
 
 -------------------------------------
--- function clcik_sortSelectOrderBtn
--------------------------------------
-function UI_DragonUpgradeNew:clcik_sortSelectOrderBtn()
-    local sort_manager = self.m_mtrlDragonSortManager
-    sort_manager:setAllAscending(not sort_manager.m_defaultSortAscending)
-    self:refresh_sortUI()
-end
-
--------------------------------------
--- function click_sortSelectBtn
--------------------------------------
-function UI_DragonUpgradeNew:click_sortSelectBtn()
-    local vars = self.vars
-    vars['sortSelectNode']:runAction(cc.ToggleVisibility:create())
-end
-
--------------------------------------
--- function click_sortBtn
--------------------------------------
-function UI_DragonUpgradeNew:click_sortBtn(sort_type)
-    local sort_manager = self.m_mtrlDragonSortManager
-    sort_manager:pushSortOrder(sort_type)
-    self:refresh_sortUI()
-end
-
--------------------------------------
--- function refresh_sortUI
--------------------------------------
-function UI_DragonUpgradeNew:refresh_sortUI()
-    local vars = self.vars
-
-    local sort_manager = self.m_mtrlDragonSortManager
-
-    -- 테이블 뷰 정렬
-    local table_view = self.m_mtrlTableViewTD
-    sort_manager:sortExecution(table_view.m_itemList)
-    table_view:setDirtyItemList()
-
-    -- 선택된 정렬 이름
-    local sort_type = sort_manager:getTopSortingType()
-    local sort_name = sort_manager:getSortName(sort_type)
-    vars['sortSelectLabel']:setString(sort_name)
-
-    -- 오름차순일경우
-    if sort_manager.m_defaultSortAscending then
-        vars['sortSelectOrderSprite']:setScaleY(-1)
-    -- 내림차순일경우
-    else
-        vars['sortSelectOrderSprite']:setScaleY(1)
-    end
-end
-
--------------------------------------
 -- function createDragonCardCB
 -- @brief 드래곤 생성 콜백
+-- @override
 -------------------------------------
 function UI_DragonUpgradeNew:createDragonCardCB(ui, data)
     local doid = data['id']
@@ -383,6 +283,7 @@ end
 -------------------------------------
 -- function checkDragonSelect
 -- @brief 선택이 가능한 드래곤인지 여부
+-- @override
 -------------------------------------
 function UI_DragonUpgradeNew:checkDragonSelect(doid)
 	local upgradeable, msg = g_dragonsData:checkMaxUpgrade(doid)
@@ -396,9 +297,10 @@ function UI_DragonUpgradeNew:checkDragonSelect(doid)
 end
 
 -------------------------------------
--- function click_dragonUpgradeMaterial
+-- function click_dragonMaterial
+-- @override
 -------------------------------------
-function UI_DragonUpgradeNew:click_dragonUpgradeMaterial(data)
+function UI_DragonUpgradeNew:click_dragonMaterial(data)
     local vars = self.vars
 
     local doid = data['id']
