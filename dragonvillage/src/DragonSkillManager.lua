@@ -66,16 +66,17 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolutio
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
 	local table_skill = GetSkillTable(self.m_charType)
-    for i = 1, 5 do
+    for i = 1, 9 do
         local skill_id = t_character['skill_' .. i]
 		local skill_type = table_skill:getSkillType(skill_id)
+		local add_type = t_character['skill_' .. i .. '_type']
         if skill_type and skill_id then
-            self:setSkillID(skill_type, skill_id, self:getSkillLevel(i))
+            self:setSkillID(skill_type, skill_id, self:getSkillLevel(i), add_type)
         end
     end
 
 	-- @TEST 활성화 스킬 확인 로그
-	if g_constant:get('DEBUG', 'PRINT_DRAGON_SKILL') then 
+	if true then -- g_constant:get('DEBUG', 'PRINT_DRAGON_SKILL') then 
 		self:printSkillManager()
 	end
 end
@@ -160,7 +161,7 @@ end
 -------------------------------------
 -- function setSkillID
 -------------------------------------
-function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
+function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type)
     if (skill_lv <= 0) then
         return
     end
@@ -174,27 +175,70 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
         error('skill_type : ' .. skill_type)
     end
 
+	-- skill info 생성
     local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
 
-	local t_add_value = nil
-	if isExistValue(skill_type, 'active', 'basic', 'leader') then
-		if (self.m_lSkillIndivisualInfo[skill_type]) then
-			t_add_value = self.m_lSkillIndivisualInfo[skill_type].m_tAddedValue
-		end
+	-- skill 입력 및 덮어씌우기
+	local old_skill_info
+
+	-- 액티브 스킬은 강화 가능
+	if (skill_type == 'active') then
+		-- 덮어씌우기전에 임시로 저장해둔다
+		old_skill_info = self.m_lSkillIndivisualInfo[skill_type]
 		self.m_lSkillIndivisualInfo[skill_type] = skill_indivisual_info
-    else
-        table.insert(self.m_lSkillIndivisualInfo[skill_type], skill_indivisual_info)
+
+	-- 기본공격 및 리더버프는 강화 불가
+	elseif isExistValue(skill_type, 'basic', 'leader') then
+		self.m_lSkillIndivisualInfo[skill_type] = skill_indivisual_info
+
+	-- 일반 스킬
+    else	
+		-- 성룡스킬이 아닌 경우 add_type == nil 이다.
+		if (not add_type) then 
+			table.insert(self.m_lSkillIndivisualInfo[skill_type], skill_indivisual_info)
+
+		-- 성룡스킬이지만 새로 추가되는 일반 스킬인 경우
+		elseif (add_type == 'new') then
+			table.insert(self.m_lSkillIndivisualInfo[skill_type], skill_indivisual_info)
+
+		-- 성룡 스킬이고 skill_1, skill_2를 가리킨다면 찾아서 바꿔줘야한다.
+		elseif isExistValue(add_type, 'skill_1', 'skill_2') then
+			local old_skill_id = self.m_charTable[add_type]
+			local skill_info, idx = self:findSkillInfoByID(old_skill_id)
+			old_skill_info = skill_info
+			self.m_lSkillIndivisualInfo[skill_type][idx] = skill_indivisual_info
+			
+		end
+
     end
 
     -- 스킬 레벨 적용
     skill_indivisual_info:applySkillLevel()
-	skill_indivisual_info:insertAddValue(t_add_value)
+	skill_indivisual_info:mergeSkillInfo(old_skill_info)
 
 	-- 스킬 desc 세팅
 	skill_indivisual_info:applySkillDesc()
 
 	-- 맵으로 저장
 	self.m_mSkillInfoMap[skill_id] = skill_indivisual_info
+end
+
+-------------------------------------
+-- function findSkillInfoByID
+-- @brief 해당 skillID의 skill_individual_info를 찾는다.
+-------------------------------------
+function IDragonSkillManager:findSkillInfoByID(skill_id)
+	if (not skill_id) then
+		return
+	end
+
+    local skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
+	
+	for i, skill_info in pairs(self.m_lSkillIndivisualInfo[skill_type]) do
+		if (skill_id == skill_info:getSkillID()) then
+			return skill_info, i
+		end		
+	end
 end
 
 -------------------------------------
@@ -340,6 +384,28 @@ end
 function IDragonSkillManager:getSkillInfoByID(skill_id)
     return self.m_mSkillInfoMap[skill_id]
 end
+
+-------------------------------------
+-- function getLevelingSkill
+-- @param Skill type
+-- @brief 타입으로 찾아 레벨링된 스킬 테이블 반환
+-------------------------------------
+function IDragonSkillManager:getLevelingSkillByType(skill_type)
+	return self.m_lSkillIndivisualInfo[skill_type]
+end
+
+-------------------------------------
+-- function getLevelingSkill
+-- @param Skill id 
+-- @brief id로 찾아 레벨링된 스킬 테이블 반환
+-------------------------------------
+function IDragonSkillManager:getLevelingSkillById(skill_id)
+	local skill_info = self.m_mSkillInfoMap[skill_id]
+	if (skill_info) then
+		return skill_info.m_tSkill
+	end
+end
+
 
 
 
@@ -510,7 +576,7 @@ function IDragonSkillManager:printSkillManager()
     end
 
     cclog('########DragonSkillManager##############')
-	cclog('dragon id : ' .. self.m_charID)
+	cclog('name : ' .. self.m_charTable['t_name'])
 	for type, skill in pairs(self.m_lSkillIndivisualInfo) do
 		if isExistValue(type, 'active', 'basic', 'leader') then
 			if self.m_lSkillIndivisualInfo[type] then
@@ -528,30 +594,19 @@ function IDragonSkillManager:printSkillManager()
 	cclog('----------------------------------------')
 end
 
--------------------------------------
--- function getLevelingSkill
--- @param Skill type
--- @brief 타입으로 찾아 레벨링된 스킬 테이블 반환
--------------------------------------
-function IDragonSkillManager:getLevelingSkillByType(skill_type)
-	return self.m_lSkillIndivisualInfo[skill_type]
-end
 
--------------------------------------
--- function getLevelingSkill
--- @param Skill id 
--- @brief id로 찾아 레벨링된 스킬 테이블 반환
--------------------------------------
-function IDragonSkillManager:getLevelingSkillById(skill_id)
-	local skill_info = self.m_mSkillInfoMap[skill_id]
-	if (skill_info) then
-		return skill_info.m_tSkill
-	end
-end
+
+
+
+
+
+
+
 
 -------------------------------------
 -- function applySkillLevel
 -- @brief skill level에 따른 능력치를 계산하여 적용
+-- @comment 실질적으론 DragonSkillIndivisual 에서 사용한다. Helper처럼 사용중
 -------------------------------------
 function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 	-- 필요한 데이터 선언
@@ -708,6 +763,13 @@ end
 function IDragonSkillManager:getCloneTable()
     return clone(IDragonSkillManager)
 end
+
+
+
+
+
+
+
 
 
 -------------------------------------

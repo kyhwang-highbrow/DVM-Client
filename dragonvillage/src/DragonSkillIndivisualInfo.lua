@@ -52,21 +52,24 @@ function DragonSkillIndivisualInfo:applySkillLevel()
 end
 
 -------------------------------------
--- function insertAddValue
--- @brief 액티브 강화의 경우 기본 액티브의 레벨로 증가한 수치를 가져와 적용
+-- function mergeSkillInfo
+-- @brief 성룡 강화의 경우 기존 스킬 info를 가져와서 합쳐버린다...!
 -------------------------------------
-function DragonSkillIndivisualInfo:insertAddValue(t_add_value)
-	if not (self.m_skillType == 'active') then
-		return 
-	end
-	if not (t_add_value) then
+function DragonSkillIndivisualInfo:mergeSkillInfo(other_skill_info)
+	if not (other_skill_info) then
 		return
 	end
 
-	-- 스킬을 덮어씌울때 덮어씌워진 스킬의 레벨 옵션을 그대로 갖고와 적용시킨다.
-	local t_skill = self.m_tSkill
-	for column, value in pairs(t_add_value) do
-		self.m_tSkill[column] = self.m_tSkill[column] + value
+	if (self:getSkillType() ~= other_skill_info:getSkillType()) then
+		error('강화될 스킬과 성룡 강화 스킬의 타입이 다르다.')
+	end
+
+	local other_t_skill = other_skill_info:getSkillTable()
+	for column, value in pairs(self.m_tSkill) do
+		
+		local other_value = other_t_skill[column]
+
+
 	end
 end
 
@@ -82,42 +85,43 @@ end
 -- function getSkillDesc
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillDesc()
-    local skill_desc = IDragonSkillManager:getSkillDescPure(self.m_tSkill)
-    return skill_desc
+    return IDragonSkillManager:getSkillDescPure(self.m_tSkill)
 end
 
 -------------------------------------
 -- function getSkillID
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillID()
-    local skill_id = self.m_skillID
-    return skill_id
+    return self.m_skillID
 end
 
 -------------------------------------
 -- function getSkillName
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillName()
-    local name = Str(self.m_tSkill['t_name'])
-    return name
+    return Str(self.m_tSkill['t_name'])
 end
 
 -------------------------------------
 -- function getSkillLevel
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillLevel()
-    local skill_level = self.m_skillLevel
-    return skill_level
+    return self.m_skillLevel
 end
 
 -------------------------------------
 -- function getSkillLevel
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillType()
-    local skill_type = self.m_skillType
-    return skill_type
+    return self.m_skillType
 end
 
+-------------------------------------
+-- function getSkillTable
+-------------------------------------
+function DragonSkillIndivisualInfo:getSkillTable()
+    return self.m_tSkill
+end
 
 
 
