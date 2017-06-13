@@ -498,6 +498,9 @@ function UI_InvenDevApiPopup:init_eggTableView()
         local egg_id = v['item']
         table.insert(l_item_list, egg_id)
     end
+    table.sort(l_item_list, function(a, b)
+            return a < b
+        end)
 
     -- 생성 콜백
     local function create_func(ui, data)

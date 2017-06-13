@@ -18,8 +18,6 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_HatcheryIncubateTab:onEnterTab(first)
-    cclog('## UI_HatcheryIncubateTab:onEnterTab(first)')
-
     if first then
         local vars = self.vars
         local parent_node = vars['eggFickerNode']
@@ -43,6 +41,22 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
         egg_picker:setChangeCurrFocusIndexCB(onChangeCurrEgg)
 
         self:refreshEggList()
+
+
+        -- 테이머
+        do
+		    local t_tamer =  g_tamerData:getCurrTamerTable()
+
+            local tamer_res = t_tamer['res']
+            local animator = MakeAnimator(tamer_res)
+            animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+            animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+            self.vars['tamerNode']:addChild(animator.m_node)
+		
+		    -- 표정 적용
+		    local face_ani = TableTamer:getTamerFace(t_tamer['type'], true)
+		    animator:changeAni(face_ani, true)
+        end
     end
 end
 
