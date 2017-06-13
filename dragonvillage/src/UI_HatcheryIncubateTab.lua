@@ -93,6 +93,10 @@ function UI_HatcheryIncubateTab:onChangeCurrEgg(t_item, idx)
     local vars = self.vars
     local table_item = TableItem()
     local name = table_item:getValue(egg_id, 't_name')
+
+    if (1 < cnt) then
+        name = name .. 'X' .. cnt
+    end
     vars['nameLabel']:setString(name)
 
     local desc = table_item:getValue(egg_id, 't_desc')

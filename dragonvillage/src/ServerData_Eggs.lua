@@ -70,7 +70,8 @@ end
 -------------------------------------
 function ServerData_Eggs:getEggListForUI()
     local egg_list = self.m_serverData:getRef('user', 'eggs')
-    
+    local table_item = TableItem()
+
     local t_ret = {}
 
     -- 리스트 생성
@@ -78,9 +79,29 @@ function ServerData_Eggs:getEggListForUI()
         local egg_id = i
         local count = v
 
-        -- 일단 모두 개별로 처리 (중급, 일반 알은 10개 묶음 가능)
-        for _i=1, count do
-            table.insert(t_ret, {['egg_id']=egg_id, count=1})
+        if (0 < count) then
+
+            local full_type = table_item:getValue(tonumber(egg_id), 'full_type')
+
+             -- (중급, 일반 알은 10개 묶음 가능)
+            if isExistValue(full_type, 'egg_middle_mystery', 'egg_common_unknown') then
+                local bundle_cnt = math_floor(count / 10)
+                local indivisual_cnt = count - (bundle_cnt * 10)
+
+                for _i=1, bundle_cnt do
+                    table.insert(t_ret, {['egg_id']=egg_id, ['count']=10})
+                end
+
+                for _i=1, indivisual_cnt do
+                    table.insert(t_ret, {['egg_id']=egg_id, ['count']=1})
+                end
+
+            -- 나머지 알들은 개별로 처리
+            else
+                for _i=1, count do
+                    table.insert(t_ret, {['egg_id']=egg_id, ['count']=1})
+                end
+            end
         end
     end
 
@@ -96,7 +117,6 @@ function ServerData_Eggs:getEggListForUI()
         end
     end
     table.sort(t_ret, sort_func)
-
 
     return t_ret
 end
