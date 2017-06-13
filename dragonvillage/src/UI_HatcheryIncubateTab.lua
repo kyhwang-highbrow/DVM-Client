@@ -4,6 +4,7 @@ local PARENT = UI_IndivisualTab
 -- class UI_HatcheryIncubateTab
 -------------------------------------
 UI_HatcheryIncubateTab = class(PARENT,{
+        m_eggPicker = '',
     })
 
 -------------------------------------
@@ -28,32 +29,14 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
 
         egg_picker.m_itemWidth = 250 -- 알의 가로 크기
         egg_picker.m_nearItemScale = 0.66
+        self.m_eggPicker = egg_picker
 
-        local l_agg_res = {}
-        table.insert(l_agg_res, 'dark_egg')
-        table.insert(l_agg_res, 'earth_egg')
-        table.insert(l_agg_res, 'fire_egg')
-        table.insert(l_agg_res, 'friendship_egg')
-        table.insert(l_agg_res, 'illusion_egg')
-        table.insert(l_agg_res, 'legend_egg')
-        table.insert(l_agg_res, 'light_egg')
-        table.insert(l_agg_res, 'miracle_egg')
-        table.insert(l_agg_res, 'mystery_egg')
-        table.insert(l_agg_res, 'mysteryup_egg')
-        table.insert(l_agg_res, 'unknown_egg')
-        table.insert(l_agg_res, 'water_egg')
-        
-
-        -- 200개의 아이템 임시 추가
-        for i=1, 200 do
-            local rand_idx = math_random(1, #l_agg_res)
-            local _res = l_agg_res[rand_idx]
-            local res = 'res/item/egg/' .. _res .. '.png'
-            egg_picker:addEgg(res)
+        local function click_egg(t_item, idx)
+            self:click_eggItem(t_item, idx)
         end
+        egg_picker:setItemClickCB(click_egg)
 
-        -- 10번째 아이템을 포커스
-        --egg_picker:setFocus(10)
+        self:refreshEggList()
     end
 end
 
@@ -62,4 +45,71 @@ end
 -------------------------------------
 function UI_HatcheryIncubateTab:onExitTab()
     cclog('## UI_HatcheryIncubateTab:onExitTab()')
+end
+
+-------------------------------------
+-- function click_eggItem
+-------------------------------------
+function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
+    local function finish_cb(ret)
+    local l_dragon_list = ret['added_dragons']
+        UI_GachaResult_Dragon(l_dragon_list)
+
+        -- 리스트 갱신
+        self:refreshEggList()
+    end
+
+    local function fail_cb()
+
+    end
+
+    local t_data = t_item['data']
+    local egg_id = t_data['egg_id']
+    local cnt = t_data['count']
+
+    g_eggsData:request_incubate(egg_id, cnt, finish_cb, fail_cb)
+end
+
+local is_first = true
+
+-------------------------------------
+-- function refreshEggList
+-------------------------------------
+function UI_HatcheryIncubateTab:refreshEggList()
+    local egg_picker = self.m_eggPicker
+
+    egg_picker:clearAllItems()
+        
+    local l_item_list = g_eggsData:getEggListForUI()
+    if (is_first == false) then
+        table.remove(l_item_list, 1)
+    end
+
+    local table_item = TableItem()
+    
+
+    for i,v in ipairs(l_item_list) do
+        local egg_id = tonumber(v['egg_id'])
+        local _res = table_item:getValue(egg_id, 'full_type')
+        local res = 'res/item/egg/' .. _res .. '.png'
+
+        local scale = 0.8
+        local sprite = cc.Sprite:create(res)
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        sprite:setScale(scale)
+
+        local data = v
+
+        local ui = {}
+        ui.root = sprite
+            
+        egg_picker:addEgg(data, ui)
+    end
+
+    -- 2번째 아이템을 포커스
+    --egg_picker:setFocus(2)
+
+
+    is_first = false
 end

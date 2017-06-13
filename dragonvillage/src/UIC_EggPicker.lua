@@ -8,7 +8,7 @@ UIC_EggPicker = class(PARENT, {
         m_nearItemScale = 'number',  -- 현재 포커스된 아이템 양 옆 아이템의 스케일 80%
         m_restItemScale = 'number',  -- 기타 아이템의 스케일 40%
 
-        m_lItemList = 'list[cc.Menu]',
+        m_lItemList = 'table',
         m_itemWidth = 'number',
 
         m_itemAreaTotalWidth = 'number',
@@ -24,6 +24,8 @@ UIC_EggPicker = class(PARENT, {
 
         -- 퍼포먼스 이슈
         m_showItemList = '',
+
+        m_itemClickCB = 'function',
     })
 
 -------------------------------------
@@ -41,6 +43,7 @@ function UIC_EggPicker:init()
     self.m_currFocusIndex = nil
 
     self.m_showItemList = {}
+    self.m_containerOffsetX = 0
 end
 
 -------------------------------------
@@ -108,7 +111,14 @@ function UIC_EggPicker:sample(scene)
 
     -- 200개의 아이템 임시 추가
     for i=1, 200 do
-        egg_picker:addEgg()
+        local scale = 0.8
+        local res = 'res/ui/icon/colosseum_result_01.png'
+        local ui = cc.Sprite:create(res)
+        ui:setDockPoint(cc.p(0.5, 0.5))
+        ui:setAnchorPoint(cc.p(0.5, 0.5))
+        ui:setScale(scale)
+
+        egg_picker:addEgg({}, ui)
     end
 
     -- 10번째 아이템을 포커스
@@ -149,7 +159,7 @@ end
 -------------------------------------
 -- function addEgg
 -------------------------------------
-function UIC_EggPicker:addEgg(res)
+function UIC_EggPicker:addEgg(data, ui)
 
     local normal_size = cc.size(self:getNormalSize())
     local size = cc.size(self.m_itemWidth, normal_size['height'])
@@ -175,16 +185,13 @@ function UIC_EggPicker:addEgg(res)
             end)
     end
 
-    table.insert(self.m_lItemList, menu)
+    local t_item = {}
+    t_item['data'] = data
+    t_item['ui'] = ui
+    t_item['menu'] = menu
+    table.insert(self.m_lItemList, t_item)
 
-    local scale = 0.8
-    --local item = cc.Sprite:create('summon_egg_01.png')
-    --local item = cc.Sprite:create('res/ui/icon/colosseum_result_01.png')
-    local item = cc.Sprite:create(res)
-    item:setDockPoint(cc.p(0.5, 0.5))
-    item:setAnchorPoint(cc.p(0.5, 0.5))
-    item:setScale(scale)
-    menu:addChild(item)
+    menu:addChild(ui.root)
     menu:setUpdateChildrenTransform()
 
     do -- 컨테이너 사이즈 조절
@@ -241,6 +248,12 @@ end
 -- function scrollViewDidScroll
 -------------------------------------
 function UIC_EggPicker:scrollViewDidScroll()
+    local item_count = #self.m_lItemList
+    if (item_count <= 0) then
+        return
+    end
+
+
     local offset = self.m_node:getContentOffset()
 
     local view_size = self.m_node:getViewSize()
@@ -248,8 +261,6 @@ function UIC_EggPicker:scrollViewDidScroll()
     -- 화면 가운데의 포지션
     local pos_x = (offset['x'] * -1) + (view_size['width'] / 2) - self.m_containerOffsetX
     --cclog('pos_x ' .. pos_x)
-
-    local item_count = #self.m_lItemList
     local item_width = self.m_itemWidth
 
     -- 첫 아이템은 선택할 수 없음
@@ -281,7 +292,7 @@ function UIC_EggPicker:scrollViewDidScroll()
 
     do -- 일단 딱 맞는다고 가정하고 짜보자
         local z_order = 10000
-        item_list[idx]:setLocalZOrder(z_order)            
+        item_list[idx]['menu']:setLocalZOrder(z_order)            
 
         -- 왼쪽 계산
         local x = item_pos[idx]
@@ -290,16 +301,16 @@ function UIC_EggPicker:scrollViewDidScroll()
             if (i == (idx -1)) then
                 x = x - (item_width * self.m_focusItemScale / 2) - (item_width * self.m_nearItemScale / 2)
                 l_curr_pos[i] = x
-                item_list[i]:setPositionX(self.m_containerOffsetX + x)
-                item_list[i]:setScale(self.m_nearItemScale)
+                item_list[i]['menu']:setPositionX(self.m_containerOffsetX + x)
+                item_list[i]['menu']:setScale(self.m_nearItemScale)
             else
                 x = x - (item_width * self.m_restItemScale)
                 l_curr_pos[i] = x
-                item_list[i]:setPositionX(self.m_containerOffsetX + x)
-                item_list[i]:setScale(self.m_nearItemScale)
+                item_list[i]['menu']:setPositionX(self.m_containerOffsetX + x)
+                item_list[i]['menu']:setScale(self.m_nearItemScale)
             end
             local_z_order = local_z_order - 1
-            item_list[i]:setLocalZOrder(local_z_order)
+            item_list[i]['menu']:setLocalZOrder(local_z_order)
         end
 
         -- 오른쪽 계산
@@ -309,16 +320,16 @@ function UIC_EggPicker:scrollViewDidScroll()
             if (i == (idx +1)) then
                 x = x + (item_width * self.m_focusItemScale / 2) + (item_width * self.m_nearItemScale / 2)
                 l_curr_pos[i] = x
-                item_list[i]:setPositionX(self.m_containerOffsetX + x)
-                item_list[i]:setScale(self.m_nearItemScale)
+                item_list[i]['menu']:setPositionX(self.m_containerOffsetX + x)
+                item_list[i]['menu']:setScale(self.m_nearItemScale)
             else
                 x = x + (item_width * self.m_restItemScale)
                 l_curr_pos[i] = x
-                item_list[i]:setPositionX(self.m_containerOffsetX + x)
-                item_list[i]:setScale(self.m_nearItemScale)
+                item_list[i]['menu']:setPositionX(self.m_containerOffsetX + x)
+                item_list[i]['menu']:setScale(self.m_nearItemScale)
             end
             local_z_order = local_z_order - 1
-            item_list[i]:setLocalZOrder(local_z_order)
+            item_list[i]['menu']:setLocalZOrder(local_z_order)
         end
     end
 
@@ -340,9 +351,9 @@ function UIC_EggPicker:scrollViewDidScroll()
         --local dist = (item_width * self.m_focusItemScale / 2) - (item_width * self.m_nearItemScale / 2)
         local dist = (item_width * self.m_focusItemScale / 2) + (item_width * self.m_nearItemScale / 2) - interval
         x = item_pos[idx] + (dist * rate)
-        item_list[idx]:setPositionX(self.m_containerOffsetX + x)
+        item_list[idx]['menu']:setPositionX(self.m_containerOffsetX + x)
         local std_scale = self.m_nearItemScale + (self.m_focusItemScale - self.m_nearItemScale) * (1 - math_abs(rate))
-        item_list[idx]:setScale(std_scale)
+        item_list[idx]['menu']:setScale(std_scale)
  
         -- 오른쪽 아이템 위치 보정
         if (rate <= 0) then
@@ -350,11 +361,11 @@ function UIC_EggPicker:scrollViewDidScroll()
             if item_list[_idx] then
                 -- 크기 조정
                 local _scale = self.m_nearItemScale + (self.m_focusItemScale - self.m_nearItemScale) * (rate/-1)
-                item_list[_idx]:setScale(_scale)
+                item_list[_idx]['menu']:setScale(_scale)
 
                 -- 위치 조정
                 _x = l_curr_pos[_idx] + (dist * rate)
-                item_list[_idx]:setPositionX(self.m_containerOffsetX + _x)
+                item_list[_idx]['menu']:setPositionX(self.m_containerOffsetX + _x)
             end
         -- 왼쪽 아이템 위치 보정
         elseif (rate > 0) then
@@ -362,18 +373,18 @@ function UIC_EggPicker:scrollViewDidScroll()
             if item_list[_idx] then
                 -- 크기 조정
                 local _scale = self.m_nearItemScale + (self.m_focusItemScale - self.m_nearItemScale) * (rate/1)
-                item_list[_idx]:setScale(_scale)
+                item_list[_idx]['menu']:setScale(_scale)
 
                 -- 위치 조정
                 _x = l_curr_pos[_idx] + (dist * rate)
-                item_list[_idx]:setPositionX(self.m_containerOffsetX + _x)
+                item_list[_idx]['menu']:setPositionX(self.m_containerOffsetX + _x)
             end
         end
     end
 
     do -- 퍼포먼스 이슈 대충 처리
         for i,v in pairs(self.m_showItemList) do
-            v:setVisible(false)
+            v['menu']:setVisible(false)
         end
         self.m_showItemList = {}
 
@@ -385,7 +396,7 @@ function UIC_EggPicker:scrollViewDidScroll()
 
         for i=start_idx, end_idx do
             if item_list[i] then
-                item_list[i]:setVisible(true)
+                item_list[i]['menu']:setVisible(true)
                 table.insert(self.m_showItemList, item_list[i])
             end
         end
@@ -420,14 +431,33 @@ end
 -------------------------------------
 function UIC_EggPicker:click_egg(idx)
     if (self.m_currFocusIndex == idx) then
-
-        local function finish_cb(ret)
-            local l_dragon_list = ret['added_dragons']
-            UI_GachaResult_Dragon(l_dragon_list)
+        if self.m_itemClickCB then
+            local t_item = self.m_lItemList[idx]
+            self.m_itemClickCB(t_item, idx)
         end
-
-        g_eggsData:request_incubate(703007, finish_cb, fail_cb)
     else
         self:setFocus(idx)
     end
+end
+
+
+-------------------------------------
+-- function setItemClickCB
+-------------------------------------
+function UIC_EggPicker:setItemClickCB(func)
+    self.m_itemClickCB = func
+end
+
+-------------------------------------
+-- function clearAllItems
+-------------------------------------
+function UIC_EggPicker:clearAllItems()
+    for i,v in pairs(self.m_lItemList) do
+        v['menu']:removeFromParent()
+    end
+
+    self.m_lItemList = {}
+    self.m_showItemList = {}
+
+    self:scrollViewDidScroll()
 end
