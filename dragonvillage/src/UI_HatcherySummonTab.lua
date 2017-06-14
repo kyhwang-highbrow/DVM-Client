@@ -35,22 +35,22 @@ end
 function UI_HatcherySummonTab:initUI()
     local vars = self.vars
 
-    -- Ȯ����
+    -- 확률업
     vars['eventSummonBtn']:registerScriptTapHandler(function() local is_bundle = false; self:click_eventSummonBtn(is_bundle) end)
     vars['eventBundleSummonBtn']:registerScriptTapHandler(function() local is_bundle = true; self:click_eventSummonBtn(is_bundle) end)
 
-    -- ĳ�� �̱�
+    -- 캐시 뽑기
     vars['cashSummonBtn']:registerScriptTapHandler(function() local is_bundle = false; self:click_cashSummonBtn(is_bundle) end)
     vars['cashBundleSummonBtn']:registerScriptTapHandler(function() local is_bundle = true; self:click_cashSummonBtn(is_bundle) end)
 
-    -- ��������Ʈ �̱�
+    -- 우정포인트 뽑기
     vars['friendSummonBtn']:registerScriptTapHandler(function() local is_bundle = false; self:click_friendSummonBtn(is_bundle) end)
     vars['friendBundleSummonBtn']:registerScriptTapHandler(function() local is_bundle = true; self:click_friendSummonBtn(is_bundle) end)
 end
 
 -------------------------------------
 -- function click_eventSummonBtn
--- @brief Ȯ����
+-- @brief 확률업
 -------------------------------------
 function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle)
     local function finish_cb(ret)
@@ -62,6 +62,10 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle)
             self:sceneFadeInAction()
         end
         ui:setCloseCB(close_cb)
+
+        -- 추가된 마일리지
+        local added_mileage = ret['added_mileage'] or 0
+        UIManager:toastNotificationGreen(Str('{1}마일리지가 적립되었습니다.', added_mileage))
     end
 
     local function fail_cb()
@@ -73,7 +77,7 @@ end
 
 -------------------------------------
 -- function click_cashSummonBtn
--- @brief ĳ�� �̱�
+-- @brief 캐시 뽑기
 -------------------------------------
 function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle)
     local function finish_cb(ret)
@@ -85,6 +89,10 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle)
             self:sceneFadeInAction()
         end
         ui:setCloseCB(close_cb)
+
+        -- 추가된 마일리지
+        local added_mileage = ret['added_mileage'] or 0
+        UIManager:toastNotificationGreen(Str('{1}마일리지가 적립되었습니다.', added_mileage))
     end
 
     local function fail_cb()
@@ -96,7 +104,7 @@ end
 
 -------------------------------------
 -- function click_friendSummonBtn
--- @brief ��������Ʈ �̱�
+-- @brief 우정포인트 뽑기
 -------------------------------------
 function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle)
     local function finish_cb(ret)

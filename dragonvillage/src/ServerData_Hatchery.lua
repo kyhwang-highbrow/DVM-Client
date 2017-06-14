@@ -62,12 +62,18 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false
+    local prev_mileage = g_userData:get('mileage')
 
     -- 성공 콜백
     local function success_cb(ret)
 
         -- cash(캐시) 갱신
         g_serverData:networkCommonRespone(ret)
+
+        -- 추가된 마일리지
+        local after_mileage = g_userData:get('mileage')
+        local added_mileage = (after_mileage - prev_mileage)
+        ret['added_mileage'] = added_mileage
 
         -- 드래곤들 추가
         g_dragonsData:applyDragonData_list(ret['added_dragons'])
@@ -105,12 +111,18 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false
+    local prev_mileage = g_userData:get('mileage')
 
     -- 성공 콜백
     local function success_cb(ret)
 
         -- cash(캐시) 갱신
         g_serverData:networkCommonRespone(ret)
+
+        -- 추가된 마일리지
+        local after_mileage = g_userData:get('mileage')
+        local added_mileage = (after_mileage - prev_mileage)
+        ret['added_mileage'] = added_mileage
 
         -- 드래곤들 추가
         g_dragonsData:applyDragonData_list(ret['added_dragons'])

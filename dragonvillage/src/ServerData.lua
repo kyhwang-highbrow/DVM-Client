@@ -352,6 +352,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['fp'], 'user', 'fp')
         end
 
+        -- 마일리지
+        if ret['mileage'] then
+            self:applyServerData(ret['mileage'], 'user', 'mileage')
+        end
+
         -- 열매 갯수
         if ret['fruits'] then
             self:applyServerData(ret['fruits'], 'user', 'fruits')
@@ -446,6 +451,12 @@ function ServerData:networkCommonRespone_addedItems(ret)
     if t_added_items['fp'] then
         self:applyServerData(t_added_items['fp'], 'user', 'fp')
         t_added_items['fp'] = nil
+    end
+
+    -- 마일리지 (갱신)
+    if t_added_items['mileage'] then
+        self:applyServerData(t_added_items['mileage'], 'user', 'mileage')
+        t_added_items['mileage'] = nil
     end
 
     -- 명예 (갱신)
