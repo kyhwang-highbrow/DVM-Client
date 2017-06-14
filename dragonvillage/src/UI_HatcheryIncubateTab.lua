@@ -81,7 +81,21 @@ function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
     local egg_id = t_data['egg_id']
     local cnt = t_data['count']
 
+    self:requestIncubate(egg_id, cnt)
+end
+
+-------------------------------------
+-- function requestIncubate
+-------------------------------------
+function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
     local function finish_cb(ret)
+
+        -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
+        if (old_ui) then
+            old_ui:setCloseCB(nil)
+            old_ui:close()
+        end
+
         local l_dragon_list = ret['added_dragons']
         local ui = UI_GachaResult_Dragon(l_dragon_list)
 
@@ -97,6 +111,20 @@ function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
         local egg_picker = self.m_eggPicker
         if egg_picker.m_currFocusIndex then
             egg_picker:setFocus(egg_picker.m_currFocusIndex, 0.5)
+        end
+
+        do -- 이어서 뽑기 (단차 뽑기만 지원함)
+            local remain_cnt = g_eggsData:getEggCount(egg_id)
+            if (cnt == 1) and (cnt <= remain_cnt) then
+                ui.vars['summonBtn']:setVisible(true)
+                ui.vars['summonBtn']:registerScriptTapHandler(function()
+                        self:requestIncubate(egg_id, cnt, ui)
+                    end)
+
+                ui.vars['summonEggLabel']:setString(Str('X{1}', remain_cnt))
+                local egg_icon = IconHelper:getEggIconByEggID(egg_id)
+                ui.vars['summonEggNode']:addChild(egg_icon)
+            end
         end
     end
 

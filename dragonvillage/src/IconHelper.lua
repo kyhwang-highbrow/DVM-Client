@@ -522,3 +522,16 @@ function IconHelper:getFormationIcon(formation_type, is_activated)
 
     return sprite
 end
+
+-------------------------------------
+-- function getEggIconByEggID
+-------------------------------------
+function IconHelper:getEggIconByEggID(egg_id)
+    local table_item = TableItem()
+    local res = table_item:getValue(tonumber(egg_id), 'icon')
+    
+    local sprite =cc.Sprite:create(res)
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
+    return sprite
+end
