@@ -5,7 +5,7 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonSkillEnhance = class(PARENT,{
 		-- 재료
-        m_selectedMtr = '',
+        m_selectedMtrl = '',
     })
 
 -------------------------------------
@@ -110,8 +110,8 @@ function UI_DragonSkillEnhance:refresh()
     end
 
     do -- 재료 중에서 선택된 드래곤 항목들 정리
-        if (self.m_selectedMtr) then
-            self.m_selectedMtr.root:removeFromParent()
+        if (self.m_selectedMtrl) then
+            self.m_selectedMtrl.root:removeFromParent()
         end
     end
 
@@ -244,17 +244,28 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
     local list_item = self.m_mtrlTableViewTD:getItem(doid)
     local list_item_ui = list_item['ui']
     
-    if self.m_selectedMtr then
-        local ui = self.m_selectedMtr
-		self.m_selectedMtr = nil
+	-- 선택된 재료가 있는 경우
+    if self.m_selectedMtrl then
+		-- 선택된 재료와 클릭한 재료가 같음 
+		if (doid == self.m_selectedMtrl.m_dragonData['id']) then
+			--> 해제 처리
+			local ui = self.m_selectedMtrl
+			ui.root:removeFromParent()
+			self.m_selectedMtrl = nil
 
-        ui.root:removeFromParent()
+			list_item_ui:setShadowSpriteVisible(false)
 
-        list_item_ui:setShadowSpriteVisible(false)
+		-- 선택 클릭 다름
+		else
+			--> @TODO 해제 및 다시 선택
+
+		end
+
+	-- 선택된 재료가 없는 경우
     else
 		local ui = UI_DragonCard(data)
 		ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonUpgradeMaterial(data) end)
-		self.m_selectedMtr = ui
+		self.m_selectedMtrl = ui
 
 		local scale = 0.57
 		cca.uiReactionSlow(ui.root, scale, scale, scale * 0.7)
@@ -278,7 +289,7 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 	]]
 
 	-- 재료 요건 여부
-    if (not self.m_selectedMtr) then
+    if (not self.m_selectedMtrl) then
         UIManager:toastNotificationRed(Str('재료 드래곤을 넣어주세요'))
         cca.uiImpossibleAction(self.vars['materialNode'])
         return
