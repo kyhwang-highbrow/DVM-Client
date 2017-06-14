@@ -146,12 +146,20 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillAoERound_Sura:makeSkillInstance(self, t_skill, t_data)
 				return true
 	
-			elseif (skill_type == 'skill_aoe_square_height') then
+			elseif (skill_type == 'skill_aoe_square_height' or skill_type == 'skill_aoe_square_bottom') then
 				SkillAoESquare_Height:makeSkillInstance(self, t_skill, t_data)
 				return true
+
+            elseif (skill_type == 'skill_aoe_square_height_top') then
+				SkillAoESquare_Height_Top:makeSkillInstance(self, t_skill, t_data)
+				return true
 				
-			elseif (skill_type == 'skill_aoe_square_width') then
+			elseif (skill_type == 'skill_aoe_square_width' or skill_type == 'skill_aoe_square_width_left') then
 				SkillAoESquare_Width:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+            elseif (skill_type == 'skill_aoe_square_width_right') then
+				SkillAoESquare_Width_Right:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_aoe_square_charge') then

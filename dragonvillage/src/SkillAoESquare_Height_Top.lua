@@ -1,9 +1,9 @@
 local PARENT = SkillAoESquare
 
 -------------------------------------
--- class SkillAoESquare_Width
+-- class SkillAoESquare_Height_Top
 -------------------------------------
-SkillAoESquare_Width = class(PARENT, {
+SkillAoESquare_Height_Top = class(PARENT, {
      })
 
 -------------------------------------
@@ -11,62 +11,63 @@ SkillAoESquare_Width = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillAoESquare_Width:init(file_name, body, ...)
+function SkillAoESquare_Height_Top:init(file_name, body, ...)    
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoESquare_Width:init_skill(hit)
+function SkillAoESquare_Height_Top:init_skill(hit)
     PARENT.init_skill(self, hit)
 
-	-- X좌표값은 화면의 중심으로 세팅
-    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
-	self:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), self.m_targetPos.y)
-end
+	-- Y좌표값 중심으로 세팅
+	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+	self:setPosition(self.m_targetPos.x, cameraHomePosY)
 
--------------------------------------
--- function initState
--------------------------------------
-function SkillAoESquare_Width:initState()
-	self:setCommonState(self)
-	-- @TODO 임시로 통짜리소스 동작되도록 처리... appear, disapper애니 추가 필요
-	self:addState('start', SkillAoESquare_Width.st_attack, 'idle', false)
-	self:addState('disappear', SkillAoESquare_Width.st_dying, nil, nil, 10)
+	-- @TODO 핑크벨 확인 위해 임시 처리
+	if (self.m_owner.m_charTable['type'] == 'pinkbell') then
+		local pos_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - self.m_targetPos.x
+		self.m_animator:setPositionX(pos_x)
+
+		-- 진형에 따라 리소스를 뒤집어준다.
+		if (not self.m_owner.m_bLeftFormation) then
+			self.m_animator:setFlip(true)
+		end	
+	end
 end
 
 -------------------------------------
 -- function initSkillSize
 -------------------------------------
-function SkillAoESquare_Width:initSkillSize()
+function SkillAoESquare_Height_Top:initSkillSize()
 	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
-		local t_data = SkillHelper:getSizeAndScale('square_width', self.m_skillSize)  
+		local t_data = SkillHelper:getSizeAndScale('square_height', self.m_skillSize)  
 
 		self.m_resScale = t_data['scale']
-		self.m_skillHeight = t_data['size']
+		self.m_skillWidth = t_data['size']
 	end
 end
 
 -------------------------------------
 -- function adjustAnimator
 -------------------------------------
-function SkillAoESquare_Width:adjustAnimator()    
+function SkillAoESquare_Height_Top:adjustAnimator()    
 	if (not self.m_animator) then return end
 	
 	-- delay state 종료시 켜준다.
 	self.m_animator:setVisible(false) 
 
-	self.m_animator:setScaleY(self.m_resScale)
-		    
-    if (not self.m_owner.m_bLeftFormation) then
-        self.m_animator:setFlip(true)
-    end
+	-- @TODO 핑크벨 확인 위해 임시 처리
+	if (self.m_owner.m_charTable['type'] == 'pinkbell') then
+	else
+		self.m_animator:setScaleX(self.m_resScale)
+	end
 end
 
 -------------------------------------
 -- function findCollision
 -------------------------------------
-function SkillAoESquare_Width:findCollision()
+function SkillAoESquare_Height_Top:findCollision()
     local l_target = self:getProperTargetList()
     local x = self.pos.x
 	local y = self.pos.y
@@ -75,10 +76,10 @@ function SkillAoESquare_Width:findCollision()
 
     local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, true)
 
-    -- x값이 작은 순으로 정렬
+    -- y값이 큰 순으로 정렬
     if (#l_ret > 1) then
         table.sort(l_ret, function(a, b)
-            return a:getPosX() < b:getPosX()
+            return a:getPosY() > b:getPosY()
         end)
     end
 
@@ -91,17 +92,17 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillAoESquare_Width:makeSkillInstance(owner, t_skill, t_data)
+function SkillAoESquare_Height_Top:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
-	
+
 	local hit = t_skill['hit'] -- 공격 횟수
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillAoESquare_Width(missile_res)
+    local skill = SkillAoESquare_Height_Top(missile_res)
 	
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)

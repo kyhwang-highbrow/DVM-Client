@@ -63,7 +63,7 @@ end
 -------------------------------------
 -- function findCollision_AoESquare
 -------------------------------------
-function SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height)
+function SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, no_sort)
 	local l_target = l_target or {}
 	local l_ret = {}
     
@@ -76,7 +76,7 @@ function SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height
     end
 
     -- 거리가 가까운 순서로 정렬
-    if (#l_ret > 1) then
+    if (#l_ret > 1 and not no_sort) then
         table.sort(l_ret, function(a, b)
             return a:getDistance() < b:getDistance()
         end)
@@ -198,7 +198,7 @@ function SkillTargetFinder:getCollisionFromTargetList(l_target, pos_x, pos_y)
             local body_key = body['key']
             local distance = getDistance(pos_x, pos_y, target_x, target_y)
 
-            local collision = StructCollisionData(target, body_key, distance)
+            local collision = StructCollisionData(target, body_key, distance, target_x, target_y)
             table.insert(l_ret, collision)
         end
     end

@@ -32,9 +32,10 @@ end
 -------------------------------------
 function SkillIndicator_AoESquare_Width:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+    local camera_scale = self.m_world.m_gameCamera:getScale()
 	local scr_size = cc.Director:getInstance():getWinSize()
     
-	self.m_indicatorEffect:setPosition(cameraHomePosX - pos_x - scr_size['width']/2, touch_y - pos_y)
+	self.m_indicatorEffect:setPosition((cameraHomePosX - pos_x - scr_size['width'] / 2) / camera_scale, touch_y - pos_y)
 end
 
 -------------------------------------
@@ -59,4 +60,29 @@ function SkillIndicator_AoESquare_Width:initIndicatorNode()
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
     end
+end
+
+-------------------------------------
+-- function findCollision
+-------------------------------------
+function SkillIndicator_AoESquare_Width:findCollision(x, y)
+    local l_target = self:getProperTargetList()
+    local x = x
+	local y = y
+	local width = (self.m_skillWidth / 2)
+	local height = (self.m_skillHeight / 2)
+
+    local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, true)
+
+    -- x값이 작은 순으로 정렬
+    if (#l_ret > 1) then
+        table.sort(l_ret, function(a, b)
+            return a:getPosX() < b:getPosX()
+        end)
+    end
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
 end

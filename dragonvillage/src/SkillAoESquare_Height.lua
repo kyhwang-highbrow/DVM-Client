@@ -65,6 +65,31 @@ function SkillAoESquare_Height:adjustAnimator()
 end
 
 -------------------------------------
+-- function findCollision
+-------------------------------------
+function SkillAoESquare_Height:findCollision()
+    local l_target = self:getProperTargetList()
+    local x = self.pos.x
+	local y = self.pos.y
+	local width = (self.m_skillWidth / 2)
+	local height = (self.m_skillHeight / 2)
+
+    local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, true)
+
+    -- y값이 작은 순으로 정렬
+    if (#l_ret > 1) then
+        table.sort(l_ret, function(a, b)
+            return a:getPosY() < b:getPosY()
+        end)
+    end
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+    return l_ret
+end
+
+-------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillAoESquare_Height:makeSkillInstance(owner, t_skill, t_data)

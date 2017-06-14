@@ -2418,11 +2418,23 @@
     <None Include="..\src\TableDragonSkillModify.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillIndicator_AoESquare_Width_Right.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SkillIndicator_AoESquare_Height_Top.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_FriendPopupTabResponse.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_FriendResponseListItem.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\SkillAoESquare_Height_Top.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SkillAoESquare_Width_Right.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

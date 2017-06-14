@@ -1,21 +1,21 @@
 local PARENT = SkillIndicator_AoESquare
 
 -------------------------------------
--- class SkillIndicator_AoESquare_Height
+-- class SkillIndicator_AoESquare_Height_Top
 -------------------------------------
-SkillIndicator_AoESquare_Height = class(PARENT, {
+SkillIndicator_AoESquare_Height_Top = class(PARENT, {
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_AoESquare_Height:init(hero, t_skill)
+function SkillIndicator_AoESquare_Height_Top:init(hero, t_skill)
 end
 
 -------------------------------------
 -- function init_indicator
 -------------------------------------
-function SkillIndicator_AoESquare_Height:init_indicator(t_skill)
+function SkillIndicator_AoESquare_Height_Top:init_indicator(t_skill)
 	PARENT.init_indicator(self, t_skill)
 
 	local skill_size = t_skill['skill_size']
@@ -30,18 +30,18 @@ end
 -------------------------------------
 -- function setIndicatorPosition
 -------------------------------------
-function SkillIndicator_AoESquare_Height:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
+function SkillIndicator_AoESquare_Height_Top:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
 	local camera_scale = self.m_world.m_gameCamera:getScale()
 	local scr_size = cc.Director:getInstance():getWinSize()
     
-	self.m_indicatorEffect:setPosition(touch_x - pos_x, (cameraHomePosY - pos_y - scr_size['height']/2)/camera_scale )
+    self.m_indicatorEffect:setPosition(touch_x - pos_x, (cameraHomePosY - pos_y + scr_size['height'] / 2) / camera_scale)
 end
 
 -------------------------------------
 -- function initIndicatorNode
 -------------------------------------
-function SkillIndicator_AoESquare_Height:initIndicatorNode()
+function SkillIndicator_AoESquare_Height_Top:initIndicatorNode()
     if (not SkillIndicator.initIndicatorNode(self)) then
         return
     end
@@ -54,6 +54,7 @@ function SkillIndicator_AoESquare_Height:initIndicatorNode()
         
 		indicator:setScaleX(self.m_indicatorScale)
 		indicator:setScaleY(1)
+        indicator:setRotation(270)
 		self:initIndicatorEffect(indicator)
         
 		root_node:addChild(indicator.m_node)
@@ -64,7 +65,7 @@ end
 -------------------------------------
 -- function findCollision
 -------------------------------------
-function SkillIndicator_AoESquare_Height:findCollision(x, y)
+function SkillIndicator_AoESquare_Height_Top:findCollision(x, y)
     local l_target = self:getProperTargetList()
     local x = x
 	local y = y
@@ -73,10 +74,10 @@ function SkillIndicator_AoESquare_Height:findCollision(x, y)
 
     local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, true)
 
-    -- y값이 작은 순으로 정렬
+    -- y값이 큰 순으로 정렬
     if (#l_ret > 1) then
         table.sort(l_ret, function(a, b)
-            return a:getPosY() < b:getPosY()
+            return a:getPosY() > b:getPosY()
         end)
     end
 

@@ -96,7 +96,7 @@ function getCollisionList(target, x, y, range)
 
 	    local distance = getDistance(x, y, target_x, target_y)
 	    if (distance - body_size < range) then
-            local collision_data = StructCollisionData(target, body['key'], distance)
+            local collision_data = StructCollisionData(target, body['key'], distance, target_x, target_y)
             table.insert(l_collision, collision_data)
         end
     end
@@ -119,7 +119,7 @@ function getCollisionList_Rect(target, x, y, range_x, range_y)
 
         if ((math_abs(target_x - x) - body_size < range_x) and (math_abs(target_y - y) - body_size  < range_y)) then
             local distance = getDistance(x, y, target_x, target_y)
-            local collision_data = StructCollisionData(target, body['key'], distance)
+            local collision_data = StructCollisionData(target, body['key'], distance, target_x, target_y)
             table.insert(l_collision, collision_data)
         end
     end
@@ -189,7 +189,7 @@ function getCollisionList_Line(target, x1, y1, x2, y2, thickness)
         -- 충돌된 객체라면
         if (is_collision) then
             local distance = math_distance(x1, y1, target_x, target_y)
-            local collision_data = StructCollisionData(target, body['key'], distance)
+            local collision_data = StructCollisionData(target, body['key'], distance, target_x, target_y)
             table.insert(l_collision, collision_data)
         end
     end
@@ -225,7 +225,7 @@ function getCollisionList_Fan(target, x, y, dir, radius, angle_range)
         local degree = getDegree(x, y, target_x, target_y)
         if ((radius + target_size) >= distance) and angleIsBetweenAngles(degree, dir_min, dir_max) then
             local body_key = body['key']
-            m_collision[body_key] = StructCollisionData(target, body_key, distance)
+            m_collision[body_key] = StructCollisionData(target, body_key, distance, target_x, target_y)
         end
     end
             
