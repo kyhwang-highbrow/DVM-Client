@@ -126,6 +126,7 @@ function UI_SkillDetailPopup:refresh(idx)
 		self.m_maxLV = TableDragonSkillModify:getMaxLV(skill_id)
 		self.m_numberLoop = NumberLoop(self.m_maxLV)
 		self.m_numberLoop:setCurr(skill_level)
+		self:toggleButton()
 	end
 end
 
@@ -169,6 +170,15 @@ end
 -------------------------------------
 function UI_SkillDetailPopup:toggleButton()
 	local vars = self.vars
+
+	-- 만렙이 1일땐 모두 false
+	if (self.m_maxLV == 1) then
+		vars['prevBtn']:setEnabled(false)
+		vars['nextBtn']:setEnabled(false)
+		return
+	end
+
+	-- 레벨에 따라 + 또는 - 버튼 false
 	vars['prevBtn']:setEnabled(true)
 	vars['nextBtn']:setEnabled(true)
 
