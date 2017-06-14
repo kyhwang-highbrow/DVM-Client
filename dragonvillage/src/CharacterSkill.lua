@@ -78,7 +78,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		local chance_value = t_skill['chance_value']
 
 		-- [패시브]
-		if (chance_type == 'passive') then
+		if (chance_type == 'leader' or chance_type == 'passive') then
 			-- 리더 버프 (기존 상시 패시브)
 			if (chance_value == '') or (chance_value == 'start') then 
 				-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장

@@ -259,7 +259,7 @@ function Dragon:doSkill_passive()
     for _, skill_type in pairs(l_tar_skill_type) do
         local skill_id = self:getSkillID(skill_type)
         local t_skill = self:getSkillTable(skill_id)
-        if t_skill and (t_skill['chance_type'] == 'passive') then
+        if t_skill and (t_skill['chance_type'] == 'leader' or t_skill['chance_type'] == 'passive') then
             self:doSkill(skill_id, 0, 0)
         end
     end
