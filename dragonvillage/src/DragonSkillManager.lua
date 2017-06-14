@@ -613,7 +613,7 @@ function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 	local t_skill = t_skill or {}
 	local skill_lv = skill_lv or 1
 
-	local table_dragon_skill_modify = TABLE:get('dragon_skill_modify')
+	local table_dragon_skill_modify = TableDragonSkillModify()
     
 	local skill_id = t_skill['sid']
 	local mod_skill = (skill_id * 100)
@@ -623,7 +623,7 @@ function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 	-- modify table을 순회하며 해당 레벨까지의 수치 증가량을 수집한다.
     for i = 1, skill_lv do
 		local mod_skill_id = mod_skill + i
-        local t_dragon_skill_modify = table_dragon_skill_modify[mod_skill_id]
+        local t_dragon_skill_modify = table_dragon_skill_modify:get(mod_skill_id)
         
         if t_dragon_skill_modify then
             for i = 1, 5 do

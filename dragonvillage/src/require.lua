@@ -195,6 +195,7 @@ local t_module = {
     'TableDragonExp',
     'TableDragonSkill',
     'TableDragonSkillBonus',
+	'TableDragonSkillModify',
     'TableMonster',
     'TableMonsterHitPos',
 	'TableMonsterSkill',

@@ -331,24 +331,6 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
 end
 
 -------------------------------------
--- function getNumberOfRemainingSkillLevel
--- @brief 남은 드래곤 스킬 레벨 갯수 리턴
--------------------------------------
-function ServerData_Dragons:getNumberOfRemainingSkillLevel(doid)
-    local t_dragon_data = self:getDragonDataFromUid(doid)
-
-    local skill_0 = (t_dragon_data['skill_0'] or 0) -- 최대 10
-    local skill_1 = (t_dragon_data['skill_1'] or 0) -- 최대 10
-    local skill_2 = (t_dragon_data['skill_2'] or 0) -- 최대 10
-    local skill_3 = (t_dragon_data['skill_3'] or 0) -- 최대 1
-
-    local total_skill_level = (skill_0 + skill_1 + skill_2 + skill_3)
-    local num_of_remain_skill_level = (31 - total_skill_level)
-
-    return num_of_remain_skill_level
-end
-
--------------------------------------
 -- function isSameTypeDragon
 -- @brief 드래곤들의 원종(dragon 테이블의 type컬럼)이 같은지 확인
 -------------------------------------
@@ -398,63 +380,6 @@ function ServerData_Dragons:isMaxEclv(dragon_object_id)
     local is_max_eclv = (t_dragon_data['eclv'] >= MAX_DRAGON_ECLV)
     return is_max_eclv
 end
-
--------------------------------------
--- function getUpgradeMode
--- @brief 업그레이드 모드 리턴 (승급, 스킬 레벨업, 초월)
--------------------------------------
-function ServerData_Dragons:getUpgradeMode(doid)
-    local mode = 'max'
-
-    -- 승급 (최대 등급이 아닐 경우)
-    if (not self:isMaxGrade(doid)) then
-        mode = 'upgrade'
-
-    -- 스킬 레벨업 (레벨업 가능한 스킬이 남았을 경우)
-    elseif (0 < self:getNumberOfRemainingSkillLevel(doid)) then
-        mode = 'skill_lv_up'
-
-    -- 초월 (최대등급, 스킬만렙일 경우 초월 가능)
-    elseif (not self:isMaxEclv(doid)) then
-        mode = 'eclv_up'
-    end
-
-    return mode
-end
-
--------------------------------------
--- function checkSkillUpgradeable
--- @brief 스킬 업그레이드 가능 여부
--------------------------------------
-function ServerData_Dragons:checkSkillUpgradeable(doid)
-    local t_dragon_data = self:getDragonDataFromUid(doid)
-
-    local evolution = t_dragon_data['evolution']
-    local skill_0 = (t_dragon_data['skill_0'] or 0) -- 최대 10
-    local skill_1 = (t_dragon_data['skill_1'] or 0) -- 최대 10
-    local skill_2 = (t_dragon_data['skill_2'] or 0) -- 최대 10
-    local skill_3 = (t_dragon_data['skill_3'] or 0) -- 최대 1
-
-    if (evolution == 1) then
-        if (20 <= (skill_0 + skill_1)) then
-            return false, Str('해츨링이 되면 새로운 스킬을 습득할 수 있습니다.')
-        end
-
-    elseif (evolution == 2) then
-        if (30 <= (skill_0 + skill_1 + skill_2)) then
-            return false, Str('성룡이 되면 새로운 스킬을 습득할 수 있습니다.')
-        end
-
-    elseif (evolution == 3) then
-        if (31 <= (skill_0 + skill_1 + skill_2 + skill_3)) then
-            return false, Str('모든 스킬을 마스터하였습니다.')
-        end
-
-    end
-
-    return true
-end
-
 
 -------------------------------------
 -- function checkUpgradeable
@@ -977,7 +902,7 @@ end
 
 -------------------------------------
 -- function checkDragonSkillEnhancable
--- @brief
+-- @brief 스킬 업그레이드 가능 여부
 -------------------------------------
 function ServerData_Dragons:checkDragonSkillEnhancable(doid)
     local t_dragon_data = self:getDragonObject(doid)
@@ -989,8 +914,43 @@ function ServerData_Dragons:checkDragonSkillEnhancable(doid)
     if (t_dragon_data.m_objectType == 'slime') then
         return false, Str('슬라임은 스킬 강화 할 수 없습니다.')
     end
-	
-	-- @TODO 스킬 강화 최대치 체크 해야함
+
+	if (not self:haveSkillSpareLV(doid)) then
+		return false, Str('모든 스킬이 최대 레벨입니다.')
+	end
 
     return true
+end
+
+-------------------------------------
+-- function haveSkillSpareLV
+-- @brief 여분의 스킬 레벨 공간이 있는지..
+-------------------------------------
+function ServerData_Dragons:haveSkillSpareLV(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+	local t_dragon = TableDragon():get(t_dragon_data['did'])
+	local table_dsm = TableDragonSkillModify()
+
+    local evolution = t_dragon_data['evolution']
+	
+	-- active 부터 진화도까지
+	for i = 0, evolution do
+		local key = i
+
+		-- 애초에 0이었으면... 
+		if (key == 0) then
+			key = 'active'
+		end
+
+		local skill_id = t_dragon['skill_' .. key]
+		local max_lv = table_dsm:getMaxLV(skill_id)
+		local curr_lv = t_dragon_data['skill_' .. i]
+
+		-- 한개라도 현재 레밸이 최대레벨보다 낮은것이 있다면 여분 스킬 있는것으로 판명
+		if (curr_lv < max_lv) then
+			return true
+		end
+	end
+ 
+	return false
 end

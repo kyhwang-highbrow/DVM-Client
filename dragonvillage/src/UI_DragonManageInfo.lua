@@ -396,9 +396,16 @@ end
 
 -------------------------------------
 -- function click_skillEnhanceBtn
--- @brief 친밀도 버튼
+-- @brief 스킬 강화 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_skillEnhanceBtn()
+	-- 스킬 강화 가능 여부
+	local possible, msg = g_dragonsData:checkDragonSkillEnhancable(self.m_selectDragonOID)
+	if (not possible) then
+		UIManager:toastNotificationRed(msg)
+        return
+	end
+
     self:openSubManageUI(UI_DragonSkillEnhance)
 end
 

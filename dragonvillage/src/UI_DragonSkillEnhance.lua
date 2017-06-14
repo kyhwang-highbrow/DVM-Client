@@ -115,12 +115,6 @@ function UI_DragonSkillEnhance:refresh()
         end
     end
 
-	-- 승급 가능 여부 처리
-	--[[
-	local upgradeable = g_dragonsData:checkUpgradeable(self.m_selectDragonOID)
-	vars['infoLabel']:setVisible(not upgradeable)
-	]]
-
 	self:refresh_skillIcon()
     self:refresh_dragonMaterialTableView()
 end
@@ -279,14 +273,12 @@ end
 -- function click_enhanceBtn
 -------------------------------------
 function UI_DragonSkillEnhance:click_enhanceBtn()
-	-- 승급 가능 여부
-	--[[
-	local upgradeable, msg = g_dragonsData:checkUpgradeable(self.m_selectDragonOID)
-	if (not upgradeable) then
+	-- 스킬 강화 가능 여부
+	local possible, msg = g_dragonsData:checkDragonSkillEnhancable(self.m_selectDragonOID)
+	if (not possible) then
 		UIManager:toastNotificationRed(msg)
         return
 	end
-	]]
 
 	-- 재료 요건 여부
     if (not self.m_selectedMtrl) then

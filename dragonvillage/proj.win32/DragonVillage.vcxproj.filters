@@ -2403,7 +2403,6 @@
     <None Include="..\src\StatusEffectUnit_AddDmg.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_Friend_Old.lua" />
     <None Include="..\src\UI_DragonSkillEnhance_Result.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2411,6 +2410,12 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\ServerData_Hatchery.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ServerData_Friend_Old.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\TableDragonSkillModify.lua">
       <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
