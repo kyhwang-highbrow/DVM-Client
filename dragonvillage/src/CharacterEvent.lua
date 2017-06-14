@@ -98,7 +98,6 @@ function Character:onEvent_underAtkTurn()
 	if (table.count(self.m_lSkillIndivisualInfo['under_atk_turn']) > 0) then
     end
 end
-onEvent_underSelfHp
 
 -------------------------------------
 -- function onEvent_underSelfHp
