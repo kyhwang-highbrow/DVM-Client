@@ -254,7 +254,7 @@ end
 function Dragon:doSkill_passive()
     if (self.m_bActivePassive) then return end
 
-    local l_tar_skill_type = {'basic', 'normal'}
+    local l_tar_skill_type = {'leader', 'basic', 'normal'}
 
     for _, skill_type in pairs(l_tar_skill_type) do
         local skill_id = self:getSkillID(skill_type)
