@@ -95,7 +95,7 @@ end
 
 -------------------------------------
 -- function mergeSkillInfo
--- @brief 성룡 강화의 경우 기존 스킬 info를 가져와서 합쳐버린다...!
+-- @brief 성룡 강화의 경우 기존 스킬 info를 가져와 레벨업된 부분만 합쳐버린다.
 -------------------------------------
 function DragonSkillIndivisualInfo:mergeSkillInfo(other_skill_info)
 	if not (other_skill_info) then
@@ -106,13 +106,7 @@ function DragonSkillIndivisualInfo:mergeSkillInfo(other_skill_info)
 		error('강화될 스킬과 성룡 강화 스킬의 타입이 다르다.')
 	end
 
-	local other_t_skill = other_skill_info:getSkillTable()
-	for column, value in pairs(self.m_tSkill) do
-		
-		local other_value = other_t_skill[column]
-
-
-	end
+	IDragonSkillManager:applyModification(self.m_tSkill, other_skill_info.m_tAddedValue)
 end
 
 -------------------------------------

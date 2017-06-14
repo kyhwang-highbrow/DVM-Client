@@ -661,7 +661,16 @@ function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
         end
     end
 
-    -- 수집한 수치 증가량을 t_skill에 적용한다.
+	self:applyModification(t_skill, t_modify_list)
+
+	return t_skill, t_modify_list -- skill 성룡 강화시 사용
+end
+
+-------------------------------------
+-- function applyModification
+-- @brief 수집한 수치 증가량을 t_skill에 적용한다.
+-------------------------------------
+function IDragonSkillManager:applyModification(t_skill, t_modify_list)
     for column, t_modify in pairs(t_modify_list) do
         local modify = t_modify['modify']
         local value = t_modify['value']
@@ -677,8 +686,6 @@ function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 
         end
     end
-
-	return t_skill, t_modify_list -- skill 성룡 강화시 사용
 end
 
 -------------------------------------
