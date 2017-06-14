@@ -35,7 +35,7 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
 
     self.m_value = value
 
-    self.m_source = source or 'atk' 
+    self.m_source = source
     self.m_bUseTargetStat = false
 
 	self.m_duration = duration
@@ -45,8 +45,11 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
 
     self.m_tParam = {}
 
-    -- source 파싱(target_def같은 형태로 오는 경우)
-    if (string.match(self.m_source, 'target_')) then
+    -- source 예외처리 및 파싱(target_def같은 형태로 오는 경우)
+    if (not self.m_source or self.m_source == '') then
+        self.m_source = 'atk'
+    
+    elseif (string.match(self.m_source, 'target_')) then
         self.m_source = string.gsub(self.m_source, 'target_', '')
         self.m_bUseTargetStat = true
     end
