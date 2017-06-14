@@ -7,6 +7,12 @@ UI_SkillDetailPopup = class(PARENT, {
         m_dragonObject = 'table',
 		m_skillMgr = 'DragonSkillManager',
 		m_skillRadioBtn = 'UIC_RadioButton',
+		
+		-- skill lv 미리보기 용
+		m_currIdx = 'number',
+		m_currLV = 'number',
+		m_maxLV = 'number',
+		m_numberLoop = 'NumberLoop',
 
         m_bSimpleMode = 'boolean',
      })
@@ -79,8 +85,8 @@ end
 function UI_SkillDetailPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-	vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
-	vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+	vars['prevBtn']:registerScriptTapHandler(function() self:click_skillLvBtn(false) end)
+	vars['nextBtn']:registerScriptTapHandler(function() self:click_skillLvBtn(true) end)
 end
 
 -------------------------------------
@@ -90,33 +96,37 @@ function UI_SkillDetailPopup:refresh(idx)
     local vars = self.vars
 	local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(idx)
 
-    do -- 스킬 타입
-        local str = skill_indivisual_info:getSkillType()
-		str = getSkillTypeStr(str, false)
-        vars['skillTypeLabel']:setString(str)
-    end
+    -- 스킬 타입
+	local str = skill_indivisual_info:getSkillType()
+	str = getSkillTypeStr(str, false)
+	vars['skillTypeLabel']:setString(str)
 
-    do -- 스킬 아이콘
-		vars['skillNode']:removeAllChildren(true)
-        local skill_id = skill_indivisual_info:getSkillID()
-        local icon = IconHelper:getSkillIcon('dragon', skill_id)
-        vars['skillNode']:addChild(icon)
-    end
+	-- 스킬 아이콘
+	vars['skillNode']:removeAllChildren(true)
+	local skill_id = skill_indivisual_info:getSkillID()
+	local icon = IconHelper:getSkillIcon('dragon', skill_id)
+	vars['skillNode']:addChild(icon)
 
-    do -- 스킬 이름
-        local name = skill_indivisual_info:getSkillName()
-        vars['skillNameLabel']:setString(name)
-    end
+	-- 스킬 이름
+	local name = skill_indivisual_info:getSkillName()
+	vars['skillNameLabel']:setString(name)
 
-	do -- 레벨 표시
-        local skill_level = skill_indivisual_info:getSkillLevel()
-        vars['skillEnhanceLabel']:setString(string.format('Lv. %d', skill_level))
-    end
+	-- 레벨 표시
+	local skill_level = skill_indivisual_info:getSkillLevel()
+	vars['skillEnhanceLabel']:setString(string.format('Lv. %d', skill_level))
 
-	do -- 스킬 설명
-        local desc = skill_indivisual_info:getSkillDesc()
-        vars['skillDscLabel']:setString(desc)
-    end
+	-- 스킬 설명
+    local desc = skill_indivisual_info:getSkillDesc()
+    vars['skillDscLabel']:setString(desc)
+	
+	-- 스킬 레벨 미리보기용 변수
+	do
+		self.m_currIdx = idx
+		self.m_currLV = skill_level
+		self.m_maxLV = TableDragonSkillModify:getMaxLV(skill_id)
+		self.m_numberLoop = NumberLoop(self.m_maxLV)
+		self.m_numberLoop:setCurr(skill_level)
+	end
 end
 
 -------------------------------------
@@ -130,6 +140,7 @@ function UI_SkillDetailPopup:makeSkillRadioBtn()
 	radio_button:setChangeCB(function() self:onChangeOption() end)
 	self.m_skillRadioBtn = radio_button
 
+	-- 활성화 된 스킬만 라디오 버튼 붙임
 	local first_idx
 	for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
 		local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(i)
@@ -154,17 +165,51 @@ function UI_SkillDetailPopup:onChangeOption()
 end
 
 -------------------------------------
--- function click_prevBtn
+-- function toggleButton
 -------------------------------------
-function UI_SkillDetailPopup:click_prevBtn()
+function UI_SkillDetailPopup:toggleButton()
+	local vars = self.vars
+	vars['prevBtn']:setEnabled(true)
+	vars['nextBtn']:setEnabled(true)
 
+	if (self.m_currLV == self.m_maxLV) then
+		vars['nextBtn']:setEnabled(false)
+
+	elseif (self.m_currLV == 1) then
+		vars['prevBtn']:setEnabled(false)
+
+	end
 end
 
 -------------------------------------
--- function click_nextBtn
+-- function click_skillLvBtn
 -------------------------------------
-function UI_SkillDetailPopup:click_nextBtn()
+function UI_SkillDetailPopup:click_skillLvBtn(is_next)
+	local vars = self.vars
+	
+	local before_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_currIdx)
+	if (is_next) then
+		self.m_currLV = self.m_numberLoop:next()
+	else
+		self.m_currLV = self.m_numberLoop:prev()
+	end
 
+	local skill_type = before_info:getSkillType()
+	local skill_id = before_info:getSkillID()
+	local skill_lv = self.m_currLV
+	local new_info = self.m_skillMgr:makeIndividualInfo(skill_type, skill_id, skill_lv)
+
+	do -- 레벨 표시
+        local skill_level = new_info:getSkillLevel()
+        vars['skillEnhanceLabel']:setString(string.format('Lv. %d', skill_level))
+    end
+
+	do -- 스킬 설명
+        local desc = new_info:getSkillDesc()
+        vars['skillDscLabel']:setString(desc)
+    end
+
+	self:toggleButton()
 end
 
 -------------------------------------

@@ -304,6 +304,17 @@ function IDragonSkillManager:getSkillKeyList()
 end
 
 -------------------------------------
+-- function makeIndividualInfo
+-------------------------------------
+function IDragonSkillManager:makeIndividualInfo(skill_type, skill_id, skill_lv)
+	local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
+	skill_indivisual_info:applySkillLevel()
+	skill_indivisual_info:applySkillDesc()
+
+	return skill_indivisual_info
+end
+
+-------------------------------------
 -- function getSkillIndivisualInfo_usingIdx
 -- @brief idx 보다는 key에 가까워 짐
 -------------------------------------
@@ -313,45 +324,38 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
 	end
     local t_character = self.m_charTable
 
+	-- skill id 찾기
     local skill_id
-    local skill_type
-
 	if (idx == 'Leader') then
 		skill_id = t_character['skill_leader']
-		skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
 
     elseif (idx == 0) then
         skill_id = t_character['skill_active']
-        skill_type = 'active'
-
-	elseif (idx == 3) then
-		skill_id = t_character['skill_3']
-
-		-- skill_3이 비어있고 skill_laeder가 있다면 UI에서 표현하기 위해 skill_3 위치에서 표현
-		if (skill_id == '') and (t_character['skill_leader']) then
-			skill_id = t_character['skill_leader']
-		end
-		skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
 
     else
         skill_id = t_character['skill_' .. idx]
-		skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
-
+		
+		-- skill_3이 비어있고 skill_laeder가 있다면 UI에서 표현하기 위해 skill_3 위치에서 표현
+		if (idx == 3) then
+			if (skill_id == '') and (t_character['skill_leader']) then
+				skill_id = t_character['skill_leader']
+			end
+		end
     end
 
-    local skill_indivisual_info = self:getSkillInfoByID(skill_id)
+	-- skill type
+	local skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
+
+    -- 이미 skill_individual_info가 있는 경우
+	local skill_indivisual_info = self:getSkillInfoByID(skill_id)
 	if (skill_indivisual_info) then
 		return skill_indivisual_info
+
 	else
 		-- UI용 skill_info 계산
 		if (skill_type and skill_id ~= 0 and skill_id ~= '') then
 			local skill_lv = self:getSkillLevel(idx)
-			local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
-       
-			skill_indivisual_info:applySkillLevel()
-			skill_indivisual_info:applySkillDesc()
-
-			return skill_indivisual_info
+			return self:makeIndividualInfo(skill_type, skill_id, skill_lv)
 		end
 	end
 end

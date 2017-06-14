@@ -41,3 +41,10 @@ function NumberLoop:prev()
 
 	return self.m_curr
 end
+
+-------------------------------------
+-- function next
+-------------------------------------
+function NumberLoop:setCurr(n)
+	self.m_curr = n
+end
