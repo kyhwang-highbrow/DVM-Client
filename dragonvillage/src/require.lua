@@ -687,14 +687,17 @@ local t_module = {
     'UI_FriendPopupTabFriends',
     'UI_FriendPopupTabRecommend',
     'UI_FriendPopupTabRequest',
+    'UI_FriendPopupTabResponse',
     'UI_FriendPopupTabInvite',
     'UI_FriendPopupTabSupport',
     'UI_FriendListItem',
     'UI_FriendRecommendUserListItem',
     'UI_FriendRequestListItem',
+    'UI_FriendResponseListItem',
     'UI_FriendSupportListItem',
     'UI_FriendDragonSupportRequestPopup',
     'UI_FriendDragonSupportPopup',
+
     -- UI : 친구 드래곤 선택
     'UI_FriendSelectPopup',
     'UI_FriendSelectListItem',

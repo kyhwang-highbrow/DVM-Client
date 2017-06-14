@@ -88,14 +88,14 @@ function UI_Lobby:entryCoroutine()
         working = true
         g_gachaData:refresh_gachaInfo(function() working = false end)
         while (working) do dt = coroutine.yield() end
-
-        -- 친구 정보 받아옴
-        cclog('# 친구 정보 받는 중')
-        working = true
-        g_friendData:request_friendList(function() self:refreshFriendOnlineBuff() working = false end, true)
-        while (working) do dt = coroutine.yield() end
         --]]
 
+        --친구 정보 받아옴
+        cclog('# 친구 정보 받는 중')
+        working = true
+        g_friendData:request_friendList(function() working = false end, true)
+        while (working) do dt = coroutine.yield() end
+        
         cclog('# 하일라이트 정보 받는 중')
         working = true
         g_highlightData:request_highlightInfo(function(ret) working = false end, fail_cb)
@@ -243,6 +243,9 @@ function UI_Lobby:refresh_highlight()
 
     -- 테이머
     vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
+
+    -- 친구 
+    vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
 end
 
 -------------------------------------

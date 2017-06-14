@@ -102,7 +102,13 @@ function UI_UserInfoDetailPopup:initUI()
 
     -- 콜로세움 팀 보기 버튼
     vars['deckBtn']:setVisible(self.m_bVisible)
-	
+
+    local friend_uid = self.m_tUserInfo['uid']
+    local is_friend = g_friendData:isFriend(friend_uid)
+
+    -- 친구신청 버튼
+    vars['requestBtn']:setVisible(self.m_isVisit and not is_friend)
+
 	-- 플레이 기록
 	self:init_historyView()
 end
@@ -116,6 +122,7 @@ function UI_UserInfoDetailPopup:initButton()
 	vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
 	vars['dragonBtn']:registerScriptTapHandler(function() self:click_dragonBtn() end)
     vars['deckBtn']:registerScriptTapHandler(function() self:click_deckBtn() end)
+    vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
 end
 
 -------------------------------------
@@ -360,6 +367,20 @@ function UI_UserInfoDetailPopup:click_deckBtn()
     local uid = tonumber(self.m_tUserInfo['uid'])
     local deck_name = 'pvp'
     RequestUserDeckInfoPopup(uid, deck_name)
+end
+
+-------------------------------------
+-- function click_requestBtn
+-------------------------------------
+function UI_UserInfoDetailPopup:click_requestBtn()
+    local nickname = self.m_tUserInfo['nick']
+    local function finish_cb(ret)
+        local msg = Str('[{1}]에게 친구 요청을 하였습니다.', nickname)
+        UIManager:toastNotificationGreen(msg)
+    end
+
+    local friend_ui = self.m_tUserInfo['uid']
+    g_friendData:request_invite(friend_ui, finish_cb)
 end
 
 -------------------------------------

@@ -50,6 +50,7 @@ function UI_LobbyUserInfoPopup:initButton(t_user_info)
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(t_user_info) end)
+    vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn(t_user_info) end)
 
     local uid = t_user_info['uid']
     local nickname = t_user_info['nick']
@@ -85,6 +86,16 @@ end
 -- @brief
 -------------------------------------
 function UI_LobbyUserInfoPopup:click_infoBtn(t_user_info)
+    local uid = t_user_info['uid']
+	local is_visit = true
+    RequestUserInfoDetailPopup(uid, is_visit, nil)
+end
+
+-------------------------------------
+-- function click_requestBtn
+-- @brief
+-------------------------------------
+function UI_LobbyUserInfoPopup:click_requestBtn(t_user_info)
     local uid = t_user_info['uid']
 	local is_visit = true
     RequestUserInfoDetailPopup(uid, is_visit, nil)

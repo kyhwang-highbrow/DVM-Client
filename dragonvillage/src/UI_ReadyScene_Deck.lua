@@ -383,8 +383,8 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
         end
     end
 
-    -- 친구 드래곤 중복 선택 체크
-    if g_friendData:checkSetSlotCondition(doid) then
+    -- 친구 드래곤 슬롯 세팅 조건
+    if (not g_friendData:checkSetSlotCondition(doid)) then
         return false
     end
 

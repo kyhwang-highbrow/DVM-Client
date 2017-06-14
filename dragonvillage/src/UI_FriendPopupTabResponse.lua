@@ -1,30 +1,30 @@
 local PARENT = UI_FriendPopupTab
 
 -------------------------------------
--- class UI_FriendPopupTabRequest
+-- class UI_FriendPopupTabResponse
 -------------------------------------
 -- 보낸 요청
-UI_FriendPopupTabRequest = class(PARENT, {
+UI_FriendPopupTabResponse = class(PARENT, {
         m_tableView = 'UIC_TableView',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_FriendPopupTabRequest:init(friend_popup_ui)
+function UI_FriendPopupTabResponse:init(friend_popup_ui)
 end
 
 -------------------------------------
 -- function initFirst
 -------------------------------------
-function UI_FriendPopupTabRequest:initFirst()
+function UI_FriendPopupTabResponse:initFirst()
     local vars = self.vars
 end
 
 -------------------------------------
 -- function onEnterFriendPopupTab
 -------------------------------------
-function UI_FriendPopupTabRequest:onEnterFriendPopupTab(first)
+function UI_FriendPopupTabResponse:onEnterFriendPopupTab(first)
     if first then
         self:initFirst()
 
@@ -34,69 +34,52 @@ function UI_FriendPopupTabRequest:onEnterFriendPopupTab(first)
         end
 
         local force = true
-        g_friendData:request_inviteRequestList(finish_cb, force)
-    else
-        self:checkTableViewData()
+        g_friendData:request_inviteResponseList(finish_cb, force)
     end
 end
 
 -------------------------------------
 -- function setCountLabel
 -------------------------------------
-function UI_FriendPopupTabRequest:setCountLabel()
+function UI_FriendPopupTabResponse:setCountLabel()
     local count = self.m_tableView:getItemCount()
-    local max = g_friendData:getInviteRequestDailyLimit()
+    local max = g_friendData:getInviteResponseDailyLimit()
 
-    self.vars['requestLabel']:setString(Str('{1} / {2}', count, max))
-end
-
--------------------------------------
--- function checkTableViewData
--- @brief 친구 초대로 요청 리스트 추가시 테이블뷰 아이템 추가
--------------------------------------
-function UI_FriendPopupTabRequest:checkTableViewData()
-    local table_view = self.m_tableView
-    local item_count = table_view:getItemCount()
-    local list_count = g_friendData:getFirnedInviteRequestCount()
-    if item_count == list_count then return end
-
-    local request_list = g_friendData:getFriendInviteRequestList()
-    for _, v in pairs(request_list) do
-        local friend_uid = v['uid']
-        if (not table_view:getItem(friend_uid)) then
-            table_view:addItem(friend_uid, v)
-            self:setCountLabel()
-        end
-    end
+    self.vars['responseLabel']:setString(Str('{1} / {2}', count, max))
 end
 
 -------------------------------------
 -- function init_tableView
 -------------------------------------
-function UI_FriendPopupTabRequest:init_tableView()
+function UI_FriendPopupTabResponse:init_tableView()
     if self.m_tableView then
         return
     end
 
-    local node = self.vars['requestNode']
+    local node = self.vars['responseNode']
     --node:removeAllChildren()
 
-    local l_item_list = g_friendData:getFriendInviteRequestList()
+    local l_item_list = g_friendData:getFriendInviteResponseList()
 
     -- 생성 콜백
     local function create_func(ui, data)
-        -- 요청 취소
-        local function click_cancelBtn()
-            self:click_inviteRequestCancelBtn(data)
+        local function click_func()
+            self:click_inviteAcceptBtn(data)
         end
-        ui.vars['cancelBtn']:registerScriptTapHandler(click_cancelBtn)
+
+        ui.vars['acceptBtn']:registerScriptTapHandler(click_func)
+
+        local function click_refuseBtn()
+            self:click_inviteRefuseBtn(data)
+        end
+        ui.vars['refuseBtn']:registerScriptTapHandler(click_refuseBtn)
     end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(1160, 108)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setCellUIClass(UI_FriendRequestListItem, create_func)
+    table_view:setCellUIClass(UI_FriendResponseListItem, create_func)
     table_view:setItemList(l_item_list)
 
     
@@ -115,9 +98,9 @@ end
 
 -------------------------------------
 -- function click_inviteAcceptBtn
--- @brief 친구 요청 취소
+-- @brief 친구 요청 수락
 -------------------------------------
-function UI_FriendPopupTabRequest:click_inviteRequestCancelBtn(data)
+function UI_FriendPopupTabResponse:click_inviteAcceptBtn(data)
 
     local friend_uid = data['uid']
     local friend_nick = data['nick']
@@ -126,8 +109,33 @@ function UI_FriendPopupTabRequest:click_inviteRequestCancelBtn(data)
         if (ret['status'] == 0) then
             table_view = self.m_tableView
             table_view:delItem(friend_uid)
+
+            local msg = Str('[{1}]님과 친구가 되었습니다.', friend_nick)
+            UIManager:toastNotificationGreen(msg)
         end
     end
     
-    g_friendData:request_inviteRequestCancel(friend_uid, finish_cb)
+    g_friendData:request_inviteResponseAccept(friend_uid, finish_cb)
+end
+
+-------------------------------------
+-- function click_inviteRefuseBtn
+-- @brief 친구 요청 거절
+-------------------------------------
+function UI_FriendPopupTabResponse:click_inviteRefuseBtn(data)
+
+    local friend_uid = data['uid']
+    local friend_nick = data['nick']
+
+    local function finish_cb(ret)
+        if (ret['status'] == 0) then
+            table_view = self.m_tableView
+            table_view:delItem(friend_uid)
+
+            local msg = Str('[{1}]님의 요청을 거절하였습니다.', friend_nick)
+            UIManager:toastNotificationGreen(msg)
+        end
+    end
+    
+    g_friendData:request_inviteResponseReject(friend_uid, finish_cb)
 end

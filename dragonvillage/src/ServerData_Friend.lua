@@ -1,3 +1,7 @@
+local MAX_FRIEND_CNT    = 20 -- 최대 친구 수
+local MAX_REQUEST_CNT   = 30 -- 하루 최대 보낼 수 있는 요청
+local MAX_RESPONSE_CNT  = 30 -- 하루 최대 받을 수 있는 요청
+local MAX_BYE_CNT       = 3  -- 하루 최대 삭제할 수 있는 친구 수
 -------------------------------------
 -- class ServerData_Friend
 -------------------------------------
@@ -8,10 +12,14 @@ ServerData_Friend = class({
 
         m_lRecommendUserList = 'list',
         m_lFriendUserList = 'list',
-        m_lFriendInviteList = 'list',
+
+        m_lFriendInviteResponseList = 'list', -- 친구 초대 받은 요청
+        m_lFriendInviteRequestList = 'list', -- 친구 초대 보낸 요청
+
         m_lFriendDragonsList = 'list',
 
-        m_mInvitedUerList = 'map', -- 클라이언트가 켜져있는 동안 친구초대를 한 유저의 uid 저장
+        m_mInvitedUserList = 'map', -- 클라이언트가 켜져있는 동안 친구초대를 한 유저의 uid 저장
+         
         m_mSentFpUserList = 'map', -- 오늘 우정포인트를 보낸 유저 리스트
         
         -- 선택된 친구 드래곤 
@@ -26,7 +34,11 @@ ServerData_Friend = class({
 -------------------------------------
 function ServerData_Friend:init(server_data)
     self.m_serverData           = server_data
-    self.m_mInvitedUerList      = {}
+    self.m_mInvitedUserList     = {}
+
+    self.m_lFriendInviteResponseList = {}
+    self.m_lFriendInviteRequestList = {}
+
     self.m_mSentFpUserList      = {}
     self.m_lFriendDragonsList   = {}
     self.m_lRecommendUserList   = {}
@@ -53,7 +65,7 @@ function ServerData_Friend:request_recommend(finish_cb, force)
 
         for i,v in pairs(ret['users_list']) do
             local uid = v['uid']
-            if (not self.m_mInvitedUerList[uid]) then
+            if (not self.m_mInvitedUserList[uid]) then
                 self.m_lRecommendUserList[uid] = v
             end
         end
@@ -86,13 +98,21 @@ end
 -- @brief 친구 초대
 -------------------------------------
 function ServerData_Friend:request_invite(friend_uid, finish_cb)
+    --if (not self:checkInviteCondition(friend_uid)) then return end
+
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)
-        self.m_mInvitedUerList[friend_uid] = true
+        self.m_mInvitedUserList[friend_uid] = true
         self.m_lRecommendUserList[friend_uid] = nil
+
+        -- 초대한 친구 보낸 요청 리스트에 추가
+        for i,v in ipairs(ret['friends_list']) do
+            local uid = v['uid']
+            self.m_lFriendInviteRequestList[uid] = v
+        end
 
         if finish_cb then
             finish_cb(ret)
@@ -104,7 +124,7 @@ function ServerData_Friend:request_invite(friend_uid, finish_cb)
     ui_network:setUrl('/socials/invite')
     ui_network:setParam('uid', uid)
     ui_network:setParam('friends', friend_uid)
-    ui_network:setParam('type', 1) -- 1친구, 2베스트 프렌드, 3소울메이트
+    ui_network:setParam('type') 
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
@@ -203,15 +223,48 @@ end
 -- function getFriendCount
 -- @brief 친구 갯수 받아옴
 -------------------------------------
-function ServerData_Friend:getFriendCount(type)
-    type = type or 'all'
+function ServerData_Friend:getFriendCount()
     local count = 0
-
-    for i,v in pairs(self.m_lFriendUserList) do
+    for _, v in pairs(self.m_lFriendUserList) do
         count = (count + 1)
     end
 
     return count
+end
+
+-------------------------------------
+-- function getMaxFriendCount
+-- @brief 친구 갯수 받아옴
+-------------------------------------
+function ServerData_Friend:getMaxFriendCount()
+    return MAX_FRIEND_CNT
+end
+
+-------------------------------------
+-- function isFriend
+-------------------------------------
+function ServerData_Friend:isFriend(friend_uid)
+    if self.m_lFriendUserList[friend_uid] then return true end
+    return false
+end
+
+-------------------------------------
+-- function checkInviteCondition
+-------------------------------------
+function ServerData_Friend:checkInviteCondition(friend_uid)
+    if self:isMyFriend(friend_uid) then
+        local msg = Str('이미 친구입니다.')
+        UIManager:toastNotificationGreen(msg)
+        return false
+    end
+
+    if (table.count >= MAX_FRIEND_CNT) then
+        local msg = Str('친구 목록이 가득 찼습니다.')
+        UIManager:toastNotificationGreen(msg)
+        return false
+    end
+    
+    return true
 end
 
 -------------------------------------
@@ -259,11 +312,11 @@ function ServerData_Friend:makeFriendDragonStatusCalculator(t_dragon_data)
 end
 
 -------------------------------------
--- function request_inviteList
--- @brief 친구 요청 리스트
+-- function request_inviteResponseList
+-- @brief 친구 요청 리스트 (받은 요청)
 -------------------------------------
-function ServerData_Friend:request_inviteList(finish_cb, force)
-    if self.m_lFriendInviteList and (not force) then
+function ServerData_Friend:request_inviteResponseList(finish_cb, force)
+    if self.m_lFriendInviteResponseList and (not force) then
         if finish_cb then
             finish_cb()
         end
@@ -275,11 +328,10 @@ function ServerData_Friend:request_inviteList(finish_cb, force)
 
     -- 콜백 함수
     local function success_cb(ret)
-        self.m_lFriendInviteList = {}
-
+        self.m_lFriendInviteResponseList = {}
         for i,v in ipairs(ret['invites_list']) do
             local uid = v['uid']
-            self.m_lFriendInviteList[uid] = v
+            self.m_lFriendInviteResponseList[uid] = v
         end
 
         if finish_cb then
@@ -298,26 +350,79 @@ function ServerData_Friend:request_inviteList(finish_cb, force)
 end
 
 -------------------------------------
--- function getFriendInviteList
--- @brief 친구 요청 리스트
+-- function request_inviteRequestList
+-- @brief 친구 요청 리스트 (보낸 요청)
 -------------------------------------
-function ServerData_Friend:getFriendInviteList()
-    return self.m_lFriendInviteList
+function ServerData_Friend:request_inviteRequestList(finish_cb, force)
+    if self.m_lFriendInviteRequestList and (not force) then
+        if finish_cb then
+            finish_cb()
+        end
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self.m_lFriendInviteRequestList = {}
+        for i,v in ipairs(ret['request_list']) do
+            local uid = v['uid']
+            self.m_lFriendInviteRequestList[uid] = v
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/request_list')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end
 
 -------------------------------------
--- function request_inviteAccept
--- @brief 친구 요청 수락
+-- function getFriendInviteResponseList
+-- @brief 친구 요청 리스트 (받은 요청)
 -------------------------------------
-function ServerData_Friend:request_inviteAccept(friend_uid, finish_cb)
+function ServerData_Friend:getFriendInviteResponseList()
+    return self.m_lFriendInviteResponseList
+end
+
+-------------------------------------
+-- function getFriendInviteRequestList
+-- @brief 친구 요청 리스트 (보낸 요청)
+-------------------------------------
+function ServerData_Friend:getFriendInviteRequestList()
+    return self.m_lFriendInviteRequestList
+end
+
+-------------------------------------
+-- function getFirnedInviteRequestCount
+-------------------------------------
+function ServerData_Friend:getFirnedInviteRequestCount()
+    return table.count(self.m_lFriendInviteRequestList)
+end
+
+-------------------------------------
+-- function request_inviteResponseAccept
+-- @brief 친구 요청 수락 (받은 요청)
+-------------------------------------
+function ServerData_Friend:request_inviteResponseAccept(friend_uid, finish_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)
         
-        self.m_lFriendInviteList[friend_uid] = nil
-
+        self.m_lFriendInviteResponseList[friend_uid] = nil
+        
         if finish_cb then
             finish_cb(ret)
         end
@@ -335,17 +440,17 @@ function ServerData_Friend:request_inviteAccept(friend_uid, finish_cb)
 end
 
 -------------------------------------
--- function request_inviteReject
--- @brief 친구 요청 거절
+-- function request_inviteResponseReject
+-- @brief 친구 요청 거절 (받은 요청)
 -------------------------------------
-function ServerData_Friend:request_inviteReject(friend_uid, finish_cb)
+function ServerData_Friend:request_inviteResponseReject(friend_uid, finish_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)
-        
-        self.m_lFriendInviteList[friend_uid] = nil
+
+        self.m_lFriendInviteResponseList[friend_uid] = nil
 
         if finish_cb then
             finish_cb(ret)
@@ -355,6 +460,35 @@ function ServerData_Friend:request_inviteReject(friend_uid, finish_cb)
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/socials/invite_reject')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('friends', friend_uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_inviteRequestCancel
+-- @brief 친구 요청 취소 (보낸 요청)
+-------------------------------------
+function ServerData_Friend:request_inviteRequestCancel(friend_uid, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        
+        self.m_lFriendInviteRequestList[friend_uid] = nil
+        
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/request_cancel')
     ui_network:setParam('uid', uid)
     ui_network:setParam('friends', friend_uid)
     ui_network:setSuccessCB(success_cb)
@@ -523,10 +657,22 @@ function ServerData_Friend:response_friendCommon(ret)
     end
 end
 
+-------------------------------------
+-- function getInviteRequestDailyLimit
+-------------------------------------
+function ServerData_Friend:getInviteRequestDailyLimit()
+    return MAX_REQUEST_CNT
+end
+
+-------------------------------------
+-- function getInviteResponseDailyLimit
+-------------------------------------
+function ServerData_Friend:getInviteResponseDailyLimit()
+    return MAX_RESPONSE_CNT
+end
 
 -------------------------------------
 -- function getByeDailyCnt
--- @brief
 -------------------------------------
 function ServerData_Friend:getByeDailyCnt()
     local cnt = self.m_friendSystemStatus['bye_daily_cnt']
@@ -535,11 +681,9 @@ end
 
 -------------------------------------
 -- function getByeDailyLimit
--- @brief
 -------------------------------------
 function ServerData_Friend:getByeDailyLimit()
-    local cnt = 3
-    return cnt
+    return MAX_BYE_CNT
 end
 
 -------------------------------------
@@ -603,11 +747,11 @@ end
 -------------------------------------
 function ServerData_Friend:setDragonsList()
     self.m_lFriendDragonsList = {}
-
+            
     for _, v in pairs(self.m_lFriendUserList) do
         local t_friend_info = v
-        local t_dragon_data = StructDragonObject(t_friend_info['leader'])
-        table.insert(self.m_lFriendDragonsList, t_dragon_data)
+        local doid = t_friend_info['leader']['id']
+        self.m_lFriendDragonsList[doid] = StructDragonObject(t_friend_info['leader'])
     end
 end
 
@@ -615,17 +759,24 @@ end
 -- function getDragonsList
 -------------------------------------
 function ServerData_Friend:getDragonsList()
-    return self.m_lFriendDragonsList
+
+    -- 친구 드래곤 사용 시간 값 갱신
+    self:updateFriendUserList_time()
+
+    local dragon_list = {}
+    for _, v in pairs(self.m_lFriendDragonsList) do
+        table.insert(dragon_list, v)
+    end
+
+    return dragon_list
 end
 
 -------------------------------------
 -- function getDragonDataFromDoid
 -------------------------------------
 function ServerData_Friend:getDragonDataFromDoid(doid)
-    for _, v in ipairs(self.m_lFriendDragonsList) do
-        if v['id'] == doid then
-            return v
-        end
+    if (self.m_lFriendDragonsList[doid]) then
+        return self.m_lFriendDragonsList[doid]
     end
     
     return nil
@@ -635,10 +786,8 @@ end
 -- function checkFriendDragonFromDoid
 -------------------------------------
 function ServerData_Friend:checkFriendDragonFromDoid(doid)
-    for _, v in ipairs(self.m_lFriendDragonsList) do
-        if v['id'] == doid then
-            return true
-        end
+    if (self.m_lFriendDragonsList[doid]) then
+        return true
     end
     
     return false
@@ -651,7 +800,22 @@ end
 function ServerData_Friend:getDragonCoolTimeFromDoid(doid)
     if (doid) and (not self:checkFriendDragonFromDoid(doid)) then return nil end
     local friend_info = self:getFriendInfoFromDoid(doid)
-    return friend_info['used_time'] or nil
+    local use_enable = friend_info['enable_use'] or true
+    if (not use_enable) then
+        return nil
+    end
+    return friend_info['used_time']
+end
+
+-------------------------------------
+-- function checkUseEnableDragon
+-- @brief 드래곤 사용가능한 상태
+-------------------------------------
+function ServerData_Friend:checkUseEnableDragon(doid)
+    if (doid) and (not self:checkFriendDragonFromDoid(doid)) then return false end
+    local friend_info = self:getFriendInfoFromDoid(doid)
+    local use_enable = friend_info['enable_use'] or true
+    return use_enable
 end
 
 -------------------------------------
@@ -684,23 +848,15 @@ end
 -- @brief 친구 드래곤 슬롯 세팅 조건 검사
 -------------------------------------
 function ServerData_Friend:checkSetSlotCondition(doid)
-    
-    if (self:checkFriendDragonFromDoid(doid)) then
-        -- 쿨타임이 남아 있는 친구
-        local cool_time = self:getDragonCoolTimeFromDoid(doid)
-        if (cool_time) and (cool_time > 0) then 
-            -- 팝업 추가?
-            return true
-        end
-
-        -- 이미 선택된 친구가 있음
-        if (self.m_selectedSharedFriendDragon) and (self.m_selectedSharedFriendDragon ~= doid) then 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('친구 드래곤은 전투에 한 명만 참여할 수 있습니다'))
-            return true
-        end
+    if (not self:checkFriendDragonFromDoid(doid)) then return true end
+        
+    -- 이미 선택된 친구가 있음
+    if (self.m_selectedSharedFriendDragon) and (self.m_selectedSharedFriendDragon ~= doid) then 
+        MakeSimplePopup(POPUP_TYPE.OK, Str('친구 드래곤은 전투에 한 명만 참여할 수 있습니다'))
+        return false
     end
 
-    return false
+    return true
 end
 
 -------------------------------------
@@ -714,16 +870,13 @@ end
 
 -------------------------------------
 -- function getFriendInfoFromDoid
+-- @brief 드래곤 uid로 친구 정보 가져옴
 -------------------------------------
 function ServerData_Friend:getFriendInfoFromDoid(doid)
-    for _, v in pairs(self.m_lFriendUserList) do
-        local t_friend_info = v
-        if t_friend_info['leader']['id'] == doid then
-            return t_friend_info
-        end
-    end
-    
-    return nil
+    if (not self:checkFriendDragonFromDoid(doid)) then return nil end
+     
+    local owner_uid = self.m_lFriendDragonsList[doid]['uid']
+    return self.m_lFriendUserList[owner_uid]
 end
 
 -------------------------------------
@@ -734,100 +887,4 @@ function ServerData_Friend:getFriendOnlineBuff()
     if true then
         return {}, {}, {}
     end
-
-    local friend_list = self:getFriendList()
-
-    local soulmate_buff = {}
-    soulmate_buff['online'] = {}
-
-    local bestfriend_buff = {}
-    bestfriend_buff['online'] = {}
-
-    for i,v in pairs(friend_list) do
-        -- 소울메이트
-        if (v['friendtype'] == 3) and v['is_online'] then
-            table.insert(soulmate_buff['online'], v['nick'])
-
-        -- 베스트프랜드
-        elseif (v['friendtype'] == 2) and v['is_online'] then
-            table.insert(bestfriend_buff['online'], v['nick'])
-
-        end
-    end
-
-    -- 소울메이트
-    local online_soulmate = #soulmate_buff['online']
-    if online_soulmate > 0 then
-        soulmate_buff['buff_list'] = {}
-        soulmate_buff['buff_list']['exp'] = (online_soulmate * 10)
-        soulmate_buff['buff_list']['gold'] = (online_soulmate * 10)
-        soulmate_buff['buff_list']['atk'] = (online_soulmate * 5)
-        soulmate_buff['buff_list']['def'] = (online_soulmate * 5)
-
-        local nick_str = nil
-        for i,v in ipairs(soulmate_buff['online']) do
-            if (not nick_str) then
-                nick_str = ''
-            else
-                nick_str = nick_str .. ', '
-            end
-            nick_str = nick_str .. v
-        end
-        soulmate_buff['info_title'] = Str('{@SKILL_NAME}[소울메이트 접속 버프]')
-        soulmate_buff['info_title'] = soulmate_buff['info_title'] .. ' {@WHITE}(' .. nick_str .. ')'
-        soulmate_buff['info_list'] = {}
-        table.insert(soulmate_buff['info_list'], Str('{@DEEPSKYBLUE}[소울메이트의 응원] {@WHITE}모든 모드에서 결과로 얻는 {@YELLOW}경험치 +{1}% 증가', soulmate_buff['buff_list']['exp']))
-        table.insert(soulmate_buff['info_list'], Str('{@DEEPSKYBLUE}[소울메이트의 행운] {@WHITE}모든 모드에서 결과로 얻는 {@YELLOW}골드 +{1}% 증가', soulmate_buff['buff_list']['gold']))
-        table.insert(soulmate_buff['info_list'], Str('{@DEEPSKYBLUE}[소울메이트의 기원] {@WHITE}모든 모드에서 {@YELLOW}공격력, 방어력 +{1}% 증가', soulmate_buff['buff_list']['atk']))
-    end
-
-    -- 베스트프랜드
-    local online_bestfriend = #bestfriend_buff['online']
-    if online_bestfriend > 0 then
-        bestfriend_buff['buff_list'] = {}
-        bestfriend_buff['buff_list']['exp'] = (online_bestfriend * 3)
-        bestfriend_buff['buff_list']['gold'] = (online_bestfriend * 3)
-
-        local nick_str = nil
-        for i,v in ipairs(bestfriend_buff['online']) do
-            if (not nick_str) then
-                nick_str = ''
-            else
-                nick_str = nick_str .. ', '
-            end
-            nick_str = nick_str .. v
-        end
-        bestfriend_buff['info_title'] = Str('{@SKILL_NAME}[베스트프랜드 접속 버프]')
-        bestfriend_buff['info_title'] = bestfriend_buff['info_title'] .. ' {@WHITE}(' .. nick_str .. ')'
-        bestfriend_buff['info_list'] = {}
-        table.insert(bestfriend_buff['info_list'], Str('{@DEEPSKYBLUE}[베스트프랜드의 응원] {@WHITE}모든 모드에서 결과로 얻는 {@YELLOW}경험치 +{1}% 증가', bestfriend_buff['buff_list']['exp']))
-        table.insert(bestfriend_buff['info_list'], Str('{@DEEPSKYBLUE}[베스트프랜드의 행운] {@WHITE}모든 모드에서 결과로 얻는 {@YELLOW}골드 +{1}% 증가', bestfriend_buff['buff_list']['gold']))
-    end
-
-
-    -- 실제 적용될 버프 내용만 key, value로 저장하는 테이블
-    local total_buff_list = {}
-    do 
-        -- 소울메이트 버프 합산
-        if soulmate_buff['buff_list'] then
-            for i,v in pairs(soulmate_buff['buff_list']) do
-                if (not total_buff_list[i]) then
-                    total_buff_list[i] = 0
-                end
-                total_buff_list[i] = total_buff_list[i] + v
-            end
-        end
-
-        -- 베스트프랜드 버프 합산
-        if bestfriend_buff['buff_list'] then
-            for i,v in pairs(bestfriend_buff['buff_list']) do
-                if (not total_buff_list[i]) then
-                    total_buff_list[i] = 0
-                end
-                total_buff_list[i] = total_buff_list[i] + v
-            end
-        end
-    end
-
-    return bestfriend_buff, soulmate_buff, total_buff_list
 end

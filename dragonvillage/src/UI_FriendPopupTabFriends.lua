@@ -31,7 +31,8 @@ function UI_FriendPopupTabFriends:onEnterFriendPopupTab(first)
 
             -- 친구 명수
             local count = g_friendData:getFriendCount()
-            self.vars['listLabel']:setString(Str('{1} / {2}명', count, 20))
+            local max = g_friendData:getMaxFriendCount()
+            self.vars['listLabel']:setString(Str('{1} / {2}명', count, max))
         end
         local force = true
         g_friendData:request_friendList(finish_cb, force)

@@ -10,6 +10,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_FriendPopup = class(PARENT, {
         m_tTabClass = 'table',
+        m_hilightTimeStamp = '',
     })
 
 -------------------------------------
@@ -30,6 +31,9 @@ function UI_FriendPopup:init()
 	self:initUI()
 	self:initButton()
 	self:refresh()
+
+    -- noti 제대로 동작하지 않아 주석처리
+    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -81,7 +85,29 @@ function UI_FriendPopup:click_drawBtn()
     g_gachaData:refresh_gachaInfo(func)
 end
 
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_FriendPopup:update(dt)
+    if (g_highlightData.m_lastUpdateTime ~= self.m_hilightTimeStamp) then
+        self.m_hilightTimeStamp = g_highlightData.m_lastUpdateTime
+        self:refresh_highlight()
+    end
+end
 
+-------------------------------------
+-- function refresh_highlight
+-------------------------------------
+function UI_FriendPopup:refresh_highlight()
+    local vars = self.vars
+
+    -- 우정 포인트 보내기 가능한 상태
+    vars['listNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend())
+
+    -- 받은 요청 있는 상태
+    vars['responseNotiSprite']:setVisible(g_highlightData:isHighlightFrinedInvite())
+
+end
 --------------------------------------------------------------------
 --------------------------------------------------------------------
 -- TAB 관련
@@ -93,18 +119,15 @@ function UI_FriendPopup:initFrinedPopupTab()
     self.m_tTabClass = {}
     self.m_tTabClass['friends'] = UI_FriendPopupTabFriends(self)
     self.m_tTabClass['recommend'] = UI_FriendPopupTabRecommend(self)
+    self.m_tTabClass['response'] = UI_FriendPopupTabResponse(self)
     self.m_tTabClass['request'] = UI_FriendPopupTabRequest(self)
-    self.m_tTabClass['invite'] = UI_FriendPopupTabInvite(self)
-    self.m_tTabClass['support'] = UI_FriendPopupTabSupport(self)
 
     local vars = self.vars
     self:addTab('friends', vars['listBtn'], vars['listMenu'])
     self:addTab('recommend', vars['recommendBtn'], vars['recommendNode1'], vars['recommendMenu2'])
-    self:addTab('request', vars['requestBtn'], vars['requestNode'])
-    self:addTab('invite', vars['inviteBtn'], vars['inviteMenu'])
-    self:addTab('support', vars['supportBtn'], vars['supportNode'])
+    self:addTab('response', vars['responseBtn'], vars['responseNode']) -- 받은 요청
+    self:addTab('request', vars['requestBtn'], vars['requestNode']) -- 보낸 요청
     
-
     self:setTab('friends')
 end
 

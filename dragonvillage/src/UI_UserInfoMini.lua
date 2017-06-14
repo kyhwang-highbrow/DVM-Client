@@ -54,10 +54,7 @@ function UI_UserInfoMini:initButton(t_user_info)
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
-
-    if vars['requestBtn'] then
-        vars['requestBtn']:setVisible(false)
-    end
+    vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
 
     vars['whisperBtn']:registerScriptTapHandler(function() self:click_whisperBtn() end)
     vars['blockBtn']:registerScriptTapHandler(function() self:click_blockBtn() end)
@@ -98,6 +95,21 @@ function UI_UserInfoMini:click_infoBtn()
     local uid = self.m_structUserInfo:getUid()
     local is_visit = true
     RequestUserInfoDetailPopup(uid, is_visit)
+end
+
+-------------------------------------
+-- function click_requestBtn
+-- @brief
+-------------------------------------
+function UI_UserInfoMini:click_requestBtn()
+    local nickname = self.m_structUserInfo:getNickname()
+    local function finish_cb(ret)
+        local msg = Str('[{1}]에게 친구 요청을 하였습니다.', nickname)
+        UIManager:toastNotificationGreen(msg)
+    end
+
+    local friend_ui = self.m_structUserInfo:getUid()
+    g_friendData:request_invite(friend_ui, finish_cb)
 end
 
 -------------------------------------

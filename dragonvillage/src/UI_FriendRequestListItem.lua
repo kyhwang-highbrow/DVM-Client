@@ -42,8 +42,7 @@ end
 function UI_FriendRequestListItem:initButton()
     local vars = self.vars
     vars['sendBtn']:setVisible(false)
-    vars['acceptBtn']:setVisible(true)
-    vars['refuseBtn']:setVisible(true)
+    vars['cancelBtn']:setVisible(true)
 end
 
 -------------------------------------

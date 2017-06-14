@@ -630,14 +630,17 @@ function UI_FriendDragonCard(t_dragon_data)
 
     ui.vars['clickBtn']:registerScriptPressHandler(func)
     
-    local friend_info = g_friendData:getFriendInfoFromDoid(t_dragon_data['id'])
+    local doid = t_dragon_data['id']
+    local friend_info = g_friendData:getFriendInfoFromDoid(doid)
     local zorder = 99
 
     -- 친구 마크 추가
     ui:setFriendSpriteVisible(true)
     
+    local use_enable = g_friendData:checkUseEnableDragon(doid)
+
     -- 쿨타임 추가 - 중앙
-    if friend_info['used_time'] > 0 then
+    if (not use_enable) then
         local sprite = cc.Sprite:createWithSpriteFrameName('character_card_bg.png')
         sprite:setDockPoint(CENTER_POINT)
         sprite:setAnchorPoint(CENTER_POINT)
