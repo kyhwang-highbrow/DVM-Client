@@ -1,0 +1,216 @@
+
+jaryong_dark_03.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+jaryong_dark_03_acc_01
+  rotate: true
+  xy: 1494, 115
+  size: 29, 107
+  orig: 29, 107
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_arm_01
+  rotate: false
+  xy: 1904, 142
+  size: 121, 108
+  orig: 121, 108
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_body_01
+  rotate: false
+  xy: 776, 62
+  size: 224, 188
+  orig: 224, 188
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_body_armor_01
+  rotate: false
+  xy: 1494, 146
+  size: 132, 104
+  orig: 132, 104
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_body_armor_02
+  rotate: false
+  xy: 1744, 47
+  size: 112, 97
+  orig: 112, 97
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_calf_01
+  rotate: true
+  xy: 1125, 2
+  size: 73, 80
+  orig: 73, 80
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_effect_01
+  rotate: true
+  xy: 544, 22
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_effect_02
+  rotate: true
+  xy: 2, 138
+  size: 112, 540
+  orig: 112, 540
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_elbow_01
+  rotate: false
+  xy: 250, 8
+  size: 110, 82
+  orig: 110, 82
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_eye_01
+  rotate: false
+  xy: 1288, 132
+  size: 29, 25
+  orig: 29, 25
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_eye_02
+  rotate: false
+  xy: 1744, 147
+  size: 8, 12
+  orig: 8, 12
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_eye_03
+  rotate: true
+  xy: 2027, 186
+  size: 22, 19
+  orig: 22, 19
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_foot_01
+  rotate: true
+  xy: 1002, 42
+  size: 56, 121
+  orig: 56, 121
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_foot_02
+  rotate: true
+  xy: 426, 69
+  size: 67, 116
+  orig: 67, 116
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_hair_01
+  rotate: false
+  xy: 1158, 159
+  size: 188, 91
+  orig: 188, 91
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_hair_02
+  rotate: false
+  xy: 776, 36
+  size: 191, 24
+  orig: 191, 24
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_hair_03
+  rotate: true
+  xy: 1348, 131
+  size: 119, 144
+  orig: 119, 144
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_hair_04
+  rotate: false
+  xy: 250, 92
+  size: 174, 44
+  orig: 174, 44
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_hand_01
+  rotate: false
+  xy: 1970, 51
+  size: 65, 89
+  orig: 65, 89
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_hand_02
+  rotate: false
+  xy: 362, 6
+  size: 41, 84
+  orig: 41, 84
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_head_01
+  rotate: false
+  xy: 1858, 36
+  size: 110, 104
+  orig: 110, 104
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_headarmor_01
+  rotate: false
+  xy: 1002, 100
+  size: 154, 150
+  orig: 154, 150
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_headarmor_02
+  rotate: true
+  xy: 1628, 161
+  size: 89, 145
+  orig: 89, 145
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_mouth_01
+  rotate: true
+  xy: 969, 40
+  size: 20, 26
+  orig: 20, 26
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_mouth_02
+  rotate: true
+  xy: 2027, 210
+  size: 40, 19
+  orig: 40, 19
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_shoulder_01
+  rotate: false
+  xy: 1628, 56
+  size: 114, 103
+  orig: 114, 103
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_tail_01
+  rotate: false
+  xy: 1775, 146
+  size: 127, 104
+  orig: 127, 104
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_tail_02
+  rotate: false
+  xy: 2, 76
+  size: 246, 60
+  orig: 246, 60
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_tail_03
+  rotate: false
+  xy: 2, 3
+  size: 229, 71
+  orig: 229, 71
+  offset: 0, 0
+  index: -1
+jaryong_dark_03_thigh_01
+  rotate: true
+  xy: 1158, 77
+  size: 80, 128
+  orig: 80, 128
+  offset: 0, 0
+  index: -1

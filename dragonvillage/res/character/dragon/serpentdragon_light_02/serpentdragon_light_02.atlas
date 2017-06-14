@@ -1,0 +1,104 @@
+
+serpentdragon_light_02.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+serpentdragon_light_02_body_01
+  rotate: true
+  xy: 2, 19
+  size: 235, 295
+  orig: 235, 295
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_body_02
+  rotate: true
+  xy: 299, 75
+  size: 179, 321
+  orig: 179, 321
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_effect_01
+  rotate: false
+  xy: 299, 19
+  size: 57, 54
+  orig: 57, 54
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_eye_01
+  rotate: false
+  xy: 1374, 208
+  size: 39, 46
+  orig: 39, 46
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_eye_02
+  rotate: false
+  xy: 770, 40
+  size: 39, 46
+  orig: 39, 46
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_eye_03
+  rotate: false
+  xy: 358, 35
+  size: 47, 38
+  orig: 47, 38
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_head_01
+  rotate: true
+  xy: 622, 88
+  size: 166, 202
+  orig: 166, 202
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_head_03
+  rotate: false
+  xy: 1286, 177
+  size: 86, 77
+  orig: 86, 77
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_head_05
+  rotate: false
+  xy: 1286, 121
+  size: 55, 54
+  orig: 55, 54
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_head_06
+  rotate: false
+  xy: 700, 28
+  size: 68, 58
+  orig: 68, 58
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_tail_01
+  rotate: false
+  xy: 622, 2
+  size: 76, 84
+  orig: 76, 84
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_wing_01
+  rotate: false
+  xy: 1142, 116
+  size: 142, 138
+  orig: 142, 138
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_wing_02
+  rotate: true
+  xy: 826, 98
+  size: 156, 167
+  orig: 156, 167
+  offset: 0, 0
+  index: -1
+serpentdragon_light_02_wing_03
+  rotate: false
+  xy: 995, 112
+  size: 145, 142
+  orig: 145, 142
+  offset: 0, 0
+  index: -1
