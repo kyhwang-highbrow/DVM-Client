@@ -178,6 +178,11 @@ function TableDragon:getDragonAttr(did)
         self = THIS()
     end
 
+    if TableSlime:isSlimeID(did) then
+        local table_slime = TableSlime()
+        return table_slime:getValue(did, 'attr')
+    end
+
     local dragon_attr = self:getValue(did, 'attr')
     return dragon_attr
 end

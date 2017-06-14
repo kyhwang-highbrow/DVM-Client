@@ -77,6 +77,9 @@ function ServerData:getInstance()
     -- 알 (eggs)
     g_eggsData = ServerData_Eggs(g_serverData)
 
+    -- 부화소
+    g_hatcheryData = ServerData_Hatchery(g_serverData)
+
 	-- 퀘스트
     g_questData = ServerData_Quest(g_serverData)
 

@@ -108,7 +108,14 @@ end
 -- @brief 진화 단계에 따라 연출을 조정한다.
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
-	local rarity = TableDragon:getValue(did, 'rarity')
+
+    local rarity
+    if TableSlime:isSlimeID(did) then
+        rarity = TableSlime:getValue(did, 'rarity')
+    else
+        rarity = TableDragon:getValue(did, 'rarity')
+    end
+
 	self.m_maxStep = dragonRarityStrToNum(rarity)
 
 	-- 전설등급의 경우 추가 연출을 붙여준다

@@ -104,6 +104,7 @@ local t_module = {
 	'ServerData_Formation',
 	'ServerData_DragonBoard',
     'ServerData_Eggs',
+    'ServerData_Hatchery',
 
     -- Interface
     'IEventDispatcher',

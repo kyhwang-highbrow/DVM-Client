@@ -15,8 +15,26 @@ UI_GachaResult_Dragon = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GachaResult_Dragon:init(l_gacha_dragon_list)
-    self.m_lGachaDragonList = clone(l_gacha_dragon_list)
+function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list)
+
+    -- 드래곤리스트, 슬라임 리스트 copy
+    local copy_dragon_list = l_gacha_dragon_list and clone(l_gacha_dragon_list) or {}
+    local copy_slime_list = l_slime_list and clone(l_slime_list) or {}
+
+    -- 연출에 사용될 리스트 merge
+    self.m_lGachaDragonList = {}
+    for i,v in ipairs(copy_dragon_list) do
+        local struct = StructDragonObject(v)
+        table.insert(self.m_lGachaDragonList, struct)
+    end
+    for i,v in ipairs(copy_slime_list) do
+        local struct = StructSlimeObject(v)
+        table.insert(self.m_lGachaDragonList, struct)
+    end
+
+    -- 순서 셔플
+    self.m_lGachaDragonList = table.sortRandom(self.m_lGachaDragonList)
+    
 
     local vars = self:load('dragon_summon_result.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -107,17 +125,16 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
 
-    local t_dragon = TableDragon():get(did)
-
     -- 이름
-    vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
+    local name = t_dragon_data:getDragonNameWithEclv()
+    vars['nameLabel']:setString(name .. '-' .. evolutionName(evolution))
 
     do -- 능력치
         self:refresh_status(t_dragon_data)
     end
 
     do -- 희귀도
-        local rarity = t_dragon['rarity']
+        local rarity = t_dragon_data:getRarity()
         vars['rarityNode']:removeAllChildren()
         local icon = IconHelper:getRarityIcon(rarity)
         vars['rarityNode']:addChild(icon)
@@ -126,7 +143,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
     end
 
     do -- 드래곤 속성
-        local attr = t_dragon['attr']
+        local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
         local icon = IconHelper:getAttributeIcon(attr)
         vars['attrNode']:addChild(icon)
@@ -135,7 +152,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
     end
 
     do -- 드래곤 역할(role)
-        local role_type = t_dragon['role']
+        local role_type = t_dragon_data:getRole()
         vars['roleNode']:removeAllChildren()
         local icon = IconHelper:getRoleIcon(role_type)
         vars['roleNode']:addChild(icon)
@@ -168,7 +185,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
         end
 
         dragon_animator:setDragonAppearCB(cb)
-        dragon_animator:setDragonAnimator(t_dragon['did'], evolution, nil)
+        dragon_animator:setDragonAnimator(t_dragon_data['did'], evolution, nil)
 		dragon_animator:startDirecting()
 
 		self.m_currDragonAnimator = dragon_animator
@@ -181,19 +198,27 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon:refresh_status(t_dragon_data)
     local vars = self.vars
-    
-	local dragon_id = t_dragon_data['did']
-    local lv = t_dragon_data['lv'] or 1
-    local grade = t_dragon_data['grade'] or 1
-    local evolution = t_dragon_data['evolution'] or 1
-    local eclv = eclv
 
-    -- 능력치 계산기
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
+    local is_slime_object = (t_dragon_data.m_objectType == 'slime')
 
-    vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
-    vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
-    vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+    if is_slime_object then
+        vars['atk_label']:setString('0')
+        vars['def_label']:setString('0')
+        vars['hp_label']:setString('0')
+    else
+        local dragon_id = t_dragon_data['did']
+        local lv = t_dragon_data['lv'] or 1
+        local grade = t_dragon_data['grade'] or 1
+        local evolution = t_dragon_data['evolution'] or 1
+        local eclv = eclv
+
+        -- 능력치 계산기
+        local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
+
+        vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
+        vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
+        vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+    end
 end
 
 -------------------------------------
@@ -215,7 +240,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
 		t_data['lv'] = nil
 
 		-- 드래곤 카드 생성
-		local card = UI_DragonCard(StructDragonObject(t_data))
+		local card = UI_DragonCard(t_data)
 		
 		-- 카드..처리
 		card.root:setPositionX(pos_x)

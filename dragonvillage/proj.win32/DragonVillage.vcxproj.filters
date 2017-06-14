@@ -2403,9 +2403,14 @@
     <None Include="..\src\ServerData_Eggs.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_Friend_Old.lua" />
     <None Include="..\src\UI_DragonSkillEnhance_Result.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_Friend_Old.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ServerData_Hatchery.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

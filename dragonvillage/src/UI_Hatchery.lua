@@ -37,6 +37,7 @@ function UI_Hatchery:initParentVariable()
     self.m_uiName = 'UI_Hatchery'
     self.m_titleStr = Str('부화소')
     self.m_bUseExitBtn = true
+    self.m_subCurrency = 'fp' -- 우정포인트
 end
 
 -------------------------------------

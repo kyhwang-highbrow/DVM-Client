@@ -71,9 +71,24 @@ end
 -- function click_eggItem
 -------------------------------------
 function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
+    local t_data = t_item['data']
+
+    if t_data['is_shop'] then
+        UIManager:toastNotificationRed(Str('"알 상점"은 준비 중입니다.'))
+        return
+    end
+
+    local egg_id = t_data['egg_id']
+    local cnt = t_data['count']
+
     local function finish_cb(ret)
-    local l_dragon_list = ret['added_dragons']
-        UI_GachaResult_Dragon(l_dragon_list)
+        local l_dragon_list = ret['added_dragons']
+        local ui = UI_GachaResult_Dragon(l_dragon_list)
+
+        local function close_cb()
+            self:sceneFadeInAction()
+        end
+        ui:setCloseCB(close_cb)
 
         -- 리스트 갱신
         self:refreshEggList()
@@ -89,10 +104,6 @@ function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
 
     end
 
-    local t_data = t_item['data']
-    local egg_id = t_data['egg_id']
-    local cnt = t_data['count']
-
     g_eggsData:request_incubate(egg_id, cnt, finish_cb, fail_cb)
 end
 
@@ -100,11 +111,18 @@ end
 -- function onChangeCurrEgg
 -------------------------------------
 function UI_HatcheryIncubateTab:onChangeCurrEgg(t_item, idx)
+    local vars = self.vars
     local t_data = t_item['data']
+
+    if t_data['is_shop'] then
+        vars['nameLabel']:setString('상점')
+        vars['descLabel']:setString('')
+        return
+    end
+
     local egg_id = tonumber(t_data['egg_id'])
     local cnt = t_data['count']
 
-    local vars = self.vars
     local table_item = TableItem()
     local name = table_item:getValue(egg_id, 't_name')
 
@@ -128,7 +146,23 @@ function UI_HatcheryIncubateTab:refreshEggList()
     local l_item_list = g_eggsData:getEggListForUI()
     local table_item = TableItem()
     
+    -- Shop Egg 추가
+    do
+        local scale = 0.8
+        local sprite = cc.Sprite:create('res/item/egg/egg_shop.png')
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        sprite:setScale(scale)
 
+        local data = {['is_shop']=true}
+
+        local ui = {}
+        ui.root = sprite
+
+        egg_picker:addEgg(data, ui)
+    end
+
+    -- 알들 추가
     for i,v in ipairs(l_item_list) do
         local egg_id = tonumber(v['egg_id'])
         local _res = table_item:getValue(egg_id, 'full_type')
@@ -148,8 +182,8 @@ function UI_HatcheryIncubateTab:refreshEggList()
         egg_picker:addEgg(data, ui)
     end
 
-    -- 2번째 아이템을 포커스
-    --egg_picker:setFocus(2)
+    -- 2번째 아이템을 포커스 (1번째 아이템은 "상점")
+    egg_picker:setFocus(2)
 
 
     is_first = false
