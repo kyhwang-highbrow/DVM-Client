@@ -285,7 +285,7 @@
     <None Include="..\src\UI_ReadyScene_Deck.lua">
       <Filter>lua\UI</Filter>
     </None>
-	<None Include="..\src\UI_ReadyScene_Select.lua">
+    <None Include="..\src\UI_ReadyScene_Select.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_ShopPopup.lua">
@@ -1902,7 +1902,7 @@
     <None Include="..\src\SortManager_Rune.lua">
       <Filter>lua\src</Filter>
     </None>
-	<None Include="..\src\SortManager_Friend.lua">
+    <None Include="..\src\SortManager_Friend.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\SoundMgr.lua">
@@ -2402,6 +2402,10 @@
     </None>
     <None Include="..\src\ServerData_Eggs.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ServerData_Friend_Old.lua" />
+    <None Include="..\src\UI_DragonSkillEnhance_Result.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -806,6 +806,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonBoardPopup_Evaluate.lua" />
     <None Include="..\src\UI_DragonBoardPopup_Write.lua" />
     <None Include="..\src\UI_DragonSkillEnhance.lua" />
+    <None Include="..\src\UI_DragonSkillEnhance_Result.lua" />
     <None Include="..\src\UI_DungeonMenu.lua" />
     <None Include="..\src\UI_BirthdayCalendarDayElement.lua" />
     <None Include="..\src\UI_BirthdayRewardSelectListItem.lua" />
@@ -878,7 +879,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ObtainPopup.lua" />
     <None Include="..\src\UI_OverallRankingListItem.lua" />
     <None Include="..\src\UI_OverallRankingPopup.lua" />
-	<None Include="..\src\UI_ReadyScene_LeaderPopup.lua" />
+    <None Include="..\src\UI_ReadyScene_LeaderPopup.lua" />
     <None Include="..\src\UI_ReadyScene_Select.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoPopup.lua" />
     <None Include="..\src\UI_DragonUpgradeNew.lua" />

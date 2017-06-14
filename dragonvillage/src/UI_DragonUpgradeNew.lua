@@ -320,7 +320,7 @@ function UI_DragonUpgradeNew:click_dragonMaterial(data)
     else
         if self.m_currSlotIdx then
             local ui = UI_DragonCard(data)
-            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonUpgradeMaterial(data) end)
+            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
             ui.m_tag = self.m_currSlotIdx
 
             self.m_mSelectedMtrMap[doid] = ui

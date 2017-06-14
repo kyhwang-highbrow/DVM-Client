@@ -60,7 +60,7 @@ end
 -------------------------------------
 function UI_DragonSkillEnhance:initButton()
     local vars = self.vars
-    --vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+    vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
 end
 
 -------------------------------------
@@ -264,7 +264,7 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
 	-- 선택된 재료가 없는 경우
     else
 		local ui = UI_DragonCard(data)
-		ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonUpgradeMaterial(data) end)
+		ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
 		self.m_selectedMtrl = ui
 
 		local scale = 0.57
@@ -300,17 +300,23 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
     local src_doids = ''
     local src_soids = ''
 
-	local _doid = v.m_dragonData['id']
-	local _dragon_object = g_dragonsData:getDragonObject(_doid)
+	local mtrl_doid = self.m_selectedMtrl.m_dragonData['id']
+	local mtrl_dragon_object = g_dragonsData:getDragonObject(mtrl_doid)
        
 	-- 드래곤     
-	if (_dragon_object.m_objectType == 'dragon') then
-		src_doids = tostring(_doid)
+	if (mtrl_dragon_object.m_objectType == 'dragon') then
+		src_doids = tostring(mtrl_doid)
 
 	-- 슬라임
-	elseif (_dragon_object.m_objectType == 'slime') then
-		src_soids = tostring(_doid)
+	elseif (mtrl_dragon_object.m_objectType == 'slime') then
+		src_soids = tostring(mtrl_doid)
 
+	end
+
+	-- 재료 제거
+	if (self.m_selectedMtrl) then
+		self.m_selectedMtrl.root:removeFromParent()
+		self.m_selectedMtrl = nil
 	end
 
     local function success_cb(ret)
@@ -345,16 +351,20 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
             g_topUserInfo:refreshData()
         end
 
+		-- 스킬강화 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
         self.m_bChangeDragonList = true
 
-        local t_next_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+		-- 결과창 출력
+		local mod_struct_dragon = StructDragonObject(ret['modified_dragon'])
+        local ui = UI_DragonSkillEnhance_Result(self.m_selectDragonData, mod_struct_dragon)
 
-        -- 연출 시작
-        self:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
+		-- 동시에 본UI 갱신
+		self.m_selectDragonData = mod_struct_dragon
+		self:refresh()
     end
 
     local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/upgrade')
+    ui_network:setUrl('/dragons/skillup')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
     ui_network:setParam('src_doids', src_doids)
@@ -362,43 +372,6 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
-end
-
--------------------------------------
--- function upgradeDirecting
--- @brief 강화 연출
--------------------------------------
-function UI_DragonSkillEnhance:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
-    local block_ui = UI_BlockPopup()
-
-    local directing_animation
-    local directing_result
-
-    -- 에니메이션 연출
-    directing_animation = function()
-        local vars = self.vars
-
-        self.vars['upgradeVisual']:setVisible(true)
-        self.vars['upgradeVisual']:setVisual('group', 'idle')
-        self.vars['upgradeVisual']:setRepeat(false)
-        self.vars['upgradeVisual']:addAniHandler(directing_result)
-        SoundMgr:playEffect('EFFECT', 'exp_gauge')
-    end
-
-    -- 결과 연출
-    directing_result = function()
-        block_ui:close()
-        
-        -- 결과 팝업 (승급)
-        if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
-            UI_DragonUpgradeResult(t_next_dragon_data, t_prev_dragon_data)
-        end
-
-        -- UI 닫음
-        self:close()
-    end
-
-    directing_result()
 end
 
 --@CHECK

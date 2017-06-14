@@ -707,7 +707,6 @@ local t_module = {
 	'UI_DragonSkillEnhance',
     'UI_DragonResearch',
     'UI_DragonManagementEvolution',
-    'UI_DragonManageFriendshipResult',
     'UI_CharacterCard',
     'UI_SkillDetailPopup',
     'UI_SkillDetailPopupListItem',
@@ -716,10 +715,13 @@ local t_module = {
     'UI_DragonRunes',
     'UI_DragonRunesEnhance',
     'UI_DragonFriendship',
+
+    'UI_DragonManageFriendshipResult',
     'UI_DragonEvolutionResult',
     'UI_DragonUpgradeResult',
     'UI_DragonEclvResult',
     'UI_DragonLevelupResult',
+	'UI_DragonSkillEnhance_Result',
 
 	-- UI : 드래곤 평가
 	'UI_DragonBoardPopup',
