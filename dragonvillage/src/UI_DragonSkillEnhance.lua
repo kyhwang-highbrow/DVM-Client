@@ -51,7 +51,6 @@ function UI_DragonSkillEnhance:initUI()
     local vars = self.vars
 
     self:init_dragonTableView()
-	vars['priceLabel']:setString(0)
 end
 
 -------------------------------------
@@ -114,6 +113,10 @@ function UI_DragonSkillEnhance:refresh()
             self.m_selectedMtrl.root:removeFromParent()
         end
     end
+
+	-- 소모 골드 표시
+	local price = self:getSkillEnhancePrice()
+	vars['priceLabel']:setString(price)
 
 	self:refresh_skillIcon()
     self:refresh_dragonMaterialTableView()
@@ -270,6 +273,14 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
 end
 
 -------------------------------------
+-- function getSkillEnhancePrice
+-------------------------------------
+function UI_DragonSkillEnhance:getSkillEnhancePrice()
+	local did = self.m_selectDragonData['did']
+	return TableDragon:getBirthGrade(did) * 10000
+end
+
+-------------------------------------
 -- function click_enhanceBtn
 -------------------------------------
 function UI_DragonSkillEnhance:click_enhanceBtn()
@@ -286,6 +297,13 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
         cca.uiImpossibleAction(self.vars['materialNode'])
         return
     end
+
+	-- 골드 충족 여부
+	if (self:getSkillEnhancePrice() > g_userData:get('gold')) then
+		UIManager:toastNotificationRed(Str('골드가 모잘라요'))
+        cca.uiImpossibleAction(self.vars['enhanceBtn'])
+        return
+	end
 
     local uid = g_userData:get('uid')
     local doid = self.m_selectDragonOID

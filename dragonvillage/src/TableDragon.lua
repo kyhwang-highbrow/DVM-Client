@@ -227,7 +227,7 @@ end
 
 -------------------------------------
 -- function isUnderling
--- @brief 도감에서 드래곤 스토리 출력 시 사용
+-- @brief 자코 여부 확인
 -------------------------------------
 function TableDragon:isUnderling(did)
     if (self == THIS) then
@@ -237,7 +237,17 @@ function TableDragon:isUnderling(did)
     return (underling == 1)
 end
 
+-------------------------------------
+-- function getBirthGrade
+-- @brief 태생 n성..
+-------------------------------------
+function TableDragon:getBirthGrade(did)
+    if (self == THIS) then
+        self = THIS()
+    end
 
+    return self:getValue(did, 'birthgrade')
+end
 
 
 
