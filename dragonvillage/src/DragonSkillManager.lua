@@ -154,7 +154,8 @@ function IDragonSkillManager:initSkillIDList()
 	self.m_lSkillIndivisualInfo['under_atk_rate'] = {}
 	self.m_lSkillIndivisualInfo['under_atk_turn'] = {}
 
-    self.m_lSkillIndivisualInfo['under_ally_hp'] = {}
+    self.m_lSkillIndivisualInfo['under_self_hp'] = {}   -- 자신의 HP
+    self.m_lSkillIndivisualInfo['under_ally_hp'] = {}   -- 자신을 제외한 아군의 HP
 
 	-- @TODO 수정 필요
     self.m_lSkillIndivisualInfo['passive'] = {}

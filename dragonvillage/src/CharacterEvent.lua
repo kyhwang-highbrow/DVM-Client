@@ -30,6 +30,12 @@ function Character:onEvent(event_name, t_event, ...)
 	elseif (event_name == 'under_atk_turn') then
 		self:onEvent_underAtkTurn()
 
+    elseif (event_name == 'under_self_hp') then
+        local hp = t_event['hp']
+        local max_hp = t_event['max_hp']
+
+		self:onEvent_underSelfHp(hp, max_hp)
+
     elseif (event_name == 'under_ally_hp') then
         local hp = t_event['hp']
         local max_hp = t_event['max_hp']
@@ -90,6 +96,26 @@ function Character:onEvent_underAtkTurn()
     end	
 	
 	if (table.count(self.m_lSkillIndivisualInfo['under_atk_turn']) > 0) then
+    end
+end
+onEvent_underSelfHp
+
+-------------------------------------
+-- function onEvent_underSelfHp
+-------------------------------------
+function Character:onEvent_underSelfHp(hp, max_hp)
+    if (not self.m_statusCalc) then
+		return
+	end
+
+    local percentage = (hp / max_hp) * 100
+
+    for i, v in pairs(self.m_lSkillIndivisualInfo['under_self_hp']) do
+        if (v:isEndCoolTime()) then
+            if (percentage <= v.m_tSkill['chance_value']) then
+                self:doSkill(v.m_skillID, 0, 0)
+            end
+        end
     end
 end
 

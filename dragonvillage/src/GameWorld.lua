@@ -1377,6 +1377,8 @@ function GameWorld:onEvent(event_name, t_event, ...)
         local arg = {...}
         local unit = arg[1]
 
+        unit:dispatch('under_self_hp', t_event, unit)
+
         for _, fellow in pairs(unit:getFellowList()) do
             -- 자기 자신은 제외
             if (unit ~= fellow) then
