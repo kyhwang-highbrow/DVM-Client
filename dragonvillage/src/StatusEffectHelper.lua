@@ -301,10 +301,9 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 		status_effect:init_statusEffect(target_char, tar_attr)
 
 	----------- 조건부 추가 데미지 ------------------
-	elseif string.find(status_effect_type, 'add_dmg_') then
-		status_effect = StatusEffect_AddDmg(res)
-		local condition = string.gsub(status_effect_type, 'add_dmg_', '')
-		status_effect:init_statusEffect(target_char, condition, status_effect_value, caster)
+	elseif string.find(status_effect_type, 'add_dmg') then
+		status_effect = StatusEffect(res)
+        status_effect:setOverlabClass(StatusEffectUnit_AddDmg)
 
     else
         status_effect = StatusEffect(res)

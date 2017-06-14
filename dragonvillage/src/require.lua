@@ -362,13 +362,13 @@ local t_module = {
 	-- STATUS EFFECT
 	'StatusEffect',
     'StatusEffectUnit',
+    'StatusEffectUnit_AddDmg'
     'StatusEffectUnit_Dot',
     'StatusEffectUnit_Dot_Damage',
     'StatusEffectUnit_Dot_Heal',
     'StatusEffect_Trigger',
     'StatusEffect_PassiveSkill',
 	'StatusEffect_Sleep',
-	'StatusEffect_AddDmg',
     'StatusEffect_Bleed',
     'StatusEffect_Poison',
     'StatusEffect_Protection',
