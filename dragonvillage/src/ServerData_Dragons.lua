@@ -974,3 +974,23 @@ function ServerData_Dragons:request_battleGift(did, cb_func)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function checkDragonSkillEnhancable
+-- @brief
+-------------------------------------
+function ServerData_Dragons:checkDragonSkillEnhancable(doid)
+    local t_dragon_data = self:getDragonObject(doid)
+
+    if (not t_dragon_data) then
+        return false
+    end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('슬라임은 스킬 강화 할 수 없습니다.')
+    end
+	
+	-- @TODO 스킬 강화 최대치 체크 해야함
+
+    return true
+end

@@ -87,18 +87,7 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Slimes:possibleMaterialSlime_exp(soid)
-    local slime_object = self:getSlimeObject(soid)
-
-    if (not slime_object) then
-        return false, ''
-    end
-
-    local slime_type = slime_object:getSlimeType()
-    if (slime_type == 'exp') then
-        return true
-    end
-
-    return false
+    return self:possibleMaterialSlime(soid, 'exp')
 end
 
 -------------------------------------
@@ -106,6 +95,14 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Slimes:possibleMaterialSlime_upgrade(soid)
+    return self:possibleMaterialSlime(soid, 'upgrade')
+end
+
+-------------------------------------
+-- function possibleMaterialSlime
+-- @brief
+-------------------------------------
+function ServerData_Slimes:possibleMaterialSlime(soid, tar_slime_type)
     local slime_object = self:getSlimeObject(soid)
 
     if (not slime_object) then
@@ -113,7 +110,7 @@ function ServerData_Slimes:possibleMaterialSlime_upgrade(soid)
     end
 
     local slime_type = slime_object:getSlimeType()
-    if (slime_type == 'upgrade') then
+    if (slime_type == tar_slime_type) then
         return true
     end
 

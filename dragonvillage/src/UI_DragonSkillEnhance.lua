@@ -51,6 +51,7 @@ function UI_DragonSkillEnhance:initUI()
     local vars = self.vars
 
     self:init_dragonTableView()
+	vars['priceLabel']:setString(0)
 end
 
 -------------------------------------
@@ -167,25 +168,34 @@ end
 function UI_DragonSkillEnhance:getDragonMaterialList(doid)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
     
-	-- 슬라임 포함하지 않은 리스트
-    local dragon_dic = g_dragonsData:getDragonsList()
+    local dragon_dic = g_dragonsData:getDragonListWithSlime()
 
     -- 자기 자신 드래곤 제외
     dragon_dic[doid] = nil
 
 	-- 원종이 같은 드래곤을 체크한다 대상이 아닌 경우가 대부분이라 추출하는게 좋을것같지만...
+	local ret_dic = {}
 	local did_digit = math_floor(t_dragon_data['did']/10)
 	local tar_digit
     for oid, v in pairs(dragon_dic) do
-		tar_digit = math_floor(v['did']/10)
-        if (tar_digit ~= did_digit) then
-            dragon_dic[oid] = nil
-        elseif (not g_dragonsData:possibleMaterialDragon(oid)) and (not g_slimesData:possibleMaterialSlime_upgrade(oid)) then
-            dragon_dic[oid] = nil
-        end
+
+		-- 드래곤의 경우 동일종 추가
+		if (g_dragonsData:possibleMaterialDragon(oid)) then
+			tar_digit = math_floor(v['did']/10)
+			if (tar_digit == did_digit) then
+				ret_dic[oid] = v
+			end
+
+		-- 스킬 강화 슬라임 추가
+		elseif (g_slimesData:possibleMaterialSlime(oid, 'skill')) then
+			if (t_dragon_data:getRarity() == v:getRarity()) then
+				ret_dic[oid] = v
+			end
+
+		end
     end
 
-    return dragon_dic
+    return ret_dic
 end
 
 -------------------------------------
@@ -194,8 +204,14 @@ end
 -- @override
 -------------------------------------
 function UI_DragonSkillEnhance:createDragonCardCB(ui, data)
-	-- @TODO 
-	-- skill max 인 경우 체크해서 shadowSprite On
+	local doid = data['id']
+
+    local enhancable, msg = g_dragonsData:checkDragonSkillEnhancable(doid)
+    if (not enhancable) then
+        if ui then
+            ui:setShadowSpriteVisible(true)
+        end
+    end
 end
 
 -------------------------------------
@@ -204,16 +220,15 @@ end
 -- @override
 -------------------------------------
 function UI_DragonSkillEnhance:checkDragonSelect(doid)
-	--[[
-	local upgradeable, msg = g_dragonsData:checkMaxUpgrade(doid)
+	local possible, msg = g_dragonsData:checkDragonSkillEnhancable(doid)
 
-    if upgradeable then
+    if possible then
         return true
     else
         UIManager:toastNotificationRed(msg)
         return false
     end
-	]]
+
 	return true
 end
 
