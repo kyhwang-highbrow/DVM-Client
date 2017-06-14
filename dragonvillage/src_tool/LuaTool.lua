@@ -22,15 +22,15 @@ require 'io'
 function main()
     TABLE:init()
     
-
-    lapp = require 'pl.lapp'
-    local args = lapp([[
+   
+    --[[lapp = require 'pl.lapp'
+    local args = lapp(]]--[[
     Args
         -n, --_name     (string)         extract
                                         validate
-    ]])
+    ]]
 
-    
+    --[[
     if (args['_name'] == 'extract') then
         require 'UnusedFileExtractor'
         
@@ -46,7 +46,11 @@ function main()
             validator:sendInvalidTableListBySlack()
         end
     end
+    ]]
 
+    require 'UISourceCodeGenerator'
+    generator = UISourceCodeGenerator('chat_new.ui')
+    generator:makeFile()
 end
 
 -------------------------------------
