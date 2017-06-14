@@ -9,6 +9,9 @@ StatusEffectUnit = class({
         m_skillId = 'number',       -- 스킬 아이디(스킬로 부여된 경우)
 
         m_value = 'number',         -- 적용값
+        m_source = 'string',        -- 적용스텟
+        m_bUseTargetStat = 'boolean',-- 대상의 스텟으로 계산하는지 여부
+
         m_duration = 'number',      -- 지속 시간. 값이 -1일 경우 무제한
         m_durationTimer = 'number',
 
@@ -22,7 +25,7 @@ StatusEffectUnit = class({
 -- @param file_name
 -- @param body
 -------------------------------------
-function StatusEffectUnit:init(name, owner, caster, skill_id, value, duration)
+function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, duration)
     --cclog(name .. ' - ' .. duration)
     self.m_statusEffectName = name
 
@@ -31,13 +34,22 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, duration)
     self.m_skillId = skill_id
 
     self.m_value = value
-	self.m_duration = duration
 
+    self.m_source = source or 'atk' 
+    self.m_bUseTargetStat = false
+
+	self.m_duration = duration
     self.m_durationTimer = self.m_duration
 
     self.m_bApply = false
 
     self.m_tParam = {}
+
+    -- source 파싱(target_def같은 형태로 오는 경우)
+    if (string.match(self.m_source, 'target_')) then
+        self.m_source = string.gsub(self.m_source, 'target_', '')
+        self.m_bUseTargetStat = true
+    end
 end
 
 -------------------------------------
@@ -116,6 +128,22 @@ end
 -------------------------------------
 function StatusEffectUnit:getValue()
     return self.m_value
+end
+
+-------------------------------------
+-- function getStandardStat
+-- @brief 해당 상태효과 값(value) 적용시 기준이 되는 스텟 값을 얻음
+-------------------------------------
+function StatusEffectUnit:getStandardStat()
+    local stat
+
+    if (self.m_bUseTargetStat) then
+        stat = self.m_owner:getStat(self.m_source)
+    else
+        stat = self.m_caster:getStat(self.m_source)
+    end
+
+    return stat
 end
 
 -------------------------------------

@@ -31,7 +31,9 @@ table.addList(L_STATUS_TYPE, {
         'debuff_time',      -- 해로운 효과 지속 시간 +{1}% 증가
 
         -- 전투 로직 개편의 추가 옵션을 위해 추가된 능력치
-        'recovery_power'    -- 받는 치유 효과 +{1}% 증가
+        'recovery_power',   -- 받는 치유 효과 +{1}% 증가
+        'reflex_normal',    -- 일반 데미지 +{1}% 반사
+        'reflex_skill',     -- 스킬 데미지 +{2}% 반사
 
 		-- 기획 이슈로 제거
         --'pass_chance',  -- 패시브 발동 +{1}% 

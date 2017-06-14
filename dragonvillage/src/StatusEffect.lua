@@ -18,6 +18,7 @@ StatusEffect = class(PARENT, {
         m_bApply = 'boolean',
         m_bDirtyPos = 'bollean',
         m_bHarmful = 'boolean',
+        m_bAbs = 'boolean',     -- 절대값
 
         m_bInfinity = 'boolean', -- 타이머없이 계속 유지되는지 여부
         m_latestTimer = 'number',
@@ -67,15 +68,14 @@ function StatusEffect:initFromTable(t_status_effect, target_char)
     self.m_maxOverlab = t_status_effect['overlab']
     self.m_owner = target_char
     self.m_bHarmful = StatusEffectHelper:isHarmful(t_status_effect['type'])
+    self.m_bAbs = (t_status_effect['abs_switch'] and (t_status_effect['abs_switch'] == 1) or false)
 
     -- status 배율 지정
     do
-        local is_abs = (t_status_effect['abs_switch'] and (t_status_effect['abs_switch'] == 1) or false)
-
         for _, type in ipairs(L_STATUS_TYPE) do
             local value = t_status_effect[type] or 0
             if (value ~= 0) then
-                self:insertStatus(type, value, is_abs)
+                self:insertStatus(type, value, self.m_bAbs)
             end
         end
     end
@@ -412,7 +412,7 @@ end
 -------------------------------------
 -- function addOverlabUnit
 -------------------------------------
-function StatusEffect:addOverlabUnit(caster, skill_id, value, duration)
+function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration)
     local char_id = caster:getCharId()
     local skill_id = skill_id or 999999
 
@@ -420,7 +420,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, duration)
         self:changeState('start')
     end
 
-    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, duration)
+    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration)
     
     local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
     

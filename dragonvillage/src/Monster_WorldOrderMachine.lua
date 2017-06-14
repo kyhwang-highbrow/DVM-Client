@@ -130,8 +130,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 		        trigger = l_str[3],
 		        duration = tonumber(l_str[4]),
 		        rate = tonumber(l_str[5]),
-		        value1 = tonumber(l_str[6]),
-		        value2 = 0
+		        value = tonumber(l_str[6])
 	        })
 
 			StatusEffectHelper:doStatusEffectByStruct(self, {target_char}, {struct_status_effect})

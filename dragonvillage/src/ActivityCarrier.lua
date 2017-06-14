@@ -80,7 +80,7 @@ function ActivityCarrier:insertStatusEffectRate(l_status_effect_struct)
 			local type = status_effect_struct.m_type
             local _start_con = status_effect_struct.m_trigger
 			local _rate = status_effect_struct.m_rate
-            local _value = status_effect_struct.m_value1
+            local _value = status_effect_struct.m_value
 
 			if (not self.m_lStatusEffectRate[type]) then
 				self.m_lStatusEffectRate[type] = {value = 0, rate = 0}

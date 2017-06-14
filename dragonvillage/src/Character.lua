@@ -625,8 +625,24 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 	end
 
-    -- 공격자 HP 흡수 처리
     if (attacker_char) then
+        -- 공격자 반사 데미지 처리
+        if (attack_type == 'basic') then 
+            local reflex_normal = self:getStat('reflex_normal')
+            if (reflex_normal > 0) then
+                local reflex_damage = damage * (reflex_normal / 100)
+			    attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
+            end
+        end
+        if (attack_type == 'active') then 
+            local reflex_skill = attacker_char:getStat('reflex_skill')
+            if (reflex_skill > 0) then
+                local reflex_damage = damage * (reflex_skill / 100)
+			    attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
+            end
+        end
+
+        -- 공격자 HP 흡수 처리
         local hp_drain = attacker_char:getStat('hp_drain')
         if (hp_drain > 0) then
             local heal_abs = damage * (hp_drain / 100)
@@ -655,7 +671,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		if (is_critical) then
 			self:dispatch('under_atk_cri', t_event)
 		end
-			
+
 		-- 일반 피격
 		if (attack_type == 'basic') then 
 			attacker_char:dispatch('under_atk_basic', t_event, self, attack_activity_carrier)
@@ -725,7 +741,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     end
 
     -- 데미지 폰트 출력
-    self:makeDamageEffect(t_info['attr'], i_x, i_y, dir, t_info['is_critical'])
+    self:makeDamageEffect(i_x, i_y, dir, t_info['is_critical'])
     self:makeDamageFont(damage, i_x, i_y, t_info)
 
     -- 무적 체크 후 데미지 적용
@@ -827,9 +843,7 @@ end
 -------------------------------------
 -- function makeDamageEffect
 -------------------------------------
-function Character:makeDamageEffect(attr, x, y, dir, is_critical)
-    local attr = attr or ATTR_LIGHT
-
+function Character:makeDamageEffect(x, y, dir, is_critical)
     -- 일반 데미지
     local effect = MakeAnimator('res/effect/effect_hit_01/effect_hit_01.vrp')
     
@@ -1064,6 +1078,7 @@ end
 function Character:setHp(hp)
 	-- 죽었을시 탈출
 	if (self.m_bDead) then return end
+    if (self.m_hp == 0) then return end
 
     self.m_hp = math_min(hp, self.m_maxHp)
 

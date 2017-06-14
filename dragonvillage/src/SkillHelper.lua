@@ -47,8 +47,8 @@ function SkillHelper:makeStructStatusEffectList(t_skill)
 				trigger = t_skill['add_option_trigger_' .. i],
 				duration = t_skill['add_option_time_' .. i],
 				rate = t_skill['add_option_rate_' .. i],
-				value1 = t_skill['add_option_value_' .. i],
-				value2 = t_skill['add_option_value2_' .. i]
+				value = t_skill['add_option_value_' .. i],
+                source = t_skill['add_option_source_' .. i],
 			})
 			table.insert(l_ret, struct_status_effect)
 		end

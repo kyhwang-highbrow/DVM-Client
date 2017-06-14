@@ -26,7 +26,7 @@ function StatusEffectHelper:statusEffectCheck_onHit(activity_carrier, defender)
     for type, t_content in pairs(activity_carrier.m_lStatusEffectRate) do
 		local value = t_content['value']
 		local rate = t_content['rate']
-        StatusEffectHelper:invokeStatusEffect(attacker, defender, type, value, rate, nil, skill_id)
+        StatusEffectHelper:invokeStatusEffect(attacker, defender, type, value, nil, rate, nil, skill_id)
     end
 end
 
@@ -34,7 +34,7 @@ end
 -- function doStatusEffect
 -- @brief 해당 파라미터의 정보로 상태효과를 시전하고 대상자 리스트를 리턴
 -------------------------------------
-function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_type, target_count, duration, rate, value_1, cb_invoke, skill_id)
+function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_type, target_count, duration, rate, value, source, cb_invoke, skill_id)
     local l_ret = {} -- 상태효과가 적용된 대상 리스트
 
     -- 스킬로 부터 받은 타겟 리스트 사용
@@ -45,7 +45,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
 
         local l_target = l_skill_target
         for _, target in ipairs(l_target) do
-			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value_1, rate, duration, skill_id)) then
+			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id)) then
                 table.insert(l_ret, target)
 
                 if (cb_invoke) then
@@ -58,7 +58,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
 	elseif (target_type) then
 		local l_target = caster:getTargetListByType(target_type, target_count)
         for _, target in ipairs(l_target) do
-			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value_1, rate, duration, skill_id)) then
+			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id)) then
                 table.insert(l_ret, target)
 
                 if (cb_invoke) then
@@ -122,12 +122,12 @@ function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_sta
         trigger = status_effect_struct.m_trigger
 		duration = status_effect_struct.m_duration
 		rate = status_effect_struct.m_rate
-		value_1 = status_effect_struct.m_value1
-		value_2 = status_effect_struct.m_value2
-
+		value = status_effect_struct.m_value
+        source = status_effect_struct.m_source
+		
         -- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
         self:doStatusEffect(caster, l_skill_target, type, target_type, target_count,
-            duration, rate, value_1, cb_invoke, skill_id)
+            duration, rate, value, source, cb_invoke, skill_id)
 
 		-- 4. 인덱스 증가
 		idx = idx + 1
@@ -138,7 +138,7 @@ end
 -- function invokeStatusEffect
 -- @brief 상태 효과 발동
 -------------------------------------
-function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effect_type, status_effect_value, status_effect_rate, duration, skill_id)
+function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effect_type, status_effect_value, status_effect_source, status_effect_rate, duration, skill_id)
     -- status effect validation
 	if (not status_effect_type) or (status_effect_type == '') then
         return nil
@@ -161,10 +161,10 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     if (status_effect) then
         -- 상태 효과 중첩 혹은 갱신
         local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
-        status_effect:addOverlabUnit(caster, skill_id, status_effect_value, duration)
+        status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration)
     else
         -- 상태 효과 생성
-		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_rate, duration, skill_id)
+		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, status_effect_rate, duration, skill_id)
     end
 
 	return status_effect
@@ -220,7 +220,7 @@ end
 -- function makeStatusEffectInstance
 -- @comment 일반 status effect의 경우 rate가 필요없지만 패시브의 경우 실행 시점에서 확률체크하는 경우가 있다.
 -------------------------------------
-function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_rate, duration, skill_id)
+function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, status_effect_rate, duration, skill_id)
     -- 테이블 가져옴
 	local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
@@ -246,9 +246,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	if (status_effect_type == 'feedback_defender' or status_effect_type == 'feedback_attacker'
         or status_effect_type == 'feedback_supporter' or status_effect_type == 'feedback_healer') then
         
-        -- TODO: feedback_supporter 타입을 위한 정리 필요할듯...
-        local value = tonumber(status_effect_value)
-
         if (status_effect_type == 'feedback_supporter') then
             status_effect = StatusEffect(res)
         elseif (status_effect_type == 'feedback_healer') then
@@ -331,7 +328,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     -----------------------------------------------------------------
     -- StatusEffectUnit 생성 및 추가
-    status_effect:addOverlabUnit(caster, skill_id, status_effect_value, duration)
+    status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration)
 
     -- 해로운 상태효과 걸렸을 시
 	if (self:isHarmful(status_effect)) then

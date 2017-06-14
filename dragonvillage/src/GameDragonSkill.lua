@@ -261,8 +261,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
     elseif (self:getStep() == 4) then
         if (self:isBeginningStep()) then
-            self.m_dragon:changeState('attackDelay')
-            self.m_dragon = nil
+            self:releaseFocusingDragon()
 
             self:changeState(STATE.WAIT)
 
@@ -318,8 +317,8 @@ function GameDragonSkill.st_playTimeSkill(self, dt)
             world.m_gameCamera:reset()
         
         elseif (self:isPassedStepTime(time1)) then
-            self.m_dragon = nil
-
+            self:releaseFocusingDragon()
+            
             self:changeState(STATE.WAIT)
         end
     end
@@ -521,9 +520,9 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local arg = {...}
         local dragon = arg[1]
 
-        self.m_dragon = dragon
         self.m_skipLevel = self.m_nextSkipLevel
         
+        self:setFocusingDragon(dragon)
         self:changeState(STATE.PLAY_DRAG_SKILL)
 
     elseif (event_name == 'dragon_time_skill') then
@@ -532,10 +531,20 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
 
         if (self:isPlaying()) then
         else
-            self.m_dragon = dragon
             self.m_skipLevel = self.m_nextSkipLevel
 
+            self:setFocusingDragon(dragon)
             self:changeState(STATE.PLAY_TIME_SKILL)
+        end
+
+    elseif (event_name == 'dead') then
+        local arg = {...}
+        local dragon = arg[1]
+
+        -- 연출 중일 경우 죽음 방지
+        if (self.m_dragon == dragon) then
+            t_event['is_dead'] = false
+		    t_event['hp'] = 0
         end
     end
 end
@@ -545,6 +554,40 @@ end
 -------------------------------------
 function GameDragonSkill:getFocusingDragon()
     return self.m_dragon
+end
+
+-------------------------------------
+-- function setFocusingDragon
+-------------------------------------
+function GameDragonSkill:setFocusingDragon(dragon)
+    if (not dragon) then return end
+
+    if (self.m_dragon and self.m_dragon ~= dragon) then
+        self:releaseFocusingDragon()
+    end
+
+    dragon:addListener('dead', self)
+
+    self.m_dragon = dragon
+end
+
+-------------------------------------
+-- function releaseFocusingDragon
+-------------------------------------
+function GameDragonSkill:releaseFocusingDragon()
+    if (self.m_dragon) then
+        self.m_dragon:removeListener('dead', self)
+
+        if (self.m_dragon.m_hp == 0) then
+            -- 종료시 사망처리
+            self.m_dragon:setDead()
+            self.m_dragon:changeState('dying')
+        else
+            self.m_dragon:changeState('attackDelay')
+        end
+    end
+
+    self.m_dragon = nil
 end
 
 -------------------------------------

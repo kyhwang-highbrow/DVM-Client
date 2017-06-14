@@ -12,7 +12,7 @@ StatusEffectUnit_Dot_Damage = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function StatusEffectUnit_Dot_Damage:init(name, owner, caster, skill_id, value, duration)
+function StatusEffectUnit_Dot_Damage:init(name, owner, caster, skill_id, value, source, duration)
     local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
 
     -- 데미지 계산
@@ -44,7 +44,7 @@ function StatusEffectUnit_Dot_Damage:calculateDotDmg()
     local damage
 
 	-- 데미지 계산, 방어는 무시
-	local atk_dmg = self.m_caster:getStat('atk')
+	local atk_dmg = self:getStandardStat()
 	local def_pwr = 0
 	local damage_org = math_floor(DamageCalc_P(atk_dmg, def_pwr))
 

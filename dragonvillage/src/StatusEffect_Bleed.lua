@@ -31,9 +31,17 @@ function StatusEffect_Bleed:onApplyOverlab(unit)
     -- 데미지 계산, 방어는 무시
     local caster = unit:getCaster()
     local damage
-	local atk_dmg = caster:getStat('atk')
-	local def_pwr = 0
-	local damage_org = math_floor(DamageCalc_P(atk_dmg, def_pwr))
+	local damage_org
+
+    if (self.m_bAbs) then
+        damage_org = unit:getValue()
+    else
+        local atk_dmg = unit:getStandardStat()
+	    local def_pwr = 0
+
+        damage_org = math_floor(DamageCalc_P(atk_dmg, def_pwr))
+        damage_org = damage_org * (unit:getValue() / 100)
+    end
 
 	-- 속성 효과
 	local t_attr_effect = self.m_owner:checkAttributeCounter(caster)
@@ -43,8 +51,8 @@ function StatusEffect_Bleed:onApplyOverlab(unit)
 		damage = damage_org
 	end
 
-    -- 가중치 적용 시키면서 최소 데미지는 1로 세팅
-    damage = math_max(1, damage * (unit:getValue() / 100))
+    -- 최소 데미지는 1로 세팅
+    damage = math_max(1, damage)
 
     -- 해당 정보를 임시 저장
     unit:setParam('damage', damage)

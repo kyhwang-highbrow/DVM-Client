@@ -58,8 +58,7 @@ function DragonSkillBonusHelper:getStatusEffectStruct(dragon, bonus_level)
 		trigger = 'skill_end',
 		duration = tonumber(l_str[4]),
 		rate = tonumber(l_str[5]),
-		value1 = tonumber(l_str[6]),
-		value2 = 0
+		value = tonumber(l_str[6])
 	})
 
     return struct_status_effect
@@ -83,7 +82,8 @@ function DragonSkillBonusHelper:doInvoke(dragon, l_target, bonus_level)
         struct_status_effect.m_targetCount,
         struct_status_effect.m_duration,
         struct_status_effect.m_rate,
-        struct_status_effect.m_value1
+        struct_status_effect.m_value,
+        struct_status_effect.m_source
     )
 
     -------------------------------------
