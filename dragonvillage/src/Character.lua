@@ -1302,7 +1302,7 @@ function Character:update(dt)
         end
         
 		-- 쿨타임 스킬 타이머
-        self:updateBasicTimeSkillTimer(dt)
+        self:updateBasicSkillTimer(dt)
     end
 
 	-- 이동 시 업데이트
@@ -1365,25 +1365,25 @@ function Character:updateAfterImage(dt)
 end
 
 -------------------------------------
--- function updateBasicTimeSkillTimer
+-- function updateBasicSkillTimer
 -------------------------------------
-function Character:updateBasicTimeSkillTimer(dt)
+function Character:updateBasicSkillTimer(dt)
     if (self.m_bDead) then
-		return false
+		return
 	end
 
     if (self.m_isSilence) then
-		return false
+		return
 	end
 
     -- 스킬 사용 불가 상태
     if (isExistValue(self.m_state, 'delegate', 'stun')) then
-        return false
+        return
     end
 
     -- 이미 스킬을 사용하기 위한 상태일 경우
     if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle')) then
-        return false
+        return
     end
 
     -- cool_actu 스텟 적용(쿨타임 감소)
@@ -1395,8 +1395,7 @@ function Character:updateBasicTimeSkillTimer(dt)
         dt = dt * rate
     end
     
-    local ret = PARENT.updateBasicTimeSkillTimer(self, dt)
-    return ret
+    PARENT.updateBasicSkillTimer(self, dt)
 end
 
 -------------------------------------

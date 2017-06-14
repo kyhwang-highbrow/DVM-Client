@@ -30,6 +30,12 @@ function Character:onEvent(event_name, t_event, ...)
 	elseif (event_name == 'under_atk_turn') then
 		self:onEvent_underAtkTurn()
 
+    elseif (event_name == 'under_ally_hp') then
+        local hp = t_event['hp']
+        local max_hp = t_event['max_hp']
+
+        self:onEvent_underAllyHp(hp, max_hp)
+
 	elseif (event_name == 'get_debuff') then
 
 	elseif (event_name == 'stat_changed') then
@@ -45,9 +51,11 @@ function Character:onEvent_underAtkRate()
 	local sum_random = SumRandom()
 
     for i,v in pairs(self.m_lSkillIndivisualInfo['under_atk_rate']) do
-        local rate = v.m_tSkill['chance_value']
-        local skill_id = v.m_skillID
-        sum_random:addItem(rate, skill_id)
+        if (v:isEndCoolTime()) then
+            local rate = v.m_tSkill['chance_value']
+            local skill_id = v.m_skillID
+            sum_random:addItem(rate, skill_id)
+        end
     end
 
     local remain_rate = math_max(0, (100 - sum_random.m_rateSum))
@@ -71,15 +79,36 @@ function Character:onEvent_underAtkTurn()
 	local campare_cnt
 	
 	for i,v in pairs(self.m_lSkillIndivisualInfo['under_atk_turn']) do
-        campare_cnt = v.m_tSkill['chance_value']
-		-- mod를 사용하여 판별
-		if (under_atk_cnt > 0) and (under_atk_cnt%campare_cnt == 0) then
-			local skill_id = v.m_skillID
-            self:doSkill(skill_id, 0, 0)
+        if (v:isEndCoolTime()) then
+            campare_cnt = v.m_tSkill['chance_value']
+		    -- mod를 사용하여 판별
+		    if (under_atk_cnt > 0) and (under_atk_cnt%campare_cnt == 0) then
+			    local skill_id = v.m_skillID
+                self:doSkill(skill_id, 0, 0)
+            end
         end
     end	
 	
 	if (table.count(self.m_lSkillIndivisualInfo['under_atk_turn']) > 0) then
+    end
+end
+
+-------------------------------------
+-- function onEvent_underAllyHp
+-------------------------------------
+function Character:onEvent_underAllyHp(hp, max_hp)
+    if (not self.m_statusCalc) then
+		return
+	end
+
+    local percentage = (hp / max_hp) * 100
+
+    for i, v in pairs(self.m_lSkillIndivisualInfo['under_ally_hp']) do
+        if (v:isEndCoolTime()) then
+            if (percentage <= v.m_tSkill['chance_value']) then
+                self:doSkill(v.m_skillID, 0, 0)
+            end
+        end
     end
 end
 

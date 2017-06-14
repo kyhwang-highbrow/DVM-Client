@@ -9,6 +9,7 @@ DragonSkillIndivisualInfo = class({
         m_tSkill = 'table',     -- 스킬 테이블
         m_turnCount = 'number', -- 턴 공격 횟수 저장용
         m_timer = 'number',     -- 타임 공격 저장용
+        m_cooldownTimer = 'number', -- 쿨타임 시간 저장용
 
         m_skillLevel = 'number',
 		m_tAddedValue = 'table',
@@ -24,8 +25,49 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     self.m_skillLevel = (skill_level or 1)
     self.m_turnCount = 0
     self.m_timer = 0
+    self.m_cooldownTimer = 0
 
 	self.m_tAddedValue = nil
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function DragonSkillIndivisualInfo:update(dt)
+    -- TODO: 차후 드래그 스킬 쿨타임도 여기서 처리될 수 있도록 수정해야할듯...
+    if (self.m_skillType == 'active') then return end
+
+    -- indie_time 타이머
+    if (self.m_timer > 0) then
+        self.m_timer = self.m_timer - dt
+
+        if (self.m_timer <= 0) then
+            self.m_timer = 0
+        end
+    end
+    
+    -- 스킬 쿨타임
+    if (self.m_cooldownTimer > 0) then
+        self.m_cooldownTimer = self.m_cooldownTimer - dt
+
+        if (self.m_cooldownTimer <= 0) then
+            self.m_cooldownTimer = 0
+        end
+    end
+end
+
+-------------------------------------
+-- function startCoolTime
+-------------------------------------
+function DragonSkillIndivisualInfo:startCoolTime()
+    self.m_cooldownTimer = self.m_tSkill['cooldown'] or 0
+end
+
+-------------------------------------
+-- function isEndCoolTime
+-------------------------------------
+function DragonSkillIndivisualInfo:isEndCoolTime()
+    return (self.m_cooldownTimer == 0)
 end
 
 -------------------------------------

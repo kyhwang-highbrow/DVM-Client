@@ -154,6 +154,8 @@ function IDragonSkillManager:initSkillIDList()
 	self.m_lSkillIndivisualInfo['under_atk_rate'] = {}
 	self.m_lSkillIndivisualInfo['under_atk_turn'] = {}
 
+    self.m_lSkillIndivisualInfo['under_ally_hp'] = {}
+
 	-- @TODO 수정 필요
     self.m_lSkillIndivisualInfo['passive'] = {}
 end
@@ -522,8 +524,8 @@ function IDragonSkillManager:getBasicTimeAttackSkillID()
 
     if (table.count(self.m_lSkillIndivisualInfo['indie_time']) > 0) then
         for i,v in pairs(self.m_lSkillIndivisualInfo['indie_time']) do
-            if (v.m_tSkill['chance_value'] <= v.m_timer) then
-                v.m_timer = 0
+            if (v.m_timer == 0) then
+                v.m_timer = v.m_tSkill['chance_value']
                 return v.m_skillID
             end
         end
@@ -531,21 +533,18 @@ function IDragonSkillManager:getBasicTimeAttackSkillID()
 end
 
 -------------------------------------
--- function updateBasicTimeSkillID
+-- function updateBasicSkillTimer
 -------------------------------------
-function IDragonSkillManager:updateBasicTimeSkillTimer(dt)
+function IDragonSkillManager:updateBasicSkillTimer(dt)
     if (not self.m_lSkillIndivisualInfo) then return end
-	
-    if (table.count(self.m_lSkillIndivisualInfo['indie_time']) > 0) then
-        for i,v in pairs(self.m_lSkillIndivisualInfo['indie_time']) do
-            v.m_timer = (v.m_timer + dt)
-            if (v.m_tSkill['chance_value'] <= v.m_timer) then
-                return true
+
+    for type, list in pairs(self.m_lSkillIndivisualInfo) do
+        if not isExistValue(type, 'active', 'basic', 'leader') then
+            for _, v in pairs(list) do
+                v:update(dt)
             end
         end
     end
-
-    return false
 end
 
 -------------------------------------

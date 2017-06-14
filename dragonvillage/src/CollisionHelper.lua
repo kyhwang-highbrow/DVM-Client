@@ -249,7 +249,7 @@ function getCollisionList_Fan(target, x, y, dir, radius, angle_range)
 
     -- 맵을 리스트 형태로 변경
     for _, collision in pairs(m_collision) do
-        table.insert(l_collision, collision_data)
+        table.insert(l_collision, collision)
     end
     
     return l_collision

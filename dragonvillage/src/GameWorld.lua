@@ -761,6 +761,9 @@ function GameWorld:addEnemy(enemy)
         enemy:addListener('enemy_active_skill', self.m_gameState)
         enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
     end
+
+    -- HP 변경시 콜백 등록
+    enemy:addListener('character_set_hp', self)
 end
 
 -------------------------------------
@@ -819,6 +822,9 @@ function GameWorld:addHero(hero, idx)
     hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
+
+    -- HP 변경시 콜백 등록
+    hero:addListener('character_set_hp', self)
 end
 
 -------------------------------------
@@ -1359,12 +1365,24 @@ end
 -- function onEvent
 -------------------------------------
 function GameWorld:onEvent(event_name, t_event, ...)
-    if (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, t_event, ...)
+    if (event_name == 'change_wave') then
+        self:onEvent_change_wave(event_name, t_event, ...)
     elseif (event_name == 'dragon_summon') then
         self.m_tamer.m_animator:changeAni('i_summon', false)
         self.m_tamer.m_animator:addAniHandler(function()
             self.m_tamer.m_animator:changeAni('i_idle', true)
         end)
+
+    elseif (event_name == 'character_set_hp') then
+        local arg = {...}
+        local unit = arg[1]
+
+        for _, fellow in pairs(unit:getFellowList()) do
+            -- 자기 자신은 제외
+            if (unit ~= fellow) then
+                fellow:dispatch('under_ally_hp', t_event, unit)
+            end
+        end
     end
 end
 

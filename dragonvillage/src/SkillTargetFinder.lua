@@ -149,6 +149,8 @@ function SkillTargetFinder:findCollision_AoECone(l_target, x, y, dir, range, ang
         end)
     end
 
+   cclog('findCollision_AoECone #l_ret = ' .. #l_ret)
+
     return l_ret
 end
 
