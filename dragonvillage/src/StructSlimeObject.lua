@@ -96,6 +96,14 @@ function StructSlimeObject:getDragonNameWithEclv()
 end
 
 -------------------------------------
+-- function getBirthGrade
+-- @breif
+-------------------------------------
+function StructSlimeObject:getBirthGrade()
+    return TableSlime:getValue(self['slime_id'], 'birthgrade')
+end
+
+-------------------------------------
 -- function getEclv
 -- @breif
 -------------------------------------

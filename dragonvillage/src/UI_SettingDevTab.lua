@@ -14,6 +14,7 @@ function UI_Setting:init_devTab()
     vars['allStaminaBtn']:registerScriptTapHandler(function() self:click_allStaminaBtn() end)
     vars['testCodeBtn']:registerScriptTapHandler(function() self:click_testCodeBtn() end)
     vars['allEggBtn']:registerScriptTapHandler(function() self:click_allEggBtn() end)
+    vars['addFpBtn']:registerScriptTapHandler(function() self:click_addFpBtn() end)
     self:refresh_devTap()
 end
 
@@ -381,6 +382,32 @@ function UI_Setting:click_allEggBtn()
     end
     ui_network:setSuccessCB(do_work)
     do_work()
+end
+
+-------------------------------------
+-- function click_addFpBtn
+-- @brief 우정포인트 100 추가
+-------------------------------------
+function UI_Setting:click_addFpBtn()
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:applyServerData(ret['user'], 'user')
+        UIManager:toastNotificationGreen('우정포인트 100 증가!')
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/manage')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('act', 'increase')
+    ui_network:setParam('key', 'fp')
+    ui_network:setParam('value', 100)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(nil)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end
 
 -------------------------------------

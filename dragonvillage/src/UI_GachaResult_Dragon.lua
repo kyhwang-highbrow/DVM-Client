@@ -188,6 +188,17 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
         dragon_animator:setDragonAnimator(t_dragon_data['did'], evolution, nil)
 		dragon_animator:startDirecting()
 
+        -- 자코 드래곤 크기 조절 (드래곤 중 태생이 1인 경우 자코)
+        if (t_dragon_data.m_objectType == 'dragon') then
+            local birth_grade = t_dragon_data:getBirthGrade()
+            if (birth_grade == 1) then
+                local dragon_node = dragon_animator.vars['dragonNode']
+                local scale = dragon_node:getScale()
+                scale = (scale * 0.7)
+                dragon_node:setScale(scale)
+            end
+        end
+
 		self.m_currDragonAnimator = dragon_animator
     end
 end

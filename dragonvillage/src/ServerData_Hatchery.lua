@@ -3,6 +3,20 @@
 -------------------------------------
 ServerData_Hatchery = class({
         m_serverData = 'ServerData',
+
+        -- 확률업 소환
+        CASH__EVENT_SUMMON_PRICE = 300,
+        CASH__EVENT_BUNDLE_SUMMON_PRICE = 3000,
+
+        -- 캐시 소환
+        CASH__SUMMON_PRICE = 300,
+        CASH__BUNDLE_SUMMON_PRICE = 3000,
+
+        SALE__PERCENTAGE = 0.1,
+
+        -- 우정포인트 소환
+        FP__SUMMON_PRICE = 10,
+        FP__BUNDLE_SUMMON_PRICE = 100,
     })
 
 -------------------------------------

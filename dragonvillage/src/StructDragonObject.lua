@@ -302,6 +302,14 @@ function StructDragonObject:getRarity()
 end
 
 -------------------------------------
+-- function getBirthGrade
+-- @breif
+-------------------------------------
+function StructDragonObject:getBirthGrade()
+    return TableDragon:getValue(self['did'], 'birthgrade')
+end
+
+-------------------------------------
 -- function getDid
 -- @breif
 -------------------------------------
