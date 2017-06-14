@@ -362,7 +362,7 @@ local t_module = {
 	-- STATUS EFFECT
 	'StatusEffect',
     'StatusEffectUnit',
-    'StatusEffectUnit_AddDmg'
+    'StatusEffectUnit_AddDmg',
     'StatusEffectUnit_Dot',
     'StatusEffectUnit_Dot_Damage',
     'StatusEffectUnit_Dot_Heal',
