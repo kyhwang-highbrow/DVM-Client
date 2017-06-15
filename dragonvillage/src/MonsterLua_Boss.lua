@@ -363,8 +363,11 @@ function MonsterLua_Boss:makeHPGauge(hp_ui_offset, force)
             self.m_hpGauge = nil
             self.m_hpGauge2 = nil
             self.m_statusNode = nil
-            self.m_actionGauge = nil
             self.m_infoUI = nil
+
+            if (isInstanceOf(self, MonsterLua_Boss)) then
+                self.m_actionGauge = nil
+            end
         end
 
         -- 보스 UI
@@ -379,7 +382,9 @@ function MonsterLua_Boss:makeHPGauge(hp_ui_offset, force)
 
         self.m_statusNode = ui.vars['bossStatusNode']
 
-        self.m_actionGauge = ui.vars['bossSKillGauge']
+        if (isInstanceOf(self, MonsterLua_Boss)) then
+            self.m_actionGauge = ui.vars['bossSKillGauge']
+        end
         
         self.m_world.m_inGameUI.root:addChild(self.m_hpNode)
 

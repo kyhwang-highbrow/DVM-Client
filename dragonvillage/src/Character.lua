@@ -359,10 +359,10 @@ end
 -- function initLogRecorder
 -------------------------------------
 function Character:initLogRecorder(unique_id)
-	if (unique_id) then
+    if (unique_id) then
 		self.m_charLogRecorder = self.m_world.m_logRecorder:getLogRecorderChar(unique_id)
 	else
-		cclog('다음 id의 캐릭터가 LogRecorder를 생성하지 못했습니다. ' .. unique_id)
+		cclog('다음 id의 캐릭터가 LogRecorder를 생성하지 못했습니다. ')
 	end
 end
 
@@ -1419,14 +1419,7 @@ function Character:isPossibleMove(order)
     if (self.m_isOnTheMove and order < self.m_orderOnTheMove) then
         return false
     end
-
-    if (order < 0) then
-        -- 설정된 공격 위치가 있었을 경우
-        if (self.m_state == 'attack' and self.m_reservedSkillPos) then
-            return false
-        end
-    end
-    
+        
     return true
 end
 

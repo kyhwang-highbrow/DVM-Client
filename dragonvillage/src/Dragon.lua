@@ -76,7 +76,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
 		self:initAnimatorDragon(t_dragon['res'], evolution, attr, t_dragon['scale'])
 		self:makeCastingNode()
 		self:initTriggerListener()
-		self:initLogRecorder(doid)
+		self:initLogRecorder(doid or dragon_id)
 		
 		self:initSkillIndicator()
 	end
@@ -556,6 +556,12 @@ function Dragon:isPossibleSkill()
         if (self.m_activeSkillManaCost > self.m_world.m_heroMana:getCurrMana()) then
             return false
         end
+
+    elseif (self.m_world.m_enemyMana) then
+        -- 콜로세움 개발시
+        
+    else
+        return false
     end
 
     if (self.m_isSilence) then

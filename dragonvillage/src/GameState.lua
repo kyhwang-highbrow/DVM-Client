@@ -887,7 +887,7 @@ function GameState:checkWaveClear()
 
     -- 클리어 여부 체크
     if (enemy_count <= 0) then
-        if world.m_waveMgr:isFinalWave() == false then
+        if (not world.m_waveMgr:isFinalWave()) then
 		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
 		else
 			self:changeState(GAME_STATE_SUCCESS_WAIT)

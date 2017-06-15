@@ -416,6 +416,21 @@ function Monster:reserveSkill(skill_id)
     return true
 end
 
+-------------------------------------
+-- function isPossibleMove
+-------------------------------------
+function Monster:isPossibleMove(order)
+    local order = order or 0
+
+    if (order < 0) then
+        -- 설정된 공격 위치가 있었을 경우
+        if (self.m_state == 'attack' and self.m_reservedSkillPos) then
+            return false
+        end
+    end
+    
+    return PARENT.isPossibleMove(self, order)
+end
 
 -------------------------------------
 -- function getAttackAnimationName

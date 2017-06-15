@@ -242,7 +242,11 @@ end
 -------------------------------------
 function Dragon.st_dead(owner, dt)
     if (owner.m_stateTimer == 0) then
-        owner.m_world:standbyHero(owner)
+        if (owner.m_bLeftFormation) then
+            owner.m_world:standbyHero(owner)
+        else
+            return true
+        end
     end
 end
 

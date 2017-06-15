@@ -22,6 +22,7 @@ end
 -- @brief 해당 스킬 타겟수 점수(%)에 해당하는 보너스 단계를 얻음(0이면 보너스 없음)
 -------------------------------------
 function DragonSkillBonusHelper:getBonusLevel(dragon, score)
+    --[[
     local list = TableDragonSkillBonus():getLevelCondition(dragon.m_dragonID)
 
     if (list) then
@@ -31,7 +32,7 @@ function DragonSkillBonusHelper:getBonusLevel(dragon, score)
             end
         end
     end
-
+    ]]--
     return 0
 end
 

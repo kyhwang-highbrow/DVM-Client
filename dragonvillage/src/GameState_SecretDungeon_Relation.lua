@@ -152,15 +152,12 @@ function GameState_SecretDungeon_Relation:checkWaveClear()
 
     -- 클리어 여부 체크
     if (enemy_count <= 0) then
-        -- 스킬 다 날려 버리자
-        world:cleanupSkill()
-        world:removeHeroDebuffs()
-		    
-		if (not world.m_waveMgr:isFinalWave()) then
+        if (not world.m_waveMgr:isFinalWave()) then
 		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
 		else
 			self:changeState(GAME_STATE_SUCCESS_WAIT)
 		end
+        return true
 
     -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
     elseif (world.m_waveMgr:isBossWave()) then
@@ -169,26 +166,24 @@ function GameState_SecretDungeon_Relation:checkWaveClear()
             
         for _, enemy in ipairs(world:getEnemyList()) do
             if (enemy.m_tDragonInfo['lv'] == highestRariry) then
-                bExistBoss = true
+                if (not enemy.m_bDead) then
+                    bExistBoss = true
+                end
                 break
             end
         end
 
         if (not bExistBoss) then
-            -- 스킬 다 날려 버리자
-		    world:cleanupSkill()
-            world:removeHeroDebuffs()
-
-            -- 모든 적들을 죽임
-            world:killAllEnemy()
-
-            if (not world.m_waveMgr:isFinalWave()) then
+            if (world.m_waveMgr:isFinalWave()) then
+                self:changeState(GAME_STATE_SUCCESS_WAIT)
+            else
 		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
-		    else
-			    self:changeState(GAME_STATE_SUCCESS_WAIT)
 		    end
+            return true
         end
     end
+
+    return false
 end
 
 -------------------------------------

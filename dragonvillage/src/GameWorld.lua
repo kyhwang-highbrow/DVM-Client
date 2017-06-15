@@ -75,6 +75,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         -- mana
         m_heroMana = '',
+        m_enemyMana = '',
         
         -- # GameWorld_Formation
         m_leftFormationMgr = '',
@@ -842,7 +843,7 @@ function GameWorld:removeHero(hero)
     end
 
     self:standbyHero(hero)
-
+    --[[
     -- 친구 드래곤을 추가 시킴
     if (not self.m_bUsedFriend and self.m_friendDragon) then
         self:joinFriendHero(hero:getPosIdx())
@@ -864,28 +865,7 @@ function GameWorld:removeHero(hero)
         
         self.m_bUsedFriend = true
     end
-
-    -- 게임 종료 체크(모든 영웅이 죽었을 경우)
-    local is_exist_dragon = false
-    for _, hero in pairs(self:getDragonList()) do
-        if (not hero.m_bDead) then
-            is_exist_dragon = true
-        end
-    end
-
-    if (is_exist_dragon) then
-        if (self.m_bDevelopMode) then 
-			-- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
-			self.m_mHeroList = {}
-			self.m_participants = {}
-			
-			self:makeHeroDeck()
-						
-			self:killAllEnemy()
-		else
-			self.m_gameState:changeState(GAME_STATE_FAILURE)
-		end
-    end
+    ]]--
 end
 
 -------------------------------------
@@ -902,7 +882,6 @@ end
 -- @brief 전투에서 제외
 -------------------------------------
 function GameWorld:standbyHero(hero)
-
     hero:setActive(false)
 
     for i,v in ipairs(self.m_participants) do
@@ -910,6 +889,29 @@ function GameWorld:standbyHero(hero)
             table.remove(self.m_participants, i)
             break
         end
+    end
+
+    -- 게임 종료 체크(모든 영웅이 죽었을 경우)
+    local is_exist_dragon = false
+    for _, hero in pairs(self:getDragonList()) do
+        if (not hero.m_bDead) then
+            is_exist_dragon = true
+            break
+        end
+    end
+
+    if (not is_exist_dragon) then
+        if (self.m_bDevelopMode) then 
+			-- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
+			self.m_mHeroList = {}
+			self.m_participants = {}
+			
+			self:makeHeroDeck()
+						
+			self:killAllEnemy()
+		else
+			self.m_gameState:changeState(GAME_STATE_FAILURE)
+		end
     end
 end
 
