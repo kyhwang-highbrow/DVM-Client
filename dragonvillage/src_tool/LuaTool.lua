@@ -23,14 +23,15 @@ function main()
     TABLE:init()
     
    
-    --[[lapp = require 'pl.lapp'
-    local args = lapp(]]--[[
+    lapp = require 'pl.lapp'
+    local args = lapp( [[
     Args
         -n, --_name     (string)         extract
                                         validate
-    ]]
+                                      uigenerate
+    ]] )
 
-    --[[
+    
     if (args['_name'] == 'extract') then
         require 'UnusedFileExtractor'
         
@@ -45,12 +46,12 @@ function main()
         if (validator.m_numOfInvalidData > 0) then
             validator:sendInvalidTableListBySlack()
         end
+    
+    elseif (args['_name'] == 'uigenerate') then
+        require 'UISourceCodeGenerator'
+        generator = UISourceCodeGenerator()
+        generator:makeFile()
     end
-    ]]
-
-    require 'UISourceCodeGenerator'
-    generator = UISourceCodeGenerator('chat_new.ui')
-    generator:makeFile()
 end
 
 -------------------------------------
