@@ -180,16 +180,17 @@ function Dragon:onEvent(event_name, t_event, ...)
     PARENT.onEvent(self, event_name, t_event, ...)
 
     if (event_name == 'change_mana') then
+        if (self.m_bDead) then return end
+        if (self:getSkillID('active') == 0) then return end
+
         local arg = {...}
         local mana = arg[1]
-
-        if (not self.m_bDead) then
-            if (mana >= self.m_activeSkillManaCost) then
-                local attr = self:getAttribute()
-                self.m_infoUI:showSkillFullVisual(attr)
-            else
-                self.m_infoUI:hideSkillFullVisual()
-            end
+        
+        if (mana >= self.m_activeSkillManaCost) then
+            local attr = self:getAttribute()
+            self.m_infoUI:showSkillFullVisual(attr)
+        else
+            self.m_infoUI:hideSkillFullVisual()
         end
 	end
 end
@@ -523,8 +524,10 @@ end
 -------------------------------------
 function Dragon:updateActiveSkillCool(dt)
 	if (self.m_bDead) then return end
-    
+    if (self:getSkillID('active') == 0) then return end
+        
     -- 드래그 스킬 쿨타임 갱신
+    -- TODO: 차후 DragonSkillIndivisualInfo의 m_cooldownTimer를 사용하도록 변경해야할듯...
     if (self.m_activeSkillCoolTimer > 0) then
         if (not self:isCasting() and self.m_state ~= 'skillPrepare') then
             self.m_activeSkillCoolTimer = self.m_activeSkillCoolTimer - dt
