@@ -1,11 +1,4 @@
-require 'perpleLib/csv'
-require 'perpleLib/StringUtils'
-require 'TableGradeInfo'
-require 'lfs'
-require 'perpleLib/dkjson'
-require 'lib/net'
 require 'slack'
---------------------------------------------------------
 
 DataTableValidator = class({
     m_dataRoot = '',
@@ -19,7 +12,7 @@ DataTableValidator = class({
     
     })
 ------------------------------------
--- function initGlobalVar
+-- function init
 ------------------------------------
 function DataTableValidator:init()
     self.m_dataRoot = '..\\data\\'
@@ -32,35 +25,35 @@ function DataTableValidator:init()
     self.m_tMonster =  self:makeDictCSV((self.m_dataRoot .. '..\\data\\table_monster.csv'), 'mid') 
 end
 
-function DataTableValidator:getNumOfInvalidData() 
-    return self.m_numOfInvalidData
-end
-
 ------------------------------------
 -- function validateData
--- @brief data 검증 시작. 전체 파일의 경로를 찾아 로드한 뒤, 파일들을 전부 사전화한다. 그 후 파일 검증을 시작.
+-- @brief data 검증 시작. 전체 파일의 경로를 찾아 로드한 뒤, 파일들을 전부 사전화한다. 그 후 파일 검증을 시작. 결과에 따라 슬랙에 쏴줌.
 ------------------------------------
 function DataTableValidator:validateData()
     print("########### TABLE VALIDATION START ##########\n")
     -- 1. 전체 파일 경로 찾기
     print("\nFile Loading...\n\n")
-    local filePathList = self:getAllFilePath(self.m_dataRoot)
+    local file_path_list = self:getAllfile_path(self.m_dataRoot)
     
     -- 2. 전체 파일 리스트 자료 정리 (딕셔너리화)
-    local tableData = self:makeDictAllData(filePathList)
+    local t_data = self:makeDictAllData(file_path_list)
 
 
     -- 3. 파일 검증 시작
-    self:validateData_Dragon(tableData)
+    self:validateData_Dragon(t_data)
     print("Dragon Table Validation Finished\n")
 
-    self:validateData_Stage(tableData)
+    self:validateData_Stage(t_data)
     print("Stage Table Validation Finished\n")
 
     self:validateData_Skill()
     print("Skill Table Validation Finished\n")
 
     print("########### TABLE VALIDATION END ###########\n\n\n\n\n\n")
+
+    if(self.m_numOfInvalidData > 0 ) then
+        self:sendToSlack()
+    end
 end
 
 
@@ -68,19 +61,19 @@ end
 -- 1. 전체 파일 경로 찾기
 
 ------------------------------------
--- function getAllFilePath
+-- function getAllfile_path
 -- @brief 특정 폴더의 전체 파일 절대경로 리스트 반환
--- @param 파일 최상위 경로
--- @return 경로 내의 파일들의 절대경로 리스트
+-- @param   path    : string,     파일 최상위 경로
+-- @return  l       : table,      key = number, value = 경로 내의 파일들의 절대경로 리스트
 ------------------------------------
-function DataTableValidator:getAllFilePath(path)
-    local t = {}
+function DataTableValidator:getAllfile_path(path)
+    local l = {}
     local pfile = pl.dir.getallfiles(pl.path.abspath(self.m_dataRoot))
 
     for _, dir in ipairs(pfile) do
-        table.insert(t, dir)  
+        table.insert(l, dir)  
     end
-    return t
+    return l
 end
 
 ------------------------------------------------------------------------
@@ -89,39 +82,40 @@ end
 ------------------------------------
 -- function makeDictAllData
 -- @brief 파일을 읽고 사전화
--- @param 파일 경로 리스트
--- @return 사전화된 파일 내용
+-- @param   l_file_path  :   table, key = number, value = 파일 경로 리스트
+-- @return  t_data       :   table, key = file_path, value = 사전화된 파일 내용
 ------------------------------------
-function DataTableValidator:makeDictAllData(filePathList)
-    local tableData = {}
+function DataTableValidator:makeDictAllData(l_file_path)
+    local t_data = {}
 
-    for _, filePath in ipairs(filePathList) do
-        local lData = nil
-        local relativePath = pl.path.relpath(getFileName(filePath), lfs.currentdir() .. self.m_dataRoot)
+    for _, file_path in ipairs(l_file_path) do
+        local l_data = nil
+        local relative_path = pl.path.relpath(getFileName(file_path), lfs.currentdir() .. self.m_dataRoot)
 
         -- 파일 확장자로 구분하여 로드.
-        if (getFileExtension(filePath) == '.csv') then
-            lData = TABLE:loadCSVTable(relativePath)
+        if (getFileExtension(file_path) == '.csv') then
+            l_data = TABLE:loadCSVTable(relative_path)
 
-        elseif (getFileExtension(filePath) == '.txt') then
-            lData = TABLE:loadJsonTable(relativePath)
+        elseif (getFileExtension(file_path) == '.txt') then
+            l_data = TABLE:loadJsonTable(relative_path)
 
         end
 
-        tableData[filePath] = lData
+        t_data[file_path] = l_data
     end
 
-    return tableData
+    return t_data
 end
 
 ------------------------------------
 -- function makeDictCSV
 -- @brief csv를 특정 값을 찾아서 키로 하는 딕셔너리로 반환
--- @param 파일 경로, 키
--- @return param 'key' 를 키로 하는 딕셔너리
+-- @param   file_path : string, 파일 경로
+--          key       : string, 키
+-- @return  t_csv     : table,  key = param 'key', value = csv 파일 내용
 ------------------------------------
-function DataTableValidator:makeDictCSV(filePath, key)
-    local target_file = io.open(filePath, "r")
+function DataTableValidator:makeDictCSV(file_path, key)
+    local target_file = io.open(file_path, "r")
     local t_csv = {}
     local l_header = {}
     local line = target_file:read()
@@ -135,7 +129,8 @@ function DataTableValidator:makeDictCSV(filePath, key)
     while(line ~= nil) do
         idx = 1
         local t_row = {}
-        for _, value in ipairs(ParseCSVLine(line)) do -- 한 줄을 파싱
+        -- 한 줄을 파싱
+        for _, value in ipairs(ParseCSVLine(line)) do 
             t_row[l_header[idx]] = value
             idx = idx + 1
         end
@@ -148,14 +143,15 @@ end
 
 ------------------------------------
 -- function validataData_Dragon
--- @param table데이터
+-- @brief   dragon 데이터을 검증한다.
+-- @param   t_data  : table,    key = file path, value = data list
 ------------------------------------
-function DataTableValidator:validateData_Dragon(t_Data)
-     for filePath, l_data in pairs(t_Data) do
-        if (find(filePath, 'table_dragon') ~= nil) then
-            for _, t_row in pairs(l_data) do
-                self:checkCSVRow(t_row, 'did', self.m_tDragon, filePath)
-                self:checkCSVRow(t_row, 'base_did', self.m_tDragon, filePath)
+function DataTableValidator:validateData_Dragon(t_data)
+     for file_path, table_data in pairs(t_data) do
+        if (find(file_path, 'table_dragon') ~= nil) then
+            for _, t_row in pairs(table_data) do
+                self:checkCSVRow(t_row, 'did', self.m_tDragon, file_path)
+                self:checkCSVRow(t_row, 'base_did', self.m_tDragon, file_path)
             end
         end
      end
@@ -163,47 +159,53 @@ end
 
 ------------------------------------
 -- function checkCSVRow
--- @param   t_row       -> csv 파일의 한 행의 table
---          key         -> 찾을 key
---          table       -> t_row[key]가 존재하는지 찾을 대상 table
---          filePath    -> file Path 
+-- @brief   CSV의 한 Row를 검사한다.
+-- @param   t_row       :   table,  key = csv 파일의 key, value = csv 파일의 각 행의 value
+--          key         :   key,    찾을 key
+--          t           :   table,  t_row[key]가 존재하는지 찾을 대상 table
+--          file_path   :   string, file Path 
 ------------------------------------
-function DataTableValidator:checkCSVRow(t_row, key, table, filePath)
-    local didStr = t_row[key]
-    if(didStr) then
-        if(find(didStr, ',') ~= nil) then
-            local l_did = pl.stringx.split(didStr, ',')
+function DataTableValidator:checkCSVRow(t_row, key, t, file_path)
+
+    local did_str = t_row[key]
+    if(did_str) then
+        if(find(did_str, ',') ~= nil) then
+            local l_did = pl.stringx.split(did_str, ',')
             for _, did in pairs(l_did) do
-                self:checkDictHasKey(table, did, filePath, 0)
+                self:checkDictHasKey(t, did, file_path, 0)
             end
         else
-            self:checkDictHasKey(table, didStr, filePath, 0)
+            self:checkDictHasKey(t, did_str, file_path, 0)
         end
     end
  end
 
 ------------------------------------
--- function validateData_Stage`
--- @brief 드래곤 테이블 관련 테이블 did 검증
+-- function validateData_Stage
+-- @brief   stage 테이블을 검증한다.
+-- @param   table_data  :   table, 검증할 데이터가 담긴 테이블. key = file path, value = key의 이름을 가진 file의 data가 담긴 table
 ------------------------------------
 function DataTableValidator:validateData_Stage(table_data)
-    for filePath, t_data in pairs(table_data) do
-        if ((find(filePath, 'stage_') ~= nil) and (getFileExtension(filePath) == '.txt')) then
-            self:checkStageScript(t_data, filePath)
+    for file_path, t_data in pairs(table_data) do
+        if ((find(file_path, 'stage_') ~= nil) and (getFileExtension(file_path) == '.txt')) then
+            self:checkStageScript(t_data, file_path)
         end
     end
 end
 
 ------------------------------------
 -- function checkStageScript
+-- @brief   stage 데이터를 검증한다.
+-- @param   t_data      :   table, 검증할 파일의 데이터가 담긴 테이블 key = csv 파일의 key, value = 한 행의 value
+--          file_path   :   string, file path
 ------------------------------------
-function DataTableValidator:checkStageScript(t_data, filePath)
+function DataTableValidator:checkStageScript(t_data, file_path)
     for _, t_wave in pairs(t_data['wave']) do
-        for _, summonInfo in pairs(t_wave['wave']) do
-             for _, script in pairs(summonInfo) do
+        for _, summon_info in pairs(t_wave['wave']) do
+             for _, script in pairs(summon_info) do
                 local monster_id = pl.stringx.split(script, ';')[1]
                 if (find(monster_id, 'RandomDragon') == nil) then
-                    self:checkDictHasKey(self.m_tMonster, monster_id, filePath, 1) 
+                    self:checkDictHasKey(self.m_tMonster, monster_id, file_path, 1) 
                 end
              end
         end
@@ -212,42 +214,43 @@ end
 
 ------------------------------------
 -- function validateData_Skill
+-- @brief   skill 테이블을 검증한다.
 ------------------------------------
 function DataTableValidator:validateData_Skill()
     t_dragon_skill = self:makeDictCSV('..//data//table_dragon_skill.csv', 'sid')
     t_monster_skill = self:makeDictCSV('..//data//table_monster_skill.csv', 'sid')
 
-    l_skill_column = {'skill_basic', 'skill_active'}
+    t_skill_column = {'skill_basic', 'skill_active'}
 
     for i = 1, 10 do 
-        table.insert(l_skill_column, 'skill_'.. tostring(i))
+        table.insert(t_skill_column, 'skill_'.. tostring(i))
     end
 
     -- 1. dragon skill validation 
-    self:checkSkillTable(t_dragon_skill, self.m_tDragon, l_skill_column)
+    self:checkSkillTable(t_dragon_skill, self.m_tDragon, t_skill_column)
 
     -- 2. monster skill validation
-    self:checkSkillTable(t_monster_skill, self.m_tMonster, l_skill_column)
+    self:checkSkillTable(t_monster_skill, self.m_tMonster, t_skill_column)
 end
 
 
 ------------------------------------
 -- function checkSkillTable
 -- @brief 캐릭터의 스킬이 존재하는 스킬인지 검사
--- @param   skillTable      -> 유효성 검사할 테이블
---          charTable       -> charTable[][skillColumn]이 존재하는지 유효성을 검사할 수 있는 대상 테이블. 즉, 검사할 특정 스킬을 가진 캐릭터가 있는지 봐야 할 대상.
---          l_skillColumn   -> skillColumn 이름
+-- @param   t_skill         :   table,      유효성 검사할 테이블
+--          t_char          :   table,      검사할 특정 스킬을 가진 캐릭터가 있는지 봐야 할 대상.
+--          t_skill_column  :   table,      skill_column 이름을 value로 가지는 테이블.
 ------------------------------------
-function DataTableValidator:checkSkillTable(skillTable, charTable, l_skillColumn)
+function DataTableValidator:checkSkillTable(t_skill, t_char, t_skill_column)
     
-    for t_char, _ in pairs(charTable) do 
-        local charName = charTable[t_char]['t_name']
-        for _, skillColumn in pairs(l_skillColumn) do
-            skillID = charTable[t_char][skillColumn]
+    for key_char, _ in pairs(t_char) do 
+        local char_name = t_char[key_char]['t_name']
+        for _, skill_column in pairs(t_skill_column) do
+            id_skill = t_char[key_char][skill_column]
             
             -- 비어있는 스킬 ID는 존재하는 데이터가 아니므로 예외처리. 존재하는 데이터만 체크
-            if (skillID ~= nil and skillID ~= '') then 
-                self:checkDictHasKey(skillTable, skillID, charName, 2)
+            if (id_skill ~= nil and id_skill ~= '') then 
+                self:checkDictHasKey(t_skill, id_skill, char_name, 2)
             end
 
         end
@@ -257,28 +260,27 @@ end
 
 ------------------------------------
 -- function checkDictHasKey
--- @brief 특정 사전에 특정 키값이 존재하는지 검사하여 없으면 에러 테이블 목록에 등록한다.
--- @param t : 테이블
--- @param key : 키
--- @param filePath : 파일 경로
--- @param tableType :   0 -> 드래곤 테이블인 경우.
---                      1 -> 스테이지 테이블인 경우.
---                      그 외 -> 스킬 테이블인 경우. 
+-- @brief   특정 사전에 특정 키값이 존재하는지 검사하여 없으면 에러 테이블 목록에 등록한다.
+-- @param   t           : table,    key = csv파일의 key. value = csv파일의 value
+--          key         : string,   찾을 key
+--          file_path   : string,   파일 경로
+--          tableType   : number,   0 -> 드래곤 테이블인 경우.
+--                                  1 -> 스테이지 테이블인 경우.
+--                                  그 외 -> 스킬 테이블인 경우. 
 ------------------------------------
-function DataTableValidator:checkDictHasKey(t, key, filePath, tableType)
+function DataTableValidator:checkDictHasKey(t, key, file_path, tableType)
     if (t[pl.stringx.strip(tostring(key))] == nil) then
-        local tempDict = {}
+        local t_temp_dict = {}
         -- 파일 이름과 잘못된 키 값을 저장
-        local str = pl.stringx.split(filePath, '\\')
-        tempDict['path'] = str[#str]
-        tempDict['info'] = key
+        local str = pl.stringx.split(file_path, '\\')
+        t_temp_dict['path'] = str[#str]
+        t_temp_dict['info'] = key
         if(tableType == 0) then
-            table.insert(self.m_tInvalidDragon, tempDict)
+            table.insert(self.m_tInvalidDragon, t_temp_dict)
         elseif(tableType == 1) then
-            
-            table.insert(self.m_tInvalidMonster, tempDict)
+            table.insert(self.m_tInvalidMonster, t_temp_dict)
         else
-            table.insert(self.m_tInvalidSkill, tempDict)
+            table.insert(self.m_tInvalidSkill, t_temp_dict)
         end
 
         self.m_numOfInvalidData = self.m_numOfInvalidData + 1
@@ -293,40 +295,36 @@ end
 ------------------------------------
 -- function makeInvalidStr
 -- @brief 오류가 있는 테이블을 출력될 텍스트로 만든다.
--- @return formatting된 string
+-- @return str      : string,   formatting된 string
 ------------------------------------
 function DataTableValidator:makeInvalidStr()
-    --table_str = "@hkkang @wjung @jykim\n"
-    local flag_dragonID = false
-    local flag_monsterID = true
-    local flag_skillID = true
-    local table_str = '## 존재하지 않는 드래곤 ID\n'
+    --str = "@hkkang @wjung @jykim\n"
+    local str = '## 존재하지 않는 드래곤 ID\n'
 
-    for _, tempDict in ipairs(self.m_tInvalidDragon) do
-        table_str = table_str .. tempDict['path'] .. '\t : \t' .. tempDict['info'] .. '\n'
+    for _, t_temp_dict in ipairs(self.m_tInvalidDragon) do
+        str = str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
     end
 
-    table_str = table_str .. '\n## 존재하지 않는 몬스터 ID\n'
+    str = str .. '\n## 존재하지 않는 몬스터 ID\n'
 
-    for _, tempDict in ipairs(self.m_tInvalidMonster) do
-        table_str = table_str .. tempDict['path'] .. '\t : \t' .. tempDict['info'] .. '\n'
+    for _, t_temp_dict in ipairs(self.m_tInvalidMonster) do
+        str = str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
     end
     
-    table_str = table_str .. '\n## 존재하지 않는 스킬 ID\n'
+    str = str .. '\n## 존재하지 않는 스킬 ID\n'
 
-    for _, tempDict in ipairs(self.m_tInvalidSkill) do
-        table_str = table_str .. tempDict['path'] .. '\t : \t' .. tempDict['info'] .. '\n'
+    for _, t_temp_dict in ipairs(self.m_tInvalidSkill) do
+        str = str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
     end
-    return table_str
+    return str
 end
 
---TEST필요
 ------------------------------------
--- function sendInvalidTableListBySlack
+-- function sendToSlack
 -- @brief 슬랙으로 전송.
--- @return 슬랙으로 전송된 메시지.
+-- @return text     : string, 슬랙으로 전송된 메시지.
 ------------------------------------
-function DataTableValidator:sendInvalidTableListBySlack()
+function DataTableValidator:sendToSlack()
     -- lua slack api 참고
 
     local slack = Slack.GetInstance('xoxp-4049551466-60623372247-67908400245-53f29cbca3')
@@ -336,7 +334,7 @@ function DataTableValidator:sendInvalidTableListBySlack()
                         'https://drive.google.com/open?id=0Bzybp2XzPNq0flpmdEstcDJYOTdPbXFWcFpkWktZY0NxdnpyUHF1VENFX29jbnJLSGRvcFE' .. '\n' ..
                         '[DV_BOT] 테이블 오류 발견 !!\n' ..
                         self:makeInvalidStr()
-
+    print(text)
     slack:Send(slack:Message(text, channel, '드빌봇'))
 
     return text

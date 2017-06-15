@@ -34,13 +34,15 @@ end
 
 -------------------------------------
 -- function getRelPath
--- @param   t       - key : number, value : 절대경로
--- @return  _table  - key : number, value : 상대경로(root : dragonvillage 폴더) 
+-- @param   t      :    table,              key = number, value = 절대경로
+--          root   :    string, optional    root로 잡을 절대경로. default value : '\\dragonvillage'
+-- @return  _table :    table,              key = number, value = 상대경로
 -------------------------------------
-function UnusedFileExtractor:getRelPath(t)
+function UnusedFileExtractor:getRelPath(t, root)
+    root = root or lfs.currentdir() .. '..\\'
     local _table = {}
     for _, v in ipairs(t) do
-        table.insert(_table, pl.path.relpath(v, lfs.currentdir() .. '..\\'))
+        table.insert(_table, pl.path.relpath(v, root))
     end
     return _table
     
@@ -49,7 +51,7 @@ end
 -------------------------------------
 -- function extractUnusedFile
 -- @brief 쓰이지 않는 파일을 찾아낸다.
--- @return 쓰이지 않는 파일들의 이름이 담겨있는 table
+-- @return self.t_unusedFileName    table,  :   key = number, value = 쓰이지 않는 파일들의 이름이
 -------------------------------------
 function UnusedFileExtractor:extractUnusedFile() 
     self.m_tResRoot, self.m_tSrcRoot, self.m_target_ext, self.m_src_ext = self:getUserInput()
@@ -134,10 +136,10 @@ end
 -------------------------------------
 -- function getAllFilePathByKey
 -- @brief   경로 아래에 있는 모든 파일의 경로를 반환
--- @param   root : 기준이 될 경로(상대, 절대 둘 다 가능)
---          RETURN_FULL_PATH : optional(default false), 상대경로로써 반환할것인지, 이름만 반환할것인지. 
---          shell_pattern : optional(반환할 파일 패턴(확장자))
--- @return  파일 경로를 가진 테이블(key : 파일 경로, value : 빈 테이블)
+-- @param   root                string,             : 기준이 될 경로(상대, 절대 둘 다 가능)
+--          CONTAIN_PATH        boolean, optional,  : default false, 상대경로로써 반환할것인지, 이름만 반환할것인지. 
+--          shell_pattern       string, optional,   : 반환할 파일 패턴(확장자)
+-- @return  t                   table,              : key = 파일 경로, value = 빈 테이블
 -------------------------------------
 function UnusedFileExtractor:getAllFilePathByKey(roots, CONTAIN_PATH, shell_pattern)
     local t = {}
@@ -162,10 +164,10 @@ end
 -------------------------------------
 -- function findUsedFiles
 -- @brief   한 소스 파일에 등장한 타겟 파일들을 전부 찾는다.
--- @param   src_file_path       : 검사할 src파일
---          target_ext          : 찾을 파일의 extension 형식.
---          is_contain_comment  : 주석도 포함해서 검사할건지.. lua만 지원 예정. 미구현.
--- @return  테이블(key : 타겟 파일 이름, value : 등장 line number)
+-- @param   src_file_path       : string,   검사할 src파일
+--          target_ext          : string,   찾을 파일의 extension 형식.
+--          is_contain_comment  : boolean,  주석도 포함해서 검사할건지.. lua만 지원 예정. 미구현.
+-- @return  t_appeared_line     : table,    key = 타겟 파일 이름, value = 등장 line number
 -------------------------------------
 function UnusedFileExtractor:findUsedFiles(src_file_path, target_ext, is_contain_comment)
     local t_appeared_line = {}
@@ -186,10 +188,10 @@ end
 -------------------------------------
 -- function inspectTargetString
 -- @brief   소스파일의 한 line에 특정 string이 있는지 검사하여, 있으면 t_appeared_line에 insert.
--- @param   target_string            : 검사할 src line
---          string_to_match          : 찾을 string
---          line_number             
---          t_appeared_line          : 포함 정보를 가진 테이블.
+-- @param   target_string            : string,  검사할 src line
+--          string_to_match          : string,  찾을 string
+--          line_number              : number,
+--          t_appeared_line          : table,   포함 정보를 가진 테이블.
 -------------------------------------
 function UnusedFileExtractor:inspectTargetString(target_string, string_to_match, line_number, t_appeared_line)
     -- 이름 찾기 ( 이름들의 포함관계 때문에 이름의 작은따옴표까지 검사
@@ -199,8 +201,12 @@ function UnusedFileExtractor:inspectTargetString(target_string, string_to_match,
     if(target_file_name ~= nil) then          
         -- 검사 후 저장시에는 작은 따옴표 분리
         target_file_name = string.sub(target_file_name, 2, -2)
+
+        -- PATH에서 이름만 추출
         local str = pl.stringx.split(target_file_name, '/')
         target_file_name = str[#str]
+
+        -- VALUE에 TABLE을 만들고, 그 테이블에 line number 삽입.
         if(nil == t_appeared_line[target_file_name]) then
             t_appeared_line[target_file_name] = {}
         end
@@ -225,9 +231,9 @@ end
 -------------------------------------
 -- function makeXMLString
 -- @brief   테이블의 데이터들을 xml문법에 맞춰 스트링화한다.
--- @param   unusedFileNameTable     : 사용되지 않는 파일 이름이 적힌 테이블.
---          resFileNameTable        : 사용되는 파일 이름이 적힌 테이블.
--- @return  테이블 데이터들로 만든 xml string
+-- @param   unusedFileNameTable     : table,    사용되지 않는 파일 이름이 적힌 테이블.
+--          resFileNameTable        : table,    사용되는 파일 이름이 적힌 테이블.
+-- @return                          : string,   테이블 데이터들로 만든 xml 
 -------------------------------------
 function UnusedFileExtractor:makeXMLString(unusedFileNameTable, resFileNameTable)
     local xml_lib = require 'pl.xml'
@@ -251,7 +257,6 @@ function UnusedFileExtractor:makeXMLString(unusedFileNameTable, resFileNameTable
 
     do -- 사용된 파일들 (d가 root를 바라봄)
         d:addtag('Used')
-        ccdump(resFileNameTable)
         for file_name, v in pairsByKeys(resFileNameTable) do
         -- v = table : {src file relative path, line numbers table}
             d:addtag('Name')
@@ -276,7 +281,7 @@ function UnusedFileExtractor:makeXMLString(unusedFileNameTable, resFileNameTable
         d:up()
     end
 
-
+    -- pl.xml doc를 가져왔음.
     -- pretty-print an XML document
     local idn = ' '         -- an initial indent (indents are all strings)
     local indent = '    '   -- an indent for each level
@@ -294,17 +299,8 @@ end
 function UnusedFileExtractor_Sample()
 
     local extractor = UnusedFileExtractor()
-
-    -- init 함수의 parameter는 2개이며 optional입니다. 
-    -- 지정하지 않는 경우 아래의 parameter가 default로 설정됩니다.
-    -- 첫 번째 parameter의 경우 검사할 소스파일이 있는 폴더입니다.
-    -- 두 번째 parameter의 경우 검색할 이름이 될 타겟 파일들이 있는 폴더입니다.
-    -- parameter는 상대경로, 절대경로 두가지 다 가능합니다.
-    -- 상대경로 : 실행 위치 (현재는 bat 폴더)에서 상대경로
-
-    extractor:init( {'..\\src', '..\\src_tool'} , '..\\res\\')
-    
-    ccdump(extractor:extractUnusedFile())
+    extractor:init()
+    extractor:extractUnusedFile()
 
 end
 
@@ -313,19 +309,20 @@ end
 -- @brief   key로써 table을 순회하는 iterator를 반환
 -- @param   t       : table
 --          f       : An optional parameter f allows the specification of an alternative order.
--- @return iter     : iterator
+-- @return  iter    : iterator
 -------------------------------------
 function pairsByKeys (t, f)
     local a = {}
     for n in pairs(t) do table.insert(a, n) end -- key를 가진 배열
     table.sort(a, f)
-    local i = 0      -- iterator variable
-    local iter = function ()   -- iterator function
+    local i = 0      
+    local iter = function ()   
         i = i + 1
         if a[i] == nil then
             return nil
         else 
-            return a[i], t[a[i]] -- key, value
+            -- key, value
+            return a[i], t[a[i]] 
         end
     end
     return iter
@@ -335,10 +332,10 @@ end
 -------------------------------------
 -- function getUserInput
 -- @brief   user가 제어할 수 있는 input을 command line을 통해 받는다.
--- @return  t_res_root  : resource의 root
---          t_src_root  : src의 root
---          res_ext     : res의 확장자
---          src_ext     : ext의 확장자 
+-- @return  t_res_root  : string,   resource의 root
+--          t_src_root  : string,   src의 root
+--          res_ext     : string,   res의 확장자
+--          src_ext     : string,   ext의 확장자 
 -------------------------------------
 function UnusedFileExtractor:getUserInput()
     local t_res_root = {}

@@ -41,11 +41,7 @@ function main()
     elseif (args['_name'] == 'validate') then
         require 'DataTableValidator'
         validator = DataTableValidator()
-        validator:init()
         validator:validateData()
-        if (validator.m_numOfInvalidData > 0) then
-            validator:sendInvalidTableListBySlack()
-        end
     
     elseif (args['_name'] == 'uigenerate') then
         require 'UISourceCodeGenerator'
