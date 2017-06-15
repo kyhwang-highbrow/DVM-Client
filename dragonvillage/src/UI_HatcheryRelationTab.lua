@@ -31,6 +31,8 @@ function UI_HatcheryRelationTab:onEnterTab(first)
         if t_item and t_item['data'] and t_item['data']['did'] then
             local did = t_item['data']['did']
             self:click_dragonCard(did)
+        else
+            self:refresh()
         end
     end
 end
@@ -66,7 +68,7 @@ function UI_HatcheryRelationTab:init_TableView()
     self.m_tableViewTD = table_view_td
 
     -- 리스트가 비었을 때
-    table_view_td:makeDefaultEmptyDescLabel(Str(''))
+    table_view_td:makeDefaultEmptyDescLabel(Str('인연포인트를 획득한 드래곤이 없습니다.'))
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonList()
@@ -90,6 +92,12 @@ function UI_HatcheryRelationTab:getDragonList()
         end
 
         if (relation_point <= 0) then
+            return false
+        end
+
+        local did = t_table['did']
+        local cur_rpoint = g_collectionData:getRelationPoint(did)
+        if (cur_rpoint <= 0) then
             return false
         end
 
@@ -168,7 +176,7 @@ end
 function UI_HatcheryRelationTab:click_dragonCard(did)
     if self.m_selectedDid then
         local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
-        if t_item['ui'] then
+        if (t_item and t_item['ui']) then
             t_item['ui']:setSelected(false)
         end
     end
@@ -176,7 +184,7 @@ function UI_HatcheryRelationTab:click_dragonCard(did)
     self.m_selectedDid = did
     if self.m_selectedDid then
         local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
-        if t_item['ui'] then
+        if (t_item and t_item['ui']) then
             t_item['ui']:setSelected(true)
         end
     end
@@ -238,6 +246,7 @@ function UI_HatcheryRelationTab:click_summonBtn()
     local did = self.m_selectedDid
 
     if (not did) then
+        UIManager:toastNotificationRed(Str('드래곤을 선택하세요.'))
         return
     end
 
@@ -261,8 +270,21 @@ function UI_HatcheryRelationTab:click_summonBtn()
 
         -- 리스트 아이템 갱신
         local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
-        if t_item and t_item['ui'] then
-            t_item['ui']:refresh()
+        local cur_rpoint = g_collectionData:getRelationPoint(self.m_selectedDid)
+        if (0 < cur_rpoint) then
+            if t_item and t_item['ui'] then
+                t_item['ui']:refresh()
+            end
+        else
+            self.m_tableViewTD:delItem(self.m_selectedDid)
+            self:click_dragonCard(nil)
+
+            -- 첫 아이템 클릭
+            local t_item = self.m_tableViewTD.m_itemList[1]
+            if t_item and t_item['data'] and t_item['data']['did'] then
+                local did = t_item['data']['did']
+                self:click_dragonCard(did)
+            end
         end
     end
 
