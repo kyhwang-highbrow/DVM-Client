@@ -64,8 +64,14 @@ end
 -- function click_eventSummonBtn
 -- @brief 확률업
 -------------------------------------
-function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle)
+function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
     local function finish_cb(ret)
+        -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
+        if (old_ui) then
+            old_ui:setCloseCB(nil)
+            old_ui:close()
+        end
+
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list)
@@ -75,6 +81,9 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle)
         end
         ui:setCloseCB(close_cb)
 
+        -- 이어서 뽑기 설정
+        self:subsequentSummons(ui, t_egg_data)
+
         -- 추가된 마일리지
         local added_mileage = ret['added_mileage'] or 0
         UIManager:toastNotificationGreen(Str('{1}마일리지가 적립되었습니다.', added_mileage))
@@ -83,7 +92,6 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle)
     local function fail_cb()
     end
 
-    local is_sale = false
     g_hatcheryData:request_summonCashEvent(is_bundle, is_sale, finish_cb, fail_cb)
 end
 
@@ -91,8 +99,14 @@ end
 -- function click_cashSummonBtn
 -- @brief 캐시 뽑기
 -------------------------------------
-function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle)
+function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
     local function finish_cb(ret)
+        -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
+        if (old_ui) then
+            old_ui:setCloseCB(nil)
+            old_ui:close()
+        end
+
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list)
@@ -102,6 +116,9 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle)
         end
         ui:setCloseCB(close_cb)
 
+        -- 이어서 뽑기 설정
+        self:subsequentSummons(ui, t_egg_data)
+
         -- 추가된 마일리지
         local added_mileage = ret['added_mileage'] or 0
         UIManager:toastNotificationGreen(Str('{1}마일리지가 적립되었습니다.', added_mileage))
@@ -110,7 +127,6 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle)
     local function fail_cb()
     end
 
-    local is_sale = false
     g_hatcheryData:request_summonCash(is_bundle, is_sale, finish_cb, fail_cb)
 end
 
@@ -118,11 +134,20 @@ end
 -- function click_friendSummonBtn
 -- @brief 우정포인트 뽑기
 -------------------------------------
-function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle)
+function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, t_egg_data, old_ui)
     local function finish_cb(ret)
+        -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
+        if (old_ui) then
+            old_ui:setCloseCB(nil)
+            old_ui:close()
+        end
+
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list)
+
+        -- 이어서 뽑기 설정
+        self:subsequentSummons(ui, t_egg_data)
 
         local function close_cb()
             self:sceneFadeInAction()
@@ -200,20 +225,26 @@ end
 -- function click_eggItem
 -------------------------------------
 function UI_HatcherySummonTab:click_eggItem(t_item, idx)
-    local t_data = t_item['data']
+    local t_egg_data = t_item['data']
+    self:requestSummon(t_egg_data)
+end
 
-    local egg_id = t_data['egg_id']
-    local is_bundle = t_data['bundle']
+-------------------------------------
+-- function requestSummon
+-------------------------------------
+function UI_HatcherySummonTab:requestSummon(t_egg_data, is_sale, old_ui)
+    local egg_id = t_egg_data['egg_id']
+    local is_bundle = t_egg_data['bundle']
 
     local function ok_btn_cb()
         if (egg_id == 700001) then
-            self:click_eventSummonBtn(is_bundle)
+            self:click_eventSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
 
         elseif (egg_id == 700002) then
-            self:click_cashSummonBtn(is_bundle)
+            self:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
 
         elseif (egg_id == 700003) then
-            self:click_friendSummonBtn(is_bundle)
+            self:click_friendSummonBtn(is_bundle, t_egg_data, old_ui)
 
         else
             error('egg_id ' .. egg_id)
@@ -222,11 +253,16 @@ function UI_HatcherySummonTab:click_eggItem(t_item, idx)
 
     local cancel_btn_cb = nil
 
-    local item_key = t_data['price_type']
-    local item_value = t_data['price']
-    local msg = Str('"{1}"를 진행하시겠습니까?', t_data['name'])
+    local item_key = t_egg_data['price_type']
+    local item_value = t_egg_data['price']
 
-    MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+    -- 10% 할인
+    if (is_sale) then
+        item_value = item_value - (item_value * 0.1)
+    end
+    local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
+
+    MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)   
 end
 
 -------------------------------------
@@ -277,4 +313,54 @@ function UI_HatcherySummonTab:onChangeCurrEgg(t_item, idx)
         vars['priceNode']:removeAllChildren()
         vars['priceNode']:addChild(price_icon)
     end
+end
+
+
+-------------------------------------
+-- function subsequentSummons
+-- @brief 이어서 뽑기 설정
+-------------------------------------
+function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
+    local vars = gacha_result_ui.vars
+
+    local egg_id = t_egg_data['egg_id']
+    local name = t_egg_data['name']
+    local is_sale = false
+
+    do -- 아이콘
+        local price_type = t_egg_data['price_type']
+        local price_icon
+        if (price_type == 'cash') then
+            price_icon = cc.Sprite:create('res/ui/icon/item/cash.png')
+        elseif (price_type == 'fp') then
+            price_icon = cc.Sprite:create('res/ui/icon/item/fp.png')
+        else
+            error('price_icon ' .. price_icon)
+        end
+
+        price_icon:setDockPoint(cc.p(0.5, 0.5))
+        price_icon:setAnchorPoint(cc.p(0.5, 0.5))
+        price_icon:setScale(0.5)
+
+        vars['priceIconNode']:removeAllChildren()
+        vars['priceIconNode']:addChild(price_icon)
+    end
+
+    do -- 가격
+        local price = t_egg_data['price']
+
+        -- 10% 할인
+        if (t_egg_data['price_type'] ~= 'fp') then
+            price = price - (price * 0.1)
+            is_sale = true
+        else
+            vars['saleSprite']:setVisible(false)
+        end
+        vars['priceLabel']:setString(comma_value(price))
+    end
+
+    vars['againBtn']:setVisible(true)
+    vars['againBtn']:registerScriptTapHandler(function()
+            self:requestSummon(t_egg_data, is_sale, gacha_result_ui)
+        end)
 end
