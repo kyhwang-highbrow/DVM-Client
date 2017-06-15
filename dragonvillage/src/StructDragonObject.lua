@@ -59,6 +59,7 @@ function StructDragonObject:init(data)
     self.lv = 0
     self.grade = 0
     self.evolution = 1
+    self.eclv = 0
     self.m_mRuneObjects = nil
     self.is_struct = true
 

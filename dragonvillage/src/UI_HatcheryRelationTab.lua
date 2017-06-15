@@ -7,6 +7,7 @@ UI_HatcheryRelationTab = class(PARENT,{
         m_sortManagerDragon = 'SortManager_Dragon',
         m_uicSortList = 'UIC_SortList',
         m_tableViewTD = 'UIC_TableViewTD',
+        m_selectedDid = '',
     })
 
 -------------------------------------
@@ -21,8 +22,16 @@ end
 -------------------------------------
 function UI_HatcheryRelationTab:onEnterTab(first)
     if first then
+        self:initButton()
         self:init_TableView()
         self:init_dragonSortMgr()
+
+        -- 첫 아이템 클릭
+        local t_item = self.m_tableViewTD.m_itemList[1]
+        if t_item and t_item['data'] and t_item['data']['did'] then
+            local did = t_item['data']['did']
+            self:click_dragonCard(did)
+        end
     end
 end
 
@@ -41,22 +50,23 @@ function UI_HatcheryRelationTab:init_TableView()
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
-        ui.root:setScale(0.66)
-        -- 클릭 버튼 설정
-        --ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
-
-		--self:createMtrlDragonCardCB(ui, data)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data['did']) end)
+        
+        -- 선택되어있는 아이템일 경우
+        if (self.m_selectedDid == data['did']) then
+            ui:setSelected(true)
+        end
     end
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(100, 100)
-    table_view_td.m_nItemPerCell = 5
-    table_view_td:setCellUIClass(UI_DragonCard, create_func)
+    table_view_td.m_cellSize = cc.size(128 + 12, 166 + 12)
+    table_view_td.m_nItemPerCell = 4
+    table_view_td:setCellUIClass(UI_HatcheryRelationItem, create_func)
     self.m_tableViewTD = table_view_td
 
     -- 리스트가 비었을 때
-    table_view_td:makeDefaultEmptyDescLabel(Str('도와줄 드래곤이 없어요 ㅠㅠ'))
+    table_view_td:makeDefaultEmptyDescLabel(Str(''))
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonList()
@@ -149,4 +159,112 @@ function UI_HatcheryRelationTab:apply_dragonSort()
     local list = self.m_tableViewTD.m_itemList
     self.m_sortManagerDragon:sortExecution(list)
     self.m_tableViewTD:setDirtyItemList()
+end
+
+-------------------------------------
+-- function click_dragonCard
+-- @brief
+-------------------------------------
+function UI_HatcheryRelationTab:click_dragonCard(did)
+    if self.m_selectedDid then
+        local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
+        if t_item['ui'] then
+            t_item['ui']:setSelected(false)
+        end
+    end
+
+    self.m_selectedDid = did
+    if self.m_selectedDid then
+        local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
+        if t_item['ui'] then
+            t_item['ui']:setSelected(true)
+        end
+    end
+
+    self:refresh()
+end
+
+-------------------------------------
+-- function refresh
+-- @brief
+-------------------------------------
+function UI_HatcheryRelationTab:refresh()
+    local vars = self.vars
+
+    if (not self.m_selectedDid) then
+        return
+    end
+
+    local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
+    if (not t_item) or (not t_item['data']) then
+        return
+    end
+
+    local struct_dragon_object = t_item['data']
+
+    -- 드래곤 실리소스
+    if vars['dragonNode'] then
+        vars['dragonNode']:removeAllChildren()
+        local animator = ServerData_Dragons:makeDragonAnimator(struct_dragon_object)
+        vars['dragonNode']:addChild(animator.m_node)
+    end
+
+    -- 드래곤 이름
+    if vars['dragonNameLabel'] then
+        vars['dragonNameLabel']:setString(struct_dragon_object:getDragonNameWithEclv())
+    end
+
+    do -- 드래곤 등급
+        vars['starNode']:removeAllChildren()
+        local star_icon = IconHelper:getDragonGradeIcon(struct_dragon_object:getGrade(), struct_dragon_object:getEclv(), 2)
+        vars['starNode']:addChild(star_icon)
+    end
+end
+
+-------------------------------------
+-- function initButton
+-- @brief
+-------------------------------------
+function UI_HatcheryRelationTab:initButton()
+    local vars = self.vars
+    vars['summonBtn']:registerScriptTapHandler(function() self:click_summonBtn() end)
+end
+
+-------------------------------------
+-- function click_summonBtn
+-- @brief
+-------------------------------------
+function UI_HatcheryRelationTab:click_summonBtn()
+    local did = self.m_selectedDid
+
+    if (not did) then
+        return
+    end
+
+    -- 인연포인트 값 얻어오기
+    local req_rpoint = TableDragon():getRelationPoint(did)
+    local cur_rpoint = g_collectionData:getRelationPoint(did)
+    if (cur_rpoint < req_rpoint) then
+        UIManager:toastNotificationRed(Str('인연포인트가 부족합니다.'))
+        return
+    end
+
+    local function finish_cb(ret)
+        local added_dragons = {}
+        if (ret['added_items'] and ret['added_items']['dragons']) then
+            added_dragons = ret['added_items']['dragons']
+        end
+
+        if (table.count(added_dragons) > 0) then
+            UI_GachaResult_Dragon(added_dragons)
+        end
+
+        -- 리스트 아이템 갱신
+        local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
+        if t_item and t_item['ui'] then
+            t_item['ui']:refresh()
+        end
+    end
+
+    g_collectionData:request_useRelationPoint(did, finish_cb)
 end
