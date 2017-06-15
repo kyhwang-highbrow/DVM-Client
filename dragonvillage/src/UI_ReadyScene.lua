@@ -48,13 +48,14 @@ function UI_ReadyScene:init(stage_id)
     
 	self:initUI()
     self:initButton()
-    self:refresh()
 	
     self.m_readySceneSelect = UI_ReadyScene_Select(self)
     
     local with_friend = true
 	self.m_readySceneDeck = UI_ReadyScene_Deck(self, with_friend)
     self.m_readySceneDeck:setOnDeckChangeCB(function() self:refresh_combatPower() end)
+
+    self:refresh()
 
 	self:init_sortMgr()
 
@@ -404,7 +405,31 @@ end
 -------------------------------------
 function UI_ReadyScene:refresh_buffInfo()
     local vars = self.vars
+	
+	-- 테이머 버프
+	do
+		local t_tamer_data = g_tamerData:getTamerServerInfo()
+		local skill_mgr = MakeTamerSkillManager(t_tamer_data)
+		local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(3)
+		local tamer_buff = skill_info:getSkillDesc()
+		vars['tamerBuffLabel']:setString(tamer_buff)
+	end
 
+	-- 리더 버프
+	do
+		local leader_buff = ''
+		vars['leaderBuffLabel']:setString(leader_buff)
+	end
+
+	-- 진형 버프
+	do
+		local l_formation = g_formationData:getFormationInfoList()
+		local formation_data = l_formation[self.m_readySceneDeck.m_currFormation]
+		local table_formation = TableFormation()
+
+		local formation_buff = table_formation:getFormatioDesc(formation_data['formation'])
+		vars['formationBuffLabel']:setString(formation_buff)
+	end
 end
 
 -------------------------------------

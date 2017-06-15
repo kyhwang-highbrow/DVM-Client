@@ -71,6 +71,10 @@ end
 -- @brief 테이머 스킬 레벨 정보 반환
 -------------------------------------
 function ServerData_Tamer:getTamerServerInfo(tamer_id)
+	local tamer_id = tamer_id
+	if (not tamer_id) then
+		tamer_id = self.m_serverData:getRef('user', 'tamer')
+	end
 	return self.m_mTamerMap[tamer_id] or {tid = tamer_id}
 end
 
