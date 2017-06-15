@@ -276,6 +276,7 @@ function Skill.st_dying(owner, dt)
 		owner:dispatch(CON_SKILL_END, {l_target = {owner.m_targetChar}})
 
         -- 보너스 버프
+        --[[
         if (owner.m_bonusLevel > 0) then
             local l_target = {}
             for target, _ in pairs(owner.m_hitTargetList) do
@@ -285,6 +286,7 @@ function Skill.st_dying(owner, dt)
             -- 보너스 효과 적용 및 연출
             DragonSkillBonusHelper:doInvoke(owner.m_owner, l_target, owner.m_bonusLevel)
         end
+        ]]--
 
         return true
     end

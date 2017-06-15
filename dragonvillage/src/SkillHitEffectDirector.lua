@@ -75,10 +75,12 @@ function SkillHitEffectDirector:init(owner, bonus_level)
     end
 
     if (bonus_label) then
+        --[[
         local desc = DragonSkillBonusHelper:getBonusDesc(self.m_hero, self.m_bonusLevel)
         if (desc) then
             bonus_label:setString(Str(desc))
         end
+        ]]--
     end
 
     self.root:setDockPoint(cc.p(0.5, 1))
