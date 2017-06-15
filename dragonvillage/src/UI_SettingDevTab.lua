@@ -15,6 +15,7 @@ function UI_Setting:init_devTab()
     vars['testCodeBtn']:registerScriptTapHandler(function() self:click_testCodeBtn() end)
     vars['allEggBtn']:registerScriptTapHandler(function() self:click_allEggBtn() end)
     vars['addFpBtn']:registerScriptTapHandler(function() self:click_addFpBtn() end)
+    vars['addRpBtn']:registerScriptTapHandler(function() self:click_addRpBtn() end)
     self:refresh_devTap()
 end
 
@@ -408,6 +409,45 @@ function UI_Setting:click_addFpBtn()
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function click_addRpBtn
+-- @brief 모든 인연 포인트 우편 발송
+-------------------------------------
+function UI_Setting:click_addRpBtn()
+    local uid = g_userData:get('uid')
+    local table_item = TableItem()
+    local l_item_list = table_item:filterList('type', 'relation_point')
+    local t_list = {}
+    for i,v in ipairs(l_item_list) do
+        local item_id = v['item']
+        table.insert(t_list, item_id)
+    end
+    local do_work
+
+    local ui_network = UI_Network()
+    ui_network:setReuse(true)
+    ui_network:setUrl('/manage/send_mail')
+    ui_network:setParam('uid', uid)
+
+    do_work = function(ret)
+        local id = t_list[1]
+        
+        if id then
+            table.remove(t_list, 1)
+            local name = table_item:getValue(id, 't_name')
+            local msg = '"' .. name .. '" 발송 중...'
+            ui_network:setLoadingMsg(msg)
+            ui_network:setParam('itemid', tostring(id) .. ';' .. tostring(100))
+            ui_network:request()
+        else
+            ui_network:close()
+            UIManager:toastNotificationGreen('모든 인연포인트 우편 발송!')
+        end
+    end
+    ui_network:setSuccessCB(do_work)
+    do_work()
 end
 
 -------------------------------------

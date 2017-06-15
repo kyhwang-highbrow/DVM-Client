@@ -149,7 +149,8 @@ function UI_ItemCard:init_relationItem(t_item, t_sub_data)
     t_dragon_data['skill_2'] = 0
     t_dragon_data['skill_3'] = 0
 
-    local dragon_card = UI_RelationCard(t_dragon_data)
+    local struct_dragon_object = StructDragonObject(t_dragon_data)
+    local dragon_card = UI_RelationCard(struct_dragon_object)
     self.root = dragon_card.root
     self.vars = dragon_card.vars
 
