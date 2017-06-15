@@ -61,7 +61,7 @@ end
 -- function runHeal
 -------------------------------------
 function SkillHealAoERound:runHeal()
-    local collision = self:findCollision()
+    local l_collision = self:findCollision()
 
     for _, collision in ipairs(l_collision) do
         self:heal(collision)
