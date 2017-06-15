@@ -208,6 +208,18 @@ function UI_Network:statusHandler(ret)
         return true
     end
 
+    -- already send friend request(이미 요청한 친구)
+    if (status == -3259) then
+        self:makeCommonPopup(Str('이미 요청한 친구입니다.'))
+        return true
+    end
+
+    -- already exist nick(닉네임 중복)
+    if (status == -3026) then
+        self:makeCommonPopup(Str('이미 존재하는 닉네임입니다.'))
+        return true
+    end
+
     self:makeFailPopup(nil, ret)
     return true
 end

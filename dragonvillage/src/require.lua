@@ -105,6 +105,7 @@ local t_module = {
 	'ServerData_DragonBoard',
     'ServerData_Eggs',
     'ServerData_Hatchery',
+    'ServerData_StartTamer',
 
     -- Interface
     'IEventDispatcher',
@@ -585,6 +586,7 @@ local t_module = {
 	'UI_FormationListItem',
 	'UI_FormationEnhance',
     'UI_UserInfoMini',
+	'UI_StartTamerSelect',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

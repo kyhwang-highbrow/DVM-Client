@@ -104,3 +104,12 @@ end
 function UI_DragonSkillCard:setLeaderLabelToggle(visible)
 	self.vars['leaderLabel']:setVisible(visible)
 end
+
+-------------------------------------
+-- function setNoLv
+-------------------------------------
+function UI_DragonSkillCard:setNoLv()
+    self.vars['frameSprite1']:setVisible(false)
+	self.vars['frameSprite2']:setVisible(true)
+    self:setLockSpriteVisible(false)
+end

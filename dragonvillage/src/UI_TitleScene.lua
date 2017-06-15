@@ -7,6 +7,7 @@ UI_TitleScene = class(PARENT,{
         m_lWorkList = 'list',
         m_workIdx = 'number',
         m_loadingUI = 'UI_TitleSceneLoading',
+        m_bNewUser = 'boolean',
     })
 
 -------------------------------------
@@ -260,7 +261,7 @@ end
 
 -------------------------------------
 -- function workCheckUserID
--- @breif uid가 있는지 체크, UID가 없을 경우 유저 닉네임을 받아서
+-- @breif uid가 있는지 체크, UID가 없을 경우 난수 발생하여
 --        idfa로 저장하고 이를 통해서 UID를 발급
 -------------------------------------
 function UI_TitleScene:workCheckUserID()
@@ -274,30 +275,11 @@ function UI_TitleScene:workCheckUserID()
     if (uid or idfa) then
         self:doNextWork()
     else
-        self.m_loadingUI:hideLoading()
-        local edit_box = UI_EditBoxPopup()
-        edit_box:setPopupTitle(Str('닉네임 입력'))
-        edit_box:setPopupDsc(Str('사용하실 닉네임을 입력하세요.'))
-        edit_box:setPlaceHolder(Str('2~8글자'))
-
-        local function confirm_cb(str)
-            local len = uc_len(str)
-            if (len < 2) then
-                UIManager:toastNotificationRed('2자~8자 이내로 입력해주세요.')
-                return false
-            end
-            return true
-        end
-        edit_box:setConfirmCB(confirm_cb)
-
-        local function close_cb(str)
-            local text = edit_box.vars['editBox']:getText()
-            g_serverData:applyServerData(text, 'local', 'idfa')
-            self:doNextWork()
-        end
-        edit_box:setCloseCB(close_cb)
+        self:makeIdfa()
+        self:doNextWork()
     end
 end
+
 function UI_TitleScene:workCheckUserID_click()
 end
 
@@ -343,6 +325,13 @@ function UI_TitleScene:workGameLogin()
     local nickname = g_userData:get('nick') or g_serverData:get('local', 'idfa')
 
     local success_cb = function(ret)
+        -- 최초 로그인인 경우 계정 생성
+        if ret['newuser'] then
+            g_startTamerData:setData(ret)
+            self:createAccount()
+            return
+        end
+
         g_serverData:lockSaveData()
         
 		g_serverData:applyServerData(ret['user'], 'user')
@@ -503,14 +492,47 @@ function UI_TitleScene:workFinish()
     -- 로딩창 숨김
     self.m_loadingUI:hideLoading()
 
-    -- 화면을 터치하세요. 출력
-    self:setTouchScreen()
+        -- 신규 유저 바로 진입 가능하게 변경
+    if self.m_bNewUser then
+        self:workFinish_click()
+    else
+        -- 화면을 터치하세요. 출력
+        self:setTouchScreen()
+    end
 end
 function UI_TitleScene:workFinish_click()
     -- 모든 작업이 끝난 경우 로비로 전환
 	local is_use_loading = true
     local scene = SceneLobby(is_use_loading)
     scene:runScene()
+end
+
+-------------------------------------
+-- function makeIdfa
+-------------------------------------
+function UI_TitleScene:makeIdfa()
+    local random = math.random
+    local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+    local uuid = string.gsub(template, '[xy]', function (c)
+        local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
+        return string.format('%x', v)
+    end) 
+
+    g_serverData:applyServerData(uuid, 'local', 'idfa')
+end
+
+-------------------------------------
+-- function createAccount
+-- @brief 신규 계정일 경우 계정 생성
+-------------------------------------
+function UI_TitleScene:createAccount()
+    local function success_cb()
+        self.m_bNewUser = true
+        self.m_loadingUI:showLoading()
+        self:retryCurrWork()
+    end
+
+    UI_StartTamerSelect(success_cb)
 end
 
 ------------------------------------------------------------------------------------------------------------------------

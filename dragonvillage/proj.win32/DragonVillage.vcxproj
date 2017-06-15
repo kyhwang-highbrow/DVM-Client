@@ -433,6 +433,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Staminas.lua" />
     <None Include="..\src\ResPreloadMgr.lua" />
     <None Include="..\src\ResPreloadHelper.lua" />
+    <None Include="..\src\ServerData_StartTamer.lua" />
     <None Include="..\src\ServerData_Tamer.lua" />
     <None Include="..\src\shader\characterDamaged.fsh" />
     <None Include="..\src\shader\gray.fsh" />
@@ -949,6 +950,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_SettingInfoTab.lua" />
     <None Include="..\src\UI_SimpleEditBoxPopup.lua" />
     <None Include="..\src\UI_SkillEnhance.lua" />
+    <None Include="..\src\UI_StartTamerSelect.lua" />
     <None Include="..\src\UI_StatisticsListItem.lua" />
     <None Include="..\src\UI_StatisticsPopup.lua" />
     <None Include="..\src\UI_GameTamer.lua" />

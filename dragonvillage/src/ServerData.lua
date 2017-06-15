@@ -137,6 +137,9 @@ function ServerData:getInstance()
 
 	-- 게시판
     g_boardData = ServerData_DragonBoard(g_serverData)
+    
+    -- 테이머 선택
+    g_startTamerData = ServerData_StartTamer(g_serverData)
 
     return g_serverData
 end

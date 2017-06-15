@@ -386,6 +386,33 @@ function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
 end
 
 -------------------------------------
+-- function getDragonSkillIconList_NoLv
+-------------------------------------
+function IDragonSkillManager:getDragonSkillIconList_NoLv()
+    local l_skill_icon = {}
+
+    for _, i in ipairs(self:getSkillKeyList()) do
+        l_skill_icon[i] = self:makeSkillIcon_usingIndex_NoLv(i)
+    end
+
+    return l_skill_icon
+end
+
+-------------------------------------
+-- function makeSkillIcon_usingIndex_NoLv
+-------------------------------------
+function IDragonSkillManager:makeSkillIcon_usingIndex_NoLv(idx)
+    local skill_indivisual_info = self:getSkillIndivisualInfo_usingIdx(idx)
+    if skill_indivisual_info then
+        local ui_dragon = UI_DragonSkillCard(skill_indivisual_info)
+        ui_dragon:setNoLv()
+        return ui_dragon
+    else
+        return nil
+    end
+end
+
+-------------------------------------
 -- function getSkillInfoByID
 -------------------------------------
 function IDragonSkillManager:getSkillInfoByID(skill_id)

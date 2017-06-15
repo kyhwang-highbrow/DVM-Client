@@ -10,8 +10,6 @@ UI_ReadyScene_Select = class({
 
         m_selectedFriendUid = '',
         m_selectedFriendInfo = '',
-
-        m_cbOnDeckSelect = 'function'
     })
 
 local DC_SCALE = 0.61

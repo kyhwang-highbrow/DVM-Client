@@ -11,7 +11,7 @@ UI_TamerManageItem = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_TamerManageItem:init(t_tamer)
+function UI_TamerManageItem:init(t_tamer, new_user)
     local vars = self:load('tamer_manage_scene_item.ui')
 	
 	self.m_tamerID = t_tamer['tid']
@@ -19,7 +19,11 @@ function UI_TamerManageItem:init(t_tamer)
 
     self:initUI()
     self:initButton()
-    self:refresh()
+
+    -- 로그인 하지 않은 상태서 신규 계정 생성시에는 다른 서버 데이터 접근하면서 오류남
+    if not new_user then 
+        self:refresh() 
+    end
 end
 
 -------------------------------------

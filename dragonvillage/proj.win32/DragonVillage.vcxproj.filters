@@ -2445,6 +2445,12 @@
     <None Include="..\src\UI_SecretDungeonListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_StartTamer.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_StartTamerSelect.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
