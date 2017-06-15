@@ -310,6 +310,7 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     do -- 챕터 배경
         vars['chapterNode']:removeAllChildren()
         local res = T_CHAPTER_MAP_RES[chapter]
+		ccdisplay(res)
         local animator = MakeAnimator(res)
         animator:setDefaultAniName('easy')
         if (self.m_currDifficulty == 1) then

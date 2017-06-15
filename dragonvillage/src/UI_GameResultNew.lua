@@ -238,13 +238,13 @@ function UI_GameResultNew:setSuccessVisual()
 
     -- 성공 or 실패
     if (is_success == true) then
-        SoundMgr:playBGM('result_success', false)    
+        SoundMgr:playBGM('bgm_dungeon_victory', false)    
         vars['successVisual']:changeAni('success', false)
         vars['successVisual']:addAniHandler(function()
             vars['successVisual']:changeAni('success_idle', true)
         end)
     else
-        SoundMgr:playBGM('result_fail', false)
+        SoundMgr:playBGM('bgm_dungeon_lose', false)
         vars['successVisual']:changeAni('fail')
     end
 end

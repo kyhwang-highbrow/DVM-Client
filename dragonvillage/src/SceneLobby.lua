@@ -20,7 +20,7 @@ end
 -------------------------------------
 function SceneLobby:onEnter()
     PerpleScene.onEnter(self)
-    SoundMgr:playBGM('bgm_title')
+    SoundMgr:playBGM('bgm_lobby')
 
     -- UI 캐싱
     getUIFile('dragon_info_mini.ui')

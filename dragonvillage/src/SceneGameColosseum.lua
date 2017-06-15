@@ -33,7 +33,7 @@ function SceneGameColosseum:onEnter()
 
     self.m_colosseumLoadingUI:initUI()
 
-    SoundMgr:playBGM('bgm_nest_battle')
+    SoundMgr:playBGM('bgm_colosseum')
     
     self.m_inGameUI = UI_GameColosseum(self)
     self.m_resPreloadMgr = ResPreloadMgr()

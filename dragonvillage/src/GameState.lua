@@ -42,8 +42,7 @@ GameState = class(PARENT, {
         m_waveEffect = 'Animator',
         m_nextWaveDirectionType = 'string',
 
-        -- 보스 bgm
-        m_bgmBoss = 'string',
+		m_bgmBoss = 'string',
 
         -- 웨이브
         m_waveNoti = 'Animator',
@@ -64,8 +63,8 @@ function GameState:init(world)
     
     self.m_bAppearHero = false
 
-    self.m_bgmBoss = 'bgm_boss'
-    
+	self.m_bgmBoss = 'bgm_dungeon_boss'
+
     self:initUI()
     self:initState()
 end
@@ -440,7 +439,9 @@ function GameState.update_final_wave(self, dt)
         self.m_waveEffect:addAniHandler(function()
             self:nextStep()
         end)
-    
+		
+		SoundMgr:stopBGM()
+
     elseif (self:isBeginningStep(1)) then
         self.m_waveEffect:setVisible(true)
         self.m_waveEffect:changeAni('final_disappear', false)
@@ -448,6 +449,9 @@ function GameState.update_final_wave(self, dt)
             self.m_waveEffect:setVisible(false)
             self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
+
+		-- 엘리트 배경음
+        SoundMgr:playBGM('bgm_dungeon_midboss')
     end
 end
 

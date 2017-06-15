@@ -107,6 +107,12 @@ end
 -------------------------------------
 function UI_ReadyScene_LeaderPopup:refresh(t_dragon_data)
 	local vars = self.vars
+	
+	if (not t_dragon_data) or (not t_dragon_data['did']) then
+		vars['dragonLabel']:setString('없음')
+		vars['buffLabel']:setString(Str('리더 버프 없음'))
+		return
+	end
 
 	-- 드래곤 이름
 	local dragon_name = TableDragon:getDragonName(t_dragon_data['did'])

@@ -111,9 +111,6 @@ function SoundMgr:loadSoundList()
         end
     end
     --]]
-
-    self:setTitleBgm()
-    --self:loadSoundCategory(self.m_soundList)
 end
 
 -------------------------------------
@@ -170,8 +167,6 @@ function SoundMgr:update(dt)
             end
         end)
 
-
-    --cclog(luadump(sorted_sfx))
     local play_count = 0
     local max = 5
     local curr_time = SoundMgr.m_time
@@ -222,7 +217,6 @@ function SoundMgr:update(dt)
     self.m_scheduledSfx = {}
     self.m_scheduledCount = 0
 
-    --SoundMgr:updateVolumeState(dt)
 end
 
 -------------------------------------
@@ -234,16 +228,10 @@ function SoundMgr:isPreloadFinish()
     return (cnt <= 0)
 end
 
-
---SoundMgr:entry()
-
 -- 스케쥴에 등록
 if (not sound_coroutine_handler_id) then
     sound_coroutine_handler_id = cc.Director:getInstance():getScheduler():scheduleScriptFunc(function(dt) SoundMgr:update(dt) end, 0, false)
 end
-
---SoundMgr:entry()
---SoundMgr:playTitleBGM()
 
 -------------------------------------
 -- function playBgmImmediately

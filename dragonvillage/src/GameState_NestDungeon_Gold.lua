@@ -11,7 +11,7 @@ GameState_NestDungeon_Gold = class(PARENT, {
 -- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
 function GameState_NestDungeon_Gold:init()
-    self.m_bgmBoss = 'bgm_nest_boss'
+    self.m_bgmBoss = 'bgm_dungeon_boss'
 
     -- 제한 시간 설정
     local t_drop = TableDrop():get(self.m_world.m_stageID)

@@ -27,6 +27,8 @@ function UI_ReadyScene:init(stage_id)
     local vars = self:load('battle_ready.ui')
     UIManager:open(self, UIManager.SCENE)
 
+	SoundMgr:playBGM('bgm_dungeon_ready')
+
     -- 씬 전환 효과
     self:sceneFadeInAction()
 
@@ -452,6 +454,14 @@ end
 function UI_ReadyScene:click_exitBtn()
     local function next_func()
         self:close()
+
+		local game_mode = g_stageData:getGameMode(self.m_stageID)
+		-- 모험맵으로 나갈 경우 
+		if (game_mode == GAME_MODE_ADVENTURE) then
+			SoundMgr:playBGM('bgm_dungeon_ready')
+		else
+			SoundMgr:playBGM('bgm_lobby')
+		end
     end
 
     self:checkChangeDeck(next_func)
@@ -683,6 +693,11 @@ function UI_ReadyScene:click_leaderBtn()
 	local l_pos_list = self.m_readySceneDeck:getRotatedPosList()
 	local l_doid = self.m_readySceneDeck.m_lDeckList
 	local leader_idx = self.m_readySceneDeck.m_currLeader
+
+	if (table.count(l_doid) == 0) then
+		UIManager:toastNotificationRed('리더로 설정할 드래곤이 없습니다.')
+		return
+	end
 
 	local ui = UI_ReadyScene_LeaderPopup(l_pos_list, l_doid, leader_idx)
 	ui:setCloseCB(function() 

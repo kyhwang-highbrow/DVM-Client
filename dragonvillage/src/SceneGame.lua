@@ -204,9 +204,17 @@ function SceneGame:onEnter()
     PerpleScene.onEnter(self)
 
     if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
-        SoundMgr:playBGM('bgm_nest_battle')
+        SoundMgr:playBGM('bgm_dungeon_special')
+	
+	elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
+		SoundMgr:playBGM('bgm_dungeon_special')
+
+	elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+		SoundMgr:playBGM('bgm_dungeon_special')
+
     else
-        SoundMgr:playBGM('bgm_battle')
+        SoundMgr:playBGM('bgm_dungeon')
+
     end
 
     self.m_inGameUI = UI_Game(self)

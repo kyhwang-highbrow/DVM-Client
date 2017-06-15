@@ -11,7 +11,7 @@ GameState_SecretDungeon_Relation = class(PARENT, {
 -- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
 function GameState_SecretDungeon_Relation:init()
-    self.m_bgmBoss = 'bgm_nest_boss'
+    self.m_bgmBoss = 'bgm_dungeon_boss'
 end
 
 -------------------------------------

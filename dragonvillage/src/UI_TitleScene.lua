@@ -236,7 +236,7 @@ end
 function UI_TitleScene:workTitleAni()
     local vars = self.vars
 
-    SoundMgr:playBGM('bgm_intro')
+    SoundMgr:playBGM('bgm_title')
     SoundMgr.m_bStopPreload = true
 
     local function ani_handler()

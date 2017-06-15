@@ -1,20 +1,19 @@
 {
 	"BG":
 	{
-		"bgm_title":
-		{
-			"priority":	1,
-			"res":		"sound/bgm/bgm_title.mp3"
-			"res_mid":	"sound/bgm/bgm_title.mp3"
-			"res_low":	"sound/bgm/bgm_title.mp3"
-		},
-        "bgm_intro":   {"res":"sound/bgm/bgm_intro.mp3"}
-		"bgm_battle":   {"res":"sound/bgm/bgm_battle.mp3"}
-		"bgm_boss":   	{"res":"sound/bgm/bgm_boss.mp3"}
-		"bgm_nest_battle":  {"res":"sound/bgm/bgm_nest_battle.mp3"}
-		"bgm_nest_boss":   	{"res":"sound/bgm/bgm_nest_boss.mp3"}
-		"result_success":{"res":"sound/bgm/result_success.mp3"}
-        "result_fail":   {"res":"sound/bgm/result_fail.mp3"}
+		"bgm_title": {"res":"sound/bgm/bgm_title.mp3"}
+		"bgm_lobby": {"res":"sound/bgm/bgm_lobby.mp3"}
+		
+		"bgm_dungeon_ready": {"res":"sound/bgm/bgm_dungeon_ready.mp3"}
+		
+		"bgm_dungeon": {"res":"sound/bgm/bgm_dungeon_general.mp3"}
+		"bgm_dungeon_special": {"res":"sound/bgm/bgm_dundeon_special.mp3"}
+		"bgm_colosseum": {"res":"sound/bgm/bgm_colosseum.mp3"}
+
+		"bgm_dungeon_midboss": {"res":"sound/bgm/bgm_dungeon_midboss.mp3"}
+		"bgm_dungeon_boss": {"res":"sound/bgm/bgm_dungeon_boss.mp3"}
+		"bgm_dungeon_victory": {"res":"sound/bgm/bgm_dungeon_victory.mp3"}
+		"bgm_dungeon_lose": {"res":"sound/bgm/bgm_dungeon_lose.mp3"}
 	},
 	
 	"EFFECT":

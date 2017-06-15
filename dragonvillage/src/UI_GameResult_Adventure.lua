@@ -29,13 +29,13 @@ function UI_GameResult_Adventure:setSuccessVisual()
         local stage_info = g_adventureData:getStageInfo(stage_id)
         local num_of_stars = stage_info:getNumberOfStars()
 
-        SoundMgr:playBGM('result_success', false)    
+        SoundMgr:playBGM('bgm_dungeon_victory', false)    
         vars['successVisual']:changeAni('success_0' .. num_of_stars, false)
         vars['successVisual']:addAniHandler(function()
             vars['successVisual']:changeAni('success_idle_0' .. num_of_stars, true)
         end)
     else
-        SoundMgr:playBGM('result_fail', false)
+        SoundMgr:playBGM('bgm_dungeon_lose', false)
         vars['successVisual']:changeAni('fail')
     end
 end

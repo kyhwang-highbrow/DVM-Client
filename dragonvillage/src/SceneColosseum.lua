@@ -16,7 +16,7 @@ end
 -------------------------------------
 function SceneColosseum:onEnter()
     PerpleScene.onEnter(self)
-    SoundMgr:playBGM('bgm_title')
+    SoundMgr:playBGM('bgm_lobby')
 
     UI_Colosseum()
 end
