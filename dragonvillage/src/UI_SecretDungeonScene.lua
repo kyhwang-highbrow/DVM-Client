@@ -172,7 +172,7 @@ function UI_SecretDungeonScene:refreshDungeonList()
         self:initUI()
         self.m_bDirtyDungeonList = false
 
-        UIManager:toastNotificationGreen(Str('비밀 던전 항목이 갱신되었습니다.'))
+        UIManager:toastNotificationGreen(Str('인연 던전 항목이 갱신되었습니다.'))
     end
 
     -- 새로운 던전 정보 요청

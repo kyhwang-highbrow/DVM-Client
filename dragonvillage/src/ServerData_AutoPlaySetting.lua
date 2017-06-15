@@ -47,7 +47,7 @@ function ServerData_AutoPlaySetting:init(server_data)
         t_auto_play_setting['dragon_panel'] = true
 
         -- 연출 스킵 단계
-        t_auto_play_setting['skip_level'] = 0
+        t_auto_play_setting['skip_level'] = 2
 
         self.m_serverData:applyServerData(t_auto_play_setting, 'auto_play_setting')
     end
