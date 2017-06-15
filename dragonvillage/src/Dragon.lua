@@ -180,17 +180,16 @@ function Dragon:onEvent(event_name, t_event, ...)
     PARENT.onEvent(self, event_name, t_event, ...)
 
     if (event_name == 'change_mana') then
-        if (self.m_bDead) then return end
-        if (self:getSkillID('active') == 0) then return end
-
         local arg = {...}
         local mana = arg[1]
-        
-        if (mana >= self.m_activeSkillManaCost) then
-            local attr = self:getAttribute()
-            self.m_infoUI:showSkillFullVisual(attr)
-        else
-            self.m_infoUI:hideSkillFullVisual()
+
+        if (not self.m_bDead) then
+            if (mana >= self.m_activeSkillManaCost) then
+                local attr = self:getAttribute()
+                self.m_infoUI:showSkillFullVisual(attr)
+            else
+                self.m_infoUI:hideSkillFullVisual()
+            end
         end
 	end
 end
@@ -246,26 +245,6 @@ function Dragon:doAttack(x, y)
         local duration = animator:getDuration()
         animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
     end
-end
-
--------------------------------------
--- function doSkill_passive
--- @brief 패시브 스킬 실행
--------------------------------------
-function Dragon:doSkill_passive()
-    if (self.m_bActivePassive) then return end
-
-    local l_tar_skill_type = {'leader', 'basic', 'normal'}
-
-    for _, skill_type in pairs(l_tar_skill_type) do
-        local skill_id = self:getSkillID(skill_type)
-        local t_skill = self:getSkillTable(skill_id)
-        if t_skill and (t_skill['chance_type'] == 'leader' or t_skill['chance_type'] == 'passive') then
-            self:doSkill(skill_id, 0, 0)
-        end
-    end
-
-    PARENT.doSkill_passive(self)
 end
 
 -------------------------------------
@@ -524,10 +503,8 @@ end
 -------------------------------------
 function Dragon:updateActiveSkillCool(dt)
 	if (self.m_bDead) then return end
-    if (self:getSkillID('active') == 0) then return end
-        
+    
     -- 드래그 스킬 쿨타임 갱신
-    -- TODO: 차후 DragonSkillIndivisualInfo의 m_cooldownTimer를 사용하도록 변경해야할듯...
     if (self.m_activeSkillCoolTimer > 0) then
         if (not self:isCasting() and self.m_state ~= 'skillPrepare') then
             self.m_activeSkillCoolTimer = self.m_activeSkillCoolTimer - dt

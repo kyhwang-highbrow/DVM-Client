@@ -175,7 +175,7 @@ end
 -------------------------------------
 function GameWorld:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
-    local l_deck, formation, deck_name = g_deckData:getDeck()
+    local l_deck, formation, deck_name, leader = g_deckData:getDeck()
     self.m_deckFormation = formation
 
     -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
@@ -212,6 +212,11 @@ function GameWorld:makeHeroDeck()
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
                 hero:setStatusCalc(hero.m_statusCalc)
+
+				-- 리더 등록
+				if (i == leader) then
+					self.m_leaderDragon = hero
+				end
             end
         end
     end
@@ -225,7 +230,6 @@ function GameWorld:makeHeroDeck()
             status_calc:addBuffMulti('def', (friend_online_buff['def'] or 0))
         end
     end
-
 
     do -- 무리 버프
         local unit_buff_dic = g_dragonUnitData:getDragonUnitList_deckBuff(deck_name)
@@ -359,6 +363,11 @@ function GameWorld:passiveActivate_Left()
 		dragon:doSkill_passive()
     end
     
+	-- 아군 리더 버프
+	if (self.m_leaderDragon) then
+		self.m_leaderDragon:doSkill_leader()
+	end
+
     -- 친구 버프
 end
 

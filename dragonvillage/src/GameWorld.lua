@@ -104,10 +104,13 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         -- 친구 영웅 관련
         m_bUsedFriend = 'boolean',
+        m_friendDragon = 'Dragon',
 
         -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
         m_myDragons = 'Dragons',
-        m_friendDragon = 'Dragon',
+
+		-- 덱의 리더 드래곤
+		m_leaderDragon = 'Dragon',
 
     })
 

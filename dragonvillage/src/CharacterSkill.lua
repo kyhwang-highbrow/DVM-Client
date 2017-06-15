@@ -77,10 +77,27 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		local chance_type = t_skill['chance_type']
 		local chance_value = t_skill['chance_value']
 
+		--[[
+			@TODO 구조 정리 및 테이블 정리 필요
+				skill_type == 'staut_effect' 일때
+				
+					chance_type == 'leader' or 'passive'인 경우 
+						chance_value == 'start'
+							인게임 시작 연출 등록 후 시전
+						chance_vlaue == 'event'
+							이런 타입이 필요 할지 고민... 
+
+					그외는 그냥 시전
+
+			chance_type은 individual_info 생성시 타입 구분하기위해 사용
+		]]
+
 		-- [패시브]
 		if (chance_type == 'leader' or chance_type == 'passive') then
+			
 			-- 리더 버프 (기존 상시 패시브)
-			if (chance_value == '') or (chance_value == 'start') then 
+			if (chance_value == '') or (chance_value == 'start') then
+
 				-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
 				local function apply_world_passive_effect(char)
 					local world = self.m_world
@@ -95,6 +112,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 			-- 트리거 설정하는 패시브
 			else
 				return StatusEffectHelper:setTriggerPassive(self, t_skill)
+
 			end
 
 		-- [상태 효과]만 거는 스킬
@@ -410,9 +428,20 @@ function Character:doSkill_passive()
     self.m_bActivePassive = true
 end
 
-------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------
+-------------------------------------
+-- function doSkill_leader
+-- @brief 리더 버프 실행
+-------------------------------------
+function Character:doSkill_leader()
+    local leader_skill_info = self.m_lSkillIndivisualInfo['leader']
+	if (leader_skill_info) then
+		local skill_id = leader_skill_info.m_skillID
+		self:doSkill(skill_id, 0, 0)
+	end
+end
 
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 
 -------------------------------------
 -- function getBreathDegree
