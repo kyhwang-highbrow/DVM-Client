@@ -25,6 +25,8 @@ UI_ReadyScene_Deck = class({
         m_bDirtyDeck = 'boolean',
 
         m_cbOnDeckChange = 'function',
+
+        m_bWithFriend = 'boolean',
     })
 
 local TOTAL_POS_CNT = 5
@@ -345,7 +347,13 @@ end
 -- @brief 장착여부에 따른 테이블뷰에 있는 카드 갱신
 -------------------------------------
 function UI_ReadyScene_Deck:refresh_dragonCard(doid)
-    local item = self.m_uiReadyScene.m_readySceneSelect:getTableView().m_itemMap[doid]
+    local item 
+    if (self.m_bWithFriend) then
+        item = self.m_uiReadyScene.m_readySceneSelect:getTableView().m_itemMap[doid]
+    else
+        item = self.m_uiReadyScene.m_tableViewExt.m_itemMap[doid]
+    end
+    
     local is_setted = self.m_tDeckMap[doid]
 
     if (not item) then
@@ -893,5 +901,13 @@ end
 -------------------------------------
 function UI_ReadyScene_Deck:setOnDeckChangeCB(func)
     self.m_cbOnDeckChange = func
+end
+
+-------------------------------------
+-- function setWithFriend
+-- @brief
+-------------------------------------
+function UI_ReadyScene_Deck:setWithFriend(b)
+    self.m_bWithFriend = b
 end
 
