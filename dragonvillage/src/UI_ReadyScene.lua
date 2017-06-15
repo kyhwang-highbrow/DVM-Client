@@ -48,9 +48,9 @@ function UI_ReadyScene:init(stage_id)
     self:refresh()
 	
     self.m_readySceneSelect = UI_ReadyScene_Select(self)
-
-	self.m_readySceneDeck = UI_ReadyScene_Deck(self)
-    self.m_readySceneDeck:setWithFriend(true)
+    
+    local with_friend = true
+	self.m_readySceneDeck = UI_ReadyScene_Deck(self, with_friend)
     self.m_readySceneDeck:setOnDeckChangeCB(function() self:refresh_combatPower() end)
 
 	self:init_sortMgr()

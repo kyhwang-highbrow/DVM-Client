@@ -47,10 +47,11 @@ local DC_SCALE_PICK = (DC_SCALE * 0.8)
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ReadyScene_Deck:init(ui_ready_scene)
+function UI_ReadyScene_Deck:init(ui_ready_scene, is_friend)
     self.m_uiReadyScene = ui_ready_scene
 	self.m_lMotionStreakList = {}
     self.m_bDirtyDeck = true
+    self.m_bWithFriend = is_friend or false
 
 	self:initUI()
     self:initButton()
@@ -347,7 +348,12 @@ end
 -- @brief 장착여부에 따른 테이블뷰에 있는 카드 갱신
 -------------------------------------
 function UI_ReadyScene_Deck:refresh_dragonCard(doid)
-    local item = self.m_uiReadyScene.m_readySceneSelect:getTableView().m_itemMap[doid]
+    local item
+    if (self.m_bWithFriend) then
+        item = self.m_uiReadyScene.m_readySceneSelect:getTableView().m_itemMap[doid]
+    else
+        item = self.m_uiReadyScene.m_tableViewExt.m_itemMap[doid]
+    end
     
     local is_setted = self.m_tDeckMap[doid]
 
@@ -898,11 +904,4 @@ function UI_ReadyScene_Deck:setOnDeckChangeCB(func)
     self.m_cbOnDeckChange = func
 end
 
--------------------------------------
--- function setWithFriend
--- @brief
--------------------------------------
-function UI_ReadyScene_Deck:setWithFriend(b)
-    self.m_bWithFriend = b
-end
 
