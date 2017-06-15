@@ -255,7 +255,7 @@ function UI_ReadyScene:initUI()
     -- 미구현으로 off
     local vars = self.vars
     vars['buffInfoBtn']:setVisible(false)
-    vars['leaderSprite']:setVisible(false)
+    --vars['leaderSprite']:setVisible(false)
 end
 
 -------------------------------------

@@ -507,4 +507,5 @@ function UI_Directing_DragonGoodBye:goodbye_forever()
 	local reward_type = self.m_directingData['type']
 	local reward_value = self.m_directingData['value']
 	UI_ObtainPopup(reward_type, reward_value, Str('상공 위로 떠나간 드래곤 그림자조차 보이지 않을 때 쯤 드래곤이 남기고 간 라테아 [{1}]개를 발견했습니다.', reward_value))
+	SoundMgr:playEffect('UI', 'ui_out_item_get')
 end

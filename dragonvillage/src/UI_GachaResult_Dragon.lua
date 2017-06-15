@@ -86,7 +86,7 @@ function UI_GachaResult_Dragon:refresh()
     table.remove(self.m_lGachaDragonList, 1)
 
     local vars = self.vars
-    SoundMgr:playEffect('EFFECT', 'reward')
+    --SoundMgr:playEffect('UI', 'ui_grow_result')
 
 	-- 연출을 위한 준비
 	self.m_isDirecting = true

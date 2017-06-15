@@ -34,6 +34,8 @@ function UI_ToastPopup:initUI()
 		self:close()
 	end
 
+	SoundMgr:playEffect('UI', 'ui_out_item_get')
+
 	self.root:runAction(
 		cc.Sequence:create(
 			cc.DelayTime:create(1.5),

@@ -39,13 +39,6 @@ function SoundMgr:setTitleBgm()
 end
 
 -------------------------------------
--- function playTitleBGM
--------------------------------------
-function SoundMgr:playTitleBGM()
-    SoundMgr:playBGM(self.m_titleBgmName)
-end
-
--------------------------------------
 -- function pauseBGM
 -- @param bReleaseData
 -------------------------------------
@@ -178,7 +171,6 @@ function SoundMgr:setBgmOnOff(is_on)
         end
 
         if sound then
-            SoundMgr:playBGM('temp')
             SoundMgr:playBGM(sound)
         end
     end

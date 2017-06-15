@@ -38,7 +38,7 @@ end
 -------------------------------------
 function UI_DragonLevelupResult:refresh(dragon_object, prev_lv)
     local vars = self.vars
-    SoundMgr:playEffect('EFFECT', 'reward')
+    SoundMgr:playEffect('UI', 'ui_grow_result')
 
     local did = dragon_object['did']
     local grade = dragon_object['grade']

@@ -147,9 +147,10 @@ function UI_ColosseumReadyScene:initButton()
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
     vars['tamerBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 
+	vars['leaderBtn']:registerScriptTapHandler(function() self:click_leaderBtn() end)
+
     -- 진형 관린
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
-    vars['fomationSetColseBtn']:registerScriptTapHandler(function() self:click_fomationSetColseBtn() end)
 end
 
 -------------------------------------
@@ -377,6 +378,26 @@ end
 function UI_ColosseumReadyScene:click_tamerBtn()
     local ui = UI_TamerManagePopup()
 	ui:setCloseCB(function() self:refresh_tamer() end)
+end
+
+-------------------------------------
+-- function click_leaderBtn
+-- @breif
+-------------------------------------
+function UI_ColosseumReadyScene:click_leaderBtn()
+	local l_pos_list = self.m_readySceneDeck:getRotatedPosList()
+	local l_doid = self.m_readySceneDeck.m_lDeckList
+	local leader_idx = self.m_readySceneDeck.m_currLeader
+
+	if (table.count(l_doid) == 0) then
+		UIManager:toastNotificationRed('리더로 설정할 드래곤이 없습니다.')
+		return
+	end
+
+	local ui = UI_ReadyScene_LeaderPopup(l_pos_list, l_doid, leader_idx)
+	ui:setCloseCB(function() 
+		self.m_readySceneDeck.m_currLeader = ui.m_newLeader
+	end)
 end
 
 -------------------------------------

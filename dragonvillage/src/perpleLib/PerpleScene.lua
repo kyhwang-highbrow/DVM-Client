@@ -161,7 +161,7 @@ function PerpleScene.onKeyReleased(keyCode, event)
     if keyCode == 6 then
         if g_currScene.m_tBackKeyListener[1] and g_currScene.m_tBackKeyListener[1]['cb'] then
             if not g_currScene.m_bBlockBackkey then
-                SoundMgr:playEffect('EFFECT', 'touch_basic')
+                SoundMgr:playEffect('UI', 'ui_touch')
                 g_currScene.m_tBackKeyListener[1]['cb']()
             end
         end

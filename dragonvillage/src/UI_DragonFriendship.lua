@@ -187,10 +187,14 @@ end
 -------------------------------------
 function UI_DragonFriendship:setHeartGauge(percentage, b_init)
     local vars = self.vars
-    if b_init then
+    
+	if b_init then
         vars['heartNumberLabel']:setNumber(0, true)
         vars['heartGauge']:setPercentage(0)
+	else
+		--SoundMgr:playEffect('UI', 'ui_eat')
     end
+
     vars['heartNumberLabel']:setNumber(percentage)
     vars['heartGauge']:stopAllActions()
     vars['heartGauge']:runAction(cc.EaseElasticOut:create(cc.ProgressTo:create(1, percentage), 1.5))
@@ -223,19 +227,6 @@ function UI_DragonFriendship:refreshFruits(attr)
         fruit_button:registerScriptTapHandler(function() self:click_fruitBtn(fid, fruit_button) end)
         fruit_button:registerScriptPressHandler(function() self:press_fruitBtn(fid, fruit_button, vars['fruitNumberLabel' .. i]) end)
     end
-    --[[
-    fruitBtn1
-
-    fruitNode1
-    fruitNode1
-    fruitNode1
-    fruitNode1
-
-    fruitLabel1
-    fruitLabel2
-    fruitLabel3
-    fruitLabel4
-    --]]
 end
 
 -------------------------------------
@@ -283,7 +274,9 @@ function UI_DragonFriendship:feedDirecting(fruit_id, fruit_node, finish_cb)
 		local action2 = cc.RotateTo:create(duration, -720)
         local spawn = cc.Spawn:create(cc.EaseIn:create(action, 1), action2)
         local scale_action = cc.ScaleTo:create(0.05, 0)
-		icon:runAction(cc.Sequence:create(spawn, scale_action, cc.CallFunc:create(finish_cb), cc.RemoveSelf:create()))
+		local fx_sound = cc.CallFunc:create(function() SoundMgr:playEffect('UI', 'ui_eat') end)
+		local cb_func = cc.CallFunc:create(finish_cb)
+		icon:runAction(cc.Sequence:create(spawn, scale_action, fx_sound, cb_func, cc.RemoveSelf:create()))
     end
 end
 

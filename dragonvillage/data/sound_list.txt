@@ -14,8 +14,52 @@
 		"bgm_dungeon_boss": {"res":"sound/bgm/bgm_dungeon_boss.mp3"}
 		"bgm_dungeon_victory": {"res":"sound/bgm/bgm_dungeon_victory.mp3"}
 		"bgm_dungeon_lose": {"res":"sound/bgm/bgm_dungeon_lose.mp3"}
+
+		"bgm_everyday": {"res":"sound/bgm/bgm_everyday.mp3"}
+		"bgm_sorrow": {"res":"sound/bgm/bgm_sorrow.mp3"}
 	},
 	
+	"EFX":
+	{
+		"efx_attack" : {"res":"sound/efx/efx_attack.mp3"}
+		"efx_damage_normal" : {"res":"sound/efx/efx_damage_normal.mp3"}
+		"efx_damage_critical" : {"res":"sound/efx/efx_damage_critical.mp3"}
+		"efx_dragon_die_normal" : {"res":"sound/efx/efx_dragon_die_normal.mp3"}
+		"efx_dragon_die_cute" : {"res":"sound/efx/efx_dragon_die_cute.mp3"}
+		"efx_monster_die" : {"res":"sound/efx/efx_monster_die.mp3"}
+		"efx_midboss_die" : {"res":"sound/efx/efx_midboss_die.mp3"}
+		"efx_bleed" : {"res":"sound/efx/efx_bleed.mp3"}
+		"efx_posion" : {"res":"sound/efx/efx_posion.mp3"}
+		"efx_burn" : {"res":"sound/efx/efx_burn.mp3"}
+	},
+
+	"SFX":
+	{
+		"sfx_heal" : {"res":"sound/sfx/sfx_heal.mp3"}
+		"sfx_buff_get" : {"res":"sound/sfx/sfx_buff_get.mp3"}
+	},
+
+	"UI":
+	{
+		"ui_game_start" : {"res":"sound/ui/ui_game_start.mp3"}
+		"ui_summon" : {"res":"sound/ui/ui_summon.mp3"}
+		"ui_passive" : {"res":"sound/ui/ui_passive.mp3"}
+		"ui_wave_start" : {"res":"sound/ui/ui_wave_start.mp3"}
+		"ui_boss_warning" : {"res":"sound/ui/ui_boss_warning.mp3"}
+		
+		"ui_drag_ready" : {"res":"sound/ui/ui_drag_ready.mp3"}
+		"ui_drag_scene" : {"res":"sound/ui/ui_drag_scene.mp3"}
+		"ui_target" : {"res":"sound/ui/ui_target.mp3"}
+		"ui_in_item_get" : {"res":"sound/ui/ui_in_item_get.mp3"}
+		
+		"ui_touch" : {"res":"sound/ui/ui_touch.mp3"}
+		"ui_grow_result" : {"res":"sound/ui/ui_grow_result.mp3"}
+		"ui_eat" : {"res":"sound/ui/ui_eat.mp3"}
+		"ui_out_item_get" : {"res":"sound/ui/ui_out_item_get.mp3"}
+		"ui_reward" : {"res":"sound/ui/ui_reward.mp3"}
+	},
+
+
 	"EFFECT":
 	{
 		"skill_powerdragon":	{"res":"sound/skill_powerdragon.mp3"}

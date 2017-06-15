@@ -51,8 +51,6 @@ SoundMgr = {
     m_volumeEffect = 1,
     m_bSlowMode = false,
 
-    m_titleBgmName = 'BGM_background',
-
     -- fadein fadeout
     m_volumeState = VOLUME_STATE_NONE,
     m_multiplVolume = 1,

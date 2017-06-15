@@ -59,6 +59,8 @@ function UI_ColosseumFirstReward:initUI()
 	-- 보상 지급 문구
 	local reward_value = TableColosseumReward():getFirstRewardCash(tier_name, tier_grade)
     vars['rewardLabel']:setString(reward_value)
+
+	SoundMgr:playEffect('UI', 'ui_out_item_get')
 end
 
 -------------------------------------

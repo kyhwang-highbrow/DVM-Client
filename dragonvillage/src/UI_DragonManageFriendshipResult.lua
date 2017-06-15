@@ -25,7 +25,7 @@ function UI_DragonManageFriendshipResult:init(dragon_object)
     self:initButton()
     self:refresh(dragon_object)
 
-    SoundMgr:playEffect('EFFECT', 'success_friendship')
+    SoundMgr:playEffect('UI', 'ui_grow_result')
 end
 
 -------------------------------------

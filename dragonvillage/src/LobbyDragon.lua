@@ -235,6 +235,8 @@ function LobbyDragon:takeGift()
 			local gift_type = TableItem:getItemType(item_id)
 			local gift_count = t_gift['count']
 			SensitivityHelper:makeObtainEffect(gift_type, gift_count, self.m_rootNode)
+
+			SoundMgr:playEffect('UI', 'ui_out_item_get')
 		end
 
 		-- 선물 수령 처리

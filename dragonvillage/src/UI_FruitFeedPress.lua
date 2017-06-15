@@ -193,8 +193,6 @@ function UI_FruitFeedPress:feedFruit()
     self.m_friendshipUI:feedDirecting(self.m_currFruitID, self.m_currFruitBtn)
 
     self:feedFruitUIRefresh()
-
-    SoundMgr:playEffect('EFFECT', 'eat')
 end
 
 -------------------------------------

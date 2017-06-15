@@ -84,6 +84,7 @@ function UI_AdventureFirstRewardPopup:click_receiveBtn()
     local function finish_cb(ret)
         self:close()
         MakeSimplePopup(POPUP_TYPE.OK, Str('보상을 수령하였습니다.'))
+		SoundMgr:playEffect('UI', 'ui_out_item_get')
     end
 
     local function fail_cb(ret)

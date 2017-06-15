@@ -37,7 +37,7 @@ UIC_Button.ACTION_TYPE_WITHOUT_SCAILING = 2
 -- function init
 -------------------------------------
 function UIC_Button:init(node)
-    self.m_clickSoundName = 'touch_basic'
+    self.m_clickSoundName = 'ui_touch'
     self.m_buttonState = UIC_BUTTON_NORMAL
     self.m_actionType = UIC_Button.ACTION_TYPE_NORMAL
     self.m_bAutoShakeAction = false
@@ -68,7 +68,7 @@ end
 -------------------------------------
 function UIC_Button.tapHandler(self)
     if self.m_clickSoundName then
-        SoundMgr:playEffect('EFFECT', self.m_clickSoundName)
+        SoundMgr:playEffect('UI', self.m_clickSoundName)
     end
 
     self:setClickButtonState()

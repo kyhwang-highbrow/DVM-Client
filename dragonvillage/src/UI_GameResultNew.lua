@@ -413,7 +413,7 @@ function UI_GameResultNew:direction_dropItem()
         item_card.root:setPositionX(pos_x)
     end
 
-    SoundMgr:playEffect('EFFECT', 'reward')
+    SoundMgr:playEffect('UI', 'ui_reward')
 
     vars['skipLabel']:setVisible(false)
 
