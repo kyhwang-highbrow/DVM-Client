@@ -41,13 +41,13 @@ end
 -------------------------------------
 function SkillHealAoERound:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillHealAround.st_idle, 'idle', true)
+    self:addState('start', SkillHealAoERound.st_idle, 'idle', true)
 end
 
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function SkillHealAround.st_idle(owner, dt)
+function SkillHealAoERound.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:runHeal()
 
