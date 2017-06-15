@@ -968,11 +968,11 @@ function GameState:applyWaveDirection()
     end
 
     if (self.m_nextWaveDirectionType == 'final_wave') then
-        SoundMgr:playEffect('EFFECT', 'boss_warning')
+        SoundMgr:playEffect('UI', 'ui_boss_warning')
         self:changeState(GAME_STATE_FINAL_WAVE)
 
     elseif (self.m_nextWaveDirectionType == 'boss_wave') then
-        SoundMgr:playEffect('EFFECT', 'boss_warning')
+        SoundMgr:playEffect('UI', 'ui_boss_warning')
         self:changeState(GAME_STATE_BOSS_WAVE)
 
     end
