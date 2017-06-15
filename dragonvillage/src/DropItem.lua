@@ -190,6 +190,8 @@ function DropItem:makeObtainEffect()
 
         node:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.5), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
         node:runAction(cc.Sequence:create(cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1)))
+
+		SoundMgr:playEffect('UI', 'ui_in_item_get')
     end
 end
 
