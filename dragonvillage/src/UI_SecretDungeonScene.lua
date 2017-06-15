@@ -11,7 +11,7 @@ UI_SecretDungeonScene = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_SecretDungeonScene:init(dungeon_id)
-    local vars = self:load('secret_dungeon_scene.ui')
+    local vars = self:load('dungeon_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -39,7 +39,7 @@ function UI_SecretDungeonScene:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_SecretDungeonScene'
     self.m_bUseExitBtn = true
-    self.m_titleStr = Str('비밀 던전')
+    self.m_titleStr = Str('인연 던전')
 end
 
 -------------------------------------
@@ -48,7 +48,24 @@ end
 function UI_SecretDungeonScene:initUI(dungeon_id)
     local vars = self.vars
 
+    --
+    self:makeSecretTitle()
     self:makeSecretModeTableView(dungeon_id)
+end
+
+-------------------------------------
+-- function makeSecretTitle
+-- @brief 왼쪽에 나오는 UI
+-------------------------------------
+function UI_SecretDungeonScene:makeSecretTitle()
+    local vars = self.vars
+    local ui = UI_SecretDungeonListItem()
+    ui.root:setDockPoint(cc.p(0.5, 0.5))
+    ui.root:setAnchorPoint(cc.p(0.5, 0.5))
+    self.root:addChild(ui.root)
+    
+    local target_pos = convertToAnoterNodeSpace(ui.root, vars['dungeonNode'])
+    ui:cellMoveTo(0.5, target_pos)
 end
 
 -------------------------------------
@@ -61,6 +78,8 @@ function UI_SecretDungeonScene:makeSecretModeTableView(dungeon_id)
 
     local stage_list = g_secretDungeonData:getSecretDungeonInfo()
 
+    -- 던전이 하나도 없을 경우 알림 표시
+    self.vars['emptySprite']:setVisible(#stage_list == 0)
 
     -- 셀 아이템 생성 콜백
     local function create_func(ui, data)
@@ -117,9 +136,13 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_SecretDungeonScene:click_exitBtn()
-	local is_use_loading = false
-    local scene = SceneLobby(is_use_loading)
-    scene:runScene()
+	if (g_currScene.m_sceneName == 'SceneSecretDungeon') then
+		local is_use_loading = false
+		local scene = SceneLobby(is_use_loading)
+		scene:runScene()
+	else
+		self:close()
+	end
 end
 
 -------------------------------------

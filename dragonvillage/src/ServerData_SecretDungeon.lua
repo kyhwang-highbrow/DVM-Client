@@ -452,8 +452,9 @@ function ServerData_SecretDungeon:goToSecretDungeonScene(dungeon_id)
 
     -- 비밀 던전 씬으로 전환
     replace_scene = function()
-        local scene = SceneSecretDungeon(dungeon_id)
-        scene:runScene()
+        UI_SecretDungeonScene(dungeon_id)
+        --local scene = SceneSecretDungeon(dungeon_id)
+        --scene:runScene()
     end
 
     request_secret_dungeon_info()

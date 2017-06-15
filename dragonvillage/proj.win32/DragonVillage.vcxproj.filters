@@ -2442,7 +2442,7 @@
     <None Include="..\src\UI_HatcheryRelationTab.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_HatcheryRelationItem.lua">
+    <None Include="..\src\UI_SecretDungeonListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

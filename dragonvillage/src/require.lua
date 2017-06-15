@@ -552,6 +552,7 @@ local t_module = {
     'UI_NestDungeonListItem',
     'UI_NestDungeonStageListItem',
     'UI_SecretDungeonScene',
+    'UI_SecretDungeonListItem',
     'UI_SecretDungeonStageListItem',
     'UI_EditBoxPopup',
     'UI_SimpleEditBoxPopup',

@@ -882,7 +882,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Hatchery.lua" />
     <None Include="..\src\UI_HatcheryCombineTab.lua" />
     <None Include="..\src\UI_HatcheryIncubateTab.lua" />
-    <None Include="..\src\UI_HatcheryRelationItem.lua" />
     <None Include="..\src\UI_HatcheryRelationTab.lua" />
     <None Include="..\src\UI_HatcherySummonTab.lua" />
     <None Include="..\src\UI_LoadingGuide.lua" />
@@ -941,6 +940,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Party.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Narrate.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Talk.lua" />
+    <None Include="..\src\UI_SecretDungeonListItem.lua" />
     <None Include="..\src\UI_Setting.lua" />
     <None Include="..\src\UI_SettingAccountTab.lua" />
     <None Include="..\src\UI_SettingAlarmTab.lua" />
