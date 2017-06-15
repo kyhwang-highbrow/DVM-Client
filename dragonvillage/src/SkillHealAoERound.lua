@@ -107,6 +107,7 @@ function SkillHealAoERound:onHeal(target_char)
     if (bUpdateHitTargetCount) then
         self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
     end
+end
 
 -------------------------------------
 -- function makeSkillInstance
