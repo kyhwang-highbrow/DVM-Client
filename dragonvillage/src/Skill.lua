@@ -379,12 +379,19 @@ end
 -- @brief 공격(attack) 직후 호출됨, 스킬에서 미사일 날릴 때 콜백으로도 사용
 -------------------------------------
 function Skill:onAttack(target_char)
+    local bUpdateHitTargetCount = false
+
     -- 피격된 대상 저장
-    self.m_hitTargetList[target_char] = true
+    if (not self.m_hitTargetList[target_char]) then
+        self.m_hitTargetList[target_char] = true
+        bUpdateHitTargetCount = true
+    end
+
+    local hit_target_count = table.count(self.m_hitTargetList)
 
     -- 연출
 	if (self.m_skillHitEffctDirector) then 
-		self.m_skillHitEffctDirector:doWork(table.count(self.m_hitTargetList))
+		self.m_skillHitEffctDirector:doWork(hit_target_count)
 	end
 
     -- 타격 카운트 갱신
@@ -393,6 +400,11 @@ function Skill:onAttack(target_char)
 	-- 상태효과
 	local t_event = {l_target = {target_char}}
 	self:dispatch(CON_SKILL_HIT, t_event)
+
+    -- 피격된 대상수가 갱신된 경우 해당 이벤트 발동
+    if (bUpdateHitTargetCount) then
+        self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
+    end
 
     -- 화면 쉐이킹
     if (self.m_bHighlight) then

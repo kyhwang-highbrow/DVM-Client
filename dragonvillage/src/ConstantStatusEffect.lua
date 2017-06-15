@@ -30,5 +30,6 @@ STATUS_EFFECT_CON__SKILL_SLAIN = 'slain'
 -- 변수명 고민중...
 CON_SKILL_START = 'skill_start'
 CON_SKILL_HIT = 'skill_hit'
+CON_SKILL_HIT_TARGET = 'skill_hit_target'
 CON_SKILL_END = 'skill_end'
 
