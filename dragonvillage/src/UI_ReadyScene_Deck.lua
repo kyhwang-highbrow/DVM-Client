@@ -489,7 +489,7 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
         ui_network:setParam('uid', uid)
         ui_network:setParam('deckname', deckname)
         ui_network:setParam('formation', self.m_currFormation)
-		ui_network:setParam('leader', 3) --self.m_currLeader)
+		ui_network:setParam('leader', self.m_currLeader)
 
         -- 친구 드래곤 체크 (친구 드래곤일 경우 저장하지 않음)
         local set_param 
@@ -568,6 +568,7 @@ end
 -- @brief 각 덱이 진형이 변경되었을 시 액션 : 액션없이 즉시 이동
 -------------------------------------
 function UI_ReadyScene_Deck:actionForChangeDeck_Immediately(l_pos_list)
+	local vars = self.vars
 	for i, node_space in ipairs(l_pos_list) do
 		-- 드래곤 카드
 		vars['positionNode' .. i]:setPosition(node_space['x'], node_space['y'])
@@ -627,9 +628,11 @@ end
 -------------------------------------
 -- function getRotatedPosList
 -- @brief 테이블을 통해 받은 좌표를 화면 축 회전에 의한 값으로 환산한다.
+-- @param formation : 없으면 현재 포지션 이용
 -------------------------------------
 function UI_ReadyScene_Deck:getRotatedPosList(formation)
 	local vars = self.m_uiReadyScene.vars
+	local formation = formation or self.m_currFormation
 
 	local length = 150
     local min_x = -length

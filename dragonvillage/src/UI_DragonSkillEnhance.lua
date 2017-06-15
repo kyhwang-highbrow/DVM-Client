@@ -323,12 +323,6 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 
 	end
 
-	-- 재료 제거
-	if (self.m_selectedMtrl) then
-		self.m_selectedMtrl.root:removeFromParent()
-		self.m_selectedMtrl = nil
-	end
-
     local function success_cb(ret)
         local t_prev_dragon_data = self.m_selectDragonData
 
@@ -360,6 +354,12 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
             g_serverData:applyServerData(ret['gold'], 'user', 'gold')
             g_topUserInfo:refreshData()
         end
+
+		-- 재료 제거
+		if (self.m_selectedMtrl) then
+			self.m_selectedMtrl.root:removeFromParent()
+			self.m_selectedMtrl = nil
+		end
 
 		-- 스킬강화 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
         self.m_bChangeDragonList = true

@@ -680,8 +680,14 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_leaderBtn()
-	local ui = UI_ReadyScene_LeaderPopup()
-	ui:setCloseCB(function() ccdisplay('리더 설정 작업 예정') end)
+	local l_pos_list = self.m_readySceneDeck:getRotatedPosList()
+	local l_doid = self.m_readySceneDeck.m_lDeckList
+	local leader_idx = self.m_readySceneDeck.m_currLeader
+
+	local ui = UI_ReadyScene_LeaderPopup(l_pos_list, l_doid, leader_idx)
+	ui:setCloseCB(function() 
+		self.m_readySceneDeck.m_currLeader = ui.m_newLeader
+	end)
 end
 
 -------------------------------------

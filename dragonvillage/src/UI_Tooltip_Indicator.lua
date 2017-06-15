@@ -51,7 +51,7 @@ function UI_Tooltip_Indicator:init_data(dragon)
 	self.m_lSkillDataList = {}
 
 	self.m_lSkillDataList['active_normal'] = dragon.m_normalActiveInfo
-
+	--[[
 	if (self.m_lSkillDataList['active_normal'] == dragon:getSkillIndivisualInfo('active')) then
 		local skill_id = dragon.m_charTable['skill_3']
 		local skill_lv = 0
@@ -63,6 +63,7 @@ function UI_Tooltip_Indicator:init_data(dragon)
 	else
 		self.m_lSkillDataList['active_ultimate'] = dragon:getSkillIndivisualInfo('active')
 	end
+	]]
 end
 
 -------------------------------------
