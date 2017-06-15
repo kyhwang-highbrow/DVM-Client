@@ -832,6 +832,11 @@ function Character:doAttack(skill_id, x, y)
         end
 
 		self:dispatch('char_do_atk')
+		
+		-- 기본 공격 + 드래곤 일때 사운드 재생
+		if (t_skill['chance_type'] == 'basic') and (self.m_charType == 'dragon') then
+			SoundMgr:playEffect('EFX', 'efx_attack')
+		end
     end
 
     -- 예약된 스킬 정보 초기화
