@@ -30,12 +30,14 @@ end
 -- function initUI
 -------------------------------------
 function UI_ClassForm:initUI()
+    local vars = self.vars
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_ClassForm:initButton()
+    local vars = self.vars
 end
 
 -------------------------------------
