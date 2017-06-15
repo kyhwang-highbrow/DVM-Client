@@ -4,6 +4,7 @@
 -------------------------------------
 StructSlimeObject = class({
         m_objectType = '',
+        m_sortData = '',
 
         id = 'slime_object_id',
         soid = 'slime_object_id',
@@ -201,4 +202,26 @@ function StructSlimeObject:makeSlimeSkillIcon()
     icon:setDockPoint(cc.p(0.5, 0.5))
     icon:setAnchorPoint(cc.p(0.5, 0.5))
     return icon
+end
+
+-------------------------------------
+-- function getDragonSortData
+-- @breif
+-------------------------------------
+function StructSlimeObject:getDragonSortData()
+    if self.m_sortData then
+        if (self.m_sortData['updated_at'] ~= self['updated_at']) then
+            self.m_sortData = g_dragonsData:makeDragonsSortData(self)
+        end
+        return self.m_sortData
+    end
+
+    local doid = self['id']
+
+    if (not doid) or (doid == '') then
+        self.m_sortData = g_dragonsData:makeDragonsSortData(self)
+        return self.m_sortData
+    end
+
+    return g_dragonsData:getDragonsSortData(doid)
 end

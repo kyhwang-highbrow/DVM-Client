@@ -26,7 +26,6 @@ end
 -- function onExitTab
 -------------------------------------
 function UI_HatcherySummonTab:onExitTab()
-    cclog('## UI_HatcherySummonTab:onExitTab()')
 end
 
 -------------------------------------

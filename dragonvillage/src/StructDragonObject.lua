@@ -4,6 +4,7 @@
 -------------------------------------
 StructDragonObject = class({
         m_objectType = '',
+        m_sortData = '',
 
         id = 'dragon_object_id',
         doid = 'dragon_object_id',
@@ -57,6 +58,7 @@ function StructDragonObject:init(data)
     self.rlv = 0
     self.lv = 0
     self.grade = 0
+    self.evolution = 1
     self.m_mRuneObjects = nil
     self.is_struct = true
 
@@ -378,4 +380,26 @@ end
 -------------------------------------
 function StructDragonObject:isLeader()
     return (self['leader'] and (0 < table.count(self['leader'])))
+end
+
+-------------------------------------
+-- function getDragonSortData
+-- @breif
+-------------------------------------
+function StructDragonObject:getDragonSortData()
+    if self.m_sortData then
+        if (self.m_sortData['updated_at'] ~= self['updated_at']) then
+            self.m_sortData = g_dragonsData:makeDragonsSortData(self)
+        end
+        return self.m_sortData
+    end
+
+    local doid = self['id']
+
+    if (not doid) or (doid == '') then
+        self.m_sortData = g_dragonsData:makeDragonsSortData(self)
+        return self.m_sortData
+    end
+
+    return g_dragonsData:getDragonsSortData(doid)
 end

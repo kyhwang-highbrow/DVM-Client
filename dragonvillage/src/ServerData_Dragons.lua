@@ -467,40 +467,53 @@ end
 -- function getDragonsSortData
 -------------------------------------
 function ServerData_Dragons:getDragonsSortData(doid)
-    if (not self.m_lSortData[doid]) then
-        self:setDragonsSortData(doid)
+
+    local struct_dragon_object = self:getDragonDataFromUid(doid)
+    local t_sort_data = self.m_lSortData[doid]
+
+    if (not t_sort_data) or (t_sort_data['updated_at'] ~= struct_dragon_object['updated_at']) then
+        t_sort_data = self:setDragonsSortData(doid)
     end
 
-    return self.m_lSortData[doid]
+    return t_sort_data
 end
 
 -------------------------------------
 -- function setDragonsSortData
 -------------------------------------
 function ServerData_Dragons:setDragonsSortData(doid)
+    local struct_dragon_object = self:getDragonDataFromUid(doid)
+    local t_sort_data = self:makeDragonsSortData(struct_dragon_object)
+    self.m_lSortData[doid] = t_sort_data
+    return t_sort_data
+end
 
-    local t_dragon_data = self:getDragonDataFromUid(doid)
+-------------------------------------
+-- function makeDragonsSortData
+-------------------------------------
+function ServerData_Dragons:makeDragonsSortData(struct_dragon_object)
 
     local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[t_dragon_data['did']]
+    local t_dragon = table_dragon[struct_dragon_object['did']]
 
-    local status_calc = MakeOwnDragonStatusCalculator(doid)
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(struct_dragon_object)
 
     local t_sort_data = {}
     t_sort_data['doid'] = doid
-    t_sort_data['did'] = t_dragon_data['did']
+    t_sort_data['did'] = struct_dragon_object['did']
     t_sort_data['hp'] = status_calc:getFinalStat('hp')
     t_sort_data['def'] = status_calc:getFinalStat('def')
     t_sort_data['atk'] = status_calc:getFinalStat('atk')
     t_sort_data['attr'] = attributeStrToNum(t_dragon['attr'])
-    t_sort_data['lv'] = t_dragon_data['lv']
-    t_sort_data['grade'] = t_dragon_data['grade']
-    t_sort_data['evolution'] = t_dragon_data['evolution']
+    t_sort_data['lv'] = struct_dragon_object['lv']
+    t_sort_data['grade'] = struct_dragon_object['grade']
+    t_sort_data['evolution'] = struct_dragon_object['evolution']
     t_sort_data['rarity'] = dragonRarityStrToNum(t_dragon['rarity'])
-    t_sort_data['friendship'] = t_dragon_data:getFlv()
+    t_sort_data['friendship'] = struct_dragon_object:getFlv()
     t_sort_data['combat_power'] = status_calc:getCombatPower()
+    t_sort_data['updated_at'] = struct_dragon_object['updated_at']
 
-    self.m_lSortData[doid] = t_sort_data
+    return t_sort_data
 end
 
 

@@ -17,12 +17,11 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_HatcheryCombineTab:onEnterTab(first)
-    cclog('## UI_HatcheryCombineTab:onEnterTab(first)')
+    UIManager:toastNotificationRed(Str('"조합"은 준비 중입니다.'))
 end
 
 -------------------------------------
 -- function onExitTab
 -------------------------------------
 function UI_HatcheryCombineTab:onExitTab()
-    cclog('## UI_HatcheryCombineTab:onExitTab()')
 end

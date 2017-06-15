@@ -147,8 +147,8 @@ function SortManager_Dragon:sort_combat_power(a, b, ascending)
         return nil
     end
 
-    local a_sort_data = g_dragonsData:getDragonsSortData(a_data['id'])
-    local b_sort_data = g_dragonsData:getDragonsSortData(b_data['id'])
+    local a_sort_data = a_data:getDragonSortData()
+    local b_sort_data = a_data:getDragonSortData()
 
     local a_value = a_sort_data['combat_power']
     local b_value = b_sort_data['combat_power']
@@ -200,8 +200,8 @@ function SortManager_Dragon:sort_atk(a, b, ascending)
         return nil
     end
 
-    local a_sort_data = g_dragonsData:getDragonsSortData(a_data['id'])
-    local b_sort_data = g_dragonsData:getDragonsSortData(b_data['id'])
+    local a_sort_data = a_data:getDragonSortData()
+    local b_sort_data = a_data:getDragonSortData()
 
     local a_value = a_sort_data['atk']
     local b_value = b_sort_data['atk']
@@ -228,8 +228,8 @@ function SortManager_Dragon:sort_def(a, b, ascending)
         return nil
     end
 
-    local a_sort_data = g_dragonsData:getDragonsSortData(a_data['id'])
-    local b_sort_data = g_dragonsData:getDragonsSortData(b_data['id'])
+    local a_sort_data = a_data:getDragonSortData()
+    local b_sort_data = a_data:getDragonSortData()
 
     local a_value = a_sort_data['def']
     local b_value = b_sort_data['def']
@@ -256,8 +256,8 @@ function SortManager_Dragon:sort_hp(a, b, ascending)
         return nil
     end
 
-    local a_sort_data = g_dragonsData:getDragonsSortData(a_data['id'])
-    local b_sort_data = g_dragonsData:getDragonsSortData(b_data['id'])
+    local a_sort_data = a_data:getDragonSortData()
+    local b_sort_data = a_data:getDragonSortData()
 
     local a_value = a_sort_data['hp']
     local b_value = b_sort_data['hp']
@@ -379,14 +379,14 @@ end
 
 -------------------------------------
 -- function sort_doid
--- @brief 열매 ID
+-- @brief 오브젝트 ID
 -------------------------------------
 function SortManager_Dragon:sort_doid(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_value = a_data['id']
-    local b_value = b_data['id']
+    local a_value = a_data['id'] or 0
+    local b_value = b_data['id'] or 0
 
     -- 최종 정렬 조건으로 사용하기때문에 같은 경우에도 리턴함
     if ascending then

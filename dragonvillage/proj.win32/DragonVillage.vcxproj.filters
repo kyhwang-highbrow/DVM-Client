@@ -2439,6 +2439,9 @@
     <None Include="..\src\SkillHealAoERound.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_HatcheryRelationTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -530,6 +530,7 @@ local t_module = {
     'UI_HatcheryCombineTab',
     'UI_HatcherySummonTab',
     'UI_HatcheryIncubateTab',
+    'UI_HatcheryRelationTab',
 	'UI_ToastPopup',
     'UI_SecretFindPopup',
     'UI_Tooltip',
