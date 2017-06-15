@@ -314,3 +314,10 @@ end
 function UIC_Button:setBlockMsg(msg)
     self.m_clickFunc = function() ccdisplay(msg) end
 end
+
+-------------------------------------
+-- function setClickSoundName
+-------------------------------------
+function UIC_Button:setClickSoundName(sound_name)
+    self.m_clickSoundName = sound_name
+end

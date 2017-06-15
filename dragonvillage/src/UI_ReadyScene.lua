@@ -299,6 +299,7 @@ function UI_ReadyScene:initButton()
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+	vars['startBtn']:setClickSoundName('ui_game_start')
 
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
     vars['autoStartOnBtn']:setManualMode(true)

@@ -143,6 +143,7 @@ function UI_ColosseumReadyScene:initButton()
 	vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+	vars['startBtn']:setClickSoundName('ui_game_start')
 
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
     vars['tamerBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
