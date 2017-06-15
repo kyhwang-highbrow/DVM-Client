@@ -597,17 +597,17 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         self:dispatch('character_damaged_skill', {}, self)
 
         -- 효과음
-        if self.m_bLeftFormation then
-            SoundMgr:playEffect('EFFECT', 'hit_damage_d')
+        if (is_critical) then
+            SoundMgr:playEffect('EFX', 'efx_damage_critical')
         else
-            SoundMgr:playEffect('EFFECT', 'hit_damage_m')
+            SoundMgr:playEffect('EFX', 'efx_damage_normal')
         end
     else
         -- 효과음
-        if self.m_bLeftFormation then
-            SoundMgr:playEffect('EFFECT', 'hit_damage_n')
+        if (is_critical) then
+            SoundMgr:playEffect('EFX', 'efx_damage_critical')
         else
-            SoundMgr:playEffect('EFFECT', 'hit_damage_m')
+            SoundMgr:playEffect('EFX', 'efx_damage_normal')
         end
     end
         	
