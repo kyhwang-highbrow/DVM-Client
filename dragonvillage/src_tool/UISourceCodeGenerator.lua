@@ -30,9 +30,9 @@ end
 
 -------------------------------------
 -- function snakeToPascal
--- @brief   snake caseÀÎ uiÆÄÀÏÀÌ¸§À» Pascal caseÀÎ luaÆÄÀÏ ÀÌ¸§À¸·Î ¹Ù²Û´Ù.
--- @param   file_name   : string,       snake_case uiÆÄÀÏ ÀÌ¸§
--- @return  str         : string,       PascalCase luaÆÄÀÏ ÀÌ¸§
+-- @brief   snake caseì¸ uiíŒŒì¼ì´ë¦„ì„ Pascal caseì¸ luaíŒŒì¼ ì´ë¦„ìœ¼ë¡œ ë°”ê¾¼ë‹¤.
+-- @param   file_name   : string,       snake_case uiíŒŒì¼ ì´ë¦„
+-- @return  str         : string,       PascalCase luaíŒŒì¼ ì´ë¦„
 -------------------------------------
 function UISourceCodeGenerator:snakeToPascal(file_name)
     local offset = string.find(file_name, '.ui')
@@ -48,7 +48,7 @@ end
 
 -------------------------------------
 -- function makeFile
--- @brief uiÆÄÀÏÀ» ¸¸µå´Â ÀüÃ¼ÀûÀÎ ÇÁ·Î¼¼½º¸¦ ½ÇÇàÇÏ´Â ÇÔ¼ö.
+-- @brief uiíŒŒì¼ì„ ë§Œë“œëŠ” ì „ì²´ì ì¸ í”„ë¡œì„¸ìŠ¤ë¥¼ ì‹¤í–‰í•˜ëŠ” í•¨ìˆ˜.
 -------------------------------------
 function UISourceCodeGenerator:makeFile()
     local init_button_function_name = self.m_luaClassName .. ':initButton'
@@ -57,7 +57,7 @@ function UISourceCodeGenerator:makeFile()
     file_contents = self:renameInTable(file_contents, 'uiName.ui', self.m_uiFileName)
     file_contents = self:renameInTable(file_contents, 'UI_ClassForm', self.m_luaClassName)
    
-    -- ÀÌº¥Æ® binding°ú function ÄÚµå Á¦ÀÛ
+    -- ì´ë²¤íŠ¸ bindingê³¼ function ì½”ë“œ ì œì‘
     local initButton_function_start_line = self:findStr(file_contents, init_button_function_name, true)
     local line_to_write_new_function = self:findStr(file_contents, '--@CHECK')
     local init_function_start_line = self:findStr(file_contents, init_function_name, true)
@@ -82,8 +82,8 @@ end
 
 -------------------------------------
 -- function readSourceCode
--- @brief   classForm luaÆÄÀÏÀ» ÀĞ¾î¼­, line ´ÜÀ§·Î split
--- @return  contents_line : number,     line ´ÜÀ§·Î ºĞ¸®ÇÑ UI_ClassForm.lua ÆÄÀÏÀÇ ³»¿ë
+-- @brief   classForm luaíŒŒì¼ì„ ì½ì–´ì„œ, line ë‹¨ìœ„ë¡œ split
+-- @return  contents_line : number,     line ë‹¨ìœ„ë¡œ ë¶„ë¦¬í•œ UI_ClassForm.lua íŒŒì¼ì˜ ë‚´ìš©
 -------------------------------------
 function UISourceCodeGenerator:readSourceCode()
     local contents = pl.file.read('..\\src\\UI_ClassForm.lua')
@@ -93,12 +93,12 @@ end
 
 -------------------------------------
 -- function findStr
--- @brief   contents¿¡¼­ nameÀ» Ã£¾Æ¼­ ±× line number¸¦ ¹İÈ¯
--- @param   contents        : string,               ÆÄÀÏ ³»¿ë
---          str             : string,               Ã£À» string
---          is_function     : boolean, optional,    ÇÔ¼öÀÎÁö ¾Æ´ÑÁö. ÇÔ¼öÀÌ¸é str µÚ¿¡ '()'¸¦ Ãß°¡
--- @return  i               : number,               Ã£¾ÒÀ» °æ¿ì ±× lineÀÇ number ¹İÈ¯
---          nil             : nil,                  ¸øÃ£¾ÒÀ» °æ¿ì nil ¹İÈ¯ 
+-- @brief   contentsì—ì„œ nameì„ ì°¾ì•„ì„œ ê·¸ line numberë¥¼ ë°˜í™˜
+-- @param   contents        : string,               íŒŒì¼ ë‚´ìš©
+--          str             : string,               ì°¾ì„ string
+--          is_function     : boolean, optional,    í•¨ìˆ˜ì¸ì§€ ì•„ë‹Œì§€. í•¨ìˆ˜ì´ë©´ str ë’¤ì— '()'ë¥¼ ì¶”ê°€
+-- @return  i               : number,               ì°¾ì•˜ì„ ê²½ìš° ê·¸ lineì˜ number ë°˜í™˜
+--          nil             : nil,                  ëª»ì°¾ì•˜ì„ ê²½ìš° nil ë°˜í™˜ 
 -------------------------------------
 function UISourceCodeGenerator:findStr(contents, str, is_function)
     is_function = is_function or false
@@ -118,35 +118,35 @@ end
 
 -------------------------------------
 -- function makeComponentSourceCodeForm
--- @brief   Componentµé¿¡ ÇØ´çµÇ´Â ¼Ò½ºÄÚµå¸¦ ÁÖ¾îÁø string µÚ¿¡ appendÇÑ´Ù.
--- @param   t                                 : table,    UI_ClassForm.lua ÆÄÀÏ ÄÁÅÙÃ÷¸¦ ´ã°í ÀÖ´Â Å×ÀÌºí
---          initButton                        : number,   event handler¸¦ appendÇÒ line number
---          newFunction                       : number,   event functionÀ» appendÇÒ line number
---          commentComponents                 : number,   ¹öÆ°ÀÌ ¾Æ´Ñ ÄÄÆ÷³ÍÆ®µéÀÇ ÁÖ¼® ÄÚµå°¡ append µÉ line number
--- @return  string_to_append_button_event     : string,   event handler°¡ append µÈ string
---          string_to_write_button_function   : string,   event functionÀÌ appendµÈ string
---          string_to_append_other_components : string,   ¹öÆ°ÀÌ ¾Æ´Ñ ÄÄÆ÷³ÍÆ®µéÀÇ ÁÖ¼® ÄÚµå°¡ append µÈ string
+-- @brief   Componentë“¤ì— í•´ë‹¹ë˜ëŠ” ì†ŒìŠ¤ì½”ë“œë¥¼ ì£¼ì–´ì§„ string ë’¤ì— appendí•œë‹¤.
+-- @param   t                                 : table,    UI_ClassForm.lua íŒŒì¼ ì»¨í…ì¸ ë¥¼ ë‹´ê³  ìˆëŠ” í…Œì´ë¸”
+--          initButton                        : number,   event handlerë¥¼ appendí•  line number
+--          newFunction                       : number,   event functionì„ appendí•  line number
+--          commentComponents                 : number,   ë²„íŠ¼ì´ ì•„ë‹Œ ì»´í¬ë„ŒíŠ¸ë“¤ì˜ ì£¼ì„ ì½”ë“œê°€ append ë  line number
+-- @return  string_to_append_button_event     : string,   event handlerê°€ append ëœ string
+--          string_to_write_button_function   : string,   event functionì´ appendëœ string
+--          string_to_append_other_components : string,   ë²„íŠ¼ì´ ì•„ë‹Œ ì»´í¬ë„ŒíŠ¸ë“¤ì˜ ì£¼ì„ ì½”ë“œê°€ append ëœ string
 -------------------------------------
 function UISourceCodeGenerator:makeComponentSourceCodeForm(t, initButton, newFunction, commentComponents)
     string_to_append_button_event, string_to_write_button_function, string_to_append_other_components = t[initButton], t[newFunction], t[commentComponents]
     local ui_file_contents = pl.file.read(self.m_uiFilePath)
     local vars = loadstring('return ' .. ui_file_contents)()
 
-    -- button ¿ÜÀÇ °ÍµéÀ» ÄÚµå¿¡ »ğÀÔ.
+    -- button ì™¸ì˜ ê²ƒë“¤ì„ ì½”ë“œì— ì‚½ì….
     local components = {}
     self:walkAndFindComponentInUITable(vars, components)
     for k, v in pairs(components) do
 
-        -- buttonµé ÄÚµå¿¡ »ğÀÔ.
+        -- buttonë“¤ ì½”ë“œì— ì‚½ì….
         if(k == 'Button') then
             for k2, v2 in pairs(v) do   
-                    --button init ÇÔ¼ö ³»¿ë ÀÛ¼º
+                    --button init í•¨ìˆ˜ ë‚´ìš© ì‘ì„±
                 string_to_append_button_event = self:appendEventCode(string_to_append_button_event, v2)
 
-                --button click ÀÌº¥Æ® ÇÔ¼ö ³»¿ë ÀÛ¼º
+                --button click ì´ë²¤íŠ¸ í•¨ìˆ˜ ë‚´ìš© ì‘ì„±
                 string_to_write_button_function = self:appendEventFunctionCode(string_to_write_button_function, v2)
             end
-        --button ¿ÜÀÇ components ÄÚµå¿¡ »ğÀÔ.
+        --button ì™¸ì˜ components ì½”ë“œì— ì‚½ì….
         else 
             for k2, v2 in pairs(v) do
                 string_to_append_other_components = self:appendOtherComponentsCode(string_to_append_other_components, k, v2)
@@ -160,9 +160,9 @@ end
 
 -------------------------------------
 -- function appendEventCode
--- @brief event handler ¼Ò½ºÄÚµå¸¦ string_to_append_button_event µÚ¿¡ appendÇÑ´Ù.
--- @param string_to_append_button_event : string,   event handler¸¦ appendÇÒ string
---        component_name            : string,   event handler string¿¡ Æ÷ÇÔµÉ ÄÄÆ÷³ÍÆ®ÀÇ ÀÌ¸§
+-- @brief event handler ì†ŒìŠ¤ì½”ë“œë¥¼ string_to_append_button_event ë’¤ì— appendí•œë‹¤.
+-- @param string_to_append_button_event : string,   event handlerë¥¼ appendí•  string
+--        component_name            : string,   event handler stringì— í¬í•¨ë  ì»´í¬ë„ŒíŠ¸ì˜ ì´ë¦„
 -- @return                          : string
 -------------------------------------
 function UISourceCodeGenerator:appendEventCode(string_to_append_button_event, component_name)
@@ -175,9 +175,9 @@ end
 
 -------------------------------------
 -- function appendEventFunctionCode
--- @brief event function ¼Ò½ºÄÚµå¸¦ string_to_write_button_function µÚ¿¡ appendÇÑ´Ù.
--- @param string_to_write_button_function : string,   event functionÀ» appendÇÒ string
---        component_name                    : string,   event function string¿¡ Æ÷ÇÔµÉ ÄÄÆ÷³ÍÆ®ÀÇ ÀÌ¸§ 
+-- @brief event function ì†ŒìŠ¤ì½”ë“œë¥¼ string_to_write_button_function ë’¤ì— appendí•œë‹¤.
+-- @param string_to_write_button_function : string,   event functionì„ appendí•  string
+--        component_name                    : string,   event function stringì— í¬í•¨ë  ì»´í¬ë„ŒíŠ¸ì˜ ì´ë¦„ 
 -- @return                                  : string
 -------------------------------------
 function UISourceCodeGenerator:appendEventFunctionCode(string_to_write_button_function, component_name) 
@@ -200,8 +200,8 @@ end
 
 -------------------------------------
 -- function appendOtherComponentsCode
--- @brief ÁÖ¼®À¸·Î½á ÄÄÆ÷³ÍÆ®ÀÇ Á¸Àç¸¦ ¾Ë·ÁÁÖ´Â ¼Ò½ºÄÚµå¸¦ string_to_append_other_components µÚ¿¡ appendÇÑ´Ù.
--- @param string_to_append_other_components : string,   ÁÖ¼® ÄÚµå¸¦ appendÇÒ string
+-- @brief ì£¼ì„ìœ¼ë¡œì¨ ì»´í¬ë„ŒíŠ¸ì˜ ì¡´ì¬ë¥¼ ì•Œë ¤ì£¼ëŠ” ì†ŒìŠ¤ì½”ë“œë¥¼ string_to_append_other_components ë’¤ì— appendí•œë‹¤.
+-- @param string_to_append_other_components : string,   ì£¼ì„ ì½”ë“œë¥¼ appendí•  string
 --        component_type                    : string,   component type
 --        component_name                    : string,   component name
 -- @return                                  : string
@@ -214,7 +214,7 @@ end
 
 -------------------------------------
 -- function walkAndFindComponentInUITable
--- @brief ÁÖ¾îÁø Å×ÀÌºíÀ» Àç±ÍÀûÀ¸·Î Å½»öÇÏ°í, t Å×ÀÌºíÀÇ component typeÀ» key·Î ÇÏ°í, t Å×ÀÌºíÀÇ value¸¦ componentsÀÇ value·Î ³Ö´Â´Ù.
+-- @brief ì£¼ì–´ì§„ í…Œì´ë¸”ì„ ì¬ê·€ì ìœ¼ë¡œ íƒìƒ‰í•˜ê³ , t í…Œì´ë¸”ì˜ component typeì„ keyë¡œ í•˜ê³ , t í…Œì´ë¸”ì˜ valueë¥¼ componentsì˜ valueë¡œ ë„£ëŠ”ë‹¤.
 -- @param t                 : table,                key : attributes, value : value
 --        components        : table,                key : type of components, value : value
 -------------------------------------
@@ -238,11 +238,11 @@ end
 
 -------------------------------------
 -- function renameInTable
--- @brief Å×ÀÌºí ³»¿¡ Á¸ÀçÇÏ´Â targetÀ» Ã£¾Æ¼­ ÀüºÎ str·Î replace½ÃÅ²´Ù.
--- @param   t                 : table,  search ´ë»ó
---          target            : string, replace ´ë»ó
---          str               : string, str·Î replaceµÊ
--- @return  t                 : table,  replace ÀÛ¾÷ÀÌ ³¡³­ t.
+-- @brief í…Œì´ë¸” ë‚´ì— ì¡´ì¬í•˜ëŠ” targetì„ ì°¾ì•„ì„œ ì „ë¶€ strë¡œ replaceì‹œí‚¨ë‹¤.
+-- @param   t                 : table,  search ëŒ€ìƒ
+--          target            : string, replace ëŒ€ìƒ
+--          str               : string, strë¡œ replaceë¨
+-- @return  t                 : table,  replace ì‘ì—…ì´ ëë‚œ t.
 -------------------------------------
 function UISourceCodeGenerator:renameInTable(t, target, str)
     for k, v in pairs(t) do
