@@ -136,7 +136,13 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
         else
             local t = {}
             for i,v in ipairs(r) do
-                t[header[i]] = tonumber(v) or v
+                local v_number = tonumber(v)
+                if v_number then
+                    v = v_number
+                else
+                    v = string.gsub(v, '\\\\n', '\n')
+                end
+                t[header[i]] = v
             end
 
             tables[t[key]] = t
