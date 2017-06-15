@@ -27,7 +27,13 @@ function UI_ReadyScene:init(stage_id)
     local vars = self:load('battle_ready.ui')
     UIManager:open(self, UIManager.SCENE)
 
-	SoundMgr:playBGM('bgm_dungeon_ready')
+	-- 들어온 경로에 따라 sound가 다름
+	local game_mode = g_stageData:getGameMode(self.m_stageID)
+	if (game_mode == GAME_MODE_ADVENTURE) then
+		SoundMgr:playBGM('bgm_dungeon_ready')
+	else
+		SoundMgr:playBGM('bgm_lobby')
+	end
 
     -- 씬 전환 효과
     self:sceneFadeInAction()
@@ -455,8 +461,8 @@ function UI_ReadyScene:click_exitBtn()
     local function next_func()
         self:close()
 
+		-- 들어온 경로에 따라 sound가 다름
 		local game_mode = g_stageData:getGameMode(self.m_stageID)
-		-- 모험맵으로 나갈 경우 
 		if (game_mode == GAME_MODE_ADVENTURE) then
 			SoundMgr:playBGM('bgm_dungeon_ready')
 		else
