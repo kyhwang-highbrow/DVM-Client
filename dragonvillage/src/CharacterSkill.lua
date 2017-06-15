@@ -228,6 +228,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillHealAround:makeSkillInstance(self, t_skill, t_data)
 				return true
 
+            elseif (skill_type == 'skill_heal_aoe_round') then
+				SkillHealAoERound:makeSkillInstance(self, t_skill, t_data)
+				return true
+
 			elseif (skill_type == 'skill_guardian') then
 				SkillGuardian:makeSkillInstance(self, t_skill, t_data)
 				return true

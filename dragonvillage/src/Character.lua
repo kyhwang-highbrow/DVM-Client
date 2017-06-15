@@ -1057,7 +1057,7 @@ function Character:healAbs(caster, heal, b_make_effect)
     self:makeHealFont(heal_for_text)
     self:setHp(self.m_hp + heal)
 
-    if (b_make_effect == true) then
+    if (b_make_effect) then
         local res = 'res/effect/skill_heal_monster/skill_heal_monster.vrp'
         local pos_x = self.pos['x']
         local pos_y = self.pos['y']

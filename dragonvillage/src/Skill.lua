@@ -360,16 +360,14 @@ function Skill:attack(collision)
     local target_char = collision:getTarget()
     local body_key = collision:getBodyKey()
     local body = target_char:getBody(body_key)
+    local x = target_char.pos.x + body.x
+    local y = target_char.pos.y + body.y
 
     -- 공격
     self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
 
-    local body = target_char:getBody(k)
-    local x = target_char.pos.x + body.x
-    local y = target_char.pos.y + body.y
-
-    target_char:runDefCallback(self, x, y, k)
-    --target_char:runDefCallback(self, x, y, k, true)
+    target_char:runDefCallback(self, x, y, body_key)
+    --target_char:runDefCallback(self, x, y, body_key, true)
     
 	self:onAttack(target_char)
 end
