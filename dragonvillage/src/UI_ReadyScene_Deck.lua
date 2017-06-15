@@ -347,12 +347,7 @@ end
 -- @brief 장착여부에 따른 테이블뷰에 있는 카드 갱신
 -------------------------------------
 function UI_ReadyScene_Deck:refresh_dragonCard(doid)
-    local item 
-    if (self.m_bWithFriend) then
-        item = self.m_uiReadyScene.m_readySceneSelect:getTableView().m_itemMap[doid]
-    else
-        item = self.m_uiReadyScene.m_tableViewExt.m_itemMap[doid]
-    end
+    local item = self.m_uiReadyScene.m_readySceneSelect:getTableView().m_itemMap[doid]
     
     local is_setted = self.m_tDeckMap[doid]
 
