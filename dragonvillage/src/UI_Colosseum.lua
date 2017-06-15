@@ -114,7 +114,7 @@ end
 -- function click_secretBtn
 -------------------------------------
 function UI_Colosseum:click_readyBtn()
-	UI_ColosseumReadyScene()
+	UI_ReadyScene()
 end
 
 

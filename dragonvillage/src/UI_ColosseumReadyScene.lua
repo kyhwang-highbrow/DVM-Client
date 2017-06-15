@@ -1,3 +1,4 @@
+--[[
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
@@ -60,8 +61,8 @@ function UI_ColosseumReadyScene:condition_deck_idx(a, b)
 	for doid, v in pairs(self.m_readySceneDeck.m_tDeckMap) do
 	end
 
-    local a_deck_idx = self.m_readySceneDeck.m_tDeckMap[a['data']['id']] or 999
-    local b_deck_idx = self.m_readySceneDeck.m_tDeckMap[b['data']['id']]  or 999
+    local a_deck_idx = self.m_readySceneDeck.m_tDeckMap[a['data']['id' or 999
+    local b_deck_idx = self.m_readySceneDeck.m_tDeckMap[b['data']['id'  or 999
 	 
     -- 덱에 설정된 데이터로 우선 정렬
     if (a_deck_idx ~= b_deck_idx) then
@@ -460,3 +461,4 @@ end
 
 --@CHECK
 UI:checkCompileError(UI_ColosseumReadyScene)
+]]

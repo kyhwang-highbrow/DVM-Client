@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable()) --ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_ReadyScene
@@ -22,6 +22,9 @@ UI_ReadyScene = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ReadyScene:init(stage_id)
+	if (not stage_id) then
+		stage_id = COLOSSEUM_STAGE_ID
+	end
     self:init_MemberVariable(stage_id)
 
     local vars = self:load('battle_ready.ui')
@@ -81,7 +84,7 @@ end
 -------------------------------------
 function UI_ReadyScene:init_MemberVariable(stage_id)
     self.m_stageID = stage_id
-    self.m_stageAttr = TableDrop():getValue(stage_id, 'attr')
+	self.m_stageAttr = TableDrop():getValue(stage_id, 'attr')
 end
 
 -------------------------------------
@@ -250,14 +253,19 @@ function UI_ReadyScene:initUI()
         vars['bgNode']:addChild(animator.m_node)
     end
 
-    self:initTab()
+	-- 콜로세움 에외처리
+	if (self.m_stageID == COLOSSEUM_STAGE_ID) then
+		vars['friendToggleBtn']:setEnabled(false)
+		vars['autoStartOnBtn']:setEnabled(false)
 
-    -- 미구현으로 off
-    local vars = self.vars
-    vars['buffInfoBtn']:setVisible(false)
-    --vars['leaderSprite']:setVisible(false)
+		-- 배경 아무거나 넣어준다
+		vars['bgNode']:removeAllChildren()
+		local animator = ResHelper:getUIDragonBG('fire', 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+	end
 end
 
+--[[
 -------------------------------------
 -- function initTab
 -------------------------------------
@@ -289,28 +297,37 @@ function UI_ReadyScene:onChangeTab(tab, first)
         end
     end
 end
-
+]]
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_ReadyScene:initButton()
     local vars = self.vars
+	
+	-- 드래곤 관리
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
+
+	-- 추천 배치, 모두 해제
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
+
+	-- 전투 시작
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 	vars['startBtn']:setClickSoundName('ui_game_start')
 
+	-- 연속 전투
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
     vars['autoStartOnBtn']:setManualMode(true)
     vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)
 
+	-- 테이머 변경
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
     vars['tamerBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 
+	-- 리더 변경
 	vars['leaderBtn']:registerScriptTapHandler(function() self:click_leaderBtn() end)
 
-    -- 진형 관린
+	-- 진형 관리
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
 end
 
@@ -323,6 +340,9 @@ function UI_ReadyScene:refresh()
 
     do -- 스테이지 이름
         local str = g_stageData:getStageName(stage_id)
+		if (not str) then
+			str = Str('콜로세움 준비')
+		end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)
     end
@@ -337,6 +357,7 @@ function UI_ReadyScene:refresh()
     end
 
     self:refresh_tamer()
+	self:refresh_buffInfo()
 end
 
 -------------------------------------
@@ -346,13 +367,17 @@ function UI_ReadyScene:refresh_combatPower()
     local vars = self.vars
 
     local stage_id = self.m_stageID
-    local recommend = TableStageDesc:getRecommendedCombatPower(stage_id)
+	if (stage_id == COLOSSEUM_STAGE_ID) then
+		vars['cpNode']:setVisible(false)
 
-    vars['cp_Label2']:setString(comma_value(recommend))
+	else
+		local recommend = TableStageDesc:getRecommendedCombatPower(stage_id)
+		vars['cp_Label2']:setString(comma_value(recommend))
 
+		local deck = self.m_readySceneDeck:getDeckCombatPower()
+		vars['cp_Label']:setString(comma_value(deck))
 
-    local deck = self.m_readySceneDeck:getDeckCombatPower()
-    vars['cp_Label']:setString(comma_value(deck))
+	end
 end
 
 -------------------------------------
@@ -372,6 +397,14 @@ function UI_ReadyScene:refresh_tamer()
 		animator:setPosition(0, 50)
 		vars['tamerNode']:addChild(animator.m_node)
 	end
+end
+
+-------------------------------------
+-- function refresh_buffInfo
+-------------------------------------
+function UI_ReadyScene:refresh_buffInfo()
+    local vars = self.vars
+
 end
 
 -------------------------------------
@@ -594,6 +627,12 @@ function UI_ReadyScene:click_startBtn()
         scene:runScene()
         return
     end
+	
+	-- 콜로세움은 따로 빼서 처리
+	if (stage_id == COLOSSEUM_STAGE_ID) then
+		self:startColosseum()
+		return
+	end
 
     if (self:getDragonCount() <= 0) then
         UIManager:toastNotificationRed('최소 1명 이상은 출전시켜야 합니다.')
@@ -645,6 +684,54 @@ function UI_ReadyScene:click_startBtn()
         
         check_deck()
     end
+end
+
+-------------------------------------
+-- function startColosseum
+-- @breif 콜로세움 전용
+-------------------------------------
+function UI_ReadyScene:startColosseum()
+    if (self:getDragonCount() <= 0) then
+        UIManager:toastNotificationRed('최소 1명 이상은 출전시켜야 합니다.')
+        return
+    end
+
+    -- 날개 소모
+    if (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
+        self:askCashPlay()
+        return
+    end
+        
+    local function next_func()
+        local is_cash = false
+
+        local function cb(ret)
+			local scene = SceneGameColosseum()
+			scene:runScene()
+		end
+
+		g_colosseumData:request_colosseumStart(is_cash, cb)
+    end
+
+    self:checkChangeDeck(next_func)
+end
+
+-------------------------------------
+-- function askCashPlay
+-- @breif 콜로세움 전용
+-------------------------------------
+function UI_ReadyScene:askCashPlay()
+    local function ok_btn_cb()
+        local function next_func()
+            local is_cash = true
+            self:networkGameStart(is_cash)
+        end
+
+        self:checkChangeDeck(next_func)
+    end
+
+    local msg = Str('입장권이 부족합니다.\n{@impossible}다이아몬드 1개{@default}를 사용해 진행하시겠습니까?')
+    UI_ConfirmPopup('cash', 1, msg, ok_btn_cb)
 end
 
 -------------------------------------
@@ -764,7 +851,7 @@ end
 function UI_ReadyScene:getDragonCount()
     return self.m_readySceneDeck:getDragonCount()
 end
-
+--[[
 -------------------------------------
 -- function init_monsterListView
 -------------------------------------
@@ -818,7 +905,7 @@ function UI_ReadyScene:init_rewardListView()
     table_view:setItemList(l_item_list)
     table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
 end
-
+]]
 -------------------------------------
 -- function getStageStaminaInfo
 -- @brief stage_id에 해당하는 필요 스태미너 타입, 갯수 리턴
@@ -829,10 +916,14 @@ function UI_ReadyScene:getStageStaminaInfo()
     local t_drop = table_drop[stage_id]
 
     -- 'stamina' 추후에 타입별 stamina 사용 예정
-    --local cost_type = t_drop['cost_type']
-    local cost_type = 'st'
-    local cost_value = t_drop['cost_value']
-
+    local cost_type, cost_value
+	if (stage_id == COLOSSEUM_STAGE_ID) then
+		cost_type = 'pvp'
+		cost_value = 1
+	else
+		cost_type = 'st'
+		cost_value = t_drop['cost_value']	
+	end
     return cost_type, cost_value
 end
 
