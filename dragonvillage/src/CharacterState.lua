@@ -81,6 +81,8 @@ function Character.st_attack(owner, dt)
         owner.m_bFinishAttack = false
         owner.m_bFinishAnimation = false
 
+        local skill_id = owner.m_reservedSkillId
+
         local function attack_cb(event)
             owner.m_bLuanchMissile = true
 
@@ -107,7 +109,7 @@ function Character.st_attack(owner, dt)
             owner.m_attackOffsetX = x
             owner.m_attackOffsetY = y
 
-            owner:doAttack(x, y)
+            owner:doAttack(skill_id, x, y)
             owner.m_bFinishAttack = true
         end
 

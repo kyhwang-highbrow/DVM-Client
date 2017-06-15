@@ -812,8 +812,7 @@ end
 -------------------------------------
 -- function doAttack
 -------------------------------------
-function Character:doAttack(x, y)
-    local skill_id = self.m_reservedSkillId
+function Character:doAttack(skill_id, x, y)
     if skill_id then
         local indicatorData
 

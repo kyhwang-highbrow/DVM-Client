@@ -22,6 +22,8 @@ function SkillHealAoERound:init_skill()
 	PARENT.init_skill(self)
 
     self.m_healRate = (self.m_powerRate / 100)
+
+    self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
 end
 
 -------------------------------------

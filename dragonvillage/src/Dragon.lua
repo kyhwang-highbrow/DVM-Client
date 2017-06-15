@@ -229,10 +229,8 @@ end
 -------------------------------------
 -- function doAttack
 -------------------------------------
-function Dragon:doAttack(x, y)
-    local skill_id = self.m_reservedSkillId
-
-    PARENT.doAttack(self, x, y)
+function Dragon:doAttack(skill_id, x, y)
+    PARENT.doAttack(self, skill_id, x, y)
 
     -- 일반 스킬에만 이펙트를 추가
     if (self.m_charTable['skill_basic'] ~= skill_id) then
