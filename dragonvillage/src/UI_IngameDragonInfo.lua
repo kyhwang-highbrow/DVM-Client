@@ -3,7 +3,9 @@ local PARENT = UI_IngameUnitInfo
 -------------------------------------
 -- class UI_IngameDragonInfo
 -------------------------------------
-UI_IngameDragonInfo = class(PARENT, {})
+UI_IngameDragonInfo = class(PARENT, {
+	m_haveActive = 'bool',
+})
 
 -------------------------------------
 -- function loadUI
@@ -37,6 +39,9 @@ function UI_IngameDragonInfo:initUI()
 
     self:hideSkillFullVisual()
 
+	local skill_id = self.m_owner:getSkillID('active')
+	self.m_haveActive = (skill_id ~= 0)
+
     -- 디버깅용 label
 	self:makeDebugingLabel()
     self.m_label:setPosition(70, 0)
@@ -47,6 +52,11 @@ end
 -------------------------------------
 function UI_IngameDragonInfo:showSkillFullVisual(attr)
     local vars = self.vars
+
+	-- 액티브가 없다면 갱신하지 않음
+	if (not self.m_haveActive) then
+		return
+	end
 
     if (vars['skllFullVisual']:isVisible()) then return end
 

@@ -15,6 +15,8 @@ UI_IngameDragonPanelItem = class(PARENT, {
         m_skillGaugePercentage = 'number',
 
         m_bPossibleControl = 'boolean',
+
+		m_haveActive = 'boolean',
      })
 
 -------------------------------------
@@ -25,6 +27,8 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     self.m_dragon = dragon
     self.m_dragonIdx = dragon_idx
     self.m_bPossibleControl = nil
+	self.m_skillGaugePercentage = 0
+
 	local vars = self:load('ingame_dragon_panel_item.ui')
 
     dragon:addListener('character_set_hp', self)
@@ -86,9 +90,15 @@ function UI_IngameDragonPanelItem:initUI()
 
         if (skill_id ~= 0) then
             skill_icon = IconHelper:getSkillIcon('dragon', skill_id)
+			self.m_haveActive = true
+
+		-- 액티브 스킬이 없는 케이스
         else
             skill_icon = cc.Sprite:create('res/ui/icon/skill/skill_empty.png')
+			self.m_haveActive = false
+
         end
+
         skill_icon:setDockPoint(CENTER_POINT)
         skill_icon:setAnchorPoint(CENTER_POINT)
 
@@ -193,6 +203,11 @@ end
 -------------------------------------
 function UI_IngameDragonPanelItem:refreshSkillGauge(percentage, enough_mana)
     local vars = self.vars
+
+	-- 액티브가 없다면 갱신하지 않음
+	if (not self.m_haveActive) then
+		return
+	end
 
     if (self.m_skillGaugePercentage == percentage and vars['skillVisual']:isVisible() == enough_mana) then
         return
