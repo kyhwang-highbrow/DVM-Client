@@ -200,7 +200,12 @@ function UI_HatcheryRelationTab:refresh()
     local vars = self.vars
 
     if (not self.m_selectedDid) then
+        vars['leftNode']:setVisible(false)
+        vars['emptySprite']:setVisible(true)
         return
+    else
+        vars['leftNode']:setVisible(true)
+        vars['emptySprite']:setVisible(false)
     end
 
     local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
