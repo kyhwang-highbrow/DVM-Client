@@ -45,8 +45,9 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
 
         -- 테이머
         do
-		    local t_tamer =  g_tamerData:getCurrTamerTable()
-
+		    --local t_tamer =  g_tamerData:getCurrTamerTable()
+            local table_tamer = TableTamer()
+            local t_tamer = table_tamer:get(110002) -- 누리로 하드코딩 추후 NPC로 교체
             local tamer_res = t_tamer['res']
             local animator = MakeAnimator(tamer_res)
             animator.m_node:setDockPoint(cc.p(0.5, 0.5))
@@ -54,8 +55,10 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
             self.vars['tamerNode']:addChild(animator.m_node)
 		
 		    -- 표정 적용
-		    local face_ani = TableTamer:getTamerFace(t_tamer['type'], true)
-		    animator:changeAni(face_ani, true)
+		    --local face_ani = TableTamer:getTamerFace(t_tamer['type'], true)
+		    --animator:changeAni(face_ani, true)
+            animator:changeAni('idle', true)
+            animator:setFlip(true)
         end
     end
 end
@@ -64,7 +67,6 @@ end
 -- function onExitTab
 -------------------------------------
 function UI_HatcheryIncubateTab:onExitTab()
-    cclog('## UI_HatcheryIncubateTab:onExitTab()')
 end
 
 -------------------------------------
@@ -212,7 +214,4 @@ function UI_HatcheryIncubateTab:refreshEggList()
 
     -- 2번째 아이템을 포커스 (1번째 아이템은 "상점")
     egg_picker:setFocus(2)
-
-
-    is_first = false
 end

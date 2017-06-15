@@ -54,9 +54,17 @@ function MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_bt
     elseif (item_key == 'gold') then
         local gold = g_userData:get('gold')
 
-        -- 캐시가 충분히 있는지 체크
+        -- 재화가 충분히 있는지 체크
         if (gold < item_value) then
             MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_gold)
+            return
+        end
+    elseif (item_key == 'fp') then
+        local fp = g_userData:get('fp')
+
+        -- 재화가 충분히 있는지 체크
+        if (fp < item_value) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('우정포인트가 부족합니다.\n친구에게 우정포인트를 요청해보세요!'))
             return
         end
     end

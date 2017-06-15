@@ -103,6 +103,9 @@ function UI_ConfirmPopup:getPriceIcon(price_type)
     elseif (price_type == 'amethyst') then
         res = 'res/ui/icon/inbox/inbox_amethyst.png'
 
+    elseif (price_type == 'fp') then
+        res = 'res/ui/icon/inbox/inbox_fp.png'
+
     else
         error('price_type : ' .. price_type)
     end
