@@ -78,7 +78,7 @@ function GameState_Colosseum.update_start(self, dt)
             self:appearHero()
             self:appearEnemy()
 
-            SoundMgr:playEffect('EFFECT', 'summon')
+            SoundMgr:playEffect('UI', 'ui_summon')
 
             world:dispatch('dragon_summon')
 

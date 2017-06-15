@@ -46,7 +46,7 @@ function GameState_NestDungeon_Tree.update_start(self, dt)
 
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
-            SoundMgr:playEffect('EFFECT', 'summon')
+            SoundMgr:playEffect('UI', 'ui_summon')
         
             world:dispatch('dragon_summon')
 
