@@ -25,7 +25,6 @@ function UI_DragonManageFriendshipResult:init(dragon_object)
     self:initButton()
     self:refresh(dragon_object)
 
-    SoundMgr:playEffect('UI', 'ui_grow_result')
 end
 
 -------------------------------------
@@ -65,6 +64,7 @@ function UI_DragonManageFriendshipResult:refresh(dragon_object)
         dragon_animator:setDragonAnimator(dragon_object['did'], dragon_object['evolution'], dragon_object['friendship']['flv'])
         local function cb()
             self:doAction(nil, false)
+			SoundMgr:playEffect('UI', 'ui_grow_result')
         end
         dragon_animator:setDragonAppearCB(cb)
 		dragon_animator:startDirecting()

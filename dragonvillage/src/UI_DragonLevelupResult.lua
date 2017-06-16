@@ -38,7 +38,6 @@ end
 -------------------------------------
 function UI_DragonLevelupResult:refresh(dragon_object, prev_lv)
     local vars = self.vars
-    SoundMgr:playEffect('UI', 'ui_grow_result')
 
     local did = dragon_object['did']
     local grade = dragon_object['grade']
@@ -65,6 +64,7 @@ function UI_DragonLevelupResult:refresh(dragon_object, prev_lv)
         dragon_animator:setDragonAnimator(dragon_object['did'], dragon_object['evolution'], dragon_object['friendship']['flv'])
         local function cb()
             self:doAction(nil, false)
+			SoundMgr:playEffect('UI', 'ui_grow_result')
         end
         dragon_animator:setDragonAppearCB(cb)
 		dragon_animator:startDirecting()
