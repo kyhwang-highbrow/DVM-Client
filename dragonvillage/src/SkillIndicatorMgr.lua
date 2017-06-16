@@ -265,7 +265,7 @@ function SkillIndicatorMgr:setSelectHero(hero)
     self.m_startTimer = 0
         
     if (hero) then
-        SoundMgr:playEffect('EFFECT', 'skill_touch')
+        SoundMgr:playEffect('UI', 'ui_drag_ready')
 
         local active_skill_id = hero:getSkillID('active')
         hero:reserveSkill(active_skill_id)

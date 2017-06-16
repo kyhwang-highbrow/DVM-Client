@@ -665,9 +665,6 @@ function GameWorld:makePassiveStartEffect(char, str_map)
     -- 2초 후 삭제
     root_node:runAction(cc.Sequence:create(cc.DelayTime:create(3), cc.RemoveSelf:create()))
 
-	-- 패시브 사운드
-	SoundMgr:playEffect('UI', 'ui_passive')
-
     -- 실시간 위치 동기화
     root_node:scheduleUpdateWithPriorityLua(function(dt) 
         root_node:setPosition(char.pos.x, char.pos.y)

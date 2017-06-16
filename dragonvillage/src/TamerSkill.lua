@@ -145,6 +145,9 @@ function Tamer.st_event(owner, dt)
 
 		owner:setTamerSkillDirecting(cameraHomePosX + pos_x, cameraHomePosY + 200, TAMER_SKILL_EVENT, cb_func)
 
+		-- 효과음
+        SoundMgr:playEffect('UI', 'ui_passive')
+
         -- 이벤트
         owner.m_world:dispatch('set_global_cool_time_passive')
     end

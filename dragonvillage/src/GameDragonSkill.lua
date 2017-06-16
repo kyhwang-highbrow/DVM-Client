@@ -153,6 +153,9 @@ function GameDragonSkill.st_playDragSkill(self, dt)
                 self:makeSkillOpeningCut(dragon, function()
                     self:nextStep()
                 end)
+					            
+				-- 효과음
+				SoundMgr:playEffect('UI', 'ui_drag_scene')
 
                 -- 스킬 이름 및 설명 문구를 표시
                 self:makeSkillDesc(dragon, delayTime)
@@ -161,7 +164,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
         
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
-
+			
             if (self.m_skipLevel > 0) then
                 self:nextStep()
             else
@@ -181,6 +184,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
                 end)
 
                 self.m_skillOpeningCutTop:setVisible(false)
+
                 self:nextStep()
             end
         end
@@ -222,9 +226,6 @@ function GameDragonSkill.st_playDragSkill(self, dt)
                 -- 말풍선
                 self:makeSpeechBubble(dragon)
             end
-            
-            -- 효과음
-            SoundMgr:playEffect('EFFECT', 'skill_ready')
 
         elseif (self:isPassedStepTime(delayTime)) then
             -- 애니메이션 속도 되돌림
@@ -311,7 +312,7 @@ function GameDragonSkill.st_playTimeSkill(self, dt)
             end
 
             -- 효과음
-            SoundMgr:playEffect('EFFECT', 'skill_ready')
+            SoundMgr:playEffect('UI', 'ui_passive')
 
         elseif (self:isPassedStepTime(time1 / 2)) then
             world.m_gameCamera:reset()
