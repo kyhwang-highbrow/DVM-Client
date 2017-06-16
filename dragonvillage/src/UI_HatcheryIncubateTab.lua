@@ -46,10 +46,11 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
         -- 테이머
         do
 		    --local t_tamer =  g_tamerData:getCurrTamerTable()
-            local table_tamer = TableTamer()
-            local t_tamer = table_tamer:get(110002) -- 누리로 하드코딩 추후 NPC로 교체
-            local tamer_res = t_tamer['res']
-            local animator = MakeAnimator(tamer_res)
+            --local table_tamer = TableTamer()
+            --local t_tamer = table_tamer:get(110002) -- 누리로 하드코딩 추후 NPC로 교체
+            --local tamer_res = t_tamer['res']
+            local res = 'res/character/npc/yuria/yuria.spine'
+            local animator = MakeAnimator(res)
             animator.m_node:setDockPoint(cc.p(0.5, 0.5))
             animator.m_node:setDockPoint(cc.p(0.5, 0.5))
             self.vars['tamerNode']:addChild(animator.m_node)
@@ -58,7 +59,7 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
 		    --local face_ani = TableTamer:getTamerFace(t_tamer['type'], true)
 		    --animator:changeAni(face_ani, true)
             animator:changeAni('idle', true)
-            animator:setFlip(true)
+            --animator:setFlip(true)
         end
     end
 end
