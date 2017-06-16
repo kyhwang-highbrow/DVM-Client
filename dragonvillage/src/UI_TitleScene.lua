@@ -91,6 +91,9 @@ function UI_TitleScene:setTouchScreen()
 
     node:setVisible(true)
     node:setString(Str('화면을 터치하세요.'))
+
+	-- 로딩이 완료된 시점에서 사운드 교체
+	self.vars['okButton']:setClickSoundName('ui_game_start')
 end
 
 -------------------------------------
