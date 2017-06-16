@@ -119,7 +119,11 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
         do -- 이어서 뽑기 (단차 뽑기만 지원함)
             local remain_cnt = g_eggsData:getEggCount(egg_id)
             if (cnt == 1) and (cnt <= remain_cnt) then
-                --ui.vars['summonBtn']:setVisible(true)
+
+                -- 단차 뽑기는 "이어서 소환"을 즉시 보여줌
+                if (cnt == 1) then
+                    ui.vars['summonBtn']:setVisible(true)
+                end
                 ui.vars['summonBtn']:registerScriptTapHandler(function()
                         self:requestIncubate(egg_id, cnt, ui)
                     end)

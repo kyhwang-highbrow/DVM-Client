@@ -411,7 +411,11 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
         vars['priceLabel']:setString(comma_value(price))
     end
 
-    --vars['againBtn']:setVisible(true)
+    -- 단차 뽑기는 "이어서 소환"을 즉시 보여줌
+    if (not t_egg_data['bundle']) then
+        vars['againBtn']:setVisible(true)
+    end
+
     vars['againBtn']:registerScriptTapHandler(function()
             self:requestSummon(t_egg_data, is_sale, gacha_result_ui)
         end)
