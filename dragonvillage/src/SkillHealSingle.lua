@@ -30,6 +30,18 @@ function SkillHealSingle:init_skill(missile_res)
 end
 
 -------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillHealSingle:initSkillSize()
+	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
+		local t_data = SkillHelper:getSizeAndScale('round', self.m_skillSize)  
+
+		self.m_resScale = t_data['scale']
+		self.m_range = t_data['size']
+	end
+end
+
+-------------------------------------
 -- function initState
 -------------------------------------
 function SkillHealSingle:initState()
@@ -56,6 +68,7 @@ end
 -------------------------------------
 function SkillHealSingle:doHeal()
 	local l_target = self:findTarget()
+    cclog('#l_target = ' .. #l_target)
 
 	for i, target in pairs(l_target) do
 		self:doHeal_each(target)
@@ -99,7 +112,16 @@ end
 -- function findTarget
 -------------------------------------
 function SkillHealSingle:findTarget()
-    return self:getProperTargetList()
+    local x = self.m_targetPos.x
+	local y = self.m_targetPos.y
+    cclog('targetPos.x = ' .. x)
+    cclog('targetPos.y = ' .. y)
+
+    if (self.m_bSkillHitEffect) then
+        return PARENT.findTarget(self)
+    else
+        return self:getProperTargetList()
+    end
 end
 
 -------------------------------------
