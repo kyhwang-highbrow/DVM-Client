@@ -244,3 +244,10 @@ function ServerData_Highlight:isNewDoid(doid)
         return false
     end
 end
+
+-------------------------------------
+-- function setLastUpdateTime
+-------------------------------------
+function ServerData_Highlight:setLastUpdateTime()
+    self.m_lastUpdateTime = Timer:getServerTime()
+end

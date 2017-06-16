@@ -167,6 +167,9 @@ function UI_MailPopup:click_rewardBtn(t_mail_data)
 			else
 				UI_ToastPopup()
 			end
+
+            -- 노티 정보를 갱신하기 위해서 호출
+            g_highlightData:setLastUpdateTime()
 		end
 	end
     
@@ -194,6 +197,9 @@ function UI_MailPopup:click_rewardAllBtn()
 				for _, mail_id in pairs(mail_id_list) do
 					self.m_mTableView[self.m_currTab]:delItem(mail_id)
 				end
+
+                -- 노티 정보를 갱신하기 위해서 호출
+                g_highlightData:setLastUpdateTime()
 			end
 		end
 		g_mailData:request_mailReadAll(self.m_currTab, finish_cb)

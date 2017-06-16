@@ -229,8 +229,10 @@ function UI_Lobby:refresh_highlight()
     -- 탐험
     vars['explorationNotiSprite']:setVisible(g_highlightData:isHighlightExploration())
 
-    -- 드래곤 소환 
-    vars['drawNotiSprite']:setVisible(g_highlightData:isHighlightDragonSummonFree())
+    do -- 드래곤 소환
+        local highlight, t_highlight = g_hatcheryData:checkHighlight()
+        vars['drawNotiSprite']:setVisible(highlight)
+    end
 
     -- 퀘스트
     vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
@@ -374,7 +376,12 @@ end
 -------------------------------------
 function UI_Lobby:click_drawBtn()
     --g_dragonSummonData:openDragonSummon()
-    g_hatcheryData:openHatcheryUI()
+
+    local function close_cb()
+        -- 노티 정보를 갱신하기 위해서 호출
+        g_highlightData:setLastUpdateTime()
+    end
+    g_hatcheryData:openHatcheryUI(close_cb)
 end
 
 -------------------------------------

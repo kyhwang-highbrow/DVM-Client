@@ -426,6 +426,9 @@ function UI_HatcherySummonTab:summonApiFinished()
     local function finish_cb()
         self:refreshEggList()
         self:sceneFadeInAction()
+
+        -- 하일라이트 노티 갱신을 위해 호출
+        self.m_ownerUI:refresh_highlight()
     end
 
     local fail_cb = nil

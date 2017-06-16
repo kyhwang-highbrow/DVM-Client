@@ -130,6 +130,9 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
                 table.insert(ui.m_hideUIList, ui.vars['summonBtn'])
             end
         end
+
+        -- 하일라이트 노티 갱신을 위해 호출
+        self.m_ownerUI:refresh_highlight()
     end
 
     local function fail_cb()

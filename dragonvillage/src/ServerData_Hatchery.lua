@@ -336,9 +336,10 @@ end
 -------------------------------------
 -- function openHatcheryUI
 -------------------------------------
-function ServerData_Hatchery:openHatcheryUI()
+function ServerData_Hatchery:openHatcheryUI(close_cb)
     local function finish_cb()
-        UI_Hatchery()
+        local ui = UI_Hatchery()
+        ui:setCloseCB(close_cb)
     end
 
     self:update_hatcheryInfo(finish_cb)
@@ -380,4 +381,85 @@ end
 -------------------------------------
 function ServerData_Hatchery:setDirty()
     self.m_dirtyHacheryInfo = true
+end
+
+
+-------------------------------------
+-- function checkHighlight
+-------------------------------------
+function ServerData_Hatchery:checkHighlight()
+    -- [소환] 탭 무료 뽑기 가능
+    -- [부화] 뽑을 알
+    -- [인연] 뽑기 가능한 
+
+    local highlight = false
+
+    local t_highlight = {}
+    t_highlight['summon'] = false
+    t_highlight['incubate'] = false
+    t_highlight['relation'] = false
+
+    do -- 소환
+        if (self:getSummonFreeInfo()) then
+            t_highlight['summon'] = true
+            highlight = true
+        end
+    end
+
+    do -- 부화
+        local t_ret = g_eggsData:getEggListForUI()
+        if (0 < table.count(t_ret)) then
+            t_highlight['incubate'] = true
+            highlight = true
+        end
+    end
+
+    do -- 인연
+       local count = self:checkRelationHighlight() 
+       if (0 < count) then
+            t_highlight['relation'] = true
+            highlight = true
+       end
+    end
+
+    return highlight, t_highlight
+end
+
+-------------------------------------
+-- function checkRelationHighlight
+-------------------------------------
+function ServerData_Hatchery:checkRelationHighlight()
+    local table_dragon = TableDragon()
+
+    local function condition_func(t_table)
+        if (not t_table['relation_point']) then
+            return false
+        end
+        
+        local relation_point = tonumber(t_table['relation_point'])
+        if (not relation_point) then
+            return false
+        end
+
+        if (relation_point <= 0) then
+            return false
+        end
+
+        local did = t_table['did']
+        local cur_rpoint = g_collectionData:getRelationPoint(did)
+        if (cur_rpoint <= 0) then
+            return false
+        end
+
+        if (cur_rpoint < relation_point) then
+            return false
+        end
+
+        return true
+    end
+
+    local l_dragon_list = table_dragon:filterTable_condition(condition_func)
+
+    local count = table.count(l_dragon_list)
+    return count
 end

@@ -291,6 +291,9 @@ function UI_HatcheryRelationTab:click_summonBtn()
                 self:click_dragonCard(did)
             end
         end
+
+        -- 하일라이트 노티 갱신을 위해 호출
+        self.m_ownerUI:refresh_highlight()
     end
 
     g_collectionData:request_useRelationPoint(did, finish_cb)

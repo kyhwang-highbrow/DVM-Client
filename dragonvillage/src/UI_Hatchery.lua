@@ -61,6 +61,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_Hatchery:refresh()
+    self:refresh_highlight()
 end
 
 -------------------------------------
@@ -92,4 +93,16 @@ function UI_Hatchery:initTab()
     self:addTabWidthTabUI('relation', vars['relationBtn'], relation_tab) -- 인연
 
     self:setTab('summon')
+end
+
+-------------------------------------
+-- function refresh_highlight
+-------------------------------------
+function UI_Hatchery:refresh_highlight()
+    local vars = self.vars
+
+    local highlight, t_highlight = g_hatcheryData:checkHighlight()
+    vars['summonNotiSprite']:setVisible(t_highlight['summon'])
+    vars['incubateNotiSprite']:setVisible(t_highlight['incubate'])
+    vars['relationNotiSprite']:setVisible(t_highlight['relation'])
 end
