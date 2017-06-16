@@ -139,7 +139,12 @@ function StatusEffect.st_start(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 중첩에 상관없이 한번만 적용되어야하는 효과 적용
         owner:apply()
-				        
+		
+		-- 힐 사운드
+		if (StatusEffectHelper:isHelpful(owner.m_type)) then
+			SoundMgr:playEffect('SFX', 'sfx_buff_get')
+		end
+
 		-- 에니메이션이 0프레임일 경우 즉시 상태를 변경
         local duration = owner.m_animator:getDuration()
         if (duration == 0) then
