@@ -43,7 +43,7 @@ end
 function SkillAoERound_Throw:initState()
 	self:setCommonState(self)
     self:addState('start', SkillAoERound_Throw.st_idle, nil, true)
-    self:addState('draw', SkillAoERound_Throw.st_draw, 'idle', true)
+    self:addState('draw', SkillAoERound_Throw.st_draw, 'attack', true)
 	self:addState('attack', SkillAoERound_Throw.st_attack, 'disappear', false)
     self:addState('disappear', SkillAoERound_Throw.st_disappear, nil, false)
 end

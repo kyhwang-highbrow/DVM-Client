@@ -43,7 +43,7 @@ end
 -------------------------------------
 function SkillHealAoERound:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillHealAoERound.st_idle, 'idle', true)
+    self:addState('start', SkillHealAoERound.st_idle, 'idle', false)
 end
 
 -------------------------------------
