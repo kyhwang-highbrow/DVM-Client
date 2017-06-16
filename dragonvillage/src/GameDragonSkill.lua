@@ -527,7 +527,13 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local arg = {...}
         local dragon = arg[1]
 
-        self.m_skipLevel = self.m_nextSkipLevel
+        -- 임시 처리... 15%확률로 연출 보여줌
+        if (math_random(1, 100) <= 15) then
+            self.m_skipLevel = 0
+        else
+            self.m_skipLevel = 2
+        end
+        --self.m_skipLevel = self.m_nextSkipLevel
         
         self:setFocusingDragon(dragon)
         self:changeState(STATE.PLAY_DRAG_SKILL)
@@ -538,7 +544,13 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
 
         if (self:isPlaying()) then
         else
-            self.m_skipLevel = self.m_nextSkipLevel
+            -- 임시 처리... 15%확률로 연출 보여줌
+            if (math_random(1, 100) <= 15) then
+                self.m_skipLevel = 0
+            else
+                self.m_skipLevel = 2
+            end
+            --self.m_skipLevel = self.m_nextSkipLevel
 
             self:setFocusingDragon(dragon)
             self:changeState(STATE.PLAY_TIME_SKILL)
