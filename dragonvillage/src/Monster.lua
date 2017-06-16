@@ -311,7 +311,9 @@ end
 -------------------------------------
 function Monster.st_casting(owner, dt)
     if (owner.m_stateTimer == 0) then
-        SoundMgr:playEffect('EFFECT', 'monster_skill_cast')
+		if (owner:isBoss()) then
+			SoundMgr:playEffect('EFFECT', 'monster_skill_cast')
+		end
 
         -- 스킬 사용 위치 정보가 있다면 해당 위치까지 이동시킴
         if (owner.m_reservedSkillPos) then
