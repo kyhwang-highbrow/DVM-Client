@@ -825,10 +825,6 @@ end
 function ServerData_Friend:getDragonCoolTimeFromDoid(doid)
     if (doid) and (not self:checkFriendDragonFromDoid(doid)) then return nil end
     local friend_info = self:getFriendInfoFromDoid(doid)
-    local use_enable = friend_info['enable_use']
-    if (not use_enable) then
-        return nil
-    end
     return friend_info['used_time']
 end
 
