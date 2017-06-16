@@ -825,7 +825,7 @@ end
 function ServerData_Friend:getDragonCoolTimeFromDoid(doid)
     if (doid) and (not self:checkFriendDragonFromDoid(doid)) then return nil end
     local friend_info = self:getFriendInfoFromDoid(doid)
-    local use_enable = friend_info['enable_use'] or true
+    local use_enable = friend_info['enable_use']
     if (not use_enable) then
         return nil
     end
@@ -839,7 +839,7 @@ end
 function ServerData_Friend:checkUseEnableDragon(doid)
     if (doid) and (not self:checkFriendDragonFromDoid(doid)) then return false end
     local friend_info = self:getFriendInfoFromDoid(doid)
-    local use_enable = friend_info['enable_use'] or true
+    local use_enable = friend_info['enable_use']
     return use_enable
 end
 
@@ -874,7 +874,9 @@ end
 -------------------------------------
 function ServerData_Friend:checkSetSlotCondition(doid)
     if (not self:checkFriendDragonFromDoid(doid)) then return true end
-        
+    -- 쿨타임 존재
+    if (not self:checkUseEnableDragon(doid)) then return false end 
+
     -- 이미 선택된 친구가 있음
     if (self.m_selectedSharedFriendDragon) and (self.m_selectedSharedFriendDragon ~= doid) then 
         MakeSimplePopup(POPUP_TYPE.OK, Str('친구 드래곤은 전투에 한 명만 참여할 수 있습니다'))
