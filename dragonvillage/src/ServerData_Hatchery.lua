@@ -252,7 +252,7 @@ function ServerData_Hatchery:getSummonEggList()
     do -- 우정포인트 부화
 
         -- 우정포인트 1회 부화는 대표님과 상의해서 제거하기로함 sgkim 2017.06.16
-        --local t_data = {['egg_id']=700003, ['bundle']=true, ['full_type'] = 'egg_friendship_11', ['name']=Str('우정 부화 10회'), ['desc']=Str('1~3★ 드래곤 부화')}
+        --local t_data = {['egg_id']=700003, ['bundle']=true, ['full_type'] = 'egg_friendship_10', ['name']=Str('우정 부화 10회'), ['desc']=Str('1~3★ 드래곤 부화')}
         --t_data['price_type'] = 'fp'
         --t_data['price'] = ServerData_Hatchery.FP__BUNDLE_SUMMON_PRICE
         --table.insert(l_item_list, t_data)
