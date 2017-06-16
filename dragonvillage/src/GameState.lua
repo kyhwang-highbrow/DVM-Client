@@ -345,11 +345,15 @@ function GameState.update_wave_intermission_wait(self, dt)
     end
 
     -- 드랍된 아이템이 존재하고 1초가 지나지 않았을 경우 대기
-    if (world.m_dropItemMgr) then
-        local item_count = world.m_dropItemMgr:getItemCount()
-        if (0 < item_count) and (self.m_stateTimer <= 1) then
-            b = false
-        end
+    --if (world.m_dropItemMgr) then
+    --    local item_count = world.m_dropItemMgr:getItemCount()
+    --    if (0 < item_count) and (self.m_stateTimer <= 1) then
+    --        b = false
+    --    end
+    --end
+    -- 대표님 의견으로 무조건 3초 후 웨이브 이동하도록 변경 (sgkim 2017.06.16)
+    if (self.m_stateTimer < 3) then
+        b = false
     end
 
     if (b or self.m_stateTimer >= 4) then
