@@ -374,7 +374,7 @@ end
 -------------------------------------
 function UI_Lobby:click_drawBtn()
     --g_dragonSummonData:openDragonSummon()
-    UI_Hatchery()
+    g_hatcheryData:openHatcheryUI()
 end
 
 -------------------------------------

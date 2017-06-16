@@ -41,6 +41,7 @@ end
 
 -------------------------------------
 -- function getServerTime
+-- @brief 단위 (초)
 -------------------------------------
 function TimeLib:getServerTime()
     local server_time = (os.time() + self.m_diffServer)

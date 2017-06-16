@@ -21,6 +21,7 @@ function UI_HatcherySummonTab:onEnterTab(first)
     if (first == true) then
         self:initUI()
         self:init_eggFicker()
+        self:autoEggFocus()
     end
 end
 
@@ -77,7 +78,7 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_dat
         local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list)
 
         local function close_cb()
-            self:sceneFadeInAction()
+            self:summonApiFinished()
         end
         ui:setCloseCB(close_cb)
 
@@ -112,7 +113,7 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
         local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list)
 
         local function close_cb()
-            self:sceneFadeInAction()
+            self:summonApiFinished()
         end
         ui:setCloseCB(close_cb)
 
@@ -150,7 +151,7 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, t_egg_data, old_u
         self:subsequentSummons(ui, t_egg_data)
 
         local function close_cb()
-            self:sceneFadeInAction()
+            self:summonApiFinished()
         end
         ui:setCloseCB(close_cb)
     end
@@ -251,6 +252,15 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, is_sale, old_ui)
         end
     end
 
+    -- 무료 대상 확인
+    if t_egg_data['free_target'] then
+        if g_hatcheryData:getSummonFreeInfo() then
+            g_hatcheryData:setDirty()
+            ok_btn_cb()
+            return
+        end
+    end
+
     local cancel_btn_cb = nil
 
     local item_key = t_egg_data['price_type']
@@ -313,6 +323,47 @@ function UI_HatcherySummonTab:onChangeCurrEgg(t_item, idx)
         vars['priceNode']:removeAllChildren()
         vars['priceNode']:addChild(price_icon)
     end
+
+    vars['freeSummonNode']:unscheduleUpdate()
+    -- 무료 뽑기
+    if t_data['free_target'] then
+        local with_str = true
+        local can_free, ret_str = g_hatcheryData:getSummonFreeInfo(with_str)
+        if can_free then
+            vars['freeTimeLabel']:setVisible(false)
+            vars['freeSummonNode']:setVisible(true)
+        else
+            vars['freeTimeLabel']:setVisible(true)
+            vars['freeTimeLabel']:setString(ret_str)
+            vars['freeSummonNode']:setVisible(false)
+            self:scheduleFreeEggInfo()
+        end
+    else
+        vars['freeTimeLabel']:setVisible(false)
+        vars['freeSummonNode']:setVisible(false)
+    end
+end
+
+-------------------------------------
+-- function scheduleFreeEggInfo
+-- @brief 실시간 남은 무료 시간 출력
+-------------------------------------
+function UI_HatcherySummonTab:scheduleFreeEggInfo()
+    local vars = self.vars
+
+    local function update(dt)
+        local with_str = true
+        local can_free, ret_str = g_hatcheryData:getSummonFreeInfo(with_str)
+        if can_free then
+            vars['freeTimeLabel']:setVisible(false)
+            vars['freeSummonNode']:setVisible(true)
+            vars['freeSummonNode']:unscheduleUpdate()
+        else
+            vars['freeTimeLabel']:setString(ret_str)
+        end
+    end
+
+    vars['freeSummonNode']:scheduleUpdateWithPriorityLua(update, 0)
 end
 
 
@@ -363,4 +414,40 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
     vars['againBtn']:registerScriptTapHandler(function()
             self:requestSummon(t_egg_data, is_sale, gacha_result_ui)
         end)
+end
+
+-------------------------------------
+-- function summonApiFinished
+-- @brief
+-------------------------------------
+function UI_HatcherySummonTab:summonApiFinished()
+    local function finish_cb()
+        self:refreshEggList()
+        self:sceneFadeInAction()
+    end
+
+    local fail_cb = nil
+    g_hatcheryData:update_hatcheryInfo(finish_cb, fail_cb)
+end
+
+
+-------------------------------------
+-- function autoEggFocus
+-- @brief 무료 뽑기 찾아서 포커스
+-------------------------------------
+function UI_HatcherySummonTab:autoEggFocus()
+    local idx = 1
+
+    for i,v in ipairs(self.m_eggPicker.m_lItemList) do
+        local t_egg_data = v['data']
+
+        if (t_egg_data['free_target'] == true) then
+            if g_hatcheryData:getSummonFreeInfo() then
+                idx = i
+                break
+            end
+        end
+    end
+
+    self.m_eggPicker:setFocus(idx)
 end
