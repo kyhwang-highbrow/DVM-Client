@@ -249,9 +249,9 @@ function Character:setDead()
 		end
 	elseif (self.m_charType == 'monster') then
 		if (self:isBoss()) then
-			SoundMgr:playEffect('EFX', 'efx_monster_die')
-		else
 			SoundMgr:playEffect('EFX', 'efx_midboss_die')
+		else
+			SoundMgr:playEffect('EFX', 'efx_monster_die')
 		end
 	end
 
@@ -2195,6 +2195,13 @@ end
 -------------------------------------
 function Character:isCasting()
     return (self.m_state == 'casting')
+end
+
+-------------------------------------
+-- function isDragon
+-------------------------------------
+function Character:isDragon()
+    return (self.m_charType == 'dragon')
 end
 
 -------------------------------------
