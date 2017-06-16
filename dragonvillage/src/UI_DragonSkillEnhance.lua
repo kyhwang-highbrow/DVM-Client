@@ -367,9 +367,18 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 		-- 결과창 출력
 		local mod_struct_dragon = StructDragonObject(ret['modified_dragon'])
         local ui = UI_DragonSkillEnhance_Result(self.m_selectDragonData, mod_struct_dragon)
+		ui:setCloseCB(function()
+			-- 스킬 강화 가능 여부 판별하여 가능하지 않으면 닫아버림
+			local possible, msg = g_dragonsData:checkDragonSkillEnhancable(self.m_selectDragonOID)
+			if (not possible) then
+				UIManager:toastNotificationRed(msg)
+				self:close()
+			end
+		end)
 
 		-- 동시에 본UI 갱신
 		self.m_selectDragonData = mod_struct_dragon
+
 		self:refresh()
     end
 
