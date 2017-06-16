@@ -540,7 +540,7 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
             self:setSkipLevel(skip_level)
             self.m_world.m_gameHighlight:setSkipLevel(skip_level)
         end
-        --self.m_skipLevel = self.m_nextSkipLevel
+        self.m_skipLevel = self.m_nextSkipLevel
         
         self:setFocusingDragon(dragon)
         self:changeState(STATE.PLAY_DRAG_SKILL)
@@ -558,7 +558,7 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
                 self:setSkipLevel(skip_level)
                 self.m_world.m_gameHighlight:setSkipLevel(skip_level)
             end
-            --self.m_skipLevel = self.m_nextSkipLevel
+            self.m_skipLevel = self.m_nextSkipLevel
 
             self:setFocusingDragon(dragon)
             self:changeState(STATE.PLAY_TIME_SKILL)
