@@ -7,7 +7,7 @@
             <key>skill_smart_dragon_heal_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{449,132}}</string>
+                <string>{{2,375},{449,132}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,24 +20,24 @@
             <key>skill_smart_dragon_heal_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{125,426},{104,141}}</string>
+                <string>{{2,509},{266,275}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{104,141}}</string>
+                <string>{{0,0},{266,275}}</string>
                 <key>sourceSize</key>
-                <string>{104,141}</string>
+                <string>{266,275}</string>
             </dict>
             <key>skill_smart_dragon_heal_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{453,2},{368,371}}</string>
+                <string>{{2,2},{368,371}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{368,371}}</string>
                 <key>sourceSize</key>
@@ -46,7 +46,7 @@
             <key>skill_smart_dragon_heal_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{746,525},{85,276}}</string>
+                <string>{{690,147},{85,276}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>skill_smart_dragon_heal_s_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{245,747},{229,229}}</string>
+                <string>{{2,786},{229,229}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>skill_smart_dragon_heal_s_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,747},{244,241}}</string>
+                <string>{{697,550},{244,241}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>skill_smart_dragon_heal_s_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{320,417},{128,128}}</string>
+                <string>{{866,234},{128,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>skill_smart_dragon_heal_s_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,654},{82,87}}</string>
+                <string>{{846,796},{82,87}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,11 +111,11 @@
             <key>skill_smart_dragon_heal_s_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{826,105},{200,166}}</string>
+                <string>{{411,739},{200,166}}</string>
                 <key>offset</key>
                 <string>{0,-17}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,34},{200,166}}</string>
                 <key>sourceSize</key>
@@ -124,7 +124,7 @@
             <key>skill_smart_dragon_heal_v0003.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{994,105},{28,15}}</string>
+                <string>{{372,358},{28,15}}</string>
                 <key>offset</key>
                 <string>{10,-23}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>skill_smart_dragon_heal_v0007.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{984,307},{64,35}}</string>
+                <string>{{372,292},{64,35}}</string>
                 <key>offset</key>
                 <string>{11,-13}</string>
                 <key>rotated</key>
@@ -150,7 +150,7 @@
             <key>skill_smart_dragon_heal_v0011.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{245,426},{100,53}}</string>
+                <string>{{960,2},{100,53}}</string>
                 <key>offset</key>
                 <string>{15,-5}</string>
                 <key>rotated</key>
@@ -163,11 +163,11 @@
             <key>skill_smart_dragon_heal_v0015.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{320,342},{130,73}}</string>
+                <string>{{613,739},{130,73}}</string>
                 <key>offset</key>
                 <string>{18,3}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{239,136},{130,73}}</string>
                 <key>sourceSize</key>
@@ -176,7 +176,7 @@
             <key>skill_smart_dragon_heal_v0019.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{826,307},{156,87}}</string>
+                <string>{{688,796},{156,87}}</string>
                 <key>offset</key>
                 <string>{21,9}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>skill_smart_dragon_heal_v0023.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{826,2},{182,101}}</string>
+                <string>{{822,427},{182,101}}</string>
                 <key>offset</key>
                 <string>{23,15}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>skill_smart_dragon_heal_v0027.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{336,136},{204,111}}</string>
+                <string>{{233,805},{204,111}}</string>
                 <key>offset</key>
                 <string>{25,18}</string>
                 <key>rotated</key>
@@ -215,11 +215,11 @@
             <key>skill_smart_dragon_heal_v0031.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,426},{226,121}}</string>
+                <string>{{594,427},{226,121}}</string>
                 <key>offset</key>
                 <string>{26,22}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{199,93},{226,121}}</string>
                 <key>sourceSize</key>
@@ -228,7 +228,7 @@
             <key>skill_smart_dragon_heal_v0035.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{760,396},{252,127}}</string>
+                <string>{{706,2},{252,127}}</string>
                 <key>offset</key>
                 <string>{27,23}</string>
                 <key>rotated</key>
@@ -241,7 +241,7 @@
             <key>skill_smart_dragon_heal_v0039.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{746,612},{270,133}}</string>
+                <string>{{594,292},{270,133}}</string>
                 <key>offset</key>
                 <string>{29,24}</string>
                 <key>rotated</key>
@@ -254,7 +254,7 @@
             <key>skill_smart_dragon_heal_v0043.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{125,569},{284,137}}</string>
+                <string>{{411,600},{284,137}}</string>
                 <key>offset</key>
                 <string>{34,25}</string>
                 <key>rotated</key>
@@ -267,11 +267,11 @@
             <key>skill_smart_dragon_heal_v0047.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{450,513},{294,139}}</string>
+                <string>{{270,509},{294,139}}</string>
                 <key>offset</key>
                 <string>{39,26}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{178,80},{294,139}}</string>
                 <key>sourceSize</key>
@@ -280,11 +280,11 @@
             <key>skill_smart_dragon_heal_v0051.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{452,372},{306,139}}</string>
+                <string>{{453,292},{306,139}}</string>
                 <key>offset</key>
                 <string>{43,25}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{176,81},{306,139}}</string>
                 <key>sourceSize</key>
@@ -293,7 +293,7 @@
             <key>skill_smart_dragon_heal_v0055.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,281},{316,143}}</string>
+                <string>{{372,147},{316,143}}</string>
                 <key>offset</key>
                 <string>{49,25}</string>
                 <key>rotated</key>
@@ -306,7 +306,7 @@
             <key>skill_smart_dragon_heal_v0059.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,136},{332,143}}</string>
+                <string>{{372,2},{332,143}}</string>
                 <key>offset</key>
                 <string>{53,25}</string>
                 <key>rotated</key>
@@ -326,7 +326,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a038004b28be5fe3494c5d460c2bbd06$</string>
+            <string>$TexturePacker:SmartUpdate:66930d985e5b65e6c0d851434466357c$</string>
             <key>textureFileName</key>
             <string>skill_smart_dragon_heal.png</string>
         </dict>

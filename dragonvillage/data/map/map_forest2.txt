@@ -8,9 +8,8 @@
             "speed":0.2
             "list":
             [
-                {"res":"res/bg/forest2/forest2.vrp" "animation":"layer_1_a" "width":1280}
-				{"res":"res/bg/forest2/forest2.vrp" "animation":"layer_1_b" "width":1280}
-				{"res":"res/bg/forest2/forest2.vrp" "animation":"layer_1_c" "width":1280}
+                {"res":"res/bg/forest2/forest2.vrp" "animation":"layer_1_a" "width":3840}
+			
 					
             ]
         }
