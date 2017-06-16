@@ -37,6 +37,7 @@ local ZORDER =
 	BACK_PLATE = 1,
 	FOCUS_EFFECT = 2,
 	DRAGON_CARD = 3,
+	LEADER = 4,
 }
 
 local DC_POS_Y = 50
@@ -209,6 +210,21 @@ function UI_ReadyScene_Deck:setFocusDeckSlotEffect(idx)
 end
 
 -------------------------------------
+-- function refreshFocusDeckSlot
+-- @brief
+-------------------------------------
+function UI_ReadyScene_Deck:refreshLeaderSprite()
+	local vars = self.m_uiReadyScene.vars
+	local leader_idx = self.m_currLeader
+
+	-- 리더 위치에 다시 붙여준다.
+	vars['leaderSprite']:retain()
+	vars['leaderSprite']:removeFromParent()
+	vars['positionNode' .. leader_idx]:addChild(vars['leaderSprite'], ZORDER.LEADER)
+	vars['leaderSprite']:release()
+end
+
+-------------------------------------
 -- function clear_deck
 -------------------------------------
 function UI_ReadyScene_Deck:clear_deck(skip_sort)
@@ -270,6 +286,9 @@ function UI_ReadyScene_Deck:init_deck()
 
     self:setFormation(formation)
 	self.m_currLeader = leader
+
+	-- leader sprite
+	self:refreshLeaderSprite()
 
     self:setDirtyDeck()
 end
