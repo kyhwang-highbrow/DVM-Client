@@ -358,7 +358,7 @@ function UI_GameResultNew:direction_openBox()
     end)
 	
 	-- 상자가 열리면서 사운드
-    SoundMgr:playEffect('UI', 'ui_reward')
+    -- SoundMgr:playEffect('UI', 'ui_reward')
 end
 
 -------------------------------------
