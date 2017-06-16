@@ -297,6 +297,12 @@ end
 -- @breif
 -------------------------------------
 function ServerData_Hatchery:getSummonFreeInfo(with_str)
+
+    -- 정보 갱신이 필요한 상태이므로 false로 간주
+    if (self.m_dirtyHacheryInfo) then
+        return false, ''
+    end
+
     if (not self.m_hatcheryInfo) or (not self.m_hatcheryInfo['summon_free_time']) then
         cclog('# ServerData_Hatchery:getSummonFreeTime() 정보가 없음')
         return
