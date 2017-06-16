@@ -45,13 +45,13 @@ function UI_IngameUnitInfo:initUI()
             vars['attrNode']:addChild(icon)
         end
     end
-
+	--[[
     if (vars['levelLabel']) then
         vars['levelLabel']:setVisible(false)
 		-- @TODO level 임시로 찍지 않도록 함
         local lv = ''--enemy.m_lv
         vars['levelLabel']:setString(lv)
-    end
+    end]]
 
 	-- 디버깅용 label
 	self:makeDebugingLabel()
