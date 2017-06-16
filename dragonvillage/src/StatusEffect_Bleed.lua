@@ -90,4 +90,13 @@ function StatusEffect_Bleed:doDamage()
 
     -- @LOG_CHAR : 방어자 피해량
 	self.m_owner.m_charLogRecorder:recordLog('be_damaged', self.m_dmg)
+
+	-- 화상 사운드
+	if (self.m_statusEffectName == 'poison') then
+		SoundMgr:playEffect('EFX', 'efx_poison')
+
+	elseif (self.m_statusEffectName == 'bleed') then
+		SoundMgr:playEffect('EFX', 'efx_bleed')
+
+	end
 end

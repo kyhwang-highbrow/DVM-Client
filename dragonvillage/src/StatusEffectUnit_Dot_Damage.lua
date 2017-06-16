@@ -35,6 +35,11 @@ function StatusEffectUnit_Dot_Damage:doDot()
 	self.m_caster.m_charLogRecorder:recordLog('damage', self.m_dotDmg)
 	-- @LOG_CHAR : 방어자 피해량
 	self.m_owner.m_charLogRecorder:recordLog('be_damaged', self.m_dotDmg)
+
+	-- 화상 사운드
+	if (self.m_statusEffectName == 'burn') then
+		SoundMgr:playEffect('EFX', 'efx_burn')
+	end
 end
 
 -------------------------------------

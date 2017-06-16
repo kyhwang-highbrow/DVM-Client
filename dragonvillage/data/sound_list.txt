@@ -29,7 +29,7 @@
 		"efx_monster_die" : {"res":"sound/efx/efx_monster_die.mp3"}
 		"efx_midboss_die" : {"res":"sound/efx/efx_midboss_die.mp3"}
 		"efx_bleed" : {"res":"sound/efx/efx_bleed.mp3"}
-		"efx_posion" : {"res":"sound/efx/efx_posion.mp3"}
+		"efx_poison" : {"res":"sound/efx/efx_poison.mp3"}
 		"efx_burn" : {"res":"sound/efx/efx_burn.mp3"}
 	},
 
