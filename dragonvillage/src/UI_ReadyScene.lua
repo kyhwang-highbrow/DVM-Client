@@ -418,16 +418,20 @@ function UI_ReadyScene:refresh_buffInfo()
 
 	-- 리더 버프
 	do
+		local leader_buff		
 		local leader_idx = self.m_readySceneDeck.m_currLeader
 		local l_doid = self.m_readySceneDeck.m_lDeckList
 		local leader_doid = l_doid[leader_idx]
-		local t_dragon_data = g_dragonsData:getDragonDataFromUid(leader_doid)
-		local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
-		local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
-		local leader_buff
+		if (leader_doid) then
+			local t_dragon_data = g_dragonsData:getDragonDataFromUid(leader_doid)
+			local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+			local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
 
-		if (skill_info) then
-			leader_buff = skill_info:getSkillDesc()
+			if (skill_info) then
+				leader_buff = skill_info:getSkillDesc()
+			else
+				leader_buff = Str('리더 버프 없음')
+			end
 		else
 			leader_buff = Str('리더 버프 없음')
 		end
