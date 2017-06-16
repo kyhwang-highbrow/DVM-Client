@@ -356,6 +356,9 @@ function UI_GameResultNew:direction_openBox()
         vars['boxVisual']:setVisible(false) 
         self:doNextWork()
     end)
+	
+	-- 상자가 열리면서 사운드
+    SoundMgr:playEffect('UI', 'ui_reward')
 end
 
 -------------------------------------
@@ -412,8 +415,6 @@ function UI_GameResultNew:direction_dropItem()
         local pos_x = l_pos[i]
         item_card.root:setPositionX(pos_x)
     end
-
-    SoundMgr:playEffect('UI', 'ui_reward')
 
     vars['skipLabel']:setVisible(false)
 
