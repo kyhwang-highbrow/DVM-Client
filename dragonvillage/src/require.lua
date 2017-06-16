@@ -404,6 +404,7 @@ local t_module = {
     'SkillMeleeHack',
 	'SkillAoERound',
 	'SkillAoERound_Sura',
+    'SkillAoERound_Throw',
     'SkillAoESquare',
     'SkillAoESquare_Height',
     'SkillAoESquare_Height_Top',

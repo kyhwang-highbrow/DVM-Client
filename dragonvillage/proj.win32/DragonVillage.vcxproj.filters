@@ -2451,6 +2451,9 @@
     <None Include="..\src\UI_StartTamerSelect.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillAoERound_Throw.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -160,8 +160,12 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillAoERound:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (skill_type == 'skill_aoe_round_sura') then
+            elseif (skill_type == 'skill_aoe_round_sura') then
 				SkillAoERound_Sura:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+            elseif (skill_type == 'skill_aoe_round_throw') then
+				SkillAoERound_Throw:makeSkillInstance(self, t_skill, t_data)
 				return true
 	
 			elseif (skill_type == 'skill_aoe_square_height' or skill_type == 'skill_aoe_square_height_bottom') then

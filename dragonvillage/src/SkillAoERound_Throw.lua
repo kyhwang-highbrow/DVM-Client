@@ -1,38 +1,34 @@
-local PARENT = class(Skill, ISkillMultiAttack:getCloneTable())
+local PARENT = SkillAoERound
 
 -------------------------------------
--- class SkillAoERound
+-- class SkillAoERound_Throw
 -------------------------------------
-SkillAoERound = class(PARENT, {
-		m_aoeRes = 'str', 
-     })
+SkillAoERound_Throw = class(PARENT, {})
 
 -------------------------------------
 -- function init
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillAoERound:init(file_name, body, ...)    
+function SkillAoERound_Throw:init(file_name, body, ...)
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoERound:init_skill(aoe_res, attack_count)
+function SkillAoERound_Throw:init_skill(attack_count)
     PARENT.init_skill(self)
 
-	-- 멤버 변수
+    -- 멤버 변수
     self.m_maxAttackCount = attack_count 
-	self.m_aoeRes = aoe_res
-	--self.m_hitInterval -> attack state에서 지정
-	
-	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
+
+    self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 end
 
 -------------------------------------
 -- function initSkillSize
 -------------------------------------
-function SkillAoERound:initSkillSize()
+function SkillAoERound_Throw:initSkillSize()
 	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
 		local t_data = SkillHelper:getSizeAndScale('round', self.m_skillSize)  
 
@@ -44,17 +40,43 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function SkillAoERound:initState()
+function SkillAoERound_Throw:initState()
 	self:setCommonState(self)
-    self:addState('start', PARENT.st_appear, 'appear', false)
-    self:addState('attack', PARENT.st_attack, 'idle', true)
-	self:addState('disappear', PARENT.st_disappear, 'disappear', false)
+    self:addState('start', SkillAoERound_Throw.st_idle, nil, true)
+    self:addState('draw', SkillAoERound_Throw.st_draw, 'idle', true)
+	self:addState('attack', SkillAoERound_Throw.st_attack, 'obtain', false)
+    self:addState('disappear', PARENT.st_disappear, 'disappear', false)
+end
+
+-------------------------------------
+-- function st_idle
+-------------------------------------
+function SkillAoERound_Throw.st_idle(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		owner:changeState('draw')
+    end
+end
+
+-------------------------------------
+-- function st_draw
+-------------------------------------
+function SkillAoERound_Throw.st_draw(owner, dt)
+	if (owner.m_stateTimer == 0) then
+		-- 투사체 투척
+        local target_pos = cc.p(owner.m_targetPos.x, owner.m_targetPos.y)
+        local action = cc.JumpTo:create(0.5, target_pos, 250, 1)
+
+		-- state chnage 함수 콜
+		local cbFunc = cc.CallFunc:create(function() owner:changeState('attack') end)
+
+		owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 1), cbFunc))
+    end
 end
 
 -------------------------------------
 -- function runAttack
 -------------------------------------
-function SkillAoERound:runAttack()
+function SkillAoERound_Throw:runAttack()
     local l_target, l_collision = self:findTarget()
 
     for _, collision in ipairs(l_collision) do
@@ -82,44 +104,31 @@ function SkillAoERound:setAttackInterval()
 end
 
 -------------------------------------
--- function enterAttack
--------------------------------------
-function SkillAoERound:enterAttack()
-	-- 이펙트 재생 단위 시간
-	self:setAttackInterval()
-	-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
-	self.m_multiAtkTimer = self.m_hitInterval
-	-- 공격 카운트 초기화
-	self.m_attackCount = 0
-end
-
--------------------------------------
 -- function escapeAttack
 -- @brief 공격이 종료되는 시점에 실행
 -------------------------------------
-function SkillAoERound:escapeAttack()
+function SkillAoERound_Throw:escapeAttack()
 	self:changeState('disappear')
 end
 
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
+function SkillAoERound_Throw:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local attack_count = t_skill['hit']	  -- 공격 횟수
 	
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	-- 스킬 본연의 리소스
-	local aoe_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)		-- 개별 타겟 이펙트 리소스
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillAoERound(missile_res)
+    local skill = SkillAoERound_Throw(missile_res)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(aoe_res, attack_count)
+    skill:init_skill()
 	skill:initState()
 
 	-- 3. state 시작 
