@@ -183,6 +183,7 @@ function Dragon:onEvent(event_name, t_event, ...)
         local arg = {...}
         local mana = arg[1]
 
+        --[[
         if (not self.m_bDead) then
             if (mana >= self.m_activeSkillManaCost) then
                 local attr = self:getAttribute()
@@ -191,6 +192,7 @@ function Dragon:onEvent(event_name, t_event, ...)
                 self.m_infoUI:hideSkillFullVisual()
             end
         end
+        ]]--
 	end
 end
 
