@@ -240,6 +240,21 @@ function Character:setDead()
     -- 사망 처리 시 StateDelegate Kill!
     self:killStateDelegate()
 
+	-- 사망 사운드
+	if (self.m_charType == 'dragon') then
+		if (self.m_charTable['c_appearance'] == 2) then
+			SoundMgr:playEffect('EFX', 'efx_dragon_die_cute')
+		else
+			SoundMgr:playEffect('EFX', 'efx_dragon_die_normal')
+		end
+	elseif (self.m_charType == 'monster') then
+		if (self:isBoss()) then
+			SoundMgr:playEffect('EFX', 'efx_monster_die')
+		else
+			SoundMgr:playEffect('EFX', 'efx_midboss_die')
+		end
+	end
+
     return true
 end
 
