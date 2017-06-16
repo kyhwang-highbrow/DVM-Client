@@ -406,6 +406,8 @@ function GameState.update_enemy_appear(self, dt)
 
 			-- 적 패시브 발동
 			world:passiveActivate_Right()
+
+			SoundMgr:playEffect('UI', 'ui_wave_start')
         end
 
         -- 적 이동패턴 정보 초기화
