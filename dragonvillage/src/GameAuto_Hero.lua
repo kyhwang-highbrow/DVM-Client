@@ -4,9 +4,6 @@ local PARENT = GameAuto
 -- class GameAuto_Hero
 -------------------------------------
 GameAuto_Hero = class(PARENT, {
-
-        m_tCastingEnemyList = 'table',  -- 시전 중인 적 리스트
-
         -- UI
         m_autoVisual = '',
      })
@@ -15,8 +12,6 @@ GameAuto_Hero = class(PARENT, {
 -- function init
 -------------------------------------
 function GameAuto_Hero:init(world)
-    self.m_tCastingEnemyList = {}
-
     self:initUI()
     
     if (g_autoPlaySetting:isAutoPlay()) then
@@ -136,7 +131,7 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
         local arg = {...}
         local enemy = arg[1]
 
-        table.insert(self.m_tCastingEnemyList, enemy)
+        table.insert(self.m_lCastingEnemyList, enemy)
         
     elseif (event_name == 'hero_active_skill') then
         self.m_aiDelayTime = self:getAiDelayTime()

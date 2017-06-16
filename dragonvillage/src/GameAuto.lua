@@ -19,7 +19,8 @@ local GAME_AUTO_AI_DELAY_TIME = 2
 GameAuto = class(IEventListener:getCloneClass(), {
         m_world = 'GameWorld',
         m_bActive = 'boolean',
-        m_tCastingEnemyList = 'table',  -- 상대편에서 캐스팅 중인 대상 리스트
+        m_lRandomAllyList = 'table',     -- 스킬 사용 순서대로 정렬된 아군 리스트
+        m_lCastingEnemyList = 'table',  -- 상대편에서 캐스팅 중인 대상 리스트
         m_aiDelayTime = 'number',       -- 스킬 사용 직후 일정 시간 뒤 다음 스킬을 사용하도록 하기 위한 딜레이 시간
      })
 
@@ -33,7 +34,8 @@ function GameAuto:init(world)
 
     self.m_aiDelayTime = self:getAiDelayTime()
 
-    self.m_tCastingEnemyList = {}
+    self.m_lRandomAllyList = {}
+    self.m_lCastingEnemyList = {}
 end
 
 -------------------------------------
@@ -82,40 +84,48 @@ end
 function GameAuto:proccess_dragon()
     if (not self:isActive()) then return end
 
-    local allyList = self:getUnitList()
+    local dragon = self.m_lRandomAllyList[1]
+    if (not dragon) then
+        local allyList = self:getUnitList()
+        if (#allyList == 0) then return end
 
-    for i, dragon in ipairs(allyList) do
-        if (isInstanceOf(dragon, Dragon)) then
-            -- 드래그 스킬
-            local skill_id = dragon:getSkillID('active')
-            local t_skill = dragon:getLevelingSkillById(skill_id)
-            local isPossibleSkill = false
-            local target = nil
+        -- 해당 유닛 리스트를 랜덤하게 섞음
+        self.m_lRandomAllyList = self:getRandomList(allyList)
+        
+        dragon = self.m_lRandomAllyList[1]
+    end
+
+    if (dragon and isInstanceOf(dragon, Dragon)) then
+        -- 드래그 스킬
+        local skill_id = dragon:getSkillID('active')
+        local t_skill = dragon:getLevelingSkillById(skill_id)
+        local isPossibleSkill = false
+        local target = nil
             
-            -- 스킬 사용 여부 체크
-            isPossibleSkill, target = self:checkSkill(dragon, t_skill)
+        -- 스킬 사용 여부 체크
+        isPossibleSkill, target = self:checkSkill(dragon, t_skill)
 
-            if (isPossibleSkill) then
-                if (not target) then
-                    -- 대상을 찾는다
-                    target = self:findTarget(dragon, t_skill)
+        if (isPossibleSkill) then
+            if (not target) then
+                -- 대상을 찾는다
+                target = self:findTarget(dragon, t_skill)
+            end
+
+            if (target) then
+                -- 스킬 사용
+                self:doSkill(dragon, t_skill, target)
+
+                -- AI 딜레이 시간 설정
+                self.m_aiDelayTime = self:getAiDelayTime()
+
+                -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
+                local idx = table.find(self.m_lCastingEnemyList, target)
+                if (idx) then
+                    table.remove(self.m_lCastingEnemyList, idx)
                 end
 
-                if (target) then
-                    -- 스킬 사용
-                    self:doSkill(dragon, t_skill, target)
-
-                    -- AI 딜레이 시간 설정
-                    self.m_aiDelayTime = self:getAiDelayTime()
-
-                    -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
-                    local idx = table.find(self.m_tCastingEnemyList, target)
-                    if (idx) then
-                        table.remove(self.m_tCastingEnemyList, idx)
-                    end
-
-                    break
-                end
+                -- 해당 드래곤을 랜덤 리스트에서 삭제
+                table.pop(self.m_lRandomAllyList)
             end
         end
     end
@@ -162,7 +172,7 @@ function GameAuto:checkSkill(owner, t_skill, aiAttack, aiHeal)
 
         elseif (aiAttack == GAME_AUTO_AI_ATTACK__ENEMY_SKILL) then
             -- 캐스팅 중인 적 존재 여부에 따라 사용
-            local enemyList = self.m_tCastingEnemyList
+            local enemyList = self.m_lCastingEnemyList
             local target = nil
             local t_remove = {}
                         
@@ -265,6 +275,26 @@ function GameAuto:findTarget(dragon, t_skill)
     end
 
     return target
+end
+
+-------------------------------------
+-- function getRandomList
+-------------------------------------
+function GameAuto:getRandomList(allyList)
+    local l_ret = {}
+
+    for i, ally in ipairs(allyList) do
+        local count = #l_ret
+        local idx = 1
+
+        if (count > 0) then
+            idx = math_random(1, count)
+        end
+
+        table.insert(l_ret, idx, ally)
+    end
+
+    return l_ret
 end
 
 -------------------------------------
