@@ -210,18 +210,46 @@ function UI_ReadyScene_Deck:setFocusDeckSlotEffect(idx)
 end
 
 -------------------------------------
--- function refreshFocusDeckSlot
+-- function refreshLeader
 -- @brief
 -------------------------------------
-function UI_ReadyScene_Deck:refreshLeaderSprite()
+function UI_ReadyScene_Deck:refreshLeader()
 	local vars = self.m_uiReadyScene.vars
 	local leader_idx = self.m_currLeader
+	local doid = self.m_lDeckList[leader_idx]
 
-	-- 리더 위치에 다시 붙여준다.
-	vars['leaderSprite']:retain()
-	vars['leaderSprite']:removeFromParent()
-	vars['positionNode' .. leader_idx]:addChild(vars['leaderSprite'], ZORDER.LEADER)
-	vars['leaderSprite']:release()
+	local function refresh_sprite(tar_idx)
+		-- 리더 위치에 다시 붙여준다.
+		vars['leaderSprite']:setVisible(true)
+		vars['leaderSprite']:retain()
+		vars['leaderSprite']:removeFromParent()
+		vars['positionNode' .. tar_idx]:addChild(vars['leaderSprite'], ZORDER.LEADER)
+		vars['leaderSprite']:release()
+	end
+
+	-- 현재 리더 idx에 드래곤이 있다면
+	if (doid) then
+		refresh_sprite(leader_idx)
+
+	else
+		-- 없다면 새로 찾아준다.
+		local idx
+		for i, doid in pairs(self.m_lDeckList) do
+			idx = i
+			break
+		end
+
+		if (idx) then
+			self.m_currLeader = idx
+			refresh_sprite(idx)
+
+		else
+			-- 덱에 드래곤이 없으므로 leader표시를 없앤다.
+			vars['leaderSprite']:setVisible(false)
+
+		end
+
+	end
 end
 
 -------------------------------------
@@ -285,8 +313,8 @@ function UI_ReadyScene_Deck:init_deck()
     -- focus deck
     self:refreshFocusDeckSlot()
 
-	-- leader sprite
-	self:refreshLeaderSprite()
+	-- leader set
+	self:refreshLeader()
 
     self:setFormation(formation)
 

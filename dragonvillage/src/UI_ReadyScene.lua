@@ -425,6 +425,8 @@ function UI_ReadyScene:refresh_buffInfo()
 
 	-- 리더 버프
 	do
+		self.m_readySceneDeck:refreshLeader()
+		
 		local leader_buff		
 		local leader_idx = self.m_readySceneDeck.m_currLeader
 		local l_doid = self.m_readySceneDeck.m_lDeckList
@@ -443,7 +445,6 @@ function UI_ReadyScene:refresh_buffInfo()
 			leader_buff = Str('리더 버프 없음')
 		end
 		vars['leaderBuffLabel']:setString(leader_buff)
-		self.m_readySceneDeck:refreshLeaderSprite()
 	end
 
 	-- 진형 버프
