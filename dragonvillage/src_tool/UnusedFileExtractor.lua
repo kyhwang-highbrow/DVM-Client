@@ -31,21 +31,23 @@ function UnusedFileExtractor:init()
     self.m_src_ext = ''
 end
 
-
 -------------------------------------
--- function getRelPath
--- @param   t      :    table,              key = number, value = 절대경로
---          root   :    string, optional    root로 잡을 절대경로. default value : '\\dragonvillage'
--- @return  _table :    table,              key = number, value = 상대경로
+-- function getChildrenPathByKey
+-- @brief   경로 아래에 있는 모든 파일의 경로를 반환
+-- @param   t               :     table,               key = number, value = 상대경로
+--          shell_pattern   :     string, optional,    반환할 파일 패턴(확장자)
+-- @return  ret             :     table,               key = 파일 경로, value = 빈 테이블
 -------------------------------------
-function UnusedFileExtractor:getRelPath(t, root)
-    root = root or lfs.currentdir() .. '..\\'
-    local _table = {}
-    for _, v in ipairs(t) do
-        table.insert(_table, pl.path.relpath(v, root))
+function UnusedFileExtractor:getChildrenPathByKey(roots, shell_pattern)
+    local ret = {}
+    for _, v in ipairs(roots) do
+        for _, dirs in ipairs(pl.dir.getallfiles(v, shell_pattern)) do                          
+            ret[dirs] = {}
+        end
     end
-    return _table
-    
+
+    return ret
+   
 end
 
 -------------------------------------
@@ -53,11 +55,16 @@ end
 -- @brief 쓰이지 않는 파일을 찾아낸다.
 -- @return self.t_unusedFileName    table,  :   key = number, value = 쓰이지 않는 파일들의 이름이
 -------------------------------------
-function UnusedFileExtractor:extractUnusedFile() 
-    self.m_tResRoot, self.m_tSrcRoot, self.m_target_ext, self.m_src_ext = self:getUserInput()
-
-    self.m_tResRoot = self:getRelPath(self.m_tResRoot)
-    self.m_tSrcRoot = self:getRelPath(self.m_tSrcRoot)
+function UnusedFileExtractor:extractUnusedFile()
+    local t_res_path, t_src_path = nil, nil
+    t_res_path, t_src_path, self.m_target_ext, self.m_src_ext = self:getUserInput()
+    
+    for _, v in ipairs(t_res_path) do
+        table.insert(self.m_tResRoot, pl.path.relpath(v, lfs.currentdir() .. '..\\'))
+    end
+    for _, v in ipairs(t_src_path) do
+        table.insert(self.m_tSrcRoot, pl.path.relpath(v, lfs.currentdir() .. '..\\'))
+    end
 
     self:initializeTables(self.m_target_ext, self.m_src_ext)
     
@@ -126,38 +133,11 @@ end
 function UnusedFileExtractor:initializeTables(target_files_ext, src_files_ext)
     target_files_ext = '*' .. target_files_ext
     src_files_ext = '*' .. src_files_ext
-    local t_res_files = self:getAllFilePathByKey(self.m_tResRoot, true, target_files_ext)
+    local t_res_files = self:getChildrenPathByKey(self.m_tResRoot, target_files_ext)
     self.t_resFileName = t_res_files
 
-    local t_src_files = self:getAllFilePathByKey(self.m_tSrcRoot, true, src_files_ext)
+    local t_src_files = self:getChildrenPathByKey(self.m_tSrcRoot, src_files_ext)
     self.t_srcFileName = t_src_files
-end
-
--------------------------------------
--- function getAllFilePathByKey
--- @brief   경로 아래에 있는 모든 파일의 경로를 반환
--- @param   root                string,             : 기준이 될 경로(상대, 절대 둘 다 가능)
---          CONTAIN_PATH        boolean, optional,  : default false, 상대경로로써 반환할것인지, 이름만 반환할것인지. 
---          shell_pattern       string, optional,   : 반환할 파일 패턴(확장자)
--- @return  t                   table,              : key = 파일 경로, value = 빈 테이블
--------------------------------------
-function UnusedFileExtractor:getAllFilePathByKey(roots, CONTAIN_PATH, shell_pattern)
-    local t = {}
-    CONTAIN_PATH = CONTAIN_PATH or false
-    for i = 1, #roots do
-        for _, dirs in ipairs(pl.dir.getallfiles(roots[i], shell_pattern)) do
-            if(not CONTAIN_PATH) then
-                local str = pl.stringx.split(dirs, '\\')
-
-                -- 파일 이름만 추출
-                dirs = str[#str]                            
-            end
-            t[dirs] = {}
-        end
-    end
-
-    return t
-   
 end
 
 

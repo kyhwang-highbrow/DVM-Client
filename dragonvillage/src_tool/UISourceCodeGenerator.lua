@@ -156,7 +156,7 @@ function UISourceCodeGenerator:makeCode(t, initButton, newFunction, comment)
 
     -- button 외의 것들을 코드에 삽입.
     local components = {}
-    self:findComponents(vars, components)
+    self:findComponents(vars, components, 'lua_name')
     for k, v in pairs(components) do
 
         -- button들 코드에 삽입.
@@ -237,19 +237,20 @@ end
 -- @brief 주어진 테이블을 재귀적으로 탐색하고, t 테이블의 component type을 key로 하고, t 테이블의 value를 components의 value로 넣는다.
 -- @param t             : table,    key : attributes, value : value
 --        components    : table,    key : type of components, value : value
+--        key           : string,   찾을 key
 -------------------------------------
-function UISourceCodeGenerator:findComponents(t, components)
+function UISourceCodeGenerator:findComponents(t, components, key)
     local component_type = t['type']
     for k, v in pairs(t) do
         if(type(v) == 'table') then
-            self:findComponents(v, components, component_type)
+            self:findComponents(v, components, key)
         else
-            if ( k == 'lua_name') then
+            if ( k == key) then
                 if (v ~= '') then
-                if(not components[component_type]) then
-                    components[component_type] = {}
-                end 
-                table.insert(components[component_type], v)
+                    if(not components[component_type]) then
+                        components[component_type] = {}
+                    end 
+                    table.insert(components[component_type], v)
                 end
             end
         end
