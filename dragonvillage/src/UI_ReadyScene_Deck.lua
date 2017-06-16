@@ -271,8 +271,9 @@ function UI_ReadyScene_Deck:init_deck()
     end
 
     local l_deck, formation, deckname, leader = g_deckData:getDeck()
-    l_deck = self:convertSimpleDeck(l_deck)
+	l_deck = self:convertSimpleDeck(l_deck)
 
+	self.m_currLeader = leader
     self.m_lDeckList = {}
     self.m_tDeckMap = {}
 
@@ -284,11 +285,10 @@ function UI_ReadyScene_Deck:init_deck()
     -- focus deck
     self:refreshFocusDeckSlot()
 
-    self:setFormation(formation)
-	self.m_currLeader = leader
-
 	-- leader sprite
 	self:refreshLeaderSprite()
+
+    self:setFormation(formation)
 
     self:setDirtyDeck()
 end

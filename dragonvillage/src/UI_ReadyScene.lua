@@ -53,7 +53,10 @@ function UI_ReadyScene:init(stage_id)
     
     local with_friend = true
 	self.m_readySceneDeck = UI_ReadyScene_Deck(self, with_friend)
-    self.m_readySceneDeck:setOnDeckChangeCB(function() self:refresh_combatPower() end)
+    self.m_readySceneDeck:setOnDeckChangeCB(function() 
+		self:refresh_combatPower()
+		self:refresh_buffInfo()
+	end)
 
     self:refresh()
 
@@ -406,6 +409,10 @@ end
 function UI_ReadyScene:refresh_buffInfo()
     local vars = self.vars
 	
+	if (not self.m_readySceneDeck) then
+		return
+	end
+
 	-- 테이머 버프
 	do
 		local t_tamer_data = g_tamerData:getTamerServerInfo()
