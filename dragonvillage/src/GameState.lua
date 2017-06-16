@@ -177,8 +177,6 @@ function GameState.update_start(self, dt)
 
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
-            SoundMgr:playEffect('UI', 'ui_summon')
-        
             world:dispatch('dragon_summon')
 
         elseif (self:getStepTimer() >= 0.5) then
@@ -687,6 +685,8 @@ function GameState:appearHero()
         dragon:doAppear()
     end
     
+	SoundMgr:playEffect('UI', 'ui_summon')
+
     self.m_bAppearHero = true
 end
 
