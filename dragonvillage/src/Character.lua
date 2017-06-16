@@ -1563,6 +1563,9 @@ function Character:setTargetEffect(animator, k)
 			animator:setPosition(body['x'], body['y'])
 			root_node:addChild(animator.m_node)
 		end
+
+		-- 사운드
+		SoundMgr:playEffect('UI', 'ui_target')
     end
 end
 
