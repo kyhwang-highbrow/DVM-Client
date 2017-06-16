@@ -410,24 +410,37 @@ function UI_ReadyScene:refresh_buffInfo()
 	do
 		local t_tamer_data = g_tamerData:getTamerServerInfo()
 		local skill_mgr = MakeTamerSkillManager(t_tamer_data)
-		local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(3)
+		local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(3)	-- 3번이 패시브
 		local tamer_buff = skill_info:getSkillDesc()
+
 		vars['tamerBuffLabel']:setString(tamer_buff)
 	end
 
 	-- 리더 버프
 	do
-		local leader_buff = ''
+		local leader_idx = self.m_readySceneDeck.m_currLeader
+		local l_doid = self.m_readySceneDeck.m_lDeckList
+		local leader_doid = l_doid[leader_idx]
+		local t_dragon_data = g_dragonsData:getDragonDataFromUid(leader_doid)
+		local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+		local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
+		local leader_buff
+
+		if (skill_info) then
+			leader_buff = skill_info:getSkillDesc()
+		else
+			leader_buff = Str('리더 버프 없음')
+		end
 		vars['leaderBuffLabel']:setString(leader_buff)
 	end
 
 	-- 진형 버프
 	do
 		local l_formation = g_formationData:getFormationInfoList()
-		local formation_data = l_formation[self.m_readySceneDeck.m_currFormation]
-		local table_formation = TableFormation()
+		local curr_formation = self.m_readySceneDeck.m_currFormation
+		local formation_data = l_formation[curr_formation]
+		local formation_buff = TableFormation():getFormatioDesc(formation_data['formation'])
 
-		local formation_buff = table_formation:getFormatioDesc(formation_data['formation'])
 		vars['formationBuffLabel']:setString(formation_buff)
 	end
 end
@@ -792,6 +805,7 @@ function UI_ReadyScene:click_fomationBtn()
 	-- 종료하면서 선택된 formation을 m_readySceneDeck으로 전달
 	local function close_cb(formation_type)
 		self.m_readySceneDeck:setFormation(formation_type)
+		self:refresh_buffInfo()
 	end
 	ui:setCloseCB(close_cb)
 end
@@ -802,7 +816,10 @@ end
 -------------------------------------
 function UI_ReadyScene:click_tamerBtn()
     local ui = UI_TamerManagePopup()
-	ui:setCloseCB(function() self:refresh_tamer() end)
+	ui:setCloseCB(function() 
+		self:refresh_tamer()
+		self:refresh_buffInfo()
+	end)
 end
 
 -------------------------------------
@@ -822,6 +839,7 @@ function UI_ReadyScene:click_leaderBtn()
 	local ui = UI_ReadyScene_LeaderPopup(l_pos_list, l_doid, leader_idx)
 	ui:setCloseCB(function() 
 		self.m_readySceneDeck.m_currLeader = ui.m_newLeader
+		self:refresh_buffInfo()
 	end)
 end
 
