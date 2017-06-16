@@ -1100,7 +1100,7 @@ function GameWorld:setBattleZone(formation, immediately, is_right)
     local offset_y
     local lUnitList
 
-    local x_start_offset = 250
+    local x_start_offset = 150 + 85
     if (is_right) then
         offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) + x_start_offset
         offset_y = cameraHomePosY + 30
