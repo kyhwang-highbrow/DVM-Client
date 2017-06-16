@@ -130,6 +130,9 @@ function UI_Game:initButton()
         self.m_effectBtnIcon3 = MakeAnimator('res/ui/btn/ingame_top_effect_0101.png')
         self.m_effectBtnIcon3:setVisible((level == 2))
         vars['effectBtn']:addChild(self.m_effectBtnIcon3.m_node)
+
+        -- 임시 처리... 연출 버튼 숨김
+        vars['effectBtn']:setVisible(false)
     end
 end
 

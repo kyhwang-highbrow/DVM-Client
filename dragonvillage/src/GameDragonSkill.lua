@@ -528,10 +528,17 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local dragon = arg[1]
 
         -- 임시 처리... 15%확률로 연출 보여줌
-        if (math_random(1, 100) <= 15) then
-            self.m_skipLevel = 0
-        else
-            self.m_skipLevel = 2
+        do
+            local skip_level
+
+            if (math_random(1, 100) <= 15) then
+                skip_level = 0
+            else
+                skip_level = 2
+            end
+
+            self:setSkipLevel(skip_level)
+            self.m_world.m_gameHighlight:setSkipLevel(skip_level)
         end
         --self.m_skipLevel = self.m_nextSkipLevel
         
@@ -544,11 +551,12 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
 
         if (self:isPlaying()) then
         else
-            -- 임시 처리... 15%확률로 연출 보여줌
-            if (math_random(1, 100) <= 15) then
-                self.m_skipLevel = 0
-            else
-                self.m_skipLevel = 2
+            -- 임시 처리... 패시브 스킬 연출은 스킵
+            do
+                local skip_level = 2
+
+                self:setSkipLevel(skip_level)
+                self.m_world.m_gameHighlight:setSkipLevel(skip_level)
             end
             --self.m_skipLevel = self.m_nextSkipLevel
 

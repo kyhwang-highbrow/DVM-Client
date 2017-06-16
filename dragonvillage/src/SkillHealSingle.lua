@@ -68,8 +68,7 @@ end
 -------------------------------------
 function SkillHealSingle:doHeal()
 	local l_target = self:findTarget()
-    cclog('#l_target = ' .. #l_target)
-
+    
 	for i, target in pairs(l_target) do
 		self:doHeal_each(target)
 	end
@@ -114,9 +113,7 @@ end
 function SkillHealSingle:findTarget()
     local x = self.m_targetPos.x
 	local y = self.m_targetPos.y
-    cclog('targetPos.x = ' .. x)
-    cclog('targetPos.y = ' .. y)
-
+    
     if (self.m_bSkillHitEffect) then
         return PARENT.findTarget(self)
     else
