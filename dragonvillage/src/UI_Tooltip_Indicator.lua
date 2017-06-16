@@ -127,16 +127,15 @@ end
 -- function makeRichLabel
 -------------------------------------
 function UI_Tooltip_Indicator:makeRichLabel(text)
-    local font_size = FONT_SIZE
-    local dimensions_width = MAX_WIDTH - FONT_SIZE
-    local dimensions_height = MAX_HEIGHT
-    local align_h = TEXT_H_ALIGN_LEFT
-    local align_v = TEXT_V_ALIGN_LEFT
-    local dock_point = cc.p(0, 1)
-    local is_limit_message = false
+	local rich_label = UIC_RichLabel()
+    rich_label:setString(text)
+    rich_label:setFontSize(FONT_SIZE)
+    rich_label:setDimension(MAX_WIDTH - FONT_SIZE, MAX_HEIGHT)
+    rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
+	rich_label:setDockPoint(cc.p(0, 1))
+    rich_label:setAnchorPoint(CENTER_POINT)
+	rich_label:setPosition(0, 0)
 
-    -- RichLabel상에서의 width, height를 얻어온다.
-    local rich_label = RichLabel(text, font_size, dimensions_width, dimensions_height, align_h, align_v, dock_point, is_limit_message)
     return rich_label
 end
 
@@ -209,6 +208,7 @@ function UI_Tooltip_Indicator:getSkillDescStr(t_skill, is_activated)
 	
 	-- 2. 스킬 설명
     local desc = IDragonSkillManager:getSkillDescPure(t_skill)
+	desc = string.gsub(desc, '@DESC2', '@WHITE')
 
 	-- 3. rich_text
     local str = name_color .. skill_type_str .. ' : ' .. text_color .. desc

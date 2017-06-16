@@ -83,12 +83,15 @@ function GameDragonSkill:initUI()
     self.m_skillNameLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     titleNode:addChild(self.m_skillNameLabel, 11)
 
-    self.m_skillDescLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 20, 0, cc.size(800, 200), 1, 1)
-    self.m_skillDescLabel:setAnchorPoint(cc.p(0.5, 0.5))
-	self.m_skillDescLabel:setDockPoint(cc.p(0, 0))
-	self.m_skillDescLabel:setColor(cc.c3b(220,220,220))
-    --self.m_skillDescLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
-    descNode:addChild(self.m_skillDescLabel, 11)
+	local rich_label = UIC_RichLabel()
+    rich_label:setFontSize(20)
+    rich_label:setDimension(800, 800)
+    rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+	rich_label:setDockPoint(cc.p(0, 0))
+    rich_label:setAnchorPoint(CENTER_POINT)
+	rich_label:enableOutline(cc.c3b(220,220,220), 1)
+    self.m_skillDescLabel = rich_label
+    descNode:addChild(self.m_skillDescLabel.m_root, 11)
 
     -- 말풍선
     self.m_bubble = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
@@ -386,11 +389,14 @@ function GameDragonSkill:makeSkillDesc(dragon, delayTime)
     self.m_skillDescEffect:setTimeScale(0.7)
 
     self.m_skillNameLabel:setString(Str(t_skill['t_name']))
-    self.m_skillDescLabel:setString(IDragonSkillManager:getSkillDescPure(t_skill))
+
+	local desc = IDragonSkillManager:getSkillDescPure(t_skill)
+	desc = string.gsub(desc, '@DESC2', '@WHITE')
+    self.m_skillDescLabel:setString(desc)
 end
 
 -------------------------------------
--- function makeSkillDesc
+-- function makeSpeechBubble
 -- @brief 말풍선
 -------------------------------------
 function GameDragonSkill:makeSpeechBubble(dragon)

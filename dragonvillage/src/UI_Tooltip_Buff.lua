@@ -1,5 +1,5 @@
 local PARENT = UI
-
+--[[
 local FONT_SIZE = 20
 local MIN_WIDTH = 60
 local MAX_WIDTH = 600
@@ -201,3 +201,4 @@ function UI_Tooltip_Buff:autoRelease(duration)
     local action = cc.Sequence:create(cc.DelayTime:create(duration), cc.FadeOut:create(1), cc.CallFunc:create(function() self:close() end))
     self.root:runAction(action)
 end
+]]

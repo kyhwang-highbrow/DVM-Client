@@ -278,7 +278,7 @@ function Tamer:getTargetOnEvent(event_name, t_event)
 			
 	self.m_targetChar = target_char
 end
-
+--[[
 -------------------------------------
 -- function showToolTipActive
 -------------------------------------
@@ -289,7 +289,7 @@ function Tamer:showToolTipActive()
     local tool_tip = UI_Tooltip_Skill(320, -220, str, true)
     tool_tip:autoRelease()
 end
-
+]]
 -------------------------------------
 -- function increaseActiveSkillCool
 -------------------------------------
