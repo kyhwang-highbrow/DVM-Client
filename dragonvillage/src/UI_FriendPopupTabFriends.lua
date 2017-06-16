@@ -25,18 +25,17 @@ end
 -- function onEnterFriendPopupTab
 -------------------------------------
 function UI_FriendPopupTabFriends:onEnterFriendPopupTab(first)
-    --if first then
+--    if first then
         local function finish_cb(ret)
             self:init_tableView()
-
-            -- 친구 명수
+            
             local count = g_friendData:getFriendCount()
             local max = g_friendData:getMaxFriendCount()
             self.vars['listLabel']:setString(Str('{1} / {2}명', count, max))
         end
         local force = true
         g_friendData:request_friendList(finish_cb, force)
-    --end
+--    end
 end
 
 -------------------------------------
@@ -50,7 +49,7 @@ function UI_FriendPopupTabFriends:init_tableView()
     end
 
     local node = self.vars['listNode']
-    --node:removeAllChildren()
+    node:removeAllChildren()
 
     local l_item_list = g_friendData:getFriendList()
 
@@ -80,7 +79,7 @@ function UI_FriendPopupTabFriends:init_tableView()
     table_view:setItemList(l_item_list)
 
     -- 리스트가 비었을 때
-    table_view:makeDefaultEmptyDescLabel(Str('친구가 없습니다.\n친구와 우정 징표를 주고받을 수 있습니다.\n친구를 추가해보세요!'))
+    table_view:makeDefaultEmptyDescLabel(Str('친구가 없습니다.\n친구와 우정의 징표를 주고받을 수 있습니다.\n친구를 추가해보세요!'))
 
     -- 정렬
     local sort_manager = SortManager_Friend()
@@ -124,7 +123,7 @@ function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
     local bye_limit = g_friendData:getByeDailyLimit()
 
     if (bye_cnt >= bye_limit) then
-        UIManager:toastNotificationRed(Str('일반 친구 작별은 하루에 최대 {1}번까지 할 수 있습니다.', bye_limit))
+        UIManager:toastNotificationRed(Str('삭제는 1일 {1}회만 가능합니다.', bye_limit))
         return
     end
 
@@ -160,7 +159,8 @@ function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
         self.m_tableView:delItem(friend_uid)
     end
 
-    ask_popup()
+    --ask_popup()
+    request_bye_friend()
 end
 
 -------------------------------------
@@ -168,15 +168,14 @@ end
 -------------------------------------
 function UI_FriendPopupTabFriends:click_sendAllBtn()
     local function finish_cb(ret)
-        local msg = Str('모든 친구에게 우정포인트를 보냈습니다.')
-        UIManager:toastNotificationGreen(msg)
-
         for i,v in ipairs(self.m_tableView.m_itemList) do
             local ui = v['ui']
             if ui then
                 ui:refresh()
             end
         end
+        -- 추가로 보낼 친구가 없다면 노티 꺼줌
+        self.m_friendPopup:refreshHighlightFriend(g_friendData:checkSendFp())
     end
 
     g_friendData:request_sendFpAllFriends(finish_cb)
@@ -192,15 +191,14 @@ function UI_FriendPopupTabFriends:click_sendBtn(ui, data)
 
     local function finish_cb(ret)
         local nick = data['nick']
-        local msg = Str('[{1}]님에게 우정포인트를 보냈습니다.', nick)
-        UIManager:toastNotificationGreen(msg)
-
         for i,v in ipairs(self.m_tableView.m_itemList) do
             local ui = v['ui']
             if ui then
                 ui:refresh()
             end
         end
+        -- 추가로 보낼 친구가 없다면 노티 꺼줌
+        self.m_friendPopup:refreshHighlightFriend(g_friendData:checkSendFp())
     end
 
     g_friendData:request_sendFp(frined_uid_list, finish_cb)

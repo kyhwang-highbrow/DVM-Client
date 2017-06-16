@@ -26,12 +26,7 @@ end
 -------------------------------------
 function UI_FriendListItem:initUI()
     local vars = self.vars
-
     local t_friend_info = self:getFriendInfo()
-    
-    local t_dragon_data = t_friend_info['leader']
-    local card = UI_DragonCard(t_dragon_data)
-    vars['userNode']:addChild(card.root)
 
     vars['nameLabel']:setString(t_friend_info['nick'])
     vars['levelLabel']:setString(Str('레벨 {1}', t_friend_info['lv']))
@@ -42,6 +37,12 @@ end
 -------------------------------------
 function UI_FriendListItem:initButton()
     local vars = self.vars
+    local t_friend_info = self:getFriendInfo()
+    local t_dragon_data = t_friend_info['leader']
+
+    local card = UI_DragonCard(t_dragon_data)
+    card.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(t_friend_info) end)
+    vars['userNode']:addChild(card.root)
 end
 
 -------------------------------------
@@ -66,7 +67,7 @@ function UI_FriendListItem:refresh()
     vars['timeLabel']:setString(g_friendData:getPastActiveTimeStr(t_friend_info))
 
     -- 보내기 버튼
-    vars['sendBtn']:setVisible(not g_friendData:isSentFp(self.m_friendUid))
+    vars['sendBtn']:setEnabled(not g_friendData:isSentFp(self.m_friendUid))
 end
 
 -------------------------------------
@@ -75,4 +76,12 @@ end
 function UI_FriendListItem:getFriendInfo()
     local t_friend_info = g_friendData:getFriendInfo(self.m_friendUid)
     return t_friend_info
+end
+
+-------------------------------------
+-- function click_dragonCard
+-------------------------------------
+function UI_FriendListItem:click_dragonCard(t_friend_info)
+    local visit = true
+    UI_UserInfoDetailPopup(t_friend_info, visit)
 end

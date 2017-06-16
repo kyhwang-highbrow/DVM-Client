@@ -51,11 +51,15 @@ function UI_LobbyUserInfoPopup:initButton(t_user_info)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(t_user_info) end)
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn(t_user_info) end)
-
+    
     local uid = t_user_info['uid']
     local nickname = t_user_info['nick']
     vars['whisperBtn']:registerScriptTapHandler(function() self:click_whisperBtn(nickname) end)
     vars['blockBtn']:registerScriptTapHandler(function() self:click_blockBtn(uid, nickname) end)
+
+    -- 이미 친구인 경우 비활성화
+    local is_friend = g_friendData:isFriend(uid)
+    vars['requestBtn']:setEnabled(not is_friend)
 end
 
 -------------------------------------

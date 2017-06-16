@@ -245,6 +245,10 @@ end
 -------------------------------------
 function ServerData_Friend:isFriend(friend_uid)
     if self.m_lFriendUserList[friend_uid] then return true end
+
+    local uid = g_userData:get('uid')
+    if uid == friend_uid then return true end
+
     return false
 end
 
@@ -655,6 +659,11 @@ function ServerData_Friend:response_friendCommon(ret)
            self.m_mSentFpUserList[v] = true 
         end
     end
+
+    if ret['add_fp'] then
+        local msg = Str('우정의 징표 {1}개 획득', ret['add_fp'])
+        UIManager:toastNotificationGreen(msg)
+    end
 end
 
 -------------------------------------
@@ -740,6 +749,22 @@ end
 -------------------------------------
 function ServerData_Friend:isSentFp(friend_uid)
     return self.m_mSentFpUserList[friend_uid]
+end
+
+-------------------------------------
+-- function checkSendFp
+-- @brief 현재 보낼 수 있는 우정 포인트가 있는지 검사
+-------------------------------------
+function ServerData_Friend:checkSendFp()
+    local isSent = false
+    for uid,v in pairs(self.m_lFriendUserList) do
+        if (not self.m_mSentFpUserList[uid]) then
+            isSent = true
+            break
+        end
+    end
+    
+    return isSent
 end
 
 -------------------------------------

@@ -112,6 +112,12 @@ function UI_FriendPopupTabResponse:click_inviteAcceptBtn(data)
 
             local msg = Str('[{1}]님과 친구가 되었습니다.', friend_nick)
             UIManager:toastNotificationGreen(msg)
+
+            -- 친구 추가되었다면 노티 켜줌
+            self.m_friendPopup:refreshHighlightFriend(true)
+            
+            -- 남은 친구 수락이 없다면 노티 꺼줌
+            self.m_friendPopup:refreshHighlightResponse(not (#self.m_tableView == 0))
         end
     end
     

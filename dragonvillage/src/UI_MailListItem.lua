@@ -79,11 +79,19 @@ end
 -- function makePrettyData
 -------------------------------------
 function UI_MailListItem:makePrettyData(t_mail_data)
+    local is_friend = t_mail_data['tag'] == 'fp' and true or false
 	local t_mail_context = t_mail_data['msg_content']['data']
 	local event_type = t_mail_data['msg_content']['event']
 
-	local t_mail_text = MailHelper:getMailText(event_type, t_mail_context)
+	local t_mail_text
 
+    -- 친구탭 임시
+    if is_friend then
+        t_mail_text = MailHelper:getFpointMailText(t_mail_data)
+    else
+        t_mail_text = MailHelper:getMailText(event_type, t_mail_context)
+    end
+    
 	-- 메일 제목
 	local mail_title = t_mail_text['title']
 	if (mail_title == '') then

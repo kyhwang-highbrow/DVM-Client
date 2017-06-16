@@ -30,10 +30,8 @@ function UI_FriendPopup:init()
 
 	self:initUI()
 	self:initButton()
+    self:initHighlight()
 	self:refresh()
-
-    -- noti 제대로 동작하지 않아 주석처리
-    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -73,6 +71,8 @@ end
 -------------------------------------
 function UI_FriendPopup:click_exitBtn()
     self:close()
+    -- 하일라이트 정보 갱신
+    g_highlightData:request_highlightInfo()
 end
 
 -------------------------------------
@@ -86,28 +86,44 @@ function UI_FriendPopup:click_drawBtn()
 end
 
 -------------------------------------
--- function update
+-- function initHighlight
+-- @brief 최초 진입시에만 서버 하일라이트 정보 적용 
 -------------------------------------
-function UI_FriendPopup:update(dt)
-    if (g_highlightData.m_lastUpdateTime ~= self.m_hilightTimeStamp) then
-        self.m_hilightTimeStamp = g_highlightData.m_lastUpdateTime
-        self:refresh_highlight()
-    end
-end
-
--------------------------------------
--- function refresh_highlight
--------------------------------------
-function UI_FriendPopup:refresh_highlight()
+function UI_FriendPopup:initHighlight()
     local vars = self.vars
 
     -- 우정 포인트 보내기 가능한 상태
     vars['listNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend())
 
-    -- 받은 요청 있는 상태
-    vars['responseNotiSprite']:setVisible(g_highlightData:isHighlightFrinedInvite())
-
+    -- 로비 진입후 친구 팝업 뜨기 전까지의 받은 요청이 있는지 검사, 친구 팝업 생성시 호출 
+    local finish_cb
+    finish_cb = function(ret)
+        if ret['invites_list'] and (#ret['invites_list'] > 0) then
+            vars['responseNotiSprite']:setVisible(true) 
+        end
+    end
+    local force = true
+    g_friendData:request_inviteResponseList(finish_cb, force)
 end
+
+-------------------------------------
+-- function refreshHighlightFriend
+-- @brief 진입후에는 친구 api 통신후 클라에서 갱신
+-------------------------------------
+function UI_FriendPopup:refreshHighlightFriend(visible)
+    local vars = self.vars
+    vars['listNotiSprite']:setVisible(visible)
+end
+
+-------------------------------------
+-- function refreshHighlightResponse
+-- @brief 진입후에는 친구 api 통신후 클라에서 갱신
+-------------------------------------
+function UI_FriendPopup:refreshHighlightResponse(visible)
+    local vars = self.vars
+    vars['responseNotiSprite']:setVisible(visible)
+end
+
 --------------------------------------------------------------------
 --------------------------------------------------------------------
 -- TAB 관련

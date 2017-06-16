@@ -24,3 +24,15 @@ function MailHelper:getMailText(event_type, t_data)
 
 	return {title = title, context = context}
 end
+
+
+-------------------------------------
+-- function getFpointMailText
+-- @brief 임시 우정포인트 메세지 - 서버 작업 필요함 위와 같은 형태로
+-------------------------------------
+function MailHelper:getFpointMailText(t_data)
+    local title = Str('우정의 징표 {1}개', t_data['items_list'][1]['count'])
+	local context = Str('{1}님이 우정의 징표를 보냄', t_data['nick'])
+
+    return {title = title, context = context}
+end
