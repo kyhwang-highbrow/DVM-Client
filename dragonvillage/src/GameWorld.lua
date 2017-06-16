@@ -274,7 +274,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         self.m_gameState = GameState_AncientTower(self)
     end
 
-    self.m_inGameUI:init_timeUI(display_wave, display_time)
+    --self.m_inGameUI:init_timeUI(display_wave, display_time)
+    self.m_inGameUI:init_timeUI(display_wave, 0)
 
     self.m_missileRange = {}
     self:setMissileRange()
