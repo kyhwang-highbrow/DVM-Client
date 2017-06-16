@@ -410,10 +410,12 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
         vars['priceLabel']:setString(comma_value(price))
     end
 
-    vars['againBtn']:setVisible(true)
+    --vars['againBtn']:setVisible(true)
     vars['againBtn']:registerScriptTapHandler(function()
             self:requestSummon(t_egg_data, is_sale, gacha_result_ui)
         end)
+
+    table.insert(gacha_result_ui.m_hideUIList, vars['againBtn'])
 end
 
 -------------------------------------

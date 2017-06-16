@@ -9,7 +9,8 @@ UI_GachaResult_Dragon = class(PARENT, {
 
 		m_currDragonAnimator = 'UIC_DragonAnimator',
 
-		m_isDirecting = 'bool'
+		m_isDirecting = 'bool',
+        m_hideUIList = '',
      })
 
 -------------------------------------
@@ -48,6 +49,7 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list)
 	-- 멤버 변수
 	self.m_lDragonCardList = {}
 	self.m_isDirecting = false
+    self.m_hideUIList = {}
 
 	self:initUI()
 	self:initButton()
@@ -110,6 +112,12 @@ function UI_GachaResult_Dragon:refresh()
 			card.root:setVisible(true)
 		end
 	end
+
+    -- 마지막에만 보여야 하는 UI들을 관리
+    local is_last = (#self.m_lGachaDragonList <= 0)
+    for i,v in pairs(self.m_hideUIList) do
+        v:setVisible(is_last)
+    end
 
 	-- ui 다시 집어넣고 연출 시작
 	self:doActionReverse(start_directing_cb, 0.2)
@@ -290,7 +298,7 @@ function UI_GachaResult_Dragon:click_skipBtn()
 			card.root:setVisible(true)
 		end
 	end
-	
+
 	-- 마지막 드래곤 animator를 띄우고 마지막 연출을 실행한다.
 	self:refresh()
 	self.m_currDragonAnimator:forceSkipDirecting()

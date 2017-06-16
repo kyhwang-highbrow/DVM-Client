@@ -118,7 +118,7 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
         do -- 이어서 뽑기 (단차 뽑기만 지원함)
             local remain_cnt = g_eggsData:getEggCount(egg_id)
             if (cnt == 1) and (cnt <= remain_cnt) then
-                ui.vars['summonBtn']:setVisible(true)
+                --ui.vars['summonBtn']:setVisible(true)
                 ui.vars['summonBtn']:registerScriptTapHandler(function()
                         self:requestIncubate(egg_id, cnt, ui)
                     end)
@@ -126,6 +126,8 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
                 ui.vars['summonEggLabel']:setString(Str('X{1}', remain_cnt))
                 local egg_icon = IconHelper:getEggIconByEggID(egg_id)
                 ui.vars['summonEggNode']:addChild(egg_icon)
+
+                table.insert(ui.m_hideUIList, ui.vars['summonBtn'])
             end
         end
     end
