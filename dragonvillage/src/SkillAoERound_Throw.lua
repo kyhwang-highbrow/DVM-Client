@@ -45,7 +45,7 @@ function SkillAoERound_Throw:initState()
     self:addState('start', SkillAoERound_Throw.st_idle, nil, true)
     self:addState('draw', SkillAoERound_Throw.st_draw, 'idle', true)
 	self:addState('attack', SkillAoERound_Throw.st_attack, 'obtain', false)
-    self:addState('disappear', PARENT.st_disappear, 'disappear', false)
+    self:addState('disappear', SkillAoERound_Throw.st_disappear, nil, false)
 end
 
 -------------------------------------
@@ -70,6 +70,20 @@ function SkillAoERound_Throw.st_draw(owner, dt)
 		local cbFunc = cc.CallFunc:create(function() owner:changeState('attack') end)
 
 		owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 1), cbFunc))
+    end
+end
+
+-------------------------------------
+-- function st_disappear
+-------------------------------------
+function SkillAoERound_Throw.st_disappear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		owner:onDisappear()
+
+        -- 스킬 종료시 발동되는 status effect를 적용
+		owner:dispatch(CON_SKILL_END, {l_target = {owner.m_targetChar}})
+
+		return true
     end
 end
 
@@ -104,6 +118,18 @@ function SkillAoERound:setAttackInterval()
 end
 
 -------------------------------------
+-- function enterAttack
+-------------------------------------
+function SkillAoERound:enterAttack()
+	-- 이펙트 재생 단위 시간
+	self:setAttackInterval()
+	-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
+	self.m_multiAtkTimer = self.m_hitInterval
+	-- 공격 카운트 초기화
+	self.m_attackCount = 0
+end
+
+-------------------------------------
 -- function escapeAttack
 -- @brief 공격이 종료되는 시점에 실행
 -------------------------------------
@@ -128,7 +154,7 @@ function SkillAoERound_Throw:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill()
+    skill:init_skill(attack_count)
 	skill:initState()
 
 	-- 3. state 시작 
