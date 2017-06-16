@@ -169,6 +169,14 @@ function GameState.update_start(self, dt)
                 map_mgr:setSpeed(-1000)  
             end
 
+			-- 테이머가 등장하며 카메라 줌
+			self.m_world.m_gameCamera:setAction({
+                pos_x = -CRITERIA_RESOLUTION_X/4,
+                pos_y = 0,
+                scale = 1.4,
+                time = 1
+            })
+
             --SoundMgr:playEffect('VOICE', 'vo_tamer_start')
         
 	    elseif (self:isPassedStepTime(g_constant:get('INGAME', 'TAMER_APPEAR_TIME'))) then
@@ -195,6 +203,8 @@ function GameState.update_start(self, dt)
                 -- 등장 완료일 경우
                 if self.m_bAppearHero then
                     self:changeState(GAME_STATE_ENEMY_APPEAR)
+					-- 등장 완료후 카메라 원복
+					self.m_world.m_gameCamera:reset()
                 end
             end
             map_mgr:setSpeed(speed)
