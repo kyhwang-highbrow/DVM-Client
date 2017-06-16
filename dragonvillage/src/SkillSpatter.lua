@@ -130,6 +130,11 @@ function SkillSpatter:spatterHeal(target_char)
 	local atk_dmg = self.m_owner:getStat('atk')
 	local heal = HealCalc_M(atk_dmg) * self.m_spatterHealRate
     target_char:healAbs(self.m_owner, heal, true)
+
+	-- 힐 사운드
+	if (self.m_owner:isDragon()) then
+		SoundMgr:playEffect('SFX', 'sfx_heal')
+	end
 end
 
 -------------------------------------

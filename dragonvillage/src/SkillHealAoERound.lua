@@ -109,6 +109,11 @@ function SkillHealAoERound:onHeal(target_char)
     if (bUpdateHitTargetCount) then
         self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
     end
+
+	-- 힐 사운드
+	if (self.m_owner:isDragon()) then
+		SoundMgr:playEffect('SFX', 'sfx_heal')
+	end
 end
 
 -------------------------------------

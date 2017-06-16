@@ -101,6 +101,11 @@ function SkillHealAround:doHeal()
         local target = collision:getTarget()
         target:healAbs(self.m_owner, heal, true)
     end
+	
+	-- 힐 사운드
+	if (self.m_owner:isDragon()) then
+		SoundMgr:playEffect('SFX', 'sfx_heal')
+	end
 end
 
 -------------------------------------

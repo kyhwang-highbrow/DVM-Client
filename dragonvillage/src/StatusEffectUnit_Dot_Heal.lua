@@ -25,6 +25,11 @@ function StatusEffectUnit_Dot_Heal:init(name, owner, caster, skill_id, value, so
 
         self.m_dotHeal = heal * (self.m_value / 100)
     end
+
+	-- 힐 사운드
+	if (owner:isDragon()) then
+		SoundMgr:playEffect('SFX', 'sfx_heal')
+	end
 end
 
 -------------------------------------

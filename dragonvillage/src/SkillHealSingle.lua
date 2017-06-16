@@ -60,6 +60,11 @@ function SkillHealSingle:doHeal()
 	for i, target in pairs(l_target) do
 		self:doHeal_each(target)
 	end
+
+	-- 힐 사운드
+	if (self.m_owner:isDragon()) then
+		SoundMgr:playEffect('SFX', 'sfx_heal')
+	end
 end
 
 -------------------------------------
