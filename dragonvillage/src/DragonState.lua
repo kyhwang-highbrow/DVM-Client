@@ -128,7 +128,6 @@ function Dragon.st_skillIdle(owner, dt)
                 x = -x
             end
 
-            local active_skill_id = owner:getSkillID('active')
             local indicatorData = owner.m_skillIndicator:getIndicatorData()
             indicatorData['highlight'] = true
             

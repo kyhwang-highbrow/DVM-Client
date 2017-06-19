@@ -98,6 +98,12 @@ function GameAuto:proccess_dragon()
     if (dragon and isInstanceOf(dragon, Dragon)) then
         -- 드래그 스킬
         local skill_id = dragon:getSkillID('active')
+        if (skill_id == 0) then
+            -- 해당 드래곤의 드래그 스킬이 없을 경우 리스트에서 삭제
+            table.pop(self.m_lRandomAllyList)
+            return
+        end
+
         local t_skill = dragon:getLevelingSkillById(skill_id)
         local isPossibleSkill = false
         local target = nil

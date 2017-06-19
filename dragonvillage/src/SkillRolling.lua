@@ -197,7 +197,7 @@ function SkillRolling.st_move_attack(owner, dt)
             local target = owner.m_targetCollision:getTarget()
             local body_key = owner.m_targetCollision:getBodyKey()
 
-            local target_pos = cc.p(target.x, target.y)
+            local target_pos = cc.p(target.pos.x, target.pos.y)
             local body = owner.m_targetCollision:getBody(body_key)
 
             target_pos.x = target_pos.x + body.x
