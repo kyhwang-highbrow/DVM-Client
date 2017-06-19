@@ -1327,6 +1327,14 @@ void AzVRP::onEnter()
 {
 	Node::onEnter();
 
+	/* 
+		17.6.19 @mskim
+		A2D 사용시 Schedular에서 markedForDeletion이 이미 false인 객체가 다시 schedule 등록될때 에러 발생하는 증상이 다량 발생
+		A2D자체를 땠다가 다시 붙이는 과정에서 발생하는 것으로 추정됨.
+		이를 방지하기 위해 임시로 unscheduleUpdate을 호출하도록함
+	*/
+	_scheduler->unscheduleUpdate(this);
+
 	scheduleUpdate();
 }
 void AzVRP::onExit()
