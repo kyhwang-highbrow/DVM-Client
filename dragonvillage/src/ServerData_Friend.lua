@@ -22,11 +22,14 @@ ServerData_Friend = class({
          
         m_mSentFpUserList = 'map', -- 오늘 우정포인트를 보낸 유저 리스트
         
-        -- 선택된 친구 드래곤 
+        -- 선택된 친구 드래곤 데이터
         m_selectedSharedFriendDragon = '',
 
         -- 선택된 공유 친구 데이터
         m_selectedShareFriendData = '',
+
+        -- 친구 드래곤 해제 유무 (연속 전투 시 종료)
+        m_bReleaseDragon = '', 
     })
 
 -------------------------------------
@@ -300,11 +303,13 @@ function ServerData_Friend:getParticipationFriendDragon()
     local t_friend_info = self.m_selectedShareFriendData
     
     if (not t_friend_info) then
+        self.m_bReleaseDragon = false
         return nil
     end
 
     self.m_selectedShareFriendData = nil
     self.m_selectedSharedFriendDragon = nil
+    self.m_bReleaseDragon = true
 
     return StructDragonObject(t_friend_info['leader']), t_friend_info['runes']
 end
@@ -881,6 +886,19 @@ function ServerData_Friend:checkSetSlotCondition(doid)
         return false
     end
 
+    return true
+end
+
+-------------------------------------
+-- function checkAutoPlayCondition
+-- @brief 연속 전투 조건 검사 (친구 드래곤이 해제되었다면 연속 전투 불가)
+-------------------------------------
+function ServerData_Friend:checkAutoPlayCondition()
+    if (self.m_bReleaseDragon) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('친구 드래곤이 해제되어 연속전투를 멈춥니다.'))
+        return false
+    end
+    
     return true
 end
 

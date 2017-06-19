@@ -43,6 +43,7 @@ function UI_FriendPopup:initParentVariable()
     self.m_uiName = 'UI_FriendPopup'
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('친구')
+    self.m_subCurrency = 'fp'
 end
 
 -------------------------------------
@@ -64,6 +65,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_FriendPopup:refresh()
+    g_topUserInfo:refreshData()
 end
 
 -------------------------------------
@@ -71,8 +73,9 @@ end
 -------------------------------------
 function UI_FriendPopup:click_exitBtn()
     self:close()
-    -- 하일라이트 정보 갱신
-    g_highlightData:request_highlightInfo()
+
+    -- 노티 정보를 갱신하기 위해서 호출
+    g_highlightData:setLastUpdateTime()
 end
 
 -------------------------------------

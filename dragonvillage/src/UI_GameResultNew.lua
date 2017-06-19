@@ -690,6 +690,10 @@ function UI_GameResultNew:checkAutoPlay()
         return
     end
 
+    if (not g_friendData:checkAutoPlayCondition()) then 
+        return 
+    end
+        
     local auto_play_stop = false
 
     local msg = nil

@@ -324,6 +324,9 @@ function GameWorld:joinFriendHero(posIdx)
     -- 스테이지 버프 적용
     self.m_friendDragon.m_statusCalc:applyStageBonus(self.m_stageID)
     self.m_friendDragon:setStatusCalc(self.m_friendDragon.m_statusCalc)
+
+    -- 친구 드래곤 전투 통계 추가
+    self.m_myDragons[posIdx] = self.m_friendDragon
 end
 
 -------------------------------------

@@ -28,8 +28,8 @@ end
 -------------------------------------
 function BattleStatisticsHelper:sortByValue(l_item, log_key)
 	table.sort(l_item, function(a, b)
-		local a_value = a.m_charLogRecorder:getLog(log_key)
-		local b_value = b.m_charLogRecorder:getLog(log_key)
+		local a_value = a and a.m_charLogRecorder:getLog(log_key) or 0
+		local b_value = b and b.m_charLogRecorder:getLog(log_key) or 0
 		if (a_value == 0) and (b_value == 0) then
 			local a_atk = a:getStat('atk')
 			local b_atk = b:getStat('atk')
