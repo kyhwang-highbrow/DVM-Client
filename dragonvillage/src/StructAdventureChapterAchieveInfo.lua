@@ -59,9 +59,16 @@ end
 function StructAdventureChapterAchieveInfo:isExist(star)
     if (self.m_receivedList[star] ~= nil) then
         return true
-    else
-        return false
     end
+
+    local t_chap_achieve_data = g_adventureData:getChapterAchieveData(self.chapter_id)
+
+    local reward_str = t_chap_achieve_data['reward_' .. star]
+    if reward_str and (reward_str ~= '') then
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------
