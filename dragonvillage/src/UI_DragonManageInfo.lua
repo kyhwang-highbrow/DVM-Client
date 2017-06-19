@@ -370,15 +370,10 @@ function UI_DragonManageInfo:click_evolutionBtn()
     local doid = self.m_selectDragonOID
 	local did = self.m_selectDragonData['did']
 	
-	-- 자코 검증
-	if (TableDragon:isUnderling(did)) then
-		UIManager:toastNotificationGreen(Str('자코는 진화할 수 없습니다.'))
-		return
-	end
-
-    do -- 최대 진화도인지 확인
-        if g_dragonsData:isMaxEvolution(doid) then
-            UIManager:toastNotificationGreen(Str('최대 진화단계의 드래곤입니다.'))
+	do -- 진화 가능 여부
+        local possible, msg = g_dragonsData:checkDragonEvolution(doid)
+        if (not possible) then
+            UIManager:toastNotificationRed(msg)
             return
         end
     end

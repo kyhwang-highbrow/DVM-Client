@@ -390,6 +390,38 @@ function UI_DragonManagementEvolution:refresh_evolutionButton(t_dragon_data, t_d
 end
 
 -------------------------------------
+-- function createDragonCardCB
+-- @brief 드래곤 생성 콜백
+-- @override
+-------------------------------------
+function UI_DragonManagementEvolution:createDragonCardCB(ui, data)
+    local doid = data['id']
+
+    local possible, msg = g_dragonsData:checkDragonEvolution(doid)
+    if (not possible) then
+        if ui then
+            ui:setShadowSpriteVisible(true)
+        end
+    end
+end
+
+-------------------------------------
+-- function checkDragonSelect
+-- @brief 선택이 가능한 드래곤인지 여부
+-- @override
+-------------------------------------
+function UI_DragonManagementEvolution:checkDragonSelect(doid)
+	local possible, msg = g_dragonsData:checkDragonEvolution(doid)
+
+    if possible then
+        return true
+    else
+        UIManager:toastNotificationRed(msg)
+        return false
+    end
+end
+
+-------------------------------------
 -- function click_evolutionBtn
 -------------------------------------
 function UI_DragonManagementEvolution:click_evolutionBtn()
@@ -464,23 +496,6 @@ function UI_DragonManagementEvolution:click_evolutionStone(i)
     --UI_AcquisitionRegionInformation(item_id)
 
     UI_ItemInfoPopup(item_id)
-end
-
--------------------------------------
--- function getDragonList
--- @breif 하단 리스트뷰에 노출될 드래곤 리스트
--------------------------------------
-function UI_DragonManagementEvolution:getDragonList()
-    local l_item_list = g_dragonsData:getDragonsList()
-
-    for i,v in pairs(l_item_list) do
-        local doid = i
-        if g_dragonsData:isMaxEvolution(doid) then
-            l_item_list[doid] = nil
-        end
-    end
-
-    return l_item_list
 end
 
 --@CHECK

@@ -450,17 +450,39 @@ function ServerData_Dragons:checkEclvUpgradeable(doid)
         return false
     end
 
-	local did = t_dragon_data['did']
-	if (TableDragon:isUnderling(did)) then
-		return false, Str('자코는 진화할 수 없습니다.') 
-	end
-
     local eclv = t_dragon_data['eclv']
     if (eclv < MAX_DRAGON_ECLV) then
         return true
     else
         return false, Str('최고 단계 초월의 드래곤입니다.')
     end
+end
+
+-------------------------------------
+-- function checkDragonEvolution
+-- @brief 진화 가능 여부
+-------------------------------------
+function ServerData_Dragons:checkDragonEvolution(doid)
+    local t_dragon_data = self:getDragonObject(doid)
+
+    if (not t_dragon_data) then
+        return false
+    end
+
+	local did = t_dragon_data['did']
+	if (TableDragon:isUnderling(did)) then
+		return false, Str('자코는 진화할 수 없습니다.') 
+	end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('슬라임은 진화 할 수 없습니다.')
+    end
+
+	if (self:isMaxEvolution(doid)) then
+		return false, Str('더이상 진화할 수 없습니다.')
+	end
+
+    return true
 end
 
 -------------------------------------
