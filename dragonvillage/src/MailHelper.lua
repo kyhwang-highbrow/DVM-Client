@@ -28,11 +28,17 @@ end
 
 -------------------------------------
 -- function getFpointMailText
--- @brief 임시 우정포인트 메세지 - 서버 작업 필요함 위와 같은 형태로
+-- @brief msg_content 없는 경우
 -------------------------------------
-function MailHelper:getFpointMailText(t_data)
-    local title = Str('우정의 징표 {1}개', t_data['items_list'][1]['count'])
-	local context = Str('{1}님이 우정의 징표를 보냄', t_data['nick'])
+function MailHelper:getMailTextWithNoneMsgContent(t_data)
+    local tag = t_data['tag']
+    local title = ''
+    local context = ''
+
+    if tag == 'fp' then
+        title = Str('우정의 징표 {1}개', t_data['items_list'][1]['count'])
+	    context = Str('{1}님이 우정의 징표를 보냄', t_data['nick'])
+    end
 
     return {title = title, context = context}
 end

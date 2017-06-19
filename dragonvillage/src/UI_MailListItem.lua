@@ -79,17 +79,26 @@ end
 -- function makePrettyData
 -------------------------------------
 function UI_MailListItem:makePrettyData(t_mail_data)
-    local is_friend = t_mail_data['tag'] == 'fp' and true or false
-	local t_mail_context = t_mail_data['msg_content']['data']
-	local event_type = t_mail_data['msg_content']['event']
+    -- 메일 제목
+    local mail_title
 
-	local t_mail_text
+    -- 메일 본문
+    local mail_context
 
-    -- 친구탭 임시
-    if is_friend then
-        t_mail_text = MailHelper:getFpointMailText(t_mail_data)
-    else
+    -- mail helper 에서 받아오는 txt data
+    local mail_text
+
+    local is_msg_content = t_mail_data['msg_content'] and true or false
+
+    -- msg_content data 쓰는곳 있음
+    if is_msg_content then
+        local t_mail_context = t_mail_data['msg_content']['data']
+	    local event_type = t_mail_data['msg_content']['event']
+
         t_mail_text = MailHelper:getMailText(event_type, t_mail_context)
+    else
+        
+        t_mail_text = MailHelper:getMailTextWithNoneMsgContent(t_mail_data)
     end
     
 	-- 메일 제목
