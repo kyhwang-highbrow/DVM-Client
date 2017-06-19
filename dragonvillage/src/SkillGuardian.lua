@@ -124,26 +124,28 @@ end
 function SkillGuardian:makeEffectLink()
 	local res = self.m_res
 
-    -- 방어 이펙트 -- 백판에 박기 위해 goundNode에 붙임
-    self.m_shieldEffect = MakeAnimator(res)
-    self.m_shieldEffect:changeAni('shield_appear', false)
-    self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('shield_idle', true) end)
-    self.m_world.m_groundNode:addChild(self.m_shieldEffect.m_node)
-
-    -- 연결 이펙트
+    -- 연결 이펙트 -- 드래곤들 뒤쪽에 위치하기 위해 world의 groundNode에 붙임
     self.m_barEffect = EffectLink(res, 'bar_appear', '', '', 512, 256)
     self.m_barEffect.m_startPointNode:setVisible(false)
     self.m_barEffect.m_endPointNode:setVisible(false)
     self.m_barEffect.m_effectNode:addAniHandler(function() self.m_barEffect.m_effectNode:changeAni('bar_idle', true) end)
     self.m_world.m_groundNode:addChild(self.m_barEffect.m_node)
 
-    -- 베리어 이펙트
+	-- 나머지는 드래곤 위에 있으면 되므로 스킬 자체에 addchild
+
+    -- 방어 이펙트
+    self.m_shieldEffect = MakeAnimator(res)
+    self.m_shieldEffect:changeAni('shield_appear', false)
+    self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('shield_idle', true) end)
+    self.m_rootNode:addChild(self.m_shieldEffect.m_node, -1)
+
+    -- 베리어 이펙트 (나자신에게)
     self.m_barrierEffect1 = MakeAnimator(res)
     self.m_barrierEffect1:changeAni('barrier_appear', false)
     self.m_barrierEffect1:addAniHandler(function() self.m_barrierEffect1:changeAni('barrier_idle', true) end)
     self.m_rootNode:addChild(self.m_barrierEffect1.m_node)
 
-    -- 베리어 이펙트
+    -- 베리어 이펙트 (대상에게)
     self.m_barrierEffect2 = MakeAnimator(res)
     self.m_barrierEffect2:changeAni('barrier_appear', false)
     self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
@@ -166,10 +168,14 @@ function SkillGuardian:onHit()
 		self.m_barEffect.m_effectNode:addAniHandler(function() self.m_barEffect.m_effectNode:changeAni('bar_idle', true) end)
 	end
 
-    -- 베리어 이팩트
-	if (self.m_barrierEffect1) and (self.m_barrierEffect2) then
+    -- 베리어 이팩트 1
+	if (self.m_barrierEffect1) then
 		self.m_barrierEffect1:changeAni('barrier_hit', false)
 		self.m_barrierEffect1:addAniHandler(function() self.m_barrierEffect1:changeAni('barrier_idle', true) end)
+	end
+	
+	-- 베리어 이팩트 2
+	if (self.m_barrierEffect2) then
 		self.m_barrierEffect2:changeAni('barrier_hit', false)
 		self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
 	end
@@ -240,10 +246,15 @@ end
 function SkillGuardian:updateBuffPos()
     local x = self.m_targetChar.pos.x - self.pos.x
     local y = self.m_targetChar.pos.y - self.pos.y
-    self.m_barrierEffect2:setPosition(x, y)
-    self.m_shieldEffect:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
+    
+	-- 배리어 이펙트1과 실드 위치 조정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
-    EffectLink_refresh(self.m_barEffect, self.pos.x, self.pos.y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
+
+	-- 배리어 이펙트2 대상의 위치로 조정
+	self.m_barrierEffect2:setPosition(x, y)
+    
+	-- 연결 이펙트 나와 대상의 월드 좌표로 계산하여 조정
+	EffectLink_refresh(self.m_barEffect, self.pos.x, self.pos.y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
 
     self.m_bDirtyPos = false
 end
