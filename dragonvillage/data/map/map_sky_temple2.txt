@@ -8,13 +8,24 @@
             "speed":0.2
             "list":
             [
-                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_1_a" "width":1920}
-				{"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_1_b" "width":1920}
+                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_1_a" "width":3840}
+	
 									
             ]
         }
 		
-        
+         {
+            "name":"배경"
+            "speed":0.3
+            "list":
+            [
+                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_2_a" "width":2200}
+	
+									
+            ]
+        }
+		
+		
         {
             "name":"구름"
             "speed":0.4
@@ -31,7 +42,7 @@
             "speed":0.5
             "list":
             [
-			    {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_3_a" "width":2100}
+			    {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_3_a" "width":1280}
 
             ]
         }
@@ -52,7 +63,7 @@
             "speed":0.7
             "list":
             [
-                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_4_a" "width":2500}
+                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_4_a" "width":1920}
 					
 
 		    ]
@@ -65,7 +76,7 @@
             "speed":0.8
             "list":
             [
-                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_4_cloud_a" "width":980}
+               
 				{"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_4_cloud_b" "width":1280}
 				{"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_4_cloud_c" "width":1580}
 				{"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_4_cloud_d" "width":1900}
@@ -79,21 +90,13 @@
             "list":
             [
                {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_5_a" "width":3840}
-			   {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_5_c" "width":880}
+			   {"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_5_c" "width":3840}
+			   
 			                   
             ]
         }
 		
-		{
-            "name":"구름"
-            "speed":0.94
-            "list":
-            [
 		
-               	{"res":"res/bg/sky_temple2/sky_temple2.vrp" "animation":"layer_5_cloud_b" "width":1280}
-												
-            ]
-        }
 		
 		
     ]
