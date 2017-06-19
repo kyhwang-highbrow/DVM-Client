@@ -18,6 +18,20 @@ yuria_acc_02
   orig: 83, 85
   offset: 0, 0
   index: -1
+yuria_acc_03
+  rotate: false
+  xy: 1208, 1745
+  size: 83, 85
+  orig: 83, 85
+  offset: 0, 0
+  index: -1
+yuria_acc_04
+  rotate: false
+  xy: 1383, 1931
+  size: 83, 85
+  orig: 83, 85
+  offset: 0, 0
+  index: -1
 yuria_arm_01
   rotate: false
   xy: 644, 1577
@@ -69,14 +83,14 @@ yuria_effect_01
   index: -1
 yuria_effect_02
   rotate: false
-  xy: 1208, 1747
+  xy: 512, 896
   size: 80, 83
   orig: 80, 83
   offset: 0, 0
   index: -1
 yuria_effect_03
   rotate: false
-  xy: 1383, 1933
+  xy: 247, 105
   size: 80, 83
   orig: 80, 83
   offset: 0, 0
