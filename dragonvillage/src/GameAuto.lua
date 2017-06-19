@@ -218,6 +218,12 @@ end
 -- @brief 스킬 사용
 -------------------------------------
 function GameAuto:doSkill(dragon, t_skill, target)
+    if (not target) then
+        target = self:findTarget(dragon, t_skill)
+    end
+
+    if (not target) then return end
+
     -- 인디게이터에 스킬 사용 정보 설정
     dragon.m_skillIndicator:setIndicatorDataByChar(target)
                     

@@ -126,13 +126,18 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     end 
 
     if (select_hero and select_hero.m_skillIndicator) then
-        -- 드래곤 클릭
-        self.m_firstTouchPos = node_pos
-        self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
+        if (select_hero:isPossibleSkill()) then
+            -- 드래곤 클릭
+            self.m_firstTouchPos = node_pos
+            self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
         
-        self.m_touchedHero = select_hero
+            self.m_touchedHero = select_hero
+            self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+        end
 
-        self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+        -- 튤팁 표시
+        self:makeSkillToolTip(select_hero)
+        self:updateToolTipUI(0, 0, node_pos['x'], node_pos['y'])
 
         event:stopPropagation()
 
@@ -214,9 +219,17 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
         ---------------------------------------------------
         -- 터치 스킬 발동
         ---------------------------------------------------
+        if (self.m_touchedHero:isPossibleSkill()) then
+            local active_skill_id = self.m_touchedHero:getSkillID('active')
+            local t_skill = TableDragonSkill():get(active_skill_id)
+            
+            self.m_world.m_gameAutoHero:doSkill(self.m_touchedHero, t_skill)
+        end
+
+        self.m_touchedHero = nil
     end
 
-    self.m_touchedHero = nil
+    self:closeSkillToolTip()
 end
 
 -------------------------------------
@@ -322,7 +335,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:updateToolTipUI(hero_pos_x, hero_pos_y, touch_pos_x, touch_pos_y)
 	if (not self.m_uiToolTip) then return end
-	
+    	
 	local x = 0 
 	local y = 0
 	

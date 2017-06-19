@@ -548,6 +548,10 @@ function Dragon:isPossibleSkill()
 		return false
 	end
 
+    if (not self.m_skillIndicator) then
+        return
+    end
+
     -- 쿨타임 체크
 	if (not self:isEndActiveSkillCool()) then
 		return false
