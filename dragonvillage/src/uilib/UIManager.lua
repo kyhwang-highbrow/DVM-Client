@@ -14,13 +14,15 @@ UIManager = {
     TOOLTIP = 3,
     LOADING = 4,
 
-    m_uiLayer = 'CCNode',
+    m_uiLayer = 'cc.Node',
     m_uiList = {},
-    m_scene = 'CCScene',
+    m_scene = 'cc.Scene',
 
     m_toastNotiList = 'table',
     m_toastNotiTime = 'number',
     m_toastNotiLayer = 'cc.Node',
+
+	m_tutorialNode = nil,
 
     m_topUserInfo = nil,
 
@@ -92,6 +94,8 @@ function UIManager:cleanUp()
     self.m_uiList = {}
 
 	self:removeDebugUI()
+
+	self:releaseTutorial()
 end
 
 -------------------------------------
@@ -180,8 +184,6 @@ end
 -- function makeTouchBlock
 -------------------------------------
 function UIManager:makeTouchBlock(ui, bNotBlendBGLayer)
-    local visibleSize = cc.Director:getInstance():getVisibleSize()
-
     -- 하위 UI가 클릭되지 않도록 레이어 생성
     do
         local layer = cc.Layer:create()
@@ -196,28 +198,13 @@ function UIManager:makeTouchBlock(ui, bNotBlendBGLayer)
                 return false
             end
         end
-        local listener = cc.EventListenerTouchOneByOne:create()
-        listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_BEGAN)
-        listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_MOVED)
-        listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_ENDED)
-        listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_CANCELLED)
 
-        local eventDispatcher = layer:getEventDispatcher()
-        eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
+		self:setLayerToEventListener(layer, onTouch)
     end
 
     -- 배경을 어둡게
     if (not ui.vars['bgLayerColor']) then
-        local layerColor = cc.LayerColor:create( cc.c4b(0,0,0,150) )
-        --[[
-        layerColor:setDockPoint(cc.p(0, 0))
-        layerColor:setAnchorPoint(0, 0)
-        layerColor:setRelativeSizeAndType(cc.size(0, 0), 3, false)
-        --]]
-
-        layerColor:setDockPoint(cc.p(0.5, 0.5))
-        layerColor:setAnchorPoint(cc.p(0.5, 0.5))
-        layerColor:setRelativeSizeAndType(cc.size(1280, 960), 1, false)
+        local layerColor = self:makeMaskingLayer()
 
         ui.root:addChild(layerColor, -100)
         ui.vars['bgLayerColor'] = layerColor
@@ -231,6 +218,104 @@ function UIManager:makeTouchBlock(ui, bNotBlendBGLayer)
     if bNotBlendBGLayer then
         ui.vars['bgLayerColor']:setVisible(false)
     end
+end
+
+-------------------------------------
+-- function 가제
+-------------------------------------
+function UIManager:tutorial()
+    -- 하위 UI가 클릭되지 않도록 레이어 생성
+	local layer = cc.Layer:create()
+	local function onTouch(touch, event)
+		if layer:isVisible() then
+			event:stopPropagation()
+			return true
+		else
+			return false
+		end
+	end
+	self:setLayerToEventListener(layer, onTouch)
+
+    -- 배경을 어둡게
+	local layer_color = self:makeMaskingLayer()
+	layer_color:setDockPoint(cc.p(0, 0))
+    layer_color:setAnchorPoint(cc.p(0, 0))
+
+
+	local visible_size = cc.Director:getInstance():getVisibleSize()
+	
+	self.m_tutorialNode = cc.Menu:create()
+	self.m_tutorialNode:setNormalSize(visible_size['width'], visible_size['height'])
+	self.m_tutorialNode:addChild(layer, -1)
+	self.m_tutorialNode:addChild(layer_color, -1)
+
+	self.m_uiLayer:addChild(self.m_tutorialNode, 128)
+
+	return self.m_tutorialNode
+end
+
+-------------------------------------
+-- function 가제
+-------------------------------------
+function UIManager:releaseTutorial()
+	if (self.m_tutorialNode) then 
+		self.m_tutorialNode:removeFromParent(true)
+		self.m_tutorialNode = nil
+	end
+end
+
+-------------------------------------
+-- function 가제
+-------------------------------------
+function UIManager:getTutorialNode()
+	return self.m_tutorialNode
+end
+
+-------------------------------------
+-- function 가제
+-------------------------------------
+function UIManager:attachToTutorialNode(button)
+	local node = button.m_node
+
+	local transform = node:getNodeToWorldTransform();
+	local world_x = transform[12 + 1]
+	local world_y = transform[13 + 1]
+	local node_space = convertToNodeSpace(self.m_tutorialNode, cc.p(world_x, world_y))
+
+	node:retain()
+	node:removeFromParent()
+	self.m_tutorialNode:addChild(node, 2)
+	node:release()
+	--node:setPosition(node_space['x'], node_space['y'])
+end
+
+
+-------------------------------------
+-- function setLayerToEventListener
+-- @brief 해당 레이어에 event_listener 등록
+-------------------------------------
+function UIManager:setLayerToEventListener(layer, touch_func)
+    local listener = cc.EventListenerTouchOneByOne:create()
+	listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_BEGAN)
+    listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_MOVED)
+    listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_ENDED)
+    listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_CANCELLED)
+
+    local eventDispatcher = layer:getEventDispatcher()
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
+end
+
+-------------------------------------
+-- function makeMaskingLayer
+-- @brief 연한 검정색 layer_color 생성
+-------------------------------------
+function UIManager:makeMaskingLayer()
+    local layer_color = cc.LayerColor:create( cc.c4b(0,0,0,150) )
+    layer_color:setDockPoint(CENTER_POINT)
+    layer_color:setAnchorPoint(CENTER_POINT)
+    layer_color:setRelativeSizeAndType(cc.size(1280, 960), 1, false)
+
+	return layer_color
 end
 
 -------------------------------------
@@ -433,6 +518,17 @@ function UIManager:onKeyReleased(keyCode, event)
 		local last_ui = table.getLast(self.m_uiList)
 		local ui_name = last_ui.m_resName or 'ui 파일이 없습니다'
 		self:toastNotificationGreen('## UI FILE : ' .. ui_name)
+
+	-- 등록된 UI 리스트 출력
+	elseif (keyCode == KEY_A) then
+		cclog('----------------opened ui list----------------------')
+		for i, v in pairs(self.m_uiList) do
+			cclog(v.m_resName, v.m_uiName)
+		end
+
+	-- 
+	elseif (keyCode == KEY_Q) then
+		self:releaseTutorial()
 
 	-- debug 영역 활성화/비활성화
 	elseif (keyCode == KEY_G) then
