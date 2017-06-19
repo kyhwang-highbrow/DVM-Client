@@ -2454,6 +2454,9 @@
     <None Include="..\src\SkillAoERound_Throw.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\TableDragonCombine.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

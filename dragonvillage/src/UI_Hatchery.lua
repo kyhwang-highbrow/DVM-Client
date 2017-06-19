@@ -52,9 +52,6 @@ end
 -------------------------------------
 function UI_Hatchery:initButton()
     local vars = self.vars
-    vars['combineBtn']:registerScriptTapHandler(function()
-            UIManager:toastNotificationRed(Str('"조합"은 준비 중입니다.'))
-        end)
 end
 
 -------------------------------------
@@ -80,16 +77,16 @@ function UI_Hatchery:initTab()
 
     local summon_tab = UI_HatcherySummonTab(self)
     local incubate_tab = UI_HatcheryIncubateTab(self)
-    --local combine_tab = UI_HatcheryCombineTab(self)
+    local combine_tab = UI_HatcheryCombineTab(self)
     local relation_tab = UI_HatcheryRelationTab(self)
     vars['indivisualTabMenu']:addChild(summon_tab.root)
     vars['indivisualTabMenu']:addChild(incubate_tab.root)
-    --vars['indivisualTabMenu']:addChild(combine_tab.root)
+    vars['indivisualTabMenu']:addChild(combine_tab.root)
     vars['indivisualTabMenu']:addChild(relation_tab.root)
 
     self:addTabWidthTabUI('summon', vars['summonBtn'], summon_tab)       -- 소환
     self:addTabWidthTabUI('incubate', vars['incubateBtn'], incubate_tab) -- 부화
-    --self:addTabWidthTabUI('combine', vars['combineBtn'], combine_tab)    -- 조합
+    self:addTabWidthTabUI('combine', vars['combineBtn'], combine_tab)    -- 조합
     self:addTabWidthTabUI('relation', vars['relationBtn'], relation_tab) -- 인연
 
     self:setTab('summon')

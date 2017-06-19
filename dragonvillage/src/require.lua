@@ -238,6 +238,7 @@ local t_module = {
 	'TableLoadingGuide',
     'TableExchange',
     'TableDragonCollection',
+    'TableDragonCombine',
 
     -- Scene
     'SceneCommon',
