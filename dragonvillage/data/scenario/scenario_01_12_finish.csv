@@ -1,6 +1,6 @@
-﻿page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_name,char_pos,char_effect,char_ani,t_text,t_text_mono
+page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_name,char_pos,char_effect,char_ani,t_text,t_text_mono
 1,title;4.불과 얼음 B,skip_disable,,3,스테이지1,,,,,,,,,,
-2,,,,,,,,,퀸즈 스네이크,퀸즈 스네이크,right,,,호호호! 바이델의 사제가 이 정도 수준밖에 안 되다니!,
+2,,,,,,bgm_dungeon_special,,,퀸즈 스네이크,퀸즈 스네이크,right,,,호호호! 바이델의 사제가 이 정도 수준밖에 안 되다니!,
 3,,,,,,,,,데데,데데,left,,,"뭐, 뭐라고?! 지금 당장 그 입을 다물게 해주겠어!",
 4,,,,,,,,,누리,누리,left,,,"데데, 멈춰! 함정이야! 가서는 안 돼!",
 5,,,,,,,,,퀸즈 스네이크,퀸즈 스네이크,right,,,멍청하긴! 죽어라! 어리석은 테이머!!,
@@ -24,10 +24,10 @@
 23,shaking,flash,skip_disable,0.3,,,,,,,,,,,
 24,shaking,flash,skip_disable,0.3,,,,,,,,,,,
 25,shaking,flash,skip_disable,1,,,,,퀸즈 스네이크,퀸즈 스네이크,right,,,캬아아아악!!,
-26,,,,0,,,,,퀸즈 스네이크,퀸즈 스네이크,right,clear_text,,,
+26,,,,0,,,off,,퀸즈 스네이크,퀸즈 스네이크,right,clear_text,,,
 27,,,,0,,,,,퀸즈 스네이크,퀸즈 스네이크,right,clear_char,,,
 28,black;0.5,skip_disable,,2,,,,,,,,,,,
-29,fadein,,,,로비,,,,데데,데데,left,,,정말 멋진 작전이었어요! 저도 깜빡 속아 넘어갔었다고요!,
+29,fadein,,,,로비,bgm_everyday,,,데데,데데,left,,,정말 멋진 작전이었어요! 저도 깜빡 속아 넘어갔었다고요!,
 30,,,,,,,,,고니,고니,left,,,난 별로 한 것이 없어. 다 케사스가 생각한 작전이니까.,
 31,,,,,,,,,케사스,케사스,right,,,"그 말에 반박은 하지 않지만, 고니가 돕지 않았다면 성공하지 못했을 거야.",
 32,,,,,,,,,누리,누리,left,,,흐음~ 언제나 그렇듯이 위기는 새로운 가능성을 발견하게 하지.,

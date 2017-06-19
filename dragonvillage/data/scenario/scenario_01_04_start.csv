@@ -1,6 +1,6 @@
 page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_name,char_pos,char_effect,char_ani,t_text,t_text_mono
 1,title;2.위대한 존재 A,skip_disable,,3,로비,,,,,,,,,,
-2,,,,,,,,,누리,??,right,,,...이 마을 생각보다 \\n규모가 있는 걸?,
+2,,,,,,bgm_everyday,,,누리,??,right,,,...이 마을 생각보다 \\n규모가 있는 걸?,
 3,,,,,,,,,누리,??,right,,,,아니… 마을이라기보다는\\n요새 도시에 가깝다고\\n해야 하나?
 4,skip_disable,,,1,,,,,,,,,,,
 5,,,,0,,,,,,,right,clear_char,,,

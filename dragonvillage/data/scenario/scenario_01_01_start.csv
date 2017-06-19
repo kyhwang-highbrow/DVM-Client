@@ -1,9 +1,9 @@
 page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_name,char_pos,char_effect,char_ani,t_text,t_text_mono
-1,title;1.빛의 기둥 A,skip_disable,,3,스테이지1,,,,,,,,,,
+1,title;1.빛의 기둥 A,skip_disable,,3,스테이지1,bgm_everyday,,,,,,,,,
 2,,,,,,,,,고니,고니,left,,,좋아! 이 임무만 무사히 완수하면 \\n오늘 일은 끝이야.,
 3,,,,,,,,,고니,고니,left,,,"...잠, 잠깐만. \\n저건 몬스터?!",
 4,,,,,,,,,고니,고니,left,,,저 방향에는 분명히 \\n민간인 마을이 있을 텐데….,
-5,,,,,,,,,고니,고니,left,,,…어째서 몬스터가 \\n인근 마을까지 나타난 거지?,
+5,,,,,,,off,,고니,고니,left,,,…어째서 몬스터가 \\n인근 마을까지 나타난 거지?,
 6,skip_disable,,,0,,,,,고니,고니,left,clear_text ,,,
 7,skip_disable,,,0,,,,,고니,고니,left,clear_char,,,
 8,black;0,skip_disable,,0.5,,,,,,,,,,,
@@ -13,7 +13,7 @@ page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_na
 12,,,,,,,,,부엉이,부엉이,right,,,크르르르...!,
 13,,,,0,,,,,부엉이,부엉이,right,clear_text ,,,
 14,,,,,,,,,고니,고니,left,,,,...몬스터 무리가 \\n제법 많아 보이는데?!
-15,,,,,,,,,고니,고니,left,,,...아니! 지금은 사소한 \\n고민을 할 시간이 없어. ,
+15,,,,,,bgm_dungeon_boss,,,고니,고니,left,,,...아니! 지금은 사소한 \\n고민을 할 시간이 없어. ,
 16,shaking,,,,,,,,고니,고니,left,,,이대로 네놈들이 마을을 \\n습격하게 놔두지 않겠어!,
 17,,,,,,,,,부엉이,부엉이,right,,,크르르르!!,
 18,,,,,,,,,고니,고니,left,,,덤비라고! \\n장차 최고의 테이머가 될\\n이 고니 님이 상대해주지!,
