@@ -746,11 +746,10 @@ end
 -- @param enemy
 -------------------------------------
 function GameWorld:addEnemy(enemy)
-    
     table.insert(self.m_tEnemyList, enemy)
-    --cclog('GameWorld:addEnemy(enemy) cnt : ' .. #self.m_tEnemyList)
-
+    
     -- 죽음 콜백 등록
+    enemy:addListener('dead', self.m_gameDragonSkill)
     if self.m_dropItemMgr then
         enemy:addListener('character_dead', self.m_dropItemMgr)
     end
@@ -822,6 +821,7 @@ end
 function GameWorld:addHero(hero, idx)
     self.m_mHeroList[idx] = hero
 
+    hero:addListener('dead', self.m_gameDragonSkill)
     hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
     hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)

@@ -234,8 +234,6 @@ end
 -- @brief
 -------------------------------------
 function UI_IngameDragonPanelItem:onTouchBegan(t_event)
-    --if (not self.m_dragon:isPossibleSkill()) then return end
-
     local vars = self.vars
 
     local location = t_event['location']

@@ -19,6 +19,9 @@ GameDragonSkill = class(PARENT, {
                 
         -- 스킬을 사용할 드래곤 정보
         m_dragon = 'Dragon',
+
+        -- 연출 끝나고 죽어야할 유닛 리스트
+        m_lUnitListForDead = 'Table',
                         
         m_skillOpeningCutBg = 'Animator',
         m_skillOpeningCutTop = 'Animator',
@@ -46,6 +49,7 @@ function GameDragonSkill:init(world)
     self.m_state = STATE.WAIT
 
     self.m_dragon = nil
+    self.m_lUnitListForDead = {}
         
     self:initState()
     self:initUI()
@@ -566,12 +570,15 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
 
     elseif (event_name == 'dead') then
         local arg = {...}
-        local dragon = arg[1]
+        local unit = arg[1]
 
-        -- 연출 중일 경우 죽음 방지
-        if (self.m_dragon == dragon) then
+        if (self:isPlaying()) then
+            -- 연출 중일 경우 죽음 방지
             t_event['is_dead'] = false
 		    t_event['hp'] = 0
+            
+            -- 연출 후 죽여야할 유닛 리스트에 추가
+            table.insert(self.m_lUnitListForDead, unit)
         end
     end
 end
@@ -593,8 +600,6 @@ function GameDragonSkill:setFocusingDragon(dragon)
         self:releaseFocusingDragon()
     end
 
-    dragon:addListener('dead', self)
-
     self.m_dragon = dragon
 end
 
@@ -605,16 +610,19 @@ function GameDragonSkill:releaseFocusingDragon()
     if (self.m_dragon) then
         self.m_dragon:removeListener('dead', self)
 
-        if (self.m_dragon.m_hp == 0) then
-            -- 종료시 사망처리
-            self.m_dragon:setDead()
-            self.m_dragon:changeState('dying')
-        else
+        if (self.m_dragon.m_hp > 0) then
             self.m_dragon:changeState('attackDelay')
         end
     end
 
+    -- 종료시 사망처리
+    for i, unit in ipairs(self.m_lUnitListForDead) do
+        unit:setDead()
+        unit:changeState('dying')
+    end
+
     self.m_dragon = nil
+    self.m_lUnitListForDead = {}
 end
 
 -------------------------------------
