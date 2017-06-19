@@ -84,14 +84,17 @@ function Tamer:initFormation()
 end
 
 -------------------------------------
--- function initAnimator
+-- function initBarrier
 -------------------------------------
-function Tamer:initAnimator(file_name)
-    PARENT.initAnimator(self, file_name)
-
+function Tamer:initBarrier()
     -- 보호막
     self.m_barrier = MakeAnimator('res/effect/effect_tamer_shield/effect_tamer_shield.vrp')
     self.m_animator.m_node:addChild(self.m_barrier.m_node)
+	
+	self.m_barrier:changeAni('disappear')
+	self.m_barrier:addAniHandler(function()
+		self.m_barrier:changeAni('idle', true)
+	end)
 end
 
 -------------------------------------

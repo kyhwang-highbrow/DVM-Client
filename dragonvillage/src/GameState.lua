@@ -205,6 +205,9 @@ function GameState.update_start(self, dt)
                     self:changeState(GAME_STATE_ENEMY_APPEAR)
 					-- 등장 완료후 카메라 원복
 					self.m_world.m_gameCamera:reset()
+
+					self.m_world.m_tamer:initBarrier()
+
                 end
             end
             map_mgr:setSpeed(speed)
