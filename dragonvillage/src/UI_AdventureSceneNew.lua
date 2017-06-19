@@ -25,6 +25,7 @@ UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
         m_lStageButton = 'list[UI_AdventureStageButton]',
         m_adventureStageInfoPopup = 'UI_AdventureStageInfo',
         m_lFirstRewardButtons = '',
+        m_lAchieveRewardButtons = '',
      })
 
 -------------------------------------
@@ -41,6 +42,8 @@ end
 -- function init
 -------------------------------------
 function UI_AdventureSceneNew:init(stage_id)
+    self.m_lAchieveRewardButtons = {}
+
     local vars = self:load('adventure_scene.ui')
     UIManager:open(self, UIManager.NORMAL)
 
@@ -96,11 +99,6 @@ function UI_AdventureSceneNew:initButton()
             vars['devStageBtn']:setVisible(false)
         end
     end
-
-    -- 챕터 별 달성 보상
-    vars['starBoxBtn12']:registerScriptTapHandler(function() self:click_starBoxBtn(12) end)
-    vars['starBoxBtn24']:registerScriptTapHandler(function() self:click_starBoxBtn(24) end)
-    vars['starBoxBtn36']:registerScriptTapHandler(function() self:click_starBoxBtn(36) end)
 end
 
 -------------------------------------
@@ -394,30 +392,65 @@ function UI_AdventureSceneNew:refresh_MissionReward()
     local percentage = chapter_achieve_info:getAchievedStarsPercent()
     vars['starBoxGg']:setPercentage(percentage)
     
-    local l_star_sction = {12, 24, 36}
-    for i,star in ipairs(l_star_sction) do
-        local state = chapter_achieve_info:getRewardBoxState(star)
+    
+    local max = MAX_ADVENTURE_STAGE * 3 -- 스테이지 1개당 별 3개
+    for star=1, max do
+        if chapter_achieve_info:isExist(star) then
+            local button_ui = self:getAchieveRewardBtn(star)
+            button_ui.root:setVisible(true)
 
-        vars['checkSprite' .. star]:setVisible(false)
-        vars['closeSprite' .. star]:setVisible(false)
-        vars['openSprite' .. star]:setVisible(false)
-        vars['receiveVisual' .. star]:setVisible(false)
+            local state = chapter_achieve_info:getRewardBoxState(star)
 
-        -- 별 갯수를 달성하지 못한 경우
-        if (state == 'lock') then
-            vars['closeSprite' .. star]:setVisible(true)
+            button_ui.vars['checkSprite']:setVisible(false)
+            button_ui.vars['closeSprite']:setVisible(false)
+            button_ui.vars['openSprite']:setVisible(false)
+            button_ui.vars['receiveVisual']:setVisible(false)
 
-        -- 별 갯수를 달성하였지만 보상을 받지 않은 경우
-        elseif (state == 'open') then
-            vars['openSprite' .. star]:setVisible(true)
-            vars['receiveVisual' .. star]:setVisible(true)
+            -- 별 갯수를 달성하지 못한 경우
+            if (state == 'lock') then
+                button_ui.vars['closeSprite']:setVisible(true)
 
-        -- 보상까지 받은 경우
-        elseif (state == 'received') then
-            vars['openSprite' .. star]:setVisible(true)
-            vars['checkSprite' .. star]:setVisible(true)
+            -- 별 갯수를 달성하였지만 보상을 받지 않은 경우
+            elseif (state == 'open') then
+                button_ui.vars['openSprite']:setVisible(true)
+                button_ui.vars['receiveVisual']:setVisible(true)
+
+            -- 보상까지 받은 경우
+            elseif (state == 'received') then
+                button_ui.vars['openSprite']:setVisible(true)
+                button_ui.vars['checkSprite']:setVisible(true)
+            end
+
+        elseif self.m_lAchieveRewardButtons[star] then
+            self.m_lAchieveRewardButtons[star].root:setVisible(false)
         end
     end
+end
+
+-------------------------------------
+-- function getAchieveRewardBtn
+-------------------------------------
+function UI_AdventureSceneNew:getAchieveRewardBtn(star)
+    if (not self.m_lAchieveRewardButtons[star]) then
+        local ui = UI()
+        ui:load('adventure_chapter_achieve_button.ui')
+        ui.vars['starboxLabel']:setString(star)
+        ui.vars['starBoxBtn']:registerScriptTapHandler(function() self:click_starBoxBtn(star) end)
+        self.m_lAchieveRewardButtons[star] = ui
+
+        ui.root:setDockPoint(cc.p(0, 0.5))
+        ui.root:setAnchorPoint(cc.p(0.5, 0.5))
+        self.vars['achieveBtnMenu']:addChild(ui.root)
+
+        local width, height = self.vars['achieveBtnMenu']:getNormalSize()
+        local max = MAX_ADVENTURE_STAGE * 3 -- 스테이지 1개당 별 3개
+        local pos_x = (star / max) * width
+        ui.root:setPositionX(pos_x)
+    end
+
+
+    local ui = self.m_lAchieveRewardButtons[star]
+    return ui
 end
 
 -------------------------------------

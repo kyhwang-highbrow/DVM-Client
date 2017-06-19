@@ -5,15 +5,15 @@
 StructAdventureChapterAchieveInfo = class({
         chapter_id = 'number',
         star = 'number',
-        received_12 = 'boolean',
-        received_24 = 'boolean',
-        received_36 = 'boolean',
+        m_receivedList = 'List[boolean]',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function StructAdventureChapterAchieveInfo:init(data)
+    self.m_receivedList = {}
+
     if data then
         self:applyTableData(data)
     end
@@ -22,9 +22,15 @@ end
 -------------------------------------
 -- function applyTableData
 -------------------------------------
-function StructAdventureChapterAchieveInfo:applyTableData(data)
+function StructAdventureChapterAchieveInfo:applyTableData(data)    
     for i,v in pairs(data) do
-        self[i] = v
+        if pl.stringx.startswith(i, 'received_') then
+            local idx_str = pl.stringx.replace(i, 'received_', '', 1)
+            local idx_num = tonumber(idx_str)
+            self.m_receivedList[idx_num] = v
+        else
+            self[i] = v
+        end
     end
 end
 
@@ -41,17 +47,28 @@ end
 -------------------------------------
 function StructAdventureChapterAchieveInfo:getAchievedStarsPercent()
     local stars = self:getAchievedStars()
-    local max = 36
+    local max = MAX_ADVENTURE_STAGE * 3 -- 스테이지 1개당 별 3개
 
     local percent = (stars / max) * 100
     return percent
 end
 
 -------------------------------------
+-- function isExist
+-------------------------------------
+function StructAdventureChapterAchieveInfo:isExist(star)
+    if (self.m_receivedList[star] ~= nil) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
 -- function isReceived
 -------------------------------------
 function StructAdventureChapterAchieveInfo:isReceived(star)
-    local is_received = (self['received_' .. star] or false)
+    local is_received = (self.m_receivedList[star] or false)
     return is_received
 end
 
