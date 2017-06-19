@@ -150,9 +150,6 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
     do 
         local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
         local l_skill_icon = skill_mgr:getDragonSkillIconList()
-        local function func_skill_detail_btn()
-			UI_SkillDetailPopup(t_dragon_data)
-		end
 
 		for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
             local skill_node = vars['skillNode' .. i]
@@ -162,8 +159,9 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 			if l_skill_icon[i] then
                 skill_node:addChild(l_skill_icon[i].root)
 				l_skill_icon[i]:setLeaderLabelToggle(i == 'Leader')
-
-                l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(func_skill_detail_btn)
+                l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
+					UI_SkillDetailPopup(t_dragon_data, i)
+				end)
                 l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 
 			-- 비어있는 스킬 아이콘 생성

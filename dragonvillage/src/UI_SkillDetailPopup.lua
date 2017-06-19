@@ -20,7 +20,7 @@ UI_SkillDetailPopup = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SkillDetailPopup:init(dragon_object)
+function UI_SkillDetailPopup:init(dragon_object, focus_idx)
     -- 플레이어의 드래곤이 아닐 경우 예외처리
     if (not self.m_bSimpleMode) then
         local uid = g_userData:get('uid')
@@ -44,6 +44,7 @@ function UI_SkillDetailPopup:init(dragon_object)
 	self.m_skillMgr = MakeDragonSkillFromDragonData(dragon_object)
 
     self:initUI()
+	self:makeSkillRadioBtn(focus_idx)
     self:initButton()
     --self:refresh()
 end
@@ -76,7 +77,6 @@ function UI_SkillDetailPopup:initUI()
 	end
 
 	-- 만든 스킬 아이콘들을 radio button으로 래핑한다.
-	self:makeSkillRadioBtn()
 end
 
 -------------------------------------
@@ -132,7 +132,7 @@ end
 -------------------------------------
 -- function makeSkillRadioBtn
 -------------------------------------
-function UI_SkillDetailPopup:makeSkillRadioBtn()
+function UI_SkillDetailPopup:makeSkillRadioBtn(focus_idx)
 	local vars = self.vars
 
 	-- radio button 선언
@@ -141,7 +141,7 @@ function UI_SkillDetailPopup:makeSkillRadioBtn()
 	self.m_skillRadioBtn = radio_button
 
 	-- 활성화 된 스킬만 라디오 버튼 붙임
-	local first_idx
+	local first_idx = focus_idx
 	for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
 		local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(i)
 		if (skill_indivisual_info) then
