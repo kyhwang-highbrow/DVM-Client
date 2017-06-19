@@ -274,24 +274,10 @@ function GameWorld:makeFriendHero()
         self.m_friendDragon:setActive(false)
 
         self.m_worldNode:addChild(self.m_friendDragon.m_rootNode, WORLD_Z_ORDER.HERO)
-    
-        -- 현재 덱에 빈자리가 있다면 즉시 추가
-        if (not self:isParticipantMaxCount()) then
-            local temp = {}
-
-            for i = 1, g_constant:get('INGAME', 'PARTICIPATE_DRAGON_CNT') do
-                table.insert(temp, i)
-            end
         
-            for i, _ in pairs(self.m_mHeroList) do
-                local idx = table.find(temp, i)
-                table.remove(temp, idx)
-            end
-
-            temp = randomShuffle(temp)
-
-            self:joinFriendHero(temp[1])
-
+        local idx = g_friendData:getFriendDragonSlotIdx()
+        if (idx) then
+            self:joinFriendHero(idx)
             self.m_bUsedFriend = true
         end
     end

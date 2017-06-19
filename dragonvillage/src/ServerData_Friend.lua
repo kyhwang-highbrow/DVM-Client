@@ -24,6 +24,7 @@ ServerData_Friend = class({
         
         -- 선택된 친구 드래곤 데이터
         m_selectedSharedFriendDragon = '',
+        m_selectedSharedFriendDragonIdx = 'number',
 
         -- 선택된 공유 친구 데이터
         m_selectedShareFriendData = '',
@@ -863,12 +864,24 @@ end
 -- function makeSettedFriendDragonCard
 -- @brief 친구 드래곤 슬롯 세팅
 -------------------------------------
-function ServerData_Friend:makeSettedFriendDragonCard(doid)
+function ServerData_Friend:makeSettedFriendDragonCard(doid, idx)
     if (not self:checkFriendDragonFromDoid(doid)) then return end
     if (not self.m_selectedSharedFriendDragon) then
         self.m_selectedSharedFriendDragon = doid
+        self.m_selectedSharedFriendDragonIdx = idx
         self.m_selectedShareFriendData = self:getFriendInfoFromDoid(self.m_selectedSharedFriendDragon)
     end
+end
+
+-------------------------------------
+-- function getFriendDragonSlotIdx
+-- @brief 친구 드래곤 슬롯 번호
+-------------------------------------
+function ServerData_Friend:getFriendDragonSlotIdx()
+    if (self.m_selectedSharedFriendDragonIdx) then
+        return self.m_selectedSharedFriendDragonIdx
+    end
+    return nil
 end
 
 -------------------------------------

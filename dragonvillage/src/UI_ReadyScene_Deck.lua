@@ -474,7 +474,7 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
         self:makeSettedDragonCard(t_dragon_data, idx)
 
         -- 친구 드래곤 선택 체크
-        g_friendData:makeSettedFriendDragonCard(doid)
+        g_friendData:makeSettedFriendDragonCard(doid, idx)
     end
 
     -- 즉시 정렬
