@@ -304,6 +304,8 @@ function ServerData_Friend:getParticipationFriendDragon()
     end
 
     self.m_selectedShareFriendData = nil
+    self.m_selectedSharedFriendDragon = nil
+
     return StructDragonObject(t_friend_info['leader']), t_friend_info['runes']
 end
 

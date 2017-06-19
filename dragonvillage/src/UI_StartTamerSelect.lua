@@ -1,6 +1,6 @@
 local PARENT = UI
 
-local MIN_NICK = 3
+local MIN_NICK = 2
 local MAX_NICK = 12
 
 -------------------------------------

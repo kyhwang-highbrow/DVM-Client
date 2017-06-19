@@ -143,13 +143,20 @@ end
 -- function condition_cool_time
 -------------------------------------
 function UI_ReadyScene:condition_cool_time(a,b)
+    -- 둘다 사용가능한 드래곤이라면 다음 정렬로 (최종시간은 계속 저장되기 때문에 시간만으로 비교하면 안됨)
+    local a_enable = g_friendData:checkUseEnableDragon(a['data']['id'])
+    local b_enable = g_friendData:checkUseEnableDragon(b['data']['id'])
+
     local a_value = g_friendData:getDragonCoolTimeFromDoid(a['data']['id']) or 0
     local b_value = g_friendData:getDragonCoolTimeFromDoid(b['data']['id']) or 0
+
+    a_value = a_enable and 0 or a_value
+    b_value = b_enable and 0 or b_value
 
     if (a_value == b_value) then
         return nil
     end
-
+    
     return a_value < b_value
 end
 
