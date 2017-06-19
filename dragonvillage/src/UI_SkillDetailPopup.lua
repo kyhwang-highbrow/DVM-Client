@@ -111,23 +111,22 @@ function UI_SkillDetailPopup:refresh(idx)
 	local name = skill_indivisual_info:getSkillName()
 	vars['skillNameLabel']:setString(name)
 
+	-- 스킬 레벨 미리보기용 변수
+	do
+		self.m_currIdx = idx
+		self.m_currLV = skill_indivisual_info:getSkillLevel()
+		self.m_maxLV = TableDragonSkillModify:getMaxLV(skill_id)
+		self.m_numberLoop = NumberLoop(self.m_maxLV)
+		self.m_numberLoop:setCurr(self.m_currLV)
+		self:toggleButton()
+	end
+
 	-- 레벨 표시
-	local skill_level = skill_indivisual_info:getSkillLevel()
-	vars['skillEnhanceLabel']:setString(string.format('Lv. %d', skill_level))
+	vars['skillEnhanceLabel']:setString(string.format('Lv. %d / %d', self.m_currLV, self.m_maxLV))
 
 	-- 스킬 설명
     local desc = skill_indivisual_info:getSkillDesc()
     vars['skillDscLabel']:setString(desc)
-	
-	-- 스킬 레벨 미리보기용 변수
-	do
-		self.m_currIdx = idx
-		self.m_currLV = skill_level
-		self.m_maxLV = TableDragonSkillModify:getMaxLV(skill_id)
-		self.m_numberLoop = NumberLoop(self.m_maxLV)
-		self.m_numberLoop:setCurr(skill_level)
-		self:toggleButton()
-	end
 end
 
 -------------------------------------
@@ -171,13 +170,6 @@ end
 function UI_SkillDetailPopup:toggleButton()
 	local vars = self.vars
 
-	-- 만렙이 1일땐 모두 false
-	if (self.m_maxLV == 1) then
-		vars['prevBtn']:setEnabled(false)
-		vars['nextBtn']:setEnabled(false)
-		return
-	end
-
 	-- 레벨에 따라 + 또는 - 버튼 false
 	vars['prevBtn']:setEnabled(true)
 	vars['nextBtn']:setEnabled(true)
@@ -185,7 +177,7 @@ function UI_SkillDetailPopup:toggleButton()
 	if (self.m_currLV == self.m_maxLV) then
 		vars['nextBtn']:setEnabled(false)
 
-	elseif (self.m_currLV == 1) then
+	elseif (self.m_currLV <= 1) then
 		vars['prevBtn']:setEnabled(false)
 
 	end
@@ -211,7 +203,7 @@ function UI_SkillDetailPopup:click_skillLvBtn(is_next)
 
 	do -- 레벨 표시
         local skill_level = new_info:getSkillLevel()
-        vars['skillEnhanceLabel']:setString(string.format('Lv. %d', skill_level))
+        vars['skillEnhanceLabel']:setString(string.format('Lv. %d / %d', self.m_currLV, self.m_maxLV))
     end
 
 	do -- 스킬 설명
