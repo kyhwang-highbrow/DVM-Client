@@ -249,25 +249,19 @@ function UI_CollectionDetailPopup:onChangeEvolution()
     do -- 스킬 아이콘 생성
         vars['cp_label']:setString(comma_value(t_dragon_data:getCombatPower()))
 
-        -- 스킬 상세정보 팝업
-        local function func_skill_detail_btn()
-            UI_SkillDetailPopup(t_dragon_data)
-        end
-
         local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
         local l_skill_icon = skill_mgr:getDragonSkillIconList()
-        for i=0, MAX_DRAGON_EVOLUTION do -- 추후에 수정해줘야...
+
+        for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
             if l_skill_icon[i] then
                 vars['skillNode' .. i]:removeAllChildren()
                 vars['skillNode' .. i]:addChild(l_skill_icon[i].root)
 
-                --[[
-                -- 스킬 레벨 출력
-                local skill_lv = skill_mgr:getSkillLevel(i)
-                vars['skllLvLabel' .. i]:setString(tostring(skill_lv))
-                -]]
+                l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+                l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
+					UI_SkillDetailPopup(t_dragon_data, i)
+				end)
 
-                l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(func_skill_detail_btn)
             end
         end
     end

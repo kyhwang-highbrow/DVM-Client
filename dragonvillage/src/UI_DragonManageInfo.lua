@@ -309,17 +309,6 @@ function UI_DragonManageInfo:refresh_leaderDragon(t_dragon_data)
 end
 
 -------------------------------------
--- function click_skillDetailBtn
--- @brief 스킬 상세정보 보기 버튼
--------------------------------------
-function UI_DragonManageInfo:click_skillDetailBtn()
-    local doid = self.m_selectDragonOID
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-
-    UI_SkillDetailPopup(t_dragon_data)
-end
-
--------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonManageInfo:click_exitBtn()
