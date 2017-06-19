@@ -184,7 +184,9 @@ function UI_DragonSkillEnhance:getDragonMaterialList(doid)
 
 		-- 스킬 강화 슬라임 추가
 		elseif (g_slimesData:possibleMaterialSlime(oid, 'skill')) then
-			if (t_dragon_data:getRarity() == v:getRarity()) then
+			local dragon_rarity = dragonRarityStrToNum(t_dragon_data:getRarity())
+			local slime_rarity = dragonRarityStrToNum(v:getRarity())
+			if (slime_rarity >= dragon_rarity) then
 				ret_dic[oid] = v
 			end
 
