@@ -942,7 +942,7 @@ end
 function ServerData_Dragons:haveSkillSpareLV(doid)
     local t_dragon_data = self:getDragonDataFromUid(doid)
 	local t_dragon = TableDragon():get(t_dragon_data['did'])
-	local table_dsm = TableDragonSkillModify()
+	local table_dragon_skill_modify = TableDragonSkillModify()
 
     local evolution = t_dragon_data['evolution']
 	
@@ -956,7 +956,7 @@ function ServerData_Dragons:haveSkillSpareLV(doid)
 		end
 
 		local skill_id = t_dragon['skill_' .. key]
-		local max_lv = table_dsm:getMaxLV(skill_id)
+		local max_lv = table_dragon_skill_modify:getMaxLV(skill_id)
 		local curr_lv = t_dragon_data['skill_' .. i]
 
 		-- 한개라도 현재 레밸이 최대레벨보다 낮은것이 있다면 여분 스킬 있는것으로 판명
