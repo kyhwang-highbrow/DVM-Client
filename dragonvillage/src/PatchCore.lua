@@ -232,6 +232,25 @@ function PatchCore:st_requestPatchInfo_successCB(ret)
 		self:doStep()
 	end
 
+    -- 받을 패치 있으면 패치 가이드 UI 무조건 호출로 변경
+	local function show_patch_guide()
+		local vars = self.m_patchScene.m_vars
+		local ui = UI_LoadingGuide_Patch()
+		vars['patchGuideNode']:addChild(ui.root)
+
+		self.m_patchGuideUI = ui
+
+		-- 가이드 ui의 object 등록
+		self.m_patchLabel = ui.vars['loadingLabel']
+		self.m_patchGauge = ui.vars['loadingGauge']
+
+		-- 사용하지 않는 object들 off
+		vars['animator']:setVisible(false)
+		vars['downloadLabel']:setVisible(false)
+		vars['downloadGauge']:setVisible(false)
+		vars['messageLabel']:setVisible(false)
+	end
+
 	-- 50MB 보다 클 경우 확인 메세지 출력
 	local std_size = 50 * BYTE_TO_MB
     if (std_size < self.m_totalSize) then
@@ -239,27 +258,12 @@ function PatchCore:st_requestPatchInfo_successCB(ret)
         local size_mb = string.format('%.2f', self.m_totalSize / BYTE_TO_MB)
 		local patch_str = Str('추가 데이터가 다운로드 됩니다.({1}MB).\n다운로드 하시겠습니까?\n[WIFI 연결을 권장하며 3G/LTE을 사용할 경우 과도한 요금이 부과 될 수 있습니다.]', size_mb)
 
-		-- 수락 -> 다운로드 시작 및 패치 가이드 UI 호출
-		local function ok_func()
-			do_next_step()
-
-			local vars = self.m_patchScene.m_vars
-			local ui = UI_LoadingGuide_Patch()
-			vars['patchGuideNode']:addChild(ui.root)
-
-			self.m_patchGuideUI = ui
-
-			-- 가이드 ui의 object 등록
-			self.m_patchLabel = ui.vars['loadingLabel']
-			self.m_patchGauge = ui.vars['loadingGauge']
-
-			-- 사용하지 않는 object들 off
-			vars['animator']:setVisible(false)
-			vars['downloadLabel']:setVisible(false)
-			vars['downloadGauge']:setVisible(false)
-			vars['messageLabel']:setVisible(false)
-		end
-
+        -- 수락 -> 다운로드 시작 및 패치 가이드 UI 호출
+        local function ok_func()
+            do_next_step()
+            show_patch_guide()
+        end
+		
 		-- 거절 -> 앱 종료!
 		local function cancel_func()
 			local function close_cb()
@@ -270,9 +274,12 @@ function PatchCore:st_requestPatchInfo_successCB(ret)
 
 		MakeSimplePopup(POPUP_TYPE.YES_NO, patch_str, ok_func, cancel_func)
 
+    elseif (0 < self.m_totalSize) then
+        do_next_step()
+        show_patch_guide()
+
 	else
 		do_next_step()
-
     end
 end
 

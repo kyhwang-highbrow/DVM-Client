@@ -14,7 +14,7 @@ UI_LoadingGuide_Patch = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_LoadingGuide_Patch:init()
-    local vars = self:load('loading_tip.ui')
+    local vars = self:load('loading_tip_new.ui')
 	local guide_type = 'patch'
 
 	-- 멤버 변수
@@ -58,17 +58,16 @@ function UI_LoadingGuide_Patch:refresh(is_prev)
     local vars = self.vars
 	local tar_idx = (is_prev) and self.m_numberLoop:prev() or self.m_numberLoop:next()
 	local t_loading = self:getNextGuideTable(tar_idx)
-	
+
 	if (t_loading) then
-		-- 로딩 팁 이미지
-		local tip_icon = IconHelper:getIcon(t_loading['res'])
-		vars['tipNode']:removeAllChildren()
-		vars['tipNode']:addChild(tip_icon)
-
-		-- 로딩 팁 문구
-		local tip_str = Str(t_loading['t_desc'])
-		vars['tipLabel']:setString(tip_str)
-
+        self:setCleanMenu()
+        -- table에 did값 입력되있으면 드래곤 스파인 보여줌
+        local is_dragon = (t_loading['did'] ~= '') and true or false
+        if (is_dragon) then
+            self:showDragonInfo(t_loading)
+        else
+            self:showTipInfo(t_loading)
+        end
 	else
 		vars['tipLabel']:setString('')
 	end
@@ -81,6 +80,47 @@ function UI_LoadingGuide_Patch:getNextGuideTable(idx)
 	local ret_data = TableLoadingGuide:getGuideData_Order(self.m_lPatchGuideTable, idx)
 	
 	return ret_data
+end
+
+-------------------------------------
+-- function showDragonInfo
+-------------------------------------
+function UI_LoadingGuide_Patch:setCleanMenu()
+    local vars = self.vars
+    vars['tipMenu']:setVisible(false)
+    vars['tipNode']:removeAllChildren()
+
+    vars['dragonMenu']:setVisible(false)
+    vars['dragonNode']:removeAllChildren()
+end
+
+-------------------------------------
+-- function showDragonInfo
+-------------------------------------
+function UI_LoadingGuide_Patch:showDragonInfo(t_loading)
+    local vars = self.vars
+    vars['dragonMenu']:setVisible(true)
+
+    local did = t_loading['did']
+    local ani_dragon = AnimatorHelper:makeDragonAnimator_usingDid(did)
+    vars['dragonNode']:addChild(ani_dragon.m_node)
+
+    local t_dragon = TableDragon():get(did)
+    vars['infoLabel']:setVisible(false) -- 높이, 체중 미정
+    vars['nameLabel']:setString(t_dragon['t_name'])
+    vars['dscLabel']:setString(t_dragon['t_desc'])
+end
+
+-------------------------------------
+-- function showTipInfo
+-------------------------------------
+function UI_LoadingGuide_Patch:showTipInfo(t_loading)
+    local vars = self.vars
+    vars['tipMenu']:setVisible(true)
+
+    local tip_icon = IconHelper:getIcon(t_loading['res'])
+    vars['tipNode']:addChild(tip_icon)
+    vars['tipLabel']:setString(t_loading['t_desc'])
 end
 
 -------------------------------------
