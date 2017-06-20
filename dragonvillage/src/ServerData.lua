@@ -40,9 +40,6 @@ function ServerData:getInstance()
     -- 슬라임
     g_slimesData = ServerData_Slimes(g_serverData)
 
-    -- 'dragon summon'
-    g_dragonSummonData = ServerData_DragonSummon(g_serverData)
-
     -- 드래곤 유닛 (도감의 버프)
     g_dragonUnitData = ServerData_DragonUnit(g_serverData)
 

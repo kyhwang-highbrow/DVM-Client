@@ -718,3 +718,20 @@ function MakeSimpleDragonCard(did, t_data)
 
     return UI_DragonCard(struct_data)
 end
+
+-------------------------------------
+-- function MakeBirthDragonCard
+-- @brief 태생 드래곤 카드
+-------------------------------------
+function MakeBirthDragonCard(did)
+    local table_dragon = TableDragon()
+    local t_dragon = table_dragon:get(did)
+    
+    local t_data = {}
+    t_data['did'] = t_dragon['did']
+    t_data['grade'] = t_dragon['birthgrade']
+    local struct_dragon_object = StructDragonObject(t_data)
+
+    local dragon_card = UI_DragonCard(struct_dragon_object)
+    return dragon_card
+end

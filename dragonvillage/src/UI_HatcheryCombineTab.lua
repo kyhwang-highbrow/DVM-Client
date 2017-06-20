@@ -6,6 +6,7 @@ local PARENT = UI_IndivisualTab
 -------------------------------------
 UI_HatcheryCombineTab = class(PARENT,{
         m_tableViewTD = 'UIC_TableViewTD',
+        m_selectedDid = '',
     })
 
 -------------------------------------
@@ -34,9 +35,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_HatcheryCombineTab:initUI()
-    local dragon_combine = TableDragonCombine()
-
-    ccdump(dragon_combine.m_orgTable)
+    self:init_TableView()
 end
 
 -------------------------------------
@@ -71,4 +70,49 @@ function UI_HatcheryCombineTab:init_TableView()
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonList()
     table_view_td:setItemList(l_dragon_list)
+end
+
+-------------------------------------
+-- function getDragonList
+-------------------------------------
+function UI_HatcheryCombineTab:getDragonList()
+    local table_dragon_combine = TableDragonCombine()
+    local table_dragon = TableDragon()
+
+    local t_ret = {}
+    for i,v in pairs(table_dragon_combine.m_orgTable) do
+        local t_data = {}
+        t_data['did'] = v['did']
+        t_data['grade'] = table_dragon:getValue(v['did'], 'birthgrade')
+        t_ret[i] = StructDragonObject(t_data)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function click_dragonCard
+-- @brief
+-------------------------------------
+function UI_HatcheryCombineTab:click_dragonCard(did)
+    self.m_selectedDid = did
+
+    local t_data = {}
+    t_data['did'] = v['did']
+    t_data['grade'] = table_dragon:getValue(v['did'], 'birthgrade')
+
+
+    UI_CharacterCard()
+end
+
+
+-------------------------------------
+-- function getCombineMaterialList
+-- @brief 내가 보유한 드래곤들 중 재료로 사용 가능한 항목 리턴
+-------------------------------------
+function UI_HatcheryCombineTab:getCombineMaterialList(did)
+    local table_dragon_combine = TableDragonCombine()
+    local t_dragon_combine = table_dragon_combine:get(did)
+
+    local l_dragon = g_dragonsData:getDragonsListRef()
 end

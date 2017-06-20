@@ -381,8 +381,6 @@ end
 -- @brief 드래곤 소환 (가챠)
 -------------------------------------
 function UI_Lobby:click_drawBtn()
-    --g_dragonSummonData:openDragonSummon()
-
     local function close_cb()
         -- 노티 정보를 갱신하기 위해서 호출
         g_highlightData:setLastUpdateTime()

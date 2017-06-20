@@ -720,12 +720,6 @@
     <None Include="..\src\UI_DragonLevelUpHelper.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonSummon.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_DragonSummonListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UIC_RichLabel.lua">
       <Filter>lua\UIC</Filter>
     </None>
@@ -1635,9 +1629,6 @@
     <None Include="..\src\ServerData_Dragons.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_DragonSummon.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ServerData_DragonUnit.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2456,6 +2447,9 @@
     </None>
     <None Include="..\src\TableDragonCombine.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_HatcheryRelationItem.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

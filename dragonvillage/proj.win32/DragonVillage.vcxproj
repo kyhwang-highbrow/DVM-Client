@@ -406,7 +406,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Colosseum.lua" />
     <None Include="..\src\ServerData_ColosseumRank.lua" />
     <None Include="..\src\ServerData_DragonBoard.lua" />
-    <None Include="..\src\ServerData_DragonSummon.lua" />
     <None Include="..\src\ServerData_DragonUnit.lua" />
     <None Include="..\src\ServerData_Eggs.lua" />
     <None Include="..\src\ServerData_Event.lua" />
@@ -872,8 +871,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonRunes.lua" />
     <None Include="..\src\UI_DragonRunesEnhance.lua" />
     <None Include="..\src\UI_DragonSkillCard.lua" />
-    <None Include="..\src\UI_DragonSummon.lua" />
-    <None Include="..\src\UI_DragonSummonListItem.lua" />
     <None Include="..\src\UI_FormationEnhance.lua" />
     <None Include="..\src\UI_EventPopupTab_Exchange.lua" />
     <None Include="..\src\UI_ExchangeProductListItem.lua" />
@@ -885,6 +882,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Hatchery.lua" />
     <None Include="..\src\UI_HatcheryCombineTab.lua" />
     <None Include="..\src\UI_HatcheryIncubateTab.lua" />
+    <None Include="..\src\UI_HatcheryRelationItem.lua" />
     <None Include="..\src\UI_HatcheryRelationTab.lua" />
     <None Include="..\src\UI_HatcherySummonTab.lua" />
     <None Include="..\src\UI_LoadingGuide.lua" />
