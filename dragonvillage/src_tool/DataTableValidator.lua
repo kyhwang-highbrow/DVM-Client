@@ -33,7 +33,7 @@ function DataTableValidator:validateData()
     print("########### TABLE VALIDATION START ##########\n")
     -- 1. 전체 파일 경로 찾기
     print("\nFile Loading...\n\n")
-    local file_path_list = self:getAllfile_path(self.m_dataRoot)
+    local file_path_list = pl.dir.getallfiles(pl.path.abspath(self.m_dataRoot))
     
     -- 2. 전체 파일 리스트 자료 정리 (딕셔너리화)
     local t_data = self:makeDictAllData(file_path_list)
@@ -56,25 +56,6 @@ function DataTableValidator:validateData()
     end
 end
 
-
-------------------------------------------------------------------------
--- 1. 전체 파일 경로 찾기
-
-------------------------------------
--- function getAllfile_path
--- @brief 특정 폴더의 전체 파일 절대경로 리스트 반환
--- @param   path    : string,     파일 최상위 경로
--- @return  l       : table,      key = number, value = 경로 내의 파일들의 절대경로 리스트
-------------------------------------
-function DataTableValidator:getAllfile_path(path)
-    local l = {}
-    local pfile = pl.dir.getallfiles(pl.path.abspath(self.m_dataRoot))
-
-    for _, dir in ipairs(pfile) do
-        table.insert(l, dir)  
-    end
-    return l
-end
 
 ------------------------------------------------------------------------
 -- 2. 전체 파일 구조화
@@ -335,7 +316,7 @@ function DataTableValidator:sendToSlack()
                         '[DV_BOT] 테이블 오류 발견 !!\n' ..
                         self:makeInvalidStr()
     print(text)
-    slack:Send(slack:Message(text, channel, '드빌봇'))
+    --slack:Send(slack:Message(text, channel, '드빌봇'))
 
     return text
 

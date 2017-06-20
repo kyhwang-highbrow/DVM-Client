@@ -60,15 +60,16 @@ end
 function UISourceCodeGenerator:makeFile()
     local initButton_str = self.m_luaClassName .. ':initButton'
     local init_str       = self.m_luaClassName .. ':initUI'
-    local contents       = self:readSourceCode()
-    contents = self:renameInTable(contents, 'uiName.ui', self.m_uiFileName)
-    contents = self:renameInTable(contents, 'UI_ClassForm', self.m_luaClassName)
-   
+    local contents       = self:readFile('..\\src\\UI_ClassForm.lua')
+    for k, v in pairs(contents) do
+        contents[k] = v:gsub('uiName.ui', self.m_uiFileName)
+        contents[k] = v:gsub('UI_ClassForm', self.m_luaClassName)
+    end
     --------------------------------------------------------------------------
     -- 1. 이벤트 binding과 function 코드 제작
-    local initButton_line = self:findStr(contents, initButton_str, true)
-    local new_function_line = self:findStr(contents, '--@CHECK')
-    local init_line = self:findStr(contents, init_str, true)
+    local initButton_line = self:findStr(contents, initButton_str, true)[1]
+    local new_function_line = self:findStr(contents, '--@CHECK')[1]
+    local init_line = self:findStr(contents, init_str, true)[1]
     
     --------------------------------------------------------------------------
     -- 2. line을 기준으로 정확한 위치에 올 수 있게 offset을 더해줌.
@@ -103,19 +104,19 @@ function UISourceCodeGenerator:makeFile()
 end
 
 -------------------------------------
--- function readSourceCode
+-- function readFile
 -- @brief   classForm lua파일을 읽어서, line 단위로 split
 -- @return  contents_line   : number,     line 단위로 분리한 UI_ClassForm.lua 파일의 내용
 -------------------------------------
-function UISourceCodeGenerator:readSourceCode()
-    local contents = pl.file.read('..\\src\\UI_ClassForm.lua')
+function UISourceCodeGenerator:readFile(file_name)
+    local contents = pl.file.read(file_name)
     local contents_line = pl.stringx.splitlines(contents)
     return contents_line
 end
 
 -------------------------------------
 -- function findStr
--- @brief   contents에서 name을 찾아서 그 line number를 반환
+-- @brief   contents에서 str을 찾아서 그 line number를 반환
 -- @param   contents        : string,               파일 내용
 --          str             : string,               찾을 string
 --          is_function     : boolean, optional,    함수인지 아닌지. 함수이면 str 뒤에 '()'를 추가
@@ -124,15 +125,19 @@ end
 -------------------------------------
 function UISourceCodeGenerator:findStr(contents, str, is_function)
     is_function = is_function or false
+    local l_line_num = {}
     if (is_function) then
         str = str .. '()'
     end
 
     for i, v in ipairs(contents) do
         if (v:find(str)) then
-            return i
+            table.insert(l_line_num, i)
         end
     end    
+    if(#l_line_num > 0) then
+        return l_line_num
+    end
     return nil
 end
 
@@ -153,7 +158,7 @@ function UISourceCodeGenerator:makeCode(t, initButton, newFunction, comment)
     btn_event_str, btn_func_str, comment_str = t[initButton], t[newFunction], t[comment]
     local ui_contents = pl.file.read(self.m_uiFilePath)
     local vars = loadstring('return ' .. ui_contents)()
-
+    
     -- button 외의 것들을 코드에 삽입.
     local components = {}
     self:findComponents(vars, components, 'lua_name')
@@ -258,21 +263,6 @@ function UISourceCodeGenerator:findComponents(t, components, key)
 end
 
 -------------------------------------
--- function renameInTable
--- @brief 테이블 내에 존재하는 target을 찾아서 전부 str로 replace시킨다.
--- @param   t           : table,  search 대상
---          target      : string, replace 대상
---          str         : string, str로 replace됨
--- @return  t           : table,  replace 작업이 끝난 t.
--------------------------------------
-function UISourceCodeGenerator:renameInTable(t, target, str)
-    for k, v in pairs(t) do
-        t[k] = v:gsub(target, str)
-    end
-    return t
-end
-
--------------------------------------
 -- function addToRequire
 -- @brief   require.lua 파일의 -UI : Generated 주석 아래에 생성한 파일의 클래스명을 추가한다.
 -------------------------------------
@@ -290,7 +280,7 @@ function UISourceCodeGenerator:addToRequire()
 end
 
 -------------------------------------
--- function addToRequire
+-- function addToVSFileter
 -- @brief   vcxprog.filter 파일의 xml에 생성한 파일을 추가한다.
 -------------------------------------
 function UISourceCodeGenerator:addToVSFilter()
@@ -322,7 +312,7 @@ function UISourceCodeGenerator:addToVSFilter()
 end
 
 -------------------------------------
--- function addToRequire
+-- function addToVSProj
 -- @brief   vcxprog 파일의 xml에 생성한 파일의 경로를 추가한다.
 -------------------------------------
 function UISourceCodeGenerator:addToVSProj()
