@@ -671,6 +671,9 @@ function ServerData_Friend:response_friendCommon(ret)
     if ret['add_fp'] then
         local msg = Str('우정의 징표 {1}개 획득', ret['add_fp'])
         UIManager:toastNotificationGreen(msg)
+
+        -- fp(우정포인트) 갱신
+        g_serverData:networkCommonRespone(ret)
     end
 end
 
