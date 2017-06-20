@@ -538,13 +538,25 @@ end
 -- @brief 신규 계정일 경우 계정 생성
 -------------------------------------
 function UI_TitleScene:createAccount()
-    local function success_cb()
+    local intro_func        -- 인트로
+    local tamer_sel_func    -- 테이머 선택
+    local login_func        -- 계정 생성후 재로그인
+
+    intro_func = function()
+        UI_StartIntro(tamer_sel_func)
+    end
+
+    tamer_sel_func = function()
+        UI_StartTamerSelect(login_func)
+    end
+
+    login_func = function()
         self.m_bNewUser = true
         self.m_loadingUI:showLoading()
         self:retryCurrWork()
     end
-
-    UI_StartTamerSelect(success_cb)
+    
+    intro_func()
 end
 
 ------------------------------------------------------------------------------------------------------------------------

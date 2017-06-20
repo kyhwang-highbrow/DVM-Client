@@ -2451,6 +2451,9 @@
     <None Include="..\src\UI_HatcheryRelationItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_StartIntro.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

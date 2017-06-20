@@ -47,7 +47,7 @@ end
 function UI_StartTamerSelect:initButton()
     local vars = self.vars
     local tamer_info = self.m_mStartTamerInfo
-    cclog(luadump(self.m_mStartTamerInfo))
+
     self.m_tamerItemList = {}
     local tamer_table = TableTamer()
     for idx, v in ipairs(tamer_info) do
@@ -76,7 +76,7 @@ function UI_StartTamerSelect:initEditBox()
             local editbox = pSender
             local str = editbox:getText()
 			local len = uc_len(str)
-            cclog(luadump(len))
+
             if (len < MIN_NICK) or (len > MAX_NICK)then
                 UIManager:toastNotificationRed(Str('{1}자~{2}자 이내로 입력해주세요.', MIN_NICK, MAX_NICK))
             end
