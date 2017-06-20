@@ -206,7 +206,7 @@ function UI_HatcheryIncubateTab:refreshEggList()
     for i,v in ipairs(l_item_list) do
         local egg_id = tonumber(v['egg_id'])
         local _res = table_item:getValue(egg_id, 'full_type')
-        if (v['cnout'] == 10) then
+        if (v['count'] == 10) then
             _res = _res .. '_10'
         end
         local res = 'res/item/egg/' .. _res .. '/' .. _res .. '.vrp'
