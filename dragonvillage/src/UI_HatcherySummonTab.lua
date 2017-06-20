@@ -76,7 +76,8 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_dat
 
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
-        local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list)
+        local egg_res = t_egg_data['egg_res']
+        local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list, egg_res)
 
         local function close_cb()
             self:summonApiFinished()
@@ -111,7 +112,8 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
 
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
-        local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list)
+        local egg_res = t_egg_data['egg_res']
+        local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list, egg_res)
 
         local function close_cb()
             self:summonApiFinished()
@@ -146,7 +148,8 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, t_egg_data, old_u
 
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
-        local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list)
+        local egg_res = t_egg_data['egg_res']
+        local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list, egg_res)
 
         -- 이어서 뽑기 설정
         self:subsequentSummons(ui, t_egg_data)
@@ -206,18 +209,17 @@ function UI_HatcherySummonTab:refreshEggList()
     for i,v in ipairs(l_item_list) do
         local egg_id = tonumber(v['egg_id'])
         local _res = v['full_type']
-        local res = 'res/item/egg/' .. _res .. '.png'
+        local res = 'res/item/egg/' .. _res .. '/' .. _res .. '.vrp'
 
         local scale = 0.8 * 0.9
-        local sprite = cc.Sprite:create(res)
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        sprite:setScale(scale)
+        local animator = MakeAnimator(res)
+        animator:setScale(scale)
+        animator:changeAni('egg')
 
         local data = v
 
         local ui = {}
-        ui.root = sprite
+        ui.root = animator.m_node
             
         egg_picker:addEgg(data, ui)
     end

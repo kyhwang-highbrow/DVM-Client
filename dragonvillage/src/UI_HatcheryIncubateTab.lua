@@ -100,7 +100,8 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
         end
 
         local l_dragon_list = ret['added_dragons']
-        local ui = UI_GachaResult_Dragon(l_dragon_list)
+        local egg_res = TableItem:getEggRes(egg_id)
+        local ui = UI_GachaResult_Dragon(l_dragon_list, nil, egg_res)
 
         local function close_cb()
             self:sceneFadeInAction()
@@ -189,15 +190,14 @@ function UI_HatcheryIncubateTab:refreshEggList()
     -- Shop Egg 추가
     do
         local scale = 0.8
-        local sprite = cc.Sprite:create('res/item/egg/egg_shop.png')
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        sprite:setScale(scale)
+        local animator = MakeAnimator('res/item/egg/egg_shop/egg_shop.vrp')
+        animator:setScale(scale)
+        animator:changeAni('egg')
 
         local data = {['is_shop']=true}
 
         local ui = {}
-        ui.root = sprite
+        ui.root = animator.m_node
 
         egg_picker:addEgg(data, ui)
     end
@@ -209,18 +209,17 @@ function UI_HatcheryIncubateTab:refreshEggList()
         if (v['cnout'] == 10) then
             _res = _res .. '_10'
         end
-        local res = 'res/item/egg/' .. _res .. '.png'
+        local res = 'res/item/egg/' .. _res .. '/' .. _res .. '.vrp'
 
         local scale = 0.8
-        local sprite = cc.Sprite:create(res)
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        sprite:setScale(scale)
+        local animator = MakeAnimator(res)
+        animator:setScale(scale)
+        animator:changeAni('egg')
 
         local data = v
 
         local ui = {}
-        ui.root = sprite
+        ui.root = animator.m_node
             
         egg_picker:addEgg(data, ui)
     end

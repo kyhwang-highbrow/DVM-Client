@@ -184,3 +184,18 @@ function TableItem:getItemType(item_id)
 
     return self:getValue(item_id, 'type')
 end
+
+-------------------------------------
+-- function getEggRes
+-- @brief
+-------------------------------------
+function TableItem:getEggRes(egg_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local egg_id = tonumber(egg_id)
+    local full_type = self:getValue(egg_id, 'full_type')
+    local res = 'res/item/egg/' .. full_type .. '/' .. full_type .. '.vrp'
+    return res
+end

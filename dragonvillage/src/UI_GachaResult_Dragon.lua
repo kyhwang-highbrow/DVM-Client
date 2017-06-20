@@ -11,12 +11,15 @@ UI_GachaResult_Dragon = class(PARENT, {
 
 		m_isDirecting = 'bool',
         m_hideUIList = '',
+
+        m_eggRes = 'string',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list)
+function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list, egg_res)
+    self.m_eggRes = egg_res
 
     -- 드래곤리스트, 슬라임 리스트 copy
     local copy_dragon_list = l_gacha_dragon_list and clone(l_gacha_dragon_list) or {}
@@ -191,6 +194,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             self:doAction(directing_done, false)
         end
 
+        dragon_animator:bindEgg(self.m_eggRes)
         dragon_animator:setDragonAppearCB(cb)
         dragon_animator:setDragonAnimator(t_dragon_data['did'], evolution, nil)
 		dragon_animator:startDirecting()

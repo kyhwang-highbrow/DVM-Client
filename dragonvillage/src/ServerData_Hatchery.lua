@@ -226,11 +226,13 @@ function ServerData_Hatchery:getSummonEggList()
 
     do -- 이벤트 데이터
         local t_data = {['egg_id']=700001, ['bundle']=true, ['full_type'] = 'egg_cash_mysteryup_11', ['name']=Str('확률업 10+1회 소환'), ['desc']=Str('3~5★ 드래곤 부화')}
+        t_data['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp'
         t_data['price_type'] = 'cash'
         t_data['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE
         table.insert(l_item_list, t_data)
 
         local t_data = {['egg_id']=700001, ['bundle']=false,  ['full_type'] = 'egg_cash_mysteryup', ['name']=Str('확률업 소환'), ['desc']=Str('3~5★ 드래곤 부화')}
+        t_data['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp'
         t_data['price_type'] = 'cash'
         t_data['price'] = ServerData_Hatchery.CASH__EVENT_SUMMON_PRICE
         table.insert(l_item_list, t_data)
@@ -238,11 +240,13 @@ function ServerData_Hatchery:getSummonEggList()
 
     do -- 고급 부화
         local t_data = {['egg_id']=700002, ['bundle']=true, ['full_type'] = 'egg_cash_mystery_11', ['name']=Str('고급 부화 10+1회'), ['desc']=Str('3~5★ 드래곤 부화')}
+        t_data['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp'
         t_data['price_type'] = 'cash'
         t_data['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE
         table.insert(l_item_list, t_data)
 
         local t_data = {['egg_id']=700002, ['bundle']=false,  ['full_type'] = 'egg_cash_mystery', ['name']=Str('고급 부화'), ['desc']=Str('3~5★ 드래곤 부화')}
+        t_data['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp'
         t_data['price_type'] = 'cash'
         t_data['price'] = ServerData_Hatchery.CASH__SUMMON_PRICE
         t_data['free_target'] = true --무료 뽑기 대상 알
@@ -253,11 +257,13 @@ function ServerData_Hatchery:getSummonEggList()
 
         -- 우정포인트 1회 부화는 대표님과 상의해서 제거하기로함 sgkim 2017.06.16
         --local t_data = {['egg_id']=700003, ['bundle']=true, ['full_type'] = 'egg_friendship_10', ['name']=Str('우정 부화 10회'), ['desc']=Str('1~3★ 드래곤 부화')}
+        --t_data['egg_res'] = 'res/item/egg/egg_friendship/egg_friendship.vrp'
         --t_data['price_type'] = 'fp'
         --t_data['price'] = ServerData_Hatchery.FP__BUNDLE_SUMMON_PRICE
         --table.insert(l_item_list, t_data)
 
         local t_data = {['egg_id']=700003, ['bundle']=false,  ['full_type'] = 'egg_friendship', ['name']=Str('우정 부화'), ['desc']=Str('1~3★ 드래곤 부화')}
+        t_data['egg_res'] = 'res/item/egg/egg_friendship/egg_friendship.vrp'
         t_data['price_type'] = 'fp'
         t_data['price'] = ServerData_Hatchery.FP__SUMMON_PRICE
         table.insert(l_item_list, t_data)

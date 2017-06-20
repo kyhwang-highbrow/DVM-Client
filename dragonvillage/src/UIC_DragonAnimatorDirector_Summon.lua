@@ -116,7 +116,9 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
         rarity = TableDragon:getValue(did, 'rarity')
     end
 
-	self.m_maxStep = dragonRarityStrToNum(rarity)
+	--self.m_maxStep = dragonRarityStrToNum(rarity)
+    self.m_maxStep = 3
+
 
 	-- 전설등급의 경우 추가 연출을 붙여준다
 	if (rarity == 'legend') then
@@ -159,4 +161,18 @@ function UIC_DragonAnimatorDirector_Summon:forceSkipDirecting()
 
 	-- top_appear연출 생략을 위해 부모함수 호출
 	PARENT.appearDragonAnimator(self)
+end
+
+
+-------------------------------------
+-- function bindEgg
+-------------------------------------
+function UIC_DragonAnimatorDirector_Summon:bindEgg(egg_res)
+    if (not egg_res) or (egg_res == '') then
+        egg_res = 'res/item/egg/egg_common_unknown/egg_common_unknown.vrp'
+    end
+
+    local animator = MakeAnimator(egg_res)
+    animator:changeAni('egg')
+    self.m_topEffect.m_node:bindVRP('egg', animator.m_node)
 end
