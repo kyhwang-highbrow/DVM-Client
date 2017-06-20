@@ -7,8 +7,10 @@ PATCH_STATE.download_patch_file = 2 -- 패치 파일 다운로드
 PATCH_STATE.decompression = 3       -- 패치 파일 압축 해제
 PATCH_STATE.finish = 10             -- 종료
 
+MIN_GUIDE_TIME = 3                  -- 패치 가이드 노출시 최소 노출 시간 
+ 
 BYTE_TO_MB = 1024 * 1024
-
+  
 -------------------------------------
 -- class PatchCore
 -------------------------------------
@@ -27,6 +29,8 @@ PatchCore = class({
 		m_totalSize = 'number',         -- 다운받아야 할 총 데이터양
 
         m_currDownloadRes = 'table',    -- 현재 다운받고 있는 리소스 데이터
+
+        m_showGuideTime = '',
 
         m_doStepReady = 'boolean',
 
@@ -103,6 +107,7 @@ function PatchCore:doStep_()
 
     -- 패치 종료
     elseif (self.m_state == PATCH_STATE.finish) then
+        if (not self:checkGuideTime()) then self:doStep() return end
         cclog('## PatchCore : finish')
         self:finish()
     end
@@ -114,6 +119,10 @@ end
 function PatchCore:update(dt)
     if self.m_doStepReady then
         self:doStep_()
+    end
+
+    if self.m_showGuideTime then
+        self.m_showGuideTime = self.m_showGuideTime + dt
     end
 
 	-- 다운로드 시작전 텍스트 안 보이게 함
@@ -238,6 +247,7 @@ function PatchCore:st_requestPatchInfo_successCB(ret)
 		local ui = UI_LoadingGuide_Patch()
 		vars['patchGuideNode']:addChild(ui.root)
 
+        self.m_showGuideTime = 0
 		self.m_patchGuideUI = ui
 
 		-- 가이드 ui의 object 등록
@@ -450,6 +460,17 @@ function PatchCore:savePatchData()
     end
 
 	patch_data:save()
+end
+
+-------------------------------------
+-- function checkGuideTime
+-- @brief 작은 용량 패치 파일 다운로드시 최소 가이드 노출 시간
+-------------------------------------
+function PatchCore:checkGuideTime()
+    if (self.m_showGuideTime) and (self.m_showGuideTime < MIN_GUIDE_TIME) then
+        return false
+    end
+    return true
 end
 
 -------------------------------------
