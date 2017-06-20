@@ -859,17 +859,11 @@ function UI_ReadyScene:click_leaderBtn()
 
 	-- 리더버프 있는 드래곤 체크
 	do
-		local have_leader_skill = false
 		local cnt = 0
 		for _, doid in pairs(l_doid) do
 			if (g_dragonsData:haveLeaderSkill(doid)) then
-				have_leader_skill = true
 				cnt = cnt + 1
 			end
-		end
-		if (not have_leader_skill) then
-			UIManager:toastNotificationRed('리더 버프를 가지고 있는 드래곤이 없습니다.')
-			return
 		end
 		if (cnt < 2) then
 			UIManager:toastNotificationRed('리더 버프 있는 드래곤이 2마리 이상이어야 활성화됩니다.')
