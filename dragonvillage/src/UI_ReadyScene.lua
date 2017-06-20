@@ -851,9 +851,25 @@ function UI_ReadyScene:click_leaderBtn()
 	local l_doid = self.m_readySceneDeck.m_lDeckList
 	local leader_idx = self.m_readySceneDeck.m_currLeader
 
+	-- 덱에 드래곤이 존재하는지 체크
 	if (table.count(l_doid) == 0) then
 		UIManager:toastNotificationRed('리더로 설정할 드래곤이 없습니다.')
 		return
+	end
+
+	-- 리더버프 있는 드래곤 체크
+	do
+		local have_leader_skill = false
+		for _, doid in pairs(l_doid) do
+			if (g_dragonsData:haveLeaderSkill(doid)) then
+				have_leader_skill = true
+				break
+			end
+		end
+		if (not have_leader_skill) then
+			UIManager:toastNotificationRed('리더 버프를 가지고 있는 드래곤이 없습니다.')
+			return
+		end
 	end
 
 	local ui = UI_ReadyScene_LeaderPopup(l_pos_list, l_doid, leader_idx)

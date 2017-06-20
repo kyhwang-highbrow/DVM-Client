@@ -989,3 +989,23 @@ function ServerData_Dragons:haveSkillSpareLV(doid)
  
 	return false
 end
+
+-------------------------------------
+-- function haveLeaderSkill
+-- @brief leader skill 있는 드래곤 여부
+-------------------------------------
+function ServerData_Dragons:haveLeaderSkill(doid)
+	if (not doid) then
+		return
+	end
+
+	local t_dragon_data = self:getDragonDataFromUid(doid)
+	local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+	local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
+
+	if (skill_info) then
+		return true
+	end
+
+	return false
+end

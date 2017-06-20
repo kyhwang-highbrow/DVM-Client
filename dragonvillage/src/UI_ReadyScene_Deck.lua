@@ -211,37 +211,31 @@ end
 
 -------------------------------------
 -- function refreshLeader
--- @brief
+-- @brief 리더 처리에 관한 모든것!
 -------------------------------------
 function UI_ReadyScene_Deck:refreshLeader()
 	local vars = self.m_uiReadyScene.vars
 	local leader_idx = self.m_currLeader
 	local doid = self.m_lDeckList[leader_idx]
 
-	local function refresh_sprite(tar_idx)
-		-- 리더 위치에 다시 붙여준다.
-		vars['leaderSprite']:setVisible(true)
-		vars['leaderSprite']:retain()
-		vars['leaderSprite']:removeFromParent()
-		vars['positionNode' .. tar_idx]:addChild(vars['leaderSprite'], ZORDER.LEADER)
-		vars['leaderSprite']:release()
-	end
-
-	-- 현재 리더 idx에 드래곤이 있다면
-	if (doid) then
-		refresh_sprite(leader_idx)
+	-- 현재 리더 idx에 드래곤이 있고 리더스킬이 있다면
+	if (doid) and (g_dragonsData:haveLeaderSkill(doid)) then
+		self:refreshLeaderSprite(leader_idx)
 
 	else
 		-- 없다면 새로 찾아준다.
 		local idx
 		for i, doid in pairs(self.m_lDeckList) do
-			idx = i
-			break
+			-- 리더 스킬 있다면 저장
+			if (g_dragonsData:haveLeaderSkill(doid)) then
+				idx = i
+				break
+			end
 		end
 
 		if (idx) then
 			self.m_currLeader = idx
-			refresh_sprite(idx)
+			self:refreshLeaderSprite(idx)
 
 		else
 			-- 덱에 드래곤이 없으므로 leader표시를 없앤다.
@@ -250,6 +244,20 @@ function UI_ReadyScene_Deck:refreshLeader()
 		end
 
 	end
+end
+
+-------------------------------------
+-- function refreshLeader
+-- @brief 리더 위치에 다시 붙여준다.
+-------------------------------------
+function UI_ReadyScene_Deck:refreshLeaderSprite(tar_idx)
+	local vars = self.m_uiReadyScene.vars
+
+	vars['leaderSprite']:setVisible(true)
+	vars['leaderSprite']:retain()
+	vars['leaderSprite']:removeFromParent()
+	vars['positionNode' .. tar_idx]:addChild(vars['leaderSprite'], ZORDER.LEADER)
+	vars['leaderSprite']:release()
 end
 
 -------------------------------------
