@@ -6,6 +6,7 @@ local PARENT = GameState_NestDungeon
 GameState_NestDungeon_Gold = class(PARENT, {
     })
 
+--[[
 -------------------------------------
 -- function initState
 -- @brief 상태(state)별 동작 함수 추가
@@ -85,3 +86,4 @@ function GameState_NestDungeon_Gold:doDirectionForIntermission()
     world:changeCameraOption(t_camera_info)
     world:changeHeroHomePosByCamera()
 end
+]]

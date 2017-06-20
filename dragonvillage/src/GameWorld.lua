@@ -248,8 +248,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
         elseif (dungeonMode == NEST_DUNGEON_GOLD) then
             self.m_gameState = GameState_NestDungeon_Gold(self)
-			display_wave = false
-            display_time = display_wave, self.m_gameState.m_limitTime
+			-- display_wave = false
+            -- display_time = display_wave, self.m_gameState.m_limitTime
 
 		else
 			error('네스트 던전 아이디가 잘못되어있습니다. 확인해주세요. ' .. self.m_stageID)
@@ -263,12 +263,13 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
         if (dungeonMode == SECRET_DUNGEON_GOLD) then
             self.m_gameState = GameState_NestDungeon_Gold(self)
-            display_wave = false
-			display_time = self.m_gameState.m_limitTime
+            -- display_wave = false
+			-- display_time = self.m_gameState.m_limitTime
 
         elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
             self.m_gameState = GameState_SecretDungeon_Relation(self)
         end
+
     -- 4. 고대의 탑
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
         self.m_gameState = GameState_AncientTower(self)
