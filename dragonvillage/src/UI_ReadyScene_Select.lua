@@ -146,6 +146,14 @@ function UI_ReadyScene_Select:click_dragonCard(t_dragon_data, skip_sort, idx)
 end
 
 -------------------------------------
+-- function setFriend
+-------------------------------------
+function UI_ReadyScene_Select:setFriend(enable)
+    local vars = self.m_uiReadyScene.vars
+    vars['friendToggleBtn']:setEnabled(enable)
+end
+
+-------------------------------------
 -- function getTableView
 -------------------------------------
 function UI_ReadyScene_Select:getTableView()

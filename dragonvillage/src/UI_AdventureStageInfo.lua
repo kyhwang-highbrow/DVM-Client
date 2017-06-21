@@ -350,8 +350,8 @@ function UI_AdventureStageInfo:click_enterBtn()
         local function close_cb()
             self:sceneFadeInAction()
         end
-
-        local ui = UI_ReadyScene(stage_id)
+        local with_friend = true
+        local ui = UI_ReadyScene(stage_id, with_friend)
         ui:setCloseCB(close_cb)
     end
 

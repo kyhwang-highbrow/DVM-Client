@@ -29,7 +29,8 @@ function SceneAdventure:onEnter()
 		if self.m_startStageID then
 			local stage_id = self.m_startStageID
 			UI_AdventureSceneNew(stage_id)
-			UI_ReadyScene(stage_id)
+            local with_friend = true
+			UI_ReadyScene(stage_id, with_friend)
 		else
 			UI_AdventureSceneNew()
 		end
@@ -44,7 +45,8 @@ function SceneAdventure:prepare()
 		if self.m_startStageID then
 			local stage_id = self.m_startStageID
 			UI_AdventureSceneNew(stage_id)
-			UI_ReadyScene(stage_id)
+            local with_friend = true
+			UI_ReadyScene(stage_id, with_friend)
 		else
 			UI_AdventureSceneNew()
 		end

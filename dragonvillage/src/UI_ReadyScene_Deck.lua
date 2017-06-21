@@ -25,8 +25,6 @@ UI_ReadyScene_Deck = class({
         m_bDirtyDeck = 'boolean',
 
         m_cbOnDeckChange = 'function',
-
-        m_bWithFriend = 'boolean',
     })
 
 local TOTAL_POS_CNT = 5
@@ -48,11 +46,10 @@ local DC_SCALE_PICK = (DC_SCALE * 0.8)
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ReadyScene_Deck:init(ui_ready_scene, is_friend)
+function UI_ReadyScene_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
 	self.m_lMotionStreakList = {}
     self.m_bDirtyDeck = true
-    self.m_bWithFriend = is_friend or false
 
 	self:initUI()
     self:initButton()
@@ -403,13 +400,7 @@ end
 -- @brief 장착여부에 따른 테이블뷰에 있는 카드 갱신
 -------------------------------------
 function UI_ReadyScene_Deck:refresh_dragonCard(doid)
-    local item
-    if (self.m_bWithFriend) then
-        item = self.m_uiReadyScene.m_readySceneSelect:getTableView().m_itemMap[doid]
-    else
-        item = self.m_uiReadyScene.m_tableViewExt.m_itemMap[doid]
-    end
-    
+    local item = self.m_uiReadyScene.m_readySceneSelect:getTableView().m_itemMap[doid]
     local is_setted = self.m_tDeckMap[doid]
 
     if (not item) then

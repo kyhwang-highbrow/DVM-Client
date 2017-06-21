@@ -16,16 +16,20 @@ UI_ReadyScene = class(PARENT,{
         -- 정렬 도우미
 		m_sortManagerDragon = '',
         m_sortManagerFriendDragon = '',
+
+        m_bWithFriend = 'boolean'
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ReadyScene:init(stage_id)
+function UI_ReadyScene:init(stage_id, with_friend)
 	if (not stage_id) then
 		stage_id = COLOSSEUM_STAGE_ID
 	end
     self:init_MemberVariable(stage_id)
+
+    self.m_bWithFriend = with_friend or false
 
     local vars = self:load('battle_ready.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -50,9 +54,9 @@ function UI_ReadyScene:init(stage_id)
     self:initButton()
 	
     self.m_readySceneSelect = UI_ReadyScene_Select(self)
-    
-    local with_friend = true
-	self.m_readySceneDeck = UI_ReadyScene_Deck(self, with_friend)
+    self.m_readySceneSelect:setFriend(self.m_bWithFriend)
+
+	self.m_readySceneDeck = UI_ReadyScene_Deck(self)
     self.m_readySceneDeck:setOnDeckChangeCB(function() 
 		self:refresh_combatPower()
 		self:refresh_buffInfo()
@@ -231,16 +235,19 @@ end
 -- @brief 테이블 뷰에 정렬 적용
 -------------------------------------
 function UI_ReadyScene:apply_dragonSort()
-    -- 정렬은 본인/친구 테이블 양쪽에 모두 적용
-    local table_view_mine = self.m_readySceneSelect.m_tableViewExtMine
-    if (table_view_mine== nil) then return end
-    self.m_sortManagerDragon:sortExecution(table_view_mine.m_itemList)
-    table_view_mine:setDirtyItemList()
+    local sort_func 
+    sort_func = function(table_view, friend)
+        if (table_view == nil) then return end
+        local target_sort_mgr = (friend) and self.m_sortManagerFriendDragon or self.m_sortManagerDragon
+        target_sort_mgr:sortExecution(table_view.m_itemList)
+        table_view:setDirtyItemList()
+    end
+    
+    sort_func(self.m_readySceneSelect.m_tableViewExtMine)
 
-    local table_view_friend = self.m_readySceneSelect.m_tableViewExtFriend
-    if (table_view_friend== nil) then return end
-    self.m_sortManagerFriendDragon:sortExecution(table_view_friend.m_itemList)
-    table_view_friend:setDirtyItemList()
+    if (self.m_bWithFriend) then
+        sort_func(self.m_readySceneSelect.m_tableViewExtFriend, true)
+    end
 end
 
 -------------------------------------
