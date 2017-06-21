@@ -345,6 +345,14 @@ function StructDragonObject:getEvolution()
 end
 
 -------------------------------------
+-- function getLv
+-- @breif
+-------------------------------------
+function StructDragonObject:getLv()
+    return self['lv']
+end
+
+-------------------------------------
 -- function getIconRes
 -- @breif
 -------------------------------------

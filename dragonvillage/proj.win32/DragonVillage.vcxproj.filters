@@ -2385,6 +2385,9 @@
     <None Include="..\src\StructBookData.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_HatcheryCombineItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

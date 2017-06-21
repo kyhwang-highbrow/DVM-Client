@@ -469,3 +469,82 @@ function ServerData_Hatchery:checkRelationHighlight()
     local count = table.count(l_dragon_list)
     return count
 end
+
+
+-------------------------------------
+-- function combineMaterialInfo
+-------------------------------------
+function ServerData_Hatchery:combineMaterialInfo(did)
+    local table_dragon_combine = TableDragonCombine()
+    local t_dragon_combine = table_dragon_combine:get(did)
+
+    local l_dragon = g_dragonsData:getDragonsListRef()
+
+
+    local l_cnt = {}
+    local l_satisfy = {}
+    local did1 = t_dragon_combine['material_1']
+    local did2 = t_dragon_combine['material_2']
+    local did3 = t_dragon_combine['material_3']
+    local did4 = t_dragon_combine['material_4']
+
+    local req_grade = t_dragon_combine['material_grade']
+    local req_grade_max_lv = TableGradeInfo:getMaxLv(req_grade)
+    local req_evolution = t_dragon_combine['material_evolution']
+    
+
+    -- 단순 보유와 조건 충족을 체크해야함
+    for i,v in pairs(l_dragon) do
+        -- did가 있을 경우
+        if isExistValue(v:getDid(), did1, did2, did3, did4) then
+            l_cnt[v:getDid()] = true
+
+            if (v:getGrade() < req_grade) then
+                -- 등급이 낮아서 불충족
+            elseif (v:getGrade() == req_grade) and (v:getLv() < req_grade_max_lv) then
+                -- 최대 레벨이 낮아서 불충족 (필요 등급의 max레벨이거나 등급 자체가 더 높아야함)
+            elseif (v:getEvolution() == req_evolution) then
+                -- 진화도가 낮아서 불충족
+            else
+                l_satisfy[v:getDid()] = true
+            end
+        end
+    end
+
+    local mtrl_cnt = table.count(l_cnt)
+    local satisfy_cnt = table.count(l_satisfy)
+
+    return mtrl_cnt, satisfy_cnt
+end
+
+-------------------------------------
+-- function combineMaterialList
+-------------------------------------
+function ServerData_Hatchery:combineMaterialList(did)
+    local table_dragon_combine = TableDragonCombine()
+    local t_dragon_combine = table_dragon_combine:get(did)
+
+    local l_dragon = g_dragonsData:getDragonsListRef()
+
+
+    local l_mtrl = {}
+    local did1 = t_dragon_combine['material_1']
+    local did2 = t_dragon_combine['material_2']
+    local did3 = t_dragon_combine['material_3']
+    local did4 = t_dragon_combine['material_4']
+
+    local req_grade = t_dragon_combine['material_grade']
+    local req_grade_max_lv = TableGradeInfo:getMaxLv(req_grade)
+    local req_evolution = t_dragon_combine['material_evolution']
+    
+
+    -- 단순 보유와 조건 충족을 체크해야함
+    for i,v in pairs(l_dragon) do
+        -- did가 있을 경우
+        if isExistValue(v:getDid(), did1, did2, did3, did4) then
+            table.insert(l_mtrl, clone(v))
+        end
+    end
+
+    return l_mtrl
+end

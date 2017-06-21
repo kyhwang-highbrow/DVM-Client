@@ -29,7 +29,5 @@ local THIS = TableDragonCombine
 function TableDragonCombine:init()
     self.m_tableName = 'table_dragon_combine'
     self.m_orgTable = TABLE:get(self.m_tableName)
-
-    ccdump(self.m_orgTable)
 end
 
