@@ -123,11 +123,10 @@ function GameWorld:makeMonsterNew(monster_id, level)
             monster.m_statusCalc:addBuffMulti('hp', value)
         end
     end
-
+    
+    monster.m_statusCalc:appendHpRatio(self.m_stageID)
     monster:setStatusCalc(monster.m_statusCalc)
-
     self:dispatch('make_monster', {['monster']=monster})
-
 	return monster
 end
 
