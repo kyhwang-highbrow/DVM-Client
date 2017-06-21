@@ -849,13 +849,10 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ColosseumLoading.lua" />
     <None Include="..\src\UI_ColosseumRankingReward.lua" />
     <None Include="..\src\UI_ColosseumRankListItem.lua" />
-    <None Include="..\src\UI_ColosseumReadyScene.lua" />
     <None Include="..\src\UI_ColosseumResult.lua" />
     <None Include="..\src\UI_ColosseumRewardListItem.lua" />
     <None Include="..\src\UI_ColosseumRewardPopup.lua" />
     <None Include="..\src\UI_DragonDevApiPopup.lua" />
-    <None Include="..\src\UI_DragonEclvResult.lua" />
-    <None Include="..\src\UI_DragonEclvupNew.lua" />
     <None Include="..\src\UI_DragonEvolutionResult.lua" />
     <None Include="..\src\UI_DragonFriendship.lua" />
     <None Include="..\src\UI_DragonGoodbye.lua" />
@@ -867,7 +864,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonManageInfo.lua" />
     <None Include="..\src\UI_DragonManagementEvolution.lua" />
     <None Include="..\src\UI_DragonManage_Base.lua" />
-    <None Include="..\src\UI_DragonResearch.lua" />
     <None Include="..\src\UI_DragonRunes.lua" />
     <None Include="..\src\UI_DragonRunesEnhance.lua" />
     <None Include="..\src\UI_DragonSkillCard.lua" />
@@ -1014,7 +1010,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_SimplePopup.lua" />
     <None Include="..\src\UI_SkillCard.lua" />
     <None Include="..\src\UI_SkillDetailPopup.lua" />
-    <None Include="..\src\UI_SkillDetailPopupListItem.lua" />
     <None Include="..\src\UI_SkillDetailPopupListItem_Tamer.lua" />
     <None Include="..\src\UI_SkillDetailPopup_Tamer.lua" />
     <None Include="..\src\UI_TableViewCellClass.lua" />
@@ -1023,7 +1018,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_TitleScene.lua" />
     <None Include="..\src\UI_TitleSceneLoading.lua" />
     <None Include="..\src\UI_Tooltip.lua" />
-    <None Include="..\src\UI_Tooltip_Buff.lua" />
     <None Include="..\src\UI_Tooltip_Indicator.lua" />
     <None Include="..\src\UI_Tooltip_Skill.lua" />
     <None Include="..\src\UI_TopUserInfo.lua" />

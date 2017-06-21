@@ -510,9 +510,6 @@
     <None Include="..\src\UI_FriendSelectListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_Tooltip_Buff.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_FriendPopupTabRequest.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -663,9 +660,6 @@
     <None Include="..\src\UI_CollectionUnitListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ColosseumReadyScene.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_EventPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -735,19 +729,10 @@
     <None Include="..\src\UI_GameTamer.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_SkillDetailPopupListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_DragonEclvupNew.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_IngameDragonPanel.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_IngameDragonPanelItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_DragonResearch.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UIC_IndivisualStats.lua">
@@ -806,9 +791,6 @@
     </None>
     <None Include="..\src\UIC_DragonAnimatorDirector.lua">
       <Filter>lua\UIC</Filter>
-    </None>
-    <None Include="..\src\UI_DragonEclvResult.lua">
-      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_GameDPSPopup.lua">
       <Filter>lua\UI</Filter>
