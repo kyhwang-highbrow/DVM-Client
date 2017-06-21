@@ -231,23 +231,7 @@ function GameWorld:makeHeroDeck()
             status_calc:addBuffMulti('def', (friend_online_buff['def'] or 0))
         end
     end
-    --[[
-    do -- 무리 버프
-        local unit_buff_dic = g_dragonUnitData:getDragonUnitList_deckBuff(deck_name)
-        for i,v in pairs(unit_buff_dic) do
-            
-            if (0 < table.count(v)) then
-                local status_calc = self.m_mHeroList[i].m_statusCalc
 
-                for _,unit_id in pairs(v) do
-                    
-                    local status, action, value = TableDragonUnit:getUnitBuff(unit_id)
-                    status_calc:addOption(action, status, value)
-                end
-            end
-        end 
-    end
-    ]]--
     do -- 마나
         self.m_heroMana = GameMana(self, true)
 

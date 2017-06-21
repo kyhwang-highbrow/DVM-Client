@@ -452,7 +452,7 @@ function ServerData_Hatchery:checkRelationHighlight()
         end
 
         local did = t_table['did']
-        local cur_rpoint = g_collectionData:getRelationPoint(did)
+        local cur_rpoint = g_bookData:getRelationPoint(did)
         if (cur_rpoint <= 0) then
             return false
         end

@@ -193,7 +193,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workGetDeck')
     table.insert(self.m_lWorkList, 'workGetServerInfo')
-    table.insert(self.m_lWorkList, 'workCollection')
+    table.insert(self.m_lWorkList, 'workBook')
     table.insert(self.m_lWorkList, 'workSoundPreload')
     table.insert(self.m_lWorkList, 'workFinish')
     
@@ -454,10 +454,10 @@ function UI_TitleScene:workGetServerInfo_click()
 end
 
 -------------------------------------
--- function workCollection
+-- function workBook
 -- @brief
 -------------------------------------
-function UI_TitleScene:workCollection()
+function UI_TitleScene:workBook()
     self.m_loadingUI:showLoading(Str('도감 정보 받는 중...'))
 
     local success_cb = function(ret)
@@ -469,11 +469,11 @@ function UI_TitleScene:workCollection()
         return true
     end
 
-    local ui_network = g_collectionData:request_collectionInfo(success_cb)
+    local ui_network = g_bookData:request_bookInfo(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setLoadingMsg('')
 end
-function UI_TitleScene:workCollection_click()
+function UI_TitleScene:workBook_click()
 end
 
 

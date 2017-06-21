@@ -25,7 +25,7 @@ function UI_BookDetailPopup:init(t_dragon, t_data)
 
     self:sceneFadeInAction()
 
-    self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
+    self.m_collectionLastChangeTime = g_bookData:getLastChangeTimeStamp()
 
     self:initUI()
     self:initButton()
@@ -254,10 +254,10 @@ end
 -- @brief
 -------------------------------------
 function UI_BookDetailPopup:checkRefresh()
-    local is_changed = g_collectionData:checkChange(self.m_collectionLastChangeTime)
+    local is_changed = g_bookData:checkChange(self.m_collectionLastChangeTime)
 
     if is_changed then
-        self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
+        self.m_collectionLastChangeTime = g_bookData:getLastChangeTimeStamp()
         self:onChangeDragon()
     end
 end

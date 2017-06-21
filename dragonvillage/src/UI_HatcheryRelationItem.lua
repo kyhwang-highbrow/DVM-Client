@@ -53,7 +53,7 @@ function UI_HatcheryRelationItem:refresh()
 
     -- 인연포인트 값 얻어오기
     local req_rpoint = TableDragon():getRelationPoint(did)
-    local cur_rpoint = g_collectionData:getRelationPoint(did)
+    local cur_rpoint = g_bookData:getRelationPoint(did)
     local color
 
     if (cur_rpoint < req_rpoint) then

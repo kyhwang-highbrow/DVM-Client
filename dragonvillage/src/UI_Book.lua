@@ -7,7 +7,7 @@ UI_Book = class(PARENT, {
         m_mTabUI = 'map',
 
         -- refresh 체크 용도
-        m_collectionLastChangeTime = 'timestamp',
+        m_bookLastChangeTime = 'timestamp',
 
 		m_roleRadioButton = 'UIC_RadioButton',
         m_attrRadioButton = 'UIC_RadioButton',
@@ -48,7 +48,7 @@ function UI_Book:init()
 
     self:sceneFadeInAction()
 
-    self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
+    self.m_bookLastChangeTime = g_bookData:getLastChangeTimeStamp()
 end
 
 -------------------------------------
@@ -103,9 +103,6 @@ end
 -------------------------------------
 function UI_Book:initButton()
     local vars = self.vars
-
-    -- 콜랙션 포인트 보상 확인
-    --vars['collectionPointBtn']:registerScriptTapHandler(function() self:click_collectionPointBtn() end)
 end
 
 -------------------------------------
@@ -113,11 +110,6 @@ end
 -------------------------------------
 function UI_Book:refresh()
     local vars = self.vars
-
-    do -- 콜랙션 포인트 임시 초기값
-        --vars['titleLabel']:setString(Str(g_collectionData:getTamerTitle()))
-        --vars['collectionPointLabel']:setString(comma_value(g_collectionData:getCollectionPoint()))
-    end
 end
 
 -------------------------------------
@@ -162,7 +154,7 @@ function UI_Book:onChangeOption()
     local role_option = self.m_roleRadioButton.m_selectedButton
     local attr_option = self.m_attrRadioButton.m_selectedButton
 
-    local l_item_list = g_collectionData:getCollectionList(role_option, attr_option)
+    local l_item_list = g_bookData:getBookList(role_option, attr_option)
 
     -- 리스트 머지 (조건에 맞는 항목만 노출)
     self.m_tableViewTD:mergeItemList(l_item_list)
@@ -202,10 +194,10 @@ function UI_Book:init_TableViewTD()
 end
 
 -------------------------------------
--- function click_collectionPointBtn
+-- function click_bookPointBtn
 -- @brief 콜랙션 포인트 보상 확인 버튼
 -------------------------------------
-function UI_Book:click_collectionPointBtn()
+function UI_Book:click_bookPointBtn()
     local ui = UI_BookPointReward()
     
     local function close_cb()
@@ -220,10 +212,10 @@ end
 -- @brief 도감 데이터가 변경되었는지 확인 후 변경되었으면 갱신
 -------------------------------------
 function UI_Book:checkRefresh()
-    local is_changed = g_collectionData:checkChange(self.m_collectionLastChangeTime)
+    local is_changed = g_bookData:checkChange(self.m_bookLastChangeTime)
 
     if is_changed then
-        self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
+        self.m_bookLastChangeTime = g_bookData:getLastChangeTimeStamp()
         self:refresh()
     end
 end

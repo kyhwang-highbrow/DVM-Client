@@ -40,9 +40,6 @@ function ServerData:getInstance()
     -- 슬라임
     g_slimesData = ServerData_Slimes(g_serverData)
 
-    -- 드래곤 유닛 (도감의 버프)
-    g_dragonUnitData = ServerData_DragonUnit(g_serverData)
-
     -- 'deck'
     g_deckData = ServerData_Deck(g_serverData)
 
@@ -118,7 +115,7 @@ function ServerData:getInstance()
     g_hotTimeData = ServerData_HotTime(g_serverData)
 
     -- 도감
-    g_collectionData = ServerData_Collection(g_serverData)
+    g_bookData = ServerData_Book(g_serverData)
 
     -- 이벤트
     g_eventData = ServerData_Event(g_serverData)
@@ -527,7 +524,7 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 인연포인트 (전체 갱신)
     if (t_added_items['relation']) then
-        g_collectionData:applyRelationPoints(t_added_items['relation'])
+        g_bookData:applyRelationPoints(t_added_items['relation'])
         t_added_items['relation'] = nil
     end
 

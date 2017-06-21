@@ -102,7 +102,7 @@ function UI_HatcheryRelationTab:getDragonList()
         end
 
         local did = t_table['did']
-        local cur_rpoint = g_collectionData:getRelationPoint(did)
+        local cur_rpoint = g_bookData:getRelationPoint(did)
         if (cur_rpoint <= 0) then
             return false
         end
@@ -265,7 +265,7 @@ function UI_HatcheryRelationTab:click_summonBtn()
 
     -- 인연포인트 값 얻어오기
     local req_rpoint = TableDragon():getRelationPoint(did)
-    local cur_rpoint = g_collectionData:getRelationPoint(did)
+    local cur_rpoint = g_bookData:getRelationPoint(did)
     if (cur_rpoint < req_rpoint) then
         UIManager:toastNotificationRed(Str('인연포인트가 부족합니다.'))
         return
@@ -283,7 +283,7 @@ function UI_HatcheryRelationTab:click_summonBtn()
 
         -- 리스트 아이템 갱신
         local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
-        local cur_rpoint = g_collectionData:getRelationPoint(self.m_selectedDid)
+        local cur_rpoint = g_bookData:getRelationPoint(self.m_selectedDid)
         if (0 < cur_rpoint) then
             if t_item and t_item['ui'] then
                 t_item['ui']:refresh()
@@ -304,5 +304,5 @@ function UI_HatcheryRelationTab:click_summonBtn()
         self.m_ownerUI:refresh_highlight()
     end
 
-    g_collectionData:request_useRelationPoint(did, finish_cb)
+    g_bookData:request_useRelationPoint(did, finish_cb)
 end

@@ -1,8 +1,8 @@
 -------------------------------------
--- class StructCollectionData
+-- class StructBookData
 -- @instance
 -------------------------------------
-StructCollectionData = class({
+StructBookData = class({
         dragon_id = 'number',
         grade = 'number',
         relation = 'number',
@@ -15,7 +15,7 @@ StructCollectionData = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function StructCollectionData:init(data)
+function StructBookData:init(data)
     self.dragon_id = nil
     self.grade = 1
     self.relation = 0
@@ -32,7 +32,7 @@ end
 -------------------------------------
 -- function applyTableData
 -------------------------------------
-function StructCollectionData:applyTableData(data)
+function StructBookData:applyTableData(data)
 	-- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
     local replacement = {}
     replacement['evo'] = 'evolution'
@@ -48,62 +48,62 @@ end
 -------------------------------------
 -- function setDragonID
 -------------------------------------
-function StructCollectionData:setDragonID(did)
+function StructBookData:setDragonID(did)
     self.dragon_id = did
 end
 
 -------------------------------------
 -- function setRelation
 -------------------------------------
-function StructCollectionData:setRelation(relation)
+function StructBookData:setRelation(relation)
     self.relation = relation
 end
 
 -------------------------------------
 -- function getRelation
 -------------------------------------
-function StructCollectionData:getRelation()
+function StructBookData:getRelation()
     return self.relation
 end
 
 -------------------------------------
 -- function setExist
 -------------------------------------
-function StructCollectionData:setExist()
+function StructBookData:setExist()
     self.exist = true
 end
 
 -------------------------------------
 -- function isExist
 -------------------------------------
-function StructCollectionData:isExist()
+function StructBookData:isExist()
     return self.exist
 end
 
 -------------------------------------
 -- function getGrade
 -------------------------------------
-function StructCollectionData:getGrade()
+function StructBookData:getGrade()
     return self.grade
 end
 
 -------------------------------------
 -- function getFLv
 -------------------------------------
-function StructCollectionData:getFLv()
+function StructBookData:getFLv()
     return self.flv
 end
 
 -------------------------------------
 -- function getEvolution
 -------------------------------------
-function StructCollectionData:getEvolution()
+function StructBookData:getEvolution()
     return self.evolution
 end
 
 -------------------------------------
 -- function getGradeLvState
 -------------------------------------
-function StructCollectionData:getGradeLvState()
+function StructBookData:getGradeLvState()
     return self.grade_lv_state
 end

@@ -550,7 +550,7 @@ function UI_DragonManageInfo:click_collectionBtn()
     local function close_cb()
         self:checkDragonListRefresh()
     end
-    g_collectionData:openCollectionPopup(close_cb)
+    g_bookData:openBookPopup(close_cb)
 end
 
 -------------------------------------

@@ -58,12 +58,10 @@ local t_module = {
     'StructIndividualStatus',
     'StructFreeDragonSummonInfo',
     'StructQuestData',
-    'StructCollectionData',
-    'StructDragonUnit',
-    'StructDragonUnitCondition',
     'StructUserInfo',
     'StructWaveRegenGroup',
     'StructCollisionData',
+	'StructBookData',
 
 	-- ServerData
     'ServerData',
@@ -71,7 +69,6 @@ local t_module = {
 	'ServerData_Tamer',
     'ServerData_Dragons',
     'ServerData_Slimes',
-    'ServerData_DragonUnit',
     'ServerData_Deck',
     'ServerData_Staminas',
     'ServerData_Adventure',
@@ -96,7 +93,6 @@ local t_module = {
     'ServerData_Exchange',
     'ServerData_Exploration',
     'ServerData_HotTime',
-    'ServerData_Collection',
     'ServerData_Event',
     'ServerData_Highlight',
 	'ServerData_Ranking',
@@ -105,6 +101,7 @@ local t_module = {
     'ServerData_Eggs',
     'ServerData_Hatchery',
     'ServerData_StartTamer',
+	'ServerData_Book',
 
     -- Interface
     'IEventDispatcher',
@@ -711,7 +708,7 @@ local t_module = {
     'UI_LobbyObject',
     'UI_DragonRunes',
     'UI_DragonRunesEnhance',
-    'UI_DragonFriendship',
+    'UI_DragonFriendship', 
 
     'UI_DragonManageFriendshipResult',
     'UI_DragonEvolutionResult',

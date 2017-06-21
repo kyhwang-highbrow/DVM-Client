@@ -176,9 +176,7 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
 
     -- 추가된 드래곤은 도감에 추가
     local did = t_dragon_data['did']
-    g_collectionData:setDragonCollection(did)
-
-    g_dragonUnitData:setDirty() -- 무리 버프 정보 갱신 필요
+    g_bookData:setDragonBook(did)
 
     -- 채팅 서버의 리더 드래곤 정보 갱신 체크용
     if self:isLeaderDragon(doid) then
@@ -225,7 +223,6 @@ function ServerData_Dragons:delDragonData(doid)
     -- 드래곤 did별 갯수 갱신 필요
     self.m_bDirtyNumOfDragonsByDid = true
 
-    g_dragonUnitData:setDirty() -- 무리 버프 정보 갱신 필요
     self:setLastChangeTimeStamp()
 end
 
@@ -765,37 +762,6 @@ function ServerData_Dragons:request_dragonsInfo(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
-end
-
--------------------------------------
--- function getDragonResearchLevel
--- @breif 연구(research) 레벨
--------------------------------------
-function ServerData_Dragons:getDragonResearchLevel(doid)
-    local t_dragon_data = self:getDragonDataFromUid(doid)
-
-    if (not t_dragon_data) then
-        return 0
-    end
-
-    local did = t_dragon_data['did']
-    local research_lv = g_collectionData:getDragonResearchLevel_did(did)
-    return research_lv
-end
-
--------------------------------------
--- function checkResearchUpgradeable
--- @brief
--------------------------------------
-function ServerData_Dragons:checkResearchUpgradeable(doid)
-    local research_lv = self:getDragonResearchLevel(doid)
-
-    -- 최대 등급 체크
-    if (research_lv >= MAX_DRAGON_RESEARCH_LV) then
-        return false, Str('최고 연구 단계의 드래곤입니다.')
-    end
-
-    return true
 end
 
 -------------------------------------

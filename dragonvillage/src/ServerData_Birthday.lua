@@ -78,7 +78,7 @@ function ServerData_Birthday:hasBirthdayReward()
     for dragon_type,v in pairs(birthday_list) do
 
         -- 보상을 받지 않은 드래곤이고 도감에 드래곤 타입이 등록된 경우에만 추가
-        if (v == false) and g_collectionData:isExistDragonType(dragon_type) then
+        if (v == false) and g_bookData:isExistDragonType(dragon_type) then
             table.insert(t_ret, dragon_type)
         end
     end

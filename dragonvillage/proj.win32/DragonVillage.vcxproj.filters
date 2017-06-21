@@ -1536,9 +1536,6 @@
     <None Include="..\src\ServerData_Birthday.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_Collection.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ServerData_Colosseum.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -1549,9 +1546,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\ServerData_Dragons.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_DragonUnit.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\ServerData_Event.lua">
@@ -1878,16 +1872,7 @@
     <None Include="..\src\StructCalendarDay.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\StructCollectionData.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StructDragonObject.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\StructDragonUnit.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\StructDragonUnitCondition.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StructEventPopupTab.lua">
@@ -2393,6 +2378,12 @@
     </None>
     <None Include="..\src\UI_ColosseumRankingReward.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_Book.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructBookData.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

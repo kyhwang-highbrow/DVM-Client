@@ -63,7 +63,7 @@ function UI_BirthdayCalendarDayElement:makeDragonIcons(month, day)
             vars['dragonNode' .. i]:addChild(card.root)
 
             -- 드래곤 원종 도감에 포함된 애들만 활성화
-            if (not g_collectionData:isExistDragonType(dragon_type)) then
+            if (not g_bookData:isExistDragonType(dragon_type)) then
                 card:setShadowSpriteVisible(true)
             end
         end
