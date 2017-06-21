@@ -40,18 +40,31 @@ function ServerData_Book:getBookList(role_type, attr_type)
 
     local l_ret = {}
 
-    for i,v in pairs(table_dragon.m_orgTable) do
-        --if (v['test'] ~= 1) then
-        if false then
-
-        elseif (role_type ~= 'all') and (role_type ~= v['role']) then
+    for i, v in pairs(table_dragon.m_orgTable) do
+		if (role_type ~= 'all') and (role_type ~= v['role']) then
 
         elseif (attr_type ~= 'all') and (attr_type ~= v['attr']) then
 
         -- 위 조건들에 해당하지 않은 경우만 추가
         else
             local did = v['did']
-            l_ret[did] = v
+			local key = did
+			if (table_dragon:isUnderling(did)) then
+				local t_dragon = clone(v)
+				t_dragon['evolution'] = 1
+				t_dragon['grade'] = t_dragon['birthgrade']
+
+				l_ret[key] = t_dragon
+			else
+				for i = 1, 3 do
+					local t_dragon = clone(v)
+					local grade_factor = (i == 3) and 1 or 0
+					t_dragon['evolution'] = i
+					t_dragon['grade'] = t_dragon['birthgrade'] + grade_factor
+
+					l_ret[key + (i * 1000000)] = t_dragon
+				end
+			end
         end
     end
 

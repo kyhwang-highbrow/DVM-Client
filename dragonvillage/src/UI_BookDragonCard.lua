@@ -4,12 +4,10 @@
 -------------------------------------
 function UI_BookDragonCard(t_dragon)
 	local did = t_dragon['did']
-	local evo = t_dragon['evolution'] or 1
-	local grade_factor = (evo > 1) and 1 or 0
-	
+
 	local t_data = {}
-	t_data['evolution'] = evo
-	t_data['grade'] = t_dragon['birthgrade'] + grade_factor
+	t_data['evolution'] = t_dragon['evolution']
+	t_data['grade'] = t_dragon['grade']
 
     local ui = MakeSimpleDragonCard(did, t_data)
     local function func()

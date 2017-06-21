@@ -119,29 +119,27 @@ end
 function UI_Book:makeSortManager()
     local sort_manager = SortManager_Dragon()
 
-    -- did선에서 무조건 우열을 가리도록 설정
-    local function sort_did(a, b, ascending)
-        local a_data = a['data']
-        local b_data = b['data']
+	-- 진화도는 무조건 우열을 가름
+    local function sort_evolution(a, b, ascending)
+		local a_data = a['data']
+		local b_data = b['data']
 
-        local a_value = a_data['did']
-        local b_value = b_data['did']
+		local a_value = a_data['evolution']
+		local b_value = b_data['evolution']
 
-        -- 오름차순 or 내림차순
-        if ascending then return a_value < b_value
-        else              return a_value > b_value
-        end
+		-- nil return 을 하지 않음
+		--if (a_value == b_value) then return nil end
+
+		-- 오름차순 or 내림차순
+		if ascending then return a_value < b_value
+		else              return a_value > b_value
+		end
     end
-    sort_manager:addSortType('did', false, sort_did)
-
-    -- did 내림차순
-    sort_manager:pushSortOrder('did', false)
-
-    -- 역할 내림차순
-    sort_manager:pushSortOrder('role', false)
-
-    -- 레어도 내림차순
-    sort_manager:pushSortOrder('rarity', false)
+    sort_manager:addSortType('evolution', false, sort_evolution)
+	
+	-- 진화도부터 체크 후에 등급 체크
+	sort_manager:pushSortOrder('evolution', false)
+    sort_manager:pushSortOrder('grade', false)
 
     self.m_sortManager = sort_manager
 end
@@ -174,8 +172,8 @@ function UI_Book:init_TableViewTD()
 
 	-- cell_size 지정
     local item_size = 150
-    local item_scale = 0.885
-    local cell_size = cc.size(item_size*item_scale, item_size*item_scale)
+    local item_scale = 0.8
+    local cell_size = cc.size(item_size*item_scale + 12, item_size*item_scale + 12)
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)

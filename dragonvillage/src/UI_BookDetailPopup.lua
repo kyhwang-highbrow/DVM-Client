@@ -13,7 +13,7 @@ UI_BookDetailPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_BookDetailPopup:init(t_dragon, t_data)
-    local vars = self:load('collection_detail_popup.ui')
+    local vars = self:load('book_detail_popup.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -82,23 +82,11 @@ function UI_BookDetailPopup:onChangeDragon(t_dragon, t_data)
         vars['bgNode']:addChild(animator.m_node)
     end   
 
-
-    do -- 희귀도
-        local rarity = t_dragon['rarity']
-        vars['rarityNode']:removeAllChildren()
-        local icon = IconHelper:getRarityIcon(rarity)
-        vars['rarityNode']:addChild(icon)
-
-        vars['rarityLabel']:setString(dragonRarityName(rarity))
-    end
-
     do -- 드래곤 속성
         local attr = t_dragon['attr']
         vars['attrNode']:removeAllChildren()
         local icon = IconHelper:getAttributeIcon(attr)
         vars['attrNode']:addChild(icon)
-
-        vars['attrLabel']:setString(dragonAttributeName(attr))
     end
 
     do -- 드래곤 역할(role)
@@ -106,8 +94,6 @@ function UI_BookDetailPopup:onChangeDragon(t_dragon, t_data)
         vars['roleNode']:removeAllChildren()
         local icon = IconHelper:getRoleIcon(role_type)
         vars['roleNode']:addChild(icon)
-
-        vars['roleLabel']:setString(dragonRoleName(role_type))
     end    
 
     do -- 드래곤 스토리
@@ -187,14 +173,23 @@ function UI_BookDetailPopup:onChangeEvolution(t_dragon, t_data)
         local l_skill_icon = skill_mgr:getDragonSkillIconList()
 
         for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
-            if l_skill_icon[i] then
-                vars['skillNode' .. i]:removeAllChildren()
-                vars['skillNode' .. i]:addChild(l_skill_icon[i].root)
-
-                l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+			local skill_node = vars['skillNode' .. i]
+			skill_node:removeAllChildren()
+            
+			-- 스킬 아이콘 생성
+			if l_skill_icon[i] then
+                skill_node:addChild(l_skill_icon[i].root)
+				l_skill_icon[i]:setLeaderLabelToggle(i == 'Leader')
+                
+				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
 					UI_SkillDetailPopup(t_dragon_data, i)
 				end)
+
+			-- 비어있는 스킬 아이콘 생성
+			else
+				local empty_skill_icon = IconHelper:getEmptySkillIcon()
+				skill_node:addChild(empty_skill_icon)
 
             end
         end
@@ -205,14 +200,14 @@ end
 -- function click_prevBtn
 -------------------------------------
 function UI_BookDetailPopup:click_prevBtn()
-    self:setIdx(self.m_currIdx - 1)
+    --self:setIdx(self.m_currIdx - 1)
 end
 
 -------------------------------------
 -- function click_nextBtn
 -------------------------------------
 function UI_BookDetailPopup:click_nextBtn()
-    self:setIdx(self.m_currIdx + 1)
+    --self:setIdx(self.m_currIdx + 1)
 end
 
 -------------------------------------
