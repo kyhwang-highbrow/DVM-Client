@@ -21,6 +21,12 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_HatcheryRelationTab:onEnterTab(first)
+    if (not self.m_selectedDid) then
+        self.m_ownerUI:showNpc() -- NPC 등장
+    else
+        self.m_ownerUI:hideNpc() -- NPC 퇴장
+    end
+
     if first then
         self:initButton()
         self:init_TableView()
@@ -68,7 +74,7 @@ function UI_HatcheryRelationTab:init_TableView()
     self.m_tableViewTD = table_view_td
 
     -- 리스트가 비었을 때
-    table_view_td:makeDefaultEmptyDescLabel(Str('인연포인트를 획득한 드래곤이 없습니다.'))
+    table_view_td:makeDefaultEmptyDescLabel(Str(''))
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonList()
@@ -202,10 +208,12 @@ function UI_HatcheryRelationTab:refresh()
     if (not self.m_selectedDid) then
         vars['leftNode']:setVisible(false)
         vars['emptySprite']:setVisible(true)
+        self.m_ownerUI:showNpc() -- NPC 등장
         return
     else
         vars['leftNode']:setVisible(true)
         vars['emptySprite']:setVisible(false)
+        self.m_ownerUI:hideNpc() -- NPC 퇴장
     end
 
     local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)

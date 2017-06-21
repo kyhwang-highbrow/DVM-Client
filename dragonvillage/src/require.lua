@@ -528,6 +528,7 @@ local t_module = {
     'UI_SimpleDragonInfoPopup',
     'UI_Hatchery',
     'UI_HatcheryCombineTab',
+    'UI_HatcheryCombinePopup',
     'UI_HatcherySummonTab',
     'UI_HatcheryIncubateTab',
     'UI_HatcheryRelationTab',

@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_Hatchery
 -------------------------------------
 UI_Hatchery = class(PARENT,{
+        m_npcAnimator = 'Animator',
     })
 
 -------------------------------------
@@ -44,6 +45,16 @@ end
 -- function initUI
 -------------------------------------
 function UI_Hatchery:initUI()
+    do -- NPC
+        local res = 'res/character/npc/yuria/yuria.spine'
+        local animator = MakeAnimator(res)
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator:changeAni('idle', true)
+        self.vars['npcNode']:addChild(animator.m_node)
+        self.m_npcAnimator = animator
+    end
+
     self:initTab()
 end
 
@@ -102,4 +113,25 @@ function UI_Hatchery:refresh_highlight()
     vars['summonNotiSprite']:setVisible(t_highlight['summon'])
     vars['incubateNotiSprite']:setVisible(t_highlight['incubate'])
     vars['relationNotiSprite']:setVisible(t_highlight['relation'])
+end
+
+-------------------------------------
+-- function showNpc
+-------------------------------------
+function UI_Hatchery:showNpc()
+    self.m_npcAnimator:setVisible(true)
+end
+
+-------------------------------------
+-- function hideNpc
+-------------------------------------
+function UI_Hatchery:hideNpc()
+    self.m_npcAnimator:setVisible(false)
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_Hatchery:onChangeTab(tab, first)
+    PARENT.onChangeTab(self, tab, first)
 end

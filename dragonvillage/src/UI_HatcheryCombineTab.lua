@@ -13,13 +13,15 @@ UI_HatcheryCombineTab = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_HatcheryCombineTab:init(owner_ui)
-    local vars = self:load('hatchery_combine.ui')
+    local vars = self:load('hatchery_combine_01.ui')
 end
 
 -------------------------------------
 -- function onEnterTab
 -------------------------------------
 function UI_HatcheryCombineTab:onEnterTab(first)
+    self.m_ownerUI:showNpc() -- NPC 등장
+
     if first then
         self:initUI()
     end
@@ -47,6 +49,7 @@ function UI_HatcheryCombineTab:init_TableView()
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data['did']) end)
         --[[
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data['did']) end)
         
@@ -115,4 +118,22 @@ function UI_HatcheryCombineTab:getCombineMaterialList(did)
     local t_dragon_combine = table_dragon_combine:get(did)
 
     local l_dragon = g_dragonsData:getDragonsListRef()
+end
+
+-------------------------------------
+-- function click_dragonCard
+-------------------------------------
+function UI_HatcheryCombineTab:click_dragonCard(did)
+    local ui = UI_HatcheryCombinePopup()
+    
+    self.root:setVisible(false)
+    self.m_ownerUI:hideNpc() -- NPC 퇴장
+    self.m_ownerUI.vars['tabMenu']:setVisible(false)
+
+    local function close_cb()
+        self.root:setVisible(true)
+        self.m_ownerUI:showNpc() -- NPC 등장
+        self.m_ownerUI.vars['tabMenu']:setVisible(true)
+    end
+    ui:setCloseCB(close_cb)
 end

@@ -18,6 +18,8 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_HatcherySummonTab:onEnterTab(first)
+    self.m_ownerUI:showNpc() -- NPC 등장
+
     if (first == true) then
         self:initUI()
         self:init_eggFicker()
@@ -40,25 +42,6 @@ function UI_HatcherySummonTab:initUI()
     do -- 배너
         local animator = MakeAnimator('res/ui/event/summon_banner_01.png')
         vars['bannerNode']:addChild(animator.m_node)
-    end
-
-    -- 테이머
-    do
-		--local t_tamer =  g_tamerData:getCurrTamerTable()
-        --local table_tamer = TableTamer()
-        --local t_tamer = table_tamer:get(110002) -- 누리로 하드코딩 추후 NPC로 교체
-        --local tamer_res = t_tamer['res']
-        local res = 'res/character/npc/yuria/yuria.spine'
-        local animator = MakeAnimator(res)
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        --self.vars['tamerNode']:addChild(animator.m_node)
-		
-		-- 표정 적용
-		--local face_ani = TableTamer:getTamerFace(t_tamer['type'], true)
-		--animator:changeAni(face_ani, true)
-        animator:changeAni('idle', true)
-        --animator:setFlip(true)
     end
 end
 
