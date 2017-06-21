@@ -224,6 +224,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     -- 테이블 가져옴
 	local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
+    local category = t_status_effect['type']
 
 	-- 여기서는 상태효과가 없으면 에러를 발생시켜야함
     if (not t_status_effect) then
@@ -261,7 +262,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
         status_effect:setOverlabClass(StatusEffectUnit_Dot_Damage)
 
     elseif isExistValue(status_effect_type, 'passive_recovery') or
-		string.find(status_effect_type, 'heal') then
+		(category == 'dot_heal' and string.find(status_effect_type, 'heal')) then
         status_effect = StatusEffect(res)
         status_effect:setOverlabClass(StatusEffectUnit_Dot_Heal)
         		
