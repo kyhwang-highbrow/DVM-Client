@@ -6,6 +6,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_HatcheryCombinePopup = class(PARENT,{
         m_dragonID = 'number',
         m_tableViewTD = 'UIC_TableViewTD',
+        m_selectedDragonCard = '',
     })
 
 -------------------------------------
@@ -65,13 +66,14 @@ function UI_HatcheryCombinePopup:initUI()
         local req_evolution = t_dragon_combine['material_evolution']
 
         -- 재료 조건 설명
-        local msg = Str('{1}성 최대 레벨(Lv.{2}) 이상, {3} 이상 드래곤', req_grade, req_grade_max_lv, evolutionName(req_evolution))
+        local msg = Str('{1}성 최대 레벨(Lv.{2}) 이상, {3} 이상', req_grade, req_grade_max_lv, evolutionName(req_evolution))
         vars['descLabel']:setString(msg)
 
         -- 가격 표시
         vars['priceLabel']:setString(comma_value(t_dragon_combine['req_gold']))
 
 
+        self.m_selectedDragonCard = {}
         for i=1, 4 do
             local _did = t_dragon_combine['material_' .. i]
             local t_data = {}
@@ -81,13 +83,15 @@ function UI_HatcheryCombinePopup:initUI()
             local dragon_card = MakeSimpleDragonCard(_did, t_data)
             vars['mtrlBG' .. i]:addChild(dragon_card.root)
             dragon_card.root:setScale(86/150)
-            dragon_card:setShadowSpriteVisible(true)
-            dragon_card.vars['shadowSprite']:setOpacity(100)
+            --dragon_card:setShadowSpriteVisible(true)
+            --dragon_card.vars['shadowSprite']:setOpacity(150)
 
             dragon_card.vars['clickBtn']:registerScriptTapHandler(function()
                     local name = TableDragon:getDragonName(_did)
                     UIManager:toastNotificationRed(name)
                 end)
+
+            self.m_selectedDragonCard[_did] = {['idx']=i}
         end
     end
 end
@@ -96,6 +100,8 @@ end
 -- function initButton
 -------------------------------------
 function UI_HatcheryCombinePopup:initButton()
+    local vars = self.vars
+    vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
 end
 
 -------------------------------------
@@ -122,7 +128,7 @@ function UI_HatcheryCombinePopup:init_TableView()
     local function create_func(ui, data)
         ui.root:setScale(0.66)
 
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data['did']) end)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(ui, data) end)
     end
 
     -- 테이블뷰 생성
@@ -133,11 +139,38 @@ function UI_HatcheryCombinePopup:init_TableView()
     self.m_tableViewTD = table_view_td
 
     -- 리스트가 비었을 때
-    table_view_td:makeDefaultEmptyDescLabel('')
+    table_view_td:makeDefaultEmptyDescLabel('조건에 해당하는 드래곤이 없습니다.')
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonList()
     table_view_td:setItemList(l_dragon_list)
+
+
+    local function sort_func(a, b)
+        local a_data = a['data']
+        local b_data = b['data']
+
+        -- did로 정렬
+        if (a_data['did'] ~= b_data['did']) then
+            return a_data['did'] < b_data['did']
+        end
+
+        -- grade로 정렬
+        if (a_data['grade'] ~= b_data['grade']) then
+            return a_data['grade'] > b_data['grade']
+        end
+
+        -- lv로 정렬
+        if (a_data['lv'] ~= b_data['lv']) then
+            return a_data['lv'] > b_data['lv']
+        end
+
+        -- evolution으로 정렬
+        --if (a_data['evolution'] ~= b_data['evolution']) then
+            return a_data['evolution'] > b_data['evolution']
+        --end
+    end
+    table.sort(table_view_td.m_itemList, sort_func)
 end
 
 -------------------------------------
@@ -153,8 +186,119 @@ end
 -------------------------------------
 -- function click_dragonCard
 -------------------------------------
-function UI_HatcheryCombinePopup:click_dragonCard(did)
+function UI_HatcheryCombinePopup:click_dragonCard(ui, data)
+
+    local table_dragon_combine = TableDragonCombine()
+    local t_dragon_combine = table_dragon_combine:get(self.m_dragonID)
+
+    local req_grade = t_dragon_combine['material_grade']
+    local req_grade_max_lv = TableGradeInfo:getMaxLv(req_grade)
+    local req_evolution = t_dragon_combine['material_evolution']
+
+    local v = data
+    local satisfy = false
+    if (v:getGrade() < req_grade) then
+        -- 등급이 낮아서 불충족
+    elseif (v:getGrade() == req_grade) and (v:getLv() < req_grade_max_lv) then
+        -- 최대 레벨이 낮아서 불충족 (필요 등급의 max레벨이거나 등급 자체가 더 높아야함)
+    elseif (v:getEvolution() < req_evolution) then
+        -- 진화도가 낮아서 불충족
+    else
+        satisfy = true
+    end
+
+    if (not satisfy) then
+        local msg = Str('재료는 {1}성 최대 레벨(Lv.{2}) 이상, {3} 이상이어야 합니다.', req_grade, req_grade_max_lv, evolutionName(req_evolution))
+        UIManager:toastNotificationRed(msg)
+        return
+    end
+
+    self:setlectMtrlCard(ui, data)
 end
+
+-------------------------------------
+-- function setlectMtrlCard
+-------------------------------------
+function UI_HatcheryCombinePopup:setlectMtrlCard(ui, data)
+
+    local did = data['did']
+    local t_data = self.m_selectedDragonCard[did]
+
+    if t_data['selected_card'] then
+        t_data['selected_card'].root:removeFromParent()
+        t_data['selected_card'] = nil
+    end
+
+    if t_data['ui'] then
+        t_data['ui']:setCheckSpriteVisible(false)
+    end
+
+    t_data['dragon_obj'] = nil
+
+    if (t_data['ui'] == ui) then
+        t_data['ui'] = nil
+        self.vars['mtrlBG' .. t_data['idx']]:setVisible(true)
+        return
+    end
+
+    t_data['dragon_obj'] = data
+
+    t_data['ui'] = ui 
+    t_data['ui']:setCheckSpriteVisible(true)
+
+    local dragon_card = UI_DragonCard(data)
+    dragon_card.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(ui, data) end)
+    dragon_card:setCheckSpriteVisible(true)
+    local scale = 86/150
+    dragon_card.root:setScale(scale)
+    t_data['selected_card'] = dragon_card
+    self.vars['mtrlNode' .. t_data['idx']]:removeAllChildren()
+    self.vars['mtrlNode' .. t_data['idx']]:addChild(dragon_card.root)
+    self.vars['mtrlBG' .. t_data['idx']]:setVisible(false)
+
+    cca.uiReactionSlow(dragon_card.root, scale, scale)
+end
+
+-------------------------------------
+-- function click_combineBtn
+-------------------------------------
+function UI_HatcheryCombinePopup:click_combineBtn()
+    local cnt = 0
+    local doids = ''
+    for i,v in pairs(self.m_selectedDragonCard) do
+        local dragon_obj = v['dragon_obj']
+        if dragon_obj then
+            cnt = (cnt + 1)
+            if (doids == '') then
+                doids = dragon_obj['id']
+            else
+                doids = doids .. ',' .. dragon_obj['id']
+            end
+        end
+    end
+
+    if (cnt < 4) then
+        UIManager:toastNotificationRed(Str('재료 드래곤을 선택해주세요!'))
+        return
+    end
+
+    local function ok_btn_cb()
+        local function finish_cb(ret)
+            ccdump(ret)
+        end
+
+        local did = self.m_dragonID
+        g_hatcheryData:request_dragonCombine(did, doids, finish_cb)
+    end
+
+    -- 조합 진행 여부 묻기 (재화 사용)
+    local table_dragon_combine = TableDragonCombine()
+    local t_dragon_combine = table_dragon_combine:get(self.m_dragonID)
+    local name = TableDragon:getDragonName(self.m_dragonID)
+    local msg = Str('{1} 조합을 진행하시겠습니까?', name)
+    MakeSimplePopup_Confirm('gold', t_dragon_combine['req_gold'], msg, ok_btn_cb)
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_HatcheryCombinePopup)

@@ -51,15 +51,21 @@ function UI_HatcheryCombineItem:refresh()
     local did = self.m_did
 
     local cnt, satisfy = g_hatcheryData:combineMaterialInfo(did)
-    local color
+    local str
 
     if (satisfy < 4) then
-        color = 'R'
+        -- 모든 조건을 충족한 경우 괄호로 표시
+        if (0 < satisfy) then
+            str = Str('{@R}{1}{@G}({2}){@w}/{3}', cnt, satisfy, 4)
+        -- 드래곤만 가지고 있을 경우
+        else
+            str = Str('{@R}{1}{@w}/{1}', cnt, 4)
+        end
     else
-        color = 'G'
+        -- 조합 가능한 드래곤이 있는 상태
+        str = Str('{@G}{1}{@w}/{2}', cnt, 4)
     end
 
-    local str = Str('{@{1}}{2}{@w}/{3}', color, cnt, 4)
     vars['relationLabel']:setString(str)
 end
 
