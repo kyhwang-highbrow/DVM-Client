@@ -53,7 +53,7 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
             local animator = MakeAnimator(res)
             animator.m_node:setDockPoint(cc.p(0.5, 0.5))
             animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-            self.vars['tamerNode']:addChild(animator.m_node)
+            --self.vars['tamerNode']:addChild(animator.m_node)
 		
 		    -- 표정 적용
 		    --local face_ani = TableTamer:getTamerFace(t_tamer['type'], true)
