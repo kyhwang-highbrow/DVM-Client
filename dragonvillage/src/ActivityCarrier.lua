@@ -40,7 +40,6 @@ function ActivityCarrier:init()
     self.m_lStatusEffectRate = {}
 	self.m_atkDmgStat = 'atk'
 	self.m_bIgnoreDef = false
-    self.m_bHighlight = false
     self.m_lFlag = {}
 end
 
@@ -201,20 +200,6 @@ end
 -------------------------------------
 function ActivityCarrier:isIgnoreDef()
 	return self.m_bIgnoreDef
-end
-
--------------------------------------
--- function setHighlight
--------------------------------------
-function ActivityCarrier:setHighlight(bool)
-	self.m_bHighlight = bool
-end
-
--------------------------------------
--- function isHighlight
--------------------------------------
-function ActivityCarrier:isHighlight()
-	return self.m_bHighlight
 end
 
 -------------------------------------

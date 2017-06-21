@@ -114,10 +114,7 @@ function SkillRapidShot:fireMissile()
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
 
-    -- 하이라이트
-    t_option['highlight'] = self.m_bHighlight
-
-	t_option['cbFunction'] = function(attacker, defender, x, y)
+    t_option['cbFunction'] = function(attacker, defender, x, y)
 		self:onAttack(defender)
 	end
 

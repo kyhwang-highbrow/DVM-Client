@@ -101,9 +101,6 @@ function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
 
-    -- 하이라이트
-    t_option['highlight'] = self.m_bHighlight
-
     -- 타격 횟수 설정
     t_option['max_hit_count'] = self.m_targetLimit
 

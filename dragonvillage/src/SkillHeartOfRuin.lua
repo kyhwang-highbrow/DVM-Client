@@ -111,7 +111,7 @@ function SkillHeartOfRuin:makeSpecialEffect()
         effect:changeAni('idle', false)
         effect:addAniHandler(function() effect:runAction(cc.RemoveSelf:create()) end)
 
-        local worldNode = world:getMissileNode('bottom', self.m_bHighlight)
+        local worldNode = world:getMissileNode('bottom')
         worldNode:addChild(effect.m_node, 4)
 
         local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
@@ -126,7 +126,7 @@ function SkillHeartOfRuin:makeSpecialEffect()
         effect:addAniHandler(function() effect:runAction(cc.RemoveSelf:create()) end)
         effect:setPosition(self.m_owner.pos.x + self.m_attackPosOffsetX, self.m_owner.pos.y + self.m_attackPosOffsetY)
     
-        local worldNode = world:getMissileNode('bottom', self.m_bHighlight)
+        local worldNode = world:getMissileNode('bottom')
         worldNode:addChild(effect.m_node, 3)
         
     end

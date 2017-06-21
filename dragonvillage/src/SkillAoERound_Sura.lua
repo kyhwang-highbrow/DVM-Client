@@ -127,10 +127,7 @@ function SkillAoERound_Sura:fireMissile(target)
     t_option['cbFunction'] = function(attacker, defender, x, y)
         self:onAttack(defender)
 	end
-
-    -- 하이라이트
-    t_option['highlight'] = self.m_bHighlight
-    
+        
 	local world = self.m_world
     local missile = world.m_missileFactory:makeMissile(t_option)
 end

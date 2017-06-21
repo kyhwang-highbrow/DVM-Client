@@ -837,7 +837,6 @@ function Character:doAttack(skill_id, x, y)
 
         if (t_skill['chance_type'] == 'indie_time') then
             indicatorData = {}
-            indicatorData['highlight'] = true
         end
 
         local b_run_skill = self:doSkill(skill_id, x, y, indicatorData)

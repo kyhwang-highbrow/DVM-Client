@@ -42,8 +42,7 @@ Skill = class(PARENT, {
 		-- 스킬 연출 관리자 - 디렉터
 		m_skillHitEffctDirector = 'SkillHitEffectDirector',
 		m_bSkillHitEffect = 'bool', -- 사용 여부
-        m_bHighlight = 'bool',  -- 하이라이트 여부
-
+        
         -- 스킬 종료시 피드백(보너스) 관련
         m_bonusLevel = 'number',
         m_hitTargetList = 'table',
@@ -106,9 +105,6 @@ function Skill:initActvityCarrier(power_rate, power_abs)
 	if (self.m_powerIgnore == 'def') then 
 		self.m_activityCarrier:setIgnoreDef(true)
 	end
-
-    -- 피격시 하일라이트 여부
-    self.m_activityCarrier:setHighlight(self.m_bHighlight)
 end
 
 -------------------------------------
@@ -236,7 +232,6 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_targetFormation = SkillHelper:getValid(t_skill['target_formation'])
 
 	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
-    self.m_bHighlight = t_data['highlight'] or false
     self.m_bonusLevel = t_data['bonus'] or 0
     
     -- 생성
@@ -437,12 +432,10 @@ function Skill:onAttack(target_char)
     end
 
     -- 화면 쉐이킹
-    if (self.m_bHighlight) then
-        if (self.m_chanceType == 'active') then
-            self.m_world.m_shakeMgr:doShake(50, 50, 1)
-        else
-            self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
-        end
+    if (self.m_chanceType == 'active') then
+        self.m_world.m_shakeMgr:doShake(50, 50, 1)
+    else
+        self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
     end
 end
 

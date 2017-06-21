@@ -161,7 +161,6 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 	local add_script_relative = t_option['add_script_relative']
     local target_list =         t_option['target_list']
         
-    local is_highlight =        t_option['highlight'] or false
     local max_hit_count =       t_option['max_hit_count']
 
     --local parent =           t_option['parent']
@@ -387,7 +386,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         end
 
         -- Physics, Node, GameMgr에 등록
-		self.m_world:addMissile(missile, object_key, res_depth, is_highlight)
+		self.m_world:addMissile(missile, object_key, res_depth)
 
 		if (disable_body) then
 			missile.enable_body = false

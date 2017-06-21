@@ -677,7 +677,7 @@ end
 -- function addMissile
 -- @param res_depth : 어느 노드에 addchild 할지 결정한다. ;를 사용하여 z-order를 명시할수도 있다. ex) 'res_depth':'bottom;1'
 -------------------------------------
-function GameWorld:addMissile(missile, object_key, res_depth, highlight)
+function GameWorld:addMissile(missile, object_key, res_depth)
     self:addToMissileList(missile)
     self.m_physWorld:addObject(object_key, missile)
     

@@ -126,8 +126,7 @@ function Dragon.st_skillIdle(owner, dt)
             end
 
             local indicatorData = owner.m_skillIndicator:getIndicatorData()
-            indicatorData['highlight'] = true
-            
+                        
             owner:doSkill(active_skill_id, x, y, indicatorData)
             owner.m_animator:setEventHandler(nil)
             owner.m_bFinishAttack = true
