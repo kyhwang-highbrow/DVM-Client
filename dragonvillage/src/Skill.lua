@@ -14,7 +14,8 @@ Skill = class(PARENT, {
 		m_powerRate = 'num',
 		m_powerAbs = 'num',
 		m_powerSource = 'str',
-		m_powerIgnore = 'str',		-- 피격대상 특정 스탯 무시 
+		m_powerIgnore = 'str',  -- 피격대상 특정 스탯 무시 
+        m_critical = 'num',     -- 크리티컬 판정(1:발동 , 0:미발동, nil:피격시 판정)
 		m_preDelay = 'num',
 
 		m_skillSize = 'str',
@@ -72,7 +73,7 @@ function Skill:init_skill()
     self.m_hitTargetList = {}
 
 	-- 세부 초기화 함수 실행
-	self:initActvityCarrier(self.m_powerRate, self.m_powerAbs)
+	self:initActvityCarrier(self.m_powerRate, self.m_powerAbs, self.m_critical)
     self:initAttackPosOffset()
 	self:initSkillSize()
 	self:initEventListener()
@@ -92,7 +93,7 @@ end
 -------------------------------------
 -- function initActvityCarrier
 -------------------------------------
-function Skill:initActvityCarrier(power_rate, power_abs)
+function Skill:initActvityCarrier(power_rate, power_abs, critical)
     -- 공격력 계산을 위해
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
 	self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
@@ -100,6 +101,7 @@ function Skill:initActvityCarrier(power_rate, power_abs)
     self.m_activityCarrier:setSkillId(self.m_skillId)
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
     self.m_activityCarrier:setAbsAttack(power_abs)
+    self.m_activityCarrier:setCritical(critical)
 	
 	-- 방어 무시 -> 차후에 좀더 구조화 해서 늘려나감
 	if (self.m_powerIgnore == 'def') then 
@@ -215,6 +217,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
     self.m_powerAbs = SkillHelper:getValid(t_skill['power_add'], 0)
 	self.m_powerSource  = SkillHelper:getValid(t_skill['power_source'], 'atk')
 	self.m_powerIgnore = SkillHelper:getValid(t_skill['ignore'])
+    self.m_critical = t_data['critical']
 	self.m_lStatusEffect = SkillHelper:makeStructStatusEffectList(t_skill)
 	
 	self.m_preDelay = SkillHelper:getValid(t_skill['pre_delay'], 0)

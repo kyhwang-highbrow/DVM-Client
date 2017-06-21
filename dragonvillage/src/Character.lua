@@ -465,6 +465,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	local attack_activity_carrier = attacker.m_activityCarrier
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
+    local is_critical = attack_activity_carrier:getCritical() 
 
     -- 속성 효과
     local t_attr_effect, attr_synastry = self:checkAttributeCounter(attacker_char)
@@ -472,9 +473,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local is_miss = (attr_synastry == -1)
 
     -- 공격력 계산, 크리티컬 계산
-    local atk_dmg, is_critical = 0, false
+    local atk_dmg = 0
     local def_pwr = 0
-
     local damage = 0
 	local reduced_damage = 0
 
@@ -508,17 +508,24 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		reduced_damage = atk_dmg - damage
     end
 
-    do -- 크리티컬(치명타) 계산
-        local critical_chance = attack_activity_carrier:getStat('cri_chance')
-        local critical_avoid = self:getStat('cri_avoid')
-        local final_critical_chance = (critical_chance - critical_avoid)
+    -- 크리티컬 계산(ActivityCarrier에서 판정되지 않은 경우만)
+    do
+        if (is_miss) then
+            -- 빚맞힘일 경우 크리티컬 없도록 처리
+            is_critical = false
 
-        -- 속성 상성 적용
-        if t_attr_effect['cri_chance'] then
-            final_critical_chance = (final_critical_chance + t_attr_effect['cri_chance'])
+        elseif (is_critical == nil) then
+            local critical_chance = attack_activity_carrier:getStat('cri_chance')
+            local critical_avoid = self:getStat('cri_avoid')
+            local final_critical_chance = CalcCriticalChance(critical_chance, critical_avoid)
+
+            -- 속성 상성 적용
+            if t_attr_effect['cri_chance'] then
+                final_critical_chance = (final_critical_chance + t_attr_effect['cri_chance'])
+            end
+
+            is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
         end
-
-        is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
     end
 
     local attr_bonus_dmg = 0 -- 속성에 의해 추가된 데미지 @legacy
@@ -550,15 +557,17 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     --attr_bonus_dmg = math_floor(attr_bonus_dmg * attack_activity_carrier:getPowerRate())
 	--attr_bonus_dmg = math_min(attr_bonus_dmg, damage)
 
-    -- 회피 계산
-    if (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
-        self:makeMissFont(i_x, i_y)
-		-- @EVENT
-		self:dispatch('avoid')
+    -- 회피 계산(드래그 스킬의 경우는 회피 무시)
+    if (attack_type ~= 'active') then
+        if (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
+            self:makeMissFont(i_x, i_y)
+		    -- @EVENT
+		    self:dispatch('avoid')
         
-		-- @LOG_CHAR : 방어자 회피 횟수
-		self.m_charLogRecorder:recordLog('avoid', 1)
-        return
+		    -- @LOG_CHAR : 방어자 회피 횟수
+		    self.m_charLogRecorder:recordLog('avoid', 1)
+            return
+        end
     end
     	
 	-- Event Carrier 세팅

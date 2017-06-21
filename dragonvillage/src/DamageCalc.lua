@@ -83,6 +83,6 @@ end
 -- function CalcCriticalChance
 -- @brief 크리티컬 발생 계산 (%)
 -------------------------------------
-function CalcCriticalChance(critical_chance)
-    return critical_chance
+function CalcCriticalChance(critical_chance, critical_avoid)
+    return critical_chance - critical_avoid
 end

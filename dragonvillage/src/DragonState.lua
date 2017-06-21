@@ -95,7 +95,19 @@ function Dragon.st_skillAppear(owner, dt)
 			-- 적 드래곤 (pvp, 인연던전) 체크해야할 경우 추가
 		end
 
-        owner:dispatch('dragon_active_skill', {}, owner)
+        -- 드래그 스킬의 경우는 크리티컬을 미리 판정하여 크리티컬 시에만 연출 보여줌
+        local critical_chance = owner:getStat('cri_chance')
+        local critical_avoid = 0
+        local final_critical_chance = CalcCriticalChance(critical_chance, critical_avoid)
+
+        local is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
+        if (is_critical) then
+            owner.m_skillIndicator.m_critical = 1
+        else
+            owner.m_skillIndicator.m_critical = 0
+        end
+                
+        owner:dispatch('dragon_active_skill', { is_critical = is_critical }, owner)
     end
 end
 

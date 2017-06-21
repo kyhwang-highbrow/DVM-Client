@@ -22,10 +22,10 @@ ActivityCarrier = class({
 
 		m_atkDmgStat = 'str',
 		m_bIgnoreDef = 'bool',
-        m_bHighlight = 'boolean',   -- 피격 대상이 하일라이트 되어야하는지 여부
-
+        
         m_realAttackType = 'str',
 		m_attackType = 'str',		-- 일반공격인지 아닌지 구분
+        m_critical = 'number',      -- 크리티컬 판정(1:발동 , 0:미발동, nil:판정안됨)
         m_lFlag = 'map',
     })
 
@@ -220,6 +220,22 @@ end
 -------------------------------------
 function ActivityCarrier:getAttackType()
 	return self.m_attackType, self.m_realAttackType
+end
+
+-------------------------------------
+-- function setCritical
+-------------------------------------
+function ActivityCarrier:setCritical(critical)
+    self.m_critical = critical
+end
+
+-------------------------------------
+-- function getCritical
+-------------------------------------
+function ActivityCarrier:getCritical()
+    if (self.m_critical == nil) then return nil end
+
+    return (self.m_critical == 1)
 end
 
 -------------------------------------

@@ -531,14 +531,11 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local arg = {...}
         local dragon = arg[1]
 
-        -- 임시 처리... 15%확률로 연출 보여줌
-        do
-            local skip_level
+        do -- 크리티컬 시에만 연출 표시
+            local skip_level = 2
 
-            if (math_random(1, 100) <= 15) then
+            if (t_event['is_critical']) then
                 skip_level = 0
-            else
-                skip_level = 2
             end
 
             self:setSkipLevel(skip_level)
@@ -555,8 +552,7 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
 
         if (self:isPlaying()) then
         else
-            -- 임시 처리... 패시브 스킬 연출은 스킵
-            do
+            do -- 패시브 스킬 연출은 스킵
                 local skip_level = 2
 
                 self:setSkipLevel(skip_level)

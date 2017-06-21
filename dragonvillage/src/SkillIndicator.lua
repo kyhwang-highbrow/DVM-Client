@@ -39,6 +39,7 @@ SkillIndicator = class({
         m_targetPosX = '',
         m_targetPosY = '',
         m_targetChar = '',
+        m_critical = '',
 
 		m_targetType = 'str',
 		m_targetLimit = 'num',
@@ -143,6 +144,7 @@ function SkillIndicator:changeSIState(state)
         self.m_targetPosX = nil
         self.m_targetPosY = nil
         self.m_targetChar = nil
+        self.m_critical = nil
         self.m_bonus = -1
 
     elseif (state == SI_STATE_APPEAR) then
@@ -419,6 +421,7 @@ function SkillIndicator:setIndicatorDataByChar(char)
     self.m_targetPosX = x
     self.m_targetPosY = y
     self.m_targetChar = char
+    self.m_critical = nil
     self.m_bDirty = true
 end
 
@@ -432,15 +435,9 @@ function SkillIndicator:getIndicatorData()
     t_data['x'] = self.m_targetPosX
     t_data['y'] = self.m_targetPosY
     t_data['target'] = self.m_targetChar
+    t_data['critical'] = self.m_critical
     t_data['bonus'] = self.m_bonus
-    --[[
-	self.m_targetDir = nil
-    self.m_targetPosX = nil
-    self.m_targetPosY = nil
-    self.m_targetChar = nil
-    self.m_bonus = -1
-    ]]--
-
+    
     return t_data
 end
 
