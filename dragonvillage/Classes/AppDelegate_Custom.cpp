@@ -399,17 +399,6 @@ static int l_openFileDialog(lua_State *L)
     return 1;
 }
 
-static int l_doString(lua_State *L)
-{
-	const char *code = lua_tostring(L, 1);
-
-	auto engine = LuaEngine::getInstance();
-	int ret = engine->getLuaStack()->executeString(code);
-	lua_pushnumber(L, ret);
-
-	return 1;
-}
-
 void AppDelegate::initLuaEngine()
 {
 	// 기존의 ScriptEngineManager를 제거
@@ -447,7 +436,6 @@ void AppDelegate::initLuaEngine()
 			{ "gcsdkLoginInfo", l_gcsdkLoginInfo },
             { "luaEventHandler", l_luaEventHandler },
             { "openFileDialog", l_openFileDialog },
-			{ "doString", l_doString },
 			{ NULL, NULL }
 	};
 
