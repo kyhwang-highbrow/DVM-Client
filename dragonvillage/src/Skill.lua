@@ -30,7 +30,10 @@ Skill = class(PARENT, {
 		
 		-- 상태 효과 관련 변수들
 		m_lStatusEffect = 'List<StructStatusEffect>',
-		m_tSpecialTarget = '', -- 임시 처리
+        m_tSpecialTarget = '', -- 임시 처리
+
+        -- 이벤트
+        m_lSpecialEvent = '', -- 스킬 종료시 적용될 특수한 조건의 이벤트를 저장하기 위한 테이블(조건 달성 시점이 아닌 종료시 적용을 위함)
 
 		-- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
@@ -64,8 +67,9 @@ end
 -------------------------------------
 function Skill:init_skill()
 	-- 멤버 변수 
-	self.m_range = 0    
-	self.m_tSpecialTarget = {}
+	self.m_range = 0
+    self.m_tSpecialTarget = {}
+    self.m_lSpecialEvent = {}
     self.m_hitTargetList = {}
 
 	-- 세부 초기화 함수 실행
@@ -119,13 +123,20 @@ end
 -- @breif 이벤트 처리..
 -------------------------------------
 function Skill:initEventListener()
-	-- 스킬 생명 주기 내의 이벤트
+	-- 스킬 생명 주기 내의 기본 이벤트
 	self:addListener(CON_SKILL_START, self)
 	self:addListener(CON_SKILL_HIT, self)
 	self:addListener(CON_SKILL_END, self)
 
 	-- 스킬 외부에서의 이벤트
-	--self.m_owner:addListener('hit', self)
+    for _,  v in pairs(self.m_lStatusEffect) do
+        local trigger = v.m_trigger or ''
+        if (trigger ~= '') then
+            if (not isExistValue(trigger, CON_SKILL_START, CON_SKILL_HIT, CON_SKILL_END)) then
+                self:addListener(trigger, self)
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -272,8 +283,22 @@ function Skill.st_dying(owner, dt)
 
         owner.m_owner:restore()
 
+        local l_target = {}
+        for target, _ in pairs(owner.m_hitTargetList) do
+            table.insert(l_target, target)
+        end
+
         -- 스킬 종료시 발동되는 status effect를 적용
-		owner:dispatch(CON_SKILL_END, {l_target = {owner.m_targetChar}})
+        do
+		    owner:dispatch(CON_SKILL_END, {l_target = l_target})
+        end
+
+        -- 조건 달성 시점이 아닌 종료시 수행되어야할 이벤트의 상태효과를 적용
+        do
+            for _, event_name in ipairs(owner.m_lSpecialEvent) do
+                owner:doStatusEffect(event_name, l_target) 
+            end
+        end
 
         -- 보너스 버프
         --[[
@@ -309,7 +334,12 @@ end
 -------------------------------------
 function Skill:onEvent(event_name, t_event, ...)
 	local t_event = t_event or {}
-	self:doStatusEffect(event_name, t_event['l_target'])
+
+    if (string.find(event_name, CON_SKILL_HIT_TARGET)) then
+        table.insert(self.m_lSpecialEvent, event_name)
+    else
+        self:doStatusEffect(event_name, t_event['l_target'])    
+    end
 end
 
 -------------------------------------
@@ -318,7 +348,7 @@ end
 -------------------------------------
 function Skill:doStatusEffect(start_con, t_target)
     local lStatusEffect = self:getStatusEffectList(start_con)
-
+    
     if (#lStatusEffect > 0) then
         local l_ret = nil
 		if (#self.m_tSpecialTarget > 0) then 
