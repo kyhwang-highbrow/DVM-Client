@@ -471,6 +471,14 @@ end
 -- function reset
 -------------------------------------
 function LobbyManager:reset()
+
+    -- 기존 유저 삭제
+    if self.m_userInfoList then
+        for i,v in pairs(self.m_userInfoList) do
+            self:removeUser(v:getUid())
+        end
+    end
+
     self.m_lobbyChannelName = nil
     self.m_userInfoList = nil
 
