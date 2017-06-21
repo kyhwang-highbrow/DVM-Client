@@ -52,8 +52,16 @@ function UIC_Node:setEnabled(enable)
     return self.m_node:setEnabled(enable)
 end
 
+function UIC_Node:isEnabled()
+    return self.m_node:isEnabled()
+end
+
 function UIC_Node:setVisible(visible)
     return self.m_node:setVisible(visible)
+end
+
+function UIC_Node:isVisible()
+    return self.m_node:isVisible()
 end
 
 function UIC_Node:getPosition()

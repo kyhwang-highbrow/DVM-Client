@@ -63,8 +63,9 @@ end
 -- function initUI
 -------------------------------------
 function UI_GachaResult_Dragon:initUI()
+    self.vars['skipBtn']:setVisible(true)
+
 	if (table.count(self.m_lGachaDragonList) > 1) then
-		self.vars['skipBtn']:setVisible(true)
 		self:setDragonCardList()
 	end
 end
@@ -89,6 +90,7 @@ function UI_GachaResult_Dragon:refresh()
 
     local t_gacha_dragon = self.m_lGachaDragonList[1]
     table.remove(self.m_lGachaDragonList, 1)
+    local is_last = (#self.m_lGachaDragonList <= 0)
 
     local vars = self.vars
 
@@ -116,7 +118,6 @@ function UI_GachaResult_Dragon:refresh()
 	end
 
     -- 마지막에만 보여야 하는 UI들을 관리
-    local is_last = (#self.m_lGachaDragonList <= 0)
     for i,v in pairs(self.m_hideUIList) do
         v:setVisible(is_last)
     end
@@ -192,6 +193,11 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 				self.m_isDirecting = false
 			end
             self:doAction(directing_done, false)
+
+            -- 마지막 드래곤이었을 경우 스킵 버튼 숨김
+            if (table.count(self.m_lGachaDragonList) <= 0) then
+                vars['skipBtn']:setVisible(false)
+            end
         end
 
         dragon_animator:bindEgg(self.m_eggRes)
@@ -300,10 +306,11 @@ function UI_GachaResult_Dragon:click_skipBtn()
 		for _, card in pairs(self.m_lDragonCardList) do
 			card.root:setVisible(true)
 		end
+
+        self:refresh()
 	end
 
 	-- 마지막 드래곤 animator를 띄우고 마지막 연출을 실행한다.
-	self:refresh()
 	self.m_currDragonAnimator:forceSkipDirecting()
 
 	-- 스킵을 했다면 스킵 버튼을 가린다.
@@ -314,9 +321,10 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_GachaResult_Dragon:click_closeBtn()
-	if (table.count(self.m_lGachaDragonList) > 1) then
-		self:click_skipBtn()
-	else
-		self:close()
-	end
+    local skip_btn = self.vars['skipBtn']
+    if (skip_btn:isEnabled() and skip_btn:isVisible()) then
+        self:click_skipBtn()
+    else
+        self:close()
+    end
 end
