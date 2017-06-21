@@ -89,7 +89,7 @@ function UI_CharacterCard:refreshDragonInfo()
     end
 
     do -- 카드 프레임
-        local res = 'character_card_frame_' .. rarity .. '.png'
+        local res = 'character_card_frame_normal.png'
         self:makeFrame(res)
     end
 
@@ -220,7 +220,23 @@ function UI_CharacterCard:refresh_gradeIcon()
     local grade = (t_dragon_data['grade'] or 1)
 	grade = tonumber(grade)
 
-    local res = 'character_card_star0' .. grade .. '.png'
+	local evolution = t_dragon_data['evolution']
+	local color
+	if (evolution == 1) then
+		if (TableDragon():isUnderling(t_dragon_data['did'])) then
+			color = 'gray'
+		elseif (t_dragon_data['m_objectType'] == 'slime') then
+			color = 'gray'
+		else
+			color = 'yellow'
+		end
+	elseif (evolution == 2) then
+		color = 'purple'
+	elseif (evolution == 3) then
+		color = 'red'
+	end
+
+    local res = string.format('star_%s_01%02d.png', color, grade)
 
     if (self.m_starIconRes == res) then
         return
