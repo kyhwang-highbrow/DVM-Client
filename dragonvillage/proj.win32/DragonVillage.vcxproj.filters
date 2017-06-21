@@ -432,9 +432,6 @@
     <None Include="..\src\UIC_CheckBox.lua">
       <Filter>lua\UIC</Filter>
     </None>
-    <None Include="..\src\UI_Colosseum.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UIC_LabelTTF.lua">
       <Filter>lua\UIC</Filter>
     </None>
@@ -469,9 +466,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_GamePause_Colosseum.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ColosseumLoading.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_ColosseumResult.lua">
@@ -615,9 +609,6 @@
     <None Include="..\src\UI_SecretFindPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ColosseumFriendRankListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ColosseumRankListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -625,39 +616,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_ColosseumRewardListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ColosseumFirstRewardListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ColosseumRankingReward.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ColosseumFirstReward.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_Collection.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionDetailPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionDragonCard.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionPointReward.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionPointRewardListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionRelationPointDraw.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionTabDragon.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionUnitListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_EventPopup.lua">
@@ -825,21 +783,6 @@
     <None Include="..\src\UIC_ChatTableViewCell.lua">
       <Filter>lua\UIC</Filter>
     </None>
-    <None Include="..\src\UI_CollectionStoryPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionStoryPopup_ApplyTeamTab.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionStoryPopup_DragonTeamTab.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionStoryPopup_AllTeamTab.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionStoryPopupItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_Setting.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -874,9 +817,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Dungeon.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionStoryPopupApplyItem.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_OverallRankingPopup.lua">
@@ -2235,15 +2175,6 @@
     <None Include="..\src\ScenarioViewingHistory.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_CollectionEntrance.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionGradeCard.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CollectionTabGrade.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\TableDragonCollection.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2434,6 +2365,33 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_StartIntro.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Book.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_BookDetailPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_BookDragonCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Colosseum.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumFirstReward.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumFirstRewardListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumFriendRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumLoading.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumRankingReward.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

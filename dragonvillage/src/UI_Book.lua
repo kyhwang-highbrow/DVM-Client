@@ -1,47 +1,70 @@
--------------------------------------
--- class UI_CollectionTabDragon
--------------------------------------
-UI_CollectionTabDragon = class({
-        vars = 'table',
-        m_ownerUI = 'UI',
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
-        m_roleRadioButton = 'UIC_RadioButton',
+-------------------------------------
+-- class UI_Book
+-------------------------------------
+UI_Book = class(PARENT, {
+        m_mTabUI = 'map',
+
+        -- refresh 체크 용도
+        m_collectionLastChangeTime = 'timestamp',
+
+		m_roleRadioButton = 'UIC_RadioButton',
         m_attrRadioButton = 'UIC_RadioButton',
 
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManager = 'SortManager',
-
-        -- refresh 체크 용도
-        m_collectionLastChangeTime = 'timestamp',
      })
+
+-------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_Book:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_Book'
+    self.m_bVisible = true
+    self.m_titleStr = Str('도감')
+    self.m_bUseExitBtn = true
+end
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_CollectionTabDragon:init(owner_ui)
-    self.m_ownerUI = owner_ui
-    self.vars = owner_ui.vars
+function UI_Book:init()
+    local vars = self:load('collection.ui')
+    UIManager:open(self, UIManager.SCENE)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Book')
+
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
+	self:initUI()
+    self:initButton()
+    self:refresh()
+
+    self:sceneFadeInAction()
+
+    self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
 end
 
 -------------------------------------
--- function onEnterTab
--- @brief
+-- function click_exitBtn
 -------------------------------------
-function UI_CollectionTabDragon:onEnterTab(first)
-    if first then
-        self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
-        self:initUI()
-    end
+function UI_Book:click_exitBtn()
+    self:close()
 end
 
 -------------------------------------
 -- function initUI
--- @brief
 -------------------------------------
-function UI_CollectionTabDragon:initUI()
+function UI_Book:initUI()
     local vars = self.vars
-
-    self:makeSortManager()
+	    
+	self:makeSortManager()
 
     -- 테이블 뷰 생성
     self:init_TableViewTD()
@@ -76,10 +99,32 @@ function UI_CollectionTabDragon:initUI()
 end
 
 -------------------------------------
+-- function initButton
+-------------------------------------
+function UI_Book:initButton()
+    local vars = self.vars
+
+    -- 콜랙션 포인트 보상 확인
+    --vars['collectionPointBtn']:registerScriptTapHandler(function() self:click_collectionPointBtn() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Book:refresh()
+    local vars = self.vars
+
+    do -- 콜랙션 포인트 임시 초기값
+        --vars['titleLabel']:setString(Str(g_collectionData:getTamerTitle()))
+        --vars['collectionPointLabel']:setString(comma_value(g_collectionData:getCollectionPoint()))
+    end
+end
+
+-------------------------------------
 -- function makeSortManager
 -- @brief
 -------------------------------------
-function UI_CollectionTabDragon:makeSortManager()
+function UI_Book:makeSortManager()
     local sort_manager = SortManager_Dragon()
 
     -- did선에서 무조건 우열을 가리도록 설정
@@ -113,7 +158,7 @@ end
 -- function onChangeOption
 -- @brief
 -------------------------------------
-function UI_CollectionTabDragon:onChangeOption()
+function UI_Book:onChangeOption()
     local role_option = self.m_roleRadioButton.m_selectedButton
     local attr_option = self.m_attrRadioButton.m_selectedButton
 
@@ -130,48 +175,43 @@ end
 -- function init_TableViewTD
 -- @brief
 -------------------------------------
-function UI_CollectionTabDragon:init_TableViewTD()
+function UI_Book:init_TableViewTD()
     local node = self.vars['dragonListNode']
-    --node:removeAllChildren()
 
     local l_item_list = {}
 
-    local width, height = UI_CollectionDragonCard:getUISize()
+	-- cell_size 지정
+    local item_size = 150
+    local item_scale = 0.885
+    local cell_size = cc.size(item_size*item_scale, item_size*item_scale)
 
-    local function click_cb(did, evolution)
-        self:click_dragonCard(did, evolution)
-    end
-
-    -- 생성 콜백
+    -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
-        ui:setDragonCardClick(click_cb)
+        ui.root:setScale(item_scale)
     end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(width + 7, height + 7)
-    table_view_td.m_nItemPerCell = 3
-    table_view_td:setCellUIClass(UI_CollectionDragonCard, create_func)
+    table_view_td.m_cellSize = cell_size
+    table_view_td.m_nItemPerCell = 8
+    table_view_td:setCellUIClass(UI_BookDragonCard, create_func)
     table_view_td:setItemList(l_item_list)
-    --table_view_td:makeDefaultEmptyDescLabel(Str(''))
 
     -- 정렬
     self.m_tableViewTD = table_view_td
 end
 
 -------------------------------------
--- function click_dragonCard
--- @brief
+-- function click_collectionPointBtn
+-- @brief 콜랙션 포인트 보상 확인 버튼
 -------------------------------------
-function UI_CollectionTabDragon:click_dragonCard(did, evolution)
-    local l_dragons_data = self.m_tableViewTD.m_itemList
-    local item = self.m_tableViewTD:getItem(did)
-    local init_idx = item['idx']
-
-    local ui = UI_CollectionDetailPopup(l_dragons_data, init_idx, evolution)
+function UI_Book:click_collectionPointBtn()
+    local ui = UI_BookPointReward()
+    
     local function close_cb()
         self:checkRefresh()
     end
+
     ui:setCloseCB(close_cb)
 end
 
@@ -179,13 +219,14 @@ end
 -- function checkRefresh
 -- @brief 도감 데이터가 변경되었는지 확인 후 변경되었으면 갱신
 -------------------------------------
-function UI_CollectionTabDragon:checkRefresh()
+function UI_Book:checkRefresh()
     local is_changed = g_collectionData:checkChange(self.m_collectionLastChangeTime)
 
     if is_changed then
         self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
-
-        -- 리스트 refresh
-        self.m_tableViewTD:refreshAllItemUI()
+        self:refresh()
     end
 end
+
+--@CHECK
+UI:checkCompileError(UI_Book)

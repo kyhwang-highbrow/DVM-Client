@@ -551,7 +551,7 @@ end
 -- function click_collectionBtn
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
-    UI_CollectionEntrance()
+	UI_Book()
 end
 
 -------------------------------------

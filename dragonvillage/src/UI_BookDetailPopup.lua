@@ -1,13 +1,10 @@
-local PARENT = class(UI, ITabUI:getCloneTable())
+local PARENT = UI
 
 -------------------------------------
--- class UI_CollectionDetailPopup
+-- class UI_BookDetailPopup
 -------------------------------------
-UI_CollectionDetailPopup = class(PARENT,{
-        m_lDragonsItem = 'list',
-        m_currIdx = 'number',
-        m_dragonEvolutionIconList = '',
-
+UI_BookDetailPopup = class(PARENT,{
+		m_dragonEvolutionIconList = 'table',
         -- refresh 체크 용도
         m_collectionLastChangeTime = 'timestamp',
     })
@@ -15,43 +12,36 @@ UI_CollectionDetailPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_CollectionDetailPopup:init(l_dragons_item, init_idx, init_evolution)
-    self.m_lDragonsItem = l_dragons_item
-    self.m_currIdx = nil
-
+function UI_BookDetailPopup:init(t_dragon, t_data)
     local vars = self:load('collection_detail_popup.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_CollectionDetailPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BookDetailPopup')
 
     -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
-
-    self:initUI(init_evolution)
-    self:initButton()
-    self:refresh()
-
-    self:setIdx(init_idx)
 
     self:sceneFadeInAction()
 
     self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
+
+    self:initUI()
+    self:initButton()
+    self:refresh(t_dragon, t_data)
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_CollectionDetailPopup:initUI(init_evolution)
-    self:initTab(init_evolution)
+function UI_BookDetailPopup:initUI(init_evolution)
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_CollectionDetailPopup:initButton()
+function UI_BookDetailPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
@@ -59,52 +49,21 @@ function UI_CollectionDetailPopup:initButton()
 
     -- 능력치 상세보기
     vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
-
-    -- 인연포인트 뽑기
-    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_CollectionDetailPopup:refresh()
-end
-
--------------------------------------
--- function initTab
--------------------------------------
-function UI_CollectionDetailPopup:initTab(init_evolution)
-    local vars = self.vars
-    self:addTab('hatch', vars['evolutionBtn1'])
-    self:addTab('hatchling', vars['evolutionBtn2'])
-    self:addTab('adult', vars['evolutionBtn3'])
-
-    if (init_evolution == 1) then
-        self:setTab('hatch')
-
-    elseif (init_evolution == 2) then
-        self:setTab('hatchling')
-
-    elseif (init_evolution == 3) then
-        self:setTab('adult')
-
-    else
-        self:setTab('adult')
-    end
-end
-
--------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_CollectionDetailPopup:onChangeTab(tab, first)
-    self:onChangeEvolution()
+function UI_BookDetailPopup:refresh(t_dragon, t_data)
+	self:onChangeDragon(t_dragon, t_data)
+	self:onChangeEvolution(t_dragon, t_data)
 end
 
 -------------------------------------
 -- function onChangeDragon
 -------------------------------------
-function UI_CollectionDetailPopup:onChangeDragon()
-    local t_dragon = self:getCurrDragonTable()
+function UI_BookDetailPopup:onChangeDragon(t_dragon, t_data)
+    local t_dragon = t_dragon
     if (not t_dragon) then
         return
     end
@@ -151,29 +110,6 @@ function UI_CollectionDetailPopup:onChangeDragon()
         vars['roleLabel']:setString(dragonRoleName(role_type))
     end    
 
-    do -- 인연 포인트
-        -- 드래곤 아이콘
-        local did = t_dragon['did']
-        local card = MakeSimpleDragonCard(did)
-        card.vars['clickBtn']:setEnabled(false)
-        vars['dragonCradNode']:addChild(card.root)
-
-        -- 인연포인트 값 얻어오기
-        local req_rpoint = TableDragon():getRelationPoint(did)
-        local cur_rpoint = g_collectionData:getRelationPoint(did)
-        
-        -- 인연포인트 표시
-        local str = Str('{1}/{2}', comma_value(cur_rpoint), comma_value(req_rpoint))
-        vars['relationPointLabel']:setString(str)
-
-        -- 소환 가능 개수 표시
-        local num_possible = math_floor(cur_rpoint / req_rpoint)
-        vars['dscLabel']:setString(Str('{1}마리 소환 가능', num_possible))
-
-        -- 소환 가능 하일라이트
-        vars['notiSprite']:setVisible(num_possible > 0)
-    end
-
     do -- 드래곤 스토리
         local did = t_dragon['did']
         local story_str = TableDragon:getDragonStoryStr(did)
@@ -195,24 +131,22 @@ function UI_CollectionDetailPopup:onChangeDragon()
             self.m_dragonEvolutionIconList[i] = card
         end
     end
-
-    self:onChangeEvolution()
 end
 
 -------------------------------------
 -- function onChangeEvolution
 -------------------------------------
-function UI_CollectionDetailPopup:onChangeEvolution()
-    local t_dragon = self:getCurrDragonTable()
+function UI_BookDetailPopup:onChangeEvolution(t_dragon, t_data)
+    local t_dragon = t_dragon
     if (not t_dragon) then
         return
     end
 
     local vars = self.vars
-    local t_dragon_data = self:makeDragonData()
+    local t_dragon_data = self:makeDragonData(t_dragon, t_data)
 
     do -- 선택된 드래곤 진화단계 아이콘 하일라이트 표시
-        local evolution = self:getEvolutionNumber()
+        local evolution = t_data['evolution']
         for i,v in pairs(self.m_dragonEvolutionIconList) do
             local visible = (i == evolution)
             v:setHighlightSpriteVisible(visible)
@@ -220,7 +154,7 @@ function UI_CollectionDetailPopup:onChangeEvolution()
     end
 
     do -- 드래곤 인게임 리소스
-        local evolution = self:getEvolutionNumber()
+        local evolution = t_data['evolution']
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
@@ -228,7 +162,7 @@ function UI_CollectionDetailPopup:onChangeEvolution()
         vars['dragonNode']:addChild(animator.m_node)
 
 		-- 자코 추가 이후 리소스별 크기가 다른 문제가 있어 테이블에서 스케일을 참조하도록 함(인게임 스케일 사용)
-		-- 다만 1 ~ 1.5 사이값으로 제한 (mskim)
+		-- 다만 0.9 ~ 1.5 사이값으로 제한 (mskim)
 		vars['dragonNode']:setScale(math_clamp(t_dragon['scale'], 0.9, 1.5))
     end
 
@@ -268,127 +202,43 @@ function UI_CollectionDetailPopup:onChangeEvolution()
 end
 
 -------------------------------------
--- function setIdx
--------------------------------------
-function UI_CollectionDetailPopup:setIdx(idx)
-    if (self.m_currIdx == idx) then
-        return
-    end
-
-    local min_idx = 1
-    local max_idx = table.count(self.m_lDragonsItem)
-    local idx = math_clamp(idx, min_idx, max_idx)
-    self.m_currIdx = idx
-
-    self:onChangeDragon()
-
-    do -- 이전 버튼, 다음 버튼 활성화 여부
-        local vars = self.vars
-
-        -- prevBtn
-        vars['prevBtn']:setVisible(min_idx < self.m_currIdx)
-
-        -- nextBtn
-        vars['nextBtn']:setVisible(self.m_currIdx < max_idx)
-    end
-end
-
--------------------------------------
--- function getCurrDragonTable
--------------------------------------
-function UI_CollectionDetailPopup:getCurrDragonTable()
-    local idx = self.m_currIdx
-
-    if (not idx) then
-        return nil
-    end
-
-    local item = self.m_lDragonsItem[idx]
-    local t_dragon = item['data']
-    return t_dragon
-end
-
--------------------------------------
 -- function click_prevBtn
 -------------------------------------
-function UI_CollectionDetailPopup:click_prevBtn()
+function UI_BookDetailPopup:click_prevBtn()
     self:setIdx(self.m_currIdx - 1)
 end
 
 -------------------------------------
 -- function click_nextBtn
 -------------------------------------
-function UI_CollectionDetailPopup:click_nextBtn()
+function UI_BookDetailPopup:click_nextBtn()
     self:setIdx(self.m_currIdx + 1)
-end
-
--------------------------------------
--- function getEvolutionNumber
--------------------------------------
-function UI_CollectionDetailPopup:getEvolutionNumber()
-    local evolution_str = self.m_currTab
-    local evolution = 1
-    if (evolution_str == 'hatch') then
-        evolution = 1
-    elseif (evolution_str == 'hatchling') then
-        evolution = 2
-    elseif (evolution_str == 'adult') then
-        evolution = 3
-    end
-
-    return evolution
 end
 
 -------------------------------------
 -- function click_detailBtn
 -- @brief 드래곤 상세 보기 팝업
 -------------------------------------
-function UI_CollectionDetailPopup:click_detailBtn()
+function UI_BookDetailPopup:click_detailBtn()
     self.vars['detailNode']:runAction(cc.ToggleVisibility:create())
-end
-
--------------------------------------
--- function click_drawBtn
--- @brief 인연포인트 뽑기 버튼
--------------------------------------
-function UI_CollectionDetailPopup:click_drawBtn()
-    local t_dragon = self:getCurrDragonTable()
-
-    local did = t_dragon['did']
-
-    -- 인연포인트 값 얻어오기
-    local req_rpoint = TableDragon():getRelationPoint(did)
-    local cur_rpoint = g_collectionData:getRelationPoint(did)
-
-    if (cur_rpoint < req_rpoint) then
-        UIManager:toastNotificationRed(Str('인연포인트가 부족합니다.'))
-    else
-        local ui = UI_CollectionRelationPointDraw(did)
-
-        local function close_cb()
-            self:checkRefresh()
-        end
-
-        ui:setCloseCB(close_cb)
-    end
 end
 
 -------------------------------------
 -- function makeDragonData
 -------------------------------------
-function UI_CollectionDetailPopup:makeDragonData()
-    local t_dragon = self:getCurrDragonTable()
+function UI_BookDetailPopup:makeDragonData(t_dragon, t_data)
+    local t_dragon = t_dragon
     if (not t_dragon) then
         return nil
     end
 
-    local grade = self:getEvolutionNumber()
+    local grade = t_data['grade']
 
     local t_dragon_data = {}
     t_dragon_data['did'] = t_dragon['did']
-    t_dragon_data['lv'] = TableGradeInfo:getMaxLv(grade)
-    t_dragon_data['evolution'] = self:getEvolutionNumber()
-    t_dragon_data['grade'] = 6
+    t_dragon_data['lv'] = 1 --TableGradeInfo:getMaxLv(grade)
+    t_dragon_data['evolution'] = t_data['evolution']
+    t_dragon_data['grade'] = grade
     t_dragon_data['eclv'] = 0
     t_dragon_data['exp'] = 0
     t_dragon_data['skill_0'] = 1
@@ -403,7 +253,7 @@ end
 -- function checkRefresh
 -- @brief
 -------------------------------------
-function UI_CollectionDetailPopup:checkRefresh()
+function UI_BookDetailPopup:checkRefresh()
     local is_changed = g_collectionData:checkChange(self.m_collectionLastChangeTime)
 
     if is_changed then
@@ -413,4 +263,4 @@ function UI_CollectionDetailPopup:checkRefresh()
 end
 
 --@CHECK
-UI:checkCompileError(UI_CollectionDetailPopup)
+UI:checkCompileError(UI_BookDetailPopup)
