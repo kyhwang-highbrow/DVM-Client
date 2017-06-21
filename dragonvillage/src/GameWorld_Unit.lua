@@ -49,6 +49,7 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     -- 유저가 보유하고있는 드래곤의 정보
     local t_dragon_data = t_dragon_data
     local bLeftFormation = not bRightFormation
+    local bPossibleRevive = true
 
     local dragon_id = t_dragon_data['did']
 
@@ -65,8 +66,9 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
 	local size = g_constant:get('INGAME', 'DRAGON_BODY_SIZE') or 20
     local dragon = Dragon(nil, {0, 0, size})
     self:addToUnitList(dragon)
+    self:bindHero(dragon)
 
-    dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
+    dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, bPossibleRevive)
 
     if (status_calc) then
         dragon:setStatusCalc(status_calc)
@@ -98,6 +100,7 @@ function GameWorld:makeMonsterNew(monster_id, level)
         monster = Monster(t_monster['res'], body_size)
     end
     self:addToUnitList(monster)
+    self:bindEnemy(monster)
 
     monster:init_monster(t_monster, monster_id, level, self.m_stageID)
     monster:initState()
@@ -193,9 +196,7 @@ function GameWorld:makeHeroDeck()
 
                 self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)
                 self.m_physWorld:addObject(PHYS.HERO, hero)
-                self:addHero(hero, tonumber(i))
-
-                self:participationHero(hero)
+                self:addHero(hero)
 
                 self.m_leftFormationMgr:setChangePosCallback(hero)
 
@@ -224,13 +225,13 @@ function GameWorld:makeHeroDeck()
     -- 친구 접속 버프 적용
     local friend_online_buff = g_gameScene.m_totalOnlineBuffList -- g_gameScene말고 변수를 전달받아 처리할 것
     if friend_online_buff then
-        for _,hero in pairs(self.m_mHeroList) do
+        for _,hero in pairs(self.m_leftParticipants) do
             local status_calc = hero.m_statusCalc
             status_calc:addBuffMulti('atk', (friend_online_buff['atk'] or 0))
             status_calc:addBuffMulti('def', (friend_online_buff['def'] or 0))
         end
     end
-
+    --[[
     do -- 무리 버프
         local unit_buff_dic = g_dragonUnitData:getDragonUnitList_deckBuff(deck_name)
         for i,v in pairs(unit_buff_dic) do
@@ -246,7 +247,7 @@ function GameWorld:makeHeroDeck()
             end
         end 
     end
-
+    ]]--
     do -- 마나
         self.m_heroMana = GameMana(self, true)
 
@@ -292,9 +293,8 @@ function GameWorld:joinFriendHero(posIdx)
     self.m_friendDragon:setPosIdx(posIdx)
 
     self.m_physWorld:addObject(PHYS.HERO, self.m_friendDragon)
-    self:addHero(self.m_friendDragon, posIdx)
-    self:participationHero(self.m_friendDragon)
-
+    self:addHero(self.m_friendDragon)
+    
     self.m_leftFormationMgr:setChangePosCallback(self.m_friendDragon)
 
     -- 진형 버프 적용
@@ -369,4 +369,153 @@ function GameWorld:passiveActivate_Right()
     for _, monster in ipairs(self:getEnemyList()) do
 		monster:doSkill_passive()
     end
+end
+
+-------------------------------------
+-- function bindHero
+-------------------------------------
+function GameWorld:bindHero(hero)
+    hero:addListener('dead', self.m_gameDragonSkill)
+    hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
+    hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
+    hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
+    hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
+    hero:addListener('hero_active_skill', self.m_gameAutoHero)
+
+    -- HP 변경시 콜백 등록
+    hero:addListener('character_set_hp', self)
+end
+
+-------------------------------------
+-- function addHero
+-------------------------------------
+function GameWorld:addHero(hero)
+    table.insert(self.m_leftParticipants, hero)
+
+    local idx = table.find(self.m_leftNonparticipants, hero)
+    table.remove(self.m_leftNonparticipants, idx)
+
+    hero:setActive(true)
+end
+
+-------------------------------------
+-- function removeHero
+-------------------------------------
+function GameWorld:removeHero(hero)
+    hero:setActive(false)
+
+    local idx = table.find(self.m_leftParticipants, hero)
+    table.remove(self.m_leftParticipants, idx)
+
+    table.insert(self.m_leftNonparticipants, hero)
+
+    -- 게임 종료 체크(모든 영웅이 죽었을 경우)
+    local hero_count = table.count(self:getDragonList())
+    if (hero_count <= 0) then
+        --[[
+        if (self.m_bDevelopMode) then 
+            -- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
+			self.m_mHeroList = {}
+			self.m_leftParticipants = {}
+			
+			self:makeHeroDeck()
+						
+			self:removeAllEnemy()
+		else
+        ]]--
+			self.m_gameState:changeState(GAME_STATE_FAILURE)
+		--end
+    end
+end
+
+-------------------------------------
+-- function bindEnemy
+-------------------------------------
+function GameWorld:bindEnemy(enemy)
+    -- 죽음 콜백 등록
+    enemy:addListener('dead', self.m_gameDragonSkill)
+    if self.m_dropItemMgr then
+        enemy:addListener('character_dead', self.m_dropItemMgr)
+    end
+    
+    -- 등장 완료 콜백 등록
+    enemy:addListener('enemy_appear_done', self.m_gameState)
+
+    -- 스킬 캐스팅
+    enemy:addListener('enemy_casting_start', self.m_gameAutoHero)
+    
+    if (enemy.m_charType == 'dragon') then
+        enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
+        enemy:addListener('enemy_active_skill', self.m_gameState)
+        enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
+    end
+
+    -- HP 변경시 콜백 등록
+    enemy:addListener('character_set_hp', self)
+end
+
+-------------------------------------
+-- function addEnemy
+-------------------------------------
+function GameWorld:addEnemy(enemy)
+    table.insert(self.m_rightParticipants, enemy)
+
+    local idx = table.find(self.m_rightNonparticipants, enemy)
+    table.remove(self.m_rightNonparticipants, idx)
+
+    enemy:setActive(true)
+end
+
+-------------------------------------
+-- function removeEnemy
+-------------------------------------
+function GameWorld:removeEnemy(enemy)
+    enemy:setActive(false)
+
+    local idx = table.find(self.m_rightParticipants, enemy)
+    table.remove(self.m_rightParticipants, idx)
+
+    table.insert(self.m_rightNonparticipants, enemy)
+end
+
+-------------------------------------
+-- function removeAllHero
+-- @brief
+-------------------------------------
+function GameWorld:removeAllHero()
+    for i,v in pairs(self:getDragonList()) do
+        if (not v.m_bDead) then
+            v:setDead()
+            v:setEnableBody(false)
+            v:changeState('dying')
+
+            local effect = self:addInstantEffect('res/effect/tamer_magic_1/tamer_magic_1.vrp', 'bomb', v.pos['x'], v.pos['y'])
+            effect:setScale(0.8)
+        end
+    end
+    for i, v in pairs(self.m_leftNonparticipants) do
+        -- GameWorld:updateUnit에서 삭제하도록 하기 위함
+        v.m_bPossibleRevive = false
+    end
+end
+
+-------------------------------------
+-- function removeAllEnemy
+-- @brief
+-------------------------------------
+function GameWorld:removeAllEnemy()
+    for i, v in pairs(self:getEnemyList()) do
+		cclog('REMOVE ALL ' .. v:getName())
+        if (not v.m_bDead) then
+            v:setDead()
+            v:setEnableBody(false)
+            v:changeState('dying')
+        end
+    end
+    for i, v in pairs(self.m_rightNonparticipants) do
+        -- GameWorld:updateUnit에서 삭제하도록 하기 위함
+        v.m_bPossibleRevive = false
+    end
+	
+    self.m_waveMgr:clearDynamicWave()
 end

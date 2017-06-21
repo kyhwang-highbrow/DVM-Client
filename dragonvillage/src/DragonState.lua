@@ -14,9 +14,6 @@ function Dragon:initState()
     self:addState('skillAppear', Dragon.st_skillAppear, 'skill_idle', false)
     self:addState('skillIdle', Dragon.st_skillIdle, 'skill_disappear', false)
 
-    self:addState('dead', Dragon.st_dead, nil, nil, PRIORITY.DEAD)
-    self:addState('revive', Dragon.st_revive, 'pose_1', false)
-    
     self:addState('wait', Dragon.st_wait, 'idle', true)
 
     -- success
@@ -233,37 +230,6 @@ function Dragon.st_success_move(owner, dt)
         local add_speed = math_random(-2, 2) * 100
         owner:setMove(owner.pos.x + 2000, owner.pos.y, 1500 + add_speed)
         owner:setAfterImage(true)
-    end
-end
-
--------------------------------------
--- function st_dead
--------------------------------------
-function Dragon.st_dead(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        if (owner.m_bLeftFormation) then
-            owner.m_world:standbyHero(owner)
-        else
-            return true
-        end
-    end
-end
-
--------------------------------------
--- function st_revive
--- @brief 부활 중인 상태
--------------------------------------
-function Dragon.st_revive(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        -- 홈 위치로 즉시 이동시킴
-        owner:setPosition(owner.m_homePosX, owner.m_homePosY)
-
-        owner.m_animator:setRotation(90)
-        owner.m_animator:runAction(cc.FadeTo:create(0.5, 255))
-        
-        owner:addAniHandler(function()
-            owner:changeState('attackDelay')
-        end)
     end
 end
 

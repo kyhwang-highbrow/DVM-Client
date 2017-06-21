@@ -4,9 +4,6 @@ local PARENT = GameWorld
 -- class GameWorld
 -------------------------------------
 GameWorldColosseum = class(PARENT, {
-        m_diedHeroTotalMaxHp = 'number',    -- 죽은 아군들의 총 maxHp(죽었을때 상태로 저장)
-        m_diedEnemyTotalMaxHp = 'number',    -- 죽은 적군들의 총 maxHp(죽었을때 상태로 저장)
-
         m_enemyTamer = '',
 		m_lEnemyDragons = '',
     })
@@ -15,9 +12,7 @@ GameWorldColosseum = class(PARENT, {
 -- function init
 -------------------------------------
 function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode)
-    self.m_diedHeroTotalMaxHp = 0
-    self.m_diedEnemyTotalMaxHp = 0
-	self.m_lEnemyDragons = {}
+    self.m_lEnemyDragons = {}
     
     -- 타임 스케일 설정
     local baseTimeScale = COLOSSEUM__TIME_SCALE
@@ -149,67 +144,18 @@ function GameWorldColosseum:initTamer()
 end
 
 -------------------------------------
--- function addHero
+-- function bindEnemy
 -------------------------------------
-function GameWorldColosseum:addHero(hero, idx)
-    self.m_mHeroList[idx] = hero
-
-    hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
-    hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
-    hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
-    hero:addListener('hero_active_skill', self.m_gameAutoHero)
-
-    -- HP 변경시 콜백 등록
-    hero:addListener('character_set_hp', self)
-end
-
--------------------------------------
--- function addEnemy
--- @param enemy
--------------------------------------
-function GameWorldColosseum:addEnemy(enemy)
-    table.insert(self.m_tEnemyList, enemy)
-    
+function GameWorldColosseum:bindEnemy(enemy)
+    enemy:addListener('dead', self.m_gameDragonSkill)
+    enemy:addListener('dragon_time_skill', self.m_gameDragonSkill)
     enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
     enemy:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     enemy:addListener('set_global_cool_time_active', self.m_gameCoolTime)
-    enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
+    enemy:addListener('enemy_active_skill', self.m_gameAutoEnemy)
 
     -- HP 변경시 콜백 등록
     enemy:addListener('character_set_hp', self)
-end
-
-
--------------------------------------
--- function removeEnemy
--- @param enemy
--------------------------------------
-function GameWorldColosseum:removeEnemy(enemy)
-    self.m_diedEnemyTotalMaxHp = self.m_diedEnemyTotalMaxHp + enemy.m_maxHp
-
-    local idx = table.find(self.m_tEnemyList, enemy)
-    table.remove(self.m_tEnemyList, idx)
-end
-
--------------------------------------
--- function removeHero
--------------------------------------
-function GameWorldColosseum:removeHero(hero)
-    self.m_diedHeroTotalMaxHp = self.m_diedHeroTotalMaxHp + hero.m_maxHp
-
-    for i,v in pairs(self.m_mHeroList) do
-        if (v == hero) then
-            self.m_mHeroList[i] = nil
-            break
-        end
-    end
-
-    self:standbyHero(hero)
-
-    local hero_count = table.count(self.m_mHeroList)
-    if (hero_count <= 0) then
-        self.m_gameState:changeState(GAME_STATE_FAILURE)
-    end
 end
 
 -------------------------------------
@@ -290,11 +236,9 @@ function GameWorldColosseum:onEvent(event_name, t_event, ...)
         local totalMaxHp = 0
 
         if (char.m_bLeftFormation) then
-            unitList = self:getDragonList()
-            totalMaxHp = self.m_diedHeroTotalMaxHp
+            unitList = self.m_myDragons
         else
-            unitList = self:getEnemyList()
-            totalMaxHp = self.m_diedEnemyTotalMaxHp
+            unitList = self.m_lEnemyDragons
         end
 
         -- 진형에 따라 HP게이지 갱신

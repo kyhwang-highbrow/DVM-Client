@@ -187,7 +187,7 @@ function UI_GameDebug:makeTableView()
         local item = {}
 		item['str'] = Str('웨이브 클리어')
         item['cb1'] = function()
-			self.m_world:killAllEnemy()
+			self.m_world:removeAllEnemy()
         end
         table.insert(item_info, item)
     end

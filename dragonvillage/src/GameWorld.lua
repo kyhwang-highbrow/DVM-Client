@@ -35,10 +35,11 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 		m_lSpecailMissileList = 'table',
         
         -- unit
-        m_participants = 'HeroList',    -- 전투에 참여중인 아군
-		m_tEnemyList = 'EnemyList',     -- 적군 리스트(드래곤이라도 적 진형이라면 여기에 추가됨)
-        m_mHeroList = 'HeroListMap',    -- 아군 리스트(맵 형식 리스트)
-        
+        m_leftParticipants = 'table',       -- 전투에 참여중인 아군
+        m_rightParticipants = 'table',      -- 전투에 참여중인 적군(드래곤이라도 적 진형이라면 여기에 추가됨)
+        m_leftNonparticipants = 'table',  -- 참여중인 아군 중 죽은 아군(부활 가능한 대상만)
+        m_rightNonparticipants = 'table', -- 참여중인 적군 중 죽은 적군(부활 가능한 대상만)
+		
         m_deckFormation = 'string',
 
         m_physWorld = 'PhysWorld',
@@ -191,10 +192,11 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_physWorld = PhysWorld(self.m_gameNode1, false)
     self.m_physWorld:initGroup()
 
-    self.m_participants = {}
-    self.m_tEnemyList = {}
-    self.m_mHeroList = {}
-    
+    self.m_leftParticipants = {}
+    self.m_rightParticipants = {}
+    self.m_leftNonparticipants = {}
+    self.m_rightNonparticipants = {}
+
     self.m_missileFactory = MissileFactory(self)
 
     self.m_worldSize = nil
@@ -520,15 +522,6 @@ function GameWorld:addToUnitList(unit)
 end
 
 -------------------------------------
--- function addUnit
--- @param Unit
--------------------------------------
-function GameWorld:addUnit(unit)
-    self:addToUnitList(unit)
-    self.m_worldNode:addChild(unit.m_node)
-end
-
--------------------------------------
 -- function cleanupSkill
 -------------------------------------
 function GameWorld:cleanupSkill()
@@ -743,181 +736,6 @@ function GameWorld:findTarget(type, x, y, l_remove)
 end
 
 -------------------------------------
--- function addEnemy
--- @param enemy
--------------------------------------
-function GameWorld:addEnemy(enemy)
-    table.insert(self.m_tEnemyList, enemy)
-    
-    -- 죽음 콜백 등록
-    enemy:addListener('dead', self.m_gameDragonSkill)
-    if self.m_dropItemMgr then
-        enemy:addListener('character_dead', self.m_dropItemMgr)
-    end
-    
-    -- 등장 완료 콜백 등록
-    enemy:addListener('enemy_appear_done', self.m_gameState)
-
-    -- 스킬 캐스팅
-    enemy:addListener('enemy_casting_start', self.m_gameAutoHero)
-    
-    if (enemy.m_charType == 'dragon') then
-        enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
-        enemy:addListener('enemy_active_skill', self.m_gameState)
-        enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
-    end
-
-    -- HP 변경시 콜백 등록
-    enemy:addListener('character_set_hp', self)
-end
-
--------------------------------------
--- function removeEnemy
--- @param enemy
--------------------------------------
-function GameWorld:removeEnemy(enemy)
-    local idx = table.find(self.m_tEnemyList, enemy)
-    table.remove(self.m_tEnemyList, idx)
-    --cclog('GameWorld:removeEnemy(enemy) cnt : ' .. #self.m_tEnemyList)
-end
-
--------------------------------------
--- function killAllEnemy
--- @brief
--------------------------------------
-function GameWorld:killAllEnemy()
-    for i,v in pairs(self:getEnemyList()) do
-		cclog('KILL ALL ' .. v:getName())
-        if (not v.m_bDead) then
-            v:setDead()
-            v:setEnableBody(false)
-            v:changeState('dying')
-        end
-    end
-	
-    self.m_waveMgr:clearDynamicWave()
-end
-
--------------------------------------
--- function killAllHero
--- @brief
--------------------------------------
-function GameWorld:killAllHero()
-    for i,v in pairs(self:getDragonList()) do
-        if (not v.m_bDead) then
-            v:setDead()
-            v:setEnableBody(false)
-            v:changeState('dying')
-
-            local effect = self:addInstantEffect('res/effect/tamer_magic_1/tamer_magic_1.vrp', 'bomb', v.pos['x'], v.pos['y'])
-            effect:setScale(0.8)
-        end
-    end
-end
-
-
--------------------------------------
--- function addHero
--------------------------------------
-function GameWorld:addHero(hero, idx)
-    self.m_mHeroList[idx] = hero
-
-    hero:addListener('dead', self.m_gameDragonSkill)
-    hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
-    hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
-    hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
-    hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
-    hero:addListener('hero_active_skill', self.m_gameAutoHero)
-
-    -- HP 변경시 콜백 등록
-    hero:addListener('character_set_hp', self)
-end
-
--------------------------------------
--- function removeHero
--------------------------------------
-function GameWorld:removeHero(hero)
-    for i,v in pairs(self.m_mHeroList) do
-        if (v == hero) then
-            self.m_mHeroList[i] = nil
-            break
-        end
-    end
-
-    self:standbyHero(hero)
-    --[[
-    -- 친구 드래곤을 추가 시킴
-    if (not self.m_bUsedFriend and self.m_friendDragon) then
-        self:joinFriendHero(hero:getPosIdx())
-
-        self.m_friendDragon:setOrgHomePos(hero.m_orgHomePosX, hero.m_orgHomePosY)
-        self.m_friendDragon:setHomePos(hero.m_homePosX, hero.m_homePosY)
-        self.m_friendDragon:setPosition(hero.m_homePosX, hero.m_homePosY)
-
-        -- 패시브 즉시 적용
-        self.m_friendDragon:doSkill_passive()
-
-        -- 등장시킴
-        self.m_friendDragon:doAppear()
-
-        self.m_friendDragon.m_bFirstAttack = true
-        self.m_friendDragon:changeState('attackDelay')
-
-        self:dispatch('friend_dragon_appear', {}, self.m_friendDragon)
-        
-        self.m_bUsedFriend = true
-    end
-    ]]--
-end
-
--------------------------------------
--- function participationHero
--------------------------------------
-function GameWorld:participationHero(hero)
-    table.insert(self.m_participants, hero)
-
-    hero:setActive(true)
-end
-
--------------------------------------
--- function standbyHero
--- @brief 전투에서 제외
--------------------------------------
-function GameWorld:standbyHero(hero)
-    hero:setActive(false)
-
-    for i,v in ipairs(self.m_participants) do
-        if (v == hero) then
-            table.remove(self.m_participants, i)
-            break
-        end
-    end
-
-    -- 게임 종료 체크(모든 영웅이 죽었을 경우)
-    local is_exist_dragon = false
-    for _, hero in pairs(self:getDragonList()) do
-        if (not hero.m_bDead) then
-            is_exist_dragon = true
-            break
-        end
-    end
-
-    if (not is_exist_dragon) then
-        if (self.m_bDevelopMode) then 
-			-- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
-			self.m_mHeroList = {}
-			self.m_participants = {}
-			
-			self:makeHeroDeck()
-						
-			self:killAllEnemy()
-		else
-			self.m_gameState:changeState(GAME_STATE_FAILURE)
-		end
-    end
-end
-
--------------------------------------
 -- function changeWorldSize
 -------------------------------------
 function GameWorld:changeWorldSize(size)
@@ -1105,11 +923,11 @@ function GameWorld:setBattleZone(formation, immediately, is_right)
     if (is_right) then
         offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) + x_start_offset
         offset_y = cameraHomePosY + 30
-        lUnitList = self.m_tEnemyList
+        lUnitList = self.m_rightParticipants
     else
         offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - x_start_offset - rage
         offset_y = cameraHomePosY + 30
-        lUnitList = self.m_participants
+        lUnitList = self.m_leftParticipants
     end
     
     min_x = (min_x + offset_x)
@@ -1255,13 +1073,6 @@ function GameWorld:isPossibleControl()
 end
 
 -------------------------------------
--- function isParticipantMaxCount
--------------------------------------
-function GameWorld:isParticipantMaxCount()
-    return (#self.m_participants >= g_constant:get('INGAME', 'PARTICIPATE_DRAGON_CNT'))
-end
-
--------------------------------------
 -- function hasFriendHero
 -------------------------------------
 function GameWorld:hasFriendHero()
@@ -1339,7 +1150,10 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time, no_tam
     local move_time = move_time or getInGameConstant("WAVE_INTERMISSION_TIME")
 
     -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
-    for _, v in pairs(self.m_mHeroList) do
+    local l_temp = table.merge(self.m_leftParticipants, self.m_leftNonparticipants)
+
+    --for _, v in pairs(self.m_mHeroList) do
+    for _, v in pairs(l_temp) do
         -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
         local homePosX = v.m_orgHomePosX + cameraHomePosX + offsetX
         local homePosY = v.m_orgHomePosY + cameraHomePosY + offsetY
@@ -1375,6 +1189,7 @@ end
 function GameWorld:onEvent(event_name, t_event, ...)
     if (event_name == 'change_wave') then
         self:onEvent_change_wave(event_name, t_event, ...)
+
     elseif (event_name == 'dragon_summon') then
         self.m_tamer.m_animator:changeAni('i_summon', false)
         self.m_tamer.m_animator:addAniHandler(function()
@@ -1418,7 +1233,7 @@ end
 -- function getEnemyList
 -------------------------------------
 function GameWorld:getEnemyList()
-	return self.m_tEnemyList
+	return self.m_rightParticipants
 end
 
 -------------------------------------
@@ -1426,7 +1241,7 @@ end
 -- @brief 활성화된 드래곤 리스트 반환, 기획상 기준이 바뀔 가능성이 높기 때문에 함수로 관리
 -------------------------------------
 function GameWorld:getDragonList()
-	return self.m_participants
+	return self.m_leftParticipants
 end
 
 -------------------------------------

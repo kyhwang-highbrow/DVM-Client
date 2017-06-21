@@ -151,7 +151,7 @@ function GameState_Colosseum.update_success(self, dt)
         local world = self.m_world
 
         -- 모든 적들을 죽임
-        world:killAllEnemy()
+        world:removeAllEnemy()
         world.m_enemyTamer:changeState('dying')
 
         -- 기본 배속으로 변경

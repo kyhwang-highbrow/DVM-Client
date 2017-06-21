@@ -24,7 +24,6 @@ Dragon = class(PARENT, {
 		
         m_isUseMovingAfterImage = 'boolean',
 		m_bWaitState = 'boolean',
-		m_bActive = 'boolean',
      })
 
 -------------------------------------
@@ -34,8 +33,7 @@ Dragon = class(PARENT, {
 -------------------------------------
 function Dragon:init(file_name, body, ...)
     self.m_charType = 'dragon'
-
-    self.m_bActive = false
+    
     self.m_bWaitState = false
 
     self.m_skillOffsetX = 0
@@ -53,7 +51,7 @@ end
 -------------------------------------
 -- function init_dragon
 -------------------------------------
-function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
+function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, bPossibleRevive)
 	local doid = t_dragon_data['id']
     local lv = t_dragon_data['lv'] or 1
     local grade = t_dragon_data['grade'] or 1
@@ -66,6 +64,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
     self.m_charTable = t_dragon
     self.m_tDragonInfo = t_dragon_data
     self.m_bLeftFormation = bLeftFormation
+    self.m_bPossibleRevive = bPossibleRevive or false
 
 	-- 각종 init 함수 실행
 	do
@@ -248,22 +247,6 @@ function Dragon:doAttack(skill_id, x, y)
 end
 
 -------------------------------------
--- function doRevive
--- @brief 부할
--------------------------------------
-function Dragon:doRevive(hp_rate)
-    if (not self.m_bDead) then return end
-
-    self.m_bDead = false
-
-    local hp = math_floor(self.m_maxHp * hp_rate)
-
-    self:setHp(hp)
-    
-    self:changeState('revive', true)
-end
-
--------------------------------------
 -- function initWorld
 -- @param game_world
 -------------------------------------
@@ -316,34 +299,6 @@ function Dragon:release()
     self.m_hpGauge = nil
     
     PARENT.release(self)
-end
-
--------------------------------------
--- function setActive
--------------------------------------
-function Dragon:setActive(active)
-    self.m_bActive = active
-
-    if self.m_bActive then
-        self.enable_body = true
-        --self.apply_movement = true
-        if self.m_rootNode then
-            self.m_rootNode:setVisible(true)
-        end
-    else
-        self.enable_body = false
-        --self.apply_movement = false
-        if self.m_rootNode then
-            self.m_rootNode:setVisible(false)
-        end
-
-        -- 이동 중지
-        self:resetMove()
-    end
-
-    if self.m_hpNode then
-        self.m_hpNode:setVisible(active)
-    end
 end
 
 -------------------------------------

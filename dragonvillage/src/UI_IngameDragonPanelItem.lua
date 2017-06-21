@@ -36,6 +36,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     dragon:addListener('dragon_skill_gauge', self)
     dragon:addListener('touch_began', self)
     dragon:addListener('character_dead', self)
+    dragon:addListener('character_revive', self)
 
     self:refreshHP(dragon.m_hp, dragon.m_maxHp)
     self:refreshManaCost(dragon.m_activeSkillManaCost)
@@ -136,7 +137,6 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
 
     elseif (event_name == 'touch_began') then
         self:onTouchBegan(t_event)
-    
 
     -- 드래곤 사망 시
     elseif (event_name == 'character_dead') then
@@ -146,6 +146,11 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
         vars['skillVisual2']:setVisible(false)
         cca.stopAction(vars['skillNode'], 100)
         vars['skillNode']:setPositionY(-2)
+
+    -- 드래곤 부활 시
+    elseif (event_name == 'character_revive') then
+        local vars = self.vars
+        vars['disableSprite']:setVisible(false)
         
     end
 end

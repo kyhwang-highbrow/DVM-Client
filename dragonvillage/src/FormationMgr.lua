@@ -213,6 +213,7 @@ function FormationMgr:setChangePosCallback(char)
     end
 
     char:addListener('character_dead', self)
+    char:addListener('character_revive', self)
 end
 
 -------------------------------------
@@ -275,14 +276,14 @@ function FormationMgr:getNearChar(char, char_list)
     local near_dist = nil
 
     for i,v in ipairs(char_list) do
-        --if (v.m_bDead == false) then -- 죽은 char들은 리스트에서 자동으로 삭제된다고 가정
+        if (v.m_bDead == false) then
             local dist = getDistance(char.pos.x, char.pos.y, v.pos.x, v.pos.y)
 
             if (not near_dist) or (dist < near_dist) then
                 target = v
                 near_dist = dist
             end
-        --end
+        end
     end
 
     return target
@@ -518,6 +519,16 @@ function FormationMgr:onEvent(event_name, t_event, ...)
         -- TODO 나중에 위치를 옮길 것
         local idx = table.find(self.m_globalCharList, char)
         table.remove(self.m_globalCharList, idx)
+
+    -- 캐릭터 부활
+    elseif (event_name == 'character_revive') then
+        local arg = {...}
+        local char = arg[1]
+        self:setFormation(char, char.m_currFormation)
+        
+        -- TODO 나중에 위치를 옮길 것
+        table.insert(self.m_globalCharList, char)
+        self.m_bDirtyGlobalCharList = true
 
     -- 카메라 홈 위치가 변경되었을 경우
     elseif (event_name == 'camera_set_home') then

@@ -33,6 +33,7 @@ Character = class(PARENT, {
         m_charLogRecorder = 'LogRecorderChar',
 
 		-- 캐릭터의 특정 상태
+        m_bActive = 'boolean',
         m_bDead = 'boolean',
         m_bInvincibility = 'boolean',   -- 무적 상태 여부
 		m_isSilence = 'boolean',		-- 침묵 (스킬 사용 불가 상태)
@@ -141,6 +142,9 @@ Character = class(PARENT, {
 
 		-- 몬스터가 아이템을 드랍하는지 여부
         m_hasItem = 'boolean',
+
+        -- 부활 가능한지 여부
+        m_bPossibleRevive = 'boolean',
      })
 
 local SpasticityTime = 0.2
@@ -151,6 +155,7 @@ local SpasticityTime = 0.2
 -- @param body
 -------------------------------------
 function Character:init(file_name, body, ...)
+    self.m_bActive = false
     self.m_bDead = false
 	self.m_attribute = nil
 	self.m_attributeOrg = nil
@@ -189,6 +194,7 @@ function Character:init(file_name, body, ...)
     self.m_bRoam = false
     self.m_roamTimer = 0
     self.m_hasItem = false
+    self.m_bPossibleRevive = false
 
     self.m_mTargetEffect = {}
     self.m_mNonTargetEffect = {}
@@ -231,10 +237,10 @@ end
 -------------------------------------
 function Character:setDead()
     if (self.m_bDead) then return false end
+    self.m_bDead = true
 
     self:removeTargetEffect()
 
-    self.m_bDead = true
     self:dispatch('character_dead', {}, self)
 
     -- 사망 처리 시 StateDelegate Kill!
@@ -299,7 +305,7 @@ function Character:getTargetListByType(target_type, target_count, target_formati
 	local target_count = target_count
 
 	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule)
-	
+    	
 	if (target_count) and (type(target_count) == 'number') then
 		return table.getPartList(t_ret, target_count)
 	else
@@ -860,6 +866,22 @@ function Character:doAttack(skill_id, x, y)
 end
 
 -------------------------------------
+-- function doRevive
+-- @brief 부할
+-------------------------------------
+function Character:doRevive(hp_rate)
+    if (not self.m_bDead or not self.m_bPossibleRevive) then return end
+    self.m_bDead = false
+
+    local hp = math_floor(self.m_maxHp * hp_rate)
+    self:setHp(hp, true)
+    
+    self:changeState('revive', true)
+
+    self:dispatch('character_revive', {}, self)
+end
+
+-------------------------------------
 -- function makeDamageEffect
 -------------------------------------
 function Character:makeDamageEffect(x, y, dir, is_critical)
@@ -1094,10 +1116,10 @@ end
 -------------------------------------
 -- function setHp
 -------------------------------------
-function Character:setHp(hp)
+function Character:setHp(hp, bFixed)
 	-- 죽었을시 탈출
 	if (self.m_bDead) then return end
-    if (self.m_hp == 0) then return end
+    if (not bFixed and self.m_hp == 0) then return end
 
     self.m_hp = math_min(hp, self.m_maxHp)
 
@@ -1156,6 +1178,32 @@ function Character:release()
     self:release_EventListener()
 
     PARENT.release(self)
+end
+
+-------------------------------------
+-- function setActive
+-------------------------------------
+function Character:setActive(active)
+    self.m_bActive = active
+
+    if self.m_bActive then
+        self.enable_body = true
+        if self.m_rootNode then
+            self.m_rootNode:setVisible(true)
+        end
+    else
+        self.enable_body = false
+        if self.m_rootNode then
+            self.m_rootNode:setVisible(false)
+        end
+
+        -- 이동 중지
+        self:resetMove()
+    end
+
+    if self.m_hpNode then
+        self.m_hpNode:setVisible(active)
+    end
 end
 
 -------------------------------------

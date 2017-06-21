@@ -37,7 +37,7 @@ function GameState_NestDungeon_Gold.update_success(self, dt)
         local world = self.m_world
 
         -- 모든 적들을 죽임
-        world:killAllEnemy()
+        world:removeAllEnemy()
 
         world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
 

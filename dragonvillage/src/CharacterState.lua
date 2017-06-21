@@ -10,6 +10,7 @@ function Character:initState()
     
     self:addState('dying', Character.st_dying, 'idle', false, PRIORITY.DYING)
     self:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)
+    self:addState('revive', Character.st_revive, 'pose_1', false)
 
     self:addState('delegate', Character.st_delegate, 'idle', true)
     self:addState('wait', Character.st_wait, 'idle', true)
@@ -66,7 +67,35 @@ end
 -- function st_dead
 -------------------------------------
 function Character.st_dead(owner, dt)
-    return true
+    if (owner.m_bPossibleRevive) then
+        if (owner.m_stateTimer == 0) then
+            if (owner.m_bLeftFormation) then
+                owner.m_world:removeHero(owner)
+            else
+                owner.m_world:removeEnemy(owner)
+            end
+        end
+    else
+        return true
+    end
+end
+
+-------------------------------------
+-- function st_revive
+-- @brief 부활 중인 상태
+-------------------------------------
+function Character.st_revive(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        -- 홈 위치로 즉시 이동시킴
+        owner:setPosition(owner.m_homePosX, owner.m_homePosY)
+
+        owner.m_animator:setRotation(90)
+        owner.m_animator:runAction(cc.FadeTo:create(0.5, 255))
+        
+        owner:addAniHandler(function()
+            owner:changeState('attackDelay')
+        end)
+    end
 end
 
 -------------------------------------

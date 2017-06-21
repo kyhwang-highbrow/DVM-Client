@@ -338,7 +338,7 @@ function GameState.update_wave_intermission_wait(self, dt)
         world:removeHeroDebuffs()
 
         -- 모든 적들을 죽임
-        world:killAllEnemy()
+        world:removeAllEnemy()
 
     end
 
@@ -528,7 +528,7 @@ function GameState.update_success_wait(self, dt)
         world:removeHeroDebuffs()
 
         -- 모든 적들을 죽임
-        world:killAllEnemy()
+        world:removeAllEnemy()
         
 		-- @LOG : 스테이지 성공 시 클리어 시간
 		self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)
@@ -566,7 +566,7 @@ function GameState.update_success(self, dt)
         local world = self.m_world
 
         -- 모든 적들을 죽임
-        world:killAllEnemy()
+        world:removeAllEnemy()
 
         -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)

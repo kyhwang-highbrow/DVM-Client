@@ -89,7 +89,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 	self.m_activityCarrier = self:makeAttackDamageInstance()
 
 	local world = self.m_world
-	local l_dragon = world.m_participants
+	local l_dragon = world:getDragonList()
 
 	local state = self.m_magicState
 	if (state == STATE_HUGE_ATTACK) then 

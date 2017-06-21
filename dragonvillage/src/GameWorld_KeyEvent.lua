@@ -59,7 +59,7 @@ end
 -- @brief 현재 웨이브를 클리어
 -------------------------------------
 function GameWorld:wave_clear()
-    self:killAllEnemy()
+    self:removeAllEnemy()
     self.m_waveMgr:clearDynamicWave()
 end
 
@@ -95,7 +95,7 @@ end
 -- @brief 현재 웨이브를 클리어
 -------------------------------------
 function GameWorld:mission_fail()
-    self:killAllEnemy()
+    self:removeAllEnemy()
     self.m_waveMgr:clearDynamicWave()
 end
 
@@ -197,7 +197,7 @@ end
 -- @brief 아군 소멸
 -------------------------------------
 function GameWorld:kill_dragon()
-    self:killAllHero()
+    self:removeAllHero()
 end
 
 -------------------------------------
@@ -359,13 +359,12 @@ end
 -- @brief 아군 부활
 -------------------------------------
 function GameWorld:resurrect_dragon()
-    for _, v in pairs(self.m_mHeroList) do
-        if (v.m_bDead) then
-            local hp_rate = 0.2
-            v:doRevive(hp_rate)
+    local died_hero = self.m_leftNonparticipants[1]
+    if (died_hero) then
+        local hp_rate = 0.2
+        died_hero:doRevive(hp_rate)
 
-            self:participationHero(v)
-        end
+        self:addHero(died_hero)
     end
 end
 
