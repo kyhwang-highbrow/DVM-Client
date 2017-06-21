@@ -26,8 +26,6 @@ function SceneDV:onEnter()
 	self:doUpdate()
 
 	self:penlightTest()
-
-    --self:luaDoStringTest()
 end
 
 -------------------------------------
@@ -548,14 +546,6 @@ function SceneDV:scenarioTest()
     end
 
     doPlay()
-end
-
--------------------------------------
--- function luaDoStringTest
--------------------------------------
-function SceneDV:luaDoStringTest()
-    local ret = doString('return cclog(1 + 2)')
-    cclog('ret = ' .. ret)
 end
 
 -------------------------------------

@@ -123,6 +123,7 @@ UNDER_LINE_PNG = 'res/common/underline.png'
 EMPTY_PNG = 'res/common/empty.png'
 EMPTY_TABLE = {}
 CENTER_POINT = cc.p(0.5, 0.5)
+EQUATION_FUNC = {}
 
 -- # 1 frame
 ONE_FRAME = 1/30

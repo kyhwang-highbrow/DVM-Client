@@ -134,10 +134,22 @@ function ActivityCarrier:setAtkDmgStat(stat_type)
 end
 
 -------------------------------------
--- function getAtkDmgStat
+-- function getAtkDmg
 -------------------------------------
-function ActivityCarrier:getAtkDmgStat()
-	return self.m_atkDmgStat
+function ActivityCarrier:getAtkDmg()
+    if (self.m_atkDmgStat == 'x') then
+		error('피격된 스킬이지만 power_source 가 x 입니다') 
+	end
+
+    local atk_dmg
+
+    if (EQUATION_FUNC[self.m_skillId]) then
+        atk_dmg = EQUATION_FUNC[self.m_skillId](self)
+        cclog('atk_dmg = ' .. atk_dmg)
+    else
+        atk_dmg = self:getStat(self.m_atkDmgStat)
+    end
+	return atk_dmg
 end
 
 -------------------------------------

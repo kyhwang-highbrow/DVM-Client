@@ -480,12 +480,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
     -- 데미지 계산
     do
-		-- 공격력으로 사용할 스탯
-		local atk_dmg_stat = attack_activity_carrier:getAtkDmgStat()
-		if (atk_dmg_stat == 'x') then 
-			cclog('피격된 스킬이지만 power_source 가 x 입니다') 
-		end
-        atk_dmg = attack_activity_carrier:getStat(atk_dmg_stat)
+		-- 공격력, 방어력 스탯
+		atk_dmg = attack_activity_carrier:getAtkDmg()
         def_pwr = self:getStat('def')
 		
 		-- 스킬 계수 적용
