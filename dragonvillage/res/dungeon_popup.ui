@@ -1039,7 +1039,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 30;
-					text = '황금 던전';
+					text = '진화재료 던전';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
@@ -1079,7 +1079,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '골드 획득 가능';
+					text = '공통 진화재료 획득 가능';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
