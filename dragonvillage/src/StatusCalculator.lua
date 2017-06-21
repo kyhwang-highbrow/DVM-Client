@@ -328,12 +328,7 @@ end
 -- function appendHpRatio
 -- @brief Hp ratio를 적용함.
 -------------------------------------
-function StatusCalculator:appendHpRatio(stage_id)
-    local hp_ratio = TableDrop():getValue(stage_id, 'hp_ratio')
-    if(not hp_ratio) then
-        cclog('# error ' .. '\"table_drop.csv\"테이블에서 hp_ratio 데이터가 없습니다.')
-        hp_ratio = 1
-    end
+function StatusCalculator:appendHpRatio(hp_ratio)
     self.m_lStatusList['hp'].m_finalStat = self.m_lStatusList['hp'].m_finalStat * hp_ratio
 end
 

@@ -123,8 +123,11 @@ function GameWorld:makeMonsterNew(monster_id, level)
             monster.m_statusCalc:addBuffMulti('hp', value)
         end
     end
+
+    -- 스테이지별 hp_ratio 적용.
+    local hp_ratio = TableDrop():getValue(self.m_stageID, 'hp_ratio') or 1
+    monster.m_statusCalc:appendHpRatio(hp_ratio)
     
-    monster.m_statusCalc:appendHpRatio(self.m_stageID)
     monster:setStatusCalc(monster.m_statusCalc)
     self:dispatch('make_monster', {['monster']=monster})
 	return monster
