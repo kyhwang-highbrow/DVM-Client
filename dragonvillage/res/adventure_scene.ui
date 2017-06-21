@@ -614,8 +614,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -390.000000;
-				y = -41.000000;
+				x = -139.000000;
+				y = 25.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -633,8 +633,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -283.000000;
-				y = 65.000000;
+				x = -368.000000;
+				y = -84.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -652,8 +652,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -130.000000;
-				y = 27.000000;
+				x = 332.000000;
+				y = -55.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -671,8 +671,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -214.000000;
-				y = -119.000000;
+				x = 93.000000;
+				y = -163.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -690,8 +690,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -56.000000;
-				y = -175.000000;
+				x = 317.000000;
+				y = 152.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -709,8 +709,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 132.000000;
-				y = -126.000000;
+				x = 40.000000;
+				y = 10.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -740,7 +740,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'stageDock09';
 			};
 			[16] =
@@ -759,7 +759,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'stageDock08';
 			};
 			[17] =
@@ -778,7 +778,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'stageDock10';
 			};
 			[18] =
@@ -797,7 +797,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'stageDock11';
 			};
 			[19] =
@@ -816,7 +816,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'stageDock12';
 			};
 			[20] =

@@ -2241,7 +2241,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 150.000000;
-				y = -80.000000;
+				y = -12.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
