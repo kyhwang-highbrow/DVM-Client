@@ -1,6 +1,6 @@
 ------------------------------------
 -- function UI_BookDragonCard
--- @brief UI_characterCard 래핑
+-- @brief UI_characterCard ëí
 -------------------------------------
 function UI_BookDragonCard(t_dragon)
 	local did = t_dragon['did']

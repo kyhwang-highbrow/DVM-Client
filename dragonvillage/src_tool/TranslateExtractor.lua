@@ -13,8 +13,8 @@ end
 
 function TranslateExtractor:extractUIFiles()
     local root_dir = '\\..\\res\\'
-    -- UIÆÄÀÏµé¿¡¼­ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¿Â´Ù.
-    -- ÀÌ °úÁ¤À» °ÅÄ¡¸é t_translateÀº key = ÆÄÀÏ ÀÌ¸§, value = ÇÑ±Û string
+    -- UIÄ†Ã„Å”ÄÄ¾Ã©Å¼Ä„ÅºÂ­ Ä¾Ä½Å”ÄšÄ¹ÃÂ¸Åš Å”ÄÅ¾Ã®Å¼Ã‚Â´Å®.
+    -- Å”Äš Â°ÃºÃÂ¤Å”Å¥ Â°Ä¹Ã„Ä„Â¸Ã© t_translateÅ”ÅŸ key = Ä†Ã„Å”Ä Å”ÄšÂ¸Â§, value = Ã‡ÅƒÄ…Å° string
     local t_translate = getChildrenPathByKey( {lfs.currentdir() .. root_dir} , '*.ui')
     for k, _ in pairs(t_translate) do
         local components = {}
@@ -32,8 +32,8 @@ end
 
 function TranslateExtractor:extractLuaFiles()
     local root_dir = '\\..\\src\\'
-    -- LuaÆÄÀÏµé¿¡¼­ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¿Â´Ù.
-    -- ÀÌ °úÁ¤À» °ÅÄ¡¸é, t_translateÀº key = ÆÄÀÏ ÀÌ¸§, value = ÇÑ±Û string
+    -- LuaÄ†Ã„Å”ÄÄ¾Ã©Å¼Ä„ÅºÂ­ Ä¾Ä½Å”ÄšÄ¹ÃÂ¸Åš Å”ÄÅ¾Ã®Å¼Ã‚Â´Å®.
+    -- Å”Äš Â°ÃºÃÂ¤Å”Å¥ Â°Ä¹Ã„Ä„Â¸Ã©, t_translateÅ”ÅŸ key = Ä†Ã„Å”Ä Å”ÄšÂ¸Â§, value = Ã‡ÅƒÄ…Å° string
     local t_translate = getChildrenPathByKey( {lfs.currentdir() .. root_dir} , '*.lua')
     for k, _ in pairs(t_translate) do
         local components = {}
@@ -52,8 +52,8 @@ end
 
 function TranslateExtractor:extractCSVFiles()
     local root_dir = '\\..\\data\\'
-    -- CSVÆÄÀÏµé¿¡¼­ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¿Â´Ù.
-    -- ÀÌ °úÁ¤À» °ÅÄ¡¸é, t_translateÀº key = ÆÄÀÏ ÀÌ¸§, value = ÇÑ±Û string
+    -- CSVÄ†Ã„Å”ÄÄ¾Ã©Å¼Ä„ÅºÂ­ Ä¾Ä½Å”ÄšÄ¹ÃÂ¸Åš Å”ÄÅ¾Ã®Å¼Ã‚Â´Å®.
+    -- Å”Äš Â°ÃºÃÂ¤Å”Å¥ Â°Ä¹Ã„Ä„Â¸Ã©, t_translateÅ”ÅŸ key = Ä†Ã„Å”Ä Å”ÄšÂ¸Â§, value = Ã‡ÅƒÄ…Å° string
     local t_translate = getChildrenPathByKey ( {lfs.currentdir() .. root_dir} , '*.csv')
     for k, _ in pairs(t_translate) do
         if(not k:match('table_[a-z+]')) then
@@ -104,7 +104,7 @@ function TranslateExtractor:findTranslateTargetInCSV(t, ret)
 end
 
 function TranslateExtractor:isKorean(str)
-    return str:find('[°¡-ÆR]+')
+    return str:find('[Â°Ä„-Ä†R]+')
 end
 
 function TranslateExtractor:isTargetInLua(str)
