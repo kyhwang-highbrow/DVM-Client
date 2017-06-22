@@ -277,7 +277,7 @@ function ServerData_Exploration:request_explorationImmediatelyComplete(epr_id, f
         self:organizeData(ret)
 
         -- 추후에 드래곤의 lock값이 필요해질때 사용
-        -- ret['modified_dragons']
+        -- ret['modified_dragons'] b
 
         if finish_cb then
             finish_cb(ret)

@@ -4,6 +4,8 @@ local PARENT = UI
 -- class UI_BookDetailPopup
 -------------------------------------
 UI_BookDetailPopup = class(PARENT,{
+		m_tDragon = 'TableDragon data + evol, grade',
+		m_lv = 'number',
 		m_dragonEvolutionIconList = 'table',
         -- refresh 체크 용도
         m_collectionLastChangeTime = 'timestamp',
@@ -12,7 +14,7 @@ UI_BookDetailPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BookDetailPopup:init(t_dragon, t_data)
+function UI_BookDetailPopup:init(t_dragon)
     local vars = self:load('book_detail_popup.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -25,11 +27,13 @@ function UI_BookDetailPopup:init(t_dragon, t_data)
 
     self:sceneFadeInAction()
 
+	self.m_tDragon = t_dragon
+	self.m_lv = 1
     self.m_collectionLastChangeTime = g_bookData:getLastChangeTimeStamp()
 
     self:initUI()
     self:initButton()
-    self:refresh(t_dragon, t_data)
+    self:refresh()
 end
 
 -------------------------------------
@@ -43,27 +47,47 @@ end
 -------------------------------------
 function UI_BookDetailPopup:initButton()
     local vars = self.vars
+
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+
+	-- !!
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 
+	-- 등급 증감
+	vars['gradePlusBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+	vars['gradeMinusBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+
+	-- 레벨 증감
+	vars['lvPlusBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+	vars['lvMinusBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+
     -- 능력치 상세보기
     vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
+
+	-- 획득 방법
+	vars['getBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
+
+	-- 스킬 미리보기
+	vars['skillViewBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_BookDetailPopup:refresh(t_dragon, t_data)
-	self:onChangeDragon(t_dragon, t_data)
-	self:onChangeEvolution(t_dragon, t_data)
+function UI_BookDetailPopup:refresh()
+	self:onChangeDragon()
+	self:onChangeEvolution()
+	self:onChangeGrade()
+	self:onChangeLV()
+	self:calculateStat()
 end
 
 -------------------------------------
 -- function onChangeDragon
 -------------------------------------
-function UI_BookDetailPopup:onChangeDragon(t_dragon, t_data)
-    local t_dragon = t_dragon
+function UI_BookDetailPopup:onChangeDragon()
+    local t_dragon = self.m_tDragon
     if (not t_dragon) then
         return
     end
@@ -122,17 +146,17 @@ end
 -------------------------------------
 -- function onChangeEvolution
 -------------------------------------
-function UI_BookDetailPopup:onChangeEvolution(t_dragon, t_data)
-    local t_dragon = t_dragon
+function UI_BookDetailPopup:onChangeEvolution()
+    local t_dragon = self.m_tDragon
     if (not t_dragon) then
         return
     end
 
     local vars = self.vars
-    local t_dragon_data = self:makeDragonData(t_dragon, t_data)
+    local t_dragon_data = self:makeDragonData()
 
     do -- 선택된 드래곤 진화단계 아이콘 하일라이트 표시
-        local evolution = t_data['evolution']
+        local evolution = t_dragon['evolution']
         for i,v in pairs(self.m_dragonEvolutionIconList) do
             local visible = (i == evolution)
             v:setHighlightSpriteVisible(visible)
@@ -140,7 +164,7 @@ function UI_BookDetailPopup:onChangeEvolution(t_dragon, t_data)
     end
 
     do -- 드래곤 인게임 리소스
-        local evolution = t_data['evolution']
+        local evolution = t_dragon['evolution']
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
@@ -150,20 +174,6 @@ function UI_BookDetailPopup:onChangeEvolution(t_dragon, t_data)
 		-- 자코 추가 이후 리소스별 크기가 다른 문제가 있어 테이블에서 스케일을 참조하도록 함(인게임 스케일 사용)
 		-- 다만 0.9 ~ 1.5 사이값으로 제한 (mskim)
 		vars['dragonNode']:setScale(math_clamp(t_dragon['scale'], 0.9, 1.5))
-    end
-
-    
-    do -- 능력치 계산기
-        local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
-        vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
-        vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
-        vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
-        vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
-        vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
-        vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
-        vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
-        vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
-        vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
     end
 
     do -- 스킬 아이콘 생성
@@ -197,6 +207,65 @@ function UI_BookDetailPopup:onChangeEvolution(t_dragon, t_data)
 end
 
 -------------------------------------
+-- function onChangeGrade
+-------------------------------------
+function UI_BookDetailPopup:onChangeGrade()
+	local t_dragon = self.m_tDragon
+    if (not t_dragon) then
+        return nil
+    end
+
+	local vars = self.vars
+	local icon = IconHelper:getDragonGradeIcon(t_dragon, 3)
+	vars['starNode']:removeAllChildren(true)
+	vars['starNode']:addChild(icon)
+end
+
+-------------------------------------
+-- function onChangeLV
+-------------------------------------
+function UI_BookDetailPopup:onChangeLV()
+	local t_dragon = self.m_tDragon
+    if (not t_dragon) then
+        return nil
+    end
+
+	local vars = self.vars
+end
+
+-------------------------------------
+-- function calculateStat
+-------------------------------------
+function UI_BookDetailPopup:calculateStat()
+    local vars = self.vars
+
+	local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(self:makeDragonData())
+	vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
+	vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
+	vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
+	vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
+	vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
+	vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
+	vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
+	vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
+	vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
 -- function click_prevBtn
 -------------------------------------
 function UI_BookDetailPopup:click_prevBtn()
@@ -221,19 +290,17 @@ end
 -------------------------------------
 -- function makeDragonData
 -------------------------------------
-function UI_BookDetailPopup:makeDragonData(t_dragon, t_data)
-    local t_dragon = t_dragon
+function UI_BookDetailPopup:makeDragonData()
+    local t_dragon = self.m_tDragon
     if (not t_dragon) then
         return nil
     end
 
-    local grade = t_data['grade']
-
     local t_dragon_data = {}
     t_dragon_data['did'] = t_dragon['did']
-    t_dragon_data['lv'] = 1 --TableGradeInfo:getMaxLv(grade)
-    t_dragon_data['evolution'] = t_data['evolution']
-    t_dragon_data['grade'] = grade
+    t_dragon_data['lv'] = self.m_lv --TableGradeInfo:getMaxLv(t_dragon['grade'])
+    t_dragon_data['evolution'] = t_dragon['evolution']
+    t_dragon_data['grade'] = t_dragon['grade']
     t_dragon_data['eclv'] = 0
     t_dragon_data['exp'] = 0
     t_dragon_data['skill_0'] = 1

@@ -222,18 +222,20 @@ function UI_CharacterCard:refresh_gradeIcon()
 
 	local evolution = t_dragon_data['evolution']
 	local color
-	if (evolution == 1) then
-		if (TableDragon():isUnderling(t_dragon_data['did'])) then
-			color = 'gray'
-		elseif (t_dragon_data['m_objectType'] == 'slime') then
-			color = 'gray'
-		else
-			color = 'yellow'
+	do
+		if (evolution == 1) then
+			if (TableDragon():isUnderling(t_dragon_data['did'])) then
+				color = 'gray'
+			elseif (t_dragon_data['m_objectType'] == 'slime') then
+				color = 'gray'
+			else
+				color = 'yellow'
+			end
+		elseif (evolution == 2) then
+			color = 'purple'
+		elseif (evolution == 3) then
+			color = 'red'
 		end
-	elseif (evolution == 2) then
-		color = 'purple'
-	elseif (evolution == 3) then
-		color = 'red'
 	end
 
     local res = string.format('star_%s_01%02d.png', color, grade)

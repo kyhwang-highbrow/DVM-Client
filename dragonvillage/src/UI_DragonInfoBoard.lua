@@ -64,7 +64,7 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
 
     do -- 드래곤 등급
         vars['starNode']:removeAllChildren()
-        local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data:getGrade(), t_dragon_data:getEclv(), 2)
+        local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data, 2)
         vars['starNode']:addChild(star_icon)
     end
 

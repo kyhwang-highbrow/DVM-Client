@@ -88,7 +88,7 @@ function UI_UserInfoDetailPopup_SetLeader:refresh_dragon(t_dragon_data)
 	vars['dragonNode']:addChild(animator.m_node)
 
 	-- 드래곤 별
-	local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data:getGrade(), t_dragon_data:getEclv(), 2)
+	local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data, 2)
 	vars['starNode']:addChild(star_icon)
 	
 	-- 드래곤 이름

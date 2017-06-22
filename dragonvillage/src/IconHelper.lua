@@ -78,7 +78,10 @@ function IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
 
     -- 등급 정보가 있을 경우
     if (grade and eclv) then
-        local grade_sprite = self:getDragonGradeIcon(grade, eclv, 1)
+		local t_dragon_data = clone(t_dragon)
+		t_dragon_data['grade'] = grade
+		t_dragon_data['evolution'] = evolution 
+        local grade_sprite = self:getDragonGradeIcon(t_dragon_data, 1)
         if grade_sprite then
             grade_sprite:setScale(0.38)
             grade_sprite:setPositionY(-50)
@@ -91,35 +94,37 @@ end
 
 -------------------------------------
 -- function getDragonGradeIcon
+-- @param t_dragon_data - sturct or table
+-- @param type - 1 : small
+--				 2 : big
+--				 3 : right_side				
 -------------------------------------
-function IconHelper:getDragonGradeIcon(grade, eclv, type)
-    grade = (grade or 1)
-    eclv = (eclv or 0)
-    type = (type or 1)
+function IconHelper:getDragonGradeIcon(t_dragon_data, type)
+    local grade = (t_dragon_data['grade'] or 1)
+    local evolution = (t_dragon_data['evolution'] or 0)
+    local type = (type or 1)
 
     if (grade <= 0) then
         return nil
     end
-    
-    -- !!!! 초월 표현 방식 변겨으로 인해 0으로 처리
-    eclv = 0
 
-    local res = ''
-    if (type == 1) then
-        if (0 < eclv) then
-            res = string.format('res/ui/icon/character_card_eclv_%.2d.png', eclv)
-        else
-            res = string.format('res/ui/icon/star01%.2d.png', grade)
-        end
-        
-    elseif (type == 2) then
-        if (0 < eclv) then
-            res = string.format('res/ui/icon/character_eclv_%.2d.png', eclv)
-        else
-            res = string.format('res/ui/icon/star02%.2d.png', grade)
-        end
+	-- 색상을 찾음
+	local color
+	if (evolution == 1) then
+		if (TableDragon():isUnderling(t_dragon_data['did'])) then
+			color = 'gray'
+		elseif (t_dragon_data['m_objectType'] == 'slime') then
+			color = 'gray'
+		else
+			color = 'yellow'
+		end
+	elseif (evolution == 2) then
+		color = 'purple'
+	elseif (evolution == 3) then
+		color = 'red'
+	end
 
-    end
+    local res = string.format('res/ui/icon/star_%s_%02d%02d.png', color, type, grade)
 
     local sprite = cc.Sprite:create(res)
     sprite:setAnchorPoint(CENTER_POINT)

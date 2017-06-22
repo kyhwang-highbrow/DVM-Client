@@ -11,7 +11,7 @@ function UI_BookDragonCard(t_dragon)
 
     local ui = MakeSimpleDragonCard(did, t_data)
     local function func()
-		UI_BookDetailPopup(t_dragon, t_data)
+		UI_BookDetailPopup(t_dragon)
     end
     ui.vars['clickBtn']:registerScriptTapHandler(func)
 

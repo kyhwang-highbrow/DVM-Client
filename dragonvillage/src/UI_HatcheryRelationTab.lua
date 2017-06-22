@@ -237,7 +237,7 @@ function UI_HatcheryRelationTab:refresh()
 
     do -- 드래곤 등급
         vars['starNode']:removeAllChildren()
-        local star_icon = IconHelper:getDragonGradeIcon(struct_dragon_object:getGrade(), struct_dragon_object:getEclv(), 2)
+        local star_icon = IconHelper:getDragonGradeIcon(struct_dragon_object, 2)
         vars['starNode']:addChild(star_icon)
     end
 end

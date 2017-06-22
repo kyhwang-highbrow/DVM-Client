@@ -544,7 +544,7 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
             self:addLevelUpDirector(levelup_director)
 
             do -- 등급
-                local sprite = IconHelper:getDragonGradeIcon(user_data['grade'], user_data['eclv'], 1)
+                local sprite = IconHelper:getDragonGradeIcon(user_data, 1)
                 vars['starNode' .. i]:removeAllChildren()
                 vars['starNode' .. i]:addChild(sprite)
             end
