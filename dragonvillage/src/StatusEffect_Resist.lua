@@ -46,7 +46,7 @@ end
 -- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
 -------------------------------------
 function StatusEffect_Resist:onApplyOverlab(unit)
-    local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
+    local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
     local adj_value = t_status_effect['dmg_adj_rate'] * (unit:getValue() / 100)
 	local resist_rate = (adj_value / 100)
 

@@ -286,7 +286,7 @@ function Character:getTargetListByType(target_type, target_count, target_formati
     
 	local target_formation = target_formation or nil
 	
-	-- parsing : target_type = 'enemy_low_hp_3'
+	-- parsing : target_type = 'enemy_low_hp'
 
 	--> target_team = 'enemy'
 	local target_team = string.gsub(target_type, '_.+', '')		

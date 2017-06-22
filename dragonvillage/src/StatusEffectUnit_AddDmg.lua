@@ -53,8 +53,8 @@ function StatusEffectUnit_AddDmg:doDamage()
     -- 지칭된 상태효과가 있다면 해당 상태효과가 대상에게 존재하는지 체크
     if (self.m_targetStatusEffectName) then
         for type, status_effect in pairs(self.m_owner:getStatusEffectList()) do
-		    if (type == self.m_targetStatusEffectName) then
-			    is_add_damage = true
+		    if (string.find(type, self.m_targetStatusEffectName) and type ~= self.m_statusEffectName) then
+                is_add_damage = true
                 break
             end
         end

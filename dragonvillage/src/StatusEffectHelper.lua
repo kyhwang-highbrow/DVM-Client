@@ -144,7 +144,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         return nil
     end
 
-	local t_status_effect = TABLE:get('status_effect')[status_effect_type]
+	local t_status_effect = TableStatusEffect():get(status_effect_type)
 	local status_effect_group = t_status_effect['type']
 
 	-- 확률 검사
@@ -189,18 +189,20 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	-- 상태효과 타입
 	local status_effect_type = t_skill['add_option_type_1']
     
-	local table_status_effect = TABLE:get('status_effect')
-    local t_status_effect = table_status_effect[status_effect_type] or {}
+	local table_status_effect = TableStatusEffect()
+    local t_status_effect = table_status_effect:get(status_effect_type)
 	
 	-- res attr parsing
-    local res = t_status_effect['res']
-	if (res) then 
-		if (res == '') then 
-			res = nil 
-		else
-			res = string.gsub(res, '@', char:getAttribute())
-		end
-	end
+    if (t_status_effect) then
+        local res = t_status_effect['res']
+	    if (res) then 
+		    if (res == '') then 
+			    res = nil 
+		    else
+			    res = string.gsub(res, '@', char:getAttribute())
+		    end
+	    end
+    end
 
 	local trigger_name = t_skill['chance_value'] or 'undergo_attack'
 	
@@ -222,8 +224,8 @@ end
 -------------------------------------
 function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, status_effect_rate, duration, skill_id)
     -- 테이블 가져옴
-	local table_status_effect = TABLE:get('status_effect')
-    local t_status_effect = table_status_effect[status_effect_type]
+	local table_status_effect = TableStatusEffect()
+    local t_status_effect = table_status_effect:get(status_effect_type)
     local category = t_status_effect['type']
 
 	-- 여기서는 상태효과가 없으면 에러를 발생시켜야함
@@ -304,6 +306,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	----------- 조건부 추가 데미지 ------------------
 	elseif string.find(status_effect_type, 'add_dmg') then
 		status_effect = StatusEffect(res)
+        status_effect:setName(status_effect_type)
         status_effect:setOverlabClass(StatusEffectUnit_AddDmg)
 
     else

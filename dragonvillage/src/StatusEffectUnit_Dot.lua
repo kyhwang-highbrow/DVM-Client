@@ -15,7 +15,7 @@ StatusEffectUnit_Dot = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffectUnit_Dot:init(name, owner, caster, skill_id, value, source, duration)
-    local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
+    local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
 
     self.m_dotInterval = t_status_effect['dot_interval']
 	self.m_dotTimer = self.m_dotInterval

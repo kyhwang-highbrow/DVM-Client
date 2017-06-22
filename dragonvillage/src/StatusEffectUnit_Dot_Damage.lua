@@ -13,7 +13,7 @@ StatusEffectUnit_Dot_Damage = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffectUnit_Dot_Damage:init(name, owner, caster, skill_id, value, source, duration)
-    local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
+    local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
 
     -- 데미지 계산
     if (t_status_effect['abs_switch'] == 1) then 

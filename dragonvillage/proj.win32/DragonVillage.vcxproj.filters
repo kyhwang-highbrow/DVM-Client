@@ -2388,6 +2388,9 @@
     <None Include="..\src\UI_HatcheryCombinePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableStatusEffect.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_AncientTowerRankListItem.lua">
       <Filter>lua\UI</Filter>
     </None>

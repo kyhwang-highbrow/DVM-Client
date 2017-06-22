@@ -426,7 +426,7 @@ end
 -- @brief 상태효과 아이콘 생성
 -------------------------------------
 function IconHelper:getStatusEffectIcon(status_effect_type)
-	local res = TABLE:get('status_effect')[status_effect_type]['res_icon']
+	local res = TableStatusEffect():get(status_effect_type)['res_icon']
 	
 	if (res == 'x') then 
 		res = 'res/ui/icon/alarm_01.png' 
