@@ -15,6 +15,8 @@ StructDragonObject = class({
         grade = 'number', -- 승급 단계
         evolution = 'number', -- 진화 단계
         eclv = 'number', -- 초월 단계
+        
+		lock = 'boolean', -- 잠금
 
         runes = 'table', -- 장착 룬 roid
 
@@ -36,7 +38,6 @@ StructDragonObject = class({
 
         ----------------------------------------------
         -- 아직 안쓰는 정보
-        lock = '',
         friendship = '',
         rlv = '',
 
@@ -350,6 +351,22 @@ end
 -------------------------------------
 function StructDragonObject:getLv()
     return self['lv']
+end
+
+-------------------------------------
+-- function getLock
+-- @breif
+-------------------------------------
+function StructDragonObject:getLock()
+    return self['lock']
+end
+
+-------------------------------------
+-- function setLock
+-- @breif
+-------------------------------------
+function StructDragonObject:setLock(b)
+    self['lock'] = b
 end
 
 -------------------------------------

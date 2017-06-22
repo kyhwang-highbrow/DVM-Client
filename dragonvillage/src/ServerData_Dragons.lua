@@ -975,3 +975,44 @@ function ServerData_Dragons:haveLeaderSkill(doid)
 
 	return false
 end
+
+-------------------------------------
+-- function request_dragonLock
+-------------------------------------
+function ServerData_Dragons:request_dragonLock(l_doid, lock, cb_func)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+	local doids
+	for _, doid in pairs(l_doid) do
+		if (doids) then
+			doids = doids .. ',' .. doid
+		else
+			doids = doid
+		end
+	end
+
+    -- 성공 콜백
+    local function success_cb(ret)
+		if (ret['modified_dragons']) then
+			for _,t_dragon in ipairs(ret['modified_dragons']) do
+				self:applyDragonData(t_dragon)
+			end
+		end
+
+		if (cb_func) then
+			cb_func()
+		end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/lock')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('doids', doids)
+	ui_network:setParam('lock', lock)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

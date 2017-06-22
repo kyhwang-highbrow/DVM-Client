@@ -101,7 +101,7 @@ function UI_DragonManageInfo:initButton()
         vars['leaderBtn']:registerScriptTapHandler(function() self:click_leaderBtn() end)
 
         -- 잠금
-        vars['lockBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"잠금" 미구현') end)
+        vars['lockBtn']:registerScriptTapHandler(function() self:click_lockBtn() end)
 
         -- 작별
         vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
@@ -141,15 +141,12 @@ function UI_DragonManageInfo:refresh()
     end
 
     local vars = self.vars
-    local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[t_dragon_data['did']]
 
     -- 드래곤 기본 정보 갱신
-    self:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
+    self:refresh_dragonBasicInfo(t_dragon_data)
 
-    
     -- 드래곤이 장착 중인 룬 정보 갱신
-    self:refresh_dragonRunes(t_dragon_data, t_dragon)
+    self:refresh_dragonRunes(t_dragon_data)
 
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
@@ -214,7 +211,7 @@ end
 -- function refresh_dragonBasicInfo
 -- @brief 드래곤 기본 정보 갱신
 -------------------------------------
-function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
+function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data)
     local vars = self.vars
     local vars_key = self.vars_key
 
@@ -231,13 +228,15 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
     if self.m_dragonAnimator then
         self.m_dragonAnimator:setDragonAnimator(t_dragon_data['did'], t_dragon_data['evolution'], t_dragon_data:getFlv())
     end
+
+	vars['lockSprite']:setVisible(t_dragon_data:getLock())
 end
 
 -------------------------------------
 -- function refresh_dragonRunes
 -- @brief 드래곤이 장착 중인 룬 정보 갱신
 -------------------------------------
-function UI_DragonManageInfo:refresh_dragonRunes(t_dragon_data, t_dragon)
+function UI_DragonManageInfo:refresh_dragonRunes(t_dragon_data)
     local vars = self.vars
 
     if (t_dragon_data.m_objectType ~= 'dragon') then
@@ -499,6 +498,28 @@ function UI_DragonManageInfo:refreshLeaderIcon(modified_dragons)
             end
         end
     end
+end
+
+-------------------------------------
+-- function click_lockBtn
+-- @brief 잠금
+-------------------------------------
+function UI_DragonManageInfo:click_lockBtn()
+    if (not self.m_selectDragonOID) then
+        return
+    end
+	
+	local struct_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+
+	local l_doid = {self.m_selectDragonOID}
+	local lock = (not struct_dragon_data:getLock())
+	local function finish_cb()
+		self.vars['lockSprite']:setVisible(lock)
+		local msg = lock and Str('잠금되었습니다.') or Str('잠금이 해제되었습니다.')
+		UIManager:toastNotificationGreen(msg)
+	end
+
+	g_dragonsData:request_dragonLock(l_doid, lock, finish_cb)
 end
 
 -------------------------------------
