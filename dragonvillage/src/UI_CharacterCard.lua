@@ -719,6 +719,28 @@ function UI_RelationCard(t_dragon_data)
     return ui
 end
 
+------------------------------------
+-- function UI_BookDragonCard
+-- @brief 도감 전용 카드
+-------------------------------------
+function UI_BookDragonCard(t_dragon)
+	local did = t_dragon['did']
+    local t_dragon_data = {}
+	t_dragon_data['did'] = did
+	t_dragon_data['evolution'] = t_dragon['evolution']
+	t_dragon_data['grade'] = t_dragon['grade']
+
+	local struct_data
+	if (TableSlime:isSlimeID(did)) then
+		t_dragon_data['slime_id'] = did
+		struct_data = StructSlimeObject(t_dragon_data)
+	else
+		struct_data = StructDragonObject(t_dragon_data)
+	end
+
+    return UI_DragonCard(struct_data)
+end
+
 -------------------------------------
 -- function MakeSimpleDragonCard
 -------------------------------------

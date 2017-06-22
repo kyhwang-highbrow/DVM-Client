@@ -676,7 +676,6 @@ local t_module = {
 
     -- UI : 도감 관련
 	'UI_Book',
-	'UI_BookDragonCard',
 	'UI_BookDetailPopup',
 
     -- UI : 친구 시스템 관련

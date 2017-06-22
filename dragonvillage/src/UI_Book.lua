@@ -198,17 +198,29 @@ function UI_Book:init_TableViewTD()
     local item_scale = 0.8
     local cell_size = cc.size(item_size*item_scale + 12, item_size*item_scale + 12)
 
+	local table_view_td
+
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
-        ui.root:setScale(item_scale)
+        -- scale 조정
+		ui.root:setScale(item_scale)
+
+		-- idx 저장
+		-- 수집 여부에 따른 음영 처리
 		local book_data = g_bookData:getBookData(data['did'])
 		if (not book_data:isExist(data['evolution'], data['grade'])) then
 			ui:setShadowSpriteVisible(true)
 		end
+
+		-- 버튼 클릭시 상세 팝업
+		ui.vars['clickBtn']:registerScriptTapHandler(function()
+			local detail_ui = UI_BookDetailPopup(data)
+			detail_ui:setBookList(table_view_td.m_itemList)
+		end)
     end
 
     -- 테이블 뷰 인스턴스 생성
-    local table_view_td = UIC_TableViewTD(node)
+    table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = cell_size
     table_view_td.m_nItemPerCell = 8
     table_view_td:setCellUIClass(UI_BookDragonCard, create_func)
