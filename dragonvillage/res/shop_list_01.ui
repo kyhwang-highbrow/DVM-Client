@@ -33,36 +33,10 @@
 			};
 			[2] =
 			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = -4.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
-				relative_size_type = 0;
-				width = 210;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/a_frame_04.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[3] =
-			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 30.000000;
+				y = 57.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -76,7 +50,7 @@
 				visible = true;
 				lua_name = 'itemNode';
 			};
-			[4] =
+			[3] =
 			{
 				[1] =
 				{
@@ -225,23 +199,23 @@
 				disable = '';
 				image_type = 1;
 			};
-			[5] =
+			[4] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -4.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
 				width = 240;
-				height = 80;
+				height = 52;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'itemLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
@@ -251,7 +225,7 @@
 				color = { 255; 242; 212; };
 				opacity = 255;
 				dimension_width = 240;
-				dimension_height = 80;
+				dimension_height = 52;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -265,17 +239,17 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[6] =
+			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 80.000000;
+				y = 79.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
 				width = 240;
-				height = 105;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -284,14 +258,14 @@
 				visible = true;
 				lua_name = 'dscLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
+				font_size = 26;
 				text = 'dscLabel';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 242; 212; };
 				opacity = 255;
 				dimension_width = 240;
-				dimension_height = 105;
+				dimension_height = 64;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -305,7 +279,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[7] =
+			[6] =
 			{
 				[1] =
 				{
@@ -371,7 +345,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[8] =
+			[7] =
 			{
 				[1] =
 				{
@@ -434,7 +408,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[9] =
+			[8] =
 			{
 				[1] =
 				{
@@ -505,7 +479,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 250;
-			height = 470;
+			height = 280;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -522,7 +496,7 @@
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
 		width = -1030;
-		height = -250;
+		height = -440;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
 		skew_x = 0.000000;
