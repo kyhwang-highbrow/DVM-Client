@@ -32,7 +32,7 @@ end
 -- function init
 -------------------------------------
 function UI_Book:init()
-    local vars = self:load('collection.ui')
+    local vars = self:load('book.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
