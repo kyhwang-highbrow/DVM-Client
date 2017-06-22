@@ -152,9 +152,9 @@ end
 -- function isExist
 -- @brief 도감에 표시 여부
 -------------------------------------
-function ServerData_Book:isExist(did)
-    local struct_book_data = self:getBookData(did)
-    return struct_book_data:isExist()
+function ServerData_Book:isExist(t_dragon_data)
+    local struct_book_data = self:getBookData(t_dragon_data['did'])
+    return struct_book_data:isExist(t_dragon_data['evolution'], t_dragon_data['grade'])
 end
 
 -------------------------------------

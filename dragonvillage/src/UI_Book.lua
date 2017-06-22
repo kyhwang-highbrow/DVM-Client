@@ -196,6 +196,10 @@ function UI_Book:init_TableViewTD()
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
         ui.root:setScale(item_scale)
+		local book_data = g_bookData:getBookData(data['did'])
+		if (not book_data:isExist(data['evolution'], data['grade'])) then
+			ui:setShadowSpriteVisible(true)
+		end
     end
 
     -- 테이블 뷰 인스턴스 생성

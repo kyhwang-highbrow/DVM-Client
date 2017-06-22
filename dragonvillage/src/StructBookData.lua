@@ -15,9 +15,9 @@ StructBookData = class({
 -------------------------------------
 function StructBookData:init(data)
     self.dragon_id = nil
-    self.grade = 1
+    self.grade = 0
     self.relation = 0
-    self.evolution = 1
+    self.evolution = 0
 	self.rate = 0
 
     if data then
@@ -64,8 +64,8 @@ end
 -------------------------------------
 -- function isExist
 -------------------------------------
-function StructBookData:isExist()
-    return (self.grade == 0) and (self.evolution == 0)
+function StructBookData:isExist(evolution, grade)
+    return (self.grade >= grade) and (self.evolution >= evolution)
 end
 
 -------------------------------------
