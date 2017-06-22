@@ -83,14 +83,15 @@ function AnimatorSpine:addAniHandler(cb)
         return
     end
 
-    cca.stopAction(self.m_node, ANIMATOR_ACTION_TAG__END)
+    --cca.stopAction(self.m_node, ANIMATOR_ACTION_TAG__END)
 
     if (cb) then
         -- 애니메이션 시간이 0일 경우 즉시 콜백함수 호출
         local duration = self.m_node:getDuration()
         if (duration == 0) then
-            local action = cc.CallFunc:create(function(node) cb() end)
-            cca.runAction(self.m_node, action, ANIMATOR_ACTION_TAG__END)
+            --local action = cc.CallFunc:create(function(node) cb() end)
+            --cca.runAction(self.m_node, action, ANIMATOR_ACTION_TAG__END)
+            cb()
         else
             self.m_node:registerSpineEventHandler(cb, sp.EventType.ANIMATION_COMPLETE)
         end
