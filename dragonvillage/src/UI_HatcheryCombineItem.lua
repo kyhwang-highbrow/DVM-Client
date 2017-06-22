@@ -59,7 +59,7 @@ function UI_HatcheryCombineItem:refresh()
             str = Str('{@R}{1}{@G}({2}){@w}/{3}', cnt, satisfy, 4)
         -- 드래곤만 가지고 있을 경우
         else
-            str = Str('{@R}{1}{@w}/{1}', cnt, 4)
+            str = Str('{@R}{1}{@w}/{2}', cnt, 4)
         end
     else
         -- 조합 가능한 드래곤이 있는 상태

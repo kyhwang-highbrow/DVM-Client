@@ -60,7 +60,7 @@
 
         // 믄스터 리젠
 		"REGEN_APPEAR" : 0,
-        "REGEN_INTERVAL" : 10,
+        "REGEN_INTERVAL" : 15,
         
         // DPS&HPS 업데이트 주기
         "DPS_INTERVAL" : 1,
