@@ -48,7 +48,13 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_BookDetailPopup:initUI(init_evolution)
+function UI_BookDetailPopup:initUI()
+	-- 자코 예외처리
+	if (self.m_tDragon['underling'] == 1) then
+		for i = 1, 3 do
+			self.vars['evolutionBtn' .. i]:setVisible(false)
+		end
+	end
 end
 
 -------------------------------------
@@ -254,6 +260,10 @@ function UI_BookDetailPopup:onChangeLV()
 	local vars = self.vars
 
 	local max_lv = TableGradeInfo:getMaxLv(t_dragon['grade'])
+	if (self.m_lv > max_lv) then
+		self.m_lv = max_lv
+	end
+
 	local str = string.format('%d / %d', self.m_lv, max_lv)
 	vars['lvLabel']:setString(str)
 end
@@ -331,6 +341,7 @@ function UI_BookDetailPopup:click_gradeBtn(is_plus)
 	end
 
 	self:onChangeGrade()
+	self:onChangeLV()
 	self:calculateStat()
 end
 
