@@ -349,7 +349,7 @@ function TargetRule_getTargetList_status_effect(org_list, raw_str)
 	-- 상태효과가 있다면 새로운 테이블로 옮긴다. 차곡차곡
 	for i, char in pairs(t_char) do
 		for name, status_effect in pairs(char:getStatusEffectList()) do
-			if (status_effect_name == name) then
+			if string.find(name, status_effect_name) then
 				table.insert(t_ret, char)
 				table.remove(t_char, i)
 				break
