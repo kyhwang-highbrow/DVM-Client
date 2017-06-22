@@ -6,13 +6,6 @@ local PARENT = class(Entity,
     IDragonSkillManager:getCloneTable()
 )
 
-local CHARACTER_ACTION_TAG__ROAM = 0
-
-local CHARACTER_ACTION_TAG__SHAKE = 1
-local CHARACTER_ACTION_TAG__KNOCKBACK = 2
-local CHARACTER_ACTION_TAG__SHADER = 3
-local CHARACTER_ACTION_TAG__FLOATING = 4
-
 local SPEED_COMEBACK = 1500
 
 -------------------------------------

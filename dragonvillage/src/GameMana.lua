@@ -79,3 +79,11 @@ end
 function GameMana:getCurrMana()
     return math_floor(self.m_value)
 end
+
+-------------------------------------
+-- function addMana
+-------------------------------------
+function GameMana:addMana(value)
+    self.m_value = self.m_value + value
+    self.m_value = math_min(value, MAX_MANA)
+end

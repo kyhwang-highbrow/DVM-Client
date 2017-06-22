@@ -72,6 +72,11 @@ function GameWorld:skill_charge()
     if (self.m_tamer) then
         self.m_tamer:increaseActiveSkillCool(100)
     end
+
+    -- 마나
+    if (self.m_heroMana) then
+        self.m_heroMana:addMana(10)
+    end
 end
 
 -------------------------------------

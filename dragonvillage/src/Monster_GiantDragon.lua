@@ -1,7 +1,5 @@
 local PARENT = MonsterLua_Boss
 
-local CHARACTER_ACTION_TAG__DYING = 99
-
 -------------------------------------
 -- class Monster_GiantDragon
 -------------------------------------
