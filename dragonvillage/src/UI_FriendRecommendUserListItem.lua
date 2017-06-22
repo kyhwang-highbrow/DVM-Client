@@ -39,8 +39,7 @@ function UI_FriendRecommendUserListItem:initButton()
     local t_friend_info = self.m_tFriendInfo
     local t_dragon_data = t_friend_info['leader']
 
-    local card = UI_DragonCard(t_dragon_data)
-    card.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(t_friend_info) end)
+    local card = UI_DragonCard(t_dragon_data, t_friend_info)
     vars['userNode']:addChild(card.root)
 end
 
@@ -57,12 +56,4 @@ function UI_FriendRecommendUserListItem:refresh()
     else
         vars['requestBtn']:setVisible(true)
     end
-end
-
--------------------------------------
--- function click_dragonCard
--------------------------------------
-function UI_FriendRecommendUserListItem:click_dragonCard(t_friend_info)
-    local visit = true
-    UI_UserInfoDetailPopup(t_friend_info, visit)
 end

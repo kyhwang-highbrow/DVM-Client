@@ -90,6 +90,7 @@ function UI_MonsterCard:makeClickBtn(res)
         self.root:addChild(btn)
 
         btn:registerScriptTapHandler(function() self:click_clickBtn() end)
+        btn:registerScriptPressHandler(function() self:press_clickBtn() end)
     end
 
     btn:setNormalSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame(res))
@@ -167,4 +168,13 @@ function UI_MonsterCard:click_clickBtn()
 
     -- 자동 위치 지정
     tool_tip:autoPositioning(self.vars['clickBtn'])
+end
+
+-------------------------------------
+-- function press_clickBtn
+-------------------------------------
+function UI_MonsterCard:press_clickBtn()
+    local monster_id = self.m_monsterID
+    local t_monster = TableMonster():get(monster_id)
+    cclog('t_monster '..luadump(t_monster))
 end

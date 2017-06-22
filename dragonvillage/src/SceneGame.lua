@@ -468,6 +468,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
 
     local uid = g_userData:get('uid')
     local oid
+    local send_score = false
 
     local function success_cb(ret)
         self:networkGameFinish_response(ret, t_result_ref)
@@ -491,7 +492,11 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
         oid = t_dungeon_info['id']
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        send_score = true
         api_url = '/game/ancient/finish'
+
+        -- 고대의 탑 포인트 계산(임시)
+        cclog('t_param '..luadump(t_param))
     end
 
     -- 친구 접속 버프
@@ -523,6 +528,11 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('gamekey', self.m_gameKey)
     ui_network:setParam('bonus_items', t_param['bonus_items'])
     ui_network:setParam('clear_time', t_param['clear_time'])
+
+    if (send_score) then
+        ui_network:setParam('score', t_param['score'])
+    end
+
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 

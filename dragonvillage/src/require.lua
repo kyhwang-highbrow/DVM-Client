@@ -62,6 +62,7 @@ local t_module = {
     'StructWaveRegenGroup',
     'StructCollisionData',
 	'StructBookData',
+    'StructAncientTowerFloorData',
 
 	-- ServerData
     'ServerData',
@@ -622,8 +623,12 @@ local t_module = {
 
 	-- UI : 고대의 탑
     'UI_AncientTowerScene',
+    'UI_AncientTowerFloorInfo',
+    'UI_AncientTowerRank',
     'UI_AncientTowerListItem',
     'UI_AncientTowerSweepReward',
+    'UI_AncientTowerRankListItem',
+    'UI_AncientTowerRewardListItem',
 
 	-- UI : 인게임
 	'UI_Game',

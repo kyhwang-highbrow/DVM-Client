@@ -22,6 +22,8 @@ LogRecorderWorld = class(PARENT, {
 		m_feverCnt = 'num',			-- 피버를 {1}번 이상 사용
 		m_bossFinishAtk = 'str',	-- 보스를 {1} 공격으로 처치 -> ('finish_basic', 'finish_active', 'finish_fever')
 
+        m_activeKillCnt = 'num',    -- 드래그 스킬로 처치한 드래곤 수 (즉시 데미지만 포함)
+
 		m_tCharLogTable = 'table',	-- ingame 캐릭터들 개별 기록 저장
      })
 
@@ -131,6 +133,9 @@ function LogRecorderWorld:recordLog(key, value)
 	elseif (key == 'not_use_role') then
 		self.m_usedRole = value
 
+    elseif (key == 'active_kill_cnt') then
+		self.m_activeKillCnt = self.m_activeKillCnt + value
+
 	else
 		error('정의 되지 않은 키 : ' .. key)
 	end
@@ -178,6 +183,9 @@ function LogRecorderWorld:getLog(key)
 
 	elseif (key == 'not_use_role') then
 		return self.m_usedRole
+    
+    elseif (key == 'active_kill_cnt') then
+		return self.m_activeKillCnt
 
 	else
 		return 0

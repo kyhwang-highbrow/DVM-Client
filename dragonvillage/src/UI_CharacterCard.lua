@@ -598,7 +598,7 @@ function UI_CharacterCard:setButtonEnabled(enable)
 end
 
 
-function UI_DragonCard(t_dragon_data)
+function UI_DragonCard(t_dragon_data, t_user_data)
     if t_dragon_data and (not t_dragon_data.m_objectType) then
         t_dragon_data = StructDragonObject(t_dragon_data)
     end
@@ -625,6 +625,15 @@ function UI_DragonCard(t_dragon_data)
     -- 친구 드래곤일 경우 친구 마크 추가
     local is_friend_dragon = g_friendData:checkFriendDragonFromDoid(t_dragon_data['id'])
     ui:setFriendSpriteVisible(is_friend_dragon)
+
+    -- 클릭시 유저 상세 정보 팝업 출력 하는 경우
+    if (t_user_data) then
+        local function show_user_info(t_user_data)
+            local visit = true
+            UI_UserInfoDetailPopup(t_user_data, visit)
+        end
+        ui.vars['clickBtn']:registerScriptTapHandler(function() show_user_info(t_user_data) end)
+    end
 
     return ui
 end

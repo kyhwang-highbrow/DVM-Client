@@ -801,6 +801,13 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 		    if (self:isBoss()) then
 			    self.m_world.m_logRecorder:recordLog('finish_atk', t_info['attack_type'])
 		    end
+
+            -- @LOG : 드래그 스킬로 처치
+            local attack_activity_carrier = attacker.m_activityCarrier
+            local attack_type = attack_activity_carrier:getAttackType()
+            if (attack_type == 'active') then
+                self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
+            end
         end
     end
 

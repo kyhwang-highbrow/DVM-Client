@@ -35,7 +35,7 @@ UI_AncientTowerListItem = class(PARENT, {
         vars['floorLabel']:setString(Str('{1}층', floor))
 
         -- 클리어시 보상 표시
-        local t_info = TABLE:get('ancient_reward')[stage_id]
+        local t_info = TABLE:get('anc_floor_reward')[stage_id]
         if (t_info) then
             local l_str = seperate(t_info['reward_first'], ';')
             local item_type = l_str[1]

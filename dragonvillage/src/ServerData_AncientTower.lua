@@ -8,14 +8,16 @@ ANCIENT_TOWER_MAX_DEBUFF_LEVEL = 5
 ServerData_AncientTower = class({
         m_serverData = 'ServerData',
 
+        m_challengingInfo   = 'StructAncientTowerFloorData',
         m_challengingStageID= 'number',     -- 현재 진행중인 층의 스테이지 아이디
         m_challengingFloor  = 'number',     -- 현재 진행중인 층    
         m_challengingCount  = 'number',     -- 도전 횟수
 
         m_lStage            = 'table',
         m_nStage            = 'number',
+        m_endTime           = 'number',
 
-        m_sweepInfo         = 'number',     -- 소탕사용시의 스테이지 아이디(0이라면 아직 소탕을 사용 안한 경우)
+        m_lGlobalRank       = 'list',       -- 상위 20명 랭킹
     })
 
 -------------------------------------
@@ -79,12 +81,14 @@ function ServerData_AncientTower:request_ancientTowerInfo(finish_cb, fail_cb)
     -- 콜백 함수
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
+        
+        local t_challenging_info = ret['ancient_stage']
 
-        self.m_challengingStageID = ret['ancient_stage']
+        self.m_challengingInfo = StructAncientTowerFloorData(t_challenging_info)
+        self.m_challengingStageID = t_challenging_info['stage']
         self.m_challengingFloor = (self.m_challengingStageID % ANCIENT_TOWER_STAGE_ID_START)
-        self.m_challengingCount = ret['fail_cnt']
-
-        self.m_sweepInfo = ret['sweep_info']
+        self.m_challengingCount = t_challenging_info['fail_cnt']
+        self.m_endTime = ret['end_time']
 
         if (not self.m_lStage) then
             self.m_lStage = self:makeAcientTower_stageList()
@@ -110,9 +114,9 @@ function ServerData_AncientTower:request_ancientTowerInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_ancientTowerSweep
+-- function request_ancientTowerFloorInfo
 -------------------------------------
-function ServerData_AncientTower:request_ancientTowerSweep(finish_cb, fail_cb)
+function ServerData_AncientTower:request_ancientTowerFloorInfo(stage, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -121,14 +125,50 @@ function ServerData_AncientTower:request_ancientTowerSweep(finish_cb, fail_cb)
         g_serverData:networkCommonRespone(ret)
 
         if finish_cb then
-            return finish_cb(ret['added_items']['items_list'])
+            return finish_cb(ret)
         end
     end
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/ancient/sweep')
+    ui_network:setUrl('/game/ancient/info')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
+end
+
+-------------------------------------
+-- function request_ancientTowerRank
+-------------------------------------
+function ServerData_AncientTower:request_ancientTowerRank(offset, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local offset = offset or 1
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        if (offset == 1) then
+            self.m_lGlobalRank = ret['list']
+        end
+
+        if finish_cb then
+            return finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/ancient/rank')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', offset)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -208,22 +248,6 @@ function ServerData_AncientTower:getChallengingCount()
 end
 
 -------------------------------------
--- function getSweepCount
--- @brief 현재 소탕 횟수를 얻음
--------------------------------------
-function ServerData_AncientTower:getSweepCount()
-    local count
-    
-    if (self.m_sweepInfo == 0) then
-        count = 0
-    else
-        count = 1
-    end
-
-    return count
-end
-
--------------------------------------
 -- function isOpenStage
 -- @brief stage_id에 해당하는 스테이지가 입장 가능한지를 리턴
 -------------------------------------
@@ -264,4 +288,18 @@ function ServerData_AncientTower:getEnemyDeBuffValue()
     end
     
     return 0
+end
+
+-------------------------------------
+-- function getEndTimeText
+-- @breif 시즌 남은 시간
+-------------------------------------
+function ServerData_AncientTower:getEndTimeText()
+    local server_time = Timer:getServerTime()
+    local end_time = (self.m_endTime / 1000)
+
+    local showSeconds = false
+    local time_text = datetime.makeTimeDesc((end_time - server_time), showSeconds)
+    local text = Str('{1} 후 초기화', time_text)
+    return text
 end

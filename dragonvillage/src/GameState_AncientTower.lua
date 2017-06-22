@@ -21,7 +21,7 @@ end
 function GameState_AncientTower:initState()
     PARENT.initState(self)
     
-    self:addState(GAME_STATE_WAVE_INTERMISSION,      GameState_AncientTower.update_wave_intermission)
+    self:addState(GAME_STATE_WAVE_INTERMISSION, GameState_AncientTower.update_wave_intermission)
 end
 
 -------------------------------------
@@ -86,7 +86,10 @@ function GameState_AncientTower:makeResultUI(is_success)
 
     -- 1. 네트워크 통신
     func_network_game_finish = function()
-        local t_param = self:makeGameFinishParam(is_success)
+        local t_param 
+        t_param = self:makeGameFinishParam(is_success)
+        t_param = self:addGameFinishParam(t_param)
+
         g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
     end
 
@@ -132,4 +135,13 @@ function GameState_AncientTower:doDirectionForIntermission()
 
     -- 인터미션 시작 시 획득하지 않은 아이템 삭제
     world:cleanupItem()
+end
+
+-------------------------------------
+-- function makeGameFinishParam
+-------------------------------------
+function GameState_AncientTower:addGameFinishParam(t_param)
+    if (not t_param) then return end
+    t_param['score'] = math.random(1, 100)
+    return t_param
 end
