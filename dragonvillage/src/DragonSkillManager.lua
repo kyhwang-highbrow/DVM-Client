@@ -236,12 +236,18 @@ function IDragonSkillManager:findSkillInfoByID(skill_id)
 	end
 
     local skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
-	
-	for i, skill_info in pairs(self.m_lSkillIndivisualInfo[skill_type]) do
-		if (skill_id == skill_info:getSkillID()) then
-			return skill_info, i
-		end		
-	end
+    
+    -- 하나의 스킬만을 가지는 스킬 타입
+	if isExistValue(skill_type, 'active', 'basic', 'leader') then
+        local skill_info = self.m_lSkillIndivisualInfo[skill_type]
+        return skill_info
+    else
+	    for i, skill_info in pairs(self.m_lSkillIndivisualInfo[skill_type]) do
+		    if (skill_id == skill_info:getSkillID()) then
+			    return skill_info, i
+		    end		
+	    end
+    end
 end
 
 -------------------------------------

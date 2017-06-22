@@ -3,20 +3,6 @@
 -- @brief 스킬 실행
 -------------------------------------
 function Character:doSkill(skill_id, x, y, t_data)
-	
-    ----------------------------------------------
-    --[[
-    if (self.m_charType == 'monster' ) then
-        --skill_id = 220031
-    else
-        --cclog('self.phys_idx ' .. self.phys_idx)
-        if (self.phys_idx == 1) then
-            skill_id = 220091
-        end
-    end
-    --]]
-    -----------------------------------------------
-
     local x = x or self.m_attackOffsetX or 0
     local y = y or self.m_attackOffsetY or 0
 	local t_data = t_data or {}
@@ -41,7 +27,14 @@ function Character:doSkill(skill_id, x, y, t_data)
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
     end
 
-    return self:doSkillBySkillTable(t_skill, t_data)
+    if (self:doSkillBySkillTable(t_skill, t_data)) then
+        local skill_indivisual_info = self:findSkillInfoByID(skill_id)
+        skill_indivisual_info:startCoolTime()
+
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------
