@@ -7,9 +7,7 @@ StructBookData = class({
         grade = 'number',
         relation = 'number',
         evolution = 'number',
-        flv = 'number',
-        exist = 'boolean',
-		grade_lv_state = 'list<number>',
+		rate = 'number',
     })
 
 -------------------------------------
@@ -20,9 +18,7 @@ function StructBookData:init(data)
     self.grade = 1
     self.relation = 0
     self.evolution = 1
-    self.flv = 0
-    self.exist = false
-	self.grade_lv_state = nil
+	self.rate = 0
 
     if data then
         self:applyTableData(data)
@@ -37,7 +33,6 @@ function StructBookData:applyTableData(data)
     local replacement = {}
     replacement['evo'] = 'evolution'
 	replacement['rel'] = 'relation'
-	replacement['g_lv'] = 'grade_lv_state'
 
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
@@ -67,17 +62,10 @@ function StructBookData:getRelation()
 end
 
 -------------------------------------
--- function setExist
--------------------------------------
-function StructBookData:setExist()
-    self.exist = true
-end
-
--------------------------------------
 -- function isExist
 -------------------------------------
 function StructBookData:isExist()
-    return self.exist
+    return (self.grade == 0) and (self.evolution == 0)
 end
 
 -------------------------------------
@@ -88,10 +76,10 @@ function StructBookData:getGrade()
 end
 
 -------------------------------------
--- function getFLv
+-- function getRate
 -------------------------------------
-function StructBookData:getFLv()
-    return self.flv
+function StructBookData:getRate()
+    return self.rate
 end
 
 -------------------------------------
@@ -99,11 +87,4 @@ end
 -------------------------------------
 function StructBookData:getEvolution()
     return self.evolution
-end
-
--------------------------------------
--- function getGradeLvState
--------------------------------------
-function StructBookData:getGradeLvState()
-    return self.grade_lv_state
 end

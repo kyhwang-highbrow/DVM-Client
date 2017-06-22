@@ -175,7 +175,6 @@ end
 -------------------------------------
 function ServerData_Book:setDragonBook(did)
     local struct_book_data = self:getBookData(did)
-    struct_book_data:setExist()
 
     do -- 드래곤 원종의 도감 정보
         local dragon_type = TableDragon():getValue(tonumber(did), 'type')
