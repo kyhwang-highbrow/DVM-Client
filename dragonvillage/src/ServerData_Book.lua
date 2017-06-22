@@ -187,7 +187,22 @@ function ServerData_Book:setDragonBook(did)
     self:setLastChangeTimeStamp()
 end
 
+-------------------------------------
+-- function getCollectCount
+-- @brief 수집한 드래곤 수
+-------------------------------------
+function ServerData_Book:getCollectCount(t_dragon_book)
+	local cnt = 0
+	local t_dragon_data
+	for i, t_book in pairs(t_dragon_book) do
+		t_dragon_data = t_book['data']
+		if (self:isExist(t_dragon_data)) then
+			cnt = cnt + 1
+		end
+	end
 
+	return cnt
+end
 
 
 

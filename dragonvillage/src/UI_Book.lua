@@ -128,6 +128,11 @@ end
 -------------------------------------
 function UI_Book:refresh()
     local vars = self.vars
+
+	-- 수집 현황
+	local coll_cnt = g_bookData:getCollectCount(self.m_tableViewTD.m_itemList)
+	local total_cnt = self.m_tableViewTD:getItemCount()
+	vars['collectLabel']:setString(Str('수집 현황 {1} / {2}', coll_cnt, total_cnt))
 end
 
 -------------------------------------
