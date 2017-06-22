@@ -17,6 +17,9 @@ ServerData_Book = class({
         --   'powerdragon':true
         -- }
 
+		-- 드래곤 보상 정보
+		m_tBookReward = 'map',
+
         m_lastChangeTimeStamp = 'timestamp',
     })
 
@@ -27,6 +30,7 @@ function ServerData_Book:init(server_data)
     self.m_serverData = server_data
     self.m_mBookData = {}
     self.m_mDragonTypeBookData = {}
+	self.m_tBookReward = {}
 end
 
 -------------------------------------
@@ -117,6 +121,10 @@ function ServerData_Book:response_bookInfo(ret)
         self.m_mDragonTypeBookData = ret['dragon_type']
     end
 
+	do -- 드래곤 도감 보상 정보
+		self.m_tBookReward = ret['reward_info']
+	end
+
     -- 마지막으로 데이터가 변경된 시간 갱신
     self:setLastChangeTimeStamp()
 end
@@ -203,6 +211,65 @@ function ServerData_Book:getCollectCount(t_dragon_book)
 
 	return cnt
 end
+
+
+
+
+
+-------------------------------------
+-- function getCollectCount
+-- @brief 수집한 드래곤 수
+-------------------------------------
+function ServerData_Book:haveBookReward(did, evolution)
+	local t_info = self.m_tBookReward[tostring(did)]
+
+	if (not t_info) then
+		return false
+	end
+	local reward_type = t_info['evo_' .. evolution]
+	return (reward_type == 1)
+end
+
+-------------------------------------
+-- function request_useRelationPoint
+-------------------------------------
+function ServerData_Book:request_bookReward(did, evolution, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+		-- 들어온 재화 적용
+		g_serverData:networkCommonRespone(ret)
+		
+		-- 탑바 갱신
+		g_topUserInfo:refreshData()
+
+		-- 보상 수령한 정보 처리
+		--self.m_tBookReward[tostring(did)]['evo_' .. evolution] = nil
+		self.m_tBookReward = ret['reward_info']
+
+		-- 시간 갱신        
+		self:setLastChangeTimeStamp()
+
+        if finish_cb then
+            finish_cb(ret)
+
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/book/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('did', did)
+    ui_network:setParam('evo', evolution)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
 
 
 

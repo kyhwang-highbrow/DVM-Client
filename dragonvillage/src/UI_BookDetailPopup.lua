@@ -419,6 +419,7 @@ function UI_BookDetailPopup:press_lvBtn(is_plus)
 	local vars = self.vars
 	self.m_pressBtn = is_plus and vars['lvPlusBtn'] or vars['lvMinusBtn']
 
+	-- 꾹누르기 업데이트 / 매프레임 click_lvBtn 호출
 	local function update_lv(dt)
 		if (not self.m_pressBtn:isSelected()) then
 			self.m_pressTimer = 0

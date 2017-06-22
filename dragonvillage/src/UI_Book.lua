@@ -202,20 +202,39 @@ function UI_Book:init_TableViewTD()
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
+		local did = data['did']
+		local grade = data['grade']
+		local evolution = data['evolution']
+
         -- scale 조정
 		ui.root:setScale(item_scale)
 
-		-- idx 저장
 		-- 수집 여부에 따른 음영 처리
-		local book_data = g_bookData:getBookData(data['did'])
-		if (not book_data:isExist(data['evolution'], data['grade'])) then
+		local book_data = g_bookData:getBookData(did)
+		if (not book_data:isExist(evolution, grade)) then
 			ui:setShadowSpriteVisible(true)
+		end
+
+		-- 보상 수령 가능하면 보상 아이콘 출력
+		if (g_bookData:haveBookReward(did, evolution)) then
+			ui:setMaxLvSpriteVisible(true)
 		end
 
 		-- 버튼 클릭시 상세 팝업
 		ui.vars['clickBtn']:registerScriptTapHandler(function()
-			local detail_ui = UI_BookDetailPopup(data)
-			detail_ui:setBookList(table_view_td.m_itemList)
+			-- 보상이 있다면 보상 수령
+			if (g_bookData:haveBookReward(did, evolution)) then
+				local function finish_cb()
+					UI_ToastPopup()
+					ui:setMaxLvSpriteVisible(false)
+				end
+				g_bookData:request_bookReward(did, evolution, finish_cb)
+				
+			-- 없으면 상세 팝업
+			else
+				local detail_ui = UI_BookDetailPopup(data)
+				detail_ui:setBookList(table_view_td.m_itemList)
+			end
 		end)
     end
 
