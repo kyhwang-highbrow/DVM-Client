@@ -29,7 +29,9 @@ function Character:doSkill(skill_id, x, y, t_data)
 
     if (self:doSkillBySkillTable(t_skill, t_data)) then
         local skill_indivisual_info = self:findSkillInfoByID(skill_id)
-        skill_indivisual_info:startCoolTime()
+        if (skill_indivisual_info) then
+            skill_indivisual_info:startCoolTime()
+        end
 
         return true
     end
