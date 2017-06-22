@@ -99,6 +99,9 @@ function GameState_Colosseum.update_start(self, dt)
                     self:nextStep()
                 end
             })
+
+            self.m_world.m_tamer:initBarrier()
+            self.m_world.m_enemyTamer:initBarrier()
         end
 
     elseif (self:getStep() == 3) then

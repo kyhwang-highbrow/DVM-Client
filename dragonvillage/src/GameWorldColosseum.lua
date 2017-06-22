@@ -117,8 +117,6 @@ function GameWorldColosseum:initTamer()
         self.m_tamer:setAnimatorScale(1)
         self.m_tamer:changeState('appear_colosseum')
         self.m_tamer.m_animator.m_node:pause()
-
-        self.m_tamer.m_barrier:setVisible(false)
     end
     
     -- 적군 테이머 생성
@@ -138,8 +136,6 @@ function GameWorldColosseum:initTamer()
         self.m_enemyTamer:setAnimatorScale(1)
         self.m_enemyTamer:changeState('appear_colosseum')
         self.m_enemyTamer.m_animator.m_node:pause()
-
-        self.m_enemyTamer.m_barrier:setVisible(false)
     end
 end
 
