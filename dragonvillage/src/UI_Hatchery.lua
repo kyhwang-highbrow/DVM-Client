@@ -113,6 +113,7 @@ function UI_Hatchery:refresh_highlight()
     vars['summonNotiSprite']:setVisible(t_highlight['summon'])
     vars['incubateNotiSprite']:setVisible(t_highlight['incubate'])
     vars['relationNotiSprite']:setVisible(t_highlight['relation'])
+    vars['combineNotiSprite']:setVisible(t_highlight['combine'])
 end
 
 -------------------------------------

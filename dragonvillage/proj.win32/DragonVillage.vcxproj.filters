@@ -2388,6 +2388,9 @@
     <None Include="..\src\UI_HatcheryCombineItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_HatcheryCombinePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

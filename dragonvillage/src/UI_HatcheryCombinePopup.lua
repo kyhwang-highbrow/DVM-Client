@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_HatcheryCombinePopup
 -------------------------------------
 UI_HatcheryCombinePopup = class(PARENT,{
+        m_bDirty = 'boolean',
         m_dragonID = 'number',
         m_tableViewTD = 'UIC_TableViewTD',
         m_selectedDragonCard = '',
@@ -25,6 +26,7 @@ end
 -- function init
 -------------------------------------
 function UI_HatcheryCombinePopup:init(did)
+    self.m_bDirty = false
     self.m_dragonID = did
 
     local vars = self:load('hatchery_combine_02.ui')
@@ -72,23 +74,32 @@ function UI_HatcheryCombinePopup:initUI()
         -- 가격 표시
         vars['priceLabel']:setString(comma_value(t_dragon_combine['req_gold']))
 
+        -- 재표 보유 현황 정보
+        local _, _, l_satisfy = g_hatcheryData:combineMaterialInfo(self.m_dragonID)
 
         self.m_selectedDragonCard = {}
         for i=1, 4 do
             local _did = t_dragon_combine['material_' .. i]
             local t_data = {}
+            t_data['did'] = _did
             t_data['grade'] = req_grade
             t_data['lv'] = req_grade_max_lv
             t_data['evolution'] = req_evolution
             local dragon_card = MakeSimpleDragonCard(_did, t_data)
             vars['mtrlBG' .. i]:addChild(dragon_card.root)
             dragon_card.root:setScale(86/150)
-            dragon_card:setShadowSpriteVisible(true)
-            dragon_card.vars['shadowSprite']:setOpacity(150)
 
+            -- 재료가 조건을 충족하지 않을 경우 음영처리
+            if (not l_satisfy[_did]) then
+                dragon_card:setShadowSpriteVisible(true)
+                dragon_card.vars['shadowSprite']:setOpacity(150)
+            end
+
+            -- 재료 카드 클릭 시
             dragon_card.vars['clickBtn']:registerScriptTapHandler(function()
-                    local name = TableDragon:getDragonName(_did)
-                    UIManager:toastNotificationRed(name)
+                    local table_dragon = TableDragon()
+                    local t_dragon = table_dragon:get(_did)
+                    UI_BookDetailPopup(t_dragon, t_data)
                 end)
 
             self.m_selectedDragonCard[_did] = {['idx']=i}
@@ -284,6 +295,8 @@ function UI_HatcheryCombinePopup:click_combineBtn()
 
     local function ok_btn_cb()
         local function finish_cb(ret)
+            self.m_bDirty = true
+
             -- 재료로 사용된 드래곤 삭제
             if ret['deleted_dragons_oid'] then
                 for _,doid in pairs(ret['deleted_dragons_oid']) do

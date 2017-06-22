@@ -397,6 +397,7 @@ function ServerData_Hatchery:checkHighlight()
     -- [소환] 탭 무료 뽑기 가능
     -- [부화] 뽑을 알
     -- [인연] 뽑기 가능한 
+    -- [조합] 봅기 가능한
 
     local highlight = false
 
@@ -404,6 +405,7 @@ function ServerData_Hatchery:checkHighlight()
     t_highlight['summon'] = false
     t_highlight['incubate'] = false
     t_highlight['relation'] = false
+    t_highlight['combine'] = false
 
     do -- 소환
         if (self:getSummonFreeInfo()) then
@@ -424,6 +426,14 @@ function ServerData_Hatchery:checkHighlight()
        local count = self:checkRelationHighlight() 
        if (0 < count) then
             t_highlight['relation'] = true
+            highlight = true
+       end
+    end
+
+    do -- 조합
+       local count = self:checkCombineHighlight()
+       if (0 < count) then
+            t_highlight['combine'] = true
             highlight = true
        end
     end
@@ -470,6 +480,25 @@ function ServerData_Hatchery:checkRelationHighlight()
     return count
 end
 
+-------------------------------------
+-- function checkCombineHighlight
+-------------------------------------
+function ServerData_Hatchery:checkCombineHighlight()
+    local table_dragon_combine = TableDragonCombine()
+
+    local highlight_cnt = 0
+
+    for i,v in pairs(table_dragon_combine.m_orgTable) do
+        local did = v['did']
+        local mtrl_cnt, satisfy_cnt = self:combineMaterialInfo(did)
+
+        if (4 <= satisfy_cnt) then
+            highlight_cnt = (highlight_cnt + 1)
+        end
+    end
+
+    return highlight_cnt
+end
 
 -------------------------------------
 -- function combineMaterialInfo
@@ -514,7 +543,7 @@ function ServerData_Hatchery:combineMaterialInfo(did)
     local mtrl_cnt = table.count(l_cnt)
     local satisfy_cnt = table.count(l_satisfy)
 
-    return mtrl_cnt, satisfy_cnt
+    return mtrl_cnt, satisfy_cnt, l_satisfy
 end
 
 -------------------------------------

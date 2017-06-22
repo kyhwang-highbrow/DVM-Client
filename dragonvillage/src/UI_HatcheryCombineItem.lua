@@ -54,6 +54,7 @@ function UI_HatcheryCombineItem:refresh()
     local str
 
     if (satisfy < 4) then
+        --[[
         -- 모든 조건을 충족한 경우 괄호로 표시
         if (0 < satisfy) then
             str = Str('{@R}{1}{@G}({2}){@w}/{3}', cnt, satisfy, 4)
@@ -61,11 +62,16 @@ function UI_HatcheryCombineItem:refresh()
         else
             str = Str('{@R}{1}{@w}/{2}', cnt, 4)
         end
+        --]]
+
+        -- 조합 가능한 드래곤이 있는 상태
+        str = Str('{@R}{1}{@w}/{2}', satisfy, 4)
     else
         -- 조합 가능한 드래곤이 있는 상태
-        str = Str('{@G}{1}{@w}/{2}', cnt, 4)
+        str = Str('{@G}{1}{@w}/{2}', satisfy, 4)
     end
 
+    vars['notiSprite']:setVisible(satisfy >= 4)
     vars['relationLabel']:setString(str)
 end
 
