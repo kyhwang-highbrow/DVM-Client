@@ -63,11 +63,11 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
     elseif (type == 'distance_y') then      return TargetRule_getTargetList_distance_y(org_list, y)
 
     -- 상태효과 관련
-	elseif string.starts(type, 'status') then
+	elseif pl.stringx.startswith(type, 'status') then
 		return TargetRule_getTargetList_status_effect(org_list, type)
     
 	-- 스탯 관련
-    elseif string.starts(type, 'def') or string.starts(type, 'atk') or string.starts(type, 'hp') then
+    elseif pl.stringx.startswith(type, 'def') or pl.stringx.startswith(type, 'atk') or pl.stringx.startswith(type, 'hp') then
 		return TargetRule_getTargetList_stat(org_list, type)
 
 	-- 속성 관련
