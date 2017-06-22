@@ -78,7 +78,7 @@ function UI_TopUserInfo:refreshData()
 
     self.m_lNumberLabel['fp']:setNumber(fp)
 
-    self.m_lNumberLabel['lactea']:setNumber(lactea)
+    --self.m_lNumberLabel['lactea']:setNumber(lactea)
 
     for k, numberLabel in pairs(self.m_mAddedSubCurrency) do
         local value = g_userData:get(k) or 0
