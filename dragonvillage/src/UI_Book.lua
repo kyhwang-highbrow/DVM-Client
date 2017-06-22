@@ -68,6 +68,13 @@ function UI_Book:initUI()
 
     -- 테이블 뷰 생성
     self:init_TableViewTD()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_Book:initButton()
+    local vars = self.vars
 
     do -- 역할(role)
         local radio_button = UIC_RadioButton()
@@ -94,15 +101,26 @@ function UI_Book:initUI()
         self.m_attrRadioButton = radio_button
     end
 
+	-- 오름차순/내림차순 버튼
+    vars['sortOrderBtn']:registerScriptTapHandler(function()
+		local ascending = (not self.m_sortManager.m_defaultSortAscending)
+		self.m_sortManager:setAllAscending(ascending)
+		
+		local list = self.m_tableViewTD.m_itemList
+		self.m_sortManager:sortExecution(list)
+		self.m_tableViewTD:setDirtyItemList()
+
+		local order_spr = vars['sortOrderSprite']
+		order_spr:stopAllActions()
+		if ascending then
+			order_spr:runAction(cc.RotateTo:create(0.15, 180))
+		else
+			order_spr:runAction(cc.RotateTo:create(0.15, 0))
+		end
+	end)
+
     -- 최초에 한번 실행
     self:onChangeOption()
-end
-
--------------------------------------
--- function initButton
--------------------------------------
-function UI_Book:initButton()
-    local vars = self.vars
 end
 
 -------------------------------------
