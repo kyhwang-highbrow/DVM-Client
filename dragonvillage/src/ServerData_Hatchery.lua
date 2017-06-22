@@ -542,7 +542,7 @@ function ServerData_Hatchery:combineMaterialList(did)
     for i,v in pairs(l_dragon) do
         -- did가 있을 경우
         if isExistValue(v:getDid(), did1, did2, did3, did4) then
-            table.insert(l_mtrl, clone(v))
+            l_mtrl[v['id']] = clone(v)
         end
     end
 
@@ -561,7 +561,18 @@ function ServerData_Hatchery:request_dragonCombine(did, doids, finish_cb, fail_c
     -- 성공 콜백
     local function success_cb(ret)
 
-        --self:setHacheryInfoTable(ret)
+        -- gold(골드) 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        -- 드래곤들 추가
+        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+
+        -- 재료로 사용된 드래곤 삭제
+        if ret['deleted_dragons_oid'] then
+            for _,doid in pairs(ret['deleted_dragons_oid']) do
+                g_dragonsData:delDragonData(doid)
+            end
+        end
 
         if finish_cb then
             finish_cb(ret)

@@ -284,7 +284,27 @@ function UI_HatcheryCombinePopup:click_combineBtn()
 
     local function ok_btn_cb()
         local function finish_cb(ret)
-            ccdump(ret)
+            -- 재료로 사용된 드래곤 삭제
+            if ret['deleted_dragons_oid'] then
+                for _,doid in pairs(ret['deleted_dragons_oid']) do
+                    self.m_tableViewTD:delItem(doid)
+                end
+            end
+
+            -- 선택된 재료들 정리
+            for i,v in pairs(self.m_selectedDragonCard) do
+                v['dragon_obj'] = nil
+                v['ui'] = nil
+                if v['selected_card'] then
+                    v['selected_card'].root:removeFromParent()
+                    v['selected_card'] = nil
+                end
+                self.vars['mtrlBG' .. v['idx']]:setVisible(true)
+            end
+
+            -- 드래곤 소환 연출
+            local l_dragon_list = ret['added_dragons']
+            local ui = UI_GachaResult_Dragon(l_dragon_list)
         end
 
         local did = self.m_dragonID
