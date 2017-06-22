@@ -3,6 +3,7 @@
 -- @brief 1 ~ n 까지의 숫자를 loop
 -------------------------------------
 NumberLoop = class{
+		m_min = 'num',
 		m_max = 'num',
 		m_curr = 'num',
     }
@@ -10,10 +11,10 @@ NumberLoop = class{
 -------------------------------------
 -- function init
 -------------------------------------
-function NumberLoop:init(max_num)
+function NumberLoop:init(max_num, min_num)
 	self.m_max = max_num
+	self.m_nim = min_num or 1
 	self.m_curr = 0
-
 end
 
 -------------------------------------
@@ -35,7 +36,7 @@ end
 function NumberLoop:prev()
 	self.m_curr = self.m_curr - 1
 
-	if (self.m_curr < 1) then
+	if (self.m_curr < self.m_min) then
 		self.m_curr = self.m_max
 	end
 

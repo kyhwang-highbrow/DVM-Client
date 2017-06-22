@@ -5,10 +5,18 @@ local PARENT = UI
 -------------------------------------
 UI_BookDetailPopup = class(PARENT,{
 		m_tDragon = 'TableDragon data + evol, grade',
+		
 		m_lv = 'number',
+		m_evolution = 'number',
+		m_grade = 'number',
+		
 		m_dragonEvolutionIconList = 'table',
+
         -- refresh 체크 용도
         m_collectionLastChangeTime = 'timestamp',
+
+		m_pressTimer = 'timer',
+		m_pressBtn = 'UIC_Button',
     })
 
 -------------------------------------
@@ -30,6 +38,7 @@ function UI_BookDetailPopup:init(t_dragon)
 	self.m_tDragon = t_dragon
 	self.m_lv = 1
     self.m_collectionLastChangeTime = g_bookData:getLastChangeTimeStamp()
+	self.m_pressTimer = 0
 
     self:initUI()
     self:initButton()
@@ -55,21 +64,28 @@ function UI_BookDetailPopup:initButton()
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 
 	-- 등급 증감
-	vars['gradePlusBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
-	vars['gradeMinusBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+	vars['gradePlusBtn']:registerScriptTapHandler(function() self:click_gradeBtn(true) end)
+	vars['gradeMinusBtn']:registerScriptTapHandler(function() self:click_gradeBtn(false) end)
 
 	-- 레벨 증감
-	vars['lvPlusBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
-	vars['lvMinusBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+	vars['lvPlusBtn']:registerScriptTapHandler(function() self:click_lvBtn(true) end)
+	vars['lvPlusBtn']:registerScriptPressHandler(function() self:press_lvBtn(true) end)
+	vars['lvMinusBtn']:registerScriptTapHandler(function() self:click_lvBtn(false) end)
+	vars['lvMinusBtn']:registerScriptPressHandler(function() self:press_lvBtn(false) end)
+
+	-- 진화 변경
+	for i = 1, 3 do 
+		vars['evolutionBtn' .. i]:registerScriptTapHandler(function() self:click_evolutionBtn(i) end)
+	end
 
     -- 능력치 상세보기
     vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
 
 	-- 획득 방법
-	vars['getBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
+	vars['getBtn']:registerScriptTapHandler(function() self:click_getBtn() end)
 
 	-- 스킬 미리보기
-	vars['skillViewBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
+	vars['skillViewBtn']:registerScriptTapHandler(function() self:click_skillViewBtn() end)
 end
 
 -------------------------------------
@@ -177,8 +193,6 @@ function UI_BookDetailPopup:onChangeEvolution()
     end
 
     do -- 스킬 아이콘 생성
-        vars['cp_label']:setString(comma_value(t_dragon_data:getCombatPower()))
-
         local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
         local l_skill_icon = skill_mgr:getDragonSkillIconList()
 
@@ -215,6 +229,13 @@ function UI_BookDetailPopup:onChangeGrade()
         return nil
     end
 
+	-- 진화도에 따른 등급 보정
+	if (t_dragon['evolution'] == 3) then
+		if (t_dragon['grade'] < t_dragon['birthgrade'] + 1) then
+			t_dragon['grade'] = t_dragon['birthgrade'] + 1
+		end
+	end
+
 	local vars = self.vars
 	local icon = IconHelper:getDragonGradeIcon(t_dragon, 3)
 	vars['starNode']:removeAllChildren(true)
@@ -231,6 +252,10 @@ function UI_BookDetailPopup:onChangeLV()
     end
 
 	local vars = self.vars
+
+	local max_lv = TableGradeInfo:getMaxLv(t_dragon['grade'])
+	local str = string.format('%d / %d', self.m_lv, max_lv)
+	vars['lvLabel']:setString(str)
 end
 
 -------------------------------------
@@ -239,7 +264,10 @@ end
 function UI_BookDetailPopup:calculateStat()
     local vars = self.vars
 
-	local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(self:makeDragonData())
+	local t_dragon_data = self:makeDragonData()
+
+	-- stats
+	local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 	vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
 	vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
 	vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
@@ -249,6 +277,9 @@ function UI_BookDetailPopup:calculateStat()
 	vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
 	vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
 	vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+
+	-- 전투력
+	vars['cp_label']:setString(comma_value(t_dragon_data:getCombatPower()))
 end
 
 
@@ -280,11 +311,118 @@ function UI_BookDetailPopup:click_nextBtn()
 end
 
 -------------------------------------
+-- function click_gradeBtn
+-------------------------------------
+function UI_BookDetailPopup:click_gradeBtn(is_plus)
+	local t_dragon = self.m_tDragon
+	if (not t_dragon) then
+		return
+	end
+
+	t_dragon['grade'] = t_dragon['grade'] + (is_plus and 1 or -1)
+
+	local factor = (t_dragon['evolution'] == 3) and 1 or 0
+	if (t_dragon['grade'] < t_dragon['birthgrade'] + factor) then
+		t_dragon['grade'] = t_dragon['birthgrade'] + factor
+
+	elseif (t_dragon['grade'] > MAX_DRAGON_GRADE) then
+		t_dragon['grade'] = MAX_DRAGON_GRADE
+
+	end
+
+	self:onChangeGrade()
+	self:calculateStat()
+end
+
+-------------------------------------
+-- function click_lvBtn
+-------------------------------------
+function UI_BookDetailPopup:click_lvBtn(is_plus)
+	local t_dragon = self.m_tDragon
+	if (not t_dragon) then
+		return
+	end
+
+	self.m_lv = self.m_lv + (is_plus and 1 or -1)
+	if (self.m_lv < 1) then
+		self.m_lv = 1
+
+	elseif (self.m_lv > TableGradeInfo:getMaxLv(t_dragon['grade'])) then
+		self.m_lv = TableGradeInfo:getMaxLv(t_dragon['grade'])
+
+	end
+
+	self:onChangeLV()
+	self:calculateStat()
+end
+
+-------------------------------------
+-- function press_lvBtn
+-------------------------------------
+function UI_BookDetailPopup:press_lvBtn(is_plus)
+	local t_dragon = self.m_tDragon
+	if (not t_dragon) then
+		return
+	end
+
+	local vars = self.vars
+	self.m_pressBtn = is_plus and vars['lvPlusBtn'] or vars['lvMinusBtn']
+
+	local function update_lv(dt)
+		if (not self.m_pressBtn:isSelected()) then
+			self.m_pressTimer = 0
+			self.m_pressBtn = nil
+			vars['roleNode']:unscheduleUpdate()
+		end
+
+		self.m_pressTimer = self.m_pressTimer + dt
+		if (self.m_pressTimer > 0.03) then
+			self:click_lvBtn(is_plus)
+			self.m_pressTimer = self.m_pressTimer - 0.03
+		end
+	end
+
+	vars['roleNode']:scheduleUpdateWithPriorityLua(function(dt) return update_lv(dt) end, 1)
+end
+
+-------------------------------------
+-- function click_evolutionBtn
+-------------------------------------
+function UI_BookDetailPopup:click_evolutionBtn(evolution)
+	local t_dragon = self.m_tDragon
+	if (not t_dragon) then
+		return
+	end
+
+	self.m_tDragon['evolution'] = evolution
+
+	self:onChangeEvolution()
+	self:onChangeGrade()
+	self:calculateStat()
+end
+
+-------------------------------------
 -- function click_detailBtn
 -- @brief 드래곤 상세 보기 팝업
 -------------------------------------
 function UI_BookDetailPopup:click_detailBtn()
     self.vars['detailNode']:runAction(cc.ToggleVisibility:create())
+end
+
+-------------------------------------
+-- function click_getBtn
+-- @brief 획득방법
+-------------------------------------
+function UI_BookDetailPopup:click_getBtn()
+    ccdisplay('획득 방법은 준비중입니다.')
+end
+
+-------------------------------------
+-- function click_skillViewBtn
+-- @brief 획득방법
+-------------------------------------
+function UI_BookDetailPopup:click_skillViewBtn()
+    ccdisplay('스킬 미리보기는 구상중입니다.')
 end
 
 -------------------------------------
