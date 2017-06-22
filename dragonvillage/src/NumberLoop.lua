@@ -13,7 +13,7 @@ NumberLoop = class{
 -------------------------------------
 function NumberLoop:init(max_num, min_num)
 	self.m_max = max_num
-	self.m_nim = min_num or 1
+	self.m_min = min_num or 1
 	self.m_curr = 0
 end
 
