@@ -324,5 +324,21 @@ function UI_BookDetailPopup:checkRefresh()
     end
 end
 
+
+
+
+-------------------------------------
+-- function open
+-- @brief 외부에서 did 혹은 추가 정보만을 가지고 도감 상세페이지를 열어야할때 사용
+-------------------------------------
+function UI_BookDetailPopup.open(did, grade, evolution)
+	local table_dragon = TableDragon()
+	local t_dragon = table_dragon:get(did)
+	t_dragon['grade'] = grade or t_dragon['birthgrade']
+	t_dragon['evolution'] = evolution or 1
+	UI_BookDetailPopup(t_dragon)
+end
+
+
 --@CHECK
 UI:checkCompileError(UI_BookDetailPopup)

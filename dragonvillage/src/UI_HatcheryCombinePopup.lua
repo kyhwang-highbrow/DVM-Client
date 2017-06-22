@@ -97,10 +97,8 @@ function UI_HatcheryCombinePopup:initUI()
 
             -- 재료 카드 클릭 시
             dragon_card.vars['clickBtn']:registerScriptTapHandler(function()
-                    local table_dragon = TableDragon()
-                    local t_dragon = table_dragon:get(_did)
-                    UI_BookDetailPopup(t_dragon, t_data)
-                end)
+				UI_BookDetailPopup.open(_did, t_data['grade'], t_data['evolution'])
+            end)
 
             self.m_selectedDragonCard[_did] = {['idx']=i}
         end
