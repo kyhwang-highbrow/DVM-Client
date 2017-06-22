@@ -46,6 +46,7 @@ end
 
 -------------------------------------
 -- function TargetRule_getTargetList
+-- @param type : target_rule( ex) 'enemy_status_atk_down' -> 'status_atk_down' )
 -------------------------------------
 function TargetRule_getTargetList(type, org_list, x, y, t_data)
     -- 모든 대상
@@ -60,9 +61,13 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 	elseif (type == 'far_line') then		return TargetRule_getTargetList_far_line(org_list, x, y)
     elseif (type == 'distance_x') then      return TargetRule_getTargetList_distance_x(org_list, x)
     elseif (type == 'distance_y') then      return TargetRule_getTargetList_distance_y(org_list, y)
+
+    -- 상태효과 관련
+	elseif string.starts(type, 'status') then
+		return TargetRule_getTargetList_status_effect(org_list, type)
     
 	-- 스탯 관련
-	elseif string.find(type, 'def') or string.find(type, 'atk') or string.find(type, 'hp') then
+    elseif string.starts(type, 'def') or string.starts(type, 'atk') or string.starts(type, 'hp') then
 		return TargetRule_getTargetList_stat(org_list, type)
 
 	-- 속성 관련
@@ -73,9 +78,6 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 	elseif isExistValue(type, 'tanker', 'dealer', 'supporter', 'healer') then
 		return TargetRule_getTargetList_role(org_list, type)
 
-	-- 상태효과 관련
-	elseif string.find(type, 'status') then
-		return TargetRule_getTargetList_status_effect(org_list, type)
 	elseif (type == 'buff') then		
 		return TargetRule_getTargetList_buff(org_list)
 	elseif (type == 'debuff') then		
@@ -341,8 +343,8 @@ function TargetRule_getTargetList_status_effect(org_list, raw_str)
     local t_char = table.sortRandom(table.clone(org_list))
 	local t_ret = {}
 
-	local temp = seperate(raw_str, '_') or {}
-	local status_effect_name = temp[2]
+	local temp = string.gsub(raw_str, '_.+', '')
+    local status_effect_name = string.gsub(raw_str, '%l+_', '', 1)
 
 	-- 상태효과가 있다면 새로운 테이블로 옮긴다. 차곡차곡
 	for i, char in pairs(t_char) do
