@@ -49,12 +49,6 @@ end
 -- function initUI
 -------------------------------------
 function UI_BookDetailPopup:initUI()
-	-- 자코 예외처리
-	if (self.m_tDragon['underling'] == 1) then
-		for i = 1, 3 do
-			self.vars['evolutionBtn' .. i]:setVisible(false)
-		end
-	end
 end
 
 -------------------------------------
@@ -86,6 +80,9 @@ function UI_BookDetailPopup:initButton()
 
     -- 능력치 상세보기
     vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
+	
+	-- 평가 게시판
+	vars['recommandBtn']:registerScriptTapHandler(function() self:click_recommandBtn() end)
 
 	-- 획득 방법
 	vars['getBtn']:registerScriptTapHandler(function() self:click_getBtn() end)
@@ -98,6 +95,18 @@ end
 -- function refresh
 -------------------------------------
 function UI_BookDetailPopup:refresh()
+	-- 평점
+	local book_data = g_bookData:getBookData(self.m_tDragon['did'])
+	local rate = book_data:getRate()
+	self.vars['recommandLabel']:setString(string.format('%.1f', rate))
+
+	-- 자코 예외처리
+	if (self.m_tDragon['underling'] == 1) then
+		for i = 1, 3 do
+			self.vars['evolutionBtn' .. i]:setVisible(false)
+		end
+	end
+
 	self:onChangeDragon()
 	self:onChangeEvolution()
 	self:onChangeGrade()
@@ -418,6 +427,14 @@ end
 -------------------------------------
 function UI_BookDetailPopup:click_detailBtn()
     self.vars['detailNode']:runAction(cc.ToggleVisibility:create())
+end
+
+-------------------------------------
+-- function click_recommandBtn
+-- @brief 획득방법
+-------------------------------------
+function UI_BookDetailPopup:click_recommandBtn()
+    UI_DragonBoardPopup(self.m_tDragon)
 end
 
 -------------------------------------
