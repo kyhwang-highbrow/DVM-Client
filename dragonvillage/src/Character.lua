@@ -951,12 +951,12 @@ function Character:makeDamageFont(damage, x, y, tParam)
      
         local label = cc.Label:createWithBMFont(font_res, comma_value(damage))
 
-        --[[
+        
 	    -- 추가 데미지
-        if (is_add_dmg) then
+        if (g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT') and is_add_dmg) then
 		    label:setColor(cc.c3b(225, 229, 0))	-- 노랑
-        ]]--
-        if (is_miss) then
+        
+        elseif (is_miss) then
             -- 빚맞힘
             label:setColor(cc.c3b(198, 198, 198))	-- 회색
 	    

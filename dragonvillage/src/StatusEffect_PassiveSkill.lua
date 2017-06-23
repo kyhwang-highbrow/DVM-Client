@@ -20,8 +20,7 @@ end
 -- function init_passiveSkill
 -- @brief 트리거 패시브 스킬 관련 정보 설정
 -------------------------------------
-function StatusEffect_PassiveSkill:init_passiveSkill(char, trigger_name, t_skill)
-    self.m_owner = char
+function StatusEffect_PassiveSkill:init_passiveSkill(trigger_name, t_skill)
     self.m_triggerName = trigger_name
 	self.m_tSkill = t_skill
 

@@ -27,8 +27,10 @@ MAP_KEY_FUNC[KEY_T] = 'se_on_monster'
 
 MAP_KEY_FUNC[KEY_LEFT_BRACKET] = 'game_speed_down'
 MAP_KEY_FUNC[KEY_RIGHT_BRACKET] = 'game_speed_up'
+
 MAP_KEY_FUNC[KEY_F1] = 'set_invincible'
 MAP_KEY_FUNC[KEY_F2] = 'set_physbox'
+MAP_KEY_FUNC[KEY_F3] = 'add_dmg_yellow_font'
 
 MAP_KEY_FUNC[KEY_A] = 'pause_on_off_auto'
 
@@ -357,6 +359,15 @@ function GameWorld:set_physbox()
     local phys_world = self.m_physWorld
     local debug = (not phys_world.m_bDebug)
     phys_world:setDebug(debug)
+end
+
+-------------------------------------
+-- function add_dmg_yellow_font
+-- @brief 추가 피해를 노란색 폰트로 설정 on/off
+-------------------------------------
+function GameWorld:add_dmg_yellow_font()
+	local b = g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT')
+	g_constant:set(not b1, 'DEBUG', 'ADD_DMG_YELLOW_FONT')
 end
 
 -------------------------------------

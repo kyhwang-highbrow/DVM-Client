@@ -207,8 +207,11 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	local trigger_name = t_skill['chance_value'] or 'undergo_attack'
 	
 	local status_effect = StatusEffect_PassiveSkill(res)
-	status_effect:init_passiveSkill(char, trigger_name, t_skill)
-	
+
+    -- 초기값 설정
+    status_effect:initFromTable(t_status_effect, char)
+    status_effect:init_passiveSkill(trigger_name, t_skill)
+    	
     local world = char.m_world
     world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
     world:addToUnitList(status_effect)
