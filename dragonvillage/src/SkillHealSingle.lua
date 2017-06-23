@@ -5,7 +5,6 @@ local PARENT = Skill
 -------------------------------------
 SkillHealSingle = class(PARENT, {
 		m_res = '',
-		m_healRate = '',
 	})
 
 -------------------------------------
@@ -24,8 +23,7 @@ function SkillHealSingle:init_skill(missile_res)
 
     -- 멤버 변수
 	self.m_res = missile_res
-	self.m_healRate = self.m_powerRate/100
-
+	
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 end
 
@@ -55,7 +53,7 @@ end
 function SkillHealSingle.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 힐
-        owner:doHeal()
+        owner:runHeal()
 
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('dying')
@@ -64,35 +62,17 @@ function SkillHealSingle.st_idle(owner, dt)
 end
 
 -------------------------------------
--- function doHeal
+-- function runHeal
 -------------------------------------
-function SkillHealSingle:doHeal()
-	local l_target = self:findTarget()
-    
-	for i, target in pairs(l_target) do
-		self:doHeal_each(target)
-	end
+function SkillHealSingle:runHeal()
+    local l_target = self:findTarget()
 
-	-- 힐 사운드
-	if (self.m_owner:isDragon()) then
-		SoundMgr:playEffect('SFX', 'sfx_heal')
-	end
-end
+    for _, target in ipairs(l_target) do
+        self:heal(target, false)
 
--------------------------------------
--- function doHeal_each
--------------------------------------
-function SkillHealSingle:doHeal_each(target)
-    -- 타겟에 회복 수행, 이팩트 생성
-    if target and (not target.m_bDead) then
-        local atk_dmg = self.m_owner:getStat('atk')
-        local heal = HealCalc_M(atk_dmg)
+        self.m_world:addInstantEffect(self.m_res, 'heal_effect', target.pos.x, target.pos.y)
 
-        local effect = self.m_world:addInstantEffect(self.m_res, 'heal_effect', target.pos.x, target.pos.y)
-
-        target:healAbs(self.m_owner, heal * self.m_healRate, false)
-
-		-- 나에게로부터 상대에게 가는 힐 이펙트 생성
+        -- 나에게로부터 상대에게 가는 힐 이펙트 생성
         local effect_heal = EffectHeal(self.m_res, {0,0,0})
         effect_heal:initState()
         effect_heal:changeState('move')
@@ -105,6 +85,8 @@ function SkillHealSingle:doHeal_each(target)
 
         self.m_world:addToUnitList(effect_heal)
     end
+    
+	self:doCommonAttackEffect()
 end
 
 -------------------------------------

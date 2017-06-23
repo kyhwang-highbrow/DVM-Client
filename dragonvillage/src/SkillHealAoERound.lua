@@ -3,9 +3,7 @@ local PARENT = Skill
 -------------------------------------
 -- class SkillHealAoERound
 -------------------------------------
-SkillHealAoERound = class(PARENT, {
-    m_healRate = 'number',
-})
+SkillHealAoERound = class(PARENT, {})
 
 -------------------------------------
 -- function init
@@ -20,8 +18,6 @@ end
 -------------------------------------
 function SkillHealAoERound:init_skill()
 	PARENT.init_skill(self)
-
-    self.m_healRate = (self.m_powerRate / 100)
 
     self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
 end
@@ -57,63 +53,6 @@ function SkillHealAoERound.st_idle(owner, dt)
 			owner:changeState('dying')
 		end)
     end
-end
-
--------------------------------------
--- function runHeal
--------------------------------------
-function SkillHealAoERound:runHeal()
-    local l_collision = self:findCollision()
-
-    for _, collision in ipairs(l_collision) do
-        self:heal(collision)
-    end
-
-	self:doCommonAttackEffect()
-end
-
--------------------------------------
--- function heal
--------------------------------------
-function SkillHealAoERound:heal(collision)
-    local target_char = collision:getTarget()
-
-    local atk_dmg = self.m_owner:getStat('atk')
-    local heal = HealCalc_M(atk_dmg) * self.m_healRate
-
-    target_char:healAbs(self.m_owner, heal, true)
-
-    self:onHeal(target_char)
-end
-
--------------------------------------
--- function onHeal
--- @brief 힐(heal) 직후 호출됨
--------------------------------------
-function SkillHealAoERound:onHeal(target_char)
-    local bUpdateHitTargetCount = false
-
-    -- 피격된 대상 저장
-    if (not self.m_hitTargetList[target_char]) then
-        self.m_hitTargetList[target_char] = true
-        bUpdateHitTargetCount = true
-    end
-
-    local hit_target_count = table.count(self.m_hitTargetList)
-
-	-- 상태효과
-	local t_event = {l_target = {target_char}}
-	self:dispatch(CON_SKILL_HIT, t_event)
-
-    -- 피격된 대상수가 갱신된 경우 해당 이벤트 발동
-    if (bUpdateHitTargetCount) then
-        self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
-    end
-
-	-- 힐 사운드
-	if (self.m_owner:isDragon()) then
-		SoundMgr:playEffect('SFX', 'sfx_heal')
-	end
 end
 
 -------------------------------------

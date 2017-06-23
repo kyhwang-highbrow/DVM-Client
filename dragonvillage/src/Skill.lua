@@ -378,12 +378,17 @@ function Skill:runAttack()
 end
 
 -------------------------------------
--- function doCommonAttackEffect
--- @breif 어택 이벤트와 관련된 처리
+-- function runHeal
 -------------------------------------
-function Skill:doCommonAttackEffect()
-	-- 스킬이 제거할 수 있는 미사일 제거
-	self:removeDestructibleMissile()
+function Skill:runHeal()
+    local l_collision = self:findCollision()
+
+    for _, collision in ipairs(l_collision) do
+        local target_char = collision:getTarget()
+        self:heal(target_char)
+    end
+
+	self:doCommonAttackEffect()
 end
 
 -------------------------------------
@@ -405,6 +410,23 @@ function Skill:attack(collision)
     
 	self:onAttack(target_char)
 end
+
+-------------------------------------
+-- function heal
+-------------------------------------
+function Skill:heal(target_char, b_make_effect)
+    local make_effect = true
+    if (b_make_effect ~= nil) then make_effect = b_make_effect end
+
+    --local atk_dmg = self.m_owner:getStat('atk')
+    local atk_dmg = self.m_activityCarrier:getAtkDmg()
+    local heal = HealCalc_M(atk_dmg) * self.m_activityCarrier:getPowerRate()
+
+    target_char:healAbs(self.m_owner, heal, make_effect)
+
+    self:onHeal(target_char)
+end
+
 
 -------------------------------------
 -- function onAttack
@@ -444,6 +466,45 @@ function Skill:onAttack(target_char)
     else
         self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
     end
+end
+
+-------------------------------------
+-- function onHeal
+-- @brief 힐(heal) 직후 호출됨
+-------------------------------------
+function Skill:onHeal(target_char)
+    local bUpdateHitTargetCount = false
+
+    -- 피격된 대상 저장
+    if (not self.m_hitTargetList[target_char]) then
+        self.m_hitTargetList[target_char] = true
+        bUpdateHitTargetCount = true
+    end
+
+    local hit_target_count = table.count(self.m_hitTargetList)
+
+	-- 상태효과
+	local t_event = {l_target = {target_char}}
+	self:dispatch(CON_SKILL_HIT, t_event)
+
+    -- 피격된 대상수가 갱신된 경우 해당 이벤트 발동
+    if (bUpdateHitTargetCount) then
+        self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
+    end
+
+	-- 힐 사운드
+	if (self.m_owner:isDragon()) then
+		SoundMgr:playEffect('SFX', 'sfx_heal')
+	end
+end
+
+-------------------------------------
+-- function doCommonAttackEffect
+-- @breif 어택 이벤트와 관련된 처리
+-------------------------------------
+function Skill:doCommonAttackEffect()
+	-- 스킬이 제거할 수 있는 미사일 제거
+	self:removeDestructibleMissile()
 end
 
 -------------------------------------

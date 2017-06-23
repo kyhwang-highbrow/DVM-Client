@@ -2406,6 +2406,9 @@
     <None Include="..\src\StructAncientTowerFloorData.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillHealAoESquare_Height.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

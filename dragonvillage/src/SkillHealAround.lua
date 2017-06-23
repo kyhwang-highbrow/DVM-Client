@@ -9,7 +9,6 @@ SkillHealAround = class(PARENT, {
         m_multiHitTimer = '',
         m_multiHitMax = '',
         m_hitCount = '',
-        m_healRate = 'number',
      })
 
 -------------------------------------
@@ -31,7 +30,6 @@ function SkillHealAround:init_skill(duration, hit_cnt)
     self.m_limitTime = duration
     self.m_multiHitTime = self.m_limitTime / hit_cnt -- 한 번 회복하는데 걸리는 시간(쿨타임)
     self.m_multiHitMax = hit_cnt - 1 -- 회복 횟수 (시간 계산 오차로 추가로 회복되는것 방지)
-    self.m_healRate = (self.m_powerRate / 100)
 end
 
 -------------------------------------
@@ -74,7 +72,7 @@ function SkillHealAround.st_idle(owner, dt)
     if (owner.m_multiHitTimer >= owner.m_multiHitTime) and
         (owner.m_hitCount < owner.m_multiHitMax ) then
 
-        owner:doHeal()
+        owner:runHeal()
 
         owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
         owner.m_hitCount = owner.m_hitCount + 1
@@ -85,27 +83,6 @@ function SkillHealAround.st_idle(owner, dt)
         owner:changeState('dying')
         return
     end
-end
-
--------------------------------------
--- function doHeal
--------------------------------------
-function SkillHealAround:doHeal()
-    local atk_dmg = self.m_owner:getStat('atk')
-    local heal = HealCalc_M(atk_dmg)
-    local collisions = self:findCollision()
-
-    heal = (heal * self.m_healRate)
-
-    for i, collision in pairs(collisions) do
-        local target = collision:getTarget()
-        target:healAbs(self.m_owner, heal, true)
-    end
-	
-	-- 힐 사운드
-	if (self.m_owner:isDragon()) then
-		SoundMgr:playEffect('SFX', 'sfx_heal')
-	end
 end
 
 -------------------------------------

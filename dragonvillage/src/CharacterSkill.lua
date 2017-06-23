@@ -175,6 +175,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             elseif (skill_type == 'skill_aoe_square_height_top') then
 				SkillAoESquare_Height_Top:makeSkillInstance(self, t_skill, t_data)
 				return true
+
+            elseif (skill_type == 'skill_heal_aoe_square_height') then
+				SkillHealAoESquare_Height:makeSkillInstance(self, t_skill, t_data)
+				return true
 				
 			elseif (skill_type == 'skill_aoe_square_width' or skill_type == 'skill_aoe_square_width_left') then
                 -- 설정된 인디케이터에 맞춰지도록 처리

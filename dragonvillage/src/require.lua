@@ -396,9 +396,6 @@ local t_module = {
 	'SkillChainLightning',
 	'SkillThrowBuff',
     'SkillGuardian',
-    'SkillHealSingle',
-    'SkillHealAround',
-    'SkillHealAoERound',
     'SkillShield',
     'SkillMeleeHack',
 	'SkillAoERound',
@@ -436,6 +433,11 @@ local t_module = {
 	'SkillEnumrate_Curve',
 	'SkillEnumrate_Normal',
 	'SkillEnumrate_Penetration',
+
+    'SkillHealSingle',
+    'SkillHealAround',
+    'SkillHealAoERound',
+    'SkillHealAoESquare_Height',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',
