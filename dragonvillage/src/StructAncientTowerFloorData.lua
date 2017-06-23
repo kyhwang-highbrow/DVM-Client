@@ -89,3 +89,15 @@ end
 function StructAncientTowerFloorData:getNeedStamina()
     return NEED_STAMINA
 end
+
+-------------------------------------
+-- function getNeedStamina
+-- @breif 현재 층 랭커 닉네임
+-------------------------------------
+function StructAncientTowerFloorData:getTopUserNick()
+    local top_user_info = self.m_topUserInfo
+    -- 랭커 없을 경우 
+    if (not top_user_info) then return '' end
+
+    return top_user_info['nick'] or ''
+end

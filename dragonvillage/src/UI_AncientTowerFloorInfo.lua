@@ -52,8 +52,10 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
 
     local my_score = info.m_myScore
     local my_high_score = info.m_myHighScore
-    local season_high_score = info.m_seasonHighScore 
-    vars['scoreLabel']:setString(Str('{1}점\n{2}점\n{3}점', my_score, my_high_score, season_high_score))
+    local season_high_score = info.m_seasonHighScore
+    local top_user = info:getTopUserNick()
+    local str = Str('{1}점\n{2}점\n{3}점\n{4}', my_score, my_high_score, season_high_score, top_user)
+    vars['scoreLabel']:setString(str)
 
     vars['challengeLabel']:setString(Str('도전 횟수 {1}회', info.m_failCnt))
 

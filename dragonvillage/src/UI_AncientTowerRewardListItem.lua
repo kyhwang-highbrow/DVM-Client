@@ -34,9 +34,15 @@ function UI_AncientTowerRewardListItem:initUI()
         local item_type = l_str[1]
         local id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
         
+        local icon = IconHelper:getItemIcon(id)
+        icon:setScale(0.4)
+        vars['rewardNode'..i]:addChild(icon)
+
+        --[[
         local ui = UI_ItemCard(id)
         ui.root:setScale(0.4)
         vars['rewardNode'..i]:addChild(ui.root)
+        ]]--
 
         local name = TableItem:getItemName(id)
         local cnt = l_str[2]
