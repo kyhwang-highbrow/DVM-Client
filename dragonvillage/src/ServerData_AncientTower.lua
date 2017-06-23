@@ -17,7 +17,9 @@ ServerData_AncientTower = class({
         m_nStage            = 'number',
         m_endTime           = 'number',
 
+        m_myRank            = '',           -- 내 순위 정보
         m_lGlobalRank       = 'list',       -- 상위 20명 랭킹
+        
     })
 
 -------------------------------------
@@ -158,6 +160,8 @@ function ServerData_AncientTower:request_ancientTowerRank(offset, finish_cb)
         if (offset == 1) then
             self.m_lGlobalRank = ret['list']
         end
+
+        self.m_myRank = ret['my_info']
 
         if finish_cb then
             return finish_cb(ret)

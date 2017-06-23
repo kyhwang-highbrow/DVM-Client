@@ -26,9 +26,18 @@ function UI_AncientTowerRankListItem:initUI()
     local vars = self.vars
     local t_rank_info = self.m_rankInfo
     
-    vars['scoreLabel']:setString(Str('{1}점', t_rank_info['rp'])) -- 서버에서 score로 변경해줘야함
+    vars['scoreLabel']:setString(Str('{1}점', t_rank_info['score']))
     vars['nameLabel']:setString(t_rank_info['nick'])
-    vars['rankingLabel']:setString(Str('{1}위', t_rank_info['rank']))
+
+    local rank = t_rank_info['rank']
+    local rate = t_rank_info['rate']
+    rate = math_floor(rate*100)
+    if (rank <= 100) then
+        vars['rankingLabel']:setString(Str('{1}위', rank))
+    else 
+        -- 100위 이상은 퍼센트 표기
+        vars['rankingLabel']:setString(Str('{1}%%', rate))
+    end
 
     do -- 리더 드래곤 아이콘
         local t_dragon_data = t_rank_info['leader']
@@ -36,6 +45,11 @@ function UI_AncientTowerRankListItem:initUI()
         ui.root:setSwallowTouch(false)
         vars['profileNode']:addChild(ui.root)
     end
+
+    -- 내 순위
+    local uid = g_userData:get('uid')
+    local is_my_rank = (uid == t_rank_info['uid'])
+    vars['meSprite']:setVisible(is_my_rank)
 end
 
 -------------------------------------

@@ -59,6 +59,7 @@ function UI_AncientTowerRank:onChangeOption()
     local type = self.m_typeRadioButton.m_selectedButton
     vars['rewardListNode']:setVisible(type == 'reward')
     vars['rankingListNode']:setVisible(type == 'rank')
+    vars['rankingMeNode']:setVisible(type == 'rank')
 
     if type == 'rank' then
         if (self.m_rankTableView) then return end
@@ -79,7 +80,17 @@ end
 -- function init_rankTableView
 -------------------------------------
 function UI_AncientTowerRank:init_rankTableView()
-    local node = self.m_uiScene.vars['rankingListNode']
+    local node      = self.m_uiScene.vars['rankingListNode']
+    local my_node   = self.m_uiScene.vars['rankingMeNode']
+
+    -- 내 순위
+	do
+		local t_my_rank = g_ancientTowerData.m_myRank
+        t_my_rank['score'] = math_max(t_my_rank['score'], 0)
+        
+        local ui = UI_AncientTowerRankListItem(t_my_rank)
+        my_node:addChild(ui.root)
+	end
 
     -- 최초 상위 20명
     local l_item_list = g_ancientTowerData.m_lGlobalRank
