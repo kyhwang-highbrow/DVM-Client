@@ -424,6 +424,7 @@ function UI_TitleScene:workGetServerInfo()
         ui_network:hideLoading()
         if co:waitWork() then return end
 
+        --[[
         -- 탐험 정보 받기
         co:work()
         self.m_loadingUI:showLoading(Str('탐험지역을 탐색 중...'))
@@ -432,6 +433,7 @@ function UI_TitleScene:workGetServerInfo()
         ui_network:setFailCB(fail_cb)
         ui_network:hideLoading()
         if co:waitWork() then return end
+        --]]
 
         -- 부화소 정보 받기
         co:work()

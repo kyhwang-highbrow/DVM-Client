@@ -22,6 +22,7 @@ ServerData_Exploration = class({
 function ServerData_Exploration:init(server_data)
     self.m_serverData = server_data
     self.m_bDirtyExplorationInfo = true
+    self.m_mExploredDragonOid = {}
 end
 
 -------------------------------------
