@@ -27,9 +27,5 @@ function TableStatusEffect:get(key, skip_error_msg)
         end
     end
 
-    if (not t) then
-        error('invalid status_effect name = ' .. key)
-    end
-
     return t
 end
