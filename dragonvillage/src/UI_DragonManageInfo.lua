@@ -229,7 +229,7 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data)
         self.m_dragonAnimator:setDragonAnimator(t_dragon_data['did'], t_dragon_data['evolution'], t_dragon_data:getFlv())
     end
 
-	vars['lockSprite']:setVisible(t_dragon_data:getLock())
+	--vars['lockSprite']:setVisible(t_dragon_data:getLock())
 end
 
 -------------------------------------
