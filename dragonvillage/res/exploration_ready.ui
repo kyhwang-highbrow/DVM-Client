@@ -1148,54 +1148,14 @@
 			};
 			[6] =
 			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 120;
-					height = 50;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
-					text = '1시간';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 240; 215; 159; };
-					opacity = 255;
-					dimension_width = 120;
-					dimension_height = 50;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
-					has_shadow = true;
-					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 150;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
+				type = 'LabelTTF';
 				ui_name = '';
-				x = -204.000000;
-				y = 68.000000;
+				x = -2.000000;
+				y = 74.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 126;
+				width = 438;
 				height = 54;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1203,206 +1163,30 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'timeBtn1';
-				enable = true;
-				normal = 'ui/btn/a_btn_0201.png';
-				selected = 'ui/btn/a_btn_0202.png';
-				disable = 'ui/btn/a_btn_0204.png';
-				image_type = 1;
+				lua_name = 'timeLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 34;
+				text = '{1}시간';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 71; 40; 22; };
+				opacity = 255;
+				dimension_width = 438;
+				dimension_height = 54;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 150;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
 			};
 			[7] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 120;
-					height = 50;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
-					text = '3시간';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 240; 215; 159; };
-					opacity = 255;
-					dimension_width = 120;
-					dimension_height = 50;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
-					has_shadow = true;
-					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 150;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -68.000000;
-				y = 68.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 126;
-				height = 54;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'timeBtn2';
-				enable = true;
-				normal = 'ui/btn/a_btn_0201.png';
-				selected = 'ui/btn/a_btn_0202.png';
-				disable = 'ui/btn/a_btn_0204.png';
-				image_type = 1;
-			};
-			[8] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 120;
-					height = 50;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
-					text = '6시간';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 240; 215; 159; };
-					opacity = 255;
-					dimension_width = 120;
-					dimension_height = 50;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
-					has_shadow = true;
-					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 150;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 68.000000;
-				y = 68.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 126;
-				height = 54;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'timeBtn3';
-				enable = true;
-				normal = 'ui/btn/a_btn_0201.png';
-				selected = 'ui/btn/a_btn_0202.png';
-				disable = 'ui/btn/a_btn_0204.png';
-				image_type = 1;
-			};
-			[9] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 120;
-					height = 50;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
-					text = '12시간';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 240; 215; 159; };
-					opacity = 255;
-					dimension_width = 120;
-					dimension_height = 50;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
-					has_shadow = true;
-					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 150;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 204.000000;
-				y = 68.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 126;
-				height = 54;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'timeBtn4';
-				enable = true;
-				normal = 'ui/btn/a_btn_0201.png';
-				selected = 'ui/btn/a_btn_0202.png';
-				disable = 'ui/btn/a_btn_0204.png';
-				image_type = 1;
-			};
-			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -1442,7 +1226,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[11] =
+			[8] =
 			{
 				[1] =
 				{
@@ -1506,11 +1290,89 @@
 				disable = 'ui/btn/a_btn_0202.png';
 				image_type = 1;
 			};
-			[12] =
+			[9] =
 			{
 				type = 'Sprite';
 				ui_name = '';
 				x = -183.000000;
+				y = -165.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 84;
+				height = 84;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/dragon_slot.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[10] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -91.000000;
+				y = -165.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 84;
+				height = 84;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/dragon_slot.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[11] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 1.000000;
+				y = -165.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 84;
+				height = 84;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/dragon_slot.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[12] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 93.000000;
 				y = -165.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -1536,7 +1398,7 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -91.000000;
+				x = 185.000000;
 				y = -165.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -1560,84 +1422,6 @@
 			};
 			[14] =
 			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 1.000000;
-				y = -165.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/dragon_slot.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[15] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 93.000000;
-				y = -165.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/dragon_slot.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[16] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 185.000000;
-				y = -165.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/dragon_slot.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[17] =
-			{
 				type = 'Node';
 				ui_name = '';
 				x = -183.000000;
@@ -1655,7 +1439,7 @@
 				visible = true;
 				lua_name = 'slotNode1';
 			};
-			[18] =
+			[15] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1674,7 +1458,7 @@
 				visible = true;
 				lua_name = 'slotNode2';
 			};
-			[19] =
+			[16] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1693,7 +1477,7 @@
 				visible = true;
 				lua_name = 'slotNode3';
 			};
-			[20] =
+			[17] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1712,7 +1496,7 @@
 				visible = true;
 				lua_name = 'slotNode4';
 			};
-			[21] =
+			[18] =
 			{
 				type = 'Node';
 				ui_name = '';
