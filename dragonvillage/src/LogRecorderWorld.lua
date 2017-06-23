@@ -37,6 +37,7 @@ function LogRecorderWorld:init(world)
 	self.m_useSkillCnt = 0
 	self.m_lapTime = 0
 	self.m_feverCnt = 0
+    self.m_activeKillCnt = 0
 	self.m_bossFinishAtk = nil
 
 	self.m_tCharLogTable = {}
