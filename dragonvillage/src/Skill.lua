@@ -47,9 +47,12 @@ Skill = class(PARENT, {
         -- 스킬 종료시 피드백(보너스) 관련
         m_bonusLevel = 'number',
         m_hitTargetList = 'table',
-
+        
         -- 하이라이트시 숨김 처리
         m_dataForTemporaryPause = '',
+
+        -- 미사일 사용 여부(미사일 사용시는 일정시간 동안 스킬을 살림)
+        m_bUseMissile = 'boolean'
      })
 
 -------------------------------------
@@ -59,6 +62,7 @@ Skill = class(PARENT, {
 -------------------------------------
 function Skill:init(file_name, body, ...)
     self.m_dataForTemporaryPause = nil
+    self.m_bUseMissile = false
 end
 
 -------------------------------------
@@ -195,7 +199,7 @@ end
 -- function setCommonState
 -------------------------------------
 function Skill:changeState(state, forced)
-    if (self.m_bSkillHitEffect) then
+    if (self.m_bUseMissile or self.m_bSkillHitEffect) then
         if (state == 'dying' and not forced) then
             state = 'dying_wait'
         end
@@ -238,7 +242,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
     self.m_bonusLevel = t_data['bonus'] or 0
     
     -- 생성
-    if self.m_bSkillHitEffect then
+    if (self.m_bSkillHitEffect) then
         self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner,  self.m_bonusLevel)
     end
 end
@@ -708,6 +712,16 @@ function Skill:setTemporaryPause(pause)
     end
 
     return false
+end
+
+-------------------------------------
+-- function makeMissile
+-------------------------------------
+function Skill:makeMissile(t_option)
+    self.m_bUseMissile = true
+
+    -- 발사
+	self.m_world.m_missileFactory:makeMissile(t_option)
 end
 
 -------------------------------------

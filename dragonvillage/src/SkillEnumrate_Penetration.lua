@@ -30,8 +30,6 @@ end
 -------------------------------------
 function SkillEnumrate_Penetration:fireMissile(idx)
     local char = self.m_owner
-    local world = self.m_world
-
     local t_option = {}
 
     t_option['owner'] = char
@@ -71,7 +69,7 @@ function SkillEnumrate_Penetration:fireMissile(idx)
 	end
 
 	-- fire!!
-    world.m_missileFactory:makeMissile(t_option)
+    self:makeMissile(t_option)
 end
 
 -------------------------------------

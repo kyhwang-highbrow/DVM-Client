@@ -128,8 +128,7 @@ function SkillAoERound_Sura:fireMissile(target)
         self:onAttack(defender)
 	end
         
-	local world = self.m_world
-    local missile = world.m_missileFactory:makeMissile(t_option)
+	self:makeMissile(t_option)
 end
 
 -------------------------------------

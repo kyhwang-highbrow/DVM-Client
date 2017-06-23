@@ -669,7 +669,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
     end
 
-    -- 상태이상 체크
+    -- 상태이상 체크(attack_activity_carrier가 가진 상태효과)
     if (not no_event and not is_miss) then
         StatusEffectHelper:statusEffectCheck_onHit(attack_activity_carrier, self)
     end
@@ -803,16 +803,20 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 		    end
 
             -- @LOG : 드래그 스킬로 처치
-            local attack_activity_carrier = attacker.m_activityCarrier
-            local attack_type = attack_activity_carrier:getAttackType()
-            if (attack_type == 'active') then
-                self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
+            if (attacker) then
+                local attack_activity_carrier = attacker.m_activityCarrier
+                local attack_type = attack_activity_carrier:getAttackType()
+                if (attack_type == 'active') then
+                    self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
+                end
             end
         end
     end
 
     -- 피격시 타격감을 위한 연출
-    self:runAction_Hit(attacker, dir)
+    if (attacker) then
+        self:runAction_Hit(attacker, dir)
+    end
 end
 
 -------------------------------------

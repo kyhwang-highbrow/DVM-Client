@@ -26,7 +26,9 @@ function StatusEffectHelper:statusEffectCheck_onHit(activity_carrier, defender)
     for type, t_content in pairs(activity_carrier.m_lStatusEffectRate) do
 		local value = t_content['value']
 		local rate = t_content['rate']
-        StatusEffectHelper:invokeStatusEffect(attacker, defender, type, value, nil, rate, nil, skill_id)
+        local source = t_content['source']
+        local duration = t_content['duration']
+        StatusEffectHelper:invokeStatusEffect(attacker, defender, type, value, source, rate, duration, skill_id)
     end
 end
 

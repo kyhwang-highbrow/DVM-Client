@@ -24,7 +24,6 @@ function SkillEnumrate_Curve:init_skill(missile_res, motionstreak_res, line_num,
 	-- 1. 멤버 변수
 	self.m_skillInterval = g_constant:get('SKILL', 'CURVE_INTERVAL')
 	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + g_constant:get('SKILL', 'CURVE_FIRE_DELAY') -- 발사 간격 * 발사 수 + 발사 딜레이
-	self.m_bSkillHitEffect = false
 end
 
 -------------------------------------
@@ -32,9 +31,7 @@ end
 -- @override
 -------------------------------------
 function SkillEnumrate_Curve:fireMissile(idx)
-    local world = self.m_world
-    
-	local char = self.m_owner
+    local char = self.m_owner
 	local target_char = self:getNextTarget(idx)
     
     local t_option = {}
@@ -81,7 +78,7 @@ function SkillEnumrate_Curve:fireMissile(idx)
     t_option['max_hit_count'] = self.m_targetLimit
 	
 	-- fire!!
-    world.m_missileFactory:makeMissile(t_option)
+    self:makeMissile(t_option)
 end
 
 -------------------------------------

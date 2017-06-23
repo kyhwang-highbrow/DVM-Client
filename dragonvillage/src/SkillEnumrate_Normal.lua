@@ -30,9 +30,7 @@ end
 -- function fireMissile
 -------------------------------------
 function SkillEnumrate_Normal:fireMissile(idx)
-    local world = self.m_world
-    
-	local char = self.m_owner
+    local char = self.m_owner
 	local target_char = self:getNextTarget(idx)
 
     local t_option = {}
@@ -73,7 +71,7 @@ function SkillEnumrate_Normal:fireMissile(idx)
 	end
 
 	-- fire!!
-    world.m_missileFactory:makeMissile(t_option)
+    self:makeMissile(t_option)
 end
 
 -------------------------------------

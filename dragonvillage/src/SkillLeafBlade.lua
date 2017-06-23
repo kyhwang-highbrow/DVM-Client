@@ -56,13 +56,9 @@ end
 -------------------------------------
 function SkillLeafBlade:fireMissile()
     local targetPos = self.m_targetPos
-    if (not targetPos) then
-        return 
-    end
+    if (not targetPos) then return end
 
     local char = self.m_owner
-    local world = self.m_world
-
     local t_option = {}
 
     t_option['owner'] = char
@@ -103,14 +99,16 @@ function SkillLeafBlade:fireMissile()
     t_option['lua_param']['value2'] = 'top'
     for i = 1, self.m_targetCount do 
         t_option['lua_param']['value3'] = 0.15 * (i-1)
-        local missile = world.m_missileFactory:makeMissile(t_option)
+
+        self:makeMissile(t_option)
     end
     
     -- 하탄 
     t_option['lua_param']['value2'] = 'bottom'
     for i = 1, self.m_targetCount do
         t_option['lua_param']['value3'] = 0.15 * (i-1)
-        local missile = world.m_missileFactory:makeMissile(t_option)
+
+        self:makeMissile(t_option)
     end
 end
 

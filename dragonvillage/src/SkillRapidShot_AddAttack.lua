@@ -52,8 +52,7 @@ end
 -------------------------------------
 function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
     local char = self.m_owner
-    local world = self.m_world
-	local target = target or self.m_targetChar
+    local target = target or self.m_targetChar
 
     local t_option = {}
 
@@ -105,7 +104,7 @@ function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
     t_option['max_hit_count'] = self.m_targetLimit
 
     -- 발사
-	world.m_missileFactory:makeMissile(t_option)
+    self:makeMissile(t_option)
 end
 
 -------------------------------------

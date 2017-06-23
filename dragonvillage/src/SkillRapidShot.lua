@@ -81,8 +81,7 @@ end
 -------------------------------------
 function SkillRapidShot:fireMissile()
     local char = self.m_owner
-    local world = self.m_world
-	local target = self.m_targetChar
+    local target = self.m_targetChar
 	local attack_pos_x, attack_pos_y = self:getAttackPosition()
 
     local t_option = {}
@@ -119,7 +118,7 @@ function SkillRapidShot:fireMissile()
 	end
 
     -- 발사
-	world.m_missileFactory:makeMissile(t_option)
+    self:makeMissile(t_option)
 end
 
 -------------------------------------
