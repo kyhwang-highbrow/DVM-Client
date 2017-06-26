@@ -136,7 +136,7 @@ function SkillLaser.st_disappear(owner, dt)
         local function ani_handler()
             owner:changeState('dying')
         end
-		owner.m_linkEffect:setVisible(false)
+		--owner.m_linkEffect:setVisible(false)
         owner.m_linkEffect:changeCommonAni('disappear', false, ani_handler)
     end
 end
