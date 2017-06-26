@@ -1,17 +1,10 @@
 {
     "difficult":2,
-    "bg":"map_ancient_tower"
-	"camera":
-	{
-		"scale":0.8,
-		"pos_x":0,
-		"pos_y":0
-	},
-		
+    "bg":"map_ancient_tower",
 	"wave":
 	[
         {
-			"idx":1,
+            "idx":1,
 			"camera":
             {
                 "scale":0.8,
@@ -22,105 +15,81 @@
             {
 				0:
 				[
-					"131063;1;Basic;BO08;RF22;0.5"
-				],
-				
-				0.2:
-				[
-					"131063;1;Basic;BO10;RM24;0.5"
-				],
-				
-				0.4:
-				[	
-					"131063;1;Basic;BO12;RB23;0.5"
-				],
-				
-				0.8:
-				[	
-					"130013;1;Basic;BO07;RF14;0.5"
+					"130011;1;Basic;RO06;RF22;2"
+					"130011;1;Basic;RO04;RF14;2"
+					"130011;1;Basic;RO02;RF26;2"
 				],
 				
 				1:
-				[	
-					"130033;1;Basic;BO08;RF26;0.5"
-				],
-				
-				1.2:
-				[	
-					"130053;1;Basic;BO12;RB25;0.5"
+				[
+					"131031;1;Basic2;RB13;RM23;0.5;roam"
+					"131031;1;Basic2;RB15;RM25;0.5;roam"
+					"130031;1;Basic2;RB24;RB14;0.5"
 				]
             }
-		},
-		
-		{
-			"idx":2,
+        },
+        {
+            "idx":2,
 			"camera":
             {
                 "scale":0.7,
                 "pos_x":0,
-                "pos_y":1200
+                "pos_y":0
             },
             "wave":
             {
-				0:
-				[
-					"130013;1;Basic2;RB23;RF13;2"
-					"130013;1;Basic2;RB24;RF15;2"
+                0:
+                [
+					"130011;1;Basic2;RF24;RF14;1"
+					"130011;1;Basic2;RM16;RF22;1"
+					"130011;1;Basic2;RM12;RF26;1"
 				],
 				
 				0.2:
-				[	
-					"131063;1;Basic2;RB21;RM11;1.8"
-					"131063;1;Basic2;RB27;RM17;1.8"
-				],
-				
-				0.4:
-				[	
-					"131063;1;Basic2;RB24;RM24;1.6"
-				],
-				
-				0.6:
-				[	
-					"130043;1;Basic2;RB22;RB22;1.4"
-					"130043;1;Basic2;RB26;RB26;1.4"
-				]
+				[
+					"130041;1;Basic2;RM24;RM14;1"
+					"131031;1;Basic2;RB26;RB12;1;roam"
+					"131031;1;Basic2;RB22;RB16;1;roam"
+                ]		
             }
-		},
+        },
 		
-		{
+        {
             "idx":3,
 			"camera":
             {
                 "scale":0.6,
                 "pos_x":0,
-                "pos_y":2560
+                "pos_y":0
             },
-            "direction":"boss_wave",
             "wave":
-            {				
+            {
+				
 				0:
 				[
-				"135023;1;NestTree;BOSS;NEST;2"
+					"132031;1;Appear;RO04;RB14;0.5;roam"
 				]
             },
 			
 			"regen":
-			{
-				0:
-				[
-					"131063;1;Appear;RO01;RF21;0.5"
-					"131063;1;Appear;RO07;RF27;0.5"
-				]
-			}
+			[
+				{
+					0:
+					[
+						"130011;1;Basic2;RB24;RF13;2"
+						"130011;1;Basic2;RB13;RF15;2"
+						"130011;1;Basic2;RB15;RF24;2"
+					]
+				},
+				
+				{
+					2:
+					[
+						"131031;1;Appear;RO02;RM12;0.5"
+						"131031;1;Appear;RO06;RM16;0.5"
+					]
+				}
+			]
         }
-    ],
-	
-    "summon":
-    {
-        0:
-        [
-			"131063;1;Appear;RO01;RF21;0.5"
-			"131063;1;Appear;RO07;RF27;0.5"
-		]
-    }
+    ]
 }
