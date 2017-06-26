@@ -213,7 +213,9 @@ function UI_DragonLevelUp:getDragonMaterialList(doid)
     local dragon_dic = g_dragonsData:getDragonListWithSlime()
 
     -- 자기 자신 드래곤 제외
-    --dragon_dic[doid] = nil
+    if dragon_dic[doid] then
+        dragon_dic[doid] = nil
+    end
 
     -- 재료로 사용 불가능한 드래곤 제외
     for oid,v in pairs(dragon_dic) do
