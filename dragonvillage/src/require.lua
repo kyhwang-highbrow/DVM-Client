@@ -63,6 +63,7 @@ local t_module = {
     'StructCollisionData',
 	'StructBookData',
     'StructAncientTowerFloorData',
+    'StructProduct',
 
 	-- ServerData
     'ServerData',
@@ -86,6 +87,7 @@ local t_module = {
     'ServerData_Inventory',
     'ServerData_Friend',
 	'ServerData_Shop',
+    'ServerData_ShopOld',
     'ServerData_Mail',
     'ServerData_Item',
     'ServerData_Gacha',
@@ -541,6 +543,9 @@ local t_module = {
 	'UI_Tooltip_Indicator',
     'UI_Tooltip_Skill',
     'UI_TopUserInfo',
+    'UI_Shop',
+    'UI_ShopMoneyTab',
+    'UI_ShopCashTab',
     'UI_ShopPopup',
 	'UI_ShopListItem',
     'UI_ItemCard',

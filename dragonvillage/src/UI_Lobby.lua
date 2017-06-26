@@ -350,6 +350,7 @@ end
 -------------------------------------
 function UI_Lobby:click_shopBtn()
     g_shopData:openShopPopup()
+    --UI_Shop()
 end
 
 -------------------------------------

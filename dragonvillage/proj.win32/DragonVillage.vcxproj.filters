@@ -2409,6 +2409,18 @@
     <None Include="..\src\SkillHealAoESquare_Height.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ShopCashTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Shop.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ShopMoneyTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_ShopOld.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
