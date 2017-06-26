@@ -606,7 +606,7 @@ function GameDragonSkill:releaseFocusingDragon()
     if (self.m_dragon) then
         self.m_dragon:removeListener('dead', self)
 
-        if (self.m_dragon.m_hp > 0) then
+        if (self.m_dragon.m_hp > 0 and self.m_dragon.m_state ~= 'delegate') then
             self.m_dragon:changeState('attackDelay')
         end
     end

@@ -237,6 +237,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillLaser:makeSkillInstance(self, t_skill, t_data) 
 				return true
 
+            elseif (skill_type == 'Skill_laser_darknix') then
+				SkillLaser_Darknix:makeSkillInstance(self, t_skill, t_data) 
+				return true
+
 			elseif (skill_type == 'skill_lightning') then
 				SkillChainLightning:makeSkillInstance(self, t_skill, t_data) 
 				return true

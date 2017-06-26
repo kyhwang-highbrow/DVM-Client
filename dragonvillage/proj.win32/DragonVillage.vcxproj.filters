@@ -2409,6 +2409,9 @@
     <None Include="..\src\SkillHealAoESquare_Height.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillLaser_Darknix.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_ShopCashTab.lua">
       <Filter>lua\UI</Filter>
     </None>
