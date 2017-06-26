@@ -200,13 +200,15 @@ end
 -------------------------------------
 UI_IndivisualTab = class(UI, {
         m_ownerUI = '',
+        m_tabName = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_IndivisualTab:init(owner_ui)
+function UI_IndivisualTab:init(owner_ui, tab_name)
     self.m_ownerUI = owner_ui
+    self.m_tabName = tab_name
 
     -- 아래의 형태로 사용하세요.
     --local vars = self:load('event_exchange.ui')

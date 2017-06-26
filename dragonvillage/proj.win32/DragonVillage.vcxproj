@@ -880,6 +880,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ObtainPopup.lua" />
     <None Include="..\src\UI_OverallRankingListItem.lua" />
     <None Include="..\src\UI_OverallRankingPopup.lua" />
+    <None Include="..\src\UI_Product.lua" />
     <None Include="..\src\UI_ReadyScene_LeaderPopup.lua" />
     <None Include="..\src\UI_ReadyScene_Select.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoPopup.lua" />
@@ -939,8 +940,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_SettingGameTab.lua" />
     <None Include="..\src\UI_SettingInfoTab.lua" />
     <None Include="..\src\UI_Shop.lua" />
-    <None Include="..\src\UI_ShopCashTab.lua" />
-    <None Include="..\src\UI_ShopMoneyTab.lua" />
+    <None Include="..\src\UI_ShopTab.lua" />
     <None Include="..\src\UI_SimpleEditBoxPopup.lua" />
     <None Include="..\src\UI_SkillEnhance.lua" />
     <None Include="..\src\UI_StartIntro.lua" />

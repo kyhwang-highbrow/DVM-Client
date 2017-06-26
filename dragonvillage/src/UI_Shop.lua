@@ -49,23 +49,16 @@ end
 function UI_Shop:initTab()
     local vars = self.vars
 
-    local money_tab = UI_ShopMoneyTab(self)
-    local cash_tab = UI_ShopCashTab(self)
-
-    self:addTabWidthTabUI('money', vars['moneyBtn'], money_tab)       -- 다이아 상점
-    self:addTabWidthTabUI('cash', vars['cashBtn'], cash_tab)       -- 다이아 상점
+    self:addTabWidthTabUI('money', vars['moneyBtn'], UI_ShopTab(self, 'money'))
+    self:addTabWidthTabUI('cash', vars['cashBtn'], UI_ShopTab(self, 'cash'))
+    self:addTabWidthTabUI('amethyst', vars['amethystBtn'], UI_ShopTab(self, 'amethyst'))
+    self:addTabWidthTabUI('topaz', vars['topazBtn'], UI_ShopTab(self, 'topaz'))
+    self:addTabWidthTabUI('mileage', vars['mileageBtn'], UI_ShopTab(self, 'mileage'))
+    self:addTabWidthTabUI('capsule', vars['capsuleBtn'], UI_ShopTab(self, 'capsule'))
+    self:addTabWidthTabUI('honor', vars['honorBtn'], UI_ShopTab(self, 'honor'))
+    self:addTabWidthTabUI('package', vars['packageBtn'], UI_ShopTab(self, 'package'))
 
     self:setTab('money')
-        --[[
-    self:addTab(TableShop.CASH, vars['cashBtn'], vars['cashNode'])
-	self:addTab(TableShop.GOLD, vars['goldBtn'], vars['goldNode'])
-	self:addTab(TableShop.STAMINA, vars['staminaBtn'], vars['staminaNode'])
-    self:addTab(TableShop.RECOMMEND, vars['recommendBtn'], vars['recommendNode'])
-	self:addTab(TableShop.LIMIT, vars['limitBtn'], vars['limitNode'])
-	self:addTab(TableShop.HONOR, vars['honorBtn'], vars['honorNode'])
-
-    self:setTab(TableShop.CASH)
-    --]]
 end
 
 -------------------------------------

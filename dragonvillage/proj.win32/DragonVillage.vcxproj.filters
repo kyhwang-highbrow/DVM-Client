@@ -2412,13 +2412,7 @@
     <None Include="..\src\SkillLaser_Darknix.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_ShopCashTab.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_Shop.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ShopMoneyTab.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\ServerData_ShopOld.lua">
@@ -2426,6 +2420,12 @@
     </None>
     <None Include="..\src\TableExplorationList.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_Product.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ShopTab.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

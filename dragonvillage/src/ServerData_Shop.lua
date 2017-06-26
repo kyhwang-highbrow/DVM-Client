@@ -115,6 +115,10 @@ end
 function ServerData_Shop:getProductList(tab_category)
     local l_product = self.m_dicProduct[tab_category]
 
+    if (not l_product) then
+        return {}
+    end
+
     -- 리스트를 맵 형태로 변환 (key가 product_id가 되도록)
     local product_map = {}
     for i,v in pairs(l_product) do
