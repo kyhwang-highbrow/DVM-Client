@@ -138,6 +138,16 @@ function UI_ExplorationResultPopup:initUI()
     icon:setDockPoint(cc.p(0.5, 0.5))
     icon:setAnchorPoint(cc.p(0.5, 0.5))
     vars['stageNode']:addChild(icon)
+
+
+    -- 대성공
+    if self.m_data['great'] then
+        vars['successVisual']:setVisible(true)
+        local function ani_handler()
+            vars['successVisual']:setVisible(false)
+        end
+        vars['successVisual']:addAniHandler(ani_handler)
+    end
 end
 
 -------------------------------------
