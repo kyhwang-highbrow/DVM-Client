@@ -449,6 +449,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- Event Carrier 세팅
 		local t_event = clone(EVENT_HIT_CARRIER)
 		t_event['attacker'] = attacker
+        t_event['defender'] = defender
 		-- @EVENT
 		self:dispatch('guardian', t_event)
 		return
