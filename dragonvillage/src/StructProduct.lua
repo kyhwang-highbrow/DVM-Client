@@ -20,6 +20,7 @@ StructProduct = class({
         m_startDate = 'pl.Date',
         m_endDate = 'pl.Date',
         m_dependency = 'product_id',
+        m_uiPriority = 'number',
     })
 
 -------------------------------------
@@ -27,6 +28,7 @@ StructProduct = class({
 -------------------------------------
 function StructProduct:init(data)
     self.price_dollar = 0
+    self.m_uiPriority = 0
 
     if data then
         self:applyTableData(data)
@@ -88,11 +90,26 @@ function StructProduct:getDependency()
 end
 
 -------------------------------------
+-- function setUIPriority
+-------------------------------------
+function StructProduct:setUIPriority(ui_priority)
+    self.m_uiPriority = ui_priority
+end
+
+-------------------------------------
+-- function getUIPriority
+-------------------------------------
+function StructProduct:getUIPriority()
+    return self.m_uiPriority
+end
+
+-------------------------------------
 -- function isItBuyable
 -------------------------------------
 function StructProduct:isItBuyable()
     return false
 end
+
 
 -------------------------------------
 -- function getDesc

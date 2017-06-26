@@ -67,4 +67,24 @@ function UI_ShopTab:init_TableView()
 
     -- tab의 visible on/off를 위해
     self.root = table_view.m_scrollView
+
+    self:sortProduct()
+end
+
+-------------------------------------
+-- function sortProduct
+-------------------------------------
+function UI_ShopTab:sortProduct()
+    local function sort_func(a, b)
+        local a_data = a['data']
+        local b_data = b['data']
+
+        if (a_data:getUIPriority() ~= b_data:getUIPriority()) then
+            return a_data:getUIPriority() > b_data:getUIPriority()
+        end
+
+        return a_data['product_id'] < b_data['product_id']
+    end
+
+    table.sort(self.m_tableView.m_itemList, sort_func)
 end

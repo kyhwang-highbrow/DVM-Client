@@ -69,6 +69,10 @@ function ServerData_Shop:localTableTest()
             local tab_category = v['tab_category']
             local product_id = v['product_id']
             local dependency = v['dependency']
+            local ui_priority = v['ui_priority'] and tonumber(v['ui_priority'])
+            if (not ui_priority) then
+                ui_priority = 0
+            end
             local t_product = nil
 
             if (tab_category == 'money') then
@@ -82,6 +86,7 @@ function ServerData_Shop:localTableTest()
             struct_product:setStartDate(start_date)
             struct_product:setEndDate(end_date)
             struct_product:setDependency(dependency)
+            struct_product:setUIPriority(ui_priority)
             self:insertProduct(struct_product)
         end
     end
