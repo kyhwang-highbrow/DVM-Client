@@ -1112,6 +1112,11 @@ function Character:healAbs(caster, heal, b_make_effect)
         local effect = self.m_world:addInstantEffect(res, 'idle', pos_x, pos_y)
     end
 
+    if (caster) then
+        -- 회복 되었을 시 이벤트
+        self:dispatch('recovery', {}, self)
+    end
+
 	-- @LOG_CHAR : 피회복자 피회복량
 	self.m_charLogRecorder:recordLog('be_healed', heal)
 	-- @LOG_CHAR : 회복시전자 회복량

@@ -44,6 +44,9 @@ function Character:onEvent(event_name, t_event, ...)
 
 	elseif (event_name == 'get_debuff') then
 
+    elseif (event_name == 'recovery') then
+        self:onEvent_recovery()
+
 	elseif (event_name == 'stat_changed') then
 		self:onEvent_updateStat()
 
@@ -131,6 +134,24 @@ function Character:onEvent_underAllyHp(hp, max_hp)
     for i, v in pairs(self.m_lSkillIndivisualInfo['under_ally_hp']) do
         if (v:isEndCoolTime()) then
             if (percentage <= v.m_tSkill['chance_value']) then
+                self:doSkill(v.m_skillID, 0, 0)
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function onEvent_recovery
+-------------------------------------
+function Character:onEvent_recovery()
+    if (not self.m_statusCalc) then
+		return
+	end
+
+    for i, v in pairs(self.m_lSkillIndivisualInfo['heal']) do
+        if (v:isEndCoolTime()) then
+            local rand = math_random(1, 100)
+            if (rand <= v.m_tSkill['chance_value']) then
                 self:doSkill(v.m_skillID, 0, 0)
             end
         end

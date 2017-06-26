@@ -77,7 +77,7 @@ function TableDragonSkill:addFunctionsForEquation()
         local operator = string.match(power_source, '[*+/-]')
         if (operator) then
             local key = v['sid']
-            local ret = pl.utils.load(
+            local func = pl.utils.load(
                 'EQUATION_FUNC[' .. key .. '] = function(owner)' ..
                 ' local atk = owner:getStat(\'atk\')' ..
                 ' local def = owner:getStat(\'def\')' ..
@@ -93,6 +93,8 @@ function TableDragonSkill:addFunctionsForEquation()
                 ' return ret' ..
                 ' end'
             )
+
+            func()
         end
     end
 end
