@@ -388,11 +388,17 @@ end
 -- function kill_one_dragon
 -- @brief 아군 하나 죽이기
 -------------------------------------
-function GameWorld:kill_one_dragon()
+function GameWorld:kill_one_dragon(dragon)
     for i, v in ipairs(self:getDragonList()) do
-        if not v.m_bDead then
+        if ((not v.m_bDead)) then
+            if (not dragon) then
             v:setDamage(nil, v, v.pos.x, v.pos.y, 999999)
             break
+            else 
+                if (dragon == v) then
+                    v:setDamage(nil, v, v.pos.x, v.pos.y, 999999)
+                end
+            end
         end
     end
 end
