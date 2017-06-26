@@ -42,11 +42,11 @@ function AncientTowerScoreCalc:calcFinalScore()
 
     local weak_grade = self:getWeakGrade()
 
-    cclog('-- 클리어 타임 : ' .. clear_time)
-    cclog('-- 드래곤 사망수 : ' .. death_count)
-    cclog('-- 보스 막타 : ' .. finish_type)
-    cclog('-- 드래그 스킬로 적 처치 : ' .. active_count)
-    cclog('-- 약화등급 + 1 : '.. weak_grade)
+    cclog('-- 클리어 타임 : ' .. tostring(clear_time))
+    cclog('-- 드래곤 사망수 : ' .. tostring(death_count))
+    cclog('-- 보스 막타 : ' .. tostring(finish_type))
+    cclog('-- 드래그 스킬로 적 처치 : ' .. tostring(active_count))
+    cclog('-- 약화등급 + 1 : '.. tostring(weak_grade))
 
     -- 최종 계산에서만 소수점 절삭
     self.m_score = math_floor((v1 + v2 + v3 + v4 + v5) / (weak_grade))
