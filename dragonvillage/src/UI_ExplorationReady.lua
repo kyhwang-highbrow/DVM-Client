@@ -12,7 +12,8 @@ UI_ExplorationReady = class(PARENT,{
         m_currSlotIdx = 'number',
         m_currDragonCnt = 'number',
         m_focusDeckSlotEffect = 'cc.Sprite',
-        m_dragonSortManager = 'SortManager_Dragon',
+        m_sortManagerDragon = 'SortManager_Dragon',
+        m_uicSortList = 'UIC_SortList',
         m_bActive = 'boolean',
     })
 
@@ -50,9 +51,6 @@ function UI_ExplorationReady:init(epr_id)
     self:doActionReset()
     self:doAction(nil, false)
 
-    -- 정렬 매니저
-    self.m_dragonSortManager = SortManager_Dragon()
-
     self:initUI()
     self:initButton()
     self:refresh()
@@ -66,6 +64,9 @@ end
 function UI_ExplorationReady:initUI()
     local vars = self.vars
     self:init_tableView()
+
+    -- 정렬 매니저
+    self:init_dragonSortMgr()
 
     do
         self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
@@ -91,6 +92,16 @@ function UI_ExplorationReady:initUI()
     icon:setDockPoint(cc.p(0.5, 0.5))
     icon:setAnchorPoint(cc.p(0.5, 0.5))
     vars['stageNode']:addChild(icon)
+
+
+    do -- 테스트
+        local l_doid = g_localData:getExplorationDec(self.m_eprID)
+        if l_doid then
+            for i,v in ipairs(l_doid) do
+                self:click_dragonBtn(v)
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -115,6 +126,10 @@ function UI_ExplorationReady:init_tableView()
             ui:setShadowSpriteVisible(true)
         end
 
+        if self.m_selectedDragonMap[doid] then
+            ui:setCheckSpriteVisible(true)
+        end
+
         local doid = data['id']
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonBtn(doid) end)
     end
@@ -132,22 +147,6 @@ function UI_ExplorationReady:init_tableView()
     -- 정렬
     --g_friendData:sortForFriendList(table_view.m_itemList)
     self.m_tableViewTD = table_view_td
-    
-    self:refresh_sortUI()
-end
-
--------------------------------------
--- function refresh_sortUI
--------------------------------------
-function UI_ExplorationReady:refresh_sortUI()
-    local vars = self.vars
-
-    local sort_manager = self.m_dragonSortManager
-
-    -- 테이블 뷰 정렬
-    local table_view = self.m_tableViewTD
-    sort_manager:sortExecution(table_view.m_itemList)
-    table_view:setDirtyItemList()
 end
 
 -------------------------------------
@@ -156,20 +155,6 @@ end
 function UI_ExplorationReady:initButton()
     local vars = self.vars
     vars['explorationBtn']:registerScriptTapHandler(function() self:click_explorationBtn() end)
-
-    do -- 정렬 관련 버튼들
-        vars['sortSelectOrderBtn']:registerScriptTapHandler(function() self:clcik_sortSelectOrderBtn() end)
-
-        vars['sortSelectBtn']:registerScriptTapHandler(function() self:click_sortSelectBtn() end)
-        vars['sortSelectHpBtn']:registerScriptTapHandler(function() self:click_sortBtn('hp') end)
-        vars['sortSelectDefBtn']:registerScriptTapHandler(function() self:click_sortBtn('def') end)
-        vars['sortSelectAtkBtn']:registerScriptTapHandler(function() self:click_sortBtn('atk') end)
-        vars['sortSelectAttrBtn']:registerScriptTapHandler(function() self:click_sortBtn('attr') end)
-        vars['sortSelectLvBtn']:registerScriptTapHandler(function() self:click_sortBtn('lv') end)
-        vars['sortSelectGradeBtn']:registerScriptTapHandler(function() self:click_sortBtn('grade') end)
-        vars['sortSelectRarityBtn']:registerScriptTapHandler(function() self:click_sortBtn('rarity') end)
-        vars['sortSelectFriendshipBtn']:registerScriptTapHandler(function() self:click_sortBtn('friendship') end)
-    end
 end
 
 -------------------------------------
@@ -215,10 +200,14 @@ end
 -------------------------------------
 -- function click_dragonBtn
 -------------------------------------
-function UI_ExplorationReady:click_dragonBtn(doid)
+function UI_ExplorationReady:click_dragonBtn(doid, skip_msg)
+
+    if (not g_dragonsData:getDragonDataFromUid(doid)) then
+        return
+    end
 
     -- 다른 지역을 탐험 중인 드래곤은 사용할 수 없음
-    if g_explorationData:isExplorationUsedDragon(doid) then
+    if (not skip_msg) and g_explorationData:isExplorationUsedDragon(doid) then
         UIManager:toastNotificationRed('다른 지역을 탐험 중인 드래곤입니다.')
         return
     end
@@ -237,7 +226,9 @@ function UI_ExplorationReady:click_dragonBtn(doid)
 
         local item = table_view_td:getItem(doid)
         local ui = item['ui']
-        ui:setCheckSpriteVisible(true)
+        if ui then
+            ui:setCheckSpriteVisible(true)
+        end
 
         self.m_selectedDragonList[self.m_currSlotIdx] = doid
         self.m_selectedDragonMap[doid] = self.m_currSlotIdx
@@ -256,11 +247,13 @@ function UI_ExplorationReady:click_dragonBtn(doid)
     else
         local item = table_view_td:getItem(doid)
         local ui = item['ui']
-        ui:setCheckSpriteVisible(false)
+        if ui then
+            ui:setCheckSpriteVisible(false)
 
-        -- UI 연출
-        local scale = 0.66
-        cca.uiReactionSlow(ui.root, scale, scale, scale*0.9, scale*0.9)
+            -- UI 연출
+            local scale = 0.66
+            cca.uiReactionSlow(ui.root, scale, scale, scale*0.9, scale*0.9)
+        end
 
         self.m_selectedDragonMap[doid] = nil
         self.m_selectedDragonList[slot_idx] = nil
@@ -307,6 +300,9 @@ function UI_ExplorationReady:click_explorationBtn()
             UIManager:toastNotificationGreen('드래곤 5마리가 탐험을 떠났습니다.')
             self.m_bActive = true
             self:close()
+
+            -- 덱 저장
+            local l_doid = g_localData:setExplorationDec(self.m_eprID, self.m_selectedDragonList)
         end
 
         -- params
@@ -320,29 +316,55 @@ function UI_ExplorationReady:click_explorationBtn()
 end
 
 -------------------------------------
--- function clcik_sortSelectOrderBtn
+-- function init_dragonSortMgr
+-- @brief 정렬 도우미
 -------------------------------------
-function UI_ExplorationReady:clcik_sortSelectOrderBtn()
-    local sort_manager = self.m_dragonSortManager
-    sort_manager:setAllAscending(not sort_manager.m_defaultSortAscending)
-    self:refresh_sortUI()
-end
+function UI_ExplorationReady:init_dragonSortMgr()
+    -- 정렬 매니저 생성
+    self.m_sortManagerDragon = SortManager_Dragon()
 
--------------------------------------
--- function click_sortSelectBtn
--------------------------------------
-function UI_ExplorationReady:click_sortSelectBtn()
+    -- 정렬 UI 생성
     local vars = self.vars
-    vars['sortSelectNode']:runAction(cc.ToggleVisibility:create())
+    local uic_sort_list = MakeUICSortList_dragonManage(vars['sortSelectBtn'], vars['sortSelectLabel'], UIC_SORT_LIST_TOP_TO_BOT)
+    self.m_uicSortList = uic_sort_list
+    
+
+    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        self.m_sortManagerDragon:pushSortOrder(sort_type)
+        self:apply_dragonSort()
+        --self:save_dragonSortInfo()
+    end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
+
+    -- 오름차순/내림차순 버튼
+    vars['sortSelectOrderBtn']:registerScriptTapHandler(function()
+            local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)
+            self.m_sortManagerDragon:setAllAscending(ascending)
+            self:apply_dragonSort()
+            --self:save_dragonSortInfo()
+
+            vars['sortSelectOrderSprite']:stopAllActions()
+            if ascending then
+                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+            else
+                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+            end
+        end)
+
+    -- 세이브데이터에 있는 정렬 값을 적용
+    --self:apply_dragonSort_saveData()
+    self:apply_dragonSort()
 end
 
 -------------------------------------
--- function click_sortBtn
+-- function apply_dragonSort
+-- @brief 테이블 뷰에 정렬 적용
 -------------------------------------
-function UI_ExplorationReady:click_sortBtn(sort_type)
-    local sort_manager = self.m_dragonSortManager
-    sort_manager:pushSortOrder(sort_type)
-    self:refresh_sortUI()
+function UI_ExplorationReady:apply_dragonSort()
+    local list = self.m_tableViewTD.m_itemList
+    self.m_sortManagerDragon:sortExecution(list)
+    self.m_tableViewTD:setDirtyItemList()
 end
 
 --@CHECK

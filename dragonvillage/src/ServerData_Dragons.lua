@@ -319,11 +319,6 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
         return false, Str('리더로 설정된 드래곤입니다.')
     end
 
-    -- 탐험 중인 드래곤인지 체크
-    if g_explorationData:isExplorationUsedDragon(doid) then
-        return false, Str('탐험 중인 드래곤입니다.')
-    end
-
     return true
 end
 
@@ -573,6 +568,11 @@ end
 -------------------------------------
 function ServerData_Dragons:getDragonAnimator(doid)
     local t_dragon_data = self:getDragonDataFromUid(doid)
+    
+    if (not t_dragon_data) then
+        return nil
+    end
+
     local animator = self:makeDragonAnimator(t_dragon_data)
 
     return animator

@@ -262,3 +262,19 @@ function LocalData:unlockSaveData()
         self.m_bDirtyDataTable = false
     end
 end
+
+-------------------------------------
+-- function getExplorationDec
+-- @breif
+-------------------------------------
+function LocalData:getExplorationDec(epr_id)
+    return self:get('exploration_deck', tostring(epr_id))
+end
+
+-------------------------------------
+-- function setExplorationDeck
+-- @breif
+-------------------------------------
+function LocalData:setExplorationDec(epr_id, l_doid)
+    self:applyLocalData(l_doid, 'exploration_deck', tostring(epr_id))
+end

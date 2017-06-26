@@ -78,13 +78,16 @@ function UI_ExplorationIng:initUI()
     do -- 드래곤
         for i,doid in ipairs(my_location_info['doid_list'] ) do
             local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-            local ui = UI_DragonCard(t_dragon_data)
-            ui:setReadySpriteVisible(false)
-            self.vars['slotNode' .. i]:addChild(ui.root)
+            
+            if t_dragon_data then
+                local ui = UI_DragonCard(t_dragon_data)
+                ui:setReadySpriteVisible(false)
+                self.vars['slotNode' .. i]:addChild(ui.root)
 
-            -- 드래곤 인게임 리소스 출력
-            local animator = g_dragonsData:getDragonAnimator(doid)
-            self.vars['dragonNode' .. i]:addChild(animator.m_node)
+                -- 드래곤 인게임 리소스 출력
+                local animator = g_dragonsData:getDragonAnimator(doid)
+                self.vars['dragonNode' .. i]:addChild(animator.m_node)
+            end
         end
     end
 

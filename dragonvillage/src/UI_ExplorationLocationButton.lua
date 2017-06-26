@@ -115,7 +115,9 @@ function UI_ExplorationLocationButton:refresh()
     if isExistValue(status, 'exploration_ing', 'exploration_complete') then
         local doid = my_location_info['doid_list'][1]
         local animator = g_dragonsData:getDragonAnimator(doid)
-        vars['dragonNode']:addChild(animator.m_node)
+        if animator then
+            vars['dragonNode']:addChild(animator.m_node)
+        end
     end
 end
 

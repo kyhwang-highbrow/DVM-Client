@@ -65,7 +65,17 @@ function UI_ExplorationResultPopup:initUI()
         local l_dragon_list = self.m_data['modified_dragons']
         local l_before_dragon_list = self.m_data['before_dragons']
 
+        for i=1, 5 do
+            vars['dragonBoard' .. i]:setVisible(false)
+        end
+
+        local interval = 160
+        local count = table.count(l_dragon_list)
+        local l_pos_list = getSortPosList(interval, count)
+
         for i,v in ipairs(l_dragon_list) do
+            vars['dragonBoard' .. i]:setVisible(true)
+            vars['dragonBoard' .. i]:setPositionX(l_pos_list[i])
 
             local user_data = v
             local table_data = TableDragon():get(v['did'])
