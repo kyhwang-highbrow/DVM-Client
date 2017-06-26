@@ -58,6 +58,10 @@ function DropItemMgr:designateDropMonster()
     -- 웨이브 갯수 얻어옴
     local wave_script = self.m_world.m_waveMgr.m_scriptData
     local wave_list = wave_script['wave']
+    if (not wave_list) then
+        error('wave is nil. stage_id = ' .. stage_id)
+    end
+
     local wave_cnt = #wave_list
 
     -- 웨이브 별 아이템 리턴 갯수

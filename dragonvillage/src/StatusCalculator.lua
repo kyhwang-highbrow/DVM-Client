@@ -231,7 +231,8 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
     if (not t_info) then return end
     
     local t_char = self.m_charTable[self.m_chapterID]
-    if (t_char[t_info['condition_type']] ~= t_info['condition_value']) then return end
+    if (t_info['condition_type'] ~= 'all'
+        and t_char[t_info['condition_type']] ~= t_info['condition_value']) then return end
 
     local buff_type = t_info['buff_type']
     local buff_value = t_info['buff_value']
