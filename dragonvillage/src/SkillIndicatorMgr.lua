@@ -302,7 +302,7 @@ function SkillIndicatorMgr:setSelectHero(hero)
             self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
             
             if (self.m_selectHero.m_state == 'skillPrepare') then
-                self.m_selectHero:changeState('attackDelay')
+                self.m_selectHero:changeState('attackDelay', true)
             end
         end
 

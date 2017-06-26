@@ -158,6 +158,7 @@ function IDragonSkillManager:initSkillIDList()
     self.m_lSkillIndivisualInfo['under_ally_hp'] = {}   -- 자신을 제외한 아군의 HP
 
     self.m_lSkillIndivisualInfo['recovery'] = {}        -- 회복 되었을 시
+    self.m_lSkillIndivisualInfo['dead'] = {}            -- 죽었을 시
 
 	-- @TODO 수정 필요
     self.m_lSkillIndivisualInfo['passive'] = {}

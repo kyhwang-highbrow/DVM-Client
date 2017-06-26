@@ -268,9 +268,15 @@ end
 -- @return boolean
 -------------------------------------
 function Dragon:changeState(state, forced)
-    if self.m_bWaitState then
+    if (self.m_bWaitState) then
         if (not isExistValue(state, 'dying', 'dead')) then
             return PARENT.changeState(self, 'wait', true)
+        end
+    end
+
+    if (not forced) then
+        if (state == 'attackDelay' and self.m_state == 'skillPrepare') then
+            return false
         end
     end
 

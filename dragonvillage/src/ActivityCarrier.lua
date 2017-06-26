@@ -152,7 +152,6 @@ function ActivityCarrier:getAtkDmg()
 
     if (EQUATION_FUNC[self.m_skillId]) then
         atk_dmg = EQUATION_FUNC[self.m_skillId](self)
-        cclog('atk_dmg = ' .. atk_dmg)
     else
         atk_dmg = self:getStat(self.m_atkDmgStat)
     end
