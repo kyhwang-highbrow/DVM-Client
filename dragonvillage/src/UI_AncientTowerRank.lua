@@ -6,8 +6,8 @@ UI_AncientTowerRank = class({
 
         m_typeRadioButton = 'UIC_RadioButton',
 
-        m_rankTableView = 'UIC_TableView',  -- ·©Å© ¸®½ºÆ®
-        m_rewardTableView = 'UIC_TableView',  -- º¸»ó ¸®½ºÆ®
+        m_rankTableView = 'UIC_TableView',  -- ë­í¬ ë¦¬ìŠ¤íŠ¸
+        m_rewardTableView = 'UIC_TableView',  -- ë³´ìƒ ë¦¬ìŠ¤íŠ¸
 
         m_rankOffset = 'number',
     })
@@ -41,7 +41,7 @@ end
 function UI_AncientTowerRank:initButton()
     local vars = self.m_uiScene.vars
 
-    -- radio button ¼±¾ğ
+    -- radio button ì„ ì–¸
     local radio_button = UIC_RadioButton()
 	radio_button:setChangeCB(function() self:onChangeOption() end)
     radio_button:addButton('rank', vars['rankingListBtn'])
@@ -83,7 +83,7 @@ function UI_AncientTowerRank:init_rankTableView()
     local node      = self.m_uiScene.vars['rankingListNode']
     local my_node   = self.m_uiScene.vars['rankingMeNode']
 
-    -- ³» ¼øÀ§
+    -- ë‚´ ìˆœìœ„
 	do
 		local t_my_rank = g_ancientTowerData.m_myRank
         t_my_rank['score'] = math_max(t_my_rank['score'], 0)
@@ -92,7 +92,7 @@ function UI_AncientTowerRank:init_rankTableView()
         my_node:addChild(ui.root)
 	end
 
-    -- ÃÖÃÊ »óÀ§ 20¸í
+    -- ìµœì´ˆ ìƒìœ„ 20ëª…
     local l_item_list = g_ancientTowerData.m_lGlobalRank
 
     --[[
@@ -104,7 +104,7 @@ function UI_AncientTowerRank:init_rankTableView()
     l_item_list['next'] = next_data
     ]]--
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
     local function create_func(ui, data)
         local function click_previousButton()
         end
@@ -115,7 +115,7 @@ function UI_AncientTowerRank:init_rankTableView()
         --ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
     end
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(640, 100 + 5)
     table_view:setCellUIClass(UI_AncientTowerRankListItem, create_func)
@@ -123,7 +123,7 @@ function UI_AncientTowerRank:init_rankTableView()
     table_view:setItemList(l_item_list)
     self.m_rankTableView = table_view
 
-    table_view:makeDefaultEmptyDescLabel(Str('·©Å· Á¤º¸°¡ ¾ø½À´Ï´Ù.'))   
+    table_view:makeDefaultEmptyDescLabel(Str('ë­í‚¹ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.'))   
 end
 
 -------------------------------------
@@ -135,7 +135,7 @@ function UI_AncientTowerRank:init_rewardTableView()
     local t_reward = TABLE:get('anc_rank_reward')
     local l_item_list = t_reward
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(640, 160 + 5)
     table_view:setCellUIClass(UI_AncientTowerRewardListItem, create_func)
@@ -143,6 +143,6 @@ function UI_AncientTowerRank:init_rewardTableView()
     table_view:setItemList(l_item_list)
     self.m_rewardTableView = table_view
 
-    table_view:makeDefaultEmptyDescLabel(Str('º¸»ó Á¤º¸°¡ ¾ø½À´Ï´Ù.'))  
+    table_view:makeDefaultEmptyDescLabel(Str('ë³´ìƒ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.'))  
 end
 

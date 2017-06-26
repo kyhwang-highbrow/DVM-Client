@@ -21,7 +21,7 @@ function TableStatusEffect:get(key, skip_error_msg)
     local t = PARENT.get(self, key, skip_error_msg)
 
     if (not t) then
-        -- add_dmg_%s ÀÌ¸§ÀÇ Å¸ÀÔÀº add_dmg Å¸ÀÔ°ú ÀÏÄ¡½ÃÅ²´Ù
+        -- add_dmg_%s ì´ë¦„ì˜ íƒ€ì…ì€ add_dmg íƒ€ì…ê³¼ ì¼ì¹˜ì‹œí‚¨ë‹¤
         if (string.find(key, 'add_dmg_')) then
             t = PARENT.get(self, 'add_dmg', skip_error_msg)
         end

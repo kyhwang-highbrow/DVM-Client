@@ -13,7 +13,7 @@ function TableDragonSkill:init()
     self.m_tableName = 'dragon_skill'
     self.m_orgTable = TABLE:get(self.m_tableName)
 
-    -- Æ÷ÇÔµÈ ¼ö½ÄµéÀ» À§ÇÑ ÇÔ¼ö »ı¼º
+    -- í¬í•¨ëœ ìˆ˜ì‹ë“¤ì„ ìœ„í•œ í•¨ìˆ˜ ìƒì„±
     self:addFunctionsForEquation()
 end
 
@@ -73,7 +73,7 @@ function TableDragonSkill:addFunctionsForEquation()
     for sid, v in pairs(self.m_orgTable) do 
         local power_source = SkillHelper:getValid(v['power_source'], 'atk')
                 
-        -- power_source°¡ ¼ö½ÄÀÏ °æ¿ì ÇÔ¼ö¸¦ Ãß°¡
+        -- power_sourceê°€ ìˆ˜ì‹ì¼ ê²½ìš° í•¨ìˆ˜ë¥¼ ì¶”ê°€
         local operator = string.match(power_source, '[*+/-]')
         if (operator) then
             local key = v['sid']

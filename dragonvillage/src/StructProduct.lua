@@ -112,7 +112,7 @@ function StructProduct:getDesc()
         return ''
     end
 
-    -- Ã¹ ¹øÂ° ¾ÆÀÌÅÛÀÇ ¼³¸íÀ» »ç¿ë
+    -- ì²« ë²ˆì§¸ ì•„ì´í…œì˜ ì„¤ëª…ì„ ì‚¬ìš©
     local table_item = TableItem()
     local item_id = first_item['item_id']
     local t_desc = table_item:getValue(item_id, 't_desc')
@@ -137,7 +137,7 @@ function StructProduct:makeProductIcon()
         return nil
     end
 
-    -- Ã¹ ¹øÂ° ¾ÆÀÌÅÛÀÇ ¼³¸íÀ» »ç¿ë
+    -- ì²« ë²ˆì§¸ ì•„ì´í…œì˜ ì„¤ëª…ì„ ì‚¬ìš©
     local table_item = TableItem()
     local item_id = first_item['item_id']
     return IconHelper:getItemIcon(item_id)
