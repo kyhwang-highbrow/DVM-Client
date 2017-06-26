@@ -8,11 +8,12 @@ SkillGuardian = class(PARENT, {
         m_duration = 'num',
 
         m_shieldEffect = 'Animator',
-        m_barEffect = 'EffectLink',
+        m_barEffect = 'Table',
         m_barrierEffect1 = 'Animator',
-        m_barrierEffect2 = 'Animator',
+        m_barrierEffect2 = 'Table',
 
 		m_bDirtyPos = 'boolean', -- 위치가 변경되어 이펙트 수정이 필요한 경우
+        m_lTarget = 'List'
      })
 
 -------------------------------------
@@ -21,6 +22,8 @@ SkillGuardian = class(PARENT, {
 -- @param body
 -------------------------------------
 function SkillGuardian:init(file_name, body, ...)
+    self.m_barrierEffect2 = {}
+    self.m_barEffect = {}
 end
 
 -------------------------------------
@@ -28,9 +31,9 @@ end
 -------------------------------------
 function SkillGuardian:init_skill(res, duration)
 	PARENT.init_skill(self)
-
 	-- 멤버 변수
-	self.m_res = res
+    self.m_lTarget = self:getProperTargetList()
+    self.m_res = res
 	self.m_duration = duration
 end
 
@@ -82,12 +85,17 @@ function SkillGuardian.st_end(owner, dt)
         -- 방패 이팩트
         owner.m_shieldEffect:changeAni('shield_disappear', false)
         
-        -- 연결 이팩트
-        owner.m_barEffect.m_effectNode:changeAni('bar_disappear', false)
+        for _, v in pairs(owner.m_lTarget) do
+            
+            --연결 이펙트
+            owner.m_barEffect[v].m_effectNode:changeAni('bar_disappear', false, true)
+
+            -- target 배리어 이펙트
+            owner.m_barrierEffect2[v]:changeAni('barrier_disappear', false, true)
+        end
 
         -- 베리어 이팩트
         owner.m_barrierEffect1:changeAni('barrier_disappear', false)
-        owner.m_barrierEffect2:changeAni('barrier_disappear', false)
 
     elseif (owner.m_stateTimer >= 2) then
 		-- 적당히 disappear animation이 끝난 후 동작
@@ -100,10 +108,17 @@ end
 -------------------------------------
 function SkillGuardian:checkDurability(dt)
 	-- 시전자나 대상이 죽으면 중지
-	if (self.m_owner.m_bDead) or (self.m_targetChar.m_bDead) then
+    
+    local dead_target = 0
+    for _, v in pairs(self.m_lTarget) do
+        if (v.m_bDead) then
+            self:playDisappearEffect(v)
+            dead_target = dead_target + 1
+        end
+    end
+	if (self.m_owner.m_bDead) or (dead_target == #self.m_lTarget) then
 		self:changeState('end')
-	end
-
+    end
     self.m_duration = self.m_duration - dt
     if (self.m_duration <= 0) then
         self:changeState('end')
@@ -124,13 +139,23 @@ end
 function SkillGuardian:makeEffectLink()
 	local res = self.m_res
 
-    -- 연결 이펙트 -- 드래곤들 뒤쪽에 위치하기 위해 world의 groundNode에 붙임
-    self.m_barEffect = EffectLink(res, 'bar_appear', '', '', 512, 256)
-    self.m_barEffect.m_startPointNode:setVisible(false)
-    self.m_barEffect.m_endPointNode:setVisible(false)
-    self.m_barEffect.m_effectNode:addAniHandler(function() self.m_barEffect.m_effectNode:changeAni('bar_idle', true) end)
-    self.m_world.m_groundNode:addChild(self.m_barEffect.m_node)
+    for _, v in pairs(self.m_lTarget) do
 
+        -- 연결 이펙트 -- 드래곤들 뒤쪽에 위치하기 위해 world의 groundNode에 붙임
+        local bar_effect = EffectLink(res, 'bar_appear', '', '', 512, 256)
+        bar_effect.m_startPointNode:setVisible(false)
+        bar_effect.m_endPointNode:setVisible(false)
+        bar_effect.m_effectNode:addAniHandler(function() bar_effect.m_effectNode:changeAni('bar_idle', true) end)
+        self.m_world.m_groundNode:addChild(bar_effect.m_node)
+        self.m_barEffect[v] = bar_effect
+
+        -- 베리어 이펙트 (대상에게)
+        local barrier_effect = MakeAnimator(res)
+        barrier_effect:changeAni('barrier_appear', false)
+        barrier_effect:addAniHandler(function() barrier_effect:changeAni('barrier_idle', true) end)
+        self.m_rootNode:addChild(barrier_effect.m_node)
+        self.m_barrierEffect2[v] = barrier_effect
+    end
 	-- 나머지는 드래곤 위에 있으면 되므로 스킬 자체에 addchild
 
     -- 방어 이펙트
@@ -145,17 +170,16 @@ function SkillGuardian:makeEffectLink()
     self.m_barrierEffect1:addAniHandler(function() self.m_barrierEffect1:changeAni('barrier_idle', true) end)
     self.m_rootNode:addChild(self.m_barrierEffect1.m_node)
 
-    -- 베리어 이펙트 (대상에게)
-    self.m_barrierEffect2 = MakeAnimator(res)
-    self.m_barrierEffect2:changeAni('barrier_appear', false)
-    self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
-    self.m_rootNode:addChild(self.m_barrierEffect2.m_node)
+
 end
 
 -------------------------------------
 -- function onHit
 -------------------------------------
-function SkillGuardian:onHit()
+function SkillGuardian:onHit(defender)
+
+
+
     -- 방패 이팩트
 	if (self.m_shieldEffect) then 
 		self.m_shieldEffect:changeAni('shield_hit', false)
@@ -163,21 +187,21 @@ function SkillGuardian:onHit()
 	end
         
     -- 연결 이팩트
-	if (self.m_barEffect) then
-		self.m_barEffect.m_effectNode:changeAni('bar_hit', false)
-		self.m_barEffect.m_effectNode:addAniHandler(function() self.m_barEffect.m_effectNode:changeAni('bar_idle', true) end)
+	if (self.m_barEffect[defender]) then
+		self.m_barEffect[defender].m_effectNode:changeAni('bar_hit', false)
+		self.m_barEffect[defender].m_effectNode:addAniHandler(function() self.m_barEffect[defender].m_effectNode:changeAni('bar_idle', true) end)
 	end
 
-    -- 베리어 이팩트 1
+    -- 베리어 이팩트 (주체)
 	if (self.m_barrierEffect1) then
 		self.m_barrierEffect1:changeAni('barrier_hit', false)
 		self.m_barrierEffect1:addAniHandler(function() self.m_barrierEffect1:changeAni('barrier_idle', true) end)
 	end
 	
-	-- 베리어 이팩트 2
-	if (self.m_barrierEffect2) then
-		self.m_barrierEffect2:changeAni('barrier_hit', false)
-		self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
+	-- 베리어 이팩트 (타겟)
+	if (self.m_barrierEffect2[defender]) then
+		self.m_barrierEffect2[defender]:changeAni('barrier_hit', false)
+		self.m_barrierEffect2[defender]:addAniHandler(function() self.m_barrierEffect2[defender]:changeAni('barrier_idle', true) end)
 	end
 end
 
@@ -185,26 +209,28 @@ end
 -- function onStart
 -------------------------------------
 function SkillGuardian:onStart()
-	local target_char = self.m_targetChar
+    for _, v in pairs (self.m_lTarget) do
 
-    if (target_char:getGuard()) then
-        target_char:getGuard():changeState('end')
-    end
+        if (v:getGuard()) then
+            v:getGuard():changeState('end')
+        end
     
-    target_char:setGuard(self)
+        v:setGuard(self)
 
-	target_char:addListener('guardian', self)
+        v:addListener('guardian', self)
+    end
 end
 
 -------------------------------------
 -- function onEnd
 -------------------------------------
 function SkillGuardian:onEnd()
-	local target_char = self.m_targetChar
-	if (target_char:getGuard() == self) then
-		target_char:setGuard(nil)
-		target_char:removeListener('guardian', self)
-	end
+    for _, v in pairs (self.m_lTarget) do
+	    if (v:getGuard() == self) then
+		    v:setGuard(nil)
+		    v:removeListener('guardian', self)
+	    end
+    end
 end
 
 -------------------------------------
@@ -214,7 +240,7 @@ function SkillGuardian:onEvent(event_name, t_event, ...)
 	PARENT.onEvent(self, event_name, t_event, ...)
 
 	if (event_name == 'guardian') then
-		self:onHit()
+		self:onHit(t_event['defender'])
 		local attacker = t_event['attacker']
 		local defender = self.m_owner
 		defender:undergoAttack(attacker, defender, defender.pos.x, defender.pos.y, 0, false, true)
@@ -230,13 +256,15 @@ function SkillGuardian:checkBuffPosDirty()
         self.m_bDirtyPos = true
         return
     end
-
+    
+    for k, v in pairs(self.m_lTarget) do
     -- 베리어 대상자 변경 확인
-    local x = self.m_targetChar.pos.x - self.pos.x
-    local y = self.m_targetChar.pos.y - self.pos.y
-    if (self.m_barrierEffect2.m_posX ~= x) or (self.m_barrierEffect2.m_posY ~= y) then
-        self.m_bDirtyPos = true
-        return
+        local x = self.m_lTarget[k].pos.x - self.pos.x
+        local y = self.m_lTarget[k].pos.y - self.pos.y
+        if (self.m_barrierEffect2[v].m_posX ~= x) or (self.m_barrierEffect2[v].m_posY ~= y) then
+            self.m_bDirtyPos = true
+            return
+        end
     end
 end
 
@@ -244,18 +272,21 @@ end
 -- function updateBuffPos
 -------------------------------------
 function SkillGuardian:updateBuffPos()
-    local x = self.m_targetChar.pos.x - self.pos.x
-    local y = self.m_targetChar.pos.y - self.pos.y
-    
-	-- 배리어 이펙트1과 실드 위치 조정
+    -- 배리어 이펙트1과 실드 위치 조정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
-
-	-- 배리어 이펙트2 대상의 위치로 조정
-	self.m_barrierEffect2:setPosition(x, y)
     
-	-- 연결 이펙트 나와 대상의 월드 좌표로 계산하여 조정
-	EffectLink_refresh(self.m_barEffect, self.pos.x, self.pos.y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
+    for k, v in pairs(self.m_lTarget) do
+        local x = v.pos.x - self.pos.x
+        local y = v.pos.y - self.pos.y
+    
 
+	    -- 배리어 이펙트2 대상의 위치로 조정
+	    self.m_barrierEffect2[v]:setPosition(x, y)
+    
+	    -- 연결 이펙트 나와 대상의 월드 좌표로 계산하여 조정
+	    EffectLink_refresh(self.m_barEffect[v], self.pos.x, self.pos.y, v.pos.x, v.pos.y)
+
+    end
     self.m_bDirtyPos = false
 end
 
@@ -265,9 +296,11 @@ end
 function SkillGuardian:release()
 	self:onEnd()
     
-	if (self.m_barEffect) then
-        self.m_barEffect:release()
-        self.m_barEffect = nil
+    for k, v in pairs(self.m_barEffect) do
+	    if (self.m_barEffect[k]) then
+            self.m_barEffect[k]:release()
+            self.m_barEffect[k] = nil
+        end
     end
 
     if (self.m_shieldEffect) then
@@ -306,4 +339,14 @@ function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+end
+
+-------------------------------------
+-- function makeSkillInstance
+-- @brief   effect_owner에 붙어있는 배리어와 사슬의 disappear 이펙트를 실행한다.
+-- @param   effect_owner    Character    :   key로써 사용되며, Character object이다.
+-------------------------------------
+function SkillGuardian:playDisappearEffect(effect_owner)
+    self.m_barEffect[effect_owner].m_effectNode:changeAni('bar_disappear', false, true)
+    self.m_barrierEffect2[effect_owner]:changeAni('barrier_disappear', false, true)
 end
