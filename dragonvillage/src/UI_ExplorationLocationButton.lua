@@ -157,22 +157,21 @@ function UI_ExplorationLocationButton:click_clickBtn()
 
     elseif (self.m_status == 'exploration_idle') then
         local ui = UI_ExplorationReady(self.m_eprID)
-        ui:setCloseCB(function()
-                self:refresh()
-                if (ui.m_bActive) then
-                    self:click_clickBtn()
-                end
-            end)
+        local function close_cb()
+            self:refresh()
+            if (ui.m_bActive) then
+                self:click_clickBtn()
+            end
+        end
+        ui:setCloseCB(close_cb)
 
     elseif (self.m_status == 'exploration_ing') then
         local ui = UI_ExplorationIng(self.m_eprID)
         ui:setCloseCB(function() self:refresh() end)
 
     elseif (self.m_status == 'exploration_complete') then
-        local hours = my_location_info['hours']
-
         local function finish_cb(ret)
-            local ui = UI_ExplorationResultPopup(self.m_eprID, hours, ret)
+            local ui = UI_ExplorationResultPopup(self.m_eprID, ret)
             ui:setCloseCB(function() self:refresh() end)
         end
 

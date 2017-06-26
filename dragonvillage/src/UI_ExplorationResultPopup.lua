@@ -5,16 +5,14 @@ local PARENT = UI
 -------------------------------------
 UI_ExplorationResultPopup = class(PARENT,{
         m_eprID = '',
-        m_hours = '',
         m_data = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ExplorationResultPopup:init(epr_id, hours, data)
+function UI_ExplorationResultPopup:init(epr_id, data)
     self.m_eprID = epr_id
-    self.m_hours = hours
     self.m_data = data
 
     local vars = self:load('exploration_result.ui')
@@ -44,8 +42,7 @@ function UI_ExplorationResultPopup:initUI()
 
     -- 지역 이름 & 탐험 시간
     local location = Str(location_info['t_name'])
-    local hours = self.m_hours
-    vars['locationTimeLabel']:setString(Str('{1} {2} 시간', location, hours))
+    vars['locationTimeLabel']:setString(Str('{1}', location))
 
     do
         -- 획득하는 아이템 리스트

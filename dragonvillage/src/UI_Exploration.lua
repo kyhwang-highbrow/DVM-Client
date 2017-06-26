@@ -47,8 +47,10 @@ end
 function UI_Exploration:initUI()
     local vars = self.vars
 
+    local table_exploration_list = TableExplorationList()
+
     self.m_lLocationButtons = {}
-    for i,v in pairs(g_explorationData.m_explorationList) do
+    for i,v in pairs(table_exploration_list.m_orgTable) do
         local order = v['order']
         local epr_id = v['epr_id']
         local ui = UI_ExplorationLocationButton(self, epr_id)

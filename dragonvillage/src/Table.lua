@@ -83,6 +83,7 @@ local TableInfo_fromServer = {
         ['table_stamina_info'] = {'table_stamina_info', 'stamina_type'},
         ['table_dragon_research'] = {'table_dragon_research', 'lv'},
         ['table_dragon_collection'] = {'table_dragon_collection', 'req_point'},
+        ['table_exploration_list'] = {'table_exploration_list', 'epr_id'},
 
         --  친밀도
         ['table_dragon_friendship'] = {'table_dragon_friendship', 'friendship'},

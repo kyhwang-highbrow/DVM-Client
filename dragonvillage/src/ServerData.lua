@@ -583,6 +583,9 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
 		-- 도감 테이블
 		self:setServerTable(ret, 'table_dragon_collection')
 
+        -- 탐험 테이블
+        self:setServerTable(ret, 'table_exploration_list')
+
         if finish_cb then
             finish_cb(ret)
         end

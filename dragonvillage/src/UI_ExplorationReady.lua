@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_ExplorationReady
@@ -54,50 +54,10 @@ function UI_ExplorationReady:init(epr_id)
     self.m_dragonSortManager = SortManager_Dragon()
 
     self:initUI()
-    self:initTab()
     self:initButton()
     self:refresh()
 
     self:sceneFadeInAction()
-end
-
--------------------------------------
--- function initTab
--------------------------------------
-function UI_ExplorationReady:initTab()
-    local vars = self.vars
-    self:addTab(1, vars['timeBtn1'])
-    self:addTab(4, vars['timeBtn2'])
-    self:addTab(6, vars['timeBtn3'])
-    self:addTab(12, vars['timeBtn4'])
-
-    self:setTab(1)
-end
-
--------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_ExplorationReady:onChangeTab(tab, first)
-    local vars = self.vars
-
-    local hours = tab
-    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)    
-
-    -- 획득하는 아이템 리스트
-    local reward_items_str = location_info[tostring(hours) .. '_hours_items']
-    local reward_items_list = g_itemData:parsePackageItemStr(reward_items_str)
-    vars['rewardNode']:removeAllChildren()
-
-    local scale = 0.53
-    local l_pos = getSortPosList(150 * scale + 3, #reward_items_list)
-
-    for i,v in ipairs(reward_items_list) do
-        local ui = UI_ItemCard(v['item_id'], v['count'])
-        vars['rewardNode']:addChild(ui.root)
-        ui.root:setScale(0)
-        ui.root:setPosition(l_pos[i], 0)
-        ui.root:runAction(cc.Sequence:create(cc.DelayTime:create((i-1) * 0.025), cc.ScaleTo:create(0.25, scale)))
-    end
 end
 
 -------------------------------------
@@ -147,7 +107,7 @@ function UI_ExplorationReady:init_tableView()
     local function create_func(ui, data)
         ui.root:setScale(item_scale)
 
-        ui:setReadySpriteVisible(false)
+        ui:setCheckSpriteVisible(false)
         
         -- 다른 지역을 탐험 중인 드래곤인지 여부 체크
         local doid = data['id']
@@ -221,6 +181,28 @@ function UI_ExplorationReady:refresh()
 
     -- 지역 이름
     vars['locationLabel']:setString(Str(location_info['t_name']))
+
+    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)    
+
+    local sec = location_info['clear_time']
+    local time_str = datetime.makeTimeDesc(sec, true)
+    vars['timeLabel']:setString(time_str)
+
+    -- 획득하는 아이템 리스트
+    local reward_items_str = location_info['reward_items']
+    local reward_items_list = g_itemData:parsePackageItemStr(reward_items_str)
+    vars['rewardNode']:removeAllChildren()
+
+    local scale = 0.53
+    local l_pos = getSortPosList(150 * scale + 3, #reward_items_list)
+
+    for i,v in ipairs(reward_items_list) do
+        local ui = UI_ItemCard(v['item_id'], v['count'])
+        vars['rewardNode']:addChild(ui.root)
+        ui.root:setScale(0)
+        ui.root:setPosition(l_pos[i], 0)
+        ui.root:runAction(cc.Sequence:create(cc.DelayTime:create((i-1) * 0.025), cc.ScaleTo:create(0.25, scale)))
+    end
 end
 
 -------------------------------------
@@ -255,7 +237,7 @@ function UI_ExplorationReady:click_dragonBtn(doid)
 
         local item = table_view_td:getItem(doid)
         local ui = item['ui']
-        ui:setReadySpriteVisible(true)
+        ui:setCheckSpriteVisible(true)
 
         self.m_selectedDragonList[self.m_currSlotIdx] = doid
         self.m_selectedDragonMap[doid] = self.m_currSlotIdx
@@ -264,7 +246,7 @@ function UI_ExplorationReady:click_dragonBtn(doid)
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         local ui = UI_DragonCard(t_dragon_data)
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonBtn(doid) end)
-        ui:setReadySpriteVisible(false)
+        ui:setCheckSpriteVisible(false)
         self.vars['slotNode' .. self.m_currSlotIdx]:addChild(ui.root)
 
         -- UI 연출
@@ -274,7 +256,7 @@ function UI_ExplorationReady:click_dragonBtn(doid)
     else
         local item = table_view_td:getItem(doid)
         local ui = item['ui']
-        ui:setReadySpriteVisible(false)
+        ui:setCheckSpriteVisible(false)
 
         -- UI 연출
         local scale = 0.66
@@ -329,10 +311,9 @@ function UI_ExplorationReady:click_explorationBtn()
 
         -- params
         local epr_id = self.m_eprID
-        local hours = self.m_currTab
         local doids = listToCsv(self.m_selectedDragonList)
 
-        g_explorationData:request_explorationStart(epr_id, doids, hours, finish_cb)
+        g_explorationData:request_explorationStart(epr_id, doids, finish_cb)
     end
 
     MakeSimplePopup(POPUP_TYPE.YES_NO, Str('드래곤 5마리를 탐험을 보내시겠습니까?'), request)

@@ -239,6 +239,7 @@ local t_module = {
     'TableDragonCollection',
     'TableDragonCombine',
     'TableStatusEffect',
+    'TableExplorationList',
 
     -- Scene
     'SceneCommon',

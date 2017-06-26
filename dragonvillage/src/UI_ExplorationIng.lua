@@ -55,11 +55,12 @@ function UI_ExplorationIng:initUI()
     vars['locationLabel']:setString(Str(location_info['t_name']))
 
     -- 탐험 시간
-    local hours = my_location_info['hours']
+    local sec = location_info['item_cnt']
+    local hours = (sec / 3600)
     vars['timeLabel']:setString(Str('{1} 시간', hours))
 
     -- 획득하는 아이템 리스트
-    local reward_items_str = location_info[tostring(hours) .. '_hours_items']
+    local reward_items_str = location_info['reward_items']
     local reward_items_list = g_itemData:parsePackageItemStr(reward_items_str)
     --vars['rewardNode']:removeAllChildren()
 
@@ -88,14 +89,8 @@ function UI_ExplorationIng:initUI()
     end
 
     do -- 즉시 완료
-        local hours = my_location_info['hours']
-        local cash = g_explorationData:getImmediatelyCompleteCash(hours)
+        local cash = location_info['complete_cash']
         vars['priceLabel']:setString(comma_value(cash))
-
-        -- 즉시 완료 횟수 표시
-        local limit_cnt = g_explorationData:getImmediatelyCompleteDailyLimit()
-        local curr_cnt = g_explorationData:getImmediatelyCompleteCnt()
-        vars['countLabel']:setString(Str('{1}/{2}', curr_cnt, limit_cnt))
     end
 
     -- 모험의 order가 모험모드의 chapter로 간주한다
@@ -154,8 +149,7 @@ function UI_ExplorationIng:refresh()
 
     elseif (status == 'exploration_complete') then
         -- 탐험 시간
-        local hours = my_location_info['hours']
-        vars['timeLabel']:setString(Str('{1} 시간', hours))
+        vars['timeLabel']:setString('')
 
         vars['cancelBtn']:setVisible(false)
         vars['completeBtn']:setVisible(false)
@@ -181,8 +175,7 @@ function UI_ExplorationIng:update(dt)
     if remain_time > 0 then
         -- 탐험 시간
         local time_str = datetime.makeTimeDesc(remain_time, true)
-        local hours = my_location_info['hours']
-        vars['timeLabel']:setString(Str('{1} 남음', time_str) .. '/' .. Str('{1} 시간', hours))
+        vars['timeLabel']:setString(Str('{1} 남음', time_str))
     else
         self:refresh()
     end
@@ -209,30 +202,19 @@ end
 -- function click_completeBtn
 -------------------------------------
 function UI_ExplorationIng:click_completeBtn()
-
-    local limit_cnt = g_explorationData:getImmediatelyCompleteDailyLimit()
-    local curr_cnt = g_explorationData:getImmediatelyCompleteCnt()
-
-    if (limit_cnt <= curr_cnt) then
-        local message = Str('즉시 완료는 하루에 {1}번까지만 할 수 있습니다.', limit_cnt)
-        UIManager:toastNotificationRed(message)
-        return
-    end
-
     local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
-    local hours = my_location_info['hours']
 
     local function request()
         local function finish_cb(ret)
             self:close()
-            UI_ExplorationResultPopup(self.m_eprID, hours, ret)
+            UI_ExplorationResultPopup(self.m_eprID, ret)
         end
 
         local epr_id = self.m_eprID
         g_explorationData:request_explorationImmediatelyComplete(epr_id, finish_cb)
     end
     
-    local cash = g_explorationData:getImmediatelyCompleteCash(hours)
+    local cash = location_info['complete_cash']
 
     local msg = Str('{1}다이아몬드를 사용하여 즉시 완료를 하시겠습니까?', cash)
     MakeSimplePopup_Confirm('cash', cash, msg, request)
@@ -243,11 +225,10 @@ end
 -------------------------------------
 function UI_ExplorationIng:click_rewardBtn()
     local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
-    local hours = my_location_info['hours']
 
     local function finish_cb(ret)
         self:close()
-        UI_ExplorationResultPopup(self.m_eprID, hours, ret)
+        UI_ExplorationResultPopup(self.m_eprID, ret)
     end
 
     local epr_id = self.m_eprID

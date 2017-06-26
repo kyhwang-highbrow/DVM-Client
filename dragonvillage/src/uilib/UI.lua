@@ -89,11 +89,11 @@ function UI:close()
     self.closed = true
     self:onClose()
 
+    UIManager:close(self)
+
     if self.m_closeCB then
         self.m_closeCB()
     end
-
-    UIManager:close(self)
 end
 
 -------------------------------------

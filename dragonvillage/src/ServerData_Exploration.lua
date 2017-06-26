@@ -4,12 +4,8 @@
 ServerData_Exploration = class({
         m_serverData = 'ServerData',
         m_bDirtyExplorationInfo = 'boolean',
-
-        m_explorationServerInfo = 'table', -- 탐험 각종 설정 정보
-        m_explorationList = 'table', -- 탐험 정보 리스트
         
         -- 유저의 탐험 정보
-        m_immediatelyCompleteCnt = 'cnumber', -- 오늘 즉시 완료를 한 숫자
         m_myExplorationList = 'table', -- 나의 진행 중인 탐험 정보
 
         -- 탐험에 사용 중인 드래곤들 object id 저장
@@ -67,32 +63,6 @@ function ServerData_Exploration:request_explorationInfo(finish_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        -- 탐험 각종 설정 정보
-        self.m_explorationServerInfo = ret['epr_server_info']
-
-        -- 탐험 정보 리스트
-        if ret['epr_list'] then
-            local to_number_list = {}
-            table.insert(to_number_list, 'epr_id')
-            table.insert(to_number_list, 'order')
-            table.insert(to_number_list, 'open_condition')
-            table.insert(to_number_list, '1_hours_items_cnt')
-            table.insert(to_number_list, '4_hours_items_cnt')
-            table.insert(to_number_list, '6_hours_items_cnt')
-            table.insert(to_number_list, '12_hours_items_cnt')
-            table.insert(to_number_list, '1_hours_exp')
-            table.insert(to_number_list, '4_hours_exp')
-            table.insert(to_number_list, '6_hours_exp')
-            table.insert(to_number_list, '12_hours_exp')
-            ret['epr_list'] = table.toNumber(ret['epr_list'], to_number_list)
-
-            self.m_explorationList = {}
-            for i,v in ipairs(ret['epr_list']) do
-                local epr_id = v['epr_id']
-                self.m_explorationList[epr_id] = v
-            end
-        end
-
         self:organizeData(ret)
 
         if finish_cb then
@@ -118,8 +88,6 @@ end
 -------------------------------------
 function ServerData_Exploration:organizeData(ret)
     -- 유저의 탐험 정보
-    self.m_immediatelyCompleteCnt = ret['epr_my_info']['immediately_complete_cnt']
-
     self.m_myExplorationList = {}
     self.m_mExploredDragonOid = {}
 
@@ -142,7 +110,9 @@ end
 -- function getExplorationLocationInfo
 -------------------------------------
 function ServerData_Exploration:getExplorationLocationInfo(epr_id)
-    local location_info = self.m_explorationList[epr_id]
+    local table_exploration_list = TableExplorationList()
+
+    local location_info = table_exploration_list:get(epr_id)
     local my_location_info = self.m_myExplorationList[epr_id]
 
     local status
@@ -191,7 +161,7 @@ end
 -------------------------------------
 -- function request_explorationStart
 -------------------------------------
-function ServerData_Exploration:request_explorationStart(epr_id, doids, hours, finish_cb)
+function ServerData_Exploration:request_explorationStart(epr_id, doids, finish_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -212,7 +182,6 @@ function ServerData_Exploration:request_explorationStart(epr_id, doids, hours, f
     ui_network:setUrl('/explore/start')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doids', doids)
-    ui_network:setParam('hours', hours)
     ui_network:setParam('epr_id', epr_id)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
@@ -340,30 +309,4 @@ function ServerData_Exploration:request_explorationReward(epr_id, finish_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
-end
-
--------------------------------------
--- function getImmediatelyCompleteCash
--- @brief 즉시 완료에 필요한 다이아몬드 (탐험 시간 별)
--------------------------------------
-function ServerData_Exploration:getImmediatelyCompleteCash(hours)
-    local key = tostring(hours) .. '_hours_Immediately_complete_cash'
-    local cash = self.m_explorationServerInfo[key]
-    return cash
-end
-
--------------------------------------
--- function getImmediatelyCompleteDailyLimit
--- @brief 일일 즉시 완료 제한 횟수
--------------------------------------
-function ServerData_Exploration:getImmediatelyCompleteDailyLimit()
-    return self.m_explorationServerInfo['immediately_complete_daily_limit']
-end
-
--------------------------------------
--- function getImmediatelyCompleteCnt
--- @brief 일일 즉시 완료 횟수
--------------------------------------
-function ServerData_Exploration:getImmediatelyCompleteCnt()
-    return self.m_immediatelyCompleteCnt
 end
