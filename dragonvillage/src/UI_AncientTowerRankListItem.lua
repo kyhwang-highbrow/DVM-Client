@@ -25,14 +25,29 @@ end
 function UI_AncientTowerRankListItem:initUI()
     local vars = self.vars
     local t_rank_info = self.m_rankInfo
-    
+    local rank = t_rank_info['rank']
+
+    -- 다음 랭킹 보기 
+    if (rank == 'next') then
+        vars['nextBtn']:setVisible(true)
+        vars['itemMenu']:setVisible(false)
+        return
+    end
+
+    -- 이전 랭킹 보기 
+    if (rank == 'prev') then
+        vars['prevBtn']:setVisible(true)
+        vars['itemMenu']:setVisible(false)
+        return
+    end
+
     vars['scoreLabel']:setString(Str('{1}점', t_rank_info['score']))
     vars['nameLabel']:setString(t_rank_info['nick'])
 
-    local rank = t_rank_info['rank']
+    
     local rate = t_rank_info['rate']
     rate = math_floor(rate*100)
-    if (rank <= 100) then
+    if (rank > 0 and rank <= 100) then
         vars['rankingLabel']:setString(Str('{1}위', rank))
     else 
         -- 100위 이상은 퍼센트 표기

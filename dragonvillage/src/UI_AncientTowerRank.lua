@@ -1,4 +1,4 @@
--------------------------------------
+﻿-------------------------------------
 -- class UI_AncientTowerRank
 -------------------------------------
 UI_AncientTowerRank = class({
@@ -11,6 +11,8 @@ UI_AncientTowerRank = class({
 
         m_rankOffset = 'number',
     })
+
+local RANK_SHOW_CNT = 20 -- 한번에 보여주는 랭커 수
 
 -------------------------------------
 -- function init
@@ -61,19 +63,26 @@ function UI_AncientTowerRank:onChangeOption()
     vars['rankingListNode']:setVisible(type == 'rank')
     vars['rankingMeNode']:setVisible(type == 'rank')
 
-    if type == 'rank' then
+    if (type == 'rank') then
         if (self.m_rankTableView) then return end
+        self:request_Rank()
 
-        local function finish_cb()
-            self:init_rankTableView()
-        end
-        local offset = self.m_rankOffset
-        g_ancientTowerData:request_ancientTowerRank(offset, finish_cb)
-
-    elseif type == 'reward' then
+    elseif (type == 'reward') then
         if (self.m_rewardTableView) then return end
         self:init_rewardTableView()
     end
+end
+
+-------------------------------------
+-- function request_Rank
+-------------------------------------
+function UI_AncientTowerRank:request_Rank()
+    local function finish_cb()
+        self.m_rankOffset = g_ancientTowerData.m_nGlobalOffset
+        self:init_rankTableView()
+    end
+    local offset = self.m_rankOffset
+    g_ancientTowerData:request_ancientTowerRank(offset, finish_cb)
 end
 
 -------------------------------------
@@ -82,6 +91,8 @@ end
 function UI_AncientTowerRank:init_rankTableView()
     local node      = self.m_uiScene.vars['rankingListNode']
     local my_node   = self.m_uiScene.vars['rankingMeNode']
+
+    node:removeAllChildren()
 
     -- 내 순위
 	do
@@ -92,27 +103,38 @@ function UI_AncientTowerRank:init_rankTableView()
         my_node:addChild(ui.root)
 	end
 
-    -- 최초 상위 20명
     local l_item_list = g_ancientTowerData.m_lGlobalRank
 
-    --[[
     if (1 < self.m_rankOffset) then
-        local prev_data = {m_rank = 'prev'}
+        local prev_data = { rank = 'prev' }
         l_item_list['prev'] = prev_data
     end
-    local next_data = {m_rank = 'next'}
+
+    local next_data = { rank = 'next' }
     l_item_list['next'] = next_data
-    ]]--
+    
+    -- 이전 랭킹 보기
+    local function click_prevBtn()
+        self.m_rankOffset = self.m_rankOffset - RANK_SHOW_CNT
+        self.m_rankOffset = math_max(self.m_rankOffset, 1)
+        self:request_Rank()
+    end
+
+    -- 다음 랭킹 보기
+    local function click_nextBtn()
+        local add_offset = #g_ancientTowerData.m_lGlobalRank
+        if (add_offset < RANK_SHOW_CNT) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+            return
+        end
+        self.m_rankOffset = self.m_rankOffset + add_offset
+        self:request_Rank()
+    end
 
     -- 생성 콜백
     local function create_func(ui, data)
-        local function click_previousButton()
-        end
-        --ui.vars['previousButton']:registerScriptTapHandler(click_previousButton)
-
-        local function click_nextButton()
-        end
-        --ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
+        ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
+        ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -122,6 +144,9 @@ function UI_AncientTowerRank:init_rankTableView()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
     self.m_rankTableView = table_view
+
+    -- 테이블 뷰 정렬
+    g_ancientTowerData:sortAncientRank(table_view.m_itemList)
 
     table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
 end

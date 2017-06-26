@@ -181,6 +181,7 @@ local t_module = {
 	'SensitivityHelper',
 	'MailHelper',
 	'BattleStatisticsHelper',
+    'AncientTowerScoreCalc',
 
     'ChatClientSocket',
     'ChatManager',

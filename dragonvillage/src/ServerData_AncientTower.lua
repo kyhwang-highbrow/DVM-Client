@@ -18,7 +18,11 @@ ServerData_AncientTower = class({
         m_endTime           = 'number',
 
         m_myRank            = '',           -- 내 순위 정보
-        m_lGlobalRank       = 'list',       -- 상위 20명 랭킹
+        m_nGlobalOffset     = 'number',
+        m_lGlobalRank       = 'list',       -- 전체 랭킹
+
+        m_nTotalRank        = 'number',     -- 시즌 내 순위
+        m_nTotalScore       = 'number',     -- 시즌 내 총점수
         
     })
 
@@ -70,13 +74,13 @@ function ServerData_AncientTower:goToAncientTowerScene()
 
     end
     
-    self:request_ancientTowerInfo(finish_cb, fail_cb)
+    self:request_ancientTowerInfo(nil, finish_cb, fail_cb)
 end
 
 -------------------------------------
 -- function request_ancientTowerInfo
 -------------------------------------
-function ServerData_AncientTower:request_ancientTowerInfo(finish_cb, fail_cb)
+function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -92,6 +96,9 @@ function ServerData_AncientTower:request_ancientTowerInfo(finish_cb, fail_cb)
         self.m_challengingCount = t_challenging_info['fail_cnt']
         self.m_endTime = ret['end_time']
 
+        self.m_nTotalRank = ret['myrank']
+        self.m_nTotalScore = ret['total_score']
+
         if (not self.m_lStage) then
             self.m_lStage = self:makeAcientTower_stageList()
             self.m_nStage = table.count(self.m_lStage)
@@ -106,36 +113,9 @@ function ServerData_AncientTower:request_ancientTowerInfo(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/ancient/info')
     ui_network:setParam('uid', uid)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
-
-	return ui_network
-end
-
--------------------------------------
--- function request_ancientTowerFloorInfo
--------------------------------------
-function ServerData_AncientTower:request_ancientTowerFloorInfo(stage, finish_cb, fail_cb)
-    -- 파라미터
-    local uid = g_userData:get('uid')
-
-    -- 콜백 함수
-    local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
-
-        if finish_cb then
-            return finish_cb(ret)
-        end
+    if (stage) then
+        ui_network:setParam('stage', stage)
     end
-
-    -- 네트워크 통신 UI 생성
-    local ui_network = UI_Network()
-    ui_network:setUrl('/game/ancient/info')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', stage)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -156,13 +136,11 @@ function ServerData_AncientTower:request_ancientTowerRank(offset, finish_cb)
     -- 콜백 함수
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
-
-        if (offset == 1) then
-            self.m_lGlobalRank = ret['list']
-        end
-
         self.m_myRank = ret['my_info']
 
+        self.m_nGlobalOffset = ret['offset']
+        self.m_lGlobalRank = ret['list']
+        
         if finish_cb then
             return finish_cb(ret)
         end
@@ -172,7 +150,7 @@ function ServerData_AncientTower:request_ancientTowerRank(offset, finish_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/ancient/rank')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', offset)
+    ui_network:setParam('offset', offset)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -252,6 +230,14 @@ function ServerData_AncientTower:getChallengingCount()
 end
 
 -------------------------------------
+-- function getWeakGrade
+-- @brief 약화 등급을 얻음
+-------------------------------------
+function ServerData_AncientTower:getWeakGrade()
+    return math_min(self.m_challengingCount, 5)
+end
+
+-------------------------------------
 -- function isOpenStage
 -- @brief stage_id에 해당하는 스테이지가 입장 가능한지를 리턴
 -------------------------------------
@@ -306,4 +292,33 @@ function ServerData_AncientTower:getEndTimeText()
     local time_text = datetime.makeTimeDesc((end_time - server_time), showSeconds)
     local text = Str('{1} 후 초기화', time_text)
     return text
+end
+
+-------------------------------------
+-- function sortColosseumRank
+-------------------------------------
+function ServerData_AncientTower:sortAncientRank(sort_target_list)
+    local sort_manager = SortManager()
+
+    sort_manager:addSortType('rank', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_value = a_data.rank
+            local b_value = b_data.rank
+
+            if (a_value == 'prev') then
+                return true
+            elseif (b_value == 'prev') then
+                return false
+            elseif (a_value == 'next') then
+                return false
+            elseif (b_value == 'next') then
+                return true
+            end
+
+            return a_value < b_value
+        end)
+
+    sort_manager:sortExecution(sort_target_list)
 end

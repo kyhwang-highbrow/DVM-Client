@@ -72,6 +72,9 @@ end
 -- function makeResultUI
 -------------------------------------
 function GameState_AncientTower:makeResultUI(is_success)
+    -- @LOG : 스테이지 성공 시 클리어 시간
+	self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)
+
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
@@ -141,7 +144,11 @@ end
 -- function makeGameFinishParam
 -------------------------------------
 function GameState_AncientTower:addGameFinishParam(t_param)
-    if (not t_param) then return end
-    t_param['score'] = math.random(1, 100)
+    -- 스테이지 실패시 스코어 계산 안함
+    if (t_param['clear_type'] ~= 1) then return t_param end
+
+    local recorder = clone(self.m_world.m_logRecorder)
+    local score = AncientTowerScoreCalc(recorder):getScore()
+    t_param['score'] = score
     return t_param
 end

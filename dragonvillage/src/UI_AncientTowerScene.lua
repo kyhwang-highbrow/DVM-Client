@@ -248,7 +248,7 @@ function UI_AncientTowerScene:selectFloor(floor_info)
             self:changeFloorVisual(self.m_selectedStageID)
         end
 
-        g_ancientTowerData:request_ancientTowerFloorInfo(stage_id, finish_cb)
+        g_ancientTowerData:request_ancientTowerInfo(stage_id, finish_cb)
     end
 end
 

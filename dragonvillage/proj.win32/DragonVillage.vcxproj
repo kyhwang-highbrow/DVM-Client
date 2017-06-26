@@ -259,6 +259,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Action.lua" />
+    <None Include="..\src\AncientTowerScoreCalc.lua" />
     <None Include="..\src\AnimationMap.lua" />
     <None Include="..\src\Animator.lua" />
     <None Include="..\src\AnimatorHelper.lua" />

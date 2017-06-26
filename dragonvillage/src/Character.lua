@@ -793,23 +793,22 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
         self.m_hp = t_event['hp']
         
+        local attack_type = t_info['attack_type']
+
+        -- 연출 중일 경우 죽음 방지하는 쪽에서 is_dead 변경될 수 있음 is_dead 안이 아닌 밖에서 기록해줘야함
+        -- @LOG : 보스 막타 타입
+		if (self:isBoss()) then
+			self.m_world.m_logRecorder:recordLog('finish_atk', attack_type)
+		end
+
+        -- @LOG : 드래그 스킬로 적 처치
+        if (attack_type == 'active') then
+            self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
+        end
+
         if (t_event['is_dead']) then
             self:setDead()
-            self:changeState('dying')
-
-            -- @LOG : 보스 막타 타입
-		    if (self:isBoss()) then
-			    self.m_world.m_logRecorder:recordLog('finish_atk', t_info['attack_type'])
-		    end
-
-            -- @LOG : 드래그 스킬로 처치
-            if (attacker) then
-                local attack_activity_carrier = attacker.m_activityCarrier
-                local attack_type = attack_activity_carrier:getAttackType()
-                if (attack_type == 'active') then
-                    self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
-                end
-            end
+            self:changeState('dying')            
         end
     end
 

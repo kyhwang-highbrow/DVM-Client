@@ -50,20 +50,37 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
 
     vars['floorLabel']:setString(Str('고대의 탑 {1}층', info.m_floor))
 
-    local my_score = info.m_myScore
-    local my_high_score = info.m_myHighScore
-    local season_high_score = info.m_seasonHighScore
-    local top_user = info:getTopUserNick()
-    local str = Str('{1}점\n{2}점\n{3}점\n{4}', my_score, my_high_score, season_high_score, top_user)
-    vars['scoreLabel']:setString(str)
+    do -- 시즌 정보
+        local season_score = g_ancientTowerData.m_nTotalScore
+        local season_rank = g_ancientTowerData.m_nTotalRank
+        season_rank = (season_rank == 0) and Str('참여 안함') or Str('{1}위', season_rank)
 
-    vars['challengeLabel']:setString(Str('도전 횟수 {1}회', info.m_failCnt))
+        local str = Str('{1}점\n{2}', season_score, season_rank)
+        vars['totalScoreLabel']:setString(str)
+    end
+    
+    do -- 층 정보
+        local my_score = info.m_myScore
+        local my_high_score = info.m_myHighScore
+        local season_high_score = info.m_seasonHighScore
+        local top_user = info:getTopUserNick()
+        local str = Str('{1}점\n{2}점\n{3}점\n{4}', my_score, my_high_score, season_high_score, top_user)
+        vars['scoreLabel']:setString(str)
 
-    local weak_grade = info:getCurrentWeakGrade()
-    local max_grade = 5
-    vars['weakenLabel']:setString(Str('약화 등급 {1}/{2}', weak_grade, max_grade))
+        vars['challengeLabel']:setString(Str('도전 횟수 {1}회', info.m_failCnt))
 
-    vars['actingPowerLabel']:setString(info:getNeedStamina())
+        local weak_grade = info:getCurrentWeakGrade()
+        local max_grade = 5
+        vars['weakenLabel']:setString(Str('약화 등급 {1}/{2}', weak_grade, max_grade))
+    end
+    
+    do -- 스테이지에 해당하는 스테미나 아이콘 생성
+        local stage_id = info.m_stage
+        local type = TableDrop:getStageStaminaType(stage_id)
+        local icon = IconHelper:getStaminaInboxIcon(type)
+        vars['staminaNode']:addChild(icon)
+        vars['actingPowerLabel']:setString(info:getNeedStamina())
+    end
 end
 
 -------------------------------------

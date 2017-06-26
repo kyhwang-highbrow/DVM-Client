@@ -269,11 +269,11 @@
 		
 		// 고대의 탑
         "ANCIENT_TOWER" : {
-            "MAP_FLOATING_Y_SCOPE" : 6,
-            "MAP_FLOATING_TIME" : 3,
-            "MAP_FLOATING_ROTATE_SCOPE" : 0,
-            "MAP_FLOATING_ROTATE_TIME" : 5,
-            "WAVE_INTERMISSION_TIME" : 1.5
+            "MAP_FLOATING_Y_SCOPE" : 64,
+			"MAP_FLOATING_TIME" : 12,
+			"MAP_FLOATING_ROTATE_SCOPE" : 5,
+			"MAP_FLOATING_ROTATE_TIME" : 10,
+			"WAVE_INTERMISSION_TIME" : 2
         },
         
         // 콜로세움

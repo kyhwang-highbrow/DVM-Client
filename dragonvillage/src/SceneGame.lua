@@ -494,9 +494,6 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
         send_score = true
         api_url = '/game/ancient/finish'
-
-        -- 고대의 탑 포인트 계산(임시)
-        cclog('t_param '..luadump(t_param))
     end
 
     -- 친구 접속 버프
