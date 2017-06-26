@@ -35,12 +35,14 @@ end
 -------------------------------------
 function Tamer:setTamerEventSkill()
 	local t_skill = self.m_lSkill[TAMER_SKILL_EVENT]
-	local trigger_type = t_skill['chance_value']
-	if (trigger_type ~= '') then
-        for i, dragon in pairs(self:getFellowList()) do
-			dragon:addListener(trigger_type, self)
-		end
-	end
+    if (t_skill) then
+	    local trigger_type = t_skill['chance_value']
+	    if (trigger_type ~= '') then
+            for i, dragon in pairs(self:getFellowList()) do
+			    dragon:addListener(trigger_type, self)
+		    end
+	    end
+    end
 end
 
 -------------------------------------
