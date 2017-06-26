@@ -49,8 +49,8 @@
 				
 				1.5:
 				[
-					"130052;1;Appear;RO02;RB12;0.5;roam"
-					"130052;1;Appear;RO06;RB16;0.5;roam"
+					"130052;1;Appear;RO02;RB12;0.5"
+					"130052;1;Appear;RO06;RB16;0.5"
                 ]
             }
         },
@@ -63,24 +63,33 @@
                 "pos_x":0,
                 "pos_y":0
             },
+			
+			"direction":"boss_wave",
+			
             "wave":
             {
-
-				
 				0:
 				[
-					"132032;1;Basic;BOSS;RM24;2;roam"
+					"134012;1;Basic;BOSS;RM24;3;boss"
 				],
 				
-				1.5:
+				0.5:
 				[
-					"131022;1;Basic2;RB22;RF22;1;roam"
-					"131022;1;Basic2;RB26;RF26;1;roam"
-					"131022;1;Basic2;RB21;RM21;1;roam"
-					"131022;1;Basic2;RB27;RM27;1;roam"
-					"131022;1;Basic2;RB24;RB24;1;roam"
+					
 				]
-            }
+            },
+			
+			"regen":
+			[
+				{
+					1:
+					[
+						"131012;1;Appear;RO04;RF14;0.5;roam"
+						"131012;1;Appear;RO01;RF21;0.5;roam"
+						"131012;1;Appear;RO07;RF27;0.5;roam"
+					]
+				}
+			]
         }
     ],
 	

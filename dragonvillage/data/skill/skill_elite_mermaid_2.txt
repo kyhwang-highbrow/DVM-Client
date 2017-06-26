@@ -17,7 +17,7 @@
 				"h_limit_speed":0,
 				"accel_delay":0,
 				"angular_velocity":0,
-				"is_abs_pos":true,
+				"is_abs_pos":false,
 				"offset":['target','target'],
 				"dir":0,
 				"dir_add":0,
@@ -37,7 +37,7 @@
 						"l_limit_speed":50,
 						"accel_delay":0.45,
 						"angular_velocity":0,
-						"offset":[0,600],
+						"offset":[0,580],
 						"dir_array":[-90],
 						"delete_time":3,
 						
@@ -62,8 +62,8 @@
 						"l_limit_speed":50,
 						"accel_delay":0.45,
 						"angular_velocity":0,
-						"offset":[-430,-400],
-						"dir_array":[45],
+						"offset":[-480,-270],
+						"dir_array":[30],
 						"delete_time":3,
 						
 						"effect":
@@ -87,8 +87,8 @@
 						"l_limit_speed":50,
 						"accel_delay":0.45,
 						"angular_velocity":0,
-						"offset":[430,-400],
-						"dir_array":[135],
+						"offset":[480,-270],
+						"dir_array":[-210],
 						"delete_time":3,
 						
 						"effect":
