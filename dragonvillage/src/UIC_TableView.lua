@@ -4,6 +4,11 @@ VerticalFillOrder = {}
 VerticalFillOrder['TOP_DOWN'] = 0
 VerticalFillOrder['BOTTOM_UP'] = 1
 
+-- cell 생성 연출
+CELL_CREATE_DIRECTING = {}
+CELL_CREATE_DIRECTING['scale'] = 0
+CELL_CREATE_DIRECTING['fadein'] = 1
+
 -------------------------------------
 -- class UIC_TableView
 -------------------------------------

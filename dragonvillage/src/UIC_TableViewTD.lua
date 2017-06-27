@@ -25,12 +25,21 @@ UIC_TableViewTD = class(PARENT, {
         m_nItemPerCell = 'number',
         m_bFirstLocation = 'boolean',
 
-        m_makeReserveQueue = 'stack',
-        m_makeTimer = 'number',
+		-- cell 생성 관련 변수
+        m_makeReserveQueue = 'stack',	-- 생성 큐
+        m_makeTimer = 'number',			-- 생성 타이머
+		m_makeInterval = 'numnber',		-- 생성 간격
+		m_makeCellEachTick = 'number',	-- 한틱에 생성할 셀의 갯수
+		m_bMakeAtOnce = 'boolean',		-- 즉시 생성 여부
 
         -- 리스트가 비어있을 때 표시할 노드
         m_emptyDescNode = 'cc.Node',
         m_emptyDescLabel = 'cc.LabelTTF',
+
+		m_visibleStartIdx = 'number',
+		m_visibleEndIdx = 'number',
+
+		_cellCreateDirecting = 'CELL_CREATE_DIRECTING',
     })
 
 -------------------------------------
@@ -65,6 +74,14 @@ function UIC_TableViewTD:init(node)
     -- UI생성 큐
     self.m_makeReserveQueue = {}
     self.m_makeTimer = 0
+	self.m_makeInterval = 0.03
+	self.m_makeCellEachTick = 1
+	self.m_bMakeAtOnce = false
+
+	self.m_visibleStartIdx = 1
+	self.m_visibleEndIdx = 1
+
+	self._cellCreateDirecting = CELL_CREATE_DIRECTING['scale']
 end
 
 -------------------------------------
@@ -100,30 +117,60 @@ end
 -- function update
 -------------------------------------
 function UIC_TableViewTD:update(dt)
-    self.m_makeTimer = (self.m_makeTimer - dt)
-    if (self.m_makeTimer <= 0) then
-        
-        if self.m_makeReserveQueue[1] then
-            local t_item = self.m_makeReserveQueue[1]
-            local data = t_item['data']
-            t_item['ui'] = self:makeItemUI(data)
+	self.m_makeTimer = (self.m_makeTimer - dt)
+	if (self.m_makeTimer <= 0) then
 
-            do -- 액션 수행 위치 수정
-                local ui = t_item['ui']
-                local scale = ui.root:getScale()
-                ui.root:setScale(scale * 0.2)
-                local scale_to = cc.ScaleTo:create(0.25, scale)
-                local action = cc.EaseInOut:create(scale_to, 2)
-                ui.root:runAction(action)
-            end
+		for i = 1, self.m_makeCellEachTick do
 
-            local idx = t_item['idx']
-            self:updateCellAtIndex(idx)
+			-- 눈에 보이는 셀부터 먼저 생성되도록 큐에 담음
+			for i=self.m_visibleStartIdx, self.m_visibleEndIdx do
+				local t_item = self.m_itemList[i]
+				if t_item['reserved'] and (not t_item['ui']) then
+					for i,v in ipairs(self.m_makeReserveQueue) do
+						if (t_item == v) then
+							table.remove(self.m_makeReserveQueue, i)
+							break
+						end
+					end
+					table.insert(self.m_makeReserveQueue, 1, t_item)
+					break
+				end
+			end
+
+			-- 예약된 셀 생성
+			if self.m_makeReserveQueue[1] then
+				local t_item = self.m_makeReserveQueue[1]
+				local data = t_item['data']
+				t_item['ui'] = self:makeItemUI(data)
+				local ui = t_item['ui']
+
+				-- 셀 생성 연출
+				if (self._cellCreateDirecting == CELL_CREATE_DIRECTING['scale']) then
+					local scale = ui.root:getScale()
+					ui.root:setScale(scale * 0.2)
+					local scale_to = cc.ScaleTo:create(0.25, scale)
+					local action = cc.EaseInOut:create(scale_to, 2)
+					ui.root:runAction(action)
+
+				elseif (self._cellCreateDirecting == CELL_CREATE_DIRECTING['fadein']) then
+					doAllChildren(ui.root, function(node) node:setCascadeOpacityEnabled(true) end)
+					ui.root:setOpacity(0)
+					local scale_to = cc.FadeIn:create(0.5)
+					local action = cc.EaseInOut:create(scale_to, 2)
+					ui.root:runAction(action)
+
+				end
+
+				local idx = t_item['idx']
+				self:updateCellAtIndex(idx)
             
-            table.remove(self.m_makeReserveQueue, 1)
-        end
+				-- 생성한 셀은 큐에서 삭제
+				table.remove(self.m_makeReserveQueue, 1)
+			end
+		end
 
-        self.m_makeTimer = 0.03
+		-- 생성 주기
+		self.m_makeTimer = self.m_makeInterval
     end
 
     -- 아이템 리스트가 변경되었을 경우
@@ -305,9 +352,8 @@ function UIC_TableViewTD:scrollViewDidScroll(scroll_view)
 
         if (not t_item['ui']) then
 
-            -- 최초 생성 시 즉시 생성
-            --if self.m_bFirstLocation then
-            if false then
+            -- 즉시 생성
+            if (self.m_bMakeAtOnce) then
                 local data = t_item['data']
                 t_item['ui'] = self:makeItemUI(data)
                 local idx = t_item['idx']
@@ -326,6 +372,10 @@ function UIC_TableViewTD:scrollViewDidScroll(scroll_view)
 
         table.insert(self._cellsUsed, t_item)
     end
+
+	-- 눈에 보이는 인덱스 저장
+	self.m_visibleStartIdx = startIdx
+	self.m_visibleEndIdx = endIdx
 end
 
 -------------------------------------
@@ -904,6 +954,35 @@ function UIC_TableViewTD:setDirtyItemList()
     self.m_bDirtyItemList = true
 end
 
+-------------------------------------
+-- function setCellCreateDirecting
+-- @brief 셀 생성 연출
+-------------------------------------
+function UIC_TableViewTD:setCellCreateDirecting(n)
+    self._cellCreateDirecting = n
+end
+
+-------------------------------------
+-- function setCellCreateInterval
+-- @brief 셀 생성 간격
+-------------------------------------
+function UIC_TableViewTD:setCellCreateInterval(n)
+	if (n < 0) then
+		return
+	end
+    self.m_makeInterval = n
+end
+
+-------------------------------------
+-- function setCellCreatePerTick
+-- @brief 틱 당 셀 생성 갯수
+-------------------------------------
+function UIC_TableViewTD:setCellCreatePerTick(n)
+	if (n < 1) then
+		return
+	end
+    self.m_makeCellEachTick = n
+end
 -------------------------------------
 -- function refreshAllItemUI
 -------------------------------------

@@ -259,8 +259,13 @@ function UI_Book:init_TableViewTD()
     table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = cell_size
     table_view_td.m_nItemPerCell = 8
-    table_view_td:setCellUIClass(UI_BookDragonCard, create_func)
+	table_view_td:setCellUIClass(UI_BookDragonCard, create_func)
     table_view_td:setItemList(l_item_list)
+	
+	table_view_td:setCellCreateInterval(0)
+	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
+    table_view_td:setCellCreatePerTick(3)
+
 
     -- 정렬
     self.m_tableViewTD = table_view_td
