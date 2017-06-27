@@ -40,8 +40,8 @@ function SkillCharge:init_skill(attack_count, animation_name)
 	self.m_preCollisionTime = 0
 	
 	self.m_speedSet = 200
-	self.m_speedMove = 1500
-	self.m_speedComeback = 1500
+	self.m_speedMove = g_constant:get('SKILL', 'CHARGE_SPEED')
+	self.m_speedComeback = self.m_speedMove
 	self.m_speedCollision = 50
 
 	local pos_x
@@ -159,8 +159,9 @@ function SkillCharge:makeCrashPhsyObject()
 
     local char = self.m_owner
     local object_key = char:getAttackPhysGroup()
+	local coll_size = g_constant:get('SKILL', 'CHARGE_PHYS_SIZE') or char.body.size * 2
 
-    local phys_object = char:addPhysObject(char, object_key, {0, 0, char.body.size * 2}, self.m_atkPhysPosX, 0)
+    local phys_object = char:addPhysObject(char, object_key, {0, 0, coll_size}, self.m_atkPhysPosX, 0)
     phys_object:addAtkCallback(function(attacker, defender, i_x, i_y)
 		self:doChargeAttack(defender)
 		phys_object:clearCollisionObjectList()
