@@ -110,6 +110,14 @@ function UI_HatcheryCombineTab:click_dragonCard(did)
         -- 하일라이트 노티 갱신을 위해 호출
         if ui.m_bDirty then
             self.m_ownerUI:refresh_highlight()
+
+            -- 데이터 갱신
+            for i,v in pairs(self.m_tableViewTD.m_itemList) do
+                local ui = v['ui']
+                if ui then
+                    ui:refresh()
+                end
+            end
         end
     end
     ui:setCloseCB(close_cb)
