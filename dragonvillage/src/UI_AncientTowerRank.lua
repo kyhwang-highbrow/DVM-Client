@@ -45,12 +45,10 @@ function UI_AncientTowerRank:initButton()
 
     -- radio button 선언
     local radio_button = UIC_RadioButton()
-	radio_button:setChangeCB(function() self:onChangeOption() end)
     radio_button:addButton('rank', vars['rankingListBtn'])
     radio_button:addButton('reward', vars['rewardListBtn'])
-	self.m_typeRadioButton = radio_button
-
-    radio_button:setSelectedButton('rank')
+    radio_button:setChangeCB(function() self:onChangeOption() end)
+    self.m_typeRadioButton = radio_button
 end
 
 -------------------------------------

@@ -200,6 +200,12 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_AncientTowerScene:onChangeTab(tab, first)
+    if (not first) then return end
+
+    -- 최초 탭 누를 경우에만 랭킹 정보 가져옴
+    if (tab == UI_AncientTowerScene.TAB_RANK) then
+        self.m_rankInfo.m_typeRadioButton:setSelectedButton('rank')
+    end
 end
 
 -------------------------------------
