@@ -8,7 +8,7 @@ UI_GameResult_AncientTower = class(PARENT, {})
 -------------------------------------
 -- function click_retryBtn
 -------------------------------------
-function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon)
+function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, score_calc)
     local vars = self.vars
 
     vars['againBtn']:setVisible(false)

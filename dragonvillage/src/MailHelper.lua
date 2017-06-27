@@ -32,8 +32,8 @@ end
 -------------------------------------
 function MailHelper:getMailTextWithNoneMsgContent(t_data)
     local tag = t_data['tag']
-    local title = ''
-    local context = ''
+    local title = 'test_text'
+    local context = 'test_text'
 
     if tag == 'fp' then
         title = Str('우정의 징표 {1}개', t_data['items_list'][1]['count'])

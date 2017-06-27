@@ -78,6 +78,9 @@ function GameState_AncientTower:makeResultUI(is_success)
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
+    
+    -- 고대의 탑 점수 계산
+    local score_calc
 
     -- UI연출에 필요한 테이블들
     local t_result_ref = {}
@@ -91,7 +94,14 @@ function GameState_AncientTower:makeResultUI(is_success)
     func_network_game_finish = function()
         local t_param 
         t_param = self:makeGameFinishParam(is_success)
-        t_param = self:addGameFinishParam(t_param)
+
+        local recorder = clone(self.m_world.m_logRecorder)
+        score_calc = AncientTowerScoreCalc(recorder)
+
+        -- 스테이지 클리어시 최종 점수 추가로 보냄
+        if (t_param['clear_type'] == 1) then 
+            t_param['score'] = score_calc:getScore()
+        end
 
         g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
     end
@@ -109,7 +119,8 @@ function GameState_AncientTower:makeResultUI(is_success)
             t_result_ref['dragon_levelu_data_list'],
             t_result_ref['drop_reward_grade'],
             t_result_ref['drop_reward_list'],
-            t_result_ref['secret_dungeon'])
+            t_result_ref['secret_dungeon'],
+            score_calc)
     end
 
     -- 최초 실행
@@ -138,17 +149,4 @@ function GameState_AncientTower:doDirectionForIntermission()
 
     -- 인터미션 시작 시 획득하지 않은 아이템 삭제
     world:cleanupItem()
-end
-
--------------------------------------
--- function makeGameFinishParam
--------------------------------------
-function GameState_AncientTower:addGameFinishParam(t_param)
-    -- 스테이지 실패시 스코어 계산 안함
-    if (t_param['clear_type'] ~= 1) then return t_param end
-
-    local recorder = clone(self.m_world.m_logRecorder)
-    local score = AncientTowerScoreCalc(recorder):getScore()
-    t_param['score'] = score
-    return t_param
 end

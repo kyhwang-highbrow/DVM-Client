@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITableViewCell:getCloneTable())
+﻿local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_AncientTowerRankListItem
@@ -41,17 +41,18 @@ function UI_AncientTowerRankListItem:initUI()
         return
     end
 
-    vars['scoreLabel']:setString(Str('{1}점', t_rank_info['score']))
+    local score = math_max(t_rank_info['score'], 0)
+    vars['scoreLabel']:setString(Str('{1}점', score))
     vars['nameLabel']:setString(t_rank_info['nick'])
 
-    
-    local rate = t_rank_info['rate']
-    rate = math_floor(rate*100)
-    if (rank > 0 and rank <= 100) then
+    local rate = t_rank_info['rate'] * 100
+    if (rank == 0) then
+        vars['rankingLabel']:setString(Str('순위\n없음'))
+    elseif (rank <= 100) then
         vars['rankingLabel']:setString(Str('{1}위', rank))
     else 
         -- 100위 이상은 퍼센트 표기
-        vars['rankingLabel']:setString(Str('{1}%%', rate))
+        vars['rankingLabel']:setString(string.format('%.2f%%', rate))
     end
 
     do -- 리더 드래곤 아이콘
