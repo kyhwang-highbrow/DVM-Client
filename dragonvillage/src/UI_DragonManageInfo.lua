@@ -186,8 +186,8 @@ function UI_DragonManageInfo:refresh_buttonState()
         -- 대표
         vars['leaderBtn']:setEnabled(not is_slime_object)
 
-        -- 잠금
-        vars['lockBtn']:setEnabled(not is_slime_object)
+        -- 잠금은 슬라임도 가능
+        -- vars['lockBtn']:setEnabled(not is_slime_object)
 
         -- 작별
         vars['sellBtn']:setEnabled(true)

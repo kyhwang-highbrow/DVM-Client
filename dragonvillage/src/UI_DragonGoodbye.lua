@@ -143,7 +143,7 @@ function UI_DragonGoodbye:init_dragonMaterialTableView()
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
 
     -- 리스트 설정
-    local l_item_list = self:makeMaterialList()
+    local l_item_list = self:getDragonMaterialList()
     table_view_td:setItemList(l_item_list)
 
     self.m_tableViewExtMaterial = table_view_td
@@ -202,10 +202,10 @@ function UI_DragonGoodbye:apply_dragonSort()
 end
 
 -------------------------------------
--- function makeMaterialList
--- @brief
+-- function getDragonMaterialList
+-- @brief 재료리스트 : 작별
 -------------------------------------
-function UI_DragonGoodbye:makeMaterialList()
+function UI_DragonGoodbye:getDragonMaterialList()
     local l_dragon_list = g_dragonsData:getDragonsList()
     local l_slime_list = g_slimesData:getSlimeList()
 
@@ -219,7 +219,7 @@ function UI_DragonGoodbye:makeMaterialList()
     end
 
     for oid,v in pairs(l_object) do
-        if self.m_excludedDragons[oid] then
+		if (not g_dragonsData:possibleMaterialDragon(oid)) then
             l_object[oid] = nil
         end
     end
@@ -338,6 +338,11 @@ function UI_DragonGoodbye:addMaterial(doid, is_slime)
 
     if (g_dragonsData:isLeaderDragon(doid) == true) then
         UIManager:toastNotificationRed(Str('리더로 설정된 드래곤은 작별할 수 없습니다.'))
+        return
+    end
+
+	if (g_dragonsData:isLockDragon(doid) == true) then
+        UIManager:toastNotificationRed(Str('잠금한 드래곤은 작별할 수 없습니다.'))
         return
     end
 

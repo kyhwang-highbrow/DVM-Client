@@ -227,6 +227,20 @@ function ServerData_Dragons:delDragonData(doid)
 end
 
 -------------------------------------
+-- function isLockDragon
+-- @brief 잠금 여부 체크
+-------------------------------------
+function ServerData_Dragons:isLockDragon(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    if (not t_dragon_data) then
+        return false
+    end
+
+    return t_dragon_data:getLock()
+end
+
+-------------------------------------
 -- function getLeaderDragon
 -- @brief 리더드래곤의 정보를 얻어옴
 -------------------------------------
@@ -305,7 +319,7 @@ end
 
 -------------------------------------
 -- function possibleMaterialDragon
--- @brief 재료 드래곤으로 사용 가능한지 여부
+-- @brief 재료 드래곤으로 사용 가능한지 여부 : 리더나 잠금 상태를 제외한다
 -------------------------------------
 function ServerData_Dragons:possibleMaterialDragon(doid)
     local t_dragon_data = self:getDragonDataFromUid(doid)
@@ -313,6 +327,11 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
     if (not t_dragon_data) then
         return false, ''
     end
+
+	-- 잠금 체크
+	if (self:isLockDragon(doid)) then
+		return false, Str('잠금 상태입니다.')
+	end
 
     -- 리더로 설정된 드래곤인지 체크
     if self:isLeaderDragon(doid) then
