@@ -2430,6 +2430,9 @@
     <None Include="..\src\SkillTransform.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\WaveMgr_AncientTower.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_DragonAppear.lua">
       <Filter>lua\UI</Filter>
     </None>

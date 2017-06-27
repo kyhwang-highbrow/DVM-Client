@@ -270,7 +270,6 @@ end
 function getPreloadList_Stage(stageName)
     local ret = {}
 
-    local table_enemy = TableMonster()
     local t_skillList = { 'skill_basic' }
     for i = 1, 9 do
         table.insert(t_skillList, 'skill_' .. i)
@@ -287,14 +286,25 @@ function getPreloadList_Stage(stageName)
 
                         local t_enemy
                         if enemy_id then
-                            t_enemy = table_enemy:get(enemy_id)
+                            if isDragon(enemy_id) then
+                                t_enemy = TableDragon():get(enemy_id)
+                            else
+                                t_enemy = TableMonster():get(enemy_id)
+                            end
                         end
 
                         if t_enemy then
                             -- 적군
                             local attr = t_enemy['attr']
 
-                            local res_name = AnimatorHelper:getMonsterResName(t_enemy['res'], attr)
+                            local res_name
+
+                            if isDragon(enemy_id) then
+                                -- 스테이지에서 등장하는 적 드래곤은 모두 성룡이라고 가정(고대의 탑)
+                                res_name = AnimatorHelper:getDragonResName(t_enemy['res'], 3, attr)
+                            else
+                                res_name = AnimatorHelper:getMonsterResName(t_enemy['res'], attr)
+                            end
                             table.insert(ret, res_name)
 
                             -- 스킬

@@ -943,11 +943,12 @@ function GameState:checkToDieHighestRariry()
     local bExistBoss = false
             
     for _, enemy in ipairs(world:getEnemyList()) do
-        if (enemy.m_charTable['rarity'] == highestRariry) then
+        local rarity = world.m_waveMgr:getRarity(enemy:getCharId(), enemy.m_lv)
+        if (rarity == highestRariry) then
             if (not enemy.m_bDead) then
                 bExistBoss = true
+                break
             end
-            break
         end
     end
 
@@ -1034,6 +1035,9 @@ function GameState:onEvent(event_name, t_event, ...)
         else
             self.m_nAppearedEnemys = self.m_nAppearedEnemys + 1
         end
+    elseif (event_name == 'character_dead') then
+        --if (self:checkToDieHighestRariry()) then
+        --end
     end
 end
 

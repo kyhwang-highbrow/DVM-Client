@@ -233,10 +233,17 @@ function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
 			end
 			
 			table.insert(l_wave, dynamic_wave)
+            
+            -- 해당 웨이브에서 가장 높은 Rarity를 저장
+            do
+                self:setHighestRarity(dynamic_wave)
+            end
 
             obj_key = obj_key + 1
 		end
 	end
+
+    cclog('highestRarity = ' .. self.m_highestRarity)
 end
 
 -------------------------------------
@@ -291,7 +298,7 @@ function WaveMgr:newScenario_dynamicWave(t_data)
     if (not t_data['wave']) then return end
 
     self.m_lDynamicWave = {}
-    self.m_highestRarity = 'common'
+    self.m_highestRarity = -1
 
     -- wave 정보를 읽어 dynamic wave 세팅
 	self:setDynamicWave(self.m_lDynamicWave, t_data['wave'])
@@ -314,12 +321,33 @@ function WaveMgr:newScenario_dynamicWave(t_data)
 end
 
 -------------------------------------
--- function findHighestRarity
+-- function getRarity
+-------------------------------------
+function WaveMgr:getRarity(enemy_id, enemy_lv)
+    local rarity
+
+    if (isDragon(enemy_id)) then
+        -- 드래곤은 몬스터보다 무조건 높아야하고 레벨로 설정함
+        rarity = 10 + enemy_lv
+    else
+        local t_monster = TableMonster():get(enemy_id)
+        rarity = monsterRarityStrToNum(t_monster['rarity'])
+    end
+    
+    return rarity
+end
+
+-------------------------------------
+-- function setHighestRarity
 -- @brief 최대 등급을 갱신한다.
 -------------------------------------
-function WaveMgr:checkHighestRarity(monster)
-	local rarity = monster:getRarity()
-	if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
+function WaveMgr:setHighestRarity(dynamic_wave)
+    local enemy_id = dynamic_wave.m_enemyID
+    local enemy_lv = dynamic_wave.m_enemyLevel
+        
+    local rarity = self:getRarity(enemy_id, enemy_lv)
+    
+	if (rarity > self.m_highestRarity) then
 		self.m_highestRarity = rarity
 	end
 end
@@ -375,11 +403,6 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         end
     end
     
-	-- 마지막 웨이브인 경우 최대 등급 찾음
-	if (self:isFinalWave()) then
-		self:checkHighestRarity(enemy)
-	end
-
 	return enemy
 end
 

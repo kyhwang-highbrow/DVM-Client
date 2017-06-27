@@ -1,39 +1,14 @@
 local PARENT = WaveMgr
 
 -------------------------------------
--- class WaveMgr_SecretRelation
+-- class WaveMgr_AncientTower
 -------------------------------------
-WaveMgr_SecretRelation = class(PARENT, {
-        m_enemyDid = 'number',   -- 지정된 적드래곤 아이디
-        m_bBossWave = 'boolean',
-    })
-
--------------------------------------
--- function init
--------------------------------------
-function WaveMgr_SecretRelation:init(world, stage_name, develop_mode)
-    -- 해당 스테이지에서 가능한 적드래곤을 하나 지정
-    local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
-
-    self.m_enemyDid = t_dungeon_info['dragon']
-    self.m_bBossWave = false
-
-    -- RandomDragon으로 들어간 enemy_id값들을 지정된 드래곤 아이디로 치환
-    if (self.m_scriptData and self.m_scriptData['wave']) then
-        for wave, t_data in pairs(self.m_scriptData['wave']) do
-            for _, v in pairs(t_data['wave']) do
-                for i, data in ipairs(v) do
-                    v[i] = string.gsub(data, 'RandomDragon', self.m_enemyDid)
-                end
-            end
-        end
-    end
-end
+WaveMgr_AncientTower = class(PARENT, {})
 
 -------------------------------------
 -- function spawnEnemy_dynamic
 -------------------------------------
-function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement)
+function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement)
     
     local enemy
 
@@ -42,17 +17,15 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
 
     else
-        local evolution = enemy_id % 10
-        local enemy_id = math_floor(enemy_id / 10)
         local isBoss = (level == self.m_highestRarity)
 
         enemy = self.m_world:makeDragonNew({
             did = enemy_id,
             lv = level,
-            evolution = evolution,
-            skill_0 = self.m_currWave,
-            skill_1 = self.m_currWave,
-            skill_2 = self.m_currWave,
+            evolution = 3,
+            skill_0 = 1,
+            skill_1 = 1,
+            skill_2 = 1,
             skill_3 = isBoss and 1 or 0,
         }, true)
 

@@ -127,6 +127,30 @@ function GameState_AncientTower:makeResultUI(is_success)
     func_network_game_finish()
 end
 
+-------------------------------------
+-- function checkToDieHighestRariry
+-- @brief 가장 높은 등급의 적(보스)가 죽었은지 체크
+-------------------------------------
+function GameState_AncientTower:checkToDieHighestRariry()
+    local world = self.m_world
+
+    if (world.m_bDevelopMode) then return false end
+        
+    local highestRariry = world.m_waveMgr:getHighestRariry()
+    local bExistBoss = false
+            
+    for _, enemy in ipairs(world:getEnemyList()) do
+        local rarity = world.m_waveMgr:getRarity(enemy:getCharId(), enemy.m_lv)
+        if (rarity == highestRariry) then
+            if (not enemy.m_bDead) then
+                bExistBoss = true
+                break
+            end
+        end
+    end
+
+    return (not bExistBoss)
+end
 
 -------------------------------------
 -- function doDirectionForIntermission

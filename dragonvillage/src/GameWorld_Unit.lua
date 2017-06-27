@@ -66,7 +66,12 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
 	local size = g_constant:get('INGAME', 'DRAGON_BODY_SIZE') or 20
     local dragon = Dragon(nil, {0, 0, size})
     self:addToUnitList(dragon)
-    self:bindHero(dragon)
+
+    if (bRightFormation) then
+        self:bindEnemy(dragon)
+    else
+        self:bindHero(dragon)
+    end
 
     dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, bPossibleRevive)
 
@@ -420,6 +425,7 @@ end
 function GameWorld:bindEnemy(enemy)
     -- 죽음 콜백 등록
     enemy:addListener('dead', self.m_gameDragonSkill)
+    enemy:addListener('character_dead', self.m_gameState)
     if self.m_dropItemMgr then
         enemy:addListener('character_dead', self.m_dropItemMgr)
     end

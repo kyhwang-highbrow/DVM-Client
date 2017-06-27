@@ -464,6 +464,7 @@ local t_module = {
 	'SkillIndicator_Penetration',
 
 	'WaveMgr',
+    'WaveMgr_AncientTower',
     'WaveMgr_SecretRelation',
     'WaveMgr_Colosseum',
     'DynamicWave',

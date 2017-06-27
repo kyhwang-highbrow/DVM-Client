@@ -81,67 +81,6 @@ function GameState_SecretDungeon_Relation:makeResultUI(is_success)
     --func_ui_result()
 end
 
-
--------------------------------------
--- function waveChange
--------------------------------------
-function GameState_SecretDungeon_Relation:waveChange()
-
-    local world = self.m_world
-    local map_manager = world.m_mapManager
-    local t_wave_data = world.m_waveMgr:getNextWaveScriptData()
-
-    -- 다음 웨이브가 없을 경우 클리어
-    if (not t_wave_data) then
-        self:changeState(GAME_STATE_SUCCESS)
-        return true
-    end
-    
-    self.m_nextWaveDirectionType = t_wave_data['direction']
-    if (not self.m_nextWaveDirectionType) and is_final_wave then
-        self.m_nextWaveDirectionType = 'final_wave'
-    end
-
-    -- 다음 웨이브 생성
-    world.m_waveMgr:newScenario()
-
-    self.m_nAppearedEnemys = 0
-
-    -- 아무런 연출이 없을 경우 GAME_STATE_FIGHT 상태를 유지
-    if (self.m_nextWaveDirectionType == nil) and (t_bg_data == nil) then
-        return false
-
-    -- 웨이브 연출만 있을 경우
-    elseif (self.m_nextWaveDirectionType) and (not t_bg_data) then
-        return self:applyWaveDirection()
-
-    -- 배경 전환이 있을 경우 (GAME_STATE_FIGHT_WAIT상태에서 웨이브 연출을 확인함)
-    elseif (t_bg_data) then
-        local changeNextState = function()
-            if (not self:applyWaveDirection()) then
-                self:changeState(GAME_STATE_ENEMY_APPEAR)
-            end
-        end
-
-        if map_manager:applyWaveScript(t_bg_data) then
-            map_manager.m_finishCB = function()
-                if (not self:applyWaveDirection()) then
-                    changeNextState()
-                end
-            end
-            self:changeState(GAME_STATE_FIGHT_WAIT)
-            return true
-        else
-            map_manager.m_finishCB = nil
-            changeNextState()
-        end
-
-    else
-        error()
-
-    end
-end
-
 -------------------------------------
 -- function checkToDieHighestRariry
 -- @brief 가장 높은 등급의 적(보스)가 죽었은지 체크
@@ -150,16 +89,18 @@ function GameState_SecretDungeon_Relation:checkToDieHighestRariry()
     local world = self.m_world
 
     if (world.m_bDevelopMode) then return false end
+    if (world.m_waveMgr.m_currWave < 9) then return false end
         
     local highestRariry = world.m_waveMgr:getHighestRariry()
     local bExistBoss = false
             
     for _, enemy in ipairs(world:getEnemyList()) do
-        if (enemy.m_tDragonInfo['lv'] == highestRariry) then
+        local rarity = world.m_waveMgr:getRarity(enemy:getCharId(), enemy.m_lv)
+        if (rarity == highestRariry) then
             if (not enemy.m_bDead) then
                 bExistBoss = true
+                break
             end
-            break
         end
     end
 
