@@ -65,6 +65,13 @@ function UI_HatcheryCombineTab:init_TableView()
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonList()
     table_view_td:setItemList(l_dragon_list)
+
+    do -- 정렬 (등급, 속성)
+        local sort_manager = SortManager_Dragon()
+        sort_manager:pushSortOrder('attr')
+        sort_manager:pushSortOrder('grade')
+        sort_manager:sortExecution(table_view_td.m_itemList)
+    end
 end
 
 -------------------------------------
