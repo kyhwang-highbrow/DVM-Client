@@ -11,8 +11,18 @@ product_id,t_name,t_desc,price_type,price,product_content,icon,max_buy_count,max
 10010,날개 350개,모험 모드 입장권,cash,500,staminas_st;350,res/ui/icon/item/shop_staminas_st_04.png,,
 10011,날개 720개,모험 모드 입장권,cash,1000,staminas_st;720,res/ui/icon/item/shop_staminas_st_04.png,,
 20001,날개 100개,모험 모드 입장권,amethyst,100,staminas_st;100,res/ui/icon/item/shop_staminas_st_04.png,,
+20002,체력 세트 룬,4~6등급 체력 세트 룬,amethyst,1,rune;704011;1,,,
+20003,확률 세트 룬,4~6등급 확률 세트 룬,amethyst,1,rune;704012;1,,,
+20004,적중 세트 룬,4~6등급 적중 세트 룬,amethyst,1,rune;704013;1,,,
+20005,방어 세트 룬,4~6등급 방어 세트 룬,amethyst,1,rune;704014;1,,,
+20006,저항 세트 룬,4~6등급 저항 세트 룬,amethyst,1,rune;704015;1,,,
+20007,공격 세트 룬,4~6등급 공격 세트 룬,amethyst,1,rune;704021;1,,,
+20008,피해 세트 룬,4~6등급 피해 세트 룬,amethyst,1,rune;704022;1,,,
+20009,쾌속 세트 룬,4~6등급 쾌속 세트 룬,amethyst,1,rune;704023;1,,,
+20010,3~4등급 룬,3~4등급 룬 1개 구매,amethyst,1,rune;704003;1,,,
 30001,기적의알,,topaz,200,egg;703002;1,,,
 30002,신화의알,,topaz,100,egg;703001;1,,,
+30003,6등급 룬,6등급 룬 1종 획득(세트 무관),topaz,100,rune;720016;1,,,
 40001,환상의알,,mileage,100,egg;703004;1,,,
 40002,초월의알,,mileage,200,egg;703003;1,,,
 40003,기적의 알,,mileage,300,egg;703002;1,,,
@@ -23,6 +33,10 @@ product_id,t_name,t_desc,price_type,price,product_content,icon,max_buy_count,max
 50004,보호의 알,,honor,300,egg;703015;1,,,
 50005,영웅의 알,,honor,500,egg;703006;1,,,
 50006,전설의 알,,honor,2500,egg;703005;1,,,
+50007,스킬 슬라임,,honor,1000,779215;1,,1,weekly
 60001,환상의알,,capsule,500,egg;703004;1,,,
 60002,보호의 알,,capsule,1000,egg;703015;1,,,
 60003,영웅의 알,,capsule,1500,egg;703006;1,,,
+60004,3등급 슈퍼 슬라임,3등급 슈퍼 슬라임 1기 획득,capsule,1,779134;1,,1,weekly
+60005,4등급 슈퍼 슬라임,4등급 슈퍼 슬라임 1기 획득,capsule,1,779144;1,,1,weekly
+60006,5등급 슈퍼 슬라임,5등급 슈퍼 슬라임 1기 획득,capsule,1,779154;1,,1,monthly
