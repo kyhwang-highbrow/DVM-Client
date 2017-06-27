@@ -107,7 +107,9 @@ end
 -- function isItBuyable
 -------------------------------------
 function StructProduct:isItBuyable()
-    return false
+    -- 구매 제한 횟수 체크 (판매 시간은 상품 리스트 구성 시 확인한다고 가정)
+    local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    return (buy_cnt < self['max_buy_count'])
 end
 
 
@@ -182,3 +184,95 @@ end
 function StructProduct:getPriceStr()
     return comma_value(self['price'])
 end
+
+-------------------------------------
+-- function buy
+-------------------------------------
+function StructProduct:buy()
+
+    if (not self:tryBuy()) then
+        return
+    end
+
+	local function ok_cb()
+        local function finish_cb()
+            
+        end
+        g_shopDataNew:request_buy(self['product_id'], finish_cb)
+	end
+
+    MakeSimplePopup_Confirm(self['price_type'], self['price'], nil, ok_cb, nil)
+end
+
+-------------------------------------
+-- function tryBuy
+-------------------------------------
+function StructProduct:tryBuy()
+    local price_type = self['price_type']
+    local price = self['price']
+
+    if (price_type == 'money') then
+
+    -- 다이아몬드 확인
+    elseif (price_type == 'cash') then
+        local cash = g_userData:get('cash')
+        if (cash < price) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
+            return false
+        end
+
+    -- 자수정 확인
+    elseif (price_type == 'amethyst') then
+        local amethyst = g_userData:get('amethyst')
+        if (amethyst < price) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('자수정이 부족합니다.'), openShopPopup_cash)
+            return false
+        end
+
+    -- 토파즈 확인
+    elseif (price_type == 'topaz') then
+        local topaz = g_userData:get('topaz')
+        if (topaz < price) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('토파즈가 부족합니다.'), openShopPopup_cash)
+            return false
+        end
+
+    -- 마일리지 확인
+    elseif (price_type == 'mileage') then
+        local mileage = g_userData:get('mileage')
+        if (mileage < price) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('마일리지가 부족합니다.'), openShopPopup_cash)
+            return false
+        end
+
+    -- 명예 확인
+    elseif (price_type == 'honor') then
+        local honor = g_userData:get('honor')
+        if (honor < price) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('명예가 부족합니다.'), openShopPopup_cash)
+            return false
+        end
+
+    -- 캡슐 확인
+    elseif (price_type == 'capsule') then
+        local capsule = g_userData:get('capsule')
+        if (capsule < price) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('캡슐이 부족합니다.'), openShopPopup_cash)
+            return false
+        end
+
+    -- 골드 확인
+    elseif (price_type == 'gold') then
+        local gold = g_userData:get('gold')
+        if (gold < price) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_gold)
+            return false
+        end
+
+    else
+        error('price_type : ' .. price_type)
+    end
+
+    -- 구매 가능한 상태
+    return true
+end 

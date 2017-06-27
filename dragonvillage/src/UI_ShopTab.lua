@@ -20,6 +20,8 @@ function UI_ShopTab:onEnterTab(first)
     if (first == true) then
         self:initUI()
     end
+
+    g_topUserInfo:setSubCurrency(self.m_tabName)
 end
 
 -------------------------------------
@@ -61,7 +63,7 @@ function UI_ShopTab:init_TableView()
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local tab_name = self.m_tabName
-    local l_item_list = g_ghopDataNew:getProductList(tab_name)
+    local l_item_list = g_shopDataNew:getProductList(tab_name)
     table_view:setItemList(l_item_list)
     self.m_tableView = table_view
 
@@ -73,16 +75,19 @@ end
 
 -------------------------------------
 -- function sortProduct
+-- @brief 상품 정렬
 -------------------------------------
 function UI_ShopTab:sortProduct()
     local function sort_func(a, b)
         local a_data = a['data']
         local b_data = b['data']
 
+        -- UI 우선순위 대로 정렬
         if (a_data:getUIPriority() ~= b_data:getUIPriority()) then
             return a_data:getUIPriority() > b_data:getUIPriority()
         end
 
+        -- 우선순위가 동일할 경우 상품 ID가 낮은 순서대로 정렬
         return a_data['product_id'] < b_data['product_id']
     end
 

@@ -49,4 +49,6 @@ function UI_Product:initUI()
         local _, height = vars['priceBg']:getNormalSize()
         vars['priceBg']:setNormalSize(total_width + 10, height)
     end
+
+    vars['buyBtn']:registerScriptTapHandler(function() struct_product:buy() end)
 end

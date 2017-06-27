@@ -222,6 +222,11 @@ end
 -- function setSubCurrency
 -------------------------------------
 function UI_TopUserInfo:setSubCurrency(subCurrency)
+
+    if isExistValue(subCurrency, 'money', 'cash', 'gold', 'package') then
+        return
+    end
+
     local vars = self.vars
 
     -- 서브 재화
