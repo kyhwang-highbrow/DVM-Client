@@ -15,12 +15,13 @@ StructSlimeObject = class({
         grade = 'number', -- 승급 단계
         evolution = 'number', -- 진화 단계
 
+		lock = 'boolean',
+
         updated_at = 'timestamp',
         created_at = 'timestamp',
 
         -- 지울 것들
         uid = '',
-
 
         -- 드래곤인척 하기 위해
         did = '',
@@ -224,4 +225,12 @@ function StructSlimeObject:getDragonSortData()
     end
 
     return g_dragonsData:getDragonsSortData(doid)
+end
+
+-------------------------------------
+-- function getLock
+-- @breif
+-------------------------------------
+function StructSlimeObject:getLock()
+    return self['lock']
 end

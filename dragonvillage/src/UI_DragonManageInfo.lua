@@ -140,8 +140,6 @@ function UI_DragonManageInfo:refresh()
         return
     end
 
-    local vars = self.vars
-
     -- 드래곤 기본 정보 갱신
     self:refresh_dragonBasicInfo(t_dragon_data)
 
@@ -150,6 +148,9 @@ function UI_DragonManageInfo:refresh()
 
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
+
+	-- 잠금 표시
+	self.vars['lockSprite']:setVisible(t_dragon_data:getLock())
 end
 
 -------------------------------------
@@ -228,8 +229,6 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data)
     if self.m_dragonAnimator then
         self.m_dragonAnimator:setDragonAnimator(t_dragon_data['did'], t_dragon_data['evolution'], t_dragon_data:getFlv())
     end
-
-	--vars['lockSprite']:setVisible(t_dragon_data:getLock())
 end
 
 -------------------------------------
