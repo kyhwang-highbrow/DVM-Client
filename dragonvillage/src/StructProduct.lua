@@ -217,7 +217,8 @@ function StructProduct:tryBuy()
     elseif (price_type == 'cash') then
         local cash = g_userData:get('cash')
         if (cash < price) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
+            --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('다이아몬드가 부족합니다.'))
             return false
         end
 
@@ -225,7 +226,7 @@ function StructProduct:tryBuy()
     elseif (price_type == 'amethyst') then
         local amethyst = g_userData:get('amethyst')
         if (amethyst < price) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('자수정이 부족합니다.'), openShopPopup_cash)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('자수정이 부족합니다.'))
             return false
         end
 
@@ -233,7 +234,7 @@ function StructProduct:tryBuy()
     elseif (price_type == 'topaz') then
         local topaz = g_userData:get('topaz')
         if (topaz < price) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('토파즈가 부족합니다.'), openShopPopup_cash)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('토파즈가 부족합니다.'))
             return false
         end
 
@@ -241,7 +242,7 @@ function StructProduct:tryBuy()
     elseif (price_type == 'mileage') then
         local mileage = g_userData:get('mileage')
         if (mileage < price) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('마일리지가 부족합니다.'), openShopPopup_cash)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('마일리지가 부족합니다.'))
             return false
         end
 
@@ -249,7 +250,7 @@ function StructProduct:tryBuy()
     elseif (price_type == 'honor') then
         local honor = g_userData:get('honor')
         if (honor < price) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('명예가 부족합니다.'), openShopPopup_cash)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('명예가 부족합니다.'))
             return false
         end
 
@@ -257,7 +258,7 @@ function StructProduct:tryBuy()
     elseif (price_type == 'capsule') then
         local capsule = g_userData:get('capsule')
         if (capsule < price) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('캡슐이 부족합니다.'), openShopPopup_cash)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('캡슐이 부족합니다.'))
             return false
         end
 
@@ -265,7 +266,8 @@ function StructProduct:tryBuy()
     elseif (price_type == 'gold') then
         local gold = g_userData:get('gold')
         if (gold < price) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_gold)
+            --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_gold)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('골드가 부족합니다.'))
             return false
         end
 
