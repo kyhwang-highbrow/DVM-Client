@@ -418,6 +418,7 @@ local t_module = {
 	'SkillAoEWedge',
     'SkillLeafBlade',
     'SkillSummon',
+    'SkillTransform',
     'SkillSpatter',
 	'SkillLeap',
 	'SkillExplosion',

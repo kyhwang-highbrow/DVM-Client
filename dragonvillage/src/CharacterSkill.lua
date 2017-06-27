@@ -298,6 +298,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				local is_success = SkillSummon:makeSkillInstance(self, t_skill, t_data)
 				return is_success
 
+            elseif (skill_type == 'skill_transform') then
+				SkillTransform:makeSkillInstance(self, t_skill, t_data)
+				return true
+
 			elseif (skill_type == 'skill_counterattack') then
 				SkillCounterAttack:makeSkillInstance(self, t_skill, t_data)
 				return true

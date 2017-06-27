@@ -142,48 +142,28 @@ function GameState_SecretDungeon_Relation:waveChange()
     end
 end
 
-
 -------------------------------------
--- function checkWaveClear
+-- function checkToDieHighestRariry
+-- @brief 가장 높은 등급의 적(보스)가 죽었은지 체크
 -------------------------------------
-function GameState_SecretDungeon_Relation:checkWaveClear()
+function GameState_SecretDungeon_Relation:checkToDieHighestRariry()
     local world = self.m_world
-    local enemy_count = #world:getEnemyList()
 
-    -- 클리어 여부 체크
-    if (enemy_count <= 0) then
-        if (not world.m_waveMgr:isFinalWave()) then
-		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
-		else
-			self:changeState(GAME_STATE_SUCCESS_WAIT)
-		end
-        return true
-
-    -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
-    elseif (world.m_waveMgr:isBossWave()) then
-        local highestRariry = world.m_waveMgr:getHighestRariry()
-        local bExistBoss = false
+    if (world.m_bDevelopMode) then return false end
+        
+    local highestRariry = world.m_waveMgr:getHighestRariry()
+    local bExistBoss = false
             
-        for _, enemy in ipairs(world:getEnemyList()) do
-            if (enemy.m_tDragonInfo['lv'] == highestRariry) then
-                if (not enemy.m_bDead) then
-                    bExistBoss = true
-                end
-                break
+    for _, enemy in ipairs(world:getEnemyList()) do
+        if (enemy.m_tDragonInfo['lv'] == highestRariry) then
+            if (not enemy.m_bDead) then
+                bExistBoss = true
             end
-        end
-
-        if (not bExistBoss) then
-            if (world.m_waveMgr:isFinalWave()) then
-                self:changeState(GAME_STATE_SUCCESS_WAIT)
-            else
-		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
-		    end
-            return true
+            break
         end
     end
 
-    return false
+    return (not bExistBoss)
 end
 
 -------------------------------------

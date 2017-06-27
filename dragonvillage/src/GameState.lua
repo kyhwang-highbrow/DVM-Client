@@ -33,8 +33,9 @@ GameState = class(PARENT, {
         m_bPause = 'boolean',
 
         m_stateParam = 'boolean',
-        m_fightTimer = '',
+        m_fightTimer = 'number',
         m_limitTime = 'number',     -- 제한 시간
+        m_waveClearTimer = 'number',-- 웨이브 클리어 조건 유지시간(클리어 조건 달성시 일정시간 대기시키기 위함)
         
         m_bAppearHero = 'boolean',
         m_nAppearedEnemys = 'number',
@@ -60,6 +61,7 @@ function GameState:init(world)
     self.m_stateTimer = -1
     self.m_fightTimer = 0
     self.m_limitTime = 0
+    self.m_waveClearTimer = 0
     
     self.m_bAppearHero = false
 
@@ -221,11 +223,10 @@ end
 function GameState.update_fight(self, dt)
     local world = self.m_world
 
-    -- 클리어 여부 체크
-    if (not self:checkWaveClear()) then
+    if (world.m_waveMgr) then
         world.m_waveMgr:update(dt)
     end
-    
+        
     if (world.m_skillIndicatorMgr) then
         world.m_skillIndicatorMgr:update(dt)
     end
@@ -260,6 +261,9 @@ function GameState.update_fight(self, dt)
             end
         end
     end
+
+    -- 클리어 여부 체크
+    self:checkWaveClear(dt)
 end
 
 -------------------------------------
@@ -363,11 +367,11 @@ function GameState.update_wave_intermission_wait(self, dt)
     --    end
     --end
     -- 대표님 의견으로 무조건 3초 후 웨이브 이동하도록 변경 (sgkim 2017.06.16)
-    if (self.m_stateTimer < 3) then
+    if (self.m_stateTimer < 2.5) then
         b = false
     end
 
-    if (b or self.m_stateTimer >= 4) then
+    if (b or self.m_stateTimer >= 3) then
         self:changeState(GAME_STATE_WAVE_INTERMISSION)
     end
 end
@@ -900,40 +904,54 @@ end
 -------------------------------------
 -- function checkWaveClear
 -------------------------------------
-function GameState:checkWaveClear()
+function GameState:checkWaveClear(dt)
     local world = self.m_world
     local enemy_count = #world:getEnemyList()
 
     -- 클리어 여부 체크
-    if (enemy_count <= 0) then
-        if (not world.m_waveMgr:isFinalWave()) then
-		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
-		else
-			self:changeState(GAME_STATE_SUCCESS_WAIT)
-		end
-        return true
+    if (enemy_count <= 0 or self:checkToDieHighestRariry()) then
+        self.m_waveClearTimer = self.m_waveClearTimer + dt
 
-    -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
-    elseif ( not world.m_bDevelopMode and world.m_waveMgr:isFinalWave() ) then
-        local highestRariry = world.m_waveMgr:getHighestRariry()
-        local bExistBoss = false
-            
-        for _, enemy in ipairs(world:getEnemyList()) do
-            if (enemy.m_charTable['rarity'] == highestRariry) then
-                if (not enemy.m_bDead) then
-                    bExistBoss = true
-                end
-                break
-            end
-        end
+        if (self.m_waveClearTimer > 0.5) then
+            self.m_waveClearTimer = 0
 
-        if (not bExistBoss) then
-            self:changeState(GAME_STATE_SUCCESS_WAIT)
+            if (not world.m_waveMgr:isFinalWave()) then
+		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
+		    else
+			    self:changeState(GAME_STATE_SUCCESS_WAIT)
+		    end
             return true
         end
+    else
+        self.m_waveClearTimer = 0
     end
 
     return false
+end
+
+-------------------------------------
+-- function checkToDieHighestRariry
+-- @brief 가장 높은 등급의 적(보스)가 죽었은지 체크
+-------------------------------------
+function GameState:checkToDieHighestRariry()
+    local world = self.m_world
+
+    if (world.m_bDevelopMode) then return false end
+    if (not world.m_waveMgr:isFinalWave()) then return false end
+    
+    local highestRariry = world.m_waveMgr:getHighestRariry()
+    local bExistBoss = false
+            
+    for _, enemy in ipairs(world:getEnemyList()) do
+        if (enemy.m_charTable['rarity'] == highestRariry) then
+            if (not enemy.m_bDead) then
+                bExistBoss = true
+            end
+            break
+        end
+    end
+
+    return (not bExistBoss)
 end
 
 -------------------------------------

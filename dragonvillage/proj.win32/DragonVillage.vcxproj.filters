@@ -2430,6 +2430,9 @@
     <None Include="..\src\AncientTowerScoreCalc.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillTransform.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
