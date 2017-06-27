@@ -31,10 +31,20 @@ end
 -------------------------------------
 function SkillGuardian:init_skill(res, duration)
 	PARENT.init_skill(self)
+
 	-- 멤버 변수
-    self.m_lTarget = self:getProperTargetList()
     self.m_res = res
 	self.m_duration = duration
+    self.m_lTarget = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation)
+    
+    -- 자기 자신은 제외시킴
+    local idx = table.find(self.m_lTarget, self.m_owner)
+    if (idx) then
+        table.remove(self.m_lTarget, idx)
+    end
+    
+    -- 타겟 수만큼만 가져옴
+    self.m_lTarget = table.getPartList(self.m_lTarget, self.m_targetLimit)
 end
 
 
