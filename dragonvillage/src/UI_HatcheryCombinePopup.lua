@@ -137,6 +137,11 @@ function UI_HatcheryCombinePopup:init_TableView()
     local function create_func(ui, data)
         ui.root:setScale(0.66)
 
+        -- 재료로 사용 불가능한 경우
+        if (not self:checkMaterial(data)) then
+            ui:setShadowSpriteVisible(true)
+        end
+
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(ui, data) end)
     end
 
@@ -193,6 +198,33 @@ function UI_HatcheryCombinePopup:getDragonList()
 end
 
 -------------------------------------
+-- function checkMaterial
+-------------------------------------
+function UI_HatcheryCombinePopup:checkMaterial(struct_dragon_obj)
+
+    local table_dragon_combine = TableDragonCombine()
+    local t_dragon_combine = table_dragon_combine:get(self.m_dragonID)
+
+    local req_grade = t_dragon_combine['material_grade']
+    local req_grade_max_lv = TableGradeInfo:getMaxLv(req_grade)
+    local req_evolution = t_dragon_combine['material_evolution']
+
+    local v = struct_dragon_obj
+    local satisfy = false
+    if (v:getGrade() < req_grade) then
+        -- 등급이 낮아서 불충족
+    elseif (v:getGrade() == req_grade) and (v:getLv() < req_grade_max_lv) then
+        -- 최대 레벨이 낮아서 불충족 (필요 등급의 max레벨이거나 등급 자체가 더 높아야함)
+    elseif (v:getEvolution() < req_evolution) then
+        -- 진화도가 낮아서 불충족
+    else
+        satisfy = true
+    end
+
+    return satisfy
+end
+
+-------------------------------------
 -- function click_dragonCard
 -------------------------------------
 function UI_HatcheryCombinePopup:click_dragonCard(ui, data)
@@ -205,16 +237,7 @@ function UI_HatcheryCombinePopup:click_dragonCard(ui, data)
     local req_evolution = t_dragon_combine['material_evolution']
 
     local v = data
-    local satisfy = false
-    if (v:getGrade() < req_grade) then
-        -- 등급이 낮아서 불충족
-    elseif (v:getGrade() == req_grade) and (v:getLv() < req_grade_max_lv) then
-        -- 최대 레벨이 낮아서 불충족 (필요 등급의 max레벨이거나 등급 자체가 더 높아야함)
-    elseif (v:getEvolution() < req_evolution) then
-        -- 진화도가 낮아서 불충족
-    else
-        satisfy = true
-    end
+    local satisfy = self:checkMaterial(data)
 
     if (not satisfy) then
         local msg = Str('재료는 {1}성 최대 레벨(Lv.{2}) 이상, {3} 이상이어야 합니다.', req_grade, req_grade_max_lv, evolutionName(req_evolution))
