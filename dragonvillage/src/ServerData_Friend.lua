@@ -573,7 +573,11 @@ end
 -- @brief 최종 접속 시간(지나간 시간 출력)
 -------------------------------------
 function ServerData_Friend:getPastActiveTimeStr(t_friend_info)
-    if t_friend_info['is_online'] then
+    if (not t_friend_info['last_active_past_time']) then
+        self:updateFriendUser_activeTime(t_friend_info)
+    end
+    
+    if (t_friend_info['is_online']) then
         return Str('접속 중')
     end
 
@@ -582,7 +586,8 @@ function ServerData_Friend:getPastActiveTimeStr(t_friend_info)
         return Str('접속정보 없음')
     else
         local showSeconds = true
-        return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_past_time, showSeconds))
+        local firstOnly = true
+        return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_past_time, showSeconds, firstOnly))
     end
 end
 

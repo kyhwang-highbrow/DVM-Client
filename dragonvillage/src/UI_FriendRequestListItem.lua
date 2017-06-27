@@ -26,7 +26,7 @@ function UI_FriendRequestListItem:initUI()
     local vars = self.vars
     local t_friend_info = self.m_tFriendInfo
     
-    vars['timeLabel']:setString('')
+    vars['timeLabel']:setString(g_friendData:getPastActiveTimeStr(t_friend_info))
     vars['nameLabel']:setString(t_friend_info['nick'])
     vars['levelLabel']:setString(Str('Lv. {1}', t_friend_info['lv']))
 end
