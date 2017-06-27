@@ -467,7 +467,7 @@ function UI_DragonManageInfo:click_leaderBtn()
         local function cb_func(ret)
             UIManager:toastNotificationGreen(Str('대표 드래곤으로 설정되었습니다.'))
             
-			self:refreshLeaderIcon(ret['modified_dragons'])
+			self:refreshDragonCard(ret['modified_dragons'], 'leader')
 
             -- 리더 드래곤 여부 표시
             self:setSelectDragonDataRefresh()
@@ -481,10 +481,10 @@ function UI_DragonManageInfo:click_leaderBtn()
 end
 
 -------------------------------------
--- function refreshLeaderIcon
+-- function refreshDragonCard
 -- @brief 대표드래곤이 변경되었을 때
 -------------------------------------
-function UI_DragonManageInfo:refreshLeaderIcon(modified_dragons)
+function UI_DragonManageInfo:refreshDragonCard(modified_dragons, ref_type)
     for i,v in pairs(modified_dragons) do
         local doid = v['id']
         local item = self.m_tableViewExt:getItem(doid)
@@ -493,7 +493,11 @@ function UI_DragonManageInfo:refreshLeaderIcon(modified_dragons)
             item['data'] = clone(v)
             if item['ui'] then
                 item['ui'].m_dragonData = StructDragonObject(v)
-                item['ui']:refresh_LeaderIcon()
+				if (ref_type == 'leader') then
+					item['ui']:refresh_LeaderIcon()
+				elseif (ref_type == 'lock') then
+					item['ui']:refresh_Lock()
+				end
             end
         end
     end
@@ -512,10 +516,17 @@ function UI_DragonManageInfo:click_lockBtn()
 
 	local l_doid = {self.m_selectDragonOID}
 	local lock = (not struct_dragon_data:getLock())
-	local function finish_cb()
+
+	local function finish_cb(ret)
+		-- 메인 잠금 표시 해제
 		self.vars['lockSprite']:setVisible(lock)
+		
+		-- 잠금 안내 팝업
 		local msg = lock and Str('잠금되었습니다.') or Str('잠금이 해제되었습니다.')
 		UIManager:toastNotificationGreen(msg)
+
+		-- 하단 리스트 갱신
+		self:refreshDragonCard(ret['modified_dragons'], 'lock')
 	end
 
 	g_dragonsData:request_dragonLock(l_doid, lock, finish_cb)

@@ -100,6 +100,10 @@ function UI_CharacterCard:refreshDragonInfo()
             self:setReadySpriteVisible(is_setted)
         end
     end
+
+	do -- 잠금 표시
+		self:refresh_Lock()
+	end
 end
 
 -------------------------------------
@@ -181,6 +185,16 @@ function UI_CharacterCard:refresh_LeaderIcon()
             vars['leaderIcon']:setVisible(false)
         end
     end
+end
+
+-------------------------------------
+-- function refresh_Lock
+-- @brief 잠금 갱신
+-------------------------------------
+function UI_CharacterCard:refresh_Lock()
+	local t_dragon_data = self.m_dragonData
+	local is_lock = t_dragon_data:getLock()
+	self:setLockSprit(is_lock)
 end
 
 -------------------------------------
@@ -588,6 +602,25 @@ function UI_CharacterCard:setHighlightSpriteVisible(visible)
 end
 
 -------------------------------------
+-- function setCheckSpriteVisible
+-- @brief 카드 체크 표시
+-------------------------------------
+function UI_CharacterCard:setLockSprit(visible)
+    if self.vars['lockSprite'] then
+        self.vars['lockSprite']:setVisible(visible)
+
+    elseif (visible) then
+        local sprite = cc.Sprite:create('res/ui/icon_lock_0101.png')
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setAnchorPoint(CENTER_POINT)
+		sprite:setPosition(50, 50)
+		sprite:setScale(0.6)
+        self.vars['clickBtn']:addChild(sprite, 18)
+        self.vars['lockSprite'] = sprite
+    end
+end
+
+-------------------------------------
 -- function setButtonEnabled
 -- @brief
 -------------------------------------
@@ -597,7 +630,9 @@ function UI_CharacterCard:setButtonEnabled(enable)
     end
 end
 
-
+-------------------------------------
+-- function UI_DragonCard
+-------------------------------------
 function UI_DragonCard(t_dragon_data, t_user_data)
     if t_dragon_data and (not t_dragon_data.m_objectType) then
         t_dragon_data = StructDragonObject(t_dragon_data)

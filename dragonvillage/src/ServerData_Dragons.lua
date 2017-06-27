@@ -1000,7 +1000,7 @@ function ServerData_Dragons:request_dragonLock(l_doid, lock, cb_func)
 		end
 
 		if (cb_func) then
-			cb_func()
+			cb_func(ret)
 		end
     end
 
