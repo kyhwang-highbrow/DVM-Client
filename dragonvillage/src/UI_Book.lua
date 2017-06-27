@@ -151,7 +151,7 @@ function UI_Book:makeSortManager()
 		local b_value = b_data['evolution']
 
 		-- nil return 을 하지 않음
-		--if (a_value == b_value) then return nil end
+		if (a_value == b_value) then return nil end
 
 		-- 오름차순 or 내림차순
 		if ascending then return a_value < b_value
@@ -160,9 +160,27 @@ function UI_Book:makeSortManager()
     end
     sort_manager:addSortType('evolution', false, sort_evolution)
 	
+    local function sort_grade(a, b, ascending)
+		local a_data = a['data']
+		local b_data = b['data']
+
+		local a_value = a_data['grade']
+		local b_value = b_data['grade']
+
+		-- nil return 을 하지 않음
+		-- if (a_value == b_value) then return nil end
+
+		-- 오름차순 or 내림차순
+		if ascending then return a_value < b_value
+		else              return a_value > b_value
+		end
+    end
+    -- sort_manager:addSortType('grade', false, sort_grade)
+	
+
 	-- 진화도부터 체크 후에 등급 체크
 	sort_manager:pushSortOrder('evolution', false)
-    sort_manager:pushSortOrder('grade', false)
+    --sort_manager:pushSortOrder('grade', false)
 
     self.m_sortManager = sort_manager
 end
@@ -210,8 +228,7 @@ function UI_Book:init_TableViewTD()
 		ui.root:setScale(item_scale)
 
 		-- 수집 여부에 따른 음영 처리
-		local book_data = g_bookData:getBookData(did)
-		if (not book_data:isExist(evolution, grade)) then
+		if (not g_bookData:isExist(data)) then
 			ui:setShadowSpriteVisible(true)
 		end
 

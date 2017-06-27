@@ -62,13 +62,6 @@ function StructBookData:getRelation()
 end
 
 -------------------------------------
--- function isExist
--------------------------------------
-function StructBookData:isExist(evolution, grade)
-    return (self.grade >= grade) and (self.evolution >= evolution)
-end
-
--------------------------------------
 -- function getGrade
 -------------------------------------
 function StructBookData:getGrade()

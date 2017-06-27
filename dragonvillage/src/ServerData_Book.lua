@@ -158,11 +158,18 @@ end
 
 -------------------------------------
 -- function isExist
--- @brief 도감에 표시 여부
+-- @brief 도감에 표시 여부 .. reward_info 를 활용한다.
 -------------------------------------
 function ServerData_Book:isExist(t_dragon_data)
-    local struct_book_data = self:getBookData(t_dragon_data['did'])
-    return struct_book_data:isExist(t_dragon_data['evolution'], t_dragon_data['grade'])
+	local did = t_dragon_data['did']
+	local t_info = self.m_tBookReward[tostring(did)]
+
+	if (not t_info) then
+		return false
+	end
+	local evolution = t_dragon_data['evolution']
+	local reward_type = t_info['evo_' .. evolution] or 0
+	return (reward_type >= 1)
 end
 
 -------------------------------------
@@ -198,6 +205,7 @@ end
 -------------------------------------
 -- function getCollectCount
 -- @brief 수집한 드래곤 수
+-- @param t_dragon_book - 도감 테이블뷰에서 가져온 아이템 리스트
 -------------------------------------
 function ServerData_Book:getCollectCount(t_dragon_book)
 	local cnt = 0
@@ -217,7 +225,7 @@ end
 
 
 -------------------------------------
--- function getCollectCount
+-- function haveBookReward
 -- @brief 수집한 드래곤 수
 -------------------------------------
 function ServerData_Book:haveBookReward(did, evolution)

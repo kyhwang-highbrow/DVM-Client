@@ -302,8 +302,8 @@ function SortManager_Dragon:sort_friendship(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_value = a_data:getFlv()
-    local b_value = b_data:getFlv()
+    local a_value = a_data.getFlv and a_data:getFlv() or a_data['flv']
+    local b_value = b_data.getFlv and b_data:getFlv() or b_data['flv']
 
     -- 같을 경우 리턴
     if (a_value == b_value) then return nil end
@@ -347,6 +347,27 @@ function SortManager_Dragon:sort_grade(a, b, ascending)
 
     local a_value = a_data['grade']
     local b_value = b_data['grade']
+
+    -- 같을 경우 리턴
+    if (a_value == b_value) then return nil end
+
+    -- 오름차순 or 내림차순
+    if ascending then return a_value < b_value
+    else              return a_value > b_value
+    end
+end
+
+-------------------------------------
+-- function sort_evolution
+-- @brief 진화도 
+-- @comment 디폴트로 push 하지는 않음 .. 
+-------------------------------------
+function SortManager_Dragon:sort_evolution(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+	local a_value = a_data['evolution']
+	local b_value = b_data['evolution']
 
     -- 같을 경우 리턴
     if (a_value == b_value) then return nil end

@@ -438,7 +438,7 @@ function UI_CharacterCard:setShadowSpriteVisible(visible)
         local sprite = cc.Sprite:createWithSpriteFrameName('character_card_bg.png')
         sprite:setDockPoint(CENTER_POINT)
         sprite:setAnchorPoint(CENTER_POINT)
-        sprite:setOpacity(200)
+        sprite:setOpacity(150)
         self.vars['clickBtn']:addChild(sprite, 10)
         self.vars['shadowSprite'] = sprite
     end
