@@ -278,7 +278,8 @@ function UI_HatcheryRelationTab:click_summonBtn()
         end
 
         if (table.count(added_dragons) > 0) then
-            UI_GachaResult_Dragon(added_dragons)
+            -- 드래곤 등장 연출
+            UI_DragonAppear(StructDragonObject(added_dragons[1]))
         end
 
         -- 리스트 아이템 갱신

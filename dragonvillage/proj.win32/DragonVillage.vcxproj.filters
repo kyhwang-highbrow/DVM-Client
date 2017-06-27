@@ -2415,9 +2415,6 @@
     <None Include="..\src\UI_Shop.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_ShopOld.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\TableExplorationList.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2431,6 +2428,12 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\SkillTransform.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_DragonAppear.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_ShopOld.lua">
       <Filter>lua\src</Filter>
     </None>
   </ItemGroup>

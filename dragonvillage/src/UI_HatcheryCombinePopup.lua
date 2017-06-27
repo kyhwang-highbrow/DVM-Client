@@ -338,7 +338,7 @@ function UI_HatcheryCombinePopup:click_combineBtn()
 
             -- 드래곤 소환 연출
             local l_dragon_list = ret['added_dragons']
-            local ui = UI_GachaResult_Dragon(l_dragon_list)
+            local ui = UI_DragonAppear(StructDragonObject(l_dragon_list[1]))
         end
 
         local did = self.m_dragonID
