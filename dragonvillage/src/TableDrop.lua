@@ -96,45 +96,54 @@ function TableDrop:getStageAttr(stage_id)
 end
 
 -------------------------------------
--- function getStageHeroBuff
+-- function getStageBuff
 -------------------------------------
-function TableDrop:getStageHeroBuff(stage_id)
+function TableDrop:getStageBuff(stage_id, key)
     if (self == THIS) then
         self = THIS()
     end
 
-    local str = self:getValue(tonumber(stage_id), 'buff_user')
+    local str = self:getValue(tonumber(stage_id), 'buff_' .. key)
     if (str == 'x' or str == '') then return end
 
-    local l_str = self:seperate(str, ';')
-    local ret = {}
+    local l_ret = {}
+    local make_data = function(str)
+        local ret = {}
+        local l_str = self:seperate(str, ';')
 
-    ret['condition_type'] = l_str[1]
-    ret['condition_value'] = l_str[2]
-    ret['buff_type'] = l_str[3]
-    ret['buff_value'] = tonumber(l_str[4])
+        ret['condition_type'] = l_str[1]
+        ret['condition_value'] = l_str[2]
+        ret['buff_type'] = l_str[3]
+        ret['buff_value'] = tonumber(l_str[4])
 
-    return ret
+        return ret
+    end
+
+    if (string.find(str, ',')) then
+        local l_str = self:seperate(str, ',')
+
+        for i, str in ipairs(l_str) do
+            local data = make_data(str)
+            table.insert(l_ret, data)
+        end
+    else
+        local data = make_data(str)
+        table.insert(l_ret, data)
+    end
+
+    return l_ret
+end
+
+-------------------------------------
+-- function getStageHeroBuff
+-------------------------------------
+function TableDrop:getStageHeroBuff(stage_id)
+    return self:getStageBuff(stage_id, 'user')
 end
 
 -------------------------------------
 -- function getStageEnemyBuff
 -------------------------------------
 function TableDrop:getStageEnemyBuff(stage_id)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local str = self:getValue(stage_id, 'buff_enemy')
-    if (str == 'x' or str == '') then return end
-
-    local l_str = self:seperate(str, ';')
-    local ret = {}
-
-    ret['condition_type'] = l_str[1]
-    ret['condition_value'] = l_str[2]
-    ret['buff_type'] = l_str[3]
-    ret['buff_value'] = tonumber(l_str[4])
-
-    return ret
+    return self:getStageBuff(stage_id, 'enemy')
 end
