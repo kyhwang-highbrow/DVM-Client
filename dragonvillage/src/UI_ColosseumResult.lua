@@ -21,16 +21,6 @@ function UI_ColosseumResult:init(is_win, t_data)
 
     self:initUI(is_win, t_data)
     self:initButton()
-
-	-- 승격했다면 등급 최초 달성 보상 수령
-	if (t_data['tier_reward']) then
-
-        -- 0캐시일 경우 팝업 skip
-    	local l_tier_info = stringSplit(t_data['tier'], '_')
-	    local tier_name = l_tier_info[1]
-	    local tier_grade = l_tier_info[2]
-        local reward_value = TableColosseumReward():getFirstRewardCash(tier_name, tier_grade)
-	end
 end
 
 -------------------------------------

@@ -1899,9 +1899,6 @@
     <None Include="..\src\TableClass.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\TableColosseumReward.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableDragon.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2405,6 +2402,13 @@
     </None>
     <None Include="..\src\SkillHealAoESquare_Width.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumRewardInfoPopup.lua" />
+    <None Include="..\src\UI_ColosseumRankRewardItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumMatchRewardItem.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

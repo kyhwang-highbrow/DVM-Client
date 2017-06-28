@@ -42,7 +42,6 @@ local TableInfo = {
         formation           = {'table_formation',           'fmid',         false},
 
 		quest			    = {'table_quest',			    'qid',			false},
-        colosseum_reward    = {'table_colosseum_reward',	'tier',			false},
         anc_floor_reward    = {'table_ancient_floor_reward','stage',		false},
         anc_rank_reward     = {'table_ancient_rank_reward',	'rank_id',		false},
         stage_mission       = {'table_stage_mission',		'key',			false},
@@ -83,6 +82,7 @@ local TableInfo_fromServer = {
         ['table_dragon_research'] = {'table_dragon_research', 'lv'},
         ['table_dragon_collection'] = {'table_dragon_collection', 'req_point'},
         ['table_exploration_list'] = {'table_exploration_list', 'epr_id'},
+        ['table_colosseum'] = {'table_colosseum', 'tid'},
 
         --  친밀도
         ['table_dragon_friendship'] = {'table_dragon_friendship', 'friendship'},

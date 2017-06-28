@@ -222,7 +222,6 @@ local t_module = {
     'TableItemRand',
 	'TableQuest',
     'TableSecretDungeon',
-    'TableColosseumReward',
     'TableDragonUnit',
     'TableStageMission',
     'TableCalendar',
@@ -625,6 +624,9 @@ local t_module = {
     'UI_ColosseumResult',
     'UI_ColosseumRankInfoPopup',
     'UI_ColosseumBuffInfoPopup',
+    'UI_ColosseumRewardInfoPopup',
+    'UI_ColosseumRankRewardItem',
+    'UI_ColosseumMatchRewardItem',
 
 	-- UI : 고대의 탑
     'UI_AncientTowerScene',

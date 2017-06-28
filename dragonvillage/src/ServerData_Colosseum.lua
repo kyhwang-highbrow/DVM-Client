@@ -74,8 +74,8 @@ function ServerData_Colosseum:response_colosseumInfo(ret)
     self.m_startTime = ret['start_time']
     self.m_endTime = ret['endtime']
 
-    self:refresh_playerUserInfo(ret)
-    self:refresh_playerUserInfo_highRecord(t_data)
+    self:refresh_playerUserInfo(ret['season'])
+    self:refresh_playerUserInfo_highRecord(ret['hiseason'])
 end
 
 -------------------------------------
@@ -116,14 +116,7 @@ function ServerData_Colosseum:refresh_playerUserInfo_highRecord(t_data)
         self.m_playerUserInfoHighRecord = struct_user_info
     end
 
-    local t_data_new = {}
-    t_data_new['win'] = t_data_new['hiwin']
-    t_data_new['lose'] = t_data_new['hilose']
-    t_data_new['rp'] = t_data_new['hirp']
-    t_data_new['tier'] = t_data_new['hitier']
-    t_data_new['straight'] = t_data_new['histraight']
-
-    self:_refresh_playerUserInfo(self.m_playerUserInfoHighRecord, t_data_new)
+    self:_refresh_playerUserInfo(self.m_playerUserInfoHighRecord, t_data)
 end
 
 -------------------------------------
@@ -141,6 +134,10 @@ function ServerData_Colosseum:_refresh_playerUserInfo(struct_user_info, t_data)
 
         if t_data['lose'] then
             struct_user_info.m_loseCnt = t_data['lose']
+        end
+
+        if t_data['rank'] then
+            struct_user_info.m_rank = t_data['rank']
         end
 
         if t_data['rp'] then

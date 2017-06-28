@@ -139,6 +139,7 @@ end
 
 -------------------------------------
 -- function click_winBuffDetailBtn
+-- @breif 연승 버프 안내 팝업
 -------------------------------------
 function UI_Colosseum:click_winBuffDetailBtn()
 	UI_ColosseumBuffInfoPopup()
@@ -146,6 +147,7 @@ end
 
 -------------------------------------
 -- function click_rankDetailBtn
+-- @brief 콜로세움 랭킹 정보 팝업 (최고 순위 기록 시즌, 현재 시즌)
 -------------------------------------
 function UI_Colosseum:click_rankDetailBtn()
 	UI_ColosseumRankInfoPopup()
@@ -153,8 +155,10 @@ end
 
 -------------------------------------
 -- function click_rewardInfoBtn
+-- @brief 콜로세움 보상 정보 팝업
 -------------------------------------
 function UI_Colosseum:click_rewardInfoBtn()
+    UI_ColosseumRewardInfoPopup()
 end
 
 

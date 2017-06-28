@@ -563,6 +563,7 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
     local function success_cb(ret)
         self:setServerTable(ret, 'table_stamina_info')
         self:setServerTable(ret, 'table_dragon_research')
+        self:setServerTable(ret, 'table_colosseum')
 
         -- 친밀도 테이블
         self:setServerTable(ret, 'table_dragon_friendship')
