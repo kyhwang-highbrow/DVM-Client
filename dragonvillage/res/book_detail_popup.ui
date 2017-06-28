@@ -317,7 +317,7 @@
 					enable = true;
 					normal = 'ui/btn/a_btn_0101.png';
 					selected = 'ui/btn/a_btn_0102.png';
-					disable = '';
+					disable = 'ui/btn/a_btn_0102.png';
 					image_type = 1;
 				};
 				[9] =
@@ -1127,7 +1127,7 @@
 					enable = true;
 					normal = 'ui/btn/a_btn_0101.png';
 					selected = 'ui/btn/a_btn_0102.png';
-					disable = '';
+					disable = 'ui/btn/a_btn_0102.png';
 					image_type = 1;
 				};
 				[14] =
