@@ -133,8 +133,7 @@ function IconHelper:getDragonGradeIcon(t_dragon_data, type)
 	if (type == 3) then
 		-- mskim : 별이 왼쪽에서 나와야 하는데 이미지는 오른쪽에 붙어있다.
 		-- 이미지가 왼쪽으로 바껴야 하지만 바쁘신거 같아 클라에서 제어..
-		sprite:setRotation(180)
-		sprite:setScaleY(-1)
+		sprite:setScaleX(-1)
 	end
 
     return sprite
