@@ -115,23 +115,23 @@ function UI_AcquisitionRegionInformation:makeRegionList()
 	local item_type = TableItem:getItemType(item_id)
 	local l_region = {}
 
+	-- 드래곤
 	if (item_type == 'dragon') then
 		local t_item = TableItem():get(item_id)
 		local did = t_item['did']
-		
-		-- 조합 체크
-		local t_combine = TableDragonCombine():get(did)
-		if (t_combine) then
-			table.insert(l_region, 'combine')
-		end
 
 		-- 뽑기 체크
 		local t_dragon = TableDragon():get(did)
 		if (t_dragon) then
-			--[[
 			-- 일반 소환
 			if (t_dragon['pick_weight'] > 0) then
-				table.insert(l_region, 'pick')
+				local birth_grade = t_dragon['birthgrade']
+				if (birth_grade >= 3) then
+					table.insert(l_region, 'pick_high')
+				end
+				if (birth_grade <= 3) then
+					table.insert(l_region, 'pick_low')
+				end
 			end
 			-- 우정 부화
 			if (t_dragon['fp_weight'] > 0) then
@@ -141,10 +141,12 @@ function UI_AcquisitionRegionInformation:makeRegionList()
 			if (t_dragon['mg_weight'] > 0) then
 				table.insert(l_region, 'mileage')
 			end
-			]]
-			if (t_dragon['mg_weight'] > 0) or (t_dragon['pick_weight'] > 0) or (t_dragon['fp_weight'] > 0) then
-				table.insert(l_region, 'summon')
-			end
+		end
+		
+		-- 조합 체크
+		local t_combine = TableDragonCombine():get(did)
+		if (t_combine) then
+			table.insert(l_region, 'combine')
 		end
 
 		-- 인연 체크
@@ -153,6 +155,7 @@ function UI_AcquisitionRegionInformation:makeRegionList()
 			table.insert(l_region, 'relation')
 		end
 
+	-- 룬
 	elseif (item_type == 'rune') then
 		l_region = TableItem:getRegionList(item_id)
 

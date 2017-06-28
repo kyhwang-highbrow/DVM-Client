@@ -56,22 +56,22 @@ function UI_AcquisitionRegionListItem:initUI()
 		if (get_type == 'combine') then
 			title_str = Str('[조합]')
 			content_str = Str('조합에서 획득')
-		
-		elseif (get_type == 'summon') then
-			title_str = Str('[소환]')
-			content_str = Str('소환으로 획득 가능')
+
+		elseif string.find(get_type, 'pick_low') then
+			title_str = Str('[일반 알 부화]')
+			content_str = Str('1~3★ 드래곤 알에서 획득')
+
+		elseif string.find(get_type, 'pick_high') then
+			title_str = Str('[고급 알 부화]')
+			content_str = Str('3~5★ 드래곤 알에서 획득')
 
 		elseif (get_type == 'mileage') then
-			title_str = Str('[마일리지 알 부화]')
-			content_str = Str('마일리지 부화에서 획득')
+			title_str = Str('[특수 알 부화]')
+			content_str = Str('신화, 기적, 초월, 환상의 알에서 획득')
 
 		elseif (get_type == 'friend') then
 			title_str = Str('[우정 알 부화]')
-			content_str = Str('우정 부화에서 획득')
-
-		elseif (get_type == 'pick') then
-			title_str = Str('[일반 알 부화]')
-			content_str = Str('일반 부화에서 획득 가능')
+			content_str = Str('1~3★ 우정 부화에서 획득')
 
 		elseif (get_type == 'relation') then
 			title_str = Str('[인연 던전]')
@@ -113,10 +113,15 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 	-- 드래곤으로 간주
 	else
 		local get_type = self.m_region
-		g_hatcheryData:openHatcheryUI(close_cb, get_type)
-		--[[
+
 		if (get_type == 'combine') then
 			g_hatcheryData:openHatcheryUI(close_cb, get_type)
+
+		elseif (get_type == 'pick_low') then
+			g_hatcheryData:openHatcheryUI(close_cb)
+
+		elseif (get_type == 'pick_high') then
+			g_hatcheryData:openHatcheryUI(close_cb)
 
 		elseif (get_type == 'mileage') then
 			g_hatcheryData:openHatcheryUI(close_cb)
@@ -124,13 +129,9 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 		elseif (get_type == 'friend') then
 			g_hatcheryData:openHatcheryUI(close_cb)
 
-		elseif (get_type == 'pick') then
-			g_hatcheryData:openHatcheryUI(close_cb)
-
 		elseif (get_type == 'relation') then
 			g_hatcheryData:openHatcheryUI(close_cb, get_type)
 
 		end
-		]]
 	end
 end
