@@ -159,8 +159,10 @@ end
 -------------------------------------
 function Tamer:doSkill(skill_idx)
 	local t_skill = self.m_lSkill[skill_idx]
-	local skill_type = t_skill['skill_type']
-	
+    local skill_type = t_skill['skill_type']
+    local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
+    if (not skill_indivisual_info) then return end
+    	
 	-- 타겟 확인
 	if (not self.m_targetChar) then
 		self:checkTarget(t_skill)
@@ -198,13 +200,12 @@ function Tamer:doSkill(skill_idx)
 
 	-- [PASSIVE]
 	else
-		if (PARENT.doSkillBySkillTable(self, t_skill)) then
-            local skill_indivisual_info = self:findSkillInfoByID(skill_id)
-            if (skill_indivisual_info) then
-                skill_indivisual_info:startCoolTime()
-            end
-        end
+		PARENT.doSkillBySkillTable(self, t_skill)
+
 	end
+
+    -- 쿨타임 시작
+    skill_indivisual_info:startCoolTime()
     
 	return true
 end
