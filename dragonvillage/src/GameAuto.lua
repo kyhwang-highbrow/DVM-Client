@@ -134,6 +134,9 @@ function GameAuto:proccess_dragon()
                 table.pop(self.m_lRandomAllyList)
             end
         end
+    else
+        -- 해당 드래곤의 드래그 스킬이 없을 경우 리스트에서 삭제
+        table.pop(self.m_lRandomAllyList)
     end
 end
 
