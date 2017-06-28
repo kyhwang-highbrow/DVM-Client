@@ -249,11 +249,14 @@ function UI_Lobby:refresh_highlight()
     -- 드래곤
     vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
 
+    -- 친구 
+    vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
+
     -- 테이머
     vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
 
-    -- 친구 
-    vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
+	-- 도감
+	vars['collectionNotiSprite']:setVisible(g_bookData:isHighlightBook())
 end
 
 -------------------------------------
@@ -551,7 +554,9 @@ end
 -- function click_collectionBtn
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
-	UI_Book()
+	UI_Book():setCloseCB(function()
+		self:refresh_highlight()
+	end)
 end
 
 -------------------------------------

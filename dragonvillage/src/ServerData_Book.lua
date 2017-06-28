@@ -261,7 +261,7 @@ function ServerData_Book:request_bookReward(did, evolution, finish_cb)
 		self:setLastChangeTimeStamp()
 
         if finish_cb then
-            finish_cb(ret)
+            finish_cb()
 
         end
     end
@@ -370,4 +370,64 @@ function ServerData_Book:checkChange(timestamp)
     end
 
     return false
+end
+
+
+
+
+
+
+-------------------------------------
+-- function getBookNotiList
+-- @brief 도감에서 noti를 표시해줘야할 탭 리스트
+-------------------------------------
+function ServerData_Book:getBookNotiList()
+	local table_dragon = TableDragon()
+	
+	local attr, role
+	local t_dragon
+	local have_reward
+	local t_ret = {}
+	
+	for did, t_info in pairs(self.m_tBookReward) do
+		-- did의 보상이 있는지 검사	
+		have_reward = false
+		for i, reward in pairs(t_info) do
+			if (reward == 1) then
+				have_reward = true
+				break
+			end
+		end
+
+		-- 노티 세팅
+		if (have_reward) then
+			t_dragon = table_dragon:get(tonumber(did))
+			if (t_dragon) then
+				attr = t_dragon['attr']
+				role = t_dragon['role']
+
+				t_ret[attr] = true
+				t_ret[role] = true
+			end
+		end
+	end
+
+	return t_ret
+end
+
+
+-------------------------------------
+-- function getBookNotiList
+-- @brief 하이라이트(노티) 여부
+-------------------------------------
+function ServerData_Book:isHighlightBook()
+	for did, t_info in pairs(self.m_tBookReward) do
+		for i, reward in pairs(t_info) do
+			if (reward == 1) then
+				return true
+			end
+		end
+	end
+
+	return false
 end

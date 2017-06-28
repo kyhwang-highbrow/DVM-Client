@@ -14,6 +14,8 @@ UI_Book = class(PARENT, {
 
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManager = 'SortManager',
+
+		m_lNotiSpriteList = 'List<Sprite>',
      })
 
 -------------------------------------
@@ -42,13 +44,14 @@ function UI_Book:init()
     self:doActionReset()
     self:doAction(nil, false)
 
+	self.m_lNotiSpriteList = {}
+    self.m_bookLastChangeTime = g_bookData:getLastChangeTimeStamp()
+
 	self:initUI()
     self:initButton()
     self:refresh()
 
     self:sceneFadeInAction()
-
-    self.m_bookLastChangeTime = g_bookData:getLastChangeTimeStamp()
 end
 
 -------------------------------------
@@ -127,12 +130,46 @@ end
 -- function refresh
 -------------------------------------
 function UI_Book:refresh()
-    local vars = self.vars
-
 	-- 수집 현황
+	self:refresh_collect()
+
+	-- 보상 노티
+	self:refresh_noti()
+end
+
+-------------------------------------
+-- function refresh_collect
+-------------------------------------
+function UI_Book:refresh_collect()
 	local coll_cnt = g_bookData:getCollectCount(self.m_tableViewTD.m_itemList)
 	local total_cnt = self.m_tableViewTD:getItemCount()
-	vars['collectLabel']:setString(Str('수집 현황 {1} / {2}', coll_cnt, total_cnt))
+	self.vars['collectLabel']:setString(Str('수집 현황 {1} / {2}', coll_cnt, total_cnt))
+end
+
+-------------------------------------
+-- function refresh_noti
+-------------------------------------
+function UI_Book:refresh_noti()
+	-- 이전의 노티 전부 삭제
+	do
+		for _, spr in pairs(self.m_lNotiSpriteList) do
+			spr:removeFromParent(true)
+		end
+		self.m_lNotiSpriteList = {}
+	end
+
+	-- 노티 새로 생성
+	local vars = self.vars
+	local t_noti = g_bookData:getBookNotiList()
+	for noti, _ in pairs(t_noti) do
+		local spr = cc.Sprite:create('res/ui/btn/notification.png')
+		spr:setAnchorPoint(CENTER_POINT)
+		spr:setDockPoint(CENTER_POINT)
+		spr:setPosition(60, 25)
+		vars[noti .. 'Btn']:addChild(spr)
+
+		table.insert(self.m_lNotiSpriteList, spr)
+	end
 end
 
 -------------------------------------
@@ -244,6 +281,7 @@ function UI_Book:init_TableViewTD()
 				local function finish_cb()
 					UI_ToastPopup()
 					ui:setMaxLvSpriteVisible(false)
+					self:refresh_noti()
 				end
 				g_bookData:request_bookReward(did, evolution, finish_cb)
 				
