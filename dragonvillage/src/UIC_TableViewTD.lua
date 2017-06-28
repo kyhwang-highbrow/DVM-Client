@@ -125,15 +125,17 @@ function UIC_TableViewTD:update(dt)
 			-- 눈에 보이는 셀부터 먼저 생성되도록 큐에 담음
 			for i=self.m_visibleStartIdx, self.m_visibleEndIdx do
 				local t_item = self.m_itemList[i]
-				if t_item['reserved'] and (not t_item['ui']) then
-					for i,v in ipairs(self.m_makeReserveQueue) do
-						if (t_item == v) then
-							table.remove(self.m_makeReserveQueue, i)
-							break
+				if (t_item) then
+					if t_item['reserved'] and (not t_item['ui']) then
+						for i,v in ipairs(self.m_makeReserveQueue) do
+							if (t_item == v) then
+								table.remove(self.m_makeReserveQueue, i)
+								break
+							end
 						end
+						table.insert(self.m_makeReserveQueue, 1, t_item)
+						break
 					end
-					table.insert(self.m_makeReserveQueue, 1, t_item)
-					break
 				end
 			end
 
