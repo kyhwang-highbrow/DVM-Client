@@ -2187,9 +2187,6 @@
     <None Include="..\src\StatusEffect_Sleep.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\StatusEffect_PassiveSkill.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StatusEffectUnit_Dot.lua">
       <Filter>lua\src</Filter>
     </None>
