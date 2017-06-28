@@ -30,6 +30,7 @@ UI_AncientTowerListItem = class(PARENT, {
 
         local stage_id = self.m_stageTable['stage']
         local floor = g_ancientTowerData:getFloorFromStageID(stage_id)
+        local clear_floor = g_ancientTowerData.m_clearFloor
 
         -- 층 수 표시
         vars['floorLabel']:setString(Str('{1}층', floor))
@@ -37,7 +38,7 @@ UI_AncientTowerListItem = class(PARENT, {
         -- 클리어시 보상 표시
         local t_info = TABLE:get('anc_floor_reward')[stage_id]
         if (t_info) then
-            local l_str = seperate(t_info['reward_first'], ';')
+            local l_str = (floor > clear_floor) and seperate(t_info['reward_first'], ';') or seperate(t_info['reward_repeat'], ';')
             local item_type = l_str[1]
             local item_id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
             local item_count = tonumber(l_str[2])

@@ -76,10 +76,10 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
     
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
         local stage_id = info.m_stage
-        local type = TableDrop:getStageStaminaType(stage_id)
-        local icon = IconHelper:getStaminaInboxIcon(type)
+        local st_type, st_cnt = TableDrop:getStageStaminaType(stage_id)
+        local icon = IconHelper:getStaminaInboxIcon(st_type)
         vars['staminaNode']:addChild(icon)
-        vars['actingPowerLabel']:setString(info:getNeedStamina())
+        vars['actingPowerLabel']:setString(st_cnt)
     end
 end
 
@@ -94,7 +94,7 @@ function UI_AncientTowerFloorInfo:refresh_rewardData()
     local node = vars['rewardNode']
     node:removeAllChildren()
 
-    local id, cnt = info:getFirstReward()
+    local id, cnt = info:getReward()
     local ui = UI_ItemCard(id, cnt)
     node:addChild(ui.root)
 end

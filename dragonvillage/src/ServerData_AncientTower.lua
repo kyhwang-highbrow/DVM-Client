@@ -12,6 +12,7 @@ ServerData_AncientTower = class({
         m_challengingStageID= 'number',     -- 현재 진행중인 층의 스테이지 아이디
         m_challengingFloor  = 'number',     -- 현재 진행중인 층    
         m_challengingCount  = 'number',     -- 도전 횟수
+        m_clearFloor        = 'number',     -- 최종 클리어한 층
 
         m_lStage            = 'table',
         m_nStage            = 'number',
@@ -93,6 +94,8 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
         self.m_challengingInfo = StructAncientTowerFloorData(t_challenging_info)
         self.m_challengingStageID = t_challenging_info['stage']
         self.m_challengingFloor = (self.m_challengingStageID % ANCIENT_TOWER_STAGE_ID_START)
+        self.m_clearFloor = (ret['ancient_clear_stage'] % ANCIENT_TOWER_STAGE_ID_START)
+
         self.m_challengingCount = t_challenging_info['fail_cnt']
         self.m_endTime = ret['end_time']
 

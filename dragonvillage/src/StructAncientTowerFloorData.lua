@@ -16,7 +16,6 @@ StructAncientTowerFloorData = class({
     })
 
 local MAX_WEAK_GRADE = 5 -- 최대 약화 등급
-local NEED_STAMINA = 5 -- 필요 활동력
 
 -------------------------------------
 -- function init
@@ -24,9 +23,8 @@ local NEED_STAMINA = 5 -- 필요 활동력
 function StructAncientTowerFloorData:init(data)
     if data then
         self:applyTableData(data)
+        self.m_floor = self.m_stage % ANCIENT_TOWER_STAGE_ID_START
     end
-    
-    self.m_floor = self.m_stage % 100
 end
 
 -------------------------------------
@@ -50,6 +48,24 @@ function StructAncientTowerFloorData:applyTableData(data)
 end
 
 -------------------------------------
+-- function getReward
+-- @breif 최초 보상, 반복 보상 구분해서 반환
+-------------------------------------
+function StructAncientTowerFloorData:getReward()
+    local id, cnt
+    local current_floor = self.m_floor
+    local clear_floor = g_ancientTowerData.m_clearFloor
+
+    if (current_floor > clear_floor) then
+        id, cnt = self:getFirstReward()
+    else
+        id, cnt = self:getRepeatReward()
+    end
+
+    return id, cnt
+end
+
+-------------------------------------
 -- function getFirstReward
 -- @breif 최초 보상 정보
 -------------------------------------
@@ -57,6 +73,20 @@ function StructAncientTowerFloorData:getFirstReward()
     local stage_id = self.m_stage
     local t_reward = TABLE:get('anc_floor_reward')[stage_id]
     local l_str = seperate(t_reward['reward_first'], ';')
+    local item_type = l_str[1]
+    local id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
+    local cnt = l_str[2]
+    return id, cnt
+end
+
+-------------------------------------
+-- function getRepeatReward
+-- @breif 반복 보상 정보
+-------------------------------------
+function StructAncientTowerFloorData:getRepeatReward()
+    local stage_id = self.m_stage
+    local t_reward = TABLE:get('anc_floor_reward')[stage_id]
+    local l_str = seperate(t_reward['reward_repeat'], ';')
     local item_type = l_str[1]
     local id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
     local cnt = l_str[2]
@@ -83,15 +113,7 @@ function StructAncientTowerFloorData:getCurrentWeakGrade()
 end
 
 -------------------------------------
--- function getNeedStamina
--- @breif 필요 활동력
--------------------------------------
-function StructAncientTowerFloorData:getNeedStamina()
-    return NEED_STAMINA
-end
-
--------------------------------------
--- function getNeedStamina
+-- function getTopUserNick
 -- @breif 현재 층 랭커 닉네임
 -------------------------------------
 function StructAncientTowerFloorData:getTopUserNick()

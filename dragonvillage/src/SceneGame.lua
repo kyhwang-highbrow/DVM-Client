@@ -711,8 +711,8 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
             end
             l_bonus_item[item_id] = l_bonus_item[item_id] + count
 
-        -- 첫 클리어 보상(고대의 탑에서 사용)
-        elseif (from == 'reward_first') then
+        -- 첫 클리어 보상, 반복 보상(고대의 탑에서 사용)
+        elseif (from == 'reward_first') or (from == 'reward_repeat') then
             local t_data = {item_id, count}
             table.insert(drop_reward_list, t_data)
 
