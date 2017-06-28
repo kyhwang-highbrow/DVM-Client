@@ -334,7 +334,7 @@ end
 function IconHelper:getAttributeIcon(attribute)
     attribute = attributeNumToStr(attribute)
 
-    local res_name = string.format('res/ui/icon/attr/attr_%s.png', attribute)
+    local res_name = string.format('res/ui/icon/attr/attr_%s_02.png', attribute)
     local sprite = cc.Sprite:create(res_name)
 
     if (not sprite) then

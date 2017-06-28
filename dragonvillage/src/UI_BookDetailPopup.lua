@@ -153,6 +153,11 @@ function UI_BookDetailPopup:onChangeDragon()
         vars['attrNode']:removeAllChildren()
         local icon = IconHelper:getAttributeIcon(attr)
         vars['attrNode']:addChild(icon)
+		do
+			-- 이름 앞에 붙이기 위해서...
+			local label_width = vars['nameLabel']:getStringWidth()
+			vars['attrNode']:setPositionX(-(label_width/2 + 30))
+		end
     end
 
     do -- 드래곤 역할(role)
