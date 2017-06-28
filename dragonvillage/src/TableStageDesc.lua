@@ -127,11 +127,36 @@ function TableStageDesc:getScenarioName(stage_id, trriger)
     if (not t_table) then
         return
     end
-
+    
     local scenario_name = t_table[trriger]
+    scenario_name = self:checkStartTamerScenario(scenario_name)
+
     if (scenario_name == '') then
         return nil
     end
 
     return scenario_name
+end
+
+-------------------------------------
+-- function checkStartTamerScenario
+-- @brief snro_start, snro_finish 최초 선택한 테이머 정보에 따라 시나리오 진행 
+-- @brief _nuri, _goni .. 로 구분
+-- @brief ex) scenario_01_01_start_nuri;scenario_01_01_start_goni
+-------------------------------------
+function TableStageDesc:checkStartTamerScenario(scenario_name)
+    if (not string.find(scenario_name, ';')) then return scenario_name end
+
+    -- 기존에 만들어진 계정일 경우 선택한 테이머 정보 없을 수 있음 - defualt : goni
+    local tid           = g_userData:get('start_tamer')
+    local tamer_name    = TableTamer():getTamerType(tid) or 'goni'
+
+    local l_str = seperate(scenario_name, ';')
+    for _, str in ipairs(l_str) do
+        if (string.find(str, tamer_name)) then
+            return str
+        end
+    end
+
+    return l_str[1]
 end

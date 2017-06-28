@@ -1,6 +1,6 @@
 page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_name,char_pos,char_effect,char_ani,t_text,t_text_mono
 1,title;1.빛의 기둥 A,skip_disable,,3,스테이지1,bgm_everyday,,,,,,,,,
-2,,,,,,,,,고니,고니,left,,,좋아! 이 임무만 무사히 완수하면 \\n오늘 일은 끝이야.,
+2,,,,,,,,,고니,고니,left,,,test 고니를 선택한 시나리오 진행,
 3,,,,,,,,,고니,고니,left,,,"...잠, 잠깐만. \\n저건 몬스터?!",
 4,,,,,,,,,고니,고니,left,,,저 방향에는 분명히 \\n민간인 마을이 있을 텐데….,
 5,,,,,,,off,,고니,고니,left,,,…어째서 몬스터가 \\n인근 마을까지 나타난 거지?,

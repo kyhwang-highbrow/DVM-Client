@@ -103,7 +103,7 @@ function UI_AncientTowerRank:init_rankTableView()
 
     local l_item_list = g_ancientTowerData.m_lGlobalRank
 
-    if (1 < self.m_rankOffset) then
+    if (0 < self.m_rankOffset) then
         local prev_data = { rank = 'prev' }
         l_item_list['prev'] = prev_data
     end
@@ -114,7 +114,7 @@ function UI_AncientTowerRank:init_rankTableView()
     -- 이전 랭킹 보기
     local function click_prevBtn()
         self.m_rankOffset = self.m_rankOffset - RANK_SHOW_CNT
-        self.m_rankOffset = math_max(self.m_rankOffset, 1)
+        self.m_rankOffset = math_max(self.m_rankOffset, 0)
         self:request_Rank()
     end
 

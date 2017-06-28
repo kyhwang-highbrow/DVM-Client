@@ -30,8 +30,10 @@ function UI_FriendPopup:init()
 
 	self:initUI()
 	self:initButton()
-    self:initHighlight()
 	self:refresh()
+
+    -- 로비 진입후 친구 팝업 뜨기 전까지의 받은 요청이 있을 수 있음, 진입시 하일라이트 정보 갱신!
+    g_highlightData:request_highlightInfo(function() self:initHighlight() end)
 end
 
 -------------------------------------
@@ -98,15 +100,8 @@ function UI_FriendPopup:initHighlight()
     -- 우정 포인트 보내기 가능한 상태
     vars['listNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend())
 
-    -- 로비 진입후 친구 팝업 뜨기 전까지의 받은 요청이 있는지 검사, 친구 팝업 생성시 호출 
-    local finish_cb
-    finish_cb = function(ret)
-        if ret['invites_list'] and (#ret['invites_list'] > 0) then
-            vars['responseNotiSprite']:setVisible(true) 
-        end
-    end
-    local force = true
-    g_friendData:request_inviteResponseList(finish_cb, force)
+    -- 받은 요청 있는 상태 
+    vars['responseNotiSprite']:setVisible(g_highlightData:isHighlightFrinedInvite()) 
 end
 
 -------------------------------------
