@@ -1,4 +1,4 @@
-local parent = StructUserInfo
+local PARENT = StructUserInfo
 
 -------------------------------------
 -- 티어 정보 (tier)
@@ -16,7 +16,7 @@ local parent = StructUserInfo
 -- class StructUserInfoColosseum
 -- @instance
 -------------------------------------
-StructUserInfoColosseum = class(parent, {
+StructUserInfoColosseum = class(PARENT, {
         m_winCnt = 'number',
         m_loseCnt = 'number',
 
@@ -25,6 +25,9 @@ StructUserInfoColosseum = class(parent, {
         m_rankPercent = 'float',-- 월드 랭킹 퍼센트
         m_tier = 'string',       -- 티어
         m_straight = 'number',   -- 연승 정보
+
+        -- 덱 정보
+        m_deckCombatPower = 'number',
     })
 
 -------------------------------------
@@ -166,4 +169,55 @@ function StructUserInfoColosseum:getWinstreakText()
     local straight = math_max(self.m_straight, 0)
     local text = Str('{1}연승', comma_value(straight))
     return text
+end
+
+-------------------------------------
+-- function applyDragonsDataList
+-- @brief
+-------------------------------------
+function StructUserInfoColosseum:applyDragonsDataList(l_data)
+    PARENT.applyDragonsDataList(self, l_data)
+
+    -- 룬 정보 연결
+    for i,v in pairs(self.m_dragonsObject) do
+        v.m_mRuneObjects = self.m_runesObject
+    end
+end
+
+-------------------------------------
+-- function getDeck_dragonList
+-- @brief
+-------------------------------------
+function StructUserInfoColosseum:getDeck_dragonList()
+    local t_deck = {}
+    local idx = 0
+
+    for i,v in pairs(self.m_dragonsObject) do
+        idx = (idx + 1)
+        t_deck[idx] = v
+        if (5 <= idx) then
+            break
+        end
+    end
+
+    return t_deck
+end
+
+-------------------------------------
+-- function getDeckCombatPower
+-- @brief 덱 전투력
+-------------------------------------
+function StructUserInfoColosseum:getDeckCombatPower()
+    if (not self.m_deckCombatPower) then
+        local t_deck_dragon_list = self:getDeck_dragonList()
+
+        local total_combat_power = 0
+        for i,v in pairs(t_deck_dragon_list) do
+            total_combat_power = (total_combat_power + v:getCombatPower())
+        end
+
+        self.m_deckCombatPower = total_combat_power
+    end
+
+    return self.m_deckCombatPower
 end

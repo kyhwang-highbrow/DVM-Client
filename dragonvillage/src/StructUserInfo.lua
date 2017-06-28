@@ -14,6 +14,10 @@ StructUserInfo = class({
         m_tamerID = 'string', -- ?? number??
         m_tamerPosX = 'float',
         m_tamerPosY = 'float',
+
+        -- 드래곤, 룬
+        m_dragonsObject = 'StructDragonObject',
+        m_runesObject = 'StructRuneObject',
     })
 
 -------------------------------------
@@ -24,6 +28,9 @@ function StructUserInfo:init(data)
     self.m_lv = 1
     self.m_tamerPosX = 0
     self.m_tamerPosY = 0
+
+    self.m_dragonsObject = {}
+    self.m_runesObject = {}
 
     if data then
         self:applyTableData(data)
@@ -61,7 +68,33 @@ function StructUserInfo:getLeaderDragonCard()
     return card
 end
 
+-------------------------------------
+-- function applyDragonsDataList
+-- @brief 드래곤 데이터 리스트 적용
+-------------------------------------
+function StructUserInfo:applyDragonsDataList(l_data)
+    self.m_dragonsObject = {}
 
+    for i,v in pairs(l_data) do
+        local struct_dragon_object = StructDragonObject(v)
+        local doid = v['id']
+        self.m_dragonsObject[doid] = struct_dragon_object
+    end
+end
+
+-------------------------------------
+-- function applyRunesDataList
+-- @brief 룬 데이터 리스트 적용
+-------------------------------------
+function StructUserInfo:applyRunesDataList(l_data)
+    self.m_runesObject = {}
+
+    for i,v in pairs(l_data) do
+        local struct_rune_object = StructRuneObject(v)
+        local roid = v['id']
+        self.m_runesObject[roid] = struct_rune_object
+    end
+end
 
 
 

@@ -24,7 +24,13 @@ function TableTamer:getTamerType(tamer_id)
         self = THIS()
     end
 
-    return self:getValue(tamer_id, 'type')
+    local skip_error_msg = true
+    local t_table = self:get(tamer_id, skip_error_msg)
+    if (not t_table) then
+        return nil
+    end
+
+    return t_table['type']
 end
 
 -------------------------------------

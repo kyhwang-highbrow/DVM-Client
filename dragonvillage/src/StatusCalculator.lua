@@ -413,7 +413,13 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
         local l_add_status, l_multi_status = t_dragon_data:getRuneStatus()
         for stat_type,value in pairs(l_add_status) do
             local indivisual_status = status_calc.m_lStatusList[stat_type]
-            indivisual_status:setRuneAdd(value)
+
+            -- 지원하지 않는 능력치 타입
+            if (not indivisual_status) then
+                cclog('error!! stat_type : ' .. stat_type)
+            else
+                indivisual_status:setRuneAdd(value)
+            end
         end
 
         for stat_type,value in pairs(l_multi_status) do
