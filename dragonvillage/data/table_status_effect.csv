@@ -2,7 +2,7 @@ name,type,t_name,res,res_icon,symbol,groggy,overlab,overlab_option,duration,atk,
 atk_up,buff,공격력 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,3,0,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,100,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 aspd_up,buff,공격 속도 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/aspd_up.png,x,false,3,0,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,100,x,x,{1}초 동안 {2}만큼 공격 속도 증가,퍼센트+퍼센트 (합연산)
 cri_chance_up,buff,치명 확률 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/cri_chance_up.png,x,false,3,0,15,0,0,0,0,100,0,0,0,0,0,0,0,0,0,,0,,,,,15,x,x,x,{1}초 동안 {2}만큼 치명 확률 증가,퍼센트+퍼센트 (합연산)
-def_up,buff,방어력 증가,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,3,0,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
+def_up,buff,방어력 증가,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,4,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 test_def_up,buff,자룡 패시브,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,3,0,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 hp_up,buff,생명력 증가,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/hp_up.png,x,false,3,0,15,0,0,100,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,x,x,x,{1}초 동안 {2}만큼 생명력 증가,정수x퍼센트 (곱연산)
 cri_avoid_up,buff,치명 방어율 증가,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/cri_avoid_up.png,x,false,3,0,15,0,0,0,0,0,0,100,0,0,0,0,0,0,0,,0,,,,,15,x,x,x,{1}초 동안 {2}만큼 치명 방어 증가,퍼센트+퍼센트 (합연산)
