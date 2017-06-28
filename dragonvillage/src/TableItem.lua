@@ -199,3 +199,30 @@ function TableItem:getEggRes(egg_id)
     local res = 'res/item/egg/' .. full_type .. '/' .. full_type .. '.vrp'
     return res
 end
+
+-------------------------------------
+-- function getItemIDByDid
+-- @brief
+-------------------------------------
+function TableItem:getItemIDByDid(did, evolution)
+    if (self == THIS) then
+        self = THIS()
+    end
+	if (not did) then
+		return
+	end
+	
+	local evolution = evolution or 3
+
+	--[[
+	local l_dragon_item_list = self:filterList('type', 'dragon')
+	for i, dragon_item in pairs(l_dragon_item_list) do
+		if (dragon_item['did'] == did) and (dragon_item['evolution'] == evolution) then
+			return dragon_item['item']
+		end
+	end
+	]]
+
+	local item_id = did + 640000 + (evolution * 10000)
+	return item_id
+end

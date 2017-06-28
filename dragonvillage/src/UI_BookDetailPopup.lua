@@ -489,7 +489,10 @@ end
 -- @brief 획득방법
 -------------------------------------
 function UI_BookDetailPopup:click_getBtn()
-    ccdisplay('획득 방법은 준비중입니다.')
+	local did = self.m_tDragon['did']
+	local evolution = self.m_evolution
+	local item_id = TableItem:getItemIDByDid(did, evolution)
+    UI_AcquisitionRegionInformation(item_id)
 end
 
 -------------------------------------
