@@ -101,9 +101,7 @@ end
 -------------------------------------
 function UI_BookDetailPopup:refresh()
 	-- 평점
-	local book_data = g_bookData:getBookData(self.m_tDragon['did'])
-	local rate = book_data:getRate()
-	self.vars['recommandLabel']:setString(string.format('%.1f', rate))
+	self:refresh_rate()
 
 	-- 자코 예외처리
 	local underling = (self.m_tDragon['underling'] == 1)
@@ -116,6 +114,15 @@ function UI_BookDetailPopup:refresh()
 	self:onChangeGrade()
 	self:onChangeLV()
 	self:calculateStat()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_BookDetailPopup:refresh_rate()
+	local book_data = g_bookData:getBookData(self.m_tDragon['did'])
+	local rate = book_data:getRate()
+	self.vars['recommandLabel']:setString(string.format('%.1f', rate))
 end
 
 -------------------------------------
@@ -468,7 +475,13 @@ end
 -- @brief 획득방법
 -------------------------------------
 function UI_BookDetailPopup:click_recommandBtn()
-    UI_DragonBoardPopup(self.m_tDragon)
+    local ui = UI_DragonBoardPopup(self.m_tDragon)
+	ui:setCloseCB(function()
+		local did = self.m_tDragon['did']
+		local t_book_data = g_bookData:getBookData(did)
+		t_book_data.rate = g_boardData:getRate(did)
+		self:refresh_rate()
+	end)
 end
 
 -------------------------------------
