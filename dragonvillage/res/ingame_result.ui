@@ -2289,31 +2289,6 @@
 				disable = '';
 				image_type = 0;
 			};
-			[10] =
-			{
-				type = 'Visual';
-				ui_name = '';
-				x = 0.000000;
-				y = 236.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 0;
-				height = 0;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'successVisual';
-				file_name = 'ui/a2d/result/result.vrp';
-				auto_play = false;
-				is_repeat = false;
-				visual_id = 'group;success_00';
-				color = { 255; 255; 255; };
-				opacity = 255;
-			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
@@ -2332,6 +2307,50 @@
 			lua_name = 'resultMenu';
 		};
 		[3] =
+		{
+			type = 'Visual';
+			ui_name = '';
+			x = 0.000000;
+			y = 236.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'successVisual';
+			file_name = 'ui/a2d/result/result.vrp';
+			auto_play = false;
+			is_repeat = false;
+			visual_id = 'group;success_tower_idle';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[4] =
+		{
+			type = 'Node';
+			ui_name = '';
+			x = 1.000000;
+			y = 162.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 360;
+			height = 64;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'totalScoreNode';
+		};
+		[5] =
 		{
 			[1] =
 			{
@@ -2421,7 +2440,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[4] =
+		[6] =
 		{
 			[1] =
 			{
@@ -2511,7 +2530,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[5] =
+		[7] =
 		{
 			[1] =
 			{
@@ -2601,7 +2620,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[6] =
+		[8] =
 		{
 			[1] =
 			{
@@ -2691,7 +2710,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[7] =
+		[9] =
 		{
 			[1] =
 			{
@@ -2781,7 +2800,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[8] =
+		[10] =
 		{
 			[1] =
 			{
@@ -2871,7 +2890,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[9] =
+		[11] =
 		{
 			[1] =
 			{
@@ -2961,7 +2980,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[10] =
+		[12] =
 		{
 			[1] =
 			{
@@ -3051,7 +3070,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[11] =
+		[13] =
 		{
 			[1] =
 			{
@@ -3573,7 +3592,7 @@
 			visible = false;
 			lua_name = 'scoreNode';
 		};
-		[12] =
+		[14] =
 		{
 			[1] =
 			{
