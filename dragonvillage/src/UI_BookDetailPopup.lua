@@ -102,12 +102,9 @@ end
 function UI_BookDetailPopup:refresh()
 	-- 평점
 	self:refresh_rate()
-
-	-- 자코 예외처리
-	local underling = (self.m_tDragon['underling'] == 1)
-	for i = 1, 3 do
-		self.vars['evolutionBtn' .. i]:setVisible(not underling)
-	end
+	
+	-- 예외처리 용
+	self:refresh_exception()
 
 	self:onChangeDragon()
 	self:onChangeEvolution()
@@ -117,7 +114,37 @@ function UI_BookDetailPopup:refresh()
 end
 
 -------------------------------------
--- function refresh
+-- function refresh_exception
+-- @brief 자코/슬라임 예외처리
+-------------------------------------
+function UI_BookDetailPopup:refresh_exception()
+	local vars = self.vars
+
+	local underling = (self.m_tDragon['underling'] == 1)
+	local is_slime = (self.m_tDragon['m_bookType'] == 'slime')
+
+	-- 진화 버튼
+	for i = 1, 3 do
+		self.vars['evolutionBtn' .. i]:setVisible(not (underling or is_slime))
+	end
+
+	-- 등급 버튼
+	vars['gradePlusBtn']:setEnabled(not is_slime)
+	vars['gradeMinusBtn']:setEnabled(not is_slime)
+
+	-- 레벨 버튼
+	vars['lvPlusBtn']:setEnabled(not is_slime)
+	vars['lvMinusBtn']:setEnabled(not is_slime)
+	
+	-- 상세 보기
+	vars['detailBtn']:setEnabled(not is_slime)
+	
+	-- 스킬 미리보기
+	vars['skillViewBtn']:setEnabled(not is_slime)
+end
+
+-------------------------------------
+-- function refresh_rate
 -------------------------------------
 function UI_BookDetailPopup:refresh_rate()
 	local book_data = g_bookData:getBookData(self.m_tDragon['did'])
@@ -135,7 +162,6 @@ function UI_BookDetailPopup:onChangeDragon()
     end
 
     local vars = self.vars
-
 
     -- 드래곤 이름
     vars['nameLabel']:setString(Str(t_dragon['t_name']))
@@ -168,8 +194,7 @@ function UI_BookDetailPopup:onChangeDragon()
     end    
 
     do -- 드래곤 스토리
-        local did = t_dragon['did']
-        local story_str = TableDragon:getDragonStoryStr(did)
+        local story_str = t_dragon['t_desc']
         vars['storyLabel']:setString(story_str)
     end
 
@@ -222,21 +247,35 @@ function UI_BookDetailPopup:onChangeEvolution()
 		vars['dragonNode']:setScale(math_clamp(t_dragon['scale'], 0.9, 1.5))
     end
 
-    do -- 스킬 아이콘 생성
-        local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
-        local l_skill_icon = skill_mgr:getDragonSkillIconList()
+	-- 스킬 아이콘 생성
+	-- 슬라임일 경우
+	if (t_dragon['m_bookType'] == 'slime') then
+			
+		-- 전부 비어있는 아이콘을 박아버린다 
+		for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
+			local skill_node = vars['skillNode' .. i]
+			skill_node:removeAllChildren()
+			local empty_skill_icon = IconHelper:getEmptySkillIcon()
+			skill_node:addChild(empty_skill_icon)
+		end
 
-        for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
+	-- 드래곤의 경우
+	else
+
+		local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+		local l_skill_icon = skill_mgr:getDragonSkillIconList()
+
+		for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
 			local skill_node = vars['skillNode' .. i]
 			skill_node:removeAllChildren()
             
 			-- 스킬 아이콘 생성
 			if l_skill_icon[i] then
-                skill_node:addChild(l_skill_icon[i].root)
+				skill_node:addChild(l_skill_icon[i].root)
 				l_skill_icon[i]:setLeaderLabelToggle(i == 'Leader')
                 
 				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-                l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
+				l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
 					UI_SkillDetailPopup(t_dragon_data, i)
 				end)
 
@@ -245,9 +284,11 @@ function UI_BookDetailPopup:onChangeEvolution()
 				local empty_skill_icon = IconHelper:getEmptySkillIcon()
 				skill_node:addChild(empty_skill_icon)
 
-            end
-        end
-    end
+			end
+		end
+
+	end
+
 end
 
 -------------------------------------
@@ -297,6 +338,12 @@ end
 -------------------------------------
 function UI_BookDetailPopup:calculateStat()
     local vars = self.vars
+	
+	-- 슬라임일 경우
+	if (self.m_tDragon['m_bookType'] == 'slime') then
+		vars['cp_label']:setString(0)
+		return
+	end
 
 	local t_dragon_data = self:makeDragonData()
 

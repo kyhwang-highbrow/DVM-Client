@@ -40,25 +40,28 @@ function ServerData_Book:getBookList(role_type, attr_type)
     local role_type = (role_type or 'all')
     local attr_type = (attr_type or 'all')
 
-    local table_dragon = TableDragon()
-
     local l_ret = {}
 
+    local table_dragon = TableDragon()
     for i, v in pairs(table_dragon.m_orgTable) do
+		-- 직업군, 속성 걸러내기
 		if (role_type ~= 'all') and (role_type ~= v['role']) then
-
         elseif (attr_type ~= 'all') and (attr_type ~= v['attr']) then
 
         -- 위 조건들에 해당하지 않은 경우만 추가
         else
             local did = v['did']
 			local key = did
+			
+			-- 자코는 진화하지 않으므로 evolution 1 만 담는다.
 			if (table_dragon:isUnderling(did)) then
 				local t_dragon = clone(v)
 				t_dragon['evolution'] = 1
 				t_dragon['grade'] = t_dragon['birthgrade']
 
 				l_ret[key] = t_dragon
+
+			-- 진화도를 만들어준다.
 			else
 				for i = 1, 3 do
 					local t_dragon = clone(v)
@@ -72,6 +75,25 @@ function ServerData_Book:getBookList(role_type, attr_type)
         end
     end
 
+	-- 슬라임도 추가..!
+	local table_slime = TableSlime()
+    for i, v in pairs(table_slime.m_orgTable) do
+		-- 직업군, 속성 걸러내기
+		if (role_type ~= 'all') and (role_type ~= v['role']) then
+        elseif (attr_type ~= 'all') and (attr_type ~= v['attr']) then
+
+        -- 위 조건들에 해당하지 않은 경우만 추가
+        else
+			local key = v['slime']
+			local t_slime = clone(v)
+			t_slime['did'] = key		-- 도감 did 정렬을 위해..
+			t_slime['evolution'] = 1
+			t_slime['grade'] = t_slime['birthgrade']
+			t_slime['m_bookType'] = 'slime'
+
+			l_ret[key] = t_slime
+		end
+	end
     return l_ret
 end
 

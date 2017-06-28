@@ -160,6 +160,41 @@ function UI_AcquisitionRegionInformation:makeRegionList()
 			table.insert(l_region, 'empty')
 		end
 
+	-- 슬라임
+	elseif (item_type == 'slime') then
+		local t_item = TableItem():get(item_id)
+		local did = t_item['did']
+
+		-- 뽑기 체크
+		local t_slime = TableSlime():get(did)
+		if (t_slime) then
+			-- 일반 소환
+			if (t_slime['pick_weight'] > 0) then
+				local birth_grade = t_slime['birthgrade']
+				if (birth_grade >= 3) then
+					table.insert(l_region, 'pick_high')
+				end
+				if (birth_grade <= 3) then
+					table.insert(l_region, 'pick_low')
+				end
+			end
+			-- 우정 부화
+			if (t_slime['fp_weight'] > 0) then
+				table.insert(l_region, 'friend')
+			end
+			-- 마일리지
+			if (t_slime['mg_weight'] > 0) then
+				table.insert(l_region, 'mileage')
+			end
+		end
+
+		-- 슬라임은 조합이나 인연이 없다.
+
+		-- 아무것도 없다면 하나 출력해준다... 뭐...
+		if (#l_region == 0) then
+			table.insert(l_region, 'empty')
+		end
+
 	-- 룬
 	elseif (item_type == 'rune') then
 		l_region = TableItem:getRegionList(item_id)
