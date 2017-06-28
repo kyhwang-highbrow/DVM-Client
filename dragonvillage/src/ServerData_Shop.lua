@@ -229,11 +229,7 @@ function ServerData_Shop:response_shopInfo(ret)
         end
         local t_product = nil
 
-        if (tab_category == 'money') then
-            t_product = table_shop_cash[product_id]
-        else
-            t_product = table_shop_basic[product_id]
-        end
+        t_product = table_shop_cash[product_id] or table_shop_basic[product_id]
 
         local struct_product = StructProduct(t_product)
         struct_product:setTabCategory(tab_category)

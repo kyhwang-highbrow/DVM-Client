@@ -45,6 +45,49 @@ end
 -- function refresh
 -------------------------------------
 function UI_ColosseumRankInfoPopup:refresh()
+    local vars = self.vars
+
+    do -- 최고 기록 데이터
+        local struct_user_info = g_colosseumData:getPlayerColosseumUserInfoHighRecord()
+
+        -- 티어 아이콘
+        vars['tierIconNode1']:removeAllChildren()
+        local icon = struct_user_info:makeTierIcon(nil, 'big')
+        vars['tierIconNode1']:addChild(icon)
+
+        -- 티어 이름
+        local tier_name = struct_user_info:getTierName()
+        vars['tierLabel1']:setString(tier_name)
+
+
+        -- 순위, 점수, 승률, 연승
+        local str = struct_user_info:getRankText() .. '\n'
+            .. struct_user_info:getRPText()  .. '\n'
+            .. struct_user_info:getWinRateText()  .. '\n'
+            .. struct_user_info:getWinstreakText()
+        vars['rankingLabel1']:setString(str)
+    end
+
+    do -- 현재 시즌 기록
+        local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo()
+
+        -- 티어 아이콘
+        vars['tierIconNode2']:removeAllChildren()
+        local icon = struct_user_info:makeTierIcon(nil, 'big')
+        vars['tierIconNode2']:addChild(icon)
+
+        -- 티어 이름
+        local tier_name = struct_user_info:getTierName()
+        vars['tierLabel2']:setString(tier_name)
+
+
+        -- 순위, 점수, 승률, 연승
+        local str = struct_user_info:getRankText() .. '\n'
+            .. struct_user_info:getRPText()  .. '\n'
+            .. struct_user_info:getWinRateText()  .. '\n'
+            .. struct_user_info:getWinstreakText()
+        vars['rankingLabel2']:setString(str)
+    end
 end
 
 --@CHECK

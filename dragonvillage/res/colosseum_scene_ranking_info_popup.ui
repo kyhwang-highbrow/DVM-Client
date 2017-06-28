@@ -61,46 +61,46 @@
 				};
 				[2] =
 				{
-					[1] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 0.000000;
-						y = -97.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 281;
-						height = 50;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'tierLabel1';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
-						text = 'tierLabel';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 255; 255; 255; };
-						opacity = 255;
-						dimension_width = 281;
-						dimension_height = 50;
-						letter_spacing = 0.000000;
-						has_stroke = true;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 0; 0; 0; };
-						has_shadow = true;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 255;
-						shadow_direction = 0;
-						shadow_distance = 3.000000;
-					};
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -37.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 281;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'tierLabel1';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 28;
+					text = 'tierLabel';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 281;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = true;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[3] =
+				{
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
@@ -118,7 +118,7 @@
 					visible = true;
 					lua_name = 'tierIconNode1';
 				};
-				[3] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -138,7 +138,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '순위 정보\n최고 점수\n누적 승률\n최고 연승 기록';
+					text = '순위\n점수\n승률\n연승';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 244; 224; 177; };
@@ -158,7 +158,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -198,7 +198,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -218,7 +218,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '역대 기록';
+					text = '최고 순위 기록 시즌';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
@@ -285,46 +285,46 @@
 				};
 				[2] =
 				{
-					[1] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 0.000000;
-						y = -97.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 281;
-						height = 50;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'tierLabel2';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
-						text = 'tierLabel';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 255; 255; 255; };
-						opacity = 255;
-						dimension_width = 281;
-						dimension_height = 50;
-						letter_spacing = 0.000000;
-						has_stroke = true;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 0; 0; 0; };
-						has_shadow = true;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 255;
-						shadow_direction = 0;
-						shadow_distance = 3.000000;
-					};
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -37.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 281;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'tierLabel2';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 28;
+					text = 'tierLabel';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 281;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = true;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[3] =
+				{
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
@@ -342,7 +342,7 @@
 					visible = true;
 					lua_name = 'tierIconNode2';
 				};
-				[3] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -362,7 +362,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '순위 정보\n최고 점수\n누적 승률\n최고 연승 기록';
+					text = '순위\n점수\n승률\n연승';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 244; 224; 177; };
@@ -382,7 +382,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -399,7 +399,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'rankingLabel3';
+					lua_name = 'rankingLabel2';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}위({0}%)\n{1}점\n{1}승{1}패{1}%){0}회';
@@ -422,7 +422,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -442,7 +442,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '현재 기록';
+					text = '현재 시즌';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };

@@ -72,31 +72,18 @@ end
 -- function initUI
 -------------------------------------
 function UI_Colosseum:initUI()
+
+    -- UI가 enter로 진입되었을 때 update함수 호출
+    self.root:registerScriptHandler(function(event)
+        cclog('event call ')
+        if (event == 'enter') then
+            self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+        end
+    end)
+    self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+
     --[[
     self:initTab()
-
-    local vars = self.vars
-
-    local player_info = g_colosseumData:getPlayerInfo()
-
-    -- 티어
-    local icon = player_info:getTierIcon()
-    cca.uiReactionSlow(icon)
-    vars['myTierIconNode']:addChild(icon)
-    vars['myTierLabel']:setString(player_info:getTierText())
-    
-    -- 플레이어 정보
-    vars['myRankLabel']:setString(player_info:getRankText())
-    vars['myPointLabel']:setString(player_info:getRPText())
-    vars['myWinRateLabel']:setString(player_info:getWinRateText())
-    vars['myWinstreakLabel']:setString(player_info:getWinstreakText())
-
-    -- 콜로세움 오픈 시간 표시
-    vars['timeLabel']:setString(g_colosseumData:getWeekTimeText())
-    vars['timeGauge']:setPercentage(g_colosseumData:getWeekTimePercent())
-
-    vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
-    vars['honorShopBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"명예 상점" 준비 중') end)
     --]]
 end
 
@@ -116,6 +103,31 @@ end
 -- function refresh
 -------------------------------------
 function UI_Colosseum:refresh()
+    local vars = self.vars
+
+    do
+        local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo()
+
+        -- 티어 아이콘
+        vars['tierIconNode']:removeAllChildren()
+        local icon = struct_user_info:makeTierIcon(nil, 'big')
+        vars['tierIconNode']:addChild(icon)
+
+        -- 티어 이름
+        local tier_name = struct_user_info:getTierName()
+        vars['tierLabel']:setString(tier_name)
+
+
+        -- 순위, 점수, 승률, 연승
+        local str = struct_user_info:getRankText() .. '\n'
+            .. struct_user_info:getRPText()  .. '\n'
+            .. struct_user_info:getWinRateText()  .. '\n'
+            .. struct_user_info:getWinstreakText()
+        vars['rankingLabel']:setString(str)
+
+        -- 연승 버프
+        vars['winBuffLabel']:setString('')
+    end
 end
 
 -------------------------------------
@@ -355,6 +367,15 @@ function UI_Colosseum:init_friendRankTableView()
     -- 정렬
     g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
     self.m_topRankTableView = table_view
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_Colosseum:update(dt)
+    local vars = self.vars
+    local str = g_colosseumData:getColosseumStatusText()
+    vars['timeLabel']:setString(str)
 end
 
 --@CHECK
