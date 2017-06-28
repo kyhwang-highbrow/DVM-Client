@@ -121,26 +121,12 @@ function UI_BookDetailPopup:refresh_exception()
 	local vars = self.vars
 
 	local underling = (self.m_tDragon['underling'] == 1)
-	local is_slime = (self.m_tDragon['m_bookType'] == 'slime')
+	local is_slime = (self.m_tDragon['bookType'] == 'slime')
 
 	-- 진화 버튼
 	for i = 1, 3 do
 		self.vars['evolutionBtn' .. i]:setVisible(not (underling or is_slime))
 	end
-
-	-- 등급 버튼
-	vars['gradePlusBtn']:setEnabled(not is_slime)
-	vars['gradeMinusBtn']:setEnabled(not is_slime)
-
-	-- 레벨 버튼
-	vars['lvPlusBtn']:setEnabled(not is_slime)
-	vars['lvMinusBtn']:setEnabled(not is_slime)
-	
-	-- 상세 보기
-	vars['detailBtn']:setEnabled(not is_slime)
-	
-	-- 스킬 미리보기
-	vars['skillViewBtn']:setEnabled(not is_slime)
 end
 
 -------------------------------------
@@ -249,7 +235,7 @@ function UI_BookDetailPopup:onChangeEvolution()
 
 	-- 스킬 아이콘 생성
 	-- 슬라임일 경우
-	if (t_dragon['m_bookType'] == 'slime') then
+	if (t_dragon['bookType'] == 'slime') then
 			
 		-- 전부 비어있는 아이콘을 박아버린다 
 		for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
@@ -340,7 +326,7 @@ function UI_BookDetailPopup:calculateStat()
     local vars = self.vars
 	
 	-- 슬라임일 경우
-	if (self.m_tDragon['m_bookType'] == 'slime') then
+	if (self.m_tDragon['bookType'] == 'slime') then
 		vars['cp_label']:setString(0)
 		return
 	end
@@ -419,6 +405,10 @@ function UI_BookDetailPopup:click_gradeBtn(is_plus)
 	if (not t_dragon) then
 		return
 	end
+	if (self.m_tDragon['bookType'] == 'slime') then
+		UIManager:toastNotificationRed(Str('슬라임은 등급 조정을 할 수 없습니다.'))
+		return	
+	end
 
 	-- grade 증감 후 필터링
 	do
@@ -447,6 +437,10 @@ function UI_BookDetailPopup:click_lvBtn(is_plus)
 	local t_dragon = self.m_tDragon
 	if (not t_dragon) then
 		return
+	end
+	if (self.m_tDragon['bookType'] == 'slime') then
+		UIManager:toastNotificationRed(Str('슬라임은 레벨 조정을 할 수 없습니다.'))
+		return	
 	end
 
 	-- lv 증감 후 필터링
@@ -519,6 +513,11 @@ end
 -- @brief 드래곤 상세 보기 팝업
 -------------------------------------
 function UI_BookDetailPopup:click_detailBtn()
+	if (self.m_tDragon['bookType'] == 'slime') then
+		UIManager:toastNotificationRed(Str('슬라임은 상세 보기를 할 수 없습니다.'))
+		return	
+	end
+
     self.vars['detailNode']:runAction(cc.ToggleVisibility:create())
 end
 
@@ -552,6 +551,11 @@ end
 -- @brief 획득방법
 -------------------------------------
 function UI_BookDetailPopup:click_skillViewBtn()
+	if (self.m_tDragon['bookType'] == 'slime') then
+		UIManager:toastNotificationRed(Str('슬라임은 스킬 미리보기를 할 수 없습니다.'))
+		return	
+	end
+
     ccdisplay('스킬 미리보기는 구상중입니다.')
 end
 

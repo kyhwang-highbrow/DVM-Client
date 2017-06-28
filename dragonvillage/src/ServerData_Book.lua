@@ -58,6 +58,7 @@ function ServerData_Book:getBookList(role_type, attr_type)
 				local t_dragon = clone(v)
 				t_dragon['evolution'] = 1
 				t_dragon['grade'] = t_dragon['birthgrade']
+				t_dragon['bookType'] = 'dragon'
 
 				l_ret[key] = t_dragon
 
@@ -68,6 +69,7 @@ function ServerData_Book:getBookList(role_type, attr_type)
 					local grade_factor = (i == 3) and 1 or 0
 					t_dragon['evolution'] = i
 					t_dragon['grade'] = t_dragon['birthgrade'] + grade_factor
+					t_dragon['bookType'] = 'dragon'
 
 					l_ret[key + (i * 1000000)] = t_dragon
 				end
@@ -89,7 +91,7 @@ function ServerData_Book:getBookList(role_type, attr_type)
 			t_slime['did'] = key		-- 도감 did 정렬을 위해..
 			t_slime['evolution'] = 1
 			t_slime['grade'] = t_slime['birthgrade']
-			t_slime['m_bookType'] = 'slime'
+			t_slime['bookType'] = 'slime'
 
 			l_ret[key] = t_slime
 		end
