@@ -565,20 +565,17 @@ function UI_CharacterCard:setCheckSpriteVisible(visible)
 end
 
 -------------------------------------
--- function setMaxLvSpriteVisible
--- @brief max lv 달성 후 보상 완료 표시
+-- function setBookRewardVisual
+-- @brief 도감 보상 표시
 -------------------------------------
-function UI_CharacterCard:setMaxLvSpriteVisible(visible)
-    if self.vars['maxLvSprite'] then
-        self.vars['maxLvSprite']:setVisible(visible)
+function UI_CharacterCard:setBookRewardVisual(visible)
+    if self.vars['bookVisual'] then
+        self.vars['bookVisual']:setVisible(visible)
     elseif (visible) then
-        local sprite = cc.Sprite:create('res/ui/icon/item/badge.png')
-        sprite:setDockPoint(CENTER_POINT)
-        sprite:setAnchorPoint(CENTER_POINT)
-		sprite:setScale(0.6)
-		sprite:setPositionX(-50)
-        self.vars['clickBtn']:addChild(sprite, 16)
-        self.vars['maxLvSprite'] = sprite
+        local animator = MakeAnimator('res/ui/a2d/book/book.vrp')
+        animator:changeAni('reward', true)
+        self.vars['clickBtn']:addChild(animator.m_node, 16)
+        self.vars['bookVisual'] = animator
 	end
 end
 

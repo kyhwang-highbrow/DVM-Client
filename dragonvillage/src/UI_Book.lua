@@ -15,7 +15,7 @@ UI_Book = class(PARENT, {
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManager = 'SortManager',
 
-		m_lNotiSpriteList = 'List<Sprite>',
+		m_tNotiSpriteTable = 'List<Sprite>',
      })
 
 -------------------------------------
@@ -44,7 +44,7 @@ function UI_Book:init()
     self:doActionReset()
     self:doAction(nil, false)
 
-	self.m_lNotiSpriteList = {}
+	self.m_tNotiSpriteTable = {}
     self.m_bookLastChangeTime = g_bookData:getLastChangeTimeStamp()
 
 	self:initUI()
@@ -150,25 +150,31 @@ end
 -- function refresh_noti
 -------------------------------------
 function UI_Book:refresh_noti()
-	-- 이전의 노티 전부 삭제
+	-- 노티를 전부 끈다.
 	do
-		for _, spr in pairs(self.m_lNotiSpriteList) do
-			spr:removeFromParent(true)
+		for _, spr in pairs(self.m_tNotiSpriteTable) do
+			spr:setVisible(false)
 		end
-		self.m_lNotiSpriteList = {}
 	end
 
-	-- 노티 새로 생성
+	-- 노티를 켠다
 	local vars = self.vars
 	local t_noti = g_bookData:getBookNotiList()
 	for noti, _ in pairs(t_noti) do
-		local spr = cc.Sprite:create('res/ui/btn/notification.png')
-		spr:setAnchorPoint(CENTER_POINT)
-		spr:setDockPoint(CENTER_POINT)
-		spr:setPosition(60, 25)
-		vars[noti .. 'Btn']:addChild(spr)
+		-- 없으면 생성
+		if (not self.m_tNotiSpriteTable[noti]) then
+			local spr = cc.Sprite:create('res/ui/btn/notification.png')
+			spr:setAnchorPoint(CENTER_POINT)
+			spr:setDockPoint(CENTER_POINT)
+			spr:setPosition(60, 25)
+			vars[noti .. 'Btn']:addChild(spr)
+			self.m_tNotiSpriteTable[noti] = spr
 
-		table.insert(self.m_lNotiSpriteList, spr)
+		-- 있으면 킴
+		else
+			self.m_tNotiSpriteTable[noti]:setVisible(true)
+
+		end
 	end
 end
 
@@ -271,7 +277,7 @@ function UI_Book:init_TableViewTD()
 
 		-- 보상 수령 가능하면 보상 아이콘 출력
 		if (g_bookData:haveBookReward(did, evolution)) then
-			ui:setMaxLvSpriteVisible(true)
+			ui:setBookRewardVisual(true)
 		end
 
 		-- 버튼 클릭시 상세 팝업
@@ -282,7 +288,7 @@ function UI_Book:init_TableViewTD()
 					local reward_value = grade * 100
 					local reward_str = Str('다이아 {1}개를 수령했습니다.', reward_value)
 					UI_ToastPopup(reward_str)
-					ui:setMaxLvSpriteVisible(false)
+					ui:setBookRewardVisual(false)
 					self:refresh_noti()
 				end
 				g_bookData:request_bookReward(did, evolution, finish_cb)
