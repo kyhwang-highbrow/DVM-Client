@@ -132,14 +132,14 @@ wonderdragon_earth_01_head_02
   index: -1
 wonderdragon_earth_01_head_02_02
   rotate: false
-  xy: 449, 60
+  xy: 708, 140
   size: 80, 60
   orig: 80, 60
   offset: 0, 0
   index: -1
 wonderdragon_earth_01_head_02_03
-  rotate: false
-  xy: 708, 140
+  rotate: true
+  xy: 790, 125
   size: 80, 60
   orig: 80, 60
   offset: 0, 0

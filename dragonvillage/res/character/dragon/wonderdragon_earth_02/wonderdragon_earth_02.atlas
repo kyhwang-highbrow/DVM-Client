@@ -69,7 +69,7 @@ wonderdragon_earth_02_eye_01
   index: -1
 wonderdragon_earth_02_eye_02
   rotate: false
-  xy: 24, 5
+  xy: 73, 5
   size: 26, 26
   orig: 26, 26
   offset: 0, 0
@@ -83,7 +83,7 @@ wonderdragon_earth_02_eye_03
   index: -1
 wonderdragon_earth_02_eye_04
   rotate: false
-  xy: 1985, 331
+  xy: 626, 237
   size: 46, 43
   orig: 46, 43
   offset: 0, 0
@@ -146,14 +146,14 @@ wonderdragon_earth_02_head_02
   index: -1
 wonderdragon_earth_02_head_02_02
   rotate: true
-  xy: 1117, 200
+  xy: 1041, 4
   size: 80, 60
   orig: 80, 60
   offset: 0, 0
   index: -1
 wonderdragon_earth_02_head_02_03
   rotate: true
-  xy: 1041, 4
+  xy: 1985, 294
   size: 80, 60
   orig: 80, 60
   offset: 0, 0
@@ -216,7 +216,7 @@ wonderdragon_earth_02_leg_02
   index: -1
 wonderdragon_earth_02_mouth_01
   rotate: false
-  xy: 626, 260
+  xy: 24, 11
   size: 47, 20
   orig: 47, 20
   offset: 0, 0
