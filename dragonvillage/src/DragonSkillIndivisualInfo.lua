@@ -71,6 +71,13 @@ function DragonSkillIndivisualInfo:isEndCoolTime()
 end
 
 -------------------------------------
+-- function resetCoolTime
+-------------------------------------
+function DragonSkillIndivisualInfo:resetCoolTime()
+    self.m_cooldownTimer = 0
+end
+
+-------------------------------------
 -- function applySkillLevel
 -------------------------------------
 function DragonSkillIndivisualInfo:applySkillLevel()

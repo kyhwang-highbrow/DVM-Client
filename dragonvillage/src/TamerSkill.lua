@@ -24,7 +24,6 @@ function Tamer:initSkill()
 			local t_skill = skill_info.m_tSkill
 
 			self.m_lSkill[i] = t_skill
-			self.m_lSkillCoolTimer[i] = t_skill['cooldown']
 		end
 	end
 end
@@ -36,7 +35,7 @@ end
 function Tamer:setTamerEventSkill()
 	local t_skill = self.m_lSkill[TAMER_SKILL_EVENT]
     if (t_skill) then
-	    local trigger_type = t_skill['chance_value']
+	    local trigger_type = t_skill['chance_type']
 	    if (trigger_type ~= '') then
             for i, dragon in pairs(self:getFellowList()) do
 			    dragon:addListener(trigger_type, self)
@@ -199,12 +198,14 @@ function Tamer:doSkill(skill_idx)
 
 	-- [PASSIVE]
 	else
-		PARENT.doSkillBySkillTable(self, t_skill, nil)
+		if (PARENT.doSkillBySkillTable(self, t_skill)) then
+            local skill_indivisual_info = self:findSkillInfoByID(skill_id)
+            if (skill_indivisual_info) then
+                skill_indivisual_info:startCoolTime()
+            end
+        end
 	end
-
-	-- 쿨타임 갱신
-    self.m_lSkillCoolTimer[skill_idx] = t_skill['cooldown'] 
-
+    
 	return true
 end
 
@@ -239,9 +240,10 @@ function Tamer:checkEventSkill(skill_idx, event_name)
 	end
 
 	local t_skill = self.m_lSkill[skill_idx]
+    local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
 	
 	-- 적합한 이벤트 타입인지 체크
-	if (event_name ~= t_skill['chance_value']) then
+	if (event_name ~= t_skill['chance_type']) then
 		return false
 	end
 
@@ -251,12 +253,12 @@ function Tamer:checkEventSkill(skill_idx, event_name)
 	end
 
 	-- 쿨타임 체크
-	if (self.m_lSkillCoolTimer[skill_idx] > 0) then
-		return false
+    if (not skill_indivisual_info:isEndCoolTime()) then
+	    return false
 	end
 
 	-- 발동 확률 체크 (100단위 사용 심플)
-	local chance_value = t_skill['chance_value_2']
+	local chance_value = t_skill['chance_value']
 	local random_100 = math_random(1, 100)
 	if (chance_value < random_100) then
 		return false
@@ -293,28 +295,21 @@ function Tamer:showToolTipActive()
 end
 ]]
 -------------------------------------
--- function increaseActiveSkillCool
--------------------------------------
-function Tamer:increaseActiveSkillCool(percentage)
-    local t_skill = self.m_lSkill[TAMER_SKILL_ACTIVE]
-
-    self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] = t_skill['cooldown'] 
-    
-    self.m_bActiveSKillUsable = true
-end
-
--------------------------------------
 -- function resetActiveSkillCool
 -------------------------------------
 function Tamer:resetActiveSkillCool()
-    self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] = 0
+    local skill_indivisual_info = self:getLevelingSkillByType('active')
+    skill_indivisual_info:resetCoolTime()
+
+    self.m_bActiveSKillUsable = true
 end
 
 -------------------------------------
 -- function isEndActiveSkillCool
 -------------------------------------
 function Tamer:isEndActiveSkillCool()
-    return (self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] == 0)
+    local skill_indivisual_info = self:getLevelingSkillByType('active')
+    return skill_indivisual_info:isEndCoolTime()
 end
 
 -------------------------------------

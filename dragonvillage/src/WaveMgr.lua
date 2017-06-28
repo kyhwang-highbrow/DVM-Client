@@ -17,7 +17,8 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
 		m_stageName = '',
         m_bDevelopMode = '',
         
-        m_highestRarity = 'number',     -- 하나의 웨이브 안에서 가장 높은 rarity
+        m_highestRarity = 'number',         -- 현재 웨이브에서 가장 높은 rarity
+        m_bDeadHighestRarity = 'boolean',   -- 가장 높은 rarity가 죽었는지 여부
 
 		-- regen 전용
         m_mRegenGroup = 'table',
@@ -236,14 +237,19 @@ function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
             
             -- 해당 웨이브에서 가장 높은 Rarity를 저장
             do
-                self:setHighestRarity(dynamic_wave)
+                local enemy_id = dynamic_wave.m_enemyID
+                local enemy_lv = dynamic_wave.m_enemyLevel
+        
+                local rarity = self:getRarity(enemy_id, enemy_lv)
+    
+	            if (rarity > self.m_highestRarity) then
+		            self.m_highestRarity = rarity
+	            end
             end
 
             obj_key = obj_key + 1
 		end
 	end
-
-    cclog('highestRarity = ' .. self.m_highestRarity)
 end
 
 -------------------------------------
@@ -299,6 +305,7 @@ function WaveMgr:newScenario_dynamicWave(t_data)
 
     self.m_lDynamicWave = {}
     self.m_highestRarity = -1
+    self.m_bDeadHighestRarity = false
 
     -- wave 정보를 읽어 dynamic wave 세팅
 	self:setDynamicWave(self.m_lDynamicWave, t_data['wave'])
@@ -338,18 +345,26 @@ function WaveMgr:getRarity(enemy_id, enemy_lv)
 end
 
 -------------------------------------
--- function setHighestRarity
--- @brief 최대 등급을 갱신한다.
+-- function checkToHighestRarity
+-- @brief 현재 웨이브에서 최고 Rariry의 적이 죽었는지 체크
 -------------------------------------
-function WaveMgr:setHighestRarity(dynamic_wave)
-    local enemy_id = dynamic_wave.m_enemyID
-    local enemy_lv = dynamic_wave.m_enemyLevel
-        
-    local rarity = self:getRarity(enemy_id, enemy_lv)
+function WaveMgr:checkToDieHighestRariry()
+    if (self.m_bDeadHighestRarity) then return true end
+
+    local highestRariry = self:getHighestRariry()
+    local is_dead = true
+            
+    for _, enemy in ipairs(self.m_world:getEnemyList()) do
+        local rarity = self:getRarity(enemy:getCharId(), enemy.m_lv)
+        if (rarity >= highestRariry) then
+            is_dead = false
+            break
+        end
+    end
     
-	if (rarity > self.m_highestRarity) then
-		self.m_highestRarity = rarity
-	end
+    self.m_bDeadHighestRarity = is_dead
+    
+    return is_dead
 end
 
 -------------------------------------

@@ -162,6 +162,13 @@ function IDragonSkillManager:initSkillIDList()
 
 	-- @TODO 수정 필요
     self.m_lSkillIndivisualInfo['passive'] = {}
+
+    -- 테이머
+    self.m_lSkillIndivisualInfo['hit_basic'] = {}       -- 명중 시
+    self.m_lSkillIndivisualInfo['hit_cri'] = {}         -- 크리로 명중 시
+    self.m_lSkillIndivisualInfo['under_atk'] = {}       -- 피격 시
+    self.m_lSkillIndivisualInfo['under_atk_cri'] = {}   -- 치명타로 피격 시
+    self.m_lSkillIndivisualInfo['get_debuff'] = {}      -- 디버프에 걸렸을 시
 end
 
 -------------------------------------

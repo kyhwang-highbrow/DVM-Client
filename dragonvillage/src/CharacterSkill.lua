@@ -104,9 +104,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 				StatusEffectHelper:doStatusEffectByTable(self, t_skill, apply_world_passive_effect)
 				
-			-- 트리거 설정하는 패시브
+			-- 트리거 설정하는 패시브(사용하지 않음)
 			else
-				return StatusEffectHelper:setTriggerPassive(self, t_skill)
+                error('setTriggerPassive skill_type = ' .. skill_type)
+                --return StatusEffectHelper:setTriggerPassive(self, t_skill)
 
 			end
 

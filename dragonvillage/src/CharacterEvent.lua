@@ -42,16 +42,11 @@ function Character:onEvent(event_name, t_event, ...)
 
         self:onEvent_underAllyHp(hp, max_hp)
 
-	elseif (event_name == 'get_debuff') then
-
-    elseif (event_name == 'recovery') then
-        self:onEvent_recovery()
-
-    elseif (event_name == 'dead') then
-        self:onEvent_dead()
-
 	elseif (event_name == 'stat_changed') then
 		self:onEvent_updateStat()
+
+    else
+        self:onEvent_common(event_name)
 
 	end
 end
@@ -144,42 +139,6 @@ function Character:onEvent_underAllyHp(hp, max_hp)
 end
 
 -------------------------------------
--- function onEvent_recovery
--------------------------------------
-function Character:onEvent_recovery()
-    if (not self.m_statusCalc) then
-		return
-	end
-
-    for i, v in pairs(self.m_lSkillIndivisualInfo['recovery']) do
-        if (v:isEndCoolTime()) then
-            local rand = math_random(1, 100)
-            if (rand <= v.m_tSkill['chance_value']) then
-                self:doSkill(v.m_skillID, 0, 0)
-            end
-        end
-    end
-end
-
--------------------------------------
--- function onEvent_dead
--------------------------------------
-function Character:onEvent_dead()
-    if (not self.m_statusCalc) then
-		return
-	end
-
-    for i, v in pairs(self.m_lSkillIndivisualInfo['dead']) do
-        if (v:isEndCoolTime()) then
-            local rand = math_random(1, 100)
-            if (rand <= v.m_tSkill['chance_value']) then
-                self:doSkill(v.m_skillID, 0, 0)
-            end
-        end
-    end
-end
-
--------------------------------------
 -- function onEvent_updateStat
 -------------------------------------
 function Character:onEvent_updateStat()
@@ -194,4 +153,26 @@ function Character:onEvent_updateStat()
 		self.m_maxHp = max_hp
 		self.m_hp = max_hp * curr_hp_percent
 	end
+end
+
+-------------------------------------
+-- function onEvent_common
+-------------------------------------
+function Character:onEvent_common(event_name)
+    if (not self.m_statusCalc) then
+		return
+	end
+
+    if (not self.m_lSkillIndivisualInfo[event_name]) then
+        return
+    end
+
+    for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
+        if (v:isEndCoolTime()) then
+            local rand = math_random(1, 100)
+            if (rand <= v.m_tSkill['chance_value']) then
+                self:doSkill(v.m_skillID, 0, 0)
+            end
+        end
+    end
 end

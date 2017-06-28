@@ -939,20 +939,7 @@ function GameState:checkToDieHighestRariry()
     if (world.m_bDevelopMode) then return false end
     if (not world.m_waveMgr:isFinalWave()) then return false end
     
-    local highestRariry = world.m_waveMgr:getHighestRariry()
-    local bExistBoss = false
-            
-    for _, enemy in ipairs(world:getEnemyList()) do
-        local rarity = world.m_waveMgr:getRarity(enemy:getCharId(), enemy.m_lv)
-        if (rarity == highestRariry) then
-            if (not enemy.m_bDead) then
-                bExistBoss = true
-                break
-            end
-        end
-    end
-
-    return (not bExistBoss)
+    return world.m_waveMgr:checkToDieHighestRariry()
 end
 
 -------------------------------------

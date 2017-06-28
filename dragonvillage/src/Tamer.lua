@@ -22,7 +22,7 @@ Tamer = class(PARENT, {
 		m_isUseMovingAfterImage = 'boolean',
 
         m_lSkill = 'list',
-        m_lSkillCoolTimer = 'list',
+        
 		m_bActiveSKillUsable = 'boolean',
 		m_bEventSKillUsable = 'boolean',
 
@@ -46,7 +46,7 @@ function Tamer:init(file_name, body, ...)
 	self.m_isUseMovingAfterImage = false
 
     self.m_lSkill = {}
-    self.m_lSkillCoolTimer = {}
+    
 	self.m_bActiveSKillUsable = true
 	self.m_bEventSKillUsable = true
 
@@ -144,12 +144,6 @@ end
 function Tamer:update(dt)
 	if self.m_isUseMovingAfterImage then
         self:updateMovingAfterImage(dt)
-    end
-
-    if (not self.m_bDead and self.m_world:isPossibleControl()) then
-        if (self.m_lSkillCoolTimer[TAMER_SKILL_EVENT] > 0) then
-            self.m_lSkillCoolTimer[TAMER_SKILL_EVENT] = math_max(self.m_lSkillCoolTimer[TAMER_SKILL_EVENT] - dt, 0)
-        end
     end
 
     self:syncAniAndPhys()

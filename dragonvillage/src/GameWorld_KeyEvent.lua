@@ -72,7 +72,7 @@ end
 function GameWorld:skill_charge()
     -- 테이머 스킬
     if (self.m_tamer) then
-        self.m_tamer:increaseActiveSkillCool(100)
+        self.m_tamer:resetActiveSkillCool()
     end
 
     -- 마나
