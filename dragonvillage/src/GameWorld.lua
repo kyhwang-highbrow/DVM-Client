@@ -1210,6 +1210,11 @@ function GameWorld:onEvent(event_name, t_event, ...)
                 fellow:dispatch('under_ally_hp', t_event, unit)
             end
         end
+
+        for _,fellow in pairs(unit:getFellowList()) do
+            -- 자기 자신도 포함
+            fellow:dispatch('under_team_hp', t_event, unit)
+        end
     end
 end
 
