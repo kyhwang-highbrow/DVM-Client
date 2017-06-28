@@ -30,10 +30,6 @@ function UI_ColosseumResult:init(is_win, t_data)
 	    local tier_name = l_tier_info[1]
 	    local tier_grade = l_tier_info[2]
         local reward_value = TableColosseumReward():getFirstRewardCash(tier_name, tier_grade)
-
-        if (0 < reward_value) then
-		    UI_ColosseumFirstReward(t_data)
-        end
 	end
 end
 

@@ -71,7 +71,7 @@ end
 -- function click_colosseumBtn
 -------------------------------------
 function UI_BattleMenu:click_colosseumBtn()
-    g_colosseumData:goToColosseumScene()
+    --g_colosseumData:goToColosseumScene()
 end
 
 -------------------------------------

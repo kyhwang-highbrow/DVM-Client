@@ -603,15 +603,6 @@
     <None Include="..\src\UI_SecretFindPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ColosseumRankListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ColosseumRewardPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ColosseumRewardListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_EventPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1530,12 +1521,6 @@
     <None Include="..\src\ServerData_Birthday.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_Colosseum.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_ColosseumRank.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ServerData_Deck.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2352,19 +2337,7 @@
     <None Include="..\src\UI_Colosseum.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ColosseumFirstReward.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ColosseumFirstRewardListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ColosseumFriendRankListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ColosseumLoading.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ColosseumRankingReward.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\ServerData_Book.lua">

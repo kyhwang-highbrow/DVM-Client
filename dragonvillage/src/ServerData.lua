@@ -77,10 +77,6 @@ function ServerData:getInstance()
 	-- 퀘스트
     g_questData = ServerData_Quest(g_serverData)
 
-    -- 콜로세움
-    g_colosseumData = ServerData_Colosseum(g_serverData)
-    g_colosseumRankData = ServerData_ColosseumRank(g_serverData)
-
     -- 인벤토리
     g_inventoryData = ServerData_Inventory(g_serverData)
 

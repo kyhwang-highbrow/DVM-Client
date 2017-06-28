@@ -82,8 +82,6 @@ local t_module = {
     'ServerData_AutoPlaySetting',
     'ServerData_Runes',
 	'ServerData_Quest',
-    'ServerData_Colosseum',
-    'ServerData_ColosseumRank',
     'ServerData_Inventory',
     'ServerData_Friend',
 	'ServerData_Shop',
@@ -621,15 +619,8 @@ local t_module = {
 
 	-- UI : 콜로세움
     'UI_Colosseum',
-	'UI_ColosseumRewardPopup',
     'UI_ColosseumLoading',
     'UI_ColosseumResult',
-    'UI_ColosseumRankListItem',
-    'UI_ColosseumFriendRankListItem',
-    'UI_ColosseumRewardListItem',
-    'UI_ColosseumFirstRewardListItem',
-    'UI_ColosseumRankingReward',
-    'UI_ColosseumFirstReward',
 
 	-- UI : 고대의 탑
     'UI_AncientTowerScene',

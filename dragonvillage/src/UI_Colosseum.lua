@@ -29,7 +29,7 @@ end
 -- function init
 -------------------------------------
 function UI_Colosseum:init()
-    local vars = self:load('colosseum_scene.ui')
+    local vars = self:load('colosseum_scene_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -70,6 +70,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_Colosseum:initUI()
+    --[[
     self:initTab()
 
     local vars = self.vars
@@ -94,6 +95,7 @@ function UI_Colosseum:initUI()
 
     vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
     vars['honorShopBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"명예 상점" 준비 중') end)
+    --]]
 end
 
 -------------------------------------
@@ -101,7 +103,7 @@ end
 -------------------------------------
 function UI_Colosseum:initButton()
     local vars = self.vars
-    vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
+    --vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
 end
 
 -------------------------------------
