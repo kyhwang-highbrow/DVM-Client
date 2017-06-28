@@ -79,7 +79,7 @@ function UI_AcquisitionRegionListItem:initUI()
 
 		elseif (get_type == 'empty') then
 			title_str = Str('[획득 불가]')
-			content_str = Str('-')
+			content_str = Str('이벤트에서 획득')
 			vars['locationBtn']:setVisible(false)
 
 		end

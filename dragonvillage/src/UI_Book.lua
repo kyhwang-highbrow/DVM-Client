@@ -141,8 +141,8 @@ end
 -- function refresh_collect
 -------------------------------------
 function UI_Book:refresh_collect()
-	local coll_cnt = g_bookData:getCollectCount(self.m_tableViewTD.m_itemList)
-	local total_cnt = self.m_tableViewTD:getItemCount()
+	local coll_cnt = g_bookData:getCollectCount()
+	local total_cnt = table.count(g_bookData:getBookList())
 	self.vars['collectLabel']:setString(Str('수집 현황 {1} / {2}', coll_cnt, total_cnt))
 end
 
@@ -279,7 +279,9 @@ function UI_Book:init_TableViewTD()
 			-- 보상이 있다면 보상 수령
 			if (g_bookData:haveBookReward(did, evolution)) then
 				local function finish_cb()
-					UI_ToastPopup()
+					local reward_value = grade * 100
+					local reward_str = Str('다이아 {1}개를 수령했습니다.', reward_value)
+					UI_ToastPopup(reward_str)
 					ui:setMaxLvSpriteVisible(false)
 					self:refresh_noti()
 				end

@@ -232,10 +232,12 @@ end
 function ServerData_Book:getCollectCount(t_dragon_book)
 	local cnt = 0
 	local t_dragon_data
-	for i, t_book in pairs(t_dragon_book) do
-		t_dragon_data = t_book['data']
-		if (self:isExist(t_dragon_data)) then
-			cnt = cnt + 1
+
+	for did, t_reward in pairs(self.m_tBookReward) do
+		for _, v in pairs(t_reward) do
+			if (v > 0) then
+				cnt = cnt + 1
+			end
 		end
 	end
 
@@ -284,7 +286,6 @@ function ServerData_Book:request_bookReward(did, evolution, finish_cb)
 
         if finish_cb then
             finish_cb()
-
         end
     end
 
