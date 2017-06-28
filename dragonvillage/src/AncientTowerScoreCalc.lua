@@ -55,7 +55,7 @@ function AncientTowerScoreCalc:calcClearTimeBonus()
     local recorder_info = self.m_lrecorder
     local clear_time    = recorder_info:getLog('lap_time')
 
-    return (WAVE_TOTAL_TIME - clear_time) * 5
+    return math_max((WAVE_TOTAL_TIME - clear_time) * 5, 0)
 end
 
 -------------------------------------
@@ -100,6 +100,16 @@ end
 function AncientTowerScoreCalc:getWeakGrade()
     local weak_grade = g_ancientTowerData:getChallengingCount()
     return (weak_grade + 1)
+end
+
+-------------------------------------
+-- function getWeakGradeScore
+-- @brief 약화효과로 인한 마이너스 점수 가져옴
+-------------------------------------
+function AncientTowerScoreCalc:getWeakGradeScore()
+    local weak_grade = g_ancientTowerData:getChallengingCount()
+    local total_score = self.m_score
+    return -math_floor(total_score - total_score/(weak_grade + 1))
 end
 
 -------------------------------------

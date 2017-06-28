@@ -46,7 +46,7 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:calcClearNoDeathBonus())
     table.insert(score_list, score_calc:calcKillBossBonus())
     table.insert(score_list, score_calc:calcAcitveSkillBonus())
-    table.insert(score_list, score_calc:getWeakGrade())
+    table.insert(score_list, score_calc:getWeakGradeScore())
     table.insert(score_list, score_calc:getScore())
 
     -- 애니메이션 적용되는 라벨 저장
