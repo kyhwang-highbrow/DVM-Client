@@ -95,7 +95,7 @@ function GameAuto:proccess_dragon()
         dragon = self.m_lRandomAllyList[1]
     end
 
-    if (dragon and isInstanceOf(dragon, Dragon)) then
+    if (dragon and not dragon.m_bDead) then
         -- 드래그 스킬
         local skill_id = dragon:getSkillID('active')
         if (skill_id == 0) then
@@ -137,6 +137,8 @@ function GameAuto:proccess_dragon()
     else
         -- 해당 드래곤의 드래그 스킬이 없을 경우 리스트에서 삭제
         table.pop(self.m_lRandomAllyList)
+
+        self.m_aiDelayTime = 1
     end
 end
 

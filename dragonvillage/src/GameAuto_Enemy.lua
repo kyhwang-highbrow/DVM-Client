@@ -28,7 +28,16 @@ end
 -- function isActive
 -------------------------------------
 function GameAuto_Enemy:getUnitList()
-    return self.m_world:getEnemyList()
+    local l_ret = {}
+
+    for _, v in ipairs(self.m_world:getEnemyList()) do
+        local skill_indivisual_info = v:getLevelingSkillByType('active')
+        if (skill_indivisual_info) then
+            table.insert(l_ret, v)
+        end
+    end
+
+    return l_ret
 end
 
 -------------------------------------

@@ -26,7 +26,18 @@ end
 -------------------------------------
 function Dragon.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
-        local role_type = owner:getRole()
+        -- 타겟이 미리 검사하여 없다면 스킬을 취소시킴(쿨타임은 이미 돈 상태)
+        do
+            local skill_id = owner.m_reservedSkillId
+            local t_skill = owner:getSkillTable(skill_id)
+
+            if (not owner:checkTarget(t_skill)) then
+                -- 타겟이 없다면 스킬을 취소시킴
+                owner:doAttack(nil)
+                owner:changeState('attackDelay')
+                return
+            end
+        end
 
         -- 패시브 스킬에만 이펙트를 추가
         if (owner.m_charTable['skill_basic'] ~= owner.m_reservedSkillId) then

@@ -45,7 +45,7 @@ end
 -------------------------------------
 -- function runAttack
 -------------------------------------
-function Skill:runAttack()
+function SkillHealAoESquare_Width:runAttack()
     self:runHeal()
 end
 
