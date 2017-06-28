@@ -694,5 +694,15 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
         error("미구현 Formation Type!! : " .. formation_type)
     end
 
+    -- 자기 자신은 제외
+    if (team_type == 'teammate') then
+        local self_char = t_data['self']
+        for i, target in pairs(t_ret) do
+            if (target == self_char) then
+                table.remove(t_ret, i)
+            end
+        end
+    end
+
     return t_ret
 end

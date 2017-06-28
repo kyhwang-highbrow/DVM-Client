@@ -1108,6 +1108,14 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
             for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
         end
 
+    elseif (team_type == 'teammate') then
+        t_data['self'] = char
+        if (bLeftFormation) then
+            for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
+        else
+            for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
+        end
+
     elseif (team_type == 'ally') then
         if (bLeftFormation) then
             for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
@@ -1208,16 +1216,16 @@ function GameWorld:onEvent(event_name, t_event, ...)
 
         unit:dispatch('under_self_hp', t_event, unit)
 
+        -- 자기 자신도 포함
         for _, fellow in pairs(unit:getFellowList()) do
-            -- 자기 자신은 제외
             if (unit ~= fellow) then
                 fellow:dispatch('under_ally_hp', t_event, unit)
             end
         end
 
+        -- 자기 자신은 제외
         for _,fellow in pairs(unit:getFellowList()) do
-            -- 자기 자신도 포함
-            fellow:dispatch('under_team_hp', t_event, unit)
+            fellow:dispatch('under_teammate_hp', t_event, unit)
         end
     end
 end

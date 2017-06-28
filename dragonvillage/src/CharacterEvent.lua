@@ -42,11 +42,11 @@ function Character:onEvent(event_name, t_event, ...)
 
         self:onEvent_underAllyHp(hp, max_hp)
 
-    elseif (event_name == 'under_team_hp') then
+    elseif (event_name == 'under_teammate_hp') then
         local hp = t_event['hp']
         local max_hp = t_event['max_hp']
 
-        self:onEvent_underTeamHp(hp, max_hp)
+        self:onEvent_underTeammateHp(hp, max_hp)
     
 	elseif (event_name == 'stat_changed') then
 		self:onEvent_updateStat()
@@ -149,16 +149,15 @@ function Character:onEvent_underAllyHp(hp, max_hp)
 end
 
 -------------------------------------
--- function onEvent_underTeamHp
+-- function onEvent_underTeammateHp
 -------------------------------------
-function Character:onEvent_underTeamHp(hp, max_hp)
-    if (not self.m_statusCalc) then
-		return
-	end
+function Character:onEvent_underTeammateHp(hp, max_hp)
+    if (not self.m_lSkillIndivisualInfo['under_teammate_hp']) then return end
+    if (not self.m_statusCalc) then return end
 
     local percentage = (hp / max_hp) * 100
 
-    for i, v in pairs(self.m_lSkillIndivisualInfo['under_team_hp']) do
+    for i, v in pairs(self.m_lSkillIndivisualInfo['under_teammate_hp']) do
         if (v:isEndCoolTime()) then
             if (percentage <= v.m_tSkill['chance_value']) then
                 self:doSkill(v.m_skillID, 0, 0)
