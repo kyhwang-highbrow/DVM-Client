@@ -21,6 +21,8 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
     lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, ui_lobby)
     lobby_map.m_groudNode = lobby_ground
 
+    lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
+
     --[[
     lobby_map:setMoveStartCB(function()
         self:doActionReverse()
