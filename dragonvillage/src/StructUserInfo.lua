@@ -48,6 +48,18 @@ function StructUserInfo:applyTableData(data)
     end
 end
 
+-------------------------------------
+-- function getLeaderDragonCard
+-- @brief
+-------------------------------------
+function StructUserInfo:getLeaderDragonCard()
+    if (not self.m_leaderDragonObject) then
+        return nil
+    end
+
+    local card = UI_DragonCard(self.m_leaderDragonObject)
+    return card
+end
 
 
 

@@ -69,13 +69,40 @@ end
 -- function response_colosseumInfo
 -------------------------------------
 function ServerData_Colosseum:response_colosseumInfo(ret)
-    self.m_matchList = ret['matchlist']
+    self:refresh_matchList(ret['matchlist'])
 
     self.m_startTime = ret['start_time']
     self.m_endTime = ret['endtime']
 
     self:refresh_playerUserInfo(ret['season'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
+end
+
+-------------------------------------
+-- function refresh_matchList
+-------------------------------------
+function ServerData_Colosseum:refresh_matchList(l_match_list)
+    self.m_matchList = {}
+
+    for i, v in pairs(l_match_list) do
+        local struct_user_info = StructUserInfoColosseum()
+
+        -- 기본 유저 정보
+        struct_user_info.m_uid = v['uid']
+        struct_user_info.m_nickname = v['nick']
+        struct_user_info.m_lv = v['lv']
+        struct_user_info.m_tamerID = v['tamer']
+        struct_user_info.m_leaderDragonObject = StructDragonObject(v['leader'])
+
+        -- 콜로세움 유저 정보
+        struct_user_info.m_rp = v['rp']
+        --v['match']
+        --v['dragons']
+        --v['runes']
+
+        local uid = v['uid']
+        self.m_matchList[uid] = struct_user_info
+    end
 end
 
 -------------------------------------

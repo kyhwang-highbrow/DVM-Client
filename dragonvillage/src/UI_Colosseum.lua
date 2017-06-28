@@ -82,9 +82,7 @@ function UI_Colosseum:initUI()
     end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
 
-    --[[
     self:initTab()
-    --]]
 end
 
 -------------------------------------
@@ -92,8 +90,6 @@ end
 -------------------------------------
 function UI_Colosseum:initButton()
     local vars = self.vars
-    --vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
-
     vars['winBuffDetailBtn']:registerScriptTapHandler(function() self:click_winBuffDetailBtn() end)
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
     vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
@@ -161,21 +157,16 @@ function UI_Colosseum:click_rewardInfoBtn()
     UI_ColosseumRewardInfoPopup()
 end
 
-
-
-
-
-
 -------------------------------------
 -- function initTab
 -------------------------------------
 function UI_Colosseum:initTab()
     local vars = self.vars
-    self:addTab('weekRank', vars['weekRankBtn'], vars['weekRankTableViewNode'])
-    self:addTab('topRank', vars['topRankBtn'], vars['topRankTableViewNode'])
-    self:addTab('friendRank', vars['friendRankBtn'], vars['friendRankTableViewNode'])
+    self:addTab('atk_tab', vars['atkBtn'], vars['atkListNode'], vars['refreshBtn'], vars['powerLabel'])
+    self:addTab('def_tab', vars['defBtn'], vars['defListNode'], vars['powerLabel'])
+    self:addTab('ranking_tab', vars['rankingBtn'], vars['rankingListNode'])
 
-    self:setTab('weekRank')
+    self:setTab('atk_tab')
 end
 
 -------------------------------------
@@ -184,76 +175,49 @@ end
 function UI_Colosseum:onChangeTab(tab, first)
     PARENT.onChangeTab(self, tab, first)
 
+    local vars = self.vars
+    if (tab == 'atk_tab') then
+        vars['powerLabel']:setString(Str('공격 전투력 : {1}', comma_value(0)))
+    elseif (tab == 'def_tab') then
+        vars['powerLabel']:setString(Str('방어 전투력 : {1}', comma_value(0)))
+    end
+
     if (not first) then
         return
     end
 
-    if (tab == 'weekRank') then
-        local function finish_cb(ret)
-            self.m_weekRankOffset = g_colosseumRankData.m_globalRankOffset
-            self:init_weekRankTableView()
-        end
-        g_colosseumRankData:request_globalRank(finish_cb)
-
-    elseif (tab == 'topRank') then
-        local function finish_cb(ret)
-            self.m_topRankOffset = 1
-            self:init_topRankTableView()
-        end
-        g_colosseumRankData:request_topRank(finish_cb)
-
-    elseif (tab == 'friendRank') then
-        local function finish_cb(ret)
-            self:init_friendRankTableView()
-        end
-        g_colosseumRankData:request_friendRank(finish_cb)
-
+    if (tab == 'atk_tab') then
+        self:init_atkTab()
     end
 end
 
 -------------------------------------
 -- function init_weekRankTableView
 -------------------------------------
-function UI_Colosseum:init_weekRankTableView()
-    local node = self.vars['weekRankTableViewNode']
-    --node:removeAllChildren()
-
-    local l_item_list = g_colosseumRankData.m_lGlobalRank
-
-    if (1 < self.m_weekRankOffset) then
-        local prev_data = {m_rank = 'prev'}
-        l_item_list['prev'] = prev_data
-    end
-
-    local next_data = {m_rank = 'next'}
-    l_item_list['next'] = next_data
+function UI_Colosseum:init_atkTab()
+    local node = self.vars['atkListNode']
+    node:removeAllChildren()
 
     -- 생성 콜백
     local function create_func(ui, data)
-        local function click_previousButton()
-            self:update_weekRankTableView(self.m_weekRankOffset - 30)
-        end
-        ui.vars['previousButton']:registerScriptTapHandler(click_previousButton)
-
-        local function click_nextButton()
-            self:update_weekRankTableView(self.m_weekRankOffset + 30)
-        end
-        ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
     end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(840, 100 + 5)
-    table_view:setCellUIClass(UI_ColosseumRankListItem, create_func)
+    table_view.m_defaultCellSize = cc.size(720, 150 + 10)
+    table_view:setCellUIClass(UI_ColosseumAttackListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+
+    -- 정렬은??
+    local l_item_list = g_colosseumData.m_matchList
     table_view:setItemList(l_item_list)
 
     -- 리스트가 비었을 때
     --table_view_td:makeDefaultEmptyDescLabel(Str('보유한 드래곤이 없습니다.'))
 
     -- 정렬
-    g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
-    self.m_weekRankTableView = table_view
+    --g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
+    --self.m_weekRankTableView = table_view
 end
 
 -------------------------------------
