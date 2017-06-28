@@ -55,6 +55,9 @@ end
 -- function onEvent_underAtkRate
 -------------------------------------
 function Character:onEvent_underAtkRate()
+    if (not self.m_lSkillIndivisualInfo['under_atk_rate']) then return end
+    if (not self.m_statusCalc) then return end
+
 	local sum_random = SumRandom()
 
     for i,v in pairs(self.m_lSkillIndivisualInfo['under_atk_rate']) do
@@ -82,6 +85,9 @@ end
 -- function onEvent_underAtkTurn
 -------------------------------------
 function Character:onEvent_underAtkTurn()
+    if (not self.m_lSkillIndivisualInfo['under_atk_turn']) then return end
+    if (not self.m_statusCalc) then return end
+
 	local under_atk_cnt = self.m_charLogRecorder:getLog('under_atk')
 	local campare_cnt
 	
@@ -104,9 +110,8 @@ end
 -- function onEvent_underSelfHp
 -------------------------------------
 function Character:onEvent_underSelfHp(hp, max_hp)
-    if (not self.m_statusCalc) then
-		return
-	end
+    if (not self.m_lSkillIndivisualInfo['under_self_hp']) then return end
+    if (not self.m_statusCalc) then return end
 
     local percentage = (hp / max_hp) * 100
 
@@ -123,9 +128,8 @@ end
 -- function onEvent_underAllyHp
 -------------------------------------
 function Character:onEvent_underAllyHp(hp, max_hp)
-    if (not self.m_statusCalc) then
-		return
-	end
+    if (not self.m_lSkillIndivisualInfo['under_ally_hp']) then return end
+    if (not self.m_statusCalc) then return end
 
     local percentage = (hp / max_hp) * 100
 
@@ -142,9 +146,7 @@ end
 -- function onEvent_updateStat
 -------------------------------------
 function Character:onEvent_updateStat()
-	if (not self.m_statusCalc) then
-		return
-	end
+	if (not self.m_statusCalc) then return end
 
 	-- 체력 버프 발동시 실시간 변화
 	if (self:getStat('hp') ~= self.m_maxHp) then
@@ -159,9 +161,8 @@ end
 -- function onEvent_common
 -------------------------------------
 function Character:onEvent_common(event_name)
-    if (not self.m_statusCalc) then
-		return
-	end
+    if (not self.m_lSkillIndivisualInfo['event_name']) then return end
+    if (not self.m_statusCalc) then return end
 
     if (not self.m_lSkillIndivisualInfo[event_name]) then
         return

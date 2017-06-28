@@ -830,10 +830,10 @@ function Character:getSkillTable(skill_id)
 	local t_skill = nil
 
     -- 캐릭터 유형별(dragon or enemy)로 스킬 테이블 호출하고 가져온다.
-    if (self.m_charType == 'dragon') then
-		t_skill = TableDragonSkill():get(skill_id)
-    else
-		t_skill = TABLE:get('monster_skill')[skill_id]
+    if (self.m_charType == 'monster') then
+        t_skill = TableMonsterSkill():get(skill_id)
+	else
+        t_skill = self:getLevelingSkillById(skill_id)
     end
 
     return t_skill

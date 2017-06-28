@@ -8,20 +8,8 @@ function Character:doSkill(skill_id, x, y, t_data)
 	local t_data = t_data or {}
 
     local attr = self:getAttribute()
-	local t_skill = nil
-
-    local phys_group = self:getAttackPhysGroup()
-
-    -- 캐릭터 유형별 변수 정리(dragon or enemy)
-    if (self.m_charType == 'dragon') then
-		t_skill = self:getLevelingSkillById(skill_id)
-    elseif (self.m_charType == 'monster') then
-        local table_skill = TABLE:get(self.m_charType .. '_skill')
-		t_skill = table_skill[skill_id]
-    else
-        error()
-    end
-
+	local t_skill = self:getSkillTable(skill_id)
+    
 	-- 스킬 테이블 체크
     if (not t_skill) then
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
@@ -89,27 +77,17 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 		-- [패시브]
 		if (chance_type == 'leader' or chance_type == 'passive') then
-			
-			-- 리더 버프 (기존 상시 패시브)
-			if (chance_value == '') or (chance_value == 'start') then
-
-				-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-				local function apply_world_passive_effect(char)
-					local world = self.m_world
-					if (not world.m_mPassiveEffect[char]) then
-						world.m_mPassiveEffect[char] = {}
-					end
-					world.m_mPassiveEffect[char][t_skill['t_name']] = true
+			-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
+			local function apply_world_passive_effect(char)
+				local world = self.m_world
+				if (not world.m_mPassiveEffect[char]) then
+					world.m_mPassiveEffect[char] = {}
 				end
-
-				StatusEffectHelper:doStatusEffectByTable(self, t_skill, apply_world_passive_effect)
-				
-			-- 트리거 설정하는 패시브(사용하지 않음)
-			else
-                error('setTriggerPassive skill_type = ' .. skill_type)
-                --return StatusEffectHelper:setTriggerPassive(self, t_skill)
-
+				world.m_mPassiveEffect[char][t_skill['t_name']] = true
 			end
+
+			StatusEffectHelper:doStatusEffectByTable(self, t_skill, apply_world_passive_effect)
+            return true
 
 		-- [상태 효과]만 거는 스킬
 		elseif string.find(skill_type, 'status_effect') then
@@ -432,9 +410,11 @@ function Character:doSkill_passive()
     if (self.m_bActivePassive) then return end
 
     local l_passive = self.m_lSkillIndivisualInfo['passive']
-    for i, skill_info in pairs(l_passive) do
-        local skill_id = skill_info.m_skillID
-        self:doSkill(skill_id, 0, 0)
+    if (l_passive) then
+        for i, skill_info in pairs(l_passive) do
+            local skill_id = skill_info.m_skillID
+            self:doSkill(skill_id, 0, 0)
+        end
     end
 
     self.m_bActivePassive = true
@@ -448,7 +428,7 @@ function Character:doSkill_leader()
     local leader_skill_info = self.m_lSkillIndivisualInfo['leader']
 	if (leader_skill_info) then
 		local skill_id = leader_skill_info.m_skillID
-		self:doSkill(skill_id, 0, 0)
+        self:doSkill(skill_id, 0, 0)
 	end
 end
 

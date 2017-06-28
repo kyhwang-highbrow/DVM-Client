@@ -368,7 +368,6 @@ local t_module = {
     'StatusEffectUnit_Dot_Damage',
     'StatusEffectUnit_Dot_Heal',
     'StatusEffect_Trigger',
-    'StatusEffect_PassiveSkill',
 	'StatusEffect_Sleep',
     'StatusEffect_Bleed',
     'StatusEffect_Poison',

@@ -143,32 +143,6 @@ function IDragonSkillManager:initSkillIDList()
     self.m_lSkillIndivisualInfo['basic'] = false
     self.m_lSkillIndivisualInfo['active'] = false
 	self.m_lSkillIndivisualInfo['leader'] = false
-
-    self.m_lSkillIndivisualInfo['basic_rate'] = {}
-    self.m_lSkillIndivisualInfo['basic_turn'] = {}
-
-	self.m_lSkillIndivisualInfo['indie_rate'] = {}
-	self.m_lSkillIndivisualInfo['indie_turn'] = {}
-	self.m_lSkillIndivisualInfo['indie_time'] = {}
-
-	self.m_lSkillIndivisualInfo['under_atk_rate'] = {}
-	self.m_lSkillIndivisualInfo['under_atk_turn'] = {}
-
-    self.m_lSkillIndivisualInfo['under_self_hp'] = {}   -- 자신의 HP
-    self.m_lSkillIndivisualInfo['under_ally_hp'] = {}   -- 자신을 제외한 아군의 HP
-
-    self.m_lSkillIndivisualInfo['recovery'] = {}        -- 회복 되었을 시
-    self.m_lSkillIndivisualInfo['dead'] = {}            -- 죽었을 시
-
-	-- @TODO 수정 필요
-    self.m_lSkillIndivisualInfo['passive'] = {}
-
-    -- 테이머
-    self.m_lSkillIndivisualInfo['hit_basic'] = {}       -- 명중 시
-    self.m_lSkillIndivisualInfo['hit_cri'] = {}         -- 크리로 명중 시
-    self.m_lSkillIndivisualInfo['under_atk'] = {}       -- 피격 시
-    self.m_lSkillIndivisualInfo['under_atk_cri'] = {}   -- 치명타로 피격 시
-    self.m_lSkillIndivisualInfo['get_debuff'] = {}      -- 디버프에 걸렸을 시
 end
 
 -------------------------------------
@@ -185,7 +159,8 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
 
     -- 미리 정의 되지 않은 것은 에러 처리
     if (self.m_lSkillIndivisualInfo[skill_type] == nil) then
-        error('skill_type : ' .. skill_type)
+        --error('skill_type : ' .. skill_type)
+        self.m_lSkillIndivisualInfo[skill_type] = {}
     end
 
 	-- skill info 생성
@@ -246,6 +221,7 @@ function IDragonSkillManager:findSkillInfoByID(skill_id)
 	end
 
     local skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
+    if (not self.m_lSkillIndivisualInfo[skill_type]) then return end
     
     -- 하나의 스킬만을 가지는 스킬 타입
 	if isExistValue(skill_type, 'active', 'basic', 'leader') then
@@ -477,6 +453,7 @@ end
 -------------------------------------
 function IDragonSkillManager:checkSkillRate(skill_type)
 	local t_skill_info = self.m_lSkillIndivisualInfo[skill_type]
+    if (not t_skill_info) then return end
 
 	if (table.count(t_skill_info) > 0) then
         local sum_random = SumRandom()
@@ -504,6 +481,7 @@ end
 -------------------------------------
 function IDragonSkillManager:checkSkillTurn(skill_type)
 	local t_skill_info = self.m_lSkillIndivisualInfo[skill_type]
+    if (not t_skill_info) then return end
 
 	if (table.count(t_skill_info) > 0) then
         for i,v in pairs(t_skill_info) do
@@ -568,7 +546,7 @@ end
 -- @return	skill_id
 -------------------------------------
 function IDragonSkillManager:getBasicTimeAttackSkillID()
-    if (not self.m_lSkillIndivisualInfo) then return end
+    if (not self.m_lSkillIndivisualInfo['indie_time']) then return end
 
     if (table.count(self.m_lSkillIndivisualInfo['indie_time']) > 0) then
         for i,v in pairs(self.m_lSkillIndivisualInfo['indie_time']) do
@@ -809,6 +787,29 @@ end
 -------------------------------------
 function IDragonSkillManager:getSkillDescPure(t_skill)
     return Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
+end
+
+-------------------------------------
+-- function printSkillInfo
+-------------------------------------
+function IDragonSkillManager:printSkillInfo()
+    cclog('-------------------------------------------------------')
+    for k, v in pairs(self.m_lSkillIndivisualInfo) do
+        if (type(v) == 'table') then
+            cclog('TYPE : ' .. k)
+            
+            if isExistValue(k, 'active', 'basic', 'leader') then
+                cclog('## SKILL ID LIST : 1 ##')
+                cclog(v.m_skillID)
+            else
+                cclog('## SKILL ID LIST : ' .. table.count(v) .. ' ##')
+                for _, skill_indivisual_info in pairs(v) do
+                    cclog(skill_indivisual_info.m_skillID)
+                end
+            end
+        end
+    end
+    cclog('=======================================================')
 end
 
 -------------------------------------

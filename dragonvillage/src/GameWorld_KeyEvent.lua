@@ -45,6 +45,7 @@ MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
 -- 테스트
 MAP_KEY_FUNC[KEY_5] = 'resurrect_dragon'
 MAP_KEY_FUNC[KEY_6] = 'kill_one_dragon'
+MAP_KEY_FUNC[KEY_7] = 'print_skill_info'
 
 -------------------------------------
 -- function onKeyReleased
@@ -400,5 +401,19 @@ function GameWorld:kill_one_dragon(dragon)
                 end
             end
         end
+    end
+end
+
+-------------------------------------
+-- function print_skill_info
+-- @brief 아군들의 보유 스킬 정보를 로그로 표시
+-------------------------------------
+function GameWorld:print_skill_info()
+    if (self.m_tamer) then
+        self.m_tamer:printSkillInfo()
+    end
+
+    for i, hero in ipairs(self:getDragonList()) do
+        hero:printSkillInfo()
     end
 end

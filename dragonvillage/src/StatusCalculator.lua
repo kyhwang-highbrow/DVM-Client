@@ -324,7 +324,10 @@ end
 -------------------------------------
 function StatusCalculator:printAllStat()
 	for stat_type, indivisual_status in pairs(self.m_lStatusList) do
-		cclog('- ' .. stat_type .. ' : ' .. indivisual_status:getFinalStat())
+        local buff_multi = indivisual_status.m_buffMulti
+        local buff_add = indivisual_status.m_buffAdd
+
+		cclog('- ' .. stat_type .. ' : ' .. indivisual_status:getFinalStat() .. ' (' .. buff_multi .. '%, +' .. buff_add .. ')')
 	end
 end
 
