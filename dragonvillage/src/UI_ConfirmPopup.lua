@@ -96,6 +96,7 @@ function UI_ConfirmPopup:getPriceIcon(price_type)
         res = 'res/ui/icon/inbox/inbox_staminas_st.png'
 
     elseif (price_type == 'money') then
+        res = 'res/ui/icon/inbox/inbox_krw.png'
 
     elseif (price_type == 'lactea') then
         res = 'res/ui/icon/inbox/inbox_lactea.png'
@@ -105,6 +106,18 @@ function UI_ConfirmPopup:getPriceIcon(price_type)
 
     elseif (price_type == 'fp') then
         res = 'res/ui/icon/inbox/inbox_fp.png'
+
+    elseif (price_type == 'mileage') then
+        res = 'res/ui/icon/inbox/inbox_mileage.png'
+
+    elseif (price_type == 'capsule') then
+        res = 'res/ui/icon/inbox/inbox_capsule.png'
+
+    elseif (price_type == 'topaz') then
+        res = 'res/ui/icon/inbox/inbox_topaz.png'
+
+    elseif (price_type == 'honor') then
+        res = 'res/ui/icon/inbox/inbox_honor.png'
 
     else
         error('price_type : ' .. price_type)
