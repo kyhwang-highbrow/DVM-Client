@@ -77,12 +77,7 @@ end
 function UI_AcquisitionRegionInformation:regionListView()
     local node = self.vars['listNode']
 
-    local item_id = self.m_itemID
-    local l_region = TableItem:getRegionList(item_id)
-
-    if (not l_region) then
-        return
-    end
+	local l_region = self:makeRegionList()
 
     -- 셀 아이템 생성 콜백
     local function create_func(ui, data)
@@ -109,6 +104,58 @@ function UI_AcquisitionRegionInformation:regionListView()
 
         ui:cellMoveTo(0.5, cc.p(x, y))
     end
+end
+
+-------------------------------------
+-- function makeRegionList
+-- @brief
+-------------------------------------
+function UI_AcquisitionRegionInformation:makeRegionList()
+    local item_id = self.m_itemID
+	local item_type = TableItem:getItemType(item_id)
+	local l_region = {}
+
+	if (item_type == 'dragon') then
+		local t_item = TableItem():get(item_id)
+		local did = t_item['did']
+		
+		-- 조합 체크
+		local t_combine = TableDragonCombine():get(did)
+		if (t_combine) then
+			table.insert(l_region, 'combine')
+		end
+
+		-- 뽑기 체크
+		local t_dragon = TableDragon():get(did)
+		if (t_dragon) then
+			--[[
+			-- 일반 소환
+			if (t_dragon['pick_weight'] > 0) then
+				table.insert(l_region, 'pick')
+			end
+			-- 우정 부화
+			if (t_dragon['fp_weight'] > 0) then
+				table.insert(l_region, 'friend')
+			end
+			-- 마일리지
+			if (t_dragon['mg_weight'] > 0) then
+				table.insert(l_region, 'mileage')
+			end
+			]]
+			if (t_dragon['mg_weight'] > 0) or (t_dragon['pick_weight'] > 0) or (t_dragon['fp_weight'] > 0) then
+				table.insert(l_region, 'summon')
+			end
+		end
+
+		-- 인연은 기본으로 넣어준다
+		table.insert(l_region, 'relation')
+
+	elseif (item_type == 'rune') then
+		l_region = TableItem:getRegionList(item_id)
+
+	end
+
+	return l_region
 end
 
 --@CHECK

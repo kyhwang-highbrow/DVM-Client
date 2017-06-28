@@ -342,9 +342,12 @@ end
 -------------------------------------
 -- function openHatcheryUI
 -------------------------------------
-function ServerData_Hatchery:openHatcheryUI(close_cb)
+function ServerData_Hatchery:openHatcheryUI(close_cb, tab)
     local function finish_cb()
         local ui = UI_Hatchery()
+		if (tab) then
+			ui:setTab(tab)
+		end
         ui:setCloseCB(close_cb)
     end
 
