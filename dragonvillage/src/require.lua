@@ -59,6 +59,7 @@ local t_module = {
     'StructFreeDragonSummonInfo',
     'StructQuestData',
     'StructUserInfo',
+    'StructUserInfoColosseum',
     'StructWaveRegenGroup',
     'StructCollisionData',
 	'StructBookData',
@@ -102,6 +103,7 @@ local t_module = {
     'ServerData_Hatchery',
     'ServerData_StartTamer',
 	'ServerData_Book',
+    'ServerData_Colosseum',
 
     -- Interface
     'IEventDispatcher',
@@ -620,6 +622,8 @@ local t_module = {
     'UI_Colosseum',
     'UI_ColosseumLoading',
     'UI_ColosseumResult',
+    'UI_ColosseumRankInfoPopup',
+    'UI_ColosseumBuffInfoPopup',
 
 	-- UI : 고대의 탑
     'UI_AncientTowerScene',

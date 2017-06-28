@@ -43,12 +43,14 @@ function UI_Colosseum:init()
     self:initButton()
     self:refresh()
 
+    --[[
     -- 보상 안내 팝업
     local function finich_cb()
 		if (g_colosseumData.m_hasWeeklyReward) then
 			UI_ColosseumRankingReward()
 		end
     end
+    --]]
 
     self:sceneFadeInAction(nil, finich_cb)
 end
@@ -104,6 +106,10 @@ end
 function UI_Colosseum:initButton()
     local vars = self.vars
     --vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
+
+    vars['winBuffDetailBtn']:registerScriptTapHandler(function() self:click_winBuffDetailBtn() end)
+    vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
+    vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
 end
 
 -------------------------------------
@@ -118,6 +124,30 @@ end
 function UI_Colosseum:click_readyBtn()
 	UI_ReadyScene()
 end
+
+-------------------------------------
+-- function click_winBuffDetailBtn
+-------------------------------------
+function UI_Colosseum:click_winBuffDetailBtn()
+	UI_ColosseumBuffInfoPopup()
+end
+
+-------------------------------------
+-- function click_rankDetailBtn
+-------------------------------------
+function UI_Colosseum:click_rankDetailBtn()
+	UI_ColosseumRankInfoPopup()
+end
+
+-------------------------------------
+-- function click_rewardInfoBtn
+-------------------------------------
+function UI_Colosseum:click_rewardInfoBtn()
+end
+
+
+
+
 
 
 -------------------------------------
@@ -325,13 +355,6 @@ function UI_Colosseum:init_friendRankTableView()
     -- 정렬
     g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
     self.m_topRankTableView = table_view
-end
-
--------------------------------------
--- function click_rewardInfoBtn
--------------------------------------
-function UI_Colosseum:click_rewardInfoBtn()
-    UI_ColosseumRewardPopup()
 end
 
 --@CHECK

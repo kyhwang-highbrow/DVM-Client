@@ -2397,6 +2397,18 @@
     <None Include="..\src\UI_DragonAppear.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_Colosseum.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumRankInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumBuffInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructUserInfoColosseum.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

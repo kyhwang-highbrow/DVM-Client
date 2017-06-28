@@ -131,6 +131,9 @@ function ServerData:getInstance()
     -- 테이머 선택
     g_startTamerData = ServerData_StartTamer(g_serverData)
 
+    -- 콜로세움
+    g_colosseumData = ServerData_Colosseum(g_serverData)
+
     return g_serverData
 end
 
