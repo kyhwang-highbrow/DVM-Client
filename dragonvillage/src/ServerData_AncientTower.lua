@@ -134,7 +134,7 @@ end
 function ServerData_AncientTower:request_ancientTowerRank(offset, finish_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
-    local offset = offset or 1
+    local offset = offset or 0
 
     -- 콜백 함수
     local function success_cb(ret)

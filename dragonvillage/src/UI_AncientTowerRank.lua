@@ -19,7 +19,7 @@ local RANK_SHOW_CNT = 20 -- 한번에 보여주는 랭커 수
 -------------------------------------
 function UI_AncientTowerRank:init(ui_scene)
     self.m_uiScene = ui_scene
-    self.m_rankOffset = 1
+    self.m_rankOffset = 0
 
 	self:initUI()
     self:initButton()
