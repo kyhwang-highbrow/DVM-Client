@@ -265,7 +265,7 @@ end
 function UI_Network:makeShopPopup(msg, ret, type)
     self:close()
     local function cb()
-        g_shopData:openShopPopup(type)
+        g_shopDataNew:openShopPopup(type)
     end
     
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, cb)

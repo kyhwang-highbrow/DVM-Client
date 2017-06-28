@@ -35,7 +35,6 @@ local TableInfo = {
         friendbuff          = {'table_dragon_friendbuff',   'rarity',       false},
 
         item_sort_by_type   = {'table_item',                'full_type',    false},
-        shop                = {'table_shop',                'product_id',   false},
         first_reward        = {'table_first_reward',        'stage_id',     false},
         attribute           = {'table_attribute',           'attr_id',      false},
         status              = {'table_status',              'type',         false},

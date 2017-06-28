@@ -288,9 +288,6 @@
     <None Include="..\src\UI_ReadyScene_Select.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ShopPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_SimplePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -493,9 +490,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_FriendPopupTabRecommend.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ShopListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_FriendSelectPopup.lua">
@@ -2028,9 +2022,6 @@
     <None Include="..\src\TableSecretDungeon.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\TableShop.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableSlime.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2435,9 +2426,6 @@
     </None>
     <None Include="..\src\UI_DragonAppear.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_ShopOld.lua">
-      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

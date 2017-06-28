@@ -427,7 +427,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Runes.lua" />
     <None Include="..\src\ServerData_SecretDungeon.lua" />
     <None Include="..\src\ServerData_Shop.lua" />
-    <None Include="..\src\ServerData_ShopOld.lua" />
     <None Include="..\src\ServerData_Slimes.lua" />
     <None Include="..\src\ServerData_Stage.lua" />
     <None Include="..\src\ServerData_Staminas.lua" />
@@ -739,7 +738,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableRuneSet.lua" />
     <None Include="..\src\TableScenarioResource.lua" />
     <None Include="..\src\TableSecretDungeon.lua" />
-    <None Include="..\src\TableShop.lua" />
     <None Include="..\src\TableSlime.lua" />
     <None Include="..\src\TableSlimeExp.lua" />
     <None Include="..\src\TableStageDesc.lua" />
@@ -1003,8 +1001,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_SecretDungeonScene.lua" />
     <None Include="..\src\UI_SecretDungeonStageListItem.lua" />
     <None Include="..\src\UI_SecretFindPopup.lua" />
-    <None Include="..\src\UI_ShopListItem.lua" />
-    <None Include="..\src\UI_ShopPopup.lua" />
     <None Include="..\src\UI_ConfirmPopup.lua" />
     <None Include="..\src\UI_SimpleDragonInfoPopup.lua" />
     <None Include="..\src\UI_SimplePopup.lua" />
