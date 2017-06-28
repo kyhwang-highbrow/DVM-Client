@@ -155,6 +155,11 @@ function UI_AcquisitionRegionInformation:makeRegionList()
 			table.insert(l_region, 'relation')
 		end
 
+		-- 아무것도 없다면 하나 출력해준다... 뭐...
+		if (#l_region == 0) then
+			table.insert(l_region, 'empty')
+		end
+
 	-- 룬
 	elseif (item_type == 'rune') then
 		l_region = TableItem:getRegionList(item_id)

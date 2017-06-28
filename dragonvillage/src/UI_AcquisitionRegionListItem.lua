@@ -77,6 +77,11 @@ function UI_AcquisitionRegionListItem:initUI()
 			title_str = Str('[인연 던전]')
 			content_str = Str('인연 던전에서 획득')
 
+		elseif (get_type == 'empty') then
+			title_str = Str('[획득 불가]')
+			content_str = Str('-')
+			vars['locationBtn']:setVisible(false)
+
 		end
 
 		vars['locationLabel1']:setString(title_str)
