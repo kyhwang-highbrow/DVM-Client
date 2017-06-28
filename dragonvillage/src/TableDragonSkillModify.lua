@@ -24,7 +24,7 @@ function TableDragonSkillModify:init()
 end
 
 -------------------------------------
--- function init
+-- function init_skillMaxLV
 -------------------------------------
 function TableDragonSkillModify:init_skillMaxLV()
 	t_skill_max_lv = {}

@@ -6,6 +6,8 @@ local PARENT = TableClass
 TableSecretDungeon = class(PARENT, {
     })
 
+local t_obtain_dragon_list = nil
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -13,7 +15,25 @@ function TableSecretDungeon:init()
     self.m_tableName = 'secret_dungeon'
     self.m_orgTable = TABLE:get(self.m_tableName)
 
-    cclog('TableSecretDungeon = ' .. luadump(self.m_orgTable))
+	if (not t_obtain_dragon_list) then
+		self:init_obtainable_dragon()
+	end
+end
+
+-------------------------------------
+-- function init_obtainable_dragon
+-- @brief 인연 던전에서 획득 가능한 드래곤 테이블 생성
+-------------------------------------
+function TableSecretDungeon:init_obtainable_dragon()
+	t_obtain_dragon_list = {}
+	local l_dragon
+	for stage_id, t_dungeon in pairs(self.m_orgTable) do
+		l_dragon = seperate(t_dungeon['obtain_dragon'], ',')
+    
+		for _, did in pairs(l_dragon) do
+			t_obtain_dragon_list[did] = true
+		end
+	end
 end
 
 -------------------------------------
@@ -49,4 +69,15 @@ function TableSecretDungeon:getRandomDragonList(stage_id)
     end
 
     return ret
+end
+
+-------------------------------------
+-- function getRandomDragonList
+-------------------------------------
+function TableSecretDungeon:getObtainableDragonList()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+	return t_obtain_dragon_list
 end

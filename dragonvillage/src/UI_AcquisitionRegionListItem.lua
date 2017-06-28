@@ -74,8 +74,8 @@ function UI_AcquisitionRegionListItem:initUI()
 			content_str = Str('일반 부화에서 획득 가능')
 
 		elseif (get_type == 'relation') then
-			title_str = Str('[인연]')
-			content_str = Str('인연포인트를 모아 획득 가능')
+			title_str = Str('[인연 던전]')
+			content_str = Str('인연 던전에서 획득')
 
 		end
 

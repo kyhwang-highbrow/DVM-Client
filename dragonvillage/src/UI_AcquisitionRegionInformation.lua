@@ -147,8 +147,11 @@ function UI_AcquisitionRegionInformation:makeRegionList()
 			end
 		end
 
-		-- 인연은 기본으로 넣어준다
-		table.insert(l_region, 'relation')
+		-- 인연 체크
+		local is_relation = TableSecretDungeon():getObtainableDragonList()[tostring(did)]
+		if (is_relation) then
+			table.insert(l_region, 'relation')
+		end
 
 	elseif (item_type == 'rune') then
 		l_region = TableItem:getRegionList(item_id)
