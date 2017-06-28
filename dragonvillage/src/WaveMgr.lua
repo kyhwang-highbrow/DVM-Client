@@ -384,11 +384,12 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     -- Enemy 생성
     if isDragon(enemy_id) then
         -- @TODO 드래곤일 경우 등급 및 진화, 친밀도의 데이터도 추가 정리 필요
-        enemy = self.m_world:makeDragonNew({
+        enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
             lv = level,
+            grade = 1,
             skill_0 = 1
-        }, true)
+        }), true)
     else
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
     end

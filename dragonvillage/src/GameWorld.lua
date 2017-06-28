@@ -220,6 +220,10 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     -- 적군(드래곤) AI
     self.m_gameAutoEnemy = GameAuto_Enemy(self, false)
 
+    -- 마나 관리자 생성
+    self.m_heroMana = GameMana(self, true)
+    self.m_enemyMana = GameMana(self, false)
+
     -- shake manager 생성
 	self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
 

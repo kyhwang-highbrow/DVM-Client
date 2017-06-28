@@ -204,9 +204,6 @@ function Tamer:doSkill(skill_idx)
 
 	end
 
-    -- 쿨타임 시작
-    skill_indivisual_info:startCoolTime()
-    
 	return true
 end
 
@@ -283,18 +280,17 @@ function Tamer:getTargetOnEvent(event_name, t_event)
 			
 	self.m_targetChar = target_char
 end
---[[
--------------------------------------
--- function showToolTipActive
--------------------------------------
-function Tamer:showToolTipActive()
-    local t_skill = self.m_lSkill[TAMER_SKILL_ACTIVE]
-    local str = UI_Tooltip_Skill:getSkillDescStr('tamer', t_skill['sid'])
 
-    local tool_tip = UI_Tooltip_Skill(320, -220, str, true)
-    tool_tip:autoRelease()
+-------------------------------------
+-- function startActiveSkillCoolTime
+-------------------------------------
+function Tamer:startActiveSkillCoolTime()
+    local skill_indivisual_info = self:getLevelingSkillByType('active')
+    skill_indivisual_info:startCoolTime()
+
+    self:dispatch('set_global_cool_time_active')
 end
-]]
+
 -------------------------------------
 -- function resetActiveSkillCool
 -------------------------------------

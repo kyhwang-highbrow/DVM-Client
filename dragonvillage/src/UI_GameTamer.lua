@@ -58,8 +58,10 @@ function UI_Game:click_tamerSkillBtn(idx)
 
 	if (tamer.m_bActiveSKillUsable) then
         vars['tamerSkillVisual']:setVisible(false)
-		tamer:changeState('active')
 		vars['tamerSkillGauge' .. idx]:setPercentage(100)
+
+        tamer:changeState('active')
+        tamer:startActiveSkillCoolTime()
 	else
 		UIManager:toastNotificationRed(Str('더 이상 사용 할 수 없습니다.'))
 	end

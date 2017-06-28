@@ -259,7 +259,9 @@ function Skill.st_delay(owner, dt)
 			owner:changeState('dying') 
 		end
 	elseif (owner.m_stateTimer > owner.m_preDelay) then
-		owner.m_animator:setVisible(true) 
+        owner.m_animator:runAction(cc.CallFunc:create(function(node)
+            node:setVisible(true)
+        end))
 		owner:changeState('start')
 
         -- 스킬 사용시 발동되는 status effect를 적용

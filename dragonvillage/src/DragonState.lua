@@ -106,8 +106,25 @@ function Dragon.st_skillAppear(owner, dt)
         else
             owner.m_skillIndicator.m_critical = 0
         end
-                
-        owner:dispatch('dragon_active_skill', { is_critical = is_critical }, owner)
+        
+        -- 액티브 스킬 사용 이벤트 발생
+        do        
+            owner:dispatch('dragon_active_skill', { is_critical = is_critical }, owner)
+        
+            if (owner.m_bLeftFormation) then
+                owner:dispatch('hero_active_skill', { is_critical = is_critical }, owner)
+            else
+                owner:dispatch('enemy_active_skill', { is_critical = is_critical }, owner)
+            end
+        end
+
+        local time = os.time()
+
+        if (owner.m_bLeftFormation) then
+            cclog('st_skillAppear hero ' .. time)
+        else
+            cclog('st_skillAppear enemy ' .. time)
+        end
     end
 end
 
@@ -142,14 +159,6 @@ function Dragon.st_skillIdle(owner, dt)
             owner:doSkill(active_skill_id, x, y, indicatorData)
             owner.m_animator:setEventHandler(nil)
             owner.m_bFinishAttack = true
-
-            -- 액티브 스킬 사용 이벤트 발생
-            if (owner.m_bLeftFormation) then
-                owner:dispatch('hero_active_skill', {}, owner)
-            else
-                owner:dispatch('enemy_active_skill', {}, owner)
-            end
-            owner:dispatch('set_global_cool_time_active')
 
             -- 사운드
             local sound_name = owner:getSoundNameForSkill(owner.m_charTable['type'])

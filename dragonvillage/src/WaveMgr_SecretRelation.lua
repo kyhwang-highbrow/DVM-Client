@@ -46,15 +46,16 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
         local enemy_id = math_floor(enemy_id / 10)
         local isBoss = (level == self.m_highestRarity)
 
-        enemy = self.m_world:makeDragonNew({
+        enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
             lv = level,
+            grade = 1,
             evolution = evolution,
             skill_0 = self.m_currWave,
             skill_1 = self.m_currWave,
             skill_2 = self.m_currWave,
             skill_3 = isBoss and 1 or 0,
-        }, true)
+        }), true)
 
         if (isBoss) then
             enemy.m_animator:setScale(0.6)

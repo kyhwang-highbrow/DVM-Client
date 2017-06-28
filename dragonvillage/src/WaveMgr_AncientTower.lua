@@ -19,15 +19,16 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
     else
         local isBoss = (level == self.m_highestRarity)
 
-        enemy = self.m_world:makeDragonNew({
+        enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
             lv = level,
+            grade = 1,
             evolution = 3,
             skill_0 = 1,
             skill_1 = 1,
             skill_2 = 1,
             skill_3 = isBoss and 1 or 0,
-        }, true)
+        }), true)
 
         if (isBoss) then
             enemy.m_animator:setScale(0.6)

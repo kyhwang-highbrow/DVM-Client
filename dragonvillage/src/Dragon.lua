@@ -173,29 +173,6 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
 end
 
 -------------------------------------
--- function onEvent
--------------------------------------
-function Dragon:onEvent(event_name, t_event, ...)
-    PARENT.onEvent(self, event_name, t_event, ...)
-
-    if (event_name == 'change_mana') then
-        local arg = {...}
-        local mana = arg[1]
-
-        --[[
-        if (not self.m_bDead) then
-            if (mana >= self.m_activeSkillManaCost) then
-                local attr = self:getAttribute()
-                self.m_infoUI:showSkillFullVisual(attr)
-            else
-                self.m_infoUI:hideSkillFullVisual()
-            end
-        end
-        ]]--
-	end
-end
-
--------------------------------------
 -- function update
 -------------------------------------
 function Dragon:update(dt)
@@ -470,7 +447,8 @@ function Dragon:updateActiveSkillCool(dt)
         end
     end
 
-    do -- 리스너에 전달
+    -- 드래그 스킬 게이지 갱신
+    if (self.m_bLeftFormation) then
 	    local t_event = clone(EVENT_DRAGON_SKILL_GAUGE)
 	    t_event['owner'] = self
 	    t_event['percentage'] = (self.m_activeSkillCoolTime - self.m_activeSkillCoolTimer) / self.m_activeSkillCoolTime * 100
@@ -487,12 +465,24 @@ end
 -- function startActiveSkillCoolTime
 -------------------------------------
 function Dragon:startActiveSkillCoolTime()
-    if self:isEndActiveSkillCool() then
-        self.m_activeSkillCoolTimer = self.m_activeSkillCoolTime
-        return true
-    else
+    self.m_activeSkillCoolTimer = self.m_activeSkillCoolTime
+
+    self:dispatch('set_global_cool_time_active')
+end
+
+-------------------------------------
+-- function isEndActiveSkillCool
+-------------------------------------
+function Dragon:isEndActiveSkillCool()
+    if (self.m_activeSkillCoolTimer > 0) then
         return false
     end
+
+    if (self.m_world.m_gameCoolTime:isWaiting(GLOBAL_COOL_TIME.ACTIVE_SKILL)) then
+        return false
+    end
+
+    return true
 end
 
 -------------------------------------
@@ -519,7 +509,9 @@ function Dragon:isPossibleSkill()
         end
 
     elseif (self.m_world.m_enemyMana) then
-        -- 콜로세움 개발시
+        if (self.m_activeSkillManaCost > self.m_world.m_enemyMana:getCurrMana()) then
+            return false
+        end
         
     else
         return false
@@ -540,13 +532,6 @@ function Dragon:isPossibleSkill()
     end
 
 	return true
-end
-
--------------------------------------
--- function isEndActiveSkillCool
--------------------------------------
-function Dragon:isEndActiveSkillCool()
-    return (self.m_activeSkillCoolTimer == 0)
 end
 
 -------------------------------------

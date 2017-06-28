@@ -134,6 +134,10 @@ function Tamer:onEvent(event_name, t_event, ...)
 		if (self:checkEventSkill(TAMER_SKILL_EVENT, event_name)) then
 			self:getTargetOnEvent(event_name, t_event)
 			self:changeState('event')
+
+            local t_skill = self.m_lSkill[TAMER_SKILL_EVENT]
+            local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
+            skill_indivisual_info:startCoolTime()
 		end
 	end
 end

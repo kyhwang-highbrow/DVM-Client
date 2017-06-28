@@ -238,16 +238,6 @@ function GameWorld:makeHeroDeck()
             status_calc:addBuffMulti('def', (friend_online_buff['def'] or 0))
         end
     end
-
-    do -- 마나
-        self.m_heroMana = GameMana(self, true)
-
-        for _, hero in pairs(self:getDragonList()) do
-            hero:addListener('dragon_active_skill', self.m_heroMana)
-
-            self.m_heroMana:addListener('change_mana', hero)
-        end
-    end
 end
 
 -------------------------------------
@@ -369,6 +359,7 @@ function GameWorld:bindHero(hero)
     hero:addListener('dead', self.m_gameDragonSkill)
     hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
+    hero:addListener('dragon_active_skill', self.m_heroMana)
     hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
@@ -438,6 +429,7 @@ function GameWorld:bindEnemy(enemy)
     
     if (enemy.m_charType == 'dragon') then
         enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
+        enemy:addListener('dragon_active_skill', self.m_enemyMana)
         enemy:addListener('enemy_active_skill', self.m_gameState)
         enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
     end

@@ -174,6 +174,10 @@ function SkillGuardian:makeEffectLink()
     self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('shield_idle', true) end)
     self.m_rootNode:addChild(self.m_shieldEffect.m_node, -1)
 
+    if (not self.m_owner.m_bLeftFormation) then
+		self.m_shieldEffect:setFlip(true)
+	end
+
     -- 베리어 이펙트 (나자신에게)
     self.m_barrierEffect1 = MakeAnimator(res)
     self.m_barrierEffect1:changeAni('barrier_appear', false)

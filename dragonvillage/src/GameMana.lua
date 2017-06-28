@@ -44,16 +44,20 @@ function GameMana:update(dt)
     end
 
     if (self.m_inGameUI) then
-        self.m_inGameUI:setMana(self.m_value, MAX_MANA)
+        if (self.m_bLeftFormation) then
+            self.m_inGameUI:setMana(self.m_value, MAX_MANA)
+        end
     end
 
     -- 마나량이 갱신된 경우
+    --[[
     local new_mana = math_floor(self.m_value)
     local prev_mana = math_floor(self.m_prevValue)
 
     if (new_mana ~= prev_mana) then
         self:dispatch('change_mana', {}, new_mana)
     end
+    ]]--
 
     self.m_prevValue = self.m_value
 end

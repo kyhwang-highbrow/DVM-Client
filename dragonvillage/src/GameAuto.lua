@@ -19,7 +19,7 @@ local GAME_AUTO_AI_DELAY_TIME = 2
 GameAuto = class(IEventListener:getCloneClass(), {
         m_world = 'GameWorld',
         m_bActive = 'boolean',
-        m_lRandomAllyList = 'table',     -- 스킬 사용 순서대로 정렬된 아군 리스트
+        m_lRandomAllyList = 'table',    -- 스킬 사용 순서대로 정렬된 아군 리스트
         m_lCastingEnemyList = 'table',  -- 상대편에서 캐스팅 중인 대상 리스트
         m_aiDelayTime = 'number',       -- 스킬 사용 직후 일정 시간 뒤 다음 스킬을 사용하도록 하기 위한 딜레이 시간
      })
@@ -232,7 +232,7 @@ function GameAuto:doSkill(dragon, t_skill, target)
 
     -- 스킬 쿹타임 시작
     dragon:startActiveSkillCoolTime()
-    
+        
     dragon:reserveSkill(t_skill['sid'])
 
     if (t_skill['casting_time'] > 0) then

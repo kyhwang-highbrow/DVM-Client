@@ -243,9 +243,12 @@ function GameState.update_fight(self, dt)
         world.m_enemyMovementMgr:update(dt)
     end
 
-    -- 아군 마나
+    -- 마나
     if (world.m_heroMana) then
         world.m_heroMana:update(dt)
+    end
+    if (world.m_enemyMana) then
+        world.m_enemyMana:update(dt)
     end
 
     do -- 아군 스킬 쿨타임 증가
