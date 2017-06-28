@@ -144,6 +144,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillHealAoESquare_Height:makeSkillInstance(self, t_skill, t_data)
 				return true
 				
+            elseif (skill_type == 'skill_heal_aoe_square_width') then
+                SkillHealAoESquare_Width:makeSkillInstance(self, t_skill, t_data)
+                return true
+
 			elseif (skill_type == 'skill_aoe_square_width' or skill_type == 'skill_aoe_square_width_left') then
                 -- 설정된 인디케이터에 맞춰지도록 처리
                 if (string.find(t_skill['indicator'], 'width_right')) then

@@ -441,6 +441,7 @@ local t_module = {
     'SkillHealAround',
     'SkillHealAoERound',
     'SkillHealAoESquare_Height',
+    'SkillHealAoESquare_Width',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',
