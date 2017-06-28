@@ -492,11 +492,14 @@ function UI_DragonManageInfo:refreshDragonCard(modified_dragons, ref_type)
         if item then
             item['data'] = clone(v)
             if item['ui'] then
-                item['ui'].m_dragonData = StructDragonObject(v)
+				item['ui'].m_dragonData = StructDragonObject(v)
+				
 				if (ref_type == 'leader') then
 					item['ui']:refresh_LeaderIcon()
+
 				elseif (ref_type == 'lock') then
 					item['ui']:refresh_Lock()
+
 				end
             end
         end
@@ -559,16 +562,16 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 
 	-- 정말 작별 하는지 되물음
 	really_warning_popup = function()
-		local goodbye_str = Str('드래곤과 작별하고 다른 드래곤의 인연 포인트를 획득합니다. 정말로 {1}과 작별하시겠습니까?', name)
+		local goodbye_str = Str('드래곤과 작별하고 다른 드래곤의 인연 포인트를 획득합니다. 정말로 {@SPEECH}{1}{@DESC}와/과 작별하시겠습니까?', name)
 		MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, rarity_warning_popup)
 	end
 
 	-- 레어도가 높다면 한번 더 경고
 	rarity_warning_popup = function()
 		-- 영웅 이상
-		if (birth_grade > 4) then
-			local goodbye_str = Str('{1}는 매우 희귀한 드래곤으로, 작별하게 되면 다시 복구할 수 없습니다. 그래도 {1}과 작별하시겠습니까?', name)
-			MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, network_func)
+		if (birth_grade > 2) then
+			local goodbye_str_2 = Str(' {@DEEPSKYBLUE}{1}{@DESC}은/는 매우 희귀한 드래곤으로, 작별하게 되면 다시 복구할 수 없습니다. 그래도 {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하시겠습니까?', name)
+			MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str_2, network_func)
 		else
 			network_func()
 		end
@@ -579,18 +582,18 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 		-- 복수를 고려함
 		local src_doids = self.m_selectDragonOID
 
-		local function close_cb(ret)
+		local function cb_func(ret)
+			-- 테이블 아이템갱신
 			self:init_dragonTableView()
 
-			-- 기존에 선택되어 있던 드래곤이 없어졌을 경우
-			if (not g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)) then
-				self:setDefaultSelectDragon(nil)
-			end
+			-- 기존에 선택되어 있던 드래곤 교체
+			self:setDefaultSelectDragon()
 
 			-- 정렬
 			self:apply_dragonSort_saveData()
 			
-			MakeSimplePopup(POPUP_TYPE.OK, Str('{1}와 작별하여 {2}의 인연 포인트를 {3}개 획득했습니다.', name, '까미', 0))
+			local goodbye_str_3 = Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}의 인연 포인트를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', name, '까미', 0)
+			MakeSimplePopup(POPUP_TYPE.OK, goodbye_str_3)
 		end
 	
 		g_dragonsData:request_dragonGoodbye(uid, src_doids, cb_func)

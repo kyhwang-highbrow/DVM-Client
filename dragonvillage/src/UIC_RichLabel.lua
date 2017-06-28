@@ -475,17 +475,6 @@ function UIC_RichLabel:getColor(color)
         ['d'] = cc.c3b(0x80,0xe7,0xaf),
         ['U'] = cc.c3b(0, 0, 0),
     }
-    COLOR['ORANGE'] = cc.c3b(255,165,0)
-    COLOR['GOLD'] = cc.c3b(255,215,0)
-    COLOR['TAN'] = cc.c3b(210,180,140)
-    COLOR['DEEPSKYBLUE'] = cc.c3b(0,191,255)
-
-    -- 드래곤히어로즈 기존 채팅에서 사용되던 색상
-    COLOR['NORMAL'] = cc.c3b(255, 255, 255)
-    COLOR['GUILD'] = cc.c3b(0, 191, 255)
-    COLOR['NOTICE'] = cc.c3b(165, 224, 0)
-    COLOR['SYSTEM'] = cc.c3b(255, 231, 48)
-    COLOR['WARNING'] = cc.c3b(255, 48, 48)
 
 	-- 명조 색상
     COLOR['BLACK'] = cc.c3b(0, 0, 0)
@@ -493,19 +482,30 @@ function UIC_RichLabel:getColor(color)
 	COLOR['GRAY'] = cc.c3b(150,150,150)
 	COLOR['LIGHTGRAY'] = cc.c3b(192,192,102)
     COLOR['WHITE'] = cc.c3b(255,255,255)
+
+	-- 유채색
+    COLOR['ORANGE'] = cc.c3b(255,165,0)
+    COLOR['GOLD'] = cc.c3b(255,215,0)
+    COLOR['TAN'] = cc.c3b(210,180,140)
+    COLOR['DEEPSKYBLUE'] = cc.c3b(0,191,255)
+
+    COLOR['LIGHTGREEN'] = cc.c3b(165, 224, 0)
+    COLOR['MUSTARD'] = cc.c3b(255, 231, 48)
+    COLOR['ROSE'] = cc.c3b(255, 48, 48)
+
     COLOR['YELLOW'] = cc.c3b(255,255,0)
     COLOR['RED'] = cc.c3b(255,0,0)
     COLOR['BLUE'] = cc.c3b(0,0,255)
+	
+	-- 일반 텍스트 사용 색상
+    COLOR['DESC'] = cc.c3b(240, 215, 160)	-- 밝음
+	COLOR['DESC2'] = cc.c3b(161, 125, 93)	-- 어두움
 
-    COLOR['DESC'] = cc.c3b(240, 215, 160)
-							
-	COLOR['DESC2'] = cc.c3b(161, 125, 93)
+	-- 인게임 사용 색상
+    COLOR['SKILL_NAME'] = cc.c3b(255, 145, 0)	-- 오렌지
+    COLOR['SKILL_DESC'] = cc.c3b(245, 233, 220)	-- 허~연색
 
-    COLOR['SKILL_NAME'] = cc.c3b(255, 145, 0)
-    COLOR['SKILL_DESC'] = cc.c3b(245, 233, 220)
-
-    COLOR['SPEECH'] = cc.c3b(102, 88, 71)
-
+	-- 특수
     COLOR['rune_sopt'] = cc.c3b(240, 215, 159)
     COLOR['rune_set'] = cc.c3b(255, 234, 91)
 
