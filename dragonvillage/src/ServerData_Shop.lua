@@ -23,6 +23,7 @@ function ServerData_Shop:init(server_data)
     self.m_dicProduct['mileage'] = {}
     self.m_dicProduct['honor'] = {}
     self.m_dicProduct['capsule'] = {}
+    self.m_dicProduct['package'] = {}
     self.m_dicBuyCnt = {}
 
     self.m_bDirty = true
@@ -116,6 +117,11 @@ end
 -------------------------------------
 function ServerData_Shop:insertProduct(struct_product)
     local tab_category = struct_product:getTabCategory()
+
+    if (not self.m_dicProduct[tab_category]) then
+        error('지정되어있지 않은 상점 tab : ' .. tab_category)
+    end
+
     table.insert(self.m_dicProduct[tab_category], struct_product)
 end
 
