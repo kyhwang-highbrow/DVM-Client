@@ -318,6 +318,32 @@ function ServerData_Dragons:request_setLeaderDragon(type, doid, cb_func)
 end
 
 -------------------------------------
+-- function possibleGoodbye
+-- @brief 작별 가능한지 체크
+-------------------------------------
+function ServerData_Dragons:possibleGoodbye(doid)
+	local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+	if (not possible) then
+		return possible, msg
+	end
+
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+	local did = t_dragon_data['did']
+	
+	-- 슬라임 체크
+	if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('작별할 수 없는 드래곤입니다.')
+    end
+
+	-- 자코 체크
+	if (TableDragon:isUnderling(did)) then
+		return false, Str('작별할 수 없는 드래곤입니다.') 
+	end
+
+    return true
+end
+
+-------------------------------------
 -- function possibleMaterialDragon
 -- @brief 재료 드래곤으로 사용 가능한지 여부 : 리더나 잠금 상태를 제외한다
 -------------------------------------
@@ -1033,5 +1059,38 @@ function ServerData_Dragons:request_dragonLock(l_doid, lock, cb_func)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_dragonGoodbye
+-------------------------------------
+function ServerData_Dragons:request_dragonGoodbye(uid, src_doids, cb_func)
+	-- 유저 ID
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+		-- 재료로 사용된 드래곤 삭제
+		if ret['deleted_dragons_oid'] then
+			for _, doid in pairs(ret['deleted_dragons_oid']) do
+				g_dragonsData:delDragonData(doid)
+			end
+		end
+
+		-- 획득한 인연포인트
+		self.m_serverData:networkCommonRespone_addedItems(ret)
+
+		-- 콜백
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/goodbye')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('src_doids', src_doids)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
 end

@@ -713,7 +713,6 @@ local t_module = {
     'UI_DragonManagementEvolution',
     'UI_CharacterCard',
     'UI_SkillDetailPopup',
-    'UI_DragonGoodbye',
     'UI_LobbyObject',
     'UI_DragonRunes',
     'UI_DragonRunesEnhance',
@@ -768,7 +767,6 @@ local t_module = {
 
 	-- UI : 연출
 	'DirectingCharacter',
-	'UI_Directing_DragonGoodBye',
 
 	-- UI : 채팅
 	'UI_ChatPopup',

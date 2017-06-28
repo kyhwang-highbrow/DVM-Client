@@ -360,9 +360,6 @@
     <None Include="..\src_tool\entry_wave_maker.lua">
       <Filter>lua_tool</Filter>
     </None>
-    <None Include="..\src\UI_DragonGoodbye.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UIC_TableView.lua">
       <Filter>lua\UIC</Filter>
     </None>
@@ -2144,9 +2141,6 @@
     </None>
     <None Include="..\src\DirectingCharacter.lua">
       <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_Directing_DragonGoodBye.lua">
-      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\GameWorld_KeyEvent.lua">
       <Filter>lua\src</Filter>

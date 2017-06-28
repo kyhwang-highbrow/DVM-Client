@@ -818,7 +818,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ColosseumBuffInfoPopup.lua" />
     <None Include="..\src\UI_ColosseumLoading.lua" />
     <None Include="..\src\UI_ColosseumRankInfoPopup.lua" />
-    <None Include="..\src\UI_Directing_DragonGoodBye.lua" />
     <None Include="..\src\UI_DragonAppear.lua" />
     <None Include="..\src\UI_DragonBoardListItem.lua" />
     <None Include="..\src\UI_DragonBoardPopup.lua" />
@@ -842,7 +841,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonDevApiPopup.lua" />
     <None Include="..\src\UI_DragonEvolutionResult.lua" />
     <None Include="..\src\UI_DragonFriendship.lua" />
-    <None Include="..\src\UI_DragonGoodbye.lua" />
     <None Include="..\src\UI_DragonInfoBoard.lua" />
     <None Include="..\src\UI_DragonLevelUp.lua" />
     <None Include="..\src\UI_DragonLevelUpHelper.lua" />

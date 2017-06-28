@@ -104,7 +104,7 @@ function UI_DragonManageInfo:initButton()
         vars['lockBtn']:registerScriptTapHandler(function() self:click_lockBtn() end)
 
         -- 작별
-        vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
+        vars['sellBtn']:registerScriptTapHandler(function() self:click_goodbyeBtn() end)
 
 		-- 평가
 		vars['assessBtn']:registerScriptTapHandler(function() self:click_assessBtn() end)
@@ -533,36 +533,71 @@ function UI_DragonManageInfo:click_lockBtn()
 end
 
 -------------------------------------
--- function click_sellBtn
+-- function click_goodbyeBtn
 -- @brief 작별 (드래곤 판매)
 -------------------------------------
-function UI_DragonManageInfo:click_sellBtn()
+function UI_DragonManageInfo:click_goodbyeBtn()
     if (not self.m_selectDragonOID) then
         return
     end
-    
-    local ui = UI_DragonGoodbye()
 
-    -- 선택된 드래곤은 바로 추가하기 위해서
-    ui:addMaterial(self.m_selectDragonOID, self.m_bSlimeObject)
+    -- 작별 가능한지 체크
+	local possible, msg = g_dragonsData:possibleGoodbye(self.m_selectDragonOID)
+	if (not possible) then
+		UIManager:toastNotificationRed(msg)
+        return false
+	end
 
-    -- UI종료 후 콜백
-    local function close_cb()
-        if ui.m_bChangeDragonList then
-            self:init_dragonTableView()
+	local table_dragon = TableDragon()
+	local did = self.m_selectDragonData['did']
+	local name = table_dragon:getDragonName(did)
+	local birth_grade = table_dragon:getBirthGrade(did)
 
-            -- 기존에 선택되어 있던 드래곤이 없어졌을 경우
-            if (not g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)) then
-                self:setDefaultSelectDragon(nil)
-            end
+	local really_warning_popup
+	local rarity_warning_popup
+	local network_func
 
-            -- 정렬
-            self:apply_dragonSort_saveData()
-        end
+	-- 정말 작별 하는지 되물음
+	really_warning_popup = function()
+		local goodbye_str = Str('드래곤과 작별하고 다른 드래곤의 인연 포인트를 획득합니다. 정말로 {1}과 작별하시겠습니까?', name)
+		MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, rarity_warning_popup)
+	end
 
-        self:sceneFadeInAction()
-    end
-    ui:setCloseCB(close_cb)
+	-- 레어도가 높다면 한번 더 경고
+	rarity_warning_popup = function()
+		-- 영웅 이상
+		if (birth_grade > 4) then
+			local goodbye_str = Str('{1}는 매우 희귀한 드래곤으로, 작별하게 되면 다시 복구할 수 없습니다. 그래도 {1}과 작별하시겠습니까?', name)
+			MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, network_func)
+		else
+			network_func()
+		end
+	end
+
+	-- 작별 통신
+	network_func = function()
+		-- 복수를 고려함
+		local src_doids = self.m_selectDragonOID
+
+		local function close_cb(ret)
+			self:init_dragonTableView()
+
+			-- 기존에 선택되어 있던 드래곤이 없어졌을 경우
+			if (not g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)) then
+				self:setDefaultSelectDragon(nil)
+			end
+
+			-- 정렬
+			self:apply_dragonSort_saveData()
+			
+			MakeSimplePopup(POPUP_TYPE.OK, Str('{1}와 작별하여 {2}의 인연 포인트를 {3}개 획득했습니다.', name, '까미', 0))
+		end
+	
+		g_dragonsData:request_dragonGoodbye(uid, src_doids, cb_func)
+	end
+
+	-- start
+	really_warning_popup()
 end
 
 -------------------------------------
