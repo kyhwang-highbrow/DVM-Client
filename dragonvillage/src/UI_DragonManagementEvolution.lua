@@ -465,18 +465,11 @@ function UI_DragonManagementEvolution:click_evolutionBtn()
         self.m_bChangeDragonList = true
 
         -- 팝업 연출
-        UI_DragonEvolutionResult(StructDragonObject(ret['dragon']))
-
-        -- 최대 진화도를 달성했을 경우
-        if g_dragonsData:isMaxEvolution(doid) then
-            UIManager:toastNotificationGreen(Str('최대 진화 단계를 달성하셨습니다.'))
-            self:close()
-            return
-        end
-
-        -- UI 갱신
-        self:refresh_dragonIndivisual(doid)
-        self:refresh()
+        local ui = UI_DragonEvolutionResult(StructDragonObject(ret['dragon']))
+		ui:setCloseCB(function()
+			-- UI 종료한다. 진화후 남아있을 이유가 없음
+			self:close()
+		end)
     end
 
     local ui_network = UI_Network()
