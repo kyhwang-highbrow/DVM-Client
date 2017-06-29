@@ -23,10 +23,10 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'bg/ui/dragon_summon/dragon_summon.vrp';
+				file_name = 'bg/ui/hatchery_incubate/hatchery_incubate.vrp';
 				auto_play = true;
 				is_repeat = true;
-				visual_id = 'group;bg';
+				visual_id = 'group;idle';
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
@@ -51,31 +51,6 @@
 			};
 			[3] =
 			{
-				type = 'Visual';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 0;
-				height = 0;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'bg/ui/dragon_summon/dragon_summon.vrp';
-				auto_play = true;
-				is_repeat = true;
-				visual_id = 'group;idle';
-				color = { 255; 255; 255; };
-				opacity = 255;
-			};
-			[4] =
-			{
 				type = 'Node';
 				ui_name = '';
 				x = -260.000000;
@@ -93,7 +68,7 @@
 				visible = true;
 				lua_name = 'npcNode';
 			};
-			[5] =
+			[4] =
 			{
 				[1] =
 				{

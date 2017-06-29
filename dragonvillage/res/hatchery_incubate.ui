@@ -5,14 +5,39 @@
 	{
 		[1] =
 		{
+			type = 'Visual';
+			ui_name = '';
+			x = 299.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			file_name = 'bg/ui/hatchery_incubate/hatchery_incubate.vrp';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;idle_table';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[2] =
+		{
 			type = 'Node';
 			ui_name = '';
-			x = 286.000000;
+			x = 300.000000;
 			y = -50.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 700;
+			width = 650;
 			height = 600;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -22,17 +47,17 @@
 			visible = true;
 			lua_name = 'eggFickerNode';
 		};
-		[2] =
+		[3] =
 		{
-			type = 'Sprite';
+			type = 'Visual';
 			ui_name = '';
-			x = 251.000000;
+			x = 299.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 776;
-			height = 720;
+			width = 0;
+			height = 0;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -40,15 +65,39 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/frame/hatchery_bg.png';
+			file_name = 'bg/ui/hatchery_incubate/hatchery_incubate.vrp';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;idle_table_mirror_top';
 			color = { 255; 255; 255; };
 			opacity = 255;
-			flip_x = false;
-			flip_y = false;
-			src_blend = 770;
-			dest_blend = 771;
 		};
-		[3] =
+		[4] =
+		{
+			type = 'Visual';
+			ui_name = '';
+			x = 299.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			file_name = 'bg/ui/hatchery_incubate/hatchery_incubate.vrp';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;mirror_effect_top';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[5] =
 		{
 			[1] =
 			{

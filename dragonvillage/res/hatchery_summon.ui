@@ -24,32 +24,6 @@
 		};
 		[2] =
 		{
-			type = 'Sprite';
-			ui_name = '';
-			x = 252.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 776;
-			height = 720;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-			file_name = 'ui/frame/hatchery_bg.png';
-			color = { 255; 255; 255; };
-			opacity = 255;
-			flip_x = false;
-			flip_y = false;
-			src_blend = 770;
-			dest_blend = 771;
-		};
-		[3] =
-		{
 			[1] =
 			{
 				type = 'Scale9Sprite';
@@ -180,7 +154,7 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[4] =
+		[3] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -199,7 +173,7 @@
 			visible = true;
 			lua_name = 'bannerNaviNode';
 		};
-		[5] =
+		[4] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -218,7 +192,7 @@
 			visible = true;
 			lua_name = 'bannerNode';
 		};
-		[6] =
+		[5] =
 		{
 			[1] =
 			{
@@ -343,7 +317,7 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[7] =
+		[6] =
 		{
 			[1] =
 			{

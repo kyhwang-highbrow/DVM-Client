@@ -10,7 +10,7 @@ page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_na
 9,,,,,,,,,번개고룡,번개고룡,left,,,"배신자에게 해줄 대답 따위는 없다! 다크닉스, 타락한 자여!",
 10,,,,,,,,,다크닉스,다크닉스,right,,,"흥, 그럼 그 비루한 목숨을 대신 받아가야겠다.",
 11,,,,,,,,,누리,누리,left,,,그만 둬!,
-12,clear_char,skip_disable,,,,,,,,,,,,,
+12,clear_char,,,0.3,,,,,,,,,,,
 13,black;0,flash,skip_disable,0.3,,,,,,,,shaking,,,
 14,black;0,flash,skip_disable,0.3,,,,,,,,shaking,,,
 15,black;0,flash,skip_disable,1,,,,,,,,shaking,,,
