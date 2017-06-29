@@ -17,6 +17,7 @@ StructProduct = class({
 		-- package 용
 		banner_res = 'string',
 		package_res = 'string',
+		package_frame_type = 'number',
 
         m_tabCategory = 'string',
         m_startDate = 'pl.Date',
