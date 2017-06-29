@@ -30,9 +30,9 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
             skill_3 = isBoss and 1 or 0,
         }), true)
 
+        enemy.m_animator:setScale(0.45)
+
         if (isBoss) then
-            enemy.m_animator:setScale(0.6)
-            
             -- 보스의 경우 체력 10배
             enemy.m_maxHp = enemy.m_maxHp * 10
             enemy.m_hp = enemy.m_hp * 10

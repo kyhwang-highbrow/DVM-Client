@@ -435,6 +435,7 @@ function SkillIndicator:getIndicatorData()
     t_data['x'] = self.m_targetPosX
     t_data['y'] = self.m_targetPosY
     t_data['target'] = self.m_targetChar
+    t_data['target_list'] = self.m_highlightList
     t_data['critical'] = self.m_critical
     t_data['bonus'] = self.m_bonus
     

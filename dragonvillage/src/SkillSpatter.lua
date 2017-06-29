@@ -7,15 +7,13 @@ SkillSpatter = class(PARENT, {
         m_owner = 'Character',
         m_spatterCount = 'number',
         m_spatterMaxCount = 'number',
-        m_spatterHealRate = 'number',
-
+        
         m_stdPosX = 'number',
         m_stdPosY = 'number',
 
         m_prevPosX = 'number',
         m_prevPosY = 'number',
 
-		m_lTargetList = 'Character list',
 		m_targetIdx = 'number',
      })
 
@@ -32,18 +30,21 @@ end
 -- function init_skill
 -------------------------------------
 function SkillSpatter:init_skill(motionstreak_res, count)
+    PARENT.init_skill(self)
+
 	-- 멤버 변수
     self.m_spatterCount = 0
     self.m_spatterMaxCount = count
-    self.m_spatterHealRate = self.m_powerRate / 100
-
+    
     self.m_stdPosX = self.m_owner.pos.x
     self.m_stdPosY = self.m_owner.pos.y
 
     self.m_prevPosX = self.m_stdPosX
     self.m_prevPosY = self.m_stdPosY
 
-	self.m_lTargetList = self:findTarget()
+    if (not self.m_lTargetChar) then
+	    self.m_lTargetChar = self:findTarget()
+    end
 	self.m_targetIdx = 1
 
 	-- 위치 지정 및 모션스트릭	
@@ -51,7 +52,7 @@ function SkillSpatter:init_skill(motionstreak_res, count)
     self:setMotionStreak(self.m_world:getMissileNode(), motionstreak_res)
 
 	-- 스킬 효과 시작
-    self:spatterHeal(self.m_owner) -- 시전자는 회복을 하고 시작
+    self:heal(self.m_owner) -- 시전자는 회복을 하고 시작
     self:trySpatter()
 end
 
@@ -80,7 +81,7 @@ function SkillSpatter.st_idle(owner, dt)
 
 			-- 액션 종료 후 타겟을 회복, 튀기기 시도
 			local function end_func()
-				owner:spatterHeal(target_char)
+				owner:heal(target_char)
 				owner:trySpatter()
 			end
 
@@ -122,44 +123,25 @@ function SkillSpatter:findTarget()
 end
 
 -------------------------------------
--- function spatterHeal
--------------------------------------
-function SkillSpatter:spatterHeal(target_char)
-    if (target_char.m_bDead) then
-        return
-    end
-
-    -- 시전자의 공격력에 비례한 회복
-	local atk_dmg = self.m_owner:getStat('atk')
-	local heal = HealCalc_M(atk_dmg) * self.m_spatterHealRate
-    target_char:healAbs(self.m_owner, heal, true)
-
-	-- 힐 사운드
-	if (self.m_owner:isDragon()) then
-		SoundMgr:playEffect('SFX', 'sfx_heal')
-	end
-end
-
--------------------------------------
 -- function getNextTarget
 -------------------------------------
 function SkillSpatter:getNextTarget()
 	local target_char
 
-	local target_char = self.m_lTargetList[self.m_targetIdx]
+	local target_char = self.m_lTargetChar[self.m_targetIdx]
 	
 	-- 타겟이 없거나 죽었을 시 다음 적절한 타겟을 찾기 위해 타겟리스트를 순서대로 한번 순회
 	local idx = 0
 	while (not target_char) or (target_char.m_bDead) do
 		idx = idx + 1
 		self.m_targetIdx = self.m_targetIdx + 1
-		target_char = self.m_lTargetList[self.m_targetIdx]
+		target_char = self.m_lTargetChar[self.m_targetIdx]
 
-		if (self.m_targetIdx > #self.m_lTargetList) then
+		if (self.m_targetIdx > #self.m_lTargetChar) then
 			self.m_targetIdx = 0
 		end
 
-		if (idx > #self.m_lTargetList) then
+		if (idx > #self.m_lTargetChar) then
 			break
 		end
 	end

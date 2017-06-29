@@ -27,6 +27,7 @@ Skill = class(PARENT, {
 		m_targetType = 'str', -- 타겟 선택하는 룰
 		m_targetLimit = 'num', -- 선택할 타겟의 최대 수
 		m_targetChar = 'Character', 
+        m_lTargetChar = 'table', 
 		m_targetPos = 'pos', -- 인디케이터에서 보낸 x, y 좌표
 		
 		-- 상태 효과 관련 변수들
@@ -232,8 +233,9 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_skillName = t_skill['skill_type']
 	self.m_chanceType = t_skill['chance_type']
 	
-	self.m_targetPos = {x = t_data.x, y = t_data.y}
-	self.m_targetChar = t_data.target or self.m_targetChar
+	self.m_targetPos = {x = t_data['x'], y = t_data['y']}
+	self.m_targetChar = t_data['target'] or self.m_targetChar
+    self.m_lTargetChar = t_data['target_list']
 	self.m_targetType = SkillHelper:getValid(t_skill['target_type'])
 	self.m_targetLimit = SkillHelper:getValid(t_skill['target_count'])
 	self.m_targetFormation = SkillHelper:getValid(t_skill['target_formation'])
@@ -420,7 +422,6 @@ function Skill:heal(target_char, b_make_effect)
     local make_effect = true
     if (b_make_effect ~= nil) then make_effect = b_make_effect end
 
-    --local atk_dmg = self.m_owner:getStat('atk')
     local atk_dmg = self.m_activityCarrier:getAtkDmg()
     local heal = HealCalc_M(atk_dmg) * self.m_activityCarrier:getPowerRate()
 

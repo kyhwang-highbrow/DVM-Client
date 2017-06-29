@@ -69,13 +69,13 @@ function ActivityCarrier:getStat(type)
 end
 
 -------------------------------------
--- function getHpInfo
+-- function getHp
 -- @brief 공격자의 현재 HP 정보를 가져온다
 -------------------------------------
-function ActivityCarrier:getHpInfo()
+function ActivityCarrier:getHp()
     if (not self.m_activityCarrierOwner) then return 0 end
 
-    return self.m_activityCarrierOwner.m_hp, self.m_activityCarrierOwner.m_maxHp
+    return self.m_activityCarrierOwner:getHp()
 end
 
 -------------------------------------

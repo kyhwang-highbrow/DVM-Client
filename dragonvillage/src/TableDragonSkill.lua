@@ -136,12 +136,12 @@ function TableDragonSkill:addFunctionsForEquation(column)
     if (not self.m_orgTable) then return end
 
     for sid, v in pairs(self.m_orgTable) do 
-        local power_source = SkillHelper:getValid(v[column], 'atk')
+        local source = SkillHelper:getValid(v[column], 'atk')
                 
-        -- power_source가 수식일 경우 함수를 추가
-        --local operator = string.match(power_source, '[*+/-]')
+        -- source가 수식일 경우 함수를 추가
+        --local operator = string.match(source, '[*+/-]')
         --if (operator) then
-        if (power_source ~= 'atk') then
+        if (source ~= 'atk') then
             local key = v['sid']
             local b = true
 
@@ -156,7 +156,8 @@ function TableDragonSkill:addFunctionsForEquation(column)
                     'EQUATION_FUNC[\'' .. self.m_tableName .. '\'][' .. key .. '][\'' .. column ..'\'] = function(owner, target)' ..
                     ' local atk = owner:getStat(\'atk\')' ..
                     ' local def = owner:getStat(\'def\')' ..
-                    ' local hp, max_hp = owner:getHpInfo()' ..
+                    ' local hp = owner:getHp()' ..
+                    ' local max_hp = owner:getStat(\'hp\')' ..
                     ' local aspd = owner:getStat(\'aspd\')' ..
                     ' local cri_chance = owner:getStat(\'cri_chance\')' ..
                     ' local cri_dmg = owner:getStat(\'cri_dmg\')' ..
@@ -185,7 +186,8 @@ function TableDragonSkill:addFunctionsForEquation(column)
 
                     ' local target_atk = target and target:getStat(\'atk\') or 0' ..
                     ' local target_def = target and target:getStat(\'def\') or 0' ..
-                    ' local target_hp, target_max_hp = target and target:getHpInfo()' ..
+                    ' local target_hp = target and target:getHp() or 0' ..
+                    ' local target_max_hp = target and target:getStat(\'hp\') or 0' ..
                     ' local target_aspd = target and target:getStat(\'aspd\') or 0' ..
                     ' local target_cri_chance = target and target:getStat(\'cri_chance\') or 0' ..
                     ' local target_cri_dmg = target and target:getStat(\'cri_dmg\') or 0' ..
@@ -193,7 +195,7 @@ function TableDragonSkill:addFunctionsForEquation(column)
                     ' local target_hit_rate = target and target:getStat(\'hit_rate\') or 0' ..
                     ' local target_avoid = target and target:getStat(\'avoid\') or 0' ..
 
-                    ' local ret = ' .. power_source .. 
+                    ' local ret = ' .. source .. 
                     ' return ret' ..
                     ' end'
                 )

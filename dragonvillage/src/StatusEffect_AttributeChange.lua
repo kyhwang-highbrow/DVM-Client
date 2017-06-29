@@ -18,7 +18,7 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function StatusEffect_AttributeChange:init_statusEffect(char, tar_attr)
+function StatusEffect_AttributeChange:init_statusEffect(char)
 	self.m_owner = char
 	self.m_targetAttribute = getAttrDisadvantage(char:getAttribute())
 end

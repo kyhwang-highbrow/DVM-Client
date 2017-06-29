@@ -2189,11 +2189,11 @@ function Character:getStat(stat_type)
 end
 
 -------------------------------------
--- function getHpInfo
+-- function getHp
 -- @brief 현재 HP 정보를 가져온다
 -------------------------------------
-function Character:getHpInfo()
-    return self.m_hp, self.m_maxHp
+function Character:getHp()
+    return self.m_hp
 end
 
 -------------------------------------

@@ -254,8 +254,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	elseif (status_effect_type == 'attr_change') then
 		--@TODO 카운터 속성으로 변경, 추후 정리
 		status_effect = StatusEffect_AttributeChange(res)
-		local tar_attr = caster.m_targetChar:getAttribute()
-		status_effect:init_statusEffect(target_char, tar_attr)
+		status_effect:init_statusEffect(target_char)
 
 	----------- 조건부 추가 데미지 ------------------
 	elseif string.find(status_effect_type, 'add_dmg') then

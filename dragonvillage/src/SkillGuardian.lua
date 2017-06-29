@@ -13,7 +13,6 @@ SkillGuardian = class(PARENT, {
         m_barrierEffect2 = 'Table',
 
 		m_bDirtyPos = 'boolean', -- 위치가 변경되어 이펙트 수정이 필요한 경우
-        m_lTarget = 'List'
      })
 
 -------------------------------------
@@ -35,16 +34,20 @@ function SkillGuardian:init_skill(res, duration)
 	-- 멤버 변수
     self.m_res = res
 	self.m_duration = duration
-    self.m_lTarget = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation)
-    
-    -- 자기 자신은 제외시킴
-    local idx = table.find(self.m_lTarget, self.m_owner)
-    if (idx) then
-        table.remove(self.m_lTarget, idx)
+
+    -- 타겟 리스트가 없을 경우(인디케이터로부터 받은 정보가 없을 경우)
+    if (not self.m_lTargetChar) then
+        self.m_lTargetChar = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation)
     end
-    
+
+    -- 자기 자신은 제외시킴
+    local idx = table.find(self.m_lTargetChar, self.m_owner)
+    if (idx) then
+        table.remove(self.m_lTargetChar, idx)
+    end
+
     -- 타겟 수만큼만 가져옴
-    self.m_lTarget = table.getPartList(self.m_lTarget, self.m_targetLimit)
+    self.m_lTargetChar = table.getPartList(self.m_lTargetChar, self.m_targetLimit)
 end
 
 
@@ -64,7 +67,7 @@ end
 -------------------------------------
 function SkillGuardian.st_start(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner:makeEffectLink()
+        owner:makeEffectLink()
         owner:onStart()
 
         local function func()
@@ -95,7 +98,7 @@ function SkillGuardian.st_end(owner, dt)
         -- 방패 이팩트
         owner.m_shieldEffect:changeAni('shield_disappear', false)
         
-        for _, v in pairs(owner.m_lTarget) do
+        for _, v in pairs(owner.m_lTargetChar) do
             
             --연결 이펙트
             owner.m_barEffect[v].m_effectNode:changeAni('bar_disappear', false, true)
@@ -120,14 +123,14 @@ function SkillGuardian:checkDurability(dt)
 	-- 시전자나 대상이 죽으면 중지
     
     local dead_target = 0
-    for _, v in pairs(self.m_lTarget) do
+    for _, v in pairs(self.m_lTargetChar) do
         if (v.m_bDead) then
             self:playDisappearEffect(v)
             dead_target = dead_target + 1
         end
     end
-	if (self.m_owner.m_bDead) or (dead_target == #self.m_lTarget) then
-		self:changeState('end')
+	if (self.m_owner.m_bDead) or (dead_target == #self.m_lTargetChar) then
+        self:changeState('end')
     end
     self.m_duration = self.m_duration - dt
     if (self.m_duration <= 0) then
@@ -149,7 +152,7 @@ end
 function SkillGuardian:makeEffectLink()
 	local res = self.m_res
 
-    for _, v in pairs(self.m_lTarget) do
+    for _, v in pairs(self.m_lTargetChar) do
 
         -- 연결 이펙트 -- 드래곤들 뒤쪽에 위치하기 위해 world의 groundNode에 붙임
         local bar_effect = EffectLink(res, 'bar_appear', '', '', 512, 256)
@@ -223,7 +226,8 @@ end
 -- function onStart
 -------------------------------------
 function SkillGuardian:onStart()
-    for _, v in pairs (self.m_lTarget) do
+    cclog('onStart()')
+    for _, v in pairs (self.m_lTargetChar) do
 
         if (v:getGuard()) then
             v:getGuard():changeState('end')
@@ -232,6 +236,8 @@ function SkillGuardian:onStart()
         v:setGuard(self)
 
         v:addListener('guardian', self)
+
+        v:printAllInfomation()
     end
 end
 
@@ -239,7 +245,8 @@ end
 -- function onEnd
 -------------------------------------
 function SkillGuardian:onEnd()
-    for _, v in pairs (self.m_lTarget) do
+    cclog('onEnd()')
+    for _, v in pairs (self.m_lTargetChar) do
 	    if (v:getGuard() == self) then
 		    v:setGuard(nil)
 		    v:removeListener('guardian', self)
@@ -271,10 +278,10 @@ function SkillGuardian:checkBuffPosDirty()
         return
     end
     
-    for k, v in pairs(self.m_lTarget) do
+    for k, v in pairs(self.m_lTargetChar) do
     -- 베리어 대상자 변경 확인
-        local x = self.m_lTarget[k].pos.x - self.pos.x
-        local y = self.m_lTarget[k].pos.y - self.pos.y
+        local x = self.m_lTargetChar[k].pos.x - self.pos.x
+        local y = self.m_lTargetChar[k].pos.y - self.pos.y
         if (self.m_barrierEffect2[v].m_posX ~= x) or (self.m_barrierEffect2[v].m_posY ~= y) then
             self.m_bDirtyPos = true
             return
@@ -289,7 +296,7 @@ function SkillGuardian:updateBuffPos()
     -- 배리어 이펙트1과 실드 위치 조정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
     
-    for k, v in pairs(self.m_lTarget) do
+    for k, v in pairs(self.m_lTargetChar) do
         local x = v.pos.x - self.pos.x
         local y = v.pos.y - self.pos.y
     
