@@ -604,7 +604,7 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 	-- 레어도가 높다면 한번 더 경고
 	rarity_warning_popup = function()
 		-- 영웅 이상
-		if (birth_grade > 2) then
+		if (birth_grade >= 4) then
 			local goodbye_str_2 = Str(' {@DEEPSKYBLUE}{1}{@DESC}은/는 매우 희귀한 드래곤으로, 작별하게 되면 다시 복구할 수 없습니다. 그래도 {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하시겠습니까?', name)
 			MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str_2, network_func)
 		else
@@ -627,20 +627,21 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 			-- 정렬
 			self:apply_dragonSort_saveData()
 			
-			local t_relation = ret['relation']
-			local rel_did
-			local rel_cnt = 0
-			local rel_name = '까미'
-			if (t_relation) then
-				for i, v in pairs(t_relation) do 
-					rel_did = tonumber(i)
-					rel_cnt = v
+			-- 팝업 만들기
+			local l_item_list = ret['added_items']['items_list']
+			if (l_item_list) then
+				-- 아직은 한개의 경우만 구현
+				for i, t_item in pairs(l_item_list) do
+					local item_id = t_item['item_id']
+					local item = UI_ItemCard(item_id)
+					local rel_name = TableItem:getItemName(item_id)
+					local rel_cnt = t_item['count']
+					local goodbye_str_3 = Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', name, rel_name, rel_cnt)
+					MakeSimplePopup(POPUP_TYPE.OK, goodbye_str_3)
 					break
 				end
-				rel_name = table_dragon:getDragonName(rel_did) or '#DID ERROR'
 			end
-			local goodbye_str_3 = Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}의 인연 포인트를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', name, rel_name, rel_cnt)
-			MakeSimplePopup(POPUP_TYPE.OK, goodbye_str_3)
+
 		end
 	
 		g_dragonsData:request_dragonGoodbye(src_doids, cb_func)
