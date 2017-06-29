@@ -3,62 +3,57 @@
     "bg":"map_ancient_tower",
 	"wave":
 	[
-        {
-            "idx":1,
+        {   
+		    "idx":1,
 			"camera":
             {
-                "scale":0.8,
+                "scale":1,
                 "pos_x":0,
                 "pos_y":0
             },
-            "wave":
+			
+			
+			"wave":
             {
-				0:
-				[
-					"130011;1;Basic;BO07;RF22;1"
-					"130011;1;Basic;TO07;RF26;1"
-				],
-				
+                0:
+                [
+					"130011;1;Appear;RO02;RF23;0.5"
+					"130011;1;Appear;RO06;RF25;0.5"
+                ],
+
 				0.5:
-				[
-					"131021;1;Appear;RO04;RM24;0.5"
-				],
-				
-				1:
-				[
-					"130021;1;Basic;BO11;RB22;1"
-					"130021;1;Basic;TO11;RB26;1"
+                [
+					"130021;1;Basic;RO03;RM22;0.5"
+					"130021;1;Basic;RO05;RM26;0.5"
+					"130041;1;Basic;RO04;RB24;0.5"
 				]
             }
         },
 		
-        {
-            "idx":2,
+        {   
+		    "idx":2,
 			"camera":
             {
-                "scale":0.7,
+                "scale":1,
                 "pos_x":0,
                 "pos_y":0
             },
-            "wave":
+			
+			
+			"wave":
             {
                 0:
                 [
-					"131021;1;Appear;RO02;RB22;0.5"
-					"131021;1;Appear;RO06;RB26;0.5"
+					"130011;1;Appear;RO02;RF23;0.5"
+					"130011;1;Appear;RO06;RF25;0.5"
                 ],
-				
-				0.6:
+
+				0.5:
                 [
-					"130031;1;Basic2;RB12;RM23;0.5"
-					"130031;1;Basic2;RB16;RM25;0.5"
-				],
-				
-				1.2:
-                [
-					"130011;1;Basic2;RM13;RF22;0.5"
-					"130011;1;Basic2;RM15;RF26;0.5"
-                ]	
+					"130032;1;Basic;RO03;RM22;0.5"
+					"130032;1;Basic;RO05;RM26;0.5"
+					"130053;1;Basic;RO04;RB24;0.5"
+				]
             }
         },
 		
@@ -66,15 +61,15 @@
             "idx":3,
 			"camera":
             {
-                "scale":0.6,
-                "pos_x":0,
+                "scale":1,
+                "pos_x":0.9,
                 "pos_y":0
             },
             "wave":
             {
 				0:
 				[
-					"132021;1;Appear;RO04;RM24;0.5;roam"
+					"120091;10;Appear;RO04;RM24;0.5;roam"
 				]
             },
 			
@@ -83,16 +78,16 @@
 				{
 					0:
 					[
-						"130011;1;Basic2;RB26;RF22;1"
-						"130011;1;Basic2;RB22;RF26;1"
+						"131013;1;Basic2;RB26;RF22;1"
+						"131013;1;Basic2;RB22;RF26;1"
 					]
 				},
 				
 				{
 					0:
 					[
-						"131021;1;Basic2;RF26;RB22;1"
-						"131021;1;Basic2;RF22;RB26;1"
+						"130032;1;Basic2;RF26;RB22;1"
+						"130032;1;Basic2;RF22;RB26;1"
 					]
 				}
 			]

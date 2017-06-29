@@ -82,15 +82,15 @@
             {
                 0:
                 [
-					"131022;1;Basic2;RF16;RF12;2"
-					"131022;1;Basic2;RB24;RF14;2"
-					"131022;1;Basic2;RF12;RF16;2"
-					"131032;1;Basic2;RM17;RM11;2;roam"
-					"130062;1;Basic2;RM14;RM14;2"
-					"131032;1;Basic2;RM11;RM17;2;roam"
-					"130052;1;Basic2;RB16;RB12;2"
-					"130052;1;Basic2;RF14;RB24;2"
-					"130052;1;Basic2;RB12;RB16;2"
+					"131022;1;Basic2;RF26;RF22;2"
+					"131022;1;Basic2;RB24;RF24;2"
+					"131022;1;Basic2;RF22;RF26;2"
+					"131032;1;Basic2;RM27;RM21;2;roam"
+					"130062;1;Basic2;RM24;RM24;2"
+					"131032;1;Basic2;RM21;RM27;2;roam"
+					"130052;1;Basic2;RB26;RB22;2"
+					"130052;1;Basic2;RF24;RB24;2"
+					"130052;1;Basic2;RB22;RB26;2"
                 ]
             }
         },
