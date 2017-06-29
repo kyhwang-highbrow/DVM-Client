@@ -359,6 +359,15 @@ function UI_ReadyScene:initButton()
 
 	-- 진형 관리
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
+
+
+    -- 콜로세움일 경우
+    if (self.m_stageID == COLOSSEUM_STAGE_ID) then
+        vars['actingPowerNode']:setVisible(false)
+        vars['startBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+        vars['startBtnLabel']:setPositionX(0)
+        vars['startBtnLabel']:setString(Str('변경 완료'))
+    end
 end
 
 -------------------------------------

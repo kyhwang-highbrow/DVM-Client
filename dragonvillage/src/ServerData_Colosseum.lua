@@ -16,6 +16,7 @@ ServerData_Colosseum = class({
         m_matchList = '',
 
         m_matchUserID = '',
+        m_gameKey = 'number',
     })
 
 -------------------------------------
@@ -376,4 +377,41 @@ function ServerData_Colosseum:request_setDeck(deckname, formation, leader, l_edo
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function request_colosseumStart
+-------------------------------------
+function ServerData_Colosseum:request_colosseumStart(is_cash, vsuid, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- staminas, cash 동기화
+        g_serverData:networkCommonRespone(ret)
+
+        self.m_gameKey = ret['gamekey']
+        --vs_dragons
+        --vs_runes
+        --vs_deck
+        --vs_info
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/ladder/start')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('is_cash', is_cash)
+    ui_network:setParam('vsuid', vsuid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end

@@ -121,8 +121,8 @@ function GameWorldColosseum:initTamer()
     
     -- 적군 테이머 생성
     do
-        local user_info = g_colosseumData:getVsUserInfo()
-        local tid = user_info:getTamer()
+        local user_info = g_colosseumData:getMatchUserInfo()
+        local tid = user_info.m_tamerID
         local t_tamer = TableTamer():get(tid)
 
         -- 설정이 제대로 안된 경우라면 고니로 강제 설정
@@ -259,16 +259,16 @@ end
 -- @TODO 상대편 덱 정보를 받아서 생성해야함
 -------------------------------------
 function GameWorldColosseum:makeEnemyDeck()
-    local user_info = g_colosseumData:getVsUserInfo()
+    local user_info = g_colosseumData:getMatchUserInfo()
 
     -- 상대방의 덱 정보를 얻어옴
-    local l_deck, formation = user_info:getDeck()
+    local l_deck, formation = user_info:getDeck('def')
 
     -- 덱에 배치된 드래곤들 생성
     for i, doid in pairs(l_deck) do
-        local t_dragon_data = user_info:getDragon(doid)
+        local t_dragon_data = user_info:getDragonObject(doid)
         if (t_dragon_data) then
-            local status_calc = user_info:makeDragonStatusCalculator(doid)
+            local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
             local is_right = true
             local enemy = self:makeDragonNew(t_dragon_data, is_right, status_calc)
             if (enemy) then

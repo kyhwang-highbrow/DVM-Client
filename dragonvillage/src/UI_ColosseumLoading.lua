@@ -44,9 +44,10 @@ function UI_ColosseumLoading:init_playerInfo()
     vars['dragonNode1']:addChild(animator.m_node)
     
     local user_info = g_colosseumData.m_playerUserInfo
+    vars['tierNode1']:addChild(user_info:makeTierIcon(nil, 'big'))
     vars['nameLabel1']:setString(user_info.m_nickname)
     vars['pointLabel1']:setString(user_info.m_rp)
-    vars['tierLabel1']:setString(self:getTierName(user_info.m_tier))
+    vars['tierLabel1']:setString(user_info:getTierName())
 end
 
 -------------------------------------
@@ -56,19 +57,19 @@ end
 function UI_ColosseumLoading:init_opponentInfo()
     local vars = self.vars
 
-    local user_info = g_colosseumData.m_vsUserInfo
+    local user_info = g_colosseumData:getMatchUserInfo()
 
-    local l_deck = user_info:getDeck()
+    local l_deck = user_info:getDeck('def')
     local doid = self:getRepresentativeDragon(l_deck)
-    local t_dragon_data = user_info:getDragon(doid)
+    local t_dragon_data = user_info:getDragonObject(doid)
     local animator = g_dragonsData:makeDragonAnimator(t_dragon_data)
     animator:changeAni('idle', true)
     vars['dragonNode2']:addChild(animator.m_node)
 
-
+    vars['tierNode2']:addChild(user_info:makeTierIcon(nil, 'big'))
     vars['nameLabel2']:setString(user_info.m_nickname)
     vars['pointLabel2']:setString(comma_value(user_info.m_rp))
-    vars['tierLabel2']:setString(self:getTierName(user_info.m_tier))
+    vars['tierLabel2']:setString(user_info:getTierName())
 end
 
 -------------------------------------
@@ -84,49 +85,6 @@ function UI_ColosseumLoading:getRepresentativeDragon(l_deck)
     end
 
     return nil
-end
-
--------------------------------------
--- function getTierName
--- @brief
--------------------------------------
-function UI_ColosseumLoading:getTierName(tier)
-    local l_str = seperate(tier, '_')
-
-    local tier = l_str and l_str[1] or tier
-    local grade = l_str and l_str[2] or ''
-
-    -- 오타 방지
-    if (tier == 'blonze') then
-        tier = 'bronze'
-    end
-
-    local str = ''
-    if (tier == 'legend') then
-        str = '레전드'
-    elseif (tier == 'master') then
-        str = '마스터'
-    elseif (tier == 'challenger') then
-        str = '챌린저'
-    elseif (tier == 'diamond') then
-        str = '다이아'
-    elseif (tier == 'platinum') then
-        str = '플래티넘'
-    elseif (tier == 'gold') then
-        str = '골드'
-    elseif (tier == 'silver') then
-        str = '실버'
-    elseif (tier == 'bronze') then
-        str = '브론즈'
-    else
-        
-    end
-
-    if (not isExistValue(tier, 'legend', 'master')) then
-        str = Str(str) .. ' ' .. grade
-    end
-
-    return str
 end
 
 -------------------------------------

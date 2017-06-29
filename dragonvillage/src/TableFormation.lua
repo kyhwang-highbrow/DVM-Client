@@ -90,6 +90,10 @@ end
 -- @breif 특정 포메이션 특정 슬롯이 가지는 버프 리스트 리턴
 -------------------------------------
 function TableFormation:getBuffList(formation, slot_idx)
+    if (formation == '') or (formation == 'default') then
+        formation = 'attack'
+    end
+
     if (self == TableFormation) then
         self = TableFormation()
     end

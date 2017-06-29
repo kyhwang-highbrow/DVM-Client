@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_ColosseumReady
 -------------------------------------
 UI_ColosseumReady = class(PARENT,{
+        m_player3DDeck = 'UI_3Ddeck',
     })
 
 -------------------------------------
@@ -67,6 +68,7 @@ function UI_ColosseumReady:initUI()
 
         local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
         player_3d_deck:setDragonObjectList(l_dragon_obj)
+        self.m_player3DDeck = player_3d_deck
     end
 
     do -- 상대방 유저 덱
@@ -103,7 +105,13 @@ end
 -------------------------------------
 function UI_ColosseumReady:click_deckBtn()
     local with_friend = nil
-    UI_ReadyScene(COLOSSEUM_STAGE_ID, with_friend, 'atk')
+    local ui = UI_ReadyScene(COLOSSEUM_STAGE_ID, with_friend, 'atk')
+    local function close_cb()
+        local player_3d_deck = self.m_player3DDeck
+        local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
+        player_3d_deck:setDragonObjectList(l_dragon_obj)
+    end
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
@@ -111,6 +119,19 @@ end
 -- @brief 시작 버튼
 -------------------------------------
 function UI_ColosseumReady:click_startBtn()
+    if (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
+        local msg = Str('입장권을 모두 소모하였습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+
+    local function cb(ret)
+        local scene = SceneGameColosseum()
+        scene:runScene()
+    end
+
+    local is_cash = false
+    g_colosseumData:request_colosseumStart(is_cash, g_colosseumData.m_matchUserID, cb)
 end
 
 -------------------------------------

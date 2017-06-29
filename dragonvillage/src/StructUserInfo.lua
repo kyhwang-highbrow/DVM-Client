@@ -101,10 +101,12 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfo:getDragonObject(doid)
+    -- 클래스 내부에 드래곤 정보가 있으면 리턴
     if (self.m_dragonsObject and self.m_dragonsObject[doid]) then
         return self.m_dragonsObject[doid]
     end
 
+    -- 없을 경우 플레이어의 서버데이터의 드래곤 정보 리턴
     return g_dragonsData:getDragonObject(doid)
 end
 

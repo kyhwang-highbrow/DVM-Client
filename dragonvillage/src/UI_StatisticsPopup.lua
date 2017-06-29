@@ -81,7 +81,7 @@ function UI_StatisticsPopup:initUI()
 
 		-- 상대 정보 출력
 		do
-			local user_info = g_colosseumData.m_vsUserInfo
+			local user_info = g_colosseumData:getMatchUserInfo()
 			vars['userNode2']:setVisible(true)
 			vars['name2']:setString(user_info.m_nickname)
 
