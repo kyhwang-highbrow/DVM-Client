@@ -2433,6 +2433,9 @@
     <None Include="..\src\UI_Package.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UIHelper.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

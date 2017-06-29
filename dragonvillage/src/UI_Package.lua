@@ -27,6 +27,22 @@ end
 -------------------------------------
 function UI_Package:initUI()
     local vars = self.vars
+	local struct_product = self.m_structProduct
+
+	-- 패키지 구성은 어떻게 할지 안정해져 임시로 아이콘 넣음
+    local icon = struct_product:makeProductIcon()
+    vars['packageNode']:addChild(icon)
+
+	-- 가격
+	local price = struct_product:getPriceStr()
+    vars['priceLabel']:setString(price)
+
+	-- 가격 아이콘
+    local icon = struct_product:makePriceIcon()
+    vars['priceNode']:addChild(icon)
+	
+	-- 가격 아이콘 및 라벨, 배경 조정
+    UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
 end
 
 -------------------------------------

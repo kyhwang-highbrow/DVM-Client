@@ -45,19 +45,7 @@ function UI_Product:initUI()
     vars['priceNode']:addChild(icon)
 	
 	-- 가격 아이콘 및 라벨, 배경 조정
-    do
-        local str_width = vars['priceLabel']:getStringWidth()
-        local icon_width = 70
-        local total_width = str_width + icon_width
-
-        local icon_x = -(total_width/2) + (icon_width/2)
-        vars['priceNode']:setPositionX(icon_x)
-        local label_x = (icon_width/2)
-        vars['priceLabel']:setPositionX(label_x)
-
-        local _, height = vars['priceBg']:getNormalSize()
-        vars['priceBg']:setNormalSize(total_width + 10, height)
-    end
+	UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
 end
 
 -------------------------------------
