@@ -71,7 +71,8 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 		return TargetRule_getTargetList_stat(org_list, type)
 
 	-- 속성 관련
-	elseif isExistValue(type, 'earth', 'water', 'fire', 'light', 'dark') then
+	elseif pl.stringx.startswith(type, 'earth') or pl.stringx.startswith(type, 'water') or pl.stringx.startswith(type, 'fire') or
+           pl.stringx.startswith(type, 'light') or pl.stringx.startswith(type, 'dark') then
 		return TargetRule_getTargetList_attr(org_list, type)
 
 	-- 직군 관련
@@ -315,20 +316,23 @@ function TargetRule_getTargetList_attr(org_list, attr)
 	-- 테이블을 복사한 후 무작위로 섞는다
 	local t_char = table.sortRandom(table.clone(org_list))
     local t_ret = {}
-
-	-- 속성이 같은 아이들을 추출한다
-	for i, character in pairs(t_char) do
-		if (character:getAttribute() == attr) then
-			table.insert(t_ret, character)
+    
+	-- 속성이 같은 아이들을 추출한다.
+    -- index를 검사하는 와중에 remove를 하면 table의 전체 index가 바뀌기 때문에, 테이블 index를 역순으로 검사하여 
+    -- 모든 구성요소들이 검사될 수 있도록 한다.
+    for i = #t_char, 1, -1 do
+		if (string.find(attr, t_char[i]:getAttribute())) then
+			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
-		end
+    	end
 	end
-
-	-- 남은 애들도 다시 담는다.
-	for i, char in pairs(t_char) do
-		table.insert(t_ret, char)
-	end
-
+    
+    if (not pl.stringx.endswith(attr, 'only')) then
+	    -- 남은 애들도 다시 담는다.
+	    for i, char in pairs(t_char) do
+		    table.insert(t_ret, char)
+	    end
+    end
     return t_ret
 end
 
