@@ -67,11 +67,11 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
         local str = Str('{1}점\n{2}점\n{3}점\n{4}', my_score, my_high_score, season_high_score, top_user)
         vars['scoreLabel']:setString(str)
 
-        vars['challengeLabel']:setString(Str('도전 횟수 {1}회', info.m_failCnt))
+        local fail_cnt = info.m_failCnt
+        vars['challengeLabel']:setString(Str('도전 횟수 {1}회', fail_cnt))
 
-        local weak_grade = info:getCurrentWeakGrade()
-        local max_grade = 5
-        vars['weakenLabel']:setString(Str('약화 등급 {1}/{2}', weak_grade, max_grade))
+        local weak_grade = g_ancientTowerData:getWeakGrade(fail_cnt)
+        vars['weakenLabel']:setString(Str('약화 등급 {1}/{2}', weak_grade, ANCIENT_TOWER_MAX_DEBUFF_LEVEL))
     end
     
     do -- 스테이지에 해당하는 스테미나 아이콘 생성

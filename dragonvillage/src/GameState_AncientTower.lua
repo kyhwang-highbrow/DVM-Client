@@ -100,7 +100,7 @@ function GameState_AncientTower:makeResultUI(is_success)
 
         -- 스테이지 클리어시 최종 점수 추가로 보냄
         if (t_param['clear_type'] == 1) then 
-            t_param['score'] = score_calc:getScore()
+            t_param['score'] = score_calc:getFinalScore()
         end
 
         g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)

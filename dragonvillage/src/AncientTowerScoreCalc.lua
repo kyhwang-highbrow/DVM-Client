@@ -3,7 +3,11 @@
 -------------------------------------
 AncientTowerScoreCalc = class({
         m_lrecorder = 'list',
-        m_score = 'number'
+
+        m_score = 'number',         -- 약화등급 계산전 스코어
+        m_final_score = 'number',   -- 약화등급 계산후 스코어
+
+        m_weak_grade = 'number'
     })
 
 local CLEAR_BONUS       = 500   -- 클리어 보너스
@@ -18,7 +22,18 @@ local WAVE_TOTAL_TIME   = 180
 function AncientTowerScoreCalc:init(recorder)
     self.m_lrecorder = recorder or nil
     self.m_score = 0
+    self.m_final_score = 0
+    self:setChallengingWeakGrade()
     self:calcFinalScore()
+end
+
+-------------------------------------
+-- function setChallengingWeakGrade
+-------------------------------------
+function AncientTowerScoreCalc:setChallengingWeakGrade()
+    local fail_cnt = g_ancientTowerData.m_challengingCount
+    local weak_grade = g_ancientTowerData:getWeakGrade(fail_cnt)
+    self.m_weak_grade = weak_grade
 end
 
 -------------------------------------
@@ -33,10 +48,12 @@ function AncientTowerScoreCalc:calcFinalScore()
     local v4 = self:calcKillBossBonus()
     local v5 = self:calcAcitveSkillBonus()
 
-    local weak_grade = self:getWeakGrade()
+    self.m_score = (v1 + v2 + v3 + v4 + v5)
+
+    local weak_grade = self.m_weak_grade + 1
 
     -- 최종 계산에서만 소수점 절삭
-    self.m_score = math_floor((v1 + v2 + v3 + v4 + v5) / (weak_grade))
+    self.m_final_score = math_floor(self.m_score / (weak_grade))
 end
 
 -------------------------------------
@@ -94,29 +111,20 @@ function AncientTowerScoreCalc:calcAcitveSkillBonus()
 end
 
 -------------------------------------
--- function getWeakGrade
--- @brief 약화효과 등급
--------------------------------------
-function AncientTowerScoreCalc:getWeakGrade()
-    local weak_grade = g_ancientTowerData:getChallengingCount()
-    return (weak_grade + 1)
-end
-
--------------------------------------
--- function getWeakGradeScore
+-- function getWeakGradeMinusScore
 -- @brief 약화효과로 인한 마이너스 점수 가져옴
 -------------------------------------
-function AncientTowerScoreCalc:getWeakGradeScore()
-    local weak_grade = g_ancientTowerData:getChallengingCount()
-    local total_score = self.m_score
-    return -math_floor(total_score - total_score/(weak_grade + 1))
+function AncientTowerScoreCalc:getWeakGradeMinusScore()
+    local score = self.m_score
+    local final_score = self.m_final_score
+    return -math_floor(score - final_score)
 end
 
 -------------------------------------
--- function getScore
+-- function getFinalScore
 -------------------------------------
-function AncientTowerScoreCalc:getScore()
-    return self.m_score
+function AncientTowerScoreCalc:getFinalScore()
+    return self.m_final_score
 end
 
 

@@ -15,8 +15,6 @@ StructAncientTowerFloorData = class({
         m_failCnt = 'number',
     })
 
-local MAX_WEAK_GRADE = 5 -- 최대 약화 등급
-
 -------------------------------------
 -- function init
 -------------------------------------
@@ -100,16 +98,6 @@ end
 function StructAncientTowerFloorData:getMonsterList()
     local stage_id = self.m_stage
     return TableStageDesc():getMonsterIDList(stage_id)
-end
-
--------------------------------------
--- function getCurrentWeakGrade
--- @breif 현재 약화 등급
--------------------------------------
-function StructAncientTowerFloorData:getCurrentWeakGrade()
-    local fail_cnt = self.m_failCnt
-    local weak_grade = (fail_cnt > MAX_WEAK_GRADE) and MAX_WEAK_GRADE or fail_cnt
-    return weak_grade
 end
 
 -------------------------------------

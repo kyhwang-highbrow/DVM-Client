@@ -12,11 +12,14 @@ ServerData_AncientTower = class({
         m_challengingStageID= 'number',     -- 현재 진행중인 층의 스테이지 아이디
         m_challengingFloor  = 'number',     -- 현재 진행중인 층    
         m_challengingCount  = 'number',     -- 도전 횟수
+        
         m_clearFloor        = 'number',     -- 최종 클리어한 층
 
         m_lStage            = 'table',
         m_nStage            = 'number',
         m_endTime           = 'number',
+
+        m_lWeakGradeCount   = 'list',       -- 약화등급 기준
 
         m_myRank            = '',           -- 내 순위 정보
         m_nGlobalOffset     = 'number',
@@ -34,6 +37,8 @@ function ServerData_AncientTower:init(server_data)
     self.m_serverData = server_data
     self.m_lStage = nil
     self.m_nStage = 0
+
+    self:setWeakGradeCountList()
 end
 
 -------------------------------------
@@ -67,8 +72,6 @@ end
 function ServerData_AncientTower:goToAncientTowerScene()
     local function finish_cb()
         UI_AncientTowerScene()
-        --local scene = SceneAncientTower()
-        --scene:runScene()
     end
 
     local function fail_cb()
@@ -233,11 +236,34 @@ function ServerData_AncientTower:getChallengingCount()
 end
 
 -------------------------------------
--- function getWeakGrade
--- @brief 약화 등급을 얻음
+-- function setWeakGradeCountList
+-- @brief 테이블 참조하여 약화등급에 기준이 되는 실패 횟수 저장
 -------------------------------------
-function ServerData_AncientTower:getWeakGrade()
-    return math_min(self.m_challengingCount, 5)
+function ServerData_AncientTower:setWeakGradeCountList()
+    local t_count = {}
+    local t_debuff = TABLE:get('anc_weak_debuff')
+    for k, v in pairs(t_debuff) do
+        if (string.find(k, 'count')) then
+            table.insert(t_count, v['value'])
+        end
+    end
+    table.sort(t_count)
+    self.m_lWeakGradeCount = t_count
+end
+
+-------------------------------------
+-- function getWeakGrade
+-- @brief 약화 등급을 얻음 
+-------------------------------------
+function ServerData_AncientTower:getWeakGrade(fail_cnt)
+    local fail_cnt = (fail_cnt) and fail_cnt or self:getChallengingCount()
+    local t_grade = self.m_lWeakGradeCount
+    for idx, grade_cnt in ipairs(t_grade) do
+        if fail_cnt < grade_cnt then
+            return (idx - 1)
+        end
+    end
+    return ANCIENT_TOWER_MAX_DEBUFF_LEVEL
 end
 
 -------------------------------------
@@ -267,19 +293,21 @@ end
 
 -------------------------------------
 -- function getEnemyDeBuffValue
--- @brief 현재 도전 횟수에 따른 적 디버프값을 얻음
+-- @brief 현재 도전 횟수에 따른 적 디버프값을 얻음 (constant.json -> table 참조로 변경)
 -------------------------------------
 function ServerData_AncientTower:getEnemyDeBuffValue()
-    local count = self:getChallengingCount()
-    
-    local t_info = g_constant:get('INGAME', 'ANCIENT_TOWER_VALUE')
+    local weak_grade = self:getWeakGrade(self.m_challengingCount)
+    local t_debuff = TABLE:get('anc_weak_debuff')
 
-    for i = 5, 1, -1 do
-        if (t_info['buff_' .. i .. '_count'] <= count) then
-            return t_info['buff_' .. i .. '_rate']
-        end
+    if (t_debuff) then
+        local key = string.format('buff_%d_rate', weak_grade)
+        local debuff_data = t_debuff[key]
+        local debuff_value = debuff_data['value'] or 0
+        debuff_value = debuff_value * 100
+        cclog('debuff_value '..luadump(debuff_value))
+        return debuff_value
     end
-    
+
     return 0
 end
 

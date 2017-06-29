@@ -46,8 +46,8 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:calcClearNoDeathBonus())
     table.insert(score_list, score_calc:calcKillBossBonus())
     table.insert(score_list, score_calc:calcAcitveSkillBonus())
-    table.insert(score_list, score_calc:getWeakGradeScore())
-    table.insert(score_list, score_calc:getScore())
+    table.insert(score_list, score_calc:getWeakGradeMinusScore())
+    table.insert(score_list, score_calc:getFinalScore())
 
     -- 애니메이션 적용되는 라벨 저장
     local var_list = 
@@ -57,6 +57,13 @@ function UI_GameResult_AncientTower:setAnimationData()
         'skillLabel1',  'skillLabel2',  'weakLabel1',  'weakLabel2', 
         'totalLabel1',  'totalLabel2'
     }
+
+    -- 현재 약화 등급 
+    local weak_grade = g_ancientTowerData:getWeakGrade()
+    vars['weakLabel1']:setString(Str('약화 {1}등급', weak_grade))
+    if (weak_grade > 0) then
+        vars['weakLabel2']:setColor(cc.c3b(255, 96, 0))
+    end
 
     local node_list = {}
     for _, v in ipairs(var_list) do
