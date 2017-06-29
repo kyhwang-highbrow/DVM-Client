@@ -14,7 +14,9 @@ StructProduct = class({
         max_buy_count = 'number',
         max_buy_term = 'string',
 
-
+		-- package 용
+		banner_res = 'string',
+		package_res = 'string',
 
         m_tabCategory = 'string',
         m_startDate = 'pl.Date',

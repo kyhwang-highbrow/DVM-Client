@@ -37,13 +37,7 @@ function UI_Product:initUI()
     vars['itemNode']:addChild(icon)
 
 	-- 가격
-	local price
-	if (struct_product:getTabCategory() == 'package') then
-		price = Str('자세히 보기')
-	else
-		price = struct_product:getPriceStr()
-	end
-	ccdisplay(price)
+	local price = struct_product:getPriceStr()
     vars['priceLabel']:setString(price)
 
 	-- 가격 아이콘
@@ -81,7 +75,7 @@ function UI_Product:click_buyBtn()
 	local struct_product = self.m_structProduct
 
 	if (struct_product:getTabCategory() == 'package') then
-		UI_Package()
+		UI_Package(struct_product)
 	else
 		struct_product:buy()
 	end

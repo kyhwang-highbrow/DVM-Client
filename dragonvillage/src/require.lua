@@ -546,9 +546,6 @@ local t_module = {
 	'UI_Tooltip_Indicator',
     'UI_Tooltip_Skill',
     'UI_TopUserInfo',
-    'UI_Shop',
-    'UI_ShopTab',
-    'UI_Product',
     'UI_ItemCard',
     'UI_RuneCard',
 	'UI_RewardCard',
@@ -595,6 +592,12 @@ local t_module = {
 	'UI_FormationListItem',
 	'UI_FormationEnhance',
     'UI_UserInfoMini',
+
+	-- UI : 상점 관련
+	'UI_Shop',
+    'UI_ShopTab',
+    'UI_Product',
+	'UI_Package',
 
     -- UI : 계정 생성
     'UI_StartIntro',
