@@ -156,7 +156,7 @@ function TableDragonSkill:addFunctionsForEquation(column)
                     'EQUATION_FUNC[\'' .. self.m_tableName .. '\'][' .. key .. '][\'' .. column ..'\'] = function(owner, target)' ..
                     ' local atk = owner:getStat(\'atk\')' ..
                     ' local def = owner:getStat(\'def\')' ..
-                    ' local hp = owner:getStat(\'hp\')' ..
+                    ' local hp, max_hp = owner:getHpInfo()' ..
                     ' local aspd = owner:getStat(\'aspd\')' ..
                     ' local cri_chance = owner:getStat(\'cri_chance\')' ..
                     ' local cri_dmg = owner:getStat(\'cri_dmg\')' ..
@@ -185,7 +185,7 @@ function TableDragonSkill:addFunctionsForEquation(column)
 
                     ' local target_atk = target and target:getStat(\'atk\') or 0' ..
                     ' local target_def = target and target:getStat(\'def\') or 0' ..
-                    ' local target_hp = target and target:getStat(\'hp\') or 0' ..
+                    ' local target_hp, target_max_hp = target and target:getHpInfo()' ..
                     ' local target_aspd = target and target:getStat(\'aspd\') or 0' ..
                     ' local target_cri_chance = target and target:getStat(\'cri_chance\') or 0' ..
                     ' local target_cri_dmg = target and target:getStat(\'cri_dmg\') or 0' ..

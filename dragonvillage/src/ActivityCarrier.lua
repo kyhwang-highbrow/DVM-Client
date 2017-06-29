@@ -69,6 +69,16 @@ function ActivityCarrier:getStat(type)
 end
 
 -------------------------------------
+-- function getHpInfo
+-- @brief 공격자의 현재 HP 정보를 가져온다
+-------------------------------------
+function ActivityCarrier:getHpInfo()
+    if (not self.m_activityCarrierOwner) then return 0 end
+
+    return self.m_activityCarrierOwner.m_hp, self.m_activityCarrierOwner.m_maxHp
+end
+
+-------------------------------------
 -- function getBuffStat
 -- @brief 현재 적용된 버프수치를 가져온다
 -------------------------------------

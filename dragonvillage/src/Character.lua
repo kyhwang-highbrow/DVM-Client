@@ -2185,6 +2185,14 @@ function Character:getStat(stat_type)
 end
 
 -------------------------------------
+-- function getHpInfo
+-- @brief 현재 HP 정보를 가져온다
+-------------------------------------
+function Character:getHpInfo()
+    return self.m_hp, self.m_maxHp
+end
+
+-------------------------------------
 -- function getBuffStat
 -- @brief 현재 적용된 버프수치를 가져온다
 -------------------------------------

@@ -133,7 +133,7 @@ function StatusEffectUnit:getStandardStat()
         stat = self.m_source(self.m_caster, self.m_owner)
     else
         self.m_source = SkillHelper:getValid(self.m_source, 'atk')
-        stat = self:getStat(self.m_source)
+        stat = self.m_caster:getStat(self.m_source)
     end
 
     return stat
