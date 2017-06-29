@@ -15,6 +15,7 @@ function UI_Product:init(struct_product)
 
     self.m_structProduct = struct_product
     self:initUI()
+	self:initButton()
 end
 
 -------------------------------------
@@ -25,17 +26,31 @@ function UI_Product:initUI()
 
     local struct_product = self.m_structProduct
 
+	-- 상품 이름
     vars['itemLabel']:setString(Str(struct_product['t_name']))
 
+	-- 상품 설명
     vars['dscLabel']:setString(struct_product:getDesc())
 
+	-- 상품 아이콘
     local icon = struct_product:makeProductIcon()
     vars['itemNode']:addChild(icon)
 
-    vars['priceLabel']:setString(struct_product:getPriceStr())
+	-- 가격
+	local price
+	if (struct_product:getTabCategory() == 'package') then
+		price = Str('자세히 보기')
+	else
+		price = struct_product:getPriceStr()
+	end
+	ccdisplay(price)
+    vars['priceLabel']:setString(price)
+
+	-- 가격 아이콘
     local icon = struct_product:makePriceIcon()
     vars['priceNode']:addChild(icon)
-
+	
+	-- 가격 아이콘 및 라벨, 배경 조정
     do
         local str_width = vars['priceLabel']:getStringWidth()
         local icon_width = 70
@@ -49,6 +64,25 @@ function UI_Product:initUI()
         local _, height = vars['priceBg']:getNormalSize()
         vars['priceBg']:setNormalSize(total_width + 10, height)
     end
+end
 
-    vars['buyBtn']:registerScriptTapHandler(function() struct_product:buy() end)
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_Product:initButton()
+	local vars = self.vars
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+end
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_Product:click_buyBtn()
+	local struct_product = self.m_structProduct
+
+	if (struct_product:getTabCategory() == 'package') then
+		UI_Package()
+	else
+		struct_product:buy()
+	end
 end

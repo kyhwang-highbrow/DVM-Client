@@ -8,7 +8,7 @@ TableDragonSkillModify = class(PARENT, {
 
 local THIS = TableDragonSkillModify
 
--- skill max lvÀ» ¾ÛÀÌ µ¿ÀÛÇÏ´Â µ¿¾È Å×ÀÌºí·Î µé°íÀÖµµ·Ï ÇÔ (TableDragonSkillModify ÃÖÃÊ »ı¼º½Ã °°ÀÌ ¸¸µë)
+-- skill max lvì„ ì•±ì´ ë™ì‘í•˜ëŠ” ë™ì•ˆ í…Œì´ë¸”ë¡œ ë“¤ê³ ìˆë„ë¡ í•¨ (TableDragonSkillModify ìµœì´ˆ ìƒì„±ì‹œ ê°™ì´ ë§Œë“¬)
 local t_skill_max_lv = nil
 
 -------------------------------------

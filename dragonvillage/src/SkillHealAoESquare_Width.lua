@@ -20,11 +20,11 @@ end
 function SkillHealAoESquare_Width:init_skill(hit)
     PARENT.init_skill(self, hit)
 
-	-- YÁÂÇ¥°ª Áß½ÉÀ¸·Î ¼¼ÆÃ
+	-- Yì¢Œí‘œê°’ ì¤‘ì‹¬ìœ¼ë¡œ ì„¸íŒ…
 	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
 	self:setPosition(cameraHomePosX, self.m_targetPos.y)
 
-	-- ÁøÇü¿¡ µû¶ó ¸®¼Ò½º¸¦ µÚÁý¾îÁØ´Ù.
+	-- ì§„í˜•ì— ë”°ë¼ ë¦¬ì†ŒìŠ¤ë¥¼ ë’¤ì§‘ì–´ì¤€ë‹¤.
 	if (not self.m_owner.m_bLeftFormation) then
 		self.m_animator:setFlip(true)
 	end	
@@ -55,7 +55,7 @@ end
 function SkillHealAoESquare_Width:adjustAnimator()    
 	if (not self.m_animator) then return end
 	
-	-- delay state Á¾·á½Ã ÄÑÁØ´Ù.
+	-- delay state ì¢…ë£Œì‹œ ì¼œì¤€ë‹¤.
 	self.m_animator:setVisible(false) 
     self.m_animator:setScaleY(self.m_resScale)
 end
@@ -77,14 +77,14 @@ function SkillHealAoESquare_Width:findCollision()
         print( v)
     end
 
-    -- x°ªÀÌ ÀÛÀº ¼øÀ¸·Î Á¤·Ä
+    -- xê°’ì´ ìž‘ì€ ìˆœìœ¼ë¡œ ì •ë ¬
     if (#l_ret > 1) then
         table.sort(l_ret, function(a, b)
             return a:getPosX() < b:getPosX()
         end)
     end
 
-    -- Å¸°Ù ¼ö ¸¸Å­¸¸ ¾ò¾î¿È
+    -- íƒ€ê²Ÿ ìˆ˜ ë§Œí¼ë§Œ ì–»ì–´ì˜´
     l_ret = table.getPartList(l_ret, self.m_targetLimit)
 
     return l_ret
@@ -94,26 +94,26 @@ end
 -- function makeSkillInstance
 -------------------------------------
 function SkillHealAoESquare_Width:makeSkillInstance(owner, t_skill, t_data)
-	-- º¯¼ö ¼±¾ðºÎ
+	-- ë³€ìˆ˜ ì„ ì–¸ë¶€
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 
-	local hit = t_skill['hit'] -- °ø°Ý È½¼ö
+	local hit = t_skill['hit'] -- ê³µê²© íšŸìˆ˜
 	
-	-- ÀÎ½ºÅÏ½º »ý¼ººÎ
+	-- ì¸ìŠ¤í„´ìŠ¤ ìƒì„±ë¶€
 	------------------------------------------------------
-	-- 1. ½ºÅ³ »ý¼º
+	-- 1. ìŠ¤í‚¬ ìƒì„±
     local skill = SkillHealAoESquare_Width(missile_res)
 	
-	-- 2. ÃÊ±âÈ­ °ü·Ã ÇÔ¼ö
+	-- 2. ì´ˆê¸°í™” ê´€ë ¨ í•¨ìˆ˜
 	skill:setSkillParams(owner, t_skill, t_data)
 	skill:init_skill(hit)
 	skill:initState()
 
-	-- 3. state ½ÃÀÛ 
+	-- 3. state ì‹œìž‘ 
     skill:changeState('delay')
 
-    -- 4. Physics, Node, GameMgr¿¡ µî·Ï
+    -- 4. Physics, Node, GameMgrì— ë“±ë¡
     local world = skill.m_owner.m_world
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
