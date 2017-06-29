@@ -50,7 +50,6 @@ function Character:onEvent(event_name, t_event, ...)
     
 	elseif (event_name == 'stat_changed') then
 		self:onEvent_updateStat()
-
     else
         self:onEvent_common(event_name)
 
@@ -185,19 +184,24 @@ end
 -- function onEvent_common
 -------------------------------------
 function Character:onEvent_common(event_name)
-    if (not self.m_lSkillIndivisualInfo['event_name']) then return end
     if (not self.m_statusCalc) then return end
-
     if (not self.m_lSkillIndivisualInfo[event_name]) then
         return
     end
 
+
     for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
         if (v:isEndCoolTime()) then
+            local chance_value = v.m_tSkill['chance_value']
+            if ( (not chane_value) or (chance_value == '') ) then
+                chance_value = 100
+            end
+
             local rand = math_random(1, 100)
-            if (rand <= v.m_tSkill['chance_value']) then
+            if (rand <= chance_value) then
                 self:doSkill(v.m_skillID, 0, 0)
             end
+
         end
     end
 end
