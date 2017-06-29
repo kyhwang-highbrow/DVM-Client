@@ -297,8 +297,9 @@ end
 -------------------------------------
 function ServerData_AncientTower:getEnemyDeBuffValue()
     local weak_grade = self:getWeakGrade(self.m_challengingCount)
-    local t_debuff = TABLE:get('anc_weak_debuff')
+    if (weak_grade == 0) then return 0 end
 
+    local t_debuff = TABLE:get('anc_weak_debuff')
     if (t_debuff) then
         local key = string.format('buff_%d_rate', weak_grade)
         local debuff_data = t_debuff[key]
