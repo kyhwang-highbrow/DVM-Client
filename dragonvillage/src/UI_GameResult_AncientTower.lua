@@ -85,10 +85,10 @@ function UI_GameResult_AncientTower:makeScoreAnimation()
 
     score_node:setVisible(true)
     total_node:setVisible(true)
+    result_menu:setVisible(false)
 
     doAllChildren(score_node,   function(node) node:setOpacity(0) end)
     doAllChildren(total_node,   function(node) node:setOpacity(0) end)
-    doAllChildren(result_menu,  function(node) node:setOpacity(0) end)
 
     -- 점수 카운팅 애니메이션
     for idx, node in ipairs(node_list) do
@@ -103,7 +103,7 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
     local score_list    = self.m_scoreList
     local node_list     = self.m_animationList
 
-    local move_x        = 30
+    local move_x        = 20
     local delay_time    = 0.0 -- 애니메이션 간 간격
     local fadein_time   = 0.1 -- 페이드인 타임
     local number_time   = 0.2 -- 넘버링 타임
@@ -123,13 +123,14 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
     number_func = function()
         if (not is_numbering) then return end
         local score = tonumber(score_list[idx/2])
+        local is_ani = (score < 10) and true or false
         node = NumberLabel(node, 0, number_time)
-        node:setNumber(score, (score < 10) and true or false)
+        node:setNumber(score, is_ani)
 
         -- 최종 점수 애니메이션
         if (idx == #node_list) then
             self:setTotalScoreLabel()
-            self.m_totalScore:setNumber(score, (score < 10) and true or false)
+            self.m_totalScore:setNumber(score, is_ani)
             self:removeScore()
         end
     end
@@ -166,13 +167,7 @@ function UI_GameResult_AncientTower:removeScore()
     local total_node    = vars['totalSprite']
     local result_menu   = vars['resultMenu']
 
-    local delay_time = 1.5
-
-    -- 결과 화면 자연스럽게 보여줌
-    local show_result
-    show_result = function()
-        doAllChildren(result_menu, function(node) node:runAction(cc.FadeIn:create(0.5)) end)
-    end
+    local delay_time = 2.0
 
     -- 최종 점수 같이 사라짐
     total_node:stopAllActions()
@@ -187,10 +182,8 @@ function UI_GameResult_AncientTower:removeScore()
     doAllChildren(score_node, function(node)
         local act1 = cc.DelayTime:create(delay_time)
         local act2 = cc.FadeOut:create(0.2)
-        local act3 = cc.CallFunc:create(show_result)
-        local act4 = cc.DelayTime:create(0.5)
-        local act5 = cc.CallFunc:create(function() self:makeResultUI() end)
-        local action = cc.Sequence:create(act1, act2, act3, act4, act5)
+        local act3 = cc.CallFunc:create(function() self:makeResultUI() end)
+        local action = cc.Sequence:create(act1, act2, act3)
         node:runAction(action) 
     end)
 end
@@ -279,8 +272,10 @@ end
 -- @brief 성공 연출 후 결과 화면 다시 보여주고 doNextWork()로 원래 워크 플로우 진행
 -------------------------------------
 function UI_GameResult_AncientTower:makeResultUI()
+    
     local is_success = self.m_bSuccess
     local vars = self.vars
+    vars['resultMenu']:setVisible(true)
 	vars['statsBtn']:setVisible(false)
     vars['homeBtn']:setVisible(false)
     vars['againBtn']:setVisible(false)
@@ -300,5 +295,5 @@ function UI_GameResult_AncientTower:makeResultUI()
     self:startLevelUpDirector()
 
     self.root:stopAllActions()
-    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(0.5), cc.CallFunc:create(function() self:doNextWork() end)))
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2.0), cc.CallFunc:create(function() self:doNextWork() end)))
 end
