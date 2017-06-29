@@ -165,14 +165,23 @@ function TableDragonSkill:addFunctionsForEquation(column)
                     ' local avoid = owner:getStat(\'avoid\')' ..
 
                     ' local buff_atk = owner:getBuffStat(\'atk\')' ..
+                    ' buff_atk = math_max(buff_atk, 0)' ..
                     ' local buff_def = owner:getBuffStat(\'def\')' ..
+                    ' buff_def = math_max(buff_def, 0)' ..
                     ' local buff_hp = owner:getBuffStat(\'hp\')' ..
+                    ' buff_hp = math_max(buff_hp, 0)' ..
                     ' local buff_aspd = owner:getBuffStat(\'aspd\')' ..
+                    ' buff_aspd = math_max(buff_aspd, 0)' ..
                     ' local buff_cri_chance = owner:getBuffStat(\'cri_chance\')' ..
+                    ' buff_cri_chance = math_max(buff_cri_chance, 0)' ..
                     ' local buff_cri_dmg = owner:getBuffStat(\'cri_dmg\')' ..
+                    ' buff_cri_dmg = math_max(buff_cri_dmg, 0)' ..
                     ' local buff_cri_avoid = owner:getBuffStat(\'cri_avoid\')' ..
+                    ' buff_cri_avoid = math_max(buff_cri_avoid, 0)' ..
                     ' local buff_hit_rate = owner:getBuffStat(\'hit_rate\')' ..
+                    ' buff_hit_rate = math_max(buff_hit_rate, 0)' ..
                     ' local buff_avoid = owner:getBuffStat(\'avoid\')' ..
+                    ' buff_avoid = math_max(buff_avoid, 0)' ..
 
                     ' local target_atk = target and target:getStat(\'atk\') or 0' ..
                     ' local target_def = target and target:getStat(\'def\') or 0' ..
