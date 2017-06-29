@@ -24,7 +24,7 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
 	-- 2-1. 공방체 스탯만 레벨에 따라 증가시키고 나머지는 고정값이다. 
 	if isExistValue(status_name, 'atk', 'def', 'hp') then 
         local max_lv_value = t_char[status_name .. '_max']
-        local value_per_level = (max_lv_value / 165)
+        local value_per_level = (max_lv_value / 208) -- @ commnet 최대 레벨이 바뀔때마다 수정해야하니 외부에서 참조하도록...
 		lv_stat = value_per_level * lv
 
         -- 드래곤들만 적용
