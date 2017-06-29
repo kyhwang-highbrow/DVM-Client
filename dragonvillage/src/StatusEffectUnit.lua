@@ -10,8 +10,7 @@ StatusEffectUnit = class({
 
         m_value = 'number',         -- 적용값
         m_source = 'string',        -- 적용스텟
-        m_bUseTargetStat = 'boolean',-- 대상의 스텟으로 계산하는지 여부
-
+        
         m_duration = 'number',      -- 지속 시간. 값이 -1일 경우 무제한
         m_durationTimer = 'number',
 
@@ -36,23 +35,13 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
     self.m_value = value
 
     self.m_source = source
-    self.m_bUseTargetStat = false
-
+    
 	self.m_duration = duration
     self.m_durationTimer = self.m_duration
 
     self.m_bApply = false
 
     self.m_tParam = {}
-
-    -- source 예외처리 및 파싱(target_def같은 형태로 오는 경우)
-    if (not self.m_source or self.m_source == '') then
-        self.m_source = 'atk'
-    
-    elseif (string.match(self.m_source, 'target_')) then
-        self.m_source = string.gsub(self.m_source, 'target_', '')
-        self.m_bUseTargetStat = true
-    end
 end
 
 -------------------------------------
@@ -140,10 +129,11 @@ end
 function StatusEffectUnit:getStandardStat()
     local stat
 
-    if (self.m_bUseTargetStat) then
-        stat = self.m_owner:getStat(self.m_source)
+    if (type(self.m_source) == 'function') then
+        stat = self.m_atkDmgStat(self.m_caster, self.m_owner)
     else
-        stat = self.m_caster:getStat(self.m_source)
+        self.m_source = SkillHelper:getValid(self.m_source, 'atk')
+        stat = self:getStat(self.m_source)
     end
 
     return stat

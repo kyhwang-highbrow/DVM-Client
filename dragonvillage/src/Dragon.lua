@@ -418,8 +418,7 @@ function Dragon:initActiveSkillCool()
     local active_skill_id = self:getSkillID('active')
     if (active_skill_id == 0) then return end
 
-    local table_skill = TABLE:get(self.m_charType .. '_skill')
-    local t_skill = table_skill[active_skill_id]
+    local t_skill = GetSkillTable(self.m_charType):get(active_skill_id)
     if (not t_skill) then
         cclog('no skill table : ' .. active_skill_id)
         return

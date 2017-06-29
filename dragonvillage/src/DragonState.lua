@@ -128,14 +128,6 @@ function Dragon.st_skillAppear(owner, dt)
                 owner:dispatch('enemy_active_skill', { is_critical = is_critical }, owner)
             end
         end
-
-        local time = os.time()
-
-        if (owner.m_bLeftFormation) then
-            cclog('st_skillAppear hero ' .. time)
-        else
-            cclog('st_skillAppear enemy ' .. time)
-        end
     end
 end
 

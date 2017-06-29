@@ -2185,6 +2185,18 @@ function Character:getStat(stat_type)
 end
 
 -------------------------------------
+-- function getBuffStat
+-- @brief 현재 적용된 버프수치를 가져온다
+-------------------------------------
+function Character:getBuffStat(stat_type)
+	-- @TODO
+	if (self.m_charType == 'tamer') then
+		return 0
+	end
+	return self.m_statusCalc:getAdjustRate(stat_type)
+end
+
+-------------------------------------
 -- function setSilence
 -------------------------------------
 function Character:setSilence(b)

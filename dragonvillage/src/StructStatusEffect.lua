@@ -25,26 +25,3 @@ StructStatusEffect = class({
 	    self.m_value = tonumber(data['value'])
         self.m_source = data['source']
     end
-
--------------------------------------
--- class StructStatusEffectValue
--------------------------------------
-StructStatusEffectValue = class({
-        m_type = 'str',
-
-        m_value = 'num',
-        m_valueType = 'str',
-        
-        m_bUseTargetStat = 'boolean',
-    })
-
-    -------------------------------------
-    -- function init
-    -------------------------------------
-    function StructStatusEffectValue:init(value, value_type, bUseTargetStat)
-        
-        self.m_value = value
-        self.m_valueType = value_type or 'atk'
-
-        self.m_bUseTargetStat = bUseTargetStat or false
-    end

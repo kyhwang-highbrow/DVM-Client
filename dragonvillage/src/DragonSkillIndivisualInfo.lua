@@ -82,14 +82,14 @@ end
 -------------------------------------
 function DragonSkillIndivisualInfo:applySkillLevel()
 	local skill_id = self.m_skillID
-    local table_skill = TABLE:get(self.m_charType .. '_skill')
+    local t_skill = GetSkillTable(self.m_charType):get(skill_id)
 
-    if (not table_skill[skill_id]) then
+    if (not t_skill) then
         error('존재하지 않는 skill_id ' .. skill_id)
     end
 
     -- 값이 변경되므로 복사해서 사용
-    self.m_tSkill = clone(table_skill[skill_id])
+    self.m_tSkill = t_skill
 	
 	-- 필요한 데이터 선언
 	local t_skill = self.m_tSkill

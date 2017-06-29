@@ -1,10 +1,19 @@
 local PARENT = TableClass
 
+-- 수식을 사용할 수 있는 칼럼 리스트
+local l_columnToUseEquation = {
+    'power_source',
+    'add_option_source_1',
+    'add_option_source_2'
+}
+
 -------------------------------------
 -- class TableDragonSkill
 -------------------------------------
 TableDragonSkill = class(PARENT, {
     })
+
+local THIS = TableDragonSkill
 
 -------------------------------------
 -- function init
@@ -12,9 +21,30 @@ TableDragonSkill = class(PARENT, {
 function TableDragonSkill:init()
     self.m_tableName = 'dragon_skill'
     self.m_orgTable = TABLE:get(self.m_tableName)
+end
 
-    -- 포함된 수식들을 위한 함수 생성
-    self:addFunctionsForEquation()
+-------------------------------------
+-- function get
+-- @brief 필요한 특정 칼럼들의 값을 치환해서 리턴
+-------------------------------------
+function TableDragonSkill:get(key, skip_error_msg)
+    local t_table = PARENT.get(self, key)
+    local ret
+
+    if (t_table and EQUATION_FUNC[self.m_tableName]) then
+        ret = clone(t_table)
+
+        -- 해당 칼럼의 함수가 존재하는 경우 해당 함수로 치환시킴
+        for i, column in ipairs(l_columnToUseEquation) do
+            if (EQUATION_FUNC[self.m_tableName][key] and EQUATION_FUNC[self.m_tableName][key][column]) then
+                ret[column] = EQUATION_FUNC[self.m_tableName][key][column]
+            end
+        end
+    else
+        ret = t_table
+    end
+
+    return ret
 end
 
 -------------------------------------
@@ -64,37 +94,103 @@ function TableDragonSkill:getSkillType(key)
     return t_skill['chance_type']
 end
 
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- function initGlobal
+-------------------------------------
+function TableDragonSkill:initGlobal()
+    if (self == THIS) then
+        self = THIS()
+    end
+    
+    self:makeFunctions()
+end
+
+-------------------------------------
+-- function makeFunctions
+-------------------------------------
+function TableDragonSkill:makeFunctions()
+    EQUATION_FUNC[self.m_tableName] = {}
+
+    -- 칼럼별로 수식이 포함된 경우 해당 수식을 위한 함수 생성
+    for i, column in ipairs(l_columnToUseEquation) do
+        TableDragonSkill.addFunctionsForEquation(self, column)
+    end
+end
+
 -------------------------------------
 -- function addFunctionsForEquation
+-- @breif 해당 column의 값들에서 수식이 있을 경우 글로벌 함수를 추가
 -------------------------------------
-function TableDragonSkill:addFunctionsForEquation()
+function TableDragonSkill:addFunctionsForEquation(column)
     if (not self.m_orgTable) then return end
 
     for sid, v in pairs(self.m_orgTable) do 
-        local power_source = SkillHelper:getValid(v['power_source'], 'atk')
+        local power_source = SkillHelper:getValid(v[column], 'atk')
                 
         -- power_source가 수식일 경우 함수를 추가
-        local operator = string.match(power_source, '[*+/-]')
-        if (operator) then
+        --local operator = string.match(power_source, '[*+/-]')
+        --if (operator) then
+        if (power_source ~= 'atk') then
             local key = v['sid']
-            local func = pl.utils.load(
-                'EQUATION_FUNC[' .. key .. '] = function(owner)' ..
-                ' local atk = owner:getStat(\'atk\')' ..
-                ' local def = owner:getStat(\'def\')' ..
-                ' local hp = owner:getStat(\'hp\')' ..
-                ' local aspd = owner:getStat(\'aspd\')' ..
-                ' local cri_chance = owner:getStat(\'cri_chance\')' ..
-                ' local cri_dmg = owner:getStat(\'cri_dmg\')' ..
-                ' local cri_avoid = owner:getStat(\'cri_avoid\')' ..
-                ' local hit_rate = owner:getStat(\'hit_rate\')' ..
-                ' local avoid = owner:getStat(\'avoid\')' ..
+            local b = true
 
-                ' local ret = ' .. power_source .. 
-                ' return ret' ..
-                ' end'
-            )
+            if (not EQUATION_FUNC[self.m_tableName][key]) then
+                EQUATION_FUNC[self.m_tableName][key] = {}
+            elseif (EQUATION_FUNC[self.m_tableName][key][column]) then
+                b = false
+            end
 
-            func()
+            if (b) then
+                local func = pl.utils.load(
+                    'EQUATION_FUNC[\'' .. self.m_tableName .. '\'][' .. key .. '][\'' .. column ..'\'] = function(owner, target)' ..
+                    ' local atk = owner:getStat(\'atk\')' ..
+                    ' local def = owner:getStat(\'def\')' ..
+                    ' local hp = owner:getStat(\'hp\')' ..
+                    ' local aspd = owner:getStat(\'aspd\')' ..
+                    ' local cri_chance = owner:getStat(\'cri_chance\')' ..
+                    ' local cri_dmg = owner:getStat(\'cri_dmg\')' ..
+                    ' local cri_avoid = owner:getStat(\'cri_avoid\')' ..
+                    ' local hit_rate = owner:getStat(\'hit_rate\')' ..
+                    ' local avoid = owner:getStat(\'avoid\')' ..
+
+                    ' local buff_atk = owner:getBuffStat(\'atk\')' ..
+                    ' local buff_def = owner:getBuffStat(\'def\')' ..
+                    ' local buff_hp = owner:getBuffStat(\'hp\')' ..
+                    ' local buff_aspd = owner:getBuffStat(\'aspd\')' ..
+                    ' local buff_cri_chance = owner:getBuffStat(\'cri_chance\')' ..
+                    ' local buff_cri_dmg = owner:getBuffStat(\'cri_dmg\')' ..
+                    ' local buff_cri_avoid = owner:getBuffStat(\'cri_avoid\')' ..
+                    ' local buff_hit_rate = owner:getBuffStat(\'hit_rate\')' ..
+                    ' local buff_avoid = owner:getBuffStat(\'avoid\')' ..
+
+                    ' local target_atk = target and target:getStat(\'atk\') or 0' ..
+                    ' local target_def = target and target:getStat(\'def\') or 0' ..
+                    ' local target_hp = target and target:getStat(\'hp\') or 0' ..
+                    ' local target_aspd = target and target:getStat(\'aspd\') or 0' ..
+                    ' local target_cri_chance = target and target:getStat(\'cri_chance\') or 0' ..
+                    ' local target_cri_dmg = target and target:getStat(\'cri_dmg\') or 0' ..
+                    ' local target_cri_avoid = target and target:getStat(\'cri_avoid\') or 0' ..
+                    ' local target_hit_rate = target and target:getStat(\'hit_rate\') or 0' ..
+                    ' local target_avoid = target and target:getStat(\'avoid\') or 0' ..
+
+                    ' local ret = ' .. power_source .. 
+                    ' return ret' ..
+                    ' end'
+                )
+
+                func()
+            end
         end
     end
 end

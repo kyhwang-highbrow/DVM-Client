@@ -578,8 +578,7 @@ end
 -- @brief 해당 아이디 스킬의 캐스팅 시간을 얻는다
 -------------------------------------
 function IDragonSkillManager:getCastTimeFromSkillID(skill_id)
-    local table_skill = TABLE:get(self.m_charType .. '_skill')
-    local t_skill = table_skill[skill_id]
+    local t_skill = GetSkillTable(self.m_charType):get(skill_id)
     if not t_skill then
         error('스킬 테이블이 존재하지 않는다.' .. tostring(skill_id))
     end

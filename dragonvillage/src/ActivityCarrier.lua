@@ -69,6 +69,16 @@ function ActivityCarrier:getStat(type)
 end
 
 -------------------------------------
+-- function getBuffStat
+-- @brief 현재 적용된 버프수치를 가져온다
+-------------------------------------
+function ActivityCarrier:getBuffStat(type)
+    if (not self.m_activityCarrierOwner) then return 0 end
+
+    return self.m_activityCarrierOwner:getBuffStat(type)
+end
+
+-------------------------------------
 -- function insertStatusEffectRate
 -- @brief 상태이상 유발
 -------------------------------------
@@ -144,14 +154,11 @@ end
 -- function getAtkDmg
 -------------------------------------
 function ActivityCarrier:getAtkDmg()
-    if (self.m_atkDmgStat == 'x') then
-		error('피격된 스킬이지만 power_source 가 x 입니다') 
-	end
-
+    
     local atk_dmg
 
-    if (EQUATION_FUNC[self.m_skillId]) then
-        atk_dmg = EQUATION_FUNC[self.m_skillId](self)
+    if (type(self.m_atkDmgStat) == 'function') then
+        atk_dmg = self.m_atkDmgStat(self)
     else
         atk_dmg = self:getStat(self.m_atkDmgStat)
     end
