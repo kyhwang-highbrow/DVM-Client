@@ -11,6 +11,7 @@ UI_Book = class(PARENT, {
 
 		m_roleRadioButton = 'UIC_RadioButton',
         m_attrRadioButton = 'UIC_RadioButton',
+		m_preAttr = 'string',
 
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManager = 'SortManager',
@@ -235,6 +236,13 @@ end
 function UI_Book:onChangeOption()
     local role_option = self.m_roleRadioButton.m_selectedButton
     local attr_option = self.m_attrRadioButton.m_selectedButton
+	
+	-- 속성을 옮길 경우 항상 전체직업군을 가리키도록 한다.
+	if (role_option ~= 'all') and (attr_option ~= self.m_preAttr) then
+		self.m_preAttr = attr_option
+		self.m_roleRadioButton:setSelectedButton('all')
+		return
+	end
 
     local l_item_list = g_bookData:getBookList(role_option, attr_option)
 
@@ -243,6 +251,8 @@ function UI_Book:onChangeOption()
 
     -- 정렬
     self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
+
+	self.m_preAttr = attr_option
 end
 
 -------------------------------------
@@ -311,7 +321,6 @@ function UI_Book:init_TableViewTD()
 	table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)
-
 
     -- 정렬
     self.m_tableViewTD = table_view_td

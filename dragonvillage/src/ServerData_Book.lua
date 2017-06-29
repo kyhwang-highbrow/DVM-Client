@@ -424,15 +424,15 @@ function ServerData_Book:getBookNotiList()
 			end
 		end
 
-		-- 노티 세팅
+		-- 노티 세팅 (속성만 표시)
 		if (have_reward) then
 			t_dragon = table_dragon:get(tonumber(did))
 			if (t_dragon) then
 				attr = t_dragon['attr']
-				role = t_dragon['role']
+				--role = t_dragon['role']
 
 				t_ret[attr] = true
-				t_ret[role] = true
+				--t_ret[role] = true
 			end
 		end
 	end
