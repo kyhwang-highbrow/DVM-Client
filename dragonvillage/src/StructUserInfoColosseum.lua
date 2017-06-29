@@ -311,16 +311,28 @@ end
 -- @brief ServerData_Deck과 동일한 폼 유지
 -------------------------------------
 function StructUserInfoColosseum:getDeck(type)
+    -- 공격덱
     if (type == 'atk') or (type == 'pvp_atk') then
         local l_doid = self:getAtkDeck_dragonList(true)
-        local formation = self.m_pvpAtkDeck['formation']
-        local leader = self.m_pvpAtkDeck['leader']
+        local formation = 'attack'
+        local leader = 0
+
+        if self.m_pvpAtkDeck then
+            formation = self.m_pvpAtkDeck['formation']
+            leader = self.m_pvpAtkDeck['leader']
+        end
         return l_doid, formation, type, leader
 
+    -- 방어덱
     elseif (type == 'def') or (type == 'pvp_def') then
         local l_doid = self:getDefDeck_dragonList(true)
-        local formation = self.m_pvpDefDeck['formation']
-        local leader = self.m_pvpDefDeck['leader']
+        local formation = 'attack'
+        local leader = 0
+
+        if self.m_pvpDefDeck then
+            formation = self.m_pvpDefDeck['formation']
+            leader = self.m_pvpDefDeck['leader']
+        end
         return l_doid, formation, type, leader
 
     else

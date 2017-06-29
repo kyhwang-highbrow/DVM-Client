@@ -145,7 +145,6 @@ function ServerData_Colosseum:refresh_playerUserInfo(t_data, l_deck)
     end
 
     -- 덱 설정
-    ccdump(l_deck)
     for i,v in pairs(l_deck) do
         local deck_name = v['deckName']
         -- 공격 덱
