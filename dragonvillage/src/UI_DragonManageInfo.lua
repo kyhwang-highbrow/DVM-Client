@@ -565,7 +565,7 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 
 	-- 정말 작별 하는지 되물음
 	really_warning_popup = function()
-		local goodbye_str = Str('드래곤과 작별하고 다른 드래곤의 인연 포인트를 획득합니다. 정말로 {@SPEECH}{1}{@DESC}와/과 작별하시겠습니까?', name)
+		local goodbye_str = Str('드래곤과 작별하고 다른 드래곤의 인연 포인트를 획득합니다. 정말로 {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하시겠습니까?', name)
 		MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, rarity_warning_popup)
 	end
 
@@ -595,7 +595,19 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 			-- 정렬
 			self:apply_dragonSort_saveData()
 			
-			local goodbye_str_3 = Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}의 인연 포인트를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', name, '까미', 0)
+			local t_relation = ret['relation']
+			local rel_did
+			local rel_cnt = 0
+			local rel_name = '까미'
+			if (t_relation) then
+				for i, v in pairs(t_relation) do 
+					rel_did = tonumber(i)
+					rel_cnt = v
+					break
+				end
+				rel_name = table_dragon:getDragonName(rel_did)
+			end
+			local goodbye_str_3 = Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}의 인연 포인트를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', name, rel_name, rel_cnt)
 			MakeSimplePopup(POPUP_TYPE.OK, goodbye_str_3)
 		end
 	
