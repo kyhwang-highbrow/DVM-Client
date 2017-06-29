@@ -293,9 +293,9 @@ function TargetRule_getTargetList_role(org_list, role)
     local t_ret = {}
 
 	-- 직업군이 같은 아이들을 추출한다
-	for i, character in pairs(t_char) do
-		if (character:getRole() == role) then
-			table.insert(t_ret, character)
+    for i = #t_char, 1, -1 do
+		if (t_char[i]:getRole() == role) then
+			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
 		end
 	end
@@ -351,10 +351,10 @@ function TargetRule_getTargetList_status_effect(org_list, raw_str)
     local status_effect_name = string.gsub(raw_str, '%l+_', '', 1)
 
 	-- 상태효과가 있다면 새로운 테이블로 옮긴다. 차곡차곡
-	for i, char in pairs(t_char) do
-		for name, status_effect in pairs(char:getStatusEffectList()) do
+    for i = #t_char, 1, -1 do
+		for name, status_effect in pairs(t_char[i]:getStatusEffectList()) do
 			if string.find(name, status_effect_name) then
-				table.insert(t_ret, char)
+				table.insert(t_ret, t_char[i])
 				table.remove(t_char, i)
 				break
 			end
@@ -379,9 +379,9 @@ function TargetRule_getTargetList_buff(org_list)
 	local t_ret = {}
 
 	-- 버프
-	for i, char in pairs(t_char) do
-		if (char:hasHelpfulStatusEffect()) then
-			table.insert(t_ret, char)
+    for i = #t_char, 1, -1 do
+		if (t_char[i]:hasHelpfulStatusEffect()) then
+			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
 		end
 	end
@@ -404,9 +404,9 @@ function TargetRule_getTargetList_debuff(org_list)
 	local t_ret = {}
 
 	-- 버프
-	for i, char in pairs(t_char) do
-		if (char:hasHarmfulStatusEffect()) then
-			table.insert(t_ret, char)
+    for i = #t_char, 1, -1 do
+		if (t_char[i]:hasHarmfulStatusEffect()) then
+			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
 		end
 	end
