@@ -541,6 +541,7 @@ end
 -------------------------------------
 -- function click_goodbyeBtn
 -- @brief 작별
+-- @comment 나중에 외부로 뺄 예정
 -------------------------------------
 function UI_DragonManageInfo:click_goodbyeBtn()
     if (not self.m_selectDragonOID) then
@@ -605,7 +606,7 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 					rel_cnt = v
 					break
 				end
-				rel_name = table_dragon:getDragonName(rel_did)
+				rel_name = table_dragon:getDragonName(rel_did) or '#DID ERROR'
 			end
 			local goodbye_str_3 = Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}의 인연 포인트를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', name, rel_name, rel_cnt)
 			MakeSimplePopup(POPUP_TYPE.OK, goodbye_str_3)
