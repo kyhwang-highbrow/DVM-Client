@@ -91,3 +91,10 @@ function GameMana:addMana(value)
     self.m_value = self.m_value + value
     self.m_value = math_min(value, MAX_MANA)
 end
+
+-------------------------------------
+-- function resetMana
+-------------------------------------
+function GameMana:resetMana()
+    self.m_value = 0
+end

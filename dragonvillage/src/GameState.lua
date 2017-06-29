@@ -864,6 +864,11 @@ function GameState:waveChange()
         self.m_nextWaveDirectionType = 'final_wave'
     end
 
+    -- 적 마나 초기화
+    if (world.m_enemyMana) then
+        world.m_enemyMana:resetMana()
+    end
+
     -- 다음 웨이브 생성
     world.m_waveMgr:newScenario()
 
