@@ -196,7 +196,7 @@ function UI_DragonManageInfo:refresh_buttonState()
         vars['goodbyeBtn']:setVisible(not is_slime_object)
 		
         -- 잠금
-        vars['lockBtn']:setVisible(not is_slime_object)
+        vars['lockBtn']:setVisible(true)
     end
 
     do -- 기타 버튼
@@ -473,7 +473,7 @@ function UI_DragonManageInfo:click_leaderBtn()
         local function cb_func(ret)
             UIManager:toastNotificationGreen(Str('대표 드래곤으로 설정되었습니다.'))
             
-			self:refreshDragonCard(ret['modified_dragons'], 'leader')
+			self:refreshDragonCard(ret['modified_dragons'], {}, 'leader')
 
             -- 리더 드래곤 여부 표시
             self:setSelectDragonDataRefresh()
@@ -488,9 +488,10 @@ end
 
 -------------------------------------
 -- function refreshDragonCard
--- @brief 대표드래곤이 변경되었을 때
+-- @brief 카드를 갱신한다.
 -------------------------------------
-function UI_DragonManageInfo:refreshDragonCard(modified_dragons, ref_type)
+function UI_DragonManageInfo:refreshDragonCard(modified_dragons, modified_slimes, ref_type)
+	-- 드래곤
     for i,v in pairs(modified_dragons) do
         local doid = v['id']
         local item = self.m_tableViewExt:getItem(doid)
@@ -510,11 +511,31 @@ function UI_DragonManageInfo:refreshDragonCard(modified_dragons, ref_type)
             end
         end
     end
+
+	-- 슬라임
+	for i,v in pairs(modified_slimes) do
+        local doid = v['id']
+        local item = self.m_tableViewExt:getItem(doid)
+
+        if item then
+            item['data'] = clone(v)
+            if item['ui'] then
+				item['ui'].m_dragonData = StructSlimeObject(v)
+				
+				if (ref_type == 'lock') then
+					item['ui']:refresh_Lock()
+
+				end
+            end
+        end
+    end
+
 end
 
 -------------------------------------
 -- function click_lockBtn
 -- @brief 잠금
+-- @comment ,로 oid 보내는것들은 다 리팩토링 해야함
 -------------------------------------
 function UI_DragonManageInfo:click_lockBtn()
     if (not self.m_selectDragonOID) then
@@ -522,16 +543,18 @@ function UI_DragonManageInfo:click_lockBtn()
     end
 	
 	local struct_dragon_data
+	local doids = ''
+	local soids = ''
 	if (self.m_bSlimeObject) then
+		soids = self.m_selectDragonOID
 		struct_dragon_data = g_slimesData:getSlimeObject(self.m_selectDragonOID)
 	else
+		doids = self.m_selectDragonOID
 		struct_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
 	end
 
-	local l_doid = {self.m_selectDragonOID}
 	local lock = (not struct_dragon_data:getLock())
-
-	local function finish_cb(ret)
+	local function cb_func(ret)
 		-- 메인 잠금 표시 해제
 		self.vars['lockSprite']:setVisible(lock)
 		
@@ -540,10 +563,10 @@ function UI_DragonManageInfo:click_lockBtn()
 		UIManager:toastNotificationGreen(msg)
 
 		-- 하단 리스트 갱신
-		self:refreshDragonCard(ret['modified_dragons'], 'lock')
+		self:refreshDragonCard(ret['modified_dragons'], ret['modified_slimes'], 'lock')
 	end
 
-	g_dragonsData:request_dragonLock(l_doid, lock, finish_cb)
+	g_dragonsData:request_dragonLock(doids, soids, lock, cb_func)
 end
 
 -------------------------------------
