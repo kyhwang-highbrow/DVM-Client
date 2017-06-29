@@ -10,6 +10,7 @@ item,category,t_name,t_desc,icon,type,full_type,attr,role,color,rarity,grade,evo
 700009,simple,토파즈,토파즈 획득,res/ui/icon/item/developing.png,topaz,topaz,,,,,,,,,,,
 700101,simple,날개,활동력 획득,res/ui/icon/item/staminas_st.png,staminas_st,staminas_st,,,,,,,,1,330,,
 700102,simple,콜로세움 입장권,콜로세움 입장권 획득,res/ui/icon/item/staminas_pvp.png,staminas_pvp,staminas_pvp,,,,,,,,1,332,,
+700103,simple,고대의탑 입장권,고대의탑 입장권,res/ui/icon/inbox/inbox_staminas_nightmare.png,staminas_tower,staminas_tower,,,,,,,,1,500,,
 700201,simple,캡슐,하이브로 프로모션 포인트,res/ui/icon/item/capsule.png,capsule,capsule,,,,,,,,1,500,,
 700202,simple,이벤트 재화,개발용 이벤트 재화,res/ui/icon/item/event.png,event,event,,,,,,,,1,500,,
 701010,stack,운석 잔해,일반 등급 드래곤의 진화 재료,res/ui/icon/item/evolution_stone_common_01.png,evolution_stone,evolution_stone_common_01,,,,common,1,,,1,104,,

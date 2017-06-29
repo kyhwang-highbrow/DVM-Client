@@ -143,6 +143,24 @@ function dragonRarityName(rarity)
 end
 
 -------------------------------------
+-- function monsterRarityName
+-- @brief 아직 명칭 미정
+-------------------------------------
+function monsterRarityName(rarity)
+    if (rarity == 'common') then
+        return Str('일반')
+    elseif (rarity == 'elite') then
+        return Str('보스')
+    elseif (rarity == 'subboss') then
+        return Str('보스')
+    elseif (rarity == 'boss') then
+        return Str('보스')
+    else
+        error('rarity: ' .. rarity)
+    end
+end
+
+-------------------------------------
 -- function dragonAttributeName
 -- @brief 
 -------------------------------------

@@ -91,23 +91,7 @@
         "DRAGON_TIME_SKILL_DIRECTION_DURATION" : [
             1,    // 암전 유지 시간
             0.1    // 암전 풀리는 시간
-        ],
-		
-		// ----------------------------------------------------
-        // 고대의 탑
-        // ----------------------------------------------------
-		"ANCIENT_TOWER_VALUE" : {
-			"buff_1_count"	: 10,
-			"buff_2_count"	: 20,
-			"buff_3_count"	: 30,
-			"buff_4_count"	: 40,
-			"buff_5_count"	: 50,
-			"buff_1_rate"	: -7,
-			"buff_2_rate"	: -14,
-			"buff_3_rate"	: -21,
-			"buff_4_rate"	: -28,
-			"buff_5_rate"	: -35
-		}
+        ]
     },
     
     // game mode 별 연출 상수

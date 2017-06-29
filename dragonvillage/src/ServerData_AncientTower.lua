@@ -300,12 +300,12 @@ function ServerData_AncientTower:getEnemyDeBuffValue()
     if (weak_grade == 0) then return 0 end
 
     local t_debuff = TABLE:get('anc_weak_debuff')
-    if (t_debuff) then
-        local key = string.format('buff_%d_rate', weak_grade)
-        local debuff_data = t_debuff[key]
+    local key = string.format('buff_%d_rate', weak_grade)
+    local debuff_data = t_debuff[key]
+        
+    if (t_debuff) and (debuff_data) then
         local debuff_value = debuff_data['value'] or 0
         debuff_value = debuff_value * 100
-        cclog('debuff_value '..luadump(debuff_value))
         return debuff_value
     end
 

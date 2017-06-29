@@ -531,6 +531,7 @@ local t_module = {
 	'UI_ObtainPopup',
 	'UI_ErrorPopup',
     'UI_SimpleDragonInfoPopup',
+    'UI_SimpleMonsterInfoPopup',
     'UI_Hatchery',
     'UI_HatcheryCombineTab',
     'UI_HatcheryCombinePopup',
@@ -585,6 +586,7 @@ local t_module = {
     'UI_ChapterAchieveRewardPopup',
     'UI_NotificationFullInventoryPopup',
     'UI_DragonInfoBoard',
+    'UI_MonsterInfoBoard',
     'UI_ScenarioPlayer',
     'UI_ScenarioPlayer_Character',
     'UI_ScenarioPlayer_Talk',
@@ -628,8 +630,6 @@ local t_module = {
     'UI_ColosseumRankRewardItem',
     'UI_ColosseumMatchRewardItem',
     'UI_ColosseumAttackListItem',
-    'UI_ColosseumReady',
-    'UI_3DDeck',
 
 	-- UI : 고대의 탑
     'UI_AncientTowerScene',

@@ -176,5 +176,5 @@ end
 function UI_MonsterCard:press_clickBtn()
     local monster_id = self.m_monsterID
     local t_monster = TableMonster():get(monster_id)
-    cclog('t_monster '..luadump(t_monster))
+    UI_SimpleMonsterInfoPopup(t_monster)
 end

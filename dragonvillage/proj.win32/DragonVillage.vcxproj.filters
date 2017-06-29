@@ -2424,6 +2424,12 @@
     <None Include="..\src\UI_3DDeck.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_SimpleMonsterInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_MonsterInfoBoard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
