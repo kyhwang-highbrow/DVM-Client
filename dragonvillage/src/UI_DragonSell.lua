@@ -201,7 +201,7 @@ function UI_DragonSell:refresh_materialDragonIndivisual(doid)
         return
     end
 
-	local is_select = self.m_tSellTable[doid] or false
+	local is_select = self.m_tSellTable[doid] and true or false
     ui:setCheckSpriteVisible(is_select)
 end
 
