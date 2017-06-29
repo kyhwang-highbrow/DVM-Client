@@ -179,21 +179,24 @@ function UI_DragonManageInfo:refresh_buttonState()
 
 		-- 스킬 강화
         vars['skillEnhanceBtn']:setEnabled(not is_slime_object)
+
+        -- 판매
+        vars['sellBtn']:setEnabled(true)
     end
 
 	-- 좌측 버튼들 초기화
     do 
 		-- 룬
-		vars['runeBtn']:setEnabled(not is_slime_object)
+		vars['runeBtn']:setVisible(not is_slime_object)
 
         -- 대표
-        vars['leaderBtn']:setEnabled(not is_slime_object)
-
-        -- 잠금은 슬라임도 가능
-        -- vars['lockBtn']:setEnabled(not is_slime_object)
+        vars['leaderBtn']:setVisible(not is_slime_object)
 
         -- 작별
-        vars['sellBtn']:setEnabled(true)
+        vars['goodbyeBtn']:setVisible(not is_slime_object)
+		
+        -- 잠금
+        vars['lockBtn']:setVisible(not is_slime_object)
     end
 
     do -- 기타 버튼
@@ -518,7 +521,12 @@ function UI_DragonManageInfo:click_lockBtn()
         return
     end
 	
-	local struct_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+	local struct_dragon_data
+	if (self.m_bSlimeObject) then
+		struct_dragon_data = g_slimesData:getSlimeObject(self.m_selectDragonOID)
+	else
+		struct_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+	end
 
 	local l_doid = {self.m_selectDragonOID}
 	local lock = (not struct_dragon_data:getLock())

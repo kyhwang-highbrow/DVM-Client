@@ -109,6 +109,12 @@ function ServerData_Slimes:possibleMaterialSlime(soid, tar_slime_type)
         return false, ''
     end
 
+	-- 슬라임 타입 없거나 all 이면 true
+	if (tar_slime_type == nil) or (tar_slime_type == 'all') then
+		return true
+	end
+
+	-- 슬라임 타입 체크
     local slime_type = slime_object:getSlimeType()
     if (slime_type == tar_slime_type) then
         return true
