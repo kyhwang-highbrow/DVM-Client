@@ -40,9 +40,6 @@ function UI_DragonSell:init(doid)
     self:initButton()
     self:refresh()
 
-    -- 첫 선택 드래곤 지정
-    --self:setDefaultSelectDragon(doid)
-
     -- 정렬 도우미
 	local is_slime_fisrt = false
 	self:init_mtrDragonSortMgr(is_slime_fisrt)
@@ -55,7 +52,6 @@ function UI_DragonSell:initUI()
 	local vars = self.vars
 
 	self:init_bg()
-	--vars['priceLabel']:setString(0)
 end
 
 -------------------------------------
@@ -128,7 +124,7 @@ end
 -- @override
 -------------------------------------
 function UI_DragonSell:getDragonMaterialList(doid)
-    local dragon_dic = g_dragonsData:getDragonsListRef()
+    local dragon_dic = g_dragonsData:getDragonsList()
 
     -- 자기 자신 드래곤 제외
     if doid then
@@ -144,8 +140,11 @@ function UI_DragonSell:getDragonMaterialList(doid)
 
 	-- 슬라임 추가
 	local slime_dic = g_slimesData:getSlimeList()
+	for oid, v in pairs(slime_dic) do
+		dragon_dic[oid] = v
+	end
 
-    return table.merge(dragon_dic, slime_dic)
+    return dragon_dic
 end
 
 -------------------------------------
