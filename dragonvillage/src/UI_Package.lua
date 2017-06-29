@@ -14,10 +14,15 @@ function UI_Package:init(struct_product)
     local vars = self:load('shop_package_popup_01.ui')
 	UIManager:open(self, UIManager.POPUP)
 
-	-- ¹éÅ° ÁöÁ¤
+	-- ë°±í‚¤ ì§€ì •
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Shop')
 
+	-- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
     self.m_structProduct = struct_product
+
     self:initUI()
 	self:initButton()
 end
@@ -29,19 +34,19 @@ function UI_Package:initUI()
     local vars = self.vars
 	local struct_product = self.m_structProduct
 
-	-- ÆĞÅ°Áö ±¸¼ºÀº ¾î¶»°Ô ÇÒÁö ¾ÈÁ¤ÇØÁ® ÀÓ½Ã·Î ¾ÆÀÌÄÜ ³ÖÀ½
+	-- íŒ¨í‚¤ì§€ êµ¬ì„±ì€ ì–´ë–»ê²Œ í• ì§€ ì•ˆì •í•´ì ¸ ì„ì‹œë¡œ ì•„ì´ì½˜ ë„£ìŒ
     local icon = struct_product:makeProductIcon()
     vars['packageNode']:addChild(icon)
 
-	-- °¡°İ
+	-- ê°€ê²©
 	local price = struct_product:getPriceStr()
     vars['priceLabel']:setString(price)
 
-	-- °¡°İ ¾ÆÀÌÄÜ
+	-- ê°€ê²© ì•„ì´ì½˜
     local icon = struct_product:makePriceIcon()
     vars['priceNode']:addChild(icon)
 	
-	-- °¡°İ ¾ÆÀÌÄÜ ¹× ¶óº§, ¹è°æ Á¶Á¤
+	-- ê°€ê²© ì•„ì´ì½˜ ë° ë¼ë²¨, ë°°ê²½ ì¡°ì •
     UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
 end
 
@@ -59,7 +64,12 @@ end
 -------------------------------------
 function UI_Package:click_buyBtn()
 	local struct_product = self.m_structProduct
-	struct_product:buy()
+	local function cb_func()
+		self:closeWithAction()
+		local str = Str('êµ¬ë§¤ ì™„ë£Œ!')
+		UI_ToastPopup(str)
+	end
+	struct_product:buy(cb_func)
 end
 
 -------------------------------------
