@@ -201,12 +201,12 @@ function UI_DragonManageInfo:refresh_buttonState()
 
     do -- 기타 버튼
         -- 장비 개별 버튼 1~3
-        vars['equipSlotBtn1']:setEnabled(not is_slime_object)
-        vars['equipSlotBtn2']:setEnabled(not is_slime_object)
-        vars['equipSlotBtn3']:setEnabled(not is_slime_object)
-        vars['equipSlotBtn4']:setEnabled(not is_slime_object)
-        vars['equipSlotBtn5']:setEnabled(not is_slime_object)
-        vars['equipSlotBtn6']:setEnabled(not is_slime_object)
+        vars['equipSlotBtn1']:setVisible(not is_slime_object)
+        vars['equipSlotBtn2']:setVisible(not is_slime_object)
+        vars['equipSlotBtn3']:setVisible(not is_slime_object)
+        vars['equipSlotBtn4']:setVisible(not is_slime_object)
+        vars['equipSlotBtn5']:setVisible(not is_slime_object)
+        vars['equipSlotBtn6']:setVisible(not is_slime_object)
     end
 
     -- 드래곤 개발 API
