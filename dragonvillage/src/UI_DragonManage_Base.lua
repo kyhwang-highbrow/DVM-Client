@@ -450,10 +450,12 @@ end
 -- @brief 정렬 도우미 - 재료드래곤
 -- @commnet 재료드래곤 테이블은 로컬에 정렬 방식을 저장하지 않는다
 -------------------------------------
-function UI_DragonManage_Base:init_mtrDragonSortMgr()
+function UI_DragonManage_Base:init_mtrDragonSortMgr(slime_first)
+	local is_slime_first = (slime_first == nil) and true or false
+
     -- 정렬 매니저 생성
     self.m_mtrlDragonSortManager = SortManager_Dragon()
-	self.m_mtrlDragonSortManager.m_mPreSortType['object_type']['ascending'] = true -- 슬라임이 앞쪽으로 정렬되도록 변경
+	self.m_mtrlDragonSortManager.m_mPreSortType['object_type']['ascending'] = is_slime_first -- 슬라임이 앞쪽으로 정렬되도록 변경
 
 	local sort_mgr = self.m_mtrlDragonSortManager
     

@@ -52,3 +52,13 @@ function TableDragonExp:getDragonReqGoldPerMtrl(grade, lv)
     local max_exp = self:getValue(eid, 'req_gold_per_mtrl')
     return max_exp or 0
 end
+
+-------------------------------------
+-- function getDragonSellGold
+-- @breif
+-------------------------------------
+function TableDragonExp:getDragonSellGold(grade, lv)
+    local eid = self:makeExpID(grade, lv)
+    local max_exp = self:getValue(eid, 'sell_gold')
+    return max_exp or 0
+end

@@ -508,15 +508,30 @@ function ServerData_Dragons:checkDragonEvolution(doid)
 
 	local did = t_dragon_data['did']
 	if (TableDragon:isUnderling(did)) then
-		return false, Str('자코는 진화할 수 없습니다.') 
+		return false, Str('자코는 진화 할 수 없습니다.') 
 	end
 
     if (t_dragon_data.m_objectType == 'slime') then
         return false, Str('슬라임은 진화 할 수 없습니다.')
     end
 
-	if (self:isMaxEvolution(doid)) then
-		return false, Str('더이상 진화할 수 없습니다.')
+	local grade = t_dragon_data:getGrade()
+	local evolution = t_dragon_data:getEvolution()
+	local birth_grade = TableDragon():getValue(did, 'birthgrade')
+
+	-- 해치는 태생등급 이상인 경우 진화 가능
+	if (evolution == 1) and (grade < birth_grade) then
+		return false, Str('등급이 낮아 진화 할 수 없습니다.')
+
+	-- 해츨링은 태생등급 + 1 이상인 경우 진화 가능
+	elseif (evolution == 2) and (grade < birth_grade + 1) then
+		return false, Str('등급이 낮아 진화 할 수 없습니다.')
+
+	end
+
+	-- 성룡 체크
+	if (evolution >= MAX_DRAGON_EVOLUTION) then
+		return false, Str('더이상 진화 할 수 없습니다.')
 	end
 
     return true
@@ -1098,7 +1113,7 @@ end
 -------------------------------------
 -- function request_dragonSell
 -------------------------------------
-function ServerData_Dragons:request_dragonSell(src_doids, src_soids, cb_func)
+function ServerData_Dragons:request_dragonSell(doids, soids, cb_func)
 	-- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -1128,8 +1143,8 @@ function ServerData_Dragons:request_dragonSell(src_doids, src_soids, cb_func)
     local ui_network = UI_Network()
     ui_network:setUrl('/dragons/sell')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('src_doids', src_doids)
-	ui_network:setParam('src_soids', src_soids)
+    ui_network:setParam('doids', doids)
+	ui_network:setParam('soids', soids)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
