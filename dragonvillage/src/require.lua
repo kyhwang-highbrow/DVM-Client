@@ -721,7 +721,9 @@ local t_module = {
     'UI_DragonRunes',
     'UI_DragonRunesEnhance',
     'UI_DragonFriendship', 
+	'UI_DragonSell',
 
+	-- UI : 드래곤 관리 - 결과
     'UI_DragonManageFriendshipResult',
     'UI_DragonEvolutionResult',
     'UI_DragonUpgradeResult',

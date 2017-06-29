@@ -88,8 +88,11 @@ function UI_DragonManageInfo:initButton()
         -- 친밀도
         vars['friendshipBtn']:registerScriptTapHandler(function() self:click_friendshipBtn() end)
 
-		-- 친밀도
+		-- 스킬 강화
         vars['skillEnhanceBtn']:registerScriptTapHandler(function() self:click_skillEnhanceBtn() end)
+
+		-- 작별
+        vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
     end
 
 	-- 좌측 버튼
@@ -104,7 +107,7 @@ function UI_DragonManageInfo:initButton()
         vars['lockBtn']:registerScriptTapHandler(function() self:click_lockBtn() end)
 
         -- 작별
-        vars['sellBtn']:registerScriptTapHandler(function() self:click_goodbyeBtn() end)
+        vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_goodbyeBtn() end)
 
 		-- 평가
 		vars['assessBtn']:registerScriptTapHandler(function() self:click_assessBtn() end)
@@ -537,7 +540,7 @@ end
 
 -------------------------------------
 -- function click_goodbyeBtn
--- @brief 작별 (드래곤 판매)
+-- @brief 작별
 -------------------------------------
 function UI_DragonManageInfo:click_goodbyeBtn()
     if (not self.m_selectDragonOID) then
@@ -596,11 +599,33 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 			MakeSimplePopup(POPUP_TYPE.OK, goodbye_str_3)
 		end
 	
-		g_dragonsData:request_dragonGoodbye(uid, src_doids, cb_func)
+		g_dragonsData:request_dragonGoodbye(src_doids, cb_func)
 	end
 
 	-- start
 	really_warning_popup()
+end
+
+-------------------------------------
+-- function click_sellBtn
+-- @brief 드래곤 판매
+-------------------------------------
+function UI_DragonManageInfo:click_sellBtn()
+	local ui = UI_DragonSell()
+
+	local function close_cb()
+	    if ui.m_bChangeDragonList then
+			-- 테이블 아이템갱신
+			self:init_dragonTableView()
+
+			-- 기존에 선택되어 있던 드래곤 교체
+			self:setDefaultSelectDragon()
+
+			-- 정렬
+			self:apply_dragonSort_saveData()
+		end
+	end
+	ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

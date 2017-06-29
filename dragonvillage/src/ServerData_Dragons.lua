@@ -1065,7 +1065,7 @@ end
 -------------------------------------
 -- function request_dragonGoodbye
 -------------------------------------
-function ServerData_Dragons:request_dragonGoodbye(uid, src_doids, cb_func)
+function ServerData_Dragons:request_dragonGoodbye(src_doids, cb_func)
 	-- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -1090,6 +1090,46 @@ function ServerData_Dragons:request_dragonGoodbye(uid, src_doids, cb_func)
     ui_network:setUrl('/dragons/goodbye')
     ui_network:setParam('uid', uid)
     ui_network:setParam('src_doids', src_doids)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_dragonSell
+-------------------------------------
+function ServerData_Dragons:request_dragonSell(src_doids, src_soids, cb_func)
+	-- 유저 ID
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+		-- 판매 드래곤 삭제
+		if ret['deleted_dragons_oid'] then
+			for _, doid in pairs(ret['deleted_dragons_oid']) do
+				g_dragonsData:delDragonData(doid)
+			end
+		end
+		-- 판매 드래곤 삭제
+		if ret['deleted_slimes_oid'] then
+			for _, doid in pairs(ret['deleted_slimes_oid']) do
+				g_slimesData:delSlimeObject(soid)
+			end
+		end
+
+		-- 골드 갱신
+		self.m_serverData:networkCommonRespone(ret)
+
+		-- 콜백
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/sell')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('src_doids', src_doids)
+	ui_network:setParam('src_soids', src_soids)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()

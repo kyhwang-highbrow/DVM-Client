@@ -117,8 +117,6 @@ function UI_DragonLevelUp:refresh_dragonInfo()
     end
 
     local vars = self.vars
-
-    local vars = self.vars
     local did = t_dragon_data['did']
 
     -- 배경
