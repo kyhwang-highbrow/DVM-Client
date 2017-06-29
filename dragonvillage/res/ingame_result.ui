@@ -3074,33 +3074,10 @@
 		{
 			[1] =
 			{
-				type = 'LayerColor';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
-				width = 0;
-				height = 0;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[2] =
-			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -175.000000;
-				y = 112.000000;
+				y = 132.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -3114,7 +3091,7 @@
 				visible = true;
 				lua_name = 'clearLabel1';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 30;
 				text = '클리어 보너스';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -3123,24 +3100,24 @@
 				dimension_width = 300;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[3] =
+			[2] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -175.000000;
-				y = 76.000000;
+				y = 92.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -3154,7 +3131,7 @@
 				visible = true;
 				lua_name = 'timeLabel1';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 30;
 				text = '시간 보너스';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -3163,24 +3140,24 @@
 				dimension_width = 300;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[4] =
+			[3] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -175.000000;
-				y = 40.000000;
+				y = 52.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -3194,7 +3171,7 @@
 				visible = true;
 				lua_name = 'injuryLabel1';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 30;
 				text = '부상자 없음';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -3203,24 +3180,24 @@
 				dimension_width = 300;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = true;
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[5] =
+			[4] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -175.000000;
-				y = 4.000000;
+				y = 12.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -3234,7 +3211,7 @@
 				visible = true;
 				lua_name = 'dragLabel1';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 30;
 				text = '드래그 피니시';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -3243,24 +3220,24 @@
 				dimension_width = 300;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[6] =
+			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -175.000000;
-				y = -32.000000;
+				y = -28.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -3274,7 +3251,7 @@
 				visible = true;
 				lua_name = 'skillLabel1';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 30;
 				text = '스킬 보너스';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -3283,19 +3260,19 @@
 				dimension_width = 300;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[7] =
+			[6] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -3314,7 +3291,7 @@
 				visible = true;
 				lua_name = 'weakLabel1';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 30;
 				text = '약화 등급';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -3323,24 +3300,24 @@
 				dimension_width = 300;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[8] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 180.000000;
-				y = 112.000000;
+				y = 132.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -3354,7 +3331,7 @@
 				visible = true;
 				lua_name = 'clearLabel2';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 34;
 				text = '{1}';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -3363,24 +3340,24 @@
 				dimension_width = 200;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[9] =
+			[8] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 180.000000;
-				y = 76.000000;
+				y = 92.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -3394,7 +3371,7 @@
 				visible = true;
 				lua_name = 'timeLabel2';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 34;
 				text = '{1}';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -3403,24 +3380,24 @@
 				dimension_width = 200;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[10] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 180.000000;
-				y = 40.000000;
+				y = 52.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -3434,7 +3411,7 @@
 				visible = true;
 				lua_name = 'injuryLabel2';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 34;
 				text = '{1}';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -3443,24 +3420,24 @@
 				dimension_width = 200;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[11] =
+			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 180.000000;
-				y = 4.000000;
+				y = 12.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -3474,7 +3451,7 @@
 				visible = true;
 				lua_name = 'dragLabel2';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 34;
 				text = '{1}';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -3483,24 +3460,24 @@
 				dimension_width = 200;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[12] =
+			[11] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 180.000000;
-				y = -32.000000;
+				y = -28.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -3514,7 +3491,7 @@
 				visible = true;
 				lua_name = 'skillLabel2';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 34;
 				text = '{1}';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -3523,19 +3500,19 @@
 				dimension_width = 200;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[13] =
+			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -3554,7 +3531,7 @@
 				visible = true;
 				lua_name = 'weakLabel2';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 34;
 				text = '{1}';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -3563,14 +3540,14 @@
 				dimension_width = 200;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -3578,7 +3555,7 @@
 			type = 'Node';
 			ui_name = '';
 			x = 0.000000;
-			y = -138.000000;
+			y = -84.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -3613,7 +3590,7 @@
 				visible = true;
 				lua_name = 'totalLabel1';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 30;
 				text = '총 점수';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -3622,14 +3599,14 @@
 				dimension_width = 300;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -3653,7 +3630,7 @@
 				visible = true;
 				lua_name = 'totalLabel2';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 34;
 				text = '{1}';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -3662,14 +3639,14 @@
 				dimension_width = 200;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -3677,7 +3654,7 @@
 			type = 'Scale9Sprite';
 			ui_name = '';
 			x = 0.000000;
-			y = -258.000000;
+			y = -208.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
