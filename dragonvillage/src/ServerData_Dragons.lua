@@ -1125,7 +1125,7 @@ function ServerData_Dragons:request_dragonSell(doids, soids, cb_func)
 		end
 		-- 판매 드래곤 삭제
 		if ret['deleted_slimes_oid'] then
-			for _, doid in pairs(ret['deleted_slimes_oid']) do
+			for _, soid in pairs(ret['deleted_slimes_oid']) do
 				g_slimesData:delSlimeObject(soid)
 			end
 		end
