@@ -51,4 +51,14 @@ function UI_ColosseumAttackListItem:init(struct_user_info_colosseum)
         icon.root:setSwallowTouch(false)
         vars['dragonNode' .. i]:addChild(icon.root)
     end
+
+    -- 선택 (공격 버튼)
+    vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
+end
+
+-------------------------------------
+-- function click_selectBtn
+-------------------------------------
+function UI_ColosseumAttackListItem:click_selectBtn()
+    UI_ColosseumReady()
 end

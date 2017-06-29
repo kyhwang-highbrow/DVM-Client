@@ -10,6 +10,9 @@ ServerData_Colosseum = class({
         m_startTime = 'timestamp', -- 콜로세움 오픈 시간
         m_endTime = 'timestamp', -- 콜로세움 종료 시간
 
+        -- 공격전 대상 리스트 갱신 시간
+        m_refreshFreeTime = 'timestamp',
+
         m_matchList = '',
     })
 
@@ -76,6 +79,9 @@ function ServerData_Colosseum:response_colosseumInfo(ret)
 
     self:refresh_playerUserInfo(ret['season'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
+
+    -- 공격전 대상 리스트 갱신 시간
+    self.m_refreshFreeTime = ret['refresh']
 end
 
 -------------------------------------
@@ -220,4 +226,71 @@ function ServerData_Colosseum:getColosseumStatusText()
     end
 
     return str
+end
+
+-------------------------------------
+-- function isFreeRefresh
+-- @breif
+-------------------------------------
+function ServerData_Colosseum:isFreeRefresh()
+    local curr_time = Timer:getServerTime()
+    local refresh_free_time = (self.m_refreshFreeTime / 1000)
+	
+	return (refresh_free_time < curr_time)
+end
+
+-------------------------------------
+-- function getRefreshStatusText
+-------------------------------------
+function ServerData_Colosseum:getRefreshStatusText()
+    local curr_time = Timer:getServerTime()
+
+    local refresh_free_time = (self.m_refreshFreeTime / 1000)
+    local str = ''
+
+    if (refresh_free_time <= curr_time) then
+        str = Str('무료 가능')
+
+    else
+        local time = (refresh_free_time - curr_time)
+        str = Str('{1} 후 무료', datetime.makeTimeDesc(time, true))
+    end
+
+    return str
+end
+
+-------------------------------------
+-- function request_atkListRefresh
+-------------------------------------
+function ServerData_Colosseum:request_atkListRefresh(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- 매치 리스트 갱신
+        self:refresh_matchList(ret['matchlist'])
+
+        -- 다음 무료 새로고침 가능한 시간
+        if ret['refresh'] then
+            self.m_refreshFreeTime = ret['refresh']
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/refresh')
+    ui_network:setParam('uid', uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
 end

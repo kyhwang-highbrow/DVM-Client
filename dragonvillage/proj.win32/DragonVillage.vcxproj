@@ -786,6 +786,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\uilib\UILoader.lua" />
     <None Include="..\src\uilib\UIManager.lua" />
     <None Include="..\src\UINavigator.lua" />
+    <None Include="..\src\UI_3DDeck.lua" />
     <None Include="..\src\UI_AcquisitionRegionInformation.lua" />
     <None Include="..\src\UI_AcquisitionRegionListItem.lua" />
     <None Include="..\src\UI_AdventureChapterButton.lua" />
@@ -821,6 +822,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ColosseumMatchRewardItem.lua" />
     <None Include="..\src\UI_ColosseumRankInfoPopup.lua" />
     <None Include="..\src\UI_ColosseumRankRewardItem.lua" />
+    <None Include="..\src\UI_ColosseumReady.lua" />
     <None Include="..\src\UI_ColosseumRewardInfoPopup.lua" />
     <None Include="..\src\UI_DragonAppear.lua" />
     <None Include="..\src\UI_DragonBoardListItem.lua" />

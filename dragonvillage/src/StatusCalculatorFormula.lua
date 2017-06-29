@@ -37,7 +37,7 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
             evolution_stat = value_per_level * self.m_evolutionTable:getBonusStatusLv(evolution)
 
             -- 초월 단계 보너스
-            eclv_stat = value_per_level * self.m_gradeTable:getEclvBonusStatusLv(eclv)
+            --eclv_stat = value_per_level * self.m_gradeTable:getEclvBonusStatusLv(eclv)
         end
 	else
 		lv_stat = t_char[status_name]

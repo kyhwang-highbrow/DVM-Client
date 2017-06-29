@@ -72,6 +72,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_Colosseum:initUI()
+    local vars = self.vars
 
     -- UI가 enter로 진입되었을 때 update함수 호출
     self.root:registerScriptHandler(function(event)
@@ -81,6 +82,10 @@ function UI_Colosseum:initUI()
         end
     end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+
+    -- 유료 새로고침
+    local cash = 10
+    vars['cashLabel']:setString(comma_value(cash))
 
     self:initTab()
 end
@@ -93,6 +98,7 @@ function UI_Colosseum:initButton()
     vars['winBuffDetailBtn']:registerScriptTapHandler(function() self:click_winBuffDetailBtn() end)
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
     vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
+    vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
 end
 
 -------------------------------------
@@ -155,6 +161,29 @@ end
 -------------------------------------
 function UI_Colosseum:click_rewardInfoBtn()
     UI_ColosseumRewardInfoPopup()
+end
+
+-------------------------------------
+-- function click_refreshBtn
+-- @brief 공격전 대상 리스트 갱신 버튼
+-------------------------------------
+function UI_Colosseum:click_refreshBtn()
+    
+    local function ok_cb()
+        local function finish_cb()
+            self:init_atkTab()
+        end
+
+        local fail_cb = nil
+
+        g_colosseumData:request_atkListRefresh(finish_cb, fail_cb)
+    end
+
+    if (not g_colosseumData:isFreeRefresh()) then
+        UI_ConfirmPopup('cash', 10, '새로고침을 하시겠습니까?', ok_cb)
+    else
+        ok_cb()
+    end
 end
 
 -------------------------------------
@@ -344,6 +373,9 @@ function UI_Colosseum:update(dt)
     local vars = self.vars
     local str = g_colosseumData:getColosseumStatusText()
     vars['timeLabel']:setString(str)
+
+    local str = g_colosseumData:getRefreshStatusText()
+    vars['refreshTimeLabel']:setString(str)
 end
 
 --@CHECK

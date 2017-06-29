@@ -2418,6 +2418,12 @@
     <None Include="..\src\UI_DragonSell.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ColosseumReady.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_3DDeck.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
