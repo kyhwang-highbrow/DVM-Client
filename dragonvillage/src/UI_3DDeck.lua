@@ -153,3 +153,39 @@ function UI_3DDeck:getRotatedPosList(formation)
 
 	return ret_list
 end
+
+-------------------------------------
+-- function setDragonObjectList
+-------------------------------------
+function UI_3DDeck:setDragonObjectList(l_deck)
+    local vars = self.vars
+    local DC_POS_Y = 50
+	local DC_SCALE_ON_PLATE = 0.7
+	local DC_SCALE = 0.61
+	local DC_SCALE_PICK = (DC_SCALE * 0.8)
+
+    -- doid list를 순회하며 deck의 카드 생성
+    for idx=1, 5 do
+        vars['positionNode' .. idx]:removeAllChildren()
+	
+		local t_dragon_data = l_deck[idx]
+        if t_dragon_data then
+		    local ui = UI_DragonCard(t_dragon_data)
+		    ui.root:setPosition(0, DC_POS_Y)
+		
+		    -- 찰랑찰랑 하는 연출
+		    cca.uiReactionSlow(ui.root, DC_SCALE_ON_PLATE, DC_SCALE_ON_PLATE, DC_SCALE_PICK)
+		
+            --[[
+		    ui.vars['clickBtn']:registerScriptTapHandler(function() 
+			    self:click_dragonCard(idx, t_dragon_data)
+		    end)
+            --]]
+
+		    -- 설정된 드래곤 표시 없애기
+		    ui:setReadySpriteVisible(false)
+
+		    vars['positionNode' .. idx]:addChild(ui.root)--, ZORDER.DRAGON_CARD)
+        end
+	end
+end

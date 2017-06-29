@@ -53,6 +53,12 @@ end
 -------------------------------------
 function ServerData_Deck:getDeck(type)
     type = type or self.m_selectedDeck or 'adv'
+
+    -- 콜로세움 덱 예외처리
+    if (type == 'pvp_atk') or (type == 'pvp_def') then
+        return g_colosseumData.m_playerUserInfo:getDeck(type)
+    end
+
     local l_deck = self.m_serverData:get('deck')
 
     local t_deck

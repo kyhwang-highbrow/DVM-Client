@@ -4,12 +4,15 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_ColosseumAttackListItem
 -------------------------------------
 UI_ColosseumAttackListItem = class(PARENT,{
+        m_structUserInfoColosseum = 'StructUserInfoColosseum',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_ColosseumAttackListItem:init(struct_user_info_colosseum)
+    self.m_structUserInfoColosseum = struct_user_info_colosseum
+
     local vars = self:load('colosseum_scene_atk_item.ui')
     vars['listMenu']:setSwallowTouch(false)
 
@@ -60,5 +63,6 @@ end
 -- function click_selectBtn
 -------------------------------------
 function UI_ColosseumAttackListItem:click_selectBtn()
+    g_colosseumData.m_matchUserID = self.m_structUserInfoColosseum.m_uid
     UI_ColosseumReady()
 end

@@ -220,7 +220,7 @@ end
 -- function getAtkDeck_dragonList
 -- @brief
 -------------------------------------
-function StructUserInfoColosseum:getAtkDeck_dragonList()
+function StructUserInfoColosseum:getAtkDeck_dragonList(user_doid)
     if (not self.m_pvpAtkDeck) then
         return {}
     end
@@ -230,7 +230,13 @@ function StructUserInfoColosseum:getAtkDeck_dragonList()
     for i,v in pairs(self.m_pvpAtkDeck['deck']) do
         local idx = tonumber(i)
         local doid = v
-        t_deck[idx] = self:getDragonObject(doid)
+        
+        -- doid로 저장 혹은 오브젝트로 저장
+        if user_doid then
+            t_deck[idx] = doid
+        else
+            t_deck[idx] = self:getDragonObject(doid)
+        end
     end
 
     return t_deck
@@ -259,7 +265,7 @@ end
 -- function getDefDeck_dragonList
 -- @brief
 -------------------------------------
-function StructUserInfoColosseum:getDefDeck_dragonList()
+function StructUserInfoColosseum:getDefDeck_dragonList(user_doid)
     if (not self.m_pvpDefDeck) then
         return {}
     end
@@ -269,7 +275,13 @@ function StructUserInfoColosseum:getDefDeck_dragonList()
     for i,v in pairs(self.m_pvpDefDeck['deck']) do
         local idx = tonumber(i)
         local doid = v
-        t_deck[idx] = self:getDragonObject(doid)
+
+        -- doid로 저장 혹은 오브젝트로 저장
+        if user_doid then
+            t_deck[idx] = doid
+        else
+            t_deck[idx] = self:getDragonObject(doid)
+        end
     end
 
     return t_deck
@@ -292,4 +304,26 @@ function StructUserInfoColosseum:getDefDeckCombatPower(force)
     end
 
     return self.m_pvpDefDeckCombatPower
+end
+
+-------------------------------------
+-- function getDeck
+-- @brief ServerData_Deck과 동일한 폼 유지
+-------------------------------------
+function StructUserInfoColosseum:getDeck(type)
+    if (type == 'atk') or (type == 'pvp_atk') then
+        local l_doid = self:getAtkDeck_dragonList(true)
+        local formation = self.m_pvpAtkDeck['formation']
+        local leader = self.m_pvpAtkDeck['leader']
+        return l_doid, formation, type, leader
+
+    elseif (type == 'def') or (type == 'pvp_def') then
+        local l_doid = self:getDefDeck_dragonList(true)
+        local formation = self.m_pvpDefDeck['formation']
+        local leader = self.m_pvpDefDeck['leader']
+        return l_doid, formation, type, leader
+
+    else
+        return {}, 'attack', type, 1
+    end
 end

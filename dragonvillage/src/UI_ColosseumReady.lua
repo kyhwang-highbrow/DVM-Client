@@ -56,19 +56,29 @@ function UI_ColosseumReady:initUI()
     vars['actingPowerLabel']:setString('1')
 
     -- 연승 버프
-    vars['winBuffLabel']:setString(Str('연승버프 : {1}', ''))
+    --vars['winBuffLabel']:setString(Str('연승버프 : {1}', ''))
+    vars['winBuffLabel']:setString('')
 
-    local player_3d_deck = UI_3DDeck()
-    player_3d_deck.root:setPosition(-320, 76 + 20)
-    self.root:addChild(player_3d_deck.root)
-    player_3d_deck:initUI()
+    do -- 플레이어 유저 덱
+        local player_3d_deck = UI_3DDeck()
+        player_3d_deck.root:setPosition(-320, 76)
+        self.root:addChild(player_3d_deck.root)
+        player_3d_deck:initUI()
 
-    local player_3d_deck = UI_3DDeck()
-    player_3d_deck.vars['formationNodeHelperXAxis']:setScale(-1)
-    player_3d_deck.root:setPosition(320, 76 - 20)
-    self.root:addChild(player_3d_deck.root)
-    player_3d_deck:initUI()
-    
+        local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
+        player_3d_deck:setDragonObjectList(l_dragon_obj)
+    end
+
+    do -- 상대방 유저 덱
+        local player_3d_deck = UI_3DDeck()
+        player_3d_deck.vars['formationNodeHelperXAxis']:setScale(-1)
+        player_3d_deck.root:setPosition(320, 76)
+        self.root:addChild(player_3d_deck.root)
+        player_3d_deck:initUI()
+
+        local l_dragon_obj = g_colosseumData:getMatchUserInfo():getDefDeck_dragonList()
+        player_3d_deck:setDragonObjectList(l_dragon_obj)
+    end    
 end
 
 -------------------------------------
@@ -92,6 +102,8 @@ end
 -- @brief 출전 덱 변경
 -------------------------------------
 function UI_ColosseumReady:click_deckBtn()
+    local with_friend = nil
+    UI_ReadyScene(COLOSSEUM_STAGE_ID, with_friend, 'atk')
 end
 
 -------------------------------------

@@ -14,6 +14,8 @@ ServerData_Colosseum = class({
         m_refreshFreeTime = 'timestamp',
 
         m_matchList = '',
+
+        m_matchUserID = '',
     })
 
 -------------------------------------
@@ -138,9 +140,12 @@ function ServerData_Colosseum:refresh_playerUserInfo(t_data, l_deck)
         self.m_playerUserInfo = struct_user_info
     end
 
-    self:_refresh_playerUserInfo(self.m_playerUserInfo, t_data)
+    if t_data then
+        self:_refresh_playerUserInfo(self.m_playerUserInfo, t_data)
+    end
 
     -- 덱 설정
+    ccdump(l_deck)
     for i,v in pairs(l_deck) do
         local deck_name = v['deckName']
         -- 공격 덱
@@ -302,6 +307,68 @@ function ServerData_Colosseum:request_atkListRefresh(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/pvp/refresh')
     ui_network:setParam('uid', uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function getMatchUserInfo
+-------------------------------------
+function ServerData_Colosseum:getMatchUserInfo()
+    if (not self.m_matchUserID) then
+        return nil
+    end
+
+    local uid = self.m_matchUserID
+    return self.m_matchList[uid]
+end
+
+-------------------------------------
+-- function request_setDeck
+-------------------------------------
+function ServerData_Colosseum:request_setDeck(deckname, formation, leader, l_edoid, tamer, finish_cb, fail_cb)
+    local _deckname = deckname
+    if (deckname == 'pvp_atk') then
+        _deckname = 'atk'
+    elseif (deckname == 'pvp_def') then
+        _deckname = 'def'
+    end
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        local t_data = nil
+        local l_deck = {ret['deck']} -- 변경한 덱 하나의 정보만 오기때문에 감싸준다
+        self:refresh_playerUserInfo(t_data, l_deck)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/set_deck')
+    ui_network:setParam('uid', uid)
+
+    ui_network:setParam('deckname', _deckname)
+    ui_network:setParam('formation', formation)
+    ui_network:setParam('leader', leader)
+    ui_network:setParam('tamer', tamer)
+    
+
+    for i,doid in pairs(l_edoid) do
+        ui_network:setParam('edoid' .. i, doid)
+    end
+
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

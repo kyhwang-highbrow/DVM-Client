@@ -5,6 +5,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable()) --ITabUI:ge
 -------------------------------------
 UI_ReadyScene = class(PARENT,{
         m_stageID = 'number',
+        m_subInfo = 'string',
         m_stageAttr = 'attr',
 
         -- UI_ReadyScene_Select 관련 변수
@@ -23,7 +24,8 @@ UI_ReadyScene = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ReadyScene:init(stage_id, with_friend)
+function UI_ReadyScene:init(stage_id, with_friend, sub_info)
+    self.m_subInfo = sub_info
 	if (not stage_id) then
 		stage_id = COLOSSEUM_STAGE_ID
 	end
@@ -100,6 +102,16 @@ end
 -- @brief 해당 모드에 맞는 덱인지 체크하고 아니라면 바꿔준다.
 -------------------------------------
 function UI_ReadyScene:checkDeckProper()
+    -- 콜로세움 별도 처리
+    if (self.m_stageID == COLOSSEUM_STAGE_ID) then
+        if (self.m_subInfo == 'atk') then
+            g_deckData:setSelectedDeck('pvp_atk')
+        elseif (self.m_subInfo == 'def') then
+            g_deckData:setSelectedDeck('pvp_def')
+        end
+        return
+    end
+
 	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 	local curr_deck_name = g_deckData:getSelectedDeckName()
 	if not (curr_mode == curr_deck_name) then
@@ -358,8 +370,14 @@ function UI_ReadyScene:refresh()
 
     do -- 스테이지 이름
         local str = g_stageData:getStageName(stage_id)
-		if (not str) then
-			str = Str('콜로세움 준비')
+        if (stage_id == COLOSSEUM_STAGE_ID) then
+            if (self.m_subInfo == 'atk') then
+                str = Str('콜로세움 공격')
+            elseif (self.m_subInfo == 'def') then
+                str = Str('콜로세움 방어')
+            else
+                str = Str('콜로세움 준비')
+            end
 		end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)

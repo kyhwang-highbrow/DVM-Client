@@ -524,49 +524,63 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
 	end
 
     if (b_change) then
-        local uid = g_userData:get('uid')
 
-        local function success_cb(ret)
-            if ret['deck'] then
-                local ret_deck = ret['deck']
-                local t_deck = ret_deck['deck']
-                local deckname = ret_deck['deckname']
+        -- pvp 전용 덱 처리
+        if (deckname == 'pvp_atk') or (deckname == 'pvp_def') then
+            local l_edoid = {}
+            l_edoid[1] = self.m_lDeckList[1]
+            l_edoid[2] = self.m_lDeckList[2]
+            l_edoid[3] = self.m_lDeckList[3]
+            l_edoid[4] = self.m_lDeckList[4]
+            l_edoid[5] = self.m_lDeckList[5]
+            local tamer = g_userData:get('tamer')
+            local fail_cb = nil
+            g_colosseumData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer, next_func, fail_cb)
+        else
+            local uid = g_userData:get('uid')
 
-                g_deckData:setDeck(deckname, ret_deck)
-            end
-            next_func()
-        end
+            local function success_cb(ret)
+                if ret['deck'] then
+                    local ret_deck = ret['deck']
+                    local t_deck = ret_deck['deck']
+                    local deckname = ret_deck['deckname']
 
-        local ui_network = UI_Network()
-        ui_network:setUrl('/users/set_deck')
-        ui_network:setHmac(false)
-        ui_network:setRevocable(true)
-        ui_network:setParam('uid', uid)
-        ui_network:setParam('deckname', deckname)
-        ui_network:setParam('formation', self.m_currFormation)
-		ui_network:setParam('leader', self.m_currLeader)
-
-        -- 친구 드래곤 체크 (친구 드래곤일 경우 저장하지 않음)
-        local set_param 
-        set_param = function(doid)
-            if doid and g_friendData:checkFriendDragonFromDoid(doid) then 
-                return nil 
+                    g_deckData:setDeck(deckname, ret_deck)
+                end
+                next_func()
             end
 
-            return doid or nil          
-        end 
+            local ui_network = UI_Network()
+            ui_network:setUrl('/users/set_deck')
+            ui_network:setHmac(false)
+            ui_network:setRevocable(true)
+            ui_network:setParam('uid', uid)
+            ui_network:setParam('deckname', deckname)
+            ui_network:setParam('formation', self.m_currFormation)
+		    ui_network:setParam('leader', self.m_currLeader)
+
+            -- 친구 드래곤 체크 (친구 드래곤일 경우 저장하지 않음)
+            local set_param 
+            set_param = function(doid)
+                if doid and g_friendData:checkFriendDragonFromDoid(doid) then 
+                    return nil 
+                end
+
+                return doid or nil          
+            end 
         
-        ui_network:setParam('edoid1', set_param(self.m_lDeckList[1]))
-        ui_network:setParam('edoid2', set_param(self.m_lDeckList[2]))
-        ui_network:setParam('edoid3', set_param(self.m_lDeckList[3]))
-        ui_network:setParam('edoid4', set_param(self.m_lDeckList[4]))
-        ui_network:setParam('edoid5', set_param(self.m_lDeckList[5]))
-        ui_network:setParam('edoid6', set_param(self.m_lDeckList[6]))
-        ui_network:setParam('edoid7', set_param(self.m_lDeckList[7]))
-        ui_network:setParam('edoid8', set_param(self.m_lDeckList[8]))
-        ui_network:setParam('edoid9', set_param(self.m_lDeckList[9]))
-        ui_network:setSuccessCB(success_cb)
-        ui_network:request()
+            ui_network:setParam('edoid1', set_param(self.m_lDeckList[1]))
+            ui_network:setParam('edoid2', set_param(self.m_lDeckList[2]))
+            ui_network:setParam('edoid3', set_param(self.m_lDeckList[3]))
+            ui_network:setParam('edoid4', set_param(self.m_lDeckList[4]))
+            ui_network:setParam('edoid5', set_param(self.m_lDeckList[5]))
+            ui_network:setParam('edoid6', set_param(self.m_lDeckList[6]))
+            ui_network:setParam('edoid7', set_param(self.m_lDeckList[7]))
+            ui_network:setParam('edoid8', set_param(self.m_lDeckList[8]))
+            ui_network:setParam('edoid9', set_param(self.m_lDeckList[9]))
+            ui_network:setSuccessCB(success_cb)
+            ui_network:request()
+        end
     else
         next_func()
     end
