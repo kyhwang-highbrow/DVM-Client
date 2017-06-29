@@ -172,7 +172,8 @@ function StructProduct:makePriceIcon()
         price_type = 'krw'
     end
 
-    local res = string.format('res/ui/icon/item/%s.png', price_type)
+    --local res = string.format('res/ui/icon/item/%s.png', price_type)
+    local res = string.format('res/ui/icon/inbox/inbox_%s.png', price_type)
 
     local icon = IconHelper:getIcon(res)
     return icon

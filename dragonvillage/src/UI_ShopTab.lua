@@ -52,23 +52,24 @@ function UI_ShopTab:init_TableView()
     end
 
     -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(list_table_node)
-    table_view.m_defaultCellSize = cc.size(350 + 10, 470)
-    table_view:setCellUIClass(UI_Product)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    --table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    --table_view_td.m_defaultCellSize = cc.size(350 + 10, 470)
+    table_view_td.m_cellSize = cc.size(250 + 15, 280 + 15)
+    table_view_td:setCellUIClass(UI_Product)
+    table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    --table_view_td.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
 
     -- 리스트가 비었을 때
-    table_view:makeDefaultEmptyDescLabel('')
+    table_view_td:makeDefaultEmptyDescLabel('')
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local tab_name = self.m_tabName
     local l_item_list = g_shopDataNew:getProductList(tab_name)
-    table_view:setItemList(l_item_list)
-    self.m_tableView = table_view
+    table_view_td:setItemList(l_item_list)
+    self.m_tableView = table_view_td
 
     -- tab의 visible on/off를 위해
-    self.root = table_view.m_scrollView
+    self.root = table_view_td.m_scrollView
 
     self:sortProduct()
 end

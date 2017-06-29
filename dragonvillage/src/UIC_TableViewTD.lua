@@ -16,6 +16,8 @@ UIC_TableViewTD = class(PARENT, {
         _cellsUsed = 'list',
         _vLinePositions = 'list',
 
+        _direction = '',
+
         m_cellUIClass = 'class',
         
         m_lSortInfo = 'table', -- {name = sort_func}
@@ -105,8 +107,9 @@ function UIC_TableViewTD:makeScrollView(size)
     end
     scroll_view:registerScriptHandler(scrollViewDidScroll, cc.SCROLLVIEW_SCRIPT_SCROLL)
 
-    -- 방향 설정
-    scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    -- 방향 설정수평 UI (기본은 세로)
+    --self:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    self:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
     self.m_node:addChild(scroll_view)
 
@@ -217,7 +220,13 @@ function UIC_TableViewTD:_updateLinePositions()
         for i=1, lineCount do
             self._vLinePositions[i] = currentPos;
             local cellSize = self.m_cellSize
-            currentPos = currentPos + cellSize['height']
+            -- 가로
+            if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+                currentPos = currentPos + cellSize['width']
+            -- 세로
+            else
+                currentPos = currentPos + cellSize['height']
+            end
         end
         self._vLinePositions[lineCount + 1] = currentPos;--1 extra value allows us to get right/bottom of the last cell
     end
@@ -233,9 +242,14 @@ function UIC_TableViewTD:_updateContentSize(skip_update_cells)
 
     local viewSize = self.m_scrollView:getViewSize()
 
+    -- 컨테이너 사이즈 계산
     if (lineCount > 0) then
         local maxPosition = self._vLinePositions[lineCount + 1]
-        size = cc.size(viewSize['width'], maxPosition)
+        if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+            size = cc.size(maxPosition, viewSize['height'])
+        else
+            size = cc.size(viewSize['width'], maxPosition)
+        end
     end
 
     do -- 컨테이너의 사이즈를 다시 지정
@@ -409,7 +423,11 @@ function UIC_TableViewTD:__indexFromOffset(offset)
     local high = self:getLineCount()
     local search;
 
-    search = offset['y']
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+        search = offset['x']
+    else
+        search = offset['y']
+    end
 
     while (high >= low) do
         local index = math_floor(low + (high - low) / 2)
@@ -461,7 +479,14 @@ function UIC_TableViewTD:_offsetFromIndex(index)
 
     local container_size = self.m_scrollView:getContainer():getContentSize()
 
-    offset['y'] = container_size['height'] - offset['y'] - cellSize['height']
+    -- 가로
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+        offset['x'] = container_size['width'] - offset['x'] - cellSize['width']
+
+    -- 세로
+    else
+        offset['y'] = container_size['height'] - offset['y'] - cellSize['height']
+    end
 
     do -- 가운데 정렬을 위해
         offset['x'] = offset['x'] + (cellSize['width'] / 2)
@@ -475,11 +500,24 @@ function UIC_TableViewTD:__offsetFromIndex(index)
     local offset = cc.p(0, 0)
     local cellSize = cc.size(0, 0)
 
-    local line = self:calcLineIdx(index)
-    offset['y'] = self._vLinePositions[line]
+    -- 가로
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+        local content_size = self.m_scrollView:getContainer():getContentSize()
 
-    local idx_x = math_max(0, self:calcXIdx(index) - 1)
-    offset['x'] = self.m_cellSize['width'] * idx_x
+        local line = self:calcLineIdx(index)
+        offset['x'] = self._vLinePositions[#self._vLinePositions - line]
+
+        local idx_y = math_max(0, self:calcXIdx(index) - 1)
+        offset['y'] = self.m_cellSize['height'] * ((self.m_nItemPerCell-1) - idx_y)
+
+    -- 세로
+    elseif (self._direction == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
+        local line = self:calcLineIdx(index)
+        offset['y'] = self._vLinePositions[line]
+
+        local idx_x = math_max(0, self:calcXIdx(index) - 1)
+        offset['x'] = self.m_cellSize['width'] * idx_x
+    end
 
     return offset
 end
@@ -506,7 +544,18 @@ end
 
 
 
-
+-------------------------------------
+-- function setDirection
+-- @param direction
+-- cc.SCROLLVIEW_DIRECTION_NONE = -1
+-- cc.SCROLLVIEW_DIRECTION_HORIZONTAL = 0
+-- cc.SCROLLVIEW_DIRECTION_VERTICAL = 1
+-- cc.SCROLLVIEW_DIRECTION_BOTH  = 2
+-------------------------------------
+function UIC_TableViewTD:setDirection(direction)
+    self.m_scrollView:setDirection(direction)
+    self._direction = direction
+end
 
 -------------------------------------
 -- function setItemList
@@ -560,9 +609,15 @@ function UIC_TableViewTD:relocateContainer(animated)
 
     newX     = oldPoint.x;
     newY     = oldPoint.y;
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_BOTH or self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+        newX = math_max(newX, min.x);
+        newX = math_min(newX, max.x);
+    end
 
-    newY     = math_min(newY, max.y);
-    newY     = math_max(newY, min.y);
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_BOTH or self._direction == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
+        newY = math_min(newY, max.y);
+        newY = math_max(newY, min.y);
+    end
 
     if (newY ~= oldPoint.y or newX ~= oldPoint.x) then
         scroll_view:setContentOffset(cc.p(newX, newY), animated);
@@ -574,8 +629,15 @@ end
 -- @brief 시작 위치로 설정
 -------------------------------------
 function UIC_TableViewTD:relocateContainerDefault(animated)
-    local min_offset_x, min_offset_y = self:minContainerOffset()
-    self.m_scrollView:setContentOffset(cc.p(0, min_offset_y), animated)
+    -- 가로
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+        self.m_scrollView:setContentOffset(cc.p(0, 0), animated)
+
+    -- 세로
+    else
+        local min_offset_x, min_offset_y = self:minContainerOffset()
+        self.m_scrollView:setContentOffset(cc.p(0, min_offset_y), animated)
+    end
 end
 
 -------------------------------------

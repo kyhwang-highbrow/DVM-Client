@@ -11,7 +11,7 @@ UI_Product = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_Product:init(struct_product)
-    local vars = self:load('shop_list_02.ui')
+    local vars = self:load('shop_list_01.ui')
 
     self.m_structProduct = struct_product
     self:initUI()
