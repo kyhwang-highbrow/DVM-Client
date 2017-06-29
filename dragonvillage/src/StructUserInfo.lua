@@ -170,6 +170,13 @@ function StructUserInfo:getPosition()
     return x, y
 end
 
+-------------------------------------
+-- function getTamer
+-- @breif
+-------------------------------------
+function StructUserInfo:getTamer()
+    return self.m_tamerID
+end
 
 -------------------------------------
 -- function getSDRes

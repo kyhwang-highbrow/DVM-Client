@@ -132,6 +132,7 @@ end
 
 -------------------------------------
 -- function refresh_playerUserInfo
+-- @brief 플레이어 정보 갱신
 -------------------------------------
 function ServerData_Colosseum:refresh_playerUserInfo(t_data, l_deck)
     if (not self.m_playerUserInfo) then
@@ -146,16 +147,18 @@ function ServerData_Colosseum:refresh_playerUserInfo(t_data, l_deck)
     end
 
     -- 덱 설정
-    for i,v in pairs(l_deck) do
-        local deck_name = v['deckName']
-        -- 공격 덱
-        if (deck_name == 'atk') then
-            self.m_playerUserInfo:applyPvpAtkDeckData(v)
+    if l_deck then
+        for i,v in pairs(l_deck) do
+            local deck_name = v['deckName']
+            -- 공격 덱
+            if (deck_name == 'atk') then
+                self.m_playerUserInfo:applyPvpAtkDeckData(v)
 
-        -- 방어 덱
-        elseif (deck_name == 'def') then
-            self.m_playerUserInfo:applyPvpDefDeckData(v)
+            -- 방어 덱
+            elseif (deck_name == 'def') then
+                self.m_playerUserInfo:applyPvpDefDeckData(v)
 
+            end
         end
     end
 end
@@ -412,6 +415,58 @@ function ServerData_Colosseum:request_colosseumStart(is_cash, vsuid, finish_cb, 
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_colosseumFinish
+-------------------------------------
+function ServerData_Colosseum:request_colosseumFinish(is_win, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- 이전 데이터
+        local prev_rp = self.m_playerUserInfo.m_rp
+        local prev_honor = g_userData:get('honor')
+
+        -- staminas, cash 동기화
+        g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 플레이어 정보 갱신
+        local t_data = {}
+        t_data['win'] = ret['win']
+        t_data['lose'] = ret['lose']
+        t_data['rank'] = ret['rank'] -- 서버에서 안보내주고 있음
+        -- tier_reward 없어진건데 서버에서 보내주고 있음
+        t_data['rp'] = ret['rp']
+        t_data['tier'] = ret['tier']
+        t_data['straight'] = ret['straight']
+        self:refresh_playerUserInfo(t_data)
+
+        -- 변경 데이터
+        ret['added_rp'] = (self.m_playerUserInfo.m_rp - prev_rp)
+        ret['added_honor'] = (g_userData:get('honor') - prev_honor)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/ladder/finish')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('is_win', is_win and 1 or 0)
+    ui_network:setParam('vs_uid', self.m_matchUserID)
+    ui_network:setParam('gamekey', self.m_gameKey)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
 end

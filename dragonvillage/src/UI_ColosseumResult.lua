@@ -86,7 +86,6 @@ function UI_ColosseumResult:initButton()
 	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
     vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['retryBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
-    vars['fastStartBtn']:registerScriptTapHandler(function() self:click_fastStartBtn() end)
 end
 
 -------------------------------------
@@ -112,26 +111,5 @@ end
 -- @brief "다시 하기" 버튼
 -------------------------------------
 function UI_ColosseumResult:click_retryBtn()
-    g_colosseumData:goToColosseumScene()
-end
-
-
--------------------------------------
--- function click_fastStartBtn
--- @brief "빠른 시작" 버튼
--------------------------------------
-function UI_ColosseumResult:click_fastStartBtn()
-    if (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
-        local msg = Str('입장권을 모두 소모하여 빠른 시작을 할 수 없습니다.')
-        MakeSimplePopup(POPUP_TYPE.OK, msg)
-        return
-    end
-
-    local function cb(ret)
-        local scene = SceneGameColosseum()
-        scene:runScene()
-    end
-
-    local is_cash = false
-    g_colosseumData:request_colosseumStart(is_cash, cb)
+    g_colosseumData:goToColosseum()
 end
