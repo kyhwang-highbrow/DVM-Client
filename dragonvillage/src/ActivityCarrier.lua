@@ -170,7 +170,12 @@ function ActivityCarrier:getAtkDmg()
     if (type(self.m_atkDmgStat) == 'function') then
         atk_dmg = self.m_atkDmgStat(self)
     else
-        atk_dmg = self:getStat(self.m_atkDmgStat)
+        local stat = SkillHelper:getValid(self.m_atkDmgStat, 'atk')
+        atk_dmg = self:getStat(stat)
+
+        if (not atk_dmg) then
+            error('invalid stat type : ' .. stat)
+        end
     end
 	return atk_dmg
 end
