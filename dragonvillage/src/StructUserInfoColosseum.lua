@@ -27,7 +27,10 @@ StructUserInfoColosseum = class(PARENT, {
         m_straight = 'number',   -- 연승 정보
 
         -- 덱 정보
-        m_deckCombatPower = 'number',
+        m_pvpAtkDeck = 'table',
+        m_pvpAtkDeckCombatPower = 'number',
+        m_pvpDefDeck = 'table',
+        m_pvpDefDeckCombatPower = 'number',
     })
 
 -------------------------------------
@@ -185,39 +188,108 @@ function StructUserInfoColosseum:applyDragonsDataList(l_data)
 end
 
 -------------------------------------
--- function getDeck_dragonList
+-- function applyPvpAtkDeckData
 -- @brief
 -------------------------------------
-function StructUserInfoColosseum:getDeck_dragonList()
-    local t_deck = {}
-    local idx = 0
+function StructUserInfoColosseum:applyPvpAtkDeckData(t_data)
+    self.m_pvpAtkDeck = t_data
+end
 
-    for i,v in pairs(self.m_dragonsObject) do
-        idx = (idx + 1)
-        t_deck[idx] = v
-        if (5 <= idx) then
-            break
-        end
+-------------------------------------
+-- function applyPvpDefDeckData
+-- @brief
+-------------------------------------
+function StructUserInfoColosseum:applyPvpDefDeckData(t_data)
+    self.m_pvpDefDeck = t_data
+    --{
+    --  "tamer":110001,
+    --  "deck":{
+    --    "4":"59521cbce891934dae344a98",
+    --    "1":"5952132de891934dae344a7f",
+    --    "5":"5950cab0e891934dae34398f",
+    --    "2":"595210afe891934dae344a79",
+    --    "3":"59521d8ae891934dae344a9e"
+    --  },
+    --  "formation":"attack",
+    --  "leader":4,
+    --  "deckName":"def"
+    --}
+end
+
+-------------------------------------
+-- function getAtkDeck_dragonList
+-- @brief
+-------------------------------------
+function StructUserInfoColosseum:getAtkDeck_dragonList()
+    if (not self.m_pvpAtkDeck) then
+        return {}
+    end
+
+    local t_deck = {}
+
+    for i,v in pairs(self.m_pvpAtkDeck['deck']) do
+        local idx = tonumber(i)
+        local doid = v
+        t_deck[idx] = self:getDragonObject(doid)
     end
 
     return t_deck
 end
 
 -------------------------------------
--- function getDeckCombatPower
--- @brief 덱 전투력
+-- function getAtkDeckCombatPower
+-- @brief 공격 덱 전투력
 -------------------------------------
-function StructUserInfoColosseum:getDeckCombatPower()
-    if (not self.m_deckCombatPower) then
-        local t_deck_dragon_list = self:getDeck_dragonList()
+function StructUserInfoColosseum:getAtkDeckCombatPower(force)
+    if (not self.m_pvpAtkDeckCombatPower) or force then
+        local t_deck_dragon_list = self:getAtkDeck_dragonList()
 
         local total_combat_power = 0
         for i,v in pairs(t_deck_dragon_list) do
             total_combat_power = (total_combat_power + v:getCombatPower())
         end
 
-        self.m_deckCombatPower = total_combat_power
+        self.m_pvpAtkDeckCombatPower = total_combat_power
     end
 
-    return self.m_deckCombatPower
+    return self.m_pvpAtkDeckCombatPower
+end
+
+-------------------------------------
+-- function getDefDeck_dragonList
+-- @brief
+-------------------------------------
+function StructUserInfoColosseum:getDefDeck_dragonList()
+    if (not self.m_pvpDefDeck) then
+        return {}
+    end
+
+    local t_deck = {}
+
+    for i,v in pairs(self.m_pvpDefDeck['deck']) do
+        local idx = tonumber(i)
+        local doid = v
+        t_deck[idx] = self:getDragonObject(doid)
+    end
+
+    return t_deck
+end
+
+-------------------------------------
+-- function getDefDeckCombatPower
+-- @brief 방어 덱 전투력
+-------------------------------------
+function StructUserInfoColosseum:getDefDeckCombatPower(force)
+    if (not self.m_pvpDefDeckCombatPower) or force then
+        local t_deck_dragon_list = self:getDefDeck_dragonList()
+
+        local total_combat_power = 0
+        for i,v in pairs(t_deck_dragon_list) do
+            total_combat_power = (total_combat_power + v:getCombatPower())
+        end
+
+        self.m_pvpDefDeckCombatPower = total_combat_power
+    end
+
+    return self.m_pvpDefDeckCombatPower
 end

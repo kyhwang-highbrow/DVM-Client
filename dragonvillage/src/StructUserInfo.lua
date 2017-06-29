@@ -96,6 +96,17 @@ function StructUserInfo:applyRunesDataList(l_data)
     end
 end
 
+-------------------------------------
+-- function getDragonObject
+-- @brief
+-------------------------------------
+function StructUserInfo:getDragonObject(doid)
+    if (self.m_dragonsObject and self.m_dragonsObject[doid]) then
+        return self.m_dragonsObject[doid]
+    end
+
+    return g_dragonsData:getDragonObject(doid)
+end
 
 
 

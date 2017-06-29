@@ -77,7 +77,7 @@ function ServerData_Colosseum:response_colosseumInfo(ret)
     self.m_startTime = ret['start_time']
     self.m_endTime = ret['endtime']
 
-    self:refresh_playerUserInfo(ret['season'])
+    self:refresh_playerUserInfo(ret['season'], ret['deck'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
 
     -- 공격전 대상 리스트 갱신 시간
@@ -107,6 +107,9 @@ function ServerData_Colosseum:refresh_matchList(l_match_list)
         struct_user_info:applyDragonsDataList(v['dragons'])
         --v['match']
 
+        -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
+        struct_user_info:applyPvpDefDeckData(v['deck'])
+
         local uid = v['uid']
         self.m_matchList[uid] = struct_user_info
     end
@@ -127,7 +130,7 @@ end
 -------------------------------------
 -- function refresh_playerUserInfo
 -------------------------------------
-function ServerData_Colosseum:refresh_playerUserInfo(t_data)
+function ServerData_Colosseum:refresh_playerUserInfo(t_data, l_deck)
     if (not self.m_playerUserInfo) then
         -- 플레이어 유저 정보 생성
         local struct_user_info = StructUserInfoColosseum()
@@ -136,6 +139,20 @@ function ServerData_Colosseum:refresh_playerUserInfo(t_data)
     end
 
     self:_refresh_playerUserInfo(self.m_playerUserInfo, t_data)
+
+    -- 덱 설정
+    for i,v in pairs(l_deck) do
+        local deck_name = v['deckName']
+        -- 공격 덱
+        if (deck_name == 'atk') then
+            self.m_playerUserInfo:applyPvpAtkDeckData(v)
+
+        -- 방어 덱
+        elseif (deck_name == 'def') then
+            self.m_playerUserInfo:applyPvpDefDeckData(v)
+
+        end
+    end
 end
 
 -------------------------------------

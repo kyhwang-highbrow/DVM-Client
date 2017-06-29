@@ -38,14 +38,14 @@ function UI_ColosseumAttackListItem:init(struct_user_info_colosseum)
     vars['userLabel']:setString(str)
 
     -- 전투력 표시
-    local combat_power = info:getDeckCombatPower()
+    local combat_power = info:getDefDeckCombatPower()
     vars['powerLabel']:setString(Str('전튜력 : {1}', comma_value(combat_power)))
 
     -- 점수 표시
     vars['scoreLabel']:setString(Str('{1}점', info.m_rp))
 
     -- 드래곤 리스트
-    local t_deck_dragon_list = info:getDeck_dragonList()
+    local t_deck_dragon_list = info:getDefDeck_dragonList()
     for i,v in pairs(t_deck_dragon_list) do
         local icon = UI_DragonCard(v)
         icon.root:setSwallowTouch(false)

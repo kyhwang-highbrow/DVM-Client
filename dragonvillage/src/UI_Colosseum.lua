@@ -206,9 +206,12 @@ function UI_Colosseum:onChangeTab(tab, first)
 
     local vars = self.vars
     if (tab == 'atk_tab') then
-        vars['powerLabel']:setString(Str('공격 전투력 : {1}', comma_value(0)))
+        local combat_power = g_colosseumData.m_playerUserInfo:getAtkDeckCombatPower(true)
+        vars['powerLabel']:setString(Str('공격 전투력 : {1}', comma_value(combat_power)))
+
     elseif (tab == 'def_tab') then
-        vars['powerLabel']:setString(Str('방어 전투력 : {1}', comma_value(0)))
+        local combat_power = g_colosseumData.m_playerUserInfo:getDefDeckCombatPower(true)
+        vars['powerLabel']:setString(Str('방어 전투력 : {1}', comma_value(combat_power)))
     end
 
     if (not first) then
