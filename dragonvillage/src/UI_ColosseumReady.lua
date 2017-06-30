@@ -62,7 +62,7 @@ function UI_ColosseumReady:initUI()
 
     do -- 플레이어 유저 덱
         local player_3d_deck = UI_3DDeck()
-        player_3d_deck.root:setPosition(-320, 76)
+        player_3d_deck.root:setPosition(-320, 76 - 100)
         self.root:addChild(player_3d_deck.root)
         player_3d_deck:initUI()
 
@@ -74,7 +74,7 @@ function UI_ColosseumReady:initUI()
     do -- 상대방 유저 덱
         local player_3d_deck = UI_3DDeck()
         player_3d_deck.vars['formationNodeHelperXAxis']:setScale(-1)
-        player_3d_deck.root:setPosition(320, 76)
+        player_3d_deck.root:setPosition(320, 76 - 100)
         self.root:addChild(player_3d_deck.root)
         player_3d_deck:initUI()
 
@@ -119,19 +119,37 @@ end
 -- @brief 시작 버튼
 -------------------------------------
 function UI_ColosseumReady:click_startBtn()
-    if (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
-        local msg = Str('입장권을 모두 소모하였습니다.')
-        MakeSimplePopup(POPUP_TYPE.OK, msg)
+
+    -- 콜로세움 공격 덱이 설정되었는지 여부 체크
+    local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
+    if (table.count(l_dragon_obj) <= 0) then
+        local function yes()
+            self:click_deckBtn()
+        end
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('콜로세움 출전 덱이 설정되지 않았습니다.\n출전 덱을 설정하시겠습니까?'), yes)
         return
     end
 
-    local function cb(ret)
-        local scene = SceneGameColosseum()
-        scene:runScene()
+    -- 콜로세움 시작 요청
+    local is_cash = false
+    local function request()
+        local function cb(ret)
+            local scene = SceneGameColosseum()
+            scene:runScene()
+        end
+
+        g_colosseumData:request_colosseumStart(is_cash, g_colosseumData.m_matchUserID, cb)
     end
 
-    local is_cash = false
-    g_colosseumData:request_colosseumStart(is_cash, g_colosseumData.m_matchUserID, cb)
+    if (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
+        is_cash = true
+        local cash = 50
+        local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', cash)
+        MakeSimplePopup_Confirm('cash', cash, msg, request)
+    else
+        is_cash = false
+        request()
+    end    
 end
 
 -------------------------------------

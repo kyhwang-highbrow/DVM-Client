@@ -5,6 +5,7 @@
 StructUserInfo = class({
         m_bStruct = 'boolean',
         m_tag ='unknown',
+        m_userData = 'unknown',
 
         m_uid = 'number',
         m_lv = 'number',
