@@ -1873,12 +1873,9 @@ end
 -- function getRole
 -------------------------------------
 function Character:getRole()
-	if (self.m_charTable) then
-		return self.m_charTable['role'] or '백수'
-	else
-		return '까미'
-	end
+	return self.m_charTable['role']
 end
+
 -------------------------------------
 -- function getAttribute
 -------------------------------------
@@ -2431,7 +2428,7 @@ function Character:printAllInfomation()
     cclog('CURR_STATE = ' .. self.m_state)
     cclog('## STATUS EFFECT LIST ##')
     for type, se in pairs(self:getStatusEffectList()) do
-		cclog('- ' .. type, se.m_overlabCnt, luadump(se.m_bApply))
+		cclog('- ' .. type, se.m_state, se.m_overlabCnt, luadump(se.m_bApply))
 	end
 	cclog('## STAT LIST ##')
 	self.m_statusCalc:printAllStat()

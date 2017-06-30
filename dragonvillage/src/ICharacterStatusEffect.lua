@@ -3,6 +3,8 @@
 -------------------------------------
 ICharacterStatusEffect = {
     m_mStatusEffect = 'table',
+    m_mHiddenStatusEffect = 'table',    -- 숨겨져서 노출되지 않는 상태효과(리더, 패시브)
+
     m_lStatusIcon = 'sprite table',
     m_mStatusEffectCC = 'table',    -- 적용중인 cc효과를 가진 status effect
 }
@@ -12,6 +14,7 @@ ICharacterStatusEffect = {
 -------------------------------------
 function ICharacterStatusEffect:init()
     self.m_mStatusEffect = {}
+    self.m_mHiddenStatusEffect = {}
 	self.m_lStatusIcon = {}
     self.m_mStatusEffectCC = {}
 end
@@ -66,11 +69,12 @@ function ICharacterStatusEffect:insertStatusEffect(status_effect)
 	local effect_name = status_effect.m_statusEffectName
 	
     -- 해제되지 않고 계속 유지되는 것들은 리스트에 추가하지 않음
-	if string.find(effect_name, 'buff_heal') then return end
-    if string.find(effect_name, 'leader') then return end
-	if string.find(effect_name, 'passive') then return end
-
-	self.m_mStatusEffect[effect_name] = status_effect
+	if (string.find(effect_name, 'buff_heal') or string.find(effect_name, 'leader')
+        or string.find(effect_name, 'passive')) then
+        self.m_mHiddenStatusEffect[effect_name] = status_effect
+    else
+        self.m_mStatusEffect[effect_name] = status_effect
+    end
 end
 
 -------------------------------------
@@ -95,6 +99,30 @@ end
 -------------------------------------
 function ICharacterStatusEffect:getStatusEffectList()
 	return self.m_mStatusEffect
+end
+
+-------------------------------------
+-- function isExistStatusEffectName
+-- @breif 해당 이름을 포함한 상태효과가 존재하는지 여부
+-------------------------------------
+function ICharacterStatusEffect:isExistStatusEffectName(name, except_name)
+    local b = false
+
+    for type, status_effect in pairs(self:getStatusEffectList()) do
+        if (string.find(type, name) and type ~= except_name) then
+            b = true
+            break
+        end
+    end
+
+    for type, status_effect in pairs(self.m_mHiddenStatusEffect) do
+        if (string.find(type, name) and type ~= except_name) then
+            b = true
+            break
+        end
+    end
+
+    return b
 end
 
 -------------------------------------

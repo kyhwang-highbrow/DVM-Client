@@ -164,6 +164,8 @@ function TableDragonSkill:addFunctionsForEquation(column)
                     ' local cri_avoid = owner:getStat(\'cri_avoid\')' ..
                     ' local hit_rate = owner:getStat(\'hit_rate\')' ..
                     ' local avoid = owner:getStat(\'avoid\')' ..
+                    ' local attr = owner:getAttribute()' ..
+                    ' local role = owner:getRole()' ..
 
                     ' local buff_atk = owner:getBuffStat(\'atk\')' ..
                     ' buff_atk = math_max(buff_atk, 0)' ..
@@ -194,6 +196,17 @@ function TableDragonSkill:addFunctionsForEquation(column)
                     ' local target_cri_avoid = target and target:getStat(\'cri_avoid\') or 0' ..
                     ' local target_hit_rate = target and target:getStat(\'hit_rate\') or 0' ..
                     ' local target_avoid = target and target:getStat(\'avoid\') or 0' ..
+                    ' local target_attr = target and target:getAttribute()' ..
+                    ' local target_role = target and target:getRole()' ..
+
+                    ' local STATUSEFFECT = function(name)' ..
+                    ' return owner:isExistStatusEffectName(name) and 1 or 0' ..
+                    ' end' ..
+
+                    ' local TARGET_STATUSEFFECT = function(name)' ..
+                    ' local b = target and target:isExistStatusEffectName(name) or false' ..
+                    ' return (b) and 1 or 0' ..
+                    ' end' ..
 
                     ' local ret = ' .. source .. 
                     ' return ret' ..

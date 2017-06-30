@@ -170,6 +170,10 @@ end
 function StatusEffect.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
     end
+
+    if (owner.m_owner.m_bDead or owner.m_overlabCnt <= 0) then
+        owner:changeState('end')
+    end
 end
 
 -------------------------------------
@@ -198,10 +202,7 @@ end
 -- function update
 -------------------------------------
 function StatusEffect:update(dt)
-    if (self.m_owner.m_bDead) then
-        self:changeState('end')
-
-    elseif (self.m_bApply) then
+    if (self.m_bApply) then
         -- 대상자의 디법 유지 시간 관련 스텟을 실시간으로 적용
         local modified_dt
 

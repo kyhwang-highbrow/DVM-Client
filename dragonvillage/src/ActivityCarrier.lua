@@ -69,6 +69,16 @@ function ActivityCarrier:getStat(type)
 end
 
 -------------------------------------
+-- function getBuffStat
+-- @brief 현재 적용된 버프수치를 가져온다
+-------------------------------------
+function ActivityCarrier:getBuffStat(type)
+    if (not self.m_activityCarrierOwner) then return 0 end
+
+    return self.m_activityCarrierOwner:getBuffStat(type)
+end
+
+-------------------------------------
 -- function getHp
 -- @brief 공격자의 현재 HP 정보를 가져온다
 -------------------------------------
@@ -79,13 +89,31 @@ function ActivityCarrier:getHp()
 end
 
 -------------------------------------
--- function getBuffStat
--- @brief 현재 적용된 버프수치를 가져온다
+-- function getRole
+-- @breif 공격자의 role정보를 리턴
 -------------------------------------
-function ActivityCarrier:getBuffStat(type)
-    if (not self.m_activityCarrierOwner) then return 0 end
+function ActivityCarrier:getRole()
+    if (not self.m_activityCarrierOwner) then return end
 
-    return self.m_activityCarrierOwner:getBuffStat(type)
+    return self.m_activityCarrierOwner:getRole()
+end
+
+-------------------------------------
+-- function getAttribute
+-- @breif 속성 정보를 문자열로 리턴
+-------------------------------------
+function ActivityCarrier:getAttribute()
+    return attributeStrToNum(self.m_attribute)
+end
+
+-------------------------------------
+-- function isExistStatusEffectName
+-- @brief 공격자가 해당 상태효과가 존재하는지 여부
+-------------------------------------
+function ActivityCarrier:isExistStatusEffectName(name, except_name)
+    if (not self.m_activityCarrierOwner) then return false end
+
+    return self.m_activityCarrierOwner:isExistStatusEffectName(name, except_name)
 end
 
 -------------------------------------
