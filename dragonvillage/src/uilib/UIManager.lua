@@ -539,5 +539,10 @@ function UIManager:onKeyReleased(keyCode, event)
 			self.m_debugUI.m_debugLayer:setVisible(g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO'))
 		end
 		PrintMemory()
+
+	-- currScene에 반복 액션으로 테스트 중인 경우 해제를 위해서 등록
+	elseif (keyCode == KEY_D) then
+		g_currScene.m_scene:stopAllActions()
+
 	end
 end
