@@ -1201,6 +1201,7 @@ end
 -- function onEvent
 -------------------------------------
 function GameWorld:onEvent(event_name, t_event, ...)
+
     if (event_name == 'change_wave') then
         self:onEvent_change_wave(event_name, t_event, ...)
 
@@ -1226,6 +1227,18 @@ function GameWorld:onEvent(event_name, t_event, ...)
         -- 자기 자신은 제외
         for _,fellow in pairs(unit:getFellowList()) do
             fellow:dispatch('under_teammate_hp', t_event, unit)
+        end
+    
+    elseif (event_name == 'dead') then
+        local arg = {...}
+        local unit = arg[1]
+
+        for _, fellow in pairs(unit:getFellowList()) do
+            fellow:dispatch('ally_dead', t_event)
+        end
+
+        for _, opponent in pairs(unit:getOpponentList()) do
+            opponent:dispatch('enemy_dead', t_event)
         end
     end
 end
