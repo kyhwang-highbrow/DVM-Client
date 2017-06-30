@@ -422,7 +422,7 @@ function Skill:heal(target_char, b_make_effect)
     local make_effect = true
     if (b_make_effect ~= nil) then make_effect = b_make_effect end
 
-    local atk_dmg = self.m_activityCarrier:getAtkDmg()
+    local atk_dmg = self.m_activityCarrier:getAtkDmg(target_char)
     local heal = HealCalc_M(atk_dmg) * self.m_activityCarrier:getPowerRate()
 
     target_char:healAbs(self.m_owner, heal, make_effect)

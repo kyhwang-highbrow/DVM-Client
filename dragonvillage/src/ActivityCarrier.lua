@@ -163,12 +163,12 @@ end
 -------------------------------------
 -- function getAtkDmg
 -------------------------------------
-function ActivityCarrier:getAtkDmg()
+function ActivityCarrier:getAtkDmg(target)
     
     local atk_dmg
 
     if (type(self.m_atkDmgStat) == 'function') then
-        atk_dmg = self.m_atkDmgStat(self)
+        atk_dmg = self.m_atkDmgStat(self, target)
     else
         local stat = SkillHelper:getValid(self.m_atkDmgStat, 'atk')
         atk_dmg = self:getStat(stat)

@@ -475,7 +475,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 데미지 계산
     do
 		-- 공격력, 방어력 스탯
-		atk_dmg = attack_activity_carrier:getAtkDmg()
+		atk_dmg = attack_activity_carrier:getAtkDmg(defender)
         def_pwr = self:getStat('def')
 		
 		-- 스킬 계수 적용

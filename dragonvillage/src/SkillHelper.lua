@@ -217,3 +217,14 @@ function SkillHelper:makePassiveSkillSpeech(dragon, str)
         socketNode:addChild(self.m_speechLabel, 1)
     end
 end
+
+----------------------------------------------------------------------------------
+-- 수식에서 사용하기 위한 전역 함수
+----------------------------------------------------------------------------------
+function CON(con_expression)
+    if (con_expression) then
+        return 1
+    end
+
+    return 0
+end
