@@ -22,6 +22,8 @@ ServerData_Colosseum = class({
 
         -- 전투 히스토리 데이터
         m_matchHistory = 'list',
+
+        m_tSeasonRewardInfo = 'table',
     })
 
 -------------------------------------
@@ -116,6 +118,7 @@ function ServerData_Colosseum:refresh_matchList(l_match_list)
         struct_user_info.m_lv = v['lv']
         struct_user_info.m_tamerID = v['tamer']
         struct_user_info.m_leaderDragonObject = StructDragonObject(v['leader'])
+        struct_user_info.m_tier = v['tier']
 
         -- 콜로세움 유저 정보
         struct_user_info.m_rp = v['rp']
@@ -569,4 +572,12 @@ function ServerData_Colosseum:request_colosseumDefHistory(finish_cb, fail_cb)
     ui_network:request()
 
 	return ui_network
+end
+
+-------------------------------------
+-- function setSeasonRewardInfo
+-------------------------------------
+function ServerData_Colosseum:setSeasonRewardInfo(ret)
+    
+    --self.m_tSeasonRewardInfo
 end
