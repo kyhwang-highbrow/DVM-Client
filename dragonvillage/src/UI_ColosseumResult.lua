@@ -54,7 +54,8 @@ function UI_ColosseumResult:initUI(is_win, t_data)
     end
 
     -- 현재 점수
-    vars['fightScoreLabel']:setString(comma_value(t_data['rp']))
+    local rp = g_colosseumData.m_playerUserInfo.m_rp
+    vars['fightScoreLabel']:setString(comma_value(rp))
 
     -- 획득 점수
     local added_rp_str

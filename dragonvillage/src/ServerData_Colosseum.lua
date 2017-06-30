@@ -443,15 +443,7 @@ function ServerData_Colosseum:request_colosseumFinish(is_win, finish_cb, fail_cb
         g_serverData:networkCommonRespone_addedItems(ret)
 
         -- 플레이어 정보 갱신
-        local t_data = {}
-        t_data['win'] = ret['win']
-        t_data['lose'] = ret['lose']
-        t_data['rank'] = ret['rank'] -- 서버에서 안보내주고 있음
-        -- tier_reward 없어진건데 서버에서 보내주고 있음
-        t_data['rp'] = ret['rp']
-        t_data['tier'] = ret['tier']
-        t_data['straight'] = ret['straight']
-        self:refresh_playerUserInfo(t_data)
+        self:refresh_playerUserInfo(ret['season'])
 
         -- 변경 데이터
         ret['added_rp'] = (self.m_playerUserInfo.m_rp - prev_rp)
