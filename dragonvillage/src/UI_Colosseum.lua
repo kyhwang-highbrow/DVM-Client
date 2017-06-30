@@ -33,6 +33,7 @@ end
 -- function init
 -------------------------------------
 function UI_Colosseum:init()
+    SoundMgr:playBGM('bgm_lobby')
     self.m_rankOffset = 1 -- 최상위 랭크를 받겠다는 뜻
 
     local vars = self:load('colosseum_scene_new.ui')
@@ -65,13 +66,7 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_Colosseum:click_exitBtn()
-	if (g_currScene.m_sceneName == 'SceneColosseum') then
-		local is_use_loading = false
-		local scene = SceneLobby(is_use_loading)
-		scene:runScene()
-	else
-		self:close()
-	end
+    self:close()
 end
 
 -------------------------------------

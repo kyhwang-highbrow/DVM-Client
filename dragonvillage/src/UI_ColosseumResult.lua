@@ -112,5 +112,6 @@ end
 -- @brief "다시 하기" 버튼
 -------------------------------------
 function UI_ColosseumResult:click_retryBtn()
-    g_colosseumData:goToColosseum()
+    local use_scene = true
+    g_colosseumData:goToColosseum(use_scene)
 end
