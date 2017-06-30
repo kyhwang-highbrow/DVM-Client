@@ -40,6 +40,7 @@ function UI_ColosseumReady:initParentVariable()
 
     -- 입장권 타입 설정
     self.m_staminaType = 'pvp'
+    self.m_subCurrency = 'honor'
 end
 
 -------------------------------------

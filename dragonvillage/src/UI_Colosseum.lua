@@ -27,6 +27,7 @@ function UI_Colosseum:initParentVariable()
 	self.m_staminaType = 'pvp'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
+    self.m_subCurrency = 'honor'
 end
 
 -------------------------------------
