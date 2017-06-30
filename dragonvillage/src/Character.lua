@@ -401,6 +401,20 @@ function Character:checkAttributeCounter(attacker_char)
 end
 
 -------------------------------------
+-- function checkMiss
+-- @brief 빚맞힘 여부 검사
+-------------------------------------
+function Character:checkMiss(attacker_char)
+    local miss_rate =  g_constant:get('INGAME', 'MISS_RATE') or 100
+
+    if (math_random(1, 100) <= miss_rate) then
+        return true
+	end
+
+    return false
+end
+
+-------------------------------------
 -- function checkAvoid
 -- @brief 회피 여부 검사
 -------------------------------------
@@ -464,7 +478,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 속성 효과
     local t_attr_effect, attr_synastry = self:checkAttributeCounter(attacker_char)
     local is_bash = (attr_synastry == 1)
-    local is_miss = (attr_synastry == -1)
+    local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char)
 
     -- 공격력 계산, 크리티컬 계산
     local atk_dmg = 0

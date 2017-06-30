@@ -33,9 +33,11 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
         enemy.m_animator:setScale(0.45)
 
         if (isBoss) then
-            -- 보스의 경우 체력 10배
-            enemy.m_maxHp = enemy.m_maxHp * 10
-            enemy.m_hp = enemy.m_hp * 10
+            -- 보스의 경우 체력 배수 처리
+            local hp_ratio =  g_constant:get('INGAME', 'ANCIENT_TOWER_BOSS_HP') or 1
+
+            enemy.m_maxHp = enemy.m_maxHp * hp_ratio
+            enemy.m_hp = enemy.m_hp * hp_ratio
 
             MonsterLua_Boss.makeHPGauge(enemy, {0, -80}, true)
         end
