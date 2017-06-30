@@ -9,8 +9,8 @@ UI_AncientTowerScene = class(PARENT, {
         m_floorInfo = 'UI_AncientTowerFloorInfo', -- 탑 정보 UI
         m_rankInfo = 'UI_AnceintTowerRank', -- 순위 정보 UI
 
-		m_challengingFloor  = 'number', -- 현재 진행중인 층
-        m_selectedStageID   = 'number', -- 현재 선택된 스테이지 아이디
+		m_challengingFloor = 'number', -- 현재 진행중인 층
+        m_selectedStageID = 'number', -- 현재 선택된 스테이지 아이디
     })
 
 UI_AncientTowerScene.TAB_INFO = 1
@@ -61,6 +61,9 @@ function UI_AncientTowerScene:initParentVariable()
     self.m_uiName = 'UI_AncientTowerScene'
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('고대의 탑')
+
+    -- 입장권 타입 설정
+    self.m_staminaType = 'tower'
 end
 
 -------------------------------------
