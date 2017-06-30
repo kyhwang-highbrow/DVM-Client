@@ -128,8 +128,7 @@ function StructProduct:getDesc()
 	-- 상품 구매 제한이 있고 t_desc가 없다면 구매횟수 출력
 	local max_buy_cnt = self['max_buy_count']
 	if (isNumber(max_buy_cnt)) then
-		local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
-		return Str('구매 횟수 {1} / {2}', buy_cnt, max_buy_cnt)
+		return self:getBuyCountDesc()
 	end
 	
 	-- 상품 구매 제한이 없고 t_desc도 없다면 첫번째 아이템 설명 출력...
@@ -150,6 +149,32 @@ function StructProduct:getDesc()
 		local t_desc = table_item:getValue(item_id, 't_desc')
 		return Str(t_desc)
 	end
+end
+
+
+-------------------------------------
+-- function getBuyCountDesc
+-------------------------------------
+function StructProduct:getBuyCountDesc()
+	local max_buy_cnt = self['max_buy_count']
+	local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+	local cnt_str = Str('구매 횟수 {1} / {2}', buy_cnt, max_buy_cnt)
+
+	-- 구매 제한 term 체크
+	local buy_term = self['max_buy_term']
+	local term_str
+	if (buy_term == 'weekly') then
+		term_str = Str('주간')
+	elseif (buy_term == 'monthly') then
+		term_str = Str('월간')
+	end
+
+	-- 구메 제한 str 있으면 추가
+	if (term_str) then
+		return term_str .. ' ' .. cnt_str
+	end
+
+	return cnt_str
 end
 
 -------------------------------------
