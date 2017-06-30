@@ -32,6 +32,18 @@ function UI_UserInfoMini:init(struct_user_info)
 end
 
 -------------------------------------
+-- function open
+-- @param struct_user_info StructUserInfo
+-------------------------------------
+function UI_UserInfoMini:open(struct_user_info)
+    if (g_userData:get('uid') == struct_user_info.m_uid) then
+        return nil
+    end
+
+    return UI_UserInfoMini(struct_user_info)
+end
+
+-------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_UserInfoMini:click_exitBtn()

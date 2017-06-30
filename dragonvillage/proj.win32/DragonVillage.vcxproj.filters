@@ -2436,6 +2436,9 @@
     <None Include="..\src\UIHelper.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ColosseumRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

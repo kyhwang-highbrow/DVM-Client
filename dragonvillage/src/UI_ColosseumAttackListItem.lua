@@ -22,7 +22,7 @@ function UI_ColosseumAttackListItem:init(struct_user_info_colosseum)
     local icon = info:getLeaderDragonCard()
     if icon then
         icon.root:setSwallowTouch(false)
-        icon.vars['clickBtn']:registerScriptTapHandler(function() UI_UserInfoMini(info) end)
+        icon.vars['clickBtn']:registerScriptTapHandler(function() UI_UserInfoMini:open(info) end)
         vars['profileNode']:addChild(icon.root)
     end
 

@@ -17,6 +17,8 @@ ServerData_Colosseum = class({
 
         m_matchUserID = '',
         m_gameKey = 'number',
+        m_nGlobalOffset = 'number', -- 랭킹
+        m_lGlobalRank = 'list',
     })
 
 -------------------------------------
@@ -197,6 +199,10 @@ function ServerData_Colosseum:_refresh_playerUserInfo(struct_user_info, t_data)
 
         if t_data['rank'] then
             struct_user_info.m_rank = t_data['rank']
+        end
+
+        if t_data['rate'] then
+            struct_user_info.m_rankPercent = t_data['rate']
         end
 
         if t_data['rp'] then
@@ -469,4 +475,48 @@ function ServerData_Colosseum:request_colosseumFinish(is_win, finish_cb, fail_cb
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function request_colosseumRank
+-------------------------------------
+function ServerData_Colosseum:request_colosseumRank(offset, finish_cb, fail_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local offset = offset or 0
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        --[[
+        g_serverData:networkCommonRespone(ret)
+        self.m_myRank = ret['my_info']
+        --]]
+
+        self.m_nGlobalOffset = ret['offset']
+
+        -- 유저 리스트 저장
+        self.m_lGlobalRank = {}
+        for i,v in pairs(ret['list']) do
+            local user_info = StructUserInfoColosseum:create_forRanking(v)
+            table.insert(self.m_lGlobalRank, user_info)
+        end
+        
+        if finish_cb then
+            return finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/ranking')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('offset', offset)
+    ui_network:setParam('limit', 30)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
 end

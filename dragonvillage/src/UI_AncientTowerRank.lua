@@ -19,7 +19,7 @@ local RANK_SHOW_CNT = 20 -- 한번에 보여주는 랭커 수
 -------------------------------------
 function UI_AncientTowerRank:init(ui_scene)
     self.m_uiScene = ui_scene
-    self.m_rankOffset = 0
+    self.m_rankOffset = 1
 
 	self:initUI()
     self:initButton()
@@ -91,6 +91,7 @@ function UI_AncientTowerRank:init_rankTableView()
     local my_node   = self.m_uiScene.vars['rankingMeNode']
 
     node:removeAllChildren()
+    my_node:removeAllChildren()
 
     -- 내 순위
 	do
@@ -103,7 +104,7 @@ function UI_AncientTowerRank:init_rankTableView()
 
     local l_item_list = g_ancientTowerData.m_lGlobalRank
 
-    if (0 < self.m_rankOffset) then
+    if (1 < self.m_rankOffset) then
         local prev_data = { rank = 'prev' }
         l_item_list['prev'] = prev_data
     end

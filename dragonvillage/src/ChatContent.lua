@@ -210,5 +210,5 @@ function ChatContent:openUserInfoMini()
 
     local struct_user_info = StructUserInfo(t_data)
 
-    UI_UserInfoMini(struct_user_info)
+    UI_UserInfoMini:open(struct_user_info)
 end

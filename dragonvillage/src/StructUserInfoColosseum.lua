@@ -17,6 +17,29 @@ local PARENT = StructUserInfo
 -- @instance
 -------------------------------------
 StructUserInfoColosseum = class(PARENT, {
+
+        --------------------------------------
+        --------------------------------------
+        -- StructUserInfo의 변수들 참고용 (2017-06-30)
+        m_bStruct = 'boolean',
+
+        m_uid = 'number',
+        m_lv = 'number',
+        m_nickname = 'string',
+        m_leaderDragonObject = '',
+
+        -- 로비 채팅에서 사용
+        m_tamerID = 'string', -- ?? number??
+        m_tamerPosX = 'float',
+        m_tamerPosY = 'float',
+
+        -- 드래곤, 룬
+        m_dragonsObject = 'StructDragonObject',
+        m_runesObject = 'StructRuneObject',
+        --------------------------------------
+        --------------------------------------
+
+
         m_winCnt = 'number',
         m_loseCnt = 'number',
 
@@ -32,6 +55,26 @@ StructUserInfoColosseum = class(PARENT, {
         m_pvpDefDeck = 'table',
         m_pvpDefDeckCombatPower = 'number',
     })
+
+-------------------------------------
+-- function create_forRanking
+-- @brief 랭킹 유저 정보
+-------------------------------------
+function StructUserInfoColosseum:create_forRanking(t_data)
+    local user_info = StructUserInfoColosseum()
+
+    user_info.m_uid = t_data['uid']
+    user_info.m_nickname = t_data['nick']
+    user_info.m_lv = t_data['lv']
+    user_info.m_rank = t_data['rank']
+    user_info.m_rankPercent = t_data['rate']
+    user_info.m_tier = t_data['tier']
+    user_info.m_rp = t_data['rp']
+
+    user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
+
+    return user_info
+end
 
 -------------------------------------
 -- function init
@@ -118,22 +161,40 @@ function StructUserInfoColosseum:perseTier(tier_str)
 end
 
 -------------------------------------
+-- function getUserText
+-- @brief
+-------------------------------------
+function StructUserInfoColosseum:getUserText()
+    local str = Str('레벨 {1} : {2}', self.m_lv, self.m_nickname)
+    return str
+end
+
+-------------------------------------
 -- function getRankText
 -- @brief
 -------------------------------------
-function StructUserInfoColosseum:getRankText(simple)
+function StructUserInfoColosseum:getRankText(detail)
     if (not self.m_rank) then
         return Str('기록 없음')
     end
 
-    if simple or (not self.m_rankPercent) then
-        return Str('{1}위', comma_value(self.m_rank))
+    -- 자세히 출력 (순위와 퍼센트)
+    if detail then
+        if (not self.m_rankPercent) then
+            return Str('{1}위', comma_value(self.m_rank))
+        else
+            local percent_text = string.format('%.2f', self.m_rankPercent * 100)
+            local text = Str('{1}위 ({2}%)', comma_value(self.m_rank), percent_text)
+            return text
+        end
+    else
+        -- 100위 이상은 퍼센트로 표시
+        if self.m_rankPercent and (100 < self.m_rank) then
+            return string.format('%.2f%%', self.m_rankPercent * 100)
+        else
+            return Str('{1}위', comma_value(self.m_rank))
+        end
     end
-
-    local percent_text = string.format('%.2f', self.m_rankPercent * 100)
-
-    local text = Str('{1}위 ({2}%)', comma_value(self.m_rank), percent_text)
-    return text
 end
 
 -------------------------------------

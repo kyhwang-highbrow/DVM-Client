@@ -4,6 +4,7 @@
 -------------------------------------
 StructUserInfo = class({
         m_bStruct = 'boolean',
+        m_tag ='unknown',
 
         m_uid = 'number',
         m_lv = 'number',
@@ -60,11 +61,18 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfo:getLeaderDragonCard()
-    if (not self.m_leaderDragonObject) then
+    local dragon_obj = self.m_leaderDragonObject
+
+    -- 플레이어 유저인지 확인
+    if (not dragon_obj) and (g_userData:get('uid') == self.m_uid) then
+        dragon_obj = g_dragonsData:getLeaderDragon()
+    end
+
+    if (not dragon_obj) then
         return nil
     end
 
-    local card = UI_DragonCard(self.m_leaderDragonObject)
+    local card = UI_DragonCard(dragon_obj)
     return card
 end
 
