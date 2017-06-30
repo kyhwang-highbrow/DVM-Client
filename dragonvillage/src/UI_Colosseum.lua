@@ -100,6 +100,7 @@ function UI_Colosseum:initButton()
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
     vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
     vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+    vars['defDeckBtn']:registerScriptTapHandler(function() self:click_defDeckBtn() end)
 end
 
 -------------------------------------
@@ -188,12 +189,30 @@ function UI_Colosseum:click_refreshBtn()
 end
 
 -------------------------------------
+-- function click_defDeckBtn
+-- @brief 방어 덱 설정 버튼
+-------------------------------------
+function UI_Colosseum:click_defDeckBtn()
+    local vars = self.vars
+    local with_friend = nil
+    local ui = UI_ReadyScene(COLOSSEUM_STAGE_ID, with_friend, 'def')
+
+    local function close_cb()
+        local combat_power = g_colosseumData.m_playerUserInfo:getDefDeckCombatPower(true)
+        vars['powerLabel']:setString(Str('방어 전투력 : {1}', comma_value(combat_power)))
+    end
+
+    ui:setCloseCB(close_cb)
+end
+
+
+-------------------------------------
 -- function initTab
 -------------------------------------
 function UI_Colosseum:initTab()
     local vars = self.vars
     self:addTab('atk_tab', vars['atkBtn'], vars['atkListNode'], vars['refreshBtn'], vars['powerLabel'])
-    self:addTab('def_tab', vars['defBtn'], vars['defListNode'], vars['powerLabel'])
+    self:addTab('def_tab', vars['defBtn'], vars['defListNode'], vars['powerLabel'], vars['defDeckBtn'])
     self:addTab('ranking_tab', vars['rankingBtn'], vars['rankingListNode'], vars['myRankingListNode'])
 
     self:setTab('atk_tab')

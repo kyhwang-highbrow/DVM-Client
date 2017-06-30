@@ -54,6 +54,8 @@ StructUserInfoColosseum = class(PARENT, {
         m_pvpAtkDeckCombatPower = 'number',
         m_pvpDefDeck = 'table',
         m_pvpDefDeckCombatPower = 'number',
+
+        m_matchResult = 'number', -- -1:매치 전, 0:패, 1:승
     })
 
 -------------------------------------

@@ -252,7 +252,10 @@ end
 -- @TODO
 -------------------------------------
 function TableFormation:temp(formation)
-	if (formation == 'protect') then
+    if (formation == 'default') then
+        formation = 'attack'
+
+	elseif (formation == 'protect') then
 		formation = 'critical'
 		ccdisplay('임시 처리 코드 통과 - formation_type ')
 	end

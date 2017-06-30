@@ -56,7 +56,8 @@ function ServerData_Deck:getDeck(type)
 
     -- 콜로세움 덱 예외처리
     if (type == 'pvp_atk') or (type == 'pvp_def') then
-        return g_colosseumData.m_playerUserInfo:getDeck(type)
+        local l_doid, formation, type, leader = g_colosseumData.m_playerUserInfo:getDeck(type)
+        return l_doid, self:adjustFormationName(formation), type, leader 
     end
 
     local l_deck = self.m_serverData:get('deck')

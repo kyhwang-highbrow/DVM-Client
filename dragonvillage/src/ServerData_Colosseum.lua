@@ -116,6 +116,7 @@ function ServerData_Colosseum:refresh_matchList(l_match_list)
 
         -- 콜로세움 유저 정보
         struct_user_info.m_rp = v['rp']
+        struct_user_info.m_matchResult = v['match']
 
         struct_user_info:applyRunesDataList(v['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
         struct_user_info:applyDragonsDataList(v['dragons'])
