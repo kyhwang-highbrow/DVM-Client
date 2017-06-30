@@ -57,6 +57,12 @@ function UI_ColosseumAttackListItem:init(struct_user_info_colosseum)
 
     -- 선택 (공격 버튼)
     vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
+
+    do-- 상태 정리
+        vars['selectBtn']:setVisible((info.m_matchResult == -1))
+        vars['winNode']:setVisible((info.m_matchResult == 1))
+        vars['loseNode']:setVisible((info.m_matchResult == 0))
+    end
 end
 
 -------------------------------------

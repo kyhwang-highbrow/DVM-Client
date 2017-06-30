@@ -189,6 +189,25 @@ function UI_Colosseum:click_refreshBtn()
 end
 
 -------------------------------------
+-- function refresh_combatPower
+-- @brief
+-------------------------------------
+function UI_Colosseum:refresh_combatPower(type)
+    local vars = self.vars
+    local type = type or 'all'
+
+    if (type == 'all') or (type == 'atk') then
+        local combat_power = g_colosseumData.m_playerUserInfo:getAtkDeckCombatPower(true)
+        vars['powerLabel']:setString(Str('공격 전투력 : {1}', comma_value(combat_power)))
+    end
+
+    if (type == 'all') or (type == 'def') then
+        local combat_power = g_colosseumData.m_playerUserInfo:getDefDeckCombatPower(true)
+        vars['powerLabel']:setString(Str('방어 전투력 : {1}', comma_value(combat_power)))
+    end
+end
+
+-------------------------------------
 -- function click_defDeckBtn
 -- @brief 방어 덱 설정 버튼
 -------------------------------------
@@ -198,8 +217,7 @@ function UI_Colosseum:click_defDeckBtn()
     local ui = UI_ReadyScene(COLOSSEUM_STAGE_ID, with_friend, 'def')
 
     local function close_cb()
-        local combat_power = g_colosseumData.m_playerUserInfo:getDefDeckCombatPower(true)
-        vars['powerLabel']:setString(Str('방어 전투력 : {1}', comma_value(combat_power)))
+        self:refresh_combatPower('def')
     end
 
     ui:setCloseCB(close_cb)
@@ -226,12 +244,10 @@ function UI_Colosseum:onChangeTab(tab, first)
 
     local vars = self.vars
     if (tab == 'atk_tab') then
-        local combat_power = g_colosseumData.m_playerUserInfo:getAtkDeckCombatPower(true)
-        vars['powerLabel']:setString(Str('공격 전투력 : {1}', comma_value(combat_power)))
+        self:refresh_combatPower('atk')
 
     elseif (tab == 'def_tab') then
-        local combat_power = g_colosseumData.m_playerUserInfo:getDefDeckCombatPower(true)
-        vars['powerLabel']:setString(Str('방어 전투력 : {1}', comma_value(combat_power)))
+        self:refresh_combatPower('def')
 
     elseif (tab == 'ranking_tab') then
         self:request_Rank()
