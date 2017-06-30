@@ -120,25 +120,36 @@ end
 -- function getDesc
 -------------------------------------
 function StructProduct:getDesc()
-    if self['t_desc'] and (self['t_desc'] ~= '') then
+	-- t_desc가 있다면 출력
+    if self['t_desc'] and (self['t_desc'] ~= '') and (self['t_desc'] ~= ' ') then
         return Str(self['t_desc'])
     end
 
-    local l_item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
-    if (not l_item_list) then
-        return ''
-    end
+	-- 상품 구매 제한이 있고 t_desc가 없다면 구매횟수 출력
+	local max_buy_cnt = self['max_buy_count']
+	if (isNumber(max_buy_cnt)) then
+		local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+		return Str('구매 횟수 {1} / {2}', buy_cnt, max_buy_cnt)
+	end
+	
+	-- 상품 구매 제한이 없고 t_desc도 없다면 첫번째 아이템 설명 출력...
+	do
+		local l_item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
+		if (not l_item_list) then
+			return ''
+		end
 
-    local first_item = l_item_list[1]
-    if (not first_item) or (not first_item['item_id']) then
-        return ''
-    end
+		local first_item = l_item_list[1]
+		if (not first_item) or (not first_item['item_id']) then
+			return ''
+		end
 
-    -- 첫 번째 아이템의 설명을 사용
-    local table_item = TableItem()
-    local item_id = first_item['item_id']
-    local t_desc = table_item:getValue(item_id, 't_desc')
-    return Str(t_desc)
+		-- 첫 번째 아이템의 설명을 사용
+		local table_item = TableItem()
+		local item_id = first_item['item_id']
+		local t_desc = table_item:getValue(item_id, 't_desc')
+		return Str(t_desc)
+	end
 end
 
 -------------------------------------
@@ -214,7 +225,47 @@ end
 -- function tryBuy
 -------------------------------------
 function StructProduct:tryBuy()
-    local price_type = self['price_type']
+	-- 구매 횟수 확인
+	if (not self:checkMaxBuyCount()) then
+		return false
+	end
+
+	-- 재화 확인
+	if (not self:checkPrice()) then
+		return false
+	end
+
+    -- 구매 가능한 상태
+    return true
+end 
+
+-------------------------------------
+-- function checkMaxBuyCount
+-------------------------------------
+function StructProduct:checkMaxBuyCount()
+	local max_buy_cnt = self['max_buy_count']
+
+	-- 숫자가 아니라면 구매 횟수 제한이 없는 것
+	if (not isNumber(max_buy_cnt)) then
+		return true
+	end
+	
+	local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+	
+	-- 구매 횟수 초과한 경우
+	if (buy_cnt >= max_buy_cnt) then
+		UIManager:toastNotificationRed(Str('구매 횟수를 초과했습니다.'))
+		return false	
+	end
+
+	return true
+end
+
+-------------------------------------
+-- function checkPrice
+-------------------------------------
+function StructProduct:checkPrice()
+	local price_type = self['price_type']
     local price = self['price']
 
     if (price_type == 'money') then
@@ -281,6 +332,5 @@ function StructProduct:tryBuy()
         error('price_type : ' .. price_type)
     end
 
-    -- 구매 가능한 상태
-    return true
-end 
+	return true
+end

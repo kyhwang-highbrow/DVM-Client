@@ -16,6 +16,7 @@ function UI_Product:init(struct_product)
     self.m_structProduct = struct_product
     self:initUI()
 	self:initButton()
+	self:refresh()
 end
 
 -------------------------------------
@@ -23,7 +24,6 @@ end
 -------------------------------------
 function UI_Product:initUI()
     local vars = self.vars
-
     local struct_product = self.m_structProduct
 
 	-- 상품 이름
@@ -54,6 +54,14 @@ end
 function UI_Product:initButton()
 	local vars = self.vars
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Product:refresh()
+	local vars = self.vars
+	local struct_product = self.m_structProduct
 end
 
 -------------------------------------
