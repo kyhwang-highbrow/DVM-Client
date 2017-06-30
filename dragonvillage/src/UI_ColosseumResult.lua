@@ -30,9 +30,11 @@ function UI_ColosseumResult:initUI(is_win, t_data)
     local vars = self.vars
 
     if is_win then
+        SoundMgr:playBGM('bgm_dungeon_victory', false)    
         vars['victroyNode']:setVisible(true)
         vars['failedNode']:setVisible(false)
     else
+        SoundMgr:playBGM('bgm_dungeon_lose', false)
         vars['victroyNode']:setVisible(false)
         vars['failedNode']:setVisible(true)
     end

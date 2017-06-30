@@ -59,7 +59,7 @@ function UI_ColosseumAttackListItem:init(struct_user_info_colosseum)
     vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
 
     do-- 상태 정리
-        vars['selectBtn']:setVisible((info.m_matchResult == -1))
+        vars['selectBtn']:setVisible((info.m_matchResult == -1) or (info.m_matchResult == 0))
         vars['winNode']:setVisible((info.m_matchResult == 1))
         vars['loseNode']:setVisible((info.m_matchResult == 0))
     end
