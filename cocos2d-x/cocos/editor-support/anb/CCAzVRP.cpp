@@ -1333,8 +1333,7 @@ void AzVRP::onEnter()
 		A2D자체를 땠다가 다시 붙이는 과정에서 발생하는 것으로 추정됨.
 		이를 방지하기 위해 임시로 unscheduleUpdate을 호출하도록함
 	*/
-	_scheduler->unscheduleUpdate(this);
-
+	unscheduleUpdate();
 	scheduleUpdate();
 }
 void AzVRP::onExit()

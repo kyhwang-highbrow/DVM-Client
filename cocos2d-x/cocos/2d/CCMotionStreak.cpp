@@ -134,6 +134,16 @@ bool MotionStreak::initWithFade(float fade, float minSeg, float stroke, const Co
 
     setTexture(texture);
     setColor(color);
+
+	/*
+		17.6.30 @mskim
+		모션 스트릭 생성시(create) 아주 드믄 경우 (이전 A2D에서 발생한 경우보다 훨씬 드물다) ASSERT 발생
+		원인은 스케줄 시작 후 schedulePerFrame에서 markedForDeletion에 의해 발생
+		tHashUpdateEntry에 이미 등록된 스케쥴이기 때문에 그렇다. 
+		A2D의 경우 땠다가 붙이는 과정에서 발생한것으로 유추했지만 이 경우는 새로 생성한 경우..
+		임시 해결책으로 unschedule시켜버린다.
+	*/
+	unscheduleUpdate();
     scheduleUpdate();
 
     return true;
