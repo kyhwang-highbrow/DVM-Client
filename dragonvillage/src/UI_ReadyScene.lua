@@ -836,18 +836,6 @@ function UI_ReadyScene:click_autoStartOnBtn()
 end
 
 -------------------------------------
--- function click_friendBtn
--- @breif 임시 삭제되었음
--------------------------------------
-function UI_ReadyScene:click_friendBtn()
-    local ui = UI_FriendSelectPopup()
-    ui:setCloseCB(function()
-        local check = (g_friendData.m_selectedShareFriendData ~= nil)
-        self.vars['friendBtn']:setChecked(check)
-    end)
-end
-
--------------------------------------
 -- function click_fomationBtn
 -- @breif
 -------------------------------------

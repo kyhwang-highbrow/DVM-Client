@@ -210,16 +210,11 @@ end
 
 -------------------------------------
 -- function click_retryBtn
+-- @brief 다시하기
 -------------------------------------
 function UI_GameResult_AncientTower:click_retryBtn()
-    g_ancientTowerData:goToAncientTowerScene()
-end
-
--------------------------------------
--- function click_backBtn
--------------------------------------
-function UI_GameResult_AncientTower:click_backBtn()
-    g_ancientTowerData:goToAncientTowerScene()
+    local use_scene = true
+    g_ancientTowerData:goToAncientTowerScene(use_scene)
 end
 
 -------------------------------------
@@ -236,6 +231,18 @@ end
 function UI_GameResult_AncientTower:direction_start()
     self:setSuccessVisual_Ancient()
     return
+end
+
+-------------------------------------
+-- function direction_end
+-- @brief 종료 연출
+-------------------------------------
+function UI_GameResult_AncientTower:direction_end()
+    UI_GameResultNew.direction_end(self)
+
+    -- 필요없는 버튼 비지블 꺼줌
+    local vars = self.vars
+    vars['retryBtn']:setVisible(false)
 end
 
 -------------------------------------

@@ -101,9 +101,8 @@ end
 -- @brief 친구 요청 수락
 -------------------------------------
 function UI_FriendPopupTabResponse:click_inviteAcceptBtn(data)
-
-    local friend_uid = data['uid']
-    local friend_nick = data['nick']
+    local friend_uid = data.m_uid
+    local friend_nick = data.m_nickname
 
     local function finish_cb(ret)
         if (ret['status'] == 0) then
@@ -129,9 +128,8 @@ end
 -- @brief 친구 요청 거절
 -------------------------------------
 function UI_FriendPopupTabResponse:click_inviteRefuseBtn(data)
-
-    local friend_uid = data['uid']
-    local friend_nick = data['nick']
+    local friend_uid = data.m_uid
+    local friend_nick = data.m_nick
 
     local function finish_cb(ret)
         if (ret['status'] == 0) then

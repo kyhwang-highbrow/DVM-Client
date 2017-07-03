@@ -489,12 +489,6 @@
     <None Include="..\src\UI_FriendPopupTabRecommend.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_FriendSelectPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_FriendSelectListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_FriendPopupTabRequest.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -523,18 +517,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_FriendPopupTabInvite.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_FriendPopupTabSupport.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_FriendSupportListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_FriendDragonSupportRequestPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_FriendDragonSupportPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_GamePause_SecretDungeon.lua">
@@ -1162,9 +1144,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\FpsMeter.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\FriendBuffManager.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\GameAuto.lua">
@@ -2259,9 +2238,6 @@
     <None Include="..\src\UI_DragonSkillEnhance_Result.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_Friend_Old.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ServerData_Hatchery.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2444,6 +2420,12 @@
     </None>
     <None Include="..\src\UI_ColosseumHistoryListItem.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructUserInfoAncientTower.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructUserInfoFriend.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

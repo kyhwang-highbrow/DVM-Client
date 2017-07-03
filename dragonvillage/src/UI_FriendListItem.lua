@@ -12,7 +12,7 @@ UI_FriendListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_FriendListItem:init(t_friend_info)
-    self.m_friendUid = t_friend_info['uid']
+    self.m_friendUid = t_friend_info.m_uid
     self.m_bManageMode = false
     local vars = self:load('friend_item_01.ui')
 
@@ -28,8 +28,8 @@ function UI_FriendListItem:initUI()
     local vars = self.vars
     local t_friend_info = self:getFriendInfo()
 
-    vars['nameLabel']:setString(t_friend_info['nick'])
-    vars['levelLabel']:setString(Str('레벨 {1}', t_friend_info['lv']))
+    vars['nameLabel']:setString(t_friend_info:getNickText())
+    vars['levelLabel']:setString(t_friend_info:getLvText())
 end
 
 -------------------------------------
@@ -38,10 +38,7 @@ end
 function UI_FriendListItem:initButton()
     local vars = self.vars
     local t_friend_info = self:getFriendInfo()
-    local t_dragon_data = t_friend_info['leader']
-
-    local card = UI_DragonCard(t_dragon_data, t_friend_info)
-    vars['userNode']:addChild(card.root)
+    vars['userNode']:addChild(t_friend_info:getDragonCard())
 end
 
 -------------------------------------
@@ -62,8 +59,7 @@ function UI_FriendListItem:refresh()
 
     local t_friend_info = self:getFriendInfo()
 
-    -- 최종 접속 시간(지나간 시간 출력)
-    vars['timeLabel']:setString(g_friendData:getPastActiveTimeStr(t_friend_info))
+    vars['timeLabel']:setString(t_friend_info:getPastActiveTimeText())
 
     -- 보내기 버튼
     vars['sendBtn']:setEnabled(not g_friendData:isSentFp(self.m_friendUid))

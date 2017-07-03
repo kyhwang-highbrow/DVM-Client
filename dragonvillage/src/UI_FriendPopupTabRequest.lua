@@ -62,7 +62,7 @@ function UI_FriendPopupTabRequest:checkTableViewData()
 
     local request_list = g_friendData:getFriendInviteRequestList()
     for _, v in pairs(request_list) do
-        local friend_uid = v['uid']
+        local friend_uid = v.m_uid
         if (not table_view:getItem(friend_uid)) then
             table_view:addItem(friend_uid, v)
             self:setCountLabel()
@@ -118,9 +118,9 @@ end
 -- @brief 친구 요청 취소
 -------------------------------------
 function UI_FriendPopupTabRequest:click_inviteRequestCancelBtn(data)
-
-    local friend_uid = data['uid']
-    local friend_nick = data['nick']
+    
+    local friend_uid = data.m_uid
+    local friend_nick = data.m_nickname
 
     local function finish_cb(ret)
         if (ret['status'] == 0) then

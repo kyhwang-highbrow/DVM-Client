@@ -19,7 +19,7 @@ ServerData_Friend = class({
         m_lFriendDragonsList = 'list',
 
         m_mInvitedUserList = 'map', -- 클라이언트가 켜져있는 동안 친구초대를 한 유저의 uid 저장
-         
+       
         m_mSentFpUserList = 'map', -- 오늘 우정포인트를 보낸 유저 리스트
         
         -- 선택된 친구 드래곤 데이터
@@ -70,7 +70,7 @@ function ServerData_Friend:request_recommend(finish_cb, force)
         for i,v in pairs(ret['users_list']) do
             local uid = v['uid']
             if (not self.m_mInvitedUserList[uid]) then
-                self.m_lRecommendUserList[uid] = v
+                self.m_lRecommendUserList[uid] = StructUserInfoFriend:create(v)
             end
         end
         
@@ -115,7 +115,7 @@ function ServerData_Friend:request_invite(friend_uid, finish_cb)
         -- 초대한 친구 보낸 요청 리스트에 추가
         for i,v in ipairs(ret['friends_list']) do
             local uid = v['uid']
-            self.m_lFriendInviteRequestList[uid] = v
+            self.m_lFriendInviteRequestList[uid] = StructUserInfoFriend:create(v)
         end
 
         if finish_cb then
@@ -183,7 +183,7 @@ function ServerData_Friend:request_friendList(finish_cb, force)
         self.m_lFriendUserList = {}
         for i,v in pairs(ret['friends_list']) do
             local uid = v['uid']
-            self.m_lFriendUserList[uid] = v
+            self.m_lFriendUserList[uid] = StructUserInfoFriend:create(v)
         end
 
         self:setDragonsList()
@@ -216,10 +216,6 @@ end
 -- @brief 친구 리스트 받아옴
 -------------------------------------
 function ServerData_Friend:getFriendList()
-
-    -- 친구 드래곤 사용 시간 값 갱신
-    self:updateFriendUserList_time()
-
     return self.m_lFriendUserList
 end
 
@@ -283,7 +279,7 @@ function ServerData_Friend:setSelectedShareFriendData(t_friend_info)
     self.m_selectedShareFriendData = t_friend_info
 
     if (self.m_selectedShareFriendData) then
-        local t_dragon_data = self.m_selectedShareFriendData['leader']
+        local t_dragon_data = self.m_selectedShareFriendData.m_leaderDragonObject
         g_friendBuff:setParticipationFriendDragon(t_dragon_data)
     end
 end
@@ -312,7 +308,10 @@ function ServerData_Friend:getParticipationFriendDragon()
     self.m_selectedSharedFriendDragon = nil
     self.m_bReleaseDragon = true
 
-    return StructDragonObject(t_friend_info['leader']), t_friend_info['runes']
+    local dragon_object = t_friend_info.m_leaderDragonObject
+    local rune_object = t_friend_info.m_runesObject
+
+    return dragon_object, rune_object
 end
 
 -------------------------------------
@@ -343,7 +342,7 @@ function ServerData_Friend:request_inviteResponseList(finish_cb, force)
         self.m_lFriendInviteResponseList = {}
         for i,v in ipairs(ret['invites_list']) do
             local uid = v['uid']
-            self.m_lFriendInviteResponseList[uid] = v
+            self.m_lFriendInviteResponseList[uid] = StructUserInfoFriend:create(v)
         end
 
         if finish_cb then
@@ -381,7 +380,7 @@ function ServerData_Friend:request_inviteRequestList(finish_cb, force)
         self.m_lFriendInviteRequestList = {}
         for i,v in ipairs(ret['request_list']) do
             local uid = v['uid']
-            self.m_lFriendInviteRequestList[uid] = v
+            self.m_lFriendInviteRequestList[uid] = StructUserInfoFriend:create(v)
         end
 
         if finish_cb then
@@ -510,119 +509,10 @@ function ServerData_Friend:request_inviteRequestCancel(friend_uid, finish_cb)
 end
 
 -------------------------------------
--- function updateFriendUserList_time
--- @brief 친구 드래곤 시간 관련 업데이트
--------------------------------------
-function ServerData_Friend:updateFriendUserList_time()
-    for i, v in pairs(self.m_lFriendUserList) do
-        local t_friend_info = v
-
-        -- 친구 유저 마지막 활동 시간
-        self:updateFriendUser_activeTime(t_friend_info)
-
-        -- 친구 드래곤 사용 시간
-        self:updateFriendUser_usedTime(t_friend_info)
-    end
-end
-
--------------------------------------
--- function updateFriendUser_usedTime
--- @brief 친구 드래곤 사용 시간 업데이트
--- t_friend_info['used_time'] 친구 드래곤을 사용 가능한 시점 (타임스템프)
--------------------------------------
-function ServerData_Friend:updateFriendUser_usedTime(t_friend_info)
-    local server_time = Timer:getServerTime()
-    -- 쿨타임 체크 후 사용 가능 여부표시
-    local used_time = (t_friend_info['used_time'] / 1000)
-    if (used_time == 0) or (used_time <= server_time) then
-        t_friend_info['enable_use'] = true
-    else
-        t_friend_info['enable_use'] = false
-    end
-end
-
--------------------------------------
--- function updateFriendUser_activeTime
--- @brief 친구 유저 접속 시간
--------------------------------------
-function ServerData_Friend:updateFriendUser_activeTime(t_friend_info)
-    local server_time = Timer:getServerTime()
-
-    -- 최종 활동 시간을 millisecond에서 second로 변경
-    local last_active = (t_friend_info['last_active'] / 1000)
-
-    -- 마지막 활동 시간이 없을 경우
-    if (last_active == 0) then
-        t_friend_info['last_active_past_time'] = -1
-        return
-    end
-
-    -- 마지막 활동에서 지난 시간
-    t_friend_info['last_active_past_time'] = (server_time - last_active)
-
-    -- 30분 이내에 활동이 있었을 경우 접속 상태로 처리
-    if t_friend_info['last_active_past_time'] <= (60 * 30) then
-        t_friend_info['is_online'] = true
-    else
-        t_friend_info['is_online'] = false
-    end
-end
-
--------------------------------------
--- function getPastActiveTimeStr
--- @brief 최종 접속 시간(지나간 시간 출력)
--------------------------------------
-function ServerData_Friend:getPastActiveTimeStr(t_friend_info)
-    if (not t_friend_info['last_active_past_time']) then
-        self:updateFriendUser_activeTime(t_friend_info)
-    end
-    
-    if (t_friend_info['is_online']) then
-        return Str('접속 중')
-    end
-
-    local last_active_past_time = t_friend_info['last_active_past_time']
-    if (last_active_past_time == -1) then
-        return Str('접속정보 없음')
-    else
-        local showSeconds = true
-        local firstOnly = true
-        return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_past_time, showSeconds, firstOnly))
-    end
-end
-
--------------------------------------
--- function getDragonUseCoolStr
--- @brief 드래곤 사용 시간
--------------------------------------
-function ServerData_Friend:getDragonUseCoolStr(t_friend_info)
-    local used_time = (t_friend_info['used_time'] / 1000)
-    local server_time = Timer:getServerTime()
-        
-    if (used_time == 0) then
-        return '미사용'
-    elseif (server_time < used_time) then
-        local gap = (used_time - server_time)
-        local showSeconds = true
-        local firstOnly = false
-        local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
-        local str = Str('{1} 후 \n사용 가능', text)
-        return str
-    else
-        local gap = (server_time - used_time)
-        local showSeconds = true
-        local firstOnly = false
-        local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
-        local str = Str('{1} 전에 \n사용함', text)
-        return str
-    end
-end
-
--------------------------------------
 -- function request_byeFriends
 -- @brief 친구 삭제
 -------------------------------------
-function ServerData_Friend:request_byeFriends(friend_uid, friend_type, is_cash, finish_cb)
+function ServerData_Friend:request_byeFriends(friend_uid, is_cash, finish_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -647,7 +537,6 @@ function ServerData_Friend:request_byeFriends(friend_uid, friend_type, is_cash, 
     ui_network:setUrl('/socials/bye_friends')
     ui_network:setParam('uid', uid)
     ui_network:setParam('friends', friend_uid)
-    ui_network:setParam('type', friend_type)
     ui_network:setParam('is_cash', is_cash and 1 or 0)
 
     ui_network:setSuccessCB(success_cb)
@@ -791,8 +680,9 @@ function ServerData_Friend:setDragonsList()
             
     for _, v in pairs(self.m_lFriendUserList) do
         local t_friend_info = v
-        local doid = t_friend_info['leader']['id']
-        self.m_lFriendDragonsList[doid] = StructDragonObject(t_friend_info['leader'])
+        local t_dragon_info = t_friend_info.m_leaderDragonObject
+        local doid = t_dragon_info['id']
+        self.m_lFriendDragonsList[doid] = t_dragon_info
     end
 end
 
@@ -800,9 +690,6 @@ end
 -- function getDragonsList
 -------------------------------------
 function ServerData_Friend:getDragonsList()
-
-    -- 친구 드래곤 사용 시간 값 갱신
-    self:updateFriendUserList_time()
 
     local dragon_list = {}
     for _, v in pairs(self.m_lFriendDragonsList) do
@@ -841,7 +728,7 @@ end
 function ServerData_Friend:getDragonCoolTimeFromDoid(doid)
     if (doid) and (not self:checkFriendDragonFromDoid(doid)) then return nil end
     local friend_info = self:getFriendInfoFromDoid(doid)
-    return friend_info['used_time']
+    return friend_info.m_usedTime
 end
 
 -------------------------------------
@@ -851,7 +738,7 @@ end
 function ServerData_Friend:checkUseEnableDragon(doid)
     if (doid) and (not self:checkFriendDragonFromDoid(doid)) then return false end
     local friend_info = self:getFriendInfoFromDoid(doid)
-    local use_enable = friend_info['enable_use']
+    local use_enable = friend_info.m_enableUse
     return use_enable
 end
 
@@ -924,15 +811,6 @@ function ServerData_Friend:checkAutoPlayCondition()
 end
 
 -------------------------------------
--- function getSaveDeckParam
--- @brief 친구 드래곤 저장시 친구 드래곤은 param 넘기지 않음
--------------------------------------
-function ServerData_Friend:getSaveDeckParam(doid)
-    if (doid) and (self:checkFriendDragonFromDoid(doid)) then return nil end
-    return doid or nil
-end
-
--------------------------------------
 -- function getFriendInfoFromDoid
 -- @brief 드래곤 uid로 친구 정보 가져옴
 -------------------------------------
@@ -941,14 +819,4 @@ function ServerData_Friend:getFriendInfoFromDoid(doid)
      
     local owner_uid = self.m_lFriendDragonsList[doid]['uid']
     return self.m_lFriendUserList[owner_uid]
-end
-
--------------------------------------
--- function getFriendOnlineBuff
--- @brief 친구 접속 버프
--------------------------------------
-function ServerData_Friend:getFriendOnlineBuff()
-    if true then
-        return {}, {}, {}
-    end
 end

@@ -211,7 +211,7 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
 
     local friend_uid = nil
     if g_friendData.m_selectedShareFriendData then
-        friend_uid = g_friendData.m_selectedShareFriendData['uid']
+        friend_uid = g_friendData.m_selectedShareFriendData.m_uid
     end
 
     local ui_network = UI_Network()

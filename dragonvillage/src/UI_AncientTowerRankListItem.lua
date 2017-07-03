@@ -25,47 +25,45 @@ end
 function UI_AncientTowerRankListItem:initUI()
     local vars = self.vars
     local t_rank_info = self.m_rankInfo
-    local rank = t_rank_info['rank']
+    local tag = t_rank_info.m_tag
 
     -- 다음 랭킹 보기 
-    if (rank == 'next') then
+    if (tag == 'next') then
         vars['nextBtn']:setVisible(true)
         vars['itemMenu']:setVisible(false)
         return
     end
 
     -- 이전 랭킹 보기 
-    if (rank == 'prev') then
+    if (tag == 'prev') then
         vars['prevBtn']:setVisible(true)
         vars['itemMenu']:setVisible(false)
         return
     end
 
-    local score = math_max(t_rank_info['score'], 0)
-    vars['scoreLabel']:setString(Str('{1}점', score))
-    vars['nameLabel']:setString(t_rank_info['nick'])
+    -- 점수 표시
+    vars['scoreLabel']:setString(t_rank_info:getScoreText())
 
-    local rate = t_rank_info['rate'] * 100
-    if (rank == 0) then
-        vars['rankingLabel']:setString(Str('순위\n없음'))
-    elseif (rank <= 100) then
-        vars['rankingLabel']:setString(Str('{1}위', rank))
-    else 
-        -- 100위 이상은 퍼센트 표기
-        vars['rankingLabel']:setString(string.format('%.2f%%', rate))
-    end
+    -- 유저 정보 표시 (레벨, 닉네임)
+    vars['nameLabel']:setString(t_rank_info:getUserText())
+
+    -- 순위 표시
+    vars['rankingLabel']:setString(t_rank_info:getRankText())
 
     do -- 리더 드래곤 아이콘
-        local t_dragon_data = t_rank_info['leader']
-        local ui = UI_DragonCard(StructDragonObject(t_dragon_data))
-        ui.root:setSwallowTouch(false)
-        vars['profileNode']:addChild(ui.root)
+        local ui = t_rank_info:getLeaderDragonCard()
+        if ui then
+            ui.vars['clickBtn']:registerScriptTapHandler(function() UI_UserInfoMini:open(t_rank_info) end)
+            ui.root:setSwallowTouch(false)
+            vars['profileNode']:addChild(ui.root)
+        end
     end
 
-    -- 내 순위
-    local uid = g_userData:get('uid')
-    local is_my_rank = (uid == t_rank_info['uid'])
-    vars['meSprite']:setVisible(is_my_rank)
+    do -- 내 순위
+        local uid = g_userData:get('uid')
+        local is_my_rank = (uid == t_rank_info.m_uid)
+        vars['meSprite']:setVisible(is_my_rank)
+    end
 end
 
 -------------------------------------

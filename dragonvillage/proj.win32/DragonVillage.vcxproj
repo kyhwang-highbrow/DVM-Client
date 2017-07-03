@@ -293,7 +293,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ErrorTracker.lua" />
     <None Include="..\src\EventCarrier.lua" />
     <None Include="..\src\FpsMeter.lua" />
-    <None Include="..\src\FriendBuffManager.lua" />
     <None Include="..\src\GameAuto.lua" />
     <None Include="..\src\GameAuto_Enemy.lua" />
     <None Include="..\src\GameAuto_Hero.lua" />
@@ -412,7 +411,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Exploration.lua" />
     <None Include="..\src\ServerData_Formation.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
-    <None Include="..\src\ServerData_Friend_Old.lua" />
     <None Include="..\src\ServerData_Gacha.lua" />
     <None Include="..\src\ServerData_Hatchery.lua" />
     <None Include="..\src\ServerData_Highlight.lua" />
@@ -693,7 +691,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StructSlimeObject.lua" />
     <None Include="..\src\StructStatusEffect.lua" />
     <None Include="..\src\StructUserInfo.lua" />
+    <None Include="..\src\StructUserInfoAncientTower.lua" />
     <None Include="..\src\StructUserInfoColosseum.lua" />
+    <None Include="..\src\StructUserInfoFriend.lua" />
     <None Include="..\src\StructWaveRegenGroup.lua" />
     <None Include="..\src\SumRandom.lua" />
     <None Include="..\src\SwipeGesture.lua" />
@@ -904,8 +904,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ExplorationLocationButton.lua" />
     <None Include="..\src\UI_ExplorationReady.lua" />
     <None Include="..\src\UI_ExplorationResultPopup.lua" />
-    <None Include="..\src\UI_FriendDragonSupportPopup.lua" />
-    <None Include="..\src\UI_FriendDragonSupportRequestPopup.lua" />
     <None Include="..\src\UI_FriendListItem.lua" />
     <None Include="..\src\UI_FriendPointGachaPopup.lua" />
     <None Include="..\src\UI_FriendPointGachaResult.lua" />
@@ -915,12 +913,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_FriendPopupTabInvite.lua" />
     <None Include="..\src\UI_FriendPopupTabRecommend.lua" />
     <None Include="..\src\UI_FriendPopupTabRequest.lua" />
-    <None Include="..\src\UI_FriendPopupTabSupport.lua" />
     <None Include="..\src\UI_FriendRecommendUserListItem.lua" />
     <None Include="..\src\UI_FriendRequestListItem.lua" />
-    <None Include="..\src\UI_FriendSelectListItem.lua" />
-    <None Include="..\src\UI_FriendSelectPopup.lua" />
-    <None Include="..\src\UI_FriendSupportListItem.lua" />
     <None Include="..\src\UI_FruitFeedPress.lua" />
     <None Include="..\src\UI_GachaBox.lua" />
     <None Include="..\src\UI_GachaResult_Dragon.lua" />

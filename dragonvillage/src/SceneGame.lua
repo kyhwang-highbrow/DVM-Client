@@ -38,12 +38,6 @@ SceneGame = class(PerpleScene, {
         m_gameKey = 'number', -- 서버에서 넘어오는 고유 Key
         m_resPreloadMgr = 'ResPreloadMgr',
 
-        -- 게임에 적용될 버프
-        m_bestfriendOnlineBuff = '',
-        m_soulmateOnlineBuff = '',
-        m_totalOnlineBuffList = '',
-
-        --
     })
 
 -------------------------------------
@@ -64,17 +58,8 @@ function SceneGame:init(game_key, stage_id, stage_name, develop_mode, stage_para
     self.m_bDevelopMode = develop_mode or false
     self.m_bShowTopUserInfo = false
 
-    self:initFriendOnlineBuff()
     self:init_gameMode(stage_id)
 	self:init_loadingGuideType()
-end
-
--------------------------------------
--- function initFriendOnlineBuff
--- @brief 친구 접속 버프
--------------------------------------
-function SceneGame:initFriendOnlineBuff()
-    self.m_bestfriendOnlineBuff, self.m_soulmateOnlineBuff, self.m_totalOnlineBuffList = g_friendData:getFriendOnlineBuff()
 end
 
 -------------------------------------
@@ -495,18 +480,6 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         send_score = true
         api_url = '/game/ancient/finish'
     end
-
-    -- 친구 접속 버프
-    if self.m_totalOnlineBuffList then
-        -- 추가 경험치 버프
-        local exp_rate = (self.m_totalOnlineBuffList['exp'] or 0)
-        t_param['exp_rate'] = t_param['exp_rate'] * (1 + (exp_rate / 100))
-        
-        -- 추가 골드 버프
-        local gold_rate = (self.m_totalOnlineBuffList['gold'] or 0)
-        t_param['gold_rate'] = t_param['gold_rate'] * (1 + (gold_rate / 100))
-    end
-
 
     local ui_network = UI_Network()
     ui_network:setUrl(api_url)

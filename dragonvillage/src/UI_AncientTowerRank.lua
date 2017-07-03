@@ -95,23 +95,22 @@ function UI_AncientTowerRank:init_rankTableView()
 
     -- 내 순위
 	do
-		local t_my_rank = g_ancientTowerData.m_myRank
-        t_my_rank['score'] = math_max(t_my_rank['score'], 0)
-        
-        local ui = UI_AncientTowerRankListItem(t_my_rank)
+        local ui = UI_AncientTowerRankListItem(g_ancientTowerData.m_playerUserInfo)
         my_node:addChild(ui.root)
 	end
 
     local l_item_list = g_ancientTowerData.m_lGlobalRank
 
-    if (1 < self.m_rankOffset) then
-        local prev_data = { rank = 'prev' }
+    if (self.m_rankOffset > 1) then
+        local prev_data = { m_tag = 'prev' }
         l_item_list['prev'] = prev_data
     end
 
-    local next_data = { rank = 'next' }
-    l_item_list['next'] = next_data
-    
+    if (#l_item_list > 0) then
+        local next_data = { m_tag = 'next' }
+        l_item_list['next'] = next_data
+    end
+
     -- 이전 랭킹 보기
     local function click_prevBtn()
         self.m_rankOffset = self.m_rankOffset - RANK_SHOW_CNT
@@ -144,8 +143,31 @@ function UI_AncientTowerRank:init_rankTableView()
     table_view:setItemList(l_item_list)
     self.m_rankTableView = table_view
 
-    -- 테이블 뷰 정렬
-    g_ancientTowerData:sortAncientRank(table_view.m_itemList)
+    do -- 테이블 뷰 정렬
+        local function sort_func(a, b)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            -- 이전, 다음 버튼 정렬
+            if (a_data.m_tag == 'prev') then
+                return true
+            elseif (b_data.m_tag == 'prev') then
+                return false
+            elseif (a_data.m_tag == 'next') then
+                return false
+            elseif (b_data.m_tag == 'next') then
+                return true
+            end
+
+            -- 랭킹으로 선별
+            local a_rank = a_data.m_rank
+            local b_rank = b_data.m_rank 
+            return a_rank < b_rank
+            
+        end
+
+        table.sort(table_view.m_itemList, sort_func)
+    end
 
     table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
 end

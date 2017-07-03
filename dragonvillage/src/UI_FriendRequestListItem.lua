@@ -26,9 +26,9 @@ function UI_FriendRequestListItem:initUI()
     local vars = self.vars
     local t_friend_info = self.m_tFriendInfo
     
-    vars['timeLabel']:setString(g_friendData:getPastActiveTimeStr(t_friend_info))
-    vars['nameLabel']:setString(t_friend_info['nick'])
-    vars['levelLabel']:setString(Str('Lv. {1}', t_friend_info['lv']))
+    vars['timeLabel']:setString(t_friend_info:getPastActiveTimeText())
+    vars['nameLabel']:setString(t_friend_info:getNickText())
+    vars['levelLabel']:setString(t_friend_info:getLvText())
 end
 
 -------------------------------------
@@ -40,10 +40,7 @@ function UI_FriendRequestListItem:initButton()
 
     vars['sendBtn']:setVisible(false)
     vars['cancelBtn']:setVisible(true)
-
-    local t_dragon_data = t_friend_info['leader']
-    local card = UI_DragonCard(t_dragon_data, t_friend_info)
-    vars['userNode']:addChild(card.root)
+    vars['userNode']:addChild(t_friend_info:getDragonCard())
 end
 
 -------------------------------------

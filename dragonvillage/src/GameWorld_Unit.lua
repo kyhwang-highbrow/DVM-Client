@@ -228,16 +228,6 @@ function GameWorld:makeHeroDeck()
             end
         end
     end
-    
-    -- 친구 접속 버프 적용
-    local friend_online_buff = g_gameScene.m_totalOnlineBuffList -- g_gameScene말고 변수를 전달받아 처리할 것
-    if friend_online_buff then
-        for _,hero in pairs(self.m_leftParticipants) do
-            local status_calc = hero.m_statusCalc
-            status_calc:addBuffMulti('atk', (friend_online_buff['atk'] or 0))
-            status_calc:addBuffMulti('def', (friend_online_buff['def'] or 0))
-        end
-    end
 end
 
 -------------------------------------

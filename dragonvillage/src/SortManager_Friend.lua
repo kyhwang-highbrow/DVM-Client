@@ -25,8 +25,8 @@ function SortManager_Friend:sort_draon_level(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_dragon = a_data['leader']
-    local b_dragon = b_data['leader']
+    local a_dragon = a_data.m_leaderDragonObject
+    local b_dragon = b_data.m_leaderDragonObject
 
     -- 레벨 높은 순서
     if (a_dragon['lv'] ~= b_dragon['lv']) then
@@ -54,16 +54,7 @@ end
 -- @brief 테이머 레벨로 정렬
 -------------------------------------
 function SortManager_Friend:sort_tamer_level(a, b, ascending)
-    local key = 'lv'
-    return self:common_sort(key, a, b, ascending)
-end
-
--------------------------------------
--- function sort_cool_time
--- @brief 시간
--------------------------------------
-function SortManager_Friend:sort_cool_time(a, b, ascending)
-    local key = 'cool_time'
+    local key = 'm_lv'
     return self:common_sort(key, a, b, ascending)
 end
 
@@ -72,7 +63,7 @@ end
 -- @brief 드래곤 사용 시간으로 정렬
 -------------------------------------
 function SortManager_Friend:sort_used_time(a, b, ascending)
-    local key = 'used_time'
+    local key = 'm_usedTime'
     return self:common_sort(key, a, b, ascending)
 end
 
@@ -81,6 +72,6 @@ end
 -- @brief 최종 판정
 -------------------------------------
 function SortManager_Friend:sort_uid(a, b, ascending)
-    local key = 'uid'
+    local key = 'm_uid'
     return self:common_sort(key, a, b, ascending)
 end

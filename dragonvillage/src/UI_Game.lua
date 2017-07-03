@@ -141,67 +141,12 @@ end
 -------------------------------------
 function UI_Game:initInfoBoard()
     local vars = self.vars
-    local bestfriend_buff = self.m_gameScene.m_bestfriendOnlineBuff
-    local soulmate_buff = self.m_gameScene.m_soulmateOnlineBuff
-    local total_buff_list = self.m_gameScene.m_totalOnlineBuffList
-
-    if (table.count(total_buff_list) <= 0) and (not g_friendBuff:isExistBuff()) then
-        vars['buffBtn']:setVisible(false)
-        return
-    end
-
-    vars['buffBtn']:setVisible(true)
+    vars['buffBtn']:setVisible(false)
 
     -- 보드 생성
     self.m_buffBoard = UI_NotificationInfo()
     self.m_buffBoard.root:setDockPoint(cc.p(1, 1))
     self.vars['buffNode']:addChild(self.m_buffBoard.root)
-
-    -- 친구 사용 버프
-    if (g_friendBuff:isExistBuff()) then
-        local str = g_friendBuff:getBuffStr()      
-    
-        local buff_info = UI_NotificationInfoElement()
-        buff_info:setTitleText('{@SKILL_NAME}[친구 드래곤 사용 버프]')
-        buff_info:setDescText(str)
-        self.m_buffBoard:addElement(buff_info)
-    end
-
-        -- 소울메이트 버프
-    if soulmate_buff['info_title'] then
-        local buff_info = UI_NotificationInfoElement()
-        buff_info:setTitleText(soulmate_buff['info_title'])
-
-        local info_str = nil
-        for i,v in ipairs(soulmate_buff['info_list']) do
-            if (not info_str) then
-                info_str = v
-            else
-                info_str = info_str .. '\n' .. v
-            end
-        end
-        buff_info:setDescText(info_str)
-        
-        self.m_buffBoard:addElement(buff_info)
-    end
-
-    -- 베스트프랜드 버프
-    if bestfriend_buff['info_title'] then
-        local buff_info = UI_NotificationInfoElement()
-        buff_info:setTitleText(bestfriend_buff['info_title'])
-
-        local info_str = nil
-        for i,v in ipairs(bestfriend_buff['info_list']) do
-            if (not info_str) then
-                info_str = v
-            else
-                info_str = info_str .. '\n' .. v
-            end
-        end
-        buff_info:setDescText(info_str)
-        
-        self.m_buffBoard:addElement(buff_info)
-    end
 end
 
 -------------------------------------

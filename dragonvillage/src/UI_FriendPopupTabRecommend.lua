@@ -143,14 +143,13 @@ end
 -- function click_requestBtn
 -------------------------------------
 function UI_FriendPopupTabRecommend:click_requestBtn(t_friend_info)
-    local function finish_cb(ret)
-        local msg = Str('[{1}]에게 친구 요청을 하였습니다.', t_friend_info['nick'])
-        UIManager:toastNotificationGreen(msg)
+    local friend_ui = t_friend_info.m_uid
 
-        local friend_ui = t_friend_info['uid']
+    local function finish_cb(ret)
+        local msg = Str('[{1}]에게 친구 요청을 하였습니다.', t_friend_info.m_nick)
+        UIManager:toastNotificationGreen(msg)
         self.m_tableView:delItem(friend_ui)
     end
 
-    local friend_ui = t_friend_info['uid']
     g_friendData:request_invite(friend_ui, finish_cb)
 end

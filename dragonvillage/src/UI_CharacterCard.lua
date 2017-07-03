@@ -630,7 +630,7 @@ end
 -------------------------------------
 -- function UI_DragonCard
 -------------------------------------
-function UI_DragonCard(t_dragon_data, t_user_data)
+function UI_DragonCard(t_dragon_data, struct_user_info)
     if t_dragon_data and (not t_dragon_data.m_objectType) then
         t_dragon_data = StructDragonObject(t_dragon_data)
     end
@@ -659,12 +659,8 @@ function UI_DragonCard(t_dragon_data, t_user_data)
     ui:setFriendSpriteVisible(is_friend_dragon)
 
     -- 클릭시 유저 상세 정보 팝업 출력 하는 경우
-    if (t_user_data) then
-        local function show_user_info(t_user_data)
-            local visit = true
-            UI_UserInfoDetailPopup(t_user_data, visit)
-        end
-        ui.vars['clickBtn']:registerScriptTapHandler(function() show_user_info(t_user_data) end)
+    if (struct_user_info) then
+        ui.vars['clickBtn']:registerScriptTapHandler(function() UI_UserInfoMini:open(struct_user_info) end)
     end
 
     return ui
@@ -706,7 +702,7 @@ function UI_FriendDragonCard(t_dragon_data)
         sprite:setOpacity(150)
         ui.vars['clickBtn']:addChild(sprite, zorder)
 
-        local cool_time = g_friendData:getDragonUseCoolStr(friend_info)
+        local cool_time = friend_info:getDragonUseCoolText()
         local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 25, 2, cc.size(140, 60), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         label:setDockPoint(CENTER_POINT)
         label:setAnchorPoint(CENTER_POINT)
@@ -721,7 +717,7 @@ function UI_FriendDragonCard(t_dragon_data)
         label:setDockPoint(cc.p(0.5, 0.0))
         label:setAnchorPoint(cc.p(0.5, 1.0))
         label:setPosition(0, 0)
-        label:setString(friend_info['nick'])
+        label:setString(friend_info:getNickText())
         ui.vars['clickBtn']:addChild(label, 5)
     end
     

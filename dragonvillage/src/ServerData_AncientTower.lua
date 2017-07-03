@@ -8,26 +8,26 @@ ANCIENT_TOWER_MAX_DEBUFF_LEVEL = 5
 ServerData_AncientTower = class({
         m_serverData = 'ServerData',
 
-        m_challengingInfo   = 'StructAncientTowerFloorData',
-        m_challengingStageID= 'number',     -- 현재 진행중인 층의 스테이지 아이디
-        m_challengingFloor  = 'number',     -- 현재 진행중인 층    
-        m_challengingCount  = 'number',     -- 도전 횟수
+        m_challengingInfo = 'StructAncientTowerFloorData',
+        m_challengingStageID = 'number', -- 현재 진행중인 층의 스테이지 아이디
+        m_challengingFloor = 'number', -- 현재 진행중인 층    
+        m_challengingCount = 'number', -- 도전 횟수
         
-        m_clearFloor        = 'number',     -- 최종 클리어한 층
+        m_clearFloor = 'number', -- 최종 클리어한 층
 
-        m_lStage            = 'table',
-        m_nStage            = 'number',
-        m_endTime           = 'number',
+        m_lStage = 'table',
+        m_nStage = 'number',
+        m_endTime = 'number', -- 시즌 종료 시간
 
-        m_lWeakGradeCount   = 'list',       -- 약화등급 기준
+        m_lWeakGradeCount = 'list', -- 약화등급 기준
 
-        m_myRank            = '',           -- 내 순위 정보
-        m_nGlobalOffset     = 'number',
-        m_lGlobalRank       = 'list',       -- 전체 랭킹
+        m_nGlobalOffset = 'number',
+        m_lGlobalRank = 'list', -- 전체 랭킹 정보
 
-        m_nTotalRank        = 'number',     -- 시즌 내 순위
-        m_nTotalScore       = 'number',     -- 시즌 내 총점수
-        
+        m_playerUserInfo = 'StructUserInfoAncientTower', -- 내 랭킹 정보
+
+        m_nTotalRank = 'number', -- 시즌 내 순위
+        m_nTotalScore = 'number', -- 시즌 내 총점수
     })
 
 -------------------------------------
@@ -69,15 +69,18 @@ end
 -------------------------------------
 -- function goToAncientTowerScene
 -------------------------------------
-function ServerData_AncientTower:goToAncientTowerScene()
+function ServerData_AncientTower:goToAncientTowerScene(use_scene)
     local function finish_cb()
-        UI_AncientTowerScene()
-    end
-
-    local function fail_cb()
-
-    end
-    
+        if use_scene then
+            local function close_cb()
+                SceneLobby():runScene()
+            end
+            local scene = SceneCommon(UI_AncientTowerScene, nil, close_cb)
+            scene:runScene()
+        else
+            UI_AncientTowerScene()
+        end        
+    end    
     self:request_ancientTowerInfo(nil, finish_cb, fail_cb)
 end
 
@@ -142,10 +145,14 @@ function ServerData_AncientTower:request_ancientTowerRank(offset, finish_cb)
     -- 콜백 함수
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
-        self.m_myRank = ret['my_info']
+        self.m_playerUserInfo = StructUserInfoAncientTower:create_forRanking(ret['my_info'])
 
         self.m_nGlobalOffset = ret['offset']
-        self.m_lGlobalRank = ret['list']
+        self.m_lGlobalRank = {}
+        for i,v in pairs(ret['list']) do
+            local user_info = StructUserInfoAncientTower:create_forRanking(v)
+            table.insert(self.m_lGlobalRank, user_info)
+        end
         
         if finish_cb then
             return finish_cb(ret)
@@ -324,33 +331,4 @@ function ServerData_AncientTower:getEndTimeText()
     local time_text = datetime.makeTimeDesc((end_time - server_time), showSeconds)
     local text = Str('{1} 후 초기화', time_text)
     return text
-end
-
--------------------------------------
--- function sortColosseumRank
--------------------------------------
-function ServerData_AncientTower:sortAncientRank(sort_target_list)
-    local sort_manager = SortManager()
-
-    sort_manager:addSortType('rank', true, function(a, b, ascending)
-            local a_data = a['data']
-            local b_data = b['data']
-
-            local a_value = a_data.rank
-            local b_value = b_data.rank
-
-            if (a_value == 'prev') then
-                return true
-            elseif (b_value == 'prev') then
-                return false
-            elseif (a_value == 'next') then
-                return false
-            elseif (b_value == 'next') then
-                return true
-            end
-
-            return a_value < b_value
-        end)
-
-    sort_manager:sortExecution(sort_target_list)
 end

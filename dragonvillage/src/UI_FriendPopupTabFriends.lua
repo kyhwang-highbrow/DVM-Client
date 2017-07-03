@@ -127,9 +127,7 @@ function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
         return
     end
 
-
-    local friend_uid = data['uid']
-    local friend_type = data['friendtype']
+    local friend_uid = data.m_uid
     local is_cash = false
 
     local ask_popup
@@ -144,7 +142,7 @@ function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
 
     -- 서버에 작별 요청
     request_bye_friend = function()
-        g_friendData:request_byeFriends(friend_uid, friend_type, is_cash, success_cb)
+        g_friendData:request_byeFriends(friend_uid, is_cash, success_cb)
     end
 
     -- 작별 후 안내 메세지
@@ -186,11 +184,11 @@ end
 -- function click_sendBtn
 -------------------------------------
 function UI_FriendPopupTabFriends:click_sendBtn(ui, data)
-    local uid = data['uid']
+    local uid = data.m_uid
     local frined_uid_list = {uid}
 
     local function finish_cb(ret)
-        local nick = data['nick']
+        local nick = data.m_nickname
         for i,v in ipairs(self.m_tableView.m_itemList) do
             local ui = v['ui']
             if ui then

@@ -324,13 +324,15 @@ function UI_Colosseum:init_topRankTableView()
 
     local l_item_list = g_colosseumRankData.m_lTopRank
 
-    if (1 < self.m_topRankOffset) then
+    if (self.m_topRankOffset > 1) then
         local prev_data = {m_rank = 'prev'}
         l_item_list['prev'] = prev_data
     end
 
-    local next_data = {m_rank = 'next'}
-    l_item_list['next'] = next_data
+    if (#l_item_list > 0) then
+        local next_data = {m_rank = 'next'}
+        l_item_list['next'] = next_data
+    end
 
     -- 생성 콜백
     local function create_func(ui, data)

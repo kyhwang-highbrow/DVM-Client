@@ -26,9 +26,9 @@ function UI_FriendRecommendUserListItem:initUI()
     local vars = self.vars
     local t_friend_info = self.m_tFriendInfo
     
-    vars['timeLabel']:setString('')
-    vars['nameLabel']:setString(t_friend_info['nick'])
-    vars['levelLabel']:setString(Str('Lv. {1}', t_friend_info['lv']))
+    vars['timeLabel']:setString(t_friend_info:getPastActiveTimeText())
+    vars['nameLabel']:setString(t_friend_info:getNickText())
+    vars['levelLabel']:setString(t_friend_info:getLvText())
 end
 
 -------------------------------------
@@ -37,10 +37,7 @@ end
 function UI_FriendRecommendUserListItem:initButton()
     local vars = self.vars
     local t_friend_info = self.m_tFriendInfo
-    local t_dragon_data = t_friend_info['leader']
-
-    local card = UI_DragonCard(t_dragon_data, t_friend_info)
-    vars['userNode']:addChild(card.root)
+    vars['userNode']:addChild(t_friend_info:getDragonCard())
 end
 
 -------------------------------------
@@ -50,7 +47,7 @@ function UI_FriendRecommendUserListItem:refresh()
     local vars = self.vars
     local t_friend_info = self.m_tFriendInfo
 
-    local uid = t_friend_info['uid']
+    local uid = t_friend_info.m_uid
     if (g_friendData.m_mInvitedUserList[uid] == true) then
         vars['requestBtn']:setVisible(false)
     else
