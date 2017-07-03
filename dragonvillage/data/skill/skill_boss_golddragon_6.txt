@@ -44,10 +44,10 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_gold/missile_gold.png",
+				"res":"res/missile/missile_evolution_stone/evolution_stone_01.png",
 				"body":[0,0,20],
                 "count":1,
-                "scale":0.3,
+                "scale":0.8,
                 "period":0,
 				"time":0.2,
 				"speed":0,
@@ -71,10 +71,10 @@
 				[
 					{
 						"idx":1,
-						"res":"res/missile/missile_gold/missile_gold.png",
+						"res":"res/missile/missile_evolution_stone/evolution_stone_01.png",
 						"body":[0,0,20],
 						"count":5,
-						"scale":0.3,
+						"scale":0.8,
 						"period":0.1,
 						"time":0,
 						"speed":1500,
@@ -84,7 +84,7 @@
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":['random',260,280]
+						"dir_array":['random',260,280],
 						
 						"effect":
 						{
@@ -104,10 +104,10 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_gold/missile_gold.png",
+				"res":"res/missile/missile_evolution_stone/evolution_stone_02.png",
 				"body":[0,0,20],
                 "count":1,
-                "scale":0.3,
+                "scale":0.8,
                 "period":0,
 				"time":0,
 				"speed":0,
@@ -131,10 +131,10 @@
 				[
 					{
 						"idx":1,
-						"res":"res/missile/missile_gold/missile_gold.png",
+						"res":"res/missile/missile_evolution_stone/evolution_stone_02.png",
 						"body":[0,0,20],
 						"count":5,
-						"scale":0.3,
+						"scale":0.8,
 						"period":0.1,
 						"time":0,
 						"speed":1500,
@@ -144,7 +144,7 @@
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":['random',260,280]
+						"dir_array":['random',260,280],
 						
 						"effect":
 						{
@@ -164,10 +164,10 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_gold/missile_gold.png",
+				"res":"res/missile/missile_evolution_stone/evolution_stone_01.png",
 				"body":[0,0,20],
                 "count":1,
-                "scale":0.3,
+                "scale":0.8,
                 "period":0,
 				"time":0.2,
 				"speed":0,
@@ -191,10 +191,10 @@
 				[
 					{
 						"idx":1,
-						"res":"res/missile/missile_gold/missile_gold.png",
+						"res":"res/missile/missile_evolution_stone/evolution_stone_01.png",
 						"body":[0,0,20],
 						"count":5,
-						"scale":0.3,
+						"scale":0.8,
 						"period":0.1,
 						"time":0,
 						"speed":1500,
@@ -204,7 +204,7 @@
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":['random',260,280]
+						"dir_array":['random',260,280],
 						
 						"effect":
 						{
@@ -224,10 +224,10 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_gold/missile_gold.png",
+				"res":"res/missile/missile_evolution_stone/evolution_stone_02.png",
 				"body":[0,0,20],
                 "count":1,
-                "scale":0.3,
+                "scale":0.8,
                 "period":0,
 				"time":0,
 				"speed":0,
@@ -251,10 +251,10 @@
 				[
 					{
 						"idx":1,
-						"res":"res/missile/missile_gold/missile_gold.png",
+						"res":"res/missile/missile_evolution_stone/evolution_stone_02.png",
 						"body":[0,0,20],
 						"count":5,
-						"scale":0.3,
+						"scale":0.8,
 						"period":0.1,
 						"time":0,
 						"speed":1500,
@@ -264,7 +264,7 @@
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":['random',260,280]
+						"dir_array":['random',260,280],
 						
 						"effect":
 						{
@@ -284,10 +284,10 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_gold/missile_gold.png",
+				"res":"res/missile/missile_evolution_stone/evolution_stone_01.png",
 				"body":[0,0,20],
                 "count":1,
-                "scale":0.3,
+                "scale":0.8,
                 "period":0,
 				"time":0.2,
 				"speed":0,
@@ -311,10 +311,10 @@
 				[
 					{
 						"idx":1,
-						"res":"res/missile/missile_gold/missile_gold.png",
+						"res":"res/missile/missile_evolution_stone/evolution_stone_01.png",
 						"body":[0,0,20],
 						"count":5,
-						"scale":0.3,
+						"scale":0.8,
 						"period":0.1,
 						"time":0,
 						"speed":1500,
@@ -324,7 +324,7 @@
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":['random',260,280]
+						"dir_array":['random',260,280],
 						
 						"effect":
 						{

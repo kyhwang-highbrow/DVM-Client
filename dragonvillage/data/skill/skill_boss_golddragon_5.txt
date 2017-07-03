@@ -21,10 +21,10 @@
 				[
 					{
 						"idx":1,
-						"res":"res/missile/missile_gold/missile_gold.png",
+						"res":"res/missile/missile_evolution_stone/evolution_stone_01.png",
 						"body":[0,0,40],
 						"count":7,
-						"scale":0.4,
+						"scale":1,
 						"period":0.02,
 						"speed":3000,
 						"accel":-2000,
