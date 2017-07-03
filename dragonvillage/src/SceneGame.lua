@@ -217,9 +217,6 @@ end
 function SceneGame:onExit()
 	g_gameScene = nil
     PerpleScene.onExit(self)
-
-    -- 친구 드래곤 버프 해제
-    g_friendBuff:setParticipationFriendDragon(nil)
 end
 
 -------------------------------------

@@ -210,13 +210,6 @@ function GameWorld:makeHeroDeck()
                 -- 진형 버프 적용
                 hero.m_statusCalc:applyFormationBonus(formation, i)
 
-                -- 친구 드래곤 버프 적용
-                if (g_friendBuff) then
-                    local t_friend_buff = g_friendBuff:getBuffData()
-
-                    hero.m_statusCalc:applyFriendBuff(t_friend_buff)
-                end
-
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
                 hero:setStatusCalc(hero.m_statusCalc)
@@ -270,13 +263,6 @@ function GameWorld:joinFriendHero(posIdx)
 
     -- 진형 버프 적용
     self.m_friendDragon.m_statusCalc:applyFormationBonus(self.m_deckFormation, posIdx)
-
-    -- 친구 버프 적용
-    if (g_friendBuff) then
-        local t_friend_buff = g_friendBuff:getBuffData()
-
-        self.m_friendDragon.m_statusCalc:applyFriendBuff(t_friend_buff)
-    end
 
     -- 스테이지 버프 적용
     self.m_friendDragon.m_statusCalc:applyStageBonus(self.m_stageID)

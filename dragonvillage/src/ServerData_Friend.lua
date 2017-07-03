@@ -277,11 +277,6 @@ end
 -------------------------------------
 function ServerData_Friend:setSelectedShareFriendData(t_friend_info)
     self.m_selectedShareFriendData = t_friend_info
-
-    if (self.m_selectedShareFriendData) then
-        local t_dragon_data = self.m_selectedShareFriendData.m_leaderDragonObject
-        g_friendBuff:setParticipationFriendDragon(t_dragon_data)
-    end
 end
 
 -------------------------------------
