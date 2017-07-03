@@ -630,16 +630,18 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 			-- 팝업 만들기
 			local l_item_list = ret['added_items']['items_list']
 			if (l_item_list) then
-				-- 아직은 한개의 경우만 구현
+				-- 얻은 인연포인트 텍스트를 만든다.
+				local goodbye_str_3
 				for i, t_item in pairs(l_item_list) do
 					local item_id = t_item['item_id']
 					local item = UI_ItemCard(item_id)
 					local rel_name = TableItem:getItemName(item_id)
 					local rel_cnt = t_item['count']
-					local goodbye_str_3 = Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', name, rel_name, rel_cnt)
-					MakeSimplePopup(POPUP_TYPE.OK, goodbye_str_3)
+					goodbye_str_3 = Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', name, rel_name, rel_cnt)
 					break
 				end
+				-- 획득 팝업 출력
+				UI_ObtainPopup(l_item_list, goodbye_str_3, nil)
 			end
 
 		end
