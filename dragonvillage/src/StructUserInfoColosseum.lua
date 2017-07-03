@@ -156,6 +156,7 @@ end
 -- @brief 티어 구분 (bronze_3 -> bronze, 3)
 -------------------------------------
 function StructUserInfoColosseum:perseTier(tier_str)
+    local tier_str = (tier_str or self.m_tier)
     local str_list = pl.stringx.split(tier_str, '_')
     local pure_tier = str_list[1]
     local tier_grade = tonumber(str_list[2]) or 0

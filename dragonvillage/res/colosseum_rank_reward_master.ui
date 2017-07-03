@@ -286,7 +286,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'node1';
 				file_name = 'ui/frame/a_frame_05.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -484,7 +484,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'node2';
 				file_name = 'ui/frame/a_frame_05.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -682,7 +682,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'node3';
 				file_name = 'ui/frame/a_frame_05.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -880,7 +880,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'node4';
 				file_name = 'ui/frame/a_frame_05.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
