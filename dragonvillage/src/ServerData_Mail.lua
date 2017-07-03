@@ -3,8 +3,10 @@
 -------------------------------------
 ServerData_Mail = class({
         m_serverData = 'ServerData',
-        m_mMailList_withoutFp = 'table[moid]', -- mail object id
-        m_mFpMailList = 'table[moid]', -- mail object id
+
+		m_mMailMap = 'table[mail_type] = map<mail>',
+		
+		m_lMailType = 'list',
     })
 
 -------------------------------------
@@ -12,8 +14,15 @@ ServerData_Mail = class({
 -------------------------------------
 function ServerData_Mail:init(server_data)
     self.m_serverData = server_data
-    self.m_mMailList_withoutFp = {}
-    self.m_mFpMailList = {}
+	self.m_lMailType = {'goods', 'st', 'friend', 'item'}
+end
+
+-------------------------------------
+-- function getMailTypeList
+-- @brief 메일 타입 리스트 반환 (UI와 공유)
+-------------------------------------
+function ServerData_Mail:getMailTypeList()
+	return self.m_lMailType
 end
 
 -------------------------------------
@@ -21,44 +30,7 @@ end
 -- @brief 타입에 해당하는 메일 리스트를 가져온다.
 -------------------------------------
 function ServerData_Mail:getMailList(type)
-	local mail_list
-
-	-- 우편함(우정포인트 우편 제외)
-    if (type == 'mail') then
-        mail_list = self:getMailList_withoutFp()
-
-    -- 우정포인트 우편함
-    elseif (type == 'friend') then
-        mail_list = self:getFpMailList()
-
-    else
-        error('not existed mail type : ' .. type)
-    end
-	
-    return mail_list
-end
-
--------------------------------------
--- function getMailList_withoutFp
--- @brief 메일 리스트 (우정포인트 제외)
--------------------------------------
-function ServerData_Mail:getMailList_withoutFp()
-    for _, t_mail_data in pairs(self.m_mMailList_withoutFp) do
-        self:updateMailServerTime(t_mail_data)
-    end
-
-    return self.m_mMailList_withoutFp
-end
-
--------------------------------------
--- function getFpMailList
--- @brief 메일 리스트 (우정포인트만)
--------------------------------------
-function ServerData_Mail:getFpMailList()
-    for _, t_mail_data in pairs(self.m_mFpMailList) do
-        self:updateMailServerTime(t_mail_data)
-    end
-    return self.m_mFpMailList
+    return self.m_mMailMap[type]
 end
 
 -------------------------------------
@@ -87,8 +59,14 @@ end
 -- function deleteMailData
 -------------------------------------
 function ServerData_Mail:deleteMailData(moid)
-    self.m_mMailList_withoutFp[moid] = nil
-    self.m_mFpMailList[moid] = nil
+	for _, table_mail in pairs(self.m_mMailMap) do
+		for mail_id, t_mail in pairs(table_mail) do
+			if (mail_id == moid) then
+				table_mail[mail_id] = nil
+				break
+			end
+		end
+	end
 end
 
 -------------------------------------
@@ -114,7 +92,8 @@ end
 -------------------------------------
 function ServerData_Mail:checkExistTicket()
 	local isExistTicket = false
-
+	ccdisplay('checkExistTicket')
+	--[[
 	-- 메일을 순회하며 확정권 타입이 있는지 검사
 	for i, mail in pairs(self.m_mMailList_withoutFp) do
 		if (self:checkTicket(mail)) then
@@ -122,7 +101,7 @@ function ServerData_Mail:checkExistTicket()
 			break
 		end
 	end
-
+	]]
 	return isExistTicket
 end
 
@@ -189,6 +168,47 @@ function ServerData_Mail:sortMailList(sort_target_list)
 end
 
 -------------------------------------
+-- function makeMailMap
+-- @brief 
+-------------------------------------
+function ServerData_Mail:makeMailMap(l_mail_list)
+	-- 초기화
+	self.m_mMailMap = {}
+	for _, mail_type in pairs(self.m_lMailType) do
+		self.m_mMailMap[mail_type] = {}
+	end
+
+	-- mail map 생성
+	for i, t_mail in pairs(l_mail_list) do
+		local moid = t_mail['id']
+		local tag = t_mail['tag']
+		
+		if (tag == '') then
+			local t_item = t_mail['items_list'][1]
+			local item_id = t_item['item_id']
+			local item_type = TableItem:getItemTypeFromItemID(item_id)
+			
+			if string.find(item_type, 'stamina') then
+				tag = 'st'
+
+			elseif (item_type) then
+				tag = 'goods'
+
+			else
+				tag = 'item'
+
+			end
+
+		elseif (tag == 'fp') then
+			tag = 'friend'
+		end
+
+		self:updateMailServerTime(t_mail)
+		self.m_mMailMap[tag][moid] = t_mail
+	end
+end
+
+-------------------------------------
 -- function request_mailList
 -- @brief 메일 리스트
 -------------------------------------
@@ -199,20 +219,9 @@ function ServerData_Mail:request_mailList(finish_cb)
     -- 콜백 함수
     local function success_cb(ret)
         if ret['mails_list'] then
-            for i, v in pairs(ret['mails_list']) do
-                local moid = v['id']
-                local tag = v['tag']
-
-				-- type에 따라 정렬
-                if (self:checkFriendPoint(v)) then
-                    self.m_mFpMailList[moid] = v
-                else
-                    self.m_mMailList_withoutFp[moid] = v
-
-                end
-            end
+			self:makeMailMap(ret['mails_list'])
         end
-
+		ccdump(self.m_mMailMap)
         if finish_cb then
             finish_cb(ret)
         end

@@ -18,16 +18,22 @@ end
 
 -- item테이블의 단순 재화의 item_id 맵
 local ITEM_ID_MAP = {}
-ITEM_ID_MAP['cash']         = 700001
-ITEM_ID_MAP['gold']         = 700002
-ITEM_ID_MAP['fp']           = 700003
-ITEM_ID_MAP['lactea']       = 700004
-ITEM_ID_MAP['honor']        = 700005
-ITEM_ID_MAP['badge']        = 700006
-ITEM_ID_MAP['amethyst']     = 700007
-ITEM_ID_MAP['stamina']      = 700101
-ITEM_ID_MAP['staminas_st']  = 700101
+ITEM_ID_MAP['cash'] = 700001
+ITEM_ID_MAP['gold'] = 700002
+ITEM_ID_MAP['fp'] = 700003
+ITEM_ID_MAP['lactea'] = 700004
+ITEM_ID_MAP['honor'] = 700005
+ITEM_ID_MAP['badge'] = 700006
+ITEM_ID_MAP['amethyst'] = 700007
+ITEM_ID_MAP['mileage'] = 700008
+ITEM_ID_MAP['topaz'] = 700009
+ITEM_ID_MAP['capsule'] = 700201
+ITEM_ID_MAP['event'] = 700202
+
+ITEM_ID_MAP['stamina'] = 700101
+ITEM_ID_MAP['staminas_st'] = 700101
 ITEM_ID_MAP['staminas_pvp'] = 700102
+ITEM_ID_MAP['staminas_tower'] = 700103
 
 local ITEM_TYPE_MAP = {}
 for i,v in pairs(ITEM_ID_MAP) do
