@@ -57,10 +57,6 @@ function UI_ColosseumReady:initUI()
     -- 스태미나 갯수
     vars['actingPowerLabel']:setString('1')
 
-    -- 연승 버프
-    --vars['winBuffLabel']:setString(Str('연승버프 : {1}', ''))
-    vars['winBuffLabel']:setString('')
-
     do -- 플레이어 유저 덱
         local player_3d_deck = UI_3DDeck()
         player_3d_deck.root:setPosition(-320, 76 - 100)
@@ -81,7 +77,15 @@ function UI_ColosseumReady:initUI()
 
         local l_dragon_obj = g_colosseumData:getMatchUserInfo():getDefDeck_dragonList()
         player_3d_deck:setDragonObjectList(l_dragon_obj)
-    end    
+    end
+
+    -- UI가 enter로 진입되었을 때 update함수 호출
+    self.root:registerScriptHandler(function(event)
+        if (event == 'enter') then
+            self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+        end
+    end)
+    self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -158,6 +162,26 @@ end
 -------------------------------------
 function UI_ColosseumReady:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ColosseumReady:update(dt)
+    local vars = self.vars
+
+    do -- 연승 버프 텍스트 출력
+        local time_str, active = g_colosseumData:getStraightTimeText()
+        local buff_str = g_colosseumData:getStraightBuffText()
+
+        local text = nil
+        if active then
+            text = string.format('%s (%s)', buff_str, time_str)
+        else
+            text = buff_str
+        end
+        vars['winBuffLabel']:setString(Str('연승버프 : {1}', text))
+    end
 end
 
 --@CHECK

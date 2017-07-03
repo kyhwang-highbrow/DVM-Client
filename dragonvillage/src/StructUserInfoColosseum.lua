@@ -56,6 +56,7 @@ StructUserInfoColosseum = class(PARENT, {
         m_pvpDefDeckCombatPower = 'number',
 
         m_matchResult = 'number', -- -1:매치 전, 0:패, 1:승
+        m_matchTime = 'timestamp',
     })
 
 -------------------------------------
@@ -74,6 +75,36 @@ function StructUserInfoColosseum:create_forRanking(t_data)
     user_info.m_rp = t_data['rp']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
+
+    return user_info
+end
+
+-------------------------------------
+-- function create_forHistory
+-- @brief 전투 기록
+-------------------------------------
+function StructUserInfoColosseum:create_forHistory(t_data)
+    local user_info = StructUserInfoColosseum()
+
+    user_info.m_uid = t_data['uid']
+    user_info.m_nickname = t_data['nick']
+    user_info.m_lv = t_data['lv']
+    user_info.m_rank = t_data['rank']
+    user_info.m_rankPercent = t_data['rate']
+    user_info.m_tier = t_data['tier']
+    user_info.m_rp = t_data['rp']
+
+    user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
+    
+    -- 룬 & 드래곤 리스트 저장
+    user_info:applyRunesDataList(t_data['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
+    user_info:applyDragonsDataList(t_data['dragons'])
+
+    -- 공격 덱 저장
+    user_info:applyPvpAtkDeckData(t_data['deck'])
+
+    -- 매치 한 시간
+    user_info.m_matchTime = t_data['match_at']
 
     return user_info
 end

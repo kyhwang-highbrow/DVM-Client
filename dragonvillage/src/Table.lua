@@ -54,6 +54,7 @@ local TableInfo = {
 		broadcast           = {'table_broadcast',		    'type',		    true},
 
 		loading_guide       = {'table_loading_guide',		'gid',		    false},
+        table_colosseum_buff= {'table_colosseum_buff',		'wins',		    false},
         
 
         -- 드래곤 관리 관련

@@ -241,6 +241,7 @@ local t_module = {
     'TableDragonCombine',
     'TableStatusEffect',
     'TableExplorationList',
+    'TableColosseumBuff',
 
     -- Scene
     'SceneCommon',

@@ -76,3 +76,36 @@ function TableOption:getLevelingValue(option_value, option_max_value, option_lv)
 
     return option_value + (unit_value * option_lv)
 end
+
+-------------------------------------
+-- function parseOptionContentStr
+-- @brief
+-- @param buff_content_str 'hp_multi;5, atk_multi;5'
+-------------------------------------
+function TableOption:parseOptionContentStr(buff_content_str)
+    local l_option_str = pl.stringx.split(buff_content_str, ',')
+
+    local t_ret = {}
+
+    for i,v in pairs(l_option_str) do
+        local v = pl.stringx.strip(v)
+        local t_data = pl.stringx.split(v, ';')
+
+        local option = t_data[1]
+        local value =  t_data[2] or 0
+
+        table.insert(t_ret, {['option']=option, ['value']=value})
+    end
+
+--    {
+--        {
+--                ['option']='hp_multi';
+--                ['value']='5';
+--        };
+--        {
+--                ['option']='atk_multi';
+--                ['value']='5';
+--        };
+--    }
+    return t_ret
+end

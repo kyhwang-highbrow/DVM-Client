@@ -78,7 +78,6 @@ function UI_Colosseum:initUI()
 
     -- UI가 enter로 진입되었을 때 update함수 호출
     self.root:registerScriptHandler(function(event)
-        cclog('event call ')
         if (event == 'enter') then
             self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
         end
@@ -131,7 +130,8 @@ function UI_Colosseum:refresh()
         vars['rankingLabel']:setString(str)
 
         -- 연승 버프
-        vars['winBuffLabel']:setString('')
+        local buff_str = g_colosseumData:getStraightBuffText()
+        vars['winBuffLabel']:setString(buff_str)
     end
 end
 
@@ -422,6 +422,20 @@ function UI_Colosseum:update(dt)
 
     local str = g_colosseumData:getRefreshStatusText()
     vars['refreshTimeLabel']:setString(str)
+
+
+    do -- 연승 버프
+        local str, active = g_colosseumData:getStraightTimeText()
+        if active then
+            local text = g_colosseumData:getStraightBuffText()
+            vars['winBuffLabel']:setString(text)
+            vars['winBuffTimeLabel']:setString(str)
+        else
+            vars['winBuffLabel']:setString(Str('연승 버프 없음'))
+            vars['winBuffTimeLabel']:setString('')
+        end
+
+    end
 end
 
 -------------------------------------
@@ -530,13 +544,13 @@ end
 function UI_Colosseum:request_matchHistory()
     local function finish_cb()
         self:init_historyTableView()
-        UIManager:toastNotificationRed(Str('서버 작업 전. 임시로 데이터 띄움'))
     end
     g_colosseumData:request_colosseumDefHistory(finish_cb)
 end
 
 -------------------------------------
 -- function init_historyTableView
+-- @brief
 -------------------------------------
 function UI_Colosseum:init_historyTableView()
     local vars = self.vars
@@ -545,7 +559,6 @@ function UI_Colosseum:init_historyTableView()
     node:removeAllChildren()
 
     local l_item_list = g_colosseumData.m_matchHistory
-    l_item_list = g_colosseumData.m_matchList
     
     -- 생성 콜백
     local function create_func(ui, data)
@@ -563,11 +576,11 @@ function UI_Colosseum:init_historyTableView()
             local a_data = a['data']
             local b_data = b['data']
 
-            -- 랭킹으로 선별
-            local a_rank = a_data.m_rank
-            local b_rank = b_data.m_rank
-            --if (a_rank ~= b_rank) then
-                return a_rank < b_rank
+            -- 매치 시간으로
+            local a_value = a_data.m_matchTime
+            local b_value = b_data.m_matchTime
+            --if (a_value ~= b_value) then
+                return a_value > b_value
             --end
         end
 

@@ -699,6 +699,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SwipeGesture.lua" />
     <None Include="..\src\Table.lua" />
     <None Include="..\src\TableCalendar.lua" />
+    <None Include="..\src\TableColosseumBuff.lua" />
     <None Include="..\src\TableDragon.lua" />
     <None Include="..\src\TableDragonCollection.lua" />
     <None Include="..\src\TableDragonCombine.lua" />

@@ -24,6 +24,7 @@ ServerData_Colosseum = class({
         m_matchHistory = 'list',
 
         m_tSeasonRewardInfo = 'table',
+        m_buffTime = 'timestamp', -- 버프 유효 시간 (0일 경우 버프 발동 x, 값이 있을 경우 해당 시간까지 버프 적용)
     })
 
 -------------------------------------
@@ -107,6 +108,9 @@ function ServerData_Colosseum:response_colosseumInfo(ret)
 
     -- 주간 보상
     self:setSeasonRewardInfo(ret)
+
+    -- 버프 발동 종료 시간
+    self.m_buffTime = ret['bufftime']
 end
 
 -------------------------------------
@@ -472,6 +476,9 @@ function ServerData_Colosseum:request_colosseumFinish(is_win, finish_cb, fail_cb
         ret['added_rp'] = ret['point'] -- 실시간으로 변경된 값이 있을 수 있으므로 서버에서 넘어오는 값을 표기
         ret['added_honor'] = (g_userData:get('honor') - prev_honor)
 
+        -- 버프 발동 종료 시간
+        self.m_buffTime = ret['bufftime']
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -547,26 +554,10 @@ function ServerData_Colosseum:request_colosseumDefHistory(finish_cb, fail_cb)
     local function success_cb(ret)
 
         self.m_matchHistory = {}
-        for i,v in pairs(ret['list']) do
-            local user_info = StructUserInfoColosseum:create_forRanking(v)
+        for i,v in pairs(ret['history']) do
+            local user_info = StructUserInfoColosseum:create_forHistory(v)
             table.insert(self.m_matchHistory, user_info)
         end
-
-        --[[
-        g_serverData:networkCommonRespone(ret)
-        self.m_myRank = ret['my_info']
-        --]]
-
-        --[[
-        self.m_nGlobalOffset = ret['offset']
-
-        -- 유저 리스트 저장
-        self.m_lGlobalRank = {}
-        for i,v in pairs(ret['list']) do
-            local user_info = StructUserInfoColosseum:create_forRanking(v)
-            table.insert(self.m_lGlobalRank, user_info)
-        end
-        --]]
         
         if finish_cb then
             return finish_cb(ret)
@@ -575,10 +566,8 @@ function ServerData_Colosseum:request_colosseumDefHistory(finish_cb, fail_cb)
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/pvp/ranking')
+    ui_network:setUrl('/game/pvp/history')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('offset', 1) -- 임시
-    ui_network:setParam('limit', 30) -- 임시
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -607,4 +596,63 @@ function ServerData_Colosseum:setSeasonRewardInfo(ret)
         local t_item_id_cnt, t_iten_type_cnt = ServerData_Item:parseAddedItems(ret['added_items'])
         struct_user_info.m_userData = t_iten_type_cnt
     end
+end
+
+-------------------------------------
+-- function getStraightBuffText
+-- @brief 연승 버프 텍스트
+-------------------------------------
+function ServerData_Colosseum:getStraightBuffText()
+    --[[
+
+    --]]
+
+    -- 연승 정보
+    local straight = self.m_playerUserInfo.m_straight
+    local t_ret = TableColosseumBuff:getStraightBuffData(straight)
+
+    local text = nil
+    for i,v in ipairs(t_ret) do
+        local option = v['option']
+        local value = v['value']
+        local desc = TableOption:getOptionDesc(option, value)
+
+        if (not text) then
+            text = desc
+        else
+            text = text .. ', ' .. desc
+        end
+    end
+
+    if (not text) then
+        return Str('연승 버프 없음')
+    end
+
+    return text
+end
+
+-------------------------------------
+-- function getStraightTimeText
+-- @brief 연승 버프 시간 텍스트
+-------------------------------------
+function ServerData_Colosseum:getStraightTimeText()
+    -- 연승 정보
+    local straight = self.m_playerUserInfo.m_straight
+
+    if (straight <= 1) then
+        return '', false
+    end
+
+
+    local curr_time = Timer:getServerTime()
+    local buff_time = (self.m_buffTime / 1000)
+
+    -- 시간 초과
+    if (buff_time <= curr_time) then
+        return '', false
+    end
+
+    
+    local time = (buff_time - curr_time)
+    return Str('{1} 남음', datetime.makeTimeDesc(time, true)), true
 end

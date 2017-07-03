@@ -44,11 +44,11 @@ function UI_ColosseumHistoryListItem:initUI()
     vars['userLabel']:setString(user_info:getUserText())
 
     -- 전투력 표시
-    local combat_power = user_info:getDefDeckCombatPower()
+    local combat_power = user_info:getAtkDeckCombatPower()
     vars['powerLabel']:setString(Str('전투력 : {1}', comma_value(combat_power)))
 
     -- 드래곤 리스트
-    local t_deck_dragon_list = user_info:getDefDeck_dragonList()
+    local t_deck_dragon_list = user_info:getAtkDeck_dragonList()
     for i,v in pairs(t_deck_dragon_list) do
         local icon = UI_DragonCard(v)
         icon.root:setSwallowTouch(false)
@@ -62,8 +62,13 @@ function UI_ColosseumHistoryListItem:initUI()
         vars['resultLabel']:setString(Str('패배'))
     end
 
-    -- 시간
-    vars['timeLabel']:setString('')
+    do -- 시간
+        local curr_time = Timer:getServerTime()
+        local match_time = (user_info.m_matchTime / 1000)
+        local time = (curr_time - match_time)
+        local str = Str('{1} 전', datetime.makeTimeDesc(time, true))
+        vars['timeLabel']:setString(str)
+    end
 end
 
 -------------------------------------
