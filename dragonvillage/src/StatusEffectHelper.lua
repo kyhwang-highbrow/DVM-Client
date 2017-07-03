@@ -38,7 +38,7 @@ end
 -------------------------------------
 function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_type, target_count, duration, rate, value, source, cb_invoke, skill_id)
     local l_ret = {} -- 상태효과가 적용된 대상 리스트
-
+ 
     -- 스킬로 부터 받은 타겟 리스트 사용
 	if (target_type == 'target') then
         if (not l_skill_target) then
@@ -55,6 +55,25 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
                 end
             end
 		end
+
+    elseif (target_type == 'target_random') then
+        if(not l_skill_target) then
+            error('doStatusEffectByStruct no l_skill_target')
+        end
+
+        local l_target = l_skill_target
+        l_target = table.sortRandom(l_target)
+        l_target = table.getPartList(l_target, target_count)
+
+        for _, target in ipairs(l_target) do
+            if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id)) then
+                table.insert(l_ret, target)
+
+                if (cb_invoke) then
+                    cb_invoke(target)
+                end
+            end
+        end
 
 	-- 별도의 계산된 타겟 리스트 사용
 	elseif (target_type) then
