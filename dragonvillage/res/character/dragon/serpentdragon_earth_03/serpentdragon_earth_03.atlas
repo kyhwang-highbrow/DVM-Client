@@ -6,120 +6,113 @@ filter: Linear,Linear
 repeat: none
 serpentdragon_earth_03_body_01
   rotate: false
-  xy: 2, 206
-  size: 235, 295
-  orig: 235, 295
+  xy: 2, 218
+  size: 232, 277
+  orig: 232, 277
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_body_02
-  rotate: true
-  xy: 239, 322
-  size: 179, 321
-  orig: 179, 321
+  rotate: false
+  xy: 2, 40
+  size: 158, 176
+  orig: 158, 176
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_effect_02
   rotate: false
-  xy: 562, 351
+  xy: 236, 345
   size: 286, 150
   orig: 286, 150
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_effect_03
   rotate: false
-  xy: 239, 170
+  xy: 524, 345
   size: 286, 150
   orig: 286, 150
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_effect_04
   rotate: false
-  xy: 170, 18
+  xy: 236, 193
   size: 286, 150
   orig: 286, 150
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_effect_05
   rotate: false
-  xy: 562, 199
+  xy: 524, 193
   size: 286, 150
   orig: 286, 150
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_eye_01
-  rotate: true
-  xy: 813, 150
-  size: 47, 38
-  orig: 47, 38
+  rotate: false
+  xy: 162, 199
+  size: 19, 17
+  orig: 19, 17
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_eye_02
   rotate: false
-  xy: 170, 184
-  size: 19, 20
-  orig: 19, 20
+  xy: 315, 64
+  size: 19, 17
+  orig: 19, 17
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_eye_03
   rotate: false
-  xy: 853, 161
-  size: 47, 38
-  orig: 47, 38
+  xy: 812, 213
+  size: 2, 2
+  orig: 2, 2
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_head_01
   rotate: false
+  xy: 162, 43
+  size: 151, 148
+  orig: 151, 148
+  offset: 0, 0
+  index: -1
+serpentdragon_earth_03_head_02
+  rotate: false
   xy: 2, 2
-  size: 166, 202
-  orig: 166, 202
+  size: 31, 36
+  orig: 31, 36
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_head_03
   rotate: false
-  xy: 598, 120
-  size: 86, 77
-  orig: 86, 77
-  offset: 0, 0
-  index: -1
-serpentdragon_earth_03_head_05
-  rotate: false
-  xy: 756, 143
-  size: 55, 54
-  orig: 55, 54
+  xy: 489, 139
+  size: 59, 52
+  orig: 59, 52
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_head_06
   rotate: false
-  xy: 686, 139
+  xy: 942, 437
   size: 68, 58
   orig: 68, 58
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_tail_01
   rotate: false
-  xy: 598, 34
-  size: 76, 84
-  orig: 76, 84
+  xy: 812, 217
+  size: 73, 56
+  orig: 73, 56
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_wing_01
   rotate: true
-  xy: 458, 26
-  size: 142, 138
-  orig: 142, 138
+  xy: 812, 275
+  size: 220, 128
+  orig: 220, 128
   offset: 0, 0
   index: -1
 serpentdragon_earth_03_wing_02
-  rotate: true
-  xy: 850, 345
-  size: 156, 167
-  orig: 156, 167
-  offset: 0, 0
-  index: -1
-serpentdragon_earth_03_wing_03
   rotate: false
-  xy: 850, 201
-  size: 145, 142
-  orig: 145, 142
+  xy: 315, 83
+  size: 172, 108
+  orig: 172, 108
   offset: 0, 0
   index: -1

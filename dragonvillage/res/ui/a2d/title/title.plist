@@ -56,11 +56,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{593,304}</string>
+                <string>{579,304}</string>
                 <key>spriteSourceSize</key>
                 <string>{593,304}</string>
                 <key>textureRect</key>
-                <string>{{539,963},{593,304}}</string>
+                <string>{{539,963},{579,304}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -150,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{720,720}</string>
                 <key>textureRect</key>
-                <string>{{477,1558},{434,424}}</string>
+                <string>{{477,1544},{434,424}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -183,7 +183,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2e279851d9810608e7365aa6cc7d7245:4408946b41c45728b8897afef41016c0:eac3319ae54fe6d043150c971d4e6759$</string>
+            <string>$TexturePacker:SmartUpdate:010d377a28ba27f864910dcba3351c71:118c9e4ff0753065a97824b8d664cbf2:eac3319ae54fe6d043150c971d4e6759$</string>
             <key>textureFileName</key>
             <string>title.png</string>
         </dict>
