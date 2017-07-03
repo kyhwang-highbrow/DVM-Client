@@ -64,6 +64,7 @@ function GameState:init(world)
     self.m_waveClearTimer = 0
     
     self.m_bAppearHero = false
+    self.m_nAppearedEnemys = 0
 
 	self.m_bgmBoss = 'bgm_dungeon_boss'
 
@@ -385,7 +386,7 @@ end
 function GameState.update_enemy_appear(self, dt)
     local world = self.m_world
     local enemy_count = #world:getEnemyList()
-	
+
     if (self.m_stateTimer == 0) then
         local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 

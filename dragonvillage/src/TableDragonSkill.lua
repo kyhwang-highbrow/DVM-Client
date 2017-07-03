@@ -208,6 +208,14 @@ function TableDragonSkill:addFunctionsForEquation(column)
                     ' return (b) and 1 or 0' ..
                     ' end' ..
 
+                    ' local STATUSEFFECT_COUNT = function(name)' ..
+                    ' return owner:getStatusEffectCount(name)' ..
+                    ' end' ..
+
+                    ' local TARGET_STATUSEFFECT_COUNT = function(name)' ..
+                    ' return target and target:getStatusEffectCount(name) or 0' ..
+                    ' end' ..
+
                     ' local ret = ' .. source .. 
                     ' return ret' ..
                     ' end'

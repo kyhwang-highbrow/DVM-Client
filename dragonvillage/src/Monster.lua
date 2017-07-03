@@ -123,15 +123,8 @@ end
 function Monster:initFormation(body_size)
     local hp_ui_offset = {0, -(body_size[3] * 1.5)}
 
-	-- 진영에 따른 처리
-	if (self.m_bLeftFormation) then
-        self:changeState('idle')
-        self:makeHPGauge(hp_ui_offset)
-    else
-        self:changeState('move')
-	    self:makeHPGauge(hp_ui_offset)
-        self.m_animator:setFlip(true)
-    end
+	self:makeHPGauge(hp_ui_offset)
+    self.m_animator:setFlip(true)
 end
 
 -------------------------------------

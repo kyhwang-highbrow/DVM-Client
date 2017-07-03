@@ -115,10 +115,10 @@ end
 function Dragon:initFormation()
 	-- 진영에 따른 처리
 	if (self.m_bLeftFormation) then
-        self:changeState('idle')
+        --self:changeState('idle')
         self:makeHPGauge({0, -80})
     else
-        self:changeState('move')
+        --self:changeState('move')
         self:makeHPGauge({0, -80})
         self.m_animator:setFlip(true)
     end

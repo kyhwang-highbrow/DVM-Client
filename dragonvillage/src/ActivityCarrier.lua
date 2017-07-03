@@ -107,6 +107,16 @@ function ActivityCarrier:getAttribute()
 end
 
 -------------------------------------
+-- function getStatusEffectCount
+-- @brief 공격자에게 해당 이름을 포함한 상태효과가 몇개가 존재하는지 카운트를 리턴
+-------------------------------------
+function ActivityCarrier:getStatusEffectCount(name, except_name)
+    if (not self.m_activityCarrierOwner) then return false end
+
+    return self.m_activityCarrierOwner:getStatusEffectCount(name, except_name)
+end
+
+-------------------------------------
 -- function isExistStatusEffectName
 -- @brief 공격자가 해당 상태효과가 존재하는지 여부
 -------------------------------------

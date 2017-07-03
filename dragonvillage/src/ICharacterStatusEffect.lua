@@ -102,6 +102,28 @@ function ICharacterStatusEffect:getStatusEffectList()
 end
 
 -------------------------------------
+-- function getStatusEffectCount
+-- @breif 해당 이름을 포함한 상태효과가 몇개가 존재하는지 카운트를 리턴
+-------------------------------------
+function ICharacterStatusEffect:getStatusEffectCount(name, except_name)
+    local count = 0
+
+    for type, status_effect in pairs(self:getStatusEffectList()) do
+        if (string.find(type, name) and type ~= except_name) then
+            count = count + 1
+        end
+    end
+
+    for type, status_effect in pairs(self.m_mHiddenStatusEffect) do
+        if (string.find(type, name) and type ~= except_name) then
+            count = count + 1
+        end
+    end
+
+    return count
+end
+
+-------------------------------------
 -- function isExistStatusEffectName
 -- @breif 해당 이름을 포함한 상태효과가 존재하는지 여부
 -------------------------------------
