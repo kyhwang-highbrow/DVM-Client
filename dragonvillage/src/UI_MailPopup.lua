@@ -167,7 +167,10 @@ function UI_MailPopup:click_rewardBtn(t_mail_data)
 					UI_ToastPopup()
 				end
 			else
-				UI_ToastPopup()
+				-- 단일 보상 수령 시 토스트 팝업
+				local t_item = t_mail_data['items_list'][1]
+				local item_str = UIHelper:makeItemStr(t_item)
+				UI_ToastPopup(item_str)
 			end
 
             -- 노티 정보를 갱신하기 위해서 호출
@@ -183,10 +186,9 @@ end
 -- @brief 확정권을 제외한 모든 보상 수령
 -------------------------------------
 function UI_MailPopup:click_rewardAllBtn()
-	
 	-- 우편이 없다면 탈출
-	-- @TODO 확정권 구현 이후에는 확정권을 제외하고 카운트해야함
-	if (g_mailData:countMailExceptTicket(self.m_currTab) == 0) then 
+	local mail_cnt, ticket_cnt = g_mailData:countMailExceptTicket(self.m_currTab)
+	if (mail_cnt == 0) then 
 		UIManager:toastNotificationRed(Str('수령할 수 있는 메일이 없습니다.'))
 		return
 	end
@@ -194,23 +196,24 @@ function UI_MailPopup:click_rewardAllBtn()
 	-- 우편 모두 받기 콜백
 	local get_all_reward_cb = function() 
 		local function finish_cb(ret, mail_id_list)
-			if (ret['status'] == 0) then
-				UI_ToastPopup()
-				for _, mail_id in pairs(mail_id_list) do
-					self.m_mTableView[self.m_currTab]:delItem(mail_id)
-				end
+			
+			-- 모두 받기의 경우 리스트 팝업
+			UI_ObtainPopup(ret['added_items']['items_list'])
 
-                -- 노티 정보를 갱신하기 위해서 호출
-                g_highlightData:setLastUpdateTime()
+			for _, mail_id in pairs(mail_id_list) do
+				self.m_mTableView[self.m_currTab]:delItem(mail_id)
 			end
+
+            -- 노티 정보를 갱신하기 위해서 호출
+            g_highlightData:setLastUpdateTime()
 		end
 		g_mailData:request_mailReadAll(self.m_currTab, finish_cb)
 	end
 
 	-- 시작
-	if (self.m_currTab == 'mail') and (g_mailData:checkExistTicket()) then
+	if (self.m_currTab == 'mail') and (ticket_cnt > 0) then
 		-- 확정권이 있는 경우에는 팝업을 띄워준다.
-		MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('우편을 전부 수령하십니까?\n확정권은 모두 받기에서 제외됩니다.'), get_all_reward_cb)
+		MakeSimplePopup(POPUP_TYPE.YES_NO, Str('{@DESC}우편을 전부 수령하십니까?\n{@SKYBLUE}확정권{@DESC}은 모두 받기에서 제외됩니다.'), get_all_reward_cb)
 	else
 		get_all_reward_cb()
 	end

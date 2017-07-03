@@ -75,47 +75,25 @@ end
 -------------------------------------
 function ServerData_Mail:countMailExceptTicket(type)
 	local mail_list = self:getMailList(type)
-	local mail_count = 0
+	local mail_cnt = 0
+	local ticket_cnt = 0
 
 	for i, mail in pairs(mail_list) do
 		if (self:checkTicket(mail)) then
-			-- ~.~
+			ticket_cnt = ticket_cnt + 1
 		else
-			mail_count = mail_count + 1
+			mail_cnt = mail_cnt + 1
 		end
 	end
-	return mail_count 
-end
-
--------------------------------------
--- function checkExistTicket
--------------------------------------
-function ServerData_Mail:checkExistTicket()
-	local isExistTicket = false
-	ccdisplay('checkExistTicket')
-	--[[
-	-- 메일을 순회하며 확정권 타입이 있는지 검사
-	for i, mail in pairs(self.m_mMailList_withoutFp) do
-		if (self:checkTicket(mail)) then
-			isExistTicket = true
-			break
-		end
-	end
-	]]
-	return isExistTicket
+	return mail_cnt, ticket_cnt 
 end
 
 -------------------------------------
 -- function checkTicket
--- @brief 아이템 카운트가 1이고 확정권인지 검사한다.
+-- @brief 확정권인지 검사한다.
 -------------------------------------
 function ServerData_Mail:checkTicket(mail_data)
 	local item_list = mail_data['items_list']
-		
-	-- 확정권만 들어잇는게 아니라면 패키지이므로 통과
-	if not (table.getn(item_list) == 1) then 
-		return false
-	end
 
 	-- 확정권인지 체크
 	local item_type = TableItem():getValue(item_list[1]['item_id'], 'type')
@@ -183,24 +161,31 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 		local moid = t_mail['id']
 		local tag = t_mail['tag']
 		
+		-- 우정포인트로 인하여 tag를 쓸수밖에 없다.
 		if (tag == '') then
 			local t_item = t_mail['items_list'][1]
 			local item_id = t_item['item_id']
+
+			-- 클라에서 미리 정의한 item type을 가져온다.
 			local item_type = TableItem:getItemTypeFromItemID(item_id)
 			
 			if string.find(item_type, 'stamina') then
 				tag = 'st'
 
+			-- stamina가 없고 item type이 있다면 모두 '재화'에 해당
 			elseif (item_type) then
 				tag = 'goods'
 
+			-- 클라에서 미리 정의 하지 않은 것은 '아이템'에 속한다.
 			else
 				tag = 'item'
 
 			end
 
+		-- 우정포인트를 패키지에서 받는다면 위의 '재화'로 가게 되고 서버에서 tag를 붙여주면 '우정'으로 간다.
 		elseif (tag == 'fp') then
 			tag = 'friend'
+
 		end
 
 		self:updateMailServerTime(t_mail)
@@ -218,10 +203,11 @@ function ServerData_Mail:request_mailList(finish_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
+		-- mail map을 생성한다.
         if ret['mails_list'] then
 			self:makeMailMap(ret['mails_list'])
         end
-		ccdump(self.m_mMailMap)
+
         if finish_cb then
             finish_cb(ret)
         end

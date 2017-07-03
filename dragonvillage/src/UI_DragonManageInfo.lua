@@ -631,15 +631,9 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 			local l_item_list = ret['added_items']['items_list']
 			if (l_item_list) then
 				-- 얻은 인연포인트 텍스트를 만든다.
-				local goodbye_str_3
-				for i, t_item in pairs(l_item_list) do
-					local item_id = t_item['item_id']
-					local item = UI_ItemCard(item_id)
-					local rel_name = TableItem:getItemName(item_id)
-					local rel_cnt = t_item['count']
-					goodbye_str_3 = Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', name, rel_name, rel_cnt)
-					break
-				end
+				local t_item = l_item_list[1]
+				local goodbye_str_3 = UIHelper:makeGoodbyeStr(t_item, name)
+
 				-- 획득 팝업 출력
 				UI_ObtainPopup(l_item_list, goodbye_str_3, nil)
 			end

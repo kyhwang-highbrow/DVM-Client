@@ -30,3 +30,27 @@ end
 function UIHelper:repeatTest(sequence_action)
 	g_currScene.m_scene:runAction(cc.RepeatForever:create(sequence_action))
 end
+
+-------------------------------------
+-- function makeItemStr
+-------------------------------------
+function UIHelper:makeItemStr(t_item)
+	local item_id = t_item['item_id']
+	local item_name = TableItem:getItemName(item_id)
+	local item_cnt = t_item['count']
+	if (item_cnt) and (item_cnt > 0) then
+		return Str('{@DEEPSKYBLUE}{1} {@MUSTARD}{2}{@DESC}개를 획득하였습니다.', item_name, item_cnt)
+	else
+		return Str('{@DEEPSKYBLUE}{1}{@DESC}을/를 획득하였습니다.', item_name)
+	end
+end
+
+-------------------------------------
+-- function makeItemStr
+-------------------------------------
+function UIHelper:makeGoodbyeStr(t_item, dragon_name)
+	local item_id = t_item['item_id']
+	local rel_name = TableItem:getItemName(item_id)
+	local rel_cnt = t_item['count']
+	return Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', dragon_name, rel_name, rel_cnt)
+end
