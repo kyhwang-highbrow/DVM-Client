@@ -211,6 +211,9 @@ function StatusEffect:update(dt)
                 -- 즉시 해제
                 modified_dt = 9999
             else
+                local debuff_time = self.m_owner:getStat('debuff_time')
+                debuff_time = math_max(debuff_time, -100)
+
                 modified_dt = dt / (1 + (self.m_owner:getStat('debuff_time') / 100))
             end
         else
@@ -284,6 +287,8 @@ end
 -- function insertStatus
 -------------------------------------
 function StatusEffect:insertStatus(type, value, is_abs)
+    local is_abs = is_abs
+
     -- 절대값 적용
     if is_abs then
         if (not self.m_lStatusAbs[type]) then

@@ -248,6 +248,12 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	elseif (status_effect_type == 'poison') then
         status_effect = StatusEffect_Poison(res)
 
+    elseif (status_effect_type == 'immortal') then
+        status_effect = StatusEffect_Immortal(res)
+
+    elseif (status_effect_type == 'zombie') then
+        status_effect = StatusEffect_Zombie(res)
+
 	----------- HP 보호막 ------------------
 	elseif (status_effect_type == 'barrier_protection') then
 		status_effect = StatusEffect_Protection(res)
@@ -315,31 +321,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	end
 
     return status_effect
-end
-
--------------------------------------
--- function invokeStatusEffectForDev
--- @brief
--------------------------------------
-function StatusEffectHelper:invokeStatusEffectForDev(char, res)
-    -- 상태 효과 생성
-    local status_effect = StatusEffect(res)
-
-    -- 시간 지정
-    status_effect.m_duration = 100
-    status_effect.m_durationTimer = 100
-
-    status_effect.m_owner = char
-    status_effect.m_statusEffectName = 'poison'
-	status_effect.m_type = 'dot_dmg'
-
-    -- 객체 생성
-    local world = char.m_world
-    world.m_worldNode:addChild(status_effect.m_rootNode, WORLD_Z_ORDER.SE_EFFECT)
-    world:addToUnitList(status_effect)
-
-	status_effect:initState()
-    status_effect:changeState('start')
 end
 
 -------------------------------------

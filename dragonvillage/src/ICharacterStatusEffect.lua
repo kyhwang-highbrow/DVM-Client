@@ -3,7 +3,7 @@
 -------------------------------------
 ICharacterStatusEffect = {
     m_mStatusEffect = 'table',
-    m_mHiddenStatusEffect = 'table',    -- 숨겨져서 노출되지 않는 상태효과(리더, 패시브)
+    m_mHiddenStatusEffect = 'table',-- 숨겨져서 노출되지 않는 상태효과(리더, 패시브)
 
     m_lStatusIcon = 'sprite table',
     m_mStatusEffectCC = 'table',    -- 적용중인 cc효과를 가진 status effect

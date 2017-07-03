@@ -50,6 +50,10 @@ function Character:onEvent(event_name, t_event, ...)
     
 	elseif (event_name == 'stat_changed') then
 		self:onEvent_updateStat()
+
+    elseif (event_name == 'dead') then
+		self:onEvent_dead(t_event)
+
     else
         self:onEvent_common(event_name)
 
@@ -178,6 +182,37 @@ function Character:onEvent_updateStat()
 		self.m_maxHp = max_hp
 		self.m_hp = max_hp * curr_hp_percent
 	end
+end
+
+-------------------------------------
+-- function onEvent_dead
+-------------------------------------
+function Character:onEvent_dead(t_event)
+    if (not self.m_lSkillIndivisualInfo['dead']) then return end
+    if (not self.m_statusCalc) then return end
+
+    for i, v in pairs(self.m_lSkillIndivisualInfo['dead']) do
+        if (v:isEndCoolTime()) then
+            local chance_value = v.m_tSkill['chance_value']
+            if ( (not chane_value) or (chance_value == '') ) then
+                chance_value = 100
+            end
+
+            -- 시전자가 죽으면 안되는 option이 존재하면 죽지 않도록 예외처리...
+            for i = 1, 2 do
+                if (isExistValue(v.m_tSkill['add_option_type_' .. i], 'zombie')) then
+                    -- 해당 상태효과 중일때는 죽지 않고 체력을 1만 남김
+		            t_event['is_dead'] = false
+		            t_event['hp'] = 1
+                end
+            end
+
+            local rand = math_random(1, 100)
+            if (rand <= chance_value) then
+                self:doSkill(v.m_skillID, 0, 0)
+            end
+        end
+    end
 end
 
 -------------------------------------

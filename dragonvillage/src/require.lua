@@ -381,6 +381,8 @@ local t_module = {
 	'StatusEffect_Silence',
 	'StatusEffect_AttributeChange',
 	'StatusEffect_Dispell',
+    'StatusEffect_Zombie',
+    'StatusEffect_Immortal',
 
 	'StatusEffectIcon',
 

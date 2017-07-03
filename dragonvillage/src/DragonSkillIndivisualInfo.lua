@@ -28,6 +28,12 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     self.m_cooldownTimer = 0
 
 	self.m_tAddedValue = nil
+
+    -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
+    if (self.m_skillType == 'indie_time') then
+        local t_skill = GetSkillTable(self.m_charType):get(self.m_skillID)
+        self.m_timer = t_skill['chance_value']
+    end
 end
 
 -------------------------------------
@@ -98,6 +104,11 @@ function DragonSkillIndivisualInfo:applySkillLevel()
 	-- 레벨이 반영된 데이터 계산
 	local _, t_add_value = IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
 	self.m_tAddedValue = t_add_value
+
+    -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
+    if (self.m_skillType == 'indie_time') then
+        self.m_timer = self.m_tSkill['chance_value']
+    end
 end
 
 -------------------------------------

@@ -12,17 +12,26 @@ StatusEffect_Zombie = class(PARENT, {})
 -- @param body
 -------------------------------------
 function StatusEffect_Zombie:init(file_name, body, ...)
-	-- 트리거 쿨타임을 적용하지 않는다.
+    -- 트리거 쿨타임을 적용하지 않는다.
 	self.m_statusEffectInterval = 0
 
     self.m_triggerName = 'dead'
 end
 
 -------------------------------------
+-- function onStart
+-------------------------------------
+function StatusEffect_Zombie:onStart()
+    self.owner:setImmortal(true)
+end 
+
+-------------------------------------
 -- function onEnd
 -------------------------------------
 function StatusEffect_Zombie:onEnd()
     PARENT.onEnd(self)
+
+    self.owner:setImmortal(false)
     
     -- 종료시 사망처리
     self.m_owner:setDead()

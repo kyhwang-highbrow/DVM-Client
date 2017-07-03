@@ -31,6 +31,7 @@ Character = class(PARENT, {
         m_bInvincibility = 'boolean',   -- 무적 상태 여부
 		m_isSilence = 'boolean',		-- 침묵 (스킬 사용 불가 상태)
 		m_isImmuneSE = 'boolean',		-- 면역 (해로운 상태 효과 면역)
+        m_isImmortal = 'boolean',       -- 불사 (죽지 않는 상태)
 
         -- @ for FormationMgr
         m_bLeftFormation = 'boolean',   -- 왼쪽 진형일 경우 true, 오른쪽 진형일 경우 false
@@ -168,6 +169,7 @@ function Character:init(file_name, body, ...)
     self.m_bInvincibility = false
 	self.m_isSilence = false
 	self.m_isImmuneSE = false
+    self.m_isImmortal = false
     
 	self.m_isUseAfterImage = false
 
@@ -389,8 +391,8 @@ function Character:checkAttributeCounter(attacker_char)
 	local tar_attr = attacker_char:getAttribute()
     local attacker_attr = attributeNumToStr(tar_attr)
 
-	local atk_attr_adj_rate = attacker_char.m_statusCalc:getAdjustRate('attr_adj_rate')
-	local def_attr_adj_rate = self.m_statusCalc:getAdjustRate('attr_adj_rate')
+	local atk_attr_adj_rate = attacker_char:getStat('attr_adj_rate')
+	local def_attr_adj_rate = self:getStat('attr_adj_rate')
 
     -- 방어자 속성
     local defender_attr = self:getAttribute()
@@ -553,7 +555,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
 
 		-- 상태효과에 의한 증감
-		damage_multifly = (damage_multifly + self.m_statusCalc:getAdjustRate('dmg_adj_rate') / 100)
+		damage_multifly = (damage_multifly + self:getStat('dmg_adj_rate') / 100)
 
         damage = (damage * damage_multifly)
 
@@ -810,24 +812,25 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
 	    self:dispatch('dead', t_event, self)
 
-        self.m_hp = t_event['hp']
-        
-        local attack_type = t_info['attack_type']
+        if (not t_event['is_dead'] or self.m_isImmortal) then
+            self:setHp(t_event['hp'])
 
-        -- 연출 중일 경우 죽음 방지하는 쪽에서 is_dead 변경될 수 있음 is_dead 안이 아닌 밖에서 기록해줘야함
-        -- @LOG : 보스 막타 타입
-		if (self:isBoss()) then
-			self.m_world.m_logRecorder:recordLog('finish_atk', attack_type)
-		end
-
-        -- @LOG : 드래그 스킬로 적 처치
-        if (attack_type == 'active') then
-            self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
-        end
-
-        if (t_event['is_dead']) then
+        else
             self:setDead()
-            self:changeState('dying')            
+            self:changeState('dying')
+
+            local attack_type = t_info['attack_type']
+
+            -- 연출 중일 경우 죽음 방지하는 쪽에서 is_dead 변경될 수 있음 is_dead 안이 아닌 밖에서 기록해줘야함
+            -- @LOG : 보스 막타 타입
+		    if (self:isBoss()) then
+			    self.m_world.m_logRecorder:recordLog('finish_atk', attack_type)
+		    end
+
+            -- @LOG : 드래그 스킬로 적 처치
+            if (attack_type == 'active') then
+                self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
+            end    
         end
     end
 
@@ -1106,6 +1109,7 @@ function Character:healAbs(caster, heal, b_make_effect)
     if (caster) then
          local heal_power = caster:getStat('heal_power')
          if (heal_power ~= 0) then
+            heal_power = math_max(heal_power, -100)
             heal = heal + math_floor(heal * (heal_power / 100))
          end
     end
@@ -1114,9 +1118,13 @@ function Character:healAbs(caster, heal, b_make_effect)
     do
         local recovery_power = self:getStat('recovery_power')
         if (recovery_power ~= 0) then
+            recovery_power = math_max(recovery_power, -100)
             heal = heal + math_floor(heal * (recovery_power / 100))
         end
     end
+
+    -- 회복량이 0일 경우 표시하지 않음
+    --if (heal <= 0) then return end
 
     local heal_for_text = heal
     heal = math_min(heal, (self.m_maxHp-self.m_hp))
@@ -1170,7 +1178,10 @@ function Character:setHp(hp, bFixed)
 	t_event['owner'] = self
 	t_event['hp'] = self.m_hp
 	t_event['max_hp'] = self.m_maxHp
+
     self:dispatch('character_set_hp', t_event, self)
+
+    self.m_hp = t_event['hp']
 end
 
 -------------------------------------
@@ -1415,7 +1426,7 @@ function Character:update(dt)
 
 	-- 상태효과 업데이트
 	self:updateStatusEffect(dt)
-
+    
 	-- @TEST 디버깅용 디스플레이
     if (self.m_infoUI) then
 		self:updateDebugingInfo()
@@ -2246,6 +2257,13 @@ function Character:isImmuneSE()
     end
 
     return false
+end
+
+-------------------------------------
+-- function setImmortal
+-------------------------------------
+function Character:setImmortal(b)
+	self.m_isImmortal = b
 end
 
 -------------------------------------

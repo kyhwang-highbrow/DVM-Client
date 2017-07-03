@@ -2418,6 +2418,9 @@
     <None Include="..\src\UI_ColosseumRankingRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StatusEffect_Immortal.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_ColosseumHistoryListItem.lua">
       <Filter>lua\UI</Filter>
     </None>

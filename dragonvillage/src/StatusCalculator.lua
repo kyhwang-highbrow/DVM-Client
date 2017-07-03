@@ -12,33 +12,36 @@ L_BASIC_STATUS_TYPE = {
         'avoid',        -- 회피
     }
 
-L_STATUS_TYPE = clone(L_BASIC_STATUS_TYPE)
-table.addList(L_STATUS_TYPE, {
-		'dmg_adj_rate',	-- 데미지 조정 계수
-		'attr_adj_rate', -- 속성 조정 계수
+L_SPECIAL_STATUS_TYPE = {
+    'dmg_adj_rate',	-- 데미지 조정 계수
+	'attr_adj_rate', -- 속성 조정 계수
 
-        -- 룬 세트가 추가되면서 추가된 능력치
-        'accuracy',     -- 효과 적중 +{1}%
-        'resistance',   -- 효과 저항 +{1}%
-        'drag_gauge',   -- 드래그 게이지 +{1} 충전 상태에서 시작
-        'drag_cool',    -- 드래그 스킬 쿨타임 +{1} 감소
-        'cool_actu',    -- 쿨타임 스킬 시간 +{1}%
+    -- 룬 세트가 추가되면서 추가된 능력치
+    'accuracy',     -- 효과 적중 +{1}%
+    'resistance',   -- 효과 저항 +{1}%
+    --'drag_gauge',   -- 드래그 게이지 +{1} 충전 상태에서 시작
+    --'drag_cool',    -- 드래그 스킬 쿨타임 +{1} 감소
+    'cool_actu',    -- 쿨타임 스킬 시간 +{1}%
 
-        -- 스테이지 버프로 추가된 능력치
-        'hp_drain',         -- 공격 명중시 피해량의 +{1}% 만큼 HP회복
-        'drag_dmg',         -- 드래그 스킬 데미지 +{1}% 만큼 증가
-        'heal_power',       -- 회복 스킬 효과 +{1}% 증가
-        'debuff_time',      -- 해로운 효과 지속 시간 +{1}% 증가
+    -- 스테이지 버프로 추가된 능력치
+    'hp_drain',         -- 공격 명중시 피해량의 +{1}% 만큼 HP회복
+    'drag_dmg',         -- 드래그 스킬 데미지 +{1}% 만큼 증가
+    'heal_power',       -- 회복 스킬 효과 +{1}% 증가
+    'debuff_time',      -- 해로운 효과 지속 시간 +{1}% 증가
 
-        -- 전투 로직 개편의 추가 옵션을 위해 추가된 능력치
-        'recovery_power',   -- 받는 치유 효과 +{1}% 증가
-        'reflex_normal',    -- 일반 데미지 +{1}% 반사
-        'reflex_skill',     -- 스킬 데미지 +{2}% 반사
+    -- 전투 로직 개편의 추가 옵션을 위해 추가된 능력치
+    'recovery_power',   -- 받는 치유 효과 +{1}% 증가
+    'reflex_normal',    -- 일반 데미지 +{1}% 반사
+    'reflex_skill',     -- 스킬 데미지 +{2}% 반사
+}
 
-		-- 기획 이슈로 제거
-        --'pass_chance',  -- 패시브 발동 +{1}% 
+-- 스텟 타입 체크를 위한 맵 생성
+M_SPECIAL_STATUS_TYPE = {}
+for i, v in ipairs(L_SPECIAL_STATUS_TYPE) do
+    M_SPECIAL_STATUS_TYPE[v] = true
+end
 
-    })
+L_STATUS_TYPE = table.merge(L_BASIC_STATUS_TYPE, L_SPECIAL_STATUS_TYPE)
 
 -------------------------------------
 -- class StatusCalculator
@@ -299,7 +302,12 @@ function StatusCalculator:addBuffMulti(stat_type, value)
         error('stat_type : ' .. stat_type)
     end
 
-    indivisual_status:addBuffMulti(value)
+    -- 특정 타입의 스텟들은 무조건 합연산
+    if (M_SPECIAL_STATUS_TYPE[stat_type]) then
+        indivisual_status:addBuffAdd(value)
+    else
+        indivisual_status:addBuffMulti(value)
+    end
 end
 
 -------------------------------------

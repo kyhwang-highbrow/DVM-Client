@@ -175,9 +175,7 @@ end
 -------------------------------------
 function GameWorld:se_on_monster()
     for i,v in ipairs(self:getEnemyList()) do
-		if (i < 5) then 
-			local test_res = g_constant:get('ART', 'STATUS_EFFECT_RES')
-			StatusEffectHelper:invokeStatusEffectForDev(v, test_res)
+		if (i < 5) then
 		end
     end
 end

@@ -344,7 +344,7 @@ function GameWorld:bindHero(hero)
     -- HP 변경시 콜백 등록
     hero:addListener('character_set_hp', self)
 
-    hero:addListener('dead', self)
+    hero:addListener('character_dead', self)
 end
 
 -------------------------------------
@@ -398,7 +398,7 @@ function GameWorld:bindEnemy(enemy)
 
     -- 죽음 콜백 등록
     enemy:addListener('dead', self.m_gameDragonSkill)
-    enemy:addListener('dead', self)
+    enemy:addListener('character_dead', self)
     enemy:addListener('character_dead', self.m_gameState)
     if self.m_dropItemMgr then
         enemy:addListener('character_dead', self.m_dropItemMgr)
