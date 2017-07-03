@@ -29,6 +29,12 @@ ITEM_ID_MAP['stamina']      = 700101
 ITEM_ID_MAP['staminas_st']  = 700101
 ITEM_ID_MAP['staminas_pvp'] = 700102
 
+local ITEM_TYPE_MAP = {}
+for i,v in pairs(ITEM_ID_MAP) do
+    ITEM_TYPE_MAP[v] = i
+end
+
+
 
 -------------------------------------
 -- function getItemIDFromItemType
@@ -37,6 +43,15 @@ ITEM_ID_MAP['staminas_pvp'] = 700102
 function TableItem:getItemIDFromItemType(item_type)
     local item_id = ITEM_ID_MAP[item_type]
     return item_id
+end
+
+-------------------------------------
+-- function getItemTypeFromItemID
+-- @brief item_id를 문자열로 치환해주는 함수
+-------------------------------------
+function TableItem:getItemTypeFromItemID(item_id)
+    local item_type = ITEM_TYPE_MAP[item_id]
+    return item_type
 end
 
 -------------------------------------

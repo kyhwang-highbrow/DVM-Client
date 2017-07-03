@@ -51,14 +51,14 @@ function UI_Colosseum:init()
     self:initButton()
     self:refresh()
 
-    --[[
     -- 보상 안내 팝업
     local function finich_cb()
-		if (g_colosseumData.m_hasWeeklyReward) then
-			UI_ColosseumRankingReward()
+		if (g_colosseumData.m_tSeasonRewardInfo) then
+            local info = g_colosseumData.m_tSeasonRewardInfo
+            UI_ColosseumRankingRewardPopup(info)
+            g_colosseumData.m_tSeasonRewardInfo = nil
 		end
     end
-    --]]
 
     self:sceneFadeInAction(nil, finich_cb)
 end

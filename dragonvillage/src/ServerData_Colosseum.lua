@@ -91,6 +91,9 @@ end
 -- function response_colosseumInfo
 -------------------------------------
 function ServerData_Colosseum:response_colosseumInfo(ret)
+    -- 주간 보상이 넘어왔을 경우
+    g_serverData:networkCommonRespone_addedItems(ret)
+
     self:refresh_matchList(ret['matchlist'])
 
     self.m_startTime = ret['start_time']
@@ -101,6 +104,9 @@ function ServerData_Colosseum:response_colosseumInfo(ret)
 
     -- 공격전 대상 리스트 갱신 시간
     self.m_refreshFreeTime = ret['refresh']
+
+    -- 주간 보상
+    self:setSeasonRewardInfo(ret)
 end
 
 -------------------------------------
@@ -578,6 +584,19 @@ end
 -- function setSeasonRewardInfo
 -------------------------------------
 function ServerData_Colosseum:setSeasonRewardInfo(ret)
-    
-    --self.m_tSeasonRewardInfo
+    if (ret['reward'] == true) and ret['lastseason'] then
+        -- 플레이어 유저 정보 생성
+        local struct_user_info = StructUserInfoColosseum()
+        struct_user_info.m_uid = g_userData:get('uid')
+
+        self:_refresh_playerUserInfo(struct_user_info, ret['lastseason'])
+        self.m_tSeasonRewardInfo = struct_user_info
+
+        -- ret['week'] -- 주차
+        -- ret['total'] -- 순위를 가진 전체 유저 수
+
+        -- 보상 cash 갯수 저장
+        local t_item_id_cnt, t_iten_type_cnt = ServerData_Item:parseAddedItems(ret['added_items'])
+        struct_user_info.m_userData = t_iten_type_cnt
+    end
 end

@@ -637,6 +637,7 @@ local t_module = {
     'UI_ColosseumAttackListItem',
     'UI_ColosseumReady',
     'UI_ColosseumRankListItem',
+    'UI_ColosseumRankingRewardPopup',
     'UI_3DDeck',
 
 	-- UI : 고대의 탑

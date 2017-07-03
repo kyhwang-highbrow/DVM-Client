@@ -139,3 +139,37 @@ function ServerData_Item:parseAddedItems_firstItem(added_items)
 
     return first_item['item_id'], first_item['count'], t_sub_data
 end
+
+
+-------------------------------------
+-- function parseAddedItems
+-- @brief
+-------------------------------------
+function ServerData_Item:parseAddedItems(added_items)
+    local items_list = added_items and added_items['items_list']
+    if (not items_list) then
+        return {}
+    end
+
+    -- 아이템 ID별 갯수 리스트
+    local t_item_id_cnt = {}
+    for i,v in pairs(items_list) do
+        local item_id = v['item_id']
+        local count = v['count']
+        if (not t_item_id_cnt[item_id]) then
+            t_item_id_cnt[item_id] = 0
+        end
+
+        t_item_id_cnt[item_id] = t_item_id_cnt[item_id] + count
+    end
+
+    -- 아이템 Type별 갯수 리스트
+    local t_iten_type_cnt = {}
+    for i,v in pairs(t_item_id_cnt) do
+        local key = TableItem:getItemTypeFromItemID(i) or i
+        t_iten_type_cnt[key] = v
+    end
+
+
+    return t_item_id_cnt, t_iten_type_cnt
+end
