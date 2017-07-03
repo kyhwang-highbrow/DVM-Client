@@ -77,7 +77,8 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 		return TargetRule_getTargetList_attr(org_list, type)
 
 	-- 직군 관련
-	elseif isExistValue(type, 'tanker', 'dealer', 'supporter', 'healer') then
+	elseif pl.stringx.startswith(type, 'tanker') or pl.stringx.startswith(type, 'dealer') or
+           pl.stringx.startswith(type, 'supporter') or pl.stringx.startswith(type, 'healer') then
 		return TargetRule_getTargetList_role(org_list, type)
 
 	elseif (type == 'buff') then		
@@ -298,16 +299,18 @@ function TargetRule_getTargetList_role(org_list, role)
 
 	-- 직업군이 같은 아이들을 추출한다
     for i = #t_char, 1, -1 do
-		if (t_char[i]:getRole() == role) then
+		if (string.find(role, t_char[i]:getRole())) then
 			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
 		end
 	end
-
-	-- 남은 애들도 다시 담는다.
-	for i, char in pairs(t_char) do
-		table.insert(t_ret, char)
-	end
+    
+    if(not pl.stringx.endswith(role, 'only')) then
+	    -- 남은 애들도 다시 담는다.
+	    for i, char in pairs(t_char) do
+		    table.insert(t_ret, char)
+	    end
+    end
 
     return t_ret
 end
