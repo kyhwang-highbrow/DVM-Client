@@ -249,6 +249,7 @@ function UI_Colosseum:onChangeTab(tab, first)
 
     elseif (tab == 'def_tab') then
         self:refresh_combatPower('def')
+        self:request_matchHistory()
 
     elseif (tab == 'ranking_tab') then
         self:request_Rank()
@@ -276,7 +277,7 @@ function UI_Colosseum:init_atkTab()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(720, 150 + 10)
+    table_view.m_defaultCellSize = cc.size(720, 150 + 5)
     table_view:setCellUIClass(UI_ColosseumAttackListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
@@ -519,6 +520,61 @@ function UI_Colosseum:init_rankTableView()
 
     table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
 end
+
+
+-------------------------------------
+-- function request_matchHistory
+-------------------------------------
+function UI_Colosseum:request_matchHistory()
+    local function finish_cb()
+        self:init_historyTableView()
+        UIManager:toastNotificationRed(Str('서버 작업 전. 임시로 데이터 띄움'))
+    end
+    g_colosseumData:request_colosseumDefHistory(finish_cb)
+end
+
+-------------------------------------
+-- function init_historyTableView
+-------------------------------------
+function UI_Colosseum:init_historyTableView()
+    local vars = self.vars
+    local node = vars['defListNode']
+
+    node:removeAllChildren()
+
+    local l_item_list = g_colosseumData.m_matchHistory
+    l_item_list = g_colosseumData.m_matchList
+    
+    -- 생성 콜백
+    local function create_func(ui, data)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(720, 150 + 5)
+    table_view:setCellUIClass(UI_ColosseumHistoryListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
+
+    do-- 테이블 뷰 정렬
+        local function sort_func(a, b)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            -- 랭킹으로 선별
+            local a_rank = a_data.m_rank
+            local b_rank = b_data.m_rank
+            --if (a_rank ~= b_rank) then
+                return a_rank < b_rank
+            --end
+        end
+
+        table.sort(table_view.m_itemList, sort_func)
+    end
+
+    table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_Colosseum)

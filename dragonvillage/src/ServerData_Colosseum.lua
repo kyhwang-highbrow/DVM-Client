@@ -545,6 +545,13 @@ function ServerData_Colosseum:request_colosseumDefHistory(finish_cb, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
+
+        self.m_matchHistory = {}
+        for i,v in pairs(ret['list']) do
+            local user_info = StructUserInfoColosseum:create_forRanking(v)
+            table.insert(self.m_matchHistory, user_info)
+        end
+
         --[[
         g_serverData:networkCommonRespone(ret)
         self.m_myRank = ret['my_info']
