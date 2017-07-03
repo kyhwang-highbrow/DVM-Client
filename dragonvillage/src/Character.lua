@@ -725,7 +725,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
 		-- 크리티컬 
 		if (is_critical) then
-            if (attack_type == 'basic') then
+            if (real_attack_type == 'basic') then
 			    attacker_char:dispatch('basic_cri', t_event)
             elseif (attack_type == 'active') then
                 attacker_char:dispatch('skill_cri', t_event)
