@@ -570,7 +570,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         if (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
             self:makeMissFont(i_x, i_y)
 		    -- @EVENT
-		    self:dispatch('avoid')
+		    self:dispatch('avoid_rate')
         
 		    -- @LOG_CHAR : 방어자 회피 횟수
 		    self.m_charLogRecorder:recordLog('avoid', 1)

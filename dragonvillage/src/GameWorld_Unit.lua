@@ -356,6 +356,7 @@ end
 -- function bindHero
 -------------------------------------
 function GameWorld:bindHero(hero)
+    hero:addListener('avoid_rate', self)
     hero:addListener('dead', self.m_gameDragonSkill)
     hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
@@ -416,6 +417,9 @@ end
 -- function bindEnemy
 -------------------------------------
 function GameWorld:bindEnemy(enemy)
+
+    enemy:addListener('avoid_rate', self)
+
     -- 죽음 콜백 등록
     enemy:addListener('dead', self.m_gameDragonSkill)
     enemy:addListener('dead', self)

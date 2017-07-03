@@ -193,7 +193,7 @@ function Character:onEvent_common(event_name)
     for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
         if (v:isEndCoolTime()) then
             local chance_value = v.m_tSkill['chance_value']
-            if ( (not chane_value) or (chance_value == '') ) then
+            if ( (not chance_value) or (chance_value == '') ) then
                 chance_value = 100
             end
 
