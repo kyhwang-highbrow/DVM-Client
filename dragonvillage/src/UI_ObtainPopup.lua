@@ -21,7 +21,7 @@ function UI_ObtainPopup:init(l_item, msg, ok_btn_cb)
     g_currScene:pushBackKeyListener(self, function() self:click_okBtn() end, 'UI_ObtainPopup')
 
 	-- initialize
-	self.m_lItemList = l_item
+	self.m_lItemList = self:makePrettyList(l_item)
 	self.m_isSingle = (#l_item == 1)
     self.m_msg = msg
     self.m_cbOKBtn = ok_btn_cb
@@ -68,6 +68,41 @@ end
 -------------------------------------
 function UI_ObtainPopup:refresh()
 	local vars = self.vars
+end
+
+-------------------------------------
+-- function makePrettyList
+-- @brief 특정 재화들은 여러개가 있을 경우 합친다.
+-------------------------------------
+function UI_ObtainPopup:makePrettyList(l_item)
+	local l_ret = {}
+	local t_simple = {}
+
+	for i, v in pairs(l_item) do
+		local item_id = v['item_id']
+
+		-- 클라에 정의된 타입은 합치는 재화로 간주
+		if (TableItem:getItemTypeFromItemID(item_id)) then
+			if (t_simple[item_id]) then
+				t_simple[item_id]['count'] = t_simple[item_id]['count'] + v['count']
+
+			else
+				t_simple[item_id] = v
+
+			end
+
+		-- 그외는 합칠 수 없는 오브젝트 아이템
+		else
+			l_ret[i] = v
+		end
+	end
+
+	-- 일반 오브젝트 아이템 리스트 상단에 합치는 재화들을 넣어준다.
+	for i, v in pairs(t_simple) do
+		table.insert(l_ret, 1, v)
+	end
+
+	return l_ret
 end
 
 -------------------------------------
