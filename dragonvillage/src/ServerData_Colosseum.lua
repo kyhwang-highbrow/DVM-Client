@@ -468,7 +468,8 @@ function ServerData_Colosseum:request_colosseumFinish(is_win, finish_cb, fail_cb
         self:refresh_playerUserInfo(ret['season'])
 
         -- 변경 데이터
-        ret['added_rp'] = (self.m_playerUserInfo.m_rp - prev_rp)
+        --ret['added_rp'] = (self.m_playerUserInfo.m_rp - prev_rp)
+        ret['added_rp'] = ret['point'] -- 실시간으로 변경된 값이 있을 수 있으므로 서버에서 넘어오는 값을 표기
         ret['added_honor'] = (g_userData:get('honor') - prev_honor)
 
         if finish_cb then
