@@ -67,7 +67,8 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 		return TargetRule_getTargetList_status_effect(org_list, type)
     
 	-- 스탯 관련
-    elseif pl.stringx.startswith(type, 'def') or pl.stringx.startswith(type, 'atk') or pl.stringx.startswith(type, 'hp') then
+    elseif pl.stringx.startswith(type, 'def') or pl.stringx.startswith(type, 'atk') or pl.stringx.startswith(type, 'hp') or
+           pl.stringx.startswith(type, 'aspd') or pl.stringx.startswith(type, 'avoid') or pl.stringx.startswith(type, 'cri') then
 		return TargetRule_getTargetList_stat(org_list, type)
 
 	-- 속성 관련
@@ -253,8 +254,11 @@ function TargetRule_getTargetList_stat(org_list, stat_type)
 
 	local temp = seperate(stat_type, '_')
 	local target_stat = temp[1]
-	local is_descending = (temp[2] == 'high')
-	
+    for i = 2, (#temp - 1) do
+        target_stat = target_stat .. '_' .. temp[i]
+    end
+	local is_descending = (temp[#temp] == 'high')
+
 	-- 별도 로직이 필요한 정렬
 	if (target_stat == 'hp') then
 		table.sort(t_ret, function(a, b)
