@@ -521,11 +521,11 @@ function ServerData_Dragons:checkDragonEvolution(doid)
 
 	-- 해치는 태생등급 이상인 경우 진화 가능
 	if (evolution == 1) and (grade < birth_grade) then
-		return false, Str('등급이 낮아 진화 할 수 없습니다.')
+		return false, Str('{1}성으로 승급해야 진화가 가능합니다.', birth_grade)
 
 	-- 해츨링은 태생등급 + 1 이상인 경우 진화 가능
 	elseif (evolution == 2) and (grade < birth_grade + 1) then
-		return false, Str('등급이 낮아 진화 할 수 없습니다.')
+		return false, Str('{1}성으로 승급해야 진화가 가능합니다.', birth_grade + 1)
 
 	end
 
