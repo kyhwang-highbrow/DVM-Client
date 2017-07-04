@@ -31,7 +31,6 @@ function AnimatorSpine:setSkin(skin_name)
         return
     end
 
-    local skin_name = tostring(skin_name) or '6'
     self.m_node:setSkin(skin_name)
 end
 
