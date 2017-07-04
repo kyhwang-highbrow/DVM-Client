@@ -15,6 +15,7 @@ ITableViewCell = {
         m_cellSize = 'cc.size',
         m_bOrgCellVisible = 'boolean',
         m_cellVisibleRefCnt = 'number',
+		m_highligtFrame = 'sprite'
     }
 
 -------------------------------------
@@ -131,20 +132,20 @@ end
 -------------------------------------
 -- function setHighlightFrame
 -------------------------------------
-function ITableViewCell:setHighlightFrame(res)
-	if res then
-		local width = self.m_cellSize['width']
-		local height = self.m_cellSize['height']
+function ITableViewCell:setHighlightFrame(visible)
+	if (self.m_highligtFrame) then
+		self.m_highligtFrame:setVisible(visible)
 
+	else
 		local rect = cc.rect(0, 0, 0, 0)
-		local sprite = cc.Scale9Sprite:create(rect, res)
-		sprite:setContentSize(width, height)
-		sprite:setDockPoint(cc.p(0.5, 0.5))
-		sprite:setAnchorPoint(cc.p(0.5, 0.5))
+		local sprite = cc.Scale9Sprite:create(rect, 'res/ui/frame/list_frame_0202.png')
+		sprite:setContentSize(self.m_cellSize['width'], self.m_cellSize['height'])
+		sprite:setDockPoint(CENTER_POINT)
+		sprite:setAnchorPoint(CENTER_POINT)
 
-		if sprite then 
-			root:addChild(sprite) 
-		end
+		self.root:addChild(sprite)
+		self.m_highligtFrame = sprite
+
 	end
 end
 

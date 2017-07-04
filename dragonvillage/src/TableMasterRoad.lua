@@ -40,3 +40,23 @@ function TableMasterRoad:arrangeData()
 		t_quest['t_reward'] = t_temp
 	end
 end
+
+-------------------------------------
+-- function getSortedList
+-- @brief mid를 기준으로 정렬된 리스트 반환
+-------------------------------------
+function TableMasterRoad:getSortedList()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+	local t_road_table = self.m_orgTable
+	local l_road_list = table.MapToList(t_road_table)
+	table.sort(l_road_list, function(a, b) 
+		local a_id = (a['mid'])
+		local b_id = (b['mid'])
+		return a_id < b_id
+	end)
+
+	return l_road_list
+end
