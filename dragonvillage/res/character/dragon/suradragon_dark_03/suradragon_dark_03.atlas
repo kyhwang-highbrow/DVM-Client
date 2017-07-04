@@ -69,7 +69,7 @@ suradragon_dark_03_effect_03
   index: -1
 suradragon_dark_03_elbow_01
   rotate: false
-  xy: 1554, 339
+  xy: 1578, 339
   size: 120, 52
   orig: 120, 52
   offset: 0, 0
@@ -82,8 +82,8 @@ suradragon_dark_03_elbow_02
   offset: 0, 0
   index: -1
 suradragon_dark_03_eye_01
-  rotate: true
-  xy: 592, 128
+  rotate: false
+  xy: 554, 296
   size: 37, 17
   orig: 37, 17
   offset: 0, 0
@@ -97,7 +97,7 @@ suradragon_dark_03_eye_02
   index: -1
 suradragon_dark_03_eye_03
   rotate: true
-  xy: 554, 287
+  xy: 2032, 483
   size: 26, 14
   orig: 26, 14
   offset: 0, 0
@@ -111,14 +111,14 @@ suradragon_dark_03_eye_04
   index: -1
 suradragon_dark_03_foot_armor_01
   rotate: false
-  xy: 376, 40
+  xy: 746, 264
   size: 43, 49
   orig: 43, 49
   offset: 0, 0
   index: -1
 suradragon_dark_03_foot_armor_02
   rotate: false
-  xy: 1769, 354
+  xy: 1793, 354
   size: 32, 37
   orig: 32, 37
   offset: 0, 0
@@ -131,22 +131,22 @@ suradragon_dark_03_hand_01
   offset: 0, 0
   index: -1
 suradragon_dark_03_hand_02
-  rotate: false
-  xy: 2008, 435
+  rotate: true
+  xy: 376, 57
   size: 32, 74
   orig: 32, 74
   offset: 0, 0
   index: -1
 suradragon_dark_03_hand_acc_01
   rotate: true
-  xy: 1676, 343
+  xy: 1700, 343
   size: 48, 91
   orig: 48, 91
   offset: 0, 0
   index: -1
 suradragon_dark_03_hand_acc_02
-  rotate: false
-  xy: 598, 167
+  rotate: true
+  xy: 791, 283
   size: 30, 59
   orig: 30, 59
   offset: 0, 0
@@ -161,20 +161,27 @@ suradragon_dark_03_head_01
 suradragon_dark_03_head_armor_01
   rotate: false
   xy: 1361, 330
-  size: 191, 179
-  orig: 191, 179
+  size: 215, 179
+  orig: 215, 179
+  offset: 0, 0
+  index: -1
+suradragon_dark_03_head_armor_02
+  rotate: true
+  xy: 598, 199
+  size: 27, 68
+  orig: 27, 68
   offset: 0, 0
   index: -1
 suradragon_dark_03_leg_01
   rotate: true
-  xy: 1554, 393
+  xy: 1578, 393
   size: 116, 247
   orig: 116, 247
   offset: 0, 0
   index: -1
 suradragon_dark_03_leg_02
   rotate: true
-  xy: 1803, 377
+  xy: 1827, 377
   size: 132, 203
   orig: 132, 203
   offset: 0, 0

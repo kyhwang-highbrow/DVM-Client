@@ -6,14 +6,14 @@ filter: Linear,Linear
 repeat: none
 suradragon_dark_01_arm_01
   rotate: false
-  xy: 1058, 21
+  xy: 1082, 21
   size: 64, 115
   orig: 64, 115
   offset: 0, 0
   index: -1
 suradragon_dark_01_arm_02
   rotate: false
-  xy: 1433, 153
+  xy: 1457, 153
   size: 102, 101
   orig: 102, 101
   offset: 0, 0
@@ -34,28 +34,28 @@ suradragon_dark_01_effect_01
   index: -1
 suradragon_dark_01_elbow_01
   rotate: false
-  xy: 1537, 202
+  xy: 1561, 202
   size: 120, 52
   orig: 120, 52
   offset: 0, 0
   index: -1
 suradragon_dark_01_elbow_02
   rotate: false
-  xy: 1659, 199
+  xy: 1683, 199
   size: 58, 55
   orig: 58, 55
   offset: 0, 0
   index: -1
 suradragon_dark_01_eye_01
   rotate: false
-  xy: 1058, 2
+  xy: 1082, 2
   size: 37, 17
   orig: 37, 17
   offset: 0, 0
   index: -1
 suradragon_dark_01_eye_02
   rotate: true
-  xy: 1097, 2
+  xy: 1121, 2
   size: 17, 12
   orig: 17, 12
   offset: 0, 0
@@ -69,7 +69,7 @@ suradragon_dark_01_eye_03
   index: -1
 suradragon_dark_01_eye_04
   rotate: false
-  xy: 1433, 143
+  xy: 1457, 143
   size: 6, 8
   orig: 6, 8
   offset: 0, 0
@@ -83,14 +83,14 @@ suradragon_dark_01_hand_01
   index: -1
 suradragon_dark_01_hand_02
   rotate: false
-  xy: 1174, 62
+  xy: 1198, 62
   size: 32, 74
   orig: 32, 74
   offset: 0, 0
   index: -1
 suradragon_dark_01_hand_acc_01
   rotate: false
-  xy: 1124, 45
+  xy: 1148, 45
   size: 48, 91
   orig: 48, 91
   offset: 0, 0
@@ -104,7 +104,7 @@ suradragon_dark_01_hand_acc_02
   index: -1
 suradragon_dark_01_head_01
   rotate: true
-  xy: 979, 2
+  xy: 1003, 2
   size: 134, 77
   orig: 134, 77
   offset: 0, 0
@@ -112,20 +112,20 @@ suradragon_dark_01_head_01
 suradragon_dark_01_head_armor_01
   rotate: false
   xy: 786, 75
-  size: 191, 179
-  orig: 191, 179
+  size: 215, 179
+  orig: 215, 179
   offset: 0, 0
   index: -1
 suradragon_dark_01_leg_01
   rotate: true
-  xy: 979, 138
+  xy: 1003, 138
   size: 116, 247
   orig: 116, 247
   offset: 0, 0
   index: -1
 suradragon_dark_01_leg_02
   rotate: true
-  xy: 1228, 122
+  xy: 1252, 122
   size: 132, 203
   orig: 132, 203
   offset: 0, 0
