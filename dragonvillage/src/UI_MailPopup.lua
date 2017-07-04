@@ -157,14 +157,21 @@ function UI_MailPopup:click_rewardBtn(t_mail_data)
 		if (ret['status'] == 0) then
 			self.m_mTableView[self.m_currTab]:delItem(t_mail_data['id'])
 			
+			-- 확정권인 경우
 			if (g_mailData:checkTicket(t_mail_data)) then
+				-- 드래곤은 결과 화면으로
 				if (#ret['added_items']['dragons'] > 0) then
 					UI_GachaResult_Dragon(ret['added_items']['dragons'])
+
+				-- 룬은 룬 결과 화면
 				elseif (#ret['added_items']['runes'] > 0) then
                     local item_id, count, t_sub_data = g_itemData:parseAddedItems_firstItem(ret['added_items'] or ret['add_items'])
                     local ui = MakeSimpleRewarPopup(Str('룬'), item_id, count, t_sub_data)
+				
+				-- 그외는 보상 수령
 				else
 					UI_ToastPopup()
+
 				end
 			else
 				-- 단일 보상 수령 시 토스트 팝업
@@ -187,8 +194,8 @@ end
 -------------------------------------
 function UI_MailPopup:click_rewardAllBtn()
 	-- 우편이 없다면 탈출
-	local mail_cnt, ticket_cnt = g_mailData:countMailExceptTicket(self.m_currTab)
-	if (mail_cnt == 0) then 
+	local possible = g_mailData:canReadAll(self.m_currTab)
+	if (not possible) then 
 		UIManager:toastNotificationRed(Str('수령할 수 있는 메일이 없습니다.'))
 		return
 	end
@@ -211,12 +218,7 @@ function UI_MailPopup:click_rewardAllBtn()
 	end
 
 	-- 시작
-	if (self.m_currTab == 'mail') and (ticket_cnt > 0) then
-		-- 확정권이 있는 경우에는 팝업을 띄워준다.
-		MakeSimplePopup(POPUP_TYPE.YES_NO, Str('{@DESC}우편을 전부 수령하십니까?\n{@SKYBLUE}확정권{@DESC}은 모두 받기에서 제외됩니다.'), get_all_reward_cb)
-	else
-		get_all_reward_cb()
-	end
+	get_all_reward_cb()
 end
 
 -------------------------------------

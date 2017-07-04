@@ -70,25 +70,6 @@ function ServerData_Mail:deleteMailData(moid)
 end
 
 -------------------------------------
--- function countMailExceptTicket
--- @brief 확정권을 제외한 메일 갯수를 파악한다.
--------------------------------------
-function ServerData_Mail:countMailExceptTicket(type)
-	local mail_list = self:getMailList(type)
-	local mail_cnt = 0
-	local ticket_cnt = 0
-
-	for i, mail in pairs(mail_list) do
-		if (self:checkTicket(mail)) then
-			ticket_cnt = ticket_cnt + 1
-		else
-			mail_cnt = mail_cnt + 1
-		end
-	end
-	return mail_cnt, ticket_cnt 
-end
-
--------------------------------------
 -- function checkTicket
 -- @brief 확정권인지 검사한다.
 -------------------------------------
@@ -105,23 +86,25 @@ function ServerData_Mail:checkTicket(mail_data)
 end
 
 -------------------------------------
--- function checkFriendPoint
--- @brief 아이템 카운트가 1이고 우정포인트인지 검사한다
+-- function isMailCanReadAll
+-- @brief 모두 받기 가능한 메일인지 검사
 -------------------------------------
-function ServerData_Mail:checkFriendPoint(mail_data)
-	local item_list = mail_data['items_list']
-	
-	-- 아이템 카운트 1이 아니라면 친구가 보낸 우정포인트가 아님
-	if not (table.getn(item_list) == 1) then 
-		return false
-	end
-	
-	-- 우정포인트인지 체크
-	local item_type = TableItem():getValue(item_list[1]['item_id'], 'type')
-	if (item_type == 'fp') then
-		return true
-	end
+function ServerData_Mail:isMailCanReadAll(t_mail_data)
+	local item_id = t_mail_data['items_list'][1]['item_id']
+	return (TableItem:getItemTypeFromItemID(item_id) ~= nil)
+end
 
+-------------------------------------
+-- function canReadAll
+-- @brief 모두 받기 가능한 메일이 있는지 검사!
+-------------------------------------
+function ServerData_Mail:canReadAll(mail_tab)
+	for mid, t_mail_data in pairs(self.m_mMailMap[mail_tab]) do
+		-- 하나라도 모두 받기 가능한 메일이 있다면 탈출
+		if (self:isMailCanReadAll(t_mail_data)) then
+			return true
+		end
+	end
 	return false
 end
 
@@ -161,7 +144,7 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 		local moid = t_mail['id']
 		local tag = t_mail['tag']
 		
-		-- 우정포인트로 인하여 tag를 쓸수밖에 없다.
+		-- 우정포인트로 인하여 tag를 쓸수밖에 없다. -> 수정 예정
 		if (tag == '') then
 			local t_item = t_mail['items_list'][1]
 			local item_id = t_item['item_id']
@@ -169,12 +152,15 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 			-- 클라에서 미리 정의한 item type을 가져온다.
 			local item_type = TableItem:getItemTypeFromItemID(item_id)
 			
-			if string.find(item_type, 'stamina') then
-				tag = 'st'
-
-			-- stamina가 없고 item type이 있다면 모두 '재화'에 해당
-			elseif (item_type) then
-				tag = 'goods'
+			if item_type then
+				-- staminas는 '활동력에 속함'			
+				if string.find(item_type, 'stamina') then
+					tag = 'st'
+				
+				-- stamina가 없고 item type이 있다면 모두 '재화'에 해당
+				else
+					tag = 'goods'
+				end
 
 			-- 클라에서 미리 정의 하지 않은 것은 '아이템'에 속한다.
 			else
@@ -265,8 +251,8 @@ function ServerData_Mail:request_mailReadAll(type, finish_cb)
 	local mail_list = self:getMailList(type)
 	local mail_id_list = {}
 	for i, mail in pairs(mail_list) do
-		-- 확정권은 제외 한다.
-		if not (self:checkTicket(mail)) then 
+		-- 모두 받기 가능한 메일만 테이블에 추가
+		if (self:isMailCanReadAll(mail)) then 
 			table.insert(mail_id_list, mail['id'])
 		end
 	end
