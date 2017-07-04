@@ -700,6 +700,7 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
         for i, target in pairs(t_ret) do
             if (target == self_char) then
                 table.remove(t_ret, i)
+                break
             end
         end
     end

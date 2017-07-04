@@ -126,7 +126,7 @@ end
 -- @breif 이벤트 처리..
 -------------------------------------
 function Skill:initEventListener()
-	-- 스킬 생명 주기 내의 기본 이벤트
+    -- 기본 이벤트
 	self:addListener(CON_SKILL_START, self)
 	self:addListener(CON_SKILL_HIT, self)
 	self:addListener(CON_SKILL_END, self)
@@ -139,8 +139,8 @@ function Skill:initEventListener()
             target:addListener(CON_SKILL_HIT_KILL, self)
         end
     end
-
-	-- 스킬 외부에서의 이벤트
+    
+	-- 스킬 내부의 특정 이벤트
     for _,  v in pairs(self.m_lStatusEffect) do
         local trigger = v.m_trigger or ''
         if (isExistValue(trigger, CON_SKILL_HIT_TARGET)) then

@@ -22,8 +22,10 @@ end
 -- function release_EventListener
 -------------------------------------
 function IEventListener:release_EventListener()
-    for event_name, dispatcher in pairs(self.m_lEventDispatcher) do
-        dispatcher:removeListener(event_name, self)
+    for event_name, v in pairs(self.m_lEventDispatcher) do
+        for k, dispatcher in pairs(v) do
+            dispatcher:removeListener(event_name, self)
+        end
     end
 end
 

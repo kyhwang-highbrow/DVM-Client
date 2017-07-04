@@ -94,7 +94,7 @@ function StatusEffectIcon:checkDuration()
     
 	-- 1. 제한 시간이 있는 상태 효과 
 	if (self.m_statusEffect:isInfinity()) then 
-        setBlink(true)
+        setBlink(false)
     else
 		-- 2. 남은 시간이 3초 이상인데 점멸 상태인 경우 -> 점멸 해제
 		if (self.m_statusEffect:getLatestTimer() > 3) then

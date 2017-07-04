@@ -21,10 +21,12 @@ function IEventDispatcher:addListener(event_name, listener)
     if (not self.m_lEventListener[event_name]) then
         self.m_lEventListener[event_name] = {}
     end
-
     self.m_lEventListener[event_name][listener] = listener
 
-    listener.m_lEventDispatcher[event_name] = self
+    if (not listener.m_lEventDispatcher[event_name]) then
+        listener.m_lEventDispatcher[event_name] = {}
+    end
+    listener.m_lEventDispatcher[event_name][self] = self
 end
 
 -------------------------------------
@@ -37,7 +39,11 @@ function IEventDispatcher:removeListener(event_name, listener)
         error('removeListener no event_name : ' .. event_name)
     end
     self.m_lEventListener[event_name][listener] = nil
-    listener.m_lEventDispatcher[event_name] = nil
+
+    if (not listener.m_lEventDispatcher[event_name]) then
+        error('removeListener no event_name : ' .. event_name)
+    end
+    listener.m_lEventDispatcher[event_name][self] = nil
 end
 
 -------------------------------------
