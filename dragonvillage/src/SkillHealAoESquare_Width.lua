@@ -73,10 +73,6 @@ function SkillHealAoESquare_Width:findCollision()
 
     local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, true)
 
-    for i, v in ipairs(l_ret) do
-        print( v)
-    end
-
     -- x값이 작은 순으로 정렬
     if (#l_ret > 1) then
         table.sort(l_ret, function(a, b)
