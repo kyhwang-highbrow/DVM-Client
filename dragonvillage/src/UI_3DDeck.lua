@@ -141,9 +141,6 @@ function UI_3DDeck:getRotatedPosList(formation)
 		local world_x = transform[12 + 1]
 		local world_y = transform[13 + 1]
 
-        if (i == 3) then
-            cclog('pos : ', world_x, world_y)
-        end
 		local node_space = convertToNodeSpace(vars['formationNodeXAxis'], cc.p(world_x, world_y))
 		table.insert(ret_list, node_space)
 	end
