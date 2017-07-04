@@ -210,7 +210,8 @@ function UI_Lobby:initButton()
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
     vars['guildBtn']:registerScriptTapHandler(function() self:click_guildBtn() end) -- 길드
 	vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end)
-    
+    vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
+
     -- FGT버전에서 퀘스트 기능 숨김
     if (TARGET_SERVER == 'FGT') then
         vars['questBtn']:setVisible(false)
@@ -365,6 +366,14 @@ end
 -------------------------------------
 function UI_Lobby:click_questBtn()
     UI_QuestPopup()
+end
+
+-------------------------------------
+-- function click_masterRoadBtn
+-- @brief 마스터의 길 버튼
+-------------------------------------
+function UI_Lobby:click_masterRoadBtn()
+    UI_MasterRoadPopup()
 end
 
 -------------------------------------

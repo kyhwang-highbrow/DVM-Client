@@ -1,38 +1,27 @@
-qid,key,t_desc,type,unit,max_cnt,reward_max_cnt,reward,special,score
-10001,jam_party,1. 5마리 파티로 {1}번 전투하기,newbie,1,1,1,gold:5000,,10
-10002,d_lvup,2. 드래곤 레벨업 기능 {1}번 이용하기,newbie,1,1,1,gold:5000,,10
-10003,d_sklvup,3. 드래곤 스킬 {1}번 레벨업하기 ,newbie,1,1,1,gold:5000,,10
-10004,r_eq,4. {1}개 룬 장착하기 ,newbie,1,1,1,gold:5000,1,10
-10005,d_get,5. 드래곤 {1}마리 획득하기,newbie,5,1,1,staminas_st:30,,10
-10006,d_evup,6. {1}번 드래곤 진화 시키기,newbie,1,1,1,cash:250,,10
-10007,col_play,7. 콜로세움 전투 {1}번 참여하기,newbie,1,1,1,gold:5000,1,10
-10008,d_grup,8. {1}번 드래곤 승급하기,newbie,1,1,1,cash:250,,10
-10009,d_afup,9. 드래곤의 친밀도 {1}번 올리기,newbie,1,1,1,gold:7000,,10
-10010,d_gb,10. {1}번 드래곤과 작별하기 ,newbie,1,1,1,gold:8000,,10
-10011,nq_clear,초보자 퀘스트 모두 클리어하기,newbie_all,10,1,1,cash:500,,10
-20001,d_evup,드래곤 진화 {1}번 시키기,challenge,5,8,4,cash:200,,20
-20002,id_lvup,유저 레벨 {1} 달성하기,challenge,10,10,10,cash:100,,20
-20003,adv_time,{1}시간동안 탐험하기,challenge,200,10,10,cash:100,,20
-20004,shop_buy,{1}번 상점 이용하기,challenge,30,10,10,cash:50,,20
-20005,d_grup,{1}번 드래곤을 승급하기,challenge,5,40,40,cash:300,,20
-20006,d_6grget,드래곤을 6등급까지 {1}마리 승급시키기,challenge,3,5,5,cash:1000,,20
-20007,col_win,콜로세움에서 {1}번 승리하기,challenge,5,40,10,cash:50,,20
-20008,rlv10_cnt,{1}종류의 드래곤 원종을 max 레벨까지 연구하기,challenge,1,10,5,lactea:1000,,20
-20009,gold_use,{1} 골드 사용하기,challenge,1000000,10,10,cash:100,,20
-20010,norm_play,모험 모드 {1}번 플레이하기,challenge,500,10,1,cash:500,,20
-20011,d_evup,드래곤 진화 {1}번 시키기,challenge,10,20,5,cash:200,,20
-20012,r_lv15cnt,룬 15레벨까지 강화 {1}번 하기,challenge,3,5,5,cash:1000,,20
-20013,d_eclv6cnt,{1}마리의 드래곤을 6번 초월시키기,challenge,1,10,1,cash:1000,,20
-20014,d_flv9cnt,드래곤 {1} 마리의 친밀도를 최대 등급까지 올리기,challenge,1,10,1,cash:1000,,20
-30001,norm_play,모험 모드 {1}번 플레이하기,daily,10,1,1,"cash:100,staminas_st:50",,5
-30002,nm_play,악몽던전 {1}번 플레이하기,daily,1,1,1,"cash:30,gold:7000",,5
-30003,tree_play,거목 던전 {1}번 플레이하기,daily,1,1,1,"cash:30,gold:7000",,5
-30004,gold_play,황금 던전 {1}번 플레이하기,daily,1,1,1,"cash:30,gold:7000",,5
-30005,dragon_play,거대용 격추 던전 {1}번 플레이하기,daily,1,1,1,"cash:30,gold:7000",,5
-30006,d_summcom,{1}번 드래곤 일반 소환하기,daily,5,1,1,"cash:30,amethyst:100",,5
-30007,r_enc,{1}번 룬 강화하기 ,daily,1,1,1,"cash:30,gold:5000",,5
-30008,d_lvup,드래곤 레벨업 기능 {1}번 이용하기,daily,1,1,1,"cash:30,gold:5000",,5
-30009,adv_time,{1}번 탐험 완료하기,daily,1,1,1,"cash:30,amethyst:100",,5
-30010,d_afexpup,드래곤에게 열매 {1}개 먹이기,daily,1,1,1,"cash:30,gold:5000",,5
-30011,d_sklvup,드래곤 스킬 {1}번 레벨업하기,daily,1,1,1,"cash:30,gold:5000",,5
-30012,dq_clear,일일 퀘스트 모두 클리어하기,daily_all,11,1,1,"cash:400, 700201:1",,20
+qid,type,key,t_desc,t_speech,unit,max_cnt,reward_max_cnt,reward,special,score
+20001,challenge,d_evup,드래곤 진화 {1}번 시키기,,5,8,4,cash:200,,20
+20002,challenge,id_lvup,유저 레벨 {1} 달성하기,,10,10,10,cash:100,,20
+20003,challenge,adv_time,{1}시간동안 탐험하기,,200,10,10,cash:100,,20
+20004,challenge,shop_buy,{1}번 상점 이용하기,,30,10,10,cash:50,,20
+20005,challenge,d_grup,{1}번 드래곤을 승급하기,,5,40,40,cash:300,,20
+20006,challenge,d_6grget,드래곤을 6등급까지 {1}마리 승급시키기,,3,5,5,cash:1000,,20
+20007,challenge,col_win,콜로세움에서 {1}번 승리하기,,5,40,10,cash:50,,20
+20008,challenge,rlv10_cnt,{1}종류의 드래곤 원종을 max 레벨까지 연구하기,,1,10,5,lactea:1000,,20
+20009,challenge,gold_use,{1} 골드 사용하기,,1000000,10,10,cash:100,,20
+20010,challenge,norm_play,모험 모드 {1}번 플레이하기,,500,10,1,cash:500,,20
+20011,challenge,d_evup,드래곤 진화 {1}번 시키기,,10,20,5,cash:200,,20
+20012,challenge,r_lv15cnt,룬 15레벨까지 강화 {1}번 하기,,3,5,5,cash:1000,,20
+20013,challenge,d_eclv6cnt,{1}마리의 드래곤을 6번 초월시키기,,1,10,1,cash:1000,,20
+20014,challenge,d_flv9cnt,드래곤 {1} 마리의 친밀도를 최대 등급까지 올리기,,1,10,1,cash:1000,,20
+30001,daily,norm_play,모험 모드 {1}번 플레이하기,,10,1,1,"cash:100,staminas_st:50",,5
+30002,daily,nm_play,악몽던전 {1}번 플레이하기,,1,1,1,"cash:30,gold:7000",,5
+30003,daily,tree_play,거목 던전 {1}번 플레이하기,,1,1,1,"cash:30,gold:7000",,5
+30004,daily,gold_play,황금 던전 {1}번 플레이하기,,1,1,1,"cash:30,gold:7000",,5
+30005,daily,dragon_play,거대용 격추 던전 {1}번 플레이하기,,1,1,1,"cash:30,gold:7000",,5
+30006,daily,d_summcom,{1}번 드래곤 일반 소환하기,,5,1,1,"cash:30,amethyst:100",,5
+30007,daily,r_enc,{1}번 룬 강화하기 ,,1,1,1,"cash:30,gold:5000",,5
+30008,daily,d_lvup,드래곤 레벨업 기능 {1}번 이용하기,,1,1,1,"cash:30,gold:5000",,5
+30009,daily,adv_time,{1}번 탐험 완료하기,,1,1,1,"cash:30,amethyst:100",,5
+30010,daily,d_afexpup,드래곤에게 열매 {1}개 먹이기,,1,1,1,"cash:30,gold:5000",,5
+30011,daily,d_sklvup,드래곤 스킬 {1}번 레벨업하기,,1,1,1,"cash:30,gold:5000",,5
+30012,daily_all,dq_clear,일일 퀘스트 모두 클리어하기,,11,1,1,"cash:400, 700201:1",,20

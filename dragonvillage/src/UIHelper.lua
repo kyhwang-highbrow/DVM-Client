@@ -54,3 +54,12 @@ function UIHelper:makeGoodbyeStr(t_item, dragon_name)
 	local rel_cnt = t_item['count']
 	return Str(' {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하여 {@ROSE}{2}{@DESC}를 {@MUSTARD}{3}{@DESC}개 획득했습니다.', dragon_name, rel_name, rel_cnt)
 end
+
+-------------------------------------
+-- function getCardPosX
+-- @brief ui_card를 병렬 시켰을 때의 갯수와 인덱스에 따른 x 좌표를 구한다.
+-- @brief 중점 0 기준
+-------------------------------------
+function UIHelper:getCardPosX(total_cnt, idx)
+	return -(150/2 * (total_cnt - 1)) + (150 * (idx - 1))
+end

@@ -54,12 +54,6 @@ end
 -- @breif
 -------------------------------------
 function StructQuestData:isLock()
-    if self:isNewbieQuest() then
-        if (self.qid > g_questData.m_focusNewbieQid) then
-            return true
-        end
-    end
-
     return false
 end
 

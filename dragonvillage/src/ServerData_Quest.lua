@@ -8,8 +8,6 @@ ServerData_Quest = class({
 		m_workedData = 'table',
 
 		m_bDirtyQuestInfo = 'bool',
-
-        m_focusNewbieQid = '',
     })
 
 -------------------------------------
@@ -58,32 +56,16 @@ end
 function ServerData_Quest:makeQuestFullData()
 	local t_table_quest = clone(self.m_tableQuest.m_orgTable)
 
-
-    local focus_newbie_qid = nil
-    local high_newbie_qid = nil
-
     self.m_workedData = {}
 
 	for qid, t_quest in pairs(t_table_quest) do         
 		local t_server_quest = self:getServerQuest(qid)
 
-        local struct_quest_data = StructQuestData(t_server_quest)
-        self.m_workedData[qid] = struct_quest_data
-        
-
-        -- 초보자 퀘스트 포커스 qid 검색
-        if (struct_quest_data.m_type == 'newbie') and (not struct_quest_data:isQuestEnded()) then
-            if (not focus_newbie_qid) or (qid < focus_newbie_qid)  then
-                focus_newbie_qid = qid
-            end
-        end
-
-        if (not high_newbie_qid) or (high_newbie_qid < qid) then
-            high_newbie_qid = qid
-        end
+		if (t_server_quest) then
+			local struct_quest_data = StructQuestData(t_server_quest)
+			self.m_workedData[qid] = struct_quest_data
+		end
     end
-
-    self.m_focusNewbieQid = focus_newbie_qid or high_newbie_qid
 end
 
 -------------------------------------
@@ -133,14 +115,6 @@ function ServerData_Quest:getQuestListByType(quest_type)
 	local t_ret = table.merge(l_reward_quest, l_normal_quest)
 	t_ret = table.merge(t_ret, l_completed_quest)
 
-
-    -- 초보자퀘스트는 qid로만 정렬
-    if (quest_type == 'newbie') then
-        table.sort(t_ret, function(a, b)
-            return (tonumber(a['qid']) < tonumber(b['qid']))
-	    end)
-    end
-	
 	return t_ret
 end
 

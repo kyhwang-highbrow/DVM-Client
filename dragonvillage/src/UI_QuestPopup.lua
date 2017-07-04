@@ -56,7 +56,6 @@ function UI_QuestPopup:initTab()
     local vars = self.vars
     self:addTab(TableQuest.CHALLENGE, vars['challengeBtn'], vars['challengeListNode'])
     self:addTab(TableQuest.DAILY, vars['dailyBtn'], vars['dailyListNode'])
-	self:addTab(TableQuest.NEWBIE, vars['newbieBtn'], vars['newbieListNode'])
     self:setTab(TableQuest.CHALLENGE)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
@@ -76,16 +75,6 @@ function UI_QuestPopup:refresh()
 	self:setNotiRewardable()
 	-- 별도 퀘스트 UI는 직접 갱신
 	self:setAllClearListItem(self.m_currTab)
-
-    if (self.m_currTab == TableQuest.NEWBIE) then    
-	    local t_quest = g_questData:getQuestListByType(self.m_currTab)
-        self.m_tableView:mergeItemList(t_quest, function(item, data)
-                local ui = item['ui']
-                if ui then
-                    ui:refresh(data)
-                end
-            end)
-    end
 end
 
 -------------------------------------
@@ -170,7 +159,7 @@ end
 function UI_QuestPopup:setNotiRewardable(tab)
 	local vars = self.vars
 	for tab, _ in pairs(self.m_mTabData) do
-		local has_reward = g_questData:hasRewardableQuest(tab)
+		local has_reward = g_questData:hasRewardableQuest(f)
 		vars[tab .. 'NotiSprite']:setVisible(has_reward)
 	end
 end

@@ -7,7 +7,6 @@ TableQuest = class(PARENT, {
 		------------Quest type-----------------------
 		CHALLENGE = 'challenge',
 		DAILY = 'daily',
-		NEWBIE = 'newbie'
     })
 
 local THIS = TableQuest

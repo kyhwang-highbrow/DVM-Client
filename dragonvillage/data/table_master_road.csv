@@ -1,0 +1,21 @@
+mid,clear_type,clear_value,t_name,res,t_speech,t_desc,reward,special
+10001,clr_stg,1-2,누리,res/character/tamer/nuri_i/nuri_i.spine,어디에서 왔니?,모험 {1}스테이지 클리어,"cash;3060,topaz;15",
+10002,egg,1,유리아,res/character/npc/yuria/yuria.spine,친구가 더 필요하겠는걸,직업군 알 부화하기,"cash;5310,topaz;30",
+10003,clr_stg,1-3,누리,res/character/tamer/nuri_i/nuri_i.spine,제법인걸. 더 혹독하게 해보자,모험 {1}스테이지 클리어,"cash;11160,topaz;45",
+10004,clr_stg,1-4,누리,res/character/tamer/nuri_i/nuri_i.spine,훌륭한 테이머가 될 수 있을 것 같아,모험 {1}스테이지 클리어,gold;5000,1
+10005,r_eqp,1,유리아,res/character/npc/yuria/yuria.spine,친구를 더 강하게 만들어야 해,룬 장착하기,staminas_st;30,
+10006,r_enc,1,누리,res/character/tamer/nuri_i/nuri_i.spine,친구를 더 강하게 만들어야 해,룬  {1}강화 만들기,cash;250,
+10007,clr_stg,1-5,유리아,res/character/npc/yuria/yuria.spine,제법인걸. 더 혹독하게 해보자,모험 {1}스테이지 클리어,gold;5000,1
+10008,clr_stg,1-6,누리,res/character/tamer/nuri_i/nuri_i.spine,제법인걸. 더 혹독하게 해보자,모험 {1}스테이지 클리어,cash;250,
+10009,d_lvup,1,누리,res/character/tamer/nuri_i/nuri_i.spine,친구를 더 강하게 만들어야 해,드래곤 레벨업 기능 {1}번 이용하기,gold;7000,
+10010,clr_stg,1-7,유리아,res/character/npc/yuria/yuria.spine,제법인걸. 더 혹독하게 해보자,모험 {1}스테이지 클리어,gold;8000,
+10011,egg,1,누리,res/character/tamer/nuri_i/nuri_i.spine,친구가 더 필요하겠는걸,직업군 알 부화하기,gold;8001,
+10012,clr_stg,2-1,유리아,res/character/npc/yuria/yuria.spine,제법인걸. 더 혹독하게 해보자,모험 {1}스테이지 클리어,gold;8002,
+10013,clr_stg,2-2,누리,res/character/tamer/nuri_i/nuri_i.spine,제법인걸. 더 혹독하게 해보자,모험 {1}스테이지 클리어,gold;8003,
+10014,tree_play,1,누리,res/character/tamer/nuri_i/nuri_i.spine,제법인걸. 더 혹독하게 해보자,거목 던전 {1}번 플레이하기,gold;8004,
+10015,d_afexpup,1,유리아,res/character/npc/yuria/yuria.spine,친구를 더 강하게 만들어야 해,드래곤에게 열매 {1}개 먹이기,gold;8005,
+10016,clr_stg,2-3,누리,res/character/tamer/nuri_i/nuri_i.spine,제법인걸. 더 혹독하게 해보자,모험 {1}스테이지 클리어,gold;8006,
+10017,clr_stg,2-4,유리아,res/character/npc/yuria/yuria.spine,제법인걸. 더 혹독하게 해보자,모험 {1}스테이지 클리어,gold;8007,
+10018,make_frd,3,누리,res/character/tamer/nuri_i/nuri_i.spine,훌륭한 테이머가 될 수 있을 것 같아,{1}명의 유저와 친구맺기,gold;8008,
+10019,clr_stg,2-5,누리,res/character/tamer/nuri_i/nuri_i.spine,제법인걸. 더 혹독하게 해보자,모험 {1}스테이지 클리어,gold;8009,
+10020,clr_stg,2-6,유리아,res/character/npc/yuria/yuria.spine,제법인걸. 더 혹독하게 해보자,모험 {1}스테이지 클리어,gold;8010,

@@ -205,7 +205,7 @@
 				lua_name = 'titleNumLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
-				text = '임무 목표 {1}';
+				text = '임무';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 71; 40; 22; };
@@ -242,10 +242,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'questLabel';
+				lua_name = 'descLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
-				text = 'questLabel';
+				text = 'descLabel';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 71; 40; 22; };
@@ -437,7 +437,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 4.000000;
+				x = 0.000000;
 				y = -108.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -539,25 +539,6 @@
 		{
 			type = 'Node';
 			ui_name = '';
-			x = 0.000000;
-			y = 4.000000;
-			dock_point = { 0.500000; 0.000000; };
-			anchor_point = { 0.500000; 0.000000; };
-			relative_size_type = 0;
-			width = 1274;
-			height = 130;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = 'listNode';
-		};
-		[5] =
-		{
-			type = 'Node';
-			ui_name = '';
 			x = -352.000000;
 			y = -127.999985;
 			dock_point = { 0.500000; 0.500000; };
@@ -572,6 +553,25 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = 'npcNode';
+		};
+		[5] =
+		{
+			type = 'Node';
+			ui_name = '';
+			x = 0.000000;
+			y = 4.000000;
+			dock_point = { 0.500000; 0.000000; };
+			anchor_point = { 0.500000; 0.000000; };
+			relative_size_type = 0;
+			width = 1274;
+			height = 130;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'listNode';
 		};
 		type = 'Menu';
 		ui_name = '';
