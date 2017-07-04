@@ -577,6 +577,10 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
 
     local l_active_hot = {}
 
+    vars['hotTimeStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('stamina_50p', vars['hotTimeStBtn']) end)
+    vars['hotTimeGoldBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('gold_2x', vars['hotTimeGoldBtn']) end)
+    vars['hotTimeExpBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('exp_2x', vars['hotTimeExpBtn']) end)
+
     vars['hotTimeStBtn']:setVisible(false)
     vars['hotTimeGoldBtn']:setVisible(false)
     vars['hotTimeExpBtn']:setVisible(false)

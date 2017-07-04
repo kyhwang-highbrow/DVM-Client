@@ -44,7 +44,7 @@ SceneGame = class(PerpleScene, {
 -- function init
 -------------------------------------
 function SceneGame:init(game_key, stage_id, stage_name, develop_mode, stage_param)
-    self.m_gameKey = game_key    
+    self.m_gameKey = game_key
     self.m_stageName = stage_name
     self.m_stageParam = stage_param
 
@@ -540,6 +540,9 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref)
 
     -- 모험모드 챕터 업적
     self:networkGameFinish_response_chapter_achievement_info(ret)
+
+    -- 적용된 핫타임 항목 리스트 (모험 모드에서만 사용 170704)
+    t_result_ref['hottime'] = ret['hottime'] or {}
 end
 
 -------------------------------------

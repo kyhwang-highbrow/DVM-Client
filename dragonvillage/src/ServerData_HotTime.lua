@@ -3,9 +3,12 @@
 -------------------------------------
 ServerData_HotTime = class({
         m_serverData = 'ServerData',
-        m_hotTimeInfoList = 'table', -- ¼­¹ö¿¡¼­ ³Ñ¾î¿À´Â µ¥ÀÌÅÍ ±×´ë·Î¸¦ ÀúÀå
+        m_hotTimeInfoList = 'table', -- ì„œë²„ì—ì„œ ë„˜ì–´ì˜¤ëŠ” ë°ì´í„° ê·¸ëŒ€ë¡œë¥¼ ì €ì¥
         m_activeEventList = 'table',
         m_listExpirationTime = 'timestamp',
+
+        m_currAdvGameKey = 'number',
+        m_ingameHotTimeList = 'list',
     })
 
 -------------------------------------
@@ -21,10 +24,10 @@ end
 -- function request_hottime
 -------------------------------------
 function ServerData_HotTime:request_hottime(finish_cb, fail_cb)
-    -- À¯Àú ID
+    -- ìœ ì € ID
     local uid = g_userData:get('uid')
     
-    -- ¼º°ø Äİ¹é
+    -- ì„±ê³µ ì½œë°±
     local function success_cb(ret)
 
         self.m_hotTimeInfoList = ret['hottime']
@@ -35,7 +38,7 @@ function ServerData_HotTime:request_hottime(finish_cb, fail_cb)
         end
     end
 
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ë„¤íŠ¸ì›Œí¬ í†µì‹ 
     local ui_network = UI_Network()
     ui_network:setUrl('/users/hottime')
     ui_network:setParam('uid', uid)
@@ -62,30 +65,30 @@ function ServerData_HotTime:refreshActiveList()
         return
     end
 
-    -- ¿À´ÃÀÇ ÀÚÁ¤ ½Ã°£À» ÁöÁ¤
+    -- ì˜¤ëŠ˜ì˜ ìì • ì‹œê°„ì„ ì§€ì •
     self.m_listExpirationTime = TimeLib:getServerTime_midnight(curr_time)
 
-    -- Á¾·áµÈ ÀÌº¥Æ® »èÁ¦
+    -- ì¢…ë£Œëœ ì´ë²¤íŠ¸ ì‚­ì œ
     for key,v in pairs(self.m_activeEventList) do
         if ((v['enddate'] / 1000) < curr_time) then
             self.m_activeEventList[key] = nil
         end
     end
 
-    -- È°¼ºÈ­µÈ Ç×¸ñ ÃßÃâ
+    -- í™œì„±í™”ëœ í•­ëª© ì¶”ì¶œ
     self.m_activeEventList = {}
     for i,v in pairs(self.m_hotTimeInfoList) do
 
         local expiration_time = nil
 
-        -- ÇÖÅ¸ÀÓ ½ÃÀÛ ½Ã°£ Àü
+        -- í•«íƒ€ì„ ì‹œì‘ ì‹œê°„ ì „
         if (curr_time < (v['begindate'] / 1000)) then
             expiration_time = (v['begindate'] / 1000)
 
-        -- ÇÖÅ¸ÀÓ Á¾·á ÈÄ
+        -- í•«íƒ€ì„ ì¢…ë£Œ í›„
         elseif ((v['enddate'] / 1000) < curr_time) then
 
-        -- ÀÌº¥Æ® ³»¿ë ¾øÀ½
+        -- ì´ë²¤íŠ¸ ë‚´ìš© ì—†ìŒ
         elseif (table.count(v['contents']) <= 0) then
 
         else
@@ -94,7 +97,7 @@ function ServerData_HotTime:refreshActiveList()
             expiration_time = (v['enddate'] / 1000)
         end
 
-        -- ¸®½ºÆ®°¡ À¯È¿ÇÑ ½Ã°£ ÀúÀå
+        -- ë¦¬ìŠ¤íŠ¸ê°€ ìœ íš¨í•œ ì‹œê°„ ì €ì¥
         if (expiration_time) and ((not self.m_listExpirationTime) or (expiration_time < self.m_listExpirationTime)) then
             self.m_listExpirationTime = expiration_time
         end
@@ -138,4 +141,49 @@ function ServerData_HotTime:isHighlightHotTime()
     end
     
     return false
+end
+
+-------------------------------------
+-- function setIngameHotTimeList
+-------------------------------------
+function ServerData_HotTime:setIngameHotTimeList(game_key, hottime)
+    self.m_currAdvGameKey = game_key or 0
+    self.m_ingameHotTimeList = hottime or {} 
+end
+
+-------------------------------------
+-- function getIngameHotTimeList
+-------------------------------------
+function ServerData_HotTime:getIngameHotTimeList(game_key)
+    if (self.m_currAdvGameKey == game_key) then
+        return self.m_ingameHotTimeList
+    else
+        return {}
+    end
+end
+
+-------------------------------------
+-- function makeHotTimeToolTip
+-------------------------------------
+function ServerData_HotTime:makeHotTimeToolTip(hottime_name, btn)
+    
+    local desc = ''
+
+    if (hottime_name == 'gold_2x') then
+        desc = Str('íšë“ ê³¨ë“œëŸ‰ 2ë°°')
+
+    elseif (hottime_name == 'stamina_50p') then
+        desc = Str('ì†Œë¹„ ì…ì¥ê¶Œ 1/2')
+
+    elseif (hottime_name == 'exp_2x') then
+        desc = Str('ë“œë˜ê³¤ ê²½í—˜ì¹˜ íšë“ëŸ‰ 2ë°°')
+
+    end
+
+    local str = '{@SKILL_NAME} ' .. Str('í•«íƒ€ì„ ì´ë²¤íŠ¸') .. '\n {@SKILL_DESC}' .. desc
+    local tooltip = UI_Tooltip_Skill(0, 0, str)
+
+    if (tooltip and btn) then
+        tooltip:autoPositioning(btn)
+    end
 end

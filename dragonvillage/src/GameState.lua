@@ -775,7 +775,7 @@ function GameState:makeResultUI(is_success)
         local stage_id = world.m_stageID
         
 		-- GameState는 Adventure모드를 기본으로 한다. 다른 모드는 상속을 받아서 처리한다.
-        UI_GameResult_Adventure(stage_id,
+        local ui = UI_GameResult_Adventure(stage_id,
             is_success,
             self.m_fightTimer,
             t_result_ref['default_gold'],
@@ -784,6 +784,9 @@ function GameState:makeResultUI(is_success)
             t_result_ref['drop_reward_grade'],
             t_result_ref['drop_reward_list'],
             t_result_ref['secret_dungeon'])
+
+        local l_hottime = t_result_ref['hottime']
+        ui:setHotTimeInfo(l_hottime)
     end
 
     -- 최초 실행

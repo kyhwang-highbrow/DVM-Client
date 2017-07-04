@@ -85,6 +85,53 @@ function UI_Game:initUI()
         vars['manaLabel']:setString(0)
         vars['manaGauge']:setPercentage(0)
     end
+
+    self:initHotTimeUI()
+end
+
+-------------------------------------
+-- function initHotTimeUI
+-- @brief 적용된 핫타임
+-------------------------------------
+function UI_Game:initHotTimeUI()
+    local vars = self.vars
+    local game_key = self.m_gameScene.m_gameKey
+
+    vars['hotTimeStBtn']:setVisible(false)
+    vars['hotTimeGoldBtn']:setVisible(false)
+    vars['hotTimeExpBtn']:setVisible(false)
+
+    vars['hotTimeStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('stamina_50p', vars['hotTimeStBtn']) end)
+    vars['hotTimeGoldBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('gold_2x', vars['hotTimeGoldBtn']) end)
+    vars['hotTimeExpBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('exp_2x', vars['hotTimeExpBtn']) end)
+
+    local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key)
+    local t_ui_name = {}
+    t_ui_name['stamina_50p'] = 'hotTimeStBtn'
+    t_ui_name['gold_2x'] = 'hotTimeGoldBtn'
+    t_ui_name['exp_2x'] = 'hotTimeExpBtn'
+
+    do -- 처리되지 않은 타입 제거
+        local l_remove = {}
+        for i,v in ipairs(l_hottime) do
+            if (not t_ui_name[v]) then
+                table.insert(l_remove, 1, i)
+            end
+        end
+
+        for i,v in ipairs(l_remove) do
+            table.remove(l_hottime, v)
+        end
+    end
+
+    for i,v in pairs(l_hottime) do
+        local ui_name = t_ui_name[v]
+        local ui = vars[ui_name]
+
+        ui:setVisible(true)
+        local pos_x = -97 + ((i-1) * 50)
+        ui:setPositionX(pos_x)
+    end
 end
 
 -------------------------------------

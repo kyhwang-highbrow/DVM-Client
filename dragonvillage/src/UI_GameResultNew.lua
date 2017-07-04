@@ -736,3 +736,22 @@ function UI_GameResultNew:checkAutoPlay()
     -- 빠른 재시작
     self:click_quickBtn()
 end
+
+-------------------------------------
+-- function setHotTimeInfo
+-- @brief
+-------------------------------------
+function UI_GameResultNew:setHotTimeInfo(l_hottime)
+    local vars = self.vars
+
+    -- 'exp_2x' -- 경험치 두배
+    -- 'gold_2x' -- 골드 두배
+    -- 'stamina_50p' -- 필요 활동력 50%
+
+    -- 경험치 두배 핫타임
+    if table.find(l_hottime, 'exp_2x') then
+        for i=1, 5 do
+            vars['hotTimeLabel' .. i]:setVisible(true)
+        end
+    end
+end
