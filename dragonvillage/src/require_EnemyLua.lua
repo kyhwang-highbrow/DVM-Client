@@ -156,6 +156,8 @@ ENEMY_POS['BO12'] = {x=1210, y=-400}
 
 ENEMY_POS['BOSS'] = {x=2000+alpha_test_2, y=-0+alpha_test_1}
 ENEMY_POS['NEST'] = {x=1300, y=0}
+ENEMY_POS['NEST_T'] = {x=1500, y=300}
+ENEMY_POS['NEST_B'] = {x=1500, y=-200}
 
 
 
