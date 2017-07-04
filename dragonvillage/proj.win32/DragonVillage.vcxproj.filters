@@ -2433,6 +2433,9 @@
     <None Include="..\src\TableColosseumBuff.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\TableMasterRoad.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
