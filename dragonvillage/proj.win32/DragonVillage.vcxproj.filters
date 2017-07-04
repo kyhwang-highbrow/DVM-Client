@@ -2427,6 +2427,9 @@
     <None Include="..\src\StructUserInfoFriend.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_MasterRoadPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
     <None Include="..\src\TableColosseumBuff.lua">
       <Filter>lua\src</Filter>
     </None>

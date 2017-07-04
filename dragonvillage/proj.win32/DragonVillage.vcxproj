@@ -883,6 +883,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_HatcherySummonTab.lua" />
     <None Include="..\src\UI_LoadingGuide.lua" />
     <None Include="..\src\UI_LoadingGuide_Patch.lua" />
+    <None Include="..\src\UI_MasterRoadPopup.lua" />
     <None Include="..\src\UI_MonsterInfoBoard.lua" />
     <None Include="..\src\UI_ObtainPopup.lua" />
     <None Include="..\src\UI_OverallRankingListItem.lua" />
