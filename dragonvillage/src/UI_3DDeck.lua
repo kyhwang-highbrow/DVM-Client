@@ -29,16 +29,33 @@ function UI_3DDeck:init()
 end
 
 -------------------------------------
+-- function setDirection
+-------------------------------------
+function UI_3DDeck:setDirection(direction, rotate)
+    local rotate = rotate or 50
+    local vars = self.vars
+
+    -- 진형 회전 효과를 위한 것
+    if (direction == 'left') then
+	    vars['formationNodeHelper']:setScaleY(0.7)
+        vars['formationNodeHelper']:setScaleX(1)
+        vars['formationNodeHelperXAxis']:setScaleY(1)
+	    vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, rotate)) -- 시계방향으로 돌림
+
+    elseif (direction == 'right') then
+        vars['formationNodeHelper']:setScaleY(0.7)
+        vars['formationNodeHelper']:setScaleX(-1)
+        vars['formationNodeHelperXAxis']:setScaleY(-1)
+	    vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, -rotate)) -- 시계방향으로 돌림
+
+    end
+end
+
+-------------------------------------
 -- function initUI
 -------------------------------------
-function UI_3DDeck:initUI(l_pos_list)
+function UI_3DDeck:initUI()
 	local vars = self.vars
-
-    local formation = 'attack' -- 'attack'
-    local l_pos_list = self:getRotatedPosList(formation)
-
-	-- 진형 위치 변경
-	self:actionForChangeDeck_Immediately(l_pos_list)
 
 	-- UI_ReadyScene_Deck의 상수값들
 	local ZORDER = 
@@ -47,31 +64,6 @@ function UI_3DDeck:initUI(l_pos_list)
 		FOCUS_EFFECT = 2,
 		DRAGON_CARD = 3,
 	}
-	local DC_POS_Y = 50
-	local DC_SCALE_ON_PLATE = 0.7
-	local DC_SCALE = 0.61
-	local DC_SCALE_PICK = (DC_SCALE * 0.8)
-
-	-- doid list를 순회하며 deck의 카드 생성
-    --[[
-	for idx, doid in pairs(self.m_lDoidList) do
-		local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-		local ui = UI_DragonCard(t_dragon_data)
-		ui.root:setPosition(0, DC_POS_Y)
-		
-		-- 찰랑찰랑 하는 연출
-		cca.uiReactionSlow(ui.root, DC_SCALE_ON_PLATE, DC_SCALE_ON_PLATE, DC_SCALE_PICK)
-		
-		ui.vars['clickBtn']:registerScriptTapHandler(function() 
-			self:click_dragonCard(idx, t_dragon_data)
-		end)
-
-		-- 설정된 드래곤 표시 없애기
-		ui:setReadySpriteVisible(false)
-
-		vars['positionNode' .. idx]:addChild(ui.root, ZORDER.DRAGON_CARD)
-	end
-    --]]
 
 	-- 리더 선택 표시
 	local leader_idx = self.m_currLeader
@@ -114,7 +106,8 @@ function UI_3DDeck:actionForChangeDeck_Immediately(l_pos_list)
 	for i, node_space in ipairs(l_pos_list) do
 		-- 드래곤 카드
 		vars['positionNode' .. i]:setPosition(node_space['x'], node_space['y'])
-		vars['positionNode' .. i]:setLocalZOrder(order_std - i)
+		--vars['positionNode' .. i]:setLocalZOrder(order_std - i)
+        vars['positionNode' .. i]:setLocalZOrder(2048 - node_space['y'])
 	end
 
 	-- z_order 정렬
@@ -147,6 +140,10 @@ function UI_3DDeck:getRotatedPosList(formation)
 		local transform = vars['posHelper' .. i]:getNodeToWorldTransform();
 		local world_x = transform[12 + 1]
 		local world_y = transform[13 + 1]
+
+        if (i == 3) then
+            cclog('pos : ', world_x, world_y)
+        end
 		local node_space = convertToNodeSpace(vars['formationNodeXAxis'], cc.p(world_x, world_y))
 		table.insert(ret_list, node_space)
 	end
@@ -159,6 +156,8 @@ end
 -------------------------------------
 function UI_3DDeck:setDragonObjectList(l_deck)
     local vars = self.vars
+
+    -- DC : DragonCard
     local DC_POS_Y = 50
 	local DC_SCALE_ON_PLATE = 0.7
 	local DC_SCALE = 0.61
@@ -188,4 +187,15 @@ function UI_3DDeck:setDragonObjectList(l_deck)
 		    vars['positionNode' .. idx]:addChild(ui.root)--, ZORDER.DRAGON_CARD)
         end
 	end
+end
+
+-------------------------------------
+-- function setFormation
+-------------------------------------
+function UI_3DDeck:setFormation(formation)
+    local formation = formation or 'attack'
+    local l_pos_list = self:getRotatedPosList(formation)
+
+	-- 진형 위치 변경
+	self:actionForChangeDeck_Immediately(l_pos_list)
 end

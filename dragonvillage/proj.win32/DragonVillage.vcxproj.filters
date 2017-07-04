@@ -2241,9 +2241,6 @@
     <None Include="..\src\ServerData_Hatchery.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_Friend_Old.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableDragonSkillModify.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2428,6 +2425,9 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StructUserInfoFriend.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\TableColosseumBuff.lua">
       <Filter>lua\src</Filter>
     </None>
   </ItemGroup>

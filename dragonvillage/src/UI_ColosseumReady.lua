@@ -59,24 +59,33 @@ function UI_ColosseumReady:initUI()
 
     do -- 플레이어 유저 덱
         local player_3d_deck = UI_3DDeck()
-        player_3d_deck.root:setPosition(-320, 76 - 100)
+        player_3d_deck:setDirection('left', 50)
+        player_3d_deck.root:setPosition(-300, 76 - 80)
         self.root:addChild(player_3d_deck.root)
         player_3d_deck:initUI()
 
         local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
         player_3d_deck:setDragonObjectList(l_dragon_obj)
         self.m_player3DDeck = player_3d_deck
+
+        -- 진형 설정
+        local formation = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck['formation'] or 'attack'
+        self.m_player3DDeck:setFormation(formation)
     end
 
     do -- 상대방 유저 덱
         local player_3d_deck = UI_3DDeck()
-        player_3d_deck.vars['formationNodeHelperXAxis']:setScale(-1)
-        player_3d_deck.root:setPosition(320, 76 - 100)
+        player_3d_deck:setDirection('right', 50)
+        player_3d_deck.root:setPosition(300, 76- 80)
         self.root:addChild(player_3d_deck.root)
         player_3d_deck:initUI()
 
         local l_dragon_obj = g_colosseumData:getMatchUserInfo():getDefDeck_dragonList()
         player_3d_deck:setDragonObjectList(l_dragon_obj)
+
+        -- 진형 설정
+        local formation = g_colosseumData:getMatchUserInfo().m_pvpDefDeck['formation'] or 'attack'
+        player_3d_deck:setFormation(formation)
     end
 
     -- UI가 enter로 진입되었을 때 update함수 호출
@@ -115,6 +124,10 @@ function UI_ColosseumReady:click_deckBtn()
         local player_3d_deck = self.m_player3DDeck
         local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
         player_3d_deck:setDragonObjectList(l_dragon_obj)
+
+        -- 진형 설정
+        local formation = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck['formation'] or 'attack'
+        self.m_player3DDeck:setFormation(formation)
     end
     ui:setCloseCB(close_cb)
 end
