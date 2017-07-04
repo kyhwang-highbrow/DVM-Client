@@ -214,7 +214,7 @@ function StatusEffect:update(dt)
                 local debuff_time = self.m_owner:getStat('debuff_time')
                 debuff_time = math_max(debuff_time, -100)
 
-                modified_dt = dt / (1 + (self.m_owner:getStat('debuff_time') / 100))
+                modified_dt = dt / (1 + (debuff_time / 100))
             end
         else
             modified_dt = dt
