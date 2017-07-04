@@ -35,7 +35,7 @@ Skill = class(PARENT, {
         m_tSpecialTarget = '', -- 임시 처리
 
         -- 이벤트
-        m_lSpecialEvent = '', -- 스킬 종료시 적용될 특수한 조건의 이벤트를 저장하기 위한 테이블(조건 달성 시점이 아닌 종료시 적용을 위함)
+        m_mSpecialEvent = '', -- 스킬 종료시 적용될 특수한 조건의 이벤트를 저장하기 위한 맵(조건 달성 시점이 아닌 종료시 적용을 위함)
 
 		-- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
@@ -74,7 +74,7 @@ function Skill:init_skill()
 	-- 멤버 변수 
 	self.m_range = 0
     self.m_tSpecialTarget = {}
-    self.m_lSpecialEvent = {}
+    self.m_mSpecialEvent = {}
     self.m_hitTargetList = {}
 
 	-- 세부 초기화 함수 실행
@@ -131,13 +131,20 @@ function Skill:initEventListener()
 	self:addListener(CON_SKILL_HIT, self)
 	self:addListener(CON_SKILL_END, self)
 
+    -- 공격 스킬의 경우에서만 특정 이벤트 추가
+    if (string.find(self.m_targetType, 'enemy')) then
+        local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, nil)
+        for _, target in pairs(l_target) do
+            target:addListener(CON_SKILL_HIT_CRI, self)
+            target:addListener(CON_SKILL_HIT_KILL, self)
+        end
+    end
+
 	-- 스킬 외부에서의 이벤트
     for _,  v in pairs(self.m_lStatusEffect) do
         local trigger = v.m_trigger or ''
-        if (trigger ~= '') then
-            if (not isExistValue(trigger, CON_SKILL_START, CON_SKILL_HIT, CON_SKILL_END)) then
-                self:addListener(trigger, self)
-            end
+        if (isExistValue(trigger, CON_SKILL_HIT_TARGET)) then
+            self:addListener(trigger, self)
         end
     end
 end
@@ -301,7 +308,7 @@ function Skill.st_dying(owner, dt)
 
         -- 조건 달성 시점이 아닌 종료시 수행되어야할 이벤트의 상태효과를 적용
         do
-            for _, event_name in ipairs(owner.m_lSpecialEvent) do
+            for event_name, _  in ipairs(owner.m_mSpecialEvent) do
                 owner:doStatusEffect(event_name, l_target) 
             end
         end
@@ -342,9 +349,24 @@ function Skill:onEvent(event_name, t_event, ...)
 	local t_event = t_event or {}
 
     if (string.find(event_name, CON_SKILL_HIT_TARGET)) then
-        table.insert(self.m_lSpecialEvent, event_name)
+        self.m_mSpecialEvent[event_name] = true
+
+    elseif (isExistValue(event_name, CON_SKILL_HIT_KILL)) then
+        local skill_id = t_event['skill_id']
+        if (skill_id and self.m_skillId == skill_id) then
+            self.m_mSpecialEvent[event_name] = true
+        end
+
+    elseif (isExistValue(event_name, CON_SKILL_HIT_CRI)) then
+        local skill_id = t_event['skill_id']
+        if (skill_id and self.m_skillId == skill_id) then
+            local target = t_event['defender']
+            self:doStatusEffect(event_name, { target })
+        end
+
     else
-        self:doStatusEffect(event_name, t_event['l_target'])    
+        self:doStatusEffect(event_name, t_event['l_target'])
+
     end
 end
 
@@ -411,7 +433,7 @@ function Skill:attack(collision)
 
     target_char:runDefCallback(self, x, y, body_key)
     --target_char:runDefCallback(self, x, y, body_key, true)
-    
+
 	self:onAttack(target_char)
 end
 
@@ -454,20 +476,22 @@ function Skill:onAttack(target_char)
     -- 타격 카운트 갱신
     self:addHitCount()
 	
-	-- 상태효과
-	local t_event = {l_target = {target_char}}
-	self:dispatch(CON_SKILL_HIT, t_event)
-
-    -- 피격된 대상수가 갱신된 경우 해당 이벤트 발동
-    if (bUpdateHitTargetCount) then
-        self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
-    end
-
-    -- 화면 쉐이킹
+	-- 화면 쉐이킹
     if (self.m_chanceType == 'active') then
         self.m_world.m_shakeMgr:doShake(50, 50, 1)
     else
         self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
+    end
+
+    -- 상태효과
+    do
+	    local t_event = {l_target = {target_char}}
+	    self:dispatch(CON_SKILL_HIT, t_event)
+
+        -- 피격된 대상수가 갱신된 경우 해당 이벤트 발동
+        if (bUpdateHitTargetCount) then
+            self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
+        end
     end
 end
 

@@ -198,6 +198,11 @@ function Character:onEvent_dead(t_event)
                 chance_value = 100
             end
 
+            local rand = math_random(1, 100)
+            if (rand <= chance_value) then
+                self:doSkill(v.m_skillID, 0, 0)
+            end
+
             -- 시전자가 죽으면 안되는 option이 존재하면 죽지 않도록 예외처리...
             for i = 1, 2 do
                 if (isExistValue(v.m_tSkill['add_option_type_' .. i], 'zombie')) then
@@ -205,11 +210,6 @@ function Character:onEvent_dead(t_event)
 		            t_event['is_dead'] = false
 		            t_event['hp'] = 1
                 end
-            end
-
-            local rand = math_random(1, 100)
-            if (rand <= chance_value) then
-                self:doSkill(v.m_skillID, 0, 0)
             end
         end
     end

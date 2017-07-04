@@ -482,6 +482,19 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local is_bash = (attr_synastry == 1)
     local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char)
 
+    -- 회피 계산(드래그 스킬의 경우는 회피 불가)
+    if (attack_type ~= 'active') then
+        if (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
+            self:makeMissFont(i_x, i_y)
+		    -- @EVENT
+		    self:dispatch('avoid_rate')
+        
+		    -- @LOG_CHAR : 방어자 회피 횟수
+		    self.m_charLogRecorder:recordLog('avoid', 1)
+            return
+        end
+    end
+    
     -- 공격력 계산, 크리티컬 계산
     local atk_dmg = 0
     local def_pwr = 0
@@ -538,8 +551,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
     end
 
-    local attr_bonus_dmg = 0 -- 속성에 의해 추가된 데미지 @legacy
-    do -- 데미지 관련
+    do -- 최종 데미지 계산
         local damage_multifly = 1
 
         -- 크리티컬
@@ -563,25 +575,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         damage = math_max(damage, 0)
     end
 
-    -- 속성 추가 데미지 별도로 사용하기 위해 ..! (과거에 인게임 화면에 출력)
-    --attr_bonus_dmg = math_floor(attr_bonus_dmg * attack_activity_carrier:getPowerRate())
-	--attr_bonus_dmg = math_min(attr_bonus_dmg, damage)
-
-    -- 회피 계산(드래그 스킬의 경우는 회피 무시)
-    if (attack_type ~= 'active') then
-        if (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
-            self:makeMissFont(i_x, i_y)
-		    -- @EVENT
-		    self:dispatch('avoid_rate')
-        
-		    -- @LOG_CHAR : 방어자 회피 횟수
-		    self.m_charLogRecorder:recordLog('avoid', 1)
-            return
-        end
-    end
-    	
-	-- Event Carrier 세팅
+    -- Event Carrier 세팅
 	local t_event = clone(EVENT_HIT_CARRIER)
+    t_event['skill_id'] = attack_activity_carrier:getSkillId()
 	t_event['damage'] = damage
 	t_event['reduced_damage'] = reduced_damage
 	t_event['attacker'] = attacker_char
@@ -628,9 +624,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             end
         end
         ]]--
-
-        -- @EVENT 적 스킬 공격에 피격시
-        self:dispatch('character_damaged_skill', {}, self)
 
         -- 효과음
         if (is_critical) then
@@ -722,11 +715,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	if (attacker_char and not is_miss) then
         -- 일반
         if (not no_event) then
-		    attacker_char:dispatch('hit', t_event)
+		    self:dispatch(CON_SKILL_HIT, t_event)
         end
 
 		-- 크리티컬 
 		if (is_critical) then
+            self:dispatch(CON_SKILL_HIT_CRI, t_event)
+
             if (real_attack_type == 'basic') then
 			    attacker_char:dispatch('basic_cri', t_event)
             elseif (attack_type == 'active') then
@@ -736,7 +731,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 			
 		-- 적처치시 
 		if (self.m_bDead) then 
-			attacker_char:dispatch('slain', t_event, self)
+			self:dispatch(CON_SKILL_HIT_KILL, t_event, self)
 		end
 		
 		-- 일반 공격시
