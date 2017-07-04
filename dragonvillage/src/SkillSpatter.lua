@@ -14,7 +14,7 @@ SkillSpatter = class(PARENT, {
         m_prevPosX = 'number',
         m_prevPosY = 'number',
 
-		m_targetIdx = 'number',
+        m_targetIdx = 'number',
      })
 
 -------------------------------------
@@ -42,11 +42,13 @@ function SkillSpatter:init_skill(motionstreak_res, count)
     self.m_prevPosX = self.m_stdPosX
     self.m_prevPosY = self.m_stdPosY
 
+
     if (not self.m_lTargetChar) then
 	    self.m_lTargetChar = self:findTarget()
     end
-	self.m_targetIdx = 1
 
+    self.m_lTargetChar = self:makeSpatterTargetList()
+    self.m_targetIdx = 1
 	-- 위치 지정 및 모션스트릭	
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
     self:setMotionStreak(self.m_world:getMissileNode(), motionstreak_res)
@@ -81,7 +83,14 @@ function SkillSpatter.st_idle(owner, dt)
 
 			-- 액션 종료 후 타겟을 회복, 튀기기 시도
 			local function end_func()
-				owner:heal(target_char)
+                --아군 적군 여부에 따라
+                if (owner.m_owner.m_bLeftFormation == target_char.m_bLeftFormation) then
+				    owner:heal(target_char)
+                else
+                    local atk_dmg = owner.m_activityCarrier:getAtkDmg(target_char)
+                    local dmg = HealCalc_M(atk_dmg) * owner.m_activityCarrier:getPowerRate()
+                    target_char:setDamage(nil, target_char, target_char.pos.x, target_char.pos.y, dmg)
+                end
 				owner:trySpatter()
 			end
 
@@ -178,4 +187,51 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+end
+
+
+
+function SkillSpatter:makeSpatterTargetList()
+
+
+	local ally_target_idx = 1
+    local enemy_target_idx = 1
+
+    local l_ally_target = {}
+    local l_enemy_target = {}
+
+    
+    for i, v in ipairs(self.m_lTargetChar) do
+        if (self.m_owner.m_bLeftFormation == v.m_bLeftFormation) then
+            table.insert(l_ally_target, v)
+        else
+            table.insert(l_enemy_target, v)
+        end
+    end
+
+    local b_next_formation = not self.m_owner.m_bLeftFormation
+    local t_temp_target = {}
+
+    for _ = 1, #self.m_lTargetChar do
+        if (b_next_formation == self.m_owner.m_bLeftFormation) then
+            if (ally_target_idx <= #l_ally_target) then
+                table.insert(t_temp_target, l_ally_target[ally_target_idx])
+                ally_target_idx = ally_target_idx + 1
+            else 
+                table.insert(t_temp_target, l_enemy_target[enemy_target_idx])
+                enemy_target_idx = enemy_target_idx + 1
+            end
+        else 
+            if (enemy_target_idx <= #l_enemy_target) then
+                table.insert(t_temp_target, l_enemy_target[enemy_target_idx])
+                enemy_target_idx = enemy_target_idx + 1
+            else 
+                table.insert(t_temp_target, l_ally_target[ally_target_idx])
+                ally_target_idx = ally_target_idx + 1
+            end
+        end
+        b_next_formation = not b_next_formation
+    end
+    
+    return t_temp_target
 end
