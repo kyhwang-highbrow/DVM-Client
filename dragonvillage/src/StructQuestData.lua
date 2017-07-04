@@ -135,11 +135,3 @@ function StructQuestData:getGoalStep()
     local goal_step = math_min(self.m_rewardStep + 1, self.m_maxStep)
     return goal_step
 end
-
--------------------------------------
--- function isNewbieQuest
--- @breif
--------------------------------------
-function StructQuestData:isNewbieQuest()
-    return (self.m_type == 'newbie')
-end
