@@ -111,7 +111,7 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
                         self:requestIncubate(egg_id, cnt, ui)
                     end)
 
-                ui.vars['summonEggLabel']:setString(Str('X{1}', remain_cnt))
+                ui.vars['summonEggLabel']:setString(Str('{1}', remain_cnt))
                 local egg_icon = IconHelper:getEggIconByEggID(egg_id)
                 ui.vars['summonEggNode']:addChild(egg_icon)
 

@@ -375,6 +375,7 @@ end
 -------------------------------------
 function UI_ReadyScene:refresh()
     local stage_id = self.m_stageID
+    local game_mode = g_stageData:getGameMode(stage_id)
     local vars = self.vars
 
     do -- 스테이지 이름
@@ -400,6 +401,21 @@ function UI_ReadyScene:refresh()
             vars['actingPowerLabel']:setString(stamina_value)
         end
     end
+
+    -- 모험 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        if g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
+            local stamina_type, stamina_value = self:getStageStaminaInfo()
+            local cost_value = math_floor(stamina_value / 2)
+            vars['actingPowerLabel']:setString(cost_value)
+            vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
+            vars['hotTimeSprite']:setVisible(true)
+        else
+            vars['actingPowerLabel']:setTextColor(cc.c4b(255, 255, 255, 255))
+            vars['hotTimeSprite']:setVisible(false)
+        end
+    end
+
 
     self:refresh_tamer()
 	self:refresh_buffInfo()

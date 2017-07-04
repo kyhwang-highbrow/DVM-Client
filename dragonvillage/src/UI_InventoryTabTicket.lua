@@ -242,7 +242,7 @@ function UI_InventoryTabTicket:refresh_tableView()
             if (item['data']['count'] ~= count) then
                 item['data']['count'] = count
                 if item['ui'] then
-                    item['ui']:setString(Str('X{1}', comma_value(count)))
+                    item['ui']:setString(Str('{1}', comma_value(count)))
                 end
             end
         end

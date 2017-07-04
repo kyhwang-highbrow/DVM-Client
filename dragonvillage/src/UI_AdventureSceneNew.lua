@@ -375,6 +375,8 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         local stage_id = makeAdventureID(self.m_currDifficulty, chapter, stage)
         g_stageData:setFocusStage(stage_id)
     end
+
+    self:refreshHotTimeInfo()
 end
 
 -------------------------------------
@@ -563,6 +565,41 @@ function UI_AdventureSceneNew:refresh_difficultyButtons()
         else
             error('difficulty : ' .. difficulty)
         end
+    end
+end
+
+-------------------------------------
+-- function refreshHotTimeInfo
+-- @breif 핫타임 정보 갱신
+-------------------------------------
+function UI_AdventureSceneNew:refreshHotTimeInfo()
+    local vars = self.vars
+
+    local l_active_hot = {}
+
+    vars['hotTimeStBtn']:setVisible(false)
+    vars['hotTimeGoldBtn']:setVisible(false)
+    vars['hotTimeExpBtn']:setVisible(false)
+
+    -- 스태미나 50% 핫타임
+    if g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
+        table.insert(l_active_hot, 'hotTimeStBtn')
+    end
+
+    -- 골드 2배 핫타임
+    if g_hotTimeData:getActiveHotTimeInfo('gold_2x') then
+        table.insert(l_active_hot, 'hotTimeGoldBtn')
+    end
+
+    -- 경험치 2배 핫타임
+    if g_hotTimeData:getActiveHotTimeInfo('exp_2x') then
+        table.insert(l_active_hot, 'hotTimeExpBtn')
+    end
+
+    for i,v in ipairs(l_active_hot) do
+        vars[v]:setVisible(true)
+        local y = -40 - ((i-1) * 70)
+        vars[v]:setPositionY(y)
     end
 end
 

@@ -119,3 +119,12 @@ end
 function UIC_LabelTTF:setDimensions(width, height)
     return self.m_node:setDimensions(width, height)
 end
+
+-------------------------------------
+-- function setTextColor
+-- @brief
+-------------------------------------
+function UIC_LabelTTF:setTextColor(color)
+    return self.m_node:setTextColor(color)
+end
+

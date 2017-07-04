@@ -100,11 +100,24 @@ function UI_AdventureStageInfo:refresh()
         else
             local table_drop = TABLE:get('drop')
             local t_drop = table_drop[stage_id]
-            -- 'stamina' 추후에 타입별 stamina 사용 예정
-            -- local cost_type = t_drop['cost_type']
             local cost_value = t_drop['cost_value']
             self.vars['actingPowerLabel']:setString(cost_value)
         end 
+    end
+
+    -- 모험 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        if g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
+            local table_drop = TABLE:get('drop')
+            local t_drop = table_drop[stage_id]
+            local cost_value = math_floor(t_drop['cost_value'] / 2)
+            vars['actingPowerLabel']:setString(cost_value)
+            vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
+            vars['hotTimeSprite']:setVisible(true)
+        else
+            vars['actingPowerLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
+            vars['hotTimeSprite']:setVisible(false)
+        end
     end
 
     local table_stage_desc = TableStageDesc()

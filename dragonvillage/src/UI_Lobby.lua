@@ -257,6 +257,10 @@ function UI_Lobby:refresh_highlight()
 
 	-- 도감
 	vars['collectionNotiSprite']:setVisible(g_bookData:isHighlightBook())
+
+    -- 모험
+    vars['adventureHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
+    
 end
 
 -------------------------------------

@@ -66,7 +66,7 @@ function UI_ItemCard:init_commonItem(t_item, t_sub_data)
     if (not count) or (count == 0) then
         vars['numberLabel']:setString('')
     else
-        vars['numberLabel']:setString(Str('X{1}', comma_value(count)))
+        vars['numberLabel']:setString(Str('{1}', comma_value(count)))
     end
 
     vars['disableSprite']:setVisible(false)
@@ -160,7 +160,7 @@ function UI_ItemCard:init_relationItem(t_item, t_sub_data)
     if (not count) or (count == 0) then
         vars['numberLabel']:setString('')
     else
-        vars['numberLabel']:setString(Str('X{1}', comma_value(count)))
+        vars['numberLabel']:setString(Str('{1}', comma_value(count)))
     end
 end
 

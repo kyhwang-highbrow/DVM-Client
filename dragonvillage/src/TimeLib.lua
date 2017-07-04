@@ -49,6 +49,18 @@ function TimeLib:getServerTime()
 end
 
 -------------------------------------
+-- function getServerTime_midnight
+-- @brief 단위 (초)
+-------------------------------------
+function TimeLib:getServerTime_midnight(curr_time)
+    local curr_time = (curr_time or self:getServerTime())
+
+    local date = pl.Date(curr_time)
+    local midnight = pl.Date({['year']= date:year(), ['month']= date:month(), ['day']= date:day() + 1, ['hour']=0})
+    return midnight['time']
+end
+
+-------------------------------------
 -- function setTimeOfDayChange
 -- @brief 다음 새벽 4시(요일 변경 기준)
 -------------------------------------
