@@ -246,6 +246,8 @@ function getSkillType_Tamer(skill_idx)
         str = Str('패시브 스킬')
     elseif (skill_idx == 3) then
         str = Str('패시브 스킬')
+    elseif (skill_idx == 4) then
+        str = Str('콜로세움 스킬')
     else
         error('skill_idx : ' .. skill_idx)
     end

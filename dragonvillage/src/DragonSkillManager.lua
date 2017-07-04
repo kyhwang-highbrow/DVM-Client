@@ -85,12 +85,13 @@ end
 -- function setDragonSkillLevelList
 -- @breif 드래곤의 스킬 레벨 적용
 -------------------------------------
-function IDragonSkillManager:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
+function IDragonSkillManager:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv, skill_04_lv)
     self.m_dragonSkillLevel = {}
     self.m_dragonSkillLevel[0] = skill_00_lv or 0 -- 액티브 스킬
     self.m_dragonSkillLevel[1] = skill_01_lv or 0
     self.m_dragonSkillLevel[2] = skill_02_lv or 0
     self.m_dragonSkillLevel[3] = skill_03_lv or 0 -- 성룡 스킬
+    self.m_dragonSkillLevel[4] = skill_04_lv or 0 -- 테이머 콜로세움 스킬
 end
 
 -------------------------------------
@@ -291,6 +292,11 @@ function IDragonSkillManager:getSkillKeyList()
 	for i = 0, MAX_DRAGON_EVOLUTION do
 		table.insert(l_ret, i)
 	end
+
+	-- 테이머의 경우 콜로세움 스킬 idx 4 추가
+    if (self.m_charType == 'tamer') then
+        table.insert(l_ret, 4)
+    end
 
 	return l_ret
 end
@@ -899,12 +905,13 @@ function MakeTamerSkillManager(t_tamer)
     local skill_01_lv = t_tamer['skill_lv1']
     local skill_02_lv = t_tamer['skill_lv2']
     local skill_03_lv = t_tamer['skill_lv3']
+    local skill_04_lv = t_tamer['skill_lv4']
 
 	-- 드래곤 스킬 매니저 생성
 	local dragon_skill_mgr = DragonSkillManager()
 
     -- 스킬 레벨 설정
-    dragon_skill_mgr:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
+    dragon_skill_mgr:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv, skill_04_lv)
 
     -- 스킬들 설정
     local char_type = 'tamer'

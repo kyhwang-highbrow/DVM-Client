@@ -9,12 +9,16 @@ UI_TamerManagePopup = class(PARENT, {
 		m_lTamerItemList = '',
 
 		m_skillUI = 'UI',
+
+        m_mode = 'string', -- 'normal' or 'colosseum'
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_TamerManagePopup:init()
+function UI_TamerManagePopup:init(tamer_id, mode)
+    self.m_mode = mode or 'normal'
+
     local vars = self:load('tamer_manage_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -29,7 +33,7 @@ function UI_TamerManagePopup:init()
     self:doAction(nil, false)
 
 	-- 멤버 변수
-	self.m_currTamerID = g_tamerData:getCurrTamerTable('tid')
+	self.m_currTamerID = tamer_id or g_tamerData:getCurrTamerTable('tid')
 	self.m_selectedTamerID = self.m_currTamerID
 	self.m_lTamerItemList = {}
 	
@@ -182,7 +186,7 @@ function UI_TamerManagePopup:setTamerSkill()
 		self.m_skillUI:refresh(t_tamer, skill_mgr)
     end
 
-	for i = 1, 3 do 
+	for i = 1, 4 do 
 		local skill_icon = l_skill_icon[i]
 		if (skill_icon) then
 			vars['skillNode' .. i]:removeAllChildren()

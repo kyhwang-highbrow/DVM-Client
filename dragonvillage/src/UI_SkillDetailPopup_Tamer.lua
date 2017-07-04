@@ -54,7 +54,7 @@ function UI_SkillDetailPopup_Tamer:refresh(t_tamer, skill_mgr)
 	end
 
     local vars = self.vars
-    for i= 1, 3 do
+    for i= 1, 4 do
         vars['skillNode' .. i]:removeAllChildren()
         local ui = UI_SkillDetailPopupListItem_Tamer(t_tamer, skill_mgr, i, self.m_bSimpleMode)
         vars['skillNode' .. i]:addChild(ui.root)
