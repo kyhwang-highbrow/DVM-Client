@@ -250,11 +250,14 @@ function ActivityCarrier:setPowerRate(power_rate)
 	end
 
 	-- 0~1 사이값
+    --[[
 	if (power_rate >= 1) then 
 		self.m_skillCoefficient = (power_rate / 100)
 	else
 		self.m_skillCoefficient = power_rate
 	end
+    ]]--
+    self.m_skillCoefficient = (power_rate / 100)
 end
 
 -------------------------------------

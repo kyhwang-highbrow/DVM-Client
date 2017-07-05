@@ -22,7 +22,7 @@ end
 -- function onStart
 -------------------------------------
 function StatusEffect_Zombie:onStart()
-    self.owner:setImmortal(true)
+    self.m_owner:setImmortal(true)
 end 
 
 -------------------------------------
@@ -31,7 +31,7 @@ end
 function StatusEffect_Zombie:onEnd()
     PARENT.onEnd(self)
 
-    self.owner:setImmortal(false)
+    self.m_owner:setImmortal(false)
     
     -- 종료시 사망처리
     self.m_owner:setDead()
