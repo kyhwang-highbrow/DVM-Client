@@ -239,7 +239,6 @@ local t_module = {
     'TableSlimeExp',
 	'TableLoadingGuide',
     'TableExchange',
-    'TableDragonCollection',
     'TableDragonCombine',
     'TableStatusEffect',
     'TableExplorationList',

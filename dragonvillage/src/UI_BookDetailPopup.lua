@@ -15,7 +15,7 @@ UI_BookDetailPopup = class(PARENT,{
 		m_bookIdx = 'num',
 
         -- refresh 체크 용도
-        m_collectionLastChangeTime = 'timestamp',
+        m_bookLastChangeTime = 'timestamp',
 
 		m_dragonEvolutionIconList = 'table',
 		
@@ -42,7 +42,7 @@ function UI_BookDetailPopup:init(t_dragon)
 	-- initialize
 	self:setDragon(t_dragon)
 
-    self.m_collectionLastChangeTime = g_bookData:getLastChangeTimeStamp()
+    self.m_bookLastChangeTime = g_bookData:getLastChangeTimeStamp()
 	self.m_pressTimer = 0
 
     self:initUI()
@@ -608,10 +608,10 @@ end
 -- @brief
 -------------------------------------
 function UI_BookDetailPopup:checkRefresh()
-    local is_changed = g_bookData:checkChange(self.m_collectionLastChangeTime)
+    local is_changed = g_bookData:checkChange(self.m_bookLastChangeTime)
 
     if is_changed then
-        self.m_collectionLastChangeTime = g_bookData:getLastChangeTimeStamp()
+        self.m_bookLastChangeTime = g_bookData:getLastChangeTimeStamp()
         self:onChangeDragon()
     end
 end

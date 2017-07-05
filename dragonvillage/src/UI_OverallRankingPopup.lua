@@ -13,7 +13,7 @@ UI_OverallRankingPopup.OVERALL = 0
 UI_OverallRankingPopup.COMBAT = 1
 UI_OverallRankingPopup.QUEST = 2
 UI_OverallRankingPopup.COLOSSEUM = 3
-UI_OverallRankingPopup.COLLECTION = 4
+UI_OverallRankingPopup.BOOK = 4
 
 -------------------------------------
 -- function init
@@ -67,7 +67,7 @@ function UI_OverallRankingPopup:initTab()
     self:addTab(UI_OverallRankingPopup.COMBAT, vars['cpBtn'], vars['cpNode'])
 	self:addTab(UI_OverallRankingPopup.QUEST, vars['questBtn'], vars['questNode'])
 	self:addTab(UI_OverallRankingPopup.COLOSSEUM, vars['pvpBtn'], vars['pvpNode'])
-	self:addTab(UI_OverallRankingPopup.COLLECTION, vars['collectionBtn'], vars['collectionNode'])
+	self:addTab(UI_OverallRankingPopup.BOOK, vars['collectionBtn'], vars['collectionNode'])
 
     self:setTab(UI_OverallRankingPopup.OVERALL)
 

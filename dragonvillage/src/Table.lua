@@ -84,8 +84,6 @@ local TableInfo_fromServer = {
         ['table_drop_ingame'] = {'table_drop_ingame', 'chapter_id'}, -- 인게임에서 아이템 드랍을 관리하는 테이블
         ['table_req_gold'] = {'table_req_gold', 'lv'},
         ['table_stamina_info'] = {'table_stamina_info', 'stamina_type'},
-        ['table_dragon_research'] = {'table_dragon_research', 'lv'},
-        ['table_dragon_collection'] = {'table_dragon_collection', 'req_point'},
         ['table_exploration_list'] = {'table_exploration_list', 'epr_id'},
         ['table_colosseum'] = {'table_colosseum', 'tid'},
 
@@ -96,7 +94,8 @@ local TableInfo_fromServer = {
         -- 아이템 관련
         ['table_item_rand'] = {'table_item_rand', 'rand_item_id'},
 
-        -- 라테아
+        -- 삭제 예정
+        ['table_dragon_research'] = {'table_dragon_research', 'lv'},
         ['table_lactea'] = {'table_lactea', 'grade'},
     }
 

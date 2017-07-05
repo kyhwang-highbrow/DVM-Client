@@ -703,7 +703,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableCalendar.lua" />
     <None Include="..\src\TableColosseumBuff.lua" />
     <None Include="..\src\TableDragon.lua" />
-    <None Include="..\src\TableDragonCollection.lua" />
     <None Include="..\src\TableDragonCombine.lua" />
     <None Include="..\src\TableDragonPhrase.lua" />
     <None Include="..\src\TableDragonSkillBonus.lua" />

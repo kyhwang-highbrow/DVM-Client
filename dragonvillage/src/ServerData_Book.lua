@@ -280,7 +280,6 @@ function ServerData_Book:request_bookReward(did, evolution, finish_cb)
 		g_topUserInfo:refreshData()
 
 		-- 보상 수령한 정보 처리
-		--self.m_tBookReward[tostring(did)]['evo_' .. evolution] = nil
 		self.m_tBookReward = ret['reward_info']
 
 		-- 시간 갱신        

@@ -93,7 +93,7 @@ function UI_UserInfoDetailPopup:initUI()
 	vars['nameLabel']:setString(nick_name)
 
 	-- 칭호
-    local title_str = TableDragonCollection:getDragonCollectionTitle(self.m_tUserInfo['cpoint_reward'])
+    local title_str = '수습 테이머'
 	vars['titleLabel']:setString(title_str)
 
 	-- 길드

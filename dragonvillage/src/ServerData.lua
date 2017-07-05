@@ -581,9 +581,6 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
         -- 라테아 테이블
         self:setServerTable(ret, 'table_lactea')
 
-		-- 도감 테이블
-		self:setServerTable(ret, 'table_dragon_collection')
-
         -- 탐험 테이블
         self:setServerTable(ret, 'table_exploration_list')
 
