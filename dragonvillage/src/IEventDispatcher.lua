@@ -40,10 +40,9 @@ function IEventDispatcher:removeListener(event_name, listener)
     end
     self.m_lEventListener[event_name][listener] = nil
 
-    if (not listener.m_lEventDispatcher[event_name]) then
-        error('removeListener no event_name : ' .. event_name)
+    if (listener.m_lEventDispatcher[event_name]) then
+        listener.m_lEventDispatcher[event_name][self] = nil 
     end
-    listener.m_lEventDispatcher[event_name][self] = nil
 end
 
 -------------------------------------
