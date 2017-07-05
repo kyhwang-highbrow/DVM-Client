@@ -187,9 +187,10 @@ end
 -- function getCollisionFromTargetList
 -- @brief 해당 타겟들의 모든 바디 리스트를 얻는다
 -------------------------------------
-function SkillTargetFinder:getCollisionFromTargetList(l_target, pos_x, pos_y)
+function SkillTargetFinder:getCollisionFromTargetList(l_target, pos_x, pos_y, do_not_sort)
     local l_target = l_target or {}
     local l_ret = {}
+    local do_not_sort = do_not_sort or false
 
     for _, target in ipairs(l_target) do
         for _, body in ipairs(target:getBodyList()) do
@@ -203,11 +204,13 @@ function SkillTargetFinder:getCollisionFromTargetList(l_target, pos_x, pos_y)
         end
     end
 
-    -- 거리가 가까운 순서로 정렬
-    if (#l_ret > 1) then
-        table.sort(l_ret, function(a, b)
-            return a:getDistance() < b:getDistance()
-        end)
+    if(not do_not_sort) then
+        -- 거리가 가까운 순서로 정렬
+        if (#l_ret > 1) then
+            table.sort(l_ret, function(a, b)
+                return a:getDistance() < b:getDistance()
+            end)
+        end
     end
 
     return l_ret

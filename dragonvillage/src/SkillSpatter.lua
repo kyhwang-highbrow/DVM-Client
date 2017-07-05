@@ -22,6 +22,8 @@ SkillSpatter = class(PARENT, {
         m_prevPosY = 'number',
 
         m_targetIdx = 'number',
+
+        m_lTargetCollisions = 'table',
      })
 
 -------------------------------------
@@ -55,6 +57,11 @@ function SkillSpatter:init_skill(motionstreak_res, count)
     end
 
     self.m_lTargetChar = self:makeSpatterTargetList()
+
+
+    local pos_x, pos_y = self:getAttackPositionAtWorld()
+
+    self.m_lTargetCollisions = SkillTargetFinder:getCollisionFromTargetList(self.m_lTargetChar, pos_x, pos_y, true)
     self.m_targetIdx = 1
 	-- 위치 지정 및 모션스트릭	
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
@@ -81,7 +88,7 @@ end
 -------------------------------------
 function SkillSpatter.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
-		local target_char = owner:getNextTarget()
+		local target_char, target_collision = owner:getNextTarget()
 
         -- JumpTo액션 실행
 		if (target_char) then
@@ -94,9 +101,7 @@ function SkillSpatter.st_idle(owner, dt)
                 if (owner.m_owner.m_bLeftFormation == target_char.m_bLeftFormation) then
 				    owner:heal(target_char)
                 else
-                    local atk_dmg = owner.m_activityCarrier:getAtkDmg(target_char)
-                    local dmg = HealCalc_M(atk_dmg) * owner.m_activityCarrier:getPowerRate()
-                    target_char:setDamage(nil, target_char, target_char.pos.x, target_char.pos.y, dmg)
+                    owner:attack(target_collision)
                 end
 				owner:trySpatter()
 			end
@@ -143,16 +148,16 @@ end
 -------------------------------------
 function SkillSpatter:getNextTarget()
 	local target_char
-
+    local target_collision
 	local target_char = self.m_lTargetChar[self.m_targetIdx]
-	
+	local target_collision = self.m_lTargetCollisions[self.m_targetIdx]
 	-- 타겟이 없거나 죽었을 시 다음 적절한 타겟을 찾기 위해 타겟리스트를 순서대로 한번 순회
 	local idx = 0
 	while (not target_char) or (target_char.m_bDead) do
 		idx = idx + 1
 		self.m_targetIdx = self.m_targetIdx + 1
 		target_char = self.m_lTargetChar[self.m_targetIdx]
-
+        target_collision = self.m_lTargetCollisions[self.m_targetIdx]
 		if (self.m_targetIdx > #self.m_lTargetChar) then
 			self.m_targetIdx = 0
 		end
@@ -163,7 +168,7 @@ function SkillSpatter:getNextTarget()
 	end
 
 	self.m_targetIdx = self.m_targetIdx + 1
-	return target_char
+	return target_char, target_collision
 end
 
 -------------------------------------
