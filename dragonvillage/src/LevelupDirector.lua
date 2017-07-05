@@ -96,7 +96,7 @@ function LevelupDirector:calcLvAndExp(value)
         local max_exp = self.m_lMaxExp[iter_lv] or 0
 
         -- 최대 레벨
-        if (max_exp == 0) then
+        if (max_exp == 0) or (max_exp == '') then
             iter_exp = 0
             break
         end
@@ -113,9 +113,9 @@ function LevelupDirector:calcLvAndExp(value)
         end
     end
 
-    local max_exp = self.m_lMaxExp[iter_lv] or 0
     local percentage = 100
-    if (max_exp > 0) then
+    local max_exp = self.m_lMaxExp[iter_lv] or 0
+    if (max_exp ~= '') and (max_exp > 0) then
         percentage = math_floor((iter_exp / max_exp) * 100)
     end
     return iter_lv, iter_exp, max_exp, percentage
@@ -165,12 +165,19 @@ end
 function LevelupDirector:getTamerExpList()
     local table_exp_tamer = TABLE:get('exp_tamer')
     local l_max_exp = {}
+    local max_lv = 0
     for i,v in pairs(table_exp_tamer) do
         local level = tonumber(i)
-        local max_exp = v['exp_t']
+        local max_exp = v['req_exp']
         l_max_exp[level] = max_exp
+
+        local level_number = tonumber(level)
+        if level_number then
+            max_lv = math_max(max_lv, level_number)
+        end
     end
-    return l_max_exp
+    
+    return l_max_exp, max_lv
 end
 
 -------------------------------------

@@ -16,8 +16,7 @@ UI_GameResultNew = class(UI, {
 
         m_directionStep = 'number',
         m_lDirectionList = 'list',
-
-
+        
         m_lWorkList = 'list',
         m_workIdx = 'number',
      })
@@ -76,13 +75,6 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
         self:init_difficultyIcon(stage_id)
     end
     
-    -- 유저 레벨, 경험치
-    if (0 < table.count(t_tamer_levelup_data)) then
-        vars['userExpLabel']:setString(Str('경험치 +{1}', t_tamer_levelup_data['add_exp']))
-        vars['userLvLabel']:setString(Str('레벨{1}', t_tamer_levelup_data['curr_lv']))
-        vars['userExpGg']:setPercentage(t_tamer_levelup_data['curr_exp'] / t_tamer_levelup_data['curr_max_exp'] * 100)
-    end
-
     -- 테이머
     do
 		local t_tamer =  g_tamerData:getCurrTamerTable()
@@ -100,6 +92,11 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
 
     -- 레벨업 연출 클래스 리스트
     self.m_lLevelupDirector = {}
+
+    -- 유저 레벨, 경험치
+    if (0 < table.count(t_tamer_levelup_data)) then
+        self:initTamer()
+    end
 
     -- 드래곤 리스트
     self:initDragonList(t_tamer_levelup_data, l_dragon_list)    
@@ -489,6 +486,37 @@ function UI_GameResultNew:stopLevelUpDirector()
     for i,v in ipairs(self.m_lLevelupDirector) do
         v:stop(true)
     end
+end
+
+-------------------------------------
+-- function initTamer
+-- @brief 테이머 정보 설정
+-------------------------------------
+function UI_GameResultNew:initTamer()
+    local t_levelup_data = self.m_tTamerLevelupData
+    local vars = self.vars
+    vars['userExpLabel']:setString(Str('경험치 +{1}', t_levelup_data['prev_exp']))
+    vars['userLvLabel']:setString(Str('레벨{1}', t_levelup_data['prev_lv']))
+    vars['userExpGg']:setPercentage(t_levelup_data['prev_exp'] / t_levelup_data['prev_lv'] * 100)
+
+    local lv_label      = vars['userLvLabel']
+    local exp_label     = vars['userExpLabel']
+    local max_icon      = vars['userMaxSprite']
+    local exp_gauge     = vars['userExpGg']
+    local level_up_vrp  = vars['userLvUpVisual']
+    local levelup_director = LevelupDirector_GameResult(lv_label, exp_label, max_icon, exp_gauge, level_up_vrp)
+    
+    levelup_director.m_cbFirstLevelup = function()
+        -- 레벨업 연출 보여줌
+    end
+
+    local src_lv        = t_levelup_data['prev_lv']
+    local src_exp       = t_levelup_data['prev_exp']
+    local dest_lv       = t_levelup_data['curr_lv']
+    local dest_exp      = t_levelup_data['curr_exp']
+    local type          = 'tamer'
+    levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type)
+    self:addLevelUpDirector(levelup_director)
 end
 
 -------------------------------------
