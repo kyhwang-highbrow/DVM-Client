@@ -1,16 +1,16 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_EventPopupTab_PlayTime
+-- class UI_EventPopupTab_AccessTime
 -------------------------------------
-UI_EventPopupTab_PlayTime = class(PARENT,{
+UI_EventPopupTab_AccessTime = class(PARENT,{
         m_lEventDataUi = 'list'
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopupTab_PlayTime:init(owner)
+function UI_EventPopupTab_AccessTime:init(owner)
     local vars = self:load('event_time.ui')
     self.m_lEventDataUi = {}
 
@@ -21,7 +21,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_EventPopupTab_PlayTime:initUI()
+function UI_EventPopupTab_AccessTime:initUI()
     local vars = self.vars
     local event_data = g_accessTimeData.m_lEventData
     
@@ -40,7 +40,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_EventPopupTab_PlayTime:refresh()
+function UI_EventPopupTab_AccessTime:refresh()
     local vars = self.vars
 
     -- 오늘 접속 시간
@@ -53,7 +53,7 @@ end
 -- function onEnterTab
 -- @brief
 -------------------------------------
-function UI_EventPopupTab_PlayTime:onEnterTab()
+function UI_EventPopupTab_AccessTime:onEnterTab()
     self:refresh()
 
     -- 보상 리스트 갱신
