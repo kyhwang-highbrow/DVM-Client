@@ -372,11 +372,6 @@ function ServerData:networkCommonRespone(ret)
         if ret['tickets'] then
             self:applyServerData(ret['tickets'], 'user', 'tickets')
         end
-
-        -- 라테아 갱신
-        if ret['lactea'] then
-            self:applyServerData(ret['lactea'], 'user', 'lactea')
-        end
     end
 
 	-- 퀘스트 갱신
@@ -467,12 +462,6 @@ function ServerData:networkCommonRespone_addedItems(ret)
         t_added_items['badge'] = nil
     end
 
-    -- 라테아 (갱신)
-    if t_added_items['lactea'] then
-        self:applyServerData(t_added_items['lactea'], 'user', 'lactea')
-        t_added_items['lactea'] = nil
-    end
-
     -- 열매 갯수 (전체 갱신)
     if t_added_items['fruits'] then
         self:applyServerData(t_added_items['fruits'], 'user', 'fruits')
@@ -561,25 +550,12 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        self:setServerTable(ret, 'table_stamina_info')
-        self:setServerTable(ret, 'table_dragon_research')
-        self:setServerTable(ret, 'table_colosseum')
-
-        -- 친밀도 테이블
-        self:setServerTable(ret, 'table_dragon_friendship')
-        self:setServerTable(ret, 'table_dragon_friendship_variables')
-
-        -- 아이템 관련
-        self:setServerTable(ret, 'table_item_rand')
-
-		-- 레벨업 필요 골드 모음
-		self:setServerTable(ret, 'table_req_gold')
-
-        -- 라테아 테이블
-        self:setServerTable(ret, 'table_lactea')
-
-        -- 탐험 테이블
-        self:setServerTable(ret, 'table_exploration_list')
+        
+        -- 서버에서 넘겨받는 테이블 저장
+        local server_table_info = TABLE:getServerTableInfo()
+        for table_name,_ in pairs(server_table_info) do
+            self:setServerTable(ret, table_name)
+        end
 
         if finish_cb then
             finish_cb(ret)

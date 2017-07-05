@@ -33,7 +33,6 @@ function UI_TopUserInfo:init()
     self.m_lNumberLabel['amethyst'] = NumberLabel(vars['amethystLabel'], 0, 0.3)
     self.m_lNumberLabel['st_ad'] = NumberLabel(vars['actingPowerLabel'], 0, 0.3)
     self.m_lNumberLabel['fp'] = NumberLabel(vars['fpLabel'], 0, 0.3)
-    self.m_lNumberLabel['lactea'] = NumberLabel(vars['lacteaLabel'], 0, 0.3)
     
     self.m_mAddedSubCurrency = {}
 
@@ -61,7 +60,6 @@ function UI_TopUserInfo:refreshData()
     local cash = g_userData:get('cash')
     local amethyst = g_userData:get('amethyst')
     local fp = g_userData:get('fp')
-    local lactea = g_userData:get('lactea')
     
     self.m_lNumberLabel['gold']:setNumber(gold)
     self.m_lNumberLabel['cash']:setNumber(cash)
@@ -77,8 +75,6 @@ function UI_TopUserInfo:refreshData()
     vars['actingPowerTimeLabel']:setString(str)
 
     self.m_lNumberLabel['fp']:setNumber(fp)
-
-    --self.m_lNumberLabel['lactea']:setNumber(lactea)
 
     for k, numberLabel in pairs(self.m_mAddedSubCurrency) do
         local value = g_userData:get(k) or 0
@@ -231,7 +227,6 @@ function UI_TopUserInfo:setSubCurrency(subCurrency)
 
     -- 서브 재화
     vars['amethystNode']:setVisible(subCurrency == 'amethyst')
-    vars['lacteaNode']:setVisible(subCurrency == 'lactea')
     vars['fpNode']:setVisible(subCurrency == 'fp')
 
     for k, _ in pairs(self.m_mAddedSubCurrency) do

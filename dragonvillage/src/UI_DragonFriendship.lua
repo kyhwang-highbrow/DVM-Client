@@ -354,10 +354,6 @@ function UI_DragonFriendship:response_friendshipUp(ret)
         g_serverData:applyServerData(ret['fruits'], 'user', 'fruits')
     end
 
-    -- is_flevelup  bool
-    -- added_lactea num
-    -- lactea       num
-
     -- UI에서 관리하는 드래곤 정보 갱신
     self:setSelectDragonDataRefresh()
 

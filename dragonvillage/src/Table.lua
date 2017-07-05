@@ -95,8 +95,14 @@ local TableInfo_fromServer = {
 
         -- 삭제 예정
         ['table_dragon_research'] = {'table_dragon_research', 'lv'},
-        ['table_lactea'] = {'table_lactea', 'grade'},
     }
+
+-------------------------------------
+-- function getServerTableInfo
+-------------------------------------
+function TABLE:getServerTableInfo()
+    return TableInfo_fromServer
+end
 
 -------------------------------------
 -- function getCSVHeader

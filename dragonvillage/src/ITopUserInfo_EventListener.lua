@@ -10,7 +10,7 @@ ITopUserInfo_EventListener = {
     m_titleStr = 'string',
 
 	m_staminaType = 'string', -- 보여줄 활동력 타입
-    m_subCurrency = 'string', -- 서브 재화 (amethyst, fp, lactea)
+    m_subCurrency = 'string', -- 서브 재화 (amethyst, fp)
     m_bShowChatBtn = '',
 }
 
