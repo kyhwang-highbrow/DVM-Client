@@ -729,10 +729,20 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             end
 		end
 			
-		-- 적처치시 
-		if (self.m_bDead) then 
-			self:dispatch(CON_SKILL_HIT_KILL, t_event, self)
-		end
+		-- 적 처치시
+        if (not no_event) then
+            local b = false
+
+            if (attack_type == 'active' and self.m_hp <= 0) then
+                b = true
+            elseif (attack_type == 'basic' and self.m_bDead) then
+		        b = true
+		    end
+
+            if (b) then
+                self:dispatch(CON_SKILL_HIT_KILL, t_event, self)
+            end
+        end
 		
 		-- 일반 공격시
         if (not no_event) then
