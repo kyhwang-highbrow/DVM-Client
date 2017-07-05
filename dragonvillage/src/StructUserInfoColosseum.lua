@@ -406,17 +406,18 @@ end
 -- @brief ServerData_Deck과 동일한 폼 유지
 -------------------------------------
 function StructUserInfoColosseum:getDeck(type)
+    local tamer_id = g_tamerData:getCurrTamerID()
+
     -- 공격덱
     if (type == 'atk') or (type == 'pvp_atk') then
         local l_doid = self:getAtkDeck_dragonList(true)
         local formation = 'attack'
         local leader = 0
-        local tamer_id = nil
 
         if self.m_pvpAtkDeck then
             formation = self.m_pvpAtkDeck['formation']
             leader = self.m_pvpAtkDeck['leader']
-            tamer_id = self.m_pvpAtkDeck['tamer']
+            tamer_id = self.m_pvpAtkDeck['tamer'] or tamer_id
         end
         return l_doid, formation, type, leader, tamer_id
 
@@ -425,16 +426,15 @@ function StructUserInfoColosseum:getDeck(type)
         local l_doid = self:getDefDeck_dragonList(true)
         local formation = 'attack'
         local leader = 0
-        local tamer_id = nil
 
         if self.m_pvpDefDeck then
             formation = self.m_pvpDefDeck['formation']
             leader = self.m_pvpDefDeck['leader']
-            tamer_id = self.m_pvpDefDeck['tamer']
+            tamer_id = self.m_pvpDefDeck['tamer'] or tamer_id
         end
         return l_doid, formation, type, leader, tamer_id
 
     else
-        return {}, 'attack', type, 1, nil
+        return {}, 'attack', type, 1, tamer_id
     end
 end
