@@ -27,7 +27,7 @@ function UI_EventPopupTab_AccessTime:initUI()
     
     -- 접속시간 이벤트 보상 리스트
     for i, v in ipairs(event_data) do
-        local ui = UI_PlayTimeDataListItem(v)
+        local ui = UI_AccessTimeDataListItem(v)
         local node = vars['itemNode'..i]
         if node then
             node:removeAllChildren()
