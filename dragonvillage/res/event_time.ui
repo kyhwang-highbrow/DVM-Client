@@ -7,32 +7,6 @@
 		{
 			[1] =
 			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
-				width = 0;
-				height = 0;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[2] =
-			{
 				[1] =
 				{
 					type = 'Sprite';
@@ -163,17 +137,17 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[3] =
+			[2] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 354.000000;
-				y = -107.000000;
+				x = 306.000000;
+				y = -95.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 340;
-				height = 200;
+				width = 300;
+				height = 180;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -182,17 +156,17 @@
 				visible = true;
 				lua_name = 'itemNode6';
 			};
-			[4] =
+			[3] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -107.000000;
+				y = -95.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 340;
-				height = 200;
+				width = 300;
+				height = 180;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -201,17 +175,17 @@
 				visible = true;
 				lua_name = 'itemNode5';
 			};
-			[5] =
+			[4] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -354.000000;
-				y = -107.000000;
+				x = -306.000000;
+				y = -96.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 340;
-				height = 200;
+				width = 300;
+				height = 180;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -220,17 +194,17 @@
 				visible = true;
 				lua_name = 'itemNode4';
 			};
-			[6] =
+			[5] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 354.000000;
-				y = 111.000000;
+				x = 306.000000;
+				y = 94.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 340;
-				height = 200;
+				width = 300;
+				height = 180;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -239,17 +213,17 @@
 				visible = true;
 				lua_name = 'itemNode3';
 			};
-			[7] =
+			[6] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 111.000000;
+				y = 94.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 340;
-				height = 200;
+				width = 300;
+				height = 180;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -258,17 +232,17 @@
 				visible = true;
 				lua_name = 'itemNode2';
 			};
-			[8] =
+			[7] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -354.000000;
-				y = 111.000000;
+				x = -306.000000;
+				y = 94.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 340;
-				height = 200;
+				width = 300;
+				height = 180;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -277,17 +251,17 @@
 				visible = true;
 				lua_name = 'itemNode1';
 			};
-			[9] =
+			[8] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -265.000000;
+				y = -251.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 1127;
-				height = 94;
+				width = 930;
+				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -297,13 +271,13 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '매일 매일 지정된 시간만큼 게임을 즐기면 제공되는 보상입니다.\n접속 시간은 매일 04:00에 초기화 됩니다.\n게임이 활성화되어 있는 경우에만 접속 시간이 누적됩니다.';
+				text = '매일 매일 지정된 시간만큼 게임을 즐기면 제공되는 보상입니다.\n접속 시간은 매일 00:00에 초기화 됩니다.\n게임이 활성화되어 있는 경우에만 접속 시간이 누적됩니다.';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 1127;
-				dimension_height = 94;
+				dimension_width = 930;
+				dimension_height = 100;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -317,7 +291,7 @@
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
 			};
-			[10] =
+			[9] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -333,7 +307,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'closeBtn';
 				enable = true;
 				normal = 'ui/btn/close_01.png';
@@ -348,8 +322,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1200;
-			height = 640;
+			width = 930;
+			height = 630;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
