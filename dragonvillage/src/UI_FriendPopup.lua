@@ -60,7 +60,6 @@ end
 -------------------------------------
 function UI_FriendPopup:initButton()
     local vars = self.vars
-    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end)
 end
 
 -------------------------------------
@@ -78,16 +77,6 @@ function UI_FriendPopup:click_exitBtn()
 
     -- 노티 정보를 갱신하기 위해서 호출
     g_highlightData:setLastUpdateTime()
-end
-
--------------------------------------
--- function click_drawBtn
--------------------------------------
-function UI_FriendPopup:click_drawBtn()
-    local function func()
-        UI_FriendPointGachaPopup()
-    end
-    g_gachaData:refresh_gachaInfo(func)
 end
 
 -------------------------------------

@@ -531,15 +531,6 @@
     <None Include="..\src\UI_SecretDungeonStageListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_FriendPointGachaPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_FriendPointGachaResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_GachaBox.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_NotificationInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1516,9 +1507,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\ServerData_Friend.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Gacha.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\ServerData_Highlight.lua">

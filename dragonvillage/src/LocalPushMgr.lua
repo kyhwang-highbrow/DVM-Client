@@ -21,12 +21,6 @@ function LocalPushMgr:applyLocalPush()
     -- 기존 local push 삭제
 	luaEventHandler('send_event_to_app', 'local_noti_cancel')
 
-	-- 프리미엄 선물 상자 
-	do
-		local premium_box_remain = g_gachaData:getRemainGachaTime('box_premium')
-		self:addLocalPush('normal', premium_box_remain, Str('프리미엄 선물 상자가 열렸습니다.'))
-	end
-
 	-- 탐험
 	do
 

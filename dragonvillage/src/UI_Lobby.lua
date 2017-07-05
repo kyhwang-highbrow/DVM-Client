@@ -40,10 +40,6 @@ function UI_Lobby:init()
 
     self:initInfoBoard()
 
-    -- 가챠 관련 정보 갱신
-    --g_gachaData:refresh_gachaInfo(function() end)
-    --g_friendData:request_friendList(function() self:refreshFriendOnlineBuff() end, true)
-
     -- 로비 진입 시
     self:entryCoroutine()
 	--[[
@@ -87,14 +83,6 @@ function UI_Lobby:entryCoroutine()
         -- 터치 불가상태로 만들어 놓음
         local block_popup = UI_BlockPopup()
         dt = coroutine.yield()
-
-        --[[
-        -- 가챠 정보 받아옴
-        cclog('# 가챠 정보 받는 중')
-        working = true
-        g_gachaData:refresh_gachaInfo(function() working = false end)
-        while (working) do dt = coroutine.yield() end
-        --]]
 
         --친구 정보 받아옴
         cclog('# 친구 정보 받는 중')
@@ -200,7 +188,6 @@ function UI_Lobby:initButton()
     vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
     vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end)
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end)
-    vars['giftBtn']:registerScriptTapHandler(function() self:click_giftBtn() end)
 	vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffBtn() end)
 	vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
@@ -402,17 +389,6 @@ function UI_Lobby:click_drawBtn()
         g_highlightData:setLastUpdateTime()
     end
     g_hatcheryData:openHatcheryUI(close_cb)
-end
-
--------------------------------------
--- function click_giftBtn
--- @brief 드래곤 소환 (가챠)
--------------------------------------
-function UI_Lobby:click_giftBtn()
-    local function func()
-        UI_GachaBox()
-    end
-    g_gachaData:refresh_gachaInfo(func)
 end
 
 -------------------------------------

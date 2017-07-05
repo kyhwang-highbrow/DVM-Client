@@ -92,9 +92,6 @@ function ServerData:getInstance()
     -- 아이템
     g_itemData = ServerData_Item(g_serverData)
 
-    -- 가챠
-    g_gachaData = ServerData_Gacha(g_serverData)
-
     -- 출석체크
     g_attendanceData = ServerData_Attendance(g_serverData)
 
