@@ -16,6 +16,7 @@ function UI_Setting:init_devTab()
     vars['allEggBtn']:registerScriptTapHandler(function() self:click_allEggBtn() end)
     vars['addFpBtn']:registerScriptTapHandler(function() self:click_addFpBtn() end)
     vars['addRpBtn']:registerScriptTapHandler(function() self:click_addRpBtn() end)
+    vars['allTamerBtn']:registerScriptTapHandler(function() self:click_allTamerBtn() end)
     self:refresh_devTap()
 end
 
@@ -447,6 +448,52 @@ function UI_Setting:click_addRpBtn()
         end
     end
     ui_network:setSuccessCB(do_work)
+    do_work()
+end
+
+-------------------------------------
+-- function click_allTamerBtn
+-- @brief 모든 테이머 추가
+-------------------------------------
+function UI_Setting:click_allTamerBtn()
+    local uid = g_userData:get('uid')
+    local table_tamer = TableTamer()
+    
+    local t_list = {}
+    for i,v in pairs(table_tamer.m_orgTable) do
+        local tid = v['tid']
+        if (not g_tamerData:hasTamer(tid)) then
+            table.insert(t_list, tid)
+        end
+    end
+    local do_work
+
+    --local ui_network = UI_Network()
+    --ui_network:setReuse(true)
+    --ui_network:setUrl('/users/get/tamer')
+    --ui_network:setParam('uid', uid)
+
+    do_work = function(ret)
+        local id = t_list[1]
+        
+        if id then
+            table.remove(t_list, 1)
+            g_tamerData:request_getTamer(id, do_work)
+
+            --[[
+            table.remove(t_list, 1)
+            local name = table_tamer:getValue(id, 't_name')
+            local msg = '"' .. name .. '" 추가 중...'
+            ui_network:setLoadingMsg(msg)
+            ui_network:setParam('tid', id)
+            ui_network:request()
+            --]]
+        else
+            --ui_network:close()
+            UIManager:toastNotificationGreen('모든 테이머 추가 완료!')
+        end
+    end
+    --ui_network:setSuccessCB(do_work)
     do_work()
 end
 
