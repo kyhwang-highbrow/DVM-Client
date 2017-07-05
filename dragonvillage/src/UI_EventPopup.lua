@@ -85,7 +85,7 @@ function UI_EventPopup:init_tableView()
         elseif (data.m_type == 'attendance_event_open_event') then
             res = 'res/ui/event/icon_attendence_01.png'
 
-        elseif (data.m_type == 'attendance_basic_comebackl') then
+        elseif (data.m_type == 'attendance_basic_comeback') then
             res = 'res/ui/event/icon_attendence_03.png'
 
         elseif (data.m_type == 'attendance_basic_normal') then
@@ -97,6 +97,10 @@ function UI_EventPopup:init_tableView()
             
             --res = g_eventData:getResTabIcon(exchange_type)
             res = 'res/ui/event/icon_attendence_04.png'
+
+        elseif (data.m_type == 'play_time') then
+            res = 'res/ui/event/icon_playtime_01.png'
+
         end
 
         if res then
@@ -115,16 +119,15 @@ function UI_EventPopup:init_tableView()
     table_view:setCellUIClass(UI_EventPopupTabButton, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-    local make_item = true
-    table_view:setItemList(l_item_list, make_item)
-    --table_view_td:makeDefaultEmptyDescLabel(Str(''))
-
+    -- 테이블 뷰 setItemList 하기전에 미리 정렬 (후에 정렬할 경우 setDirtyItemList 때문에 위치가 중간에 바뀜)
     local function sort_func(a, b)
         return a['data'].m_sortIdx < b['data'].m_sortIdx
     end
-    table.sort(table_view.m_itemList, sort_func)
+    table.sort(l_item_list, sort_func)
 
-    
+    local make_item = true
+    table_view:setItemList(l_item_list, make_item)
+
     self.m_tableView = table_view
 end
 
@@ -220,16 +223,20 @@ function UI_EventPopup:makeEventPopupTab(tab)
     if (tab == 'birthday_calendar') then
         ui = UI_EventPopupTab_Birthday(self, struct_event_popup_tab)
 
-    -- 출석 (일반)
-    elseif (tab == 'attendance_basic') then
+    -- 출석 (일반, 신규, 복귀)
+    elseif (string.find(tab, 'attendance_basic')) then
         ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
 
     -- 이벤트 교환소
     elseif (string.match(tab, 'exchange')) then
         ui = UI_EventPopupTab_Exchange(self, struct_event_popup_tab)
+        
+    -- 접속시간 이벤트
+    elseif (tab == 'play_time') then
+        ui = UI_EventPopupTab_PlayTime(self)
 
+    -- 출석체크 이벤트
     else
-        -- 출석체크 이벤트
         ui = UI_EventPopupTab_EventAttendance(self, struct_event_popup_tab)
     end
 

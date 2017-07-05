@@ -62,5 +62,8 @@ function StructEventPopupTab:getTabButtonName()
     elseif (self.m_category1 == 'exchange') then
         return self.m_category3 .. '\n' .. Str('교환소')
 
+    elseif (self.m_category1 == 'play_time') then
+        return Str('접속시간\n이벤트')
+
     end
 end

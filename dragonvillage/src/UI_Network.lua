@@ -226,6 +226,12 @@ function UI_Network:statusHandler(ret)
         return true
     end
 
+    -- invalid time (접속시간 이벤트)
+    if (status == -1351) then
+        self:makeCommonPopup(Str('잘못된 시간 정보입니다.'))
+        return true
+    end
+
     self:makeFailPopup(nil, ret)
     return true
 end

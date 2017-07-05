@@ -453,6 +453,15 @@ function UI_TitleScene:workGetServerInfo()
         ui_network:hideLoading()
         if co:waitWork() then return end
 
+        -- 접속시간 이벤트
+        co:work()
+        self.m_loadingUI:showLoading(Str('접속시간 정보 요청 중...'))
+        local ui_network = g_accessTimeData:request_accessTime(co.NEXT, fail_cb)
+        ui_network:setRevocable(false)
+        ui_network:setFailCB(fail_cb)
+        ui_network:hideLoading()
+        if co:waitWork() then return end
+
         co:close()
 
         -- 다음 work로 이동

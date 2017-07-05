@@ -98,6 +98,9 @@ function ServerData:getInstance()
     -- 이벤트 교환소
     g_exchangeData = ServerData_Exchange(g_serverData)
 
+    -- 접속시간 이벤트
+    g_accessTimeData = ServerData_AccessTime(g_serverData)
+
     -- 드래곤 생일
     g_birthdayData = ServerData_Birthday(g_serverData)
 

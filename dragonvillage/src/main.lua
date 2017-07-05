@@ -46,6 +46,10 @@ loadModule()
 function applicationDidEnterBackground()
     cclog('applicationDidEnterBackground')
 	--LocalPushMgr()
+
+    if (g_accessTimeData) then
+        g_accessTimeData:setRecordTime(false)
+    end
 end
 
 -------------------------------------
@@ -53,6 +57,10 @@ end
 -------------------------------------
 function applicationWillEnterForeground()
     cclog('applicationWillEnterForeground')
+
+    if (g_accessTimeData) then
+        g_accessTimeData:setRecordTime(true)
+    end
 end
 
 -------------------------------------

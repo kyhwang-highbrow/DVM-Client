@@ -541,12 +541,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 0.000000;
+				x = -364.000000;
 				y = 274.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 250;
+				width = 198;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -558,11 +558,11 @@
 				font_name = 'font/common_font_01.ttf';
 				font_size = 40;
 				text = '{0}일차';
-				h_alignment = 1;
+				h_alignment = 2;
 				v_alignment = 1;
 				color = { 255; 255; 0; };
 				opacity = 255;
-				dimension_width = 250;
+				dimension_width = 198;
 				dimension_height = 60;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -581,12 +581,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 207.000000;
+				x = 101.000000;
 				y = 275.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 250;
+				width = 714;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -602,7 +602,7 @@
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 250;
+				dimension_width = 714;
 				dimension_height = 60;
 				letter_spacing = 0.000000;
 				has_stroke = true;

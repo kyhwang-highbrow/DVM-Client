@@ -396,6 +396,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SceneSecretDungeon.lua" />
     <None Include="..\src\SecurityNumber.lua" />
     <None Include="..\src\SensitivityHelper.lua" />
+    <None Include="..\src\ServerData_AccessTime.lua" />
     <None Include="..\src\ServerData_Adventure.lua" />
     <None Include="..\src\ServerData_AdventureFirstReward.lua" />
     <None Include="..\src\ServerData_AncientTower.lua" />
@@ -866,6 +867,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonRunes.lua" />
     <None Include="..\src\UI_DragonRunesEnhance.lua" />
     <None Include="..\src\UI_DragonSkillCard.lua" />
+    <None Include="..\src\UI_EventPopupTab_PlayTime.lua" />
     <None Include="..\src\UI_FormationEnhance.lua" />
     <None Include="..\src\UI_EventPopupTab_Exchange.lua" />
     <None Include="..\src\UI_ExchangeProductListItem.lua" />
@@ -890,6 +892,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_OverallRankingListItem.lua" />
     <None Include="..\src\UI_OverallRankingPopup.lua" />
     <None Include="..\src\UI_Package.lua" />
+    <None Include="..\src\UI_PlayTimeDataListItem.lua" />
     <None Include="..\src\UI_Product.lua" />
     <None Include="..\src\UI_ReadyScene_LeaderPopup.lua" />
     <None Include="..\src\UI_ReadyScene_Select.lua" />

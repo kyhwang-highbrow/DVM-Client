@@ -84,6 +84,8 @@ function UI_Lobby:entryCoroutine()
         local block_popup = UI_BlockPopup()
         dt = coroutine.yield()
 
+        local fail_cb = function(ret) working = false end
+
         --친구 정보 받아옴
         cclog('# 친구 정보 받는 중')
         working = true
@@ -103,6 +105,11 @@ function UI_Lobby:entryCoroutine()
         cclog('# 교환소 정보 받는 중')
         working = true
         g_exchangeData:request_exchangeInfo(function(ret) working = false end)
+        while (working) do dt = coroutine.yield() end
+
+        cclog('# 접속시간 저장 중')
+        working = true
+        g_accessTimeData:request_saveTime(function(ret) working = false end, fail_cb)
         while (working) do dt = coroutine.yield() end
 
         if g_eventData:hasReward() then

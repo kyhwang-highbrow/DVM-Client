@@ -282,6 +282,11 @@ function PerpleScene:onEnter()
     self.m_scene:scheduleUpdateWithPriorityLua(update, 0)
 	-- @kms 멤버 함수와 로컬 함수의 속도차이..?
     -- self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+
+    -- 플레이 시간 기록
+    if (g_accessTimeData) then
+        g_accessTimeData:recordTime(self.m_scene)
+    end
 end
 
 -------------------------------------

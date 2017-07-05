@@ -43,6 +43,17 @@ function ServerData_Event:getEventPopupTabList()
         idx = idx + 1
     end
 
+    -- 접속 시간 이벤트(현재는 상시 적용)
+    if (g_accessTimeData.m_lEventData) then
+        local event_popup_tab = StructEventPopupTab('play_time')
+        item_list[event_popup_tab.m_type] = event_popup_tab
+        event_popup_tab.m_userData = v
+        event_popup_tab.m_hasNoti = false
+        event_popup_tab.m_sortIdx = idx
+
+        idx = idx + 1
+    end
+
     --[[
     -- 공개용 빌드에서 제거
     -- 드래곤 생일

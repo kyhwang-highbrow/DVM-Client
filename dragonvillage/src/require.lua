@@ -105,6 +105,7 @@ local t_module = {
     'ServerData_StartTamer',
 	'ServerData_Book',
     'ServerData_Colosseum',
+    'ServerData_AccessTime',
 
     -- Interface
     'IEventDispatcher',
@@ -759,6 +760,7 @@ local t_module = {
     'UI_AttendanceBasicListItem',
     'UI_AttendanceSpecialListItem',
 
+
     -- UI : 탐험(exploration)
     'UI_Exploration',
     'UI_ExplorationIng',
@@ -773,10 +775,12 @@ local t_module = {
     'UI_EventPopupTab_Attendance',
     'UI_EventPopupTab_EventAttendance',
     'UI_EventPopupTab_Exchange',
+    'UI_EventPopupTab_PlayTime',
     'UI_BirthdayCalendarDayElement',
     'UI_BirthdayRewardSelectPopup',
     'UI_BirthdayRewardSelectListItem',
     'UI_ExchangeProductListItem',
+    'UI_PlayTimeDataListItem',
 
 	-- UI : 연출
 	'DirectingCharacter',
