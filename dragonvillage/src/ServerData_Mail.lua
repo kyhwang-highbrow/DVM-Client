@@ -159,7 +159,7 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 			local item_type = TableItem:getItemTypeFromItemID(item_id)
 			
 			if item_type then
-				-- staminas는 '활동력에 속함'			
+				-- staminas는 '활동력'에 속함		
 				if string.find(item_type, 'stamina') then
 					category = 'st'
 				

@@ -134,6 +134,9 @@ function ServerData:getInstance()
     -- 콜로세움
     g_colosseumData = ServerData_Colosseum(g_serverData)
 
+    -- 콜로세움
+    g_masterRoadData = ServerData_MasterRoad(g_serverData)
+
     return g_serverData
 end
 

@@ -106,6 +106,7 @@ local t_module = {
 	'ServerData_Book',
     'ServerData_Colosseum',
     'ServerData_AccessTime',
+    'ServerData_MasterRoad',
 
     -- Interface
     'IEventDispatcher',
