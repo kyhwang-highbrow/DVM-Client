@@ -68,8 +68,14 @@ function UI_ColosseumReady:initUI()
         player_3d_deck:setDragonObjectList(l_dragon_obj)
         self.m_player3DDeck = player_3d_deck
 
+
         -- 진형 설정
-        local formation = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck['formation'] or 'attack'
+        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
+        local formation = 'attack'
+        if t_pvp_deck then
+            formation = t_pvp_deck['formation'] or 'attack'
+            formation = 'attack'
+        end
         self.m_player3DDeck:setFormation(formation)
     end
 
@@ -84,7 +90,11 @@ function UI_ColosseumReady:initUI()
         player_3d_deck:setDragonObjectList(l_dragon_obj)
 
         -- 진형 설정
-        local formation = g_colosseumData:getMatchUserInfo().m_pvpDefDeck['formation'] or 'attack'
+        local t_pvp_deck = g_colosseumData:getMatchUserInfo().m_pvpDefDeck
+        local formation = 'attack'
+        if t_pvp_deck then
+            formation = t_pvp_deck['formation'] or 'attack'
+        end
         player_3d_deck:setFormation(formation)
     end
 
@@ -119,14 +129,18 @@ end
 -------------------------------------
 function UI_ColosseumReady:click_deckBtn()
     local with_friend = nil
-    local ui = UI_ReadyScene(COLOSSEUM_STAGE_ID, with_friend, 'atk')
+    local ui = UI_ColosseumDeckSettings(COLOSSEUM_STAGE_ID, with_friend, 'atk')
     local function close_cb()
         local player_3d_deck = self.m_player3DDeck
         local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
         player_3d_deck:setDragonObjectList(l_dragon_obj)
 
         -- 진형 설정
-        local formation = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck['formation'] or 'attack'
+        local formation = 'attack'
+        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
+        if t_pvp_deck then
+            formation = t_pvp_deck['formation'] or 'attack'
+        end
         self.m_player3DDeck:setFormation(formation)
     end
     ui:setCloseCB(close_cb)

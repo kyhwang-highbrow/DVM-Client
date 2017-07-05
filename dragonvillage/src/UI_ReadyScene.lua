@@ -449,7 +449,9 @@ function UI_ReadyScene:refresh_tamer()
 
     vars['tamerNode']:removeAllChildren()
 
-	local tamer_res = g_tamerData:getCurrTamerTable('res_sd')
+    local table_tamer = TableTamer()
+    local tamer_id = self:getCurrTamerID()
+	local tamer_res = table_tamer:getValue(tamer_id, 'res_sd')
     local animator = MakeAnimator(tamer_res)
 	if (animator) then
 		animator:setDockPoint(0.5, 0.5)
@@ -470,15 +472,8 @@ function UI_ReadyScene:refresh_buffInfo()
 		return
 	end
 
-	-- 테이머 버프
-	do
-		local t_tamer_data = g_tamerData:getTamerServerInfo()
-		local skill_mgr = MakeTamerSkillManager(t_tamer_data)
-		local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(3)	-- 3번이 패시브
-		local tamer_buff = skill_info:getSkillDesc()
-
-		vars['tamerBuffLabel']:setString(tamer_buff)
-	end
+    -- 테이머 버프
+    self:refresh_buffInfo_TamerBuff()
 
 	-- 리더 버프
 	do
@@ -513,6 +508,22 @@ function UI_ReadyScene:refresh_buffInfo()
 
 		vars['formationBuffLabel']:setString(formation_buff)
 	end
+end
+
+-------------------------------------
+-- function refresh_buffInfo_TamerBuff
+-------------------------------------
+function UI_ReadyScene:refresh_buffInfo_TamerBuff()
+    local vars = self.vars
+
+    -- 테이머 버프
+    local tamer_id = self:getCurrTamerID()
+	local t_tamer_data = g_tamerData:getTamerServerInfo(tamer_id)
+	local skill_mgr = MakeTamerSkillManager(t_tamer_data)
+	local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(3)	-- 3번이 패시브
+	local tamer_buff = skill_info:getSkillDesc()
+
+	vars['tamerBuffLabel']:setString(tamer_buff)
 end
 
 -------------------------------------
@@ -1048,6 +1059,14 @@ end
 -------------------------------------
 function UI_ReadyScene:close()
     UI.close(self)
+end
+
+-------------------------------------
+-- function getCurrTamerID
+-------------------------------------
+function UI_ReadyScene:getCurrTamerID()
+    local tamer_id = g_tamerData:getCurrTamerID()
+    return tamer_id
 end
 
 --@CHECK

@@ -60,8 +60,8 @@ function ServerData_Deck:getDeck(type)
             return {}, self:adjustFormationName('default'), type, 1
         end
 
-        local l_doid, formation, type, leader = g_colosseumData.m_playerUserInfo:getDeck(type)
-        return l_doid, self:adjustFormationName(formation), type, leader 
+        local l_doid, formation, type, leader, tamer_id = g_colosseumData.m_playerUserInfo:getDeck(type)
+        return l_doid, self:adjustFormationName(formation), type, leader, tamer_id
     end
 
     local l_deck = self.m_serverData:get('deck')

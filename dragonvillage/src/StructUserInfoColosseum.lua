@@ -411,26 +411,30 @@ function StructUserInfoColosseum:getDeck(type)
         local l_doid = self:getAtkDeck_dragonList(true)
         local formation = 'attack'
         local leader = 0
+        local tamer_id = nil
 
         if self.m_pvpAtkDeck then
             formation = self.m_pvpAtkDeck['formation']
             leader = self.m_pvpAtkDeck['leader']
+            tamer_id = self.m_pvpAtkDeck['tamer']
         end
-        return l_doid, formation, type, leader
+        return l_doid, formation, type, leader, tamer_id
 
     -- 방어덱
     elseif (type == 'def') or (type == 'pvp_def') then
         local l_doid = self:getDefDeck_dragonList(true)
         local formation = 'attack'
         local leader = 0
+        local tamer_id = nil
 
         if self.m_pvpDefDeck then
             formation = self.m_pvpDefDeck['formation']
             leader = self.m_pvpDefDeck['leader']
+            tamer_id = self.m_pvpDefDeck['tamer']
         end
-        return l_doid, formation, type, leader
+        return l_doid, formation, type, leader, tamer_id
 
     else
-        return {}, 'attack', type, 1
+        return {}, 'attack', type, 1, nil
     end
 end

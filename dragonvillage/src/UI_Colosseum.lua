@@ -136,13 +136,6 @@ function UI_Colosseum:refresh()
 end
 
 -------------------------------------
--- function click_secretBtn
--------------------------------------
-function UI_Colosseum:click_readyBtn()
-	UI_ReadyScene()
-end
-
--------------------------------------
 -- function click_winBuffDetailBtn
 -- @breif 연승 버프 안내 팝업
 -------------------------------------
@@ -215,7 +208,7 @@ end
 function UI_Colosseum:click_defDeckBtn()
     local vars = self.vars
     local with_friend = nil
-    local ui = UI_ReadyScene(COLOSSEUM_STAGE_ID, with_friend, 'def')
+    local ui = UI_ColosseumDeckSettings(COLOSSEUM_STAGE_ID, with_friend, 'def')
 
     local function close_cb()
         self:refresh_combatPower('def')

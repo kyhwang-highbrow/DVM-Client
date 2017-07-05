@@ -13,7 +13,7 @@ UI_ReadyScene_Deck = class({
         -- deck info
         m_lSettedDragonCard = 'list',
         m_currFormation = 'string',
-		m_currLeader = 'number', 
+		m_currLeader = 'number',
 
         -- 드래그로 이동
         m_selectedDragonSlotIdx = 'number',
@@ -489,7 +489,7 @@ end
 -- function checkChangeDeck
 -------------------------------------
 function UI_ReadyScene_Deck:checkChangeDeck(next_func)
-    local l_deck, formation, deckname, leader = g_deckData:getDeck()
+    local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
 
     local b_change = false
 
@@ -523,6 +523,13 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
 		b_change = true
 	end
 
+    -- pvp는 테이머까지 처리
+    if (deckname == 'pvp_atk') or (deckname == 'pvp_def') then
+        if (self.m_uiReadyScene:getCurrTamerID() ~= tamer_id) then
+            b_change = true
+        end
+    end
+
     if (b_change) then
 
         -- pvp 전용 덱 처리
@@ -533,9 +540,9 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
             l_edoid[3] = self.m_lDeckList[3]
             l_edoid[4] = self.m_lDeckList[4]
             l_edoid[5] = self.m_lDeckList[5]
-            local tamer = g_userData:get('tamer')
+            local tamer_id = self.m_uiReadyScene:getCurrTamerID()
             local fail_cb = nil
-            g_colosseumData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer, next_func, fail_cb)
+            g_colosseumData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
         else
             local uid = g_userData:get('uid')
 
