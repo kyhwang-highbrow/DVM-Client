@@ -580,7 +580,7 @@ function UI_Colosseum:init_historyTableView()
         table.sort(table_view.m_itemList, sort_func)
     end
 
-    table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
+    table_view:makeDefaultEmptyDescLabel(Str('방어 내역이 없습니다.'))   
 end
 
 
