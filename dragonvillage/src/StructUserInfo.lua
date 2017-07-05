@@ -82,6 +82,7 @@ end
 -- @brief 드래곤 데이터 리스트 적용
 -------------------------------------
 function StructUserInfo:applyDragonsDataList(l_data)
+    local l_data = l_data or {}
     self.m_dragonsObject = {}
 
     for i,v in pairs(l_data) do
@@ -96,8 +97,9 @@ end
 -- @brief 룬 데이터 리스트 적용
 -------------------------------------
 function StructUserInfo:applyRunesDataList(l_data)
+    local l_data = l_data or {}
     self.m_runesObject = {}
-
+    
     for i,v in pairs(l_data) do
         local struct_rune_object = StructRuneObject(v)
         local roid = v['id']
