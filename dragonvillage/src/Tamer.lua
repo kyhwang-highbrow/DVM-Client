@@ -334,18 +334,18 @@ function Tamer.st_dying(owner, dt)
         end
         owner.m_rootNode:stopAllActions()
 
-		owner.m_barrier:changeAni('disappear', false)
-        owner.m_barrier:addAniHandler(function()
-            owner.m_barrier:setVisible(false)
+        -- 테이머 떨어지는 액션
+        local action = cc.Sequence:create(
+            cc.MoveBy:create(3, cc.p(0, -2000)),
+            cc.CallFunc:create(function()
+                owner:changeState('dead')
+            end)
+        )
+        owner.m_animator:runAction(action)
 
-            local action = cc.Sequence:create(
-                cc.MoveBy:create(3, cc.p(0, -2000)),
-                cc.CallFunc:create(function()
-                    owner:changeState('dead')
-                end)
-            )
-            owner:runAction(action)            
-        end)
+        if (owner.m_barrier) then
+		    owner.m_barrier:changeAni('disappear', false)
+        end
     end
 end
 
