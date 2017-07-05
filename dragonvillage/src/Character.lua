@@ -1628,6 +1628,13 @@ function Character:syncAniAndPhys()
 end
 
 -------------------------------------
+-- function getTargetChar
+-------------------------------------
+function Character:getTargetChar()
+    return self.m_targetChar
+end
+
+-------------------------------------
 -- function isExistTargetEffect
 -------------------------------------
 function Character:isExistTargetEffect(k)

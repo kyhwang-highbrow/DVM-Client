@@ -168,8 +168,13 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 	local t_status_effect = TableStatusEffect():get(status_effect_type)
 	local status_effect_group = t_status_effect['type']
 
-	-- 확률 검사
-	if self:checkPermillRate(caster, target_char, status_effect_rate, status_effect_group) then
+    -- status_effect_rate 검사
+    if (self:checkRate(caster, target_char, status_effect_rate)) then
+        return nil
+    end
+
+	-- 효과 적중 및 효과 저항 검사
+	if (self:checkStatus(caster, target_char, status_effect_group)) then
 		return nil
 	end
 
@@ -185,7 +190,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration)
     else
         -- 상태 효과 생성
-		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, status_effect_rate, duration, skill_id)
+		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id)
     end
 
 	return status_effect
@@ -195,7 +200,7 @@ end
 -- function makeStatusEffectInstance
 -- @comment 일반 status effect의 경우 rate가 필요없지만 패시브의 경우 실행 시점에서 확률체크하는 경우가 있다.
 -------------------------------------
-function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, status_effect_rate, duration, skill_id)
+function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id)
     -- 테이블 가져옴
 	local table_status_effect = TableStatusEffect()
     local t_status_effect = table_status_effect:get(status_effect_type)
@@ -324,29 +329,38 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 end
 
 -------------------------------------
--- function checkPermillRate
+-- function checkRate
 -------------------------------------
-function StatusEffectHelper:checkPermillRate(caster, target_char, status_effect_rate, status_effect_group)
+function StatusEffectHelper:checkRate(caster, target_char, status_effect_rate)
+    local rate
+
+    if (type(status_effect_rate) == 'function') then
+        rate = status_effect_rate(caster, target_char)
+    else
+        rate = tonumber(status_effect_rate or 100)
+    end
+    rate = math_max(rate, 0)
+
+    return (math_random(1, 100) > rate)
+end
+
+-------------------------------------
+-- function checkStatus
+-- 스텟(효과 적중, 효과 저항)으로 적용 여부 판단
+-------------------------------------
+function StatusEffectHelper:checkStatus(caster, target_char, status_effect_group)
 	local is_harmful = self:isHarmful(status_effect_group)
 	
 	-- @ RUNE
-	local se_acc = caster:getStat('accuracy')
-	local se_resist
+	local accuracy = caster:getStat('accuracy')
+	local resistance = 0
 	if (is_harmful) then
-		se_resist = target_char:getStat('resistance')
-	else
-		se_resist = 0
+		resistance = target_char:getStat('resistance')
 	end
 
 	-- 확률 permill 로 체크
-	local adj_rate = (status_effect_rate + se_acc - se_resist)
-	if (math_random(1, 1000) > adj_rate * 10) then
-		-- 실패
-		return true
-	end
-
-	-- 성공
-	return false
+	local adj_rate = 100 + (accuracy - resistance)
+	return (math_random(1, 100) > adj_rate)
 end
 
 -------------------------------------

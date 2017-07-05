@@ -107,6 +107,15 @@ function ActivityCarrier:getAttribute()
 end
 
 -------------------------------------
+-- function getTargetChar
+-------------------------------------
+function ActivityCarrier:getTargetChar()
+    if (not self.m_activityCarrierOwner) then return end
+
+    return self.m_activityCarrierOwner:getTargetChar()
+end
+
+-------------------------------------
 -- function getStatusEffectCount
 -- @brief 공격자에게 해당 이름을 포함한 상태효과가 몇개가 존재하는지 카운트를 리턴
 -------------------------------------
@@ -136,7 +145,7 @@ function ActivityCarrier:insertStatusEffectRate(l_status_effect_struct)
 		if (status_effect_struct) and (status_effect_struct.m_type) then
 			local type = status_effect_struct.m_type
             local _start_con = status_effect_struct.m_trigger
-			local _rate = status_effect_struct.m_rate
+            local _rate = status_effect_struct.m_rate
             local _value = status_effect_struct.m_value
             local _source = status_effect_struct.m_source
             local _duration = status_effect_struct.m_duration

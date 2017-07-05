@@ -335,7 +335,7 @@ function StatusCalculator:printAllStat()
         local buff_multi = indivisual_status.m_buffMulti
         local buff_add = indivisual_status.m_buffAdd
 
-		cclog('- ' .. stat_type .. ' : ' .. indivisual_status:getFinalStat() .. ' (' .. buff_multi .. '%, +' .. buff_add .. ')')
+		cclog('- ' .. stat_type .. ' : ' .. indivisual_status:getFinalStat() .. ' (' .. buff_multi .. '%, ' .. buff_add .. ')')
 	end
 end
 
