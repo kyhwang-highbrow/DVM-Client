@@ -75,11 +75,36 @@ function UI_ExchangeProductListItem:initUI()
     end
 
     -- 상품 이름
-	local product_name = TableShop:makeProductName(struct_data.m_lProductList)
+	local product_name = self:makeProductName(struct_data.m_lProductList)
     vars['titleLabel']:setString(product_name)
 
     -- 남은 시간
     vars['timeLabel']:setString('')
+end
+
+-------------------------------------
+-- function makeProductName
+-------------------------------------
+function UI_ExchangeProductListItem:makeProductName(l_item_list)
+    if (not l_item_list) then
+        return ''
+    end
+
+    if (table.count(l_item_list) <= 0) then
+        return ''
+    end
+
+    -- 리스트에서 첫 번째 아이템의 id를 얻어옴(첫 번째라고 볼순 없지만 하나의 아이템 ID를 얻어옴)
+    local item_id
+    for i,_ in pairs(l_item_list) do
+        item_id = tonumber(i)
+        break
+    end
+
+	-- 첫 번째 아이템의 설명을 사용
+	local table_item = TableItem()
+	local t_desc = table_item:getValue(item_id, 't_desc')
+	return Str(t_desc)
 end
 
 -------------------------------------
@@ -138,7 +163,7 @@ function UI_ExchangeProductListItem:click_exchangeBtn()
     end
 
     local product_id = struct_data.m_pid
-    local product_name = TableShop:makeProductName(struct_data.m_lProductList)
+    local product_name = self:makeProductName(struct_data.m_lProductList)
 
     local function ok_btn_cb()
         g_exchangeData:request_exchange(product_id, function() self:refresh() end)
