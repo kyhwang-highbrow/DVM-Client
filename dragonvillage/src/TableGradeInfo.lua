@@ -24,19 +24,19 @@ end
 -------------------------------------
 -- function isMaxLevel
 -------------------------------------
-function TableGradeInfo:isMaxLevel(grade, eclv, level)
+function TableGradeInfo:isMaxLevel(grade, level)
     if (self == THIS) then
         self = THIS()
     end
 
-    local max_lv = self:getMaxLv(grade, eclv)
+    local max_lv = self:getMaxLv(grade)
     return (max_lv <= level), max_lv
 end
 
 -------------------------------------
 -- function getMaxLv
 -------------------------------------
-function TableGradeInfo:getMaxLv(grade, eclv)
+function TableGradeInfo:getMaxLv(grade)
     if (self == THIS) then
         self = THIS()
     end
@@ -91,8 +91,8 @@ end
 -- function dragonMaxLevel
 -- @brief 드래곤 승급(grade)별 최대 레벨
 -------------------------------------
-function dragonMaxLevel(grade, eclv)
-    return TableGradeInfo:getMaxLv(grade, eclv)
+function dragonMaxLevel(grade)
+    return TableGradeInfo:getMaxLv(grade)
 end
 
 -------------------------------------

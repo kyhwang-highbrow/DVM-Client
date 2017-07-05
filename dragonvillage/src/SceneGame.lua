@@ -626,7 +626,7 @@ function SceneGame:networkGameFinish_response_modified_dragons(ret, t_result_ref
              levelup_data['curr_lv'] = t_next_dragon_data['lv']
              levelup_data['curr_exp'] = t_next_dragon_data['exp']
 
-             local max_level = dragonMaxLevel(t_next_dragon_data['grade'], t_next_dragon_data['eclv'])
+             local max_level = dragonMaxLevel(t_next_dragon_data['grade'])
              local is_max_level = (t_next_dragon_data['lv'] >= max_level)
              levelup_data['is_max_level'] = is_max_level
         end

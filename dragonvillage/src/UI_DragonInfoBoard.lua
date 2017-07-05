@@ -72,7 +72,7 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
         local lv = (t_dragon_data['lv'] or 1)
         local grade = (t_dragon_data:getGrade() or 1)
         local eclv = (t_dragon_data:getEclv() or 0)
-        local lv_str = Str('레벨 {1}/{2}', lv, dragonMaxLevel(grade, eclv))
+        local lv_str = Str('레벨 {1}/{2}', lv, dragonMaxLevel(grade))
         vars['lvLabel']:setString(lv_str)
     end
 
@@ -83,7 +83,7 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
         local exp = (t_dragon_data['exp'] or 0)
         local table_exp = TableDragonExp()
         local max_exp = table_exp:getDragonMaxExp(grade, lv)
-        local is_max_lv = TableGradeInfo:isMaxLevel(grade, eclv, lv)
+        local is_max_lv = TableGradeInfo:isMaxLevel(grade, lv)
 
         if (not is_max_lv) then
             local percentage = (exp / max_exp) * 100

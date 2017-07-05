@@ -81,7 +81,7 @@ function UI_DragonLevelupResult:refresh(dragon_object, prev_lv)
         local exp = (dragon_object['exp'] or 0)
         local table_exp = TableDragonExp()
         local max_exp = table_exp:getDragonMaxExp(grade, lv)
-        local is_max_lv = TableGradeInfo:isMaxLevel(grade, eclv, lv)
+        local is_max_lv = TableGradeInfo:isMaxLevel(grade, lv)
 
         if (not is_max_lv) then
             local percentage = (exp / max_exp) * 100
