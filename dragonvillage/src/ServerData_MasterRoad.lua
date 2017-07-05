@@ -3,6 +3,10 @@
 -------------------------------------
 ServerData_MasterRoad = class({
         m_serverData = 'ServerData',
+        m_focusRoad = 'number',
+        m_tRewardInfo = 'table',
+
+        m_bDirty = 'boolean',
     })
 
 -------------------------------------
@@ -10,6 +14,22 @@ ServerData_MasterRoad = class({
 -------------------------------------
 function ServerData_MasterRoad:init(server_data)
     self.m_serverData = server_data
+    self.m_tRewardInfo = {}
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+end
+
+-------------------------------------
+-- function applyInfo
+-- @brief 정보 갱신하기
+-------------------------------------
+function ServerData_MasterRoad:applyInfo(ret)
+    if (ret['reward_info']) then
+        self.m_tRewardInfo = ret['reward_info']
+    end
+    if (ret['focus_road']) then
+        self.m_focusRoad = ret['focus_road']
+    end
 end
 
 -------------------------------------
@@ -22,6 +42,12 @@ function ServerData_MasterRoad:request_roadInfo(finish_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
+        self:applyInfo(ret)
+
+
+        if (finish_cb) then
+            finish_cb()
+        end
     end
 
     -- 네트워크 통신 UI 생성
@@ -44,6 +70,11 @@ function ServerData_MasterRoad:request_roadClear(rid, finish_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
+        self:applyInfo(ret)
+
+        if (finish_cb) then
+            finish_cb()
+        end
     end
 
     -- 네트워크 통신 UI 생성
@@ -67,6 +98,17 @@ function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
+        self:applyInfo(ret)
+
+        -- 재화 수령 처리
+        self.m_serverData:networkCommonRespone(ret)
+		
+		-- 탑바 갱신
+		g_topUserInfo:refreshData()
+
+        if (finish_cb) then
+            finish_cb()
+        end
     end
 
     -- 네트워크 통신 UI 생성
