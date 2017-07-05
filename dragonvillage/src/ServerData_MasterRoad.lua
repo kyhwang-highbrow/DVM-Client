@@ -15,8 +15,6 @@ ServerData_MasterRoad = class({
 function ServerData_MasterRoad:init(server_data)
     self.m_serverData = server_data
     self.m_tRewardInfo = {}
-
-    self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
 end
 
 -------------------------------------
