@@ -1022,10 +1022,14 @@ end
 -------------------------------------
 function ServerData_Dragons:haveLeaderSkill(doid)
 	if (not doid) then
-		return
+		return false
 	end
 
 	local t_dragon_data = self:getDragonDataFromUid(doid)
+    if (not t_dragon_data) then
+        return false
+    end
+
 	local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
 	local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
 
