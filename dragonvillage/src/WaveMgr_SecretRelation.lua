@@ -64,7 +64,7 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
             enemy.m_maxHp = enemy.m_maxHp * 10
             enemy.m_hp = enemy.m_hp * 10
 
-            MonsterLua_Boss.makeHPGauge(enemy, {0, -80}, true)
+            Monster.makeHPGauge(enemy, {0, -80}, true)
         end
     end
 

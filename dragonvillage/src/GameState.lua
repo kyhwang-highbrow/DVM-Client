@@ -721,6 +721,7 @@ function GameState:fight()
     for i,dragon in ipairs(world:getDragonList()) do
         if (dragon.m_bDead == false) then
             dragon.m_bFirstAttack = true
+            dragon:syncAniAndPhys()
             dragon:changeState('attackDelay')
         end
     end
@@ -728,6 +729,7 @@ function GameState:fight()
     for i,enemy in pairs(world:getEnemyList()) do
         if (enemy.m_bDead == false) then
             enemy.m_bFirstAttack = true
+            enemy:syncAniAndPhys()
             enemy:changeState('attackDelay')
 
             if enemy.m_hpNode then

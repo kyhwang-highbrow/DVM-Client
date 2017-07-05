@@ -39,7 +39,7 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
             enemy.m_maxHp = enemy.m_maxHp * hp_ratio
             enemy.m_hp = enemy.m_hp * hp_ratio
 
-            MonsterLua_Boss.makeHPGauge(enemy, {0, -80}, true)
+            Monster.makeHPGauge(enemy, {0, -80}, true)
         end
     end
 

@@ -205,8 +205,7 @@ function Character:initWorld(game_world)
     if (not self.m_unitInfoNode) then
         self.m_unitInfoNode = cc.Node:create()
         self.m_world.m_unitInfoNode:addChild(self.m_unitInfoNode)
-        --self.m_world.m_unitInfoNode:setVisible(false)
-
+        
         -- 하이라이트 노드 설정
         self:addHighlightNode(self.m_unitInfoNode)
     end
@@ -1246,10 +1245,6 @@ function Character:setActive(active)
 
         -- 이동 중지
         self:resetMove()
-    end
-
-    if self.m_hpNode then
-        self.m_hpNode:setVisible(active)
     end
 end
 

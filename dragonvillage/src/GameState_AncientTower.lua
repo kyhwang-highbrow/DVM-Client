@@ -63,8 +63,7 @@ function GameState_AncientTower.update_wave_intermission(self, dt)
 	if (self.m_stateTimer >= intermissionTime) then
         map_mgr:setSpeed(-300)
 
-        cclog('GAME_STATE_ENEMY_APPEAR')
-		self:changeState(GAME_STATE_ENEMY_APPEAR)
+        self:changeState(GAME_STATE_ENEMY_APPEAR)
 	end
 end
 
