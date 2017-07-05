@@ -38,6 +38,17 @@ SECRET_MODE = {}
 SECRET_MODE[SECRET_DUNGEON_GOLD] = "GOLD"
 SECRET_MODE[SECRET_DUNGEON_RELATION] = "RELATION"
 
+--------------------------------------------
+-- skill에서 발동 조건으로 검색할 수 있게.
+-- 0이거나 값이 없으면 전체 모드, 1은 PvE, 2는 PvP
+--------------------------------------------
+PLAYER_VERSUS_MODE = {}
+PLAYER_VERSUS_MODE[GAME_MODE_ADVENTURE] = 'pve'
+PLAYER_VERSUS_MODE[GAME_MODE_NEST_DUNGEON] = 'pve'
+PLAYER_VERSUS_MODE[GAME_MODE_SECRET_DUNGEON] = 'pve'
+PLAYER_VERSUS_MODE[GAME_MODE_ANCIENT_TOWER] = 'pve'
+PLAYER_VERSUS_MODE[GAME_MODE_COLOSSEUM] = 'pvp'
+
 -------------------------------------
 -- function getInGameConstant
 -------------------------------------
