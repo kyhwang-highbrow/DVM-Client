@@ -15,6 +15,11 @@ UI_DragonDevApiPopup = class(PARENT, {
         m_skill2 = 'number',
         m_skill3 = 'number',
 
+        m_skillMaxLv0 = 'number',
+        m_skillMaxLv1 = 'number',
+        m_skillMaxLv2 = 'number',
+        m_skillMaxLv3 = 'number',
+
         m_bChangeSkill = 'boolean',
      })
 
@@ -65,6 +70,11 @@ function UI_DragonDevApiPopup:initUI()
     self.m_skill1 = t_dragon_data['skill_1']
     self.m_skill2 = t_dragon_data['skill_2']
     self.m_skill3 = t_dragon_data['skill_3']
+
+    self.m_skillMaxLv0 = TableDragonSkillModify:getMaxLV(t_dragon['skill_active'])
+    self.m_skillMaxLv1 = TableDragonSkillModify:getMaxLV(t_dragon['skill_1'])
+    self.m_skillMaxLv2 = TableDragonSkillModify:getMaxLV(t_dragon['skill_2'])
+    self.m_skillMaxLv3 = TableDragonSkillModify:getMaxLV(t_dragon['skill_3'])
 end
 
 -------------------------------------
@@ -79,6 +89,7 @@ function UI_DragonDevApiPopup:initButton()
 
     vars['evolutionUpBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution + 1, 1, max_evolution) self:refresh() end)
     vars['evolutionDownBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution - 1, 1, max_evolution) self:refresh() end)
+    vars['evolutionMaxBtn']:registerScriptTapHandler(function() self.m_evolution = max_evolution self:refresh() end)
 
     vars['gradeUpBtn']:registerScriptTapHandler(function() self.m_grade = math_clamp(self.m_grade + 1, 1, max_grade) self:refresh() end)
     vars['gradeDownBtn']:registerScriptTapHandler(function()
@@ -86,22 +97,28 @@ function UI_DragonDevApiPopup:initButton()
         self.m_level = math_clamp(self.m_level, 1, TableGradeInfo:getMaxLv(self.m_grade))
         self:refresh()
     end)
+    vars['gradeMaxBtn']:registerScriptTapHandler(function() self.m_grade = 6 self:refresh() end)
 
     vars['levelUpBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level + 1, 1, TableGradeInfo:getMaxLv(self.m_grade)) self:refresh() end)
     vars['levelDownBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level - 1, 1, TableGradeInfo:getMaxLv(self.m_grade)) self:refresh() end)
+    vars['levelMaxBtn']:registerScriptTapHandler(function() self.m_level = TableGradeInfo:getMaxLv(self.m_grade) self:refresh() end)
 
     -- 스킬 레벨들
-    vars['skillUpBtn0']:registerScriptTapHandler(function() self.m_skill0 = math_clamp(self.m_skill0 + 1, 1, 10) self:networkSkillLevel(0) end)
-    vars['skillDownBtn0']:registerScriptTapHandler(function() self.m_skill0 = math_clamp(self.m_skill0 - 1, 1, 10) self:networkSkillLevel(0) end)
+    vars['skillUpBtn0']:registerScriptTapHandler(function() self.m_skill0 = math_clamp(self.m_skill0 + 1, 1, self.m_skillMaxLv0) self:networkSkillLevel(0) end)
+    vars['skillDownBtn0']:registerScriptTapHandler(function() self.m_skill0 = math_clamp(self.m_skill0 - 1, 1, self.m_skillMaxLv0) self:networkSkillLevel(0) end)
+    vars['skillMaxBtn0']:registerScriptTapHandler(function() self.m_skill0 = self.m_skillMaxLv0 self:networkSkillLevel(0) end)
 
-    vars['skillUpBtn1']:registerScriptTapHandler(function() self.m_skill1 = math_clamp(self.m_skill1 + 1, 0, 10) self:networkSkillLevel(1) end)
-    vars['skillDownBtn1']:registerScriptTapHandler(function() self.m_skill1 = math_clamp(self.m_skill1 - 1, 0, 10) self:networkSkillLevel(1) end)
+    vars['skillUpBtn1']:registerScriptTapHandler(function() self.m_skill1 = math_clamp(self.m_skill1 + 1, 0, self.m_skillMaxLv1) self:networkSkillLevel(1) end)
+    vars['skillDownBtn1']:registerScriptTapHandler(function() self.m_skill1 = math_clamp(self.m_skill1 - 1, 0, self.m_skillMaxLv1) self:networkSkillLevel(1) end)
+    vars['skillMaxBtn1']:registerScriptTapHandler(function() self.m_skill1 = self.m_skillMaxLv1 self:networkSkillLevel(1) end)
 
-    vars['skillUpBtn2']:registerScriptTapHandler(function() self.m_skill2 = math_clamp(self.m_skill2 + 1, 0, 10) self:networkSkillLevel(2) end)
-    vars['skillDownBtn2']:registerScriptTapHandler(function() self.m_skill2 = math_clamp(self.m_skill2 - 1, 0, 10) self:networkSkillLevel(2) end)
+    vars['skillUpBtn2']:registerScriptTapHandler(function() self.m_skill2 = math_clamp(self.m_skill2 + 1, 0, self.m_skillMaxLv2) self:networkSkillLevel(2) end)
+    vars['skillDownBtn2']:registerScriptTapHandler(function() self.m_skill2 = math_clamp(self.m_skill2 - 1, 0, self.m_skillMaxLv2) self:networkSkillLevel(2) end)
+    vars['skillMaxBtn2']:registerScriptTapHandler(function() self.m_skill2 = self.m_skillMaxLv2 self:networkSkillLevel(2) end)
 
-    vars['skillUpBtn3']:registerScriptTapHandler(function() self.m_skill3 = math_clamp(self.m_skill3 + 1, 0, 1) self:networkSkillLevel(3) end)
-    vars['skillDownBtn3']:registerScriptTapHandler(function() self.m_skill3 = math_clamp(self.m_skill3 - 1, 0, 1) self:networkSkillLevel(3) end)
+    vars['skillUpBtn3']:registerScriptTapHandler(function() self.m_skill3 = math_clamp(self.m_skill3 + 1, 0, self.m_skillMaxLv3) self:networkSkillLevel(3) end)
+    vars['skillDownBtn3']:registerScriptTapHandler(function() self.m_skill3 = math_clamp(self.m_skill3 - 1, 0, self.m_skillMaxLv3) self:networkSkillLevel(3) end)
+    vars['skillMaxBtn3']:registerScriptTapHandler(function() self.m_skill3 = self.m_skillMaxLv3 self:networkSkillLevel(3) end)
 
     vars['applyBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 
