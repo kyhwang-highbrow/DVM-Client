@@ -597,18 +597,6 @@
     <None Include="..\src\UI_ErrorPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_BirthdayCalendarDayElement.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_EventPopupTab_Birthday.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_BirthdayRewardSelectPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_BirthdayRewardSelectListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_GameResult_Adventure.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1483,9 +1471,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\ServerData_AutoPlaySetting.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Birthday.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\ServerData_Deck.lua">

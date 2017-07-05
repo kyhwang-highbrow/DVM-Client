@@ -62,10 +62,6 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
             end
         end
 
-        -- 오늘의 드래곤 생일 정보
-        g_birthdayData:organize_todayBirthdayList(ret['birthday'])
-
-
         if finish_cb then
             finish_cb(ret)
         end

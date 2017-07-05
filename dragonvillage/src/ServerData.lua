@@ -101,9 +101,6 @@ function ServerData:getInstance()
     -- 접속시간 이벤트
     g_accessTimeData = ServerData_AccessTime(g_serverData)
 
-    -- 드래곤 생일
-    g_birthdayData = ServerData_Birthday(g_serverData)
-
     -- 탐험
     g_explorationData = ServerData_Exploration(g_serverData)
 

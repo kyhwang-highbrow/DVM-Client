@@ -91,7 +91,6 @@ local t_module = {
     'ServerData_Mail',
     'ServerData_Item',
     'ServerData_Attendance',
-    'ServerData_Birthday',
     'ServerData_Exchange',
     'ServerData_Exploration',
     'ServerData_HotTime',
@@ -771,14 +770,10 @@ local t_module = {
     -- UI : EVENT
     'UI_EventPopup',
     'UI_EventPopupTabButton',
-    'UI_EventPopupTab_Birthday',
     'UI_EventPopupTab_Attendance',
     'UI_EventPopupTab_EventAttendance',
     'UI_EventPopupTab_Exchange',
     'UI_EventPopupTab_AccessTime',
-    'UI_BirthdayCalendarDayElement',
-    'UI_BirthdayRewardSelectPopup',
-    'UI_BirthdayRewardSelectListItem',
     'UI_ExchangeProductListItem',
     'UI_AccessTimeDataListItem',
 

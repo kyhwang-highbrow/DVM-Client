@@ -54,14 +54,6 @@ function ServerData_Event:getEventPopupTabList()
         idx = idx + 1
     end
 
-    --[[
-    -- 공개용 빌드에서 제거
-    -- 드래곤 생일
-    local event_popup_tab = StructEventPopupTab('birthday_calendar')
-    event_popup_tab.m_hasNoti = g_birthdayData:hasBirthdayReward()
-    item_list[event_popup_tab.m_type] = event_popup_tab
-    --]]
-
     return item_list
 end
 
@@ -94,11 +86,6 @@ end
 -- @brief 받아야할 보상이 있는지 여부 (이벤트 팝업을 띄움)
 -------------------------------------
 function ServerData_Event:hasReward()
-    -- 생일 보상 여부
-    if g_birthdayData:hasBirthdayReward() then
-        return true
-    end
-
     -- 출석 보상 여부
     if g_attendanceData:hasAttendanceReward() then
         return true

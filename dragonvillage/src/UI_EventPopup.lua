@@ -76,10 +76,7 @@ function UI_EventPopup:init_tableView()
     local function create_func(ui, data)
 
         local res
-        if (data.m_type == 'birthday_calendar') then
-            res = 'res/ui/event/icon_birthday_01.png'
-
-        elseif (data.m_type == 'attendance_basic_newbie') then
+        if (data.m_type == 'attendance_basic_newbie') then
             res = 'res/ui/event/icon_attendence_02.png'
 
         elseif (data.m_type == 'attendance_event_open_event') then
@@ -219,12 +216,8 @@ function UI_EventPopup:makeEventPopupTab(tab)
     local item = self.m_tableView:getItem(tab)
     local struct_event_popup_tab = item['data']
 
-    -- 생일 탭
-    if (tab == 'birthday_calendar') then
-        ui = UI_EventPopupTab_Birthday(self, struct_event_popup_tab)
-
     -- 출석 (일반, 신규, 복귀)
-    elseif (string.find(tab, 'attendance_basic')) then
+    if (string.find(tab, 'attendance_basic')) then
         ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
 
     -- 이벤트 교환소
