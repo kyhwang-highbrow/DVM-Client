@@ -78,6 +78,10 @@ function ServerData_Event:openEventPopup()
         g_attendanceData:request_attendanceInfo(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
 
+        co:work('# 접속시간 저장 중')
+        g_accessTimeData:request_saveTime(co.NEXT, co.ESCAPE)
+        if co:waitWork() then return end
+
         co:close()
         UI_EventPopup()
     end
