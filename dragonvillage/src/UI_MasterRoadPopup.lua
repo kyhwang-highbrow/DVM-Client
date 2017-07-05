@@ -87,11 +87,8 @@ function UI_MasterRoadPopup:refresh(t_data)
 	local npc_speech = Str(t_data['t_speech'])
 	vars['npcSpeechLabel']:setString(npc_speech)
 
-	-- ??
-	-- vars['titleNumLabel']:setString()
-
 	-- 목표
-	local desc = Str(t_data['t_desc'], t_data['clear_value'])
+	local desc = Str(t_data['t_desc'], t_data['desc_1'], t_data['desc_2'], t_data['desc_3'])
 	vars['descLabel']:setString(desc)
 
 	-- 보상 아이콘
