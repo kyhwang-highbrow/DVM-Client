@@ -1,10 +1,9 @@
 local PARENT = TableClass
 
-local ECVL_KEY_OFFSET = 100
+local ECVL_KEY_OFFSET = 100 -- 초월은 삭제되었지만 테이블 구조로 인해 남겨둠
 
 -- initGlobal 함수에서 설정함
 MAX_DRAGON_GRADE = nil
-MAX_DRAGON_ECLV = nil
 
 -------------------------------------
 -- class TableGradeInfo
@@ -44,15 +43,6 @@ function TableGradeInfo:getMaxLv(grade, eclv)
 
     local key = grade
 
-    --[[
-    -- 초월은 레벨에 관여하지 않게 바뀜
-    if (grade >= MAX_DRAGON_GRADE) and (eclv and 0 <= eclv) then
-        key = self:makeEclvKey(eclv)
-    else
-        key = grade
-    end
-    --]]
-
     local max_lv = self:getValue(key, 'max_lv')
     return max_lv
 end
@@ -70,36 +60,6 @@ function TableGradeInfo:getBonusStatusLv(grade)
 end
 
 -------------------------------------
--- function getEclvBonusStatusLv
--------------------------------------
-function TableGradeInfo:getEclvBonusStatusLv(eclv)
-    if (self == THIS) then
-        self = THIS
-    end
-
-    if (eclv <= 0) then
-        return 0
-    end
-
-    local key = self:makeEclvKey(eclv)
-    local lv = self:getValue(key, 'bonus_status_lv')
-    return lv
-end
-
--------------------------------------
--- function makeEclvKey
--- @brief 테이블상에서의 초월 key값 생성
--------------------------------------
-function TableGradeInfo:makeEclvKey(eclv)
-    if (not eclv) or (eclv < 0) then
-        return nil
-    end
-
-    local eclv_key = ECVL_KEY_OFFSET + eclv
-    return eclv_key
-end
-
--------------------------------------
 -- function initGlobal
 -------------------------------------
 function TableGradeInfo:initGlobal()
@@ -108,7 +68,6 @@ function TableGradeInfo:initGlobal()
     end
 
     MAX_DRAGON_GRADE = nil
-    MAX_DRAGON_ECLV = nil
 
     for i,v in pairs(self.m_orgTable) do
         local key = v['grade']
@@ -121,14 +80,9 @@ function TableGradeInfo:initGlobal()
             elseif (MAX_DRAGON_GRADE < grade) then
                 MAX_DRAGON_GRADE = grade
             end
-        -- 초월
+        -- 초월 (테이블 구조때문에 남겨둠)
         else
-            local eclv = (key - ECVL_KEY_OFFSET)
-            if (not MAX_DRAGON_ECLV) then
-                MAX_DRAGON_ECLV = eclv
-            elseif (MAX_DRAGON_ECLV < eclv) then
-                MAX_DRAGON_ECLV = eclv
-            end
+
         end
     end
 end
@@ -151,37 +105,6 @@ function TableGradeInfo:isMaxGrade(grade)
     else
         return false
     end
-end
-
--------------------------------------
--- function isMaxEclv
--- @breif 최대 등급의 드래곤인지 확인
--------------------------------------
-function TableGradeInfo:isMaxEclv(eclv)
-    if (MAX_DRAGON_ECLV <= eclv) then
-        return true
-    else
-        return false
-    end
-end
-
--------------------------------------
--- function getEclvUpgradeReqGold
--- @breif
--------------------------------------
-function TableGradeInfo:getEclvUpgradeReqGold(eclv)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local key = self:makeEclvKey(eclv)
-    
-    if (not key) then
-        return 0
-    end
-
-    local req_gold = self:getValue(key, 'req_gold')
-    return req_gold
 end
 
 local T_ORIGIN_GRADE = {

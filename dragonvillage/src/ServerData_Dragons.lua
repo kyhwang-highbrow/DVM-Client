@@ -409,16 +409,6 @@ function ServerData_Dragons:isMaxGrade(dragon_object_id)
 end
 
 -------------------------------------
--- function isMaxEclv
--- @brief 최대 초월 드래곤인지 확인
--------------------------------------
-function ServerData_Dragons:isMaxEclv(dragon_object_id)
-    local t_dragon_data = self:getDragonDataFromUid(dragon_object_id)
-    local is_max_eclv = (t_dragon_data['eclv'] >= MAX_DRAGON_ECLV)
-    return is_max_eclv
-end
-
--------------------------------------
 -- function checkUpgradeable
 -- @brief
 -------------------------------------
@@ -474,25 +464,6 @@ function ServerData_Dragons:checkMaxUpgrade(doid)
     end
 
     return true
-end
-
--------------------------------------
--- function checkEclvUpgradeable
--- @brief
--------------------------------------
-function ServerData_Dragons:checkEclvUpgradeable(doid)
-    local t_dragon_data = self:getDragonDataFromUid(doid)
-
-    if (not t_dragon_data) then
-        return false
-    end
-
-    local eclv = t_dragon_data['eclv']
-    if (eclv < MAX_DRAGON_ECLV) then
-        return true
-    else
-        return false, Str('최고 단계 초월의 드래곤입니다.')
-    end
 end
 
 -------------------------------------
