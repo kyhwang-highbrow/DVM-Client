@@ -48,17 +48,38 @@ function ServerData_Tamer:applyTamerInfo(t_tamer)
 end
 
 -------------------------------------
--- function getCurrTamerTable
--- @brief 현재 테이머 정보
--- @param key - 있으면 해당 필드의 값을 반환하고 없다면 전체 테이블 반환
+-- function getCurrTamerID
+-- @brief 현재 테이머 ID
+-- @return number
+-- 2017-07-05 sgkim
+-- table_tamer.csv테이블의 tid
+-- 110001	goni	고니
+-- 110002	nuri	누리
+-- 110003	dede	데데
+-- 110004	kesath	케사스
+-- 110005	durun	두른
+-- 110006	mokoji	모코지
 -------------------------------------
-function ServerData_Tamer:getCurrTamerTable(key)
-	local tamer_id = self.m_serverData:getRef('user', 'tamer')
+function ServerData_Tamer:getCurrTamerID()
+    local tamer_id = self.m_serverData:getRef('user', 'tamer')
 	if (tamer_id == 0) then
 		tamer_id = g_constant:get('INGAME', 'TAMER_ID')
 	end
 
-	local t_tamer = TableTamer():get(tamer_id)
+    return tamer_id
+end
+
+-------------------------------------
+-- function getCurrTamerTable
+-- @brief 현재 테이머 정보
+-- @param key - 있으면 해당 필드의 값을 반환하고 없다면 전체 테이블 반환
+-- @return table or value
+-------------------------------------
+function ServerData_Tamer:getCurrTamerTable(key)
+	local tamer_id = self:getCurrTamerID()
+
+    local table_tamer = TableTamer()
+	local t_tamer = table_tamer:get(tamer_id)
 	if (key) then
 		return t_tamer[key]
 	else

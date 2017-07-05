@@ -9,16 +9,12 @@ UI_TamerManagePopup = class(PARENT, {
 		m_lTamerItemList = '',
 
 		m_skillUI = 'UI',
-
-        m_mode = 'string', -- 'normal' or 'colosseum'
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_TamerManagePopup:init(tamer_id, mode)
-    self.m_mode = mode or 'normal'
-
+function UI_TamerManagePopup:init(tamer_id)
     local vars = self:load('tamer_manage_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -33,7 +29,7 @@ function UI_TamerManagePopup:init(tamer_id, mode)
     self:doAction(nil, false)
 
 	-- 멤버 변수
-	self.m_currTamerID = tamer_id or g_tamerData:getCurrTamerTable('tid')
+	self.m_currTamerID = tamer_id or g_tamerData:getCurrTamerID()
 	self.m_selectedTamerID = self.m_currTamerID
 	self.m_lTamerItemList = {}
 	
@@ -139,7 +135,7 @@ function UI_TamerManagePopup:setTamerRes()
     vars['tamerSdNode']:addChild(sd_animator.m_node)
 
 	-- 없는 테이머는 음영 처리
-	if (not g_tamerData:hasTamer(self.m_selectedTamerID)) then
+	if (not self:_hasTamer(self.m_selectedTamerID)) then
 		illustration_animator:setColor(COLOR['deep_dark_gray'])
 		sd_animator:setColor(COLOR['deep_dark_gray'])
 	end
@@ -162,7 +158,7 @@ function UI_TamerManagePopup:setTamerText()
 	vars['tamerDscLabel']:setString(Str(tamer_desc))
 
 	-- 테이머 없을 시 획득 조건
-	if (not g_tamerData:hasTamer(self.m_selectedTamerID)) then
+	if (not self:_hasTamer(self.m_selectedTamerID)) then
 		local obtain_desc = TableTamer:getTamerObtainDesc(t_tamer)
 		vars['lockLabel']:setString(Str(obtain_desc))
 	end
@@ -176,7 +172,7 @@ function UI_TamerManagePopup:setTamerSkill()
 	local vars = self.vars
 	
 	local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
-	local t_tamer_data = g_tamerData:getTamerServerInfo(self.m_selectedTamerID)
+	local t_tamer_data = self:_getTamerServerInfo(self.m_selectedTamerID)
 
 	-- 스킬 정보 및 스킬 상세보기 팝업 등록
 	local skill_mgr = MakeTamerSkillManager(t_tamer_data)
@@ -206,7 +202,7 @@ function UI_TamerManagePopup:refreshButtonState()
 	local vars = self.vars
 
 	-- 테이머 있음
-	if (g_tamerData:hasTamer(self.m_selectedTamerID)) then
+	if (self:_hasTamer(self.m_selectedTamerID)) then
 		-- 현재 사용중인 경우
 		if (self.m_currTamerID == self.m_selectedTamerID) then
 			vars['useBtn']:setVisible(true)
@@ -231,7 +227,7 @@ function UI_TamerManagePopup:refreshButtonState()
 	-- 테이머 없음
 	else
 		-- 획득 가능
-		if (g_tamerData:isObtainable(self.m_selectedTamerID)) then
+		if (self:_isObtainable(self.m_selectedTamerID)) then
 			vars['useBtn']:setVisible(false)
 			vars['lockBtn']:setVisible(false)
 			vars['selectBtn']:setVisible(false)
@@ -323,8 +319,8 @@ function UI_TamerManagePopup:click_selectBtn()
 		self:refresh()
 	end
 
-	-- 서버에 저장
-	g_tamerData:request_setTamer(tamer_id, cb_func)
+	-- 선택 테이머 변경 요청
+	self:_request_setTamer(tamer_id, cb_func)
 end
 
 -------------------------------------
@@ -359,6 +355,49 @@ function UI_TamerManagePopup:click_exitBtn()
 	self.m_skillUI:close()
     self:close()
 end
+
+
+
+-------------------------------------
+-- function _hasTamer
+-- @brief 플레이어가 테이머를 보유 했는지 여부
+-- @return boolean
+-------------------------------------
+function UI_TamerManagePopup:_hasTamer(tamer_id)
+    local has_tamer = g_tamerData:hasTamer(tamer_id)
+    return has_tamer
+end
+
+-------------------------------------
+-- function _isObtainable
+-- @brief 플레이어가 테이머를 획득 가능한 상태인지 여부
+-- @return boolean
+-------------------------------------
+function UI_TamerManagePopup:_isObtainable(tamer_id)
+    local is_obtainable = g_tamerData:isObtainable(tamer_id)
+    return is_obtainable
+end
+
+-------------------------------------
+-- function _getTamerServerInfo
+-- @brief 서버에 저장된 테이머 정보
+-- @return table
+-------------------------------------
+function UI_TamerManagePopup:_getTamerServerInfo(tamer_id)
+    local t_tamer_data = g_tamerData:getTamerServerInfo(tamer_id)
+    return t_tamer_data
+end
+
+-------------------------------------
+-- function _request_setTamer
+-- @brief 서버에 선택된 테이머 저장
+-------------------------------------
+function UI_TamerManagePopup:_request_setTamer(tamer_id, cb_func)
+	-- 서버에 저장
+	g_tamerData:request_setTamer(tamer_id, cb_func)
+end
+
+
 
 
 --@CHECK
