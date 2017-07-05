@@ -316,7 +316,7 @@ function UI_DragonManagementEvolution:refresh_evolutionStones(t_dragon_data, t_d
     end
 
     -- 진화 재료 1~3개 셋팅
-    local table_evolution_item = TABLE:get('evolution_item')
+    local table_item = TableItem()
     self.m_bEnoughSvolutionStones = true
     for i=1,3 do
         vars['moveBtn' .. i]:setVisible(true)
@@ -326,10 +326,8 @@ function UI_DragonManagementEvolution:refresh_evolutionStones(t_dragon_data, t_d
 
         self['m_itemID' .. i] = item_id
 
-        local t_evolution_item = table_evolution_item[item_id]
-
         do -- 진화재료 이름
-            local name = Str(t_evolution_item['t_name'])
+            local name = Str(table_item:getValue(item_id, 't_name'))
             vars['materialLabel' .. i]:setString(name)
         end
 

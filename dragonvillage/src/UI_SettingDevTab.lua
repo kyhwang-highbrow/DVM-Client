@@ -202,9 +202,11 @@ end
 -------------------------------------
 function UI_Setting:click_allMaterialBtn()
     local uid = g_userData:get('uid')
-    local table_evolution_stone = TABLE:get('evolution_item')
+
+    local table_item = TableItem()
+    local l_evolution_stone = table_item:filterTable('type', 'evolution_stone')
     local t_list = {}
-    for id,_ in pairs(table_evolution_stone) do
+    for id,_ in pairs(l_evolution_stone) do
         table.insert(t_list, id)
     end
     local do_work
@@ -221,7 +223,8 @@ function UI_Setting:click_allMaterialBtn()
         
         if id then
             table.remove(t_list, 1)
-            local msg = '"' .. table_evolution_stone[id]['t_name'] .. '" 추가 중...'
+            local name = table_item:getValue(id, 't_name')
+            local msg = '"' .. name .. '" 추가 중...'
             ui_network:setLoadingMsg(msg)
             ui_network:setParam('value', tostring(id) .. ',' .. tostring(100))
             ui_network:request()

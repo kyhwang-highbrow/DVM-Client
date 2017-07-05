@@ -319,7 +319,8 @@ function UI_InvenDevApiPopup:init_evolutionStoneTableView()
     local list_table_node = self.vars['evolutionStoneListNode']
     list_table_node:removeAllChildren()
 
-    local table_evolution_item = TABLE:get('evolution_item')
+    local table_item = TableItem()
+    local l_evolution_stone = table_item:filterTable('type', 'evolution_stone')
 
     local item_size = 150
     local item_scale = 1
@@ -335,7 +336,8 @@ function UI_InvenDevApiPopup:init_evolutionStoneTableView()
         local count = g_userData:getEvolutionStoneCount(esid)
         ui.vars['numberLabel']:setString(comma_value(count))
 
-        local label = cc.Label:createWithTTF(table_evolution_item[esid]['t_name'], 'res/font/common_font_01.ttf', 20, 1, cc.size(600, 50), 1, 1)
+        local name = table_item:getValue(esid, 't_name')
+        local label = cc.Label:createWithTTF(name, 'res/font/common_font_01.ttf', 20, 1, cc.size(600, 50), 1, 1)
         label:setDockPoint(cc.p(0.5, 0.5))
         label:setAnchorPoint(cc.p(0.5, 0.5))
         label:setPositionY(50)
@@ -350,9 +352,9 @@ function UI_InvenDevApiPopup:init_evolutionStoneTableView()
         self:network_addEvolutionStone(esid, item)
     end
 
-    local l_evolution_stone = {}
-    for i,v in pairs(table_evolution_item) do
-        table.insert(l_evolution_stone, i)
+    local l_item_list = {}
+    for item_id,_ in pairs(l_evolution_stone) do
+        table.insert(l_item_list, item_id)
     end
 
     -- 테이블뷰 초기화
@@ -367,7 +369,7 @@ function UI_InvenDevApiPopup:init_evolutionStoneTableView()
         table_view_ext:setCellInfo2(nItemPerCell, cell_width, cell_height, item_width, item_height)
     end 
     table_view_ext:setItemUIClass(UI_ItemCard, click_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    table_view_ext:setItemInfo(l_evolution_stone)
+    table_view_ext:setItemInfo(l_item_list)
     --table_view_ext:update()
 
     do-- 정렬
@@ -388,7 +390,7 @@ end
 -------------------------------------
 function UI_InvenDevApiPopup:network_addEvolutionStone(esid, item)
     local uid = g_userData:get('uid')
-    local table_evolution_stone = TABLE:get('evolution_item')
+    local table_item = TableItem()
 
     local function success_cb(ret)
         if ret['user'] then
@@ -403,7 +405,8 @@ function UI_InvenDevApiPopup:network_addEvolutionStone(esid, item)
             ui.vars['numberLabel']:setString(comma_value(count))
         end
 
-        UIManager:toastNotificationRed('"' .. table_evolution_stone[esid]['t_name'] .. '" 10개가 추가되었습니다.')
+        local name = table_item:getValue(esid, 't_name')
+        UIManager:toastNotificationRed('"' .. name .. '" 10개가 추가되었습니다.')
     end
 
     local ui_network = UI_Network()
@@ -414,7 +417,8 @@ function UI_InvenDevApiPopup:network_addEvolutionStone(esid, item)
     ui_network:setParam('key', 'evolution_stones')
     ui_network:setParam('value', tostring(esid) .. ',' .. tostring(10))
 
-    local msg = '"' .. table_evolution_stone[esid]['t_name'] .. '" 10개 추가 중...'
+    local name = table_item:getValue(esid, 't_name')
+    local msg = '"' .. name .. '" 10개 추가 중...'
     ui_network:setLoadingMsg(msg)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
