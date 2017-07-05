@@ -1,16 +1,16 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
--- class UI_PlayTimeDataListItem
+-- class UI_AccessTimeDataListItem
 -------------------------------------
-UI_PlayTimeDataListItem = class(PARENT, {
+UI_AccessTimeDataListItem = class(PARENT, {
         m_dataInfo = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PlayTimeDataListItem:init(data_info)
+function UI_AccessTimeDataListItem:init(data_info)
     self.m_dataInfo = data_info
     local vars = self:load('event_time_item.ui')
 
@@ -22,7 +22,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_PlayTimeDataListItem:initUI()
+function UI_AccessTimeDataListItem:initUI()
     local vars = self.vars
     local data_info = self.m_dataInfo
     local step = data_info['step']
@@ -54,13 +54,13 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_PlayTimeDataListItem:initButton()
+function UI_AccessTimeDataListItem:initButton()
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_PlayTimeDataListItem:refresh()
+function UI_AccessTimeDataListItem:refresh()
     local vars = self.vars
     local data_info = self.m_dataInfo
 

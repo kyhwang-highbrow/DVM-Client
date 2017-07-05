@@ -233,7 +233,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
         
     -- 접속시간 이벤트
     elseif (tab == 'play_time') then
-        ui = UI_EventPopupTab_PlayTime(self)
+        ui = UI_EventPopupTab_AccessTime(self)
 
     -- 출석체크 이벤트
     else

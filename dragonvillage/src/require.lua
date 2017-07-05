@@ -776,12 +776,12 @@ local t_module = {
     'UI_EventPopupTab_Attendance',
     'UI_EventPopupTab_EventAttendance',
     'UI_EventPopupTab_Exchange',
-    'UI_EventPopupTab_PlayTime',
+    'UI_EventPopupTab_AccessTime',
     'UI_BirthdayCalendarDayElement',
     'UI_BirthdayRewardSelectPopup',
     'UI_BirthdayRewardSelectListItem',
     'UI_ExchangeProductListItem',
-    'UI_PlayTimeDataListItem',
+    'UI_AccessTimeDataListItem',
 
 	-- UI : 연출
 	'DirectingCharacter',

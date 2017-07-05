@@ -2433,14 +2433,14 @@
     <None Include="..\src\ServerData_AccessTime.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_PlayTimeDataListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_EventPopupTab_PlayTime.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\ServerData_MasterRoad.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_AccessTimeDataListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTab_AccessTime.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
