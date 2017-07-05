@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_EventPopupTab_PlayTime
 -------------------------------------
 UI_EventPopupTab_PlayTime = class(PARENT,{
-        m_lEventData = 'list'
+        m_lEventDataUi = 'list'
     })
 
 -------------------------------------
@@ -12,6 +12,8 @@ UI_EventPopupTab_PlayTime = class(PARENT,{
 -------------------------------------
 function UI_EventPopupTab_PlayTime:init(owner)
     local vars = self:load('event_time.ui')
+    self.m_lEventDataUi = {}
+
     self:initUI()
     self:refresh()
 end
@@ -21,16 +23,17 @@ end
 -------------------------------------
 function UI_EventPopupTab_PlayTime:initUI()
     local vars = self.vars
-    self.m_lEventData = g_accessTimeData.m_lEventData
-
+    local event_data = g_accessTimeData.m_lEventData
+    
     -- 접속시간 이벤트 보상 리스트
-    for i, v in ipairs(self.m_lEventData) do
+    for i, v in ipairs(event_data) do
         local ui = UI_PlayTimeDataListItem(v)
         local node = vars['itemNode'..i]
         if node then
             node:removeAllChildren()
             node:addChild(ui.root)
         end
+        table.insert(self.m_lEventDataUi, ui)
     end
 end
 
@@ -39,6 +42,7 @@ end
 -------------------------------------
 function UI_EventPopupTab_PlayTime:refresh()
     local vars = self.vars
+
     -- 오늘 접속 시간
     local is_minute = true
     local play_time = g_accessTimeData:getTime(is_minute)
@@ -51,4 +55,10 @@ end
 -------------------------------------
 function UI_EventPopupTab_PlayTime:onEnterTab()
     self:refresh()
+
+    -- 보상 리스트 갱신
+    for i, v in ipairs(self.m_lEventDataUi) do
+        local ui = v
+        ui:refresh()
+    end
 end
