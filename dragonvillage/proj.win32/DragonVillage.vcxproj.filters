@@ -1860,9 +1860,6 @@
     <None Include="..\src\TableDragonPhrase.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\TableDragonResearch.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableDragonSkill.lua">
       <Filter>lua\src</Filter>
     </None>

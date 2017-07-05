@@ -209,7 +209,6 @@ local t_module = {
     'TableFruit',
     'TableUserLevel',
     'TableReqGold',
-    'TableDragonResearch',
     'TableDrop',
     'TableTamer',
 	'TableTamerSkill',

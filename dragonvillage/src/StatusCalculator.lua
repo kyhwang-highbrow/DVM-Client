@@ -157,25 +157,6 @@ function StatusCalculator:getAttackTick()
 end
 
 -------------------------------------
--- function applyDragonResearchBuff
--- @brief 연구 버프 적용
--------------------------------------
-function StatusCalculator:applyDragonResearchBuff(rlv)
-    if (self.m_charType ~= 'dragon') then
-        return
-    end
-
-    local rlv = math_min(rlv, MAX_DRAGON_RESEARCH_LV)
-    local did = self.m_chapterID
-    local dragon_type = TableDragon:getDragonType(did)
-    local atk, def, hp = TableDragonResearch:getDragonResearchStatus(dragon_type, rlv)
-
-    self.m_lStatusList['atk']:setResearchStat(atk)
-    self.m_lStatusList['def']:setResearchStat(def)
-    self.m_lStatusList['hp']:setResearchStat(hp)
-end
-
--------------------------------------
 -- function applyFormationBonus
 -- @brief 진형 버프 적용 (다른 status effect처럼 패시브 형태로 동작함)
 -------------------------------------
@@ -397,10 +378,6 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
     local eclv = t_dragon_data['eclv']
 
     local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
-
-    -- 연구(research)
-    local rlv = t_dragon_data['rlv']
-    status_calc:applyDragonResearchBuff(rlv)
 
     -- 친밀도(friendship)
     do

@@ -1,4 +1,4 @@
--- T1 = (기본 능력치 + 레벨 능력치 + 승급 능력치 + 진화 능력치 + 초월 능력치 + 연구 능력치 + 친밀도 능력치)
+-- T1 = (기본 능력치 + 레벨 능력치 + 승급 능력치 + 진화 능력치 + 초월 능력치 + 친밀도 능력치)
 -- T2 =  (T1 * 룬 multi) + 룬 add
 -- T3 = (T2 * 버프 multi ) + 버프 add
 
@@ -21,7 +21,6 @@ StructIndividualStatus = class({
         m_eclvStat = '',
 
         m_friendshipStat = '',  -- 친밀도 능력치
-        m_researchStat = '',    -- 드래곤 연구 능력치
         ----------------------------------------------------
 
 
@@ -59,7 +58,6 @@ function StructIndividualStatus:init(status_name)
     self.m_eclvStat = 0
 
     self.m_friendshipStat = 0
-    self.m_researchStat = 0
 
     self.m_runeMulti = 0
     self.m_runeAdd = 0
@@ -107,7 +105,7 @@ function StructIndividualStatus:calcT2()
     -- 기본 능력치 연산 (드래곤 성장)
     local t1 = (self.m_baseStat +
                 self.m_lvStat + self.m_gradeStat + self.m_evolutionStat + self.m_eclvStat +
-                self.m_friendshipStat + self.m_researchStat)
+                self.m_friendshipStat)
 
     -- 룬 능력치 연산
     local rune_multi = (self.m_runeMulti / 100)
@@ -163,14 +161,6 @@ end
 -------------------------------------
 function StructIndividualStatus:setFriendshipStat(friendship_stat)
     self.m_friendshipStat = friendship_stat
-    self:setDirtyT2()
-end
-
--------------------------------------
--- function setResearchStat
--------------------------------------
-function StructIndividualStatus:setResearchStat(research_stat)
-    self.m_researchStat = research_stat
     self:setDirtyT2()
 end
 

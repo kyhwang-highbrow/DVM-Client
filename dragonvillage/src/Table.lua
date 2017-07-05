@@ -92,9 +92,6 @@ local TableInfo_fromServer = {
 
         -- 아이템 관련
         ['table_item_rand'] = {'table_item_rand', 'rand_item_id'},
-
-        -- 삭제 예정
-        ['table_dragon_research'] = {'table_dragon_research', 'lv'},
     }
 
 -------------------------------------
