@@ -7,32 +7,6 @@
 		{
 			[1] =
 			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
-				width = 0;
-				height = 0;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[2] =
-			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
@@ -40,8 +14,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 100;
-				height = 100;
+				width = 912;
+				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -49,6 +23,30 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'packageNode';
+			};
+			[2] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 20.000000;
+				y = 20.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 1.000000; 1.000000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'closeBtn';
+				enable = true;
+				normal = 'ui/btn/close_01.png';
+				selected = 'ui/btn/close_02.png';
+				disable = '';
+				image_type = 0;
 			};
 			[3] =
 			{
@@ -139,13 +137,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 0.000000;
-				y = -265.000000;
+				x = 137.000000;
+				y = -185.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 348;
-				height = 75;
+				width = 526;
+				height = 90;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -156,32 +154,8 @@
 				enable = true;
 				normal = 'ui/btn/a_btn_0204.png';
 				selected = 'ui/btn/a_btn_0206.png';
-				disable = 'ui/btn/a_btn_0206.png';
-				image_type = 1;
-			};
-			[4] =
-			{
-				type = 'Button';
-				ui_name = '';
-				x = 20.000000;
-				y = 20.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 1.000000; 1.000000; };
-				relative_size_type = 0;
-				width = 80;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'closeBtn';
-				enable = true;
-				normal = 'ui/btn/close_01.png';
-				selected = 'ui/btn/close_02.png';
 				disable = '';
-				image_type = 0;
+				image_type = 1;
 			};
 			type = 'Menu';
 			ui_name = '';
@@ -190,8 +164,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 930;
-			height = 630;
+			width = 912;
+			height = 640;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
