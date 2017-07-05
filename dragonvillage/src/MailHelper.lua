@@ -3,42 +3,61 @@ MailHelper = {}
 -------------------------------------
 -- function getMailText
 -------------------------------------
-function MailHelper:getMailText(event_type, t_data)
-	local title = ''
-	local context = ''
+function MailHelper:getMailText(t_mail_data)
+	local t_template = TABLE:get('mail_template')
+	local mail_type = t_mail_data['mail_type']
+    
+    -- 예외 처리 구간
+    do
+	    -- mail_type이 없다면 탈출
+	    if (not mail_type) or (mail_type == '') then
+		    return {title = '형식 없음', content = '내용 없음'}
+	    end
 
-	-- 드래곤의 선물
-	if (event_type == 'dg') then
-		local did = t_data['did']
-		
-		local dragon_name = TableDragon:getDragonName(did)
-		title = '[' .. dragon_name .. ']'
+        -- system인 경우 포함된 텍스트 반환
+        if (mail_type == 'system') then
+            return {title = '시스템', content = t_mail_data['msg'] or "시스템 메세지"}
+        end
 
-		context = TableDragonPhrase:getMailPhrase(did)
-
-	elseif (event_type == 'api') then
-		title = t_data['title']
-		context = t_data['text']
-
-	end
-
-	return {title = title, context = context}
-end
-
-
--------------------------------------
--- function getFpointMailText
--- @brief msg_content 없는 경우
--------------------------------------
-function MailHelper:getMailTextWithNoneMsgContent(t_data)
-    local tag = t_data['tag']
-    local title = 'test_text'
-    local context = 'test_text'
-
-    if tag == 'fp' then
-        title = Str('우정의 징표 {1}개', t_data['items_list'][1]['count'])
-	    context = Str('{1}님이 우정의 징표를 보냄', t_data['nick'])
+	    -- 테이블에 템플릿이 없다면 탈출
+        local template = t_template['t_content']
+	    if (not template) then
+		    return {title = mail_type, content = '정의 되지 않은 mail_type 입니다.'}
+	    end
     end
 
-    return {title = title, context = context}
+    -- 생성 시작
+
+    -- value key에 맞는 value값들을 만든다.
+	local t_value = {}
+	for i = 1, 5 do
+        local value = t_broadcast['value' .. i]
+        if (not value or value == '' or value == 'x') then break end
+         
+        -- 아이템 이름
+        if (value == 'item') then
+           	local t_item = t_mail_data['items_list'][1]
+			t_value[i] = UIHelper:makeItemName(t_item)
+                 
+		-- 닉네임
+        elseif (value == 'nick') then
+            t_value[i] = t_mail_data['nick']
+
+		-- 드래곤 이름
+		elseif (value == 'dragon') then
+			local did = t_mail_data['did'] or 120011
+			t_value[i] = TableDragon:getDragonName(did)
+
+		-- 드래곤의 선물 문구
+		elseif (value == 'phrase') then
+			local did = t_mail_data['did'] or 120011
+			t_value[i] = TableDragonPhrase:getMailPhrase(did)
+
+        end
+    end
+
+	local title = Str(t_template['t_title'])
+	local content = Str(template, t_value[1], t_value[2], t_value[3], t_value[4], t_value[5])
+
+	return {title = title, content = content}
 end

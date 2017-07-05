@@ -59,7 +59,7 @@ end
 -------------------------------------
 function UI_MailPopup:initTab()
     local vars = self.vars
-	local l_tab = g_mailData:getMailTypeList()
+	local l_tab = g_mailData:getMailCategoryList()
 	for _, tab in pairs(l_tab) do
 		self:addTab(tab, vars[tab .. 'Btn'], vars[tab .. 'ListNode'])
 	end

@@ -42,13 +42,13 @@ end
 -------------------------------------
 function UI_MailListItem:refresh()
     local vars = self.vars
-    local t_mail_data = self:makePrettyData(self.m_mailData)
+    local t_text = MailHelper:getMailText(self.m_mailData)
 
     -- 우편 제목
-    vars['mailLabel']:setString(t_mail_data['title'])
+    vars['mailLabel']:setString(t_text['title'])
 
 	-- 우편 본문
-    vars['infoLabel']:setString(t_mail_data['context'])
+    vars['infoLabel']:setString(t_text['content'])
 
     -- 유효 기간 (남은 시간)
     vars['timeLabel']:setString(g_mailData:getExpireRemainTimeStr(self.m_mailData))
@@ -73,45 +73,4 @@ function UI_MailListItem:makeMailItemIcons(t_mail_data)
 
         self.vars['rewardNode']:addChild(ui.root)
     end
-end
-
--------------------------------------
--- function makePrettyData
--------------------------------------
-function UI_MailListItem:makePrettyData(t_mail_data)
-    -- 메일 제목
-    local mail_title
-
-    -- 메일 본문
-    local mail_context
-
-    -- mail helper 에서 받아오는 txt data
-    local mail_text
-
-    local is_msg_content = t_mail_data['msg_content'] and true or false
-
-    -- msg_content data 쓰는곳 있음
-    if is_msg_content then
-        local t_mail_context = t_mail_data['msg_content']['data']
-	    local event_type = t_mail_data['msg_content']['event']
-
-        t_mail_text = MailHelper:getMailText(event_type, t_mail_context)
-    else
-        
-        t_mail_text = MailHelper:getMailTextWithNoneMsgContent(t_mail_data)
-    end
-    
-	-- 메일 제목
-	local mail_title = t_mail_text['title']
-	if (mail_title == '') then
-		mail_title = t_mail_context['title']
-	end
-
-	-- 메일 본문
-	local mail_context = t_mail_text['context']
-	if (mail_context == '') then
-		mail_context = t_mail_data['msg']
-	end
-
-	return {title = mail_title, context = mail_context}
 end

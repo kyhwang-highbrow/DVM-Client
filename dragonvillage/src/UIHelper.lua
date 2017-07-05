@@ -32,7 +32,25 @@ function UIHelper:repeatTest(sequence_action)
 end
 
 -------------------------------------
+-- function makeItemName
+-- @example 다이아 100개
+-- @example 룬 확정권
+-------------------------------------
+function UIHelper:makeItemName(t_item)
+	local item_id = t_item['item_id']
+	local item_name = TableItem:getItemName(item_id)
+	local item_cnt = t_item['count']
+	if (item_cnt) and (item_cnt > 0) then
+		return Str('{@DEEPSKYBLUE}{1} {@MUSTARD}{2}개', item_name, item_cnt)
+	else
+		return Str('{@DEEPSKYBLUE}{1}', item_name)
+	end
+end
+
+-------------------------------------
 -- function makeItemStr
+-- @example 다이아 100개를 획득하였습니다.
+-- @example 룬 확정권을 획득하였습니다.
 -------------------------------------
 function UIHelper:makeItemStr(t_item)
 	local item_id = t_item['item_id']

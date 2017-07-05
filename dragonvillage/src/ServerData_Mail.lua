@@ -6,7 +6,7 @@ ServerData_Mail = class({
 
 		m_mMailMap = 'table[mail_type] = map<mail>',
 		
-		m_lMailType = 'list',
+		m_lCategory = 'list',
     })
 
 -------------------------------------
@@ -14,23 +14,23 @@ ServerData_Mail = class({
 -------------------------------------
 function ServerData_Mail:init(server_data)
     self.m_serverData = server_data
-	self.m_lMailType = {'goods', 'st', 'friend', 'item'}
+	self.m_lCategory = {'goods', 'st', 'friend', 'item'}
 end
 
 -------------------------------------
--- function getMailTypeList
--- @brief 메일 타입 리스트 반환 (UI와 공유)
--------------------------------------
-function ServerData_Mail:getMailTypeList()
-	return self.m_lMailType
+-- function getMailCategoryList
+-- @brief 메일 범주 리스트 반환 (UI와 공유)
+-------------------------------------150
+function ServerData_Mail:getMailCategoryList()
+	return self.m_lCategory
 end
 
 -------------------------------------
 -- function getMailList
 -- @brief 타입에 해당하는 메일 리스트를 가져온다.
 -------------------------------------
-function ServerData_Mail:getMailList(type)
-    return self.m_mMailMap[type]
+function ServerData_Mail:getMailList(category)
+    return self.m_mMailMap[category]
 end
 
 -------------------------------------
@@ -135,17 +135,23 @@ end
 function ServerData_Mail:makeMailMap(l_mail_list)
 	-- 초기화
 	self.m_mMailMap = {}
-	for _, mail_type in pairs(self.m_lMailType) do
+	for _, mail_type in pairs(self.m_lCategory) do
 		self.m_mMailMap[mail_type] = {}
 	end
 
 	-- mail map 생성
 	for i, t_mail in pairs(l_mail_list) do
 		local moid = t_mail['id']
-		local tag = t_mail['tag']
-		
-		-- 우정포인트로 인하여 tag를 쓸수밖에 없다. -> 수정 예정
-		if (tag == '') then
+		local mail_type = t_mail['mail_type']
+		local category
+        
+		-- 우정포인트를 패키지에서 받는다면 위의 '재화'로 가게 되고 친구가 보낸다면 '우정'으로 간다.
+        -- 'fp'와 'use_fp'
+		if pl.stringx.endswith(mail_type, 'fp') then
+			category = 'friend'
+
+		-- 우정포인트로 보낸게 아니라면 아이템에 따라 나눈다.
+		else
 			local t_item = t_mail['items_list'][1]
 			local item_id = t_item['item_id']
 
@@ -155,27 +161,23 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 			if item_type then
 				-- staminas는 '활동력에 속함'			
 				if string.find(item_type, 'stamina') then
-					tag = 'st'
+					category = 'st'
 				
 				-- stamina가 없고 item type이 있다면 모두 '재화'에 해당
 				else
-					tag = 'goods'
+					category = 'goods'
 				end
 
 			-- 클라에서 미리 정의 하지 않은 것은 '아이템'에 속한다.
 			else
-				tag = 'item'
+				category = 'item'
 
 			end
-
-		-- 우정포인트를 패키지에서 받는다면 위의 '재화'로 가게 되고 서버에서 tag를 붙여주면 '우정'으로 간다.
-		elseif (tag == 'fp') then
-			tag = 'friend'
 
 		end
 
 		self:updateMailServerTime(t_mail)
-		self.m_mMailMap[tag][moid] = t_mail
+		self.m_mMailMap[category][moid] = t_mail
 	end
 end
 

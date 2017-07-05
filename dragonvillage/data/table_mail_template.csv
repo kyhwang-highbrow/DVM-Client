@@ -1,0 +1,13 @@
+mail_type,t_title,t_content,value_1,value_2,r_comment,
+system,시스템,,,,운영툴에서 전송한 메일 (서버에서 보내준대로 출력),
+buy,상품 구입,{@ROSE}상품 구입{@DESC}으로 {1}{@DESC}을 수령하였습니다.,item,,상점에서 구매한 재화 수령 시,
+quest,퀘스트 보상,{@ROSE}상품 구입{@DESC}으로 {1}{@DESC}을 수령하였습니다.,item,,,
+chlg,업적 달성 보상,{@ROSE}상품 구입{@DESC}으로 {1}{@DESC}을 수령하였습니다.,item,,,
+clsm,콜로세움 보상,{@ROSE}상품 구입{@DESC}으로 {1}{@DESC}을 수령하였습니다.,item,,,
+event,이벤트 보상,{@ROSE}상품 구입{@DESC}으로 {1}{@DESC}을 수령하였습니다.,item,,,
+tower,고대의 탑 보상,{@ROSE}상품 구입{@DESC}으로 {1}{@DESC}을 수령하였습니다.,item,,,
+fst_clr,첫 클리어 보상,{@ROSE}상품 구입{@DESC}으로 {1}{@DESC}을 수령하였습니다.,item,,,
+ch_clr,챕터 달성 보상,{@ROSE}상품 구입{@DESC}으로 {1}{@DESC}을 수령하였습니다.,item,,,
+fp,우정의 징표,{@ROSE}{2}{@DESC}님이 {1}을 보냈습니다.,item,nick,친구 선물로 받는 우정포인트,
+use_fp,우정의 사용,{@ROSE}{2}{@DESC}님이 {@WHITE}대표드래곤{@DESC}을 사용하여 {1}을 받았습니다.,item,nick,대표 드래곤 사용 시 지급하는 우정 포인트,
+dg,드래곤의 선물,{@DEEPSKYBLUE}{1}{@DESC2} : {@DESC}{2},dragon,phrase,감성 컨텐츠 - 특정 조건의 드래곤을 사용하면 선물을 보낸다.,컨텐츠 존속 여부

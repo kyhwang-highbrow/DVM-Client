@@ -69,6 +69,8 @@ local TableInfo = {
         table_dragon_phrase = {'table_dragon_phrase',        'did',          false},
 
         scenario_resource   = {'scenario/scenario_resource', 'key',         false},
+
+		mail_template		= {'table_mail_template',		 'mail_type',	false},
     }
 
 -------------------------------------
