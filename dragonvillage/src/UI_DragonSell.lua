@@ -294,6 +294,7 @@ function UI_DragonSell:click_sellBtn()
 		self.m_price = 0
 		self.m_tSellTable = {}
 		self:refresh_dragonMaterialTableView()
+        self:refresh_selectedMaterial()
 
 		-- 외부에 변화 여부 전달
 		self.m_bChangeDragonList = true
