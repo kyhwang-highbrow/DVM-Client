@@ -513,6 +513,10 @@ function UIC_RichLabel:getColor(color)
     COLOR['possible'] = cc.c3b(150, 255, 65)
     COLOR['impossible'] = cc.c3b(255, 44, 44)
 
+
+    COLOR['subject'] = cc.c3b(255, 44, 44)
+    COLOR['condition'] = cc.c3b(255, 44, 44)
+
     return COLOR[color] or cc.c3b(255,255,255)
 end
 
