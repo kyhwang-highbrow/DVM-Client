@@ -230,7 +230,7 @@ function UI_BookDetailPopup:onChangeEvolution()
 
 		-- 자코 추가 이후 리소스별 크기가 다른 문제가 있어 테이블에서 스케일을 참조하도록 함(인게임 스케일 사용)
 		-- 다만 0.9 ~ 1.5 사이값으로 제한 (mskim)
-		vars['dragonNode']:setScale(math_clamp(t_dragon['scale'], 0.9, 1.5))
+		--vars['dragonNode']:setScale(math_clamp(t_dragon['scale'], 0.9, 1.5))
     end
 
 	-- 스킬 아이콘 생성
