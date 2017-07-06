@@ -219,6 +219,9 @@ function UI_Lobby:refresh()
 
     -- 유저 정보 갱신
     self:refresh_userInfo()
+
+    -- 마스터의 길 정보 갱신
+    self:refresh_masterRoad()
 end
 
 -------------------------------------
@@ -282,6 +285,21 @@ function UI_Lobby:refresh_userInfo()
     local exp_percentage = table_user_level:getUserLevelExpPercentage(lv, exp)
     vars['userExpLabel']:setString(Str('{1}%', exp_percentage))
     vars['userExpGg']:setPercentage(exp_percentage)
+end
+
+-------------------------------------
+-- function refresh_masterRoad
+-------------------------------------
+function UI_Lobby:refresh_masterRoad()
+    local vars = self.vars
+
+    -- 현재 목표 출력
+    local t_road = TableMasterRoad():get(g_masterRoadData:getFocusRoad())
+    local desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
+    vars['roadDescLabel']:setString(desc)
+
+    -- 보상 수령 가능 시
+    -- refresh_highlight에 추가해야 할듯
 end
 
 -------------------------------------
