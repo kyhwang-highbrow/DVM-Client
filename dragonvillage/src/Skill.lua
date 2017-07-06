@@ -308,7 +308,7 @@ function Skill.st_dying(owner, dt)
 
         -- 조건 달성 시점이 아닌 종료시 수행되어야할 이벤트의 상태효과를 적용
         do
-            for event_name, _  in ipairs(owner.m_mSpecialEvent) do
+            for event_name, _  in pairs(owner.m_mSpecialEvent) do
                 owner:doStatusEffect(event_name, l_target) 
             end
         end

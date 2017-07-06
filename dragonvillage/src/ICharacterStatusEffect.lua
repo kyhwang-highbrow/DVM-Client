@@ -69,8 +69,7 @@ function ICharacterStatusEffect:insertStatusEffect(status_effect)
 	local effect_name = status_effect.m_statusEffectName
 	
     -- 해제되지 않고 계속 유지되는 것들은 리스트에 추가하지 않음
-	if (string.find(effect_name, 'buff_heal') or string.find(effect_name, 'leader')
-        or string.find(effect_name, 'passive')) then
+	if (string.find(effect_name, 'leader') or string.find(effect_name, 'passive')) then
         self.m_mHiddenStatusEffect[effect_name] = status_effect
     else
         self.m_mStatusEffect[effect_name] = status_effect
