@@ -604,7 +604,6 @@ local t_module = {
 	'UI_Package',
 
     -- UI : 계정 생성
-    'UI_StartIntro',
 	'UI_StartTamerSelect',
 
 	-- UI : 모험

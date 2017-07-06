@@ -16,3 +16,4 @@ key,r_desc,type,res
 번개고룡,,dragon,res/character/dragon/lightningdragon_fire_03/lightningdragon_fire_03.spine
 다크닉스,,dragon,res/character/dragon/darknix_dark_03/darknix_dark_03.spine
 스마트드래곤,,dragon,res/character/dragon/smartdragon_earth_03/smartdragon_earth_03.spine
+프롤로그,,bg,res/ui/a2d/intro/intro.vrp

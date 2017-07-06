@@ -76,4 +76,7 @@ end
 -------------------------------------
 function UI_ScenarioPlayer_Talk:hide()
     self.root:setVisible(false)
+
+    local vars = self.vars
+    vars['talkLabel']:setString('')
 end

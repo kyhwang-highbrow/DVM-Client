@@ -572,7 +572,9 @@ function UI_TitleScene:createAccount()
     local login_func        -- 계정 생성후 재로그인
 
     intro_func = function()
-        UI_StartIntro(tamer_sel_func)
+        local scenario_name = 'scenario_prologue'
+        local prologue = UI_ScenarioPlayer(scenario_name)
+        prologue:setCloseCB(tamer_sel_func)
     end
 
     tamer_sel_func = function()

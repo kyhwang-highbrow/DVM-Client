@@ -11,6 +11,8 @@ UI_ScenarioPlayer = class(PARENT,{
         m_titleUI = '',
 
         m_bgName = 'bg',
+        m_bg = '',
+
         m_prevBgm = '',
         m_currBgm = '',
 
@@ -226,6 +228,8 @@ function UI_ScenarioPlayer:showPage()
         local bg_res = TableScenarioResource:getScenarioRes(t_page['bg'])
         local bg = MakeAnimator(bg_res)
         vars['bgNode']:addChild(bg.m_node)
+
+        self.m_bg = bg
     end
 
     do -- 삽화
@@ -430,6 +434,15 @@ function UI_ScenarioPlayer:applyEffect(effect)
             v:hide()
         end
         self.m_scenarioPlayerTalk:hide()
+
+    elseif (effect == 'vrp') then
+        local key = val_1
+        local vrp = self.m_bg
+        local loop = string.find(key, '_idle') and true or false
+        vrp:changeAni(key, loop)
+        vrp:addAniHandler(function() self:next() end)
+        self.vars['skipBtn']:setVisible(false)
+        self.vars['nextVisual']:setVisible(false)
 
     elseif (effect == 'clear_text') or (effect == 'cleartext') then
         self.m_scenarioPlayerTalk:hide()
