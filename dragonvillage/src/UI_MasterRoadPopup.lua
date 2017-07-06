@@ -53,6 +53,9 @@ end
 -- function initButton
 -------------------------------------
 function UI_MasterRoadPopup:initButton()
+    local vars = self.vars
+    vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+    vars['questLinkBtn']:registerScriptTapHandler(function() self:click_questLinkBtn() end)
 end
 
 -------------------------------------
@@ -110,7 +113,7 @@ end
 -------------------------------------
 function UI_MasterRoadPopup:makeRoadTableView()
 	local node = self.vars['listNode']
-	
+
 	local l_road_list = TableMasterRoad():getSortedList()
 
     -- 생성 후 동작
@@ -138,6 +141,32 @@ function UI_MasterRoadPopup:makeRoadTableView()
 
         self.m_tableView = table_view
     end
+end
+
+-------------------------------------
+-- function click_rewardBtn
+-- @brief 보상 받기
+-------------------------------------
+function UI_MasterRoadPopup:click_rewardBtn()
+    local function cb_func()
+        UI_ToastPopup(Str('보상이 우편함으로 수령되었습니다.'))
+        
+        -- 보상 받은 road의 셀 갱신 (보상 표시 제거)
+        local t_cell = self.m_tableView:getItem(self.m_currRid - 10000)
+        self:refreshCell(t_cell['ui'], t_cell['data'])
+        
+        -- 다음 road로 UI 갱신
+        t_cell = self.m_tableView:getItem(g_masterRoadData:getFocusRoad() - 10000)
+        self:selectCell(t_cell['ui'], t_cell['data'])
+    end
+    g_masterRoadData:request_roadReward(self.m_currRid, cb_func)
+end
+
+-------------------------------------
+-- function click_questLinkBtn
+-------------------------------------
+function UI_MasterRoadPopup:click_questLinkBtn()
+    ccdisplay('구현 예정입니다')
 end
 
 -------------------------------------
@@ -190,6 +219,10 @@ function UI_MasterRoadPopup.makeCellUI(t_data)
 	vars['rewardNode']:removeAllChildren(true)
 	UI_MasterRoadPopup.makeRewardCard(vars['rewardNode'], t_data['t_reward'])
 
+    -- 보상 상태에 따른 버튼 처리
+    local reward_state = g_masterRoadData:getRewardState(rid)
+    vars['rewardNotiSprite']:setVisible(reward_state == 'has_reward')
+
 	return ui
 end
 
@@ -210,6 +243,22 @@ function UI_MasterRoadPopup:selectCell(ui, t_data)
 	-- 해당 셀 선택 표시
 	self.m_selectedSprite = ui.vars['selectSprite']
 	self.m_selectedSprite:setVisible(true)
+end
+
+-------------------------------------
+-- function refreshCell
+-- @brief 테이블 셀 선택 콜백
+-------------------------------------
+function UI_MasterRoadPopup:refreshCell(ui, t_data)
+    local vars = ui.vars
+    local rid = t_data['rid']
+
+	-- 진행중
+	vars['ingSprite']:setVisible(rid == g_masterRoadData:getFocusRoad())
+
+    -- 보상 상태에 따른 버튼 처리
+    local reward_state = g_masterRoadData:getRewardState(rid)
+    vars['rewardNotiSprite']:setVisible(reward_state == 'has_reward')
 end
 
 --@CHECK

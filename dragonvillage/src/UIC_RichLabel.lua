@@ -513,9 +513,11 @@ function UIC_RichLabel:getColor(color)
     COLOR['possible'] = cc.c3b(150, 255, 65)
     COLOR['impossible'] = cc.c3b(255, 44, 44)
 
-
-    COLOR['subject'] = cc.c3b(255, 44, 44)
-    COLOR['condition'] = cc.c3b(255, 44, 44)
+    -- 기능별 색상
+    COLOR['subject'] = COLOR['ROSE']
+    COLOR['condition'] = COLOR['ROSE']
+    COLOR['item_name'] = COLOR['DEEPSKYBLUE']
+    COLOR['count'] = COLOR['MUSTARD']
 
     return COLOR[color] or cc.c3b(255,255,255)
 end

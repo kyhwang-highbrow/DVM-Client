@@ -4,9 +4,10 @@ MailHelper = {}
 -- function getMailText
 -------------------------------------
 function MailHelper:getMailText(t_mail_data)
-	local t_template = TABLE:get('mail_template')
+	local table_template = TABLE:get('mail_template')
 	local mail_type = t_mail_data['mail_type']
-    
+    local t_template
+
     -- 예외 처리 구간
     do
 	    -- mail_type이 없다면 탈출
@@ -20,8 +21,8 @@ function MailHelper:getMailText(t_mail_data)
         end
 
 	    -- 테이블에 템플릿이 없다면 탈출
-        local template = t_template['t_content']
-	    if (not template) then
+        t_template = table_template[mail_type]
+	    if (not t_template) then
 		    return {title = mail_type, content = '정의 되지 않은 mail_type 입니다.'}
 	    end
     end
@@ -31,7 +32,7 @@ function MailHelper:getMailText(t_mail_data)
     -- value key에 맞는 value값들을 만든다.
 	local t_value = {}
 	for i = 1, 5 do
-        local value = t_broadcast['value' .. i]
+        local value = t_template['value_' .. i]
         if (not value or value == '' or value == 'x') then break end
          
         -- 아이템 이름
@@ -57,7 +58,7 @@ function MailHelper:getMailText(t_mail_data)
     end
 
 	local title = Str(t_template['t_title'])
-	local content = Str(template, t_value[1], t_value[2], t_value[3], t_value[4], t_value[5])
+	local content = Str(t_template['t_content'], t_value[1], t_value[2], t_value[3], t_value[4], t_value[5])
 
 	return {title = title, content = content}
 end

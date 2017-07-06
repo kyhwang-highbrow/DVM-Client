@@ -150,7 +150,7 @@ function UI_ObtainPopup:createListUI(t_data)
 
 	-- item label
 	local item_name = TableItem:getItemName(item_id)
-	local item_str = Str('{@DEEPSKYBLUE}{1} {@MUSTARD}{2}{@DESC}개를 획득했습니다.', item_name, item_cnt)
+	local item_str = Str('{@item_name}{1} {@count}{2}{@DESC}개를 획득했습니다.', item_name, item_cnt)
 	vars['countLabel']:setString(item_str)
 
 	return ui

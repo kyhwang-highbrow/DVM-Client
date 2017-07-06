@@ -210,7 +210,7 @@ end
 
 -------------------------------------
 -- function request_roadClear
--- @brief 전체 정보 받아오기
+-- @brief 클리어 요청
 -------------------------------------
 function ServerData_MasterRoad:request_roadClear(rid, finish_cb)
     -- 파라미터
@@ -238,7 +238,7 @@ end
 
 -------------------------------------
 -- function request_roadReward
--- @brief 전체 정보 받아오기
+-- @brief 보상 요청
 -------------------------------------
 function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
     -- 파라미터
