@@ -33,6 +33,7 @@ L_SPECIAL_STATUS_TYPE = {
     'recovery_power',   -- 받는 치유 효과 +{1}% 증가
     'reflex_normal',    -- 일반 데미지 +{1}% 반사
     'reflex_skill',     -- 스킬 데미지 +{2}% 반사
+    'pierce',           -- 방어력 관통 +{1}% 만큼 적의 방어력의 옵션 수치 %를 삭감.
 }
 
 -- 스텟 타입 체크를 위한 맵 생성
