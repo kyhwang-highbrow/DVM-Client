@@ -18,7 +18,7 @@ function StatusEffectUnit_Dot:init(name, owner, caster, skill_id, value, source,
     local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
 
     self.m_dotInterval = t_status_effect['dot_interval']
-	self.m_dotTimer = self.m_dotInterval
+	self.m_dotTimer = 0
 end
 
 -------------------------------------
