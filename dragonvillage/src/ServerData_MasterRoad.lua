@@ -41,9 +41,9 @@ function ServerData_MasterRoad:getFocusRoad()
 end
 
 -------------------------------------
--- function getFocusRoad
+-- function checkFocusRoadClear
 -------------------------------------
-function ServerData_MasterRoad:checkFocusRoadClear()
+function ServerData_MasterRoad:checkFocusRoadClear(t_data)
     local rid = self:getFocusRoad()
     local t_road = TableMasterRoad():get(rid)
     
@@ -53,67 +53,6 @@ function ServerData_MasterRoad:checkFocusRoadClear()
     local is_clear = self:checkClear(clear_type, clear_cond)
     return is_clear
 end
-
--------------------------------------
--- function getFocusRoad
--------------------------------------
-function ServerData_MasterRoad:checkClear(clear_type, clear_cond)
-    if (not clear_type) then
-        return false
-    end
-
-    if (clear_type == 'clr_stg') then
-        local stage_id = clear_cond
-        local stage_info = g_adventureData:getStageInfo(stage_id)
-        return (stage_info['clear_cnt'] > 0)
-
-    elseif (clear_type == 'ply_tower') then
-    elseif (clear_type == 'ply_ev') then
-    elseif (clear_type == 'ply_tree') then
-
-    elseif (clear_type == 'ply_nm') then
-    elseif (clear_type == 'ply_clsm') then
-    elseif (clear_type == 'r_eq') then
-    elseif (clear_type == 'r_enc') then
-    elseif (clear_type == 'd_lvup') then
-    elseif (clear_type == 'd_grup') then
-
-    elseif (clear_type == 'd_evup') then
-    
-    elseif (clear_type == 'd_sklvup') then
-    elseif (clear_type == 't_get') then
-
-    elseif (clear_type == 't_sklvup') then
-
-    elseif (clear_type == 'u_lv') then
-
-    elseif (clear_type == 'egg') then
-
-    elseif (clear_type == 'fruit') then
-
-    elseif (clear_type == 'make_frd') then
-
-    end
-
-    return false
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 -------------------------------------
 -- function getRewardState
@@ -168,11 +107,6 @@ function ServerData_MasterRoad:updateMasterRoad(cb_func)
     end
     return false
 end
-
-
-
-
-
 
 
 
@@ -269,3 +203,54 @@ function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+
+
+
+-------------------------------------
+-- function checkClear
+-------------------------------------
+function ServerData_MasterRoad:checkClear(clear_type, clear_cond)
+    if (not clear_type) then
+        return false
+    end
+
+    -- stage clear
+    if (clear_type == 'clr_stg') then
+        local stage_id = clear_cond
+        local stage_info = g_adventureData:getStageInfo(stage_id)
+        return (stage_info['clear_cnt'] > 0)
+
+    -- 고대의 탑 플레이
+    elseif (clear_type == 'ply_tower') then
+    
+    elseif (clear_type == 'ply_ev') then
+    elseif (clear_type == 'ply_tree') then
+
+    elseif (clear_type == 'ply_nm') then
+    elseif (clear_type == 'ply_clsm') then
+    elseif (clear_type == 'r_eq') then
+    elseif (clear_type == 'r_enc') then
+    elseif (clear_type == 'd_lvup') then
+    elseif (clear_type == 'd_grup') then
+
+    elseif (clear_type == 'd_evup') then
+    
+    elseif (clear_type == 'd_sklvup') then
+    elseif (clear_type == 't_get') then
+
+    elseif (clear_type == 't_sklvup') then
+
+    elseif (clear_type == 'u_lv') then
+
+    elseif (clear_type == 'egg') then
+
+    elseif (clear_type == 'fruit') then
+
+    elseif (clear_type == 'make_frd') then
+
+    end
+
+    return false
+end
+

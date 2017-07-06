@@ -48,7 +48,7 @@ end
 
 -------------------------------------
 -- function getSortedList
--- @brief mid¸¦ ±âÁØÀ¸·Î Á¤·ÄµÈ ¸®½ºÆ® ¹İÈ¯
+-- @brief midë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì •ë ¬ëœ ë¦¬ìŠ¤íŠ¸ ë°˜í™˜
 -------------------------------------
 function TableMasterRoad:getSortedList()
     if (self == THIS) then
@@ -68,7 +68,7 @@ end
 
 -------------------------------------
 -- function getLastRoad
--- @brief ¸¶Áö¸· road id¸¦ ¹İÈ¯
+-- @brief ë§ˆì§€ë§‰ road idë¥¼ ë°˜í™˜
 -------------------------------------
 function TableMasterRoad:getLastRoad()
     if (TableMasterRoad.last_road) then
@@ -80,7 +80,7 @@ end
 
 -------------------------------------
 -- function findLastRoad
--- @brief ¸¶Áö¸· road id¸¦ Ã£´Â´Ù. °­Á¦·Î °»½ÅÇÒ¶§µµ »ç¿ëÇÒ ¿¹Á¤
+-- @brief ë§ˆì§€ë§‰ road idë¥¼ ì°¾ëŠ”ë‹¤. ê°•ì œë¡œ ê°±ì‹ í• ë•Œë„ ì‚¬ìš©í•  ì˜ˆì •
 -------------------------------------
 function TableMasterRoad:findLastRoad()
     if (self == THIS) then
