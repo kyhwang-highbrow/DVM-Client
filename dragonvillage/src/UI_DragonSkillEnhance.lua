@@ -383,6 +383,10 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 		self.m_selectDragonData = mod_struct_dragon
 
 		self:refresh()
+
+        -- @ MASTER ROAD
+        local t_data = {road_key = 'd_sklvup'}
+        g_masterRoadData:updateMasterRoad(t_data)
     end
 
     local ui_network = UI_Network()

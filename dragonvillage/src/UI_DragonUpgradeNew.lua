@@ -478,11 +478,6 @@ function UI_DragonUpgradeNew:upgradeDirecting(doid, t_prev_dragon_data, t_next_d
         end
 
         -- UI 갱신
-        self:setCloseCB(function()
-            -- @ MASTER ROAD
-            local t_data = {road_key = 'd_lvup'}
-            g_masterRoadData:updateMasterRoad(t_data)
-        end)
         self:close()
     end
 

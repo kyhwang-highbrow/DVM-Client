@@ -249,11 +249,6 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
 
     -- stage clear
     if (clear_type == 'clr_stg') then
-        --[[
-        local stage_id = clear_cond
-        local stage_info = g_adventureData:getStageInfo(stage_id)
-        return (stage_info['clear_cnt'] > 0)
-        ]]
         local stage_id = t_data['stage_id']
         return (stage_id == clear_cond)
 
@@ -287,36 +282,25 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
         local rune_lv = clear_cond
         return (clear_type == t_data['road_key']) and (rune_lv <= t_data['road_value'])
 
-    --[[
-
     -- 유저 레벨 달성
     elseif (clear_type == 'u_lv') then
 
     -- 친구 n명 달성
     elseif (clear_type == 'make_frd') then
 
-    -- 드래곤 진화
-    elseif (clear_type == 'd_evup') then
-    
-    -- 드래곤 스킬 레벨 업
-    elseif (clear_type == 'd_sklvup') then
-
     -- 테이머 겟
     elseif (clear_type == 't_get') then
 
-    -- 테이머 스킬 레벨 업
-    elseif (clear_type == 't_sklvup') then
-    ]]
-
-    -- 룬 장착
-    -- 알 부화
-    -- 친밀도 과일 먹임
-    -- 드래곤 레벨업
-    -- 드래곤 등급업
-
     else
+        -- 드래곤 스킬 레벨 업 d_sklvup
+        -- 테이머 스킬 레벨 업 t_sklvup
+        -- 드래곤 진화 d_evup
+        -- 룬 장착 r_eq
+        -- 알 부화 egg
+        -- 친밀도 과일 먹임 fruit
+        -- 드래곤 레벨업 d_lvup
+        -- 드래곤 등급업 d_grup
         return (clear_type == t_data['road_key'])
 
     end
 end
-

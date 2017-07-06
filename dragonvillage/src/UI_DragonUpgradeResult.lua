@@ -67,6 +67,10 @@ function UI_DragonUpgradeResult:refresh(dragon_object)
         local function cb()
             self:doAction(nil, false)
 			SoundMgr:playEffect('UI', 'ui_grow_result')
+            
+            -- @ MASTER ROAD
+            local t_data = {road_key = 'd_grup'}
+            g_masterRoadData:updateMasterRoad(t_data)
 
             -- 등급 비주얼
             vars['starVisual']:setVisible(true)
