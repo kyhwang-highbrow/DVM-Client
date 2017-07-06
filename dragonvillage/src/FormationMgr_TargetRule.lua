@@ -83,8 +83,13 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 
 	elseif (type == 'buff') then		
 		return TargetRule_getTargetList_buff(org_list)
-	elseif (type == 'debuff') then		
-		return TargetRule_getTargetList_debuff(org_list)
+	elseif (pl.stringx.startswith(type, 'debuff')) then		
+		local t_debuff, t_not_debuff =  TargetRule_getTargetList_debuff(org_list, type)
+        if (pl.stringx.startswith(type, 'debuff_not')) then
+            return t_not_debuff
+        else
+            return t_debuff
+        end
 
 	else
         error("미구현 Target Rule!! : " .. type)
@@ -292,20 +297,20 @@ end
 -- function TargetRule_getTargetList_role
 -- @brief 해당 직업군의 리스트 반환
 -------------------------------------
-function TargetRule_getTargetList_role(org_list, role)
+function TargetRule_getTargetList_role(org_list, keyword)
 	-- 테이블을 복사한 후 무작위로 섞는다
 	local t_char = table.sortRandom(table.clone(org_list))
     local t_ret = {}
 
 	-- 직업군이 같은 아이들을 추출한다
     for i = #t_char, 1, -1 do
-		if (string.find(role, t_char[i]:getRole())) then
+		if (string.find(keyword, t_char[i]:getRole())) then
 			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
 		end
 	end
     
-    if(not pl.stringx.endswith(role, 'only')) then
+    if(not pl.stringx.endswith(keyword, 'only')) then
 	    -- 남은 애들도 다시 담는다.
 	    for i, char in pairs(t_char) do
 		    table.insert(t_ret, char)
@@ -319,7 +324,7 @@ end
 -- function TargetRule_getTargetList_attr
 -- @brief 해당 속성의 리스트 반환
 -------------------------------------
-function TargetRule_getTargetList_attr(org_list, attr)
+function TargetRule_getTargetList_attr(org_list, keyword)
 	-- 테이블을 복사한 후 무작위로 섞는다
 	local t_char = table.sortRandom(table.clone(org_list))
     local t_ret = {}
@@ -328,13 +333,13 @@ function TargetRule_getTargetList_attr(org_list, attr)
     -- index를 검사하는 와중에 remove를 하면 table의 전체 index가 바뀌기 때문에, 테이블 index를 역순으로 검사하여 
     -- 모든 구성요소들이 검사될 수 있도록 한다.
     for i = #t_char, 1, -1 do
-		if (string.find(attr, t_char[i]:getAttribute())) then
+		if (string.find(keyword, t_char[i]:getAttribute())) then
 			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
     	end
 	end
     
-    if (not pl.stringx.endswith(attr, 'only')) then
+    if (not pl.stringx.endswith(keyword, 'only')) then
 	    -- 남은 애들도 다시 담는다.
 	    for i, char in pairs(t_char) do
 		    table.insert(t_ret, char)
@@ -402,25 +407,33 @@ end
 -- function TargetRule_getTargetList_debuff 
 -- @brief 특정 상태효과에 따른 구분
 -------------------------------------
-function TargetRule_getTargetList_debuff(org_list)
+function TargetRule_getTargetList_debuff(org_list, keyword)
 	-- 테이블을 복사한 후 무작위로 섞는다
     local t_char = table.sortRandom(table.clone(org_list))
 	local t_ret = {}
-
+    local t_ret_not_harmful = {}
 	-- 버프
     for i = #t_char, 1, -1 do
 		if (t_char[i]:hasHarmfulStatusEffect()) then
 			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
-		end
+		else 
+            table.insert(t_ret_not_harmful, t_char[i])
+        end
 	end
 
-	-- 남은 애들도 다시 담는다.
-	for i, char in pairs(t_char) do
-		table.insert(t_ret, char)
-	end
+    if (not pl.stringx.endswith(keyword, 'only')) then
+        -- 남은 애들도 다시 담는다. (남은 애들 = 디버프 걸린)
+        for i, char in pairs(t_ret) do
+            table.insert(t_ret_not_harmful, char)
+        end
 
-    return t_ret
+	    -- 남은 애들도 다시 담는다. (남은 애들 = 디버프 안걸린)
+	    for i, char in pairs(t_char) do
+		    table.insert(t_ret, char)
+	    end
+    end
+    return t_ret, t_ret_not_harmful
 end
 
 ------------------------------------- 미사용 -------------------------------------
