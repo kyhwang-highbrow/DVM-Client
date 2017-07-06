@@ -13,7 +13,7 @@ UI_MasterRoadPopup_Link = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_MasterRoadPopup_Link:init()
-	local vars = self:load('master_road_popup.ui')
+	local vars = self:load('master_road_popup_link.ui')
 	UIManager:open(self, UIManager.POPUP)
 
 	-- backkey 지정

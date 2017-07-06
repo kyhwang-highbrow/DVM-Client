@@ -409,6 +409,10 @@ function UI_DragonLevelUp:click_levelupBtn()
             end
             ui:setCloseCB(close_cb)
         end
+
+        -- @ MASTER ROAD
+        local t_data = {road_key = 'd_lvup'}
+        g_masterRoadData:updateMasterRoad(t_data)
     end
 
     local uid = g_userData:get('uid')
