@@ -164,6 +164,10 @@ function ServerData_Runes:request_runeLevelup(owner_doid, roid, finish_cb, fail_
         else
             ret['lvup_success'] = false
         end
+        
+        -- @ MASTER ROAD
+        local t_data = {road_key = 'r_enc', road_value = ret['modified_rune']['lv']}
+        g_masterRoadData:updateMasterRoad(t_data)
 
         if finish_cb then
             finish_cb(ret)

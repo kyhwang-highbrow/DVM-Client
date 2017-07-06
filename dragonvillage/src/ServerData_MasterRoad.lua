@@ -58,9 +58,15 @@ function ServerData_MasterRoad:getDisplayRoad()
 end
 
 -------------------------------------
+-- function getRoadIdx
+-------------------------------------
+function ServerData_MasterRoad:getRoadIdx(rid)
+    return math_max(1, rid - 10000)
+end
+
+-------------------------------------
 -- function getRewardState
 -- @brief 해당 road의 보상 현황 리턴
-
 -------------------------------------
 function ServerData_MasterRoad:getRewardState(rid)
     local reward_state
@@ -124,7 +130,6 @@ end
 -- function checkFocusRoadClear
 -------------------------------------
 function ServerData_MasterRoad:checkFocusRoadClear(t_data)
-    ccdump(t_data)
     local rid = self:getFocusRoad()
     local t_road = TableMasterRoad():get(rid)
     
@@ -275,17 +280,16 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
 
     -- 룬 강화
     elseif (clear_type == 'r_enc') then
-        return (clear_type == t_data['road_key']) and (clear_value <= t_data['road_value'])
+        local rune_lv = clear_cond
+        return (clear_type == t_data['road_key']) and (rune_lv <= t_data['road_value'])
 
     --[[
-    -- 룬 장착
-    elseif (clear_type == 'r_eq') then
 
-    -- 드래곤 레벨업
-    elseif (clear_type == 'd_lvup') then
+    -- 유저 레벨 달성
+    elseif (clear_type == 'u_lv') then
 
-    -- 드래곤 등급업
-    elseif (clear_type == 'd_grup') then
+    -- 친구 n명 달성
+    elseif (clear_type == 'make_frd') then
 
     -- 드래곤 진화
     elseif (clear_type == 'd_evup') then
@@ -298,21 +302,17 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
 
     -- 테이머 스킬 레벨 업
     elseif (clear_type == 't_sklvup') then
-
-    -- 유저 레벨 달성
-    elseif (clear_type == 'u_lv') then
-
-    -- 알 부화
-    elseif (clear_type == 'egg') then
-
-    -- 친밀도 과일 먹임
-    elseif (clear_type == 'fruit') then
-
-    -- 친구 n명 달성
-    elseif (clear_type == 'make_frd') then
     ]]
+
+    -- 룬 장착
+    -- 알 부화
+    -- 친밀도 과일 먹임
+        -- 드래곤 레벨업
+        -- 드래곤 등급업
+
     else
         return (clear_type == t_data['road_key'])
+
     end
 
     return false

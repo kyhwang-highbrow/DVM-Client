@@ -33,6 +33,10 @@ function ServerData_Eggs:request_incubate(egg_id, cnt, finish_cb, fail_cb)
         -- 슬라임들 추가
         g_slimesData:applySlimeData_list(ret['added_slimes'])
 
+        -- @ MASTER ROAD
+        local t_data = {road_key = 'egg'}
+        g_masterRoadData:updateMasterRoad(t_data)
+
         if finish_cb then
             finish_cb(ret)
         end

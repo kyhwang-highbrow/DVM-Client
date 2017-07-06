@@ -29,6 +29,8 @@ function UI_MasterRoadPopup:init()
     -- 테이블 콜백으로 갱신하면 눈에 보이는 텀이 있어 최초에 호출함
     local t_road = TableMasterRoad():get(g_masterRoadData:getDisplayRoad())
 	self:refresh(t_road)
+
+    self:sceneFadeInAction()
 end
 
 -------------------------------------
@@ -152,11 +154,13 @@ function UI_MasterRoadPopup:click_rewardBtn()
         UI_ToastPopup(Str('보상이 우편함으로 수령되었습니다.'))
         
         -- 보상 받은 road의 셀 갱신 (보상 표시 제거)
-        local t_cell = self.m_tableView:getItem(self.m_currRid - 10000)
+        local curr_idx = g_masterRoadData:getRoadIdx(self.m_currRid)
+        local t_cell = self.m_tableView:getItem(curr_idx)
         self.refreshCell(t_cell['ui'], t_cell['data'])
         
         -- 다음 road로 UI 갱신
-        t_cell = self.m_tableView:getItem(g_masterRoadData:getFocusRoad() - 10000)
+        local next_idx = g_masterRoadData:getRoadIdx(g_masterRoadData:getFocusRoad())
+        t_cell = self.m_tableView:getItem(next_idx)
         self:selectCell(t_cell['ui'], t_cell['data'])
     end
     g_masterRoadData:request_roadReward(self.m_currRid, cb_func)
@@ -213,6 +217,10 @@ function UI_MasterRoadPopup:selectCell(ui, t_data)
 	-- 해당 셀 선택 표시
 	self.m_selectedSprite = ui.vars['selectSprite']
 	self.m_selectedSprite:setVisible(true)
+
+    -- 셀 중앙 이동
+    local road_idx = g_masterRoadData:getRoadIdx(t_data['rid'])
+    self.m_tableView:relocateContainerFromIndex(road_idx, true)
 end
 
 
@@ -229,7 +237,8 @@ function UI_MasterRoadPopup.makeCellUI(t_data)
 	local rid = t_data['rid']
 
 	-- 퀘스트 순번
-	vars['numLabel']:setString(rid - 10000)
+    local road_idx = g_masterRoadData:getRoadIdx(rid)
+	vars['numLabel']:setString(road_idx)
 
 	-- 스페셜 표시..?
 	vars['specialSprite']:setVisible(t_data['special'] == 1)
