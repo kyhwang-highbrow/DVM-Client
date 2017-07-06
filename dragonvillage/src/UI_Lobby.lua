@@ -256,9 +256,11 @@ function UI_Lobby:refresh_highlight()
 	-- 도감
 	vars['collectionNotiSprite']:setVisible(g_bookData:isHighlightBook())
 
-    -- 모험
+    -- 모험 핫타임 
     vars['adventureHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
-    
+
+    -- 마스터의 길
+    vars['masterRoadNotiSprite']:setVisible(g_masterRoadData:hasRewardRoad())
 end
 
 -------------------------------------
@@ -291,15 +293,18 @@ end
 -- function refresh_masterRoad
 -------------------------------------
 function UI_Lobby:refresh_masterRoad()
-    local vars = self.vars
+    local function cb_func()
+        -- 현재 목표 출력
+        local t_road = TableMasterRoad():get(g_masterRoadData:getFocusRoad())
+        local desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
+        self.vars['roadDescLabel']:setString(desc)
 
-    -- 현재 목표 출력
-    local t_road = TableMasterRoad():get(g_masterRoadData:getFocusRoad())
-    local desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
-    vars['roadDescLabel']:setString(desc)
-
-    -- 보상 수령 가능 시
-    -- refresh_highlight에 추가해야 할듯
+        -- 보상 수령 가능 시
+        -- refresh_highlight에 추가해야 할듯
+    end
+    if (not g_masterRoadData:updateMasterRoad(cb_func)) then
+        cb_func()
+    end
 end
 
 -------------------------------------

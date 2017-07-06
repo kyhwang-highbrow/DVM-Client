@@ -75,11 +75,12 @@ function UI_MasterRoadPopup:refresh(t_data)
 
     -- npc 일러스트
     local res = t_data['res']
-    local animator = MakeAnimator(res)
-    animator:changeAni('idle', true)
-
-	vars['npcNode']:removeAllChildren(true)
-    vars['npcNode']:addChild(animator.m_node)
+    if self:checkVarsKey('npcNode', res) then
+	    vars['npcNode']:removeAllChildren(true)
+        local animator = MakeAnimator(res)
+        animator:changeAni('idle', true)
+        vars['npcNode']:addChild(animator.m_node)
+    end
 
 	-- npc 이름
 	local npc_name = Str(t_data['t_name'])
@@ -96,6 +97,12 @@ function UI_MasterRoadPopup:refresh(t_data)
 	-- 보상 아이콘
 	vars['rewardNode']:removeAllChildren(true)
 	self.makeRewardCard(vars['rewardNode'], t_data['t_reward'])
+
+    -- 보상 상태에 따른 버튼 처리
+    local reward_state = g_masterRoadData:getRewardState(t_data['rid'])
+    vars['rewardBtn']:setVisible(reward_state == 'has_reward')
+    vars['completeSprite']:setVisible(reward_state == 'already_done')
+    vars['questLinkBtn']:setVisible(reward_state == 'not_yet')
 end
 
 -------------------------------------

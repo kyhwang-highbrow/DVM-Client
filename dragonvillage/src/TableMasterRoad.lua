@@ -91,7 +91,7 @@ function TableMasterRoad:findLastRoad()
     local t_master_road
     repeat
         rid = rid + 1
-        t_master_road = self:get(rid)
+        t_master_road = self:get(rid, 'skip_error_msg')
     until (t_master_road == nil)
 
     return rid - 1
