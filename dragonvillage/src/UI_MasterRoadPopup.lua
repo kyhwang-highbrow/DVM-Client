@@ -27,7 +27,7 @@ function UI_MasterRoadPopup:init()
 	self:initButton()
 
     -- 테이블 콜백으로 갱신하면 눈에 보이는 텀이 있어 최초에 호출함
-    local t_road = TableMasterRoad():get(g_masterRoadData:getFocusRoad())
+    local t_road = TableMasterRoad():get(g_masterRoadData:getDisplayRoad())
 	self:refresh(t_road)
 end
 
@@ -124,7 +124,7 @@ function UI_MasterRoadPopup:makeRoadTableView()
 		end)
 
 		-- 최초 선택
-		if (t_data['rid'] == g_masterRoadData:getFocusRoad()) then
+		if (t_data['rid'] == g_masterRoadData:getDisplayRoad()) then
 			self:selectCell(ui, t_data)
 		end
 	end
@@ -153,7 +153,7 @@ function UI_MasterRoadPopup:click_rewardBtn()
         
         -- 보상 받은 road의 셀 갱신 (보상 표시 제거)
         local t_cell = self.m_tableView:getItem(self.m_currRid - 10000)
-        self:refreshCell(t_cell['ui'], t_cell['data'])
+        self.refreshCell(t_cell['ui'], t_cell['data'])
         
         -- 다음 road로 UI 갱신
         t_cell = self.m_tableView:getItem(g_masterRoadData:getFocusRoad() - 10000)
@@ -197,36 +197,6 @@ function UI_MasterRoadPopup.makeRewardCard(reward_node, t_reward)
 end
 
 -------------------------------------
--- function makeCellUI
--- @static
--- @brief 테이블 셀 생성
--------------------------------------
-function UI_MasterRoadPopup.makeCellUI(t_data)
-	local ui = class(UI, ITableViewCell:getCloneTable())()
-	local vars = ui:load('master_road_item.ui')
-	local rid = t_data['rid']
-
-	-- 진행중
-	vars['ingSprite']:setVisible(rid == g_masterRoadData:getFocusRoad())
-
-	-- 퀘스트 순번
-	vars['numLabel']:setString(rid - 10000)
-
-	-- 스페셜 표시..?
-	vars['specialSprite']:setVisible(t_data['special'] == 1)
-
-	-- 보상 아이콘
-	vars['rewardNode']:removeAllChildren(true)
-	UI_MasterRoadPopup.makeRewardCard(vars['rewardNode'], t_data['t_reward'])
-
-    -- 보상 상태에 따른 버튼 처리
-    local reward_state = g_masterRoadData:getRewardState(rid)
-    vars['rewardNotiSprite']:setVisible(reward_state == 'has_reward')
-
-	return ui
-end
-
--------------------------------------
 -- function selectCell
 -- @brief 테이블 셀 선택 콜백
 -------------------------------------
@@ -245,11 +215,41 @@ function UI_MasterRoadPopup:selectCell(ui, t_data)
 	self.m_selectedSprite:setVisible(true)
 end
 
+
+
+
+-------------------------------------
+-- function makeCellUI
+-- @static
+-- @brief 테이블 셀 생성
+-------------------------------------
+function UI_MasterRoadPopup.makeCellUI(t_data)
+	local ui = class(UI, ITableViewCell:getCloneTable())()
+	local vars = ui:load('master_road_item.ui')
+	local rid = t_data['rid']
+
+	-- 퀘스트 순번
+	vars['numLabel']:setString(rid - 10000)
+
+	-- 스페셜 표시..?
+	vars['specialSprite']:setVisible(t_data['special'] == 1)
+
+	-- 보상 아이콘
+	vars['rewardNode']:removeAllChildren(true)
+	UI_MasterRoadPopup.makeRewardCard(vars['rewardNode'], t_data['t_reward'])
+    
+    -- 진행중 및 보상 표시
+    UI_MasterRoadPopup.refreshCell(ui, t_data)
+
+	return ui
+end
+
 -------------------------------------
 -- function refreshCell
--- @brief 테이블 셀 선택 콜백
+-- @static
+-- @brief 테이블 셀 갱신
 -------------------------------------
-function UI_MasterRoadPopup:refreshCell(ui, t_data)
+function UI_MasterRoadPopup.refreshCell(ui, t_data)
     local vars = ui.vars
     local rid = t_data['rid']
 

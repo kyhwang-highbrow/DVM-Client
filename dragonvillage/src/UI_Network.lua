@@ -139,8 +139,6 @@ function UI_Network.success(self, ret)
         return
     end
 
-    --if ret['status'] and ret['status']
-
     if self.m_successCB then
         self.m_successCB(ret)
     end

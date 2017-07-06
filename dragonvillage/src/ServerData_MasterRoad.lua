@@ -28,10 +28,14 @@ function ServerData_MasterRoad:applyInfo(ret)
     if (ret['focus_road']) then
         self.m_focusRoad = ret['focus_road']
     end
+   
+    -- 외부에서 정보 갱신 필요할 경우 사용
+    g_masterRoadData.m_bDirtyMasterRoad = true
 end
 
 -------------------------------------
 -- function getFocusRoad
+-- @brief 현재 진행중인 퀘스트
 -------------------------------------
 function ServerData_MasterRoad:getFocusRoad()
     local road = self.m_focusRoad
@@ -41,17 +45,16 @@ function ServerData_MasterRoad:getFocusRoad()
 end
 
 -------------------------------------
--- function checkFocusRoadClear
+-- function getDisplayRoad
+-- @brief 보상 여부에 따라 바뀌는 UI 노출위한 road 반환
 -------------------------------------
-function ServerData_MasterRoad:checkFocusRoadClear(t_data)
-    local rid = self:getFocusRoad()
-    local t_road = TableMasterRoad():get(rid)
-    
-    local clear_type = t_road['clear_type']
-    local clear_cond = t_road['clear_value']
-
-    local is_clear = self:checkClear(clear_type, clear_cond)
-    return is_clear
+function ServerData_MasterRoad:getDisplayRoad()
+    local has_reward, rid = self:hasRewardRoad()
+    if (has_reward) then
+        return rid
+    else
+        return self:getFocusRoad()
+    end
 end
 
 -------------------------------------
@@ -87,25 +90,49 @@ end
 -- @brief 보상 여부 판별
 -------------------------------------
 function ServerData_MasterRoad:hasRewardRoad()
+    local last_rid = 0
     for rid, is_reward in pairs(self.m_tRewardInfo) do
         if (is_reward == 1) then
-            return true
+            rid = tonumber(rid)
+            if (rid > last_rid) then
+                last_rid = rid
+            end
         end
     end
-    return false
+
+    -- 위의 계산을 통해서 last_rid가 0이라면 보상이 하나도 없는 것을 알 수 있다.
+    return (last_rid ~= 0), last_rid
 end
 
 -------------------------------------
 -- function updateMasterRoad
 -- @brief 매프레임 도는 것이 아님
 -------------------------------------
-function ServerData_MasterRoad:updateMasterRoad(cb_func)
+function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
     -- 클리어 체크
-    if (self:checkFocusRoadClear()) then
-        self:request_roadClear(self.m_focusRoad, cb_func)
+    if (self:checkFocusRoadClear(t_data)) then
+        local function open_ui()
+            UI_MasterRoadPopup()
+        end
+        self:request_roadClear(self.m_focusRoad, open_ui)
         return true
     end
     return false
+end
+
+-------------------------------------
+-- function checkFocusRoadClear
+-------------------------------------
+function ServerData_MasterRoad:checkFocusRoadClear(t_data)
+    ccdump(t_data)
+    local rid = self:getFocusRoad()
+    local t_road = TableMasterRoad():get(rid)
+    
+    local clear_type = t_road['clear_type']
+    local clear_cond = t_road['clear_value']
+    ccdump({t_road, t_data})
+    local is_clear = self:checkClear(clear_type, clear_cond, t_data)
+    return is_clear
 end
 
 
@@ -210,7 +237,7 @@ end
 -------------------------------------
 -- function checkClear
 -------------------------------------
-function ServerData_MasterRoad:checkClear(clear_type, clear_cond)
+function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
     if (not clear_type) then
         return false
     end
@@ -223,32 +250,69 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond)
 
     -- 고대의 탑 플레이
     elseif (clear_type == 'ply_tower') then
-    
-    elseif (clear_type == 'ply_ev') then
-    elseif (clear_type == 'ply_tree') then
+        local game_mode = t_data['game_mode']
+        return (game_mode == GAME_MODE_ANCIENT_TOWER)
 
-    elseif (clear_type == 'ply_nm') then
+    -- 콜로세움 플레이
     elseif (clear_type == 'ply_clsm') then
-    elseif (clear_type == 'r_eq') then
+        local game_mode = t_data['game_mode']
+        return (game_mode == GAME_MODE_COLOSSEUM)
+
+    -- 공통 진화 던전 플레이
+    elseif (clear_type == 'ply_ev') then
+        local dungeon_mode = t_data['dungeon_mode']
+        return (game_mode == NEST_DUNGEON_EVO_STONE)
+
+    -- 거목 던전 플레이
+    elseif (clear_type == 'ply_tree') then
+        local dungeon_mode = t_data['dungeon_mode']
+        return (game_mode == NEST_DUNGEON_TREE)
+
+    -- 악몽 던전 플레이
+    elseif (clear_type == 'ply_nm') then
+        local dungeon_mode = t_data['dungeon_mode']
+        return (game_mode == NEST_DUNGEON_NIGHTMARE)
+
+    -- 룬 강화
     elseif (clear_type == 'r_enc') then
+        return (clear_type == t_data['road_key']) and (clear_value <= t_data['road_value'])
+
+    --[[
+    -- 룬 장착
+    elseif (clear_type == 'r_eq') then
+
+    -- 드래곤 레벨업
     elseif (clear_type == 'd_lvup') then
+
+    -- 드래곤 등급업
     elseif (clear_type == 'd_grup') then
 
+    -- 드래곤 진화
     elseif (clear_type == 'd_evup') then
     
+    -- 드래곤 스킬 레벨 업
     elseif (clear_type == 'd_sklvup') then
+
+    -- 테이머 겟
     elseif (clear_type == 't_get') then
 
+    -- 테이머 스킬 레벨 업
     elseif (clear_type == 't_sklvup') then
 
+    -- 유저 레벨 달성
     elseif (clear_type == 'u_lv') then
 
+    -- 알 부화
     elseif (clear_type == 'egg') then
 
+    -- 친밀도 과일 먹임
     elseif (clear_type == 'fruit') then
 
+    -- 친구 n명 달성
     elseif (clear_type == 'make_frd') then
-
+    ]]
+    else
+        return (clear_type == t_data['road_key'])
     end
 
     return false

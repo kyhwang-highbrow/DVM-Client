@@ -81,6 +81,10 @@ function ServerData_Runes:request_runesEquip(doid, roid, finish_cb, fail_cb)
             g_dragonsData:applyDragonData(ret['dragon'])
         end
 
+        -- @ MASTER ROAD
+        local t_data = {road_key = 'r_eq'}
+        g_masterRoadData:updateMasterRoad(t_data)
+
         if finish_cb then
             finish_cb(ret)
         end

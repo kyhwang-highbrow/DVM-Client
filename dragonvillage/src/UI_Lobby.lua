@@ -5,7 +5,9 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -------------------------------------
 UI_Lobby = class(PARENT,{
         m_infoBoard = 'UI_NotificationInfo',
-        m_hilightTimeStamp = '',
+        m_hilightTimeStamp = 'time',
+        m_masterRoadTimeStamp = 'time',
+
         m_lobbyWorldAdapter = 'LobbyWorldAdapter',
     })
 
@@ -216,12 +218,8 @@ end
 -- function refresh
 -------------------------------------
 function UI_Lobby:refresh()
-
     -- 유저 정보 갱신
     self:refresh_userInfo()
-
-    -- 마스터의 길 정보 갱신
-    self:refresh_masterRoad()
 end
 
 -------------------------------------
@@ -260,7 +258,8 @@ function UI_Lobby:refresh_highlight()
     vars['adventureHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
 
     -- 마스터의 길
-    vars['masterRoadNotiSprite']:setVisible(g_masterRoadData:hasRewardRoad())
+    local has_reward, _ = g_masterRoadData:hasRewardRoad()
+    vars['masterRoadNotiSprite']:setVisible(has_reward)
 end
 
 -------------------------------------
@@ -293,18 +292,10 @@ end
 -- function refresh_masterRoad
 -------------------------------------
 function UI_Lobby:refresh_masterRoad()
-    local function cb_func()
-        -- 현재 목표 출력
-        local t_road = TableMasterRoad():get(g_masterRoadData:getFocusRoad())
-        local desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
-        self.vars['roadDescLabel']:setString(desc)
-
-        -- 보상 수령 가능 시
-        -- refresh_highlight에 추가해야 할듯
-    end
-    if (not g_masterRoadData:updateMasterRoad(cb_func)) then
-        cb_func()
-    end
+    -- 현재 목표 출력
+    local t_road = TableMasterRoad():get(g_masterRoadData:getFocusRoad())
+    local desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
+    self.vars['roadDescLabel']:setString(desc)
 end
 
 -------------------------------------
@@ -390,7 +381,10 @@ end
 -- @brief 마스터의 길 버튼
 -------------------------------------
 function UI_Lobby:click_masterRoadBtn()
-    UI_MasterRoadPopup()
+    UI_MasterRoadPopup():setCloseCB(function()
+        -- 노티 정보를 갱신하기 위해서 호출
+        g_highlightData:setLastUpdateTime()
+    end)
 end
 
 -------------------------------------
@@ -531,7 +525,8 @@ end
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
 	UI_Book():setCloseCB(function()
-		self:refresh_highlight()
+		-- 노티 정보를 갱신하기 위해서 호출
+        g_highlightData:setLastUpdateTime()
 	end)
 end
 
@@ -572,9 +567,16 @@ end
 -- @brief
 -------------------------------------
 function UI_Lobby:update(dt)
+    -- noti 갱신
     if (g_highlightData.m_lastUpdateTime ~= self.m_hilightTimeStamp) then
         self.m_hilightTimeStamp = g_highlightData.m_lastUpdateTime
         self:refresh_highlight()
+    end
+    
+    -- 마스터의 길 정보 갱신
+    if (g_masterRoadData.m_bDirtyMasterRoad) then
+        g_masterRoadData.m_bDirtyMasterRoad = false
+        self:refresh_masterRoad()
     end
 end
 

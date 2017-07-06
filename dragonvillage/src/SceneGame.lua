@@ -8,7 +8,9 @@ SceneGame = class(PerpleScene, {
         m_stageID = '',
         m_stageParam = '',              -- 스테이지 정보 관련한 추가 파라미터(비밀던전에서 던전 고유 아이디)
 
-        m_gameMode = 'GAME_MODE_CONSTANT',
+        m_gameMode = 'GAME_MODE',
+        m_dungeonMode = 'NEST_DUNGEON_MODE',
+
         m_scheduleNode = 'cc.Node',
         m_gameWorld = 'GameWorld',
 
@@ -73,6 +75,10 @@ function SceneGame:init_gameMode(stage_id)
         self.m_gameMode = GAME_MODE_ADVENTURE
     else
         self.m_gameMode = g_stageData:getGameMode(self.m_stageID)
+        if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+            local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
+            self.m_dungeonMode = t_dungeon['dungeon_mode']
+        end
     end
 end
 
@@ -85,19 +91,17 @@ function SceneGame:init_loadingGuideType()
 		self.m_loadingGuideType = 'in_adventure'
 
 	elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
-		local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
-        local dungeon_mode = t_dungeon['dungeon_mode']
-
-		if (dungeon_mode == NEST_DUNGEON_EVO_STONE) then
+		if (self.m_dungeonMode == NEST_DUNGEON_EVO_STONE) then
 			self.m_loadingGuideType = 'in_nest_es' -- in nest evolution stone
 
-		elseif (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
+		elseif (self.m_dungeonMode == NEST_DUNGEON_NIGHTMARE) then
 			self.m_loadingGuideType = 'in_nest_nm'
 
-		elseif (dungeon_mode == NEST_DUNGEON_TREE) then
+		elseif (self.m_dungeonMode == NEST_DUNGEON_TREE) then
 			self.m_loadingGuideType = 'in_nest_tr'
 
-		elseif (dungeon_mode == NEST_DUNGEON_GOLD) then
+        -- @ TODO 골드 던전 삭제
+		elseif (self.m_dungeonMode == NEST_DUNGEON_GOLD) then
 			self.m_loadingGuideType = 'in_nest_go'
 		end
 
@@ -454,6 +458,10 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
 
     local function success_cb(ret)
         self:networkGameFinish_response(ret, t_result_ref)
+
+        -- @ MASTER ROAD
+        local t_data = {game_mode = self.m_gameMode, dungeon_mode = self.m_dungeonMode}
+        g_masterRoadData:updateMasterRoad(t_data)
 
         if next_func then
             next_func()
