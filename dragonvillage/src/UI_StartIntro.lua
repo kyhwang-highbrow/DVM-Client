@@ -53,7 +53,7 @@ function UI_StartIntro:playIntro()
 
     local play_func
     play_func = function(idx)
-        if (idx == #l_play) then self:finish() return end
+        if (l_play[idx] == 'scene_4_idle') then self:finish() return end
 
         intro:changeAni(l_play[idx], false)
         intro:addAniHandler(function() play_func(idx + 1) end)
