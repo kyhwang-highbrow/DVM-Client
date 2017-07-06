@@ -459,10 +459,6 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     local function success_cb(ret)
         self:networkGameFinish_response(ret, t_result_ref)
 
-        -- @ MASTER ROAD
-        local t_data = {game_mode = self.m_gameMode, dungeon_mode = self.m_dungeonMode}
-        g_masterRoadData:updateMasterRoad(t_data)
-
         if next_func then
             next_func()
         end

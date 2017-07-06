@@ -154,8 +154,7 @@ function UI_GameResultNew:setWorkList()
     table.insert(self.m_lWorkList, 'direction_dropItem')
     table.insert(self.m_lWorkList, 'direction_secretDungeon')
     table.insert(self.m_lWorkList, 'direction_showButton')
-    
-    
+    table.insert(self.m_lWorkList, 'direction_masterRoad')
 end
 
 -------------------------------------
@@ -451,6 +450,7 @@ function UI_GameResultNew:direction_showButton()
     vars['quickBtn']:setVisible(true)
 
     self:checkAutoPlay()
+    self:doNextWork()
 end
 
 -------------------------------------
@@ -459,6 +459,14 @@ end
 function UI_GameResultNew:direction_showButton_click()
 end
 
+-------------------------------------
+-- function direction_masterRoad
+-------------------------------------
+function UI_GameResultNew:direction_masterRoad()
+    -- @ MASTER ROAD
+    local t_data = {game_mode = g_gameScene.m_gameMode, stage_id = self.m_stageID, dungeon_mode = g_gameScene.m_dungeonMode}
+    g_masterRoadData:updateMasterRoad(t_data)
+end
 
 -------------------------------------
 -- function addLevelUpDirector

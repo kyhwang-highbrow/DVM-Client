@@ -455,7 +455,8 @@ function UI_DragonUpgradeNew:upgradeDirecting(doid, t_prev_dragon_data, t_next_d
     local directing_animation
     local directing_result
 
-    -- 에니메이션 연출
+    -- 에니메이션 연출 : 제외된 상태
+    --[[
     directing_animation = function()
         local vars = self.vars
 
@@ -465,6 +466,7 @@ function UI_DragonUpgradeNew:upgradeDirecting(doid, t_prev_dragon_data, t_next_d
         self.vars['upgradeVisual']:addAniHandler(directing_result)
         SoundMgr:playEffect('EFFECT', 'exp_gauge')
     end
+    ]]
 
     -- 결과 연출
     directing_result = function()
@@ -476,12 +478,14 @@ function UI_DragonUpgradeNew:upgradeDirecting(doid, t_prev_dragon_data, t_next_d
         end
 
         -- UI 갱신
-        --self:setSelectDragonDataRefresh()
-        --self:refresh_dragonIndivisual(doid)
+        self:setCloseCB(function()
+            -- @ MASTER ROAD
+            local t_data = {road_key = 'd_lvup'}
+            g_masterRoadData:updateMasterRoad(t_data)
+        end)
         self:close()
     end
 
-    --directing_animation()
     directing_result()
 end
 

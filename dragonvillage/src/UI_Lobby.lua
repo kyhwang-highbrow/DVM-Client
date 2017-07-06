@@ -220,6 +220,9 @@ end
 function UI_Lobby:refresh()
     -- 유저 정보 갱신
     self:refresh_userInfo()
+
+    -- 마스터의 길 정보 갱신
+    self:refresh_masterRoad()
 end
 
 -------------------------------------

@@ -249,9 +249,13 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
 
     -- stage clear
     if (clear_type == 'clr_stg') then
+        --[[
         local stage_id = clear_cond
         local stage_info = g_adventureData:getStageInfo(stage_id)
         return (stage_info['clear_cnt'] > 0)
+        ]]
+        local stage_id = t_data['stage_id']
+        return (stage_id == clear_cond)
 
     -- 고대의 탑 플레이
     elseif (clear_type == 'ply_tower') then
@@ -266,17 +270,17 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
     -- 공통 진화 던전 플레이
     elseif (clear_type == 'ply_ev') then
         local dungeon_mode = t_data['dungeon_mode']
-        return (game_mode == NEST_DUNGEON_EVO_STONE)
+        return (dungeon_mode == NEST_DUNGEON_EVO_STONE)
 
     -- 거목 던전 플레이
     elseif (clear_type == 'ply_tree') then
         local dungeon_mode = t_data['dungeon_mode']
-        return (game_mode == NEST_DUNGEON_TREE)
+        return (dungeon_mode == NEST_DUNGEON_TREE)
 
     -- 악몽 던전 플레이
     elseif (clear_type == 'ply_nm') then
         local dungeon_mode = t_data['dungeon_mode']
-        return (game_mode == NEST_DUNGEON_NIGHTMARE)
+        return (dungeon_mode == NEST_DUNGEON_NIGHTMARE)
 
     -- 룬 강화
     elseif (clear_type == 'r_enc') then
@@ -307,14 +311,12 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
     -- 룬 장착
     -- 알 부화
     -- 친밀도 과일 먹임
-        -- 드래곤 레벨업
-        -- 드래곤 등급업
+    -- 드래곤 레벨업
+    -- 드래곤 등급업
 
     else
         return (clear_type == t_data['road_key'])
 
     end
-
-    return false
 end
 
