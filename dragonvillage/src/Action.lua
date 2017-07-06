@@ -290,3 +290,26 @@ function cca.fadeOutAndRemoveChild(node, duration)
 
 	cca.runAction(node, cc.Sequence:create(fadeout, callback))
 end
+
+-------------------------------------
+-- function stampShakeAction
+-------------------------------------
+function cca.stampShakeAction(node, appear_sacle, appear_duration, updown_scale, angle)
+    local appear_sacle = appear_sacle or 5
+    local appear_duration = appear_duration or 0.3
+    local updown_scale = updown_scale or 0.05
+    local angle = angle or 360 * 2
+
+    node:setScale(appear_sacle)
+    node:setOpacity(0)
+
+    local act1 = cc.FadeIn:create(appear_duration)
+    local act2 = cc.ScaleTo:create(appear_duration, 1 - updown_scale)
+    local rotate = cc.RotateTo:create(appear_duration, angle)
+    local act3 = cc.Spawn:create(act1, act2, rotate)
+    local act4 = cc.ScaleTo:create(0.1, 1 + updown_scale)
+    local act5 = cc.ScaleTo:create(0.1, 1)
+    local action = cc.Sequence:create(act3, act4, act5)
+
+    cca.runAction(node, action)
+end

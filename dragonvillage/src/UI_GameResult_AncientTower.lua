@@ -18,9 +18,12 @@ UI_GameResult_AncientTower = class(PARENT, {
 function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, score_calc)
     local vars = self.vars
     self.m_ancientScoreCalc = score_calc
-
+    
     vars['againBtn']:setVisible(false)
     vars['quickBtn']:setVisible(false)
+
+    self.root:stopAllActions()
+    self:setSuccessVisual_Ancient()
 
     -- 성공시에만 스코어 연출
     if (is_success) then
@@ -222,15 +225,6 @@ end
 -------------------------------------
 function UI_GameResult_AncientTower:click_nextBtn()
     g_ancientTowerData:goToAncientTowerScene()
-end
-
--------------------------------------
--- function direction_start
--- @brief 시작 연출 멈춤
--------------------------------------
-function UI_GameResult_AncientTower:direction_start()
-    self:setSuccessVisual_Ancient()
-    return
 end
 
 -------------------------------------

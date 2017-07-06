@@ -495,9 +495,15 @@ end
 function UI_GameResultNew:initTamer()
     local t_levelup_data = self.m_tTamerLevelupData
     local vars = self.vars
-    vars['userExpLabel']:setString(Str('경험치 +{1}', t_levelup_data['prev_exp']))
-    vars['userLvLabel']:setString(Str('레벨{1}', t_levelup_data['prev_lv']))
-    vars['userExpGg']:setPercentage(t_levelup_data['prev_exp'] / t_levelup_data['prev_lv'] * 100)
+
+    local prev_lv = t_levelup_data['prev_lv']
+    local prev_exp = t_levelup_data['prev_exp']
+    local curr_lv = t_levelup_data['curr_lv']
+    local curr_exp = t_levelup_data['curr_exp']
+
+    vars['userExpLabel']:setString(Str('경험치 +{1}', prev_exp))
+    vars['userLvLabel']:setString(Str('레벨{1}', prev_lv))
+    vars['userExpGg']:setPercentage(prev_exp / prev_lv * 100)
 
     local lv_label      = vars['userLvLabel']
     local exp_label     = vars['userExpLabel']
@@ -505,17 +511,20 @@ function UI_GameResultNew:initTamer()
     local exp_gauge     = vars['userExpGg']
     local level_up_vrp  = vars['userLvUpVisual']
     local levelup_director = LevelupDirector_GameResult(lv_label, exp_label, max_icon, exp_gauge, level_up_vrp)
-    
-    levelup_director.m_cbFirstLevelup = function()
-        -- 레벨업 연출 보여줌
+
+    local is_level_up = (prev_lv ~= curr_lv) and true or false
+
+    -- 테이머 레벨업 연출 
+    if (is_level_up) then
+        levelup_director.m_cbAniFinish = function()
+            self.root:stopAllActions()
+             
+            local ui = UI_UserLevelUp(t_levelup_data)
+            ui:setCloseCB(function() self:doNextWork() end)
+        end
     end
 
-    local src_lv        = t_levelup_data['prev_lv']
-    local src_exp       = t_levelup_data['prev_exp']
-    local dest_lv       = t_levelup_data['curr_lv']
-    local dest_exp      = t_levelup_data['curr_exp']
-    local type          = 'tamer'
-    levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type)
+    levelup_director:initLevelupDirector(prev_lv, prev_exp, curr_lv, curr_exp, 'tamer')
     self:addLevelUpDirector(levelup_director)
 end
 
@@ -612,9 +621,6 @@ function UI_GameResultNew:sortDragonNode(dragon_cnt)
         end
     end
 end
-
-
-
 
 -------------------------------------
 -- function click_backBtn

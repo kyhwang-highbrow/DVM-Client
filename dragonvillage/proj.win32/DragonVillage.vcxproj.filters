@@ -2418,6 +2418,9 @@
     <None Include="..\src\UI_EventPopupTab_AccessTime.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_UserLevelUp.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

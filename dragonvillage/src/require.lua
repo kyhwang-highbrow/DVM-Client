@@ -594,6 +594,7 @@ local t_module = {
 	'UI_FormationListItem',
 	'UI_FormationEnhance',
     'UI_UserInfoMini',
+    'UI_UserLevelUp',
 
 	-- UI : 상점 관련
 	'UI_Shop',

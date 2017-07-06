@@ -11,6 +11,7 @@ LevelupDirector_GameResult = class({
         m_levelupDirector = 'LevelupDirector',
 
         m_cbFirstLevelup = 'function',
+        m_cbAniFinish = 'function',
     })
 
 -------------------------------------
@@ -91,9 +92,17 @@ function LevelupDirector_GameResult:start(duration)
     end
 
     local tween_action = cc.ActionTweenForLua:create(duration, from, to, tween_cb)
+    local callback = cc.CallFunc:create(function()
+		if (self.m_cbAniFinish) then
+            self.m_cbAniFinish()
+            self.m_cbAniFinish = nil
+        end
+	end)
+
+    local action = cc.Sequence:create(tween_action, callback)
 
     self.m_lvLabel:stopAllActions()
-    self.m_lvLabel:runAction(tween_action)
+    self.m_lvLabel:runAction(action)
 end
 
 -------------------------------------
