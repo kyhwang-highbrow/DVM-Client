@@ -7,6 +7,7 @@ StatusEffectUnit = class({
         m_owner = 'Character',		-- 대상자
 		m_caster = 'Character',		-- 시전자
         m_skillId = 'number',       -- 스킬 아이디(스킬로 부여된 경우)
+        m_bLeaderSkill = 'booleab', -- 해당 상태효과가 리더 스킬인지 여부
 
         m_value = 'number',         -- 적용값
         m_source = 'string',        -- 적용스텟
@@ -31,6 +32,7 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
     self.m_owner = owner
     self.m_caster = caster
     self.m_skillId = skill_id
+    self.m_bLeaderSkill = false
 
     self.m_value = value
 
@@ -42,6 +44,14 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
     self.m_bApply = false
 
     self.m_tParam = {}
+
+    -- 리더 스킬의 상태효과 인지 여부 확인(리더스킬의 경우 시전자가 죽어도 삭제시키지 않기 위함)
+    do
+        local leader_skill_id = self.m_caster:getSkillID('leader')
+        if (leader_skill_id ~= 0 and leader_skill_id == self.m_skillId) then
+            self.m_bLeaderSkill = true
+        end
+    end
 end
 
 -------------------------------------
@@ -49,7 +59,21 @@ end
 -- @param modified_dt 디법 지속시간 스텟을 적용한 dt
 -------------------------------------
 function StatusEffectUnit:update(dt, modified_dt)
-    if (self.m_duration ~= -1) then
+    if (self.m_duration == -1) then
+        -- 리더 스킬이 아닌 경우
+        if (not self.m_bLeaderSkill) then
+            -- 시전자가 죽었는지 체크
+            if (self.m_caster and self.m_caster.m_bDead) then
+                return true
+            end
+        end
+    else
+        -- 대상자가 죽었는지 체크
+        if (self.m_owner and self.m_owner.m_bDead) then
+            return true
+        end
+
+        -- 유지 시간 체크
         self.m_durationTimer = (self.m_durationTimer - modified_dt)
 
         if (self.m_durationTimer <= 0) then

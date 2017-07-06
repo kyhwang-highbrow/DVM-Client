@@ -171,7 +171,7 @@ function StatusEffect.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
     end
 
-    if (owner.m_owner.m_bDead or owner.m_overlabCnt <= 0) then
+    if (owner.m_overlabCnt <= 0) then
         owner:changeState('end')
     end
 end
@@ -278,7 +278,7 @@ end
 -- function updateLatestTimer
 -------------------------------------
 function StatusEffect:updateLatestTimer(dt)
-    if (self.m_bInfinity) then return end
+    if (self:isInfinity()) then return end
 
     self.m_latestTimer = self.m_latestTimer - dt
 end

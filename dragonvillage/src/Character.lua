@@ -732,9 +732,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             local b = false
 
             if (attack_type == 'active') then
-                if (self.m_hp <= 0) then b = true end
+                b = (self.m_hp <= 0)
             else
-                if (self.m_bDead) then b = true end
+                b = self.m_bDead
 		    end
 
             if (b) then
@@ -2452,7 +2452,11 @@ function Character:printAllInfomation()
     cclog('CURR_STATE = ' .. self.m_state)
     cclog('## STATUS EFFECT LIST ##')
     for type, se in pairs(self:getStatusEffectList()) do
-		cclog('- ' .. type, se.m_state, se.m_overlabCnt, luadump(se.m_bApply))
+		cclog('- ' .. type, se.m_overlabCnt, se.m_state, luadump(se.m_bApply))
+	end
+    cclog('## HIDDEN STATUS EFFECT LIST ##')
+    for type, se in pairs(self:getHiddenStatusEffectList()) do
+		cclog('- ' .. type, se.m_overlabCnt, se.m_state, luadump(se.m_bApply))
 	end
 	cclog('## STAT LIST ##')
 	self.m_statusCalc:printAllStat()
