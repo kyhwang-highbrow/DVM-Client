@@ -33,7 +33,7 @@
             <key>dragon_evolution_result_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1488,1120},{50,52}}</string>
+                <string>{{1542,1120},{50,52}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>dragon_evolution_result_light_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1542,1120},{48,48}}</string>
+                <string>{{1542,1172},{48,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,13 +59,13 @@
             <key>dragon_evolution_result_light_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1542,1170},{40,280}}</string>
+                <string>{{1488,1120},{52,284}}</string>
                 <key>offset</key>
-                <string>{0,-2}</string>
+                <string>{-6,-8}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{130,12},{40,280}}</string>
+                <string>{{118,16},{52,284}}</string>
                 <key>sourceSize</key>
                 <string>{300,300}</string>
             </dict>
@@ -105,7 +105,7 @@
             <key>size</key>
             <string>{1604,1922}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:29f9344e7e28563048ba5800db16f5f6:1e1633980d57464012003f3e9cbf515f:49455d9719a4d6faecb47bf8d7f44450$</string>
+            <string>$TexturePacker:SmartUpdate:302f0e39bbe701098086dcc016fb7d44:8970f6cc7d99527e5c3f89e1db85ca98:49455d9719a4d6faecb47bf8d7f44450$</string>
             <key>textureFileName</key>
             <string>dragon_evolution_result.png</string>
         </dict>

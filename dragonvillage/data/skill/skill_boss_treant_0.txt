@@ -41,6 +41,7 @@
 				"accel_delay":0,
 				"angular_velocity":0,
 				"is_abs_pos":false,
+				"bFixedAttack":true,
 				"offset":['target',700],
 				"dir_array":[90],
 				"dir_add":0,
