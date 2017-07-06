@@ -240,9 +240,17 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
         local dungeonMode = t_dungeon['dungeon_mode']
+        local detail_mode = t_dungeon['detail_mode']
 
+        -- "진화 재료 던전"
         if (dungeonMode == NEST_DUNGEON_EVO_STONE) then
-            self.m_gameState = GameState_NestDungeon_Dragon(self)
+            -- "보석 던전"
+            if (detail_mode == 0) then
+                self.m_gameState = GameState_NestDungeon_Jewel(self)
+            -- "거대용 던전"
+            else
+                self.m_gameState = GameState_NestDungeon_Dragon(self)
+            end
 
 		elseif (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
 		    self.m_gameState = GameState_NestDungeon_Nightmare(self)
