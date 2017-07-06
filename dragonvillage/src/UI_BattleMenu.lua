@@ -59,6 +59,21 @@ function UI_BattleMenu:initButton()
     local vars = self.vars
     vars['colosseumBtn']:registerScriptTapHandler(function() self:click_colosseumBtn() end)
     vars['towerBtn']:registerScriptTapHandler(function() self:click_towerBtn() end)
+
+    -- 콜로세움 잠금 처리
+    local is_content_lock, req_user_lv = g_contentLockData:isContentLock('colosseum')
+    if (is_content_lock == true) then
+        local ui = UI_ContentLock:create(req_user_lv)
+        vars['colosseumBtn']:addChild(ui.root)
+    end
+
+    -- 고대의 탑 잠금 처리
+    local is_content_lock, req_user_lv = g_contentLockData:isContentLock('ancient')
+    if (is_content_lock == true) then
+        local ui = UI_ContentLock:create(req_user_lv)
+        vars['towerBtn']:addChild(ui.root)
+    end
+    
 end
 
 -------------------------------------
@@ -69,16 +84,22 @@ end
 
 -------------------------------------
 -- function click_colosseumBtn
+-- @brief 콜로세움 진입 버튼
 -------------------------------------
 function UI_BattleMenu:click_colosseumBtn()
-    g_colosseumData:goToColosseum()
+    if g_contentLockData:checkContentLock('colosseum') then
+        g_colosseumData:goToColosseum()
+    end
 end
 
 -------------------------------------
 -- function click_towerBtn
+-- @brief 고대의 탑 진입 버튼
 -------------------------------------
 function UI_BattleMenu:click_towerBtn()
-    g_ancientTowerData:goToAncientTowerScene()
+    if g_contentLockData:checkContentLock('ancient') then
+        g_ancientTowerData:goToAncientTowerScene()
+    end
 end
 
 --@CHECK

@@ -106,6 +106,7 @@ local t_module = {
     'ServerData_Colosseum',
     'ServerData_AccessTime',
     'ServerData_MasterRoad',
+    'ServerData_ContentLock',
 
     -- Interface
     'IEventDispatcher',
@@ -596,6 +597,7 @@ local t_module = {
 	'UI_FormationEnhance',
     'UI_UserInfoMini',
     'UI_UserLevelUp',
+    'UI_ContentLock',
 
 	-- UI : 상점 관련
 	'UI_Shop',

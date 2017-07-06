@@ -405,6 +405,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Book.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
+    <None Include="..\src\ServerData_ContentLock.lua" />
     <None Include="..\src\ServerData_DragonBoard.lua" />
     <None Include="..\src\ServerData_Eggs.lua" />
     <None Include="..\src\ServerData_Event.lua" />
@@ -831,6 +832,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ColosseumRankRewardItem.lua" />
     <None Include="..\src\UI_ColosseumReady.lua" />
     <None Include="..\src\UI_ColosseumRewardInfoPopup.lua" />
+    <None Include="..\src\UI_ContentLock.lua" />
     <None Include="..\src\UI_DragonAppear.lua" />
     <None Include="..\src\UI_DragonBoardListItem.lua" />
     <None Include="..\src\UI_DragonBoardPopup.lua" />

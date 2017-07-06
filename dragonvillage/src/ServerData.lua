@@ -131,8 +131,11 @@ function ServerData:getInstance()
     -- 콜로세움
     g_colosseumData = ServerData_Colosseum(g_serverData)
 
-    -- 콜로세움
+    -- 마스터의 길
     g_masterRoadData = ServerData_MasterRoad(g_serverData)
+
+    -- 콘텐츠 잠금
+    g_contentLockData = ServerData_ContentLock(g_serverData)
 
     return g_serverData
 end
