@@ -30,10 +30,7 @@ function UI_ItemCard:setItemData()
     local t_item = table_item[self.m_itemID]
 
     if (not t_item) then
-        local vars = self:load('icon_item_item.ui')
-        return
-        -- @delete_rune
-        --error('item_id ' .. self.m_itemID)
+        error('존재하지 않는 ID ' .. self.m_itemID)
     end
 	
     if (t_item['type'] == 'dragon') then

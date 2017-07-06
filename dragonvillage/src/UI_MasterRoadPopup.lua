@@ -149,7 +149,7 @@ function UI_MasterRoadPopup.makeRewardCard(reward_node, t_reward)
 	local reward_cnt = #t_reward
 	local item_id, item_cnt, item_card, pos_x
 	for idx, t_item in pairs(t_reward) do
-		item_id = TableItem:getItemIDFromItemType(t_item['item_type']) or t_item['item_type']
+		item_id = TableItem:getItemIDFromItemType(t_item['item_type']) or tonumber(t_item['item_type'])
 		item_cnt = t_item['count']
         item_card = UI_ItemCard(item_id, item_cnt)
 		pos_x = UIHelper:getCardPosX(reward_cnt, idx)
