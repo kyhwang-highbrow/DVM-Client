@@ -88,8 +88,8 @@ function SceneGame:init_loadingGuideType()
 		local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
         local dungeon_mode = t_dungeon['dungeon_mode']
 
-		if (dungeon_mode == NEST_DUNGEON_DRAGON) then
-			self.m_loadingGuideType = 'in_nest_gd'
+		if (dungeon_mode == NEST_DUNGEON_EVO_STONE) then
+			self.m_loadingGuideType = 'in_nest_es' -- in nest evolution stone
 
 		elseif (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
 			self.m_loadingGuideType = 'in_nest_nm'

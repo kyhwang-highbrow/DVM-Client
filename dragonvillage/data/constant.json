@@ -209,7 +209,7 @@
         
         // 네스트 던전
         "NEST_DUNGEON" : {
-            "DRAGON" : {
+            "EVOLUTION_STONE" : {
                 "MAP_FLOATING_Y_SCOPE" : 6,
                 "MAP_FLOATING_TIME" : 3,
                 "MAP_FLOATING_ROTATE_SCOPE" : 0,

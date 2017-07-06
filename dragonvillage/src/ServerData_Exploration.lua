@@ -1,4 +1,13 @@
 -------------------------------------
+-- 2017-07-06 sgkim
+-- 탐험 메인 UI   UI_Exploration                (exploration_map.ui)
+-- 탐험 지역 버튼 UI_ExplorationLocationButton
+-- 탐험 준비 UI   UI_ExplorationReady           (exploration_ready.ui)
+-- 탐험 중 UI     UI_ExplorationIng             (exploration_ing.ui)
+-- 탐험 결과 UI   UI_ExplorationResultPopup     (exploration_result.ui)
+-------------------------------------
+
+-------------------------------------
 -- class ServerData_Exploration
 -------------------------------------
 ServerData_Exploration = class({

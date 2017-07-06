@@ -57,7 +57,7 @@ end
 -------------------------------------
 function UI_DungeonMenu:initButton()
     local vars = self.vars
-    vars['dragonBtn']:registerScriptTapHandler(function() self:click_dragonBtn() end)
+    vars['dragonBtn']:registerScriptTapHandler(function() self:click_evoStoneBtn() end)
     vars['treeBtn']:registerScriptTapHandler(function() self:click_treeBtn() end)
     vars['nightmareBtn']:registerScriptTapHandler(function() self:click_nightmareBtn() end)
     vars['goldBtn']:registerScriptTapHandler(function() self:click_goldBtn() end)
@@ -71,10 +71,10 @@ function UI_DungeonMenu:refresh()
 end
 
 -------------------------------------
--- function click_dragonBtn
+-- function click_evoStoneBtn
 -------------------------------------
-function UI_DungeonMenu:click_dragonBtn()
-    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_DRAGON)
+function UI_DungeonMenu:click_evoStoneBtn()
+    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_EVO_STONE)
 end
 
 -------------------------------------

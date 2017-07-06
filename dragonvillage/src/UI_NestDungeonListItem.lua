@@ -77,8 +77,11 @@ end
 function UI_NestDungeonListItem:refresh_dayLabel(major_day, days, mode)
     local vars = self.vars
 
-    -- 거대용, 거목던전은 요일던전 형태로 동작
-    if (mode ~= NEST_DUNGEON_DRAGON) and (mode ~= NEST_DUNGEON_TREE) then
+
+    local l_days = pl.stringx.split(days, ',')
+
+    -- 모든 요일이 다 포함되어 있을 경우 상시 오픈 던전으로 간주 (월~일)
+    if (table.count(l_days) >=7) then
         vars['dayLabel']:setString('')
         
         if vars['timeNode'] then
@@ -87,6 +90,19 @@ function UI_NestDungeonListItem:refresh_dayLabel(major_day, days, mode)
         vars['timeLabel']:setVisible(false)
         return
     end
+    
+    --[[ 요일 갯수체크로 변경함 (2017-07-06 sgkim)
+    -- 진화재료던전, 거목던전은 요일던전 형태로 동작
+    if (mode ~= NEST_DUNGEON_EVO_STONE) and (mode ~= NEST_DUNGEON_TREE) then
+        vars['dayLabel']:setString('')
+        
+        if vars['timeNode'] then
+            vars['timeNode']:setVisible(false)
+        end
+        vars['timeLabel']:setVisible(false)
+        return
+    end
+    --]]
     
     -- major_day가 없을 경우 가장 빠른 요일로 처리
     if (not major_day) then
@@ -99,8 +115,6 @@ function UI_NestDungeonListItem:refresh_dayLabel(major_day, days, mode)
         t_days['sat'] = 6
         t_days['sun'] = 7
     
-
-        local l_days = seperate(days, ',')
         table.sort(l_days, function(a, b)
             return t_days[a] < t_days[b]
         end)

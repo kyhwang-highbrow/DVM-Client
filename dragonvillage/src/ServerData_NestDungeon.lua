@@ -501,8 +501,8 @@ function ServerData_NestDungeon:getStageCategoryStr(stage_id)
     -- 네스트 세부 모드
     local dungeon_mode = t_dungeon_id_info['dungeon_mode']
     local mode_str = ''
-    if (dungeon_mode == NEST_DUNGEON_DRAGON) then
-        mode_str = Str('거대용 격추')
+    if (dungeon_mode == NEST_DUNGEON_EVO_STONE) then
+        mode_str = Str('진화재료 던전')
 
     elseif (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
         mode_str = Str('악몽 던전')

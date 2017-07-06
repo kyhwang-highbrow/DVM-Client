@@ -9,11 +9,11 @@ gid,type,order,weight,did,res,t_desc
 8008,patch,8,,,res/ui/loading_tip/tip_upgrade.png,(임시) 패치 가이드 - 8
 8009,patch,9,,,res/ui/loading_tip/tip_levelup.png,(임시) 패치 가이드 - 9
 8010,patch,10,,,res/ui/loading_tip/tip_rarity.png,(임시) 패치 가이드 - 10
-2101,in_nest_gd,,10,,res/ui/loading_tip/tip_evolution.png,(임시) 거대용 가이드 - 1
-2102,in_nest_gd,,10,,res/ui/loading_tip/tip_friendship.png,(임시) 거대용 가이드 - 2
-2103,in_nest_gd,,10,,res/ui/loading_tip/tip_friendship_grade.png,(임시) 거대용 가이드 - 3
-2104,in_nest_gd,,10,,res/ui/loading_tip/tip_reserch.png,(임시) 거대용 가이드 - 4
-2105,in_nest_gd,,10,,res/ui/loading_tip/tip_transcend.png,(임시) 거대용 가이드 - 5
+2101,in_nest_es,,10,,res/ui/loading_tip/tip_evolution.png,(임시) 진화재료 던전 가이드 - 1
+2102,in_nest_es,,10,,res/ui/loading_tip/tip_friendship.png,(임시) 진화재료 던전 가이드 - 2
+2103,in_nest_es,,10,,res/ui/loading_tip/tip_friendship_grade.png,(임시) 진화재료 던전 가이드 - 3
+2104,in_nest_es,,10,,res/ui/loading_tip/tip_reserch.png,(임시) 진화재료 던전 가이드 - 4
+2105,in_nest_es,,10,,res/ui/loading_tip/tip_transcend.png,(임시) 진화재료 던전 가이드 - 5
 2201,in_nest_tr,,10,,res/ui/loading_tip/tip_upgrade.png,(임시) 거목 가이드 - 1
 2202,in_nest_tr,,10,,res/ui/loading_tip/tip_levelup.png,(임시) 거목 가이드 - 2
 2203,in_nest_tr,,10,,res/ui/loading_tip/tip_rarity.png,(임시) 거목 가이드 - 3

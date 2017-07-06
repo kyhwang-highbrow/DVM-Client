@@ -50,8 +50,8 @@ function UI_NestDungeonScene:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_NestDungeonScene'
     self.m_bUseExitBtn = true
-    if (self.m_dungeonType == NEST_DUNGEON_DRAGON) then
-		self.m_titleStr = Str('거대용 격추')
+    if (self.m_dungeonType == NEST_DUNGEON_EVO_STONE) then
+		self.m_titleStr = Str('진화재료 던전')
 	elseif (self.m_dungeonType == NEST_DUNGEON_TREE) then
 		self.m_titleStr = Str('거목 던전')
 	elseif (self.m_dungeonType == NEST_DUNGEON_NIGHTMARE) then

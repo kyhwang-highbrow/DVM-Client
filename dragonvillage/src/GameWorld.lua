@@ -241,7 +241,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
         local dungeonMode = t_dungeon['dungeon_mode']
 
-        if (dungeonMode == NEST_DUNGEON_DRAGON) then
+        if (dungeonMode == NEST_DUNGEON_EVO_STONE) then
             self.m_gameState = GameState_NestDungeon_Dragon(self)
 
 		elseif (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
