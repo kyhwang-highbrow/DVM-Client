@@ -64,7 +64,7 @@ function ServerData_ContentLock:checkContentLock(content_name, excute_func)
     local user_lv = g_userData:get('lv')
     local req_user_lv = t_content_lock['req_user_lv']
     local desc = t_content_lock['t_desc']
-    local msg = Str(desc, req_user_lv) .. '\n' .. Str('{@R}(현재 유저 레벨은 {1}입니다.)', user_lv)
+    local msg = Str(desc, req_user_lv) .. '\n' .. Str('{@R}(현재 유저 레벨은 {1}입니다)', user_lv)
     MakeSimplePopup(POPUP_TYPE.OK, msg)
 
     -- 함수 실행
