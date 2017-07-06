@@ -1,4 +1,4 @@
-name,type,t_name,res,res_icon,symbol,groggy,overlab,overlab_option,duration,atk,def,hp,aspd,cri_chance,cri_dmg,cri_avoid,hit_rate,avoid,hp_drain,heal_power,recovery_power,dmg_adj_rate,attr_adj_rate,reflex_normal,reflex_skill,debuff_time,resistance_add,dot_interval,abs_switch,val_1,val_2,val_3,val_4,desc_1,desc_2,desc_3,desc_4,t_desc,to_programmer
+name,type,t_name,res,res_icon,symbol,groggy,overlab,overlab_option,duration,atk,def,hp,aspd,cri_chance,cri_dmg,cri_avoid,hit_rate,avoid,hp_drain,heal_power,recovery_power,dmg_adj_rate,attr_adj_rate,reflex_normal,reflex_skill,debuff_time,resistance,dot_interval,abs_switch,val_1,val_2,val_3,val_4,desc_1,desc_2,desc_3,desc_4,t_desc,to_programmer
 atk_up,buff,공격력 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,3,0,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,100,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 aspd_up,buff,공격 속도 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/aspd_up.png,x,false,3,0,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,100,x,x,{1}초 동안 {2}만큼 공격 속도 증가,퍼센트+퍼센트 (합연산)
 cri_chance_up,buff,치명 확률 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/cri_chance_up.png,x,false,3,0,15,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,x,x,x,{1}초 동안 {2}만큼 치명 확률 증가,퍼센트+퍼센트 (합연산)
@@ -35,6 +35,7 @@ barrier_protection,barrier,보호막,res/effect/effect_protection/effect_protect
 barrier_protection_abs,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,hit_abs,,,,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
 resist,barrier,피해 저항,res/effect/effect_shield/effect_shield.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,,0,,,,,10,x,x,x,{duration}초 동안 받는 피해 {1}% 감소,최종 데미지에서 곱연산
 barrier_protection_darknix,barrier,경질화,res/effect/effect_darknix_barrier/effect_darknix_barrier.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,-90,0,0,0,0,,0,10,,,,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
+barrier_protection_l,barrier,거대 보호막,res/effect/effect_darknix_barrier/effect_darknix_barrier.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,100,,,,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
 immunity_debuff,buff,해로운 효과 면역,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-9999,0,,0,,,,,x,x,x,x,,
 heal_add,buff,회복량 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,,,,,,,x,x,x,x,,
 heal_dec,debuff,회복량 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,,,,,,,x,x,x,x,,
@@ -87,10 +88,18 @@ passive_cri_avoid_up,passive,치명 방어율 증가,,,x,false,1,0,15,0,0,0,0,0,
 passive_avoid_up,passive,회피율 증가,,,x,false,1,0,15,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
 passive_hit_rate_up,passive,적중률 증가,,,x,false,1,0,15,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
 passive_cri_dmg_up,passive,치명 피해 증가,,,x,false,1,0,15,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
-passive_aspd_down,passive,공격 속도 감소,,,x,false,1,0,20,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,20,,x,x,{1}초 동안 {2}만큼 공격 속도 감소,퍼센트+퍼센트 (합연산)
+passive_atk_down,passive,공격력 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/atk_down.png,x,false,3,0,15,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,x,x,x,{1}초 동안 {2}만큼 공격력 감소,정수x퍼센트 (곱연산)
+passive_aspd_down,passive,공격 속도 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/aspd_down.png,x,false,3,0,15,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,,x,x,{1}초 동안 {2}만큼 공격 속도 감소,퍼센트+퍼센트 (합연산)
+passive_cri_chance_down,passive,치명 확률 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/cri_chance_down.png,x,false,3,0,15,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,{1}초 동안 {2}만큼 치명 확률 감소,퍼센트+퍼센트 (합연산)
+passive_def_down,passive,방어력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/def_down.png,x,false,3,0,15,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,{1}초 동안 {2}만큼 방어력 감소,정수x퍼센트 (곱연산)
+passive_hp_down,passive,생명력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/hp_down.png,x,false,3,0,15,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,{1}초 동안 {2}만큼 생명력 감소,정수x퍼센트 (곱연산)
+passive_cri_avoid_down,passive,치명 방어율 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/cri_avoid_down.png,x,false,3,0,15,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,{1}초 동안 {2}만큼 치명 방어 감소,퍼센트+퍼센트 (합연산)
+passive_avoid_down,passive,회피율 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/avoid_down.png,x,false,3,0,15,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,{1}초 동안 {2}만큼 회피 감소,퍼센트+퍼센트 (합연산)
+passive_hit_rate_down,passive,적중률 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/hit_rate_down.png,x,false,3,0,15,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,{1}초 동안 {2}만큼 적중 감소,퍼센트+퍼센트 (합연산)
+passive_cri_dmg_down,passive,치명 피해 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/cri_chance_down.png,x,false,3,0,15,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,{1}초 동안 {2}만큼 치명 피해 감소,퍼센트+퍼센트 (합연산)
 passive_recovery_add,passive,받는 회복량 증가,,,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,,,,,,,x,x,x,x,,
 passive_recovery_dec,passive,받는 회복량 감소,,,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,,,,,,,x,x,x,x,,
-passive_resistance_effect,spell,효과 저항,,,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,,0,,,,,x,x,x,x,,
+passive_resistance_effect,passive,효과 저항,,,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,,0,,,,,x,x,x,x,,
 tamer_passive_atk_up,passive,곤퓨,,,x,false,1,0,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
 tamer_passive_hp_up_abs,passive,라이브라,,,x,false,1,0,-1,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,,,,x,x,x,x,x,
 feedback_defender,feedback,방어력 보너스,,,x,false,1,0,5,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,

@@ -2,11 +2,7 @@
     "pattern_boss_treant":
     [
 		[
-            "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;1"
-        ],
-		
-		[
-            "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;1"
+            "w;3", "w;3", "w;3"
         ]
     ],
 	

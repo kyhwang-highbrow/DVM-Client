@@ -22,7 +22,7 @@
 				"dir_add":0,
 				"size_up_time":3,
 				"missile_type":"pass",
-				"fadeout_time":1,
+				"fadeout_time":1.5,
 				
                 "effect":
                 {
