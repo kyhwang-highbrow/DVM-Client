@@ -2427,6 +2427,9 @@
     <None Include="..\src\UI_ContentLock.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_MasterRoadPopup_Link.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

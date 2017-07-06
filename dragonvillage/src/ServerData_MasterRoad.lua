@@ -118,7 +118,7 @@ function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
     -- 클리어 체크
     if (self:checkFocusRoadClear(t_data)) then
         local function open_ui()
-            UI_MasterRoadPopup()
+            UI_MasterRoadPopup_Link()
         end
         self:request_roadClear(self.m_focusRoad, open_ui)
         return true

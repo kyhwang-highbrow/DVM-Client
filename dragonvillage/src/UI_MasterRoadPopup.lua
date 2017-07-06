@@ -268,6 +268,7 @@ function UI_MasterRoadPopup.refreshCell(ui, t_data)
     -- 보상 상태에 따른 버튼 처리
     local reward_state = g_masterRoadData:getRewardState(rid)
     vars['rewardNotiSprite']:setVisible(reward_state == 'has_reward')
+    vars['completeSprite']:setVisible(reward_state == 'already_done')
 end
 
 --@CHECK
