@@ -462,6 +462,15 @@ function UI_TitleScene:workGetServerInfo()
         ui_network:hideLoading()
         if co:waitWork() then return end
 
+        -- 마스터의 길
+        co:work()
+        self.m_loadingUI:showLoading(Str('마스터의 길을 닦는 중...'))
+        local ui_network = g_masterRoadData:request_roadInfo(co.NEXT, fail_cb)
+        ui_network:setRevocable(false)
+        ui_network:setFailCB(fail_cb)
+        ui_network:hideLoading()
+        if co:waitWork() then return end
+
         co:close()
 
         -- 다음 work로 이동

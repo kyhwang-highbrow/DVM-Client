@@ -5,11 +5,10 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -------------------------------------
 UI_MasterRoadPopup = class(PARENT, {
         m_tableView = '',
-		m_currMid = 'number',
+		m_currRid = 'number',
 		m_selectedSprite = 'cc.Sprite',
     })
 
-local FOCUS_ID = 10001 -- 임시
 -------------------------------------
 -- function init
 -------------------------------------
@@ -26,7 +25,10 @@ function UI_MasterRoadPopup:init()
 
 	self:initUI()
 	self:initButton()
-	self:refresh(TableMasterRoad():get(FOCUS_ID)) -- focus id
+
+    -- 테이블 콜백으로 갱신하면 눈에 보이는 텀이 있어 최초에 호출함
+    local t_road = TableMasterRoad():get(g_masterRoadData:getFocusRoad())
+	self:refresh(t_road)
 end
 
 -------------------------------------
@@ -64,12 +66,12 @@ function UI_MasterRoadPopup:refresh(t_data)
 	end
 	
 	-- 중복 호출 막음
-	if (self.m_currMid == t_data['mid']) then
+	if (self.m_currRid == t_data['rid']) then
 		return
 	end
-		
+
 	-- id 저장
-	self.m_currMid = t_data['mid']
+	self.m_currRid = t_data['rid']
 
     -- npc 일러스트
     local res = t_data['res']
@@ -93,16 +95,7 @@ function UI_MasterRoadPopup:refresh(t_data)
 
 	-- 보상 아이콘
 	vars['rewardNode']:removeAllChildren(true)
-	local reward_cnt = #t_data['t_reward']
-	local item_id, item_cnt, item_card, pos_x
-	for idx, t_item in pairs(t_data['t_reward']) do
-		item_id = TableItem:getItemIDFromItemType(t_item['item_type']) or t_item['item_type']
-		item_cnt = t_item['count']
-        item_card = UI_ItemCard(item_id, item_cnt)
-		pos_x = UIHelper:getCardPosX(reward_cnt, idx)
-		item_card.root:setPositionX(pos_x)
-        vars['rewardNode']:addChild(item_card.root)
-	end
+	self.makeRewardCard(vars['rewardNode'], t_data['t_reward'])
 end
 
 -------------------------------------
@@ -111,14 +104,17 @@ end
 function UI_MasterRoadPopup:makeRoadTableView()
 	local node = self.vars['listNode']
 	
-	local l_road_list = TableMasterRoad:getSortedList()
+	local l_road_list = TableMasterRoad():getSortedList()
 
+    -- 생성 후 동작
 	local function after_create_func(ui, t_data)
+        -- 버튼 등록
 		ui.vars['questBtn']:registerScriptTapHandler(function() 
 			self:selectCell(ui, t_data)
 		end)
+
 		-- 최초 선택
-		if (t_data['mid'] == FOCUS_ID) then
+		if (t_data['rid'] == g_masterRoadData:getFocusRoad()) then
 			self:selectCell(ui, t_data)
 		end
 	end
@@ -145,40 +141,54 @@ function UI_MasterRoadPopup:click_exitBtn()
 end
 
 -------------------------------------
+-- function makeRewardCard
+-- @static
+-- @brief 보상 아이콘 생성
+-------------------------------------
+function UI_MasterRoadPopup.makeRewardCard(reward_node, t_reward)
+	local reward_cnt = #t_reward
+	local item_id, item_cnt, item_card, pos_x
+	for idx, t_item in pairs(t_reward) do
+		item_id = TableItem:getItemIDFromItemType(t_item['item_type']) or t_item['item_type']
+		item_cnt = t_item['count']
+        item_card = UI_ItemCard(item_id, item_cnt)
+		pos_x = UIHelper:getCardPosX(reward_cnt, idx)
+		item_card.root:setPositionX(pos_x)
+        reward_node:addChild(item_card.root)
+        
+        item_card.root:setSwallowTouch(false)
+	end
+end
+
+-------------------------------------
 -- function makeCellUI
+-- @static
+-- @brief 테이블 셀 생성
 -------------------------------------
 function UI_MasterRoadPopup.makeCellUI(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('master_road_item.ui')
-	local mid = t_data['mid']
+	local rid = t_data['rid']
 
 	-- 진행중
-	vars['ingSprite']:setVisible(mid == FOCUS_ID)
+	vars['ingSprite']:setVisible(rid == g_masterRoadData:getFocusRoad())
 
 	-- 퀘스트 순번
-	vars['numLabel']:setString(mid - 10000)
+	vars['numLabel']:setString(rid - 10000)
 
 	-- 스페셜 표시..?
 	vars['specialSprite']:setVisible(t_data['special'] == 1)
 
 	-- 보상 아이콘
 	vars['rewardNode']:removeAllChildren(true)
-	local reward_cnt = #t_data['t_reward']
-	local item_id, item_cnt, item_card, pos_x
-	for idx, t_item in pairs(t_data['t_reward']) do
-		item_id = TableItem:getItemIDFromItemType(t_item['item_type']) or t_item['item_type']
-		item_cnt = t_item['count']
-        item_card = UI_ItemCard(item_id, item_cnt)
-		pos_x = UIHelper:getCardPosX(reward_cnt, idx)
-		item_card.root:setPositionX(pos_x)
-        vars['rewardNode']:addChild(item_card.root)
-	end
+	UI_MasterRoadPopup.makeRewardCard(vars['rewardNode'], t_data['t_reward'])
 
 	return ui
 end
 
 -------------------------------------
 -- function selectCell
+-- @brief 테이블 셀 선택 콜백
 -------------------------------------
 function UI_MasterRoadPopup:selectCell(ui, t_data)
 	-- 해당 정보로 UI 갱신

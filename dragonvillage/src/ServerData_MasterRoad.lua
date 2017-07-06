@@ -31,10 +31,20 @@ function ServerData_MasterRoad:applyInfo(ret)
 end
 
 -------------------------------------
+-- function getFocusRoad
+-------------------------------------
+function ServerData_MasterRoad:getFocusRoad()
+    local road = self.m_focusRoad
+    local last_road = TableMasterRoad:getLastRoad()
+
+    return math_min(road, last_road)
+end
+
+-------------------------------------
 -- function request_roadInfo
 -- @brief 전체 정보 받아오기
 -------------------------------------
-function ServerData_MasterRoad:request_roadInfo(finish_cb)
+function ServerData_MasterRoad:request_roadInfo(finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -53,9 +63,12 @@ function ServerData_MasterRoad:request_roadInfo(finish_cb)
     ui_network:setUrl('/users/master_road/info')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
+
+    return ui_network
 end
 
 -------------------------------------
