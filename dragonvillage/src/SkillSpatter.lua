@@ -80,7 +80,6 @@ function SkillSpatter:initState()
         self:setCommonState(self)
     end
     self:addState('idle', SkillSpatter.st_idle, 'idle', true)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
 
 -------------------------------------

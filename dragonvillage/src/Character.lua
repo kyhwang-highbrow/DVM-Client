@@ -655,17 +655,16 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
     if (attacker_char) then
         -- 공격자 반사 데미지 처리
-        if (attack_type == 'basic') then 
-            local reflex_normal = self:getStat('reflex_normal')
-            if (reflex_normal > 0) then
-                local reflex_damage = damage * (reflex_normal / 100)
-			    attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
-            end
-        end
         if (attack_type == 'active') then 
             local reflex_skill = self:getStat('reflex_skill')
             if (reflex_skill > 0) then
                 local reflex_damage = damage * (reflex_skill / 100)
+			    attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
+            end
+        else
+            local reflex_normal = self:getStat('reflex_normal')
+            if (reflex_normal > 0) then
+                local reflex_damage = damage * (reflex_normal / 100)
 			    attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
             end
         end
@@ -732,10 +731,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         if (not no_event) then
             local b = false
 
-            if (attack_type == 'active' and self.m_hp <= 0) then
-                b = true
-            elseif (attack_type == 'basic' and self.m_bDead) then
-		        b = true
+            if (attack_type == 'active') then
+                if (self.m_hp <= 0) then b = true end
+            else
+                if (self.m_bDead) then b = true end
 		    end
 
             if (b) then

@@ -132,9 +132,9 @@ function Skill:initEventListener()
 	self:addListener(CON_SKILL_END, self)
 
     -- 공격 스킬의 경우에서만 특정 이벤트 추가
-    if (string.find(self.m_targetType, 'enemy')) then
-        local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, nil)
-        for _, target in pairs(l_target) do
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, nil)
+    for _, target in pairs(l_target) do
+        if (target.m_bLeftFormation ~= self.m_owner.m_bLeftFormation) then
             target:addListener(CON_SKILL_HIT_CRI, self)
             target:addListener(CON_SKILL_HIT_KILL, self)
         end
@@ -204,7 +204,7 @@ function Skill:setCommonState(skill)
 end
 
 -------------------------------------
--- function setCommonState
+-- function changeState
 -------------------------------------
 function Skill:changeState(state, forced)
     if (self.m_bUseMissile or self.m_bSkillHitEffect) then
