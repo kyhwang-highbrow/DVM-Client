@@ -5,7 +5,6 @@ local PARENT = StatusEffect_Trigger
 -- @breif HP있는 실드 보호막 + resist 보호막
 -------------------------------------
 StatusEffect_Resist = class(PARENT, {
-		m_resistRate = 'number', 
      })
 
 -------------------------------------
@@ -18,8 +17,6 @@ function StatusEffect_Resist:init(file_name, body, ...)
 	self.m_statusEffectInterval = 0
 
     self.m_triggerName = 'hit_barrier'
-
-    self.m_resistRate = 0
 end
 
 
@@ -42,33 +39,6 @@ function StatusEffect_Resist:initState()
 end
 
 -------------------------------------
--- function onApplyOverlab
--- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
--------------------------------------
-function StatusEffect_Resist:onApplyOverlab(unit)
-    local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
-    local adj_value = t_status_effect['dmg_adj_rate'] * (unit:getValue() / 100)
-	local resist_rate = (adj_value / 100)
-
-    -- 해당 정보를 임시 저장
-    unit:setParam('resist_rate', resist_rate)
-
-    -- 저항력 가산
-    self.m_resistRate = self.m_resistRate + resist_rate
-end
-
--------------------------------------
--- function onUnapplyOverlab
--- @brief 해당 상태효과가 중첩 해제될시마다 호출
--------------------------------------
-function StatusEffect_Resist:onUnapplyOverlab(unit)
-    -- 저항력 감산
-    local resist_rate = unit:getParam('resist_rate')
-
-    self.m_resistRate = self.m_resistRate - resist_rate
-end
-
--------------------------------------
 -- function getTriggerFunction
 -------------------------------------
 function StatusEffect_Resist:getTriggerFunction()
@@ -77,12 +47,6 @@ function StatusEffect_Resist:getTriggerFunction()
         self:addAniHandler(function()
             self.m_animator:changeAni('idle', true)
         end)
-
-        -- 1. 데미지를 직접 경감
-		local damage = t_event['damage']
-   		damage = damage * (1 + self.m_resistRate)
-		t_event['damage'] = damage
-		t_event['is_handled'] = true
 	end
 
 	return trigger_func

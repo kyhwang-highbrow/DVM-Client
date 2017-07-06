@@ -314,7 +314,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
             if effect['rotation'] then
                 local sequence = cc.Sequence:create(cc.RotateTo:create(0.25, 180), cc.RotateTo:create(0.25, 360))
                 local action = cc.RepeatForever:create(sequence)
-                missile.m_animator.m_node:runAction(action)
+                missile.m_animator:runAction(action)
             end
 
             -- 모션스트릭(MotionStreak) 효과

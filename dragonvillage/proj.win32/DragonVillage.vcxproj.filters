@@ -2421,6 +2421,9 @@
     <None Include="..\src\GameState_NestDungeon_Jewel.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StatusEffect_Modify.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\ServerData_ContentLock.lua">
       <Filter>lua\src</Filter>
     </None>

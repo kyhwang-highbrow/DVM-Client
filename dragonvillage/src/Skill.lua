@@ -143,7 +143,7 @@ function Skill:initEventListener()
 	-- 스킬 내부의 특정 이벤트
     for _,  v in pairs(self.m_lStatusEffect) do
         local trigger = v.m_trigger or ''
-        if (isExistValue(trigger, CON_SKILL_HIT_TARGET)) then
+        if (string.find(trigger, CON_SKILL_HIT_TARGET)) then
             self:addListener(trigger, self)
         end
     end
@@ -510,19 +510,21 @@ function Skill:onHeal(target_char)
 
     local hit_target_count = table.count(self.m_hitTargetList)
 
-	-- 상태효과
-	local t_event = {l_target = {target_char}}
-	self:dispatch(CON_SKILL_HIT, t_event)
-
-    -- 피격된 대상수가 갱신된 경우 해당 이벤트 발동
-    if (bUpdateHitTargetCount) then
-        self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
-    end
-
 	-- 힐 사운드
 	if (self.m_owner:isDragon()) then
 		SoundMgr:playEffect('SFX', 'sfx_heal')
 	end
+
+    -- 상태효과
+    do
+	    local t_event = {l_target = {target_char}}
+	    self:dispatch(CON_SKILL_HIT, t_event)
+
+        -- 피격된 대상수가 갱신된 경우 해당 이벤트 발동
+        if (bUpdateHitTargetCount) then
+            self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
+        end
+    end
 end
 
 -------------------------------------

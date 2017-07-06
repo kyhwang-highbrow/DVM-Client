@@ -204,7 +204,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     -- 테이블 가져옴
 	local table_status_effect = TableStatusEffect()
     local t_status_effect = table_status_effect:get(status_effect_type)
-    local category = t_status_effect['type']
+    local status_effect_group = t_status_effect['type']
 
 	-- 여기서는 상태효과가 없으면 에러를 발생시켜야함
     if (not t_status_effect) then
@@ -223,30 +223,49 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
 	local status_effect = nil
 
-    ----------- 드래곤 스킬 피드백(보너스) ------------------
-	if (status_effect_type == 'feedback_defender' or status_effect_type == 'feedback_attacker'
-        or status_effect_type == 'feedback_supporter' or status_effect_type == 'feedback_healer') then
-        
-        if (status_effect_type == 'feedback_supporter') then
-            status_effect = StatusEffect(res)
-        elseif (status_effect_type == 'feedback_healer') then
-            status_effect = StatusEffect(res)
-            status_effect:setOverlabClass(StatusEffectUnit_Dot_Heal)
+    ----------- 상태효과 변경 ------------------
+	if (status_effect_group == 'modify') then
+        status_effect = StatusEffect_Modify(res)
+
+    ----------- HP 보호막 ------------------
+	elseif (status_effect_group == 'barrier') then
+		status_effect = StatusEffect_Protection(res)
+
+    ------------ 도트 --------------------------
+    elseif (status_effect_group == 'dot_dmg') then
+		status_effect = StatusEffect(res)
+        status_effect:setOverlabClass(StatusEffectUnit_Dot_Damage)
+
+    elseif (status_effect_group == 'dot_heal') then
+        status_effect = StatusEffect(res)
+        status_effect:setOverlabClass(StatusEffectUnit_Dot_Heal)
+        		
+	----------- 디버프 해제 ------------------
+    elseif (status_effect_group == 'dispell') then
+		status_effect = StatusEffect_Dispell(res)
+		status_effect:init_status(status_effect_type, status_effect_value)
+
+    ----------- 군중 제어기 ------------------
+    elseif (status_effect_group == 'cc') then
+        -- 침묵
+	    if (status_effect_type == 'silence') then
+		    status_effect = StatusEffect_Silence(res)
+
+        -- 수면 
+        elseif (status_effect_type == 'sleep') then
+            status_effect = StatusEffect_Sleep(res)
+
         else
             status_effect = StatusEffect(res)
         end
 
-	------------ 도트 --------------------------
-    elseif (status_effect_type == 'burn') then
+    ----------- 조건부 추가 데미지 ------------------
+	elseif (status_effect_group == 'add_dmg') then
 		status_effect = StatusEffect(res)
-        status_effect:setOverlabClass(StatusEffectUnit_Dot_Damage)
+        status_effect:setName(status_effect_type)
+        status_effect:setOverlabClass(StatusEffectUnit_AddDmg)
 
-    elseif isExistValue(status_effect_type, 'passive_recovery') or
-		(category == 'dot_heal' and string.find(status_effect_type, 'heal')) then
-        status_effect = StatusEffect(res)
-        status_effect:setOverlabClass(StatusEffectUnit_Dot_Heal)
-        		
-	----------- 트리거 ------------------
+    ----------- 트리거 ------------------
 	elseif (status_effect_type == 'bleed') then
         status_effect = StatusEffect_Bleed(res)
         
@@ -259,38 +278,15 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     elseif (status_effect_type == 'zombie') then
         status_effect = StatusEffect_Zombie(res)
 
-	----------- HP 보호막 ------------------
-	elseif (status_effect_type == 'barrier_protection') then
-		status_effect = StatusEffect_Protection(res)
-	
-	----------- 데미지 경감 보호막 ------------------
-	elseif isExistValue(status_effect_type, 'resist', 'barrier_protection_darknix') then
-		status_effect = StatusEffect_Resist(res)
-		
-	----------- 디버프 해제 ------------------
-	elseif isExistValue(status_effect_type, 'cure', 'remove', 'invalid') then
-		status_effect = StatusEffect_Dispell(res)
-		status_effect:init_status(status_effect_type, status_effect_value)
-
-	----------- 특이한 해제 조건을 가진 것들 ------------------
-	elseif isExistValue(status_effect_type, 'sleep') then
-		status_effect = StatusEffect_Sleep(res)
-	
-	----------- 침묵 ------------------
-	elseif (status_effect_type == 'silence') then
-		status_effect = StatusEffect_Silence(res)
-	
 	----------- 속성 변경 ------------------
 	elseif (status_effect_type == 'attr_change') then
 		--@TODO 카운터 속성으로 변경, 추후 정리
 		status_effect = StatusEffect_AttributeChange(res)
 		status_effect:init_statusEffect(target_char)
 
-	----------- 조건부 추가 데미지 ------------------
-	elseif string.find(status_effect_type, 'add_dmg') then
-		status_effect = StatusEffect(res)
-        status_effect:setName(status_effect_type)
-        status_effect:setOverlabClass(StatusEffectUnit_AddDmg)
+    ----------- 데미지 경감 보호막 ------------------
+	elseif (status_effect_type == 'resist') then
+		status_effect = StatusEffect_Resist(res)
 
     else
         status_effect = StatusEffect(res)
@@ -460,15 +456,15 @@ end
 -- @param param_1 은 statuseffect 의 'type'이나 statuseffect객체 자체
 -------------------------------------
 function StatusEffectHelper:isHarmful(param_1)
-	local status_effect_type
+	local status_effect_category
 
 	if (type(param_1) == 'string') then
-		status_effect_type = param_1
+		status_effect_category = param_1
 	elseif (isInstanceOf(param_1, StatusEffect)) then
-		status_effect_type = param_1.m_type
+		status_effect_category = param_1.m_category
 	end
 
-	return isExistValue(status_effect_type, 'debuff', 'cc', 'dot_dmg')
+	return (status_effect_category == 'bad')
 end
 
 -------------------------------------
@@ -477,13 +473,13 @@ end
 -- @param param_1 은 statuseffect 의 'type'이나 statuseffect객체 자체
 -------------------------------------
 function StatusEffectHelper:isHelpful(param_1)
-	local status_effect_type
+	local status_effect_category
 
 	if (type(param_1) == 'string') then
-		status_effect_type = param_1
+		status_effect_category = param_1
 	elseif (isInstanceOf(param_1, StatusEffect)) then
-		status_effect_type = param_1.m_type
+		status_effect_category = param_1.m_category
 	end
 
-	return isExistValue(status_effect_type, 'buff', 'barrier', 'dot_heal')
+	return (status_effect_category == 'good')
 end

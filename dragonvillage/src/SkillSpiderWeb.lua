@@ -66,7 +66,7 @@ function SkillSpiderWeb.st_idle(owner, dt)
 	else
 		-- 해당 상태효과가 제거되었는지 체크
 		local isExist = false
-		for i, v  in pairs(owner.m_targetChar:getStatusEffectList()) do
+		for _, v  in pairs(owner.m_targetChar:getStatusEffectList()) do
 			if (owner.m_statusName == v:getTypeName()) then 
 				isExist = true
 			end 

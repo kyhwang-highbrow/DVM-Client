@@ -65,13 +65,12 @@ function StatusEffect_Protection:update(dt)
     return PARENT.update(self, dt)
 end
 
-
 -------------------------------------
 -- function onApplyOverlab
 -- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
 -------------------------------------
 function StatusEffect_Protection:onApplyOverlab(unit)
-    local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
+    local t_status_effect = self.m_statusEffectTable
     local adj_value = t_status_effect['val_1'] * (unit:getValue() / 100)
 	local shield_hp = self.m_owner.m_maxHp * (adj_value / 100)
 

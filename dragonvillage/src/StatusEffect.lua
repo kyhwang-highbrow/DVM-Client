@@ -4,6 +4,7 @@ local PARENT = Entity
 -- class StatusEffect
 -------------------------------------
 StatusEffect = class(PARENT, {
+        m_statusEffectTable = 'table',
         m_statusEffectName = 'string',
         m_overlabClass = 'class',
         
@@ -12,6 +13,7 @@ StatusEffect = class(PARENT, {
         m_lStatus = 'list', -- key:능력치명, value:수치
         m_lStatusAbs = 'list', -- key:능력치명, value:수치
 
+        m_lUnit = 'table',  -- 해당 상태효과에 추가된 StatusEffectUnit의 리스트
         m_mUnit = 'table',  -- 시전자의 char_id값을 키값으로 StatusEffectUnit의 리스트를 가지는 맵
 
         m_bDead = 'boolean',
@@ -29,6 +31,7 @@ StatusEffect = class(PARENT, {
         m_topEffect = 'Animator',
 
 		m_type = 'status type',
+        m_category = 'status category',
     })
 
 -------------------------------------
@@ -42,6 +45,7 @@ function StatusEffect:init(file_name, body)
 	self.m_lStatus = {}
     self.m_lStatusAbs = {}
 
+    self.m_lUnit = {}
     self.m_mUnit = {}
 
     self.m_bDead = false
@@ -63,8 +67,10 @@ end
 -- function initFromTable
 -------------------------------------
 function StatusEffect:initFromTable(t_status_effect, target_char)
+    self.m_statusEffectTable = t_status_effect
     self.m_statusEffectName = self.m_statusEffectName or t_status_effect['name']
     self.m_type = t_status_effect['type']
+    self.m_category = t_status_effect['category']
     self.m_maxOverlab = t_status_effect['overlab']
     self.m_owner = target_char
     self.m_bHarmful = StatusEffectHelper:isHarmful(t_status_effect['type'])
@@ -233,6 +239,9 @@ function StatusEffect:update(dt)
 
             for i, v in ipairs(t_remove) do
                 table.remove(list, v)
+
+                local idx = table.find(self.m_lUnit, v)
+                table.remove(self.m_lUnit, idx)
             end
         end
             
@@ -312,7 +321,7 @@ end
 function StatusEffect:apply()
     if (self.m_bApply) then return false end
 
-    local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
+    local t_status_effect = self.m_statusEffectTable
 
     -- groggy 옵션이 있다면 stun 상태로 바꾼다. 이외의 부가적인 효과는 개별적으로 구현
 	if (t_status_effect and t_status_effect['groggy'] == 'true') then
@@ -341,7 +350,7 @@ function StatusEffect:unapply()
     if (not self.m_bApply) then return false end
     
     -- groggy 옵션이 있다면 해제
-    local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
+    local t_status_effect = self.m_statusEffectTable
     if (t_status_effect and t_status_effect['groggy'] == 'true') then
         self.m_owner:removeGroggy(self.m_statusEffectName)
     end
@@ -413,12 +422,11 @@ function StatusEffect:unapplyAll()
     
     -- 중첩 효과 해제
     do
-        for _, list in pairs(self.m_mUnit) do
-            for _, unit in ipairs(list) do
-                self:unapplyOverlab(unit)
-            end
+        for _, unit in pairs(self.m_lUnit) do
+            self:unapplyOverlab(unit)
         end
 
+        self.m_lUnit = {}
         self.m_mUnit = {}
         self.m_overlabCnt = 0
 
@@ -440,7 +448,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration)
 
     local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration)
     
-    local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
+    local t_status_effect = self.m_statusEffectTable
     
     -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
     if (self.m_mUnit[char_id]) then
@@ -450,6 +458,9 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration)
                     -- 주체와 스킬id가 같을 경우 삭제 후 추가 시킴
                     local unit = table.remove(self.m_mUnit[char_id], i)
                     self:unapplyOverlab(unit)
+
+                    local idx = table.find(self.m_lUnit, unit)
+                    table.remove(self.m_lUnit, idx)
                 
                     break
                 end
@@ -461,6 +472,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration)
 
     -- 중첩 정보 추가
     table.insert(self.m_mUnit[char_id], new_unit)
+    table.insert(self.m_lUnit, new_unit)
     
     -- 중첩시 효과 적용
     self:applyOverlab(new_unit)
@@ -469,6 +481,9 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration)
     if (self.m_maxOverlab > 0 and self.m_overlabCnt > self.m_maxOverlab) then
         local unit = table.remove(self.m_mUnit[char_id], 1)
         self:unapplyOverlab(unit)
+
+        local idx = table.find(self.m_lUnit, unit)
+        table.remove(self.m_lUnit, idx)
     end
 
     -- @EVENT : 스탯 변화 적용(최대 체력)
@@ -487,14 +502,12 @@ end
 function StatusEffect:calcLatestTime()
     local latestTimer = 0
 
-    for _, list in pairs(self.m_mUnit) do
-        for i, unit in ipairs(list) do
-            if (unit.m_durationTimer ~= -1) then
-                latestTimer = math_max(latestTimer, unit.m_durationTimer)
-            else
-                latestTimer = -1
-                return latestTimer
-            end
+    for _, unit in pairs(self.m_lUnit) do
+        if (unit.m_durationTimer ~= -1) then
+            latestTimer = math_max(latestTimer, unit.m_durationTimer)
+        else
+            latestTimer = -1
+            return latestTimer
         end
     end
 
@@ -564,4 +577,11 @@ end
 -------------------------------------
 function StatusEffect:getLatestTimer()
     return self.m_latestTimer
+end
+
+-------------------------------------
+-- function getOverlabUnitList
+-------------------------------------
+function StatusEffect:getOverlabUnitList()
+    return self.m_lUnit
 end

@@ -383,6 +383,7 @@ local t_module = {
 	'StatusEffect_Dispell',
     'StatusEffect_Zombie',
     'StatusEffect_Immortal',
+    'StatusEffect_Modify',
 
 	'StatusEffectIcon',
 
