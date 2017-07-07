@@ -120,7 +120,7 @@
 					text = '확인';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 177; 1; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 64;

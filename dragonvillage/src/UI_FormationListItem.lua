@@ -8,8 +8,7 @@ local COMMON_UI_ACTION_TIME = 0.3
 UI_FormationListItem = class(PARENT,{
 		m_tFormationInfo = '',
 		m_formation = 'str',
-		m_isActivated = 'boolean',
-		m_temp = '',
+		m_isActivated = 'boolean'
     })
 
 -------------------------------------
