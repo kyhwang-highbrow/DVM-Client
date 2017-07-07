@@ -25,13 +25,6 @@ taildragon_earth_02_body_01
   orig: 173, 190
   offset: 0, 0
   index: -1
-taildragon_earth_02_effect_03
-  rotate: false
-  xy: 1903, 180
-  size: 74, 74
-  orig: 74, 74
-  offset: 0, 0
-  index: -1
 taildragon_earth_02_eye_01
   rotate: false
   xy: 1195, 142
@@ -41,7 +34,7 @@ taildragon_earth_02_eye_01
   index: -1
 taildragon_earth_02_eye_02
   rotate: false
-  xy: 1979, 215
+  xy: 1903, 215
   size: 49, 39
   orig: 49, 39
   offset: 0, 0

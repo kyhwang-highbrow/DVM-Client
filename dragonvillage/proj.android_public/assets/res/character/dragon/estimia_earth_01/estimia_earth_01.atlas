@@ -1,97 +1,139 @@
 
 estimia_earth_01.png
-size: 1024,128
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 estimia_earth_01_arm_01
   rotate: false
-  xy: 232, 16
-  size: 97, 110
-  orig: 97, 110
+  xy: 934, 328
+  size: 85, 105
+  orig: 85, 105
   offset: 0, 0
   index: -1
 estimia_earth_01_arm_02
-  rotate: false
-  xy: 331, 16
-  size: 97, 110
-  orig: 97, 110
+  rotate: true
+  xy: 632, 181
+  size: 85, 105
+  orig: 85, 105
   offset: 0, 0
   index: -1
 estimia_earth_01_body_01
-  rotate: true
-  xy: 121, 15
-  size: 111, 109
-  orig: 111, 109
+  rotate: false
+  xy: 2, 2
+  size: 187, 212
+  orig: 187, 212
   offset: 0, 0
   index: -1
 estimia_earth_01_body_02
   rotate: false
-  xy: 430, 17
-  size: 77, 109
-  orig: 77, 109
+  xy: 552, 376
+  size: 380, 131
+  orig: 380, 131
   offset: 0, 0
   index: -1
 estimia_earth_01_eye_01
-  rotate: false
-  xy: 920, 14
+  rotate: true
+  xy: 191, 137
   size: 77, 46
   orig: 77, 46
   offset: 0, 0
   index: -1
-estimia_earth_01_head_01
+estimia_earth_01_eye_02
+  rotate: false
+  xy: 934, 268
+  size: 77, 58
+  orig: 77, 58
+  offset: 0, 0
+  index: -1
+estimia_earth_01_foot_01
   rotate: true
-  xy: 2, 2
-  size: 124, 117
-  orig: 124, 117
+  xy: 389, 188
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+estimia_earth_01_foot_02
+  rotate: false
+  xy: 822, 278
+  size: 110, 96
+  orig: 110, 96
+  offset: 0, 0
+  index: -1
+estimia_earth_01_hand_01
+  rotate: false
+  xy: 739, 181
+  size: 97, 85
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+estimia_earth_01_hand_02
+  rotate: true
+  xy: 838, 179
+  size: 97, 85
+  orig: 97, 85
+  offset: 0, 0
+  index: -1
+estimia_earth_01_head_01
+  rotate: false
+  xy: 249, 201
+  size: 138, 93
+  orig: 138, 93
   offset: 0, 0
   index: -1
 estimia_earth_01_head_02
   rotate: false
-  xy: 659, 33
-  size: 85, 93
-  orig: 85, 93
+  xy: 925, 198
+  size: 62, 68
+  orig: 62, 68
   offset: 0, 0
   index: -1
 estimia_earth_01_head_03
-  rotate: true
-  xy: 920, 62
-  size: 64, 69
-  orig: 64, 69
+  rotate: false
+  xy: 552, 269
+  size: 133, 105
+  orig: 133, 105
   offset: 0, 0
   index: -1
 estimia_earth_01_head_04
   rotate: false
-  xy: 746, 33
-  size: 85, 93
-  orig: 85, 93
-  offset: 0, 0
-  index: -1
-estimia_earth_01_head_05
-  rotate: false
-  xy: 833, 33
-  size: 85, 93
-  orig: 85, 93
+  xy: 934, 435
+  size: 88, 72
+  orig: 88, 72
   offset: 0, 0
   index: -1
 estimia_earth_01_leg_01
-  rotate: false
-  xy: 509, 17
-  size: 73, 109
-  orig: 73, 109
+  rotate: true
+  xy: 687, 268
+  size: 106, 133
+  orig: 106, 133
   offset: 0, 0
   index: -1
 estimia_earth_01_leg_02
   rotate: false
-  xy: 584, 17
-  size: 73, 109
-  orig: 73, 109
+  xy: 524, 175
+  size: 106, 92
+  orig: 106, 92
   offset: 0, 0
   index: -1
 estimia_earth_01_mouth_01
   rotate: true
-  xy: 991, 89
-  size: 37, 30
-  orig: 37, 30
+  xy: 191, 76
+  size: 59, 54
+  orig: 59, 54
+  offset: 0, 0
+  index: -1
+estimia_earth_01_wing_01
+  rotate: false
+  xy: 2, 216
+  size: 245, 291
+  orig: 245, 291
+  offset: 0, 0
+  index: -1
+estimia_earth_01_wing_02
+  rotate: true
+  xy: 249, 296
+  size: 211, 301
+  orig: 211, 301
   offset: 0, 0
   index: -1

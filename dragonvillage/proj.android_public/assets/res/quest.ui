@@ -21,7 +21,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.a2d';
+			file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;idle';
@@ -100,7 +100,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 28;
 					text = '업적';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -114,12 +114,12 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 96; 50; 29; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 96; 50; 29; };
-					shadow_opacity = 100;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				[2] =
 				{
@@ -204,12 +204,12 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 96; 50; 29; };
+					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
-					shadow_color = { 96; 50; 29; };
-					shadow_opacity = 100;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				[2] =
 				{
@@ -263,96 +263,6 @@
 			{
 				[1] =
 				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = -2.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 3;
-					width = 0;
-					height = 0;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
-					text = '초보자 퀘스트';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 240; 215; 159; };
-					opacity = 255;
-					dimension_width = 200;
-					dimension_height = 64;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 96; 50; 29; };
-					has_shadow = true;
-					shadow_color = { 96; 50; 29; };
-					shadow_opacity = 100;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				[2] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 1.000000; 1.000000; };
-					anchor_point = { 1.000000; 1.000000; };
-					relative_size_type = 0;
-					width = 26;
-					height = 26;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = 'newbieNotiSprite';
-					file_name = 'ui/btn/notification.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -140.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.000000; };
-				relative_size_type = 0;
-				width = 180;
-				height = 64;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'newbieBtn';
-				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
-				image_type = 1;
-			};
-			[5] =
-			{
-				[1] =
-				{
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
@@ -389,25 +299,6 @@
 					visible = true;
 					lua_name = 'dailyListNode';
 				};
-				[3] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.000000; };
-					anchor_point = { 0.500000; 0.000000; };
-					relative_size_type = 0;
-					width = 1160;
-					height = 410;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'newbieListNode';
-				};
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
@@ -432,7 +323,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[6] =
+			[5] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -451,7 +342,7 @@
 				visible = true;
 				lua_name = 'allClearNode';
 			};
-			[7] =
+			[6] =
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';

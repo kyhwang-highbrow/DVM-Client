@@ -1,194 +1,201 @@
 
 purplelipsdragon_fire_03.png
-size: 1024,1024
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 purplelipsdragon_fire_03_arm_01
   rotate: false
-  xy: 769, 185
+  xy: 942, 132
   size: 67, 87
   orig: 67, 87
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_body_01
-  rotate: true
-  xy: 813, 826
+  rotate: false
+  xy: 565, 301
   size: 194, 209
   orig: 194, 209
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_body_02
   rotate: false
-  xy: 142, 24
+  xy: 739, 127
   size: 100, 92
   orig: 100, 92
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_body_03
-  rotate: true
-  xy: 2, 118
+  rotate: false
+  xy: 409, 189
   size: 154, 321
   orig: 154, 321
   offset: 0, 0
   index: -1
-purplelipsdragon_fire_03_effect_01
-  rotate: false
-  xy: 838, 223
-  size: 71, 71
-  orig: 71, 71
-  offset: 0, 0
-  index: -1
 purplelipsdragon_fire_03_effect_02
   rotate: false
-  xy: 936, 357
+  xy: 482, 14
   size: 71, 71
   orig: 71, 71
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_effect_03
-  rotate: false
-  xy: 813, 430
+  rotate: true
+  xy: 565, 135
   size: 164, 172
   orig: 164, 172
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_effect_04
   rotate: false
-  xy: 936, 284
+  xy: 562, 62
   size: 71, 71
   orig: 71, 71
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_effect_05
   rotate: false
-  xy: 838, 150
+  xy: 635, 62
   size: 71, 71
   orig: 71, 71
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_effect_06
   rotate: false
-  xy: 911, 211
+  xy: 708, 54
   size: 71, 71
   orig: 71, 71
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_effect_07
   rotate: false
-  xy: 911, 138
+  xy: 781, 54
   size: 71, 71
   orig: 71, 71
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_effect_08
   rotate: false
-  xy: 448, 168
+  xy: 761, 221
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_effect_09
   rotate: false
-  xy: 554, 168
+  xy: 867, 221
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_effect_10
   rotate: false
-  xy: 2, 274
-  size: 809, 746
-  orig: 809, 746
+  xy: 2, 137
+  size: 405, 373
+  orig: 405, 373
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_effect_11
-  rotate: true
-  xy: 813, 604
+  rotate: false
+  xy: 761, 327
   size: 220, 183
   orig: 220, 183
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_eye_01
-  rotate: false
-  xy: 335, 2
+  rotate: true
+  xy: 518, 116
   size: 71, 42
   orig: 71, 42
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_eye_02
   rotate: false
-  xy: 448, 124
+  xy: 248, 7
   size: 71, 42
   orig: 71, 42
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_eye_03
   rotate: false
-  xy: 521, 124
+  xy: 555, 18
   size: 71, 42
   orig: 71, 42
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_eye_04
   rotate: false
-  xy: 594, 124
+  xy: 628, 18
   size: 71, 42
   orig: 71, 42
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_head_01
-  rotate: true
-  xy: 244, 17
+  rotate: false
+  xy: 841, 130
   size: 99, 89
   orig: 99, 89
   offset: 0, 0
   index: -1
+purplelipsdragon_fire_03_head_01_b
+  rotate: false
+  xy: 739, 274
+  size: 15, 25
+  orig: 15, 25
+  offset: 0, 0
+  index: -1
+purplelipsdragon_fire_03_head_01_r
+  rotate: true
+  xy: 518, 87
+  size: 27, 19
+  orig: 27, 19
+  offset: 0, 0
+  index: -1
 purplelipsdragon_fire_03_head_02
   rotate: false
-  xy: 667, 117
+  xy: 854, 75
   size: 54, 53
   orig: 54, 53
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_head_03
   rotate: true
-  xy: 660, 172
+  xy: 409, 87
   size: 100, 107
   orig: 100, 107
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_head_04
-  rotate: false
-  xy: 335, 46
+  rotate: true
+  xy: 388, 2
   size: 83, 92
   orig: 83, 92
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_leg_01
   rotate: false
-  xy: 325, 140
+  xy: 2, 3
   size: 121, 132
   orig: 121, 132
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_leg_02
   rotate: false
-  xy: 813, 296
+  xy: 125, 3
   size: 121, 132
   orig: 121, 132
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_mouth_01
-  rotate: false
-  xy: 2, 11
+  rotate: true
+  xy: 388, 107
   size: 28, 19
   orig: 28, 19
   offset: 0, 0
   index: -1
 purplelipsdragon_fire_03_pinna_01
   rotate: true
-  xy: 2, 32
+  xy: 248, 51
   size: 84, 138
   orig: 84, 138
   offset: 0, 0

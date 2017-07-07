@@ -44,7 +44,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
+			file_name = 'ui/a2d/rarity_light/rarity_light.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;legend';
@@ -343,7 +343,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 28;
 				text = '확인';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -352,14 +352,14 @@
 				dimension_width = 180;
 				dimension_height = 70;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 96; 50; 29; };
+				stroke_color = { 85; 44; 25; };
 				has_shadow = true;
-				shadow_color = { 96; 50; 29; };
+				shadow_color = { 85; 44; 25; };
 				shadow_opacity = 150;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
@@ -371,8 +371,8 @@
 			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 180;
-			height = 70;
+			width = 220;
+			height = 64;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -385,8 +385,8 @@
 			action_duration = 0.500000;
 			lua_name = 'okBtn';
 			enable = true;
-			normal = 'ui/btn/a_btn_0201.png';
-			selected = 'ui/btn/a_btn_0202.png';
+			normal = 'ui/buttons/base_btn_0101.png';
+			selected = 'ui/buttons/base_btn_0102.png';
 			disable = '';
 			image_type = 1;
 		};

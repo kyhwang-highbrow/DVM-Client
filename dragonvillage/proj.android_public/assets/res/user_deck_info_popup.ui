@@ -35,6 +35,77 @@
 			{
 				[1] =
 				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;idle';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				[2] =
+				{
+					type = 'LayerColor';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 1190;
+					height = 660;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 0; 0; 0; };
+					opacity = 150;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'ClippingNode';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 1186;
+				height = 654;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
+			};
+			[3] =
+			{
+				[1] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
@@ -42,8 +113,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 404;
-					height = 34;
+					width = 539;
+					height = 57;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -58,8 +129,8 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 404;
-					dimension_height = 34;
+					dimension_width = 539;
+					dimension_height = 57;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -69,7 +140,7 @@
 					stroke_color = { 85; 44; 25; };
 					has_shadow = true;
 					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 255;
+					shadow_opacity = 150;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
@@ -137,7 +208,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
@@ -612,7 +683,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 120.000000;
+					y = 150.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -643,7 +714,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[4] =
+			[5] =
 			{
 				[1] =
 				{
@@ -1118,7 +1189,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 120.000000;
+					y = 150.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1149,7 +1220,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[5] =
+			[6] =
 			{
 				[1] =
 				{
@@ -1624,7 +1695,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 120.000000;
+					y = 150.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1655,7 +1726,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[6] =
+			[7] =
 			{
 				[1] =
 				{
@@ -2130,7 +2201,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 120.000000;
+					y = 150.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -2161,7 +2232,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[7] =
+			[8] =
 			{
 				[1] =
 				{
@@ -2636,7 +2707,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 120.000000;
+					y = 150.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -2667,7 +2738,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[8] =
+			[9] =
 			{
 				type = 'Button';
 				ui_name = '';

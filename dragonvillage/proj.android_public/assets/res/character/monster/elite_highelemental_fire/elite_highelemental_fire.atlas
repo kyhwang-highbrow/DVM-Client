@@ -1,0 +1,118 @@
+
+elite_highelemental_fire.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_highelemental_fire_arm_02
+  rotate: false
+  xy: 1081, 34
+  size: 104, 99
+  orig: 104, 99
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_arm_04
+  rotate: false
+  xy: 1187, 62
+  size: 68, 71
+  orig: 68, 71
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_body_01
+  rotate: true
+  xy: 1262, 73
+  size: 178, 187
+  orig: 178, 187
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_body_02
+  rotate: false
+  xy: 1451, 87
+  size: 125, 164
+  orig: 125, 164
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_body_03
+  rotate: false
+  xy: 1578, 87
+  size: 125, 164
+  orig: 125, 164
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_body_04
+  rotate: false
+  xy: 1705, 87
+  size: 125, 164
+  orig: 125, 164
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_effect_01
+  rotate: false
+  xy: 323, 83
+  size: 295, 168
+  orig: 295, 168
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_effect_02
+  rotate: false
+  xy: 941, 135
+  size: 319, 116
+  orig: 319, 116
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_effect_03
+  rotate: false
+  xy: 620, 107
+  size: 319, 144
+  orig: 319, 144
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_effect_04
+  rotate: false
+  xy: 2, 83
+  size: 319, 168
+  orig: 319, 168
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_eye_01
+  rotate: false
+  xy: 1832, 87
+  size: 70, 31
+  orig: 70, 31
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_face_01
+  rotate: false
+  xy: 120, 14
+  size: 87, 67
+  orig: 87, 67
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_face_02
+  rotate: false
+  xy: 2, 14
+  size: 116, 67
+  orig: 116, 67
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_hand_01
+  rotate: false
+  xy: 1832, 120
+  size: 138, 131
+  orig: 138, 131
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_hand_02
+  rotate: false
+  xy: 941, 2
+  size: 138, 131
+  orig: 138, 131
+  offset: 0, 0
+  index: -1
+elite_highelemental_fire_head_01
+  rotate: true
+  xy: 1972, 144
+  size: 107, 61
+  orig: 107, 61
+  offset: 0, 0
+  index: -1

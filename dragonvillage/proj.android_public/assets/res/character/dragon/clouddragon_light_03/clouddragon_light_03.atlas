@@ -1,0 +1,13 @@
+
+clouddragon_light_03.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+clouddragon_light_03_00
+  rotate: false
+  xy: 2, 2
+  size: 495, 450
+  orig: 495, 450
+  offset: 0, 0
+  index: -1

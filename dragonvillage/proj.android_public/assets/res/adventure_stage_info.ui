@@ -5,6 +5,29 @@
 	{
 		[1] =
 		{
+			type = 'LayerColor';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			color = { 0; 0; 0; };
+			opacity = 100;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[2] =
+		{
 			[1] =
 			{
 				type = 'Scale9Sprite';
@@ -23,7 +46,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -87,7 +110,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_03.png';
+				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -106,8 +129,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 140;
-					height = 34;
+					width = 180;
+					height = 54;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -116,36 +139,36 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 24;
 					text = '획득 가능 보상';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 140;
-					dimension_height = 34;
+					dimension_width = 180;
+					dimension_height = 54;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 61; 50; 27; };
-					has_shadow = false;
-					shadow_color = { 61; 50; 27; };
+					stroke_color = { 85; 44; 25; };
+					has_shadow = true;
+					shadow_color = { 85; 44; 25; };
 					shadow_opacity = 100;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -70.000000;
+				x = -90.000000;
 				y = 135.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 140;
-				height = 44;
+				width = 180;
+				height = 54;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -154,9 +177,9 @@
 				visible = true;
 				lua_name = 'rewardBtn';
 				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
+				normal = 'ui/buttons/base_btn_0201.png';
+				selected = 'ui/buttons/base_btn_0202.png';
+				disable = 'ui/buttons/base_btn_0101.png';
 				image_type = 1;
 			};
 			[4] =
@@ -170,8 +193,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 140;
-					height = 34;
+					width = 180;
+					height = 54;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -180,36 +203,36 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 24;
 					text = '출현 몬스터';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 140;
-					dimension_height = 34;
+					dimension_width = 180;
+					dimension_height = 54;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 61; 50; 27; };
-					has_shadow = false;
-					shadow_color = { 61; 50; 27; };
+					stroke_color = { 85; 44; 25; };
+					has_shadow = true;
+					shadow_color = { 85; 44; 25; };
 					shadow_opacity = 100;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 2.000000;
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 70.000000;
+				x = 90.000000;
 				y = 135.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 140;
-				height = 44;
+				width = 180;
+				height = 54;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -218,9 +241,9 @@
 				visible = true;
 				lua_name = 'enemyInfoBtn';
 				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
+				normal = 'ui/buttons/base_btn_0201.png';
+				selected = 'ui/buttons/base_btn_0202.png';
+				disable = 'ui/buttons/base_btn_0101.png';
 				image_type = 1;
 			};
 			[5] =
@@ -242,7 +265,7 @@
 				visible = true;
 				lua_name = 'dscLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 28;
 				text = 'dscLabel';
 				h_alignment = 1;
 				v_alignment = 0;
@@ -286,7 +309,7 @@
 				text = 'titleLabel';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 240; 215; 159; };
+				color = { 255; 215; 0; };
 				opacity = 255;
 				dimension_width = 636;
 				dimension_height = 56;
@@ -309,13 +332,13 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 74.000000;
-					y = 18.000000;
+					x = -95.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 76;
-					height = 74;
+					width = 96;
+					height = 92;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -323,7 +346,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/stage_info_star_02.png';
+					file_name = 'ui/icons/adventure_map/stage_info_star_00.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -336,12 +359,12 @@
 					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 18.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 76;
-					height = 74;
+					width = 96;
+					height = 92;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -349,7 +372,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/stage_info_star_02.png';
+					file_name = 'ui/icons/adventure_map/stage_info_star_00.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -361,8 +384,34 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -74.000000;
-					y = 18.000000;
+					x = 95.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 96;
+					height = 92;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icons/adventure_map/stage_info_star_00.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[4] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 95.000000;
+					y = -1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -383,12 +432,64 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 74.000000;
-					y = 18.000000;
+					x = 0.000000;
+					y = -1.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 76;
+					height = 74;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icon/stage_info_star_02.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[6] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -95.000000;
+					y = -1.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 76;
+					height = 74;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icon/stage_info_star_02.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[7] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 95.000000;
+					y = -1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -409,12 +510,12 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[5] =
+				[8] =
 				{
 					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 18.000000;
+					y = -1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -435,12 +536,12 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[6] =
+				[9] =
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -74.000000;
-					y = 18.000000;
+					x = -95.000000;
+					y = -1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -461,15 +562,41 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
+				[10] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 154.000000;
+					y = -26.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 40;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/buttons/help_btn_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = 26.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 404;
-				height = 54;
+				width = 370;
+				height = 94;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -478,7 +605,7 @@
 				visible = true;
 				lua_name = 'starButton';
 				enable = true;
-				normal = 'ui/frame/a_frame_02.png';
+				normal = 'ui/icons/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 1;
@@ -492,9 +619,9 @@
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
-				scale_x = -1.000000;
+				width = 58;
+				height = 72;
+				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
@@ -502,8 +629,8 @@
 				visible = true;
 				lua_name = 'prevBtn';
 				enable = true;
-				normal = 'ui/btn/arrow_0201.png';
-				selected = 'ui/btn/arrow_0202.png';
+				normal = 'ui/buttons/stage_info_arrow_btn_0101.png';
+				selected = '';
 				disable = '';
 				image_type = 0;
 			};
@@ -516,8 +643,8 @@
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 58;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -526,8 +653,8 @@
 				visible = true;
 				lua_name = 'nextBtn';
 				enable = true;
-				normal = 'ui/btn/arrow_0201.png';
-				selected = 'ui/btn/arrow_0202.png';
+				normal = 'ui/buttons/stage_info_arrow_btn_0102.png';
+				selected = '';
 				disable = '';
 				image_type = 0;
 			};
@@ -575,13 +702,13 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 385.000000;
-				y = 23.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
+				x = -36.000000;
+				y = -24.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 78;
-				height = 80;
+				width = 64;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -590,8 +717,8 @@
 				visible = true;
 				lua_name = 'closeBtn';
 				enable = true;
-				normal = 'ui/btn/close_01.png';
-				selected = 'ui/btn/close_02.png';
+				normal = 'ui/buttons/64_close_btn_0101.png';
+				selected = 'ui/buttons/64_close_btn_0102.png';
 				disable = '';
 				image_type = 0;
 			};
@@ -604,8 +731,8 @@
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 194;
-				height = 34;
+				width = 258;
+				height = 30;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -613,7 +740,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'bossSprite';
-				file_name = 'ui/typo/boss_stage.png';
+				file_name = 'ui/icons/adventure_map/stage_boss_icon.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -626,7 +753,7 @@
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = 0.000000;
-				y = 20.000000;
+				y = 12.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -686,13 +813,13 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 63.000000;
+					x = 70.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 100;
-					height = 60;
+					width = 240;
+					height = 74;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -701,26 +828,26 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 28;
+					font_size = 30;
 					text = '입장';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 100;
-					dimension_height = 60;
+					dimension_width = 240;
+					dimension_height = 74;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
+					stroke_color = { 17; 76; 39; };
 					has_shadow = true;
-					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 255;
+					shadow_color = { 17; 76; 39; };
+					shadow_opacity = 150;
 					shadow_direction = 0;
-					shadow_distance = 2.000000;
+					shadow_distance = 3.000000;
 				};
 				[2] =
 				{
@@ -753,7 +880,7 @@
 						anchor_point = { 1.000000; 0.500000; };
 						relative_size_type = 0;
 						width = 124;
-						height = 30;
+						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -769,7 +896,7 @@
 						color = { 240; 215; 159; };
 						opacity = 255;
 						dimension_width = 124;
-						dimension_height = 30;
+						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
 						stroke_type = 0;
@@ -783,11 +910,37 @@
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
 					};
+					[3] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -50.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 64;
+						height = 64;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = 'hotTimeSprite';
+						file_name = 'ui/icons/hot_time/hot_time_staminas.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -60.000000;
+					x = 90.000000;
 					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
+					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 100;
@@ -799,7 +952,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/price_0101.png';
+					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
 					opacity = 200;
 					center_rect_x = 0;
@@ -814,8 +967,8 @@
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 300;
-				height = 76;
+				width = 400;
+				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -824,8 +977,8 @@
 				visible = true;
 				lua_name = 'enterBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0201.png';
-				selected = 'ui/btn/a_btn_0202.png';
+				normal = 'ui/buttons/main_btn_0101.png';
+				selected = 'ui/buttons/main_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -836,7 +989,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 804;
+			width = 1300;
 			height = 384;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

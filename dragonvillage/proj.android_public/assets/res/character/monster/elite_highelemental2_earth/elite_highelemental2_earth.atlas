@@ -1,0 +1,118 @@
+
+elite_highelemental2_earth.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_highelemental2_earth_arm_02
+  rotate: false
+  xy: 1079, 32
+  size: 104, 99
+  orig: 104, 99
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_arm_04
+  rotate: false
+  xy: 1185, 60
+  size: 68, 71
+  orig: 68, 71
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_body_01
+  rotate: true
+  xy: 1260, 71
+  size: 178, 187
+  orig: 178, 187
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_body_02
+  rotate: false
+  xy: 1449, 85
+  size: 125, 164
+  orig: 125, 164
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_body_03
+  rotate: false
+  xy: 1576, 85
+  size: 125, 164
+  orig: 125, 164
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_body_04
+  rotate: false
+  xy: 1703, 85
+  size: 125, 164
+  orig: 125, 164
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_effect_01
+  rotate: false
+  xy: 321, 81
+  size: 295, 168
+  orig: 295, 168
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_effect_02
+  rotate: false
+  xy: 939, 133
+  size: 319, 116
+  orig: 319, 116
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_effect_03
+  rotate: false
+  xy: 618, 105
+  size: 319, 144
+  orig: 319, 144
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_effect_04
+  rotate: false
+  xy: 0, 81
+  size: 319, 168
+  orig: 319, 168
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_eye_01
+  rotate: false
+  xy: 1830, 85
+  size: 70, 31
+  orig: 70, 31
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_face_01
+  rotate: false
+  xy: 118, 12
+  size: 87, 67
+  orig: 87, 67
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_face_02
+  rotate: false
+  xy: 0, 12
+  size: 116, 67
+  orig: 116, 67
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_hand_01
+  rotate: false
+  xy: 1830, 118
+  size: 138, 131
+  orig: 138, 131
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_hand_02
+  rotate: false
+  xy: 939, 0
+  size: 138, 131
+  orig: 138, 131
+  offset: 0, 0
+  index: -1
+elite_highelemental2_earth_head_01
+  rotate: true
+  xy: 1970, 142
+  size: 107, 61
+  orig: 107, 61
+  offset: 0, 0
+  index: -1
