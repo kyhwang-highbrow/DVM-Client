@@ -899,7 +899,6 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_leaderBtn()
-	local l_pos_list = self.m_readySceneDeck:getRotatedPosList()
 	local l_doid = self.m_readySceneDeck.m_lDeckList
 	local leader_idx = self.m_readySceneDeck.m_currLeader
 
@@ -923,9 +922,9 @@ function UI_ReadyScene:click_leaderBtn()
 		end			
 	end
 
-	local ui = UI_ReadyScene_LeaderPopup(l_pos_list, l_doid, leader_idx)
+	local ui = UI_ReadyScene_LeaderPopup(l_doid, leader_idx)
 	ui:setCloseCB(function() 
-		self.m_readySceneDeck.m_currLeader = ui.m_newLeader
+		self.m_readySceneDeck.m_currLeader = ui.m_leaderIdx
 		self:refresh_buffInfo()
 	end)
 end
