@@ -387,6 +387,11 @@ function UI_BookDetailPopup:click_nextBtn(is_next)
 		self:setDragon(new_t_dragon)
 		self:refresh()
 		self.m_bookIdx = new_idx
+
+        -- 인덱스 이동간에 진화도가 바뀐다면 탭도 변경해준다
+        if (new_t_dragon['evolution'] ~= evolution) then
+            self:setTab(new_t_dragon['evolution'])
+        end
 	end
 end
 
