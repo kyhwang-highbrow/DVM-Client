@@ -15,6 +15,7 @@ UI_SkillDetailPopup = class(PARENT, {
 		m_numberLoop = 'NumberLoop',
 
         m_bSimpleMode = 'boolean',
+        m_skillIconList = 'list',
      })
 
 -------------------------------------
@@ -29,7 +30,7 @@ function UI_SkillDetailPopup:init(dragon_object, focus_idx)
         end
     end
 
-    local vars = self:load('dragon_skill_detail_popup_new.ui')
+    local vars = self:load('dragon_skill_detail_popup_new_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -57,6 +58,7 @@ function UI_SkillDetailPopup:initUI()
 
 	-- skill icon 상단 리스트
 	local l_skill_icon = self.m_skillMgr:getDragonSkillIconList()
+    self.m_skillIconList = l_skill_icon
 	for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
 		local skill_node = vars['skillNode' .. i]
 		skill_node:removeAllChildren()
@@ -101,11 +103,24 @@ function UI_SkillDetailPopup:refresh(idx)
 	str = getSkillTypeStr(str, false)
 	vars['skillTypeLabel']:setString(str)
 
+    do -- 선택 활성 이미지
+        local icon = self.m_skillIconList[self.m_currIdx]
+        if icon then
+            icon.vars['selectSprite']:setVisible(false)
+        end
+        local icon = self.m_skillIconList[idx]
+        if icon then
+            icon.vars['selectSprite']:setVisible(true)
+        end
+    end
+
+    --[[ 2017-07-07 sgkim UI 스타일 변경되면서 변경함
 	-- 스킬 아이콘
 	vars['skillNode']:removeAllChildren(true)
 	local skill_id = skill_indivisual_info:getSkillID()
 	local icon = IconHelper:getSkillIcon('dragon', skill_id)
 	vars['skillNode']:addChild(icon)
+    --]]
 
 	-- 스킬 이름
 	local name = skill_indivisual_info:getSkillName()
