@@ -36,6 +36,7 @@ end
 -------------------------------------
 function UI_ReadyScene_Select:initUI()
     local vars = self.m_uiReadyScene.vars
+    vars['friendToggleSprite']:setVisible(self.m_bFriend)
     self:onEnterDragonTableView()
 end
 

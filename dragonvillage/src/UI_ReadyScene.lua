@@ -33,7 +33,7 @@ function UI_ReadyScene:init(stage_id, with_friend, sub_info)
 
     self.m_bWithFriend = with_friend or false
 
-    local vars = self:load('battle_ready.ui')
+    local vars = self:load('battle_ready_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
 	-- 들어온 경로에 따라 sound가 다름
@@ -429,7 +429,10 @@ function UI_ReadyScene:refresh_combatPower()
 
     local stage_id = self.m_stageID
 	if (stage_id == COLOSSEUM_STAGE_ID) then
-		vars['cpNode']:setVisible(false)
+		vars['cp_Label2']:setString('')
+
+        local deck = self.m_readySceneDeck:getDeckCombatPower()
+		vars['cp_Label']:setString(comma_value(deck))
 
 	else
 		local recommend = TableStageDesc:getRecommendedCombatPower(stage_id)
