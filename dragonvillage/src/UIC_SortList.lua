@@ -152,7 +152,7 @@ end
 -------------------------------------
 function UIC_SortList:addSortType(sort_type, sort_name, t_label_data)
 
-    local button = cc.MenuItemImage:create('res/ui/buttons/base_btn_0101.png', 'res/ui/buttons/base_btn_0102.png', 'res/ui/buttons/base_btn_0102.png', 1)
+    local button = cc.MenuItemImage:create('res/ui/buttons/base_btn_0201.png', 'res/ui/buttons/base_btn_0202.png', 'res/ui/buttons/base_btn_0102.png', 1)
     local width, heigth = self.m_node:getNormalSize()
     button:setNormalSize(width - (self.m_buttonMargin * 2), self.m_buttonHeight)
 
