@@ -1023,6 +1023,283 @@
 			};
 			[20] =
 			{
+				type = 'Node';
+				ui_name = '';
+				x = 27.000000;
+				y = -92.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 220;
+				height = 34;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'runeSetNode';
+			};
+			[21] =
+			{
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.450000;
+					scale_y = 0.450000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'runeSlotNode1';
+				};
+				type = 'Button';
+				ui_name = '';
+				x = -71.000000;
+				y = -151.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 68;
+				height = 68;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'equipSlotBtn1';
+				enable = true;
+				normal = 'ui/empty.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[22] =
+			{
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.450000;
+					scale_y = 0.450000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'runeSlotNode2';
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = -151.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 68;
+				height = 68;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'equipSlotBtn2';
+				enable = true;
+				normal = 'ui/empty.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[23] =
+			{
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.450000;
+					scale_y = 0.450000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'runeSlotNode3';
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 71.000000;
+				y = -151.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 68;
+				height = 68;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'equipSlotBtn3';
+				enable = true;
+				normal = 'ui/empty.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[24] =
+			{
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.450000;
+					scale_y = 0.450000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'runeSlotNode4';
+				};
+				type = 'Button';
+				ui_name = '';
+				x = -71.000000;
+				y = -222.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 68;
+				height = 68;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'equipSlotBtn4';
+				enable = true;
+				normal = 'ui/empty.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[25] =
+			{
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.450000;
+					scale_y = 0.450000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'runeSlotNode5';
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = -222.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 68;
+				height = 68;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'equipSlotBtn5';
+				enable = true;
+				normal = 'ui/empty.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[26] =
+			{
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.450000;
+					scale_y = 0.450000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'runeSlotNode6';
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 71.000000;
+				y = -222.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 68;
+				height = 68;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'equipSlotBtn6';
+				enable = true;
+				normal = 'ui/empty.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[27] =
+			{
 				[1] =
 				{
 					type = 'Scale9Sprite';
@@ -1785,283 +2062,6 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'detailNode';
-			};
-			[21] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 27.000000;
-				y = -92.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 220;
-				height = 34;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'runeSetNode';
-			};
-			[22] =
-			{
-				[1] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.450000;
-					scale_y = 0.450000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'runeSlotNode1';
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -71.000000;
-				y = -151.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 68;
-				height = 68;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'equipSlotBtn1';
-				enable = true;
-				normal = 'ui/empty.png';
-				selected = '';
-				disable = '';
-				image_type = 0;
-			};
-			[23] =
-			{
-				[1] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.450000;
-					scale_y = 0.450000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'runeSlotNode2';
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 0.000000;
-				y = -151.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 68;
-				height = 68;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'equipSlotBtn2';
-				enable = true;
-				normal = 'ui/empty.png';
-				selected = '';
-				disable = '';
-				image_type = 0;
-			};
-			[24] =
-			{
-				[1] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.450000;
-					scale_y = 0.450000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'runeSlotNode3';
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 71.000000;
-				y = -151.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 68;
-				height = 68;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'equipSlotBtn3';
-				enable = true;
-				normal = 'ui/empty.png';
-				selected = '';
-				disable = '';
-				image_type = 0;
-			};
-			[25] =
-			{
-				[1] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.450000;
-					scale_y = 0.450000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'runeSlotNode4';
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -71.000000;
-				y = -222.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 68;
-				height = 68;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'equipSlotBtn4';
-				enable = true;
-				normal = 'ui/empty.png';
-				selected = '';
-				disable = '';
-				image_type = 0;
-			};
-			[26] =
-			{
-				[1] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.450000;
-					scale_y = 0.450000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'runeSlotNode5';
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 0.000000;
-				y = -222.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 68;
-				height = 68;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'equipSlotBtn5';
-				enable = true;
-				normal = 'ui/empty.png';
-				selected = '';
-				disable = '';
-				image_type = 0;
-			};
-			[27] =
-			{
-				[1] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.450000;
-					scale_y = 0.450000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'runeSlotNode6';
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 71.000000;
-				y = -222.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 68;
-				height = 68;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'equipSlotBtn6';
-				enable = true;
-				normal = 'ui/empty.png';
-				selected = '';
-				disable = '';
-				image_type = 0;
 			};
 			type = 'Menu';
 			ui_name = '';

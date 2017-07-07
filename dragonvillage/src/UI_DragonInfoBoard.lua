@@ -128,6 +128,7 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
     self:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
     self:refresh_icons(t_dragon_data, t_dragon)
     self:refresh_status(t_dragon_data, t_dragon)
+    self:refresh_dragonRunes(t_dragon_data)
 end
 
 -------------------------------------
@@ -327,7 +328,65 @@ function UI_DragonInfoBoard:click_runeBtn(slot_idx)
 
     -- 룬 장착에 대한 변경사항이 있을 경우 처리
     local function close_cb()
-        -- TODO
+        local doid = self.m_dragonObject['id']
+        local dragon_object = g_dragonsData:getDragonObject(doid)
+
+        if (dragon_object['updated_at'] ~= self.m_dragonObject['updated_at']) then
+            self.m_dragonObject = dragon_object
+            self:refresh(self.m_dragonObject)
+        end
     end
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function refresh_dragonRunes
+-- @brief 드래곤이 장착 중인 룬 정보 갱신
+-------------------------------------
+function UI_DragonInfoBoard:refresh_dragonRunes(t_dragon_data)
+    local vars = self.vars
+
+    if (t_dragon_data.m_objectType ~= 'dragon') then
+        for slot=1, RUNE_SLOT_MAX do
+            vars['runeSlotNode' .. slot]:removeAllChildren()
+        end
+
+        vars['runeSetNode']:removeAllChildren()
+        return
+    end
+
+    do -- 장착된 룬 표시
+        for slot=1, RUNE_SLOT_MAX do
+            vars['runeSlotNode' .. slot]:removeAllChildren()
+            local rune_obj = t_dragon_data:getRuneObjectBySlot(slot)
+            if rune_obj then
+                local icon = IconHelper:getItemIcon(rune_obj['item_id'], rune_obj)
+                vars['runeSlotNode' .. slot]:addChild(icon)
+            end
+        end
+    end
+
+    do -- 룬 세트
+        local rune_set_obj = t_dragon_data:getStructRuneSetObject()
+        local active_set_list = rune_set_obj:getActiveRuneSetList()
+        vars['runeSetNode']:removeAllChildren()
+
+        local l_pos = getSortPosList(70, #active_set_list)
+        for i,set_id in ipairs(active_set_list) do
+            local ui = UI()
+            ui:load('dragon_manage_rune_set.ui')
+
+            -- 색상 지정
+            local c3b = TableRuneSet:getRuneSetColorC3b(set_id)
+            ui.vars['runeBgSprite']:setColor(c3b)
+
+            -- 세트 이름
+            local set_name = TableRuneSet:getRuneSetName(set_id)
+            ui.vars['runeSetLabel']:setString(set_name)
+
+            -- AddCHild, 위치 지정
+            vars['runeSetNode']:addChild(ui.root)
+            ui.root:setPositionX(l_pos[i])
+        end
+    end
 end
