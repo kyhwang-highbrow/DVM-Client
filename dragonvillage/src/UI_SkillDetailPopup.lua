@@ -72,7 +72,7 @@ function UI_SkillDetailPopup:initUI()
 
 		-- 비어있는 스킬 아이콘 생성
 		else
-			local empty_skill_icon = IconHelper:getEmptySkillIcon()
+			local empty_skill_icon = IconHelper:getEmptySkillCard()
 			skill_node:addChild(empty_skill_icon)
         end
 	end
@@ -112,14 +112,6 @@ function UI_SkillDetailPopup:refresh(idx)
             icon.vars['selectSprite']:setVisible(true)
         end
     end
-
-    --[[ 2017-07-07 sgkim UI 스타일 변경되면서 변경함
-	-- 스킬 아이콘
-	vars['skillNode']:removeAllChildren(true)
-	local skill_id = skill_indivisual_info:getSkillID()
-	local icon = IconHelper:getSkillIcon('dragon', skill_id)
-	vars['skillNode']:addChild(icon)
-    --]]
 
 	-- 스킬 이름
 	local name = skill_indivisual_info:getSkillName()

@@ -36,8 +36,7 @@ function UI_DragonInfoBoard:initButton()
     local vars = self.vars
     vars['equipmentBtn']:setVisible(false)
     vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
-    vars['skillBtn']:registerScriptTapHandler(function() self:click_skillBtn() end)
-
+   
     vars['equipSlotBtn1']:registerScriptTapHandler(function() self:click_runeBtn(1) end)
     vars['equipSlotBtn2']:registerScriptTapHandler(function() self:click_runeBtn(2) end)
     vars['equipSlotBtn3']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
@@ -162,31 +161,28 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 	-- 드래곤의 경우 
     do 
         local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
-        local l_skill_image = skill_mgr:getDragonSkillImageList()
+        local l_skill_icon = skill_mgr:getDragonSkillIconList()
 
 		for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
             local skill_node = vars['skillNode' .. i]
-			skill_node:removeAllChildren()
-
             local skill_lv_label = vars['skillLevelLabel' .. i]
+
+			skill_node:removeAllChildren()
             
 			-- 스킬 아이콘 생성
-			if l_skill_image[i] then
-                --[[ 2017-07-07 sgkim UI스타일 변경되면서 빠짐
+			if l_skill_icon[i] then
                 skill_node:addChild(l_skill_icon[i].root)
+                l_skill_icon[i]:setSimple()
 				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
 					UI_SkillDetailPopup(t_dragon_data, i)
 				end)
-                --]]
-                skill_node:addChild(l_skill_image[i])
 
                 local skill_level = skill_mgr:getSkillLevel(i)
                 skill_lv_label:setString(tostring(skill_level))
-
 			-- 비어있는 스킬 아이콘 생성
 			else
-				local empty_skill_icon = IconHelper:getEmptySkillImage()
+				local empty_skill_icon = IconHelper:getEmptySkillIcon()
 				skill_node:addChild(empty_skill_icon)
 
                 skill_lv_label:setString('')
@@ -292,20 +288,6 @@ function UI_DragonInfoBoard:click_detailBtn(t_dragon_data, t_dragon)
     vars['detailNode']:runAction(cc.ToggleVisibility:create())
     vars['infoNode']:runAction(cc.ToggleVisibility:create())
 end
-
--------------------------------------
--- function click_skillBtn
--- @brief 스킬 상세보기
--------------------------------------
-function UI_DragonInfoBoard:click_skillBtn()
-    if (not self.m_dragonObject) then
-        return
-    end
-
-    local skill_idx = 0
-    UI_SkillDetailPopup(self.m_dragonObject, skill_idx)
-end
-
 
 -------------------------------------
 -- function click_runeBtn

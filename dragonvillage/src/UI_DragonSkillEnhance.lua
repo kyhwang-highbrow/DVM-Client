@@ -147,7 +147,7 @@ function UI_DragonSkillEnhance:refresh_skillIcon()
 
 		-- 비어있는 스킬 아이콘 생성
 		else
-			local empty_skill_icon = IconHelper:getEmptySkillIcon()
+			local empty_skill_icon = IconHelper:getEmptySkillCard()
 			skill_node:addChild(empty_skill_icon)
 
 		end

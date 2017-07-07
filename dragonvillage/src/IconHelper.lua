@@ -323,31 +323,23 @@ function IconHelper:getSkillIcon(char_type, skill_id)
 end
 
 -------------------------------------
--- function getEmptySkillIcon
+-- function getEmptySkillCard
 -- @brief
 -------------------------------------
-function IconHelper:getEmptySkillIcon()
+function IconHelper:getEmptySkillCard()
     local ui = UI()
     local vars = ui:load('icon_skill_item_new.ui')
     vars['typeLabel']:setVisible(false)
     vars['levelLabel']:setVisible(false)
     vars['emptySprite']:setVisible(true)
     return ui.root
-
-    --[[ 2017-07-07 sgkim UI 스타일 변경되면서 변경함
-    -- 2017-07-07 mskim UI_DragonSkillCard 내부 설정으로 바꿀 예정
-    local sprite = cc.Sprite:create('res/ui/icon/skill/skill_empty.png')
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-    return sprite
-    --]]
 end
 
 -------------------------------------
--- function getEmptySkillImage
+-- function getEmptySkillIcon
 -- @brief
 -------------------------------------
-function IconHelper:getEmptySkillImage()
+function IconHelper:getEmptySkillIcon()
     local sprite = cc.Sprite:create('res/ui/icon/skill/skill_empty.png')
     sprite:setDockPoint(CENTER_POINT)
     sprite:setAnchorPoint(CENTER_POINT)

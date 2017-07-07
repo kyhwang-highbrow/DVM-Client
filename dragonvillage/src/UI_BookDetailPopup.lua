@@ -262,10 +262,8 @@ function UI_BookDetailPopup:onChangeEvolution()
 
 			-- 비어있는 스킬 아이콘 생성
 			else
-				local sprite = cc.Sprite:create('res/ui/icon/skill/skill_empty.png')
-                sprite:setDockPoint(CENTER_POINT)
-                sprite:setAnchorPoint(CENTER_POINT)
-				skill_node:addChild(sprite)
+				local empty_skill_icon = IconHelper:getEmptySkillIcon()
+				skill_node:addChild(empty_skill_icon)
 
 			end
 		end

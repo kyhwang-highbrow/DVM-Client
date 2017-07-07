@@ -96,15 +96,22 @@ end
 
 -------------------------------------
 -- function setSimple
--- @brief 아이콘과 버튼만 남긴다
+-- @brief dragon_info, info_mini, 도감 등에서 사용하도록 simple_mode로 세팅!
 -------------------------------------
 function UI_DragonSkillCard:setSimple()
     local vars = self.vars
+
+    -- 필요없는것 다 꺼버림
     vars['typeLabel']:setVisible(false)
     vars['levelLabel']:setVisible(false)
     vars['baseSprite']:setVisible(false)
     vars['emptySprite']:setVisible(false)
 
+    -- lockSprite 교체
+    vars['lockSprite']:removeFromParent(true)
+    vars['lockSprite'] = IconHelper:getIcon('res/ui/buttons/skill_btn_0105.png')
+
+    -- 스킬 아이콘 및 버튼 위치 조정
     vars['skillNode']:setScale(1)
     vars['skillNode']:setPosition(0, 0)
     vars['clickBtn']:setNormalSize(100, 100)
