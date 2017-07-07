@@ -13,7 +13,7 @@ UI_DragonSkillCard = class(PARENT, {
 function UI_DragonSkillCard:init(skill_indivisual_info)
     self.m_skillIndivisualInfo = skill_indivisual_info
 
-    local vars = self:load('icon_skill_item.ui')
+    local vars = self:load('icon_skill_item_new.ui')
 
 	local char_type = skill_indivisual_info.m_charType
     local skill_id = skill_indivisual_info.m_skillID
@@ -22,15 +22,7 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
     vars['skillNode']:addChild(icon)
 
     do -- 스킬 타입 표시
-        if isExistValue(skill_type, 'active') then
-            --vars['activeSprite']:setVisible(false)
-            vars['skillLabel']:setString('액티브')
-            vars['skillLabel']:setColor(cc.c3b(0,255,0))
-        else
-            --vars['activeSprite']:setVisible(false)
-            vars['skillLabel']:setString('패시브')
-            vars['skillLabel']:setColor(cc.c3b(255,255,30))
-        end
+        self:setTypeText(skill_type)
     end    
 
     do -- 스킬 lock
@@ -45,7 +37,8 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
 	end
 
     -- 스킬 레벨
-    vars['skllLvLabel']:setString(tostring(skill_indivisual_info.m_skillLevel))
+    local lv_str = Str('Lv.{1}', skill_indivisual_info.m_skillLevel)
+    vars['levelLabel']:setString(lv_str)
     vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
 end
 
@@ -95,14 +88,14 @@ end
 -- function setSkillTypeVisible
 -------------------------------------
 function UI_DragonSkillCard:setSkillTypeVisible(visible)
-	self.vars['skillLabel']:setVisible(visible)
+	self.vars['typeLabel']:setVisible(visible)
 end
 
 -------------------------------------
 -- function setLeaderLabelToggle
 -------------------------------------
 function UI_DragonSkillCard:setLeaderLabelToggle(visible)
-	self.vars['leaderLabel']:setVisible(visible)
+	--self.vars['leaderLabel']:setVisible(visible)
 end
 
 -------------------------------------
@@ -112,4 +105,39 @@ function UI_DragonSkillCard:setNoLv()
     self.vars['frameSprite1']:setVisible(false)
 	self.vars['frameSprite2']:setVisible(true)
     self:setLockSpriteVisible(false)
+end
+
+-------------------------------------
+-- function setSkillTypeText
+-- @brief skill_type
+-------------------------------------
+function UI_DragonSkillCard:setTypeText(skill_type)
+    local vars = self.vars
+
+    if (skill_type == 'basic') then
+        vars['typeLabel']:setString('기본')
+        vars['typeLabel']:setColor(cc.c3b(255,255,255))
+
+    elseif (skill_type == 'leader') then
+        vars['typeLabel']:setString('리더')
+        vars['typeLabel']:setColor(cc.c3b(199,69,255))
+
+    elseif (skill_type == 'active') then
+        vars['typeLabel']:setString('액티브')
+        vars['typeLabel']:setColor(cc.c3b(244,191,5))
+
+    elseif (skill_type == 'passive') then
+        vars['typeLabel']:setString('패시브')
+        vars['typeLabel']:setColor(cc.c3b(255,231,160))
+
+    elseif (skill_type == 'colosseum') then
+        vars['typeLabel']:setString('콜로세움')
+        vars['typeLabel']:setColor(cc.c3b(255,85,149))
+
+    --elseif isExistValue(skill_type, 'basic_turn', 'basic_rate', 'hit_cri', 'indie_turn', 'indie_time', 'indie_rate') then
+    else
+        vars['typeLabel']:setString('패시브')
+        vars['typeLabel']:setColor(cc.c3b(255,231,160))
+
+    end
 end

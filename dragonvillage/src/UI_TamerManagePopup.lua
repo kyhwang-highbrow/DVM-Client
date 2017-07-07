@@ -15,7 +15,7 @@ UI_TamerManagePopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_TamerManagePopup:init(tamer_id)
-    local vars = self:load('tamer_manage_scene.ui')
+    local vars = self:load('tamer_manage_scene_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- 씬 전환 효과
@@ -90,7 +90,11 @@ function UI_TamerManagePopup:initTamerItem()
 	local curr_tamer_id = self.m_currTamerID
 
 	local idx = 1
-	for tamer_id, t_tamer in pairs(TableTamer().m_orgTable) do
+    local table_tamer = TableTamer()
+    local l_tamer = table_tamer.m_orgTable
+
+    local l_pos = getSortPosList(112, table.count(table_tamer.m_orgTable))
+	for tamer_id, t_tamer in pairs(l_tamer) do
 		-- 테이머 아이템 생성
 		local tamer_item = UI_TamerManageItem(t_tamer)
 		-- 버튼 콜백 등록
@@ -99,12 +103,18 @@ function UI_TamerManagePopup:initTamerItem()
 		if (curr_tamer_id == tamer_id) then
 			tamer_item:setUseTamer(true)
 			tamer_item:selectTamer(true)
-		end
+		else
+            tamer_item:setUseTamer(false)
+			tamer_item:selectTamer(false)
+        end
 
 		-- 테이머 아이템 맵핑
 		self.m_lTamerItemList[tamer_id] = tamer_item
 
-		vars['profileNode' .. idx]:addChild(tamer_item.root)
+        local pos_x = l_pos[idx]
+        tamer_item.root:setPositionX(pos_x)
+
+        vars['profileMenu']:addChild(tamer_item.root)        
 
 		idx = idx + 1
 	end

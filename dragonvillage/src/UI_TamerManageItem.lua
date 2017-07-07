@@ -12,7 +12,7 @@ UI_TamerManageItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_TamerManageItem:init(t_tamer, new_user)
-    local vars = self:load('tamer_manage_scene_item.ui')
+    local vars = self:load('tamer_manage_scene_item_new.ui')
 	
 	self.m_tamerID = t_tamer['tid']
 	self.m_tamerTable = t_tamer
@@ -85,9 +85,11 @@ function UI_TamerManageItem:selectTamer(is_select)
 
 	-- 선택 액션
 	if (is_select) then
-		self.root:setPositionY(20)
+		self.root:setLocalZOrder(2)
+        self.root:setScale(1)
 	else
-		self.root:setPositionY(0)
+		self.root:setLocalZOrder(1)
+        self.root:setScale(0.8)
 	end
 end
 
