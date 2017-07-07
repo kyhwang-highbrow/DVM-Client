@@ -140,28 +140,50 @@ function UI_DragonSkillCard:setTypeText(skill_type)
 
     if (skill_type == 'basic') then
         vars['typeLabel']:setString('기본')
-        vars['typeLabel']:setColor(cc.c3b(255,255,255))
 
     elseif (skill_type == 'leader') then
         vars['typeLabel']:setString('리더')
-        vars['typeLabel']:setColor(cc.c3b(199,69,255))
 
     elseif (skill_type == 'active') then
         vars['typeLabel']:setString('액티브')
-        vars['typeLabel']:setColor(cc.c3b(244,191,5))
 
     elseif (skill_type == 'passive') then
         vars['typeLabel']:setString('패시브')
-        vars['typeLabel']:setColor(cc.c3b(255,231,160))
 
     elseif (skill_type == 'colosseum') then
         vars['typeLabel']:setString('콜로세움')
-        vars['typeLabel']:setColor(cc.c3b(255,85,149))
 
-    --elseif isExistValue(skill_type, 'basic_turn', 'basic_rate', 'hit_cri', 'indie_turn', 'indie_time', 'indie_rate') then
     else
         vars['typeLabel']:setString('패시브')
         vars['typeLabel']:setColor(cc.c3b(255,231,160))
+    end
+
+    local color = self.setTypeTextColor(skill_type)
+    vars['typeLabel']:setColor(color)
+end
+
+-------------------------------------
+-- function setSkillTypeText
+-- @brief skill_type
+-------------------------------------
+function UI_DragonSkillCard.setTypeTextColor(skill_type)
+    if (skill_type == 'basic') then
+        return cc.c3b(255,255,255)
+
+    elseif (skill_type == 'leader') then
+        return cc.c3b(199,69,255)
+
+    elseif (skill_type == 'active') then
+        return cc.c3b(244,191,5)
+
+    elseif (skill_type == 'passive') then
+        return cc.c3b(255,231,160)
+
+    elseif (skill_type == 'colosseum') then
+        return cc.c3b(255,85,149)
+
+    else
+        return cc.c3b(255,231,160)
 
     end
 end

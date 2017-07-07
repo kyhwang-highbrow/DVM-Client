@@ -98,9 +98,15 @@ function UI_SkillDetailPopup:refresh(idx)
 	local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(idx)
 
     -- 스킬 타입
-	local str = skill_indivisual_info:getSkillType()
-	str = getSkillTypeStr(str, false)
-	vars['skillTypeLabel']:setString(str)
+	local skill_type = skill_indivisual_info:getSkillType()
+
+    -- 스킬 타입 텍스트
+	local skill_type_str = getSkillTypeStr(skill_type, false)
+	vars['skillTypeLabel']:setString(skill_type_str)
+        
+    -- 스킬 이름 색상
+    local color = UI_DragonSkillCard.setTypeTextColor(skill_type)
+    vars['skillTypeLabel']:setColor(color)
 
     do -- 선택 활성 이미지
         local icon = self.m_skillIconList[self.m_currIdx]

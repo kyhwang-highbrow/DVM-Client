@@ -204,7 +204,6 @@ function UI_DragonManageInfo:refresh_buttonState()
         vars['lockBtn']:setVisible(true)
 
         -- 스킬 버튼
-        self.m_dragonInfoBoardUI.vars['skillBtn']:setEnabled(not is_slime_object)
         self.m_dragonInfoBoardUI.vars['equipSlotBtn1']:setEnabled(not is_slime_object)
         self.m_dragonInfoBoardUI.vars['equipSlotBtn2']:setEnabled(not is_slime_object)
         self.m_dragonInfoBoardUI.vars['equipSlotBtn3']:setEnabled(not is_slime_object)
