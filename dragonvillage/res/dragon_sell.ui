@@ -97,9 +97,9 @@
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
-				width = 0;
-				height = 0;
+				relative_size_type = 0;
+				width = 1300;
+				height = 530;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -107,7 +107,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -166,7 +166,7 @@
 						dimension_width = 100;
 						dimension_height = 50;
 						letter_spacing = 0.000000;
-						has_stroke = true;
+						has_stroke = false;
 						stroke_type = 0;
 						stroke_detail_level = 0;
 						is_sharp_text = true;
@@ -195,8 +195,8 @@
 					visible = true;
 					lua_name = 'sortSelectBtn';
 					enable = true;
-					normal = 'ui/btn/a_btn_0101.png';
-					selected = 'ui/btn/a_btn_0102.png';
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
 					disable = '';
 					image_type = 1;
 				};
@@ -245,8 +245,8 @@
 					visible = true;
 					lua_name = 'sortSelectOrderBtn';
 					enable = true;
-					normal = 'ui/btn/a_btn_0101.png';
-					selected = 'ui/btn/a_btn_0102.png';
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
 					disable = '';
 					image_type = 1;
 				};
@@ -420,7 +420,7 @@
 				dimension_width = 120;
 				dimension_height = 64;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -535,7 +535,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/price_0101.png';
+				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -546,11 +546,11 @@
 			type = 'Button';
 			ui_name = '';
 			x = 0.000000;
-			y = 20.000000;
+			y = 50.000000;
 			dock_point = { 0.500000; 0.000000; };
-			anchor_point = { 0.500000; 0.000000; };
+			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 280;
+			width = 300;
 			height = 70;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -560,8 +560,8 @@
 			visible = true;
 			lua_name = 'sellBtn';
 			enable = true;
-			normal = 'ui/btn/a_btn_0101.png';
-			selected = 'ui/btn/a_btn_0102.png';
+			normal = 'ui/buttons/base_btn_0101.png';
+			selected = 'ui/buttons/base_btn_0102.png';
 			disable = '';
 			image_type = 1;
 		};
