@@ -136,7 +136,7 @@
 						text = '획득 방법';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 161; 125; 93; };
+						color = { 240; 215; 159; };
 						opacity = 255;
 						dimension_width = 180;
 						dimension_height = 50;
@@ -200,7 +200,7 @@
 						text = '스킬 미리보기';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 161; 125; 93; };
+						color = { 240; 215; 159; };
 						opacity = 255;
 						dimension_width = 180;
 						dimension_height = 50;
@@ -425,7 +425,7 @@
 						text = '해치';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 161; 125; 93; };
+						color = { 240; 215; 159; };
 						opacity = 255;
 						dimension_width = 120;
 						dimension_height = 46;
@@ -489,7 +489,7 @@
 						text = '해츨링';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 161; 125; 93; };
+						color = { 240; 215; 159; };
 						opacity = 255;
 						dimension_width = 120;
 						dimension_height = 46;
@@ -553,7 +553,7 @@
 						text = '성룡';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 161; 125; 93; };
+						color = { 240; 215; 159; };
 						opacity = 255;
 						dimension_width = 120;
 						dimension_height = 46;

@@ -880,7 +880,7 @@
 						anchor_point = { 1.000000; 0.500000; };
 						relative_size_type = 0;
 						width = 124;
-						height = 30;
+						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -896,7 +896,7 @@
 						color = { 240; 215; 159; };
 						opacity = 255;
 						dimension_width = 124;
-						dimension_height = 30;
+						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
 						stroke_type = 0;
@@ -921,8 +921,8 @@
 						relative_size_type = 0;
 						width = 64;
 						height = 64;
-						scale_x = 0.800000;
-						scale_y = 0.800000;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
