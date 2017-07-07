@@ -466,6 +466,7 @@ function UI_GameResultNew:direction_masterRoad()
     -- @ MASTER ROAD
     local t_data = {game_mode = g_gameScene.m_gameMode, stage_id = self.m_stageID, dungeon_mode = g_gameScene.m_dungeonMode}
     g_masterRoadData:updateMasterRoad(t_data)
+    -- u_lv도 겸한다.
 end
 
 -------------------------------------

@@ -277,19 +277,24 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
         local dungeon_mode = t_data['dungeon_mode']
         return (dungeon_mode == NEST_DUNGEON_NIGHTMARE)
 
-    -- 룬 강화
-    elseif (clear_type == 'r_enc') then
-        local rune_lv = clear_cond
-        return (clear_type == t_data['road_key']) and (rune_lv <= t_data['road_value'])
-
     -- 유저 레벨 달성
     elseif (clear_type == 'u_lv') then
+        local user_lv = clear_cond
+        return (user_lv <= g_userData:get('lv')
 
     -- 친구 n명 달성
     elseif (clear_type == 'make_frd') then
 
     -- 테이머 겟
     elseif (clear_type == 't_get') then
+
+
+
+
+    -- 룬 강화
+    elseif (clear_type == 'r_enc') then
+        local rune_lv = clear_cond
+        return (clear_type == t_data['road_key']) and (rune_lv <= t_data['road_value'])
 
     else
         -- 드래곤 스킬 레벨 업 d_sklvup
