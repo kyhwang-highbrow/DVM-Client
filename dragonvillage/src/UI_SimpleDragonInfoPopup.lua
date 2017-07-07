@@ -47,7 +47,8 @@ function UI_SimpleDragonInfoPopup:initUI()
     local vars = self.vars
 
     -- 드래곤 정보 보드 생성
-    self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
+    local is_simple_mode = true
+    self.m_dragonInfoBoardUI = UI_DragonInfoBoard(is_simple_mode)
     self.vars['rightNode']:addChild(self.m_dragonInfoBoardUI.root)
 
     -- 드래곤 실리소스

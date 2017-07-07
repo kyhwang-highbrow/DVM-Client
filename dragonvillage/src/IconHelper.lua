@@ -344,6 +344,17 @@ function IconHelper:getEmptySkillIcon()
 end
 
 -------------------------------------
+-- function getEmptySkillImage
+-- @brief
+-------------------------------------
+function IconHelper:getEmptySkillImage()
+    local sprite = cc.Sprite:create('res/ui/icon/skill/skill_empty.png')
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
+    return sprite
+end
+
+-------------------------------------
 -- function getAttributeIcon
 -- @brief 속성아이콘 생성
 -------------------------------------

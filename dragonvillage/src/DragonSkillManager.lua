@@ -386,6 +386,37 @@ function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
 end
 
 -------------------------------------
+-- function getDragonSkillImageList
+-- @brief 이미지만 필요한 경우
+-------------------------------------
+function IDragonSkillManager:getDragonSkillImageList()
+    local l_skill_image = {}
+
+    for _, i in ipairs(self:getSkillKeyList()) do
+        l_skill_image[i] = self:makeSkillImage_usingIndex(i)
+    end
+
+    return l_skill_image
+end
+
+-------------------------------------
+-- function makeSkillImage_usingIndex
+-- @brief 아이콘 이미지만 생성
+-------------------------------------
+function IDragonSkillManager:makeSkillImage_usingIndex(idx)
+    local skill_indivisual_info = self:getSkillIndivisualInfo_usingIdx(idx)
+    if skill_indivisual_info then
+        local char_type = skill_indivisual_info.m_charType
+        local skill_id = skill_indivisual_info.m_skillID
+        local image = IconHelper:getSkillIcon(char_type, skill_id)
+        return image
+    else
+        return nil
+    end
+end
+
+
+-------------------------------------
 -- function getDragonSkillIconList_NoLv
 -------------------------------------
 function IDragonSkillManager:getDragonSkillIconList_NoLv()

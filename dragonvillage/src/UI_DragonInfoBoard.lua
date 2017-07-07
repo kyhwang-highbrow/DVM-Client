@@ -4,13 +4,16 @@ local PARENT = UI
 -- class UI_DragonInfoBoard
 -------------------------------------
 UI_DragonInfoBoard = class(PARENT,{
+        m_dragonObject = '',
+        m_bSimpleMode = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonInfoBoard:init()
-    local vars = self:load('dragon_info_board.ui')
+function UI_DragonInfoBoard:init(is_simple_mode)
+    self.m_bSimpleMode = is_simple_mode
+    local vars = self:load('dragon_info_board_new.ui')
     
     self:initUI()
     self:initButton()
@@ -20,7 +23,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DragonInfoBoard:initUI()
+function UI_DragonInfoBoard:initUI(is_simple_mode)
     local vars = self.vars
 
     vars['friendshipGauge']:setPercentage(0)
@@ -33,12 +36,21 @@ function UI_DragonInfoBoard:initButton()
     local vars = self.vars
     vars['equipmentBtn']:setVisible(false)
     vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
+    vars['skillBtn']:registerScriptTapHandler(function() self:click_skillBtn() end)
+
+    vars['equipSlotBtn1']:registerScriptTapHandler(function() self:click_runeBtn(1) end)
+    vars['equipSlotBtn2']:registerScriptTapHandler(function() self:click_runeBtn(2) end)
+    vars['equipSlotBtn3']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
+    vars['equipSlotBtn4']:registerScriptTapHandler(function() self:click_runeBtn(4) end)
+    vars['equipSlotBtn5']:registerScriptTapHandler(function() self:click_runeBtn(5) end)
+    vars['equipSlotBtn6']:registerScriptTapHandler(function() self:click_runeBtn(6) end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_DragonInfoBoard:refresh(t_dragon_data)
+    self.m_dragonObject = t_dragon_data
 
     if (not t_dragon_data) then
         return
@@ -149,25 +161,34 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 	-- 드래곤의 경우 
     do 
         local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
-        local l_skill_icon = skill_mgr:getDragonSkillIconList()
+        local l_skill_image = skill_mgr:getDragonSkillImageList()
 
 		for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
             local skill_node = vars['skillNode' .. i]
 			skill_node:removeAllChildren()
+
+            local skill_lv_label = vars['skillLevelLabel' .. i]
             
 			-- 스킬 아이콘 생성
-			if l_skill_icon[i] then
+			if l_skill_image[i] then
+                --[[ 2017-07-07 sgkim UI스타일 변경되면서 빠짐
                 skill_node:addChild(l_skill_icon[i].root)
 				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
 					UI_SkillDetailPopup(t_dragon_data, i)
 				end)
+                --]]
+                skill_node:addChild(l_skill_image[i])
+
+                local skill_level = skill_mgr:getSkillLevel(i)
+                skill_lv_label:setString(tostring(skill_level))
 
 			-- 비어있는 스킬 아이콘 생성
 			else
-				local empty_skill_icon = IconHelper:getEmptySkillIcon()
+				local empty_skill_icon = IconHelper:getEmptySkillImage()
 				skill_node:addChild(empty_skill_icon)
 
+                skill_lv_label:setString('')
             end
         end
     end
@@ -180,6 +201,7 @@ end
 function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
     local vars = self.vars
 
+    --[[ 2017-07-07 sgkim UI스타일 변경되면서 빠짐
     do -- 희귀도
         local rarity = t_dragon_data:getRarity()
         vars['rarityNode']:removeAllChildren()
@@ -188,16 +210,19 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
 
         vars['rarityLabel']:setString(dragonRarityName(rarity))
     end
+    --]]
 
+    
     do -- 드래곤 속성
         local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
         local icon = IconHelper:getAttributeIcon(attr)
         vars['attrNode']:addChild(icon)
 
-        vars['attrLabel']:setString(dragonAttributeName(attr))
+        --vars['attrLabel']:setString(dragonAttributeName(attr))
     end
 
+    --[[
     do -- 드래곤 역할(role)
         local role_type = t_dragon_data:getRole()
         vars['roleNode']:removeAllChildren()
@@ -206,6 +231,11 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
 
         vars['roleLabel']:setString(dragonRoleName(role_type))
     end
+    --]]
+
+    -- 드래곤 역할
+    local role_type = t_dragon_data:getRole()
+    vars['typeLabel']:setString(dragonRoleName(role_type))
 end
 
 -------------------------------------
@@ -260,4 +290,44 @@ function UI_DragonInfoBoard:click_detailBtn(t_dragon_data, t_dragon)
     local vars = self.vars
     vars['detailNode']:runAction(cc.ToggleVisibility:create())
     vars['infoNode']:runAction(cc.ToggleVisibility:create())
+end
+
+-------------------------------------
+-- function click_skillBtn
+-- @brief 스킬 상세보기
+-------------------------------------
+function UI_DragonInfoBoard:click_skillBtn()
+    if (not self.m_dragonObject) then
+        return
+    end
+
+    local skill_idx = 0
+    UI_SkillDetailPopup(self.m_dragonObject, skill_idx)
+end
+
+
+-------------------------------------
+-- function click_runeBtn
+-- @brief 룬 버튼
+-------------------------------------
+function UI_DragonInfoBoard:click_runeBtn(slot_idx)
+    -- UI가 간단모드로 설정되어 있을 경우
+    if (self.m_bSimpleMode == true) then
+        return
+    end
+
+    -- 드래곤 정보가 없을 경우
+    if (not self.m_dragonObject) then
+        return
+    end
+
+    -- 룬 UI 오픈
+    local doid = self.m_dragonObject['id']
+    local ui = UI_DragonRunes(doid, slot_idx)
+
+    -- 룬 장착에 대한 변경사항이 있을 경우 처리
+    local function close_cb()
+        -- TODO
+    end
+    ui:setCloseCB(close_cb)
 end
