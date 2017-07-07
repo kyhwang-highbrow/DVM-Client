@@ -377,8 +377,8 @@ function UI_DragonInfoBoard:refresh_dragonRunes(t_dragon_data)
             ui:load('dragon_manage_rune_set.ui')
 
             -- 색상 지정
-            local c3b = TableRuneSet:getRuneSetColorC3b(set_id)
-            ui.vars['runeBgSprite']:setColor(c3b)
+            --local c3b = TableRuneSet:getRuneSetColorC3b(set_id)
+            --ui.vars['runeBgSprite']:setColor(c3b)
 
             -- 세트 이름
             local set_name = TableRuneSet:getRuneSetName(set_id)
