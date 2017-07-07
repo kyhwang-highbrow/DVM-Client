@@ -568,15 +568,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 264.000000;
-					y = -50.000000;
+					x = 296.000000;
+					y = 188.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 100;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
+					height = 240;
+					scale_x = 0.800000;
+					scale_y = 0.800000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
