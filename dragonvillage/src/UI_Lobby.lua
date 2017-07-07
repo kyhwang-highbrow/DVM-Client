@@ -29,6 +29,39 @@ end
 -------------------------------------
 function UI_Lobby:init()
     local vars = self:load('lobby.ui')
+
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        local vars = self.vars
+        -- 좌상단
+        vars['mailBtn']:setVisible(false)
+        vars['questBtn']:setVisible(false)
+        vars['rankingBtn']:setVisible(false)
+        vars['eventBtn']:setVisible(false)
+
+        -- 좌측
+        vars['masterRoadBtn']:setVisible(false)
+
+        -- 하단 왼쪽
+        vars['inventoryBtn']:setVisible(false)
+        vars['explorationBtn']:setVisible(false)
+        vars['friendBtn']:setVisible(false)
+        vars['shopBtn']:setVisible(false)
+        vars['drawBtn']:setVisible(false)
+
+
+        local pos_x = 254
+        vars['collectionBtn']:setPositionX(pos_x)
+        for i,v in ipairs(self.actions) do
+            if (v.node == vars['collectionBtn'].m_node) then
+                v['pos_x'] = pos_x
+            end
+        end
+
+        -- 하단 오른쪽
+        vars['colosseumBtn']:setVisible(false)
+        vars['battleBtn']:setVisible(false)
+    end
+
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

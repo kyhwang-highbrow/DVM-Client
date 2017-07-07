@@ -292,3 +292,12 @@ end
 function getRelationItemId(id)
     return (id + 640000)
 end
+
+
+-------------------------------------
+-- function CHARACTER_FAIR_VER
+-- @brief 2017-07-07 캐릭터 페어 버전 빌드 여부
+-------------------------------------
+function CHARACTER_FAIR_VER()
+    return (TARGET_SERVER == 'PUBLIC')
+end

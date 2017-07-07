@@ -97,6 +97,10 @@ function UI_AdventureSceneNew:initButton()
             vars['devStageBtn']:setVisible(false)
         end
     end
+
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        vars['devStageBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
