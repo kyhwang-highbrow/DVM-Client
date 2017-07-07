@@ -118,6 +118,11 @@ function UI_TitleScene:initChatClientSocket()
     -- 테스트 채팅 서버
     local ip = 'dv-test.perplelab.com'
     local port = '9013'
+
+    if (TARGET_SERVER == 'PUBLIC') then
+        port = '9015'
+    end
+
     local chat_client_socket = ChatClientSocket(ip, port)
 
     -- 유저 정보 입력
