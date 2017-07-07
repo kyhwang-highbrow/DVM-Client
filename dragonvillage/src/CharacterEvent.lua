@@ -10,7 +10,6 @@ function Character:initTriggerListener()
 		if not isExistValue(skill_type, 'active', 'basic', 'leader') then
 			-- 존재 여부는 갯수로 체크
 			if (table.count(t_individual_info) > 0) then
-                print(skill_type)
 				self:addListener(skill_type, self)
 			end
 		end
@@ -227,14 +226,12 @@ end
 -------------------------------------
 function Character:onEvent_getStatusEffect(t_event, target_str, target_char)
     local status_effect_name = target_str .. 'get_' .. 'status_effect'
-    print(status_effect_name)
     if (not self.m_lSkillIndivisualInfo[status_effect_name]) then return end
     if (not self.m_statusCalc) then return end
     for i, v in pairs(self.m_lSkillIndivisualInfo[status_effect_name]) do
         if (v:isEndCoolTime()) then
             local statusEffectName = v.m_tSkill['chance_value']
             if (statusEffectName == t_event['name']) then
-            print(statusEffectName .. ' do')
                 self:doSkill(v.m_skillID, 0, 0)
             end
         end
