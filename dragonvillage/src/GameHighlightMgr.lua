@@ -44,7 +44,7 @@ function GameHighlightMgr:update(dt)
     end
 
     -- 인디케이터 조작 중
-    if (world.m_skillIndicatorMgr:isControlling()) then
+    if (not bPass and world.m_skillIndicatorMgr:isControlling()) then
         bPass = true
         darkLevel = math_max(darkLevel, 200)
 

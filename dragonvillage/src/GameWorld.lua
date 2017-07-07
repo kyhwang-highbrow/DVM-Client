@@ -1214,10 +1214,12 @@ function GameWorld:onEvent(event_name, t_event, ...)
         self:onEvent_change_wave(event_name, t_event, ...)
 
     elseif (event_name == 'dragon_summon') then
-        self.m_tamer.m_animator:changeAni('i_summon', false)
-        self.m_tamer.m_animator:addAniHandler(function()
-            self.m_tamer.m_animator:changeAni('i_idle', true)
-        end)
+        if (self.m_tamer) then
+            self.m_tamer.m_animator:changeAni('i_summon', false)
+            self.m_tamer.m_animator:addAniHandler(function()
+                self.m_tamer.m_animator:changeAni('i_idle', true)
+            end)
+        end
 
     elseif (event_name == 'character_set_hp') then
         local arg = {...}

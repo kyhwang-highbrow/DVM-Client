@@ -588,7 +588,9 @@ function GameState.update_success(self, dt)
             end
         end
 
-        world.m_tamer:changeState('success_pose')
+        if (world.m_tamer) then
+            world.m_tamer:changeState('success_pose')
+        end
 
         -- 모든 아이템 획득
         if world.m_dropItemMgr then
@@ -643,7 +645,9 @@ function GameState.update_failure(self, dt)
     local world = self.m_world
 
     if (self.m_stateTimer == 0) then
-        world.m_tamer:changeState('dying')
+        if (world.m_tamer) then
+            world.m_tamer:changeState('dying')
+        end
 
     elseif (self:isPassedStepTime(1.5)) then
         for i,dragon in ipairs(world:getDragonList()) do

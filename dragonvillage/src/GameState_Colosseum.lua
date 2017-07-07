@@ -100,7 +100,7 @@ function GameState_Colosseum.update_start(self, dt)
                 end
             })
 
-            self.m_world.m_tamer:initBarrier()
+            --self.m_world.m_tamer:initBarrier()
             self.m_world.m_enemyTamer:initBarrier()
         end
 
@@ -108,8 +108,10 @@ function GameState_Colosseum.update_start(self, dt)
         if (self:isBeginningStep()) then
             
             if (world.m_tamer) then
-                world.m_tamer:setAnimatorScale(0.5)
-                world.m_tamer.m_barrier:setVisible(true)
+                --world.m_tamer:setAnimatorScale(0.5)
+                --world.m_tamer.m_barrier:setVisible(true)
+                world.m_tamer:changeState('dying')
+                world.m_tamer = nil
             end
 
             if (world.m_enemyTamer) then
@@ -194,7 +196,9 @@ function GameState_Colosseum.update_failure(self, dt)
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
-            world.m_tamer:changeState('dying')
+            if (world.m_tamer) then
+                world.m_tamer:changeState('dying')
+            end
 
         elseif (self:isPassedStepTime(1.5)) then
             if world.m_skillIndicatorMgr then

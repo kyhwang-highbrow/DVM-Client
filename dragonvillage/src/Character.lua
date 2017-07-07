@@ -952,7 +952,7 @@ function Character:makeDamageFont(damage, x, y, tParam)
     local is_miss = tParam['is_miss'] or false
 
 	-- 0 데미지는 출력하지 않는다.
-    if (damage == 0) then
+    if (not damage or damage == 0) then
         return
     end
 
