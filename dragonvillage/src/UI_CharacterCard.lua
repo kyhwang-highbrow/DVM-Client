@@ -463,7 +463,7 @@ function UI_CharacterCard:makeFrame(res)
     local sprite = cc.Sprite:createWithSpriteFrameName(res)
     sprite:setDockPoint(CENTER_POINT)
     sprite:setAnchorPoint(CENTER_POINT)
-    self.vars['clickBtn']:addChild(sprite, 9)
+    self.vars['clickBtn']:addChild(sprite, 8)
     vars['charFrame'] = sprite
 end
 
@@ -478,7 +478,7 @@ function UI_CharacterCard:setReadySpriteVisible(visible)
         local sprite = cc.Sprite:createWithSpriteFrameName('character_card_frame_ready.png')
         sprite:setDockPoint(CENTER_POINT)
         sprite:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite, 12)
+        self.vars['clickBtn']:addChild(sprite, 9)
         self.vars['readySprite'] = sprite
     end
 end
