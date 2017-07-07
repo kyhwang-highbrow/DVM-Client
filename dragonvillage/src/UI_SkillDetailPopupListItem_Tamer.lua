@@ -13,7 +13,7 @@ UI_SkillDetailPopupListItem_Tamer = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SkillDetailPopupListItem_Tamer:init(t_tamer, skill_mgr, skill_idx)
+function UI_SkillDetailPopupListItem_Tamer:init(t_tamer, skill_mgr, skill_idx, is_simple_mode)
     local vars = self:load('tamer_skill_detail_popup_item.ui')
     
 	self.m_tableTamer = t_tamer
@@ -39,7 +39,10 @@ function UI_SkillDetailPopupListItem_Tamer:initUI()
         vars['skillTypeLabel']:setString(str)
     end
 
-    do -- 스킬 아이콘
+    -- 스킬 아이콘
+    if skill_icon then
+        vars['skillNode']:addChild(skill_icon.root)
+    else
 		local char_type = skill_indivisual_info.m_charType
         local skill_id = skill_indivisual_info:getSkillID()
         local icon = IconHelper:getSkillIcon(char_type, skill_id)
@@ -68,6 +71,12 @@ function UI_SkillDetailPopupListItem_Tamer:refresh()
     local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_skillIdx)
     local skill_level = skill_indivisual_info:getSkillLevel()
     local max_skill_lv = self.m_maxSkillLevel
+
+    do -- 스킬 아이콘
+        vars['skillNode']:removeAllChildren()
+        local ui = self.m_skillMgr:makeSkillIcon_usingIndex(self.m_skillIdx)
+        vars['skillNode']:addChild(ui.root)
+    end
 
     do -- 레벨 표시
 		vars['skillEnhanceLabel']:setString(Str('Lv.{1}/{2}', skill_level, max_skill_lv))
@@ -101,6 +110,7 @@ end
 
 -------------------------------------
 -- function click_enhanceBtn
+-- @breif 스킬 강화 버큰
 -------------------------------------
 function UI_SkillDetailPopupListItem_Tamer:click_enhanceBtn()
     local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_skillIdx)
