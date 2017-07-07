@@ -89,8 +89,8 @@ end
 -- function setNoLv
 -------------------------------------
 function UI_DragonSkillCard:setNoLv()
-    self.vars['frameSprite1']:setVisible(false)
-	self.vars['frameSprite2']:setVisible(true)
+    --self.vars['frameSprite1']:setVisible(false)
+	--self.vars['frameSprite2']:setVisible(true)
     self:setLockSpriteVisible(false)
 end
 
