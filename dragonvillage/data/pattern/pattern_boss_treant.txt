@@ -2,7 +2,7 @@
     "pattern_boss_treant":
     [
 		[
-            "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;basic"
+            "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1"
         ]
     ],
 	
@@ -12,29 +12,38 @@
         "list":
         [
 			{
-                "time":30,
+                "time":60,
                 "pattern":
                 [
-					"w;3", "a;basic"
+					"a;2"
+                ]
+            },
+			
+			{
+                "time":90,
+                "pattern":
+                [
+					"a;2", "w;3", "a;2"
+                ]
+            },
+			
+			{
+                "time":120,
+                "pattern":
+                [
+					"a;2", "w;3", "a;2", "w;3", "a;2"
+                ]
+            },
+			
+			{
+                "time":150,
+                "pattern":
+                [
+					"a;2", "w;3", "a;2", "w;3", "a;2", "w;3", "a;2"
                 ]
             }
         ]
-    },
-	
-    "hp_trriger":
-    {
-        "priority":2,
-        "list":
-        [
-            {
-                "hp_percent":1,
-                "pattern":
-                [
-                    "w;3", "a;basic"
-                ]
-            }
-        ]
-    },
+    }
 	
 	"ani_mix":
 	[
