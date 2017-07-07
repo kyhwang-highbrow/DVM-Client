@@ -68,7 +68,8 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
     
 	-- 스탯 관련
     elseif pl.stringx.startswith(type, 'def') or pl.stringx.startswith(type, 'atk') or pl.stringx.startswith(type, 'hp') or
-           pl.stringx.startswith(type, 'aspd') or pl.stringx.startswith(type, 'avoid') or pl.stringx.startswith(type, 'cri') then
+           pl.stringx.startswith(type, 'aspd') or pl.stringx.startswith(type, 'avoid') or pl.stringx.startswith(type, 'cri') or
+           pl.stringx.startswith(type, 'hit_rate') then
 		return TargetRule_getTargetList_stat(org_list, type)
 
 	-- 속성 관련
