@@ -330,7 +330,7 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 		-- 없으면 상세 팝업
 		else
 			local detail_ui = UI_BookDetailPopup(data)
-			detail_ui:setBookList(table_view_td.m_itemList)
+			detail_ui:setBookList(book_ui.m_tableViewTD.m_itemList)
 		end
 	end)
 end

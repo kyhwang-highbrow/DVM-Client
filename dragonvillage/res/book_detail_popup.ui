@@ -101,44 +101,6 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -465.000000;
-				y = 267.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 46;
-				height = 46;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'attrNode';
-			};
-			[2] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = -148.142822;
-				y = 263.999939;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 100;
-				scale_x = 0.700000;
-				scale_y = 0.700000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'roleNode';
-			};
-			[3] =
-			{
-				type = 'Node';
-				ui_name = '';
 				x = 478.333344;
 				y = -79.999992;
 				dock_point = { 0.500000; 0.500000; };
@@ -530,25 +492,6 @@
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
 					};
-					[2] =
-					{
-						type = 'Node';
-						ui_name = '';
-						x = 0.000000;
-						y = 16.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 150;
-						height = 150;
-						scale_x = 0.540000;
-						scale_y = 0.540000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = false;
-						lua_name = 'evolutionNode1';
-					};
 					type = 'Button';
 					ui_name = '';
 					x = -132.000000;
@@ -613,25 +556,6 @@
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
 					};
-					[2] =
-					{
-						type = 'Node';
-						ui_name = '';
-						x = 0.000000;
-						y = 16.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 150;
-						height = 150;
-						scale_x = 0.540000;
-						scale_y = 0.540000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = false;
-						lua_name = 'evolutionNode2';
-					};
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
@@ -695,25 +619,6 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
-					};
-					[2] =
-					{
-						type = 'Node';
-						ui_name = '';
-						x = 0.000000;
-						y = 16.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 150;
-						height = 150;
-						scale_x = 0.540000;
-						scale_y = 0.540000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = false;
-						lua_name = 'evolutionNode3';
 					};
 					type = 'Button';
 					ui_name = '';
@@ -1089,6 +994,44 @@
 						shadow_opacity = 180;
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
+					};
+					[2] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 100;
+						scale_x = 0.700000;
+						scale_y = 0.700000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'roleNode';
+					};
+					[3] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 46;
+						height = 46;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'attrNode';
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';

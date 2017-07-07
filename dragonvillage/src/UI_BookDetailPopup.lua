@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_BookDetailPopup
@@ -16,8 +16,6 @@ UI_BookDetailPopup = class(PARENT,{
 
         -- refresh 체크 용도
         m_bookLastChangeTime = 'timestamp',
-
-		m_dragonEvolutionIconList = 'table',
 		
 		m_pressTimer = 'timer',
 		m_pressBtn = 'UIC_Button',
@@ -46,6 +44,7 @@ function UI_BookDetailPopup:init(t_dragon)
 	self.m_pressTimer = 0
 
     self:initUI()
+    self:initTab()
     self:initButton()
     self:refresh()
 end
@@ -54,6 +53,17 @@ end
 -- function initUI
 -------------------------------------
 function UI_BookDetailPopup:initUI()
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_BookDetailPopup:initTab()
+    local vars = self.vars
+	for i = 1, 3 do 
+        self:addTab(i, vars['evolutionBtn' .. i], nil)
+	end
+    self:setTab(self.m_evolution)
 end
 
 -------------------------------------
@@ -77,11 +87,6 @@ function UI_BookDetailPopup:initButton()
 	vars['lvPlusBtn']:registerScriptPressHandler(function() self:press_lvBtn(true) end)
 	vars['lvMinusBtn']:registerScriptTapHandler(function() self:click_lvBtn(false) end)
 	vars['lvMinusBtn']:registerScriptPressHandler(function() self:press_lvBtn(false) end)
-
-	-- 진화 변경
-	for i = 1, 3 do 
-		vars['evolutionBtn' .. i]:registerScriptTapHandler(function() self:click_evolutionBtn(i) end)
-	end
 
     -- 능력치 상세보기
     vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
@@ -139,6 +144,24 @@ function UI_BookDetailPopup:refresh_rate()
 end
 
 -------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_BookDetailPopup:onChangeTab(tab, first)
+	local t_dragon = self.m_tDragon
+	if (not t_dragon) then
+		return
+	end
+
+	-- evolution 세팅
+	self.m_evolution = tab
+
+	-- refresh
+	self:onChangeEvolution()
+	self:onChangeGrade()
+	self:calculateStat()
+end
+
+-------------------------------------
 -- function onChangeDragon
 -------------------------------------
 function UI_BookDetailPopup:onChangeDragon()
@@ -165,11 +188,6 @@ function UI_BookDetailPopup:onChangeDragon()
         vars['attrNode']:removeAllChildren()
         local icon = IconHelper:getAttributeIcon(attr)
         vars['attrNode']:addChild(icon)
-		do
-			-- 이름 앞에 붙이기 위해서...
-			local label_width = vars['nameLabel']:getStringWidth()
-			vars['attrNode']:setPositionX(-(label_width/2 + 30))
-		end
     end
 
     do -- 드래곤 역할(role)
@@ -184,21 +202,11 @@ function UI_BookDetailPopup:onChangeDragon()
         vars['storyLabel']:setString(story_str)
     end
 
-    do -- 진화단계별 아이콘
-        self.m_dragonEvolutionIconList = {}
-        for i=1, MAX_DRAGON_EVOLUTION do
-            local node = vars['evolutionNode' .. i]
-            node:removeAllChildren()
-
-            -- 진화단계별 아이콘 생성
-            local did = t_dragon['did']
-            local card = MakeSimpleDragonCard(did, {['evolution']=i})
-            card:setButtonEnabled(false) -- 아이콘의 버튼 사용하지 않음
-            node:addChild(card.root)
-
-            self.m_dragonEvolutionIconList[i] = card
-        end
-    end
+    do -- 속성과 역할 아이콘 위치 조정
+		local label_width = vars['nameLabel']:getStringWidth()
+		vars['attrNode']:setPositionX(-(label_width/2 + 50))
+        vars['roleNode']:setPositionX((label_width/2 + 50))
+	end
 end
 
 -------------------------------------
@@ -213,13 +221,6 @@ function UI_BookDetailPopup:onChangeEvolution()
     local vars = self.vars
     local t_dragon_data = self:makeDragonData()
 	local evolution = self.m_evolution
-
-    do -- 선택된 드래곤 진화단계 아이콘 하일라이트 표시
-        for i,v in pairs(self.m_dragonEvolutionIconList) do
-            local visible = (i == evolution)
-            v:setHighlightSpriteVisible(visible)
-        end
-    end
 
     do -- 드래곤 인게임 리소스
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
