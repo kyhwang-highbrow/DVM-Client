@@ -2,18 +2,24 @@
     "pattern_boss_golddragon":
     [        
         [
-			"a;basic", "w;2", "a;basic", "w;2",
-			"a;1", "w;3", "a;basic", "w;2", "a;basic", "w;2",
-			"a;2", "w;3", "a;basic", "w;2", "a;basic", "w;2",
-			"a;5", "w;3", "a;basic", "w;2", "a;basic", "w;2",
-			"a;1", "w;3", "a;basic", "w;2", "a;basic", "w;2",
-			"a;3", "w;3", "a;basic", "w;2", "a;basic", "w;2",
-			"a;5", "w;3", "a;basic", "w;2", "a;basic", "w;2",
-			"a;1", "w;3", "a;basic", "w;2", "a;basic", "w;2",
-			"a;4", "w;3", "a;basic", "w;2", "a;basic", "w;2",
-			"a;5", "w;3", "a;basic", "w;2", "a;basic", "w;2",
-			"a;1", "w;3", "a;basic", "w;2", "a;basic", "w;2",
-			"a;6", "w;10"
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;2",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6"
+        ],
+		
+		[
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;3",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6"
+        ],
+		
+		[
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;4",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6"
         ]
     ],
 

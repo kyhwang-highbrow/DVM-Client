@@ -38,40 +38,14 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = false;
+			visible = true;
 			lua_name = '';
 			color = { 0; 0; 0; };
-			opacity = 150;
+			opacity = 100;
 			src_blend = 770;
 			dest_blend = 771;
 		};
 		[3] =
-		{
-			type = 'Scale9Sprite';
-			ui_name = '';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 1;
-			width = 1280;
-			height = 0;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-			file_name = 'ui/frames/bg_bg.png';
-			color = { 255; 255; 255; };
-			opacity = 255;
-			center_rect_x = 0;
-			center_rect_y = 0;
-			center_rect_width = 0;
-			center_rect_height = 0;
-		};
-		[4] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -95,7 +69,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[5] =
+		[4] =
 		{
 			[1] =
 			{
@@ -133,7 +107,7 @@
 			visible = false;
 			lua_name = '';
 		};
-		[6] =
+		[5] =
 		{
 			[1] =
 			{
