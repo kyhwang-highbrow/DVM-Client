@@ -280,7 +280,7 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
     -- 유저 레벨 달성
     elseif (clear_type == 'u_lv') then
         local user_lv = clear_cond
-        return (user_lv <= g_userData:get('lv')
+        return (user_lv <= g_userData:get('lv'))
 
     -- 친구 n명 달성
     elseif (clear_type == 'make_frd') then
