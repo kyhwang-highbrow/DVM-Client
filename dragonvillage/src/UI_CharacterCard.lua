@@ -216,9 +216,9 @@ function UI_CharacterCard:makeAttrIcon(res)
     local sprite = cc.Sprite:createWithSpriteFrameName(res)
     sprite:setDockPoint(CENTER_POINT)
     sprite:setAnchorPoint(CENTER_POINT)
-    sprite:setScale(1.1)
-    sprite:setPosition(-54, 54)
-    self.vars['clickBtn']:addChild(sprite, 3)
+    sprite:setScale(1)
+    sprite:setPosition(-51, 51)
+    self.vars['clickBtn']:addChild(sprite, 10)
     vars['attrIcon'] = sprite
 end
 
@@ -439,7 +439,7 @@ function UI_CharacterCard:setShadowSpriteVisible(visible)
         sprite:setDockPoint(CENTER_POINT)
         sprite:setAnchorPoint(CENTER_POINT)
         sprite:setOpacity(150)
-        self.vars['clickBtn']:addChild(sprite, 10)
+        self.vars['clickBtn']:addChild(sprite, 11)
         self.vars['shadowSprite'] = sprite
     end
 end
@@ -463,7 +463,7 @@ function UI_CharacterCard:makeFrame(res)
     local sprite = cc.Sprite:createWithSpriteFrameName(res)
     sprite:setDockPoint(CENTER_POINT)
     sprite:setAnchorPoint(CENTER_POINT)
-    self.vars['clickBtn']:addChild(sprite, 11)
+    self.vars['clickBtn']:addChild(sprite, 9)
     vars['charFrame'] = sprite
 end
 
