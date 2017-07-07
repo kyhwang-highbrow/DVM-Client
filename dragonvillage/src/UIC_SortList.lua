@@ -14,7 +14,7 @@ UIC_SortList = class(UIC_Node, {
         m_lSortData = '',
         m_mSortData = 'table',
 
-        m_bDirectHide = 'boolean',
+        m_bDirectHide = 'boolean', -- 클릭 직후 바로 숨긴다.
         m_bShow = 'boolean',
         m_direction = '',
         m_selectSortType = '',
@@ -150,7 +150,7 @@ end
 -------------------------------------
 -- function addSortType
 -------------------------------------
-function UIC_SortList:addSortType(sort_type, sort_name)
+function UIC_SortList:addSortType(sort_type, sort_name, t_label_data)
 
     local button = cc.MenuItemImage:create('res/ui/buttons/base_btn_0101.png', 'res/ui/buttons/base_btn_0102.png', 'res/ui/buttons/base_btn_0102.png', 1)
     local width, heigth = self.m_node:getNormalSize()
@@ -176,14 +176,21 @@ function UIC_SortList:addSortType(sort_type, sort_name)
 
     do -- 라벨 생성
         local font_name = 'res/font/common_font_01.ttf'
-        local stroke_tickness = 2
+        
+        -- label 꾸미기
+        local t_label_data = t_label_data or {}
+        local label_color = t_label_data['color'] or cc.c4b(240, 215, 159, 255)
+        local outline_color = t_label_data['outline_color'] or cc.c4b(85, 44, 25,255)
+        local stroke_tickness = t_label_data['stroke'] or 2
+
         local font_size = (self.m_buttonHeight / 2 - 5) -- 버튼 사이즈의 반보다 조금 작게
         local size = cc.size(256, 256)
         local node = cc.Label:createWithTTF(sort_name, font_name, font_size, stroke_tickness, size, cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         node:setDockPoint(cc.p(0.5, 0.5))
         node:setAnchorPoint(cc.p(.5, 0.5))
-        node:setTextColor(cc.c4b(240, 215, 159, 255))
-        node:enableOutline(cc.c4b(85, 44, 25,255), stroke_tickness)
+        node:setTextColor(label_color)
+        node:enableOutline(outline_color, stroke_tickness)
+
         button:addChild(node)
     end
 
@@ -194,6 +201,7 @@ function UIC_SortList:addSortType(sort_type, sort_name)
         t_data['sort_name'] = sort_name
         t_data['button'] = button
         t_data['idx'] = #self.m_lSortData + 1
+        t_data['t_label_data'] = t_label_data -- @ TODO 이부분은 정리가 필요하다 mskim
 
         table.insert(self.m_lSortData, t_data)
         self.m_mSortData[sort_type] = t_data
@@ -399,6 +407,11 @@ function UIC_SortList:setSelectSortType(sort_type)
 
         if self.m_sortTypeLabel then
             self.m_sortTypeLabel:setString(t_data['sort_name'])
+
+            -- @ TODO 이부분은 정리가 필요하다 mskim
+            if (t_data['t_label_data']) then
+                self.m_sortTypeLabel:setColor(t_data['t_label_data']['color'])
+            end
         end
     else
         if self.m_sortTypeLabel then

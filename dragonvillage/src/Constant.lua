@@ -116,6 +116,11 @@ COLOR = {
 	-- 보라
 	purple = cc.c3b(255, 0, 255),
 	violet = cc.c3b(155, 0, 255), 
+
+    -- text 용 c4b
+    diff_normal = cc.c4b(105, 236, 87, 255),
+    diff_hard = cc.c4b(255, 115, 53, 255),
+    diff_hell = cc.c4b(233, 88, 255, 255),
 }
 
 -- TEMP

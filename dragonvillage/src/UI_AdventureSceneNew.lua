@@ -26,6 +26,8 @@ UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
         m_adventureStageInfoPopup = 'UI_AdventureStageInfo',
         m_lFirstRewardButtons = '',
         m_lAchieveRewardButtons = '',
+
+        m_uicSortList = 'UIC_SortList',
      })
 
 -------------------------------------
@@ -60,11 +62,15 @@ function UI_AdventureSceneNew:init(stage_id)
 
     -- 비공정 오브젝트 생성
     self:makeShipObject()
+    self:makeUICSortList()
 
     -- 마지막에 진입한 챕터로 진입
     local last_stage = (stage_id or g_localData:get('adventure_focus_stage'))
     local difficulty, chapter, stage = parseAdventureID(last_stage)
     self:refreshChapter(chapter, difficulty, stage)
+
+    -- @TODO 임시 처리 mskim
+    self.m_uicSortList:setSelectSortType(self.m_currDifficulty)
 end
 
 
@@ -91,6 +97,42 @@ function UI_AdventureSceneNew:initButton()
             vars['devStageBtn']:setVisible(false)
         end
     end
+end
+
+-------------------------------------
+-- function initButton
+-- @brief
+-------------------------------------
+function UI_AdventureSceneNew:makeUICSortList()
+	local button = self.vars['difficultyBtn']
+	local label = self.vars['difficultyLabel']
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+    uic.m_direction = UIC_SORT_LIST_BOT_TO_TOP
+	uic.m_bDirectHide = true
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+    uic:addSortType(1, Str('보통'), {color = COLOR['diff_normal'], stroke = 0})
+    uic:addSortType(2, Str('어려움'), {color = COLOR['diff_hard'], stroke = 0})
+    uic:addSortType(3, Str('지옥'), {color = COLOR['diff_hell'], stroke = 0})
+
+	self.m_uicSortList = uic
+	self.m_uicSortList:setSortChangeCB(function(sort_type) 
+        self:click_selectDifficultyBtn(sort_type)
+    end)
 end
 
 -------------------------------------
@@ -224,15 +266,6 @@ function UI_AdventureSceneNew:click_nextBtn()
 end
 
 -------------------------------------
--- function click_selectBtn
--- @brief 챕터 선택 팝업
--------------------------------------
-function UI_AdventureSceneNew:click_selectBtn()
-    local ui = UI_AdventureChapterSelectPopup(self.m_currChapter)
-    ui.m_cbFunction = function(chapter, difficulty) self:refreshChapter(chapter, difficulty, nil, true) end
-end
-
--------------------------------------
 -- function click_selectDifficultyBtn
 -- @brief 난이도 변경 버튼
 -------------------------------------
@@ -241,7 +274,10 @@ function UI_AdventureSceneNew:click_selectDifficultyBtn(difficulty)
         return
     end
 
+    -- @TODO 임시 처리 2017.07.07 mskim
     if (MAX_ADVENTURE_DIFFICULTY < difficulty) then
+        UIManager:toastNotificationRed(Str('아직 오픈되지 않은 난이도에요!'))
+        self.m_uicSortList:setSelectSortType(self.m_currDifficulty)
         return
     end
 
