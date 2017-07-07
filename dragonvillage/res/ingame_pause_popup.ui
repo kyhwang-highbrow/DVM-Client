@@ -88,8 +88,8 @@
 			visible = true;
 			lua_name = 'homeButton';
 			enable = true;
-			normal = 'ui/btn/a_btn_0201.png';
-			selected = 'ui/btn/btn_0402.png';
+			normal = 'ui/buttons/base_btn_0101.png';
+			selected = 'ui/buttons/base_btn_0102.png';
 			disable = 'ui/btn/a_btn_0202.png';
 			image_type = 1;
 		};
@@ -178,8 +178,8 @@
 			visible = true;
 			lua_name = 'retryButton';
 			enable = true;
-			normal = 'ui/btn/a_btn_0201.png';
-			selected = 'ui/btn/a_btn_0202.png';
+			normal = 'ui/buttons/base_btn_0101.png';
+			selected = 'ui/buttons/base_btn_0102.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -268,8 +268,8 @@
 			visible = true;
 			lua_name = 'continueButton';
 			enable = true;
-			normal = 'ui/btn/a_btn_0204.png';
-			selected = 'ui/btn/a_btn_0202.png';
+			normal = 'ui/buttons/base_btn_0101.png';
+			selected = 'ui/buttons/base_btn_0102.png';
 			disable = '';
 			image_type = 1;
 		};

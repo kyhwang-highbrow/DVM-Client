@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -32,32 +32,6 @@
 				center_rect_height = 0;
 			};
 			[2] =
-			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 2.000000;
-				dock_point = { 0.500000; 0.000000; };
-				anchor_point = { 0.500000; 0.000000; };
-				relative_size_type = 0;
-				width = 592;
-				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = '';
-				file_name = 'ui/frame/a_frame_14.png';
-				color = { 29; 22; 15; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[3] =
 			{
 				[1] =
 				{
@@ -134,7 +108,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/base_0201.png';
+				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -142,7 +116,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[4] =
+			[3] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -161,7 +135,7 @@
 				visible = false;
 				lua_name = 'costNode';
 			};
-			[5] =
+			[4] =
 			{
 				type = 'LabelTTF';
 				ui_name = 'rich';
@@ -201,31 +175,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[6] =
-			{
-				type = 'Button';
-				ui_name = '';
-				x = -10.000000;
-				y = -10.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 80;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'closeBtn';
-				enable = true;
-				normal = 'ui/btn/close_01.png';
-				selected = 'ui/btn/close_02.png';
-				disable = '';
-				image_type = 0;
-			};
-			[7] =
+			[5] =
 			{
 				[1] =
 				{
@@ -255,7 +205,7 @@
 					dimension_width = 200;
 					dimension_height = 64;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -284,12 +234,12 @@
 				visible = true;
 				lua_name = 'cancelBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0201.png';
-				selected = 'ui/btn/a_btn_0202.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
-			[8] =
+			[6] =
 			{
 				[1] =
 				{
@@ -310,16 +260,16 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 28;
 					text = '확인';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 255; 177; 1; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 64;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -348,10 +298,34 @@
 				visible = true;
 				lua_name = 'okBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0204.png';
-				selected = 'ui/btn/a_btn_0202.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
+			};
+			[7] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = -36.000000;
+				y = -24.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 64;
+				height = 64;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'closeBtn';
+				enable = true;
+				normal = 'ui/buttons/64_close_btn_0101.png';
+				selected = 'ui/buttons/64_close_btn_0102.png';
+				disable = '';
+				image_type = 0;
 			};
 			type = 'Menu';
 			ui_name = '';
@@ -360,7 +334,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 600;
+			width = 1300;
 			height = 400;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

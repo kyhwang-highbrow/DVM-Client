@@ -533,8 +533,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 72;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -542,7 +542,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'leaderSprite';
-				file_name = 'ui/btn/leader_03.png';
+				file_name = 'ui/buttons/72_dia_leader_btn_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

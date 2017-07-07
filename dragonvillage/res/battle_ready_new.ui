@@ -810,12 +810,12 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 0.000000;
+							x = 16.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 141;
+							width = 156;
 							height = 40;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
@@ -831,7 +831,7 @@
 							v_alignment = 1;
 							color = { 255; 255; 255; };
 							opacity = 255;
-							dimension_width = 141;
+							dimension_width = 156;
 							dimension_height = 40;
 							letter_spacing = 0.000000;
 							has_stroke = false;
@@ -845,6 +845,32 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+						};
+						[2] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 24.000000;
+							y = 0.000000;
+							dock_point = { 0.000000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 15;
+							height = 11;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							file_name = 'ui/buttons/drop_dwon_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
 						};
 						type = 'Button';
 						ui_name = '';
@@ -959,12 +985,12 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 0.000000;
+							x = 16.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 141;
+							width = 156;
 							height = 40;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
@@ -980,7 +1006,7 @@
 							v_alignment = 1;
 							color = { 255; 255; 255; };
 							opacity = 255;
-							dimension_width = 141;
+							dimension_width = 156;
 							dimension_height = 40;
 							letter_spacing = 0.000000;
 							has_stroke = false;
@@ -994,6 +1020,32 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+						};
+						[2] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 24.000000;
+							y = 0.000000;
+							dock_point = { 0.000000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 15;
+							height = 11;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							file_name = 'ui/buttons/drop_dwon_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
 						};
 						type = 'Button';
 						ui_name = '';
@@ -1108,12 +1160,12 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 0.000000;
+							x = 16.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 141;
+							width = 156;
 							height = 40;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
@@ -1129,7 +1181,7 @@
 							v_alignment = 1;
 							color = { 255; 255; 255; };
 							opacity = 255;
-							dimension_width = 141;
+							dimension_width = 156;
 							dimension_height = 40;
 							letter_spacing = 0.000000;
 							has_stroke = false;
@@ -1143,6 +1195,32 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+						};
+						[2] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 24.000000;
+							y = 0.000000;
+							dock_point = { 0.000000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 15;
+							height = 11;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							file_name = 'ui/buttons/drop_dwon_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
 						};
 						type = 'Button';
 						ui_name = '';

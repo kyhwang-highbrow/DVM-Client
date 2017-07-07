@@ -5,32 +5,6 @@
 	{
 		[1] =
 		{
-			type = 'Sprite';
-			ui_name = '';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 1280;
-			height = 720;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-			file_name = 'ui/테이머선택.png';
-			color = { 255; 255; 255; };
-			opacity = 100;
-			flip_x = false;
-			flip_y = false;
-			src_blend = 770;
-			dest_blend = 771;
-		};
-		[2] =
-		{
 			type = 'Visual';
 			ui_name = '';
 			x = 0.000000;
@@ -45,7 +19,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = false;
+			visible = true;
 			lua_name = '';
 			file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.vrp';
 			auto_play = true;
@@ -54,7 +28,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[3] =
+		[2] =
 		{
 			type = 'LayerColor';
 			ui_name = '';
@@ -70,14 +44,14 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = false;
+			visible = true;
 			lua_name = '';
 			color = { 0; 0; 0; };
 			opacity = 150;
 			src_blend = 770;
 			dest_blend = 771;
 		};
-		[4] =
+		[3] =
 		{
 			[1] =
 			{
@@ -594,120 +568,6 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -294.000000;
-					y = -226.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 168;
-					height = 208;
-					scale_x = 0.800000;
-					scale_y = 0.800000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'profileNode1';
-				};
-				[12] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = -176.000000;
-					y = -226.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 168;
-					height = 208;
-					scale_x = 0.800000;
-					scale_y = 0.800000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'profileNode2';
-				};
-				[13] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = -58.000000;
-					y = -226.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 168;
-					height = 208;
-					scale_x = 0.800000;
-					scale_y = 0.800000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'profileNode3';
-				};
-				[14] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 60.000000;
-					y = -226.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 168;
-					height = 208;
-					scale_x = 0.800000;
-					scale_y = 0.800000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'profileNode4';
-				};
-				[15] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 178.000000;
-					y = -226.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 168;
-					height = 208;
-					scale_x = 0.800000;
-					scale_y = 0.800000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'profileNode5';
-				};
-				[16] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 296.000000;
-					y = -226.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 168;
-					height = 208;
-					scale_x = 0.800000;
-					scale_y = 0.800000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'profileNode6';
-				};
-				[17] =
-				{
-					type = 'Node';
-					ui_name = '';
 					x = 264.000000;
 					y = -50.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -722,6 +582,25 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'tamerSdNode';
+				};
+				[12] =
+				{
+					type = 'Menu';
+					ui_name = '';
+					x = 0.000000;
+					y = -226.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'profileMenu';
 				};
 				type = 'Menu';
 				ui_name = '';
@@ -757,7 +636,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[5] =
+		[4] =
 		{
 			[1] =
 			{
@@ -821,7 +700,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[6] =
+		[5] =
 		{
 			[1] =
 			{
