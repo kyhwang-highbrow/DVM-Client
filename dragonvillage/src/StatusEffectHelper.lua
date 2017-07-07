@@ -166,7 +166,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     end
 
 	local t_status_effect = TableStatusEffect():get(status_effect_type)
-	local status_effect_group = t_status_effect['type']
+	local status_effect_category = t_status_effect['category']
 
     -- status_effect_rate 검사
     if (self:checkRate(caster, target_char, status_effect_rate)) then
@@ -174,12 +174,12 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     end
 
 	-- 효과 적중 및 효과 저항 검사
-	if (self:checkStatus(caster, target_char, status_effect_group)) then
+	if (self:checkStatus(caster, target_char, status_effect_category)) then
 		return nil
 	end
 
 	-- 면역 효과
-	if (target_char:isImmuneSE() and self:isHarmful(status_effect_group)) then 
+	if (target_char:isImmuneSE() and self:isHarmful(status_effect_category)) then 
 		return nil
 	end
 
@@ -344,8 +344,8 @@ end
 -- function checkStatus
 -- 스텟(효과 적중, 효과 저항)으로 적용 여부 판단
 -------------------------------------
-function StatusEffectHelper:checkStatus(caster, target_char, status_effect_group)
-	local is_harmful = self:isHarmful(status_effect_group)
+function StatusEffectHelper:checkStatus(caster, target_char, status_effect_category)
+	local is_harmful = self:isHarmful(status_effect_category)
 	
 	-- @ RUNE
 	local accuracy = caster:getStat('accuracy')
@@ -395,7 +395,7 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt)
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
         -- 해로운 효과 해제
-		if self:isHarmful(status_effect.m_type) then 
+		if (status_effect.m_bHarmful) then 
 		    status_effect:changeState('end')
 			release_cnt = release_cnt + 1
         end
@@ -423,7 +423,7 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt)
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
         -- 해로운 효과 해제
-		if self:isHelpful(status_effect.m_type) then 
+		if self:isHelpful(status_effect.m_category) then 
 		    status_effect:changeState('end')
 			release_cnt = release_cnt + 1
         end
@@ -453,7 +453,7 @@ end
 -------------------------------------
 -- function isHarmful
 -- @breif 해로운 효과
--- @param param_1 은 statuseffect 의 'type'이나 statuseffect객체 자체
+-- @param param_1 은 statuseffect 의 'category'이나 statuseffect객체 자체
 -------------------------------------
 function StatusEffectHelper:isHarmful(param_1)
 	local status_effect_category
@@ -470,7 +470,7 @@ end
 -------------------------------------
 -- function isHelpful
 -- @breif 이로운 효과
--- @param param_1 은 statuseffect 의 'type'이나 statuseffect객체 자체
+-- @param param_1 은 statuseffect 의 'category'이나 statuseffect객체 자체
 -------------------------------------
 function StatusEffectHelper:isHelpful(param_1)
 	local status_effect_category

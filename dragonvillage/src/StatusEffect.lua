@@ -73,7 +73,7 @@ function StatusEffect:initFromTable(t_status_effect, target_char)
     self.m_category = t_status_effect['category']
     self.m_maxOverlab = t_status_effect['overlab']
     self.m_owner = target_char
-    self.m_bHarmful = StatusEffectHelper:isHarmful(t_status_effect['type'])
+    self.m_bHarmful = StatusEffectHelper:isHarmful(t_status_effect['category'])
     self.m_bAbs = (t_status_effect['abs_switch'] and (t_status_effect['abs_switch'] == 1) or false)
 
     -- status 배율 지정
@@ -154,7 +154,7 @@ function StatusEffect.st_start(owner, dt)
         owner:apply()
 		
 		-- 힐 사운드
-		if (StatusEffectHelper:isHelpful(owner.m_type)) then
+		if (not owner.m_bHarmful) then
 			SoundMgr:playEffect('SFX', 'sfx_buff_get')
 		end
 
