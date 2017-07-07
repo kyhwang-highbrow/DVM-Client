@@ -147,11 +147,13 @@ function UI_Lobby:entryCoroutine()
         g_accessTimeData:request_saveTime(function(ret) working = false end, fail_cb)
         while (working) do dt = coroutine.yield() end
 
+        if (not CHARACTER_FAIR_VER()) then -- 캐릭터 페어
         if g_eventData:hasReward() then
             working = true
             local ui = UI_EventPopup()
             ui:setCloseCB(function(ret) working = false end)
             while (working) do dt = coroutine.yield() end
+        end
         end
 
         -- @UI_ACTION

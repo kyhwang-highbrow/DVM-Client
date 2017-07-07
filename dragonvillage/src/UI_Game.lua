@@ -140,6 +140,10 @@ end
 function UI_Game:initButton()
 	local vars = self.vars
 
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        vars['speedButton']:setVisible(false)
+    end
+
     vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)

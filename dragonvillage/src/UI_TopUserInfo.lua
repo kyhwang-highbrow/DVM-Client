@@ -105,6 +105,9 @@ end
 -- function click_settingBtn
 -------------------------------------
 function UI_TopUserInfo:click_settingBtn()
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        return
+    end
     UI_Setting()
 end
 

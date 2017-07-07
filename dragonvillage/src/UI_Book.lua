@@ -333,6 +333,11 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 			detail_ui:setBookList(book_ui.m_tableViewTD.m_itemList)
 		end
 	end)
+
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        ui:setShadowSpriteVisible(false)
+	    ui:setBookRewardVisual(false)
+    end
 end
 
 -------------------------------------
