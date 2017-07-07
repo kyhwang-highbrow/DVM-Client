@@ -26,7 +26,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonManageInfo:init(doid)
-    local vars = self:load('dragon_manage.ui')
+    local vars = self:load('dragon_manage_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -58,7 +58,9 @@ function UI_DragonManageInfo:initUI()
     self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
     self.m_dragonInfoBoardUI.vars['equipmentBtn']:setVisible(true)
     self.m_dragonInfoBoardUI.vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
-    self.vars['rightNode']:addChild(self.m_dragonInfoBoardUI.root)
+    self.vars['infoNode']:addChild(self.m_dragonInfoBoardUI.root)
+    --self.root:addChild(self.m_dragonInfoBoardUI.root)
+    -- @TODO77
 
     -- 드래곤 실리소스
     if vars['dragonNode'] then
@@ -121,12 +123,14 @@ function UI_DragonManageInfo:initButton()
 
     do -- 기타 버튼
         -- 장비 개별 버튼 1~3
+        --[[ @TODO77
         vars['equipSlotBtn1']:registerScriptTapHandler(function() self:click_runeBtn(1) end)
         vars['equipSlotBtn2']:registerScriptTapHandler(function() self:click_runeBtn(2) end)
         vars['equipSlotBtn3']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
         vars['equipSlotBtn4']:registerScriptTapHandler(function() self:click_runeBtn(4) end)
         vars['equipSlotBtn5']:registerScriptTapHandler(function() self:click_runeBtn(5) end)
         vars['equipSlotBtn6']:registerScriptTapHandler(function() self:click_runeBtn(6) end)
+        --]]
     end
 end
 
@@ -147,7 +151,8 @@ function UI_DragonManageInfo:refresh()
     self:refresh_dragonBasicInfo(t_dragon_data)
 
     -- 드래곤이 장착 중인 룬 정보 갱신
-    self:refresh_dragonRunes(t_dragon_data)
+    --self:refresh_dragonRunes(t_dragon_data)
+    -- @TODO77
 
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
@@ -201,12 +206,14 @@ function UI_DragonManageInfo:refresh_buttonState()
 
     do -- 기타 버튼
         -- 장비 개별 버튼 1~3
+        --[[ @TODO77
         vars['equipSlotBtn1']:setVisible(not is_slime_object)
         vars['equipSlotBtn2']:setVisible(not is_slime_object)
         vars['equipSlotBtn3']:setVisible(not is_slime_object)
         vars['equipSlotBtn4']:setVisible(not is_slime_object)
         vars['equipSlotBtn5']:setVisible(not is_slime_object)
         vars['equipSlotBtn6']:setVisible(not is_slime_object)
+        --]]
     end
 
     -- 드래곤 개발 API
