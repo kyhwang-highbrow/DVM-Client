@@ -76,7 +76,7 @@ function UI_FormationPopup:makeTableViewFormation()
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(820, 115)
+        table_view.m_defaultCellSize = cc.size(820, 125)
         table_view:setCellUIClass(UI_FormationListItem, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_formation)

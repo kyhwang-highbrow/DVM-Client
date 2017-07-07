@@ -96,8 +96,11 @@ end
 function UI_ReadyScene_LeaderPopup.makeLeaderCellUI(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('battle_ready_leader_popup_item.ui')
+    --[[
+    ccdump(t_data)
+    local doid = t_data
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
 
-	--[[
 	if (not t_dragon_data) or (not t_dragon_data['did']) then
 		vars['dragonLabel']:setString('없음')
 		vars['buffLabel']:setString(Str('리더 버프 없음'))
