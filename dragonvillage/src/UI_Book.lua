@@ -144,7 +144,7 @@ end
 function UI_Book:refresh_collect()
 	local coll_cnt = g_bookData:getCollectCount()
 	local total_cnt = table.count(g_bookData:getBookList())
-	self.vars['collectLabel']:setString(Str('수집 현황 {1} / {2}', coll_cnt, total_cnt))
+	self.vars['collectLabel']:setString(Str('{1} / {2}', coll_cnt, total_cnt))
 end
 
 -------------------------------------
@@ -164,10 +164,10 @@ function UI_Book:refresh_noti()
 	for noti, _ in pairs(t_noti) do
 		-- 없으면 생성
 		if (not self.m_tNotiSpriteTable[noti]) then
-			local spr = cc.Sprite:create('res/ui/btn/notification.png')
+			local spr = cc.Sprite:create('res/ui/icons/noti_icon_0101.png')
 			spr:setAnchorPoint(CENTER_POINT)
-			spr:setDockPoint(CENTER_POINT)
-			spr:setPosition(60, 25)
+			spr:setDockPoint(cc.p(1, 1))
+			spr:setPosition(-5, -5)
 			vars[noti .. 'Btn']:addChild(spr)
 			self.m_tNotiSpriteTable[noti] = spr
 
@@ -266,49 +266,14 @@ function UI_Book:init_TableViewTD()
 
 	-- cell_size 지정
     local item_size = 150
-    local item_scale = 0.8
+    local item_scale = 0.75
     local cell_size = cc.size(item_size*item_scale + 12, item_size*item_scale + 12)
 
 	local table_view_td
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
-		local did = data['did']
-		local grade = data['grade']
-		local evolution = data['evolution']
-
-        -- scale 조정
-		ui.root:setScale(item_scale)
-
-		-- 수집 여부에 따른 음영 처리
-		if (not g_bookData:isExist(data)) then
-			ui:setShadowSpriteVisible(true)
-		end
-
-		-- 보상 수령 가능하면 보상 아이콘 출력
-		if (g_bookData:haveBookReward(did, evolution)) then
-			ui:setBookRewardVisual(true)
-		end
-
-		-- 버튼 클릭시 상세 팝업
-		ui.vars['clickBtn']:registerScriptTapHandler(function()
-			-- 보상이 있다면 보상 수령
-			if (g_bookData:haveBookReward(did, evolution)) then
-				local function finish_cb()
-					local reward_value = grade * 100
-					local reward_str = Str('다이아 {1}개를 수령했습니다.', reward_value)
-					UI_ToastPopup(reward_str)
-					ui:setBookRewardVisual(false)
-					self:refresh_noti()
-				end
-				g_bookData:request_bookReward(did, evolution, finish_cb)
-				
-			-- 없으면 상세 팝업
-			else
-				local detail_ui = UI_BookDetailPopup(data)
-				detail_ui:setBookList(table_view_td.m_itemList)
-			end
-		end)
+        self.cellCreateCB(ui, data, self)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -324,6 +289,50 @@ function UI_Book:init_TableViewTD()
 
     -- 정렬
     self.m_tableViewTD = table_view_td
+end
+
+-------------------------------------
+-- function cellCreateCB
+-- @static
+-- @brief cell 생성 후의 콜백
+-------------------------------------
+function UI_Book.cellCreateCB(ui, data, book_ui)
+	local did = data['did']
+	local grade = data['grade']
+	local evolution = data['evolution']
+
+    -- scale 조정
+	ui.root:setScale(0.8)
+
+	-- 수집 여부에 따른 음영 처리
+	if (not g_bookData:isExist(data)) then
+		ui:setShadowSpriteVisible(true)
+	end
+
+	-- 보상 수령 가능하면 보상 아이콘 출력
+	if (g_bookData:haveBookReward(did, evolution)) then
+		ui:setBookRewardVisual(true)
+	end
+
+	-- 버튼 클릭시 상세 팝업
+	ui.vars['clickBtn']:registerScriptTapHandler(function()
+		-- 보상이 있다면 보상 수령
+		if (g_bookData:haveBookReward(did, evolution)) then
+			local function finish_cb()
+				local reward_value = grade * 100
+				local reward_str = Str('다이아 {1}개를 수령했습니다.', reward_value)
+				UI_ToastPopup(reward_str)
+				ui:setBookRewardVisual(false)
+				book_ui:refresh_noti()
+			end
+			g_bookData:request_bookReward(did, evolution, finish_cb)
+				
+		-- 없으면 상세 팝업
+		else
+			local detail_ui = UI_BookDetailPopup(data)
+			detail_ui:setBookList(table_view_td.m_itemList)
+		end
+	end)
 end
 
 -------------------------------------
