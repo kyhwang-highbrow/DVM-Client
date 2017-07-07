@@ -383,6 +383,11 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_openBox()
     local vars = self.vars
+    local is_success = self.m_bSuccess
+    if (not is_success) then 
+        self:doNextWork()
+        return
+    end
 
     vars['boxVisual']:changeAni('box_03', false)
     vars['boxVisual']:addAniHandler(function()
@@ -407,6 +412,11 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_dropItem()
     local vars = self.vars
+    local is_success = self.m_bSuccess
+    if (not is_success) then 
+        self:doNextWork()
+        return
+    end
 
     local interval = 95
     local count = #self.m_lDropItemList
