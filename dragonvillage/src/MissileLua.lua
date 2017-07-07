@@ -318,6 +318,7 @@ function MissileLua.lua_bounce(owner)
 	local l_target = owner.m_owner:getOpponentList()
 	if (#l_target == 0) then 
 		owner:changeState('dying')
+        return
 	end
 
 	-- 필요한 변수 선언
