@@ -44,6 +44,12 @@ end
 -- function init
 -------------------------------------
 function UI_AdventureSceneNew:init(stage_id)
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        if stage_id then
+            stage_id = 1110607
+        end
+    end
+
     self.m_lAchieveRewardButtons = {}
 
     local vars = self:load('adventure_scene_new.ui')

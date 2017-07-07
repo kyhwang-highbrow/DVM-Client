@@ -229,6 +229,10 @@ end
 -- @brief stage_id에 해당하는 스테이지가 입장 가능한지를 리턴
 -------------------------------------
 function ServerData_Adventure:isOpenStage(stage_id)
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        return (stage_id == 1110607)
+    end
+
     local prev_stage_id = getPrevStageID(stage_id)
     if (not prev_stage_id) then
         return true
@@ -242,6 +246,10 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Adventure:isOpenChapter(difficulty, chapter)
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        return (difficulty == 1) and (chapter == 6)
+    end
+
     if (MAX_ADVENTURE_CHAPTER < chapter) then
         return false
     end
@@ -447,6 +455,10 @@ function ServerData_Adventure:setFocusStage(stage_id)
 
     -- 모험모드만 저장
     if (game_mode == GAME_MODE_ADVENTURE) then
+        if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+            stage_id = 1110607
+        end
+
         -- 마지막에 진입한 스테이지 저장
         g_localData:applyLocalData(stage_id, 'adventure_focus_stage')
     end
