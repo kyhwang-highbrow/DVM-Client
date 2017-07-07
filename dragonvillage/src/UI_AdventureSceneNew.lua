@@ -44,7 +44,7 @@ end
 function UI_AdventureSceneNew:init(stage_id)
     self.m_lAchieveRewardButtons = {}
 
-    local vars = self:load('adventure_scene.ui')
+    local vars = self:load('adventure_scene_new.ui')
     UIManager:open(self, UIManager.NORMAL)
 
     -- 백키 지정
@@ -77,14 +77,6 @@ function UI_AdventureSceneNew:initButton()
 
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end) -- 이전 챕터
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end) -- 다음 챕터
-    vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end) -- 챕터 선택
-
-    vars['easyBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(1) end)
-    vars['normalBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(2) end)
-    vars['hardBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(3) end)
-
-    -- 지옥 잠금
-    vars['lockSprite03']:setVisible(true)
 
     vars['devStageBtn']:registerScriptTapHandler(function()
             if COLOSSEUM_SCENE_ACTIVE then
@@ -368,9 +360,6 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     -- 챕터 도전과제
     self:refresh_MissionReward()
 
-    -- 난이도 버튼
-    self:refresh_difficultyButtons()
-
     do -- 마지막에 진입한 스테이지 저장
         local stage_id = makeAdventureID(self.m_currDifficulty, chapter, stage)
         g_stageData:setFocusStage(stage_id)
@@ -516,55 +505,6 @@ function UI_AdventureSceneNew:focusStageButton(idx, immediately, b_force, stage_
     do -- 마지막에 진입한 스테이지 저장
         local stage_id = makeAdventureID(self.m_currDifficulty, self.m_currChapter, idx)
         g_stageData:setFocusStage(stage_id)
-    end
-end
-
--------------------------------------
--- function refresh_difficultyButtons
--- @brief 난이도 관련 버튼 갱신 (보통, 어려움, 지옥)
--------------------------------------
-function UI_AdventureSceneNew:refresh_difficultyButtons()
-    local vars = self.vars
-
-    local chapter = self.m_currChapter
-    for difficulty=1, MAX_ADVENTURE_DIFFICULTY do
-
-        -- 난이도별 잠금 아이콘
-        local is_lock = (not g_adventureData:isOpenChapter(difficulty, chapter))
-        local lock_sprite_name = 'lockSprite' .. string.format('%.2d', difficulty)
-        vars[lock_sprite_name]:setVisible(is_lock)
-
-        -- 선택된 난이도 아이콘
-        local is_selected = (difficulty == self.m_currDifficulty)
-        local disable_sprite_name = 'disableSprite' .. string.format('%.2d', difficulty)
-        vars[disable_sprite_name]:setVisible(not is_selected)
-    end
-    
-    do -- 난이도에 따라 sprite표시
-        local difficulty = self.m_currDifficulty
-        vars['easySprite']:setVisible(false)
-        vars['normalSprite']:setVisible(false)
-        vars['hardSprite']:setVisible(false)
-
-        vars['easyBtn']:setEnabled(true)
-        vars['normalBtn']:setEnabled(true)
-        vars['hardBtn']:setEnabled(true)
-
-        if (difficulty == 1) then
-            vars['easySprite']:setVisible(true)
-            vars['easyBtn']:setEnabled(false)
-
-        elseif (difficulty == 2) then
-            vars['normalSprite']:setVisible(true)
-            vars['normalBtn']:setEnabled(false)
-
-        elseif (difficulty == 3) then
-            vars['hardSprite']:setVisible(true)
-            vars['hardBtn']:setEnabled(false)
-
-        else
-            error('difficulty : ' .. difficulty)
-        end
     end
 end
 

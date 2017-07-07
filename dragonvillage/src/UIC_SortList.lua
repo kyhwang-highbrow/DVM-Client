@@ -86,7 +86,7 @@ function UIC_SortList:init_container()
     self.m_node:addChild(self.m_containerMenu)
 
     do -- 배경 이미지 생성
-        self.m_containerBG = cc.Scale9Sprite:create(cc.rect(0,0,0,0), 'res/ui/frame/a_frame_03.png')
+        self.m_containerBG = cc.Scale9Sprite:create(cc.rect(0,0,0,0), 'res/ui/frames/base_frame_0101.png')
         self.m_containerMenu:addChild(self.m_containerBG)
 
         -- 위에서 아래에서 위로 펼쳐짐
@@ -152,7 +152,7 @@ end
 -------------------------------------
 function UIC_SortList:addSortType(sort_type, sort_name)
 
-    local button = cc.MenuItemImage:create('res/ui/btn/a_btn_0101.png', 'res/ui/btn/a_btn_0102.png', 'res/ui/btn/a_btn_0103.png', 1)
+    local button = cc.MenuItemImage:create('res/ui/buttons/base_btn_0101.png', 'res/ui/buttons/base_btn_0102.png', 'res/ui/buttons/base_btn_0102.png', 1)
     local width, heigth = self.m_node:getNormalSize()
     button:setNormalSize(width - (self.m_buttonMargin * 2), self.m_buttonHeight)
 
@@ -177,7 +177,7 @@ function UIC_SortList:addSortType(sort_type, sort_name)
     do -- 라벨 생성
         local font_name = 'res/font/common_font_01.ttf'
         local stroke_tickness = 2
-        local font_size = (self.m_buttonHeight / 2) -- 버튼 사이즈의 반을 사용
+        local font_size = (self.m_buttonHeight / 2 - 5) -- 버튼 사이즈의 반보다 조금 작게
         local size = cc.size(256, 256)
         local node = cc.Label:createWithTTF(sort_name, font_name, font_size, stroke_tickness, size, cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         node:setDockPoint(cc.p(0.5, 0.5))

@@ -324,8 +324,8 @@
 				lua_name = 'nextBtn';
 				enable = true;
 				normal = 'ui/buttons/adventure_map_arrow_btn_0102.png';
-				selected = 'ui/btn/arrow_02.png';
-				disable = 'ui/btn/arrow_03.png';
+				selected = '';
+				disable = '';
 				image_type = 0;
 			};
 			[17] =
