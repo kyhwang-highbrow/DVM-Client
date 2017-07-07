@@ -596,7 +596,6 @@ local t_module = {
     'UI_ScenarioPlayer_Narrate',
 	'UI_FormationPopup',
 	'UI_FormationListItem',
-	'UI_FormationEnhance',
     'UI_UserInfoMini',
     'UI_UserLevelUp',
     'UI_ContentLock',

@@ -14,7 +14,7 @@ UI_FormationPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_FormationPopup:init(curr_formation_type)
-    local vars = self:load('fomation_popup.ui')
+    local vars = self:load('fomation_popup_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -76,7 +76,7 @@ function UI_FormationPopup:makeTableViewFormation()
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(750, 125)
+        table_view.m_defaultCellSize = cc.size(800, 115)
         table_view:setCellUIClass(UI_FormationListItem, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_formation)

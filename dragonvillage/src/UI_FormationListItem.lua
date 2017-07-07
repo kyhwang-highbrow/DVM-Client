@@ -16,7 +16,7 @@ UI_FormationListItem = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_FormationListItem:init(t_data)
-    self:load('fomation_popup_item.ui')
+    self:load('fomation_popup_item_new.ui')
 
 	self:makeDataPretty(t_data)
 	self.m_isActivated = false
@@ -39,6 +39,7 @@ function UI_FormationListItem:initButton()
     local vars = self.vars
 
 	vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+    --vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn(ui) end) 외부에서 정의
 end
 
 -------------------------------------
@@ -80,8 +81,21 @@ function UI_FormationListItem:refresh()
 	-- 강화가 가능한 상태
 	else
 		vars['enhanceBtn']:setVisible(true)
+        local price = self:getFormationEnhancePrice()
+        vars['priceLabel']:setString(price)
 	end
 end
+
+-------------------------------------
+-- function getFormationEnhancePrice
+-------------------------------------
+function UI_FormationListItem:getFormationEnhancePrice()
+	local curr_formation_level = self.m_tFormationInfo['formation_lv']
+	local formation_level = self.m_tFormationInfo['formation_lv'] + 1
+
+	return TableReqGold:getTotalReqGold('formation', curr_formation_level, formation_level)
+end
+
 
 -------------------------------------
 -- function click_detailBtn
@@ -95,13 +109,13 @@ end
 -- function click_enhanceBtn
 -------------------------------------
 function UI_FormationListItem:click_enhanceBtn()
-	local ui = UI_FormationEnhance(self.m_formation, self.m_tFormationInfo['formation_lv'])
-	
-	local function close_cb()
+	local function cb_func()
 		self:makeDataPretty(g_formationData:getFormationInfo(self.m_formation))
 		self:refresh()
 	end
-	ui:setCloseCB(close_cb)
+
+    local formation_level = self.m_tFormationInfo['formation_lv'] + 1
+    g_formationData:request_lvupFormation(self.m_formation, formation_level, cb_func)
 end
 
 --@CHECK

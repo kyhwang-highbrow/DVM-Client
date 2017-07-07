@@ -783,9 +783,6 @@
     <None Include="..\src\UI_ExchangeProductListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_FormationEnhance.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_LoadingGuide.lua">
       <Filter>lua\UI</Filter>
     </None>
