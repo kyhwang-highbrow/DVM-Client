@@ -10,6 +10,7 @@ function Character:initTriggerListener()
 		if not isExistValue(skill_type, 'active', 'basic', 'leader') then
 			-- 존재 여부는 갯수로 체크
 			if (table.count(t_individual_info) > 0) then
+                print(skill_type)
 				self:addListener(skill_type, self)
 			end
 		end
@@ -54,6 +55,12 @@ function Character:onEvent(event_name, t_event, ...)
     elseif (event_name == 'dead') then
 		self:onEvent_dead(t_event)
 
+    elseif (pl.stringx.endswith(event_name, 'get_status_effect')) then
+        local arg = {...}
+        local target = arg[1]
+        
+        local target_string = event_name:sub(1, event_name:find('_'))
+        self:onEvent_getStatusEffect(t_event, target_string, target)
     else
         self:onEvent_common(event_name)
 
@@ -194,7 +201,7 @@ function Character:onEvent_dead(t_event)
     for i, v in pairs(self.m_lSkillIndivisualInfo['dead']) do
         if (v:isEndCoolTime()) then
             local chance_value = v.m_tSkill['chance_value']
-            if ( (not chane_value) or (chance_value == '') ) then
+            if ( (not chance_value) or (chance_value == '') ) then
                 chance_value = 100
             end
 
@@ -215,6 +222,25 @@ function Character:onEvent_dead(t_event)
     end
 end
 
+-------------------------------------
+-- function onEvent_getStatusEffect
+-------------------------------------
+function Character:onEvent_getStatusEffect(t_event, target_str, target_char)
+    local status_effect_name = target_str .. 'get_' .. 'status_effect'
+    print(status_effect_name)
+    if (not self.m_lSkillIndivisualInfo[status_effect_name]) then return end
+    if (not self.m_statusCalc) then return end
+    for i, v in pairs(self.m_lSkillIndivisualInfo[status_effect_name]) do
+        if (v:isEndCoolTime()) then
+            local statusEffectName = v.m_tSkill['chance_value']
+            if (statusEffectName == t_event['name']) then
+            print(statusEffectName .. ' do')
+                self:doSkill(v.m_skillID, 0, 0)
+            end
+        end
+    end
+
+end
 -------------------------------------
 -- function onEvent_common
 -------------------------------------

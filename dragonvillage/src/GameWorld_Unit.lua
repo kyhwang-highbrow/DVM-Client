@@ -343,8 +343,11 @@ function GameWorld:bindHero(hero)
 
     -- HP 변경시 콜백 등록
     hero:addListener('character_set_hp', self)
-
+    
     hero:addListener('character_dead', self)
+
+    -- 상태효과 받을 시 콜백 등록
+    hero:addListener('get_status_effect', self)
 end
 
 -------------------------------------
@@ -419,6 +422,9 @@ function GameWorld:bindEnemy(enemy)
 
     -- HP 변경시 콜백 등록
     enemy:addListener('character_set_hp', self)
+
+    -- 상태효과 받을 시 콜백 등록
+    enemy:addListener('get_status_effect', self)
 end
 
 -------------------------------------

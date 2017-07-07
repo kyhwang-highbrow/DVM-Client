@@ -149,6 +149,9 @@ end
 -- function st_start
 -------------------------------------
 function StatusEffect.st_start(owner, dt)
+    local t_event = {}
+    t_event['name'] = owner.m_statusEffectName
+    owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
     if (owner.m_stateTimer == 0) then
         -- 중첩에 상관없이 한번만 적용되어야하는 효과 적용
         owner:apply()
