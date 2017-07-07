@@ -310,12 +310,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -52.000000;
+				y = -60.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 64;
-				height = 57;
+				width = 48;
+				height = 42;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -323,7 +323,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/icon/warning_0101.png';
+				file_name = 'ui/icons/noti_icon_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

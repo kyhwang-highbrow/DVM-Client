@@ -16,14 +16,14 @@
 				relative_size_type = 3;
 				width = 0;
 				height = 0;
-				scale_x = 1.000000;
+				scale_x = -1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/list_0201.png';
+				file_name = 'ui/frames/base_list_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -293,7 +293,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 514;
+			width = 512;
 			height = 92;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -310,7 +310,7 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
-		width = -766;
+		width = -768;
 		height = -628;
 		scale_x = 1.000000;
 		scale_y = 1.000000;

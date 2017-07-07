@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -38,7 +38,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -2.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -52,7 +52,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 28;
+					font_size = 26;
 					text = '입힌 데미지';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -61,7 +61,7 @@
 					dimension_width = 170;
 					dimension_height = 60;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -75,13 +75,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 120.000000;
-				y = 0.000000;
-				dock_point = { 0.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.000000; };
+				x = -180.000000;
+				y = -54.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 180;
-				height = 64;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -90,9 +90,9 @@
 				visible = true;
 				lua_name = 'dealtBtn';
 				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
+				normal = 'ui/buttons/base_btn_0201.png';
+				selected = 'ui/buttons/base_btn_0202.png';
+				disable = 'ui/buttons/base_btn_0101.png';
 				image_type = 1;
 			};
 			[3] =
@@ -116,7 +116,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 28;
+					font_size = 26;
 					text = '받은 데미지';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -125,7 +125,7 @@
 					dimension_width = 170;
 					dimension_height = 60;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -139,13 +139,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 300.000000;
-				y = 0.000000;
-				dock_point = { 0.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.000000; };
+				x = 0.000000;
+				y = -54.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 180;
-				height = 64;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -154,9 +154,9 @@
 				visible = true;
 				lua_name = 'takenBtn';
 				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
+				normal = 'ui/buttons/base_btn_0201.png';
+				selected = 'ui/buttons/base_btn_0202.png';
+				disable = 'ui/buttons/base_btn_0101.png';
 				image_type = 1;
 			};
 			[4] =
@@ -180,7 +180,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 28;
+					font_size = 26;
 					text = '체력 회복';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -189,7 +189,7 @@
 					dimension_width = 170;
 					dimension_height = 60;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -203,13 +203,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 480.000000;
-				y = 0.000000;
-				dock_point = { 0.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.000000; };
+				x = 180.000000;
+				y = -54.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 180;
-				height = 64;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -218,42 +218,18 @@
 				visible = true;
 				lua_name = 'healingBtn';
 				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
+				normal = 'ui/buttons/base_btn_0201.png';
+				selected = 'ui/buttons/base_btn_0202.png';
+				disable = 'ui/buttons/base_btn_0101.png';
 				image_type = 1;
 			};
 			[5] =
 			{
-				type = 'Button';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 80;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'closeBtn';
-				enable = true;
-				normal = 'ui/btn/close_01.png';
-				selected = 'ui/btn/close_02.png';
-				disable = '';
-				image_type = 0;
-			};
-			[6] =
-			{
 				type = 'Node';
 				ui_name = '';
-				x = 300.000000;
+				x = 0.000000;
 				y = 260.000000;
-				dock_point = { 0.000000; 0.000000; };
+				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 514;
@@ -266,7 +242,7 @@
 				visible = true;
 				lua_name = 'listNode1';
 			};
-			[7] =
+			[6] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -285,7 +261,7 @@
 				visible = true;
 				lua_name = 'listNode2';
 			};
-			[8] =
+			[7] =
 			{
 				[1] =
 				{
@@ -389,7 +365,7 @@
 				visible = false;
 				lua_name = 'userNode1';
 			};
-			[9] =
+			[8] =
 			{
 				[1] =
 				{
@@ -493,15 +469,39 @@
 				visible = false;
 				lua_name = 'userNode2';
 			};
+			[9] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = -36.000000;
+				y = -24.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 64;
+				height = 64;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'closeBtn';
+				enable = true;
+				normal = 'ui/buttons/64_close_btn_0101.png';
+				selected = 'ui/buttons/64_close_btn_0102.png';
+				disable = '';
+				image_type = 0;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = -25.000000;
+			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 600;
-			height = 520;
+			width = 1300;
+			height = 601;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
