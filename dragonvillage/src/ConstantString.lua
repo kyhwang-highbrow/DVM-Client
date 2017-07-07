@@ -111,6 +111,24 @@ function dragonRoleName(role_type)
 end
 
 -------------------------------------
+-- function dragonRoleTypeName
+-- @brief 
+-------------------------------------
+function dragonRoleTypeName(role_type)
+    if (role_type == 'dealer') or (role_type == 1) then
+        return Str('공격형')
+    elseif (role_type == 'tanker') or (role_type == 2) then
+        return Str('방어형')
+    elseif (role_type == 'supporter') or (role_type == 3) then
+        return Str('지원형')
+    elseif (role_type == 'healer') or (role_type == 4) then
+        return Str('회복형')
+    else
+        error('role_type: ' .. role_type)
+    end
+end
+
+-------------------------------------
 -- function dragonAttackTypeName
 -- @brief 
 -------------------------------------

@@ -158,8 +158,6 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 			-- 스킬 아이콘 생성
 			if l_skill_icon[i] then
                 skill_node:addChild(l_skill_icon[i].root)
-				l_skill_icon[i]:setLeaderLabelToggle(i == 'Leader')
-                
 				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
 					UI_SkillDetailPopup(t_dragon_data, i)

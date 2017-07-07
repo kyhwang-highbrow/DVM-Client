@@ -335,6 +335,7 @@ function IconHelper:getEmptySkillIcon()
     return ui.root
 
     --[[ 2017-07-07 sgkim UI 스타일 변경되면서 변경함
+    -- 2017-07-07 mskim UI_DragonSkillCard 내부 설정으로 바꿀 예정
     local sprite = cc.Sprite:create('res/ui/icon/skill/skill_empty.png')
     sprite:setDockPoint(CENTER_POINT)
     sprite:setAnchorPoint(CENTER_POINT)

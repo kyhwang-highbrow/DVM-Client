@@ -66,7 +66,6 @@ function UI_SkillDetailPopup:initUI()
 		-- 스킬 아이콘 생성
 		if l_skill_icon[i] then
             skill_node:addChild(l_skill_icon[i].root)
-			l_skill_icon[i]:setLeaderLabelToggle(i == 'Leader')
 			vars['skillBtn'..i] = l_skill_icon[i].vars['clickBtn']
             vars['skillBtn'..i]:registerScriptTapHandler(function() self:refresh(i) end)
             vars['skillBtn'..i]:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)

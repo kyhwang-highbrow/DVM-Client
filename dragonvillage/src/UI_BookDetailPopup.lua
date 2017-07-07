@@ -192,9 +192,7 @@ function UI_BookDetailPopup:onChangeDragon()
 
     do -- 드래곤 역할(role)
         local role_type = t_dragon['role']
-        vars['roleNode']:removeAllChildren()
-        local icon = IconHelper:getRoleIcon(role_type)
-        vars['roleNode']:addChild(icon)
+        vars['roleLabel']:setString(dragonRoleTypeName(role_type))
     end    
 
     do -- 드래곤 스토리
@@ -205,7 +203,7 @@ function UI_BookDetailPopup:onChangeDragon()
     do -- 속성과 역할 아이콘 위치 조정
 		local label_width = vars['nameLabel']:getStringWidth()
 		vars['attrNode']:setPositionX(-(label_width/2 + 50))
-        vars['roleNode']:setPositionX((label_width/2 + 50))
+        vars['roleLabel']:setPositionX((label_width/2 + 50))
 	end
 end
 
@@ -228,10 +226,6 @@ function UI_BookDetailPopup:onChangeEvolution()
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         vars['dragonNode']:removeAllChildren()
         vars['dragonNode']:addChild(animator.m_node)
-
-		-- 자코 추가 이후 리소스별 크기가 다른 문제가 있어 테이블에서 스케일을 참조하도록 함(인게임 스케일 사용)
-		-- 다만 0.9 ~ 1.5 사이값으로 제한 (mskim)
-		--vars['dragonNode']:setScale(math_clamp(t_dragon['scale'], 0.9, 1.5))
     end
 
 	-- 스킬 아이콘 생성
@@ -259,8 +253,8 @@ function UI_BookDetailPopup:onChangeEvolution()
 			-- 스킬 아이콘 생성
 			if l_skill_icon[i] then
 				skill_node:addChild(l_skill_icon[i].root)
-				l_skill_icon[i]:setLeaderLabelToggle(i == 'Leader')
-                
+                l_skill_icon[i]:setSimple()
+
 				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 				l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
 					UI_SkillDetailPopup(t_dragon_data, i)
@@ -268,8 +262,10 @@ function UI_BookDetailPopup:onChangeEvolution()
 
 			-- 비어있는 스킬 아이콘 생성
 			else
-				local empty_skill_icon = IconHelper:getEmptySkillIcon()
-				skill_node:addChild(empty_skill_icon)
+				local sprite = cc.Sprite:create('res/ui/icon/skill/skill_empty.png')
+                sprite:setDockPoint(CENTER_POINT)
+                sprite:setAnchorPoint(CENTER_POINT)
+				skill_node:addChild(sprite)
 
 			end
 		end

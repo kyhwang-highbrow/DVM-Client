@@ -333,30 +333,6 @@
 				};
 				[5] =
 				{
-					type = 'Button';
-					ui_name = '';
-					x = 0.000000;
-					y = -80.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 420;
-					height = 84;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'skillBtn';
-					enable = true;
-					normal = '';
-					selected = '';
-					disable = '';
-					image_type = 0;
-				};
-				[6] =
-				{
 					type = 'Node';
 					ui_name = '';
 					x = 169.000000;
@@ -374,7 +350,7 @@
 					visible = true;
 					lua_name = 'skillNode3';
 				};
-				[7] =
+				[6] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -393,7 +369,7 @@
 					visible = true;
 					lua_name = 'skillNode2';
 				};
-				[8] =
+				[7] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -412,7 +388,7 @@
 					visible = true;
 					lua_name = 'skillNode1';
 				};
-				[9] =
+				[8] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -431,7 +407,7 @@
 					visible = true;
 					lua_name = 'skillNode0';
 				};
-				[10] =
+				[9] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -450,7 +426,7 @@
 					visible = true;
 					lua_name = 'skillNodeLeader';
 				};
-				[11] =
+				[10] =
 				{
 					[1] =
 					{
@@ -514,7 +490,7 @@
 					disable = 'ui/buttons/base_btn_0101.png';
 					image_type = 1;
 				};
-				[12] =
+				[11] =
 				{
 					[1] =
 					{
@@ -578,7 +554,7 @@
 					disable = 'ui/buttons/base_btn_0101.png';
 					image_type = 1;
 				};
-				[13] =
+				[12] =
 				{
 					[1] =
 					{
@@ -642,7 +618,7 @@
 					disable = 'ui/buttons/base_btn_0101.png';
 					image_type = 1;
 				};
-				[14] =
+				[13] =
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
@@ -668,7 +644,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[15] =
+				[14] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -692,7 +668,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[16] =
+				[15] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -732,7 +708,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[17] =
+				[16] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -772,7 +748,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[18] =
+				[17] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -796,7 +772,7 @@
 					disable = 'ui/buttons/64_plus_btn_0102.png';
 					image_type = 0;
 				};
-				[19] =
+				[18] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -820,7 +796,7 @@
 					disable = 'ui/buttons/64_minus_btn_0102.png';
 					image_type = 0;
 				};
-				[20] =
+				[19] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -860,7 +836,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[21] =
+				[20] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -884,7 +860,7 @@
 					disable = 'ui/buttons/64_plus_btn_0102.png';
 					image_type = 0;
 				};
-				[22] =
+				[21] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -908,7 +884,7 @@
 					disable = 'ui/buttons/64_minus_btn_0102.png';
 					image_type = 0;
 				};
-				[23] =
+				[22] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -934,7 +910,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[24] =
+				[23] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -953,7 +929,7 @@
 					visible = true;
 					lua_name = 'starNode';
 				};
-				[25] =
+				[24] =
 				{
 					[1] =
 					{
@@ -997,22 +973,43 @@
 					};
 					[2] =
 					{
-						type = 'Node';
+						type = 'LabelTTF';
 						ui_name = '';
-						x = 0.000000;
+						x = 140.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 100;
-						height = 100;
-						scale_x = 0.700000;
-						scale_y = 0.700000;
+						width = 120;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'roleNode';
+						lua_name = 'roleLabel';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 24;
+						text = 'roleLabel';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 161; 125; 93; };
+						opacity = 255;
+						dimension_width = 120;
+						dimension_height = 30;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 85; 44; 25; };
+						has_shadow = false;
+						shadow_color = { 85; 44; 25; };
+						shadow_opacity = 150;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
 					};
 					[3] =
 					{
@@ -1057,7 +1054,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[26] =
+				[25] =
 				{
 					[1] =
 					{

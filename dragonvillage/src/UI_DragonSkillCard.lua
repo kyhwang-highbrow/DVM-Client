@@ -30,12 +30,6 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
         self:setLockSpriteVisible(is_lock)
     end
 
-	do -- leader 스킬
-		if (skill_type == 'leader') then
-			--self:setLeaderLabelToggle(true)
-		end
-	end
-
     -- 스킬 레벨
     local lv_str = Str('Lv.{1}', skill_indivisual_info.m_skillLevel)
     vars['levelLabel']:setString(lv_str)
@@ -92,19 +86,28 @@ function UI_DragonSkillCard:setSkillTypeVisible(visible)
 end
 
 -------------------------------------
--- function setLeaderLabelToggle
--------------------------------------
-function UI_DragonSkillCard:setLeaderLabelToggle(visible)
-	--self.vars['leaderLabel']:setVisible(visible)
-end
-
--------------------------------------
 -- function setNoLv
 -------------------------------------
 function UI_DragonSkillCard:setNoLv()
     self.vars['frameSprite1']:setVisible(false)
 	self.vars['frameSprite2']:setVisible(true)
     self:setLockSpriteVisible(false)
+end
+
+-------------------------------------
+-- function setSimple
+-- @brief 아이콘과 버튼만 남긴다
+-------------------------------------
+function UI_DragonSkillCard:setSimple()
+    local vars = self.vars
+    vars['typeLabel']:setVisible(false)
+    vars['levelLabel']:setVisible(false)
+    vars['baseSprite']:setVisible(false)
+    vars['emptySprite']:setVisible(false)
+
+    vars['skillNode']:setScale(1)
+    vars['skillNode']:setPosition(0, 0)
+    vars['clickBtn']:setNormalSize(100, 100)
 end
 
 -------------------------------------

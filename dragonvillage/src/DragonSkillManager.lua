@@ -373,6 +373,8 @@ end
 
 -------------------------------------
 -- function makeSkillIcon_usingIndex
+-- @brief 스킬 full ui 
+-- @brief 인덱스를 키로 skill_individual_info를 가져와서 생성
 -------------------------------------
 function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
     local skill_indivisual_info = self:getSkillIndivisualInfo_usingIdx(idx)
