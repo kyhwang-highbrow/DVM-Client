@@ -366,16 +366,14 @@ function UI_BookDetailPopup:click_nextBtn(is_next)
 	local t_dragon = self.m_tDragon
 	local did = t_dragon['did']
 	local evolution = self.m_evolution
-
-	-- 인덱스를 모른다면 현재의 인덱스를 찾는다.
-	if (not self.m_bookIdx) then
-		local book_data
-		for i, t_item in pairs(self.m_lBookList) do
-			book_data = t_item['data']
-			if (did == book_data['did']) and (evolution == self.m_evolution) then
-				self.m_bookIdx = i
-				break
-			end
+    
+	-- 현재의 인덱스 탐색
+	local book_data
+	for i, t_item in pairs(self.m_lBookList) do
+		book_data = t_item['data']
+		if (did == book_data['did']) and (evolution == book_data['evolution']) then
+			self.m_bookIdx = i
+			break
 		end
 	end
 
