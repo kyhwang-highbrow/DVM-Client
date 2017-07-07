@@ -36,7 +36,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_lDropItemList = l_drop_item_list
     self.m_secretDungeon = secret_dungeon
 
-    local vars = self:load('ingame_result.ui')
+    local vars = self:load('ingame_result_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- 스테이지를 클리어했을 경우 다음 스테이지 ID 지정
@@ -51,14 +51,16 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
 	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
 
     vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
-    vars['againBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
+    vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 
-    vars['retryBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
-    vars['returnBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
+    vars['mapBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
 
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
+    vars['switchBtn']:registerScriptTapHandler(function() self:click_switchBtn() end)
+    vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
 
     do -- NumberLabel 초기화, 게임 플레이 시간, 획득 골드
         self.m_lNumberLabel = {}
@@ -75,21 +77,6 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
         self:init_difficultyIcon(stage_id)
     end
     
-    -- 테이머
-    do
-		local t_tamer =  g_tamerData:getCurrTamerTable()
-
-        local tamer_res = t_tamer['res']
-        local animator = MakeAnimator(tamer_res)
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        vars['tamerNode']:addChild(animator.m_node)
-		
-		-- 표정 적용
-		local face_ani = TableTamer:getTamerFace(t_tamer['type'], is_success)
-		animator:changeAni(face_ani, true)
-    end
-
     -- 레벨업 연출 클래스 리스트
     self.m_lLevelupDirector = {}
 
@@ -147,6 +134,7 @@ function UI_GameResultNew:setWorkList()
     self.m_workIdx = 0
 
     self.m_lWorkList = {}
+    table.insert(self.m_lWorkList, 'direction_showTamer')
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')
     table.insert(self.m_lWorkList, 'direction_showBox')
@@ -154,6 +142,7 @@ function UI_GameResultNew:setWorkList()
     table.insert(self.m_lWorkList, 'direction_dropItem')
     table.insert(self.m_lWorkList, 'direction_secretDungeon')
     table.insert(self.m_lWorkList, 'direction_showButton')
+    table.insert(self.m_lWorkList, 'direction_moveMenu')
     table.insert(self.m_lWorkList, 'direction_masterRoad')
 end
 
@@ -188,6 +177,46 @@ function UI_GameResultNew:click_screenBtn()
     end
 end
 
+-------------------------------------
+-- function direction_showTamer
+-- @brief 테이머 등장
+-------------------------------------
+function UI_GameResultNew:direction_showTamer()
+    local is_success = self.m_bSuccess
+    local vars = self.vars
+
+    vars['titleNode']:setVisible(false)
+    vars['resultMenu']:setVisible(false)
+
+	local t_tamer =  g_tamerData:getCurrTamerTable()
+
+    local tamer_node = vars['tamerNode']
+
+    local tamer_res = t_tamer['res']
+    local animator = MakeAnimator(tamer_res)
+    animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+    animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+    tamer_node:addChild(animator.m_node)
+    tamer_node:setVisible(true)
+    vars['talkLabel']:setVisible(is_success)
+
+	-- 표정 적용
+	local face_ani = TableTamer:getTamerFace(t_tamer['type'], is_success)
+	animator:changeAni(face_ani, true)
+
+    local function hideTamer()
+        local hide_act = cc.EaseExponentialOut:create(cc.MoveTo:create(1, cc.p(0, -1000)))
+        local after_act = cc.CallFunc:create(function()
+		    tamer_node:setVisible(false)
+            self:doNextWork()
+	    end)
+
+        tamer_node:runAction(cc.Sequence:create(hide_act, after_act))
+    end
+
+    self.root:stopAllActions()
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2.5), cc.CallFunc:create(hideTamer)))
+end
 
 -------------------------------------
 -- function direction_start
@@ -196,6 +225,9 @@ end
 function UI_GameResultNew:direction_start()
     local is_success = self.m_bSuccess
     local vars = self.vars
+
+    vars['titleNode']:setVisible(true)
+    vars['resultMenu']:setVisible(true)
 
     self:setSuccessVisual()
 
@@ -206,7 +238,7 @@ function UI_GameResultNew:direction_start()
     vars['quickBtn']:setVisible(false)
 
     vars['skipLabel']:setVisible(false)
-    vars['retryBtn']:setVisible(false)
+    vars['againBtn']:setVisible(false)
 
     -- 드래곤 레벨업 연출 node
     vars['dragonResultNode']:setVisible(true)
@@ -271,7 +303,7 @@ function UI_GameResultNew:direction_end()
 
     -- @개발 스테이지
     if (self.m_stageID == DEV_STAGE_ID) then
-        vars['returnBtn']:setVisible(true)
+        vars['mapBtn']:setVisible(true)
         return
     end
 
@@ -285,14 +317,14 @@ function UI_GameResultNew:direction_end()
                 self:doNextWork()
             end)))
     else
-        vars['skipLabel']:setVisible(false)
+        vars['skipLabel']:setVisible(true)
         vars['skipBtn']:setVisible(false)
-
+        vars['prevBtn']:setVisible(true)
 		vars['statsBtn']:setVisible(true)
-        vars['retryBtn']:setVisible(true)
-        vars['returnBtn']:setVisible(true)
+        vars['againBtn']:setVisible(true)
+        vars['mapBtn']:setVisible(true)
 
-        self:checkAutoPlay()
+        self:doNextWork()
     end
 end
 
@@ -315,6 +347,11 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_showBox()
     local vars = self.vars
+    local is_success = self.m_bSuccess
+    if (not is_success) then 
+        self:doNextWork()
+        return
+    end
 
     -- 드래곤 레벨업 연출 node 끄기
     --vars['dragonResultNode']:setVisible(false)
@@ -457,6 +494,15 @@ end
 -- function direction_showButton_click
 -------------------------------------
 function UI_GameResultNew:direction_showButton_click()
+end
+
+-------------------------------------
+-- function direction_moveMenu
+-------------------------------------
+function UI_GameResultNew:direction_moveMenu()
+    local vars = self.vars
+    local switch_btn = vars['switchBtn']
+    self:action_switchBtn(function() switch_btn:setVisible(true) end)
 end
 
 -------------------------------------
@@ -679,9 +725,9 @@ function UI_GameResultNew:click_homeBtn()
 end
 
 -------------------------------------
--- function click_retryBtn
+-- function click_againBtn
 -------------------------------------
-function UI_GameResultNew:click_retryBtn()
+function UI_GameResultNew:click_againBtn()
     local stage_id = self.m_stageID
     g_adventureData:goToAdventureScene(stage_id)
 end
@@ -698,6 +744,52 @@ function UI_GameResultNew:click_nextBtn()
     end
 
     g_adventureData:goToAdventureScene(next_stage_id)
+end
+
+-------------------------------------
+-- function click_nextBtn
+-------------------------------------
+function UI_GameResultNew:click_prevBtn()
+    -- 이전 스테이지 ID 지정
+    local stage_id = self.m_stageID
+    local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
+    if prev_stage_id then
+        g_stageData:setFocusStage(prev_stage_id)
+    end
+
+    g_adventureData:goToAdventureScene(prev_stage_id)
+end
+
+-------------------------------------
+-- function click_switchBtn
+-------------------------------------
+function UI_GameResultNew:click_switchBtn()
+    local vars = self.vars
+    local switch_btn = vars['switchBtn']
+    self:action_switchBtn()
+end
+
+-------------------------------------
+-- function action_switchBtn
+-------------------------------------
+function UI_GameResultNew:action_switchBtn(callback)
+    local vars = self.vars
+    local result_menu = vars['resultMenu']
+    local switch_btn = vars['switchBtn']
+    switch_btn:setEnabled(false)
+     
+    local is_up = (result_menu:getPositionY() ~= 450) and true or false
+    local move_y = (is_up) and 450 or 136
+    local rotation = (is_up) and 180 or 0
+    
+    local move_act = cca.makeBasicEaseMove(1, 0, move_y)
+    local after_act = cc.CallFunc:create(function()
+		if (callback) then callback() end
+        switch_btn:setEnabled(true)
+        switch_btn:setRotation(rotation)
+	end)
+
+    result_menu:runAction(cc.Sequence:create(move_act, after_act))
 end
 
 -------------------------------------

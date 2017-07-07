@@ -120,6 +120,12 @@ function ScenarioViewingHistory:playScenario(scenario_name)
     local setting = 'first'
     local play = false
 
+    local path = 'data/scenario/' .. scenario_name, '.csv'
+
+    if (not LuaBridge:isFileExist(path)) then
+        return 
+    end 
+
     -- 설정 정보가 있으면 받아옴
     if g_localData then
         setting = g_localData:get('scenario_playback_rules')
@@ -135,9 +141,7 @@ function ScenarioViewingHistory:playScenario(scenario_name)
     elseif (setting == 'first') then
         if (not self:isViewed(scenario_name)) then
             play = true
-            
         end
-
     end
 
     -- 시청 기록에 등록

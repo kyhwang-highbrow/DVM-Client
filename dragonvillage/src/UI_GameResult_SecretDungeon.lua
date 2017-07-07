@@ -37,9 +37,9 @@ function UI_GameResult_SecretDungeon:init_difficultyIcon(stage_id)
 end
 
 -------------------------------------
--- function click_retryBtn
+-- function click_againBtn
 -------------------------------------
-function UI_GameResult_SecretDungeon:click_retryBtn()
+function UI_GameResult_SecretDungeon:click_againBtn()
     local scene = SceneSecretDungeon()
     scene:runScene()
 end
@@ -83,8 +83,8 @@ function UI_GameResult_SecretDungeon:direction_end()
         vars['skipBtn']:setVisible(true)
 
         vars['statsBtn']:setVisible(false)
-        vars['retryBtn']:setVisible(false)
-        vars['returnBtn']:setVisible(false)
+        vars['againBtn']:setVisible(false)
+        vars['mapBtn']:setVisible(false)
     end
 end
 

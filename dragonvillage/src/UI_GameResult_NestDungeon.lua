@@ -32,9 +32,9 @@ function UI_GameResult_NestDungeon:init_difficultyIcon(stage_id)
 end
 
 -------------------------------------
--- function click_retryBtn
+-- function click_againBtn
 -------------------------------------
-function UI_GameResult_NestDungeon:click_retryBtn()
+function UI_GameResult_NestDungeon:click_againBtn()
     local scene = SceneNestDungeon(self.m_stageID)
     scene:runScene()
 end
@@ -97,8 +97,8 @@ function UI_GameResult_NestDungeon:direction_end()
             vars['skipBtn']:setVisible(true)
 
             vars['statsBtn']:setVisible(false)
-            vars['retryBtn']:setVisible(false)
-            vars['returnBtn']:setVisible(false)
+            vars['againBtn']:setVisible(false)
+            vars['mapBtn']:setVisible(false)
         end
     end
 end

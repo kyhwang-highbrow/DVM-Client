@@ -29,6 +29,7 @@ UI_ScenarioPlayer = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ScenarioPlayer:init(scenario_name, is_simple_scenario)
+    if (not self:existScenarioFile()) then return end
     local vars = self:load_keepZOrder('scenario_talk_new.ui', false)
 	
 	if (is_simple_scenario) then
@@ -80,6 +81,14 @@ function UI_ScenarioPlayer:getCSVHeader(csv)
         header[i] = string.match(csv[i], '[A-Za-z%d_-]+')
     end
     return header
+end
+
+-------------------------------------
+-- function checkScenarioFile
+-------------------------------------
+function UI_ScenarioPlayer:existScenarioFile(scenario_name)
+    local path = 'scenario/' .. filename, '.csv'
+    return LuaBridge:isFileExist(path)
 end
 
 -------------------------------------

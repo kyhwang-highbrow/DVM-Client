@@ -13,7 +13,7 @@ UI_GameResult_AncientTower = class(PARENT, {
 })
 
 -------------------------------------
--- function click_retryBtn
+-- function click_againBtn
 -------------------------------------
 function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, score_calc)
     local vars = self.vars
@@ -212,10 +212,10 @@ function UI_GameResult_AncientTower:init_difficultyIcon(stage_id)
 end
 
 -------------------------------------
--- function click_retryBtn
+-- function click_againBtn
 -- @brief 다시하기
 -------------------------------------
-function UI_GameResult_AncientTower:click_retryBtn()
+function UI_GameResult_AncientTower:click_againBtn()
     local use_scene = true
     g_ancientTowerData:goToAncientTowerScene(use_scene)
 end
@@ -236,7 +236,7 @@ function UI_GameResult_AncientTower:direction_end()
 
     -- 필요없는 버튼 비지블 꺼줌
     local vars = self.vars
-    vars['retryBtn']:setVisible(false)
+    vars['againBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -290,7 +290,7 @@ function UI_GameResult_AncientTower:makeResultUI()
     vars['nextBtn']:setVisible(false)
     vars['quickBtn']:setVisible(false)
     vars['skipLabel']:setVisible(false)
-    vars['retryBtn']:setVisible(false)
+    vars['againBtn']:setVisible(false)
 
     -- 드래곤 레벨업 연출 node
     vars['dragonResultNode']:setVisible(true)
