@@ -165,7 +165,7 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 
 		for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
             local skill_node = vars['skillNode' .. i]
-            local skill_lv_label = vars['skillLevelLabel' .. i]
+            --local skill_lv_label = vars['skillLevelLabel' .. i]
 
 			skill_node:removeAllChildren()
             
@@ -173,19 +173,16 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 			if l_skill_icon[i] then
                 skill_node:addChild(l_skill_icon[i].root)
                 l_skill_icon[i]:setSimple()
+
 				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
 					UI_SkillDetailPopup(t_dragon_data, i)
 				end)
-
-                local skill_level = skill_mgr:getSkillLevel(i)
-                skill_lv_label:setString(tostring(skill_level))
 			-- 비어있는 스킬 아이콘 생성
 			else
 				local empty_skill_icon = IconHelper:getEmptySkillIcon()
 				skill_node:addChild(empty_skill_icon)
 
-                skill_lv_label:setString('')
             end
         end
     end

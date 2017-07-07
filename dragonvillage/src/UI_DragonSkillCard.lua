@@ -31,8 +31,16 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
     end
 
     -- 스킬 레벨
-    local lv_str = Str('Lv.{1}', skill_indivisual_info.m_skillLevel)
+    local skill_lv = skill_indivisual_info.m_skillLevel
+    local lv_str
+    if (not skill_lv) or (skill_lv == 0) then
+        lv_str = ''
+    else
+        lv_str = Str('Lv.{1}', skill_lv)
+    end
     vars['levelLabel']:setString(lv_str)
+
+    -- button
     vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
 end
 
@@ -103,13 +111,19 @@ function UI_DragonSkillCard:setSimple()
 
     -- 필요없는것 다 꺼버림
     vars['typeLabel']:setVisible(false)
-    vars['levelLabel']:setVisible(false)
     vars['baseSprite']:setVisible(false)
     vars['emptySprite']:setVisible(false)
 
     -- lockSprite 교체
+    local is_lock = vars['lockSprite']:isVisible()
     vars['lockSprite']:removeFromParent(true)
     vars['lockSprite'] = IconHelper:getIcon('res/ui/buttons/skill_btn_0105.png')
+    vars['lockSprite']:setVisible(is_lock)
+    self.root:addChild(vars['lockSprite'])
+
+    -- lv label 위치 조정
+    vars['levelLabel']:setPosition(0, -30)
+    vars['levelLabel']:setScale(1.5)
 
     -- 스킬 아이콘 및 버튼 위치 조정
     vars['skillNode']:setScale(1)
