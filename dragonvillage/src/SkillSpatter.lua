@@ -76,9 +76,8 @@ end
 -- function initState
 -------------------------------------
 function SkillSpatter:initState()
-    if (self.m_chanceType == 'active') then
-        self:setCommonState(self)
-    end
+    self:setCommonState(self)
+    
     self:addState('idle', SkillSpatter.st_idle, 'idle', true)
 end
 
