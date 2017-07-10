@@ -346,6 +346,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
     <None Include="..\src\NumberLabel_Pumping.lua" />
     <None Include="..\src\NumberLoop.lua" />
+    <None Include="..\src\packet\chat.proto" />
+    <None Include="..\src\packet\session.proto" />
     <None Include="..\src\perpleLib\lua_csv.lua" />
     <None Include="..\src\plSample.lua" />
     <None Include="..\src\plSample_test.lua" />
@@ -609,7 +611,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Monster_GiantDragon.lua" />
     <None Include="..\src\Network.lua" />
     <None Include="..\src\NumberLabel.lua" />
-    <None Include="..\src\packet\channel.proto" />
     <None Include="..\src\packet\protocol.proto" />
     <None Include="..\src\PatchCore.lua" />
     <None Include="..\src\PatchData.lua" />

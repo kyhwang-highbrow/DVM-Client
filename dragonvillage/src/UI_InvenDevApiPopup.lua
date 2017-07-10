@@ -99,25 +99,18 @@ function UI_InvenDevApiPopup:init_dragonTableView()
     local item_adjust_size = (item_size * item_scale)
 
     -- 생성
-    local function create_func(item)
-        local ui = item['ui']
+    local function create_func(ui, data)
         ui.root:setScale(item_scale)
 
-        local did = item['data']
+        local did = data
         local name = TableDragon:getDragonName(did)
         local label = cc.Label:createWithTTF(name, 'res/font/common_font_01.ttf', 22, 1, cc.size(600, 50), 1, 1)
         label:setDockPoint(cc.p(0.5, 0.5))
         label:setAnchorPoint(cc.p(0.5, 0.5))
         label:setPositionY(-50)
         ui.root:addChild(label)
-    end
 
-    -- 드래곤 클릭 콜백 함수
-    local function click_dragon_item(item)
-        local data = item['data']
-        local did = data
-
-        self:network_addDragon(did)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:network_addDragon(did) end)
     end
 
     local table_dragon = TABLE:get('dragon')
@@ -128,20 +121,13 @@ function UI_InvenDevApiPopup:init_dragonTableView()
         --end
     end
 
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.VERTICAL)
-    do -- 아이콘 크기 지정
-        local item_adjust_size = (item_size * item_scale)
-        local nItemPerCell = 5
-        local cell_width = (item_adjust_size * nItemPerCell)
-        local cell_height = item_adjust_size
-        local item_width = item_adjust_size
-        local item_height = item_adjust_size
-        table_view_ext:setCellInfo2(nItemPerCell, cell_width, cell_height, item_width, item_height)
-    end 
-    table_view_ext:setItemUIClass(MakeSimpleDragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    table_view_ext:setItemInfo(t_invalid_dragon)
-    --table_view_ext:update()
+
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view_td.m_cellSize = cc.size(item_adjust_size, item_adjust_size)
+    table_view_td.m_nItemPerCell = 5
+    table_view_td:setCellUIClass(MakeSimpleDragonCard, create_func)
+    table_view_td:setItemList(t_invalid_dragon)
 
     do-- 정렬
         local function default_sort_func(a, b)
@@ -150,8 +136,7 @@ function UI_InvenDevApiPopup:init_dragonTableView()
 
             return a < b
         end
-        table_view_ext:insertSortInfo('default', default_sort_func)
-        table_view_ext:sortTableView('default')
+        table.sort(table_view_td.m_itemList, default_sort_func)
     end
 end
 
@@ -204,9 +189,8 @@ function UI_InvenDevApiPopup:init_fruitTableView()
     local item_adjust_size = (item_size * item_scale)
 
     -- 생성
-    local function create_func(item)
-        local fruit_id = item['data']
-        local ui = item['ui']
+    local function create_func(ui, data)
+        local fruit_id = data
         ui.root:setScale(item_scale)
 
         ui.vars['numberLabel']:setVisible(true)
@@ -218,14 +202,8 @@ function UI_InvenDevApiPopup:init_fruitTableView()
         label:setAnchorPoint(cc.p(0.5, 0.5))
         label:setPositionY(50)
         ui.root:addChild(label)
-    end
 
-    -- 드래곤 클릭 콜백 함수
-    local function click_item(item)
-        local data = item['data']
-        local fid = data
-
-        self:network_addFruit(fid, item)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:network_addFruit(ui, fruit_id) end)
     end
 
     local t_fruit = {}
@@ -233,20 +211,12 @@ function UI_InvenDevApiPopup:init_fruitTableView()
         table.insert(t_fruit, i)
     end
 
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.VERTICAL)
-    do -- 아이콘 크기 지정
-        local item_adjust_size = (item_size * item_scale)
-        local nItemPerCell = 4
-        local cell_width = (item_adjust_size * nItemPerCell)
-        local cell_height = item_adjust_size
-        local item_width = item_adjust_size
-        local item_height = item_adjust_size
-        table_view_ext:setCellInfo2(nItemPerCell, cell_width, cell_height, item_width, item_height)
-    end 
-    table_view_ext:setItemUIClass(UI_ItemCard, click_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    table_view_ext:setItemInfo(t_fruit)
-    --table_view_ext:update()
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view_td.m_cellSize = cc.size(item_adjust_size, item_adjust_size)
+    table_view_td.m_nItemPerCell = 4
+    table_view_td:setCellUIClass(UI_ItemCard, create_func)
+    table_view_td:setItemList(t_fruit)
 
     do-- 정렬
         local function default_sort_func(a, b)
@@ -263,8 +233,7 @@ function UI_InvenDevApiPopup:init_fruitTableView()
 
             return a < b
         end
-        table_view_ext:insertSortInfo('default', default_sort_func)
-        table_view_ext:sortTableView('default')
+        table.sort(table_view_td.m_itemList, default_sort_func)
     end
 end
 
@@ -272,7 +241,7 @@ end
 -- function network_addFruit
 -- @brief 열매 추가
 -------------------------------------
-function UI_InvenDevApiPopup:network_addFruit(fid, item)
+function UI_InvenDevApiPopup:network_addFruit(ui, fid)
     local uid = g_userData:get('uid')
     local table_fruit = TABLE:get('fruit')
 
@@ -282,9 +251,6 @@ function UI_InvenDevApiPopup:network_addFruit(fid, item)
         end
 
         do -- UI 갱신
-            local fruit_id = item['data']
-            local ui = item['ui']
-
             local count = g_userData:getFruitCount(fid)
             ui.vars['numberLabel']:setString(comma_value(count))
         end
@@ -327,9 +293,8 @@ function UI_InvenDevApiPopup:init_evolutionStoneTableView()
     local item_adjust_size = (item_size * item_scale)
 
     -- 생성
-    local function create_func(item)
-        local esid = item['data']
-        local ui = item['ui']
+    local function create_func(ui, data)
+        local esid = data
         ui.root:setScale(item_scale)
 
         ui.vars['numberLabel']:setVisible(true)
@@ -342,14 +307,8 @@ function UI_InvenDevApiPopup:init_evolutionStoneTableView()
         label:setAnchorPoint(cc.p(0.5, 0.5))
         label:setPositionY(50)
         ui.root:addChild(label)
-    end
 
-    -- 드래곤 클릭 콜백 함수
-    local function click_item(item)
-        local data = item['data']
-        local esid = data
-
-        self:network_addEvolutionStone(esid, item)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:network_addEvolutionStone(ui, esid) end)
     end
 
     local l_item_list = {}
@@ -357,20 +316,12 @@ function UI_InvenDevApiPopup:init_evolutionStoneTableView()
         table.insert(l_item_list, item_id)
     end
 
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.VERTICAL)
-    do -- 아이콘 크기 지정
-        local item_adjust_size = (item_size * item_scale)
-        local nItemPerCell = 6
-        local cell_width = (item_adjust_size * nItemPerCell)
-        local cell_height = item_adjust_size
-        local item_width = item_adjust_size
-        local item_height = item_adjust_size
-        table_view_ext:setCellInfo2(nItemPerCell, cell_width, cell_height, item_width, item_height)
-    end 
-    table_view_ext:setItemUIClass(UI_ItemCard, click_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    table_view_ext:setItemInfo(l_item_list)
-    --table_view_ext:update()
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view_td.m_cellSize = cc.size(item_adjust_size, item_adjust_size)
+    table_view_td.m_nItemPerCell = 6
+    table_view_td:setCellUIClass(UI_ItemCard, create_func)
+    table_view_td:setItemList(l_item_list)
 
     do-- 정렬
         local function default_sort_func(a, b)
@@ -379,8 +330,7 @@ function UI_InvenDevApiPopup:init_evolutionStoneTableView()
 
             return a < b
         end
-        table_view_ext:insertSortInfo('default', default_sort_func)
-        table_view_ext:sortTableView('default')
+        table.sort(table_view_td.m_itemList, default_sort_func)
     end
 end
 
@@ -388,7 +338,7 @@ end
 -- function network_addEvolutionStone
 -- @brief 진화재료 추가
 -------------------------------------
-function UI_InvenDevApiPopup:network_addEvolutionStone(esid, item)
+function UI_InvenDevApiPopup:network_addEvolutionStone(ui, esid)
     local uid = g_userData:get('uid')
     local table_item = TableItem()
 
@@ -398,9 +348,6 @@ function UI_InvenDevApiPopup:network_addEvolutionStone(esid, item)
         end
 
         do -- UI 갱신
-            local esid = item['data']
-            local ui = item['ui']
-
             local count = g_userData:getEvolutionStoneCount(esid)
             ui.vars['numberLabel']:setString(comma_value(count))
         end

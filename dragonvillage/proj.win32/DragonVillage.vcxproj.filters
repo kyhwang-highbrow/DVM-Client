@@ -156,9 +156,6 @@
     <None Include="..\src\lib\pb\standard\dump.lua">
       <Filter>lua\lib\pb\standard</Filter>
     </None>
-    <None Include="..\src\packet\channel.proto">
-      <Filter>lua\packet</Filter>
-    </None>
     <None Include="..\src\packet\protocol.proto">
       <Filter>lua\packet</Filter>
     </None>
@@ -2426,6 +2423,12 @@
     </None>
     <None Include="..\src\UI_DialoguePlayer.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\packet\chat.proto">
+      <Filter>lua\packet</Filter>
+    </None>
+    <None Include="..\src\packet\session.proto">
+      <Filter>lua\packet</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
