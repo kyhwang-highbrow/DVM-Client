@@ -158,6 +158,17 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
         return
     end
 
+    -- game_mode 체크
+    if (g_gameScene) then
+        local t_skill = GetSkillTable(self.m_charType):get(skill_id)
+        local game_mode = t_skill['game_mode']
+        if (game_mode and game_mode ~= '') then
+            if (game_mode ~= PLAYER_VERSUS_MODE[g_gameScene.m_world.m_gameMode]) then
+                return
+            end
+        end
+    end
+
     if (self.m_lSkillIndivisualInfo[skill_type] == nil) then
         self.m_lSkillIndivisualInfo[skill_type] = {}
     end
