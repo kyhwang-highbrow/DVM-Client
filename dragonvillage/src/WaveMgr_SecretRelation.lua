@@ -38,7 +38,7 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
     local enemy
 
     -- Enemy 생성
-    if isMonster(enemy_id) then
+    if (isMonster(enemy_id)) then
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
 
     else

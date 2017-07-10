@@ -333,12 +333,16 @@ end
 function WaveMgr:getRarity(enemy_id, enemy_lv)
     local rarity
 
-    if (isDragon(enemy_id)) then
+    if (isMonster(enemy_id)) then
+        local t_monster = TableMonster():get(enemy_id)
+        if (not t_monster) then
+            error('invalid enemy_id : ' ..enemy_id)
+        end
+        rarity = monsterRarityStrToNum(t_monster['rarity'])
+
+    else
         -- 드래곤은 몬스터보다 무조건 높아야하고 레벨로 설정함
         rarity = 10 + enemy_lv
-    else
-        local t_monster = TableMonster():get(enemy_id)
-        rarity = monsterRarityStrToNum(t_monster['rarity'])
     end
     
     return rarity
