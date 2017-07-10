@@ -5,6 +5,10 @@
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;2",
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;2",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6"
         ],
 		
@@ -12,10 +16,18 @@
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;3",
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;3",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6"
         ],
 		
 		[
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;4",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;6",
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;4",
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
 			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;5",
