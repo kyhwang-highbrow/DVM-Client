@@ -15,6 +15,10 @@ ErrorTracker = class({
 -- @brief 생성자
 -------------------------------------
 function ErrorTracker:init()
+
+    -- @ generator
+    -- getsetGenerator(ErrorTracker, 'ErrorTracker')
+
 end
 
 -------------------------------------
@@ -65,5 +69,72 @@ last stage : %s
 	return text
 end
 
--- @ generator
-getsetGenerator(ErrorTracker, 'ErrorTracker')
+-------------------------------------
+-- function set_lastScene
+------------------------------------- 
+function ErrorTracker:set_lastScene(s)
+    self.lastScene = s
+end
+
+-------------------------------------
+-- function get_lastScene
+------------------------------------- 
+function ErrorTracker:get_lastScene()
+    return self.lastScene
+end
+
+-------------------------------------
+-- function set_lastUI
+------------------------------------- 
+function ErrorTracker:set_lastUI(s)
+    self.lastUI = s
+end
+
+-------------------------------------
+-- function get_lastUI
+------------------------------------- 
+function ErrorTracker:get_lastUI()
+    return self.lastUI
+end
+
+-------------------------------------
+-- function set_lastAPI
+------------------------------------- 
+function ErrorTracker:set_lastAPI(s)
+    self.lastAPI = s
+end
+
+-------------------------------------
+-- function get_lastAPI
+------------------------------------- 
+function ErrorTracker:get_lastAPI()
+    return self.lastAPI
+end
+
+-------------------------------------
+-- function set_lastFailedRes
+------------------------------------- 
+function ErrorTracker:set_lastFailedRes(s)
+    self.lastFailedRes = s
+end
+
+-------------------------------------
+-- function get_lastFailedRes
+------------------------------------- 
+function ErrorTracker:get_lastFailedRes()
+    return self.lastFailedRes
+end
+
+-------------------------------------
+-- function set_lastStage
+------------------------------------- 
+function ErrorTracker:set_lastStage(s)
+    self.lastStage = s
+end
+
+-------------------------------------
+-- function get_lastStage
+------------------------------------- 
+function ErrorTracker:get_lastStage()
+    return self.lastStage
+end
