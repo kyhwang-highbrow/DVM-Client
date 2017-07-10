@@ -204,12 +204,6 @@
     <None Include="..\src\UI_TopUserInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_AdventureChapterButton.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_AdventureChapterSelectPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_AdventureFirstRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>

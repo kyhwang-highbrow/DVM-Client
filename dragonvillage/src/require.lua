@@ -612,8 +612,6 @@ local t_module = {
 
 	-- UI : 모험
     'UI_AdventureSceneNew',
-    'UI_AdventureChapterSelectPopup',
-    'UI_AdventureChapterButton',
     'UI_AdventureStageButton',
     'UI_AdventureFirstRewardPopup',
     'UI_AdventureFirstRewardButton',

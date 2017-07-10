@@ -795,8 +795,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AccessTimeDataListItem.lua" />
     <None Include="..\src\UI_AcquisitionRegionInformation.lua" />
     <None Include="..\src\UI_AcquisitionRegionListItem.lua" />
-    <None Include="..\src\UI_AdventureChapterButton.lua" />
-    <None Include="..\src\UI_AdventureChapterSelectPopup.lua" />
     <None Include="..\src\UI_AdventureFirstRewardButton.lua" />
     <None Include="..\src\UI_AdventureFirstRewardPopup.lua" />
     <None Include="..\src\UI_AdventureSceneNew.lua" />
