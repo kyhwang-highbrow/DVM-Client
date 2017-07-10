@@ -475,7 +475,7 @@ function UI_BookDetailPopup:press_lvBtn(is_plus)
 		if (not self.m_pressBtn:isSelected()) then
 			self.m_pressTimer = 0
 			self.m_pressBtn = nil
-			vars['roleNode']:unscheduleUpdate()
+			vars['starNode']:unscheduleUpdate()
 		end
 
 		self.m_pressTimer = self.m_pressTimer + dt
@@ -485,7 +485,7 @@ function UI_BookDetailPopup:press_lvBtn(is_plus)
 		end
 	end
 
-	vars['roleNode']:scheduleUpdateWithPriorityLua(function(dt) return update_lv(dt) end, 1)
+	vars['starNode']:scheduleUpdateWithPriorityLua(function(dt) return update_lv(dt) end, 1)
 end
 
 -------------------------------------
