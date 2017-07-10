@@ -24,7 +24,7 @@ function SceneGameColosseum:init_gameMode()
     self.m_gameMode = GAME_MODE_COLOSSEUM
 
     -- @E.T.
-	g_errorTracker:set_lastScene(self.m_stageID)
+	g_errorTracker:set_lastStage(self.m_stageID)
 end
 
 -------------------------------------

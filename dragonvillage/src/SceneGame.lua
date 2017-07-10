@@ -82,7 +82,7 @@ function SceneGame:init_gameMode(stage_id)
     end
 
     -- @E.T.
-	g_errorTracker:set_lastScene(self.m_stageID)
+	g_errorTracker:set_lastStage(self.m_stageID)
 end
 
 -------------------------------------
