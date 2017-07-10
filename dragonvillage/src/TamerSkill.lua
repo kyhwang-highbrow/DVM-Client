@@ -159,6 +159,8 @@ end
 -------------------------------------
 function Tamer:doSkill(skill_idx)
 	local t_skill = self.m_lSkill[skill_idx]
+    if (not t_skill) then return end
+
     local skill_type = t_skill['skill_type']
     local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
     if (not skill_indivisual_info) then return end
