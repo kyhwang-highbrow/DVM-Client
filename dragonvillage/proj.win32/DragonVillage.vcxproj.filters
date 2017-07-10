@@ -1353,9 +1353,6 @@
     <None Include="..\src\Network.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\NetworkLocalServer.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\NumberLabel.lua">
       <Filter>lua\src</Filter>
     </None>

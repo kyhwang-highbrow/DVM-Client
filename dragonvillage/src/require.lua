@@ -804,7 +804,6 @@ local t_module = {
 
     -- Network
     'Network',
-    'NetworkLocalServer',
 
     -- UI : Generated
 }

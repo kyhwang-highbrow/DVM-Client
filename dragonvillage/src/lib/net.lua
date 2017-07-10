@@ -195,11 +195,6 @@ function Network:SimpleRequest(t, do_decode)
         --return
     end
 
-    -- 로컬 서버로 동작 체크
-    if self:checkLocalServer(t) then
-        return
-    end
-
     local full_url = t['full_url']
 	local url = full_url or (self:getApiUrl() .. t['url'])
 	local data = t['data'] or {}
@@ -553,29 +548,4 @@ function Network:saveDump(t_request, ret)
     
     f:write(str)
     f:close()
-end
-
--------------------------------------
--- function checkLocalServer
--- @breif 
--------------------------------------
-function Network:checkLocalServer(t_request)
-    if (LocalServer and LocalServer['user_local_server'] == true) then
-        local url = t_request['url']
-
-        -- 플랫폼 서버에서는 full_url을 사용! 추후에 예외처리하자! seong-goo kim 2016-11-01
-        if (not url) then
-            return false
-        end
-
-        if LocalServer[url] then
-            LocalServer[url](t_request)
-        else
-            ccdump(t_request)
-            error('req.url ' .. url)
-        end
-        return true
-    end
-
-    return false
 end
