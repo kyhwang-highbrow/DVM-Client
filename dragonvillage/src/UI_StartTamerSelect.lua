@@ -21,6 +21,10 @@ UI_StartTamerSelect = class(PARENT,{
 function UI_StartTamerSelect:init(select_callback)
     local vars = self:load('tamer_select.ui')
     UIManager:open(self, UIManager.NORMAL)
+
+    SoundMgr:playBGM('bgm_title')
+    SoundMgr.m_bStopPreload = true
+
     self.m_nSelIdx = 1
     self.m_mStartTamerInfo = g_startTamerData:getData()
     self.m_cbSelectTamer = select_callback

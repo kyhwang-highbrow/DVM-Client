@@ -336,7 +336,8 @@ function UI_TitleScene:workGameLogin()
         -- 최초 로그인인 경우 계정 생성
         if ret['newuser'] then
             g_startTamerData:setData(ret)
-            self:createAccount()
+            self.m_loadingUI:hideLoading()
+            self:setTouchScreen()
             return
         end
 
@@ -362,7 +363,13 @@ function UI_TitleScene:workGameLogin()
 
     Network_login(uid, nickname, success_cb, fail_cb)
 end
+
+-------------------------------------
+-- function workGameLogin_click
+-- @brief 신규계정 생성시에만 클릭 가능함
+-------------------------------------
 function UI_TitleScene:workGameLogin_click()
+    self:createAccount()
 end
 
 -------------------------------------
@@ -548,9 +555,26 @@ function UI_TitleScene:workFinish()
 end
 function UI_TitleScene:workFinish_click()
     -- 모든 작업이 끝난 경우 로비로 전환
-	local is_use_loading = true
-    local scene = SceneLobby(is_use_loading)
-    scene:runScene()
+    local lobby_func
+    local intro_func 
+    lobby_func = function()
+        local is_use_loading = true
+        local scene = SceneLobby(is_use_loading)
+        scene:runScene()
+    end
+	
+    intro_func = function()
+        local scenario_name = 'scenario_prologue'
+        local prologue = UI_ScenarioPlayer(scenario_name)
+        prologue:setCloseCB(lobby_func)
+    end
+
+    -- 캐릭터 페어 빌드 무조건 인트로 재생
+    if (CHARACTER_FAIR_VER()) and (not self.m_bNewUser) then
+        intro_func()
+    else
+        lobby_func()
+    end
 end
 
 -------------------------------------

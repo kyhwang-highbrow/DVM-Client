@@ -441,8 +441,6 @@ function UI_ScenarioPlayer:applyEffect(effect)
         local loop = string.find(key, '_idle') and true or false
         vrp:changeAni(key, loop)
         vrp:addAniHandler(function() self:next() end)
-        self.vars['skipBtn']:setVisible(false)
-        self.vars['nextVisual']:setVisible(false)
 
     elseif (effect == 'clear_text') or (effect == 'cleartext') then
         self.m_scenarioPlayerTalk:hide()
@@ -456,6 +454,11 @@ function UI_ScenarioPlayer:applyEffect(effect)
         self.m_bSkipEnable = true
         self.vars['skipBtn']:setVisible(true)
         self.vars['nextVisual']:setVisible(true)
+
+    elseif effect == 'next_disable' then
+        self.m_bSkipEnable = true
+        self.vars['skipBtn']:setVisible(true)
+        self.vars['nextVisual']:setVisible(false)
 
     end
 end
