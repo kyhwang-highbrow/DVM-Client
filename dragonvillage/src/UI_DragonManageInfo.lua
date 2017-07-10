@@ -30,7 +30,7 @@ function UI_DragonManageInfo:init(doid)
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonManageInfo')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonManageInfo')
 
     self:sceneFadeInAction()
 
@@ -764,6 +764,37 @@ function UI_DragonManageInfo:checkDragonListRefresh()
 
         -- 정렬
         self:apply_dragonSort_saveData()
+    end
+end
+
+-------------------------------------
+-- function goToDragonManage
+-- @brief 드래곤 관리창 + 드래곤 관리 서브메뉴로 진입
+-------------------------------------
+function UI_DragonManageInfo.goToDragonManage(sub_menu)
+    local ui = UI_DragonManageInfo()
+
+    if (not sub_menu) then
+        -- nothing to do
+
+    elseif (sub_menu == 'level_up') then
+        ui:click_levelupBtn()
+
+    elseif (sub_menu == 'grade') then
+        ui:click_upgradeBtn()
+
+    elseif (sub_menu == 'evolution') then
+        ui:click_evolutionBtn()
+
+    elseif (sub_menu == 'friendship') then
+        ui:click_friendshipBtn()
+
+    elseif (sub_menu == 'skill_enc') then
+        ui:click_skillEnhanceBtn()
+
+    elseif (sub_menu == 'rune') then
+        ui:click_runeBtn()
+
     end
 end
 

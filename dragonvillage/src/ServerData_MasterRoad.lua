@@ -117,12 +117,21 @@ end
 function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
     -- 클리어 체크
     if (self:checkFocusRoadClear(t_data)) then
-        local function open_ui()
-            UI_MasterRoadPopup_Link()
+        local function after_func()
+            if (cb_func) then   
+                cb_func()
+            else
+                UI_MasterRoadPopup_Link()
+            end
         end
-        self:request_roadClear(self.m_focusRoad, open_ui)
+        self:request_roadClear(self.m_focusRoad, after_func)
         return true
     end
+
+    if (cb_func) then
+        cb_func()
+    end
+
     return false
 end
 
@@ -135,8 +144,8 @@ function ServerData_MasterRoad:checkFocusRoadClear(t_data)
     
     local clear_type = t_road['clear_type']
     local clear_cond = t_road['clear_value']
-    ccdump({t_road, t_data})
-    local is_clear = self:checkClear(clear_type, clear_cond, t_data)
+
+    local is_clear = self.checkClear(clear_type, clear_cond, t_data)
     return is_clear
 end
 
@@ -187,7 +196,9 @@ function ServerData_MasterRoad:request_roadClear(rid, finish_cb)
         self:applyInfo(ret)
 
         if (finish_cb) then
-            finish_cb()
+            --finish_cb()
+
+            self:updateMasterRoad(nil, finish_cb)
         end
     end
 
@@ -242,7 +253,7 @@ end
 -------------------------------------
 -- function checkClear
 -------------------------------------
-function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
+function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
     if (not clear_type) then
         return false
     end
@@ -277,6 +288,9 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
         local dungeon_mode = t_data['dungeon_mode']
         return (dungeon_mode == NEST_DUNGEON_NIGHTMARE)
 
+    -----------------------------------
+    -- 외부 데이터가 필요 없음
+    -----------------------------------
     -- 유저 레벨 달성
     elseif (clear_type == 'u_lv') then
         local user_lv = clear_cond
@@ -284,13 +298,17 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
 
     -- 친구 n명 달성
     elseif (clear_type == 'make_frd') then
+        local friend_cnt = clear_cond
+        return (g_friendData:getFriendCount() >= friend_cnt)
 
     -- 테이머 겟
     elseif (clear_type == 't_get') then
+        local tamer_cnt = clear_cond
+        return (g_tamerData:getTamerCount() >= tamer_cnt)
 
-
-
-
+    -----------------------------------
+    -- 외부에서 키값이 넘어올 때만 클리어됨
+    -----------------------------------
     -- 룬 강화
     elseif (clear_type == 'r_enc') then
         local rune_lv = clear_cond
@@ -307,5 +325,86 @@ function ServerData_MasterRoad:checkClear(clear_type, clear_cond, t_data)
         -- 드래곤 등급업 d_grup
         return (clear_type == t_data['road_key'])
 
+    end
+end
+
+-------------------------------------
+-- function click_questLinkBtn
+-------------------------------------
+function ServerData_MasterRoad.quickLink(clear_type, clear_cond)
+    -- stage clear
+    if (clear_type == 'clr_stg') then
+        local stage_id = clear_cond
+        g_adventureData:goToAdventureScene(stage_id)
+
+    -- 고대의 탑 플레이
+    elseif (clear_type == 'ply_tower') then
+        g_ancientTowerData:goToAncientTowerScene()
+
+    -- 콜로세움 플레이
+    elseif (clear_type == 'ply_clsm') then
+        g_colosseumData:goToColosseum(true)
+
+    -- 공통 진화 던전 플레이
+    elseif (clear_type == 'ply_ev') then
+        g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_EVO_STONE)
+
+    -- 거목 던전 플레이
+    elseif (clear_type == 'ply_tree') then
+        g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_TREE)
+
+    -- 악몽 던전 플레이
+    elseif (clear_type == 'ply_nm') then
+        g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_NIGHTMARE)
+
+    -- 유저 레벨 달성
+    elseif (clear_type == 'u_lv') then
+        g_adventureData:goToAdventureScene()
+
+    -- 친구 n명 달성
+    elseif (clear_type == 'make_frd') then
+        UI_FriendPopup()
+
+    -- 테이머 겟
+    elseif (clear_type == 't_get') then
+        UI_TamerManagePopup()
+
+    -- 룬 강화
+    elseif (clear_type == 'r_enc') then
+        UI_DragonManageInfo.goToDragonManage('rune')
+
+    -- 드래곤 스킬 레벨 업
+    elseif (clear_type == 'd_sklvup') then
+        UI_DragonManageInfo.goToDragonManage()
+
+    -- 테이머 스킬 레벨 업
+    elseif (clear_type == 't_sklvup') then
+
+    -- 드래곤 진화
+    elseif (clear_type == 'd_evup') then
+        UI_DragonManageInfo.goToDragonManage()
+
+    -- 룬 장착
+    elseif (clear_type == 'r_eq') then
+        UI_DragonManageInfo.goToDragonManage('rune')
+
+    -- 알 부화
+    elseif (clear_type == 'egg') then
+        g_hatcheryData:openHatcheryUI(close_cb)
+
+    -- 친밀도 과일 먹임
+    elseif (clear_type == 'fruit') then
+        UI_DragonManageInfo.goToDragonManage()
+
+    -- 드래곤 레벨업
+    elseif (clear_type == 'd_lvup') then
+        UI_DragonManageInfo.goToDragonManage()
+
+    -- 드래곤 등급업
+    elseif (clear_type == 'd_grup') then
+        UI_DragonManageInfo.goToDragonManage()
+
+    else    
+        ccdisplay('정의 되지 않은 clear_type ' .. clear_type)
     end
 end

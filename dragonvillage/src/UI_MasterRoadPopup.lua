@@ -178,7 +178,12 @@ end
 -- function click_questLinkBtn
 -------------------------------------
 function UI_MasterRoadPopup:click_questLinkBtn()
-    ccdisplay('구현 예정입니다')
+    local t_road = TableMasterRoad():get(self.m_currRid)
+    
+    local clear_type = t_road['clear_type']
+    local clear_cond = t_road['clear_value']
+
+    g_masterRoadData.quickLink(clear_type, clear_cond)
 end
 
 -------------------------------------
@@ -238,7 +243,7 @@ function UI_MasterRoadPopup:selectCell(ui, t_data)
 end
 
 
-
+ 
 
 -------------------------------------
 -- function makeCellUI

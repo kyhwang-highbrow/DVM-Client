@@ -513,7 +513,10 @@ end
 function UI_GameResultNew:direction_moveMenu()
     local vars = self.vars
     local switch_btn = vars['switchBtn']
-    self:action_switchBtn(function() switch_btn:setVisible(true) end)
+    self:action_switchBtn(function() 
+        switch_btn:setVisible(true) 
+        self:doNextWork()
+    end)
 end
 
 -------------------------------------

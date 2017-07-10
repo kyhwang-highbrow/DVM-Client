@@ -239,17 +239,15 @@ function UIManager:tutorial()
 
     -- 배경을 어둡게
 	local color_layer = self:makeMaskingLayer()
-    color_layer:setDockPoint(CENTER_POINT)
-    color_layer:setAnchorPoint(CENTER_POINT)
+    color_layer:setDockPoint(ZERO_POINT)
+    color_layer:setAnchorPoint(ZERO_POINT)
 
     -- tutorial node 생성
 	local visible_size = cc.Director:getInstance():getVisibleSize()
 	local tutorial_node = cc.Menu:create()
-    tutorial_node:setDockPoint(CENTER_POINT)
-    tutorial_node:setAnchorPoint(CENTER_POINT)
 	tutorial_node:setNormalSize(visible_size['width'], visible_size['height'])
 	tutorial_node:addChild(block_layer, -1)
-	block_layer:addChild(color_layer, -1)
+	tutorial_node:addChild(color_layer, -1)
 
 	self.m_uiLayer:addChild(tutorial_node, 128)
 
@@ -283,9 +281,9 @@ function UIManager:attachToTutorialNode(button)
 	local transform = node:getNodeToWorldTransform();
 	local world_x = transform[12 + 1]
 	local world_y = transform[13 + 1]
-	local node_space = convertToNodeSpace(self.m_tutorialNode, cc.p(world_x, world_y), node:getDockPoint())
+	--local node_space = convertToNodeSpace(self.m_tutorialNode, cc.p(world_x, world_y), node:getDockPoint())
 
-    local world_pos = convertToWorldSpace(node)
+    --local world_pos = convertToWorldSpace(node)
 
     -- 돌아갈 정보 저장
     local parent = button.m_node:getParent()
@@ -304,9 +302,8 @@ function UIManager:attachToTutorialNode(button)
     ccdump(node_space)
     ccdump(world_pos)
     cclog('---------------------------')
-    --button:setPosition(world_pos['x'], world_pos['y'])
+    button:setPosition(world_x, world_y)
 end
-
 
 -------------------------------------
 -- function setLayerToEventListener
