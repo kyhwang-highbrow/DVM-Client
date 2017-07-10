@@ -80,20 +80,26 @@ local function main()
     local seed = os.time()
     math.randomseed(seed)
 
-    TABLE:init()
-    SoundMgr:entry()
-    ShaderCache:init()
-    UserData:getInstance()
 	ErrorTracker:getInstance()
 
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()
     else
+        local function start_cb()
+            TABLE:init()
+            SoundMgr:entry()
+            ShaderCache:init()
+            UserData:getInstance()
+        end
+
+        local function finish_cb()
+            local scene = ScenePatch()
+            scene:runScene()
+        end
+
         local logoScene = SceneLogo()
-        logoScene:setFinishCB(function()
-                local scene = ScenePatch()
-                scene:runScene()
-            end)
+        logoScene:setStartCB(start_cb)
+        logoScene:setFinishCB(finish_cb)
         logoScene:runScene()
     end
 
