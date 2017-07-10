@@ -154,7 +154,6 @@ local t_module = {
     'CameraTouchHandler_Lobby',
     'SwipeGesture',
     'ValidationDragon',
-    'TableViewExtension',
 	'SkillHelper',
 	'SkillTargetFinder',
     'StatusEffectHelper',

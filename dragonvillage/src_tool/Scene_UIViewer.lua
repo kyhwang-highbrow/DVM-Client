@@ -1,6 +1,5 @@
 require 'perpleLib/PerpleScene'
 require 'socket'
-require 'TableViewTD'
 
 local FONT_PATH = 'res/font/common_font_01.ttf'
 local ENTRY_FILE = 'res/spine/godae_shinryong_01/godae_shinryong_01.spine'

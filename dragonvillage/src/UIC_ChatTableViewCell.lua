@@ -20,6 +20,4 @@ function UIC_ChatTableViewCell:init(data)
     self.root:setPosition(0, 0)
 
     self.vars = {}
-
-    ccdump(data)
 end

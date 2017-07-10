@@ -1,5 +1,3 @@
-require 'TableViewTD'
-
 UILoader = {
 }
 
@@ -514,9 +512,8 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         setPropsForButton(node, data)
         delegator = UIC_Button(node)
     elseif type == 'TableView' then
-        local tableView = cc.TableView:create(cc.size(data.view_width, data.view_height))
-        node = TableViewTD.create(tableView)
-        setPropsForTableView(node, data)
+        -- 2017-07-10 sgkim TableView대신 UIC_TableView로 전환함
+		cclog(2017-07-10 sgkim TableView대신 UIC_TableView로 전환함)
     elseif type == 'Sprite' then
         UILoader.checkTranslate(data)
         local res = uiRoot .. data.file_name

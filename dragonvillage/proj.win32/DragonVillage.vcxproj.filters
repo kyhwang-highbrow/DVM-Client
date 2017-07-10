@@ -1953,12 +1953,6 @@
     <None Include="..\src\TableUserLevel.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\TableViewExtension.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\TableViewTD.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\Tamer.lua">
       <Filter>lua\src</Filter>
     </None>
