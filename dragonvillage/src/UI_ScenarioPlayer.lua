@@ -28,19 +28,8 @@ UI_ScenarioPlayer = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ScenarioPlayer:init(scenario_name, is_simple_scenario)
-    local vars = self:load_keepZOrder('scenario_talk_new.ui', false)
-	
-	if (is_simple_scenario) then
-		UIManager:open(self)
-		vars['skipBtn']:setVisible(false)
-		self.m_bSkipEnable = false
-	else
-		UIManager:open(self, UIManager.SCENE)
-		-- backkey 지정
-		g_currScene:pushBackKeyListener(self, function() self:click_skip() end, 'UI_ScenarioPlayer')
-		self.m_bSkipEnable = true
-	end
+function UI_ScenarioPlayer:init(scenario_name)
+    self:init_player()
 
 	-- 멤버 변수
     self.m_scenarioPlayerTalk = UI_ScenarioPlayer_Talk(self)
@@ -50,25 +39,22 @@ function UI_ScenarioPlayer:init(scenario_name, is_simple_scenario)
 	self:loadScenario(scenario_name)
     self.m_maxPage = table.count(self.m_scenarioTable)
 
-    -- 캐릭터 관련
-    self.m_mCharacter = {}
-    self.m_mCharacter['left'] = UI_ScenarioPlayer_Character('left', vars['tamerNode1'], vars['nameNode1'], vars['nameLabel1'], vars['talkSprite1'], vars['talkLabel1'])
-    self.m_mCharacter['left']:setMonoTextNode(vars['textMomoSprite1'], vars['textMomoLabel1'])
-    self.m_mCharacter['left'].m_bCharFlip = false
-    self.m_mCharacter['left']:hide()
-
-    self.m_mCharacter['right'] = UI_ScenarioPlayer_Character('right', vars['tamerNode2'], vars['nameNode2'], vars['nameLabel2'], vars['talkSprite2'], vars['talkLabel2'])
-    self.m_mCharacter['right']:setMonoTextNode(vars['textMomoSprite2'], vars['textMomoLabel2'])
-    self.m_mCharacter['right'].m_bCharFlip = true
-    self.m_mCharacter['right']:hide()
-
     self:initUI()
     self:initButton()
     self:refresh()
+end
 
-	if (not is_simple_scenario) then
-		self:next()
-	end
+-------------------------------------
+-- function init_player
+-------------------------------------
+function UI_ScenarioPlayer:init_player()
+    local vars = self:load_keepZOrder('scenario_talk_new.ui', false)
+
+	UIManager:open(self, UIManager.SCENE)
+
+	-- backkey 지정
+	g_currScene:pushBackKeyListener(self, function() self:click_skip() end, 'UI_ScenarioPlayer')
+	self.m_bSkipEnable = true
 end
 
 -------------------------------------
@@ -146,6 +132,18 @@ end
 -------------------------------------
 function UI_ScenarioPlayer:initUI()
     local vars = self.vars
+
+    -- 캐릭터 관련
+    self.m_mCharacter = {}
+    self.m_mCharacter['left'] = UI_ScenarioPlayer_Character('left', vars['tamerNode1'], vars['nameNode1'], vars['nameLabel1'], vars['talkSprite1'], vars['talkLabel1'])
+    self.m_mCharacter['left']:setMonoTextNode(vars['textMomoSprite1'], vars['textMomoLabel1'])
+    self.m_mCharacter['left'].m_bCharFlip = false
+    self.m_mCharacter['left']:hide()
+
+    self.m_mCharacter['right'] = UI_ScenarioPlayer_Character('right', vars['tamerNode2'], vars['nameNode2'], vars['nameLabel2'], vars['talkSprite2'], vars['talkLabel2'])
+    self.m_mCharacter['right']:setMonoTextNode(vars['textMomoSprite2'], vars['textMomoLabel2'])
+    self.m_mCharacter['right'].m_bCharFlip = true
+    self.m_mCharacter['right']:hide()
 
     vars['illustrationMenu']:setVisible(false)
 
@@ -462,6 +460,12 @@ function UI_ScenarioPlayer:applyEffect(effect)
 
         self.vars['nextBtn']:setEnabled(false)
         self.vars['nextVisual']:setVisible(false)
+
+    elseif effect == 'hide_all' then
+        self.root:setVisible(false)
+
+    elseif effect == 'show_all' then
+        self.root:setVisible(true)
 
     end
 end

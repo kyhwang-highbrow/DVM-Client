@@ -279,6 +279,7 @@ function SceneGame:prepareDone()
         if ui then
             self.m_containerLayer:setVisible(false)
             ui:setCloseCB(start)
+            ui:next()
             return 
         end
     end

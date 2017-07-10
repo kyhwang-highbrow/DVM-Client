@@ -567,6 +567,7 @@ function UI_TitleScene:workFinish_click()
         local scenario_name = 'scenario_prologue'
         local prologue = UI_ScenarioPlayer(scenario_name)
         prologue:setCloseCB(lobby_func)
+        prologue:next()
     end
 
     -- 캐릭터 페어 빌드 무조건 인트로 재생
@@ -604,6 +605,7 @@ function UI_TitleScene:createAccount()
         local scenario_name = 'scenario_prologue'
         local prologue = UI_ScenarioPlayer(scenario_name)
         prologue:setCloseCB(tamer_sel_func)
+        prologue:next()
     end
 
     tamer_sel_func = function()

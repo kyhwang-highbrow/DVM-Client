@@ -326,7 +326,7 @@ function GameState.update_wave_intermission(self, dt)
             world.m_tamer:setMovingAfterImage(false)
         end
 
-		self:changeState(GAME_STATE_ENEMY_APPEAR)
+        self:changeState(GAME_STATE_ENEMY_APPEAR)
 	end
 end
 
@@ -629,6 +629,7 @@ function GameState.update_success(self, dt)
                 if ui then
                     --world.m_containerLayer:setVisible(false)
                     ui:setCloseCB(start)
+                    ui:next()
                     return 
                 end
             end

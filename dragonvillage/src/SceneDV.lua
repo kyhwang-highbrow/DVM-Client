@@ -23,16 +23,17 @@ end
 -------------------------------------
 function SceneDV:onEnter()
     PerpleScene.onEnter(self)
-	self:doUpdate()
+    g_currScene:addKeyKeyListener(self)
+	--self:doUpdate()
 
-	self:penlightTest()
+    self:scenarioTest()
+	--self:penlightTest()
 end
 
 -------------------------------------
 -- function doUpdate
 -------------------------------------
 function SceneDV:doUpdate()
-    g_currScene:addKeyKeyListener(self)
 	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 	cc.Director:getInstance():setDisplayStats(true)
 end
@@ -524,8 +525,6 @@ end
 -------------------------------------
 function SceneDV:scenarioTest()
     local l_scenario = {}
-    table.insert(l_scenario, 'scenario_01_01_start')
-    table.insert(l_scenario, 'scenario_01_01_finish')
     table.insert(l_scenario, 'scenario_01_04_start')
     table.insert(l_scenario, 'scenario_01_04_finish')
     table.insert(l_scenario, 'scenario_01_08_start')
@@ -538,9 +537,9 @@ function SceneDV:scenarioTest()
     doPlay = function()
         if l_scenario[1] then
             local scenario_name = l_scenario[1]
-            local ui = UI_ScenarioPlayer(scenario_name)
+            local ui = UI_DialoguePlayer(scenario_name)
             ui:setCloseCB(doPlay)
-
+            ui:next()
             table.remove(l_scenario, 1)
         end
     end

@@ -3,6 +3,7 @@
 -------------------------------------
 ScenarioViewingHistory = class({
         m_rootTable = 'table',
+        m_playingScenario = 'UI_ScenarioPlayer',
     })
 
 -------------------------------------
@@ -120,7 +121,7 @@ function ScenarioViewingHistory:playScenario(scenario_name)
     local setting = 'first'
     local play = false
 
-    local path = 'data/scenario/' .. scenario_name, '.csv'
+    local path = 'data/scenario/' .. scenario_name .. '.csv'
 
     if (not LuaBridge:isFileExist(path)) then
         return 
@@ -149,6 +150,8 @@ function ScenarioViewingHistory:playScenario(scenario_name)
 
     -- 재생
     if play then
-        return UI_ScenarioPlayer(scenario_name)
+        local ui = UI_ScenarioPlayer(scenario_name)
+        self.m_playingScenario = ui
+        return ui
     end
 end

@@ -2424,6 +2424,9 @@
     <None Include="..\src\GameState_Intro.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_DialoguePlayer.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
