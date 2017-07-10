@@ -85,6 +85,7 @@ function UI_ScenarioPlayer:applyEffect(effect)
 
     local vars = self.vars
     vars['layerBlend'] = vars['layerColor']
+    vars['layerBlend2'] = vars['layerColor2'] -- bg와 talk menu 중간 뎁스    
 
     if (effect == 'flash') then
         vars['layerColor']:setColor(cc.c3b(255,255,255))
@@ -164,8 +165,13 @@ function UI_ScenarioPlayer:applyEffect(effect)
         vars['layerBlend']:setColor(cc.c3b(0,0,0))
         vars['layerBlend']:runAction(cc.FadeTo:create(0.3, 204))
 
+    elseif effect == 'blend_black_talk' then
+        vars['layerBlend2']:setColor(cc.c3b(0,0,0))
+        vars['layerBlend2']:runAction(cc.FadeTo:create(0.3, 153))
+
     elseif effect == 'blend_off' then
         vars['layerBlend']:runAction(cc.FadeTo:create(0.3, 0))
+        vars['layerBlend2']:runAction(cc.FadeTo:create(0.3, 0))
 
     elseif (effect == 'title') then
         self:effect_title(effect, val_1, val_2, val_3)

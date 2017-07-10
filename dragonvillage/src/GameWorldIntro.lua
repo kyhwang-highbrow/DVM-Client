@@ -13,13 +13,6 @@ GameWorldIntro = class(PARENT, {
 -------------------------------------
 function GameWorldIntro:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode)
     self.m_lEnemyDragons = {}
-    
-    -- 타임 스케일 설정
-    local baseTimeScale = COLOSSEUM__TIME_SCALE
-    if (g_autoPlaySetting:get('quick_mode')) then
-        baseTimeScale = baseTimeScale * g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
-    end
-    self.m_gameTimeScale:setBase(baseTimeScale)
 
     -- 적군 AI
     self.m_gameAutoEnemy = GameAuto_Enemy(self, false)
@@ -49,7 +42,7 @@ end
 -------------------------------------
 function GameWorldIntro:makeHeroDeck()
 
-    -- 인트로 전투에 쓰이는 덱은 고정 
+    -- 인트로 전투에 쓰이는 덱은 고정 - 테이블화?
     local l_deck = {120011, 120102, 120431, 120223, 120294}
     local formation = 'attack'
     local deck_name = 'adv'
@@ -73,6 +66,7 @@ function GameWorldIntro:makeHeroDeck()
 
             local is_right = false
             local hero = self:makeDragonNew(t_dragon_data, is_right)
+            hero:setInvincibility(true) -- 무적모드
             if (hero) then
                 self.m_myDragons[i] = hero
                 hero:setPosIdx(tonumber(i))
@@ -100,9 +94,5 @@ end
 -------------------------------------
 function GameWorldIntro:onEvent(event_name, t_event, ...)
     GameWorld.onEvent(self, event_name, t_event, ...)
-
-    if (event_name == 'character_set_hp') then
-        
-    end
 end
 

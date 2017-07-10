@@ -4,8 +4,10 @@ local PARENT = SceneGame
 -- class SceneGameIntro
 -------------------------------------
 SceneGameIntro = class(PARENT, {
-        m_bActionWait = 'boolean',
-        m_bCheckAction = 'boolean'
+        m_nIdx = 'number',
+        m_bDoAction = 'boolean',
+
+        m_dialogPlayer = 'UI_DialoguePlayer'
     })
 
 -------------------------------------
@@ -16,8 +18,9 @@ function SceneGameIntro:init(game_key, stage_id, stage_name, develop_mode)
     g_hotTimeData:setIngameHotTimeList(game_key, {})
 
     self.m_stageName = 'stage_' .. INTRO_STAGE_ID
-    self.m_bDevelopMode = true
-    self.m_bCheckAction = false
+    self.m_bDoAction = false
+    
+    self.m_nIdx = 1
 end
 
 -------------------------------------
@@ -75,20 +78,54 @@ function SceneGameIntro:prepare()
 end
 
 -------------------------------------
+-- function prepareDone
+-------------------------------------
+function SceneGameIntro:prepareDone()
+    local function start()
+        self.m_containerLayer:setVisible(true)
+        self.m_scheduleNode = cc.Node:create()
+        self.m_scene:addChild(self.m_scheduleNode)
+        self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+    
+        self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
+    end
+    
+    -- 인트로 시나리오
+    local scenario_name = 'scenario_intro_fight'
+    local ui = UI_DialoguePlayer(scenario_name)
+    ui:next()
+
+    self.m_dialogPlayer = ui
+
+    start()
+end
+
+-------------------------------------
 -- function update
 -------------------------------------
 function SceneGameIntro:update(dt)
     if (self.m_bPause) then return end
 
-    -- 시전자가 최초 평타 어택시 시나리오 시작!
     local recorder = self.m_gameWorld.m_logRecorder
-    --[[ 
-    if (recorder:getLog('basic_attack_cnt') > 1) then
-        self:gamePause()
-        -- 대사 출력
+    local idx = self.m_nIdx
+
+    -- 첫번째 웨이브 - 시전자가 최초 평타 어택시
+    if (idx == 1) and (recorder:getLog('basic_attack_cnt') > 1) then
+        self:play_tutorialTalk()
     end 
-    ]]--
     
+    -- 두번째 웨이브 - 아이템 드랍시
+
+    -- 세번째 웨이브 - 스킬 설명
+
+    -- 세번째 웨이브 - 유저가 스킬 사용후
+
+
+    -- 유저가 튜토리얼 액션을 취하면 다시 게임 진행
+    if (self.m_bDoAction) and (self.m_bPause) then
+        self.m_bDoAction = false
+        SceneGame:gameResume()
+    end
 
     return PARENT.update(self, dt)
 end
@@ -97,7 +134,7 @@ end
 -- function networkGameFinish
 -------------------------------------
 function SceneGameIntro:networkGameFinish(t_param, t_result_ref, next_func)
-    cclog('인트로 스테이지 종료')
+    -- 통신하지 않고 로비 진입 
     SceneLobby():runScene()
 end
 
@@ -108,3 +145,23 @@ end
 function SceneGameIntro:init_loadingGuideType()
 	self.m_loadingGuideType = 'in_adventure'
 end	
+
+-------------------------------------
+-- function SceneGameIntro
+------------------------------------
+function SceneGameIntro:play_tutorialTalk()
+    self:gamePause()
+    self.m_nIdx = self.m_nIdx + 1
+    self.m_dialogPlayer:next()
+
+    -- 스킵은 항상 불가능
+    self.m_dialogPlayer.vars['skipBtn']:setVisible(false)
+
+    -- 튜토리얼 대사 후 콜백 함수
+    local function next_cb()
+        self:gameResume()
+    end
+
+    self.m_dialogPlayer:set_nextFunc(next_cb) 
+end
+
