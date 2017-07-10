@@ -11,7 +11,7 @@ local MAX_HEIGHT = 200
 -------------------------------------
 UI_Tooltip_Skill = class(PARENT, {
         m_bubbleImage = 'cc.Scale9Sprite',
-        m_richLabel = 'RichLabel',
+        m_richLabel = 'UIC_RichLabel',
     })
 
 -------------------------------------
@@ -116,7 +116,6 @@ function UI_Tooltip_Skill:makeRichLabel(text)
     --rich_label:enableOutline(cc.c4b(255, 0, 0, 127), 3)
     --rich_label:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
 
-    --local rich_label = RichLabel(text, font_size, dimensions_width, dimensions_height, align_h, align_v, dock_point, is_limit_message)
     local width = rich_label:getStringWidth()
     local height = rich_label:getStringHeight()
 
@@ -129,36 +128,6 @@ function UI_Tooltip_Skill:makeRichLabel(text)
 
     rich_label:setAnchorPoint(cc.p(0, 0.5))
     rich_label:setDockPoint(cc.p(0, 0.5))
-
-   return rich_label
-end
-
--------------------------------------
--- function makeRichLabelOld
--------------------------------------
-function UI_Tooltip_Skill:makeRichLabelOld(text)
-    local font_size = FONT_SIZE
-    local dimensions_width = MAX_WIDTH - FONT_SIZE
-    local dimensions_height = MAX_HEIGHT
-    local align_h = TEXT_H_ALIGN_LEFT
-    local align_v = TEXT_V_ALIGN_CENTER
-    local dock_point = cc.p(0.5, 0.5)
-    local is_limit_message = false
-
-    -- RichLabel상에서의 width, height를 얻어온다.
-    local rich_label = RichLabel(text, font_size, dimensions_width, dimensions_height, align_h, align_v, dock_point, is_limit_message)
-    local width = rich_label:getStringWidth()
-    local height = rich_label:getStringHeight()
-
-    -- 적절한 ToolTip의 크기를 얻어온다.
-    width = math_clamp(width, MIN_WIDTH, MAX_WIDTH)
-    height = math_clamp(height + FONT_SIZE, MIN_HEIGHT, MAX_HEIGHT)
-
-    -- 배경 이미지의 ContentSize를 갱신한다.
-    self.m_bubbleImage:setContentSize(width + FONT_SIZE, height)
-
-    -- 조절된 사이즈로 RichLabel을 생성한다.
-    rich_label = RichLabel(text, font_size, width, height, align_h, align_v, dock_point, is_limit_message)
 
    return rich_label
 end

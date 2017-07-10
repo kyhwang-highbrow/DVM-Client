@@ -300,9 +300,6 @@
     <None Include="..\src\UI_TitleSceneLoading.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_Tooltip.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_Tooltip_Indicator.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1390,9 +1387,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\ResPreloadMgr.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\RichLabel.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\RuneEnchantHelper.lua">

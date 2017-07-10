@@ -622,7 +622,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\require.lua" />
     <None Include="..\src\require_EnemyLua.lua" />
     <None Include="..\src\require_MissileLua.lua" />
-    <None Include="..\src\RichLabel.lua" />
     <None Include="..\src\SceneCommon.lua" />
     <None Include="..\src\SceneDV.lua" />
     <None Include="..\src\SceneGame.lua" />
@@ -1013,7 +1012,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_TamerManagePopup.lua" />
     <None Include="..\src\UI_TitleScene.lua" />
     <None Include="..\src\UI_TitleSceneLoading.lua" />
-    <None Include="..\src\UI_Tooltip.lua" />
     <None Include="..\src\UI_Tooltip_Indicator.lua" />
     <None Include="..\src\UI_Tooltip_Skill.lua" />
     <None Include="..\src\UI_TopUserInfo.lua" />

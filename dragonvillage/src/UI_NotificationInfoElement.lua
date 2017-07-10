@@ -69,13 +69,20 @@ function UI_NotificationInfoElement:makeRichLabel(text)
     local font_size = 16
     local dimensions_width = info_element_max_width - 40
     local dimensions_height = 600
-    local align_h = TEXT_H_ALIGN_LEFT
-    local align_v = TEXT_V_ALIGN_CENTER
+    local align_h = cc.TEXT_ALIGNMENT_LEFT
+    local align_v = cc.VERTICAL_TEXT_ALIGNMENT_CENTER
     local dock_point = cc.p(0, 1)
     local is_limit_message = false
 
     -- RichLabel상에서의 width, height를 얻어온다.
-    local rich_label = RichLabel(text, font_size, dimensions_width, dimensions_height, align_h, align_v, dock_point, is_limit_message)
+    local rich_label = UIC_RichLabel()
+    rich_label:setString(text)
+    rich_label:setFontSize(font_size)
+    rich_label:setDimension(dimensions_width, dimensions_height)
+    rich_label:setAlignment(align_h, align_v)
+    rich_label:setDockPoint(dock_point)
+    rich_label:setAnchorPoint(cc.p(0, 0.5))
+
     return rich_label
 end
 
@@ -86,13 +93,20 @@ function UI_NotificationInfoElement:makeContentRichLabel(text)
     local font_size = 16
     local dimensions_width = info_element_max_width - 40
     local dimensions_height = 600
-    local align_h = TEXT_H_ALIGN_LEFT
-    local align_v = TEXT_V_ALIGN_TOP
+    local align_h = cc.TEXT_ALIGNMENT_LEFT
+    local align_v = cc.VERTICAL_TEXT_ALIGNMENT_TOP
     local dock_point = cc.p(0, 1)
     local is_limit_message = false
 
     -- RichLabel상에서의 width, height를 얻어온다.
-    local rich_label = RichLabel(text, font_size, dimensions_width, dimensions_height, align_h, align_v, dock_point, is_limit_message)
+    local rich_label = UIC_RichLabel()
+    rich_label:setString(text)
+    rich_label:setFontSize(font_size)
+    rich_label:setDimension(dimensions_width, dimensions_height)
+    rich_label:setAlignment(align_h, align_v)
+    rich_label:setDockPoint(dock_point)
+    rich_label:setAnchorPoint(dock_point)
+
     return rich_label
 end
 

@@ -13,9 +13,9 @@ local LABEL_GAP = 65
 -------------------------------------
 UI_Tooltip_Indicator = class(PARENT, {
         m_bubbleImage = 'cc.Scale9Sprite',
-        m_richLabel1 = 'RichLabel',
-		m_richLabel2 = 'RichLabel',
-		m_richLabel3 = 'RichLabel',
+        m_richLabel1 = 'UIC_RichLabel',
+		m_richLabel2 = 'UIC_RichLabel',
+		m_richLabel3 = 'UIC_RichLabel',
 
 		m_lSkillDataList = 'list',
     })
