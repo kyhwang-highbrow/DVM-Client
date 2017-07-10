@@ -252,7 +252,7 @@ function UI_DragonManageInfo:refresh_buttonState()
 		vars['runeBtn']:setEnabled(false)
 
         -- 대표
-        vars['leaderBtn']:setEnabled(false)
+        --vars['leaderBtn']:setEnabled(false)
 
         -- 작별
         vars['goodbyeBtn']:setEnabled(false)
