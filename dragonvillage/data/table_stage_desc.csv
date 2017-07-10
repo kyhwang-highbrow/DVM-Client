@@ -1,4 +1,5 @@
 stage,monster_id,attr,t_desc,recomm_power,snro_start,snro_wave_2,snro_wave_3,snro_finish
+1010001,130014; 130035; 131065; 131073; 132033,dark,인트로 시나리오 전투,0,,,,
 1110101,130031; 130011; 130021; 130041; 132011,earth,두근대는 첫번째 모험 \\n무슨일이 기다리고 있을까,6500,scenario_01_01_start_nuri;scenario_01_01_start_goni,,,scenario_01_01_finish_nuri;scenario_01_01_finish_goni
 1110102,130011; 130021; 130031; 131021; 132021,earth,우리는 새로운 동료와 함께 길을 나섰다 \\n든든한 마음에 걱정이 없다,6500,,,,
 1110103,130011; 130031; 130041; 131031; 132031,earth,늘 그랬듯 즐겁기만 한 모험 \\n그러나 예상보다 큰 위협이 도사리고 있엇다,6500,,,,

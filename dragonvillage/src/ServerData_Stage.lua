@@ -52,6 +52,10 @@ function ServerData_Stage:getStageName(stage_id)
     -- 콜로세움 모드
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
         name = Str('콜로세움')
+
+    -- 인트로 전투
+    elseif (game_mode == GAME_MODE_INTRO) then
+        name = Str('시나리오 전투')
     end
 
     return name

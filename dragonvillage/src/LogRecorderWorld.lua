@@ -25,6 +25,9 @@ LogRecorderWorld = class(PARENT, {
         m_activeKillCnt = 'num',    -- 드래그 스킬로 처치한 드래곤 수 (즉시 데미지만 포함)
 
 		m_tCharLogTable = 'table',	-- ingame 캐릭터들 개별 기록 저장
+
+        -- 인트로 전투에 필요한 것
+        m_attackCnt = 'num',        -- 평타 횟수
      })
 
 -------------------------------------
@@ -38,6 +41,7 @@ function LogRecorderWorld:init(world)
 	self.m_lapTime = 0
 	self.m_feverCnt = 0
     self.m_activeKillCnt = 0
+    self.m_attackCnt = 0
 	self.m_bossFinishAtk = nil
 
 	self.m_tCharLogTable = {}
@@ -137,6 +141,9 @@ function LogRecorderWorld:recordLog(key, value)
     elseif (key == 'active_kill_cnt') then
 		self.m_activeKillCnt = self.m_activeKillCnt + value
 
+    elseif (key == 'basic_attack_cnt') then
+		self.m_attackCnt = self.m_attackCnt + value
+
 	else
 		error('정의 되지 않은 키 : ' .. key)
 	end
@@ -187,6 +194,9 @@ function LogRecorderWorld:getLog(key)
     
     elseif (key == 'active_kill_cnt') then
 		return self.m_activeKillCnt
+
+    elseif (key == 'basic_attack_cnt') then
+		return self.m_attackCnt
 
 	else
 		return 0

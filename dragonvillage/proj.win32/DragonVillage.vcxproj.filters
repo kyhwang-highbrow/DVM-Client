@@ -2421,6 +2421,15 @@
     <None Include="..\src\UI_MasterRoadPopup_Link.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\GameWorldIntro.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SceneGameIntro.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameState_Intro.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

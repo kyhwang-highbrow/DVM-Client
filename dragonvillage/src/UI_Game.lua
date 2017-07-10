@@ -579,3 +579,20 @@ end
 function UI_Game:noticeBroadcast(msg, duration)
     self.m_broadcastLabel:setString(msg)
 end
+
+-------------------------------------
+-- function initIntroFight
+-- @brief 인트로 전투 - 필요없는 UI 비지블 꺼줌
+-------------------------------------
+function UI_Game:initIntroFight()
+    local vars = self.vars
+    local off_list = {'autoStartButton', 'autoButton', 'speedButton', 
+                      'hottimeNode', 'chatBtn', 'pauseButton',
+                      'panelBtn', 'buffBtn', 'dpsInfoNode'}
+
+    for i, v in ipairs(off_list) do
+        if (vars[v]) then
+            vars[v]:setVisible(false)
+        end
+    end
+end

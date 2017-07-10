@@ -303,6 +303,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameMana.lua" />
     <None Include="..\src\GameState_AncientTower.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
+    <None Include="..\src\GameState_Intro.lua" />
     <None Include="..\src\GameState_NestDungeon.lua" />
     <None Include="..\src\GameState_NestDungeon_Dragon.lua" />
     <None Include="..\src\GameState_NestDungeon_Gold.lua" />
@@ -311,6 +312,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameState_NestDungeon_Tree.lua" />
     <None Include="..\src\GameState_SecretDungeon_Relation.lua" />
     <None Include="..\src\GameWorldColosseum.lua" />
+    <None Include="..\src\GameWorldIntro.lua" />
     <None Include="..\src\GameWorld_Gold.lua" />
     <None Include="..\src\GameWorld_KeyEvent.lua" />
     <None Include="..\src\GameWorld_Unit.lua" />
@@ -393,6 +395,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SceneAncientTower.lua" />
     <None Include="..\src\SceneColosseum.lua" />
     <None Include="..\src\SceneGameColosseum.lua" />
+    <None Include="..\src\SceneGameIntro.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
     <None Include="..\src\SceneSecretDungeon.lua" />
     <None Include="..\src\SecurityNumber.lua" />

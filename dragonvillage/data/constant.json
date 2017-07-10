@@ -206,7 +206,16 @@
                 "WAVE_INTERMISSION_TIME" : 1.5
             }
         },
-        
+        // 인트로 전투
+        "INTRO" : {
+            "0" : {
+                "MAP_FLOATING_Y_SCOPE" : 6,
+                "MAP_FLOATING_TIME" : 3,
+                "MAP_FLOATING_ROTATE_SCOPE" : 0,
+                "MAP_FLOATING_ROTATE_TIME" : 5,
+                "WAVE_INTERMISSION_TIME" : 1.5
+            }
+		},
         // 네스트 던전
         "NEST_DUNGEON" : {
             "EVOLUTION_STONE" : {

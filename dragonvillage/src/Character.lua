@@ -750,6 +750,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         if (not no_event) then
 		    if (attack_type == 'basic') then 
 			    attacker_char:dispatch('hit_basic', t_event, self, attack_activity_carrier)
+                self.m_world.m_logRecorder:recordLog('basic_attack_cnt', 1)
 
 		    -- 액티브 공격시
 		    elseif (attack_type == 'active') then

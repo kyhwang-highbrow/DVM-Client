@@ -29,7 +29,7 @@ function TableDropIngame:makeChapterIDFromStageID(stage_id)
     local game_mode = g_stageData:getGameMode(stage_id)
 
     -- 모험 모드
-    if (game_mode ~= GAME_MODE_ADVENTURE) then
+    if (game_mode ~= GAME_MODE_ADVENTURE) and (game_mode ~= GAME_MODE_INTRO) then
         return nil
     end
 
