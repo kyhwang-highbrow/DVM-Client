@@ -95,14 +95,14 @@ function DragonSkillIndivisualInfo:applySkillLevel()
     end
 
     -- 값이 변경되므로 복사해서 사용
-    self.m_tSkill = t_skill
+    self.m_tSkill = clone(t_skill)
 	
 	-- 필요한 데이터 선언
 	local t_skill = self.m_tSkill
 	local skill_lv = self.m_skillLevel
 
 	-- 레벨이 반영된 데이터 계산
-	local _, t_add_value = IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
+	local _, t_add_value = IDragonSkillManager:applySkillLevel(self.m_charType, t_skill, skill_lv)
 	self.m_tAddedValue = t_add_value
 
     -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정

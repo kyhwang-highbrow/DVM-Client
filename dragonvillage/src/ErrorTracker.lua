@@ -7,6 +7,7 @@ ErrorTracker = class({
 	lastUI = 'get_set_gen',
 	lastAPI = 'get_set_gen',
 	lastFailedRes = 'get_set_gen',
+    lastStage = 'get_set_gen',
 })
 
 -------------------------------------
@@ -40,6 +41,7 @@ function ErrorTracker:getTrackerText(msg)
 	local last_ui = self:get_lastUI()
 	local last_api = self:get_lastAPI()
 	local last_failed_res = self:get_lastFailedRes()
+    local last_stage = self:get_lastStage()
     local msg = msg or 'kkami'
 
 	local templete = 
@@ -53,11 +55,12 @@ last scene : %s
 last ui : %s
 last api : %s
 last failed res : %s
+last stage : %s
 =========================================
 %s
 ]]
 
-	local text = string.format(templete, nick, uid, os, ver, last_scene, last_ui, last_api, last_failed_res, msg)
+	local text = string.format(templete, nick, uid, os, ver, last_scene, last_ui, last_api, last_failed_res, last_stage, msg)
 
 	return text
 end

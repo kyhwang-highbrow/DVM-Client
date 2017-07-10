@@ -80,6 +80,9 @@ function SceneGame:init_gameMode(stage_id)
             self.m_dungeonMode = t_dungeon['dungeon_mode']
         end
     end
+
+    -- @E.T.
+	g_errorTracker:set_lastScene(self.m_stageID)
 end
 
 -------------------------------------

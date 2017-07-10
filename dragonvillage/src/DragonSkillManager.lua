@@ -158,9 +158,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
         return
     end
 
-    -- 미리 정의 되지 않은 것은 에러 처리
     if (self.m_lSkillIndivisualInfo[skill_type] == nil) then
-        --error('skill_type : ' .. skill_type)
         self.m_lSkillIndivisualInfo[skill_type] = {}
     end
 
@@ -671,56 +669,68 @@ end
 -- @brief skill level에 따른 능력치를 계산하여 적용
 -- @comment 실질적으론 DragonSkillIndivisual 에서 사용한다. Helper처럼 사용중
 -------------------------------------
-function IDragonSkillManager:applySkillLevel(t_skill, skill_lv)
-	-- 필요한 데이터 선언
-	local t_skill = t_skill or {}
+function IDragonSkillManager:applySkillLevel(char_type, t_skill, skill_lv)
+    local t_skill = t_skill or {}
 	local skill_lv = skill_lv or 1
-
-	local table_dragon_skill_modify = TableDragonSkillModify()
-    
-	local skill_id = t_skill['sid']
-	local mod_skill = (skill_id * 100)
-
     local t_modify_list = {}
+    local skill_id = t_skill['sid']
 
-	-- modify table을 순회하며 해당 레벨까지의 수치 증가량을 수집한다.
-    for i = 1, skill_lv do
-		local mod_skill_id = mod_skill + i
-        local t_dragon_skill_modify = table_dragon_skill_modify:get(mod_skill_id, true)
+    if (not char_type or char_type ~= 'tamer') then
+	    -- 필요한 데이터 선언
+	    local mod_skill = (skill_id * 100)
+
+        local table_dragon_skill_modify = TableDragonSkillModify()
+
+        -- modify table을 순회하며 해당 레벨까지의 수치 증가량을 수집한다.
+        for i = 1, skill_lv do
+		    local mod_skill_id = mod_skill + i
+            local t_dragon_skill_modify = table_dragon_skill_modify:get(mod_skill_id, true)
         
-        if t_dragon_skill_modify then
-            for i = 1, 5 do
-                local column = t_dragon_skill_modify[string.format('col_%.2d', i)]
-                local modify = t_dragon_skill_modify[string.format('mod_%.2d', i)]
-                local value = t_dragon_skill_modify[string.format('val_%.2d', i)]
+            if t_dragon_skill_modify then
+                for i = 1, 5 do
+                    local column = t_dragon_skill_modify[string.format('col_%.2d', i)]
+                    local modify = t_dragon_skill_modify[string.format('mod_%.2d', i)]
+                    local value = t_dragon_skill_modify[string.format('val_%.2d', i)]
 
-                if column and (column ~= '') then
-                    local t_modify = t_modify_list[column]
+                    if column and (column ~= '') then
+                        local t_modify = t_modify_list[column]
 					
-					-- 해당 column 최초 적용 시
-                    if (not t_modify) then
-                        t_modify = {column=column, modify=modify, value=value}
-                        t_modify_list[column] = t_modify
+					    -- 해당 column 최초 적용 시
+                        if (not t_modify) then
+                            t_modify = {column=column, modify=modify, value=value}
+                            t_modify_list[column] = t_modify
 
-                    else
-                        if (t_modify['modify'] ~= modify) then
-                            error('modify타입이 다르게 사용되었습니다. slid : ' .. v)
-                        end
+                        else
+                            if (t_modify['modify'] ~= modify) then
+                                error('modify타입이 다르게 사용되었습니다. slid : ' .. v)
+                            end
                         
-                        if (modify == 'exchange') then
-                            t_modify['value'] = value
-                        elseif (modify == 'add') then
-                            t_modify['value'] = (t_modify['value'] + value)
-                        elseif (modify == 'multiply') then
-                            t_modify['value'] = (t_modify['value'] + value)
+                            if (modify == 'exchange') then
+                                t_modify['value'] = value
+                            elseif (modify == 'add') then
+                                t_modify['value'] = (t_modify['value'] + value)
+                            elseif (modify == 'multiply') then
+                                t_modify['value'] = (t_modify['value'] + value)
+                            end
                         end
                     end
                 end
             end
         end
-    end
 
-	self:applyModification(t_skill, t_modify_list)
+	    self:applyModification(t_skill, t_modify_list)
+    else
+        local t_tamer_skill = TableTamerSkill():get(skill_id)
+        if (t_tamer_skill) then
+            local column = t_tamer_skill['mod_col_1']
+            local add_value = t_tamer_skill['add_val_1']
+            local base_value = t_tamer_skill[column]
+
+            if (base_value and t_skill[column]) then
+                t_skill[column] = base_value + (skill_lv - 1) * add_value
+            end
+        end
+    end
 
 	return t_skill, t_modify_list -- skill 성룡 강화시 사용
 end

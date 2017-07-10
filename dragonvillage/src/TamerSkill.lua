@@ -13,8 +13,8 @@ function Tamer:initSkill()
     local t_tamer = self.m_charTable
 	local table_tamer_skill = TableTamerSkill()
 	local t_tamer_data = g_tamerData:getTamerServerInfo(t_tamer['tid'])
-
-	self:setDragonSkillLevelList(0, t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'])
+    
+	self:setDragonSkillLevelList(0, t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'], t_tamer_data['skill_lv4'])
 	self:initDragonSkillManager('tamer', t_tamer['tid'])
 
 	for i = 1, MAX_TAMER_SKILL do
