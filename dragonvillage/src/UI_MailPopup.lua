@@ -90,6 +90,8 @@ function UI_MailPopup:onChangeTab(tab, first)
         local node = self.vars[tab .. 'ListNode']
 		self:makeMailTableView(tab, node)
 	end
+
+    self.vars['emptySprite']:setVisible(self.m_mTableView[tab]:getItemCount() == 0)
 end
 
 -------------------------------------
