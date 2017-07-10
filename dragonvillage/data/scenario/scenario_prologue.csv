@@ -1,5 +1,5 @@
 page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_name,char_pos,char_effect,char_ani,t_text,t_text_mono
-1,title;프롤로그,skip_disable,,3,프롤로그,bgm_dundeon_special,,,,,,,,,
+1,title;프롤로그,skip_disable,,3,프롤로그,bgm_dungeon_special,,,,,,,,,
 2,vrp;scene_1_appear,next_disable,,,,,,,,,,,,,
 3,vrp;scene_1_idle,next_disable,,,,,,,,,,,,,
 4,next_disable,,,3,,,,,,,,,,"하늘 아래 가장 고귀한 존재여,",
