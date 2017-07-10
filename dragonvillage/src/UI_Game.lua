@@ -375,6 +375,10 @@ end
 --        모든 기능은 UI_GameDebug안에서 구현
 -------------------------------------
 function UI_Game:init_debugUI()
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        return
+    end
+
     local debug_ui = UI_GameDebug(self.m_gameScene.m_gameWorld)
     self.root:addChild(debug_ui.root)
 end

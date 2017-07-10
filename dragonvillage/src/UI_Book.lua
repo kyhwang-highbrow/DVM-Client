@@ -316,8 +316,14 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 
 	-- 버튼 클릭시 상세 팝업
 	ui.vars['clickBtn']:registerScriptTapHandler(function()
+        
 		-- 보상이 있다면 보상 수령
 		if (g_bookData:haveBookReward(did, evolution)) then
+            if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+                local detail_ui = UI_BookDetailPopup(data)
+			    detail_ui:setBookList(book_ui.m_tableViewTD.m_itemList)
+                return
+            end
 			local function finish_cb()
 				local reward_value = grade * 100
 				local reward_str = Str('다이아 {1}개를 수령했습니다.', reward_value)

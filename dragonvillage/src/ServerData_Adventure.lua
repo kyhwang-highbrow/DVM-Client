@@ -26,6 +26,9 @@ end
 -- function goToAdventureScene
 -------------------------------------
 function ServerData_Adventure:goToAdventureScene(stage_id, skip_request)
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        stage_id = 1110607
+    end
     local function finish_cb()
         local scene = SceneAdventure(stage_id)
         scene:runScene()

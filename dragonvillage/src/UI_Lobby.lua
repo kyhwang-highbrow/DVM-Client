@@ -188,6 +188,9 @@ function UI_Lobby:initLobbyWorldAdapter()
 
     self.m_lobbyWorldAdapter = LobbyWorldAdapter(self, parent_node, chat_client_socket, lobby_manager)
 
+    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
+        return
+    end
 
     do -- 로비에서 테이머가 걸어가면 UI들이 숨겨지도록 설정
         local lobby_map = self.m_lobbyWorldAdapter.m_lobbyMap
