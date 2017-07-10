@@ -151,6 +151,9 @@ end
 function StatusEffect.st_start(owner, dt)
     local t_event = {}
     t_event['name'] = owner.m_statusEffectName
+    t_event['category'] = owner.m_category
+    t_event['type'] = owner.m_type
+
     owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
     if (owner.m_stateTimer == 0) then
         -- 중첩에 상관없이 한번만 적용되어야하는 효과 적용

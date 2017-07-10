@@ -226,12 +226,17 @@ end
 -------------------------------------
 function Character:onEvent_getStatusEffect(t_event, target_str, target_char)
     local status_effect_name = target_str .. 'get_' .. 'status_effect'
+
     if (not self.m_lSkillIndivisualInfo[status_effect_name]) then return end
     if (not self.m_statusCalc) then return end
+
     for i, v in pairs(self.m_lSkillIndivisualInfo[status_effect_name]) do
         if (v:isEndCoolTime()) then
-            local statusEffectName = v.m_tSkill['chance_value']
-            if (statusEffectName == t_event['name']) then
+
+            local status_effect = v.m_tSkill['chance_value']
+            local l_se = pl.stringx.split(status_effect, ';')
+            local col, name = l_se[1], l_se[2]
+            if (name == t_event[col]) then
                 self:doSkill(v.m_skillID, 0, 0)
             end
         end
