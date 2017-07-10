@@ -55,6 +55,15 @@ function UI_GameDebug:init(world)
         self.vars['bgNode'] = node
     end
 
+    do -- 테이블 뷰 노드
+        local node = cc.Node:create()
+        node:setAnchorPoint(cc.p(0.5, 0.5))
+        node:setDockPoint(cc.p(0.5, 0.5))
+        node:setRelativeSizeAndType(cc.size(-50, -30), 3, false)
+        self.vars['bgNode']:addChild(node)
+        self.vars['tableViewNode'] = node
+    end
+
     do -- 열고 닫는 버튼
         local node = cc.MenuItemImage:create('res/ui/btn_debug_01.png', 'res/ui/btn_debug_02.png', 1)
         node:setDockPoint(cc.p(1, 0.5))
@@ -108,38 +117,19 @@ end
 -- function makeTableView
 -------------------------------------
 function UI_GameDebug:makeTableView()
-    local tableView = cc.TableView:create(cc.size(self.m_width-40, self.m_height-50))
-    local node = TableViewTD.create(tableView)
-    node:setDockPoint(cc.p(0.5, 0.5))
-    node:setAnchorPoint(cc.p(0.5, 0.5))
-    node:setPosition(0, -8)
+    local size_width, size_height = 260, 50 
 
-    node:setBounceable(true)
-    node:setDirection(1) -- 0=HORIZONTAL, 1=VERTICAL 가로인지 세로인지 여부
-    node:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN) -- 위에서부터 정렬
-    node:setDelegate()
-    self.vars['bgNode']:addChild(node)
+    local function create_func(data)
+        local ui = UIC_ChatTableViewCell(data)
 
-    -- 셀 추가
-	local size_width, size_height = 260, 50 
-    node:setCellInfo(1, cc.size(size_width, size_height))
-    node:setItemInfo({}, function(tParam)
-
-        local cell_node = cc.Node:create()
-        cell_node:setNormalSize(size_width, size_height)
-        cell_node:setPosition(0, 0)
-        tParam.cell:addChild(cell_node)
-
-        local cell_menu = cc.Menu:create()
+        local cell_menu = ui.root
         cell_menu:setDockPoint(cc.p(0.5, 0.5))
         cell_menu:setAnchorPoint(cc.p(0.5, 0.5))
         cell_menu:setNormalSize(size_width, size_height)
         cell_menu:setPosition(0, 0)
         cell_menu:setSwallowTouch(true)
-        cell_node:addChild(cell_menu)
 
-        local item = tParam['item']
-        if item['cb1'] then
+        if data['cb1'] then
             local node = cc.MenuItemImage:create('res/ui/btn_debug_04.png', 'res/ui/btn_debug_05.png', 1)
             node:setDockPoint(cc.p(1, 0.5))
             node:setPositionX(-40)
@@ -147,38 +137,44 @@ function UI_GameDebug:makeTableView()
 			node:setScale(-1)
             local uic_button = UIC_Button(node)
             uic_button:registerScriptTapHandler(function()
-                item['cb1'](self, item, 1)
+                data['cb1'](self, data, 1)
             end)
             cell_menu:addChild(node)
         end
 
-        if item['cb2'] then
+        if data['cb2'] then
             local node = cc.MenuItemImage:create('res/ui/btn_debug_04.png', 'res/ui/btn_debug_05.png', 1)
             node:setDockPoint(cc.p(1, 0.5))
             node:setPositionX(-(40 + 67))
             node:setAnchorPoint(cc.p(0.5, 0.5))
             local uic_button = UIC_Button(node)
             uic_button:registerScriptTapHandler(function()
-                item['cb2'](self, item, 2)
+                data['cb2'](self, data, 2)
             end)
             cell_menu:addChild(node)
         end
 
         do -- label 생성
             -- left 0, center 1, right 2
-            local label = cc.Label:createWithTTF(item['str'] or 'label', 'res/font/common_font_01.ttf', 15, 2, cc.size(250, 100), 0, 1)
+            local label = cc.Label:createWithTTF(data['str'] or 'label', 'res/font/common_font_01.ttf', 15, 2, cc.size(250, 100), 0, 1)
             label:setDockPoint(cc.p(0.5, 0.5))
             label:setAnchorPoint(cc.p(0.5, 0.5))
             cell_menu:addChild(label)
-            item['label'] = label
+            data['label'] = label
         end
 
-        if item['cb'] then
-            item['cb']()
+        if data['cb'] then
+            data['cb']()
         end
 
-    end)
-    node:update()
+        return ui
+    end
+
+    local node = self.vars['tableViewNode']
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(260, 50)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setCellUIClass(create_func, nil)
 
     -- 디버깅 아이템 설정
     local item_info = {}
@@ -337,8 +333,7 @@ function UI_GameDebug:makeTableView()
         table.insert(item_info, item)
     end
 
-    node:setItemInfo(item_info)
-    node:update()
+    table_view:setItemList(item_info)
 end
 
 -------------------------------------
