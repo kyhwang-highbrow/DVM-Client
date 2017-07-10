@@ -13,7 +13,7 @@ UI_DragonManage_Base = class(PARENT,{
 		m_dragonAnimator = 'UIC_DragonAnimator',
 
 		-- 테이블뷰
-        m_tableViewExt = 'TableViewExtension',  -- 하단의 드래곤 리스트 테이블 뷰
+        m_tableViewExt = 'UIC_TableViewTD',  -- 하단의 드래곤 리스트 테이블 뷰
 		m_mtrlTableViewTD = 'UIC_TableViewTD', -- 재료
 
 		-- sort list

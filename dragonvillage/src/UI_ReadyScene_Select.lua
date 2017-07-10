@@ -5,8 +5,8 @@ UI_ReadyScene_Select = class({
         m_uiReadyScene = 'UI_ReadyScene',
         m_bFriend = 'boolean',
 
-        m_tableViewExtMine = 'TableViewExtension',
-        m_tableViewExtFriend = 'TableViewExtension',
+        m_tableViewExtMine = 'UIC_TableViewTD',
+        m_tableViewExtFriend = 'UIC_TableViewTD',
 
         m_selectedFriendUid = '',
         m_selectedFriendInfo = '',
