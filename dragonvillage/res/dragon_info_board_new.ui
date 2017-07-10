@@ -233,7 +233,7 @@
 				text = '친밀도';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 161; 125; 93; };
+				color = { 240; 215; 159; };
 				opacity = 255;
 				dimension_width = 76;
 				dimension_height = 30;
@@ -373,7 +373,7 @@
 				text = '무관심';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 240; 215; 159; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 160;
 				dimension_height = 34;
@@ -517,7 +517,7 @@
 				text = '스킬';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 161; 125; 93; };
+				color = { 240; 215; 159; };
 				opacity = 255;
 				dimension_width = 76;
 				dimension_height = 30;
@@ -557,7 +557,7 @@
 				text = '룬';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 161; 125; 93; };
+				color = { 240; 215; 159; };
 				opacity = 255;
 				dimension_width = 76;
 				dimension_height = 30;
