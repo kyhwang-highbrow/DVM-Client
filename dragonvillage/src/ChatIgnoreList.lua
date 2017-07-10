@@ -45,6 +45,7 @@ function ChatIgnoreList:loadChatIgnoreListFile()
 
     if f then
         local content = f:read('*all')
+        f:close()
 
         if #content > 0 then
             self.m_rootTable = json_decode(content)
@@ -52,12 +53,12 @@ function ChatIgnoreList:loadChatIgnoreListFile()
                 self.m_rootTable = self:makeDefaultChatIgnoreList()
                 self:saveChatIgnoreListFile()
             end
+            return
         end
-        f:close()
-    else
-        self.m_rootTable = self:makeDefaultChatIgnoreList()
-        self:saveChatIgnoreListFile()
     end
+    
+    self.m_rootTable = self:makeDefaultChatIgnoreList()
+    self:saveChatIgnoreListFile()
 end
 
 -------------------------------------

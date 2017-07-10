@@ -50,14 +50,18 @@ end
 function LocalData:loadLocalDataFile()
     local f = io.open(self:getLocalDataSaveFileName(), 'r')
 
+    local success_load = false
     if f then
         local content = f:read('*all')
-
-        if #content > 0 then
-            self.m_rootTable = json_decode(content)
-        end
         f:close()
-    else
+
+        if (#content > 0) then
+            self.m_rootTable = json_decode(content)
+            success_load = true
+        end
+    end
+        
+    if (success_load == false) then
         self.m_rootTable = self:makeDefaultLocalData()
         self:saveLocalDataFile()
     end

@@ -165,7 +165,7 @@ function ServerData_Highlight:loadNewDoidMap()
     if f then
         local content = f:read('*all')
 
-        if #content > 0 then
+        if (#content > 0) then
             self.m_newDoidMap = json_decode(content)
         end
         f:close()

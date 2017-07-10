@@ -69,17 +69,20 @@ function PatchData:load()
         self.m_tData = {}
 		local t_data = {}
 		local content = f:read('*all')
+        f:close()
 
-		if #content > 0 then
+		if (#content > 0) then
 			t_data = json_decode(content)
-		end
-		f:close()
 
-		for k,v in pairs(t_data) do
-			self.m_tData[k] = v
+            for k,v in pairs(t_data) do
+			    self.m_tData[k] = v
+		    end
+
+            return
 		end
-		
-	else
+	end
+
+    do -- 초기화
         local t_data = {}
 	    t_data['latest_app_ver'] = '0.0.0'
 	    t_data['patch_ver'] = 0

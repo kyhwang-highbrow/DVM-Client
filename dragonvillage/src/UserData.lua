@@ -47,14 +47,19 @@ end
 function UserData:loadMasterFile()
     local f = io.open(self:getMasterFileName(), 'r')
 
+    local success_load = false
     if f then
         local content = f:read('*all')
-
-        if #content > 0 then
-            self.m_masterData = json_decode(content)
-        end
         f:close()
-    else
+
+        if (#content > 0) then
+            self.m_masterData = json_decode(content)
+            success_load = true
+        end
+    end
+
+    -- 초기화
+    if (success_load == false) then
         self.m_masterData = {}
 
         self.m_masterData['data_cnt'] = 1
@@ -103,7 +108,7 @@ function UserData:loadUserDataFile()
     if f then
         local content = f:read('*all')
 
-        if #content > 0 then
+        if (#content > 0) then
             self.m_userData = json_decode(content)
         end
         f:close()

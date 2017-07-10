@@ -159,24 +159,24 @@ function ServerData:loadServerDataFile()
 
     if f then
         local content = f:read('*all')
-
-        if #content > 0 then
-            self.m_rootTable = json_decode(content)
-        end
         f:close()
-    else
-        self.m_rootTable = {}
 
-        self.m_rootTable['local'] = {}
-
-        -- 기본 설정 데이터
-        self.m_rootTable['local']['lowResMode'] = false
-        self.m_rootTable['local']['bgm'] = true
-        self.m_rootTable['local']['sfx'] = true
-        self.m_rootTable['local']['fps'] = false
-
-        self:saveServerDataFile()
+        if (#content > 0) then
+            self.m_rootTable = json_decode(content)
+            return
+        end
     end
+        
+    self.m_rootTable = {}
+    self.m_rootTable['local'] = {}
+
+    -- 기본 설정 데이터
+    self.m_rootTable['local']['lowResMode'] = false
+    self.m_rootTable['local']['bgm'] = true
+    self.m_rootTable['local']['sfx'] = true
+    self.m_rootTable['local']['fps'] = false
+
+    self:saveServerDataFile()
 end
 
 -------------------------------------
