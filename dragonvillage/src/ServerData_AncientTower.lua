@@ -1,4 +1,5 @@
 ANCIENT_TOWER_STAGE_ID_START = 1401000
+ANCIENT_TOWER_STAGE_ID_FINISH = 1401050
 
 ANCIENT_TOWER_MAX_DEBUFF_LEVEL = 5
 
@@ -64,6 +65,16 @@ function ServerData_AncientTower:getStageName(stage_id)
 
     local name = Str('고대의 탑 {1}층', floor)
     return name
+end
+
+-------------------------------------
+-- function isAncientTowerStage
+-------------------------------------
+function ServerData_AncientTower:isAncientTowerStage(stage_id)
+    if (stage_id > ANCIENT_TOWER_STAGE_ID_START) and (stage_id <= ANCIENT_TOWER_STAGE_ID_FINISH) then
+        return true
+    end
+    return false
 end
 
 -------------------------------------

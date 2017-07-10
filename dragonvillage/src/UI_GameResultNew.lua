@@ -317,7 +317,8 @@ function UI_GameResultNew:direction_end()
                 self:doNextWork()
             end)))
     else
-        vars['skipLabel']:setVisible(true)
+        vars['skipLabel']:setVisible(false)
+        vars['noRewardMenu']:setVisible(true)
         vars['skipBtn']:setVisible(false)
         vars['prevBtn']:setVisible(true)
 		vars['statsBtn']:setVisible(true)
@@ -513,6 +514,12 @@ function UI_GameResultNew:direction_moveMenu()
     local vars = self.vars
     local switch_btn = vars['switchBtn']
     self:action_switchBtn(function() switch_btn:setVisible(true) end)
+end
+
+-------------------------------------
+-- function direction_moveMenu_click
+-------------------------------------
+function UI_GameResultNew:direction_moveMenu_click()
 end
 
 -------------------------------------
@@ -786,19 +793,20 @@ function UI_GameResultNew:action_switchBtn(callback)
     local vars = self.vars
     local result_menu = vars['resultMenu']
     local switch_btn = vars['switchBtn']
+    local switch_sprite = vars['switchSprite']
     switch_btn:setEnabled(false)
-     
+
     local is_up = (result_menu:getPositionY() ~= 450) and true or false
     local move_y = (is_up) and 450 or 136
-    local rotation = (is_up) and 180 or 0
+    local angle = (is_up) and 0 or 180
     
-    local move_act = cca.makeBasicEaseMove(1, 0, move_y)
+    local move_act = cca.makeBasicEaseMove(0.5, 0, move_y)
     local after_act = cc.CallFunc:create(function()
 		if (callback) then callback() end
         switch_btn:setEnabled(true)
-        switch_btn:setRotation(rotation)
 	end)
 
+    switch_sprite:runAction(cc.RotateTo:create(0.1, angle))
     result_menu:runAction(cc.Sequence:create(move_act, after_act))
 end
 

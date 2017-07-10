@@ -23,15 +23,8 @@ function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tam
     vars['quickBtn']:setVisible(false)
 
     self.root:stopAllActions()
-    self:setSuccessVisual_Ancient()
-
-    -- 성공시에만 스코어 연출
-    if (is_success) then
-        self:setAnimationData()
-        self:makeScoreAnimation()
-    else
-        self:makeResultUI()
-    end
+    self:setWorkList()
+    self:doNextWork()
 end
 
 -------------------------------------
@@ -225,6 +218,47 @@ end
 -------------------------------------
 function UI_GameResult_AncientTower:click_nextBtn()
     g_ancientTowerData:goToAncientTowerScene()
+end
+
+-------------------------------------
+-- function setWorkList
+-------------------------------------
+function UI_GameResult_AncientTower:setWorkList()
+    self.m_workIdx = 0
+
+    self.m_lWorkList = {}
+    table.insert(self.m_lWorkList, 'direction_showTamer')
+    table.insert(self.m_lWorkList, 'direction_showScore')
+    table.insert(self.m_lWorkList, 'direction_end')
+    table.insert(self.m_lWorkList, 'direction_showBox')
+    table.insert(self.m_lWorkList, 'direction_openBox')
+    table.insert(self.m_lWorkList, 'direction_dropItem')
+    table.insert(self.m_lWorkList, 'direction_secretDungeon')
+    table.insert(self.m_lWorkList, 'direction_showButton')
+    table.insert(self.m_lWorkList, 'direction_moveMenu')
+    table.insert(self.m_lWorkList, 'direction_masterRoad')
+end
+
+-------------------------------------
+-- function direction_showScore
+-------------------------------------
+function UI_GameResult_AncientTower:direction_showScore()
+    local is_success = self.m_bSuccess
+    self:setSuccessVisual_Ancient()
+
+    -- 성공시에만 스코어 연출
+    if (is_success) then
+        self:setAnimationData()
+        self:makeScoreAnimation()
+    else
+        self:makeResultUI()
+    end
+end
+
+-------------------------------------
+-- function direction_showScore_click
+-------------------------------------
+function UI_GameResult_AncientTower:direction_showScore_click()
 end
 
 -------------------------------------
