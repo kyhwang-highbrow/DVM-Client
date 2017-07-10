@@ -33,30 +33,6 @@
 			};
 			[2] =
 			{
-				type = 'Button';
-				ui_name = '';
-				x = -39.000000;
-				y = -29.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 64;
-				height = 64;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'closeBtn';
-				enable = true;
-				normal = 'ui/buttons/64_close_btn_0101.png';
-				selected = 'ui/buttons/64_close_btn_0102.png';
-				disable = '';
-				image_type = 0;
-			};
-			[3] =
-			{
 				[1] =
 				{
 					type = 'Scale9Sprite';
@@ -332,7 +308,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[4] =
+			[3] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -351,7 +327,7 @@
 				visible = true;
 				lua_name = 'listNode';
 			};
-			[5] =
+			[4] =
 			{
 				[1] =
 				{
@@ -415,7 +391,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[6] =
+			[5] =
 			{
 				[1] =
 				{
@@ -465,7 +441,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[7] =
+			[6] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -504,6 +480,30 @@
 				shadow_opacity = 150;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
+			};
+			[7] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = -36.000000;
+				y = -24.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 64;
+				height = 64;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'closeBtn';
+				enable = true;
+				normal = 'ui/buttons/64_close_btn_0101.png';
+				selected = 'ui/buttons/64_close_btn_0102.png';
+				disable = '';
+				image_type = 0;
 			};
 			type = 'Menu';
 			ui_name = '';
