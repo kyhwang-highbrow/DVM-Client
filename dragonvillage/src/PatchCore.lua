@@ -161,9 +161,9 @@ end
 -------------------------------------
 function PatchCore:errorHandler(msg)
     if msg then
-        msg = '{@BLACK}' .. msg
+        msg = msg
     else
-        msg = '{@BLACK}' .. Str('서버와 연결할 수 없습니다.\n다시 시도하시겠습니까?')
+        msg = Str('서버와 연결할 수 없습니다.\n다시 시도하시겠습니까?')
     end
 
     local function ok_btn_cb()

@@ -544,7 +544,7 @@ function UI_DragonManageInfo:click_leaderBtn()
 		g_dragonsData:request_setLeaderDragon('lobby', self.m_selectDragonOID, cb_func)
     end
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('대표 드래곤으로 설정하시겠습니까?'), yes_cb)
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('대표 드래곤으로 설정하시겠습니까?'), yes_cb)
 end
 
 -------------------------------------

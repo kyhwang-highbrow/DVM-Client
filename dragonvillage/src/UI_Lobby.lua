@@ -600,7 +600,7 @@ function UI_Lobby:click_exitBtn()
     local function yes_cb()
         closeApplication()
     end
-    MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('종료하시겠습니까?'), yes_cb)
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('종료하시겠습니까?'), yes_cb)
 end
 
 -------------------------------------

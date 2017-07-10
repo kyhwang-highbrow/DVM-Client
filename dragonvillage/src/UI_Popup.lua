@@ -11,24 +11,6 @@ POPUP_TYPE = {
 -------------------------------------
 function MakeSimplePopup(type, msg, ok_btn_cb, cancel_btn_cb)
 
-    if startsWith(msg, '{') then
-        local l_content = RichLabel:splitByToken(msg)
-
-        msg = nil
-        for _,data in ipairs(l_content) do
-            local l_lines = data['lines']
-            for line_i,line in ipairs(l_lines) do
-                if (not msg) then
-                    msg = line
-                elseif (line_i == 1) then
-                    msg = msg .. line
-                else
-                    msg = msg .. '\n' .. line
-                end
-            end
-        end
-    end    
-
     local popup = UI_SimplePopup(type, msg, ok_btn_cb, cancel_btn_cb)
     --local popup = UI_Popup(type, msg, ok_btn_cb, cancel_btn_cb)
     --popup.m_cbOKBtn = ok_btn_cb

@@ -765,7 +765,7 @@ function UI_ReadyScene:click_startBtn()
         UIManager:toastNotificationRed('최소 1명 이상은 출전시켜야 합니다.')
 
     elseif (not g_stageData:isOpenStage(stage_id)) then
-        MakeSimplePopup(POPUP_TYPE.OK, '{@BLACK}' .. Str('이전 스테이지를 클리어하세요.'))
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
 
     -- 날개 소모
     elseif (not g_staminasData:checkStageStamina(stage_id)) then

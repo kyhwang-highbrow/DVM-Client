@@ -60,7 +60,7 @@ function UI_Setting:click_clearBtn()
     
         local cancel_btn_cb = nil
 
-        local msg = Str('{@BLACK}' .. '계정을 초기화하시겠습니까?')
+        local msg = Str('계정을 초기화하시겠습니까?')
         MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb, cancel_btn_cb)
     end
 
@@ -105,7 +105,7 @@ function UI_Setting:click_logoutBtn()
     
         local cancel_btn_cb = nil
 
-        local msg = Str('{@BLACK}' .. '로그아웃하시겠습니까?')
+        local msg = Str('로그아웃하시겠습니까?')
         MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb, cancel_btn_cb)
     end
 

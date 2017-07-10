@@ -250,7 +250,7 @@ function UI_Network:makeFailPopup(msg, ret)
         self:close()
     end
 
-    local msg = msg or '{@BLACK}네트워크 연결에 실패하였습니다. 다시 시도하시겠습니까?'
+    local msg = msg or '네트워크 연결에 실패하였습니다. 다시 시도하시겠습니까?'
 
     if ret then
         local add_msg = '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'

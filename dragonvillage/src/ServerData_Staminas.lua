@@ -275,7 +275,7 @@ function ServerData_Staminas:staminaCharge(stage_id)
 
 
     if (stamina_type == 'st') then
-        MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_stamina)
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_stamina)
     else
         local charge_limit = TableStaminaInfo:getDailyChargeLimit(stamina_type)
 
