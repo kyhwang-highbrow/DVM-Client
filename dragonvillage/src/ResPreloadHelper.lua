@@ -276,7 +276,7 @@ function getPreloadList_Stage(stageName)
     end
 
     local script = TABLE:loadStageScript(stageName)
-    if script then
+    if script and script['wave'] then
         for _, v in pairs(script['wave']) do
             if v['wave'] then
                 for _, a in pairs(v['wave']) do
