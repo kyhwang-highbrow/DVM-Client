@@ -132,6 +132,9 @@ function ScenarioViewingHistory:playScenario(scenario_name)
         setting = g_localData:get('scenario_playback_rules')
     end
 
+    -- tutorial 여부 파악
+    local is_tutorial = string.find(scenario_name, 'tutorial')
+
     -- 설정 정보에 따라 재생 여부 결정
     if (setting == 'off') then
         play = false
@@ -150,7 +153,7 @@ function ScenarioViewingHistory:playScenario(scenario_name)
 
     -- 재생
     if play then
-        local ui = UI_ScenarioPlayer(scenario_name)
+        local ui = is_tutorial and UI_DialoguePlayer(scenario_name) or UI_ScenarioPlayer(scenario_name)
         self.m_playingScenario = ui
         return ui
     end

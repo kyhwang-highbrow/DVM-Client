@@ -2424,6 +2424,9 @@
     <None Include="..\src\packet\session.proto">
       <Filter>lua\packet</Filter>
     </None>
+    <None Include="..\src\UI_ScenarioPlayer_util.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

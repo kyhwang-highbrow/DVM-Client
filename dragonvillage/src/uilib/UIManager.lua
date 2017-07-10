@@ -23,6 +23,7 @@ UIManager = {
     m_toastNotiLayer = 'cc.Node',
 
 	m_tutorialNode = nil,
+    m_lTutorialBtnList = 'list<button>',
 
     m_topUserInfo = nil,
 
@@ -225,33 +226,35 @@ end
 -------------------------------------
 function UIManager:tutorial()
     -- 하위 UI가 클릭되지 않도록 레이어 생성
-	local layer = cc.Layer:create()
+	local block_layer = cc.Layer:create()
 	local function onTouch(touch, event)
-		if layer:isVisible() then
+		if block_layer:isVisible() then
 			event:stopPropagation()
 			return true
 		else
 			return false
 		end
 	end
-	self:setLayerToEventListener(layer, onTouch)
+	self:setLayerToEventListener(block_layer, onTouch)
 
     -- 배경을 어둡게
-	local layer_color = self:makeMaskingLayer()
-	layer_color:setDockPoint(cc.p(0, 0))
-    layer_color:setAnchorPoint(cc.p(0, 0))
+	local color_layer = self:makeMaskingLayer()
+    color_layer:setDockPoint(CENTER_POINT)
+    color_layer:setAnchorPoint(CENTER_POINT)
 
-
+    -- tutorial node 생성
 	local visible_size = cc.Director:getInstance():getVisibleSize()
-	
-	self.m_tutorialNode = cc.Menu:create()
-	self.m_tutorialNode:setNormalSize(visible_size['width'], visible_size['height'])
-	self.m_tutorialNode:addChild(layer, -1)
-	self.m_tutorialNode:addChild(layer_color, -1)
+	local tutorial_node = cc.Menu:create()
+    tutorial_node:setDockPoint(CENTER_POINT)
+    tutorial_node:setAnchorPoint(CENTER_POINT)
+	tutorial_node:setNormalSize(visible_size['width'], visible_size['height'])
+	tutorial_node:addChild(block_layer, -1)
+	block_layer:addChild(color_layer, -1)
 
-	self.m_uiLayer:addChild(self.m_tutorialNode, 128)
+	self.m_uiLayer:addChild(tutorial_node, 128)
 
-	return self.m_tutorialNode
+    self.m_tutorialNode = tutorial_node
+    self.m_lTutorialBtnInfoList = {}
 end
 
 -------------------------------------
@@ -280,13 +283,28 @@ function UIManager:attachToTutorialNode(button)
 	local transform = node:getNodeToWorldTransform();
 	local world_x = transform[12 + 1]
 	local world_y = transform[13 + 1]
-	local node_space = convertToNodeSpace(self.m_tutorialNode, cc.p(world_x, world_y))
+	local node_space = convertToNodeSpace(self.m_tutorialNode, cc.p(world_x, world_y), node:getDockPoint())
 
+    local world_pos = convertToWorldSpace(node)
+
+    -- 돌아갈 정보 저장
+    local parent = button.m_node:getParent()
+    local pos = {node:getPosition()}
+    table.insert(self.m_lTutorialBtnInfoList, {parent = parent, node = node, pos = pos})
+
+    -- tutorialNode에 붙여버린다.
 	node:retain()
 	node:removeFromParent()
 	self.m_tutorialNode:addChild(node, 2)
 	node:release()
-	--node:setPosition(node_space['x'], node_space['y'])
+
+    cclog('###########################')
+    ccdump({world_x = world_x, world_y = world_y})
+    ccdump(pos)
+    ccdump(node_space)
+    ccdump(world_pos)
+    cclog('---------------------------')
+    --button:setPosition(world_pos['x'], world_pos['y'])
 end
 
 
@@ -313,7 +331,9 @@ function UIManager:makeMaskingLayer()
     local layer_color = cc.LayerColor:create( cc.c4b(0,0,0,150) )
     layer_color:setDockPoint(CENTER_POINT)
     layer_color:setAnchorPoint(CENTER_POINT)
-    layer_color:setRelativeSizeAndType(cc.size(1280, 960), 1, false)
+
+    local visible_size = cc.Director:getInstance():getVisibleSize()
+    layer_color:setNormalSize(visible_size['width'], visible_size['height'])
 
 	return layer_color
 end

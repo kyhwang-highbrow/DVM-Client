@@ -598,6 +598,7 @@ local t_module = {
 
     -- UI : 대화 스크립트 재생기
     'UI_ScenarioPlayer',
+    'UI_ScenarioPlayer_util', -- partial class 는 소문자로 적으면 어떨까
     'UI_ScenarioPlayer_Character',
     'UI_ScenarioPlayer_Talk',
     'UI_ScenarioPlayer_Narrate',

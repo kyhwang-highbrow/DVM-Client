@@ -127,7 +127,10 @@ COLOR = {
 UNDER_LINE_PNG = 'res/common/underline.png'
 EMPTY_PNG = 'res/common/empty.png'
 EMPTY_TABLE = {}
+ZERO_POINT = cc.p(0, 0)
 CENTER_POINT = cc.p(0.5, 0.5)
+ONE_POINT = cc.p(1, 1)
+
 EQUATION_FUNC = {}
 
 -- # 1 frame
