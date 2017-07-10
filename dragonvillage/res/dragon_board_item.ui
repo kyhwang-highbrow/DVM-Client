@@ -23,8 +23,8 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'assessSprite';
-				file_name = 'ui/frames/dragon_board_talk.png';
-				color = { 240; 215; 159; };
+				file_name = 'ui/frames/dragon_board_talk_0101.png';
+				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
 				center_rect_y = 0;
@@ -50,7 +50,7 @@
 				visible = false;
 				lua_name = 'assessMySprite';
 				file_name = 'ui/frames/dragon_board_talk_0102.png';
-				color = { 255; 190; 46; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
 				center_rect_y = 0;
