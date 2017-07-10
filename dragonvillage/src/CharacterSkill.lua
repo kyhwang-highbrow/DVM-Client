@@ -60,19 +60,9 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		local chance_type = t_skill['chance_type']
 		local chance_value = t_skill['chance_value']
         
-        local game_mode = t_skill['game_mode']
-        if(game_mode == '' or game_mode == '0') then
-            game_mode = nil
-        end 
-
 		-- [패시브]
 		if (chance_type == 'leader' or chance_type == 'passive') then
 			-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-            if (game_mode) then
-                if (game_mode ~= PLAYER_VERSUS_MODE[self.m_world.m_gameMode]) then
-                    return true
-                end
-            end
 
 			local function apply_world_passive_effect(char)
 				local world = self.m_world
