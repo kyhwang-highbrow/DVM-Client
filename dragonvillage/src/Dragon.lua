@@ -281,7 +281,7 @@ end
 -------------------------------------
 function Dragon:makeHPGauge(hp_ui_offset)
     self.m_unitInfoOffset = hp_ui_offset
-    self.m_unitInfoOffset[1] = self.m_unitInfoOffset[1] - 80
+    --self.m_unitInfoOffset[1] = self.m_unitInfoOffset[1] - 80
 
     if (self.m_hpNode) then
         self.m_hpNode:removeFromParent()
