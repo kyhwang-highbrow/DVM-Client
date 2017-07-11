@@ -138,7 +138,8 @@ function getsetGenerator(klass, class_name)
 		return
 	end
 
-	local func_loader = pl.utils.load
+    -- 2017-07-11 sgkim class.lua파일이 다른 파일의 의존성이 없도록 하기 위한 수정
+	local func_loader = load--pl.utils.load
 
 	-- 대상 멤버 변수 함수 생성
 	local code, func
