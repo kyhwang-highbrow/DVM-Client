@@ -38,9 +38,11 @@ end
 -- function update
 -------------------------------------
 function GameMana:update(dt)
-    if (not self.m_bEnable) then return end
+    local add = 0
 
-    local add = self.m_incValuePerSec * dt
+    if (self.m_bEnable) then
+        add = self.m_incValuePerSec * dt
+    end
 
     if (self.m_value > MAX_MANA) then
         self.m_value = MAX_MANA

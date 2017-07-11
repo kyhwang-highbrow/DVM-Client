@@ -123,9 +123,12 @@ function SceneGameIntro:update(dt)
     end 
 
     -- 세번째 웨이브 - 스킬 설명
-    --if (idx == 3) and
+    if (idx == 3) and (world.m_waveMgr:isFinalWave() and world:isPossibleControl()) then
+        self:play_tutorialTalk()
+    end
 
-    -- 세번째 웨이브 - 유저가 스킬 사용후
+    -- 세번째 웨이브 - 보스의 첫 공격 이후
+    --if (idx == 3)
 
 
     -- 유저가 튜토리얼 액션을 취하면 다시 게임 진행
