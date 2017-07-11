@@ -2439,6 +2439,9 @@
     <None Include="..\src\TutorialHelper.lua">
       <Filter>lua\tutorial</Filter>
     </None>
+    <None Include="..\src\StatusEffect_AddMana.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
