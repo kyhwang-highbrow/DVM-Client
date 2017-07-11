@@ -205,7 +205,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	local table_status_effect = TableStatusEffect()
     local t_status_effect = table_status_effect:get(status_effect_type)
     local status_effect_group = t_status_effect['type']
-
 	-- 여기서는 상태효과가 없으면 에러를 발생시켜야함
     if (not t_status_effect) then
         error('no status_effect table : ' .. status_effect_type)
@@ -222,11 +221,13 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	end
 
 	local status_effect = nil
-
     ----------- 상태효과 변경 ------------------
 	if (status_effect_group == 'modify') then
         status_effect = StatusEffect_Modify(res)
 
+    elseif (status_effect_group == 'add_mana') then
+        status_effect = StatusEffect_AddMana(res)
+        status_effect:init_status(status_effect_value)
     ----------- HP 보호막 ------------------
 	elseif (status_effect_group == 'barrier') then
 		status_effect = StatusEffect_Protection(res)

@@ -89,7 +89,7 @@ end
 -------------------------------------
 function GameMana:addMana(value)
     self.m_value = self.m_value + value
-    self.m_value = math_min(value, MAX_MANA)
+    self.m_value = math_min(self.m_value, MAX_MANA)
 end
 
 -------------------------------------

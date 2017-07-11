@@ -384,6 +384,7 @@ local t_module = {
     'StatusEffect_Zombie',
     'StatusEffect_Immortal',
     'StatusEffect_Modify',
+    'StatusEffect_AddMana',
 
 	'StatusEffectIcon',
 

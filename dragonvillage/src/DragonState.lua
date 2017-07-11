@@ -175,10 +175,11 @@ function Dragon.st_skillIdle(owner, dt)
             owner.m_aiParamNum = nil
             owner:addAniHandler(function()
                 owner.m_bFinishAnimation = true
-
+                --[[
                 if (not owner.m_bFinishAttack) then
                     attack_cb()
                 end
+                ]]
 
                 owner.m_aiParamNum = 0
             end)
@@ -186,15 +187,15 @@ function Dragon.st_skillIdle(owner, dt)
             owner.m_aiParamNum = (owner.m_statusCalc.m_attackTick / 2)
             owner:addAniHandler(function()
                 owner.m_bFinishAnimation = true
-
+                --[[
                 if (not owner.m_bFinishAttack) then
                     attack_cb()
                 end
+                ]]
             end)
         else
             error('스킬 테이블 motion_type이 ['.. motion_type .. '] 라고 잘못들어갔네요...')
         end
-
         attack_cb()
         
         -- 캐스팅 게이지
