@@ -247,6 +247,10 @@ function ServerData_Tamer:request_getTamer(tid, cb_func)
 		table.insert(self:getTamerList(), ret['tamer'])
 		self:reMappingTamerInfo()
 		
+        -- @ MASTER ROAD
+        local t_data = {road_key = 't_get'}
+        g_masterRoadData:updateMasterRoad(t_data)
+
 		if (cb_func) then
 			cb_func()
 		end

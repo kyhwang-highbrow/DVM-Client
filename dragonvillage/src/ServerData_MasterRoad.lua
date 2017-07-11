@@ -196,9 +196,7 @@ function ServerData_MasterRoad:request_roadClear(rid, finish_cb)
         self:applyInfo(ret)
 
         if (finish_cb) then
-            --finish_cb()
-
-            self:updateMasterRoad(nil, finish_cb)
+            finish_cb()
         end
     end
 
@@ -257,78 +255,85 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
     if (not clear_type) then
         return false
     end
+    
+    -- road_key 사용
+    if (clear_type == t_data['road_key']) then
+        -----------------------------------
+        -- 전역 변수에 접근해 데이터 얻어옴
+        -----------------------------------
+        -- 유저 레벨 달성
+        if (clear_type == 'u_lv') then
+            local user_lv = clear_cond
+            return (g_userData:get('lv') >= user_lv)
 
-    -- 에러만 나지 않도록 임시 처리 2017-07-11 sgkim (@mskim 다시 살펴봐요)
-    local t_data = t_data or {}
+        -- 친구 n명 달성
+        elseif (clear_type == 'make_frd') then
+            local friend_cnt = clear_cond
+            return (g_friendData:getFriendCount() >= friend_cnt)
 
-    -- stage clear
-    if (clear_type == 'clr_stg') then
-        local stage_id = t_data['stage_id']
-        return (stage_id == clear_cond)
+        -- 테이머 겟
+        elseif (clear_type == 't_get') then
+            local tamer_cnt = clear_cond
+            return (g_tamerData:getTamerCount() >= tamer_cnt)
 
-    -- 고대의 탑 플레이
-    elseif (clear_type == 'ply_tower') then
-        local game_mode = t_data['game_mode']
-        return (game_mode == GAME_MODE_ANCIENT_TOWER)
+        -----------------------------------
+        -- 외부에서 넘긴 값 사용
+        -----------------------------------
+        -- 룬 강화
+        elseif (clear_type == 'r_enc') then
+            local rune_lv = clear_cond
+            return (t_data['road_value'] >= rune_lv)
 
-    -- 콜로세움 플레이
-    elseif (clear_type == 'ply_clsm') then
-        local game_mode = t_data['game_mode']
-        return (game_mode == GAME_MODE_COLOSSEUM)
+        -----------------------------------
+        -- 별도의 비교값이 필요없는 타입
+        -----------------------------------
+        else
+            -- 드래곤 스킬 레벨 업 d_sklvup
+            -- 테이머 스킬 레벨 업 t_sklvup
+            -- 드래곤 진화 d_evup
+            -- 룬 장착 r_eq
+            -- 알 부화 egg
+            -- 친밀도 과일 먹임 fruit
+            -- 드래곤 레벨업 d_lvup
+            -- 드래곤 등급업 d_grup
+            return true
+        end
 
-    -- 공통 진화 던전 플레이
-    elseif (clear_type == 'ply_ev') then
-        local dungeon_mode = t_data['dungeon_mode']
-        return (dungeon_mode == NEST_DUNGEON_EVO_STONE)
-
-    -- 거목 던전 플레이
-    elseif (clear_type == 'ply_tree') then
-        local dungeon_mode = t_data['dungeon_mode']
-        return (dungeon_mode == NEST_DUNGEON_TREE)
-
-    -- 악몽 던전 플레이
-    elseif (clear_type == 'ply_nm') then
-        local dungeon_mode = t_data['dungeon_mode']
-        return (dungeon_mode == NEST_DUNGEON_NIGHTMARE)
-
-    -----------------------------------
-    -- 외부 데이터가 필요 없음
-    -----------------------------------
-    -- 유저 레벨 달성
-    elseif (clear_type == 'u_lv') then
-        local user_lv = clear_cond
-        return (user_lv <= g_userData:get('lv'))
-
-    -- 친구 n명 달성
-    elseif (clear_type == 'make_frd') then
-        local friend_cnt = clear_cond
-        return (g_friendData:getFriendCount() >= friend_cnt)
-
-    -- 테이머 겟
-    elseif (clear_type == 't_get') then
-        local tamer_cnt = clear_cond
-        return (g_tamerData:getTamerCount() >= tamer_cnt)
-
-    -----------------------------------
-    -- 외부에서 키값이 넘어올 때만 클리어됨
-    -----------------------------------
-    -- 룬 강화
-    elseif (clear_type == 'r_enc') then
-        local rune_lv = clear_cond
-        return (clear_type == t_data['road_key']) and (rune_lv <= t_data['road_value'])
-
+    -- road_key를 넘기지 않음 -> 인게임 클리어 타입
     else
-        -- 드래곤 스킬 레벨 업 d_sklvup
-        -- 테이머 스킬 레벨 업 t_sklvup
-        -- 드래곤 진화 d_evup
-        -- 룬 장착 r_eq
-        -- 알 부화 egg
-        -- 친밀도 과일 먹임 fruit
-        -- 드래곤 레벨업 d_lvup
-        -- 드래곤 등급업 d_grup
-        return (clear_type == t_data['road_key'])
+        -- stage clear
+        if (clear_type == 'clr_stg') then
+            local stage_id = t_data['stage_id']
+            return (stage_id == clear_cond)
 
+        -- 고대의 탑 플레이
+        elseif (clear_type == 'ply_tower') then
+            local game_mode = t_data['game_mode']
+            return (game_mode == GAME_MODE_ANCIENT_TOWER)
+
+        -- 콜로세움 플레이
+        elseif (clear_type == 'ply_clsm') then
+            local game_mode = t_data['game_mode']
+            return (game_mode == GAME_MODE_COLOSSEUM)
+
+        -- 공통 진화 던전 플레이
+        elseif (clear_type == 'ply_ev') then
+            local dungeon_mode = t_data['dungeon_mode']
+            return (dungeon_mode == NEST_DUNGEON_EVO_STONE)
+
+        -- 거목 던전 플레이
+        elseif (clear_type == 'ply_tree') then
+            local dungeon_mode = t_data['dungeon_mode']
+            return (dungeon_mode == NEST_DUNGEON_TREE)
+
+        -- 악몽 던전 플레이
+        elseif (clear_type == 'ply_nm') then
+            local dungeon_mode = t_data['dungeon_mode']
+            return (dungeon_mode == NEST_DUNGEON_NIGHTMARE)
+
+        end
     end
+
 end
 
 -------------------------------------

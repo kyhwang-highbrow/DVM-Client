@@ -410,9 +410,6 @@ function UI_DragonLevelUp:click_levelupBtn()
             ui:setCloseCB(close_cb)
         end
 
-        -- @ MASTER ROAD
-        local t_data = {road_key = 'd_lvup'}
-        g_masterRoadData:updateMasterRoad(t_data)
     end
 
     local uid = g_userData:get('uid')
@@ -489,6 +486,9 @@ function UI_DragonLevelUp:response_levelup(ret)
     local doid = self.m_selectDragonOID
     self:refresh_dragonIndivisual(doid)
 
+    -- @ MASTER ROAD
+    local t_data = {road_key = 'd_lvup'}
+    g_masterRoadData:updateMasterRoad(t_data)
 
     local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
     if (not possible) then
