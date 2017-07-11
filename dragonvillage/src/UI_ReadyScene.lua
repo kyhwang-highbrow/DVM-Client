@@ -68,7 +68,8 @@ function UI_ReadyScene:init(stage_id, with_friend, sub_info)
 
 	self:init_sortMgr()
 
-	self:init_battleGift()
+    -- @TODO 감성 조르기 삭제 예정 (아마 확정인듯) mskim
+	--self:init_battleGift()
 
     -- 자동 전투 off
     g_autoPlaySetting:setAutoPlay(false)
@@ -799,7 +800,7 @@ function UI_ReadyScene:click_startBtn()
             g_inventoryData:checkMaximumItems(check_battle_gift, manage_func)
         end
 
-		-- 아이템 인벤토리 확인(최대 갯수 초과 시 획득 못함)
+		-- 감성 조르기 성공 체크
         check_battle_gift = function()
             self:checkBattleGift(start_game)
         end
