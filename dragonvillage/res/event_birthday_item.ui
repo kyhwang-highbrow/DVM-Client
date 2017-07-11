@@ -122,7 +122,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'todaySprite';
-					file_name = 'ui/frame/a_frame_10.png';
+					file_name = 'ui/frames/select_frame_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -147,7 +147,7 @@
 				visible = true;
 				lua_name = 'dayBtn';
 				enable = true;
-				normal = 'ui/frame/a_frame_03.png';
+				normal = 'ui/buttons/base_btn_0101.png';
 				selected = '';
 				disable = '';
 				image_type = 1;

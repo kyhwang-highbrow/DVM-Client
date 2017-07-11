@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'bgSprite';
-				file_name = 'ui/frame/a_frame_03.png';
+				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'specialBgSprite';
-				file_name = 'ui/frame/list_frame_0203.png';
+				file_name = 'ui/frames/base_frame_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -158,15 +158,41 @@
 			};
 			[6] =
 			{
-				type = 'Sprite';
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000015;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 70;
+					height = 70;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icons/check_icon_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 0.000000;
+				x = 0.000015;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 120;
-				height = 120;
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -174,13 +200,13 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'checkSprite';
-				file_name = 'ui/frame/attendance_check_0101.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
+				file_name = 'ui/frames/base_frame_0201.png';
+				color = { 0; 0; 0; };
+				opacity = 150;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
 			};
 			[7] =
 			{
@@ -200,7 +226,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'todayBgSprite';
-				file_name = 'ui/frame/a_frame_10.png';
+				file_name = 'ui/frames/select_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -227,7 +253,7 @@
 				visible = true;
 				lua_name = 'clickBtn';
 				enable = true;
-				normal = '';
+				normal = 'ui/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;

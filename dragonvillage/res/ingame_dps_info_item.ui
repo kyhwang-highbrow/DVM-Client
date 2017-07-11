@@ -14,8 +14,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 185;
-				height = 20;
+				width = 187;
+				height = 18;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/gauge/ingame_dps_0101.png';
+				file_name = 'ui/gauges/ingame_dps_gg_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -35,7 +35,7 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = -22.000000;
+				x = -18.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'dpsGauge';
-				file_name = 'ui/gauge/ingame_dps_0102.png';
+				file_name = 'ui/gauges/ingame_dps_gg_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -65,7 +65,7 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = -22.000000;
+				x = -18.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -79,7 +79,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'hpsGauge';
-				file_name = 'ui/gauge/ingame_dps_0103.png';
+				file_name = 'ui/gauges/ingame_dps_gg_0103.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -197,7 +197,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 185;
+			width = 188;
 			height = 20;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -214,7 +214,7 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
-		width = -1095;
+		width = -1092;
 		height = -700;
 		scale_x = 1.000000;
 		scale_y = 1.000000;

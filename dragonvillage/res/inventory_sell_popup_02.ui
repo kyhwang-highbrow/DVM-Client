@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'frameSprite';
-				file_name = 'ui/frame/a_frame_01.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -32,32 +32,6 @@
 				center_rect_height = 0;
 			};
 			[2] =
-			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 2.000000;
-				dock_point = { 0.500000; 0.000000; };
-				anchor_point = { 0.500000; 0.000000; };
-				relative_size_type = 0;
-				width = 950;
-				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/a_frame_14.png';
-				color = { 29; 22; 15; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[3] =
 			{
 				[1] =
 				{
@@ -87,13 +61,13 @@
 					dimension_width = 180;
 					dimension_height = 70;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
 					stroke_color = { 85; 44; 25; };
-					has_shadow = true;
+					has_shadow = false;
 					shadow_color = { 85; 44; 25; };
 					shadow_opacity = 150;
 					shadow_direction = 0;
@@ -116,12 +90,12 @@
 				visible = true;
 				lua_name = 'cancelBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0201.png';
-				selected = 'ui/btn/a_btn_0202.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
-			[4] =
+			[3] =
 			{
 				[1] =
 				{
@@ -151,13 +125,13 @@
 					dimension_width = 180;
 					dimension_height = 70;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
 					stroke_color = { 17; 76; 39; };
-					has_shadow = true;
+					has_shadow = false;
 					shadow_color = { 17; 76; 39; };
 					shadow_opacity = 150;
 					shadow_direction = 0;
@@ -180,12 +154,12 @@
 				visible = true;
 				lua_name = 'sellBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0204.png';
-				selected = 'ui/btn/a_btn_0202.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
-			[5] =
+			[4] =
 			{
 				[1] =
 				{
@@ -205,7 +179,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/a_frame_03.png';
+					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -221,7 +195,7 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 94.000000;
+							x = 99.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
@@ -261,13 +235,13 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
-							x = 3.000000;
-							y = 4.000000;
+							x = 0.000000;
+							y = 2.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 32;
-							height = 33;
+							width = 48;
+							height = 48;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -275,7 +249,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'raritySprite1';
-							file_name = 'ui/btn/check_0102.png';
+							file_name = 'ui/icons/check_icon_0102.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -283,15 +257,15 @@
 							src_blend = 770;
 							dest_blend = 771;
 						};
-						type = 'Sprite';
+						type = 'Scale9Sprite';
 						ui_name = '';
 						x = 10.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 31;
-						height = 31;
+						width = 30;
+						height = 30;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -299,13 +273,13 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/btn/check_0100.png';
+						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -337,7 +311,7 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 94.000000;
+							x = 99.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
@@ -377,13 +351,13 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
-							x = 3.000000;
-							y = 4.000000;
+							x = 0.000000;
+							y = 2.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 32;
-							height = 33;
+							width = 48;
+							height = 48;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -391,7 +365,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'raritySprite2';
-							file_name = 'ui/btn/check_0102.png';
+							file_name = 'ui/icons/check_icon_0102.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -399,15 +373,15 @@
 							src_blend = 770;
 							dest_blend = 771;
 						};
-						type = 'Sprite';
+						type = 'Scale9Sprite';
 						ui_name = '';
 						x = 10.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 31;
-						height = 31;
+						width = 30;
+						height = 30;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -415,13 +389,13 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/btn/check_0100.png';
+						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -453,7 +427,7 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 94.000000;
+							x = 99.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
@@ -493,13 +467,13 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
-							x = 3.000000;
-							y = 4.000000;
+							x = 0.000000;
+							y = 2.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 32;
-							height = 33;
+							width = 48;
+							height = 48;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -507,7 +481,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'raritySprite3';
-							file_name = 'ui/btn/check_0102.png';
+							file_name = 'ui/icons/check_icon_0102.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -515,15 +489,15 @@
 							src_blend = 770;
 							dest_blend = 771;
 						};
-						type = 'Sprite';
+						type = 'Scale9Sprite';
 						ui_name = '';
 						x = 10.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 31;
-						height = 31;
+						width = 30;
+						height = 30;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -531,13 +505,13 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/btn/check_0100.png';
+						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -569,7 +543,7 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 94.000000;
+							x = 99.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
@@ -609,13 +583,13 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
-							x = 3.000000;
-							y = 4.000000;
+							x = 0.000000;
+							y = 2.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 32;
-							height = 33;
+							width = 48;
+							height = 48;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -623,7 +597,7 @@
 							rotation = 0.000000;
 							visible = false;
 							lua_name = 'raritySprite4';
-							file_name = 'ui/btn/check_0102.png';
+							file_name = 'ui/icons/check_icon_0102.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -631,15 +605,15 @@
 							src_blend = 770;
 							dest_blend = 771;
 						};
-						type = 'Sprite';
+						type = 'Scale9Sprite';
 						ui_name = '';
 						x = 10.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 31;
-						height = 31;
+						width = 30;
+						height = 30;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -647,13 +621,13 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/btn/check_0100.png';
+						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -681,58 +655,6 @@
 				{
 					[1] =
 					{
-						[1] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = 3.000000;
-							y = 4.000000;
-							dock_point = { 0.500000; 0.500000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 32;
-							height = 33;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'starSprite1';
-							file_name = 'ui/btn/check_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						type = 'Sprite';
-						ui_name = '';
-						x = 10.000000;
-						y = 0.000000;
-						dock_point = { 0.000000; 0.500000; };
-						anchor_point = { 0.000000; 0.500000; };
-						relative_size_type = 0;
-						width = 31;
-						height = 31;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/btn/check_0100.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[2] =
-					{
 						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
@@ -749,13 +671,65 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/star0401.png';
+						file_name = 'ui/icons/star/star_sell_01.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
 						flip_y = false;
 						src_blend = 770;
 						dest_blend = 771;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 2.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 48;
+							height = 48;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = false;
+							lua_name = 'starSprite1';
+							file_name = 'ui/icons/check_icon_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 10.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 30;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/frames/base_frame_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -783,58 +757,6 @@
 				{
 					[1] =
 					{
-						[1] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = 3.000000;
-							y = 4.000000;
-							dock_point = { 0.500000; 0.500000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 32;
-							height = 33;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'starSprite2';
-							file_name = 'ui/btn/check_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						type = 'Sprite';
-						ui_name = '';
-						x = 10.000000;
-						y = 0.000000;
-						dock_point = { 0.000000; 0.500000; };
-						anchor_point = { 0.000000; 0.500000; };
-						relative_size_type = 0;
-						width = 31;
-						height = 31;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/btn/check_0100.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[2] =
-					{
 						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
@@ -851,13 +773,65 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/star0402.png';
+						file_name = 'ui/icons/star/star_sell_02.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
 						flip_y = false;
 						src_blend = 770;
 						dest_blend = 771;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 2.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 48;
+							height = 48;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = false;
+							lua_name = 'starSprite2';
+							file_name = 'ui/icons/check_icon_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 10.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 30;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/frames/base_frame_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -885,58 +859,6 @@
 				{
 					[1] =
 					{
-						[1] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = 3.000000;
-							y = 4.000000;
-							dock_point = { 0.500000; 0.500000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 32;
-							height = 33;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'starSprite3';
-							file_name = 'ui/btn/check_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						type = 'Sprite';
-						ui_name = '';
-						x = 10.000000;
-						y = 0.000000;
-						dock_point = { 0.000000; 0.500000; };
-						anchor_point = { 0.000000; 0.500000; };
-						relative_size_type = 0;
-						width = 31;
-						height = 31;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/btn/check_0100.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[2] =
-					{
 						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
@@ -953,13 +875,65 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/star0403.png';
+						file_name = 'ui/icons/star/star_sell_03.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
 						flip_y = false;
 						src_blend = 770;
 						dest_blend = 771;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 2.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 48;
+							height = 48;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = false;
+							lua_name = 'starSprite3';
+							file_name = 'ui/icons/check_icon_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 10.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 30;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/frames/base_frame_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -987,58 +961,6 @@
 				{
 					[1] =
 					{
-						[1] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = 3.000000;
-							y = 4.000000;
-							dock_point = { 0.500000; 0.500000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 32;
-							height = 33;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'starSprite4';
-							file_name = 'ui/btn/check_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						type = 'Sprite';
-						ui_name = '';
-						x = 10.000000;
-						y = 0.000000;
-						dock_point = { 0.000000; 0.500000; };
-						anchor_point = { 0.000000; 0.500000; };
-						relative_size_type = 0;
-						width = 31;
-						height = 31;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/btn/check_0100.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[2] =
-					{
 						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
@@ -1055,13 +977,65 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/star0404.png';
+						file_name = 'ui/icons/star/star_sell_04.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
 						flip_y = false;
 						src_blend = 770;
 						dest_blend = 771;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 2.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 48;
+							height = 48;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = false;
+							lua_name = 'starSprite4';
+							file_name = 'ui/icons/check_icon_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 10.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 30;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/frames/base_frame_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -1089,58 +1063,6 @@
 				{
 					[1] =
 					{
-						[1] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = 3.000000;
-							y = 4.000000;
-							dock_point = { 0.500000; 0.500000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 32;
-							height = 33;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'starSprite5';
-							file_name = 'ui/btn/check_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						type = 'Sprite';
-						ui_name = '';
-						x = 10.000000;
-						y = 0.000000;
-						dock_point = { 0.000000; 0.500000; };
-						anchor_point = { 0.000000; 0.500000; };
-						relative_size_type = 0;
-						width = 31;
-						height = 31;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/btn/check_0100.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[2] =
-					{
 						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
@@ -1157,13 +1079,65 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/star0405.png';
+						file_name = 'ui/icons/star/star_sell_05.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
 						flip_y = false;
 						src_blend = 770;
 						dest_blend = 771;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 2.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 48;
+							height = 48;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = false;
+							lua_name = 'starSprite5';
+							file_name = 'ui/icons/check_icon_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 10.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 30;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/frames/base_frame_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -1191,58 +1165,6 @@
 				{
 					[1] =
 					{
-						[1] =
-						{
-							type = 'Sprite';
-							ui_name = '';
-							x = 3.000000;
-							y = 4.000000;
-							dock_point = { 0.500000; 0.500000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 32;
-							height = 33;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = false;
-							lua_name = 'starSprite6';
-							file_name = 'ui/btn/check_0102.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							flip_x = false;
-							flip_y = false;
-							src_blend = 770;
-							dest_blend = 771;
-						};
-						type = 'Sprite';
-						ui_name = '';
-						x = 10.000000;
-						y = 0.000000;
-						dock_point = { 0.000000; 0.500000; };
-						anchor_point = { 0.000000; 0.500000; };
-						relative_size_type = 0;
-						width = 31;
-						height = 31;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/btn/check_0100.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[2] =
-					{
 						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
@@ -1259,13 +1181,65 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/star0406.png';
+						file_name = 'ui/icons/star/star_sell_06.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
 						flip_y = false;
 						src_blend = 770;
 						dest_blend = 771;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 2.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 48;
+							height = 48;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = false;
+							lua_name = 'starSprite6';
+							file_name = 'ui/icons/check_icon_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 10.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 30;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/frames/base_frame_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -1306,7 +1280,7 @@
 				visible = true;
 				lua_name = 'buttonsMenu';
 			};
-			[6] =
+			[5] =
 			{
 				[1] =
 				{
@@ -1326,7 +1300,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/a_frame_03.png';
+					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -1490,7 +1464,7 @@
 				visible = true;
 				lua_name = 'listViewMenu';
 			};
-			[7] =
+			[6] =
 			{
 				[1] =
 				{
@@ -1538,7 +1512,7 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = -11.000000;
+						x = -25.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
@@ -1616,9 +1590,9 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/a_frame_06.png';
-					color = { 0; 0; 0; };
-					opacity = 150;
+					file_name = 'ui/frames/base_frame_0201.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
 					center_rect_x = 0;
 					center_rect_y = 0;
 					center_rect_width = 0;
@@ -1640,7 +1614,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_03.png';
+				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -1651,12 +1625,12 @@
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = -30.000000;
+			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 960;
-			height = 593;
+			width = 1300;
+			height = 594;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
