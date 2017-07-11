@@ -1,1 +1,2 @@
-require 'mainPatch'
+--require 'mainPatch'
+cc.Director:getInstance():setDisplayStats(true)
