@@ -18,7 +18,6 @@ local t_module = {
     'perpleLib/sn',
     'perpleLib/crand',
     'perpleLib/PerpleScene',
-    'perpleLib/PerpleScene',
     'fixed_constant',
     'LuaBridge',
     'SoundMgr',
@@ -806,6 +805,7 @@ local t_module = {
 
     -- Network
     'Network',
+    'socket',
 
     -- UI : Generated
 }
@@ -821,8 +821,6 @@ function loadModule()
     for i,v in ipairs(t_module) do
         require(v)
     end
-
-    require 'socket'
 end
 
 -------------------------------------

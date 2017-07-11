@@ -7,7 +7,7 @@ SceneLogo = class(PerpleScene, {
         m_startCB = 'function',
         m_bCallStartCB = 'boolean',
         m_finishCB = 'function',
-        m_timer = 'number',
+        m_startTimeMillisec = 'sec',
     })
 
 -------------------------------------
@@ -18,7 +18,6 @@ function SceneLogo:init(class_ui)
     self.m_tLogoList = {'res/logo/perplelab.png'}
     self.m_currLogoIdx = 0
     self.m_finishCB = nil
-    self.m_timer = 0
     self.m_bCallStartCB = false
 end
 
@@ -58,8 +57,6 @@ end
 -- function update
 -------------------------------------
 function SceneLogo:update(dt)
-    self.m_timer = (self.m_timer - dt)
-
     if (not self.m_bCallStartCB) and (self.m_currLogoIdx == 1) then
         if self.m_startCB then
             self.m_startCB()
@@ -68,9 +65,10 @@ function SceneLogo:update(dt)
         return
     end
     
-    if (self.m_timer <= 0) then
+    local curr_millisec = socket.gettime()
+    if (not self.m_startTimeMillisec) or (self.m_startTimeMillisec + 1 <= curr_millisec) then
         self:showLogo()
-        self.m_timer = 1
+        self.m_startTimeMillisec = curr_millisec
     end
 end
 

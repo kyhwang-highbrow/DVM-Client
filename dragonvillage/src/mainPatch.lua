@@ -8,7 +8,11 @@ print('[Lua Start!!!]')
 print('################################################################')
 
 require 'require'
-loadModule()
+require 'lib/class'
+require 'perpleLib/PerpleScene'
+require 'socket.core'
+require 'ErrorTracker'
+require 'SceneLogo'
 
 
 -------------------------------------
@@ -86,10 +90,7 @@ local function main()
         SceneDV():runScene()
     else
         local function start_cb()
-            TABLE:init()
-            SoundMgr:entry()
-            ShaderCache:init()
-            UserData:getInstance()
+            loadModule()
         end
 
         local function finish_cb()

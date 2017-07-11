@@ -324,6 +324,15 @@ end
 -- function get
 -------------------------------------
 function TABLE:get(name)
+
+    -- 테이블이 로드되어 있지 않은 경우 로드 시도
+    if (not self[name]) then
+        local t_info = TableInfo[name]
+        if t_info then
+            TABLE:loadCSVTable(t_info[1], name, t_info[2], t_info[3])
+        end
+    end
+
     return self[name]
 end
 

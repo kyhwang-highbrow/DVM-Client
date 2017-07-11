@@ -111,7 +111,6 @@ local function main()
     ChatIgnoreList:getInstance()
     ScenarioViewingHistory:getInstance()
     ServerData:getInstance():applySetting()
-    ServerData:getInstance():developCache()
     UserData:getInstance()
 	ErrorTracker:getInstance()
 

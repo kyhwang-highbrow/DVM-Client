@@ -309,16 +309,6 @@ function ServerData:applySetting()
 end
 
 -------------------------------------
--- function developCache
--------------------------------------
-function ServerData:developCache()
-    if LocalServer then
-        LocalServer['user_local_server'] = self:get('cache', 'user_local_server')
-    end
-end
-
-
--------------------------------------
 -- function networkCommonRespone
 -- @breif 중복되는 코드를 방지하기 위해 ret값에 예약된 데이터를 한번에 처리
 -------------------------------------
