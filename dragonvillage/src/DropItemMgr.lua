@@ -23,8 +23,7 @@ DropItemMgr = class(PARENT, {
 function DropItemMgr:init(world)
 	self.m_world = world
 
-    self.m_touchNode = cc.Node:create()
-    world.m_worldLayer:addChild(self.m_touchNode)
+    self.m_touchNode = self:makeTouchNode()
     self:makeTouchLayer(self.m_touchNode)
 
     self.m_lItemlist = {}
@@ -33,7 +32,7 @@ function DropItemMgr:init(world)
     self.m_bImmediatelyObtain = false
 
     -- 아이템을 드랍할 몬스터 지정
-    self:designateDropMonster(wave_script)
+    self:designateDropMonster()
 end
 
 -------------------------------------
@@ -117,6 +116,16 @@ function DropItemMgr:designateDropMonster()
 end
 
 -------------------------------------
+-- function makeTouchNode
+-------------------------------------
+function DropItemMgr:makeTouchNode()
+    local touch_node = cc.Node:create()
+    self.m_world.m_worldLayer:addChild(touch_node)
+
+    return touch_node
+end
+
+-------------------------------------
 -- function makeTouchLayer
 -------------------------------------
 function DropItemMgr:makeTouchLayer(target_node)
@@ -151,7 +160,7 @@ function DropItemMgr:update(dt)
 end
 
 -------------------------------------
--- function doDrop
+-- function dropItem
 -------------------------------------
 function DropItemMgr:dropItem(x, y)
     local item = DropItem(nil, {0, 0, 15})
@@ -163,6 +172,10 @@ function DropItemMgr:dropItem(x, y)
     self:addItem(item)
 
     self.m_dropCount = (self.m_dropCount + 1)
+
+    self.m_world.m_logRecorder:recordLog('drop_item_cnt', 1)
+
+    return item
 end
 
 -------------------------------------

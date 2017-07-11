@@ -106,6 +106,7 @@ end
 function SceneGameIntro:update(dt)
     if (self.m_bPause) then return end
 
+    local world = self.m_gameWorld
     local recorder = self.m_gameWorld.m_logRecorder
     local idx = self.m_nIdx
 
@@ -115,8 +116,14 @@ function SceneGameIntro:update(dt)
     end 
     
     -- 두번째 웨이브 - 아이템 드랍시
+    if (idx == 2) and (recorder:getLog('drop_item_cnt') > 0) then
+        self:play_tutorialTalk(true)
+
+        world.m_dropItemMgr:startIntro()
+    end 
 
     -- 세번째 웨이브 - 스킬 설명
+    --if (idx == 3) and
 
     -- 세번째 웨이브 - 유저가 스킬 사용후
 
@@ -149,19 +156,38 @@ end
 -------------------------------------
 -- function SceneGameIntro
 ------------------------------------
-function SceneGameIntro:play_tutorialTalk()
-    self:gamePause()
+function SceneGameIntro:play_tutorialTalk(no_use_next_btn)
+    local no_use_next_btn = no_use_next_btn or false
+
+    local world = self.m_gameWorld
+    world:setTemporaryPause(true)
+    world.m_gameHighlight:setToForced(no_use_next_btn)
+
     self.m_nIdx = self.m_nIdx + 1
     self.m_dialogPlayer:next()
 
     -- 스킵은 항상 불가능
     self.m_dialogPlayer.vars['skipBtn']:setVisible(false)
 
+    self.m_dialogPlayer.vars['nextBtn']:setVisible(not no_use_next_btn)
+    self.m_dialogPlayer.vars['layerColor2']:setVisible(not no_use_next_btn)
+
+       
     -- 튜토리얼 대사 후 콜백 함수
     local function next_cb()
-        self:gameResume()
+        self.m_gameWorld:setTemporaryPause(false)
     end
 
     self.m_dialogPlayer:set_nextFunc(next_cb) 
+end
+
+-------------------------------------
+-- function next_intro
+------------------------------------
+function SceneGameIntro:next_intro()
+    local world = self.m_gameWorld
+    world.m_gameHighlight:setToForced(false)
+
+    self.m_dialogPlayer:next()
 end
 

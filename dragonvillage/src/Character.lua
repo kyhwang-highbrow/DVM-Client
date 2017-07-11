@@ -658,7 +658,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 	end
 
-    if (attacker_char) then
+    if (not no_event and attacker_char) then
         -- 공격자 반사 데미지 처리
         if (attack_type == 'active') then 
             local reflex_skill = self:getStat('reflex_skill')

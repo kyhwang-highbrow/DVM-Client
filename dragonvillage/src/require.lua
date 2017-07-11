@@ -296,6 +296,7 @@ local t_module = {
     'GameTimeScale',
     'GameHighlightMgr',
     'DropItemMgr',
+    'DropItemMgr_Intro',
 	'ShakeManager',
     
 	-- CARRIER

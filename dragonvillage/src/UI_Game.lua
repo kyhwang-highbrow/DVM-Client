@@ -157,11 +157,11 @@ function UI_Game:initButton()
     do
         local b = g_autoPlaySetting:get('dragon_panel') or false
 
-        self.m_panelBtnIcon1 = MakeAnimator('res/ui/btn/ingame_top_panel_0101.png')
+        self.m_panelBtnIcon1 = MakeAnimator('res/ui/buttons/ingame_top_panel_0101.png')
         self.m_panelBtnIcon1:setVisible(not b)
         vars['panelBtn']:addChild(self.m_panelBtnIcon1.m_node)
 
-        self.m_panelBtnIcon2 = MakeAnimator('res/ui/btn/ingame_top_panel_0102.png')
+        self.m_panelBtnIcon2 = MakeAnimator('res/ui/buttons/ingame_top_panel_0102.png')
         self.m_panelBtnIcon2:setVisible(b)
         vars['panelBtn']:addChild(self.m_panelBtnIcon2.m_node)
     end
@@ -170,15 +170,15 @@ function UI_Game:initButton()
     do
         local level = g_autoPlaySetting:get('skip_level') or 0
 
-        self.m_effectBtnIcon1 = MakeAnimator('res/ui/btn/ingame_top_effect_0103.png')
+        self.m_effectBtnIcon1 = MakeAnimator('res/ui/buttons/ingame_top_effect_0103.png')
         self.m_effectBtnIcon1:setVisible((level == 0))
         vars['effectBtn']:addChild(self.m_effectBtnIcon1.m_node)
 
-        self.m_effectBtnIcon2 = MakeAnimator('res/ui/btn/ingame_top_effect_0102.png')
+        self.m_effectBtnIcon2 = MakeAnimator('res/ui/buttons/ingame_top_effect_0102.png')
         self.m_effectBtnIcon2:setVisible((level == 1))
         vars['effectBtn']:addChild(self.m_effectBtnIcon2.m_node)
 
-        self.m_effectBtnIcon3 = MakeAnimator('res/ui/btn/ingame_top_effect_0101.png')
+        self.m_effectBtnIcon3 = MakeAnimator('res/ui/buttons/ingame_top_effect_0101.png')
         self.m_effectBtnIcon3:setVisible((level == 2))
         vars['effectBtn']:addChild(self.m_effectBtnIcon3.m_node)
 

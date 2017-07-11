@@ -27,17 +27,31 @@ function UI_IngameUnitInfo:loadUI()
 end
 
 -------------------------------------
+-- function load_useSpriteFrames
+-------------------------------------
+function UI_IngameUnitInfo:load_useSpriteFrames(url, isPermanent)
+    local keep_z_order = false
+    local use_sprite_frames = true
+
+    local file_name = 'ingame_cha_info'
+    local res = string.format('res/ui/a2d/%s/%s.plist', file_name, file_name)
+    cc.SpriteFrameCache:getInstance():addSpriteFrames(res)
+
+    return self:load(url, isPermanent, keep_z_order, use_sprite_frames)
+end
+
+-------------------------------------
 -- function initUI
 -------------------------------------
 function UI_IngameUnitInfo:initUI()
     local vars = self.vars
-    local enemy = self.m_owner
+    local unit = self.m_owner
 
     if (vars['attrNode']) then
-        local attr_str = enemy:getAttribute()
+        local attr_str = unit:getAttribute()
         --local res = 'res/ui/icon/attr/attr_' .. attr_str .. '.png'
         --local icon = cc.Sprite:create(res)
-        local res = 'ingame_enemy_info_attr_' .. attr_str .. '.png'
+        local res = 'ingame_cha_info_attr_' .. attr_str .. '_0101.png'
         local icon = cc.Sprite:createWithSpriteFrameName(res)
         if icon then
             icon:setDockPoint(cc.p(0.5, 0.5))
@@ -45,14 +59,7 @@ function UI_IngameUnitInfo:initUI()
             vars['attrNode']:addChild(icon)
         end
     end
-	--[[
-    if (vars['levelLabel']) then
-        vars['levelLabel']:setVisible(false)
-		-- @TODO level 임시로 찍지 않도록 함
-        local lv = ''--enemy.m_lv
-        vars['levelLabel']:setString(lv)
-    end]]
-
+	
 	-- 디버깅용 label
 	self:makeDebugingLabel()
 end

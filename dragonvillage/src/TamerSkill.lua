@@ -299,6 +299,8 @@ end
 -------------------------------------
 function Tamer:startActiveSkillCoolTime()
     local skill_indivisual_info = self:getLevelingSkillByType('active')
+    if (not skill_indivisual_info) then return end
+
     skill_indivisual_info:startCoolTime()
 
     self:dispatch('set_global_cool_time_active')
@@ -309,6 +311,8 @@ end
 -------------------------------------
 function Tamer:resetActiveSkillCool()
     local skill_indivisual_info = self:getLevelingSkillByType('active')
+    if (not skill_indivisual_info) then return end
+
     skill_indivisual_info:resetCoolTime()
 
     self.m_bActiveSKillUsable = true
@@ -319,6 +323,8 @@ end
 -------------------------------------
 function Tamer:isEndActiveSkillCool()
     local skill_indivisual_info = self:getLevelingSkillByType('active')
+    if (not skill_indivisual_info) then return end
+
     return skill_indivisual_info:isEndCoolTime()
 end
 

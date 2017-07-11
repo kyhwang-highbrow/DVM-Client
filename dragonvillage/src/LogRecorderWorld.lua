@@ -28,6 +28,7 @@ LogRecorderWorld = class(PARENT, {
 
         -- 인트로 전투에 필요한 것
         m_attackCnt = 'num',        -- 평타 횟수
+        m_dropItemCnt = 'num',      -- 드랍 아이템 수
      })
 
 -------------------------------------
@@ -42,6 +43,7 @@ function LogRecorderWorld:init(world)
 	self.m_feverCnt = 0
     self.m_activeKillCnt = 0
     self.m_attackCnt = 0
+    self.m_dropItemCnt = 0
 	self.m_bossFinishAtk = nil
 
 	self.m_tCharLogTable = {}
@@ -144,6 +146,9 @@ function LogRecorderWorld:recordLog(key, value)
     elseif (key == 'basic_attack_cnt') then
 		self.m_attackCnt = self.m_attackCnt + value
 
+    elseif (key == 'drop_item_cnt') then
+		self.m_dropItemCnt = self.m_dropItemCnt + value
+
 	else
 		error('정의 되지 않은 키 : ' .. key)
 	end
@@ -197,6 +202,9 @@ function LogRecorderWorld:getLog(key)
 
     elseif (key == 'basic_attack_cnt') then
 		return self.m_attackCnt
+
+    elseif (key == 'drop_item_cnt') then
+		return self.m_dropItemCnt
 
 	else
 		return 0

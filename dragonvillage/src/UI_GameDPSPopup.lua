@@ -147,11 +147,11 @@ function UI_GameDPSPopup:setDpsOrHps()
 	-- dps hps인지에 따라 리소스 및 타이틀 결정
 	if (self.m_bDPS) then
 		title_str = 'DPS'
-		res = 'res/ui/btn/ingame_info_dps.png'
+		res = 'res/ui/buttons/ingame_info_dps.png'
 		self.m_logKey = 'damage'
 	else
 		title_str = 'HPS'
-		res = 'res/ui/btn/ingame_info_hps.png'
+		res = 'res/ui/buttons/ingame_info_hps.png'
 		self.m_logKey = 'heal'
 	end
 

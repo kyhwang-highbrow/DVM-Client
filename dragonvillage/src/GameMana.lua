@@ -15,6 +15,8 @@ GameMana = class(PARENT, {
         m_value = 'number',
 
         m_incValuePerSec = 'number',
+
+        m_bEnable = 'boolean',
     })
 
 -------------------------------------
@@ -29,12 +31,15 @@ function GameMana:init(world, left_formation)
     self.m_prevValue = 0
     self.m_value = 0
     self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL')
+    self.m_bEnable = true
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
 function GameMana:update(dt)
+    if (not self.m_bEnable) then return end
+
     local add = self.m_incValuePerSec * dt
 
     if (self.m_value > MAX_MANA) then
@@ -97,4 +102,11 @@ end
 -------------------------------------
 function GameMana:resetMana()
     self.m_value = 0
+end
+
+-------------------------------------
+-- function setEnable
+-------------------------------------
+function GameMana:setEnable(b)
+    self.m_bEnable = b
 end

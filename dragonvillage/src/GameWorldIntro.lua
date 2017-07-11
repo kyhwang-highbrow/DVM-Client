@@ -18,6 +18,10 @@ function GameWorldIntro:init(game_mode, stage_id, world_node, game_node1, game_n
     self.m_gameAutoEnemy = GameAuto_Enemy(self, false)
 
     self.m_gameState = GameState_Intro(self)
+
+    self.m_heroMana:setEnable(false)
+    self.m_enemyMana:setEnable(false)
+
     self.m_inGameUI:init_timeUI(true, self.m_gameState.m_limitTime)
     self.m_inGameUI:initIntroFight()
 end
@@ -26,9 +30,10 @@ end
 -- function initGame
 -------------------------------------
 function GameWorldIntro:initGame(stage_name)
-    PARENT.initGame(stage_name)
+    PARENT.initGame(self, stage_name)
 
-    --self.m_dropItemMgr = DropItemMgr_Intro(self)
+    self.m_dropItemMgr = DropItemMgr_Intro(self)
+    self:addListener('dragon_summon', self)
 end
 
 -------------------------------------
