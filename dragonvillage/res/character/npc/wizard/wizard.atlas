@@ -1,0 +1,13 @@
+
+wizard.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wizard_01
+  rotate: false
+  xy: 2, 2
+  size: 856, 1264
+  orig: 856, 1264
+  offset: 0, 0
+  index: -1
