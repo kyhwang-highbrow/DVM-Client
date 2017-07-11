@@ -158,8 +158,8 @@
 					dock_point = { 1.000000; 1.000000; };
 					anchor_point = { 1.000000; 1.000000; };
 					relative_size_type = 0;
-					width = 26;
-					height = 26;
+					width = 28;
+					height = 28;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -167,7 +167,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'evolutionNotiSprite';
-					file_name = 'ui/btn/notification.png';
+					file_name = 'ui/icons/noti_icon_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -248,8 +248,8 @@
 					dock_point = { 1.000000; 1.000000; };
 					anchor_point = { 1.000000; 1.000000; };
 					relative_size_type = 0;
-					width = 26;
-					height = 26;
+					width = 28;
+					height = 28;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -257,7 +257,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'upgradeNotiSprite';
-					file_name = 'ui/btn/notification.png';
+					file_name = 'ui/icons/noti_icon_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -436,7 +436,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 24;
 					text = '룬 관리';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -808,7 +808,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 22;
 					text = '판매';
 					h_alignment = 1;
 					v_alignment = 1;

@@ -993,7 +993,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '인벤토리';
+				text = '가방';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
