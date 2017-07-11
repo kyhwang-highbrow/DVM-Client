@@ -1,8 +1,7 @@
 item,category,t_name,t_desc,icon,type,full_type,attr,role,color,rarity,grade,evolution,did,count,sale_price,get_region,package
 700001,simple,다이아몬드,다이아몬드 획득,res/ui/icon/item/cash.png,cash,cash,,,,,,,,1,328,,
 700002,simple,골드,골드 획득,res/ui/icon/item/gold.png,gold,gold,,,,,,,,1,327,,
-700003,simple,우정 포인트,우정 포인트 획득,res/ui/icon/item/fp.png,fp,fp,,,,,,,,1,102,,
-700004,simple,라테아,라테아 획득,res/ui/icon/item/lactea.png,lactea,lactea,,,,,,,,1,329,,
+700003,simple,우정의 징표,우정의 징표,res/ui/icon/item/fp.png,fp,fp,,,,,,,,1,102,,
 700005,simple,명예코인,명예 코인 획득,res/ui/icon/item/honor.png,honor,honor,,,,,,,,1,331,,
 700006,simple,훈장,훈장 획득,res/ui/icon/item/badge.png,badge,badge,,,,,,,,1,328,,
 700007,simple,자수정,자수정 획득,res/ui/icon/item/amethyst.png,amethyst,amethyst,,,,,,,,1,5000,,
@@ -13,6 +12,7 @@ item,category,t_name,t_desc,icon,type,full_type,attr,role,color,rarity,grade,evo
 700103,simple,고대의탑 입장권,고대의탑 입장권,res/ui/icon/inbox/inbox_staminas_nightmare.png,staminas_tower,staminas_tower,,,,,,,,1,500,,
 700201,simple,캡슐,하이브로 프로모션 포인트,res/ui/icon/item/capsule.png,capsule,capsule,,,,,,,,1,500,,
 700202,simple,이벤트 재화,개발용 이벤트 재화,res/ui/icon/item/event.png,event,event,,,,,,,,1,500,,
+700301,simple,닉네임 변경권,닉네임 변경 시 사용합니다.,res/ui/icon/item/rename.png,rename,rename,,,,,,,,1,500,,
 701010,stack,운석 잔해,일반 등급 드래곤의 진화 재료,res/ui/icon/item/evolution_stone_common_01.png,evolution_stone,evolution_stone_common_01,,,,common,1,,,1,104,,
 701020,stack,세계수의 씨앗,희귀 등급 드래곤의 진화 재료,res/ui/icon/item/evolution_stone_rare_01.png,evolution_stone,evolution_stone_rare_01,,,,rare,1,,,1,105,,
 701030,stack,영롱한 바위,영웅 등급 드래곤의 진화 재료,res/ui/icon/item/evolution_stone_hero_01.png,evolution_stone,evolution_stone_hero_01,,,,hero,1,,,1,106,,
