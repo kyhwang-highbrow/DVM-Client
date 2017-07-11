@@ -418,6 +418,12 @@ function Tamer:updateBasicSkillTimer(dt)
 end
 
 -------------------------------------
+-- function setDamage
+-------------------------------------
+function Tamer:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+end
+
+-------------------------------------
 -- function setTamerSkillDirecting
 -------------------------------------
 function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func)
