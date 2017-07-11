@@ -398,7 +398,7 @@ function ServerData_MasterRoad.quickLink(clear_type, clear_cond)
 
     -- 알 부화
     elseif (clear_type == 'egg') then
-        g_hatcheryData:openHatcheryUI(close_cb)
+        g_hatcheryData:openHatcheryUI(nil, 'incubate')
 
     -- 친밀도 과일 먹임
     elseif (clear_type == 'fruit') then

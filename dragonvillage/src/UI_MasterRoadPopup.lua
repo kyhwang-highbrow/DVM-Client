@@ -104,7 +104,7 @@ function UI_MasterRoadPopup:refresh(t_data)
     local reward_state = g_masterRoadData:getRewardState(t_data['rid'])
     vars['rewardBtn']:setVisible(reward_state == 'has_reward')
     vars['completeSprite']:setVisible(reward_state == 'already_done')
-    vars['questLinkBtn']:setVisible(reward_state == 'not_yet')
+    vars['questLinkBtn']:setVisible((reward_state == 'not_yet') and (t_data['rid'] == g_masterRoadData:getFocusRoad()))
 end
 
 -------------------------------------
