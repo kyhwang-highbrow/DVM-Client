@@ -127,15 +127,13 @@ function getTargetOSName()
 end
 
 function slack_api(msg)
-    local text = g_errorTracker:getTrackerText(msg)
-
     -- 파라미터 셋팅
     local t_data = {}
     t_data['token'] = 'xoxp-4049551466-60623372247-67908400245-53f29cbca3'
     t_data['channel'] = 'C1RUT070B'
-    t_data['text'] = text
-    t_data['username'] = 'DVT client : ' .. (nick and nick or '')
-    t_data['icon_emoji'] = ':psyker:'
+    t_data['text'] = msg
+    t_data['username'] = 'DVM ERROR BOT'
+    t_data['icon_emoji'] = ':fix:'
 
     -- 요청 정보 설정
     local t_request = {}

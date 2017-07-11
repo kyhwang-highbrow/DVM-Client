@@ -279,6 +279,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ColosseumUserInfo.lua" />
     <None Include="..\src\CommonMissile_Guide.lua" />
     <None Include="..\src\CommonMissile_Multi.lua" />
+    <None Include="..\src\ConstantColor.lua" />
     <None Include="..\src\ConstantColosseum.lua" />
     <None Include="..\src\ConstantData.lua" />
     <None Include="..\src\ConstantGameMode.lua" />

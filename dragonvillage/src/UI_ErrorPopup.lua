@@ -20,6 +20,8 @@ function UI_ErrorPopup:init(str)
     self:load('empty.ui')
     UIManager:open(self, UIManager.POPUP, true)
 
+    self.m_uiName = 'UI_ErrorPopup'
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ErrorPopup')
 
@@ -38,10 +40,10 @@ function UI_ErrorPopup:initUI(str)
 	do
 		local rect = cc.rect(0, 0, 0, 0)
 		self.m_backLayer = cc.Scale9Sprite:create(rect, 'res/ui/toast_notification.png')
-		self.m_backLayer:setDockPoint(cc.p(0.5, 0.5))
-		self.m_backLayer:setAnchorPoint(cc.p(0.5, 0.5))
+		self.m_backLayer:setDockPoint(CENTER_POINT)
+		self.m_backLayer:setAnchorPoint(CENTER_POINT)
 		self.m_backLayer:setNormalSize(scr_size)
-		self.m_backLayer:setOpacity(200)
+		self.m_backLayer:setOpacity(170)
 		self.root:addChild(self.m_backLayer, 0)
 	end
 
@@ -53,6 +55,7 @@ function UI_ErrorPopup:initUI(str)
 		rich_label:setFontSize(20)
 		rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 		rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
+        rich_label:setDefualtColor(COLOR['light_gray'])
 
 		-- scroll label  생성
 		self.m_errorLabel = UIC_ScrollLabel:create(rich_label)
@@ -61,45 +64,51 @@ function UI_ErrorPopup:initUI(str)
 		self.m_backLayer:addChild(self.m_errorLabel.m_node)
 	end
 
-	-- 복사 버튼
-	do
-	    local node = cc.MenuItemImage:create('res/ui/btn/base_0206.png', 'res/ui/btn/base_0207.png', 1)
-        node:setDockPoint(cc.p(0.5, 0))
-        node:setAnchorPoint(cc.p(0.5, 0.5))
-        node:setPosition(-100, 50)
+    local btn_res_1 = 'res/ui/buttons/64_base_btn_0101.png'
+    local btn_res_2 = 'res/ui/buttons/64_base_btn_0102.png'
+    local common_dock = cc.p(1, 0.5)
+    local common_anchor = cc.p(1, 0.5)
+    local common_size = cc.size(200, 80)
+
+    local l_btn = {
+        {btn_str = '복사', lua_name = 'copyBtn', pos = {x = -20, y = 100}},
+        {btn_str = '전송', lua_name = 'slackBtn', pos = {x = -20, y = 0}},
+        {btn_str = '닫기', lua_name = 'exitBtn', pos = {x = -20, y = -100}},
+    }
+
+    for _, t_btn_info in pairs(l_btn) do
+        local pos = t_btn_info['pos']
+        local lua_name = t_btn_info['lua_name']
+        local btn_str = t_btn_info['btn_str']
+
+        -- button
+	    local node = cc.MenuItemImage:create(btn_res_1, btn_res_2, 1)
+        node:setDockPoint(common_dock)
+        node:setAnchorPoint(common_anchor)
+        node:setPosition(pos.x, pos.y)
+        node:setContentSize(common_size)
         UIC_Button(node)
         self.root:addChild(node, 1)
-        self.vars['copyBtn'] = node
+        self.vars[lua_name] = node
 
-		local label = cc.Label:createWithTTF('복사',	'res/font/common_font_01.ttf', 20, 1, cc.size(100, 50),	cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        -- label
+		local label = cc.Label:createWithTTF(btn_str, 'res/font/common_font_01.ttf', 20, 1, cc.size(100, 50),	cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        label:setColor(COLOR['DESC'])
 		label:setDockPoint(CENTER_POINT)
         label:setAnchorPoint(CENTER_POINT)
-		self.vars['copyBtn']:addChild(label)
-	end
-
-	-- 닫기 버튼
-	do
-	    local node = cc.MenuItemImage:create('res/ui/btn/base_0206.png', 'res/ui/btn/base_0207.png', 1)
-        node:setDockPoint(cc.p(0.5, 0))
-        node:setAnchorPoint(cc.p(0.5, 0.5))
-        node:setPosition(100, 50)
-        UIC_Button(node)
-        self.root:addChild(node, 1)
-        self.vars['exitBtn'] = node
-
-		local label = cc.Label:createWithTTF('닫기',	'res/font/common_font_01.ttf', 20, 1, cc.size(100, 50),	cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER) 
-		label:setDockPoint(CENTER_POINT)
-        label:setAnchorPoint(CENTER_POINT)
-		self.vars['exitBtn']:addChild(label)
-	end
+		self.vars[lua_name]:addChild(label)
+    end
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_ErrorPopup:initButton()
-	self.vars['copyBtn']:registerScriptTapHandler(function() self:click_copyBtn() end)
-	self.vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
+    local vars = self.vars
+
+	vars['copyBtn']:registerScriptTapHandler(function() self:click_copyBtn() end)
+    vars['slackBtn']:registerScriptTapHandler(function() self:click_slackBtn() end)
+	vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 end
 
 -------------------------------------
@@ -111,13 +120,10 @@ function UI_ErrorPopup:setErrorStr(str)
 	end
 
 	local error_str = string.gsub(str, '\t', '    ') or '???'
-	local tracker_str = g_errorTracker:getTrackerText(error_str)
+	error_str = g_errorTracker:getTrackerText(error_str)
 
-	self.m_errorLabel:setString(tracker_str)
-
-	if (not DEVELOPMENT_SRC_VER) or (not isWin32()) then
-		slack_api(error_str)
-	end
+	self.m_errorLabel:setString(error_str)
+    self.m_errorStr = error_str
 end
 
 -------------------------------------
@@ -127,6 +133,14 @@ function UI_ErrorPopup:click_copyBtn()
 	UIManager:toastNotificationGreen('클립보드 복사 기능 준비중')
 end
 
+-------------------------------------
+-- function click_slackBtn
+-------------------------------------
+function UI_ErrorPopup:click_slackBtn()
+    local error_str = self.m_errorStr
+    slack_api(error_str)
+    UIManager:toastNotificationGreen('전송 완료!')
+end
 
 -------------------------------------
 -- function click_exitBtn

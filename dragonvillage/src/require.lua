@@ -37,6 +37,7 @@ local t_module = {
     'ConstantString',
     'ConstantStatusEffect',
     'ConstantColosseum',
+    'ConstantColor',
 
     -- Data클래스
     'ColosseumUserInfo',

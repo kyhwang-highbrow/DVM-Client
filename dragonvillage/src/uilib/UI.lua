@@ -28,7 +28,7 @@ function UI:init()
     self.do_action_exit = true
 	
 	self.m_resName = 'not loaded ui'
-	self.m_uiName = '없음'
+	self.m_uiName = 'untitled'
     self.m_lHideUIList = {}
     self.vars_key = {}
 end

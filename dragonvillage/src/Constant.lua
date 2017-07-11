@@ -81,48 +81,6 @@ KEY_RIGHT_BRACKET = 118
 KEY_UNDERSCORE = 119
 KEY_GRAVE = 120
 
--- COLOR
-COLOR = {
-	-- 무채색
-	white = cc.c3b(255, 255, 255),
-	light_gray = cc.c3b(210, 210, 210),
-	gray = cc.c3b(180, 180, 180),
-	deep_gray = cc.c3b(100, 100, 100),
-	deep_dark_gray = cc.c3b(50, 50, 50),
-	black = cc.c3b(0, 0, 0),
-	
-	-- 빨강
-	red = cc.c3b(255, 0, 0),
-	light_red = cc.c3b(255, 44, 44),
-	pink = cc.c3b(255, 150, 150),
-
-	-- 노랑
-	yellow = cc.c3b(255, 255, 0),
-	orange = cc.c3b(250, 120, 0),
-	mustard = cc.c3b(255, 231, 48),
-	apricot = cc.c3b(240, 215, 159),
-	chick = cc.c3b(255, 234, 91),
-
-	-- 초록
-	green = cc.c3b(0, 255, 0),
-	light_green = cc.c3b(50, 255, 0),
-	grass_green = cc.c3b(165, 224, 0),
-	
-	-- 파랑
-	blue = cc.c3b(0, 0, 255),
-	sky_blue = cc.c3b(0, 191, 255),
-	cyan = cc.c3b(0, 255, 255),
-
-	-- 보라
-	purple = cc.c3b(255, 0, 255),
-	violet = cc.c3b(155, 0, 255), 
-
-    -- text 용 c4b
-    diff_normal = cc.c4b(105, 236, 87, 255),
-    diff_hard = cc.c4b(255, 115, 53, 255),
-    diff_hell = cc.c4b(233, 88, 255, 255),
-}
-
 -- TEMP
 UNDER_LINE_PNG = 'res/common/underline.png'
 EMPTY_PNG = 'res/common/empty.png'

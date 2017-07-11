@@ -2445,6 +2445,9 @@
     <None Include="..\src\StatusEffect_AddMana.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ConstantColor.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

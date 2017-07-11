@@ -446,78 +446,19 @@ function UIC_RichLabel:getFontName()
 end
 
 -------------------------------------
+-- function setDefualtColor
+-------------------------------------
+function UIC_RichLabel:setDefualtColor(color)
+    self.m_defaultColor = color
+end
+
+-------------------------------------
 -- function getColor
 -------------------------------------
 function UIC_RichLabel:getColor(color)
     if (color == 'default') and self.m_defaultColor then
         return self.m_defaultColor
     end
-
-    local COLOR = {
-        ['w'] = cc.c3b(0xff,0xff,0xff),   -- white
-        ['g'] = cc.c3b(0x7f,0x7f,0x7f),   -- gray
-        ['b'] = cc.c3b(0x00,0x00,0x00),   -- black
-        ['R'] = cc.c3b(0xff,0x00,0x00),   -- RED
-        ['G'] = cc.c3b(0x00,0xf8,0x0f),   -- GREEN
-        ['B'] = cc.c3b(0x00,0x00,0xff),   -- BLUE
-        ['S'] = cc.c3b(0x10,0xc0,0xff),   -- Sky Blue
-        ['Y'] = cc.c3b(0xff,0xff,0x00),   -- Yellow
-        ['C'] = cc.c3b(0x00,0xff,0xff),   -- CYAN
-        ['O'] = cc.c3b(0xff,0x7f,0x0f),   -- Orange
-        ['V'] = cc.c3b(0x9f,0x30,0xcf),   -- Violet
-        ['P'] = cc.c3b(0xff,0xbf,0xff),   -- Purple
-        ['D'] = cc.c3b(0xcf,0xf8,0x9f),
-        ['E'] = cc.c3b(0xff,0xf8,0x9f),
-        ['F'] = cc.c3b(0xff,0x98,0x60),
-        ['L'] = cc.c3b(0xa0,0xa0,0xa0),
-        ['y'] = cc.c3b(0x7f,0x7f,0x00),
-        ['M'] = cc.c3b(0x00,0xc0,0xff),
-        ['d'] = cc.c3b(0x80,0xe7,0xaf),
-        ['U'] = cc.c3b(0, 0, 0),
-    }
-
-	-- 명조 색상
-    COLOR['BLACK'] = cc.c3b(0, 0, 0)
-	COLOR['DEEPGRAY'] = cc.c3b(100,100,100)
-	COLOR['GRAY'] = cc.c3b(150,150,150)
-	COLOR['LIGHTGRAY'] = cc.c3b(192,192,102)
-    COLOR['WHITE'] = cc.c3b(255,255,255)
-
-	-- 유채색
-    COLOR['ORANGE'] = cc.c3b(255,165,0)
-    COLOR['GOLD'] = cc.c3b(255,215,0)
-    COLOR['TAN'] = cc.c3b(210,180,140)
-    COLOR['DEEPSKYBLUE'] = cc.c3b(0,191,255)
-
-    COLOR['LIGHTGREEN'] = cc.c3b(165, 224, 0)
-    COLOR['MUSTARD'] = cc.c3b(255, 231, 48)
-    COLOR['ROSE'] = cc.c3b(255, 48, 48)
-
-    COLOR['YELLOW'] = cc.c3b(255,255,0)
-    COLOR['RED'] = cc.c3b(255,0,0)
-    COLOR['BLUE'] = cc.c3b(0,0,255)
-	
-	-- 일반 텍스트 사용 색상
-    COLOR['DESC'] = cc.c3b(240, 215, 160)	-- 밝음
-	COLOR['DESC2'] = cc.c3b(161, 125, 93)	-- 어두움
-
-	-- 인게임 사용 색상
-    COLOR['SKILL_NAME'] = cc.c3b(255, 145, 0)	-- 오렌지
-    COLOR['SKILL_DESC'] = cc.c3b(245, 233, 220)	-- 허~연색
-
-	-- 특수
-    COLOR['rune_sopt'] = cc.c3b(240, 215, 159)
-    COLOR['rune_set'] = cc.c3b(255, 234, 91)
-
-    -- 가능, 불가능 색상
-    COLOR['possible'] = cc.c3b(150, 255, 65)
-    COLOR['impossible'] = cc.c3b(255, 44, 44)
-
-    -- 기능별 색상
-    COLOR['subject'] = COLOR['ROSE']
-    COLOR['condition'] = COLOR['ROSE']
-    COLOR['item_name'] = COLOR['DEEPSKYBLUE']
-    COLOR['count'] = COLOR['MUSTARD']
 
     return COLOR[color] or cc.c3b(255,255,255)
 end
@@ -580,6 +521,13 @@ function UIC_RichLabel:enableShadow(color, shadow_offset, blurRadius)
 end
 
 -------------------------------------
+-- function getString
+-------------------------------------
+function UIC_RichLabel:getString()
+    return self.m_orgRichText
+end
+
+-------------------------------------
 -- function getStringWidth
 -------------------------------------
 function UIC_RichLabel:getStringWidth()
@@ -589,7 +537,6 @@ function UIC_RichLabel:getStringWidth()
 
     return self.m_contentWidth
 end
-
 
 -------------------------------------
 -- function getStringHeight
