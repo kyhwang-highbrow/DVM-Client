@@ -823,6 +823,13 @@ function loadModule()
     end
 end
 
+local t_except_reload = {
+    ['SoundMgr'] = true,
+    ['uilib/UIManager'] = true,
+    ['uilib/UILoader'] = true,
+    ['uilib/TableView'] = true,
+    ['socket'] = true,
+}
 -------------------------------------
 -- function reloadModule
 -------------------------------------
@@ -834,8 +841,7 @@ function reloadModule()
     local t_backup_server_table = TABLE:backupServerTable()
 
     for i,v in ipairs(t_module) do
-        if (v ~= 'SoundMgr') and (v ~= 'uilib/UIManager') and (v ~= 'uilib/UILoader')
-            and (v ~= 'uilib/TableView') then
+        if not (t_except_reload[v]) then
             package.loaded[v] = nil
             require(v)
         end
