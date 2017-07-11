@@ -420,7 +420,7 @@ end
 -- @brief 회피 여부 검사
 -------------------------------------
 function Character:checkAvoid(activity_carrier, t_attr_effect)
-    local hit_rate = activity_carrier:getStat('hit_rate')
+    local hit_rate = activity_carrier:getStat('hit_rate') or 100
 
 	-- 속성 상성 옵션 적용
 	do 
@@ -541,7 +541,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             is_critical = false
 
         elseif (is_critical == nil) then
-            local critical_chance = attack_activity_carrier:getStat('cri_chance')
+            local critical_chance = attack_activity_carrier:getStat('cri_chance') or 0
             local critical_avoid = self:getStat('cri_avoid')
             local final_critical_chance = CalcCriticalChance(critical_chance, critical_avoid)
 
@@ -559,7 +559,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 크리티컬
         if is_critical then
-            damage_multifly = (attack_activity_carrier:getStat('cri_dmg') / 100)
+            local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
+            damage_multifly = (cri_dmg / 100)
         end
 
         -- 속성
@@ -1506,7 +1507,8 @@ function Character:updateBasicSkillTimer(dt)
     -- cool_actu 스텟 적용(쿨타임 감소)
     do
         -- @ RUNE
-        local rate = 1 + (self:getStat('cool_actu') / 100)
+        local cool_actu = self:getStat('cool_actu') or 0
+        local rate = 1 + (cool_actu / 100)
         rate = math_max(rate , 0)
 
         dt = dt * rate

@@ -154,6 +154,7 @@ end
 -------------------------------------
 function getCounterAttribute(attr1, attr2)
     if (attr1 == nil or attr2 == nil) then return 0 end
+    if (attr1 == 'none' or attr2 == 'none') then return 0 end
     if (not t_attr_synastry) then
         initAttributeSynastry()
     end
@@ -185,6 +186,9 @@ function attributeStrToNum(attr)
 
     elseif (attr == 'water') then
         return ATTR_WATER
+
+    elseif (attr == 'none') then
+        return ATTR_NONE
 
     else
         error('attr : ' .. attr)

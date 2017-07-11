@@ -61,6 +61,7 @@ end
 -------------------------------------
 function Tamer:init_tamer(t_tamer, bLeftFormationend)
     self.m_charTable = t_tamer
+    self.m_attribute = t_tamer['attr']
     self.m_bLeftFormation = bLeftFormationend
 
 	-- Tamer Skill 설정
@@ -190,7 +191,12 @@ function Tamer.st_roam(owner, dt)
         owner:setAfterImage(false)
     end
 
-    if (owner.m_roamTimer <= 0) then
+    local skill_id = owner:getBasicTimeAttackSkillID()
+    if (skill_id) then
+        -- 스킬 발동
+		owner:doSkillColosseum()
+
+    elseif (owner.m_roamTimer <= 0) then
         local tar_x, tar_y, tar_z, course = owner:getRoamPos()
 
         local time = math_random(15, 30) / 10
@@ -389,6 +395,29 @@ function Tamer.st_success_move(owner, dt)
 end
 
 -------------------------------------
+-- function updateBasicSkillTimer
+-------------------------------------
+function Tamer:updateBasicSkillTimer(dt)
+    PARENT.updateBasicSkillTimer(self, dt)
+
+    if (not self.m_bLeftFormation) then
+        if (self.m_lSkillIndivisualInfo['indie_time']) then
+            -- 기획적으로 indie_time스킬은 1개만을 사용하도록 한다.
+            local skill_info = table.getFirst(self.m_lSkillIndivisualInfo['indie_time'])
+
+            -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
+            if (skill_info) then
+                local max = skill_info.m_tSkill['chance_value']
+                local cur = max - skill_info.m_timer
+
+                local t_event = { ['cur'] = cur, ['max'] = max, ['run_skill'] = (cur == max) }
+                self:dispatch('enemy_tamer_skill_gauge', t_event)
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function setTamerSkillDirecting
 -------------------------------------
 function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func)
@@ -451,6 +480,26 @@ function Tamer:setWaitState(is_wait_state)
             self:changeState('roam')
         end
     end
+end
+
+
+-------------------------------------
+-- function makeAttackDamageInstance
+-- @brief
+-------------------------------------
+function Tamer:makeAttackDamageInstance()
+    local activity_carrier = ActivityCarrier()
+
+	-- 시전자를 지정
+	activity_carrier:setActivityOwner(self)
+
+    -- 속성 지정
+    activity_carrier.m_attribute = attributeStrToNum(self:getAttribute())
+
+    -- 세부 능력치 지정
+	--activity_carrier:setStatuses(self.m_statusCalc)
+
+    return activity_carrier
 end
 
 -------------------------------------

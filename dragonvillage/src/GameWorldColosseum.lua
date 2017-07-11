@@ -136,6 +136,10 @@ function GameWorldColosseum:initTamer()
         self.m_enemyTamer:setAnimatorScale(1)
         self.m_enemyTamer:changeState('appear_colosseum')
         self.m_enemyTamer.m_animator.m_node:pause()
+
+        self.m_enemyTamer:addListener('enemy_tamer_skill_gauge', self)
+
+        self.m_inGameUI:initTamerUI(t_tamer)
     end
 end
 
@@ -251,6 +255,15 @@ function GameWorldColosseum:onEvent(event_name, t_event, ...)
         else
             self.m_inGameUI:setEnemyHpGauge(percentage)
         end
+
+    elseif (event_name == 'enemy_tamer_skill_gauge') then
+        local cur = t_event['cur']
+        local max = t_event['max']
+
+        local percentage = (cur / max) * 100
+                
+        self.m_inGameUI:setEnemyTamerGauge(percentage)
+        
     end
 end
 

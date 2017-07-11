@@ -214,7 +214,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	-- res attr parsing
     local res = t_status_effect['res']
 	if (res) then 
-		res = string.gsub(res, '@', target_char:getAttribute())
+		res = string.gsub(res, '@', caster:getAttribute())
 	end
 	-- nil 처리
 	if (res == '') then 

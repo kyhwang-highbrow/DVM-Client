@@ -455,7 +455,7 @@ function IconHelper:getStatusEffectIcon(status_effect_type)
 
     if (not sprite) then
         if (res ~= 'x') then
-		    cclog(status_effect_type .. ' 상태 효과는 아이콘이 없음. 추가 해야함')
+		    --cclog(status_effect_type .. ' 상태 효과는 아이콘이 없음. 추가 해야함')
         end
         sprite = cc.Sprite:create('res/ui/icon/alarm_01.png')
     end

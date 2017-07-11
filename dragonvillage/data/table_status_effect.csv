@@ -23,10 +23,13 @@ atk_up_overlab,good,buff,공격력 증가 오버랩,res/effect/effect_combat_up/
 atk_up_overlab5,good,buff,공격력 증가(5회중첩),res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,5,1,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,-1,100,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 def_up_overlab5,good,buff,방어력 증가,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,5,1,-1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,-1,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 darknix,good,buff,파멸의 고동,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,0,1,-1,20,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,20,10,x,x,공격력 {1}% 증가. 치명 확률 {2}% 증가,
+godium_earth_buff,good,buff,공격력/치명확률 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,3,0,15,20,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,20,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
+godium_light_buff,good,buff,공격력/회복량 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,3,0,15,20,0,0,0,0,0,0,0,0,0,0,35,0,0,0,0,0,0,0,,0,,,,,15,20,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 zombie,good,buff,좀비,,,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,-9999,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,x
 immortal,good,buff,불사,,,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,x
 pierce,good,buff,관통,,,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,,0,,,,,x,x,x,x,x,x
-buff_time_increse,good,modify,버프 시간 증가,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,category;good,,,,x,x,x,x,x,x
+buff_time_increase,good,modify,버프 시간 증가,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,category;good,,,,x,x,x,x,x,x
+debuff_time_decrease,good,modify,디버프 시간 감소,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,category;bad,,,,x,x,x,x,x,x
 heal,good,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,atk,,,,x,x,x,x,x,x
 heal2,good,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.3,0,atk,,,,x,x,x,x,x,x
 heal_def,good,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,def,,,,x,x,x,x,x,x
@@ -104,3 +107,4 @@ passive_recovery_dec,bad,debuff,받는 회복량 감소,,,x,false,1,0,15,0,0,0,0
 passive_resistance_effect,good,buff,효과 저항,,,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,,0,,,,,x,x,x,x,,
 tamer_passive_atk_up,good,buff,곤퓨,,,x,false,1,0,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
 tamer_passive_hp_up_abs,good,buff,라이브라,,,x,false,1,0,-1,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,,,,x,x,x,x,x,
+tamer_add_dmg,bad,add_dmg,추가 피해,res/effect/skill_lightning/skill_lightning_@.vrp,,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,,,,x,x,x,x,,

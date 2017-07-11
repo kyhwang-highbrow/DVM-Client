@@ -679,7 +679,7 @@ function Dragon:updateBasicSkillTimer(dt)
     PARENT.updateBasicSkillTimer(self, dt)
 
     if (self.m_lSkillIndivisualInfo['indie_time']) then
-        -- 기획적으로 드래곤에 basic_time스킬은 1개만을 사용하도록 한다.
+        -- 기획적으로 indie_time스킬은 1개만을 사용하도록 한다.
         local skill_info = table.getFirst(self.m_lSkillIndivisualInfo['indie_time'])
 
         -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.

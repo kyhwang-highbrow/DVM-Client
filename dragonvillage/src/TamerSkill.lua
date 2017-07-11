@@ -3,8 +3,7 @@ local PARENT = Character
 local TAMER_SKILL_ACTIVE = 1
 local TAMER_SKILL_EVENT = 2
 local TAMER_SKILL_PASSIVE = 3
-
-local MAX_TAMER_SKILL = 3
+local TAMER_SKILL_PVP = 4
 
 -------------------------------------
 -- function initSkill
@@ -12,12 +11,17 @@ local MAX_TAMER_SKILL = 3
 function Tamer:initSkill()
     local t_tamer = self.m_charTable
 	local table_tamer_skill = TableTamerSkill()
-	local t_tamer_data = g_tamerData:getTamerServerInfo(t_tamer['tid'])
-    
+	local t_tamer_data = clone(g_tamerData:getTamerServerInfo(t_tamer['tid']))
+
+    -- 아군 테이머의 경우 4번째 스킬을 사용하지 못하도록 처리
+    if (self.m_bLeftFormation) then
+        t_tamer_data['skill_lv4'] = 0
+    end
+
 	self:setDragonSkillLevelList(0, t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'], t_tamer_data['skill_lv4'])
 	self:initDragonSkillManager('tamer', t_tamer['tid'])
 
-	for i = 1, MAX_TAMER_SKILL do
+	for i = 1, 4 do
 		local skill_id = t_tamer['skill_' .. i]
 		local skill_info = self:getSkillInfoByID(skill_id)
 		if (skill_info) then
@@ -202,7 +206,7 @@ function Tamer:doSkill(skill_idx)
 
 	-- [PASSIVE]
 	else
-		PARENT.doSkillBySkillTable(self, t_skill)
+        PARENT.doSkillBySkillTable(self, t_skill)
 
 	end
 
@@ -228,6 +232,13 @@ end
 -------------------------------------
 function Tamer:doSkillPassive()
     return self:doSkill(TAMER_SKILL_PASSIVE)
+end
+
+-------------------------------------
+-- function doSkillColosseum
+-------------------------------------
+function Tamer:doSkillColosseum()
+    return self:doSkill(TAMER_SKILL_PVP)
 end
 
 -------------------------------------

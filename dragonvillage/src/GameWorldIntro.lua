@@ -23,6 +23,15 @@ function GameWorldIntro:init(game_mode, stage_id, world_node, game_node1, game_n
 end
 
 -------------------------------------
+-- function initGame
+-------------------------------------
+function GameWorldIntro:initGame(stage_name)
+    PARENT.initGame(stage_name)
+
+    --self.m_dropItemMgr = DropItemMgr_Intro(self)
+end
+
+-------------------------------------
 -- function initTamer
 -------------------------------------
 function GameWorldIntro:initTamer()

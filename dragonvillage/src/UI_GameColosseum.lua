@@ -3,7 +3,9 @@ local PARENT = UI_Game
 -------------------------------------
 -- class UI_GameColosseum
 -------------------------------------
-UI_GameColosseum = class(PARENT, {})
+UI_GameColosseum = class(PARENT, {
+    m_orgEnemyTamerGaugeScaleX = 'number'
+})
 
 -------------------------------------
 -- function getUIFileName
@@ -17,6 +19,8 @@ end
 -------------------------------------
 function UI_GameColosseum:initUI()
     local vars = self.vars
+
+    self.m_orgEnemyTamerGaugeScaleX = vars['tamerGauge']:getScaleX()
 
     -- 2배속
     do
@@ -69,6 +73,19 @@ function UI_GameColosseum:initButton()
 end
 
 -------------------------------------
+-- function initTamerUI
+-------------------------------------
+function UI_GameColosseum:initTamerUI(t_tamer)
+    local res_icon = string.format('res/ui/icons/tamer/tamer_manage_%s_0101.png', t_tamer['type'])
+    local sprite = cc.Sprite:create(res_icon)
+
+    sprite:setDockPoint(cc.p(0.5, 0.5))
+    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    
+    self.vars['tamerNode']:addChild(sprite)
+end
+
+-------------------------------------
 -- function setHeroHpGauge
 -------------------------------------
 function UI_GameColosseum:setHeroHpGauge(percentage)
@@ -80,6 +97,15 @@ end
 -------------------------------------
 function UI_GameColosseum:setEnemyHpGauge(percentage)
     self.vars['hpGauge2']:runAction(cc.ProgressTo:create(0.2, percentage)) 
+end
+
+-------------------------------------
+-- function setEnemyTamerGauge
+-------------------------------------
+function UI_GameColosseum:setEnemyTamerGauge(percentage)
+    local scaleX = percentage * self.m_orgEnemyTamerGaugeScaleX / 100
+
+    self.vars['tamerGauge']:setScaleX(scaleX)
 end
 
 -------------------------------------
