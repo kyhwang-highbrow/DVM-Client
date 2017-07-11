@@ -19,6 +19,8 @@ UI_BookDetailPopup = class(PARENT,{
 		
 		m_pressTimer = 'timer',
 		m_pressBtn = 'UIC_Button',
+
+        m_dragonAnimator = 'UIC_DragonAnimator',
     })
 
 -------------------------------------
@@ -53,6 +55,8 @@ end
 -- function initUI
 -------------------------------------
 function UI_BookDetailPopup:initUI()
+    self.m_dragonAnimator = UIC_DragonAnimator()
+    self.vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
 end
 
 -------------------------------------
@@ -220,12 +224,8 @@ function UI_BookDetailPopup:onChangeEvolution()
     local t_dragon_data = self:makeDragonData()
 	local evolution = self.m_evolution
 
-    do -- 드래곤 인게임 리소스
-        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-        vars['dragonNode']:removeAllChildren()
-        vars['dragonNode']:addChild(animator.m_node)
+    do -- 드래곤 리소스
+        self.m_dragonAnimator:setDragonAnimator(t_dragon_data['did'], evolution)
     end
 
 	-- 스킬 아이콘 생성
