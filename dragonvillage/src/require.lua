@@ -804,6 +804,12 @@ local t_module = {
     'UI_DragonDevApiPopup',
     'UI_InvenDevApiPopup',
 
+    -- Tutorial
+    'TutorialHelper',
+    'Tutorial_Lobby',
+    'Tutorial_DragonManageInfo',
+    'Tutorial_DragonEvolution',
+
     -- Network
     'Network',
     'socket',

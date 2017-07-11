@@ -2427,6 +2427,18 @@
     <None Include="..\src\UI_ScenarioPlayer_util.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\Tutorial_Lobby.lua">
+      <Filter>lua\tutorial</Filter>
+    </None>
+    <None Include="..\src\Tutorial_DragonEvolution.lua">
+      <Filter>lua\tutorial</Filter>
+    </None>
+    <None Include="..\src\Tutorial_DragonManageInfo.lua">
+      <Filter>lua\tutorial</Filter>
+    </None>
+    <None Include="..\src\TutorialHelper.lua">
+      <Filter>lua\tutorial</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -2482,6 +2494,9 @@
     </Filter>
     <Filter Include="lua\pl">
       <UniqueIdentifier>{585171ef-5494-47d1-9209-a2e697d5d968}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\tutorial">
+      <UniqueIdentifier>{5ffa4b3a-7f75-47ff-9516-b54b6682f49e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

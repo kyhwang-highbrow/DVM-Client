@@ -225,6 +225,9 @@ end
 -- function 가제
 -------------------------------------
 function UIManager:tutorial()
+    -- 초기화
+    self:releaseTutorial()
+
     -- 하위 UI가 클릭되지 않도록 레이어 생성
 	local block_layer = cc.Layer:create()
 	local function onTouch(touch, event)
@@ -275,34 +278,21 @@ end
 -------------------------------------
 -- function 가제
 -------------------------------------
-function UIManager:attachToTutorialNode(button)
-	local node = button.m_node
+function UIManager:attachToTutorialNode(uic_node)
+	local node = uic_node.m_node
 
-	local transform = node:getNodeToWorldTransform();
-	local world_x = transform[12 + 1]
-	local world_y = transform[13 + 1]
-	--local node_space = convertToNodeSpace(self.m_tutorialNode, cc.p(world_x, world_y), node:getDockPoint())
-
-    --local world_pos = convertToWorldSpace(node)
+    -- tutorialNode에 맞는 좌표 계산
+    local world_pos = TutorialHelper:convertToWorldSpace(self.m_tutorialNode, node)
 
     -- 돌아갈 정보 저장
-    local parent = button.m_node:getParent()
+    local parent = node:getParent()
     local pos = {node:getPosition()}
     table.insert(self.m_lTutorialBtnInfoList, {parent = parent, node = node, pos = pos})
 
     -- tutorialNode에 붙여버린다.
-	node:retain()
-	node:removeFromParent()
-	self.m_tutorialNode:addChild(node, 2)
-	node:release()
+    UIHelper:reattachNode(self.m_tutorialNode, node, 2)
 
-    cclog('###########################')
-    ccdump({world_x = world_x, world_y = world_y})
-    ccdump(pos)
-    ccdump(node_space)
-    ccdump(world_pos)
-    cclog('---------------------------')
-    button:setPosition(world_x, world_y)
+    uic_node:setPosition(world_pos['x'], world_pos['y'])
 end
 
 -------------------------------------

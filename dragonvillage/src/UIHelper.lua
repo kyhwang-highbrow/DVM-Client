@@ -81,3 +81,14 @@ end
 function UIHelper:getCardPosX(total_cnt, idx)
 	return -(150/2 * (total_cnt - 1)) + (150 * (idx - 1))
 end
+
+-------------------------------------
+-- function reattachNode
+-- @brief 노드를 떼어서 새로운 부모에게 붙인다.
+-------------------------------------
+function UIHelper:reattachNode(new_parent, node, z_order)
+	node:retain()
+	node:removeFromParent(false)
+	new_parent:addChild(node, z_order)
+	node:release()
+end

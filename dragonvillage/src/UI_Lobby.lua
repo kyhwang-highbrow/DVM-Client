@@ -77,12 +77,6 @@ function UI_Lobby:init()
 
     -- 로비 진입 시
     self:entryCoroutine()
-	--[[
-	UIManager:tutorial()
-	UIManager:attachToTutorialNode(vars['adventureBtn'])
-	UIManager:attachToTutorialNode(vars['inventoryBtn'])
-	UIManager:attachToTutorialNode(vars['mailBtn'])
-	]]
 end
 
 -------------------------------------
