@@ -1,5 +1,5 @@
 type,pos_01,pos_02,pos_03,pos_04,pos_05,pos_06,pos_07,pos_08,pos_09,pos_10,pos_11,pos_12,pos_13,pos_14,pos_15,pos_16,pos_17,pos_18,pos_19,pos_20,pos_21,comment
-design,RF12,RF14,RF16,RM12,RM14,RM16,RB12,RB14,RB16,,,,,,,,,,,,,
+design,RM25,RB17,RB25,,,,,,,,,,,,,,,,,,,
 wait,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,지정 시간동안 대기용으로 사용
 RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,
 RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,
@@ -284,6 +284,36 @@ movement_2,RF13,RB25,RM11,RM27,RM21,RM17,RB23,RF15,x,x,x,x,x,x,x,x,x,x,x,x,x,
 triangle_turn_1,RM25,RB13,RB25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 triangle_turn_2,RB13,RB25,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 triangle_turn_3,RB25,RM25,RB13,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+top_line,RF11,RF21,RM11,RM21,RB11,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,상단 1열 정렬
+top_line_r,RB21,RB11,RM21,RM11,RF21,RF11,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,상단 1열 정렬_리버스
+bottom_line,RF17,RF27,RM17,RM27,RB17,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,하단 1열 정렬
+bottom_line_r,RB27,RB17,RM27,RM17,RF27,RF17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,하단 1열 정렬_리버스
+w_center_line,RF14,RF24,RM14,RM24,RB14,RB24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,가로중앙 1열 정렬
+w_extend,RF11,RF27,RM11,RM27,RB11,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,가로상하 산개 정렬
+w_extend_r,RF17,RF21,RM17,RM21,RB17,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,가로상하 산개 정렬_리버스
+h_center_line,RM21,RM22,RM23,RM24,RM25,RM26,RM27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,세로중앙 1열 정렬
+h_extend,RF21,RF23,RF25,RF27,RB22,RB24,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+h_extend_1,RF21,RF23,RF25,RF27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,세로좌우 산개 정렬1
+h_extend_2,RB22,RB24,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,세로좌우 산개 정렬2
+h_extend_r,RF26,RF24,RF22,RB27,RB25,RB23,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+h_extend_r1,RB21,RB23,RB25,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,세로좌우 산개 정렬_리버스
+h_extend_r2,RF22,RF24,RF26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+left_line,RF21,RF22,RF23,RF24,RF25,RF26,RF27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,왼쪽 1열 정렬
+left_line_r,RF27,RF26,RF25,RF24,RF23,RF22,RF21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,왼쪽 1열 정렬_리버스
+right_line,RB21,RB22,RB23,RB24,RB25,RB26,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,오른쪽 1열 정렬
+right_line_r,RB27,RB26,RB25,RB24,RB23,RB22,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,오른쪽 1열 정렬_리버스
+triangle_ft_1,RF13,RF21,RM13,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_ft_2,RF21,RM13,RF13,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_ft_3,RM13,RF13,RF21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bt_1,RM23,RB23,RB11,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bt_2,RB11,RM23,RB23,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bt_3,RB23,RB11,RM23,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bb_1,RB17,RM25,RB25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bb_2,RM25,RB25,RB17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_bb_3,RB25,RB17,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_fb_1,RF27,RM15,RF15,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_fb_2,RF15,RF27,RM15,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+triangle_fb_3,RM15,RF15,RF27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 relation_1_0,RF14,RF22,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
 relation_1_1,RM11,RM13,RM15,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
 relation_1_2,RF23,RF25,RM23,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,인연던전 전용
