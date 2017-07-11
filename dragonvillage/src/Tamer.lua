@@ -498,6 +498,7 @@ function Tamer:makeAttackDamageInstance()
 
     -- 세부 능력치 지정
 	--activity_carrier:setStatuses(self.m_statusCalc)
+    activity_carrier:setIgnoreDef(true)
 
     return activity_carrier
 end
