@@ -148,7 +148,7 @@ function UI_MasterRoadPopup:makeRoadTableView()
             local rid = g_masterRoadData:getDisplayRoad()
             local curr_idx = g_masterRoadData:getRoadIdx(rid)
             local t_cell = self.m_tableView:getItem(curr_idx)
-            self:selectCell(nil, t_cell['data'])
+            self:selectCell(nil, t_cell['data'], true)
         end
     end
 end
@@ -221,7 +221,7 @@ end
 -- function selectCell
 -- @brief 테이블 셀 선택 콜백
 -------------------------------------
-function UI_MasterRoadPopup:selectCell(ui, t_data)
+function UI_MasterRoadPopup:selectCell(ui, t_data, is_first)
 	-- 해당 정보로 UI 갱신
 	self:refresh(t_data)
 	
@@ -239,7 +239,7 @@ function UI_MasterRoadPopup:selectCell(ui, t_data)
 
     -- 셀 중앙 이동
     local road_idx = g_masterRoadData:getRoadIdx(t_data['rid'])
-    self.m_tableView:relocateContainerFromIndex(road_idx, true)
+    self.m_tableView:relocateContainerFromIndex(road_idx, (not is_first))
 end
 
 
