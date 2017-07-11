@@ -99,15 +99,6 @@ function GameWorld:mission_fail()
 end
 
 -------------------------------------
--- function wave_clear
--- @brief 현재 웨이브를 클리어
--------------------------------------
-function GameWorld:mission_fail()
-    self:removeAllEnemy()
-    self.m_waveMgr:clearDynamicWave()
-end
-
--------------------------------------
 -- function init_map
 -- @brief 배경 초기화
 -------------------------------------
