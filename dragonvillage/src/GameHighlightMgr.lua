@@ -8,6 +8,9 @@ GameHighlightMgr = class({
 
         m_darkLayer = '',
         m_darkLevel = 'number',     -- 어둡기 정도(0~255)
+
+        m_bForced = 'boolean',
+        m_forcedHighlightList = 'table',
      })
 
 -------------------------------------
@@ -23,6 +26,9 @@ function GameHighlightMgr:init(world, darkLayer)
     self.m_darkLayer = darkLayer
     self.m_darkLayer:setOpacity(self.m_darkLevel)
     self.m_darkLayer:setVisible(true)
+
+    self.m_bForced = false
+    self.m_forcedHighlightList = {}
 end
 
 -------------------------------------
@@ -37,16 +43,14 @@ function GameHighlightMgr:update(dt)
 
     local function Add(list)
         for _, v in pairs(list) do
-            if (not v.m_bDead) then
-                mHighlightList[v] = true
-            end
+            mHighlightList[v] = true
         end
     end
 
     -- 인디케이터 조작 중
     if (not bPass and world.m_skillIndicatorMgr:isControlling()) then
         bPass = true
-        darkLevel = math_max(darkLevel, 200)
+        darkLevel = math_max(darkLevel, g_constant:get('INGAME', 'HIGHLIGHT_LEVEL_FOR_INDICATOR') or 200)
 
         local dragon = world.m_skillIndicatorMgr.m_selectHero
         local enemys = dragon.m_skillIndicator:getTargetForHighlight()
@@ -58,7 +62,7 @@ function GameHighlightMgr:update(dt)
     -- 드래곤 드래그 스킬 연출 중
     if (not bPass and world.m_gameDragonSkill:isPlayingActiveSkill()) then
         bPass = true
-        darkLevel = math_max(darkLevel, 255)
+        darkLevel = math_max(darkLevel, g_constant:get('INGAME', 'HIGHLIGHT_LEVEL_FOR_DRAG_SKILL') or 255)
 
         -- 드래그 스킬일 경우, 맞는 대상을 제외한 적들에게 부분 암전을 건다
         local dragon = world.m_gameDragonSkill:getFocusingDragon()
@@ -67,6 +71,14 @@ function GameHighlightMgr:update(dt)
         
         Add(dragons)
         Add(enemys)
+    end
+
+    -- 강제 설정된 상태
+    if (not bPass and self.m_bForced) then
+        bPass = true
+        darkLevel = math_max(darkLevel, 200)
+
+        Add(self.m_forcedHighlightList)
     end
 
     if (self.m_skipLevel < 2) then
@@ -140,4 +152,20 @@ end
 -------------------------------------
 function GameHighlightMgr:setSkipLevel(skip_level)
     self.m_skipLevel = skip_level
+end
+
+-------------------------------------
+-- function setToForced
+-- @breif 하이라이트를 강제로 설정
+-------------------------------------
+function GameHighlightMgr:setToForced(b)
+    self.m_bForced = b
+    self.m_forcedHighlightList = {}
+end
+
+-------------------------------------
+-- function addForcedHighLightList
+-------------------------------------
+function GameHighlightMgr:addForcedHighLightList(entity)
+    table.insert(self.m_forcedHighlightList, entity)
 end
