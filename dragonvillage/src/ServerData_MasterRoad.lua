@@ -258,6 +258,9 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
         return false
     end
 
+    -- 에러만 나지 않도록 임시 처리 2017-07-11 sgkim (@mskim 다시 살펴봐요)
+    local t_data = t_data or {}
+
     -- stage clear
     if (clear_type == 'clr_stg') then
         local stage_id = t_data['stage_id']
