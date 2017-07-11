@@ -182,7 +182,12 @@ end
 -------------------------------------
 function StructProduct:makeProductIcon()
     if self['icon'] and (self['icon'] ~= '') then
-        return IconHelper:getIcon(self['icon'])
+        local icon = IconHelper:getIcon(self['icon'])
+        if (icon) then
+            return icon
+        else
+            error(self['icon'] .. ' 없음')
+        end
     end
 
     local l_item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
@@ -199,6 +204,21 @@ function StructProduct:makeProductIcon()
     local table_item = TableItem()
     local item_id = first_item['item_id']
     return IconHelper:getItemIcon(item_id)
+end
+
+-------------------------------------
+-- function makeProductIcon
+-------------------------------------
+function StructProduct:makePackageSprite()
+    local package_res = self['banner_res']
+    if package_res and (package_res ~= '') then
+        local icon = IconHelper:getIcon(package_res)
+        if (icon) then
+            return icon
+        else
+            error(package_res .. ' 없음')
+        end
+    end
 end
 
 -------------------------------------

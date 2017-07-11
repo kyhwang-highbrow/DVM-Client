@@ -35,7 +35,7 @@ function UI_Package:initUI()
 	local struct_product = self.m_structProduct
 
 	-- 패키지 구성은 어떻게 할지 안정해져 임시로 아이콘 넣음
-    local icon = struct_product:makeProductIcon()
+    local icon = struct_product:makePackageSprite()
     vars['packageNode']:addChild(icon)
 
 	-- 가격

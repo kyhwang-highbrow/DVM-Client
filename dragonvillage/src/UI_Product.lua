@@ -34,7 +34,9 @@ function UI_Product:initUI()
 
 	-- 상품 아이콘
     local icon = struct_product:makeProductIcon()
-    vars['itemNode']:addChild(icon)
+    if (icon) then
+        vars['itemNode']:addChild(icon)
+    end
 
 	-- 가격
 	local price = struct_product:getPriceStr()

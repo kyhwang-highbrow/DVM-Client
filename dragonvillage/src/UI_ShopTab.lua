@@ -44,21 +44,13 @@ end
 -------------------------------------
 function UI_ShopTab:init_TableView()
     local list_table_node = self.m_ownerUI.vars['tableViewNode']
-    --list_table_node:removeAllChildren()
-
-    -- 리스트 아이템 생성 콜백
-    local function create_func(ui, data)
-        --ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data['did']) end)
-    end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    --table_view_td.m_defaultCellSize = cc.size(350 + 10, 470)
-    table_view_td.m_cellSize = cc.size(250 + 15, 280 + 15)
+    table_view_td.m_cellSize = cc.size(300 + 15, 280 + 15)
     table_view_td:setCellUIClass(UI_Product)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    --table_view_td.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
-
+ 
     -- 리스트가 비었을 때
     table_view_td:makeDefaultEmptyDescLabel('')
 
