@@ -134,22 +134,23 @@ function getsetGenerator(klass, class_name)
 	end
 
 	-- 대상 변수가 없다면 탈출
-	if (table.count(l_gen_var) == 0) then
+	if (#l_gen_var == 0) then
 		return
 	end
 
 	local func_loader = pl.utils.load
-	local templete = 
-	[[
-		function klass:get_var() return self.var end
-		function klass:set_var(v) self.var = v end
-	]]
 
 	-- 대상 멤버 변수 함수 생성
 	local code, func
 	for _, var in pairs(l_gen_var) do
 		-- getter, setter 생성
-		code = clone(templete)
+        local templete = 
+	    [[
+		    function klass:get_var() return self.var end
+		    function klass:set_var(v) self.var = v end
+	    ]]
+
+		code = templete
 		code = string.gsub(code, 'klass', class_name)
 		code = string.gsub(code, 'var', var)
 
