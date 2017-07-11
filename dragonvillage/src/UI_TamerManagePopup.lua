@@ -321,7 +321,7 @@ function UI_TamerManagePopup:click_selectBtn()
 
 		-- 테이머 선택 확인 노티
 		local t_tamer = new_tamer_item:getTamerTable()
-		local tamer_str = Str('[{1}]이/가 선택되었습니다.', t_tamer['t_name'])
+		local tamer_str = Str('[{1}](이)가 선택되었습니다.', t_tamer['t_name'])
 		--UIManager:toastNotificationGreen(tamer_str)
 		UI_ToastPopup(tamer_str)
 
@@ -347,7 +347,7 @@ function UI_TamerManagePopup:click_obtainBtn()
 
 		-- 테이머 선택 확인 노티
 		local t_tamer = new_tamer_item:getTamerTable()
-		local tamer_str = Str('[{1}]을/를 획득하였습니다.', t_tamer['t_name'])
+		local tamer_str = Str('[{1}](을)를 획득하였습니다.', t_tamer['t_name'])
 		UI_ToastPopup(tamer_str)
 
 		-- ui 갱신

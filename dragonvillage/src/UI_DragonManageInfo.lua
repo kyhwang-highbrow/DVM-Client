@@ -658,7 +658,7 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 
 	-- 정말 작별 하는지 되물음
 	really_warning_popup = function()
-		local goodbye_str = Str('드래곤과 작별하고 다른 드래곤의 인연 포인트를 획득합니다. 정말로 {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하시겠습니까?', name)
+		local goodbye_str = Str('드래곤과 작별하고 다른 드래곤의 인연 포인트를 획득합니다. 정말로 {@DEEPSKYBLUE}{1}{@DESC}(와)과 작별하시겠습니까?', name)
 		MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, rarity_warning_popup)
 	end
 
@@ -666,7 +666,7 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 	rarity_warning_popup = function()
 		-- 영웅 이상
 		if (birth_grade >= 4) then
-			local goodbye_str_2 = Str(' {@DEEPSKYBLUE}{1}{@DESC}은/는 매우 희귀한 드래곤으로, 작별하게 되면 다시 복구할 수 없습니다. 그래도 {@DEEPSKYBLUE}{1}{@DESC}와/과 작별하시겠습니까?', name)
+			local goodbye_str_2 = Str(' {@DEEPSKYBLUE}{1}{@DESC}(은)는 매우 희귀한 드래곤으로, 작별하게 되면 다시 복구할 수 없습니다. 그래도 {@DEEPSKYBLUE}{1}{@DESC}(와)과 작별하시겠습니까?', name)
 			MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str_2, network_func)
 		else
 			network_func()

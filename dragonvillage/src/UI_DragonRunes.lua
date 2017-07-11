@@ -555,7 +555,7 @@ function UI_DragonRunes:click_sellBtn()
     -- 확인 팝업
     local item_name = rune_obj['name']
     local item_price = TableItem():getValue(rune_obj['rid'], 'sale_price')
-    local msg = Str('[{1}]을(를) {2}골드에 판매하시겠습니까?', item_name, comma_value(item_price))
+    local msg = Str('[{1}](을)를 {2}골드에 판매하시겠습니까?', item_name, comma_value(item_price))
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
 end
 

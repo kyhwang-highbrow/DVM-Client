@@ -59,7 +59,7 @@ function UIHelper:makeItemStr(t_item)
 	if (item_cnt) and (item_cnt > 0) then
 		return Str('{@item_name}{1} {@count}{2}{@DESC}개를 획득하였습니다.', item_name, item_cnt)
 	else
-		return Str('{@item_name}{1}{@DESC}을(를) 획득하였습니다.', item_name)
+		return Str('{@item_name}{1}{@DESC}(을)를 획득하였습니다.', item_name)
 	end
 end
 
@@ -70,7 +70,7 @@ function UIHelper:makeGoodbyeStr(t_item, dragon_name)
 	local item_id = t_item['item_id']
 	local rel_name = TableItem:getItemName(item_id)
 	local rel_cnt = t_item['count']
-	return Str(' {@item_name}{1}{@DESC}과(와) 작별하여 {@ROSE}{2}{@DESC}을(를) {@count}{3}{@DESC}개 획득했습니다.', dragon_name, rel_name, rel_cnt)
+	return Str(' {@item_name}{1}{@DESC}과(와) 작별하여 {@ROSE}{2}{@DESC}(을)를 {@count}{3}{@DESC}개 획득했습니다.', dragon_name, rel_name, rel_cnt)
 end
 
 -------------------------------------

@@ -154,7 +154,7 @@ function UI_ExplorationLocationButton:click_clickBtn()
     if (self.m_status == 'exploration_lock') then
         local location = location_info['t_name']
         local open_condition = location_info['open_condition']
-        local message = Str('[{1}]은(는) 테이머레벨 {2}이상이 되어야 입장할 수 있습니다.', Str(location), open_condition)
+        local message = Str('[{1}](은)는 테이머레벨 {2}이상이 되어야 입장할 수 있습니다.', Str(location), open_condition)
         UIManager:toastNotificationRed(message)
 
     elseif (self.m_status == 'exploration_idle') then

@@ -529,7 +529,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         end
 
         if (not node) then
-            error(string.format('"%s"이(가) 없습니다.', res))
+            error(string.format('"%s"(이)가 없습니다.', res))
         end
         setPropsForSprite(node, data)
     elseif type == 'ProgressTimer' then
