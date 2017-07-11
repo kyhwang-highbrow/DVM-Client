@@ -32,7 +32,7 @@ function UI_MailPopup:init()
 		self:initUI()
 		self:initTab()
 		self:initButton()
-		self:refresh()
+		--self:refresh()
 	end 
 	g_mailData:request_mailList(cb_func)
 end
@@ -78,7 +78,11 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_MailPopup:refresh()
+function UI_MailPopup:refresh(tab)
+    local vars = self.vars
+    local tab = tab or self.m_currTab
+
+    vars['emptySprite']:setVisible(self.m_mTableView[tab]:getItemCount() == 0)
 end
 
 -------------------------------------
@@ -91,7 +95,7 @@ function UI_MailPopup:onChangeTab(tab, first)
 		self:makeMailTableView(tab, node)
 	end
 
-    self.vars['emptySprite']:setVisible(self.m_mTableView[tab]:getItemCount() == 0)
+    self:refresh(tab)
 end
 
 -------------------------------------
@@ -116,7 +120,6 @@ function UI_MailPopup:makeMailTableView(tab, node)
     table_view:setCellUIClass(UI_MailListItem, create_cb_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(t_item_list)
-    table_view:makeDefaultEmptyDescLabel(Str('우편물이 없습니다.'))
 
     -- 정렬
     g_mailData:sortMailList(table_view.m_itemList)
@@ -182,6 +185,8 @@ function UI_MailPopup:click_rewardBtn(t_mail_data)
 				UI_ToastPopup(item_str)
 			end
 
+            self:refresh(self.m_currTab)
+
             -- 노티 정보를 갱신하기 위해서 호출
             g_highlightData:setLastUpdateTime()
 		end
@@ -212,6 +217,8 @@ function UI_MailPopup:click_rewardAllBtn()
 			for _, mail_id in pairs(mail_id_list) do
 				self.m_mTableView[self.m_currTab]:delItem(mail_id)
 			end
+            
+            self:refresh(self.m_currTab)
 
             -- 노티 정보를 갱신하기 위해서 호출
             g_highlightData:setLastUpdateTime()
