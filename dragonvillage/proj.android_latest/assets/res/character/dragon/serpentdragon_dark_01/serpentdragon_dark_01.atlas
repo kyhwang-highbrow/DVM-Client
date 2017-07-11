@@ -1,69 +1,90 @@
 
 serpentdragon_dark_01.png
-size: 1024,256
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 serpentdragon_dark_01_body_01
-  rotate: true
-  xy: 2, 2
-  size: 235, 295
-  orig: 235, 295
+  rotate: false
+  xy: 2, 233
+  size: 231, 277
+  orig: 231, 277
   offset: 0, 0
   index: -1
 serpentdragon_dark_01_body_02
   rotate: false
-  xy: 467, 60
-  size: 150, 177
-  orig: 150, 177
+  xy: 2, 55
+  size: 159, 176
+  orig: 159, 176
   offset: 0, 0
   index: -1
 serpentdragon_dark_01_eye_01
-  rotate: true
-  xy: 889, 200
-  size: 37, 42
-  orig: 37, 42
+  rotate: false
+  xy: 163, 133
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_01_eye_02
+  rotate: false
+  xy: 356, 425
+  size: 26, 25
+  orig: 26, 25
   offset: 0, 0
   index: -1
 serpentdragon_dark_01_eye_03
   rotate: false
-  xy: 840, 199
-  size: 47, 38
-  orig: 47, 38
+  xy: 2, 2
+  size: 2, 2
+  orig: 2, 2
   offset: 0, 0
   index: -1
 serpentdragon_dark_01_head_01
   rotate: false
-  xy: 299, 35
-  size: 166, 202
-  orig: 166, 202
+  xy: 235, 397
+  size: 119, 113
+  orig: 119, 113
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_01_head_02
+  rotate: false
+  xy: 310, 364
+  size: 31, 31
+  orig: 31, 31
   offset: 0, 0
   index: -1
 serpentdragon_dark_01_head_03
   rotate: false
-  xy: 713, 180
-  size: 68, 57
-  orig: 68, 57
-  offset: 0, 0
-  index: -1
-serpentdragon_dark_01_head_05
-  rotate: false
-  xy: 783, 183
-  size: 55, 54
-  orig: 55, 54
+  xy: 2, 6
+  size: 59, 47
+  orig: 59, 47
   offset: 0, 0
   index: -1
 serpentdragon_dark_01_head_06
   rotate: false
-  xy: 619, 87
+  xy: 356, 452
   size: 68, 58
   orig: 68, 58
   offset: 0, 0
   index: -1
+serpentdragon_dark_01_tail_01
+  rotate: false
+  xy: 235, 282
+  size: 49, 38
+  orig: 49, 38
+  offset: 0, 0
+  index: -1
 serpentdragon_dark_01_wing_01
   rotate: false
-  xy: 619, 147
-  size: 92, 90
-  orig: 92, 90
+  xy: 235, 322
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_01_wing_02
+  rotate: false
+  xy: 163, 160
+  size: 63, 71
+  orig: 63, 71
   offset: 0, 0
   index: -1

@@ -6,119 +6,154 @@
         <dict>
             <key>skill_electricattack_effect_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,2},{232,234}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{3,2}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{37,31},{232,234}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{234,236}</string>
+                <key>spriteSourceSize</key>
                 <string>{300,300}</string>
+                <key>textureRect</key>
+                <string>{{2,2},{234,236}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>skill_electricattack_effect_05.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{190,460},{124,128}}</string>
-                <key>offset</key>
-                <string>{-2,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{124,128}}</string>
-                <key>sourceSize</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{126,128}</string>
+                <key>spriteSourceSize</key>
                 <string>{128,128}</string>
+                <key>textureRect</key>
+                <string>{{190,466},{126,128}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>skill_electricattack_light_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{464,152},{46,92}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-1,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{11,36},{46,92}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{48,94}</string>
+                <key>spriteSourceSize</key>
                 <string>{70,164}</string>
+                <key>textureRect</key>
+                <string>{{456,306},{48,94}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>skill_electricattack_light_01_02.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,380},{590,186}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{590,186}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{590,186}</string>
+                <key>spriteSourceSize</key>
+                <string>{590,186}</string>
+                <key>textureRect</key>
+                <string>{{2,384},{590,186}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>skill_electricattack_light_effect_01_1.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{238,152},{224,148}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{10,-43}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{98,169},{224,148}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{226,150}</string>
+                <key>spriteSourceSize</key>
                 <string>{400,400}</string>
+                <key>textureRect</key>
+                <string>{{240,154},{226,150}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>skill_electricattack_light_effect_01_2.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{238,2},{228,148}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{7,-43}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{93,169},{228,148}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{230,150}</string>
+                <key>spriteSourceSize</key>
                 <string>{400,400}</string>
+                <key>textureRect</key>
+                <string>{{240,2},{230,150}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>skill_electricattack_light_effect_01_3.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,236},{224,142}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{4,-41}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{92,170},{224,142}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{226,144}</string>
+                <key>spriteSourceSize</key>
                 <string>{400,400}</string>
+                <key>textureRect</key>
+                <string>{{2,238},{226,144}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>skill_electricattack_light_effect_01_4.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{228,302},{222,156}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{10,-32}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{99,154},{222,156}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{224,158}</string>
+                <key>spriteSourceSize</key>
                 <string>{400,400}</string>
+                <key>textureRect</key>
+                <string>{{230,306},{224,158}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>skill_electricattack_res_01.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,100}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,100}</string>
+                <key>textureRect</key>
+                <string>{{320,466},{100,100}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>2</integer>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
             <key>realTextureFileName</key>
             <string>skill_electricattack.png</string>
             <key>size</key>
             <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:21f4a34a0442a86102047128b6baeca9$</string>
+            <string>$TexturePacker:SmartUpdate:078e56b1492873666d2755d827f72ff2:6e0a8fc57b8e8f2447df2699007fe17f:fe7c4a6267852dc1686ff9657191b089$</string>
             <key>textureFileName</key>
             <string>skill_electricattack.png</string>
         </dict>

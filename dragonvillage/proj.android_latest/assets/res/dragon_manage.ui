@@ -44,7 +44,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
-				text = '연구';
+				text = '판매';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 240; 215; 159; };
@@ -79,7 +79,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'resechBtn';
+			lua_name = 'sellBtn';
 			enable = true;
 			normal = 'ui/btn/a_btn_0201.png';
 			selected = 'ui/btn/a_btn_0202.png';
@@ -87,6 +87,70 @@
 			image_type = 1;
 		};
 		[3] =
+		{
+			[1] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 80;
+				scale_x = 0.980000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 28;
+				text = '스킬';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 240; 215; 159; };
+				opacity = 255;
+				dimension_width = 100;
+				dimension_height = 80;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 85; 44; 25; };
+				has_shadow = true;
+				shadow_color = { 85; 44; 25; };
+				shadow_opacity = 180;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = 580.000000;
+			y = -99.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 104;
+			height = 76;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'skillEnhanceBtn';
+			enable = true;
+			normal = 'ui/btn/a_btn_0201.png';
+			selected = 'ui/btn/a_btn_0202.png';
+			disable = 'ui/btn/a_btn_0202.png';
+			image_type = 1;
+		};
+		[4] =
 		{
 			[1] =
 			{
@@ -131,7 +195,7 @@
 			type = 'Button';
 			ui_name = '';
 			x = 580.000000;
-			y = -99.000000;
+			y = -15.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -150,7 +214,7 @@
 			disable = 'ui/btn/a_btn_0202.png';
 			image_type = 1;
 		};
-		[4] =
+		[5] =
 		{
 			[1] =
 			{
@@ -221,7 +285,7 @@
 			type = 'Button';
 			ui_name = '';
 			x = 580.000000;
-			y = -15.000000;
+			y = 69.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -240,7 +304,7 @@
 			disable = 'ui/btn/a_btn_0202.png';
 			image_type = 1;
 		};
-		[5] =
+		[6] =
 		{
 			[1] =
 			{
@@ -311,96 +375,6 @@
 			type = 'Button';
 			ui_name = '';
 			x = 580.000000;
-			y = 69.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 104;
-			height = 76;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = 'evolutionBtn';
-			enable = true;
-			normal = 'ui/btn/a_btn_0201.png';
-			selected = 'ui/btn/a_btn_0202.png';
-			disable = 'ui/btn/a_btn_0202.png';
-			image_type = 1;
-		};
-		[6] =
-		{
-			[1] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 80;
-				scale_x = 0.980000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
-				text = '초월';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 240; 215; 159; };
-				opacity = 255;
-				dimension_width = 100;
-				dimension_height = 80;
-				letter_spacing = 0.000000;
-				has_stroke = true;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 85; 44; 25; };
-				has_shadow = true;
-				shadow_color = { 85; 44; 25; };
-				shadow_opacity = 180;
-				shadow_direction = 0;
-				shadow_distance = 3.000000;
-			};
-			[2] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 1.000000; 1.000000; };
-				relative_size_type = 0;
-				width = 26;
-				height = 26;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'transcendNotiSprite';
-				file_name = 'ui/btn/notification.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			type = 'Button';
-			ui_name = '';
-			x = 580.000000;
 			y = 153.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
@@ -413,7 +387,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'transcendBtn';
+			lua_name = 'evolutionBtn';
 			enable = true;
 			normal = 'ui/btn/a_btn_0201.png';
 			selected = 'ui/btn/a_btn_0202.png';
@@ -528,6 +502,32 @@
 			{
 				[1] =
 				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 80;
+					height = 80;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'leaderSprite';
+					file_name = 'ui/btn/leader_03.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
@@ -592,71 +592,31 @@
 			{
 				[1] =
 				{
-					type = 'LabelTTF';
+					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = -37.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 100;
-					height = 50;
-					scale_x = 0.980000;
+					width = 80;
+					height = 80;
+					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '대표설정';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 240; 215; 159; };
+					visible = false;
+					lua_name = 'lockSprite';
+					file_name = 'ui/btn/lock_0103.png';
+					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 100;
-					dimension_height = 50;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
-					has_shadow = true;
-					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 180;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
 				};
-				type = 'Sprite';
-				ui_name = '';
-				x = 56.000004;
-				y = -212.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 80;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'leaderSprite';
-				file_name = 'ui/btn/leader_03.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[4] =
-			{
-				[1] =
+				[2] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -718,73 +678,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[5] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = -37.000008;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 100;
-					height = 50;
-					scale_x = 0.980000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '잠금';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 240; 215; 159; };
-					opacity = 255;
-					dimension_width = 100;
-					dimension_height = 50;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
-					has_shadow = true;
-					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 180;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Sprite';
-				ui_name = '';
-				x = 139.000000;
-				y = -212.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 80;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'lockSprite';
-				file_name = 'ui/btn/lock_0103.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[6] =
+			[4] =
 			{
 				[1] =
 				{
@@ -806,7 +700,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '라테아 획득';
+					text = '작별';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
@@ -841,14 +735,14 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'sellBtn';
+				lua_name = 'goodbyeBtn';
 				enable = true;
 				normal = 'ui/btn/lactea_01.png';
 				selected = 'ui/btn/lactea_02.png';
 				disable = '';
 				image_type = 0;
 			};
-			[7] =
+			[5] =
 			{
 				[1] =
 				{
@@ -912,7 +806,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[8] =
+			[6] =
 			{
 				[1] =
 				{
@@ -981,7 +875,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[9] =
+			[7] =
 			{
 				[1] =
 				{
@@ -1050,7 +944,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[10] =
+			[8] =
 			{
 				[1] =
 				{
@@ -1119,7 +1013,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[11] =
+			[9] =
 			{
 				[1] =
 				{
@@ -1188,7 +1082,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[12] =
+			[10] =
 			{
 				[1] =
 				{
@@ -1257,7 +1151,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[13] =
+			[11] =
 			{
 				[1] =
 				{
@@ -1326,7 +1220,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[14] =
+			[12] =
 			{
 				[1] =
 				{
@@ -1411,7 +1305,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[15] =
+			[13] =
 			{
 				[1] =
 				{

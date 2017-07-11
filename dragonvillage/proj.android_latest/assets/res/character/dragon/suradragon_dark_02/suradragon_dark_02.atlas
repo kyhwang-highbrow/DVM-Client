@@ -6,14 +6,14 @@ filter: Linear,Linear
 repeat: none
 suradragon_dark_02_arm_01
   rotate: false
-  xy: 1356, 21
+  xy: 1380, 21
   size: 64, 115
   orig: 64, 115
   offset: 0, 0
   index: -1
 suradragon_dark_02_arm_02
   rotate: false
-  xy: 1731, 153
+  xy: 1755, 153
   size: 102, 101
   orig: 102, 101
   offset: 0, 0
@@ -41,28 +41,28 @@ suradragon_dark_02_effect_01
   index: -1
 suradragon_dark_02_elbow_01
   rotate: false
-  xy: 1835, 202
+  xy: 1859, 202
   size: 120, 52
   orig: 120, 52
   offset: 0, 0
   index: -1
 suradragon_dark_02_elbow_02
   rotate: false
-  xy: 1957, 199
+  xy: 1981, 199
   size: 58, 55
   orig: 58, 55
   offset: 0, 0
   index: -1
 suradragon_dark_02_eye_01
   rotate: false
-  xy: 1356, 2
+  xy: 1380, 2
   size: 37, 17
   orig: 37, 17
   offset: 0, 0
   index: -1
 suradragon_dark_02_eye_02
   rotate: true
-  xy: 1395, 2
+  xy: 1419, 2
   size: 17, 12
   orig: 17, 12
   offset: 0, 0
@@ -83,14 +83,14 @@ suradragon_dark_02_eye_04
   index: -1
 suradragon_dark_02_foot_armor_01
   rotate: true
-  xy: 1835, 157
+  xy: 1859, 157
   size: 43, 49
   orig: 43, 49
   offset: 0, 0
   index: -1
 suradragon_dark_02_foot_armor_02
   rotate: false
-  xy: 1886, 163
+  xy: 1910, 163
   size: 32, 37
   orig: 32, 37
   offset: 0, 0
@@ -104,14 +104,14 @@ suradragon_dark_02_hand_01
   index: -1
 suradragon_dark_02_hand_02
   rotate: false
-  xy: 1472, 62
+  xy: 1496, 62
   size: 32, 74
   orig: 32, 74
   offset: 0, 0
   index: -1
 suradragon_dark_02_hand_acc_01
   rotate: false
-  xy: 1422, 45
+  xy: 1446, 45
   size: 48, 91
   orig: 48, 91
   offset: 0, 0
@@ -125,7 +125,7 @@ suradragon_dark_02_hand_acc_02
   index: -1
 suradragon_dark_02_head_01
   rotate: true
-  xy: 1277, 2
+  xy: 1301, 2
   size: 134, 77
   orig: 134, 77
   offset: 0, 0
@@ -133,20 +133,20 @@ suradragon_dark_02_head_01
 suradragon_dark_02_head_armor_01
   rotate: false
   xy: 1084, 75
-  size: 191, 179
-  orig: 191, 179
+  size: 215, 179
+  orig: 215, 179
   offset: 0, 0
   index: -1
 suradragon_dark_02_leg_01
   rotate: true
-  xy: 1277, 138
+  xy: 1301, 138
   size: 116, 247
   orig: 116, 247
   offset: 0, 0
   index: -1
 suradragon_dark_02_leg_02
   rotate: true
-  xy: 1526, 122
+  xy: 1550, 122
   size: 132, 203
   orig: 132, 203
   offset: 0, 0

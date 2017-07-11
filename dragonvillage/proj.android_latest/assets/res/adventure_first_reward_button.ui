@@ -9,13 +9,13 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
+				x = -1.000000;
+				y = -1.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 74;
-				height = 84;
+				width = 86;
+				height = 92;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/adventure_reward_bg.png';
+				file_name = 'ui/frames/adventure_map_reward_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -36,7 +36,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 5.000000;
+				y = 3.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

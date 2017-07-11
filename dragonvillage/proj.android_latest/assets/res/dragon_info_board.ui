@@ -781,7 +781,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 120.000000;
+					x = 148.000000;
 					y = -138.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -800,7 +800,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 40.000000;
+					x = 74.000000;
 					y = -138.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -819,7 +819,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -39.000000;
+					x = 0.000000;
 					y = -138.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -838,7 +838,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -119.000000;
+					x = -74.000000;
 					y = -138.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -854,6 +854,25 @@
 					lua_name = 'skillNode0';
 				};
 				[11] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = -148.000000;
+					y = -138.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 0.700000;
+					scale_y = 0.700000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'skillNodeLeader';
+				};
+				[12] =
 				{
 					[1] =
 					{
@@ -897,12 +916,12 @@
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = 41.000000;
+					x = 34.000000;
 					y = -138.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 230;
+					width = 267;
 					height = 72;
 					scale_x = 1.000000;
 					scale_y = 1.000000;

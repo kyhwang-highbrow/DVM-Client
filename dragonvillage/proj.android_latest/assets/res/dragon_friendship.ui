@@ -33,8 +33,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 634;
-				height = 534;
+				width = 632;
+				height = 532;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -42,7 +42,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/friendship_frame.png';
+				file_name = 'ui/frames/friendship_frame.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -83,7 +83,7 @@
 						type = 'Node';
 						ui_name = '';
 						x = 0.000000;
-						y = 0.000000;
+						y = -2.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -100,7 +100,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 213.000000;
-					y = -129.000000;
+					y = -135.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -126,7 +126,7 @@
 						type = 'Node';
 						ui_name = '';
 						x = 0.000000;
-						y = 0.000000;
+						y = -2.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -143,7 +143,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 72.000000;
-					y = -129.000000;
+					y = -135.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -169,7 +169,7 @@
 						type = 'Node';
 						ui_name = '';
 						x = 0.000000;
-						y = 0.000000;
+						y = -2.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -186,7 +186,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = -69.000000;
-					y = -129.000000;
+					y = -135.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -212,7 +212,7 @@
 						type = 'Node';
 						ui_name = '';
 						x = 0.000000;
-						y = 0.000000;
+						y = -2.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -229,7 +229,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = -208.000000;
-					y = -129.000000;
+					y = -135.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -253,7 +253,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 211.000000;
-					y = -227.000000;
+					y = -233.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -293,7 +293,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 71.000000;
-					y = -227.000000;
+					y = -233.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -333,7 +333,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = -71.000000;
-					y = -227.000000;
+					y = -233.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -373,7 +373,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = -211.000000;
-					y = -227.000000;
+					y = -233.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -415,8 +415,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 720;
-				height = 520;
+				width = 632;
+				height = 532;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -589,8 +589,8 @@
 				};
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = -1.000000;
-				y = 156.000000;
+				x = 0.000000;
+				y = 154.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -603,7 +603,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'expGauge';
-				file_name = 'ui/gauge/manage_exp_gg.png';
+				file_name = 'ui/gauges/friendship_exp_gg_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -700,7 +700,7 @@
 				type = 'ProgressTimer';
 				ui_name = '';
 				x = 0.000000;
-				y = -54.000000;
+				y = -57.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -713,7 +713,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'hpGauge';
-				file_name = 'ui/gauge/manage_exp_gg_hp.png';
+				file_name = 'ui/gauges/friendship_hp_gg_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -810,7 +810,7 @@
 				type = 'ProgressTimer';
 				ui_name = '';
 				x = 0.000000;
-				y = -25.000000;
+				y = -28.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -823,7 +823,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'defGauge';
-				file_name = 'ui/gauge/manage_exp_gg.png';
+				file_name = 'ui/gauges/friendship_def_gg_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -920,7 +920,7 @@
 				type = 'ProgressTimer';
 				ui_name = '';
 				x = 0.000000;
-				y = 4.000000;
+				y = 1.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -933,7 +933,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'atkGauge';
-				file_name = 'ui/gauge/manage_exp_gg_atk.png';
+				file_name = 'ui/gauges/friendship_atk_gg_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -1235,7 +1235,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 56.000000;
+				x = 55.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -1295,8 +1295,8 @@
 				visible = true;
 				lua_name = 'sortOrderBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0101.png';
-				selected = 'ui/btn/a_btn_0102.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -1330,7 +1330,7 @@
 					dimension_width = 100;
 					dimension_height = 46;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -1359,15 +1359,15 @@
 				visible = true;
 				lua_name = 'sortBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0101.png';
-				selected = 'ui/btn/a_btn_0102.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
 			type = 'Menu';
 			ui_name = 'bottom ';
 			x = 0.000000;
-			y = 0.000000;
+			y = -0.000004;
 			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.000000; };
 			relative_size_type = 0;

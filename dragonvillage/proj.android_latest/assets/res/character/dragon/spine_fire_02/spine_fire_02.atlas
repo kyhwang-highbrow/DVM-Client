@@ -1,0 +1,132 @@
+
+spine_fire_02.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spine_fire_02_arm_01
+  rotate: false
+  xy: 286, 129
+  size: 115, 107
+  orig: 115, 107
+  offset: 0, 0
+  index: -1
+spine_fire_02_arm_02
+  rotate: true
+  xy: 403, 22
+  size: 83, 105
+  orig: 83, 105
+  offset: 0, 0
+  index: -1
+spine_fire_02_body_01
+  rotate: false
+  xy: 1, 1
+  size: 194, 176
+  orig: 194, 176
+  offset: 0, 0
+  index: -1
+spine_fire_02_body_05
+  rotate: false
+  xy: 510, 5
+  size: 111, 93
+  orig: 111, 93
+  offset: 0, 0
+  index: -1
+spine_fire_02_eff_01
+  rotate: false
+  xy: 1, 179
+  size: 267, 327
+  orig: 267, 327
+  offset: 0, 0
+  index: -1
+spine_fire_02_eye_01
+  rotate: false
+  xy: 599, 187
+  size: 63, 59
+  orig: 63, 59
+  offset: 0, 0
+  index: -1
+spine_fire_02_hand_01
+  rotate: true
+  xy: 286, 24
+  size: 103, 115
+  orig: 103, 115
+  offset: 0, 0
+  index: -1
+spine_fire_02_hand_02
+  rotate: false
+  xy: 403, 107
+  size: 105, 117
+  orig: 105, 117
+  offset: 0, 0
+  index: -1
+spine_fire_02_head_01
+  rotate: false
+  xy: 746, 349
+  size: 136, 157
+  orig: 136, 157
+  offset: 0, 0
+  index: -1
+spine_fire_02_leg_01
+  rotate: true
+  xy: 452, 226
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_fire_02_leg_02
+  rotate: false
+  xy: 197, 53
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_fire_02_leg_03
+  rotate: false
+  xy: 510, 100
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_fire_02_leg_04
+  rotate: true
+  xy: 600, 248
+  size: 87, 124
+  orig: 87, 124
+  offset: 0, 0
+  index: -1
+spine_fire_02_mouth_01
+  rotate: false
+  xy: 197, 21
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+spine_fire_02_wing_01
+  rotate: false
+  xy: 884, 363
+  size: 108, 143
+  orig: 108, 143
+  offset: 0, 0
+  index: -1
+spine_fire_02_wing_02
+  rotate: false
+  xy: 452, 315
+  size: 146, 191
+  orig: 146, 191
+  offset: 0, 0
+  index: -1
+spine_fire_02_wing_03
+  rotate: false
+  xy: 600, 337
+  size: 144, 169
+  orig: 144, 169
+  offset: 0, 0
+  index: -1
+spine_fire_02_wing_05
+  rotate: false
+  xy: 270, 238
+  size: 180, 268
+  orig: 180, 268
+  offset: 0, 0
+  index: -1

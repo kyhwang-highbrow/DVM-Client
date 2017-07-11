@@ -1,0 +1,13 @@
+
+blackjindo_water_01.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blackjindo_water_01_00
+  rotate: false
+  xy: 2, 2
+  size: 332, 332
+  orig: 332, 332
+  offset: 0, 0
+  index: -1

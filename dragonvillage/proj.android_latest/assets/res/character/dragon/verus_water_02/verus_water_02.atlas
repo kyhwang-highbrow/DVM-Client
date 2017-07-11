@@ -1,0 +1,13 @@
+
+verus_water_02.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+verus_water_02_body_00
+  rotate: false
+  xy: 1, 1
+  size: 389, 391
+  orig: 389, 391
+  offset: 0, 0
+  index: -1

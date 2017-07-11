@@ -1,0 +1,13 @@
+
+witchdragon_light_01.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+witchdragon_light_01_00
+  rotate: false
+  xy: 2, 57
+  size: 496, 441
+  orig: 496, 441
+  offset: 0, 0
+  index: -1

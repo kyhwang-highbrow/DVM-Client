@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -35,7 +35,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -250.000000;
+				x = -375.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -54,7 +54,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 0.000000;
+				x = -125.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -73,7 +73,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 250.000000;
+				x = 125.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -90,15 +90,34 @@
 			};
 			[5] =
 			{
+				type = 'Node';
+				ui_name = '';
+				x = 375.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 230;
+				height = 430;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'skillNode4';
+			};
+			[6] =
+			{
 				type = 'Button';
 				ui_name = '';
-				x = -20.000000;
-				y = -10.000000;
+				x = -24.000000;
+				y = -24.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 64;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -107,19 +126,19 @@
 				visible = true;
 				lua_name = 'closeBtn';
 				enable = true;
-				normal = 'ui/btn/close_01.png';
-				selected = 'ui/btn/close_02.png';
+				normal = 'ui/buttons/64_close_btn_0101.png';
+				selected = 'ui/buttons/64_close_btn_0102.png';
 				disable = '';
 				image_type = 0;
 			};
 			type = 'Menu';
 			ui_name = '';
-			x = 250.000000;
+			x = 1.000000;
 			y = 40.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 765;
+			width = 1200;
 			height = 469;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

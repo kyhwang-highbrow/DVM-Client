@@ -4,16 +4,55 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>bg_volcano2_5_a.png</key>
+            <key>bg_volcano2_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1316,760}}</string>
+                <string>{{2,2},{678,764}}</string>
                 <key>offset</key>
-                <string>{-89,-419}</string>
+                <string>{-30,-10}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{277,839},{1316,760}}</string>
+                <string>{{9,428},{678,764}}</string>
+                <key>sourceSize</key>
+                <string>{756,1600}</string>
+            </dict>
+            <key>bg_volcano2_light_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{470,768},{228,166}}</string>
+                <key>offset</key>
+                <string>{-1,18}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{38,48},{228,166}}</string>
+                <key>sourceSize</key>
+                <string>{306,298}</string>
+            </dict>
+            <key>bg_volcano2_light_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{638,768},{8,8}}</string>
+                <key>offset</key>
+                <string>{-349,197}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{287,279},{8,8}}</string>
+                <key>sourceSize</key>
+                <string>{1280,960}</string>
+            </dict>
+            <key>bg_volcano2_light_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,768},{466,438}}</string>
+                <key>offset</key>
+                <string>{-549,-205}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{242,786},{466,438}}</string>
                 <key>sourceSize</key>
                 <string>{2048,1600}</string>
             </dict>
@@ -25,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>volcano2_6.png</string>
             <key>size</key>
-            <string>{1320,764}</string>
+            <string>{682,1208}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c76fef1f67e031c2be7046960af3a634:9e015ea1817cf62ce48f1be09a5fafe6:7c9d6622d336278435f6cadae1ac065a$</string>
+            <string>$TexturePacker:SmartUpdate:534c7c3d0ce7ee956f1e2b1f671c79b3:f22f9676f51e7be28049a0de0da28f73:432eb45601e3ccc2240f8c85910c69bb$</string>
             <key>textureFileName</key>
             <string>volcano2_6.png</string>
         </dict>

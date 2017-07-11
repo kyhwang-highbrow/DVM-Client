@@ -1,0 +1,195 @@
+
+rockdragon_water_03.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+rockdragon_water_03_arm_01
+  rotate: false
+  xy: 1405, 2
+  size: 103, 113
+  orig: 103, 113
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_arm_02
+  rotate: true
+  xy: 1533, 150
+  size: 104, 155
+  orig: 104, 155
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_arm_03
+  rotate: true
+  xy: 232, 24
+  size: 78, 127
+  orig: 78, 127
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_arm_04
+  rotate: true
+  xy: 361, 19
+  size: 83, 109
+  orig: 83, 109
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_body_01
+  rotate: false
+  xy: 1041, 69
+  size: 189, 185
+  orig: 189, 185
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_body_02
+  rotate: true
+  xy: 691, 21
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_body_03
+  rotate: true
+  xy: 1232, 55
+  size: 47, 59
+  orig: 47, 59
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_body_04
+  rotate: false
+  xy: 578, 43
+  size: 111, 59
+  orig: 111, 59
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_body_05
+  rotate: false
+  xy: 1830, 158
+  size: 126, 96
+  orig: 126, 96
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_effect_01
+  rotate: false
+  xy: 232, 104
+  size: 295, 150
+  orig: 295, 150
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_effect_02
+  rotate: false
+  xy: 529, 104
+  size: 295, 150
+  orig: 295, 150
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_effect_03
+  rotate: false
+  xy: 826, 104
+  size: 213, 150
+  orig: 213, 150
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_effect_04
+  rotate: false
+  xy: 1232, 104
+  size: 171, 150
+  orig: 171, 150
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_effect_05
+  rotate: false
+  xy: 2, 24
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_eye_01
+  rotate: false
+  xy: 1830, 112
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_eye_02
+  rotate: false
+  xy: 1876, 112
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_eye_03
+  rotate: false
+  xy: 1350, 54
+  size: 47, 48
+  orig: 47, 48
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_foot_01
+  rotate: true
+  xy: 1293, 54
+  size: 48, 55
+  orig: 48, 55
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_hand_01
+  rotate: true
+  xy: 1958, 159
+  size: 95, 88
+  orig: 95, 88
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_hand_02
+  rotate: false
+  xy: 943, 41
+  size: 57, 61
+  orig: 57, 61
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_hand_03
+  rotate: true
+  xy: 1958, 62
+  size: 95, 88
+  orig: 95, 88
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_head_01
+  rotate: false
+  xy: 1690, 139
+  size: 138, 115
+  orig: 138, 115
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_head_02
+  rotate: false
+  xy: 1533, 46
+  size: 115, 102
+  orig: 115, 102
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_leg_01
+  rotate: true
+  xy: 864, 41
+  size: 61, 77
+  orig: 61, 77
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_leg_02
+  rotate: true
+  xy: 780, 40
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_wing_01
+  rotate: false
+  xy: 1405, 117
+  size: 126, 137
+  orig: 126, 137
+  offset: 0, 0
+  index: -1
+rockdragon_water_03_wing_02
+  rotate: true
+  xy: 472, 33
+  size: 69, 104
+  orig: 69, 104
+  offset: 0, 0
+  index: -1
