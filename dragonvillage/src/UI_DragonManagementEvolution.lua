@@ -484,8 +484,6 @@ end
 -------------------------------------
 function UI_DragonManagementEvolution:click_evolutionStone(i)
     local item_id = self['m_itemID' .. i]
-    --UI_AcquisitionRegionInformation(item_id)
-
     UI_ItemInfoPopup(item_id)
 end
 

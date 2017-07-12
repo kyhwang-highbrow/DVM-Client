@@ -255,9 +255,9 @@ function StructProduct:buy(cb_func)
     end
 
 	local function ok_cb()
-        local function finish_cb()
+        local function finish_cb(ret)
             if (cb_func) then
-				cb_func()
+				cb_func(ret)
 			end
         end
         g_shopDataNew:request_buy(self['product_id'], finish_cb)

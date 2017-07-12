@@ -64,10 +64,11 @@ end
 -------------------------------------
 function UI_Package:click_buyBtn()
 	local struct_product = self.m_structProduct
-	local function cb_func()
+	local function cb_func(ret)
 		self:closeWithAction()
-		local str = Str('구매 완료!')
-		UI_ToastPopup(str)
+
+        -- 아이템 획득 결과창
+        ItemOptainResult_Shop(ret)
 	end
 	struct_product:buy(cb_func)
 end

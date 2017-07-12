@@ -93,6 +93,13 @@ function UIC_Button:registerScriptPressHandler(func)
 end
 
 -------------------------------------
+-- function unregisterScriptPressHandler
+-------------------------------------
+function UIC_Button:unregisterScriptPressHandler()
+    return self.m_node:unregisterScriptPressHandler()
+end
+
+-------------------------------------
 -- function setOriginData
 -- @brief 현재 버튼의 위치와 스케일을 저장
 -------------------------------------

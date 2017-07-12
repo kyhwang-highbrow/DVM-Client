@@ -46,6 +46,7 @@ function UI_ItemCard:setItemData()
     end
 
     self.vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
+    self.vars['clickBtn']:registerScriptPressHandler(function() self:press_clickBtn() end)
 end
 
 -------------------------------------
@@ -193,6 +194,33 @@ function UI_ItemCard:click_clickBtn()
     -- 자동 위치 지정
     tool_tip:autoPositioning(self.vars['clickBtn'])
 end
+
+-------------------------------------
+-- function press_clickBtn
+-------------------------------------
+function UI_ItemCard:press_clickBtn()
+    local item_id = self.m_itemID
+    local count = self.m_itemCount
+	local t_sub_data = self.m_tSubData
+
+    UI_ItemInfoPopup(item_id, count, t_sub_data)
+end
+
+-------------------------------------
+-- function setEnabledClickBtn
+-------------------------------------
+function UI_ItemCard:setEnabledClickBtn(enabled)
+    self.vars['clickBtn']:setEnabled(enabled)
+end
+
+-------------------------------------
+-- function unregisterScriptPressHandler
+-------------------------------------
+function UI_ItemCard:unregisterScriptPressHandler()
+    self.vars['clickBtn']:unregisterScriptPressHandler()
+end
+
+
 
 -------------------------------------
 -- function getSkillDescStr

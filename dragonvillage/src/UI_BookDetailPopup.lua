@@ -541,7 +541,7 @@ function UI_BookDetailPopup:click_getBtn()
 	local did = self.m_tDragon['did']
 	local evolution = self.m_evolution
 	local item_id = TableItem:getItemIDByDid(did, evolution)
-    UI_AcquisitionRegionInformation(item_id)
+    UI_AcquisitionRegionInformation:create(item_id)
 end
 
 -------------------------------------

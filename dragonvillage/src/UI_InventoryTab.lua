@@ -81,5 +81,5 @@ end
 -- @brief 획득 장소 안내 팝업
 -------------------------------------
 function UI_InventoryTab:openAcuisitionRegionInformation(item_id)
-    UI_AcquisitionRegionInformation(item_id)
+    UI_AcquisitionRegionInformation:create(item_id)
 end

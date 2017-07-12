@@ -8,6 +8,19 @@ UI_AcquisitionRegionInformation = class(PARENT, {
     })
 
 -------------------------------------
+-- function create
+-------------------------------------
+function UI_AcquisitionRegionInformation:create(item_id)
+    local l_region = self:makeRegionList(item_id)
+    if (#l_region <= 0) then
+        UIManager:toastNotificationRed(Str('획득 장소 정보가 없습니다.'))
+        return
+    end
+
+    local ui = UI_AcquisitionRegionInformation(item_id)
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function UI_AcquisitionRegionInformation:init(item_id)
@@ -101,8 +114,8 @@ end
 -- function makeRegionList
 -- @brief
 -------------------------------------
-function UI_AcquisitionRegionInformation:makeRegionList()
-    local item_id = self.m_itemID
+function UI_AcquisitionRegionInformation:makeRegionList(item_id)
+    local item_id = item_id or self.m_itemID
 	local item_type = TableItem:getItemType(item_id)
 	local l_region = {}
 
@@ -140,7 +153,8 @@ function UI_AcquisitionRegionInformation:makeRegionList()
 		end
 		
 		-- 조합 체크
-		local t_combine = TableDragonCombine():get(did)
+        local skip_error_msg = true
+		local t_combine = TableDragonCombine():get(did, skip_error_msg)
 		if (t_combine) then
 			table.insert(l_region, 'combine')
 		end

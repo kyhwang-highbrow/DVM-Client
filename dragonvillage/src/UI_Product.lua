@@ -75,6 +75,11 @@ function UI_Product:click_buyBtn()
 	if (struct_product:getTabCategory() == 'package') then
 		UI_Package(struct_product)
 	else
-		struct_product:buy()
+        local function cb_func(ret)
+            -- 아이템 획득 결과창
+            ItemOptainResult_Shop(ret)
+        end
+        
+		struct_product:buy(cb_func)
 	end
 end

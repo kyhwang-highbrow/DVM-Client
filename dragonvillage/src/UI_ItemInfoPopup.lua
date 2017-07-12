@@ -39,19 +39,27 @@ end
 function UI_ItemInfoPopup:initUI()
     local vars = self.vars
 
-    do -- 아이템 아이콘
-        local type = TableItem:getItemType(self.m_itemID)
+    local type = TableItem:getItemType(self.m_itemID)
+
+    do -- 아이템 아이콘    
         if (type == 'dragon') and self.m_tSubData then
             local item_card = UI_DragonCard(self.m_tSubData)
             vars['itemNode']:addChild(item_card.root)
         else
             local item_card = UI_ItemCard(self.m_itemID, self.m_itemCount, self.m_tSubData)
-        vars['itemNode']:addChild(item_card.root)
+            vars['itemNode']:addChild(item_card.root)
+            item_card:unregisterScriptPressHandler()
         end
     end
 
     -- 아이템 설명
-    local desc = TableItem():getValue(self.m_itemID, 't_desc')
+    local desc = ''
+    if (type == 'rune') and self.m_tSubData then
+        local t_rune_data = self.m_tSubData
+        desc = t_rune_data:makeRuneDescRichText()
+    else
+        desc = TableItem():getValue(self.m_itemID, 't_desc')
+    end
     vars['itemDscLabel']:setString(Str(desc))
 
     -- 하위 UI가 모두 opacity값을 적용되도록
@@ -78,7 +86,7 @@ end
 -------------------------------------
 function UI_ItemInfoPopup:click_locationBtn()
     local item_id = self.m_itemID
-    UI_AcquisitionRegionInformation(item_id)
+    UI_AcquisitionRegionInformation:create(item_id)
 end
 
 
