@@ -27,6 +27,7 @@ function UI_AttendanceSpecialListItem:initUI()
     local vars = self.vars
     
     local t_step_list = self.m_tItemData['step_list']
+    local today_step = self.m_tItemData['today_step']
 
     for i, v in ipairs(t_step_list) do
         local t_item_data = v
@@ -36,6 +37,10 @@ function UI_AttendanceSpecialListItem:initUI()
 
         local item_name = TableItem():getValue(t_item_data['item_id'], 't_name')
         vars['quantityLabel'..i]:setString(Str('{1} X{2}', item_name, comma_value(t_item_data['value'])))
+
+        if (i <= today_step) then
+            vars['checkSprite'..i]:setVisible(true)
+        end
     end
 end
 

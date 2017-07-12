@@ -275,6 +275,25 @@ function UI_ScenarioPlayer:applyEffect(effect)
 end
 
 -------------------------------------
+-- function isExistEffect
+-------------------------------------
+function UI_ScenarioPlayer:isExistEffect(page_no, find)
+    local t_page = self.m_scenarioTable[self.m_currPage]
+    if (t_page) then
+        for i = 1, 3 do
+            local effect = t_page['effect_' .. i]
+            local l_str = TableClass:seperate(effect, ';')
+            for _i, _v in ipairs(l_str) do
+                if (string.match(_v, find)) then
+                    return true
+                end
+            end
+        end 
+    end
+    return false
+end
+
+-------------------------------------
 -- function onClose
 -------------------------------------
 function UI_ScenarioPlayer:onClose()

@@ -56,7 +56,6 @@ end
 function UI_EventPopupTab_Shop:click_buyBtn()
 	local struct_product = self.m_structProduct
 	local function cb_func()
-		self:closeWithAction()
 		local str = Str('구매 완료!')
 		UI_ToastPopup(str)
 	end

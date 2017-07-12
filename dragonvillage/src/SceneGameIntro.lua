@@ -181,7 +181,7 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn)
         self.m_gameWorld:setTemporaryPause(false)
     end
 
-    self.m_dialogPlayer:set_nextFunc(next_cb) 
+    self.m_dialogPlayer:set_nextFunc(next_cb, 'hide_all') 
 end
 
 -------------------------------------
