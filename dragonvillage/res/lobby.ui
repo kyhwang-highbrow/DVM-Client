@@ -1701,13 +1701,13 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 110.000000;
-				y = -35.000000;
+				x = 117.000000;
+				y = -74.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 250;
-				height = 60;
+				height = 41;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1717,13 +1717,13 @@
 				lua_name = 'roadDescLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = 'roadDescLabel roadDescLabel roadDescLabel roadDescLabel';
+				text = 'roadDescLabel roadDescLabel';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 250;
-				dimension_height = 60;
+				dimension_height = 41;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -1741,8 +1741,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 110.000000;
-				y = -12.000000;
+				x = 117.000000;
+				y = -49.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1781,8 +1781,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -181.000000;
-				y = -16.000000;
+				x = -37.000000;
+				y = -130.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 1.000000; };
 				relative_size_type = 0;
@@ -1806,12 +1806,12 @@
 			type = 'Button';
 			ui_name = '';
 			x = 0.000000;
-			y = 202.000000;
+			y = 218.000000;
 			dock_point = { 0.000000; 0.000000; };
 			anchor_point = { 0.000000; 0.500000; };
 			relative_size_type = 0;
 			width = 291;
-			height = 116;
+			height = 193;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
