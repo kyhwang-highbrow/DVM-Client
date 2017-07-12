@@ -59,15 +59,6 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custo
 	elseif pl.stringx.startswith(case_type, 'party_') then
 		pos_y = 100
 		delay_time = 0.5
-
-	elseif string.find(case_type, 'lactea_') then
-		if (case_type == 'lactea_tamer') then
-			pos_y = 200
-			delay_time = 0.5
-		else
-			pos_y = 120
-			delay_time = 0.5
-		end
 	
 	end
 	

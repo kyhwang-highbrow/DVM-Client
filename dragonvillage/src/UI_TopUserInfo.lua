@@ -222,7 +222,7 @@ end
 -------------------------------------
 function UI_TopUserInfo:setSubCurrency(subCurrency)
 
-    if isExistValue(subCurrency, 'money', 'cash', 'gold', 'package') then
+    if isExistValue(subCurrency, 'money', 'cash', 'gold', 'package', 'st') then
         return
     end
 

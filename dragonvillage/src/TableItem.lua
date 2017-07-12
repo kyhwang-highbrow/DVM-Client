@@ -21,7 +21,6 @@ local ITEM_ID_MAP = {}
 ITEM_ID_MAP['cash'] = 700001
 ITEM_ID_MAP['gold'] = 700002
 ITEM_ID_MAP['fp'] = 700003
-ITEM_ID_MAP['lactea'] = 700004
 ITEM_ID_MAP['honor'] = 700005
 ITEM_ID_MAP['badge'] = 700006
 ITEM_ID_MAP['amethyst'] = 700007

@@ -125,9 +125,6 @@ function TableExchange:makePriceIconRes(price_type)
     elseif (price_type == 'amethyst') then
         res = 'res/ui/icon/inbox/inbox_amethyst.png'
 
-    elseif (price_type == 'lactea') then
-        res = 'res/ui/icon/inbox/inbox_lactea.png'
-
     else
         res = string.format('res/ui/icon/inbox/inbox_%s.png', price_type)
 
