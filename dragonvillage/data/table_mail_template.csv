@@ -1,15 +1,15 @@
-mail_type,t_title,t_content,value_1,value_2,r_comment
-system,시스템,,,,운영툴에서 전송한 메일 (서버에서 보내준대로 출력)
-dg,드래곤의 선물,{@default}{1}{@default} : {@default}{2},dragon,phrase,감성 컨텐츠 - 특정 조건의 드래곤을 사용하면 선물을 보낸다.
-fp,우정의 징표,{@default}{2}{@default}님이 {1}을 보냈습니다.,item,nick,친구 선물로 받는 우정포인트
-use_fp,우정의 사용,{@default}{2}{@default}님이 {@default}대표드래곤{@default}을 사용하여 {1}을 받았습니다.,item,nick,대표 드래곤 사용 시 지급하는 우정 포인트
-default,보상,{@condition}보상{@default}으로 {1}{@default}을(를) 수령하였습니다.,item,,
-buy,상품 구입,{@condition}상품 구입{@default}으로 {1}{@default}을(를) 수령하였습니다.,item,,
-quest,퀘스트 보상,{@condition}퀘스트 보상{@default}으로 {1}{@default}을(를) 수령하였습니다.,item,,
-chlg,업적 달성 보상,{@condition}업적 달성 보상{@default}으로 {1}{@default}을(를) 수령하였습니다.,item,,
-clsm,콜로세움 보상,{@condition}콜로세움 보상{@default}으로 {1}{@default}을(를) 수령하였습니다.,item,,
-event,이벤트 보상,{@condition}이벤트 보상{@default}으로 {1}{@default}을(를) 수령하였습니다.,item,,
-tower,고대의 탑 보상,{@condition}고대의 탑 보상{@default}으로 {1}{@default}을(를) 수령하였습니다.,item,,
-fst_clr,첫 클리어 보상,{@condition}첫 클리어 보상{@default}으로 {1}{@default}을(를) 수령하였습니다.,item,,
-ch_clr,챕터 달성 보상,{@condition}챕터 달성 보상{@default}으로 {1}{@default}을(를) 수령하였습니다.,item,,
-rel_in,친구 인연 던전 입장 보상,{@condition}친구 인연 던전 입장 보상{@default}으로 {1}{@default}을(를) 수령하였습니다.,item,,인연 던전 발견 유저에게 친구 입장시 마다 인연포인트 보상을 준다.
+mail_type,t_title,t_content,value_1,value_2,r_comment,r_신규
+system,운영자,,,,운영툴에서 전송한 메일 (서버에서 보내준대로 출력),
+dg,드래곤의 선물,{@default}{1}{@default} : {@default}{2},dragon,phrase,감성 컨텐츠 - 특정 조건의 드래곤을 사용하면 선물을 보낸다.,
+fp,우정 교환,{@condition}{2}{@default}님이 {1}{@default}(을)를 보냈습니다.,item,nick,친구 선물로 받는 우정포인트,
+use_fp,대표드래곤 사용,{@condition}{2}{@default}님이 {1}{@default}(을)를 보냈습니다.,item,nick,대표 드래곤 사용 시 지급하는 우정 포인트,
+rel_in,인연던전 입장 보상,{@condition}{2}{@default}님이 {1}{@default}(을)를 보냈습니다.,item,nick,친구가 나의 인연던전 플레이 시,
+default,보상,{1}{@default}(을)를 받았습니다.,item,,,
+buy,상품 구입,{1}{@default}(을)를 받았습니다.,item,,상점에서 패키지 상품 구입 시 (2개 이상의 상품),
+q_daily,일일 퀘스트 보상,{1}{@default}(을)를 받았습니다.,item,,,
+chlg,업적 달성 보상,{1}{@default}(을)를 받았습니다.,item,,,
+clsm,콜로세움 보상,{1}{@default}(을)를 받았습니다.,item,,주간 랭킹 보상,
+tower,고대의 탑 보상,{1}{@default}(을)를 받았습니다.,item,,주간 랭킹 보상,
+fix_mth,월 정액,{1}{@default}(을)를 받았습니다.,item,,월 정액 상품 수령 시,0
+atdc_rwd,출석 보상,{1}{@default}(을)를 받았습니다.,item,,28일 출석 이벤트 달성 시,0
+promotion,프로모션,{1}{@default}(을)를 받았습니다.,item,,하이브로 프로모션 캡슐 교환 시,0
