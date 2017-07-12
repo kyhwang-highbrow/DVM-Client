@@ -190,7 +190,7 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_MasterRoadPopup:click_exitBtn()
-    self:close()
+    self:closeWithAction()
 end
 
 -------------------------------------

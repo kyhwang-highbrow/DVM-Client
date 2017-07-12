@@ -2451,6 +2451,9 @@
     <None Include="..\src\StatusEffect_ManaReduce.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ChangeNickPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
