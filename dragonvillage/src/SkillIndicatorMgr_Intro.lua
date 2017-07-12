@@ -57,15 +57,15 @@ function SkillIndicatorMgr_Intro:onTouchBegan(touch, event)
     end 
 
     if (select_hero and select_hero == self.m_introHero) then
-        if (select_hero:isPossibleSkill()) then
-            -- 드래곤 클릭
-            self.m_firstTouchPos = node_pos
-            self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
+        -- 드래곤 클릭
+        self.m_firstTouchPos = node_pos
+        self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
         
-            self.m_touchedHero = select_hero
-            self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
-        end
+        self.m_touchedHero = select_hero
+        self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
 
+        self.m_animatorGuide:setVisible(false)
+        
         -- 튤팁 표시
         self:makeSkillToolTip(select_hero)
         self:updateToolTipUI(0, 0, node_pos['x'], node_pos['y'])
@@ -83,21 +83,20 @@ end
 -- function onTouchEnded
 -------------------------------------
 function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
-    local is_used_skill = false
-
     if (self.m_selectHero) then
-        if (self.m_selectHero.m_bDead) then
-            -- 스킬 사용 주체 대상이 이미 죽었을 경우 취소 처리
-            self:clear(true)
-
-        elseif (not self.m_selectHero.m_skillIndicator:isExistTarget()) then
+        if (not self.m_selectHero.m_skillIndicator:isExistTarget()) then
             -- 대상이 하나도 없을 경우 취소 처리
-            self:clear(true)
+            self:clear()
+
+            self.m_animatorGuide:setFrame(0)
+            self.m_animatorGuide:setVisible(true)
               
         else
             ---------------------------------------------------
             -- 액티브 스킬 발동
             ---------------------------------------------------
+
+            self.m_selectHero:setTemporaryPause(false)
 
             -- 경직 중이라면 즉시 해제
             self.m_selectHero:setSpasticity(false)
@@ -122,32 +121,65 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
 
             self:clear()
 
-            is_used_skill = true
+            self.m_animatorGuide:release()
+
+            self.m_world.m_gameHighlight:setToForced(false)
         end
     
     elseif (self.m_touchedHero) then
-        --[[
-        ---------------------------------------------------
-        -- 터치 스킬 발동
-        ---------------------------------------------------
-        if (self.m_touchedHero:isPossibleSkill()) then
-            local active_skill_id = self.m_touchedHero:getSkillID('active')
-            local t_skill = TableDragonSkill():get(active_skill_id)
-            
-            self.m_world.m_gameAutoHero:doSkill(self.m_touchedHero, t_skill)
-
-            is_used_skill = true
-        end
-        ]]--
         self.m_touchedHero = nil
+
+        self.m_animatorGuide:setFrame(0)
+        self.m_animatorGuide:setVisible(true)
+
     end
 
     self:closeSkillToolTip()
+end
 
-    if (is_used_skill) then
-        self.m_animatorGuide:release()
+-------------------------------------
+-- function clear
+-------------------------------------
+function SkillIndicatorMgr_Intro:clear()
+    self.m_touchedHero = nil
+    
+    if (self.m_selectHero) then
+        self:setSelectHero(nil)
+        self.m_bSlowMode = false
+    end
+end
 
-        self.m_world.m_gameHighlight:setToForced(false)
+
+-------------------------------------
+-- function setSelectHero
+-------------------------------------
+function SkillIndicatorMgr:setSelectHero(hero)
+    self.m_startTimer = 0
+        
+    if (hero) then
+        SoundMgr:playEffect('UI', 'ui_drag_ready')
+
+        local active_skill_id = hero:getSkillID('active')
+        hero:reserveSkill(active_skill_id)
+
+        hero:changeState('skillPrepare')
+
+        hero.m_skillIndicator:changeSIState(SI_STATE_READY)
+        hero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
+        hero.m_skillIndicator:setIndicatorTouchPos(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'])
+        hero.m_skillIndicator:update()
+
+        self.m_selectHero = hero
+    else
+        if (self.m_selectHero) then
+            self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
+            
+            if (self.m_selectHero.m_state == 'skillPrepare') then
+                self.m_selectHero:changeState('attackDelay', true)
+            end
+        end
+
+        self.m_selectHero = nil
     end
 end
 
@@ -165,8 +197,8 @@ function SkillIndicatorMgr_Intro:startIntro(hero)
 
     -- 가이드 비주얼
     self.m_animatorGuide = MakeAnimator('res/ui/a2d/tutorial/tutorial.vrp')
-    self.m_animatorGuide:changeAni('hand_03', true)
-    self.m_animatorGuide:setPosition(self.m_introHero.pos.x, self.m_introHero.pos.y - 20)
+    self.m_animatorGuide:changeAni('hand_drag_01', true)
+    self.m_animatorGuide:setPosition(self.m_introHero.pos.x, self.m_introHero.pos.y - 50)
 
     g_gameScene.m_gameIndicatorNode:addChild(self.m_animatorGuide.m_node)
 end
