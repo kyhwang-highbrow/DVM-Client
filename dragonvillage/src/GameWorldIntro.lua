@@ -5,6 +5,7 @@ local PARENT = GameWorld
 -------------------------------------
 GameWorldIntro = class(PARENT, {
         m_enemyTamer = '',
+        m_boss = '',
 		m_lEnemyDragons = '',
     })
 
@@ -32,6 +33,8 @@ end
 function GameWorldIntro:initGame(stage_name)
     PARENT.initGame(self, stage_name)
 
+    self.m_skillIndicatorMgr = SkillIndicatorMgr_Intro(self)
+
     self.m_dropItemMgr = DropItemMgr_Intro(self)
     self:addListener('dragon_summon', self)
 end
@@ -46,9 +49,70 @@ function GameWorldIntro:initTamer()
     self.m_tamer = self:makeTamerNew(t_tamer)
 
     -- 테이머 UI 생성
-	self.m_inGameUI:initTamerUI(self.m_tamer)
+	--self.m_inGameUI:initTamerUI(self.m_tamer)
 
     self:addListener('dragon_summon', self)
+end
+
+-------------------------------------
+-- function tryPatternMonster
+-- @brief 패턴을 가진 적군
+-- ex) 'pattern_' + rarity + type
+--     'pattern_boss_queenssnake'
+-------------------------------------
+function GameWorldIntro:tryPatternMonster(t_monster, body)
+    local rarity = t_monster['rarity']
+    local type = t_monster['type']
+    local script_name = 'pattern_boss_tutorial'
+    local is_boss = (rarity == 'boss')
+
+    -- 테이블이 없을 경우 return
+    local script = TABLE:loadPatternScript(script_name)
+	local is_pattern_ignore = (t_monster['pattern'] == 'ignore')
+	
+    if (not script) or is_pattern_ignore then
+        return nil
+    end
+
+    local monster
+	
+    if (type == 'giantdragon') then
+        monster = Monster_GiantDragon(t_monster['res'], body)
+    elseif (type == 'golddragon') then
+        monster = Monster_GoldDragon(t_monster['res'], body)
+    elseif (type == 'treant') then
+        monster = Monster_Tree(t_monster['res'], body)
+	elseif (type == 'world_order_machine') then
+		monster = Monster_WorldOrderMachine(t_monster['res'], body)
+    elseif (type == 'darknix') then
+		monster = Monster_DarkNix(t_monster['res'], body)
+    else
+        monster = MonsterLua_Boss(t_monster['res'], body)
+    end
+
+    monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
+    monster:initScript(script_name, t_monster['mid'], is_boss)
+
+    self.m_boss = monster
+
+    return monster
+end
+
+
+-------------------------------------
+-- function makeMonsterNew
+-------------------------------------
+function GameWorldIntro:makeMonsterNew(monster_id, level)
+    local monster = PARENT.makeMonsterNew(self, monster_id, level)
+
+    local t_monster = TableMonster():get(monster_id)
+    if (t_monster['type'] == 'darknix') then
+        monster.m_statusCalc:addBuffMulti('hit_rate', 999)
+        monster.m_statusCalc:appendHpRatio(100)
+        monster:setStatusCalc(monster.m_statusCalc)
+    end
+    
+	return monster
 end
 
 -------------------------------------
@@ -60,7 +124,7 @@ function GameWorldIntro:makeHeroDeck()
     local l_deck = {120011, 120102, 120431, 120223, 120294}
     local formation = 'attack'
     local deck_name = 'adv'
-    local leader = 4
+    local leader = 2
 
     self.m_deckFormation = formation
 
@@ -102,11 +166,3 @@ function GameWorldIntro:makeHeroDeck()
         end
     end
 end
-
--------------------------------------
--- function onEvent
--------------------------------------
-function GameWorldIntro:onEvent(event_name, t_event, ...)
-    GameWorld.onEvent(self, event_name, t_event, ...)
-end
-

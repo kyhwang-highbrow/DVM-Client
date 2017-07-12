@@ -86,6 +86,11 @@ function UI_Game:initUI()
         vars['manaGauge']:setPercentage(0)
     end
 
+    -- 테이머(initTamerUI에서 visible 활성화시킴)
+    if (vars['tamerMenu']) then
+        vars['tamerMenu']:setVisible(false)
+    end
+
     self:initHotTimeUI()
 end
 
@@ -550,7 +555,7 @@ end
 function UI_Game:toggleVisibility_TamerUI(b, is_immediately)
     local vars = self.vars
 
-    if (not vars['tamerMenu']) then return end
+    if (not vars['tamerMenu'] or self.m_bVisible_TamerUI == nil) then return end
     if (self.m_bVisible_TamerUI == b) then return end
     self.m_bVisible_TamerUI = b
 

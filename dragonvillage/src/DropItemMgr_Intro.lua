@@ -67,7 +67,7 @@ function DropItemMgr_Intro:designateDropMonster()
         end
     end
 end
-
+--[[
 -------------------------------------
 -- function makeTouchNode
 -------------------------------------
@@ -77,6 +77,7 @@ function DropItemMgr_Intro:makeTouchNode()
 
     return touch_node
 end
+]]--
 
 -------------------------------------
 -- function onEvent
@@ -103,7 +104,6 @@ end
 -- function onTouchBegan
 -------------------------------------
 function DropItemMgr_Intro:onTouchBegan(touch, event)
-    cclog('DropItemMgr_Intro:onTouchBegan')
     if (not self.m_bEnableTouch) then return false end
 
     if (g_gameScene.m_nIdx <= 3) then

@@ -102,6 +102,10 @@ function getInGameConstant(type)
     elseif gameMode == GAME_MODE_COLOSSEUM then
 		
         ret = t_game_mode_constant[game_mode_str][type]
+
+    else
+        ret = t_game_mode_constant["ANCIENT_TOWER"][type]
+
     end
     
     return ret

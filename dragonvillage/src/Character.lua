@@ -2480,6 +2480,8 @@ function Character:getDragonSpeechNode()
         self.m_dragonSpeechNode = cc.Node:create()
         self.m_world.m_dragonSpeechNode:addChild(self.m_dragonSpeechNode)
         self.m_dragonSpeechNode:setPosition(self.pos.x, self.pos.y)
+
+        self:addHighlightNode(self.m_dragonSpeechNode)
     end
 
     return self.m_dragonSpeechNode
@@ -2493,8 +2495,9 @@ function Character:getEnemySpeechNode()
         self.m_enemySpeechNode = cc.Node:create()
         self.m_world.m_enemySpeechNode:addChild(self.m_enemySpeechNode)
         self.m_enemySpeechNode:setPosition(self.pos.x, self.pos.y)
+
+        self:addHighlightNode(self.m_enemySpeechNode)
     end
 
     return self.m_enemySpeechNode
 end
-

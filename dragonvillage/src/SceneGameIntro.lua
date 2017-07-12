@@ -107,7 +107,8 @@ function SceneGameIntro:update(dt)
     if (self.m_bPause) then return end
 
     local world = self.m_gameWorld
-    local recorder = self.m_gameWorld.m_logRecorder
+    local recorder = world.m_logRecorder
+    local boss = world.m_boss
     local idx = self.m_nIdx
 
     -- 첫번째 웨이브 - 시전자가 최초 평타 어택시
@@ -122,13 +123,42 @@ function SceneGameIntro:update(dt)
         world.m_dropItemMgr:startIntro()
     end 
 
-    -- 세번째 웨이브 - 스킬 설명
+    -- 세번째 웨이브 - 보스 대사
     if (idx == 3) and (world.m_waveMgr:isFinalWave() and world:isPossibleControl()) then
+        self:play_tutorialTalk()
+
+        -- 마나 게이지 활성화 시키면서 회복속도를 조절
+        world.m_heroMana:setEnable(true)
+        world.m_heroMana.m_incValuePerSec = 1 / 17
+    end
+
+    -- 세번째 웨이브 - 마나 게이지가 찬 후
+    if (idx == 4) and (world.m_heroMana.m_value > 1) then
         self:play_tutorialTalk()
     end
 
-    -- 세번째 웨이브 - 보스의 첫 공격 이후
-    --if (idx == 3)
+    -- 세번째 웨이브 - 드래그 스킬 사용 직후
+    if (idx == 5) and (recorder:getLog('use_skill') > 0 and world:isPossibleControl()) then
+        self:play_tutorialTalk()
+    end
+
+    -- 세번째 웨이브 - 보스 스킬 사용 직전
+    if (idx == 6) and (boss.m_patternAtkIdx == '1' and boss.m_state == 'attack') then
+        self:play_tutorialTalk()
+
+        -- 보스의 공격력을 증가 시킴
+        boss.m_statusCalc:addBuffMulti('atk', 9999)
+
+        -- 아군의 무적처리 해제
+        for _, hero in ipairs(world:getDragonList()) do
+            hero:setInvincibility(false)
+        end
+    end
+
+    -- 세번째 웨이브 - 아군이 모두 죽었을 때
+    if (idx == 7) and (#world:getDragonList() == 0) then
+        self:play_tutorialTalk()
+    end
 
 
     -- 유저가 튜토리얼 액션을 취하면 다시 게임 진행
@@ -178,7 +208,12 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn)
        
     -- 튜토리얼 대사 후 콜백 함수
     local function next_cb()
-        self.m_gameWorld:setTemporaryPause(false)
+        if (self.m_nIdx == 5) then
+            -- 드래그 스킬 입력 가이드 시작
+            world.m_skillIndicatorMgr:startIntro(world.m_leaderDragon)
+        else
+            self.m_gameWorld:setTemporaryPause(false)
+        end
     end
 
     self.m_dialogPlayer:set_nextFunc(next_cb, 'hide_all') 

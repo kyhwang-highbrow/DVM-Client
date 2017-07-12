@@ -296,6 +296,7 @@ function Dragon:makeHPGauge(hp_ui_offset)
     self.m_hpNode = ui.root
     self.m_hpNode:setDockPoint(cc.p(0.5, 0.5))
     self.m_hpNode:setAnchorPoint(cc.p(0.5, 0.5))
+    self.m_hpNode:setVisible(false)
 
     self.m_hpGauge = ui.vars['hpGauge']
     self.m_hpGauge2 = ui.vars['hpGauge2']

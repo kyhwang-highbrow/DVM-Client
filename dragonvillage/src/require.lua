@@ -454,6 +454,7 @@ local t_module = {
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',
+    'SkillIndicatorMgr_Intro',
     'SkillIndicator',
     'SkillIndicator_Laser',
     'SkillIndicator_Target',

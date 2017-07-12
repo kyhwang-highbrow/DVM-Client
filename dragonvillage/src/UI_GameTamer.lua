@@ -6,6 +6,8 @@
 function UI_Game:initTamerUI(tamer)
 	local vars = self.vars
 
+    vars['tamerMenu']:setVisible(true)
+
     do -- 테이머 아이콘
         local tamer_id = tamer.m_tamerID
         local tamer_type = TableTamer:getTamerType(tamer_id)

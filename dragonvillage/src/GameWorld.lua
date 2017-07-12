@@ -364,7 +364,8 @@ function GameWorld:initGame(stage_name)
         self:setBattleZone(self.m_deckFormation, true)
     end
 
-    do -- 스킬 조작계 초기화
+    -- 스킬 조작계 초기화
+    if (self.m_gameMode ~= GAME_MODE_INTRO) then
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
     end
 
