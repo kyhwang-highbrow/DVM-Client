@@ -16,6 +16,8 @@ function ServerData_Shop:init(server_data)
     self.m_serverData = server_data
 
     self.m_dicProduct = {}
+    self.m_dicProduct['gold'] = {}
+    self.m_dicProduct['st'] = {}
     self.m_dicProduct['money'] = {}
     self.m_dicProduct['cash'] = {}
     self.m_dicProduct['amethyst'] = {}
@@ -96,10 +98,6 @@ function ServerData_Shop:localTableTest()
             struct_product:setUIPriority(ui_priority)
             self:insertProduct(struct_product)
         end
-    end
-
-    for i,v in pairs(self.m_dicProduct) do
-        cclog(i, table.count(v))
     end
 end
 
@@ -246,10 +244,6 @@ function ServerData_Shop:response_shopInfo(ret)
             struct_product:setUIPriority(ui_priority) -- UI정렬 순선 (높으면 앞쪽에 노출)
             self:insertProduct(struct_product)
         end
-    end
-
-    for i,v in pairs(self.m_dicProduct) do
-        cclog(i, table.count(v))
     end
 
     self.m_dicBuyCnt = ret['buycnt']
