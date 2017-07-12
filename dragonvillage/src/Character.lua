@@ -454,12 +454,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         return
     end
 
-    -- 무적 상태 여부 체크
-    if self.m_bInvincibility then
-        return
-    end
-
-	-- guard 상태 체크
+    -- guard 상태 체크
     if (self.m_guard) and (not is_guard) then
 		-- Event Carrier 세팅
 		local t_event = clone(EVENT_HIT_CARRIER)
@@ -798,7 +793,9 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 		-- NOTHING TO DO
 	elseif (not self.m_bLeftFormation and g_constant:get('DEBUG', 'ENEMY_INVINCIBLE')) then
 		-- NOTHING TO DO
-	else
+	elseif (self.m_bInvincibility) then
+        -- NOTHING TO DO
+    else
 		local damage = math_min(damage, self.m_hp)
 		self:setHp(self.m_hp - damage)
 
@@ -953,17 +950,17 @@ function Character:makeDamageFont(damage, x, y, tParam)
     local is_bash = tParam['is_bash'] or false
     local is_miss = tParam['is_miss'] or false
 
+    -- 소수점 제거
+    local damage = math_floor(damage)
+
 	-- 0 데미지는 출력하지 않는다.
-    if (damage == 0) then
+    if (damage <= 0) then
         return
     end
 
     if (type(damage) ~= 'number') then
         error('invalid damage value = ' .. damage)
     end
-
-    -- 소수점 제거
-    local damage = math_floor(damage)
 
     -- root node 생성
     local node = cc.Node:create()
