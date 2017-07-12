@@ -153,7 +153,11 @@ function Character.st_attack(owner, dt)
         end)
 
         -- 공격 타이밍이 있을 경우
-        owner.m_animator:setEventHandler(attack_cb)
+        owner.m_animator:setEventHandler(function()
+            if (not owner.m_bLuanchMissile) then
+                attack_cb()
+            end
+        end)
 
         -- 캐스팅 게이지
         if owner.m_castingUI then
