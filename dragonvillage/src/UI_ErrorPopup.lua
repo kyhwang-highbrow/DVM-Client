@@ -55,7 +55,7 @@ function UI_ErrorPopup:initUI(str)
 		rich_label:setFontSize(20)
 		rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 		rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
-        rich_label:setDefualtColor(COLOR['light_gray'])
+        rich_label:setDefualtColor(COLOR['white'])
 
 		-- scroll label  생성
 		self.m_errorLabel = UIC_ScrollLabel:create(rich_label)

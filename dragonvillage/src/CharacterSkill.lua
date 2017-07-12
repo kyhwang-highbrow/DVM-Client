@@ -15,6 +15,9 @@ function Character:doSkill(skill_id, x, y, t_data)
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
     end
 
+    -- @ E.T.
+    g_errorTracker:appendSkillHistory(skill_id, self:getName())
+
     if (self:doSkillBySkillTable(t_skill, t_data)) then
         local skill_indivisual_info = self:findSkillInfoByID(skill_id)
         if (skill_indivisual_info) then

@@ -77,6 +77,9 @@ function UI_Lobby:init()
 
     -- 로비 진입 시
     self:entryCoroutine()
+
+    -- @ E.T.
+    g_errorTracker:cleanupIngameLog()
 end
 
 -------------------------------------

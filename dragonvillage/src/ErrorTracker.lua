@@ -6,7 +6,8 @@ ErrorTracker = class({
 	lastScene = 'get_set_gen',
     lastStage = 'get_set_gen',
 
-    m_lAPIList = 'list<string>',
+    m_lSkillHistoryList = 'list<table>',
+    m_lAPIList = 'list<table>',
     m_lFailedResList = 'list<string>',
 })
 
@@ -15,6 +16,7 @@ ErrorTracker = class({
 -- @brief 생성자
 -------------------------------------
 function ErrorTracker:init()
+    self.m_lSkillHistoryList = {}
     self.m_lAPIList = {}
     self.m_lFailedResList = {}
     -- @ generator
@@ -42,8 +44,8 @@ function ErrorTracker:getTrackerText(msg)
     local nick = g_userData:get('nick')
     local ver = PatchData:getInstance():getAppVersionAndPatchIdxString()
 
-	local last_scene = self:get_lastScene()
     local last_stage = self:get_lastStage()
+    local skill_stack = self:getSkillHistoryStack()
 
 	local ui_stack = self:getUIStack()
     local api_stack = self:getAPIStack()
@@ -60,11 +62,11 @@ function ErrorTracker:getTrackerText(msg)
     - os : %s
     - info : %s
  
-2. scene - stage
-    - scene_name : %s
+2. ingame
     - stage_id : %s
+    - skill use history : %s
  
-3. ui stack list
+3. ui list
 %s
  
 4. recent called api list (5)
@@ -78,11 +80,27 @@ function ErrorTracker:getTrackerText(msg)
 ]]
 
 	local text = string.format(template, 
-        nick, uid, os, ver, last_scene, last_stage, ui_stack, api_stack, res_stack, msg)
+        nick, uid, os, ver, last_stage, skill_stack, ui_stack, api_stack, res_stack, msg)
 
 	return text
 end
 
+-------------------------------------
+-- function getSkillHistoryStack
+------------------------------------- 
+function ErrorTracker:getSkillHistoryStack()
+    if (#self.m_lSkillHistoryList == 0) then
+        return 'nil'
+    end
+
+    local ui_str = '\n'
+
+    for _, t_history in pairs(table.reverse(self.m_lSkillHistoryList)) do
+        ui_str = ui_str .. '        - ' .. t_history['name'] .. ' : ' .. t_history['id'] .. '\n'
+    end
+
+    return ui_str
+end
 
 -------------------------------------
 -- function getUIStack
@@ -124,11 +142,22 @@ function ErrorTracker:getFailedResStack()
 end
 
 -------------------------------------
+-- function appendSkillHistory
+------------------------------------- 
+function ErrorTracker:appendSkillHistory(skill_id, char_name)
+    table.insert(self.m_lSkillHistoryList, {id = skill_id, name = char_name})
+    if (#self.m_lSkillHistoryList > 5) then
+        table.remove(self.m_lSkillHistoryList, 1)
+    end
+end
+
+-------------------------------------
 -- function appendAPI
 ------------------------------------- 
 function ErrorTracker:appendAPI(s)
     local time = Timer:getServerTime()
     time = datetime.strformat(time)
+
     table.insert(self.m_lAPIList, {api = s, time = time})
     if (#self.m_lAPIList > 5) then
         table.remove(self.m_lAPIList, 1)
@@ -171,5 +200,14 @@ end
 ------------------------------------- 
 function ErrorTracker:get_lastStage()
     return self.lastStage
+end
+
+
+-------------------------------------
+-- function appendSkillHistory
+------------------------------------- 
+function ErrorTracker:cleanupIngameLog()
+    self.lastStage = nil
+    self.m_lSkillHistoryList = {}
 end
 
