@@ -20,12 +20,30 @@ local L_KEY_INDEX = {
 
 	'enter',
 
-	'ancient_stage',
-	'cpoint',
+	'tower_best_score',
 	'tier',
 	'pvp_cnt',
 	'pvp_win',
 }
+
+local L_KEY_INDEX_VISIT = {
+	'created_at',
+
+	'enter',
+	
+	'd_cnt',
+	'd_maxlv_cnt',
+	'd_6g_cnt',
+	'd_have_cnt',
+
+	'enter',
+
+	'tower_best_score',
+	'tier',
+	'pvp_cnt',
+	'pvp_win',
+}
+
 
 -------------------------------------
 -- class UI_UserInfoDetailPopup
@@ -83,7 +101,7 @@ function UI_UserInfoDetailPopup:initUI()
 	vars['levelLabel']:setString(string.format('LV. %d', lv))
 
 	-- 경험치 및 게이지
-	local user_exp = g_userData:get('exp') or 519
+	local user_exp = self.m_tUserInfo['exp']
 	local user_exp_per = TableUserLevel():getUserLevelExpPercentage(lv, user_exp)
 	vars['expLabel']:setString(string.format('%.2f%%', user_exp_per))
 	vars['expGuage']:setPercentage(user_exp_per)
@@ -251,10 +269,17 @@ end
 function UI_UserInfoDetailPopup:makeHistoryList()
 	local t_info = self.m_tUserInfo['info'] or {}
 	local l_ret = {}
+    local l_key_list = nil
 	local title_str = ''
 	local context_str = ''
 
-	for _, title in pairs(L_KEY_INDEX) do
+    if (self.m_isVisit) then
+        l_key_list = clone(L_KEY_INDEX_VISIT)
+    else
+        l_key_list = clone(L_KEY_INDEX)
+    end
+
+	for _, title in pairs(l_key_list) do
 		context = t_info[title]
 		title_str = getUserInfoTitle(title)
 		context_str = self:makeContextByTitle(title, context)
@@ -289,10 +314,6 @@ function UI_UserInfoDetailPopup:makeContextByTitle(key, value)
 	elseif (key == 'tier') then
 		str = ColosseumUserInfo:getTierName(value)
 
-	elseif (key == 'ancient_stage') then
-		-- 스테이지id가 넘어오므로 층수에 해당하는 정보만 남긴다
-		str = value - ANCIENT_TOWER_STAGE_ID_START
-
 	elseif (key == 'created_at') then
 		-- 날짜 정보 세팅
 		local date = pl.Date()
@@ -304,6 +325,7 @@ function UI_UserInfoDetailPopup:makeContextByTitle(key, value)
 
 	else
 		str = value
+
 	end
 
 	return str
