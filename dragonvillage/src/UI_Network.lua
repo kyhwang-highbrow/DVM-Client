@@ -312,7 +312,7 @@ function UI_Network:request()
     end
 
 	-- @E.T.
-	g_errorTracker:set_lastAPI(self.m_url)
+	g_errorTracker:appendAPI(self.m_url)
 end
 
 

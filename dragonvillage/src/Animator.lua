@@ -604,7 +604,7 @@ function MakeAnimator(file_name, skip_error_msg)
             cclog('##############################################################')
 
 			-- @E.T.
-			g_errorTracker:set_lastFailedRes(file_name)
+			g_errorTracker:appendFailedRes(file_name)
         end
     end
 
