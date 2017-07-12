@@ -166,7 +166,6 @@ local t_module = {
     'SortManager_Dragon',
     'SortManager_Friend',
     'SimplePrimitivesDraw',
-    'Util_BuffStringParser',
 	'StageMissionMgr',
 	'LogRecorder',
 	'LogRecorderWorld',

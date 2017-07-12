@@ -1971,9 +1971,6 @@
     <None Include="..\src\UserData.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\Util_BuffStringParser.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ValidationAssistant.lua">
       <Filter>lua\src</Filter>
     </None>
