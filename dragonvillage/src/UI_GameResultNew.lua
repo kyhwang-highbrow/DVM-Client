@@ -19,6 +19,8 @@ UI_GameResultNew = class(UI, {
         
         m_lWorkList = 'list',
         m_workIdx = 'number',
+
+        m_staminaType = 'string',
      })
 
 -------------------------------------
@@ -35,41 +37,38 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_lDragonList = l_dragon_list
     self.m_lDropItemList = l_drop_item_list
     self.m_secretDungeon = secret_dungeon
+    self.m_staminaType = 'st'
 
     local vars = self:load('ingame_result_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    self:initUI()
+    self:initButton()
+    
+    -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_GameResultNew')
+
+    -- @brief work초기화 용도로 사용함
+    self:setWorkList()
+    self:doNextWork()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_GameResultNew:initUI()
+    local vars = self.vars
+    local stage_id = self.m_stageID
+    local t_tamer_levelup_data = self.m_tTamerLevelupData
+    local l_dragon_list = self.m_lDragonList
+
     -- 스테이지를 클리어했을 경우 다음 스테이지 ID 지정
-    if (is_success == true) then
-        local stage_id = self.m_stageID
+    if (self.m_bSuccess == true) then
         local next_stage_id = g_stageData:getNextStage(stage_id)
         if next_stage_id then
             g_stageData:setFocusStage(next_stage_id)
         end
     end
-
-	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
-
-    vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
-    vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
-    vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
-
-    vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
-
-    -- 모드별 버튼
-    vars['mapBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
-    vars['relationBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
-    vars['goldBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
-    vars['nightmareBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
-    vars['treeBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
-    vars['dragonBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
-    vars['towerBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
-
-    vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
-
-    vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
-    vars['switchBtn']:registerScriptTapHandler(function() self:click_switchBtn() end)
-    vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
 
     do -- NumberLabel 초기화, 게임 플레이 시간, 획득 골드
         self.m_lNumberLabel = {}
@@ -99,13 +98,33 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
 
     self:doActionReset()
     self:doAction()
+end
 
-    -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_GameResultNew')
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_GameResultNew:initButton()
+    local vars = self.vars
 
-    -- @brief work초기화 용도로 사용함
-    self:setWorkList()
-    self:doNextWork()
+    vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
+    vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
+    vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
+    vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+    vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
+
+    -- 모드별 버튼
+    vars['mapBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['relationBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['goldBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['nightmareBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['treeBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['dragonBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['towerBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+
+    vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
+    vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
+    vars['switchBtn']:registerScriptTapHandler(function() self:click_switchBtn() end)
+    vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
 end
 
 -------------------------------------
@@ -526,6 +545,7 @@ function UI_GameResultNew:direction_moveMenu()
         switch_btn:setVisible(true) 
         self:doNextWork()
     end)
+    self:show_staminaInfo()
 end
 
 -------------------------------------
@@ -712,6 +732,16 @@ function UI_GameResultNew:sortDragonNode(dragon_cnt)
 end
 
 -------------------------------------
+-- function moveToCenterBtn
+-- @brief 바로 재시작, 다시하기 버튼 중앙으로 위치 (다음, 이전 버튼 없는 경우)
+-------------------------------------
+function UI_GameResultNew:moveToCenterBtn()
+    local vars = self.vars
+    vars['againBtn']:setPositionX(-110)
+    vars['quickBtn']:setPositionX(110)
+end
+
+-------------------------------------
 -- function click_backBtn
 -------------------------------------
 function UI_GameResultNew:click_backBtn()
@@ -825,6 +855,22 @@ function UI_GameResultNew:action_switchBtn(callback)
 
     switch_sprite:runAction(cc.RotateTo:create(0.1, angle))
     result_menu:runAction(cc.Sequence:create(move_act, after_act))
+end
+
+-------------------------------------
+-- function show_staminaInfo
+-------------------------------------
+function UI_GameResultNew:show_staminaInfo()
+    local vars = self.vars
+    vars['energyNode']:setVisible(true)
+    local stamina_type = self.m_staminaType
+
+    local st_ad = g_staminasData:getStaminaCount(stamina_type)
+    local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
+    vars['energyLabel']:setString(Str('{1}/{2}', st_ad, max_cnt))
+
+    local icon = IconHelper:getStaminaInboxIcon(stamina_type)
+    vars['energyIconNode']:addChild(icon)
 end
 
 -------------------------------------

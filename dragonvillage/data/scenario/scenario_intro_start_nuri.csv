@@ -11,3 +11,4 @@ page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_na
 10,,,,,,,,,스마트드래곤,스마트드래곤,right,,,무슨 소리야! 다크닉스한테 걸리면 뼈도 못 추린다고!,
 11,,,,,,,,,누리,누리,left,,,그만 둬!,
 12,,,,,,,,,다크닉스,다크닉스,right,,,응? 또 인간… 인가?,
+13,black;1,skip_disable,,0.3,,,,,,,,,,,

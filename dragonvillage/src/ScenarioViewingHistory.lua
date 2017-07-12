@@ -112,10 +112,50 @@ function ScenarioViewingHistory:isViewed(scenario_name)
     end
 end
 
+-------------------------------------
+-- function checkIntroScenario
+-------------------------------------
+function ScenarioViewingHistory:checkIntroScenario()
+    
+    -- 인트로 시나리오
+    local lv = g_userData:get('lv')
+    if (lv > 1) then return end
 
+    local tid = g_userData:get('start_tamer')
+    local tamer_name = TableTamer():getTamerType(tid) or 'goni'
+    local intro_start_name = 'scenario_intro_start_'..tamer_name
+    local intro_fight_name = 'scenario_intro_fight'
+    local intro_finish_name = 'scenario_intro_finish_'..tamer_name
 
+    -- 시나리오 기록 서버에도 해야할듯
+    if (self:isViewed(intro_finish_name)) then return end
 
+    local play_intro_start
+    local play_intro_fight
+    local play_intro_finish
 
+    play_intro_start = function()
+        local ui = self:playScenario(intro_start_name)
+        ui:setCloseCB(play_intro_fight)
+        ui:next()
+    end
+
+    play_intro_fight = function()
+        local scene = SceneGameIntro()
+        scene:runScene()
+    end
+
+    play_intro_finish = function()
+        local ui = self:playScenario(intro_finish_name)
+        ui:next()
+    end
+
+    if (not self:isViewed(intro_start_name)) then
+        play_intro_start()
+    else
+        play_intro_finish()
+    end
+end
 
 -------------------------------------
 -- function playScenario

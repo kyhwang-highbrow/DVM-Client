@@ -21,6 +21,8 @@ function UI_GameResult_SecretDungeon:init(stage_id, is_success, time, gold, t_ta
 
     vars['nextBtn']:setVisible(false)
     vars['quickBtn']:setVisible(false)
+
+    self:moveToCenterBtn()
 end
 
 -------------------------------------
@@ -83,7 +85,6 @@ function UI_GameResult_SecretDungeon:direction_end()
         vars['skipBtn']:setVisible(true)
 
         vars['againBtn']:setVisible(false)
-        vars['mapBtn']:setVisible(false)
     end
 end
 
@@ -94,8 +95,10 @@ function UI_GameResult_SecretDungeon:direction_showButton()
     local vars = self.vars
 
     vars['relationBtn']:setVisible(true)
+    vars['mapBtn']:setVisible(false)
     vars['skipBtn']:setVisible(false)
     vars['homeBtn']:setVisible(true)
+    vars['statsBtn']:setVisible(true)
     vars['againBtn']:setVisible(true)
     vars['nextBtn']:setVisible(false)
     vars['quickBtn']:setVisible(true)

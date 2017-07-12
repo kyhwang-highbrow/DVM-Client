@@ -174,8 +174,9 @@ end
 -- function networkGameFinish
 -------------------------------------
 function SceneGameIntro:networkGameFinish(t_param, t_result_ref, next_func)
-    -- 통신하지 않고 로비 진입 
-    SceneLobby():runScene()
+    local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
+    scene:runScene()
 end
 
 -------------------------------------

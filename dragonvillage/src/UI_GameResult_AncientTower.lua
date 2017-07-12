@@ -18,7 +18,8 @@ UI_GameResult_AncientTower = class(PARENT, {
 function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, score_calc)
     local vars = self.vars
     self.m_ancientScoreCalc = score_calc
-    
+    self.m_staminaType = 'tower'
+
     vars['againBtn']:setVisible(false)
     vars['quickBtn']:setVisible(false)
 
@@ -319,6 +320,7 @@ function UI_GameResult_AncientTower:makeResultUI()
     local vars = self.vars
     vars['resultMenu']:setVisible(true)
     vars['towerBtn']:setVisible(true)
+    vars['mapBtn']:setVisible(false)
 	vars['statsBtn']:setVisible(false)
     vars['homeBtn']:setVisible(false)
     vars['againBtn']:setVisible(false)

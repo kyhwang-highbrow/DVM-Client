@@ -18,4 +18,4 @@ page,effect_1,effect_2,effect_3,auto_skip,bg,bgm,bgm_action,sound,char,t_char_na
 17,,,,,,,,,고니,고니,left,,,"헤헤, 이 몸으로 말씀 드릴 거 같으면 장차 최고의 드래곤테이머가 되실 고니님이시다!",
 18,shaking,,,,,,,,다크닉스,다크닉스,right,,,꺼져라. 하등한 존재에게 볼일은 없다.,
 19,,,,,,,,,고니,고니,left,,,"뭐? 하등해? 이 시커먼 자식이 날 뭘로 보고! 흥, 이 고니님이 실력으로 제압해주지!",
-20,black;0.5,skip_disable,,1,,,,,,,,,,,
+20,black;1,skip_disable,,0.3,,,,,,,,,,,

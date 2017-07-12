@@ -195,11 +195,6 @@ function UI_AncientTowerScene:refresh(floor_info)
     local select_floor = floor_info.m_floor
 
     vars['readyBtn']:setEnabled(challenge_floor >= select_floor)
- 
---    do -- 스태미나 갯수 표시
---        local cost_value = t_drop['cost_value']
---        vars['actingPowerLabel']:setString(comma_value(cost_value))
---    end
 end
 
 -------------------------------------

@@ -166,6 +166,8 @@ function UI_ScenarioPlayer:applyEffect(effect)
         vars['layerBlend']:runAction(cc.FadeTo:create(0.3, 204))
 
     elseif effect == 'blend_black_talk' then
+        self.vars['skipBtn']:setVisible(false)
+
         vars['layerBlend2']:setColor(cc.c3b(0,0,0))
         vars['layerBlend2']:runAction(cc.FadeTo:create(0.3, 153))
 
