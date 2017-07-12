@@ -1,47 +1,34 @@
 -------------------------------------
 -- class StructEventPopupTab
--- @brief 로비에서 진입 가능한 이벤트 팝업의 탭
---        "출석", "이벤트", "드래곤 생일" 등을 표시
+-- @brief 이벤트 팝업에 등록된 탭
 -------------------------------------
 StructEventPopupTab = class({
         m_type = 'string',
         m_sortIdx = 'number',
 
-        m_category1 = '',
-        m_category2 = '',
-        m_category3 = '',
-
-        m_userData = '',
-
+        m_bAttendance = 'boolean',
+        m_eventData = 'map',
         m_hasNoti = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function StructEventPopupTab:init(category1, category2, category3)
-    self.m_sortIdx = 0
+function StructEventPopupTab:init(event_data)
+    self.m_eventData = event_data
+    self.m_bAttendance = (event_data['attendance_type']) and true or false
 
-    self:setCategory(category1, category2, category3)
-end
+    local sortNum = 100
 
+    -- 출석 체크 고정 (기본출석, 이벤트출석)
+    if (self.m_bAttendance) then
+        self.m_type = 'attendance_' .. event_data['attendance_type']
+        self.m_sortIdx = sortNum
 
--------------------------------------
--- function setCategory
--------------------------------------
-function StructEventPopupTab:setCategory(category1, category2, category3)
-    self.m_category1 = category1
-    self.m_category2 = category2
-    self.m_category3 = category3
-
-    self.m_type = tostring(category1)
-
-    if category2 then
-        self.m_type = self.m_type .. '_' .. tostring(category2)
-    end
-
-    if category3 then
-        self.m_type = self.m_type .. '_' .. tostring(category3)
+    -- 기타 가변적인 이벤트 (shop, banner, access_time)
+    else        
+        self.m_sortIdx = event_data['ui_priority']
+        if (self.m_sortIdx == '') then self.m_sortIdx = sortNum + 1 end 
     end
 end
 
@@ -49,18 +36,30 @@ end
 -- function getTabButtonName
 -------------------------------------
 function StructEventPopupTab:getTabButtonName()
-    if (self.m_category1 == 'attendance') then
-        if (self.m_category2 == 'basic') then
-            return Str('출석')
-        elseif (self.m_category2 == 'event') then
-            return Str('이벤트')
-        end
+    local name 
+    if (self.m_type == 'attendance_basic') then
+        name = Str('출석')
 
-    elseif (self.m_category1 == 'exchange') then
-        return self.m_category3 .. '\n' .. Str('교환소')
+    elseif (self.m_type == 'attendance_event') then
+        name = Str('이벤트 출석')
 
-    elseif (self.m_category1 == 'play_time') then
-        return Str('접속시간\n이벤트')
-
+    else
+        name = self.m_eventData['t_name']
     end
+
+    return name
+end
+
+-------------------------------------
+-- function getTabIcon
+-------------------------------------
+function StructEventPopupTab:getTabIcon()
+    local res
+    if (self.m_bAttendance) then
+        res = 'res/ui/event/icon_attendence_04.png'
+    else
+        res = self.m_eventData['icon']
+    end
+   
+    return res
 end

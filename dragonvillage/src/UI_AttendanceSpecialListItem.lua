@@ -25,19 +25,18 @@ end
 -------------------------------------
 function UI_AttendanceSpecialListItem:initUI()
     local vars = self.vars
-
-    local t_item_data = self.m_tItemData
     
-    local t_sub_data = nil
-    local item_icon = IconHelper:getItemIcon(t_item_data['item_id'], t_sub_data)
-    vars['itemNode']:addChild(item_icon)
-    --checkSprite
-    --itemNode
+    local t_step_list = self.m_tItemData['step_list']
 
-    vars['dayLabel']:setString(Str('{1}일 차', t_item_data['step']))
+    for i, v in ipairs(t_step_list) do
+        local t_item_data = v
+        local t_sub_data = nil
+        local item_icon = IconHelper:getItemIcon(t_item_data['item_id'], t_sub_data)
+        vars['itemNode'..i]:addChild(item_icon)
 
-    local item_name = TableItem():getValue(t_item_data['item_id'], 't_name')
-    vars['quantityLabel']:setString(Str('{1} X{2}', item_name, comma_value(t_item_data['value'])))
+        local item_name = TableItem():getValue(t_item_data['item_id'], 't_name')
+        vars['quantityLabel'..i]:setString(Str('{1} X{2}', item_name, comma_value(t_item_data['value'])))
+    end
 end
 
 -------------------------------------

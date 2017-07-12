@@ -198,5 +198,25 @@ function ServerData_AccessTime:isGetReward(step)
     return reward_info[step] and true or false
 end
 
+-------------------------------------
+-- function hasReward
+-- @brief 받아야 할 보상이 있는지
+-------------------------------------
+function ServerData_AccessTime:hasReward()
+    local event_info = self.m_lEventData
+    local reward_info = self.m_lRewardData
+    local curr_time = self:getTime()
+
+    for i, v in ipairs(event_info) do
+        local step = tostring(v['step'])
+        local need_time = v['time']
+        if (not reward_info[step]) and (curr_time >= need_time) then
+            return true
+        end
+    end
+
+    return false
+end
+
 
 

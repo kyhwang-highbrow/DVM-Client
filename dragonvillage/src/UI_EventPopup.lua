@@ -74,40 +74,13 @@ function UI_EventPopup:init_tableView()
 
     -- 생성 콜백
     local function create_func(ui, data)
-
-        local res
-        if (data.m_type == 'attendance_basic_newbie') then
-            res = 'res/ui/event/icon_attendence_02.png'
-
-        elseif (data.m_type == 'attendance_event_open_event') then
-            res = 'res/ui/event/icon_attendence_01.png'
-
-        elseif (data.m_type == 'attendance_basic_comeback') then
-            res = 'res/ui/event/icon_attendence_03.png'
-
-        elseif (data.m_type == 'attendance_basic_normal') then
-            res = 'res/ui/event/icon_attendence_04.png'
-
-        elseif (string.match(data.m_type, 'exchange')) then
-            local t_info = data.m_userData
-            local exchange_type = t_info['group_type']
-            
-            --res = g_eventData:getResTabIcon(exchange_type)
-            res = 'res/ui/event/icon_attendence_04.png'
-
-        elseif (data.m_type == 'play_time') then
-            res = 'res/ui/event/icon_playtime_01.png'
-
-        end
-
+        local res = data:getTabIcon()
         if res then
             local icon = cc.Sprite:create(res)
             icon:setDockPoint(cc.p(0.5, 0.5))
             ui.vars['iconNode']:removeAllChildren()
             ui.vars['iconNode']:addChild(icon)
         end
-
-        
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -116,14 +89,13 @@ function UI_EventPopup:init_tableView()
     table_view:setCellUIClass(UI_EventPopupTabButton, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-    -- 테이블 뷰 setItemList 하기전에 미리 정렬 (후에 정렬할 경우 setDirtyItemList 때문에 위치가 중간에 바뀜)
+    local make_item = true
+    table_view:setItemList(l_item_list, make_item)
+
     local function sort_func(a, b)
         return a['data'].m_sortIdx < b['data'].m_sortIdx
     end
-    table.sort(l_item_list, sort_func)
-
-    local make_item = true
-    table_view:setItemList(l_item_list, make_item)
+    table.sort(table_view.m_itemList, sort_func)
 
     self.m_tableView = table_view
 end
@@ -155,15 +127,7 @@ function UI_EventPopup:initTab()
     end
 
     if (not self:checkNotiList()) then
-        if self:existTab('attendance_basic_newbie') then
-            self:setTab('attendance_basic_newbie')
-
-        elseif self:existTab('attendance_basic_comeback') then
-            self:setTab('attendance_basic_comeback')
-
-        else
-            self:setTab(initial_tab)
-        end
+        self:setTab(initial_tab)
     end
 end
 
@@ -185,22 +149,6 @@ function UI_EventPopup:onChangeTab(tab, first)
     if item and item['data'] then
         item['data'].m_hasNoti = false
     end
-
-    do -- 교환소일 경우 해당 재화를 표시
-        if (g_topUserInfo) then
-            g_topUserInfo:setSubCurrency('amethyst')
-
-            if (string.match(tab, 'exchange')) then
-                local item = self.m_tableView:getItem(tab)
-                local struct_event_popup_tab = item['data']
-                local curr_type = struct_event_popup_tab.m_userData['curr_type']
-
-                if (curr_type and curr_type ~= 'x') then
-                    g_topUserInfo:setSubCurrency(curr_type)
-                end
-            end
-        end
-    end
 end
 
 -------------------------------------
@@ -212,25 +160,34 @@ function UI_EventPopup:makeEventPopupTab(tab)
     end
 
     local ui = nil
-
     local item = self.m_tableView:getItem(tab)
     local struct_event_popup_tab = item['data']
 
-    -- 출석 (일반, 신규, 복귀)
-    if (string.find(tab, 'attendance_basic')) then
+    -- 출석 (일반)
+    if (tab == 'attendance_basic') then
         ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
 
-    -- 이벤트 교환소
-    elseif (string.match(tab, 'exchange')) then
-        ui = UI_EventPopupTab_Exchange(self, struct_event_popup_tab)
-        
+    -- 출석체크 이벤트
+    elseif (tab == 'attendance_event') then
+        ui = UI_EventPopupTab_EventAttendance(self, struct_event_popup_tab)
+
     -- 접속시간 이벤트
-    elseif (tab == 'play_time') then
+    elseif (tab == 'access_time') then
         ui = UI_EventPopupTab_AccessTime(self)
 
-    -- 출석체크 이벤트
-    else
-        ui = UI_EventPopupTab_EventAttendance(self, struct_event_popup_tab)
+    -- 상점
+    elseif (string.find(tab, 'shop')) then
+        local product_id = struct_event_popup_tab.m_eventData['event_id']
+        local l_item_list = g_shopDataNew:getProductList('package')
+        local product = l_item_list[product_id]
+        if (product) then
+            ui = UI_EventPopupTab_Shop(l_item_list[product_id])
+        end
+        
+    -- 배너
+    elseif (string.find(tab, 'banner')) then
+        ui = UI_EventPopupTab_Banner(self, struct_event_popup_tab)
+
     end
 
     self.m_mTabUI[tab] = ui
@@ -238,13 +195,15 @@ function UI_EventPopup:makeEventPopupTab(tab)
     return ui
 end
 
-
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_EventPopup:click_exitBtn()
     if (not self:checkNotiList()) then
         self:close()
+
+        -- 노티 정보를 갱신하기 위해서 호출
+        g_highlightData:setLastUpdateTime()
     end
 end
 

@@ -1,0 +1,35 @@
+local PARENT = UI
+
+-------------------------------------
+-- class UI_EventPopupTab_Banner
+-------------------------------------
+UI_EventPopupTab_Banner = class(PARENT,{
+        m_structBannerData = 'StructBannerData',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
+    local vars = self:load('event_banner.ui')
+    self.m_structBannerData = struct_event_popup_tab.m_eventData
+
+    -- 배너 이미지 (웹뷰로 수정해야함)
+    do
+        local res = self.m_structBannerData['banner']
+        local img = cc.Sprite:create(res)
+        if img then
+            img:setDockPoint(cc.p(0.5, 0.5))
+            img:setAnchorPoint(cc.p(0.5, 0.5))
+            vars['bannerNode']:addChild(img)
+        end
+    end
+end
+
+-------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_EventPopupTab_Banner:onEnterTab()
+    local vars = self.vars
+end

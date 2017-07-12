@@ -778,8 +778,9 @@ local t_module = {
     'UI_EventPopupTabButton',
     'UI_EventPopupTab_Attendance',
     'UI_EventPopupTab_EventAttendance',
-    'UI_EventPopupTab_Exchange',
     'UI_EventPopupTab_AccessTime',
+    'UI_EventPopupTab_Banner',
+    'UI_EventPopupTab_Shop',
     'UI_ExchangeProductListItem',
     'UI_AccessTimeDataListItem',
 

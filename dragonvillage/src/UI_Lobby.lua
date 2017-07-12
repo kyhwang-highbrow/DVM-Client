@@ -131,6 +131,11 @@ function UI_Lobby:entryCoroutine()
         g_attendanceData:request_attendanceInfo(function(ret) working = false end)
         while (working) do dt = coroutine.yield() end
 
+        cclog('# 이벤트 정보 받는 중')
+        working = true
+        g_eventData:request_eventList(function(ret) working = false end)
+        while (working) do dt = coroutine.yield() end
+
         cclog('# 교환소 정보 받는 중')
         working = true
         g_exchangeData:request_exchangeInfo(function(ret) working = false end)
@@ -297,6 +302,9 @@ function UI_Lobby:refresh_highlight()
 
     -- 모험 핫타임 
     vars['adventureHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
+
+    -- 이벤트
+    vars['eventNotiSprite']:setVisible(g_eventData:isHighlightEvent())
 
     -- 마스터의 길
     local has_reward, _ = g_masterRoadData:hasRewardRoad()

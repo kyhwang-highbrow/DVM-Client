@@ -1,0 +1,7 @@
+list_id,event_type,t_name,r_desc,ui_priority,start_date,end_date,icon,banner,url,shop_product
+1,shop,패키지 상품,,,,,res/ui/event/icon_attendence_01.png,,,90001
+2,attendance,출석 이벤트,연속 출석 이벤트,,,,,,,
+3,access_time,접속 시간 보상,접속 시간 보상,,,,,,,
+4,banner,길드 업데이트,길드 시스템 추가,,,,res/ui/event/icon_attendence_02.png,res/ui/event/attendance_banner_001.png,http://www.perplelab.com,
+5,banner,픽업 안내,9/1 픽업 이벤트 안내,,2017-07-01 00:00:00,2017-08-01 00:00:00,res/ui/event/icon_attendence_03.png,res/ui/event/attendance_banner_001.png,http://www.perplelab.com,
+6,banner,업데이트,9/30 업데이트 공지,1,2017-07-01 00:00:00,2017-08-01 00:00:00,res/ui/event/icon_attendence_04.png,res/ui/event/attendance_banner_001.png,http://www.perplelab.com,

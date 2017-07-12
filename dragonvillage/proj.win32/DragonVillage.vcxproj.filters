@@ -765,9 +765,6 @@
     <None Include="..\src\UI_FormationListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_EventPopupTab_Exchange.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ExchangeProductListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2447,6 +2444,12 @@
     </None>
     <None Include="..\src\ConstantColor.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTab_Shop.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTab_Banner.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

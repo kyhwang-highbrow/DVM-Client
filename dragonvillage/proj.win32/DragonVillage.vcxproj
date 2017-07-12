@@ -873,7 +873,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonRunesEnhance.lua" />
     <None Include="..\src\UI_DragonSkillCard.lua" />
     <None Include="..\src\UI_EventPopupTab_AccessTime.lua" />
-    <None Include="..\src\UI_EventPopupTab_Exchange.lua" />
+    <None Include="..\src\UI_EventPopupTab_Banner.lua" />
+    <None Include="..\src\UI_EventPopupTab_Shop.lua" />
     <None Include="..\src\UI_ExchangeProductListItem.lua" />
     <None Include="..\src\UI_FormationListItem.lua" />
     <None Include="..\src\UI_FormationPopup.lua" />

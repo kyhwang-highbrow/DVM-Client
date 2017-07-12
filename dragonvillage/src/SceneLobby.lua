@@ -39,3 +39,10 @@ function SceneLobby:prepare()
 		UI_Lobby()
 	end)
 end
+
+-------------------------------------
+-- function prepareDone
+-------------------------------------
+function SceneLobby:prepareDone()
+    -- 로비 진입 시나리오 체크
+end
