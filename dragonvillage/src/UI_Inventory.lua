@@ -50,7 +50,6 @@ function UI_Inventory:initUI()
         self.m_tTabClass['rune'] = UI_InventoryTabRune(self)
         self.m_tTabClass['material'] = UI_InventoryTabEvolutionStone(self)
         self.m_tTabClass['fruit'] = UI_InventoryTabFruit(self)
-        self.m_tTabClass['ticket'] = UI_InventoryTabTicket(self)
     end
 
 
@@ -59,7 +58,6 @@ function UI_Inventory:initUI()
         self.m_mainTabMgr:addTab('rune', vars['runeBtn'], vars['runeNode'])
         self.m_mainTabMgr:addTab('material', vars['materialBtn'], vars['materialNode'])
         self.m_mainTabMgr:addTab('fruit', vars['fruitBtn'], vars['fruitNode'])
-        self.m_mainTabMgr:addTab('ticket', vars['ticketBtn'], vars['ticketNode'])
     
 		
         self.m_mainTabMgr:setChangeTabCB(function(tab, first) self:onChangeMainTab(tab, first) end)
