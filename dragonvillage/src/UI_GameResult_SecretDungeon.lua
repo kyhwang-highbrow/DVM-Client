@@ -82,7 +82,6 @@ function UI_GameResult_SecretDungeon:direction_end()
         vars['skipLabel']:setVisible(true)
         vars['skipBtn']:setVisible(true)
 
-        vars['statsBtn']:setVisible(false)
         vars['againBtn']:setVisible(false)
         vars['mapBtn']:setVisible(false)
     end
@@ -94,13 +93,15 @@ end
 function UI_GameResult_SecretDungeon:direction_showButton()
     local vars = self.vars
 
+    vars['relationBtn']:setVisible(true)
     vars['skipBtn']:setVisible(false)
     vars['homeBtn']:setVisible(true)
     vars['againBtn']:setVisible(true)
     vars['nextBtn']:setVisible(false)
-    vars['quickBtn']:setVisible(false)
-
+    vars['quickBtn']:setVisible(true)
+    
     self:checkAutoPlay()
+    self:doNextWork()
 end
 
 -------------------------------------

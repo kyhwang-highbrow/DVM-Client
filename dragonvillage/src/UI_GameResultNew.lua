@@ -55,7 +55,16 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 
     vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
+
+    -- 모드별 버튼
     vars['mapBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['relationBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['goldBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['nightmareBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['treeBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['dragonBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['towerBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+
     vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
 
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
