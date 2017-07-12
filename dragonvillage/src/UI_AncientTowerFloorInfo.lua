@@ -111,10 +111,24 @@ function UI_AncientTowerFloorInfo:refresh_monsterList()
 
     local l_item_list = info:getMonsterList()
 
+    local function make_func(data)
+        local ui 
+        local t_monster = TableMonster():get(data)
+        if (t_monster) then
+            ui = UI_MonsterCard(data)
+        else
+            local t_dragon = StructDragonObject()
+            t_dragon['did'] = data
+            t_dragon['evolution'] = 3
+            ui = UI_DragonCard(t_dragon)
+        end
+        return ui
+    end
+
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(152, 150)
-    table_view:setCellUIClass(UI_MonsterCard)
+    table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(l_item_list)
     table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
