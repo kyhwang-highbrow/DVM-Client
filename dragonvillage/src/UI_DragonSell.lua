@@ -287,9 +287,6 @@ function UI_DragonSell:click_sellBtn()
 	end
 
 	local function cb_func()
-		local str = Str('{1} 골드를 받았습니다', self.m_price)
-		UI_ToastPopup(str)
-
 		-- 다시 초기화
 		self.m_price = 0
 		self.m_tSellTable = {}
