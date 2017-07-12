@@ -290,7 +290,7 @@ local T_TITLE = {
     d_maxlv_cnt = 'Max 레벨 달성한 드래곤의 수',
     d_have_cnt = '현재 보유한 드래곤 수',
     created_at = '최초 접속일',
-    tower_best_score = '최대 고대의 탑 점수 총 합',
+    ancient_score = '고대의 탑 최대 점수 총 합',
     login_days = '누적 접속일',
 	enter = '',
 }

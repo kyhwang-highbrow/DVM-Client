@@ -20,7 +20,7 @@ local L_KEY_INDEX = {
 
 	'enter',
 
-	'tower_best_score',
+	'ancient_score',
 	'tier',
 	'pvp_cnt',
 	'pvp_win',
@@ -38,7 +38,7 @@ local L_KEY_INDEX_VISIT = {
 
 	'enter',
 
-	'tower_best_score',
+	'ancient_score',
 	'tier',
 	'pvp_cnt',
 	'pvp_win',
