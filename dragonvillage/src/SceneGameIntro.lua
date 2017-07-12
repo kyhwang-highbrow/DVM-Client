@@ -62,6 +62,8 @@ function SceneGameIntro:prepare()
 
     self:addLoading(function()
         -- 리소스 프리로드
+        resCaching('res/ui/a2d/tutorial/tutorial')
+
         local ret = self.m_resPreloadMgr:loadForColosseum()
         return ret
     end)
@@ -108,6 +110,7 @@ function SceneGameIntro:update(dt)
 
     local world = self.m_gameWorld
     local recorder = world.m_logRecorder
+    local leader = world.m_leaderDragon
     local boss = world.m_boss
     local idx = self.m_nIdx
 
@@ -138,7 +141,7 @@ function SceneGameIntro:update(dt)
     end
 
     -- 세번째 웨이브 - 드래그 스킬 사용 직후
-    if (idx == 5) and (recorder:getLog('use_skill') > 0 and world:isPossibleControl()) then
+    if (idx == 5) and (recorder:getLog('use_skill') > 0 and leader.m_state == 'attackDelay') then
         self:play_tutorialTalk()
     end
 
@@ -156,7 +159,7 @@ function SceneGameIntro:update(dt)
     end
 
     -- 세번째 웨이브 - 아군이 모두 죽었을 때
-    if (idx == 7) and (#world:getDragonList() == 0) then
+    if (idx == 7) and (world.m_gameState == GAME_STATE_SUCCESS_WAIT) then
         self:play_tutorialTalk()
     end
 

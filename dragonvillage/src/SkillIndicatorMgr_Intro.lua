@@ -5,6 +5,8 @@ local PARENT = SkillIndicatorMgr
 -------------------------------------
 SkillIndicatorMgr_Intro = class(PARENT, {
     m_introHero = 'Dragon',
+
+    m_animatorGuide = 'cc.AzVRP',
 })
 
 -------------------------------------
@@ -143,7 +145,9 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
     self:closeSkillToolTip()
 
     if (is_used_skill) then
-        self.m_introHero = nil
+        self.m_animatorGuide:release()
+
+        self.m_world.m_gameHighlight:setToForced(false)
     end
 end
 
@@ -158,4 +162,11 @@ function SkillIndicatorMgr_Intro:startIntro(hero)
     world:setTemporaryPause(true)
     world.m_gameHighlight:setToForced(true)
     world.m_gameHighlight:addForcedHighLightList(self.m_introHero)
+
+    -- 가이드 비주얼
+    self.m_animatorGuide = MakeAnimator('res/ui/a2d/tutorial/tutorial.vrp')
+    self.m_animatorGuide:changeAni('hand_03', true)
+    self.m_animatorGuide:setPosition(self.m_introHero.pos.x, self.m_introHero.pos.y - 20)
+
+    g_gameScene.m_gameIndicatorNode:addChild(self.m_animatorGuide.m_node)
 end

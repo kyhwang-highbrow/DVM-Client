@@ -6,6 +6,8 @@ local PARENT = DropItemMgr
 DropItemMgr_Intro = class(PARENT, {
     m_bEnableTouch = 'boolean',
     m_firstItem = 'DropItem',
+
+    m_animatorGuide = 'cc.AzVRP',
 })
 
 -------------------------------------
@@ -67,17 +69,6 @@ function DropItemMgr_Intro:designateDropMonster()
         end
     end
 end
---[[
--------------------------------------
--- function makeTouchNode
--------------------------------------
-function DropItemMgr_Intro:makeTouchNode()
-    local touch_node = cc.Node:create()
-    g_gameScene.m_scene:addChild(touch_node)
-
-    return touch_node
-end
-]]--
 
 -------------------------------------
 -- function onEvent
@@ -125,6 +116,8 @@ function DropItemMgr_Intro:onTouchBeganForIntro(touch, event)
 
     local select_item = self:getItemFromPos(node_pos['x'], node_pos['y'])
     if (select_item == self.m_firstItem and not select_item:isObtained()) then
+        self.m_animatorGuide:release()
+
         self:obtainItem(select_item)
 
         select_item:makeObtainEffect()
@@ -159,6 +152,13 @@ function DropItemMgr_Intro:startIntro()
     self.m_firstItem:setTemporaryPause(false)
 
     self.m_world.m_gameHighlight:addForcedHighLightList(self.m_firstItem)
+
+    -- 가이드 비주얼
+    self.m_animatorGuide = MakeAnimator('res/ui/a2d/tutorial/tutorial.vrp')
+    self.m_animatorGuide:changeAni('hand_0101', true)
+    self.m_animatorGuide:setPosition(self.m_firstItem.pos.x, self.m_firstItem.pos.y + 20)
+
+    g_gameScene.m_gameIndicatorNode:addChild(self.m_animatorGuide.m_node)
 end
 
 -------------------------------------
