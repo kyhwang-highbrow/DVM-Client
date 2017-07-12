@@ -82,6 +82,11 @@ function UI_AcquisitionRegionListItem:initUI()
 			content_str = Str('이벤트에서 획득')
 			vars['locationBtn']:setVisible(false)
 
+        elseif string.find(get_type, 'coupon') then
+            local n_time = string.gsub(get_type, 'coupon', '')
+            title_str = Str('[오프라인 카드]')
+            content_str = Str('드래곤 빌리지 카드 {1}탄 쿠폰에서 획득', n_time)
+
 		end
 
 		vars['locationLabel1']:setString(title_str)
@@ -136,6 +141,9 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 
 		elseif (get_type == 'relation') then
 			g_hatcheryData:openHatcheryUI(close_cb, get_type)
+
+        elseif string.find(get_type, 'coupon') then
+            ccdisplay('쿠폰 등록 팝업으로 이동!')
 
 		end
 	end

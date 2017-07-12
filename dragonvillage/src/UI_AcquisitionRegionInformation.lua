@@ -79,19 +79,10 @@ function UI_AcquisitionRegionInformation:regionListView()
 
 	local l_region = self:makeRegionList()
 
-    -- 셀 아이템 생성 콜백
-    local function create_func(ui, data)
-        --[[
-        ui.vars['selectBtn']:registerScriptTapHandler(function()
-                UIManager:toastNotificationGreen(Str('"고니"가 선택되었습니다.'))
-            end)
-        --]]
-    end
-
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(520, 100)
-    table_view:setCellUIClass(UI_AcquisitionRegionListItem, create_func)
+    table_view:setCellUIClass(UI_AcquisitionRegionListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_region)
 
@@ -141,6 +132,11 @@ function UI_AcquisitionRegionInformation:makeRegionList()
 			if (t_dragon['mg_weight'] > 0) then
 				table.insert(l_region, 'mileage')
 			end
+
+            -- 쿠폰 체크
+            if (t_dragon['c_coupon'] > 0) then
+                table.insert(l_region, 'coupon' .. t_dragon['c_coupon'])
+            end
 		end
 		
 		-- 조합 체크
