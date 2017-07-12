@@ -37,6 +37,8 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     dragon:addListener('touch_began', self)
     dragon:addListener('character_dead', self)
     dragon:addListener('character_revive', self)
+    dragon:addListener('dragon_mana_reduce', self)
+    dragon:addListener('dragon_mana_reduce_finish', self)
 
     self:refreshHP(dragon.m_hp, dragon.m_maxHp)
     self:refreshManaCost(dragon.m_activeSkillManaCost)
@@ -137,6 +139,10 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
 
     elseif (event_name == 'touch_began') then
         self:onTouchBegan(t_event)
+
+    -- 드래곤 마나 소모량 변경 Event
+    elseif (event_name == 'dragon_mana_reduce' or event_name == 'dragon_mana_reduce_finish') then
+        self:refreshManaCost(t_event['value'])
 
     -- 드래곤 사망 시
     elseif (event_name == 'character_dead') then

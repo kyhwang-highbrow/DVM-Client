@@ -671,6 +671,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffect_Bleed.lua" />
     <None Include="..\src\StatusEffect_Dispell.lua" />
     <None Include="..\src\StatusEffect_Immortal.lua" />
+    <None Include="..\src\StatusEffect_ManaReduce.lua" />
     <None Include="..\src\StatusEffect_Modify.lua" />
     <None Include="..\src\StatusEffect_Poison.lua" />
     <None Include="..\src\StatusEffect_Protection.lua" />
