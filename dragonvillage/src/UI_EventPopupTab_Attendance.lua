@@ -59,23 +59,8 @@ function UI_EventPopupTab_Attendance:checkTodayRewardPopup()
     end
     struct_attendance_data:setReceived()
 
-    local function coroutine_function(dt)
-        local co = CoroutineHelper()
-        co:setBlockPopup()
-
-        co:waitTime(0.5)
-
-        co:work()
-        local today_item = step_list[today_step]
-        local message = Str('{1}일 차 출석 보너스', today_step)
-        local ui = MakeSimpleRewarPopup(message, today_item['item_id'], today_item['value'])
-        ui:setCloseCB(co.NEXT)
-        if co:waitWork() then return end
-
-        co:close()
-    end
-
-    Coroutine(coroutine_function)
+    local toast_msg = Str('{1}일 차 보상이 우편함으로 전송되었습니다.', today_step)
+    UI_ToastPopup(toast_msg)
 end
 
 -------------------------------------
