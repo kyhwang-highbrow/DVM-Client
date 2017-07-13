@@ -472,7 +472,9 @@ end
 -- @brief 우편함
 -------------------------------------
 function UI_Lobby:click_mailBtn()
-    UI_MailPopup()
+    UI_MailPopup():setCloseCB(function()
+        self:refresh_userInfo()
+    end)
 end
 
 -------------------------------------
