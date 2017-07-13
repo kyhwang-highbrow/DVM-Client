@@ -100,11 +100,13 @@
                 "pos_y":0
             },
 			
+			"direction":"boss_wave",
+			
 			"wave":
             {
                 0:
                 [
-					"134025;10;Appear;RO04;RM24;0.5"
+					"134015;10;Appear;RO04;RM24;0.5"
 				]
             },
 			
