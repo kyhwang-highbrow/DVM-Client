@@ -163,7 +163,7 @@ function SceneGameIntro:update(dt)
     end
 
     -- 세번째 웨이브 - 아군이 모두 죽었을 때
-    if (idx == 7) and (world.m_gameState == GAME_STATE_FAILURE) then
+    if (idx == 7) and (world.m_gameState.m_state == GAME_STATE_FAILURE) then
         self:play_tutorialTalk()
     end
 
