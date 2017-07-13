@@ -157,17 +157,22 @@ function ServerData_Runes:request_runeLevelup(owner_doid, roid, finish_cb, fail_
         -- 공통 응답 처리 (골드 갱신을 위해)
         g_serverData:networkCommonRespone(ret)
 
+        -- 룬 강화 성공
         if ret['modified_rune'] then
             ret['lvup_success'] = true
             ret['modified_rune']['owner_doid'] = owner_doid
             self:applyRuneData(ret['modified_rune'])
+
+        -- 룬 강화 실패
         else
             ret['lvup_success'] = false
         end
         
         -- @ MASTER ROAD
-        local t_data = {road_key = 'r_enc', road_value = ret['modified_rune']['lv']}
-        g_masterRoadData:updateMasterRoad(t_data)
+        if ret['modified_rune'] then
+            local t_data = {road_key = 'r_enc', road_value = ret['modified_rune']['lv']}
+            g_masterRoadData:updateMasterRoad(t_data)
+        end
 
         if finish_cb then
             finish_cb(ret)
