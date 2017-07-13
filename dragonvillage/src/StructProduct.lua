@@ -10,6 +10,7 @@ StructProduct = class({
         price = 'number',
         price_dollar = 'number',
         product_content = 'string',
+        mail_content = 'string',
         icon = 'string',
         max_buy_count = 'number',
         max_buy_term = 'string',
@@ -32,6 +33,7 @@ StructProduct = class({
 function StructProduct:init(data)
     self.price_dollar = 0
     self.m_uiPriority = 0
+    self.mail_content = ''
 
     if data then
         self:applyTableData(data)
@@ -155,8 +157,12 @@ function StructProduct:getDesc()
 	do
 		local l_item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
 		if (not l_item_list) then
-			return ''
+			l_item_list = ServerData_Item:parsePackageItemStr(self['mail_content'])
 		end
+
+        if (not l_item_list) then
+            return ''
+        end
 
 		local first_item = l_item_list[1]
 		if (not first_item) or (not first_item['item_id']) then
@@ -211,6 +217,10 @@ function StructProduct:makeProductIcon()
     end
 
     local l_item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
+    if (not l_item_list) then
+        l_item_list = ServerData_Item:parsePackageItemStr(self['mail_content'])
+    end
+
     if (not l_item_list) then
         return nil
     end
