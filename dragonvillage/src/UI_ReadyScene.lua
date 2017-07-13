@@ -460,13 +460,11 @@ function UI_ReadyScene:refresh_tamer()
 
     local table_tamer = TableTamer()
     local tamer_id = self:getCurrTamerID()
-	local tamer_res = table_tamer:getValue(tamer_id, 'res_sd')
+	local tamer_res = table_tamer:getValue(tamer_id, 'res')
     local animator = MakeAnimator(tamer_res)
 	if (animator) then
 		animator:setDockPoint(0.5, 0.5)
 		animator:setAnchorPoint(0.5, 0.5)
-		animator:setScale(2)
-		animator:setPosition(0, 50)
 		vars['tamerNode']:addChild(animator.m_node)
 	end
 end
