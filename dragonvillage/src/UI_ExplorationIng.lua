@@ -55,9 +55,14 @@ function UI_ExplorationIng:initUI()
     vars['locationLabel']:setString(Str(location_info['t_name']))
 
     -- 탐험 시간
+    local sec = location_info['clear_time']
+    local time_str = datetime.makeTimeDesc(sec, true)
+    vars['timeLabel']:setString(time_str)
+
+    -- 탐험 시간
     local sec = location_info['item_cnt']
     local hours = (sec / 3600)
-    vars['timeLabel']:setString(Str('{1} 시간', hours))
+    vars['timeLabel2']:setString(Str('{1} 시간', hours))
 
     -- 획득하는 아이템 리스트
     local reward_items_str = location_info['reward_items']
@@ -83,10 +88,6 @@ function UI_ExplorationIng:initUI()
                 local ui = UI_DragonCard(t_dragon_data)
                 ui:setReadySpriteVisible(false)
                 self.vars['slotNode' .. i]:addChild(ui.root)
-
-                -- 드래곤 인게임 리소스 출력
-                local animator = g_dragonsData:getDragonAnimator(doid)
-                self.vars['dragonNode' .. i]:addChild(animator.m_node)
             end
         end
     end
@@ -113,6 +114,30 @@ function UI_ExplorationIng:initUI()
     icon:setDockPoint(cc.p(0.5, 0.5))
     icon:setAnchorPoint(cc.p(0.5, 0.5))
     vars['stageNode']:addChild(icon)
+
+    self:init_tamer()
+end
+
+-------------------------------------
+-- function refresh_tamer
+-------------------------------------
+function UI_ExplorationIng:init_tamer()
+    local vars = self.vars
+
+    vars['tamerNode']:removeAllChildren()
+
+    local table_tamer = TableTamer()
+    local tamer_id = g_tamerData:getCurrTamerID()
+	local tamer_res = table_tamer:getValue(tamer_id, 'res_sd')
+    local animator = MakeAnimator(tamer_res)
+	if (animator) then
+		animator:setDockPoint(0.5, 0.5)
+		animator:setAnchorPoint(0.5, 0.5)
+		--animator:setScale(2)
+		--animator:setPosition(0, 50)
+        animator:changeAni('move', true)
+		vars['tamerNode']:addChild(animator.m_node)
+	end
 end
 
 -------------------------------------
@@ -152,7 +177,7 @@ function UI_ExplorationIng:refresh()
 
     elseif (status == 'exploration_complete') then
         -- 탐험 시간
-        vars['timeLabel']:setString('')
+        vars['timeLabel2']:setString('')
 
         vars['cancelBtn']:setVisible(false)
         vars['completeBtn']:setVisible(false)
@@ -178,7 +203,7 @@ function UI_ExplorationIng:update(dt)
     if remain_time > 0 then
         -- 탐험 시간
         local time_str = datetime.makeTimeDesc(remain_time, true)
-        vars['timeLabel']:setString(Str('{1} 남음', time_str))
+        vars['timeLabel2']:setString(Str('{1} 남음', time_str))
     else
         self:refresh()
     end

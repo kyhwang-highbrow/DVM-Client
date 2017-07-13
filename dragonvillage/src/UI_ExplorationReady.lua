@@ -114,7 +114,7 @@ function UI_ExplorationReady:init_tableView()
     local l_item_list = g_explorationData:getDragonList()
 
     -- 생성 콜백
-    local item_scale = 0.7
+    local item_scale = 0.66
     local function create_func(ui, data)
         ui.root:setScale(item_scale)
 

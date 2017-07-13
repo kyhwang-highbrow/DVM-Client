@@ -433,7 +433,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'subRoot';
 				};
 				[6] =
 				{
@@ -707,7 +707,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'subRoot';
+				lua_name = '';
 			};
 			[2] =
 			{
