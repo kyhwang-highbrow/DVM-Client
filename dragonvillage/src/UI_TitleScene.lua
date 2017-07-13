@@ -280,6 +280,19 @@ function UI_TitleScene:workCheckUserID()
     local uid = g_serverData:get('local', 'uid')
     local idfa = g_serverData:get('local', 'idfa')
 
+    -- Login팝업 샘플
+    if false then
+        self.m_loadingUI:hideLoading()
+
+        local ui = UI_LoginPopup()
+        local function close_cb()
+            cclog('Login팝업 샘플 닫힘')
+            self:doNextWork()
+        end
+        ui:setCloseCB(close_cb)
+        return
+    end
+    
     if (uid or idfa) then
         self:doNextWork()
     else

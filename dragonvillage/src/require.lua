@@ -600,6 +600,7 @@ local t_module = {
     'UI_UserLevelUp',
     'UI_ContentLock',
     'UI_ChangeNickPopup',
+    'UI_LoginPopup',
 
     -- UI : 대화 스크립트 재생기
     'UI_ScenarioPlayer',
