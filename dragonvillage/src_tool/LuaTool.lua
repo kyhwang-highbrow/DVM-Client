@@ -1,7 +1,7 @@
 -- penlight 라이브러리 로드
 pl = require 'pl.import_into'()
 
--- ../srs경로를 package.path에 추가
+-- ../src경로를 package.path에 추가
 pl.app.require_here('../res')
 pl.app.require_here('../src')
 pl.app.require_here('..')
@@ -20,7 +20,6 @@ require 'io'
 -- @brief
 -------------------------------------
 function main()
-    TABLE:init()
     
    
     lapp = require 'pl.lapp'
@@ -29,7 +28,7 @@ function main()
         -n, --_name     (string)         extract
                                         validate
                                       uigenerate
-    ]] )
+     ]])
 
     
     if (args['_name'] == 'extract') then
@@ -69,4 +68,3 @@ local status, msg = xpcall(main, __G__TRACKBACK__)
 if not status then
     error(msg)
 end
-
