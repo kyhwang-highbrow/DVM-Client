@@ -7,19 +7,19 @@ TutorialHelper = {}
 -- function convertToWorldSpace
 -- @brief 
 --[[
-    tutorial¿¡¼­ »ç¿ëÇÏ±â ÁÁµµ·Ï ´ë»ó node¸¦ ¿ø·¡ÀÇ ºÎ¸ğ¿¡¼­ ¶¼¾î³»¾î
-    new_parent¿¡ ºÙÀÌ´Â °ÍÀ¸·Î °¡Á¤ÇÑ È­¸é»óÀÇ À§Ä¡ °è»ê
+    tutorialì—ì„œ ì‚¬ìš©í•˜ê¸° ì¢‹ë„ë¡ ëŒ€ìƒ nodeë¥¼ ì›ë˜ì˜ ë¶€ëª¨ì—ì„œ ë–¼ì–´ë‚´ì–´
+    new_parentì— ë¶™ì´ëŠ” ê²ƒìœ¼ë¡œ ê°€ì •í•œ í™”ë©´ìƒì˜ ìœ„ì¹˜ ê³„ì‚°
 ]]
--- @return cc.p : nodeÀÇ dock°ú anchor¸¦ °í·ÁÇÑ ÁÂÇ¥ 
+-- @return cc.p : nodeì˜ dockê³¼ anchorë¥¼ ê³ ë ¤í•œ ì¢Œí‘œ 
 -------------------------------------
 function TutorialHelper:convertToWorldSpace(new_parent, node)
-    -- nodeÀÇ È­¸é¿¡¼­ º¸ÀÌ´Â »çÀÌÁî¸¦ ±¸ÇØ¿Â´Ù.
-    -- ÀÌ¶§ ÁÂÇ¥´Â dock_point (0,0) anchor_point (0, 0) ±âÁØ
+    -- nodeì˜ í™”ë©´ì—ì„œ ë³´ì´ëŠ” ì‚¬ì´ì¦ˆë¥¼ êµ¬í•´ì˜¨ë‹¤.
+    -- ì´ë•Œ ì¢Œí‘œëŠ” dock_point (0,0) anchor_point (0, 0) ê¸°ì¤€
 	local transform = node:getNodeToWorldTransform() 
 	local world_x = transform[12 + 1]
 	local world_y = transform[13 + 1]
 
-    -- dock°ú anchor¸¦ °í·ÁÇÏ¿© °¡°¨ÇØÁØ´Ù
+    -- dockê³¼ anchorë¥¼ ê³ ë ¤í•˜ì—¬ ê°€ê°í•´ì¤€ë‹¤
     local dock_point = node:getDockPoint()
     local anchor_point = node:getAnchorPoint()
     local node_size = node:getContentSize()

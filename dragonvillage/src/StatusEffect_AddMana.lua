@@ -29,10 +29,10 @@ end
 
 -------------------------------------
 -- function onApplyOverlab
--- @brief ÇØ´ç »óÅÂÈ¿°ú°¡ ÃÖÃÊ 1È¸¸¦ Æ÷ÇÔÇÏ¿© ÁßÃ¸ Àû¿ëµÉ½Ã¸¶´Ù È£Ãâ
+-- @brief í•´ë‹¹ ìƒíƒœíš¨ê³¼ê°€ ìµœì´ˆ 1íšŒë¥¼ í¬í•¨í•˜ì—¬ ì¤‘ì²© ì ìš©ë ì‹œë§ˆë‹¤ í˜¸ì¶œ
 -------------------------------------
 function StatusEffect_AddMana:onApplyOverlab(unit)
     self.m_owner.m_world.m_heroMana:addMana(self.m_addValue)
-    -- !! unitÀ» ¹Ù·Î »èÁ¦ÇÏ¿© ÇØ´ç »óÅÂÈ¿°ú Á¾·á½ÃÅ´
+    -- !! unitì„ ë°”ë¡œ ì‚­ì œí•˜ì—¬ í•´ë‹¹ ìƒíƒœíš¨ê³¼ ì¢…ë£Œì‹œí‚´
     unit.m_durationTimer = 0
 end

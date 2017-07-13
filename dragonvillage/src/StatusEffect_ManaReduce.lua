@@ -27,7 +27,7 @@ end
 -- function onStart
 -------------------------------------
 function StatusEffect_ManaReduce:onStart()
-    -- ÁßÃ¸µÈ À¯´ÖÀÌ ¾ø´Â °æ¿ì¿¡ ÇØ´ç µå·¡°ïÀÇ ¸¶³ª¸¦ reduceValue(add_option_value_1)¸¸Å­ °¨¼Ò½ÃÅ²´Ù.
+    -- ì¤‘ì²©ëœ ìœ ë‹›ì´ ì—†ëŠ” ê²½ìš°ì— í•´ë‹¹ ë“œë˜ê³¤ì˜ ë§ˆë‚˜ë¥¼ reduceValue(add_option_value_1)ë§Œí¼ ê°ì†Œì‹œí‚¨ë‹¤.
     self.m_originValue = self.m_owner.m_activeSkillManaCost
     self.m_owner.m_activeSkillManaCost = self.m_owner.m_activeSkillManaCost - self.m_reduceValue 
     if(self.m_owner.m_activeSkillManaCost < 1) then

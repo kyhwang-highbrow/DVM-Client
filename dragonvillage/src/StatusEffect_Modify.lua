@@ -4,7 +4,7 @@ local PARENT = StatusEffect
 -- class StatusEffect_Modify
 -------------------------------------
 StatusEffect_Modify = class(PARENT, {
-    m_mConditionInfo = 'table',     -- º¯°æÇÒ »óÅÂÈ¿°ú¸¦ ±¸ºĞÇÏ±â À§ÇÑ Á¶°Ç Á¤º¸¸¦ ´ã±â À§ÇÑ Å×ÀÌºí
+    m_mConditionInfo = 'table',     -- ë³€ê²½í•  ìƒíƒœíš¨ê³¼ë¥¼ êµ¬ë¶„í•˜ê¸° ìœ„í•œ ì¡°ê±´ ì •ë³´ë¥¼ ë‹´ê¸° ìœ„í•œ í…Œì´ë¸”
     })
 
 -------------------------------------
@@ -23,7 +23,7 @@ end
 function StatusEffect_Modify:initFromTable(t_status_effect, target_char)
     PARENT.initFromTable(self, t_status_effect, target_char)
 
-    -- º¯°æÇÒ »óÅÂÈ¿°ú¸¦ ±¸ºĞÇÏ±â À§ÇÑ Á¶°Ç Á¤º¸¸¦ ÀúÀå
+    -- ë³€ê²½í•  ìƒíƒœíš¨ê³¼ë¥¼ êµ¬ë¶„í•˜ê¸° ìœ„í•œ ì¡°ê±´ ì •ë³´ë¥¼ ì €ì¥
     for i = 1, 4 do
         local str = t_status_effect['val_' .. i]
         if (str and str ~= '') then
@@ -38,10 +38,10 @@ end
 
 -------------------------------------
 -- function onApplyOverlab
--- @brief ÇØ´ç »óÅÂÈ¿°ú°¡ ÃÖÃÊ 1È¸¸¦ Æ÷ÇÔÇÏ¿© ÁßÃ¸ Àû¿ëµÉ½Ã¸¶´Ù È£Ãâ
+-- @brief í•´ë‹¹ ìƒíƒœíš¨ê³¼ê°€ ìµœì´ˆ 1íšŒë¥¼ í¬í•¨í•˜ì—¬ ì¤‘ì²© ì ìš©ë ì‹œë§ˆë‹¤ í˜¸ì¶œ
 -------------------------------------
 function StatusEffect_Modify:onApplyOverlab(unit)
-    -- ÇØ´ç »óÅÂÈ¿°ú°¡ º¯°æ ´ë»óÀÎÁö °Ë»ç
+    -- í•´ë‹¹ ìƒíƒœíš¨ê³¼ê°€ ë³€ê²½ ëŒ€ìƒì¸ì§€ ê²€ì‚¬
     local checkCondition = function(status_effect)
         if (table.count(self.m_mConditionInfo) == 0) then return true end
 
@@ -58,9 +58,9 @@ function StatusEffect_Modify:onApplyOverlab(unit)
         return b
     end
 
-    -- ÇØ´ç »óÅÂÈ¿°úÀÇ °ªÀ» ¼öÁ¤
-    -- !! unitÀÇ value´Â º¯°æÇÒ »óÅÂÈ¿°úÀÇ valueÀÇ Áõ°¡°ª(%)À¸·Î »ç¿ë
-    -- !! unitÀÇ durationÀº º¯°æÇÒ »óÅÂÈ¿°úÀÇ durationÀÇ Áõ°¡°ª(%)À¸·Î »ç¿ë
+    -- í•´ë‹¹ ìƒíƒœíš¨ê³¼ì˜ ê°’ì„ ìˆ˜ì •
+    -- !! unitì˜ valueëŠ” ë³€ê²½í•  ìƒíƒœíš¨ê³¼ì˜ valueì˜ ì¦ê°€ê°’(%)ìœ¼ë¡œ ì‚¬ìš©
+    -- !! unitì˜ durationì€ ë³€ê²½í•  ìƒíƒœíš¨ê³¼ì˜ durationì˜ ì¦ê°€ê°’(%)ìœ¼ë¡œ ì‚¬ìš©
     local modify = function(status_effect)
         local list = status_effect:getOverlabUnitList()
         local value_rate = unit.m_value / 100
@@ -68,11 +68,11 @@ function StatusEffect_Modify:onApplyOverlab(unit)
 
         for _, v in ipairs(list) do
             if (v ~= unit) then
-                do  -- Àû¿ë°ª º¯°æ
+                do  -- ì ìš©ê°’ ë³€ê²½
                     v.m_value = v.m_value + v.m_value * value_rate
                 end
 
-                do  -- À¯Áö½Ã°£ º¯°æ
+                do  -- ìœ ì§€ì‹œê°„ ë³€ê²½
                     v.m_durationTimer = v.m_durationTimer + v.m_durationTimer * duration_rate
                 end
             end
@@ -85,6 +85,6 @@ function StatusEffect_Modify:onApplyOverlab(unit)
         end
     end
 
-    -- !! unitÀ» ¹Ù·Î »èÁ¦ÇÏ¿© ÇØ´ç »óÅÂÈ¿°ú Á¾·á½ÃÅ´
+    -- !! unitì„ ë°”ë¡œ ì‚­ì œí•˜ì—¬ í•´ë‹¹ ìƒíƒœíš¨ê³¼ ì¢…ë£Œì‹œí‚´
     unit.m_durationTimer = 0
 end

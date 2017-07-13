@@ -50,7 +50,7 @@ function UI_DialoguePlayer:next(next_effect)
         local effect = self.m_nextEffectName
         self:showPage()
 
-        -- ÆäÀÌÁö¿¡ ÇØ´ç ÀÌÆåÆ® ÀÖÀ» °æ¿ì¿¡¸¸ next_func ½ÇÇà
+        -- í˜ì´ì§€ì— í•´ë‹¹ ì´í™íŠ¸ ìˆì„ ê²½ìš°ì—ë§Œ next_func ì‹¤í–‰
         if (effect) then
             if (self:isExistEffect(self.m_currPage, effect)) then
                 excute_next_func()
