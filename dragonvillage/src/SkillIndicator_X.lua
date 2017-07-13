@@ -102,9 +102,8 @@ end
 function SkillIndicator_X:findCollision(pos_x, pos_y)
 	local l_target = self:getProperTargetList()
 		
-    local radius = 20
-	local std_width = (CRITERIA_RESOLUTION_X / 2)
-	local std_height = (CRITERIA_RESOLUTION_Y / 2)
+    local std_width = CRITERIA_RESOLUTION_X
+	local std_height = CRITERIA_RESOLUTION_Y
 	
 	local target_x, target_y = pos_x, pos_y
 

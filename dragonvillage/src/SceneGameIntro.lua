@@ -137,7 +137,11 @@ function SceneGameIntro:update(dt)
 
     -- 세번째 웨이브 - 마나 게이지가 찬 후
     if (idx == 4) and (world.m_heroMana.m_value > 1) then
-        self:play_tutorialTalk()
+        self:play_tutorialTalk(false, true)
+
+        -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴
+        world.m_gameHighlight:setToForced(true)
+        world.m_gameHighlight:addForcedHighLightList(world.m_leaderDragon)
     end
 
     -- 세번째 웨이브 - 드래그 스킬 사용 직후
@@ -159,7 +163,7 @@ function SceneGameIntro:update(dt)
     end
 
     -- 세번째 웨이브 - 아군이 모두 죽었을 때
-    if (idx == 7) and (world.m_gameState == GAME_STATE_SUCCESS_WAIT) then
+    if (idx == 7) and (world.m_gameState == GAME_STATE_FAILURE) then
         self:play_tutorialTalk()
     end
 
@@ -193,8 +197,9 @@ end
 -------------------------------------
 -- function SceneGameIntro
 ------------------------------------
-function SceneGameIntro:play_tutorialTalk(no_use_next_btn)
+function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
     local no_use_next_btn = no_use_next_btn or false
+    local no_color_layer = no_color_layer or no_use_next_btn
 
     local world = self.m_gameWorld
     world:setTemporaryPause(true)
@@ -218,7 +223,7 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn)
     end
 
     self.m_dialogPlayer.vars['nextBtn']:setVisible(not no_use_next_btn)
-    self.m_dialogPlayer.vars['layerColor2']:setVisible(not no_use_next_btn)
+    self.m_dialogPlayer.vars['layerColor2']:setVisible(not no_color_layer)
 
        
     -- 튜토리얼 대사 후 콜백 함수
