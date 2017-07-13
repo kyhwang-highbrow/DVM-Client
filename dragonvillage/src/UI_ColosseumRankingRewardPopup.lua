@@ -49,7 +49,7 @@ function UI_ColosseumRankingRewardPopup:initUI(struct_user_info_colosseum)
 
     local cash = 0
     if info.m_userData then
-        cash = info.m_userData['cash']
+        cash = info.m_userData['cash'] or 0
     end
     vars['rewardLabel']:setString(comma_value(cash))
 end

@@ -595,7 +595,9 @@ function ServerData_Colosseum:setSeasonRewardInfo(ret)
         -- ret['total'] -- 순위를 가진 전체 유저 수
 
         -- 보상 cash 갯수 저장
-        local t_item_id_cnt, t_iten_type_cnt = ServerData_Item:parseAddedItems(ret['added_items'])
+        local added_items = {}
+        added_items['items_list'] = ret['reward_info'] or {}
+        local t_item_id_cnt, t_iten_type_cnt = ServerData_Item:parseAddedItems(added_items)
         struct_user_info.m_userData = t_iten_type_cnt
     end
 end
