@@ -494,6 +494,8 @@ function MakeUICSortList_runeManage(button, label)
     uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
     uic:init_container()
 
     uic:setExtendButton(button)
@@ -522,10 +524,11 @@ function MakeUICSortList_runeManageFilter(button, label)
     uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
     uic.m_buttonHeight = 38
     uic.m_buttonMargin = 2
-    width = width * 0.66
 
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
     uic:init_container()
 
     uic:setExtendButton(button)

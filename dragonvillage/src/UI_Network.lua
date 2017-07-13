@@ -163,11 +163,11 @@ function UI_Network:statusHandler(ret)
     local message = ret['message']
 
     if (not status) then
-        return
+        return false
     end
 
     if (status == 0) then
-        return
+        return false
     end
 
     -- not enough fruit
@@ -178,13 +178,15 @@ function UI_Network:statusHandler(ret)
 
     -- not enough cash (다이아몬드가 부족할 때)
     if (status == -1212) then
-        self:makeShopPopup(Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.CASH)
+        --self:makeShopPopup(Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.CASH)
+        self:makeCommonPopup(Str('다이아몬드가 부족합니다.'))
         return true
     end
 
     -- not enough gold (골드가 부족할 때)
     if (status == -1201) then
-        self:makeShopPopup(Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.GOLD)
+        --self:makeShopPopup(Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.GOLD)
+        self:makeCommonPopup(Str('골드가 부족합니다.'))
         return true
     end
 
@@ -196,7 +198,8 @@ function UI_Network:statusHandler(ret)
 
     -- not enough stamina (날개가 부족할 때)
     if (status == -1216) then
-        self:makeShopPopup(Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.STAMINA)
+        --self:makeShopPopup(Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.STAMINA)
+        self:makeCommonPopup(Str('날개가 부족합니다.'))
         return true
     end
 
