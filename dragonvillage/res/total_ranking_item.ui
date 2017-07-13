@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/list_0101.png';
+				file_name = 'ui/frames/base_list_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -179,8 +179,8 @@
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 64;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -189,8 +189,8 @@
 				visible = true;
 				lua_name = 'detailBtn';
 				enable = true;
-				normal = 'ui/btn/detail_0101.png';
-				selected = 'ui/btn/detail_0102.png';
+				normal = 'ui/buttons/64_detail_btn_0101.png';
+				selected = 'ui/buttons/64_detail_btn_0102.png';
 				disable = '';
 				image_type = 0;
 			};

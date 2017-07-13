@@ -82,9 +82,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 85; 44; 25; };
+				stroke_color = { 0; 0; 0; };
 				has_shadow = true;
-				shadow_color = { 85; 44; 25; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 150;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
@@ -157,7 +157,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'lockSprite';
-				file_name = 'ui/frame/base_0101.png';
+				file_name = 'ui/frames/base_frame_0202.png';
 				color = { 0; 0; 0; };
 				opacity = 150;
 				center_rect_x = 0;
@@ -223,7 +223,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'clearSprite';
-				file_name = 'ui/frame/base_0101.png';
+				file_name = 'ui/frames/base_frame_0202.png';
 				color = { 0; 0; 0; };
 				opacity = 150;
 				center_rect_x = 0;
