@@ -68,7 +68,7 @@ function UI_Package:click_buyBtn()
 		self:closeWithAction()
 
         -- 아이템 획득 결과창
-        ItemOptainResult_Shop(ret)
+        ItemObtainResult_Shop(ret)
 	end
 	struct_product:buy(cb_func)
 end

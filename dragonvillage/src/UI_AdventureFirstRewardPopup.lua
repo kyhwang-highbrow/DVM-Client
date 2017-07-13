@@ -83,7 +83,7 @@ end
 function UI_AdventureFirstRewardPopup:click_receiveBtn()
     local function finish_cb(ret)
         self:close()
-        ItemOptainResult(ret)
+        ItemObtainResult(ret)
 		SoundMgr:playEffect('UI', 'ui_out_item_get')
     end
 

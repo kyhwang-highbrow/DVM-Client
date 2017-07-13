@@ -172,7 +172,7 @@ function UI_MailPopup:click_rewardBtn(t_mail_data)
 		if (g_mailData:checkTicket(t_mail_data)) and (#ret['added_items']['dragons'] > 0) then
             UI_GachaResult_Dragon(ret['added_items']['dragons'])
         else
-            ItemOptainResult(ret)
+            ItemObtainResult(ret)
         end
 
         self:refresh(self.m_currTab)

@@ -843,7 +843,7 @@ function GameState:makeGameFinishParam(is_success)
 
     -- 드랍 아이템
     if self.m_world.m_dropItemMgr then
-        t_param['bonus_items'] = self.m_world.m_dropItemMgr:makeOptainedDropItemStr()
+        t_param['bonus_items'] = self.m_world.m_dropItemMgr:makeObtainedDropItemStr()
     end
 
     -- 클리어 타임

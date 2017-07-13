@@ -13,7 +13,7 @@ DropItemMgr = class(PARENT, {
     m_tableDropIngame = 'TableDropIngame',
     m_remainItemCnt = 'number',
     m_dropCount = 'number',
-    m_optainedItemList = 'list',
+    m_obtainedItemList = 'list',
     m_bImmediatelyObtain = 'boolean',
 })
 
@@ -28,7 +28,7 @@ function DropItemMgr:init(world)
 
     self.m_lItemlist = {}
     self.m_dropCount = 0
-    self.m_optainedItemList = {}
+    self.m_obtainedItemList = {}
     self.m_bImmediatelyObtain = false
 
     -- 아이템을 드랍할 몬스터 지정
@@ -327,17 +327,17 @@ function DropItemMgr:obtainItem(item)
     item:setObtained(type, count)
 
     -- 정보 저장
-    table.insert(self.m_optainedItemList, {type, count})
+    table.insert(self.m_obtainedItemList, {type, count})
 end
 
 -------------------------------------
--- function makeOptainedDropItemStr
+-- function makeObtainedDropItemStr
 -- @breif
 -------------------------------------
-function DropItemMgr:makeOptainedDropItemStr()
+function DropItemMgr:makeObtainedDropItemStr()
     local str = nil
 
-    for i,v in ipairs(self.m_optainedItemList) do
+    for i,v in ipairs(self.m_obtainedItemList) do
         local item_type = v[1]
         local item_id = TableItem:getItemIDFromItemType(item_type)
         local item_count = v[2]

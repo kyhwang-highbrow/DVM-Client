@@ -77,7 +77,7 @@ function UI_Product:click_buyBtn()
 	else
         local function cb_func(ret)
             -- 아이템 획득 결과창
-            ItemOptainResult_Shop(ret)
+            ItemObtainResult_Shop(ret)
         end
         
 		struct_product:buy(cb_func)

@@ -169,11 +169,11 @@ function UI_ObtainPopup:createListUI(t_data)
 end
 
 -------------------------------------
--- function ItemOptainResult_Shop
+-- function ItemObtainResult_Shop
 -- @brief
 -- @param t_ret
 -------------------------------------
-function ItemOptainResult_Shop(t_ret)
+function ItemObtainResult_Shop(t_ret)
     if (not t_ret) then
         return
     end
@@ -220,11 +220,11 @@ function ItemOptainResult_Shop(t_ret)
 end
 
 -------------------------------------
--- function ItemOptainResult
+-- function ItemObtainResult
 -- @brief
 -- @param t_ret
 -------------------------------------
-function ItemOptainResult(t_ret)
+function ItemObtainResult(t_ret)
     if (not t_ret) then
         return
     end

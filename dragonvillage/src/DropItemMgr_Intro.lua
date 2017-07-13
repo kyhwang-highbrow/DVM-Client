@@ -143,7 +143,7 @@ function DropItemMgr_Intro:obtainItem(item)
     item:setObtained(type, count)
 
     -- 정보 저장
-    table.insert(self.m_optainedItemList, {type, count})
+    table.insert(self.m_obtainedItemList, {type, count})
 end
 
 -------------------------------------
