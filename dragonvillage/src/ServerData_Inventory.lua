@@ -137,7 +137,7 @@ function ServerData_Inventory:extendInventory(inven_type, finish_cb)
 
     local next_info = t_inven[(lv + 1)]
     -- 최대 확장 상태
-    if (not next_slot) then
+    if (not next_info) then
         UIManager:toastNotificationRed(Str('더 이상 확장할 수 없습니다.'))
         return
     end
