@@ -5,6 +5,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_Product = class(PARENT, {
         m_structProduct = 'StructProduct',
+        m_cbBuy = 'function',
      })
 
 -------------------------------------
@@ -76,10 +77,21 @@ function UI_Product:click_buyBtn()
 		UI_Package(struct_product)
 	else
         local function cb_func(ret)
+            if (self.m_cbBuy) then
+                self.m_cbBuy(ret)
+            end
+
             -- 아이템 획득 결과창
             ItemObtainResult_Shop(ret)
         end
         
 		struct_product:buy(cb_func)
 	end
+end
+
+-------------------------------------
+-- function setBuyCB
+-------------------------------------
+function UI_Product:setBuyCB(func)
+    self.m_cbBuy = func
 end

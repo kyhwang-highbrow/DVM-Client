@@ -5,6 +5,7 @@ local PARENT = UI_IndivisualTab
 -------------------------------------
 UI_ShopTab = class(PARENT,{
         m_tableView = 'UIC_TableView',
+        m_cbBuy = 'func',
     })
 
 -------------------------------------
@@ -17,9 +18,10 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_ShopTab:onEnterTab(first)
-    if (first == true) then
+    if (not self.m_tableView) then
         self:initUI()
     end
+  
 
     g_topUserInfo:setSubCurrency(self.m_tabName)
 end
@@ -45,10 +47,15 @@ end
 function UI_ShopTab:init_TableView()
     local list_table_node = self.m_ownerUI.vars['tableViewNode']
 
+    -- 생성 콜백
+	local function create_cb_func(ui, data)
+        ui:setBuyCB(self.m_cbBuy)
+	end    
+
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = cc.size(300 + 15, 280 + 15)
-    table_view_td:setCellUIClass(UI_Product)
+    table_view_td:setCellUIClass(UI_Product, create_cb_func)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
  
     -- 리스트가 비었을 때
@@ -85,4 +92,20 @@ function UI_ShopTab:sortProduct()
     end
 
     table.sort(self.m_tableView.m_itemList, sort_func)
+end
+
+-------------------------------------
+-- function clearProductList
+-- @brief 상품 리스트 삭제
+-------------------------------------
+function UI_ShopTab:clearProductList()
+    self.m_tableView = nil
+    self.root = nil
+end
+
+-------------------------------------
+-- function setBuyCB
+-------------------------------------
+function UI_ShopTab:setBuyCB(func)
+    self.m_cbBuy = func
 end

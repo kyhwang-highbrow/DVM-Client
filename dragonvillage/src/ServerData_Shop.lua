@@ -138,7 +138,11 @@ function ServerData_Shop:getProductList(tab_category)
     local product_map = {}
     for i,v in pairs(l_product) do
         local product_id = v['product_id']
-        product_map[product_id] = v
+
+        -- 구매 가능한 상품만 추가
+        if v:isItBuyable() then
+            product_map[product_id] = v
+        end
     end
 
     -- 의존성 검사
@@ -308,7 +312,9 @@ end
 -- function request_buy
 -- @brief 상품 구매
 -------------------------------------
-function ServerData_Shop:request_buy(product_id, finish_cb, fail_cb)
+function ServerData_Shop:request_buy(struct_product, finish_cb, fail_cb)
+    local product_id = struct_product['product_id']
+
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -317,6 +323,11 @@ function ServerData_Shop:request_buy(product_id, finish_cb, fail_cb)
         g_serverData:networkCommonRespone_addedItems(ret)
 
         g_topUserInfo:refreshData()
+
+        -- 상품 구매 후 갱신이 필요한지 여부 체크
+        if struct_product:needRenewAfterBuy() then
+            self.m_bDirty = true
+        end
 
         if (finish_cb) then
             finish_cb(ret)

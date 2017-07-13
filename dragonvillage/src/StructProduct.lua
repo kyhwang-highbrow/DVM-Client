@@ -110,9 +110,29 @@ end
 -- function isItBuyable
 -------------------------------------
 function StructProduct:isItBuyable()
+    -- 숫자가 아니라면 구매 횟수 제한이 없는 것
+	if (not isNumber(self['max_buy_count'])) then
+		return true
+	end
+
     -- 구매 제한 횟수 체크 (판매 시간은 상품 리스트 구성 시 확인한다고 가정)
     local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
     return (buy_cnt < self['max_buy_count'])
+end
+
+-------------------------------------
+-- function needRenewAfterBuy
+-- @brief 구매 후에 상점 정보 갱신이 필요한지 여부
+-------------------------------------
+function StructProduct:needRenewAfterBuy()
+    -- 숫자가 아니라면 구매 횟수 제한이 없는 것
+	if (not isNumber(self['max_buy_count'])) then
+		return false
+	end
+
+    -- 구매 제한 횟수 체크 (판매 시간은 상품 리스트 구성 시 확인한다고 가정)
+    local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    return (buy_cnt < self['max_buy_count'] + 1)
 end
 
 
@@ -260,7 +280,7 @@ function StructProduct:buy(cb_func)
 				cb_func(ret)
 			end
         end
-        g_shopDataNew:request_buy(self['product_id'], finish_cb)
+        g_shopDataNew:request_buy(self, finish_cb)
 	end
 
     MakeSimplePopup_Confirm(self['price_type'], self['price'], nil, ok_cb, nil)
