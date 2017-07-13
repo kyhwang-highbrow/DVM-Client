@@ -206,6 +206,17 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn)
     -- 스킵은 항상 불가능
     self.m_dialogPlayer.vars['skipBtn']:setVisible(false)
 
+    -- PC에서 스킵 가능 
+    if (isWin32()) then
+        self.m_dialogPlayer.vars['skipBtn']:registerScriptTapHandler(function()  
+            local is_use_loading = true
+            local scene = SceneLobby(is_use_loading)
+            scene:runScene()
+        end)
+
+        self.m_dialogPlayer.vars['skipBtn']:setVisible(true)
+    end
+
     self.m_dialogPlayer.vars['nextBtn']:setVisible(not no_use_next_btn)
     self.m_dialogPlayer.vars['layerColor2']:setVisible(not no_use_next_btn)
 
