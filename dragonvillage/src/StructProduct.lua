@@ -156,7 +156,7 @@ function StructProduct:getDesc()
 	-- 상품 구매 제한이 없고 t_desc도 없다면 첫번째 아이템 설명 출력...
 	do
 		local l_item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
-		if (not l_item_list) then
+		if (not l_item_list) or (not l_item_list[1]) then
 			l_item_list = ServerData_Item:parsePackageItemStr(self['mail_content'])
 		end
 
@@ -217,7 +217,7 @@ function StructProduct:makeProductIcon()
     end
 
     local l_item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
-    if (not l_item_list) then
+    if (not l_item_list) or (not l_item_list[1]) then
         l_item_list = ServerData_Item:parsePackageItemStr(self['mail_content'])
     end
 
