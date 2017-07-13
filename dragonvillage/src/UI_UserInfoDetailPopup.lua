@@ -312,7 +312,7 @@ function UI_UserInfoDetailPopup:makeContextByTitle(key, value)
 		str = string.format('%.2f%%', value)
 
 	elseif (key == 'tier') then
-		str = ColosseumUserInfo:getTierName(value)
+		str = StructUserInfoColosseum:getTierName(value)
 
 	elseif (key == 'created_at') then
 		-- 날짜 정보 세팅

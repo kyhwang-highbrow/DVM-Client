@@ -969,9 +969,6 @@
     <None Include="..\src\CollisionHelper.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ColosseumUserInfo.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\CommonMissile.lua">
       <Filter>lua\src</Filter>
     </None>

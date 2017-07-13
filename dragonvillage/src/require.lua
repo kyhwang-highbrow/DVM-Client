@@ -39,9 +39,6 @@ local t_module = {
     'ConstantColosseum',
     'ConstantColor',
 
-    -- Data클래스
-    'ColosseumUserInfo',
-    		
     -- Struct
     'StructEventPopupTab',
     'StructAdventureChapterAchieveInfo',
