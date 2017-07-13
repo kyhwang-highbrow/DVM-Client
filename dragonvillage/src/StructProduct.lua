@@ -251,7 +251,7 @@ function StructProduct:makePriceIcon()
         price_type = 'krw'
     end
 
-    return IconHelper:getPriceIcon(pric_type)
+    return IconHelper:getPriceIcon(price_type)
 end
 
 -------------------------------------

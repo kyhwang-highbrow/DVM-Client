@@ -532,10 +532,8 @@ function LobbyMap:updateLobbyTamer(uid, struct_user_info)
     end
 
     -- 복사를 해서 사용함 (변경 여부를 관리하기 위해)
-    tamer.m_userData = clone(struct_user_info)
-
     -- UI는 변경여부 상관없이 무조건 갱신 (퍼포먼스 이슈가 거의 없음)
-    tamer.m_ui:init_statusUI()
+    tamer:refresh(clone(struct_user_info))
 end
 
 -------------------------------------

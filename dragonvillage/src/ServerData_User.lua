@@ -298,7 +298,7 @@ function ServerData_User:request_changeNick(mid, nick, cb_func)
     -- 콜백 함수
     local function success_cb(ret)
         -- nickname 적용
-        self:applyServerData(ret['nick'], 'nick')
+        self:applyServerData(nick, 'nick')
 
 		if (cb_func) then
 			cb_func(ret)

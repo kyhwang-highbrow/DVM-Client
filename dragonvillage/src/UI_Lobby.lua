@@ -472,8 +472,15 @@ end
 -- @brief 우편함
 -------------------------------------
 function UI_Lobby:click_mailBtn()
-    UI_MailPopup():setCloseCB(function()
-        self:refresh_userInfo()
+    UI_MailPopup():setCloseCB(function(is_dirty)
+        if (is_dirty) then
+            -- 닉네임 변경으로 인한 처리...
+            self:refresh_userInfo()
+            -- 채팅 서버에 변경사항 적용
+            if g_chatClientSocket then
+                g_chatClientSocket:globalUpdatePlayerUserInfo()
+            end
+        end
     end)
 end
 

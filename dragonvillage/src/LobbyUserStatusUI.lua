@@ -69,6 +69,16 @@ function LobbyUserStatusUI:init_statusUI()
 end
 
 -------------------------------------
+-- function init_statusUI
+-------------------------------------
+function LobbyUserStatusUI:refreshUI(struct_user_info)
+    if (struct_user_info) then
+        self.m_tUserInfo = struct_user_info
+    end
+    self:init_statusUI()
+end
+
+-------------------------------------
 -- function setActive
 -------------------------------------
 function LobbyUserStatusUI:setActive(active)

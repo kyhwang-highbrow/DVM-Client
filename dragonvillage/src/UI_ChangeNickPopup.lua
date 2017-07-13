@@ -7,12 +7,14 @@ local MAX_NICK = 12
 -- class UI_ChangeNickPopup
 -------------------------------------
 UI_ChangeNickPopup = class(PARENT,{
+        m_successCB = 'function',
+        m_mid = 'string',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ChangeNickPopup:init()
+function UI_ChangeNickPopup:init(mid, success_cb)
     local vars = self:load('popup_name_change.ui')
     UIManager:open(self, UIManager.POPUP)
     
@@ -22,6 +24,9 @@ function UI_ChangeNickPopup:init()
 	-- @UI_ACTION
 	self:doActionReset()
 	self:doAction(nil, false)
+
+    self.m_mid = mid
+    self.m_successCB = success_cb
 
 	self:initUI()
     self:initButton()
@@ -59,15 +64,13 @@ end
 -------------------------------------
 function UI_ChangeNickPopup:initButton()
     local vars = self.vars
-    local tamer_info = self.m_mStartTamerInfo
-
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 end
 
 -------------------------------------
 -- function click_cancelBtn
 -------------------------------------
-function UI_MasterRoadPopup:click_cancelBtn()
+function UI_ChangeNickPopup:click_cancelBtn()
     self:closeWithAction()
 end
 
@@ -77,6 +80,8 @@ end
 -------------------------------------
 function UI_ChangeNickPopup:click_okBtn()
     local vars = self.vars
+
+    local mid = self.m_mid
     local nick = vars['editBox']:getText()
 
     if (nick == '') then
@@ -85,8 +90,13 @@ function UI_ChangeNickPopup:click_okBtn()
     end
 
     local function cb_func()
-        self:click_cancleBtn()
+        if (self.m_successCB) then
+            self.m_successCB()
+        end
+        self:click_cancelBtn()
+
+        UI_ToastPopup(Str('{1}(으)로 변경되었습니다.', nick))
     end
 
-    g_userData:request_changeNick(nick, cb_func)
+    g_userData:request_changeNick(mid, nick, cb_func)
 end

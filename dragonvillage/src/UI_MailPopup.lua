@@ -7,6 +7,7 @@ local RENEW_INTERVAL = 10
 UI_MailPopup = class(PARENT, {
 		m_mTableView = '',
 		m_preRenewTime = 'time',
+        m_dirty = 'bool',
     })
 
 -------------------------------------
@@ -23,9 +24,10 @@ function UI_MailPopup:init()
 	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_MailPopup')
 
 	-- @UI_ACTION
-	--self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
 	self:doActionReset()
 	self:doAction(nil, false)
+
+    self.m_dirty = false
 
 	-- 통신 후 UI 출력
 	local cb_func = function()
@@ -158,28 +160,29 @@ end
 -- @brief 단일 보상 수령
 -------------------------------------
 function UI_MailPopup:click_rewardBtn(struct_mail)
-	local mail_id_list = {struct_mail:getMid()}
-	local function finish_cb(ret)
-		if (ret['status'] ~= 0) then
-            return
-        end
-
-		self.m_mTableView[self.m_currTab]:delItem(struct_mail:getMid())
-			
-		-- 확정권인 경우
-		if (struct_mail:checkTicket()) and (#ret['added_items']['dragons'] > 0) then
-            UI_GachaResult_Dragon(ret['added_items']['dragons'])
-        else
-            ItemObtainResult(ret)
-        end
-
+    -- 읽고 난 후 콜백은 동일
+    local function success_cb()
+        -- 메일 삭제
+    	self.m_mTableView[self.m_currTab]:delItem(struct_mail:getMid())
+        -- 우편함 갱신
         self:refresh(self.m_currTab)
+        -- 더티 처리
+        self.m_dirty = true
+    end
 
-        -- 노티 정보를 갱신하기 위해서 호출
-        g_highlightData:setLastUpdateTime()
-	end
-    
-	g_mailData:request_mailRead(mail_id_list, finish_cb)
+    -- 일반 메일 외에 별도 처리가 필요한 것들을 걸러냄
+    -- 종류가 너무 많아진다면 여기에서 처리하지 말구 더 분화하자
+    -- 닉네임 변경권
+    if (struct_mail:isChangeNick()) then
+        struct_mail:readChangeNick(success_cb)
+
+    -- 드래곤 선택권?
+    -- 룬 선택권?
+
+    -- 나머지
+    else
+        struct_mail:readMe(success_cb)
+    end
 end
 
 -------------------------------------
@@ -221,7 +224,11 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_MailPopup:click_exitBtn()
-    self:close()
+    -- close cb는 dirty일때만 실행하도록 한다.
+    self.m_closeCB(self.m_dirty)
+    self.m_closeCB = nil
+
+    self:closeWithAction()
 end
 
 --@CHECK

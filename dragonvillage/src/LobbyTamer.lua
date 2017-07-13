@@ -112,6 +112,15 @@ function LobbyTamer:setMove(x, y, speed)
 end
 
 -------------------------------------
+-- function refresh
+-------------------------------------
+function LobbyTamer:refresh(struct_user_info)
+    self.m_userData = struct_user_info
+    -- UI 갱신
+    self.m_ui:refreshUI(struct_user_info)
+end
+
+-------------------------------------
 -- function release
 -------------------------------------
 function LobbyTamer:release()

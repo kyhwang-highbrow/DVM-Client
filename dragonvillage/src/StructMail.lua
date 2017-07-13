@@ -133,3 +133,59 @@ function StructMail:isMailCanReadAll()
 	return (TableItem:getItemTypeFromItemID(item_id) ~= nil)
 end
 
+-------------------------------------
+-- function readMe
+-- @brief 자기 자신을 읽자
+-------------------------------------
+function StructMail:readMe(cb_func)
+	local mail_id_list = {
+        self:getMid()
+    }
+	local function finish_cb(ret)
+		if (ret['status'] ~= 0) then
+            return
+        end
+
+		-- 확정권인 경우
+		if (self:checkTicket()) and (#ret['added_items']['dragons'] > 0) then
+            UI_GachaResult_Dragon(ret['added_items']['dragons'])
+        else
+            ItemObtainResult(ret)
+        end
+
+        if (cb_func) then
+            cb_func()
+        end
+
+        -- 노티 정보를 갱신하기 위해서 호출
+        g_highlightData:setLastUpdateTime()
+	end
+    
+	g_mailData:request_mailRead(mail_id_list, finish_cb)
+end
+
+-------------------------------------
+-- function isChangeNick
+-- @brief 닉네임 변경권 확인 
+-------------------------------------
+function StructMail:isChangeNick()
+    local item_id = self:getItemList()[1]['item_id']
+    local item_type = TableItem:getItemType(item_id)
+    return (item_type == 'rename')
+end
+
+-------------------------------------
+-- function readChangeNick
+-- @brief 닉네임 변경권을 읽는다
+-------------------------------------
+function StructMail:readChangeNick(cb_func)
+    UI_ChangeNickPopup(self:getMid(), cb_func)
+end
+
+-------------------------------------
+-- function readSelection
+-- @brief 선택권을 읽는다
+-------------------------------------
+function StructMail:readSelection(cb_func)
+
+end
