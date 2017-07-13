@@ -5,7 +5,7 @@
 function GameWorld:init_formation()
     -- 왼쪽 지형
     self.m_leftFormationMgr = FormationMgr(true)
-    self.m_leftFormationMgr:setSplitPos(20, 200)
+    self.m_leftFormationMgr:setSplitPos(20, 122)
 
     self.m_gameCamera:addListener('camera_set_home', self.m_leftFormationMgr)
 

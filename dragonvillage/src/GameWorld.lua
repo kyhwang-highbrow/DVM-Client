@@ -949,7 +949,6 @@ function GameWorld:setBattleZone(formation, immediately, is_right)
     max_x = (max_x + offset_x)
     min_y = (min_y + offset_y)
     max_y = (max_y + offset_y)
-
     local l_pos_list = TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y, is_right)
 
     for _, unit in pairs(lUnitList) do
@@ -1174,6 +1173,11 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time, no_tam
 
     -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
     local l_temp = table.merge(self.m_leftParticipants, self.m_leftNonparticipants)
+
+    if (scale == 0.6) then
+        self.m_leftFormationMgr:setSplitPos(self.m_leftFormationMgr.m_rearStartX - 200, 122)
+        self.m_rightFormationMgr:setSplitPos(self.m_rightFormationMgr.m_rearEndX + 200, 122)
+    end
 
     --for _, v in pairs(self.m_mHeroList) do
     for _, v in pairs(l_temp) do
