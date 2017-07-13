@@ -40,9 +40,13 @@ function UI_ExplorationResultPopup:initUI()
     local vars = self.vars
     local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
 
-    -- 지역 이름 & 탐험 시간
-    local location = Str(location_info['t_name'])
-    vars['locationTimeLabel']:setString(Str('{1}', location))
+    -- 지역 이름
+    vars['locationLabel']:setString(Str(location_info['t_name']))
+
+    -- 소요 시간
+    local sec = location_info['clear_time']
+    local time_str = datetime.makeTimeDesc(sec, true)
+    vars['timeLabel']:setString(Str('탐험 소요 : {1}시간', time_str))
 
     do
         -- 획득하는 아이템 리스트
