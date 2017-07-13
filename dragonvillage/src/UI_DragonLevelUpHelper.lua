@@ -164,6 +164,7 @@ function UI_DragonLevelUpHelper:clacChangedLevelAndExp()
     end
 
     local max_exp = max_level_table[self.m_changedLevel] 
+    max_exp = tonumber(max_exp)
 
     if (not max_exp) then
         self.m_expPercentage = 100

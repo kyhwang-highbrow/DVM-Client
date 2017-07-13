@@ -396,14 +396,14 @@ function UI_DragonLevelUp:click_levelupBtn()
     local function success_cb(ret)
         local prev_lv = self.m_selectDragonData['lv']
         local curr_lv = ret['modified_dragon']['lv']
+        local bonus_rate = (ret['bonus'] or 100) -- 100일 경우 보너스 발동을 안한 상태
 
         if (prev_lv == curr_lv) then
-            self:response_levelup(ret)
+            self:response_levelup(ret, bonus_rate)
         else
             -- 드래곤 정보 갱신 (임시 위치)
             g_dragonsData:applyDragonData(ret['modified_dragon'])
-
-            local ui = UI_DragonLevelupResult(StructDragonObject(ret['modified_dragon']), prev_lv)
+            local ui = UI_DragonLevelupResult(StructDragonObject(ret['modified_dragon']), prev_lv, bonus_rate)
             local function close_cb()
                 self:response_levelup(ret)
             end
@@ -449,7 +449,18 @@ end
 -- function response_levelup
 -- @brief
 -------------------------------------
-function UI_DragonLevelUp:response_levelup(ret)
+function UI_DragonLevelUp:response_levelup(ret, bonus_rate)
+
+    -- 보너스 표시
+    if bonus_rate and (100 < bonus_rate) then
+        self.vars['bonusVisual']:setVisible(true)
+        self.vars['bonusVisual']:changeAni('success_' .. tostring(bonus_rate))
+        local function ani_handler()
+            self.vars['bonusVisual']:setVisible(false)    
+        end
+        self.vars['bonusVisual']:addAniHandler(ani_handler)
+    end
+
     -- 재료로 사용된 드래곤 삭제
     if ret['deleted_dragons_oid'] then
         for _,doid in pairs(ret['deleted_dragons_oid']) do

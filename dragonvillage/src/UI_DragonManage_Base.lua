@@ -160,7 +160,7 @@ function UI_DragonManage_Base:changeDragonSelectFrame(ui)
     -- 테이블뷰에서 선택된 드래곤의 카드를 가져옴
     local dragon_object_id = self.m_selectDragonOID
     local t_item = self.m_tableViewExt.m_itemMap[dragon_object_id]
-    local ui = ui or t_item['ui']
+    local ui = ui or (t_item and t_item['ui'])
 
     -- addChild 후 액션 실행(깜빡임)
     if ui then

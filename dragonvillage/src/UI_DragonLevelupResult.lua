@@ -9,7 +9,7 @@ UI_DragonLevelupResult = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonLevelupResult:init(dragon_object, prev_lv)
+function UI_DragonLevelupResult:init(dragon_object, prev_lv, bonus_rate)
     local vars = self:load('dragon_levelup_result.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -23,7 +23,7 @@ function UI_DragonLevelupResult:init(dragon_object, prev_lv)
 
     vars['okBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 
-    self:refresh(dragon_object, prev_lv)
+    self:refresh(dragon_object, prev_lv, bonus_rate)
 end
 
 -------------------------------------
@@ -36,7 +36,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_DragonLevelupResult:refresh(dragon_object, prev_lv)
+function UI_DragonLevelupResult:refresh(dragon_object, prev_lv, bonus_rate)
     local vars = self.vars
 
     local did = dragon_object['did']
@@ -96,6 +96,12 @@ function UI_DragonLevelupResult:refresh(dragon_object, prev_lv)
             vars['expGauge']:stopAllActions()
             vars['expGauge']:setPercentage(100)
         end
+    end
+
+    -- 보너스 대성공
+    if (100 < bonus_rate) then
+        vars['bonusVisual']:setVisible(true)
+        vars['bonusVisual']:changeAni('success_' .. tostring(bonus_rate))
     end
 
     self:refresh_status(dragon_object, prev_lv)
