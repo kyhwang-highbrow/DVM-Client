@@ -661,6 +661,7 @@ local t_module = {
     'UI_AncientTowerSweepReward',
     'UI_AncientTowerRankListItem',
     'UI_AncientTowerRewardListItem',
+    'UI_AncientTowerRankingRewardPopup',
 
 	-- UI : 인게임
 	'UI_Game',

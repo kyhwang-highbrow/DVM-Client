@@ -4,6 +4,7 @@
 UI_AncientTowerRank = class({
         m_uiScene = 'UI_AncientTowerScene',
 
+        m_rewardInfo = 'table',
         m_typeRadioButton = 'UIC_RadioButton',
 
         m_rankTableView = 'UIC_TableView',  -- 랭크 리스트
@@ -20,6 +21,7 @@ local RANK_SHOW_CNT = 20 -- 한번에 보여주는 랭커 수
 function UI_AncientTowerRank:init(ui_scene)
     self.m_uiScene = ui_scene
     self.m_rankOffset = 1
+    self.m_rewardInfo = {}
 
 	self:initUI()
     self:initButton()
@@ -67,7 +69,13 @@ function UI_AncientTowerRank:onChangeOption()
 
     elseif (type == 'reward') then
         if (self.m_rewardTableView) then return end
-        self:init_rewardTableView()
+
+        local function finish_cb(ret)
+            self.m_rewardInfo = ret['table_ancient_rank']
+            self:init_rewardTableView()
+        end
+
+        g_ancientTowerData:request_ancientTowerSeasonRankInfo(finish_cb)
     end
 end
 
@@ -178,8 +186,7 @@ end
 function UI_AncientTowerRank:init_rewardTableView()
     local node = self.m_uiScene.vars['rewardListNode']
 
-    local t_reward = TABLE:get('anc_rank_reward')
-    local l_item_list = t_reward
+    local l_item_list = self.m_rewardInfo
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)

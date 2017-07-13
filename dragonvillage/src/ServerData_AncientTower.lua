@@ -29,6 +29,9 @@ ServerData_AncientTower = class({
 
         m_nTotalRank = 'number', -- 시즌 내 순위
         m_nTotalScore = 'number', -- 시즌 내 총점수
+
+        m_tSeasonRewardInfo = 'table', -- 시즌 보상 정보
+        m_tRet = 'table',
     })
 
 -------------------------------------
@@ -90,6 +93,17 @@ function ServerData_AncientTower:goToAncientTowerScene(use_scene)
             scene:runScene()
         else
             UI_AncientTowerScene()
+
+            -- 시즌 보상 팝업
+            if (self.m_tSeasonRewardInfo) then
+                local info = self.m_tSeasonRewardInfo
+                local t_ret = self.m_tRet
+
+                UI_AncientTowerRankingRewardPopup(info, t_ret)
+
+                self.m_tSeasonRewardInfo = nil
+                self.m_tRet = nil
+		    end
         end        
     end    
     self:request_ancientTowerInfo(nil, finish_cb, fail_cb)
@@ -118,6 +132,9 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
 
         self.m_nTotalRank = ret['myrank']
         self.m_nTotalScore = ret['total_score']
+
+        -- 시즌 보상
+        self:setSeasonRewardInfo(ret)
 
         if (not self.m_lStage) then
             self.m_lStage = self:makeAcientTower_stageList()
@@ -175,6 +192,34 @@ function ServerData_AncientTower:request_ancientTowerRank(offset, finish_cb)
     ui_network:setUrl('/game/ancient/rank')
     ui_network:setParam('uid', uid)
     ui_network:setParam('offset', offset)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
+end
+
+-------------------------------------
+-- function request_ancientTowerSeasonRankInfo
+-- @brief 시즌 보상은 바뀜. 서버에서 보상 정보 받아옴
+-------------------------------------
+function ServerData_AncientTower:request_ancientTowerSeasonRankInfo(finish_cb)
+     -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+         if finish_cb then
+            return finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/ancient/table')
+    ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -310,6 +355,29 @@ function ServerData_AncientTower:getStageIDFromFloor(floor)
 end
 
 -------------------------------------
+-- function _refresh_playerUserInfo
+-------------------------------------
+function ServerData_AncientTower:_refresh_playerUserInfo(struct_user_info, t_data)
+    -- 최신 정보로 갱신
+    struct_user_info.m_nickname = g_userData:get('nick')
+    struct_user_info.m_lv = g_userData:get('lv')
+
+    do -- 고대의탑 정보 갱신
+        if t_data['rank'] then
+            struct_user_info.m_rank = t_data['rank']
+        end
+
+        if t_data['score'] then
+            struct_user_info.m_score = t_data['score']
+        end
+
+        if t_data['rate'] then
+            struct_user_info.m_rankPercent = t_data['rate']
+        end
+    end
+end
+
+-------------------------------------
 -- function getEnemyDeBuffValue
 -- @brief 현재 도전 횟수에 따른 적 디버프값을 얻음 (constant.json -> table 참조로 변경)
 -------------------------------------
@@ -342,4 +410,26 @@ function ServerData_AncientTower:getEndTimeText()
     local time_text = datetime.makeTimeDesc((end_time - server_time), showSeconds)
     local text = Str('{1} 후 초기화', time_text)
     return text
+end
+
+-------------------------------------
+-- function setSeasonRewardInfo
+-------------------------------------
+function ServerData_AncientTower:setSeasonRewardInfo(ret)
+    if (ret['reward'] == true) and (ret['lastinfo']) then
+        -- 플레이어 유저 정보 생성
+        local struct_user_info = StructUserInfoAncientTower()
+        struct_user_info.m_uid = g_userData:get('uid')
+
+        self:_refresh_playerUserInfo(struct_user_info, ret['lastinfo'])
+        self.m_tSeasonRewardInfo = struct_user_info
+        self.m_tRet = ret
+
+        -- ret['week'] -- 주차
+        -- ret['total'] -- 순위를 가진 전체 유저 수
+
+        -- 보상 cash 갯수 저장
+        local t_item_id_cnt, t_iten_type_cnt = ServerData_Item:parseAddedItems(ret['added_items'])
+        struct_user_info.m_userData = t_iten_type_cnt
+    end
 end

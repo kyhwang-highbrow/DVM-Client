@@ -26,23 +26,17 @@ end
 function UI_AncientTowerRewardListItem:initUI()
     local vars = self.vars
     local t_reward_info = self.m_rewardInfo
-    
     vars['rankingLabel']:setString(t_reward_info['t_name'])
 
+    local l_reward = TableClass:seperate(t_reward_info['reward'], ',', true)
     for i = 1, REWARD_CNT do
-        local l_str = seperate(t_reward_info['reward_'..i], ';')
+        local l_str = seperate(l_reward[i], ';')
         local item_type = l_str[1]
         local id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
-        
+
         local icon = IconHelper:getItemIcon(id)
         icon:setScale(0.4)
         vars['rewardNode'..i]:addChild(icon)
-
-        --[[
-        local ui = UI_ItemCard(id)
-        ui.root:setScale(0.4)
-        vars['rewardNode'..i]:addChild(ui.root)
-        ]]--
 
         local name = TableItem:getItemName(id)
         local cnt = l_str[2]

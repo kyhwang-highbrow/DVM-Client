@@ -76,7 +76,7 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfoAncientTower:getRankText(detail)
-    if (not self.m_rank) or (self.m_rank == 0) then
+    if (not self.m_rank) or (self.m_rank <= 0) then
         return Str('순위\n없음')
     end
 
