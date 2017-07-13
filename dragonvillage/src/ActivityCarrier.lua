@@ -117,12 +117,12 @@ end
 
 -------------------------------------
 -- function getStatusEffectCount
--- @brief 공격자에게 해당 이름을 포함한 상태효과가 몇개가 존재하는지 카운트를 리턴
+-- @breif 파라미터의 칼럼과 값으로부터 동일한 상태효과가 존재하는 카운트를 리턴
 -------------------------------------
-function ActivityCarrier:getStatusEffectCount(name, except_name)
+function ActivityCarrier:getStatusEffectCount(column, value)
     if (not self.m_activityCarrierOwner) then return false end
 
-    return self.m_activityCarrierOwner:getStatusEffectCount(name, except_name)
+    return self.m_activityCarrierOwner:getStatusEffectCount(column, value)
 end
 
 -------------------------------------
@@ -133,6 +133,16 @@ function ActivityCarrier:isExistStatusEffectName(name, except_name)
     if (not self.m_activityCarrierOwner) then return false end
 
     return self.m_activityCarrierOwner:isExistStatusEffectName(name, except_name)
+end
+
+-------------------------------------
+-- function isExistStatusEffect
+-- @brief 파라미터의 칼럼과 값으로부터 동일한 상태효과가 존재하는지 여부
+-------------------------------------
+function ActivityCarrier:isExistStatusEffect(column, value)
+    if (not self.m_activityCarrierOwner) then return false end
+
+    return self.m_activityCarrierOwner:isExistStatusEffect(column, value)
 end
 
 -------------------------------------

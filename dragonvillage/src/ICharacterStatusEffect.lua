@@ -109,19 +109,21 @@ end
 
 -------------------------------------
 -- function getStatusEffectCount
--- @breif 해당 이름을 포함한 상태효과가 몇개가 존재하는지 카운트를 리턴
+-- @breif 파라미터의 칼럼과 값으로부터 동일한 상태효과가 존재하는 카운트를 리턴
 -------------------------------------
-function ICharacterStatusEffect:getStatusEffectCount(name, except_name)
+function ICharacterStatusEffect:getStatusEffectCount(column, value)
     local count = 0
 
     for type, status_effect in pairs(self:getStatusEffectList()) do
-        if (string.find(type, name) and type ~= except_name) then
+        local t_status_effect = TableStatusEffect():get(type)
+        if (t_status_effect and t_status_effect[column] == value) then
             count = count + 1
         end
     end
 
-    for type, status_effect in pairs(self.m_mHiddenStatusEffect) do
-        if (string.find(type, name) and type ~= except_name) then
+    for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
+        local t_status_effect = TableStatusEffect():get(type)
+        if (t_status_effect and t_status_effect[column] == value) then
             count = count + 1
         end
     end
@@ -145,6 +147,32 @@ function ICharacterStatusEffect:isExistStatusEffectName(name, except_name)
 
     for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
         if (string.find(type, name) and type ~= except_name) then
+            b = true
+            break
+        end
+    end
+
+    return b
+end
+
+-------------------------------------
+-- function isExistStatusEffectName
+-- @breif 파라미터의 칼럼과 값으로부터 동일한 상태효과가 존재하는지 여부
+-------------------------------------
+function ICharacterStatusEffect:isExistStatusEffect(column, value)
+    local b = false
+
+    for type, status_effect in pairs(self:getStatusEffectList()) do
+        local t_status_effect = TableStatusEffect():get(type)
+        if (t_status_effect and t_status_effect[column] == value) then
+            b = true
+            break
+        end
+    end
+
+    for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
+        local t_status_effect = TableStatusEffect():get(type)
+        if (t_status_effect and t_status_effect[column] == value) then
             b = true
             break
         end

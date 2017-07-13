@@ -223,21 +223,32 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' local skill_target_attr = skill_target and skill_target:getAttribute()' ..
             ' local skill_target_role = skill_target and skill_target:getRole()' ..
 
-            ' local STATUSEFFECT = function(name)' ..
+            ' local STATUSEFFECT = function(name, column)' ..
+            ' if (column) then' ..
+            ' return owner:isExistStatusEffect(column, name) and 1 or 0' ..
+            ' else' ..
             ' return owner:isExistStatusEffectName(name) and 1 or 0' ..
             ' end' ..
+            ' end' ..
 
-            ' local TARGET_STATUSEFFECT = function(name)' ..
+            ' local TARGET_STATUSEFFECT = function(name, column)' ..
+            ' if (column) then' ..
+            ' local b = target and target:isExistStatusEffect(column, name) or false' ..
+            ' return (b and 1 or 0)' ..
+            ' else' ..
             ' local b = target and target:isExistStatusEffectName(name) or false' ..
-            ' return (b) and 1 or 0' ..
+            ' return (b and 1 or 0)' ..
+            ' end' ..
             ' end' ..
 
-            ' local STATUSEFFECT_COUNT = function(name)' ..
-            ' return owner:getStatusEffectCount(name)' ..
+            ' local STATUSEFFECT_COUNT = function(name, column)' ..
+            ' local column = column or \'name\'' ..
+            ' return owner:getStatusEffectCount(column, name)' ..
             ' end' ..
 
-            ' local TARGET_STATUSEFFECT_COUNT = function(name)' ..
-            ' return target and target:getStatusEffectCount(name) or 0' ..
+            ' local TARGET_STATUSEFFECT_COUNT = function(name, column)' ..
+            ' local column = column or \'name\'' ..
+            ' return target and target:getStatusEffectCount(column, name) or 0' ..
             ' end' ..
 
             ' local ret = ' .. source .. 

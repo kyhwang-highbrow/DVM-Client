@@ -235,8 +235,6 @@ function SkillGuardian:onStart()
         v:setGuard(self)
 
         v:addListener('guardian', self)
-
-        v:printAllInfomation()
     end
 end
 
