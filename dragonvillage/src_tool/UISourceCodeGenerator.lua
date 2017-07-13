@@ -62,8 +62,8 @@ function UISourceCodeGenerator:makeFile()
     local init_str       = self.m_luaClassName .. ':initUI'
     local contents       = self:readFile('..\\src\\UI_ClassForm.lua')
     for k, v in pairs(contents) do
-        contents[k] = v:gsub('uiName.ui', self.m_uiFileName)
-        contents[k] = v:gsub('UI_ClassForm', self.m_luaClassName)
+        contents[k] = contents[k]:gsub('uiName%.ui', self.m_uiFileName)
+        contents[k] = contents[k]:gsub('UI_ClassForm', self.m_luaClassName)
     end
     --------------------------------------------------------------------------
     -- 1. 이벤트 binding과 function 코드 제작
