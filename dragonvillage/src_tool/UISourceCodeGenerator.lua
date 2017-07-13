@@ -91,7 +91,7 @@ function UISourceCodeGenerator:makeFile()
     for _, v in ipairs(contents) do
         new_contents = new_contents .. v .. '\n'
     end
-    pl.file.write('\\generatedUI\\'.. self.m_luaFileName, new_contents)
+    pl.file.write('generatedUI\\'.. self.m_luaFileName, new_contents)
     print(self.m_luaFileName)
     pl.file.write('..\\src\\' .. self.m_luaFileName, new_contents)
 
