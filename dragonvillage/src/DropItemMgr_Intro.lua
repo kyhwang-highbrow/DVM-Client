@@ -116,8 +116,11 @@ function DropItemMgr_Intro:onTouchBeganForIntro(touch, event)
 
     local select_item = self:getItemFromPos(node_pos['x'], node_pos['y'])
     if (select_item == self.m_firstItem and not select_item:isObtained()) then
-        self.m_animatorGuide:release()
-
+        if (self.m_animatorGuide) then
+            self.m_animatorGuide:release()
+            self.m_animatorGuide = nil
+        end
+        
         self:obtainItem(select_item)
 
         select_item:makeObtainEffect()

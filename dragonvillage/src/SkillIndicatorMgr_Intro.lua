@@ -121,7 +121,10 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
 
             self:clear()
 
-            self.m_animatorGuide:release()
+            if (self.m_animatorGuide) then
+                self.m_animatorGuide:release()
+                self.m_animatorGuide = nil
+            end
 
             self.m_world.m_gameHighlight:setToForced(false)
         end
@@ -153,7 +156,7 @@ end
 -------------------------------------
 -- function setSelectHero
 -------------------------------------
-function SkillIndicatorMgr:setSelectHero(hero)
+function SkillIndicatorMgr_Intro:setSelectHero(hero)
     self.m_startTimer = 0
         
     if (hero) then
