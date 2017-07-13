@@ -721,7 +721,7 @@ end
 function ServerData_Dragons:checkMaximumDragons(ignore_func, manage_func)
     local dragons_cnt = self:getDragonsCnt()
     local inven_type = 'dragon'
-    local max_cnt = g_inventoryData:getMaxCnt(inven_type)
+    local max_cnt = g_inventoryData:getMaxCount(inven_type)
     if (dragons_cnt < max_cnt) then
         if ignore_func then
             ignore_func()
