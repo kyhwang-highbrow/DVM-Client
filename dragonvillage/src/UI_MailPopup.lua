@@ -157,39 +157,28 @@ end
 -- @brief 단일 보상 수령
 -------------------------------------
 function UI_MailPopup:click_rewardBtn(t_mail_data)
+
+
+
 	local mail_id_list = {t_mail_data['id']}
 	local function finish_cb(ret)
-		if (ret['status'] == 0) then
-			self.m_mTableView[self.m_currTab]:delItem(t_mail_data['id'])
+		if (ret['status'] ~= 0) then
+            return
+        end
+
+		self.m_mTableView[self.m_currTab]:delItem(t_mail_data['id'])
 			
-			-- 확정권인 경우
-			if (g_mailData:checkTicket(t_mail_data)) then
-				-- 드래곤은 결과 화면으로
-				if (#ret['added_items']['dragons'] > 0) then
-					UI_GachaResult_Dragon(ret['added_items']['dragons'])
+		-- 확정권인 경우
+		if (g_mailData:checkTicket(t_mail_data)) and (#ret['added_items']['dragons'] > 0) then
+            UI_GachaResult_Dragon(ret['added_items']['dragons'])
+        else
+            ItemOptainResult(ret)
+        end
 
-				-- 룬은 룬 결과 화면
-				elseif (#ret['added_items']['runes'] > 0) then
-                    local item_id, count, t_sub_data = g_itemData:parseAddedItems_firstItem(ret['added_items'] or ret['add_items'])
-                    local ui = MakeSimpleRewarPopup(Str('룬'), item_id, count, t_sub_data)
-				
-				-- 그외는 보상 수령
-				else
-					UI_ToastPopup()
+        self:refresh(self.m_currTab)
 
-				end
-			else
-				-- 단일 보상 수령 시 토스트 팝업
-				local t_item = t_mail_data['items_list'][1]
-				local item_str = UIHelper:makeItemStr(t_item)
-				UI_ToastPopup(item_str)
-			end
-
-            self:refresh(self.m_currTab)
-
-            -- 노티 정보를 갱신하기 위해서 호출
-            g_highlightData:setLastUpdateTime()
-		end
+        -- 노티 정보를 갱신하기 위해서 호출
+        g_highlightData:setLastUpdateTime()
 	end
     
 	g_mailData:request_mailRead(mail_id_list, finish_cb)
