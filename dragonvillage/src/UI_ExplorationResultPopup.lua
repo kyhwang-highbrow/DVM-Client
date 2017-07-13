@@ -46,7 +46,7 @@ function UI_ExplorationResultPopup:initUI()
     -- 소요 시간
     local sec = location_info['clear_time']
     local time_str = datetime.makeTimeDesc(sec, true)
-    vars['timeLabel']:setString(Str('탐험 소요 : {1}시간', time_str))
+    vars['timeLabel']:setString(Str('탐험 소요 : {1}', time_str))
 
     do
         -- 획득하는 아이템 리스트
