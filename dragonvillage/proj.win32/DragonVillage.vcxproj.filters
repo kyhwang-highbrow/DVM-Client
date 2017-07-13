@@ -2454,6 +2454,9 @@
     <None Include="..\src\UI_ChangeNickPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructMail.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -81,7 +81,8 @@ end
 function UI_MailPopup:refresh(tab)
     local vars = self.vars
     local tab = tab or self.m_currTab
-
+    
+    -- 현재 탭의 메일이 없다면 이미지 출력
     vars['emptySprite']:setVisible(self.m_mTableView[tab]:getItemCount() == 0)
 end
 
@@ -108,8 +109,8 @@ function UI_MailPopup:makeMailTableView(tab, node)
 	-- item ui에 보상 수령 함수 등록하는 콜백 함수
 	local create_cb_func = function(ui, data)
         local function click_rewardBtn()
-            local t_mail_data = data
-            self:click_rewardBtn(t_mail_data)
+            local struct_mail = data
+            self:click_rewardBtn(struct_mail)
         end
         ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
 	end
@@ -156,20 +157,17 @@ end
 -- function click_rewardBtn
 -- @brief 단일 보상 수령
 -------------------------------------
-function UI_MailPopup:click_rewardBtn(t_mail_data)
-
-
-
-	local mail_id_list = {t_mail_data['id']}
+function UI_MailPopup:click_rewardBtn(struct_mail)
+	local mail_id_list = {struct_mail:getMid()}
 	local function finish_cb(ret)
 		if (ret['status'] ~= 0) then
             return
         end
 
-		self.m_mTableView[self.m_currTab]:delItem(t_mail_data['id'])
+		self.m_mTableView[self.m_currTab]:delItem(struct_mail:getMid())
 			
 		-- 확정권인 경우
-		if (g_mailData:checkTicket(t_mail_data)) and (#ret['added_items']['dragons'] > 0) then
+		if (g_mailData:checkTicket(struct_mail)) and (#ret['added_items']['dragons'] > 0) then
             UI_GachaResult_Dragon(ret['added_items']['dragons'])
         else
             ItemObtainResult(ret)

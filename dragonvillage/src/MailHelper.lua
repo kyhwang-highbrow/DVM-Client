@@ -3,9 +3,9 @@ MailHelper = {}
 -------------------------------------
 -- function getMailText
 -------------------------------------
-function MailHelper:getMailText(t_mail_data)
+function MailHelper:getMailText(struct_mail)
 	local table_template = TABLE:get('mail_template')
-	local mail_type = t_mail_data['mail_type']
+	local mail_type = struct_mail:getMailType()
     local t_template
 
     -- 예외 처리 구간
@@ -17,7 +17,7 @@ function MailHelper:getMailText(t_mail_data)
 
         -- system인 경우 포함된 텍스트 반환
         if (mail_type == 'system') then
-            return {title = '시스템', content = t_mail_data['msg'] or "시스템 메세지"}
+            return {title = '시스템', content = struct_mail:getMessage() or "시스템 메세지"}
         end
 
 	    -- 테이블에 템플릿이 없다면 탈출
@@ -37,21 +37,21 @@ function MailHelper:getMailText(t_mail_data)
          
         -- 아이템 이름
         if (value == 'item') then
-           	local t_item = t_mail_data['items_list'][1]
+           	local t_item = struct_mail:getItemList()[1]
 			t_value[i] = UIHelper:makeItemName(t_item)
                  
 		-- 닉네임
         elseif (value == 'nick') then
-            t_value[i] = t_mail_data['nick']
+            t_value[i] = struct_mail:getNickName()
 
 		-- 드래곤 이름
 		elseif (value == 'dragon') then
-			local did = t_mail_data['did'] or 120011
+			local did = struct_mail['did'] or 120011
 			t_value[i] = TableDragon:getDragonName(did)
 
 		-- 드래곤의 선물 문구
 		elseif (value == 'phrase') then
-			local did = t_mail_data['did'] or 120011
+			local did = struct_mail['did'] or 120011
 			t_value[i] = TableDragonPhrase:getMailPhrase(did)
 
         end

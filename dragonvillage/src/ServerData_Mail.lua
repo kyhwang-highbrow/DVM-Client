@@ -34,28 +34,6 @@ function ServerData_Mail:getMailList(category)
 end
 
 -------------------------------------
--- function updateMailServerTime
--- @brief 만료 기한 갱신
--------------------------------------
-function ServerData_Mail:updateMailServerTime(t_mail_data)
-    local server_time = Timer:getServerTime()
-
-    -- 사용 시간을 millisecond에서 second로 변경
-    local expired_at = (t_mail_data['expired_at'] / 1000)
-
-    t_mail_data['expire_remain_time'] = (expired_at - server_time)
-end
-
--------------------------------------
--- function getExpireRemainTimeStr
--- @brief 만료 기한
--------------------------------------
-function ServerData_Mail:getExpireRemainTimeStr(t_mail_data)
-    local expire_remain_time = t_mail_data['expire_remain_time']
-    return Str('{1} 남음', datetime.makeTimeDesc(expire_remain_time))
-end
-
--------------------------------------
 -- function deleteMailData
 -------------------------------------
 function ServerData_Mail:deleteMailData(moid)
@@ -70,38 +48,13 @@ function ServerData_Mail:deleteMailData(moid)
 end
 
 -------------------------------------
--- function checkTicket
--- @brief 확정권인지 검사한다.
--------------------------------------
-function ServerData_Mail:checkTicket(mail_data)
-	local item_list = mail_data['items_list']
-
-	-- 확정권인지 체크
-	local item_type = TableItem():getValue(item_list[1]['item_id'], 'type')
-	if (item_type == 'ticket') then
-		return true
-	end
-
-	return false
-end
-
--------------------------------------
--- function isMailCanReadAll
--- @brief 모두 받기 가능한 메일인지 검사
--------------------------------------
-function ServerData_Mail:isMailCanReadAll(t_mail_data)
-	local item_id = t_mail_data['items_list'][1]['item_id']
-	return (TableItem:getItemTypeFromItemID(item_id) ~= nil)
-end
-
--------------------------------------
 -- function canReadAll
 -- @brief 모두 받기 가능한 메일이 있는지 검사!
 -------------------------------------
 function ServerData_Mail:canReadAll(mail_tab)
-	for mid, t_mail_data in pairs(self.m_mMailMap[mail_tab]) do
+	for mid, struct_mail in pairs(self.m_mMailMap[mail_tab]) do
 		-- 하나라도 모두 받기 가능한 메일이 있다면 탈출
-		if (self:isMailCanReadAll(t_mail_data)) then
+		if (struct_mail:isMailCanReadAll()) then
 			return true
 		end
 	end
@@ -176,8 +129,8 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 
 		end
 
-		self:updateMailServerTime(t_mail)
-		self.m_mMailMap[category][moid] = t_mail
+        -- mail struct로 생성
+		self.m_mMailMap[category][moid] = StructMail(t_mail)
 	end
 end
 

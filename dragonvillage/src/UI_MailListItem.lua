@@ -42,7 +42,7 @@ end
 -------------------------------------
 function UI_MailListItem:refresh()
     local vars = self.vars
-    local t_text = MailHelper:getMailText(self.m_mailData)
+    local t_text = self.m_mailData:getMailTitleAndContext()
 
     -- 우편 제목
     vars['mailLabel']:setString(t_text['title'])
@@ -51,7 +51,7 @@ function UI_MailListItem:refresh()
     vars['infoLabel']:setString(t_text['content'])
 
     -- 유효 기간 (남은 시간)
-    vars['timeLabel']:setString(g_mailData:getExpireRemainTimeStr(self.m_mailData))
+    vars['timeLabel']:setString(self.m_mailData:getExpireRemainTimeStr())
 
     -- 아이템 아이콘
     self:makeMailItemIcons(self.m_mailData)
@@ -60,8 +60,8 @@ end
 -------------------------------------
 -- function makeMailItemIcons
 -------------------------------------
-function UI_MailListItem:makeMailItemIcons(t_mail_data)
-    local l_item_list = t_mail_data['items_list']
+function UI_MailListItem:makeMailItemIcons(struct_mail)
+    local l_item_list = struct_mail:getItemList()
 
     for i,v in ipairs(l_item_list) do
         local item_id = v['item_id']

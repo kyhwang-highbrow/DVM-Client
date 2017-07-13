@@ -67,6 +67,7 @@ local t_module = {
 	'StructBookData',
     'StructAncientTowerFloorData',
     'StructProduct',
+    'StructMail',
 
 	-- ServerData
     'ServerData',
