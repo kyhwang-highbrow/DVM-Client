@@ -93,7 +93,7 @@ function UI_DragonManageInfo:initButton()
 		-- 스킬 강화
         vars['skillEnhanceBtn']:registerScriptTapHandler(function() self:click_skillEnhanceBtn() end)
 
-		-- 작별
+		-- 판매
         vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
     end
 
@@ -679,6 +679,7 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 	-- 정말 작별 하는지 되물음
 	really_warning_popup = function()
 		local goodbye_str = Str('드래곤과 작별하고 다른 드래곤의 인연 포인트를 획득합니다. 정말로 {@DEEPSKYBLUE}{1}{@DESC}(와)과 작별하시겠습니까?', name)
+        goodbye_str = goodbye_str .. '\n' .. Str('{@RED}(친밀도 등급이 높을수록, 더 높은 등급의 인연포인트를 얻을 확률이 증가합니다)')
 		MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, rarity_warning_popup)
 	end
 
