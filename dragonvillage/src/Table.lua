@@ -43,8 +43,7 @@ local TableInfo = {
 
 		quest			    = {'table_quest',			    'qid',			false},
 		master_road			= {'table_master_road',			'rid',			false},
-        anc_floor_reward    = {'table_ancient_floor_reward','stage',		false},
-        anc_rank_reward     = {'table_ancient_rank_reward',	'rank_id',		false},
+        anc_floor_reward    = {'table_ancient_reward',      'stage',		false},
         anc_weak_debuff     = {'table_ancient_debuff',	    'var',		    false},
         stage_mission       = {'table_stage_mission',		'key',			false},
         calendar            = {'table_calendar',		    'month',		false},
