@@ -87,7 +87,7 @@ function UI_ExplorationReady:initUI()
     local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
     local chapter = location_info['order']
 
-    local res = string.format('res/ui/icon/stage_mini_%.2d.png', chapter)
+    local res = string.format('res/ui/icons/adventure_map/chapter_01%.2d.png', chapter)
     local icon = cc.Sprite:create(res)
     icon:setDockPoint(cc.p(0.5, 0.5))
     icon:setAnchorPoint(cc.p(0.5, 0.5))
