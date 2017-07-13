@@ -245,7 +245,9 @@ function UI_Game:click_pauseButton()
         self.m_gameScene:gameResume()
     end
 
-    if (game_mode == GAME_MODE_NEST_DUNGEON) then
+    if (game_mode == GAME_MODE_INTRO) then
+        -- 인트로 스테이지에서는 백키를 동작시키지 않음
+    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         UI_GamePause_NestDungeon(stage_id, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         UI_GamePause_SecretDungeon(stage_id, start_cb, end_cb)
