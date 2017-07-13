@@ -205,10 +205,10 @@ function ServerData_Mail:request_mailReadAll(type, finish_cb)
     -- 적절한 우편 id list 추출
 	local mail_list = self:getMailList(type)
 	local mail_id_list = {}
-	for i, mail in pairs(mail_list) do
+	for i, struct_mail in pairs(mail_list) do
 		-- 모두 받기 가능한 메일만 테이블에 추가
-		if (self:isMailCanReadAll(mail)) then 
-			table.insert(mail_id_list, mail['id'])
+		if (struct_mail:isMailCanReadAll()) then 
+			table.insert(mail_id_list, struct_mail:getMid())
 		end
 	end
 

@@ -167,7 +167,7 @@ function UI_MailPopup:click_rewardBtn(struct_mail)
 		self.m_mTableView[self.m_currTab]:delItem(struct_mail:getMid())
 			
 		-- 확정권인 경우
-		if (g_mailData:checkTicket(struct_mail)) and (#ret['added_items']['dragons'] > 0) then
+		if (struct_mail:checkTicket()) and (#ret['added_items']['dragons'] > 0) then
             UI_GachaResult_Dragon(ret['added_items']['dragons'])
         else
             ItemObtainResult(ret)
