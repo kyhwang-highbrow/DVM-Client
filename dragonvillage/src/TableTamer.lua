@@ -53,15 +53,16 @@ function TableTamer:getTamerObtainDesc(t_tamer)
 	end
 
 	local condition = t_tamer['obtain_condition']
-	local val_1, val_2
-	if string.find(condition, 'clear_adventure_') then
-		local raw_str = string.gsub(condition, 'clear_adventure_', '')
+	local diff, chap, stage
+	if string.find(condition, 'clr_adv_') then
+		local raw_str = string.gsub(condition, 'clr_adv_', '')
 		raw_str = seperate(raw_str, '_')
-		val_1 = raw_str[1]
-		val_2 = raw_str[2]
+		diff = (raw_str[1] == 'normal') and Str('보통') or Str('어려움')
+		chap = raw_str[2]
+        stage = raw_str[3]
 	end
 
-	return Str(t_tamer['t_obtain_desc'], val_1, val_2)
+	return Str(t_tamer['t_obtain_desc'], diff, chap, stage)
 end
 
 -------------------------------------

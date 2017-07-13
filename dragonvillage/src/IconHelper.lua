@@ -562,3 +562,15 @@ function IconHelper:getEggIconByEggID(egg_id)
     sprite:setAnchorPoint(CENTER_POINT)
     return sprite
 end
+
+-------------------------------------
+-- function getPriceIcon
+-------------------------------------
+function IconHelper:getPriceIcon(price_type)
+    local res = string.format('res/ui/icon/inbox/inbox_%s.png', price_type)
+    local icon = IconHelper:getIcon(res)
+    if (not icon) then
+        icon = self:getIcon('res/ui/icon/item/developing.png')
+    end
+    return icon
+end

@@ -151,19 +151,17 @@ function ServerData_Tamer:checkTamerObtainCondition(condition)
 		return is_clear
 	end
 
-	if (condition == 'clear_newbie_quest') then
-		-- @TODO : 테이머 획득 조건 재작업 필요
+    if (condition == 'clr_tutorial') then
+		is_clear = true
 
-	elseif (condition == 'clear_tutorial') then
-		-- @TODO : 튜토리얼 체크
+	elseif (string.find(condition, 'clr_adv_')) then
+		local raw_str = string.gsub(condition, 'clr_adv_', '')
 
-	elseif (string.find(condition, 'clear_adventure_')) then
-		local raw_str = string.gsub(condition, 'clear_adventure_', '')
 		raw_str = seperate(raw_str, '_')
 
-		local difficulty = 1
-		local chapter = raw_str[1]
-		local stage = raw_str[2]
+		local difficulty = (raw_str[1] == 'normal') and 1 or 2
+		local chapter = raw_str[2]
+		local stage = raw_str[3]
 		if (stage) then
 			local stage_id = makeAdventureID(difficulty, chapter, stage)
 			is_clear = g_adventureData:isClearStage(stage_id)
@@ -236,7 +234,7 @@ end
 -------------------------------------
 -- function request_getTamer
 -------------------------------------
-function ServerData_Tamer:request_getTamer(tid, cb_func)
+function ServerData_Tamer:request_getTamer(tid, type, cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
 	local tid = tid
@@ -247,6 +245,9 @@ function ServerData_Tamer:request_getTamer(tid, cb_func)
 		table.insert(self:getTamerList(), ret['tamer'])
 		self:reMappingTamerInfo()
 		
+        -- 재화 갱신
+        self.m_serverData:networkCommonRespone(ret)
+
         -- @ MASTER ROAD
         local t_data = {road_key = 't_get'}
         g_masterRoadData:updateMasterRoad(t_data)
@@ -261,8 +262,9 @@ function ServerData_Tamer:request_getTamer(tid, cb_func)
     ui_network:setUrl('/users/get/tamer')
     ui_network:setParam('uid', uid)
 	ui_network:setParam('tid', tid)
+    ui_network:setParam('type', type)
     ui_network:setSuccessCB(success_cb)
-    ui_network:setRevocable(false)
+    ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
 end

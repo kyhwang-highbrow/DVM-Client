@@ -67,7 +67,7 @@ end
 function UI_TamerManagePopup:initButton()
     local vars = self.vars
 	vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
-	vars['obtainBtn']:registerScriptTapHandler(function() self:click_obtainBtn() end)
+	vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 end
 
 -------------------------------------
@@ -216,46 +216,55 @@ function UI_TamerManagePopup:refreshButtonState()
 		-- 현재 사용중인 경우
 		if (self.m_currTamerID == self.m_selectedTamerID) then
 			vars['useBtn']:setVisible(true)
-			vars['lockBtn']:setVisible(false)
+			vars['lockSprite']:setVisible(false)
 			vars['selectBtn']:setVisible(false)
-			vars['obtainBtn']:setVisible(false)
-
-			vars['selectBtn']:setEnabled(false)
-			vars['obtainBtn']:setEnabled(false)
+			vars['buyBtn']:setVisible(false)
 
 		-- 선택 가능한 경우
 		elseif (self.m_currTamerID ~= self.m_selectedTamerID) then
 			vars['useBtn']:setVisible(false)
-			vars['lockBtn']:setVisible(false)
+			vars['lockSprite']:setVisible(false)
 			vars['selectBtn']:setVisible(true)
-			vars['obtainBtn']:setVisible(false)
+			vars['buyBtn']:setVisible(false)
 
-			vars['selectBtn']:setEnabled(true)
-			vars['obtainBtn']:setEnabled(false)
 		end
 
 	-- 테이머 없음
 	else
+        local is_clear_cond = g_tamerData:isObtainable(self.m_selectedTamerID)
+
 		-- 획득 가능
-		if (self:_isObtainable(self.m_selectedTamerID)) then
-			vars['useBtn']:setVisible(false)
-			vars['lockBtn']:setVisible(false)
-			vars['selectBtn']:setVisible(false)
-			vars['obtainBtn']:setVisible(true)
+		vars['useBtn']:setVisible(false)
+		vars['lockSprite']:setVisible(not is_clear_cond)
+		vars['selectBtn']:setVisible(false)
+		vars['buyBtn']:setVisible(true)
 
-			vars['selectBtn']:setEnabled(false)
-			vars['obtainBtn']:setEnabled(true)
+        do
+            local vars = self.vars
+            local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
+            
+            -- 구매 조건 체크
+            local buy_type
+            if (is_clear_cond) then
+                buy_type = 'clear'
+            else
+                buy_type = 'basic'
+            end
 
-		-- 불가
-		else
-			vars['useBtn']:setVisible(false)
-			vars['lockBtn']:setVisible(true)
-			vars['selectBtn']:setVisible(true)
-			vars['obtainBtn']:setVisible(false)
+            local l_price_info = seperate(t_tamer['price_' .. buy_type], ';')
 
-			vars['selectBtn']:setEnabled(false)
-			vars['obtainBtn']:setEnabled(false)
-		end
+	        -- 가격 아이콘
+            vars['priceNode']:removeAllChildren()
+            local icon = IconHelper:getPriceIcon(l_price_info[1])
+            vars['priceNode']:addChild(icon)
+	
+            -- 가격
+	        local price = l_price_info[2]
+            vars['priceLabel']:setString(price)
+
+	        -- 가격 아이콘 및 라벨, 배경 조정
+	        UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
+        end
 	end
 end
 
@@ -268,7 +277,6 @@ function UI_TamerManagePopup:refreshTamerItem()
 		v:refresh()
 	end
 end
-
 
 -------------------------------------
 -- function click_tamerBtn
@@ -334,11 +342,17 @@ function UI_TamerManagePopup:click_selectBtn()
 end
 
 -------------------------------------
--- function click_obtainBtn
+-- function click_buyBtn
 -- @brief tamer 획득
 -------------------------------------
-function UI_TamerManagePopup:click_obtainBtn()
+function UI_TamerManagePopup:click_buyBtn()
 	local tamer_id = self.m_selectedTamerID
+    local buy_type
+    if (g_tamerData:isObtainable(self.m_selectedTamerID)) then
+        buy_type = 'clear'
+    else
+        buy_type = 'basic'
+    end
 
 	-- 콜백
 	local function cb_func()
@@ -355,7 +369,7 @@ function UI_TamerManagePopup:click_obtainBtn()
 	end
 
 	-- 서버에 저장
-	g_tamerData:request_getTamer(tamer_id, cb_func)
+	g_tamerData:request_getTamer(tamer_id, buy_type, cb_func)
 end
 
 -------------------------------------
