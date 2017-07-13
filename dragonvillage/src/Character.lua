@@ -911,8 +911,10 @@ function Character:doRevive(hp_rate)
     local hp = math_floor(self.m_maxHp * hp_rate)
     self:setHp(hp, true)
     self.m_hpNode:setVisible(true)
-    
+
     self:changeState('revive', true)
+
+    self.m_world:addHero(self)
 
     self:dispatch('character_revive', {}, self)
 end

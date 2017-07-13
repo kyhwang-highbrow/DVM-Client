@@ -677,6 +677,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffect_Poison.lua" />
     <None Include="..\src\StatusEffect_Protection.lua" />
     <None Include="..\src\StatusEffect_Resist.lua" />
+    <None Include="..\src\StatusEffect_Resurrect.lua" />
     <None Include="..\src\StatusEffect_Silence.lua" />
     <None Include="..\src\StatusEffect_Trigger.lua" />
     <None Include="..\src\StatusEffect_Sleep.lua" />
@@ -813,7 +814,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AncientTowerFloorInfo.lua" />
     <None Include="..\src\UI_AncientTowerListItem.lua" />
     <None Include="..\src\UI_AncientTowerRank.lua" />
-    <None Include="..\src\UI_AncientTowerRankingRewardPopup.lua" />
     <None Include="..\src\UI_AncientTowerRankListItem.lua" />
     <None Include="..\src\UI_AncientTowerRewardListItem.lua" />
     <None Include="..\src\UI_AncientTowerScene.lua" />

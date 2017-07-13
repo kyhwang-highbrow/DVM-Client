@@ -156,8 +156,8 @@ function GameWorld:se_on_dragon()
 	local dragon_list = self:getDragonList()
     local enemy_list = self:getEnemyList()
 
-    --StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'stun', 'target', 1, 5, 100, 100)
-    StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'darknix', 'target', 1, 5, 100, 100)
+    --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'stun', 'target', 1, 5, 100, 100)
+    StatusEffectHelper:doStatusEffect(enemy_list[1], { dragon_list[1] }, 'stun', 'target', 1, 5, 100, 100)
 end
 
 -------------------------------------
@@ -364,14 +364,15 @@ end
 -- function resurrect_dragon
 -- @brief 아군 부활
 -------------------------------------
-function GameWorld:resurrect_dragon()
+function GameWorld:resurrect_dragon(hp_rate)
     local died_hero = self.m_leftNonparticipants[1]
-    if (died_hero) then
-        local hp_rate = 0.2
-        died_hero:doRevive(hp_rate)
+    if (died_hero) then return end
 
-        self:addHero(died_hero)
-    end
+    local hp_rate = hp_rate or 1
+
+    died_hero:doRevive(hp_rate)
+
+    self:addHero(died_hero)
 end
 
 -------------------------------------
@@ -399,7 +400,7 @@ end
 -------------------------------------
 function GameWorld:print_skill_info()
     if (self.m_tamer) then
-        self.m_tamer:printSkillInfo()
+        --self.m_tamer:printSkillInfo()
     end
 
     for i, hero in ipairs(self:getDragonList()) do

@@ -113,7 +113,7 @@ end
 -------------------------------------
 function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_status_effect_struct, cb_invoke, skill_id)
     -- 피격자가 사망했을 경우 리턴
-    if (caster.m_bDead == true) then return end
+    if (caster.m_bDead) then return end
 
     local cb_invoke = cb_invoke or function() end
 
@@ -224,6 +224,19 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     ----------- 상태효과 변경 ------------------
 	if (status_effect_group == 'modify') then
         status_effect = StatusEffect_Modify(res)
+
+    ---------- 부활 ------------
+    elseif (status_effect_group == 'resurrect') then
+        status_effect = StatusEffect_Resurrect(res)
+        
+        -- 대상을 부활 대상으로 변경
+        if (caster.m_bLeftFormation) then
+            target_char = caster.m_world.m_leftNonparticipants[1]
+        else
+            target_char = caster.m_world.m_rightNonparticipants[1]
+        end
+
+        if (not target_char) then return end
 
     ----------- 마나 관련 ----------------------
     elseif (status_effect_group == 'add_mana') then

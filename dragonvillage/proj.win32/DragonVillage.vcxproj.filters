@@ -2457,8 +2457,8 @@
     <None Include="..\src\StructMail.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_AncientTowerRankingRewardPopup.lua">
-      <Filter>lua\UI</Filter>
+    <None Include="..\src\StatusEffect_Resurrect.lua">
+      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_LoginPopup.lua">
       <Filter>lua\UI</Filter>

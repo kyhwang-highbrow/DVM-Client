@@ -388,6 +388,7 @@ local t_module = {
     'StatusEffect_Modify',
     'StatusEffect_AddMana',
     'StatusEffect_ManaReduce',
+    'StatusEffect_Resurrect',
 
 	'StatusEffectIcon',
 
