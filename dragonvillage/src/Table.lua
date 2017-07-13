@@ -56,6 +56,7 @@ local TableInfo = {
 
 		loading_guide       = {'table_loading_guide',		'gid',		    false},
         table_colosseum_buff= {'table_colosseum_buff',		'wins',		    false},
+        table_inventory     = {'table_inventory',		    'lv',		    false},
         
 
         -- 드래곤 관리 관련

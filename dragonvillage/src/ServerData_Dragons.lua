@@ -1,5 +1,3 @@
-local MAX_DRAGONS_CNT = 100
-
 -------------------------------------
 -- class ServerData_Dragons
 -------------------------------------
@@ -722,13 +720,14 @@ end
 -------------------------------------
 function ServerData_Dragons:checkMaximumDragons(ignore_func, manage_func)
     local dragons_cnt = self:getDragonsCnt()
-    
-    if (dragons_cnt < MAX_DRAGONS_CNT) then
+    local inven_type = 'dragon'
+    local max_cnt = g_inventoryData:getMaxCnt(inven_type)
+    if (dragons_cnt < max_cnt) then
         if ignore_func then
             ignore_func()
         end
     else
-        UI_NotificationFullInventoryPopup('dragon', dragons_cnt, MAX_DRAGONS_CNT, ignore_func, manage_func)
+        UI_NotificationFullInventoryPopup('dragon', dragons_cnt, max_cnt, ignore_func, manage_func)
     end
 end
 

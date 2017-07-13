@@ -34,7 +34,7 @@ end
 -------------------------------------
 function UI_Inventory:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_QuestPopup'
+    self.m_uiName = 'UI_Inventory'
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('인벤토리')
 end
@@ -65,8 +65,7 @@ function UI_Inventory:initUI()
         self.m_mainTabMgr:setTab('rune')
     end
 
-    local item_count = g_inventoryData:getItemCount()
-    self.vars['inventoryLabel']:setString(Str('{1}/{2}', item_count, 100))
+    self:refreshInventoryLabel()
 end
 
 -------------------------------------
@@ -75,6 +74,7 @@ end
 function UI_Inventory:initButton()
     local vars = self.vars
     vars['sortBtn']:registerScriptTapHandler(function() self:click_sortBtn() end)
+    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
 -------------------------------------
@@ -86,10 +86,33 @@ function UI_Inventory:refresh()
 end
 
 -------------------------------------
+-- function refreshInventoryLabel
+-------------------------------------
+function UI_Inventory:refreshInventoryLabel()
+    local vars = self.vars
+    local inven_type = 'rune'
+    local item_count = g_inventoryData:getItemCount()
+    local max_count = g_inventoryData:getMaxCount(inven_type)
+    self.vars['inventoryLabel']:setString(Str('{1}/{2}', item_count, max_count))
+end
+
+-------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_Inventory:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function click_inventoryBtn
+-------------------------------------
+function UI_Inventory:click_inventoryBtn()
+    local item_type = 'rune'
+    local function finish_cb()
+        self:refreshInventoryLabel()
+    end
+
+    g_inventoryData:extendInventory(item_type, finish_cb)
 end
 
 -------------------------------------
@@ -113,6 +136,10 @@ function UI_Inventory:onChangeMainTab(tab, first)
     if (not self.m_tTabClass[tab]) then
         return
     end
+
+    -- rune tab일 경우만 인벤토리 버튼 표시
+    local vars = self.vars
+    vars['inventoryBtn']:setVisible(tab == 'rune')
 
     self:setSelectedItem(nil, nil)
     self.m_tTabClass[tab]:onEnterInventoryTab(first)
@@ -197,11 +224,10 @@ function UI_Inventory:response_itemSell(ret)
         -- 룬 타입은 별도로 처리
         if (i~='rune') then
             v:refresh_tableView()
+        else
+            self:refreshInventoryLabel()
         end
     end
-
-    local item_count = g_inventoryData:getItemCount()
-    self.vars['inventoryLabel']:setString(Str('{1}/{2}', item_count, 100))
 end
 
 -------------------------------------

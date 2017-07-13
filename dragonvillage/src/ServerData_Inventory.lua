@@ -1,5 +1,3 @@
-local MAX_ITEMS_CNT = 100
-
 -------------------------------------
 -- class ServerData_Inventory
 -------------------------------------
@@ -93,12 +91,130 @@ end
 -------------------------------------
 function ServerData_Inventory:checkMaximumItems(ignore_func, manage_func)
     local items_cnt = self:getItemCount()
-    
-    if (items_cnt < MAX_ITEMS_CNT) then
+    local inven_type = 'rune'
+    local max_cnt = self:getMaxCount(inven_type)
+
+    if (items_cnt < max_cnt) then
         if ignore_func then
             ignore_func()
         end
     else
-        UI_NotificationFullInventoryPopup('inventory', items_cnt, MAX_ITEMS_CNT, ignore_func, manage_func)
+        UI_NotificationFullInventoryPopup('inventory', items_cnt, max_cnt, ignore_func, manage_func)
     end
+end
+
+-------------------------------------
+-- function getMaxCount
+-- @param invent_type : rune, dragon
+-------------------------------------
+function ServerData_Inventory:getMaxCount(inven_type)
+    if (inven_type ~= 'rune') and (inven_type ~= 'dragon') then return 0 end
+
+    local t_inven = TABLE:get('table_inventory')
+    local key_lv = (inven_type == 'rune') and 'r_slotlv' or 'd_slotlv'
+    local key_slot = inven_type .. '_slot'
+
+    local lv = g_userData:get(key_lv)
+    local curr_slot = t_inven[lv][key_slot]
+
+    return curr_slot
+end
+
+-------------------------------------
+-- function extendInventory
+-- @param invent_type : rune, dragon
+-------------------------------------
+function ServerData_Inventory:extendInventory(inven_type, finish_cb)
+    if (inven_type ~= 'rune') and (inven_type ~= 'dragon') then return end
+    
+    local t_inven = TABLE:get('table_inventory')
+    local key_lv = (inven_type == 'rune') and 'r_slotlv' or 'd_slotlv'
+    local key_slot = inven_type .. '_slot'
+    local key_price = inven_type .. '_lvup_price'
+
+    local lv = g_userData:get(key_lv)
+    local curr_slot = t_inven[lv][key_slot]
+    local next_slot = t_inven[(lv + 1)][key_slot]
+    
+    -- 최대 확장 상태
+    if (not next_slot) then
+        UIManager:toastNotificationRed(Str('더 이상 확장할 수 없습니다.'))
+        return
+    end
+
+    local lvup_price = t_inven[lv][key_price]
+    local l_str = seperate(lvup_price, ';')
+    local price = tonumber(l_str[2])
+    local add_slot = next_slot - curr_slot
+
+    local function ok_btn_cb()
+        local cash = g_userData:get('cash')
+        if (cash < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('다이아몬드가 부족합니다.'))
+            return
+        end
+
+        self:request_extendInventory(inven_type, finish_cb)
+    end
+
+    local str_target = self:getTargetInventoryName(inven_type)
+    local msg = Str('다이아몬드 {1}개를 사용하여\n{2} 인벤토리를 {3}칸\n확장하시겠습니까?', price, str_target, add_slot)
+    UI_ConfirmPopup('cash', price, msg, ok_btn_cb)
+end
+
+-------------------------------------
+-- function getTargetInventoryName
+-------------------------------------
+function ServerData_Inventory:getTargetInventoryName(inven_type)
+    local str_target = ''
+
+    if (inven_type == 'rune') then
+        str_target = Str('룬')
+
+    elseif (inven_type == 'dragon') then
+        str_target = Str('드래곤')
+
+    end
+
+    return str_target
+end
+
+-------------------------------------
+-- function request_extendInventory
+-------------------------------------
+function ServerData_Inventory:request_extendInventory(inven_type, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    
+    -- 콜백 함수
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+        g_topUserInfo:refreshData()
+
+        local str_target = self:getTargetInventoryName(inven_type)
+        UIManager:toastNotificationGreen(Str('{1} 인벤토리가 확장되었습니다.', str_target))
+
+        -- 인벤 슬롯 레벨 갱신
+        if ret['r_slotlv'] then
+            g_userData:applyServerData(ret['r_slotlv'], 'r_slotlv')
+        end
+
+        if ret['d_slotlv'] then
+            g_userData:applyServerData(ret['d_slotlv'], 'd_slotlv')
+        end
+
+        if finish_cb then
+            finish_cb()
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/inven_extend')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', inven_type)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end
