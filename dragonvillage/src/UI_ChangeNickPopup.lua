@@ -65,6 +65,7 @@ end
 function UI_ChangeNickPopup:initButton()
     local vars = self.vars
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+    vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
 end
 
 -------------------------------------
