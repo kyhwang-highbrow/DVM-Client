@@ -230,6 +230,10 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
         status_effect = StatusEffect_AddMana(res)
         status_effect:init_status(status_effect_value)
 
+    elseif (status_effect_group == 'mana_reduce') then
+        status_effect = StatusEffect_ManaReduce(res)
+        status_effect:init_status(status_effect_value)
+
     ----------- HP 보호막 ------------------
 	elseif (status_effect_group == 'barrier') then
 		status_effect = StatusEffect_Protection(res)
@@ -280,11 +284,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     elseif (status_effect_type == 'zombie') then
         status_effect = StatusEffect_Zombie(res)
-
-    ---------- 마나 소모량 변경 ------------
-    elseif (status_effect_type == 'mana_reduce') then
-    status_effect = StatusEffect_ManaReduce(res)
-    status_effect:init_status(status_effect_value)
     
 	----------- 속성 변경 ------------------
 	elseif (status_effect_type == 'attr_change') then
