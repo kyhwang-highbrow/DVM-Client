@@ -412,6 +412,7 @@ function SkillIndicator:setIndicatorDataByChar(char)
     local pos_x, pos_y = self:getAttackPosition()
     local x, y = char:getPosition()
     local body = char:getBody()
+    
     x = x + body.x
     y = y + body.y
 

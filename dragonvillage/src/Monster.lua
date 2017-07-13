@@ -112,6 +112,7 @@ function Monster:init_monster(t_monster, monster_id, level, stage_id)
             -- 본 정보의 동기화를 맞추기 위한 스케줄 추가
             if (not self.m_boneScheduleHandlerID) then
                 --self.m_boneScheduleHandlerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(function(dt) self:updateBonePos() end, 0, false)
+                --self.m_rootNode:scheduleUpdateWithPriorityLua(function() self:updateBonePos() end, 0)
             end
         end
     end
@@ -182,6 +183,7 @@ function Monster:initPhys(body)
                 -- 본 정보의 동기화를 맞추기 위한 스케줄 추가
                 if (not self.m_boneScheduleHandlerID) then
                     --self.m_boneScheduleHandlerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(function(dt) self:updateBonePos() end, 0, false)
+                    --self.m_rootNode:scheduleUpdateWithPriorityLua(function() self:updateBonePos() end, 0)
                 end
             end
         end

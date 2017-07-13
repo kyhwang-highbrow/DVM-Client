@@ -910,6 +910,7 @@ function Character:doRevive(hp_rate)
 
     local hp = math_floor(self.m_maxHp * hp_rate)
     self:setHp(hp, true)
+    self.m_hpNode:setVisible(true)
     
     self:changeState('revive', true)
 
@@ -2181,15 +2182,17 @@ end
 -------------------------------------
 function Character:setSpasticity(b)
 	if (not self.m_animator) then return end
-    if b and self.m_bEnableSpasticity then
-        --self.m_animator.m_node:pause()
+    
+    if (b and self.m_bEnableSpasticity) then
+        
         self.m_animator:setTimeScale(0)
 
         self.m_isSpasticity = true
         self.m_delaySpasticity = SpasticityTime
     else
-        --self.m_animator.m_node:resume()
-        self.m_animator:setTimeScale(1)
+        if (not self.m_temporaryPause) then
+            self.m_animator:setTimeScale(1)
+        end
 
         self.m_isSpasticity = false
         self.m_delaySpasticity = 0
@@ -2427,6 +2430,9 @@ function Character:setTemporaryPause(pause)
         local target_node = self.m_animator.m_node
 
         if (pause) then
+            -- 위치 좌표값 동기화
+            self:syncAniAndPhys()
+
             cca.stopAction(target_node, CHARACTER_ACTION_TAG__FLOATING)
 
             if (self.m_bRoam) then

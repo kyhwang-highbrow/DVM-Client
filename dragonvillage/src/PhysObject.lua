@@ -202,6 +202,8 @@ end
 -- @param getPos()
 -------------------------------------
 function PhysObject:getBody(k)
+    local k = k or 1
+
     if (k and self.body_list) then
         for i, body in ipairs(self.body_list) do
             if (body['key'] == k) then
@@ -209,7 +211,7 @@ function PhysObject:getBody(k)
             end
         end
     else
-        return self.body, self:getPos()
+        return self.body
     end
 end
 

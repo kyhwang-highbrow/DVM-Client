@@ -226,7 +226,6 @@ end
 -- function onStart
 -------------------------------------
 function SkillGuardian:onStart()
-    cclog('onStart()')
     for _, v in pairs (self.m_lTargetChar) do
 
         if (v:getGuard()) then
@@ -245,7 +244,6 @@ end
 -- function onEnd
 -------------------------------------
 function SkillGuardian:onEnd()
-    cclog('onEnd()')
     for _, v in pairs (self.m_lTargetChar) do
 	    if (v:getGuard() == self) then
 		    v:setGuard(nil)
