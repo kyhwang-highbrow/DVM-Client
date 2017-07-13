@@ -9,7 +9,7 @@ UI_ColosseumRankingRewardPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ColosseumRankingRewardPopup:init(struct_user_info_colosseum)
+function UI_ColosseumRankingRewardPopup:init(struct_user_info_colosseum, t_ret)
     local vars = self:load('colosseum_ranking_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -24,6 +24,8 @@ function UI_ColosseumRankingRewardPopup:init(struct_user_info_colosseum)
     self:initUI(struct_user_info_colosseum)
     self:initButton()
     self:refresh()
+
+    ItemObtainResult(t_ret)
 end
 
 -------------------------------------

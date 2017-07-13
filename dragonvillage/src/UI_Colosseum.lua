@@ -55,8 +55,12 @@ function UI_Colosseum:init()
     local function finich_cb()
 		if (g_colosseumData.m_tSeasonRewardInfo) then
             local info = g_colosseumData.m_tSeasonRewardInfo
-            UI_ColosseumRankingRewardPopup(info)
+            local t_ret = g_colosseumData.m_tRet
+
+            UI_ColosseumRankingRewardPopup(info, t_ret)
+
             g_colosseumData.m_tSeasonRewardInfo = nil
+            g_colosseumData.m_tRet = nil
 		end
     end
 

@@ -24,6 +24,7 @@ ServerData_Colosseum = class({
         m_matchHistory = 'list',
 
         m_tSeasonRewardInfo = 'table',
+        m_tRet = 'table',
         m_buffTime = 'timestamp', -- 버프 유효 시간 (0일 경우 버프 발동 x, 값이 있을 경우 해당 시간까지 버프 적용)
     })
 
@@ -38,7 +39,7 @@ end
 -- function goToColosseum
 -------------------------------------
 function ServerData_Colosseum:goToColosseum(use_scene)
-    local function cb()
+    local function cb(ret)
 		if (not self:isOpenColosseum()) then
             UIManager:toastNotificationGreen('콜로세움 오픈 전입니다.\n오픈까지 ' .. self:getColosseumStatusText())
             return
@@ -588,6 +589,7 @@ function ServerData_Colosseum:setSeasonRewardInfo(ret)
 
         self:_refresh_playerUserInfo(struct_user_info, ret['lastseason'])
         self.m_tSeasonRewardInfo = struct_user_info
+        self.m_tRet = ret
 
         -- ret['week'] -- 주차
         -- ret['total'] -- 순위를 가진 전체 유저 수

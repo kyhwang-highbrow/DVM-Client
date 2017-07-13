@@ -158,8 +158,10 @@ end
 -- @brief 보상 받기
 -------------------------------------
 function UI_MasterRoadPopup:click_rewardBtn()
-    local function cb_func()
-        UI_ToastPopup(Str('보상이 우편함으로 수령되었습니다.'))
+    local function cb_func(ret)
+
+        -- 보상 획득
+        ItemObtainResult(ret)
         
         -- 보상 받은 road의 셀 갱신 (보상 표시 제거)
         local curr_idx = g_masterRoadData:getRoadIdx(self.m_currRid)

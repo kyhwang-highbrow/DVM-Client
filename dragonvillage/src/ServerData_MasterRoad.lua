@@ -230,7 +230,7 @@ function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
 		g_topUserInfo:refreshData()
 
         if (finish_cb) then
-            finish_cb()
+            finish_cb(ret)
         end
     end
 
