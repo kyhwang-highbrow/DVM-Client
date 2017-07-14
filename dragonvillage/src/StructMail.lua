@@ -99,12 +99,19 @@ function StructMail:setExpireRemainTime()
     self['expire_remain_time'] = (expired_at - server_time)
 end
 
+local YEAR_TO_SEC = 60 * 60 * 24 * 365
 -------------------------------------
 -- function getExpireRemainTimeStr
 -- @brief 만료 기한 문자열 반환
 -------------------------------------
 function StructMail:getExpireRemainTimeStr()
     local expire_remain_time = self['expire_remain_time']
+    
+    -- 1년 이상은 무기한으로 처리
+    if (expire_remain_time > YEAR_TO_SEC) then
+        return Str('무기한')
+    end
+
     return Str('{1} 남음', datetime.makeTimeDesc(expire_remain_time))
 end
 
