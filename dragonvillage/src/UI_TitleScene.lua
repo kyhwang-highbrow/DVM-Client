@@ -601,7 +601,7 @@ function UI_TitleScene:workBillingSetup()
     self.m_loadingUI:showLoading(Str('결제 정보 초기화...'))
 
     -- info : [{"orderId":"@orderId","payload":"@payload"},...]
-    local function call_back(ret, info) 
+    local function call_back(ret, info)
         cclog('# UI_TitleScene:workBillingSetup() result : ' .. ret)
         if (ret == 'purchase') then
             cclog('#### info : ')

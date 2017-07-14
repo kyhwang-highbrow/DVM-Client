@@ -398,7 +398,7 @@ end
 -- function request_checkReceiptValidation
 -- @breif 마켓에서 구매 후
 -------------------------------------
-function ServerData_Shop:request_checkReceiptValidation(validation_key, sku, product_id, cb_func, fail_cb)
+function ServerData_Shop:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, cb_func, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -409,7 +409,7 @@ function ServerData_Shop:request_checkReceiptValidation(validation_key, sku, pro
         g_topUserInfo:refreshData()
 
         -- 상품 구매 후 갱신이 필요한지 여부 체크
-        if struct_product:needRenewAfterBuy() then
+        if struct_product and struct_product:needRenewAfterBuy() then
             self.m_bDirty = true
         end
 

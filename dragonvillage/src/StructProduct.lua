@@ -336,6 +336,7 @@ function StructProduct:payment(cb_func)
         local product_id = self['product_id']
         local price = self['price']
         local validation_key = nil
+        local orderId = nil
 
         --------------------------------------------------------
         cclog('#1. validation_key 발행')
@@ -377,6 +378,9 @@ function StructProduct:payment(cb_func)
                     cclog('## 결제 성공')
                     -- info : {"orderId":"@orderId","payload":"@payload"}
                     ccdump(info)
+                    -- {"orderId":"GPA.3373-5309-9610-83371","payload":"{\"validation_key\":\"22e088cd-53df-435e-a263-0540ae5c3870\",\"price\":55000,\"uid\":\"8ZxuT9Mt9OebL6gQ22gzjVu8d1g2\",\"product_id\":81005}"}
+                    local info_json = dkjson.decode(info)
+                    orderId = info_json and info_json['orderId']
                     co.NEXT()
 
                 elseif (ret == 'fail') then
@@ -418,7 +422,7 @@ function StructProduct:payment(cb_func)
                 error_msg = Str('영수증 확인에 실패하였습니다.')
                 co.ESCAPE()
             end
-            g_shopDataNew:request_checkReceiptValidation(validation_key, sku, product_id, finish_cb, fail_cb)
+            g_shopDataNew:request_checkReceiptValidation(self, validation_key, sku, product_id, finish_cb, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -426,13 +430,11 @@ function StructProduct:payment(cb_func)
         --------------------------------------------------------
         cclog('#4. 결제 확인')
         do
-            --[[
             -- 구매 완료 성공 콜백을 받은 후 게임 서버에서 정상적으로 상품 지급을 한 다음 다시 이 함수를 호출해서 구매 프로세스를 완료시킴
             -- 이 함수를 호출하면 구글 결제 인벤토리에서 해당 Purchase 를 Consume 처리함.
-            local l_orderid = {}
-            table.insert(l_orderid, validation_key)
-            PerpleSDK:billingConfirm(l_orderid)
-            --]]
+            if orderId then
+                PerpleSDK:billingConfirm(orderId)
+            end
         end
         --------------------------------------------------------
 
