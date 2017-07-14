@@ -14,6 +14,13 @@ cclog = function(...)
     print(...)
 end
 
+-------------------------------------
+-- function isTestMode
+-------------------------------------
+function isTestMode()
+    -- 라이브 전에는 명시해야함
+    return true
+end
 
 -------------------------------------
 -- @perplesdk

@@ -124,6 +124,11 @@ function UI_ErrorPopup:setErrorStr(str)
 
 	self.m_errorLabel:setString(error_str)
     self.m_errorStr = error_str
+
+    -- testmode에서는 항상 전송되도록 함
+    if (isTestMode()) then
+        slack_api(error_str)
+    end
 end
 
 -------------------------------------
