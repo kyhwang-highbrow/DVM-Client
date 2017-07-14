@@ -405,3 +405,26 @@ function StructProduct:checkPrice()
 
 	return true
 end
+
+-------------------------------------
+-- function isContain
+-------------------------------------
+function StructProduct:isContain(item_type)
+    local l_item_list_product = ServerData_Item:parsePackageItemStr(self['product_content'])
+    local l_item_list_mail = ServerData_Item:parsePackageItemStr(self['mail_content'])
+
+    local l_item_list = table.merge(l_item_list_product, l_item_list_mail)
+
+    local table_item = TableItem()
+
+    local item_id = TableItem:getItemIDFromItemType(item_type) or item_type
+    for i,v in ipairs(l_item_list) do
+        if (v['item_id'] == item_id) then
+            return true
+        elseif table_item:getValue(v['item_id'], 'type') == item_type then
+            return true
+        end
+    end
+
+    return false
+end

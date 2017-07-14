@@ -129,7 +129,13 @@ end
 -------------------------------------
 function ServerData_Shop:getProductList(tab_category)
     local l_product = self.m_dicProduct[tab_category]
+    return self:getProductList_(l_product)
+end
 
+-------------------------------------
+-- function getProductList_
+-------------------------------------
+function ServerData_Shop:getProductList_(l_product)
     if (not l_product) then
         return {}
     end
@@ -171,6 +177,23 @@ function ServerData_Shop:getProductList(tab_category)
     end
 
     return product_map
+end
+
+-------------------------------------
+-- function getProductList_byItemType
+-------------------------------------
+function ServerData_Shop:getProductList_byItemType(item_type)
+    local l_product = {}
+    
+    for i,v in pairs(self.m_dicProduct) do
+        for _,product in pairs(v) do
+            if product:isContain(item_type) then
+                table.insert(l_product, product)
+            end
+        end
+    end
+
+    return l_product
 end
 
 -------------------------------------
@@ -267,6 +290,7 @@ function ServerData_Shop:openShopPopup(tab_type)
     self:ckechDirty()
 
     local function cb_func()
+        --UI_ShopPopup()
         local ui_shop_popup = UI_Shop()
 
         --[[

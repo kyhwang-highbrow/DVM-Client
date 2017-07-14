@@ -611,6 +611,7 @@ local t_module = {
 	-- UI : 상점 관련
 	'UI_Shop',
     'UI_ShopTab',
+    'UI_ShopPopup',
     'UI_Product',
 	'UI_Package',
 

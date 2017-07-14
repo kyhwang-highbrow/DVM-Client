@@ -123,7 +123,7 @@ function UI_LobbyUserInfoPopup:click_blockBtn(uid, nickname)
 end
 
 -------------------------------------
--- function RequestUserDeckInfoPopup
+-- function RequestUserInfoPopup
 -------------------------------------
 function RequestUserInfoPopup(peer_uid)
 	-- 유저 ID
