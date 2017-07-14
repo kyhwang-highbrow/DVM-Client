@@ -280,7 +280,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'node2';
-				file_name = 'ui/frame/a_frame_05.png';
+				file_name = 'ui/frames/base_frame_0202.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -478,7 +478,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'node1';
-				file_name = 'ui/frame/a_frame_05.png';
+				file_name = 'ui/frames/base_frame_0202.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -676,7 +676,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'node3';
-				file_name = 'ui/frame/a_frame_05.png';
+				file_name = 'ui/frames/base_frame_0202.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -700,7 +700,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = 'normalTierNode';
-			file_name = 'ui/frame/a_frame_03.png';
+			file_name = 'ui/frames/base_frame_0101.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			center_rect_x = 0;

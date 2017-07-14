@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/base_0201.png';
+				file_name = 'ui/frames/base_list_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -285,7 +285,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/base_0301.png';
+					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -323,12 +323,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
+					x = 8.000000;
+					y = 1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 155;
+					width = 120;
 					height = 27;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -344,7 +344,7 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 155;
+					dimension_width = 120;
 					dimension_height = 27;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -362,7 +362,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = -104.000000;
-				y = -25.000000;
+				y = -26.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -376,8 +376,8 @@
 				visible = true;
 				lua_name = 'selectBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0101.png';
-				selected = 'ui/btn/a_btn_0102.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -401,7 +401,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/a_frame_01.png';
+					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -452,7 +452,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = -104.000000;
-				y = -25.000000;
+				y = -26.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -486,7 +486,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/a_frame_01.png';
+					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -537,7 +537,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = -104.000000;
-				y = 29.000000;
+				y = 35.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
