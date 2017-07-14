@@ -35,20 +35,27 @@ function UI_AncientTowerRankingRewardPopup:initUI(struct_user_info_ancient)
     local vars = self.vars
 
     local info = struct_user_info_ancient
-
+    
     -- 점수 표시
     vars['scoreLabel']:setString(info:getScoreText())
 
     -- 순위 표시
     vars['rankingLabel']:setString(info:getRankText(true))
 
-    local cash = 0
-    if info.m_userData then
-        cash = info.m_userData['cash']
-    end
+    local item_info = info.m_userData
+    local reward_cnt = 3
+    if (item_info) then
+        for i = 1, reward_cnt do
+            local item_data = item_info[i]
+            local item_id = item_data['item_id']
+            local item_cnt = item_data['count']
 
-    -- 보상쪽 UI 수정해야함
-    --vars['rewardLabel']:setString(comma_value(cash))
+            local icon = IconHelper:getItemIcon(item_id)
+            vars['rewardNode'..i]:addChild(icon)
+
+            vars['rewardLabel'..i]:setString(comma_value(item_cnt))
+        end
+    end
 end
 
 -------------------------------------

@@ -425,11 +425,7 @@ function ServerData_AncientTower:setSeasonRewardInfo(ret)
         self.m_tSeasonRewardInfo = struct_user_info
         self.m_tRet = ret
 
-        -- ret['week'] -- 주차
-        -- ret['total'] -- 순위를 가진 전체 유저 수
-
-        -- 보상 cash 갯수 저장
-        local t_item_id_cnt, t_iten_type_cnt = ServerData_Item:parseAddedItems(ret['added_items'])
-        struct_user_info.m_userData = t_iten_type_cnt
+        -- 보상 정보 저장
+        struct_user_info.m_userData = ret['reward_info']
     end
 end
