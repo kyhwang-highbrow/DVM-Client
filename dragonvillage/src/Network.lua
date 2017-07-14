@@ -22,28 +22,31 @@ function Network_get_patch_info(app_ver, success_cb, fail_cb)
     Network:SimpleRequest(t_request)
 end
 
-
 -------------------------------------
--- function Network_platform_guest_login
--- @breif 패치 정보 요청
--- player_id : 타 플랫폼 접속시 리턴받은 유일값(없으면 비워둠)
--- uid: 이전 접속시 생성 받은 uid(없으면 비워둠)
--- idfa : 기기 고유의 광고 고유 식별자(필수)
--- deviceOS : 기기 OS (필수, 0:android, 1:ios, 2:windows, 3:....)
--- pushToken : 푸쉬 토큰 발송 유무, '1' or '0'
+-- function Network_platform_issueRcode
+-- @breif firebase uid로 
+--        복구코드 생성 및pushToken저장
+-- @param
+--          game_id
+--          fuid : firebase uid
+--          rcode : platform에서 생성한 복구코드 
+--          os : ( 0 : Android / 1 : iOS )
+--          game_push : on - 1, off - 0
+--          pushToken : firebase push token
 -------------------------------------
-function Network_platform_guest_login(player_id, uid, idfa, deviceOS, pushToken, success_cb, fail_cb)
+function Network_platform_issueRcode(game_id, fuid, rcode, os, game_push, pushToken, success_cb, fail_cb)
     -- 파라미터 셋팅
     local t_data = {}
-    t_data['player_id'] = player_id
-    t_data['uid'] = uid
-    t_data['idfa'] = idfa
-    t_data['deviceOS'] = deviceOS
+    t_data['game_id'] = game_id
+    t_data['fuid'] = fuid
+    t_data['rcode'] = rcode
+    t_data['os'] = os
+    t_data['game_push'] = game_push
     t_data['pushToken'] = pushToken
 
     -- 요청 정보 설정
     local t_request = {}
-    t_request['full_url'] = 'http://dv-test.perplelab.com:3000/1003/user/guestLogin'
+    t_request['full_url'] = 'http://dev.platform.perplelab.com/1003/user/issueRcode'
     t_request['method'] = 'POST'
     t_request['data'] = t_data
 

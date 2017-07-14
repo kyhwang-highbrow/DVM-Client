@@ -368,3 +368,57 @@ function ServerData_Shop:request_buy(struct_product, finish_cb, fail_cb)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function request_purchaseToken
+-------------------------------------
+function ServerData_Shop:request_purchaseToken(cb_func, fail_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/purchase_token')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_checkReceiptValidation
+-- @breif 마켓에서 구매 후
+-------------------------------------
+function ServerData_Shop:request_checkReceiptValidation(validation_key, sku, product_id, cb_func, fail_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/check_receipt_validation')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('validation_key', validation_key)
+    ui_network:setParam('sku', sku)
+    ui_network:setParam('product_id', product_id)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

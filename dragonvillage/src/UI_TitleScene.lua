@@ -199,6 +199,12 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workGetDeck')
     table.insert(self.m_lWorkList, 'workGetServerInfo')
     table.insert(self.m_lWorkList, 'workBook')
+
+    -- @perpelsdk
+    if (isAndroid() or isIos()) then
+        table.insert(self.m_lWorkList, 'workBillingSetup')
+    end
+
     table.insert(self.m_lWorkList, 'workSoundPreload')
     table.insert(self.m_lWorkList, 'workFinish')
     
@@ -353,26 +359,28 @@ end
 function UI_TitleScene:workPlatformLogin()
     self.m_loadingUI:showLoading(Str('플랫폼 서버에 로그인 중...'))
 
-    local player_id = nil
-    local uid = nil
-    local idfa = g_serverData:get('local', 'uid')
-    local deviceOS = '2'
-    local pushToken = '1'
-
     local success_cb = function(ret)
-        -- @임시
-        -- 플랫폼 서버가 발급한 uid를 복구코드로 저장
-        -- 추구 복구코드 발급 API로 교체 예정
-        g_serverData:applyServerData(ret['uid'], 'local', 'recovery_code')
-        self:doNextWork()
+        local t_status = ret['status']
+        if (t_status['retcode'] == 0) then
+            ccdump(ret)
+            self:doNextWork()    
+        else
+            --local msg = luadump(ret)
+            self:makeFailPopup(nil, ret)
+        end
     end
 
     local fail_cb = function(ret)
         self:makeFailPopup(nil, ret)
     end
 
-    Network_platform_guest_login(player_id, uid, idfa, deviceOS, pushToken, success_cb, fail_cb)
-
+    local game_id = 1003
+    local fuid = g_serverData:get('local', 'uid')
+    local rcode = nil
+    local os = 0 -- ( 0 : Android / 1 : iOS )
+    local game_push = 1 -- on - 1, off - 0
+    local pushToken = g_serverData:get('local', 'push_token')
+    Network_platform_issueRcode(game_id, fuid, rcode, os, game_push, pushToken, success_cb, fail_cb)
 end
 function UI_TitleScene:workPlatformLogin_click()
 end
@@ -571,6 +579,30 @@ end
 function UI_TitleScene:workBook_click()
 end
 
+-------------------------------------
+-- function workBillingSetup
+-- @brief Billing 초기화
+-------------------------------------
+function UI_TitleScene:workBillingSetup()
+    self.m_loadingUI:showLoading(Str('결제 정보 초기화...'))
+
+    -- info : [{"orderId":"@orderId","payload":"@payload"},...]
+    local function call_back(ret, info) 
+        cclog('# UI_TitleScene:workBillingSetup() result : ' .. ret)
+        if (ret == 'purchase') then
+            ccdump(info)
+            self:doNextWork()
+        elseif (ret == 'error') then
+            self:makeFailPopup(Str('결제 정보 초기화 실패'), nil)
+        end
+    end
+
+    -- 영수증 검증
+    local url = 'http://dev.platform.perplelab.com/1003/payment/checkReceiptValidation/'
+    PerpleSDK:billingSetup(url, call_back)
+end
+function UI_TitleScene:workBillingSetup_click()
+end
 
 -------------------------------------
 -- function workSoundPreload

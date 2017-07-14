@@ -275,10 +275,22 @@ function StructProduct:getPriceStr()
 end
 
 -------------------------------------
+-- function isPaymentProduct
+-------------------------------------
+function StructProduct:isPaymentProduct()
+    if (isAndroid() or isIos()) then
+        if self['sku'] and (self['sku'] ~= '') then
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function buy
 -------------------------------------
 function StructProduct:buy(cb_func)
-
     if (not self:tryBuy()) then
         return
     end
@@ -289,10 +301,109 @@ function StructProduct:buy(cb_func)
 				cb_func(ret)
 			end
         end
-        g_shopDataNew:request_buy(self, finish_cb)
+
+        -- 마켓에서 구매하는 상품
+        if self:isPaymentProduct() then
+            self:payment(finish_cb)
+        else
+            g_shopDataNew:request_buy(self, finish_cb)
+        end
 	end
 
     MakeSimplePopup_Confirm(self['price_type'], self['price'], nil, ok_cb, nil)
+end
+
+-------------------------------------
+-- function payment
+-- @brief 결제 상품 처리
+-------------------------------------
+function StructProduct:payment(cb_func)
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        local sku = self['sku']
+        local product_id = self['product_id']
+        local price = self['price']
+        local validation_key = nil
+
+        -------------------------------------
+        cclog('#1. validation_key 발행')
+        do -- purchase token(validation_key) 발행
+            co:work()
+            local function cb_func(ret)
+                validation_key = ret['validation_key']
+                co.NEXT()
+            end
+            g_shopDataNew:request_purchaseToken(cb_func, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
+        -------------------------------------
+        cclog('#2. 결제 실행')
+        do -- 일반형 상품 구매
+            co:work()
+            -- @sku : 상품 아이디
+            -- @payload : 영수증 검증에 필요한 부가 정보
+            local function result_func(ret, info)
+                if (ret == 'success') then
+                    cclog('결제 성공')
+                    -- info : {"orderId":"@orderId","payload":"@payload"}
+                    ccdump(info)
+                elseif (ret == 'fail') then
+                    cclog('결제 실패')
+                    co.ESCAPE()
+                elseif (ret == 'cancel') then
+                    cclog('결제 취소')
+                    co.ESCAPE()
+                else
+                    cclog('결제 결과 (예외) : ' .. ret)
+                end
+            end
+
+            local payload_table = {}
+            payload_table['uid'] = g_serverData:get('local', 'uid')
+            payload_table['validation_key'] = validation_key
+            payload_table['product_id'] = product_id
+            payload_table['price'] = price
+            local payload = dkjson.encode(payload_table)
+
+            cclog('sku : ' .. sku)
+            cclog('payload : ' .. payload)
+            PerpleSDK:billingPurchase(sku, payload, result_func)
+            if co:waitWork() then return end
+        end
+
+        -------------------------------------
+        cclog('#3. 영수증 확인 & 상품 지급')
+        do -- 영수증 확인, 상품 지급
+            co:work()
+            local function finish_cb(ret)
+                cb_func(ret)
+                co.NEXT()
+            end
+            g_shopDataNew:request_buy(self, finish_cb)
+            if co:waitWork() then return end
+        end
+
+        -------------------------------------
+        cclog('#4. 결제 확인')
+        do
+            --[[
+            -- 구매 완료 성공 콜백을 받은 후 게임 서버에서 정상적으로 상품 지급을 한 다음 다시 이 함수를 호출해서 구매 프로세스를 완료시킴
+            -- 이 함수를 호출하면 구글 결제 인벤토리에서 해당 Purchase 를 Consume 처리함.
+            local l_orderid = {}
+            table.insert(l_orderid, validation_key)
+            PerpleSDK:billingConfirm(l_orderid)
+            --]]
+        end
+
+        co:close()
+    end
+
+
+    Coroutine(coroutine_function, '#PAYMENT 코루틴')
 end
 
 -------------------------------------
