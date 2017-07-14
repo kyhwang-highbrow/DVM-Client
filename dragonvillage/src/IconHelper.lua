@@ -568,6 +568,12 @@ end
 -------------------------------------
 function IconHelper:getPriceIcon(price_type)
     local res = string.format('res/ui/icon/inbox/inbox_%s.png', price_type)
+
+    -- 현금 상품
+    if (price_type == 'money') then
+        res = 'res/ui/icon/inbox/inbox_krw.png'
+    end
+
     local icon = IconHelper:getIcon(res)
     if (not icon) then
         icon = self:getIcon('res/ui/icon/item/developing.png')
