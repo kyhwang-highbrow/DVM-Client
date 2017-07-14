@@ -309,13 +309,20 @@ function UI_TitleScene:workCheckUserID()
             local fuid = t_info.fuid
             local push_token = t_info.pushToken
             local platform_id = 'firebase'
+            local account_info = 'Guest'
             if t_info.providerData[2] ~= nil then
                 platform_id = t_info.providerData[2].providerId
+                if platform_id == 'google.com' then
+                    account_info = t_info.google.name or account_info
+                elseif platform_id == 'facebook.com' then
+                    account_info = t_info.facebook.name or account_info
+                end
             end
 
             cclog('fuid: ' .. fuid)
             cclog('push_token: ' .. push_token)
             cclog('platform_id:' .. platform_id)
+            cclog('account_info:' .. account_info)
 
             -- Firebase에서 발급하는 uid
             -- 게임 uid로 그대로 사용하면 됨
@@ -330,6 +337,9 @@ function UI_TitleScene:workCheckUserID()
             -- Facebook: 'facebook.com'
             -- Guest: 'firebase'
             g_serverData:applyServerData(platform_id, 'local', 'platform_id')
+
+            -- 계정 정보(이름 or 이메일)
+            g_serverData:applyServerData(account_info, 'local', 'account_info')
 
             self:doNextWork()
 
@@ -363,6 +373,10 @@ function UI_TitleScene:workPlatformLogin()
         local t_status = ret['status']
         if (t_status['retcode'] == 0) then
             ccdump(ret)
+
+            -- 복구코드 저장            
+            g_serverData:applyServerData(ret['rcode'], 'local', 'recovery_code')
+
             self:doNextWork()    
         else
             --local msg = luadump(ret)
@@ -676,6 +690,13 @@ function UI_TitleScene:makeRandomUid()
     end) 
 
     g_serverData:applyServerData(uuid, 'local', 'uid')
+
+    if isWin32() then
+        g_serverData:applyServerData('', 'local', 'push_token')
+        g_serverData:applyServerData('firebase', 'local', 'platform_id')
+        g_serverData:applyServerData('Guest', 'local', 'account_info')
+    end
+
 end
 
 -------------------------------------

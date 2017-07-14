@@ -77,31 +77,13 @@ function UI_LoginPopup:click_facebookBtn()
     PerpleSDK:loginWithFacebook(function(ret, info)
         if ret == 'success' then
 
-            cclog('Firebase facebook login was successful.')
+            cclog('Firebase Facebook login was successful.')
 
-            local t_info = json_decode(info)
-            local fuid = t_info.fuid
-            local push_token = t_info.pushToken
-            local platform_id = 'firebase'
-            if t_info.providerData[2] ~= nil then
-                platform_id = t_info.providerData[2].providerId
-            end
-
-            cclog('fuid: ' .. fuid)
-            cclog('push_token: ' .. push_token)
-            cclog('platform_id:' .. platform_id)
-
-            g_serverData:applyServerData(fuid, 'local', 'uid')
-            g_serverData:applyServerData(push_token, 'local', 'push_token')
-            g_serverData:applyServerData(platform_id, 'local', 'platform_id')
-
+            self:loginSuccess(info)
             self:close()
 
         elseif ret == 'fail' then
-            local code = info.code
-            local subcode = info.subcode
-            local msg = info.msg
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            self:loginFail(info)
         elseif ret == 'cancel' then
         end
     end)
@@ -132,31 +114,13 @@ function UI_LoginPopup:click_googleBtn()
     PerpleSDK:loginWithGoogle(function(ret, info)
         if ret == 'success' then
 
-            cclog('Firebase google login was successful.')
+            cclog('Firebase Google login was successful.')
 
-            local t_info = json_decode(info)
-            local fuid = t_info.fuid
-            local push_token = t_info.pushToken
-            local platform_id = 'firebase'
-            if t_info.providerData[2] ~= nil then
-                platform_id = t_info.providerData[2].providerId
-            end
-
-            cclog('fuid: ' .. fuid)
-            cclog('push_token: ' .. push_token)
-            cclog('platform_id:' .. platform_id)
-
-            g_serverData:applyServerData(fuid, 'local', 'uid')
-            g_serverData:applyServerData(push_token, 'local', 'push_token')
-            g_serverData:applyServerData(platform_id, 'local', 'platform_id')
-
+            self:loginSuccess(info)
             self:close()
 
         elseif ret == 'fail' then
-            local code = info.code
-            local subcode = info.subcode
-            local msg = info.msg
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            self:loginFail(info)
         elseif ret == 'cancel' then
         end
     end)
@@ -172,34 +136,56 @@ function UI_LoginPopup:click_guestBtn()
     PerpleSDK:loginAnonymously(function(ret, info)
         if ret == 'success' then
 
-            cclog('Firebase guest login was successful.')
+            cclog('Firebase Guest login was successful.')
 
-            local t_info = json_decode(info)
-            local fuid = t_info.fuid
-            local push_token = t_info.pushToken
-            local platform_id = 'firebase'
-            if t_info.providerData[2] ~= nil then
-                platform_id = t_info.providerData[2].providerId
-            end
-
-            cclog('fuid: ' .. fuid)
-            cclog('push_token: ' .. push_token)
-            cclog('platform_id:' .. platform_id)
-
-            g_serverData:applyServerData(fuid, 'local', 'uid')
-            g_serverData:applyServerData(push_token, 'local', 'push_token')
-            g_serverData:applyServerData(platform_id, 'local', 'platform_id')
-
+            self:loginSuccess(info)
             self:close()
 
         elseif ret == 'fail' then
-            local code = info.code
-            local subcode = info.subcode
-            local msg = info.msg
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            self:loginFail(info)
         end
     end)
 
+end
+
+-------------------------------------
+-- function loginSuccess
+-------------------------------------
+function UI_LoginPopup:loginSuccess(info)
+    local t_info = json_decode(info)
+    local fuid = t_info.fuid
+    local push_token = t_info.pushToken
+    local platform_id = 'firebase'
+    local account_info = 'Guest'
+    if t_info.providerData[2] ~= nil then
+        platform_id = t_info.providerData[2].providerId
+        if platform_id == 'google.com' then
+            account_info = t_info.google.name or account_info
+        elseif platform_id == 'facebook.com' then
+            account_info = t_info.facebook.name or account_info
+        end
+    end
+
+    cclog('fuid: ' .. fuid)
+    cclog('push_token: ' .. push_token)
+    cclog('platform_id:' .. platform_id)
+    cclog('account_info:' .. account_info)
+
+    g_serverData:applyServerData(fuid, 'local', 'uid')
+    g_serverData:applyServerData(push_token, 'local', 'push_token')
+    g_serverData:applyServerData(platform_id, 'local', 'platform_id')
+    g_serverData:applyServerData(account_info, 'local', 'account_info')
+end
+
+-------------------------------------
+-- function loginFail
+-------------------------------------
+function UI_LoginPopup:loginFail(info)
+    local code = info.code
+    local subcode = info.subcode
+    local msg = info.msg
+
+    MakeSimplePopup(POPUP_TYPE.OK, msg)
 end
 
 --@CHECK

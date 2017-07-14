@@ -4,23 +4,86 @@
 function UI_Setting:init_accountTab()
     local vars = self.vars
 
+    vars['copyBtn']:registerScriptTapHandler(function() self:click_copyBtn() end)
+
     vars['facebookBtn']:registerScriptTapHandler(function() self:click_facebookBtn() end)
     vars['gamecenterBtn']:registerScriptTapHandler(function() self:click_gamecenterBtn() end)
     vars['googleBtn']:registerScriptTapHandler(function() self:click_googleBtn() end)
-    vars['highbrowBtn']:registerScriptTapHandler(function() self:click_highbrowBtn() end)
 
     vars['clearBtn']:registerScriptTapHandler(function() self:click_clearBtn() end)
     vars['logoutBtn']:registerScriptTapHandler(function() self:click_logoutBtn() end)
 
     vars['gamecenterBtn']:setVisible(isIos())
     vars['googleBtn']:setVisible(isAndroid() or isWin32())
+
+    self:updateInfo()
+end
+
+-------------------------------------
+-- function click_gamecenterBtn
+-------------------------------------
+function UI_Setting:click_copyBtn()
+    UIManager:toastNotificationRed(Str('준비 중입니다.'))
 end
 
 -------------------------------------
 -- function click_facebookBtn
 -------------------------------------
 function UI_Setting:click_facebookBtn()
-    UIManager:toastNotificationRed(Str('준비 중입니다.'))
+    if isWin32() then
+        UIManager:toastNotificationRed(Str('Windows에서는 동작하지 않습니다.'))
+        return
+    end
+
+    local old_platform_id = g_serverData:get('local', 'platform_id')
+
+    PerpleSDK:linkWithFacebook(function(ret, info)
+        if ret == 'success' then
+
+            -- 신규 계정
+            cclog('Firebase Facebook link was successful.')
+            self:loginSuccess(info)
+            -- 기존 구글 연결은 끊는다.
+            if old_platform_id == 'google.com' then
+                PerpleSDK:unlinkWithGoogle(function(ret, info)
+                    if ret == 'success' then
+                        cclog('Firebase unlink from Google was successful.')
+                    elseif ret == 'fail' then
+                        cclog('Firebase unlink from Google failed.')
+                    end
+                end)
+            end
+
+        elseif ret == 'fail' then
+            local code = info.code
+            local subcode = info.subcode
+            local msg = info.msg
+
+            -- 기존 계정
+            if code == '-1002' and subcode == 'ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL' then
+                -- 먼저 Firebase만 로그아웃하고
+                PerpleSDK:logout(function(ret, info)
+                    -- 새로 로그인한다.
+                    PerpleSDK:loginWithFacebook(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase Facebook link was successful.')
+                            self:loginSuccess(info)
+                        elseif ret == 'fail' then
+                            self:loginFail(info)
+                        elseif ret == 'cancel' then
+                            -- Do nothing
+                        end
+                    end)
+                end)
+            else
+                MakeSimplePopup(POPUP_TYPE.OK, msg)
+            end
+
+        elseif ret == 'cancel' then
+            -- Do nothing
+        end
+    end)
+
 end
 
 -------------------------------------
@@ -34,14 +97,60 @@ end
 -- function click_googleBtn
 -------------------------------------
 function UI_Setting:click_googleBtn()
-    UIManager:toastNotificationRed(Str('준비 중입니다.'))
-end
+    if isWin32() then
+        UIManager:toastNotificationRed(Str('Windows에서는 동작하지 않습니다.'))
+        return
+    end
 
--------------------------------------
--- function click_highbrowBtn
--------------------------------------
-function UI_Setting:click_highbrowBtn()
-    UIManager:toastNotificationRed(Str('준비 중입니다.'))
+    local old_platform_id = g_serverData:get('local', 'platform_id')
+
+    PerpleSDK:linkWithGoogle(function(ret, info)
+        if ret == 'success' then
+
+            -- 신규 계정
+            cclog('Firebase Google link was successful.')
+            self:loginSuccess(info)
+            -- 기존 페이스북 연결은 끊는다.
+            if old_platform_id == 'facebook.com' then
+                PerpleSDK:unlinkWithFacebook(function(ret, info)
+                    if ret == 'success' then
+                        cclog('Firebase unlink from Facebook was successful.')
+                    elseif ret == 'fail' then
+                        cclog('Firebase unlink from Facebook failed.')
+                    end
+                end)
+            end
+
+        elseif ret == 'fail' then
+            local code = info.code
+            local subcode = info.subcode
+            local msg = info.msg
+
+            -- 기존 계정
+            if code == '-1002' and subcode == 'ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL' then
+                -- 먼저 Firebase만 로그아웃하고
+                PerpleSDK:logout(function(ret, info)
+                    -- 새로 로그인한다.
+                    PerpleSDK:loginWithGoogle(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase Google link was successful.')
+                            self:loginSuccess(info)
+                        elseif ret == 'fail' then
+                            self:loginFail(info)
+                        elseif ret == 'cancel' then
+                            -- Do nothing
+                        end
+                    end)
+                end)
+            else
+                MakeSimplePopup(POPUP_TYPE.OK, msg)
+            end
+
+        elseif ret == 'cancel' then
+            -- Do nothing
+        end
+    end)
+
 end
 
 -------------------------------------
@@ -50,7 +159,7 @@ end
 function UI_Setting:click_clearBtn()
     local ask_popup
     local request
-    local claer
+    local clear
 
     -- 1. 계정 초기화 여부를 물어보는 팝업
     ask_popup = function()
@@ -67,7 +176,7 @@ function UI_Setting:click_clearBtn()
     -- 2. 네트워크 통신
     request = function()
         local uid = g_userData:get('uid')
-        local success_cb = claer
+        local success_cb = clear
 
         local ui_network = UI_Network()
         ui_network:setUrl('/manage/delete_user')
@@ -80,7 +189,7 @@ function UI_Setting:click_clearBtn()
     end
 
     -- 3. 로컬 세이브 데이터 삭제 후 어플 재시작
-    claer = function()
+    clear = function()
         removeLocalFiles()
 
         -- AppDelegate_Custom.cpp에 구현되어 있음
@@ -95,12 +204,27 @@ end
 -------------------------------------
 function UI_Setting:click_logoutBtn()
     local ask_popup
-    local claer
+    local clear
 
     -- 1. 계정 초기화 여부를 물어보는 팝업
     ask_popup = function()
         local ok_btn_cb = function()
-            claer()
+
+            if isWin32() then
+                clear()
+            else
+                PerpleSDK:logout(function(ret, info)
+                    local platform_id = g_serverData:get('local', 'platform_id')
+                    if platform_id == 'google.com' then
+                        PerpleSDK:googleLogout()
+                    end
+                    if platform_id == 'facebook.com' then
+                        PerpleSDK:facebookLogout()
+                    end
+                    clear()
+                end)
+            end
+
         end
     
         local cancel_btn_cb = nil
@@ -110,7 +234,7 @@ function UI_Setting:click_logoutBtn()
     end
 
     -- 2. 로컬 세이브 데이터 삭제 후 어플 재시작
-    claer = function()
+    clear = function()
         removeLocalFiles()
 
         -- AppDelegate_Custom.cpp에 구현되어 있음
@@ -118,4 +242,80 @@ function UI_Setting:click_logoutBtn()
     end
 
     ask_popup()
+end
+
+-------------------------------------
+-- function loginSuccess
+-------------------------------------
+function UI_Setting:loginSuccess(info)
+    local t_info = json_decode(info)
+    local fuid = t_info.fuid
+    local push_token = t_info.pushToken
+    local platform_id = 'firebase'
+    local account_info = 'Guest'
+    if t_info.providerData[2] ~= nil then
+        platform_id = t_info.providerData[2].providerId
+        if platform_id == 'google.com' then
+            account_info = t_info.google.name or account_info
+        elseif platform_id == 'facebook.com' then
+            account_info = t_info.facebook.name or account_info
+        end
+    end
+
+    cclog('fuid: ' .. fuid)
+    cclog('push_token: ' .. push_token)
+    cclog('platform_id:' .. platform_id)
+    cclog('account_info:' .. account_info)
+
+    g_serverData:applyServerData(fuid, 'local', 'uid')
+    g_serverData:applyServerData(push_token, 'local', 'push_token')
+    g_serverData:applyServerData(platform_id, 'local', 'platform_id')
+    g_serverData:applyServerData(account_info, 'local', 'account_info')
+
+    self:updateInfo()
+end
+
+-------------------------------------
+-- function loginFail
+-------------------------------------
+function UI_Setting:loginFail(info)
+    local code = info.code
+    local subcode = info.subcode
+    local msg = info.msg
+
+    MakeSimplePopup(POPUP_TYPE.OK, msg)
+end
+
+-------------------------------------
+-- function updateInfo
+-------------------------------------
+function UI_Setting:updateInfo()
+
+    local platform_id = g_serverData:get('local', 'platform_id') or 'firebase'
+    local account_info = g_serverData:get('local', 'account_info') or 'Guest'
+    local recovery_code = g_serverData:get('local', 'recovery_code')
+
+    -- 버튼 상태 업데이트
+    self.vars['googleBtn']:setEnabled(platform_id ~= 'google.com')
+    self.vars['googleDisableSprite']:setVisible(platform_id == 'google.com')
+    self.vars['facebookBtn']:setEnabled(platform_id ~= 'facebook.com')
+    self.vars['facebookDisableSprite']:setVisible(platform_id == 'facebook.com')
+
+    self.vars['accountLabel']:setString(account_info)
+    self.vars['uidLabel']:setString(recovery_code)
+
+    -- 계정 플랫폼 아이콘 표시
+    self.vars['loginNode']:removeAllChildren()
+    local sprite = nil
+    if platform_id == 'google.com' then
+        sprite = cc.Sprite:create('res/ui/icons/login_google.png')
+    elseif platform_id == 'facebook.com' then
+        sprite = cc.Sprite:create('res/ui/icons/login_facebook.png')
+    end
+
+    if sprite then
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        self.vars['loginNode']:addChild(sprite)
+    end
 end
