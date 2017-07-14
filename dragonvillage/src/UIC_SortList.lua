@@ -53,7 +53,7 @@ function UIC_SortList:init()
     self.m_buttonHeight = BUTTON_HEIGHT
     self.m_buttonMargin = BUTTON_MARGIN
 
-    self.m_bDirectHide = false
+    self.m_bDirectHide = true
     self.m_bShow = false
 end
 
@@ -489,8 +489,6 @@ function MakeUICSortList_runeManage(button, label)
 
     local uic = UIC_SortList()
 
-    uic.m_bDirectHide = true
-
     uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
@@ -517,8 +515,6 @@ function MakeUICSortList_runeManageFilter(button, label)
     local x, y = button:getPosition()
 
     local uic = UIC_SortList()
-
-    uic.m_bDirectHide = true
 
     -- 커스텀하게 조절
     uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
@@ -557,8 +553,6 @@ function MakeUICSortList_teamList(button, label, type)
     local x, y = button:getPosition()
 
     local uic = UIC_SortList()
-
-    uic.m_bDirectHide = true
 
     uic.m_direction = UIC_SORT_LIST_BOT_TO_TOP
     uic:setNormalSize(width, height)
@@ -600,8 +594,6 @@ function MakeUICSortList_scenarioPlayerSetting(button, label, type)
     local x, y = button:getPosition()
 
     local uic = UIC_SortList()
-
-    uic.m_bDirectHide = true
 
     uic.m_direction = UIC_SORT_LIST_BOT_TO_TOP
     uic:setNormalSize(width, height)

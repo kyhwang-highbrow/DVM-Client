@@ -249,8 +249,6 @@ function UI_RecommendedDragonInfoPopup:makeUICSortList_DungeonLV(button, label)
     local uic = UIC_SortList()
 	
 	uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
-	uic.m_bDirectHide = true
-    
 	uic:setNormalSize(width, height)
     uic:setPosition(x, y)
     uic:init_container()

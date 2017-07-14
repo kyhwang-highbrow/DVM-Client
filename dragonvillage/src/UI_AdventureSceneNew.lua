@@ -123,7 +123,6 @@ function UI_AdventureSceneNew:makeUICSortList()
 
     local uic = UIC_SortList()
     uic.m_direction = UIC_SORT_LIST_BOT_TO_TOP
-	uic.m_bDirectHide = true
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
     uic:setDockPoint(button:getDockPoint())

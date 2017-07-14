@@ -221,7 +221,6 @@ function UI_DragonBoardPopup:makeUICSortList()
 
     local uic = UIC_SortList()
     uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
-	uic.m_bDirectHide = true
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
     uic:setDockPoint(button:getDockPoint())
