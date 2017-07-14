@@ -305,7 +305,7 @@ function UI_TitleScene:workCheckUserID()
         if ret == 'success' then
             cclog('Firebase autoLogin was successful.')
 
-            local t_info = json_decode(info)
+            local t_info = dkjson.decode(info)
             local fuid = t_info.fuid
             local push_token = t_info.pushToken
             local platform_id = 'firebase'
@@ -313,9 +313,15 @@ function UI_TitleScene:workCheckUserID()
             if t_info.providerData[2] ~= nil then
                 platform_id = t_info.providerData[2].providerId
                 if platform_id == 'google.com' then
-                    account_info = t_info.google.name or account_info
+                    account_info = 'Google'
+                    if t_info.google then
+                        account_info = t_info.google.name or account_info
+                     end
                 elseif platform_id == 'facebook.com' then
-                    account_info = t_info.facebook.name or account_info
+                    account_info = 'Facebook'
+                    if t_info.facebook then
+                        account_info = t_info.facebook.name or account_info
+                    end
                 end
             end
 

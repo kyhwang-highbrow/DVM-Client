@@ -152,7 +152,7 @@ end
 -- function loginSuccess
 -------------------------------------
 function UI_LoginPopup:loginSuccess(info)
-    local t_info = json_decode(info)
+    local t_info = dkjson.decode(info)
     local fuid = t_info.fuid
     local push_token = t_info.pushToken
     local platform_id = 'firebase'
@@ -160,9 +160,15 @@ function UI_LoginPopup:loginSuccess(info)
     if t_info.providerData[2] ~= nil then
         platform_id = t_info.providerData[2].providerId
         if platform_id == 'google.com' then
-            account_info = t_info.google.name or account_info
+            account_info = 'Google'
+            if t_info.google then
+                account_info = t_info.google.name or account_info
+                end
         elseif platform_id == 'facebook.com' then
-            account_info = t_info.facebook.name or account_info
+            account_info = 'Facebook'
+            if t_info.facebook then
+                account_info = t_info.facebook.name or account_info
+            end
         end
     end
 
@@ -181,9 +187,10 @@ end
 -- function loginFail
 -------------------------------------
 function UI_LoginPopup:loginFail(info)
-    local code = info.code
-    local subcode = info.subcode
-    local msg = info.msg
+    local t_info = dkjson.decode(info)
+    local code = t_info.code
+    local subcode = t_info.subcode
+    local msg = t_info.msg
 
     MakeSimplePopup(POPUP_TYPE.OK, msg)
 end
