@@ -84,10 +84,6 @@ function UI_UserInfoDetailPopup:init(t_user_info, is_visit)
     self:initUI()
     self:initButton()
     self:refresh()
-
-	if (self.m_isVisit) then
-		self:setVisitMode()
-	end
 end
 
 -------------------------------------
@@ -118,9 +114,6 @@ function UI_UserInfoDetailPopup:initUI()
 	local guild_name = self.m_tUserInfo['guild'] or ''
 	vars['guildLabel']:setString(guild_name)
 
-    -- 콜로세움 팀 보기 버튼
-    vars['deckBtn']:setVisible(self.m_bVisible)
-
     local friend_uid = self.m_tUserInfo['uid']
     local is_friend = g_friendData:isFriend(friend_uid)
 
@@ -129,6 +122,9 @@ function UI_UserInfoDetailPopup:initUI()
 
 	-- 플레이 기록
 	self:init_historyView()
+
+    -- 방문시 처리
+	self:setVisitMode(self.m_isVisit)
 end
 
 -------------------------------------
@@ -141,6 +137,7 @@ function UI_UserInfoDetailPopup:initButton()
 	vars['dragonBtn']:registerScriptTapHandler(function() self:click_dragonBtn() end)
     vars['deckBtn']:registerScriptTapHandler(function() self:click_deckBtn() end)
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
+    vars['titleChangeBtn']:registerScriptTapHandler(function() self:click_titleChangeBtn() end)
 end
 
 -------------------------------------
@@ -178,7 +175,7 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 	vars['tamerNode']:removeAllChildren(true)
 
 	-- 테이머 애니
-	local tamer_id = self.m_tUserInfo['tamer'] or 110000 + math_random(6)
+	local tamer_id = self.m_tUserInfo['tamer'] or (110000 + math_random(6))
 	local t_tamer = TableTamer():get(tamer_id)
 	local illustration_res = t_tamer['res']
 	local illustration_animator = MakeAnimator(illustration_res)
@@ -222,11 +219,16 @@ end
 -------------------------------------
 -- function setVisitMode
 -------------------------------------
-function UI_UserInfoDetailPopup:setVisitMode()
+function UI_UserInfoDetailPopup:setVisitMode(is_visit)
     local vars = self.vars
-	vars['profileBtn']:setVisible(false)
-	vars['tamerBtn']:setVisible(false)
-	vars['dragonBtn']:setVisible(false)
+	vars['profileBtn']:setVisible(not is_visit)
+	vars['tamerBtn']:setVisible(not is_visit)
+	vars['dragonBtn']:setVisible(not is_visit)
+    vars['titleChangeBtn']:setVisible(not is_visit)
+    
+    -- 콜로세움 팀 보기 버튼은 어떻게..?
+    vars['deckBtn']:setVisible(true)
+    vars['profileBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -403,6 +405,13 @@ function UI_UserInfoDetailPopup:click_requestBtn()
 
     local friend_ui = self.m_tUserInfo['uid']
     g_friendData:request_invite(friend_ui, finish_cb)
+end
+
+-------------------------------------
+-- function click_titleChangeBtn
+-------------------------------------
+function UI_UserInfoDetailPopup:click_titleChangeBtn()
+    ccdisplay('칭호는 준비중입니다.')
 end
 
 -------------------------------------
