@@ -25,6 +25,9 @@ StructProduct = class({
         m_endDate = 'pl.Date',
         m_dependency = 'product_id',
         m_uiPriority = 'number',
+
+        -- Google 결제 시 상품 ID
+        sku = 'stock keeping unit', -- product id
     })
 
 -------------------------------------
