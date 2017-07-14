@@ -67,7 +67,7 @@ end
 -------------------------------------
 function UI_UserDeckInfoPopup:refresh_dragons()
     local l_dragons = self.m_structUserInfoColosseum:getDefDeck_dragonList()
-    for idx, dragon in ipairs(l_dragons) do
+    for idx, dragon in pairs(l_dragons) do
         self:refresh_dragon(idx, dragon)
     end
 end
