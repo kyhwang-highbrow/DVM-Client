@@ -273,6 +273,79 @@ function ServerData_Hatchery:getSummonEggList()
 end
 
 -------------------------------------
+-- function getGachaList
+-- @breif 이제 더이상 에그 리스트가 아니다
+-------------------------------------
+function ServerData_Hatchery:getGachaList()
+    local l_item_list = {}
+
+    do -- 이벤트 데이터
+        local t_data = {
+            ['name'] = Str('확률업 10+1회 소환'),
+            ['egg_id'] = 700001, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['ui_type'] = 'event11',
+            ['bundle'] = true,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE,
+        }
+
+        table.insert(l_item_list, t_data)
+
+        local t_data = {
+            ['name'] = Str('확률업 소환'),
+            ['egg_id'] = 700001, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['ui_type'] = 'event',
+            ['bundle'] = false,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__EVENT_SUMMON_PRICE,
+        }
+        table.insert(l_item_list, t_data)
+    end
+
+    do -- 고급 부화
+        local t_data = {
+            ['name'] = Str('고급 부화 10+1회'),
+            ['egg_id'] = 700002, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
+            ['ui_type'] = 'cash11',
+            ['bundle'] = true,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE,
+        }
+        table.insert(l_item_list, t_data)
+
+        local t_data = {
+            ['name'] = Str('고급 부화'),
+            ['egg_id'] = 700002, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
+            ['ui_type'] = 'cash',
+            ['bundle'] = false,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__SUMMON_PRICE,
+            ['free_target'] = true --무료 뽑기 대상 알
+        }
+        table.insert(l_item_list, t_data)
+    end
+
+    do -- 우정포인트 부화
+        local t_data = {
+            ['name'] = Str('우정 부화'),
+            ['egg_id'] = 700003, 
+            ['egg_res'] = 'res/item/egg/egg_friendship/egg_friendship.vrp',
+            ['ui_type'] = 'fp',
+            ['bundle'] = false,
+            ['price_type'] = 'fp',
+            ['price'] = ServerData_Hatchery.FP__SUMMON_PRICE,
+        }
+        table.insert(l_item_list, t_data)
+    end
+
+    return l_item_list
+end
+
+-------------------------------------
 -- function setHacheryInfoTable
 -- @breif
 -------------------------------------

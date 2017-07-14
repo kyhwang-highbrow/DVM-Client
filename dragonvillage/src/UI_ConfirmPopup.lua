@@ -72,62 +72,10 @@ function UI_ConfirmPopup:refresh()
 	
 	vars['priceLabel']:setString(comma_value(self.m_itemValue))
 
-	local price_icon = self:getPriceIcon(self.m_itemKey)
+	local price_icon = IconHelper:getPriceIcon(self.m_itemKey)
 	if (price_icon) then
 		vars['iconNode']:addChild(price_icon)
 	end
-end
-
--------------------------------------
--- function click_backKey
--------------------------------------
-function UI_ConfirmPopup:getPriceIcon(price_type)
-    local res = nil
-
-    if (price_type == 'x') then
-
-    elseif (price_type == 'cash') then
-        res = 'res/ui/icon/inbox/inbox_cash.png'
-
-    elseif (price_type == 'gold') then
-        res = 'res/ui/icon/inbox/inbox_gold.png'
-
-    elseif (price_type == 'stamina_st') then
-        res = 'res/ui/icon/inbox/inbox_staminas_st.png'
-
-    elseif (price_type == 'money') then
-        res = 'res/ui/icon/inbox/inbox_krw.png'
-
-    elseif (price_type == 'amethyst') then
-        res = 'res/ui/icon/inbox/inbox_amethyst.png'
-
-    elseif (price_type == 'fp') then
-        res = 'res/ui/icon/inbox/inbox_fp.png'
-
-    elseif (price_type == 'mileage') then
-        res = 'res/ui/icon/inbox/inbox_mileage.png'
-
-    elseif (price_type == 'capsule') then
-        res = 'res/ui/icon/inbox/inbox_capsule.png'
-
-    elseif (price_type == 'topaz') then
-        res = 'res/ui/icon/inbox/inbox_topaz.png'
-
-    elseif (price_type == 'honor') then
-        res = 'res/ui/icon/inbox/inbox_honor.png'
-
-    else
-        error('price_type : ' .. price_type)
-    end
-
-	if (res) then
-		local sprite = cc.Sprite:create(res)
-		sprite:setDockPoint(cc.p(0.5, 0.5))
-		sprite:setAnchorPoint(cc.p(0.5, 0.5))
-		return sprite
-	end
-
-	return nil
 end
 
 -------------------------------------

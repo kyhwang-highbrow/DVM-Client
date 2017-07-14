@@ -11,7 +11,7 @@ UI_HatcherySummonTab = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_HatcherySummonTab:init(owner_ui)
-    local vars = self:load('hatchery_summon.ui')
+    local vars = self:load('hatchery_summon_new.ui')
 end
 
 -------------------------------------
@@ -22,8 +22,6 @@ function UI_HatcherySummonTab:onEnterTab(first)
 
     if (first == true) then
         self:initUI()
-        self:init_eggFicker()
-        self:autoEggFocus()
     end
 end
 
@@ -39,11 +37,46 @@ end
 function UI_HatcherySummonTab:initUI()
     local vars = self.vars
 
-    do -- 배너
-        local animator = MakeAnimator('res/ui/event/summon_banner_01.png')
-        vars['bannerNode']:addChild(animator.m_node)
+    for i, t_data in pairs(g_hatcheryData:getGachaList()) do
+        local btn = UI()
+        btn:load('hatchery_summon_item.ui')
+
+        -- addChild
+        local ui_type = t_data['ui_type']
+        vars['summonNode_' .. ui_type]:addChild(btn.root)
+        
+        -- 버튼 UI 설정
+
+        -- 가격
+        local price = t_data['price']
+        btn.vars['priceLabel']:setString(price)
+
+        -- 가격 아이콘
+        local price_type = t_data['price_type']
+        local price_icon = IconHelper:getPriceIcon(price_type)
+        btn.vars['priceNode']:removeAllChildren()
+        btn.vars['priceNode']:addChild(price_icon)
+        
+        -- 뽑기 횟수 안내
+        local count_str
+        if (t_data['bundle']) then
+            count_str = Str('10 + 1회')
+            btn.vars['countLabel']:setTextColor(cc.c4b(255, 215, 0, 255))
+        else
+            count_str = Str('1회')
+        end
+        btn.vars['countLabel']:setString(count_str)
+
+        -- 버튼 콜백
+        btn.vars['summonBtn']:registerScriptTapHandler(function()
+            self:requestSummon(t_data)
+        end)
+        
     end
 end
+
+
+
 
 -------------------------------------
 -- function click_eventSummonBtn
@@ -150,73 +183,6 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, t_egg_data, old_u
 end
 
 -------------------------------------
--- function init_eggFicker
--------------------------------------
-function UI_HatcherySummonTab:init_eggFicker()
-    local vars = self.vars
-    local parent_node = vars['eggFickerNode']
-
-    -- UIC_EggPicker 생성
-    local egg_picker = UIC_EggPicker:create(parent_node)
-
-    egg_picker.m_itemWidth = 225 -- 알의 가로 크기
-    egg_picker.m_nearItemScale = 0.66
-    self.m_eggPicker = egg_picker
-
-    local function click_egg(t_item, idx)
-        self:click_eggItem(t_item, idx)
-    end
-    egg_picker:setItemClickCB(click_egg)
-
-
-    local function onChangeCurrEgg(t_item, idx)
-        self:onChangeCurrEgg(t_item, idx)
-    end
-    egg_picker:setChangeCurrFocusIndexCB(onChangeCurrEgg)
-
-    self:refreshEggList()
-end
-
--------------------------------------
--- function refreshEggList
--------------------------------------
-function UI_HatcherySummonTab:refreshEggList()
-    local egg_picker = self.m_eggPicker
-
-    egg_picker:clearAllItems()
-        
-    local l_item_list = g_hatcheryData:getSummonEggList()
-    local table_item = TableItem()
-
-    -- 알들 추가
-    for i,v in ipairs(l_item_list) do
-        local egg_id = tonumber(v['egg_id'])
-        local _res = v['full_type']
-        local res = 'res/item/egg/' .. _res .. '/' .. _res .. '.vrp'
-
-        local scale = 0.8 * 0.9
-        local animator = MakeAnimator(res)
-        animator:setScale(scale)
-        animator:changeAni('egg')
-
-        local data = v
-
-        local ui = {}
-        ui.root = animator.m_node
-            
-        egg_picker:addEgg(data, ui)
-    end
-end
-
--------------------------------------
--- function click_eggItem
--------------------------------------
-function UI_HatcherySummonTab:click_eggItem(t_item, idx)
-    local t_egg_data = t_item['data']
-    self:requestSummon(t_egg_data)
-end
-
--------------------------------------
 -- function requestSummon
 -------------------------------------
 function UI_HatcherySummonTab:requestSummon(t_egg_data, is_sale, old_ui)
@@ -252,7 +218,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, is_sale, old_ui)
     local item_key = t_egg_data['price_type']
     local item_value = t_egg_data['price']
 
-    -- 10% 할인
+    -- 이어 뽑기 10% 할인
     if (is_sale) then
         item_value = item_value - (item_value * 0.1)
     end
@@ -260,98 +226,6 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, is_sale, old_ui)
 
     MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)   
 end
-
--------------------------------------
--- function onChangeCurrEgg
--------------------------------------
-function UI_HatcherySummonTab:onChangeCurrEgg(t_item, idx)
-    local vars = self.vars
-    local t_data = t_item['data']
-
-    if t_data['is_shop'] then
-        vars['nameLabel']:setString('상점')
-        vars['descLabel']:setString('')
-        return
-    end
-
-    local egg_id = tonumber(t_data['egg_id'])
-    local cnt = t_data['count']
-
-    local table_item = TableItem()
-    --local name = table_item:getValue(egg_id, 't_name')
-    local name = t_data['name']
-    vars['nameLabel']:setString(name)
-
-    --local desc = table_item:getValue(egg_id, 't_desc')
-    local desc = t_data['desc']
-    vars['descLabel']:setString(desc)
-
-    do -- 가격
-        local price = t_data['price']
-        vars['priceLabel']:setString(comma_value(price))
-    end
-
-    do -- 아이콘
-        local price_type = t_data['price_type']
-        local price_icon
-        if (price_type == 'cash') then
-            price_icon = cc.Sprite:create('res/ui/icon/item/cash.png')
-        elseif (price_type == 'fp') then
-            price_icon = cc.Sprite:create('res/ui/icon/item/fp.png')
-        else
-            error('price_icon ' .. price_icon)
-        end
-
-        price_icon:setDockPoint(cc.p(0.5, 0.5))
-        price_icon:setAnchorPoint(cc.p(0.5, 0.5))
-        price_icon:setScale(0.5)
-
-        vars['priceNode']:removeAllChildren()
-        vars['priceNode']:addChild(price_icon)
-    end
-
-    vars['freeSummonNode']:unscheduleUpdate()
-    -- 무료 뽑기
-    if t_data['free_target'] then
-        local with_str = true
-        local can_free, ret_str = g_hatcheryData:getSummonFreeInfo(with_str)
-        if can_free then
-            vars['freeTimeLabel']:setVisible(false)
-            vars['freeSummonNode']:setVisible(true)
-        else
-            vars['freeTimeLabel']:setVisible(true)
-            vars['freeTimeLabel']:setString(ret_str)
-            vars['freeSummonNode']:setVisible(false)
-            self:scheduleFreeEggInfo()
-        end
-    else
-        vars['freeTimeLabel']:setVisible(false)
-        vars['freeSummonNode']:setVisible(false)
-    end
-end
-
--------------------------------------
--- function scheduleFreeEggInfo
--- @brief 실시간 남은 무료 시간 출력
--------------------------------------
-function UI_HatcherySummonTab:scheduleFreeEggInfo()
-    local vars = self.vars
-
-    local function update(dt)
-        local with_str = true
-        local can_free, ret_str = g_hatcheryData:getSummonFreeInfo(with_str)
-        if can_free then
-            vars['freeTimeLabel']:setVisible(false)
-            vars['freeSummonNode']:setVisible(true)
-            vars['freeSummonNode']:unscheduleUpdate()
-        else
-            vars['freeTimeLabel']:setString(ret_str)
-        end
-    end
-
-    vars['freeSummonNode']:scheduleUpdateWithPriorityLua(update, 0)
-end
-
 
 -------------------------------------
 -- function subsequentSummons
@@ -414,7 +288,6 @@ end
 -------------------------------------
 function UI_HatcherySummonTab:summonApiFinished()
     local function finish_cb()
-        self:refreshEggList()
         self:sceneFadeInAction()
 
         -- 하일라이트 노티 갱신을 위해 호출
@@ -423,26 +296,4 @@ function UI_HatcherySummonTab:summonApiFinished()
 
     local fail_cb = nil
     g_hatcheryData:update_hatcheryInfo(finish_cb, fail_cb)
-end
-
-
--------------------------------------
--- function autoEggFocus
--- @brief 무료 뽑기 찾아서 포커스
--------------------------------------
-function UI_HatcherySummonTab:autoEggFocus()
-    local idx = 1
-
-    for i,v in ipairs(self.m_eggPicker.m_lItemList) do
-        local t_egg_data = v['data']
-
-        if (t_egg_data['free_target'] == true) then
-            if g_hatcheryData:getSummonFreeInfo() then
-                idx = i
-                break
-            end
-        end
-    end
-
-    self.m_eggPicker:setFocus(idx)
 end
