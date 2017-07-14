@@ -810,7 +810,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     self:dispatch('damaged', {['damage']=damage, ['i_x']=i_x, ['i_y']=i_y})
 
     -- 죽음 체크
-    if (self.m_hp <= 0) and (not self.m_bDead) then
+    if (self.m_hp <= 0) and (not self.m_bDead) and (not self.m_isImmortal) then
         -- Event Carrier 세팅
 	    local t_event = clone(EVENT_DEAD_CARRIER)
         t_event['is_dead'] = true
@@ -818,7 +818,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
 	    self:dispatch('dead', t_event, self)
 
-        if (not t_event['is_dead'] or self.m_isImmortal) then
+        if (not t_event['is_dead']) then
             self:setHp(t_event['hp'])
 
         else

@@ -149,15 +149,16 @@ end
 -- function st_start
 -------------------------------------
 function StatusEffect.st_start(owner, dt)
-    local t_event = {}
-    t_event['name'] = owner.m_statusEffectName
-    t_event['category'] = owner.m_category
-    t_event['type'] = owner.m_type
-
-    owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
     if (owner.m_stateTimer == 0) then
         -- 중첩에 상관없이 한번만 적용되어야하는 효과 적용
         owner:apply()
+
+        local t_event = {}
+        t_event['name'] = owner.m_statusEffectName
+        t_event['category'] = owner.m_category
+        t_event['type'] = owner.m_type
+
+        owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
 		
 		-- 힐 사운드
 		if (not owner.m_bHarmful) then
@@ -380,6 +381,11 @@ end
 -- @brief 중첩될때마다 적용되어야하는 효과를 적용
 -------------------------------------
 function StatusEffect:applyOverlab(unit)
+    -- 중첩에 상관없이 한번만 적용되어야하는 효과 적용
+    if (not self.m_bApply) then
+        self:apply()
+    end
+
     local b = unit:onApply(self.m_lStatus, self.m_lStatusAbs)
 
     self.m_overlabCnt = (self.m_overlabCnt + 1)
