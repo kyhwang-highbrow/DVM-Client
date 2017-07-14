@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_list_01.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'myRankSprite';
-				file_name = 'ui/frame/a_list_02.png';
+				file_name = 'ui/frames/base_list_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -273,7 +273,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_05.png';
+				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -335,8 +335,8 @@
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 56;
-				height = 56;
+				width = 64;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -345,8 +345,8 @@
 				visible = true;
 				lua_name = 'userButton';
 				enable = true;
-				normal = 'ui/btn/a_btn_0101.png';
-				selected = 'ui/btn/a_btn_0102.png';
+				normal = 'ui/buttons/64_detail_btn_0101.png';
+				selected = 'ui/buttons/64_detail_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -389,7 +389,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/a_frame_01.png';
+					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -498,7 +498,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/a_frame_01.png';
+					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;

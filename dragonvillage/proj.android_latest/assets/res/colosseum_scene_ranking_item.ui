@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/base_0201.png';
+				file_name = 'ui/frames/base_list_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'meSprite';
-				file_name = 'ui/frame/base_0204.png';
+				file_name = 'ui/frames/base_list_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -331,7 +331,7 @@
 			visible = false;
 			lua_name = 'prevBtn';
 			enable = true;
-			normal = 'ui/frame/base_0201.png';
+			normal = 'ui/frames/base_frame_0201.png';
 			selected = '';
 			disable = '';
 			image_type = 1;
@@ -395,7 +395,7 @@
 			visible = false;
 			lua_name = 'nextBtn';
 			enable = true;
-			normal = 'ui/frame/base_0201.png';
+			normal = 'ui/frames/base_frame_0201.png';
 			selected = '';
 			disable = '';
 			image_type = 1;
