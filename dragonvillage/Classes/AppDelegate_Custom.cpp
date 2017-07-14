@@ -8,6 +8,11 @@
 #include "ConfigParser.h"
 #include "LoginPlatform.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+// @perplesdk
+#include "PerpleSDKLua.h"
+#endif
+
 /*
 정리하기가 애매한 부분이 있어 AppDelegate.cpp의 라인을 줄이고,
 수정 가능성이 있는 부분만 이 곳에 옮겨서 정의
@@ -447,6 +452,11 @@ void AppDelegate::initLuaEngine()
     tolua_PerpLua_open(L);
 
 	PerpSocial::getInstance()->RegisterToLuaFunc(L);
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    // @perplesdk
+    luaopen_perplesdk(L);
+#endif
 }
 
 // @google+

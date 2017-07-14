@@ -32,15 +32,17 @@ LOCAL_SRC_FILES := main.cpp \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes \
                     $(LOCAL_PATH)/../../../../cocos2d-x/cocos/network \
                     $(LOCAL_PATH)/../../../../cocos2d-x/external/json \
-                    $(LOCAL_PATH)/../../../../libraries/pati/include
+					$(LOCAL_PATH)/../../../../libraries/perplesdk/include
 
 LOCAL_STATIC_LIBRARIES := curl_static_prebuilt
-LOCAL_STATIC_LIBRARIES += patisdk_lua_static
+LOCAL_STATIC_LIBRARIES += perplesdklua_static
 
-LOCAL_SHARED_LIBRARIES := patisdk_shared
+LOCAL_SHARED_LIBRARIES := perplesdk_shared
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_lua_static
 
 include $(BUILD_SHARED_LIBRARY)
+
+include $(LOCAL_PATH)/../../../../libraries/perplesdk/prebuilt/android/Android.mk
 
 $(call import-module,scripting/lua-bindings)

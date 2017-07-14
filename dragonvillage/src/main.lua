@@ -14,6 +14,26 @@ cclog = function(...)
     print(...)
 end
 
+
+-------------------------------------
+-- @perplesdk
+-------------------------------------
+gPerpleSDKSchedulerID = 0
+
+-- Call this function in entry point (ex. main())
+function StartPerpleSDKScheduler()
+    gPerpleSDKSchedulerID = scheduler.scheduleUpdateGlobal(function()
+        PerpleSDK:updateLuaCallbacks()
+    end)
+end
+
+-- Call this function in closing application
+function EndPerpleSDKScheduler()
+    scheduler.unscheduleGlobal(gPerpleSDKSchedulerID)
+    gPerpleSDKSchedulerID = 0
+end
+
+
 UI_ErrorPopup = nil
 IS_OPEN_ERROR_POPUP = false
 -------------------------------------
@@ -81,6 +101,12 @@ end
 function closeApplication()
 	cclog('CloseApplication')
     --LocalPushMgr()
+    
+    -- @perpelsdk
+    if isAndroid() then
+        EndPerpleSDKScheduler()
+    end
+
 	cc.Director:getInstance():endToLua()
 end
 
@@ -95,9 +121,13 @@ local function main()
     cc.Director:getInstance():setDisplayStats(false)
     cc.Director:getInstance():setAnimationInterval(1 / 50)
     
-
     -- 절전모드 설정(동작하지 않도록)
     cc.Director:getInstance():setIdleTimerDisabled(true)
+
+    -- @perpelsdk
+    if isAndroid() then
+        StartPerpleSDKScheduler()
+    end
 
     local seed = os.time()
     math.randomseed(seed)

@@ -270,35 +270,77 @@ end
 -------------------------------------
 -- function workCheckUserID
 -- @breif uid가 있는지 체크, UID가 없을 경우 난수 발생하여
---        idfa로 저장하고 이를 통해서 UID를 발급
+--        uid로 사용
 -------------------------------------
 function UI_TitleScene:workCheckUserID()
     self.m_loadingUI:showLoading(Str('유저 계정 확인 중...'))
 
     SoundMgr.m_bStopPreload = false
 
-    local uid = g_serverData:get('local', 'uid')
-    local idfa = g_serverData:get('local', 'idfa')
+    if isWin32() then
 
-    -- Login팝업 샘플
-    if false then
-        self.m_loadingUI:hideLoading()
-
-        local ui = UI_LoginPopup()
-        local function close_cb()
-            cclog('Login팝업 샘플 닫힘')
+        local uid = g_serverData:get('local', 'uid')
+   
+        if uid then
+            self:doNextWork()
+        else
+            self:makeRandomUid()
             self:doNextWork()
         end
-        ui:setCloseCB(close_cb)
+
         return
     end
-    
-    if (uid or idfa) then
-        self:doNextWork()
-    else
-        self:makeIdfa()
-        self:doNextWork()
-    end
+
+    -- @perplesdk
+    PerpleSDK:autoLogin(function(ret, info)
+
+        self.m_loadingUI:hideLoading()
+
+        if ret == 'success' then
+            cclog('Firebase autoLogin was successful.')
+
+            local t_info = json_decode(info)
+            local fuid = t_info.fuid
+            local push_token = t_info.pushToken
+            local platform_id = 'firebase'
+            if t_info.providerData[2] ~= nil then
+                platform_id = t_info.providerData[2].providerId
+            end
+
+            cclog('fuid: ' .. fuid)
+            cclog('push_token: ' .. push_token)
+            cclog('platform_id:' .. platform_id)
+
+            -- Firebase에서 발급하는 uid
+            -- 게임 uid로 그대로 사용하면 됨
+            g_serverData:applyServerData(fuid, 'local', 'uid')
+
+            -- 푸시 발송을 위한 푸시토큰
+            -- 로그인할 때마다 플랫폼 서버에 저장해야 함
+            g_serverData:applyServerData(push_token, 'local', 'push_token')
+
+            -- 현재 로그인된 계정의 플랫폼ID
+            -- Google: 'google.com'
+            -- Facebook: 'facebook.com'
+            -- Guest: 'firebase'
+            g_serverData:applyServerData(platform_id, 'local', 'platform_id')
+
+            self:doNextWork()
+
+        elseif ret == 'fail' then
+            cclog('Firebase autoLogin failed.')
+
+            -- 자동로그인에 실패한 경우 로그인 팝업 출력
+            -- 앱을 처음으로 설치한 경우임
+            local ui = UI_LoginPopup()
+            local function close_cb()
+                self:doNextWork()
+            end
+            ui:setCloseCB(close_cb)
+
+        end
+    end)
+
 end
 
 function UI_TitleScene:workCheckUserID_click()
@@ -311,18 +353,17 @@ end
 function UI_TitleScene:workPlatformLogin()
     self.m_loadingUI:showLoading(Str('플랫폼 서버에 로그인 중...'))
 
-    local uid = g_serverData:get('local', 'uid')
-    local idfa = g_serverData:get('local', 'idfa') or uid
-
     local player_id = nil
-    local uid = uid
-    local idfa = idfa
-    local deviceOS = '3'
-    local pushToken = 'temp'
+    local uid = nil
+    local idfa = g_serverData:get('local', 'uid')
+    local deviceOS = '2'
+    local pushToken = '1'
 
     local success_cb = function(ret)
-        -- UID 저장
-        g_serverData:applyServerData(ret['uid'], 'local', 'uid')
+        -- @임시
+        -- 플랫폼 서버가 발급한 uid를 복구코드로 저장
+        -- 추구 복구코드 발급 API로 교체 예정
+        g_serverData:applyServerData(ret['uid'], 'local', 'recovery_code')
         self:doNextWork()
     end
 
@@ -331,6 +372,7 @@ function UI_TitleScene:workPlatformLogin()
     end
 
     Network_platform_guest_login(player_id, uid, idfa, deviceOS, pushToken, success_cb, fail_cb)
+
 end
 function UI_TitleScene:workPlatformLogin_click()
 end
@@ -343,7 +385,6 @@ function UI_TitleScene:workGameLogin()
     self.m_loadingUI:showLoading(Str('게임 서버에 로그인 중...'))
 
     local uid = g_serverData:get('local', 'uid')
-    local nickname = g_userData:get('nick') or g_serverData:get('local', 'idfa')
 
     local success_cb = function(ret)
         -- 최초 로그인인 경우 계정 생성
@@ -592,9 +633,9 @@ function UI_TitleScene:workFinish_click()
 end
 
 -------------------------------------
--- function makeIdfa
+-- function makeRandomUid
 -------------------------------------
-function UI_TitleScene:makeIdfa()
+function UI_TitleScene:makeRandomUid()
     local random = math.random
     local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
     local uuid = string.gsub(template, '[xy]', function (c)
@@ -602,7 +643,7 @@ function UI_TitleScene:makeIdfa()
         return string.format('%x', v)
     end) 
 
-    g_serverData:applyServerData(uuid, 'local', 'idfa')
+    g_serverData:applyServerData(uuid, 'local', 'uid')
 end
 
 -------------------------------------

@@ -30,7 +30,7 @@ end
 -- uid: 이전 접속시 생성 받은 uid(없으면 비워둠)
 -- idfa : 기기 고유의 광고 고유 식별자(필수)
 -- deviceOS : 기기 OS (필수, 0:android, 1:ios, 2:windows, 3:....)
--- pushToken : 푸쉬 토큰
+-- pushToken : 푸쉬 토큰 발송 유무, '1' or '0'
 -------------------------------------
 function Network_platform_guest_login(player_id, uid, idfa, deviceOS, pushToken, success_cb, fail_cb)
     -- 파라미터 셋팅

@@ -48,9 +48,6 @@ function ServerData_StartTamer:request_createAccount(user_type, nick, finish_cb)
     local function success_cb(ret)
         local nick = ret['nick']
 
-        -- 닉네임으로 다시 idfa 저장
-        g_serverData:applyServerData(nick, 'local', 'idfa')
-
         UIManager:toastNotificationGreen(Str('계정 생성에 성공하였습니다.'))
         UIManager:toastNotificationGreen(Str('잠시만 기다려주세요.'))
 
