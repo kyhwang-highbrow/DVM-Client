@@ -175,7 +175,6 @@ local S_ERROR_STATUS = {
 local S_ERROR_STATUS_SHOP = {
     [-1201] = 'gold',
     [-1212] = 'cash',
-    [-1216] = 'st',
 }
  
 -------------------------------------
