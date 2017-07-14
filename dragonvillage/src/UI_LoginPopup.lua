@@ -98,6 +98,10 @@ function UI_LoginPopup:click_facebookBtn()
             self:close()
 
         elseif ret == 'fail' then
+            local code = info.code
+            local subcode = info.subcode
+            local msg = info.msg
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
         elseif ret == 'cancel' then
         end
     end)
@@ -149,6 +153,10 @@ function UI_LoginPopup:click_googleBtn()
             self:close()
 
         elseif ret == 'fail' then
+            local code = info.code
+            local subcode = info.subcode
+            local msg = info.msg
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
         elseif ret == 'cancel' then
         end
     end)
@@ -185,6 +193,10 @@ function UI_LoginPopup:click_guestBtn()
             self:close()
 
         elseif ret == 'fail' then
+            local code = info.code
+            local subcode = info.subcode
+            local msg = info.msg
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
         end
     end)
 

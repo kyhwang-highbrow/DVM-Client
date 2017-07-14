@@ -33,8 +33,6 @@ import com.perplelab.dragonvillagem.kr.R;
 import com.perplelab.google.PerpleBuildGoogleApiClient;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.games.Games;
 import com.google.android.gms.common.api.GoogleApiClient.Builder;
@@ -46,10 +44,7 @@ public class AppActivity extends Cocos2dxActivity{
         System.loadLibrary("perplesdk");
     }
 
-    static final String TAG = "DragonVillageM";
-
     // @billing
-    static final String gameId = "1003";
     static final String billingBase64PublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2AOyhy0owSekR+QEpAUb2fV/wBtRmuD8UNEsku6iGM+Qx5o7iBMlGlcb7kjCJ86hMAu6g+1cdGFTQGCGTKrDZS6AfTv8NDB5EFwxvLa8Rn9aUU0nkaLFGNQvEo+gplP1PZQZLd30RMmJy/uYkzA2+vCdGaOQRTckwbczDBQyKWtQ5k5aj/1HQ/X8XxZneaKAM2JyFgFcjSYtlep9/XOQ6K2aR0VLoMse2rGkaFJQAFOBgNlNbvC3cbvaZe1hnZ4ypjadsPzw83ZpQYaMRTUF1k/TpB6CuSIX4L2ykUkEDyWn0RECpO3jR1fJ1Lb2ddYTpb8gORou9mhIK9Nfr8Cn4wIDAQAB";
 
     @Override
@@ -66,11 +61,7 @@ public class AppActivity extends Cocos2dxActivity{
         boolean isDebug = true;
 
         // @perplesdk
-        if (PerpleSDK.getInstance().initSDK(gameId, getString(R.string.gcm_defaultSenderId), billingBase64PublicKey, isDebug)) {
-
-            //String logText = "PerpleSDK initialization was successful.";
-            //Log.d(TAG, logText);
-            //Toast.makeText(this, logText, Toast.LENGTH_SHORT).show();
+        if (PerpleSDK.getInstance().initSDK(getString(R.string.gcm_defaultSenderId), billingBase64PublicKey, isDebug)) {
 
             // firebase FCM 알림을 포그라운드 상태에서도 받고자 할 경우 true로 설정
             PerpleSDK.getInstance().setReceivePushOnForeground(false);
@@ -85,10 +76,6 @@ public class AppActivity extends Cocos2dxActivity{
 
             // @facebook
             PerpleSDK.getInstance().initFacebook(savedInstanceState);
-        } else {
-            String logText = "PerpleSDK initialization failed.";
-            Log.e(TAG, logText);
-            Toast.makeText(this, logText, Toast.LENGTH_SHORT).show();
         }
     }
 
