@@ -604,6 +604,7 @@ function UI_TitleScene:workBillingSetup()
     local function call_back(ret, info) 
         cclog('# UI_TitleScene:workBillingSetup() result : ' .. ret)
         if (ret == 'purchase') then
+            cclog('#### info : ')
             ccdump(info)
             self:doNextWork()
         elseif (ret == 'error') then
@@ -612,7 +613,7 @@ function UI_TitleScene:workBillingSetup()
     end
 
     -- 영수증 검증
-    local url = 'http://dev.platform.perplelab.com/1003/payment/checkReceiptValidation/'
+    local url = 'http://dev.platform.perplelab.com/1003/payment/receiptValidation/'
     PerpleSDK:billingSetup(url, call_back)
 end
 function UI_TitleScene:workBillingSetup_click()

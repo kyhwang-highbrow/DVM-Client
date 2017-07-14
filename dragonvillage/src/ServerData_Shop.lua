@@ -404,6 +404,15 @@ function ServerData_Shop:request_checkReceiptValidation(validation_key, sku, pro
 
     -- 콜백 함수
     local function success_cb(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        g_topUserInfo:refreshData()
+
+        -- 상품 구매 후 갱신이 필요한지 여부 체크
+        if struct_product:needRenewAfterBuy() then
+            self.m_bDirty = true
+        end
+
 		if (cb_func) then
 			cb_func(ret)
 		end
@@ -418,7 +427,7 @@ function ServerData_Shop:request_checkReceiptValidation(validation_key, sku, pro
     ui_network:setParam('product_id', product_id)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
+    ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
 end
