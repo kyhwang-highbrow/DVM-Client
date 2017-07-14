@@ -293,11 +293,9 @@ function ServerData_Shop:openShopPopup(tab_type)
         --UI_ShopPopup()
         local ui_shop_popup = UI_Shop()
 
-        --[[
         if tab_type then
             ui_shop_popup:setTab(tab_type)
         end
-        --]]
     end
 
     if (not self.m_bDirty) then

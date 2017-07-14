@@ -275,7 +275,7 @@ function ServerData_Staminas:staminaCharge(stage_id)
 
 
     if (stamina_type == 'st') then
-        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_stamina)
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st') end)
     else
         local charge_limit = TableStaminaInfo:getDailyChargeLimit(stamina_type)
 
@@ -288,7 +288,8 @@ function ServerData_Staminas:staminaCharge(stage_id)
             local function ok_btn_cb()
                 local cash = g_userData:get('cash')
                 if (cash < price) then
-                    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
+                    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), 
+                    function() g_shopDataNew:openShopPopup('cash') end)
                     return true
                 end
                 

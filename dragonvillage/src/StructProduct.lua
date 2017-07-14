@@ -348,7 +348,6 @@ function StructProduct:checkPrice()
     elseif (price_type == 'cash') then
         local cash = g_userData:get('cash')
         if (cash < price) then
-            --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
             MakeSimplePopup(POPUP_TYPE.OK, Str('다이아몬드가 부족합니다.'))
             return false
         end
@@ -397,7 +396,6 @@ function StructProduct:checkPrice()
     elseif (price_type == 'gold') then
         local gold = g_userData:get('gold')
         if (gold < price) then
-            --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_gold)
             MakeSimplePopup(POPUP_TYPE.OK, Str('골드가 부족합니다.'))
             return false
         end

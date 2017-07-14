@@ -196,7 +196,7 @@ function UI_Network:statusHandler(ret)
     local shop_tab = S_ERROR_STATUS_SHOP[status]
     if (error_str) then
         if (shop_tab) then
-            self:makeShopPopup(error_str .. Str('\n상점으로 이동하시겠습니까?'), ret, shop_tab)
+            self:makeShopPopup(error_str .. Str('\n\n상점으로 이동하시겠습니까??'), ret, shop_tab)
         else
             self:makeCommonPopup(error_str)
         end

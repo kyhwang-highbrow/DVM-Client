@@ -30,7 +30,7 @@ function MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_bt
 
         -- 캐시가 충분히 있는지 체크
         if (cash < item_value) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('cash') end)
             return
         end
     elseif (item_key == 'gold') then
@@ -38,7 +38,7 @@ function MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_bt
 
         -- 재화가 충분히 있는지 체크
         if (gold < item_value) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_gold)
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('gold') end)
             return
         end
     elseif (item_key == 'fp') then
