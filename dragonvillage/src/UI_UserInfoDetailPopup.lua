@@ -226,8 +226,8 @@ function UI_UserInfoDetailPopup:setVisitMode(is_visit)
 	vars['dragonBtn']:setVisible(not is_visit)
     vars['titleChangeBtn']:setVisible(not is_visit)
     
-    -- 콜로세움 팀 보기 버튼은 어떻게..?
-    vars['deckBtn']:setVisible(true)
+    -- 콜로세움 팀 보기 버튼은 어떻게..? -- 일단은 off sgkim 2017-07-14
+    vars['deckBtn']:setVisible(false)
     vars['profileBtn']:setVisible(false)
 end
 
