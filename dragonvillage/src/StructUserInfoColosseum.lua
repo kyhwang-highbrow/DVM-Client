@@ -110,6 +110,37 @@ function StructUserInfoColosseum:create_forHistory(t_data)
 end
 
 -------------------------------------
+-- function create_forHistory
+-- @brief 전투 기록
+-------------------------------------
+function StructUserInfoColosseum:create(t_data, deck_type)
+    local user_info = StructUserInfoColosseum()
+
+    user_info.m_uid = t_data['uid']
+    user_info.m_nickname = t_data['nick']
+    user_info.m_lv = t_data['lv']
+    user_info.m_rank = t_data['rank']
+    user_info.m_rankPercent = t_data['rate']
+    user_info.m_tier = t_data['tier']
+    user_info.m_rp = t_data['rp']
+
+    user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
+    
+    -- 룬 & 드래곤 리스트 저장
+    user_info:applyRunesDataList(t_data['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
+    user_info:applyDragonsDataList(t_data['dragons'])
+
+    -- 덱 저장
+    if (deck_type == 'atk') then
+        user_info:applyPvpAtkDeckData(t_data['deck'])
+    elseif (deck_type == 'def') then
+        user_info:applyPvpDefDeckData(t_data['deck'])
+    end
+
+    return user_info
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function StructUserInfoColosseum:init()

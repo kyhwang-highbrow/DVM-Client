@@ -4,15 +4,15 @@ local PARENT = UI
 -- class UI_UserDeckInfoPopup
 -------------------------------------
 UI_UserDeckInfoPopup = class(PARENT, {
-        m_tData = 'table',
+        m_structUserInfoColosseum  = 'table',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_UserDeckInfoPopup:init(t_data)
+function UI_UserDeckInfoPopup:init(struct_user_info)
     self.m_uiName = 'UI_UserDeckInfoPopup'
-    self.m_tData = t_data
+    self.m_structUserInfoColosseum = struct_user_info
 
     local vars = self:load('user_deck_info_popup.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -21,13 +21,12 @@ function UI_UserDeckInfoPopup:init(t_data)
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_UserDeckInfoPopup')
 
     -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     --self:doActionReset()
     --self:doAction(nil, false)
 
     self:initUI()
     self:initButton()
-    self:refresh(t_data)
+    self:refresh()
 end
 
 -------------------------------------
@@ -48,40 +47,28 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_UserDeckInfoPopup:refresh(t_data)
+function UI_UserDeckInfoPopup:refresh()
     local vars = self.vars
-
-    local lv = (t_data['lv'] or 1)
-    local nick = (t_data['nick'] or '')
+    local struct_user_info = self.m_structUserInfoColosseum
 
     -- 레벨, 닉네임
-    local str_lv = Str('레벨 {1}', lv)
-    local str = str_lv .. ' ' .. nick
-    vars['nameLabel']:setString(str)
+    local str_lv = struct_user_info:getUserText()
+    vars['nameLabel']:setString(str_lv)
 
     -- 길드
-    vars['guildLabel']:setString(t_data['guild_name'])
+    -- vars['guildLabel']:setString('')
 
     -- 드래곤
-    self:refresh_dragons(t_data['dragons'])
+    self:refresh_dragons()
 end
 
 -------------------------------------
 -- function refresh_dragons
 -------------------------------------
-function UI_UserDeckInfoPopup:refresh_dragons(dragons)
-    local l_dragons = {}
-    local idx = 1
-
-    for i=1, 9 do
-        if dragons[i] then
-            l_dragons[idx] = dragons[i]
-            idx = idx + 1
-        end
-    end
-
-    for i=1, 5 do
-        self:refresh_dragon(i, l_dragons[i])
+function UI_UserDeckInfoPopup:refresh_dragons()
+    local l_dragons = self.m_structUserInfoColosseum:getDefDeck_dragonList()
+    for idx, dragon in ipairs(l_dragons) do
+        self:refresh_dragon(idx, dragon)
     end
 end
 
@@ -158,22 +145,16 @@ end
 -------------------------------------
 function RequestUserDeckInfoPopup(peer_uid, deck_name)
     local uid = g_userData:get('uid')
-    deck_name = (deck_name or '1')
+    deck_name = (deck_name or 'def')
 
     local function success_cb(ret)
-
-        if ret['dragons'] then
-            for i,v in pairs(ret['dragons']) do
-                ret['dragons'][i] = StructDragonObject(v)
-            end
-        end
-
-        UI_UserDeckInfoPopup(ret)
+        local struct_user_info = StructUserInfoColosseum:create(ret['pvpuser_info'], deck_name)
+        UI_UserDeckInfoPopup(struct_user_info)
     end
 
     local ui_network = UI_Network()
     ui_network:setRevocable(true)
-    ui_network:setUrl('/users/get_user_deck')
+    ui_network:setUrl('/game/pvp/user_info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('peer', peer_uid)
     ui_network:setParam('deck_name', deck_name)

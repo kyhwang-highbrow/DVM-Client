@@ -226,8 +226,10 @@ function UI_UserInfoDetailPopup:setVisitMode(is_visit)
 	vars['dragonBtn']:setVisible(not is_visit)
     vars['titleChangeBtn']:setVisible(not is_visit)
     
-    -- 콜로세움 팀 보기 버튼은 어떻게..? -- 일단은 off sgkim 2017-07-14
-    vars['deckBtn']:setVisible(false)
+    -- 콜로세움 팀 보기 버튼은 상대방의 정보 봤을 때만 나옴
+    vars['deckBtn']:setVisible(is_visit)
+
+    -- 미구현
     vars['profileBtn']:setVisible(false)
 end
 
@@ -386,10 +388,11 @@ end
 
 -------------------------------------
 -- function click_deckBtn
+-- @brief 상대의 방어덱을 본다.. 왜 방어덱만?
 -------------------------------------
 function UI_UserInfoDetailPopup:click_deckBtn()
     local uid = tonumber(self.m_tUserInfo['uid'])
-    local deck_name = 'pvp'
+    local deck_name = 'def'
     RequestUserDeckInfoPopup(uid, deck_name)
 end
 
@@ -415,7 +418,7 @@ function UI_UserInfoDetailPopup:click_titleChangeBtn()
 end
 
 -------------------------------------
--- function RequestUserDeckInfoPopup
+-- function RequestUserInfoDetailPopup
 -------------------------------------
 function RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb)
 	-- 유저 ID
