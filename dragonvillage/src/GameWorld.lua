@@ -1245,8 +1245,12 @@ function GameWorld:onEvent(event_name, t_event, ...)
         local arg = {...}
         local unit = arg[1]
 
-        for _, fellow in pairs(unit:getFellowList()) do
-            fellow:dispatch('ally_dead', t_event)
+        for _, fellow in pairs(unit:getFellowList(), unit) do
+
+            fellow:dispatch('ally_dead', t_event, unit)
+            if (unit ~= fellow) then
+                fellow:dispatch('teammate_dead', t_event, unit)
+            end
         end
 
         for _, opponent in pairs(unit:getOpponentList()) do
