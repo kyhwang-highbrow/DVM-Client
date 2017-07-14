@@ -19,7 +19,7 @@ end
 -------------------------------------
 function isTestMode()
     -- 라이브 전에는 명시해야함
-    return true
+    return (not DEVELOPMENT_SRC_VER)
 end
 
 -------------------------------------

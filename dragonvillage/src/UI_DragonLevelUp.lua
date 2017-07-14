@@ -395,6 +395,7 @@ function UI_DragonLevelUp:click_levelupBtn()
 
     local function success_cb(ret)
         local prev_lv = self.m_selectDragonData['lv']
+        local prev_exp = self.m_selectDragonData['exp']
         local curr_lv = ret['modified_dragon']['lv']
         local bonus_rate = (ret['bonus'] or 100) -- 100일 경우 보너스 발동을 안한 상태
 
@@ -403,7 +404,7 @@ function UI_DragonLevelUp:click_levelupBtn()
         else
             -- 드래곤 정보 갱신 (임시 위치)
             g_dragonsData:applyDragonData(ret['modified_dragon'])
-            local ui = UI_DragonLevelupResult(StructDragonObject(ret['modified_dragon']), prev_lv, bonus_rate)
+            local ui = UI_DragonLevelupResult(StructDragonObject(ret['modified_dragon']), prev_lv, prev_exp, bonus_rate)
             local function close_cb()
                 self:response_levelup(ret)
             end

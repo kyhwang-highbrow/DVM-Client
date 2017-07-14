@@ -4,12 +4,15 @@ local PARENT = UI
 -- class UI_DragonLevelupResult
 -------------------------------------
 UI_DragonLevelupResult = class(PARENT, {
+        m_prevLv = 'number',
+        m_prevExp = 'number',
+        m_bonusRate = 'number',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonLevelupResult:init(dragon_object, prev_lv, bonus_rate)
+function UI_DragonLevelupResult:init(dragon_object, prev_lv, prev_exp, bonus_rate)
     local vars = self:load('dragon_levelup_result.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -23,7 +26,11 @@ function UI_DragonLevelupResult:init(dragon_object, prev_lv, bonus_rate)
 
     vars['okBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 
-    self:refresh(dragon_object, prev_lv, bonus_rate)
+    self.m_prevLv = prev_lv
+    self.m_prevExp = prev_exp
+    self.m_bonusRate = bonus_rate
+
+    self:initUI(dragon_object)
 end
 
 -------------------------------------
@@ -34,9 +41,9 @@ function UI_DragonLevelupResult:click_exitBtn()
 end
 
 -------------------------------------
--- function refresh
+-- function initUI
 -------------------------------------
-function UI_DragonLevelupResult:refresh(dragon_object, prev_lv, bonus_rate)
+function UI_DragonLevelupResult:initUI(dragon_object)
     local vars = self.vars
 
     local did = dragon_object['did']
@@ -63,66 +70,102 @@ function UI_DragonLevelupResult:refresh(dragon_object, prev_lv, bonus_rate)
         vars['dragonNode']:addChild(dragon_animator.m_node)
         dragon_animator:setDragonAnimator(dragon_object['did'], dragon_object['evolution'], dragon_object['friendship']['flv'])
         local function cb()
-            self:doAction(nil, false)
+            local function after_appear()
+                self:direct_levelup(dragon_object)
+            end
+            self:doAction(after_appear, false)
 			SoundMgr:playEffect('UI', 'ui_grow_result')
         end
         dragon_animator:setDragonAppearCB(cb)
 		dragon_animator:startDirecting()
     end
 
-    -- 레벨 표시
-    vars['beforeLabel']:setString(Str('Lv.{1}', prev_lv))
-    vars['afterLabel']:setString(Str('Lv.{1}', dragon_object['lv']))
+    -- 이전 경험치와 레벨 미리 표시
+    local grade = (dragon_object['grade'] or 1)
+    local lv = self.m_prevLv
+    local exp = (dragon_object['exp'] or 0)
+    local table_exp = TableDragonExp()
+    local max_exp = table_exp:getDragonMaxExp(grade, lv)
+    local percentage = (exp / max_exp) * 100
+    percentage = math_floor(percentage)
+    vars['expLabel']:setString(Str('{1}%', percentage))
+    vars['expGauge']:setPercentage(percentage)
+    vars['beforeLabel']:setString(Str('Lv.{1}', lv))
+    vars['afterLabel']:setString(Str('Lv.{1}', lv))
 
-    do -- 경혐치 exp
-        local grade = (dragon_object['grade'] or 1)
-        local eclv = (dragon_object['eclv'] or 0)
-        local lv = (dragon_object['lv'] or 1)
-        local exp = (dragon_object['exp'] or 0)
-        local table_exp = TableDragonExp()
-        local max_exp = table_exp:getDragonMaxExp(grade, lv)
-        local is_max_lv = TableGradeInfo:isMaxLevel(grade, lv)
+    -- numberLabel 로 변환
+    vars['atkLabel1'] = NumberLabel(vars['atkLabel1'], 0, 0.3)
+    vars['defLabel1'] = NumberLabel(vars['defLabel1'], 0, 0.3)
+    vars['hpLabel1'] = NumberLabel(vars['hpLabel1'], 0, 0.3)
+    vars['atkLabel2'] = NumberLabel(vars['atkLabel2'], 0, 0.3)
+    vars['defLabel2'] = NumberLabel(vars['defLabel2'], 0, 0.3)
+    vars['hpLabel2'] = NumberLabel(vars['hpLabel2'], 0, 0.3)
 
-        if (not is_max_lv) then
-            local percentage = (exp / max_exp) * 100
-            percentage = math_floor(percentage)
-            vars['expLabel']:setString(Str('{1}%', percentage))
-
-            vars['expGauge']:stopAllActions()
-            vars['expGauge']:setPercentage(0)
-            vars['expGauge']:runAction(cc.ProgressTo:create(0.2, percentage)) 
-        else
-            vars['expLabel']:setString(Str('최대레벨'))
-            vars['expGauge']:stopAllActions()
-            vars['expGauge']:setPercentage(100)
-        end
-    end
-
-    -- 보너스 대성공
-    if (100 < bonus_rate) then
-        vars['bonusVisual']:setVisible(true)
-        vars['bonusVisual']:changeAni('success_' .. tostring(bonus_rate))
-    end
-
-    self:refresh_status(dragon_object, prev_lv)
+    -- 이전 status 표시
+    local doid = dragon_object['id']
+    local status_calc = MakeOwnDragonStatusCalculator(doid, {['lv'] = lv})
+    local atk = status_calc:getFinalStat('atk')
+    local def = status_calc:getFinalStat('def')
+    local hp = status_calc:getFinalStat('hp')
+    vars['atkLabel1']:setNumber(atk)
+    vars['defLabel1']:setNumber(def)
+    vars['hpLabel1']:setNumber(hp)
+    vars['atkLabel2']:setNumber(atk)
+    vars['defLabel2']:setNumber(def)
+    vars['hpLabel2']:setNumber(hp)
 end
 
 -------------------------------------
 -- function refresh_status
 -- @brief 능력치 정보 갱신
 -------------------------------------
-function UI_DragonLevelupResult:refresh_status(dragon_object, prev_lv)
+function UI_DragonLevelupResult:refresh_status(dragon_object, lv)
     local vars = self.vars
 
     local doid = dragon_object['id']
+    local status_calc = MakeOwnDragonStatusCalculator(doid, {['lv'] = lv})
+    vars['atkLabel2']:setNumber(status_calc:getFinalStat('atk'))
+    vars['defLabel2']:setNumber(status_calc:getFinalStat('def'))
+    vars['hpLabel2']:setNumber(status_calc:getFinalStat('hp'))
+end
 
-    local status_calc = MakeOwnDragonStatusCalculator(doid, {['lv'] = prev_lv})
-    vars['atkLabel1']:setString(status_calc:getFinalStatDisplay('atk'))
-    vars['defLabel1']:setString(status_calc:getFinalStatDisplay('def'))
-    vars['hpLabel1']:setString(status_calc:getFinalStatDisplay('hp'))
+-------------------------------------
+-- function direct_levelup
+-- @brief 레벨업 연출
+-------------------------------------
+function UI_DragonLevelupResult:direct_levelup(dragon_object)
+    local vars = self.vars
+    
+    local prev_lv = self.m_prevLv
+    local prev_exp = self.m_prevExp
+    local bonus_rate = self.m_bonusRate
 
-    local status_calc = MakeOwnDragonStatusCalculator(doid)
-    vars['atkLabel2']:setString(status_calc:getFinalStatDisplay('atk'))
-    vars['defLabel2']:setString(status_calc:getFinalStatDisplay('def'))
-    vars['hpLabel2']:setString(status_calc:getFinalStatDisplay('hp'))
+    local grade = (dragon_object['grade'] or 1)
+    local dest_lv = (dragon_object['lv'] or 1)
+    local dest_exp = (dragon_object['exp'] or 0)
+
+    -- 경험치 연출 도우미
+    local levelup_director = LevelupDirector(prev_lv, prev_exp, dest_lv, dest_exp, 'dragon', grade, self.root)
+
+    levelup_director.m_cbUpdate = function(lv, exp, percentage)
+        vars['afterLabel']:setString(Str('Lv.{1}', lv))
+        vars['expLabel']:setString(Str('{1}%', percentage))
+        vars['expGauge']:setPercentage(percentage)
+    end
+    levelup_director.m_cbLevelUp = function(lv)
+        self:refresh_status(dragon_object, lv)
+    end
+    levelup_director.m_cbMaxLevel = function()
+        vars['expLabel']:setString(Str('최대레벨'))
+        vars['expGauge']:stopAllActions()
+        vars['expGauge']:setPercentage(100)
+    end
+    levelup_director:start()
+
+    -- 보너스 대성공
+    bonus_rate = 125
+    if (100 < bonus_rate) then
+        vars['bonusVisual']:setVisible(true)
+        vars['bonusVisual']:changeAni('success_' .. tostring(bonus_rate))
+    end
 end

@@ -25,12 +25,15 @@ LevelupDirector = class({
 
         m_iterLv = 'number',
         m_iterExp = 'number',
+
+        m_node = 'cc.Node',
+        m_cbAniFinish = 'function',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function LevelupDirector:init(src_lv, src_exp, dest_lv, dest_exp, l_max_exp, max_lv)
+function LevelupDirector:init(src_lv, src_exp, dest_lv, dest_exp, lv_type, grade, node)
     
     do -- [external variable]
         -- 기존 레벨, 경험치
@@ -42,6 +45,13 @@ function LevelupDirector:init(src_lv, src_exp, dest_lv, dest_exp, l_max_exp, max
         self.m_destExp = dest_exp
 
         -- 레벨별 최대 경험치 리스트
+        if (lv_type == 'tamer') then
+            l_max_exp, max_lv = self:getTamerExpList()
+        elseif (lv_type == 'dragon') then
+            l_max_exp, max_lv = self:getDragonExpList(grade)
+        else
+            error('type : ' .. type)
+        end
         self.m_lMaxExp = l_max_exp
         self.m_maxLv = max_lv
     end
@@ -51,6 +61,8 @@ function LevelupDirector:init(src_lv, src_exp, dest_lv, dest_exp, l_max_exp, max
         self.m_iterExp = self.m_srcExp
 
         self:calcTotalAddExp()
+
+        self.m_node = node
     end
 end
 
@@ -149,13 +161,39 @@ function LevelupDirector:update(value, force)
 
     -- 레벨업일 경우
     if is_level_up and self.m_cbLevelUp then
-        self.m_cbLevelUp()
+        self.m_cbLevelUp(iter_lv)
     end
 
     -- 최대 레벨일 경우
     if is_max_level and self.m_cbMaxLevel then
         self.m_cbMaxLevel()
     end
+end
+
+-------------------------------------
+-- function start
+-------------------------------------
+function LevelupDirector:start(duration)
+    local duration = duration or 2
+    local from = 0
+    local to = self.m_totalAddExp
+
+    local function tween_cb(value, node)
+        self:update(value, node)
+    end
+
+    local tween_action = cc.ActionTweenForLua:create(duration, from, to, tween_cb)
+    local callback = cc.CallFunc:create(function()
+		if (self.m_cbAniFinish) then
+            self.m_cbAniFinish()
+            self.m_cbAniFinish = nil
+        end
+	end)
+
+    local action = cc.Sequence:create(tween_action, callback)
+
+    self.m_node:stopAllActions()
+    self.m_node:runAction(action)
 end
 
 -------------------------------------
