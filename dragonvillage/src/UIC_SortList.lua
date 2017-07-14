@@ -516,15 +516,16 @@ function MakeUICSortList_runeManageFilter(button, label)
 
     local uic = UIC_SortList()
 
-    -- 커스텀하게 조절
     uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
-    uic.m_buttonHeight = 38
-    uic.m_buttonMargin = 2
-
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
     uic:setDockPoint(button:getDockPoint())
     uic:setAnchorPoint(button:getAnchorPoint())
+    
+    -- 커스텀하게 조절
+    --uic.m_buttonHeight = 38
+    uic.m_buttonMargin = 2
+
     uic:init_container()
 
     uic:setExtendButton(button)
