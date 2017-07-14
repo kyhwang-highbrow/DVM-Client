@@ -155,6 +155,29 @@ function UI_Network.fail(self, ret)
     self:makeFailPopup(nil, ret)
 end
 
+local S_ERROR_STATUS = {
+    [-1201] = Str('골드가 부족합니다.'),
+    [-1212] = Str('다이아몬드가 부족합니다.'),
+    [-1216] = Str('날개가 부족합니다.'),
+    [-1222] = Str('열매가 부족합니다.'),
+    [-1223] = Str('진화재료가 부족합니다.'),
+
+    [-1101] = Str('상대방을 검색하지 못하였습니다.\n잠시 후에 다시 시도해주세요.'),
+
+    [-1351] = Str('잘못된 시간 정보입니다.'),
+
+
+    [-3026] = Str('이미 존재하는 닉네임입니다.'),
+    [-3259] = Str('이미 요청한 친구입니다.'),
+    [-3907] = Str('이미 친구입니다.'),
+}
+
+local S_ERROR_STATUS_SHOP = {
+    [-1201] = 'gold',
+    [-1212] = 'cash',
+    [-1216] = 'st',
+}
+ 
 -------------------------------------
 -- function statusHandler
 -------------------------------------
@@ -170,69 +193,18 @@ function UI_Network:statusHandler(ret)
         return false
     end
 
-    -- not enough fruit
-    if (status == -1222) then
-        self:makeCommonPopup(Str('열매가 부족합니다.'))
+    local error_str = S_ERROR_STATUS[status]
+    local shop_tab = S_ERROR_STATUS_SHOP[status]
+    if (error_str) then
+        if (shop_tab) then
+            self:makeShopPopup(error_str .. Str('\n상점으로 이동하시겠습니까?'), ret, shop_tab)
+        else
+            self:makeCommonPopup(error_str)
+        end
         return true
     end
 
-    -- not enough cash (다이아몬드가 부족할 때)
-    if (status == -1212) then
-        --self:makeShopPopup(Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.CASH)
-        self:makeCommonPopup(Str('다이아몬드가 부족합니다.'))
-        return true
-    end
-
-    -- not enough gold (골드가 부족할 때)
-    if (status == -1201) then
-        --self:makeShopPopup(Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.GOLD)
-        self:makeCommonPopup(Str('골드가 부족합니다.'))
-        return true
-    end
-
-    -- not enough evolution stones (드래곤 진화 재료가 부족할 때)
-    if (status == -2104) then
-        self:makeCommonPopup(Str('진화재료가 부족합니다.'))
-        return true
-    end
-
-    -- not enough stamina (날개가 부족할 때)
-    if (status == -1216) then
-        --self:makeShopPopup(Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.STAMINA)
-        self:makeCommonPopup(Str('날개가 부족합니다.'))
-        return true
-    end
-
-    -- not exist user(콜로세움 적이 없을 때)
-    if (status == -1001) then
-        self:makeCommonPopup(Str('상대방을 검색하지 못하였습니다.\n잠시 후에 다시 시도해주세요.'))
-        return true
-    end
-
-    -- already exist nick(닉네임 중복)
-    if (status == -3026) then
-        self:makeCommonPopup(Str('이미 존재하는 닉네임입니다.'))
-        return true
-    end
-
-    -- already send friend request(이미 요청한 친구)
-    if (status == -3259) then
-        self:makeCommonPopup(Str('이미 요청한 친구입니다.'))
-        return true
-    end
-
-    -- already friend (이미 친구)
-    if (status == -3907) then
-        self:makeCommonPopup(Str('이미 친구입니다.'))
-        return true
-    end
-
-    -- invalid time (접속시간 이벤트)
-    if (status == -1351) then
-        self:makeCommonPopup(Str('잘못된 시간 정보입니다.'))
-        return true
-    end
-
+    -- 미리 정의 되지 못한 error_status
     self:makeFailPopup(nil, ret)
     return true
 end
