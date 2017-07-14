@@ -73,7 +73,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -848,13 +848,13 @@
 					dimension_width = 100;
 					dimension_height = 50;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
 					stroke_color = { 85; 44; 25; };
-					has_shadow = true;
+					has_shadow = false;
 					shadow_color = { 85; 44; 25; };
 					shadow_opacity = 150;
 					shadow_direction = 0;
@@ -877,8 +877,8 @@
 				visible = true;
 				lua_name = 'sortSelectBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0101.png';
-				selected = 'ui/btn/a_btn_0102.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -927,8 +927,8 @@
 				visible = true;
 				lua_name = 'sortSelectOrderBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0101.png';
-				selected = 'ui/btn/a_btn_0102.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -1287,7 +1287,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/price_0101.png';
+					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -1312,8 +1312,8 @@
 				visible = true;
 				lua_name = 'combineBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0101.png';
-				selected = 'ui/btn/a_btn_0102.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -1337,7 +1337,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'materialNode1';
-					file_name = 'ui/frame/a_frame_01.png';
+					file_name = 'ui/frames/base_frame_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -1363,7 +1363,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'materialNode2';
-					file_name = 'ui/frame/a_frame_01.png';
+					file_name = 'ui/frames/base_frame_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -1389,7 +1389,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'materialNode3';
-					file_name = 'ui/frame/a_frame_01.png';
+					file_name = 'ui/frames/base_frame_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -1415,7 +1415,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'materialNode4';
-					file_name = 'ui/frame/a_frame_01.png';
+					file_name = 'ui/frames/base_frame_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;

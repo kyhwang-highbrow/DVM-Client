@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_list_01.png';
+				file_name = 'ui/frames/base_list_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -41,7 +41,7 @@
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 415;
-				height = 50;
+				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -57,7 +57,7 @@
 				color = { 161; 125; 93; };
 				opacity = 255;
 				dimension_width = 415;
-				dimension_height = 50;
+				dimension_height = 70;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;

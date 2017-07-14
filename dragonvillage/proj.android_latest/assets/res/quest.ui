@@ -192,7 +192,7 @@
 					dimension_width = 200;
 					dimension_height = 64;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -233,12 +233,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = -310.000000;
-				y = -78.000000;
+				y = -74.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
 				width = 180;
-				height = 64;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -282,7 +282,7 @@
 					dimension_width = 200;
 					dimension_height = 64;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -323,12 +323,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = -500.000000;
-				y = -78.000000;
+				y = -74.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
 				width = 180;
-				height = 64;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;

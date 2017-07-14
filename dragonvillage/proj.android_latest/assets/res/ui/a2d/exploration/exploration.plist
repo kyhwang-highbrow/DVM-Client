@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>exploration_sweat_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{43,22}</string>
+                <key>spriteSourceSize</key>
+                <string>{43,22}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{43,22}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>exploration.png</string>
+            <key>size</key>
+            <string>{45,24}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:7f719475743b3f77ce227f11f4fb8c4e:e83837a42adbb2be15c517e4a0206693:7b6f6cfc4ece982421782a19d9c7d8c6$</string>
+            <key>textureFileName</key>
+            <string>exploration.png</string>
+        </dict>
+    </dict>
+</plist>

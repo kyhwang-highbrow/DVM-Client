@@ -86,7 +86,7 @@
 				visible = true;
 				lua_name = 'dpsBtn';
 				enable = true;
-				normal = 'ui/btn/ingame_dps_info.png';
+				normal = 'ui/buttons/ingame_dps_info_btn.png';
 				selected = '';
 				disable = '';
 				image_type = 0;

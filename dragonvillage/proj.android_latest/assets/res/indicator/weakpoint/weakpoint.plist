@@ -6,28 +6,34 @@
         <dict>
             <key>weakpoint_res_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,2},{136,136}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{136,136}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{136,136}</string>
+                <key>spriteSourceSize</key>
+                <string>{136,136}</string>
+                <key>textureRect</key>
+                <string>{{2,2},{136,136}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>2</integer>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
             <key>realTextureFileName</key>
             <string>weakpoint.png</string>
             <key>size</key>
             <string>{256,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8313a631b7665099e21df8d7ce60ef6c$</string>
+            <string>$TexturePacker:SmartUpdate:fb4ee0b38c34a9af24661cbb8be189e1:427e95dcf64711f82f823bc8c8af6268:7f260806565a122634618ffa73bbe692$</string>
             <key>textureFileName</key>
             <string>weakpoint.png</string>
         </dict>

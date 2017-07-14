@@ -993,7 +993,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '인벤토리';
+				text = '가방';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1681,7 +1681,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 291;
-				height = 116;
+				height = 193;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1701,13 +1701,13 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 110.000000;
-				y = -35.000000;
+				x = 117.000000;
+				y = -74.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 250;
-				height = 60;
+				height = 41;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1717,13 +1717,13 @@
 				lua_name = 'roadDescLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = 'roadDescLabel roadDescLabel roadDescLabel roadDescLabel';
+				text = 'roadDescLabel roadDescLabel';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 250;
-				dimension_height = 60;
+				dimension_height = 41;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -1741,8 +1741,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 110.000000;
-				y = -12.000000;
+				x = 117.000000;
+				y = -49.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1781,8 +1781,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -181.000000;
-				y = -16.000000;
+				x = -37.000000;
+				y = -130.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 1.000000; };
 				relative_size_type = 0;
@@ -1806,12 +1806,12 @@
 			type = 'Button';
 			ui_name = '';
 			x = 0.000000;
-			y = 202.000000;
+			y = 218.000000;
 			dock_point = { 0.000000; 0.000000; };
 			anchor_point = { 0.000000; 0.500000; };
 			relative_size_type = 0;
 			width = 291;
-			height = 116;
+			height = 193;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -2247,6 +2247,100 @@
 		};
 		[21] =
 		{
+			[1] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -34.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 20;
+				text = '월정액';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 100;
+				dimension_height = 50;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 2.000000;
+			};
+			[2] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -2.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 1.000000; 1.000000; };
+				relative_size_type = 0;
+				width = 28;
+				height = 28;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'mothlyNotiSprite';
+				file_name = 'ui/icons/noti_icon_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = 416.000000;
+			y = -160.000000;
+			dock_point = { 0.000000; 1.000000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 84;
+			height = 84;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			action_type = 1;
+			action_delay_1 = 0.020000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.400000;
+			lua_name = 'mothlyBtn';
+			enable = true;
+			normal = 'ui/buttons/lobby_side_btn_montly_0101.png';
+			selected = 'ui/buttons/lobby_side_btn_montly_0102.png';
+			disable = '';
+			image_type = 0;
+		};
+		[22] =
+		{
 			type = 'Button';
 			ui_name = '';
 			x = -50.000000;
@@ -2273,7 +2367,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[22] =
+		[23] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -2296,7 +2390,7 @@
 			action_duration = 0.400000;
 			lua_name = 'buffNode';
 		};
-		[23] =
+		[24] =
 		{
 			[1] =
 			{

@@ -9,11 +9,11 @@
 			{
 				[1] =
 				{
-					type = 'Sprite';
+					type = 'Scale9Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 60.000000;
-					dock_point = { 0.500000; 0.000000; };
+					y = -111.000000;
+					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 30;
@@ -25,13 +25,13 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/btn/radio_btn_0101.png';
+					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
 				};
 				[2] =
 				{
@@ -44,8 +44,8 @@
 						dock_point = { 0.500000; 0.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 23;
-						height = 23;
+						width = 48;
+						height = 48;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -53,7 +53,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/btn/radio_btn_0102.png';
+						file_name = 'ui/icons/check_icon_0102.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -77,7 +77,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'selectSprite';
-					file_name = 'ui/frame/list_frame_0202.png';
+					file_name = 'ui/frames/select_frame_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -161,7 +161,7 @@
 				visible = true;
 				lua_name = 'selectBtn';
 				enable = true;
-				normal = 'ui/frame/a_frame_03.png';
+				normal = 'ui/frames/base_frame_0101.png';
 				selected = '';
 				disable = '';
 				image_type = 1;
