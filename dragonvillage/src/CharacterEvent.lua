@@ -54,6 +54,9 @@ function Character:onEvent(event_name, t_event, ...)
     elseif (event_name == 'dead') then
 		self:onEvent_dead(t_event)
 
+    elseif (event_name == 'enemy_last_attack') then
+        self:onEvent_lastAttack(event_name, t_event)
+
     elseif (pl.stringx.endswith(event_name, 'get_status_effect')) then
         local arg = {...}
         local target = arg[1]
@@ -234,6 +237,30 @@ function Character:onEvent_getStatusEffect(t_event, target_str, target_char)
     end
 
 end
+
+-------------------------------------
+-- function onEvent_lastAttack
+-------------------------------------
+function Character:onEvent_lastAttack(event_name, t_event)
+    if (not self.m_statusCalc) then return end
+    if (not self.m_lSkillIndivisualInfo[event_name]) then return end
+    for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
+        if (v:isEndCoolTime()) then
+            local chance_value = v.m_tSkill['chance_value']
+            if ( (not chance_value) or (chance_value == '') ) then
+                chance_value = 100
+            end
+
+            local rand = math_random(1, 100)
+            if (rand <= chance_value) then
+                self:doSkill(v.m_skillID, 0, 0, t_event)
+            end
+
+        end
+    end
+end
+
+
 -------------------------------------
 -- function onEvent_common
 -------------------------------------

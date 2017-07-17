@@ -80,7 +80,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 		-- [상태 효과]만 거는 스킬
 		elseif string.find(skill_type, 'status_effect') then
-			StatusEffectHelper:doStatusEffectByTable(self, t_skill)
+			StatusEffectHelper:doStatusEffectByTable(self, t_skill, nil, t_data)
 			return true
 
 		-- [스킬]

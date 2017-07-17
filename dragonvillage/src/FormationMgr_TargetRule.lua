@@ -53,6 +53,7 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
     if (type == 'none') then                return TargetRule_getTargetList_none(org_list)
     elseif (type == 'random') then          return TargetRule_getTargetList_random(org_list)
     
+    elseif (type == 'last_attack') then     return TargetRule_getTargetList_lastAttack(org_list, t_data)
 	-- self 
 	elseif (type == 'self') then			return TargetRule_getTargetList_self(org_list, t_data)
 
@@ -133,6 +134,27 @@ function TargetRule_getTargetList_self(org_list, t_data)
 
     return t_ret
 end
+
+-------------------------------------
+-- function TargetRule_getTargetList_lastAttack
+-- @brief 일반 공격의 타겟이 우선인 적군 리스트
+-------------------------------------
+function TargetRule_getTargetList_lastAttack(org_list, t_data)
+    local t_ret = {}
+    local last_attack_char = t_data['defender']
+    local t_char = table.sortRandom(table.clone(org_list))
+
+    table.insert(t_ret, last_attack_char)
+
+    for i, char in pairs(t_char) do
+        if (char ~= last_attack_char) then
+            table.insert(t_ret, char)
+        end
+    end
+
+    return t_ret
+end
+
 
 
 -------------------------------------

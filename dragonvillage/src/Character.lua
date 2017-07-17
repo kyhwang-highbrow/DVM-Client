@@ -262,7 +262,7 @@ end
 -- function getTargetList
 -- @brief skill table을 인자로 받는 경우..
 -------------------------------------
-function Character:getTargetListByTable(t_skill)
+function Character:getTargetListByTable(t_skill, t_data)
 	local target_type = t_skill['target_type']
 	local target_count = t_skill['target_count']
     local target_formation = t_skill['target_formation']
@@ -273,14 +273,14 @@ function Character:getTargetListByTable(t_skill)
 		error('타겟 타입이 없네요..ㅠ 테이블 수정해주세요 ' .. sid .. ' ' .. name)
 	end
 
-    return self:getTargetListByType(target_type, target_count, target_formation)
+    return self:getTargetListByType(target_type, target_count, target_formation, t_data)
 end
 
 -------------------------------------
 -- function getTargetListByType
 -- @param target_formation은 없어도 된다
 -------------------------------------
-function Character:getTargetListByType(target_type, target_count, target_formation)
+function Character:getTargetListByType(target_type, target_count, target_formation, t_data)
 	if (target_type == '') then 
 		error('타겟 타입이 없네요..ㅠ 테이블 수정해주세요')
 	end
@@ -298,7 +298,7 @@ function Character:getTargetListByType(target_type, target_count, target_formati
 	--> target_count = 3
 	local target_count = target_count
 
-	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule)
+	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule, t_data)
     	
 	if (target_count) and (type(target_count) == 'number') then
 		return table.getPartList(t_ret, target_count)
@@ -745,7 +745,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- 일반 공격시
         if (not no_event) then
 		    if (attack_type == 'basic') then 
-			    attacker_char:dispatch('hit_basic', t_event, self, attack_activity_carrier)
+			    attacker_char:dispatch('enemy_last_attack', t_event, self, attack_activity_carrier)
                 self.m_world.m_logRecorder:recordLog('basic_attack_cnt', 1)
 
 		    -- 액티브 공격시

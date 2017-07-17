@@ -96,9 +96,9 @@ end
 -- function doStatusEffectByTable
 -- @brief 별도의 타겟을 가져오지 않고 스킬 테이블 통해서 상태효과 시전
 -------------------------------------
-function StatusEffectHelper:doStatusEffectByTable(char, t_skill, cb_func)
+function StatusEffectHelper:doStatusEffectByTable(char, t_skill, cb_func, t_data)
 	-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
-	local l_target = char:getTargetListByTable(t_skill)
+	local l_target = char:getTargetListByTable(t_skill, t_data)
 			
 	-- 2. 상태효과 구조체
 	local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
