@@ -605,8 +605,6 @@ end
 -- function releaseFocusingDragon
 -------------------------------------
 function GameDragonSkill:releaseFocusingDragon()
-    cclog('releaseFocusingDragon')
-
     if (self.m_dragon) then
         self.m_dragon:removeListener('damaged', self)
 

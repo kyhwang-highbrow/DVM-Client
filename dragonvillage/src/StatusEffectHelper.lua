@@ -83,7 +83,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
 
         -- 부활의 경우는 죽은 대상들로부터 타겟 리스트를 설정
         if (status_effect_group == 'resurrect') then
-            local target_count = target_count or 1
+            local target_count = tonumber(target_count) or 1
 
             for i = 1, target_count do
                 local target_char
@@ -94,11 +94,31 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
                 end
 
                 if (target_char) then
-                    table.insert(l_target, target_char)
+                    if (target_char == caster) then
+                        table.insert(l_target, 1, target_char)
+                    else
+                        table.insert(l_target, target_char)
+                    end
                 else
                     break
                 end
             end
+            
+
+        -- 좀비의 경우는 죽기 직전 대상들로부터 타겟 리스트를 설정
+        elseif (status_effect_group == 'zombie') then
+            if (target_type == 'self') then
+                l_target = { caster }
+
+            else
+                for _, target_char in pairs(caster:getFellowList()) do
+                    if (not target_char:isDead() and target_char.m_hp == 0 and not target_char.m_bInvincibility) then
+                        table.insert(l_target, target_char)
+                    end
+                end
+
+            end
+            
         else
             l_target = caster:getTargetListByType(target_type, target_count)
 
@@ -255,6 +275,10 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     elseif (status_effect_group == 'resurrect') then
         status_effect = StatusEffect_Resurrect(res)
 
+    ---------- 좀비 ------------
+    elseif (status_effect_group == 'zombie') then
+        status_effect = StatusEffect_Zombie(res)
+
     ----------- 마나 관련 ----------------------
     elseif (status_effect_group == 'add_mana') then
         status_effect = StatusEffect_AddMana(res)
@@ -303,19 +327,16 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
         status_effect:setOverlabClass(StatusEffectUnit_AddDmg)
 
     ----------- 트리거 ------------------
+    elseif (status_effect_group == 'immortal') then
+        status_effect = StatusEffect_Immortal(res)
+
 	elseif (status_effect_type == 'bleed') then
         status_effect = StatusEffect_Bleed(res)
         
 	elseif (status_effect_type == 'poison') then
         status_effect = StatusEffect_Poison(res)
 
-    elseif (status_effect_type == 'immortal') then
-        status_effect = StatusEffect_Immortal(res)
-
-    elseif (status_effect_type == 'zombie') then
-        status_effect = StatusEffect_Zombie(res)
-    
-	----------- 속성 변경 ------------------
+    ----------- 속성 변경 ------------------
 	elseif (status_effect_type == 'attr_change') then
 		--@TODO 카운터 속성으로 변경, 추후 정리
 		status_effect = StatusEffect_AttributeChange(res)

@@ -277,6 +277,16 @@ function Dragon:release()
 end
 
 -------------------------------------
+-- function doRevive
+-- @brief 부할
+-------------------------------------
+function Dragon:doRevive(hp_rate)
+    PARENT.doRevive(self, hp_rate)
+
+    self:updateActiveSkillCool(0)
+end
+
+-------------------------------------
 -- function makeHPGauge
 -------------------------------------
 function Dragon:makeHPGauge(hp_ui_offset)
