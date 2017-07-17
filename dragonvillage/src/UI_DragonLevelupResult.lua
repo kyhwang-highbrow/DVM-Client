@@ -163,7 +163,6 @@ function UI_DragonLevelupResult:direct_levelup(dragon_object)
     levelup_director:start()
 
     -- 보너스 대성공
-    bonus_rate = 125
     if (100 < bonus_rate) then
         vars['bonusVisual']:setVisible(true)
         vars['bonusVisual']:changeAni('success_' .. tostring(bonus_rate))
