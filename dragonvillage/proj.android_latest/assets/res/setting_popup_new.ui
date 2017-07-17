@@ -1901,12 +1901,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 1.000000;
+						x = 3.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 345;
+						width = 490;
 						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1916,13 +1916,13 @@
 						visible = true;
 						lua_name = 'uidLabel';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 30;
+						font_size = 26;
 						text = 'UID';
 						h_alignment = 0;
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 345;
+						dimension_width = 490;
 						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -1941,7 +1941,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 321.000000;
+						x = 390.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -1981,7 +1981,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = -297.000000;
+						x = -365.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -1997,7 +1997,7 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 28;
-						text = '아이디 정보';
+						text = '복구코드';
 						h_alignment = 2;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
@@ -2024,7 +2024,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 360;
+					width = 500;
 					height = 46;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -2071,7 +2071,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = -21.000000;
+						x = -91.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -2111,7 +2111,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = -297.000000;
+						x = -365.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -2191,7 +2191,7 @@
 						};
 						type = 'Button';
 						ui_name = '';
-						x = 289.000000;
+						x = 359.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -2237,7 +2237,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 360;
+					width = 500;
 					height = 46;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -2285,7 +2285,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'accountMenu';
 			};
 			[5] =
