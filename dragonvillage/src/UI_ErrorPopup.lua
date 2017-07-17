@@ -115,13 +115,14 @@ end
 -- function setErrorStr
 -------------------------------------
 function UI_ErrorPopup:setErrorStr(str)
+     cclog('############## setErrorStr start')
 	if (not str) then
 		cclog('UI_ErrorPopup:setErrorStr(str) : nil parameter')
 	end
-
+     cclog(str)
 	local error_str = string.gsub(str, '\t', '    ') or '???'
 	error_str = g_errorTracker:getTrackerText(error_str)
-
+     cclog(error_str)
 	self.m_errorLabel:setString(error_str)
     self.m_errorStr = error_str
 
@@ -129,6 +130,7 @@ function UI_ErrorPopup:setErrorStr(str)
     if (isTestMode()) then
         slack_api(error_str)
     end
+     cclog('############## setErrorStr end')
 end
 
 -------------------------------------

@@ -57,8 +57,8 @@ function __G__TRACKBACK__(msg)
 	-- 에러를 팝업으로 띄워서 출력
 	-- @TODO 디버깅 모드일 경우에만 출력되도록 수정해야함
 	if (not IS_OPEN_ERROR_POPUP) and UI_ErrorPopup then
-		UI_ErrorPopup(error_msg)
 		IS_OPEN_ERROR_POPUP = true
+		UI_ErrorPopup(error_msg)
 	end
 
     return msg
