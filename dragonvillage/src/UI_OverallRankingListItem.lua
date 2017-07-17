@@ -69,7 +69,7 @@ function UI_OverallRankingListItem:refresh()
 		vars['pvpTierNode']:setVisible(true)
 
 		local tier = self.m_tRankInfo['tier']
-		local icon = ColosseumUserInfo:makeTierIcon(tier, 'small')
+		local icon = StructUserInfoColosseum():makeTierIcon(tier, 'small')
 		vars['pvpTierNode']:addChild(icon)
 	end
 end

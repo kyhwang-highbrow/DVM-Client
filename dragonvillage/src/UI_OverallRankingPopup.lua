@@ -117,7 +117,7 @@ function UI_OverallRankingPopup:refresh()
 			vars['pvpTierNode']:removeAllChildren()
 
 			local tier = t_my_rank['tier']
-			local icon = ColosseumUserInfo:makeTierIcon(tier, 'small')
+			local icon = StructUserInfoColosseum():makeTierIcon(tier, 'small')
 			vars['pvpTierNode']:addChild(icon)
 		else
 			vars['scoreLabel'].m_label:runAction(cc.MoveTo:create(COMMON_UI_ACTION_TIME, cc.p(-100, 0)))
