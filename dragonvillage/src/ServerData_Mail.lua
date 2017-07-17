@@ -20,7 +20,7 @@ end
 -------------------------------------
 -- function getMailCategoryList
 -- @brief 메일 범주 리스트 반환 (UI와 공유)
--------------------------------------150
+-------------------------------------
 function ServerData_Mail:getMailCategoryList()
 	return self.m_lCategory
 end

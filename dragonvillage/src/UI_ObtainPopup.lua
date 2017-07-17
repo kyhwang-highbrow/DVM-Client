@@ -121,7 +121,6 @@ function UI_ObtainPopup:makeObtainTableView()
     table_view:setCellUIClass(create_func, nil)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(self.m_lItemList)
-    table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
 end
 
 -------------------------------------

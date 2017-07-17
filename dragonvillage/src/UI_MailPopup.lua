@@ -86,6 +86,9 @@ function UI_MailPopup:refresh(tab)
     
     -- 현재 탭의 메일이 없다면 이미지 출력
     vars['emptySprite']:setVisible(self.m_mTableView[tab]:getItemCount() == 0)
+    
+    -- 아이템 탭은 모두받기 불가능
+    vars['rewardAllBtn']:setVisible(tab ~= 'item')
 end
 
 -------------------------------------
@@ -119,7 +122,7 @@ function UI_MailPopup:makeMailTableView(tab, node)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(1160, 108)
+    table_view.m_defaultCellSize = cc.size(1160, 115)
     table_view:setCellUIClass(UI_MailListItem, create_cb_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(t_item_list)
@@ -145,6 +148,7 @@ function UI_MailPopup:click_renewBtn()
 				table_view:setItemList(t_item_list)
 				g_mailData:sortMailList(table_view.m_itemList)
 			end
+            self:refresh()
 		end
 		g_mailData:request_mailList(cb_func)
 		self.m_preRenewTime = Timer:getServerTime()
@@ -165,7 +169,7 @@ function UI_MailPopup:click_rewardBtn(struct_mail)
         -- 메일 삭제
     	self.m_mTableView[self.m_currTab]:delItem(struct_mail:getMid())
         -- 우편함 갱신
-        self:refresh(self.m_currTab)
+        self:refresh()
         -- 더티 처리
         self.m_dirty = true
     end
@@ -189,7 +193,7 @@ end
 -- function click_rewardAllBtn
 -- @brief 확정권을 제외한 모든 보상 수령
 -------------------------------------
-function UI_MailPopup:click_rewardAllBtn()
+function UI_MailPopup:click_rewardAllBtn()    
 	-- 우편이 없다면 탈출
 	local possible = g_mailData:canReadAll(self.m_currTab)
 	if (not possible) then 
@@ -208,7 +212,8 @@ function UI_MailPopup:click_rewardAllBtn()
 				self.m_mTableView[self.m_currTab]:delItem(mail_id)
 			end
             
-            self:refresh(self.m_currTab)
+            -- 우편함 갱신
+            self:refresh()
 
             -- 노티 정보를 갱신하기 위해서 호출
             g_highlightData:setLastUpdateTime()
