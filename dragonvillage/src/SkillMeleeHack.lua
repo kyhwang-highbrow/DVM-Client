@@ -53,7 +53,7 @@ end
 function SkillMeleeHack:update(dt)
     local char = self.m_owner
 
-    if char.m_bDead then
+    if (char:isDead()) then
         self:changeState('dying')
     end
 

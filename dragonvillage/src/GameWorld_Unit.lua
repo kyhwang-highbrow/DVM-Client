@@ -277,9 +277,7 @@ end
 -------------------------------------
 function GameWorld:removeHeroDebuffs()
     for i, hero in ipairs(self:getDragonList()) do
-        if (not hero.m_bDead) then
-            StatusEffectHelper:releaseStatusEffectDebuff(hero)
-        end
+        StatusEffectHelper:releaseStatusEffectDebuff(hero)
     end
 end
 
@@ -288,9 +286,7 @@ end
 -------------------------------------
 function GameWorld:removeEnemyDebuffs()
     for i, enemy in ipairs(self:getEnemyList()) do
-        if (not enemy.m_bDead) then
-            StatusEffectHelper:releaseStatusEffectDebuff(enemy)
-        end
+        StatusEffectHelper:releaseStatusEffectDebuff(enemy)
     end
 end
 
@@ -333,7 +329,6 @@ end
 -------------------------------------
 function GameWorld:bindHero(hero)
     hero:addListener('avoid_rate', self)
-    hero:addListener('dead', self.m_gameDragonSkill)
     hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_heroMana)
@@ -400,7 +395,6 @@ function GameWorld:bindEnemy(enemy)
     enemy:addListener('avoid_rate', self)
 
     -- 죽음 콜백 등록
-    enemy:addListener('dead', self.m_gameDragonSkill)
     enemy:addListener('character_dead', self)
     enemy:addListener('character_dead', self.m_gameState)
     if self.m_dropItemMgr then
@@ -457,9 +451,7 @@ end
 -------------------------------------
 function GameWorld:removeAllHero()
     for i,v in pairs(self:getDragonList()) do
-        if (not v.m_bDead) then
-            v:setDead()
-            v:setEnableBody(false)
+        if (not v:isDead()) then
             v:changeState('dying')
 
             local effect = self:addInstantEffect('res/effect/tamer_magic_1/tamer_magic_1.vrp', 'bomb', v.pos['x'], v.pos['y'])
@@ -479,9 +471,7 @@ end
 function GameWorld:removeAllEnemy()
     for i, v in pairs(self:getEnemyList()) do
 		cclog('REMOVE ALL ' .. v:getName())
-        if (not v.m_bDead) then
-            v:setDead()
-            v:setEnableBody(false)
+        if (not v:isDead()) then
             v:changeState('dying')
         end
     end

@@ -273,7 +273,7 @@ function UI_IngameDragonPanelItem:setPossibleControl(possible)
     self.m_bPossibleControl = possible
 
     if possible then
-        if (self.m_dragon.m_bDead == false) and (100 <= self.m_skillGaugePercentage) then
+        if (not self.m_dragon:isDead() and 100 <= self.m_skillGaugePercentage) then
             vars['skillVisual']:setVisible(true)
             vars['skillVisual2']:setVisible(true)
         end

@@ -488,6 +488,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillRapidShot_AddAttack.lua" />
     <None Include="..\src\SkillRush.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />
+    <None Include="..\src\SkillSuicideExplosion.lua" />
     <None Include="..\src\SkillTargetFinder.lua" />
     <None Include="..\src\SkillTransform.lua" />
     <None Include="..\src\SkillVoltesX.lua" />

@@ -147,7 +147,6 @@ end
 -- function bindEnemy
 -------------------------------------
 function GameWorldColosseum:bindEnemy(enemy)
-    enemy:addListener('dead', self.m_gameDragonSkill)
     enemy:addListener('dragon_time_skill', self.m_gameDragonSkill)
     enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
     enemy:addListener('dragon_active_skill', self.m_enemyMana)
@@ -194,7 +193,7 @@ function GameWorldColosseum:changeEnemyHomePosByCamera(offsetX, offsetY, move_ti
 
     -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
     for i, v in ipairs(self:getEnemyList()) do
-        if (v.m_bDead == false) then
+        if (not v:isDead()) then
             -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
             local homePosX = v.m_orgHomePosX + cameraHomePosX + offsetX
             local homePosY = v.m_orgHomePosY + cameraHomePosY + offsetY

@@ -276,7 +276,7 @@ function FormationMgr:getNearChar(char, char_list)
     local near_dist = nil
 
     for i,v in ipairs(char_list) do
-        if (v.m_bDead == false) then
+        if (not v:isDead()) then
             local dist = getDistance(char.pos.x, char.pos.y, v.pos.x, v.pos.y)
 
             if (not near_dist) or (dist < near_dist) then
@@ -428,7 +428,7 @@ end
 function FormationMgr:getRandomHealTarget()
     local char_list = {}
     for i,v in pairs(self.m_globalCharList) do
-        if (not v.m_bDead) and (v.m_hp < v.m_maxHp) then
+        if (not v:isDead()) and (v.m_hp < v.m_maxHp) then
             table.insert(char_list, v)
         end
     end

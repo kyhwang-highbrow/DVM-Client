@@ -10,7 +10,7 @@ StatusEffectHelper = {}
 -------------------------------------
 function StatusEffectHelper:statusEffectCheck_onHit(activity_carrier, defender)
     -- 피격자가 사망했을 경우 리턴
-    if (defender.m_bDead == true) then
+    if (defender:isDead()) then
         return
     end
 
@@ -77,7 +77,33 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
 
 	-- 별도의 계산된 타겟 리스트 사용
 	elseif (target_type) then
-		local l_target = caster:getTargetListByType(target_type, target_count)
+        local t_status_effect = TableStatusEffect():get(type)
+        local status_effect_group = t_status_effect['type']
+        local l_target = {}
+
+        -- 부활의 경우는 죽은 대상들로부터 타겟 리스트를 설정
+        if (status_effect_group == 'resurrect') then
+            local target_count = target_count or 1
+
+            for i = 1, target_count do
+                local target_char
+                if (caster.m_bLeftFormation) then
+                    target_char = caster.m_world.m_leftNonparticipants[i]
+                else
+                    target_char = caster.m_world.m_rightNonparticipants[i]
+                end
+
+                if (target_char) then
+                    table.insert(l_target, target_char)
+                else
+                    break
+                end
+            end
+        else
+            l_target = caster:getTargetListByType(target_type, target_count)
+
+        end
+                
         for _, target in ipairs(l_target) do
 			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id)) then
                 table.insert(l_ret, target)
@@ -112,8 +138,8 @@ end
 -- @brief 별도의 타겟을 받아와서 외부에서 상태효과 구조체 생성하여 상태효과 시전
 -------------------------------------
 function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_status_effect_struct, cb_invoke, skill_id)
-    -- 피격자가 사망했을 경우 리턴
-    if (caster.m_bDead) then return end
+    -- 시전자가 사망했을 경우 리턴
+    if (caster:isDead()) then return end
 
     local cb_invoke = cb_invoke or function() end
 
@@ -228,15 +254,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     ---------- 부활 ------------
     elseif (status_effect_group == 'resurrect') then
         status_effect = StatusEffect_Resurrect(res)
-        
-        -- 대상을 부활 대상으로 변경
-        if (caster.m_bLeftFormation) then
-            target_char = caster.m_world.m_leftNonparticipants[1]
-        else
-            target_char = caster.m_world.m_rightNonparticipants[1]
-        end
-
-        if (not target_char) then return end
 
     ----------- 마나 관련 ----------------------
     elseif (status_effect_group == 'add_mana') then
@@ -387,9 +404,6 @@ function StatusEffectHelper:releaseStatusEffectByType(char, status_effect_type)
     -- 타입 있는지 검사
     if (not status_effect_type) or (status_effect_type == '') then return end
 
-	-- 피격자가 사망했을 경우 리턴
-    if (char.m_bDead == true) then return end
-
 	-- 특정 타입 해제
 	-- @TODO 타입명 말고 phys_key로 해제하려면... 해제 주체가 status effect 에 있어야 하는데 아닌 경우도 있어 임시로 처리
 	for type, tar_status_effect in pairs(char:getStatusEffectList()) do
@@ -406,9 +420,6 @@ end
 -- @return 해제 여부 boolean
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt)
-	-- 피격자가 사망했을 경우 리턴
-    if (char.m_bDead) then return end
-
 	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
 
@@ -434,9 +445,6 @@ end
 -- @return 해제 여부 boolean
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt)
-	-- 피격자가 사망했을 경우 리턴
-    if (char.m_bDead) then return end
-
 	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
 
@@ -461,9 +469,6 @@ end
 -- @brief 모든 상태효과 해제
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectAll(char)
-	-- 피격자가 사망했을 경우 리턴
-    if (char.m_bDead) then return end
-
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
         status_effect:changeState('end')

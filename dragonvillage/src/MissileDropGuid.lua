@@ -89,7 +89,7 @@ function MissileDropGuid.st_move_drop(owner, dt)
     elseif owner.m_aiParam > 0 then
         local target = owner.m_world:findTarget('hero', owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
 
-        if target and (not target.m_bDead) then
+        if (target and not target:isDead()) then
             local curr_degree = owner.movement_theta
             local dest_degree = getDegree(owner.pos.x, owner.pos.y, target.pos.x, target.pos.y)
             local new_degree, gap = getRotationDegree(curr_degree, dest_degree, dt * owner.m_aiParam)
@@ -139,14 +139,14 @@ function MissileDropGuid.st_move_drop_hero(owner, dt)
         owner.m_tergatTimer = owner.m_tergatTimer + dt
 
         -- 타겟이 없거나, 타겟이 죽었거나, 타겟 시간이 초과되었을 경우
-        if (owner.m_target == nil) or (owner.m_target.m_bDead) or (owner.m_tergatTimer >= 0.3) then
+        if (owner.m_target == nil) or (owner.m_target:isDead()) or (owner.m_tergatTimer >= 0.3) then
             --------------------------------------------------------------
             local enemy = nil
             local boss_enemy = nil
             local distance = nil
             for i,v in pairs(GameMgr.m_rightParticipants) do
                 if not isInstanceOf(v, Monster) then
-                elseif v.m_bDead then
+                elseif v:isDead() then
                 elseif checkDefaultRange(v.pos.x, v.pos.y) then
                 else
                     -- 보스 확인

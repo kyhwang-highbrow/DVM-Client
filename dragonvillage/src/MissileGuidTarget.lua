@@ -50,7 +50,7 @@ function MissileGuidTarget.st_move_hero(owner, dt)
         owner.m_aiParam = 240
 
 		-- 한번 지정된 곳으로만 이동... 사실상 Guide 기능은 없고 예쁜 곡선 운동을 함
-		if owner.m_target and (owner.m_target.m_bDead == false) then
+		if (owner.m_target and not owner.m_target:isDead()) then
             owner.m_targetPosX = owner.m_target.pos.x + owner.m_target.body.x
             owner.m_targetPosY = owner.m_target.pos.y + owner.m_target.body.y
         end

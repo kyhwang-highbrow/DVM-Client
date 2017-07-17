@@ -233,27 +233,10 @@ function Character:setDead()
     if (self.m_bDead) then return false end
     self.m_bDead = true
 
+    self:setEnableBody(false)
     self:removeTargetEffect()
 
     self:dispatch('character_dead', {}, self)
-
-    -- 사망 처리 시 StateDelegate Kill!
-    self:killStateDelegate()
-
-	-- 사망 사운드
-	if (self.m_charType == 'dragon') then
-		if (self.m_charTable['c_appearance'] == 2) then
-			SoundMgr:playEffect('EFX', 'efx_dragon_die_cute')
-		else
-			SoundMgr:playEffect('EFX', 'efx_dragon_die_normal')
-		end
-	elseif (self.m_charType == 'monster') then
-		if (self:isBoss()) then
-			SoundMgr:playEffect('EFX', 'efx_midboss_die')
-		else
-			SoundMgr:playEffect('EFX', 'efx_monster_die')
-		end
-	end
 
     return true
 end
@@ -609,21 +592,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
     if (attack_type == 'active') then
-        --[[
-        -- 스킬 캔슬은 현재는 사용하지 않음
-        if self:cancelSkill() then
-            -- 적 스킬 공격 캔슬 성공시
-            if attacker_char then
-                local percentage = 0
-                if self.m_castingMarkGauge then
-                    percentage = self.m_castingMarkGauge:getPercentage()
-                end
-				-- @EVENT
-                self:dispatch('character_casting_cancel', {}, attacker_char, percentage)
-            end
-        end
-        ]]--
-
         -- 효과음
         if (is_critical) then
             SoundMgr:playEffect('EFX', 'efx_damage_critical')
@@ -657,6 +625,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         -- 공격자 반사 데미지 처리
         if (attack_type == 'active') then 
             local reflex_skill = self:getStat('reflex_skill')
+            reflex_skill = 99900
             if (reflex_skill > 0) then
                 local reflex_damage = damage * (reflex_skill / 100)
 			    attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
@@ -734,7 +703,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             if (attack_type == 'active') then
                 b = (self.m_hp <= 0)
             else
-                b = self.m_bDead
+                b = self:isDead()
 		    end
 
             if (b) then
@@ -771,9 +740,7 @@ end
 -- function setDamage
 -------------------------------------
 function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-    if (self.m_bDead) then
-        return
-    end
+    if (self.m_bDead) then return end
 
     local t_info = t_info or EMPTY_TABLE
     local dir = 0
@@ -807,36 +774,23 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 		self.m_charLogRecorder:recordLog('be_damaged', damage)
 	end
 
-    self:dispatch('damaged', {['damage']=damage, ['i_x']=i_x, ['i_y']=i_y})
+    self:dispatch('damaged', { ['damage']=damage, ['i_x']=i_x, ['i_y']=i_y, ['will_die']=(not self.m_isImmortal and self.m_hp <= 0) }, self)
 
     -- 죽음 체크
-    if (self.m_hp <= 0) and (not self.m_bDead) and (not self.m_isImmortal) then
-        -- Event Carrier 세팅
-	    local t_event = clone(EVENT_DEAD_CARRIER)
-        t_event['is_dead'] = true
-        t_event['hp'] = self.m_hp
+    if (self.m_hp <= 0 and not self:isDead() and not self.m_isImmortal) then
+        self:changeState('dying')
 
-	    self:dispatch('dead', t_event, self)
+        local attack_type = t_info['attack_type']
 
-        if (not t_event['is_dead']) then
-            self:setHp(t_event['hp'])
+        -- 연출 중일 경우 죽음 방지하는 쪽에서 is_dead 변경될 수 있음 is_dead 안이 아닌 밖에서 기록해줘야함
+        -- @LOG : 보스 막타 타입
+		if (self:isBoss()) then
+			self.m_world.m_logRecorder:recordLog('finish_atk', attack_type)
+		end
 
-        else
-            self:setDead()
-            self:changeState('dying')
-
-            local attack_type = t_info['attack_type']
-
-            -- 연출 중일 경우 죽음 방지하는 쪽에서 is_dead 변경될 수 있음 is_dead 안이 아닌 밖에서 기록해줘야함
-            -- @LOG : 보스 막타 타입
-		    if (self:isBoss()) then
-			    self.m_world.m_logRecorder:recordLog('finish_atk', attack_type)
-		    end
-
-            -- @LOG : 드래그 스킬로 적 처치
-            if (attack_type == 'active') then
-                self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
-            end    
+        -- @LOG : 드래그 스킬로 적 처치
+        if (attack_type == 'active') then
+            self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
         end
     end
 
@@ -1170,7 +1124,7 @@ end
 -------------------------------------
 function Character:setHp(hp, bFixed)
 	-- 죽었을시 탈출
-	if (self.m_bDead) then return end
+	if (self:isDead()) then return end
     if (not bFixed and self.m_hp == 0) then return end
 
     self.m_hp = math_min(hp, self.m_maxHp)
@@ -1412,7 +1366,7 @@ function Character:update(dt)
         end
     end
 
-    if (not self.m_bDead and self.m_world.m_gameState:isFight()) then
+    if (not self:isDead() and self.m_world.m_gameState:isFight()) then
         -- 로밍
         if (self.m_bRoam) then
 			self:updateRoaming(dt)
@@ -1486,7 +1440,7 @@ end
 -- function updateBasicSkillTimer
 -------------------------------------
 function Character:updateBasicSkillTimer(dt)
-    if (self.m_bDead) then
+    if (self:isDead()) then
 		return
 	end
 
@@ -1523,7 +1477,7 @@ end
 function Character:isPossibleMove(order)
     local order = order or 0
 
-    if (self.m_bDead) then
+    if (self:isDead()) then
         return false
     end
 
@@ -2344,6 +2298,13 @@ end
 function Character:isBoss()
 	local rarity = self:getRarity()
     return isExistValue(rarity, 'elite', 'subboss', 'boss') 
+end
+
+-------------------------------------
+-- function isDead
+-------------------------------------
+function Character:isDead()
+    return (self.m_bDead or self.m_state == 'dying')
 end
 
 -------------------------------------

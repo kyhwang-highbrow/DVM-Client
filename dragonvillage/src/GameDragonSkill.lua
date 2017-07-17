@@ -19,10 +19,8 @@ GameDragonSkill = class(PARENT, {
                 
         -- 스킬을 사용할 드래곤 정보
         m_dragon = 'Dragon',
-
-        -- 연출 끝나고 죽어야할 유닛 리스트
-        m_lUnitListForDead = 'Table',
-                        
+        m_bReservedDie = 'boolean',     -- 연출 종료후 드래곤을 죽여야하는지 여부(반사데미지 등)
+                
         m_skillOpeningCutBg = 'Animator',
         m_skillOpeningCutTop = 'Animator',
 
@@ -49,8 +47,8 @@ function GameDragonSkill:init(world)
     self.m_state = STATE.WAIT
 
     self.m_dragon = nil
-    self.m_lUnitListForDead = {}
-        
+    self.m_bReservedDie = false
+            
     self:initState()
     self:initUI()
 end
@@ -564,17 +562,18 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
             self:changeState(STATE.PLAY_TIME_SKILL)
         end
 
-    elseif (event_name == 'dead') then
+    elseif (event_name == 'damaged') then
         local arg = {...}
-        local unit = arg[1]
+        local dragon = arg[1]
+        local will_die = t_event['will_die']
 
+        -- 연출 중인 드래곤이 데미지를 입고 죽었을 경우(반사 데미지 등)
+        -- 강제로 죽음 막음 처리 후 연출 종료시 죽도록 처리
         if (self:isPlaying()) then
-            -- 연출 중일 경우 죽음 방지
-            t_event['is_dead'] = false
-		    t_event['hp'] = 0
-            
-            -- 연출 후 죽여야할 유닛 리스트에 추가
-            table.insert(self.m_lUnitListForDead, unit)
+            if (will_die and dragon == self.m_dragon) then
+                self.m_dragon:setImmortal(true)
+                self.m_bReservedDie = true
+            end
         end
     end
 end
@@ -597,26 +596,32 @@ function GameDragonSkill:setFocusingDragon(dragon)
     end
 
     self.m_dragon = dragon
+    self.m_bReservedDie = false
+
+    self.m_dragon:addListener('damaged', self)
 end
 
 -------------------------------------
 -- function releaseFocusingDragon
 -------------------------------------
 function GameDragonSkill:releaseFocusingDragon()
+    cclog('releaseFocusingDragon')
+
     if (self.m_dragon) then
-        if (self.m_dragon.m_hp > 0 and self.m_dragon.m_state ~= 'delegate') then
+        self.m_dragon:removeListener('damaged', self)
+
+        if (self.m_bReservedDie) then
+            self.m_dragon:setImmortal(false)
+            self.m_dragon:changeState('dying')
+
+        elseif (self.m_dragon.m_state ~= 'delegate') then
             self.m_dragon:changeState('attackDelay')
+
         end
     end
-
-    -- 종료시 사망처리
-    for i, unit in ipairs(self.m_lUnitListForDead) do
-        unit:setDead()
-        unit:changeState('dying')
-    end
-
+    
     self.m_dragon = nil
-    self.m_lUnitListForDead = {}
+    self.m_bReservedDie = false
 end
 
 -------------------------------------

@@ -42,7 +42,7 @@ function GameState_AncientTower.update_wave_intermission(self, dt)
         
         -- 변경된 카메라 위치에 맞게 아군 홈 위치 변경 및 이동
         for i, v in ipairs(world:getDragonList()) do
-            if (v.m_bDead == false) then
+            if (not v:isDead()) then
                 v:changeStateWithCheckHomePos('idle')
             end
         end

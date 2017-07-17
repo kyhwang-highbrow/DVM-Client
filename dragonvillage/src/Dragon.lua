@@ -185,7 +185,7 @@ end
 -- function doAppear
 -------------------------------------
 function Dragon:doAppear()
-    if (self.m_bDead) then return end
+    if (self:isDead()) then return end
 
     self.m_rootNode:setVisible(true)
     self.m_hpNode:setVisible(true)
@@ -432,7 +432,7 @@ end
 -- @brief 초당 드래그 게이지 증가
 -------------------------------------
 function Dragon:updateActiveSkillCool(dt)
-	if (self.m_bDead) then return end
+	if (self:isDead()) then return end
     
     -- 드래그 스킬 쿨타임 갱신
     if (self.m_activeSkillCoolTimer > 0) then
@@ -487,7 +487,7 @@ end
 -- function isPossibleSkill
 -------------------------------------
 function Dragon:isPossibleSkill()
-    if (self.m_bDead) then
+    if (self:isDead()) then
 		return false
 	end
 

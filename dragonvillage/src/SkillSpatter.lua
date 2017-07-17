@@ -151,7 +151,7 @@ function SkillSpatter:getNextTarget()
 	local target_collision = self.m_lTargetCollisions[self.m_targetIdx]
 	-- 타겟이 없거나 죽었을 시 다음 적절한 타겟을 찾기 위해 타겟리스트를 순서대로 한번 순회
 	local idx = 0
-	while (not target_char) or (target_char.m_bDead) do
+	while (not target_char or target_char:isDead()) do
 		idx = idx + 1
 		self.m_targetIdx = self.m_targetIdx + 1
 		target_char = self.m_lTargetChar[self.m_targetIdx]

@@ -79,7 +79,7 @@ function SkillHealAround.st_idle(owner, dt)
     end
 
     -- 종료
-    if ((not owner.m_owner) or owner.m_owner.m_bDead) or (owner.m_stateTimer >= owner.m_limitTime) then
+    if ((not owner.m_owner) or owner.m_owner:isDead()) or (owner.m_stateTimer >= owner.m_limitTime) then
         owner:changeState('dying')
         return
     end

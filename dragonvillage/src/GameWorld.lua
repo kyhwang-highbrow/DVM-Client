@@ -736,7 +736,7 @@ function GameWorld:findTarget(type, x, y, l_remove)
     end
 
     for i,v in pairs(unitList) do
-        if v.m_bDead then
+        if v:isDead() then
         elseif l_remove and table.find(l_remove, v.phys_idx) then
         else
             local dist = getDistance(x, y, v.pos.x + v.body.x, v.pos.y + v.body.y)
@@ -1248,7 +1248,9 @@ function GameWorld:onEvent(event_name, t_event, ...)
         for _, fellow in pairs(unit:getFellowList(), unit) do
 
             fellow:dispatch('ally_dead', t_event, unit)
-            if (unit ~= fellow) then
+            if (unit == fellow) then
+                fellow:dispatch('dead', t_event, unit)
+            else
                 fellow:dispatch('teammate_dead', t_event, unit)
             end
         end

@@ -84,7 +84,7 @@ end
 -- function doMagicAttack
 -------------------------------------
 function Monster_WorldOrderMachine:doMagicAttack()
-	if (self.m_bDead) then return end 
+	if (self:isDead()) then return end 
 
 	self.m_activityCarrier = self:makeAttackDamageInstance()
 

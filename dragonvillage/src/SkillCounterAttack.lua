@@ -76,7 +76,7 @@ end
 -------------------------------------
 function SkillCounterAttack.st_idle(owner, dt)
     -- 종료
-    if (not owner.m_owner) or owner.m_owner.m_bDead then
+    if (not owner.m_owner or owner.m_owner:isDead()) then
         owner:changeState('dying')
 		if (owner.m_effect) then 
 			owner.m_effect:release()

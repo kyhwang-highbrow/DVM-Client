@@ -598,7 +598,7 @@ function IDragonSkillManager:getBasicTimeAttackSkillID()
 
     if (table.count(self.m_lSkillIndivisualInfo['indie_time']) > 0) then
         for i,v in pairs(self.m_lSkillIndivisualInfo['indie_time']) do
-            if (v:isEndCoolTime() and v.m_timer == 0) then
+            if (v:isEndCoolTime()) then
                 v.m_timer = v.m_tSkill['chance_value']
                 return v.m_skillID
             end

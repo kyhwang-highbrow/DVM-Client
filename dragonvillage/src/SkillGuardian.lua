@@ -124,12 +124,12 @@ function SkillGuardian:checkDurability(dt)
     
     local dead_target = 0
     for _, v in pairs(self.m_lTargetChar) do
-        if (v.m_bDead) then
+        if (v:isDead()) then
             self:playDisappearEffect(v)
             dead_target = dead_target + 1
         end
     end
-	if (self.m_owner.m_bDead) or (dead_target == #self.m_lTargetChar) then
+	if (self.m_owner:isDead()) or (dead_target == #self.m_lTargetChar) then
         self:changeState('end')
     end
     self.m_duration = self.m_duration - dt

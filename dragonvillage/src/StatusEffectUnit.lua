@@ -63,13 +63,13 @@ function StatusEffectUnit:update(dt, modified_dt)
         -- 리더 스킬이 아닌 경우
         if (not self.m_bLeaderSkill) then
             -- 시전자가 죽었는지 체크
-            if (self.m_caster and self.m_caster.m_bDead) then
+            if (self.m_caster and self.m_caster:isDead()) then
                 return true
             end
         end
     else
         -- 대상자가 죽었는지 체크
-        if (self.m_owner and self.m_owner.m_bDead) then
+        if (self.m_owner and self.m_owner:isDead()) then
             return true
         end
 

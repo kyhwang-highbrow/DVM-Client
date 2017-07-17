@@ -42,7 +42,7 @@ function MissileFix.st_move(owner, dt)
 
     elseif (owner.m_stateTimer >= 0.15) and (owner.m_aiParam > 0) then
 
-        if owner.m_target and (owner.m_target.m_bDead == false) then
+        if (owner.m_target and not owner.m_target:isDead()) then
             owner.m_targetPosX, owner.m_targetPosY = owner.m_target:getCenterPos()
 
             local curr_degree = owner.movement_theta
@@ -76,7 +76,7 @@ end
 function MissileFix.fixAttack(owner)
     local target = owner.m_target
 
-    if (not target) or (target.m_bDead == true) then
+    if (not target or target:isDead()) then
         return
     end 
 

@@ -22,10 +22,7 @@ Tamer = class(PARENT, {
 
         m_lSkill = 'list',
         
-		m_bActiveSKillUsable = 'boolean',
-		m_bEventSKillUsable = 'boolean',
-
-        m_roamTimer = '',
+		m_roamTimer = '',
         m_baseAnimatorScale = '',
 
         m_targetItem = 'DropItem',
@@ -46,10 +43,7 @@ function Tamer:init(file_name, body, ...)
 
     self.m_lSkill = {}
     
-	self.m_bActiveSKillUsable = true
-	self.m_bEventSKillUsable = true
-
-    self.m_roamTimer = 0
+	self.m_roamTimer = 0
     self.m_baseAnimatorScale = 0.5
 
     self.m_targetItem = nil

@@ -178,7 +178,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:onTouchEnded(touch, event)
     if (self.m_selectHero) then
-        if (self.m_selectHero.m_bDead) then
+        if (self.m_selectHero:isDead()) then
             -- 스킬 사용 주체 대상이 이미 죽었을 경우 취소 처리
             self:clear()
 
@@ -250,7 +250,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:update(dt)
     if (self.m_selectHero) then
-        if (self.m_selectHero.m_bDead) or (not self.m_world:isPossibleControl()) then
+        if (self.m_selectHero:isDead()) or (not self.m_world:isPossibleControl()) then
             self:clear()
             return
         end

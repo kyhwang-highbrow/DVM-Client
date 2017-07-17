@@ -26,7 +26,7 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
         if (self:isBeginningStep()) then
             -- 드래곤들을 숨김
             for i,dragon in ipairs(world:getDragonList()) do
-                if (dragon.m_bDead == false) and (dragon.m_charType == 'dragon') then
+                if (not dragon:isDead()) and (dragon.m_charType == 'dragon') then
                     dragon.m_rootNode:setVisible(false)
                     dragon.m_hpNode:setVisible(false)
                     dragon:changeState('idle')

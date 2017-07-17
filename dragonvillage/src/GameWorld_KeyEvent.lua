@@ -203,12 +203,8 @@ end
 -------------------------------------
 function GameWorld:kill_boss()
     for i, v in ipairs(self:getEnemyList()) do
-        if not v.m_bDead then
-            if v:isBoss() then
-                v:setDead()
-                v:setEnableBody(false)
-                v:changeState('dying')
-            end
+        if (not v:isDead() and v:isBoss()) then
+            v:changeState('dying')
         end
     end
 end
@@ -231,7 +227,7 @@ end
 -------------------------------------
 function GameWorld:print_boss_pattern()
     for i, v in ipairs(self:getEnemyList()) do
-        if not v.m_bDead then
+        if (not v:isDead()) then
             if (isInstanceOf(v, MonsterLua_Boss)) then
                 v:printCurBossPatternList()
             end
@@ -366,7 +362,7 @@ end
 -------------------------------------
 function GameWorld:resurrect_dragon(hp_rate)
     local died_hero = self.m_leftNonparticipants[1]
-    if (died_hero) then return end
+    if (not died_hero) then return end
 
     local hp_rate = hp_rate or 1
 
@@ -381,15 +377,9 @@ end
 -------------------------------------
 function GameWorld:kill_one_dragon(dragon)
     for i, v in ipairs(self:getDragonList()) do
-        if ((not v.m_bDead)) then
-            if (not dragon) then
+        if (not v:isDead()) then
             v:setDamage(nil, v, v.pos.x, v.pos.y, 999999)
             break
-            else 
-                if (dragon == v) then
-                    v:setDamage(nil, v, v.pos.x, v.pos.y, 999999)
-                end
-            end
         end
     end
 end

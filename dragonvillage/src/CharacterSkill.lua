@@ -9,6 +9,15 @@ function Character:doSkill(skill_id, x, y, t_data)
 
     local attr = self:getAttribute()
 	local t_skill = self:getSkillTable(skill_id)
+
+    -- 스킬 사용 불가 상태
+    if (self.m_isSilence) then
+		return false
+	end
+
+    if (isExistValue(self.m_state, 'delegate', 'stun')) then
+        return false
+    end
     
 	-- 스킬 테이블 체크
     if (not t_skill) then
@@ -570,7 +579,7 @@ end
 -- @brief 진행 중인 스킬을 멈춰야하는지 여부
 -------------------------------------
 function Character:checkToStopSkill()
-    if (self.m_bDead) then
+    if (self:isDead()) then
 		return true
 	end
 

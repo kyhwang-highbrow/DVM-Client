@@ -160,10 +160,10 @@ function GameState_Colosseum.update_success(self, dt)
         -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)
 
-        world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
+        --world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
 
         for i, hero in ipairs(world:getDragonList()) do
-            if (hero.m_bDead == false) then
+            if (not hero:isDead()) then
                 hero:killStateDelegate()
                 hero.m_animator:changeAni('pose_1', true)
             end
@@ -219,7 +219,7 @@ function GameState_Colosseum.update_failure(self, dt)
             local b = true
 
             for _, enemy in pairs(world:getEnemyList()) do
-                if (not enemy.m_bDead and enemy.m_state ~= 'wait') then
+                if (not enemy:isDead() and enemy.m_state ~= 'wait') then
                     b = false
                 end
             end
@@ -232,7 +232,7 @@ function GameState_Colosseum.update_failure(self, dt)
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
             for i,enemy in ipairs(world:getEnemyList()) do
-                if (enemy.m_bDead == false) then
+                if (not enemy:isDead()) then
                     enemy:killStateDelegate()
                     enemy.m_animator:changeAni('pose_1', true)
                 end
@@ -259,7 +259,7 @@ end
 -------------------------------------
 function GameState_Colosseum:disappearAllDragon()
     local disappearDragon = function(dragon)
-        if (dragon.m_bDead == false) then
+        if (not dragon:isDead()) then
             dragon.m_rootNode:setVisible(false)
             dragon.m_hpNode:setVisible(false)
             dragon:changeState('idle')

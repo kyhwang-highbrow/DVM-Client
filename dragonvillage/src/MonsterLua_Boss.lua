@@ -144,13 +144,30 @@ end
 -------------------------------------
 function MonsterLua_Boss.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
+        owner:setSpeed(0)
+
+        -- 사망 처리 시 StateDelegate Kill!
+        self:killStateDelegate()
+
         -- 효과음
         if owner.m_tEffectSound['die'] then
             SoundMgr:playEffect('VOICE', owner.m_tEffectSound['die'])
         end
-    end
 
-    PARENT.st_dying(owner, dt)
+        local action = cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.CallFunc:create(function()
+            owner:changeState('dead')
+        end))
+        owner.m_animator:runAction(action)
+        owner.m_animator:runAction(cc.RotateTo:create(0.5, -45))
+
+        if owner.m_hpNode then
+            owner.m_hpNode:setVisible(false)
+        end
+
+        if owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
+        end
+    end
 end
 
 -------------------------------------

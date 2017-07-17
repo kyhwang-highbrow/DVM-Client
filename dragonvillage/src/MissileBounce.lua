@@ -69,7 +69,7 @@ function MissileBounce.st_move(owner, dt)
 
 
     -- 타겟의 위치로 계속 쫓아감 (없거나 죽을 경우 직선)
-    if owner.m_target and (owner.m_target.m_bDead == false) then
+    if (owner.m_target and not owner.m_target:isDead()) then
         owner.m_targetPosX = owner.m_target.pos.x + owner.m_target.body.x
         owner.m_targetPosY = owner.m_target.pos.y + owner.m_target.body.y
 

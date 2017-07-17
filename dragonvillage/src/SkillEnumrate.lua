@@ -242,7 +242,7 @@ end
 -------------------------------------
 function SkillEnumrate:getNextTarget(idx)
 	local target_char = self.m_skillTargetList[idx]
-	if (not target_char) or (target_char.m_bDead) then
+	if (not target_char or target_char:isDead()) then
 		local l_target = self:getProperTargetList()
         target_char = l_target[1]
 	end

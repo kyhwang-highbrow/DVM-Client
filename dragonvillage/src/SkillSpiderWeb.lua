@@ -96,7 +96,7 @@ end
 function SkillSpiderWeb:update(dt)
 	if (self.m_state ~= 'dying') then
 		-- 타겟 사망 체크
-		if (self.m_targetChar.m_bDead) then
+		if (self.m_targetChar:isDead()) then
 			self:changeState('dying')
 		end
 	end

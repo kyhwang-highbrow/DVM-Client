@@ -137,7 +137,7 @@ end
 -- function update
 -------------------------------------
 function SkillCharge:update(dt)
-    if (self.m_owner.m_bDead) then
+    if (self.m_owner:isDead()) then
         self:changeState('dying')
 	elseif (self.m_state == 'charge') then
 		if (self.m_stateTimer > self.m_preCollisionTime + 0.3) then

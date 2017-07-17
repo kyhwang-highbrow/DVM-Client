@@ -28,6 +28,5 @@ function StatusEffect_Zombie:onEnd()
     self.m_owner:setImmortal(false)
     
     -- 종료시 사망처리
-    self.m_owner:setDead()
     self.m_owner:changeState('dying')
 end

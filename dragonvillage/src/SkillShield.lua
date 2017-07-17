@@ -50,7 +50,7 @@ end
 -------------------------------------
 function SkillShield.st_idle(owner, dt)
     -- 종료
-    if (not owner.m_owner) or owner.m_owner.m_bDead then
+    if (not owner.m_owner or owner.m_owner:isDead()) then
         owner:changeState('dying')
         return
     end

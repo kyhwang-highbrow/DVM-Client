@@ -32,25 +32,31 @@ end
 -------------------------------------
 function Character.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
-		
         owner:setSpeed(0)
-        if (owner.m_bDead == false) then
-            owner:setDead()
-        end
-		
-		if owner.m_bInitAdditionalPhysObject then
-			for phys_obj, _  in pairs(owner.m_lAdditionalPhysObject) do 
-				phys_obj:dispatch('dead', {}, phys_obj)
-				phys_obj:setDead()
-				phys_obj:changeState('dying')
-			end
-		end
 
+        -- 사망 처리 시 StateDelegate Kill!
+        owner:killStateDelegate()
+
+	    -- 사망 사운드
+	    if (owner.m_charType == 'dragon') then
+		    if (owner.m_charTable['c_appearance'] == 2) then
+			    SoundMgr:playEffect('EFX', 'efx_dragon_die_cute')
+		    else
+			    SoundMgr:playEffect('EFX', 'efx_dragon_die_normal')
+		    end
+	    elseif (owner.m_charType == 'monster') then
+		    if (owner:isBoss()) then
+			    SoundMgr:playEffect('EFX', 'efx_midboss_die')
+		    else
+			    SoundMgr:playEffect('EFX', 'efx_monster_die')
+		    end
+	    end
+
+        
         local action = cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.CallFunc:create(function()
             owner:changeState('dead')
         end))
         owner.m_animator:runAction(action)
-
         owner.m_animator:runAction(cc.RotateTo:create(0.5, -45))
 
         if owner.m_hpNode then
@@ -67,6 +73,18 @@ end
 -- function st_dead
 -------------------------------------
 function Character.st_dead(owner, dt)
+    local setDead = function()
+        owner:setDead()
+        		
+		if owner.m_bInitAdditionalPhysObject then
+			for phys_obj, _  in pairs(owner.m_lAdditionalPhysObject) do 
+				phys_obj:dispatch('dead', {}, phys_obj)
+				phys_obj:setDead()
+				phys_obj:changeState('dying')
+			end
+		end
+    end
+
     if (owner.m_bPossibleRevive) then
         if (owner.m_stateTimer == 0) then
             if (owner.m_bLeftFormation) then
@@ -74,8 +92,12 @@ function Character.st_dead(owner, dt)
             else
                 owner.m_world:removeEnemy(owner)
             end
+
+            setDead()
         end
     else
+        setDead()
+
         return true
     end
 end

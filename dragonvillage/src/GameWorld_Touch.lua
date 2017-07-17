@@ -80,7 +80,7 @@ function GameWorld:loopAttackEnemy(enemy, x, y, time)
         return
     end
 
-    if (enemy.m_bDead) then
+    if (enemy:isDead()) then
         return false
     end
 

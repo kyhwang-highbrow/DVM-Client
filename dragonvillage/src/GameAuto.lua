@@ -95,7 +95,7 @@ function GameAuto:proccess_dragon()
         dragon = self.m_lRandomAllyList[1]
     end
 
-    if (dragon and not dragon.m_bDead) then
+    if (dragon and not dragon:isDead()) then
         -- 드래그 스킬
         local skill_id = dragon:getSkillID('active')
         if (skill_id == 0) then
@@ -166,7 +166,7 @@ function GameAuto:checkSkill(owner, t_skill, aiAttack, aiHeal)
             local allyList = self:getUnitList()
 
             for i, ally in pairs(allyList) do
-                if (not ally.m_bDead) then
+                if (not ally:isDead()) then
                     local hpRate = ally.m_hp / ally.m_maxHp
                     if (hpRate <= 0.75) then
                         return true, ally
@@ -188,7 +188,7 @@ function GameAuto:checkSkill(owner, t_skill, aiAttack, aiHeal)
             local t_remove = {}
                         
             for i, enemy in ipairs(enemyList) do
-                if (not enemy.m_bDead and enemy:isCasting()) then
+                if (not enemy:isDead() and enemy:isCasting()) then
                     target = enemy
                     break
                 else
@@ -266,7 +266,7 @@ function GameAuto:findTarget(dragon, t_skill)
         local lowest = 100
 
         for i, ally in pairs(allyList) do
-            if (not ally.m_bDead) then
+            if (not ally:isDead()) then
                 local hpRate = ally.m_hp / ally.m_maxHp
                 
                 if (hpRate < lowest) then

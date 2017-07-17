@@ -2463,6 +2463,9 @@
     <None Include="..\src\UI_ShopPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillSuicideExplosion.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

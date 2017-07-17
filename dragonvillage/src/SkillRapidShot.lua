@@ -62,7 +62,7 @@ function SkillRapidShot.st_idle(owner, dt)
 
 	-- 탈출 조건 (모두 발사 또는 타겟 사망)
 	if (owner.m_skillCount > owner.m_attackCount) 
-		or (owner.m_targetChar.m_bDead) then
+		or (owner.m_targetChar:isDead()) then
         owner:changeState('end')
 	end
 end

@@ -123,7 +123,7 @@ function MissileDropTarget.st_move_drop_hero(owner, dt)
         local distance = nil
         for i,v in pairs(GameMgr.m_rightParticipants) do
             if not isInstanceOf(v, Monster) then
-            elseif v.m_bDead then
+            elseif v:isDead() then
             elseif checkDefaultRange(v.pos.x, v.pos.y) then
             else
                 -- 보스 확인

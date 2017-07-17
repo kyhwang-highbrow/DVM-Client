@@ -360,7 +360,7 @@ function WaveMgr:checkToDieHighestRariry()
             
     for _, enemy in ipairs(self.m_world:getEnemyList()) do
         local rarity = self:getRarity(enemy:getCharId(), enemy.m_lv)
-        if (rarity >= highestRariry) then
+        if (rarity >= highestRariry and not enemy:isDead()) then
             is_dead = false
             break
         end

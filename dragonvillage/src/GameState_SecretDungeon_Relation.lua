@@ -22,14 +22,14 @@ function GameState_SecretDungeon_Relation:fight()
     local world = self.m_world
 
     for i,dragon in ipairs(world:getDragonList()) do
-        if (dragon.m_bDead == false) then
+        if (not dragon:isDead()) then
             dragon.m_bFirstAttack = true
             dragon:changeState('attackDelay')
         end
     end
 
     for i,enemy in pairs(world:getEnemyList()) do
-        if (enemy.m_bDead == false) then
+        if (not enemy:isDead()) then
             enemy.m_bFirstAttack = false
             enemy:changeState('attackDelay')
 

@@ -55,7 +55,7 @@ end
 -------------------------------------
 function SkillLeap:update(dt)
     -- 사망 체크
-	if (self.m_owner.m_bDead) and (self.m_state ~= 'dying') then
+	if (self.m_owner:isDead()) and (self.m_state ~= 'dying') then
         self:changeState('dying')
     end
 	-- 드래곤의 애니와 객체 위치 동기화
