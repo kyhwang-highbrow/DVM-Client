@@ -52,8 +52,8 @@ end
 -- function st_active
 -------------------------------------
 function Tamer.st_active(owner, dt)
-	if (self:getStep() == 0) then
-        if (self:isBeginningStep()) then
+	if (owner:getStep() == 0) then
+        if (owner:isBeginningStep()) then
 		    local world = owner.m_world
 		    local l_dragon = owner:getFellowList()
 		
@@ -84,12 +84,12 @@ function Tamer.st_active(owner, dt)
             world:dispatch('set_global_cool_time_active')
         
         elseif (owner.m_isOnTheMove == false) then
-            self:nextStep()
+            owner:nextStep()
 
         end
 
-	elseif (self:getStep() == 1) then
-        if (self:isBeginningStep()) then
+	elseif (owner:getStep() == 1) then
+        if (owner:isBeginningStep()) then
 		    local t_skill = owner.m_lSkill[TAMER_SKILL_ACTIVE]
 		    local res_1 = t_skill['res_1']	-- 전화면 컷씬 리소스
 		    local res_2 = t_skill['res_2']	-- 스킬 발동 리소스
