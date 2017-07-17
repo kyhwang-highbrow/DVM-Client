@@ -103,7 +103,6 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
                     break
                 end
             end
-            
 
         -- 좀비의 경우는 죽기 직전 대상들로부터 타겟 리스트를 설정
         elseif (status_effect_group == 'zombie') then
@@ -112,7 +111,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
 
             else
                 for _, target_char in pairs(caster:getFellowList()) do
-                    if (not target_char:isDead() and target_char.m_hp == 0 and not target_char.m_bInvincibility) then
+                    if (not target_char:isDead() and target_char.m_hp == 0 and not target_char.m_isZombie) then
                         table.insert(l_target, target_char)
                     end
                 end
@@ -279,6 +278,10 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     elseif (status_effect_group == 'zombie') then
         status_effect = StatusEffect_Zombie(res)
 
+    ---------- 불사 ------------
+    elseif (status_effect_group == 'immortal') then
+        status_effect = StatusEffect_Immortal(res)
+
     ----------- 마나 관련 ----------------------
     elseif (status_effect_group == 'add_mana') then
         status_effect = StatusEffect_AddMana(res)
@@ -327,10 +330,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
         status_effect:setOverlabClass(StatusEffectUnit_AddDmg)
 
     ----------- 트리거 ------------------
-    elseif (status_effect_group == 'immortal') then
-        status_effect = StatusEffect_Immortal(res)
-
-	elseif (status_effect_type == 'bleed') then
+    elseif (status_effect_type == 'bleed') then
         status_effect = StatusEffect_Bleed(res)
         
 	elseif (status_effect_type == 'poison') then

@@ -571,7 +571,7 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         -- 강제로 죽음 막음 처리 후 연출 종료시 죽도록 처리
         if (self:isPlaying()) then
             if (will_die and dragon == self.m_dragon) then
-                self.m_dragon:setImmortal(true)
+                self.m_dragon:setZombie(true)
                 self.m_bReservedDie = true
             end
         end
@@ -609,7 +609,7 @@ function GameDragonSkill:releaseFocusingDragon()
         self.m_dragon:removeListener('damaged', self)
 
         if (self.m_bReservedDie) then
-            self.m_dragon:setImmortal(false)
+            self.m_dragon:setZombie(false)
             self.m_dragon:changeState('dying')
 
         elseif (self.m_dragon.m_state ~= 'delegate') then

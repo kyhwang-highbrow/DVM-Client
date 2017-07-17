@@ -31,7 +31,8 @@ Character = class(PARENT, {
         m_bInvincibility = 'boolean',   -- 무적 상태 여부
 		m_isSilence = 'boolean',		-- 침묵 (스킬 사용 불가 상태)
 		m_isImmuneSE = 'boolean',		-- 면역 (해로운 상태 효과 면역)
-        m_isImmortal = 'boolean',       -- 불사 (죽지 않는 상태)
+        m_isImmortal = 'boolean',       -- 불사 (체력이 1이하로 내려가지 않는 상태)
+        m_isZombie = 'boolean',         -- 좀비 (죽지 않는 상태)
 
         -- @ for FormationMgr
         m_bLeftFormation = 'boolean',   -- 왼쪽 진형일 경우 true, 오른쪽 진형일 경우 false
@@ -170,6 +171,7 @@ function Character:init(file_name, body, ...)
 	self.m_isSilence = false
 	self.m_isImmuneSE = false
     self.m_isImmortal = false
+    self.m_isZombie = false
     
 	self.m_isUseAfterImage = false
 
@@ -773,10 +775,23 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 		self.m_charLogRecorder:recordLog('be_damaged', damage)
 	end
 
-    self:dispatch('damaged', { ['damage']=damage, ['i_x']=i_x, ['i_y']=i_y, ['will_die']=(not self.m_isImmortal and self.m_hp <= 0) }, self)
-
+    -----------------------------------------------------------------
     -- 죽음 체크
-    if (self.m_hp <= 0 and not self:isDead() and not self.m_isImmortal) then
+    -----------------------------------------------------------------
+    local checkDie = function() return (not self:isDead() and self.m_hp <= 0 and not self.m_isZombie) end
+
+    -- 죽기 직전 이벤트
+    if (checkDie()) then
+        self:dispatch('dead_ago', {}, self)
+    end
+
+    -- 드래그 스킬시 일시동안 무적처리 및 골드 드래곤 금화 드랍을 위해 사용되는 이벤트
+    do
+        self:dispatch('damaged', { ['damage']=damage, ['i_x']=i_x, ['i_y']=i_y, ['will_die']=checkDie() }, self)
+    end
+
+    -- damaged 이벤트로 좀비 상태가 될 수 있음
+    if (checkDie()) then
         self:changeState('dying')
 
         local attack_type = t_info['attack_type']
@@ -1128,6 +1143,24 @@ function Character:setHp(hp, bFixed)
 
     self.m_hp = math_min(hp, self.m_maxHp)
 
+    if (self.m_isImmortal) then
+        self.m_hp = math_max(self.m_hp, 1)
+    end
+
+    -- 리스너에 전달
+	local t_event = clone(EVENT_CHANGE_HP_CARRIER)
+	t_event['owner'] = self
+	t_event['hp'] = self.m_hp
+	t_event['max_hp'] = self.m_maxHp
+
+    self:dispatch('character_set_hp', t_event, self)
+
+    self.m_hp = t_event['hp']
+
+    if (self.m_isImmortal) then
+        self.m_hp = math_max(self.m_hp, 1)
+    end
+
 	local percentage = self.m_hp / self.m_maxHp
 
 	-- 체력바 가감 연출
@@ -1138,16 +1171,6 @@ function Character:setHp(hp, bFixed)
         local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, percentage, 1))
         self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
     end
-
-	-- 리스너에 전달
-	local t_event = clone(EVENT_CHANGE_HP_CARRIER)
-	t_event['owner'] = self
-	t_event['hp'] = self.m_hp
-	t_event['max_hp'] = self.m_maxHp
-
-    self:dispatch('character_set_hp', t_event, self)
-
-    self.m_hp = t_event['hp']
 end
 
 -------------------------------------
@@ -2236,6 +2259,13 @@ end
 -------------------------------------
 function Character:setImmortal(b)
 	self.m_isImmortal = b
+end
+
+-------------------------------------
+-- function setZombie
+-------------------------------------
+function Character:setZombie(b)
+	self.m_isZombie = b
 end
 
 -------------------------------------
