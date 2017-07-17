@@ -164,7 +164,7 @@ function ScenarioViewingHistory:playScenario(scenario_name)
     local setting = 'first'
     local play = false
 
-    if (not TABLE:isFileExist(scenario_name, '.csv')) then
+    if (not TABLE:isFileExist('scenario/'..scenario_name, '.csv')) then
         return 
     end 
 
