@@ -20,8 +20,6 @@ require 'io'
 -- @brief
 -------------------------------------
 function main()
-    
-   
     lapp = require 'pl.lapp'
     local args = lapp( [[
     Args
@@ -29,7 +27,6 @@ function main()
                                         validate
                                       uigenerate
      ]])
-
     
     if (args['_name'] == 'extract') then
         require 'UnusedFileExtractor'
@@ -67,4 +64,35 @@ end
 local status, msg = xpcall(main, __G__TRACKBACK__)
 if not status then
     error(msg)
+end
+
+
+-------------------------------------
+-- UTIL
+-------------------------------------
+
+-------------------------------------
+-- RemoveDirectory
+-- @brief 디렉토리 및 하위 파일 전부 삭제
+-------------------------------------
+function RemoveDirectory(dir)
+    for file in lfs.dir(dir) do
+        local file_path = dir..'/'..file
+        if (file ~= ".") and (file ~= "..") then
+
+            if (lfs.attributes(file_path, 'mode') == 'file') then
+                os.remove(file_path)
+                print('remove file', file_path)
+
+            elseif (lfs.attributes(file_path, 'mode') == 'directory') then
+                RemoveDirectory(file_path)
+                lfs.rmdir(file_path)
+                print('dir', file_path)
+
+            end
+        end
+    end
+
+    lfs.rmdir(dir)
+    print('remove dir', dir)
 end
