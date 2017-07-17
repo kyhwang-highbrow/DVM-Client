@@ -84,7 +84,7 @@ function UI_Setting:click_facebookBtn()
                         local t_info = dkjson.decode(info)
                         local msg = t_info.msg
                         cclog('Firebase unknown error !!!- ' .. msg)
-                    elseif ret == 'cancel'
+                    elseif ret == 'cancel' then
                         cclog('Firebase unknown error !!!')
                     end
                 end)
@@ -174,7 +174,7 @@ function UI_Setting:click_googleBtn()
                         local t_info = dkjson.decode(info)
                         local msg = t_info.msg
                         cclog('Firebase unknown error !!!- ' .. msg)
-                    elseif ret == 'cancel'
+                    elseif ret == 'cancel' then
                         cclog('Firebase unknown error !!!')
                     end
                 end)
