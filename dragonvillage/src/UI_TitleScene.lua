@@ -309,16 +309,20 @@ function UI_TitleScene:workCheckUserID()
             local fuid = t_info.fuid
             local push_token = t_info.pushToken
             local platform_id = 'firebase'
-            local account_info = 'Guest'
+            local account_info = g_serverData:get('local', 'account_info') or 'Guest'
             if t_info.providerData[2] ~= nil then
                 platform_id = t_info.providerData[2].providerId
                 if platform_id == 'google.com' then
-                    account_info = 'Google'
+                    if account_info == 'Guest' then
+                        account_info = 'Google'
+                    end
                     if t_info.google then
                         account_info = t_info.google.name or account_info
                      end
                 elseif platform_id == 'facebook.com' then
-                    account_info = 'Facebook'
+                    if account_info == 'Guest' then
+                        account_info = 'Facebook'
+                    end
                     if t_info.facebook then
                         account_info = t_info.facebook.name or account_info
                     end
