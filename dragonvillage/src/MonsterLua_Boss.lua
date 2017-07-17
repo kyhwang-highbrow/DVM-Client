@@ -147,7 +147,7 @@ function MonsterLua_Boss.st_dying(owner, dt)
         owner:setSpeed(0)
 
         -- 사망 처리 시 StateDelegate Kill!
-        self:killStateDelegate()
+        owner:killStateDelegate()
 
         -- 효과음
         if owner.m_tEffectSound['die'] then
