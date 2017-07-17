@@ -337,8 +337,7 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
-    require 'plSample'
-    plSample.test()
+    error('에러 테스트')
 end
 
 -------------------------------------

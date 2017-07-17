@@ -39,17 +39,17 @@ end
 -- function getTrackerText
 ------------------------------------- 
 function ErrorTracker:getTrackerText(msg)
-    local os = getTargetOSName()
-    local uid = g_userData:get('uid')
-    local nick = g_userData:get('nick')
-    local ver = PatchData:getInstance():getAppVersionAndPatchIdxString()
+    local nick = g_userData:get('nick') or ''
+    local uid = tostring(g_userData:get('uid')) or ''
+    local os = getTargetOSName() or ''
+    local ver = PatchData:getInstance():getAppVersionAndPatchIdxString() or ''
 
-    local last_stage = self:get_lastStage()
-    local skill_stack = self:getSkillHistoryStack()
+    local last_stage = self:get_lastStage() or ''
+    local skill_stack = self:getSkillHistoryStack() or ''
 
-	local ui_stack = self:getUIStack()
-    local api_stack = self:getAPIStack()
-    local res_stack = self:getFailedResStack()
+	local ui_stack = self:getUIStack() or ''
+    local api_stack = self:getAPIStack() or ''
+    local res_stack = self:getFailedResStack() or ''
 
     local msg = msg or 'kkami'
    
@@ -58,7 +58,7 @@ function ErrorTracker:getTrackerText(msg)
 =============[DVM BUG REPORT]==============
 1. info
     - nick : %s
-    - uid : %d
+    - uid : %s
     - os : %s
     - info : %s
  
