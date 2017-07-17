@@ -4,6 +4,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_Setting
 -------------------------------------
 UI_Setting = class(PARENT, {
+        m_loadingUI = 'UI_TitleSceneLoading',
      })
 
 -------------------------------------
@@ -24,6 +25,10 @@ function UI_Setting:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self.m_loadingUI = UI_TitleSceneLoading()
+    self.m_loadingUI:hideLoading()
+
 end
 
 -------------------------------------

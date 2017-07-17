@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_LoginPopup
 -------------------------------------
 UI_LoginPopup = class(PARENT,{
+        m_loadingUI = 'UI_TitleSceneLoading',
     })
 
 -------------------------------------
@@ -24,6 +25,10 @@ function UI_LoginPopup:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self.m_loadingUI = UI_TitleSceneLoading()
+    self.m_loadingUI:hideLoading()
+
 end
 
 -------------------------------------
@@ -74,11 +79,13 @@ end
 function UI_LoginPopup:click_facebookBtn()
     cclog('TODO click_facebookBtn event occurred!')
 
+    self.m_loadingUI:showLoading(Str('로그인 중...'))
+
     PerpleSDK:loginWithFacebook(function(ret, info)
+        self.m_loadingUI:hideLoading()
+
         if ret == 'success' then
-
             cclog('Firebase Facebook login was successful.')
-
             self:loginSuccess(info)
             self:close()
 
@@ -96,7 +103,11 @@ end
 function UI_LoginPopup:click_gamecenterBtn()
     cclog('TODO click_gamecenterBtn event occurred!')
 
+    self.m_loadingUI:showLoading(Str('로그인 중...'))
+
     PerpleSDK:loginWithGameCenter(function(ret, info)
+        self.m_loadingUI:hideLoading()
+
         if ret == 'success' then
         elseif ret == 'fail' then
         elseif ret == 'cancel' then
@@ -111,14 +122,15 @@ end
 function UI_LoginPopup:click_googleBtn()
     cclog('TODO click_googleBtn event occurred!')
 
+    self.m_loadingUI:showLoading(Str('로그인 중...'))
+
     PerpleSDK:loginWithGoogle(function(ret, info)
+        self.m_loadingUI:hideLoading()
+
         if ret == 'success' then
-
             cclog('Firebase Google login was successful.')
-
             self:loginSuccess(info)
             self:close()
-
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
@@ -133,19 +145,20 @@ end
 function UI_LoginPopup:click_guestBtn()
     cclog('TODO click_guestBtn event occurred!')
 
+    self.m_loadingUI:showLoading(Str('로그인 중...'))
+
     PerpleSDK:loginAnonymously(function(ret, info)
+
+        self.m_loadingUI:hideLoading()
+
         if ret == 'success' then
-
             cclog('Firebase Guest login was successful.')
-
             self:loginSuccess(info)
             self:close()
-
         elseif ret == 'fail' then
             self:loginFail(info)
         end
     end)
-
 end
 
 -------------------------------------

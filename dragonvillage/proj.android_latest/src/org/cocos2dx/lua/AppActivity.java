@@ -35,7 +35,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.games.Games;
-import com.google.android.gms.common.api.GoogleApiClient.Builder;
 
 public class AppActivity extends Cocos2dxActivity{
 
@@ -66,13 +65,8 @@ public class AppActivity extends Cocos2dxActivity{
             // firebase FCM 알림을 포그라운드 상태에서도 받고자 할 경우 true로 설정
             PerpleSDK.getInstance().setReceivePushOnForeground(false);
 
-            // @google, Google Play Services 기능(업적, 리더보드, 퀘스트)을 사용하고자 할 경우
-            PerpleSDK.getInstance().initGoogle(getString(R.string.default_web_client_id), new PerpleBuildGoogleApiClient() {
-                @Override
-                public void onBuild(Builder builder) {
-                    builder.addApi(Games.API).addScope(Games.SCOPE_GAMES);
-                }
-            });
+            // @google
+            PerpleSDK.getInstance().initGoogle(getString(R.string.default_web_client_id));
 
             // @facebook
             PerpleSDK.getInstance().initFacebook(savedInstanceState);

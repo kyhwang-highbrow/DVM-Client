@@ -35,7 +35,7 @@ function UI_TitleSceneLoading:showLoading(msg)
 end
 
 -------------------------------------
--- function HideLoading
+-- function hideLoading
 -------------------------------------
 function UI_TitleSceneLoading:hideLoading()
     self.root:setVisible(false)
