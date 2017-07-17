@@ -344,7 +344,9 @@ function ServerData_Shop:request_buy(struct_product, finish_cb, fail_cb)
     local function success_cb(ret)        
         g_serverData:networkCommonRespone_addedItems(ret)
 
-        g_topUserInfo:refreshData()
+        if g_topUserInfo then
+            g_topUserInfo:refreshData()
+        end
 
         -- 상품 구매 후 갱신이 필요한지 여부 체크
         if struct_product:needRenewAfterBuy() then
@@ -406,7 +408,9 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     local function success_cb(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
-        g_topUserInfo:refreshData()
+        if g_topUserInfo then
+            g_topUserInfo:refreshData()
+        end
 
         -- 상품 구매 후 갱신이 필요한지 여부 체크
         if struct_product and struct_product:needRenewAfterBuy() then

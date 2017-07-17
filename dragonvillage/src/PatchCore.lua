@@ -172,7 +172,7 @@ function PatchCore:errorHandler(msg)
         self:finish()
     end
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb, cancel_btn_cb)
+    MakeSimplePopup(POPUP_TYPE.OK, msg, ok_btn_cb, cancel_btn_cb)
 end
 
 -------------------------------------

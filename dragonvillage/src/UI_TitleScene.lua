@@ -612,7 +612,20 @@ function UI_TitleScene:workBillingSetup()
         if (ret == 'purchase') then
             cclog('#### info : ')
             ccdump(info)
-            self:doNextWork()
+            local info_json = dkjson.decode(info)
+            
+            if (info_json and type(info_json) == 'table' and 0 < #info_json) then
+                local l_payload = info_json
+
+                local function finish_cb()
+                    self:doNextWork()
+                end
+
+                StructProduct:handlingMissingPayments(l_payload, nil, finish_cb)
+            else
+                self:doNextWork()
+            end
+            
         elseif (ret == 'error') then
             self:makeFailPopup(Str('결제 정보 초기화 실패'), nil)
         end
