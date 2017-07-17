@@ -164,9 +164,7 @@ function ScenarioViewingHistory:playScenario(scenario_name)
     local setting = 'first'
     local play = false
 
-    local path = 'data/scenario/' .. scenario_name .. '.csv'
-
-    if (not LuaBridge:isFileExist(path)) then
+    if (not TABLE:isFileExist(scenario_name, '.csv')) then
         return 
     end 
 

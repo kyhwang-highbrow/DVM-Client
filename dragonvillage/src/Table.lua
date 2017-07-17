@@ -219,6 +219,39 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
 end
 
 -------------------------------------
+-- function isFileExist
+-------------------------------------
+function TABLE:isFileExist(filename, extension)
+    local is_exist = false
+
+    -- 윈도우가 아닐 경우 data_dat에서 먼저 검사
+    if isWin32() == false then
+        local dat_path = 'data_dat/' .. filename .. '.dat'
+        if LuaBridge:isFileExist(dat_path) then
+            is_exist = true
+        end
+    end
+
+    -- data에서 검사
+    if not is_exist then
+        local path = 'data/' .. filename .. extension
+        if LuaBridge:isFileExist(path) then
+            is_exist = true
+        end
+    end
+
+    -- data에 없을 경우 data_dat에서 한번 더 검사
+    if not is_exist then
+        local dat_path = 'data_dat/' .. filename .. '.dat'
+        if LuaBridge:isFileExist(dat_path) then
+            is_exist = true
+        end
+    end
+
+    return is_exist
+end
+
+-------------------------------------
 -- function loadTableFile
 -------------------------------------
 function TABLE:loadTableFile(filename, extension)
