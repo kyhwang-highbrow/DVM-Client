@@ -266,13 +266,9 @@ function UI_Setting:click_logoutBtn()
                 clear()
             else
                 PerpleSDK:logout()
-                local platform_id = g_serverData:get('local', 'platform_id')
-                if platform_id == 'google.com' then
-                    PerpleSDK:googleLogout(0)
-                end
-                if platform_id == 'facebook.com' then
-                    PerpleSDK:facebookLogout()
-                end
+                PerpleSDK:googleLogout(0)
+                PerpleSDK:facebookLogout()
+
                 clear()
             end
 
