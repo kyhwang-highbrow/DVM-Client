@@ -39,6 +39,7 @@ end
 -- function getTrackerText
 ------------------------------------- 
 function ErrorTracker:getTrackerText(msg)
+    local date = datetime.strformat(Timer:getServerTime()) or ''
     local nick = g_userData:get('nick') or ''
     local uid = tostring(g_userData:get('uid')) or ''
     local os = getTargetOSName() or ''
@@ -57,6 +58,7 @@ function ErrorTracker:getTrackerText(msg)
 [[
 =============[DVM BUG REPORT]==============
 1. info
+    - date : %s
     - nick : %s
     - uid : %s
     - os : %s
@@ -66,13 +68,13 @@ function ErrorTracker:getTrackerText(msg)
     - stage_id : %s
     - skill use history : %s
  
-3. ui list
+3. UI list
 %s
  
-4. recent called api list (5)
+4. recent called API list
 %s
  
-5. failed res list (5)
+5. failed res list
 %s
  
 ============[ERROR TRACEBACK]==============
@@ -80,7 +82,12 @@ function ErrorTracker:getTrackerText(msg)
 ]]
 
 	local text = string.format(template, 
-        nick, uid, os, ver, last_stage, skill_stack, ui_stack, api_stack, res_stack, msg)
+        date, nick, uid, os, ver, 
+        last_stage, skill_stack, 
+        ui_stack, 
+        api_stack, 
+        res_stack, 
+        msg)
 
 	return text
 end
@@ -90,7 +97,7 @@ end
 ------------------------------------- 
 function ErrorTracker:getSkillHistoryStack()
     if (#self.m_lSkillHistoryList == 0) then
-        return 'nil'
+        return ''
     end
 
     local ui_str = '\n'
@@ -207,7 +214,7 @@ end
 -- function appendSkillHistory
 ------------------------------------- 
 function ErrorTracker:cleanupIngameLog()
-    self.lastStage = nil
+    self.lastStage = ''
     self.m_lSkillHistoryList = {}
 end
 
