@@ -157,26 +157,26 @@ end
 
 local S_ERROR_STATUS = {
     -- not exist
-    [-1101] = Str('상대방을 검색하지 못하였습니다.\n잠시 후에 다시 시도해주세요.'),
-    [-1160] = Str('상대방의 방어덱이 없습니다.'),
+    [-1101] = Str('상대방을 검색하지 못하였습니다.\n잠시 후에 다시 시도해주세요.'), -- not exist user
+    [-1160] = Str('상대방의 방어덱이 없습니다.'), -- not exist deck
 
     -- not enough
-    [-1201] = Str('골드가 부족합니다.'),
-    [-1212] = Str('다이아몬드가 부족합니다.'),
-    [-1216] = Str('날개가 부족합니다.'),
-    [-1222] = Str('열매가 부족합니다.'),
-    [-1223] = Str('진화재료가 부족합니다.'),
+    [-1211] = Str('골드가 부족합니다.'), -- not enough gold
+    [-1212] = Str('다이아몬드가 부족합니다.'), -- not enough cash
+    [-1216] = Str('날개가 부족합니다.'), -- not enough stamina
+    [-1222] = Str('열매가 부족합니다.'), -- not enough fruit
+    [-1223] = Str('진화재료가 부족합니다.'), -- not enough evolution stone
 
-    [-1351] = Str('잘못된 시간 정보입니다.'),
+    [-1351] = Str('잘못된 시간 정보입니다.'), -- invalid time
 
 
-    [-3026] = Str('이미 존재하는 닉네임입니다.'),
-    [-3259] = Str('이미 요청한 친구입니다.'),
-    [-3907] = Str('이미 친구입니다.'),
+    [-3026] = Str('이미 존재하는 닉네임입니다.'), -- already exist nick
+    [-3259] = Str('이미 요청한 친구입니다.'), -- already send friend request
+    [-3907] = Str('이미 친구입니다.'), -- already friend
 }
 
 local S_ERROR_STATUS_SHOP = {
-    [-1201] = 'gold',
+    [-1211] = 'gold',
     [-1212] = 'cash',
 }
  
