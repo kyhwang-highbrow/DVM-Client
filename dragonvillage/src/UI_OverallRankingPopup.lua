@@ -12,8 +12,6 @@ UI_OverallRankingPopup = class(PARENT,{
 UI_OverallRankingPopup.OVERALL = 0
 UI_OverallRankingPopup.COMBAT = 1
 UI_OverallRankingPopup.QUEST = 2
-UI_OverallRankingPopup.COLOSSEUM = 3
-UI_OverallRankingPopup.BOOK = 4
 
 -------------------------------------
 -- function init
@@ -66,8 +64,6 @@ function UI_OverallRankingPopup:initTab()
     self:addTab(UI_OverallRankingPopup.OVERALL, vars['totalBtn'], vars['totalNode'])
     self:addTab(UI_OverallRankingPopup.COMBAT, vars['cpBtn'], vars['cpNode'])
 	self:addTab(UI_OverallRankingPopup.QUEST, vars['questBtn'], vars['questNode'])
-	self:addTab(UI_OverallRankingPopup.COLOSSEUM, vars['pvpBtn'], vars['pvpNode'])
-	self:addTab(UI_OverallRankingPopup.BOOK, vars['collectionBtn'], vars['collectionNode'])
 
     self:setTab(UI_OverallRankingPopup.OVERALL)
 
@@ -95,7 +91,9 @@ function UI_OverallRankingPopup:refresh()
 		if (rank <= 100) then
 			vars['rankingLabel']:setString(rank)
 		else
-			local rank_ratio = t_my_rank['rate'] * 100
+            -- rate가 소수와 정수 두개로 옴
+            local percent = (t_my_rank['rate'] < 1) and 100 or 1
+			local rank_ratio = t_my_rank['rate'] * percent
 			vars['rankingLabel']:setString(string.format('%.2f%%', rank_ratio))
 		end
 
@@ -151,7 +149,6 @@ function UI_OverallRankingPopup:makeTableViewRanking(tab)
 	local vars = self.vars
 	local t_tab_data = self.m_mTabData[tab]
 	local node = t_tab_data['tab_node_list'][1]
-
 	local l_rank = g_rankData:getRankData(tab)['rank']
 
 	do -- 테이블 뷰 생성
