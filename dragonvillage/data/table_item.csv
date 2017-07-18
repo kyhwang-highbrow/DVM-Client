@@ -94,6 +94,7 @@ item,category,t_name,t_desc,icon,type,full_type,attr,role,color,rarity,grade,evo
 703015,stack,보호의 알,3~5★ 지원형 드래곤 부화,res/ui/icon/item/egg_role_supporter.png,egg,egg_role_supporter,,,,,,,,1,,,
 703016,stack,신비의 알,3~5★ 드래곤 부화,res/ui/icon/item/egg_middle_mystery.png,egg,egg_middle_mystery,,,,,,,,1,,,
 703017,stack,미지의 알,1~3★ 드래곤 부화,res/ui/icon/item/egg_common_unknown.png,egg,egg_common_unknown,,,,,,,,1,,,
+703018,stack,비밀의 알,3★ 드래곤 부화,res/ui/icon/item/egg_middle_secret.png,egg,egg_middle_secret,,,,,,,,1,,,
 704001,stack,1~2등급 룬,1~2등급 룬 1개 구매,res/ui/icon/item/developing.png,ticket,rune_ticket_grade_12,,,,,,,,1,5000,,
 704002,stack,2~3등급 룬,2~3등급 룬 1개 구매,res/ui/icon/item/developing.png,ticket,rune_ticket_grade_23,,,,,,,,1,5000,,
 704003,stack,3~4등급 룬,3~4등급 룬 1개 구매,res/ui/icon/item/developing.png,ticket,rune_ticket_grade_34,,,,,,,,1,5000,,
