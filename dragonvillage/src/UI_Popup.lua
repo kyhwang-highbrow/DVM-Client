@@ -25,31 +25,44 @@ end
 -------------------------------------
 function MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
     
-    if (item_key == 'cash') then
-        local cash = g_userData:get('cash')
-
-        -- 캐시가 충분히 있는지 체크
-        if (cash < item_value) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('cash') end)
-            return
-        end
-    elseif (item_key == 'gold') then
-        local gold = g_userData:get('gold')
-
-        -- 재화가 충분히 있는지 체크
-        if (gold < item_value) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('gold') end)
-            return
-        end
-    elseif (item_key == 'fp') then
-        local fp = g_userData:get('fp')
-
-        -- 재화가 충분히 있는지 체크
-        if (fp < item_value) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('우정포인트가 부족합니다.\n친구에게 우정포인트를 요청해보세요!'))
-            return
-        end
+    if (not ConfirmPrice(item_key, item_value)) then
+        return
     end
 
     return UI_ConfirmPopup(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+end
+
+-------------------------------------
+-- function ConfirmPrice
+-- @brief
+-- @return bool
+-------------------------------------
+function ConfirmPrice(price_type, price_value)
+    if (price_type == 'cash') then
+        local cash = g_userData:get('cash')
+
+        -- 캐시가 충분히 있는지 체크
+        if (cash < price_value) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('cash') end)
+            return false
+        end
+    elseif (price_type == 'gold') then
+        local gold = g_userData:get('gold')
+
+        -- 재화가 충분히 있는지 체크
+        if (gold < price_value) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('gold') end)
+            return false
+        end
+    elseif (price_type == 'fp') then
+        local fp = g_userData:get('fp')
+
+        -- 재화가 충분히 있는지 체크
+        if (fp < price_value) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('우정포인트가 부족합니다.\n친구에게 우정포인트를 요청해보세요!'))
+            return false
+        end
+    end
+
+    return true
 end

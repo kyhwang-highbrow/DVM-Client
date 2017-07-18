@@ -393,6 +393,11 @@ function UI_DragonLevelUp:click_levelupBtn()
         return
     end
 
+    -- 골드가 충분히 있는지 확인
+    if (not ConfirmPrice('gold', self.m_dragonLevelUpUIHelper.m_price)) then
+        return
+    end
+
     local function success_cb(ret)
         local prev_lv = self.m_selectDragonData['lv']
         local prev_exp = self.m_selectDragonData['exp']

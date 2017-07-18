@@ -95,6 +95,13 @@ end
 -- function click_enhanceBtn
 -------------------------------------
 function UI_DragonRunesEnhance:click_enhanceBtn()
+    
+    -- 골드가 충분히 있는지 확인
+    local req_gold = self.m_runeObject:getRuneEnhanceReqGold()
+    if (not ConfirmPrice('gold', req_gold)) then
+        return
+    end
+
     local rune_obj = self.m_runeObject
     local owner_doid = rune_obj['owner_doid']
     local roid = rune_obj['roid']
