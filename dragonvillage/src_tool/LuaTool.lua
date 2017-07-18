@@ -68,7 +68,7 @@ end
 
 
 -------------------------------------
--- UTIL
+-- Utility
 -------------------------------------
 
 -------------------------------------
@@ -79,13 +79,18 @@ function RemoveDirectory(dir)
     for file in lfs.dir(dir) do
         local file_path = dir..'\\'..file
         if (file ~= ".") and (file ~= "..") then
-
+            -- 파일
             if (lfs.attributes(file_path, 'mode') == 'file') then
+                -- 파일 삭제
                 os.remove(file_path)
                 print('remove file', file_path)
-
+            
+            -- 디렉토리
             elseif (lfs.attributes(file_path, 'mode') == 'directory') then
+                -- 하위 파일 삭제를 위한 재귀적 호출
                 RemoveDirectory(file_path)
+
+                -- 디렉토리 삭제
                 lfs.rmdir(file_path)
                 print('dir', file_path)
 
@@ -93,6 +98,7 @@ function RemoveDirectory(dir)
         end
     end
 
+    -- 최상위 디렉토리 삭제, 파일이 있다면 삭제가 되지 않는다.
     lfs.rmdir(dir)
     print('remove dir', dir)
 end
