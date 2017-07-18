@@ -310,7 +310,9 @@ function UI_GachaResult_Dragon:click_skipBtn()
 	end
 
 	-- 마지막 드래곤 animator를 띄우고 마지막 연출을 실행한다.
-	self.m_currDragonAnimator:forceSkipDirecting()
+    if self.m_currDragonAnimator then
+	    self.m_currDragonAnimator:forceSkipDirecting()
+    end
 
 	-- 스킵을 했다면 스킵 버튼을 가린다.
 	self.vars['skipBtn']:setVisible(false)
