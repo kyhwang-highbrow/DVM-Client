@@ -96,7 +96,8 @@ end
 -- function st_skillAppear
 -------------------------------------
 function Dragon.st_skillAppear(owner, dt)
-    if (owner.m_stateTimer == 0) then	
+    if (owner.m_stateTimer == 0) then
+        -- 경직 불가능 상태 설정
         owner.m_bEnableSpasticity = false
 
 		-- @LOG : 전체 스킬 사용 횟수
@@ -159,7 +160,11 @@ function Dragon.st_skillIdle(owner, dt)
 
             local indicatorData = owner.m_skillIndicator:getIndicatorData()
                         
-            owner:doSkill(active_skill_id, x, y, indicatorData)
+            if (owner:doSkill(active_skill_id, x, y, indicatorData)) then
+                -- 스킬 쿹타임 시작
+                owner:startActiveSkillCoolTime()
+            end
+
             owner.m_animator:setEventHandler(nil)
             owner.m_bFinishAttack = true
 
@@ -196,6 +201,7 @@ function Dragon.st_skillIdle(owner, dt)
         else
             error('스킬 테이블 motion_type이 ['.. motion_type .. '] 라고 잘못들어갔네요...')
         end
+
         attack_cb()
         
         -- 캐스팅 게이지
@@ -213,7 +219,7 @@ function Dragon.st_skillIdle(owner, dt)
     elseif (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
         if (owner.m_bFinishAttack) then
             if (owner.m_state ~= 'delegate') then
-                --owner:changeState('attackDelay')
+                -- GameDragonSkill에서 연출 종료후 attackDelay로 변경됨
                 owner:changeState('wait')
             end
         end

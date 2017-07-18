@@ -194,9 +194,6 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             -- 경직 중이라면 즉시 해제
             self.m_selectHero:setSpasticity(false)
 
-            -- 스킬 쿹타임 시작
-            self.m_selectHero:startActiveSkillCoolTime()
-
             local active_skill_id = self.m_selectHero:getSkillID('active')
             local t_skill = TableDragonSkill():get(active_skill_id)
 
@@ -212,7 +209,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
 
             self.m_selectHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
 
-            self:clear()
+            self:clear(true)
         end
     
     elseif (self.m_touchedHero) then
@@ -235,11 +232,13 @@ end
 -------------------------------------
 -- function clear
 -------------------------------------
-function SkillIndicatorMgr:clear()
+function SkillIndicatorMgr:clear(keep_pause)
     self.m_touchedHero = nil
     
     if (self.m_selectHero) then
-        self.m_world:setTemporaryPause(false, self.m_selectHero)
+        if (not keep_pause) then
+            self.m_world:setTemporaryPause(false, self.m_selectHero)
+        end
         self:setSelectHero(nil)
         self.m_bSlowMode = false
     end

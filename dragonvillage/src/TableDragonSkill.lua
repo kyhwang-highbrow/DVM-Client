@@ -241,6 +241,16 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' end' ..
             ' end' ..
 
+            ' local SKILL_TARGET_STATUSEFFECT = function(name, column)' ..
+            ' if (column) then' ..
+            ' local b = skill_target and skill_target:isExistStatusEffect(column, name) or false' ..
+            ' return (b and 1 or 0)' ..
+            ' else' ..
+            ' local b = skill_target and skill_target:isExistStatusEffectName(name) or false' ..
+            ' return (b and 1 or 0)' ..
+            ' end' ..
+            ' end' ..
+
             ' local STATUSEFFECT_COUNT = function(name, column)' ..
             ' local column = column or \'name\'' ..
             ' return owner:getStatusEffectCount(column, name)' ..
@@ -249,6 +259,11 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' local TARGET_STATUSEFFECT_COUNT = function(name, column)' ..
             ' local column = column or \'name\'' ..
             ' return target and target:getStatusEffectCount(column, name) or 0' ..
+            ' end' ..
+
+            ' local SKILL_TARGET_STATUSEFFECT_COUNT = function(name, column)' ..
+            ' local column = column or \'name\'' ..
+            ' return skill_target and skill_target:getStatusEffectCount(column, name) or 0' ..
             ' end' ..
 
             ' local ret = ' .. source .. 

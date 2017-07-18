@@ -125,13 +125,9 @@ function Tamer:onEvent(event_name, t_event, ...)
 		self:setTamerEventSkill()
 
 	else
-		if (self:checkEventSkill(TAMER_SKILL_EVENT, event_name)) then
+        if (self:checkEventSkill(TAMER_SKILL_EVENT, event_name)) then
 			self:getTargetOnEvent(event_name, t_event)
 			self:changeState('event')
-
-            local t_skill = self.m_lSkill[TAMER_SKILL_EVENT]
-            local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
-            skill_indivisual_info:startCoolTime()
 		end
 	end
 end
@@ -185,6 +181,7 @@ function Tamer.st_roam(owner, dt)
         owner:setAfterImage(false)
     end
 
+    -- indie_time 스킬
     local skill_id = owner:getBasicTimeAttackSkillID()
     if (skill_id) then
         -- 스킬 발동

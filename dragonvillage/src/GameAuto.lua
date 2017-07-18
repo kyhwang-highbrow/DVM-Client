@@ -235,9 +235,6 @@ function GameAuto:doSkill(dragon, t_skill, target)
     -- 경직 중이라면 즉시 해제
     dragon:setSpasticity(false)
 
-    -- 스킬 쿹타임 시작
-    dragon:startActiveSkillCoolTime()
-        
     dragon:reserveSkill(t_skill['sid'])
 
     if (t_skill['casting_time'] > 0) then

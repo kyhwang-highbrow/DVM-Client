@@ -66,11 +66,14 @@ end
 -- function startCoolTime
 -------------------------------------
 function DragonSkillIndivisualInfo:startCoolTime()
-    self.m_cooldownTimer = self.m_tSkill['cooldown'] or 0
+    if (not self.m_tSkill['cooldown'] or self.m_tSkill['cooldown'] == '') then
+        self.m_cooldownTimer = 0
+    else
+        self.m_cooldownTimer = tonumber(self.m_tSkill['cooldown'])
+    end
 
     if (self.m_skillType == 'indie_time') then
-        -- 정리 예정
-        --self.m_timer = self.m_tSkill['chance_value']
+        self.m_timer = self.m_tSkill['chance_value']
     end
 end
 

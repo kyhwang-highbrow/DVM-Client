@@ -172,6 +172,9 @@ function Tamer:doSkill(skill_idx)
     local skill_type = t_skill['skill_type']
     local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
     if (not skill_indivisual_info) then return end
+
+    -- 쿨타임 적용
+    skill_indivisual_info:startCoolTime()
     	
 	-- 타겟 확인
 	if (not self.m_targetChar) then
@@ -180,6 +183,9 @@ function Tamer:doSkill(skill_idx)
 	
 	-- [ACTIVE]
 	if string.find(skill_type, 'tamer_skill_active') then
+        -- 액티브 전역 쿨타임
+        self:dispatch('set_global_cool_time_active')
+
 		-- 상태효과 시전
 		StatusEffectHelper:doStatusEffectByTable(self, t_skill)
 		
@@ -259,24 +265,24 @@ function Tamer:checkEventSkill(skill_idx, event_name)
 	
 	-- 적합한 이벤트 타입인지 체크
 	if (event_name ~= t_skill['chance_type']) then
-		return false
+        return false
 	end
 
 	-- 글로벌 쿨타임 체크
 	if (self.m_world.m_gameCoolTime:isWaiting(GLOBAL_COOL_TIME.PASSIVE_SKILL)) then
-		return false
+        return false
 	end
 
 	-- 쿨타임 체크
     if (not skill_indivisual_info:isEndCoolTime()) then
-	    return false
+        return false
 	end
 
 	-- 발동 확률 체크 (100단위 사용 심플)
 	local chance_value = t_skill['chance_value']
 	local random_100 = math_random(1, 100)
 	if (chance_value < random_100) then
-		return false
+        return false
 	end
 
 	return true
@@ -296,18 +302,6 @@ function Tamer:getTargetOnEvent(event_name, t_event)
 	end
 			
 	self.m_targetChar = target_char
-end
-
--------------------------------------
--- function startActiveSkillCoolTime
--------------------------------------
-function Tamer:startActiveSkillCoolTime()
-    local skill_indivisual_info = self:getLevelingSkillByType('active')
-    if (not skill_indivisual_info) then return end
-
-    skill_indivisual_info:startCoolTime()
-
-    self:dispatch('set_global_cool_time_active')
 end
 
 -------------------------------------
