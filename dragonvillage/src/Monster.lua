@@ -396,10 +396,6 @@ function Monster:release()
     end
 
     PARENT.release(self)
-
-    if self.m_world then
-        self.m_world:removeEnemy(self)
-    end
 end
 
 -------------------------------------

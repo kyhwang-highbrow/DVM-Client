@@ -1179,7 +1179,6 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time, no_tam
         self.m_rightFormationMgr:setSplitPos(self.m_rightFormationMgr.m_rearEndX + 200, 122)
     end
 
-    --for _, v in pairs(self.m_mHeroList) do
     for _, v in pairs(l_temp) do
         -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
         local homePosX = v.m_orgHomePosX + cameraHomePosX + offsetX

@@ -8,6 +8,8 @@ SkillCharge = class(PARENT, {
 		m_tAttackCount = 'num',
 		m_maxAttackCount = 'num',
 
+        m_collisionCount = 'num',
+
         m_physObject = 'PhysObject',	-- 돌진 바디
 		m_preCollisionTime = 'number',	-- 충돌 시간
 		m_chargePos = 'number',			-- 돌진 위치
@@ -38,6 +40,8 @@ function SkillCharge:init_skill(attack_count, animation_name)
 	self.m_tAttackCount = {}
 	self.m_maxAttackCount = attack_count
 	self.m_preCollisionTime = 0
+
+    self.m_collisionCount = 0
 	
 	self.m_speedSet = 200
 	self.m_speedMove = g_constant:get('SKILL', 'CHARGE_SPEED')
@@ -162,8 +166,8 @@ function SkillCharge:makeCrashPhsyObject()
 	local coll_size = g_constant:get('SKILL', 'CHARGE_PHYS_SIZE') or char.body.size * 2
 
     local phys_object = char:addPhysObject(char, object_key, {0, 0, coll_size}, self.m_atkPhysPosX, 0)
-    phys_object:addAtkCallback(function(attacker, defender, i_x, i_y)
-		self:doChargeAttack(defender)
+    phys_object:addAtkCallback(function(attacker, defender, i_x, i_y, body_key)
+        self:doChargeAttack(defender, body_key)
 		phys_object:clearCollisionObjectList()
     end)
 
@@ -173,17 +177,28 @@ end
 -------------------------------------
 -- function doChargeAttack
 -------------------------------------
-function SkillCharge:doChargeAttack(defender)
-	-- 충돌 물리 객체 확인
-	if (not self.m_physObject) then 
+function SkillCharge:doChargeAttack(defender, body_key)
+    -- 충돌 물리 객체 확인
+	if (not self.m_physObject or not defender) then 
 		return 
 	end
-	-- 충돌 횟수 초기화
-	if (not self.m_tAttackCount[defender]) then
-		self.m_tAttackCount[defender] = 0
+
+    -- 충돌 횟수 초기화
+    if (not self.m_tAttackCount[defender]) then
+		self.m_tAttackCount[defender] = {}
 	end
+	if (not self.m_tAttackCount[defender][body_key]) then
+		self.m_tAttackCount[defender][body_key] = 0
+        self.m_collisionCount = self.m_collisionCount + 1
+	end
+
+    -- 공격 대상 수 확인
+    if (self.m_collisionCount > self.m_targetLimit) then
+        return
+    end
+
 	-- 최대 공격수 도달했다면 원속으로 복귀
-	if (self.m_tAttackCount[defender] > self.m_maxAttackCount) then 
+	if (self.m_tAttackCount[defender][body_key] > self.m_maxAttackCount) then 
 		return 
 	end
 	-- 공격 간격 설정
@@ -192,20 +207,20 @@ function SkillCharge:doChargeAttack(defender)
 	end
 
     -- 돌진 공격
-    if (defender) then
-        local pos_x, pos_y = self:getAttackPositionAtWorld()
-        local l_collision = SkillTargetFinder:getCollisionFromTargetList({defender}, pos_x, pos_y)
-        
-		-- 공격 및 카운트
-        self:attack(l_collision[1])
-		self.m_tAttackCount[defender] = self.m_tAttackCount[defender] + 1
+    local body = defender:getBody(body_key)
+    local target_x = defender.pos.x + body.x
+    local target_y = defender.pos.y + body.y
+    local collision = StructCollisionData(defender, body_key, 0, target_x, target_y)
+            
+	-- 공격 및 카운트
+    self:attack(collision)
+	self.m_tAttackCount[defender][body_key] = self.m_tAttackCount[defender][body_key] + 1
 
-		-- 충돌 중에는 속도 줄임
-		self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, self.m_speedCollision)
+	-- 충돌 중에는 속도 줄임
+	self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, self.m_speedCollision)
 
-		-- 충돌 시간 저장
-		self.m_preCollisionTime = self.m_stateTimer
-    end
+	-- 충돌 시간 저장
+	self.m_preCollisionTime = self.m_stateTimer
 end
 
 -------------------------------------

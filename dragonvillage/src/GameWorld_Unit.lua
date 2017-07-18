@@ -349,10 +349,15 @@ end
 -- function addHero
 -------------------------------------
 function GameWorld:addHero(hero)
-    table.insert(self.m_leftParticipants, hero)
+    local idx = table.find(self.m_leftParticipants, hero)
+    if (not idx) then
+        table.insert(self.m_leftParticipants, hero)
+    end
 
-    local idx = table.find(self.m_leftNonparticipants, hero)
-    table.remove(self.m_leftNonparticipants, idx)
+    idx = table.find(self.m_leftNonparticipants, hero)
+    if (idx) then
+        table.remove(self.m_leftNonparticipants, idx)
+    end
 
     hero:setActive(true)
 end
@@ -364,26 +369,19 @@ function GameWorld:removeHero(hero)
     hero:setActive(false)
 
     local idx = table.find(self.m_leftParticipants, hero)
-    table.remove(self.m_leftParticipants, idx)
+    if (idx) then
+        table.remove(self.m_leftParticipants, idx)
+    end
 
-    table.insert(self.m_leftNonparticipants, hero)
+    idx = table.find(self.m_leftNonparticipants, hero)
+    if (not idx) then
+        table.insert(self.m_leftNonparticipants, hero)
+    end
 
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
-    local hero_count = table.count(self:getDragonList())
+    local hero_count = #self:getDragonList()
     if (hero_count <= 0) then
-        --[[
-        if (self.m_bDevelopMode) then 
-            -- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
-			self.m_mHeroList = {}
-			self.m_leftParticipants = {}
-			
-			self:makeHeroDeck()
-						
-			self:removeAllEnemy()
-		else
-        ]]--
-			self.m_gameState:changeState(GAME_STATE_FAILURE)
-		--end
+        self.m_gameState:changeState(GAME_STATE_FAILURE)
     end
 end
 
@@ -425,10 +423,15 @@ end
 -- function addEnemy
 -------------------------------------
 function GameWorld:addEnemy(enemy)
-    table.insert(self.m_rightParticipants, enemy)
+    local idx = table.find(self.m_rightParticipants, enemy)
+    if (not idx) then
+        table.insert(self.m_rightParticipants, enemy)
+    end
 
-    local idx = table.find(self.m_rightNonparticipants, enemy)
-    table.remove(self.m_rightNonparticipants, idx)
+    idx = table.find(self.m_rightNonparticipants, enemy)
+    if (idx) then
+        table.remove(self.m_rightNonparticipants, idx)
+    end
 
     enemy:setActive(true)
 end
@@ -440,9 +443,14 @@ function GameWorld:removeEnemy(enemy)
     enemy:setActive(false)
 
     local idx = table.find(self.m_rightParticipants, enemy)
-    table.remove(self.m_rightParticipants, idx)
+    if (idx) then
+        table.remove(self.m_rightParticipants, idx)
+    end
 
-    table.insert(self.m_rightNonparticipants, enemy)
+    idx = table.find(self.m_rightNonparticipants, enemy)
+    if (not idx) then
+        table.insert(self.m_rightNonparticipants, enemy)
+    end
 end
 
 -------------------------------------

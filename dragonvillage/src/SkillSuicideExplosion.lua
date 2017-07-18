@@ -22,6 +22,15 @@ function SkillSuicideExplosion:init_skill(explosion_res, jump_res)
 	PARENT.init_skill(self, jump_res)
 	
 	self.m_explosionRes = explosion_res
+
+    if (self.m_owner.m_bLeftFormation) then
+        self.m_targetPos = { x = 960, y = 0 }
+    else
+        self.m_targetPos = { x = 320, y = 0 }
+    end
+
+    -- 사용자 무적 처리
+    self.m_owner:setZombie(true)
 end
 
 -------------------------------------
@@ -35,8 +44,9 @@ end
 -------------------------------------
 function SkillSuicideExplosion:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillExplosion.st_move, nil, true)
-    self:addState('attack', SkillExplosion.st_attack, nil, false)
+    self:addState('start', SkillSuicideExplosion.st_move, nil, true)
+    self:addState('attack', SkillSuicideExplosion.st_attack, nil, false)
+    self:addState('dying', SkillSuicideExplosion.st_dying, nil, nil, 10)
 end
 
 -------------------------------------
@@ -65,6 +75,38 @@ function SkillSuicideExplosion.st_attack(owner, dt)
 end
 
 -------------------------------------
+-- function st_dying
+-------------------------------------
+function SkillSuicideExplosion.st_dying(owner, dt)
+    owner:onDying()
+
+    local l_target = {}
+    for target, _ in pairs(owner.m_hitTargetList) do
+        table.insert(l_target, target)
+    end
+
+    -- 스킬 종료시 발동되는 status effect를 적용
+    do
+		owner:dispatch(CON_SKILL_END, {l_target = l_target})
+    end
+
+    -- 조건 달성 시점이 아닌 종료시 수행되어야할 이벤트의 상태효과를 적용
+    do
+        for event_name, _  in pairs(owner.m_mSpecialEvent) do
+            owner:doStatusEffect(event_name, l_target) 
+        end
+    end
+
+    -- 사용자 죽임
+    do
+        owner.m_owner:setZombie(false)
+        owner.m_owner:changeState('dying')
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillSuicideExplosion:makeSkillInstance(owner, t_skill, t_data)
@@ -76,7 +118,7 @@ function SkillSuicideExplosion:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillExplosion(nil)
+    local skill = SkillSuicideExplosion(nil)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)

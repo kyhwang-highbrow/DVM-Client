@@ -294,11 +294,12 @@ end
 -- @param defender
 -- @param i_x intersect_pos_x
 -- @param i_y intersect_pos_y
+-- @param k body_key
 -------------------------------------
-function PhysObject:runAtkCallback(defender, i_x, i_y)
+function PhysObject:runAtkCallback(defender, i_x, i_y, k)
     if self.callback_atk then
         for _,v in ipairs(self.callback_atk) do
-            v(self, defender, i_x, i_y)
+            v(self, defender, i_x, i_y, k)
         end
     end
 end

@@ -780,23 +780,12 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     -----------------------------------------------------------------
     local checkDie = function() return (not self:isDead() and self.m_hp <= 0 and not self.m_isZombie) end
 
-    -- 죽기 직전 이벤트
     if (checkDie()) then
+        -- 죽기 직전 이벤트(딱 한번만 호출됨)
         self:dispatch('dead_ago', {}, self)
-    end
-
-    -- 드래그 스킬시 일시동안 무적처리 및 골드 드래곤 금화 드랍을 위해 사용되는 이벤트
-    do
-        self:dispatch('damaged', { ['damage']=damage, ['i_x']=i_x, ['i_y']=i_y, ['will_die']=checkDie() }, self)
-    end
-
-    -- damaged 이벤트로 좀비 상태가 될 수 있음
-    if (checkDie()) then
-        self:changeState('dying')
 
         local attack_type = t_info['attack_type']
-
-        -- 연출 중일 경우 죽음 방지하는 쪽에서 is_dead 변경될 수 있음 is_dead 안이 아닌 밖에서 기록해줘야함
+                
         -- @LOG : 보스 막타 타입
 		if (self:isBoss()) then
 			self.m_world.m_logRecorder:recordLog('finish_atk', attack_type)
@@ -808,9 +797,19 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
         end
     end
 
-    -- 피격시 타격감을 위한 연출
-    if (attacker) then
-        self:runAction_Hit(attacker, dir)
+    -- 드래그 스킬시 일시동안 무적처리 및 골드 드래곤 금화 드랍을 위해 사용되는 이벤트
+    do
+        self:dispatch('damaged', { ['damage']=damage, ['i_x']=i_x, ['i_y']=i_y, ['will_die']=checkDie() }, self)
+    end
+
+    -- damaged 이벤트로 좀비 상태가 될 수 있음
+    if (checkDie()) then
+        self:changeState('dying')
+    else
+        -- 피격시 타격감을 위한 연출
+        if (attacker) then
+            self:runAction_Hit(attacker, dir)
+        end
     end
 end
 
@@ -1157,11 +1156,7 @@ function Character:setHp(hp, bFixed)
 
     self.m_hp = t_event['hp']
 
-    if (self.m_isImmortal) then
-        self.m_hp = math_max(self.m_hp, 1)
-    end
-
-	local percentage = self.m_hp / self.m_maxHp
+    local percentage = self.m_hp / self.m_maxHp
 
 	-- 체력바 가감 연출
     if self.m_hpGauge then
@@ -1177,6 +1172,14 @@ end
 -- function release
 -------------------------------------
 function Character:release()
+    if (self.m_world) then
+        if (self.m_bLeftFormation) then
+            self.m_world:removeHero(self)
+        else
+            self.m_world:removeEnemy(self)
+        end
+    end
+
     if (self.m_unitInfoNode) then
         self.m_unitInfoNode:removeFromParent(true)
     end

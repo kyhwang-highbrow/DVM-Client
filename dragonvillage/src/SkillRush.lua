@@ -192,8 +192,8 @@ function SkillRush:makeCrashPhsyObject()
     local object_key = char:getAttackPhysGroup()
 
     local phys_object = char:addPhysObject(char, object_key, {0, 0, self.m_atkPhysSize/2}, 0, 0)
-    phys_object:addAtkCallback(function(attacker, defender, i_x, i_y)
-		self:doChargeAttack(defender)
+    phys_object:addAtkCallback(function(attacker, defender, i_x, i_y, body_key)
+		self:doChargeAttack(defender, body_key)
 		phys_object:clearCollisionObjectList()
     end)
 

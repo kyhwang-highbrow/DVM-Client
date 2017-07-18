@@ -258,14 +258,6 @@ end
 -- function release
 -------------------------------------
 function Dragon:release()
-    if (self.m_world) then
-        if (self.m_bLeftFormation) then
-            self.m_world:removeHero(self)
-        else
-            self.m_world:removeEnemy(self)
-        end
-    end
-
     if (self.m_hpNode) then
         self.m_hpNode:removeFromParent(true)
         self.m_hpNode = nil

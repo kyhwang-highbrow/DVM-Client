@@ -202,6 +202,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillExplosion:makeSkillInstance(self, t_skill, t_data)
 				return true
 
+            elseif (skill_type == 'skill_suicide') then
+				SkillSuicideExplosion:makeSkillInstance(self, t_skill, t_data)
+				return true
+
 			elseif (skill_type == 'skill_strike_finish_spread') then
 				SkillRolling:makeSkillInstance(self, t_skill, t_data)
 				return true

@@ -291,43 +291,41 @@ end
 -- function st_dying
 -------------------------------------
 function Skill.st_dying(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		owner:onDying()
+    owner:onDying()
 
-        owner.m_owner:restore()
+    owner.m_owner:restore()
 
+    local l_target = {}
+    for target, _ in pairs(owner.m_hitTargetList) do
+        table.insert(l_target, target)
+    end
+
+    -- 스킬 종료시 발동되는 status effect를 적용
+    do
+		owner:dispatch(CON_SKILL_END, {l_target = l_target})
+    end
+
+    -- 조건 달성 시점이 아닌 종료시 수행되어야할 이벤트의 상태효과를 적용
+    do
+        for event_name, _  in pairs(owner.m_mSpecialEvent) do
+            owner:doStatusEffect(event_name, l_target) 
+        end
+    end
+
+    -- 보너스 버프
+    --[[
+    if (owner.m_bonusLevel > 0) then
         local l_target = {}
         for target, _ in pairs(owner.m_hitTargetList) do
             table.insert(l_target, target)
         end
 
-        -- 스킬 종료시 발동되는 status effect를 적용
-        do
-		    owner:dispatch(CON_SKILL_END, {l_target = l_target})
-        end
-
-        -- 조건 달성 시점이 아닌 종료시 수행되어야할 이벤트의 상태효과를 적용
-        do
-            for event_name, _  in pairs(owner.m_mSpecialEvent) do
-                owner:doStatusEffect(event_name, l_target) 
-            end
-        end
-
-        -- 보너스 버프
-        --[[
-        if (owner.m_bonusLevel > 0) then
-            local l_target = {}
-            for target, _ in pairs(owner.m_hitTargetList) do
-                table.insert(l_target, target)
-            end
-
-            -- 보너스 효과 적용 및 연출
-            DragonSkillBonusHelper:doInvoke(owner.m_owner, l_target, owner.m_bonusLevel)
-        end
-        ]]--
-
-        return true
+        -- 보너스 효과 적용 및 연출
+        DragonSkillBonusHelper:doInvoke(owner.m_owner, l_target, owner.m_bonusLevel)
     end
+    ]]--
+
+    return true
 end
 
 -------------------------------------
@@ -429,7 +427,7 @@ function Skill:attack(collision)
     local y = target_char.pos.y + body.y
 
     -- 공격
-    self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
+    self:runAtkCallback(target_char, x, y, body_key)
 
     target_char:runDefCallback(self, x, y, body_key)
     --target_char:runDefCallback(self, x, y, body_key, true)

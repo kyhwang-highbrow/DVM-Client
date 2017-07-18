@@ -285,7 +285,7 @@ function PhysWorld:update(dt)
                                                     t_collision[object_phys_idx][body_key] = true
 
                                                     -- 충돌 콜백 실행
-                                                    enemy:runAtkCallback(object, intersect_pos_x, intersect_pos_y)
+                                                    enemy:runAtkCallback(object, intersect_pos_x, intersect_pos_y, body_key)
                                                     object:runDefCallback(enemy, intersect_pos_x, intersect_pos_y, body_key)
                                                 end
                                             end
