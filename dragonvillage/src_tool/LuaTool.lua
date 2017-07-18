@@ -77,7 +77,7 @@ end
 -------------------------------------
 function RemoveDirectory(dir)
     for file in lfs.dir(dir) do
-        local file_path = dir..'/'..file
+        local file_path = dir..'\\'..file
         if (file ~= ".") and (file ~= "..") then
 
             if (lfs.attributes(file_path, 'mode') == 'file') then
