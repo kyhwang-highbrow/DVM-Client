@@ -177,6 +177,9 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 	-- 테이머 애니
 	local tamer_id = self.m_tUserInfo['tamer'] or (110000 + math_random(6))
 	local t_tamer = TableTamer():get(tamer_id)
+    if (not t_tamer) then
+        error('tamer_id : ' .. tamer_id)
+    end
 	local illustration_res = t_tamer['res']
 	local illustration_animator = MakeAnimator(illustration_res)
 	illustration_animator:changeAni('idle', true)
