@@ -64,7 +64,7 @@ function UI_ColosseumRankRewardItem:init_master(t_data, pure_tier, tier_grade)
     -- 본인 등급 표시
     if (pure_tier == 'master') then
         vars['masterRewardSprite']:setVisible(true)
-        local pos_y = vars['node' .. i]:getPositionY()
+        local pos_y = vars['node' .. tier_grade]:getPositionY()
         vars['masterRewardSprite']:setPositionY(pos_y)
     else
         vars['masterRewardSprite']:setVisible(false)
@@ -96,7 +96,7 @@ function UI_ColosseumRankRewardItem:init_common(t_data, pure_tier, tier_grade)
     -- 본인 등급 표시
     if (pure_tier == tier) then
         vars['rewardSprite']:setVisible(true)
-        local pos_y = vars['node' .. i]:getPositionY()
+        local pos_y = vars['node' .. tier_grade]:getPositionY()
         vars['rewardSprite']:setPositionY(pos_y)
     else
         vars['rewardSprite']:setVisible(false)
