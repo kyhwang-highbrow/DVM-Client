@@ -51,6 +51,7 @@ end
 -------------------------------------
 function MakeAsset100mbUnder:deleteAssets()
     cclog('##### MakeAsset100mbUnder:deleteAssets')
+    
     RemoveDirectory(TARGET_PATH)
 end
 
@@ -59,6 +60,7 @@ end
 -------------------------------------
 function MakeAsset100mbUnder:makeAssets()
     cclog('##### MakeAsset100mbUnder:makeAssets')
+
     local b = lfs.mkdir(TARGET_PATH)
     cclog(b, str)
 end
@@ -69,9 +71,10 @@ end
 -------------------------------------
 function MakeAsset100mbUnder:encryptSrcAndData()
     cclog('##### MakeAsset100mbUnder:encryptSrcAndData')
-    local curr_path = lfs.currentdir()
+    
     local ecncrypt_path_src = 'python\\xor.py'
     local ecncrypt_path_data = 'python\\xor_data.py'
+    
     -- src 암호화
     os.execute('python ' .. ecncrypt_path_src)
     -- data 암호화
