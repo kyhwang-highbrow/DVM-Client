@@ -2,7 +2,7 @@
     "pattern_boss_queenssnake":
     [        
         [
-            "a;basic", "w;2", "a;1", "w;4", "a;basic", "w;2", "a;4", "w;2"
+            "a;basic", "w;2", "a;1", "w;4", "a;basic", "w;2", "a;3", "w;2"
         ]
     ],
 	
@@ -23,7 +23,7 @@
                 "hp_percent":50,
                 "pattern":
                 [
-                    "a;2", "w;3", "a;3", "w;2", "a;1", "w;2", "a;4","w;2"
+                    "a;2", "w;3", "a;3", "w;2", "a;1", "w;2", "a;3","w;2"
                 ]
             }
         ]
