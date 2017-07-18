@@ -238,6 +238,17 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id)
     end
 
+    
+    -- 해로운 상태효과 걸렸을 시
+	if (self:isHarmful(status_effect)) then
+        -- @EVENT 
+		local t_event = clone(EVENT_STATUS_EFFECT)
+		t_event['char'] = target_char
+		t_event['status_effect_name'] = status_effect.m_statusEffectName
+		target_char:dispatch('get_debuff', t_event)
+	end
+
+
 	return status_effect
 end
 
@@ -369,15 +380,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     -----------------------------------------------------------------
     -- StatusEffectUnit 생성 및 추가
     status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration)
-
-    -- 해로운 상태효과 걸렸을 시
-	if (self:isHarmful(status_effect)) then
-        -- @EVENT 
-		local t_event = clone(EVENT_STATUS_EFFECT)
-		t_event['char'] = target_char
-		t_event['status_effect_name'] = status_effect.m_statusEffectName
-		target_char:dispatch('get_debuff', t_event)
-	end
 
     return status_effect
 end
