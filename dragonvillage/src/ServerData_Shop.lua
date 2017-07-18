@@ -400,7 +400,7 @@ end
 -- function request_checkReceiptValidation
 -- @breif 마켓에서 구매 후
 -------------------------------------
-function ServerData_Shop:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, cb_func, fail_cb)
+function ServerData_Shop:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, iswin, cb_func, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -429,6 +429,7 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     ui_network:setParam('validation_key', validation_key)
     ui_network:setParam('sku', sku)
     ui_network:setParam('product_id', product_id)
+    ui_network:setParam('iswin', iswin)    
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(false)
