@@ -425,6 +425,11 @@ end
 -- @brief
 -------------------------------------
 function ChatManager:chatContentQueue(chat_content)
+    -- 차단 처리
+    if (chat_content['uid'] and g_chatIgnoreList:isIgnore(chat_content['uid'])) then
+        return
+    end
+
     self:setNoti(chat_content)
 
     table.insert(self.m_lMessage, chat_content)
