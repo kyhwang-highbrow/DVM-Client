@@ -91,15 +91,16 @@ function UI_ChatPopup_WhisperTab:click_whisperSetUserBtn()
     edit_box:setConfirmCB(confirm_cb)
 
     local function close_cb(str)
-        local nickname = edit_box.vars['editBox']:getText()
-        self.m_peerUserNickname = nickname
+        if (edit_box.m_retType == 'ok') then
+            local nickname = edit_box.vars['editBox']:getText()
+            self.m_peerUserNickname = nickname
 
-        if (not nickname) or (nickname == '') then
-            self.vars['whisperSetUserLabel']:setString('귓속말')
-        else
-            self.vars['whisperSetUserLabel']:setString(nickname)
+            if (not nickname) or (nickname == '') then
+                self.vars['whisperSetUserLabel']:setString('귓속말')
+            else
+                self.vars['whisperSetUserLabel']:setString(nickname)
+            end
         end
-        
     end
     edit_box:setCloseCB(close_cb)
 end
