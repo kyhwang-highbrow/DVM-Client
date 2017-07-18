@@ -121,6 +121,15 @@ function UI_AncientTowerFloorInfo:refresh_monsterList()
             t_dragon['did'] = data
             t_dragon['evolution'] = 3
             ui = UI_DragonCard(t_dragon)
+
+            -- 몬스터 카드와 동일하게 이름 툴팁으로 출력
+            local function click_clickBtn()
+                local str = '{@SKILL_NAME}' .. TableDragon():getDragonName(data)
+                local tool_tip = UI_Tooltip_Skill(0, 0, str)
+                tool_tip:autoPositioning(ui.vars['clickBtn'])
+            end
+
+            ui.vars['clickBtn']:registerScriptTapHandler(function() click_clickBtn() end)
         end
         return ui
     end

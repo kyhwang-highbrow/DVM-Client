@@ -526,6 +526,8 @@ end
 -- function click_uidCopyBtn
 -------------------------------------
 function UI_Setting:click_uidCopyBtn()
+    if (not isWin32()) then return end
+     
     local vars = self.vars
     local uid = g_userData:get('uid')
 

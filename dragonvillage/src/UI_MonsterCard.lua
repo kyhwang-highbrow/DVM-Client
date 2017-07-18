@@ -90,7 +90,7 @@ function UI_MonsterCard:makeClickBtn(res)
         self.root:addChild(btn)
 
         btn:registerScriptTapHandler(function() self:click_clickBtn() end)
-        btn:registerScriptPressHandler(function() self:press_clickBtn() end)
+        --btn:registerScriptPressHandler(function() self:press_clickBtn() end)
     end
 
     btn:setNormalSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame(res))

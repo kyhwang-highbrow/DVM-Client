@@ -28,6 +28,8 @@ end
 -- @brief 아이디 정보 복사
 -------------------------------------
 function UI_Setting:click_copyBtn()
+    if (not isWin32()) then return end
+     
     local vars = self.vars
     local recovery_code = g_serverData:get('local', 'recovery_code')
 
