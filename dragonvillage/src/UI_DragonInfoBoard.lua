@@ -310,7 +310,7 @@ function UI_DragonInfoBoard:click_runeBtn(slot_idx)
         local doid = self.m_dragonObject['id']
         local dragon_object = g_dragonsData:getDragonObject(doid)
 
-        if (dragon_object['updated_at'] ~= self.m_dragonObject['updated_at']) then
+        if (dragon_object['updated_at'] ~= self.m_dragonObject['updated_at']) or ui.m_bChangeDragonList then
             self.m_dragonObject = dragon_object
             self:refresh(self.m_dragonObject)
         end
