@@ -96,7 +96,7 @@ function UI_ColosseumRewardInfoPopup:init_tableViewRankReward()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(584 + 20, 134 + 20)
+    table_view_td.m_cellSize = cc.size(584 + 5, 134 + 5)
     table_view_td.m_nItemPerCell = 2
     table_view_td:setCellUIClass(UI_ColosseumRankRewardItem, create_func)
     table_view_td:makeDefaultEmptyDescLabel(Str(''))
@@ -122,7 +122,7 @@ function UI_ColosseumRewardInfoPopup:init_tableViewMatchReward()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(584 + 20, 134 + 20)
+    table_view_td.m_cellSize = cc.size(584 + 5, 134 + 5)
     table_view_td.m_nItemPerCell = 2
     table_view_td:setCellUIClass(UI_ColosseumMatchRewardItem, create_func)
     table_view_td:makeDefaultEmptyDescLabel(Str(''))
