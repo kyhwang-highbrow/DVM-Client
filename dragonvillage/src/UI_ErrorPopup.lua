@@ -70,10 +70,11 @@ function UI_ErrorPopup:initUI(str)
     local common_anchor = cc.p(1, 0.5)
     local common_size = cc.size(200, 80)
 
+    -- 생성할 버튼 정보
     local l_btn = {
-        {btn_str = '복사', lua_name = 'copyBtn', pos = {x = -20, y = 100}},
-        {btn_str = '전송', lua_name = 'slackBtn', pos = {x = -20, y = 0}},
-        {btn_str = '닫기', lua_name = 'exitBtn', pos = {x = -20, y = -100}},
+        {btn_str = 'Copy', lua_name = 'copyBtn', pos = {x = -20, y = 100}},
+        {btn_str = 'Report', lua_name = 'slackBtn', pos = {x = -20, y = 0}},
+        {btn_str = 'Close', lua_name = 'exitBtn', pos = {x = -20, y = -100}},
     }
 
     for _, t_btn_info in pairs(l_btn) do
@@ -127,11 +128,6 @@ function UI_ErrorPopup:setErrorStr(str)
     cclog('############## setErrorStr 2')
 	self.m_errorLabel:setString(error_str)
     self.m_errorStr = error_str
-    cclog('############## setErrorStr 3')
-    -- testmode에서는 항상 전송되도록 함
-    if (isTestMode()) then
-        slack_api(error_str)
-    end
     cclog('############## setErrorStr end')
 end
 
@@ -148,7 +144,7 @@ end
 function UI_ErrorPopup:click_slackBtn()
     local error_str = self.m_errorStr
     slack_api(error_str)
-    UIManager:toastNotificationGreen('전송 완료!')
+    UIManager:toastNotificationGreen('에러 로그 전송 완료!')
 end
 
 -------------------------------------
