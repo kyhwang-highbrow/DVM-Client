@@ -1,96 +1,82 @@
 
 rockdragon_light_01.png
-size: 1024,256
+size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 rockdragon_light_01_arm_01
-  rotate: true
-  xy: 2, 2
-  size: 78, 113
-  orig: 78, 113
+  rotate: false
+  xy: 189, 360
+  size: 105, 107
+  orig: 105, 107
+  offset: 0, 0
+  index: -1
+rockdragon_light_01_arm_03
+  rotate: false
+  xy: 189, 360
+  size: 105, 107
+  orig: 105, 107
   offset: 0, 0
   index: -1
 rockdragon_light_01_arm_02
   rotate: false
-  xy: 344, 106
-  size: 104, 141
-  orig: 104, 141
-  offset: 0, 0
-  index: -1
-rockdragon_light_01_arm_03
-  rotate: true
-  xy: 889, 169
-  size: 78, 101
-  orig: 78, 101
+  xy: 455, 595
+  size: 113, 204
+  orig: 113, 204
   offset: 0, 0
   index: -1
 rockdragon_light_01_arm_04
-  rotate: true
-  xy: 786, 160
-  size: 87, 101
-  orig: 87, 101
+  rotate: false
+  xy: 336, 588
+  size: 117, 211
+  orig: 117, 211
   offset: 0, 0
   index: -1
 rockdragon_light_01_body_01
   rotate: false
-  xy: 2, 82
-  size: 167, 165
-  orig: 167, 165
-  offset: 0, 0
-  index: -1
-rockdragon_light_01_body_04
-  rotate: false
-  xy: 568, 152
-  size: 109, 95
-  orig: 109, 95
+  xy: 1, 469
+  size: 333, 330
+  orig: 333, 330
   offset: 0, 0
   index: -1
 rockdragon_light_01_effect_04
   rotate: false
-  xy: 171, 97
+  xy: 1, 154
   size: 171, 150
   orig: 171, 150
   offset: 0, 0
   index: -1
 rockdragon_light_01_eye_01
-  rotate: true
-  xy: 450, 99
-  size: 38, 39
-  orig: 38, 39
+  rotate: false
+  xy: 570, 719
+  size: 56, 80
+  orig: 56, 80
   offset: 0, 0
   index: -1
 rockdragon_light_01_head_01
   rotate: false
-  xy: 450, 139
-  size: 116, 108
-  orig: 116, 108
+  xy: 1, 306
+  size: 186, 161
+  orig: 186, 161
   offset: 0, 0
   index: -1
 rockdragon_light_01_head_02
   rotate: false
-  xy: 679, 153
+  xy: 336, 492
   size: 105, 94
   orig: 105, 94
   offset: 0, 0
   index: -1
-rockdragon_light_01_head_04
-  rotate: false
-  xy: 180, 25
-  size: 61, 70
-  orig: 61, 70
-  offset: 0, 0
-  index: -1
 rockdragon_light_01_leg_01
   rotate: false
-  xy: 117, 3
+  xy: 1, 75
   size: 61, 77
   orig: 61, 77
   offset: 0, 0
   index: -1
 rockdragon_light_01_leg_02
-  rotate: true
-  xy: 243, 37
+  rotate: false
+  xy: 1, 1
   size: 58, 72
   orig: 58, 72
   offset: 0, 0
