@@ -397,9 +397,7 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     end
 
     -- 이전, 다음 챕터 버튼
-    --vars['prevBtn']:setEnabled(1 < chapter)
     vars['prevBtn']:setVisible(1 < chapter)
-    --vars['nextBtn']:setEnabled(chapter < MAX_ADVENTURE_CHAPTER)
     vars['nextBtn']:setVisible(chapter < MAX_ADVENTURE_CHAPTER)
 
     -- 챕터 도전과제

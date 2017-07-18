@@ -319,8 +319,6 @@ function UI_GameResult_AncientTower:makeResultUI()
     local is_success = self.m_bSuccess
     local vars = self.vars
     vars['resultMenu']:setVisible(true)
-    vars['towerBtn']:setVisible(true)
-    vars['mapBtn']:setVisible(false)
 	vars['statsBtn']:setVisible(false)
     vars['homeBtn']:setVisible(false)
     vars['againBtn']:setVisible(false)

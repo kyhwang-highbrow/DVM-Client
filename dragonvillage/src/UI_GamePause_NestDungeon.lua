@@ -27,6 +27,7 @@ end
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause_NestDungeon:click_retryButton()
-    local scene = SceneNestDungeon(self.m_stageID)
+    local is_ready = true
+    local scene = SceneNestDungeon(self.m_stageID, nil, is_ready)
     scene:runScene()
 end

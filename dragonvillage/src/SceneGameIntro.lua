@@ -181,9 +181,39 @@ end
 -- function networkGameFinish
 -------------------------------------
 function SceneGameIntro:networkGameFinish(t_param, t_result_ref, next_func)
-    local is_use_loading = true
-    local scene = SceneLobby(is_use_loading)
-    scene:runScene()
+    self:checkScenario()
+end
+
+-------------------------------------
+-- function checkScenario()
+-------------------------------------
+function SceneGameIntro:checkScenario()
+    self.m_dialogPlayer:close()
+
+    local tid = g_userData:get('start_tamer')
+    local tamer_name = TableTamer():getTamerType(tid) or 'goni'
+    local intro_finish_name = 'scenario_intro_finish_'..tamer_name
+
+    local play_intro_finish
+    local lobby_func
+
+    play_intro_finish = function()
+        local ui = g_scenarioViewingHistory:playScenario(intro_finish_name)
+        ui:setReplaceSceneCB(lobby_func)
+        ui:next()
+    end
+
+    lobby_func = function()
+        local is_use_loading = true
+        local scene = SceneLobby(is_use_loading)
+        scene:runScene()
+    end
+
+    if (not g_scenarioViewingHistory:isViewed(intro_finish_name)) then
+        play_intro_finish()
+    else
+        lobby_func()
+    end
 end
 
 -------------------------------------
@@ -214,9 +244,7 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
     -- PC에서 스킵 가능 
     if (isWin32()) then
         self.m_dialogPlayer.vars['skipBtn']:registerScriptTapHandler(function()  
-            local is_use_loading = true
-            local scene = SceneLobby(is_use_loading)
-            scene:runScene()
+            self:checkScenario()
         end)
 
         self.m_dialogPlayer.vars['skipBtn']:setVisible(true)

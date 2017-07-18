@@ -23,6 +23,7 @@ UI_ScenarioPlayer = class(PARENT,{
         m_bSkipEnable = '',
 
         m_scenarioPlayerTalk = '',
+        m_sceneCB = 'function',
     })
 
 -------------------------------------
@@ -104,7 +105,7 @@ function UI_ScenarioPlayer:click_skip()
         return
     end
 
-    self:close()
+    self:_close()
 end
 
 -------------------------------------
@@ -127,7 +128,7 @@ function UI_ScenarioPlayer:next()
     if (self.m_currPage <= self.m_maxPage) then
         self:showPage()
     else
-        self:close()
+        self:_close()
     end
 end
 
@@ -294,6 +295,24 @@ function UI_ScenarioPlayer:isExistEffect(page_no, find)
 end
 
 -------------------------------------
+-- function setReplaceSceneCB
+-------------------------------------
+function UI_ScenarioPlayer:setReplaceSceneCB(scene_cb)
+    self.m_sceneCB = scene_cb
+end
+
+-------------------------------------
+-- function checkClose
+-------------------------------------
+function UI_ScenarioPlayer:_close()
+    if (self.m_sceneCB) then
+        self.m_sceneCB()
+    else
+        self:close()
+    end
+end
+
+-------------------------------------
 -- function onClose
 -------------------------------------
 function UI_ScenarioPlayer:onClose()
@@ -311,3 +330,5 @@ function UI_ScenarioPlayer:onClose()
 
     PARENT.onClose(self)
 end
+
+

@@ -350,7 +350,6 @@ function UI_GameResultNew:direction_end()
         vars['prevBtn']:setVisible(true)
 		vars['statsBtn']:setVisible(true)
         vars['againBtn']:setVisible(true)
-        vars['mapBtn']:setVisible(true)
 
         self:doNextWork()
     end
@@ -524,8 +523,64 @@ function UI_GameResultNew:direction_showButton()
     vars['nextBtn']:setVisible(true)
     vars['quickBtn']:setVisible(true)
 
+    self:set_modeButton()
     self:checkAutoPlay()
     self:doNextWork()
+end
+
+-------------------------------------
+-- function set_modeButton
+-- @brief 모드별 버튼 정리
+-------------------------------------
+function UI_GameResultNew:set_modeButton()
+    local vars = self.vars
+    local stage_id = self.m_stageID
+    local game_mode = g_stageData:getGameMode(stage_id)
+
+    vars['mapBtn']:setVisible(false)
+
+    local function moveToCenterBtn()
+        vars['prevBtn']:setVisible(false)
+        vars['nextBtn']:setVisible(false)
+        vars['againBtn']:setPositionX(-110)
+        vars['quickBtn']:setPositionX(110)
+    end
+
+    -- 네스트 던전 모드
+    if (game_mode == GAME_MODE_NEST_DUNGEON) then
+        local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(stage_id)
+
+        local dungeon_mode = t_dungeon_id_info['dungeon_mode']
+        if (dungeon_mode == NEST_DUNGEON_EVO_STONE) then
+            vars['dragonBtn']:setVisible(true)
+
+        elseif (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
+            vars['nightmareBtn']:setVisible(true)
+            
+        elseif (dungeon_mode == NEST_DUNGEON_TREE) then
+            vars['treeBtn']:setVisible(true)
+
+        elseif (dungeon_mode == NEST_DUNGEON_GOLD) then
+            vars['goldBtn']:setVisible(true)
+
+        else
+            vars['mapBtn']:setVisible(true)
+        end
+
+    -- 비밀 던전 모드
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        moveToCenterBtn()
+        vars['relationBtn']:setVisible(true)
+
+    -- 고대의 탑
+    elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
+       vars['towerBtn']:setVisible(true)
+
+    -- 모험 
+    else
+        vars['mapBtn']:setVisible(true)
+
+    end
 end
 
 -------------------------------------
@@ -728,16 +783,6 @@ function UI_GameResultNew:sortDragonNode(dragon_cnt)
             node:setVisible(false)
         end
     end
-end
-
--------------------------------------
--- function moveToCenterBtn
--- @brief 바로 재시작, 다시하기 버튼 중앙으로 위치 (다음, 이전 버튼 없는 경우)
--------------------------------------
-function UI_GameResultNew:moveToCenterBtn()
-    local vars = self.vars
-    vars['againBtn']:setPositionX(-110)
-    vars['quickBtn']:setPositionX(110)
 end
 
 -------------------------------------

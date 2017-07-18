@@ -35,7 +35,8 @@ end
 -- function click_againBtn
 -------------------------------------
 function UI_GameResult_NestDungeon:click_againBtn()
-    local scene = SceneNestDungeon(self.m_stageID)
+    local is_ready = true
+    local scene = SceneNestDungeon(self.m_stageID, nil, is_ready)
     scene:runScene()
 end
 
@@ -52,7 +53,8 @@ end
 -------------------------------------
 function UI_GameResult_NestDungeon:click_nextBtn()
     local next_stage_id = g_stageData:getNextStage(self.m_stageID) or self.m_stageID
-    local scene = SceneNestDungeon(next_stage_id)
+    local is_ready = true
+    local scene = SceneNestDungeon(next_stage_id, nil, is_ready)
     scene:runScene()
 end
 
@@ -98,7 +100,6 @@ function UI_GameResult_NestDungeon:direction_end()
 
             vars['statsBtn']:setVisible(false)
             vars['againBtn']:setVisible(false)
-            vars['mapBtn']:setVisible(false)
         end
     end
 end
