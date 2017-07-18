@@ -85,10 +85,17 @@ function StructUserInfo:applyDragonsDataList(l_data)
     local l_data = l_data or {}
     self.m_dragonsObject = {}
 
+    local table_dragon = TableDragon()
+
     for i,v in pairs(l_data) do
-        local struct_dragon_object = StructDragonObject(v)
-        local doid = v['id']
-        self.m_dragonsObject[doid] = struct_dragon_object
+
+        -- 드래곤 테이블에 존재하지 않는 did는 제외
+        local did = v['did']
+        if table_dragon:get(did) then
+            local struct_dragon_object = StructDragonObject(v)
+            local doid = v['id']
+            self.m_dragonsObject[doid] = struct_dragon_object
+        end
     end
 end
 

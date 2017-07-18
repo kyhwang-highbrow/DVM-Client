@@ -121,29 +121,34 @@ function ServerData_Colosseum:refresh_matchList(l_match_list)
     self.m_matchList = {}
 
     for i, v in pairs(l_match_list) do
-        local struct_user_info = StructUserInfoColosseum()
 
-        -- 기본 유저 정보
-        struct_user_info.m_uid = v['uid']
-        struct_user_info.m_nickname = v['nick']
-        struct_user_info.m_lv = v['lv']
-        struct_user_info.m_tamerID = v['tamer']
-        struct_user_info.m_leaderDragonObject = StructDragonObject(v['leader'])
-        struct_user_info.m_tier = v['tier']
+		-- 서버에서 잘못된 데이터가 넘어오는 경우 클라에서 처리하지 않음
+		-- (여러 값들이 null로 오는 경우가 있음)
+        if v['uid'] then
+            local struct_user_info = StructUserInfoColosseum()
 
-        -- 콜로세움 유저 정보
-        struct_user_info.m_rp = v['rp']
-        struct_user_info.m_matchResult = v['match']
+            -- 기본 유저 정보
+            struct_user_info.m_uid = v['uid']
+            struct_user_info.m_nickname = v['nick']
+            struct_user_info.m_lv = v['lv']
+            struct_user_info.m_tamerID = v['tamer']
+            struct_user_info.m_leaderDragonObject = StructDragonObject(v['leader'])
+            struct_user_info.m_tier = v['tier']
 
-        struct_user_info:applyRunesDataList(v['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
-        struct_user_info:applyDragonsDataList(v['dragons'])
-        --v['match']
+            -- 콜로세움 유저 정보
+            struct_user_info.m_rp = v['rp']
+            struct_user_info.m_matchResult = v['match']
 
-        -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
-        struct_user_info:applyPvpDefDeckData(v['deck'])
+            struct_user_info:applyRunesDataList(v['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
+            struct_user_info:applyDragonsDataList(v['dragons'])
+            --v['match']
 
-        local uid = v['uid']
-        self.m_matchList[uid] = struct_user_info
+            -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
+            struct_user_info:applyPvpDefDeckData(v['deck'])
+
+            local uid = v['uid']
+            self.m_matchList[uid] = struct_user_info
+        end
     end
 end
 

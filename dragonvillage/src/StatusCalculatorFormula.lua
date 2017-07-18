@@ -8,6 +8,10 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
     local table_char = self.m_charTable
     local t_char = table_char[cid]
 
+    if (not t_char) then
+        error('cid : ' .. cid)
+    end
+
     -- 능력치 테이블
     local table_status = TABLE:get('status')
     local t_status = table_status[status_name]
