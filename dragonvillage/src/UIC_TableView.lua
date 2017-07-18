@@ -56,6 +56,7 @@ UIC_TableView = class(PARENT, {
 		m_scrollEndIdx = 'number',
 
 		m_scrollLock = 'bool',
+        m_stability = 'bool',
     })
 
 -------------------------------------
@@ -86,6 +87,7 @@ function UIC_TableView:init(node)
         self.m_lSortInfo = {}
         self.m_currSortType = nil
     end
+    self.m_stability = true
 end
 
 -------------------------------------
@@ -122,6 +124,13 @@ end
 -- function update
 -------------------------------------
 function UIC_TableView:update(dt)
+
+    -- update함수에서 error가 발생한 후에는 update함수를 콜하지 않도록 하기 위함
+    if (not self.m_stability) then
+        return 
+    end
+    self.m_stability = false
+
     self.m_makeTimer = (self.m_makeTimer - dt)
     if (self.m_makeTimer <= 0) then
         
@@ -187,6 +196,8 @@ function UIC_TableView:update(dt)
 		-- 정렬된 cell들을 처리하는 의미
 		self:scrollViewDidScroll()
     end
+
+    self.m_stability = true
 end
 
 -------------------------------------

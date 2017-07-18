@@ -42,6 +42,7 @@ UIC_TableViewTD = class(PARENT, {
 		m_visibleEndIdx = 'number',
 
 		_cellCreateDirecting = 'CELL_CREATE_DIRECTING',
+        m_stability = 'bool',
     })
 
 -------------------------------------
@@ -84,6 +85,7 @@ function UIC_TableViewTD:init(node)
 	self.m_visibleEndIdx = 1
 
 	self._cellCreateDirecting = CELL_CREATE_DIRECTING['scale']
+    self.m_stability = true
 end
 
 -------------------------------------
@@ -120,6 +122,12 @@ end
 -- function update
 -------------------------------------
 function UIC_TableViewTD:update(dt)
+    -- update함수에서 error가 발생한 후에는 update함수를 콜하지 않도록 하기 위함
+    if (not self.m_stability) then
+        return 
+    end
+    self.m_stability = false
+
 	self.m_makeTimer = (self.m_makeTimer - dt)
 	if (self.m_makeTimer <= 0) then
 
@@ -200,6 +208,8 @@ function UIC_TableViewTD:update(dt)
         local animated = true
         self:expandTemp(self.m_refreshDuration, animated)
     end
+
+    self.m_stability = true
 end
 
 -------------------------------------
