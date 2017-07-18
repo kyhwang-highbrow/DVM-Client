@@ -13,37 +13,13 @@ require 'lib/class'
 require 'perpleLib/StringUtils'
 require 'Table'
 require 'TableClass'
-require 'TableGradeInfo'
 require 'io'
+
 -------------------------------------
 -- function main
 -- @brief
 -------------------------------------
 function main()
-    lapp = require 'pl.lapp'
-    local args = lapp( [[
-    Args
-        -n, --_name     (string)         extract
-                                        validate
-                                      uigenerate
-     ]])
-    
-    if (args['_name'] == 'extract') then
-        require 'UnusedFileExtractor'
-        
-        extractor = UnusedFileExtractor()
-        extractor:extractUnusedFile()
-
-    elseif (args['_name'] == 'validate') then
-        require 'DataTableValidator'
-        validator = DataTableValidator()
-        validator:validateData()
-    
-    elseif (args['_name'] == 'uigenerate') then
-        require 'UISourceCodeGenerator'
-        generator = UISourceCodeGenerator()
-        generator:makeFile()
-    end
 end
 
 -------------------------------------

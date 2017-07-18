@@ -1,4 +1,8 @@
+require 'LuaTool'
 
+-------------------------------------
+-- class UISourceCodeGenerator
+-------------------------------------
 UISourceCodeGenerator = class({
     m_uiFilePath = 'string',
     m_uiFileName = 'string',
@@ -353,4 +357,10 @@ end
 function UISourceCodeGenerator:getUserInput()
     print('Input ui file (full-path) (ex : \"aaa\\bbb\\xxx.ui\") :')
     return io.read()
+end
+
+
+-- lua class 파일 자체에서 실행되도록 함
+if (arg[1] == 'run') then
+    UISourceCodeGenerator():makeFile()
 end

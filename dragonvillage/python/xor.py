@@ -97,4 +97,4 @@ convert(root_dir, sub_dir, '../' + sub_dir)
 print('------------------------------------------------------------')
 print('Total ' + str(count_files) + ' files changed')
 
-os.system('pause')
+#os.system('pause')

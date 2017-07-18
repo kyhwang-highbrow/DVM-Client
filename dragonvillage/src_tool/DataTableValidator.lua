@@ -1,5 +1,10 @@
+require 'LuaTool'
+
 require 'slack'
 
+-------------------------------------
+-- class DataTableValidator
+-------------------------------------
 DataTableValidator = class({
     m_dataRoot = '',
     m_numOfInvalidData = 'number',
@@ -21,8 +26,8 @@ function DataTableValidator:init()
     self.m_tInvalidDragon = {}
     self.m_tInvalidMonster = {}
     self.m_tInvalidSkill = {}
-    self.m_tDragon = self:makeDictCSV((self.m_dataRoot .. '..\\data\\table_dragon.csv'), 'did')
-    self.m_tMonster =  self:makeDictCSV((self.m_dataRoot .. '..\\data\\table_monster.csv'), 'mid') 
+    self.m_tDragon = self:makeDictCSV((self.m_dataRoot .. 'table_dragon.csv'), 'did')
+    self.m_tMonster =  self:makeDictCSV((self.m_dataRoot .. 'table_monster.csv'), 'mid') 
 end
 
 ------------------------------------
@@ -52,7 +57,7 @@ function DataTableValidator:validateData()
     print("########### TABLE VALIDATION END ###########\n\n\n\n\n\n")
 
     if(self.m_numOfInvalidData > 0 ) then
-        self:sendToSlack()
+        --self:sendToSlack()
     end
 end
 
@@ -72,7 +77,7 @@ function DataTableValidator:makeDictAllData(l_file_path)
     for _, file_path in ipairs(l_file_path) do
         local l_data = nil
         local relative_path = pl.path.relpath(getFileName(file_path), lfs.currentdir() .. self.m_dataRoot)
-
+        cclog(file_path)
         -- 파일 확장자로 구분하여 로드.
         if (getFileExtension(file_path) == '.csv') then
             l_data = TABLE:loadCSVTable(relative_path)
@@ -108,12 +113,12 @@ function DataTableValidator:makeDictCSV(file_path, key)
     line = target_file:read()
     -- 데이터 저장
     while(line ~= nil) do
-        idx = 1
         local t_row = {}
         -- 한 줄을 파싱
-        for _, value in ipairs(ParseCSVLine(line)) do 
-            t_row[l_header[idx]] = value
-            idx = idx + 1
+        for idx, value in ipairs(ParseCSVLine(line)) do
+            if (l_header[idx]) then
+                t_row[l_header[idx]] = value
+            end
         end
         local real_key = t_row[key]
         t_csv[real_key]= t_row
@@ -322,3 +327,8 @@ function DataTableValidator:sendToSlack()
 
 end
 
+
+-- lua class 파일 자체에서 실행되도록 함
+if (arg[1] == 'run') then
+    DataTableValidator():validateData()
+end

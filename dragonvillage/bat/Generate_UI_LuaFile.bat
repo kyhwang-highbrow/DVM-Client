@@ -1,6 +1,7 @@
 ﻿::UTF-8로 실행
 chcp 65001
 
-call "../../../../res/tools/lua/bin/lua.exe" "../src_tool/LuaTool.lua" -n uigenerate
+cd "../src_tool"
+call "../../../../res/tools/lua/bin/lua.exe" "UISourceCodeGenerator.lua" run
 
 PAUSE

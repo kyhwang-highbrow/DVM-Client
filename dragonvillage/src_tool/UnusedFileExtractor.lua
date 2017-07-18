@@ -1,4 +1,5 @@
-require 'perpleLib/StringUtils'
+require 'LuaTool'
+
 -------------------------------------
 -- class UnusedFileExtractor
 -------------------------------------
@@ -355,4 +356,9 @@ function UnusedFileExtractor:getUserInput()
 
     return t_res_root, t_src_root, res_ext, src_ext
 
+end
+
+-- lua class 파일 자체에서 실행되도록 함
+if (arg[1] == 'run') then
+    UnusedFileExtractor():extractUnusedFile()
 end

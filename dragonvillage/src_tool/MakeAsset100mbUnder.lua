@@ -1,4 +1,5 @@
 require 'LuaTool'
+
 require 'TableLoadingGuide'
 require 'TableDragon'
 require 'socket.core'
@@ -20,8 +21,14 @@ MakeAsset100mbUnder = class({
 -- function init
 -------------------------------------
 function MakeAsset100mbUnder:init()
-    cclog('##### MakeAsset100mbUnder:init')
-    
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function MakeAsset100mbUnder:run()
+    cclog('##### MakeAsset100mbUnder:run')
+
     local stopwatch = Stopwatch()
     stopwatch:start()
 
@@ -51,7 +58,7 @@ end
 -------------------------------------
 function MakeAsset100mbUnder:deleteAssets()
     cclog('##### MakeAsset100mbUnder:deleteAssets')
-    
+
     RemoveDirectory(TARGET_PATH)
 end
 
@@ -196,7 +203,7 @@ end
 
 
 
-
-
--- lua class 파일 자체에서 실행되로록 함
---MakeAsset100mbUnder()
+-- lua class 파일 자체에서 실행되도록 함
+if (arg[1] == 'run') then
+    MakeAsset100mbUnder():run()
+end
