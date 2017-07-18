@@ -92,7 +92,7 @@ function UI_ChatPopup_WhisperTab:click_whisperSetUserBtn()
 
     local function close_cb(str)
         if (edit_box.m_retType == 'ok') then
-            local nickname = edit_box.vars['editBox']:getText()
+            local nickname = edit_box.m_str
             self.m_peerUserNickname = nickname
 
             if (not nickname) or (nickname == '') then

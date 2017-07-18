@@ -6,6 +6,7 @@ local PARENT = UI
 UI_SimpleEditBoxPopup = class(PARENT,{
         m_confirmCB = 'function',
         m_retType = 'string', -- 'ok', 'cancel'
+        m_str = 'string',
     })
 
 -------------------------------------
@@ -139,10 +140,12 @@ function UI_SimpleEditBoxPopup:click_okBtn()
     if self.m_confirmCB then
         local vars = self.vars
         local str = vars['editBox']:getText()
-
+        
         if (not self.m_confirmCB(str)) then
             return
         end
+
+        self.m_str = str
     end
 
     self:closeWithRetType('ok')

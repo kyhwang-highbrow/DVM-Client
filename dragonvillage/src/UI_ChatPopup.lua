@@ -308,7 +308,7 @@ function UI_ChatPopup:click_changeChannelBtn()
 
     local function close_cb()
         if (edit_box.m_retType == 'ok') then
-            local channel_name = edit_box.vars['editBox']:getText()
+            local channel_name = edit_box.m_str
         
             if (not self:confirmChannelName(channel_name)) then
                 return
