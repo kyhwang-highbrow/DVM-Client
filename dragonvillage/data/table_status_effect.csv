@@ -26,13 +26,14 @@ darknix,good,buff,파멸의 고동,res/effect/effect_combat_up/effect_combat_up.
 godium_earth_buff,good,buff,공격력/치명확률 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,3,0,15,20,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,15,20,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 godium_light_buff,good,buff,공격력/회복량 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,3,0,15,20,0,0,0,0,0,0,0,0,0,0,35,0,0,0,0,0,0,0,,0,,,,,15,20,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 godium_fire_buff,good,buff,공격력/방어관통 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,3,0,15,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,,0,,,,,15,20,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
-zombie,good,buff,좀비,,,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,-9999,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,x
-immortal,good,buff,불사,,,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,x
+zombie,good,zombie,좀비,,,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,-9999,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,x
+immortal,good,immortal,불사,,,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,x
+resurrect,good,resurrect,부활,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,x
 pierce,good,buff,관통,,,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,,0,,,,,x,x,x,x,x,x
 buff_time_increase,good,modify,버프 시간 증가,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,category;good,,,,x,x,x,x,x,x
 debuff_time_decrease,good,modify,디버프 시간 감소,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,category;bad,,,,x,x,x,x,x,x
-add_mana,good,buff,마나 추가,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
-mana_reduce,good,buff,마나 감소버프,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
+add_mana,good,add_mana,마나 추가,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
+mana_reduce,good,mana_reduce,마나 감소버프,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
 heal,good,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,atk,,,,x,x,x,x,x,x
 heal2,good,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.3,0,atk,,,,x,x,x,x,x,x
 heal_def,good,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,def,,,,x,x,x,x,x,x
