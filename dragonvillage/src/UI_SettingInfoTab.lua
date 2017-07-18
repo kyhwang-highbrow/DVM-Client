@@ -28,7 +28,11 @@ end
 -- @brief 아이디 정보 복사
 -------------------------------------
 function UI_Setting:click_copyBtn()
-    UIManager:toastNotificationRed(Str('"복사"는 준비 중입니다.'))
+    local vars = self.vars
+    local recovery_code = g_serverData:get('local', 'recovery_code')
+
+    luaEventHandler('send_event_to_app', 'set_clip_board', tostring(recovery_code))
+    UIManager:toastNotificationGreen(Str('복구코드를 복사하였습니다.'))
 end
 
 -------------------------------------

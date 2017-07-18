@@ -17,6 +17,7 @@ function UI_Setting:init_devTab()
     vars['addFpBtn']:registerScriptTapHandler(function() self:click_addFpBtn() end)
     vars['addRpBtn']:registerScriptTapHandler(function() self:click_addRpBtn() end)
     vars['allTamerBtn']:registerScriptTapHandler(function() self:click_allTamerBtn() end)
+    vars['uidCopyBtn']:registerScriptTapHandler(function() self:click_uidCopyBtn() end)
     self:refresh_devTap()
 end
 
@@ -519,4 +520,15 @@ end
 -------------------------------------
 function UI_Setting:click_invenBtn()
     UI_InvenDevApiPopup()
+end
+
+-------------------------------------
+-- function click_uidCopyBtn
+-------------------------------------
+function UI_Setting:click_uidCopyBtn()
+    local vars = self.vars
+    local uid = g_userData:get('uid')
+
+    luaEventHandler('send_event_to_app', 'set_clip_board', tostring(uid))
+    UIManager:toastNotificationGreen(Str('UID를 복사하였습니다.'))
 end
