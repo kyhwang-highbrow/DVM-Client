@@ -253,11 +253,6 @@ function UI_Lobby:initButton()
     vars['guildBtn']:registerScriptTapHandler(function() self:click_guildBtn() end) -- 길드
 	vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end)
     vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
-
-    -- FGT버전에서 퀘스트 기능 숨김
-    if (TARGET_SERVER == 'FGT') then
-        vars['questBtn']:setVisible(false)
-    end
 end
 
 -------------------------------------
@@ -282,7 +277,7 @@ function UI_Lobby:refresh_highlight()
         vars['explorationNotiSprite']:setVisible(g_highlightData:isHighlightExploration())
 
         -- 퀘스트
-        vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
+        --vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
 
         -- 우편함
         vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
@@ -429,7 +424,8 @@ end
 -- @brief 퀘스트 버튼
 -------------------------------------
 function UI_Lobby:click_questBtn()
-    UI_QuestPopup()
+    ccdisplay('퀘스트&업적 공사중입니다:D')
+    --UI_QuestPopup()
 end
 
 -------------------------------------
