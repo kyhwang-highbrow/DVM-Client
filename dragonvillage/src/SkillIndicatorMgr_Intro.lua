@@ -57,14 +57,18 @@ function SkillIndicatorMgr_Intro:onTouchBegan(touch, event)
     end 
 
     if (select_hero and select_hero == self.m_introHero) then
-        -- 드래곤 클릭
-        self.m_firstTouchPos = node_pos
-        self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
+        if (select_hero:isPossibleSkill()) then
+            -- 드래곤 클릭
+            self.m_firstTouchPos = node_pos
+            self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
         
-        self.m_touchedHero = select_hero
-        self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+            self.m_touchedHero = select_hero
+            self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+        end
 
-        self.m_animatorGuide:setVisible(false)
+        if (self.m_animatorGuide) then
+            self.m_animatorGuide:setVisible(false)
+        end
         
         -- 튤팁 표시
         self:makeSkillToolTip(select_hero)
@@ -88,8 +92,10 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
             -- 대상이 하나도 없을 경우 취소 처리
             self:clear()
 
-            self.m_animatorGuide:setFrame(0)
-            self.m_animatorGuide:setVisible(true)
+            if (self.m_animatorGuide) then
+                self.m_animatorGuide:setFrame(0)
+                self.m_animatorGuide:setVisible(true)
+            end
               
         else
             ---------------------------------------------------
@@ -121,6 +127,8 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
             if (self.m_animatorGuide) then
                 self.m_animatorGuide:release()
                 self.m_animatorGuide = nil
+
+                self.m_introHero = nil
             end
 
             self.m_world.m_gameHighlight:setToForced(false)
@@ -129,8 +137,10 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
     elseif (self.m_touchedHero) then
         self.m_touchedHero = nil
 
-        self.m_animatorGuide:setFrame(0)
-        self.m_animatorGuide:setVisible(true)
+        if (self.m_animatorGuide) then
+            self.m_animatorGuide:setFrame(0)
+            self.m_animatorGuide:setVisible(true)
+        end
 
     end
 
@@ -196,9 +206,11 @@ function SkillIndicatorMgr_Intro:startIntro(hero)
     world.m_gameHighlight:addForcedHighLightList(self.m_introHero)
 
     -- 가이드 비주얼
-    self.m_animatorGuide = MakeAnimator('res/ui/a2d/tutorial/tutorial.vrp')
-    self.m_animatorGuide:changeAni('hand_drag_01', true)
-    self.m_animatorGuide:setPosition(self.m_introHero.pos.x, self.m_introHero.pos.y - 50)
+    if (not self.m_animatorGuide) then
+        self.m_animatorGuide = MakeAnimator('res/ui/a2d/tutorial/tutorial.vrp')
+        self.m_animatorGuide:changeAni('hand_drag_01', true)
+        self.m_animatorGuide:setPosition(self.m_introHero.pos.x, self.m_introHero.pos.y - 50)
 
-    g_gameScene.m_gameIndicatorNode:addChild(self.m_animatorGuide.m_node)
+        g_gameScene.m_gameIndicatorNode:addChild(self.m_animatorGuide.m_node)
+    end
 end
