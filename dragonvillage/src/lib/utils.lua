@@ -603,6 +603,9 @@ end
 --add number format(2012/11/13 by jjo)
 function comma_value(n) -- credit http://richard.warburton.it
     local left,num,right = string.match(n,'^([^%d]*%d)(%d*)(.-)$')
+    if (not num) then
+        error('invalid paramater in comma_value function : ' .. n)
+    end
     return left..(num:reverse():gsub('(%d%d%d)','%1,'):reverse())..right
 end
 
