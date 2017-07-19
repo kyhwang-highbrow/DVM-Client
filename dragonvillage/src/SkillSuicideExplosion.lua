@@ -118,7 +118,7 @@ function SkillSuicideExplosion:findCollision()
     local l_ret = SkillTargetFinder:getCollisionFromTargetList(l_target, x, y, true)
 
     -- 타겟 수 만큼만 얻어옴
-    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+    --l_ret = table.getPartList(l_ret, self.m_targetLimit)
 
 	return l_ret
 end
