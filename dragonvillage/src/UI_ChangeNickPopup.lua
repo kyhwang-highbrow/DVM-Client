@@ -19,7 +19,7 @@ function UI_ChangeNickPopup:init(mid, success_cb)
     UIManager:open(self, UIManager.POPUP)
     
     -- backkey 지정
-	g_currScene:pushBackKeyListener(self, function() self:click_cancelBtn() end, 'UI_ChangeNickPopup')
+	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ChangeNickPopup')
 
 	-- @UI_ACTION
 	self:doActionReset()
@@ -65,14 +65,7 @@ end
 function UI_ChangeNickPopup:initButton()
     local vars = self.vars
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
-    vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
-end
-
--------------------------------------
--- function click_cancelBtn
--------------------------------------
-function UI_ChangeNickPopup:click_cancelBtn()
-    self:closeWithAction()
+    vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------
@@ -94,7 +87,7 @@ function UI_ChangeNickPopup:click_okBtn()
         if (self.m_successCB) then
             self.m_successCB()
         end
-        self:click_cancelBtn()
+        self:close()
 
         UI_ToastPopup(Str('{1}(으)로 변경되었습니다.', nick))
     end

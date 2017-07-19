@@ -341,7 +341,8 @@ function ServerData_Shop:request_buy(struct_product, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     -- 성공 콜백
-    local function success_cb(ret)        
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
         if g_topUserInfo then
