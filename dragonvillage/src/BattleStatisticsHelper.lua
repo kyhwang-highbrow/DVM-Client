@@ -31,9 +31,7 @@ function BattleStatisticsHelper:sortByValue(l_item, log_key)
 		local a_value = a and a.m_charLogRecorder:getLog(log_key) or 0
 		local b_value = b and b.m_charLogRecorder:getLog(log_key) or 0
 		if (a_value == 0) and (b_value == 0) then
-			local a_atk = a:getStat('atk')
-			local b_atk = b:getStat('atk')
-			return a_atk > b_atk
+			return nil
 		else
 			return a_value > b_value
 		end

@@ -49,11 +49,10 @@ end
 -------------------------------------
 function UI_StatisticsPopup:initUI()
 	local vars = self.vars
-	local node = vars['listNode1']
 
 	-- 모드에 따라 테이블 뷰 사이즈 조정
-	if (self.m_isColosseum) then
-		self.vars['frameNode']:setContentSize(1130, 600)
+	if (not self.m_isColosseum) then
+		vars['listNode1']:setPositionX(0)
 	end
 
 	-- 입힌 데미지로 가정하고 log_key 생성
@@ -139,6 +138,8 @@ end
 -- function makeTableView
 -------------------------------------
 function UI_StatisticsPopup:makeTableView(l_char_list, node)
+    node:setVisible(true)
+    
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(514, 95)
