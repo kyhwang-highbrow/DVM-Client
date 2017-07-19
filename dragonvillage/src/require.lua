@@ -38,6 +38,7 @@ local t_module = {
     'ConstantStatusEffect',
     'ConstantColosseum',
     'ConstantColor',
+    'Global',
 
     -- Struct
     'StructEventPopupTab',
