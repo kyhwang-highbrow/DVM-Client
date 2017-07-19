@@ -70,6 +70,8 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
 
                 -- 등장 완료일 경우
                 if self.m_bAppearHero then
+                    world.m_tamer:initBarrier()
+
                     self:nextStep()
                 end
             end

@@ -59,6 +59,8 @@ function GameState_NestDungeon_Tree.update_start(self, dt)
             end
             
         elseif (self:getStepTimer() >= 2) then
+            world.m_tamer:initBarrier()
+
             self:nextStep()
 
         end
