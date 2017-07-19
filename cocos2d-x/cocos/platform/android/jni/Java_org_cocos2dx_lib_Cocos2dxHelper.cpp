@@ -49,6 +49,7 @@ extern "C" {
 
     JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxHelper_nativeSetApkPath(JNIEnv*  env, jobject thiz, jstring apkPath) {
         g_apkPath = JniHelper::jstring2string(apkPath);
+        FileUtilsAndroid::initObbFile();
     }
 
     JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxHelper_nativeSetContext(JNIEnv*  env, jobject thiz, jobject context, jobject assetManager) {
@@ -388,4 +389,30 @@ bool isIdleTimerDisabledJNI()
 	}
 
 	return false;
+}
+
+// @obb
+int getObbAssetFileDescriptorJNI(const char* path, long* startOffset, long* size) {
+    JniMethodInfo methodInfo;
+    int fd = 0;
+    
+    if (JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "getObbAssetFileDescriptor", "(Ljava/lang/String;)[J")) {
+        jstring stringArg = methodInfo.env->NewStringUTF(path);
+        jlongArray newArray = (jlongArray)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID, stringArg);
+        jsize theArrayLen = methodInfo.env->GetArrayLength(newArray);
+        
+        if (theArrayLen == 3) {
+            jboolean copy = JNI_FALSE;
+            jlong *array = methodInfo.env->GetLongArrayElements(newArray, &copy);
+            fd = static_cast<int>(array[0]);
+            *startOffset = array[1];
+            *size = array[2];
+            methodInfo.env->ReleaseLongArrayElements(newArray, array, 0);
+        }
+        
+        methodInfo.env->DeleteLocalRef(methodInfo.classID);
+        methodInfo.env->DeleteLocalRef(stringArg);
+    }
+    
+    return fd;
 }

@@ -55,23 +55,21 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 	// ===========================================================
 	// Fields
 	// ===========================================================
-
+	
 	//private Cocos2dxGLSurfaceView mGLSurfaceView;
 	public Cocos2dxGLSurfaceView mGLSurfaceView;
 	private Cocos2dxHandler mHandler;
 	private static Cocos2dxActivity sContext = null;
 	private Cocos2dxVideoHelper mVideoHelper = null;
-    private Cocos2dxWebViewHelper mWebViewHelper = null;
 	private PowerManager.WakeLock mWakeLock = null;
 	private View mDecorView = null;
 	private Runnable mHideRunnable = null;
-	private Runnable mWakeRunnable = null;
-
+	
 	public static Context getContext() {
 		return sContext;
 	}
-
-
+	
+	
 	protected void onLoadNativeLibraries() {
 		try {
 			ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
@@ -88,11 +86,11 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 			e.printStackTrace();
 		}
 	}
-
+	
 	// ===========================================================
 	// Constructors
 	// ===========================================================
-
+	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -101,32 +99,28 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 
 		sContext = this;
     	this.mHandler = new Cocos2dxHandler(this);
-
+    	
     	Cocos2dxHelper.init(this);
-
+    	
     	this.init();
     	if (mVideoHelper == null) {
     		mVideoHelper = new Cocos2dxVideoHelper(this, mFrameLayout);
 		}
-        if(mWebViewHelper == null){
-            mWebViewHelper = new Cocos2dxWebViewHelper(mFrameLayout);
-        }
-
+		
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-
+		
 		mDecorView = getWindow().getDecorView();
 		this.hideNavigation();
-
+		
 		mHideRunnable = new Runnable()
 		{
-		    @Override
-			public void run()
+		    public void run() 
 		    {
 		    	hideNavigation();
 		    }
 		};
-
-
+		
+		
 		// SystemUIVisibility가 변경될 때 mHideRunnable을 0.5초 후 실행
 		mDecorView.setOnSystemUiVisibilityChangeListener(new OnSystemUiVisibilityChangeListener() {
 			@Override
@@ -135,7 +129,7 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 			}
 		});
 	}
-
+	
 	// ===========================================================
 	// Getter & Setter
 	// ===========================================================
@@ -162,7 +156,7 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 			mWakeLock.release();
 			mWakeLock = null;
 		}
-
+		
 		Cocos2dxHelper.onPause();
 		this.mGLSurfaceView.onPause();
 	}
@@ -176,18 +170,18 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 	}
 
 	@Override
-	public void showEditTextDialog(final String pTitle, final String pContent, final int pInputMode, final int pInputFlag, final int pReturnType, final int pMaxLength) {
+	public void showEditTextDialog(final String pTitle, final String pContent, final int pInputMode, final int pInputFlag, final int pReturnType, final int pMaxLength) { 
 		Message msg = new Message();
 		msg.what = Cocos2dxHandler.HANDLER_SHOW_EDITBOX_DIALOG;
 		msg.obj = new Cocos2dxHandler.EditBoxMessage(pTitle, pContent, pInputMode, pInputFlag, pReturnType, pMaxLength);
 		this.mHandler.sendMessage(msg);
 	}
-
+	
 	@Override
 	public void runOnGLThread(final Runnable pRunnable) {
 		this.mGLSurfaceView.queueEvent(pRunnable);
 	}
-
+	
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -204,7 +198,7 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 	// Methods
 	// ===========================================================
 	public void init() {
-
+		
     	// FrameLayout
         ViewGroup.LayoutParams framelayout_params =
             new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -238,7 +232,7 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
         // Set framelayout as the content view
 		setContentView(mFrameLayout);
 	}
-
+	
 	public Cocos2dxGLSurfaceView onCreateView() {
         Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
@@ -266,7 +260,7 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 			final PowerManager powerMgr = (PowerManager) getContext().getSystemService(Context.POWER_SERVICE);
 			mWakeLock = powerMgr.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, getContext().getClass().getName());
 		}
-
+		
 		if(bLock)
 		{
 			if(mWakeLock.isHeld() == false)
@@ -281,40 +275,8 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 				mWakeLock.release();
 			}
 		}
-
-		// SCREEN_BRIGHT_WAKE_LOCK
-		// This constant was deprecated in API level 13.
-		// Most applications should use FLAG_KEEP_SCREEN_ON instead of this type of wake lock,
-		// as it will be correctly managed by the platform as the user moves between applications
-		// and doesn't require a special permission.
-		// SCREEN_BRIGHT_WAKE_LOCK이 deprecated되어 FLAG_KEEP_SCREEN_ON으로 대체
-		// Runnable을 생성하는 이유는, 쓰레드 때문
-		if(bLock == true)
-		{
-			mWakeRunnable = new Runnable()
-			{
-			    @Override
-				public void run()
-			    {
-			    	getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-			    }
-			};
-			mHandler.post(mWakeRunnable);
-		}
-		else
-		{
-			mWakeRunnable = new Runnable()
-			{
-			    @Override
-				public void run()
-			    {
-			    	getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-			    }
-			};
-			mHandler.post(mWakeRunnable);
-		}
 	}
-
+	
 	@Override
 	public boolean isWakeLock() {
 		if(mWakeLock == null)
@@ -322,13 +284,14 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 		else
 			return mWakeLock.isHeld();
 	}
-
+	
 	private void hideNavigation() {
-		// 시스템UI 네비게이션 숨김기능
+		// 시스템UI 네비게이션 숨김기능 사용하지 않음
+		/*
 		if(mDecorView == null) {
 			return;
 		}
-
+		
 	    mDecorView.setSystemUiVisibility(
 	            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 	            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -336,6 +299,7 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 	            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
 	            | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
 	            | View.SYSTEM_UI_FLAG_IMMERSIVE);
+		*/
 	}
 
 	// ===========================================================

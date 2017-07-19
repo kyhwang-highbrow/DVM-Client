@@ -53,4 +53,7 @@ extern void setStringForKeyJNI(const char* pKey, const char* value);
 extern void setIdleTimerDisabledJNI(bool disabled);
 extern bool isIdleTimerDisabledJNI();
 
+// @obb
+extern int getObbAssetFileDescriptorJNI(const char* path, long* startOffset, long* size);
+
 #endif /* __Java_org_cocos2dx_lib_Cocos2dxHelper_H__ */

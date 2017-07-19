@@ -24,20 +24,31 @@ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import com.android.vending.expansion.zipfile.APKExpansionSupport;
+import com.android.vending.expansion.zipfile.ZipResourceFile;
+
 import java.lang.Runnable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.os.Build;
+import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager.OnActivityResultListener;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -47,6 +58,9 @@ public class Cocos2dxHelper {
 	// ===========================================================
 	private static final String PREFS_NAME = "Cocos2dxPrefsFile";
 	private static final int RUNNABLES_PER_FRAME = 5;
+
+    // @obb
+    private static final String TAG = Cocos2dxHelper.class.getSimpleName();
 
 	// ===========================================================
 	// Fields
@@ -60,9 +74,18 @@ public class Cocos2dxHelper {
 	private static boolean sActivityVisible;
 	private static String sPackageName;
 	private static String sFileDirectory;
-	private static Activity sActivity = null;
+	private static Activity sActivity;
 	private static Cocos2dxHelperListener sCocos2dxHelperListener;
 	private static Set<OnActivityResultListener> onActivityResultListeners = new LinkedHashSet<OnActivityResultListener>();
+
+    // @obb
+    // The absolute path to the OBB if it exists, else the absolute path to the APK.
+    private static String sAssetsPath;
+
+    // @obb
+    // The OBB file
+    private static ZipResourceFile sOBBFile;
+    private static int sOBBVersionCode = 1;
 
 
 	// ===========================================================
@@ -73,32 +96,104 @@ public class Cocos2dxHelper {
 		((Cocos2dxActivity)sActivity).runOnGLThread(r);
 	}
 
-	private static boolean sInited = false;
-	public static void init(final Activity activity) {
-	    if (!sInited) {
-    		final ApplicationInfo applicationInfo = activity.getApplicationInfo();
-    		
+    private static boolean sInited = false;
+    public static void init(final Activity activity) {
+        if (!sInited) {
+            Cocos2dxHelper.sActivity = activity;
+
             Cocos2dxHelper.sCocos2dxHelperListener = (Cocos2dxHelperListener)activity;
-                    
-    		Cocos2dxHelper.sPackageName = applicationInfo.packageName;
-    		Cocos2dxHelper.sFileDirectory = activity.getFilesDir().getAbsolutePath();
-            Cocos2dxHelper.nativeSetApkPath(applicationInfo.sourceDir);
-    
-    		Cocos2dxHelper.sCocos2dxAccelerometer = new Cocos2dxAccelerometer(activity);
-    		Cocos2dxHelper.sCocos2dMusic = new Cocos2dxMusic(activity);
-    		Cocos2dxHelper.sCocos2dSound = new Cocos2dxSound(activity);
-    		Cocos2dxHelper.sAssetManager = activity.getAssets();
-    		Cocos2dxHelper.nativeSetContext(activity, Cocos2dxHelper.sAssetManager);
-    
+
+            Cocos2dxHelper.sPackageName = activity.getApplicationInfo().packageName;
+            Cocos2dxHelper.sFileDirectory = activity.getFilesDir().getAbsolutePath();
+
+            Cocos2dxHelper.sCocos2dxAccelerometer = new Cocos2dxAccelerometer(activity);
+            Cocos2dxHelper.sCocos2dMusic = new Cocos2dxMusic(activity);
+            Cocos2dxHelper.sCocos2dSound = new Cocos2dxSound(activity);
+            Cocos2dxHelper.sAssetManager = activity.getAssets();
+            Cocos2dxHelper.nativeSetContext((Context)activity, Cocos2dxHelper.sAssetManager);
+
             Cocos2dxBitmap.setContext(activity);
             Cocos2dxETCLoader.setContext(activity);
-            sActivity = activity;
+
+            // @obb
+            setupObbAssetFileInfo(getAPKVersionCode());
 
             sInited = true;
+        }
+    }
 
-	    }
-	}
-	
+    // @obb
+    public static int getAPKVersionCode() {
+        int versionCode = 1;
+        try {
+            versionCode = Cocos2dxHelper.sActivity.getPackageManager().getPackageInfo(Cocos2dxHelper.sPackageName, 0).versionCode;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return versionCode;
+    }
+
+    // @obb
+    // This function returns the absolute path to the OBB if it exists,
+    // else it returns the absolute path to the APK.
+    public static String getObbAssetsPath()
+    {
+        if (Cocos2dxHelper.sAssetsPath == null) {
+            String pathToOBB = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/obb/" + Cocos2dxHelper.sPackageName + "/main." + sOBBVersionCode + "." + Cocos2dxHelper.sPackageName + ".obb";
+            File obbFile = new File(pathToOBB);
+            if (obbFile.exists()) {
+                Cocos2dxHelper.sAssetsPath = pathToOBB;
+            } else {
+                Cocos2dxHelper.sAssetsPath = Cocos2dxHelper.sActivity.getApplicationInfo().sourceDir;
+            }
+        }
+        return Cocos2dxHelper.sAssetsPath;
+    }
+
+    // @obb
+    public static ZipResourceFile getObbAssetFile()
+    {
+        return Cocos2dxHelper.sOBBFile;
+    }
+
+    // @obb
+    public static void setupObbAssetFileInfo(int versionCode) {
+        sOBBVersionCode = versionCode;
+
+        try {
+            Cocos2dxHelper.sOBBFile = APKExpansionSupport.getAPKExpansionZipFile(Cocos2dxHelper.sActivity, sOBBVersionCode, 0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Cocos2dxHelper.sAssetsPath = null;
+        Cocos2dxHelper.nativeSetApkPath(Cocos2dxHelper.getObbAssetsPath());
+    }
+
+    // @obb
+    public static long[] getObbAssetFileDescriptor(final String path) {
+        long[] array = new long[3];
+        if (Cocos2dxHelper.sOBBFile != null) {
+            AssetFileDescriptor descriptor = Cocos2dxHelper.sOBBFile.getAssetFileDescriptor(path);
+            if (descriptor != null) {
+                try {
+                    ParcelFileDescriptor parcel = descriptor.getParcelFileDescriptor();
+                    Method method = parcel.getClass().getMethod("getFd", new Class[] {});
+                    array[0] = (Integer)method.invoke(parcel);
+                    array[1] = descriptor.getStartOffset();
+                    array[2] = descriptor.getLength();
+                } catch (NoSuchMethodException e) {
+                    Log.e(Cocos2dxHelper.TAG, "Accessing file descriptor directly from the OBB is only supported from Android 3.1 (API level 12) and above.");
+                } catch (IllegalAccessException e) {
+                    Log.e(Cocos2dxHelper.TAG, e.toString());
+                } catch (InvocationTargetException e) {
+                    Log.e(Cocos2dxHelper.TAG, e.toString());
+                }
+            }
+        }
+        return array;
+    }
+
     public static Activity getActivity() {
         return sActivity;
     }
