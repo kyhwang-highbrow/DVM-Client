@@ -252,7 +252,7 @@ function UI_ColosseumReady:update(dt)
         if active then
             text = string.format('%s (%s)', buff_str, time_str)
         else
-            text = buff_str
+            text = Str('연승 버프 없음')
         end
         vars['winBuffLabel']:setString(Str('연승버프 : {1}', text))
     end
