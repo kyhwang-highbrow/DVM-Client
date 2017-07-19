@@ -242,3 +242,11 @@ function UI_ItemCard:getToolTipDesc()
     local str = '{@SKILL_NAME} ' .. name .. '\n {@SKILL_DESC}' .. desc
     return str
 end
+
+-------------------------------------
+-- function setCheckSpriteVisible
+-- @brief 체크 표시
+-------------------------------------
+function UI_ItemCard:setCheckSpriteVisible(visible)
+    self.vars['checkSprite']:setVisible(visible)
+end

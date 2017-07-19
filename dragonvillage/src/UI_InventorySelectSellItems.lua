@@ -81,7 +81,7 @@ function UI_InventorySelectSellItems:setActive(active)
     if (not active) then
         for i,v in pairs(self.m_selectedItemUIMap) do
             local ui = v['ui']
-            ui.vars['disableSprite']:setVisible(false)
+            ui:setCheckSpriteVisible(false)
         end
         self.m_selectedItemUIMap = {}
     end
@@ -108,10 +108,10 @@ function UI_InventorySelectSellItems:setSelectedItem(ui, data)
     end
 
     if self.m_selectedItemUIMap[unique_id] then
-        ui.vars['disableSprite']:setVisible(false)
+        ui:setCheckSpriteVisible(false)
         self.m_selectedItemUIMap[unique_id] = nil
     else
-        ui.vars['disableSprite']:setVisible(true)
+        ui:setCheckSpriteVisible(true)
         self.m_selectedItemUIMap[unique_id] = {ui=ui, data=data}
     end
 end
