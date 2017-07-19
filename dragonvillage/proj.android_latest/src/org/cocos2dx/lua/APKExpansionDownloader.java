@@ -153,7 +153,7 @@ public class APKExpansionDownloader implements IDownloaderClient {
         mIsShowingWifiWarning = isToShowWifiWarning;
 
         mDownloaderCallback.onUpdateStatus(isPaused, isIndeterminate, isInterruptable,
-                mContext.getString(Helpers.getDownloaderStringResourceIDFromState(newState)));
+        		newState, mContext.getString(Helpers.getDownloaderStringResourceIDFromState(newState)));
 
         if (mDownloadStatus == newState) {
             return;
@@ -205,12 +205,14 @@ public class APKExpansionDownloader implements IDownloaderClient {
         builder.setPositiveButton(c.getString(R.string.wifi_warning_positive_button), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+            	// 계속 진행
             }
         });
 
         builder.setNegativeButton(c.getString(R.string.wifi_warning_negative_button), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+            	// WIFI 연결
             }
         });
 

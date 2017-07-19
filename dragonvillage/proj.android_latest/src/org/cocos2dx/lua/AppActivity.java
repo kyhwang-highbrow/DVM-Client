@@ -32,9 +32,9 @@ import org.cocos2dx.lib.Cocos2dxHelper;
 import com.perplelab.PerpleSDK;
 import com.perplelab.dragonvillagem.kr.R;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 public class AppActivity extends Cocos2dxActivity{
 
@@ -45,7 +45,9 @@ public class AppActivity extends Cocos2dxActivity{
 
     // @obb
     private static APKExpansionDownloader sOBBDownloader;
-    private static Activity sActivity;
+    private static AppActivity sActivity;
+
+    private Handler mAppHandler;
     
     // @billing
     static final String billingBase64PublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2AOyhy0owSekR+QEpAUb2fV/wBtRmuD8UNEsku6iGM+Qx5o7iBMlGlcb7kjCJ86hMAu6g+1cdGFTQGCGTKrDZS6AfTv8NDB5EFwxvLa8Rn9aUU0nkaLFGNQvEo+gplP1PZQZLd30RMmJy/uYkzA2+vCdGaOQRTckwbczDBQyKWtQ5k5aj/1HQ/X8XxZneaKAM2JyFgFcjSYtlep9/XOQ6K2aR0VLoMse2rGkaFJQAFOBgNlNbvC3cbvaZe1hnZ4ypjadsPzw83ZpQYaMRTUF1k/TpB6CuSIX4L2ykUkEDyWn0RECpO3jR1fJ1Lb2ddYTpb8gORou9mhIK9Nfr8Cn4wIDAQAB";
@@ -56,6 +58,7 @@ public class AppActivity extends Cocos2dxActivity{
 
         // @obb
         sActivity = this;
+        mAppHandler = new Handler();
         
         // @perplesdk
         PerpleSDK.createInstance(this);
@@ -131,56 +134,108 @@ public class AppActivity extends Cocos2dxActivity{
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        // @perplesdk
-        PerpleSDK.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // @perplesdk
         PerpleSDK.getInstance().onActivityResult(requestCode, resultCode, data);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        // @perplesdk
+        PerpleSDK.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
     
     // @obb
-    public static void startAPKExpansionDownloader(final int versionCode, long fileSize, String md5, long crc32) {
+    public void startAPKExpansionDownloader(final int versionCode, long fileSize, String md5, long crc32) {
         String[] md5s = { md5, "" };
         long[] crc32s = { crc32, 0 };
 
-        if (APKExpansionDownloader.isNeedToDownloadObbFile(sActivity, versionCode, fileSize, md5s, crc32s)) {
-            sOBBDownloader = new APKExpansionDownloader(sActivity, 0);
+        if (APKExpansionDownloader.isNeedToDownloadObbFile(this, versionCode, fileSize, md5s, crc32s)) {
+            sOBBDownloader = new APKExpansionDownloader(this, 0);
             sOBBDownloader.setDownloaderCallback(new APKExpansionDownloaderCallback() {
                 @Override
                 public void onInit() {
-                    // startAPKExpansionDownloader() 를 onCreate() 이후에 별도로 호출할 경우 아래 코드 주석 해제해야 다운로드 시작됨
-                    //sOBBDownloader.connectDownloaderClient(sActivity);
+                    // startAPKExpansionDownloader()를 onCreate()에서 직접 호출할 경우 아래 코드 주석 처리
+                    sOBBDownloader.connectDownloaderClient(sActivity);
 
                     // 다운로드 시작
                     // 다운로드 진행 표시 UI 열기
+            		sdkEventResult("apkexp_startdownload", "start", "");
                 }
                 @Override
                 public void onCompleted() {
                     Cocos2dxHelper.setupObbAssetFileInfo(versionCode);
 
                     // 다운로드 완료
-                    // 다운로드 진행 표시 UI 닫기
+                    // 다운로드 진행 표시 UI 닫고 게임 시작
+            		sdkEventResult("apkexp_startdownload", "complete", "end");
                 }
                 @Override
-                public void onUpdateStatus(boolean isPaused, boolean isIndeterminate, boolean isInterruptable, String statusText) {
+                public void onUpdateStatus(boolean isPaused, boolean isIndeterminate, boolean isInterruptable, int code, String statusText) {
                     // 다운로드 진행 중 오류 상황 처리
+                	if (!isIndeterminate) {
+                    	if (isPaused && isInterruptable) {
+                    		String info = String.valueOf(code) + "/" + statusText;
+                    		sdkEventResult("apkexp_startdownload", "error", info);
+                    	}
+                	}
                 }
                 @Override
                 public void onUpdateProgress(long current, long total, String progress, String percent) {
                     // 다운로드 진행 중
                     // 다운로드 진행 상황 UI 업데이트
+                	String info = String.valueOf(current) + "/" + String.valueOf(total);
+            		sdkEventResult("apkexp_startdownload", "progress", info);
                 }
             });
             sOBBDownloader.initExpansionDownloader(sActivity);
         } else {
-            // 게임 시작
             Cocos2dxHelper.setupObbAssetFileInfo(versionCode);
+
+            // 바로 게임 시작
+    		sdkEventResult("apkexp_startdownload", "complete", "pass");
         }
-    }    
+    }
+    
+    public static void sdkEvent(final String id, final String arg0, final String arg1) {
+
+		sActivity.mAppHandler.post(new Runnable() {
+			public void run() {
+
+				if (id.equals("apkexp_start")) {
+
+		    		String[] array1 = arg0.split(";");
+		    		int versionCode = Integer.parseInt(array1[0]);
+		    		long fileSize = Long.parseLong(array1[1]);
+
+		    		String[] array2 = arg1.split(";");
+					String md5 = array2[0];
+					long crc32 = Long.parseLong(array2[1]);
+		    		
+		    		sActivity.startAPKExpansionDownloader(versionCode, fileSize, md5, crc32);
+
+		    	} else if (id.equals("apkexp_continue")) {
+            		sOBBDownloader.requestContinueDownload();
+		    	} else if (id.equals("apkexp_pause")) {
+            		sOBBDownloader.requestPauseDownload();
+		    	} else if (id.equals("apkexp_stop")) {
+		    		sOBBDownloader.disconnectDownloaderClient(sActivity);
+		    	}
+			}
+		});
+    }
+    
+	public static void sdkEventResult(final String id, final String ret, final String info) {
+		sActivity.mGLSurfaceView.queueEvent(new Runnable() {
+			@Override
+			public void run() {
+				nativeSDKEventResult(id, ret, info);
+			}
+		});
+	}
+    
+    private static native void nativeSDKEventResult(String id, String result, String info);
+
 }
