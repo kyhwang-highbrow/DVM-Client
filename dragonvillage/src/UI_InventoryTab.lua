@@ -18,7 +18,7 @@ end
 
 -------------------------------------
 -- function onEnterInventoryTab
--- @brief 인벤토리 탭에 진입하였을 때 호출
+-- @brief 가방 탭에 진입하였을 때 호출
 -------------------------------------
 function UI_InventoryTab:onEnterInventoryTab(first)
     self:setSortAscending(self.m_bAscending)

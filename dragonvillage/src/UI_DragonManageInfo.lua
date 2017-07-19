@@ -162,7 +162,7 @@ function UI_DragonManageInfo:refresh()
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
 
-    -- 인벤토리
+    -- 가방
     self:refresh_inventoryLabel()
 
 	-- 잠금 표시

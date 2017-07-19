@@ -782,7 +782,7 @@ function UI_ReadyScene:click_startBtn()
             self:checkChangeDeck(check_dragon_inven)
         end
 
-        -- 드래곤 인벤토리 확인(최대 갯수 초과 시 획득 못함)
+        -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
         check_dragon_inven = function()
             local function manage_func()
                 self:click_manageBtn()
@@ -790,7 +790,7 @@ function UI_ReadyScene:click_startBtn()
             g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
         end
 
-        -- 아이템 인벤토리 확인(최대 갯수 초과 시 획득 못함)
+        -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
         check_item_inven = function()
             local function manage_func()
                 UI_Inventory()

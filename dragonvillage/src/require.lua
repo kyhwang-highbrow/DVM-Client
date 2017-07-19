@@ -690,7 +690,7 @@ local t_module = {
     'UI_IngameBossInfo',
     'UI_AutoPlaySettingPopup',
 
-	-- UI : 인벤토리
+	-- UI : 가방
     'UI_Inventory',
     'UI_InventorySelectSellItems',
     'UI_InventoryTab',

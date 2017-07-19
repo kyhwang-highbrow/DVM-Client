@@ -22,9 +22,9 @@ function ServerData_AutoPlaySetting:init(server_data)
         t_auto_play_setting['stop_condition_lose'] = true
         -- 드래곤의 현재 승급 상태 중 레벨MAX가 되면 연속 모험 종료
         t_auto_play_setting['stop_condition_dragon_lv_max'] = true
-        -- 드래곤의 인벤토리가 가득차면 연속 모험 종료
+        -- 드래곤의 가방이 가득차면 연속 모험 종료
         t_auto_play_setting['stop_condition_dragon_inventory_max'] = true
-        -- 룬 인벤토리가 가득차면 연속 모험 종료
+        -- 룬 가방이 가득차면 연속 모험 종료
         t_auto_play_setting['stop_condition_rune_inventory_max'] = true
         -- 레이드 보스 등장시 연속 모험 종료
         t_auto_play_setting['stop_condition_raid_appeared'] = true

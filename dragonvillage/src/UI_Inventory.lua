@@ -36,7 +36,7 @@ function UI_Inventory:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_Inventory'
     self.m_bUseExitBtn = true
-    self.m_titleStr = Str('인벤토리')
+    self.m_titleStr = Str('가방')
 end
 
 -------------------------------------
@@ -137,7 +137,7 @@ function UI_Inventory:onChangeMainTab(tab, first)
         return
     end
 
-    -- rune tab일 경우만 인벤토리 버튼 표시
+    -- rune tab일 경우만 가방 버튼 표시
     local vars = self.vars
     vars['inventoryBtn']:setVisible(tab == 'rune')
 

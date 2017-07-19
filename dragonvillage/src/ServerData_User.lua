@@ -35,7 +35,7 @@ end
 
 -------------------------------------
 -- function getFruitList
--- @brief 보유중인 열매 리스트 리턴(인벤토리에서 사용)
+-- @brief 보유중인 열매 리스트 리턴(가방에서 사용)
 -------------------------------------
 function ServerData_User:getFruitList()
     local l_fruis = self:getRef('fruits')
@@ -87,7 +87,7 @@ end
 
 -------------------------------------
 -- function getEvolutionStoneList
--- @brief 보유중인 진화석 리스트 리턴(인벤토리에서 사용)
+-- @brief 보유중인 진화석 리스트 리턴(가방에서 사용)
 -------------------------------------
 function ServerData_User:getEvolutionStoneList()
     local l_evolution_stone = self:getRef('evolution_stones')
@@ -211,7 +211,7 @@ end
 
 -------------------------------------
 -- function getTicketList
--- @brief 보유중인 티켓 리스트 리턴(인벤토리에서 사용)
+-- @brief 보유중인 티켓 리스트 리턴(가방에서 사용)
 -------------------------------------
 function ServerData_User:getTicketList()
     local l_tickets = self:getRef('tickets')

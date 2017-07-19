@@ -445,7 +445,7 @@ end
 
 -------------------------------------
 -- function click_inventoryBtn
--- @brief 인벤토리 버튼
+-- @brief 가방 버튼
 -------------------------------------
 function UI_Lobby:click_inventoryBtn()
     UI_Inventory()

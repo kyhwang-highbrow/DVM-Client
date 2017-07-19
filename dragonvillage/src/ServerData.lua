@@ -77,7 +77,7 @@ function ServerData:getInstance()
 	-- 퀘스트
     g_questData = ServerData_Quest(g_serverData)
 
-    -- 인벤토리
+    -- 가방
     g_inventoryData = ServerData_Inventory(g_serverData)
 
     -- 친구

@@ -449,7 +449,7 @@ function StructProduct:payment(cb_func)
         cclog('#4. 결제 확인')
         do
             -- 구매 완료 성공 콜백을 받은 후 게임 서버에서 정상적으로 상품 지급을 한 다음 다시 이 함수를 호출해서 구매 프로세스를 완료시킴
-            -- 이 함수를 호출하면 구글 결제 인벤토리에서 해당 Purchase 를 Consume 처리함.
+            -- 이 함수를 호출하면 구글 결제 가방에서 해당 Purchase 를 Consume 처리함.
             if orderId then
                 PerpleSDK:billingConfirm(orderId)
             end

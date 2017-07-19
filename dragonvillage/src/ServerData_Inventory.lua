@@ -159,7 +159,7 @@ function ServerData_Inventory:extendInventory(inven_type, finish_cb)
     end
 
     local str_target = self:getTargetInventoryName(inven_type)
-    local msg = Str('다이아몬드 {1}개를 사용하여\n{2} 인벤토리를 {3}칸\n확장하시겠습니까?', price, str_target, add_slot)
+    local msg = Str('다이아몬드 {1}개를 사용하여\n{2} 가방을 {3}칸\n확장하시겠습니까?', price, str_target, add_slot)
     UI_ConfirmPopup('cash', price, msg, ok_btn_cb)
 end
 
@@ -193,7 +193,7 @@ function ServerData_Inventory:request_extendInventory(inven_type, finish_cb)
         g_topUserInfo:refreshData()
 
         local str_target = self:getTargetInventoryName(inven_type)
-        UIManager:toastNotificationGreen(Str('{1} 인벤토리가 확장되었습니다.', str_target))
+        UIManager:toastNotificationGreen(Str('{1} 가방이 확장되었습니다.', str_target))
 
         -- 인벤 슬롯 레벨 갱신
         if ret['r_slotlv'] then

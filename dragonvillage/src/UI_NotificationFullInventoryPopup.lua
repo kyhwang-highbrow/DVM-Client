@@ -40,9 +40,9 @@ function UI_NotificationFullInventoryPopup:initUI(noti_type, curr_cnt, max_cnt)
         vars['inventoryLabel']:setString(Str('드래곤 관리'))
 
     elseif (noti_type == 'inventory') then
-        vars['dscLabel']:setString(Str('인벤토리가 가득 차 더 이상 아이템을 획득 할 수 없습니다.\n계속 진행하시겠습니까?'))
+        vars['dscLabel']:setString(Str('가방이 가득 차 더 이상 아이템을 획득 할 수 없습니다.\n계속 진행하시겠습니까?'))
         vars['titleLabel']:setString(Str('보유 아이템'))
-        vars['inventoryLabel']:setString(Str('인벤토리'))
+        vars['inventoryLabel']:setString(Str('가방'))
 
     else
         error('# noti_type : ' .. noti_type)
