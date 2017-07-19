@@ -214,8 +214,8 @@ public class Cocos2dxDownloader {
         if (timeoutInSeconds > 0) {
             downloader._httpClient.setTimeout(timeoutInSeconds * 1000);
         }
-        // downloader._httpClient.setMaxRetriesAndTimeout(3, timeoutInSeconds * 1000);
-        downloader._httpClient.allowRetryExceptionClass(javax.net.ssl.SSLException.class);
+        // AsyncHttpClient.setMaxRetriesAndTimeout(3, timeoutInSeconds * 1000);
+        AsyncHttpClient.allowRetryExceptionClass(javax.net.ssl.SSLException.class);
 
         downloader._tempFileNameSufix = tempFileNameSufix;
         downloader._countOfMaxProcessingTasks = countOfMaxProcessingTasks;
