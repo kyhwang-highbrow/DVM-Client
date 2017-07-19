@@ -26,8 +26,8 @@ end
 -- function setItemData
 -------------------------------------
 function UI_ItemCard:setItemData()
-	local table_item = TABLE:get('item')
-    local t_item = table_item[self.m_itemID]
+	local table_item = TableItem()
+    local t_item = table_item:get(self.m_itemID)
 
     if (not t_item) then
         error('존재하지 않는 ID ' .. self.m_itemID)

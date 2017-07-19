@@ -277,7 +277,7 @@ function UI_Lobby:refresh_highlight()
         vars['explorationNotiSprite']:setVisible(g_highlightData:isHighlightExploration())
 
         -- 퀘스트
-        --vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
+        vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
 
         -- 우편함
         vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
@@ -424,8 +424,7 @@ end
 -- @brief 퀘스트 버튼
 -------------------------------------
 function UI_Lobby:click_questBtn()
-    ccdisplay('퀘스트&업적 공사중입니다:D')
-    --UI_QuestPopup()
+    UI_QuestPopup()
 end
 
 -------------------------------------

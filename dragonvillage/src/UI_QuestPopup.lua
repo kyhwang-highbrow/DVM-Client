@@ -18,7 +18,6 @@ function UI_QuestPopup:init()
 	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_QuestPopup')
 
 	-- @UI_ACTION
-	--self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
 	self:doActionReset()
 	self:doAction(nil, false)
 
@@ -54,9 +53,9 @@ end
 -------------------------------------
 function UI_QuestPopup:initTab()
     local vars = self.vars
-    self:addTab(TableQuest.CHALLENGE, vars['challengeBtn'], vars['challengeListNode'])
     self:addTab(TableQuest.DAILY, vars['dailyBtn'], vars['dailyListNode'])
-    self:setTab(TableQuest.CHALLENGE)
+    self:addTab(TableQuest.CHALLENGE, vars['challengeBtn'], vars['challengeListNode'])
+    self:setTab(TableQuest.DAILY)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
@@ -101,12 +100,12 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
 
 	-- 퀘스트 뭉치
 	local t_quest = g_questData:getQuestListByType(tab)
-	
+
     do -- 테이블 뷰 생성
         node:removeAllChildren()
 
 		-- 퀘스트 팝업 자체를 각 아이템이 가지기 위한 생성 콜백
-		local create_cb_func = function(ui)
+		local create_cb_func = function(ui, data)
 			local function click_rewardBtn()
 				ui:click_rewardBtn(self)
 			end
@@ -121,18 +120,6 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
         table_view:setItemList(t_quest)
 
         self.m_tableView = table_view
-
-        --[[
-		-- 오른쪽에서 등장하는 연출
-		local content_size = node:getContentSize()
-		table_view.m_cellUIAppearCB = function(ui)
-			local x, y = ui.root:getPosition()
-			local new_x = x + content_size['width']
-			ui.root:setPosition(new_x, y)
-
-			ui:cellMoveTo(0.5, cc.p(x, y))
-		end
-        --]]
     end
 end
 
@@ -143,11 +130,13 @@ function UI_QuestPopup:setAllClearListItem(tab)
 	local node = self.vars['allClearNode']
 	node:removeAllChildren()
 
+    -- 업적에선 사용하지 않는다.
 	if (tab == TableQuest.CHALLENGE) then
         return
     end
 
-	local t_quest = g_questData:getAllClearQuestTable(tab)
+    -- 새로 생성...하는걸로 일단
+	local t_quest = g_questData:getAllClearDailyQuestTable()
 	local ui = UI_QuestListItem(t_quest, true)
     ui.vars['rewardBtn']:registerScriptTapHandler(function() ui:click_rewardBtn(self) end)
 	node:addChild(ui.root)
@@ -159,7 +148,7 @@ end
 function UI_QuestPopup:setNotiRewardable(tab)
 	local vars = self.vars
 	for tab, _ in pairs(self.m_mTabData) do
-		local has_reward = g_questData:hasRewardableQuest(f)
+		local has_reward = g_questData:hasRewardableQuest(tab)
 		vars[tab .. 'NotiSprite']:setVisible(has_reward)
 	end
 end

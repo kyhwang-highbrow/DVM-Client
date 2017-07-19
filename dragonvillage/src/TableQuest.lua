@@ -24,19 +24,18 @@ end
 -- function arrangeData
 -------------------------------------
 function TableQuest:arrangeData()
-	local reward_str = nil
-	local t_reward = nil
-	local reward_iv = nil
-	
+	local reward_str, t_reward, reward_iv, item_id = nil
+
     for qid, t_quest in pairs(self.m_orgTable) do
 		-- reward parsing
 		reward_str = t_quest['reward']
 		t_reward = self:seperate(reward_str, ',')
+
 		t_quest['t_reward'] = {}
 		for i, each_reward in pairs(t_reward) do 
-			reward_iv = self:seperate(each_reward, ':')
-			t_quest['t_reward']['reward_type_'..i] = reward_iv[1]
-			t_quest['t_reward']['reward_unit_'..i] = reward_iv[2]
+			reward_iv = self:seperate(each_reward, ';')
+            item_id = TableItem:getItemIDFromItemType(reward_iv[1]) or tonumber(reward_iv[1])
+			t_quest['t_reward'][i] = {['item_id'] = item_id, ['count'] = reward_iv[2]}
 		end
 	end
 end
@@ -54,18 +53,6 @@ function TableQuest:getQuestType(qid)
 end
 
 -------------------------------------
--- function getMaxStep
--------------------------------------
-function TableQuest:getMaxStep(qid)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local max_step = self:getValue(qid, 'max_cnt')
-    return max_step
-end
-
--------------------------------------
 -- function getQuestDesc
 -------------------------------------
 function TableQuest:getQuestDesc(qid)
@@ -75,37 +62,4 @@ function TableQuest:getQuestDesc(qid)
 
     local t_desc = self:getValue(qid, 't_desc')
     return t_desc
-end
-
--------------------------------------
--- function getQuestUnit
--------------------------------------
-function TableQuest:getQuestUnit(qid)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local unit = self:getValue(qid, 'unit')
-    return unit
-end
-
--------------------------------------
--- function getRewardInfoList
--------------------------------------
-function TableQuest:getRewardInfoList(qid, step)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local reward_str = self:getValue(qid, 'reward')
-    local l_item_list = ServerData_Item:parsePackageItemStr(reward_str)
-
-    local reward_max_cnt = self:getValue(qid, 'reward_max_cnt')
-    reward_max_cnt = math_min(reward_max_cnt, step)
-
-    for i,v in ipairs(l_item_list) do
-        v['count'] = (v['count'] * reward_max_cnt)
-    end
-
-    return l_item_list
 end

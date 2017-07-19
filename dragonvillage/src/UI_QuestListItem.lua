@@ -13,7 +13,7 @@ UI_QuestListItem = class(PARENT, {
 function UI_QuestListItem:init(t_data, isHighlight)
 	-- 멤버 변수
 	self:setQuestData(t_data)
-    
+
 	-- UI load
 	local ui_name = nil 
 	if (isHighlight) then 
@@ -27,8 +27,6 @@ function UI_QuestListItem:init(t_data, isHighlight)
     self:initUI()
     self:initButton()
     self:refresh()
-	
-	--self:printQuestDebug()
 end
 
 -------------------------------------
@@ -88,7 +86,7 @@ function UI_QuestListItem:setVarsVisible()
     local vars = self.vars
 	
     if vars['lockBtn'] then
-        if quest_data:isLock() then
+        if false then
             vars['lockBtn']:setVisible(true)
             vars['questCompletNode']:setVisible(false)
             vars['rewardBtn']:setVisible(false)
@@ -128,7 +126,7 @@ function UI_QuestListItem:setRewardCard()
 
     local l_reward_info = self.m_questData:getRewardInfoList()
 
-    for i,v in ipairs(l_reward_info) do
+    for i, v in ipairs(l_reward_info) do
         local reward_card = UI_ItemCard(v['item_id'], v['count'])
 		reward_card.root:setScale(0.7)
         vars['rewardNode' .. i]:addChild(reward_card.root)
@@ -177,19 +175,4 @@ end
 -------------------------------------
 function UI_QuestListItem:click_questLinkBtn()
 	UIManager:toastNotificationRed(Str('"바로가기" 미구현'))
-end
-
--------------------------------------
--- function printQuestDebug
--------------------------------------
-function UI_QuestListItem:printQuestDebug()
-	ccdump({
-		desc = self.m_questData['t_desc'],
-		type = self.m_questData['type'],
-		unit = self.m_questData['unit'],
-		raw_count = self.m_rawCount,
-		clear_count = self.m_clearCount,
-		reward_count = self.m_rewardCount,
-		goal_count = self.m_goalCount,
-	})
 end
