@@ -148,7 +148,7 @@ void EventDispatcher::EventListenerVector::push_back(EventListener* listener)
     {
         if (_sceneGraphListeners == nullptr)
         {
-            _sceneGraphListeners = new std::vector<EventListener*>();
+            _sceneGraphListeners = new (std::nothrow) std::vector<EventListener*>();
             _sceneGraphListeners->reserve(100);
         }
         
@@ -158,7 +158,7 @@ void EventDispatcher::EventListenerVector::push_back(EventListener* listener)
     {
         if (_fixedListeners == nullptr)
         {
-            _fixedListeners = new std::vector<EventListener*>();
+            _fixedListeners = new (std::nothrow) std::vector<EventListener*>();
             _fixedListeners->reserve(100);
         }
         
@@ -199,6 +199,7 @@ EventDispatcher::EventDispatcher()
 , _nodePriorityIndex(0)
 {
     _toAddedListeners.reserve(50);
+    _toRemovedListeners.reserve(50);
     
     // fixed #4129: Mark the following listener IDs for internal use.
     // Therefore, internal listeners would not be cleaned when removeAllEventListeners is invoked.
@@ -215,7 +216,9 @@ EventDispatcher::~EventDispatcher()
 }
 
 void EventDispatcher::visitTarget(Node* node, bool isRootNode)
-{    
+{
+    node->sortAllChildren();
+    
     int i = 0;
     auto& children = node->getChildren();
     
@@ -403,7 +406,7 @@ void EventDispatcher::associateNodeAndEventListener(Node* node, EventListener* l
     }
     else
     {
-        listeners = new std::vector<EventListener*>();
+        listeners = new (std::nothrow) std::vector<EventListener*>();
         _nodeListenersMap.insert(std::make_pair(node, listeners));
     }
     
@@ -453,7 +456,7 @@ void EventDispatcher::forceAddEventListener(EventListener* listener)
     if (itr == _listenerMap.end())
     {
         
-        listeners = new EventListenerVector();
+        listeners = new (std::nothrow) EventListenerVector();
         _listenerMap.insert(std::make_pair(listenerID, listeners));
     }
     else
@@ -589,6 +592,10 @@ void EventDispatcher::removeEventListener(EventListener* listener)
 {
     if (listener == nullptr)
         return;
+    
+    // just return if listener is in _toRemovedListeners to avoid remove listeners more than once
+    if (std::find(_toRemovedListeners.begin(), _toRemovedListeners.end(), listener) != _toRemovedListeners.end())
+        return;
 
     bool isFound = false;
     
@@ -606,13 +613,17 @@ void EventDispatcher::removeEventListener(EventListener* listener)
                 if (l->getAssociatedNode() != nullptr)
                 {
                     dissociateNodeAndEventListener(l->getAssociatedNode(), l);
-                    l->setAssociatedNode(nullptr);  // NULL out the node pointer so we don't have any dangling pointers to destroyed nodes.
+                    l->setAssociatedNode(nullptr);  // nullptr out the node pointer so we don't have any dangling pointers to destroyed nodes.
                 }
                 
                 if (_inDispatch == 0)
                 {
-                    listeners->erase(iter);
-                    CC_SAFE_RELEASE(l);
+                    iter = listeners->erase(iter);
+                    l->release();
+                }
+                else
+                {
+                    _toRemovedListeners.push_back(l);
                 }
                 
                 isFound = true;
@@ -672,7 +683,7 @@ void EventDispatcher::removeEventListener(EventListener* listener)
 
     if (isFound)
     {
-        CC_SAFE_RELEASE(listener);
+        listener->release();
     }
     else
     {
@@ -725,11 +736,12 @@ void EventDispatcher::dispatchEventToListeners(EventListenerVector* listeners, c
     // priority < 0
     if (fixedPriorityListeners)
     {
-        CCASSERT(listeners->getGt0Index() <= static_cast<ssize_t>(fixedPriorityListeners->size()), "Out of range exception!");
-        
         if (!fixedPriorityListeners->empty())
         {
-            for (; i < listeners->getGt0Index(); ++i)
+			CCASSERT(listeners->getGt0Index() <= static_cast<ssize_t>(fixedPriorityListeners->size()), "Out of range exception!");
+
+			int gt0Index = MIN(listeners->getGt0Index(), fixedPriorityListeners->size());
+			for (; i < gt0Index; ++i)
             {
                 auto l = fixedPriorityListeners->at(i);
                 if (l->isEnabled() && !l->isPaused() && l->isRegistered() && onEvent(l))
@@ -923,7 +935,8 @@ void EventDispatcher::dispatchTouchEvent(EventTouch* event)
                     return true;
                 }
                 
-                CCASSERT((*touchesIter)->getID() == (*mutableTouchesIter)->getID(), "");
+                CCASSERT((*touchesIter)->getID() == (*mutableTouchesIter)->getID(),
+                         "touchesIter ID should be equal to mutableTouchesIter's ID.");
                 
                 if (isClaimed && listener->_isRegistered && listener->_needSwallow)
                 {
@@ -938,7 +951,6 @@ void EventDispatcher::dispatchTouchEvent(EventTouch* event)
                 return false;
             };
             
-            //
             dispatchEventToListeners(oneByOneListeners, onTouchEvent);
             if (event->isStopped())
             {
@@ -1018,7 +1030,10 @@ void EventDispatcher::dispatchTouchEvent(EventTouch* event)
 void EventDispatcher::updateListeners(Event* event)
 {
     CCASSERT(_inDispatch > 0, "If program goes here, there should be event in dispatch.");
-    
+
+    if (_inDispatch > 1)
+        return;
+
     auto onUpdateListeners = [this](const EventListener::ListenerID& listenerID)
     {
         auto listenersIter = _listenerMap.find(listenerID);
@@ -1038,6 +1053,10 @@ void EventDispatcher::updateListeners(Event* event)
                 if (!l->isRegistered())
                 {
                     iter = sceneGraphPriorityListeners->erase(iter);
+                    // if item in toRemove list, remove it from the list
+                    auto matchIter = std::find(_toRemovedListeners.begin(), _toRemovedListeners.end(), l);
+                    if (matchIter != _toRemovedListeners.end())
+                        _toRemovedListeners.erase(matchIter);
                     l->release();
                 }
                 else
@@ -1055,6 +1074,10 @@ void EventDispatcher::updateListeners(Event* event)
                 if (!l->isRegistered())
                 {
                     iter = fixedPriorityListeners->erase(iter);
+                    // if item in toRemove list, remove it from the list
+                    auto matchIter = std::find(_toRemovedListeners.begin(), _toRemovedListeners.end(), l);
+                    if (matchIter != _toRemovedListeners.end())
+                        _toRemovedListeners.erase(matchIter);
                     l->release();
                 }
                 else
@@ -1075,7 +1098,6 @@ void EventDispatcher::updateListeners(Event* event)
         }
     };
 
-    
     if (event->getType() == Event::Type::TOUCH)
     {
         onUpdateListeners(EventListenerTouchOneByOne::LISTENER_ID);
@@ -1085,9 +1107,6 @@ void EventDispatcher::updateListeners(Event* event)
     {
         onUpdateListeners(__getListenerID(event));
     }
-    
-    if (_inDispatch > 1)
-        return;
     
     CCASSERT(_inDispatch == 1, "_inDispatch should be 1 here.");
     
@@ -1112,6 +1131,11 @@ void EventDispatcher::updateListeners(Event* event)
             forceAddEventListener(listener);
         }
         _toAddedListeners.clear();
+    }
+
+    if (!_toRemovedListeners.empty())
+    {
+        cleanToRemovedListeners();
     }
 }
 
@@ -1269,13 +1293,13 @@ void EventDispatcher::removeEventListenersForListenerID(const EventListener::Lis
                 if (l->getAssociatedNode() != nullptr)
                 {
                     dissociateNodeAndEventListener(l->getAssociatedNode(), l);
-                    l->setAssociatedNode(nullptr);  // NULL out the node pointer so we don't have any dangling pointers to destroyed nodes.
+                    l->setAssociatedNode(nullptr);  // nullptr out the node pointer so we don't have any dangling pointers to destroyed nodes.
                 }
                 
                 if (_inDispatch == 0)
                 {
                     iter = listenerVector->erase(iter);
-                    CC_SAFE_RELEASE(l);
+                    l->release();
                 }
                 else
                 {
@@ -1350,7 +1374,8 @@ void EventDispatcher::removeCustomEventListeners(const std::string& customEventN
 void EventDispatcher::removeAllEventListeners()
 {
     bool cleanMap = true;
-    std::vector<EventListener::ListenerID> types(_listenerMap.size());
+    std::vector<EventListener::ListenerID> types;
+    types.reserve(_listenerMap.size());
     
     for (const auto& e : _listenerMap)
     {
@@ -1413,6 +1438,63 @@ void EventDispatcher::setDirty(const EventListener::ListenerID& listenerID, Dirt
         int ret = (int)flag | (int)iter->second;
         iter->second = (DirtyFlag) ret;
     }
+}
+
+void EventDispatcher::cleanToRemovedListeners()
+{
+    for (auto& l : _toRemovedListeners)
+    {
+        auto listenersIter = _listenerMap.find(l->getListenerID());
+        if (listenersIter == _listenerMap.end())
+        {
+			CC_SAFE_RELEASE(l);
+            continue;
+        }
+
+        bool find = false;
+        auto listeners = listenersIter->second;
+        auto fixedPriorityListeners = listeners->getFixedPriorityListeners();
+        auto sceneGraphPriorityListeners = listeners->getSceneGraphPriorityListeners();
+
+        if (sceneGraphPriorityListeners)
+        {
+            auto machedIter = std::find(sceneGraphPriorityListeners->begin(), sceneGraphPriorityListeners->end(), l);
+            if (machedIter != sceneGraphPriorityListeners->end())
+            {
+                find = true;
+				CC_SAFE_RELEASE(l);
+                sceneGraphPriorityListeners->erase(machedIter);
+            }
+        }
+
+        if (fixedPriorityListeners)
+        {
+            auto machedIter = std::find(fixedPriorityListeners->begin(), fixedPriorityListeners->end(), l);
+            if (machedIter != fixedPriorityListeners->end())
+            {
+                find = true;
+				CC_SAFE_RELEASE(l);
+                fixedPriorityListeners->erase(machedIter);
+            }
+        }
+
+        if (find)
+        {
+            if (sceneGraphPriorityListeners && sceneGraphPriorityListeners->empty())
+            {
+                listeners->clearSceneGraphListeners();
+            }
+
+            if (fixedPriorityListeners && fixedPriorityListeners->empty())
+            {
+                listeners->clearFixedListeners();
+            }
+        }
+        else
+            CC_SAFE_RELEASE(l);
+    }
+
+    _toRemovedListeners.clear();
 }
 
 NS_CC_END

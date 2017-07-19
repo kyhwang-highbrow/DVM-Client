@@ -1,19 +1,15 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
- Copyright (c) 2013-2014 Chukong Technologies Inc.
- 
+ Copyright (c) 2013-2016 Chukong Technologies Inc.
  http://www.cocos2d-x.org
-
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
-
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
-
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,10 +20,7 @@
  ****************************************************************************/
 
 #include "base/CCData.h"
-#include "platform/CCCommon.h"
-#include "base/ccMacros.h"
-
-#include <string>
+#include "base/CCConsole.h"
 
 NS_CC_BEGIN
 
@@ -78,9 +71,11 @@ Data& Data::operator= (Data&& other)
 
 void Data::move(Data& other)
 {
+    clear();
+
     _bytes = other._bytes;
     _size = other._size;
-    
+
     other._bytes = nullptr;
     other._size = 0;
 }
@@ -100,10 +95,10 @@ ssize_t Data::getSize() const
     return _size;
 }
 
-void Data::copy(unsigned char* bytes, const ssize_t size)
+void Data::copy(const unsigned char* bytes, const ssize_t size)
 {
     clear();
-    
+
     if (size > 0)
     {
         _size = size;
@@ -123,6 +118,15 @@ void Data::clear()
     free(_bytes);
     _bytes = nullptr;
     _size = 0;
+}
+
+unsigned char* Data::takeBuffer(ssize_t* size)
+{
+    auto buffer = getBytes();
+    if (size)
+        *size = getSize();
+    fastSet(nullptr, 0);
+    return buffer;
 }
 
 NS_CC_END
