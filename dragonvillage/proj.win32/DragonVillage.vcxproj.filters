@@ -1740,9 +1740,6 @@
     <None Include="..\src\StatusEffect_Protection.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\StatusEffect_Resist.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StatusEffect_Silence.lua">
       <Filter>lua\src</Filter>
     </None>

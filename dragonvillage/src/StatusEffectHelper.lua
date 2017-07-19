@@ -353,10 +353,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 		status_effect = StatusEffect_AttributeChange(res)
 		status_effect:init_statusEffect(target_char)
 
-    ----------- 데미지 경감 보호막 ------------------
-	elseif (status_effect_type == 'resist') then
-		status_effect = StatusEffect_Resist(res)
-
     else
         status_effect = StatusEffect(res)
     end

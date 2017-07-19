@@ -376,7 +376,6 @@ local t_module = {
     'StatusEffect_Bleed',
     'StatusEffect_Poison',
     'StatusEffect_Protection',
-	'StatusEffect_Resist',
 	'StatusEffect_Silence',
 	'StatusEffect_AttributeChange',
 	'StatusEffect_Dispell',

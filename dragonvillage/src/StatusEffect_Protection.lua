@@ -99,11 +99,6 @@ function StatusEffect_Protection:getTriggerFunction()
 			-- 데미지를 전부 방어하고 hit effect
 			self.m_shieldHP = self.m_shieldHP - damage
 			damage = 0
-			
-            self.m_animator:changeAni('hit', false)
-            self:addAniHandler(function()
-                self.m_animator:changeAni('idle', true)
-            end)
 		else
 			-- 데미지를 일부만 방어하고 end
 			damage = damage - self.m_shieldHP

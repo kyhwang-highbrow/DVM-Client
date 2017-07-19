@@ -94,6 +94,22 @@ function StatusEffect:initFromTable(t_status_effect, target_char)
             end
         end
     end
+
+    -- hit 애니메이션이 있을 경우 트리거 자동 등록
+    if (self.m_animator) then
+        local list = self.m_animator:getVisualList()
+
+        if (table.find(list, 'hit')) then
+            self:addTrigger('hit_barrier', function()
+                if (self.m_state == 'idle') then
+                    self.m_animator:changeAni('hit', false)
+                    self:addAniHandler(function()
+                        self.m_animator:changeAni('idle', true)
+                    end)
+                end
+            end)
+        end
+    end
 end
 
 -------------------------------------
@@ -670,6 +686,8 @@ function StatusEffect:removeAllTrigger()
     end
 
     self.m_lTriggerFunc = {}
+    self.m_lTriggerFuncTimer = {}
+    self.m_lTriggerFuncInterval = {}
 end
 
 -------------------------------------
