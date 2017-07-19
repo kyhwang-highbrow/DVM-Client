@@ -371,7 +371,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 720;
+			width = 710;
 			height = 150;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -430,7 +430,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 720;
+			width = 710;
 			height = 150;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -494,7 +494,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 720;
+			width = 710;
 			height = 150;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
