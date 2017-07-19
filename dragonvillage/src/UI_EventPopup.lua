@@ -187,7 +187,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
         
     -- 업데이트 공지 
     elseif (string.find(tab, 'notice')) then
-        ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)
+        
 
     -- 배너
     elseif (string.find(tab, 'banner')) then
