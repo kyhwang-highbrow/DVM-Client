@@ -105,6 +105,45 @@ function UI_ColosseumReady:initUI()
         end
     end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+
+    self:initUI_userInfo()
+end
+
+-------------------------------------
+-- function initUI_userInfo
+-------------------------------------
+function UI_ColosseumReady:initUI_userInfo()
+    local vars = self.vars
+
+    -- user_info의 class : StructUserInfoColosseum
+    do
+        -- 레벨, 닉네임
+        local user_info = g_colosseumData.m_playerUserInfo
+        vars['userLabel1']:setString(user_info:getUserText())
+
+        -- 전투력
+        local str = user_info:getAtkDeckCombatPower()
+        vars['powerLabel1']:setString(Str('전투력 : {1}', str))
+
+        -- 아이콘
+        local icon = user_info:getAtkDeckTamerReadyIcon()
+        vars['tamerNode1']:addChild(icon)
+    end
+
+    do
+        local user_info = g_colosseumData:getMatchUserInfo()
+
+        -- 레벨, 닉네임
+        vars['userLabel2']:setString(user_info:getUserText())
+
+        -- 전투력
+        local str = user_info:getDefDeckCombatPower()
+        vars['powerLabel2']:setString(Str('전투력 : {1}', str))
+
+        -- 아이콘
+        local icon = user_info:getDefDeckTamerReadyIcon()
+        vars['tamerNode2']:addChild(icon)
+    end
 end
 
 -------------------------------------
@@ -142,6 +181,9 @@ function UI_ColosseumReady:click_deckBtn()
             formation = t_pvp_deck['formation'] or 'attack'
         end
         self.m_player3DDeck:setFormation(formation)
+
+        -- 유저 정보도 변경 (테이머가 갱신될 수 있음)
+        self:initUI_userInfo()
     end
     ui:setCloseCB(close_cb)
 end

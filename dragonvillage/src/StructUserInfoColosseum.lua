@@ -469,3 +469,101 @@ function StructUserInfoColosseum:getDeck(type)
         return {}, 'attack', type, 1, tamer_id
     end
 end
+
+-------------------------------------
+-- function getPvpAtkDeck
+-- @brief 공격덱 정보 리턴
+-- @return table
+-- {
+--        ['tamer']=110001;
+--        ['deck']={
+--                ['4']='596ebc5ae891937ecf95612c';
+--                ['1']='596ebc5ae891937ecf95612f';
+--                ['5']='596ebc5ae891937ecf956130';
+--                ['2']='596eba27e891937ecf9560ee';
+--                ['3']='596ebabfe891937ecf956108';
+--        };
+--        ['formation']='attack';
+--        ['leader']=1;
+--        ['deckName']='atk';
+-- }
+-------------------------------------
+function StructUserInfoColosseum:getPvpAtkDeck()
+    return self.m_pvpAtkDeck or {}
+end
+
+-------------------------------------
+-- function getPvpDefDeck
+-- @brief 방어덱 정보 리턴
+-- @return table
+-- {
+--        ['tamer']=110001;
+--        ['deck']={
+--                ['4']='596ebc5ae891937ecf95612c';
+--                ['1']='596ebc5ae891937ecf95612f';
+--                ['5']='596ebc5ae891937ecf956130';
+--                ['2']='596eba27e891937ecf9560ee';
+--                ['3']='596ebabfe891937ecf956108';
+--        };
+--        ['formation']='attack';
+--        ['leader']=1;
+--        ['deckName']='def';
+-- }
+-------------------------------------
+function StructUserInfoColosseum:getPvpDefDeck()
+    return self.m_pvpDefDeck or {}
+end
+
+-------------------------------------
+-- function getAtkDeckTamerID
+-- @brief 공격덱 테이머
+-- @return tamer_id number
+-------------------------------------
+function StructUserInfoColosseum:getAtkDeckTamerID()
+    local tamer_id = self:getPvpAtkDeck()['tamer'] or 110001
+    return tamer_id
+end
+
+-------------------------------------
+-- function getDefDeckTamerID
+-- @brief 방어덱 테이머
+-- @return tamer_id number
+-------------------------------------
+function StructUserInfoColosseum:getDefDeckTamerID()
+    local tamer_id = self:getPvpDefDeck()['tamer'] or 110001
+    return tamer_id
+end
+
+-------------------------------------
+-- function getAtkDeckTamerReadyIcon
+-- @brief 공격덱 테이머 준비화면 아이콘
+-------------------------------------
+function StructUserInfoColosseum:getAtkDeckTamerReadyIcon()
+    local tamer_id = self:getAtkDeckTamerID()
+    return self:makeTamerReadyIcon(tamer_id)
+end
+
+-------------------------------------
+-- function getDefDeckTamerReadyIcon
+-- @brief 방어덱 테이머 준비화면 아이콘
+-------------------------------------
+function StructUserInfoColosseum:getDefDeckTamerReadyIcon()
+    local tamer_id = self:getDefDeckTamerID()
+    return self:makeTamerReadyIcon(tamer_id)
+end
+
+-------------------------------------
+-- function makeTamerReadyIcon
+-- @brief
+-------------------------------------
+function StructUserInfoColosseum:makeTamerReadyIcon(tamer_id)
+    local table_tamer = TableTamer()
+    local type = table_tamer:getValue(tamer_id, 'type')
+    local res = string.format('res/ui/icons/tamer/colosseum_ready_%s.png', type)
+
+    local icon = cc.Sprite:create(res)
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+
+    return icon
+end
