@@ -2709,7 +2709,7 @@
 						lua_name = 'homeBtn';
 						enable = true;
 						normal = 'ui/buttons/result_dia_btn_home_0101.png';
-						selected = '';
+						selected = 'ui/buttons/result_dia_btn_home_0102.png';
 						disable = '';
 						image_type = 1;
 					};
@@ -2773,7 +2773,7 @@
 						lua_name = 'mapBtn';
 						enable = true;
 						normal = 'ui/buttons/result_dia_btn_map_0101.png';
-						selected = 'ui/buttons/result_dia_btn_map_0101.png';
+						selected = 'ui/buttons/result_dia_btn_map_0102.png';
 						disable = '';
 						image_type = 1;
 					};
@@ -2837,7 +2837,7 @@
 						lua_name = 'towerBtn';
 						enable = true;
 						normal = 'ui/buttons/result_dia_btn_contents_0101.png';
-						selected = 'ui/buttons/result_dia_btn_contents_0101.png';
+						selected = 'ui/buttons/result_dia_btn_contents_0102.png';
 						disable = '';
 						image_type = 1;
 					};
@@ -2901,7 +2901,7 @@
 						lua_name = 'dragonBtn';
 						enable = true;
 						normal = 'ui/buttons/result_dia_btn_contents_0101.png';
-						selected = 'ui/buttons/result_dia_btn_contents_0101.png';
+						selected = 'ui/buttons/result_dia_btn_contents_0102.png';
 						disable = '';
 						image_type = 1;
 					};
@@ -2965,7 +2965,7 @@
 						lua_name = 'treeBtn';
 						enable = true;
 						normal = 'ui/buttons/result_dia_btn_contents_0101.png';
-						selected = 'ui/buttons/result_dia_btn_contents_0101.png';
+						selected = 'ui/buttons/result_dia_btn_contents_0102.png';
 						disable = '';
 						image_type = 1;
 					};
@@ -3029,7 +3029,7 @@
 						lua_name = 'nightmareBtn';
 						enable = true;
 						normal = 'ui/buttons/result_dia_btn_contents_0101.png';
-						selected = 'ui/buttons/result_dia_btn_contents_0101.png';
+						selected = 'ui/buttons/result_dia_btn_contents_0102.png';
 						disable = '';
 						image_type = 1;
 					};
@@ -3093,7 +3093,7 @@
 						lua_name = 'goldBtn';
 						enable = true;
 						normal = 'ui/buttons/result_dia_btn_contents_0101.png';
-						selected = 'ui/buttons/result_dia_btn_contents_0101.png';
+						selected = 'ui/buttons/result_dia_btn_contents_0102.png';
 						disable = '';
 						image_type = 1;
 					};
@@ -3157,7 +3157,7 @@
 						lua_name = 'relationBtn';
 						enable = true;
 						normal = 'ui/buttons/result_dia_btn_contents_0101.png';
-						selected = 'ui/buttons/result_dia_btn_contents_0101.png';
+						selected = 'ui/buttons/result_dia_btn_contents_0102.png';
 						disable = '';
 						image_type = 1;
 					};
@@ -3221,7 +3221,7 @@
 						lua_name = 'statsBtn';
 						enable = true;
 						normal = 'ui/buttons/result_dia_btn_stats_0101.png';
-						selected = '';
+						selected = 'ui/buttons/result_dia_btn_stats_0102.png';
 						disable = '';
 						image_type = 1;
 					};

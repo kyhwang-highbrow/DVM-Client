@@ -117,7 +117,7 @@
 		{
 			type = 'Node';
 			ui_name = '';
-			x = 488.000000;
+			x = 480.000000;
 			y = -220.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
@@ -136,7 +136,7 @@
 		{
 			type = 'Node';
 			ui_name = '';
-			x = -488.000000;
+			x = -420.000000;
 			y = -220.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
@@ -254,9 +254,9 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
-					has_shadow = true;
-					shadow_color = { 85; 44; 25; };
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
 					shadow_opacity = 150;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
@@ -320,9 +320,9 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
+					stroke_color = { 0; 0; 0; };
 					has_shadow = false;
-					shadow_color = { 85; 44; 25; };
+					shadow_color = { 0; 0; 0; };
 					shadow_opacity = 150;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
