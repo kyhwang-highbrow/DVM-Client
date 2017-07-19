@@ -558,7 +558,7 @@ function IconHelper:getEggIconByEggID(egg_id)
     local res = table_item:getValue(tonumber(egg_id), 'icon')
     
     local sprite = self:getIcon(res)
-    if (sprite) then
+    if (not sprite) then
 		error('res : ' .. res)
     end
     sprite:setDockPoint(CENTER_POINT)
