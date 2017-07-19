@@ -163,64 +163,6 @@ void send_event_to_app(const char *param1, const char *param2)
 
 void sdkEvent(const char *id, const char *arg0, const char *arg1)
 {
-#ifndef USE_GOOGLEPLAY
-    if (strcmp(id, "googleplay_login") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_logout") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_isSignedIn") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_checkLogin") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_showAchievements") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_showLeaderboards") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_showQuests") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_setAchievements") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_setLeaderboards") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_setEvents") == 0)
-    {
-        return;
-    }
-#else
-#ifdef GOOGLEPLAY_LOGIN_PATI
-    if (strcmp(id, "googleplay_login") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_logout") == 0)
-    {
-        return;
-    }
-    else if (strcmp(id, "googleplay_isSignedIn") == 0)
-    {
-        return;
-    }
-#endif
-#endif
-
     JniMethodInfo t;
 
     if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "sdkEvent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"))
