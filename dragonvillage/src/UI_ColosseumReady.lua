@@ -127,6 +127,7 @@ function UI_ColosseumReady:initUI_userInfo()
 
         -- 아이콘
         local icon = user_info:getAtkDeckTamerReadyIcon()
+        vars['tamerNode1']:removeAllChildren()
         vars['tamerNode1']:addChild(icon)
     end
 
@@ -142,6 +143,7 @@ function UI_ColosseumReady:initUI_userInfo()
 
         -- 아이콘
         local icon = user_info:getDefDeckTamerReadyIcon()
+        vars['tamerNode2']:removeAllChildren()
         vars['tamerNode2']:addChild(icon)
     end
 end
