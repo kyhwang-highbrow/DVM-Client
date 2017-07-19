@@ -26,12 +26,8 @@ function SkillRapidShot_AddAttack:init_skill(missile_res, motionstreak_res, targ
 	self.m_addAttackAcivityCarrier:setAttackType('basic')
 
 	self.m_addTargetList = self:findTarget()
-	-- 타겟 리스트에서 주 타겟을 제외한다.
-	for i, target in pairs(self.m_addTargetList) do
-        if (target == self.m_targetChar) then
-            table.remove(self.m_addTargetList, i)
-            break
-        end
+    if (#self.m_addTargetList > 0) then
+        self.m_targetChar = table.remove(self.m_addTargetList, 1)
     end
 end
 
