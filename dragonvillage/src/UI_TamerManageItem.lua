@@ -56,19 +56,16 @@ function UI_TamerManageItem:refresh()
 	local vars = self.vars
 	local t_tamer = self.m_tamerTable
 	local tid = t_tamer['tid']
-	local icons = vars['tamerNode']:getChildren()
 
-	-- 없는 테이머는 음영 처리
-	if (not g_tamerData:hasTamer(tid)) then
-		for _, icon in pairs(icons) do
-			icon:setColor(COLOR['deep_dark_gray'])
-		end
-	else
-		for _, icon in pairs(icons) do
-			icon:setColor(COLOR['white'])
-		end
-	end
+    -- 테이머 아이콘도 달아준다
+    local name = t_tamer['type']
+    local idx = g_tamerData:hasTamer(tid) and 1 or 2 -- 2는 미획득 상태 아이콘
+    local res = string.format('res/ui/icons/tamer/tamer_manage_%s_01%02d.png', name, idx)
+    local spr = IconHelper:getIcon(res)
+    vars['tamerNode']:removeAllChildren()
+    vars['tamerNode']:addChild(spr)
 
+    -- noti도 붙이고
 	if (g_tamerData:isObtainable(tid)) then
 		vars['notiSprite']:setVisible(true)
 	else
@@ -87,9 +84,11 @@ function UI_TamerManageItem:selectTamer(is_select)
 	if (is_select) then
 		self.root:setLocalZOrder(2)
         self.root:setScale(1)
+        self.root:setPositionY(10)
 	else
 		self.root:setLocalZOrder(1)
         self.root:setScale(0.8)
+        self.root:setPositionY(0)
 	end
 end
 

@@ -146,8 +146,8 @@ function UI_TamerManagePopup:setTamerRes()
 
 	-- 없는 테이머는 음영 처리
 	if (not self:_hasTamer(self.m_selectedTamerID)) then
-		illustration_animator:setColor(COLOR['deep_dark_gray'])
-		sd_animator:setColor(COLOR['deep_dark_gray'])
+		illustration_animator:setColor(COLOR['gray'])
+		sd_animator:setColor(COLOR['gray'])
 	end
 end
 
