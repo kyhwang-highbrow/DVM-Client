@@ -130,6 +130,11 @@
             android:name="com.facebook.CustomTabActivity"
             android:exported="true" >
         </activity>
+        
+        <!-- @obb, APK expansion file downloading -->
+        <service android:name="org.cocos2dx.lua.APKExpansionDownloaderService" />
+        <receiver android:name="org.cocos2dx.lua.APKExpansionAlarmReceiver" />
+        
     </application>
 
     <supports-screens
@@ -147,6 +152,9 @@
  	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    
+    <!-- @obb, APK expansion file downloading (+ INTERNET, WAKE_LOCK, ACCESS_NETWORK_STATE, ACCESS_WIFI_STATE, WRITE_EXTERNAL_STORAGE) -->
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
     
     <!-- @billing -->
 	<uses-permission android:name="com.android.vending.BILLING" />
