@@ -410,7 +410,7 @@
 				visible = true;
 				lua_name = 'skillEnhanceBtn';
 				enable = true;
-				normal = 'ui/buttons/main_btn_0101.png.';
+				normal = 'ui/buttons/main_btn_0101.png';
 				selected = 'ui/buttons/main_btn_0102.png';
 				disable = 'ui/buttons/main_btn_0102.png';
 				image_type = 1;
