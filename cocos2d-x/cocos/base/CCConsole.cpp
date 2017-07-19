@@ -210,8 +210,8 @@ static const char* inet_ntop(int af, const void* src, char* dst, int cnt)
 static void _log(const char *format, va_list args)
 {
     char buf[MAX_LOG_LENGTH] = {0};
-    vsnprintf(buf, MAX_LOG_LENGTH-4, format, args);
-    //strcat(buf, "\n");
+    vsnprintf(buf, MAX_LOG_LENGTH-5, format, args);
+    strcat(buf, "\n");
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
     __android_log_print(ANDROID_LOG_DEBUG, "cocos2d-x debug info",  "%s", buf);
