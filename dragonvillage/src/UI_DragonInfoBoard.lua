@@ -115,9 +115,31 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
     -- 친밀도
     if vars['friendshipLabel'] and vars['friendshipGauge'] then
         local friendship_obj = t_dragon_data:getFriendshipObject()
-        local t_friendship_info = friendship_obj:getFriendshipInfo()
+        -- friendship_obj 2017-07-19 sgkim
+        --{
+        --    ['fdef']=0;
+        --    ['fexp']=0;
+        --    ['ffeel']=0;
+        --    ['fatk']=0;
+        --    ['flv']=0;
+        --    ['fhp']=0;
+        --}
 
-        vars['friendshipLabel']:setString(t_friendship_info['name'])
+        local t_friendship_info = friendship_obj:getFriendshipInfo()
+        -- t_friendship_info 2017-07-19 sgkim
+        --{
+        --    ['desc']='[곤히이]님에게 아무런 관심이 없습니다.';
+        --    ['exp_percent']=0;
+        --    ['def_max']=300;
+        --    ['hp_max']=2100;
+        --    ['atk_max']=300;
+        --    ['feel_percent']=0;
+        --    ['name']='무관심';
+        --    ['max_exp']=300;
+        --}
+
+        vars['friendshipLabel1']:setString(Str('친밀도 {1}/{2}', friendship_obj['flv']+1, 10))
+        vars['friendshipLabel2']:setString(t_friendship_info['name'])
 
         vars['friendshipGauge']:stopAllActions()
         vars['friendshipGauge']:runAction(cc.ProgressTo:create(0.3, t_friendship_info['exp_percent']))
@@ -184,6 +206,13 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 				skill_node:addChild(empty_skill_icon)
 
             end
+        end
+
+        do -- 액티브 스킬 필요 마나 출력
+            -- DragonSkillIndivisualInfo
+            local skill_info = skill_mgr:getSkillIndivisualInfo('active')
+            local req_mana = skill_info:getReqMana()
+            vars['manaLabel']:setString(tostring(req_mana))
         end
     end
 end

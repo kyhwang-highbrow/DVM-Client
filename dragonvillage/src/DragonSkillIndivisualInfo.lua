@@ -3,6 +3,7 @@
 -- @TODO Individual로 수정 예정
 -------------------------------------
 DragonSkillIndivisualInfo = class({
+        m_className = '',
         m_charType = 'string',  -- 캐릭터 타입 'dragon', 'monster'
         m_skillID = 'number',   -- 스킬 ID
         m_skillType = 'string',
@@ -19,6 +20,8 @@ DragonSkillIndivisualInfo = class({
 -- function init
 -------------------------------------
 function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_level)
+    self.m_className = 'DragonSkillIndivisualInfo'
+
     self.m_charType = char_type
     self.m_skillType = skill_type
     self.m_skillID = skill_id
@@ -189,5 +192,16 @@ function DragonSkillIndivisualInfo:getSkillTable()
     return self.m_tSkill
 end
 
+-------------------------------------
+-- function getReqMana
+-- @brief 필요 마나 리턴 (active 스킬만 유효한 값을 가짐)
+-------------------------------------
+function DragonSkillIndivisualInfo:getReqMana()
+    local req_mana = self.m_tSkill['req_mana']
 
+    if (not req_mana) or (type(req_mana) == 'string') then
+        req_mana = 0
+    end
 
+    return req_mana
+end
