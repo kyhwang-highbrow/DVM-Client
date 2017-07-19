@@ -25,7 +25,7 @@
 				lua_name = 'bgSprite';
 				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
-				opacity = 255;
+				opacity = 180;
 				center_rect_x = 0;
 				center_rect_y = 0;
 				center_rect_width = 0;
@@ -51,7 +51,7 @@
 				lua_name = 'specialBgSprite';
 				file_name = 'ui/frames/base_frame_0102.png';
 				color = { 255; 255; 255; };
-				opacity = 255;
+				opacity = 180;
 				center_rect_x = 0;
 				center_rect_y = 0;
 				center_rect_width = 0;
