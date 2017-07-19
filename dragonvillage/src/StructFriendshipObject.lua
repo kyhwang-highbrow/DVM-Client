@@ -109,3 +109,36 @@ function StructFriendshipObject:makeFeelUpInfo(fid)
 
     return feel, emoji
 end
+
+-------------------------------------
+-- function makeFriendshipIcon
+-- @breif 친밀도 아이콘 생성
+-------------------------------------
+function StructFriendshipObject:makeFriendshipIcon(flv)
+    -- 친밀도는 0레벨부터 시작하기 때문에 1을 더해줌
+    local flv = (flv or self['flv']) + 1
+    local res = string.format('res/ui/icons/friendship/friendship_level_01%.2d.png', flv)
+    local icon = cc.Sprite:create(res)
+
+    if (not icon) then
+        error('res : ' .. res)
+    end
+
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+
+    return icon
+end
+
+-------------------------------------
+-- function getFriendshipDisplayText
+-- @breif 친밀도 아이콘 생성
+-------------------------------------
+function StructFriendshipObject:getFriendshipDisplayText(flv)
+    -- 친밀도는 0레벨부터 시작하기 때문에 1을 더해줌
+    local flv = (flv or self['flv']) + 1
+
+    local str = Str('친밀도 {1}/{2}', flv, 10)
+
+    return str
+end

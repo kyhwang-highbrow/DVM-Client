@@ -126,6 +126,19 @@ function UI_DragonFriendship:refreshFriendship()
     local friendship_obj = t_dragon_data:getFriendshipObject()
     local t_friendship_info = friendship_obj:getFriendshipInfo()
 
+    -- 친밀도 단계
+    if self:checkVarsKey('levelLabel', friendship_obj['flv']) then
+        local str = friendship_obj:getFriendshipDisplayText()
+        vars['levelLabel']:setString(str)
+    end
+
+    -- 친밀도 아이콘
+    if self:checkVarsKey('iconNode', friendship_obj['flv']) then
+        vars['iconNode']:removeAllChildren()
+        local icon = friendship_obj:makeFriendshipIcon()
+        vars['iconNode']:addChild(icon)
+    end
+
     -- 친밀도 이름
     if self:checkVarsKey('conditionLabel', t_friendship_info['name']) then
         vars['conditionLabel']:setString(t_friendship_info['name'])

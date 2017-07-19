@@ -138,7 +138,8 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
         --    ['max_exp']=300;
         --}
 
-        vars['friendshipLabel1']:setString(Str('친밀도 {1}/{2}', friendship_obj['flv']+1, 10))
+        local str = friendship_obj:getFriendshipDisplayText()
+        vars['friendshipLabel1']:setString(str)
         vars['friendshipLabel2']:setString(t_friendship_info['name'])
 
         vars['friendshipGauge']:stopAllActions()
