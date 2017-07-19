@@ -1,6 +1,8 @@
 {
 	"BG":
 	{
+        "bgm_dummy": {"res":"sound/ui/ui_touch.mp3"}
+        
 		"bgm_title": {"res":"sound/bgm/bgm_title.mp3"}
 		"bgm_lobby": {"res":"sound/bgm/bgm_lobby.mp3"}
 		

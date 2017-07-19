@@ -171,6 +171,7 @@ function SoundMgr:setBgmOnOff(is_on)
         end
 
         if sound then
+            SoundMgr:playBGM('bgm_dummy')
             SoundMgr:playBGM(sound)
         end
     end
