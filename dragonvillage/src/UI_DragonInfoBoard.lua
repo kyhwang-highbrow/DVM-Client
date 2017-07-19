@@ -200,19 +200,18 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
 					UI_SkillDetailPopup(t_dragon_data, i)
 				end)
+
+				-- 마나 소모량 표시 UI 위치 변경
+                local mana_node = l_skill_icon[i].vars['manaNode']
+                mana_node:setPositionX(0)
+                mana_node:setScale(2)
+
 			-- 비어있는 스킬 아이콘 생성
 			else
 				local empty_skill_icon = IconHelper:getEmptySkillIcon()
 				skill_node:addChild(empty_skill_icon)
 
             end
-        end
-
-        do -- 액티브 스킬 필요 마나 출력
-            -- DragonSkillIndivisualInfo
-            local skill_info = skill_mgr:getSkillIndivisualInfo('active')
-            local req_mana = skill_info:getReqMana()
-            vars['manaLabel']:setString(tostring(req_mana))
         end
     end
 end

@@ -9,6 +9,7 @@ UI_DragonSkillCard = class(PARENT, {
 
 -------------------------------------
 -- function init
+-- @param skill_indivisual_info DragonSkillIndivisualInfo
 -------------------------------------
 function UI_DragonSkillCard:init(skill_indivisual_info)
     self.m_skillIndivisualInfo = skill_indivisual_info
@@ -39,6 +40,15 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
         lv_str = Str('Lv.{1}', skill_lv)
     end
     vars['levelLabel']:setString(lv_str)
+
+    do -- 액티브 스킬 마나 소모량 표시
+        local skill_type = skill_indivisual_info:getSkillType()
+        if (skill_type == 'active') then
+            local req_mana = skill_indivisual_info:getReqMana()
+            vars['manaNode']:setVisible(0 < req_mana)
+            vars['manaLabel']:setString(tostring(req_mana))
+        end
+    end
 
     -- button
     vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
@@ -119,7 +129,7 @@ function UI_DragonSkillCard:setSimple()
     vars['lockSprite']:removeFromParent(true)
     vars['lockSprite'] = IconHelper:getIcon('res/ui/buttons/skill_btn_0105.png')
     vars['lockSprite']:setVisible(is_lock)
-    self.root:addChild(vars['lockSprite'])
+    vars['clickBtn']:addChild(vars['lockSprite'])
 
     -- lv label 위치 조정
     vars['levelLabel']:setPosition(0, -30)
@@ -129,6 +139,9 @@ function UI_DragonSkillCard:setSimple()
     vars['skillNode']:setScale(1)
     vars['skillNode']:setPosition(0, 0)
     vars['clickBtn']:setNormalSize(100, 100)
+
+    -- 마나 소모량
+    vars['manaNode']:setLocalZOrder(1)
 end
 
 -------------------------------------
