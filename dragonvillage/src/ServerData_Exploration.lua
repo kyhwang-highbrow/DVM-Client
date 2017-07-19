@@ -181,6 +181,10 @@ function ServerData_Exploration:request_explorationStart(epr_id, doids, finish_c
         -- 추후에 드래곤의 lock값이 필요해질때 사용
         -- ret['modified_dragons']
 
+        -- @ MASTER ROAD
+        local t_data = {road_key = 'ply_epl'}
+        g_masterRoadData:updateMasterRoad(t_data)
+
         if finish_cb then
             finish_cb(ret)
         end

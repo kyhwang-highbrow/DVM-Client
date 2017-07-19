@@ -296,6 +296,7 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
             -- 친밀도 과일 먹임 fruit
             -- 드래곤 레벨업 d_lvup
             -- 드래곤 등급업 d_grup
+            -- 탐험 보내기 ply_epl
             return true
         end
 
@@ -364,6 +365,13 @@ function ServerData_MasterRoad.quickLink(clear_type, clear_cond)
     -- 악몽 던전 플레이
     elseif (clear_type == 'ply_nm') then
         g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_NIGHTMARE)
+
+    -- 탐험 플레이
+    elseif (clear_type == 'ply_epl') then
+        local function finish_cb()
+            UI_Exploration()
+        end 
+        g_explorationData:request_explorationInfo(finish_cb)
 
     -- 유저 레벨 달성
     elseif (clear_type == 'u_lv') then
