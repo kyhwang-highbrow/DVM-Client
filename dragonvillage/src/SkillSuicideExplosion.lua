@@ -107,6 +107,23 @@ function SkillSuicideExplosion.st_dying(owner, dt)
 end
 
 -------------------------------------
+-- function findCollision
+-- @brief 모든 충돌 대상 찾음(Body 기준)
+-------------------------------------
+function SkillSuicideExplosion:findCollision()
+    local l_target = self:getProperTargetList()
+	local x = self.m_targetPos.x
+	local y = self.m_targetPos.y
+	
+    local l_ret = SkillTargetFinder:getCollisionFromTargetList(l_target, x, y, true)
+
+    -- 타겟 수 만큼만 얻어옴
+    l_ret = table.getPartList(l_ret, self.m_targetLimit)
+
+	return l_ret
+end
+
+-------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillSuicideExplosion:makeSkillInstance(owner, t_skill, t_data)

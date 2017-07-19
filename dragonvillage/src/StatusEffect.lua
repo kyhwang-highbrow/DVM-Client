@@ -101,10 +101,42 @@ end
 -- function initState
 -------------------------------------
 function StatusEffect:initState()
+    if (self.m_animator) then
+        local list = self.m_animator:getVisualList()
+
+    end
+
     self:addState('start', StatusEffect.st_start, 'center_start', false)
     self:addState('idle', StatusEffect.st_idle, 'center_idle', true)
     self:addState('end', StatusEffect.st_end, 'center_end', false)
     self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
+end
+
+-------------------------------------
+-- function addState
+-- @param state : string
+-- @param func : function
+-- @param ani : string
+-- @param loop : boolean
+-- @param priority : number
+-------------------------------------
+function StatusEffect:addState(state, func, ani, loop, priority)
+    PARENT.addState(self, state, func, ani, loop, priority)
+
+    if (not self.m_animator) then return end
+
+    if (ani) then
+        local list = self.m_animator:getVisualList()
+        local idx = table.find(list, ani)
+        if (not idx) then
+            if (ani == 'center_start') then ani = 'appear'
+            elseif (ani == 'center_idle') then ani = 'idle'
+            elseif (ani == 'center_end') then ani = 'disappear'
+            else return end
+
+            self.m_tStateAni[state] = ani
+        end
+    end
 end
 
 -------------------------------------
