@@ -54,6 +54,8 @@ public:
 protected:
 
     virtual bool isFileExistInternal(const std::string& strFilePath) const;
+
+    virtual Data getData(const std::string& filename, bool forString);
     
     /**
      *  Gets resource file data

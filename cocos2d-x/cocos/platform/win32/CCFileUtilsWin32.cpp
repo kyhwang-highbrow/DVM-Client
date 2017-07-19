@@ -129,7 +129,7 @@ bool FileUtilsWin32::isAbsolutePath(const std::string& strPath) const
     return false;
 }
 
-static Data getData(const std::string& filename, bool forString)
+Data FileUtilsWin32::getData(const std::string& filename, bool forString)
 {
     if (filename.empty())
     {
