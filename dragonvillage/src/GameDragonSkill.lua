@@ -610,7 +610,7 @@ function GameDragonSkill:releaseFocusingDragon()
 
         if (self.m_bReservedDie) then
             self.m_dragon:setZombie(false)
-            self.m_dragon:setDamage(nil, self.m_dragon, self.m_dragon.pos.x, self.m_dragon.pos.y, 0, nil)
+            self.m_dragon:doDie()
 
         elseif (self.m_dragon.m_state ~= 'delegate') then
             self.m_dragon:changeState('attackDelay')

@@ -1,8 +1,7 @@
-local PARENT = StatusEffect_Trigger
+local PARENT = StatusEffect
 
 -------------------------------------
 -- class StatusEffect_Sleep
--- @brief StatusEffect_Trigger와는 다르게 trigger 발동시 해제된다. 해제만을 위해 클래스를 나눌 필요가 있는지는 고민중
 -------------------------------------
 StatusEffect_Sleep = class(PARENT, {
     })
@@ -13,7 +12,15 @@ StatusEffect_Sleep = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect_Sleep:init(file_name, body)
-    self.m_triggerName = 'undergo_attack'
+end
+
+-------------------------------------
+-- function initFromTable
+-------------------------------------
+function StatusEffect_Sleep:initFromTable(t_status_effect, target_char)
+    PARENT.initFromTable(self, t_status_effect, target_char)
+
+    self:addTrigger('undergo_attack', self:getTriggerFunction(), g_constant:get('INGAME', 'STATUEEFFECT_GLOBAL_COOL'))
 end
 
 -------------------------------------

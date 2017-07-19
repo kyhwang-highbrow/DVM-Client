@@ -204,7 +204,7 @@ end
 function GameWorld:kill_boss()
     for i, v in ipairs(self:getEnemyList()) do
         if (not v:isDead() and v:isBoss()) then
-            v:changeState('dying')
+            v:doDie()
         end
     end
 end
@@ -378,7 +378,7 @@ end
 function GameWorld:kill_one_dragon(dragon)
     for i, v in ipairs(self:getDragonList()) do
         if (not v:isDead()) then
-            v:setDamage(nil, v, v.pos.x, v.pos.y, 999999)
+            v:doDie()
             break
         end
     end

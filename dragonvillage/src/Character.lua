@@ -868,6 +868,14 @@ function Character:doAttack(skill_id, x, y)
 end
 
 -------------------------------------
+-- function checkDie
+-- @brief 죽임(좀비나 자폭 등의 죽기전 발동되는 스킬을 발동시킴)
+-------------------------------------
+function Character:doDie()
+    self:setDamage(nil, self, self.pos.x, self.pos.y, self.m_hp, nil)
+end
+
+-------------------------------------
 -- function doRevive
 -- @brief 부할
 -------------------------------------

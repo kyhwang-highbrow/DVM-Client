@@ -1746,9 +1746,6 @@
     <None Include="..\src\StatusEffect_Silence.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\StatusEffect_Trigger.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StatusEffectHelper.lua">
       <Filter>lua\src</Filter>
     </None>

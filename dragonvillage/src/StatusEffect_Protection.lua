@@ -1,4 +1,4 @@
-local PARENT = StatusEffect_Trigger
+local PARENT = StatusEffect
 
 -------------------------------------
 -- class StatusEffect_Protection
@@ -17,12 +17,7 @@ StatusEffect_Protection = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect_Protection:init(file_name, body, ...)
-	-- 보호막은 트리거 쿨타임을 적용하지 않는다.
-	self.m_statusEffectInterval = 0
-
-    self.m_triggerName = 'hit_shield'
-    
-    self.m_shieldHP = 0
+	self.m_shieldHP = 0
     self.m_shieldHPOrg = 0
 
 	do
@@ -36,21 +31,19 @@ function StatusEffect_Protection:init(file_name, body, ...)
 end
 
 -------------------------------------
+-- function initFromTable
+-------------------------------------
+function StatusEffect_Protection:initFromTable(t_status_effect, target_char)
+    PARENT.initFromTable(self, t_status_effect, target_char)
+
+    self:addTrigger('hit_shield', self:getTriggerFunction())
+end
+
+-------------------------------------
 -- function init_top
 -------------------------------------
 function StatusEffect_Protection:init_top(file_name)
 	-- top을 찍지 않는다
-end
-
--------------------------------------
--- function initState
--------------------------------------
-function StatusEffect_Protection:initState()
-    PARENT.initState(self)
-
-	self:addState('start', PARENT.st_start, 'appear', false)
-    self:addState('idle', PARENT.st_idle, 'idle', true)
-	self:addState('end', PARENT.st_end, 'disappear', false)
 end
 
 -------------------------------------

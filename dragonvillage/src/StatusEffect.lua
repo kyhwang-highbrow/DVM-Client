@@ -1,4 +1,4 @@
-local PARENT = Entity
+local PARENT = class(Entity, IEventListener:getCloneTable())
 
 -------------------------------------
 -- class StatusEffect
@@ -32,6 +32,11 @@ StatusEffect = class(PARENT, {
 
 		m_type = 'status type',
         m_category = 'status category',
+
+        -- 트리거 관련
+        m_lTriggerFunc = 'table',           -- 트리거 이벤트별 함수 리스트를 가진 테이블(event_name : func_list)
+        m_lTriggerFuncTimer = 'table',      -- 트리거 함수별 최근 호출되고 지난 시간값을 가진 맵테이블(func : timer)
+        m_lTriggerFuncInterval = 'table',   -- 트리거 함수별 주기시간값을 가진 맵테이블(func : interval)
     })
 
 -------------------------------------
@@ -58,6 +63,10 @@ function StatusEffect:init(file_name, body)
 
     self.m_overlabCnt = 0
     self.m_maxOverlab = 0
+
+    self.m_lTriggerFunc = {}
+    self.m_lTriggerFuncTimer = {}
+    self.m_lTriggerFuncInterval = {}
 
 	self:init_top(file_name)
 	self:initState()
@@ -101,11 +110,6 @@ end
 -- function initState
 -------------------------------------
 function StatusEffect:initState()
-    if (self.m_animator) then
-        local list = self.m_animator:getVisualList()
-
-    end
-
     self:addState('start', StatusEffect.st_start, 'center_start', false)
     self:addState('idle', StatusEffect.st_idle, 'center_idle', true)
     self:addState('end', StatusEffect.st_end, 'center_end', false)
@@ -170,6 +174,8 @@ end
 -------------------------------------
 function StatusEffect:setDead()
     if (self.m_bDead) then return end
+
+    self:removeAllTrigger()
 
     -- 대상이 들고 있는 상태효과 리스트에서 제거
 	self.m_owner:removeStatusEffect(self)
@@ -628,4 +634,62 @@ end
 -------------------------------------
 function StatusEffect:getOverlabUnitList()
     return self.m_lUnit
+end
+
+
+
+
+-------------------------------------
+-- function addTrigger
+-------------------------------------
+function StatusEffect:addTrigger(event_name, func, interval)
+    if (not self.m_lTriggerFunc[event_name]) then
+        self.m_lTriggerFunc[event_name] = {}
+
+        -- listner 등록
+        self.m_owner:addListener(event_name, self)
+    end
+
+    table.insert(self.m_lTriggerFunc[event_name], func)
+
+    if (interval and interval > 0) then
+        local idx = #self.m_lTriggerFunc[event_name]
+        local key = event_name .. idx
+        self.m_lTriggerFuncTimer[key] = time
+        self.m_lTriggerFuncInterval[key] = interval
+    end
+end
+
+-------------------------------------
+-- function removeAllTrigger
+-------------------------------------
+function StatusEffect:removeAllTrigger()
+    for name, _ in pairs(self.m_lTriggerFunc) do
+        -- listener 해제
+        self.m_owner:removeListener(name, self)
+    end
+
+    self.m_lTriggerFunc = {}
+end
+
+-------------------------------------
+-- function onEvent
+-------------------------------------
+function StatusEffect:onEvent(event_name, t_event, ...)
+    local l_func = self.m_lTriggerFunc[event_name]
+    if (not l_func) then return false end
+    
+    for idx, func in ipairs(l_func) do
+        local key = event_name .. idx
+
+        if (self.m_lTriggerFuncInterval[key]) then
+            if (self.m_lTriggerFuncTimer[key] > self.m_lTriggerFuncInterval[key]) then
+                self.m_lTriggerFuncTimer[key] = self.m_lTriggerFuncTimer[key] - self.m_lTriggerFuncInterval[key]
+
+                func(t_event, ...)
+            end
+        else
+            func(t_event, ...)    
+        end
+    end
 end

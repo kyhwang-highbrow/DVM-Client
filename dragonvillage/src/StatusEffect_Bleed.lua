@@ -1,4 +1,4 @@
-local PARENT = StatusEffect_Trigger
+local PARENT = StatusEffect
 
 -------------------------------------
 -- class StatusEffect_Bleed
@@ -13,14 +13,18 @@ StatusEffect_Bleed = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect_Bleed:init(file_name, body)
-    self.m_statusEffectInterval = 0
-
-    self.m_triggerName = 'under_atk'
-    self.m_triggerFunc = function()
-        self:doDamage()
-    end
-
     self.m_dmg = 0
+end
+
+-------------------------------------
+-- function initFromTable
+-------------------------------------
+function StatusEffect_Bleed:initFromTable(t_status_effect, target_char)
+    PARENT.initFromTable(self, t_status_effect, target_char)
+
+    self:addTrigger('under_atk', function(t_event, ...)
+        self:doDamage()
+    end)
 end
 
 -------------------------------------

@@ -28,5 +28,5 @@ function StatusEffect_Zombie:onEnd()
     self.m_owner:setZombie(false)
     
     -- 종료시 사망처리
-    self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, 0, nil)
+    self.m_owner:doDie()
 end

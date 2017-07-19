@@ -12,6 +12,15 @@ StatusEffect_Poison = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect_Poison:init(file_name, body)
-	self.m_triggerName = 'char_do_atk'
 end
 
+-------------------------------------
+-- function initFromTable
+-------------------------------------
+function StatusEffect_Poison:initFromTable(t_status_effect, target_char)
+    PARENT.initFromTable(self, t_status_effect, target_char)
+
+    self:addTrigger('char_do_atk', function(t_event, ...)
+        self:doDamage()
+    end)
+end
