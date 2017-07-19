@@ -13,6 +13,7 @@ UI_GachaResult_Dragon = class(PARENT, {
         m_hideUIList = '',
 
         m_eggRes = 'string',
+        m_bSkip = 'bool',
      })
 
 -------------------------------------
@@ -20,6 +21,7 @@ UI_GachaResult_Dragon = class(PARENT, {
 -------------------------------------
 function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list, egg_res)
     self.m_eggRes = egg_res
+    self.m_bSkip = false
 
     -- 드래곤리스트, 슬라임 리스트 copy
     local copy_dragon_list = l_gacha_dragon_list and clone(l_gacha_dragon_list) or {}
@@ -122,8 +124,12 @@ function UI_GachaResult_Dragon:refresh()
         v:setVisible(is_last)
     end
 
-	-- ui 다시 집어넣고 연출 시작
-	self:doActionReverse(start_directing_cb, 0.2)
+    if self.m_bSkip then
+        start_directing_cb()
+    else
+        -- ui 다시 집어넣고 연출 시작
+	    self:doActionReverse(start_directing_cb, 0.2)
+    end
 end
 
 -------------------------------------
@@ -296,6 +302,8 @@ end
 -- function click_skipBtn
 -------------------------------------
 function UI_GachaResult_Dragon:click_skipBtn()
+    self.m_bSkip = true
+
 	if (table.count(self.m_lGachaDragonList) > 1) then
 		-- 마지막 데이터만 남긴다.
 		local t_last_data = self.m_lGachaDragonList[#self.m_lGachaDragonList]
