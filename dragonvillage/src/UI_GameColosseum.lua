@@ -50,6 +50,7 @@ function UI_GameColosseum:initButton()
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
     vars['effectBtn']:registerScriptTapHandler(function() self:click_effectBtn() end)
+    vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)
 
     -- 연출 버튼 이미지
     do
@@ -130,6 +131,13 @@ function UI_GameColosseum:click_pauseButton()
     end
 
     UI_GamePause_Colosseum(stage_id, start_cb, end_cb)
+end
+
+-------------------------------------
+-- function click_chatBtn
+-------------------------------------
+function UI_GameColosseum:click_chatBtn()
+    g_chatManager:toggleChatPopup()
 end
 
 -------------------------------------
