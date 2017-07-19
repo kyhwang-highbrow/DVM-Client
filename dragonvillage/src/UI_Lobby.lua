@@ -124,10 +124,10 @@ function UI_Lobby:entryCoroutine()
         g_friendData:request_friendList(function() working = false end, true)
         while (working) do dt = coroutine.yield() end
         
-        cclog('# 하일라이트 정보 받는 중')
-        working = true
-        g_highlightData:request_highlightInfo(function(ret) working = false end, fail_cb)
-        while (working) do dt = coroutine.yield() end
+        --cclog('# 하일라이트 정보 받는 중')
+        --working = true
+        --g_highlightData:request_highlightInfo(function(ret) working = false end, fail_cb)
+        --while (working) do dt = coroutine.yield() end
 		
         cclog('# 출석 정보 받는 중')
         working = true
@@ -277,25 +277,29 @@ end
 function UI_Lobby:refresh_highlight()
     local vars = self.vars
 
-    -- 탐험
-    vars['explorationNotiSprite']:setVisible(g_highlightData:isHighlightExploration())
+    local function highlight_func()
+        -- 탐험
+        vars['explorationNotiSprite']:setVisible(g_highlightData:isHighlightExploration())
+
+        -- 퀘스트
+        vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
+
+        -- 우편함
+        vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
+
+        -- 드래곤
+        vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
+
+        -- 친구 
+        vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
+    end
+
+    g_highlightData:request_highlightInfo(highlight_func)
 
     do -- 드래곤 소환
         local highlight, t_highlight = g_hatcheryData:checkHighlight()
         vars['drawNotiSprite']:setVisible(highlight)
     end
-
-    -- 퀘스트
-    vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
-
-    -- 우편함
-    vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
-
-    -- 드래곤
-    vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
-
-    -- 친구 
-    vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
 
     -- 테이머
     vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
@@ -473,6 +477,9 @@ end
 -------------------------------------
 function UI_Lobby:click_mailBtn()
     UI_MailPopup():setCloseCB(function(is_dirty)
+        -- 노티 정보를 갱신하기 위해서 호출
+        g_highlightData:setLastUpdateTime()
+
         if (is_dirty) then
             -- 닉네임 변경으로 인한 처리...
             self:refresh_userInfo()

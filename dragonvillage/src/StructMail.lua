@@ -163,9 +163,6 @@ function StructMail:readMe(cb_func)
         if (cb_func) then
             cb_func()
         end
-
-        -- 노티 정보를 갱신하기 위해서 호출
-        g_highlightData:setLastUpdateTime()
 	end
     
 	g_mailData:request_mailRead(mail_id_list, finish_cb)

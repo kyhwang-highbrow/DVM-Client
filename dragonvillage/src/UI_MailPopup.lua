@@ -214,9 +214,6 @@ function UI_MailPopup:click_rewardAllBtn()
             
             -- 우편함 갱신
             self:refresh()
-
-            -- 노티 정보를 갱신하기 위해서 호출
-            g_highlightData:setLastUpdateTime()
 		end
 		g_mailData:request_mailReadAll(self.m_currTab, finish_cb)
 	end
