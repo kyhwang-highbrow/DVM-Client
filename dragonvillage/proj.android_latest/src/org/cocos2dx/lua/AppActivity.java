@@ -210,9 +210,8 @@ public class AppActivity extends Cocos2dxActivity{
 		    		int versionCode = Integer.parseInt(array1[0]);
 		    		long fileSize = Long.parseLong(array1[1]);
 
-		    		String[] array2 = arg1.split(";");
-					String md5 = array2[0];
-					long crc32 = Long.parseLong(array2[1]);
+		    		String md5 = arg1;
+		    		long crc32 = 0;
 		    		
 		    		sActivity.startAPKExpansionDownloader(versionCode, fileSize, md5, crc32);
 
