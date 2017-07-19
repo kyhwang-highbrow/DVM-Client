@@ -382,9 +382,14 @@ function TargetRule_getTargetList_status_effect(org_list, raw_str)
     local t_char = table.sortRandom(table.clone(org_list))
 	local t_ret = {}
 
-	local temp = string.gsub(raw_str, '_.+', '')
-    local status_effect_name = string.gsub(raw_str, '%l+_', '', 1)
-
+	local temp = seperate(raw_str, '_')
+    local status_effect_name = temp[2]
+    if(#temp > 2) then
+        for i = 3, (#temp - 1) do
+           status_effect_name = status_effect_name .. '_' .. temp[i]
+        end
+    end
+    print(status_effect_name)
 	-- 상태효과가 있다면 새로운 테이블로 옮긴다. 차곡차곡
     for i = #t_char, 1, -1 do
         if (t_char[i]:isExistStatusEffectName(status_effect_name)) then
@@ -393,11 +398,12 @@ function TargetRule_getTargetList_status_effect(org_list, raw_str)
         end
     end
     
+    if (not pl.stringx.endswith(raw_str, 'only')) then
 	-- 남은 애들도 다시 담는다.
-	for i, char in pairs(t_char) do
-		table.insert(t_ret, char)
-	end
-
+        for i, char in pairs(t_char) do
+	        table.insert(t_ret, char)
+        end
+    end
     return t_ret
 end
 
