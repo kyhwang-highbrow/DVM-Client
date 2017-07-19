@@ -21,7 +21,7 @@ public class APKExpansionDownloaderService extends DownloaderService {
      */
     @Override
     public String getPublicKey() {
-        return AppActivity.BASE64_PUBLIC_KEY;
+        return AppActivity.billingBase64PublicKey;
     }
 
     /**

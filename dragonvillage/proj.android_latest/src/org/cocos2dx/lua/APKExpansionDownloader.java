@@ -1,6 +1,6 @@
 package org.cocos2dx.lua;
 
-import com.perplelab.enginesample.R;
+import com.perplelab.dragonvillagem.kr.R;
 
 import android.app.AlertDialog;
 import android.app.PendingIntent;
