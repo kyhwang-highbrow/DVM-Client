@@ -61,6 +61,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_EventPopup:refresh()
+    
 end
 
 -------------------------------------
@@ -184,6 +185,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
             ui = UI_EventPopupTab_Shop(l_item_list[product_id])
         end
         
+    -- 업데이트 공지 
+    elseif (string.find(tab, 'notice')) then
+        ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)
+
     -- 배너
     elseif (string.find(tab, 'banner')) then
         ui = UI_EventPopupTab_Banner(self, struct_event_popup_tab)
@@ -215,9 +220,14 @@ function UI_EventPopup:checkNotiList()
         local type = v['data'].m_type
 
         if v['data'].m_hasNoti then
-            v['data'].m_hasNoti = false
             self:setTab(type)
             return true
+        end
+
+        local ui = v['ui'] or v['generated_ui']
+        if ui then
+            local is_noti = v['data'].m_hasNoti
+            ui.vars['notiSprite']:setVisible(is_noti)
         end
     end
 

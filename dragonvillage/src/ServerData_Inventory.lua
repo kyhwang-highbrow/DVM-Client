@@ -150,9 +150,8 @@ function ServerData_Inventory:extendInventory(inven_type, finish_cb)
     local add_slot = next_slot - curr_slot
 
     local function ok_btn_cb()
-        local cash = g_userData:get('cash')
-        if (cash < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('다이아몬드가 부족합니다.'))
+        -- 캐쉬가 충분히 있는지 확인
+        if (not ConfirmPrice('cash', price)) then
             return
         end
 

@@ -286,11 +286,9 @@ function ServerData_Staminas:staminaCharge(stage_id)
             local msg = Str('입장권이 부족합니다.\n{@possible}입장권 {1}개{@default}를 충전하시겠습니까?\n{@impossible}(1일 {2}회 구매 가능. 현재 {3}회 구매)', cnt, charge_limit, charge_cnt)
             
             local function ok_btn_cb()
-                local cash = g_userData:get('cash')
-                if (cash < price) then
-                    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), 
-                    function() g_shopDataNew:openShopPopup('cash') end)
-                    return true
+                -- 캐쉬가 충분히 있는지 확인
+                if (not ConfirmPrice('cash', price)) then
+                    return
                 end
                 
                 self:request_staminaCharge(stamina_type)
