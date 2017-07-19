@@ -69,6 +69,7 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
     self.m_dragonTouchIndicator:setVisible(false)
     self.m_dragonTouchIndicator:changeAni('idle_ally', true)
     node:addChild(self.m_dragonTouchIndicator.m_node, 1)
+    self.m_dragonTouchIndicator.m_node:retain()
 
     do -- 오브젝트 버튼
         self.m_lLobbyObject = {}
@@ -851,6 +852,7 @@ end
 -- function onDestroy
 -------------------------------------
 function LobbyMap:onDestroy()
+    self.m_dragonTouchIndicator.m_node:release()
     self:release_EventDispatcher()
     self:release_EventListener()
 end
