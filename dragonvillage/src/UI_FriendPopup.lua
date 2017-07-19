@@ -18,7 +18,7 @@ UI_FriendPopup = class(PARENT, {
 -------------------------------------
 function UI_FriendPopup:init()
 	local vars = self:load('friend.ui')
-	UIManager:open(self, UIManager.POPUP)
+	UIManager:open(self, UIManager.SCENE)
 
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_FriendPopup')
