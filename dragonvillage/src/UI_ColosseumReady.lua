@@ -210,6 +210,9 @@ function UI_ColosseumReady:click_startBtn()
     local is_cash = false
     local function request()
         local function cb(ret)
+            -- 시작이 두번 되지 않도록 하기 위함
+            UI_BlockPopup()
+
             local scene = SceneGameColosseum()
             scene:runScene()
         end

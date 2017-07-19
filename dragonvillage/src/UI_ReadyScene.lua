@@ -938,6 +938,9 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:replaceGameScene(game_key)
+    -- 시작이 두번 되지 않도록 하기 위함
+    UI_BlockPopup()
+
     local stage_id = self.m_stageID
 
     local stage_name = 'stage_' .. stage_id
