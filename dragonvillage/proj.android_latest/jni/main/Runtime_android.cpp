@@ -147,20 +147,6 @@ string getFreeMemory()
     }
 }
 
-void send_event_to_app(const char *param1, const char *param2)
-{
-    JniMethodInfo t;
-
-    if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "receiveEventFromNative", "(Ljava/lang/String;Ljava/lang/String;)V")) {
-        jstring strParam1 = t.env->NewStringUTF(param1);
-        jstring strParam2 = t.env->NewStringUTF(param2);
-        t.env->CallStaticVoidMethod(t.classID, t.methodID, strParam1, strParam2);
-        t.env->DeleteLocalRef(t.classID);
-        t.env->DeleteLocalRef(strParam1);
-        t.env->DeleteLocalRef(strParam2);
-    }
-}
-
 void sdkEvent(const char *id, const char *arg0, const char *arg1)
 {
     JniMethodInfo t;

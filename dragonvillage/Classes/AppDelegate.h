@@ -57,14 +57,12 @@ public:
 
 	void initLuaEngine();
 	bool startLuaScript(const char* filename);
-	int receivedEventFromNative(const char *param1, const char *param2);
 	void setPathForPatch();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 #endif
 
-    // @google+
     void sdkEventHandler(const char *id, const char *result, const char *info);
 
     void reloadLuaModule();

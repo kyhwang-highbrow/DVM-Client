@@ -310,18 +310,4 @@ std::vector<std::string> split(const std::string &s, char delim) {
 	return split(s, delim, elems);
 }
 
-int AppDelegate::receivedEventFromNative(const char *param1, const char *param2)
-{
-	if (strcmp(param1, "userdefault") == 0) {
-		std::vector<std::string> vParams;
-		if (param2) {
-			vParams = split(param2, ';');
-		}
-		if (vParams.empty()) return 0;
-		if (vParams.size() == 1) vParams.push_back("none");
-        CCUserDefault::getInstance()->setStringForKey(vParams[0].c_str(), vParams[1].c_str());
-        CCUserDefault::getInstance()->flush();
-	}
-	return -1;
-}
 #endif

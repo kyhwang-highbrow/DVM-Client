@@ -35,6 +35,7 @@ import com.google.android.vending.expansion.downloader.IDownloaderClient;
 import com.perplelab.PerpleSDK;
 import com.perplelab.dragonvillagem.kr.R;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +52,9 @@ public class AppActivity extends Cocos2dxActivity{
     private static AppActivity sActivity;
 
     private Handler mAppHandler;
+
+    // @local push
+	static boolean sIsRun;
     
     // @billing
     static final String BASE64_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2AOyhy0owSekR+QEpAUb2fV/wBtRmuD8UNEsku6iGM+Qx5o7iBMlGlcb7kjCJ86hMAu6g+1cdGFTQGCGTKrDZS6AfTv8NDB5EFwxvLa8Rn9aUU0nkaLFGNQvEo+gplP1PZQZLd30RMmJy/uYkzA2+vCdGaOQRTckwbczDBQyKWtQ5k5aj/1HQ/X8XxZneaKAM2JyFgFcjSYtlep9/XOQ6K2aR0VLoMse2rGkaFJQAFOBgNlNbvC3cbvaZe1hnZ4ypjadsPzw83ZpQYaMRTUF1k/TpB6CuSIX4L2ykUkEDyWn0RECpO3jR1fJ1Lb2ddYTpb8gORou9mhIK9Nfr8Cn4wIDAQAB";
@@ -62,6 +66,8 @@ public class AppActivity extends Cocos2dxActivity{
         // @obb
         sActivity = this;
         mAppHandler = new Handler();
+        
+        sIsRun = true;
         
         // @perplesdk
         PerpleSDK.createInstance(this);
@@ -111,6 +117,8 @@ public class AppActivity extends Cocos2dxActivity{
     protected void onResume() {
         super.onResume();
 
+        sIsRun = true;
+        
         // @obb
         if (sOBBDownloader != null) {
             sOBBDownloader.connectDownloaderClient(this);
@@ -124,6 +132,8 @@ public class AppActivity extends Cocos2dxActivity{
     protected void onPause() {
         super.onPause();
 
+        sIsRun = false;
+        
         // @perplesdk
         PerpleSDK.getInstance().onPause();
     }
@@ -258,11 +268,77 @@ public class AppActivity extends Cocos2dxActivity{
 		    		sActivity.startAPKExpansionDownloader(versionCode, fileSize, md5, crc32);
 
 		    	} else if (id.equals("apkexp_continue")) {
-            		sOBBDownloader.requestContinueDownload();
+
+		    		sOBBDownloader.requestContinueDownload();
+		    		
 		    	} else if (id.equals("apkexp_pause")) {
-            		sOBBDownloader.requestPauseDownload();
+            		
+		    		sOBBDownloader.requestPauseDownload();
+		    		
 		    	} else if (id.equals("apkexp_stop")) {
+		    		
 		    		sOBBDownloader.disconnectDownloaderClient(sActivity);
+		    		
+		    	} else if (id.equals("localpush_register")) {
+		    		
+					Intent intent = PerplelabIntentFactory.makeIntentService(sActivity);
+					sActivity.startService(intent);
+					
+		    	} else if (id.equals("localpush_cancel")) {
+		    		
+					PerplelabIntentFactory.clear();
+					Intent intent = PerplelabIntentFactory.makeIntentService(sActivity);
+					sActivity.stopService(intent);
+		    		
+		    	} else if (id.equals("localpush_add")) {
+		    		
+					String[] array = arg0.split(";");
+					String type = array[0];
+					int sec = Integer.parseInt(array[1]);
+					String msg = array[2];
+
+					boolean bAlert = false;
+					if (array.length > 3) {
+						if (array[3].equals("alert")) {
+							bAlert = true;
+						}
+					}
+
+					PerplelabIntentFactory.addNoti(type, sec, msg, bAlert);
+				
+		    	} else if (id.equals("localpush_setColor")) {
+					
+		    		String[] array = arg0.split(";");
+					String bgColor = array[0];
+					String titleColor = array[1];
+					String messageColor = array[2];
+
+					PerplelabIntentFactory.setColor(bgColor, titleColor, messageColor);
+		    		
+		    	} else if (id.equals("localpush_setLinkUrl")) {
+
+		    		String[] array = arg0.split(";");
+					String linkTitle = array[0];
+					String linkUrl = array[1];
+					String cafeUrl = array[2];
+
+					PerplelabIntentFactory.setLinkUrlInfo(linkTitle, linkUrl, cafeUrl);
+		    		
+		    	} else if (id.equals("clipboard_setText")) {
+		    		
+					android.content.ClipboardManager clipboard = (android.content.ClipboardManager)sActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+					android.content.ClipData clip = android.content.ClipData.newPlainText("DragonVillageM RecoveryCode", arg0);
+					clipboard.setPrimaryClip(clip);
+					
+		    	} else if (id.equals("clipboard_getText")) {
+
+		    		String clipText = getClipText();
+					if (clipText == null) {
+						sdkEventResult(id, "false", "");
+					} else {
+						sdkEventResult(id, "true", clipText);
+					}
+
 		    	}
 			}
 		});
@@ -277,6 +353,43 @@ public class AppActivity extends Cocos2dxActivity{
 		});
 	}
     
+	public static void setBadgeCount(Context context, int count) {
+		String packageName = context.getPackageName();
+		String className = "com.perplelab.dragonvillagem.kr";
+
+		Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+		intent.putExtra("badge_count", count);
+		intent.putExtra("badge_count_package_name", packageName);
+		intent.putExtra("badge_count_class_name", className);
+		
+		context.sendBroadcast(intent);
+	}
+	
+	public static String getClipText() {
+		android.content.ClipboardManager clipboard = (android.content.ClipboardManager) sActivity
+				.getSystemService(Context.CLIPBOARD_SERVICE);
+		if (clipboard == null) {
+			return null;
+		}
+
+		android.content.ClipData clipData = clipboard.getPrimaryClip();
+		if (clipData == null) {
+			return null;
+		}
+
+		android.content.ClipData.Item item = clipData.getItemAt(0);
+		if (item == null) {
+			return null;
+		}
+
+		if (item.getText() == null) {
+			return null;
+		}
+
+		String clipText = item.getText().toString();
+		return clipText;
+	}
+	
     private static native void nativeSDKEventResult(String id, String result, String info);
 
 }

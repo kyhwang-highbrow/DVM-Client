@@ -33,7 +33,7 @@ function UI_Setting:click_copyBtn()
     local vars = self.vars
     local recovery_code = g_serverData:get('local', 'recovery_code')
 
-    luaEventHandler('send_event_to_app', 'set_clip_board', tostring(recovery_code))
+    PerpSocial:SDKEvent('clipboard_setText', tostring(recovery_code), '')
     UIManager:toastNotificationGreen(Str('복구코드를 복사하였습니다.'))
 end
 

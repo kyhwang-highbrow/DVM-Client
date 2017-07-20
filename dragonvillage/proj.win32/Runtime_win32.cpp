@@ -62,28 +62,6 @@ string getFreeMemory()
     return "";
 }
 
-void send_event_to_app(const char *param1, const char *param2)
-{
-	if (strcmp(param1, "set_clip_board") == 0)
-	{
-		std::string msg(param2);
-		HWND hwnd = GetDesktopWindow();
-		OpenClipboard(hwnd);
-		EmptyClipboard();
-		HGLOBAL hg = GlobalAlloc(GMEM_MOVEABLE, msg.size() + 1);
-		if (!hg){
-			CloseClipboard();
-			return;
-		}
-		memcpy(GlobalLock(hg), msg.c_str(), msg.size() + 1);
-		GlobalUnlock(hg);
-		SetClipboardData(CF_TEXT, hg);
-		CloseClipboard();
-		GlobalFree(hg);
-	}
-}
-
-// @google+
 void sdkEvent(const char *id, const char *arg0, const char *arg1)
 {
     static int googleplayIsSignedIn = 0;

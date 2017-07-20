@@ -379,18 +379,6 @@ static int l_gcsdkLoginInfo(lua_State* L)
     return 2;
 }
 
-//lua static function
-static int l_luaEventHandler(lua_State *L)
-{
-    const char *event_name = lua_tostring(L, 1);
-    const char *param1 = lua_tostring(L, 2);
-    const char *param2 = lua_tostring(L, 3);
-    const char *param3 = lua_tostring(L, 4);
-    lua_pushnumber(L, PerpUtils::luaEventHandler(event_name, param1, param2, param3));
-
-    return 1;
-}
-
 static int l_openFileDialog(lua_State *L)
 {
     /*
@@ -439,7 +427,6 @@ void AppDelegate::initLuaEngine()
 			{ "getMarketName", l_getMarketName },
 			{ "ppsdkLoginInfo", l_ppsdkLoginInfo },
 			{ "gcsdkLoginInfo", l_gcsdkLoginInfo },
-            { "luaEventHandler", l_luaEventHandler },
             { "openFileDialog", l_openFileDialog },
 			{ NULL, NULL }
 	};
@@ -459,7 +446,6 @@ void AppDelegate::initLuaEngine()
 #endif
 }
 
-// @google+
 void AppDelegate::sdkEventHandler(const char *id, const char *result, const char *info)
 {
     PerpSocial::OnSDKEventResult(id, result, info);

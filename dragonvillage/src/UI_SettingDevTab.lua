@@ -484,6 +484,6 @@ function UI_Setting:click_uidCopyBtn()
     local vars = self.vars
     local uid = g_userData:get('uid')
 
-    luaEventHandler('send_event_to_app', 'set_clip_board', tostring(uid))
+    PerpSocial:SDKEvent('clipboard_setText', tosting(uid), '')
     UIManager:toastNotificationGreen(Str('UID를 복사하였습니다.'))
 end

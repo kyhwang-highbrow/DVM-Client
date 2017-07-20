@@ -23,7 +23,9 @@ end
 -- function click_gamecenterBtn
 -------------------------------------
 function UI_Setting:click_copyBtn()
-    UIManager:toastNotificationRed(Str('준비 중입니다.'))
+    local recovery_code = g_serverData:get('local', 'recovery_code')
+    PerpSocial:SDKEvent('clipboard_setText', tosting(recovery_code), '')
+    UIManager:toastNotificationGreen(Str('복구코드를 복사하였습니다.'))
 end
 
 -------------------------------------

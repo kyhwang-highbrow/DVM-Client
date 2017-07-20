@@ -70,13 +70,3 @@ void PerpUtils::XorEncrypt(const char *path, const char *tar)
 
     //printf("encrypt %s -> %s\n", path, tar);
 }
-
-extern void send_event_to_app(const char *param1, const char *param2);
-int PerpUtils::luaEventHandler(const char *event_name, const char *param1, const char *param2, const char *param3)
-{
-    if (strcmp(event_name, "send_event_to_app") == 0) {
-        send_event_to_app(param1, param2);
-    }
-
-    return -1;
-}
