@@ -222,6 +222,10 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
         end
 
 		self.m_currDragonAnimator = dragon_animator
+
+        if (self.m_bSkip == true) then
+            dragon_animator:forceSkipDirecting()
+        end
     end
 end
 
