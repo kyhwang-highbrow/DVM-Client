@@ -127,18 +127,23 @@ end
 -- function findCollision
 -------------------------------------
 function SkillIndicator_LeafBlade:findCollision(x, y)
-    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
+    local l_target = self:getProperTargetList()
     	
 	local target_1 = nil 
 	local target_2 = nil
 
     local pos_x = self.m_hero.pos.x
     local pos_y = self.m_hero.pos.y
+    local remain_count
 
    	-- 베지어 곡선에 의한 충돌 리스트
     local collisions_bezier1 = SkillTargetFinder:findCollision_Bezier(l_target, x, y, pos_x, pos_y, 1)
     local collisions_bezier2 = SkillTargetFinder:findCollision_Bezier(l_target, x, y, pos_x, pos_y, -1)
-    
+
+    -- 타겟 수 만큼만 얻어옴
+    collisions_bezier1 = table.getPartList(collisions_bezier1, self.m_targetLimit)
+    collisions_bezier2 = table.getPartList(collisions_bezier2, self.m_targetLimit)
+
     -- 충돌체크에 필요한 변수 생성
     local std_dist = 1000
 	local degree = getDegree(pos_x, pos_y, x, y)
@@ -150,18 +155,20 @@ function SkillIndicator_LeafBlade:findCollision(x, y)
     local factor_y = math.tan(rad)
     local collisions_bar1 = SkillTargetFinder:findCollision_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
 
-    -- 타겟 수 만큼만 얻어옴
-    collisions_bar1 = table.getPartList(collisions_bar1, self.m_targetLimit)
+    -- 타겟 수 만큼만 얻어옴 (상)
+    remain_count = math_max(self.m_targetLimit - #collisions_bezier1, 0)
+    collisions_bar1 = table.getPartList(collisions_bar1, remain_count)
 
     -- 직선에 의한 충돌 리스트 (하)
     rad = math_rad(degree - straight_angle)
     factor_y = math.tan(rad)
     local collisions_bar2 = SkillTargetFinder:findCollision_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
 
-    -- 타겟 수 만큼만 얻어옴
-    collisions_bar2 = table.getPartList(collisions_bar2, self.m_targetLimit)
+    -- 타겟 수 만큼만 얻어옴 (하)
+    remain_count = math_max(self.m_targetLimit - #collisions_bezier2, 0)
+    collisions_bar2 = table.getPartList(collisions_bar2, remain_count)
 
-	-- 맵형태로 임시 저장(중복 제거를 위함)
+    -- 맵형태로 임시 저장(중복 제거를 위함)
     local m_temp = {}
     local l_temp = {
         collisions_bezier1,

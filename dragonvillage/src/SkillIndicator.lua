@@ -439,6 +439,11 @@ function SkillIndicator:getIndicatorData()
     t_data['target_list'] = self.m_highlightList
     t_data['critical'] = self.m_critical
     t_data['bonus'] = self.m_bonus
+
+    -- 대상수가 1인 경우면 수식에서 skill_target을 사용할 수 있도록 설정
+    if (self.m_targetLimit == 1 and self.m_highlightList) then
+        t_data['target'] = self.m_highlightList[1]
+    end
     
     return t_data
 end

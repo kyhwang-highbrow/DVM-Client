@@ -857,14 +857,18 @@ function IDragonSkillManager:printSkillInfo()
     for k, v in pairs(self.m_lSkillIndivisualInfo) do
         if (type(v) == 'table') then
             cclog('TYPE : ' .. k)
-            
+
             if isExistValue(k, 'active', 'basic', 'leader') then
+                local t_skill = GetSkillTable(self.m_charType):get(v.m_skillID)
+
                 cclog('## SKILL ID LIST : 1 ##')
-                cclog(v.m_skillID)
+                cclog(t_skill['t_name'] .. ' - ' .. v.m_skillID)
             else
                 cclog('## SKILL ID LIST : ' .. table.count(v) .. ' ##')
                 for _, skill_indivisual_info in pairs(v) do
-                    cclog(skill_indivisual_info.m_skillID)
+                    local t_skill = GetSkillTable(self.m_charType):get(skill_indivisual_info.m_skillID)
+                    
+                    cclog(t_skill['t_name'] .. ' - ' .. skill_indivisual_info.m_skillID)
                 end
             end
         end
