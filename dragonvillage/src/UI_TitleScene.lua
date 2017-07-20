@@ -417,10 +417,10 @@ function UI_TitleScene:workGameLogin()
     self.m_loadingUI:showLoading(Str('게임 서버에 로그인 중...'))
 
     local uid = g_serverData:get('local', 'uid')
-
     local success_cb = function(ret)
         -- 최초 로그인인 경우 계정 생성
         if ret['newuser'] then
+            self.m_bNewUser = true
             g_startTamerData:setData(ret)
             self.m_loadingUI:hideLoading()
             self:setTouchScreen()
@@ -455,7 +455,9 @@ end
 -- @brief 신규계정 생성시에만 클릭 가능함
 -------------------------------------
 function UI_TitleScene:workGameLogin_click()
-    self:createAccount()
+    if self.m_bNewUser then
+        self:createAccount()
+    end
 end
 
 -------------------------------------
