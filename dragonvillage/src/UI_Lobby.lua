@@ -149,6 +149,11 @@ function UI_Lobby:entryCoroutine()
         g_accessTimeData:request_saveTime(function(ret) working = false end, fail_cb)
         while (working) do dt = coroutine.yield() end
 
+        cclog('# 드래곤 전투력 저장 중')
+        working = true
+        g_dragonsData:request_updatePower(function(ret) working = false end, fail_cb)
+        while (working) do dt = coroutine.yield() end
+
         -- @ MASTER ROAD
         cclog('# 마스터의 길 확인 중')
         working = true

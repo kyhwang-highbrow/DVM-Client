@@ -10,8 +10,18 @@ UI_OverallRankingPopup = class(PARENT,{
     })
 
 UI_OverallRankingPopup.OVERALL = 0
-UI_OverallRankingPopup.COMBAT = 1
+UI_OverallRankingPopup.PVP = 1
 UI_OverallRankingPopup.QUEST = 2
+UI_OverallRankingPopup.COMBAT = 3
+UI_OverallRankingPopup.COLLECTION = 4
+
+local T_DESC = {
+    [0] = Str('다른 항목의 순위가 반영된 최종 순위입니다.'), 
+    [1] = Str('콜로세움 공격 덱에 배치한 드래곤들의 전투력 합계 순위입니다.'), 
+    [2] = Str('달성한 퀘스트들의 점수 순위입니다.'), 
+    [3] = Str('현재 보유하고 있거나 보유했던 드래곤의 역대 최고 전투력 순위입니다.'), 
+    [4] = Str('도감에서 확인 가능한 수집 현황 순위입니다.'), 
+    }
 
 -------------------------------------
 -- function init
@@ -62,8 +72,10 @@ end
 function UI_OverallRankingPopup:initTab()
     local vars = self.vars
     self:addTab(UI_OverallRankingPopup.OVERALL, vars['totalBtn'], vars['totalNode'])
-    self:addTab(UI_OverallRankingPopup.COMBAT, vars['cpBtn'], vars['cpNode'])
+    self:addTab(UI_OverallRankingPopup.PVP, vars['pvpBtn'], vars['pvpNode'])
 	self:addTab(UI_OverallRankingPopup.QUEST, vars['questBtn'], vars['questNode'])
+    self:addTab(UI_OverallRankingPopup.COMBAT, vars['cpBtn'], vars['cpNode'])
+	self:addTab(UI_OverallRankingPopup.COLLECTION, vars['collectionBtn'], vars['collectionNode'])
 
     self:setTab(UI_OverallRankingPopup.OVERALL)
 
@@ -82,6 +94,14 @@ end
 -------------------------------------
 function UI_OverallRankingPopup:refresh()
 	local vars = self.vars
+
+    -- desc
+    do
+        if (T_DESC[self.m_currTab]) then
+            vars['dscLabel']:setString(T_DESC[self.m_currTab])
+        end
+    end
+
 	-- my rank
 	do
 		local t_my_rank = g_rankData:getRankData(self.m_currTab)['my_rank']
@@ -108,8 +128,9 @@ function UI_OverallRankingPopup:refresh()
 		-- 스코어
 		local score = t_my_rank['rp']
 		vars['scoreLabel']:setNumber(score)
+        vars['bookLabel']:setVisible(false)
 
-		if (self.m_currTab == UI_OverallRankingPopup.COLOSSEUM) then
+		if (self.m_currTab == UI_OverallRankingPopup.PVP) then
 			vars['scoreLabel'].m_label:runAction(cc.MoveTo:create(COMMON_UI_ACTION_TIME/2, cc.p(-190, 0)))
 			vars['pvpTierNode']:setVisible(true)
 			vars['pvpTierNode']:removeAllChildren()
@@ -117,6 +138,13 @@ function UI_OverallRankingPopup:refresh()
 			local tier = t_my_rank['tier']
 			local icon = StructUserInfoColosseum():makeTierIcon(tier, 'small')
 			vars['pvpTierNode']:addChild(icon)
+       
+        elseif (self.m_currTab == UI_OverallRankingPopup.COLLECTION) then
+            vars['scoreLabel'].m_label:runAction(cc.MoveTo:create(COMMON_UI_ACTION_TIME/2, cc.p(-165, 0)))
+            local total_cnt = table.count(g_bookData:getBookList())
+            vars['bookLabel']:setVisible(true)
+            vars['bookLabel']:setString(Str('/{1}', total_cnt))
+
 		else
 			vars['scoreLabel'].m_label:runAction(cc.MoveTo:create(COMMON_UI_ACTION_TIME, cc.p(-100, 0)))
 			vars['pvpTierNode']:setVisible(false)
@@ -156,10 +184,10 @@ function UI_OverallRankingPopup:makeTableViewRanking(tab)
 
 		-- 생성 콜백
 		local function create_cb_func(ui)
-			if (tab == UI_OverallRankingPopup.COLOSSEUM) then
+			if (tab == UI_OverallRankingPopup.PVP) then
 				ui.m_isColosseum = true
 				ui:refresh()
-			end
+            end
 		end
 
         -- 테이블 뷰 인스턴스 생성

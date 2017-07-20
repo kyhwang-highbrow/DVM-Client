@@ -435,6 +435,9 @@ function ServerData_Colosseum:request_colosseumStart(is_cash, vsuid, finish_cb, 
     -- 유저 ID
     local uid = g_userData:get('uid')
 
+    -- 공격자의 콜로세움 전투력 저장
+    local combat_power = g_colosseumData.m_playerUserInfo:getAtkDeckCombatPower(true)
+    ccdump(combat_power)
     -- 성공 콜백
     local function success_cb(ret)
         -- staminas, cash 동기화
@@ -457,6 +460,7 @@ function ServerData_Colosseum:request_colosseumStart(is_cash, vsuid, finish_cb, 
     ui_network:setParam('uid', uid)
     ui_network:setParam('is_cash', is_cash)
     ui_network:setParam('vsuid', vsuid)
+    ui_network:setParam('combat_power', combat_power)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

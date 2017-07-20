@@ -12,6 +12,9 @@ ServerData_Dragons = class({
 
         m_lastChangeTimeStamp = 'timestamp',
         m_dragonsCnt = 'number', -- 현재 드래곤 보유 갯수
+
+        m_dragonBestCombatPower = 'number', -- 개별 드래곤 최고 전투력
+        m_bUpdatePower = 'boolean',
     })
 
 -------------------------------------
@@ -23,6 +26,8 @@ function ServerData_Dragons:init(server_data)
     self.m_mNumOfDragonsByDid = {}
     self.m_bDirtyNumOfDragonsByDid = true
     self.m_dragonsCnt = 0
+    self.m_dragonBestCombatPower = 0
+    self.m_bUpdatePower = false
 end
 
 -------------------------------------
@@ -528,6 +533,14 @@ function ServerData_Dragons:setDragonsSortData(doid)
     local struct_dragon_object = self:getDragonDataFromUid(doid)
     local t_sort_data = self:makeDragonsSortData(struct_dragon_object)
     self.m_lSortData[doid] = t_sort_data
+
+    -- 개별 드래곤 최고 전투력 저장
+    local combat_power = t_sort_data['combat_power']
+    if (self.m_dragonBestCombatPower < combat_power) then
+        self.m_dragonBestCombatPower = combat_power
+        self.m_bUpdatePower = true
+    end
+
     return t_sort_data
 end
 
@@ -1119,6 +1132,42 @@ function ServerData_Dragons:request_dragonSell(doids, soids, cb_func)
     ui_network:setParam('uid', uid)
     ui_network:setParam('doids', doids)
 	ui_network:setParam('soids', soids)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_updatePower
+-------------------------------------
+function ServerData_Dragons:request_updatePower(cb_func)
+    -- 업데이트 할 시점이 아닌 경우 바로 콜백 호출
+    if (not self.m_bUpdatePower) then
+		if (cb_func) then
+			cb_func()
+		end
+        return
+    end
+
+	-- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 최고 전투력
+    local combat_power = self.m_dragonBestCombatPower
+
+    local function success_cb(ret)
+        self.m_bUpdatePower = false
+
+		-- 콜백
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/update_power')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('dragon_power', combat_power)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
