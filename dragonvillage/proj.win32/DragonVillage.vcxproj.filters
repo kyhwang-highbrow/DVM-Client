@@ -2466,6 +2466,12 @@
     <None Include="..\src\UI_WebView.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StatusEffect_AddDmgOneTime.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StatusEffectUnit_AddDmgOneTime.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

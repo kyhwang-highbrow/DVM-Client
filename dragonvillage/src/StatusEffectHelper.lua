@@ -334,11 +334,16 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
             status_effect = StatusEffect(res)
         end
 
-    ----------- 조건부 추가 데미지 ------------------
+    ----------- 추가 피해 ------------------
 	elseif (status_effect_group == 'add_dmg') then
 		status_effect = StatusEffect(res)
         status_effect:setName(status_effect_type)
         status_effect:setOverlabClass(StatusEffectUnit_AddDmg)
+
+    elseif (status_effect_group == 'add_dmg_one_time') then
+		status_effect = StatusEffect_AddDmgOneTime(res)
+        status_effect:init_statusEffect(caster)
+        status_effect:setOverlabClass(StatusEffectUnit_AddDmgOneTime)
 
     ----------- 트리거 ------------------
     elseif (status_effect_type == 'bleed') then

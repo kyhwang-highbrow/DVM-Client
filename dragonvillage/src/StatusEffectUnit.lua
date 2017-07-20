@@ -147,6 +147,13 @@ function StatusEffectUnit:getValue()
 end
 
 -------------------------------------
+-- function getSource
+-------------------------------------
+function StatusEffectUnit:getSource()
+    return self.m_source
+end
+
+-------------------------------------
 -- function getStandardStat
 -- @brief 해당 상태효과 값(value) 적용시 기준이 되는 스텟 값을 얻음
 -------------------------------------

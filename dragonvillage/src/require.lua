@@ -368,9 +368,12 @@ local t_module = {
 	'StatusEffect',
     'StatusEffectUnit',
     'StatusEffectUnit_AddDmg',
+    'StatusEffectUnit_AddDmgOneTime',
     'StatusEffectUnit_Dot',
     'StatusEffectUnit_Dot_Damage',
     'StatusEffectUnit_Dot_Heal',
+
+    'StatusEffect_AddDmgOneTime',
 	'StatusEffect_Sleep',
     'StatusEffect_Bleed',
     'StatusEffect_Poison',

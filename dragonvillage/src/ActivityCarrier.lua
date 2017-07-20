@@ -242,6 +242,21 @@ function ActivityCarrier:getAtkDmg(target)
 end
 
 -------------------------------------
+-- function getFinalAtkDmg
+-------------------------------------
+function ActivityCarrier:getFinalAtkDmg(target)
+    local atk_dmg = self:getAtkDmg(target)
+
+    -- 스킬 계수 적용
+	atk_dmg = atk_dmg * self:getPowerRate()
+        
+	-- 스킬 추가 공격력 적용
+    atk_dmg = atk_dmg + self:getAbsAttack()
+
+    return atk_dmg
+end
+
+-------------------------------------
 -- function setSkillId
 -------------------------------------
 function ActivityCarrier:setSkillId(skill_id)

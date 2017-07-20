@@ -502,9 +502,11 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ICharacterStatusEffect.lua" />
     <None Include="..\src\StatusEffectUnit.lua" />
     <None Include="..\src\StatusEffectUnit_AddDmg.lua" />
+    <None Include="..\src\StatusEffectUnit_AddDmgOneTime.lua" />
     <None Include="..\src\StatusEffectUnit_Dot.lua" />
     <None Include="..\src\StatusEffectUnit_Dot_Damage.lua" />
     <None Include="..\src\StatusEffectUnit_Dot_Heal.lua" />
+    <None Include="..\src\StatusEffect_AddDmgOneTime.lua" />
     <None Include="..\src\StatusEffect_AddMana.lua" />
     <None Include="..\src\StatusEffect_AttributeChange.lua" />
     <None Include="..\src\Camera.lua" />
