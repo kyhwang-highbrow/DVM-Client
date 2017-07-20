@@ -54,12 +54,6 @@ end
 -- function getTabIcon
 -------------------------------------
 function StructEventPopupTab:getTabIcon()
-    local res
-    if (self.m_bAttendance) then
-        res = 'res/ui/event/icon_attendence_04.png'
-    else
-        res = self.m_eventData['icon']
-    end
-   
+    local res = self.m_eventData['icon']
     return res
 end
