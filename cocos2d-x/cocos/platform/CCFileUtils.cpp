@@ -650,15 +650,15 @@ Data FileUtils::getData(const std::string& filename, bool forString)
         size = ftell(fp);
         fseek(fp,0,SEEK_SET);
         
-        //if (forString)
+        if (forString)
         {
             buffer = (unsigned char*)malloc(sizeof(unsigned char) * (size + 1));
             buffer[size] = '\0';
         }
-        //else
-        //{
-        //    buffer = (unsigned char*)malloc(sizeof(unsigned char) * size);
-        //}
+        else
+        {
+            buffer = (unsigned char*)malloc(sizeof(unsigned char) * size);
+        }
         
         size = fread(buffer, sizeof(unsigned char), size, fp);
         fclose(fp);
