@@ -480,9 +480,10 @@ namespace cocos2d {
 
                     auto contentSize = _webView->getContentSize();
                     auto rightTop = _webView->convertToWorldSpace(Point(contentSize.width * ratioH, contentSize.height * ratioV));
-
-                    auto uiLeft = realScreenWidth / 2 + (leftBottom.x - realScreenWidth / 2 ) * glView->getScaleX();
-                    auto uiTop = realScreenHeight / 2 - (rightTop.y - realScreenHeight / 2) * glView->getScaleY();
+					auto origin_rightTop = _webView->convertToWorldSpace(Point(contentSize.width, contentSize.height));
+					
+                    auto uiLeft = (realScreenWidth / 2 + (leftBottom.x - realScreenWidth / 2 ) * glView->getScaleX()) * ratioH;
+                    auto uiTop = realScreenHeight - (realScreenHeight - ((winSize.height - origin_rightTop.y) * glView->getScaleY() * ratioV));
                     auto uiWidth = (rightTop.x - leftBottom.x) * glView->getScaleX();
                     auto uiHeight = (rightTop.y - leftBottom.y) * glView->getScaleY();
 
