@@ -147,6 +147,28 @@ function UI_CharacterCard:setSpriteVisible(lua_name, res, visible)
     end
 end
 
+-------------------------------------
+-- function makeSprite
+-- @brief 카드에 사용되는 sprite는 모두 이 로직으로 생성
+-------------------------------------
+function UI_CharacterCard:makeVisual(lua_name, res, no_use_frames)
+    local vars = self.vars
+
+    if vars[lua_name] then
+        vars[lua_name]:removeFromParent()
+        vars[lua_name] = nil
+    end
+    
+    local sprite
+    if (no_use_frames) then
+        sprite = IconHelper:getIcon(res)
+    else
+        sprite = IconHelper:createWithSpriteFrameName(res)
+    end
+    vars['clickBtn']:addChild(sprite)
+    setCardInfo(lua_name, sprite)
+    vars[lua_name] = sprite
+end
 
 
 
@@ -503,7 +525,7 @@ function UI_CharacterCard:setAttrSynastry(attr_synastry)
     local animator = self.vars['attrSynastry']
     
     if (not animator) then
-        animator = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
+        animator = MakeAnimator('res/ui/a2d/card/card.vrp')
         animator:setDockPoint(CENTER_POINT)
         animator:setAnchorPoint(CENTER_POINT)
         animator:setPosition(-15, 46)
