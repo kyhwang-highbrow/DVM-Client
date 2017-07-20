@@ -111,7 +111,7 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
 			end
 			ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
 		end
-
+         
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(1160 + 10, 108)

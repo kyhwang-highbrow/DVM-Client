@@ -8,6 +8,7 @@ StructQuestData = class({
         quest_type = 'string',
         t_quest = 'quest table info',
         reward = 'bool',
+        is_end = 'bool',
     })
 
 -------------------------------------
@@ -38,11 +39,11 @@ function StructQuestData:hasReward()
 end
 
 -------------------------------------
--- function isQuestEnded
+-- function isEnd
 -- @breif 퀘스트의 모든 스탭이 종료되었는지 여부
 -------------------------------------
-function StructQuestData:isQuestEnded()
-    return false
+function StructQuestData:isEnd()
+    return self['is_end']
 end
 
 -------------------------------------
@@ -75,14 +76,11 @@ function StructQuestData:getProgressInfo()
     local t_quest = self['t_quest']
 
     local goal = t_quest['clear_value']
-    local raw_cnt = self['rawcnt']
+    local raw_cnt = self['rawcnt'] or goal
 
     -- 진행 정도 표시
     local percentage = (raw_cnt / goal) * 100
-
-    -- 목표치보다 초과 달성했을 경우 보정
-    local achieve_cnt = math_min(raw_cnt, goal)
-    local text = achieve_cnt .. ' / ' .. goal
+    local text = string.format('%d / %d', raw_cnt, goal)
 
     return percentage, text
 end

@@ -5,12 +5,9 @@ ServerData_Quest = class({
         m_serverData = 'ServerData',
 		m_tableQuest = 'TableQuest',
 
-		m_tQuestInfo = 'table', -- m_workedData
-        m_tRewardInfo = 'table',
+		m_tQuestInfo = 'table',
 
         m_dailyClearQuest = 'StructQuestData',
-
-		m_bDirtyQuestInfo = 'bool',
     })
 
 -------------------------------------
@@ -20,26 +17,17 @@ function ServerData_Quest:init(server_data)
     self.m_serverData = server_data
 	self.m_tableQuest = TableQuest()
 	self.m_tQuestInfo = {}
-
-	self.m_bDirtyQuestInfo = true
 end
 
 -------------------------------------
 -- function getQuest
 -------------------------------------
-function ServerData_Quest:getQuest(quset_id)
+function ServerData_Quest:getQuest(quest_type, quest_id)
+    local l_quest = self.m_tQuestInfo[quest_type]
 
-end
-
--------------------------------------
--- function getServerQuest
--------------------------------------
-function ServerData_Quest:getServerQuest(quset_id)
-	local l_quest = self.m_serverData:get('quest_info') or {}
-
-    for _,v in pairs(l_quest) do
-        if (quset_id == v['qid']) then
-            return clone(v)
+    for i, quest in pairs(l_quest) do
+        if (tonumber(quest['qid']) == tonumber(quest_id)) then
+            return quest
         end
     end
 
@@ -51,23 +39,34 @@ end
 -- @breif 테이블 데이타와 서버 데이타를 조합해서 UI에서 활용 가능한 퀘스트 데이타 생성
 -------------------------------------
 function ServerData_Quest:applyQuestInfo(t_quest_info)
-    --self.m_tQuestInfo = t_quest_info
+    local t_data, struct_quest
+    local qid, rawcnt, reward, clear
+    local is_end
 
-    local struct_quest
-    for quest_type, t_quest_type in pairs(t_quest_info) do
+    -- DAILY
+    do
+        local quest_type = TableQuest.DAILY
+        local t_daily = t_quest_info[quest_type]
+    
+        -- server_data 분류
+        local t_focus = t_daily['focus']
+        local l_reward = t_daily['reward']
 
-        local t_focus = t_quest_type['focus']
-        local t_reward = t_quest_type['reward']
-
+        -- 클라 데이터 생성 (테이블 기반)
         local l_quest = {}
-        local t_quest, reward, t_data, struct_quest
-        for qid, rawcnt in pairs(t_focus) do
-            t_quest = self.m_tableQuest:get(tonumber(qid))
-            reward = t_reward[qid] and true or false
+        local l_quest_list = self.m_tableQuest:filterList('type', quest_type)
 
-            t_data ={['qid'] = qid, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['t_quest'] = t_quest}
+        for _, t_quest in pairs(l_quest_list) do
+            qid = t_quest['qid']
+            rawcnt = t_focus[tostring(qid)]
+            reward = table.find(l_reward, tonumber(qid)) and true or false
+            is_end = (rawcnt == nil) and (reward == false)
+
+            -- StructQuestData 생성
+            t_data ={['qid'] = qid, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
             struct_quest = StructQuestData(t_data)
 
+            -- 데일리 클리어는 따로 빼준다.
             if (t_quest['key'] == 'dq_clear') then
                 self.m_dailyClearQuest = struct_quest
             else
@@ -75,10 +74,73 @@ function ServerData_Quest:applyQuestInfo(t_quest_info)
             end
         end
 
-        self.m_tQuestInfo[quest_type] = {}
-        --self.m_tQuestInfo[quest_type]['focus'] = t_focus
-        --self.m_tQuestInfo[quest_type]['reward'] = t_reward
-        self.m_tQuestInfo[quest_type]['quest'] = l_quest
+        self.m_tQuestInfo[quest_type] = l_quest
+    end
+
+    -- CHALLENGE
+    do
+        local quest_type = TableQuest.CHALLENGE
+        local t_challenge = t_quest_info[quest_type]
+    
+        -- server_data 분류
+        local t_focus = t_challenge['focus']
+        local l_reward = t_challenge['reward']
+
+        -- 클라 데이터 생성 (서버 정보 기반)
+        local l_quest = {}
+        for qid, rawcnt in pairs(t_focus) do
+            t_quest = self.m_tableQuest:get(tonumber(qid))
+            reward = table.find(l_reward, tonumber(qid)) and true or false
+            
+            -- 보상도 받았고 달성도 했는데 다음 focus를 안준다면 이미 클리어한것
+            is_end = false
+            if (rawcnt >= t_quest['clear_value']) and (reward == false) then
+                is_end = true
+            end
+
+            -- StructQuestData 생성
+            t_data ={['qid'] = qid, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
+            struct_quest = StructQuestData(t_data)
+
+            table.insert(l_quest, struct_quest)
+        end
+        --[[ 
+        
+        # 업적을 모두 클리어한 후에는 서버에서 focus id를 주지 않을 것으로 생각하고 만든 기능인데
+        # 업적 모두 클리어 후에도 마지막 id를 계속 보내주고 있다
+        # 모두 클리어 후에도 raw count를 UI에 찍어줘야 하지 않나해서 보내주신듯한데 
+        # 개인적으로는 필요없다 생각 
+
+        -- 업적 모두 클리어한 것 체크
+        local l_challenge_type = self.m_tableQuest:filterList('default', 1)
+        if (#l_quest < #l_challenge_type) then
+            local digit, is_cleared
+            -- 업적 로컬 테이블을 순회한다.(타입별로만 뽑아온것)
+            for _, t_challenge in pairs(l_challenge_type) do
+                digit = math_floor(t_challenge['qid'] / 100)
+                is_cleared = true
+
+                -- 서버에서 받은 qid 체크하여 없는지 체크
+                for qid, _ in pairs(t_focus) do
+                    if (digit == math_floor(qid / 100)) then
+                        is_cleared = false
+                        break
+                    end
+                end
+
+                -- 없다면 마지막 ID로 추가해준다. 
+                if (is_cleared) then
+                    local last_qid, t_quest = self.m_tableQuest:findLastQuest(t_challenge['qid'])
+                    t_data ={['qid'] = last_qid, ['rawcnt'] = nil, ['quest_type'] = quest_type, ['reward'] = nil, ['t_quest'] = t_quest}
+                    struct_quest = StructQuestData(t_data)
+                    table.insert(l_quest, struct_quest)
+                end
+            end  
+        end
+
+        ]]
+
+        self.m_tQuestInfo[quest_type] = l_quest
     end
 
 end
@@ -88,19 +150,20 @@ end
 -- @brief 해당 타입의 진행중인 퀘스트를 리턴한다.
 -------------------------------------
 function ServerData_Quest:getQuestListByType(quest_type)
-    local l_quest = self.m_tQuestInfo[quest_type]['quest']
+    local l_quest = self.m_tQuestInfo[quest_type]
 
 	-- 보상 있는 퀘스트, 완료한 퀘스트만 추출
 	local l_reward_quest = {}
 	local l_completed_quest = {}
 	local l_normal_quest = {}
+
 	for i, quest in pairs(l_quest) do
 		-- 보상 있는 퀘스트
 		if quest:hasReward() then
 			table.insert(l_reward_quest ,quest)
 		
         -- 남아있는 퀘스트
-		elseif (not quest:isQuestEnded()) then
+		elseif (not quest:isEnd()) then
 			table.insert(l_normal_quest, quest)
 		
         -- 완료한 퀘스트
@@ -145,7 +208,7 @@ function ServerData_Quest:hasRewardableQuest(quest_type)
     local is_exist = false
 
 	-- type에 해당하는 퀘스트 뽑아냄
-	for i, quest in pairs(self.m_tQuestInfo[quest_type]['quest']) do 
+	for i, quest in pairs(self.m_tQuestInfo[quest_type]) do 
         -- 보상 수령 가능한 상태
 		if quest:hasReward() then
             is_exist = true
@@ -186,29 +249,31 @@ end
 -- function requestQuestReward
 -- @brief 서버에 퀘스트 보상 수령 요청
 -------------------------------------
-function ServerData_Quest:requestQuestReward(qid, cb_func)
+function ServerData_Quest:requestQuestReward(quest, cb_func)
     local uid = g_userData:get('uid')
-	local qid = qid
+	local qid = quest['qid']
+
 	if (not qid) then 
 		error('잘못된 퀘스트 보상 접근')
 	end
 
     -- 성공 시 콜백
     local function success_cb(ret)
-		local isDirtyData = false
-
 		-- 받은 정보 갱신 
         if (ret['quest_info']) then
 		    self:applyQuestInfo(ret['quest_info'])
-			isDirtyData = true
         end
 
-        g_serverData:networkCommonRespone(ret)
-        g_serverData:networkCommonRespone_addedItems(ret)
-
         if (cb_func) then
-			--local t_quest_data = self:getQuest(qid)
-            --cb_func(t_quest_data)
+            -- 업적 : 마지막 퀘스트인지 체크하여 아니라면 다음 qid로 진행
+            if (quest['quest_type'] == TableQuest.CHALLENGE) then
+                if (not self.m_tableQuest:isLastQuest(qid)) then
+                    qid = qid + 1
+                end
+            end
+
+            local t_quest_data = self:getQuest(quest['quest_type'], qid)
+            cb_func(t_quest_data)
         end
     end
 

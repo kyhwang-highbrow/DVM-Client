@@ -63,3 +63,34 @@ function TableQuest:getQuestDesc(qid)
     local t_desc = self:getValue(qid, 't_desc')
     return t_desc
 end
+
+-------------------------------------
+-- function findLastQuest
+-------------------------------------
+function TableQuest:findLastQuest(qid)
+    if (self == THIS) then
+        self = THIS()
+    end
+    local qid = qid
+    local t_quest
+    
+    repeat
+        qid = qid + 1
+        t_quest = self:get(qid, true)
+    until(t_quest == nil)
+
+    qid = qid - 1
+
+    return qid, self:get(qid)
+end
+
+
+-------------------------------------
+-- function isLastQuest
+-------------------------------------
+function TableQuest:isLastQuest(qid)
+    if (self == THIS) then
+        self = THIS()
+    end
+    return (self:get(qid + 1, true) == nil)
+end

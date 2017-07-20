@@ -11,9 +11,6 @@ UI_QuestListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_QuestListItem:init(t_data, isHighlight)
-	-- 멤버 변수
-	self:setQuestData(t_data)
-
 	-- UI load
 	local ui_name = nil 
 	if (isHighlight) then 
@@ -26,7 +23,7 @@ function UI_QuestListItem:init(t_data, isHighlight)
 	-- initialize
     self:initUI()
     self:initButton()
-    self:refresh()
+    self:refresh(t_data)
 end
 
 -------------------------------------
@@ -34,10 +31,6 @@ end
 -- @brief 자주 활용할 숫자들을 멤버변수로 추출
 -------------------------------------
 function UI_QuestListItem:setQuestData(t_data)
-	if (not t_data) then 
-		return 
-	end
-	
     self.m_questData = t_data
 end
 
@@ -65,14 +58,13 @@ end
 -- function refresh
 -------------------------------------
 function UI_QuestListItem:refresh(t_data)
-	if (t_data) then
-		self:setQuestData(t_data)
-	end
-
-	self:setVarsVisible()
-	self:setQuestDescLabel()
-	self:setRewardCard()
-	self:setQuestProgress()
+    if (t_data) then
+	    self:setQuestData(t_data)
+	    self:setVarsVisible()
+	    self:setQuestDescLabel()
+	    self:setRewardCard()
+	    self:setQuestProgress()
+    end
 end
 
 -------------------------------------
@@ -80,31 +72,14 @@ end
 -- @brief 퀘스트 진행 상태에 따라 visible on/off
 -------------------------------------
 function UI_QuestListItem:setVarsVisible()
-
-    local quest_data = self.m_questData
-
     local vars = self.vars
-	
-    if vars['lockBtn'] then
-        if false then
-            vars['lockBtn']:setVisible(true)
-            vars['questCompletNode']:setVisible(false)
-            vars['rewardBtn']:setVisible(false)
-            vars['doingBtn']:setVisible(false)
-            return
-        else
-            vars['lockBtn']:setVisible(false)
-        end
-    end
-
-	-- 퀘스트 보상까지 전부 수령시 표시
-	vars['questCompletNode']:setVisible(quest_data:isQuestEnded())
+    local quest_data = self.m_questData
 
 	-- 보상 수령 가능시
 	vars['rewardBtn']:setVisible(quest_data:hasReward())
 
-	-- 평시
-    vars['doingBtn']:setVisible((not quest_data:hasReward()) and (not quest_data:isQuestEnded()))
+    -- 퀘스트 완료
+    vars['questCompletNode']:setVisible((not quest_data:hasReward()) and (quest_data:isEnd()))
 end
 
 -------------------------------------
@@ -146,28 +121,20 @@ function UI_QuestListItem:setQuestProgress()
 end
 
 -------------------------------------
--- function getIsCleared
--------------------------------------
-function UI_QuestListItem:getIsCleared()
-	return (self.m_questData['max_cnt'] == self.m_clearCount == self.m_rewardCount)
-end
-
--------------------------------------
 -- function click_rewardBtn
 -------------------------------------
 function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
-	local qid = self.m_questData['qid']
 	local cb_function = function(t_quest_data)
-		-- 보상 수령 팝업
-		UI_ToastPopup()
+		-- 우편함으로 전송
+		local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
 		
 		-- 갱신
 		self:refresh(t_quest_data)
 		ui_quest_popup:refresh()
-		g_topUserInfo:refreshData()
 	end
 
-	g_questData:requestQuestReward(qid, cb_function)
+	g_questData:requestQuestReward(self.m_questData, cb_function)
 end
 
 -------------------------------------
