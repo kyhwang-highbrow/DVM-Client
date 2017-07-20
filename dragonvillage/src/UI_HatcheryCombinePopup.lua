@@ -92,7 +92,6 @@ function UI_HatcheryCombinePopup:initUI()
             -- 재료가 조건을 충족하지 않을 경우 음영처리
             if (not l_satisfy[_did]) then
                 dragon_card:setShadowSpriteVisible(true)
-                dragon_card.vars['shadowSprite']:setOpacity(150)
             end
 
             -- 재료 카드 클릭 시

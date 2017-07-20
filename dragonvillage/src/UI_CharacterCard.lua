@@ -151,7 +151,7 @@ end
 -- function makeSprite
 -- @brief 카드에 사용되는 sprite는 모두 이 로직으로 생성
 -------------------------------------
-function UI_CharacterCard:makeVisual(lua_name, res, no_use_frames)
+function UI_CharacterCard:makeVisual(lua_name, res, ani)
     local vars = self.vars
 
     if vars[lua_name] then
@@ -159,15 +159,11 @@ function UI_CharacterCard:makeVisual(lua_name, res, no_use_frames)
         vars[lua_name] = nil
     end
     
-    local sprite
-    if (no_use_frames) then
-        sprite = IconHelper:getIcon(res)
-    else
-        sprite = IconHelper:createWithSpriteFrameName(res)
-    end
-    vars['clickBtn']:addChild(sprite)
-    setCardInfo(lua_name, sprite)
-    vars[lua_name] = sprite
+    local visual = MakeAnimator(res)
+    visual:changeAni(ani)
+    vars['clickBtn']:addChild(visual)
+    setCardInfo(lua_name, visual)
+    vars[lua_name] = visual
 end
 
 
@@ -214,7 +210,7 @@ function UI_CharacterCard:refreshDragonInfo()
     self:refresh_gradeIcon()
 
     -- 레벨 지정
-    self:setLevelText(t_dragon_data['lv'])
+    self:setLevelText()
    
     do -- 드래곤들의 덱설정 여부 데이터 갱신
         if t_dragon_data and t_dragon_data['id'] then
@@ -336,6 +332,7 @@ end
 -- @brief 레벨 텍스트 지정
 -------------------------------------
 function UI_CharacterCard:setLevelText(level)
+    local level = self.m_dragonData['lv']
     if (self.m_charLevelNumber == level) then
         return
     end
