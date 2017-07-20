@@ -265,11 +265,11 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 		}
 
 		if (bLock) {
-			if(mWakeLock.isHeld() == false) {
+			if (mWakeLock.isHeld() == false) {
 				mWakeLock.acquire();
 			}
 		} else {
-			if(mWakeLock.isHeld()) {
+			if (mWakeLock.isHeld()) {
 				mWakeLock.release();
 			}
 		}
