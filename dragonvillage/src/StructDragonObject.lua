@@ -386,6 +386,11 @@ function StructDragonObject:getGradeRes()
     local grade = tonumber(self['grade'] or 1)
 	local evolution = self['evolution']
 
+    -- grade의 0을 넣는 경우도 있다..!
+    if (grade <= 0) then
+        return
+    end
+
     -- 색상을 구함
 	local color
 	if (evolution == 1) then

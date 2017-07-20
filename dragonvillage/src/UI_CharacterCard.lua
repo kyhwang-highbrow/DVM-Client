@@ -78,11 +78,10 @@ function UI_CharacterCard:getUIInfo(res)
 
     for lua_name, node in pairs(vars) do
         pos_x, pos_y = node:getPosition()
-        width, height = node:getNormalSize()
 
         t_data = {
             ['pos'] = {['x'] = pos_x, ['y'] = pos_y},
-            ['size'] = {['width'] = width, ['height'] = height},
+            ['size'] = node:getContentSize(),
             ['anchor'] = node:getAnchorPoint(),
             ['dock'] = node:getDockPoint(),
             ['scale'] = node:getScale(),
@@ -148,10 +147,11 @@ function UI_CharacterCard:setSpriteVisible(lua_name, res, visible)
 end
 
 -------------------------------------
--- function makeSprite
--- @brief 카드에 사용되는 sprite는 모두 이 로직으로 생성
+-- function makeAnimator
+-- @brief animator사용
+-- @comment 여기 res는 사실상 필요없는데...
 -------------------------------------
-function UI_CharacterCard:makeVisual(lua_name, res, ani)
+function UI_CharacterCard:makeAnimator(lua_name, res, ani)
     local vars = self.vars
 
     if vars[lua_name] then
@@ -159,13 +159,24 @@ function UI_CharacterCard:makeVisual(lua_name, res, ani)
         vars[lua_name] = nil
     end
     
-    local visual = MakeAnimator(res)
-    visual:changeAni(ani)
-    vars['clickBtn']:addChild(visual)
-    setCardInfo(lua_name, visual)
-    vars[lua_name] = visual
+    local animator = MakeAnimator(res)
+    animator:changeAni(ani, true)
+    vars['clickBtn']:addChild(animator.m_node)
+    setCardInfo(lua_name, animator.m_node)
+    vars[lua_name] = animator
 end
 
+-------------------------------------
+-- function setAnimatorVisible
+-- @brief visible 관리하고 없다면 만든다.
+-------------------------------------
+function UI_CharacterCard:setAnimatorVisible(lua_name, res, ani, visible)
+    if self.vars[lua_name] then
+        self.vars[lua_name]:setVisible(visible)
+    elseif (visible) then
+        self:makeAnimator(lua_name, res, ani)
+    end
+end
 
 
 
@@ -439,9 +450,7 @@ function UI_CharacterCard:refresh_Lock()
 end
 
 
-
-
-
+-- @ visible 관리
 
 -------------------------------------
 -- function setShadowSpriteVisible
@@ -477,13 +486,24 @@ function UI_CharacterCard:setCheckSpriteVisible(visible)
 end
 
 -------------------------------------
--- function setNewSpriteVisible
+-- function setExpSpriteVisible
+-- @brief 경험치 추가 표시
+-- @external call
+-------------------------------------
+function UI_CharacterCard:setExpSpriteVisible(visible)
+    local res = 'card_cha_icon_exp.png'
+    local lua_name = 'expSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
+-- function setNotiSpriteVisible
 -- @brief 신규 드래곤 표시
 -- @external call
 -------------------------------------
-function UI_CharacterCard:setNewSpriteVisible(visible)
-    local res = 'card_cha_icon_new.png'
-    local lua_name = 'newSprite'
+function UI_CharacterCard:setNotiSpriteVisible(visible)
+    local res = 'card_cha_icon_noti.png'
+    local lua_name = 'notiSprite'
     self:setSpriteVisible(lua_name, res, visible)
 end
 
@@ -493,24 +513,20 @@ end
 -- @external call
 -------------------------------------
 function UI_CharacterCard:setHighlightSpriteVisible(visible)
-    if self.vars['highlightSprite'] then
-        self.vars['highlightSprite']:setVisible(visible)
-    elseif (visible) then
-        local sprite = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
-        sprite:setDockPoint(CENTER_POINT)
-        sprite:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite, 17)
-        self.vars['highlightSprite'] = sprite
+    local res = 'card_cha_frame_select.png'
+    local lua_name = 'selectSprite'
 
-		-- 깜빡임 액션
+    if self.vars[lua_name] then
+        self.vars[lua_name]:setVisible(visible)
+    elseif (visible) then
+        self:makeSprite(lua_name, res)
+        -- 깜빡임 액션
         sprite:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255))))
     end
 end
 
 
-
-
-
+-- @ Animator 사용
 
 -------------------------------------
 -- function setAttrSynastry
@@ -519,29 +535,18 @@ end
 -- @external call
 -------------------------------------
 function UI_CharacterCard:setAttrSynastry(attr_synastry)
-    local animator = self.vars['attrSynastry']
-    
-    if (not animator) then
-        animator = MakeAnimator('res/ui/a2d/card/card.vrp')
-        animator:setDockPoint(CENTER_POINT)
-        animator:setAnchorPoint(CENTER_POINT)
-        animator:setPosition(-15, 46)
-        self.vars['clickBtn']:addChild(animator.m_node, 14)
-        self.vars['attrSynastry'] = animator
+    local lua_name = 'arrowVisual '
+    local res = 'res/ui/a2d/card/card.vrp'
+    local ani
+    local visible = (attr_synastry ~= 0)
+
+    if (attr_synastry == 1) then
+        ani = 'attr_up'
+    elseif (attr_synastry == -1) then
+        ani = 'attr_down'
     end
 
-    if (attr_synastry == 0) then
-        animator:setVisible(false)
-    else
-        animator:setVisible(true)
-
-        if (attr_synastry == 1) then
-            animator:changeAni('attr_up', true)
-
-        elseif (attr_synastry == -1) then
-            animator:changeAni('attr_down', true)
-        end
-    end
+    UI_CharacterCard:setAnimatorVisible(lua_name, res, ani, visible)
 end
 
 -------------------------------------
@@ -550,14 +555,10 @@ end
 -- @external call
 -------------------------------------
 function UI_CharacterCard:setBookRewardVisual(visible)
-    if self.vars['bookVisual'] then
-        self.vars['bookVisual']:setVisible(visible)
-    elseif (visible) then
-        local animator = MakeAnimator('res/ui/a2d/book/book.vrp')
-        animator:changeAni('reward', true)
-        self.vars['clickBtn']:addChild(animator.m_node, 16)
-        self.vars['bookVisual'] = animator
-	end
+    local lua_name = 'bookRewardVisual '
+    local res = 'res/ui/a2d/card/card.vrp'
+    local ani = 'reward'
+    UI_CharacterCard:setAnimatorVisible(lua_name, res, ani, visible)
 end
 
 -------------------------------------
@@ -618,7 +619,7 @@ function UI_DragonCard(t_dragon_data, struct_user_info)
 
     -- 새로 획득한 드래곤 뱃지
     local is_new_dragon = t_dragon_data:isNewDragon()
-    --ui:setNewSpriteVisible(is_new_dragon)
+    ui:setNotiSpriteVisible(is_new_dragon)
 
     -- 친구 드래곤일 경우 친구 마크 추가
     local is_friend_dragon = g_friendData:checkFriendDragonFromDoid(t_dragon_data['id'])

@@ -179,26 +179,7 @@ function UI_DragonLevelUp:setAttrBonusLabel(dragon_card)
 
     -- 속성이 도일할 경우
     if (attr == attr2) then
-        local text = '+50%'
-        local font = 'res/font/common_font_01.ttf'
-        local fontSize = 50
-        local outlineSize = 2
-        local dimensions = cc.size(100, 100)
-        local hAlignment = cc.TEXT_ALIGNMENT_CENTER
-        local vAlignment = cc.VERTICAL_TEXT_ALIGNMENT_CENTER
-
-        local label = cc.Label:createWithTTF(text, font, fontSize, outlineSize, cc.size(100, 100), hAlignment, vAlignment)
-        label:setDockPoint(cc.p(0.5, 0.5))
-        label:setAnchorPoint(cc.p(0.5, 0.5))
-        dragon_card.vars['clickBtn']:addChild(label, 100)
-
-        -- 그림자 생성
-        local shadow_size = cc.size(0, -5)
-        label:enableShadow(cc.c4b(0, 0, 0, 255), shadow_size, 0)
-
-        -- 색상 지정
-        label:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.TintTo:create(1, 255, 0, 0), cc.TintTo:create(1, 0, 255, 0), cc.TintTo:create(1, 0, 0, 255))))
-        label:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(1.0, 0), cc.FadeTo:create(1.0, 255))))
+        dragon_card:setExpSpriteVisible(true)
     end
 end
 
