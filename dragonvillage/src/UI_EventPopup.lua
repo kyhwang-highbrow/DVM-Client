@@ -145,7 +145,9 @@ function UI_EventPopup:onChangeTab(tab, first)
             container:addChild(ui.root)
         end
     else
-        self.m_mTabUI[tab]:onEnterTab()
+        if self.m_mTabUI[tab] then
+            self.m_mTabUI[tab]:onEnterTab()
+        end
     end
 
     local item = self.m_tableView:getItem(tab)
