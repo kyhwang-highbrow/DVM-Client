@@ -11,6 +11,8 @@ SkillRapidShot = class(PARENT, {
 		m_skillTimer = 'time',
 		m_skillInterval = 'time',
 		m_skillCount = 'num',
+
+        m_lCollisionList = 'collision list',
      })
 
 -------------------------------------
@@ -35,6 +37,13 @@ function SkillRapidShot:init_skill(missile_res, motionstreak_res, target_count)
 	self.m_skillInterval = g_constant:get('SKILL', 'RAPIDSHOT_INTERVAL')
 	self.m_skillTimer = 0
 	self.m_skillCount = 1
+
+    self.m_lCollisionList = self:findCollision()
+
+    local collision = self.m_lCollisionList[1]
+    if (collision) then
+        self.m_targetChar = collision:getTarget()
+    end
 end
 
 -------------------------------------
@@ -81,8 +90,14 @@ end
 -------------------------------------
 function SkillRapidShot:fireMissile()
     local char = self.m_owner
-    local target = self.m_targetChar
-	local attack_pos_x, attack_pos_y = self:getAttackPosition()
+    local collision = collision or self.m_lCollisionList[1]
+    if (not collision) then return end
+
+    local target = collision:getTarget()
+    local target_body = target:getBody(collision:getBodyKey())
+    local target_x = target.pos.x + target_body.x
+    local target_y = target.pos.y + target_body.y
+    local attack_pos_x, attack_pos_y = self:getAttackPosition()
 
     local t_option = {}
 
@@ -90,7 +105,8 @@ function SkillRapidShot:fireMissile()
     t_option['pos_x'] = char.pos.x + attack_pos_x
     t_option['pos_y'] = char.pos.y + attack_pos_y + math_random(-50, 50)
 	t_option['target'] = target
-
+    t_option['target_body'] = target_body
+    
 	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.pos.x, target.pos.y)
 	t_option['rotation'] = t_option['dir']
 

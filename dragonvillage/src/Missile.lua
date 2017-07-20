@@ -70,6 +70,7 @@ Missile = class(PARENT, {
 		
 		-- 확정 타겟 개념 추가 후 필요한 변수들
 		m_target = '',
+        m_targetBody = '',
 		m_isFadeOut = 'bool',
 
 		-- 미사일이 미사일을 쏜다
@@ -506,10 +507,18 @@ function Missile:updateMissileOption(dt)
 	if self.bFixedAttack and self.m_target then -- physobject에서의 멤버변수라 m_이 안붙어있다.
 		-- 지났는지 체크
 		local isPassedTarget = false
-		if (self.m_target.m_bLeftFormation) then
-			if (self.pos.x < self.m_target.pos.x - 10) then isPassedTarget = true end
+        local target_x
+
+        if (self.m_targetBody) then
+            target_x = self.m_target.pos.x + self.m_targetBody['x']
         else
-			if (self.pos.x > self.m_target.pos.x + 10) then isPassedTarget = true end
+            target_x = self.m_target:getCenterPos()
+        end
+
+		if (self.m_target.m_bLeftFormation) then
+            if (self.pos.x < target_x - 10) then isPassedTarget = true end
+        else
+			if (self.pos.x > target_x + 10) then isPassedTarget = true end
         end
 
 		-- fade out 처리, motion streak 는 fade out 불가..

@@ -206,35 +206,56 @@ function PhysWorld:update(dt)
 
     local t_collision = nil
 
+    
+
     -- 충돌 처리
     for phys_key, l_object in pairs(self.m_group) do
         for _, object in ipairs(l_object) do
-		
 			-- 단일 타겟만 충돌 체크
-			if (object.bFixedAttack) then
-				if isInstanceOf(object, Missile) then
-					body = object.body
-					target = object.m_target
-					x = object.pos.x
-                    y = object.pos.y
-					-- 점과 점의 거리를 이용하여 충돌 여부 확인
-					if target then 
-						ret = isCollision(target, x, y, 20)
-					end
-                    -- 충돌 콜백 실행
-                    if ret and target then
-                        object:runAtkCallback(target, target.pos.x, target.pos.y)
-                        target:runDefCallback(object, x, y)
+			if (object.bFixedAttack and object.m_target) then
+                if (isInstanceOf(object, Missile)) then
+                    target = object.m_target
+                    x = target.pos.x
+                    y = target.pos.y
 
-                        -- 지정된 타겟과 한 번 이상 충돌되지 않도록 처리
-                        object.bFixedAttack = false
+                    if (object.m_targetBody) then
+                        body = object.m_targetBody
+                        body_key = body['key']
+
+                        -- 점과 점의 거리를 이용하여 충돌 여부 확인
+                        ret, intersect_pos_x, intersect_pos_y = object:isIntersectBody(body, x, y)
+
+                        -- 충돌 콜백 실행
+                        if (ret) then
+                            object:runAtkCallback(target, intersect_pos_x, intersect_pos_y, body_key)
+                            target:runDefCallback(object, intersect_pos_x, intersect_pos_y, body_key)
+
+                            -- 지정된 타겟과 한 번 이상 충돌되지 않도록 처리
+                            object.bFixedAttack = false
+                        end
+                    else
+                        for i, v in ipairs(target:getBodyList()) do
+                            body = v
+                            body_key = v['key']
+                            
+                            -- 점과 점의 거리를 이용하여 충돌 여부 확인
+                            ret, intersect_pos_x, intersect_pos_y = object:isIntersectBody(body, x, y)
+
+                            -- 충돌 콜백 실행
+                            if (ret) then
+                                object:runAtkCallback(target, intersect_pos_x, intersect_pos_y, body_key)
+                                target:runDefCallback(object, intersect_pos_x, intersect_pos_y, body_key)
+
+                                -- 지정된 타겟과 한 번 이상 충돌되지 않도록 처리
+                                object.bFixedAttack = false
+                                break
+                            end
+                        end
                     end
-				end
+                end
 
 			-- 다중 충돌 체크
             elseif (object.enable_body) then
-                --body = object.body
-                local bodys = object:getBodyList()
                 for i, v in ipairs(object:getBodyList()) do
                     body = v
                     body_key = v['key']

@@ -116,7 +116,8 @@ function CommonMissile:getDir(target)
 		return self:getDefaultDir() 
 	end
 	local target = target or self.m_target 
-	return getDegree(self.m_attackPos.x, self.m_attackPos.y, self.m_target.pos.x, self.m_target.pos.y) or self:getDefaultDir()
+    local x, y = target:getCenterPos()
+	return getDegree(self.m_attackPos.x, self.m_attackPos.y, x, y) or self:getDefaultDir()
 end
 
 -------------------------------------

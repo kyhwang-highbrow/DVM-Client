@@ -137,6 +137,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local missile_type =     MISSILE_TYPE[t_option['missile_type']]
     local visual =           t_option['visual'] or nil
     local target =           t_option['target']
+    local target_body =      t_option['target_body']
     local target_idx =       t_option['target_idx']
     local rotate_time =      t_option['rotate_time'] or nil
     local angular_velocity = t_option['angular_velocity'] or nil
@@ -179,12 +180,11 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     
 	if string.match(movement, 'lua_')then
         missile = MissileLua(missile_res_name, physics_body)
-        missile.m_target = target
         lua_missile = true
 
     elseif (movement == 'normal') then
         missile = Missile(missile_res_name, physics_body)
-
+        
     elseif (movement == 'instant') then
         missile = MissileInstant(missile_res_name, physics_body)
 
@@ -193,15 +193,12 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 
     elseif (movement == 'guide') then
         missile = MissileGuide(missile_res_name, physics_body)
-        missile.m_target = target
-
+        
 	elseif (movement == 'guid') then
 		missile = MissileGuid(missile_res_name, physics_body, is_hero)
-        missile.m_target = target
-
+        
     elseif (movement == 'guid_strong') then
         missile = MissileGuid(missile_res_name, physics_body, is_hero)
-        missile.m_target = target
         missile.m_angularVelocityGuid = 720
         missile.m_straightWaitTime = 0
 
@@ -292,6 +289,10 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     if missile then
         missile.m_owner = owner
 
+        -- 미사일 대상
+        missile.m_target = target
+        missile.m_targetBody = target_body
+
 		-- 스킬 애니 속성 세팅
 		missile.m_animator:setAniAttr(t_option['attr_name'])
 
@@ -302,7 +303,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         end
 
         missile:initState()
-        
+
         -- 미사일 효과
         if effect then
             -- 잔상 효과

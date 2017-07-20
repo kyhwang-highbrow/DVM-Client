@@ -316,7 +316,7 @@ function PhysObject:isIntersectBody(opponentBody, x, y)
     local d = math_pow(self.pos.x + self.body.x - (x + opponentBody.x), 2) + math_pow(self.pos.y + self.body.y - (y + opponentBody.y), 2)
     local dist = math_sqrt(d)    
     if dist < (opponentBody.size + self.body.size) then
-        return true, ((self.pos.x + self.body.x + x) / 2), ((self.pos.y + self.body.y + y) / 2)
+        return true, ((self.pos.x + self.body.x + x + opponentBody.x) / 2), ((self.pos.y + self.body.y + y + opponentBody.y) / 2)
     else 
         return false, 0, 0
     end
