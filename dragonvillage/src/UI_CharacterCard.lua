@@ -84,11 +84,11 @@ function UI_CharacterCard:getUIInfo(res)
 
         t_data = {
             ['pos'] = {['x'] = pos_x, ['y'] = pos_y},
-            ['size'] = node:getContentSize(),
             ['anchor'] = node:getAnchorPoint(),
             ['dock'] = node:getDockPoint(),
             ['scale'] = node:getScale(),
-            ['z_order'] = node:getLocalZOrder()
+            ['z_order'] = node:getLocalZOrder(),
+            ['lua_name'] = lua_name,
         }
         CARD_UI[lua_name] = t_data
     end
@@ -99,6 +99,7 @@ end
 -------------------------------------
 local function setCardInfo(lua_name, node)
     local t_info = CARD_UI[lua_name]
+    cclog(lua_name, t_info['z_order'])
     
     if (not t_info) then
         return
@@ -108,7 +109,6 @@ local function setCardInfo(lua_name, node)
     node:setDockPoint(t_info['dock'])
     
     node:setPosition(t_info['pos']['x'], t_info['pos']['y'])
-    node:setContentSize(t_info['size']['width'], t_info['size']['height'])
     
     node:setScale(t_info['scale'])
     node:setLocalZOrder(t_info['z_order'])
@@ -538,7 +538,7 @@ end
 -- @external call
 -------------------------------------
 function UI_CharacterCard:setAttrSynastry(attr_synastry)
-    local lua_name = 'arrowVisual '
+    local lua_name = 'arrowVisual'
     local res = 'res/ui/a2d/card/card.vrp'
     local ani
     local visible = (attr_synastry ~= 0)
@@ -558,7 +558,7 @@ end
 -- @external call
 -------------------------------------
 function UI_CharacterCard:setBookRewardVisual(visible)
-    local lua_name = 'bookRewardVisual '
+    local lua_name = 'bookRewardVisual'
     local res = 'res/ui/a2d/card/card.vrp'
     local ani = 'book_reward'
     self:setAnimatorVisible(lua_name, res, ani, visible)
