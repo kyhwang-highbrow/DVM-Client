@@ -1,7 +1,7 @@
 local PARENT = UI
 
 local MIN_NICK = 2
-local MAX_NICK = 12
+local MAX_NICK = 10
 
 -------------------------------------
 -- class UI_ChangeNickPopup
@@ -45,12 +45,13 @@ function UI_ChangeNickPopup:initUI()
             local str = editbox:getText()
 			local len = uc_len(str)
 
-            if (len < MIN_NICK) or (len > MAX_NICK)then
-                UIManager:toastNotificationRed(Str('{1}자~{2}자 이내로 입력해주세요.', MIN_NICK, MAX_NICK))
-            end
+            local is_name = true
+            if (len < MIN_NICK) or (len > MAX_NICK) or (not IsValidText(str, is_name)) then
+                editbox:setText('')
 
-            if (len > MAX_NICK) then
-                editbox:setText(string.sub(str, 1, MAX_NICK))
+                local msg = Str('닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.', MIN_NICK, MAX_NICK)
+                MakeSimplePopup(POPUP_TYPE.OK, msg)
+                return
             end
         end
     end
