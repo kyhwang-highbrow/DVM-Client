@@ -174,6 +174,8 @@ end
 -- function init_timeUI
 -------------------------------------
 function UI_GameColosseum:init_timeUI(display_wave, time)
+    vars['timeLabel']:setLocalZOrder(1)
+
     if (time) then
         self:setTime(time)
     end
@@ -192,7 +194,7 @@ function UI_GameColosseum:setTime(sec)
     local vars = self.vars
 
     vars['timeLabel']:setString(math_floor(sec))
-
+    
     -- 20초이하인 경우 붉은색으로 색상 변경
     if (sec <= 20) then
         vars['timeLabel']:setColor(cc.c3b(255, 0, 0))
