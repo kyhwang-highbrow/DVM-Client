@@ -128,6 +128,8 @@ function UI_OverallRankingPopup:refresh()
 		-- 스코어
 		local score = t_my_rank['rp']
 		vars['scoreLabel']:setNumber(score)
+
+        vars['pvpTierNode']:setVisible(false)
         vars['bookLabel']:setVisible(false)
 
 		if (self.m_currTab == UI_OverallRankingPopup.PVP) then
@@ -147,7 +149,6 @@ function UI_OverallRankingPopup:refresh()
 
 		else
 			vars['scoreLabel'].m_label:runAction(cc.MoveTo:create(COMMON_UI_ACTION_TIME, cc.p(-100, 0)))
-			vars['pvpTierNode']:setVisible(false)
 		end
 	end
 end
