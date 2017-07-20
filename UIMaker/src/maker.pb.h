@@ -3125,7 +3125,7 @@ class EditBox : public ::google::protobuf::Message {
   inline ::maker::EDITBOX_INPUT_FLAG input_flag() const;
   inline void set_input_flag(::maker::EDITBOX_INPUT_FLAG value);
 
-  // optional .maker.EDITBOX_RETURN_TYPE return_type = 4 [default = EDITBOX_RETURN_TYPE__DEFAULT];
+  // optional .maker.EDITBOX_RETURN_TYPE return_type = 4 [default = EDITBOX_RETURN_TYPE__DONE];
   inline bool has_return_type() const;
   inline void clear_return_type();
   static const int kReturnTypeFieldNumber = 4;
@@ -8588,7 +8588,7 @@ inline void EditBox::set_input_flag(::maker::EDITBOX_INPUT_FLAG value) {
   input_flag_ = value;
 }
 
-// optional .maker.EDITBOX_RETURN_TYPE return_type = 4 [default = EDITBOX_RETURN_TYPE__DEFAULT];
+// optional .maker.EDITBOX_RETURN_TYPE return_type = 4 [default = EDITBOX_RETURN_TYPE__DONE];
 inline bool EditBox::has_return_type() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
@@ -8599,7 +8599,7 @@ inline void EditBox::clear_has_return_type() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline void EditBox::clear_return_type() {
-  return_type_ = 0;
+  return_type_ = 1;
   clear_has_return_type();
 }
 inline ::maker::EDITBOX_RETURN_TYPE EditBox::return_type() const {

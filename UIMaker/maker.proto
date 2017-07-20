@@ -336,7 +336,7 @@ message EditBox {
     optional bool enable = 1 [default = false];
     optional EDITBOX_INPUT_MODE input_mode = 2 [default = EDITBOX_INPUT_MODE__SINGLE_LINE];
     optional EDITBOX_INPUT_FLAG input_flag = 3 [default = EDITBOX_INPUT_FLAG__INTIAL_CAPS_ALL_CHARACTERS];
-    optional EDITBOX_RETURN_TYPE return_type = 4 [default = EDITBOX_RETURN_TYPE__DEFAULT];
+    optional EDITBOX_RETURN_TYPE return_type = 4 [default = EDITBOX_RETURN_TYPE__DONE];
     optional int32 max_length = 5 [default = 0];
     optional string text = 6 [default = ""];
     optional string font_name = 7 [default = "Helvetica"];
