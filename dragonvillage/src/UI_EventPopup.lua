@@ -7,6 +7,7 @@ UI_EventPopup = class(PARENT,{
         m_tableView = 'UIC_TableView',
         m_lContainerForEachType = 'list[node]', -- (tab)타입별 컨테이너
         m_mTabUI = 'map',
+        m_webView = '',
     })
 
 -------------------------------------
@@ -138,6 +139,10 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_EventPopup:onChangeTab(tab, first)
+    if (self.m_webView) then 
+        self.m_webView:setVisible(false)
+    end
+
     if first then
         local container = self.m_lContainerForEachType[tab]
         local ui = self:makeEventPopupTab(tab)
@@ -145,11 +150,11 @@ function UI_EventPopup:onChangeTab(tab, first)
             container:addChild(ui.root)
         end
     else
-        if self.m_mTabUI[tab] then
+        if (self.m_mTabUI[tab]) then
             self.m_mTabUI[tab]:onEnterTab()
         end
     end
-
+    
     local item = self.m_tableView:getItem(tab)
     if item and item['data'] then
         item['data'].m_hasNoti = false
@@ -191,7 +196,8 @@ function UI_EventPopup:makeEventPopupTab(tab)
         
     -- 업데이트 공지 
     elseif (string.find(tab, 'notice')) then
-        
+        ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)
+        self.m_webView = ui.m_webView or nil
 
     -- 배너
     elseif (string.find(tab, 'banner')) then

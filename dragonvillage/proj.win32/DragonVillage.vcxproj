@@ -877,6 +877,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonSkillCard.lua" />
     <None Include="..\src\UI_EventPopupTab_AccessTime.lua" />
     <None Include="..\src\UI_EventPopupTab_Banner.lua" />
+    <None Include="..\src\UI_EventPopupTab_Notice.lua" />
     <None Include="..\src\UI_EventPopupTab_Shop.lua" />
     <None Include="..\src\UI_ExchangeProductListItem.lua" />
     <None Include="..\src\UI_FormationListItem.lua" />
@@ -1035,6 +1036,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_UserInfoDetailPopup_SetProfile.lua" />
     <None Include="..\src\UI_UserInfoMini.lua" />
     <None Include="..\src\UI_UserLevelUp.lua" />
+    <None Include="..\src\UI_WebView.lua" />
     <None Include="..\src\UserData.lua" />
     <None Include="..\src\ValidationAssistant.lua" />
     <None Include="..\src\ValidationDragon.lua" />

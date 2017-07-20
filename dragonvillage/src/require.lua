@@ -598,6 +598,7 @@ local t_module = {
     'UI_ContentLock',
     'UI_ChangeNickPopup',
     'UI_LoginPopup',
+    'UI_WebView',
 
     -- UI : 대화 스크립트 재생기
     'UI_ScenarioPlayer',
@@ -783,6 +784,7 @@ local t_module = {
     'UI_EventPopupTab_AccessTime',
     'UI_EventPopupTab_Banner',
     'UI_EventPopupTab_Shop',
+    'UI_EventPopupTab_Notice',
     'UI_ExchangeProductListItem',
     'UI_AccessTimeDataListItem',
 
