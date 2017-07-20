@@ -78,9 +78,11 @@ function UI_EventPopup:init_tableView()
         local res = data:getTabIcon()
         if res then
             local icon = cc.Sprite:create(res)
-            icon:setDockPoint(cc.p(0.5, 0.5))
-            ui.vars['iconNode']:removeAllChildren()
-            ui.vars['iconNode']:addChild(icon)
+            if icon then
+                icon:setDockPoint(cc.p(0.5, 0.5))
+                ui.vars['iconNode']:removeAllChildren()
+                ui.vars['iconNode']:addChild(icon)
+            end
         end
     end
 
