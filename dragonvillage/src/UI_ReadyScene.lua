@@ -753,12 +753,6 @@ function UI_ReadyScene:click_startBtn()
         scene:runScene()
         return
     end
-	
-	-- 콜로세움은 따로 빼서 처리
-	if (stage_id == COLOSSEUM_STAGE_ID) then
-		self:startColosseum()
-		return
-	end
 
     if (self:getDragonCount() <= 0) then
         UIManager:toastNotificationRed('최소 1명 이상은 출전시켜야 합니다.')
@@ -810,36 +804,6 @@ function UI_ReadyScene:click_startBtn()
         
         check_deck()
     end
-end
-
--------------------------------------
--- function startColosseum
--- @breif 콜로세움 전용
--------------------------------------
-function UI_ReadyScene:startColosseum()
-    if (self:getDragonCount() <= 0) then
-        UIManager:toastNotificationRed('최소 1명 이상은 출전시켜야 합니다.')
-        return
-    end
-
-    -- 날개 소모
-    if (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
-        self:askCashPlay()
-        return
-    end
-        
-    local function next_func()
-        local is_cash = false
-
-        local function cb(ret)
-			local scene = SceneGameColosseum()
-			scene:runScene()
-		end
-
-		g_colosseumData:request_colosseumStart(is_cash, cb)
-    end
-
-    self:checkChangeDeck(next_func)
 end
 
 -------------------------------------

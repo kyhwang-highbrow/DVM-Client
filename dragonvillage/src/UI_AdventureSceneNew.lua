@@ -90,14 +90,7 @@ function UI_AdventureSceneNew:initButton()
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end) -- 이전 챕터
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end) -- 다음 챕터
 
-    vars['devStageBtn']:registerScriptTapHandler(function()
-            if COLOSSEUM_SCENE_ACTIVE then
-                local scene = SceneGameColosseum()
-                scene:runScene()
-            else
-                self:openAdventureStageInfoPopup(DEV_STAGE_ID)
-            end
-        end)
+    vars['devStageBtn']:registerScriptTapHandler(function() self:openAdventureStageInfoPopup(DEV_STAGE_ID) end)
     if (TARGET_SERVER == 'FGT') then
         if (not DEVELOPMENT_KSJ) then
             vars['devStageBtn']:setVisible(false)

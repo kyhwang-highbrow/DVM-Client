@@ -1,8 +1,3 @@
--- # 개발 스테이지 진입시 콜로세움 활성화 여부
-if (TARGET_SERVER ~= 'FGT') then
-    COLOSSEUM_SCENE_ACTIVE = false
-end
-
 -- # 콜로세움 게임 속도
 COLOSSEUM__TIME_SCALE = 1
 
