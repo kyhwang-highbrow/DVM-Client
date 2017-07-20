@@ -3,10 +3,13 @@ local PARENT = ITableViewCell:getCloneClass()
 local CARD_UI = nil
 --[[ 
 # card_char.ui 일람
-        selectSprite
+    bookRewardVisual    
+    notiSprite
+    arrowVisual
+    selectSprite
     disableSprite
     checkSprite
-        expSprite
+    expSprite
     friendSprite
     leaderSprite
     lockSprite
@@ -151,7 +154,7 @@ end
 -- @brief animator사용
 -- @comment 여기 res는 사실상 필요없는데...
 -------------------------------------
-function UI_CharacterCard:makeAnimator(lua_name, res, ani)
+function UI_CharacterCard:makeVisual(lua_name, res, ani)
     local vars = self.vars
 
     if vars[lua_name] then
@@ -162,7 +165,7 @@ function UI_CharacterCard:makeAnimator(lua_name, res, ani)
     local animator = MakeAnimator(res)
     animator:changeAni(ani, true)
     vars['clickBtn']:addChild(animator.m_node)
-    setCardInfo(lua_name, animator.m_node)
+    setCardInfo(lua_name, animator)
     vars[lua_name] = animator
 end
 
@@ -174,7 +177,7 @@ function UI_CharacterCard:setAnimatorVisible(lua_name, res, ani, visible)
     if self.vars[lua_name] then
         self.vars[lua_name]:setVisible(visible)
     elseif (visible) then
-        self:makeAnimator(lua_name, res, ani)
+        self:makeVisual(lua_name, res, ani)
     end
 end
 
@@ -546,7 +549,7 @@ function UI_CharacterCard:setAttrSynastry(attr_synastry)
         ani = 'attr_down'
     end
 
-    UI_CharacterCard:setAnimatorVisible(lua_name, res, ani, visible)
+    self:setAnimatorVisible(lua_name, res, ani, visible)
 end
 
 -------------------------------------
@@ -557,8 +560,8 @@ end
 function UI_CharacterCard:setBookRewardVisual(visible)
     local lua_name = 'bookRewardVisual '
     local res = 'res/ui/a2d/card/card.vrp'
-    local ani = 'reward'
-    UI_CharacterCard:setAnimatorVisible(lua_name, res, ani, visible)
+    local ani = 'book_reward'
+    self:setAnimatorVisible(lua_name, res, ani, visible)
 end
 
 -------------------------------------
