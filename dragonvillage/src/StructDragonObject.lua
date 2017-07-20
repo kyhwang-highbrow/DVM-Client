@@ -378,6 +378,34 @@ function StructDragonObject:getIconRes()
 end
 
 -------------------------------------
+-- function getGradeRes
+-- @breif 등급 별 리소스 생성
+-------------------------------------
+function StructDragonObject:getGradeRes()
+    -- 기본 정보
+    local grade = tonumber(self['grade'] or 1)
+	local evolution = self['evolution']
+
+    -- 색상을 구함
+	local color
+	if (evolution == 1) then
+		if (TableDragon():isUnderling(self['did'])) then
+			color = 'gray'
+		elseif (self['m_objectType'] == 'slime') then
+			color = 'gray'
+		else
+			color = 'yellow'
+		end
+	elseif (evolution == 2) then
+		color = 'purple'
+	elseif (evolution == 3) then
+		color = 'red'
+	end
+
+    return string.format('card_star_%s_01%02d.png', color, grade)
+end
+
+-------------------------------------
 -- function getIngameRes
 -- @breif
 -------------------------------------

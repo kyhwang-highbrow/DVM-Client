@@ -103,7 +103,6 @@ function UI_QuestListItem:setRewardCard()
 
     for i, v in ipairs(l_reward_info) do
         local reward_card = UI_ItemCard(v['item_id'], v['count'])
-		reward_card.root:setScale(0.7)
         vars['rewardNode' .. i]:addChild(reward_card.root)
     end
 end

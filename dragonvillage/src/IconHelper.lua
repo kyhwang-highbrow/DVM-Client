@@ -1,17 +1,34 @@
 IconHelper = {}
 
 -------------------------------------
--- function getHeroIcon
+-- function getIcon
 -------------------------------------
 function IconHelper:getIcon(res_name)
 	local sprite = cc.Sprite:create(res_name)
-	if (sprite) then
-		sprite:setDockPoint(CENTER_POINT)
-		sprite:setAnchorPoint(CENTER_POINT)
-    else
+    if (not sprite) then
+        sprite = cc.Sprite:create('res/ui/icon/cha/developing.png')
         -- @E.T.
 		g_errorTracker:appendFailedRes(res_name)
-	end
+    end
+
+	sprite:setDockPoint(CENTER_POINT)
+	sprite:setAnchorPoint(CENTER_POINT)
+	return sprite
+end
+
+-------------------------------------
+-- function createWithSpriteFrameName
+-------------------------------------
+function IconHelper:createWithSpriteFrameName(res_name)
+	local sprite = cc.Sprite:createWithSpriteFrameName(res_name)
+    if (not sprite) then
+        sprite = cc.Sprite:create('res/ui/icon/cha/developing.png')
+        -- @E.T.
+		g_errorTracker:appendFailedRes(res_name)
+    end
+
+	sprite:setDockPoint(CENTER_POINT)
+	sprite:setAnchorPoint(CENTER_POINT)
 	return sprite
 end
 

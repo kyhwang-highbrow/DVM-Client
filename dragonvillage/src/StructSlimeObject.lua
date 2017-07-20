@@ -140,6 +140,17 @@ function StructSlimeObject:getIconRes()
 end
 
 -------------------------------------
+-- function getGradeRes
+-- @breif 등급 별 리소스 생성
+-------------------------------------
+function StructSlimeObject:getGradeRes()
+    local grade = tonumber(self['grade'] or 1)
+	local color = 'gray'
+
+    return string.format('card_star_%s_01%02d.png', color, grade)
+end
+
+-------------------------------------
 -- function isLeader
 -- @breif
 -------------------------------------

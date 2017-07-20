@@ -1,6 +1,24 @@
 local PARENT = ITableViewCell:getCloneClass()
 
 local CARD_UI = nil
+--[[ 
+# card_char.ui 일람
+        selectSprite
+    disableSprite
+    checkSprite
+        expSprite
+    friendSprite
+    leaderSprite
+    lockSprite
+    levelNode
+    starNode
+    attrNode
+    inuseSprite
+    frameNode
+    chaNode
+    bgNode
+]]
+
 -------------------------------------
 -- class UI_CharacterCard
 -------------------------------------
@@ -28,6 +46,10 @@ UI_CharacterCard = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_CharacterCard:init(t_dragon_data)
+    if (CARD_UI == nil) then
+        self:getUIInfo('card_char.ui')
+    end
+
     cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/card/card.plist')
 
     self.root = cc.Menu:create()
@@ -44,6 +66,98 @@ function UI_CharacterCard:init(t_dragon_data)
 end
 
 -------------------------------------
+-- function getUIInfo
+-------------------------------------
+function UI_CharacterCard:getUIInfo(res)
+    CARD_UI = {}
+    local ui = UI()
+    local vars = ui:load_keepZOrder(res)
+    
+    local pos_x, pos_y, width, height
+    local t_data
+
+    for lua_name, node in pairs(vars) do
+        pos_x, pos_y = node:getPosition()
+        width, height = node:getNormalSize()
+
+        t_data = {
+            ['pos'] = {['x'] = pos_x, ['y'] = pos_y},
+            ['size'] = {['width'] = width, ['height'] = height},
+            ['anchor'] = node:getAnchorPoint(),
+            ['dock'] = node:getDockPoint(),
+            ['scale'] = node:getScale(),
+            ['z_order'] = node:getLocalZOrder()
+        }
+        CARD_UI[lua_name] = t_data
+    end
+end
+
+-------------------------------------
+-- local function setCardInfo
+-------------------------------------
+local function setCardInfo(lua_name, node)
+    local t_info = CARD_UI[lua_name]
+    
+    if (not t_info) then
+        return
+    end
+
+    node:setAnchorPoint(t_info['anchor'])
+    node:setDockPoint(t_info['dock'])
+    
+    node:setPosition(t_info['pos']['x'], t_info['pos']['y'])
+    node:setContentSize(t_info['size']['width'], t_info['size']['height'])
+    
+    node:setScale(t_info['scale'])
+    node:setLocalZOrder(t_info['z_order'])
+end
+
+-------------------------------------
+-- function makeSprite
+-- @brief 카드에 사용되는 sprite는 모두 이 로직으로 생성
+-------------------------------------
+function UI_CharacterCard:makeSprite(lua_name, res, no_use_frames)
+    local vars = self.vars
+
+    if vars[lua_name] then
+        vars[lua_name]:removeFromParent()
+        vars[lua_name] = nil
+    end
+    
+    local sprite
+    if (no_use_frames) then
+        sprite = IconHelper:getIcon(res)
+    else
+        sprite = IconHelper:createWithSpriteFrameName(res)
+    end
+    vars['clickBtn']:addChild(sprite)
+    setCardInfo(lua_name, sprite)
+    vars[lua_name] = sprite
+end
+
+-------------------------------------
+-- function setSpriteVisible
+-- @brief visible 관리하고 없다면 만든다.
+-------------------------------------
+function UI_CharacterCard:setSpriteVisible(lua_name, res, visible)
+    if self.vars[lua_name] then
+        self.vars[lua_name]:setVisible(visible)
+    elseif (visible) then
+        self:makeSprite(lua_name, res)
+    end
+end
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
 -- function refreshDragonInfo
 -------------------------------------
 function UI_CharacterCard:refreshDragonInfo()
@@ -54,41 +168,32 @@ function UI_CharacterCard:refreshDragonInfo()
     local t_dragon_data = self.m_dragonData
     local did = t_dragon_data['did']
     local attr = t_dragon_data:getAttr()
-    --local eclv = t_dragon_data:getEclv()
     local rarity = t_dragon_data:getRarity()
 
-    do -- 속성 따른 배경 이미지(버튼)
-        self:makeClickBtn('card_cha_bg_' .. attr .. '.png')
-    end
+    -- 버튼 생성과 배경 이미지 생성
+    self:makeClickBtn()
 
-    do -- 드래곤 아이콘
-        self:makeDragonIcon(t_dragon_data, t_dragon)
-    end
+    -- 드래곤 아이콘
+    self:makeDragonIcon(t_dragon_data)
 
-    do -- 리더 여부
-        self:refresh_LeaderIcon()
-    end
-        
-    do -- 속성 아이콘 생성
-        self:makeAttrIcon('card_cha_attr_' .. attr .. '.png')
-    end
+    -- 속성 따른 배경 이미지
+    self:makeBg(attr)
 
-    do -- 등급 아이콘 생성
-        self:refresh_gradeIcon()
-    end
+    -- 카드 프레임
+    self:makeFrame()
 
-    do -- 레벨 지정
-        self:setLevelText(t_dragon_data['lv'])
-    end    
+    -- 리더 여부
+    self:refresh_LeaderIcon()
 
-    do -- 초월 지정
-        --self:setEclvText(eclv)
-    end
+    -- 속성 아이콘 생성
+    self:makeAttrIcon(attr)
 
-    do -- 카드 프레임
-        self:makeFrame('card_cha_frame.png')
-    end
+    -- 등급 아이콘 생성
+    self:refresh_gradeIcon()
 
+    -- 레벨 지정
+    self:setLevelText(t_dragon_data['lv'])
+   
     do -- 드래곤들의 덱설정 여부 데이터 갱신
         if t_dragon_data and t_dragon_data['id'] then
             local doid = t_dragon_data['id']
@@ -97,114 +202,98 @@ function UI_CharacterCard:refreshDragonInfo()
         end
     end
 
-	do -- 잠금 표시
-		self:refresh_Lock()
-	end
+    -- 잠금 표시
+    self:refresh_Lock()
 end
 
 -------------------------------------
 -- function makeClickBtn
 -------------------------------------
-function UI_CharacterCard:makeClickBtn(res)
-    if (self.m_clickBtnRes == res) then
-        return
-    end
-    self.m_clickBtnRes = res
-
+function UI_CharacterCard:makeClickBtn()
     local btn = self.vars['clickBtn']
 
     if (not btn) then
         btn = cc.MenuItemImage:create()
         btn:setDockPoint(CENTER_POINT)
         btn:setAnchorPoint(CENTER_POINT)
+        btn:setContentSize(150, 150)
+    
         self.vars['clickBtn'] = UIC_Button(btn)
-        self.root:addChild(btn)
+        self.root:addChild(btn, -1)
     end
 
-    btn:setNormalSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame(res))
-
     return btn
+end
+
+-------------------------------------
+-- function makeBg
+-------------------------------------
+function UI_CharacterCard:makeBg(attr)
+    local res = 'card_cha_bg_' .. attr .. '.png'
+    if (self.m_clickBtnRes == res) then
+        return
+    end
+    self.m_clickBtnRes = res
+    self:makeSprite('bgNode', res)
 end
 
 -------------------------------------
 -- function makeDragonIcon
 -- @brief 드래곤 아이콘 생성
 -------------------------------------
-function UI_CharacterCard:makeDragonIcon(t_dragon_data, t_dragon)
+function UI_CharacterCard:makeDragonIcon(t_dragon_data)
     local res = t_dragon_data:getIconRes()
     if (self.m_charIconRes == res) then
         return
     end
     self.m_charIconRes = res
+    self:makeSprite('chaNode', res, true) -- (lua_name, res, no_use_frames)
+end
 
-    local vars = self.vars
-
-    if vars['charIcon'] then
-        vars['charIcon']:removeFromParent()
+-------------------------------------
+-- function makeFrame
+-- @brief 프레임 생성
+-------------------------------------
+function UI_CharacterCard:makeFrame(res)
+    local res = 'card_cha_frame.png'
+    if (self.m_charFrameRes == res) then
+        return
     end
-    
-    local sprite = cc.Sprite:create(res)
-    
-    if (not sprite) then
-        sprite = cc.Sprite:create('res/ui/icon/cha/developing.png')
-    end
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-    self.vars['clickBtn']:addChild(sprite, 1)
-    vars['charIcon'] = sprite
+    self.m_charFrameRes = res
+    self:makeSprite('frameNode', res)
 end
 
 -------------------------------------
 -- function refresh_LeaderIcon
--- @brief 리더 아이콘
+-- @brief 리더 아이콘 갱신
 -------------------------------------
 function UI_CharacterCard:refresh_LeaderIcon()
-    local vars = self.vars
     local t_dragon_data = self.m_dragonData
+	local is_leader = t_dragon_data:isLeader()
+	self:setLeaderSprit(is_leader)
+end
 
-    local is_leader = t_dragon_data:isLeader()
-
-    if is_leader then
-        if vars['leaderIcon'] then
-            vars['leaderIcon']:setVisible(true)
-        else
-            local sprite = cc.Sprite:createWithSpriteFrameName('card_cha_icon_leader.png')
-            sprite:setDockPoint(CENTER_POINT)
-            sprite:setAnchorPoint(CENTER_POINT)
-            self.vars['clickBtn']:addChild(sprite, 2)
-            vars['leaderIcon'] = sprite
-        end
-
-    else
-        if vars['leaderIcon'] then
-            vars['leaderIcon']:setVisible(false)
-        end
-    end
+-------------------------------------
+-- function setLeaderSprit
+-- @brief 리더 표시
+-------------------------------------
+function UI_CharacterCard:setLeaderSprit(visible)
+    local res = 'card_cha_icon_leader.png'
+    local lua_name = 'leaderSprite'
+    self:setSpriteVisible(lua_name, res, visible)
 end
 
 -------------------------------------
 -- function makeAttrIcon
 -- @brief 속성 아이콘 생성
 -------------------------------------
-function UI_CharacterCard:makeAttrIcon(res)
+function UI_CharacterCard:makeAttrIcon(attr)
+    local res = 'card_cha_attr_' .. attr .. '.png'
     if (self.m_attrIconRes == res) then
         return
     end
     self.m_attrIconRes = res
-
-    local vars = self.vars
-
-    if vars['attrIcon'] then
-        vars['attrIcon']:removeFromParent()
-    end
-    
-    local sprite = cc.Sprite:createWithSpriteFrameName(res)
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-    sprite:setScale(1)
-    sprite:setPosition(-51, 51)
-    self.vars['clickBtn']:addChild(sprite, 10)
-    vars['attrIcon'] = sprite
+    self:makeSprite('attrNode', res)
 end
 
 -------------------------------------
@@ -212,53 +301,12 @@ end
 -- @brief 등급 아이콘
 -------------------------------------
 function UI_CharacterCard:refresh_gradeIcon()
-    local t_dragon_data = self.m_dragonData
-
-    local vars = self.vars
-
-    local grade = (t_dragon_data['grade'] or 1)
-	grade = tonumber(grade)
-
-	local evolution = t_dragon_data['evolution']
-	local color
-	do
-		if (evolution == 1) then
-			if (TableDragon():isUnderling(t_dragon_data['did'])) then
-				color = 'gray'
-			elseif (t_dragon_data['m_objectType'] == 'slime') then
-				color = 'gray'
-			else
-				color = 'yellow'
-			end
-		elseif (evolution == 2) then
-			color = 'purple'
-		elseif (evolution == 3) then
-			color = 'red'
-		end
-	end
-
-    local res = string.format('card_star_%s_01%02d.png', color, grade)
-
+    local res = self.m_dragonData:getGradeRes()
     if (self.m_starIconRes == res) then
         return
     end
     self.m_starIconRes = res
-
-    if (grade <= 0) then
-        return
-    end
-
-    if vars['starIcon'] then
-        vars['starIcon']:removeFromParent()
-        vars['starIcon'] = nil
-    end
-    
-    local sprite = cc.Sprite:createWithSpriteFrameName(res)
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-    sprite:setPosition(0, -52)
-    self.vars['clickBtn']:addChild(sprite, 4)
-    vars['starIcon'] = sprite
+    self:makeSprite('starNode', res)
 end
 
 -------------------------------------
@@ -341,132 +389,24 @@ function UI_CharacterCard:setLevelText(level)
     end
 end
 
---[[
--------------------------------------
--- function setEclvText
--- @brief 초월 텍스트 지정
--------------------------------------
-function UI_CharacterCard:setEclvText(eclv)
-    if (eclv == 0) then
-        return
-    end
-
-    if (self.m_charEclvNumber == eclv) then
-        return
-    end
-    self.m_charEclvNumber = eclv
-    
-
-    local vars = self.vars
-
-    local pos_x = 60
-    local pos_y = 40
-    local font_size = 20
-
-    local eclvSprite1 = vars['eclvSprite1']
-    local eclvSprite2 = vars['eclvSprite2']
-
-    if (not eclvSprite1) then
-        eclvSprite1 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
-        eclvSprite1:setColor(cc.c3b(255, 225, 18))
-        eclvSprite1:setDockPoint(CENTER_POINT)
-        eclvSprite1:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(eclvSprite1.m_node, 5)
-        vars['eclvSprite1'] = eclvSprite1
-        eclvSprite1:changeAni('digit_0')
-
-        do -- 플러스 아이콘 추가
-            local digit_plus = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
-            digit_plus:setColor(cc.c3b(255, 225, 18))
-            digit_plus:setDockPoint(CENTER_POINT)
-            digit_plus:setAnchorPoint(CENTER_POINT)
-            digit_plus:changeAni('digit_plus')
-            eclvSprite1:addChild(digit_plus.m_node)
-            digit_plus:setPositionX(-font_size)
-        end
-        
-    end
-
-    if (not eclvSprite2) then
-        eclvSprite2 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
-        eclvSprite2:setColor(cc.c3b(255, 225, 18))
-        eclvSprite2:setDockPoint(CENTER_POINT)
-        eclvSprite2:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(eclvSprite2.m_node, 5)
-        vars['eclvSprite2'] = eclvSprite2
-        eclvSprite2:changeAni('digit_5')
-    end
-
-    if (eclv < 10) then
-        eclvSprite1:setVisible(true)
-        eclvSprite1:changeAni('digit_' .. eclv)
-        eclvSprite1:setPosition(pos_x - (font_size/2), pos_y)
-        eclvSprite2:setVisible(false)
-    else
-        eclvSprite1:setVisible(true)
-        eclvSprite1:changeAni('digit_' ..  math_floor(eclv / 10))
-        eclvSprite1:setPosition(pos_x - ((font_size/2) + font_size), pos_y)
-
-        eclvSprite2:setVisible(true)
-        eclvSprite2:changeAni('digit_' .. eclv % 10)
-        eclvSprite2:setPosition(pos_x - (font_size/2), pos_y)
-    end
-end
-]]
-
--------------------------------------
--- function setShadowSpriteVisible
--- @brief 카드 음영 표시
--------------------------------------
-function UI_CharacterCard:setShadowSpriteVisible(visible)
-    if self.vars['shadowSprite'] then
-        self.vars['shadowSprite']:setVisible(visible)
-    elseif (visible) then
-        local sprite = cc.Sprite:createWithSpriteFrameName('card_cha_frame_disable.png')
-        sprite:setDockPoint(CENTER_POINT)
-        sprite:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite, 11)
-        self.vars['shadowSprite'] = sprite
-    end
-end
-
--------------------------------------
--- function makeFrame
--- @brief 프레임 생성
--------------------------------------
-function UI_CharacterCard:makeFrame(res)
-    if (self.m_charFrameRes == res) then
-        return
-    end
-    self.m_charFrameRes = res
-
-    local vars = self.vars
-
-    if vars['charFrame'] then
-        vars['charFrame']:removeFromParent()
-    end
-    
-    local sprite = cc.Sprite:createWithSpriteFrameName(res)
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-    self.vars['clickBtn']:addChild(sprite, 8)
-    vars['charFrame'] = sprite
-end
-
 -------------------------------------
 -- function setReadySpriteVisible
 -- @brief 출전중 표시
 -------------------------------------
 function UI_CharacterCard:setReadySpriteVisible(visible)
-    if self.vars['readySprite'] then
-        self.vars['readySprite']:setVisible(visible)
-    elseif (visible) then
-        local sprite = cc.Sprite:createWithSpriteFrameName('card_cha_icon_inuse.png')
-        sprite:setDockPoint(CENTER_POINT)
-        sprite:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite, 9)
-        self.vars['readySprite'] = sprite
-    end
+    local res = 'card_cha_icon_inuse.png'
+    local lua_name = 'inuseSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
+-- function setLockSprit
+-- @brief 잠금 표시
+-------------------------------------
+function UI_CharacterCard:setLockSprit(visible)
+    local res = 'card_cha_icon_lock.png'
+    local lua_name = 'lockSprite'
+    self:setSpriteVisible(lua_name, res, visible)
 end
 
 -------------------------------------
@@ -479,60 +419,79 @@ function UI_CharacterCard:refresh_Lock()
 	self:setLockSprit(is_lock)
 end
 
--------------------------------------
--- function setLockSprit
--- @brief 잠금 표시
--------------------------------------
-function UI_CharacterCard:setLockSprit(visible)
-    if self.vars['lockSprite'] then
-        self.vars['lockSprite']:setVisible(visible)
 
-    elseif (visible) then
-        local sprite = cc.Sprite:create('res/ui/icon_lock_0101.png')
-        sprite:setDockPoint(CENTER_POINT)
-        sprite:setAnchorPoint(CENTER_POINT)
-		sprite:setPosition(50, 50)
-		sprite:setScale(0.6)
-        self.vars['clickBtn']:addChild(sprite, 18)
-        self.vars['lockSprite'] = sprite
-    end
+
+
+
+
+-------------------------------------
+-- function setShadowSpriteVisible
+-- @brief 카드 음영 표시
+-------------------------------------
+function UI_CharacterCard:setShadowSpriteVisible(visible)
+    local res = 'card_cha_frame_disable.png'
+    local lua_name = 'disableSprite'
+    self:setSpriteVisible(lua_name, res, visible)
 end
-
-
-
 
 -------------------------------------
 -- function setFriendSpriteVisible
 -- @brief 친구마크 표시
 -------------------------------------
 function UI_CharacterCard:setFriendSpriteVisible(visible)
-    if self.vars['friendSprite'] then
-        self.vars['friendSprite']:setVisible(visible)
-    elseif (visible) then
-        local sprite = cc.Sprite:createWithSpriteFrameName('card_cha_icon_friend.png')
-        sprite:setDockPoint(CENTER_POINT)
-        sprite:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite, 12)
-        self.vars['friendSprite'] = sprite
-    end
+    local res = 'card_cha_icon_friend.png'
+    local lua_name = 'friendSprite'
+    self:setSpriteVisible(lua_name, res, visible)
 end
 
 -------------------------------------
--- function setSkillSpriteVisible
--- @brief 승급 재료 스킬상승 아이콘 표시
+-- function setCheckSpriteVisible
+-- @brief 카드 체크 표시
 -- @external call
 -------------------------------------
-function UI_CharacterCard:setSkillSpriteVisible(visible)
-    if self.vars['skillSprite'] then
-        self.vars['skillSprite']:setVisible(visible)
+function UI_CharacterCard:setCheckSpriteVisible(visible)
+    local res = 'card_cha_frame_check.png'
+    local lua_name = 'checkSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+    
+    self.m_bCheckVisible = visible
+end
+
+-------------------------------------
+-- function setNewSpriteVisible
+-- @brief 신규 드래곤 표시
+-- @external call
+-------------------------------------
+function UI_CharacterCard:setNewSpriteVisible(visible)
+    local res = 'card_cha_icon_new.png'
+    local lua_name = 'newSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
+-- function setHighlightSpriteVisible
+-- @brief highlight 표시
+-- @external call
+-------------------------------------
+function UI_CharacterCard:setHighlightSpriteVisible(visible)
+    if self.vars['highlightSprite'] then
+        self.vars['highlightSprite']:setVisible(visible)
     elseif (visible) then
-        local sprite = cc.Sprite:createWithSpriteFrameName('character_card_frame_skill.png')
+        local sprite = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
         sprite:setDockPoint(CENTER_POINT)
         sprite:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite, 13)
-        self.vars['skillSprite'] = sprite
+        self.vars['clickBtn']:addChild(sprite, 17)
+        self.vars['highlightSprite'] = sprite
+
+		-- 깜빡임 액션
+        sprite:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255))))
     end
 end
+
+
+
+
+
 
 -------------------------------------
 -- function setAttrSynastry
@@ -567,25 +526,6 @@ function UI_CharacterCard:setAttrSynastry(attr_synastry)
 end
 
 -------------------------------------
--- function setCheckSpriteVisible
--- @brief 카드 체크 표시
--- @external call
--------------------------------------
-function UI_CharacterCard:setCheckSpriteVisible(visible)
-    if self.vars['checkSprite'] then
-        self.vars['checkSprite']:setVisible(visible)
-    elseif (visible) then
-        local sprite = cc.Sprite:create('res/ui/frame/check.png')
-        sprite:setDockPoint(CENTER_POINT)
-        sprite:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite, 15)
-        self.vars['checkSprite'] = sprite
-    end
-
-    self.m_bCheckVisible = visible
-end
-
--------------------------------------
 -- function setBookRewardVisual
 -- @brief 도감 보상 표시
 -- @external call
@@ -599,26 +539,6 @@ function UI_CharacterCard:setBookRewardVisual(visible)
         self.vars['clickBtn']:addChild(animator.m_node, 16)
         self.vars['bookVisual'] = animator
 	end
-end
-
--------------------------------------
--- function setHighlightSpriteVisible
--- @brief highlight 표시
--- @external call
--------------------------------------
-function UI_CharacterCard:setHighlightSpriteVisible(visible)
-    if self.vars['highlightSprite'] then
-        self.vars['highlightSprite']:setVisible(visible)
-    elseif (visible) then
-        local sprite = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
-        sprite:setDockPoint(CENTER_POINT)
-        sprite:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite, 17)
-        self.vars['highlightSprite'] = sprite
-
-		-- 깜빡임 액션
-        sprite:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255))))
-    end
 end
 
 -------------------------------------
@@ -677,15 +597,9 @@ function UI_DragonCard(t_dragon_data, struct_user_info)
     end
     ui.vars['clickBtn']:registerScriptPressHandler(func)
 
-    -- 새로 획득한 드래곤 뱃지 (임시 코드)
-    if t_dragon_data.isNewDragon and t_dragon_data:isNewDragon() then
-        local res = 'res/ui/btn/notification.png'
-        local sprite = cc.Sprite:create(res)
-        sprite:setDockPoint(cc.p(1, 1))
-        sprite:setAnchorPoint(cc.p(1, 1))
-        sprite:setScale(1.5)
-        ui.vars['clickBtn']:addChild(sprite, 100)
-    end
+    -- 새로 획득한 드래곤 뱃지
+    local is_new_dragon = t_dragon_data:isNewDragon()
+    --ui:setNewSpriteVisible(is_new_dragon)
 
     -- 친구 드래곤일 경우 친구 마크 추가
     local is_friend_dragon = g_friendData:checkFriendDragonFromDoid(t_dragon_data['id'])

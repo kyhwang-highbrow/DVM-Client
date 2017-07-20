@@ -324,8 +324,9 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 			    detail_ui:setBookList(book_ui.m_tableViewTD.m_itemList)
                 return
             end
+            local pre_cash = g_userData:get('cash')
 			local function finish_cb()
-				local reward_value = grade * 100
+				local reward_value = pre_cash - g_userData:get('cash')
 				local reward_str = Str('다이아 {1}개를 수령했습니다.', reward_value)
 				UI_ToastPopup(reward_str)
 				ui:setBookRewardVisual(false)
