@@ -284,7 +284,7 @@ function ServerData_Book:request_bookReward(did, evolution, finish_cb)
 		self:setLastChangeTimeStamp()
 
         if finish_cb then
-            finish_cb()
+            finish_cb(ret['cash'])
         end
     end
 
