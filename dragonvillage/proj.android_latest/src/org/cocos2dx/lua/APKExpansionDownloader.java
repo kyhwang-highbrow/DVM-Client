@@ -91,8 +91,9 @@ public class APKExpansionDownloader implements IDownloaderClient {
             break;
         case IDownloaderClient.STATE_CONNECTING:
             isIndeterminate = true;
-            if (mIsShowingWifiWarning == true)
+            if (mIsShowingWifiWarning == true) {
                 mWifiWarning.dismiss();
+            }
             break;
         case IDownloaderClient.STATE_DOWNLOADING:
             isInterruptable = true;

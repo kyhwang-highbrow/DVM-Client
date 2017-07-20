@@ -27,7 +27,10 @@ package org.cocos2dx.lua;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxHelper;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import com.google.android.vending.expansion.downloader.IDownloaderClient;
 //@perplesdk
 import com.perplelab.PerpleSDK;
 import com.perplelab.dragonvillagem.kr.R;
@@ -177,7 +180,34 @@ public class AppActivity extends Cocos2dxActivity{
                     // 다운로드 진행 중 오류 상황 처리
                 	if (!isIndeterminate) {
                     	if (isPaused && isInterruptable) {
-                    		String info = String.valueOf(code) + "/" + statusText;
+
+							// Error Code
+							// -----------------------------------------------
+							// IDownloaderClient.STATE_PAUSED_NETWORK_UNAVAILABLE (6) : 네트워크가 연결되어 있지 않은 경우
+							// IDownloaderClient.STATE_PAUSED_BY_REQUEST (7) : sOBBDownloader.requestPauseDownload() 로 강제로 다운로드 중단시킨 경우
+							// IDownloaderClient.STATE_PAUSED_ROAMING (12) : 로밍 중, 로밍 중이므로 요금에 대한 경고를 하고 계속 진행/중단 처리한다.
+							// IDownloaderClient.STATE_FAILED_UNLICENSED (15) : 정식으로 앱을 다운로드 받지 않은 경우, APK를 별도로 설치하여 테스트하는 개발 버전에선 실패 처리하지 않고 그대로 진행시킨다.
+							// IDownloaderClient.STATE_FAILED_SDCARD_FULL (17) : 외부 저장 장치의 용량이 부족한 경우
+							
+							// 계속 진행하고자 한다면, 오류 상황을 해소하고 sOBBDownloader.requestContinueDownload() 를 호출해야 한다.
+							// 단, 일반적으로는 STATE_PAUSED_BY_REQUEST 가 아닌 모든 경우 그냥 실패 처리하고 앱을 재설치하도록 유도하는 것이 좋다.
+							
+							// 실패 처리
+							// sOBBDownloader.disconnectDownloaderClient(sActivity) 를 호출하여 다운로드는 완전히 중단시키고,
+							// 앱 안에서 앱을 재설치하도록 유도하는 메시지를 출력하고 앱 종료처리를 한다.
+							
+							// WiFI 가 연결되지 않은 경우에는 라이브러리 내부에서 자체적으로 처리가 되어 있으므로 별도 처리 필요 없다.
+
+                    		String info = "";
+                    		try {
+	                            JSONObject obj = new JSONObject();
+	                            obj.put("code", code);
+	                            obj.put("msg", statusText);
+	                            info = obj.toString();
+                    		} catch (JSONException e) {
+                    			e.printStackTrace();
+                    		}
+
                     		sdkEventResult("apkexp_startdownload", "error", info);
                     	}
                 	}
@@ -186,7 +216,19 @@ public class AppActivity extends Cocos2dxActivity{
                 public void onUpdateProgress(long current, long total, String progress, String percent) {
                     // 다운로드 진행 중
                     // 다운로드 진행 상황 UI 업데이트
-                	String info = String.valueOf(current) + "/" + String.valueOf(total);
+                	
+            		String info = "";
+            		try {
+                        JSONObject obj = new JSONObject();
+                        obj.put("current", current);
+                        obj.put("total", total);
+                        //obj.put("progress", progress);
+                        //obj.put("percent", percent);
+                        info = obj.toString();
+            		} catch (JSONException e) {
+            			e.printStackTrace();
+            		}
+                	
             		sdkEventResult("apkexp_startdownload", "progress", info);
                 }
             });
