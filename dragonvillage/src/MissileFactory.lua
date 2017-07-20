@@ -180,10 +180,13 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     
 	if string.match(movement, 'lua_')then
         missile = MissileLua(missile_res_name, physics_body)
+        missile.m_target = target
         lua_missile = true
 
     elseif (movement == 'normal') then
         missile = Missile(missile_res_name, physics_body)
+        missile.m_target = target
+        missile.m_targetBody = target_body
         
     elseif (movement == 'instant') then
         missile = MissileInstant(missile_res_name, physics_body)
@@ -193,12 +196,15 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 
     elseif (movement == 'guide') then
         missile = MissileGuide(missile_res_name, physics_body)
+        missile.m_target = target
         
 	elseif (movement == 'guid') then
 		missile = MissileGuid(missile_res_name, physics_body, is_hero)
+        missile.m_target = target
         
     elseif (movement == 'guid_strong') then
         missile = MissileGuid(missile_res_name, physics_body, is_hero)
+        missile.m_target = target
         missile.m_angularVelocityGuid = 720
         missile.m_straightWaitTime = 0
 
@@ -290,8 +296,8 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         missile.m_owner = owner
 
         -- 미사일 대상
-        missile.m_target = target
-        missile.m_targetBody = target_body
+        --missile.m_target = target
+        --missile.m_targetBody = target_body
 
 		-- 스킬 애니 속성 세팅
 		missile.m_animator:setAniAttr(t_option['attr_name'])

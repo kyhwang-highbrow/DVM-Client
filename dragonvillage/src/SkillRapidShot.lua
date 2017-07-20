@@ -47,6 +47,18 @@ function SkillRapidShot:init_skill(missile_res, motionstreak_res, target_count)
 end
 
 -------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillRapidShot:initSkillSize()
+    if (self.m_skillSize) and (not (self.m_skillSize == '')) then
+		local t_data = SkillHelper:getSizeAndScale('round', self.m_skillSize)  
+
+		--self.m_resScale = t_data['scale']
+		self.m_range = t_data['size']
+	end
+end
+
+-------------------------------------
 -- function initState
 -------------------------------------
 function SkillRapidShot:initState()
@@ -90,7 +102,7 @@ end
 -------------------------------------
 function SkillRapidShot:fireMissile()
     local char = self.m_owner
-    local collision = collision or self.m_lCollisionList[1]
+    local collision = self.m_lCollisionList[1]
     if (not collision) then return end
 
     local target = collision:getTarget()
@@ -107,7 +119,7 @@ function SkillRapidShot:fireMissile()
 	t_option['target'] = target
     t_option['target_body'] = target_body
     
-	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.pos.x, target.pos.y)
+	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target_x, target_y)
 	t_option['rotation'] = t_option['dir']
 
     t_option['physics_body'] = {0, 0, 40}
