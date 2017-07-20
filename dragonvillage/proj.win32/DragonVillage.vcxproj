@@ -397,7 +397,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\RuneEnchantHelper.lua" />
     <None Include="..\src\ScenarioViewingHistory.lua" />
     <None Include="..\src\SceneAncientTower.lua" />
-    <None Include="..\src\SceneColosseum.lua" />
     <None Include="..\src\SceneGameColosseum.lua" />
     <None Include="..\src\SceneGameIntro.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />

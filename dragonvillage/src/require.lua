@@ -251,7 +251,6 @@ local t_module = {
     'SceneAdventure',
     'SceneNestDungeon',
     'SceneSecretDungeon',
-    'SceneColosseum',
     'SceneAncientTower',
 
     -- Phys
