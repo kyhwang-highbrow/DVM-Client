@@ -59,7 +59,6 @@ function SkillGuardian:initState()
     self:addState('start', SkillGuardian.st_start, nil, true)
     self:addState('idle', SkillGuardian.st_idle, nil, true)
     self:addState('end', SkillGuardian.st_end, nil, false)
-    self:addState('dying', SkillGuardian.st_dying, nil, false)
 end
 
 -------------------------------------
@@ -226,7 +225,7 @@ end
 -- function onStart
 -------------------------------------
 function SkillGuardian:onStart()
-    for _, v in pairs (self.m_lTargetChar) do
+    for _, v in pairs(self.m_lTargetChar) do
 
         if (v:getGuard()) then
             v:getGuard():changeState('end')
@@ -235,6 +234,12 @@ function SkillGuardian:onStart()
         v:setGuard(self)
 
         v:addListener('guardian', self)
+    end
+
+    -- 상태효과
+    do
+	    local t_event = { l_target = self.m_lTargetChar }
+	    self:dispatch(CON_SKILL_HIT, t_event)
     end
 end
 
