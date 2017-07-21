@@ -323,7 +323,11 @@ end
 -------------------------------------
 function ServerData_User:getTitle()
     local title_id = self:get('tamer_title')
-    return TABLE:get('tamer_title')[title_id]['t_name']
+    if (title_id ~= 0) then
+        return TABLE:get('tamer_title')[title_id]['t_name']
+    else
+        return ''
+    end
 end
 
 -------------------------------------

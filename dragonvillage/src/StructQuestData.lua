@@ -101,7 +101,7 @@ function StructQuestData:getProgressInfo()
     local raw_cnt = self['rawcnt'] or goal
 
     -- 진행 정도 표시
-    local percentage = (raw_cnt / goal) * 100
+    local percentage = math_min((raw_cnt / goal) * 100, 100)
     local text = string.format('%d / %d', raw_cnt, goal)
 
     return percentage, text

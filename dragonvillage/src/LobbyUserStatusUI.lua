@@ -52,7 +52,8 @@ function LobbyUserStatusUI:init_statusUI()
     local vars = self.vars
 
     -- 칭호
-    vars['titleLabel']:setVisible(false)
+    local title = t_user_info:getTitle()
+    vars['titleLabel']:setString(title)
 
     -- 닉네임
     local nickname = t_user_info:getNickname()

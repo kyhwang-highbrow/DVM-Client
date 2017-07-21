@@ -147,6 +147,7 @@ function UI_UserInfoDetailPopup:refresh()
     local vars = self.vars
 
 	self:refresh_profile()
+    self:refresh_title()
 	self:refresh_tamer()
 	self:refresh_dragon()
 end
@@ -164,6 +165,16 @@ function UI_UserInfoDetailPopup:refresh_profile()
 	local icon = UI_DragonCard(t_dragon_data)
 	icon.root:setScale(0.9)
 	vars['iconNode']:addChild(icon.root)
+end
+
+-------------------------------------
+-- function refresh_title
+-------------------------------------
+function UI_UserInfoDetailPopup:refresh_title()
+	local vars = self.vars
+
+    local title = g_userData:getTitle() or Str('타이틀 없음')
+	vars['titleLabel']:setString(title)
 end
 
 -------------------------------------
@@ -417,7 +428,12 @@ end
 -- function click_titleChangeBtn
 -------------------------------------
 function UI_UserInfoDetailPopup:click_titleChangeBtn()
-    ccdisplay('칭호는 준비중입니다.')
+    local function cb_func(ret)
+        UI_UserInfoDetailPopup_SetTitle(ret):setCloseCB(function()
+            self:refresh_title()
+        end)
+    end
+    g_userData:request_getTitleList(cb_func)
 end
 
 -------------------------------------

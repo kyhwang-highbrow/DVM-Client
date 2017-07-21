@@ -765,6 +765,7 @@ local t_module = {
 	'UI_UserInfoDetailPopup',
 	'UI_UserInfoDetailPopup_SetLeader',
 	'UI_UserInfoDetailPopup_SetProfile',
+    'UI_UserInfoDetailPopup_SetTitle',
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',

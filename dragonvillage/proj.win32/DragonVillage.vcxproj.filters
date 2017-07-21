@@ -2469,6 +2469,9 @@
     <None Include="..\src\EquationHelper.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_UserInfoDetailPopup_SetTitle.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
