@@ -37,7 +37,7 @@ android {
     }
 
     sourceSets.main {
-        java.srcDir "java"
+        java.srcDir "../../proj.android_latest/src"
         res.srcDir "res"
         jniLibs.srcDir "libs"
         assets.srcDir "../../proj.android_latest/assets"
@@ -47,7 +47,7 @@ android {
         ndkBuild {
             if (!project.hasProperty("PROP_NDK_MODE") || PROP_NDK_MODE.compareTo('none') != 0) {
                 // skip the NDK Build step if PROP_NDK_MODE is none
-                path "jni/Android.mk"
+                path "../../proj.android_latest/jni/Android.mk"
             }
         }
     }
