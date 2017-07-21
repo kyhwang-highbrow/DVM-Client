@@ -67,12 +67,17 @@ end
 require 'require'
 loadModule()
 
+local GAME_RESTART_TIME = 0
+
 -------------------------------------
 -- function applicationDidEnterBackground
 -------------------------------------
 function applicationDidEnterBackground()
     cclog('applicationDidEnterBackground')
 	--LocalPushMgr()
+
+    -- 백그라운드에서 30분간 있을 경우 재시작
+    GAME_RESTART_TIME = os.time() + 1800
 
     if (g_accessTimeData) then
         g_accessTimeData:setRecordTime(false)
@@ -84,6 +89,13 @@ end
 -------------------------------------
 function applicationWillEnterForeground()
     cclog('applicationWillEnterForeground')
+
+    -- 백그라운드에서 일정 시간이 지난 후 들어오면 재시작
+    if (0 < GAME_RESTART_TIME) and (GAME_RESTART_TIME < os.time()) then
+        -- AppDelegate_Custom.cpp에 구현되어 있음
+        restart()
+        return
+    end
 
     if (g_accessTimeData) then
         g_accessTimeData:setRecordTime(true)
