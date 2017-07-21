@@ -21,6 +21,8 @@ end
 -- @brief 테이머 칭호 문자열
 -------------------------------------
 function TableTamerTitle:getTamerTitleStr(tamer_title_id)
+    local tamer_title_id = tonumber(tamer_title_id)
+
     if (not tamer_title_id) then
         return ''
     end

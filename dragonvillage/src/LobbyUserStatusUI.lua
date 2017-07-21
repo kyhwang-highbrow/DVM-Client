@@ -52,8 +52,8 @@ function LobbyUserStatusUI:init_statusUI()
     local vars = self.vars
 
     -- 칭호
-    local title = t_user_info:getTamerTitleStr()
-    vars['titleLabel']:setString(title)
+    local tamer_title_str = t_user_info:getTamerTitleStr()
+    vars['titleLabel']:setString(tamer_title_str)
 
     -- 닉네임
     local nickname = t_user_info:getNickname()
@@ -63,9 +63,11 @@ function LobbyUserStatusUI:init_statusUI()
     local guild_name = t_user_info:getGuild()
     vars['guildLabel']:setString(guild_name)
 
-    -- 길드가 존재하지 않을 경우 정렬
-    if (guild_name == '') or (guild_name == nil) then
+    -- 칭호가 존재하지 않을 경우 정렬
+    if (tamer_title_str == '') or (tamer_title_str == nil) then
         vars['nameLabel']:setPositionY(0)
+    else
+        vars['nameLabel']:setPositionY(-11)
     end
 end
 

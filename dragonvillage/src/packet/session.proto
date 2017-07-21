@@ -10,6 +10,7 @@ message CLoginReq {
 	optional int32 offset = 5;
 	optional string did = 6;
 	optional int32 level = 7;
+    optional int32 tamerTitleID = 8;
 }
 
 message SLoginRes {
@@ -33,6 +34,9 @@ message SUser {
     // 플레이어 위치
     optional float x = 6;
     optional float y = 7;
+
+    // 테이머 칭호 ID
+    optional int32 tamerTitleID = 8;
 }
 
 message SLobbyUserList {

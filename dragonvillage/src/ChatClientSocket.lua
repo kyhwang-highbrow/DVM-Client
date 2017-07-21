@@ -182,6 +182,8 @@ function ChatClientSocket:setUserInfo(t_data)
     self.m_user['x'] = t_data['x'] or self.m_user['x'] or 0
     self.m_user['y'] = t_data['y'] or self.m_user['y'] or 0
 
+    self.m_user['tamerTitleID'] = t_data['tamerTitleID'] or self.m_user['tamerTitleID'] or 0
+
     self:dispatch('CHANGE_USER_INFO', self.m_user)
 end
 
@@ -192,7 +194,7 @@ end
 function ChatClientSocket:changeUserInfo(t_data)
     local need_sync = false
 
-    for _,key in ipairs({'tamer', 'nickname', 'did', 'level'}) do
+    for _,key in ipairs({'tamer', 'nickname', 'did', 'level', 'tamerTitleID'}) do
         if self:_checkNeedSync(t_data, key) then
             need_sync = true
             break
@@ -349,6 +351,7 @@ function ChatClientSocket:globalUpdatePlayerUserInfo()
     local tamer = g_userData:get('tamer')
     local nickname = g_userData:get('nick')
     local lv = g_userData:get('lv')
+    local tamer_title_id = g_userData:getTitleID()
 
     -- 리더 드래곤
     local leader_dragon = g_dragonsData:getLeaderDragon()
@@ -362,6 +365,7 @@ function ChatClientSocket:globalUpdatePlayerUserInfo()
     t_data['nickname'] = nickname
     t_data['did'] = did
     t_data['level'] = lv
+    t_data['tamerTitleID'] = tamer_title_id
 
     self:changeUserInfo(t_data)
 end

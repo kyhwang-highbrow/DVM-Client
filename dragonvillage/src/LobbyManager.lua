@@ -409,7 +409,7 @@ function LobbyManager:setUserList(user_list)
         local uid = v['uid']
         
         -- 플레이어 유저는 추가하지 않음
-        if (player_uid~= uid) then
+        if (player_uid ~= uid) then
             self:addUser(v)
         end
     end

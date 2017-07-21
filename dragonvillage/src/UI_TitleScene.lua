@@ -130,6 +130,7 @@ function UI_TitleScene:initChatClientSocket()
     local tamer = g_userData:get('tamer')
     local nickname = g_userData:get('nick')
     local lv = g_userData:get('lv')
+    local tamer_title_id = g_userData:getTitleID()
 
     -- 리더 드래곤
     local leader_dragon = g_dragonsData:getLeaderDragon()
@@ -145,7 +146,9 @@ function UI_TitleScene:initChatClientSocket()
     t_data['did'] = did
     t_data['level'] = lv
     t_data['x'] = 0
-    t_data['y'] = -150    
+    t_data['y'] = -150
+    t_data['tamerTitleID'] = tamer_title_id
+    
     do -- 최초 랜덤 위치 지정
         local x, y = LobbyMapSpotMgr:makeRandomSpot()
         t_data['x'] = x
