@@ -280,8 +280,8 @@ To enable set it to a value different than 0. Disabled by default.
 /** @def CC_CONSTRUCTOR_ACCESS
  Indicate the init functions access modifier. If value equals to protected, then these functions are protected. 
  If value equals to public, these functions are public
- 
- /** @def CC_CONSTRUCTOR_ACCESS
+ */
+/** @def CC_CONSTRUCTOR_ACCESS
  * Indicate the init functions access modifier. If value equals to protected, then these functions are protected.
  * If value equals to public, these functions are public,
  * protected by default.
