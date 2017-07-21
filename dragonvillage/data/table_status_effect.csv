@@ -82,8 +82,8 @@ add_dmg_blind,bad,add_dmg,실명 추가 피해,res/effect/effect_hit_physical_fi
 add_dmg_stun,bad,add_dmg,기절 추가 피해,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,,
 add_dmg_sleep,bad,add_dmg,수면 추가 피해,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,,
 add_dmg_silence,bad,add_dmg,침묵 추가 피해,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,,
-reflect,good,buff,반사,,,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,100,0,0,0,,0,,,,,x,x,x,x,,
-resistance_effect,good,buff,효과 저항,,,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,,0,,,,,x,x,x,x,,
+reflect,good,buff,반사,res/effect/effect_reflect_dmg/effect_reflect_dmg.vrp,res/ui/icon/status_effect/p_resist.png,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,100,0,0,0,,0,,,,,x,x,x,x,,
+resistance_effect,good,buff,효과 저항,res/effect/effect_react_armor/effect_react_armor.vrp,res/ui/icon/status_effect/p_resist.png,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,,0,,,,,x,x,x,x,,
 passive_spatter,good,passive,퐁당퐁당,,,x,false,1,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,200,3,,5,x,x,x,x,회피 시 반경 {1}px 범위 내 아군 {2}명의 체력을 퍼플립스 드래곤의 체력 {3}%만큼  회복.,(퍼플립스 4성 패시브)
 passive_recovery,good,dot_heal,지속 치유,,,x,false,1,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,hp_target,,,,x,x,x,x,{1}초 마다 리티오 전체 생명력의 {dot_heal}% 만큼 아군 전체의 생명력을 회복.,(리티오 4성 패시브)
 passive_heal_add,good,buff,회복량 증가,,,x,false,1,0,-1,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,,,,,,,x,x,x,x,,

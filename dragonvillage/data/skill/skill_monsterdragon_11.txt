@@ -26,21 +26,28 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_dot/missile_dot_@.png",
-				"body":[0,0,0],
-				"count":1,
-				"period":0,
-				"scale":1,
+				"res":"res/effect/skill_leaf_blade/skill_leaf_blade_water.vrp",
+				"body":[0,0,3],
+				"collision_check_time":0.5,
+				"count":6,
+				"period":0.1,
+				"scale":0.1,
 				"time":0,
-				"speed":300,
-				"accel":-0,
-				"l_limit_speed":100,
+				"speed":0,
+				"accel":-5000,
+				"accel_delay":1,
+				"accel_reverse_time":0.5,
+				"l_limit_speed":-800,
+				"h_limit_speed":800,
 				"accel_delay":0,
-				"angular_velocity":0,
-				"offset":[0,0],
-				"dir_array":[0],
-				"dir_add":1,
-				"delete_time":5
+				"angular_velocity":90,
+				"offset":['target','target'],
+				"dir_array":[45,135,225,315],
+				"dir_add":15,
+				"delete_time":10
+				"missile_type":"pass",
+				"reset_time":0.5,
+				"size_up_time":0.5
 			}
 		]
 	}

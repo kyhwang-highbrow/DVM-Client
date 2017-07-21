@@ -79,7 +79,7 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_fire_red/missile_fire_red.vrp.vrp",
+				"res":"res/missile/missile_fire_red/missile_fire_red.vrp",
 				"body":[0,0,0],
 				"count":1,
 				"period":0,
@@ -102,7 +102,7 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_fire_red/missile_fire_red.vrp.vrp",
+				"res":"res/missile/missile_fire_red/missile_fire_red.vrp",
 				"body":[0,0,0],
 				"count":1,
 				"period":0,
@@ -125,7 +125,7 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_fire_red/missile_fire_red.vrp.vrp",
+				"res":"res/missile/missile_fire_red/missile_fire_red.vrp",
 				"body":[0,0,0],
 				"count":1,
 				"period":0,
@@ -148,7 +148,7 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_fire_red/missile_fire_red.vrp.vrp",
+				"res":"res/missile/missile_fire_red/missile_fire_red.vrp",
 				"body":[0,0,0],
 				"count":1,
 				"period":0,
