@@ -39,6 +39,7 @@ end
 -------------------------------------
 function UI_QuestListItem:initUI()
     local vars = self.vars
+    vars['questGauge']:setPercentage(0)
 end
 
 -------------------------------------
@@ -64,6 +65,7 @@ function UI_QuestListItem:refresh(t_data)
 	    self:setQuestDescLabel()
 	    self:setRewardCard()
 	    self:setQuestProgress()
+        self:setChallengeTitle()
     end
 end
 
@@ -117,6 +119,30 @@ function UI_QuestListItem:setQuestProgress()
 	
 	vars['questGauge']:runAction(cc.ProgressTo:create(0.5, percentage)) 
 	vars['questGaugeLabel']:setString(text)
+end
+
+-------------------------------------
+-- function setChallengeTitle
+-- @brief 퀘스트 진행도 표시
+-------------------------------------
+function UI_QuestListItem:setChallengeTitle()
+    local vars = self.vars
+    local quest_data = self.m_questData
+
+    if (not quest_data:isChallenge()) then
+        return
+    end
+
+    local title = quest_data:getTitle()
+    if (not title) then
+        return
+    end
+
+    -- 칭호 노드 on
+    vars['titleNode']:setVisible(true)
+
+    -- 칭호 go!
+    vars['titleLabel']:setString(title)
 end
 
 -------------------------------------

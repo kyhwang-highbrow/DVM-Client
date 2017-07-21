@@ -248,14 +248,3 @@ function UserData:getCumulativePurchasesLog(type)
 
     return tonumber(self.m_userData['log'][type])
 end
-
--------------------------------------
--- function initTamer
--- @TEST
--------------------------------------
-function UserData:initTamer()
-    self.m_userData['lv'] = 1
-    self.m_userData['exp'] = 0
-
-    self:setDirtyLocalSaveData(true)
-end

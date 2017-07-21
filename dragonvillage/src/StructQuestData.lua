@@ -47,6 +47,28 @@ function StructQuestData:isEnd()
 end
 
 -------------------------------------
+-- function isEnd
+-- @breif 퀘스트의 모든 스탭이 종료되었는지 여부
+-------------------------------------
+function StructQuestData:isChallenge()
+    return (self['quest_type'] == TableQuest.CHALLENGE)
+end
+
+-------------------------------------
+-- function getTitle
+-- @breif
+-------------------------------------
+function StructQuestData:getTitle()
+    local title_id = self['t_quest']['title']
+    local t_title = TABLE:get('tamer_title')[title_id]
+    if (t_title) then
+        return t_title['t_name']
+    else
+        return nil
+    end
+end
+
+-------------------------------------
 -- function getQuestDesc
 -- @breif 퀘스트 설명
 -------------------------------------

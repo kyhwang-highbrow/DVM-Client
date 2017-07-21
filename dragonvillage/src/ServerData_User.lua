@@ -316,3 +316,64 @@ function ServerData_User:request_changeNick(mid, nick, cb_func)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function getTitle
+-- @biref 칭호 받아오기
+-------------------------------------
+function ServerData_User:getTitle()
+    local title_id = self:get('tamer_title')
+    return TABLE:get('tamer_title')[title_id]['t_name']
+end
+
+-------------------------------------
+-- function request_getTitleList
+-------------------------------------
+function ServerData_User:request_getTitleList(cb_func)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+        if (cb_func) then
+            cb_func()
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/tamer_title_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_setTitle
+-------------------------------------
+function ServerData_User:request_setTitle(title_id, cb_func)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- 바뀐 타이틀 저장
+        self:applyServerData(ret['tamer_title'], 'tamer_tile')
+
+        if (cb_func) then
+            cb_func(ret['tamer_title'])
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/tamer_title_set')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('title_id', title_id)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
