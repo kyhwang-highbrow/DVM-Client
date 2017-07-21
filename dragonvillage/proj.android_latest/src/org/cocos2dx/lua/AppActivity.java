@@ -25,14 +25,12 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.lua;
 
+import com.perplelab.dragonvillagem.kr.R;
+
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-//@perplesdk
-import com.perplelab.PerpleSDK;
-import com.perplelab.dragonvillagem.kr.R;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -41,6 +39,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
+
+//@perplesdk
+import com.perplelab.PerpleSDK;
 
 public class AppActivity extends Cocos2dxActivity{
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 public class PerplelabIntentFactory {
     public static ArrayList<String> mType = new ArrayList<String>();
