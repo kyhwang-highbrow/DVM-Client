@@ -255,9 +255,6 @@
     <None Include="..\src\UI_IngameUnitInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ItemCard.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_NestDungeonScene.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -282,9 +279,6 @@
     <None Include="..\src\UI_SimplePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_SkillCard.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_TitleScene.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -306,9 +300,6 @@
     <None Include="..\src\UI_DragonManageFriendshipResult.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonSkillCard.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_MonsterCard.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -322,9 +313,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_FruitFeedPress.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_CharacterCard.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_GameDebug_RealTime.lua">
@@ -628,9 +616,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_DragonInfoBoard.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_RuneCard.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UIC_SortList.lua">
@@ -2475,6 +2460,27 @@
     <None Include="..\src\uilib\NotificationBroadcast.lua">
       <Filter>lua\uilib</Filter>
     </None>
+    <None Include="..\src\UI_Card.lua">
+      <Filter>lua\UI_Card</Filter>
+    </None>
+    <None Include="..\src\UI_CharacterCard.lua">
+      <Filter>lua\UI_Card</Filter>
+    </None>
+    <None Include="..\src\UI_SkillCard.lua">
+      <Filter>lua\UI_Card</Filter>
+    </None>
+    <None Include="..\src\UI_RuneCard.lua">
+      <Filter>lua\UI_Card</Filter>
+    </None>
+    <None Include="..\src\UI_ItemCard.lua">
+      <Filter>lua\UI_Card</Filter>
+    </None>
+    <None Include="..\src\UI_DragonSkillCard.lua">
+      <Filter>lua\UI_Card</Filter>
+    </None>
+    <None Include="..\src\UI_RelationCard.lua">
+      <Filter>lua\UI_Card</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -2533,6 +2539,9 @@
     </Filter>
     <Filter Include="lua\tutorial">
       <UniqueIdentifier>{5ffa4b3a-7f75-47ff-9516-b54b6682f49e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\UI_Card">
+      <UniqueIdentifier>{937ecd69-9259-4508-a6eb-368ca5078d00}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

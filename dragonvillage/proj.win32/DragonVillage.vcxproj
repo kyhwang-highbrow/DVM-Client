@@ -824,6 +824,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_BattleMenu.lua" />
     <None Include="..\src\UI_Book.lua" />
     <None Include="..\src\UI_BookDetailPopup.lua" />
+    <None Include="..\src\UI_Card.lua" />
+    <None Include="..\src\UI_RelationCard.lua" />
     <None Include="..\src\UI_ChangeNickPopup.lua" />
     <None Include="..\src\UI_ChatIgnoreListItem.lua" />
     <None Include="..\src\UI_ChatListItem_msg.lua" />

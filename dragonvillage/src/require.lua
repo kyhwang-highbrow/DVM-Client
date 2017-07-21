@@ -516,6 +516,17 @@ local t_module = {
     'UIC_BroadcastLabel',
     'UIC_EggPicker',
 
+    -- UI : CARD
+    'UI_Card',
+    'UI_CharacterCard',
+    'UI_RelationCard',
+    'UI_ItemCard',
+    'UI_RuneCard',
+    'UI_MonsterCard',
+	'UI_RewardCard',
+    'UI_SkillCard',
+    'UI_DragonSkillCard',
+
 	-- UI : 분류 없음
     'UI_BlockPopup',
     'UI_Network',
@@ -557,11 +568,7 @@ local t_module = {
 	'UI_Tooltip_Indicator',
     'UI_Tooltip_Skill',
     'UI_TopUserInfo',
-    'UI_ItemCard',
-    'UI_RuneCard',
-	'UI_RewardCard',
-    'UI_SkillCard',
-    'UI_DragonSkillCard',
+
     'UI_GachaResult_Dragon',
     'UI_DragonAppear',
     'UI_GuidePopup',
@@ -573,7 +580,6 @@ local t_module = {
     'UI_SecretDungeonStageListItem',
     'UI_EditBoxPopup',
     'UI_SimpleEditBoxPopup',
-    'UI_MonsterCard',
     'UI_FruitFeedPress',
     'UI_LobbyUserInfoPopup',
     'UI_UserDeckInfoPopup',
@@ -733,7 +739,6 @@ local t_module = {
     'UI_DragonUpgradeNew',
 	'UI_DragonSkillEnhance',
     'UI_DragonManagementEvolution',
-    'UI_CharacterCard',
     'UI_SkillDetailPopup',
     'UI_LobbyObject',
     'UI_DragonRunes',
