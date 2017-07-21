@@ -92,7 +92,8 @@ end
 -- function makeTableView
 -------------------------------------
 function UI_UserInfoDetailPopup_SetTitle:makeSortedTitleList()
-    local l_title = table.MapToList(TABLE:get('tamer_title'))
+    local table_tamer_id = TableTamerTitle()
+    local l_title = table.MapToList(table_tamer_id.m_orgTable)
     
     -- 장착, 보유, id 순으로 정렬
     local use_a, use_b, have_a, have_b

@@ -173,7 +173,7 @@ end
 function UI_UserInfoDetailPopup:refresh_title()
 	local vars = self.vars
 
-    local title = g_userData:getTitle() or Str('타이틀 없음')
+    local title = g_userData:getTamerTitleStr() or Str('타이틀 없음')
 	vars['titleLabel']:setString(title)
 end
 

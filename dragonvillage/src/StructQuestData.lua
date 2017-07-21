@@ -55,17 +55,12 @@ function StructQuestData:isChallenge()
 end
 
 -------------------------------------
--- function getTitle
+-- function getTamerTitleStr
 -- @breif
 -------------------------------------
-function StructQuestData:getTitle()
-    local title_id = self['t_quest']['title']
-    local t_title = TABLE:get('tamer_title')[title_id]
-    if (t_title) then
-        return t_title['t_name']
-    else
-        return nil
-    end
+function StructQuestData:getTamerTitleStr()
+    local tamer_title_id = self['t_quest']['title']
+    return TableTamerTitle:getTamerTitleStr(tamer_title_id)
 end
 
 -------------------------------------

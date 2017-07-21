@@ -331,16 +331,12 @@ function ServerData_User:getTitleID()
 end
 
 -------------------------------------
--- function getTitle
+-- function getTamerTitleStr
 -- @biref 칭호 받아오기
 -------------------------------------
-function ServerData_User:getTitle()
-    local title_id = self:get('tamer_title')
-    if (title_id ~= 0) then
-        return TABLE:get('tamer_title')[title_id]['t_name']
-    else
-        return ''
-    end
+function ServerData_User:getTamerTitleStr()
+    local tamer_title_id = self:get('tamer_title')
+    return TableTamerTitle:getTamerTitleStr(tamer_title_id)
 end
 
 -------------------------------------

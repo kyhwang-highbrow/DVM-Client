@@ -10,7 +10,7 @@ StructUserInfo = class({
         m_uid = 'number',
         m_lv = 'number',
         m_nickname = 'string',
-        m_title = 'number', --> 서버에는 user - tamer_title 로 저장
+        m_tamerTitleID = 'number', --> 서버에는 user - tamer_title 로 저장
         m_leaderDragonObject = '',
 
         -- 로비 채팅에서 사용
@@ -198,16 +198,12 @@ function StructUserInfo:getTamer()
 end
 
 -------------------------------------
--- function getTitle
--- @breif
+-- function getTamerTitleStr
+-- @breif 칭호
 -------------------------------------
-function StructUserInfo:getTitle()
-    local title_id = self.m_title
-    if (title_id) and (title_id ~= 0) then
-        return TABLE:get('tamer_title')[title_id]['t_name']
-    else
-        return ''
-    end
+function StructUserInfo:getTamerTitleStr()
+    local tamer_title_id = self.m_tamerTitleID
+    return TableTamerTitle:getTamerTitleStr(tamer_title_id)
 end
 
 -------------------------------------

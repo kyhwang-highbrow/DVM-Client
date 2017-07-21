@@ -148,7 +148,7 @@ function UI_QuestListItem:setChallengeTitle()
         return
     end
 
-    local title = quest_data:getTitle()
+    local title = quest_data:getTamerTitleStr()
     if (not title) then
         return
     end

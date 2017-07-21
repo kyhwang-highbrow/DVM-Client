@@ -211,6 +211,7 @@ local t_module = {
     'TableDrop',
     'TableTamer',
 	'TableTamerSkill',
+    'TableTamerTitle',
     'TableGradeInfo',
     'TableEvolutionInfo',
     'TableStatus',
