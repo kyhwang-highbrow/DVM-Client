@@ -12,22 +12,22 @@ leafdragon_water_01_arm_01
   offset: 0, 0
   index: -1
 leafdragon_water_01_arm_01_01
-  rotate: false
-  xy: 282, 48
+  rotate: true
+  xy: 415, 128
   size: 69, 61
   orig: 69, 61
   offset: 0, 0
   index: -1
 leafdragon_water_01_arm_02
-  rotate: false
-  xy: 282, 111
+  rotate: true
+  xy: 352, 103
   size: 69, 61
   orig: 69, 61
   offset: 0, 0
   index: -1
 leafdragon_water_01_arm_02_01
   rotate: false
-  xy: 353, 38
+  xy: 415, 65
   size: 69, 61
   orig: 69, 61
   offset: 0, 0
@@ -41,23 +41,23 @@ leafdragon_water_01_body_01
   index: -1
 leafdragon_water_01_effect_01
   rotate: false
-  xy: 389, 185
+  xy: 149, 81
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 leafdragon_water_01_effect_02
   rotate: false
-  xy: 149, 81
+  xy: 282, 104
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 leafdragon_water_01_eye_01
-  rotate: true
-  xy: 459, 182
-  size: 71, 46
-  orig: 71, 46
+  rotate: false
+  xy: 389, 199
+  size: 83, 54
+  orig: 83, 54
   offset: 0, 0
   index: -1
 leafdragon_water_01_eye_02
@@ -68,22 +68,22 @@ leafdragon_water_01_eye_02
   offset: 0, 0
   index: -1
 leafdragon_water_01_eye_03
-  rotate: true
-  xy: 353, 101
+  rotate: false
+  xy: 101, 4
   size: 71, 46
   orig: 71, 46
   offset: 0, 0
   index: -1
 leafdragon_water_01_hand_01
   rotate: true
-  xy: 149, 10
+  xy: 282, 33
   size: 69, 61
   orig: 69, 61
   offset: 0, 0
   index: -1
 leafdragon_water_01_hand_02
   rotate: true
-  xy: 212, 9
+  xy: 345, 32
   size: 69, 61
   orig: 69, 61
   offset: 0, 0
@@ -118,7 +118,7 @@ leafdragon_water_01_leg_02
   index: -1
 leafdragon_water_01_mouth_01
   rotate: false
-  xy: 275, 12
+  xy: 408, 29
   size: 59, 34
   orig: 59, 34
   offset: 0, 0
