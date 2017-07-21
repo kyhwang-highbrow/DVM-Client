@@ -82,6 +82,9 @@ function UI_QuestListItem:setVarsVisible()
 
     -- 퀘스트 완료
     vars['questCompletNode']:setVisible((not quest_data:hasReward()) and (quest_data:isEnd()))
+
+    -- 바로가지
+    vars['questLinkBtn']:setVisible(true)
 end
 
 -------------------------------------
@@ -178,5 +181,6 @@ end
 -- function click_questLinkBtn
 -------------------------------------
 function UI_QuestListItem:click_questLinkBtn()
-	UIManager:toastNotificationRed(Str('"바로가기" 미구현'))
+    local clear_type = self.m_questData:getQuestClearType()
+	ServerData_MasterRoad.quickLink(clear_type)
 end

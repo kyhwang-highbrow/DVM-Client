@@ -69,6 +69,14 @@ function StructQuestData:getTitle()
 end
 
 -------------------------------------
+-- function getQuestClearType
+-- @breif 퀘스트 key
+-------------------------------------
+function StructQuestData:getQuestClearType()
+    return self['t_quest']['key']
+end
+
+-------------------------------------
 -- function getQuestDesc
 -- @breif 퀘스트 설명
 -------------------------------------
