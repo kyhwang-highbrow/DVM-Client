@@ -148,18 +148,9 @@ function UI_ItemCard:init_relationItem(t_item, t_sub_data)
     t_dragon_data['skill_3'] = 0
 
     local struct_dragon_object = StructDragonObject(t_dragon_data)
-    local dragon_card = UI_RelationCard(struct_dragon_object)
+    local dragon_card = UI_RelationCard(struct_dragon_object, count)
     self.root = dragon_card.root
     self.vars = dragon_card.vars
-
-    local vars = dragon_card.vars
-
-    -- 인연 포인트 수치
-    if (not count) or (count == 0) then
-        vars['numberLabel']:setString('')
-    else
-        vars['numberLabel']:setString(Str('{1}', comma_value(count)))
-    end
 end
 
 -------------------------------------

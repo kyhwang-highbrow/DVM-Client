@@ -1,17 +1,21 @@
 local PARENT = ITableViewCell:getCloneClass()
 
+G_CARD_UI = {}
 -------------------------------------
 -- class UI_Card
 -------------------------------------
 UI_Card = class(PARENT, {
         root = '',
         vars = '',
+        ui_res = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_Card:init()
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/card/card.plist')
+    
     self.root = cc.Menu:create()
     self.root:setNormalSize(150, 150)
     self.root:setDockPoint(CENTER_POINT)
@@ -19,26 +23,21 @@ function UI_Card:init()
     self.root:setPosition(0, 0)
 
     self.vars = {}
-
-    self:initUnchain()
-end
-
--------------------------------------
--- function init
--------------------------------------
-function UI_Card:initUnchain()
-    if (CARD_UI == nil) then
-        self:getUIInfo('card_char.ui')
-    end
-
-    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/card/card.plist')
 end
 
 -------------------------------------
 -- function getUIInfo
 -------------------------------------
-function UI_Card:getUIInfo(res)
-    CARD_UI = {}
+function UI_Card:getUIInfo()
+    local res = self.ui_res
+    if (G_CARD_UI[res]) then
+        return
+    end
+
+    cclog('################ UI_Card:getUIInfo(res)')
+
+    G_CARD_UI[res] = {}
+
     local ui = UI()
     local vars = ui:load_keepZOrder(res)
     
@@ -47,7 +46,6 @@ function UI_Card:getUIInfo(res)
 
     for lua_name, node in pairs(vars) do
         pos_x, pos_y = node:getPosition()
-
         t_data = {
             ['pos'] = {['x'] = pos_x, ['y'] = pos_y},
             ['anchor'] = node:getAnchorPoint(),
@@ -56,17 +54,16 @@ function UI_Card:getUIInfo(res)
             ['z_order'] = node:getLocalZOrder(),
             ['lua_name'] = lua_name,
         }
-        CARD_UI[lua_name] = t_data
+        G_CARD_UI[res][lua_name] = t_data
     end
 end
 
 -------------------------------------
 -- function setCardInfo
 -------------------------------------
-function UI_Card.setCardInfo(lua_name, node)
-    local t_info = CARD_UI[lua_name]
-    --cclog(lua_name, t_info['z_order'])
-    
+function UI_Card:setCardInfo(lua_name, node)
+    local t_info = G_CARD_UI[self.ui_res][lua_name]
+
     if (not t_info) then
         return
     end
@@ -99,7 +96,7 @@ function UI_Card:makeSprite(lua_name, res, no_use_frames)
         sprite = IconHelper:createWithSpriteFrameName(res)
     end
     vars['clickBtn']:addChild(sprite)
-    setCardInfo(lua_name, sprite)
+    self:setCardInfo(lua_name, sprite)
     vars[lua_name] = sprite
 end
 
@@ -131,7 +128,7 @@ function UI_Card:makeVisual(lua_name, res, ani)
     local animator = MakeAnimator(res)
     animator:changeAni(ani, true)
     vars['clickBtn']:addChild(animator.m_node)
-    setCardInfo(lua_name, animator)
+    self:setCardInfo(lua_name, animator)
     vars[lua_name] = animator
 end
 
