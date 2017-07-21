@@ -40,7 +40,7 @@ function IsValidText(str, is_name)
         local APP_TARGET = 'KOREA' -- 드래곤히어로즈에서 사용하던 코드 그대로 쓰기위해 유지
 		-- 국내 버전만 체크
 		if (APP_TARGET == nil) or (APP_TARGET == 'KOREA') then
-			if str ~= string.match(str, '[0-9|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*') then
+			if str ~= string.match(str, '[0-9|A-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*') then
 				return false
 			end
 
