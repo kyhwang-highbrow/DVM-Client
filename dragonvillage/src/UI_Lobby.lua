@@ -483,10 +483,6 @@ function UI_Lobby:click_mailBtn()
         if (is_dirty) then
             -- 닉네임 변경으로 인한 처리...
             self:refresh_userInfo()
-            -- 채팅 서버에 변경사항 적용
-            if g_chatClientSocket then
-                g_chatClientSocket:globalUpdatePlayerUserInfo()
-            end
         end
     end)
 end
@@ -533,48 +529,25 @@ end
 -- function click_userInfoBtn
 -------------------------------------
 function UI_Lobby:click_userInfoBtn()
-	local before_tamer = g_tamerData:getCurrTamerTable('tid')
-	local before_doid = g_userData:get('leaders', 'lobby')
-
-	-- 테이머와 대표드래곤 모두 바뀌었는지 검사
+    -- @ comment mskim
+    -- 로비맵 테이머&드래곤은 채팅서버에 의해 변경되고
+    -- 클라에서 직접 조작할 것은 좌상단 테이머 아이콘뿐
+    -- 매번 교체한다고 하여도 부하가 크지 않으니 가독성을 위해서 항상 교체
 	local function close_cb()
-		local curr_tamer = g_tamerData:getCurrTamerTable('tid')
-		local curr_doid = g_userData:get('leaders', 'lobby')
-
-		if (before_doid ~= curr_doid) then
-            -- @TODO sgkim
-			-- 변경된 정보를 채팅 서버에 전송, Lobby월드 갱신 필요
-
-		elseif (before_tamer ~= curr_tamer) then
-			-- @TODO sgkim
-			-- 변경된 정보를 채팅 서버에 전송, Lobby월드 갱신 필요
-            self:refresh_userTamer()
-
-		end
+        self:refresh_userTamer()
 	end
-
-	local is_visit = false
-    RequestUserInfoDetailPopup(g_userData:get('uid'), is_visit, close_cb)
+    RequestUserInfoDetailPopup(g_userData:get('uid'), false, close_cb) -- uid, is_visit, close_cb
 end
 
 -------------------------------------
 -- function click_tamerBtn
 -------------------------------------
 function UI_Lobby:click_tamerBtn()
-	local before_tamer = g_tamerData:getCurrTamerTable('tid')
-
+    -- @ comment 상단과 동일
 	local function close_cb()
-		local curr_tamer = g_tamerData:getCurrTamerTable('tid')
-
-		if (before_tamer ~= curr_tamer) then
-			-- @TODO sgkim
-			-- 변경된 정보를 채팅 서버에 전송, Lobby월드 갱신 필요
-            self:refresh_userTamer()
-		end
+		self:refresh_userTamer()
 	end
-
-    local ui = UI_TamerManagePopup()
-	ui:setCloseCB(close_cb)
+	UI_TamerManagePopup():setCloseCB(close_cb)
 end
 
 -------------------------------------
@@ -584,7 +557,6 @@ function UI_Lobby:click_explorationBtn()
     local function finish_cb()
         UI_Exploration()
     end
-	 
     g_explorationData:request_explorationInfo(finish_cb)
 end
 
@@ -592,10 +564,11 @@ end
 -- function click_collectionBtn
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
-	UI_Book():setCloseCB(function()
-		-- 노티 정보를 갱신하기 위해서 호출
+    local function close_cb()
+    	-- 노티 정보를 갱신하기 위해서 호출
         g_highlightData:setLastUpdateTime()
-	end)
+    end
+	UI_Book():setCloseCB(close_cb)
 end
 
 -------------------------------------

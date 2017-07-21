@@ -302,14 +302,14 @@ end
 function UI_CharacterCard:refresh_LeaderIcon()
     local t_dragon_data = self.m_dragonData
 	local is_leader = t_dragon_data:isLeader()
-	self:setLeaderSprit(is_leader)
+	self:setLeaderSprite(is_leader)
 end
 
 -------------------------------------
--- function setLeaderSprit
+-- function setLeaderSprite
 -- @brief 리더 표시
 -------------------------------------
-function UI_CharacterCard:setLeaderSprit(visible)
+function UI_CharacterCard:setLeaderSprite(visible)
     local res = 'card_cha_icon_leader.png'
     local lua_name = 'leaderSprite'
     self:setSpriteVisible(lua_name, res, visible)

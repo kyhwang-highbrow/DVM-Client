@@ -300,6 +300,11 @@ function ServerData_User:request_changeNick(mid, nick, cb_func)
         -- nickname 적용
         self:applyServerData(nick, 'nick')
 
+        -- 채팅 서버에 변경사항 적용
+        if g_chatClientSocket then
+            g_chatClientSocket:globalUpdatePlayerUserInfo()
+        end
+
 		if (cb_func) then
 			cb_func(ret)
 		end
@@ -373,6 +378,11 @@ function ServerData_User:request_setTitle(title_id, cb_func)
     local function success_cb(ret)
         -- 바뀐 타이틀 저장
         self:applyServerData(ret['tamer_title'], 'tamer_title')
+
+        -- 채팅 서버에 변경사항 적용
+        if g_chatClientSocket then
+            g_chatClientSocket:globalUpdatePlayerUserInfo()
+        end
 
         if (cb_func) then
             cb_func()
