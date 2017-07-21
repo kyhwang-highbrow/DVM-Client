@@ -1,5 +1,5 @@
 local REQUEST_PERIOD = 60    -- 서버에 메세지 리스트를 요청하는 주기(단위 : 초)
-
+local REQUEST_PERIOD_NOTICE = 35    -- 공지가 존재한다면 요청하는 주기 
 
 -------------------------------------
 -- class BroadcastMgr
@@ -8,6 +8,7 @@ BroadcastMgr = class({
     m_schedulerID = 'number',
     m_bEnableMessage = 'boolean',   -- 일반 메세지 활성화
     m_bEnableNotice = 'boolean',    -- 공지 메시지 활성화
+    m_bExistNotice = 'boolean',     -- 공지 메세지 유무
 
     m_tMessage = 'table',       -- 일반 메세지 큐
     m_tNotice = 'table',        -- 공지 메세지 큐
@@ -35,12 +36,13 @@ end
 function BroadcastMgr:init()
     self.m_bEnableMessage = false
     self.m_bEnableNotice = false
+    self.m_bExistNotice = false
 
     self.m_tMessage = {}
     self.m_tNotice = {}
 
     self.m_remainDelayTime = 0
-    self.m_recentRequestTime = -REQUEST_PERIOD
+    self.m_recentRequestTime = -self:getRequestTime()
     self.m_recentTimeStamp = 0
 
     self.m_schedulerID = scheduler.scheduleGlobal(function(dt) self:update(dt) end, 0)
@@ -58,26 +60,49 @@ function BroadcastMgr:update(dt)
 
     local cur_time = os.time()
 
+    -- 메세지를 서버에 요청
+	if (cur_time >= (self.m_recentRequestTime + self:getRequestTime())) then
+        self.m_recentRequestTime = cur_time
+		self:requestMsg()
+	end
+
     -- 공지 메세지 우선 확인
-    if (self.m_tNotice[1]) then
-        local data = self.m_tNotice[1]
-        if (data['timestamp'] <= cur_time) then
-            -- TODO : 공지 표시
-            --
-            
-            table.remove(self.m_tNotice, 1)
-            return
+    if (self.m_bEnableNotice) then
+
+        if (self.m_tNotice[1]) then
+            local data = self.m_tNotice[1]
+            if (data['timestamp'] <= cur_time) then
+
+                local data = self.m_tNotice[1]
+		        local msg = self:makeNotice(data)
+                local alive_time = self:getAliveTime(data)
+
+                -- 공지 불가능한 씬
+                local function is_ban_scene()
+                    local ban_notice = false
+                    local t_ban_scene = {'ScenePatch', 'SceneTitle'}
+                    for _, v in ipairs(t_ban_scene) do
+                        if (g_currScene) and (g_currScene.m_sceneName == v) then
+                            ban_notice = true
+                        end
+                    end
+                    return ban_notice
+                end
+
+                -- 공지 메세지 표시
+                if (g_currScene) and (is_ban_scene() == false) then
+                    UIManager:toastBroadcast(msg)
+                    table.remove(self.m_tNotice, 1)
+                end
+
+                return
+            end
         end
     end
 
     -- 일반 메세지가 활성화 되었을 경우
     if (self.m_bEnableMessage) then
-        -- 메세지를 서버에 요청
-		if (cur_time >= (self.m_recentRequestTime + REQUEST_PERIOD)) then
-            self.m_recentRequestTime = cur_time
-			self:requestMsg()
-		end
-
+        
         -- 일반 메세지 출력
         if (self.m_tMessage[1]) then
             if (self.m_remainDelayTime <= 0) then
@@ -130,7 +155,7 @@ function BroadcastMgr:requestMsg()
 
         self.m_tMessage = {}
         self.m_tNotice = {}
-
+        
         for i, v in ipairs(ret['broadcast']) do
             if (v['timestamp']) then
                 v['timestamp'] = math_floor(v['timestamp'] / 1000)
@@ -139,6 +164,18 @@ function BroadcastMgr:requestMsg()
             end
 
             table.insert(self.m_tMessage, v)
+        end
+
+        self.m_bExistNotice = false
+        for i, v in ipairs(ret['notice']) do
+            if (v['timestamp']) then
+                v['timestamp'] = math_floor(v['timestamp'] / 1000)
+
+                self.m_recentTimeStamp = math_max(self.m_recentTimeStamp, v['timestamp'])
+            end
+
+            self.m_bExistNotice = true
+            table.insert(self.m_tNotice, v)
         end
 
         -- 테스트
@@ -201,6 +238,14 @@ function BroadcastMgr:setEnableNotice(enable)
 end
 
 -------------------------------------
+-- function getRequestTime
+-- @brief 메세지 요청 시간
+-------------------------------------
+function BroadcastMgr:getRequestTime()
+	return (self.m_bExistNotice) and REQUEST_PERIOD_NOTICE or REQUEST_PERIOD
+end
+
+-------------------------------------
 -- function makeMessage
 -- @brief 메세지를 만듬
 -------------------------------------
@@ -258,3 +303,14 @@ function BroadcastMgr:makeMessage(msg_info)
     local msg = Str(t_broadcast['t_desc'], t_value[1], t_value[2], t_value[3], t_value[4], t_value[5])
     return msg
 end
+
+-------------------------------------
+-- function makeNotice
+-- @brief 메세지를 만듬 (공지)
+-------------------------------------
+function BroadcastMgr:makeNotice(msg_info)
+    local data = msg_info['data']
+    return data['notice']
+end
+
+

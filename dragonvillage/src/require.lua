@@ -14,6 +14,7 @@ local t_module = {
     'uilib/UILoader',
     'uilib/TableView',
     'uilib/Notification',
+    'uilib/NotificationBroadcast',
     'perpleLib/StringUtils',
     'perpleLib/sn',
     'perpleLib/crand',

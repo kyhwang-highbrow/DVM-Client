@@ -327,7 +327,10 @@ function Network:appVersionCheck(jsondata)
     end
 
     local msg = ''
-    if jsondata['status'] == -9996 then
+    if jsondata['status'] == -100 then
+        -- 긴급 공지 (접속 불가한 상태)
+        msg = jsondata['notice']
+    elseif jsondata['status'] == -9996 then
         msg = Str('새로운 패치가 있습니다. 게임이 종료됩니다. 자동으로 재시작된 후 패치가 적용됩니다.')
     elseif jsondata['status'] == -9997 then
         msg = Str('서버점검 중입니다.')

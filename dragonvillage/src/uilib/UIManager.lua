@@ -22,6 +22,8 @@ UIManager = {
     m_toastNotiTime = 'number',
     m_toastNotiLayer = 'cc.Node',
 
+    m_toastBroadcastLayer = 'cc.Node',
+
 	m_tutorialNode = nil,
     m_lTutorialBtnList = 'list<button>',
 
@@ -56,6 +58,12 @@ function UIManager:init(perple_scene)
     self.m_scene:addChild(self.m_toastNotiLayer, 21)
     self.m_toastNotiList = {}
     self.m_toastNotiTime = nil
+
+    -- broadcast notification 관련 변수 초기화
+    self.m_toastBroadcastLayer = cc.Node:create()
+    self.m_toastBroadcastLayer:setDockPoint(cc.p(0.5, 0.5))
+    self.m_toastBroadcastLayer:setAnchorPoint(cc.p(0.5, 0.5))
+    self.m_scene:addChild(self.m_toastBroadcastLayer, 21)
 
     -- TopUserInfo를 사용하는 Scene일 경우 초기화
     if perple_scene.m_bShowTopUserInfo then
@@ -411,6 +419,26 @@ end
 -------------------------------------
 function UIManager:toastNotificationGreen(msg)
     self:toastNotification(msg, cc.c3b(0,255,0))
+end
+
+-------------------------------------
+-- function toastBroadcast
+-- @brief 
+-------------------------------------
+function UIManager:toastBroadcast(msg)
+
+    local notification = NotificationBroadcast(msg, cc.c3b(255,255,0))
+    UIManager.m_toastBroadcastLayer:addChild(notification.m_root)
+
+    local function cb()
+        self:removeToastNoti(notification)
+    end
+
+    -- 등장 액션 지정
+    notification.m_root:setOpacity(0)
+    notification.m_label:setOpacity(0)
+    notification.m_root:runAction(cc.Sequence:create(cc.FadeTo:create(0.3, 255), cc.DelayTime:create(4), cc.FadeTo:create(0.5, 0), cc.CallFunc:create(cb)))
+    notification.m_label:runAction(cc.Sequence:create(cc.FadeTo:create(0.3, 255), cc.DelayTime:create(4), cc.FadeTo:create(0.5, 0)))
 end
 
 -------------------------------------

@@ -795,6 +795,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UIC_TabManager.lua" />
     <None Include="..\src\UIHelper.lua" />
     <None Include="..\src\uilib\Notification.lua" />
+    <None Include="..\src\uilib\NotificationBroadcast.lua" />
     <None Include="..\src\uilib\TableView.lua" />
     <None Include="..\src\uilib\UI.lua" />
     <None Include="..\src\uilib\UILoader.lua" />
