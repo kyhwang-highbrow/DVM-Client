@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
         applicationId "com.perplelab.dragonvillagem.kr"
@@ -15,7 +15,7 @@ android {
             ndkBuild {
                 if (!project.hasProperty("PROP_NDK_MODE") || PROP_NDK_MODE.compareTo('none') != 0) {
                     targets 'cocos2dlua'
-                    arguments 'NDK_TOOLCHAIN_VERSION=4.8'
+                    arguments 'NDK_TOOLCHAIN_VERSION=clang'
                     arguments 'APP_PLATFORM=android-' + PROP_TARGET_SDK_VERSION
                     def module_paths = [project.file("../../../cocos2d-x").absolutePath,
                                         project.file("../../../cocos2d-x/cocos").absolutePath,
