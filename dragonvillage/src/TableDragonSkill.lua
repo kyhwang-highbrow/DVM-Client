@@ -284,16 +284,13 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             -- 추가 정보
             ' local hit_target_count = 0' ..
             ' local boss_rarity = 5' ..
+            ' local died_ally_count = 0' ..
 
             ' if (add_param) then' ..
             ' hit_target_count = add_param[EV_HIT_TARGET_COUNT] or hit_target_count' ..
             ' boss_rarity = add_param[EV_BOSS_RARITY] or boss_rarity' ..
+            ' died_ally_count = add_param[EV_DIED_ALLY_COUNT] or died_ally_count' ..
             ' end' ..
-
-            
-            ' if (target.m_world.m_waveMgr.m_currWave == target.m_world.m_waveMgr.m_maxWave) then' ..
-            ' boss_rarity = target.m_world.m_waveMgr.m_highestRarity ' ..
-            ' end ' ..
 
             ' local ret = ' .. source .. 
             ' return ret' ..

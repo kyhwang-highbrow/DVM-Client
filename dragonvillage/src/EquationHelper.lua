@@ -5,6 +5,7 @@ EquationHelper = {}
 
 EV_HIT_TARGET_COUNT = 'hit_target_count'
 EV_BOSS_RARITY = 'boss_rarity'
+EV_DIED_ALLY_COUNT = 'died_ally_count'
 
 ----------------------------------------------------------------------------------
 -- 스킬 관련 수식에서 사용하기 위한 값을 맵에 추가(공격자와 방어자의 정보를 제외한 모두)
@@ -21,6 +22,12 @@ function EquationHelper:setEquationParamOnMapForSkill(target_map, skill_entity)
     if (world.m_waveMgr.m_currWave == world.m_waveMgr.m_maxWave) then
         target_map[EV_BOSS_RARITY] = world.m_waveMgr.m_highestRarity
     end
+
+    if (skill_entity.m_owner.m_bLeftFormation) then
+        target_map[EV_DIED_ALLY_COUNT] = #world.m_leftNonparticipants
+    else
+        target_map[EV_DIED_ALLY_COUNT] = #world.m_rightNonparticipants
+    end
 end
 
 ----------------------------------------------------------------------------------
@@ -34,6 +41,12 @@ function EquationHelper:setEquationParamOnMapForStatusEffect(target_map, status_
     
     if (world.m_waveMgr.m_currWave == world.m_waveMgr.m_maxWave) then
         target_map[EV_BOSS_RARITY] = world.m_waveMgr.m_highestRarity
+    end
+
+    if (status_effect_entity.m_owner.m_bLeftFormation) then
+        target_map[EV_DIED_ALLY_COUNT] = #world.m_leftNonparticipants
+    else
+        target_map[EV_DIED_ALLY_COUNT] = #world.m_rightNonparticipants
     end
 end
 
