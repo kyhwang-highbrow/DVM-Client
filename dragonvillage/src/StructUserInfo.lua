@@ -10,7 +10,7 @@ StructUserInfo = class({
         m_uid = 'number',
         m_lv = 'number',
         m_nickname = 'string',
-        m_title = 'number',
+        m_title = 'number', --> 서버에는 user - tamer_title 로 저장
         m_leaderDragonObject = '',
 
         -- 로비 채팅에서 사용

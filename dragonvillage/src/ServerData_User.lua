@@ -318,6 +318,14 @@ function ServerData_User:request_changeNick(mid, nick, cb_func)
 end
 
 -------------------------------------
+-- function getTitleID
+-- @biref 칭호 ID
+-------------------------------------
+function ServerData_User:getTitleID()
+    return self:get('tamer_title')
+end
+
+-------------------------------------
 -- function getTitle
 -- @biref 칭호 받아오기
 -------------------------------------
@@ -340,7 +348,7 @@ function ServerData_User:request_getTitleList(cb_func)
     -- 성공 콜백
     local function success_cb(ret)
         if (cb_func) then
-            cb_func()
+            cb_func(ret['tamer_title']) -- 이것은 리스트
         end
     end
 
@@ -364,10 +372,10 @@ function ServerData_User:request_setTitle(title_id, cb_func)
     -- 성공 콜백
     local function success_cb(ret)
         -- 바뀐 타이틀 저장
-        self:applyServerData(ret['tamer_title'], 'tamer_tile')
+        self:applyServerData(ret['tamer_title'], 'tamer_title')
 
         if (cb_func) then
-            cb_func(ret['tamer_title'])
+            cb_func()
         end
     end
 

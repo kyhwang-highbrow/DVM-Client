@@ -428,8 +428,8 @@ end
 -- function click_titleChangeBtn
 -------------------------------------
 function UI_UserInfoDetailPopup:click_titleChangeBtn()
-    local function cb_func(ret)
-        UI_UserInfoDetailPopup_SetTitle(ret):setCloseCB(function()
+    local function cb_func(l_title_list)
+        UI_UserInfoDetailPopup_SetTitle(l_title_list):setCloseCB(function()
             self:refresh_title()
         end)
     end

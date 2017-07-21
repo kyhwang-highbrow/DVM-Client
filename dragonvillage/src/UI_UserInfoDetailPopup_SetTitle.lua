@@ -4,7 +4,9 @@ local PARENT = UI
 -- class UI_UserInfoDetailPopup_SetTitle
 -------------------------------------
 UI_UserInfoDetailPopup_SetTitle = class(PARENT, {
-	m_lTitleList = 'list',
+	m_lHoldingList = 'list',
+    m_tableView = 'UIC_TableView',
+    m_currTitle = 'number'
 })
 
 -------------------------------------
@@ -17,10 +19,11 @@ function UI_UserInfoDetailPopup_SetTitle:init(l_title_list)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_UserInfoDetailPopup_SetTitle')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_UserInfoDetailPopup_SetTitle')
 
     -- init
-    self.m_lTitleList = l_title_list
+    self.m_lHoldingList = l_title_list
+    self.m_currTitle = g_userData:getTitleID()
 
     self:initUI()
     self:initButton()
@@ -32,6 +35,7 @@ end
 -------------------------------------
 function UI_UserInfoDetailPopup_SetTitle:initUI()
     local vars = self.vars
+    self:makeTableView()
 end
 
 -------------------------------------
@@ -39,6 +43,7 @@ end
 -------------------------------------
 function UI_UserInfoDetailPopup_SetTitle:initButton()
     local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
@@ -49,27 +54,75 @@ function UI_UserInfoDetailPopup_SetTitle:refresh()
 end
 
 -------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_UserInfoDetailPopup_SetTitle:click_closeBtn()
+	self:close()
+end
+
+-------------------------------------
 -- function makeTableView
 -------------------------------------
 function UI_UserInfoDetailPopup_SetTitle:makeTableView()
     local vars = self.vars
     local node = vars['listNode']
 
-	-- 퀘스트 뭉치
-	local l_list = TABLE:get('tamer_title')
+	-- 칭호 뭉치
+	local l_title = self:makeSortedTitleList()
 
     do -- 테이블 뷰 생성
         node:removeAllChildren()
-         
+        
+        local function create_func(t_data)
+            return self:makeCellUI(t_data)
+        end
+
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(900, 100 + 5)
-        table_view:setCellUIClass(self.makeCellUI)
+        table_view:setCellUIClass(create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList(l_list)
+        table_view:setItemList(l_title)
 
         self.m_tableView = table_view
     end
+end
+
+-------------------------------------
+-- function makeTableView
+-------------------------------------
+function UI_UserInfoDetailPopup_SetTitle:makeSortedTitleList()
+    local l_title = table.MapToList(TABLE:get('tamer_title'))
+    
+    -- 장착, 보유, id 순으로 정렬
+    local use_a, use_b, have_a, have_b
+    table.sort(l_title, function(a, b)
+        use_a = (self.m_currTitle == a['title_id'])
+        use_b = (self.m_currTitle == b['title_id'])
+        have_a = (table.find(self.m_lHoldingList, a['title_id']))
+        have_b = (table.find(self.m_lHoldingList, b['title_id']))
+
+        -- 장착
+        if (use_a) then
+            return true
+        elseif (use_b) then
+            return false
+
+        -- 보유
+        elseif (have_a) and (have_b) then
+            return a['title_id'] < b['title_id']
+        elseif (have_a) then
+            return true
+        elseif (have_b) then
+            return false
+
+        -- 그외 ID 순
+        else
+            return a['title_id'] < b['title_id']
+        end
+    end)
+
+    return l_title
 end
 
 --@CHECK
@@ -80,9 +133,33 @@ UI:checkCompileError(UI_UserInfoDetailPopup_SetTitle)
 -- @static
 -- @brief 테이블 셀 생성
 -------------------------------------
-function UI_UserInfoDetailPopup_SetTitle.makeCellUI(t_data)
+function UI_UserInfoDetailPopup_SetTitle:makeCellUI(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('user_info_title_item.ui')
+    
+    local title_id = t_data['title_id']
+    local title = t_data['t_name']
+
+    -- 칭호
+    vars['titleLabel']:setString(title)
+    
+    -- 보유 여부 
+    if (table.find(self.m_lHoldingList, title_id)) then
+        vars['selectBtn']:registerScriptTapHandler(function()
+            local function cb_func()
+                UI_ToastPopup(Str('칭호가 변경되었습니다.'))
+                self:close()
+            end
+            g_userData:request_setTitle(title_id, cb_func)
+        end)
+    else
+        vars['nothingSprite']:setVisible(true)
+    end
+    
+    -- 선택 여부
+    local is_use = (title_id == self.m_currTitle)
+    vars['selectSprite']:setVisible(is_use)
+    vars['selectBtn']:setVisible(not is_use)
 
 	return ui
 end

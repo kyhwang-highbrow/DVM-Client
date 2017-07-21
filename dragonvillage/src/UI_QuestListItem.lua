@@ -115,7 +115,9 @@ end
 -------------------------------------
 function UI_QuestListItem:setQuestProgress()
     local vars = self.vars
-	local percentage, text = self.m_questData:getProgressInfo()
+    local quest_data = self.m_questData
+
+	local percentage, text = quest_data:getProgressInfo()
 
     local sequence = cc.Sequence:create(
         cc.ProgressTo:create(0.5, percentage),
@@ -126,7 +128,7 @@ function UI_QuestListItem:setQuestProgress()
         end)
     )
 
-    vars['maxSprite']:setVisible(false) -- 갱신할 때 다시 안보이도록
+    vars['maxSprite']:setVisible(quest_data:isEnd()) -- 갱신할 때 다시 안보이도록
 	vars['questGauge']:runAction(sequence) 
 	vars['questGaugeLabel']:setString(text)
 end

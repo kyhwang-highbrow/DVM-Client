@@ -72,8 +72,6 @@ end
 function UI_QuestPopup:refresh()
 	-- 받을수 있는 보상이 있는지 검사하여 UI에 표시
 	self:setNotiRewardable()
-	-- 별도 퀘스트 UI는 직접 갱신
-	self:setAllClearListItem(self.m_currTab)
 end
 
 -------------------------------------
@@ -86,10 +84,11 @@ function UI_QuestPopup:onChangeTab(tab, first)
 	-- 최초 생성만 실행
 	if (first) then 
 		self:makeQuestTableView(tab, node)
+	    -- all clear 는 따로 보여준다
+	    self:setAllClearListItem(tab)
 	end
 
-	-- all clear 는 따로 보여준다
-	self:setAllClearListItem(tab)
+    vars['allClearNode']:setVisible(tab == TableQuest.DAILY)
 end
 
 -------------------------------------
@@ -127,15 +126,13 @@ end
 -- function setAllClearListItem
 -------------------------------------
 function UI_QuestPopup:setAllClearListItem(tab)
-	local node = self.vars['allClearNode']
-	node:removeAllChildren()
-
     -- 업적에선 사용하지 않는다.
 	if (tab == TableQuest.CHALLENGE) then
         return
     end
 
-    -- 새로 생성...하는걸로 일단
+    -- 최초만 생성
+	local node = self.vars['allClearNode']
 	local t_quest = g_questData:getAllClearDailyQuestTable()
 	local ui = UI_QuestListItem(t_quest, true)
     ui.vars['rewardBtn']:registerScriptTapHandler(function() ui:click_rewardBtn(self) end)
