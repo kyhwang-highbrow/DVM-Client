@@ -126,10 +126,11 @@ end
 -------------------------------------
 -- function click_inviteRefuseBtn
 -- @brief 친구 요청 거절
+-- @param struct_user_info StructUserInfo
 -------------------------------------
-function UI_FriendPopupTabResponse:click_inviteRefuseBtn(data)
-    local friend_uid = data.m_uid
-    local friend_nick = data.m_nick
+function UI_FriendPopupTabResponse:click_inviteRefuseBtn(struct_user_info)
+    local friend_uid = struct_user_info:getUid()
+    local friend_nick = struct_user_info:getNickname()
 
     local function finish_cb(ret)
         if (ret['status'] == 0) then
