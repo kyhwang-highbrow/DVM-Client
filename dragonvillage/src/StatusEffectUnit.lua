@@ -25,7 +25,7 @@ StatusEffectUnit = class({
 -- @param file_name
 -- @param body
 -------------------------------------
-function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, duration)
+function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, duration, add_param)
     --cclog(name .. ' - ' .. duration)
     self.m_statusEffectName = name
 
@@ -43,7 +43,7 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
 
     self.m_bApply = false
 
-    self.m_tParam = {}
+    self.m_tParam = add_param or {}
 
     -- 리더 스킬의 상태효과 인지 여부 확인(리더스킬의 경우 시전자가 죽어도 삭제시키지 않기 위함)
     do
@@ -140,6 +140,20 @@ function StatusEffectUnit:onUnapply(lStatus, lStatusAbs)
 end
 
 -------------------------------------
+-- function makeActivityCarrier
+-------------------------------------
+function StatusEffectUnit:makeActivityCarrier()
+    local activityCarrier = self.m_caster:makeAttackDamageInstance()
+	activityCarrier:setPowerRate(self.m_value)
+    activityCarrier:setAtkDmgStat(self.m_source)
+
+    -- 수식에서 사용하기 위한 값을 세팅
+    EquationHelper:setEquationParamOnMapForStatusEffect(activityCarrier.m_tParam, self)
+
+    return activityCarrier
+end
+
+-------------------------------------
 -- function getValue
 -------------------------------------
 function StatusEffectUnit:getValue()
@@ -161,7 +175,7 @@ function StatusEffectUnit:getStandardStat()
     local stat
 
     if (type(self.m_source) == 'function') then
-        stat = self.m_source(self.m_caster, self.m_owner)
+        stat = self.m_source(self.m_caster, self.m_owner, self.m_tParam)
     else
         self.m_source = SkillHelper:getValid(self.m_source, 'atk')
         stat = self.m_caster:getStat(self.m_source)

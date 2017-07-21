@@ -43,6 +43,7 @@ end
 function CommonMissile:initCommonMissile(owner, t_skill)
     -- 변수 초기화
 	self.m_owner = owner
+    self.m_world = owner.m_world
 	
 	self.m_missileRes = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	self.m_motionStreakRes = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
@@ -86,6 +87,9 @@ function CommonMissile:initActvityCarrier()
     self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
 	self.m_activityCarrier:setAttackType(self.m_chanceType)
     self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffect)
+
+    -- 수식에서 사용하기 위한 값을 세팅
+    EquationHelper:setEquationParamOnMapForSkill(self.m_activityCarrier.m_tParam, self)
 end
 
 -------------------------------------

@@ -291,6 +291,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\DropItemMgr_Intro.lua" />
     <None Include="..\src\EffectMotionStreak.lua" />
     <None Include="..\src\EnemyMovementMgr.lua" />
+    <None Include="..\src\EquationHelper.lua" />
     <None Include="..\src\ErrorTracker.lua" />
     <None Include="..\src\EventCarrier.lua" />
     <None Include="..\src\FpsMeter.lua" />
@@ -659,7 +660,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillLeafBlade.lua" />
     <None Include="..\src\SkillMeleeHack.lua" />
     <None Include="..\src\SkillRolling.lua" />
-    <None Include="..\src\SkillShield.lua" />
     <None Include="..\src\SkillSpatter.lua" />
     <None Include="..\src\SkillSummon.lua" />
     <None Include="..\src\SoundMgr.lua" />
@@ -670,7 +670,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffect.lua" />
     <None Include="..\src\StatusEffectHelper.lua" />
     <None Include="..\src\StatusEffectIcon.lua" />
-    <None Include="..\src\SkillContinuous.lua" />
     <None Include="..\src\StatusEffect_Bleed.lua" />
     <None Include="..\src\StatusEffect_Dispell.lua" />
     <None Include="..\src\StatusEffect_Immortal.lua" />

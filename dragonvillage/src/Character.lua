@@ -615,7 +615,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		t_info['attack_type'] = attack_type
 		t_info['attr'] = attack_activity_carrier.m_attribute
 		t_info['is_critical'] = is_critical
-		t_info['is_add_dmg'] = attack_activity_carrier:getFlag('add_dmg')
+		t_info['is_add_dmg'] = attack_activity_carrier:getParam('add_dmg')
         t_info['is_bash'] = is_bash
         t_info['is_miss'] = is_miss
 		t_info['body_key'] = body_key

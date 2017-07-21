@@ -509,7 +509,7 @@ end
 -------------------------------------
 -- function addOverlabUnit
 -------------------------------------
-function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration)
+function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, add_param)
     local char_id = caster:getCharId()
     local skill_id = skill_id or 999999
 
@@ -517,7 +517,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration)
         self:changeState('start')
     end
 
-    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration)
+    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration, add_param)
     
     local t_status_effect = self.m_statusEffectTable
     

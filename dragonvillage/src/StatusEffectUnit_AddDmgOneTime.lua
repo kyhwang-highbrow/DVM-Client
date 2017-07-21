@@ -13,10 +13,8 @@ StatusEffectUnit_AddDmgOneTime = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffectUnit_AddDmgOneTime:init()
-    self.m_activityCarrier = self.m_caster:makeAttackDamageInstance()
-	self.m_activityCarrier:setPowerRate(self.m_value)
-    self.m_activityCarrier:setAtkDmgStat(self.m_source)
-	self.m_activityCarrier:setFlag('add_dmg', true)
+    self.m_activityCarrier = self:makeActivityCarrier()
+    self.m_activityCarrier:setParam('add_dmg', true)
 end
 
 -------------------------------------

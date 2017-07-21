@@ -107,6 +107,9 @@ function Skill:initActvityCarrier(power_rate, power_abs, critical)
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
     self.m_activityCarrier:setAbsAttack(power_abs)
     self.m_activityCarrier:setCritical(critical)
+
+    -- 수식에서 사용하기 위한 값을 세팅
+    EquationHelper:setEquationParamOnMapForSkill(self.m_activityCarrier.m_tParam, self)
 	
 	-- 방어 무시 -> 차후에 좀더 구조화 해서 늘려나감
 	if (self.m_powerIgnore == 'def') then 
@@ -383,7 +386,10 @@ function Skill:doStatusEffect(start_con, t_target)
 		else
 			l_ret = t_target or self:findTarget()
 		end
-        StatusEffectHelper:doStatusEffectByStruct(self.m_owner, l_ret, lStatusEffect, nil, self.m_skillId)
+        
+        local add_param = self.m_activityCarrier.m_tParam
+
+        StatusEffectHelper:doStatusEffectByStruct(self.m_owner, l_ret, lStatusEffect, nil, self.m_skillId, add_param)
     end
 end
 
@@ -749,9 +755,9 @@ end
 -------------------------------------
 function Skill:addHitCount()
     -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
-    local hit_count = self.m_activityCarrier:getFlag('hit_count') or 0
+    local hit_count = self.m_activityCarrier:getParam('hit_count') or 0
     hit_count = hit_count + 1
-    self.m_activityCarrier:setFlag('hit_count', hit_count)
+    self.m_activityCarrier:setParam('hit_count', hit_count)
 end
 
 -------------------------------------

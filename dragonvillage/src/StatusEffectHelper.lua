@@ -36,7 +36,7 @@ end
 -- function doStatusEffect
 -- @brief 해당 파라미터의 정보로 상태효과를 시전하고 대상자 리스트를 리턴
 -------------------------------------
-function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_type, target_count, duration, rate, value, source, cb_invoke, skill_id)
+function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_type, target_count, duration, rate, value, source, cb_invoke, skill_id, add_param)
     local l_ret = {} -- 상태효과가 적용된 대상 리스트
  
     -- 스킬로 부터 받은 타겟 리스트 사용
@@ -47,7 +47,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
 
         local l_target = l_skill_target
         for _, target in ipairs(l_target) do
-			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id)) then
+			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id, add_param)) then
                 table.insert(l_ret, target)
 
                 if (cb_invoke) then
@@ -66,7 +66,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
         l_target = table.getPartList(l_target, target_count)
 
         for _, target in ipairs(l_target) do
-            if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id)) then
+            if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id, add_param)) then
                 table.insert(l_ret, target)
 
                 if (cb_invoke) then
@@ -124,7 +124,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
         end
                 
         for _, target in ipairs(l_target) do
-			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id)) then
+			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id, add_param)) then
                 table.insert(l_ret, target)
 
                 if (cb_invoke) then
@@ -156,7 +156,7 @@ end
 -- function doStatusEffectByStruct
 -- @brief 별도의 타겟을 받아와서 외부에서 상태효과 구조체 생성하여 상태효과 시전
 -------------------------------------
-function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_status_effect_struct, cb_invoke, skill_id)
+function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_status_effect_struct, cb_invoke, skill_id, add_param)
     -- 시전자가 사망했을 경우 리턴
     if (caster:isDead()) then return end
 
@@ -193,7 +193,7 @@ function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_sta
 		
         -- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
         self:doStatusEffect(caster, l_skill_target, type, target_type, target_count,
-            duration, rate, value, source, cb_invoke, skill_id)
+            duration, rate, value, source, cb_invoke, skill_id, add_param)
 
 		-- 4. 인덱스 증가
 		idx = idx + 1
@@ -204,7 +204,7 @@ end
 -- function invokeStatusEffect
 -- @brief 상태 효과 발동
 -------------------------------------
-function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effect_type, status_effect_value, status_effect_source, status_effect_rate, duration, skill_id)
+function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effect_type, status_effect_value, status_effect_source, status_effect_rate, duration, skill_id, add_param)
     -- status effect validation
 	if (not status_effect_type) or (status_effect_type == '') then
         return nil
@@ -214,7 +214,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 	local status_effect_category = t_status_effect['category']
 
     -- status_effect_rate 검사
-    if (self:checkRate(caster, target_char, status_effect_rate)) then
+    if (self:checkRate(caster, target_char, status_effect_rate, add_param)) then
         return nil
     end
 
@@ -232,10 +232,10 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     if (status_effect) then
         -- 상태 효과 중첩 혹은 갱신
         local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
-        status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration)
+        status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration, add_param)
     else
         -- 상태 효과 생성
-		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id)
+		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id, add_param)
     end
 
     
@@ -256,7 +256,7 @@ end
 -- function makeStatusEffectInstance
 -- @comment 일반 status effect의 경우 rate가 필요없지만 패시브의 경우 실행 시점에서 확률체크하는 경우가 있다.
 -------------------------------------
-function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id)
+function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id, add_param)
     -- 테이블 가져옴
 	local table_status_effect = TableStatusEffect()
     local t_status_effect = table_status_effect:get(status_effect_type)
@@ -380,7 +380,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     -----------------------------------------------------------------
     -- StatusEffectUnit 생성 및 추가
-    status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration)
+    status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration, add_param)
 
     return status_effect
 end
@@ -388,11 +388,11 @@ end
 -------------------------------------
 -- function checkRate
 -------------------------------------
-function StatusEffectHelper:checkRate(caster, target_char, status_effect_rate)
+function StatusEffectHelper:checkRate(caster, target_char, status_effect_rate, add_param)
     local rate
 
     if (type(status_effect_rate) == 'function') then
-        rate = status_effect_rate(caster, target_char)
+        rate = status_effect_rate(caster, target_char, add_param)
     else
         rate = tonumber(status_effect_rate or 100)
     end

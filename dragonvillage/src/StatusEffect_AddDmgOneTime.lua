@@ -25,7 +25,7 @@ end
 function StatusEffect_AddDmgOneTime:init_statusEffect(caster)
     self.m_caster = caster
     self.m_activityCarrier = self.m_caster:makeAttackDamageInstance()
-    self.m_activityCarrier:setFlag('add_dmg', true)
+    self.m_activityCarrier:setParam('add_dmg', true)
 end
 
 -------------------------------------

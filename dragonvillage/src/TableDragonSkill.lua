@@ -163,7 +163,7 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
 
     if (b) then
         local func = pl.utils.load(
-            'EQUATION_FUNC[\'' .. self.m_tableName .. '\'][' .. key .. '][\'' .. column ..'\'] = function(owner, target)' ..
+            'EQUATION_FUNC[\'' .. self.m_tableName .. '\'][' .. key .. '][\'' .. column ..'\'] = function(owner, target, add_param)' ..
             ' local atk = owner:getStat(\'atk\')' ..
             ' local def = owner:getStat(\'def\')' ..
             ' local hp = owner:getHp()' ..
@@ -281,8 +281,17 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' return skill_target and skill_target:getStatusEffectCount(column, name) or 0' ..
             ' end' ..
 
-            ' local BOSS_RARITY = 5 ' ..
-            ' if(target.m_world.m_waveMgr.m_currWave == target.m_world.m_waveMgr.m_maxWave) then' ..
+            -- 추가 정보
+            ' local hit_target_count = 0' ..
+            ' local BOSS_RARITY = 5' ..
+
+            ' if (add_param) then' ..
+            ' hit_target_count = add_param[EV_HIT_TARGET_COUNT] or hit_target_count' ..
+            ' BOSS_RARITY = add_param[EV_BOSS_RARITY] or BOSS_RARITY' ..
+            ' end' ..
+
+            
+            ' if (target.m_world.m_waveMgr.m_currWave == target.m_world.m_waveMgr.m_maxWave) then' ..
             ' BOSS_RARITY = target.m_world.m_waveMgr.m_highestRarity ' ..
             ' end ' ..
 

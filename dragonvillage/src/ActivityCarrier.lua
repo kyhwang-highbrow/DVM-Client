@@ -26,7 +26,7 @@ ActivityCarrier = class({
         m_realAttackType = 'str',
 		m_attackType = 'str',		-- 일반공격인지 아닌지 구분
         m_critical = 'number',      -- 크리티컬 판정(1:발동 , 0:미발동, nil:판정안됨)
-        m_lFlag = 'map',
+        m_tParam = 'map',
     })
 
 -------------------------------------
@@ -40,7 +40,7 @@ function ActivityCarrier:init()
     self.m_lStatusEffectRate = {}
 	self.m_atkDmgStat = 'atk'
 	self.m_bIgnoreDef = false
-    self.m_lFlag = {}
+    self.m_tParam = {}
 end
 
 -------------------------------------
@@ -197,17 +197,17 @@ end
 --------------------------------------------------------------------------
 
 -------------------------------------
--- function setFlag
+-- function setParam
 -------------------------------------
-function ActivityCarrier:setFlag(k, v)
-	self.m_lFlag[k] = v
+function ActivityCarrier:setParam(k, v)
+	self.m_tParam[k] = v
 end
 
 -------------------------------------
--- function getFlag
+-- function getParam
 -------------------------------------
-function ActivityCarrier:getFlag(k)
-	return self.m_lFlag[k]
+function ActivityCarrier:getParam(k)
+	return self.m_tParam[k]
 end
 
 -------------------------------------
@@ -225,7 +225,7 @@ function ActivityCarrier:getAtkDmg(target)
     local atk_dmg
 
     if (type(self.m_atkDmgStat) == 'function') then
-        atk_dmg = self.m_atkDmgStat(self, target)
+        atk_dmg = self.m_atkDmgStat(self, target, self.m_tParam)
 
     elseif (type(self.m_atkDmgStat) == 'number') then
         atk_dmg = self.m_atkDmgStat

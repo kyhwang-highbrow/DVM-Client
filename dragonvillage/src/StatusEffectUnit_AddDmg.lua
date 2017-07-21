@@ -16,10 +16,8 @@ StatusEffectUnit_AddDmg = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffectUnit_AddDmg:init()
-    self.m_activityCarrier = self.m_caster:makeAttackDamageInstance()
-	self.m_activityCarrier:setPowerRate(self.m_value)
-    self.m_activityCarrier:setAtkDmgStat(self.m_source)
-	self.m_activityCarrier:setFlag('add_dmg', true)
+    self.m_activityCarrier = self:makeActivityCarrier()
+	self.m_activityCarrier:setParam('add_dmg', true)
 
     if (string.match(self.m_statusEffectName, 'add_dmg_')) then
         self.m_targetStatusEffectName = string.gsub(self.m_statusEffectName, 'add_dmg_', '')
