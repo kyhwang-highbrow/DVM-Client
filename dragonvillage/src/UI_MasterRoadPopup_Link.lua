@@ -65,7 +65,12 @@ end
 -------------------------------------
 function UI_MasterRoadPopup_Link:click_questLinkBtn()
     self:setCloseCB(function()
-        UI_MasterRoadPopup()
+        local function close_cb()
+            SceneLobby():runScene()
+        end
+        local scene = SceneCommon(UI_MasterRoadPopup, nil, close_cb)
+        scene:runScene()
+
     end)
     self:click_exitBtn()
 end

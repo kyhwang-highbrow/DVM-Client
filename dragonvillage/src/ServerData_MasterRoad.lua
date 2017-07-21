@@ -224,7 +224,7 @@ function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
         self:applyInfo(ret)
 
         -- 재화 수령 처리
-        self.m_serverData:networkCommonRespone(ret)
+        self.m_serverData:networkCommonRespone_addedItems(ret)
 		
 		-- 탑바 갱신
 		g_topUserInfo:refreshData()
