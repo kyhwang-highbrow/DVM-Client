@@ -135,7 +135,7 @@
              notification message. See README(https://goo.gl/6BKBk7) for more. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
+            android:resource="@color/colorPush" />
         <receiver
             android:name = "com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
             android:enabled = "true"
