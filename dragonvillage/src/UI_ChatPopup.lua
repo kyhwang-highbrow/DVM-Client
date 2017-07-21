@@ -114,6 +114,13 @@ function UI_ChatPopup:click_enterBtn()
         return
     end
 
+    -- 비속어 필터링
+    if (not FilterMsg(msg)) then
+        vars['editBox']:setText('')
+        UIManager:toastNotificationRed('사용할 수 없는 표현이 포함되어 있습니다.')
+        return
+    end
+
     if g_chatManager:sendNormalMsg(msg) then
         vars['editBox']:setText('')
     else

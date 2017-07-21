@@ -99,7 +99,7 @@ end
 -------------------------------------
 local function setCardInfo(lua_name, node)
     local t_info = CARD_UI[lua_name]
-    cclog(lua_name, t_info['z_order'])
+    --cclog(lua_name, t_info['z_order'])
     
     if (not t_info) then
         return

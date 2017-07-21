@@ -103,3 +103,27 @@ function IsValidText(str, is_name)
 
 	return true
 end
+
+-------------------------------------
+-- function FilterMsg
+-- @brief 문자열 필터링
+-- @return bool true이면 유효한 text
+-------------------------------------
+function FilterMsg(str)
+    local t_ban_word = TABLE:get('table_ban_word_chat')
+    if (not t_ban_word) then
+        return false
+    end
+
+    -- 모두 소문자로 변경
+    local lower_str = string.lower(str)
+
+    -- 금칙어 리스트에 포함되어있는지 확인
+    for _, v in pairs(t_ban_word) do
+		if string.match(lower_str, string.lower(v['word'])) then
+			return false, Str('사용할 수 없는 표현이 포함되어 있습니다.')
+		end
+	end
+
+    return true
+end
