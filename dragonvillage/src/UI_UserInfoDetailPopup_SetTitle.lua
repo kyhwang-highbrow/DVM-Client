@@ -140,11 +140,10 @@ function UI_UserInfoDetailPopup_SetTitle:makeCellUI(t_data)
     local title_id = t_data['title_id']
     local title = t_data['t_name']
 
-    -- 칭호
-    vars['titleLabel']:setString(title)
-    
-    -- 보유 여부 
-    if (table.find(self.m_lHoldingList, title_id)) then
+
+    -- 보유 여부
+    local is_holding = table.find(self.m_lHoldingList, title_id)
+    if (is_holding) then
         vars['selectBtn']:registerScriptTapHandler(function()
             local function cb_func()
                 UI_ToastPopup(Str('칭호가 변경되었습니다.'))
@@ -154,7 +153,14 @@ function UI_UserInfoDetailPopup_SetTitle:makeCellUI(t_data)
         end)
     else
         vars['nothingSprite']:setVisible(true)
+
+        -- 미보유 타이틀은 글자수만큼의 ?로 대체
+        local str_len = uc_len(title)
+        title = string.rep('?', str_len)
     end
+    
+    -- 칭호
+    vars['titleLabel']:setString(title)
     
     -- 선택 여부
     local is_use = (title_id == self.m_currTitle)
