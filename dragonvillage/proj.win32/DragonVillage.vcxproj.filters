@@ -2484,6 +2484,9 @@
     <None Include="..\src\TableTamerTitle.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\QuickLinkHelper.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

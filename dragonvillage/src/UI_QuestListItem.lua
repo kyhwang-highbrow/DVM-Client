@@ -78,6 +78,8 @@ function UI_QuestListItem:setVarsVisible()
 
     local has_reward = quest_data:hasReward()
     local is_end = quest_data:isEnd()
+    local clear_type = self.m_questData:getQuestClearType()
+    local possible_link = QuickLinkHelper.possibleLink(clear_type)
 
 	-- 보상 수령 가능시
 	vars['rewardBtn']:setVisible(has_reward)
@@ -86,7 +88,7 @@ function UI_QuestListItem:setVarsVisible()
     vars['questCompletNode']:setVisible((not has_reward) and (is_end))
 
     -- 바로가기
-    vars['questLinkBtn']:setVisible(not is_end)
+    vars['questLinkBtn']:setVisible(not is_end and possible_link)
 end
 
 -------------------------------------
@@ -187,5 +189,5 @@ end
 -------------------------------------
 function UI_QuestListItem:click_questLinkBtn()
     local clear_type = self.m_questData:getQuestClearType()
-	ServerData_MasterRoad.quickLink(clear_type)
+	QuickLinkHelper.quickLink(clear_type)
 end

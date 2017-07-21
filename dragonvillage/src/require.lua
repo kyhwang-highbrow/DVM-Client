@@ -183,6 +183,7 @@ local t_module = {
 	'MailHelper',
 	'BattleStatisticsHelper',
 	'UIHelper',
+    'QuickLinkHelper',
 
     'ChatClientSocket',
     'ChatManager',

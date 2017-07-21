@@ -185,7 +185,7 @@ function UI_MasterRoadPopup:click_questLinkBtn()
     local clear_type = t_road['clear_type']
     local clear_cond = t_road['clear_value']
 
-    g_masterRoadData.quickLink(clear_type, clear_cond)
+    QuickLinkHelper.quickLink(clear_type, clear_cond)
 end
 
 -------------------------------------

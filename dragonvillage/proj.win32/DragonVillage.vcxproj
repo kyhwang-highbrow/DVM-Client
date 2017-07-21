@@ -393,6 +393,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\pl\url.lua" />
     <None Include="..\src\pl\utils.lua" />
     <None Include="..\src\pl\xml.lua" />
+    <None Include="..\src\QuickLinkHelper.lua" />
     <None Include="..\src\RenderTextureBatchNode.lua" />
     <None Include="..\src\ResHelper.lua" />
     <None Include="..\src\RuneEnchantHelper.lua" />
