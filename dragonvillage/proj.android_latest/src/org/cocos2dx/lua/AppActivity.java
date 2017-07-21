@@ -33,9 +33,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -315,6 +317,42 @@ public class AppActivity extends Cocos2dxActivity{
         System.runFinalization();
         System.exit(0);
     }
+    
+    private static void appTerminate() {
+    	android.os.Process.killProcess(android.os.Process.myPid());
+    }
+    
+    private static void appGotoWeb(String url) {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+		sActivity.startActivity(browserIntent);
+    }
+    
+    private static void appSendMail(String email, String subject, String text) {
+		String[] tos = { email };
+		Intent it = new Intent(Intent.ACTION_SEND);
+		it.putExtra(Intent.EXTRA_EMAIL, tos);
+		it.putExtra(Intent.EXTRA_SUBJECT, subject);
+		it.putExtra(Intent.EXTRA_TEXT, text);
+		it.setType("text/plain");
+		sActivity.startActivity(Intent.createChooser(it, "Choose Email Client"));
+    }
+
+    private static void appGotoStore() {
+		String appName = "com.perplelab.dragonvillagem.kr";
+		try {
+			sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appName)));
+		} catch (android.content.ActivityNotFoundException anfe) {
+			sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appName)));
+		}
+    }
+    
+    private static void appAlert(String title, String message) {
+		new AlertDialog.Builder(sActivity)
+			.setTitle(title)
+			.setMessage(message)
+			.setPositiveButton(android.R.string.ok, null).create()
+			.show();
+    }
 
     // Cpp(Native) -> Java (in UIThread(Main Thread))
     public static void sdkEvent(final String id, final String arg0, final String arg1) {
@@ -405,7 +443,30 @@ public class AppActivity extends Cocos2dxActivity{
                     }
 
                 } else if (id.equals("app_restart")) {
-                    appRestart();
+
+                	appRestart();
+                	
+                } else if (id.equals("app_terminate")) {
+                	
+                	appTerminate();
+                	
+                } else if (id.equals("app_gotoWeb")) {
+                	
+                	appGotoWeb(arg0);
+                	
+                } else if (id.equals("app_sendMail")) {
+                	
+					String[] array = arg0.split(";");
+					appSendMail(array[0], array[1], array[2]);
+					
+                } else if (id.equals("app_gotoStore")) {
+
+                	appGotoStore();
+                	
+                } else if (id.equals("app_alert")) {
+
+                	String[] array = arg0.split(";");
+            		appAlert(array[0], array[1]);
                 }
             }
         });
