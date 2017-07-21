@@ -39,7 +39,6 @@ end
 -------------------------------------
 function UI_QuestListItem:initUI()
     local vars = self.vars
-    vars['questGauge']:setPercentage(0)
 end
 
 -------------------------------------
@@ -77,14 +76,17 @@ function UI_QuestListItem:setVarsVisible()
     local vars = self.vars
     local quest_data = self.m_questData
 
+    local has_reward = quest_data:hasReward()
+    local is_end = quest_data:isEnd()
+
 	-- 보상 수령 가능시
-	vars['rewardBtn']:setVisible(quest_data:hasReward())
+	vars['rewardBtn']:setVisible(has_reward)
 
     -- 퀘스트 완료
-    vars['questCompletNode']:setVisible((not quest_data:hasReward()) and (quest_data:isEnd()))
+    vars['questCompletNode']:setVisible((not has_reward) and (is_end))
 
     -- 바로가지
-    vars['questLinkBtn']:setVisible(true)
+    vars['questLinkBtn']:setVisible(not is_end)
 end
 
 -------------------------------------
@@ -120,6 +122,8 @@ function UI_QuestListItem:setQuestProgress()
     local vars = self.vars
     local quest_data = self.m_questData
 
+    vars['questGauge']:setPercentage(0)
+
 	local percentage, text = quest_data:getProgressInfo()
 
     local sequence = cc.Sequence:create(
@@ -149,16 +153,15 @@ function UI_QuestListItem:setChallengeTitle()
     end
 
     local title = quest_data:getTamerTitleStr()
-    if (not title) then
-        return
-    end
 
     -- 칭호 노드 on
-    vars['titleNode']:setVisible(true)
+    vars['titleNode']:setVisible((title ~= nil))
 
     -- 칭호 go!
-    vars['titleLabel']:setString(title)
-end
+    if (title) then
+        vars['titleLabel']:setString(title)
+    end
+end 
 
 -------------------------------------
 -- function click_rewardBtn
