@@ -571,6 +571,7 @@ end
 -- function _offsetFromIndex
 -------------------------------------
 function UIC_TableView:_offsetFromIndex(index)
+    local viewSize = self.m_scrollView:getViewSize()
     local offset = self:_makeIndexOffset(index)
 
     local cellSize = self:tableCellSizeForIndex(index)
@@ -582,6 +583,16 @@ function UIC_TableView:_offsetFromIndex(index)
     do -- 가운데 정렬을 위해
         offset['x'] = offset['x'] + (cellSize['width'] / 2)
         offset['y'] = offset['y'] + (cellSize['height'] / 2)
+
+        -- 가로
+        if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+            offset['y'] = offset['y'] + ((viewSize['height'] - cellSize['height']) / 2)
+
+        -- 세로
+        else
+            offset['x'] = offset['x'] + ((viewSize['width'] - cellSize['width']) / 2)
+
+        end
     end
 
     

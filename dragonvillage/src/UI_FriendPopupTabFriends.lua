@@ -42,6 +42,8 @@ end
 -- function init_tableView
 -------------------------------------
 function UI_FriendPopupTabFriends:init_tableView()
+    local vars = self.vars
+
     if self.m_tableView then
         local l_item_list = g_friendData:getFriendList()
         self.m_tableView:mergeItemList(l_item_list)
@@ -73,13 +75,14 @@ function UI_FriendPopupTabFriends:init_tableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(1160, 108)
+    table_view.m_defaultCellSize = cc.size(1170, 108)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(UI_FriendListItem, create_func)
     table_view:setItemList(l_item_list)
 
     -- 리스트가 비었을 때
-    table_view:makeDefaultEmptyDescLabel(Str('친구가 없습니다.\n친구와 우정의 징표를 주고받을 수 있습니다.\n친구를 추가해보세요!'))
+    --table_view:makeDefaultEmptyDescLabel(Str('친구가 없습니다.\n친구와 우정의 징표를 주고받을 수 있습니다.\n친구를 추가해보세요!'))
+    table_view:setEmptyDescNode(vars['emptySprite'])
 
     -- 정렬
     local sort_manager = SortManager_Friend()
@@ -165,6 +168,12 @@ end
 -- function click_sendAllBtn
 -------------------------------------
 function UI_FriendPopupTabFriends:click_sendAllBtn()
+    -- 보낼 대상자가 0명일 경우
+    if (not g_friendData:checkSendFp()) then
+        UIManager:toastNotificationRed(Str('이미 모두에게 우정의 징표를 보냈습니다.'))
+        return
+    end
+
     local function finish_cb(ret)
         for i,v in ipairs(self.m_tableView.m_itemList) do
             local ui = v['ui']
