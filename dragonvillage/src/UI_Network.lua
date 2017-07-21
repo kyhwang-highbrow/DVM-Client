@@ -216,6 +216,15 @@ end
 -- @brief
 -------------------------------------
 function UI_Network:makeFailPopup(msg, ret)
+
+    -- 점검 공지 (접속 불가한 상태)
+    if (ret) and (ret['status'] == -100) then
+        msg = ret['notice']
+        HideLoading()
+        MakeSimplePopup(POPUP_TYPE.OK, msg, function() restart() end)
+        return
+    end
+
     local function ok_btn_cb()
         self:request()
     end
