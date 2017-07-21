@@ -2481,6 +2481,9 @@
     <None Include="..\src\UI_RelationCard.lua">
       <Filter>lua\UI_Card</Filter>
     </None>
+    <None Include="..\src\TableTamerTitle.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
