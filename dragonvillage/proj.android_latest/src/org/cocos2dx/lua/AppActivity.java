@@ -30,15 +30,17 @@ import org.cocos2dx.lib.Cocos2dxHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.vending.expansion.downloader.IDownloaderClient;
 //@perplesdk
 import com.perplelab.PerpleSDK;
 import com.perplelab.dragonvillagem.kr.R;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 
 public class AppActivity extends Cocos2dxActivity{
 
@@ -49,15 +51,17 @@ public class AppActivity extends Cocos2dxActivity{
 
     // @obb
     private static APKExpansionDownloader sOBBDownloader;
-    private static AppActivity sActivity;
 
+    public static AppActivity sActivity;
     private Handler mAppHandler;
 
     // @local push
-	static boolean sIsRun;
-    
+    static boolean sIsRun;
+
     // @billing
     static final String BASE64_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2AOyhy0owSekR+QEpAUb2fV/wBtRmuD8UNEsku6iGM+Qx5o7iBMlGlcb7kjCJ86hMAu6g+1cdGFTQGCGTKrDZS6AfTv8NDB5EFwxvLa8Rn9aUU0nkaLFGNQvEo+gplP1PZQZLd30RMmJy/uYkzA2+vCdGaOQRTckwbczDBQyKWtQ5k5aj/1HQ/X8XxZneaKAM2JyFgFcjSYtlep9/XOQ6K2aR0VLoMse2rGkaFJQAFOBgNlNbvC3cbvaZe1hnZ4ypjadsPzw83ZpQYaMRTUF1k/TpB6CuSIX4L2ykUkEDyWn0RECpO3jR1fJ1Lb2ddYTpb8gORou9mhIK9Nfr8Cn4wIDAQAB";
+
+    static final int RC_APP_RESTART = 99999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +70,9 @@ public class AppActivity extends Cocos2dxActivity{
         // @obb
         sActivity = this;
         mAppHandler = new Handler();
-        
+
         sIsRun = true;
-        
+
         // @perplesdk
         PerpleSDK.createInstance(this);
 
@@ -96,6 +100,8 @@ public class AppActivity extends Cocos2dxActivity{
     protected void onStart() {
         super.onStart();
 
+        setBadgeCount(this, 0);
+
         // @perplesdk
         PerpleSDK.getInstance().onStart();
     }
@@ -108,7 +114,7 @@ public class AppActivity extends Cocos2dxActivity{
         if (sOBBDownloader != null) {
             sOBBDownloader.disconnectDownloaderClient(this);
         }
-        
+
         // @perplesdk
         PerpleSDK.getInstance().onStop();
     }
@@ -117,13 +123,15 @@ public class AppActivity extends Cocos2dxActivity{
     protected void onResume() {
         super.onResume();
 
+        setBadgeCount(this, 0);
+
         sIsRun = true;
-        
+
         // @obb
         if (sOBBDownloader != null) {
             sOBBDownloader.connectDownloaderClient(this);
         }
-        
+
         // @perplesdk
         PerpleSDK.getInstance().onResume();
     }
@@ -133,7 +141,7 @@ public class AppActivity extends Cocos2dxActivity{
         super.onPause();
 
         sIsRun = false;
-        
+
         // @perplesdk
         PerpleSDK.getInstance().onPause();
     }
@@ -159,14 +167,15 @@ public class AppActivity extends Cocos2dxActivity{
         // @perplesdk
         PerpleSDK.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-    
+
     // @obb
-    public void startAPKExpansionDownloader(final int versionCode, long fileSize, String md5, long crc32) {
+    private static void startAPKExpansionDownloader(final int versionCode, long fileSize, String md5, long crc32) {
+    	// for Main, Patch OBB files
         String[] md5s = { md5, "" };
         long[] crc32s = { crc32, 0 };
 
-        if (APKExpansionDownloader.isNeedToDownloadObbFile(this, versionCode, fileSize, md5s, crc32s)) {
-            sOBBDownloader = new APKExpansionDownloader(this, 0);
+        if (APKExpansionDownloader.isNeedToDownloadObbFile(sActivity, versionCode, fileSize, md5s, crc32s)) {
+            sOBBDownloader = new APKExpansionDownloader(sActivity, 0);
             sOBBDownloader.setDownloaderCallback(new APKExpansionDownloaderCallback() {
                 @Override
                 public void onInit() {
@@ -175,7 +184,7 @@ public class AppActivity extends Cocos2dxActivity{
 
                     // 다운로드 시작
                     // 다운로드 진행 표시 UI 열기
-            		sdkEventResult("apkexp_startdownload", "start", "");
+                    sdkEventResult("apkexp_startdownload", "start", "");
                 }
                 @Override
                 public void onCompleted() {
@@ -183,63 +192,63 @@ public class AppActivity extends Cocos2dxActivity{
 
                     // 다운로드 완료
                     // 다운로드 진행 표시 UI 닫고 게임 시작
-            		sdkEventResult("apkexp_startdownload", "complete", "end");
+                    sdkEventResult("apkexp_startdownload", "complete", "end");
                 }
                 @Override
                 public void onUpdateStatus(boolean isPaused, boolean isIndeterminate, boolean isInterruptable, int code, String statusText) {
                     // 다운로드 진행 중 오류 상황 처리
-                	if (!isIndeterminate) {
-                    	if (isPaused && isInterruptable) {
+                    if (!isIndeterminate) {
+                        if (isPaused && isInterruptable) {
 
-							// Error Code
-							// -----------------------------------------------
-							// IDownloaderClient.STATE_PAUSED_NETWORK_UNAVAILABLE (6) : 네트워크가 연결되어 있지 않은 경우
-							// IDownloaderClient.STATE_PAUSED_BY_REQUEST (7) : sOBBDownloader.requestPauseDownload() 로 강제로 다운로드 중단시킨 경우
-							// IDownloaderClient.STATE_PAUSED_ROAMING (12) : 로밍 중, 로밍 중이므로 요금에 대한 경고를 하고 계속 진행/중단 처리한다.
-							// IDownloaderClient.STATE_FAILED_UNLICENSED (15) : 정식으로 앱을 다운로드 받지 않은 경우, APK를 별도로 설치하여 테스트하는 개발 버전에선 실패 처리하지 않고 그대로 진행시킨다.
-							// IDownloaderClient.STATE_FAILED_SDCARD_FULL (17) : 외부 저장 장치의 용량이 부족한 경우
-							
-							// 계속 진행하고자 한다면, 오류 상황을 해소하고 sOBBDownloader.requestContinueDownload() 를 호출해야 한다.
-							// 단, 일반적으로는 STATE_PAUSED_BY_REQUEST 가 아닌 모든 경우 그냥 실패 처리하고 앱을 재설치하도록 유도하는 것이 좋다.
-							
-							// 실패 처리
-							// sOBBDownloader.disconnectDownloaderClient(sActivity) 를 호출하여 다운로드는 완전히 중단시키고,
-							// 앱 안에서 앱을 재설치하도록 유도하는 메시지를 출력하고 앱 종료처리를 한다.
-							
-							// WiFI 가 연결되지 않은 경우에는 라이브러리 내부에서 자체적으로 처리가 되어 있으므로 별도 처리 필요 없다.
+                            // Error Code
+                            // -----------------------------------------------
+                            // IDownloaderClient.STATE_PAUSED_NETWORK_UNAVAILABLE (6) : 네트워크가 연결되어 있지 않은 경우
+                            // IDownloaderClient.STATE_PAUSED_BY_REQUEST (7) : sOBBDownloader.requestPauseDownload() 로 강제로 다운로드 중단시킨 경우
+                            // IDownloaderClient.STATE_PAUSED_ROAMING (12) : 로밍 중, 로밍 중이므로 요금에 대한 경고를 하고 계속 진행/중단 처리한다.
+                            // IDownloaderClient.STATE_FAILED_UNLICENSED (15) : 정식으로 앱을 다운로드 받지 않은 경우, APK를 별도로 설치하여 테스트하는 개발 버전에선 실패 처리하지 않고 그대로 진행시킨다.
+                            // IDownloaderClient.STATE_FAILED_SDCARD_FULL (17) : 외부 저장 장치의 용량이 부족한 경우
 
-                    		String info = "";
-                    		try {
-	                            JSONObject obj = new JSONObject();
-	                            obj.put("code", code);
-	                            obj.put("msg", statusText);
-	                            info = obj.toString();
-                    		} catch (JSONException e) {
-                    			e.printStackTrace();
-                    		}
+                            // 계속 진행하고자 한다면, 오류 상황을 해소하고 sOBBDownloader.requestContinueDownload() 를 호출해야 한다.
+                            // 단, 일반적으로는 STATE_PAUSED_BY_REQUEST 가 아닌 모든 경우 그냥 실패 처리하고 앱을 재설치하도록 유도하는 것이 좋다.
 
-                    		sdkEventResult("apkexp_startdownload", "error", info);
-                    	}
-                	}
+                            // 실패 처리
+                            // sOBBDownloader.disconnectDownloaderClient(sActivity) 를 호출하여 다운로드는 완전히 중단시키고,
+                            // 앱 안에서 앱을 재설치하도록 유도하는 메시지를 출력하고 앱 종료처리를 한다.
+
+                            // WiFI 가 연결되지 않은 경우에는 라이브러리 내부에서 자체적으로 처리가 되어 있으므로 별도 처리 필요 없다.
+
+                            String info = "";
+                            try {
+                                JSONObject obj = new JSONObject();
+                                obj.put("code", code);
+                                obj.put("msg", statusText);
+                                info = obj.toString();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            sdkEventResult("apkexp_startdownload", "error", info);
+                        }
+                    }
                 }
                 @Override
                 public void onUpdateProgress(long current, long total, String progress, String percent) {
                     // 다운로드 진행 중
                     // 다운로드 진행 상황 UI 업데이트
-                	
-            		String info = "";
-            		try {
+
+                    String info = "";
+                    try {
                         JSONObject obj = new JSONObject();
                         obj.put("current", current);
                         obj.put("total", total);
                         //obj.put("progress", progress);
                         //obj.put("percent", percent);
                         info = obj.toString();
-            		} catch (JSONException e) {
-            			e.printStackTrace();
-            		}
-                	
-            		sdkEventResult("apkexp_startdownload", "progress", info);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    sdkEventResult("apkexp_startdownload", "progress", info);
                 }
             });
             sOBBDownloader.initExpansionDownloader(sActivity);
@@ -247,149 +256,170 @@ public class AppActivity extends Cocos2dxActivity{
             Cocos2dxHelper.setupObbAssetFileInfo(versionCode);
 
             // 바로 게임 시작
-    		sdkEventResult("apkexp_startdownload", "complete", "pass");
+            sdkEventResult("apkexp_startdownload", "complete", "pass");
         }
     }
-    
+
+    public static void setBadgeCount(Context context, int count) {
+        String packageName = context.getPackageName();
+        String className = "org.cocos2dx.lua.AppActivity";
+
+        Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+        intent.putExtra("badge_count", count);
+        intent.putExtra("badge_count_package_name", packageName);
+        intent.putExtra("badge_count_class_name", className);
+
+        context.sendBroadcast(intent);
+    }
+
+    private static String getClipText() {
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) sActivity
+                .getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard == null) {
+            return null;
+        }
+
+        android.content.ClipData clipData = clipboard.getPrimaryClip();
+        if (clipData == null) {
+            return null;
+        }
+
+        android.content.ClipData.Item item = clipData.getItemAt(0);
+        if (item == null) {
+            return null;
+        }
+
+        if (item.getText() == null) {
+            return null;
+        }
+
+        String clipText = item.getText().toString();
+        return clipText;
+    }
+
+    private static void setClipText(String text) {
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager)sActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+        android.content.ClipData clip = android.content.ClipData.newPlainText("DragonVillageM RecoveryCode", text);
+        clipboard.setPrimaryClip(clip);
+    }
+
+    private static void appRestart() {
+        Intent intent = new Intent(sActivity, AppActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(sActivity, RC_APP_RESTART, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager mgr = (AlarmManager)sActivity.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC,  System.currentTimeMillis() + 500, pendingIntent);
+
+        ActivityCompat.finishAffinity(sActivity);
+        System.runFinalization();
+        System.exit(0);
+    }
+
+    // Cpp(Native) -> Java (in UIThread(Main Thread))
     public static void sdkEvent(final String id, final String arg0, final String arg1) {
 
-		sActivity.mAppHandler.post(new Runnable() {
-			public void run() {
+        sActivity.mAppHandler.post(new Runnable() {
+            @Override
+            public void run() {
 
-				if (id.equals("apkexp_start")) {
+                if (id.equals("apkexp_start")) {
 
-		    		String[] array1 = arg0.split(";");
-		    		int versionCode = Integer.parseInt(array1[0]);
-		    		long fileSize = Long.parseLong(array1[1]);
+                    String[] array1 = arg0.split(";");
+                    int versionCode = Integer.parseInt(array1[0]);
+                    long fileSize = Long.parseLong(array1[1]);
 
-		    		String md5 = arg1;
-		    		long crc32 = 0;
-		    		
-		    		sActivity.startAPKExpansionDownloader(versionCode, fileSize, md5, crc32);
+                    String md5 = arg1;
+                    long crc32 = 0;
 
-		    	} else if (id.equals("apkexp_continue")) {
+                    AppActivity.startAPKExpansionDownloader(versionCode, fileSize, md5, crc32);
 
-		    		sOBBDownloader.requestContinueDownload();
-		    		
-		    	} else if (id.equals("apkexp_pause")) {
-            		
-		    		sOBBDownloader.requestPauseDownload();
-		    		
-		    	} else if (id.equals("apkexp_stop")) {
-		    		
-		    		sOBBDownloader.disconnectDownloaderClient(sActivity);
-		    		
-		    	} else if (id.equals("localpush_register")) {
-		    		
-					Intent intent = PerplelabIntentFactory.makeIntentService(sActivity);
-					sActivity.startService(intent);
-					
-		    	} else if (id.equals("localpush_cancel")) {
-		    		
-					PerplelabIntentFactory.clear();
-					Intent intent = PerplelabIntentFactory.makeIntentService(sActivity);
-					sActivity.stopService(intent);
-		    		
-		    	} else if (id.equals("localpush_add")) {
-		    		
-					String[] array = arg0.split(";");
-					String type = array[0];
-					int sec = Integer.parseInt(array[1]);
-					String msg = array[2];
+                } else if (id.equals("apkexp_continue")) {
 
-					boolean bAlert = false;
-					if (array.length > 3) {
-						if (array[3].equals("alert")) {
-							bAlert = true;
-						}
-					}
+                    sOBBDownloader.requestContinueDownload();
 
-					PerplelabIntentFactory.addNoti(type, sec, msg, bAlert);
-				
-		    	} else if (id.equals("localpush_setColor")) {
-					
-		    		String[] array = arg0.split(";");
-					String bgColor = array[0];
-					String titleColor = array[1];
-					String messageColor = array[2];
+                } else if (id.equals("apkexp_pause")) {
 
-					PerplelabIntentFactory.setColor(bgColor, titleColor, messageColor);
-		    		
-		    	} else if (id.equals("localpush_setLinkUrl")) {
+                    sOBBDownloader.requestPauseDownload();
 
-		    		String[] array = arg0.split(";");
-					String linkTitle = array[0];
-					String linkUrl = array[1];
-					String cafeUrl = array[2];
+                } else if (id.equals("apkexp_stop")) {
 
-					PerplelabIntentFactory.setLinkUrlInfo(linkTitle, linkUrl, cafeUrl);
-		    		
-		    	} else if (id.equals("clipboard_setText")) {
-		    		
-					android.content.ClipboardManager clipboard = (android.content.ClipboardManager)sActivity.getSystemService(Context.CLIPBOARD_SERVICE);
-					android.content.ClipData clip = android.content.ClipData.newPlainText("DragonVillageM RecoveryCode", arg0);
-					clipboard.setPrimaryClip(clip);
-					
-		    	} else if (id.equals("clipboard_getText")) {
+                    sOBBDownloader.disconnectDownloaderClient(sActivity);
 
-		    		String clipText = getClipText();
-					if (clipText == null) {
-						sdkEventResult(id, "false", "");
-					} else {
-						sdkEventResult(id, "true", clipText);
-					}
+                } else if (id.equals("localpush_register")) {
 
-		    	}
-			}
-		});
+                    Intent intent = PerplelabIntentFactory.makeIntentService(sActivity);
+                    sActivity.startService(intent);
+
+                } else if (id.equals("localpush_cancel")) {
+
+                    PerplelabIntentFactory.clear();
+                    Intent intent = PerplelabIntentFactory.makeIntentService(sActivity);
+                    sActivity.stopService(intent);
+
+                } else if (id.equals("localpush_add")) {
+
+                    String[] array = arg0.split(";");
+                    String type = array[0];
+                    int sec = Integer.parseInt(array[1]);
+                    String msg = array[2];
+
+                    boolean bAlert = false;
+                    if (array.length > 3) {
+                        if (array[3].equals("alert")) {
+                            bAlert = true;
+                        }
+                    }
+
+                    PerplelabIntentFactory.addNoti(type, sec, msg, bAlert);
+
+                } else if (id.equals("localpush_setColor")) {
+
+                    String[] array = arg0.split(";");
+                    String bgColor = array[0];
+                    String titleColor = array[1];
+                    String messageColor = array[2];
+
+                    PerplelabIntentFactory.setColor(bgColor, titleColor, messageColor);
+
+                } else if (id.equals("localpush_setLinkUrl")) {
+
+                    String[] array = arg0.split(";");
+                    String linkTitle = array[0];
+                    String linkUrl = array[1];
+                    String cafeUrl = array[2];
+
+                    PerplelabIntentFactory.setLinkUrlInfo(linkTitle, linkUrl, cafeUrl);
+
+                } else if (id.equals("clipboard_setText")) {
+
+                    setClipText(arg0);
+
+                } else if (id.equals("clipboard_getText")) {
+
+                    String clipText = getClipText();
+                    if (clipText == null) {
+                        sdkEventResult(id, "fail", "");
+                    } else {
+                        sdkEventResult(id, "success", clipText);
+                    }
+
+                } else if (id.equals("app_restart")) {
+                    appRestart();
+                }
+            }
+        });
     }
-    
-	public static void sdkEventResult(final String id, final String ret, final String info) {
-		sActivity.mGLSurfaceView.queueEvent(new Runnable() {
-			@Override
-			public void run() {
-				nativeSDKEventResult(id, ret, info);
-			}
-		});
-	}
-    
-	public static void setBadgeCount(Context context, int count) {
-		String packageName = context.getPackageName();
-		String className = "com.perplelab.dragonvillagem.kr";
 
-		Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
-		intent.putExtra("badge_count", count);
-		intent.putExtra("badge_count_package_name", packageName);
-		intent.putExtra("badge_count_class_name", className);
-		
-		context.sendBroadcast(intent);
-	}
-	
-	public static String getClipText() {
-		android.content.ClipboardManager clipboard = (android.content.ClipboardManager) sActivity
-				.getSystemService(Context.CLIPBOARD_SERVICE);
-		if (clipboard == null) {
-			return null;
-		}
+    // Java -> Cpp(Native) (in GLThread)
+    private static void sdkEventResult(final String id, final String ret, final String info) {
+        sActivity.runOnGLThread(new Runnable() {
+            @Override
+            public void run() {
+                nativeSDKEventResult(id, ret, info);
+            }
+        });
+    }
 
-		android.content.ClipData clipData = clipboard.getPrimaryClip();
-		if (clipData == null) {
-			return null;
-		}
-
-		android.content.ClipData.Item item = clipData.getItemAt(0);
-		if (item == null) {
-			return null;
-		}
-
-		if (item.getText() == null) {
-			return null;
-		}
-
-		String clipText = item.getText().toString();
-		return clipText;
-	}
-	
     private static native void nativeSDKEventResult(String id, String result, String info);
 
 }
