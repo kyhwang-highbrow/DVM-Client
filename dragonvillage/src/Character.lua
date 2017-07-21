@@ -1129,7 +1129,7 @@ function Character:healAbs(caster, heal, b_make_effect)
 
     if (caster) then
         -- 회복 되었을 시 이벤트
-        self:dispatch('recovery', {}, self)
+        self:dispatch('character_recovery', {}, self)
     end
 
 	-- @LOG_CHAR : 피회복자 피회복량

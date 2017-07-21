@@ -328,7 +328,6 @@ end
 -- function bindHero
 -------------------------------------
 function GameWorld:bindHero(hero)
-    hero:addListener('avoid_rate', self)
     hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_heroMana)
@@ -336,12 +335,10 @@ function GameWorld:bindHero(hero)
     hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
 
-    -- HP 변경시 콜백 등록
+    -- 월드에서 중계되는 이벤트
+    hero:addListener('character_recovery', self)
     hero:addListener('character_set_hp', self)
-    
     hero:addListener('character_dead', self)
-
-    -- 상태효과 받을 시 콜백 등록
     hero:addListener('get_status_effect', self)
 end
 
@@ -389,11 +386,6 @@ end
 -- function bindEnemy
 -------------------------------------
 function GameWorld:bindEnemy(enemy)
-
-    enemy:addListener('avoid_rate', self)
-
-    -- 죽음 콜백 등록
-    enemy:addListener('character_dead', self)
     enemy:addListener('character_dead', self.m_gameState)
     if self.m_dropItemMgr then
         enemy:addListener('character_dead', self.m_dropItemMgr)
@@ -412,10 +404,10 @@ function GameWorld:bindEnemy(enemy)
         enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
     end
 
-    -- HP 변경시 콜백 등록
+    -- 월드에서 중계되는 이벤트
+    enemy:addListener('character_recovery', self)
+    enemy:addListener('character_dead', self)
     enemy:addListener('character_set_hp', self)
-
-    -- 상태효과 받을 시 콜백 등록
     enemy:addListener('get_status_effect', self)
 end
 

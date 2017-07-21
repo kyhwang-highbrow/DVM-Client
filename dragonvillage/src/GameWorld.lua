@@ -1225,6 +1225,24 @@ function GameWorld:onEvent(event_name, t_event, ...)
             end)
         end
 
+    elseif (event_name == 'character_recovery') then
+        local arg = {...}
+        local unit = arg[1]
+
+        unit:dispatch('self_recovery', t_event, unit)
+
+        for _, fellow in pairs(unit:getFellowList(), unit) do
+
+            fellow:dispatch('ally_recovery', t_event, unit)
+            if (unit ~= fellow) then
+                fellow:dispatch('teammate_recovery', t_event, unit)
+            end
+        end
+
+        for _, opponent in pairs(unit:getOpponentList()) do
+            opponent:dispatch('enemy_recovery', t_event)
+        end
+
     elseif (event_name == 'character_set_hp') then
         local arg = {...}
         local unit = arg[1]
