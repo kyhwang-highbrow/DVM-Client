@@ -85,7 +85,7 @@ function UI_QuestListItem:setVarsVisible()
     -- 퀘스트 완료
     vars['questCompletNode']:setVisible((not has_reward) and (is_end))
 
-    -- 바로가지
+    -- 바로가기
     vars['questLinkBtn']:setVisible(not is_end)
 end
 
@@ -148,17 +148,19 @@ function UI_QuestListItem:setChallengeTitle()
     local vars = self.vars
     local quest_data = self.m_questData
 
+    -- 업적만 칭호가 있다.
     if (not quest_data:isChallenge()) then
         return
     end
 
     local title = quest_data:getTamerTitleStr()
+    local have_title = (title ~= nil) and (title ~= '')
 
     -- 칭호 노드 on
-    vars['titleNode']:setVisible((title ~= nil))
+    vars['titleNode']:setVisible(have_title)
 
     -- 칭호 go!
-    if (title) then
+    if (have_title) then
         vars['titleLabel']:setString(title)
     end
 end 
