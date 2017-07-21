@@ -31,6 +31,12 @@ LobbyMap = class(PARENT, {
 
         m_lLobbyObject = '',
         m_lNearLobbyObjectList = 'list',
+
+        -- 채팅서버와의 position 동기화 최적화
+        m_chatServer_bDirtyPos = 'bool',
+        m_chatServer_posSyncTimer = 'bool',
+        m_chatServer_x = 'number',
+        m_chatServer_y = 'number',
     })
 
 LobbyMap.Z_ORDER_TYPE_SHADOW = 1
@@ -51,6 +57,10 @@ function LobbyMap:init(parent, z_order)
     self.m_lChangedPosTamers = {}
     self.m_lNearUserList = {}
     self.m_lNearLobbyObjectList = {}
+
+    -- 채팅서버와의 position 동기화 최적화
+    self.m_chatServer_bDirtyPos = false
+    self.m_chatServer_posSyncTimer = 0
 end
 
 -------------------------------------
@@ -280,9 +290,12 @@ function LobbyMap:update(dt)
     -- 플레이어 유저 이동
     if self.m_bUserPosDirty then
         local x, y = self.m_targetTamer.m_rootNode:getPosition()
-        self:dispatch('LobbyMap_CHARACTER_MOVE', {['x']=x, ['y']=y})
+        self.m_chatServer_bDirtyPos = true
+        self.m_chatServer_x = x
+        self.m_chatServer_y = y
     end
 
+    self:update_chatServerPosSync(dt)
 
     if self.m_bPress then
         local node_pos = self.m_groudNode:convertToNodeSpace(self.m_touchPosition)
@@ -313,6 +326,29 @@ function LobbyMap:update(dt)
 
     self:updateLobbyObjectArea()
     self:updateUserTamerArea()
+end
+
+-------------------------------------
+-- function update_chatServerPosSync
+-- @brief 채팅 서버 위치 동기화 업데이트
+-------------------------------------
+function LobbyMap:update_chatServerPosSync(dt)
+
+    -- 타이머 시간 감소(0이 되면 동작 확인)
+    if (0 < self.m_chatServer_posSyncTimer) then
+        self.m_chatServer_posSyncTimer = (self.m_chatServer_posSyncTimer - dt)
+    end
+
+    -- 타이머가 0 이하이고, 위치 동기화가 필요한 경우
+    if self.m_chatServer_bDirtyPos and (self.m_chatServer_posSyncTimer <= 0) then
+        self.m_chatServer_posSyncTimer = 1
+        local x = self.m_chatServer_x
+        local y = self.m_chatServer_y
+        self.m_chatServer_bDirtyPos = false
+
+        -- 채팅 서버로 위치 동기화 요청
+        self:dispatch('LobbyMap_CHARACTER_MOVE', {['x']=x, ['y']=y})
+    end
 end
 
 -------------------------------------
