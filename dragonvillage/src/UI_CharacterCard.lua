@@ -36,6 +36,8 @@ UI_CharacterCard = class(PARENT, {
         m_charLevelNumber = 'number',
 
         m_bCheckVisible = 'boolean',
+
+        m_tag = '',
     })
 
 -------------------------------------
