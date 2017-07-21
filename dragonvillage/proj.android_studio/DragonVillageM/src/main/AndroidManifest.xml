@@ -2,12 +2,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.perplelab.dragonvillagem.kr"
-    android:versionCode="5"
-    android:versionName="0.2.2"
     android:installLocation="auto" >
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="25" />
     <uses-feature
         android:glEsVersion="0x00020000" />
     <supports-screens
