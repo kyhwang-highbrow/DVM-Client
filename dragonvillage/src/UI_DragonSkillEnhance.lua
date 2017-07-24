@@ -111,6 +111,7 @@ function UI_DragonSkillEnhance:refresh()
     do -- 재료 중에서 선택된 드래곤 항목들 정리
         if (self.m_selectedMtrl) then
             self.m_selectedMtrl.root:removeFromParent()
+            self.m_selectedMtrl = nil
         end
     end
 

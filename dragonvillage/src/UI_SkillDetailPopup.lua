@@ -96,6 +96,7 @@ end
 function UI_SkillDetailPopup:refresh(idx)
     local vars = self.vars
 	local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(idx)
+    local skill_id = skill_indivisual_info:getSkillID()
 
     -- 스킬 타입
 	local skill_type = skill_indivisual_info:getSkillType()
