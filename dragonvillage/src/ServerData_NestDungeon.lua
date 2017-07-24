@@ -525,7 +525,7 @@ end
 -------------------------------------
 -- function goToNestDungeonScene
 -------------------------------------
-function ServerData_NestDungeon:goToNestDungeonScene(stage_id, dungeon_type)
+function ServerData_NestDungeon:goToNestDungeonScene(stage_id, dungeon_type, use_scene)
     local request_nest_dungeon_info
     local request_nest_dungeon_stage_list
     local replace_scene
@@ -542,9 +542,12 @@ function ServerData_NestDungeon:goToNestDungeonScene(stage_id, dungeon_type)
 
     -- 네스트 던전 씬으로 전환
     replace_scene = function()
-		UI_NestDungeonScene(stage_id, dungeon_type)
-        --local scene = SceneNestDungeon(stage_id, dungeon_type)
-        --scene:runScene()
+        if (use_scene) then
+            local scene = SceneNestDungeon(stage_id, dungeon_type)
+            scene:runScene()
+        else
+		    UI_NestDungeonScene(stage_id, dungeon_type)
+        end
     end
 
     request_nest_dungeon_info()

@@ -808,7 +808,9 @@ end
 -- function click_backBtn
 -------------------------------------
 function UI_GameResultNew:click_backBtn()
-    g_ancientTowerData:goToAncientTowerScene()
+    local game_mode = g_gameScene.m_gameMode
+    local dungeon_mode = g_gameScene.m_dungeonMode
+    QuickLinkHelper.gameModeLink(game_mode, dungeon_mode)
 end
 
 -------------------------------------
