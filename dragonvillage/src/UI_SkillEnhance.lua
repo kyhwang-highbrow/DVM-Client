@@ -160,6 +160,16 @@ end
 -- function click_levelBtn1
 -------------------------------------
 function UI_SkillEnhance:click_levelBtn1()
+
+    -- 스킬의 현재 레벨을 얻어옴
+    local skill_indivisual_info = self.m_skillIndividualInfo
+    local skill_level = skill_indivisual_info:getSkillLevel()
+
+    -- 최소 현재레벨 +1 이상은 유지되도록
+    if (self.m_enhanceLevel <= (skill_level + 1)) then
+        return
+    end
+
 	self.m_enhanceLevel = self.m_enhanceLevel - 1
 	
 	local skill_level = self.m_skillIndividualInfo:getSkillLevel()
