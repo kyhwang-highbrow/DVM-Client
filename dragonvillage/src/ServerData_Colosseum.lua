@@ -437,7 +437,7 @@ function ServerData_Colosseum:request_colosseumStart(is_cash, vsuid, finish_cb, 
 
     -- 공격자의 콜로세움 전투력 저장
     local combat_power = g_colosseumData.m_playerUserInfo:getAtkDeckCombatPower(true)
-    ccdump(combat_power)
+    
     -- 성공 콜백
     local function success_cb(ret)
         -- staminas, cash 동기화

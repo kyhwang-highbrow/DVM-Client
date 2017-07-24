@@ -162,6 +162,7 @@ function UI_GameResultNew:setWorkList()
 
     self.m_lWorkList = {}
     table.insert(self.m_lWorkList, 'direction_showTamer')
+    table.insert(self.m_lWorkList, 'direction_hideTamer')
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')
     table.insert(self.m_lWorkList, 'direction_showBox')
@@ -231,18 +232,36 @@ function UI_GameResultNew:direction_showTamer()
 	local face_ani = TableTamer:getTamerFace(t_tamer['type'], is_success)
 	animator:changeAni(face_ani, true)
 
-    local function hideTamer()
-        local hide_act = cc.EaseExponentialOut:create(cc.MoveTo:create(1, cc.p(0, -1000)))
-        local after_act = cc.CallFunc:create(function()
-		    tamer_node:setVisible(false)
-            self:doNextWork()
-	    end)
-
-        tamer_node:runAction(cc.Sequence:create(hide_act, after_act))
-    end
-
     self.root:stopAllActions()
-    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2.5), cc.CallFunc:create(hideTamer)))
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2.0), cc.CallFunc:create(function() self:doNextWork() end)))
+end
+
+-------------------------------------
+-- function direction_showTamer_click
+-------------------------------------
+function UI_GameResultNew:direction_showTamer_click()
+    self:doNextWork()
+end
+
+-------------------------------------
+-- function direction_hideTamer
+-------------------------------------
+function UI_GameResultNew:direction_hideTamer()
+    local vars = self.vars
+    local tamer_node = vars['tamerNode']
+    local hide_act = cc.EaseExponentialOut:create(cc.MoveTo:create(1, cc.p(0, -1000)))
+    local after_act = cc.CallFunc:create(function()
+		tamer_node:setVisible(false)
+        self:doNextWork()
+	end)
+
+    tamer_node:runAction(cc.Sequence:create(hide_act, after_act))
+end
+
+-------------------------------------
+-- function direction_hideTamer_click
+-------------------------------------
+function UI_GameResultNew:direction_hideTamer_click()
 end
 
 -------------------------------------
