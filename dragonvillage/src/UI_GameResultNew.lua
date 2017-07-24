@@ -279,7 +279,6 @@ function UI_GameResultNew:direction_start()
 
 	vars['statsBtn']:setVisible(false)
     vars['homeBtn']:setVisible(false)
-    vars['againBtn']:setVisible(false)
     vars['nextBtn']:setVisible(false)
     vars['quickBtn']:setVisible(false)
 

@@ -229,6 +229,7 @@ function UI_GameResult_AncientTower:setWorkList()
 
     self.m_lWorkList = {}
     table.insert(self.m_lWorkList, 'direction_showTamer')
+    table.insert(self.m_lWorkList, 'direction_hideTamer')
     table.insert(self.m_lWorkList, 'direction_showScore')
     table.insert(self.m_lWorkList, 'direction_end')
     table.insert(self.m_lWorkList, 'direction_showBox')
@@ -245,6 +246,8 @@ end
 -------------------------------------
 function UI_GameResult_AncientTower:direction_showScore()
     local is_success = self.m_bSuccess
+    self.root:stopAllActions()
+
     self:setSuccessVisual_Ancient()
 
     -- 성공시에만 스코어 연출
@@ -260,18 +263,6 @@ end
 -- function direction_showScore_click
 -------------------------------------
 function UI_GameResult_AncientTower:direction_showScore_click()
-end
-
--------------------------------------
--- function direction_end
--- @brief 종료 연출
--------------------------------------
-function UI_GameResult_AncientTower:direction_end()
-    UI_GameResultNew.direction_end(self)
-
-    -- 필요없는 버튼 비지블 꺼줌
-    local vars = self.vars
-    vars['againBtn']:setVisible(false)
 end
 
 -------------------------------------

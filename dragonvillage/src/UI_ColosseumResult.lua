@@ -54,6 +54,7 @@ function UI_ColosseumResult:initButton()
     local vars = self.vars
 	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+    vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
 end
 
 -------------------------------------
@@ -94,6 +95,13 @@ function UI_ColosseumResult:direction_showTamer()
 end
 
 -------------------------------------
+-- function direction_showTamer_click
+-------------------------------------
+function UI_ColosseumResult:direction_showTamer_click()
+    self:doNextWork()
+end
+
+-------------------------------------
 -- function direction_hideTamer
 -------------------------------------
 function UI_ColosseumResult:direction_hideTamer()
@@ -106,6 +114,12 @@ function UI_ColosseumResult:direction_hideTamer()
 	end)
 
     tamer_node:runAction(cc.Sequence:create(hide_act, after_act))
+end
+
+-------------------------------------
+-- function direction_hideTamer_click
+-------------------------------------
+function UI_ColosseumResult:direction_hideTamer_click()
 end
 
 -------------------------------------
@@ -131,6 +145,12 @@ function UI_ColosseumResult:direction_start()
     end
 
     self:doNextWorkWithDelayTime(0.5)
+end
+
+-------------------------------------
+-- function direction_start_click
+-------------------------------------
+function UI_ColosseumResult:direction_start_click()
 end
 
 -------------------------------------
@@ -185,6 +205,12 @@ function UI_ColosseumResult:direction_end()
 end
 
 -------------------------------------
+-- function direction_end
+-------------------------------------
+function UI_ColosseumResult:direction_end_click()
+end
+
+-------------------------------------
 -- function doNextWork
 -------------------------------------
 function UI_ColosseumResult:doNextWork()
@@ -221,4 +247,18 @@ end
 function UI_ColosseumResult:click_okBtn()
 	local use_scene = true
     g_colosseumData:goToColosseum(use_scene)
+end
+
+-------------------------------------
+-- function click_screenBtn
+-------------------------------------
+function UI_ColosseumResult:click_screenBtn()
+    if (not self.m_lWorkList[self.m_workIdx]) then
+        return
+    end
+
+    local func_name = self.m_lWorkList[self.m_workIdx] .. '_click'
+    if func_name and (self[func_name]) then
+        self[func_name](self)
+    end
 end
