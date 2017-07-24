@@ -263,6 +263,11 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
         if (ret['quest_info']) then
 		    self:applyQuestInfo(ret['quest_info'])
         end
+        
+        -- 하이라이트 갱신
+        if (ret['highlight']) then
+            g_highlightData:applyHighlightInfo(ret)
+        end
 
         if (cb_func) then
             -- 업적 : 마지막 퀘스트인지 체크하여 아니라면 다음 qid로 진행
