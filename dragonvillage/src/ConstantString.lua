@@ -218,7 +218,7 @@ function getSkillTypeStr(skill_type, is_use_brakets)
         skill_type_str = Str('리더 스킬')
 
     else
-        skill_type_str = Str('일반 스킬')
+        skill_type_str = Str('패시브 스킬')
 
     end
 
