@@ -200,6 +200,13 @@ function StatusEffectUnit:getSource()
 end
 
 -------------------------------------
+-- function getDuration
+-------------------------------------
+function StatusEffectUnit:getDuration()
+    return self.m_durationTimer
+end
+
+-------------------------------------
 -- function getStandardStat
 -- @brief 해당 상태효과 값(value) 적용시 기준이 되는 스텟 값을 얻음
 -------------------------------------
@@ -221,6 +228,13 @@ end
 -------------------------------------
 function StatusEffectUnit:getCaster()
     return self.m_caster
+end
+
+-------------------------------------
+-- function getSkillId
+-------------------------------------
+function StatusEffectUnit:getSkillId()
+    return self.m_skillId
 end
 
 -------------------------------------

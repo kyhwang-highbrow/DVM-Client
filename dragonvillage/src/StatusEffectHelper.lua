@@ -278,7 +278,11 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
 	local status_effect = nil
     ----------- 상태효과 변경 ------------------
-	if (status_effect_group == 'modify') then
+	if (status_effect_group == 'transfer') then
+        status_effect = StatusEffect_Transfer(res)
+
+    ----------- 상태효과 변경 ------------------
+	elseif (status_effect_group == 'modify') then
         status_effect = StatusEffect_Modify(res)
 
     ---------- 부활 ------------

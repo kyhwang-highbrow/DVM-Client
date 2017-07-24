@@ -391,6 +391,7 @@ local t_module = {
     'StatusEffect_AddMana',
     'StatusEffect_ManaReduce',
     'StatusEffect_Resurrect',
+    'StatusEffect_Transfer',
 
 	'StatusEffectIcon',
 

@@ -2484,6 +2484,9 @@
     <None Include="..\src\QuickLinkHelper.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StatusEffect_Transfer.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_MonsterSkillCard.lua">
       <Filter>lua\UI</Filter>
     </None>
