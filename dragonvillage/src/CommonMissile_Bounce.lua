@@ -34,11 +34,11 @@ function CommonMissile_Bounce:setMissile()
 	-- 수정 X
 	t_option['owner'] = self.m_owner
 	t_option['target'] = self.m_target
+    t_option['target_list'] = self.m_lTarget
     t_option['pos_x'] = self.m_attackPos.x
     t_option['pos_y'] = self.m_attackPos.y
     t_option['attack_damage'] = self.m_activityCarrier
-	t_option['bFixedAttack'] = false
-    t_option['object_key'] = self.m_owner:getAttackPhysGroup()
+	t_option['object_key'] = self.m_owner:getAttackPhysGroup()
 
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------
@@ -49,11 +49,12 @@ function CommonMissile_Bounce:setMissile()
     t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
     t_option['attr_name'] = self.m_owner:getAttribute()
     
-	t_option['physics_body'] = {0, 0, 20}
+	t_option['physics_body'] = {0, 0, 0}
 	t_option['offset'] = {0, 0}
 
 	t_option['movement'] ='lua_bounce' 
     t_option['missile_type'] = 'PASS'
+    t_option['disable_body'] = true
 	
 	t_option['scale'] = self.m_resScale
 	t_option['count'] = 1

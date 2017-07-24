@@ -181,6 +181,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 	if string.match(movement, 'lua_')then
         missile = MissileLua(missile_res_name, physics_body)
         missile.m_target = target
+        missile.m_lTarget = target_list
         lua_missile = true
 
     elseif (movement == 'normal') then
@@ -445,7 +446,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 			for i = 1, add_script_max do
 				time = add_script_start + (i-1)*add_script_term
 				table.insert(missile.m_lAddScriptTime, time)
-			end
+			end            
 		end
 
         -- Visual명 변경

@@ -157,7 +157,8 @@ function GameWorld:se_on_dragon()
     local enemy_list = self:getEnemyList()
 
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'stun', 'target', 1, 5, 100, 100)
-    StatusEffectHelper:doStatusEffect(enemy_list[1], { dragon_list[1] }, 'stun', 'target', 1, 5, 100, 100)
+    --StatusEffectHelper:doStatusEffect(enemy_list[1], { dragon_list[1] }, 'stun', 'target', 1, 5, 100, 100)
+    StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'stun', 'target', 1, 3, 100, 100)
 end
 
 -------------------------------------

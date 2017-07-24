@@ -11,7 +11,7 @@ MissileLua = class(Missile, {
         m_value4 = '',
         m_value5 = '',
 
-        m_target = 'Character',
+        m_lTarget = 'table',
      })
 
 -------------------------------------
@@ -308,25 +308,12 @@ function MissileLua.lua_bounce(owner)
     local target_x = (pos_x - 640)
     local target_y = (pos_y - 50)
 	
-	if (owner.m_target) then
-        target_x = owner.m_target.pos.x
-        target_y = owner.m_target.pos.y
-    end
-
-	-- 월드와 적군 리스트 세팅
-	local world = owner.m_owner.m_world
-	local l_target = owner.m_owner:getOpponentList()
-	if (#l_target == 0) then 
-		owner:changeState('dying')
-        return
-	end
-
 	-- 필요한 변수 선언
 	local duration = 0.7
 	local loop = 1
 	local height = owner.m_value1
 	local count = 0
-	local max_count = math_min(owner.m_value2, #l_target)
+	local max_count = math_min(owner.m_value2, #owner.m_lTarget)
 	local attr = owner.m_owner:getAttributeForRes()
 	local after_effect_res = string.gsub('res/effect/effect_hit_physical_@/effect_hit_physical_@.json', '@', attr)
 
@@ -339,34 +326,43 @@ function MissileLua.lua_bounce(owner)
 	local scale_action = cc.ScaleBy:create(scale_action_duration, scale_rate_x, scale_rate_y)
 	local scale_action2 = cc.ScaleBy:create(scale_action_duration, 1/scale_rate_x, 1/scale_rate_y)
 	local after_effect = cc.CallFunc:create(function()
-		world.m_missileFactory:makeInstantMissile(after_effect_res, 'idle', target_x, target_y, 10, owner, {attr_name = attr, scale = -1})
+        local world = owner.m_owner.m_world
+        world:addInstantEffect(after_effect_res, 'idle', target_x, target_y)
+
+        -- 피격 처리
+        owner:runAtkCallback(owner.m_target, target_x, target_y)
+
+        owner.m_target:runDefCallback(owner, owner.m_target.pos.x, owner.m_target.pos.y)
 	end)
 
 	-- 재귀 호출을 위한 편법
-	local cbFunction2 = nil
-	local cbFunction = cc.CallFunc:create(function()
+	local doWork
+    doWork = function()
 		-- 탈출 조건
-		if (count >= max_count) or (#l_target == 0) then 
+		if (count >= max_count) or (#owner.m_lTarget == 0) then 
 			owner:changeState('dying')
 		end
 
-		local rand = math_random(1, #l_target)
-		if l_target[rand] then 
-			target_x = l_target[rand].pos.x
-			target_y = l_target[rand].pos.y
-			local jump_action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
-			owner.m_rootNode:runAction(cc.Sequence:create(jump_action, after_effect, scale_action, scale_action2, cbFunction2))
-		else
-			-- 타겟을 찾지 못하여도 탈출
+        owner.m_target = table.remove(owner.m_lTarget, 1)
+
+        if (owner.m_target) then
+            target_x = owner.m_target.pos.x
+			target_y = owner.m_target.pos.y
+
+        elseif (count > 0) then
+            -- 타겟을 찾지 못하여도 탈출
 			owner:changeState('dying')
+            return
 		end
+
+        local jump_action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
+		owner.m_rootNode:runAction(cc.Sequence:create(jump_action, after_effect, scale_action, scale_action2, cc.CallFunc:create(doWork)))
+        
 		count = count + 1
-	end)
-	cbFunction2 = cbFunction
-
+	end
+	
 	-- START
-	local jump_action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
-	owner.m_rootNode:runAction(cc.Sequence:create(jump_action, after_effect, scale_action, scale_action2, cbFunction))
+    doWork()
 end
 
 -------------------------------------

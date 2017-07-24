@@ -27,6 +27,13 @@ function SkillEnumrate_Normal:init_skill(missile_res, motionstreak_res, line_num
 end
 
 -------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillEnumrate_Normal:initSkillSize()
+	self.m_skillLineSize = 25
+end
+
+-------------------------------------
 -- function fireMissile
 -------------------------------------
 function SkillEnumrate_Normal:fireMissile(idx)

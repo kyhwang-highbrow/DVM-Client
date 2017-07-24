@@ -7,6 +7,7 @@ local PARENT = Entity
 CommonMissile = class(PARENT, {
 		m_owner = 'Character',
 		m_target = 'Charater',
+        m_lTarget = 'table',
 
 		m_missileRes = 'str',
 		m_motionStreakRes = 'str',
@@ -60,7 +61,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	self.m_fireCnt = 0
 	self.m_fireLimitTime = g_constant:get('INGAME', 'FIRE_LIMIT_TIME')
 
-	self.m_target = self:getRandomTargetByRule()
+	self.m_target, self.m_lTarget = self:getRandomTargetByRule()
 	self.m_missileTimer = 0
 
 	self:initActvityCarrier()
@@ -112,7 +113,7 @@ function CommonMissile:getRandomTargetByRule()
 	    cclog('Common Missile : Can not find target')
     end
 
-    return target
+    return target, l_target
 end
 
 -------------------------------------
