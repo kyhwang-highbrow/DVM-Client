@@ -17,6 +17,9 @@ StatusEffectUnit = class({
 
         m_bApply = 'boolean',
 
+        m_lStatus = 'table',        -- 적용된 스텟 정보
+        m_lStatusAbs = 'table',     -- 적용된 스텟 정보
+
         m_tParam = 'table',         -- 추가 정보들을 저장하기 위한 맵형태의 테이블
     })
 
@@ -109,6 +112,9 @@ function StatusEffectUnit:onApply(lStatus, lStatusAbs)
 
     self.m_bApply = true
 
+    self.m_lStatus = lStatus
+    self.m_lStatusAbs = lStatusAbs
+
     return true, is_dirty_stat
 end
 
@@ -136,7 +142,33 @@ function StatusEffectUnit:onUnapply(lStatus, lStatusAbs)
 
     self.m_bApply = false
 
+    self.m_lStatus = nil
+    self.m_lStatusAbs = nil
+
     return true, is_dirty_stat
+end
+
+-------------------------------------
+-- function onChangeValue
+-- @brief 적용값이 변경되었을 경우 호출(StatusEffect_Modify를 통한 적용값 변경 시)
+-------------------------------------
+function StatusEffectUnit:onChangeValue(new_value)
+    if (self.m_value == new_value) then return end
+
+    if (self.m_bApply) then
+        local lStatus = self.m_lStatus
+        local lStatusAbs = self.m_lStatusAbs
+
+        -- 현재 적용값의 버프를 해제
+        self:onUnapply(lStatus, lStatusAbs)
+
+        self.m_value = new_value
+
+        -- 새 적용값으로 버프 적용
+        self:onApply(lStatus, lStatusAbs)
+    else
+        self.m_value = new_value
+    end
 end
 
 -------------------------------------

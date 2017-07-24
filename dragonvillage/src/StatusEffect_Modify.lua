@@ -69,7 +69,8 @@ function StatusEffect_Modify:onApplyOverlab(unit)
         for _, v in ipairs(list) do
             if (v ~= unit) then
                 do  -- 적용값 변경
-                    v.m_value = v.m_value + v.m_value * value_rate
+                    local new_value = v.m_value + v.m_value * value_rate
+                    v:onChangeValue(new_value)
                 end
 
                 do  -- 유지시간 변경

@@ -13,18 +13,7 @@ StatusEffectUnit_Dot_Heal = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffectUnit_Dot_Heal:init(name, owner, caster, skill_id, value, source, duration)
-    local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
-    
-    -- 힐 계산
-    if (t_status_effect['abs_switch'] == 1) then 
-        self.m_dotHeal = self.m_value
-
-    else
-        local atk_dmg = self:getStandardStat()
-        local heal = HealCalc_M(atk_dmg)
-
-        self.m_dotHeal = heal * (self.m_value / 100)
-    end
+    self.m_dotHeal = self:calculateDotHeal()
 
 	-- 힐 사운드
 	if (owner:isDragon()) then
@@ -37,4 +26,35 @@ end
 -------------------------------------
 function StatusEffectUnit_Dot_Heal:doDot()
     self.m_owner:healAbs(self.m_caster, self.m_dotHeal, false)
+end
+
+-------------------------------------
+-- function calculateDotDmg
+-------------------------------------
+function StatusEffectUnit_Dot_Heal:calculateDotHeal()
+    local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
+    local heal
+    
+    -- 힐 계산
+    if (t_status_effect['abs_switch'] == 1) then 
+        heal = self.m_value
+
+    else
+        local atk_dmg = self:getStandardStat()
+        heal = HealCalc_M(atk_dmg)
+
+        heal = heal * (self.m_value / 100)
+    end
+
+    return heal
+end
+
+-------------------------------------
+-- function onChangeValue
+-- @brief 적용값이 변경되었을 경우 호출(StatusEffect_Modify를 통한 적용값 변경 시)
+-------------------------------------
+function StatusEffectUnit_Dot_Heal:onChangeValue(new_value)
+    PARENT.onChangeValue(self, new_value)
+
+    self.m_dotHeal = self:calculateDotHeal()
 end
