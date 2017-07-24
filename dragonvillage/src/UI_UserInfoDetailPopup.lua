@@ -146,7 +146,6 @@ end
 function UI_UserInfoDetailPopup:refresh()
     local vars = self.vars
 
-	self:refresh_profile()
     self:refresh_title()
 	self:refresh_tamer()
 	self:refresh_dragon()
@@ -215,6 +214,9 @@ function UI_UserInfoDetailPopup:refresh_dragon()
 	local t_dragon_data = StructDragonObject(self.m_tUserInfo['leader'])
 	local did = t_dragon_data['did']
 	local t_dragon = TableDragon():get(did)
+
+    -- 드래곤 아이콘
+    self:refresh_profile()
 
 	-- 드래곤 애니
 	local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
@@ -390,6 +392,9 @@ function UI_UserInfoDetailPopup:click_dragonBtn()
 
 	local function close_cb()
 		local curr_doid = self.m_tUserInfo['leader']['id']
+
+        cclog('before_doid : ' .. before_doid)
+        cclog('curr_doid : ' .. curr_doid)
 
 		if (before_doid ~= curr_doid) then
 			self:refresh_dragon()

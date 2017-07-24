@@ -172,11 +172,13 @@ end
 -- function click_selectBtn
 -------------------------------------
 function UI_UserInfoDetailPopup_SetLeader:click_selectBtn()
-	if (self.m_selectDragonData) then
-		if (self.m_selectDragonData['id'] ~= self.m_tUserInfo['leader']['id']) then
-			self.m_tUserInfo['leader'] = self.m_selectDragonData
-			g_dragonsData:request_setLeaderDragon('lobby', self.m_selectDragonOID)
-		end
+    if (not self.m_selectDragonData) then
+        return
+    end
+
+	if (self.m_selectDragonData['id'] ~= self.m_tUserInfo['leader']['id']) then
+		self.m_tUserInfo['leader'] = self.m_selectDragonData
+		g_dragonsData:request_setLeaderDragon('lobby', self.m_selectDragonOID)
 	end
 
 	self:click_closeBtn()
