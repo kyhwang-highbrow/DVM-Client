@@ -140,6 +140,11 @@ end
 -------------------------------------
 function ServerData_MasterRoad:checkFocusRoadClear(t_data)
     local rid = self:getFocusRoad()
+    -- 이미 클리어하여 보상이 있는 경우
+    if (self.m_tRewardInfo[tostring(rid)] == 1) then
+        return false
+    end
+
     local t_road = TableMasterRoad():get(rid)
     
     local clear_type = t_road['clear_type']
