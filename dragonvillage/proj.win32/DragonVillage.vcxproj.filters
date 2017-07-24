@@ -384,9 +384,6 @@
     <None Include="..\src\shader\sepia.fsh">
       <Filter>shader</Filter>
     </None>
-    <None Include="..\src\UI_LobbyUserInfoPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_UserDeckInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>

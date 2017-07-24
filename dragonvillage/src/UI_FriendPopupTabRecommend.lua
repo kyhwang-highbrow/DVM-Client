@@ -59,7 +59,8 @@ function UI_FriendPopupTabRecommend:click_findBtn()
         if (not t_friend_info) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('[{1}]님을 찾지 못하였습니다.', nick))
         else
-            UI_LobbyUserInfoPopup(t_friend_info)
+            local struct_user_info = StructUserInfoFriend:create(t_friend_info)
+            UI_UserInfoMini:open(struct_user_info)
         end
     end
 

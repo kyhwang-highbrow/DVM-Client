@@ -464,7 +464,6 @@ function ChatManager:openChatPopup()
                 if (ui.m_uiName == 'UI_SimpleEditBoxPopup') then
                 elseif (ui.m_uiName == 'UI_UserInfoMini') then
                 elseif (ui.m_uiName == 'UI_UserDeckInfoPopup') then
-                elseif (ui.m_uiName == 'UI_LobbyUserInfoPopup') then
                 elseif (ui.m_uiName == 'UI_Network') then
                 elseif (ui.m_uiName == 'UI_UserInfoDetailPopup') then
                 else
