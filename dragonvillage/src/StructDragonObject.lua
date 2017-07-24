@@ -384,7 +384,7 @@ end
 function StructDragonObject:getGradeRes()
     -- 기본 정보
     local grade = tonumber(self['grade'] or 1)
-	local evolution = self['evolution']
+	local evolution = tonumber(self['evolution'])
 
     -- grade의 0을 넣는 경우도 있다..!
     if (grade <= 0) then
