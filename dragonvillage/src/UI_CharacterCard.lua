@@ -50,6 +50,10 @@ function UI_CharacterCard:init(t_dragon_data)
     self.m_dragonData = t_dragon_data
     self.m_bCheckVisible = false
 
+    -- 버튼 생성
+    self:makeClickBtn()
+
+    -- 드래곤 정보 생성
     self:refreshDragonInfo()
 end
 
@@ -64,9 +68,6 @@ function UI_CharacterCard:refreshDragonInfo()
     local t_dragon_data = self.m_dragonData
     local did = t_dragon_data['did']
     local attr = t_dragon_data:getAttr()
-
-    -- 버튼 생성과 배경 이미지 생성
-    self:makeClickBtn()
 
     -- 속성 따른 배경 이미지
     self:makeBg(attr)
