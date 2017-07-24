@@ -111,26 +111,11 @@ function UI_AncientTowerFloorInfo:refresh_monsterList()
 
     local l_item_list = info:getMonsterList()
 
+    -- 스테이지 레벨로 몬스터와 드래곤 레벨 설정 (전투력 계산에 쓰임)
+    local stage_id = info.m_stage
     local function make_func(data)
-        local ui 
-        local t_monster = TableMonster():get(data)
-        if (t_monster) then
-            ui = UI_MonsterCard(data)
-        else
-            local t_dragon = StructDragonObject()
-            t_dragon['did'] = data
-            t_dragon['evolution'] = 3
-            ui = UI_DragonCard(t_dragon)
-
-            -- 몬스터 카드와 동일하게 이름 툴팁으로 출력
-            local function click_clickBtn()
-                local str = '{@SKILL_NAME}' .. TableDragon():getDragonName(data)
-                local tool_tip = UI_Tooltip_Skill(0, 0, str)
-                tool_tip:autoPositioning(ui.vars['clickBtn'])
-            end
-
-            ui.vars['clickBtn']:registerScriptTapHandler(function() click_clickBtn() end)
-        end
+        local ui = UI_MonsterCard(data)
+        ui:setStageID(stage_id)
         return ui
     end
 

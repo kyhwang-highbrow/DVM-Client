@@ -528,6 +528,7 @@ local t_module = {
 	'UI_RewardCard',
     'UI_SkillCard',
     'UI_DragonSkillCard',
+    'UI_MonsterSkillCard',
 
 	-- UI : 분류 없음
     'UI_BlockPopup',

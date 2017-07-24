@@ -96,6 +96,18 @@ function TableDrop:getStageAttr(stage_id)
 end
 
 -------------------------------------
+-- function getStageLevel
+-------------------------------------
+function TableDrop:getStageLevel(stage_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local level = self:getValue(stage_id, 'level') or 0
+    return level + 1
+end
+
+-------------------------------------
 -- function getStageBuff
 -------------------------------------
 function TableDrop:getStageBuff(stage_id, key)

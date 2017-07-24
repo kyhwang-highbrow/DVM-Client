@@ -416,3 +416,17 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
     return status_calc
 end
+
+-------------------------------------
+-- function MakeMonsterStatusCalculator_fromMonsterDataTable
+-- @brief 몬스터 능력치 계산, 레벨은 해당 스테이지 레벨로 계산함
+-------------------------------------
+function MakeMonsterStatusCalculator_fromMonsterDataTable(t_monster_data, is_dragon)
+    local monster_id = (is_dragon) and t_monster_data['did'] or t_monster_data['mid']
+    local lv = t_monster_data['lv'] or 1
+
+    -- 몬스터 드래곤인 경우 evolution 3으로 고정
+    local status_calc = (is_dragon) and MakeDragonStatusCalculator(monster_id, lv, 1, 3, 1)
+                                    or StatusCalculator('monster', monster_id, lv)
+    return status_calc
+end

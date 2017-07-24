@@ -248,6 +248,13 @@ function UI_AdventureStageInfo:refresh_monsterList()
     local node = self.vars['monsterListNode']
     node:removeAllChildren()
 
+    local stage_id = self.m_stageID
+
+    local function make_func(data)
+        local ui = UI_MonsterCard(data)
+        ui:setStageID(stage_id)
+        return ui
+    end
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -255,13 +262,12 @@ function UI_AdventureStageInfo:refresh_monsterList()
     end
 
     -- stage_id로 몬스터 아이콘 리스트
-    local stage_id = self.m_stageID
     local l_item_list = g_stageData:getMonsterIDList(stage_id)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(94, 98)
-    table_view:setCellUIClass(UI_MonsterCard, create_func)
+    table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(l_item_list)
     table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬

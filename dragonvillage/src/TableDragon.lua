@@ -249,7 +249,15 @@ function TableDragon:getBirthGrade(did)
     return self:getValue(did, 'birthgrade')
 end
 
-
+-------------------------------------
+-- function getDesc_forToolTip
+-- @brief 드래곤 툴팁용 설명 리턴
+-------------------------------------
+function TableDragon:getDesc_forToolTip(did)
+    local t_dragon = self:get(did)
+    local str = '{@SKILL_NAME}' .. t_dragon['t_name']
+    return str
+end
 
 
 

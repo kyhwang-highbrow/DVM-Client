@@ -343,6 +343,38 @@ function IconHelper:getSkillIcon(char_type, skill_id)
 end
 
 -------------------------------------
+-- function getSkillIconWithId
+-- @brief 드래곤 스킬과 몬스터 스킬 모두 검사
+-------------------------------------
+function IconHelper:getSkillIconWithId(skill_id)
+         
+    local t_dragon_skill = TABLE:get('dragon_skill')
+    local t_monster_skill = TABLE:get('monster_skill')
+
+    local t_skill = t_dragon_skill[skill_id]
+
+    if (not t_skill) then
+        t_skill = t_monster_skill[skill_id]
+    end
+
+    if (not t_skill) then
+        error(skill_id .. '번 스킬은 테이블 데이타가 없다.')
+    end
+
+    local res_name = t_skill['res_icon']
+    local sprite = self:getIcon(res_name)
+
+    if (not sprite) then
+        sprite = self:getIcon('res/ui/icon/skill/developing.png')
+    end
+
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
+
+    return sprite
+end
+
+-------------------------------------
 -- function getEmptySkillCard
 -- @brief
 -------------------------------------

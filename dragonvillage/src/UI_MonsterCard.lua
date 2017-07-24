@@ -8,6 +8,7 @@ UI_MonsterCard = class(PARENT,{
         vars = '',
 
         m_monsterID = 'number',
+        m_monsterLv = 'number',
 
         m_clickBtnRes = 'string',
         m_charIconRes = 'string',
@@ -15,6 +16,9 @@ UI_MonsterCard = class(PARENT,{
         m_starIconRes = 'string',
         m_charFrameRes = 'string',
         m_charLevelNumber = 'number',
+
+        m_bDragonMonster = 'boolean',
+        m_nStageID = 'number',
     })
 
 -------------------------------------
@@ -28,6 +32,7 @@ function UI_MonsterCard:init(monster_id)
     self.root:setDockPoint(CENTER_POINT)
     self.root:setAnchorPoint(CENTER_POINT)
     self.root:setPosition(0, 0)
+    self.m_bDragonMonster = false
 
     self.vars = {}
     self.m_monsterID = monster_id
@@ -43,7 +48,11 @@ function UI_MonsterCard:refreshMonsterInfo()
     local monster_id = self.m_monsterID
 
     local table_monster = TableMonster()
-    local t_monster = table_monster:get(monster_id)
+
+    -- 인연 던전, 고대의 탑 경우 드래곤이 몬스터로 출현 
+    -- 이 경우 clickBtn, pressBtn 몬스터처리 해야하므로 DragonCard가 아닌 MonsterCard 로 생성
+    local t_monster, is_dragon = table_monster:getMonsterInfoWithDragon(monster_id)
+    self.m_bDragonMonster = is_dragon
 
     do -- 속성 따른 배경 이미지(버튼)
         local res = 'character_card_bg_' .. t_monster['attr'] .. '.png'
@@ -51,7 +60,8 @@ function UI_MonsterCard:refreshMonsterInfo()
     end
 
     do -- 몬스터 아이콘
-        local icon = table_monster:getMonsterIcon(monster_id)
+        local icon = (is_dragon) and IconHelper:getDragonIconFromDid(monster_id, 3, 1, 1)
+                                 or table_monster:getMonsterIcon(monster_id)
         self.vars['clickBtn']:addChild(icon)
     end
 
@@ -90,7 +100,7 @@ function UI_MonsterCard:makeClickBtn(res)
         self.root:addChild(btn)
 
         btn:registerScriptTapHandler(function() self:click_clickBtn() end)
-        --btn:registerScriptPressHandler(function() self:press_clickBtn() end)
+        btn:registerScriptPressHandler(function() self:press_clickBtn() end)
     end
 
     btn:setNormalSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame(res))
@@ -158,12 +168,19 @@ function UI_MonsterCard:getCardSize(scale)
 end
 
 -------------------------------------
+-- function setStageID
+-------------------------------------
+function UI_MonsterCard:setStageID(stage_id)
+    self.m_nStageID = stage_id
+end
+
+-------------------------------------
 -- function click_clickBtn
 -------------------------------------
 function UI_MonsterCard:click_clickBtn()
     local monster_id = self.m_monsterID
-    local str = TableMonster():getDesc_forToolTip(monster_id)
-
+    local str = (self.m_bDragonMonster) and TableDragon():getDesc_forToolTip(monster_id) 
+                                        or TableMonster():getDesc_forToolTip(monster_id)
     local tool_tip = UI_Tooltip_Skill(0, 0, str)
 
     -- 자동 위치 지정
@@ -175,6 +192,8 @@ end
 -------------------------------------
 function UI_MonsterCard:press_clickBtn()
     local monster_id = self.m_monsterID
-    local t_monster = TableMonster():get(monster_id)
-    UI_SimpleMonsterInfoPopup(t_monster)
+
+    -- 몬스터의 레벨은 해당 스테이지의 레벨
+    local monster_lv = (self.m_nStageID) and TableDrop:getStageLevel(self.m_nStageID) or 1
+    UI_SimpleMonsterInfoPopup(monster_id, monster_lv)
 end

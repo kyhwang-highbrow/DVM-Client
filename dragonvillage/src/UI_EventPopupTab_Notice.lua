@@ -30,6 +30,15 @@ function UI_EventPopupTab_Notice:init(owner, struct_event_popup_tab)
         webview:setBounces(false)
         webview:setAnchorPoint(cc.p(0,0))
         webview:setDockPoint(cc.p(0,0))
+
+        --webview:setVisible(false)
+        --[[
+        local function callbackFromJS()
+            webview:setVisible(true)
+        end
+        webview:setOnJSCallback(callbackFromJS)
+        ]]--
+
         node:addChild(webview)
 
         self.m_webView = webview

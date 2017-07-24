@@ -79,3 +79,25 @@ function TableMonster:getMonsterRes(monster_id)
     local attr = self:getValue(monster_id, 'attr')
     return res, attr
 end
+
+-------------------------------------
+-- function getMonsterInfoWithDragon
+-- @brief 몬스터 테이블에 없는 경우 드래곤 테이블까지 검사 
+-------------------------------------
+function TableMonster:getMonsterInfoWithDragon(monster_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local is_dragon_monster = false
+    local t_monster = self:get(monster_id)
+    
+    if (t_monster) then
+        is_dragon_monster = false
+    else
+        is_dragon_monster = true
+        t_monster = TableDragon():get(monster_id)
+    end
+
+    return t_monster, is_dragon_monster
+end

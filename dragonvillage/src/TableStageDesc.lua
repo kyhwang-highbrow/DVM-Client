@@ -36,6 +36,7 @@ function TableStageDesc:getMonsterIconList(stage_id)
     local l_icon_list = {}
     for i,v in ipairs(l_moster_id) do
         local icon = UI_MonsterCard(v)
+        icon:setStageID(stage_id)
         table.insert(l_icon_list, icon)
     end
     
@@ -55,6 +56,7 @@ function TableStageDesc:getLastMonsterIcon(stage_id)
     end
 
     local icon = UI_MonsterCard(monster_id)
+    icon:setStageID(stage_id)
     return icon
 end
 
