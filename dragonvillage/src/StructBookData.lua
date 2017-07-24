@@ -62,10 +62,10 @@ function StructBookData:getRelation()
 end
 
 -------------------------------------
--- function getGrade
+-- function setRate
 -------------------------------------
-function StructBookData:getGrade()
-    return self.grade
+function StructBookData:setRate(rate)
+    self.rate = rate
 end
 
 -------------------------------------
@@ -73,6 +73,13 @@ end
 -------------------------------------
 function StructBookData:getRate()
     return self.rate
+end
+
+-------------------------------------
+-- function getGrade
+-------------------------------------
+function StructBookData:getGrade()
+    return self.grade
 end
 
 -------------------------------------
