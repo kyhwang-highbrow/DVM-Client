@@ -22,7 +22,6 @@
 				"offset":[0,0],
 				"dir_array":[0],
                 "dir_add":6,
-				"missile_type":"pass",
 				
                 "effect":
                 {
@@ -51,7 +50,6 @@
 				"offset":[0,0],
 				"dir_array":[0,120,240],
                 "dir_add":6,
-				"missile_type":"pass",
 				
                 "effect":
                 {
@@ -80,7 +78,6 @@
 				"offset":[0,0],
 				"dir_array":[0],
                 "dir_add":6,
-				"missile_type":"pass",
 				
                 "effect":
                 {

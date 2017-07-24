@@ -106,7 +106,7 @@
 				],
 				
 				"add_script_start":0,
-				"add_script_term":0.05,
+				"add_script_term":0.1,
 				"add_script_max":20,
 				
 						
@@ -220,7 +220,7 @@
 				],
 				
 				"add_script_start":0,
-				"add_script_term":0.05,
+				"add_script_term":0.1,
 				"add_script_max":20,
 				
 						
@@ -334,7 +334,7 @@
 				],
 				
 				"add_script_start":0,
-				"add_script_term":0.05,
+				"add_script_term":0.1,
 				"add_script_max":20,
 				
 						
@@ -448,7 +448,7 @@
 				],
 				
 				"add_script_start":0,
-				"add_script_term":0.05,
+				"add_script_term":0.1,
 				"add_script_max":20,
 				
 						

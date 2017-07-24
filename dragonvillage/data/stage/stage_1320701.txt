@@ -221,15 +221,15 @@
             {
 				0:
 				[
-					"RandomDragon1;63;Appear;RO02;RF22;0.5"
-					"RandomDragon1;63;Appear;RO06;RF26;0.5"
+					"RandomDragon1;90;Appear;RO02;RF22;0.5"
+					"RandomDragon1;90;Appear;RO06;RF26;0.5"
 				],
 				
 				0.2:
 				[
-					"RandomDragon2;63;Appear;RO04;RM24;0.5"
-					"RandomDragon3;63;Appear;RO03;RB23;0.5"
-					"RandomDragon3;63;Appear;RO05;RB25;0.5"
+					"RandomDragon2;90;Appear;RO04;RM24;0.5"
+					"RandomDragon3;95;Appear;RO03;RB23;0.5"
+					"RandomDragon3;95;Appear;RO05;RB25;0.5"
 				]
             }
 		}
