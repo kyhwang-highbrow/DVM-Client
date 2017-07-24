@@ -32,30 +32,6 @@
 			{
 				[1] =
 				{
-					type = 'Button';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 1280;
-					height = 720;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'skipBtn';
-					enable = true;
-					normal = '';
-					selected = '';
-					disable = '';
-					image_type = 0;
-				};
-				[2] =
-				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
@@ -94,7 +70,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[3] =
+				[2] =
 				{
 					[1] =
 					{
@@ -469,7 +445,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[4] =
+				[3] =
 				{
 					[1] =
 					{
@@ -2367,7 +2343,7 @@
 					visible = true;
 					lua_name = '';
 				};
-				[5] =
+				[4] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -2391,7 +2367,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[6] =
+				[5] =
 				{
 					[1] =
 					{
@@ -4441,6 +4417,30 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'numberNode';
+		};
+		[12] =
+		{
+			type = 'Button';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 1280;
+			height = 720;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'skipBtn';
+			enable = true;
+			normal = '';
+			selected = '';
+			disable = '';
+			image_type = 0;
 		};
 		type = 'Menu';
 		ui_name = '';
