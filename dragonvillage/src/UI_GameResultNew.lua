@@ -789,7 +789,7 @@ end
 -- function click_backBtn
 -------------------------------------
 function UI_GameResultNew:click_backBtn()
-    g_adventureData:goToAdventureScene()
+    g_ancientTowerData:goToAncientTowerScene()
 end
 
 -------------------------------------
