@@ -45,7 +45,7 @@ function UI_DragonBoardPopup_Write:initUI()
 	각각 editBtn, editLabel을 사용하는 구조이다.
 	]]
 	vars['editBox']:setMaxLength(REVIEW_MAX_LENGTH)
-	vars['editBox']:setInputMode(cc.EDITBOX_INPUT_MODE_ANY)
+	--vars['editBox']:setInputMode(cc.EDITBOX_INPUT_MODE_ANY) -- 2017-07-24 sgkim android ime에서 editbox 옆에 "완료"버튼이 추가되기 전까지 싱글라인으로 처리
 	vars['editLabel']:setString(Str('리뷰를 작성해 주세요'))
 end
 
