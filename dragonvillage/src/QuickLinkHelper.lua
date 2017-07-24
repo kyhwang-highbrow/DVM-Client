@@ -124,7 +124,16 @@ T_LINK_FUNC = {
     ['ply_epl'] = function()
         g_explorationData:request_explorationInfo(function() UI_Exploration() end)
     end,
+    
+    -- 인연 던전 플레이
+    ['ply_rel'] = function()
+        g_secretDungeonData:goToSecretDungeonScene()
+    end,
 
+    -- 인연 던전 발견
+    ['fnd_rel'] = function()
+        g_secretDungeonData:goToSecretDungeonScene()
+    end,
 
 
 
@@ -296,9 +305,5 @@ T_LINK_FUNC = {
         g_hatcheryData:openHatcheryUI(nil, 'combination')
     end,
 
-
-
     -- 바로가기 키를 띄우지 않을 것들
-    -- 인연 던전 발견
-    ['fnd_rel'] = nil,
 }
