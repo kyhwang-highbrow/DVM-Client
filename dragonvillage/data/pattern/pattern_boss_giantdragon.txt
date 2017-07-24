@@ -5,7 +5,7 @@
 			"w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
 			"w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
 			"w;2", "a;basic", "w;2", "a;basic", "w;2", "a;2",
-			"w;2", "a;4", "w;4", "a;3"
+			"w;2", "a;4"
 			
         ]
     ],
@@ -16,6 +16,15 @@
         "list":
         [
             {
+                "hp_percent":75,
+                "pattern":
+                [
+                    "m;NEST;400",
+					"w;2", "a;4", "w;2", "a;3"
+                ]
+            },
+			
+			{
                 "hp_percent":50,
                 "pattern":
                 [
@@ -40,14 +49,6 @@
         "priority":2,
         "list":
         [
-            {
-                "time":0,
-                "pattern":
-                [
-                    "m;NEST;400", "a;3", "w;1"
-                ]
-            },
-			
 			{
                 "time":10,
                 "pattern":

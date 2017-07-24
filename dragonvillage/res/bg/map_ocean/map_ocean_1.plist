@@ -7,7 +7,7 @@
             <key>map_ocean_island_leaf_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1920,1052},{124,94}}</string>
+                <string>{{1920,1180},{124,94}}</string>
                 <key>offset</key>
                 <string>{-269,255}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>map_ocean_island_leaf_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{992,1688},{126,138}}</string>
+                <string>{{1920,840},{126,138}}</string>
                 <key>offset</key>
                 <string>{-129,236}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>map_ocean_island_tree_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{776,1688},{174,214}}</string>
+                <string>{{1750,1524},{174,214}}</string>
                 <key>offset</key>
                 <string>{-384,141}</string>
                 <key>rotated</key>
@@ -72,11 +72,11 @@
             <key>map_ocean_island_tree_03_grass.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1822},{116,36}}</string>
+                <string>{{1988,2},{116,36}}</string>
                 <key>offset</key>
                 <string>{-314,114}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{652,380},{116,36}}</string>
                 <key>sourceSize</key>
@@ -85,7 +85,7 @@
             <key>map_ocean_island_tree_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1852,1524},{146,182}}</string>
+                <string>{{1762,1700},{146,182}}</string>
                 <key>offset</key>
                 <string>{-241,150}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>map_ocean_land_easy_island_bubble.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1122,1502},{66,14}}</string>
+                <string>{{774,1502},{66,14}}</string>
                 <key>offset</key>
                 <string>{-6,-1}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>map_ocean_land_easy_island_sand.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1122,1524},{626,352}}</string>
+                <string>{{776,1524},{626,352}}</string>
                 <key>offset</key>
                 <string>{-278,85}</string>
                 <key>rotated</key>
@@ -176,33 +176,20 @@
             <key>map_ocean_land_wave_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1968,1290},{112,64}}</string>
+                <string>{{1404,1812},{112,64}}</string>
                 <key>offset</key>
                 <string>{-6,-113}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{962,593},{112,64}}</string>
-                <key>sourceSize</key>
-                <string>{2048,1024}</string>
-            </dict>
-            <key>map_ocean_land_wave_01_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1968,1404},{112,64}}</string>
-                <key>offset</key>
-                <string>{18,-159}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{986,639},{112,64}}</string>
                 <key>sourceSize</key>
                 <string>{2048,1024}</string>
             </dict>
             <key>map_ocean_land_wave_02_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{776,1502},{344,184}}</string>
+                <string>{{1404,1524},{344,184}}</string>
                 <key>offset</key>
                 <string>{-156,49}</string>
                 <key>rotated</key>
@@ -212,27 +199,14 @@
                 <key>sourceSize</key>
                 <string>{1024,512}</string>
             </dict>
-            <key>map_ocean_land_wave_04_06.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1920,1178},{110,96}}</string>
-                <key>offset</key>
-                <string>{182,134}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{1151,330},{110,96}}</string>
-                <key>sourceSize</key>
-                <string>{2048,1024}</string>
-            </dict>
             <key>map_ocean_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{120,1822},{28,30}}</string>
+                <string>{{2016,1180},{28,30}}</string>
                 <key>offset</key>
                 <string>{-329,214}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{681,283},{28,30}}</string>
                 <key>sourceSize</key>
@@ -241,11 +215,11 @@
             <key>map_ocean_light_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1988,156},{48,46}}</string>
+                <string>{{1602,1812},{48,46}}</string>
                 <key>offset</key>
                 <string>{-5,3}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{44,43},{48,46}}</string>
                 <key>sourceSize</key>
@@ -267,11 +241,11 @@
             <key>map_ocean_starfish_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1920,1290},{24,22}}</string>
+                <string>{{1988,120},{24,22}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{138,139},{24,22}}</string>
                 <key>sourceSize</key>
@@ -280,7 +254,7 @@
             <key>map_ocean_stone_top.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1852,1672},{198,118}}</string>
+                <string>{{1920,980},{198,118}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -293,11 +267,11 @@
             <key>map_ocean_stone_top_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1972,1672},{82,60}}</string>
+                <string>{{1518,1812},{82,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{109,120},{82,60}}</string>
                 <key>sourceSize</key>
@@ -306,11 +280,11 @@
             <key>map_ocean_stone_wave_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1920,840},{210,54}}</string>
+                <string>{{2,1822},{210,54}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{87,123},{210,54}}</string>
                 <key>sourceSize</key>
@@ -319,11 +293,11 @@
             <key>map_ocean_stone_wave_01_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1750,1524},{356,100}}</string>
+                <string>{{1404,1710},{356,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{14,100},{356,100}}</string>
                 <key>sourceSize</key>
@@ -332,7 +306,7 @@
             <key>map_ocean_stone_wave_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{992,1828},{90,32}}</string>
+                <string>{{368,1822},{90,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -345,11 +319,11 @@
             <key>map_ocean_stone_wave_02_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1988,2},{152,42}}</string>
+                <string>{{214,1822},{152,42}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{116,129},{152,42}}</string>
                 <key>sourceSize</key>
@@ -363,9 +337,9 @@
             <key>realTextureFileName</key>
             <string>map_ocean_1.png</string>
             <key>size</key>
-            <string>{2036,1882}</string>
+            <string>{2048,1878}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:402db5d4595ba0cccb86623b8d4595a7:02a9129c76f4e1bc3cb41ed2ce4447c2:4d6ce644e5f3d11f1e3cebc9ceba6f3d$</string>
+            <string>$TexturePacker:SmartUpdate:20212e89a68b523d080135bae2356205:f32ace6d28f4e398aeda8764a6fe1454:4d6ce644e5f3d11f1e3cebc9ceba6f3d$</string>
             <key>textureFileName</key>
             <string>map_ocean_1.png</string>
         </dict>
