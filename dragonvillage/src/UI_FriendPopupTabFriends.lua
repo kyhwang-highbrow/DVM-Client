@@ -153,7 +153,8 @@ function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
         local bye_cnt = g_friendData:getByeDailyCnt()
         local bye_limit = g_friendData:getByeDailyLimit()
 
-        local message = Str('[{1}]님과 작별하였습니다.\n오늘 일반 친구 작별 횟수는\n{2}/{3}회 입니다.', data['nick'], bye_cnt, bye_limit)
+        local nickname = data:getNickname()
+        local message = Str('[{1}]님과 작별하였습니다.\n오늘 일반 친구 작별 횟수는\n{2}/{3}회 입니다.', nickname, bye_cnt, bye_limit)
         --UIManager:toastNotificationGreen(message)
         MakeSimplePopup(POPUP_TYPE.OK, message)
 
