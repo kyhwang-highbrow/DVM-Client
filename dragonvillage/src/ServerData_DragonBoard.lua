@@ -128,38 +128,10 @@ function ServerData_DragonBoard:request_dragonBoard(did, offset, order, cb_func)
 	ui_network:setParam('offset', offset)
 	ui_network:setParam('order', order)
     ui_network:setSuccessCB(success_cb)
-    ui_network:setRevocable(false)
-    ui_network:setReuse(false)
-    ui_network:request()
-end
-
--------------------------------------
--- function request_dragonRate
--- @brief 드래곤 평점만을 받아옴.
--------------------------------------
-function ServerData_DragonBoard:request_dragonRate(did, finish_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-    
-    -- 성공 콜백
-    local function success_cb(ret)
-        if finish_cb then
-            finish_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/rate')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('did', did)
-    ui_network:setSuccessCB(success_cb)
     ui_network:hideLoading()
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
-
-    return ui_network
 end
 
 -------------------------------------
