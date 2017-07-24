@@ -174,7 +174,7 @@ end
 -- function init_timeUI
 -------------------------------------
 function UI_GameColosseum:init_timeUI(display_wave, time)
-    vars['timeLabel']:setLocalZOrder(1)
+    self.vars['timeLabel']:setLocalZOrder(1)
 
     if (time) then
         self:setTime(time)
