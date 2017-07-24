@@ -143,12 +143,11 @@ end
 -------------------------------------
 function UI_BookDetailPopup:refresh_rate()
     local did = self.m_tDragon['did']
-    local function cb_func()
-	    local book_data = g_bookData:getBookData(did)
-	    local rate = book_data:getRate()
+    local function cb_func(ret)
+        local rate = ret['rate']
 	    self.vars['recommandLabel']:setString(string.format('%.1f', rate))
     end
-    g_boardData:request_dragonBoard(did, nil, nil, cb_func)
+    g_boardData:request_dragonRate(did, cb_func)
 end
 
 -------------------------------------
@@ -530,9 +529,6 @@ end
 function UI_BookDetailPopup:click_recommandBtn()
     local ui = UI_DragonBoardPopup(self.m_tDragon)
 	ui:setCloseCB(function()
-		local did = self.m_tDragon['did']
-		local t_book_data = g_bookData:getBookData(did)
-		t_book_data.rate = g_boardData:getRate(did)
 		self:refresh_rate()
 	end)
 end
