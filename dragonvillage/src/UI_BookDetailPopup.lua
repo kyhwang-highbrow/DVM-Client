@@ -109,9 +109,6 @@ end
 -- function refresh
 -------------------------------------
 function UI_BookDetailPopup:refresh()
-	-- 평점
-	self:refresh_rate()
-	
 	-- 예외처리 용
 	self:refresh_exception()
 
@@ -120,6 +117,9 @@ function UI_BookDetailPopup:refresh()
 	self:onChangeGrade()
 	self:onChangeLV()
 	self:calculateStat()
+	
+	-- 평점
+	self:refresh_rate()
 end
 
 -------------------------------------
@@ -142,9 +142,13 @@ end
 -- function refresh_rate
 -------------------------------------
 function UI_BookDetailPopup:refresh_rate()
-	local book_data = g_bookData:getBookData(self.m_tDragon['did'])
-	local rate = book_data:getRate()
-	self.vars['recommandLabel']:setString(string.format('%.1f', rate))
+    local did = self.m_tDragon['did']
+    local function cb_func()
+	    local book_data = g_bookData:getBookData(did)
+	    local rate = book_data:getRate()
+	    self.vars['recommandLabel']:setString(string.format('%.1f', rate))
+    end
+    g_boardData:request_dragonBoard(did, nil, nil, cb_func)
 end
 
 -------------------------------------
