@@ -28,7 +28,6 @@ end
 
 -------------------------------------
 -- function setQuestData
--- @brief 자주 활용할 숫자들을 멤버변수로 추출
 -------------------------------------
 function UI_QuestListItem:setQuestData(t_data)
     self.m_questData = t_data
@@ -46,11 +45,9 @@ end
 -------------------------------------
 function UI_QuestListItem:initButton()
     local vars = self.vars
-	
-	if (vars['questLinkBtn']) then
-		vars['questLinkBtn']:registerScriptTapHandler(function() self:click_questLinkBtn() end)
-	end
 
+	--vars['questLinkBtn']:registerScriptTapHandler(function() self:click_questLinkBtn() end)
+    --vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 	-- vars['rewardBtn']은 list item 생성시에 등록함
 end
 
@@ -187,7 +184,11 @@ end
 -------------------------------------
 -- function click_questLinkBtn
 -------------------------------------
-function UI_QuestListItem:click_questLinkBtn()
+function UI_QuestListItem:click_questLinkBtn(ui_quest_popup)
+    -- 바로가기
     local clear_type = self.m_questData:getQuestClearType()
 	QuickLinkHelper.quickLink(clear_type)
+
+    -- 퀘스트 팝업은 꺼버린다.
+    ui_quest_popup:close()
 end

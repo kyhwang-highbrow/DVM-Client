@@ -35,11 +35,15 @@ end
 
 -------------------------------------
 -- function load
+-- @param url
+-- @param is_permanent 캐시를 지우지 않게됨
+-- @param keep_z_order 해당 ui의 각 node에 load한 순서대로 z_order를 부여
+-- @param use_sprite_frames 해당 ui는 spriteFrame에서 리소스를 가져온다.
 -------------------------------------
-function UI:load(url, isPermanent, keep_z_order, use_sprite_frames)
+function UI:load(url, is_permanent, keep_z_order, use_sprite_frames)
     self.m_resName = url
     self.root, self.vars = UILoader.load(self, url, keep_z_order, use_sprite_frames)
-	if isPermanent then
+	if is_permanent then
 		UILoader.setPermanent(url)
 	end
     return self.vars
@@ -48,16 +52,16 @@ end
 -------------------------------------
 -- function load_keepZOrder
 -------------------------------------
-function UI:load_keepZOrder(url, isPermanent)
+function UI:load_keepZOrder(url, is_permanent)
     local keep_z_order = true
     local use_sprite_frames = false
-    return self:load(url, isPermanent, true, use_sprite_frames)
+    return self:load(url, is_permanent, true, use_sprite_frames)
 end
 
 -------------------------------------
 -- function load_useSpriteFrames
 -------------------------------------
-function UI:load_useSpriteFrames(url, isPermanent)
+function UI:load_useSpriteFrames(url, is_permanent)
     local keep_z_order = false
     local use_sprite_frames = true
 
@@ -67,7 +71,7 @@ function UI:load_useSpriteFrames(url, isPermanent)
     local res = string.format('res/ui/a2d/%s/%s.plist', file_name, file_name)
     cc.SpriteFrameCache:getInstance():addSpriteFrames(res)
 
-    return self:load(url, isPermanent, keep_z_order, use_sprite_frames)
+    return self:load(url, is_permanent, keep_z_order, use_sprite_frames)
 end
 
 -------------------------------------

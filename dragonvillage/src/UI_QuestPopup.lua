@@ -4,7 +4,8 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_QuestPopup
 -------------------------------------
 UI_QuestPopup = class(PARENT, {
-        m_tableView = '',
+        m_tableView = 'UIC_TableView',
+        m_allClearQuestCell = 'UI_QuestListItem',
     })
 
 -------------------------------------
@@ -72,6 +73,11 @@ end
 function UI_QuestPopup:refresh()
 	-- 받을수 있는 보상이 있는지 검사하여 UI에 표시
 	self:setNotiRewardable()
+
+    -- 일일 보상 올클 갱신
+    if (self.m_currTab == TableQuest.DAILY) then
+        self:refreshAllClearQuest()
+    end
 end
 
 -------------------------------------
@@ -85,7 +91,7 @@ function UI_QuestPopup:onChangeTab(tab, first)
 	if (first) then 
 		self:makeQuestTableView(tab, node)
 	    -- all clear 는 따로 보여준다
-	    self:setAllClearListItem(tab)
+	    self:setAllClearQuest(tab)
 	end
 
     vars['allClearNode']:setVisible(tab == TableQuest.DAILY)
@@ -105,10 +111,7 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
 
 		-- 퀘스트 팝업 자체를 각 아이템이 가지기 위한 생성 콜백
 		local create_cb_func = function(ui, data)
-			local function click_rewardBtn()
-				ui:click_rewardBtn(self)
-			end
-			ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
+            self:cellCreateCB(ui, data)
 		end
          
         -- 테이블 뷰 인스턴스 생성
@@ -123,20 +126,31 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
 end
 
 -------------------------------------
--- function setAllClearListItem
+-- function setAllClearQuest
+-- @brief 올클리어 생성
 -------------------------------------
-function UI_QuestPopup:setAllClearListItem(tab)
+function UI_QuestPopup:setAllClearQuest(tab)
     -- 업적에선 사용하지 않는다.
 	if (tab == TableQuest.CHALLENGE) then
         return
     end
 
-    -- 최초만 생성
+    -- 최초 생성
 	local node = self.vars['allClearNode']
 	local t_quest = g_questData:getAllClearDailyQuestTable()
 	local ui = UI_QuestListItem(t_quest, true)
     ui.vars['rewardBtn']:registerScriptTapHandler(function() ui:click_rewardBtn(self) end)
 	node:addChild(ui.root)
+    self.m_allClearQuestCell = ui
+end
+
+-------------------------------------
+-- function refreshAllClearQuest
+-- @brief 올클리어 갱신
+-------------------------------------
+function UI_QuestPopup:refreshAllClearQuest()
+    local t_quest = g_questData:getAllClearDailyQuestTable()
+    self.m_allClearQuestCell:refresh(t_quest)
 end
 
 -------------------------------------
@@ -155,6 +169,23 @@ end
 -------------------------------------
 function UI_QuestPopup:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function cellCreateCB
+-------------------------------------
+function UI_QuestPopup:cellCreateCB(ui, data)
+    -- 보상 받기 버튼
+	local function click_rewardBtn()
+		ui:click_rewardBtn(self)
+	end
+	ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
+
+    -- 바로가기 버튼
+	local function click_questLinkBtn()
+		ui:click_questLinkBtn(self)
+	end
+	ui.vars['questLinkBtn']:registerScriptTapHandler(click_questLinkBtn)
 end
 
 --@CHECK
