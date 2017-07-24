@@ -58,9 +58,12 @@ function UI_FriendPopupTabRequest:checkTableViewData()
     local table_view = self.m_tableView
     local item_count = table_view:getItemCount()
     local list_count = g_friendData:getFirnedInviteRequestCount()
-    if item_count == list_count then return end
+    if (item_count == list_count)
+        then return
+    end
 
     local request_list = g_friendData:getFriendInviteRequestList()
+
     for _, v in pairs(request_list) do
         local friend_uid = v.m_uid
         if (not table_view:getItem(friend_uid)) then
@@ -126,6 +129,7 @@ function UI_FriendPopupTabRequest:click_inviteRequestCancelBtn(data)
         if (ret['status'] == 0) then
             table_view = self.m_tableView
             table_view:delItem(friend_uid)
+            self:setCountLabel()
         end
     end
     

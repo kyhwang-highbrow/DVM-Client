@@ -108,6 +108,7 @@ function UI_FriendPopupTabResponse:click_inviteAcceptBtn(data)
         if (ret['status'] == 0) then
             table_view = self.m_tableView
             table_view:delItem(friend_uid)
+            self:setCountLabel()
 
             local msg = Str('[{1}]님과 친구가 되었습니다.', friend_nick)
             UIManager:toastNotificationGreen(msg)
@@ -136,6 +137,7 @@ function UI_FriendPopupTabResponse:click_inviteRefuseBtn(struct_user_info)
         if (ret['status'] == 0) then
             table_view = self.m_tableView
             table_view:delItem(friend_uid)
+            self:setCountLabel()
 
             local msg = Str('[{1}]님의 요청을 거절하였습니다.', friend_nick)
             UIManager:toastNotificationGreen(msg)
