@@ -168,6 +168,7 @@ function UI_BookDetailPopup:onChangeTab(tab, first)
 	-- refresh
 	self:onChangeEvolution()
 	self:onChangeGrade()
+    self:onChangeLV()
 	self:calculateStat()
 end
 
