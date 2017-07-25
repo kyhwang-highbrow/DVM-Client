@@ -4,6 +4,7 @@ local PARENT = class(UI_InventoryTab, ITabUI:getCloneTable())
 -- class UI_InventoryTabRune
 -------------------------------------
 UI_InventoryTabRune = class(PARENT, {
+        m_selectedRuneObject = 'StructRuneObject',
         m_mTableViewListMap = 'map',
         m_mSortManagerMap = 'map',
      })
@@ -137,6 +138,10 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
     vars['locationBtn']:setVisible(true)
     vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(t_rune_data['rid']) end)
 
+    -- 강화 
+    vars['enhanceBtn']:setVisible(true)
+    vars['enhanceBtn']:registerScriptTapHandler(function() self:enhanceBtn(t_rune_data) end)
+
     do -- 아이템 이름
         vars['itemNameLabel']:setVisible(true)
         local name = t_rune_data['name']
@@ -151,6 +156,8 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
         vars['sellBtn']:setVisible(true)
     end
     vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(t_rune_data) end)
+
+    self.m_selectedRuneObject = t_rune_data
 end
 
 -------------------------------------
@@ -186,6 +193,45 @@ function UI_InventoryTabRune:sellBtn(t_rune_data)
     end
 
     ask_item_sell()
+end
+
+-------------------------------------
+-- function enhanceBtn
+-------------------------------------
+function UI_InventoryTabRune:enhanceBtn(t_rune_data)
+    local ui = UI_DragonRunesEnhance(t_rune_data)
+
+    local function close_cb()
+        if (self.m_selectedRuneObject['updated_at'] ~= ui.m_runeObject['updated_at']) then
+            local new_data = ui.m_runeObject
+            self:refresh_selectedRune(new_data)
+        end
+    end
+
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function refresh_selectedRune
+-------------------------------------
+function UI_InventoryTabRune:refresh_selectedRune(new_data)
+
+    -- 룬 슬롯 타입 세개 순회
+    for i,v in pairs(self.m_mTableViewListMap) do
+        local rune_slot_type = i
+        local table_view = v
+        
+        -- 새로운 데이터로 갱신
+        for roid, item in pairs(table_view.m_itemMap) do
+            if (new_data['roid'] == roid) then
+                table_view:replaceItemUI(roid, new_data)
+
+                self.m_inventoryUI:clearSelectedItem()
+                local new_item = table_view:getItem(roid)
+                self.m_inventoryUI:setSelectedItem(new_item['ui'], new_item['data'])
+            end
+        end
+    end
 end
 
 -------------------------------------

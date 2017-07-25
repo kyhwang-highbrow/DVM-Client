@@ -981,3 +981,19 @@ function getQuadrant(center_x, center_y, pos_x, pos_y)
 
     return quadrant
 end
+
+-------------------------------------
+-- function changeAnchorPointWithOutTransPos
+-- @brief 포지션 변경없이 앵커 포인트만 변경
+-------------------------------------
+function changeAnchorPointWithOutTransPos(node, cha_anchor)
+    local ori_anchor = node:getAnchorPoint()
+    local ori_pos_x, ori_pos_y = node:getPosition()
+    local content_size = node:getContentSize()
+
+    local cha_pos_x = ori_pos_x + (cha_anchor.x - ori_anchor.x) * content_size['width']
+    local cha_pos_y = ori_pos_y + (cha_anchor.y - ori_anchor.y) * content_size['height']
+
+    node:setAnchorPoint(cha_anchor)
+    node:setPosition(cha_pos_x, cha_pos_y)
+end

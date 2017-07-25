@@ -41,6 +41,8 @@ UIC_RichLabel = class(UIC_Node, {
         -- cc.VERTICAL_TEXT_ALIGNMENT_TOP  = 0x0
 
         m_bDirtyAlignment = 'boolean',
+
+        m_mContentNodeData = 'map',
     })
 
 -------------------------------------
@@ -60,6 +62,8 @@ function UIC_RichLabel:init()
 
     self.m_hAlignment = cc.TEXT_ALIGNMENT_LEFT
     self.m_vAlignment = cc.VERTICAL_TEXT_ALIGNMENT_TOP
+
+    self.m_mContentNodeData = {}
 
     -- UI가 enter로 진입되었을 때 update함수 호출
     self.m_root:registerScriptHandler(function(event)
@@ -86,6 +90,8 @@ function UIC_RichLabel:setRichText(text)
     if (self.m_orgRichText == text) then
         return
     end
+    
+    self.m_mContentNodeData = {}
 
     self.m_orgRichText = text
     self.m_lContentList = self:makeContentListByRichText(text)
@@ -195,6 +201,7 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
     local color = t_content['key']
     local is_button = t_content['is_button']
     local l_line = t_content['lines']
+    local is_save = t_content['is_save']
 
     -- 임시
 
@@ -226,7 +233,6 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             label:setDockPoint(cc.p(0, 1))
             label:setAnchorPoint(cc.p(0, 1))
             
-
             -- 가로 길이 체크
             pos_x, idx_y, work_text, carriage_return = self:makeContent_checkTextWidth(label, work_text, pos_x, idx_y, line_height, is_button)
 
@@ -238,9 +244,20 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             if is_button then
                 content_uic, content_node = self:makeTextButton(t_content, label, self:getColor(color))
             end
+            
+            -- 각 컨텐츠 노드 저장 (특정 노드 찾아서 따로 처리하고 싶을때)
+            -- 같은 키로 노드 여러개 저장하기 위해 맵이 아닌 리스트로
+            -- ex) {@&rune_sopt;save_key}
+            if is_save then
+                local save_key = t_content['type']
+                if save_key then
+                    table.insert(self.m_mContentNodeData, {save_key = save_key, node = content_node})
+                end
+            end
+
             self.m_root:addChild(content_node)
             content_uic:setPosition(pos_x, pos_y)
-
+            
             -- 다음 pos_x
             local prev_x = pos_x
             pos_x = pos_x + label:getStringWidth() - self.m_outlineSize -- (outline의 경우 자간에 영향을 줌)
@@ -550,6 +567,26 @@ function UIC_RichLabel:getStringHeight()
     local content_height = (self.m_lineCount * line_height)
     return content_height
 end
+
+-------------------------------------
+-- function findContentNodeWithkey
+-- @brief 
+-------------------------------------
+function UIC_RichLabel:findContentNodeWithkey(find_key)
+    if self.m_bDirty then
+        self:update(0)
+    end
+
+    local node_list = {}
+    for _, v in ipairs(self.m_mContentNodeData) do
+        if (v['save_key'] == find_key) then 
+            table.insert(node_list, v['node'])
+        end
+    end
+
+    return node_list
+end
+
 
 -------------------------------------
 -- function click_word

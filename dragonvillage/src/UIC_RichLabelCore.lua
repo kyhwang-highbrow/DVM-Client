@@ -62,9 +62,16 @@ function UIC_RichLabel:makeContentData(key, text)
         is_button = true
     end
 
+    -- 노드 저장
+    local is_save = false
+    if (string.byte(key, 1) == 38) then -- '&' == 38
+        key = string.gsub(key, '&', '', 1)
+        is_save = true
+    end
+
     local l_key = self:strSplit(key, ';')
 
-    local t_content = {key=l_key[1], type=l_key[2], id=l_key[3], is_button=is_button, lines=l_line}
+    local t_content = {key=l_key[1], type=l_key[2], id=l_key[3], is_button=is_button, lines=l_line, is_save=is_save}
     return t_content
 end
 

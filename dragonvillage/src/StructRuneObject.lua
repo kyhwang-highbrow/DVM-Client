@@ -170,12 +170,12 @@ function StructRuneObject:makeRuneDescRichText(for_enhance)
     -- 주 옵션
     local text_ = self:getRuneOptionDesc(self['mopt'])
     if text_ then
-        text = '{@w}' .. text_
+        text = '{@&w;mopt}' .. text_
 
         if for_enhance then
             local new_option_str = self:getNextLevelMopt()
             if new_option_str then
-                text = text .. ' {@O}▶ {@G}' .. self:getRuneOptionDesc(new_option_str)
+                text = text .. ' {@&O;mopt}▶ {@&G;mopt}' .. self:getRuneOptionDesc(new_option_str)
             end
         end
     end
@@ -183,7 +183,7 @@ function StructRuneObject:makeRuneDescRichText(for_enhance)
     -- 유니크 옵션
     local text_ = self:getRuneOptionDesc(self['uopt'])
     if text_ then
-        text = text .. '\n{@g}' .. text_
+        text = text .. '\n{@&g;uopt}' .. text_
     end
 
     -- 공백
@@ -192,22 +192,22 @@ function StructRuneObject:makeRuneDescRichText(for_enhance)
     do -- 서브 옵션
         local text_ = self:getRuneOptionDesc(self['sopt_1'])
         if text_ then
-            text = text .. '\n{@rune_sopt}' .. text_
+            text = text .. '\n{@&rune_sopt;sopt_1}' .. text_
         end
 
         local text_ = self:getRuneOptionDesc(self['sopt_2'])
         if text_ then
-            text = text .. '\n{@rune_sopt}' .. text_
+            text = text .. '\n{@&rune_sopt;sopt_2}' .. text_
         end
 
         local text_ = self:getRuneOptionDesc(self['sopt_3'])
         if text_ then
-            text = text .. '\n{@rune_sopt}' .. text_
+            text = text .. '\n{@&rune_sopt;sopt_3}' .. text_
         end
 
         local text_ = self:getRuneOptionDesc(self['sopt_4'])
         if text_ then
-            text = text .. '\n{@rune_sopt}' .. text_
+            text = text .. '\n{@&rune_sopt;sopt_4}' .. text_
         end
     end
 
