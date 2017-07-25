@@ -102,3 +102,29 @@ function GoogleHelper.makeIngameModeKey(t_data)
         end
     end
 end
+
+-------------------------------------
+-- function allAcheivementCheck
+-- @brief 게스트로 플레이하다가 중간에 로그인한 유저를 위해서
+-- 이미 클리어한 업적을 체크한다
+-- 다만 서버와 연동없이 가능한 부분만을 체크한다.
+-------------------------------------
+function GoogleHelper.allAcheivementCheck(t_data)
+    local clear_type, is_clear
+    for _, t_acheivement in paris(TableGoogleQuest().m_orgTable) do
+        clear_type = t_acheivement['clear_type']
+        is_clear = false
+
+        if (clear_type == 'clr_stg') then
+            is_clear = g_adventureData:isClearStage(stage_id)
+        elseif (clear_type == 'u_lv') then
+            is_clear = (t_acheivement['clear_value'] < g_userData:get('lv'))
+        elseif (clear_type == 't_get') then
+            is_clear = (t_acheivement['clear_value'] < g_tamerData:getTamerCount())
+        end
+
+        if (is_clear) then
+            GoogleHelper.requestAchievementClear(t_acheivement['achievement_id'])
+        end
+    end
+end
