@@ -12,29 +12,12 @@ function UI_Setting:init_infoTab()
     local version_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
     vars['versionLabel']:setString(version_str)
 
-    vars['copyBtn']:registerScriptTapHandler(function() self:click_copyBtn() end)
-
     vars['makeBtn']:registerScriptTapHandler(function() self:click_makeBtn() end)
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
     vars['agreementBtn']:registerScriptTapHandler(function() self:click_agreementBtn() end)
 
     vars['couponBtn']:registerScriptTapHandler(function() self:click_couponBtn() end)
     vars['serviceBtn']:registerScriptTapHandler(function() self:click_serviceBtn() end) 
-end
-
-
--------------------------------------
--- function click_copyBtn
--- @brief 아이디 정보 복사
--------------------------------------
-function UI_Setting:click_copyBtn()
-    if (not isWin32()) then return end
-     
-    local vars = self.vars
-    local recovery_code = g_serverData:get('local', 'recovery_code')
-
-    PerpSocial:SDKEvent('clipboard_setText', tostring(recovery_code), '')
-    UIManager:toastNotificationGreen(Str('복구코드를 복사하였습니다.'))
 end
 
 -------------------------------------

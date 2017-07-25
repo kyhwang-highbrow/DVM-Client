@@ -80,7 +80,7 @@ static int tolua_PerpLua_PerpSocial_SDKEvent00(lua_State* tolua_S)
         !tolua_isstring(tolua_S, 2, 0, &tolua_err) ||
         !tolua_isstring(tolua_S, 3, 0, &tolua_err) ||
         !tolua_isstring(tolua_S, 4, 0, &tolua_err) ||
-        !toluafix_isfunction(tolua_S, 5, "", 0, &tolua_err) ||
+        //!toluafix_isfunction(tolua_S, 5, "", 0, &tolua_err) ||
         !tolua_isnoobj(tolua_S, 6, &tolua_err)
         )
         goto tolua_lerror;

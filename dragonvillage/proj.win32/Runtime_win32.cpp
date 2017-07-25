@@ -70,11 +70,41 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
 
 	if (strcmp(id, "clipboard_setText") == 0)
 	{
-		pDelegate->sdkEventHandler(id, "true", "");
+        std::string msg(arg0);
+        HWND hwnd = GetDesktopWindow();
+        OpenClipboard(hwnd);
+        EmptyClipboard();
+        HGLOBAL hg = GlobalAlloc(GMEM_MOVEABLE, msg.size() + 1);
+        if (!hg)
+        {
+            CloseClipboard();
+            return;
+        }
+        memcpy(GlobalLock(hg), msg.c_str(), msg.size() + 1);
+        GlobalUnlock(hg);
+        SetClipboardData(CF_TEXT, hg);
+        CloseClipboard();
+        GlobalFree(hg);
 	}
 	else if (strcmp(id, "clipboard_getText") == 0)
 	{
-		pDelegate->sdkEventHandler(id, "true", "");
+        std::string ret = "fail";
+        std::string info = "";
+        HWND hwnd = GetDesktopWindow();
+        OpenClipboard(hwnd);
+        HANDLE hData = GetClipboardData(CF_TEXT);
+        if (hData)
+        {
+            char* pszText = static_cast<char*>(GlobalLock(hData));
+            if (pszText != nullptr)
+            {
+                ret = "success";
+                info = pszText;
+                GlobalUnlock(hData);
+                CloseClipboard();
+            }
+        }
+        pDelegate->sdkEventHandler(id, ret.c_str(), info.c_str());
 	}
     else
     {
