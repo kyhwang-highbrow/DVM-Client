@@ -162,6 +162,9 @@ function UI_BookDetailPopup:onChangeTab(tab, first)
 	-- evolution 세팅
 	self.m_evolution = tab
 
+    -- grade를 초기화 시킨다.
+    self.m_grade = self.m_tDragon['birthgrade']
+
 	-- refresh
 	self:onChangeEvolution()
 	self:onChangeGrade()
