@@ -32,7 +32,7 @@
 			anchor_point = { 0.500000; 0.000000; };
 			relative_size_type = 0;
 			width = 1280;
-			height = 57;
+			height = 64;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -340,7 +340,7 @@
 				lua_name = 'userLvLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '?�벨 {0}';
+				text = '레벨 {0}';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 119; 235; 232; };
@@ -553,7 +553,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '?��???;
+					text = '핫타임';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
@@ -643,7 +643,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '?�전';
+				text = '던전';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -737,7 +737,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '?�투';
+				text = '전투';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -805,7 +805,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '?�래�?;
+				text = '드래곤';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -899,7 +899,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '?�이�?;
+				text = '테이머';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -993,7 +993,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '가�?;
+				text = '가방';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1087,7 +1087,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '?�감';
+				text = '도감';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1181,7 +1181,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '?�험';
+				text = '탐험';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1369,7 +1369,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '?�점';
+				text = '상점';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1503,7 +1503,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '부?�소';
+				text = '부화소';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1757,7 +1757,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '마스?�의 �?;
+				text = '마스터의 길';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 255; 215; 0; };
@@ -1851,7 +1851,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '?�편??;
+				text = '우편함';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1945,7 +1945,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '?�스??;
+				text = '퀘스트';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -2039,7 +2039,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '종합 ??��';
+				text = '종합 랭킹';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -2107,7 +2107,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '?�벤??;
+				text = '이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -2267,7 +2267,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '?�정??;
+				text = '월정액';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -2412,7 +2412,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '?�물 ?�자';
+				text = '선물 상자';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -2462,8 +2462,8 @@
 		{
 			type = 'Button';
 			ui_name = '';
-			x = 506.000000;
-			y = -160.000000;
+			x = 50.000000;
+			y = -260.000000;
 			dock_point = { 0.000000; 1.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
