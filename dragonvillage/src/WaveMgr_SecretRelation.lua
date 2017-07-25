@@ -5,7 +5,6 @@ local PARENT = WaveMgr
 -------------------------------------
 WaveMgr_SecretRelation = class(PARENT, {
         m_enemyDid = 'number',   -- 지정된 적드래곤 아이디
-        m_bBossWave = 'boolean',
     })
 
 -------------------------------------
@@ -16,7 +15,6 @@ function WaveMgr_SecretRelation:init(world, stage_name, develop_mode)
     local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
 
     self.m_enemyDid = t_dungeon_info['dragon']
-    self.m_bBossWave = false
 
     -- RandomDragon으로 들어간 enemy_id값들을 지정된 드래곤 아이디로 치환
     if (self.m_scriptData and self.m_scriptData['wave']) then
@@ -44,7 +42,8 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
     else
         local evolution = enemy_id % 10
         local enemy_id = math_floor(enemy_id / 10)
-        local isBoss = (level == self.m_highestRarity)
+        local rarity = self:getRarity(enemy_id, level)
+        local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
 
         enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
@@ -59,11 +58,12 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
 
         if (isBoss) then
             enemy.m_animator:setScale(0.6)
-            
-            -- 보스의 경우 체력 10배
-            enemy.m_maxHp = enemy.m_maxHp * 10
-            enemy.m_hp = enemy.m_hp * 10
 
+            -- 스테이지별 boss_hp_ratio 적용.
+            local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
+            enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
+            enemy:setStatusCalc(enemy.m_statusCalc)
+            
             Monster.makeHPGauge(enemy, {0, -80}, true)
         end
     end

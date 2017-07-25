@@ -398,6 +398,16 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
     end
 
+    local rarity = self:getRarity(enemy_id, level)
+    local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
+
+    -- 스테이지별 boss_hp_ratio 적용.
+    if (isBoss) then
+        local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
+        enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
+        enemy:setStatusCalc(enemy.m_statusCalc)
+    end
+
     self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)
     self.m_world.m_physWorld:addObject(PHYS.ENEMY, enemy)
     self.m_world:addEnemy(enemy)

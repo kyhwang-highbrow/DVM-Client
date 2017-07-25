@@ -130,7 +130,7 @@ function GameWorld:makeMonsterNew(monster_id, level)
     end
 
     -- 스테이지별 hp_ratio 적용.
-    local hp_ratio = TableDrop():getValue(self.m_stageID, 'hp_ratio') or 1
+    local hp_ratio = TableStageData():getValue(self.m_stageID, 'hp_ratio') or 1
     monster.m_statusCalc:appendHpRatio(hp_ratio)
     
     monster:setStatusCalc(monster.m_statusCalc)

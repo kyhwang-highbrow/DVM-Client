@@ -405,7 +405,7 @@ function GameWorld:initBG(waveMgr)
     local bg_res = t_script_data['bg']
     local bg_type = t_script_data['bg_type'] or 'default'
 	local bg_directing = t_script_data['bg_directing'] or 'floating_1'
-    local attr = TableDrop():getValue(self.m_stageID, 'attr')
+    local attr = TableStageData():getValue(self.m_stageID, 'attr')
 
     if (bg_type == 'animation') then
         self.m_mapManager = AnimationMap(self.m_bgNode, bg_res)

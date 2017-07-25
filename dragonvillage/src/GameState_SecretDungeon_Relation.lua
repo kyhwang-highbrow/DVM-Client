@@ -82,19 +82,6 @@ function GameState_SecretDungeon_Relation:makeResultUI(is_success)
 end
 
 -------------------------------------
--- function checkToDieHighestRariry
--- @brief 가장 높은 등급의 적(보스)가 죽었은지 체크
--------------------------------------
-function GameState_SecretDungeon_Relation:checkToDieHighestRariry()
-    local world = self.m_world
-
-    if (world.m_bDevelopMode) then return false end
-    if (world.m_waveMgr.m_currWave < 9) then return false end
-        
-    return world.m_waveMgr:checkToDieHighestRariry()
-end
-
--------------------------------------
 -- function setWave
 -------------------------------------
 function GameState_SecretDungeon_Relation:setWave(wave)

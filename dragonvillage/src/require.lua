@@ -242,6 +242,7 @@ local t_module = {
     'TableStatusEffect',
     'TableExplorationList',
     'TableColosseumBuff',
+    'TableStageData',
     'TableHelp',
     'TableGoogleQuest',
 

@@ -2496,6 +2496,9 @@
     <None Include="..\src\TableHelp.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\TableStageData.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\StatusEffect_ConditionalBuff.lua">
       <Filter>lua\src</Filter>
     </None>

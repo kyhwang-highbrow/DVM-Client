@@ -26,6 +26,7 @@ local TableInfo = {
         tamer               = {'table_tamer',               'tid',          false},
         tamer_skill         = {'table_tamer_skill',         'sid',          false},
         drop                = {'table_drop',                'stage',        false},
+        stage_data          = {'table_stage_data',          'stage',        false},
         stage_desc          = {'table_stage_desc',          'stage',        false},
         secret_dungeon      = {'table_secret_dungeon',      'stage',        false},
         dragon_exp          = {'table_dragon_exp',          'eid',          false},

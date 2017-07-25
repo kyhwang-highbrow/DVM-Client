@@ -17,7 +17,8 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
 
     else
-        local isBoss = (level == self.m_highestRarity)
+        local rarity = self:getRarity(enemy_id, level)
+        local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
 
         enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
@@ -33,11 +34,10 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
         enemy.m_animator:setScale(0.45)
 
         if (isBoss) then
-            -- 보스의 경우 체력 배수 처리
-            local hp_ratio =  g_constant:get('INGAME', 'ANCIENT_TOWER_BOSS_HP') or 1
-
-            enemy.m_maxHp = enemy.m_maxHp * hp_ratio
-            enemy.m_hp = enemy.m_hp * hp_ratio
+            -- 스테이지별 boss_hp_ratio 적용.
+            local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
+            enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
+            enemy:setStatusCalc(enemy.m_statusCalc)
 
             Monster.makeHPGauge(enemy, {0, -80}, true)
         end

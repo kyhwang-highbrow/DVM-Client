@@ -188,7 +188,9 @@ function EnemyAppear.Basic2(owner, luaValue1, luaValue2, luaValue3)
     -- 마지막 액션(Enemy를 공격상태로 변경)
     local finish_action = cc.CallFunc:create(function()
         owner:changeState('idle')
+        owner:setPosition(pos2.x, pos2.y)
         effect:release()
+
         owner:dispatch('enemy_appear_done', {}, owner)
     end)    
 

@@ -1,0 +1,306 @@
+stage,t_name,r_difficult,mode,r_chapter_info,r_stage_info,attr,level,hp_ratio,boss_hp_ratio
+1010001,모험,intro,adv,1,1,earth,50,1,2
+1110101,모험,normal,adv,1,1,earth,5,0.5,2
+1110102,모험,normal,adv,1,2,earth,10,0.5,2
+1110103,모험,normal,adv,1,3,earth,12,0.6,2
+1110104,모험,normal,adv,1,4,earth,13,0.7,2
+1110105,모험,normal,adv,1,5,earth,14,0.8,2
+1110106,모험,normal,adv,1,6,earth,15,0.9,2
+1110107,모험,normal,adv,1,7,earth,16,1,2
+1110201,모험,normal,adv,2,1,water,18,1,2
+1110202,모험,normal,adv,2,2,water,18,1,2
+1110203,모험,normal,adv,2,3,water,19,1,2
+1110204,모험,normal,adv,2,4,water,19,1,2
+1110205,모험,normal,adv,2,5,water,20,1,2
+1110206,모험,normal,adv,2,6,water,20,1,2
+1110207,모험,normal,adv,2,7,water,21,1,2
+1110301,모험,normal,adv,3,1,earth,26,1,2
+1110302,모험,normal,adv,3,2,earth,26,1,2
+1110303,모험,normal,adv,3,3,earth,27,1,2
+1110304,모험,normal,adv,3,4,earth,27,1,2
+1110305,모험,normal,adv,3,5,earth,28,1,2
+1110306,모험,normal,adv,3,6,earth,28,1,2
+1110307,모험,normal,adv,3,7,earth,29,1,2
+1110401,모험,normal,adv,4,1,fire,45,1,2
+1110402,모험,normal,adv,4,2,fire,45,1,2
+1110403,모험,normal,adv,4,3,fire,46,1,2
+1110404,모험,normal,adv,4,4,fire,46,1,2
+1110405,모험,normal,adv,4,5,fire,47,1,2
+1110406,모험,normal,adv,4,6,fire,47,1,2
+1110407,모험,normal,adv,4,7,fire,48,1,2
+1110501,모험,normal,adv,5,1,light,51,1,2
+1110502,모험,normal,adv,5,2,light,51,1,2
+1110503,모험,normal,adv,5,3,light,52,1,2
+1110504,모험,normal,adv,5,4,light,52,1,2
+1110505,모험,normal,adv,5,5,light,53,1,2
+1110506,모험,normal,adv,5,6,light,53,1,2
+1110507,모험,normal,adv,5,7,light,54,1,2
+1110601,모험,normal,adv,6,1,dark,59,1,2
+1110602,모험,normal,adv,6,2,dark,59,1,2
+1110603,모험,normal,adv,6,3,dark,60,1,2
+1110604,모험,normal,adv,6,4,dark,60,1,2
+1110605,모험,normal,adv,6,5,dark,61,1,2
+1110606,모험,normal,adv,6,6,dark,61,1,2
+1110607,모험,normal,adv,6,7,dark,62,1,2
+1110701,모험,normal,adv,7,1,dark,78,1,2
+1110702,모험,normal,adv,7,2,dark,78,1,2
+1110703,모험,normal,adv,7,3,dark,79,1,2
+1110704,모험,normal,adv,7,4,dark,79,1,2
+1110705,모험,normal,adv,7,5,dark,80,1,2
+1110706,모험,normal,adv,7,6,dark,80,1,2
+1110707,모험,normal,adv,7,7,dark,81,1,2
+1110801,모험,normal,adv,8,1,dark,84,1,2
+1110802,모험,normal,adv,8,2,dark,84,1,2
+1110803,모험,normal,adv,8,3,dark,85,1,2
+1110804,모험,normal,adv,8,4,dark,85,1,2
+1110805,모험,normal,adv,8,5,dark,86,1,2
+1110806,모험,normal,adv,8,6,dark,86,1,2
+1110807,모험,normal,adv,8,7,dark,87,1,2
+1110901,모험,normal,adv,9,1,dark,92,1,2
+1110902,모험,normal,adv,9,2,dark,92,1,2
+1110903,모험,normal,adv,9,3,dark,93,1,2
+1110904,모험,normal,adv,9,4,dark,93,1,2
+1110905,모험,normal,adv,9,5,dark,94,1,2
+1110906,모험,normal,adv,9,6,dark,94,1,2
+1110907,모험,normal,adv,9,7,dark,95,1,2
+1111001,모험,normal,adv,10,1,dark,111,1,2
+1111002,모험,normal,adv,10,2,dark,111,1,2
+1111003,모험,normal,adv,10,3,dark,112,1,2
+1111004,모험,normal,adv,10,4,dark,112,1,2
+1111005,모험,normal,adv,10,5,dark,113,1,2
+1111006,모험,normal,adv,10,6,dark,113,1,2
+1111007,모험,normal,adv,10,7,dark,114,1,2
+1111101,모험,normal,adv,11,1,dark,117,1,2
+1111102,모험,normal,adv,11,2,dark,117,1,2
+1111103,모험,normal,adv,11,3,dark,118,1,2
+1111104,모험,normal,adv,11,4,dark,118,1,2
+1111105,모험,normal,adv,11,5,dark,119,1,2
+1111106,모험,normal,adv,11,6,dark,119,1,2
+1111107,모험,normal,adv,11,7,dark,120,1,2
+1111201,모험,normal,adv,12,1,dark,125,1,2
+1111202,모험,normal,adv,12,2,dark,125,1,2
+1111203,모험,normal,adv,12,3,dark,126,1,2
+1111204,모험,normal,adv,12,4,dark,126,1,2
+1111205,모험,normal,adv,12,5,dark,127,1,2
+1111206,모험,normal,adv,12,6,dark,127,1,2
+1111207,모험,normal,adv,12,7,dark,128,1,2
+1120101,모험,hard,adv,1,1,earth,154,1,2
+1120102,모험,hard,adv,1,2,earth,154,1,2
+1120103,모험,hard,adv,1,3,earth,155,1,2
+1120104,모험,hard,adv,1,4,earth,155,1,2
+1120105,모험,hard,adv,1,5,earth,156,1,2
+1120106,모험,hard,adv,1,6,earth,156,1,2
+1120107,모험,hard,adv,1,7,earth,157,1,2
+1120201,모험,hard,adv,2,1,water,160,1,2
+1120202,모험,hard,adv,2,2,water,160,1,2
+1120203,모험,hard,adv,2,3,water,161,1,2
+1120204,모험,hard,adv,2,4,water,161,1,2
+1120205,모험,hard,adv,2,5,water,162,1,2
+1120206,모험,hard,adv,2,6,water,162,1,2
+1120207,모험,hard,adv,2,7,water,163,1,2
+1120301,모험,hard,adv,3,1,earth,189,1,2
+1120302,모험,hard,adv,3,2,earth,189,1,2
+1120303,모험,hard,adv,3,3,earth,190,1,2
+1120304,모험,hard,adv,3,4,earth,190,1,2
+1120305,모험,hard,adv,3,5,earth,191,1,2
+1120306,모험,hard,adv,3,6,earth,191,1,2
+1120307,모험,hard,adv,3,7,earth,192,1,2
+1120401,모험,hard,adv,4,1,fire,195,1,2
+1120402,모험,hard,adv,4,2,fire,195,1,2
+1120403,모험,hard,adv,4,3,fire,196,1,2
+1120404,모험,hard,adv,4,4,fire,196,1,2
+1120405,모험,hard,adv,4,5,fire,197,1,2
+1120406,모험,hard,adv,4,6,fire,197,1,2
+1120407,모험,hard,adv,4,7,fire,198,1,2
+1120501,모험,hard,adv,5,1,light,224,1,2
+1120502,모험,hard,adv,5,2,light,224,1,2
+1120503,모험,hard,adv,5,3,light,225,1,2
+1120504,모험,hard,adv,5,4,light,225,1,2
+1120505,모험,hard,adv,5,5,light,226,1,2
+1120506,모험,hard,adv,5,6,light,226,1,2
+1120507,모험,hard,adv,5,7,light,227,1,2
+1120601,모험,hard,adv,6,1,dark,230,1,2
+1120602,모험,hard,adv,6,2,dark,230,1,2
+1120603,모험,hard,adv,6,3,dark,231,1,2
+1120604,모험,hard,adv,6,4,dark,231,1,2
+1120605,모험,hard,adv,6,5,dark,232,1,2
+1120606,모험,hard,adv,6,6,dark,232,1,2
+1120607,모험,hard,adv,6,7,dark,233,1,2
+1120701,모험,hard,adv,7,1,dark,259,1,2
+1120702,모험,hard,adv,7,2,dark,259,1,2
+1120703,모험,hard,adv,7,3,dark,260,1,2
+1120704,모험,hard,adv,7,4,dark,260,1,2
+1120705,모험,hard,adv,7,5,dark,261,1,2
+1120706,모험,hard,adv,7,6,dark,261,1,2
+1120707,모험,hard,adv,7,7,dark,262,1,2
+1120801,모험,hard,adv,8,1,dark,265,1,2
+1120802,모험,hard,adv,8,2,dark,265,1,2
+1120803,모험,hard,adv,8,3,dark,266,1,2
+1120804,모험,hard,adv,8,4,dark,266,1,2
+1120805,모험,hard,adv,8,5,dark,267,1,2
+1120806,모험,hard,adv,8,6,dark,267,1,2
+1120807,모험,hard,adv,8,7,dark,268,1,2
+1120901,모험,hard,adv,9,1,dark,294,1,2
+1120902,모험,hard,adv,9,2,dark,294,1,2
+1120903,모험,hard,adv,9,3,dark,295,1,2
+1120904,모험,hard,adv,9,4,dark,295,1,2
+1120905,모험,hard,adv,9,5,dark,296,1,2
+1120906,모험,hard,adv,9,6,dark,296,1,2
+1120907,모험,hard,adv,9,7,dark,297,1,2
+1121001,모험,hard,adv,10,1,dark,300,1,2
+1121002,모험,hard,adv,10,2,dark,300,1,2
+1121003,모험,hard,adv,10,3,dark,301,1,2
+1121004,모험,hard,adv,10,4,dark,301,1,2
+1121005,모험,hard,adv,10,5,dark,302,1,2
+1121006,모험,hard,adv,10,6,dark,302,1,2
+1121007,모험,hard,adv,10,7,dark,303,1,2
+1121101,모험,hard,adv,11,1,dark,329,1,2
+1121102,모험,hard,adv,11,2,dark,329,1,2
+1121103,모험,hard,adv,11,3,dark,330,1,2
+1121104,모험,hard,adv,11,4,dark,330,1,2
+1121105,모험,hard,adv,11,5,dark,331,1,2
+1121106,모험,hard,adv,11,6,dark,331,1,2
+1121107,모험,hard,adv,11,7,dark,332,1,2
+1121201,모험,hard,adv,12,1,dark,335,1,2
+1121202,모험,hard,adv,12,2,dark,335,1,2
+1121203,모험,hard,adv,12,3,dark,336,1,2
+1121204,모험,hard,adv,12,4,dark,336,1,2
+1121205,모험,hard,adv,12,5,dark,337,1,2
+1121206,모험,hard,adv,12,6,dark,337,1,2
+1121207,모험,hard,adv,12,7,dark,338,1,2
+1210001,보석 던전,nest,d_common,dragon,1,light,13,1,2
+1210002,보석 던전,nest,d_common,dragon,2,light,21,1,2
+1210003,보석 던전,nest,d_common,dragon,3,light,51,1,2
+1210004,보석 던전,nest,d_common,dragon,4,light,85,1,2
+1210005,보석 던전,nest,d_common,dragon,5,light,126,1,2
+1210006,보석 던전,nest,d_common,dragon,6,light,224,1,2
+1210101,땅의 거대용,nest,d_earth,dragon,1,earth,13,1,2
+1210102,땅의 거대용,nest,d_earth,dragon,2,earth,21,1,2
+1210103,땅의 거대용,nest,d_earth,dragon,3,earth,51,1,2
+1210104,땅의 거대용,nest,d_earth,dragon,4,earth,85,1,2
+1210105,땅의 거대용,nest,d_earth,dragon,5,earth,126,1,2
+1210106,땅의 거대용,nest,d_earth,dragon,6,earth,224,1,2
+1210201,물의 거대용,nest,d_water,dragon,1,water,13,1,2
+1210202,물의 거대용,nest,d_water,dragon,2,water,21,1,2
+1210203,물의 거대용,nest,d_water,dragon,3,water,51,1,2
+1210204,물의 거대용,nest,d_water,dragon,4,water,85,1,2
+1210205,물의 거대용,nest,d_water,dragon,5,water,126,1,2
+1210206,물의 거대용,nest,d_water,dragon,6,water,224,1,2
+1210301,불의 거대용,nest,d_fire,dragon,1,fire,13,1,2
+1210302,불의 거대용,nest,d_fire,dragon,2,fire,21,1,2
+1210303,불의 거대용,nest,d_fire,dragon,3,fire,51,1,2
+1210304,불의 거대용,nest,d_fire,dragon,4,fire,85,1,2
+1210305,불의 거대용,nest,d_fire,dragon,5,fire,126,1,2
+1210306,불의 거대용,nest,d_fire,dragon,6,fire,224,1,2
+1210401,빛의 거대용,nest,d_light,dragon,1,light,13,1,2
+1210402,빛의 거대용,nest,d_light,dragon,2,light,21,1,2
+1210403,빛의 거대용,nest,d_light,dragon,3,light,51,1,2
+1210404,빛의 거대용,nest,d_light,dragon,4,light,85,1,2
+1210405,빛의 거대용,nest,d_light,dragon,5,light,126,1,2
+1210406,빛의 거대용,nest,d_light,dragon,6,light,224,1,2
+1210501,어둠의 거대용,nest,d_dark,dragon,1,dark,13,1,2
+1210502,어둠의 거대용,nest,d_dark,dragon,2,dark,21,1,2
+1210503,어둠의 거대용,nest,d_dark,dragon,3,dark,51,1,2
+1210504,어둠의 거대용,nest,d_dark,dragon,4,dark,85,1,2
+1210505,어둠의 거대용,nest,d_dark,dragon,5,dark,126,1,2
+1210506,어둠의 거대용,nest,d_dark,dragon,6,dark,224,1,2
+1220001,악몽,nest,nightmare,nightmare,1,light,13,1,2
+1220002,악몽,nest,nightmare,nightmare,2,water,33,1,2
+1220003,악몽,nest,nightmare,nightmare,3,earth,63,1,2
+1220004,악몽,nest,nightmare,nightmare,4,fire,103,1,2
+1220005,악몽,nest,nightmare,nightmare,5,dark,153,1,2
+1220006,악몽,nest,nightmare,nightmare,6,light,213,1,2
+1230101,땅의 거목,nest,t_earth,oldTree,1,earth,13,1,2
+1230102,땅의 거목,nest,t_earth,oldTree,2,earth,21,1,2
+1230103,땅의 거목,nest,t_earth,oldTree,3,earth,51,1,2
+1230104,땅의 거목,nest,t_earth,oldTree,4,earth,85,1,2
+1230105,땅의 거목,nest,t_earth,oldTree,5,earth,126,1,2
+1230106,땅의 거목,nest,t_earth,oldTree,6,earth,224,1,2
+1230201,물의 거목,nest,t_water,oldTree,1,water,13,1,2
+1230202,물의 거목,nest,t_water,oldTree,2,water,21,1,2
+1230203,물의 거목,nest,t_water,oldTree,3,water,51,1,2
+1230204,물의 거목,nest,t_water,oldTree,4,water,85,1,2
+1230205,물의 거목,nest,t_water,oldTree,5,water,126,1,2
+1230206,물의 거목,nest,t_water,oldTree,6,water,224,1,2
+1230301,불의 거목,nest,t_fire,oldTree,1,fire,13,1,2
+1230302,불의 거목,nest,t_fire,oldTree,2,fire,21,1,2
+1230303,불의 거목,nest,t_fire,oldTree,3,fire,51,1,2
+1230304,불의 거목,nest,t_fire,oldTree,4,fire,85,1,2
+1230305,불의 거목,nest,t_fire,oldTree,5,fire,126,1,2
+1230306,불의 거목,nest,t_fire,oldTree,6,fire,224,1,2
+1230401,빛의 거목,nest,t_light,oldTree,1,light,13,1,2
+1230402,빛의 거목,nest,t_light,oldTree,2,light,21,1,2
+1230403,빛의 거목,nest,t_light,oldTree,3,light,51,1,2
+1230404,빛의 거목,nest,t_light,oldTree,4,light,85,1,2
+1230405,빛의 거목,nest,t_light,oldTree,5,light,126,1,2
+1230406,빛의 거목,nest,t_light,oldTree,6,light,224,1,2
+1230501,어둠의 거목,nest,t_dark,oldTree,1,dark,13,1,2
+1230502,어둠의 거목,nest,t_dark,oldTree,2,dark,21,1,2
+1230503,어둠의 거목,nest,t_dark,oldTree,3,dark,51,1,2
+1230504,어둠의 거목,nest,t_dark,oldTree,4,dark,85,1,2
+1230505,어둠의 거목,nest,t_dark,oldTree,5,dark,126,1,2
+1230506,어둠의 거목,nest,t_dark,oldTree,6,dark,224,1,2
+1240001,황금 던전,nest,gold,gold,1,light,13,1,2
+1240002,황금 던전,nest,gold,gold,2,light,21,1,2
+1240003,황금 던전,nest,gold,gold,3,light,51,1,2
+1240004,황금 던전,nest,gold,gold,4,light,85,1,2
+1240005,황금 던전,nest,gold,gold,5,light,126,1,2
+1240006,황금 던전,nest,gold,gold,6,light,224,1,2
+1320101,인연 던전,secret,relation,relation,1,earth,20,1,2
+1320201,인연 던전,secret,relation,relation,1,water,20,1,2
+1320301,인연 던전,secret,relation,relation,1,fire,20,1,2
+1320401,인연 던전,secret,relation,relation,1,light,20,1,2
+1320501,인연 던전,secret,relation,relation,1,dark,20,1,2
+1320601,인연 던전,secret,relation,relation,1,light,20,1,2
+1320701,인연 던전,secret,relation,relation,1,dark,20,1,2
+999999,개발 스테이지,easy,adv,1,개발,earth,1,1,2
+1401001,고대의탑,ancient,ancient,ancient,1,earth,15,1,2
+1401002,고대의탑,ancient,ancient,ancient,2,earth,15,1,2
+1401003,고대의탑,ancient,ancient,ancient,3,earth,16,1,2
+1401004,고대의탑,ancient,ancient,ancient,4,earth,17,1,2
+1401005,고대의탑,ancient,ancient,ancient,5,earth,18,1,2
+1401006,고대의탑,ancient,ancient,ancient,6,earth,19,1,2
+1401007,고대의탑,ancient,ancient,ancient,7,earth,20,1,2
+1401008,고대의탑,ancient,ancient,ancient,8,earth,22,1,2
+1401009,고대의탑,ancient,ancient,ancient,9,earth,24,1,2
+1401010,고대의탑,ancient,ancient,ancient,10,earth,26,1,2
+1401011,고대의탑,ancient,ancient,ancient,11,earth,28,1,2
+1401012,고대의탑,ancient,ancient,ancient,12,earth,30,1,2
+1401013,고대의탑,ancient,ancient,ancient,13,earth,33,1,2
+1401014,고대의탑,ancient,ancient,ancient,14,earth,36,1,2
+1401015,고대의탑,ancient,ancient,ancient,15,earth,39,1,2
+1401016,고대의탑,ancient,ancient,ancient,16,earth,42,1,2
+1401017,고대의탑,ancient,ancient,ancient,17,earth,45,1,2
+1401018,고대의탑,ancient,ancient,ancient,18,earth,49,1,2
+1401019,고대의탑,ancient,ancient,ancient,19,earth,53,1,2
+1401020,고대의탑,ancient,ancient,ancient,20,earth,57,1,2
+1401021,고대의탑,ancient,ancient,ancient,21,earth,61,1,2
+1401022,고대의탑,ancient,ancient,ancient,22,earth,65,1,2
+1401023,고대의탑,ancient,ancient,ancient,23,earth,70,1,2
+1401024,고대의탑,ancient,ancient,ancient,24,earth,75,1,2
+1401025,고대의탑,ancient,ancient,ancient,25,earth,80,1,2
+1401026,고대의탑,ancient,ancient,ancient,26,earth,85,1,2
+1401027,고대의탑,ancient,ancient,ancient,27,earth,90,1,2
+1401028,고대의탑,ancient,ancient,ancient,28,earth,96,1,2
+1401029,고대의탑,ancient,ancient,ancient,29,earth,102,1,2
+1401030,고대의탑,ancient,ancient,ancient,30,earth,108,1,2
+1401031,고대의탑,ancient,ancient,ancient,31,earth,114,1,2
+1401032,고대의탑,ancient,ancient,ancient,32,earth,120,1,2
+1401033,고대의탑,ancient,ancient,ancient,33,earth,127,1,2
+1401034,고대의탑,ancient,ancient,ancient,34,earth,134,1,2
+1401035,고대의탑,ancient,ancient,ancient,35,earth,141,1,2
+1401036,고대의탑,ancient,ancient,ancient,36,earth,148,1,2
+1401037,고대의탑,ancient,ancient,ancient,37,earth,155,1,2
+1401038,고대의탑,ancient,ancient,ancient,38,earth,163,1,2
+1401039,고대의탑,ancient,ancient,ancient,39,earth,171,1,2
+1401040,고대의탑,ancient,ancient,ancient,40,earth,179,1,2
+1401041,고대의탑,ancient,ancient,ancient,41,earth,187,1,2
+1401042,고대의탑,ancient,ancient,ancient,42,earth,195,1,2
+1401043,고대의탑,ancient,ancient,ancient,43,earth,204,1,2
+1401044,고대의탑,ancient,ancient,ancient,44,earth,213,1,2
+1401045,고대의탑,ancient,ancient,ancient,45,earth,222,1,2
+1401046,고대의탑,ancient,ancient,ancient,46,earth,231,1,2
+1401047,고대의탑,ancient,ancient,ancient,47,earth,240,1,2
+1401048,고대의탑,ancient,ancient,ancient,48,earth,250,1,2
+1401049,고대의탑,ancient,ancient,ancient,49,earth,260,1,2
+1401050,고대의탑,ancient,ancient,ancient,50,earth,270,1,2

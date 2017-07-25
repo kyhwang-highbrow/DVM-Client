@@ -209,9 +209,9 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
     local t_info
 
     if (is_enemy) then
-        t_info = TableDrop():getStageEnemyBuff(stage_id)
+        t_info = TableStageData():getStageEnemyBuff(stage_id)
     else
-        t_info = TableDrop():getStageHeroBuff(stage_id)
+        t_info = TableStageData():getStageHeroBuff(stage_id)
     end
     if (not t_info) then return end
     
