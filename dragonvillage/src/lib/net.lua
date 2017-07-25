@@ -152,7 +152,13 @@ function Network:start(req, delay)
 		local form = formencode(req.data)
 		request:setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8")
 		request:setRequestHeader("Content-Length", tostring(string.len(form)))
-		--request:setRequestHeader("sessionkey", UserData.m_user.session_key or '')
+
+		-- 중복 접속을 제어하기 위해서 게임서버로부터 받은 session_key를 해더에 추가해 검증함
+        if g_userData and g_userData:get('session_key') then
+            local session_key = g_userData:get('session_key')
+		    request:setRequestHeader("sessionkey", session_key)
+        end
+
 		if req.hmac then
 			request:setRequestHeader("hmac", tostring(req.hmac))
 		end

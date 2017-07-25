@@ -195,6 +195,14 @@ function UI_Network:statusHandler(ret)
         return false
     end
 
+    -- invalid session (세션이 맞지 않음)
+    if (status == -1397) then
+        local msg = Str('세션키가 만료되었습니다.\n앱을 완전 종료 후 다시 접속해주세요.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg, function() closeApplication() end)
+        return true
+    end
+
+
     local error_str = S_ERROR_STATUS[status]
     local shop_tab = S_ERROR_STATUS_SHOP[status]
     if (error_str) then
