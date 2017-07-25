@@ -17,17 +17,7 @@ LOCAL_SRC_FILES := main/main.cpp \
                    ../../Classes/AppDelegate_Custom.cpp \
                    ../../Classes/ConfigParser.cpp \
                    ../../Classes/Runtime.cpp \
-                   ../../Classes/PerpExt/PerpUtils.cpp \
-                   ../../Classes/Kakao/Common/GameFriends.cpp \
-                   ../../Classes/Kakao/Common/GameInfo.cpp \
-                   ../../Classes/Kakao/Common/GameUserInfo.cpp \
-                   ../../Classes/Kakao/Common/InvitationTracking.cpp \
-                   ../../Classes/Kakao/Common/KakaoFriends.cpp \
-                   ../../Classes/Kakao/Common/KakaoGameMessages.cpp \
-                   ../../Classes/Kakao/Common/KakaoLeaderBoards.cpp \
-                   ../../Classes/Kakao/Common/KakaoLocalUser.cpp \
-                   ../../Classes/Kakao/Plugins/KakaoNativeExtension.cpp \
-                   ../../Classes/Kakao/Plugins/KakaoResponseHandler.cpp
+                   ../../Classes/PerpExt/PerpUtils.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../../cocos2d-x/cocos/network \
