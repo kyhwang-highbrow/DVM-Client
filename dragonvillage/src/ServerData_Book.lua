@@ -1,5 +1,6 @@
 -------------------------------------
 -- class ServerData_Book
+-- @comment 최초 1회만 book/info를 호출하고 이후에는 드래곤이 추가되는 경우에 클라에서 수정
 -------------------------------------
 ServerData_Book = class({
         m_serverData = 'ServerData',
@@ -7,16 +8,13 @@ ServerData_Book = class({
         -- 드래곤 콜렉션 데이터(실제 도감 정보)
         m_mBookData = 'map',
 
-        -- 드래곤 원종별 도감
-        m_mDragonTypeBookData = 'map',
-        -- {
-        --   'pinkbell':true,
-        --   'jaryong':true,
-        --   'powerdragon':true
-        -- }
-
 		-- 드래곤 보상 정보
 		m_tBookReward = 'map',
+        --"120483":{
+          --"evo_1":2,  -- 2는 보상 기 수령
+          --"evo_2":1   -- 1은 보상 수령 가능
+                        -- 없는 것은 획득하지 않은 것
+        --},
 
         m_lastChangeTimeStamp = 'timestamp',
     })
@@ -27,7 +25,6 @@ ServerData_Book = class({
 function ServerData_Book:init(server_data)
     self.m_serverData = server_data
     self.m_mBookData = {}
-    self.m_mDragonTypeBookData = {}
 	self.m_tBookReward = {}
 end
 
@@ -139,10 +136,6 @@ function ServerData_Book:response_bookInfo(ret)
         end
     end
 
-    do -- 드래곤 원종별 도감
-        self.m_mDragonTypeBookData = ret['dragon_type']
-    end
-
 	do -- 드래곤 도감 보상 정보
 		self.m_tBookReward = ret['reward_info']
 	end
@@ -195,28 +188,28 @@ function ServerData_Book:isExist(t_dragon_data)
 end
 
 -------------------------------------
--- function isExistDragonType
--- @brief 도감에 표시 여부
--------------------------------------
-function ServerData_Book:isExistDragonType(dragon_type)
-    if self.m_mDragonTypeBookData[dragon_type] then
-        return true
-    else
-        return false
-    end
-end
-
--------------------------------------
 -- function setDragonBook
 -- @brief 도감에 드래곤 등록
 -------------------------------------
-function ServerData_Book:setDragonBook(did)
-    local struct_book_data = self:getBookData(did)
+function ServerData_Book:setDragonBook(t_dragon_data)
+    local did = t_dragon_data['did']
+    local evolution = t_dragon_data['evolution']
+    if (not did) or (not evolution) then
+        return false
+    end
 
-    do -- 드래곤 원종의 도감 정보
-        local dragon_type = TableDragon():getValue(tonumber(did), 'type')
-        if (not self.m_mDragonTypeBookData[dragon_type]) then
-            self.m_mDragonTypeBookData[dragon_type] = 0
+    -- 도감 데이터 등록
+    self:getBookData(did)
+
+    -- 획득 및 보상 여부 판단
+    do
+        did = tostring(did)
+        if (not self.m_tBookReward[did]) then
+            self.m_tBookReward[did] = {}
+        end
+        -- 보상 수령 가능 상태로 설정
+        if (not self.m_tBookReward[did]['evo_' .. evolution]) then
+            self.m_tBookReward[did]['evo_' .. evolution] = 1
         end
     end
 
@@ -439,7 +432,7 @@ end
 
 
 -------------------------------------
--- function getBookNotiList
+-- function isHighlightBook
 -- @brief 하이라이트(노티) 여부
 -------------------------------------
 function ServerData_Book:isHighlightBook()

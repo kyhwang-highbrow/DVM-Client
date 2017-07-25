@@ -178,8 +178,7 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
     self.m_bDirtyNumOfDragonsByDid = true
 
     -- 추가된 드래곤은 도감에 추가
-    local did = t_dragon_data['did']
-    g_bookData:setDragonBook(did)
+    g_bookData:setDragonBook(t_dragon_data)
 
     -- 채팅 서버의 리더 드래곤 정보 갱신 체크용
     if self:isLeaderDragon(doid) then

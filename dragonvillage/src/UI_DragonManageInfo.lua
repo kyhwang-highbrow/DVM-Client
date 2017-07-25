@@ -767,7 +767,7 @@ function UI_DragonManageInfo:click_collectionBtn()
     local function close_cb()
         self:checkDragonListRefresh()
     end
-    g_bookData:openBookPopup(close_cb)
+    UI_Book():setCloseCB(close_cb)
 end
 
 -------------------------------------
