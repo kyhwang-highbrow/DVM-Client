@@ -84,8 +84,6 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WAKE_LOCK" />
-    <uses-permission
-        android:name="android.permission.GET_ACCOUNTS" />
 
     <!-- @obb, APK expansion file downloading (+ INTERNET, WAKE_LOCK, ACCESS_NETWORK_STATE, ACCESS_WIFI_STATE, WRITE_EXTERNAL_STORAGE) -->
     <uses-permission
