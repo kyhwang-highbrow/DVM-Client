@@ -2499,6 +2499,12 @@
     <None Include="..\src\StatusEffect_ConditionalBuff.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\GoogleHelper.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\TableGoogleQuest.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

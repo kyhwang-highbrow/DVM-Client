@@ -184,6 +184,7 @@ local t_module = {
 	'BattleStatisticsHelper',
 	'UIHelper',
     'QuickLinkHelper',
+    'GoogleHelper',
 
     'ChatClientSocket',
     'ChatManager',
@@ -241,6 +242,8 @@ local t_module = {
     'TableStatusEffect',
     'TableExplorationList',
     'TableColosseumBuff',
+    'TableHelp',
+    'TableGoogleQuest',
 
     -- Scene
     'SceneCommon',
