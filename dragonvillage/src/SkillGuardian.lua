@@ -335,6 +335,51 @@ end
 
 -------------------------------------
 -- function makeSkillInstance
+-- @brief   effect_owner에 붙어있는 배리어와 사슬의 disappear 이펙트를 실행한다.
+-- @param   effect_owner    Character    :   key로써 사용되며, Character object이다.
+-------------------------------------
+function SkillGuardian:playDisappearEffect(effect_owner)
+    self.m_barEffect[effect_owner].m_effectNode:changeAni('bar_disappear', false, true)
+    self.m_barrierEffect2[effect_owner]:changeAni('barrier_disappear', false, true)
+end
+
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function SkillGuardian:setTemporaryPause(pause)
+    local setVisible = function(b)
+        for k, v in pairs(self.m_barEffect) do
+	        if (self.m_barEffect[k]) then
+                self.m_barEffect[k]:setVisible(b)
+            end
+        end
+
+        if (self.m_shieldEffect) then
+            self.m_shieldEffect:setVisible(b)
+        end
+
+        if (self.m_barrierEffect1) then
+            self.m_barrierEffect1:setVisible(b)
+        end
+
+        for k, v in pairs(self.m_barrierEffect2) do
+            if (self.m_barrierEffect2[k]) then
+                self.m_barrierEffect2[k]:setVisible(b)
+            end
+        end
+    end
+
+    if (PARENT.setTemporaryPause(self, pause)) then
+        setVisible(not pause)
+
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function makeSkillInstance
 -------------------------------------
 function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
@@ -361,14 +406,4 @@ function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-end
-
--------------------------------------
--- function makeSkillInstance
--- @brief   effect_owner에 붙어있는 배리어와 사슬의 disappear 이펙트를 실행한다.
--- @param   effect_owner    Character    :   key로써 사용되며, Character object이다.
--------------------------------------
-function SkillGuardian:playDisappearEffect(effect_owner)
-    self.m_barEffect[effect_owner].m_effectNode:changeAni('bar_disappear', false, true)
-    self.m_barrierEffect2[effect_owner]:changeAni('barrier_disappear', false, true)
 end

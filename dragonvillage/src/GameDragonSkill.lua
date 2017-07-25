@@ -2,8 +2,7 @@ local PARENT = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable(
 
 local STATE = {
     WAIT = 0,
-    PLAY_DRAG_SKILL = 1,
-    PLAY_TIME_SKILL = 2
+    PLAY_DRAG_SKILL = 1
 }
 
 -------------------------------------
@@ -119,7 +118,6 @@ end
 function GameDragonSkill:initState()
     self:addState(STATE.WAIT,   function(self, dt) end)
     self:addState(STATE.PLAY_DRAG_SKILL,   GameDragonSkill.st_playDragSkill)
-    self:addState(STATE.PLAY_TIME_SKILL,   GameDragonSkill.st_playTimeSkill)
 end
 
 -------------------------------------
@@ -544,24 +542,6 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         self:setFocusingDragon(dragon)
         self:changeState(STATE.PLAY_DRAG_SKILL)
 
-    elseif (event_name == 'dragon_time_skill') then
-        local arg = {...}
-        local dragon = arg[1]
-
-        if (self:isPlaying()) then
-        else
-            do -- 패시브 스킬 연출은 스킵
-                local skip_level = 2
-
-                self:setSkipLevel(skip_level)
-                self.m_world.m_gameHighlight:setSkipLevel(skip_level)
-            end
-            self.m_skipLevel = self.m_nextSkipLevel
-
-            self:setFocusingDragon(dragon)
-            self:changeState(STATE.PLAY_TIME_SKILL)
-        end
-
     elseif (event_name == 'damaged') then
         local arg = {...}
         local dragon = arg[1]
@@ -634,11 +614,4 @@ end
 -------------------------------------
 function GameDragonSkill:isPlayingActiveSkill()
     return (self.m_state == STATE.PLAY_DRAG_SKILL)
-end
-
--------------------------------------
--- function isPlayingTimeSkill
--------------------------------------
-function GameDragonSkill:isPlayingTimeSkill()
-    return (self.m_state == STATE.PLAY_TIME_SKILL)
 end

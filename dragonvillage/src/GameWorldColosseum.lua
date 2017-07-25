@@ -147,7 +147,6 @@ end
 -- function bindEnemy
 -------------------------------------
 function GameWorldColosseum:bindEnemy(enemy)
-    enemy:addListener('dragon_time_skill', self.m_gameDragonSkill)
     enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
     enemy:addListener('dragon_active_skill', self.m_enemyMana)
     enemy:addListener('set_global_cool_time_passive', self.m_gameCoolTime)

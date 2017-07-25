@@ -83,18 +83,6 @@ function GameHighlightMgr:update(dt)
 
     if (self.m_skipLevel < 2) then
 
-        -- 드래곤 타임 스킬 연출 중
-        if (not bPass and world.m_gameDragonSkill:isPlayingTimeSkill()) then
-            darkLevel = math_max(darkLevel, 170)
-
-            -- 쿨타임 스킬일 경우, 사용자가 아닌, 다른 드래곤들에겐 부분 암전을 건다
-            local dragon = world.m_gameDragonSkill:getFocusingDragon()
-            local enemys = dragon:getOpponentList()
-
-            Add({dragon})
-            Add(enemys)
-        end
-
         -- 테이머 스킬 연출 중
         if (not bPass and world.m_tamer and world.m_tamer:isRequiredHighLight()) then
             darkLevel = math_max(darkLevel, 170)

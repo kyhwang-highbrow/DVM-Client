@@ -53,11 +53,6 @@ function Dragon.st_attack(owner, dt)
 
             -- 텍스트
             SkillHelper:makePassiveSkillSpeech(owner, t_skill['t_name'])
-
-            -- indie_time 공격시 이벤트
-            if (t_skill['chance_type'] == 'indie_time') then
-                owner:dispatch('dragon_time_skill', {}, owner)
-            end
         end
     end
 

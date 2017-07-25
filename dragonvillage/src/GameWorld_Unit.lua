@@ -328,7 +328,6 @@ end
 -- function bindHero
 -------------------------------------
 function GameWorld:bindHero(hero)
-    hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_heroMana)
     hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)

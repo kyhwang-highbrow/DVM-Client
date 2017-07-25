@@ -267,17 +267,14 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' end' ..
 
             ' local STATUSEFFECT_COUNT = function(name, column)' ..
-            ' local column = column or \'name\'' ..
             ' return owner:getStatusEffectCount(column, name)' ..
             ' end' ..
 
             ' local TARGET_STATUSEFFECT_COUNT = function(name, column)' ..
-            ' local column = column or \'name\'' ..
             ' return target and target:getStatusEffectCount(column, name) or 0' ..
             ' end' ..
 
             ' local SKILL_TARGET_STATUSEFFECT_COUNT = function(name, column)' ..
-            ' local column = column or \'name\'' ..
             ' return skill_target and skill_target:getStatusEffectCount(column, name) or 0' ..
             ' end' ..
 

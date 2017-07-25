@@ -651,6 +651,13 @@ function StatusEffect:getLatestTimer()
 end
 
 -------------------------------------
+-- function getOverlabCount
+-------------------------------------
+function StatusEffect:getOverlabCount()
+    return self.m_overlabCnt
+end
+
+-------------------------------------
 -- function getOverlabUnitList
 -------------------------------------
 function StatusEffect:getOverlabUnitList()

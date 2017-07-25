@@ -22,6 +22,16 @@ function IHighlight:addHighlightNode(node)
 end
 
 -------------------------------------
+-- function removeHighlightNode
+-------------------------------------
+function IHighlight:removeHighlightNode(node)
+    local idx = table.find(self.m_lHighlightNodes, node)
+    if (idx) then
+        table.remove(self.m_lHighlightNodes, idx)
+    end
+end
+
+-------------------------------------
 -- function setHighlight
 -------------------------------------
 function IHighlight:setHighlight(highlightLevel)
