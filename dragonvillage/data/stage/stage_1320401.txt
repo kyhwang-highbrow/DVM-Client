@@ -227,9 +227,9 @@
 				
 				0.2:
 				[
-					"RandomDragon2;90;Appear;RO04;RM24;0.5"
-					"RandomDragon3;95;Appear;RO03;RB23;0.5"
-					"RandomDragon3;95;Appear;RO05;RB25;0.5"
+					"RandomDragon3;95;Appear;RO04;RM24;0.5"
+					"RandomDragon2;90;Appear;RO03;RB23;0.5"
+					"RandomDragon2;90;Appear;RO05;RB25;0.5"
 				]
             }
 		}
