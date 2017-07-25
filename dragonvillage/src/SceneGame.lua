@@ -114,7 +114,9 @@ function SceneGame:init_loadingGuideType()
 	elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
 		self.m_loadingGuideType = 'in_adventure'
 
-	end
+	else
+        self.m_loadingGuideType = 'all'
+    end
 end
 
 -------------------------------------

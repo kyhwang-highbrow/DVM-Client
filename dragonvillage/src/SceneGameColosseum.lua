@@ -4,7 +4,6 @@ local PARENT = SceneGame
 -- class SceneGameColosseum
 -------------------------------------
 SceneGameColosseum = class(PARENT, {
-        m_colosseumLoadingUI = '',
     })
 
 -------------------------------------
@@ -35,8 +34,6 @@ end
 function SceneGameColosseum:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
-
-    self.m_colosseumLoadingUI:initUI()
 
     SoundMgr:playBGM('bgm_colosseum')
     
@@ -296,15 +293,4 @@ function SceneGameColosseum:networkGameFinish_response_stage_clear_info(ret)
         local t_stage_clear_info = g_nestDungeonData:getNestDungeonStageClearInfoRef(stage_id)
         t_stage_clear_info['clear_cnt'] = ret['stage_clear_info']['cnt']
     end
-end
-
-
--------------------------------------
--- function makeLoadingUI
--- @brief scene전환 중 로딩화면 생성
--------------------------------------
-function SceneGameColosseum:makeLoadingUI()
-    local ui = UI_ColosseumLoading()
-    self.m_colosseumLoadingUI = ui
-	return ui
 end

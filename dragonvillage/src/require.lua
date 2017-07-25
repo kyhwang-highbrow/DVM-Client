@@ -656,7 +656,6 @@ local t_module = {
 
 	-- UI : 콜로세움
     'UI_Colosseum',
-    'UI_ColosseumLoading',
     'UI_ColosseumResult',
     'UI_ColosseumRankInfoPopup',
     'UI_ColosseumBuffInfoPopup',

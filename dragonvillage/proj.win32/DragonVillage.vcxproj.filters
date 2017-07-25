@@ -2187,9 +2187,6 @@
     <None Include="..\src\UI_Colosseum.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ColosseumLoading.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\ServerData_Book.lua">
       <Filter>lua\src</Filter>
     </None>
