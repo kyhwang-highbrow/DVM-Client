@@ -611,6 +611,7 @@ local t_module = {
     'UI_ChangeNickPopup',
     'UI_LoginPopup',
     'UI_WebView',
+    'UI_Help',
 
     -- UI : 대화 스크립트 재생기
     'UI_ScenarioPlayer',

@@ -33,7 +33,7 @@ end
 -- @brief 도움말
 -------------------------------------
 function UI_Setting:click_helpBtn()
-    UIManager:toastNotificationRed(Str('"도움말"은 준비 중입니다.'))
+    UI_Help()
 end
 
 -------------------------------------

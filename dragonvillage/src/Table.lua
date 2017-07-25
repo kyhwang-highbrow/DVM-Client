@@ -72,6 +72,7 @@ local TableInfo = {
         scenario_resource   = {'scenario/scenario_resource', 'key',         false},
 
 		mail_template		  = {'table_mail_template',		 'mail_type',	false},
+        table_help		      = {'table_help',		         'help_id',	    false},
         table_ban_word_chat	  = {'table_ban_word_chat',		 'wid',         false},
         table_ban_word_naming = {'table_ban_word_naming',    'wid',         false},
     }

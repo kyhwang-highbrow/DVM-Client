@@ -2490,6 +2490,12 @@
     <None Include="..\src\UI_MonsterSkillCard.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Help.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TableHelp.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
