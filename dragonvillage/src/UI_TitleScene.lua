@@ -390,7 +390,17 @@ function UI_TitleScene:workPlatformLogin()
             -- 복구코드 저장            
             g_serverData:applyServerData(ret['rcode'], 'local', 'recovery_code')
 
-            self:doNextWork()    
+            local terms = ret['terms'] or 1
+            if terms == 0 then
+                -- 약관 동의 팝업
+                local ui = UI_TermsPopup()
+                local function close_cb()
+                    self:doNextWork()
+                end
+                ui:setCloseCB(close_cb)
+            else
+                self:doNextWork()    
+            end
         else
             --local msg = luadump(ret)
             self:makeFailPopup(nil, ret)
