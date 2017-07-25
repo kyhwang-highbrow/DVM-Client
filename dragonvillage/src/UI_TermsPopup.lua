@@ -1,9 +1,9 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_Agreement
+-- class UI_TermsPopup
 -------------------------------------
-UI_Agreement = class(PARENT,{
+UI_TermsPopup = class(PARENT,{
         m_agree1 = 'num',
         m_agree2 = 'num',
     })
@@ -11,12 +11,12 @@ UI_Agreement = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Agreement:init()
+function UI_TermsPopup:init()
     local vars = self:load('agreement.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Agreement')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_TermsPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -31,7 +31,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_Agreement:initUI()
+function UI_TermsPopup:initUI()
     local vars = self.vars
 	--vars['agreeLabel1'] -- LabelTTF
 	--vars['agreeLabel2'] -- LabelTTF
@@ -45,7 +45,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_Agreement:initButton()
+function UI_TermsPopup:initButton()
     local vars = self.vars
     vars['agreeBtn1']:registerScriptTapHandler(function() self:click_agreeBtn1() end)
     vars['agreeBtn2']:registerScriptTapHandler(function() self:click_agreeBtn2() end)
@@ -59,13 +59,13 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_Agreement:refresh()
+function UI_TermsPopup:refresh()
 end
 
 -------------------------------------
 -- function click_agreeBtn1
 -------------------------------------
-function UI_Agreement:click_agreeBtn1()
+function UI_TermsPopup:click_agreeBtn1()
     self.m_agree1 = 1 - self.m_agree1
     self.vars['agreeSprite1']:setVisible(self.m_agree1 == 1)
     self:updateAgreeButton()
@@ -74,7 +74,7 @@ end
 -------------------------------------
 -- function click_agreeBtn2
 -------------------------------------
-function UI_Agreement:click_agreeBtn2()
+function UI_TermsPopup:click_agreeBtn2()
     self.m_agree2 = 1 - self.m_agree2
     self.vars['agreeSprite2']:setVisible(self.m_agree2 == 1)
     self:updateAgreeButton()
@@ -83,14 +83,14 @@ end
 -------------------------------------
 -- function click_agreeBtn
 -------------------------------------
-function UI_Agreement:click_agreeBtn()
+function UI_TermsPopup:click_agreeBtn()
     self:close()
 end
 
 -------------------------------------
 -- function updateAgreeButton
 -------------------------------------
-function UI_Agreement:updateAgreeButton()
+function UI_TermsPopup:updateAgreeButton()
     if self.m_agree1 == 1 and self.m_agree2 == 1 then
         -- agreeBtn 을 활성화
         self.vars['agreeBtn']:setEnabled(true)
@@ -101,4 +101,4 @@ function UI_Agreement:updateAgreeButton()
 end
 
 --@CHECK
-UI:checkCompileError(UI_Agreement)
+UI:checkCompileError(UI_TermsPopup)

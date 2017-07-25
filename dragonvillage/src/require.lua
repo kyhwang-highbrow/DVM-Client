@@ -619,7 +619,7 @@ local t_module = {
     'UI_Help',
 
     -- UI : 약관 동의
-    'UI_Agreement',
+    'UI_TermsPopup',
 
     -- UI : 대화 스크립트 재생기
     'UI_ScenarioPlayer',
