@@ -36,11 +36,11 @@ end
 -------------------------------------
 function UI_LoginPopup:initUI()
     local vars = self.vars
-	--vars['facebookLabel'] -- LabelTTF
-	--vars['gamecenterLabel'] -- LabelTTF
-	--vars['highbrowLabel'] -- LabelTTF
-	--vars['googleLabel'] -- LabelTTF
-	--vars['geustLabel'] -- LabelTTF
+	--vars['facebookBtn'] -- Button
+	--vars['gamecenterBtn'] -- Button
+	--vars['googleBtn'] -- Button
+	--vars['guestBtn'] -- Button
+	--vars['closeBtn'] -- Button
 end
 
 -------------------------------------
@@ -77,8 +77,6 @@ end
 -- function click_facebookBtn
 -------------------------------------
 function UI_LoginPopup:click_facebookBtn()
-    cclog('TODO click_facebookBtn event occurred!')
-
     self.m_loadingUI:showLoading(Str('로그인 중...'))
 
     PerpleSDK:loginWithFacebook(function(ret, info)
@@ -101,8 +99,6 @@ end
 -- function click_gamecenterBtn
 -------------------------------------
 function UI_LoginPopup:click_gamecenterBtn()
-    cclog('TODO click_gamecenterBtn event occurred!')
-
     self.m_loadingUI:showLoading(Str('로그인 중...'))
 
     PerpleSDK:loginWithGameCenter(function(ret, info)
@@ -120,8 +116,6 @@ end
 -- function click_googleBtn
 -------------------------------------
 function UI_LoginPopup:click_googleBtn()
-    cclog('TODO click_googleBtn event occurred!')
-
     self.m_loadingUI:showLoading(Str('로그인 중...'))
 
     PerpleSDK:loginWithGoogle(function(ret, info)
@@ -143,8 +137,6 @@ end
 -- function click_guestBtn
 -------------------------------------
 function UI_LoginPopup:click_guestBtn()
-    cclog('TODO click_guestBtn event occurred!')
-
     self.m_loadingUI:showLoading(Str('로그인 중...'))
 
     PerpleSDK:loginAnonymously(function(ret, info)

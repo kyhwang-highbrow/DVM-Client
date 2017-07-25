@@ -618,6 +618,9 @@ local t_module = {
     'UI_WebView',
     'UI_Help',
 
+    -- UI : 약관 동의
+    'UI_Agreement',
+
     -- UI : 대화 스크립트 재생기
     'UI_ScenarioPlayer',
     'UI_ScenarioPlayer_util', -- partial class 는 소문자로 적으면 어떨까

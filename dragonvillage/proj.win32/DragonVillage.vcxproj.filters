@@ -2505,6 +2505,9 @@
     <None Include="..\src\TableGoogleQuest.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_Agreement.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
