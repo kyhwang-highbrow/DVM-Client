@@ -258,6 +258,8 @@ function UI_Lobby:initButton()
     vars['guildBtn']:registerScriptTapHandler(function() self:click_guildBtn() end) -- 길드
 	vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end)
     vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
+
+    vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
 end
 
 -------------------------------------
@@ -590,6 +592,13 @@ end
 -------------------------------------
 function UI_Lobby:click_rankingBtn()
     UI_OverallRankingPopup()
+end
+
+-------------------------------------
+-- function click_googleAchievementBtn
+-------------------------------------
+function UI_Lobby:click_googleAchievementBtn()
+    GoogleHelper.showAchievement()
 end
 
 -------------------------------------

@@ -49,10 +49,11 @@ end
 -- @param steps : 달성스텝, 0이면 모든 스텝을 한번에 달성
 -------------------------------------
 function GoogleHelper.requestAchievementClear(achievement_id, step)
-    if true then -- (not isAndroid()) then
+    if (not isAndroid()) then
         return ccdisplay('구글 업적 클리어 테스트 achievement_id : ' .. achievement_id)
     end
 
+    local step = step or 0
     PerpleSDK:googleUpdateAchievements(achievement_id, step, function(ret, info)
         if ret == 'success' then
         elseif ret == 'fail' then
@@ -64,6 +65,10 @@ end
 -- function showAchievement
 -------------------------------------
 function GoogleHelper.showAchievement()
+    if (not isAndroid()) then
+        return ccdisplay('구글 업적 보기 테스트')
+    end
+
     PerpleSDK:googleShowAchievements(function(ret, info)
         if ret == 'success' then
         elseif ret == 'fail' then
