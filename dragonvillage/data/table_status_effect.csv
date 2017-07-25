@@ -32,6 +32,7 @@ resurrect,good,resurrect,부활,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 pierce,good,buff,관통,,,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,,0,,,,,x,x,x,x,x,x
 buff_time_increase,good,modify,버프 시간 증가,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,category;good,,,,x,x,x,x,x,x
 debuff_time_decrease,good,modify,디버프 시간 감소,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,category;bad,,,,x,x,x,x,x,x
+transfer_dot_dmg,bad,transfer,지속 피해 효과 전이,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,type;dot_dmg,,,,x,x,x,x,x,대상의 dot_dmg 타입의 상태효과를 전이
 add_mana,good,add_mana,마나 추가,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
 mana_reduce,good,mana_reduce,마나 감소버프,,,x,false,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
 heal,good,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,atk,,,,x,x,x,x,x,x
@@ -45,6 +46,7 @@ barrier_protection_abs,good,barrier,보호막,res/effect/effect_protection/effec
 resist,good,buff,피해 저항,res/effect/effect_shield/effect_shield.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,,0,,,,,10,x,x,x,{duration}초 동안 받는 피해 {1}% 감소,최종 데미지에서 곱연산
 barrier_protection_darknix,good,barrier,경질화,res/effect/effect_darknix_barrier/effect_darknix_barrier.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,10,,,,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
 barrier_protection_l,good,barrier,거대 보호막,res/effect/effect_darknix_barrier/effect_darknix_barrier.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,100,,,,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
+damage_reduce,good,damage_reduce,데미지 감소,res/effect/effect_shield/effect_shield.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,category;bad,,,,x,x,x,x,,
 immunity_debuff,good,buff,해로운 효과 면역,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-9999,0,0,,0,,,,,x,x,x,x,,
 heal_add,good,buff,회복량 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,,,,,,,x,x,x,x,,
 heal_dec,bad,debuff,회복량 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/heal.png,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,,,,,,,x,x,x,x,,
@@ -82,6 +84,7 @@ add_dmg_blind,bad,add_dmg,실명 추가 피해,res/effect/effect_hit_physical_fi
 add_dmg_stun,bad,add_dmg,기절 추가 피해,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,,
 add_dmg_sleep,bad,add_dmg,수면 추가 피해,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,,
 add_dmg_silence,bad,add_dmg,침묵 추가 피해,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,,
+add_dmg_one_time,bad,add_dmg_one_time,추가 피해,res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine,,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,,
 reflect,good,buff,반사,res/effect/effect_reflect_dmg/effect_reflect_dmg.vrp,res/ui/icon/status_effect/p_resist.png,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,100,0,0,0,,0,,,,,x,x,x,x,,
 resistance_effect,good,buff,효과 저항,res/effect/effect_react_armor/effect_react_armor.vrp,res/ui/icon/status_effect/p_resist.png,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,,0,,,,,x,x,x,x,,
 passive_spatter,good,passive,퐁당퐁당,,,x,false,1,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,200,3,,5,x,x,x,x,회피 시 반경 {1}px 범위 내 아군 {2}명의 체력을 퍼플립스 드래곤의 체력 {3}%만큼  회복.,(퍼플립스 4성 패시브)
@@ -109,6 +112,7 @@ passive_cri_dmg_down,bad,debuff,치명 피해 감소,res/effect/effect_tactics_d
 passive_recovery_add,bad,buff,받는 회복량 증가,,,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,,,,,,,x,x,x,x,,
 passive_recovery_dec,bad,debuff,받는 회복량 감소,,,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,,,,,,,x,x,x,x,,
 passive_resistance_effect,good,buff,효과 저항,,,x,false,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,,0,,,,,x,x,x,x,,
+passive_debuff_time_decrease,good,buff,디버프 시간 감소,,,x,false,1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-100,0,0,,0,,,,,x,x,x,x,x,
 tamer_passive_atk_up,good,buff,곤퓨,,,x,false,1,0,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,x,x,x,x,x,
 tamer_passive_hp_up_abs,good,buff,라이브라,,,x,false,1,0,-1,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,,,,x,x,x,x,x,
 tamer_add_dmg,bad,add_dmg,추가 피해,res/effect/skill_lightning/skill_lightning_@.vrp,,x,false,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,1,,,,,x,x,x,x,,
