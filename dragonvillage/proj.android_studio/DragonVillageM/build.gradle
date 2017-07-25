@@ -39,7 +39,6 @@ android {
     sourceSets.main {
         java.srcDir "../../proj.android/src"
         res.srcDir "res"
-        jniLibs.srcDir "libs"
         assets.srcDir "../../proj.android/assets"
     }
 

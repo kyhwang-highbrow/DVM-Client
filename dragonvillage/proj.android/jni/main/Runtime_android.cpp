@@ -5,7 +5,7 @@
 #include <vector>
 #include "LoginPlatform.h"
 
-#define PACKAGE_NAME    "com/perplelab/dragonvillagem/kr/AppActivity"
+#define CLASS_NAME  "org/cocos2dx/lua/AppActivity"
 
 using namespace std;
 using namespace cocos2d;
@@ -15,7 +15,7 @@ string getSDCardPath()
     JniMethodInfo t;
     string sdcardPath("");
 
-    if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "getSDCardPath", "()Ljava/lang/String;"))
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "getSDCardPath", "()Ljava/lang/String;"))
     {
         jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
@@ -31,7 +31,7 @@ string getIPAddress()
     JniMethodInfo t;
     string IPAddress("");
 
-    if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "getLocalIpAddress", "()Ljava/lang/String;"))
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "getLocalIpAddress", "()Ljava/lang/String;"))
     {
         jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
@@ -44,7 +44,7 @@ string getIPAddress()
 int isInstalled(const char *packagename)
 {
     JniMethodInfo t;
-    if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "isInstalled", "(Ljava/lang/String;)I"))
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "isInstalled", "(Ljava/lang/String;)I"))
     {
         jstring stringPackageName = t.env->NewStringUTF(packagename);
         int ret = t.env->CallStaticIntMethod(t.classID, t.methodID, stringPackageName);
@@ -62,7 +62,7 @@ string getRunningApps()
 {
     JniMethodInfo t;
     string apps;
-    if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "getRunningApps", "()Ljava/lang/String;"))
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "getRunningApps", "()Ljava/lang/String;"))
     {
         jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
@@ -80,7 +80,7 @@ string getDeviceLanguage()
 {
     JniMethodInfo t;
     string language;
-    if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "getDeviceLanguage", "()Ljava/lang/String;"))
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "getDeviceLanguage", "()Ljava/lang/String;"))
     {
         jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
@@ -99,7 +99,7 @@ string getLocale()
 {
     JniMethodInfo t;
     string locale;
-    if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "getLocale", "()Ljava/lang/String;"))
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "getLocale", "()Ljava/lang/String;"))
     {
         jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
@@ -117,7 +117,7 @@ string getLocale()
 int isWifiConnected()
 {
     JniMethodInfo t;
-    if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "isWifiConnected", "()I"))
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "isWifiConnected", "()I"))
     {
         int ret = t.env->CallStaticIntMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
@@ -133,7 +133,7 @@ string getFreeMemory()
 {
     JniMethodInfo t;
     string MemoryInfo;
-    if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "getFreeMemory", "()Ljava/lang/String;"))
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "getFreeMemory", "()Ljava/lang/String;"))
     {
         jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
@@ -151,7 +151,7 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
 {
     JniMethodInfo t;
 
-    if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, "sdkEvent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"))
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "sdkEvent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"))
     {
         jstring jid = t.env->NewStringUTF(id);
         jstring jarg0 = t.env->NewStringUTF(arg0);
