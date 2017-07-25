@@ -32,9 +32,6 @@ function GoogleHelper.checkAchievementClear(t_data)
         return a['gqid'] < b['gqid']
     end)
 
-    cclog(achv_key)
-    ccdump(l_achievement)
-
     -- 업적을 클리어 여부 파악
     for i, t_google in pairs(l_achievement) do
         -- 마스터의 길과 로직 공유
@@ -52,7 +49,7 @@ end
 -- @param steps : 달성스텝, 0이면 모든 스텝을 한번에 달성
 -------------------------------------
 function GoogleHelper.requestAchievementClear(achievement_id, step)
-    if (not isAndroid()) then
+    if true then -- (not isAndroid()) then
         return ccdisplay('구글 업적 클리어 테스트 achievement_id : ' .. achievement_id)
     end
 
