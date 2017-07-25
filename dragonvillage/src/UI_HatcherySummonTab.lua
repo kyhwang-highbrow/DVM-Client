@@ -202,6 +202,10 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, is_sale, old_ui)
         else
             error('egg_id ' .. egg_id)
         end
+            
+        -- @ GOOGLE ACHIEVEMENT
+        local t_data = {['clear_key'] = 'smn'}
+        GoogleHelper.updateAchievement(t_data)
     end
 
     -- 무료 대상 확인
@@ -224,7 +228,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, is_sale, old_ui)
     end
     local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
 
-    MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)   
+    MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
 end
 
 -------------------------------------

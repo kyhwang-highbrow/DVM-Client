@@ -157,7 +157,7 @@ function UI_Lobby:entryCoroutine()
         -- @ MASTER ROAD
         cclog('# 마스터의 길 확인 중')
         working = true
-        g_masterRoadData:updateMasterRoad({road_key = 'make_frd'}, (function(ret) working = false end))
+        g_masterRoadData:updateMasterRoad({clear_key = 'make_frd'}, (function(ret) working = false end))
         while (working) do dt = coroutine.yield() end
 
         if (not CHARACTER_FAIR_VER()) then -- 캐릭터 페어

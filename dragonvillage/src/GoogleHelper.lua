@@ -9,8 +9,13 @@ GoogleHelper = {}
 -- @brief public
 -------------------------------------
 function GoogleHelper.updateAchievement(t_data)
-    if (self.checkAchievementClear(t_data)) then
-        self.requestAchievementClear(t_data['achievement_id'])
+    -- ì•ˆë“œë¡œì´ë“œë§Œ í•œë‹¤. êµ¬ê¸€ ë¡œê·¸ì¸ì¸ì§€ë„ ì²´í¬í•´ì•¼í•˜ë‚˜?
+    --if (not isAndroid()) then
+        --return
+    --end
+
+    if (GoogleHelper.checkAchievementClear(t_data)) then
+        GoogleHelper.requestAchievementClear(t_data['achievement_id'])
     end
 end
 
@@ -18,19 +23,24 @@ end
 -- function checkClear
 -------------------------------------
 function GoogleHelper.checkAchievementClear(t_data)
-    local achv_key = t_data['achv_key']
-    local l_achievement = TableGoogleQuest():filterList('clear_type', (achv_key))
-    table.sort(l_achievement, function(a, b)
+    -- ì—…ì ì˜ í‚¤ë¥¼ êµ¬í•´ì˜¨ë‹¤.
+    local achv_key = GoogleHelper.makeIngameModeKey(t_data)
 
+    -- ì—…ì  ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    local l_achievement = TableGoogleQuest():filterList('clear_type', achv_key)
+    table.sort(l_achievement, function(a, b)
+        return a['gqid'] < b['gqid']
     end)
 
+    cclog(achv_key)
+    ccdump(l_achievement)
 
+    -- ì—…ì ì„ í´ë¦¬ì–´ ì—¬ë¶€ íŒŒì•…
     for i, t_google in pairs(l_achievement) do
-        -- ¸¶½ºÅÍÀÇ ±æ°ú ·ÎÁ÷ °øÀ¯
+        -- ë§ˆìŠ¤í„°ì˜ ê¸¸ê³¼ ë¡œì§ ê³µìœ 
         if (ServerData_MasterRoad.checkClear(t_google['clear_type'], t_google['clear_value'], t_data)) then
-            -- id Àü´Ş
+            -- id ì „ë‹¬
             t_data['achievement_id'] =  t_google['gqid']
-
             return true
         end
     end
@@ -38,10 +48,14 @@ end
 
 -------------------------------------
 -- function requestAchievementClear
+-- @param achievementId : ì—…ì  ì•„ì´ë””
+-- @param steps : ë‹¬ì„±ìŠ¤í…, 0ì´ë©´ ëª¨ë“  ìŠ¤í…ì„ í•œë²ˆì— ë‹¬ì„±
 -------------------------------------
 function GoogleHelper.requestAchievementClear(achievement_id, step)
-    -- @achievementId : ¾÷Àû ¾ÆÀÌµğ
-    -- @steps : ´Ş¼º½ºÅÜ, 0ÀÌ¸é ¸ğµç ½ºÅÜÀ» ÇÑ¹ø¿¡ ´Ş¼º
+    if (not isAndroid()) then
+        return ccdisplay('êµ¬ê¸€ ì—…ì  í´ë¦¬ì–´ í…ŒìŠ¤íŠ¸ achievement_id : ' .. achievement_id)
+    end
+
     PerpleSDK:googleUpdateAchievements(achievement_id, step, function(ret, info)
         if ret == 'success' then
         elseif ret == 'fail' then
@@ -57,7 +71,34 @@ function GoogleHelper.showAchievement()
         if ret == 'success' then
         elseif ret == 'fail' then
             -- info : {"code":"@code", "msg":"@msg"}
-            -- @code °¡ '-1210' ÀÏ °æ¿ì ·Î±×¾Æ¿ôÇÑ °ÍÀÓ
+            -- @code ê°€ '-1210' ì¼ ê²½ìš° ë¡œê·¸ì•„ì›ƒí•œ ê²ƒì„
         end
     end)
+end
+
+-------------------------------------
+-- function checkClear
+-------------------------------------
+function GoogleHelper.makeIngameModeKey(t_data)
+    local achv_key = t_data['clear_key']
+    
+    if (achv_key) then
+        return achv_key
+    else
+        local game_mode = t_data['game_mode']
+        local dungeon_mode = t_data['dungeon_mode']
+        if (game_mode == GAME_MODE_ANCIENT_TOWER) then
+            return 'ply_tower'
+        elseif (game_mode == GAME_MODE_COLOSSEUM) then
+            return 'ply_clsm'
+        elseif (dungeon_mode == NEST_DUNGEON_EVO_STONE) then
+            return 'ply_ev'
+        elseif (dungeon_mode == NEST_DUNGEON_TREE) then
+            return 'ply_tree'
+        elseif (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
+            return 'ply_nm'
+        else
+            return 'clr_stg'
+        end
+    end
 end

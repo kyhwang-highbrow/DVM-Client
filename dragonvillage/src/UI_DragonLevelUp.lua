@@ -485,7 +485,7 @@ function UI_DragonLevelUp:response_levelup(ret, bonus_rate)
     self:refresh_dragonIndivisual(doid)
 
     -- @ MASTER ROAD
-    local t_data = {road_key = 'd_lvup'}
+    local t_data = {clear_key = 'd_lvup'}
     g_masterRoadData:updateMasterRoad(t_data)
 
     local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)

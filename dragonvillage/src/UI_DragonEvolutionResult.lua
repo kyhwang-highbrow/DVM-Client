@@ -67,7 +67,7 @@ function UI_DragonEvolutionResult:refresh(dragon_object)
 		    SoundMgr:playEffect('UI', 'ui_grow_result')
 
             -- @ MASTER ROAD
-            local t_data = {road_key = 'd_evup'}
+            local t_data = {clear_key = 'd_evup'}
             g_masterRoadData:updateMasterRoad(t_data)
         end
         dragon_animator:setDragonAppearCB(cb)

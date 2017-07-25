@@ -258,8 +258,8 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
         return false
     end
     
-    -- road_key 사용
-    if (clear_type == t_data['road_key']) then
+    -- clear_key 사용
+    if (clear_type == t_data['clear_key']) then
         -----------------------------------
         -- 전역 변수에 접근해 데이터 얻어옴
         -----------------------------------
@@ -302,7 +302,7 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
             return true
         end
 
-    -- road_key를 넘기지 않음 -> 인게임 클리어 타입
+    -- clear_key를 넘기지 않음 -> 인게임 클리어 타입
     else
         -- stage clear
         if (clear_type == 'clr_stg') then

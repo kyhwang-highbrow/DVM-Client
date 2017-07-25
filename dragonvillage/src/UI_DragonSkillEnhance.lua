@@ -384,7 +384,7 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 		self:refresh()
 
         -- @ MASTER ROAD
-        local t_data = {road_key = 'd_sklvup'}
+        local t_data = {clear_key = 'd_sklvup'}
         g_masterRoadData:updateMasterRoad(t_data)
     end
 

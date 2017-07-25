@@ -82,8 +82,11 @@ function ServerData_Runes:request_runesEquip(doid, roid, finish_cb, fail_cb)
         end
 
         -- @ MASTER ROAD
-        local t_data = {road_key = 'r_eq'}
+        local t_data = {clear_key = 'r_eq'}
         g_masterRoadData:updateMasterRoad(t_data)
+
+        -- @ GOOGLE ACHIEVEMENT
+        GoogleHelper.updateAchievement(t_data)
 
         if finish_cb then
             finish_cb(ret)
@@ -170,8 +173,11 @@ function ServerData_Runes:request_runeLevelup(owner_doid, roid, finish_cb, fail_
         
         -- @ MASTER ROAD
         if ret['modified_rune'] then
-            local t_data = {road_key = 'r_enc', road_value = ret['modified_rune']['lv']}
+            local t_data = {clear_key = 'r_enc', road_value = ret['modified_rune']['lv']}
             g_masterRoadData:updateMasterRoad(t_data)
+
+            -- @ GOOGLE ACHIEVEMENT
+            GoogleHelper.updateAchievement(t_data)
         end
 
         if finish_cb then

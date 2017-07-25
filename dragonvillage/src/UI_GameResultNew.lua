@@ -634,11 +634,16 @@ function UI_GameResultNew:direction_masterRoad()
         -- @ MASTER ROAD
         local t_data = {game_mode = g_gameScene.m_gameMode, stage_id = self.m_stageID, dungeon_mode = g_gameScene.m_dungeonMode}
         g_masterRoadData:updateMasterRoad(t_data)
-    else
-        -- @ MASTER ROAD
-        local t_data = {road_key = 'u_lv'}
-        g_masterRoadData:updateMasterRoad(t_data)
+
+        -- @ GOOGLE ACHIEVEMENT
+        GoogleHelper.updateAchievement(t_data)
     end
+    -- @ MASTER ROAD
+    local t_data = {clear_key = 'u_lv'}
+    g_masterRoadData:updateMasterRoad(t_data)
+
+    -- @ GOOGLE ACHIEVEMENT
+    GoogleHelper.updateAchievement(t_data)
 end
 
 -------------------------------------

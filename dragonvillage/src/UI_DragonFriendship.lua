@@ -334,7 +334,7 @@ function UI_DragonFriendship:request_friendshipUp(fid, fcnt, fcnt_120p, fcnt_150
         --]]
 
         -- @ MASTER ROAD
-        local t_data = {road_key = 'fruit'}
+        local t_data = {clear_key = 'fruit'}
         g_masterRoadData:updateMasterRoad(t_data)
 
         finish_cb(ret)

@@ -182,8 +182,11 @@ function ServerData_Exploration:request_explorationStart(epr_id, doids, finish_c
         -- ret['modified_dragons']
 
         -- @ MASTER ROAD
-        local t_data = {road_key = 'ply_epl'}
+        local t_data = {clear_key = 'ply_epl'}
         g_masterRoadData:updateMasterRoad(t_data)
+        
+        -- @ GOOGLE ACHIEVEMENT
+        GoogleHelper.updateAchievement(t_data)
 
         if finish_cb then
             finish_cb(ret)

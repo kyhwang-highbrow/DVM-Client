@@ -147,7 +147,7 @@ function UI_SkillEnhance:click_enhanceBtn()
     local tid = self.m_tableTamer['tid']
 	local function cb_func()
         -- @ MASTER ROAD
-        local t_data = {road_key = 't_sklvup'}
+        local t_data = {clear_key = 't_sklvup'}
         g_masterRoadData:updateMasterRoad(t_data)
 
 		self:close()

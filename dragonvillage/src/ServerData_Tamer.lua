@@ -250,8 +250,11 @@ function ServerData_Tamer:request_getTamer(tid, type, cb_func)
         self.m_serverData:networkCommonRespone(ret)
 
         -- @ MASTER ROAD
-        local t_data = {road_key = 't_get'}
+        local t_data = {clear_key = 't_get', clear_value = self:getTamerCount()}
         g_masterRoadData:updateMasterRoad(t_data)
+        
+        -- @ GOOGLE ACHIEVEMENT
+        GoogleHelper.updateAchievement(t_data)
 
 		if (cb_func) then
 			cb_func()
