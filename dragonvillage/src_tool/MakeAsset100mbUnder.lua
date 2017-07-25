@@ -8,8 +8,7 @@ require 'StopWatch'
 -------------------------------------
 -- global variable
 -------------------------------------
-TARGET_PATH = 'proj.android_latest\\assets'
-FRAME_PATH = 'proj.android\\assets'
+TARGET_PATH = 'proj.android\\assets'
 
 -------------------------------------
 -- class MakeAsset100mbUnder
@@ -59,7 +58,11 @@ end
 function MakeAsset100mbUnder:deleteAssets()
     cclog('##### MakeAsset100mbUnder:deleteAssets')
 
-    RemoveDirectory(TARGET_PATH)
+    RemoveDirectory(TARGET_PATH .. '\\data_dat')
+    RemoveDirectory(TARGET_PATH .. '\\ps')
+    RemoveDirectory(TARGET_PATH .. '\\res')
+    RemoveDirectory(TARGET_PATH .. '\\sound')
+    RemoveDirectory(TARGET_PATH .. '\\translate')
 end
 
 -------------------------------------
@@ -96,12 +99,6 @@ function MakeAsset100mbUnder:copyAll()
     cclog('##### MakeAsset100mbUnder:copyAll')
 
     -- robocopy 원본경로 대상경로 [파일 ...] [옵션]
-
-    -- root의 지정한 파일들을 복사
-    os.execute(string.format('robocopy "." "%s" "%s"', TARGET_PATH, 'config.json entry_main.json entry_patch.json fixed_constant.lua'))
-
-    -- proj.android 에서 cocos용 lua파일들 복사
-    os.execute(string.format('robocopy "%s" "%s"', FRAME_PATH, TARGET_PATH))
 
     -- directory (\E 하위 디렉토리 포함 복사)
     os.execute(string.format('robocopy "%s" "%s\\%s" /E', 'ps', TARGET_PATH, 'ps'))
