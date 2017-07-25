@@ -19,7 +19,7 @@ void cocos_android_app_init (JNIEnv* env, jobject thiz) {
 extern "C"
 {
 
-bool Java_org_cocos2dx_lua_AppActivity_nativeIsLandScape(JNIEnv *env, jobject thisz)
+JNIEXPORT bool JNICALL Java_org_cocos2dx_lua_AppActivity_nativeIsLandScape(JNIEnv *env, jobject thisz)
 {
     if (!ConfigParser::getInstance()->isInit())
     {
@@ -28,7 +28,7 @@ bool Java_org_cocos2dx_lua_AppActivity_nativeIsLandScape(JNIEnv *env, jobject th
     return ConfigParser::getInstance()->isLandscape();
 }
 
-bool Java_org_cocos2dx_lua_AppActivity_nativeIsDebug(JNIEnv *env, jobject thisz)
+JNIEXPORT bool JNICALL Java_org_cocos2dx_lua_AppActivity_nativeIsDebug(JNIEnv *env, jobject thisz)
 {
     #ifdef NDEBUG
         return false;
@@ -37,7 +37,7 @@ bool Java_org_cocos2dx_lua_AppActivity_nativeIsDebug(JNIEnv *env, jobject thisz)
     #endif
 }
 
-bool Java_org_cocos2dx_lua_AppActivity_nativeIsTestMode(JNIEnv *env, jobject thisz)
+JNIEXPORT bool JNICALL Java_org_cocos2dx_lua_AppActivity_nativeIsTestMode(JNIEnv *env, jobject thisz)
 {
     if (!ConfigParser::getInstance()->isInit())
     {
@@ -46,7 +46,7 @@ bool Java_org_cocos2dx_lua_AppActivity_nativeIsTestMode(JNIEnv *env, jobject thi
     return ConfigParser::getInstance()->isTestMode();
 }
 
-int Java_org_cocos2dx_lua_AppActivity_nativeLoginPlatform(JNIEnv *env, jobject thisz)
+JNIEXPORT int JNICALL Java_org_cocos2dx_lua_AppActivity_nativeLoginPlatform(JNIEnv *env, jobject thisz)
 {
     #if (LOGIN_PLATFORM == LOGIN_PLATFORM_PATISDK)
         return 1;
@@ -57,7 +57,7 @@ int Java_org_cocos2dx_lua_AppActivity_nativeLoginPlatform(JNIEnv *env, jobject t
     #endif
 }
 
-void Java_org_cocos2dx_lua_AppActivity_nativeSDKEventResult(JNIEnv *env, jobject thisz, jstring id, jstring result, jstring info)
+JNIEXPORT void JNICALL Java_org_cocos2dx_lua_AppActivity_nativeSDKEventResult(JNIEnv *env, jobject thisz, jstring id, jstring result, jstring info)
 {
     jboolean isCopy1;
     jboolean isCopy2;
