@@ -1,7 +1,7 @@
 local PARENT = UI_Card
 
 --[[
-# card_relation.ui ÀÏ¶÷
+# card_relation.ui ì¼ëŒ
     selectSprite
     disableSprite
     checkSprite
@@ -54,25 +54,25 @@ function UI_RelationCard:refreshDragonInfo()
     local did = t_dragon_data['did']
     local attr = t_dragon_data:getAttr()
 
-    -- ¹öÆ° »ı¼º°ú ¹è°æ ÀÌ¹ÌÁö »ı¼º
+    -- ë²„íŠ¼ ìƒì„±ê³¼ ë°°ê²½ ì´ë¯¸ì§€ ìƒì„±
     self:makeClickBtn()
 
-    -- ¼Ó¼º µû¸¥ ¹è°æ ÀÌ¹ÌÁö
+    -- ì†ì„± ë”°ë¥¸ ë°°ê²½ ì´ë¯¸ì§€
     self:makeBg(attr)
 
-    -- µå·¡°ï ¾ÆÀÌÄÜ
+    -- ë“œë˜ê³¤ ì•„ì´ì½˜
     self:makeDragonIcon()
 
-    -- Ä«µå ÇÁ·¹ÀÓ
+    -- ì¹´ë“œ í”„ë ˆì„
     self:makeFrame()
 
-    -- ¼Ó¼º ¾ÆÀÌÄÜ »ı¼º
+    -- ì†ì„± ì•„ì´ì½˜ ìƒì„±
     self:makeAttrIcon(attr)
 
-    -- µî±Ş ¾ÆÀÌÄÜ »ı¼º
+    -- ë“±ê¸‰ ì•„ì´ì½˜ ìƒì„±
     self:refresh_gradeIcon()
 
-    -- ¼ö·® Ç¥½Ã
+    -- ìˆ˜ëŸ‰ í‘œì‹œ
     self:makeNumberLabel()
 end
 
@@ -97,8 +97,8 @@ end
 
 -------------------------------------
 -- function makeDragonIcon
--- @brief µå·¡°ï ¾ÆÀÌÄÜ »ı¼º
--- @comment clippingÀ» ÇØÁà¾ß Çß±â ¶§¹®¿¡ µû·Î ¸¸µé°í setCardInfo¸¸ Àû½Ã¿¡ ÇØÁØ´Ù.
+-- @brief ë“œë˜ê³¤ ì•„ì´ì½˜ ìƒì„±
+-- @comment clippingì„ í•´ì¤˜ì•¼ í–ˆê¸° ë•Œë¬¸ì— ë”°ë¡œ ë§Œë“¤ê³  setCardInfoë§Œ ì ì‹œì— í•´ì¤€ë‹¤.
 -------------------------------------
 function UI_RelationCard:makeDragonIcon()
     local vars = self.vars
@@ -108,26 +108,26 @@ function UI_RelationCard:makeDragonIcon()
     end
     self.m_charIconRes = res
 
-    -- µå·¡°ï ¾ÆÀÌÄÜ »ı¼º
+    -- ë“œë˜ê³¤ ì•„ì´ì½˜ ìƒì„±
     local sprite = IconHelper:getIcon(res)
     vars['chaNode'] = sprite
 
-    -- clipping node »ı¼º
+    -- clipping node ìƒì„±
     local clipping_node = cc.ClippingNode:create()
     clipping_node:setContentSize(cc.p(150, 150))
 
-	-- stencil »ı¼º
+	-- stencil ìƒì„±
 	local stencil = cc.Node:create()
     clipping_node:setStencil(stencil)
     clipping_node:setAlphaThreshold(0)
-    local stencil_sprite = cc.Sprite:createWithSpriteFrameName(self.m_attrBgRes) -- ¹öÆ° ¹è°æ ¸ğ¾çÀ¸·Î ¸¸µç´Ù.
+    local stencil_sprite = cc.Sprite:createWithSpriteFrameName(self.m_attrBgRes) -- ë²„íŠ¼ ë°°ê²½ ëª¨ì–‘ìœ¼ë¡œ ë§Œë“ ë‹¤.
     if stencil_sprite then
         stencil_sprite:setAnchorPoint(CENTER_POINT)
         stencil_sprite:setDockPoint(CENTER_POINT)
         stencil:addChild(stencil_sprite)
     end
 
-    -- ºÙÀÌ±â
+    -- ë¶™ì´ê¸°
     clipping_node:addChild(sprite)
     vars['clickBtn']:addChild(clipping_node)
     self:setCardInfo('chaNode', clipping_node)
@@ -135,7 +135,7 @@ end
 
 -------------------------------------
 -- function makeFrame
--- @brief ÇÁ·¹ÀÓ »ı¼º
+-- @brief í”„ë ˆì„ ìƒì„±
 -------------------------------------
 function UI_RelationCard:makeFrame(res)
     local res = 'card_rp_frame.png'
@@ -148,7 +148,7 @@ end
 
 -------------------------------------
 -- function makeAttrIcon
--- @brief ¼Ó¼º ¾ÆÀÌÄÜ »ı¼º
+-- @brief ì†ì„± ì•„ì´ì½˜ ìƒì„±
 -------------------------------------
 function UI_RelationCard:makeAttrIcon(attr)
     UI_CharacterCard.makeAttrIcon(self, attr)
@@ -156,7 +156,7 @@ end
 
 -------------------------------------
 -- function refresh_gradeIcon
--- @brief µî±Ş ¾ÆÀÌÄÜ
+-- @brief ë“±ê¸‰ ì•„ì´ì½˜
 -------------------------------------
 function UI_RelationCard:refresh_gradeIcon()
     UI_CharacterCard.refresh_gradeIcon(self)
@@ -164,15 +164,15 @@ end
 
 -------------------------------------
 -- function makeNumberLabel
--- @brief ¼ö·® Ç¥½Ã
--- @comment Label °ú °°Àº °æ¿ì´Â µû·Î ¸¸µé¾îÁÖ°í setCardInfo¸¸ ÇØÁØ´Ù
+-- @brief ìˆ˜ëŸ‰ í‘œì‹œ
+-- @comment Label ê³¼ ê°™ì€ ê²½ìš°ëŠ” ë”°ë¡œ ë§Œë“¤ì–´ì£¼ê³  setCardInfoë§Œ í•´ì¤€ë‹¤
 -------------------------------------
 function UI_RelationCard:makeNumberLabel()
     local vars = self.vars
     local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 2, cc.size(100, 30), 2, 1)
     self:setCardInfo('numberNode', label)
 
-    -- ÀÎ¿¬ Æ÷ÀÎÆ® ¼öÄ¡
+    -- ì¸ì—° í¬ì¸íŠ¸ ìˆ˜ì¹˜
     local count = self.m_count
     if (not count) or (count == 0) then
         label:setString('')

@@ -200,8 +200,16 @@ function StatusEffect:setDead()
 
     -- 대상이 들고 있는 상태효과 리스트에서 제거
 	self.m_owner:removeStatusEffect(self)
-
+    
     self.m_bDead = true
+
+    if(self.m_bHarmful) then
+    	local t_event = clone(EVENT_STATUS_EFFECT)
+		t_event['char'] = self.m_owner
+		t_event['status_effect_name'] = self.m_statusEffectName
+        self.m_owner:dispatch('release_debuff', t_event)
+    end
+    
 end
 
 -------------------------------------

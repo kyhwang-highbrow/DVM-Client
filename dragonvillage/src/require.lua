@@ -392,6 +392,7 @@ local t_module = {
     'StatusEffect_ManaReduce',
     'StatusEffect_Resurrect',
     'StatusEffect_Transfer',
+    'StatusEffect_ConditionalBuff',
 
 	'StatusEffectIcon',
 

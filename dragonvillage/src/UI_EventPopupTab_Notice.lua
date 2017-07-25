@@ -20,7 +20,7 @@ function UI_EventPopupTab_Notice:init(owner, struct_event_popup_tab)
         if isWin32() then return end 
         local node = vars['webviewNode']
 
-        -- °øÁö È¨ÆäÀÌÁö ³ª¿À¸é ¿¬°á
+        -- ê³µì§€ í™ˆí˜ì´ì§€ ë‚˜ì˜¤ë©´ ì—°ê²°
         local url = self.m_structBannerData['url']
 
         local content_size = node:getContentSize()
