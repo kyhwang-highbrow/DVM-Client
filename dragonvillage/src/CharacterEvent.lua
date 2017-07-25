@@ -186,10 +186,15 @@ function Character:onEvent_updateStat()
 
 	-- 체력 버프 발동시 실시간 변화
 	if (self:getStat('hp') ~= self.m_maxHp) then
-		local max_hp = self:getStat('hp')
-		local curr_hp_percent = self.m_hp/self.m_maxHp
-		self.m_maxHp = max_hp
-		self.m_hp = max_hp * curr_hp_percent
+        if (self.m_world.m_waveMgr:isFirstWave() and (self.m_world.m_gameState:isEnemyAppear()) ) then
+		    local max_hp = self:getStat('hp')
+		    local curr_hp_percent = self.m_hp/self.m_maxHp
+		    self.m_maxHp = max_hp
+		    self.m_hp = max_hp * curr_hp_percent
+        else
+            self.m_maxHp = self:getStat('hp')
+        end
+        self:setHp(self.m_hp)
 	end
 end
 

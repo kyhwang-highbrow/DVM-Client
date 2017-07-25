@@ -68,14 +68,10 @@ function StatusEffect_ConditionalBuff:getTriggerFunction()
         if (self:checkCondition()) then
             if (not self.m_bToggle) then
                 self:buffOn()
-                self.m_bToggle = true
-                self.m_bApply = self.m_bToggle
             end
         else
             if(self.m_bToggle) then
                 self:buffOff()
-                self.m_bToggle = false
-                self.m_bApply = self.m_bToggle
             end
         end
     end
@@ -96,6 +92,12 @@ function StatusEffect_ConditionalBuff:buffOn()
     for _, v in ipairs(self.m_lUnit) do
         v:onApply(self.m_lStatus, self.m_lStatusAbs)
     end
+    
+    self.m_bToggle = true
+    self.m_bApply = self.m_bToggle
+    
+    -- @EVENT : 스탯 변화 적용(최대 체력)
+	self.m_owner:dispatch('stat_changed')
 end
 
 -------------------------------------
@@ -105,6 +107,13 @@ function StatusEffect_ConditionalBuff:buffOff()
     for _, v in ipairs(self.m_lUnit) do
         v:onUnapply(self.m_lStatus, self.m_lStatusAbs)
     end
+    
+    self.m_bToggle = false
+    self.m_bApply = self.m_bToggle
+
+    -- @EVENT : 스탯 변화 적용(최대 체력)
+	self.m_owner:dispatch('stat_changed')
+
 end
 
 
@@ -147,12 +156,20 @@ function StatusEffect_ConditionalBuff:addOverlabUnit(caster, skill_id, value, so
     -- 중첩 정보 추가
     table.insert(self.m_mUnit[char_id], new_unit)
     table.insert(self.m_lUnit, new_unit)
-    if ( self:checkCondition() ) then
-    -- 중첩시 효과 적용
-        self:applyOverlab(new_unit)
-        self.m_bToggle = true
-        self.m_bApply = self.m_bToggle
+    --유닛은 만들어서 오버랩해둠. 
+    -- StatusEffect의 Update에서 유닛 오버랩 카운트가 0이하면 자동으로 release해버리므로, 이를 속이기 위해.
+    self:applyOverlab(new_unit)
+    self.m_bToggle = true
+    self.m_bApply = self.m_bToggle
+    
+    if ( not self:checkCondition() ) then
+        -- 실행 조건이 아니면 효과 취소.
+            print('not in condition')
+        self:buffOff()
     end
+
+    -- @EVENT : 스탯 변화 적용(최대 체력)
+	self.m_owner:dispatch('stat_changed')
         -- 최대 중첩 횟수를 넘을 경우 젤 앞의 unit을 삭제
     if (self.m_maxOverlab > 0 and self.m_overlabCnt > self.m_maxOverlab) then
         local unit = table.remove(self.m_mUnit[char_id], 1)
@@ -162,8 +179,6 @@ function StatusEffect_ConditionalBuff:addOverlabUnit(caster, skill_id, value, so
         table.remove(self.m_lUnit, idx)
     end
         
-    -- @EVENT : 스탯 변화 적용(최대 체력)
-	self.m_owner:dispatch('stat_changed')
 
     -- 해당 상태효과의 종료시간을 구해서 저장
     local latestTime = self:calcLatestTime()

@@ -756,6 +756,13 @@ function GameState:isFight()
 end
 
 -------------------------------------
+-- function isEnemyAppear
+-------------------------------------
+function GameState:isEnemyAppear()
+    return (self.m_state == GAME_STATE_ENEMY_APPEAR)
+end
+
+-------------------------------------
 -- function makeResultUI
 -------------------------------------
 function GameState:makeResultUI(is_success)
