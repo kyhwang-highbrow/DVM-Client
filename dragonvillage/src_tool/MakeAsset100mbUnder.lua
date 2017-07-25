@@ -25,7 +25,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function MakeAsset100mbUnder:run()
+function MakeAsset100mbUnder:run(is_make_full)
     cclog('##### MakeAsset100mbUnder:run')
 
     local stopwatch = Stopwatch()
@@ -37,14 +37,21 @@ function MakeAsset100mbUnder:run()
 
     -- 기존 assets 삭제
     self:deleteAssets()
+
     -- assets dirtory 만듬
     self:makeAssets()
+
     -- 암호화
     self:encryptSrcAndData()
+    
     -- 전부 복사
     self:copyAll()
+    
     -- 100MB만 남기고 지움
-    self:removeFor100MB()
+    if (not is_make_full) then
+        self:removeFor100MB()
+    end
+
     -- 암호화 파일을 지운다.
     self:deleteEncrypt()
 
@@ -202,5 +209,7 @@ end
 
 -- lua class 파일 자체에서 실행되도록 함
 if (arg[1] == 'run') then
-    MakeAsset100mbUnder():run()
+    MakeAsset100mbUnder():run(false)
+elseif (arg[1] == 'run_full') then
+    MakeAsset100mbUnder():run(true)
 end
