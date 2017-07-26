@@ -416,12 +416,13 @@ end
 -- function sceneFadeOutAction
 -- @brief Scene 전환 페이드인 효과
 -------------------------------------
-function UI:sceneFadeOutAction()
+function UI:sceneFadeOutAction(finish_func)
+    finish_func = (finish_func or function() end)
     local layerColor = cc.LayerColor:create( cc.c4b(0,0,0,0) )
     layerColor:setDockPoint(cc.p(0.5, 0.5))
     layerColor:setAnchorPoint(cc.p(0.5, 0.5))
     layerColor:setRelativeSizeAndType(cc.size(1280, 960), 1, false)
-    layerColor:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.RemoveSelf:create()))
+    layerColor:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.CallFunc:create(finish_func), cc.RemoveSelf:create()))
     self.root:addChild(layerColor, 100)
 end
 

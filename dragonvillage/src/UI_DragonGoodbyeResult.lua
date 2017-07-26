@@ -21,6 +21,8 @@ function UI_DragonGoodbyeResult:init(dragon_data, info_data)
     self:doActionReset()
     self:doAction(nil, false)
 
+    self:sceneFadeInAction()
+
     self:initUI()
     self:initButton()
     self:refresh()
@@ -46,7 +48,8 @@ function UI_DragonGoodbyeResult:initUI()
 		    local goodbye_str_3 = UIHelper:makeGoodbyeStr(t_item, name)
 
 		    -- 획득 팝업 출력
-		    UI_ObtainPopup(l_item_list, goodbye_str_3, function() self:close() end)
+		    local ui = UI_ObtainPopup(l_item_list, goodbye_str_3)
+            ui:setCloseCB(function() self:onClose() end)
 	    end
     end
 
@@ -80,6 +83,13 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonGoodbyeResult:refresh()
+end
+
+-------------------------------------
+-- function onClose
+-------------------------------------
+function UI_DragonGoodbyeResult:onClose()
+    self:sceneFadeOutAction(function() self:close() end)
 end
 
 --@CHECK
