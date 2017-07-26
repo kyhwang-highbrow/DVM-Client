@@ -576,3 +576,11 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
 
     return ui_network
 end
+
+-------------------------------------
+-- function isGoogleLogin
+-- @breif
+-------------------------------------
+function ServerData:isGoogleLogin()
+    return (self:get('local', 'platform_id') == 'google.com')
+end

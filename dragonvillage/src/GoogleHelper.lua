@@ -11,10 +11,14 @@ GoogleHelper = {
 -- @brief public
 -------------------------------------
 function GoogleHelper.updateAchievement(t_data)
-    -- 안드로이드만 한다. 구글 로그인인지도 체크해야하나?
-    --if (not isAndroid()) then
-        --return
-    --end
+    -- 안드로이드 인지 체크
+    if (not isAndroid()) then
+        return
+    end
+    -- 구글 로그인 상태인지 체크
+    if (g_serverData:isGoogleLogin()) then
+        return
+    end
 
     if (GoogleHelper.checkAchievementClear(t_data)) then
         GoogleHelper.requestAchievementClear(t_data['achievement_id'])
@@ -51,10 +55,6 @@ end
 -- @param steps : 달성스텝, 0이면 모든 스텝을 한번에 달성
 -------------------------------------
 function GoogleHelper.requestAchievementClear(achievement_id, step)
-    if (not isAndroid()) then
-        return ccdisplay('구글 업적 클리어 테스트 achievement_id : ' .. achievement_id)
-    end
-
     local step = step or 0
     PerpleSDK:googleUpdateAchievements(achievement_id, step, function(ret, info)
         if ret == 'success' then
@@ -67,10 +67,6 @@ end
 -- function showAchievement
 -------------------------------------
 function GoogleHelper.showAchievement()
-    if (not isAndroid()) then
-        return ccdisplay('구글 업적 보기 테스트')
-    end
-
     PerpleSDK:googleShowAchievements(function(ret, info)
         if ret == 'success' then
         elseif ret == 'fail' then
