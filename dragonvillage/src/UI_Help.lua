@@ -4,6 +4,8 @@ local PARENT = UI
 -- class UI_Help
 -------------------------------------
 UI_Help = class(PARENT,{
+        m_preSelectedCategory = 'cell',
+
     })
 
 -------------------------------------
@@ -29,16 +31,151 @@ end
 -- function initUI
 -------------------------------------
 function UI_Help:initUI()
+    self:makeTableView_category()
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_Help:initButton()
+    self.vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Help:refresh()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Help:click_closeBtn()
+    self:close()
+end
+
+-------------------------------------
+-- function makeTableView_category
+-------------------------------------
+function UI_Help:makeTableView_category()
+	local vars = self.vars
+	local node = vars['btnNode']
+
+	local l_help_list = TableHelp:getArrangedList()
+
+	do -- 테이블 뷰 생성
+        node:removeAllChildren()
+
+		-- 생성 콜백
+		local create_cb_func = function(ui, t_data)
+            ui.vars['helpBtn']:registerScriptTapHandler(function()
+                -- 도움말 내용 생성
+                self:makeTableView_content(t_data['l_content'])
+                
+                -- 현재 버튼 enabled 및 이전 버튼 활성화
+                ui.vars['helpBtn']:setEnabled(false)
+                if (self.m_preSelectedCategory) then
+                    self.m_preSelectedCategory:setEnabled(true)
+                end
+                self.m_preSelectedCategory = ui.vars['helpBtn']
+            end)
+		end
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(200, 80 + 3)
+        table_view:setCellUIClass(self.makeCellUI_category, create_cb_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(l_help_list)
+    end
+end
+
+-------------------------------------
+-- function makeTableView_content
+-------------------------------------
+function UI_Help:makeTableView_content(l_content)
+	local vars = self.vars
+	local node = vars['contentNode']
+
+	do -- 테이블 뷰 생성
+        node:removeAllChildren()
+
+        -- 생성 콜백
+		local create_cb_func = function(ui)
+		end
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view:setUseVariableSize(true)
+        table_view:setCellUIClass(self.makeCellUI_content, create_cb_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(l_content, true)
+    end
+end
+
+
+
+
+-------------------------------------
+-- function makeCellUI
+-- @static
+-- @brief 테이블 셀 생성
+-------------------------------------
+function UI_Help.makeCellUI_category(t_data)
+	local ui = class(UI, ITableViewCell:getCloneTable())()
+	local vars = ui:load('help_popup_item_01.ui')
+	
+    local category = t_data['t_category']
+    vars['btnLabel']:setString(category)
+
+	return ui
+end
+
+-------------------------------------
+-- function makeCellUI
+-- @static
+-- @brief 테이블 셀 생성
+-------------------------------------
+function UI_Help.makeCellUI_content(t_data)
+	local ui = class(UI, ITableViewCell:getCloneTable())()
+	local vars = ui:load('help_popup_item_02.ui')
+	
+    local title = t_data['title']
+    vars['titleLabel']:setString(title)
+
+    local content = t_data['content']
+    vars['contentLabel']:setString(content)
+
+    UI_Help.adjustCellHeight(ui)
+
+	return ui
+end
+
+-------------------------------------
+-- function adjustCellHeight
+-------------------------------------
+function UI_Help.adjustCellHeight(ui)
+	local vars = ui.vars
+
+	vars['contentLabel']:setLineBreakWithoutSpace(true)
+	local line = vars['contentLabel']:getStringNumLines()
+
+	-- line수에 따라 label 영역 계산
+	local label_size = vars['contentLabel'].m_node:getContentSize()
+	local label_height = vars['contentLabel']:getTotalHeight()
+	vars['contentLabel'].m_node:setDimensions(label_size['width'], label_height)
+
+    -- titleLabel 영역 구함
+    local title_size = vars['titleLabel'].m_node:getContentSize()
+    local title_height = title_size['height']
+
+	-- titleLabel을 포함하여 container 사이즈 조정
+	local con_size = vars['container']:getContentSize()
+	local con_height = label_height + title_height + 30
+	local new_size = cc.size(con_size['width'], con_height)
+	vars['container']:setNormalSize(con_size['width'], con_height)
+
+    cclog(line, con_height)
+	-- cell size 저장
+	ui:setCellSize(new_size)
 end

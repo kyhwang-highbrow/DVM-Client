@@ -20,7 +20,7 @@ UIC_TableView = class(PARENT, {
         m_bDirtyItemList = 'boolean',
         m_refreshDuration = 'number',
 
-        m_bUseEachSize = 'boolean', -- 셀별 개별 크기 적용 여부(사용시 _size세팅 필수!!)
+        m_bVariableCellSize = 'boolean', -- 셀별 개별 크기 적용 여부(사용시 _size세팅 필수!!)
         m_defaultCellSize = '', -- cell이 생성되기 전이라면 기본 사이즈를 지정
 
         _cellsUsed = 'list',
@@ -67,7 +67,7 @@ function UIC_TableView:init(node)
     self.m_refreshDuration = 0.5
 
     -- 기본값 설정
-    self.m_bUseEachSize = false
+    self.m_bVariableCellSize = false
     self.m_defaultCellSize = cc.size(100, 100)
     self._vordering = VerticalFillOrder['TOP_DOWN']
     self.m_bFirstLocation = true
@@ -472,7 +472,7 @@ end
 -- function tableCellSizeForIndex
 -------------------------------------
 function UIC_TableView:tableCellSizeForIndex(idx)
-    if (not self.m_bUseEachSize) then
+    if (not self.m_bVariableCellSize) then
         return self.m_defaultCellSize
     end
 
@@ -678,6 +678,7 @@ end
 function UIC_TableView:setItemList(list, make_item)
     self:clearItemList()
 
+    local make_item = make_item or self.m_bVariableCellSize
     for key,data in pairs(list) do
         local t_item = {}
         t_item['unique_id'] = key
@@ -1293,6 +1294,13 @@ function UIC_TableView:refreshAllItemUI()
             ui:refresh()
         end
     end
+end
+
+-------------------------------------
+-- function setUseVariableSize
+-------------------------------------
+function UIC_TableView:setUseVariableSize(b)
+    self.m_bVariableCellSize = b
 end
 
 -------------------------------------
