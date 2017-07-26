@@ -194,10 +194,6 @@ local MAP_HEIGHT = 1600
         local cameraY = tParam['cameraY'] or 0
         local cameraScale = tParam['cameraScale'] or 1
 
-        -- @mskim : 시작 카메라 줌 연출에 의해 오브젝트가 사라지는데 기준점이 오른쪽으로 가버려 미리 사라지기 때문
-        -- 때문에 기준점을 카메라 좌표 이동과 반대로 함
-        cameraX = -cameraX
-
         local pos = (totalMove * self.m_speedScale)
         local minValue
         local maxValue
