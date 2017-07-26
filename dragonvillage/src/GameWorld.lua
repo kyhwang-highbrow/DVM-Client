@@ -1216,6 +1216,11 @@ function GameWorld:onEvent(event_name, t_event, ...)
 
     if (event_name == 'change_wave') then
         self:onEvent_change_wave(event_name, t_event, ...)
+        for k, v in pairs(self.m_lUnitList) do
+            if (isInstanceOf(v, Character)) then
+                v:dispatch('change_wave')
+            end
+        end
 
     elseif (event_name == 'dragon_summon') then
         if (self.m_tamer) then

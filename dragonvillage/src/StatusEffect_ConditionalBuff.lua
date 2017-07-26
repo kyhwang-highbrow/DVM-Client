@@ -3,8 +3,7 @@ local PARENT = StatusEffect
 -------------------------------------
 -- class StatusEffect_ConditionalBuff
 -------------------------------------
-StatusEffect_ConditionalBuff = class(PARENT, {
-    m_bToggle = 'boolean', 
+StatusEffect_ConditionalBuff = class(PARENT, { 
     m_chance = 'string',
 
     m_mInfo = 'table',
@@ -19,7 +18,6 @@ StatusEffect_ConditionalBuff = class(PARENT, {
 -------------------------------------
 function StatusEffect_ConditionalBuff:init(file_name, body)
 
-    self.m_bToggle = false -- 버프의 상태
     self.m_chance = ''
 
     self.m_eventName = {}
@@ -34,6 +32,7 @@ function StatusEffect_ConditionalBuff:initFromTable(t_status_effect, target_char
     PARENT.initFromTable(self, t_status_effect, target_char)
 
     -- 변경할 상태효과를 구분하기 위한 조건 정보를 저장
+    self.m_chance = t_status_effect['val_1']
     self.m_eventName = PASSIVE_CHANCE_TYPE[self.m_chance]
 
     for _, v in pairs (self.m_eventName) do 
@@ -42,10 +41,16 @@ function StatusEffect_ConditionalBuff:initFromTable(t_status_effect, target_char
 
 end
 
-
-function StatusEffect_ConditionalBuff:initValues(event_name)
-    self.m_chance = event_name
+-------------------------------------
+-- function initState
+-------------------------------------
+function StatusEffect:initState()
+    self:addState('start', StatusEffect_ConditionalBuff.st_start, 'center_start', false)
+    self:addState('idle', StatusEffect.st_idle, 'center_idle', true)
+    self:addState('end', StatusEffect.st_end, 'center_end', false)
+    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
+
 
 -------------------------------------
 -- function onStart
@@ -66,11 +71,11 @@ end
 function StatusEffect_ConditionalBuff:getTriggerFunction()
     local trigger_func = function()
         if (self:checkCondition()) then
-            if (not self.m_bToggle) then
+            if (not self.m_bApply) then
                 self:buffOn()
             end
         else
-            if(self.m_bToggle) then
+            if(self.m_bApply) then
                 self:buffOff()
             end
         end
@@ -89,12 +94,10 @@ end
 -- function buffOn
 -------------------------------------
 function StatusEffect_ConditionalBuff:buffOn()
+    self:apply()
     for _, v in ipairs(self.m_lUnit) do
         v:onApply(self.m_lStatus, self.m_lStatusAbs)
     end
-    
-    self.m_bToggle = true
-    self.m_bApply = self.m_bToggle
     
     -- @EVENT : 스탯 변화 적용(최대 체력)
 	self.m_owner:dispatch('stat_changed')
@@ -104,16 +107,13 @@ end
 -- function buffOff
 -------------------------------------
 function StatusEffect_ConditionalBuff:buffOff()
+    self:unapply()
     for _, v in ipairs(self.m_lUnit) do
         v:onUnapply(self.m_lStatus, self.m_lStatusAbs)
     end
-    
-    self.m_bToggle = false
-    self.m_bApply = self.m_bToggle
 
     -- @EVENT : 스탯 변화 적용(최대 체력)
 	self.m_owner:dispatch('stat_changed')
-
 end
 
 
@@ -159,12 +159,9 @@ function StatusEffect_ConditionalBuff:addOverlabUnit(caster, skill_id, value, so
     --유닛은 만들어서 오버랩해둠. 
     -- StatusEffect의 Update에서 유닛 오버랩 카운트가 0이하면 자동으로 release해버리므로, 이를 속이기 위해.
     self:applyOverlab(new_unit)
-    self.m_bToggle = true
-    self.m_bApply = self.m_bToggle
     
     if ( not self:checkCondition() ) then
         -- 실행 조건이 아니면 효과 취소.
-            print('not in condition')
         self:buffOff()
     end
 
@@ -184,4 +181,37 @@ function StatusEffect_ConditionalBuff:addOverlabUnit(caster, skill_id, value, so
     local latestTime = self:calcLatestTime()
     self.m_bInfinity = (latestTime == -1)
     self.m_latestTimer = latestTime
+end
+
+
+
+-------------------------------------
+-- function st_start
+-------------------------------------
+function StatusEffect_ConditionalBuff.st_start(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        -- 중첩에 상관없이 한번만 적용되어야하는 효과 적용
+
+        local t_event = {}
+        t_event['name'] = owner.m_statusEffectName
+        t_event['category'] = owner.m_category
+        t_event['type'] = owner.m_type
+
+        owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
+		
+		-- 힐 사운드
+		if (not owner.m_bHarmful) then
+			SoundMgr:playEffect('SFX', 'sfx_buff_get')
+		end
+
+		-- 에니메이션이 0프레임일 경우 즉시 상태를 변경
+        local duration = owner.m_animator:getDuration()
+        if (duration == 0) then
+            owner:changeState('idle')
+        else
+            owner:addAniHandler(function()
+                owner:changeState('idle')
+            end)
+        end
+    end
 end

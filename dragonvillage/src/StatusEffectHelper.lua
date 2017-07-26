@@ -306,14 +306,10 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
         status_effect = StatusEffect_ManaReduce(res)
         status_effect:init_status(status_effect_value)
 
+    ---------- 조건부 버프 ---------------------
     elseif (status_effect_group == 'conditional_buff') then
-        local t_skill = TableDragonSkill():get(skill_id)
-        if (t_skill and t_skill['val_1'] and t_skill['val_1'] ~= '') then
-            status_effect = StatusEffect_ConditionalBuff(res)
-            status_effect:initValues(t_skill['val_1'])
-        else
-            status_effect = StatusEffect(res)
-        end
+        status_effect = StatusEffect_ConditionalBuff(res)
+
     ----------- HP 보호막 ------------------
 	elseif (status_effect_group == 'barrier') then
 		status_effect = StatusEffect_Protection(res)
