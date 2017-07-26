@@ -25,6 +25,7 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.lua;
 
+import com.google.android.vending.expansion.downloader.IDownloaderClient;
 import com.perplelab.dragonvillagem.kr.R;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
@@ -41,6 +42,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
 
 //@perplesdk
 import com.perplelab.PerpleSDK;
@@ -58,13 +62,20 @@ public class AppActivity extends Cocos2dxActivity{
     public static AppActivity sActivity;
     private Handler mAppHandler;
 
+    // @obb
+    private static int mVersionCode;
+    private static long mFileSize;
+    private static String mMd5;
+    private static long mCrc32;
+
     // @local push
     static boolean sIsRun;
 
     // @billing
     static final String BASE64_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2AOyhy0owSekR+QEpAUb2fV/wBtRmuD8UNEsku6iGM+Qx5o7iBMlGlcb7kjCJ86hMAu6g+1cdGFTQGCGTKrDZS6AfTv8NDB5EFwxvLa8Rn9aUU0nkaLFGNQvEo+gplP1PZQZLd30RMmJy/uYkzA2+vCdGaOQRTckwbczDBQyKWtQ5k5aj/1HQ/X8XxZneaKAM2JyFgFcjSYtlep9/XOQ6K2aR0VLoMse2rGkaFJQAFOBgNlNbvC3cbvaZe1hnZ4ypjadsPzw83ZpQYaMRTUF1k/TpB6CuSIX4L2ykUkEDyWn0RECpO3jR1fJ1Lb2ddYTpb8gORou9mhIK9Nfr8Cn4wIDAQAB";
 
-    static final int RC_APP_RESTART = 9999;
+    static final int RC_APP_RESTART = 1000;
+    static final int RC_WRITE_STORAGE_PERMISSION = 100;  // must be 8bit value
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,6 +181,26 @@ public class AppActivity extends Cocos2dxActivity{
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        if (requestCode == RC_WRITE_STORAGE_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                AppActivity.startAPKExpansionDownloader(mVersionCode, mFileSize, mMd5, mCrc32);
+            } else {
+                String info = "";
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("code", IDownloaderClient.STATE_FAILED);
+                    obj.put("msg", "WRITE_EXTERNAL_STORAGE permission denied.");
+                    info = obj.toString();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                sdkEventResult("apkexp_start", "error", info);
+            }
+
+            return;
+        }
+
         // @perplesdk
         PerpleSDK.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -367,14 +398,17 @@ public class AppActivity extends Cocos2dxActivity{
                 if (id.equals("apkexp_start")) {
 
                     String[] array1 = arg0.split(";");
-                    int versionCode = Integer.parseInt(array1[0]);
-                    long fileSize = Long.parseLong(array1[1]);
+                    mVersionCode = Integer.parseInt(array1[0]);
+                    mFileSize = Long.parseLong(array1[1]);
+                    mMd5 = arg1;
+                    mCrc32 = 0;
 
-                    String md5 = arg1;
-                    long crc32 = 0;
-
-                    AppActivity.startAPKExpansionDownloader(versionCode, fileSize, md5, crc32);
-
+                    if (ContextCompat.checkSelfPermission(sActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        String permissions[] = { Manifest.permission.WRITE_EXTERNAL_STORAGE };
+                        ActivityCompat.requestPermissions(sActivity, permissions, RC_WRITE_STORAGE_PERMISSION);
+                    } else {
+                        AppActivity.startAPKExpansionDownloader(mVersionCode, mFileSize, mMd5, mCrc32);
+                    }
                 } else if (id.equals("apkexp_continue")) {
 
                     sOBBDownloader.requestContinueDownload();
