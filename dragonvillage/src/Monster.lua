@@ -503,3 +503,16 @@ function Monster:getAttackAnimationName(skill_id)
 
     return animation_name
 end
+
+-------------------------------------
+-- function getRarity
+-- @return 희귀도(보스 판정으로 사용)
+-------------------------------------
+function Monster:getRarity()
+    local t_monster = TableMonster():get(self.m_charID)
+    if (not t_monster) then
+        error('invalid enemy_id : ' .. self.m_charID)
+    end
+    
+    return monsterRarityStrToNum(t_monster['rarity'])
+end

@@ -504,6 +504,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SortManager_Rune.lua" />
     <None Include="..\src\StageMissionMgr.lua" />
     <None Include="..\src\ICharacterStatusEffect.lua" />
+    <None Include="..\src\StatusEffectEdgeDirector.lua" />
     <None Include="..\src\StatusEffectUnit.lua" />
     <None Include="..\src\StatusEffectUnit_AddDmg.lua" />
     <None Include="..\src\StatusEffectUnit_AddDmgOneTime.lua" />
@@ -675,6 +676,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffectIcon.lua" />
     <None Include="..\src\StatusEffect_Bleed.lua" />
     <None Include="..\src\StatusEffect_ConditionalBuff.lua" />
+    <None Include="..\src\StatusEffect_ConsumeToMissile.lua" />
     <None Include="..\src\StatusEffect_Dispell.lua" />
     <None Include="..\src\StatusEffect_Immortal.lua" />
     <None Include="..\src\StatusEffect_ManaReduce.lua" />

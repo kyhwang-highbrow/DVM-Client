@@ -714,3 +714,13 @@ function Dragon:runAction_Highlight(duration, level)
         self.m_unitInfoNode:setVisible(level == 255)
     end
 end
+
+-------------------------------------
+-- function getRarity
+-- @return 희귀도(보스 판정으로 사용)
+-------------------------------------
+function Dragon:getRarity()
+    -- 드래곤은 몬스터보다 무조건 높아야하고 레벨로 설정함
+    local rarity = 10 + self.m_lv
+    return rarity
+end

@@ -1878,10 +1878,10 @@ end
 
 -------------------------------------
 -- function getRarity
--- @return 희귀도 common/rare/hero/legend
+-- @return 희귀도(보스 판정으로 사용)
 -------------------------------------
 function Character:getRarity()
-	return self.m_charTable['rarity']
+    return 0
 end
 
 -------------------------------------
@@ -2336,7 +2336,7 @@ end
 -- @brief boss, sub_boss, elite 체크
 -------------------------------------
 function Character:isBoss()
-	local rarity = self:getRarity()
+	local rarity = self.m_charTable['rarity']
     return isExistValue(rarity, 'elite', 'subboss', 'boss') 
 end
 

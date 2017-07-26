@@ -282,3 +282,19 @@ function getCollisionList_Bezier(target, t_bezier_pos, thickness, x, y)
 
     return l_collision
 end
+
+-------------------------------------
+-- function convertToListFrom2DArray
+-- @brief 2차원 배열을 리스트로 변환
+-------------------------------------
+function convertToListFrom2DArray(array)
+    local l_ret = {}
+    
+    for _, map in pairs(array) do
+        for _, v in pairs(map) do
+            table.insert(l_ret, v)
+        end
+    end
+
+    return l_ret
+end

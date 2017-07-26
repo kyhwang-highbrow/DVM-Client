@@ -29,3 +29,24 @@ function TableStatusEffect:get(key, skip_error_msg)
 
     return t
 end
+
+-------------------------------------
+-- function getRes
+-------------------------------------
+function TableStatusEffect:getRes(key, attr)
+    local t_table = self:get(key)
+    if (not t_table) then return end
+
+    -- res attr parsing
+    local res = t_table['res']
+	if (res and attr) then 
+		res = string.gsub(res, '@', attr)
+	end
+
+	-- nil 처리
+	if (res == '') then 
+		res = nil 
+	end
+
+    return res
+end

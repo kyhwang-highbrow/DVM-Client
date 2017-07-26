@@ -257,26 +257,15 @@ end
 -- @comment 일반 status effect의 경우 rate가 필요없지만 패시브의 경우 실행 시점에서 확률체크하는 경우가 있다.
 -------------------------------------
 function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id, add_param)
-    -- 테이블 가져옴
-	local table_status_effect = TableStatusEffect()
-    local t_status_effect = table_status_effect:get(status_effect_type)
-    local status_effect_group = t_status_effect['type']
-	-- 여기서는 상태효과가 없으면 에러를 발생시켜야함
+    local t_status_effect = TableStatusEffect():get(status_effect_type)
     if (not t_status_effect) then
         error('no status_effect table : ' .. status_effect_type)
     end
 
-	-- res attr parsing
-    local res = t_status_effect['res']
-	if (res) then 
-		res = string.gsub(res, '@', caster:getAttribute())
-	end
-	-- nil 처리
-	if (res == '') then 
-		res = nil 
-	end
+    local status_effect_group = t_status_effect['type']
+    local status_effect = nil
+	local res = TableStatusEffect():getRes(status_effect_type, caster:getAttribute())
 
-	local status_effect = nil
     ----------- 상태효과 변경 ------------------
 	if (status_effect_group == 'transfer') then
         status_effect = StatusEffect_Transfer(res)
@@ -341,6 +330,14 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
         else
             status_effect = StatusEffect(res)
         end
+
+    ----------- 중첩을 소모하는 추가 미사일 ----------------------
+    elseif (status_effect_group == 'consume_missile') then
+        status_effect = StatusEffect_ConsumeToMissile(res)
+
+        -- 해당 상태효과를 유발한 스킬의 충돌 정보 리스트를 가져옴
+        local l_collision = add_param['skill_collision_list']
+        status_effect:init_statusEffect(caster, l_collision)
 
     ----------- 추가 피해 ------------------
 	elseif (status_effect_group == 'add_dmg') then
@@ -441,6 +438,7 @@ function StatusEffectHelper:releaseStatusEffectByType(char, status_effect_type)
 	for type, tar_status_effect in pairs(char:getStatusEffectList()) do
 		if (status_effect_type == type) then 
 			tar_status_effect:changeState('end')
+            tar_status_effect:setTemporaryPause(false)
 			break
 		end
 	end
@@ -460,6 +458,7 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt)
         -- 해로운 효과 해제
 		if (status_effect.m_bHarmful) then 
 		    status_effect:changeState('end')
+            status_effect:setTemporaryPause(false)
 			release_cnt = release_cnt + 1
         end
 		-- 갯수 체크

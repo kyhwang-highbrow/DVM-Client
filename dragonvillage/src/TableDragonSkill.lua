@@ -208,14 +208,8 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' local target_avoid = target and target:getStat(\'avoid\') or 0' ..
             ' local target_attr = target and target:getAttribute()' ..
             ' local target_role = target and target:getRole()' ..
-            ' local target_rarity = target and target:getRarity()' ..
-            ' if ( target:isDragon() ) then ' ..
-            ' target_rarity = dragonRarityStrToNum(target_rarity) ' ..
-            ' else ' ..
-            ' target_rarity = monsterRarityStrToNum(target_rarity) ' ..
-            ' end ' ..
-
-
+            ' local target_rarity = target and target:getRarity() or 0' ..
+            
 
             ' local skill_target = owner:getTargetChar()' ..
             ' local skill_target_atk = skill_target and skill_target:getStat(\'atk\') or 0' ..
@@ -230,13 +224,8 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' local skill_target_avoid = skill_target and skill_target:getStat(\'avoid\') or 0' ..
             ' local skill_target_attr = skill_target and skill_target:getAttribute()' ..
             ' local skill_target_role = skill_target and skill_target:getRole()' ..
-            ' local skill_target_rarity = skill_target and skill_target:getRarity()' ..
-            ' if ( skill_target:isDragon() ) then ' ..
-            ' skill_target_rarity = dragonRarityStrToNum(skill_target_rarity) ' ..
-            ' else ' ..
-            ' skill_target_rarity = monsterRarityStrToNum(skill_target_rarity) ' ..
-            ' end ' ..
-
+            ' local skill_target_rarity = skill_target and skill_target:getRarity() or 0' ..
+            
 
             ' local STATUSEFFECT = function(name, column)' ..
             ' if (column) then' ..

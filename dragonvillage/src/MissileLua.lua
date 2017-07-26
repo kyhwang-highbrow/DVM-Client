@@ -237,10 +237,15 @@ function MissileLua.lua_curve(owner)
 	local height = owner.m_value1
 	local jump_duration = owner.m_value2
 	local delay_time = owner.m_value3
+    local attack_cb_func = owner.m_value5
     local loop = 1
 
 	-- 도착하면 탄을 없앤다
 	local cbFunction = cc.CallFunc:create(function()
+        if (attack_cb_func) then
+            attack_cb_func()
+        end
+
 		owner:changeState('dying')	
 	end)
 

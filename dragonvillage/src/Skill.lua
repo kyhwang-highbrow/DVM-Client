@@ -32,8 +32,7 @@ Skill = class(PARENT, {
 		
 		-- 상태 효과 관련 변수들
 		m_lStatusEffect = 'List<StructStatusEffect>',
-        m_tSpecialTarget = '', -- 임시 처리
-
+        
         -- 이벤트
         m_mSpecialEvent = '', -- 스킬 종료시 적용될 특수한 조건의 이벤트를 저장하기 위한 맵(조건 달성 시점이 아닌 종료시 적용을 위함)
 
@@ -48,6 +47,7 @@ Skill = class(PARENT, {
         -- 스킬 종료시 피드백(보너스) 관련
         m_bonusLevel = 'number',
         m_hitTargetList = 'table',
+        m_hitCollisionList = 'table',
         
         -- 하이라이트시 숨김 처리
         m_dataForTemporaryPause = '',
@@ -73,9 +73,9 @@ end
 function Skill:init_skill()
 	-- 멤버 변수 
 	self.m_range = 0
-    self.m_tSpecialTarget = {}
     self.m_mSpecialEvent = {}
     self.m_hitTargetList = {}
+    self.m_hitCollisionList = {}
 
 	-- 세부 초기화 함수 실행
 	self:initActvityCarrier(self.m_powerRate, self.m_powerAbs, self.m_critical)
@@ -375,21 +375,25 @@ end
 -- function doStatusEffect
 -- @brief l_start_con 조건에 해당하는 statusEffect를 적용
 -------------------------------------
-function Skill:doStatusEffect(start_con, t_target)
+function Skill:doStatusEffect(start_con, l_target)
     local lStatusEffect = self:getStatusEffectList(start_con)
     
     if (#lStatusEffect > 0) then
-        local l_ret = nil
-		if (#self.m_tSpecialTarget > 0) then 
-			-- type이 target이고 해당 테이블에 대상이 담겨있을때 적용하게됨
-			l_ret = self.m_tSpecialTarget
-		else
-			l_ret = t_target or self:findTarget()
-		end
-        
-        local add_param = self.m_activityCarrier.m_tParam
+        local l_target = l_target or self:findTarget()
+		local add_param = self.m_activityCarrier.m_tParam
 
-        StatusEffectHelper:doStatusEffectByStruct(self.m_owner, l_ret, lStatusEffect, nil, self.m_skillId, add_param)
+        -- 드래그 스킬의 경우엔 충돌 정보를 파라미터에 추가시킴
+        if (self.m_chanceType == 'active') then
+            local l_collision
+            if (start_con == CON_SKILL_START) then
+                l_collision = self:findCollision()
+            else
+                l_collision = convertToListFrom2DArray(self.m_hitCollisionList)
+            end
+            add_param['skill_collision_list'] = l_collision
+        end
+
+        StatusEffectHelper:doStatusEffectByStruct(self.m_owner, l_target, lStatusEffect, nil, self.m_skillId, add_param)
     end
 end
 
@@ -436,9 +440,8 @@ function Skill:attack(collision)
     self:runAtkCallback(target_char, x, y, body_key)
 
     target_char:runDefCallback(self, x, y, body_key)
-    --target_char:runDefCallback(self, x, y, body_key, true)
 
-	self:onAttack(target_char)
+	self:onAttack(target_char, collision)
 end
 
 -------------------------------------
@@ -461,13 +464,22 @@ end
 -- function onAttack
 -- @brief 공격(attack) 직후 호출됨, 스킬에서 미사일 날릴 때 콜백으로도 사용
 -------------------------------------
-function Skill:onAttack(target_char)
+function Skill:onAttack(target_char, target_collision)
     local bUpdateHitTargetCount = false
 
     -- 피격된 대상 저장
     if (not self.m_hitTargetList[target_char]) then
         self.m_hitTargetList[target_char] = true
         bUpdateHitTargetCount = true
+    end
+
+    -- 피격된 충돌정보 저장
+    if (target_collision) then
+        local body_key = target_collision:getBodyKey()
+        if (not self.m_hitCollisionList[target_char]) then
+            self.m_hitCollisionList[target_char] = {}
+        end
+        self.m_hitCollisionList[target_char][body_key] = target_collision
     end
 
     local hit_target_count = table.count(self.m_hitTargetList)
@@ -489,7 +501,7 @@ function Skill:onAttack(target_char)
 
     -- 상태효과
     do
-	    local t_event = {l_target = {target_char}}
+	    local t_event = { l_target = { target_char } }
 	    self:dispatch(CON_SKILL_HIT, t_event)
 
         -- 피격된 대상수가 갱신된 경우 해당 이벤트 발동

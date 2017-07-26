@@ -2508,8 +2508,14 @@
     <None Include="..\src\TableGoogleQuest.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StatusEffectEdgeDirector.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_TermsPopup.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StatusEffect_ConsumeToMissile.lua">
+      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\Structure.lua">
       <Filter>lua\src</Filter>

@@ -399,7 +399,9 @@ local t_module = {
     'StatusEffect_Resurrect',
     'StatusEffect_Transfer',
     'StatusEffect_ConditionalBuff',
+    'StatusEffect_ConsumeToMissile',
 
+    'StatusEffectEdgeDirector',
 	'StatusEffectIcon',
 
 	-- EFFECT

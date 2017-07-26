@@ -37,6 +37,9 @@ StatusEffect = class(PARENT, {
         m_lTriggerFunc = 'table',           -- 트리거 이벤트별 함수 리스트를 가진 테이블(event_name : func_list)
         m_lTriggerFuncTimer = 'table',      -- 트리거 함수별 최근 호출되고 지난 시간값을 가진 맵테이블(func : timer)
         m_lTriggerFuncInterval = 'table',   -- 트리거 함수별 주기시간값을 가진 맵테이블(func : interval)
+
+        -- 별도의 연출 처리를 위한 모듈
+        m_edgeDirector = 'StatusEffectEdgeDirector',
     })
 
 -------------------------------------
@@ -68,6 +71,8 @@ function StatusEffect:init(file_name, body)
     self.m_lTriggerFuncTimer = {}
     self.m_lTriggerFuncInterval = {}
 
+    self.m_edgeDirector = nil
+
 	self:init_top(file_name)
 	self:initState()
 
@@ -97,20 +102,9 @@ function StatusEffect:initFromTable(t_status_effect, target_char)
         end
     end
 
-    -- hit 애니메이션이 있을 경우 트리거 자동 등록
-    if (self.m_animator) then
-        local list = self.m_animator:getVisualList()
-
-        if (table.find(list, 'hit')) then
-            self:addTrigger('hit_barrier', function()
-                if (self.m_state == 'idle') then
-                    self.m_animator:changeAni('hit', false)
-                    self:addAniHandler(function()
-                        self.m_animator:changeAni('idle', true)
-                    end)
-                end
-            end)
-        end
+    -- 연출 지정
+    if (t_status_effect['direction']) then
+        self:init_direction(t_status_effect['direction'])
     end
 end
 
@@ -126,6 +120,51 @@ function StatusEffect:init_top(file_name)
         self.m_topEffect = MakeAnimator(file_name)
         self.m_topEffect:setPosition(0, 80)
         self.m_rootNode:addChild(self.m_topEffect.m_node)
+    end
+end
+
+-------------------------------------
+-- function init_direction
+-- @TODO 연출 타입별 초기화 작업 수행
+-------------------------------------
+function StatusEffect:init_direction(direction_type)
+    if (self.m_edgeDirector) then return end
+
+    local func = {}
+    func['barrier'] = function()
+        self:addTrigger('hit_barrier', function()
+            if (self.m_state == 'idle') then
+                self.m_animator:changeAni('hit', false)
+                self:addAniHandler(function()
+                    self.m_animator:changeAni('idle', true)
+                end)
+            end
+        end)
+    end
+
+    func['linear'] = function()
+        -- TODO: 연출을 위한 모듈 생성
+    end
+
+    func['polygons'] = function()
+        -- TODO: 연출을 위한 모듈 생성
+        local res = self.m_statusEffectTable['res']
+        self.m_edgeDirector = StatusEffectEdgeDirector('polygons', self.m_rootNode, res, self.m_maxOverlab)
+    end
+
+    if (func[direction_type]) then
+        self.m_animator:release()
+        self.m_animator = nil
+
+        func[direction_type]()
+
+    elseif (self.m_animator) then
+        local list = self.m_animator:getVisualList()
+
+        -- hit 애니메이션이 있을 경우 barrier 연출로 처리
+        if (table.find(list, 'hit')) then
+            func['barrier']()
+        end
     end
 end
 
@@ -235,7 +274,7 @@ function StatusEffect.st_start(owner, dt)
 		end
 
 		-- 에니메이션이 0프레임일 경우 즉시 상태를 변경
-        local duration = owner.m_animator:getDuration()
+        local duration = owner.m_animator and owner.m_animator:getDuration() or 0
         if (duration == 0) then
             owner:changeState('idle')
         else
@@ -267,7 +306,7 @@ function StatusEffect.st_end(owner, dt)
 		owner:unapplyAll()
 		
         -- 에니메이션이 0프레임일 경우 즉시 상태를 변경
-        local duration = owner.m_animator:getDuration()
+        local duration = owner.m_animator and owner.m_animator:getDuration() or 0
         if (duration == 0) then
             owner:setDead()
             owner:changeState('dying')
@@ -462,6 +501,10 @@ function StatusEffect:applyOverlab(unit)
     self.m_overlabCnt = (self.m_overlabCnt + 1)
 
     self:onApplyOverlab(unit)
+
+    if (self.m_edgeDirector) then
+        self.m_edgeDirector:addEdge()
+    end
             
     return b
 end
@@ -483,6 +526,10 @@ function StatusEffect:unapplyOverlab(unit)
     self.m_overlabCnt = (self.m_overlabCnt - 1)
 
     self:onUnapplyOverlab(unit)
+
+    if (self.m_edgeDirector) then
+        self.m_edgeDirector:removeEdge()
+    end
             
     return b
 end
@@ -674,6 +721,13 @@ end
 -------------------------------------
 function StatusEffect:getOverlabUnitList()
     return self.m_lUnit
+end
+
+-------------------------------------
+-- function getEdgeDirector
+-------------------------------------
+function StatusEffect:getEdgeDirector()
+    return self.m_edgeDirector
 end
 
 
