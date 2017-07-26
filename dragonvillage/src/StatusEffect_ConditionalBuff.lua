@@ -44,7 +44,7 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function StatusEffectConditionalBuff:initState()
+function StatusEffect_ConditionalBuff:initState()
     self:addState('start', StatusEffect_ConditionalBuff.st_start, 'center_start', false)
     self:addState('idle', StatusEffect.st_idle, 'center_idle', true)
     self:addState('end', StatusEffect.st_end, 'center_end', false)
