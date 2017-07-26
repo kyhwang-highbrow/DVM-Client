@@ -61,6 +61,37 @@ function Network_platform_issueRcode(game_id, fuid, rcode, os, game_push, pushTo
 end
 
 -------------------------------------
+-- function Network_platform_updateTerms
+-- @breif   약관 동의 여부 업데이트
+-- @param
+--          game_id
+--          uid : player id
+--          terms : 동의 여부 (0 or 1)
+-------------------------------------
+function Network_platform_updateTerms(game_id, uid, terms, success_cb, fail_cb)
+    -- 파라미터 셋팅
+    local t_data = {}
+    t_data['game_id'] = game_id
+    t_data['uid'] = uid
+    t_data['terms'] = terms
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['full_url'] = 'http://dev.platform.perplelab.com/1003/user/updateTerms'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
 -- function Network_login
 -- @breif 로그인
 -------------------------------------

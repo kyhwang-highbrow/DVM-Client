@@ -101,7 +101,17 @@ end
 -------------------------------------
 function UI_TermsPopup:checkAgreeState()
     if self.m_agree1 == 1 and self.m_agree2 == 1 then
-        self:close()
+        local success_cb = function(ret)
+            self:close()
+        end
+        local fail_cb = function(ret)
+            ccdump(ret)
+            self:close()
+        end
+        local game_id = 1003
+        local uid = g_serverData:get('local', 'uid')
+        local terms = 1
+        Network_platform_updateTerms(game_id, uid, terms, success_cb, fail_cb)
     end
 end
 
