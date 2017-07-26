@@ -612,6 +612,8 @@ end
 -- @default 타겟 룰에 따른 타겟 리스트 중 첫번째를 선택
 -------------------------------------
 function Skill:getDefaultTarget()
+    if (self.m_targetChar) then return self.m_targetChar end
+
     local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, nil)
 	local target = l_target[1]
 
