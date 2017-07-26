@@ -132,6 +132,8 @@ public class DownloadNotification implements IDownloaderClient {
             }
             mCurrentText = mContext.getString(stringDownloadID);
             mCurrentTitle = mLabel.toString();
+
+            /*
             mCurrentNotification.tickerText = mLabel + ": " + mCurrentText;
             mCurrentNotification.icon = iconResource;
             mCurrentNotification.setLatestEventInfo(mContext, mCurrentTitle, mCurrentText,
@@ -142,6 +144,22 @@ public class DownloadNotification implements IDownloaderClient {
                 mCurrentNotification.flags &= ~Notification.FLAG_ONGOING_EVENT;
                 mCurrentNotification.flags |= Notification.FLAG_AUTO_CANCEL;
             }
+            mNotificationManager.notify(NOTIFICATION_ID, mCurrentNotification);
+            */
+            Notification.Builder builder = new Notification.Builder(mContext)
+                    .setContentIntent(mContentIntent)
+                    .setSmallIcon(iconResource)
+                    .setContentTitle(mCurrentTitle)
+                    .setContentText(mCurrentText)
+                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                    .setTicker(mLabel + ": " + mCurrentText);
+            if (ongoingEvent) {
+                builder.setOngoing(true);
+            } else {
+                builder.setOngoing(false);
+                builder.setAutoCancel(true);
+            }
+            mCurrentNotification = builder.build();
             mNotificationManager.notify(NOTIFICATION_ID, mCurrentNotification);
         }
     }
@@ -154,10 +172,20 @@ public class DownloadNotification implements IDownloaderClient {
         }
         if (progress.mOverallTotal <= 0) {
             // we just show the text
+            /*
             mNotification.tickerText = mCurrentTitle;
             mNotification.icon = android.R.drawable.stat_sys_download;
             mNotification.setLatestEventInfo(mContext, mLabel, mCurrentText, mContentIntent);
             mCurrentNotification = mNotification;
+            */
+            Notification.Builder builder = new Notification.Builder(mContext)
+                    .setContentIntent(mContentIntent)
+                    .setSmallIcon(android.R.drawable.stat_sys_download)
+                    .setContentTitle(mLabel)
+                    .setContentText(mCurrentText)
+                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                    .setTicker(mCurrentTitle);
+            mCurrentNotification = builder.build();
         } else {
             mCustomNotification.setCurrentBytes(progress.mOverallProgress);
             mCustomNotification.setTotalBytes(progress.mOverallTotal);
