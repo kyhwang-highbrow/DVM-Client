@@ -2511,6 +2511,9 @@
     <None Include="..\src\Structure.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ServerData_Subscription.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

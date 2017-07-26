@@ -86,6 +86,9 @@ function ServerData:getInstance()
 	-- 상점 및 가차
     g_shopDataNew = ServerData_Shop(g_serverData)
 
+    -- 구독형 상품
+    g_subscriptionData = ServerData_Subscription(g_serverData)
+
     -- 우편함
     g_mailData = ServerData_Mail(g_serverData)
 

@@ -6,6 +6,7 @@ ServerData_Shop = class({
         m_dicProduct = '[tab_category][struct_product]',
         m_expirationData = 'pl.Date', -- 서버 정보 만료 시간
         m_dicBuyCnt = '[product_id][count]', -- 구매 횟수
+        m_ret = 'server response',
         m_bDirty = 'boolean',
     })
 
@@ -245,6 +246,7 @@ function ServerData_Shop:response_shopInfo(ret)
         return
     end
 
+    self.m_ret = ret
     self:clearProduct()
 
     local table_shop_cash = self:listToDic(ret['table_shop_cash'], 'product_id')
@@ -254,6 +256,8 @@ function ServerData_Shop:response_shopInfo(ret)
     for i,v in pairs(table_shop_list) do
         local tab_category = v['tab_category']
         local product_id = v['product_id']
+        local start_date = v['start_date']
+        local end_date = v['end_date']
         local dependency = v['dependency']
         local ui_priority = v['ui_priority'] and tonumber(v['ui_priority'])
         if (not ui_priority) then
@@ -330,6 +334,21 @@ function ServerData_Shop:ckechDirty()
     --self.m_expirationData
     self.m_bDirty = true
 end
+
+-------------------------------------
+-- function setDirty
+-------------------------------------
+function ServerData_Shop:setDirty()
+    self.m_bDirty = true
+end
+
+-------------------------------------
+-- function isDirty
+-------------------------------------
+function ServerData_Shop:isDirty()
+    return self.m_bDirty
+end
+
 
 -------------------------------------
 -- function request_buy

@@ -22,6 +22,9 @@ StructProduct = class(PARENT, {
 		package_res = 'string',
 		package_frame_type = 'number',
 
+        -- subscription (구독 상품)
+        subscription = 'string',
+
         m_tabCategory = 'string',
         m_startDate = 'pl.Date',
         m_endDate = 'pl.Date',
@@ -75,14 +78,14 @@ end
 -- function setStartDate
 -------------------------------------
 function StructProduct:setStartDate(date)
-    self.m_startDate = date
+    self.m_startDate = tonumber(date)
 end
 
 -------------------------------------
 -- function setEndDate
 -------------------------------------
 function StructProduct:setEndDate(date)
-    self.m_endDate = date
+    self.m_endDate = tonumber(date)
 end
 
 -------------------------------------

@@ -89,6 +89,7 @@ local t_module = {
     'ServerData_Inventory',
     'ServerData_Friend',
 	'ServerData_Shop',
+    'ServerData_Subscription',
     'ServerData_Mail',
     'ServerData_Item',
     'ServerData_Attendance',

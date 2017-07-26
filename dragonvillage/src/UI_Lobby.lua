@@ -255,11 +255,14 @@ function UI_Lobby:initButton()
     vars['explorationBtn']:registerScriptTapHandler(function() self:click_explorationBtn() end) -- 탐험 버튼
     vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 도감 버튼
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
+    vars['subscriptionBtn']:registerScriptTapHandler(function() self:click_subscriptionBtn() end) -- 월정액
     vars['guildBtn']:registerScriptTapHandler(function() self:click_guildBtn() end) -- 길드
 	vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end)
     vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
 
     vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
+
+	vars['subscriptionBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -578,6 +581,14 @@ end
 -------------------------------------
 function UI_Lobby:click_eventBtn()
     g_eventData:openEventPopup()
+end
+
+-------------------------------------
+-- function click_subscriptionBtn
+-- @brief 월정액 버튼
+-------------------------------------
+function UI_Lobby:click_subscriptionBtn()
+    g_subscriptionData:openSubscriptionPopup()
 end
 
 -------------------------------------
