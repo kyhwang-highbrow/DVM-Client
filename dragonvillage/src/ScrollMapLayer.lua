@@ -117,6 +117,8 @@ ScrollMapLayer = class(IScrollMapLayer, {
         m_speedScale = 'number',    -- 이동 속도 배율
     })
 
+local MAP_WIDTH = 2176
+local MAP_HEIGHT = 1600
     -------------------------------------
     -- function init
     -------------------------------------
@@ -139,15 +141,15 @@ ScrollMapLayer = class(IScrollMapLayer, {
             self.m_animator.m_node:setPositionX(self.m_offsetX)
         end
         
+        -- 각 오브젝트를 미리 정의된 맵의 총 사이즈를 충분히 커버할 만큼 생성한다.
+        local count
         if self.m_interval > 0 then
-            local visible_width = 2176
-            local visible_height = 1600
-            local count
+            count = nil
 
             if self.m_type == 'horizontal' then
-                count = math_ceil(visible_width / self.m_interval) + 2
+                count = math_ceil(MAP_WIDTH / self.m_interval) + 2
             elseif self.m_type == 'vertical' then
-                count = math_ceil(visible_height / self.m_interval) + 2
+                count = math_ceil(MAP_HEIGHT / self.m_interval) + 2
             end
 
             if count then
@@ -173,10 +175,12 @@ ScrollMapLayer = class(IScrollMapLayer, {
             end
         end
 
+        -- 연출 지정
         if (tParam['directing']) then 
 		    self:setDirecting(tParam['directing'])
 	    end
 
+        -- 초기화
         self:update(0)
     end
 
@@ -189,6 +193,10 @@ ScrollMapLayer = class(IScrollMapLayer, {
         local cameraX = tParam['cameraX'] or 0
         local cameraY = tParam['cameraY'] or 0
         local cameraScale = tParam['cameraScale'] or 1
+
+        -- @mskim : 시작 카메라 줌 연출에 의해 오브젝트가 사라지는데 기준점이 오른쪽으로 가버려 미리 사라지기 때문
+        -- 때문에 기준점을 카메라 좌표 이동과 반대로 함
+        cameraX = -cameraX
 
         local pos = (totalMove * self.m_speedScale)
         local minValue
