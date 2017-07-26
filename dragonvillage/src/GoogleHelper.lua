@@ -1,7 +1,9 @@
 -------------------------------------
 -- table GoogleHelper
 -------------------------------------
-GoogleHelper = {}
+GoogleHelper = {
+    isDirty = true
+}
 
 
 -------------------------------------
@@ -129,4 +131,11 @@ function GoogleHelper.allAcheivementCheck(t_data)
             GoogleHelper.requestAchievementClear(t_acheivement['achievement_id'])
         end
     end
+end
+
+-------------------------------------
+-- function setDirty
+-------------------------------------
+function GoogleHelper.setDirty(b)
+    GoogleHelper.isDirty = b
 end

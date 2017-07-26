@@ -274,6 +274,9 @@ function UI_Lobby:refresh()
 
     -- 마스터의 길 정보 갱신
     self:refresh_masterRoad()
+
+    -- 구글 버튼 처리
+    self:refresh_google()
 end
 
 -------------------------------------
@@ -357,6 +360,19 @@ function UI_Lobby:refresh_masterRoad()
     local t_road = TableMasterRoad():get(g_masterRoadData:getFocusRoad())
     local desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
     self.vars['roadDescLabel']:setString(desc)
+end
+
+-------------------------------------
+-- function refresh_google
+-------------------------------------
+function UI_Lobby:refresh_google()
+    local vars = self.vars
+
+    if (g_serverData:get('local', 'platform_id') == 'google.com') then
+        vars['googleAchievementBtn']:setVisible(true)
+    else
+        vars['googleAchievementBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -638,6 +654,12 @@ function UI_Lobby:update(dt)
     if (g_masterRoadData.m_bDirtyMasterRoad) then
         g_masterRoadData.m_bDirtyMasterRoad = false
         self:refresh_masterRoad()
+    end
+
+    -- 구글 버튼 처리
+    if (GoogleHelper.isDirty) then
+        self:refresh_google()
+        GoogleHelper.isDirty = false
     end
 end
 

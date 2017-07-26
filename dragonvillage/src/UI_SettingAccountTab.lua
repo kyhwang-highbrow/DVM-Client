@@ -376,9 +376,6 @@ function UI_Setting:updateInfo()
         self.vars['loginNode']:addChild(sprite)
     end
 
-    if platform_id == 'google.com' then
-        -- 로비에 구글 버튼 노출
-    else
-        -- 로비에 구글 버튼 숨김
-    end
+    -- dirty -> lobby btn state
+    GoogleHelper.setDirty(true)
 end
