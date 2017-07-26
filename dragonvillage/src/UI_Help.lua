@@ -6,12 +6,13 @@ local PARENT = UI
 UI_Help = class(PARENT,{
         m_preSelectedCategory = 'cell',
 
+        m_focusCategory = 'stirng',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Help:init()
+function UI_Help:init(focus_category)
     local vars = self:load('help_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -21,6 +22,8 @@ function UI_Help:init()
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
+
+    self.m_focusCategory = focus_category or 'battle'
 
     self:initUI()
     self:initButton()
@@ -68,7 +71,7 @@ function UI_Help:makeTableView_category()
 
 		-- 생성 콜백
 		local create_cb_func = function(ui, t_data)
-            ui.vars['helpBtn']:registerScriptTapHandler(function()
+            local function click_func()
                 -- 도움말 내용 생성
                 self:makeTableView_content(t_data['l_content'])
                 
@@ -78,7 +81,15 @@ function UI_Help:makeTableView_category()
                     self.m_preSelectedCategory:setEnabled(true)
                 end
                 self.m_preSelectedCategory = ui.vars['helpBtn']
-            end)
+            end
+
+            -- 버튼 등록
+            ui.vars['helpBtn']:registerScriptTapHandler(click_func)
+
+            -- focus 처리
+            if (self.m_focusCategory == t_data['category']) then
+                click_func()
+            end
 		end
 
         -- 테이블 뷰 인스턴스 생성
