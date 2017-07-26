@@ -151,7 +151,6 @@ public class DownloadNotification implements IDownloaderClient {
                     .setSmallIcon(iconResource)
                     .setContentTitle(mCurrentTitle)
                     .setContentText(mCurrentText)
-                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
                     .setTicker(mLabel + ": " + mCurrentText);
             if (ongoingEvent) {
                 builder.setOngoing(true);
@@ -183,7 +182,6 @@ public class DownloadNotification implements IDownloaderClient {
                     .setSmallIcon(android.R.drawable.stat_sys_download)
                     .setContentTitle(mLabel)
                     .setContentText(mCurrentText)
-                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
                     .setTicker(mCurrentTitle);
             mCurrentNotification = builder.build();
         } else {
