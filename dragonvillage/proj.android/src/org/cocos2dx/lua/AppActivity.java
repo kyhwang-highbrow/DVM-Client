@@ -190,7 +190,7 @@ public class AppActivity extends Cocos2dxActivity{
 
                     // 다운로드 시작
                     // 다운로드 진행 표시 UI 열기
-                    sdkEventResult("apkexp_startdownload", "start", "");
+                    sdkEventResult("apkexp_start", "start", "");
                 }
                 @Override
                 public void onCompleted() {
@@ -198,7 +198,7 @@ public class AppActivity extends Cocos2dxActivity{
 
                     // 다운로드 완료
                     // 다운로드 진행 표시 UI 닫고 게임 시작
-                    sdkEventResult("apkexp_startdownload", "complete", "end");
+                    sdkEventResult("apkexp_start", "complete", "end");
                 }
                 @Override
                 public void onUpdateStatus(boolean isPaused, boolean isIndeterminate, boolean isInterruptable, int code, String statusText) {
@@ -233,7 +233,7 @@ public class AppActivity extends Cocos2dxActivity{
                                 e.printStackTrace();
                             }
 
-                            sdkEventResult("apkexp_startdownload", "error", info);
+                            sdkEventResult("apkexp_start", "error", info);
                         }
                     }
                 }
@@ -254,7 +254,7 @@ public class AppActivity extends Cocos2dxActivity{
                         e.printStackTrace();
                     }
 
-                    sdkEventResult("apkexp_startdownload", "progress", info);
+                    sdkEventResult("apkexp_start", "progress", info);
                 }
             });
             sOBBDownloader.initExpansionDownloader(sActivity);
@@ -262,7 +262,7 @@ public class AppActivity extends Cocos2dxActivity{
             Cocos2dxHelper.setupObbAssetFileInfo(versionCode);
 
             // 바로 게임 시작
-            sdkEventResult("apkexp_startdownload", "complete", "pass");
+            sdkEventResult("apkexp_start", "complete", "pass");
         }
     }
 
