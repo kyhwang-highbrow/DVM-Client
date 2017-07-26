@@ -96,10 +96,17 @@ function UI_DragonRunesEnhance:refresh()
                 local find_node = _v
                 -- 자연스러운 액션을 위해 앵커포인트 변경
                 changeAnchorPointWithOutTransPos(find_node, cc.p(0.5, 0.5))
-                cca.stampShakeAction(find_node, 1.8, 0.1, 0, 0)
+                cca.stampShakeAction(find_node, 1.5, 0.1, 0, 0)
             end
         end
     end
+
+    -- 강화 성공시 옵션 추가되는 경우 
+    local max_lv = RUNE_LV_MAX
+    local curr_lv = rune_obj['lv']
+
+    vars['bonusEffectLabel']:setVisible((curr_lv ~= max_lv - 1) and (curr_lv % 3 == 2))
+    vars['maxLvEffectLabel']:setVisible((curr_lv == max_lv - 1))
 
     -- 소모 골드
     local req_gold = rune_obj:getRuneEnhanceReqGold()
@@ -117,14 +124,19 @@ function UI_DragonRunesEnhance:show_upgradeEffect(is_success)
     local block_ui = UI_BlockPopup()
 
     local vars = self.vars
-    local visual = vars['enhanceVisual']
-    visual:setVisible(true)
+    local top_visual = vars['enhanceTopVisual']
+    local bottom_visual = vars['enhanceBottomVisual']
+
+    top_visual:setVisible(true)
+    bottom_visual:setVisible(true)
 
     local ani_name = (is_success) and 'success' or 'fail'
-    visual:changeAni(ani_name, false)
+    top_visual:changeAni(ani_name..'_top', false)
+    bottom_visual:changeAni(ani_name..'_bottom', false)
 
-    visual:addAniHandler(function()
-        visual:setVisible(false)
+    top_visual:addAniHandler(function()
+        top_visual:setVisible(false)
+        bottom_visual:setVisible(false)
 
         local rune_obj = self.m_runeObject
         if (is_success) then

@@ -231,10 +231,8 @@ function UI_DragonFriendship:refreshFruits(attr)
         icon:setScale(0)
         icon:runAction(cc.Sequence:create(cc.DelayTime:create((i-1) * 0.025), cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1, 1), 0.3)))
 
-
         local count = g_userData:getFruitCount(fid)
         vars['fruitNumberLabel' .. i]:setNumber(count)
-
 
         local fruit_button = vars['fruitBtn' .. i]
         fruit_button:registerScriptTapHandler(function() self:click_fruitBtn(fid, fruit_button) end)
@@ -294,25 +292,21 @@ function UI_DragonFriendship:feedDirecting(fruit_id, fruit_node, finish_cb)
 end
 
 -------------------------------------
--- function show_upgradeEffect
--- @brief 친밀도 오르는 연출
+-- function show_levelUpEffect
+-- @brief 레벨업 연출
 -------------------------------------
-function UI_DragonFriendship:show_upgradeEffect(is_flevel_up)
+function UI_DragonFriendship:show_levelUpEffect()
     local vars = self.vars
-    local is_flevel_up = is_flevel_up or false
-    if (is_flevel_up) then
-        local block_ui = UI_BlockPopup()    
-        local visual = vars['friendshipUpVisual']
-        visual:setVisible(true)
-        visual:changeAni('idle', false)
+    local block_ui = UI_BlockPopup()    
+    local visual = vars['friendshipUpVisual']
+    visual:setVisible(true)
+    visual:changeAni('idle', false)
 
-        visual:addAniHandler(function()
-            visual:setVisible(false)
-            block_ui:close()
-        end)
-    else
-        -- 하트 반짝이는 애니메이션
-    end
+    visual:addAniHandler(function()
+        visual:setVisible(false)
+        UI_DragonManageFriendshipResult(self.m_selectDragonData)
+        block_ui:close()
+    end)   
 end
 
 -------------------------------------
@@ -398,7 +392,7 @@ function UI_DragonFriendship:response_friendshipUp(ret)
 
     local flv = self.m_selectDragonData:getFriendshipObject()['flv']
     if (before_flv < flv) then
-        UI_DragonManageFriendshipResult(self.m_selectDragonData)
+        self:show_levelUpEffect()
     end
 
     self.m_bChangeDragonList = true
@@ -440,8 +434,6 @@ function UI_DragonFriendship:click_fruitBtn(fid, btn)
         co:work()
         local ret_cache
         local function request_finish(ret)
-            local is_flevel_up = ret['is_flevelup']
-            self:show_upgradeEffect(is_flevel_up)
             ret_cache = ret
             co.NEXT()
         end

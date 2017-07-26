@@ -1,4 +1,5 @@
 RUNE_SLOT_MAX = 6
+RUNE_LV_MAX = 15
 
 -------------------------------------
 -- class StructRuneObject

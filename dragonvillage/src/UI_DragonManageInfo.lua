@@ -713,8 +713,8 @@ function UI_DragonManageInfo:click_goodbyeBtn()
         animator:addAniHandler(function()
             block_ui:close()
 
-            --animator.m_node:removeFromParent()
-            animator:setVisible(false)
+            -- 재생 후 삭제
+            animator:runAction(cc.RemoveSelf:create())
             finish_cb(ret)
         end)
 
