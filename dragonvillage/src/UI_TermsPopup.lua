@@ -37,9 +37,10 @@ function UI_TermsPopup:initUI()
 	--vars['agreeLabel2'] -- LabelTTF
 	--vars['agreeBtn2'] -- Button
 	--vars['agreeBtn2'] -- Button
+	--vars['viewBtn1'] -- Button
+	--vars['viewBtn2'] -- Button
 	--vars['agreeSprite1'] -- Sprite
 	--vars['agreeSprite2'] -- Sprite
-	--vars['agreeBtn'] -- Button
 end
 
 -------------------------------------
@@ -49,11 +50,12 @@ function UI_TermsPopup:initButton()
     local vars = self.vars
     vars['agreeBtn1']:registerScriptTapHandler(function() self:click_agreeBtn1() end)
     vars['agreeBtn2']:registerScriptTapHandler(function() self:click_agreeBtn2() end)
-    vars['agreeBtn']:registerScriptTapHandler(function() self:click_agreeBtn() end)
+    vars['viewBtn1']:registerScriptTapHandler(function() self:click_viewBtn1() end)
+    vars['viewBtn2']:registerScriptTapHandler(function() self:click_viewBtn2() end)
 
     self.m_agree1 = 0
     self.m_agree2 = 0
-    self:updateAgreeButton()
+    self:checkAgreeState()
 end
 
 -------------------------------------
@@ -63,12 +65,26 @@ function UI_TermsPopup:refresh()
 end
 
 -------------------------------------
+-- function click_viewBtn1
+-------------------------------------
+function UI_TermsPopup:click_viewBtn1()
+    PerpSocial:SDKEvent('app_gotoWeb', 'http://www.perplelab.com/agreement', '')
+end
+
+-------------------------------------
+-- function click_viewBtn2
+-------------------------------------
+function UI_TermsPopup:click_viewBtn2()
+    PerpSocial:SDKEvent('app_gotoWeb', 'http://www.perplelab.com/personalinformation', '')
+end
+
+-------------------------------------
 -- function click_agreeBtn1
 -------------------------------------
 function UI_TermsPopup:click_agreeBtn1()
     self.m_agree1 = 1 - self.m_agree1
     self.vars['agreeSprite1']:setVisible(self.m_agree1 == 1)
-    self:updateAgreeButton()
+    self:checkAgreeState()
 end
 
 -------------------------------------
@@ -77,26 +93,15 @@ end
 function UI_TermsPopup:click_agreeBtn2()
     self.m_agree2 = 1 - self.m_agree2
     self.vars['agreeSprite2']:setVisible(self.m_agree2 == 1)
-    self:updateAgreeButton()
-end
-
--------------------------------------
--- function click_agreeBtn
--------------------------------------
-function UI_TermsPopup:click_agreeBtn()
-    self:close()
+    self:checkAgreeState()
 end
 
 -------------------------------------
 -- function updateAgreeButton
 -------------------------------------
-function UI_TermsPopup:updateAgreeButton()
+function UI_TermsPopup:checkAgreeState()
     if self.m_agree1 == 1 and self.m_agree2 == 1 then
-        -- agreeBtn 을 활성화
-        self.vars['agreeBtn']:setEnabled(true)
-    else
-        -- agreeBtn 을 비활성화
-        self.vars['agreeBtn']:setEnabled(false)
+        self:close()
     end
 end
 
