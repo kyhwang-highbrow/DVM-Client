@@ -1,7 +1,9 @@
+local PARENT = Structure
+
 -------------------------------------
 -- class StructProduct
 -------------------------------------
-StructProduct = class({
+StructProduct = class(PARENT, {
         product_id = 'number',
         t_name = 'string',
         t_desc = 'string',
@@ -30,6 +32,8 @@ StructProduct = class({
         sku = 'stock keeping unit', -- product id
     })
 
+local THIS = StructProduct
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -37,19 +41,20 @@ function StructProduct:init(data)
     self.price_dollar = 0
     self.m_uiPriority = 0
     self.mail_content = ''
-
-    if data then
-        self:applyTableData(data)
-    end
 end
 
 -------------------------------------
--- function applyTableData
+-- function getClassName
 -------------------------------------
-function StructProduct:applyTableData(data)
-    for key,value in pairs(data) do
-        self[key] = value
-    end
+function StructProduct:getClassName()
+    return 'StructProduct'
+end
+
+-------------------------------------
+-- function getThis
+-------------------------------------
+function StructProduct:getThis()
+    return THIS
 end
 
 -------------------------------------

@@ -2508,6 +2508,9 @@
     <None Include="..\src\UI_TermsPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\Structure.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -42,6 +42,7 @@ local t_module = {
     'Global',
 
     -- Struct
+    'Structure',
     'StructEventPopupTab',
     'StructAdventureChapterAchieveInfo',
     'StructAdventureStageInfo',
