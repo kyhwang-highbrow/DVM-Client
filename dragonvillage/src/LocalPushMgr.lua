@@ -19,7 +19,7 @@ end
 -------------------------------------
 function LocalPushMgr:applyLocalPush()
     -- 기존 local push 삭제
-    PerpSocial:SDKEvent('localpush_cancel', '', '')
+    PerpSocial:SDKEvent('localpush_cancel', '', '', function() end)
 
 
 	-- 탐험
@@ -28,7 +28,7 @@ function LocalPushMgr:applyLocalPush()
 	end
 
 	-- 신규 local push 등록
-    PerpSocial:SDKEvent('localpush_register', '', '')
+    PerpSocial:SDKEvent('localpush_register', '', '', function() end)
 end
 
 -------------------------------------
@@ -38,7 +38,7 @@ end
 function LocalPushMgr:addLocalPush(push_type, push_time, push_msg)
     if push_time > self.m_pushMinSecond then
 		local param_str = push_type .. ';' .. push_time .. ';' .. push_msg
-        PerpSocial:SDKEvent('localpush_add', param_str, '')
+        PerpSocial:SDKEvent('localpush_add', param_str, '', function() end)
     end
 end
 
@@ -58,7 +58,7 @@ function LocalPushMgr:setLocalPush_Color(bg_color, title_color, msg_color)
 	end
 
 	local param_str = bg_color .. ';' .. title_color .. ';' .. msg_color
-    PerpSocial:SDKEvent('localpush_setColor', param_str, '')
+    PerpSocial:SDKEvent('localpush_setColor', param_str, '', function() end)
 end
 
 -------------------------------------
@@ -67,5 +67,5 @@ end
 -------------------------------------
 function LocalPushMgr:setLocalPush_URL(link_title, link_url, cafe_url)
 	local param_str = link_title .. ';' .. link_url .. ';' .. cafe_url
-    PerpSocial:SDKEvent('localpush_setLinkUrl', param_str, '')
+    PerpSocial:SDKEvent('localpush_setLinkUrl', param_str, '', function() end)
 end
