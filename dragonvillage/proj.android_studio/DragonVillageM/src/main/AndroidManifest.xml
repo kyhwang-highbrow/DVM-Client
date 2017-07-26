@@ -26,12 +26,43 @@
                 <category
                     android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- @adbrix -->
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.VIEW" />
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+                <category
+                    android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="adbrix547246367" />
+            </intent-filter>
+
         </activity>
 
         <!-- Tell Cocos2dxActivity the name of our .so -->
         <meta-data
             android:name="android.app.lib_name"
             android:value="cocos2dlua" />
+
+        <!-- @firebase, @adbrix -->
+        <receiver
+            android:name="org.cocos2dx.lua.MultipleInstallReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action
+                    android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- @adbrix -->
+        <meta-data
+            android:name="igaworks_app_key"
+            android:value="@string/igaworks_app_key" />
+        <meta-data
+            android:name="igaworks_hash_key"
+            android:value="@string/igaworks_hash_key" />
 
         <!-- @google -->
         <meta-data

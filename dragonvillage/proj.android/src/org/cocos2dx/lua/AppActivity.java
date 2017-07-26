@@ -97,6 +97,9 @@ public class AppActivity extends Cocos2dxActivity{
             // @facebook
             PerpleSDK.getInstance().initFacebook(savedInstanceState);
         }
+
+        // @adbrix
+        PerpleSDK.getInstance().initAdbrix();
     }
 
     @Override

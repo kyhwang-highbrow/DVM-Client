@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">드래곤빌리지M</string>
     <string name="app_id">983890984134</string>
+    <string name="igaworks_app_key">547246367</string>
+    <string name="igaworks_hash_key">7193c7e787b34fd9</string>
     <string name="facebook_app_id">1959320877684820</string>
     <string name="fb_login_protocol_scheme">fb1959320877684820</string>
     <string name="wifi_warning_title" translatable="true">알림</string>
