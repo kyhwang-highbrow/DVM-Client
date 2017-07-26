@@ -7,9 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 4
         targetSdkVersion 15
-        // Devices >= 3 have version of Android Market that supports licensing.
-        versionCode 2
-        versionName "1.5"
+        versionCode 3
+        versionName "1.6"
     }
 
     buildTypes {
