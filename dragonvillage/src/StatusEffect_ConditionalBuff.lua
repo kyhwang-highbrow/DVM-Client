@@ -44,7 +44,7 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function StatusEffect:initState()
+function StatusEffectConditionalBuff:initState()
     self:addState('start', StatusEffect_ConditionalBuff.st_start, 'center_start', false)
     self:addState('idle', StatusEffect.st_idle, 'center_idle', true)
     self:addState('end', StatusEffect.st_end, 'center_end', false)
@@ -197,7 +197,6 @@ function StatusEffect_ConditionalBuff.st_start(owner, dt)
         t_event['category'] = owner.m_category
         t_event['type'] = owner.m_type
 
-        owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
 		
 		-- 힐 사운드
 		if (not owner.m_bHarmful) then
