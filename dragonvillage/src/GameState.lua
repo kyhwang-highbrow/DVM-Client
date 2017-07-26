@@ -763,6 +763,13 @@ function GameState:isEnemyAppear()
 end
 
 -------------------------------------
+-- function isWaveInterMission
+-------------------------------------
+function GameState:isWaveInterMission()
+    return (self.m_state == GAME_STATE_WAVE_INTERMISSION)
+end
+
+-------------------------------------
 -- function makeResultUI
 -------------------------------------
 function GameState:makeResultUI(is_success)

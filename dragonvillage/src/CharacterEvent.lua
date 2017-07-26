@@ -186,12 +186,24 @@ function Character:onEvent_updateStat()
 
 	-- 체력 버프 발동시 실시간 변화
 	if (self:getStat('hp') ~= self.m_maxHp) then
-        if (self.m_world.m_waveMgr:isFirstWave() and (self.m_world.m_gameState:isEnemyAppear()) ) then
+        local game_state = self.m_world.m_gameState
+        local is_start_buff = false -- 시작 버프 여부
+
+        -- 시작 버프인지 체크
+        if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM and game_state:isWaveInterMission()) then
+            is_start_buff = true
+        elseif (self.m_world.m_waveMgr:isFirstWave() and game_state:isEnemyAppear()) then
+            is_start_buff = true
+        end
+
+        if (is_start_buff) then
+            -- 시작 버프일 경우 체력 증가 버프에서 현재 체력값도 같이 증가시킴
 		    local max_hp = self:getStat('hp')
 		    local curr_hp_percent = self.m_hp/self.m_maxHp
 		    self.m_maxHp = max_hp
 		    self.m_hp = max_hp * curr_hp_percent
         else
+            -- 시작 버프가 아닐 경우 최대 체력만 증가시킴
             self.m_maxHp = self:getStat('hp')
         end
         self:setHp(self.m_hp)
