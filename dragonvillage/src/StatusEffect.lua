@@ -70,6 +70,8 @@ function StatusEffect:init(file_name, body)
 
 	self:init_top(file_name)
 	self:initState()
+
+    self.m_rootNode:setVisible(false)
 end
 
 -------------------------------------
@@ -402,6 +404,7 @@ function StatusEffect:apply()
 		self.m_owner:addGroggy(self.m_statusEffectName)
 	end
 
+    self.m_rootNode:setVisible(true)
     self.m_bApply = true
 
     self:onStart()
@@ -429,6 +432,7 @@ function StatusEffect:unapply()
         self.m_owner:removeGroggy(self.m_statusEffectName)
     end
 	
+    self.m_rootNode:setVisible(false)
 	self.m_bApply = false
 
     self:onEnd()
