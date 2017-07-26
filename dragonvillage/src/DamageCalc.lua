@@ -5,6 +5,7 @@ local CONST_REDUNCTION_RATIO_P = 249
 -- @brief 물리 데미지 계산
 -------------------------------------
 function DamageCalc_P(atk_dmg, def_pwr)
+    if (atk_dmg == 0 and def_pwr == 0) then return 0 end
     
     -- 물리 공격력
     local atk_dmg = atk_dmg

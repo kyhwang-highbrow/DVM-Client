@@ -489,6 +489,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         -- 방어 관통 적용
         if(attacker) then
             def_pwr = def_pwr - (def_pwr * attacker_char:getStat('pierce') / 100)
+            def_pwr = math_max(def_pwr, 0)
         end
 		-- 스킬 계수 적용
 		atk_dmg = atk_dmg * attack_activity_carrier:getPowerRate()
