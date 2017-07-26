@@ -377,6 +377,7 @@ function Network:getApiUrl()
     -- nil == default
     if (TARGET_SERVER == nil) then
         api_url = 'http://dv-test.perplelab.com:9003'
+        --api_url = '192.168.1.42:9003' -- 이원기님 개발용 로컬 서버 (sgkim 2017-07-26)
     elseif (TARGET_SERVER == 'FGT') then
         api_url = 'http://dv-test.perplelab.com:9004'
 	elseif (TARGET_SERVER == 'PUBLIC') then
