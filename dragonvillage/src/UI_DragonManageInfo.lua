@@ -705,44 +705,23 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 
     -- 작별 연출
     show_effect = function(ret)
-        local block_ui = UI_BlockPopup()
+        
+        local finish_cb = function()
+		    -- 테이블 아이템갱신
+		    self:init_dragonTableView()
 
-        local res = 'res/ui/a2d/farewell/farewell.vrp'
-        local animator = MakeAnimator(res)
-        animator:changeAni('idle', false)
-        animator:addAniHandler(function()
-            block_ui:close()
+		    -- 기존에 선택되어 있던 드래곤 교체
+		    self:setDefaultSelectDragon()
 
-            -- 재생 후 삭제
-            animator:runAction(cc.RemoveSelf:create())
-            finish_cb(ret)
-        end)
+		    -- 정렬
+		    self:apply_dragonSort_saveData()
+	    end
 
-        self.root:addChild(animator.m_node)
+        local dragon_data = self.m_selectDragonData
+        local info_data = ret
+        local ui = UI_DragonGoodbyeResult(dragon_data, info_data)
+        ui:setCloseCB(finish_cb)
     end
-
-    --  데이터 갱신
-    finish_cb = function(ret)
-		-- 테이블 아이템갱신
-		self:init_dragonTableView()
-
-		-- 기존에 선택되어 있던 드래곤 교체
-		self:setDefaultSelectDragon()
-
-		-- 정렬
-		self:apply_dragonSort_saveData()
-			
-		-- 팝업 만들기
-		local l_item_list = ret['added_items']['items_list']
-		if (l_item_list) then
-			-- 얻은 인연포인트 텍스트를 만든다.
-			local t_item = l_item_list[1]
-			local goodbye_str_3 = UIHelper:makeGoodbyeStr(t_item, name)
-
-			-- 획득 팝업 출력
-			UI_ObtainPopup(l_item_list, goodbye_str_3, nil)
-		end
-	end
 
 	-- start
 	really_warning_popup()

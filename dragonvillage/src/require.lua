@@ -619,6 +619,7 @@ local t_module = {
     'UI_LoginPopup',
     'UI_WebView',
     'UI_Help',
+    'UI_DragonGoodbyeResult',
 
     -- UI : 약관 동의
     'UI_TermsPopup',
