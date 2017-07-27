@@ -85,7 +85,7 @@ function StatusEffectEdgeDirector:makeStartPosList(type, max_count)
         local angle_unit = (360 / max_count)
 	    local distance = 100
 
-	    -- ÁÂÇ¥ °è»ê
+	    -- ÃÃ‚Ã‡Â¥ Â°Ã¨Â»Ãª
 	    for i = 1, max_count do
 		    local angle = angle_unit * (i - 1)
 		    local pos = getPointFromAngleAndDistance(angle, distance)

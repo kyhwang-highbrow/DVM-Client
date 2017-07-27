@@ -30,10 +30,10 @@ end
 
 -------------------------------------
 -- function onApplyOverlab
--- @brief ÇØ´ç »óÅÂÈ¿°ú°¡ ÃÖÃÊ 1È¸¸¦ Æ÷ÇÔÇÏ¿© ÁßÃ¸ Àû¿ëµÉ½Ã¸¶´Ù È£Ãâ
+-- @brief í•´ë‹¹ ìƒíƒœíš¨ê³¼ê°€ ìµœì´ˆ 1íšŒë¥¼ í¬í•¨í•˜ì—¬ ì¤‘ì²© ì ìš©ë ì‹œë§ˆë‹¤ í˜¸ì¶œ
 -------------------------------------
 function StatusEffect_Poison:onApplyOverlab(unit)
-    -- µ¥¹ÌÁö °è»ê, ¹æ¾î´Â ¹«½Ã
+    -- ë°ë¯¸ì§€ ê³„ì‚°, ë°©ì–´ëŠ” ë¬´ì‹œ
     local caster = unit:getCaster()
     local damage
 	local damage_org
@@ -48,7 +48,7 @@ function StatusEffect_Poison:onApplyOverlab(unit)
         damage_org = damage_org * (unit:getValue() / 100)
     end
 
-	-- ¼Ó¼º È¿°ú
+	-- ì†ì„± íš¨ê³¼
 	local t_attr_effect = self.m_owner:checkAttributeCounter(caster)
 	if t_attr_effect['damage'] then
 		damage = damage_org * (1 + (t_attr_effect['damage'] / 100))
@@ -56,22 +56,22 @@ function StatusEffect_Poison:onApplyOverlab(unit)
 		damage = damage_org
 	end
 
-    -- ÃÖ¼Ò µ¥¹ÌÁö´Â 1·Î ¼¼ÆÃ
+    -- ìµœì†Œ ë°ë¯¸ì§€ëŠ” 1ë¡œ ì„¸íŒ…
     damage = math_max(1, damage)
 
-    -- ÇØ´ç Á¤º¸¸¦ ÀÓ½Ã ÀúÀå
+    -- í•´ë‹¹ ì •ë³´ë¥¼ ì„ì‹œ ì €ì¥
     unit:setParam('damage', damage)
 	
-    -- µ¥¹ÌÁö °¡»ê
+    -- ë°ë¯¸ì§€ ê°€ì‚°
 	self.m_dmg = self.m_dmg + damage
 end
 
 -------------------------------------
 -- function onUnapplyOverlab
--- @brief ÇØ´ç »óÅÂÈ¿°ú°¡ ÁßÃ¸ ÇØÁ¦µÉ½Ã¸¶´Ù È£Ãâ
+-- @brief í•´ë‹¹ ìƒíƒœíš¨ê³¼ê°€ ì¤‘ì²© í•´ì œë ì‹œë§ˆë‹¤ í˜¸ì¶œ
 -------------------------------------
 function StatusEffect_Poison:onUnapplyOverlab(unit)
-    -- µ¥¹ÌÁö °¨»ê
+    -- ë°ë¯¸ì§€ ê°ì‚°
     local damage = unit:getParam('damage')
 
     self.m_dmg = self.m_dmg - damage
@@ -83,24 +83,24 @@ end
 function StatusEffect_Poison:doDamage()
 	self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, self.m_dmg, nil)
 
-    -- ÁßÃ¸º° ·Î±× Ã³¸®
+    -- ì¤‘ì²©ë³„ ë¡œê·¸ ì²˜ë¦¬
     for _, unit in pairs(self.m_lUnit) do
-        -- @LOG_CHAR : °ø°İÀÚ µ¥¹ÌÁö
+        -- @LOG_CHAR : ê³µê²©ì ë°ë¯¸ì§€
         local damage = unit:getParam('damage')
         local caster = unit:getCaster()
 	    caster.m_charLogRecorder:recordLog('damage', damage)
     end
 
-    -- @LOG_CHAR : ¹æ¾îÀÚ ÇÇÇØ·®
+    -- @LOG_CHAR : ë°©ì–´ì í”¼í•´ëŸ‰
 	self.m_owner.m_charLogRecorder:recordLog('be_damaged', self.m_dmg)
 
-	-- Áßµ¶ »ç¿îµå
+	-- ì¤‘ë… ì‚¬ìš´ë“œ
 	SoundMgr:playEffect('EFX', 'efx_poison')
 end
 
 -------------------------------------
 -- function reduceAllUnitDuration
--- @brief ¸ğµç ÁßÃ¸ÀÇ ³²Àº ½Ã°£À» ÁÙÀÓ
+-- @brief ëª¨ë“  ì¤‘ì²©ì˜ ë‚¨ì€ ì‹œê°„ì„ ì¤„ì„
 -------------------------------------
 function StatusEffect_Poison:reduceAllUnitDuration()
     for _, unit in ipairs(self.m_lUnit) do
