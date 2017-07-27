@@ -449,23 +449,41 @@ end
 -- @brief n개의 debuff 상태효과 해제
 -- @return 해제 여부 boolean
 -------------------------------------
-function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt)
+function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, status_effect_name)
 	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
 
-	-- 해제
-	for type, status_effect in pairs(char:getStatusEffectList()) do
-        -- 해로운 효과 해제
-		if (status_effect.m_bHarmful) then 
-		    status_effect:changeState('end')
-            status_effect:setTemporaryPause(false)
-			release_cnt = release_cnt + 1
+    if (not status_effect_name) then
+	    -- 해제
+	    for type, status_effect in pairs(char:getStatusEffectList()) do
+            -- 해로운 효과 해제
+		    if (status_effect.m_bHarmful) then
+		        status_effect:changeState('end')
+            	status_effect:setTemporaryPause(false)
+			    release_cnt = release_cnt + 1
+            end
+		    -- 갯수 체크
+		    if (release_cnt >= max_release_cnt) then
+			    break
+		    end
+	    end
+
+    else
+        for type, status_effect in pairs(char:getStatusEffectList()) do
+            -- 해로운 효과 해제
+            if (status_effect.m_bHarmful) then
+                if(status_effect_name == status_effect.m_statusEffectName) then
+                    status_effect:changeState('end')
+            		status_effect:setTemporaryPause(false)
+			        release_cnt = release_cnt + 1
+                end
+            end
+            -- 갯수 체크
+		    if (release_cnt >= max_release_cnt) then
+			    break
+		    end
         end
-		-- 갯수 체크
-		if (release_cnt >= max_release_cnt) then
-			break
-		end
-	end
+    end 
 
 	return (release_cnt > 0)
 end
@@ -475,23 +493,41 @@ end
 -- @brief n개의 buff 상태효과 해제
 -- @return 해제 여부 boolean
 -------------------------------------
-function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt)
+function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, status_effect_name)
 	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
 
-	-- 해제
-	for type, status_effect in pairs(char:getStatusEffectList()) do
-        -- 해로운 효과 해제
-		if self:isHelpful(status_effect.m_category) then 
-		    status_effect:changeState('end')
-			release_cnt = release_cnt + 1
+    if (not status_effect_name) then
+        -- 해제
+        for type, status_effect in pairs(char:getStatusEffectList()) do
+            -- 해로운 효과 해제
+	        if self:isHelpful(status_effect.m_category) then 
+		        status_effect:changeState('end')
+		        release_cnt = release_cnt + 1
+            end
+	        -- 갯수 체크
+	        if (release_cnt >= max_release_cnt) then
+		        break
+	        end
         end
-		-- 갯수 체크
-		if (release_cnt >= max_release_cnt) then
-			break
-		end
-	end
+    else 
+        -- 해제
+        for type, status_effect in pairs(char:getStatusEffectList()) do
+            -- 해로운 효과 해제
+	        if self:isHelpful(status_effect.m_category) then 
+                if(status_effect_name == status_effect.m_statusEffectName) then
+                    status_effect:changeState('end')
+			        release_cnt = release_cnt + 1
+                end
+            end
+	        -- 갯수 체크
+	        if (release_cnt >= max_release_cnt) then
+		        break
+	        end
+        end
 
+
+    end
 	return (release_cnt > 0)
 end
 
