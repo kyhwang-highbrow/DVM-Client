@@ -110,13 +110,6 @@ function UI_ScenarioPlayer:applyEffect(effect)
         local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(1, cc.p(0, 0)), 0.2)
         self.vars['bgNode']:runAction(cc.Sequence:create(start_action, end_action))
 
-    elseif effect == 'clear' then
-        for i,v in pairs(self.m_tHeroAnimator) do
-            self:removeHeroVisual(self.m_tHeroAnimator[i], i)
-            self.m_tHeroAnimator[i] = nil
-        end
-        self.m_scenarioPlayerTalk:hide()
-
     elseif effect == 'black' then
         vars['layerColor']:setColor(cc.c3b(0,0,0))
         if (val_1) then
@@ -125,7 +118,7 @@ function UI_ScenarioPlayer:applyEffect(effect)
                 vars['layerColor']:setOpacity(255)
             else
                 vars['layerColor']:setOpacity(0)
-            vars['layerColor']:runAction(cc.FadeTo:create(val_1, 255))
+                vars['layerColor']:runAction(cc.FadeTo:create(val_1, 255))
             end
         else
             vars['layerColor']:setOpacity(0)
@@ -276,7 +269,6 @@ function UI_ScenarioPlayer:doShake()
     local x, y = 50, 50
 
 	-- 2. 기존에 있던 액션 중지
-    --self:stopShake()
     self.root:stopAllActions()
 
 	-- 3. 새로운 액션 설정 

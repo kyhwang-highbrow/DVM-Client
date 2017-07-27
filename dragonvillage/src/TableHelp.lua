@@ -20,15 +20,15 @@ end
 
 -------------------------------------
 -- function makeArrangedList
--- @brief ÃÖÃÊ¿¡ ÇÑ¹ø ±âÈ¹¿¡¼­ °ü¸® ÆíÇÏµµ·Ï ÀÛ¼ºµÈ Å×ÀÌºíÀ»
--- Å¬¶ó¿¡¼­ »ç¿ëÇÏ±â ÆíÇÏ°Ô º¯È¯ÇÑ´Ù.
+-- @brief ìµœì´ˆì— í•œë²ˆ ê¸°íšì—ì„œ ê´€ë¦¬ í¸í•˜ë„ë¡ ì‘ì„±ëœ í…Œì´ë¸”ì„
+-- í´ë¼ì—ì„œ ì‚¬ìš©í•˜ê¸° í¸í•˜ê²Œ ë³€í™˜í•œë‹¤.
 -------------------------------------
 function TableHelp:makeArrangedList()
     if (arranged_help_list) then
         return
     end
 
-    -- Å×ÀÌºí º¯È¯
+    -- í…Œì´ë¸” ë³€í™˜
     local t_ret = {}
     local idx = 1
     local category, t_temp
@@ -43,8 +43,8 @@ function TableHelp:makeArrangedList()
             table.insert(t_ret[category]['l_content'], t_temp)
         else
             t_ret[category] = {
-                ['category'] = category, -- ¿µ¹® key
-                ['t_category'] = t_help['t_category'], -- Ä«Å×°í¸® ÇÑ±Û
+                ['category'] = category, -- ì˜ë¬¸ key
+                ['t_category'] = t_help['t_category'], -- ì¹´í…Œê³ ë¦¬ í•œê¸€
                 ['l_content'] = {t_temp},
                 ['idx'] = idx,
             }
@@ -52,7 +52,7 @@ function TableHelp:makeArrangedList()
         end
     end
 
-    -- ÀÎµ¦½º Å×ÀÌºí·Î º¯°æÇÑ´Ù.
+    -- ì¸ë±ìŠ¤ í…Œì´ë¸”ë¡œ ë³€ê²½í•œë‹¤.
     arranged_help_list = {}
     local idx
     for category, v in pairs(t_ret) do

@@ -194,8 +194,7 @@ function UI_ScenarioPlayer:showPage()
 
     -- 대사
     do
-        self.m_scenarioPlayerTalk:setTalk(t_page['char_pos'], t_page['t_char_name'], t_page['t_text'] or t_page['t_text_mono'])
-        --self.m_scenarioPlayerTalk:setTalk('none', t_page['t_char_name'], t_page['t_text'] or t_page['t_text_mono'])
+        self.m_scenarioPlayerTalk:setTalk(t_page['char_pos'], (t_page['t_char_name'] or t_page['char']), t_page['t_text'], t_page['text_type'])
     end
 
     do -- 캐릭터 이펙트

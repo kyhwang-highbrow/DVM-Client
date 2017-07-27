@@ -123,10 +123,6 @@ end
 -- function applyCharEffect
 -------------------------------------
 function UI_ScenarioPlayer_Character:applyCharEffect(effect)
-    if (effect == 'clear_text') or (effect == 'cleartext') then
-        cclog('# warning!! : 더 이상 지원하지 않는 char_effect : ' .. effect)
-    end
-
     if (effect == 'shaking') then
         if (self.m_shakeNode) then
             self:doShake(self.m_shakeNode)
@@ -171,8 +167,8 @@ function UI_ScenarioPlayer_Character:applyCharEffect(effect)
             end
 
             local move_action = cc.Sequence:create(
-                cc.MoveBy:create( 0.2, cc.p(interval, 0)), cc.DelayTime:create( 0.5),
-                cc.MoveBy:create( 0.2, cc.p(interval, 0)), cc.DelayTime:create( 0.5),
+                cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.DelayTime:create(0.5),
+                cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.DelayTime:create(0.5),
                 cc.Spawn:create(cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.FadeOut:create(0.2)))
 
             local action = cc.Sequence:create(move_action, cc.CallFunc:create(release))
@@ -185,7 +181,7 @@ function UI_ScenarioPlayer_Character:applyCharEffect(effect)
     elseif (effect == 'silhouette') then
         self:setSilhouette(true)
 
-    elseif (effect == 'clear') then
+    elseif (effect == 'hide') then
         self:hide()
 
     elseif (effect == 'clear_char') or (effect == 'clearchar') then
