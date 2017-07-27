@@ -1,13 +1,24 @@
 #include "AppDelegate.h"
 #include "CCLuaEngine.h"
-#include "SimpleAudioEngine.h"
 #include "cocos2d.h"
 #include "Runtime.h"
 #include "ConfigParser.h"
 #include "HttpClient.h"
 #include "LoginPlatform.h"
 
+// Audio
+//#define USE_AUDIO_ENGINE 1
+#define USE_SIMPLE_AUDIO_ENGINE 1
+#if USE_AUDIO_ENGINE && USE_SIMPLE_AUDIO_ENGINE
+#error "Don't use AudioEngine and SimpleAudioEngine at the same time. Please just select one in your game!"
+#endif
+#if USE_AUDIO_ENGINE
+#include "audio/include/AudioEngine.h"
+using namespace cocos2d::experimental;
+#elif USE_SIMPLE_AUDIO_ENGINE
+#include "audio/include/SimpleAudioEngine.h"
 using namespace CocosDenshion;
+#endif
 
 USING_NS_CC;
 using namespace std;
@@ -60,7 +71,13 @@ void ReloadLuaHelper::onEnter()
     Director::getInstance()->getScheduler()->unscheduleAllWithMinPriority(Scheduler::PRIORITY_NON_SYSTEM_MIN);
     Director::getInstance()->getTextureCache()->removeAllTextures();
     SpriteFrameCache::getInstance()->removeSpriteFrames();
-    SimpleAudioEngine::getInstance()->end();
+
+#if USE_AUDIO_ENGINE
+    AudioEngine::end();
+#elif USE_SIMPLE_AUDIO_ENGINE
+    SimpleAudioEngine::end();
+#endif
+
     AzVRP::removeCacheAll();
 
     CCFileUtils::getInstance()->purgeCachedEntries();
@@ -87,7 +104,12 @@ AppDelegate::~AppDelegate()
 {
 	// HttpClient 사용시 앱 종료 때 crash나는 cocos2d 자체의 버그로 추가함(jjo)
 	network::HttpClient::getInstance()->destroyInstance();
+
+#if USE_AUDIO_ENGINE
+    AudioEngine::end();
+#elif USE_SIMPLE_AUDIO_ENGINE
     SimpleAudioEngine::end();
+#endif
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
@@ -219,7 +241,12 @@ void AppDelegate::applicationDidEnterBackground()
 {
     Director::getInstance()->stopAnimation();
 
+#if USE_AUDIO_ENGINE
+    AudioEngine::pauseAll();
+#elif USE_SIMPLE_AUDIO_ENGINE
     SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    SimpleAudioEngine::getInstance()->pauseAllEffects();
+#endif
 
     auto engine = ScriptEngineManager::getInstance()->getScriptEngine();
     engine->executeGlobalFunction("applicationDidEnterBackground");
@@ -230,7 +257,12 @@ void AppDelegate::applicationWillEnterForeground()
 {
     Director::getInstance()->startAnimation();
 
+#if USE_AUDIO_ENGINE
+    AudioEngine::resumeAll();
+#elif USE_SIMPLE_AUDIO_ENGINE
     SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    SimpleAudioEngine::getInstance()->resumeAllEffects();
+#endif
 
     auto engine = ScriptEngineManager::getInstance()->getScriptEngine();
     engine->executeGlobalFunction("applicationWillEnterForeground");

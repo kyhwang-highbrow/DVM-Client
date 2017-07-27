@@ -1,6 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010      cocos2d-x.org
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2016-2017 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -22,40 +21,50 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-#ifndef __SUPPORT_CC_UTILS_H__
-#define __SUPPORT_CC_UTILS_H__
 
-#include "base/ccMacros.h"
+#define LOG_TAG "AudioDecoderManager"
 
-/** @file ccUtils.h
-Misc free functions
-*/
+#include "audio/win32/AudioDecoderManager.h"
+#include "audio/win32/AudioDecoderOgg.h"
+#include "audio/win32/AudioDecoderMp3.h"
+#include "audio/win32/AudioMacros.h"
+#include "platform/CCFileUtils.h"
+#include "base/CCConsole.h"
+#include "mpg123.h"
 
-namespace cocos2d {
-/*
-ccNextPOT function is licensed under the same license that is used in Texture2D.m.
-*/
+namespace cocos2d { namespace experimental {
 
-/** returns the Next Power of Two value.
+static bool __mp3Inited = false;
 
-Examples:
-- If "value" is 15, it will return 16.
-- If "value" is 16, it will return 16.
-- If "value" is 17, it will return 32.
-
-@since v0.99.5
-*/
-
-int ccNextPOT(int value);
-
-namespace utils
+bool AudioDecoderManager::init()
 {
-    /** Get current exact time, accurate to nanoseconds.
-    * @return Returns the time in seconds since the Epoch.
-    */
-    CC_DLL double  gettime();
+    return true;
 }
 
+void AudioDecoderManager::destroy()
+{
+    AudioDecoderMp3::destroy();
 }
 
-#endif // __SUPPORT_CC_UTILS_H__
+AudioDecoder* AudioDecoderManager::createDecoder(const char* path)
+{
+    std::string suffix = FileUtils::getInstance()->getFileExtension(path);
+    if (suffix == ".ogg")
+    {
+        return new (std::nothrow) AudioDecoderOgg();
+    }
+    else if (suffix == ".mp3")
+    {
+        return new (std::nothrow) AudioDecoderMp3();
+    }
+
+    return nullptr;
+}
+
+void AudioDecoderManager::destroyDecoder(AudioDecoder* decoder)
+{
+    delete decoder;
+}
+
+}} // namespace cocos2d { namespace experimental {
+
