@@ -368,7 +368,7 @@ end
 function UI_Lobby:refresh_google()
     local vars = self.vars
 
-    if (g_serverData:isGoogleLogin()) then
+    if (g_serverData:isGooglePlayConnected()) then
         vars['googleAchievementBtn']:setVisible(true)
     else
         vars['googleAchievementBtn']:setVisible(false)

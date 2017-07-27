@@ -578,9 +578,9 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function isGoogleLogin
+-- function isGooglePlayConnected
 -- @breif
 -------------------------------------
-function ServerData:isGoogleLogin()
-    return (self:get('local', 'platform_id') == 'google.com')
+function ServerData:isGooglePlayConnected()
+    return (self:get('local', 'googleplay_connected') == 'on')
 end

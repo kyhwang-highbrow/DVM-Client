@@ -195,6 +195,12 @@ function UI_LoginPopup:loginSuccess(info)
     g_serverData:applyServerData(push_token, 'local', 'push_token')
     g_serverData:applyServerData(platform_id, 'local', 'platform_id')
     g_serverData:applyServerData(account_info, 'local', 'account_info')
+
+    if platform_id == 'google.com' then
+        g_serverData:applyServerData('on', 'local', 'googleplay_connected')
+    else
+        g_serverData:applyServerData('off', 'local', 'googleplay_connected')
+    end
 end
 
 -------------------------------------

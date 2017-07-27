@@ -354,7 +354,15 @@ function UI_TitleScene:workCheckUserID()
             -- 계정 정보(이름 or 이메일)
             g_serverData:applyServerData(account_info, 'local', 'account_info')
 
-            self:doNextWork()
+            if platform_id == 'google.com' then
+                PerpleSDK:googleLogin(function(ret, info)
+                    g_serverData:applyServerData('on', 'local', 'googleplay_connected')
+                    self:doNextWork()
+                end)
+            else
+                g_serverData:applyServerData('off', 'local', 'googleplay_connected')
+                self:doNextWork()
+            end
 
         elseif ret == 'fail' then
             cclog('Firebase autoLogin failed.')
