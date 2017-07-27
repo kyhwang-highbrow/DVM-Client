@@ -9,7 +9,9 @@ StatusEffect_ConsumeToMissile = class(PARENT, {
 
         m_srcStatusEffectName = 'string',   -- 소비될 상태효과의 name
         m_movementForMissile = 'string',    -- 미사일의 이동 타입
-        m_lCollision = 'table',            -- 미사일의 타겟 리스트
+        m_lStatusEffectInfo = 'table',      -- 미사일이 명중시 부여될 상태효과 정보
+
+        m_lCollision = 'table',             -- 미사일의 타겟 리스트
         m_activityCarrier = 'ActivityCarrier',
     })
 
@@ -20,6 +22,7 @@ StatusEffect_ConsumeToMissile = class(PARENT, {
 -------------------------------------
 function StatusEffect_ConsumeToMissile:init(file_name, body)
     self.m_resMissile = file_name
+    self.m_lStatusEffectInfo = {}
     self.m_lCollision = {}
 end
 
@@ -46,8 +49,21 @@ function StatusEffect_ConsumeToMissile:initFromTable(t_status_effect, target_cha
     PARENT.initFromTable(self, t_status_effect, target_char)
 
     self.m_resMotionStreak = t_status_effect['res_2']
-    self.m_srcStatusEffectName = t_status_effect['val_1']
-    self.m_movementForMissile = t_status_effect['val_2']
+    self.m_srcStatusEffectName = t_status_effect['val_1']   -- 해제될 상태효과 이름
+    self.m_movementForMissile = t_status_effect['val_2']    -- 미사일 이동 패턴
+    
+    -- 상태효과 정보를 파싱하여 저장
+    for _, key in ipairs({'val_3', 'val_4'}) do
+        local string_value = t_status_effect[key]
+        if (string_value and string_value ~= '') then
+            local l_str = seperate(string_value, ';')
+            local name = l_str[1]
+            local value = l_str[2]
+            local time = l_str[3]
+
+            table.insert(self.m_lStatusEffectInfo, { name = name, value = value, time = time })
+        end
+    end
 end
 
 -------------------------------------
@@ -64,8 +80,8 @@ function StatusEffect_ConsumeToMissile:onApplyOverlab(unit)
     self.m_activityCarrier = unit:makeActivityCarrier()
     self.m_activityCarrier:setParam('add_dmg', true)
 
-    -- 미사일 대기 시간
-    local delay_time = unit.m_duration
+    local delay_time = unit.m_duration  -- 미사일 대기 시간
+    local skill_id = unit.m_skillId
 
     -- 재료가 될 상태효과를 가져옴
     local srcStatusEffect = self.m_owner:getStatusEffect(self.m_srcStatusEffectName)
@@ -87,7 +103,7 @@ function StatusEffect_ConsumeToMissile:onApplyOverlab(unit)
 
             local world_pos = { x = self.m_owner.pos['x'] + edge_pos['x'], y = self.m_owner.pos['y'] + edge_pos['y'] }
 
-            self:fireMissile(collision, world_pos, delay_time + i * 0.1)
+            self:fireMissile(collision, world_pos, delay_time + i * 0.1, skill_id)
         end
     end
 
@@ -101,7 +117,7 @@ end
 -------------------------------------
 -- function fireMissile
 -------------------------------------
-function StatusEffect_ConsumeToMissile:fireMissile(collision, start_pos, delay_time)
+function StatusEffect_ConsumeToMissile:fireMissile(collision, start_pos, delay_time, skill_id)
     local char = self.m_owner
     local target = collision:getTarget()
 	    
@@ -139,6 +155,11 @@ function StatusEffect_ConsumeToMissile:fireMissile(collision, start_pos, delay_t
 	t_option['lua_param']['value5'] = function()
         -- 피격 처리
 		target:undergoAttack(self, target, collision:getPosX(), collision:getPosY(), collision:getBodyKey(), true)
+
+        -- 상태효과 적용
+        for i, v in ipairs(self.m_lStatusEffectInfo) do
+            StatusEffectHelper:invokeStatusEffect(char, target, v['name'], v['value'], 'atk', 100, v['time'], skill_id)
+        end
 	end
 
 	-- fire!!
