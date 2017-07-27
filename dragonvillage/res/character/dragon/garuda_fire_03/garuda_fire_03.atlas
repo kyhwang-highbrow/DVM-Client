@@ -158,13 +158,6 @@ garuda_fire_03_foot_02
   orig: 109, 131
   offset: 0, 0
   index: -1
-garuda_fire_03_foot_effect_01x2
-  rotate: false
-  xy: 1082, 1256
-  size: 80, 77
-  orig: 80, 77
-  offset: 0, 0
-  index: -1
 garuda_fire_03_hand_01
   rotate: false
   xy: 1557, 1690
@@ -208,15 +201,15 @@ garuda_fire_03_head_04
   offset: 0, 0
   index: -1
 garuda_fire_03_head_05
-  rotate: true
-  xy: 1446, 1464
+  rotate: false
+  xy: 1082, 1253
   size: 55, 80
   orig: 55, 80
   offset: 0, 0
   index: -1
 garuda_fire_03_head_06
-  rotate: false
-  xy: 1557, 1608
+  rotate: true
+  xy: 1446, 1464
   size: 55, 80
   orig: 55, 80
   offset: 0, 0
