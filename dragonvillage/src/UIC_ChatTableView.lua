@@ -1,9 +1,5 @@
 local PARENT = UIC_Node
 
-VerticalFillOrder = {}
-VerticalFillOrder['TOP_DOWN'] = 0
-VerticalFillOrder['BOTTOM_UP'] = 1
-
 -------------------------------------
 -- class UIC_ChatTableView
 -------------------------------------
@@ -15,14 +11,14 @@ UIC_ChatTableView = class(PARENT, {
         m_bDirtyItemList = 'boolean',
         m_refreshDuration = 'number',
 
-        m_bUseEachSize = 'boolean', -- 셀별 개별 크기 적용 여부(사용시 _size세팅 필수!!)
+        m_bVariableCellSize = 'boolean', -- 셀별 개별 크기 적용 여부(사용시 _size세팅 필수!!)
         m_defaultCellSize = '', -- cell이 생성되기 전이라면 기본 사이즈를 지정
 
         _cellsUsed = 'list',
         _vCellsPositions = 'list',
 
-        _direction = '',
-        _vordering = 'VerticalFillOrder',
+        _direction = 'cc.SCROLLVIEW_DIRECTION_HORIZONTAL',
+        _vordering = 'cc.TABLEVIEW_FILL_TOPDOWN',
 
         m_makeReserveQueue = 'stack',
         m_makeTimer = 'number',
@@ -53,9 +49,9 @@ function UIC_ChatTableView:init(node)
     self.m_refreshDuration = 0.5
 
     -- 기본값 설정
-    self.m_bUseEachSize = false
+    self.m_bVariableCellSize = false
     self.m_defaultCellSize = cc.size(100, 100)
-    self._vordering = VerticalFillOrder['TOP_DOWN']
+    self._vordering = cc.TABLEVIEW_FILL_TOPDOWN
     self.m_bFirstLocation = true
     self.m_bDirtyItemList = false
 
@@ -258,7 +254,7 @@ function UIC_ChatTableView:scrollViewDidScroll()
     local viewSize = self.m_scrollView:getViewSize()
 
     -- 시작 idx 얻어옴
-    if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+    if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
         offset['y'] = offset['y'] + viewSize['height']
     end
     startIdx = self:_indexFromOffset(offset)
@@ -267,7 +263,7 @@ function UIC_ChatTableView:scrollViewDidScroll()
 	end
 
     -- 종료 idx 얻어옴
-    if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+    if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
         offset['y'] = offset['y'] - viewSize['height']
     else
         offset['y'] = offset['y'] + viewSize['height']
@@ -352,7 +348,7 @@ end
 -- function tableCellSizeForIndex
 -------------------------------------
 function UIC_ChatTableView:tableCellSizeForIndex(idx)
-    if (not self.m_bUseEachSize) then
+    if (not self.m_bVariableCellSize) then
         return self.m_defaultCellSize
     end
 
@@ -374,7 +370,7 @@ function UIC_ChatTableView:_indexFromOffset(offset)
     local index = 1
     local  maxIdx = #self.m_itemList
 
-    if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+    if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
         offset = cc.p(offset['x'], offset['y'])
         offset['y'] = self.m_scrollView:getContainer():getContentSize()['height'] - offset['y'];
     end
@@ -452,7 +448,7 @@ function UIC_ChatTableView:_offsetFromIndex(index)
 
     local cellSize = self:tableCellSizeForIndex(index)
 
-    if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+    if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
         offset['y'] = self.m_scrollView:getContainer():getContentSize()['height'] - offset['y'] - cellSize['height']
     end
 
@@ -711,7 +707,7 @@ function UIC_ChatTableView:relocateContainerDefault(animated)
 
     -- 세로
     else
-        if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+        if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
             local min_offset_x, min_offset_y = self:minContainerOffset()
             self.m_scrollView:setContentOffset(cc.p(0, min_offset_y), animated)
         else

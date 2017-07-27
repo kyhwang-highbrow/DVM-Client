@@ -1,9 +1,5 @@
 local PARENT = UIC_Node
 
-VerticalFillOrder = {}
-VerticalFillOrder['TOP_DOWN'] = 0
-VerticalFillOrder['BOTTOM_UP'] = 1
-
 -- cell 생성 연출
 CELL_CREATE_DIRECTING = {}
 CELL_CREATE_DIRECTING['scale'] = 0
@@ -26,8 +22,8 @@ UIC_TableView = class(PARENT, {
         _cellsUsed = 'list',
         _vCellsPositions = 'list',
 
-        _direction = '',
-        _vordering = 'VerticalFillOrder',
+        _direction = 'cc.SCROLLVIEW_DIRECTION_HORIZONTAL',
+        _vordering = 'cc.TABLEVIEW_FILL_TOPDOWN',
 
         m_makeReserveQueue = 'stack',
         m_makeTimer = 'number',
@@ -69,7 +65,7 @@ function UIC_TableView:init(node)
     -- 기본값 설정
     self.m_bVariableCellSize = false
     self.m_defaultCellSize = cc.size(100, 100)
-    self._vordering = VerticalFillOrder['TOP_DOWN']
+    self._vordering = cc.TABLEVIEW_FILL_TOPDOWN
     self.m_bFirstLocation = true
     self.m_bDirtyItemList = false
 
@@ -113,7 +109,6 @@ function UIC_TableView:makeScrollView(size)
 
     -- 방향 설정수평 UI
     self:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    --self:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
     self.m_node:addChild(scroll_view)
 
@@ -301,7 +296,7 @@ function UIC_TableView:scrollViewDidScroll()
     local viewSize = self.m_scrollView:getViewSize()
 
     -- 시작 idx 얻어옴
-    if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+    if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
         offset['y'] = offset['y'] + viewSize['height']
     end
     startIdx = self:_indexFromOffset(offset)
@@ -310,7 +305,7 @@ function UIC_TableView:scrollViewDidScroll()
 	end
 
     -- 종료 idx 얻어옴
-    if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+    if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
         offset['y'] = offset['y'] - viewSize['height']
     else
         offset['y'] = offset['y'] + viewSize['height']
@@ -494,7 +489,7 @@ function UIC_TableView:_indexFromOffset(offset)
     local index = 1
     local  maxIdx = #self.m_itemList
 
-    if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+    if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
         offset = cc.p(offset['x'], offset['y'])
         offset['y'] = self.m_scrollView:getContainer():getContentSize()['height'] - offset['y'];
     end
@@ -576,7 +571,7 @@ function UIC_TableView:_offsetFromIndex(index)
 
     local cellSize = self:tableCellSizeForIndex(index)
 
-    if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+    if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
         offset['y'] = self.m_scrollView:getContainer():getContentSize()['height'] - offset['y'] - cellSize['height']
     end
 
@@ -657,6 +652,22 @@ end
 
 
 
+-------------------------------------
+-- function setUseVariableSize
+-------------------------------------
+function UIC_TableView:setUseVariableSize(b)
+    self.m_bVariableCellSize = b
+end
+
+-------------------------------------
+-- function setVerticalFillOrder
+-- @param order
+-- cc.TABLEVIEW_FILL_TOPDOWN = 0
+-- cc.TABLEVIEW_FILL_BOTTOMUP = 1
+-------------------------------------
+function UIC_TableView:setVerticalFillOrder(order)
+    self._vordering = order
+end
 
 -------------------------------------
 -- function setDirection
@@ -874,7 +885,7 @@ function UIC_TableView:relocateContainerDefault(animated)
 
     -- 세로
     else
-        if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
+        if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
             local min_offset_x, min_offset_y = self:minContainerOffset()
             self.m_scrollView:setContentOffset(cc.p(0, min_offset_y), animated)
         else
@@ -1294,13 +1305,6 @@ function UIC_TableView:refreshAllItemUI()
             ui:refresh()
         end
     end
-end
-
--------------------------------------
--- function setUseVariableSize
--------------------------------------
-function UIC_TableView:setUseVariableSize(b)
-    self.m_bVariableCellSize = b
 end
 
 -------------------------------------

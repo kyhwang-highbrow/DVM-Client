@@ -116,8 +116,8 @@ function UI_AncientTowerScene:initUI()
 		
         -- 테이블 뷰 인스턴스 생성
         self.m_tableView = UIC_TableView(node)
-        self.m_tableView.m_bVariableCellSize = true
-        self.m_tableView._vordering = VerticalFillOrder['BOTTOM_UP']
+        self.m_tableView:setUseVariableSize(true)
+        self.m_tableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_BOTTOMUP)
         self.m_tableView:setCellUIClass(make_func, create_func)
         self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         self.m_tableView:setItemList(t_floor)

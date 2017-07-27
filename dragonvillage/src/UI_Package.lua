@@ -15,7 +15,7 @@ function UI_Package:init(struct_product)
 	UIManager:open(self, UIManager.POPUP)
 
 	-- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Shop')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package')
 
 	-- @UI_ACTION
     self:doActionReset()
