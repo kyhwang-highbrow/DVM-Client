@@ -389,7 +389,6 @@ function TargetRule_getTargetList_status_effect(org_list, raw_str)
            status_effect_name = status_effect_name .. '_' .. temp[i]
         end
     end
-    print(status_effect_name)
 	-- 상태효과가 있다면 새로운 테이블로 옮긴다. 차곡차곡
     for i = #t_char, 1, -1 do
         if (t_char[i]:isExistStatusEffectName(status_effect_name)) then
