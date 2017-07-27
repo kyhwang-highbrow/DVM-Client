@@ -6,175 +6,154 @@ filter: Linear,Linear
 repeat: none
 blackjindo_dark_03_arm_01
   rotate: false
-  xy: 636, 812
+  xy: 474, 624
   size: 60, 67
   orig: 60, 67
   offset: 0, 0
   index: -1
 blackjindo_dark_03_arm_02
   rotate: false
-  xy: 498, 646
+  xy: 85, 70
   size: 54, 63
   orig: 54, 63
   offset: 0, 0
   index: -1
 blackjindo_dark_03_body_01
-  rotate: false
-  xy: 414, 562
+  rotate: true
+  xy: 142, 153
   size: 81, 57
   orig: 81, 57
   offset: 0, 0
   index: -1
 blackjindo_dark_03_body_02
   rotate: false
-  xy: 414, 711
+  xy: 1, 135
   size: 139, 168
   orig: 139, 168
   offset: 0, 0
   index: -1
 blackjindo_dark_03_effect_01
   rotate: false
-  xy: 1, 522
+  xy: 1, 664
+  size: 411, 357
+  orig: 411, 357
+  offset: 0, 0
+  index: -1
+blackjindo_dark_03_effect_02
+  rotate: false
+  xy: 1, 305
   size: 411, 357
   orig: 411, 357
   offset: 0, 0
   index: -1
 blackjindo_dark_03_eye_01
   rotate: false
-  xy: 698, 847
+  xy: 296, 271
   size: 38, 32
   orig: 38, 32
   offset: 0, 0
   index: -1
 blackjindo_dark_03_eye_01_01
   rotate: false
-  xy: 1, 1
+  xy: 414, 502
   size: 38, 32
   orig: 38, 32
   offset: 0, 0
   index: -1
 blackjindo_dark_03_eye_02
   rotate: true
-  xy: 143, 308
+  xy: 556, 809
   size: 23, 22
   orig: 23, 22
   offset: 0, 0
   index: -1
 blackjindo_dark_03_eye_02_01
   rotate: false
-  xy: 167, 318
+  xy: 580, 819
   size: 23, 22
   orig: 23, 22
   offset: 0, 0
   index: -1
 blackjindo_dark_03_foot_01
   rotate: false
-  xy: 245, 434
+  xy: 658, 935
   size: 54, 86
   orig: 54, 86
   offset: 0, 0
   index: -1
-blackjindo_dark_03_foot_01_01
-  rotate: false
-  xy: 555, 717
-  size: 39, 34
-  orig: 39, 34
-  offset: 0, 0
-  index: -1
 blackjindo_dark_03_foot_02
   rotate: false
-  xy: 167, 342
+  xy: 580, 843
   size: 62, 70
   orig: 62, 70
   offset: 0, 0
   index: -1
-blackjindo_dark_03_foot_02_01
-  rotate: false
-  xy: 61, 109
-  size: 38, 29
-  orig: 38, 29
-  offset: 0, 0
-  index: -1
 blackjindo_dark_03_hand_01
   rotate: false
-  xy: 555, 812
+  xy: 142, 236
   size: 79, 67
   orig: 79, 67
   offset: 0, 0
   index: -1
-blackjindo_dark_03_hand_01_01
-  rotate: false
-  xy: 61, 140
-  size: 52, 50
-  orig: 52, 50
-  offset: 0, 0
-  index: -1
 blackjindo_dark_03_hand_02
   rotate: false
-  xy: 555, 753
+  xy: 223, 246
   size: 71, 57
   orig: 71, 57
   offset: 0, 0
   index: -1
-blackjindo_dark_03_hand_02_01
-  rotate: false
-  xy: 414, 522
-  size: 50, 38
-  orig: 50, 38
-  offset: 0, 0
-  index: -1
 blackjindo_dark_03_head_01
   rotate: false
-  xy: 1, 192
+  xy: 414, 693
   size: 140, 139
   orig: 140, 139
   offset: 0, 0
   index: -1
 blackjindo_dark_03_head_02
   rotate: false
-  xy: 414, 621
+  xy: 1, 45
   size: 82, 88
   orig: 82, 88
   offset: 0, 0
   index: -1
 blackjindo_dark_03_head_03
   rotate: false
-  xy: 1, 35
+  xy: 414, 536
   size: 50, 65
   orig: 50, 65
   offset: 0, 0
   index: -1
 blackjindo_dark_03_leg_01
   rotate: false
-  xy: 167, 414
+  xy: 580, 915
   size: 76, 106
   orig: 76, 106
   offset: 0, 0
   index: -1
 blackjindo_dark_03_leg_02
   rotate: false
-  xy: 1, 102
+  xy: 414, 603
   size: 58, 88
   orig: 58, 88
   offset: 0, 0
   index: -1
 blackjindo_dark_03_mouth_01
   rotate: false
-  xy: 301, 478
+  xy: 1, 1
   size: 59, 42
   orig: 59, 42
   offset: 0, 0
   index: -1
 blackjindo_dark_03_mouth_02
   rotate: false
-  xy: 628, 768
+  xy: 714, 979
   size: 59, 42
   orig: 59, 42
   offset: 0, 0
   index: -1
 blackjindo_dark_03_tail_01
   rotate: false
-  xy: 1, 333
+  xy: 414, 834
   size: 164, 187
   orig: 164, 187
   offset: 0, 0
