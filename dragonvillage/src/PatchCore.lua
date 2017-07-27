@@ -148,6 +148,11 @@ end
 -- function finish
 -------------------------------------
 function PatchCore:finish()
+    if self.m_patchGuideUI then
+        self.m_patchGuideUI:close()
+        self.m_patchGuideUI = nil
+    end
+
     if self.m_finishCB then
         self.m_finishCB()
     end

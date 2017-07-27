@@ -5,6 +5,7 @@ ScenePatch = class(PerpleScene, {
         m_bFinishPatch = 'boolean',
         m_vars = '',
 		m_patch_core = 'Patch_Core',
+        m_apkExpansion = 'ApkExpansion',
     })
 
 -------------------------------------
@@ -53,24 +54,78 @@ function ScenePatch:onEnter()
         patch_data:save()
     end
 
-    -- 추가 리소스 다운로드
-    local patch_core = PatchCore(self, 'patch', app_ver)
-	self.m_patch_core = patch_core
-    local finish_cb = function() self:finishPatch() end
-    patch_core:setFinishCB(finish_cb)
-    patch_core:doStep()
-
     self.m_vars['animator']:changeAni('01_patch')
 
 	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     self:refreshPatchIdxLabel()
+
+    -- 패치 시작
+    self:runPatchCore()
+end
+
+-------------------------------------
+-- function runPatchCore
+-- @brief 패치 파일 다운로드
+-------------------------------------
+function ScenePatch:runPatchCore()
+    local app_ver = getAppVer()
+
+    -- 추가 리소스 다운로드
+    local patch_core = PatchCore(self, 'patch', app_ver)
+	self.m_patch_core = patch_core
+    local function finish_cb()
+        self.m_patch_core = nil
+        self:runApkExpansion()
+    end
+    patch_core:setFinishCB(finish_cb)
+    patch_core:doStep()
+end
+
+-------------------------------------
+-- function runApkExpansion
+-- @brief google APK 확장 리소스 다운로드
+-------------------------------------
+function ScenePatch:runApkExpansion()
+    self.m_vars['messageLabel']:setString(Str('추가 리소스 확인 중...'))
+
+    local app_ver = getAppVer()
+
+    -- 0.2.4버전부터 APK 확장 리소스 다운로드 기능이 제대로 들어감
+    if (app_ver == '0.2.2') then
+        self:finishPatch()
+        return
+    end
+
+    -- 윈도우 에뮬레이터에서는 동작하지 않음
+    if (isWin32() == true) then
+        self:finishPatch()
+        return
+    end
+
+    local version_code = 6
+    local file_size = 273474154 -- main.6.com.perplelab.dragonvillagem.kr.obb
+
+    local apk_expansion = ApkExpansion(self, version_code, file_size)
+    self.m_apkExpansion = apk_expansion
+    local function finish_cb()
+        self.m_apkExpansion = nil
+        self:finishPatch()
+    end
+    apk_expansion:setFinishCB(finish_cb)
+    apk_expansion:doStep()
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
 function ScenePatch:update(dt)
-    self.m_patch_core:update(dt)
+    if self.m_patch_core then
+        self.m_patch_core:update(dt)
+    end
+
+    if self.m_apkExpansion then
+        self.m_apkExpansion:update(dt)
+    end
 end
 
 -------------------------------------

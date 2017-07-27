@@ -69,6 +69,14 @@ function __G__TRACKBACK__(msg)
 end
 
 -------------------------------------
+-- function closeApplication
+-------------------------------------
+function closeApplication()
+	cclog('CloseApplication')
+	cc.Director:getInstance():endToLua()
+end
+
+-------------------------------------
 -- function main
 -------------------------------------
 local function main()
