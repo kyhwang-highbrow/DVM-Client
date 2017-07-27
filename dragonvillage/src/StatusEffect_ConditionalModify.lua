@@ -33,7 +33,7 @@ end
 
 -------------------------------------
 -- function onApplyOverlab
--- @brief ÇØ´ç »óÅÂÈ¿°ú°¡ ÃÖÃÊ 1È¸¸¦ Æ÷ÇÔÇÏ¿© ÁßÃ¸ Àû¿ëµÉ½Ã¸¶´Ù È£Ãâ
+-- @brief í•´ë‹¹ ìƒíƒœíš¨ê³¼ê°€ ìµœì´ˆ 1íšŒë¥¼ í¬í•¨í•˜ì—¬ ì¤‘ì²© ì ìš©ë ì‹œë§ˆë‹¤ í˜¸ì¶œ
 -------------------------------------
 function StatusEffect_ConditionalModify:onApplyOverlab(unit)
     self.m_totalValue = unit.m_value
