@@ -102,8 +102,8 @@ function ScenePatch:runApkExpansion()
         return
     end
 
-    local version_code = 6
-    local file_size = 273474154 -- main.6.com.perplelab.dragonvillagem.kr.obb
+    local version_code = 7
+    local file_size = 271751027 -- main.7.com.perplelab.dragonvillagem.kr.obb
 
     local apk_expansion = ApkExpansion(self, version_code, file_size)
     self.m_apkExpansion = apk_expansion

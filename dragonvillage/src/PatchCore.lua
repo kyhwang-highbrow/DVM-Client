@@ -124,7 +124,9 @@ function PatchCore:update(dt)
 
 	-- 다운로드 시작전 텍스트 안 보이게 함
 	if (self.m_totalSize <= 0) or (self.m_downloadedSize <= 0) then
-        self.m_patchLabel:setString('')
+        if self.m_patchLabel then
+            self.m_patchLabel:setString('')
+        end
         return
     end
 
@@ -135,8 +137,13 @@ function PatchCore:update(dt)
 	local download_str = string.format('%.2f', download_percent)
 
 	-- UI 출력 (패치 가이드가 있는 경우 패치가이드의 label과 gauge를 가리킨다)
-	self.m_patchLabel:setString(curr_size .. 'MB /' .. total_size .. 'MB (' .. download_str .. '%)')
-	self.m_patchGauge:setPercentage(download_percent)
+    if self.m_patchLabel then
+	    self.m_patchLabel:setString(curr_size .. 'MB /' .. total_size .. 'MB (' .. download_str .. '%)')
+    end
+
+    if self.m_patchGauge then
+	    self.m_patchGauge:setPercentage(download_percent)
+    end
 
 	-- 패치가이드 있을 시 패치가이드 업데이트
 	if (self.m_patchGuideUI) then
@@ -148,10 +155,7 @@ end
 -- function finish
 -------------------------------------
 function PatchCore:finish()
-    if self.m_patchGuideUI then
-        self.m_patchGuideUI:close()
-        self.m_patchGuideUI = nil
-    end
+    self:close_patch_guide()
 
     if self.m_finishCB then
         self.m_finishCB()
@@ -477,4 +481,22 @@ end
 -------------------------------------
 function PatchCore:setFinishCB(finish_cb)
     self.m_finishCB = finish_cb
+end
+
+-------------------------------------
+-- function close_patch_guide
+-- @brief
+-------------------------------------
+function PatchCore:close_patch_guide()
+    if (self.m_patchGuideUI) then
+        self.m_patchGuideUI.root:removeFromParent()
+        self.m_patchGuideUI = nil
+
+        -- 타이틀 UI 다시 보이게 변경
+        self.m_patchScene.m_vars['messageLabel']:setVisible(true)
+        self.m_patchScene.m_vars['animator']:setVisible(true)
+    end
+
+    self.m_patchLabel = nil
+    self.m_patchGauge = nil
 end

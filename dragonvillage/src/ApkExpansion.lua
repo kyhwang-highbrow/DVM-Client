@@ -99,7 +99,7 @@ end
 -------------------------------------
 function ApkExpansion:finish()
     if self.m_patchGuideUI then
-        self.m_patchGuideUI:close()
+        self.m_patchGuideUI.root:removeFromParent()
         self.m_patchGuideUI = nil
     end
 
@@ -175,6 +175,23 @@ function ApkExpansion:show_patch_guide()
 	vars['messageLabel']:setVisible(false)
 end
 
+-------------------------------------
+-- function close_patch_guide
+-- @brief
+-------------------------------------
+function ApkExpansion:close_patch_guide()
+    if (self.m_patchGuideUI) then
+        self.m_patchGuideUI.root:removeFromParent()
+        self.m_patchGuideUI = nil
+
+        -- 타이틀 UI 다시 보이게 변경
+        self.m_patchScene.m_vars['messageLabel']:setVisible(true)
+        self.m_patchScene.m_vars['animator']:setVisible(true)
+    end
+
+    self.m_patchLabel = nil
+    self.m_patchGauge = nil
+end
 
 -------------------------------------
 -- function apkExpansionErrorHandler
@@ -278,9 +295,7 @@ end
 -- function openFailPopup
 -------------------------------------
 function ApkExpansion:openFailPopup()
-    local function ok_btn_cb()
-        closeApplication()
-    end
+    self:close_patch_guide()
 
     local msg = Str('추가 리소스 다운로드에 실패하여 게임을 시작할 수 없습니다.\n앱을 완전 종료 후 다시 접속해주세요.')
     MakeSimplePopup(POPUP_TYPE.OK, msg, ok_btn_cb)
