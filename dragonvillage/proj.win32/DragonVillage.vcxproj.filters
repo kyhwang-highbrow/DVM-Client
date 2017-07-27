@@ -2535,6 +2535,9 @@
     <None Include="..\src\StructSubscribedInfo.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StatusEffect_ConditionalModify.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

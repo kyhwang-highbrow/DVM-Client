@@ -679,6 +679,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffectIcon.lua" />
     <None Include="..\src\StatusEffect_Bleed.lua" />
     <None Include="..\src\StatusEffect_ConditionalBuff.lua" />
+    <None Include="..\src\StatusEffect_ConditionalModify.lua" />
     <None Include="..\src\StatusEffect_ConsumeToMissile.lua" />
     <None Include="..\src\StatusEffect_Dispell.lua" />
     <None Include="..\src\StatusEffect_Immortal.lua" />

@@ -435,9 +435,7 @@ end
 -- function undergoAttack
 -------------------------------------
 function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_event, is_guard)
-    if (not attacker.m_activityCarrier) then
-        return
-    end
+
 
     -- guard 상태 체크
     if (self.m_guard) and (not is_guard) then
@@ -455,6 +453,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
     local is_critical = attack_activity_carrier:getCritical() 
+
 
     -- 속성 효과
     local t_attr_effect, attr_synastry = self:checkAttributeCounter(attacker_char)
@@ -550,9 +549,29 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             attr_bonus_dmg = (damage * attr_dmg_multifly)
             damage_multifly = damage_multifly + attr_dmg_multifly
         end
+        -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
+        local additional_dmg_adj_rate = 0
+        for k, v in pairs(attacker_char:getStatusEffectList()) do
+
+            if (v.m_type == 'modify_dmg' and v.m_branch == 0) then
+                if(defender:isExistStatusEffectName(v.m_targetStatusEffectName)) then
+                    additional_dmg_adj_rate = additional_dmg_adj_rate + v.m_totalValue
+                end
+            end
+        end
+        
+        for k, v in pairs(defender:getStatusEffectList()) do
+            if( v.m_type == 'modify_dmg') then
+            end
+            if (v.m_type == 'modify_dmg' and v.m_branch == 1) then
+                if(attacker_char:isExistStatusEffectName(v.m_targetStatusEffectName)) then
+                    additional_dmg_adj_rate = additional_dmg_adj_rate + v.m_totalValue
+                end
+            end
+        end
 
 		-- 상태효과에 의한 증감
-		damage_multifly = (damage_multifly + self:getStat('dmg_adj_rate') / 100)
+		damage_multifly = (damage_multifly + (self:getStat('dmg_adj_rate') + additional_dmg_adj_rate) / 100)
 
         damage = (damage * damage_multifly)
 

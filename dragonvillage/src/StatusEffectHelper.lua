@@ -309,6 +309,10 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     elseif (status_effect_group == 'conditional_buff') then
         status_effect = StatusEffect_ConditionalBuff(res)
 
+    ---------- 조건부로 스탯 변경 (공격시/피격시 등) ----------------------
+    elseif (status_effect_group == 'modify_dmg') then
+        status_effect = StatusEffect_ConditionalModify(res)
+
     ----------- HP 보호막 ------------------
 	elseif (status_effect_group == 'barrier') then
 		status_effect = StatusEffect_Protection(res)

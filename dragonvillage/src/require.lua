@@ -403,6 +403,7 @@ local t_module = {
     'StatusEffect_Transfer',
     'StatusEffect_ConditionalBuff',
     'StatusEffect_ConsumeToMissile',
+    'StatusEffect_ConditionalModify',
 
     'StatusEffectEdgeDirector',
 	'StatusEffectIcon',
