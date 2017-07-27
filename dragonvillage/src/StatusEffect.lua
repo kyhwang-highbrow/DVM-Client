@@ -265,9 +265,10 @@ function StatusEffect.st_start(owner, dt)
         t_event['name'] = owner.m_statusEffectName
         t_event['category'] = owner.m_category
         t_event['type'] = owner.m_type
-
-        owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
-		
+        
+        if (owner.m_owner.m_world.m_gameState:isEnemyAppear()) then
+            owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
+        end
 		-- 힐 사운드
 		if (not owner.m_bHarmful) then
 			SoundMgr:playEffect('SFX', 'sfx_buff_get')
