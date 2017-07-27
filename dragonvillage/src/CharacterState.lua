@@ -241,16 +241,16 @@ function Character.st_attackDelay(owner, dt)
 
         -- 부유중 연출
         owner:runAction_Floating()
-    end
 
-    if (owner.m_stateTimer >= owner.m_attackPeriod) then
+    elseif (owner.m_stateTimer >= owner.m_attackPeriod) then
         if (owner.m_reservedSkillCastTime > 0) then
             owner:changeState('casting')
         else
             owner:changeState('charge')
         end
+    end
 
-    elseif (not owner.m_world.m_gameCoolTime:isWaiting(GLOBAL_COOL_TIME.PASSIVE_SKILL)) then
+    if (not owner.m_world.m_gameCoolTime:isWaiting(GLOBAL_COOL_TIME.PASSIVE_SKILL)) then
         if (not owner.m_isSilence) then
             -- indie_time류 스킬
             local skill_id = owner:getBasicTimeAttackSkillID()

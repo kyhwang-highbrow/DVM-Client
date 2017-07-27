@@ -78,7 +78,7 @@ end
 function SkillSpatter:initState()
     self:setCommonState(self)
     
-    self:addState('idle', SkillSpatter.st_idle, 'idle', true)
+    self:addState('start', SkillSpatter.st_idle, 'idle', true)
 end
 
 -------------------------------------
@@ -101,7 +101,10 @@ function SkillSpatter.st_idle(owner, dt)
                 else
                     owner:attack(target_collision)
                 end
-				owner:trySpatter()
+
+				if (owner:trySpatter()) then
+                    owner:changeState('start')
+                end
 			end
 
 			local sequence = cc.Sequence:create(action, cc.CallFunc:create(end_func))
@@ -128,9 +131,7 @@ function SkillSpatter:trySpatter()
         return false
     end
 
-    self:changeState('idle')
-    
-	self.m_spatterCount = self.m_spatterCount + 1
+    self.m_spatterCount = self.m_spatterCount + 1
     return true
 end
 
@@ -190,7 +191,7 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('idle')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
