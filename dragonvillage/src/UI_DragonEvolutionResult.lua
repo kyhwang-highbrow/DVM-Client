@@ -17,78 +17,28 @@ function UI_DragonEvolutionResult:init(dragon_object)
 
     -- @UI_ACTION
     self:doActionReset()
-
+    
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonEvolutionResult')
-
     vars['okBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 
-    self:refresh(dragon_object)
+    self:setResultText(dragon_object)
+    self:showEvolutionEffect(dragon_object)
 end
 
 -------------------------------------
--- function click_exitBtn
--------------------------------------
-function UI_DragonEvolutionResult:click_exitBtn()
-    self:close()
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_DragonEvolutionResult:refresh(dragon_object)
-    local vars = self.vars
-
-    local did = dragon_object['did']
-    local grade = dragon_object['grade']
-    local evolution = dragon_object['evolution']
-
-    local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[did]
-    
-    -- 배경
-    local attr = TableDragon:getDragonAttr(did)
-    if self:checkVarsKey('bgNode', attr) then
-        vars['bgNode']:removeAllChildren()
-        local animator = ResHelper:getUIDragonBG(attr, 'idle')
-        vars['bgNode']:addChild(animator.m_node)
-    end
-
-    -- 이름
-    vars['dragonNameLabel']:setString(dragon_object:getDragonNameWithEclv())
-
-    -- 드래곤 에니메이터
-    if vars['dragonNode'] then
-        local dragon_animator = UIC_DragonAnimatorDirector()
-        vars['dragonNode']:addChild(dragon_animator.m_node)
-        dragon_animator:setDragonAnimator(dragon_object['did'], dragon_object['evolution'], dragon_object['friendship']['flv'])
-        local function cb()
-            self:doAction(nil, false)
-		    SoundMgr:playEffect('UI', 'ui_grow_result')
-
-            -- @ MASTER ROAD
-            local t_data = {clear_key = 'd_evup'}
-            g_masterRoadData:updateMasterRoad(t_data)
-        end
-        dragon_animator:setDragonAppearCB(cb)
-		dragon_animator:startDirecting()
-    end
-
-    -- 진화 단계 텍스트
-    vars['beforeLabl']:setString(evolutionName(evolution - 1))
-    vars['afterLabel']:setString(evolutionName(evolution))
-
-    self:refresh_status(dragon_object)
-end
-
--------------------------------------
--- function refresh_status
+-- function setResultText
 -- @brief 능력치 정보 갱신
 -------------------------------------
-function UI_DragonEvolutionResult:refresh_status(dragon_object)
+function UI_DragonEvolutionResult:setResultText(dragon_object)
     local vars = self.vars
 
     local doid = dragon_object['id']
+    local evolution = dragon_object['evolution']
+
+    vars['dragonNameLabel']:setString(dragon_object:getDragonNameWithEclv())
+    vars['beforeLabl']:setString(evolutionName(evolution - 1))
+    vars['afterLabel']:setString(evolutionName(evolution))
 
     local status_calc = MakeOwnDragonStatusCalculator(doid, {['evolution'] = dragon_object['evolution'] - 1})
     vars['atkLabel1']:setString(status_calc:getFinalStatDisplay('atk'))
@@ -99,4 +49,136 @@ function UI_DragonEvolutionResult:refresh_status(dragon_object)
     vars['atkLabel2']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['defLabel2']:setString(status_calc:getFinalStatDisplay('def'))
     vars['hpLabel2']:setString(status_calc:getFinalStatDisplay('hp'))
+end
+
+-------------------------------------
+-- function showEvolutionEffect
+-------------------------------------
+function UI_DragonEvolutionResult:showEvolutionEffect(dragon_object)
+    local vars = self.vars
+
+    local did = dragon_object['did']
+    local evolution = dragon_object['evolution']
+
+    -- vrp 줌 액션
+    local zoom_scale = 1.5
+    local zoom_time = 2.5
+    local zoom_action_func = function(node)
+        local zoom_action = cc.ScaleTo:create(zoom_time, zoom_scale)
+        local move_action = cc.MoveBy:create(zoom_time, cc.p(0, 150))
+        local spawn_action = cc.Spawn:create(zoom_action, move_action)
+        node:runAction(spawn_action)
+    end
+
+    -- 좌우 흔듬
+    do
+        local move_time = 0.5
+        local level = 50
+        local move_action = cc.Sequence:create(
+            cc.DelayTime:create(0.5),
+		    cc.MoveBy:create( move_time, cc.p(-level, 0) ),
+		    cc.MoveBy:create( move_time, cc.p( level, 0) ),
+            cc.MoveBy:create( move_time, cc.p( level, 0) ),
+		    cc.MoveBy:create( move_time, cc.p(-level, 0) )
+	    )
+        self.root:runAction(move_action)
+    end
+
+    -- 배경 이펙트
+    do
+        local visual = vars['bg_visual']
+        zoom_action_func(visual)
+        local a1 = cc.DelayTime:create(4) 
+        local a2 = cc.EaseIn:create(cc.MoveBy:create(1.2, cc.p(0, -1500)), 0.3)
+        local action = cc.Sequence:create(a1, a2)
+        visual:runAction(action)
+    end
+
+    -- 드래곤 하단 이펙트
+    do 
+        local visual = vars['evolutionVisual1']
+        visual:setVisible(true)
+        zoom_action_func(visual)
+    end
+
+    -- 드래곤 상단 이펙트
+    do 
+        local visual = vars['evolutionVisual2']
+        visual:setVisible(true)
+        visual:changeAni('idle_top', false)
+        zoom_action_func(visual)
+
+        visual:addAniHandler(function()
+            visual:changeAni('idle', true)
+        end)
+    end
+
+    local dragon_node = vars['dragonNode']
+
+    -- 기존 드래곤
+    do
+        local dragon_animator = AnimatorHelper:makeDragonAnimator_usingDid(did, evolution-1)
+        dragon_node:addChild(dragon_animator.m_node)
+
+        local visual = dragon_animator.m_node
+        zoom_action_func(visual)
+
+        local delay_action = cc.DelayTime:create(3.5)
+        local fade_action = cc.FadeOut:create(1)
+        local action = cc.Sequence:create(delay_action, fade_action)
+        visual:runAction(action)
+    end
+
+    -- 진화 드래곤
+    do
+        local dragon_animator = AnimatorHelper:makeDragonAnimator_usingDid(did, evolution)
+        dragon_node:addChild(dragon_animator.m_node)
+
+        local visual = dragon_animator.m_node
+        visual:setVisible(false)
+        visual:setScale(zoom_scale)
+        local shake_mgr = ShakeManager(self, self.root)
+
+        local delay_action1 = cc.DelayTime:create(6)
+
+        -- 진화 드래곤 등장 
+        local show_action1 = cc.CallFunc:create(function()
+            visual:setVisible(true)
+            dragon_node:setPositionY(0)
+            dragon_animator:changeAni('attack', true)
+        end)
+
+        local delay_action2 = cc.DelayTime:create(0.5)
+
+        -- 결과 메뉴 보여줌
+        local show_action2 = cc.CallFunc:create(function()
+            shake_mgr:doShakeGrowling(0.05, 10, 35, 2)
+
+            SoundMgr:playEffect('UI', 'ui_grow_result')
+            self:doActionReset()
+            self:doAction(nil, false)
+        end)
+
+        local action = cc.Sequence:create(delay_action1, show_action1,
+                                          delay_action2, show_action2) 
+        visual:runAction(action)
+    end
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_DragonEvolutionResult:click_exitBtn()
+    self:onClose()
+end
+
+-------------------------------------
+-- function onClose
+-------------------------------------
+function UI_DragonEvolutionResult:onClose()
+    -- @ MASTER ROAD
+    local t_data = {clear_key = 'd_evup'}
+    g_masterRoadData:updateMasterRoad(t_data)
+
+    self:sceneFadeOutAction(function() self:close() end)
 end
