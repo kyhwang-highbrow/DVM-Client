@@ -9,7 +9,7 @@ import os
 #command = 'gradlew installDebug'
 
 # release build
-command = 'gradlew installDebug'
+command = 'gradlew assembleRelease'
 # release build and install
 #command = 'gradlew installRelease'
 
