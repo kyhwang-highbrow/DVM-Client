@@ -119,6 +119,10 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
             end
             
         else
+            if (target_type == 'self') then
+                target_count = 1
+            end
+
             l_target = caster:getTargetListByType(target_type, target_count)
 
         end
