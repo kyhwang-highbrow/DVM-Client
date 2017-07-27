@@ -146,6 +146,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <OutputFile>$(ProjectDir)../runtime/$(TargetName)$(TargetExt)</OutputFile>
       <ProgramDatabaseFile>$(ProjectDir)../runtime/$(TargetName).pdb</ProgramDatabaseFile>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
