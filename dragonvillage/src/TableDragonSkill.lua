@@ -6,7 +6,9 @@ local l_columnToUseEquation = {
     'add_option_rate_1',
     'add_option_rate_2',
     'add_option_source_1',
-    'add_option_source_2'
+    'add_option_source_2',
+    'add_option_value_1',
+    'add_option_value_2'
 }
 
 -------------------------------------
@@ -139,6 +141,12 @@ function TableDragonSkill:makeFunctions()
                         local rate = SkillHelper:getValid(v[column], 100)
                         if (type(rate) == 'string') then
                             TableDragonSkill.addFunctionsForEquation(self, sid, column, rate)
+                        end
+
+                    elseif (string.find(column, 'value')) then
+                        local value = SkillHelper:getValid(v[column], 0)
+                        if (type(value) == 'string') then
+                            TableDragonSkill.addFunctionsForEquation(self, sid, column, value)
                         end
                     end
                 end

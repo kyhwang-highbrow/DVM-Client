@@ -22,6 +22,6 @@ StructStatusEffect = class({
 	    self.m_trigger = data['trigger']
 	    self.m_duration = tonumber(data['duration'])
 	    self.m_rate = data['rate']
-	    self.m_value = tonumber(data['value'])
+	    self.m_value = data['value']
         self.m_source = data['source']
     end

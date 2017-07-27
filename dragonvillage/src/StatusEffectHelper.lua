@@ -175,9 +175,8 @@ function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_sta
     local trigger = nil
 	local duration = nil
 	local rate = nil
-	local value_1 = nil
-	local value_2 = nil
-	
+	local value = nil
+		
 	while true do 
 		-- 1. 파싱할 구문 가져오고 탈출 체크
 		status_effect_struct = l_status_effect_struct[idx]
@@ -231,6 +230,13 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 	if (target_char:isImmuneSE() and self:isHarmful(status_effect_category)) then 
 		return nil
 	end
+
+    -- 적용값(status_effect_value)이 수식인 경우 수식을 계산
+    if (type(status_effect_value) == 'function') then
+        status_effect_value = status_effect_value(caster, target_char, add_param)
+    else
+        status_effect_value = tonumber(status_effect_value)
+    end
 
     local status_effect = target_char:getStatusEffect(status_effect_type)
     if (status_effect) then
@@ -309,9 +315,11 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     ------------ 도트 --------------------------
     elseif (status_effect_group == 'dot_dmg') then
-        if (status_effect_type == 'bleed') then
+        local dot_dmg_type = t_status_effect['val_1']
+
+        if (dot_dmg_type == 'bleed') then
             status_effect = StatusEffect_Bleed(res)
-	    elseif (status_effect_type == 'poison') then
+	    elseif (dot_dmg_type == 'poison') then
             status_effect = StatusEffect_Poison(res)
         else
 		    status_effect = StatusEffect(res)
