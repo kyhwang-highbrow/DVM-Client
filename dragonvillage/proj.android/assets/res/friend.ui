@@ -5,6 +5,54 @@
 	{
 		[1] =
 		{
+			type = 'Visual';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.vrp';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;idle';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[2] =
+		{
+			type = 'LayerColor';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 240;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			color = { 0; 0; 0; };
+			opacity = 180;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[3] =
+		{
 			[1] =
 			{
 				type = 'Scale9Sprite';
@@ -101,12 +149,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 70.000000;
-				y = -74.000000;
+				x = 100.000000;
+				y = -44.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 180;
+				width = 200;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -191,12 +239,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -120.000000;
-				y = -74.000000;
+				x = -100.000000;
+				y = -44.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 180;
+				width = 200;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -281,12 +329,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -310.000000;
-				y = -74.000000;
+				x = -300.000000;
+				y = -44.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 180;
+				width = 200;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -372,11 +420,11 @@
 				type = 'Button';
 				ui_name = '';
 				x = -500.000000;
-				y = -74.000000;
+				y = -44.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 180;
+				width = 200;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -393,82 +441,6 @@
 			};
 			[6] =
 			{
-				type = 'Node';
-				ui_name = '';
-				x = 0.000000;
-				y = -38.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 1170;
-				height = 530;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'itemListNode';
-			};
-			[7] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 0.000000;
-				y = -38.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 1170;
-				height = 530;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'friendListNode';
-			};
-			[8] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 0.000000;
-				y = -38.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 1170;
-				height = 530;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'stListNode';
-			};
-			[9] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 0.000000;
-				y = -38.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 1170;
-				height = 530;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'goodsListNode';
-			};
-			[10] =
-			{
 				[1] =
 				{
 					[1] =
@@ -480,7 +452,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 1170;
+						width = 1200;
 						height = 470;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -748,6 +720,124 @@
 						disable = '';
 						image_type = 1;
 					};
+					[6] =
+					{
+						[1] =
+						{
+							[1] =
+							{
+								type = 'Sprite';
+								ui_name = '';
+								x = 0.000000;
+								y = -13.000000;
+								dock_point = { 0.500000; 0.000000; };
+								anchor_point = { 0.500000; 0.000000; };
+								relative_size_type = 0;
+								width = 19;
+								height = 14;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = '';
+								file_name = 'ui/frame/a_dialogue_0102_3.png';
+								color = { 240; 215; 159; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+							};
+							[2] =
+							{
+								type = 'LabelTTF';
+								ui_name = '';
+								x = 0.000000;
+								y = 10.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 316;
+								height = 64;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = '';
+								font_name = 'font/common_font_01.ttf';
+								font_size = 26;
+								text = '친구를 만들어 달라고라';
+								h_alignment = 1;
+								v_alignment = 1;
+								color = { 42; 31; 20; };
+								opacity = 255;
+								dimension_width = 316;
+								dimension_height = 64;
+								letter_spacing = 0.000000;
+								has_stroke = false;
+								stroke_type = 0;
+								stroke_detail_level = 0;
+								is_sharp_text = true;
+								stroke_tickness = 2.000000;
+								stroke_color = { 85; 44; 25; };
+								has_shadow = false;
+								shadow_color = { 85; 44; 25; };
+								shadow_opacity = 150;
+								shadow_direction = 0;
+								shadow_distance = 2.000000;
+							};
+							type = 'Scale9Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 131.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 320;
+							height = 100;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							file_name = 'ui/icons/mandragora/mandragora_talk_0101.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							center_rect_x = 0;
+							center_rect_y = 0;
+							center_rect_width = 0;
+							center_rect_height = 0;
+						};
+						type = 'Sprite';
+						ui_name = '';
+						x = 0.000000;
+						y = -33.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 300;
+						height = 300;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'emptySprite';
+						file_name = 'ui/icons/mandragora/mandragora_03.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Menu';
 					ui_name = '';
 					x = 0.000000;
@@ -840,7 +930,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 570;
+					width = 580;
 					height = 470;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -861,7 +951,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 570;
+						width = 580;
 						height = 424;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -936,7 +1026,7 @@
 								enable = false;
 								input_mode = 6;
 								input_flag = 4;
-								return_type = 0;
+								return_type = 1;
 								max_length = 0;
 								text = '';
 								font_name = 'font/common_font_01.ttf';
@@ -1003,7 +1093,7 @@
 						type = 'Button';
 						ui_name = '';
 						x = 264.000000;
-						y = 263.000000;
+						y = 267.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1036,7 +1126,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
+					visible = true;
 					lua_name = 'recommendMenu2';
 				};
 				[4] =
@@ -1154,7 +1244,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 1170;
+					width = 1180;
 					height = 470;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1262,7 +1352,7 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = false;
+						visible = true;
 						lua_name = '';
 						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
@@ -1275,11 +1365,11 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = -28.000000;
+					y = -29.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 1170;
+					width = 1180;
 					height = 470;
 					scale_x = 1.000000;
 					scale_y = 1.000000;

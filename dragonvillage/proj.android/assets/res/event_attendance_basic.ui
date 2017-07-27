@@ -7,10 +7,36 @@
 		{
 			[1] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 930;
+				height = 630;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/event/frame_attendence_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
 				type = 'Node';
 				ui_name = '-';
 				x = -390.000000;
-				y = 166.000000;
+				y = 148.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -24,12 +50,12 @@
 				visible = true;
 				lua_name = 'rewardNode1';
 			};
-			[2] =
+			[3] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -260.000000;
-				y = 166.000000;
+				y = 148.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -43,12 +69,12 @@
 				visible = true;
 				lua_name = 'rewardNode2';
 			};
-			[3] =
+			[4] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -130.000000;
-				y = 166.000000;
+				y = 148.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -62,12 +88,12 @@
 				visible = true;
 				lua_name = 'rewardNode3';
 			};
-			[4] =
+			[5] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 166.000000;
+				y = 148.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -81,12 +107,12 @@
 				visible = true;
 				lua_name = 'rewardNode4';
 			};
-			[5] =
+			[6] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 130.000000;
-				y = 166.000000;
+				y = 148.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -100,12 +126,12 @@
 				visible = true;
 				lua_name = 'rewardNode5';
 			};
-			[6] =
+			[7] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 260.000000;
-				y = 166.000000;
+				y = 148.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -119,12 +145,12 @@
 				visible = true;
 				lua_name = 'rewardNode6';
 			};
-			[7] =
+			[8] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 390.000000;
-				y = 166.000000;
+				y = 148.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -138,12 +164,12 @@
 				visible = true;
 				lua_name = 'rewardNode7';
 			};
-			[8] =
+			[9] =
 			{
 				type = 'Node';
 				ui_name = '-';
 				x = -390.000000;
-				y = 36.000000;
+				y = 18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -157,12 +183,12 @@
 				visible = true;
 				lua_name = 'rewardNode8';
 			};
-			[9] =
+			[10] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -260.000000;
-				y = 36.000000;
+				y = 18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -176,12 +202,12 @@
 				visible = true;
 				lua_name = 'rewardNode9';
 			};
-			[10] =
+			[11] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -130.000000;
-				y = 36.000000;
+				y = 18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -195,12 +221,12 @@
 				visible = true;
 				lua_name = 'rewardNode10';
 			};
-			[11] =
+			[12] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 36.000000;
+				y = 18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -214,12 +240,12 @@
 				visible = true;
 				lua_name = 'rewardNode11';
 			};
-			[12] =
+			[13] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 130.000000;
-				y = 36.000000;
+				y = 18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -233,12 +259,12 @@
 				visible = true;
 				lua_name = 'rewardNode12';
 			};
-			[13] =
+			[14] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 260.000000;
-				y = 36.000000;
+				y = 18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -252,12 +278,12 @@
 				visible = true;
 				lua_name = 'rewardNode13';
 			};
-			[14] =
+			[15] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 390.000000;
-				y = 36.000000;
+				y = 18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -271,12 +297,12 @@
 				visible = true;
 				lua_name = 'rewardNode14';
 			};
-			[15] =
+			[16] =
 			{
 				type = 'Node';
 				ui_name = '-';
 				x = -390.000000;
-				y = -94.000000;
+				y = -112.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -290,12 +316,12 @@
 				visible = true;
 				lua_name = 'rewardNode15';
 			};
-			[16] =
+			[17] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -260.000000;
-				y = -94.000000;
+				y = -112.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -309,12 +335,12 @@
 				visible = true;
 				lua_name = 'rewardNode16';
 			};
-			[17] =
+			[18] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -130.000000;
-				y = -94.000000;
+				y = -112.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -328,12 +354,12 @@
 				visible = true;
 				lua_name = 'rewardNode17';
 			};
-			[18] =
+			[19] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -94.000000;
+				y = -112.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -347,12 +373,12 @@
 				visible = true;
 				lua_name = 'rewardNode18';
 			};
-			[19] =
+			[20] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 130.000000;
-				y = -94.000000;
+				y = -112.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -366,12 +392,12 @@
 				visible = true;
 				lua_name = 'rewardNode19';
 			};
-			[20] =
+			[21] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 260.000000;
-				y = -94.000000;
+				y = -112.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -385,12 +411,12 @@
 				visible = true;
 				lua_name = 'rewardNode20';
 			};
-			[21] =
+			[22] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 390.000000;
-				y = -94.000000;
+				y = -112.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -404,12 +430,12 @@
 				visible = true;
 				lua_name = 'rewardNode21';
 			};
-			[22] =
+			[23] =
 			{
 				type = 'Node';
 				ui_name = '-';
 				x = -390.000000;
-				y = -224.000000;
+				y = -242.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -423,12 +449,12 @@
 				visible = true;
 				lua_name = 'rewardNode22';
 			};
-			[23] =
+			[24] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -260.000000;
-				y = -224.000000;
+				y = -242.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -442,12 +468,12 @@
 				visible = true;
 				lua_name = 'rewardNode23';
 			};
-			[24] =
+			[25] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -130.000000;
-				y = -224.000000;
+				y = -242.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -461,12 +487,12 @@
 				visible = true;
 				lua_name = 'rewardNode24';
 			};
-			[25] =
+			[26] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -224.000000;
+				y = -242.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -480,12 +506,12 @@
 				visible = true;
 				lua_name = 'rewardNode25';
 			};
-			[26] =
+			[27] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 130.000000;
-				y = -224.000000;
+				y = -242.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -499,12 +525,12 @@
 				visible = true;
 				lua_name = 'rewardNode26';
 			};
-			[27] =
+			[28] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 260.000000;
-				y = -224.000000;
+				y = -242.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -518,12 +544,12 @@
 				visible = true;
 				lua_name = 'rewardNode27';
 			};
-			[28] =
+			[29] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 390.000000;
-				y = -224.000000;
+				y = -242.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -537,54 +563,77 @@
 				visible = true;
 				lua_name = 'rewardNode28';
 			};
-			[29] =
+			[30] =
 			{
-				type = 'LabelTTF';
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 198;
+					height = 80;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'dayLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 40;
+					text = '{0}일차';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 0; };
+					opacity = 255;
+					dimension_width = 198;
+					dimension_height = 80;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = true;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 150;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'LayerColor';
 				ui_name = '';
-				x = -364.000000;
-				y = 274.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				x = 13.000000;
+				y = -13.000000;
+				dock_point = { 0.000000; 1.000000; };
+				anchor_point = { 0.000000; 1.000000; };
 				relative_size_type = 0;
-				width = 198;
-				height = 60;
+				width = 140;
+				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'dayLabel';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 40;
-				text = '{0}일차';
-				h_alignment = 2;
-				v_alignment = 1;
-				color = { 255; 255; 0; };
-				opacity = 255;
-				dimension_width = 198;
-				dimension_height = 60;
-				letter_spacing = 0.000000;
-				has_stroke = true;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = true;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 150;
-				shadow_direction = 0;
-				shadow_distance = 3.000000;
+				lua_name = '';
+				color = { 0; 0; 0; };
+				opacity = 150;
+				src_blend = 770;
+				dest_blend = 771;
 			};
-			[30] =
+			[31] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 101.000000;
-				y = 275.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				x = 164.000000;
+				y = -7.000000;
+				dock_point = { 0.000000; 1.000000; };
+				anchor_point = { 0.000000; 1.000000; };
 				relative_size_type = 0;
 				width = 714;
 				height = 60;
@@ -617,6 +666,46 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
+			[32] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 164.000000;
+				y = -44.000000;
+				dock_point = { 0.000000; 1.000000; };
+				anchor_point = { 0.000000; 1.000000; };
+				relative_size_type = 0;
+				width = 714;
+				height = 60;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 22;
+				text = '보상 아이템은 메일함에서 받으실 수 있습니다';
+				h_alignment = 0;
+				v_alignment = 1;
+				color = { 192; 192; 192; };
+				opacity = 255;
+				dimension_width = 714;
+				dimension_height = 60;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 150;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
@@ -625,7 +714,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 930;
-			height = 590;
+			height = 630;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -642,7 +731,7 @@
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
 		width = -350;
-		height = -130;
+		height = -90;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
 		skew_x = 0.000000;

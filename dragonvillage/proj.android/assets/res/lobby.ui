@@ -32,7 +32,7 @@
 			anchor_point = { 0.500000; 0.000000; };
 			relative_size_type = 0;
 			width = 1280;
-			height = 57;
+			height = 64;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -2304,7 +2304,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
-				lua_name = 'mothlyNotiSprite';
+				lua_name = 'subscriptionSprite';
 				file_name = 'ui/icons/noti_icon_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -2332,7 +2332,7 @@
 			action_delay_1 = 0.020000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.400000;
-			lua_name = 'mothlyBtn';
+			lua_name = 'subscriptionBtn';
 			enable = true;
 			normal = 'ui/buttons/lobby_side_btn_montly_0101.png';
 			selected = 'ui/buttons/lobby_side_btn_montly_0102.png';
@@ -2454,6 +2454,30 @@
 			lua_name = 'giftBtn';
 			enable = true;
 			normal = 'ui/btn/lobby_side_gift_0101.png';
+			selected = '';
+			disable = '';
+			image_type = 0;
+		};
+		[25] =
+		{
+			type = 'Button';
+			ui_name = '';
+			x = 50.000000;
+			y = -260.000000;
+			dock_point = { 0.000000; 1.000000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 84;
+			height = 84;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'googleAchievementBtn';
+			enable = true;
+			normal = 'ui/buttons/lobby_google_achievements.png';
 			selected = '';
 			disable = '';
 			image_type = 0;
