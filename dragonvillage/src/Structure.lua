@@ -4,7 +4,7 @@
 Structure = class({
     })
 
-THIS = Structure
+local THIS = Structure
 
 -------------------------------------
 -- function init
@@ -47,7 +47,7 @@ function Structure:applyTableData(data)
     -- data에 넘어온 데이터를 맴버 변수에 적용
     for key,value in pairs(data) do
         -- unknown member 확인
-        if rawget(this, key) then
+        if this[key] then
             self[key] = value
         else
             table.insert(l_unknown_member, key)

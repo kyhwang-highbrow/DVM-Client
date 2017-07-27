@@ -2526,6 +2526,15 @@
     <None Include="..\src\ApkExpansion.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StructProductSubscription.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_SubscriptionPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructSubscribedInfo.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

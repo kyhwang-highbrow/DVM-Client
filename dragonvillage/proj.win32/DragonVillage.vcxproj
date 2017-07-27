@@ -707,11 +707,13 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StructIndividualStatus.lua" />
     <None Include="..\src\StructMail.lua" />
     <None Include="..\src\StructProduct.lua" />
+    <None Include="..\src\StructProductSubscription.lua" />
     <None Include="..\src\StructQuestData.lua" />
     <None Include="..\src\StructRuneObject.lua" />
     <None Include="..\src\StructRuneSetObject.lua" />
     <None Include="..\src\StructSlimeObject.lua" />
     <None Include="..\src\StructStatusEffect.lua" />
+    <None Include="..\src\StructSubscribedInfo.lua" />
     <None Include="..\src\Structure.lua" />
     <None Include="..\src\StructUserInfo.lua" />
     <None Include="..\src\StructUserInfoAncientTower.lua" />
@@ -1026,6 +1028,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ReadyScene_Deck.lua" />
     <None Include="..\src\UI_RewardCard.lua" />
     <None Include="..\src\UI_RewardListPopup.lua" />
+    <None Include="..\src\UI_SubscriptionPopup.lua" />
     <None Include="..\src\UI_TamerManagePopup_Colosseum.lua" />
     <None Include="..\src\UI_TermsPopup.lua" />
     <None Include="..\src\UI_ToastPopup.lua" />

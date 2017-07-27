@@ -68,7 +68,9 @@ local t_module = {
 	'StructBookData',
     'StructAncientTowerFloorData',
     'StructProduct',
+    'StructProductSubscription',
     'StructMail',
+    'StructSubscribedInfo',
 
 	-- ServerData
     'ServerData',
@@ -641,6 +643,7 @@ local t_module = {
     'UI_ShopPopup',
     'UI_Product',
 	'UI_Package',
+    'UI_SubscriptionPopup',
 
     -- UI : 계정 생성
 	'UI_StartTamerSelect',

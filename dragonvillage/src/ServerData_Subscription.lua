@@ -11,6 +11,7 @@
 ServerData_Subscription = class({
         m_serverData = 'ServerData',
         m_bDirty = 'bool',
+        m_dicProduct = '[subscription_category][struct_product]',
     })
 
 -------------------------------------
@@ -18,6 +19,8 @@ ServerData_Subscription = class({
 -------------------------------------
 function ServerData_Subscription:init(server_data)
     self.m_serverData = server_data
+
+    self.m_dicProduct = {}
 end
 
 -------------------------------------
@@ -31,7 +34,7 @@ function ServerData_Subscription:openSubscriptionPopup()
     self:ckechDirty()
 
     local function cb_func()
-        UI_Shop()
+        UI_SubscriptionPopup()
     end
 
     if (not self:isDirty()) then
@@ -48,6 +51,9 @@ end
 -------------------------------------
 function ServerData_Subscription:request_subscriptionInfo(cb_func)
 
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
     -- 콜백 함수
     local function success_cb(ret)
         self:response_subscriptionInfo(ret)
@@ -57,7 +63,15 @@ function ServerData_Subscription:request_subscriptionInfo(cb_func)
 		end
     end
 
-    g_shopDataNew:request_shopInfo(success_cb)
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/subscription')
+    ui_network:setParam('uid', uid)
+    ui_network:hideLoading()
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end
 
 -------------------------------------
@@ -75,27 +89,21 @@ function ServerData_Subscription:response_subscriptionInfo(ret)
     local table_subscription_list = self:listToDic(ret['table_subscription_list'], 'list_id')
     
     for i,v in pairs(table_subscription_list) do
-        cclog('idx ' .. i)
         local product_id = v['product_id']
-        local start_date = v['start_date']
-        local end_date = v['end_date']
-        local next = v['next']
-        local ui_priority = v['ui_priority'] and tonumber(v['ui_priority'])
-        if (not ui_priority) then
-            ui_priority = 0
-        end
         local t_product = nil
-
         t_product = table_shop_cash[product_id] or table_shop_basic[product_id]
 
         if t_product then
-            local struct_product = StructProduct(t_product)
-            struct_product:setStartDate(start_date) -- 판매 시작 시간
-            struct_product:setEndDate(end_date) -- 판매 종료 시간
-            -- next 필요
-            struct_product:setUIPriority(ui_priority) -- UI정렬 순선 (높으면 앞쪽에 노출)
-            self:insertProduct(struct_product)
+            local struct_product_subsc = StructProductSubscription:create(t_product, v)
+            self:insertProduct(struct_product_subsc)
         end
+    end
+
+    -- 구독 중인 상품에 대한 처리
+    local user_subscription_list = ret['user_subscription_list']
+    for i,v in pairs(user_subscription_list) do
+        local struct_subsc_info = StructSubscribedInfo(v)
+        ccdump(struct_subsc_info)
     end
 end
 
@@ -103,26 +111,102 @@ end
 -- function ckechDirty
 -------------------------------------
 function ServerData_Subscription:ckechDirty()
-    g_shopDataNew:ckechDirty()
+    if self.m_bDirty then
+        return
+    end
+
+    -- 만료 시간 체크 할 것!
+    --self.m_expirationData
+    self.m_bDirty = true
 end
 
 -------------------------------------
 -- function setDirty
 -------------------------------------
 function ServerData_Subscription:setDirty()
-    g_shopDataNew:setDirty()
+    self.m_bDirty = true
 end
 
 -------------------------------------
 -- function isDirty
 -------------------------------------
 function ServerData_Subscription:isDirty()
-    return g_shopDataNew:isDirty()
+    return self.m_bDirty
 end
 
 -------------------------------------
 -- function listToDic
 -------------------------------------
 function ServerData_Subscription:listToDic(l_data, key)
-    return g_shopDataNew:listToDic(l_data, key)
+    local t_ret = {}
+
+    for i,v in pairs(l_data) do
+        local _key = v[key]
+        t_ret[_key] = v
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function clearProduct
+-------------------------------------
+function ServerData_Subscription:clearProduct()
+    for i,_ in pairs(self.m_dicProduct) do
+        self.m_dicProduct[i] = {}
+    end
+end
+
+-------------------------------------
+-- function insertProduct
+-------------------------------------
+function ServerData_Subscription:insertProduct(struct_product)
+    local subscription_category = struct_product:getSubscriptionCategory()
+
+    if (not self.m_dicProduct[subscription_category]) then
+        self.m_dicProduct[subscription_category] = {}
+    end
+
+    table.insert(self.m_dicProduct[subscription_category], struct_product)
+end
+
+
+-------------------------------------
+-- function getSubscriptionProductInfo
+-- @brief
+-- @return StructProductSubscription
+-------------------------------------
+function ServerData_Subscription:getSubscriptionProductInfo(subscription_category)
+    local l_product = self.m_dicProduct[subscription_category]
+
+    if (not l_product) then
+        return nil
+    end
+
+    local first_product = nil
+    local low_product_id = nil
+    for i,v in pairs(l_product) do
+        if (not first_product) or (v['product_id'] < low_product_id) then
+            first_product = v
+            low_product_id = v['product_id']
+        end
+    end
+
+    return first_product
+end
+
+-------------------------------------
+-- function getBasicSubscriptionProductInfo
+-- @brief 일반 월정액 상품 정보
+-------------------------------------
+function ServerData_Subscription:getBasicSubscriptionProductInfo()
+    return self:getSubscriptionProductInfo('basic')
+end
+
+-------------------------------------
+-- function getPremiumSubscriptionProductInfo
+-- @brief 프리미엄 월정액 상품 정보
+-------------------------------------
+function ServerData_Subscription:getPremiumSubscriptionProductInfo()
+    return self:getSubscriptionProductInfo('premium')
 end
