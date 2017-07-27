@@ -129,6 +129,7 @@ end
 -------------------------------------
 function StatusEffect:init_direction(direction_type)
     if (self.m_edgeDirector) then return end
+    if (not self.m_animator) then return end
 
     local func = {}
     func['barrier'] = function()
