@@ -5,6 +5,8 @@ local PARENT = StatusEffect
 -------------------------------------
 StatusEffect_ConsumeToMissile = class(PARENT, {
         m_resMissile = 'string',
+        m_resMotionStreak = 'string',
+
         m_srcStatusEffectName = 'string',   -- 소비될 상태효과의 name
         m_movementForMissile = 'string',    -- 미사일의 이동 타입
         m_lCollision = 'table',            -- 미사일의 타겟 리스트
@@ -43,6 +45,7 @@ end
 function StatusEffect_ConsumeToMissile:initFromTable(t_status_effect, target_char)
     PARENT.initFromTable(self, t_status_effect, target_char)
 
+    self.m_resMotionStreak = t_status_effect['res_2']
     self.m_srcStatusEffectName = t_status_effect['val_1']
     self.m_movementForMissile = t_status_effect['val_2']
 end
@@ -61,6 +64,9 @@ function StatusEffect_ConsumeToMissile:onApplyOverlab(unit)
     self.m_activityCarrier = unit:makeActivityCarrier()
     self.m_activityCarrier:setParam('add_dmg', true)
 
+    -- 미사일 대기 시간
+    local delay_time = unit.m_duration
+
     -- 재료가 될 상태효과를 가져옴
     local srcStatusEffect = self.m_owner:getStatusEffect(self.m_srcStatusEffectName)
 
@@ -74,10 +80,14 @@ function StatusEffect_ConsumeToMissile:onApplyOverlab(unit)
         for i = 1, missile_count do
             local random_idx = math_random(1, collision_count)
             local collision = self.m_lCollision[random_idx]
-            local edge_pos = edge_director:getEdgePos(i)
+            local edge_pos = { x = 0, y = 0 }
+            if (edge_director) then
+                edge_pos = edge_director:getEdgePos(i)
+            end
+
             local world_pos = { x = self.m_owner.pos['x'] + edge_pos['x'], y = self.m_owner.pos['y'] + edge_pos['y'] }
 
-            self:fireMissile(collision, world_pos)
+            self:fireMissile(collision, world_pos, delay_time + i * 0.1)
         end
     end
 
@@ -91,7 +101,7 @@ end
 -------------------------------------
 -- function fireMissile
 -------------------------------------
-function StatusEffect_ConsumeToMissile:fireMissile(collision, start_pos)
+function StatusEffect_ConsumeToMissile:fireMissile(collision, start_pos, delay_time)
     local char = self.m_owner
     local target = collision:getTarget()
 	    
@@ -112,6 +122,8 @@ function StatusEffect_ConsumeToMissile:fireMissile(collision, start_pos)
 
     t_option['missile_res_name'] = self.m_resMissile
 	t_option['visual'] = 'idle'
+    t_option['effect'] = {}
+    t_option['effect']['motion_streak'] = self.m_resMotionStreak
 
     ---------------------------------------------------------------------------------------------------
 
@@ -123,7 +135,7 @@ function StatusEffect_ConsumeToMissile:fireMissile(collision, start_pos)
     t_option['lua_param'] = {}
     t_option['lua_param']['value1'] = math_random(-random_height, random_height)
 	t_option['lua_param']['value2'] = g_constant:get('SKILL', 'CURVE_SPEED')
-	t_option['lua_param']['value3'] = g_constant:get('SKILL', 'CURVE_FIRE_DELAY')
+	t_option['lua_param']['value3'] = delay_time or 0
 	t_option['lua_param']['value5'] = function()
         -- 피격 처리
 		target:undergoAttack(self, target, collision:getPosX(), collision:getPosY(), collision:getBodyKey(), true)

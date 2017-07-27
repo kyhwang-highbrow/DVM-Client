@@ -305,7 +305,13 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     ------------ 도트 --------------------------
     elseif (status_effect_group == 'dot_dmg') then
-		status_effect = StatusEffect(res)
+        if (status_effect_type == 'bleed') then
+            status_effect = StatusEffect_Bleed(res)
+	    elseif (status_effect_type == 'poison') then
+            status_effect = StatusEffect_Poison(res)
+        else
+		    status_effect = StatusEffect(res)
+        end
         status_effect:setOverlabClass(StatusEffectUnit_Dot_Damage)
 
     elseif (status_effect_group == 'dot_heal') then
@@ -349,13 +355,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 		status_effect = StatusEffect_AddDmgOneTime(res)
         status_effect:init_statusEffect(caster)
         status_effect:setOverlabClass(StatusEffectUnit_AddDmgOneTime)
-
-    ----------- 트리거 ------------------
-    elseif (status_effect_type == 'bleed') then
-        status_effect = StatusEffect_Bleed(res)
-        
-	elseif (status_effect_type == 'poison') then
-        status_effect = StatusEffect_Poison(res)
 
     ----------- 속성 변경 ------------------
 	elseif (status_effect_type == 'attr_change') then

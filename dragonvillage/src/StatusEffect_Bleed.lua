@@ -24,6 +24,7 @@ function StatusEffect_Bleed:initFromTable(t_status_effect, target_char)
 
     self:addTrigger('under_atk', function(t_event, ...)
         self:doDamage()
+        self:reduceAllUnitDuration()
     end)
 end
 
@@ -83,24 +84,28 @@ function StatusEffect_Bleed:doDamage()
 	self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, self.m_dmg, nil)
 
     -- 중첩별 로그 처리
-    for _, list in pairs(self.m_mUnit) do
-        for i, unit in ipairs(list) do
-            -- @LOG_CHAR : 공격자 데미지
-            local damage = unit:getParam('damage')
-            local caster = unit:getCaster()
-	        caster.m_charLogRecorder:recordLog('damage', damage)
-        end
+    for _, unit in pairs(self.m_lUnit) do
+        -- @LOG_CHAR : 공격자 데미지
+        local damage = unit:getParam('damage')
+        local caster = unit:getCaster()
+	    caster.m_charLogRecorder:recordLog('damage', damage)
     end
 
     -- @LOG_CHAR : 방어자 피해량
 	self.m_owner.m_charLogRecorder:recordLog('be_damaged', self.m_dmg)
 
-	-- 화상 사운드
-	if (self.m_statusEffectName == 'poison') then
-		SoundMgr:playEffect('EFX', 'efx_poison')
+	-- 출혈 사운드
+	SoundMgr:playEffect('EFX', 'efx_bleed')
+end
 
-	elseif (self.m_statusEffectName == 'bleed') then
-		SoundMgr:playEffect('EFX', 'efx_bleed')
-
-	end
+-------------------------------------
+-- function reduceAllUnitDuration
+-- @brief 모든 중첩의 남은 시간을 줄임
+-------------------------------------
+function StatusEffect_Bleed:reduceAllUnitDuration()
+    for _, unit in ipairs(self.m_lUnit) do
+        if (isInstanceOf(unit, StatusEffectUnit_Dot)) then
+            unit.m_durationTimer = unit.m_durationTimer - unit.m_dotInterval
+        end
+    end
 end
