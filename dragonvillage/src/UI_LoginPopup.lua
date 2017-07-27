@@ -14,11 +14,10 @@ function UI_LoginPopup:init()
     local vars = self:load('login_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_LoginPopup')
+    -- backkey 없음
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_LoginPopup')
 
     -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
 
@@ -28,7 +27,6 @@ function UI_LoginPopup:init()
 
     self.m_loadingUI = UI_TitleSceneLoading()
     self.m_loadingUI:hideLoading()
-
 end
 
 -------------------------------------
@@ -71,6 +69,17 @@ end
 -- function refresh
 -------------------------------------
 function UI_LoginPopup:refresh()
+end
+
+-------------------------------------
+-- function click_exitBtn
+-- @brief 종료
+-------------------------------------
+function UI_LoginPopup:click_exitBtn()
+    local function yes_cb()
+        closeApplication()
+    end
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('종료하시겠습니까?'), yes_cb)
 end
 
 -------------------------------------
