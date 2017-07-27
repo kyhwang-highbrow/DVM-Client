@@ -6,28 +6,28 @@ filter: Linear,Linear
 repeat: none
 catsdragon_earth_02_arm_01
   rotate: false
-  xy: 1119, 169
+  xy: 1574, 169
   size: 89, 85
   orig: 89, 85
   offset: 0, 0
   index: -1
 catsdragon_earth_02_arm_02
   rotate: true
-  xy: 333, 44
+  xy: 952, 96
   size: 59, 77
   orig: 59, 77
   offset: 0, 0
   index: -1
 catsdragon_earth_02_arm_03
   rotate: false
-  xy: 1210, 169
+  xy: 1665, 169
   size: 89, 85
   orig: 89, 85
   offset: 0, 0
   index: -1
 catsdragon_earth_02_arm_04
   rotate: false
-  xy: 1301, 169
+  xy: 1756, 169
   size: 89, 85
   orig: 89, 85
   offset: 0, 0
@@ -48,30 +48,23 @@ catsdragon_earth_02_body_01
   index: -1
 catsdragon_earth_02_body_02
   rotate: false
-  xy: 718, 159
+  xy: 1072, 159
   size: 99, 95
   orig: 99, 95
   offset: 0, 0
   index: -1
 catsdragon_earth_02_body_03
   rotate: true
-  xy: 926, 167
+  xy: 1381, 167
   size: 87, 95
   orig: 87, 95
   offset: 0, 0
   index: -1
 catsdragon_earth_02_body_04
   rotate: false
-  xy: 533, 66
+  xy: 415, 39
   size: 47, 64
   orig: 47, 64
-  offset: 0, 0
-  index: -1
-catsdragon_earth_02_body_05
-  rotate: false
-  xy: 470, 132
-  size: 127, 122
-  orig: 127, 122
   offset: 0, 0
   index: -1
 catsdragon_earth_02_body_06
@@ -81,100 +74,114 @@ catsdragon_earth_02_body_06
   orig: 210, 329
   offset: 0, 0
   index: -1
+catsdragon_earth_02_body_07
+  rotate: false
+  xy: 816, 159
+  size: 135, 95
+  orig: 135, 95
+  offset: 0, 0
+  index: -1
+catsdragon_earth_02_body_08
+  rotate: false
+  xy: 1173, 159
+  size: 99, 95
+  orig: 99, 95
+  offset: 0, 0
+  index: -1
 catsdragon_earth_02_eye_01
   rotate: false
-  xy: 1838, 212
+  xy: 470, 101
   size: 88, 42
   orig: 88, 42
   offset: 0, 0
   index: -1
 catsdragon_earth_02_eye_03
   rotate: false
-  xy: 1928, 212
+  xy: 560, 101
   size: 88, 42
   orig: 88, 42
   offset: 0, 0
   index: -1
 catsdragon_earth_02_eye_04
   rotate: false
-  xy: 1838, 168
+  xy: 464, 57
   size: 88, 42
   orig: 88, 42
   offset: 0, 0
   index: -1
 catsdragon_earth_02_eye_05
   rotate: false
-  xy: 1928, 168
+  xy: 554, 57
   size: 88, 42
   orig: 88, 42
   offset: 0, 0
   index: -1
 catsdragon_earth_02_foot_01
   rotate: false
-  xy: 477, 60
+  xy: 896, 87
   size: 54, 70
   orig: 54, 70
   offset: 0, 0
   index: -1
 catsdragon_earth_02_hand_01
-  rotate: false
-  xy: 1574, 174
+  rotate: true
+  xy: 333, 39
   size: 64, 80
   orig: 64, 80
   offset: 0, 0
   index: -1
 catsdragon_earth_02_hand_02
-  rotate: false
-  xy: 1640, 174
+  rotate: true
+  xy: 650, 93
   size: 64, 80
   orig: 64, 80
   offset: 0, 0
   index: -1
 catsdragon_earth_02_hand_03
-  rotate: false
-  xy: 1706, 174
+  rotate: true
+  xy: 732, 93
   size: 64, 80
   orig: 64, 80
   offset: 0, 0
   index: -1
 catsdragon_earth_02_hand_04
-  rotate: false
-  xy: 1772, 174
+  rotate: true
+  xy: 814, 93
   size: 64, 80
   orig: 64, 80
   offset: 0, 0
   index: -1
 catsdragon_earth_02_head_01
   rotate: false
-  xy: 599, 157
+  xy: 953, 157
   size: 117, 97
   orig: 117, 97
   offset: 0, 0
   index: -1
 catsdragon_earth_02_head_02
   rotate: true
-  xy: 819, 173
+  xy: 1274, 173
   size: 81, 105
   orig: 81, 105
   offset: 0, 0
   index: -1
 catsdragon_earth_02_head_03
   rotate: true
-  xy: 1392, 173
+  xy: 1847, 173
   size: 81, 90
   orig: 81, 90
   offset: 0, 0
   index: -1
 catsdragon_earth_02_leg_01
   rotate: false
-  xy: 1023, 166
+  xy: 1478, 166
   size: 94, 88
   orig: 94, 88
   offset: 0, 0
   index: -1
 catsdragon_earth_02_leg_02
   rotate: false
-  xy: 1484, 172
+  xy: 1939, 172
   size: 88, 82
   orig: 88, 82
   offset: 0, 0
@@ -187,37 +194,37 @@ catsdragon_earth_02_mouth_01
   offset: 0, 0
   index: -1
 catsdragon_earth_02_mouth_02
-  rotate: false
-  xy: 99, 11
+  rotate: true
+  xy: 1031, 114
   size: 41, 31
   orig: 41, 31
   offset: 0, 0
   index: -1
 catsdragon_earth_02_mouth_03
   rotate: false
-  xy: 2018, 223
+  xy: 99, 11
   size: 26, 31
   orig: 26, 31
   offset: 0, 0
   index: -1
 catsdragon_earth_02_tear_01
   rotate: false
-  xy: 599, 136
+  xy: 127, 23
   size: 23, 19
   orig: 23, 19
   offset: 0, 0
   index: -1
 catsdragon_earth_02_wing_01
-  rotate: false
-  xy: 412, 39
-  size: 63, 64
-  orig: 63, 64
+  rotate: true
+  xy: 470, 145
+  size: 109, 168
+  orig: 109, 168
   offset: 0, 0
   index: -1
 catsdragon_earth_02_wing_02
-  rotate: false
-  xy: 533, 2
-  size: 45, 62
-  orig: 45, 62
+  rotate: true
+  xy: 640, 159
+  size: 95, 174
+  orig: 95, 174
   offset: 0, 0
   index: -1
