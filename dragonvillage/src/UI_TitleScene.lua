@@ -392,16 +392,12 @@ function UI_TitleScene:workPlatformLogin()
 
             local terms = (ret['terms'] or 1)
             if (terms == 0) then
-                -- sgkim agreement.ui파일이 커밋되어 있지 않아서 일단 주석처리
-                --[[
                 -- 약관 동의 팝업
                 local ui = UI_TermsPopup()
                 local function close_cb()
                     self:doNextWork()
                 end
                 ui:setCloseCB(close_cb)
-                --]]
-                self:doNextWork()
             else
                 self:doNextWork()    
             end

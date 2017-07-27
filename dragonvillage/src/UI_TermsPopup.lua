@@ -12,7 +12,7 @@ UI_TermsPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_TermsPopup:init()
-    local vars = self:load('agreement.ui')
+    local vars = self:load('agreement_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
