@@ -658,8 +658,8 @@ function UI_Lobby:update(dt)
 
     -- 구글 버튼 처리
     if (GoogleHelper.isDirty) then
+        GoogleHelper.setDirty(false)
         self:refresh_google()
-        GoogleHelper.isDirty = false
     end
 end
 

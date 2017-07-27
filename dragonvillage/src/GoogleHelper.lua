@@ -109,7 +109,7 @@ end
 -- 이미 클리어한 업적을 체크한다
 -- 다만 서버와 연동없이 가능한 부분만을 체크한다.
 -------------------------------------
-function GoogleHelper.allAcheivementCheck(t_data)
+function GoogleHelper.allAcheivementCheck()
     local clear_type, is_clear
     for _, t_acheivement in paris(TableGoogleQuest().m_orgTable) do
         clear_type = t_acheivement['clear_type']
