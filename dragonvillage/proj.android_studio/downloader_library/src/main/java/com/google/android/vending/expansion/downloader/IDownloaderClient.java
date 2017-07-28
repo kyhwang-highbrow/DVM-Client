@@ -71,7 +71,9 @@ public interface IDownloaderClient {
     static final int STATE_FAILED_SDCARD_FULL = 17;
     static final int STATE_FAILED_CANCELED = 18;
 
-    static final int STATE_FAILED = 19;
+    static final int STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED = 19;
+
+    static final int STATE_FAILED = 20;
 
     /**
      * Called internally by the stub when the service is bound to the client.

@@ -25,6 +25,7 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.lua;
 
+import com.google.android.vending.expansion.downloader.Helpers;
 import com.google.android.vending.expansion.downloader.IDownloaderClient;
 import com.perplelab.dragonvillagem.kr.R;
 
@@ -189,8 +190,8 @@ public class AppActivity extends Cocos2dxActivity{
                 String info = "";
                 try {
                     JSONObject obj = new JSONObject();
-                    obj.put("code", IDownloaderClient.STATE_FAILED);
-                    obj.put("msg", "WRITE_EXTERNAL_STORAGE permission denied.");
+                    obj.put("code", IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED);
+                    obj.put("msg", Helpers.getDownloaderStringResourceIDFromState(IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED));
                     info = obj.toString();
                 } catch (JSONException e) {
                     e.printStackTrace();

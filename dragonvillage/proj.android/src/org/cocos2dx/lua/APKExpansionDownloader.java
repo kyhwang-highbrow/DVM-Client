@@ -140,6 +140,7 @@ public class APKExpansionDownloader implements IDownloaderClient {
         case IDownloaderClient.STATE_FAILED_FETCHING_URL:
         case IDownloaderClient.STATE_FAILED_SDCARD_FULL:
         case IDownloaderClient.STATE_FAILED_CANCELED:
+        case IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED:
         case IDownloaderClient.STATE_FAILED:
             isInterruptable = true;
             isPaused = true;
