@@ -267,7 +267,7 @@ function StatusEffect.st_start(owner, dt)
         t_event['category'] = owner.m_category
         t_event['type'] = owner.m_type
         
-        if (owner.m_owner.m_world.m_gameState:isEnemyAppear()) then
+        if (not owner.m_owner.m_world.m_gameState:isEnemyAppear()) then
             owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
         end
 		-- 힐 사운드
