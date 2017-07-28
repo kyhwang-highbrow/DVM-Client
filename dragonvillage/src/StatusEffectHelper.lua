@@ -515,9 +515,10 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
     if (not status_effect_name) then
         -- 해제
         for type, status_effect in pairs(char:getStatusEffectList()) do
-            -- 해로운 효과 해제
+            -- 이로운 효과 해제
 	        if self:isHelpful(status_effect.m_category) then 
 		        status_effect:changeState('end')
+                status_effect:setTemporaryPause(false)
 		        release_cnt = release_cnt + 1
             end
 	        -- 갯수 체크
@@ -528,10 +529,11 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
     else 
         -- 해제
         for type, status_effect in pairs(char:getStatusEffectList()) do
-            -- 해로운 효과 해제
+            -- 이로운 효과 해제
 	        if self:isHelpful(status_effect.m_category) then 
                 if(status_effect_name == status_effect.m_statusEffectName) then
                     status_effect:changeState('end')
+                    status_effect:setTemporaryPause(false)
 			        release_cnt = release_cnt + 1
                 end
             end
