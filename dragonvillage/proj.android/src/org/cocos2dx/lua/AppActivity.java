@@ -245,6 +245,8 @@ public class AppActivity extends Cocos2dxActivity{
                             // IDownloaderClient.STATE_PAUSED_ROAMING (12) : 로밍 중, 로밍 중이므로 요금에 대한 경고를 하고 계속 진행/중단 처리한다.
                             // IDownloaderClient.STATE_FAILED_UNLICENSED (15) : 정식으로 앱을 다운로드 받지 않은 경우, APK를 별도로 설치하여 테스트하는 개발 버전에선 실패 처리하지 않고 그대로 진행시킨다.
                             // IDownloaderClient.STATE_FAILED_SDCARD_FULL (17) : 외부 저장 장치의 용량이 부족한 경우
+                            // IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED (19) : WRITE_EXTERNAL_STORAGE 권한을 거부한 경우
+                            // IDownloaderClient.STATE_FAILED (20) : 알 수 없는 오류
 
                             // 계속 진행하고자 한다면, 오류 상황을 해소하고 sOBBDownloader.requestContinueDownload() 를 호출해야 한다.
                             // 단, 일반적으로는 STATE_PAUSED_BY_REQUEST 가 아닌 모든 경우 그냥 실패 처리하고 앱을 재설치하도록 유도하는 것이 좋다.
