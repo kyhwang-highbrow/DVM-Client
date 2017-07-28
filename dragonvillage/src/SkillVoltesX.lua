@@ -98,14 +98,14 @@ function SkillVoltesX.st_idle(owner, dt)
 		-- ATK STEP END
 		elseif (owner.m_attackStep == VOLTES_ATK_STEP_END) then
 			owner.m_animator:addAniHandler(function()
-				owner:changeState('dying')
+                owner:changeState('dying')
 			end)
 		end
 	else
 		-- 일반 스킬이라면 ATK STEP FINAL 일떄 탈출
-		if (owner.m_attackStep == VOLTES_ATTACK_STEP_FINAL) then 
+		if (owner.m_attackStep == VOLTES_ATK_STEP_FINAL) then 
 			owner.m_animator:addAniHandler(function()
-				owner:changeState('dying')
+                owner:changeState('dying')
 			end)
 		end	
 	end

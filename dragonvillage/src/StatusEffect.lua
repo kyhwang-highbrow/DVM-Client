@@ -134,6 +134,8 @@ function StatusEffect:init_direction(direction_type)
     local func = {}
     func['barrier'] = function()
         self:addTrigger('hit_barrier', function()
+            if (not self.m_animator) then return end
+
             if (self.m_state == 'idle') then
                 self.m_animator:changeAni('hit', false)
                 self:addAniHandler(function()

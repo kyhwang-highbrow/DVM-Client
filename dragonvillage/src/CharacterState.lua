@@ -287,6 +287,7 @@ function Character.st_casting(owner, dt)
 
             if owner.m_castingUI then
                 owner.m_castingUI:stopAllActions()
+                owner.m_castingUI:setPosition(0, 0)
                 owner.m_castingUI:runAction(cc.RepeatForever:create(cc.Sequence:create(
                     cc.DelayTime:create(1),
                     cc.JumpBy:create(0.2, cc.p(0, 0), 20, 1)
