@@ -427,6 +427,7 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
 
     -- 콜백 함수
     local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
         if g_topUserInfo then

@@ -140,6 +140,9 @@ function ServerData:getInstance()
     -- 콘텐츠 잠금
     g_contentLockData = ServerData_ContentLock(g_serverData)
 
+    -- 자동 재화 줍기 (Auto Item Pick)
+    g_autoItemPickData = ServerData_AutoItemPick(g_serverData)
+
     return g_serverData
 end
 
@@ -373,6 +376,11 @@ function ServerData:networkCommonRespone(ret)
 	-- 퀘스트 갱신
     if (ret['quest_info']) then
         self:applyServerData(ret['quest_info'], 'quest_info')
+    end
+
+    -- 자동 재화 줍기 갱신
+    if (ret['auto_item_pick']) then
+        g_autoItemPickData:applyAutoItemPickData(ret['auto_item_pick'])
     end
 
     -- UI 하일라이트 정보 갱신

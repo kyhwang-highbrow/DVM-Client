@@ -112,6 +112,7 @@ local t_module = {
     'ServerData_AccessTime',
     'ServerData_MasterRoad',
     'ServerData_ContentLock',
+    'ServerData_AutoItemPick',
 
     -- Interface
     'IEventDispatcher',

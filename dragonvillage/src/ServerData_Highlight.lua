@@ -46,6 +46,7 @@ function ServerData_Highlight:request_highlightInfo(finish_cb, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
         self:applyHighlightInfo(ret)
 
         if finish_cb then

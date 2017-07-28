@@ -414,6 +414,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_AdventureFirstReward.lua" />
     <None Include="..\src\ServerData_AncientTower.lua" />
     <None Include="..\src\ServerData_Attendance.lua" />
+    <None Include="..\src\ServerData_AutoItemPick.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Book.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
