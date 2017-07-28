@@ -25,8 +25,6 @@ function ServerData_AutoItemPick:applyAutoItemPickData(data)
     --      "type":"subscription"
     --    }],
     self.m_autoItemPickList = data
-
-    ccdump(self.m_autoItemPickList)
 end
 
 -------------------------------------
