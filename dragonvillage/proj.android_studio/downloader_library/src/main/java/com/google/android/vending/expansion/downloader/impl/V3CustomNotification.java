@@ -22,7 +22,6 @@ import com.google.android.vending.expansion.downloader.Helpers;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.RemoteViews;
 
