@@ -7,16 +7,9 @@
 #include "LoginPlatform.h"
 #include "SimpleAudioEngine.h"
 
-// Audio
-#if USE_AUDIO_ENGINE
-#include "audio/include/AudioEngine.h"
-using namespace cocos2d::experimental;
-#else
-using namespace CocosDenshion;
-#endif
-
 USING_NS_CC;
 using namespace std;
+using namespace CocosDenshion;
 
 ReloadLuaHelper *ReloadLuaHelper::create(EEntryLua eEntryLua)
 {
@@ -67,11 +60,7 @@ void ReloadLuaHelper::onEnter()
     Director::getInstance()->getTextureCache()->removeAllTextures();
     SpriteFrameCache::getInstance()->removeSpriteFrames();
 
-#if USE_AUDIO_ENGINE
-    AudioEngine::end();
-#else
     SimpleAudioEngine::end();
-#endif
 
     AzVRP::removeCacheAll();
 
@@ -100,11 +89,7 @@ AppDelegate::~AppDelegate()
 	// HttpClient 사용시 앱 종료 때 crash나는 cocos2d 자체의 버그로 추가함(jjo)
 	network::HttpClient::getInstance()->destroyInstance();
 
-#if USE_AUDIO_ENGINE
-    AudioEngine::end();
-#else
     SimpleAudioEngine::end();
-#endif
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
@@ -236,12 +221,8 @@ void AppDelegate::applicationDidEnterBackground()
 {
     Director::getInstance()->stopAnimation();
 
-#if USE_AUDIO_ENGINE
-    AudioEngine::pauseAll();
-#else
     SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
     SimpleAudioEngine::getInstance()->pauseAllEffects();
-#endif
 
     auto engine = ScriptEngineManager::getInstance()->getScriptEngine();
     engine->executeGlobalFunction("applicationDidEnterBackground");
@@ -252,12 +233,8 @@ void AppDelegate::applicationWillEnterForeground()
 {
     Director::getInstance()->startAnimation();
 
-#if USE_AUDIO_ENGINE
-    AudioEngine::resumeAll();
-#else
     SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
     SimpleAudioEngine::getInstance()->resumeAllEffects();
-#endif
 
     auto engine = ScriptEngineManager::getInstance()->getScriptEngine();
     engine->executeGlobalFunction("applicationWillEnterForeground");

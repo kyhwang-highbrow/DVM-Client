@@ -37,8 +37,6 @@ THE SOFTWARE.
 #define CC_DEPRECATED_ATTRIBUTE
 #endif
 
-//#define USE_AUDIO_ENGINE 1
-
 /**
 * @addtogroup audio
 * @{
