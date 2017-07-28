@@ -633,14 +633,16 @@ end
 function UI_TitleScene:workBillingSetup()
     self.m_loadingUI:showLoading(Str('결제 정보 초기화...'))
 
-    -- info : [{"orderId":"@orderId","payload":"@payload"},...]
+    local l_payload = {}
     local function call_back(ret, info)
         cclog('# UI_TitleScene:workBillingSetup() result : ' .. ret)
         if (ret == 'purchase') then
             cclog('#### info : ')
             ccdump(info)
+
+            --[[
+            -- info : [{"orderId":"@orderId","payload":"@payload"},...]
             local info_json = dkjson.decode(info)
-            
             if (info_json and type(info_json) == 'table' and 0 < #info_json) then
                 local l_payload = info_json
 
@@ -651,6 +653,24 @@ function UI_TitleScene:workBillingSetup()
                 StructProduct:handlingMissingPayments(l_payload, nil, finish_cb)
             else
                 self:doNextWork()
+            end
+            --]]
+
+            local function finish_cb()
+                self:doNextWork()
+            end
+
+            local info_json = dkjson.decode(info)
+            if info == '' or info_json == nil then
+                StructProduct:handlingMissingPayments(l_payload, nil, finish_cb)
+            else
+                if #info_json == table.count(info_json) then
+                    -- info : [{"orderId":"@orderId","payload":"@payload"},...]
+                    StructProduct:handlingMissingPayments(info_json, nil, finish_cb)
+                else
+                    -- info : {"orderId":"@orderId"}
+                    table.insert(l_payload, info_json)
+                end
             end
             
         elseif (ret == 'error') then

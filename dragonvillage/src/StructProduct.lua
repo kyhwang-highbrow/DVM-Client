@@ -547,6 +547,9 @@ end
 -- @brief 누락된 결제 상품 처리
 -------------------------------------
 function StructProduct:handlingMissingPayments(l_payload, cb_func, finish_cb)
+    if (l_payload == nil or #l_payload == 0) then
+        return
+    end
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
