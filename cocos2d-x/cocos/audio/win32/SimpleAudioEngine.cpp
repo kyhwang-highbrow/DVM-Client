@@ -49,11 +49,11 @@ static DWORD    s_dwRootLen;
 static char     s_szFullPath[MAX_PATH];
 
 #if USE_AUDIO_ENGINE
-static int s_BGMusicId = 0;
+static int s_BGMusicId = -1;
 static bool s_IsBGPlaying = false;
 #endif
 
-static int s_VoiceId = 0;
+static int s_VoiceId = -1;
 
 static std::string _FullPath(const char * szPath);
 static unsigned int _Hash(const char *key);
@@ -90,8 +90,8 @@ void SimpleAudioEngine::end()
 {
 #if USE_AUDIO_ENGINE
     AudioEngine::end();
-    s_BGMusicId = 0;
-    s_VoiceId = 0;
+    s_BGMusicId = -1;
+    s_VoiceId = -1;
     s_IsBGPlaying = false;
 #else
     sharedMusic().Close();
@@ -101,7 +101,7 @@ void SimpleAudioEngine::end()
         iter.second = nullptr;
     }
     sharedList().clear();
-    s_VoiceId = 0;
+    s_VoiceId = -1;
     return;
 #endif
 }
@@ -113,6 +113,11 @@ void SimpleAudioEngine::end()
 void SimpleAudioEngine::playBackgroundMusic(const char* pszFilePath, bool bLoop)
 {
 #if USE_AUDIO_ENGINE
+    if (s_BGMusicId != -1)
+    {
+        stopBackgroundMusic();
+    }
+
     s_BGMusicId = AudioEngine::play2d(pszFilePath, bLoop);
     s_IsBGPlaying = true;
 #else
@@ -129,9 +134,12 @@ void SimpleAudioEngine::playBackgroundMusic(const char* pszFilePath, bool bLoop)
 void SimpleAudioEngine::stopBackgroundMusic(bool bReleaseData)
 {
 #if USE_AUDIO_ENGINE
-    AudioEngine::stop(s_BGMusicId);
-    s_BGMusicId = 0;
-    s_IsBGPlaying = false;
+    if (s_BGMusicId != -1)
+    {
+        AudioEngine::stop(s_BGMusicId);
+        s_BGMusicId = -1;
+        s_IsBGPlaying = false;
+    }
 #else
     if (bReleaseData)
     {
@@ -147,6 +155,11 @@ void SimpleAudioEngine::stopBackgroundMusic(bool bReleaseData)
 void SimpleAudioEngine::playVoice(const char* pszFilePath, bool bLoop)
 {
 #if USE_AUDIO_ENGINE
+    if (s_VoiceId != -1)
+    {
+        stopVoice();
+    }
+
     s_VoiceId = AudioEngine::play2d(pszFilePath, bLoop);
 #else
     s_VoiceId = playEffect(pszFilePath, bLoop);
@@ -156,18 +169,21 @@ void SimpleAudioEngine::playVoice(const char* pszFilePath, bool bLoop)
 void SimpleAudioEngine::stopVoice(bool bReleaseData)
 {
 #if USE_AUDIO_ENGINE
-    AudioEngine::stop(s_VoiceId);
-    s_VoiceId = 0;
+    if (s_VoiceId != -1)
+    {
+        AudioEngine::stop(s_VoiceId);
+        s_VoiceId = -1;
+    }
 #else
     stopEffect(s_VoiceId);
-    s_VoiceId = 0;
+    s_VoiceId = -1;
 #endif
 }
 
 void SimpleAudioEngine::pauseBackgroundMusic()
 {
 #if USE_AUDIO_ENGINE
-    if (s_BGMusicId != 0)
+    if (s_BGMusicId != -1)
     {
         AudioEngine::pause(s_BGMusicId);
         s_IsBGPlaying = false;
@@ -180,7 +196,7 @@ void SimpleAudioEngine::pauseBackgroundMusic()
 void SimpleAudioEngine::resumeBackgroundMusic()
 {
 #if USE_AUDIO_ENGINE
-    if (s_BGMusicId != 0)
+    if (s_BGMusicId != -1)
     {
         AudioEngine::resume(s_BGMusicId);
         s_IsBGPlaying = true;
@@ -193,7 +209,10 @@ void SimpleAudioEngine::resumeBackgroundMusic()
 void SimpleAudioEngine::rewindBackgroundMusic()
 {
 #if USE_AUDIO_ENGINE
-    AudioEngine::setCurrentTime(s_BGMusicId, 0);
+    if (s_BGMusicId != -1)
+    {
+        AudioEngine::setCurrentTime(s_BGMusicId, 0);
+    }
 #else
     sharedMusic().Rewind();
 #endif
@@ -295,7 +314,7 @@ void SimpleAudioEngine::pauseAllEffects()
 {
 #if USE_AUDIO_ENGINE
     AudioEngine::pauseAll();
-    if (s_BGMusicId != 0 && s_IsBGPlaying)
+    if (s_BGMusicId != -1)
     {
         s_IsBGPlaying = false;
     }
@@ -324,7 +343,7 @@ void SimpleAudioEngine::resumeAllEffects()
 {
 #if USE_AUDIO_ENGINE
     AudioEngine::resumeAll();
-    if (s_BGMusicId != 0 && !s_IsBGPlaying)
+    if (s_BGMusicId != -1)
     {
         s_IsBGPlaying = true;
     }
@@ -340,15 +359,15 @@ void SimpleAudioEngine::stopAllEffects()
 {
 #if USE_AUDIO_ENGINE
     AudioEngine::stopAll();
-    s_BGMusicId = 0;
+    s_BGMusicId = -1;
     s_IsBGPlaying = false;
-    s_VoiceId = 0;
+    s_VoiceId = -1;
 #else
     for (auto& iter : sharedList())
     {
         iter.second->Stop();
     }
-    s_VoiceId = 0;
+    s_VoiceId = -1;
 #endif
 }
 
