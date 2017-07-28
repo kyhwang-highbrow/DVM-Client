@@ -157,10 +157,12 @@ function UI_ObtainPopup:createListUI(t_data)
 
     local item_str = ''
     if item_desc then
-        item_str = Str('{@item_name}{1}\n{@default}{2}', item_name, item_desc)
+        item_str = Str('{@item_name}{1} : {@default}{2}', item_name, item_desc)
     else
         item_str = item_name
     end
+
+    ccdump(item_str)
 
 	vars['countLabel']:setString(item_str)
 
