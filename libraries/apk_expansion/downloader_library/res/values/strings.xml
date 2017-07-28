@@ -33,7 +33,7 @@
     <string name="state_failed_fetching_url">Download failed because the resources could not be found</string>
     <string name="state_failed_sdcard_full">Download failed because the external storage is full</string>
     <string name="state_failed_cancelled">Download cancelled</string>
-    <string name="state_failed_write_storage_permission_denied">Download failed because the storage write permission was denied</string>
+    <string name="state_failed_write_storage_permission_denied">Download failed because the write permission was denied</string>
     <string name="state_failed_no_google_account">Download failed because a google account is not logged in</string>
     <string name="state_failed">Download failed</string>
 

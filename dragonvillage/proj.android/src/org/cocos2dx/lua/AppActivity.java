@@ -191,7 +191,7 @@ public class AppActivity extends Cocos2dxActivity{
                 try {
                     JSONObject obj = new JSONObject();
                     obj.put("code", IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED);
-                    obj.put("msg", Helpers.getDownloaderStringResourceIDFromState(IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED));
+                    obj.put("msg", getString(Helpers.getDownloaderStringResourceIDFromState(IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED)));
                     info = obj.toString();
                 } catch (JSONException e) {
                     e.printStackTrace();
