@@ -300,6 +300,8 @@ public class Helpers {
                 return R.string.state_failed_cancelled;
             case IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED:
                 return R.string.state_failed_write_storage_permission_denied;
+            case IDownloaderClient.STATE_FAILED_NO_GOOGLE_ACCOUNT:
+                return R.string.state_failed_no_google_account;
             case IDownloaderClient.STATE_FAILED:
                 return R.string.state_failed;
             default:
