@@ -557,9 +557,21 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
     vars['hotTimeGoldBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('gold_2x', vars['hotTimeGoldBtn']) end)
     vars['hotTimeExpBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('exp_2x', vars['hotTimeExpBtn']) end)
 
+        -- 클릭 시 툴팁 처리
+    local function click_btn()
+        local str = '{@SKILL_NAME} ' .. Str('보너스 기능') .. '\n {@SKILL_DESC}' .. Str('아이템을 자동으로 획득')
+        local tooltip = UI_Tooltip_Skill(0, 0, str)
+
+        if (tooltip) then
+            tooltip:autoPositioning(vars['hotTimeMarbleBtn'])
+        end
+    end
+    vars['hotTimeMarbleBtn']:registerScriptTapHandler(click_btn)
+
     vars['hotTimeStBtn']:setVisible(false)
     vars['hotTimeGoldBtn']:setVisible(false)
     vars['hotTimeExpBtn']:setVisible(false)
+    vars['hotTimeMarbleBtn']:setVisible(false)
 
     -- 스태미나 50% 핫타임
     if g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
@@ -576,9 +588,14 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
         table.insert(l_active_hot, 'hotTimeExpBtn')
     end
 
+    -- 아이템 자동 줍기
+    if g_autoItemPickData:isActiveAutoItemPick() then
+        table.insert(l_active_hot, 'hotTimeMarbleBtn')
+    end
+
     for i,v in ipairs(l_active_hot) do
         vars[v]:setVisible(true)
-        local y = -40 - ((i-1) * 70)
+        local y = 90 - ((i-1) * 60)
         vars[v]:setPositionY(y)
     end
 end
