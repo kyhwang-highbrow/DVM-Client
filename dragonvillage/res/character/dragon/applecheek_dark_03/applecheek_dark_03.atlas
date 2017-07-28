@@ -174,8 +174,8 @@ applecheek_dark_03_wing_01
   index: -1
 applecheek_dark_03_wing_02
   rotate: false
-  xy: 249, 518
-  size: 62, 114
-  orig: 62, 114
+  xy: 249, 532
+  size: 54, 100
+  orig: 54, 100
   offset: 0, 0
   index: -1
