@@ -561,13 +561,12 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 end
             end
         end
-        
+
         for k, v in pairs(defender:getStatusEffectList()) do
-            if( v.m_type == 'modify_dmg') then
-            end
+
             if (v.m_type == 'modify_dmg' and v.m_branch == 1) then
                 if(attacker_char:isExistStatusEffectName(v.m_targetStatusEffectName)) then
-                    additional_dmg_adj_rate = additional_dmg_adj_rate + v.m_totalValue
+                    additional_dmg_adj_rate = additional_dmg_adj_rate - v.m_totalValue
                 end
             end
         end
