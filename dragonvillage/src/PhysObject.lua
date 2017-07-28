@@ -392,6 +392,24 @@ function PhysObject:init_AdditionalPhysObject()
 end
 
 -------------------------------------
+-- function updatePhys
+-------------------------------------
+function PhysObject:updatePhys(dt)
+    -- 이동이 허용되고 일시 정지가 아닌 객체만 이동
+    if (not self.apply_movement or self.m_temporaryPause) then return end
+
+    movement_x = self.speed * self.movement_x
+    movement_y = self.speed * self.movement_y
+
+    pos_x = self.pos.x + (movement_x * dt)
+    pos_y = self.pos.y + (movement_y * dt)
+
+    if (pos_x ~= self.pos.x) or (pos_y ~= self.pos.y) then
+        self:setPosition(pos_x, pos_y)
+    end
+end
+
+-------------------------------------
 -- function addPhysObject
 -- @breif PhysObject 추가 -> 타겟팅이 되어야 하는 이슈로 Character Class로 래핑
 -- @comment 여기서는 리스트에만 추가해두고 world에 addObject 할시에 리스트를 불러와 같이 등록한다.

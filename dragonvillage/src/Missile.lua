@@ -169,6 +169,35 @@ function Missile:initState()
 end
 
 -------------------------------------
+-- function updatePhys
+-------------------------------------
+function Missile:updatePhys(dt)
+    if (not self.apply_movement or self.m_temporaryPause) then return end
+
+    local ogr_speed = self.speed
+
+    -- 목표 대상이 존재하는 경우 대상을 지나치지 않도록 속도를 조절
+    if (dt > 0 and self.m_target) then
+        local pos_x, pos_y = self:getCenterPos()
+        local target_x, target_y
+
+        if (self.m_targetBody) then
+            target_x = self.m_target.pos.x + self.m_targetBody['x']
+            target_y = self.m_target.pos.y + self.m_targetBody['y']
+        else
+            target_x, target_y = self.m_target:getCenterPos()
+        end
+
+        local distance = getDistance(pos_x, pos_y, target_x, target_y)
+        self.speed = math_min(self.speed, distance / dt)
+    end
+    
+    PARENT.updatePhys(self, dt)
+
+    self.speed = ogr_speed
+end
+
+-------------------------------------
 -- function setPosition
 -------------------------------------
 function Missile:setPosition(x, y)

@@ -32,10 +32,16 @@ function MissileGuide.st_move(owner, dt)
         if (owner.m_target == nil or owner.m_target:isDead()) then
 			local l_target = owner.m_owner:getTargetListByType('enemy_distance_line', nil, nil)
             owner.m_target = l_target[1]
+            owner.m_targetBody = nil
         end
 
-        if owner.m_target then
-            owner.m_targetPosX, owner.m_targetPosY = owner.m_target:getCenterPos()
+        if (owner.m_target) then
+            if (owner.m_targetBody) then
+                owner.m_targetPosX = owner.m_target.pos.x + owner.m_targetBody['x']
+                owner.m_targetPosY = owner.m_target.pos.y + owner.m_targetBody['y']
+            else
+                owner.m_targetPosX, owner.m_targetPosY = owner.m_target:getCenterPos()
+            end
 
             local curr_degree = owner.movement_theta
             local dest_degree = getDegree(owner.pos.x, owner.pos.y, owner.m_targetPosX, owner.m_targetPosY)
