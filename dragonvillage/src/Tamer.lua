@@ -21,6 +21,8 @@ Tamer = class(PARENT, {
 		m_isUseMovingAfterImage = 'boolean',
 
         m_lSkill = 'list',
+
+        m_bActiveSKillUsable = 'boolean',
         
 		m_roamTimer = '',
         m_baseAnimatorScale = '',
@@ -42,6 +44,8 @@ function Tamer:init(file_name, body, ...)
 	self.m_isUseMovingAfterImage = false
 
     self.m_lSkill = {}
+
+    self.m_bActiveSKillUsable = true
     
 	self.m_roamTimer = 0
     self.m_baseAnimatorScale = 0.5

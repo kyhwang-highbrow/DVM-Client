@@ -61,6 +61,8 @@ function Tamer.st_active(owner, dt)
 		    local move_pos_x = cameraHomePosX + CRITERIA_RESOLUTION_X/2
 		    local move_pos_y = cameraHomePosY + 200
 
+            -- 스킬 사용 여부 저장
+            owner.m_bActiveSKillUsable = false
 		
 		    -- tamer action stop
 		    owner:stopAllActions()
@@ -312,6 +314,8 @@ function Tamer:resetActiveSkillCool()
     if (not skill_indivisual_info) then return end
 
     skill_indivisual_info:resetCoolTime()
+
+    self.m_bActiveSKillUsable = true
 end
 
 -------------------------------------
