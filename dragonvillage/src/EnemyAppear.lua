@@ -140,6 +140,7 @@ function EnemyAppear.Basic(owner, luaValue1, luaValue2, luaValue3)
     owner:setOrgHomePos(pos2.x, pos2.y)
     owner:setHomePos(pos2.x, pos2.y)
     owner:setPosition(pos1.x, pos1.y)
+    owner:changeState('move')
 	
     -- 마지막 액션(Enemy를 공격상태로 변경)
     local finish_action = cc.CallFunc:create(function()
@@ -261,6 +262,7 @@ function EnemyAppear.Appear(owner, luaValue1, luaValue2, luaValue3)
     owner:setOrgHomePos(pos2.x, pos2.y)
     owner:setHomePos(pos2.x, pos2.y)
     owner:setPosition(pos2.x, pos2.y)
+    owner:changeState('move')
 
     -- 이펙트 재생 후 AI 동작
     local res = 'res/effect/effect_appear/effect_appear.spine'
