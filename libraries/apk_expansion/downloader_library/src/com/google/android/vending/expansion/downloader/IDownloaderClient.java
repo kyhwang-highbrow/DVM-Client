@@ -75,7 +75,7 @@ public interface IDownloaderClient {
 
     static final int STATE_FAILED_NO_GOOGLE_ACCOUNT = 20;
 
-    static final int STATE_FAILED = 21;
+    static final int STATE_FAILED = 99;
 
     /**
      * Called internally by the stub when the service is bound to the client.
