@@ -53,6 +53,9 @@ extern void setStringForKeyJNI(const char* pKey, const char* value);
 extern void setIdleTimerDisabledJNI(bool disabled);
 extern bool isIdleTimerDisabledJNI();
 
+extern int getDeviceSampleRate();
+extern int getDeviceAudioBufferSizeInFrames();
+
 // @obb
 extern int getObbAssetFileDescriptorJNI(const char* path, long* startOffset, long* size);
 

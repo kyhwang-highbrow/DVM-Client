@@ -40,6 +40,9 @@ THE SOFTWARE.
 EditTextCallback s_pfEditTextCallback = NULL;
 void* s_ctx = NULL;
 
+static int __deviceSampleRate = 44100;
+static int __deviceAudioBufferSizeInFrames = 192;
+
 using namespace cocos2d;
 using namespace std;
 
@@ -74,6 +77,12 @@ extern "C" {
         } else {
             if (s_pfEditTextCallback) s_pfEditTextCallback("", s_ctx);
         }
+    }
+    
+    JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxHelper_nativeSetAudioDeviceInfo(JNIEnv*  env, jobject thiz, jboolean isSupportLowLatency, jint deviceSampleRate, jint deviceAudioBufferSizeInFrames) {
+        __deviceSampleRate = deviceSampleRate;
+        __deviceAudioBufferSizeInFrames = deviceAudioBufferSizeInFrames;
+        LOGD("nativeSetAudioDeviceInfo: sampleRate: %d, bufferSizeInFrames: %d", __deviceSampleRate, __deviceAudioBufferSizeInFrames);
     }
 }
 
@@ -389,6 +398,16 @@ bool isIdleTimerDisabledJNI()
 	}
 
 	return false;
+}
+
+int getDeviceSampleRate()
+{
+    return __deviceSampleRate;
+}
+
+int getDeviceAudioBufferSizeInFrames()
+{
+    return __deviceAudioBufferSizeInFrames;
 }
 
 // @obb
