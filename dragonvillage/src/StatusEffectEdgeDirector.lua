@@ -57,6 +57,18 @@ function StatusEffectEdgeDirector:addEdge()
 
     table.insert(self.m_lEdgeAnimator, animator)
 
+    do
+        local list = animator:getVisualList()
+
+        -- appear 애니메이션이 있을 경우 연출
+        if (table.find(list, 'appear')) then
+            animator:changeAni('appear', false)
+            animator:addAniHandler(function()
+                animator:changeAni('idle', true)
+            end)
+        end
+    end
+
     self.m_curCount = self.m_curCount + 1
 end
 
@@ -85,7 +97,6 @@ function StatusEffectEdgeDirector:makeStartPosList(type, max_count)
         local angle_unit = (360 / max_count)
 	    local distance = 100
 
-	    -- ÁÂÇ¥ °è»ê
 	    for i = 1, max_count do
 		    local angle = angle_unit * (i - 1)
 		    local pos = getPointFromAngleAndDistance(angle, distance)
