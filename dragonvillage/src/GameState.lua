@@ -756,6 +756,14 @@ function GameState:isFight()
 end
 
 -------------------------------------
+-- function isFightWait
+-------------------------------------
+function GameState:isFightWait()
+    return (self.m_state == GAME_STATE_FIGHT_WAIT)
+end
+
+
+-------------------------------------
 -- function isEnemyAppear
 -------------------------------------
 function GameState:isEnemyAppear()
