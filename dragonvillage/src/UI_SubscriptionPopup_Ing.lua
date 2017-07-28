@@ -35,6 +35,10 @@ function UI_SubscriptionPopup_Ing:initUI()
 
     local info = self:getSubscribedInfo() -- StructSubscribedInfo
 
+    -- 배경 이미지 출력
+    local bg = info:makePopupBg()
+    vars['packageNode']:addChild(bg)
+
     -- 남은 기간 출력
     local text = info:getRemainDaysText()
     vars['dayLabel']:setString(text)

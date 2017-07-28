@@ -30,7 +30,7 @@ end
 
 -------------------------------------
 -- function isRareSummon
--- @brief °íµî±Ş¿ë ¼ÒÈ¯ (3¼º ÀÌ»ó)
+-- @brief ê³ ë“±ê¸‰ìš© ì†Œí™˜ (3ì„± ì´ìƒ)
 -------------------------------------
 function TableSummonGacha:isRareSummon(egg_id)
     if (self == THIS) then
@@ -43,7 +43,7 @@ end
 
 -------------------------------------
 -- function isFixSummon
--- @brief È®Á¤µî±Ş ¼ÒÈ¯
+-- @brief í™•ì •ë“±ê¸‰ ì†Œí™˜
 -------------------------------------
 function TableSummonGacha:isFixSummon(egg_id)
     if (self == THIS) then

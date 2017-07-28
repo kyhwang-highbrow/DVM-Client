@@ -105,6 +105,7 @@ function UI_Game:initHotTimeUI()
     vars['hotTimeStBtn']:setVisible(false)
     vars['hotTimeGoldBtn']:setVisible(false)
     vars['hotTimeExpBtn']:setVisible(false)
+    vars['hotTimeMarbleBtn']:setVisible(false)
 
     vars['hotTimeStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('stamina_50p', vars['hotTimeStBtn']) end)
     vars['hotTimeGoldBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('gold_2x', vars['hotTimeGoldBtn']) end)
@@ -602,4 +603,49 @@ function UI_Game:initIntroFight()
             vars[v]:setVisible(false)
         end
     end
+end
+
+-------------------------------------
+-- function showAutoItemPickUI
+-- @brief
+-------------------------------------
+function UI_Game:showAutoItemPickUI()
+    local vars = self.vars
+
+    -- 클릭 시 툴팁 처리
+    local function click_btn()
+        local str = '{@SKILL_NAME} ' .. Str('보너스 기능') .. '\n {@SKILL_DESC}' .. Str('아이템을 자동으로 획득')
+        local tooltip = UI_Tooltip_Skill(0, 0, str)
+
+        if (tooltip) then
+            tooltip:autoPositioning(vars['hotTimeMarbleBtn'])
+        end
+    end
+    vars['hotTimeMarbleBtn']:registerScriptTapHandler(click_btn)
+    
+    -- 핫타임 UI들과의 정렬
+    local l_hottime = {}
+
+    if vars['hotTimeStBtn']:isVisible() then
+        table.insert(l_hottime, 'hotTimeStBtn')
+    end
+
+    if vars['hotTimeGoldBtn']:isVisible() then
+        table.insert(l_hottime, 'hotTimeGoldBtn')
+    end
+
+    if vars['hotTimeExpBtn']:isVisible() then
+        table.insert(l_hottime, 'hotTimeExpBtn')
+    end
+
+    table.insert(l_hottime, 'hotTimeMarbleBtn')
+
+    for i,ui_name in pairs(l_hottime) do
+        local ui = vars[ui_name]
+
+        ui:setVisible(true)
+        local pos_x = -97 + ((i-1) * 50)
+        ui:setPositionX(pos_x)
+    end
+
 end

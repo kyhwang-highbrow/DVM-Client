@@ -4,7 +4,7 @@ local PARENT = Structure
 -- class StructSubscribedInfo
 -------------------------------------
 StructSubscribedInfo = class(PARENT, {
-        catetgory = '',
+        category = '',
         cur_day = '',
         max_day = '',
         daily_items = '',
@@ -149,7 +149,36 @@ end
 -- @brief
 -------------------------------------
 function StructSubscribedInfo:getSubscriptionCategory()
-    return self['catetgory']
+    return self['category']
+end
+
+-------------------------------------
+-- function makePopupBg
+-- @brief
+-------------------------------------
+function StructSubscribedInfo:makePopupBg()
+    local category = self:getSubscriptionCategory()
+
+    local res = ''
+
+    if (category == 'basic') then
+        res = 'res/ui/package/popup_daily_dia_02.png'
+
+    elseif (category == 'premium') then
+        res = 'res/ui/package/popup_daily_dia_03.png'
+
+    else
+        error('category : ' .. category)
+    end
+
+    local bg = cc.Sprite:create(res)
+    if (not bg) then
+        error('res : ' .. res)
+    end
+
+    bg:setDockPoint(cc.p(0.5, 0.5))
+    bg:setAnchorPoint(cc.p(0.5, 0.5))
+    return bg
 end
 
 -------------------------------------

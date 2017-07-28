@@ -62,6 +62,7 @@ end
 -------------------------------------
 function DropItem:initState()
     self:addState('appear', DropItem.st_appear, 'appear', false)
+    self:addState('appear_auto_obtain', DropItem.st_appear_auto_obtain, 'appear', false)
     self:addState('idle', DropItem.st_idle, 'idle', true)
     self:addState('wait', DropItem.st_wait, 'idle', true)
     self:addState('dying', DropItem.st_dying, 'disappear', false)
@@ -92,6 +93,19 @@ function DropItem.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
         local function ani_handler()
             owner:changeState('idle')
+        end
+        owner:addAniHandler(ani_handler)
+    end
+end
+
+-------------------------------------
+-- function st_appear_auto_obtain
+-------------------------------------
+function DropItem.st_appear_auto_obtain(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        local function ani_handler()
+            owner:makeObtainEffect()
+            owner:changeState('dying')
         end
         owner:addAniHandler(ani_handler)
     end
