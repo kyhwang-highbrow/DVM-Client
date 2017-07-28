@@ -382,34 +382,6 @@ function UI_Colosseum:update_topRankTableView(target_offset)
 end
 
 -------------------------------------
--- function init_friendRankTableView
--------------------------------------
-function UI_Colosseum:init_friendRankTableView()
-    local node = self.vars['friendRankTableViewNode']
-    --node:removeAllChildren()
-
-    local l_item_list = g_colosseumRankData.m_lFriendRank
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-    end
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(840, 100+5)
-    table_view:setCellUIClass(UI_ColosseumFriendRankListItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list)
-
-    -- 리스트가 비었을 때
-    --table_view_td:makeDefaultEmptyDescLabel(Str('보유한 드래곤이 없습니다.'))
-
-    -- 정렬
-    g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
-    self.m_topRankTableView = table_view
-end
-
--------------------------------------
 -- function update
 -------------------------------------
 function UI_Colosseum:update(dt)

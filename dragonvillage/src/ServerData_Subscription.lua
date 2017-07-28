@@ -12,6 +12,7 @@ ServerData_Subscription = class({
         m_serverData = 'ServerData',
         m_bDirty = 'bool',
         m_dicProduct = '[subscription_category][struct_product]',
+        m_subscribedInfoList = 'list[StructSubscribedInfo]', -- 구독 중인 상품 정보
     })
 
 -------------------------------------
@@ -34,7 +35,11 @@ function ServerData_Subscription:openSubscriptionPopup()
     self:ckechDirty()
 
     local function cb_func()
-        UI_SubscriptionPopup()
+        if self:getSubscribedInfo() then
+            UI_SubscriptionPopup_Ing()
+        else
+            UI_SubscriptionPopup()
+        end
     end
 
     if (not self:isDirty()) then
@@ -49,7 +54,7 @@ end
 -------------------------------------
 -- function request_subscriptionInfo
 -------------------------------------
-function ServerData_Subscription:request_subscriptionInfo(cb_func)
+function ServerData_Subscription:request_subscriptionInfo(cb_func, fail_cb)
 
     -- 파라미터
     local uid = g_userData:get('uid')
@@ -69,6 +74,7 @@ function ServerData_Subscription:request_subscriptionInfo(cb_func)
     ui_network:setParam('uid', uid)
     ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
@@ -100,10 +106,11 @@ function ServerData_Subscription:response_subscriptionInfo(ret)
     end
 
     -- 구독 중인 상품에 대한 처리
+    self.m_subscribedInfoList = {}
     local user_subscription_list = ret['user_subscription_list']
     for i,v in pairs(user_subscription_list) do
         local struct_subsc_info = StructSubscribedInfo(v)
-        ccdump(struct_subsc_info)
+        table.insert(self.m_subscribedInfoList, struct_subsc_info)
     end
 end
 
@@ -196,6 +203,26 @@ function ServerData_Subscription:getSubscriptionProductInfo(subscription_categor
 end
 
 -------------------------------------
+-- function getSubscriptionProductInfo_usePid
+-- @brief product_id로 상품 정보 가져옴
+-- @return StructProductSubscription
+-------------------------------------
+function ServerData_Subscription:getSubscriptionProductInfo_usePid(product_id)
+    local struct_product = nil
+
+    for _,l_list in pairs(self.m_dicProduct) do
+        for _,v in pairs(l_list) do
+            if (product_id == v['product_id']) then
+                struct_product = v
+                break
+            end
+        end
+    end
+
+    return struct_product
+end
+
+-------------------------------------
 -- function getBasicSubscriptionProductInfo
 -- @brief 일반 월정액 상품 정보
 -------------------------------------
@@ -209,4 +236,32 @@ end
 -------------------------------------
 function ServerData_Subscription:getPremiumSubscriptionProductInfo()
     return self:getSubscriptionProductInfo('premium')
+end
+
+
+-------------------------------------
+-- function getSubscribedInfo
+-- @brief 구독 중인 상품 정보
+-- @return StructSubscribedInfo
+-- 2017-07-28 sgkim
+-- 현재까지 구독은 하나만 할 수 있는 기획이어서 그렇게 가정하고 코딩함
+-------------------------------------
+function ServerData_Subscription:getSubscribedInfo()
+    return self.m_subscribedInfoList[1]
+end
+
+-------------------------------------
+-- function getAvailableProduct
+-- @brief 구매 가능한 상품
+-------------------------------------
+function ServerData_Subscription:getAvailableProduct()
+    local info = self:getSubscribedInfo() -- StructSubscribedInfo
+
+    if (not info) then
+        return nil
+    end
+
+    local product_id = info:getNextProductID()
+
+    return self:getSubscriptionProductInfo_usePid(product_id)
 end

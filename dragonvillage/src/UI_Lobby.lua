@@ -261,8 +261,6 @@ function UI_Lobby:initButton()
     vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
 
     vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
-
-	vars['subscriptionBtn']:setVisible(false)
 end
 
 -------------------------------------

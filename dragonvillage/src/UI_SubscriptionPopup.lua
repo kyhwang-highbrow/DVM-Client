@@ -80,10 +80,15 @@ end
 -------------------------------------
 function UI_SubscriptionPopup:click_buyBtn(struct_product)
 	local function cb_func(ret)
-		self:closeWithAction()
-
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
+
+        local function func()
+            g_subscriptionData:setDirty()
+            g_subscriptionData:openSubscriptionPopup()
+            self:close()
+        end
+        self:doActionReverse(func, 0.5, false)
 	end
 	struct_product:buy(cb_func)
 end

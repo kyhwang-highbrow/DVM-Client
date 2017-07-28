@@ -645,6 +645,8 @@ local t_module = {
     'UI_Product',
 	'UI_Package',
     'UI_SubscriptionPopup',
+    'UI_SubscriptionPopup_Ing',
+    'UI_SubscriptionDayListItem',
 
     -- UI : 계정 생성
 	'UI_StartTamerSelect',
