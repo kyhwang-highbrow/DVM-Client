@@ -56,7 +56,7 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 	// ===========================================================
 
 	// private Cocos2dxGLSurfaceView mGLSurfaceView;
-	public Cocos2dxGLSurfaceView mGLSurfaceView;
+	private Cocos2dxGLSurfaceView mGLSurfaceView;
 	private Cocos2dxHandler mHandler;
 	private static Cocos2dxActivity sContext = null;
 	private Cocos2dxVideoHelper mVideoHelper = null;
@@ -66,11 +66,14 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 	private Runnable mHideRunnable = null;
 	private Runnable mWakeRunnable = null;
 
+	public Cocos2dxGLSurfaceView getGLSurfaceView(){
+		return  mGLSurfaceView;
+	}
+
 	public static Context getContext() {
 		return sContext;
 	}
 
-	
 	protected void onLoadNativeLibraries() {
 		try {
 			ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
@@ -95,6 +98,8 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		this.hideVirtualButton();
 
 		onLoadNativeLibraries();
 
@@ -147,6 +152,7 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 	protected void onResume() {
 		super.onResume();
 
+		this.hideVirtualButton();
 		Cocos2dxHelper.onResume();
 		this.mGLSurfaceView.onResume();
 		this.hideNavigation();
@@ -241,6 +247,38 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
 		Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
 		glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 		return glSurfaceView;
+	}
+
+	protected void hideVirtualButton() {
+
+		if (Build.VERSION.SDK_INT >= 19) {
+			// use reflection to remove dependence of API level
+
+			Class viewClass = View.class;
+
+			try {
+				final int SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION = Cocos2dxReflectionHelper.<Integer>getConstantValue(viewClass, "SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION");
+				final int SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN = Cocos2dxReflectionHelper.<Integer>getConstantValue(viewClass, "SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN");
+				final int SYSTEM_UI_FLAG_HIDE_NAVIGATION = Cocos2dxReflectionHelper.<Integer>getConstantValue(viewClass, "SYSTEM_UI_FLAG_HIDE_NAVIGATION");
+				final int SYSTEM_UI_FLAG_FULLSCREEN = Cocos2dxReflectionHelper.<Integer>getConstantValue(viewClass, "SYSTEM_UI_FLAG_FULLSCREEN");
+				final int SYSTEM_UI_FLAG_IMMERSIVE_STICKY = Cocos2dxReflectionHelper.<Integer>getConstantValue(viewClass, "SYSTEM_UI_FLAG_IMMERSIVE_STICKY");
+				final int SYSTEM_UI_FLAG_LAYOUT_STABLE = Cocos2dxReflectionHelper.<Integer>getConstantValue(viewClass, "SYSTEM_UI_FLAG_LAYOUT_STABLE");
+
+				// getWindow().getDecorView().setSystemUiVisibility();
+				final Object[] parameters = new Object[]{SYSTEM_UI_FLAG_LAYOUT_STABLE
+						| SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+						| SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+						| SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+						| SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+						| SYSTEM_UI_FLAG_IMMERSIVE_STICKY};
+				Cocos2dxReflectionHelper.<Void>invokeInstanceMethod(getWindow().getDecorView(),
+						"setSystemUiVisibility",
+						new Class[]{Integer.TYPE},
+						parameters);
+			} catch (NullPointerException e) {
+				Log.e(TAG, "hideVirtualButton", e);
+			}
+		}
 	}
 
 	private final static boolean isAndroidEmulator() {

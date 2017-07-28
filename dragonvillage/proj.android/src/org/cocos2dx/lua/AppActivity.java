@@ -92,7 +92,7 @@ public class AppActivity extends Cocos2dxActivity{
         PerpleSDK.createInstance(this);
 
         // @perplesdk, Lua 콜백을 GL Thread 에서 실행하고자 할 경우 설정한다.
-        PerpleSDK.setGLSurfaceView(mGLSurfaceView);
+        PerpleSDK.setGLSurfaceView(getGLSurfaceView());
 
         // 디버그 메시지 출력
         boolean isDebug = true;
