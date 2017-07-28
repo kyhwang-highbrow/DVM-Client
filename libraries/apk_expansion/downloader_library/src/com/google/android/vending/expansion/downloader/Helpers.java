@@ -298,6 +298,8 @@ public class Helpers {
                 return R.string.state_failed_sdcard_full;
             case IDownloaderClient.STATE_FAILED_CANCELED:
                 return R.string.state_failed_cancelled;
+            case IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED:
+                return R.string.state_failed_write_storage_permission_denied;
             case IDownloaderClient.STATE_FAILED:
                 return R.string.state_failed;
             default:
