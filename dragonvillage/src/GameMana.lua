@@ -50,13 +50,20 @@ function GameMana:update(dt)
         self.m_value = self.m_value + add
     end
 
-    if (self.m_inGameUI) then
-        if (self.m_bLeftFormation) then
-            self.m_inGameUI:setMana(self.m_value, MAX_MANA)
-        end
-    end
+    self:updateGauge()
 
     self.m_prevValue = self.m_value
+end
+
+-------------------------------------
+-- function updateGauge
+-------------------------------------
+function GameMana:updateGauge()
+    if (not self.m_inGameUI) then return end
+
+    if (self.m_bLeftFormation) then
+        self.m_inGameUI:setMana(self.m_value, MAX_MANA)
+    end
 end
 
 -------------------------------------
@@ -87,6 +94,17 @@ end
 function GameMana:addMana(value)
     self.m_value = self.m_value + value
     self.m_value = math_min(self.m_value, MAX_MANA)
+
+    self:updateGauge()
+end
+
+-------------------------------------
+-- function setMaxMana
+-------------------------------------
+function GameMana:setMaxMana()
+    self.m_value = MAX_MANA
+
+    self:updateGauge()
 end
 
 -------------------------------------
@@ -94,6 +112,8 @@ end
 -------------------------------------
 function GameMana:resetMana()
     self.m_value = 0
+
+    self:updateGauge()
 end
 
 -------------------------------------

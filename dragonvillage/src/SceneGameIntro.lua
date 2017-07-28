@@ -7,7 +7,9 @@ SceneGameIntro = class(PARENT, {
         m_nIdx = 'number',
         m_bDoAction = 'boolean',
 
-        m_dialogPlayer = 'UI_DialoguePlayer'
+        m_dialogPlayer = 'UI_DialoguePlayer',
+
+        m_focusingDragon = 'Dragon',
     })
 
 -------------------------------------
@@ -110,7 +112,6 @@ function SceneGameIntro:update(dt)
 
     local world = self.m_gameWorld
     local recorder = world.m_logRecorder
-    local leader = world.m_leaderDragon
     local boss = world.m_boss
     local idx = self.m_nIdx
 
@@ -135,22 +136,41 @@ function SceneGameIntro:update(dt)
         world.m_heroMana.m_incValuePerSec = 1 / 17
     end
 
-    -- 세번째 웨이브 - 마나 게이지가 찬 후
+    -- 세번째 웨이브 - 빙하고룡 스킬
     if (idx == 4) and (world.m_heroMana.m_value > 1) then
         self:play_tutorialTalk(false, true)
 
         -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴
+        self.m_focusingDragon = world:getDragonList()[2]
+        world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost() - 1)
         world.m_gameHighlight:setToForced(true)
-        world.m_gameHighlight:addForcedHighLightList(world.m_leaderDragon)
+        world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
     end
 
-    -- 세번째 웨이브 - 드래그 스킬 사용 직후
-    if (idx == 5) and (recorder:getLog('use_skill') > 0 and leader.m_state == 'attackDelay') then
-        self:play_tutorialTalk()
+    -- 세번째 웨이브 - 파워드래곤 스킬
+    if (idx == 5) and (recorder:getLog('use_skill') > 0 and self.m_focusingDragon.m_state == 'attackDelay') then
+        self:play_tutorialTalk(false, true)
+
+        -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴
+        self.m_focusingDragon = world:getDragonList()[1]
+        world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost())
+        world.m_gameHighlight:setToForced(true)
+        world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
+    end
+
+    -- 세번째 웨이브 - 번개고룡 스킬
+    if (idx == 6) and (recorder:getLog('use_skill') > 1 and self.m_focusingDragon.m_state == 'attackDelay') then
+        self:play_tutorialTalk(false, true)
+
+        -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴
+        self.m_focusingDragon = world:getDragonList()[4]
+        world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost())
+        world.m_gameHighlight:setToForced(true)
+        world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
     end
 
     -- 세번째 웨이브 - 보스 스킬 사용 직전
-    if (idx == 6) and (boss.m_patternAtkIdx == '1' and boss.m_state == 'attack') then
+    if (idx == 7) and (boss.m_patternAtkIdx == '1' and boss.m_state == 'attack') then
         self:play_tutorialTalk()
 
         -- 보스의 공격력을 증가 시킴
@@ -163,7 +183,7 @@ function SceneGameIntro:update(dt)
     end
 
     -- 세번째 웨이브 - 아군이 모두 죽었을 때
-    if (idx == 7) and (world.m_gameState.m_state == GAME_STATE_FAILURE) then
+    if (idx == 8) and (world.m_gameState.m_state == GAME_STATE_FAILURE) then
         self:play_tutorialTalk()
     end
 
@@ -258,7 +278,13 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
     local function next_cb()
         if (self.m_nIdx == 5) then
             -- 드래그 스킬 입력 가이드 시작
-            world.m_skillIndicatorMgr:startIntro(world.m_leaderDragon)
+            world.m_skillIndicatorMgr:startIntro(self.m_focusingDragon)
+        elseif (self.m_nIdx == 6) then
+            -- 드래그 스킬 입력 가이드 시작
+            world.m_skillIndicatorMgr:startIntro(self.m_focusingDragon)
+        elseif (self.m_nIdx == 7) then
+            -- 드래그 스킬 입력 가이드 시작
+            world.m_skillIndicatorMgr:startIntro(self.m_focusingDragon)
         else
             self.m_gameWorld:setTemporaryPause(false)
         end

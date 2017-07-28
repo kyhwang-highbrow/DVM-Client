@@ -724,3 +724,10 @@ function Dragon:getRarity()
     local rarity = 10 + self.m_lv
     return rarity
 end
+
+-------------------------------------
+-- function getSkillManaCost
+-------------------------------------
+function Dragon:getSkillManaCost()
+    return self.m_activeSkillManaCost
+end
