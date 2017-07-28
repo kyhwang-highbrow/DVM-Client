@@ -548,6 +548,7 @@ end
 -------------------------------------
 function StructProduct:handlingMissingPayments(l_payload, cb_func, finish_cb)
     if (l_payload == nil or #l_payload == 0) then
+        finish_cb()
         return
     end
 
