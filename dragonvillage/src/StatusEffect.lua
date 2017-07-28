@@ -583,7 +583,9 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
         local target_debuff_time = caster:getStat('target_debuff_time')
         target_debuff_time = math_max(target_debuff_time, -100)
 
-        duration = duration + duration * target_debuff_time
+        if (target_debuff_time ~= 0) then
+            duration = duration + duration * target_debuff_time / 100
+        end
     end
 
     local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration, add_param)
