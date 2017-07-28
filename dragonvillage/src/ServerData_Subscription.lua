@@ -263,5 +263,18 @@ function ServerData_Subscription:getAvailableProduct()
 
     local product_id = info:getNextProductID()
 
-    return self:getSubscriptionProductInfo_usePid(product_id)
+    local product = self:getSubscriptionProductInfo_usePid(product_id)
+    local base_product = nil
+
+    -- 기본 상품 정보를 검색
+    if product then
+        local category = product:getSubscriptionCategory()
+        base_product = self:getSubscriptionProductInfo(category)
+
+        if (product == base_product) then
+            base_product = nil
+        end
+    end
+
+    return product, base_product
 end

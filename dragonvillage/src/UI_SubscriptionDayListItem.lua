@@ -47,6 +47,7 @@ function UI_SubscriptionDayListItem:initUI()
             local item_cnt = v['count']
             local item_card = UI_ItemCard(item_id, item_cnt)
             parent:addChild(item_card.root)
+            item_card.root:setSwallowTouch(false)
         end
     end
 

@@ -38,10 +38,6 @@ function UI_SubscriptionPopup_Ing:initUI()
     -- 배경 이미지 출력
     local bg = info:makePopupBg()
     vars['packageNode']:addChild(bg)
-
-    -- 남은 기간 출력
-    local text = info:getRemainDaysText()
-    vars['dayLabel']:setString(text)
 end
 
 -------------------------------------
@@ -58,8 +54,17 @@ end
 -- function init_tableView
 -------------------------------------
 function UI_SubscriptionPopup_Ing:init_tableView()
-    local node = self.vars['productNode']
-    node:removeAllChildren()
+    local vars = self.vars
+    vars['productNode']:removeAllChildren()
+    vars['productNodeLong']:removeAllChildren()
+
+    local node = nil
+    -- 추가 할인 구매가 가능한 경우 버튼 영역을 확보
+    if g_subscriptionData:getAvailableProduct() then
+        node = vars['productNode']
+    else
+        node = vars['productNodeLong']
+    end    
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
@@ -80,11 +85,10 @@ function UI_SubscriptionPopup_Ing:init_tableView()
     local l_item_list = struct_subscribed_info:getDayRewardInfoList()
     table_view:setItemList(l_item_list)
 
-
     -- 오늘 날짜로 이동
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     local idx = struct_subscribed_info['cur_day']
-    table_view:relocateContainerFromIndex(idx, true)
+    table_view:relocateContainerFromIndex(idx, false)
 end
 
 -------------------------------------
@@ -144,7 +148,12 @@ end
 -------------------------------------
 function UI_SubscriptionPopup_Ing:refresh()
     local vars = self.vars
-    local struct_product = g_subscriptionData:getAvailableProduct()
+    local struct_product, base_product = g_subscriptionData:getAvailableProduct() -- StructProductSubscription
+    local info = self:getSubscribedInfo() -- StructSubscribedInfo
+
+    -- 남은 기간 출력
+    local text = info:getRemainDaysText()
+    vars['dayLabel']:setString(text)
 
     if (not struct_product) then
         vars['buyBtn']:setVisible(false)
@@ -163,4 +172,13 @@ function UI_SubscriptionPopup_Ing:refresh()
 
     -- 가격 아이콘 및 라벨, 배경 조정
     UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
+
+
+    do -- 할인율 표시
+        local price = struct_product:getPrice()
+        local base_price = base_product:getPrice()
+
+        local percentage = math_floor((base_price - price) / base_price * 100)
+        vars['saleLabel']:setString(Str('{1}%\n할인!', percentage))
+    end
 end

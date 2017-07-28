@@ -764,3 +764,23 @@ function StructProduct:isContain(item_type)
 
     return false
 end
+
+
+
+
+
+
+
+
+
+
+
+
+-- get & set
+
+-------------------------------------
+-- function getPrice
+-------------------------------------
+function StructProduct:getPrice()
+    return self['price']
+end
