@@ -2550,6 +2550,9 @@
     <None Include="..\src\TableSummonGacha.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ServerData_Tutorial.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

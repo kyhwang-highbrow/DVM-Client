@@ -230,7 +230,8 @@ function SceneGameIntro:checkScenario()
     end
 
     if (not g_scenarioViewingHistory:isViewed(intro_finish_name)) then
-        play_intro_finish()
+        -- 튜토리얼 상태 저장
+        g_tutorialData:request_tutorialSave(TUTORIAL_INTRO_FIGHT, play_intro_finish, lobby_func)
     else
         lobby_func()
     end

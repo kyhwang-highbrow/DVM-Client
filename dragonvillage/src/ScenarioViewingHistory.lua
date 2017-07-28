@@ -116,18 +116,19 @@ end
 -- function checkIntroScenario
 -------------------------------------
 function ScenarioViewingHistory:checkIntroScenario()
-    
-    -- 인트로 시나리오
-    local lv = g_userData:get('lv')
-    if (lv > 1) then return end
-
     local tid = g_userData:get('start_tamer')
     local tamer_name = TableTamer():getTamerType(tid) or 'goni'
     local intro_start_name = 'scenario_intro_start_'..tamer_name
     local intro_fight_name = 'scenario_intro_fight'
-    
+
+    local check_tutorial 
     local play_intro_start
     local play_intro_fight
+
+    -- 로컬데이터가 있다면 패스
+    if (self:isViewed(intro_start_name)) then
+        return
+    end
 
     play_intro_start = function()
         local ui = self:playScenario(intro_start_name)
@@ -140,9 +141,16 @@ function ScenarioViewingHistory:checkIntroScenario()
         scene:runScene()
     end
 
-    if (not self:isViewed(intro_start_name)) then
-        play_intro_start()
+    -- 같은 계정으로 다른 기기에 접속한 경우 서버에서 준 튜토리얼 정보로 검사
+    check_tutorial = function(ret)
+        if (ret['tutorial'] == false) then
+            play_intro_start()
+        else
+            self:addViewed(intro_start_name)
+        end
     end
+
+    g_tutorialData:request_tutorialInfo(TUTORIAL_INTRO_FIGHT, check_tutorial)
 end
 
 -------------------------------------

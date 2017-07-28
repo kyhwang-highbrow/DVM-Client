@@ -113,6 +113,7 @@ local t_module = {
     'ServerData_MasterRoad',
     'ServerData_ContentLock',
     'ServerData_AutoItemPick',
+    'ServerData_Tutorial',
 
     -- Interface
     'IEventDispatcher',

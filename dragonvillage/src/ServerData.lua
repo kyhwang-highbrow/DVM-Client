@@ -143,6 +143,9 @@ function ServerData:getInstance()
     -- 자동 재화 줍기 (Auto Item Pick)
     g_autoItemPickData = ServerData_AutoItemPick(g_serverData)
 
+    -- 튜토리얼
+    g_tutorialData = ServerData_Tutorial(g_serverData)
+
     return g_serverData
 end
 
