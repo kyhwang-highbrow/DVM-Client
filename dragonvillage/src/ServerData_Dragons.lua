@@ -1015,7 +1015,7 @@ function ServerData_Dragons:haveLeaderSkill(doid)
 	local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
 	local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
 
-	if (skill_info) then
+	if (skill_info) and (skill_info:isActivated()) then
 		return true
 	end
 

@@ -140,7 +140,7 @@ function UI_ReadyScene_LeaderPopup.makeLeaderCellUI(t_data)
 	-- 드래곤 버프 설명 (버프 이름 있어야 할듯?)
 	local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
 	local leader_skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
-	if (leader_skill_info) then
+	if (leader_skill_info) and (leader_skill_info:isActivated()) then
 		local desc = leader_skill_info:getSkillDesc()
 		vars['dscLabel']:setString(desc)
 	else

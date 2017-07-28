@@ -193,6 +193,13 @@ function DragonSkillIndivisualInfo:getSkillTable()
 end
 
 -------------------------------------
+-- function isActivated
+-------------------------------------
+function DragonSkillIndivisualInfo:isActivated()
+    return self.m_skillLevel > 0
+end
+
+-------------------------------------
 -- function getReqMana
 -- @brief 필요 마나 리턴 (active 스킬만 유효한 값을 가짐)
 -------------------------------------
