@@ -183,6 +183,7 @@ function ItemObtainResult_Shop(t_ret)
 
     -- 우편함으로 정송
     if (t_ret['new_mail'] == true) then
+        g_highlightData:setHighlightMail()
         local toast_msg = Str('상품이 우편함으로 전송되었습니다.')
         UI_ToastPopup(toast_msg)
     end
@@ -234,6 +235,7 @@ function ItemObtainResult(t_ret)
 
     -- 우편함으로 정송
     if (t_ret['new_mail'] == true) then
+        g_highlightData:setHighlightMail()
         local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
         UI_ToastPopup(toast_msg)
     end

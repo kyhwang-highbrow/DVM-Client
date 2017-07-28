@@ -71,6 +71,10 @@ end
 function ServerData_Highlight:applyHighlightInfo(ret)
     local t_highlight = ret['highlight']
 
+    if (ret == 'new_mail') then
+        self['new_mail'] = 1
+    end
+
     if (not t_highlight) then
         return
     end
@@ -251,4 +255,14 @@ end
 -------------------------------------
 function ServerData_Highlight:setLastUpdateTime()
     self.m_lastUpdateTime = Timer:getServerTime()
+end
+
+-------------------------------------
+-- function setHighlightMail
+-------------------------------------
+function ServerData_Highlight:setHighlightMail()
+    if (self['new_mail'] <= 0) then
+        self['new_mail'] = 1
+        self:setLastUpdateTime()
+    end
 end
