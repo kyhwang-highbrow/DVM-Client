@@ -58,6 +58,7 @@ public interface LicenseCheckerCallback {
     public static final int ERROR_CHECK_IN_PROGRESS = 4;
     public static final int ERROR_INVALID_PUBLIC_KEY = 5;
     public static final int ERROR_MISSING_PERMISSION = 6;
+    public static final int ERROR_NO_GOOGLE_ACCOUNT = 7;
 
     /**
      * Error in application code. Caller did not call or set up license checker

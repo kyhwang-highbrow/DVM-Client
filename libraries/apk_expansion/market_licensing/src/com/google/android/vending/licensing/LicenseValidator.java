@@ -117,7 +117,7 @@ class LicenseValidator {
                 return;
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
-                handleInvalidResponse();
+                handleApplicationError(LicenseCheckerCallback.ERROR_NO_GOOGLE_ACCOUNT);
                 return;
             }
 

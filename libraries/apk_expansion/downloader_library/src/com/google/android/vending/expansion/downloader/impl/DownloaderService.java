@@ -882,8 +882,13 @@ public abstract class DownloaderService extends CustomIntentService implements I
                 @Override
                 public void applicationError(int errorCode) {
                     try {
-                        mNotification
-                                .onDownloadStateChanged(IDownloaderClient.STATE_FAILED_FETCHING_URL);
+                        if (errorCode == LicenseCheckerCallback.ERROR_NO_GOOGLE_ACCOUNT) {
+                            mNotification
+                                    .onDownloadStateChanged(IDownloaderClient.STATE_FAILED_NO_GOOGLE_ACCOUNT);
+                        } else {
+                            mNotification
+                                    .onDownloadStateChanged(IDownloaderClient.STATE_FAILED_FETCHING_URL);
+                        }
                     } finally {
                         setServiceRunning(false);
                     }
