@@ -214,11 +214,11 @@ def main():
     
     print('# update_patch_dv')
     r = requests.get('http://192.168.1.41:7777/maintenance/update_patch_dv')
-    print(r.text)
+    #print(r.text)
     
     print('# upload_patch_dv')
     r = requests.get('http://192.168.1.41:7777/maintenance/upload_patch_dv')
-    print(r.text)
+    #print(r.text)
     
     print "###################################"
     print "done"
