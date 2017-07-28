@@ -16,7 +16,7 @@
 		
 		{
             "name":"원경"
-            "speed":0.25
+            "speed":0.3
             "list":
             [
                 {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_d" "width":1261}
@@ -26,20 +26,20 @@
 		
         {
             "name":"원경"
-            "speed":0.3
+            "speed":0.4
             "list":
             [
-            	{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_c" "width":1837}
+            	{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_c" "width":2770}
 									
             ]
         }
         
         {
             "name":"중경_기둥"
-            "speed":0.4
+            "speed":0.5
             "list":
             [
-                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_b" "width":2954}
+                {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_2_b" "width":2900}
 		
 				
             ]
@@ -49,7 +49,7 @@
 		
         {
             "name":"중경"
-            "speed":0.5
+            "speed":0.6
             "list":
             [
 			    {"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_3_a" "width":1600}
@@ -75,8 +75,7 @@
             [                				
 				
 				{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_5_c" "width":1280}
-	       		{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_5_b" "width":1138}   
-    			{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_5_a" "width":1038}
+	       		{"res":"res/bg/dark_castle/dark_castle.vrp" "animation":"layer_5_a" "width":1038}
 
 		    ]
         }

@@ -1,271 +1,187 @@
 
 garuda_light_01.png
-size: 2048,512
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 garuda_light_01_arm_01
-  rotate: true
-  xy: 765, 210
+  rotate: false
+  xy: 1168, 1346
   size: 130, 195
   orig: 130, 195
   offset: 0, 0
   index: -1
 garuda_light_01_arm_02
-  rotate: true
-  xy: 962, 210
+  rotate: false
+  xy: 1557, 1665
   size: 130, 195
   orig: 130, 195
   offset: 0, 0
   index: -1
 garuda_light_01_arm_03
-  rotate: true
-  xy: 1253, 61
+  rotate: false
+  xy: 1557, 1564
   size: 130, 99
   orig: 130, 99
   offset: 0, 0
   index: -1
 garuda_light_01_arm_04
   rotate: false
-  xy: 1950, 411
+  xy: 390, 455
   size: 89, 99
   orig: 89, 99
   offset: 0, 0
   index: -1
 garuda_light_01_body_01
   rotate: false
-  xy: 2, 105
+  xy: 779, 1033
   size: 301, 189
   orig: 301, 189
   offset: 0, 0
   index: -1
 garuda_light_01_body_02
   rotate: false
-  xy: 2, 296
+  xy: 390, 689
   size: 351, 214
   orig: 351, 214
   offset: 0, 0
   index: -1
-garuda_light_01_body_effect_01
-  rotate: false
-  xy: 355, 342
-  size: 194, 168
-  orig: 194, 168
-  offset: 0, 0
-  index: -1
-garuda_light_01_body_effect_01_02
-  rotate: false
-  xy: 551, 342
-  size: 194, 168
-  orig: 194, 168
-  offset: 0, 0
-  index: -1
-garuda_light_01_body_effect_01_03
-  rotate: false
-  xy: 747, 342
-  size: 194, 168
-  orig: 194, 168
-  offset: 0, 0
-  index: -1
-garuda_light_01_body_effect_01_04
-  rotate: false
-  xy: 943, 342
-  size: 194, 168
-  orig: 194, 168
-  offset: 0, 0
-  index: -1
-garuda_light_01_body_effect_01_05
-  rotate: false
-  xy: 1139, 342
-  size: 194, 168
-  orig: 194, 168
-  offset: 0, 0
-  index: -1
 garuda_light_01_body_effect_01_s0059
-  rotate: true
-  xy: 305, 60
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 1, 1543
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_body_effect_01_s0060
-  rotate: true
-  xy: 463, 60
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 1, 1224
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_body_effect_01_s0061
-  rotate: true
-  xy: 621, 60
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 390, 1543
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_body_effect_01_s0062
-  rotate: true
-  xy: 779, 86
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 1, 905
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_body_effect_01_s0063
-  rotate: true
-  xy: 937, 86
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 390, 1224
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_body_effect_01_s0064
-  rotate: true
-  xy: 1095, 69
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 779, 1543
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_body_effect_01_s0065
-  rotate: true
-  xy: 1335, 230
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 1, 586
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_body_effect_01_s0066
-  rotate: true
-  xy: 1493, 230
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 390, 905
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_body_effect_01_s0067
-  rotate: true
-  xy: 1651, 230
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 779, 1224
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_body_effect_01_s0068
-  rotate: true
-  xy: 1809, 230
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 1168, 1543
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_body_effect_01_s0069
   rotate: false
-  xy: 1354, 72
-  size: 122, 156
-  orig: 122, 156
-  offset: 0, 0
-  index: -1
-garuda_light_01_effect_06
-  rotate: false
-  xy: 1922, 128
-  size: 76, 100
-  orig: 76, 100
+  xy: 1, 267
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_light_01_eye_01
   rotate: false
-  xy: 1570, 32
-  size: 64, 63
-  orig: 64, 63
-  offset: 0, 0
-  index: -1
-garuda_light_01_eye_03
-  rotate: false
-  xy: 1636, 32
-  size: 64, 63
-  orig: 64, 63
+  xy: 1689, 1746
+  size: 115, 114
+  orig: 115, 114
   offset: 0, 0
   index: -1
 garuda_light_01_foot_01
   rotate: false
-  xy: 1478, 97
+  xy: 390, 556
   size: 109, 131
   orig: 109, 131
   offset: 0, 0
   index: -1
 garuda_light_01_foot_02
-  rotate: false
-  xy: 1589, 97
+  rotate: true
+  xy: 779, 922
   size: 109, 131
   orig: 109, 131
   offset: 0, 0
   index: -1
 garuda_light_01_hand_01
   rotate: false
-  xy: 2, 2
+  xy: 1, 1
   size: 125, 101
   orig: 125, 101
   offset: 0, 0
   index: -1
 garuda_light_01_hand_02
   rotate: false
-  xy: 129, 2
+  xy: 150, 164
   size: 125, 101
   orig: 125, 101
   offset: 0, 0
   index: -1
 garuda_light_01_head_01
-  rotate: true
-  xy: 1159, 193
+  rotate: false
+  xy: 1, 104
   size: 147, 161
   orig: 147, 161
   offset: 0, 0
   index: -1
 garuda_light_01_head_02
   rotate: false
-  xy: 1478, 9
+  xy: 501, 601
   size: 90, 86
   orig: 90, 86
   offset: 0, 0
   index: -1
-garuda_light_01_head_effect_01
-  rotate: true
-  xy: 1335, 354
-  size: 156, 203
-  orig: 156, 203
-  offset: 0, 0
-  index: -1
-garuda_light_01_head_effect_01_02
-  rotate: true
-  xy: 1540, 354
-  size: 156, 203
-  orig: 156, 203
-  offset: 0, 0
-  index: -1
-garuda_light_01_head_effect_01_03
-  rotate: true
-  xy: 1745, 354
-  size: 156, 203
-  orig: 156, 203
-  offset: 0, 0
-  index: -1
-garuda_light_01_head_effect_01_04
-  rotate: true
-  xy: 355, 184
-  size: 156, 203
-  orig: 156, 203
-  offset: 0, 0
-  index: -1
-garuda_light_01_head_effect_01_05
-  rotate: true
-  xy: 560, 184
-  size: 156, 203
-  orig: 156, 203
-  offset: 0, 0
-  index: -1
 garuda_light_01_leg_01
   rotate: false
-  xy: 1700, 97
+  xy: 1300, 1410
   size: 109, 131
   orig: 109, 131
   offset: 0, 0
   index: -1
 garuda_light_01_leg_02
-  rotate: false
-  xy: 1811, 107
+  rotate: true
+  xy: 1168, 1235
   size: 109, 121
   orig: 109, 121
   offset: 0, 0

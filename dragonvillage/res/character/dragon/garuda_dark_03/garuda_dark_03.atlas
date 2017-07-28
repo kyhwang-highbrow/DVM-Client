@@ -1,376 +1,229 @@
 
 garuda_dark_03.png
-size: 2048,1024
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 garuda_dark_03_arm_01
   rotate: false
-  xy: 196, 411
+  xy: 1, 181
   size: 130, 195
   orig: 130, 195
   offset: 0, 0
   index: -1
 garuda_dark_03_arm_02
   rotate: false
-  xy: 196, 214
+  xy: 390, 603
   size: 130, 195
   orig: 130, 195
   offset: 0, 0
   index: -1
 garuda_dark_03_arm_03
   rotate: false
-  xy: 328, 200
+  xy: 390, 502
   size: 130, 99
   orig: 130, 99
   offset: 0, 0
   index: -1
 garuda_dark_03_arm_04
   rotate: false
-  xy: 460, 208
+  xy: 912, 1043
   size: 89, 99
   orig: 89, 99
   offset: 0, 0
   index: -1
 garuda_dark_03_arm_horn_01
   rotate: false
-  xy: 1654, 715
-  size: 130, 140
-  orig: 130, 140
+  xy: 133, 236
+  size: 157, 140
+  orig: 157, 140
   offset: 0, 0
   index: -1
 garuda_dark_03_arm_horn_02
-  rotate: true
-  xy: 303, 617
+  rotate: false
+  xy: 1886, 1831
   size: 85, 140
   orig: 85, 140
   offset: 0, 0
   index: -1
 garuda_dark_03_body_01
   rotate: false
-  xy: 0, 608
+  xy: 779, 1144
   size: 301, 189
   orig: 301, 189
   offset: 0, 0
   index: -1
 garuda_dark_03_body_02
   rotate: false
-  xy: 0, 799
+  xy: 390, 800
   size: 351, 214
   orig: 351, 214
   offset: 0, 0
   index: -1
-garuda_dark_03_body_effect_01
-  rotate: false
-  xy: 353, 845
-  size: 194, 168
-  orig: 194, 168
-  offset: 0, 0
-  index: -1
-garuda_dark_03_body_effect_01_02
-  rotate: false
-  xy: 0, 438
-  size: 194, 168
-  orig: 194, 168
-  offset: 0, 0
-  index: -1
-garuda_dark_03_body_effect_01_03
-  rotate: false
-  xy: 549, 845
-  size: 194, 168
-  orig: 194, 168
-  offset: 0, 0
-  index: -1
-garuda_dark_03_body_effect_01_04
-  rotate: false
-  xy: 0, 268
-  size: 194, 168
-  orig: 194, 168
-  offset: 0, 0
-  index: -1
-garuda_dark_03_body_effect_01_05
-  rotate: false
-  xy: 745, 845
-  size: 194, 168
-  orig: 194, 168
-  offset: 0, 0
-  index: -1
 garuda_dark_03_body_effect_01_s0059
-  rotate: true
-  xy: 1338, 733
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 1, 1654
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_body_effect_01_s0060
-  rotate: true
-  xy: 1496, 733
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 1, 1335
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_body_effect_01_s0061
   rotate: false
-  xy: 1786, 716
-  size: 122, 156
-  orig: 122, 156
+  xy: 390, 1654
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_body_effect_01_s0062
   rotate: false
-  xy: 1910, 716
-  size: 122, 156
-  orig: 122, 156
+  xy: 1, 1016
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_body_effect_01_s0063
   rotate: false
-  xy: 328, 459
-  size: 122, 156
-  orig: 122, 156
+  xy: 390, 1335
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_body_effect_01_s0064
   rotate: false
-  xy: 328, 301
-  size: 122, 156
-  orig: 122, 156
+  xy: 779, 1654
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_body_effect_01_s0065
-  rotate: true
-  xy: 321, 76
-  size: 122, 156
-  orig: 122, 156
+  rotate: false
+  xy: 1, 697
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_body_effect_01_s0066
   rotate: false
-  xy: 452, 546
-  size: 122, 156
-  orig: 122, 156
+  xy: 390, 1016
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_body_effect_01_s0067
   rotate: false
-  xy: 452, 388
-  size: 122, 156
-  orig: 122, 156
+  xy: 779, 1335
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_body_effect_01_s0068
   rotate: false
-  xy: 576, 546
-  size: 122, 156
-  orig: 122, 156
+  xy: 1168, 1654
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_body_effect_01_s0069
   rotate: false
-  xy: 576, 388
-  size: 122, 156
-  orig: 122, 156
-  offset: 0, 0
-  index: -1
-garuda_dark_03_body_effect_02x2
-  rotate: true
-  xy: 452, 309
-  size: 77, 101
-  orig: 77, 101
-  offset: 0, 0
-  index: -1
-garuda_dark_03_effect_06
-  rotate: true
-  xy: 695, 257
-  size: 76, 100
-  orig: 76, 100
+  xy: 1, 378
+  size: 387, 317
+  orig: 387, 317
   offset: 0, 0
   index: -1
 garuda_dark_03_eye_01
   rotate: false
-  xy: 479, 143
-  size: 64, 63
-  orig: 64, 63
-  offset: 0, 0
-  index: -1
-garuda_dark_03_eye_03
-  rotate: false
-  xy: 164, 0
-  size: 64, 63
-  orig: 64, 63
+  xy: 522, 684
+  size: 115, 114
+  orig: 115, 114
   offset: 0, 0
   index: -1
 garuda_dark_03_foot_01
-  rotate: false
-  xy: 700, 571
+  rotate: true
+  xy: 779, 1033
   size: 109, 131
   orig: 109, 131
   offset: 0, 0
   index: -1
 garuda_dark_03_foot_02
-  rotate: false
-  xy: 700, 438
+  rotate: true
+  xy: 1168, 1351
   size: 109, 131
   orig: 109, 131
   offset: 0, 0
   index: -1
-garuda_dark_03_foot_effect_01x2
-  rotate: false
-  xy: 479, 64
-  size: 80, 77
-  orig: 80, 77
-  offset: 0, 0
-  index: -1
 garuda_dark_03_hand_01
   rotate: false
-  xy: 551, 188
-  size: 125, 101
-  orig: 125, 101
+  xy: 1557, 1690
+  size: 142, 89
+  orig: 142, 89
   offset: 0, 0
   index: -1
 garuda_dark_03_hand_02
-  rotate: false
-  xy: 700, 335
-  size: 125, 101
-  orig: 125, 101
-  offset: 0, 0
-  index: -1
-garuda_dark_03_hand_effect_01
   rotate: true
-  xy: 827, 321
-  size: 125, 101
-  orig: 125, 101
-  offset: 0, 0
-  index: -1
-garuda_dark_03_hand_effect_02
-  rotate: true
-  xy: 1761, 874
-  size: 139, 195
-  orig: 139, 195
-  offset: 0, 0
-  index: -1
-garuda_dark_03_hand_effect_02_02
-  rotate: true
-  xy: 353, 704
-  size: 139, 195
-  orig: 139, 195
-  offset: 0, 0
-  index: -1
-garuda_dark_03_hand_effect_02_03
-  rotate: true
-  xy: 550, 704
-  size: 139, 195
-  orig: 139, 195
-  offset: 0, 0
-  index: -1
-garuda_dark_03_hand_effect_02_04
-  rotate: true
-  xy: 747, 704
-  size: 139, 195
-  orig: 139, 195
-  offset: 0, 0
-  index: -1
-garuda_dark_03_hand_effect_02_05
-  rotate: true
-  xy: 944, 716
-  size: 139, 195
-  orig: 139, 195
-  offset: 0, 0
-  index: -1
-garuda_dark_03_hand_effect_02_06
-  rotate: true
-  xy: 1141, 716
-  size: 139, 195
-  orig: 139, 195
+  xy: 292, 260
+  size: 116, 92
+  orig: 116, 92
   offset: 0, 0
   index: -1
 garuda_dark_03_head_01
-  rotate: true
-  xy: 158, 65
+  rotate: false
+  xy: 1737, 1810
   size: 147, 161
   orig: 147, 161
   offset: 0, 0
   index: -1
 garuda_dark_03_head_02
-  rotate: true
-  xy: 1958, 923
+  rotate: false
+  xy: 1301, 1374
   size: 90, 86
   orig: 90, 86
   offset: 0, 0
   index: -1
 garuda_dark_03_head_03
   rotate: false
-  xy: 555, 291
-  size: 138, 95
-  orig: 138, 95
+  xy: 1168, 1462
+  size: 276, 190
+  orig: 276, 190
   offset: 0, 0
   index: -1
 garuda_dark_03_head_04
-  rotate: true
-  xy: 678, 166
-  size: 89, 95
-  orig: 89, 95
+  rotate: false
+  xy: 1557, 1781
+  size: 178, 190
+  orig: 178, 190
   offset: 0, 0
   index: -1
 garuda_dark_03_head_05
-  rotate: true
-  xy: 0, 6
+  rotate: false
+  xy: 1082, 1253
   size: 55, 80
   orig: 55, 80
   offset: 0, 0
   index: -1
 garuda_dark_03_head_06
   rotate: true
-  xy: 82, 6
+  xy: 1446, 1464
   size: 55, 80
   orig: 55, 80
   offset: 0, 0
   index: -1
-garuda_dark_03_head_effect_01
-  rotate: false
-  xy: 0, 63
-  size: 156, 203
-  orig: 156, 203
-  offset: 0, 0
-  index: -1
-garuda_dark_03_head_effect_01_02
-  rotate: true
-  xy: 941, 857
-  size: 156, 203
-  orig: 156, 203
-  offset: 0, 0
-  index: -1
-garuda_dark_03_head_effect_01_03
-  rotate: true
-  xy: 1146, 857
-  size: 156, 203
-  orig: 156, 203
-  offset: 0, 0
-  index: -1
-garuda_dark_03_head_effect_01_04
-  rotate: true
-  xy: 1351, 857
-  size: 156, 203
-  orig: 156, 203
-  offset: 0, 0
-  index: -1
-garuda_dark_03_head_effect_01_05
-  rotate: true
-  xy: 1556, 857
-  size: 156, 203
-  orig: 156, 203
-  offset: 0, 0
-  index: -1
 garuda_dark_03_leg_01
   rotate: false
-  xy: 811, 571
+  xy: 1446, 1521
   size: 109, 131
   orig: 109, 131
   offset: 0, 0
   index: -1
 garuda_dark_03_leg_02
   rotate: false
-  xy: 811, 448
+  xy: 1, 58
   size: 109, 121
   orig: 109, 121
   offset: 0, 0

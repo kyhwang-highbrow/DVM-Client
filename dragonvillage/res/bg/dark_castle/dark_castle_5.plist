@@ -7,26 +7,13 @@
             <key>dark_castle_5_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{948,292},{498,320}}</string>
+                <string>{{2,626},{498,320}}</string>
                 <key>offset</key>
                 <string>{22,-240}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
                 <string>{{125,480},{498,320}}</string>
-                <key>sourceSize</key>
-                <string>{704,800}</string>
-            </dict>
-            <key>dark_castle_5_b.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{948,2},{692,288}}</string>
-                <key>offset</key>
-                <string>{-6,-256}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,512},{692,288}}</string>
                 <key>sourceSize</key>
                 <string>{704,800}</string>
             </dict>
@@ -51,9 +38,9 @@
             <key>realTextureFileName</key>
             <string>dark_castle_5.png</string>
             <key>size</key>
-            <string>{1642,626}</string>
+            <string>{948,948}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:09877a93852e5556ee076e6cef75ba49:3cc68352d6121c77da65a817422ebc46:b42d0997845bd7903ca020a483eae5e1$</string>
+            <string>$TexturePacker:SmartUpdate:e32bfccf8477f4566274eb711e34a1ba:e7e6c272d7ae9d3dd94058d5378c2b44:b42d0997845bd7903ca020a483eae5e1$</string>
             <key>textureFileName</key>
             <string>dark_castle_5.png</string>
         </dict>
