@@ -417,6 +417,8 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
 	-- 등장 움직임 설정
     if (EnemyAppear[appear_type]) then
         EnemyAppear[appear_type](enemy, value1, value2, value3)
+
+        enemy:changeState('move')
     end
 
     -- 이동 패턴 설정
