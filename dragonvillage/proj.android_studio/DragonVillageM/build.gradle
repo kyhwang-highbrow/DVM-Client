@@ -17,8 +17,13 @@ android {
             ndkBuild {
                 if (!project.hasProperty("PROP_NDK_MODE") || PROP_NDK_MODE.compareTo('none') != 0) {
                     targets 'cocos2dlua'
+
+                    // NDK r10e 사용
                     arguments 'NDK_TOOLCHAIN_VERSION=4.9'
+
+                    // Android-21 미만 기기에서 실행하기 위함
                     arguments 'APP_PLATFORM=android-19'
+
                     def module_paths = [project.file("../../../cocos2d-x").absolutePath,
                                         project.file("../../../cocos2d-x/cocos").absolutePath,
                                         project.file("../../../cocos2d-x/external").absolutePath]
