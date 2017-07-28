@@ -83,7 +83,7 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
 
         local l_dragon_list = ret['added_dragons']
         local egg_res = TableItem:getEggRes(egg_id)
-        local ui = UI_GachaResult_Dragon(l_dragon_list, nil, egg_res)
+        local ui = UI_GachaResult_Dragon(l_dragon_list, nil, egg_id, egg_res)
 
         local function close_cb()
             self:sceneFadeInAction()

@@ -2547,6 +2547,9 @@
     <None Include="..\src\ServerData_AutoItemPick.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\TableSummonGacha.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

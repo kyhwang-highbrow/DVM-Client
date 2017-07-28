@@ -773,6 +773,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableStaminaInfo.lua" />
     <None Include="..\src\TableStatus.lua" />
     <None Include="..\src\TableStatusEffect.lua" />
+    <None Include="..\src\TableSummonGacha.lua" />
     <None Include="..\src\TableTamer.lua" />
     <None Include="..\src\TableTamerSkill.lua" />
     <None Include="..\src\TableTamerTitle.lua" />

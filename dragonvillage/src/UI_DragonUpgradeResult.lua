@@ -74,7 +74,21 @@ function UI_DragonUpgradeResult:refresh(dragon_object)
 
             -- 등급 비주얼
             vars['starVisual']:setVisible(true)
-            vars['starVisual']:changeAni('result' .. dragon_object['grade'])
+            local ani_name
+            if (evolution == 1) then
+                ani_name = 'gray_'.. grade
+
+            elseif (evolution == 2) then
+                ani_name = 'yellow_'.. grade
+
+            elseif (evolution == 3) then
+                ani_name = 'red_'.. grade
+
+            else
+                error('evolution : ' .. evolution)
+            end
+
+			vars['starVisual']:changeAni(ani_name)
         end
         dragon_animator:setDragonAppearCB(cb)
 		dragon_animator:startDirecting()

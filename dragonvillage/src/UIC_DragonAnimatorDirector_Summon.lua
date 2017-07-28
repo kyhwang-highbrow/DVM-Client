@@ -6,7 +6,12 @@ local PARENT = UIC_DragonAnimatorDirector
 UIC_DragonAnimatorDirector_Summon = class(PARENT, {
 		m_lDirectingList = 'list',
 		m_currStep = 'num',
-		m_maxStep = 'num',
+        m_maxStep = 'num',
+        m_aniNum = 'num',
+
+        m_eggID = 'num',
+        m_bRareSummon = 'boolean', -- 고등급용 소환
+        m_bLegend= 'boolean', 
     })
 
 -------------------------------------
@@ -76,15 +81,50 @@ end
 function UIC_DragonAnimatorDirector_Summon:directingContinue()
 	self.vars['touchNode']:setVisible(false)
 
-	local crack_ani = string.format('crack_%02d', self.m_currStep)
+    -- 소환 연출 재생 안함
+    if (not self.m_eggID) then 
+        self:appearDragonAnimator()
+        return
+    end
+
+    -- 확정 등급 뽑기는 연출 재생 안함 - 클릭시 바로 결과
+    local is_fix = TableSummonGacha:isFixSummon(self.m_eggID)
+    if (is_fix) then
+        self:appearDragonAnimator()
+        return
+    end
+
+    self.m_aniNum = self.m_currStep
+
+    local crack_ani
+    if (self.m_bRareSummon) then
+        crack_ani = string.format('crack_high_%02d', self.m_currStep)
+    else
+        crack_ani = string.format('crack_%02d', self.m_currStep)
+    end
 	self.m_topEffect:changeAni(crack_ani, false)
 	self.m_topEffect:addAniHandler(function()
 		if (self.m_currStep > self.m_maxStep) then
-			self:appearDragonAnimator()
+            self:checkMaxGradeEffect()
 		else
 			self:directingIdle()
 		end
 	end)
+end
+
+-------------------------------------
+-- function checkMaxGradeEffect
+-- @brief 5성인 경우 애니메이션 추가
+-------------------------------------
+function UIC_DragonAnimatorDirector_Summon:checkMaxGradeEffect()
+    if (self.m_bLegend) then
+        self.m_topEffect:changeAni('crack_high_04', false)
+        self.m_topEffect:addAniHandler(function()
+            self:appearDragonAnimator()
+        end)
+    else
+        self:appearDragonAnimator()
+    end
 end
 
 -------------------------------------
@@ -110,18 +150,30 @@ end
 function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
 
     local rarity
+    local cur_grade
     if TableSlime:isSlimeID(did) then
         rarity = TableSlime:getValue(did, 'rarity')
+        cur_grade = TableSlime:getValue(did, 'grade')
     else
         rarity = TableDragon:getValue(did, 'rarity')
+        cur_grade = TableDragon:getValue(did, 'birthgrade')
     end
 
-	--self.m_maxStep = dragonRarityStrToNum(rarity)
-    self.m_maxStep = 3
-
+    -- 뽑기 연출에만 eggID set
+    if (self.m_eggID) then
+        local min_grade = TableSummonGacha:getMinGrade(self.m_eggID)
+        -- 뽑은 용의 등급에서 소환 가능한 최소 등급을 뺀 만큼만 클릭가능함
+        self.m_maxStep = cur_grade - min_grade + 1
+        self.m_maxStep = math_max(self.m_maxStep, 1)
+    else
+        self.m_maxStep = 3
+    end
+ 
+    self.m_bLegend = false
 
 	-- 전설등급의 경우 추가 연출을 붙여준다
 	if (rarity == 'legend') then
+        self.m_bLegend = true
 		self:setCutSceneImg()
 	end
 end
@@ -167,10 +219,13 @@ end
 -------------------------------------
 -- function bindEgg
 -------------------------------------
-function UIC_DragonAnimatorDirector_Summon:bindEgg(egg_res)
+function UIC_DragonAnimatorDirector_Summon:bindEgg(egg_id, egg_res)
     if (not egg_res) or (egg_res == '') then
         egg_res = 'res/item/egg/egg_common_unknown/egg_common_unknown.vrp'
     end
+
+    self.m_eggID = egg_id
+    self.m_bRareSummon = TableSummonGacha(egg_id)
 
     local animator = MakeAnimator(egg_res)
     animator:changeAni('egg')

@@ -251,6 +251,7 @@ local t_module = {
     'TableStageData',
     'TableHelp',
     'TableGoogleQuest',
+    'TableSummonGacha',
 
     -- Scene
     'SceneCommon',

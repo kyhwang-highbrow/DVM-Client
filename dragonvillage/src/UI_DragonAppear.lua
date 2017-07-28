@@ -118,7 +118,21 @@ function UI_DragonAppear:refresh_dragon(t_dragon_data)
 		local function cb()
 			-- 등급
 			vars['starVisual']:setVisible(true)
-			vars['starVisual']:changeAni('result' .. grade)
+            local ani_name
+            if (evolution == 1) then
+                ani_name = 'gray_'.. grade
+
+            elseif (evolution == 2) then
+                ani_name = 'yellow_'.. grade
+
+            elseif (evolution == 3) then
+                ani_name = 'red_'.. grade
+
+            else
+                error('evolution : ' .. evolution)
+            end
+
+			vars['starVisual']:changeAni(ani_name)
 			
 			-- 배경
 			local attr = TableDragon:getDragonAttr(did)

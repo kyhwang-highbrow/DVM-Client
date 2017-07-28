@@ -100,6 +100,9 @@ local TableInfo_fromServer = {
 
         -- 아이템 관련
         ['table_item_rand'] = {'table_item_rand', 'rand_item_id'},
+
+        -- 드래곤 가차
+        ['table_gacha_probability'] = {'table_gacha_probability', 'item_id'},
     }
 
 -------------------------------------
