@@ -11,6 +11,13 @@ android {
         versionName "1.6"
     }
 
+    sourceSets.main {
+        aidl.srcDir "./src"
+        java.srcDir "./src"
+        res.srcDir "./res"
+        manifest.srcFile "./AndroidManifest.xml"
+    }
+    
     buildTypes {
         release {
             minifyEnabled false
