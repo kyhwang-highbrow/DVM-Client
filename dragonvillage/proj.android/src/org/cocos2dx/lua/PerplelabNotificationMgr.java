@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
@@ -28,11 +29,10 @@ import android.os.PowerManager;
 public class PerplelabNotificationMgr extends Activity {
     public static Context mContext = null;
     private static final Boolean DEBUG = false;
-    private static final String TAG = "HOD";
+    private static final String TAG = "PerplelabNotificationMgr";
     private static final int COLOR_BG           = Color.parseColor("#a71197");
     private static final int COLOR_TITLE_TEXT   = Color.parseColor("#fcff29");
     private static final int COLOR_MESSAGE_TEXT = Color.parseColor("#ffffff");
-    private static final int REQUEST_CODE = 1000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,27 +74,36 @@ public class PerplelabNotificationMgr extends Activity {
      public static void doNotify(Context context, String type, String message, boolean bAlert, String linkTitle, String linkUrl, String cafeUrl, String bgColor, String titleColor, String messageColor) {
          PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
 
-        if (bAlert) {
-            // 스크린이 꺼져있는 상태에서만
-            if (!pm.isScreenOn()) {
-                Intent noticeIntent = new Intent(context, PerplelabNotificationMgr.class);
-                noticeIntent.putExtra("message", message);
-                PendingIntent pie = PendingIntent.getActivity(context.getApplicationContext(), REQUEST_CODE, noticeIntent, PendingIntent.FLAG_ONE_SHOT);
+         if (bAlert) {
+             // 스크린이 꺼져있는 상태에서만
+             boolean isScreenOn = false;
 
-                try {
-                    pie.send();
-                } catch (CanceledException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+             if (Build.VERSION.SDK_INT < 20) {
+                 isScreenOn = pm.isScreenOn();
+             } else {
+                 isScreenOn = pm.isInteractive();
+             }
 
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP|PowerManager.ON_AFTER_RELEASE, "INFO");
-        wl.acquire(5000);
-        PerplelabNotificationMgr.notifyMessage(context, context.getString(R.string.app_name), type, message, cafeUrl, linkTitle, linkUrl, bgColor, titleColor, messageColor);
+             if (!isScreenOn) {
+                 Intent noticeIntent = new Intent(context, PerplelabNotificationMgr.class);
+                 noticeIntent.putExtra("message", message);
+                 PendingIntent pie = PendingIntent.getActivity(context.getApplicationContext(), AppActivity.RC_LOCAL_PUSH, noticeIntent, PendingIntent.FLAG_ONE_SHOT);
 
-        // badge
-        AppActivity.setBadgeCount(context, 1);
+                 try {
+                     pie.send();
+                 } catch (CanceledException e) {
+                     e.printStackTrace();
+                 }
+             }
+         }
+
+         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "INFO");
+         wl.acquire(5000);
+
+         PerplelabNotificationMgr.notifyMessage(context, context.getString(R.string.app_name), type, message, cafeUrl, linkTitle, linkUrl, bgColor, titleColor, messageColor);
+
+         // badge
+         AppActivity.setBadgeCount(context, 1);
      }
 
      public static void notifyMessage(Context context, String title, String type, String message, String cafeUrl, String linkTitle, String linkUrl, String bgColor, String titleColor, String messageColor) {
@@ -106,13 +115,13 @@ public class PerplelabNotificationMgr extends Activity {
              notifyMessageStyle1(context, title, message);
          }
      }
-     
+
      public static void notifyMessageStyle1(Context context, String title, String message) {
         NotificationManager mgr = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        
+
         Intent intent = new Intent(context, AppActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, REQUEST_CODE, intent, 0);
-        
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, intent, 0);
+
         Notification.Builder builder = new Notification.Builder(context)
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.push_icon)
@@ -166,10 +175,10 @@ public class PerplelabNotificationMgr extends Activity {
 
         // 앱을 실행하는 PendingIntent 생성(notification을 터치했을 경우에 사용됨)
         Intent intent = new Intent(context, AppActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // 공식카페로 이동하는 PendingIntent 생성("공식카페 바로가기"아이콘을 터치했을 경우에 사용됨)
-        PendingIntent cafeIntent = PendingIntent.getActivity(context, REQUEST_CODE, new Intent(Intent.ACTION_VIEW).setData(Uri.parse(cafeUrl)), 0);
+        PendingIntent cafeIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, new Intent(Intent.ACTION_VIEW).setData(Uri.parse(cafeUrl)), 0);
 
         // notification 생성
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
@@ -190,7 +199,7 @@ public class PerplelabNotificationMgr extends Activity {
         if(linkUrl != null)
         {
             if (linkTitle == null) linkTitle = "Link";
-            PendingIntent linkIntent = PendingIntent.getActivity(context, REQUEST_CODE, new Intent(Intent.ACTION_VIEW).setData(Uri.parse(linkUrl)), 0);
+            PendingIntent linkIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, new Intent(Intent.ACTION_VIEW).setData(Uri.parse(linkUrl)), 0);
             builder.addAction(R.drawable.push_icon, linkTitle, linkIntent);
         }
 
@@ -233,7 +242,7 @@ public class PerplelabNotificationMgr extends Activity {
 
          // 앱을 실행하는 PendingIntent 생성(notification을 터치했을 경우에 사용됨)
          Intent intent = new Intent(context, AppActivity.class);
-         PendingIntent pendingIntent = PendingIntent.getActivity(context, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+         PendingIntent pendingIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
          Notification builder = new NotificationCompat.Builder(context)
              .setAutoCancel(true)

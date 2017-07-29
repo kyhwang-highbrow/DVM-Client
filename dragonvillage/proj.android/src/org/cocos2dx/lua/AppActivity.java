@@ -75,8 +75,9 @@ public class AppActivity extends Cocos2dxActivity{
     // @billing
     static final String BASE64_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2AOyhy0owSekR+QEpAUb2fV/wBtRmuD8UNEsku6iGM+Qx5o7iBMlGlcb7kjCJ86hMAu6g+1cdGFTQGCGTKrDZS6AfTv8NDB5EFwxvLa8Rn9aUU0nkaLFGNQvEo+gplP1PZQZLd30RMmJy/uYkzA2+vCdGaOQRTckwbczDBQyKWtQ5k5aj/1HQ/X8XxZneaKAM2JyFgFcjSYtlep9/XOQ6K2aR0VLoMse2rGkaFJQAFOBgNlNbvC3cbvaZe1hnZ4ypjadsPzw83ZpQYaMRTUF1k/TpB6CuSIX4L2ykUkEDyWn0RECpO3jR1fJ1Lb2ddYTpb8gORou9mhIK9Nfr8Cn4wIDAQAB";
 
-    static final int RC_APP_RESTART = 1000;
-    static final int RC_WRITE_STORAGE_PERMISSION = 100;  // must be 8bit value
+    static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
+    static final int RC_APP_RESTART                 = 1000;
+    static final int RC_LOCAL_PUSH                  = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,7 +209,7 @@ public class AppActivity extends Cocos2dxActivity{
 
     // @obb
     private static void startAPKExpansionDownloader(final int versionCode, long fileSize, String md5, long crc32) {
-    	// for Main, Patch OBB files
+        // for Main, Patch OBB files
         String[] md5s = { md5, "" };
         long[] crc32s = { crc32, 0 };
 
@@ -355,41 +356,41 @@ public class AppActivity extends Cocos2dxActivity{
         System.runFinalization();
         System.exit(0);
     }
-    
+
     private static void appTerminate() {
-    	android.os.Process.killProcess(android.os.Process.myPid());
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
-    
+
     private static void appGotoWeb(String url) {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-		sActivity.startActivity(browserIntent);
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        sActivity.startActivity(browserIntent);
     }
-    
+
     private static void appSendMail(String email, String subject, String text) {
-		String[] tos = { email };
-		Intent it = new Intent(Intent.ACTION_SEND);
-		it.putExtra(Intent.EXTRA_EMAIL, tos);
-		it.putExtra(Intent.EXTRA_SUBJECT, subject);
-		it.putExtra(Intent.EXTRA_TEXT, text);
-		it.setType("text/plain");
-		sActivity.startActivity(Intent.createChooser(it, "Choose Email Client"));
+        String[] tos = { email };
+        Intent it = new Intent(Intent.ACTION_SEND);
+        it.putExtra(Intent.EXTRA_EMAIL, tos);
+        it.putExtra(Intent.EXTRA_SUBJECT, subject);
+        it.putExtra(Intent.EXTRA_TEXT, text);
+        it.setType("text/plain");
+        sActivity.startActivity(Intent.createChooser(it, "Choose Email Client"));
     }
 
     private static void appGotoStore() {
-		String appName = "com.perplelab.dragonvillagem.kr";
-		try {
-			sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appName)));
-		} catch (android.content.ActivityNotFoundException anfe) {
-			sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appName)));
-		}
+        String appName = "com.perplelab.dragonvillagem.kr";
+        try {
+            sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appName)));
+        }
     }
-    
+
     private static void appAlert(String title, String message) {
-		new AlertDialog.Builder(sActivity)
-			.setTitle(title)
-			.setMessage(message)
-			.setPositiveButton(android.R.string.ok, null).create()
-			.show();
+        new AlertDialog.Builder(sActivity)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(android.R.string.ok, null).create()
+            .show();
     }
 
     // Cpp(Native) -> Java (in UIThread(Main Thread))
@@ -485,29 +486,29 @@ public class AppActivity extends Cocos2dxActivity{
 
                 } else if (id.equals("app_restart")) {
 
-                	appRestart();
-                	
+                    appRestart();
+
                 } else if (id.equals("app_terminate")) {
-                	
-                	appTerminate();
-                	
+
+                    appTerminate();
+
                 } else if (id.equals("app_gotoWeb")) {
-                	
-                	appGotoWeb(arg0);
-                	
+
+                    appGotoWeb(arg0);
+
                 } else if (id.equals("app_sendMail")) {
-                	
-					String[] array = arg0.split(";");
-					appSendMail(array[0], array[1], array[2]);
-					
+
+                    String[] array = arg0.split(";");
+                    appSendMail(array[0], array[1], array[2]);
+
                 } else if (id.equals("app_gotoStore")) {
 
-                	appGotoStore();
-                	
+                    appGotoStore();
+
                 } else if (id.equals("app_alert")) {
 
-                	String[] array = arg0.split(";");
-            		appAlert(array[0], array[1]);
+                    String[] array = arg0.split(";");
+                    appAlert(array[0], array[1]);
                 }
             }
         });
