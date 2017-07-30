@@ -355,10 +355,18 @@ function UI_TitleScene:workCheckUserID()
             g_serverData:applyServerData(account_info, 'local', 'account_info')
 
             if platform_id == 'google.com' then
-                PerpleSDK:googleLogin(function(ret, info)
-                    g_serverData:applyServerData('on', 'local', 'googleplay_connected')
-                    self:doNextWork()
-                end)
+                local app_ver = getAppVer()
+                if app_ver == '0.2.2' or app_ver == '0.2.4' then
+                    PerpleSDK:googleLogin(function(ret, info)
+                        g_serverData:applyServerData('on', 'local', 'googleplay_connected')
+                        self:doNextWork()
+                    end)
+                else
+                    PerpleSDK:googleLogin(1, function(ret, info)
+                        g_serverData:applyServerData('on', 'local', 'googleplay_connected')
+                        self:doNextWork()
+                    end)
+                end
             else
                 g_serverData:applyServerData('off', 'local', 'googleplay_connected')
                 self:doNextWork()

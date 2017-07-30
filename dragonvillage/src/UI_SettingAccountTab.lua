@@ -51,7 +51,12 @@ function UI_Setting:click_facebookBtn()
 
             -- 기존 구글 연결은 끊는다.
             if old_platform_id == 'google.com' then
-                PerpleSDK:googleLogout(1)
+                local app_ver = getAppVer()
+                if app_ver == '0.2.2' then
+                    PerpleSDK:googleLogout()
+                else
+                    PerpleSDK:googleLogout(1)
+                end
                 PerpleSDK:unlinkWithGoogle(function(ret, info)
                     self.m_loadingUI:hideLoading()
                     if ret == 'success' then
@@ -77,7 +82,12 @@ function UI_Setting:click_facebookBtn()
                         self:loginSuccess(info)
 
                         if (old_platform_id == 'google.com') then
-                            PerpleSDK:googleLogout(1)
+                            local app_ver = getAppVer()
+                            if app_ver == '0.2.2' then
+                                PerpleSDK:googleLogout()
+                            else
+                                PerpleSDK:googleLogout(1)
+                            end
                         end
 
                         -- 앱 재시작
@@ -272,7 +282,14 @@ function UI_Setting:click_logoutBtn()
                 clear()
             else
                 PerpleSDK:logout()
-                PerpleSDK:googleLogout(0)
+
+                local app_ver = getAppVer()
+                if app_ver == '0.2.2' then
+                    PerpleSDK:googleLogout()
+                else
+                    PerpleSDK:googleLogout(0)
+                end
+
                 PerpleSDK:facebookLogout()
 
                 clear()
