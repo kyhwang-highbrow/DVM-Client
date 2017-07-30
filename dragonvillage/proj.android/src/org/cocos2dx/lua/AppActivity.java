@@ -359,6 +359,7 @@ public class AppActivity extends Cocos2dxActivity{
     }
 
     private static void appTerminate() {
+        PerpleSDK.getInstance().protectSessionTracking();
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 
