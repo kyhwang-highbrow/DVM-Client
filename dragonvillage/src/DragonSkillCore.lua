@@ -165,32 +165,44 @@ end
 -- @comment individual_info에서 재조립된 스킬테이블 사용
 -------------------------------------
 function DragonSkillCore.getSkillDescPure(t_skill)
-    local template = THIS.getRichTemplate(t_skill['t_desc'])
-    
-    if (not template) then
-        return
-    end
-
     local val_1 = THIS.getRichValue(t_skill['desc_1'])
     local val_2 = THIS.getRichValue(t_skill['desc_2'])
     local val_3 = THIS.getRichValue(t_skill['desc_3'])
     local val_4 = THIS.getRichValue(t_skill['desc_4'])
     local val_5 = THIS.getRichValue(t_skill['desc_5'])
-    return Str(template, val_1, val_2, val_3, val_4, val_5)
+    return THIS.getRichTemplate(Str(t_skill['t_desc'], val_1, val_2, val_3, val_4, val_5))
 end
 
+local L_CASE = {
+    '(%d*)({@SKILL_DESC})(명)',
+    '(%d*)({@SKILL_DESC})(회)',
+    '(%d*)({@SKILL_DESC})(번)',
+    '(%d*)({@SKILL_DESC})(초)',
+    '(%d*)({@SKILL_DESC})(개)',
+    '(%d*)({@SKILL_DESC})(%%)',
+    '(%d.%d*)({@SKILL_DESC})(배)',
+
+}
+local L_CASE_2 = {
+    '(%d명)',
+    '(%d*%%)',
+    '(%d.%d*배)',
+    '(%d*배)',
+    '(%d열)',
+}
 -------------------------------------
 -- function getRichTemplate
 -------------------------------------
 function DragonSkillCore.getRichTemplate(desc)
     if (desc) then
-        local tar_str = '{@SKILL_VALUE}%1{@SKILL_DESC}'
-        desc = desc:gsub('({%d}명)', tar_str)
-        desc = desc:gsub('(%d명)', tar_str)
-        desc = desc:gsub('({%d}회)', tar_str)
-        desc = desc:gsub('({%d}번)', tar_str)
-        desc = desc:gsub('({%d}초)', tar_str)
-        desc = desc:gsub('({%d}%%)', tar_str)
+        -- lua pattern capture 참조
+        for _, case in pairs(L_CASE) do
+            desc = desc:gsub(case, '%1%3%2')
+        end
+        for _, case in pairs(L_CASE_2) do
+            desc = desc:gsub(case, '{@SKILL_VALUE}%1{@SKILL_DESC}')
+        end
+
         return '{@SKILL_DESC}' .. desc
     end
 end
@@ -199,9 +211,17 @@ end
 -- function getRichValue
 -------------------------------------
 function DragonSkillCore.getRichValue(value)
+    if (type(value) == 'function') then
+        local error_str = [[
+            skill table의 [desc_n] 칼럼에서 가리키는 값이 함수
+        ]]
+        ccdisplay(error_str)
+        return 0
+    end
+
     if (value) then
-        --return '{@SKILL_VALUE}' .. value .. '{@SKILL_DESC}'
-        return value
+        return '{@SKILL_VALUE}' .. value .. '{@SKILL_DESC}'
+        --return value
     end
 end
 
