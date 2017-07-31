@@ -259,6 +259,30 @@ function TableDragon:getDesc_forToolTip(did)
     return str
 end
 
+-------------------------------------
+-- function getStarAniName
+-- @brief 드래곤 등장 등급 애니메이션 구분
+-------------------------------------
+function TableDragon:getStarAniName(did, evolution)
+    if (TableSlime:isSlimeID(did)) then
+	    return 'gray_'
+
+    elseif (self:isUnderling(did)) then
+        return 'gray_'
+
+    elseif (evolution == 1) then
+        return 'yellow_'
+
+    elseif (evolution == 2) then
+        return 'purple_'
+
+    elseif (evolution == 3) then
+        return 'red_'
+
+    else
+        error('evolution : ' .. evolution)
+    end
+end
 
 
 
