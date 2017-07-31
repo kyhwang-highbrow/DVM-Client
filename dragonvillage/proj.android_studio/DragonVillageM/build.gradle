@@ -22,7 +22,7 @@ android {
                     arguments 'NDK_TOOLCHAIN_VERSION=4.9'
 
                     // Android-21 미만 기기에서 실행하기 위함
-                    arguments 'APP_PLATFORM=android-19'
+                    arguments 'APP_PLATFORM=android-16'
 
                     def module_paths = [project.file("../../../cocos2d-x").absolutePath,
                                         project.file("../../../cocos2d-x/cocos").absolutePath,
