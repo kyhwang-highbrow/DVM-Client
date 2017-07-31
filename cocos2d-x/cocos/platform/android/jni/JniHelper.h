@@ -232,10 +232,6 @@ private:
 
     static jstring convert(cocos2d::JniMethodInfo& t, const std::string& x);
     
-    static long long convert(cocos2d::JniMethodInfo& t, const long x) {
-        return (long long)x;
-    }
-
     template <typename T>
     static T convert(cocos2d::JniMethodInfo&, T x) {
         return x;
@@ -265,7 +261,7 @@ private:
         return "I";
     }
 
-    static std::string getJNISignature(long) {
+    static std::string getJNISignature(long long) {
         return "J";
     }
 

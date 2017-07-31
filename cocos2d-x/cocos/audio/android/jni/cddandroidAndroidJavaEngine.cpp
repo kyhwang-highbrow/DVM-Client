@@ -328,7 +328,7 @@ void AndroidJavaEngine::unloadEffect(const char* filePath)
 }
 
 void AndroidJavaEngine::playVibrate(long millisecond) {
-    JniHelper::callStaticVoidMethod(helperClassName, "playVibrate", millisecond);
+    JniHelper::callStaticVoidMethod(helperClassName, "playVibrate", (long long)millisecond);
 }
 
 void AndroidJavaEngine::cancelVibrate() {
