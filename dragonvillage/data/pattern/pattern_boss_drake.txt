@@ -20,7 +20,7 @@
             },
 			
             {
-                "hp_percent":7,
+                "hp_percent":15,
                 "pattern":
                 [
                     "w;2", "a;5"
