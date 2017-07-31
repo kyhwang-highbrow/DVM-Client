@@ -231,6 +231,10 @@ private:
     static jstring convert(cocos2d::JniMethodInfo& t, const char* x);
 
     static jstring convert(cocos2d::JniMethodInfo& t, const std::string& x);
+    
+    static long long convert(cocos2d::JniMethodInfo& t, const long x) {
+        return (long long)x;
+    }
 
     template <typename T>
     static T convert(cocos2d::JniMethodInfo&, T x) {
