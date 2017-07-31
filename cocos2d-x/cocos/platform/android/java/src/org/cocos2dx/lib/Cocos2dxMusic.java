@@ -313,13 +313,16 @@ public class Cocos2dxMusic {
 				mediaPlayer.setDataSource(fis.getFD());
 				fis.close();
 			} else {
+				AssetFileDescriptor assetFileDescriptor = null;
                 if (Cocos2dxHelper.getObbAssetFile() != null) {
-                    final AssetFileDescriptor assetFileDescriptor = Cocos2dxHelper.getObbAssetFile().getAssetFileDescriptor(path);
-                    mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
-                } else {
-                    final AssetFileDescriptor assetFileDescriptor = this.mContext.getAssets().openFd(path);
-                    mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+					assetFileDescriptor = Cocos2dxHelper.getObbAssetFile().getAssetFileDescriptor(path);
+				}
+
+				if (assetFileDescriptor == null) {
+                   	assetFileDescriptor = this.mContext.getAssets().openFd(path);
                 }
+
+				mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
 			}
 
 			mediaPlayer.prepare();
