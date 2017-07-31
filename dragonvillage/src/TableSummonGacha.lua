@@ -1,4 +1,4 @@
-local PARENT = TableClass
+﻿local PARENT = TableClass
 
 -------------------------------------
 -- class TableSummonGacha

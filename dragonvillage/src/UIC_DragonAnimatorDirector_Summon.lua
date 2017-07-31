@@ -153,7 +153,7 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
     local cur_grade
     if TableSlime:isSlimeID(did) then
         rarity = TableSlime:getValue(did, 'rarity')
-        cur_grade = TableSlime:getValue(did, 'grade')
+        cur_grade = TableSlime:getValue(did, 'birthgrade')
     else
         rarity = TableDragon:getValue(did, 'rarity')
         cur_grade = TableDragon:getValue(did, 'birthgrade')
