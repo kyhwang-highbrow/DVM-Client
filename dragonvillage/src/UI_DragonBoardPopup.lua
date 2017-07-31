@@ -155,6 +155,7 @@ function UI_DragonBoardPopup:makeTableView()
     local table_view = UIC_TableView(node)
 	table_view:setUseVariableSize(true)    -- 가변 사이즈를 쓰기 위해서 선언
 	table_view.m_refreshDuration = 0
+    table_view.m_defaultCellSize = cc.size(884, 155)
     table_view:setCellUIClass(UI_DragonBoardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list, true)
