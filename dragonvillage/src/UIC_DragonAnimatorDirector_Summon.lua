@@ -225,7 +225,7 @@ function UIC_DragonAnimatorDirector_Summon:bindEgg(egg_id, egg_res)
     end
 
     self.m_eggID = egg_id
-    self.m_bRareSummon = TableSummonGacha(egg_id)
+    self.m_bRareSummon = TableSummonGacha:isRareSummon(egg_id)
 
     local animator = MakeAnimator(egg_res)
     animator:changeAni('egg')
