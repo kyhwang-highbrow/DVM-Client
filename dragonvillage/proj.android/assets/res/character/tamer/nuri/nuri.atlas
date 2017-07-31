@@ -1,0 +1,524 @@
+
+nuri.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+nuri_acce_01
+  rotate: false
+  xy: 274, 10
+  size: 29, 38
+  orig: 29, 38
+  offset: 0, 0
+  index: -1
+nuri_acce_02
+  rotate: true
+  xy: 567, 465
+  size: 29, 38
+  orig: 29, 38
+  offset: 0, 0
+  index: -1
+nuri_acce_03
+  rotate: false
+  xy: 526, 392
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+nuri_acce_04
+  rotate: true
+  xy: 624, 407
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+nuri_arm_01
+  rotate: true
+  xy: 247, 50
+  size: 34, 52
+  orig: 34, 52
+  offset: 0, 0
+  index: -1
+nuri_arm_02
+  rotate: true
+  xy: 608, 439
+  size: 24, 38
+  orig: 24, 38
+  offset: 0, 0
+  index: -1
+nuri_arm_03
+  rotate: false
+  xy: 526, 423
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+nuri_arm_04
+  rotate: false
+  xy: 242, 2
+  size: 30, 46
+  orig: 30, 46
+  offset: 0, 0
+  index: -1
+nuri_body_01
+  rotate: true
+  xy: 610, 560
+  size: 55, 78
+  orig: 55, 78
+  offset: 0, 0
+  index: -1
+nuri_body_02
+  rotate: true
+  xy: 686, 618
+  size: 68, 42
+  orig: 68, 42
+  offset: 0, 0
+  index: -1
+nuri_body_03
+  rotate: true
+  xy: 607, 465
+  size: 28, 38
+  orig: 28, 38
+  offset: 0, 0
+  index: -1
+nuri_body_04
+  rotate: true
+  xy: 187, 2
+  size: 55, 53
+  orig: 55, 53
+  offset: 0, 0
+  index: -1
+nuri_effect_01
+  rotate: true
+  xy: 383, 507
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+nuri_effect_02
+  rotate: false
+  xy: 205, 307
+  size: 96, 86
+  orig: 96, 86
+  offset: 0, 0
+  index: -1
+nuri_effect_03
+  rotate: false
+  xy: 290, 655
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+nuri_effect_04
+  rotate: false
+  xy: 2, 304
+  size: 201, 199
+  orig: 201, 199
+  offset: 0, 0
+  index: -1
+nuri_effect_05
+  rotate: false
+  xy: 593, 688
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+nuri_effect_06
+  rotate: false
+  xy: 2, 130
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+nuri_effect_07
+  rotate: false
+  xy: 516, 822
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+nuri_effect_08
+  rotate: false
+  xy: 718, 850
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+nuri_effect_09
+  rotate: false
+  xy: 2, 505
+  size: 228, 214
+  orig: 228, 214
+  offset: 0, 0
+  index: -1
+nuri_effect_10
+  rotate: false
+  xy: 232, 507
+  size: 149, 146
+  orig: 149, 146
+  offset: 0, 0
+  index: -1
+nuri_effect_11
+  rotate: true
+  xy: 453, 669
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+nuri_effect_12
+  rotate: false
+  xy: 523, 523
+  size: 42, 144
+  orig: 42, 144
+  offset: 0, 0
+  index: -1
+nuri_effect_13
+  rotate: true
+  xy: 870, 687
+  size: 48, 45
+  orig: 48, 45
+  offset: 0, 0
+  index: -1
+nuri_effect_14
+  rotate: false
+  xy: 2, 721
+  size: 286, 301
+  orig: 286, 301
+  offset: 0, 0
+  index: -1
+nuri_eye_01
+  rotate: false
+  xy: 236, 193
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+nuri_eye_02
+  rotate: false
+  xy: 558, 442
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+nuri_eye_03
+  rotate: true
+  xy: 892, 853
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+nuri_eye_04
+  rotate: false
+  xy: 610, 533
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+nuri_face_01
+  rotate: false
+  xy: 1006, 1008
+  size: 13, 14
+  orig: 13, 14
+  offset: 0, 0
+  index: -1
+nuri_foot_01
+  rotate: false
+  xy: 567, 533
+  size: 41, 39
+  orig: 41, 39
+  offset: 0, 0
+  index: -1
+nuri_foot_02
+  rotate: false
+  xy: 567, 496
+  size: 41, 35
+  orig: 41, 35
+  offset: 0, 0
+  index: -1
+nuri_hair_00
+  rotate: true
+  xy: 232, 658
+  size: 61, 56
+  orig: 61, 56
+  offset: 0, 0
+  index: -1
+nuri_hair_01
+  rotate: true
+  xy: 919, 787
+  size: 109, 103
+  orig: 109, 103
+  offset: 0, 0
+  index: -1
+nuri_hair_02
+  rotate: false
+  xy: 730, 600
+  size: 67, 50
+  orig: 67, 50
+  offset: 0, 0
+  index: -1
+nuri_hair_03
+  rotate: true
+  xy: 815, 737
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+nuri_hair_04
+  rotate: false
+  xy: 526, 470
+  size: 39, 51
+  orig: 39, 51
+  offset: 0, 0
+  index: -1
+nuri_hair_05
+  rotate: true
+  xy: 668, 506
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+nuri_hair_06
+  rotate: true
+  xy: 798, 674
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+nuri_hair_07
+  rotate: false
+  xy: 892, 898
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+nuri_hand_01
+  rotate: false
+  xy: 558, 411
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+nuri_hand_02
+  rotate: false
+  xy: 690, 520
+  size: 32, 27
+  orig: 32, 27
+  offset: 0, 0
+  index: -1
+nuri_hand_03
+  rotate: true
+  xy: 592, 382
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+nuri_hand_04
+  rotate: false
+  xy: 558, 385
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: -1
+nuri_hand_05
+  rotate: true
+  xy: 668, 530
+  size: 28, 20
+  orig: 28, 20
+  offset: 0, 0
+  index: -1
+nuri_head_01
+  rotate: true
+  xy: 919, 694
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+nuri_head_02
+  rotate: false
+  xy: 306, 406
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+nuri_lowbody_01
+  rotate: true
+  xy: 690, 549
+  size: 67, 37
+  orig: 67, 37
+  offset: 0, 0
+  index: -1
+nuri_reg_01
+  rotate: false
+  xy: 727, 713
+  size: 86, 135
+  orig: 86, 135
+  offset: 0, 0
+  index: -1
+nuri_reg_02
+  rotate: false
+  xy: 132, 5
+  size: 53, 123
+  orig: 53, 123
+  offset: 0, 0
+  index: -1
+nuri_reg_03
+  rotate: false
+  xy: 485, 413
+  size: 39, 92
+  orig: 39, 92
+  offset: 0, 0
+  index: -1
+nuri_reg_04
+  rotate: false
+  xy: 567, 574
+  size: 41, 93
+  orig: 41, 93
+  offset: 0, 0
+  index: -1
+nuri_sholder_01
+  rotate: false
+  xy: 610, 495
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+nuri_sholder_02
+  rotate: false
+  xy: 648, 509
+  size: 18, 22
+  orig: 18, 22
+  offset: 0, 0
+  index: -1
+nuri_wepon_01
+  rotate: false
+  xy: 815, 702
+  size: 53, 33
+  orig: 53, 33
+  offset: 0, 0
+  index: -1
+nuri_wepon_02
+  rotate: false
+  xy: 593, 673
+  size: 15, 13
+  orig: 15, 13
+  offset: 0, 0
+  index: -1
+nuri_wepon_03
+  rotate: false
+  xy: 798, 698
+  size: 15, 13
+  orig: 15, 13
+  offset: 0, 0
+  index: -1
+nuri_wepon_04
+  rotate: false
+  xy: 239, 141
+  size: 53, 50
+  orig: 53, 50
+  offset: 0, 0
+  index: -1
+nuri_wepon_05
+  rotate: true
+  xy: 247, 86
+  size: 53, 50
+  orig: 53, 50
+  offset: 0, 0
+  index: -1
+nuri_wepon_06
+  rotate: false
+  xy: 729, 548
+  size: 61, 50
+  orig: 61, 50
+  offset: 0, 0
+  index: -1
+nuri_wepon_07
+  rotate: true
+  xy: 187, 59
+  size: 71, 58
+  orig: 71, 58
+  offset: 0, 0
+  index: -1
+nuri_z2_01
+  rotate: false
+  xy: 290, 817
+  size: 224, 205
+  orig: 224, 205
+  offset: 0, 0
+  index: -1
+nuri_z2_02
+  rotate: true
+  xy: 2, 2
+  size: 126, 128
+  orig: 126, 128
+  offset: 0, 0
+  index: -1
+nuri_z2_03
+  rotate: false
+  xy: 399, 417
+  size: 84, 88
+  orig: 84, 88
+  offset: 0, 0
+  index: -1
+nuri_z2_04
+  rotate: true
+  xy: 724, 516
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_z2_05
+  rotate: true
+  xy: 758, 516
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_z2_06
+  rotate: false
+  xy: 592, 405
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_z2_07
+  rotate: false
+  xy: 610, 617
+  size: 74, 69
+  orig: 74, 69
+  offset: 0, 0
+  index: -1
+nuri_z2_08
+  rotate: true
+  xy: 236, 220
+  size: 85, 58
+  orig: 85, 58
+  offset: 0, 0
+  index: -1
+nuri_z2_09
+  rotate: true
+  xy: 176, 186
+  size: 116, 58
+  orig: 116, 58
+  offset: 0, 0
+  index: -1
+nuri_z2_10
+  rotate: true
+  xy: 176, 132
+  size: 52, 61
+  orig: 52, 61
+  offset: 0, 0
+  index: -1
+nuri_z_01
+  rotate: true
+  xy: 205, 395
+  size: 108, 99
+  orig: 108, 99
+  offset: 0, 0
+  index: -1
+nuri_z_02
+  rotate: false
+  xy: 730, 652
+  size: 66, 59
+  orig: 66, 59
+  offset: 0, 0
+  index: -1

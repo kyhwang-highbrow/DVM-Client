@@ -1,0 +1,195 @@
+
+godium_fire_01.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+godium_fire_01_arm_01
+  rotate: false
+  xy: 1738, 211
+  size: 66, 43
+  orig: 66, 43
+  offset: 0, 0
+  index: -1
+godium_fire_01_arm_02
+  rotate: false
+  xy: 452, 4
+  size: 46, 38
+  orig: 46, 38
+  offset: 0, 0
+  index: -1
+godium_fire_01_body_01
+  rotate: false
+  xy: 904, 137
+  size: 131, 117
+  orig: 131, 117
+  offset: 0, 0
+  index: -1
+godium_fire_01_effect_01
+  rotate: false
+  xy: 1596, 176
+  size: 79, 78
+  orig: 79, 78
+  offset: 0, 0
+  index: -1
+godium_fire_01_effect_03
+  rotate: false
+  xy: 597, 54
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+godium_fire_01_effect_05
+  rotate: false
+  xy: 745, 100
+  size: 157, 154
+  orig: 157, 154
+  offset: 0, 0
+  index: -1
+godium_fire_01_eye_l_01
+  rotate: false
+  xy: 637, 66
+  size: 41, 32
+  orig: 41, 32
+  offset: 0, 0
+  index: -1
+godium_fire_01_eye_l_02
+  rotate: false
+  xy: 1004, 110
+  size: 19, 25
+  orig: 19, 25
+  offset: 0, 0
+  index: -1
+godium_fire_01_foot_01
+  rotate: true
+  xy: 1266, 165
+  size: 89, 108
+  orig: 89, 108
+  offset: 0, 0
+  index: -1
+godium_fire_01_foot_02
+  rotate: true
+  xy: 1376, 165
+  size: 89, 108
+  orig: 89, 108
+  offset: 0, 0
+  index: -1
+godium_fire_01_hand_01
+  rotate: true
+  xy: 271, 11
+  size: 87, 122
+  orig: 87, 122
+  offset: 0, 0
+  index: -1
+godium_fire_01_hand_01_01
+  rotate: true
+  xy: 961, 101
+  size: 34, 41
+  orig: 34, 41
+  offset: 0, 0
+  index: -1
+godium_fire_01_hand_01_02
+  rotate: true
+  xy: 904, 100
+  size: 35, 55
+  orig: 35, 55
+  offset: 0, 0
+  index: -1
+godium_fire_01_hand_01_03
+  rotate: true
+  xy: 395, 2
+  size: 40, 55
+  orig: 40, 55
+  offset: 0, 0
+  index: -1
+godium_fire_01_hand_02
+  rotate: false
+  xy: 1677, 176
+  size: 59, 78
+  orig: 59, 78
+  offset: 0, 0
+  index: -1
+godium_fire_01_hand_02_01
+  rotate: false
+  xy: 1853, 229
+  size: 24, 25
+  orig: 24, 25
+  offset: 0, 0
+  index: -1
+godium_fire_01_hand_02_02
+  rotate: true
+  xy: 1806, 221
+  size: 33, 45
+  orig: 33, 45
+  offset: 0, 0
+  index: -1
+godium_fire_01_hand_02_03
+  rotate: true
+  xy: 1738, 178
+  size: 31, 51
+  orig: 31, 51
+  offset: 0, 0
+  index: -1
+godium_fire_01_head_01
+  rotate: true
+  xy: 1037, 140
+  size: 114, 118
+  orig: 114, 118
+  offset: 0, 0
+  index: -1
+godium_fire_01_head_02
+  rotate: true
+  xy: 513, 46
+  size: 52, 82
+  orig: 52, 82
+  offset: 0, 0
+  index: -1
+godium_fire_01_leg_01
+  rotate: true
+  xy: 1486, 165
+  size: 89, 108
+  orig: 89, 108
+  offset: 0, 0
+  index: -1
+godium_fire_01_leg_02
+  rotate: false
+  xy: 1157, 159
+  size: 107, 95
+  orig: 107, 95
+  offset: 0, 0
+  index: -1
+godium_fire_01_mouth_01
+  rotate: false
+  xy: 680, 73
+  size: 19, 25
+  orig: 19, 25
+  offset: 0, 0
+  index: -1
+godium_fire_01_tail_01
+  rotate: false
+  xy: 2, 8
+  size: 267, 246
+  orig: 267, 246
+  offset: 0, 0
+  index: -1
+godium_fire_01_tail_02
+  rotate: false
+  xy: 395, 44
+  size: 116, 54
+  orig: 116, 54
+  offset: 0, 0
+  index: -1
+godium_fire_01_wing_01
+  rotate: false
+  xy: 271, 100
+  size: 235, 154
+  orig: 235, 154
+  offset: 0, 0
+  index: -1
+godium_fire_01_wing_02
+  rotate: false
+  xy: 508, 100
+  size: 235, 154
+  orig: 235, 154
+  offset: 0, 0
+  index: -1

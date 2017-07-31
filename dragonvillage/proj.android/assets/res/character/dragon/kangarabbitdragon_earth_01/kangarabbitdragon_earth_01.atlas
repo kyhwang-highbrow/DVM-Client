@@ -1,0 +1,118 @@
+
+kangarabbitdragon_earth_01.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kangarabbitdragon_earth_01_arm_01
+  rotate: true
+  xy: 248, 312
+  size: 47, 37
+  orig: 47, 37
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_arm_02
+  rotate: true
+  xy: 1, 7
+  size: 28, 46
+  orig: 28, 46
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_arm_03
+  rotate: false
+  xy: 164, 190
+  size: 48, 19
+  orig: 48, 19
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_body_01
+  rotate: false
+  xy: 171, 361
+  size: 119, 150
+  orig: 119, 150
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_ear_01
+  rotate: false
+  xy: 420, 430
+  size: 91, 81
+  orig: 91, 81
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_ear_02
+  rotate: false
+  xy: 112, 71
+  size: 59, 117
+  orig: 59, 117
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_effect_02_1
+  rotate: false
+  xy: 171, 284
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_effect_02_2
+  rotate: false
+  xy: 1, 190
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_effect_02_3
+  rotate: false
+  xy: 1, 352
+  size: 168, 159
+  orig: 168, 159
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_eye_01
+  rotate: false
+  xy: 248, 285
+  size: 23, 25
+  orig: 23, 25
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_foot_01
+  rotate: false
+  xy: 292, 320
+  size: 101, 89
+  orig: 101, 89
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_foot_02
+  rotate: false
+  xy: 395, 310
+  size: 74, 99
+  orig: 74, 99
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_glob_01
+  rotate: false
+  xy: 164, 211
+  size: 74, 71
+  orig: 74, 71
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_glob_02
+  rotate: true
+  xy: 112, 14
+  size: 55, 57
+  orig: 55, 57
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_head_01
+  rotate: false
+  xy: 1, 37
+  size: 109, 151
+  orig: 109, 151
+  offset: 0, 0
+  index: -1
+kangarabbitdragon_earth_01_tail_01
+  rotate: false
+  xy: 292, 411
+  size: 126, 100
+  orig: 126, 100
+  offset: 0, 0
+  index: -1

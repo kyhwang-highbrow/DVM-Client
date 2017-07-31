@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>dark_castle2_3_a.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{992,330}}</string>
+                <key>offset</key>
+                <string>{-419,-194}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{45,429},{992,330}}</string>
+                <key>sourceSize</key>
+                <string>{1920,800}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>dark_castle2_3.png</string>
+            <key>size</key>
+            <string>{996,334}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:01eeafa3434dec8a4dea025b2126e5cc:f73452b478c517b47d334b3e994582d7:24ccb50ee8b5830de63b2896331c6f25$</string>
+            <key>textureFileName</key>
+            <string>dark_castle2_3.png</string>
+        </dict>
+    </dict>
+</plist>

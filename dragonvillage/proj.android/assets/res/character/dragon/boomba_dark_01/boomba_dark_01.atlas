@@ -1,0 +1,153 @@
+
+boomba_dark_01.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boomba_dark_01_arm_01
+  rotate: false
+  xy: 325, 339
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_dark_01_arm_02
+  rotate: false
+  xy: 374, 344
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_dark_01_body_01
+  rotate: false
+  xy: 2, 297
+  size: 212, 209
+  orig: 212, 209
+  offset: 0, 0
+  index: -1
+boomba_dark_01_body_02
+  rotate: false
+  xy: 133, 197
+  size: 82, 98
+  orig: 82, 98
+  offset: 0, 0
+  index: -1
+boomba_dark_01_body_03
+  rotate: false
+  xy: 2, 164
+  size: 129, 131
+  orig: 129, 131
+  offset: 0, 0
+  index: -1
+boomba_dark_01_effect_01
+  rotate: false
+  xy: 217, 215
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+boomba_dark_01_effect_02
+  rotate: true
+  xy: 106, 70
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+boomba_dark_01_effect_03
+  rotate: false
+  xy: 472, 356
+  size: 35, 42
+  orig: 35, 42
+  offset: 0, 0
+  index: -1
+boomba_dark_01_effect_04
+  rotate: false
+  xy: 2, 64
+  size: 102, 98
+  orig: 102, 98
+  offset: 0, 0
+  index: -1
+boomba_dark_01_eye_01
+  rotate: true
+  xy: 443, 400
+  size: 106, 60
+  orig: 106, 60
+  offset: 0, 0
+  index: -1
+boomba_dark_01_eye_02
+  rotate: false
+  xy: 2, 2
+  size: 106, 60
+  orig: 106, 60
+  offset: 0, 0
+  index: -1
+boomba_dark_01_foot_01
+  rotate: false
+  xy: 325, 284
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_dark_01_foot_02
+  rotate: false
+  xy: 374, 289
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_dark_01_head_01
+  rotate: true
+  xy: 216, 300
+  size: 92, 107
+  orig: 92, 107
+  offset: 0, 0
+  index: -1
+boomba_dark_01_head_02
+  rotate: false
+  xy: 349, 399
+  size: 92, 107
+  orig: 92, 107
+  offset: 0, 0
+  index: -1
+boomba_dark_01_leg_01
+  rotate: false
+  xy: 311, 229
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_dark_01_leg_02
+  rotate: false
+  xy: 423, 344
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_dark_01_mouth_01
+  rotate: false
+  xy: 110, 8
+  size: 75, 60
+  orig: 75, 60
+  offset: 0, 0
+  index: -1
+boomba_dark_01_mouth_02
+  rotate: false
+  xy: 216, 394
+  size: 131, 112
+  orig: 131, 112
+  offset: 0, 0
+  index: -1
+boomba_dark_01_wing_01
+  rotate: true
+  xy: 423, 289
+  size: 53, 42
+  orig: 53, 42
+  offset: 0, 0
+  index: -1
+boomba_dark_01_wing_02
+  rotate: false
+  xy: 217, 171
+  size: 53, 42
+  orig: 53, 42
+  offset: 0, 0
+  index: -1

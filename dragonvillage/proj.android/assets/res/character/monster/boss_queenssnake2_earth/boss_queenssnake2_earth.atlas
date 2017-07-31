@@ -1,0 +1,265 @@
+
+boss_queenssnake2_earth.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_queenssnake2_earth_ breast_01
+  rotate: true
+  xy: 381, 17
+  size: 52, 49
+  orig: 52, 49
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_ breast_02
+  rotate: false
+  xy: 432, 24
+  size: 52, 49
+  orig: 52, 49
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_acc_01
+  rotate: false
+  xy: 849, 227
+  size: 52, 42
+  orig: 52, 42
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_acc_02
+  rotate: false
+  xy: 848, 178
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_acc_03
+  rotate: false
+  xy: 765, 249
+  size: 82, 81
+  orig: 82, 81
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_acc_04
+  rotate: true
+  xy: 673, 40
+  size: 74, 60
+  orig: 74, 60
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_acc_05
+  rotate: false
+  xy: 903, 227
+  size: 52, 42
+  orig: 52, 42
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_arm_01
+  rotate: true
+  xy: 511, 54
+  size: 60, 79
+  orig: 60, 79
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_arm_02
+  rotate: true
+  xy: 592, 54
+  size: 60, 79
+  orig: 60, 79
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_body_01
+  rotate: false
+  xy: 209, 39
+  size: 94, 158
+  orig: 94, 158
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_body_02
+  rotate: false
+  xy: 1, 4
+  size: 206, 218
+  orig: 206, 218
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_body_03
+  rotate: false
+  xy: 607, 332
+  size: 240, 174
+  orig: 240, 174
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_body_04
+  rotate: false
+  xy: 1, 224
+  size: 267, 282
+  orig: 267, 282
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_body_05
+  rotate: true
+  xy: 849, 271
+  size: 235, 160
+  orig: 235, 160
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_eye_01
+  rotate: true
+  xy: 209, 199
+  size: 23, 31
+  orig: 23, 31
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_eye_02
+  rotate: false
+  xy: 486, 42
+  size: 23, 31
+  orig: 23, 31
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_finger_01
+  rotate: true
+  xy: 209, 1
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_finger_02
+  rotate: true
+  xy: 251, 1
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_finger_03
+  rotate: false
+  xy: 897, 185
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_finger_04
+  rotate: false
+  xy: 935, 194
+  size: 36, 31
+  orig: 36, 31
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_finger_05
+  rotate: false
+  xy: 973, 194
+  size: 23, 31
+  orig: 23, 31
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_finger_06
+  rotate: false
+  xy: 816, 81
+  size: 23, 31
+  orig: 23, 31
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_hair_01
+  rotate: false
+  xy: 765, 192
+  size: 81, 55
+  orig: 81, 55
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_hair_02
+  rotate: true
+  xy: 628, 199
+  size: 131, 135
+  orig: 131, 135
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_hair_03
+  rotate: false
+  xy: 418, 75
+  size: 91, 122
+  orig: 91, 122
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_hair_04
+  rotate: false
+  xy: 270, 321
+  size: 335, 185
+  orig: 335, 185
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_hair_05
+  rotate: false
+  xy: 305, 14
+  size: 74, 55
+  orig: 74, 55
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_hand_01
+  rotate: true
+  xy: 735, 52
+  size: 60, 79
+  orig: 60, 79
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_hand_02
+  rotate: true
+  xy: 957, 227
+  size: 42, 50
+  orig: 42, 50
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_hand_03
+  rotate: false
+  xy: 511, 116
+  size: 122, 81
+  orig: 122, 81
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_head_01
+  rotate: false
+  xy: 270, 199
+  size: 177, 120
+  orig: 177, 120
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_head_02
+  rotate: false
+  xy: 449, 199
+  size: 177, 120
+  orig: 177, 120
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_head_03
+  rotate: true
+  xy: 747, 114
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_head_04
+  rotate: true
+  xy: 242, 199
+  size: 23, 17
+  orig: 23, 17
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_mouth_01
+  rotate: false
+  xy: 816, 62
+  size: 23, 17
+  orig: 23, 17
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_wepon_01
+  rotate: true
+  xy: 635, 116
+  size: 81, 110
+  orig: 81, 110
+  offset: 0, 0
+  index: -1
+boss_queenssnake2_earth_wepon_02
+  rotate: false
+  xy: 305, 71
+  size: 111, 126
+  orig: 111, 126
+  offset: 0, 0
+  index: -1

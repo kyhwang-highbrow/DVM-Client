@@ -1,0 +1,83 @@
+
+rockdragon_earth_01.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+rockdragon_earth_01_arm_01
+  rotate: false
+  xy: 189, 385
+  size: 105, 107
+  orig: 105, 107
+  offset: 0, 0
+  index: -1
+rockdragon_earth_01_arm_02
+  rotate: false
+  xy: 455, 620
+  size: 113, 204
+  orig: 113, 204
+  offset: 0, 0
+  index: -1
+rockdragon_earth_01_arm_03
+  rotate: false
+  xy: 336, 504
+  size: 105, 107
+  orig: 105, 107
+  offset: 0, 0
+  index: -1
+rockdragon_earth_01_arm_04
+  rotate: false
+  xy: 336, 613
+  size: 117, 211
+  orig: 117, 211
+  offset: 0, 0
+  index: -1
+rockdragon_earth_01_body_01
+  rotate: false
+  xy: 1, 494
+  size: 333, 330
+  orig: 333, 330
+  offset: 0, 0
+  index: -1
+rockdragon_earth_01_effect_04
+  rotate: false
+  xy: 1, 179
+  size: 171, 150
+  orig: 171, 150
+  offset: 0, 0
+  index: -1
+rockdragon_earth_01_eye_01
+  rotate: false
+  xy: 1, 1
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: -1
+rockdragon_earth_01_head_01
+  rotate: false
+  xy: 1, 331
+  size: 186, 161
+  orig: 186, 161
+  offset: 0, 0
+  index: -1
+rockdragon_earth_01_head_02
+  rotate: false
+  xy: 1, 83
+  size: 105, 94
+  orig: 105, 94
+  offset: 0, 0
+  index: -1
+rockdragon_earth_01_leg_01
+  rotate: false
+  xy: 570, 747
+  size: 61, 77
+  orig: 61, 77
+  offset: 0, 0
+  index: -1
+rockdragon_earth_01_leg_02
+  rotate: false
+  xy: 108, 105
+  size: 58, 72
+  orig: 58, 72
+  offset: 0, 0
+  index: -1

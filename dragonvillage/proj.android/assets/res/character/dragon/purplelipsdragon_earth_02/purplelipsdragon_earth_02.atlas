@@ -1,0 +1,146 @@
+
+purplelipsdragon_earth_02.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+purplelipsdragon_earth_02_arm_01
+  rotate: true
+  xy: 168, 128
+  size: 67, 87
+  orig: 67, 87
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_body_01
+  rotate: false
+  xy: 158, 299
+  size: 194, 209
+  orig: 194, 209
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_body_02
+  rotate: true
+  xy: 158, 197
+  size: 100, 92
+  orig: 100, 92
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_body_03
+  rotate: false
+  xy: 2, 187
+  size: 154, 321
+  orig: 154, 321
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_effect_02
+  rotate: false
+  xy: 357, 10
+  size: 71, 71
+  orig: 71, 71
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_effect_03
+  rotate: false
+  xy: 2, 13
+  size: 164, 172
+  orig: 164, 172
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_effect_04
+  rotate: false
+  xy: 430, 54
+  size: 71, 71
+  orig: 71, 71
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_eye_01
+  rotate: true
+  xy: 302, 135
+  size: 71, 42
+  orig: 71, 42
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_eye_02
+  rotate: true
+  xy: 257, 135
+  size: 71, 42
+  orig: 71, 42
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_eye_03
+  rotate: true
+  xy: 302, 62
+  size: 71, 42
+  orig: 71, 42
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_eye_04
+  rotate: false
+  xy: 346, 83
+  size: 71, 42
+  orig: 71, 42
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_head_01
+  rotate: false
+  xy: 252, 208
+  size: 99, 89
+  orig: 99, 89
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_head_01_b
+  rotate: false
+  xy: 493, 483
+  size: 15, 25
+  orig: 15, 25
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_head_01_r
+  rotate: true
+  xy: 487, 191
+  size: 27, 19
+  orig: 27, 19
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_head_02
+  rotate: true
+  xy: 302, 6
+  size: 54, 53
+  orig: 54, 53
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_head_03
+  rotate: true
+  xy: 354, 380
+  size: 128, 137
+  orig: 128, 137
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_head_04
+  rotate: true
+  xy: 354, 250
+  size: 128, 137
+  orig: 128, 137
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_leg_01
+  rotate: true
+  xy: 353, 127
+  size: 121, 132
+  orig: 121, 132
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_leg_02
+  rotate: true
+  xy: 168, 4
+  size: 121, 132
+  orig: 121, 132
+  offset: 0, 0
+  index: -1
+purplelipsdragon_earth_02_mouth_01
+  rotate: true
+  xy: 487, 220
+  size: 28, 19
+  orig: 28, 19
+  offset: 0, 0
+  index: -1

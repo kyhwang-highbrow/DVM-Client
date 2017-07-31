@@ -1,0 +1,111 @@
+
+elite_poisonoctopus2_water.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_poisonoctopus2_water_acc_01
+  rotate: true
+  xy: 438, 126
+  size: 39, 40
+  orig: 39, 40
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_body_01
+  rotate: false
+  xy: 576, 179
+  size: 135, 73
+  orig: 135, 73
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_body_02
+  rotate: false
+  xy: 191, 73
+  size: 86, 71
+  orig: 86, 71
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_body_03
+  rotate: false
+  xy: 310, 141
+  size: 126, 111
+  orig: 126, 111
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_body_04
+  rotate: true
+  xy: 105, 13
+  size: 89, 84
+  orig: 89, 84
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_body_05
+  rotate: true
+  xy: 937, 151
+  size: 101, 81
+  orig: 101, 81
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_body_06
+  rotate: false
+  xy: 160, 146
+  size: 148, 106
+  orig: 148, 106
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_effect_01
+  rotate: false
+  xy: 0, 0
+  size: 103, 102
+  orig: 103, 102
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_effect_02
+  rotate: false
+  xy: 826, 144
+  size: 109, 108
+  orig: 109, 108
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_eye_01
+  rotate: false
+  xy: 249, 17
+  size: 46, 54
+  orig: 46, 54
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_eye_02
+  rotate: false
+  xy: 160, 108
+  size: 20, 36
+  orig: 20, 36
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_head_01
+  rotate: false
+  xy: 713, 144
+  size: 111, 108
+  orig: 111, 108
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_head_02
+  rotate: false
+  xy: 0, 104
+  size: 158, 148
+  orig: 158, 148
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_head_03
+  rotate: true
+  xy: 438, 167
+  size: 85, 136
+  orig: 85, 136
+  offset: 0, 0
+  index: -1
+elite_poisonoctopus2_water_mouth_01
+  rotate: false
+  xy: 191, 15
+  size: 56, 56
+  orig: 56, 56
+  offset: 0, 0
+  index: -1

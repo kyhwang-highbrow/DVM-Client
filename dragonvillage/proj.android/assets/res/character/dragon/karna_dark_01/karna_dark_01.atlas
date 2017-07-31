@@ -1,0 +1,13 @@
+
+karna_dark_01.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+karna_dark_01_base
+  rotate: false
+  xy: 2, 2
+  size: 255, 311
+  orig: 255, 311
+  offset: 0, 0
+  index: -1

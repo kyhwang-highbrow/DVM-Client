@@ -1,0 +1,209 @@
+
+godium_dark_02.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+godium_dark_02_arm_01
+  rotate: false
+  xy: 434, 768
+  size: 66, 43
+  orig: 66, 43
+  offset: 0, 0
+  index: -1
+godium_dark_02_arm_02
+  rotate: false
+  xy: 200, 209
+  size: 46, 38
+  orig: 46, 38
+  offset: 0, 0
+  index: -1
+godium_dark_02_body_01
+  rotate: false
+  xy: 743, 902
+  size: 131, 117
+  orig: 131, 117
+  offset: 0, 0
+  index: -1
+godium_dark_02_effect_01
+  rotate: false
+  xy: 119, 14
+  size: 79, 78
+  orig: 79, 78
+  offset: 0, 0
+  index: -1
+godium_dark_02_effect_03
+  rotate: false
+  xy: 160, 203
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+godium_dark_02_effect_05
+  rotate: false
+  xy: 1, 203
+  size: 157, 154
+  orig: 157, 154
+  offset: 0, 0
+  index: -1
+godium_dark_02_effect_06
+  rotate: false
+  xy: 270, 813
+  size: 234, 206
+  orig: 234, 206
+  offset: 0, 0
+  index: -1
+godium_dark_02_effect_08
+  rotate: false
+  xy: 1, 515
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+godium_dark_02_eye_l_01
+  rotate: false
+  xy: 726, 774
+  size: 41, 32
+  orig: 41, 32
+  offset: 0, 0
+  index: -1
+godium_dark_02_eye_r_02
+  rotate: false
+  xy: 1000, 994
+  size: 19, 25
+  orig: 19, 25
+  offset: 0, 0
+  index: -1
+godium_dark_02_foot_01
+  rotate: false
+  xy: 160, 249
+  size: 89, 108
+  orig: 89, 108
+  offset: 0, 0
+  index: -1
+godium_dark_02_foot_02
+  rotate: true
+  xy: 506, 774
+  size: 89, 108
+  orig: 89, 108
+  offset: 0, 0
+  index: -1
+godium_dark_02_hand_01
+  rotate: true
+  xy: 876, 932
+  size: 87, 122
+  orig: 87, 122
+  offset: 0, 0
+  index: -1
+godium_dark_02_hand_01_01
+  rotate: false
+  xy: 803, 826
+  size: 34, 41
+  orig: 34, 41
+  offset: 0, 0
+  index: -1
+godium_dark_02_hand_01_02
+  rotate: true
+  xy: 743, 865
+  size: 35, 55
+  orig: 35, 55
+  offset: 0, 0
+  index: -1
+godium_dark_02_hand_01_03
+  rotate: false
+  xy: 726, 808
+  size: 40, 55
+  orig: 40, 55
+  offset: 0, 0
+  index: -1
+godium_dark_02_hand_02
+  rotate: true
+  xy: 354, 752
+  size: 59, 78
+  orig: 59, 78
+  offset: 0, 0
+  index: -1
+godium_dark_02_hand_02_01
+  rotate: false
+  xy: 876, 905
+  size: 24, 25
+  orig: 24, 25
+  offset: 0, 0
+  index: -1
+godium_dark_02_hand_02_02
+  rotate: false
+  xy: 768, 818
+  size: 33, 45
+  orig: 33, 45
+  offset: 0, 0
+  index: -1
+godium_dark_02_hand_02_03
+  rotate: true
+  xy: 800, 869
+  size: 31, 51
+  orig: 31, 51
+  offset: 0, 0
+  index: -1
+godium_dark_02_head_01
+  rotate: false
+  xy: 1, 83
+  size: 114, 118
+  orig: 114, 118
+  offset: 0, 0
+  index: -1
+godium_dark_02_head_02
+  rotate: true
+  xy: 270, 759
+  size: 52, 82
+  orig: 52, 82
+  offset: 0, 0
+  index: -1
+godium_dark_02_leg_01
+  rotate: true
+  xy: 616, 774
+  size: 89, 108
+  orig: 89, 108
+  offset: 0, 0
+  index: -1
+godium_dark_02_leg_02
+  rotate: true
+  xy: 117, 94
+  size: 107, 95
+  orig: 107, 95
+  offset: 0, 0
+  index: -1
+godium_dark_02_mouth_01
+  rotate: false
+  xy: 238, 488
+  size: 19, 25
+  orig: 19, 25
+  offset: 0, 0
+  index: -1
+godium_dark_02_tail_01
+  rotate: false
+  xy: 1, 773
+  size: 267, 246
+  orig: 267, 246
+  offset: 0, 0
+  index: -1
+godium_dark_02_tail_02
+  rotate: false
+  xy: 1, 27
+  size: 116, 54
+  orig: 116, 54
+  offset: 0, 0
+  index: -1
+godium_dark_02_wing_01
+  rotate: false
+  xy: 1, 359
+  size: 235, 154
+  orig: 235, 154
+  offset: 0, 0
+  index: -1
+godium_dark_02_wing_02
+  rotate: false
+  xy: 506, 865
+  size: 235, 154
+  orig: 235, 154
+  offset: 0, 0
+  index: -1

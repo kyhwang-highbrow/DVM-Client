@@ -1,0 +1,125 @@
+
+lightningdragon_light_02.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lightningdragon_light_02_arm_01
+  rotate: false
+  xy: 515, 810
+  size: 98, 93
+  orig: 98, 93
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_arm_02
+  rotate: false
+  xy: 175, 252
+  size: 72, 124
+  orig: 72, 124
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_body_01
+  rotate: false
+  xy: 805, 1369
+  size: 186, 213
+  orig: 186, 213
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_body_02
+  rotate: false
+  xy: 805, 1214
+  size: 171, 153
+  orig: 171, 153
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_body_03
+  rotate: false
+  xy: 403, 638
+  size: 110, 265
+  orig: 110, 265
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_effect_01_1
+  rotate: false
+  xy: 1, 1182
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_effect_01_2
+  rotate: false
+  xy: 1, 780
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_effect_01_3
+  rotate: false
+  xy: 403, 1182
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_effect_01_4
+  rotate: false
+  xy: 1, 378
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_effect_02
+  rotate: false
+  xy: 993, 1462
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_foot_01
+  rotate: false
+  xy: 403, 496
+  size: 56, 140
+  orig: 56, 140
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_hand_01
+  rotate: false
+  xy: 1, 1
+  size: 67, 161
+  orig: 67, 161
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_hand_02
+  rotate: false
+  xy: 679, 1021
+  size: 110, 159
+  orig: 110, 159
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_head_01
+  rotate: false
+  xy: 1, 164
+  size: 172, 212
+  orig: 172, 212
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_head_02
+  rotate: false
+  xy: 993, 1415
+  size: 58, 45
+  orig: 58, 45
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_leg_01
+  rotate: false
+  xy: 679, 910
+  size: 65, 109
+  orig: 65, 109
+  offset: 0, 0
+  index: -1
+lightningdragon_light_02_wing_01
+  rotate: false
+  xy: 403, 905
+  size: 274, 275
+  orig: 274, 275
+  offset: 0, 0
+  index: -1

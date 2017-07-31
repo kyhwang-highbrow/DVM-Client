@@ -1,0 +1,153 @@
+
+taildragon_light_02.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taildragon_light_02_arm_01
+  rotate: false
+  xy: 964, 2
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_light_02_arm_02
+  rotate: true
+  xy: 1639, 194
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_light_02_body_01
+  rotate: true
+  xy: 599, 15
+  size: 173, 190
+  orig: 173, 190
+  offset: 0, 0
+  index: -1
+taildragon_light_02_eye_01
+  rotate: false
+  xy: 1027, 52
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_light_02_eye_02
+  rotate: false
+  xy: 1195, 142
+  size: 49, 39
+  orig: 49, 39
+  offset: 0, 0
+  index: -1
+taildragon_light_02_foot_01
+  rotate: true
+  xy: 1329, 188
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_light_02_foot_02
+  rotate: true
+  xy: 1914, 187
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+taildragon_light_02_hair_01
+  rotate: true
+  xy: 1195, 183
+  size: 71, 132
+  orig: 71, 132
+  offset: 0, 0
+  index: -1
+taildragon_light_02_hair_04
+  rotate: false
+  xy: 1084, 2
+  size: 105, 120
+  orig: 105, 120
+  offset: 0, 0
+  index: -1
+taildragon_light_02_hand_01
+  rotate: true
+  xy: 1823, 193
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+taildragon_light_02_hand_02
+  rotate: true
+  xy: 1731, 194
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+taildragon_light_02_head_01
+  rotate: false
+  xy: 1084, 124
+  size: 109, 130
+  orig: 109, 130
+  offset: 0, 0
+  index: -1
+taildragon_light_02_head_02
+  rotate: false
+  xy: 1994, 214
+  size: 41, 40
+  orig: 41, 40
+  offset: 0, 0
+  index: -1
+taildragon_light_02_leg_01
+  rotate: true
+  xy: 1434, 188
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+taildragon_light_02_leg_02
+  rotate: true
+  xy: 1539, 187
+  size: 67, 98
+  orig: 67, 98
+  offset: 0, 0
+  index: -1
+taildragon_light_02_tail_01
+  rotate: false
+  xy: 599, 190
+  size: 333, 64
+  orig: 333, 64
+  offset: 0, 0
+  index: -1
+taildragon_light_02_tail_03
+  rotate: false
+  xy: 199, 54
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_light_02_tail_04
+  rotate: false
+  xy: 2, 21
+  size: 195, 233
+  orig: 195, 233
+  offset: 0, 0
+  index: -1
+taildragon_light_02_tail_06
+  rotate: false
+  xy: 399, 54
+  size: 198, 200
+  orig: 198, 200
+  offset: 0, 0
+  index: -1
+taildragon_light_02_wing_01
+  rotate: true
+  xy: 791, 3
+  size: 185, 171
+  orig: 185, 171
+  offset: 0, 0
+  index: -1
+taildragon_light_02_wing_02
+  rotate: false
+  xy: 964, 93
+  size: 118, 161
+  orig: 118, 161
+  offset: 0, 0
+  index: -1

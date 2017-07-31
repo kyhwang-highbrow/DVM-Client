@@ -1,0 +1,48 @@
+
+common_elemental_lava_fire.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_elemental_lava_fire_arm_01
+  rotate: false
+  xy: 96, 61
+  size: 35, 22
+  orig: 35, 22
+  offset: 0, 0
+  index: -1
+common_elemental_lava_fire_arm_02
+  rotate: false
+  xy: 192, 94
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+common_elemental_lava_fire_body_01
+  rotate: false
+  xy: 2, 56
+  size: 92, 68
+  orig: 92, 68
+  offset: 0, 0
+  index: -1
+common_elemental_lava_fire_body_02
+  rotate: false
+  xy: 96, 85
+  size: 94, 39
+  orig: 94, 39
+  offset: 0, 0
+  index: -1
+common_elemental_lava_fire_body_03
+  rotate: false
+  xy: 2, 13
+  size: 65, 41
+  orig: 65, 41
+  offset: 0, 0
+  index: -1
+common_elemental_lava_fire_eye_01
+  rotate: false
+  xy: 2, 2
+  size: 34, 9
+  orig: 34, 9
+  offset: 0, 0
+  index: -1

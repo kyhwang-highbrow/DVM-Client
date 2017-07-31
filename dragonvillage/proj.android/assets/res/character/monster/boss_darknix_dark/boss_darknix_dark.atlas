@@ -1,0 +1,250 @@
+
+boss_darknix_dark.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_darknix_dark_body_01
+  rotate: false
+  xy: 777, 670
+  size: 538, 630
+  orig: 538, 630
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_eff_01
+  rotate: false
+  xy: 665, 824
+  size: 66, 66
+  orig: 66, 66
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_eff_02
+  rotate: true
+  xy: 701, 255
+  size: 413, 385
+  orig: 413, 385
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_eff_03
+  rotate: false
+  xy: 2, 28
+  size: 413, 385
+  orig: 413, 385
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_eff_04
+  rotate: false
+  xy: 552, 788
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_eye_01
+  rotate: false
+  xy: 665, 781
+  size: 41, 41
+  orig: 41, 41
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_finger_01
+  rotate: true
+  xy: 1673, 41
+  size: 294, 342
+  orig: 294, 342
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_finger_02
+  rotate: true
+  xy: 552, 1133
+  size: 239, 223
+  orig: 239, 223
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_foot_01
+  rotate: false
+  xy: 1317, 776
+  size: 439, 524
+  orig: 439, 524
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_foot_02
+  rotate: false
+  xy: 1673, 337
+  size: 370, 437
+  orig: 370, 437
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_hand_01
+  rotate: false
+  xy: 1758, 788
+  size: 284, 314
+  orig: 284, 314
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_head_01
+  rotate: false
+  xy: 417, 7
+  size: 274, 406
+  orig: 274, 406
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_jaw_01
+  rotate: false
+  xy: 1758, 1104
+  size: 274, 406
+  orig: 274, 406
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_leg_01
+  rotate: false
+  xy: 1507, 1512
+  size: 439, 524
+  orig: 439, 524
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_nail_01
+  rotate: true
+  xy: 552, 892
+  size: 239, 223
+  orig: 239, 223
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_nail_02
+  rotate: true
+  xy: 1088, 429
+  size: 239, 223
+  orig: 239, 223
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_nail_03
+  rotate: true
+  xy: 1088, 188
+  size: 239, 223
+  orig: 239, 223
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_should_01
+  rotate: true
+  xy: 693, 2
+  size: 251, 305
+  orig: 251, 305
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_tail_01
+  rotate: false
+  xy: 2, 1374
+  size: 787, 662
+  orig: 787, 662
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_wing_01
+  rotate: false
+  xy: 791, 1302
+  size: 714, 734
+  orig: 714, 734
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_wing_02
+  rotate: true
+  xy: 2, 721
+  size: 651, 548
+  orig: 651, 548
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_wing_03
+  rotate: true
+  xy: 2, 415
+  size: 304, 697
+  orig: 304, 697
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_wing_04
+  rotate: false
+  xy: 1317, 156
+  size: 354, 618
+  orig: 354, 618
+  offset: 0, 0
+  index: -1
+
+boss_darknix_dark2.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_darknix_dark_arm_01
+  rotate: false
+  xy: 1316, 256
+  size: 264, 265
+  orig: 264, 265
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_arm_02
+  rotate: false
+  xy: 1582, 259
+  size: 258, 262
+  orig: 258, 262
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_hand_02
+  rotate: false
+  xy: 374, 452
+  size: 320, 413
+  orig: 320, 413
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_jaw_02
+  rotate: false
+  xy: 696, 459
+  size: 274, 406
+  orig: 274, 406
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_leg_02
+  rotate: false
+  xy: 2, 428
+  size: 370, 437
+  orig: 370, 437
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_nail_04
+  rotate: false
+  xy: 1316, 31
+  size: 239, 223
+  orig: 239, 223
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_nail_05
+  rotate: false
+  xy: 972, 523
+  size: 294, 342
+  orig: 294, 342
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_nail_06
+  rotate: false
+  xy: 1268, 523
+  size: 294, 342
+  orig: 294, 342
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_nail_07
+  rotate: false
+  xy: 1564, 523
+  size: 294, 342
+  orig: 294, 342
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_nail_08
+  rotate: true
+  xy: 972, 227
+  size: 294, 342
+  orig: 294, 342
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_neck_01
+  rotate: true
+  xy: 2, 2
+  size: 424, 357
+  orig: 424, 357
+  offset: 0, 0
+  index: -1

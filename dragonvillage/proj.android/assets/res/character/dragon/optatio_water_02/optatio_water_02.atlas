@@ -1,0 +1,188 @@
+
+optatio_water_02.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+optatio_water_02_arm_01
+  rotate: true
+  xy: 1440, 2
+  size: 107, 85
+  orig: 107, 85
+  offset: 0, 0
+  index: -1
+optatio_water_02_body_01
+  rotate: false
+  xy: 1440, 111
+  size: 178, 143
+  orig: 178, 143
+  offset: 0, 0
+  index: -1
+optatio_water_02_calf_01
+  rotate: false
+  xy: 1967, 80
+  size: 59, 62
+  orig: 59, 62
+  offset: 0, 0
+  index: -1
+optatio_water_02_effect_01
+  rotate: true
+  xy: 305, 26
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+optatio_water_02_effect_02
+  rotate: false
+  xy: 1967, 30
+  size: 56, 48
+  orig: 56, 48
+  offset: 0, 0
+  index: -1
+optatio_water_02_elbow_01
+  rotate: false
+  xy: 1269, 87
+  size: 169, 167
+  orig: 169, 167
+  offset: 0, 0
+  index: -1
+optatio_water_02_elbow_02
+  rotate: true
+  xy: 1864, 7
+  size: 110, 101
+  orig: 110, 101
+  offset: 0, 0
+  index: -1
+optatio_water_02_foot_01
+  rotate: true
+  xy: 1238, 14
+  size: 71, 88
+  orig: 71, 88
+  offset: 0, 0
+  index: -1
+optatio_water_02_hand_01
+  rotate: true
+  xy: 837, 88
+  size: 166, 241
+  orig: 166, 241
+  offset: 0, 0
+  index: -1
+optatio_water_02_hand_02
+  rotate: false
+  xy: 1895, 144
+  size: 118, 110
+  orig: 118, 110
+  offset: 0, 0
+  index: -1
+optatio_water_02_hand_03
+  rotate: false
+  xy: 1080, 97
+  size: 187, 157
+  orig: 187, 157
+  offset: 0, 0
+  index: -1
+optatio_water_02_head_01
+  rotate: false
+  xy: 1620, 99
+  size: 155, 155
+  orig: 155, 155
+  offset: 0, 0
+  index: -1
+optatio_water_02_leg_01
+  rotate: false
+  xy: 1777, 2
+  size: 85, 115
+  orig: 85, 115
+  offset: 0, 0
+  index: -1
+optatio_water_02_lowerbody_01
+  rotate: false
+  xy: 1608, 29
+  size: 97, 68
+  orig: 97, 68
+  offset: 0, 0
+  index: -1
+optatio_water_02_lowerbody_02
+  rotate: false
+  xy: 964, 2
+  size: 152, 83
+  orig: 152, 83
+  offset: 0, 0
+  index: -1
+optatio_water_02_neck_01
+  rotate: false
+  xy: 706, 28
+  size: 120, 103
+  orig: 120, 103
+  offset: 0, 0
+  index: -1
+optatio_water_02_shoulder_01
+  rotate: false
+  xy: 1777, 119
+  size: 116, 135
+  orig: 116, 135
+  offset: 0, 0
+  index: -1
+optatio_water_02_tail_01
+  rotate: false
+  xy: 828, 2
+  size: 134, 84
+  orig: 134, 84
+  offset: 0, 0
+  index: -1
+optatio_water_02_tail_02
+  rotate: true
+  xy: 1328, 31
+  size: 54, 77
+  orig: 54, 77
+  offset: 0, 0
+  index: -1
+optatio_water_02_tail_03
+  rotate: false
+  xy: 1707, 7
+  size: 68, 90
+  orig: 68, 90
+  offset: 0, 0
+  index: -1
+optatio_water_02_thigh_01
+  rotate: true
+  xy: 1527, 3
+  size: 106, 79
+  orig: 106, 79
+  offset: 0, 0
+  index: -1
+optatio_water_02_wing_01
+  rotate: true
+  xy: 1118, 16
+  size: 79, 118
+  orig: 79, 118
+  offset: 0, 0
+  index: -1
+optatio_water_02_wing_02
+  rotate: true
+  xy: 2, 8
+  size: 38, 128
+  orig: 38, 128
+  offset: 0, 0
+  index: -1
+optatio_water_02_wing_03
+  rotate: true
+  xy: 537, 34
+  size: 97, 167
+  orig: 97, 167
+  offset: 0, 0
+  index: -1
+optatio_water_02_wing_04
+  rotate: false
+  xy: 2, 48
+  size: 301, 206
+  orig: 301, 206
+  offset: 0, 0
+  index: -1
+optatio_water_02_wing_05
+  rotate: false
+  xy: 537, 133
+  size: 298, 121
+  orig: 298, 121
+  offset: 0, 0
+  index: -1

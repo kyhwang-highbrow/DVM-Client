@@ -1,0 +1,48 @@
+
+common_lizard_man_earth.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_lizard_man_earth_arm_01
+  rotate: false
+  xy: 256, 62
+  size: 47, 64
+  orig: 47, 64
+  offset: 0, 0
+  index: -1
+common_lizard_man_earth_arm_02
+  rotate: false
+  xy: 183, 46
+  size: 71, 80
+  orig: 71, 80
+  offset: 0, 0
+  index: -1
+common_lizard_man_earth_body_01
+  rotate: false
+  xy: 2, 25
+  size: 114, 101
+  orig: 114, 101
+  offset: 0, 0
+  index: -1
+common_lizard_man_earth_effect_01
+  rotate: false
+  xy: 118, 33
+  size: 63, 93
+  orig: 63, 93
+  offset: 0, 0
+  index: -1
+common_lizard_man_earth_leg_01
+  rotate: true
+  xy: 118, 2
+  size: 29, 53
+  orig: 29, 53
+  offset: 0, 0
+  index: -1
+common_lizard_man_earth_leg_02
+  rotate: true
+  xy: 173, 2
+  size: 29, 53
+  orig: 29, 53
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,195 @@
+
+elite_mermaid_water.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_mermaid_water_arm_01
+  rotate: false
+  xy: 914, 385
+  size: 37, 35
+  orig: 37, 35
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_arm_02
+  rotate: true
+  xy: 804, 306
+  size: 25, 62
+  orig: 25, 62
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_arm_03
+  rotate: false
+  xy: 451, 27
+  size: 33, 41
+  orig: 33, 41
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_arm_04
+  rotate: true
+  xy: 868, 357
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_body_01
+  rotate: false
+  xy: 728, 302
+  size: 74, 89
+  orig: 74, 89
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_body_02
+  rotate: false
+  xy: 460, 171
+  size: 122, 130
+  orig: 122, 130
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_body_03
+  rotate: false
+  xy: 804, 333
+  size: 62, 76
+  orig: 62, 76
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_ear_01
+  rotate: true
+  xy: 399, 12
+  size: 68, 50
+  orig: 68, 50
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_effect_01
+  rotate: false
+  xy: 460, 303
+  size: 266, 88
+  orig: 266, 88
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_effect_04
+  rotate: false
+  xy: 2, 82
+  size: 456, 428
+  orig: 456, 428
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_effect_05
+  rotate: false
+  xy: 2, 7
+  size: 138, 73
+  orig: 138, 73
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_effect_06
+  rotate: false
+  xy: 142, 7
+  size: 138, 73
+  orig: 138, 73
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_effect_07
+  rotate: false
+  xy: 771, 411
+  size: 138, 99
+  orig: 138, 99
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_effect_08
+  rotate: false
+  xy: 460, 70
+  size: 138, 99
+  orig: 138, 99
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_effect_09
+  rotate: false
+  xy: 600, 82
+  size: 138, 99
+  orig: 138, 99
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_eye_01
+  rotate: false
+  xy: 486, 44
+  size: 50, 24
+  orig: 50, 24
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_eye_02
+  rotate: false
+  xy: 715, 188
+  size: 48, 15
+  orig: 48, 15
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_hair_01
+  rotate: false
+  xy: 911, 422
+  size: 95, 88
+  orig: 95, 88
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_hair_02
+  rotate: false
+  xy: 868, 313
+  size: 34, 42
+  orig: 34, 42
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_hair_03
+  rotate: false
+  xy: 584, 183
+  size: 129, 118
+  orig: 129, 118
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_hair_04
+  rotate: true
+  xy: 282, 16
+  size: 64, 115
+  orig: 64, 115
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_hand_01
+  rotate: false
+  xy: 515, 20
+  size: 17, 22
+  orig: 17, 22
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_head_01
+  rotate: false
+  xy: 715, 205
+  size: 81, 95
+  orig: 81, 95
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_mouth_01
+  rotate: true
+  xy: 1008, 482
+  size: 28, 11
+  orig: 28, 11
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_weapon_01
+  rotate: false
+  xy: 460, 393
+  size: 309, 117
+  orig: 309, 117
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_weapon_02
+  rotate: true
+  xy: 538, 36
+  size: 32, 42
+  orig: 32, 42
+  offset: 0, 0
+  index: -1
+elite_mermaid_water_weapon_03
+  rotate: false
+  xy: 486, 2
+  size: 27, 40
+  orig: 27, 40
+  offset: 0, 0
+  index: -1

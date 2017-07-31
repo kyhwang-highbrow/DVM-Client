@@ -1,0 +1,244 @@
+
+lambgon_light_02.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lambgon_light_02_arm_01
+  rotate: true
+  xy: 266, 172
+  size: 36, 46
+  orig: 36, 46
+  offset: 0, 0
+  index: -1
+lambgon_light_02_arm_02
+  rotate: false
+  xy: 314, 170
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+lambgon_light_02_body_01
+  rotate: false
+  xy: 2, 355
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+lambgon_light_02_body_02
+  rotate: false
+  xy: 287, 323
+  size: 77, 67
+  orig: 77, 67
+  offset: 0, 0
+  index: -1
+lambgon_light_02_effect_01
+  rotate: false
+  xy: 130, 267
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+lambgon_light_02_effect_05
+  rotate: false
+  xy: 480, 368
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+lambgon_light_02_effect_06
+  rotate: true
+  xy: 366, 330
+  size: 60, 57
+  orig: 60, 57
+  offset: 0, 0
+  index: -1
+lambgon_light_02_effect_07
+  rotate: false
+  xy: 367, 239
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+lambgon_light_02_effect_08
+  rotate: false
+  xy: 410, 239
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+lambgon_light_02_eye_01
+  rotate: true
+  xy: 252, 303
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_light_02_eye_02
+  rotate: true
+  xy: 231, 181
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_light_02_eye_03
+  rotate: true
+  xy: 216, 76
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_light_02_eye_04
+  rotate: false
+  xy: 287, 288
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
+lambgon_light_02_eye_05
+  rotate: false
+  xy: 252, 268
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+lambgon_light_02_eye_06
+  rotate: true
+  xy: 480, 337
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+lambgon_light_02_foot_01
+  rotate: false
+  xy: 2, 2
+  size: 68, 73
+  orig: 68, 73
+  offset: 0, 0
+  index: -1
+lambgon_light_02_foot_02
+  rotate: false
+  xy: 72, 2
+  size: 68, 73
+  orig: 68, 73
+  offset: 0, 0
+  index: -1
+lambgon_light_02_hand_01
+  rotate: false
+  xy: 425, 338
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+lambgon_light_02_hand_02
+  rotate: false
+  xy: 205, 15
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+lambgon_light_02_head_01
+  rotate: true
+  xy: 408, 399
+  size: 111, 89
+  orig: 111, 89
+  offset: 0, 0
+  index: -1
+lambgon_light_02_head_02
+  rotate: true
+  xy: 122, 77
+  size: 83, 92
+  orig: 83, 92
+  offset: 0, 0
+  index: -1
+lambgon_light_02_head_03
+  rotate: false
+  xy: 373, 275
+  size: 54, 53
+  orig: 54, 53
+  offset: 0, 0
+  index: -1
+lambgon_light_02_head_04
+  rotate: true
+  xy: 125, 162
+  size: 103, 104
+  orig: 103, 104
+  offset: 0, 0
+  index: -1
+lambgon_light_02_head_06
+  rotate: true
+  xy: 266, 210
+  size: 56, 45
+  orig: 56, 45
+  offset: 0, 0
+  index: -1
+lambgon_light_02_head_07
+  rotate: false
+  xy: 478, 300
+  size: 31, 35
+  orig: 31, 35
+  offset: 0, 0
+  index: -1
+lambgon_light_02_head_08
+  rotate: false
+  xy: 453, 242
+  size: 31, 35
+  orig: 31, 35
+  offset: 0, 0
+  index: -1
+lambgon_light_02_head_09
+  rotate: false
+  xy: 313, 251
+  size: 52, 35
+  orig: 52, 35
+  offset: 0, 0
+  index: -1
+lambgon_light_02_head_10
+  rotate: false
+  xy: 313, 214
+  size: 42, 35
+  orig: 42, 35
+  offset: 0, 0
+  index: -1
+lambgon_light_02_leg_01
+  rotate: false
+  xy: 142, 2
+  size: 61, 73
+  orig: 61, 73
+  offset: 0, 0
+  index: -1
+lambgon_light_02_leg_02
+  rotate: false
+  xy: 429, 279
+  size: 47, 57
+  orig: 47, 57
+  offset: 0, 0
+  index: -1
+lambgon_light_02_weapon_01
+  rotate: false
+  xy: 2, 77
+  size: 118, 127
+  orig: 118, 127
+  offset: 0, 0
+  index: -1
+lambgon_light_02_weapon_02
+  rotate: true
+  xy: 279, 392
+  size: 118, 127
+  orig: 118, 127
+  offset: 0, 0
+  index: -1
+lambgon_light_02_wing_01
+  rotate: true
+  xy: 2, 206
+  size: 147, 121
+  orig: 147, 121
+  offset: 0, 0
+  index: -1
+lambgon_light_02_wing_02
+  rotate: false
+  xy: 130, 389
+  size: 147, 121
+  orig: 147, 121
+  offset: 0, 0
+  index: -1

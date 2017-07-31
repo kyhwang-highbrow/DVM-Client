@@ -1,0 +1,83 @@
+
+common_blowshark_water.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_blowshark_water_arm_01
+  rotate: false
+  xy: 310, 34
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+common_blowshark_water_body_01
+  rotate: false
+  xy: 2, 2
+  size: 121, 104
+  orig: 121, 104
+  offset: 0, 0
+  index: -1
+common_blowshark_water_body_02
+  rotate: false
+  xy: 391, 70
+  size: 28, 36
+  orig: 28, 36
+  offset: 0, 0
+  index: -1
+common_blowshark_water_body_03
+  rotate: false
+  xy: 459, 77
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+common_blowshark_water_body_04
+  rotate: true
+  xy: 294, 3
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+common_blowshark_water_body_07
+  rotate: false
+  xy: 125, 2
+  size: 121, 104
+  orig: 121, 104
+  offset: 0, 0
+  index: -1
+common_blowshark_water_effect_01
+  rotate: false
+  xy: 248, 38
+  size: 60, 68
+  orig: 60, 68
+  offset: 0, 0
+  index: -1
+common_blowshark_water_eye_01
+  rotate: false
+  xy: 421, 80
+  size: 36, 26
+  orig: 36, 26
+  offset: 0, 0
+  index: -1
+common_blowshark_water_eye_02
+  rotate: false
+  xy: 248, 4
+  size: 44, 32
+  orig: 44, 32
+  offset: 0, 0
+  index: -1
+common_blowshark_water_horn_01
+  rotate: false
+  xy: 310, 65
+  size: 42, 41
+  orig: 42, 41
+  offset: 0, 0
+  index: -1
+common_blowshark_water_mouth_01
+  rotate: false
+  xy: 354, 69
+  size: 35, 37
+  orig: 35, 37
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,13 @@
+
+arjuna_fire_01.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arjuna_fire_01_base
+  rotate: false
+  xy: 2, 2
+  size: 318, 317
+  orig: 318, 317
+  offset: 0, 0
+  index: -1

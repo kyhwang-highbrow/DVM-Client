@@ -1,0 +1,153 @@
+
+frostdragon_earth_03.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+frostdragon_earth_03_arm_01
+  rotate: false
+  xy: 865, 247
+  size: 101, 75
+  orig: 101, 75
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_arm_02
+  rotate: false
+  xy: 1203, 248
+  size: 62, 75
+  orig: 62, 75
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_body_01
+  rotate: false
+  xy: 1327, 342
+  size: 186, 166
+  orig: 186, 166
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_body_02
+  rotate: false
+  xy: 2, 57
+  size: 259, 117
+  orig: 259, 117
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_effect_01
+  rotate: false
+  xy: 316, 324
+  size: 406, 184
+  orig: 406, 184
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_effect_02
+  rotate: false
+  xy: 2, 176
+  size: 312, 332
+  orig: 312, 332
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_effect_03
+  rotate: false
+  xy: 724, 324
+  size: 406, 184
+  orig: 406, 184
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_eye_01
+  rotate: false
+  xy: 1067, 236
+  size: 66, 86
+  orig: 66, 86
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_eye_03
+  rotate: false
+  xy: 757, 248
+  size: 106, 74
+  orig: 106, 74
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_foot_01
+  rotate: false
+  xy: 671, 218
+  size: 84, 104
+  orig: 84, 104
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_foot_02
+  rotate: false
+  xy: 1918, 404
+  size: 84, 104
+  orig: 84, 104
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_hand_01
+  rotate: true
+  xy: 316, 197
+  size: 125, 218
+  orig: 125, 218
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_hand_02
+  rotate: false
+  xy: 1824, 387
+  size: 92, 121
+  orig: 92, 121
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_head_01
+  rotate: false
+  xy: 1515, 342
+  size: 156, 166
+  orig: 156, 166
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_head_02
+  rotate: true
+  xy: 2, 2
+  size: 53, 87
+  orig: 53, 87
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_head_03
+  rotate: false
+  xy: 1267, 265
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_head_04
+  rotate: false
+  xy: 1135, 244
+  size: 66, 79
+  orig: 66, 79
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_leg_01
+  rotate: true
+  xy: 536, 216
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_leg_02
+  rotate: false
+  xy: 968, 244
+  size: 97, 78
+  orig: 97, 78
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_wing_01
+  rotate: true
+  xy: 1132, 325
+  size: 183, 193
+  orig: 183, 193
+  offset: 0, 0
+  index: -1
+frostdragon_earth_03_wing_02
+  rotate: false
+  xy: 1673, 343
+  size: 149, 165
+  orig: 149, 165
+  offset: 0, 0
+  index: -1

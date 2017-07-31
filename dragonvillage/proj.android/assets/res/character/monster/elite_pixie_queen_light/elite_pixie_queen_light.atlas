@@ -1,0 +1,146 @@
+
+elite_pixie_queen_light.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_pixie_queen_light_acc_01
+  rotate: false
+  xy: 595, 222
+  size: 60, 38
+  orig: 60, 38
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_arm_01
+  rotate: false
+  xy: 664, 272
+  size: 45, 47
+  orig: 45, 47
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_arm_02
+  rotate: false
+  xy: 947, 345
+  size: 68, 60
+  orig: 68, 60
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_arm_03
+  rotate: true
+  xy: 285, 71
+  size: 28, 42
+  orig: 28, 42
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_arm_04
+  rotate: false
+  xy: 595, 262
+  size: 67, 57
+  orig: 67, 57
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_body_01
+  rotate: false
+  xy: 947, 407
+  size: 73, 103
+  orig: 73, 103
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_effect_01
+  rotate: false
+  xy: 503, 321
+  size: 237, 189
+  orig: 237, 189
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_effect_02
+  rotate: false
+  xy: 2, 38
+  size: 192, 255
+  orig: 192, 255
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_eye_01
+  rotate: false
+  xy: 2, 16
+  size: 50, 20
+  orig: 50, 20
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_hair_01
+  rotate: false
+  xy: 2, 295
+  size: 255, 215
+  orig: 255, 215
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_head_01
+  rotate: false
+  xy: 450, 199
+  size: 72, 104
+  orig: 72, 104
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_head_02
+  rotate: true
+  xy: 357, 101
+  size: 41, 69
+  orig: 41, 69
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_head_03
+  rotate: true
+  xy: 450, 145
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_leg_01
+  rotate: false
+  xy: 357, 144
+  size: 91, 159
+  orig: 91, 159
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_leg_02
+  rotate: false
+  xy: 524, 221
+  size: 69, 98
+  orig: 69, 98
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_leg_03
+  rotate: false
+  xy: 196, 2
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_wing_01
+  rotate: true
+  xy: 259, 305
+  size: 205, 242
+  orig: 205, 242
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_wing_02
+  rotate: false
+  xy: 196, 68
+  size: 87, 225
+  orig: 87, 225
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_wing_03
+  rotate: true
+  xy: 742, 333
+  size: 177, 203
+  orig: 177, 203
+  offset: 0, 0
+  index: -1
+elite_pixie_queen_light_wing_04
+  rotate: false
+  xy: 285, 101
+  size: 70, 202
+  orig: 70, 202
+  offset: 0, 0
+  index: -1

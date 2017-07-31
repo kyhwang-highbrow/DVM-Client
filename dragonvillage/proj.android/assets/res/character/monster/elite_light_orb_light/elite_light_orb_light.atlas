@@ -1,0 +1,118 @@
+
+elite_light_orb_light.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_light_orb_light_body_01
+  rotate: false
+  xy: 935, 2
+  size: 139, 146
+  orig: 139, 146
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_body_02
+  rotate: false
+  xy: 1789, 232
+  size: 139, 161
+  orig: 139, 161
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_body_03
+  rotate: true
+  xy: 1076, 10
+  size: 139, 161
+  orig: 139, 161
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_effect_01
+  rotate: false
+  xy: 1602, 199
+  size: 185, 194
+  orig: 185, 194
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_effect_02
+  rotate: false
+  xy: 2, 150
+  size: 346, 333
+  orig: 346, 333
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_effect_03
+  rotate: false
+  xy: 350, 150
+  size: 346, 333
+  orig: 346, 333
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_effect_04
+  rotate: false
+  xy: 698, 150
+  size: 346, 333
+  orig: 346, 333
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_stone_01
+  rotate: false
+  xy: 1046, 151
+  size: 266, 332
+  orig: 266, 332
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_stone_02
+  rotate: false
+  xy: 1239, 20
+  size: 90, 129
+  orig: 90, 129
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_stone_03
+  rotate: false
+  xy: 1602, 395
+  size: 346, 88
+  orig: 346, 88
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_stone_04
+  rotate: true
+  xy: 2, 6
+  size: 142, 309
+  orig: 142, 309
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_sword01
+  rotate: false
+  xy: 1314, 174
+  size: 142, 309
+  orig: 142, 309
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_sword02
+  rotate: true
+  xy: 313, 6
+  size: 142, 309
+  orig: 142, 309
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_sword03
+  rotate: false
+  xy: 1458, 174
+  size: 142, 309
+  orig: 142, 309
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_sword04
+  rotate: true
+  xy: 624, 6
+  size: 142, 309
+  orig: 142, 309
+  offset: 0, 0
+  index: -1
+elite_light_orb_light_sword05
+  rotate: false
+  xy: 1331, 33
+  size: 59, 139
+  orig: 59, 139
+  offset: 0, 0
+  index: -1
