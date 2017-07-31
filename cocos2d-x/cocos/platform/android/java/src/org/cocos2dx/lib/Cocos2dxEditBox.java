@@ -123,7 +123,7 @@ public class Cocos2dxEditBox extends EditText {
     private static final int kTextVerticalAlignmentCenter = 1;
     private static final int getkTextVerticalAlignmentBottom = 2;
 
-    private int mInputFlagConstraints; 
+    private int mInputFlagConstraints;
     private int mInputModeConstraints;
     private  int mMaxLength;
 
