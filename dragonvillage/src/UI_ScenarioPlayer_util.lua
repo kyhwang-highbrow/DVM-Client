@@ -124,7 +124,7 @@ function UI_ScenarioPlayer:applyEffect(effect)
 
     elseif (effect == 'vrp') then
         local key = val_1
-        local vrp = self.m_bg
+        local vrp = self.m_bgAnimator
         local loop = string.find(key, '_idle') and true or false
         vrp:changeAni(key, loop)
         vrp:addAniHandler(function() self:next() end)
