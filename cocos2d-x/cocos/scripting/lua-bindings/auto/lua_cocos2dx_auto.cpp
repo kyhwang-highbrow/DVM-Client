@@ -67624,12 +67624,12 @@ int lua_cocos2dx_SimpleAudioEngine_playVibrate(lua_State* tolua_S)
 	argc = lua_gettop(tolua_S) - 1;
 	if (argc == 1)
 	{
-		double arg0;
+		long arg0;
 
-		ok &= luaval_to_number(tolua_S, 2, &arg0);
+		ok &= luaval_to_long(tolua_S, 2, &arg0);
 		if (!ok)
 			return 0;
-		cobj->playVibrate((long)arg0);
+		cobj->playVibrate(arg0);
 		return 0;
 	}
 	CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "playVibrate", argc, 1);
