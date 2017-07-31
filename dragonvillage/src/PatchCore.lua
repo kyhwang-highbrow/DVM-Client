@@ -201,6 +201,12 @@ end
 function PatchCore:st_requestPatchInfo()
     -- 통신 성공 콜백
     local success_cb = function(ret)
+
+        -- apk 확장 파일 정보 저장
+        local patch_data = PatchData:getInstance()
+        patch_data:setApkExtensionInfo(ret['apk_expantion'])
+        patch_data:save()
+
         self:st_requestPatchInfo_successCB(ret)
     end
 

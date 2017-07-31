@@ -90,6 +90,12 @@ function ScenePatch:runApkExpansion()
 
     local app_ver = getAppVer()
 
+    -- APK 확장 파일 다운로드 스킵 체크
+    if (SKIP_OBB_DOWNLOAD == true) then
+        self:finishPatch()
+        return
+    end
+
     -- 0.2.4버전부터 APK 확장 리소스 다운로드 기능이 제대로 들어감
     if (app_ver == '0.2.2') then
         self:finishPatch()
@@ -102,8 +108,14 @@ function ScenePatch:runApkExpansion()
         return
     end
 
-    local version_code = 7
-    local file_size = 271751027 -- main.7.com.perplelab.dragonvillagem.kr.obb
+    -- 패치 데이터에서 APK 확장파일 정보를 받아옴
+    local patch_data = PatchData:getInstance()
+    local t_apk_extension = patch_data:getApkExtensionInfo()
+
+    local file = t_apk_extension['file'] -- ex) 'main.8.com.perplelab.dragonvillagem.kr.obb'
+    local version_code = t_apk_extension['version_code'] -- ex) 8
+    local file_size = t_apk_extension['size'] -- ex) 268371750
+    local md5 = t_apk_extension['md5'] -- ex) ''
 
     local apk_expansion = ApkExpansion(self, version_code, file_size)
     self.m_apkExpansion = apk_expansion

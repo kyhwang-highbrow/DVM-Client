@@ -12,3 +12,6 @@ DEVELOPMENT_KSJ = false
 
 TARGET_SERVER = nil
 --TARGET_SERVER = 'FGT'
+
+-- APK 확장 파일 다운로드 스킵 여부
+SKIP_OBB_DOWNLOAD = false

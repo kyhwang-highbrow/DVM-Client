@@ -3,6 +3,7 @@
 -------------------------------------
 PatchData = class({
 	    m_tData = '',
+        m_tApkExtension = 'table',
     })
 
 -------------------------------------
@@ -10,6 +11,14 @@ PatchData = class({
 -------------------------------------
 function PatchData:init()
     self:load()
+
+    -- APK 확장 파일 정보
+    local t_apk_expantion = {}
+    t_apk_expantion['file'] = '' -- 'main.8.com.perplelab.dragonvillagem.kr.obb'
+    t_apk_expantion['size'] = 0 -- 268371750 (byte)
+    t_apk_expantion['md5'] = '' -- string
+    t_apk_expantion['version_code'] = '8' -- number
+    self.m_tApkExtension = t_apk_expantion
 end
 
 -------------------------------------
@@ -24,6 +33,29 @@ end
 -------------------------------------
 function PatchData:get(key)
 	return self.m_tData[key]
+end
+
+-------------------------------------
+-- function setApkExtensionInfo
+-- @brief APK 확장 파일 정보 설정
+-------------------------------------
+function PatchData:setApkExtensionInfo(t_apk_extension_info)
+    if (not self.m_tApkExtension) then
+        self.m_tApkExtension = {}
+    end
+
+	self.m_tApkExtension['file'] = t_apk_extension_info['file'] or ''
+    self.m_tApkExtension['size'] = t_apk_extension_info['size'] or 0
+    self.m_tApkExtension['md5'] = t_apk_extension_info['md5'] or ''
+    self.m_tApkExtension['version_code'] = t_apk_extension_info['version_code'] or 0
+end
+
+-------------------------------------
+-- function getApkExtensionInfo
+-- @brief APK 확장 파일 정보 설정 얻어옴
+-------------------------------------
+function PatchData:getApkExtensionInfo()
+    return self.m_tApkExtension
 end
 
 -------------------------------------
