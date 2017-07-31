@@ -63,7 +63,7 @@ end
 -- function startDirecting
 -- @brief 연출 시작
 -------------------------------------
-function UIC_DragonAnimatorDirector:startDirecting()
+function UIC_DragonAnimatorDirector:startDirecting(direct)
     local vars = self.vars
     
 	-- 연출을 위한 세팅
@@ -72,8 +72,13 @@ function UIC_DragonAnimatorDirector:startDirecting()
     self.m_skipBtnCnt = 0
 
 	-- 연출 시작
-    self.m_topEffect:changeAni('top_appear')
-    self.m_topEffect:addAniHandler(function() self:appearDragonAnimator()end)
+    -- 소용돌이 애니메이션 없이 바로 결과 보여줌
+    if (direct) then
+        self:appearDragonAnimator()
+    else
+        self.m_topEffect:changeAni('top_appear')
+        self.m_topEffect:addAniHandler(function() self:appearDragonAnimator() end)
+    end
 end
 
 -------------------------------------

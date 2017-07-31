@@ -275,15 +275,15 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
 
     vars['selectLabel']:setString(helper:getMaterialCountString())
     vars['priceLabel']:setString(comma_value(helper.m_price))
-    vars['expGauge']:setPercentage(helper.m_expPercentage)
-    
+    vars['expGauge']:runAction(cc.ProgressTo:create(0.2, (helper.m_expPercentage)))
+
     vars['levelLabel']:setString(Str('레벨{1}/{2}', helper.m_changedLevel, helper.m_maxLevel))
 
     if possible then
         vars['expLabel']:setString(Str('{1}/{2}', helper.m_changedExp, helper.m_changedMaxExp))
     else
         vars['expLabel']:setString('')
-        vars['expGauge']:setPercentage(100)
+        vars['expGauge']:runAction(cc.ProgressTo:create(0.2, 100))
     end
 
     local plus_level = helper:getPlusLevel()

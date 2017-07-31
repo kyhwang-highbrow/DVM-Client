@@ -1,3 +1,5 @@
+FRIENDSHIP_MAX_LV = 10
+
 -------------------------------------
 -- class StructFriendshipObject
 -- @instance friendship_obj
@@ -53,14 +55,16 @@ end
 -- function getFriendshipInfo
 -- @breif
 -------------------------------------
-function StructFriendshipObject:getFriendshipInfo()
+function StructFriendshipObject:getFriendshipInfo(flv)
+    local flv = (flv or self['flv'])
+
     local table_friendship = TableFriendship()
-    local t_table = table_friendship:get(self['flv'])
+    local t_table = table_friendship:get(flv)
 
     -- 기분 게이지
     local table_friendship_variables = TableFriendshipVariables()
     local feel_percent = (self['ffeel'] / table_friendship_variables:getFeelMax()) * 100
-    feel_percent = math_clamp(feel_percent, 0, 100)
+--    feel_percent = math_clamp(feel_percent, 0, 100)
 
     local nickname = g_userData:get('nick')
 
@@ -138,7 +142,9 @@ function StructFriendshipObject:getFriendshipDisplayText(flv)
     -- 친밀도는 0레벨부터 시작하기 때문에 1을 더해줌
     local flv = (flv or self['flv']) + 1
 
-    local str = Str('친밀도 {1}/{2}', flv, 10)
+    local str = Str('친밀도 {1}/{2}', flv, FRIENDSHIP_MAX_LV)
 
     return str
 end
+
+

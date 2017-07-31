@@ -66,8 +66,12 @@ function TableFriendship:getFriendshipName(flv)
     end
 
     local name = self:getValue(flv, 't_name')
-    name = Str(name)
-    return name
+    if (name) then
+        name = Str(name)
+        return name
+    else
+        return ''
+    end
 end
 
 -------------------------------------
@@ -79,11 +83,45 @@ function TableFriendship:getFriendshipIcon(flv)
     end
 
     local flv = (flv + 1) -- 리소스는 1번부터 시작
-    local res = string.format('res/ui/icon/friendship_emoticon_%.2d.png', flv)
+    local res = string.format('res/ui/icons/friendship/friendship_level_01%.2d.png', flv)
     local icon = cc.Sprite:create(res)
     icon:setDockPoint(cc.p(0.5, 0.5))
     icon:setAnchorPoint(cc.p(0.5, 0.5))
     return icon
+end
+
+
+-------------------------------------
+-- function getTextColorWithFlv
+-- @breif 친밀도 레벨별 텍스트 컬러값
+-------------------------------------
+function TableFriendship:getTextColorWithFlv(flv)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    -- 친밀도는 0레벨부터 시작하기 때문에 1을 더해줌
+    local flv = (flv + 1)
+
+    -- 레벨별 칼라값
+    local LEVEL_COLOR = {
+        cc.c3b(170, 179, 189), -- lv 1
+        cc.c3b(95,  157, 238), -- lv 2
+        cc.c3b(56,  197, 177), -- lv 3
+        cc.c3b(22,  206, 48),  -- lv 4
+        cc.c3b(166, 223, 40),  -- lv 5
+        cc.c3b(255, 221, 43),  -- lv 6
+        cc.c3b(255, 191, 44),  -- lv 7
+        cc.c3b(255, 163, 40),  -- lv 8
+        cc.c3b(255, 116, 79),  -- lv 9
+        cc.c3b(255, 81,  114), -- lv 10
+    }
+
+    if (LEVEL_COLOR[flv]) then
+        return LEVEL_COLOR[flv]
+    else
+        return cc.c3b(255, 255, 255)
+    end
 end
 
 --[[

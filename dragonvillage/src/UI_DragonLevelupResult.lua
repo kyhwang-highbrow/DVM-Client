@@ -77,7 +77,8 @@ function UI_DragonLevelupResult:initUI(dragon_object)
 			SoundMgr:playEffect('UI', 'ui_grow_result')
         end
         dragon_animator:setDragonAppearCB(cb)
-		dragon_animator:startDirecting()
+        local direct_result = true
+		dragon_animator:startDirecting(direct_result)
     end
 
     -- 이전 경험치와 레벨 미리 표시

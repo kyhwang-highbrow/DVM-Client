@@ -5,7 +5,12 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonFriendship = class(PARENT,{
         m_fruitFeedPressHelper = 'UI_FruitFeedPress',
+
+        m_bLevelUp = 'boolean',
+        m_preDragonData = '',
     })
+
+
 
 -------------------------------------
 -- function initParentVariable
@@ -23,6 +28,8 @@ end
 -- function init
 -------------------------------------
 function UI_DragonFriendship:init(doid)
+    self.m_bLevelUp = false
+
     local vars = self:load('dragon_friendship.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -126,72 +133,78 @@ function UI_DragonFriendship:refreshFriendship()
     local friendship_obj = t_dragon_data:getFriendshipObject()
     local t_friendship_info = friendship_obj:getFriendshipInfo()
 
-    -- 친밀도 단계
-    if self:checkVarsKey('levelLabel', friendship_obj['flv']) then
-        local str = friendship_obj:getFriendshipDisplayText()
-        vars['levelLabel']:setString(str)
-    end
+    local flv = friendship_obj['flv']
+    local text_color = TableFriendship:getTextColorWithFlv(flv)
 
-    -- 친밀도 아이콘
-    if self:checkVarsKey('iconNode', friendship_obj['flv']) then
-        vars['iconNode']:removeAllChildren()
-        local icon = friendship_obj:makeFriendshipIcon()
-        vars['iconNode']:addChild(icon)
-    end
+    if (not self.m_bLevelUp) then
+        -- 친밀도 단계
+        if self:checkVarsKey('levelLabel', friendship_obj['flv']) then
+            local str = Str('{1}', friendship_obj['flv'] + 1)
+            vars['levelLabel']:setString(str)
+            vars['levelLabel']:setColor(text_color)
+        end
 
-    -- 친밀도 이름
-    if self:checkVarsKey('conditionLabel', t_friendship_info['name']) then
-        vars['conditionLabel']:setString(t_friendship_info['name'])
-    end
+        -- 친밀도 아이콘
+        if self:checkVarsKey('iconNode', friendship_obj['flv']) then
+            vars['iconNode']:removeAllChildren()
+            local icon = friendship_obj:makeFriendshipIcon()
+            vars['iconNode']:addChild(icon)
+        end
 
-    -- 대사
-    if self:checkVarsKey('conditionInfoLabel', t_friendship_info['desc']) then
-        vars['conditionInfoLabel']:setString(t_friendship_info['desc'])
-    end
+        -- 친밀도 이름
+        if self:checkVarsKey('conditionLabel', t_friendship_info['name']) then
+            vars['conditionLabel']:setString(t_friendship_info['name'])
+            vars['conditionLabel']:setColor(text_color)
+        end
+
+        -- 대사
+        if self:checkVarsKey('conditionInfoLabel', t_friendship_info['desc']) then
+            vars['conditionInfoLabel']:setString(t_friendship_info['desc'])
+        end
     
-    -- 경험치 게이지
-    if self:checkVarsKey('expGauge', t_friendship_info['exp_percent']) then
-        vars['expGauge']:stopAllActions()
-        vars['expGauge']:runAction(cc.ProgressTo:create(0.3, t_friendship_info['exp_percent']))
+        -- 경험치 게이지
+        if self:checkVarsKey('expGauge', t_friendship_info['exp_percent']) then
+            vars['expGauge']:stopAllActions()
+            vars['expGauge']:runAction(cc.ProgressTo:create(0.3, t_friendship_info['exp_percent']))
 
-        if friendship_obj:isMaxFriendshipLevel() then
-            vars['expLabel']:setString(Str('최대 친밀도'))
-        else
-            vars['expLabel']:setString(Str('{1}/{2}', friendship_obj['fexp'], t_friendship_info['max_exp']))
+            if friendship_obj:isMaxFriendshipLevel() then
+                vars['expLabel']:setString(Str('최대 친밀도'))
+            else
+                vars['expLabel']:setString(Str('{1}/{2}', friendship_obj['fexp'], t_friendship_info['max_exp']))
+            end
+        end
+
+        local percent = (friendship_obj['fatk'] / t_friendship_info['atk_max']) * 100
+        if self:checkVarsKey('atkGauge', percent) then
+            vars['atkGauge']:stopAllActions()
+            vars['atkGauge']:runAction(cc.ProgressTo:create(0.3, percent))
+
+            vars['atkLabel']:setString(Str('{1}/{2}', friendship_obj['fatk'], t_friendship_info['atk_max']))
+        end
+
+        local percent = (friendship_obj['fdef'] / t_friendship_info['def_max']) * 100
+        if self:checkVarsKey('defGauge', percent) then
+            vars['defGauge']:stopAllActions()
+            vars['defGauge']:runAction(cc.ProgressTo:create(0.3, percent))
+
+            vars['defLabel']:setString(Str('{1}/{2}', friendship_obj['fdef'], t_friendship_info['def_max']))
+        end
+
+        local percent = (friendship_obj['fhp'] / t_friendship_info['hp_max']) * 100
+        if self:checkVarsKey('hpGauge', percent) then
+            vars['hpGauge']:stopAllActions()
+            vars['hpGauge']:runAction(cc.ProgressTo:create(0.3, percent))
+
+            vars['hpLabel']:setString(Str('{1}/{2}', friendship_obj['fhp'], t_friendship_info['hp_max']))
         end
     end
-
-    local percent = (friendship_obj['fatk'] / t_friendship_info['atk_max']) * 100
-    if self:checkVarsKey('atkGauge', percent) then
-        vars['atkGauge']:stopAllActions()
-        vars['atkGauge']:runAction(cc.ProgressTo:create(0.3, percent))
-
-        vars['atkLabel']:setString(Str('{1}/{2}', friendship_obj['fatk'], t_friendship_info['atk_max']))
-    end
-
-    local percent = (friendship_obj['fdef'] / t_friendship_info['def_max']) * 100
-    if self:checkVarsKey('defGauge', percent) then
-        vars['defGauge']:stopAllActions()
-        vars['defGauge']:runAction(cc.ProgressTo:create(0.3, percent))
-
-        vars['defLabel']:setString(Str('{1}/{2}', friendship_obj['fdef'], t_friendship_info['def_max']))
-    end
-
-    local percent = (friendship_obj['fhp'] / t_friendship_info['hp_max']) * 100
-    if self:checkVarsKey('hpGauge', percent) then
-        vars['hpGauge']:stopAllActions()
-        vars['hpGauge']:runAction(cc.ProgressTo:create(0.3, percent))
-
-        vars['hpLabel']:setString(Str('{1}/{2}', friendship_obj['fhp'], t_friendship_info['hp_max']))
-    end
-
+    
     -- 기분 게이지
     if friendship_obj:isMaxFriendshipLevel() then
         self:setHeartGauge(100)
     else
         self:setHeartGauge(t_friendship_info['feel_percent'])
     end
-    
 end
 
 -------------------------------------
@@ -200,17 +213,46 @@ end
 -------------------------------------
 function UI_DragonFriendship:setHeartGauge(percentage, b_init)
     local vars = self.vars
-    
+    local heart_gauge = vars['heartGauge']
+    local heart_label = vars['heartNumberLabel']
+    local function init_func()
+        heart_label:setNumber(0, true)
+        heart_gauge:setPercentage(0)
+    end
+
 	if b_init then
-        vars['heartNumberLabel']:setNumber(0, true)
-        vars['heartGauge']:setPercentage(0)
+        init_func()
 	else
 		--SoundMgr:playEffect('UI', 'ui_eat')
     end
 
-    vars['heartNumberLabel']:setNumber(percentage)
-    vars['heartGauge']:stopAllActions()
-    vars['heartGauge']:runAction(cc.EaseElasticOut:create(cc.ProgressTo:create(1, percentage), 1.5))
+    heart_gauge:stopAllActions()
+
+    -- 레벨업 연출
+    if (self.m_bLevelUp) then
+        local block_ui = UI_BlockPopup()   
+        self.m_bLevelUp = false
+        heart_label:setNumber(100)
+        local action = cc.Sequence:create(
+            cc.EaseElasticOut:create(cc.ProgressTo:create(1, 100), 1.5),
+            cc.CallFunc:create(function()
+                init_func()
+
+                local visual = vars['friendshipUpVisual']
+                visual:setVisible(true)
+                visual:changeAni('idle', false)
+                visual:addAniHandler(function()
+                    block_ui:close()
+                    local ui = UI_DragonManageFriendshipResult(self.m_preDragonData, self.m_selectDragonData)
+                    ui:setCloseCB(function() self:refreshFriendship() end)
+                end)
+            end)
+        )
+        heart_gauge:runAction(action)
+    else
+        heart_label:setNumber(percentage)
+        heart_gauge:runAction(cc.EaseElasticOut:create(cc.ProgressTo:create(1, percentage), 1.5))
+    end    
 end
 
 -------------------------------------
@@ -289,24 +331,6 @@ function UI_DragonFriendship:feedDirecting(fruit_id, fruit_node, finish_cb)
 		local cb_func = cc.CallFunc:create(finish_cb)
 		icon:runAction(cc.Sequence:create(spawn, scale_action, fx_sound, cb_func, cc.RemoveSelf:create()))
     end
-end
-
--------------------------------------
--- function show_levelUpEffect
--- @brief 레벨업 연출
--------------------------------------
-function UI_DragonFriendship:show_levelUpEffect()
-    local vars = self.vars
-    local block_ui = UI_BlockPopup()    
-    local visual = vars['friendshipUpVisual']
-    visual:setVisible(true)
-    visual:changeAni('idle', false)
-
-    visual:addAniHandler(function()
-        visual:setVisible(false)
-        UI_DragonManageFriendshipResult(self.m_selectDragonData)
-        block_ui:close()
-    end)   
 end
 
 -------------------------------------
@@ -392,7 +416,8 @@ function UI_DragonFriendship:response_friendshipUp(ret)
 
     local flv = self.m_selectDragonData:getFriendshipObject()['flv']
     if (before_flv < flv) then
-        self:show_levelUpEffect()
+        self.m_bLevelUp = true
+        self.m_preDragonData = before
     end
 
     self.m_bChangeDragonList = true
