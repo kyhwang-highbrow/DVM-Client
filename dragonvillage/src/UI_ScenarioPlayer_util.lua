@@ -132,6 +132,9 @@ function UI_ScenarioPlayer:applyEffect(effect)
     elseif (effect == 'clear_text') or (effect == 'cleartext') then
         self.m_scenarioPlayerTalk:hide()
 
+    elseif effect == 'skip_invisible' then
+        self.vars['skipBtn']:setVisible(false)
+
     elseif effect == 'skip_disable' then
         self.m_bSkipEnable = false
         self.vars['skipBtn']:setVisible(false)
