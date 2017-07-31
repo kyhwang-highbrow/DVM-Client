@@ -89,7 +89,9 @@ COLOR['DESC2'] = cc.c3b(161, 125, 93)	-- 어두움
 
 -- 인게임 사용 색상
 COLOR['SKILL_NAME'] = cc.c3b(255, 145, 0)	-- 오렌지
-COLOR['SKILL_DESC'] = cc.c3b(245, 233, 220)	-- 허~연색
+--COLOR['SKILL_DESC'] = cc.c3b(245, 233, 220)	-- 허~연색
+COLOR['SKILL_DESC'] = COLOR['DESC2']
+COLOR['SKILL_VALUE'] = COLOR['MUSTARD']
 
 -- 특수
 COLOR['rune_sopt'] = cc.c3b(240, 215, 159)

@@ -390,8 +390,8 @@ function GameDragonSkill:makeSkillDesc(dragon, delayTime)
 
     self.m_skillNameLabel:setString(Str(t_skill['t_name']))
 
-	local desc = IDragonSkillManager:getSkillDescPure(t_skill)
-	desc = string.gsub(desc, '@DESC2', '@WHITE')
+	local desc = active_skill_info:getSkillDesc()
+
     self.m_skillDescLabel:setString(desc)
 end
 

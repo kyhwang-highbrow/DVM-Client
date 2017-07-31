@@ -129,10 +129,10 @@ end
 -------------------------------------
 function UI_SkillEnhance:getEnhanceSkillDesc(t_skill, skill_lv)
 	local t_skill = clone(TableTamerSkill():getTamerSkill(t_skill['sid']))
-	IDragonSkillManager:applySkillLevel('tamer', t_skill, skill_lv)
-	IDragonSkillManager:substituteSkillDesc(t_skill)
+	DragonSkillCore.applySkillLevel('tamer', t_skill, skill_lv)
+	DragonSkillCore.substituteSkillDesc(t_skill)
 
-	return IDragonSkillManager:getSkillDescPure(t_skill)
+	return DragonSkillCore.getSkillDescPure(t_skill)
 end
 
 -------------------------------------

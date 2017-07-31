@@ -151,6 +151,7 @@ local t_module = {
     'DragonSkillBonusHelper',
     'DragonSkillManager',
     'DragonSkillIndivisualInfo',
+    'DragonSkillCore',
     'SumRandom',
 	'NumberLoop',
     'ValidationAssistant',

@@ -79,7 +79,7 @@ function UI_SkillCard:getSkillDescStrPure(skill_id, skill_type)
     local table_skill = TABLE:get(table_name)
     local t_skill = table_skill[skill_id]
 
-    local desc = IDragonSkillManager:getSkillDescWithSubstituted(t_skill)
+    local desc = DragonSkillCore.getSimpleSkillDesc(t_skill)
     return desc
 end
 
@@ -94,7 +94,7 @@ function UI_SkillCard:getSkillDescStr(skill_id, skill_type)
 
     local skill_type_str = self:getSkillTypeStr(skill_type, true)
 
-    local desc = IDragonSkillManager:getSkillDescWithSubstituted(t_skill)
+    local desc = DragonSkillCore.getSimpleSkillDesc(t_skill)
 
     local str = '{@SKILL_NAME} ' .. t_skill['t_name'] .. skill_type_str .. '\n {@SKILL_DESC}' .. desc
     return str

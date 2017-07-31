@@ -99,6 +99,22 @@ function DragonSkillIndivisualInfo:resetCoolTime()
 end
 
 -------------------------------------
+-- function mergeSkillInfo
+-- @brief 성룡 강화의 경우 기존 스킬 info를 가져와 레벨업된 부분만 합쳐버린다.
+-------------------------------------
+function DragonSkillIndivisualInfo:mergeSkillInfo(other_skill_info)
+	if not (other_skill_info) then
+		return
+	end
+
+	if (self:getSkillType() ~= other_skill_info:getSkillType()) then
+		error('강화될 스킬과 성룡 강화 스킬의 타입이 다르다.')
+	end
+
+	DragonSkillCore.applyModification(self.m_tSkill, other_skill_info.m_tAddedValue)
+end
+
+-------------------------------------
 -- function applySkillLevel
 -------------------------------------
 function DragonSkillIndivisualInfo:applySkillLevel()
@@ -117,7 +133,7 @@ function DragonSkillIndivisualInfo:applySkillLevel()
 	local skill_lv = self.m_skillLevel
 
 	-- 레벨이 반영된 데이터 계산
-	local _, t_add_value = IDragonSkillManager:applySkillLevel(self.m_charType, t_skill, skill_lv)
+	local _, t_add_value = DragonSkillCore.applySkillLevel(self.m_charType, t_skill, skill_lv)
 	self.m_tAddedValue = t_add_value
 
     -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
@@ -127,34 +143,18 @@ function DragonSkillIndivisualInfo:applySkillLevel()
 end
 
 -------------------------------------
--- function mergeSkillInfo
--- @brief 성룡 강화의 경우 기존 스킬 info를 가져와 레벨업된 부분만 합쳐버린다.
--------------------------------------
-function DragonSkillIndivisualInfo:mergeSkillInfo(other_skill_info)
-	if not (other_skill_info) then
-		return
-	end
-
-	if (self:getSkillType() ~= other_skill_info:getSkillType()) then
-		error('강화될 스킬과 성룡 강화 스킬의 타입이 다르다.')
-	end
-
-	IDragonSkillManager:applyModification(self.m_tSkill, other_skill_info.m_tAddedValue)
-end
-
--------------------------------------
 -- function applySkillDesc
 -- @brief desc column에서 수정할 column명을 가져와 대체하는 함수를 호출한다.
 -------------------------------------
 function DragonSkillIndivisualInfo:applySkillDesc()
-	IDragonSkillManager:substituteSkillDesc(self.m_tSkill)
+	DragonSkillCore.substituteSkillDesc(self.m_tSkill)
 end
 
 -------------------------------------
 -- function getSkillDesc
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillDesc()
-    return IDragonSkillManager:getSkillDescPure(self.m_tSkill)
+    return DragonSkillCore.getSkillDescPure(self.m_tSkill)
 end
 
 -------------------------------------

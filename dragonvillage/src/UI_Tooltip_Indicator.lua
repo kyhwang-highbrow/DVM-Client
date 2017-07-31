@@ -200,15 +200,15 @@ end
 -- function getSkillDescStr
 -------------------------------------
 function UI_Tooltip_Indicator:getSkillDescStr(t_skill, is_activated)
-	local name_color = is_activated and '{@ORANGE}' or '{@GRAY}'
+	local name_color = is_activated and '{@SKILL_NAME}' or '{@GRAY}'
 	local text_color = is_activated and '{@WHITE}' or '{@GRAY}'
 
 	-- 1. 스킬 이름
     local skill_type_str = t_skill['t_name']
 	
 	-- 2. 스킬 설명
-    local desc = IDragonSkillManager:getSkillDescPure(t_skill)
-	desc = string.gsub(desc, '@DESC2', '@WHITE')
+    local desc = DragonSkillCore.getSkillDescPure(t_skill)
+	desc = string.gsub(desc, '@SKILL_DESC', '@WHITE')
 
 	-- 3. rich_text
     local str = name_color .. skill_type_str .. ' : ' .. text_color .. desc

@@ -62,7 +62,7 @@ end
 function TableTamerSkill:getSkillDesc(key)
 	if (not key) or (key == '') then return end
     local t_skill = self:get(key)
-    local desc = IDragonSkillManager:getSkillDescWithSubstituted(t_skill)
+    local desc = DragonSkillCore.getSimpleSkillDesc(t_skill)
     return desc
 end
 
