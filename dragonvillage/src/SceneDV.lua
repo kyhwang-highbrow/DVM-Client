@@ -524,16 +524,22 @@ end
 -- function scenarioTest
 -------------------------------------
 function SceneDV:scenarioTest()
-    local l_scenario = {}
-    table.insert(l_scenario, 'scenario_01_04_start')
-    table.insert(l_scenario, 'scenario_01_04_finish')
-    table.insert(l_scenario, 'scenario_01_08_start')
-    table.insert(l_scenario, 'scenario_01_08_finish')
-    table.insert(l_scenario, 'scenario_01_12_start')
-    table.insert(l_scenario, 'scenario_01_12_finish')
+    local l_scenario = {
+        'scenario_sample',
+        'scenario_01_12_finish',
+        'scenario_intro_start_goni',
+        'scenario_intro_start_nuri',
+        'scenario_intro_finish_nuri',
+        'scenario_intro_finish_goni',
+        'scenario_01_08_start',
+        'scenario_01_08_finish',
+        'scenario_01_12_start',
+        'scenario_01_12_finish',
+        'scenario_01_04_start',
+        'scenario_01_04_finish',
+    }
 
     local doPlay = nil
-
     doPlay = function()
         if l_scenario[1] then
             local scenario_name = l_scenario[1]

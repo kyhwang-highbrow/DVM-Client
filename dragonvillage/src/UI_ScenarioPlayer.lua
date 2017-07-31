@@ -11,7 +11,7 @@ UI_ScenarioPlayer = class(PARENT,{
         m_titleUI = '',
 
         m_bgName = 'bg',
-        m_bg = '',
+        m_bgAnimator = 'Animator',
 
         m_prevBgm = '',
         m_currBgm = '',
@@ -145,20 +145,9 @@ function UI_ScenarioPlayer:showPage()
 
     local t_page = self.m_scenarioTable[self.m_currPage]
 
-    do -- 서술 (Narrate)
-        local t_narrate = t_page['t_narrate']
-        if t_narrate then
-            self:effect_narrate(t_narrate)
-        end
-    end
-
+    -- 배경 교체
     if (t_page['bg'] and (t_page['bg'] ~= self.m_bgName)) then
-        vars['bgNode']:removeAllChildren()
-        local bg_res = TableScenarioResource:getScenarioRes(t_page['bg'])
-        local bg = MakeAnimator(bg_res)
-        vars['bgNode']:addChild(bg.m_node)
-
-        self.m_bg = bg
+        self:changeBg(t_page['bg'])
     end
 
     do -- 삽화
@@ -192,18 +181,25 @@ function UI_ScenarioPlayer:showPage()
         end
     end
 
-    -- 대사
-    do
-        self.m_scenarioPlayerTalk:setTalk(t_page['char_pos'], (t_page['t_char_name'] or t_page['char']), t_page['t_text'], t_page['text_type'])
-    end
-
     do -- 캐릭터 이펙트
         if (t_page['char_pos'] and t_page['char_effect']) then
             self.m_mCharacter[t_page['char_pos']]:applyCharEffect(t_page['char_effect'])
         end
     end
+    
+    do -- 대사
+        local text = t_page['t_text']
+        local text_type = t_page['text_type']
+        if (text_type == 'narrate') then
+            self:effect_narrate(text)
+        else
+            local char_pos = t_page['char_pos']
+            local char_name = (t_page['t_char_name'] or t_page['char'])
+            self.m_scenarioPlayerTalk:setTalk(char_pos, char_name, text, text_type)
+        end
+    end
 
-    do -- 사운드 (sound)
+    do -- 배경음
         local bgm = t_page['bgm']
         if bgm then
             if (bgm == 'off') then
@@ -227,7 +223,9 @@ function UI_ScenarioPlayer:showPage()
             end
             
         end
+    end
 
+    do -- 사운드
         local sound = t_page['sound']
         if sound then
             SoundMgr:playEffect('EFFECT', sound)

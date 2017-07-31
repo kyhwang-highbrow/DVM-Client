@@ -84,89 +84,34 @@ function UI_ScenarioPlayer:applyEffect(effect)
     local val_2 = l_str[3]
 
     local vars = self.vars
-    vars['layerBlend'] = vars['layerColor']
-    vars['layerBlend2'] = vars['layerColor2'] -- bg와 talk menu 중간 뎁스    
 
     if (effect == 'flash') then
-        vars['layerColor']:setColor(cc.c3b(255,255,255))
-        vars['layerColor']:setOpacity(255)
+        self:fadeWholeLayer('white', 100, 0)
+
+    elseif (effect == 'white_in') then
+        self:fadeWholeLayer('white', 0, 100)
+
+    elseif (effect == 'black_in') then
+        self:fadeWholeLayer('black', 0, 100)
+
+    elseif (effect == 'overlay') then
+        self:fadeLayer(val_1, 50, val_2)
+
+    elseif (effect == 'fadeout') then
         vars['layerColor']:runAction(cc.FadeOut:create(0.3))
+        vars['layerColor2']:runAction(cc.FadeOut:create(0.3))
 
     elseif (effect == 'shaking') then
         self:doShake()
 
+    elseif (effect == 'vibe') then
+        self:vibrate()
 
-    elseif effect == 'whiteblack' then
-        vars['layerColor']:setColor(cc.c3b(255,255,255))
-        vars['layerColor']:setOpacity(0)
-        vars['layerColor']:runAction(cc.FadeTo:create(0.3, 255))
+    elseif (effect == 'scratch') then
+        self:scratch(val_1)
 
-    elseif effect == 'fadein' then
-        vars['layerColor']:runAction(cc.FadeTo:create(0.3, 0))
-
-    elseif effect == 'vibe' then
-        self.vars['bgNode']:stopAllActions()
-        local start_action = cc.MoveTo:create(0.05, cc.p(25, 25))
-        local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(1, cc.p(0, 0)), 0.2)
-        self.vars['bgNode']:runAction(cc.Sequence:create(start_action, end_action))
-
-    elseif effect == 'black' then
-        vars['layerColor']:setColor(cc.c3b(0,0,0))
-        if (val_1) then
-            val_1 = tonumber(val_1)
-            if (val_1 <= 0) then
-                vars['layerColor']:setOpacity(255)
-            else
-                vars['layerColor']:setOpacity(0)
-                vars['layerColor']:runAction(cc.FadeTo:create(val_1, 255))
-            end
-        else
-            vars['layerColor']:setOpacity(0)
-            vars['layerColor']:runAction(cc.FadeTo:create(0.3, 255))
-        end
-
-    elseif effect == 'shine' then
-
-    elseif effect == 'scratch_1' then
-        local visual = VrpHelper:makeVrpEffect(vars['vibeNode'], 'res/effect/effect_scratch_screen/effect_scratch_screen', 'scratch_right', 0, 0)
-        visual:setAnchorPoint(cc.p(0.5, 0.5))
-        visual:setDockPoint(cc.p(0.5, 0.5))
-
-    elseif effect == 'scratch_2' then
-        local visual = VrpHelper:makeVrpEffect(vars['vibeNode'], 'res/effect/effect_scratch_screen/effect_scratch_screen', 'scratch_left', 0, 0)
-        visual:setAnchorPoint(cc.p(0.5, 0.5))
-        visual:setDockPoint(cc.p(0.5, 0.5))
-
-    elseif effect == 'bomb' then
-        local visual = VrpHelper:makeVrpEffect(vars['vibeNode'], 'res/effect/effect_bomb_screen/effect_bomb_screen', 'idle', 0, 0)
-        visual:setAnchorPoint(cc.p(0.5, 0.5))
-        visual:setDockPoint(cc.p(0.5, 0.5))
-
-    elseif effect == 'blend_black_20' then
-        vars['layerBlend']:setColor(cc.c3b(0,0,0))
-        vars['layerBlend']:runAction(cc.FadeTo:create(0.3, 51))
-
-    elseif effect == 'blend_black_40' then
-        vars['layerBlend']:setColor(cc.c3b(0,0,0))
-        vars['layerBlend']:runAction(cc.FadeTo:create(0.3, 102))
-
-    elseif effect == 'blend_black_60' then
-        vars['layerBlend']:setColor(cc.c3b(0,0,0))
-        vars['layerBlend']:runAction(cc.FadeTo:create(0.3, 153))
-
-    elseif effect == 'blend_black_80' then
-        vars['layerBlend']:setColor(cc.c3b(0,0,0))
-        vars['layerBlend']:runAction(cc.FadeTo:create(0.3, 204))
-
-    elseif effect == 'blend_black_talk' then
-        self.vars['skipBtn']:setVisible(false)
-
-        vars['layerBlend2']:setColor(cc.c3b(0,0,0))
-        vars['layerBlend2']:runAction(cc.FadeTo:create(0.3, 153))
-
-    elseif effect == 'blend_off' then
-        vars['layerBlend']:runAction(cc.FadeTo:create(0.3, 0))
-        vars['layerBlend2']:runAction(cc.FadeTo:create(0.3, 0))
+    elseif (effect == 'bomb') then
+        self:bomb()
 
     elseif (effect == 'title') then
         self:effect_title(effect, val_1, val_2, val_3)
@@ -205,11 +150,22 @@ function UI_ScenarioPlayer:applyEffect(effect)
         self.vars['nextBtn']:setEnabled(false)
         self.vars['nextVisual']:setVisible(false)
 
-    elseif effect == 'hide_all' then
+    elseif (effect == 'hide_all') then
         self.root:setVisible(false)
 
-    elseif effect == 'show_all' then
+    elseif (effect == 'show_all') then
         self.root:setVisible(true)
+
+
+    -- 시나리오 테이블 작업 끝난 후 지울것        
+    elseif (effect == 'black') then
+        self:fadeWholeLayer('black', 0, 100)
+    elseif (effect == 'fadein') then
+        vars['layerColor']:runAction(cc.FadeOut:create(0.3))
+        vars['layerColor2']:runAction(cc.FadeOut:create(0.3))
+
+    else
+        cclog('정의되지 않은 이펙트 ' .. effect)
 
     end
 end
@@ -277,6 +233,13 @@ function UI_ScenarioPlayer:doShake()
 	local sequence_action = cc.Sequence:create(start_action, end_action)
 
     self.root:runAction(sequence_action)
+
+    --[[
+        self.vars['bgNode']:stopAllActions()
+        local start_action = cc.MoveTo:create(0.05, cc.p(25, 25))
+        local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(1, cc.p(0, 0)), 0.2)
+        self.vars['bgNode']:runAction(cc.Sequence:create(start_action, end_action))
+    ]]
 end
 
 -------------------------------------
@@ -296,4 +259,87 @@ function UI_ScenarioPlayer:setFocusCharacter(character)
     if self.m_focusCharacter then
         self.m_focusCharacter:setFocus()
     end
+end
+
+-------------------------------------
+-- function changeBg
+-------------------------------------
+function UI_ScenarioPlayer:changeBg(bg_name)
+    local vars = self.vars
+
+    -- 현재 배경 밑에 새로운 배경을 넣고
+    local bg_res = TableScenarioResource:getScenarioRes(bg_name)
+    local bg_animator = MakeAnimator(bg_res)
+    vars['bgNode']:addChild(bg_animator.m_node, 0)
+
+    -- 현재 배경이 서서히 사라지도록 한다.
+    if (self.m_bgAnimator) then
+        local fade_out = cc.FadeOut:create(0.5)
+        local cb_func = cc.CallFunc:create(function() bg_animator:setLocalZOrder(1) end)
+        local remove_self = cc.RemoveSelf:create()
+
+        self.m_bgAnimator:runAction(cc.Sequence:create(fade_out, cb_func, remove_self))
+    else
+        bg_animator:setLocalZOrder(1)
+    end
+
+    self.m_bgAnimator = bg_animator
+    self.m_bgName = bg_name
+end
+
+-------------------------------------
+-- function fadeLayer
+-------------------------------------
+function UI_ScenarioPlayer:fadeWholeLayer(color, start_rate, end_rate)
+    local vars = self.vars
+    local color = COLOR[color]
+    local start_opacity = (255 * (start_rate / 100))
+    local end_opacity = (255 * (end_rate / 100))
+
+    vars['layerColor']:setColor(color)
+    vars['layerColor']:setOpacity(start_opacity)
+    vars['layerColor']:runAction(cc.FadeTo:create(0.3, end_opacity))
+end
+
+-------------------------------------
+-- function fadeLayer
+-------------------------------------
+function UI_ScenarioPlayer:fadeLayer(color, start_rate, end_rate)
+    local vars = self.vars
+    local color = COLOR[color]
+    local start_opacity = (255 * (start_rate / 100))
+    local end_opacity = (255 * (end_rate / 100))
+
+    vars['layerColor2']:setColor(color)
+    vars['layerColor2']:setOpacity(start_opacity)
+    vars['layerColor2']:runAction(cc.FadeTo:create(0.3, end_opacity))
+end
+
+-------------------------------------
+-- function vibrate
+-------------------------------------
+function UI_ScenarioPlayer:vibrate()
+    cc.SimpleAudioEngine:getInstance():playVibrate(1000)
+end
+
+-------------------------------------
+-- function scratch
+-------------------------------------
+function UI_ScenarioPlayer:scratch(dir)
+    local vars = self.vars
+    local dir = dir or 'left'
+    local ani = 'scratch_' .. dir
+    local visual = VrpHelper:makeVrpEffect(vars['vibeNode'], 'res/effect/effect_scratch_screen/effect_scratch_screen', ani, 0, 0)
+    visual:setAnchorPoint(cc.p(0.5, 0.5))
+    visual:setDockPoint(cc.p(0.5, 0.5))
+end
+
+-------------------------------------
+-- function scratch
+-------------------------------------
+function UI_ScenarioPlayer:bomb()
+    local vars = self.vars
+    local visual = VrpHelper:makeVrpEffect(vars['vibeNode'], 'res/effect/effect_bomb_screen/effect_bomb_screen', 'idle', 0, 0)
+    visual:setAnchorPoint(cc.p(0.5, 0.5))
+    visual:setDockPoint(cc.p(0.5, 0.5))
 end

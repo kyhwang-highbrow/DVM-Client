@@ -123,79 +123,69 @@ end
 -- function applyCharEffect
 -------------------------------------
 function UI_ScenarioPlayer_Character:applyCharEffect(effect)
+    cclog('#UI_ScenarioPlayer_Character:applyCharEffect(effect) ' .. effect)
+
     if (effect == 'shaking') then
-        if (self.m_shakeNode) then
-            self:doShake(self.m_shakeNode)
-        end
+        self:doShake()
+
+    elseif (effect == 'appear_side') then
+        self:appearSide()
 
     elseif (effect == 'disappear_down') then
-        if (self.m_charAnimator) then
-            
-            local animator = self.m_charAnimator 
-            local function release()
-                animator:release()
-            end
-
-            local level = 30
-            local move_action = cc.Sequence:create(cc.MoveBy:create( 0.1, cc.p(-level, 0) ), cc.MoveBy:create( 0.1, cc.p(level, 0) ))
-            local repeat_action = cc.Repeat:create(move_action, 4)
-
-            local spawn = cc.Spawn:create(cc.MoveBy:create(3, cc.p(0, -720)), cc.FadeOut:create(0.6))
-
-            local action = cc.Sequence:create(repeat_action, spawn, cc.CallFunc:create(release))
-            animator:runAction(action)
-
-            self:resetCharacterAnimator()
-        end
+        self:disappearDown()
 
     elseif (effect == 'disappear_side') then
-        if (self.m_charAnimator) then
-            
-            local animator = self.m_charAnimator 
-            local function release()
-                animator:release()
-            end
+        self:disappearSide()
 
-            local pos = self.m_posName
-            local interval = 100
-
-            if (pos == 'left') then
-                interval = -interval
-
-            elseif (pos == 'right') then
-                interval = interval
-            end
-
-            local move_action = cc.Sequence:create(
-                cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.DelayTime:create(0.5),
-                cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.DelayTime:create(0.5),
-                cc.Spawn:create(cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.FadeOut:create(0.2)))
-
-            local action = cc.Sequence:create(move_action, cc.CallFunc:create(release))
-            animator:runAction(action)
-
-            self:resetCharacterAnimator()
-        end
-        
+    elseif (effect == 'disappear_fadaout') then
+        self:disappearFadeOut()
 
     elseif (effect == 'silhouette') then
         self:setSilhouette(true)
 
+    elseif (effect == 'irregular') then
+        self:irregular()
+
+    elseif (effect == 'attack') then
+        self:attack()
+
+    elseif (effect == 'walk') then
+        self:walk()
+
+    elseif (effect == 'flash') then
+        self:flash()
+
+    elseif (effect == 'stop') then
+        self:stop()
+
     elseif (effect == 'hide') then
         self:hide()
 
-    elseif (effect == 'clear_char') or (effect == 'clearchar') then
-        if (self.m_charAnimator) then
-            self.m_charAnimator:release()
-            self:resetCharacterAnimator()
-        end
+    elseif (effect == 'clear') then
+        self:clear()
+
+    
+    -- 시나리오 테이블 작업 끝난 후 지울것
+    elseif (effect == 'clear_char') then
+        self:clear()
+    elseif (effect == 'clearchar') then
+        self:clear()
+
+    else
+        cclog('정의되지 않은 이펙트 ' .. effect)
+
     end
 end
 
 -------------------------------------
 -- function doShake
 -------------------------------------
-function UI_ScenarioPlayer_Character:doShake(target)
+function UI_ScenarioPlayer_Character:doShake()
+    local target = self.m_shakeNode
+    if (not target) then
+        return
+    end
+
 	-- 1. 변수 설정
     local duration = duration or 0.5
 	local is_repeat = is_repeat or false
@@ -265,5 +255,217 @@ function UI_ScenarioPlayer_Character:setSilhouette(silhouette)
         else
             self.m_charAnimator:setColor(cc.c3b(255, 255, 255))
         end
+    end
+end
+
+-------------------------------------
+-- function appearSide
+-------------------------------------
+function UI_ScenarioPlayer_Character:appearSide()
+    if (self.m_charAnimator) then
+        local animator = self.m_charAnimator 
+
+        local pos_x, pos_y = animator:getPosition()
+
+        local x_factor = self.m_bCharFlip and -1 or 1
+
+        -- 먼저 화면 밖으로 보냄
+        animator:setPosition(pos_x - (500 * x_factor), pos_y)
+
+        -- 슬금 슬금 나타남
+        local action = cc.Sequence:create(
+            cc.MoveTo:create(0.5, cc.p(pos_x, pos_y))
+        )
+
+        animator:runAction(action)
+    end
+end
+
+-------------------------------------
+-- function disappearDown
+-------------------------------------
+function UI_ScenarioPlayer_Character:disappearDown()
+    if (self.m_charAnimator) then
+        local animator = self.m_charAnimator 
+        local function release()
+            animator:release()
+        end
+
+        local level = 30
+        local move_action = cc.Sequence:create(
+            cc.MoveBy:create(0.1, cc.p(-level, 0)),
+            cc.MoveBy:create(0.1, cc.p(level, 0))
+        )
+        local repeat_action = cc.Repeat:create(move_action, 4)
+        local spawn = cc.Spawn:create(cc.MoveBy:create(3, cc.p(0, -720)), cc.FadeOut:create(0.6))
+
+        local action = cc.Sequence:create(repeat_action, spawn, cc.CallFunc:create(release))
+        animator:runAction(action) 
+    end
+end
+
+-------------------------------------
+-- function disappearSide
+-------------------------------------
+function UI_ScenarioPlayer_Character:disappearSide()
+    if (self.m_charAnimator) then
+        local animator = self.m_charAnimator 
+        local function release()
+            animator:release()
+        end
+
+        local interval = 100
+        if (self.m_bCharFlip) then
+            interval = -interval
+        end
+
+        local move_action = cc.Sequence:create(
+            cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.DelayTime:create(0.5),
+            cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.DelayTime:create(0.5),
+            cc.Spawn:create(cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.FadeOut:create(0.2))
+        )
+
+        local action = cc.Sequence:create(move_action, cc.CallFunc:create(release))
+        animator:runAction(action)
+    end
+end
+
+-------------------------------------
+-- function disappearFadeOut
+-------------------------------------
+function UI_ScenarioPlayer_Character:disappearFadeOut()
+    if (self.m_charAnimator) then
+        local animator = self.m_charAnimator 
+        local function release()
+            animator:release()
+        end
+
+        local fade_action = cc.Sequence:create(
+            cc.FadeOut:create(1.0)
+        )
+
+        local action = cc.Sequence:create(fade_action, cc.CallFunc:create(release))
+        animator:runAction(action)
+    end
+end
+
+
+-------------------------------------
+-- function walk
+-------------------------------------
+function UI_ScenarioPlayer_Character:walk()
+    if (self.m_charAnimator) then
+        local animator = self.m_charAnimator
+
+        local action = cc.Sequence:create(
+            cc.JumpBy:create(1, cc.p(0, 0), 10, 4)
+        )
+
+        animator:runAction(action)
+    end
+end
+
+
+-------------------------------------
+-- function attack
+-------------------------------------
+function UI_ScenarioPlayer_Character:attack()
+    if (self.m_charAnimator) then
+        local animator = self.m_charAnimator
+        local pos_x, pos_y = animator:getPosition()
+
+        local x_factor = self.m_bCharFlip and -1 or 1
+
+        local action = cc.Sequence:create(
+            -- 살짝 후퇴 후
+            cc.MoveTo:create(0.3, cc.p(pos_x - (50 * x_factor), pos_y - 20)),
+
+            -- 잠시 대기
+            cc.DelayTime:create(0.3),
+            
+            -- 공격!
+            cc.EaseInOut:create(cc.MoveTo:create(0.2, cc.p(pos_x + (700 * x_factor), pos_y)), 2),
+
+            -- 되돌아옴
+            cc.MoveTo:create(0.2, cc.p(pos_x, pos_y))
+        )
+
+        animator:runAction(action)
+    end
+end
+
+-------------------------------------
+-- function flash
+-------------------------------------
+function UI_ScenarioPlayer_Character:flash()
+    if (self.m_charAnimator) then
+        local animator = self.m_charAnimator
+
+        local time = 0.1
+
+        local white_action = cc.CallFunc:create(function()
+            local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
+            animator.m_node:setGLProgram(shader)
+        end)
+
+        local delay = cc.DelayTime:create(time)
+
+        local restore_action = cc.CallFunc:create(function()
+            local shader = ShaderCache:getShader(cc.SHADER_POSITION_TEXTURE_COLOR)
+            animator.m_node:setGLProgram(shader)
+        end)
+
+        local action = cc.Sequence:create(
+            white_action, delay, 
+            restore_action, delay,
+            white_action, delay,
+            restore_action, delay
+        )
+
+        animator:runAction(action)
+    end
+end
+
+-------------------------------------
+-- function irregular
+-------------------------------------
+function UI_ScenarioPlayer_Character:irregular()
+    if (self.m_charAnimator) then
+        local animator = self.m_charAnimator
+
+        local scale_x = animator:getScaleX()
+        local scale_y = animator:getScaleY()
+        
+        local time = 0.2
+
+        local scale_action = cc.Sequence:create(
+            cc.ScaleTo:create(time, 1.1 * scale_x, 1.1 * scale_y),
+            cc.ScaleTo:create(time, 1.0 * scale_x, 1.0 * scale_y),
+            cc.ScaleTo:create(time, 1.1 * scale_x, 1.1 * scale_y),
+            cc.ScaleTo:create(time, 1.0 * scale_x, 1.0 * scale_y),
+            cc.DelayTime:create(time)
+        )
+
+        local action = cc.RepeatForever:create(scale_action)
+        animator:runAction(action)
+    end
+end
+
+-------------------------------------
+-- function stop
+-------------------------------------
+function UI_ScenarioPlayer_Character:stop()
+    if (self.m_charAnimator) then
+        self.m_charAnimator:stopAllActions()
+    end
+end
+
+-------------------------------------
+-- function clear
+-------------------------------------
+function UI_ScenarioPlayer_Character:clear()
+    if (self.m_charAnimator) then
+        self.m_charAnimator:release()
+        self:resetCharacterAnimator()
     end
 end

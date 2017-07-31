@@ -452,6 +452,28 @@ function Animator:getScale()
 end
 
 -------------------------------------
+-- function getScaleX
+-------------------------------------
+function Animator:getScaleX()
+    if (not self.m_node) then
+        return
+    end
+
+    return self.m_node:getScaleX()
+end
+
+-------------------------------------
+-- function getScaleY
+-------------------------------------
+function Animator:getScaleY()
+    if (not self.m_node) then
+        return
+    end
+
+    return self.m_node:getScaleY()
+end
+
+-------------------------------------
 -- function runAction
 -------------------------------------
 function Animator:runAction(action)
@@ -460,6 +482,17 @@ function Animator:runAction(action)
     end
 
     return self.m_node:runAction(action)
+end
+
+-------------------------------------
+-- function stopAllActions
+-------------------------------------
+function Animator:stopAllActions()
+    if (not self.m_node) then
+        return
+    end
+
+    self.m_node:stopAllActions()
 end
 
 -------------------------------------

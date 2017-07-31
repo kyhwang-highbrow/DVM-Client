@@ -337,7 +337,8 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
-    error('에러 테스트')
+    ccdisplay('진동 테스트')
+    cc.SimpleAudioEngine:getInstance():playVibrate(1000)
 end
 
 -------------------------------------

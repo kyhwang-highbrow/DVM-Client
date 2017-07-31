@@ -30,7 +30,7 @@ end
 -------------------------------------
 -- function setTalk
 -------------------------------------
-function UI_ScenarioPlayer_Talk:setTalk(pos, name, text)
+function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type)
     local vars = self.vars
 
     if pos and (self.m_currPos ~= pos) then
@@ -57,9 +57,13 @@ function UI_ScenarioPlayer_Talk:setTalk(pos, name, text)
         self.m_currName = name
     end
 
-
     if text then
         vars['talkLabel']:setString(text)
+        if (text_type == 'bold') then
+            vars['talkLabel']:enableOutline(nil, 1)
+        else
+            vars['talkLabel']:enableOutline(nil, 0)
+        end
         self:show()
     end
 end
@@ -79,4 +83,6 @@ function UI_ScenarioPlayer_Talk:hide()
 
     local vars = self.vars
     vars['talkLabel']:setString('')
+    vars['nameLabel_left']:setString('')
+    vars['nameLabel_right']:setString('')
 end
