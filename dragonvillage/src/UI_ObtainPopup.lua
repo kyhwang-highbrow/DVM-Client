@@ -82,8 +82,7 @@ function UI_ObtainPopup:makePrettyList(l_item)
 		local item_id = v['item_id']
 
 		-- 클라에 정의된 타입은 합치는 재화로 간주
-		--if (TableItem:getItemTypeFromItemID(item_id)) then
-        if (false) then
+		if (TableItem:getItemTypeFromItemID(item_id)) then
 			if (t_simple[item_id]) then
 				t_simple[item_id]['count'] = t_simple[item_id]['count'] + v['count']
 
