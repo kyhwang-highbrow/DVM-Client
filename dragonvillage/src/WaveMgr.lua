@@ -406,9 +406,12 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
         enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
         enemy:setStatusCalc(enemy.m_statusCalc)
-    end
 
-    self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)
+        self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.BOSS)
+    else
+        self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)
+    end
+    
     self.m_world.m_physWorld:addObject(PHYS.ENEMY, enemy)
     self.m_world:addEnemy(enemy)
 

@@ -130,6 +130,7 @@ WORLD_Z_ORDER =
 {
     TAMER = -1,
     MISSILE = 0,
+    BOSS = 9,
     ENEMY = 10,
     HERO = 11,
 	SE_EFFECT = 13,
