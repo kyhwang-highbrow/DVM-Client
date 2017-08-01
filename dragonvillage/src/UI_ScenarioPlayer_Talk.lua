@@ -30,7 +30,7 @@ end
 -------------------------------------
 -- function setTalk
 -------------------------------------
-function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type)
+function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
     local vars = self.vars
 
     if pos and (self.m_currPos ~= pos) then
@@ -59,13 +59,41 @@ function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type)
 
     if text then
         vars['talkLabel']:setString(text)
+        
+        --[[
         if (text_type == 'bold') then
             vars['talkLabel']:enableOutline(nil, 1)
         else
             vars['talkLabel']:enableOutline(nil, 0)
         end
+        ]]
+        
+        -- 대사창 위치 처리
+        if (text_pos == 'top') then
+            vars['talkMenu']:setPositionY(450)
+            vars['nameNode_left']:setPositionY(-30)
+            vars['nameNode_right']:setPositionY(-30)
+        
+        elseif (text_pos == 'mid') then
+            vars['talkMenu']:setPositionY(250)
+            vars['nameNode_left']:setPositionY(233)
+            vars['nameNode_right']:setPositionY(233)
+
+        elseif (text_pos == 'bot') then
+            vars['talkMenu']:setPositionY(0)
+            vars['nameNode_left']:setPositionY(233)
+            vars['nameNode_right']:setPositionY(233)
+        end
+
         self:show()
     end
+end
+
+-------------------------------------
+-- function show
+-------------------------------------
+function UI_ScenarioPlayer_Talk:show()
+    self.root:setVisible(true)
 end
 
 -------------------------------------

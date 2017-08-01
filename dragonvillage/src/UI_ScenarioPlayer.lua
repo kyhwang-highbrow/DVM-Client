@@ -190,12 +190,13 @@ function UI_ScenarioPlayer:showPage()
     do -- 대사
         local text = t_page['t_text']
         local text_type = t_page['text_type']
+        local text_pos = t_page['text_pos']
         if (text_type == 'narrate') then
             self:effect_narrate(text)
         else
             local char_pos = t_page['char_pos']
             local char_name = (t_page['t_char_name'] or t_page['char'])
-            self.m_scenarioPlayerTalk:setTalk(char_pos, char_name, text, text_type)
+            self.m_scenarioPlayerTalk:setTalk(char_pos, char_name, text, text_type, text_pos)
         end
     end
 
