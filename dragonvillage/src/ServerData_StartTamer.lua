@@ -48,9 +48,6 @@ function ServerData_StartTamer:request_createAccount(user_type, nick, finish_cb)
     local function success_cb(ret)
         local nick = ret['nick']
 
-        UIManager:toastNotificationGreen(Str('계정 생성에 성공하였습니다.'))
-        UIManager:toastNotificationGreen(Str('잠시만 기다려주세요.'))
-
         if finish_cb then
             return finish_cb(ret)
         end
