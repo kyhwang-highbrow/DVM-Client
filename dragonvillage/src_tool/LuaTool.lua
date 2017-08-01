@@ -14,6 +14,8 @@ require 'perpleLib/StringUtils'
 require 'Table'
 require 'TableClass'
 require 'io'
+require 'socket.core'
+require 'StopWatch'
 
 -------------------------------------
 -- function main
@@ -59,8 +61,7 @@ function RemoveDirectory(dir)
             if (lfs.attributes(file_path, 'mode') == 'file') then
                 -- 파일 삭제
                 os.remove(file_path)
-                print('remove file', file_path)
-            
+
             -- 디렉토리
             elseif (lfs.attributes(file_path, 'mode') == 'directory') then
                 -- 하위 파일 삭제를 위한 재귀적 호출
@@ -68,7 +69,6 @@ function RemoveDirectory(dir)
 
                 -- 디렉토리 삭제
                 lfs.rmdir(file_path)
-                print('dir', file_path)
 
             end
         end
@@ -77,4 +77,11 @@ function RemoveDirectory(dir)
     -- 최상위 디렉토리 삭제, 파일이 있다면 삭제가 되지 않는다.
     lfs.rmdir(dir)
     print('remove dir', dir)
+end
+
+-------------------------------------
+-- MirrorDirectory
+-- @brief 디렉토리간 비교, 한쪽으로 완전히 동기화 시킴 (있으면 복사, 없으면 삭제)
+-------------------------------------
+function MirrorDirectory(src_dir, tar_dir)
 end

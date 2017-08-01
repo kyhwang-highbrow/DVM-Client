@@ -2,6 +2,6 @@
 chcp 65001
 
 cd "../src_tool"
-call "../../../../res/tools/lua/bin/lua.exe" "MakeAsset100mbUnder.lua" run_full
+call "../../../../res/tools/lua/bin/lua.exe" "AssetMaker.lua" run
 
 PAUSE
