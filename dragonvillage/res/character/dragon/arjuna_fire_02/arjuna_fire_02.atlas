@@ -1,166 +1,166 @@
 
 arjuna_fire_02.png
-size: 1024,1024
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 arjuna_fire_02_arm_l_01
   rotate: true
-  xy: 845, 971
+  xy: 555, 345
   size: 52, 98
   orig: 52, 98
   offset: 0, 0
   index: -1
 arjuna_fire_02_arm_l_02
-  rotate: false
-  xy: 657, 901
+  rotate: true
+  xy: 388, 291
   size: 65, 122
   orig: 65, 122
   offset: 0, 0
   index: -1
 arjuna_fire_02_arm_l_deco
-  rotate: false
-  xy: 945, 975
+  rotate: true
+  xy: 2, 5
   size: 29, 48
   orig: 29, 48
   offset: 0, 0
   index: -1
 arjuna_fire_02_arm_r_01
-  rotate: true
-  xy: 1, 35
+  rotate: false
+  xy: 243, 178
   size: 111, 76
   orig: 111, 76
   offset: 0, 0
   index: -1
 arjuna_fire_02_arm_r_02
-  rotate: false
-  xy: 1, 148
+  rotate: true
+  xy: 247, 256
   size: 100, 139
   orig: 100, 139
   offset: 0, 0
   index: -1
 arjuna_fire_02_arm_r_deco
-  rotate: false
-  xy: 150, 493
+  rotate: true
+  xy: 831, 313
   size: 64, 74
   orig: 64, 74
   offset: 0, 0
   index: -1
 arjuna_fire_02_body_01
   rotate: false
-  xy: 1, 802
+  xy: 2, 284
   size: 243, 221
   orig: 243, 221
   offset: 0, 0
   index: -1
 arjuna_fire_02_eye_01
-  rotate: true
-  xy: 1, 1
+  rotate: false
+  xy: 512, 320
   size: 32, 36
   orig: 32, 36
   offset: 0, 0
   index: -1
 arjuna_fire_02_eye_02
   rotate: true
-  xy: 39, 1
+  xy: 52, 2
   size: 32, 36
   orig: 32, 36
   offset: 0, 0
   index: -1
 arjuna_fire_02_eye_03
   rotate: true
-  xy: 77, 1
+  xy: 90, 2
   size: 32, 36
   orig: 32, 36
   offset: 0, 0
   index: -1
 arjuna_fire_02_hair_01
   rotate: false
-  xy: 494, 897
+  xy: 760, 379
   size: 161, 126
   orig: 161, 126
   offset: 0, 0
   index: -1
 arjuna_fire_02_head_01
   rotate: false
-  xy: 331, 783
+  xy: 356, 177
   size: 72, 64
   orig: 72, 64
   offset: 0, 0
   index: -1
 arjuna_fire_02_head_02
   rotate: false
-  xy: 815, 945
+  xy: 483, 266
   size: 24, 23
   orig: 24, 23
   offset: 0, 0
   index: -1
 arjuna_fire_02_horn_l
   rotate: false
-  xy: 494, 849
+  xy: 388, 243
   size: 93, 46
   orig: 93, 46
   offset: 0, 0
   index: -1
 arjuna_fire_02_horn_r
-  rotate: false
-  xy: 724, 970
+  rotate: true
+  xy: 178, 43
   size: 119, 53
   orig: 119, 53
   offset: 0, 0
   index: -1
 arjuna_fire_02_leg_l_01
   rotate: true
-  xy: 724, 904
+  xy: 655, 333
   size: 64, 89
   orig: 64, 89
   offset: 0, 0
   index: -1
 arjuna_fire_02_leg_l_02
   rotate: true
-  xy: 246, 794
+  xy: 746, 324
   size: 53, 83
   orig: 53, 83
   offset: 0, 0
   index: -1
 arjuna_fire_02_leg_r_01
   rotate: false
-  xy: 150, 569
+  xy: 178, 164
   size: 63, 118
   orig: 63, 118
   offset: 0, 0
   index: -1
 arjuna_fire_02_leg_r_02
   rotate: false
-  xy: 150, 689
+  xy: 923, 394
   size: 79, 111
   orig: 79, 111
   offset: 0, 0
   index: -1
 arjuna_fire_02_mouth_01
-  rotate: false
-  xy: 405, 789
+  rotate: true
+  xy: 430, 176
   size: 65, 58
   orig: 65, 58
   offset: 0, 0
   index: -1
 arjuna_fire_02_tail_01
-  rotate: true
-  xy: 246, 849
+  rotate: false
+  xy: 2, 36
   size: 174, 246
   orig: 174, 246
   offset: 0, 0
   index: -1
 arjuna_fire_02_wing_l_01
-  rotate: true
-  xy: 1, 289
+  rotate: false
+  xy: 555, 399
   size: 203, 106
   orig: 203, 106
   offset: 0, 0
   index: -1
 arjuna_fire_02_wing_r_01
-  rotate: true
-  xy: 1, 494
+  rotate: false
+  xy: 247, 358
   size: 306, 147
   orig: 306, 147
   offset: 0, 0

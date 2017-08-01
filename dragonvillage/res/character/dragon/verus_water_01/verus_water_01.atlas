@@ -6,259 +6,259 @@ filter: Linear,Linear
 repeat: none
 verus_water_01_arm_01
   rotate: false
-  xy: 1655, 1830
+  xy: 1654, 1826
   size: 215, 216
   orig: 215, 216
   offset: 0, 0
   index: -1
 verus_water_01_arm_02
   rotate: true
-  xy: 1134, 1690
+  xy: 861, 1610
   size: 138, 216
   orig: 138, 216
   offset: 0, 0
   index: -1
 verus_water_01_body_01
   rotate: false
-  xy: 238, 1442
+  xy: 237, 1438
   size: 264, 248
   orig: 264, 248
   offset: 0, 0
   index: -1
 verus_water_01_body_02
-  rotate: false
-  xy: 1781, 1753
+  rotate: true
+  xy: 1898, 1557
   size: 56, 75
   orig: 56, 75
   offset: 0, 0
   index: -1
 verus_water_01_effect_01
   rotate: true
-  xy: 570, 1600
+  xy: 569, 1596
   size: 140, 290
   orig: 140, 290
   offset: 0, 0
   index: -1
 verus_water_01_effect_02
   rotate: false
-  xy: 570, 1742
+  xy: 569, 1738
   size: 284, 304
   orig: 284, 304
   offset: 0, 0
   index: -1
 verus_water_01_effect_03
   rotate: false
-  xy: 238, 1692
+  xy: 237, 1688
   size: 330, 354
   orig: 330, 354
   offset: 0, 0
   index: -1
 verus_water_01_effect_04
   rotate: true
-  xy: 698, 1443
+  xy: 697, 1439
   size: 155, 160
   orig: 155, 160
   offset: 0, 0
   index: -1
 verus_water_01_effect_05
-  rotate: true
-  xy: 1085, 1533
+  rotate: false
+  xy: 1524, 1658
   size: 155, 160
   orig: 155, 160
   offset: 0, 0
   index: -1
 verus_water_01_effect_06
   rotate: true
-  xy: 1069, 1406
+  xy: 1079, 1567
   size: 125, 130
   orig: 125, 130
   offset: 0, 0
   index: -1
 verus_water_01_effect_07
   rotate: false
-  xy: 1422, 1824
+  xy: 1421, 1820
   size: 231, 222
   orig: 231, 222
   offset: 0, 0
   index: -1
 verus_water_01_effect_08
   rotate: true
-  xy: 1480, 1707
+  xy: 1467, 1541
   size: 115, 116
   orig: 115, 116
   offset: 0, 0
   index: -1
 verus_water_01_effect_09
-  rotate: true
-  xy: 1464, 1590
+  rotate: false
+  xy: 1585, 1540
   size: 115, 116
   orig: 115, 116
   offset: 0, 0
   index: -1
 verus_water_01_effect_10
   rotate: false
-  xy: 2, 1434
+  xy: 1, 1430
   size: 234, 612
   orig: 234, 612
   offset: 0, 0
   index: -1
 verus_water_01_finger_01
-  rotate: false
-  xy: 1918, 1771
+  rotate: true
+  xy: 1975, 1552
   size: 64, 57
   orig: 64, 57
   offset: 0, 0
   index: -1
 verus_water_01_finger_02
-  rotate: true
-  xy: 1329, 1464
+  rotate: false
+  xy: 861, 1551
   size: 64, 57
   orig: 64, 57
   offset: 0, 0
   index: -1
 verus_water_01_hair_01
   rotate: false
-  xy: 1598, 1710
+  xy: 1702, 1565
   size: 105, 112
   orig: 105, 112
   offset: 0, 0
   index: -1
 verus_water_01_hair_02
   rotate: false
-  xy: 1352, 1710
+  xy: 1339, 1565
   size: 126, 112
   orig: 126, 112
   offset: 0, 0
   index: -1
 verus_water_01_hand_01
   rotate: true
-  xy: 1201, 1414
+  xy: 1211, 1578
   size: 114, 126
   orig: 114, 126
   offset: 0, 0
   index: -1
 verus_water_01_head_01
   rotate: false
-  xy: 860, 1443
+  xy: 1133, 1694
   size: 207, 130
   orig: 207, 130
   offset: 0, 0
   index: -1
 verus_water_01_head_02
-  rotate: true
-  xy: 1375, 1537
+  rotate: false
+  xy: 1974, 1618
   size: 58, 78
   orig: 58, 78
   offset: 0, 0
   index: -1
 verus_water_01_head_03
   rotate: false
-  xy: 504, 1608
+  xy: 503, 1604
   size: 64, 82
   orig: 64, 82
   offset: 0, 0
   index: -1
 verus_water_01_head_04
   rotate: false
-  xy: 1705, 1747
+  xy: 1898, 1615
   size: 74, 81
   orig: 74, 81
   offset: 0, 0
   index: -1
 verus_water_01_head_05
   rotate: true
-  xy: 1839, 1780
+  xy: 1702, 1515
   size: 48, 77
   orig: 48, 77
   offset: 0, 0
   index: -1
 verus_water_01_lag_01
   rotate: true
-  xy: 504, 1446
+  xy: 503, 1442
   size: 152, 192
   orig: 152, 192
   offset: 0, 0
   index: -1
 verus_water_01_lag_02
-  rotate: false
-  xy: 1247, 1530
+  rotate: true
+  xy: 1860, 1698
   size: 126, 158
   orig: 126, 158
   offset: 0, 0
   index: -1
 verus_water_01_tail_01
   rotate: false
-  xy: 856, 1754
+  xy: 855, 1750
   size: 276, 292
   orig: 276, 292
   offset: 0, 0
   index: -1
 verus_water_01_wing_01
   rotate: false
-  xy: 1872, 1830
+  xy: 1871, 1826
   size: 148, 216
   orig: 148, 216
   offset: 0, 0
   index: -1
 verus_water_01_wing_02
   rotate: false
-  xy: 1134, 1830
+  xy: 1133, 1826
   size: 286, 216
   orig: 286, 216
   offset: 0, 0
   index: -1
 verus_water_01_wing_03
   rotate: true
-  xy: 862, 1575
+  xy: 1, 1
   size: 177, 221
   orig: 177, 221
   offset: 0, 0
   index: -1
 verus_water_01_wing_04
-  rotate: true
-  xy: 2, 2
+  rotate: false
+  xy: 1342, 1679
   size: 180, 139
   orig: 180, 139
   offset: 0, 0
   index: -1
 verus_water_01_wing_05
   rotate: true
-  xy: 1375, 1597
+  xy: 1809, 1566
   size: 111, 87
   orig: 111, 87
   offset: 0, 0
   index: -1
 verus_water_01_wingeff_01
   rotate: false
-  xy: 2, 1000
+  xy: 1, 996
   size: 222, 432
   orig: 222, 432
   offset: 0, 0
   index: -1
 verus_water_01_wingeff_02
   rotate: false
-  xy: 2, 660
+  xy: 1, 656
   size: 222, 338
   orig: 222, 338
   offset: 0, 0
   index: -1
 verus_water_01_wingeff_03
   rotate: false
-  xy: 2, 422
+  xy: 1, 418
   size: 222, 236
   orig: 222, 236
   offset: 0, 0
   index: -1
 verus_water_01_wingeff_04
   rotate: false
-  xy: 2, 184
+  xy: 1, 180
   size: 222, 236
   orig: 222, 236
   offset: 0, 0
   index: -1
 verus_water_01_wingeff_05
-  rotate: true
-  xy: 143, 5
+  rotate: false
+  xy: 1681, 1679
   size: 177, 145
   orig: 177, 145
   offset: 0, 0
