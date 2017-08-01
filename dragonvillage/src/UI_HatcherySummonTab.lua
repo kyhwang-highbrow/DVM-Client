@@ -229,9 +229,18 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, is_sale, old_ui)
     if (is_sale) then
         item_value = item_value - (item_value * 0.1)
     end
-    local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
-
-    MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+    
+    -- 이어 뽑기일 경우 의사를 묻지 않고 바로 시작
+    if is_sale then
+        if ConfirmPrice(item_key, item_value) then
+            ok_btn_cb()
+        else
+            -- ConfirmPrice함수에서 false를 리턴했을 경우 안내 팝업이 뜬 상태
+        end
+    else
+        local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
+        MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+    end
 end
 
 -------------------------------------
