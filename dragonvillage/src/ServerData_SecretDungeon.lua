@@ -440,6 +440,9 @@ function ServerData_SecretDungeon:goToSecretDungeonScene(dungeon_id, use_scene)
     local request_secret_dungeon_stage_list
     local replace_scene
 
+    -- 씬 바뀔때는 정보 갱신 해주기 
+    self.m_bDirtySecretDungeonInfo = true
+
     -- 비밀 던전 리스트 정보 얻어옴
     request_secret_dungeon_info = function()
         g_secretDungeonData:requestSecretDungeonInfo(request_secret_dungeon_stage_list)

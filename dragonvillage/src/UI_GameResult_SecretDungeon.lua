@@ -40,8 +40,7 @@ end
 -- function click_againBtn
 -------------------------------------
 function UI_GameResult_SecretDungeon:click_againBtn()
-    local scene = SceneSecretDungeon(self.m_stageID)
-    scene:runScene()
+    g_secretDungeonData:goToSecretDungeonScene(self.m_stageID, true) -- use_scene
 end
 
 -------------------------------------
