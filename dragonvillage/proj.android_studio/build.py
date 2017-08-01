@@ -7,7 +7,7 @@ import os
 #os.system('gradlew clean')
 
 # build
-#os.system('gradlew assembleDebug')
+os.system('gradlew assembleDebug')
 #os.system('gradlew installDebug')
 #os.system('gradlew assembleRelease')
 #os.system('gradlew installRelease')
