@@ -18,7 +18,7 @@ function UI_TitleScene:init()
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    --g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_TitleScene')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_TitleScene')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -74,6 +74,17 @@ end
 -- function refresh
 -------------------------------------
 function UI_TitleScene:refresh()
+end
+
+-------------------------------------
+-- function click_exitBtn
+-- @brief 종료
+-------------------------------------
+function UI_TitleScene:click_exitBtn()
+    local function yes_cb()
+        closeApplication()
+    end
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('종료하시겠습니까?'), yes_cb)
 end
 
 -------------------------------------
