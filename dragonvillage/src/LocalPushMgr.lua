@@ -10,7 +10,6 @@ LocalPushMgr = class({
 -------------------------------------
 function LocalPushMgr:init()
 	self.m_pushMinSecond = 3
-	self:applyLocalPush()
 end
 
 -------------------------------------
@@ -44,9 +43,11 @@ end
 -------------------------------------
 function LocalPushMgr:addLocalPush(push_type, push_time, push_msg)
     if push_time > self.m_pushMinSecond then
-		local param_str = push_type .. ';' .. push_time .. ';' .. push_msg
-        PerpSocial:SDKEvent('localpush_add', param_str, '', function() end)
+
     end
+	local param_str = push_type .. ';' .. push_time .. ';' .. push_msg
+    cclog(param_str)
+    PerpSocial:SDKEvent('localpush_add', param_str, '')
 end
 
 -------------------------------------
@@ -54,7 +55,7 @@ end
 -- @brief 로컬푸시 해제
 -------------------------------------
 function LocalPushMgr:cancel()
-    PerpSocial:SDKEvent('localpush_cancel', '', '', function() end)
+    PerpSocial:SDKEvent('localpush_cancel', '', '')
 end
 
 -------------------------------------
@@ -62,7 +63,7 @@ end
 -- @brief 로컬푸시 등록
 -------------------------------------
 function LocalPushMgr:register()
-    PerpSocial:SDKEvent('localpush_register', '', '', function() end)
+    PerpSocial:SDKEvent('localpush_register', '', '')
 end
 
 -------------------------------------
@@ -81,7 +82,7 @@ function LocalPushMgr:setLocalPush_Color(bg_color, title_color, msg_color)
 	end
 
 	local param_str = bg_color .. ';' .. title_color .. ';' .. msg_color
-    PerpSocial:SDKEvent('localpush_setColor', param_str, '', function() end)
+    PerpSocial:SDKEvent('localpush_setColor', param_str, '')
 end
 
 -------------------------------------
@@ -90,5 +91,5 @@ end
 -------------------------------------
 function LocalPushMgr:setLocalPush_URL(link_title, link_url, cafe_url)
 	local param_str = link_title .. ';' .. link_url .. ';' .. cafe_url
-    PerpSocial:SDKEvent('localpush_setLinkUrl', param_str, '', function() end)
+    PerpSocial:SDKEvent('localpush_setLinkUrl', param_str, '')
 end

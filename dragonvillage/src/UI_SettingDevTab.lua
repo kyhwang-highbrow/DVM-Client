@@ -13,6 +13,7 @@ function UI_Setting:init_devTab()
     vars['allRuneBtn']:registerScriptTapHandler(function() self:click_allRuneBtn() end)
     vars['allStaminaBtn']:registerScriptTapHandler(function() self:click_allStaminaBtn() end)
     vars['testCodeBtn']:registerScriptTapHandler(function() self:click_testCodeBtn() end)
+    vars['testCodeBtn2']:registerScriptTapHandler(function() self:click_testCodeBtn2() end)
     vars['allEggBtn']:registerScriptTapHandler(function() self:click_allEggBtn() end)
     vars['addFpBtn']:registerScriptTapHandler(function() self:click_addFpBtn() end)
     vars['addRpBtn']:registerScriptTapHandler(function() self:click_addRpBtn() end)
@@ -337,15 +338,21 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
---[[
     ccdisplay('진동 테스트')
     cc.SimpleAudioEngine:getInstance():playVibrate(1000)
-    ]]
+end
+
+-------------------------------------
+-- function click_testCodeBtn2
+-- @brief 테스트 코드
+-------------------------------------
+function UI_Setting:click_testCodeBtn2()
+    ccdisplay('로컬푸시 테스트')
     local push = LocalPushMgr()
-    push:addLocalPush('', 10, '10초 후 나타나는 푸시')
-    push:addLocalPush('', 15, '15초 후 나타나는 푸시')
-    push:addLocalPush('type2', 20, '20초 후 나타나는 푸시, type2')
-    push:addLocalPush('type3', 40, '40초 후 나타나는 푸시, type3')
+    push:cancel()
+    push:addLocalPush('kkami', 1, '11111111')
+    push:addLocalPush('kkami', 3, '333333333333')
+    push:addLocalPush('kkami', 9, '999999999999999')
     push:register()
 end
 
