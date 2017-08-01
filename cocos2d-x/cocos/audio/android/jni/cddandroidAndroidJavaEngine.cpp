@@ -53,7 +53,7 @@ AndroidJavaEngine::AndroidJavaEngine()
     if (sdkVer > 0)
     {
         __android_log_print(ANDROID_LOG_DEBUG, "cocos2d", "android SDK version:%d", sdkVer);
-        if (sdkVer >= 21)
+        if (sdkVer >= 19)
         {
             _implementBaseOnAudioEngine = true;
         }
