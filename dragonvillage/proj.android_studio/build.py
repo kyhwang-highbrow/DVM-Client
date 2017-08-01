@@ -12,4 +12,9 @@ import os
 os.system('gradlew assembleRelease')
 #os.system('gradlew installRelease')
 
+# apk copy
+src_path = './DragonVillageM/build/outputs/apk'
+tar_path = './'
+os.system('robocopy "%s" "%s" /E' % (src_path, tar_path ))
+
 os.system('pause')
