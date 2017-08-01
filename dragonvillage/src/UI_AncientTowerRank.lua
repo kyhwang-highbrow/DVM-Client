@@ -2,7 +2,7 @@
 -- class UI_AncientTowerRank
 -------------------------------------
 UI_AncientTowerRank = class({
-        m_uiScene = 'UI_AncientTowerScene',
+        m_uiScene = 'UI_AncientTower',
 
         m_rewardInfo = 'table',
         m_typeRadioButton = 'UIC_RadioButton',

@@ -89,10 +89,10 @@ function ServerData_AncientTower:goToAncientTowerScene(use_scene)
             local function close_cb()
                 SceneLobby():runScene()
             end
-            local scene = SceneCommon(UI_AncientTowerScene, nil, close_cb)
+            local scene = SceneCommon(UI_AncientTower, nil, close_cb)
             scene:runScene()
         else
-            UI_AncientTowerScene()
+            UI_AncientTower()
 
             -- 시즌 보상 팝업
             if (self.m_tSeasonRewardInfo) then

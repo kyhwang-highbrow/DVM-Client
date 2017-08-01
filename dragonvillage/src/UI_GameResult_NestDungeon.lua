@@ -41,14 +41,6 @@ function UI_GameResult_NestDungeon:click_againBtn()
 end
 
 -------------------------------------
--- function click_backBtn
--------------------------------------
-function UI_GameResult_NestDungeon:click_backBtn()
-    local scene = SceneNestDungeon(self.m_stageID)
-    scene:runScene()
-end
-
--------------------------------------
 -- function click_nextBtn
 -------------------------------------
 function UI_GameResult_NestDungeon:click_nextBtn()

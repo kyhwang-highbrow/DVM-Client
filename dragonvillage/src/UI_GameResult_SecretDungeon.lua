@@ -40,24 +40,9 @@ end
 -- function click_againBtn
 -------------------------------------
 function UI_GameResult_SecretDungeon:click_againBtn()
-    local scene = SceneSecretDungeon()
+    local scene = SceneSecretDungeon(self.m_stageID)
     scene:runScene()
 end
-
--------------------------------------
--- function click_backBtn
--------------------------------------
-function UI_GameResult_SecretDungeon:click_backBtn()
-    local scene = SceneSecretDungeon()
-    scene:runScene()
-end
-
--------------------------------------
--- function click_nextBtn
--------------------------------------
-function UI_GameResult_SecretDungeon:click_nextBtn()
-end
-
 
 -------------------------------------
 -- function direction_end

@@ -2,7 +2,7 @@
 -- class UI_AncientTowerFloorInfo
 -------------------------------------
 UI_AncientTowerFloorInfo = class({
-        m_uiScene = 'UI_AncientTowerScene',
+        m_uiScene = 'UI_AncientTower',
         m_floorInfo = 'StructAncientTowerFloorData',
     })
 

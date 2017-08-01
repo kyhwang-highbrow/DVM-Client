@@ -403,7 +403,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ResHelper.lua" />
     <None Include="..\src\RuneEnchantHelper.lua" />
     <None Include="..\src\ScenarioViewingHistory.lua" />
-    <None Include="..\src\SceneAncientTower.lua" />
     <None Include="..\src\SceneGameColosseum.lua" />
     <None Include="..\src\SceneGameIntro.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
@@ -833,12 +832,12 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AdventureStageButton.lua" />
     <None Include="..\src\UI_AdventureStageInfo.lua" />
     <None Include="..\src\UI_AdventureStageMissionInfo.lua" />
+    <None Include="..\src\UI_AncientTower.lua" />
     <None Include="..\src\UI_AncientTowerFloorInfo.lua" />
     <None Include="..\src\UI_AncientTowerListItem.lua" />
     <None Include="..\src\UI_AncientTowerRank.lua" />
     <None Include="..\src\UI_AncientTowerRankListItem.lua" />
     <None Include="..\src\UI_AncientTowerRewardListItem.lua" />
-    <None Include="..\src\UI_AncientTowerScene.lua" />
     <None Include="..\src\UI_AncientTowerSweepReward.lua" />
     <None Include="..\src\UI_AttendanceBasicListItem.lua" />
     <None Include="..\src\UI_AttendanceSpecialListItem.lua" />

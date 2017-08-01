@@ -268,7 +268,6 @@ local t_module = {
     'SceneAdventure',
     'SceneNestDungeon',
     'SceneSecretDungeon',
-    'SceneAncientTower',
 
     -- Phys
 	'PhysWorld',
@@ -690,7 +689,7 @@ local t_module = {
     'UI_3DDeck',
 
 	-- UI : 고대의 탑
-    'UI_AncientTowerScene',
+    'UI_AncientTower',
     'UI_AncientTowerFloorInfo',
     'UI_AncientTowerRank',
     'UI_AncientTowerListItem',

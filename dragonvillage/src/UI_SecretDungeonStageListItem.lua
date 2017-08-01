@@ -59,7 +59,7 @@ function UI_SecretDungeonStageListItem:refresh(t_data)
 
     do -- 발견자
         local nickname = Str(self.m_stageTable['nick'])
-        vars['userNameLabel']:setString(nickname)
+        vars['userNameLabel']:setString(Str('발견 : {1}', nickname))
     end
 
     do -- 스태미나 갯수 표시
@@ -80,7 +80,7 @@ function UI_SecretDungeonStageListItem:refresh(t_data)
     do -- 제한 인원
         local cnt = self.m_stageTable['players']
         local max_cnt = self.m_stageTable['maximum_playable_user']
-        vars['numberLabel']:setString(string.format('%d / %d', cnt, max_cnt))
+        vars['numberLabel']:setString(Str('제한 인원 : {1} / {2}', cnt, max_cnt))
     end
 end
 

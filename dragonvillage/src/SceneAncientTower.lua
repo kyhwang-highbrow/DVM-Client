@@ -16,5 +16,5 @@ function SceneAncientTower:onEnter()
     PerpleScene.onEnter(self)
     SoundMgr:playBGM('bgm_lobby')
     
-    UI_AncientTowerScene()
+    UI_AncientTower()
 end

@@ -27,6 +27,5 @@ end
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause_AncientTower:click_retryButton()
-    local scene = SceneAncientTower()
-    scene:runScene()
+    g_ancientTowerData:goToAncientTowerScene(true) -- use_scene
 end

@@ -33,7 +33,7 @@ end
 -------------------------------------
 function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode)
     local link_type
-    
+
     if (game_mode == GAME_MODE_NEST_DUNGEON) then
         -- 공통 진화 던전 플레이
         if (dungeon_mode == NEST_DUNGEON_EVO_STONE) then
@@ -56,6 +56,10 @@ function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode)
     -- 콜로세움 플레이
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
         link_type = 'ply_clsm'
+
+    -- 인연던전 플레이
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        link_type = 'ply_rel'
 
     -- 모험 모드
     else
@@ -127,7 +131,7 @@ T_LINK_FUNC = {
     
     -- 인연 던전 플레이
     ['ply_rel'] = function()
-        g_secretDungeonData:goToSecretDungeonScene()
+        g_secretDungeonData:goToSecretDungeonScene(nil, true)
     end,
 
     -- 인연 던전 발견

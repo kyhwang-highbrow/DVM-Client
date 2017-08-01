@@ -1,9 +1,9 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
--- class UI_AncientTowerScene
+-- class UI_AncientTower
 -------------------------------------
-UI_AncientTowerScene = class(PARENT, {
+UI_AncientTower = class(PARENT, {
         m_tableView = 'UIC_TableView', -- 탑 층 리스트
         
         m_floorInfo = 'UI_AncientTowerFloorInfo', -- 탑 정보 UI
@@ -13,18 +13,18 @@ UI_AncientTowerScene = class(PARENT, {
         m_selectedStageID = 'number', -- 현재 선택된 스테이지 아이디
     })
 
-UI_AncientTowerScene.TAB_INFO = 1
-UI_AncientTowerScene.TAB_RANK = 2
+UI_AncientTower.TAB_INFO = 1
+UI_AncientTower.TAB_RANK = 2
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AncientTowerScene:init()
+function UI_AncientTower:init()
     local vars = self:load('tower_scene_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_AncientTowerScene')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_AncientTower')
 
     -- 층 정보, 랭킹 UI
     self.m_floorInfo = UI_AncientTowerFloorInfo(self)
@@ -56,9 +56,9 @@ end
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_AncientTowerScene:initParentVariable()
+function UI_AncientTower:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_AncientTowerScene'
+    self.m_uiName = 'UI_AncientTower'
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('고대의 탑')
 
@@ -69,7 +69,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_AncientTowerScene:initUI()
+function UI_AncientTower:initUI()
     local vars = self.vars
 
     do -- 시즌 남은 시간 표시
@@ -140,11 +140,11 @@ end
 -------------------------------------
 -- function initTab
 -------------------------------------
-function UI_AncientTowerScene:initTab()
+function UI_AncientTower:initTab()
     local vars = self.vars
-    self:addTab(UI_AncientTowerScene.TAB_INFO, vars['towerBtn'], vars['towerMenu'])
-    self:addTab(UI_AncientTowerScene.TAB_RANK, vars['rankingBtn'], vars['rankingMenu'])
-    self:setTab(UI_AncientTowerScene.TAB_INFO)
+    self:addTab(UI_AncientTower.TAB_INFO, vars['towerBtn'], vars['towerMenu'])
+    self:addTab(UI_AncientTower.TAB_RANK, vars['rankingBtn'], vars['rankingMenu'])
+    self:setTab(UI_AncientTower.TAB_INFO)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
@@ -152,7 +152,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_AncientTowerScene:initButton()
+function UI_AncientTower:initButton()
     local vars = self.vars
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
 end
@@ -160,7 +160,7 @@ end
 -------------------------------------
 -- function update
 -------------------------------------
-function UI_AncientTowerScene:update(dt)
+function UI_AncientTower:update(dt)
     local vars = self.vars
 
     -- 고대의탑 테이블뷰 offset에 맞춰서 배경도 같이 스크롤 시킴
@@ -183,9 +183,9 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_AncientTowerScene:refresh(floor_info)
+function UI_AncientTower:refresh(floor_info)
     local vars = self.vars
-    self:setTab(UI_AncientTowerScene.TAB_INFO)
+    self:setTab(UI_AncientTower.TAB_INFO)
 
     -- 층 정보 UI 갱신
     self.m_floorInfo:refresh(floor_info)
@@ -200,11 +200,11 @@ end
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
-function UI_AncientTowerScene:onChangeTab(tab, first)
+function UI_AncientTower:onChangeTab(tab, first)
     if (not first) then return end
 
     -- 최초 탭 누를 경우에만 랭킹 정보 가져옴
-    if (tab == UI_AncientTowerScene.TAB_RANK) then
+    if (tab == UI_AncientTower.TAB_RANK) then
         self.m_rankInfo.m_typeRadioButton:setSelectedButton('rank')
     end
 end
@@ -212,7 +212,7 @@ end
 -------------------------------------
 -- function click_readyBtn
 -------------------------------------
-function UI_AncientTowerScene:click_readyBtn()
+function UI_AncientTower:click_readyBtn()
 	local func = function()
         local stage_id = self.m_selectedStageID
 
@@ -230,20 +230,14 @@ end
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_AncientTowerScene:click_exitBtn()
-    if (g_currScene.m_sceneName == 'SceneAncientTower') then
-		local is_use_loading = false
-		local scene = SceneLobby(is_use_loading)
-		scene:runScene()
-	else
-		self:close()
-	end
+function UI_AncientTower:click_exitBtn()
+	self:close()
 end
 
 -------------------------------------
 -- function selectFloor
 -------------------------------------
-function UI_AncientTowerScene:selectFloor(floor_info)
+function UI_AncientTower:selectFloor(floor_info)
     local stage_id = floor_info['stage']
 
     if (self.m_selectedStageID ~= stage_id) then
@@ -266,7 +260,7 @@ end
 -------------------------------------
 -- function changeFloorVisual
 -------------------------------------
-function UI_AncientTowerScene:changeFloorVisual(stage_id, ui)
+function UI_AncientTower:changeFloorVisual(stage_id, ui)
     local t_item = self.m_tableView.m_itemMap[stage_id]
     local ui = ui or t_item['ui']
     
@@ -288,4 +282,4 @@ function UI_AncientTowerScene:changeFloorVisual(stage_id, ui)
 end
 
 --@CHECK
-UI:checkCompileError(UI_AncientTowerScene)
+UI:checkCompileError(UI_AncientTower)

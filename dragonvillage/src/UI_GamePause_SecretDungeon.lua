@@ -27,6 +27,7 @@ end
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause_SecretDungeon:click_retryButton()
-    local scene = SceneSecretDungeon(self.m_stageID)
-    scene:runScene()
+    local stage_id = self.m_stageID
+    local use_scene = true
+    g_secretDungeonData:goToSecretDungeonScene(stage_id, use_scene)
 end

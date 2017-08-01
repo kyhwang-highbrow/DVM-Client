@@ -678,9 +678,6 @@
     <None Include="..\src\UI_ToastPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_AncientTowerScene.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_SkillEnhance.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1357,9 +1354,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\SceneAdventure.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\SceneAncientTower.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\SceneCommon.lua">
@@ -2555,6 +2549,9 @@
     </None>
     <None Include="..\src\DragonSkillCore.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_AncientTower.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

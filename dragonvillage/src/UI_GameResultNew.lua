@@ -810,6 +810,7 @@ end
 
 -------------------------------------
 -- function click_backBtn
+-- @brief 모드별 백버튼은 여기서 처리
 -------------------------------------
 function UI_GameResultNew:click_backBtn()
     local game_mode = g_gameScene.m_gameMode
