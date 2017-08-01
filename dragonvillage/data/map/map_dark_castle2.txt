@@ -29,7 +29,7 @@
             "speed":0.3
             "list":
             [
-            	{"res":"res/bg/dark_castle2/dark_castle2.vrp" "animation":"layer_2_a" "width":630}
+            	{"res":"res/bg/dark_castle2/dark_castle2.vrp" "animation":"layer_2_a" "width":1260}
 									
             ]
         }
@@ -39,7 +39,7 @@
             "speed":0.4
             "list":
             [
-                {"res":"res/bg/dark_castle2/dark_castle2.vrp" "animation":"layer_2_b" "width":1800}
+                {"res":"res/bg/dark_castle2/dark_castle2.vrp" "animation":"layer_2_b" "width":2680}
 		
 				
             ]
@@ -72,7 +72,7 @@
             "speed":0.6
             "list":
             [
-			    {"res":"res/bg/dark_castle2/dark_castle2.vrp" "animation":"layer_3_a" "width":1600}
+			    {"res":"res/bg/dark_castle2/dark_castle2.vrp" "animation":"layer_3_a" "width":1640}
 	
 				
                 
@@ -94,7 +94,7 @@
             "speed":0.9
             "list":
             [                				
-				{"res":"res/bg/dark_castle2/dark_castle2.vrp" "animation":"layer_5_a" "width":2880}
+				{"res":"res/bg/dark_castle2/dark_castle2.vrp" "animation":"layer_5_a" "width":3200}
 
 		    ]
         }

@@ -128,7 +128,7 @@ local MAP_HEIGHT = 1600
         self.m_interval = tParam['interval'] or 960
         self.m_group = tParam['group'] or ''
         self.m_speedScale = tParam['speed_scale'] or 1
-
+        
         local res = tParam['res']
         local animation = tParam['animation']
         local scale = tParam['scale']
@@ -179,7 +179,7 @@ local MAP_HEIGHT = 1600
         if (tParam['directing']) then 
 		    self:setDirecting(tParam['directing'])
 	    end
-
+        
         -- 초기화
         self:update(0)
     end
@@ -199,25 +199,34 @@ local MAP_HEIGHT = 1600
         local maxValue
 
         if self.m_type == 'horizontal' then
-            pos = pos + self.m_offsetX - (cameraX / cameraScale)
-            minValue = cameraX - (CRITERIA_RESOLUTION_X / 2)
-            maxValue = cameraX + (CRITERIA_RESOLUTION_X / 2)
+            local scope = math_max(CRITERIA_RESOLUTION_X, self.m_interval)
+
+            pos = pos + self.m_offsetX
+            minValue = -(cameraX / cameraScale) - scope
+            maxValue = -(cameraX / cameraScale)
+
         elseif self.m_type == 'vertical' then
-            pos = pos + self.m_offsetY - (cameraY / cameraScale)
-            minValue = cameraY - (CRITERIA_RESOLUTION_Y / 2)
-            maxValue = cameraY + (CRITERIA_RESOLUTION_Y / 2)
+            local scope = math_max(CRITERIA_RESOLUTION_Y, self.m_interval) / 2
+
+            pos = pos + self.m_offsetY
+            minValue = -(cameraY / cameraScale) - scope
+            maxValue = -(cameraY / cameraScale) + scope
         end
 
-        local start_pos = pos
+        local start_pos = math_floor(pos)
         if self.m_interval > 0 then
-            start_pos = math_floor(pos % self.m_interval)
+            if (start_pos < 0) then
+                start_pos = start_pos % -self.m_interval
+            else
+                start_pos = start_pos % self.m_interval
+            end
         end
-    
-        if start_pos < minValue then
-            start_pos = start_pos + self.m_interval
-    
-        elseif start_pos > maxValue then
+
+        if start_pos > maxValue then
             start_pos = start_pos - self.m_interval
+
+        elseif start_pos < minValue then
+            start_pos = start_pos + self.m_interval
 
         end
 
@@ -225,9 +234,12 @@ local MAP_HEIGHT = 1600
         for i, v in ipairs(self.m_tAnimator) do
             if self.m_type == 'horizontal' then
                 v.m_node:setPositionX(start_pos)
+
             elseif self.m_type == 'vertical' then
                 v.m_node:setPositionY(start_pos)
+
             end
+
             start_pos = start_pos + self.m_interval
         end
     end

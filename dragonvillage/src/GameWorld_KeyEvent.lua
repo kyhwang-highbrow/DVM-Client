@@ -46,6 +46,7 @@ MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
 MAP_KEY_FUNC[KEY_5] = 'resurrect_dragon'
 MAP_KEY_FUNC[KEY_6] = 'kill_one_dragon'
 MAP_KEY_FUNC[KEY_7] = 'print_skill_info'
+MAP_KEY_FUNC[KEY_8] = 'camera_info'
 
 -------------------------------------
 -- function onKeyReleased
@@ -391,10 +392,17 @@ end
 -------------------------------------
 function GameWorld:print_skill_info()
     if (self.m_tamer) then
-        --self.m_tamer:printSkillInfo()
+        self.m_tamer:printSkillInfo()
     end
 
     for i, hero in ipairs(self:getDragonList()) do
         hero:printSkillInfo()
     end
+end
+
+-------------------------------------
+-- function camera_info
+-------------------------------------
+function GameWorld:camera_info()
+    self.m_gameCamera:printInfo()
 end

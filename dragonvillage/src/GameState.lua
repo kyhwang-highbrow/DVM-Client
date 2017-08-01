@@ -1014,6 +1014,11 @@ function GameState:doDirectionForIntermission()
 		t_camera_info['time'] = getInGameConstant("WAVE_INTERMISSION_TIME")
         
     end
+
+    -- 카메라 스케일이 0.8이하일 경우 가운데로 고정시킴
+    if (t_camera_info['scale'] and t_camera_info['scale'] <= 0.8) then
+        t_camera_info['pos_y'] = 0
+    end
         
     -- 카메라 액션 설정
     world:changeCameraOption(t_camera_info)

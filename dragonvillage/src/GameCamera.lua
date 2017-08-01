@@ -52,6 +52,25 @@ function GameCamera:init(world, node)
     self:setRange(nil)
 
 	self:reset()
+
+    -- glnode 생성
+    --[[
+    do
+        -- draw 함수 구현
+        local function primitivesDraw(transform, transformUpdated)
+            self:drawLine(transform, transformUpdated)
+        end
+
+        -- glNode 생성
+        local glNode = cc.GLNode:create()
+        glNode:registerScriptDrawHandler(primitivesDraw)
+
+        local container = cc.Sprite:create(EMPTY_PNG)
+        self.m_node:addChild(container, 100)
+
+        container:addChild(glNode)
+    end
+    ]]--
 end
 
 -------------------------------------
@@ -124,8 +143,7 @@ end
 -- function getPosition
 -------------------------------------
 function GameCamera:getPosition(bReal)
-    if bRealTime then
-        -- 수정 필요...
+    if bReal then
         local x, y = self.m_node:getPosition()
         return -x, -y
     else
@@ -165,7 +183,8 @@ function GameCamera:setAction(t_data)
             self.m_curScale = scale
 		end
 	else
-		scale = prevScale
+		--scale = prevScale
+        scale = self.m_curScale
 	end
 	
 	-- pos
@@ -292,4 +311,38 @@ function GameCamera:setRange(t)
     self.m_range = t or {}
 
     --cclog('GameCamera:setRange range = ' .. luadump(self.m_range))
+end
+
+-------------------------------------
+-- function drawLine
+-------------------------------------
+function GameCamera:drawLine(transform)
+    local x, y = self.m_node:getPosition()
+    local scale = self.m_node:getScale()
+    x = -x / scale
+    y = -y / scale
+        
+    kmGLPushMatrix()
+    kmGLLoadMatrix(transform)
+
+    gl.lineWidth(1)
+
+    cc.DrawPrimitives.drawColor4B(255, 0, 0, 255)
+    cc.DrawPrimitives.drawLine(cc.p(x - CRITERIA_RESOLUTION_X, y), cc.p(x + CRITERIA_RESOLUTION_X, y))
+    cc.DrawPrimitives.drawLine(cc.p(x, y + CRITERIA_RESOLUTION_Y), cc.p(x, y - CRITERIA_RESOLUTION_Y))
+    
+    kmGLPopMatrix()
+end
+
+-------------------------------------
+-- function printInfo
+-------------------------------------
+function GameCamera:printInfo()
+    local scale = self.m_node:getScale()
+	local x, y = self.m_node:getPosition()
+
+    cclog('-------------------------------------------------------')
+	cclog('CAMARA POS : (' .. x .. ',' .. y .. ')')
+    cclog('CAMARA SCALE : ' .. scale)
+    cclog('-------------------------------------------------------')
 end

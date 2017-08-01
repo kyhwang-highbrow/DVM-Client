@@ -262,10 +262,13 @@ function ScrollMap:setBg(res, attr)
 
             -- 반복되서 나오는 맵의 경우 반복 주기 크기를 계산
             for i, data in ipairs(v['list']) do
+                local width = data['width'] or 0
+                local height = data['height'] or 0
+
                 if (type == 'horizontal') then
-                    interval = interval + (data['width'] or 0)
+                    interval = interval + width
                 elseif (type == 'vertical') then
-                    interval = interval + (data['height'] or 0)
+                    interval = interval + height
                 end
             end
             
@@ -281,6 +284,8 @@ function ScrollMap:setBg(res, attr)
                 local real_offset_x = (data['pos_x'] or 0)
                 local real_offset_y = (data['pos_y'] or 0)
                 local scale = (data['scale'] or 1)
+                local width = data['width'] or 0
+                local height = data['height'] or 0
                 
                 if type == 'horizontal' then
                     real_offset_x = real_offset_x + offset_x
@@ -303,9 +308,9 @@ function ScrollMap:setBg(res, attr)
                 }, false)
                     
                 if type == 'horizontal' then
-                    offset_x = offset_x + (data['width'] or 0)
+                    offset_x = offset_x + width
                 elseif type == 'vertical' then
-                    offset_y = offset_y + (data['height'] or 0)
+                    offset_y = offset_y + height
                 end
             end
         end
