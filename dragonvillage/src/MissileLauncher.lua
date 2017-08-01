@@ -2,6 +2,10 @@
 -- class MissileLauncher
 -------------------------------------
 MissileLauncher = class(Entity, {
+        m_owner = 'Character',
+        m_attackOffsetX = 'number',
+        m_attackOffsetY = 'number',
+
         m_attackIdx = 'number',
 
         -- 탄막 패턴에 필요한 변수
@@ -34,6 +38,10 @@ MissileLauncher = class(Entity, {
 -- @param body
 -------------------------------------
 function MissileLauncher:init(file_name, body)
+    self.m_owner = nil
+    self.m_attackOffsetX = 0
+    self.m_attackOffsetY = 0
+
     self.m_bHeroMissile = false
     self.m_bUseTargetDir = false
 end
@@ -156,13 +164,42 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
 end
 
 -------------------------------------
+-- function setLauncherOwner
+-------------------------------------
+function MissileLauncher:setLauncherOwner(owner, attack_offset_x, attack_offset_y)
+    self.m_owner = owner
+    self.m_attackOffsetX = attack_offset_x
+    self.m_attackOffsetY = attack_offset_y
+end
+
+-------------------------------------
 -- function st_attack
 -------------------------------------
 function MissileLauncher.st_attack(owner, dt, pattern_idx)
 
-    if owner.m_stateTimer == 0 then
+    if (owner.m_stateTimer == 0) then
 
     else
+        -- 발사 주체 정보 확인
+        if (owner.m_owner) then
+            -- 주체가 죽었으면 멈춤
+            if (owner.m_owner:isDead()) then
+                owner:changeState('dying')
+                return true
+            end
+
+            -- TODO: 주체와 위치 동기화
+            do
+                owner.pos.x = owner.m_owner.pos.x + owner.m_attackOffsetX
+                owner.pos.y = owner.m_owner.pos.y + owner.m_attackOffsetY
+            end
+
+            -- 로밍 멈춤
+            if (owner.m_owner.m_bRoam) then
+                owner.m_owner:stopRoaming()
+            end
+        end
+
         -- 미사일 발사
         while #owner.m_tAttackIdxCache > 0 do
             local cache = owner.m_tAttackIdxCache[1]
@@ -200,8 +237,6 @@ function MissileLauncher.st_attack(owner, dt, pattern_idx)
             return true
         end
     end
-
-    return false
 end
 
 -------------------------------------

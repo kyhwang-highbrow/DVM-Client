@@ -382,7 +382,14 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
     missile_launcher:init_missileLauncher(t_skill, phys_group, activity_carrier, 1)
     missile_launcher.m_animator:changeAni('animation', true)
-    missile_launcher:setPosition(start_x, start_y)
+
+    -- 발사 위치를 해당 캐릭터의 위치를 기준이 되도록 설정
+    if (true) then
+        missile_launcher:setPosition(self.pos.x, self.pos.y)
+        missile_launcher:setLauncherOwner(self, x, y)
+    else
+        missile_launcher:setPosition(start_x, start_y)
+    end
 
     -- 스킬 방향 지정
     local skill_dir = tonumber(t_skill['dir'])
