@@ -84,4 +84,13 @@ end
 -- @brief 디렉토리간 비교, 한쪽으로 완전히 동기화 시킴 (있으면 복사, 없으면 삭제)
 -------------------------------------
 function MirrorDirectory(src_dir, tar_dir)
+    
+    -- robocopy 원본경로 대상경로 [파일 ...] [옵션]
+
+    -- /E : 하위 디렉토리 포함 복사
+    -- /MIR : mirroring
+    -- /NFL : No File List - don't log file names.
+    -- /NDL : No Directory List - don't log directory names.
+
+    os.execute(string.format('robocopy "%s" "%s" /MIR /NFL /NDL', src_dir, tar_dir))
 end
