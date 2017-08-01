@@ -18,7 +18,7 @@ ServerData_Hatchery = class({
         SALE__PERCENTAGE = 0.1,
 
         -- 우정포인트 소환
-        FP__SUMMON_PRICE = 10,
+        FP__SUMMON_PRICE = 200,
         FP__BUNDLE_SUMMON_PRICE = 100,
     })
 
