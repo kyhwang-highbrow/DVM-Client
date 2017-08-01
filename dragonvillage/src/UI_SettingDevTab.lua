@@ -347,13 +347,8 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn2()
-    ccdisplay('로컬푸시 테스트')
-    local push = LocalPushMgr()
-    push:cancel()
-    push:addLocalPush('kkami', 1, '11111111')
-    push:addLocalPush('kkami', 3, '333333333333')
-    push:addLocalPush('kkami', 9, '999999999999999')
-    push:register()
+    ccdisplay('로컬푸시 테스트, 앱 종료후 5초 뒤에 푸시가 옵니다.')
+    PUSH_TEST = true
 end
 
 -------------------------------------

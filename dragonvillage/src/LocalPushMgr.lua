@@ -5,6 +5,8 @@ LocalPushMgr = class({
 		m_pushMinSecond = 'num', -- 앱 종료후 최소 푸시 등록 시간
     })
 
+PUSH_TEST = false
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -21,14 +23,16 @@ function LocalPushMgr:applyLocalPush()
     self:cancel()
 
 	-- 탐험
-	do
-        for _, t_epr in pairs(g_explorationData:getPushTimeList()) do
-            local time = t_epr['time']
-            local msg = Str('{1} 탐험 완료! 지금 바로 접속해서 확인하세요!', t_epr['name'])
-            self:addLocalPush('', time, msg)
-            cclog(time, msg)
-        end
-	end
+    for _, t_epr in pairs(g_explorationData:getPushTimeList()) do
+        local time = t_epr['time']
+        local msg = Str('테이머님! 드래곤들이 {1} 탐험을 완료했어요!!', t_epr['name'])
+        self:addLocalPush('kami', time, msg)
+    end
+
+    -- 푸시 디버그
+    if (PUSH_TEST) then
+        self:addLocalPush('kkami', 5, '로컬 푸시 테스트 1 2 3')
+    end
 
 	-- 신규 local push 등록
     self:register()
@@ -42,12 +46,10 @@ end
 -- @param push_msg : 출력될 메세지, 타이틀은 고정
 -------------------------------------
 function LocalPushMgr:addLocalPush(push_type, push_time, push_msg)
-    if push_time > self.m_pushMinSecond then
-
+    if push_time >= self.m_pushMinSecond then
+	    local param_str = push_type .. ';' .. push_time .. ';' .. push_msg
+        PerpSocial:SDKEvent('localpush_add', param_str, '')
     end
-	local param_str = push_type .. ';' .. push_time .. ';' .. push_msg
-    cclog(param_str)
-    PerpSocial:SDKEvent('localpush_add', param_str, '')
 end
 
 -------------------------------------

@@ -342,6 +342,5 @@ function ServerData_Exploration:getPushTimeList()
         end
     end
 
-    ccdump(t_ret)
     return t_ret
 end

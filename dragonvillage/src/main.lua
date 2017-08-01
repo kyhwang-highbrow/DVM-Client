@@ -15,14 +15,6 @@ cclog = function(...)
 end
 
 -------------------------------------
--- function isTestMode
--------------------------------------
-function isTestMode()
-    -- 라이브 전에는 명시해야함
-    return (not DEVELOPMENT_SRC_VER)
-end
-
--------------------------------------
 -- @perplesdk
 -------------------------------------
 gPerpleSDKSchedulerID = 0
@@ -74,7 +66,7 @@ local GAME_RESTART_TIME = 0
 -------------------------------------
 function applicationDidEnterBackground()
     cclog('applicationDidEnterBackground')
-	--LocalPushMgr()
+	LocalPushMgr():applyLocalPush()
 
     -- 백그라운드에서 30분간 있을 경우 재시작
     GAME_RESTART_TIME = os.time() + 1800
@@ -119,7 +111,7 @@ end
 -------------------------------------
 function closeApplication()
 	cclog('CloseApplication')
-    --LocalPushMgr()
+    LocalPushMgr():applyLocalPush()
     
     -- @perpelsdk
     if isAndroid() then
