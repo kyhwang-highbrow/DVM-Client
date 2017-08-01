@@ -3,22 +3,22 @@
 	{
         "bgm_dummy": {"res":"sound/ui/ui_touch.mp3"}
         
-		"bgm_title": {"res":"sound/bgm/bgm_title.mp3"}
-		"bgm_lobby": {"res":"sound/bgm/bgm_lobby.mp3"}
+		"bgm_title": {"res":"sound/bgm/bgm_title.ogg"}
+		"bgm_lobby": {"res":"sound/bgm/bgm_lobby.ogg"}
 		
-		"bgm_dungeon_ready": {"res":"sound/bgm/bgm_dungeon_ready.mp3"}
+		"bgm_dungeon_ready": {"res":"sound/bgm/bgm_dungeon_ready.ogg"}
 		
-		"bgm_dungeon": {"res":"sound/bgm/bgm_dungeon_general.mp3"}
-		"bgm_dungeon_special": {"res":"sound/bgm/bgm_dundeon_special.mp3"}
-		"bgm_colosseum": {"res":"sound/bgm/bgm_colosseum.mp3"}
+		"bgm_dungeon": {"res":"sound/bgm/bgm_dungeon_general.ogg"}
+		"bgm_dungeon_special": {"res":"sound/bgm/bgm_dundeon_special.ogg"}
+		"bgm_colosseum": {"res":"sound/bgm/bgm_colosseum.ogg"}
 
-		"bgm_dungeon_midboss": {"res":"sound/bgm/bgm_dungeon_midboss.mp3"}
-		"bgm_dungeon_boss": {"res":"sound/bgm/bgm_dungeon_boss.mp3"}
-		"bgm_dungeon_victory": {"res":"sound/bgm/bgm_dungeon_victory.mp3"}
-		"bgm_dungeon_lose": {"res":"sound/bgm/bgm_dungeon_lose.mp3"}
+		"bgm_dungeon_midboss": {"res":"sound/bgm/bgm_dungeon_midboss.ogg"}
+		"bgm_dungeon_boss": {"res":"sound/bgm/bgm_dungeon_boss.ogg"}
+		"bgm_dungeon_victory": {"res":"sound/bgm/bgm_dungeon_victory.ogg"}
+		"bgm_dungeon_lose": {"res":"sound/bgm/bgm_dungeon_lose.ogg"}
 
-		"bgm_everyday": {"res":"sound/bgm/bgm_everyday.mp3"}
-		"bgm_sorrow": {"res":"sound/bgm/bgm_sorrow.mp3"}
+		"bgm_everyday": {"res":"sound/bgm/bgm_everyday.ogg"}
+		"bgm_sorrow": {"res":"sound/bgm/bgm_sorrow.ogg"}
 	},
 	
 	"EFX":
