@@ -319,11 +319,6 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
         
 		-- 보상이 있다면 보상 수령
 		if (g_bookData:haveBookReward(did, evolution)) then
-            if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
-                local detail_ui = UI_BookDetailPopup(data)
-			    detail_ui:setBookList(book_ui.m_tableViewTD.m_itemList)
-                return
-            end
             local pre_cash = g_userData:get('cash')
 			local function finish_cb(cash)
 				local reward_value = cash - pre_cash
@@ -340,11 +335,6 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 			detail_ui:setBookList(book_ui.m_tableViewTD.m_itemList)
 		end
 	end)
-
-    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
-        ui:setShadowSpriteVisible(false)
-	    ui:setBookRewardVisual(false)
-    end
 end
 
 -------------------------------------

@@ -739,23 +739,23 @@ end
 function UI_TitleScene:workFinish_click()
     -- 모든 작업이 끝난 경우 로비로 전환
     local lobby_func
-    local intro_func 
+    local check_intro_func
+
+    -- 로비 진입
     lobby_func = function()
         local is_use_loading = true
         local scene = SceneLobby(is_use_loading)
         scene:runScene()
     end
 	
-    intro_func = function()
-        local scenario_name = 'scenario_prologue'
-        local prologue = UI_ScenarioPlayer(scenario_name)
-        prologue:setCloseCB(lobby_func)
-        prologue:next()
+    -- 인트로 시나리오 체크
+    check_intro_func = function()
+        g_scenarioViewingHistory:checkIntroScenario(lobby_func)
     end
 
-    -- 캐릭터 페어 빌드 무조건 인트로 재생
-    if (CHARACTER_FAIR_VER()) and (not self.m_bNewUser) then
-        intro_func()
+    -- 인트로 시나리오 로비씬 진입전 체크로 수정 - 신규유저일때만
+    if (self.m_bNewUser) then
+        check_intro_func()
     else
         lobby_func()
     end
@@ -787,11 +787,11 @@ end
 -- @brief 신규 계정일 경우 계정 생성
 -------------------------------------
 function UI_TitleScene:createAccount()
-    local intro_func        -- 인트로
+    local prologue_func     -- 프롤로그 재생
     local tamer_sel_func    -- 테이머 선택
     local login_func        -- 계정 생성후 재로그인
 
-    intro_func = function()
+    prologue_func = function()
         local scenario_name = 'scenario_prologue'
         local prologue = UI_ScenarioPlayer(scenario_name)
         prologue:setCloseCB(tamer_sel_func)
@@ -808,7 +808,7 @@ function UI_TitleScene:createAccount()
         self:retryCurrWork()
     end
     
-    intro_func()
+    prologue_func()
 end
 
 ------------------------------------------------------------------------------------------------------------------------

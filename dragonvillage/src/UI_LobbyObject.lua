@@ -79,7 +79,6 @@ function MakeLobbyObjectUI(parent, ui_lobby, type)
     local ui = UI_LobbyObject(type)
     parent:addChild(ui.root, 5)
 
-    if (not CHARACTER_FAIR_VER()) then -- 캐릭터 페어
     if ui_lobby then
         if (type == UI_LobbyObject.BATTLE) then
             ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_battleBtn() end)
@@ -99,9 +98,7 @@ function MakeLobbyObjectUI(parent, ui_lobby, type)
             error('type : ' .. type)
         end
     end
-    end
-
-
+    
     return ui
 end
 

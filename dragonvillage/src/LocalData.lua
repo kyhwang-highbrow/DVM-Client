@@ -116,9 +116,6 @@ function LocalData:makeDefaultLocalData()
 
     -- 스테이지
     root_table['adventure_focus_stage'] = makeAdventureID(1, 1, 1)
-    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
-        root_table['adventure_focus_stage'] = 1110607
-    end
 
     -- 시나리오 재생 룰
     root_table['scenario_playback_rules'] = 'first' -- 'always', 'off'

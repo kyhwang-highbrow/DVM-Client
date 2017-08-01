@@ -234,52 +234,6 @@ function UI_DragonManageInfo:refresh_buttonState()
 
     -- 드래곤 개발 API
     self.m_dragonInfoBoardUI.vars['equipmentBtn']:setEnabled(not is_slime_object)
-
-    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
-        local vars = self.vars
-
-        -- 레벨업
-        vars['levelupBtn']:setEnabled(false)
-
-        -- 승급
-        vars['upgradeBtn']:setEnabled(false)
-
-        -- 진화
-        vars['evolutionBtn']:setEnabled(false)
-
-        -- 친밀도
-        vars['friendshipBtn']:setEnabled(false)
-
-		-- 스킬 강화
-        vars['skillEnhanceBtn']:setEnabled(false)
-
-        -- 판매
-        vars['sellBtn']:setEnabled(false)
-
-        -- 룬
-		vars['runeBtn']:setEnabled(false)
-
-        -- 대표
-        --vars['leaderBtn']:setEnabled(false)
-
-        -- 작별
-        vars['goodbyeBtn']:setEnabled(false)
-		
-        -- 잠금
-        vars['lockBtn']:setEnabled(false)
-
-        -- 평가
-        vars['assessBtn']:setEnabled(false)
-
-        -- 드래곤 개발 API
-        self.m_dragonInfoBoardUI.vars['equipmentBtn']:setEnabled(false)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn1']:setEnabled(false)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn2']:setEnabled(false)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn3']:setEnabled(false)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn4']:setEnabled(false)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn5']:setEnabled(false)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn6']:setEnabled(false)
-    end
 end
 
 

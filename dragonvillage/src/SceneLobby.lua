@@ -44,6 +44,4 @@ end
 -- function prepareDone
 -------------------------------------
 function SceneLobby:prepareDone()
-    -- 현재 인트로 시나리오는 로딩후 진입
-    g_scenarioViewingHistory:checkIntroScenario()
 end 

@@ -145,11 +145,6 @@ end
 -------------------------------------
 function UI_Game:initButton()
 	local vars = self.vars
-
-    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
-        vars['speedButton']:setVisible(false)
-    end
-
     vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
@@ -383,10 +378,6 @@ end
 --        모든 기능은 UI_GameDebug안에서 구현
 -------------------------------------
 function UI_Game:init_debugUI()
-    if (CHARACTER_FAIR_VER()) then -- 캐릭터 페어
-        return
-    end
-
     local debug_ui = UI_GameDebug(self.m_gameScene.m_gameWorld)
     self.root:addChild(debug_ui.root)
 end

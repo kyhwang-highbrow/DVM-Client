@@ -115,20 +115,19 @@ end
 -------------------------------------
 -- function checkIntroScenario
 -------------------------------------
-function ScenarioViewingHistory:checkIntroScenario()
+function ScenarioViewingHistory:checkIntroScenario(finish_cb)
     local tid = g_userData:get('start_tamer')
     local tamer_name = TableTamer():getTamerType(tid) or 'goni'
     local intro_start_name = 'scenario_intro_start_'..tamer_name
-    local intro_fight_name = 'scenario_intro_fight'
+
+    -- 로컬데이터가 있다면 패스
+    if (self:isViewed(intro_start_name)) then
+        finish_cb()
+    end
 
     local check_tutorial 
     local play_intro_start
     local play_intro_fight
-
-    -- 로컬데이터가 있다면 패스
-    if (self:isViewed(intro_start_name)) then
-        return
-    end
 
     play_intro_start = function()
         local ui = self:playScenario(intro_start_name)
@@ -147,6 +146,7 @@ function ScenarioViewingHistory:checkIntroScenario()
             play_intro_start()
         else
             self:addViewed(intro_start_name)
+            finish_cb()
         end
     end
 
