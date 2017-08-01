@@ -10,8 +10,8 @@ android {
         applicationId "com.perplelab.dragonvillagem.kr"
         minSdkVersion 16
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 8
-        versionName "0.2.5"
+        versionCode 11
+        versionName "0.2.6"
 
         externalNativeBuild {
             ndkBuild {
