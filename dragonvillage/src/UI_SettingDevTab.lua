@@ -337,8 +337,16 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
+--[[
     ccdisplay('진동 테스트')
     cc.SimpleAudioEngine:getInstance():playVibrate(1000)
+    ]]
+    local push = LocalPushMgr()
+    push:addLocalPush('', 10, '10초 후 나타나는 푸시')
+    push:addLocalPush('', 15, '15초 후 나타나는 푸시')
+    push:addLocalPush('type2', 20, '20초 후 나타나는 푸시, type2')
+    push:addLocalPush('type3', 40, '40초 후 나타나는 푸시, type3')
+    push:register()
 end
 
 -------------------------------------

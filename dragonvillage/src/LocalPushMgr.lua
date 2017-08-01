@@ -19,27 +19,50 @@ end
 -------------------------------------
 function LocalPushMgr:applyLocalPush()
     -- 기존 local push 삭제
-    PerpSocial:SDKEvent('localpush_cancel', '', '', function() end)
-
+    self:cancel()
 
 	-- 탐험
 	do
-
+        for _, t_epr in pairs(g_explorationData:getPushTimeList()) do
+            local time = t_epr['time']
+            local msg = Str('{1} 탐험 완료! 지금 바로 접속해서 확인하세요!', t_epr['name'])
+            self:addLocalPush('', time, msg)
+            cclog(time, msg)
+        end
 	end
 
 	-- 신규 local push 등록
-    PerpSocial:SDKEvent('localpush_register', '', '', function() end)
+    self:register()
 end
 
 -------------------------------------
 -- function addLocalPush
 -- @brief 개별 로컬 푸시 정보를 추가
+-- @param push_type : 폰에서 노출될 푸시 UI
+-- @param push_time : n초 후 푸시
+-- @param push_msg : 출력될 메세지, 타이틀은 고정
 -------------------------------------
 function LocalPushMgr:addLocalPush(push_type, push_time, push_msg)
     if push_time > self.m_pushMinSecond then
 		local param_str = push_type .. ';' .. push_time .. ';' .. push_msg
         PerpSocial:SDKEvent('localpush_add', param_str, '', function() end)
     end
+end
+
+-------------------------------------
+-- function cancel
+-- @brief 로컬푸시 해제
+-------------------------------------
+function LocalPushMgr:cancel()
+    PerpSocial:SDKEvent('localpush_cancel', '', '', function() end)
+end
+
+-------------------------------------
+-- function register
+-- @brief 로컬푸시 등록
+-------------------------------------
+function LocalPushMgr:register()
+    PerpSocial:SDKEvent('localpush_register', '', '', function() end)
 end
 
 -------------------------------------

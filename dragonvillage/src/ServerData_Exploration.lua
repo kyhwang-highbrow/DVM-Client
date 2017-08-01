@@ -326,3 +326,22 @@ function ServerData_Exploration:request_explorationReward(epr_id, finish_cb)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function getPushTimeList
+-------------------------------------
+function ServerData_Exploration:getPushTimeList()
+    local t_ret = {}
+    
+    if (self.m_myExplorationList) then
+        local table_exploration_list = TableExplorationList()
+        for i, t_epr in pairs(self.m_myExplorationList) do
+            local left_sec = math_floor(t_epr['end_time']/1000 - Timer:getServerTime())
+            local name = table_exploration_list:get(t_epr['epr_id'])['t_name']
+            table.insert(t_ret, {time = left_sec, name = name})
+        end
+    end
+
+    ccdump(t_ret)
+    return t_ret
+end
