@@ -1,222 +1,222 @@
 
 clouddragon_light_03.png
-size: 512,512
+size: 1024,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 clouddragon_light_03_acc_01
   rotate: false
-  xy: 79, 14
+  xy: 498, 155
   size: 94, 53
   orig: 94, 53
   offset: 0, 0
   index: -1
 clouddragon_light_03_arm_01
-  rotate: false
-  xy: 453, 331
+  rotate: true
+  xy: 451, 60
   size: 49, 45
   orig: 49, 45
   offset: 0, 0
   index: -1
 clouddragon_light_03_arm_02
   rotate: false
-  xy: 175, 11
+  xy: 442, 2
   size: 42, 56
   orig: 42, 56
   offset: 0, 0
   index: -1
 clouddragon_light_03_body_01
-  rotate: true
-  xy: 88, 180
+  rotate: false
+  xy: 599, 163
   size: 130, 91
   orig: 130, 91
   offset: 0, 0
   index: -1
 clouddragon_light_03_effect_01 copy
   rotate: false
-  xy: 152, 372
+  xy: 153, 75
   size: 141, 92
   orig: 141, 92
   offset: 0, 0
   index: -1
 clouddragon_light_03_effect_02
-  rotate: true
-  xy: 181, 187
+  rotate: false
+  xy: 847, 180
   size: 123, 74
   orig: 123, 74
   offset: 0, 0
   index: -1
 clouddragon_light_03_effect_03
   rotate: false
-  xy: 380, 332
+  xy: 76, 10
   size: 71, 44
   orig: 71, 44
   offset: 0, 0
   index: -1
 clouddragon_light_03_effect_04
   rotate: true
-  xy: 295, 378
+  xy: 296, 81
   size: 86, 79
   orig: 86, 79
   offset: 0, 0
   index: -1
 clouddragon_light_03_effect_05
   rotate: false
-  xy: 204, 88
+  xy: 441, 111
   size: 55, 97
   orig: 55, 97
   offset: 0, 0
   index: -1
 clouddragon_light_03_effect_06
   rotate: false
-  xy: 239, 314
+  xy: 301, 23
   size: 65, 56
   orig: 65, 56
   offset: 0, 0
   index: -1
 clouddragon_light_03_eye_01
-  rotate: false
-  xy: 307, 85
+  rotate: true
+  xy: 566, 47
   size: 46, 32
   orig: 46, 32
   offset: 0, 0
   index: -1
 clouddragon_light_03_eye_02
   rotate: true
-  xy: 1, 1
+  xy: 301, 5
   size: 16, 21
   orig: 16, 21
   offset: 0, 0
   index: -1
 clouddragon_light_03_foot_01
   rotate: true
-  xy: 309, 220
+  xy: 377, 64
   size: 37, 72
   orig: 37, 72
   offset: 0, 0
   index: -1
 clouddragon_light_03_foot_02
   rotate: true
-  xy: 307, 119
+  xy: 486, 13
   size: 32, 66
   orig: 32, 66
   offset: 0, 0
   index: -1
 clouddragon_light_03_hair_01
   rotate: true
-  xy: 377, 442
+  xy: 847, 110
   size: 68, 108
   orig: 68, 108
   offset: 0, 0
   index: -1
 clouddragon_light_03_hair_02
-  rotate: true
-  xy: 376, 378
+  rotate: false
+  xy: 377, 103
   size: 62, 105
   orig: 62, 105
   offset: 0, 0
   index: -1
 clouddragon_light_03_hand_01
   rotate: false
-  xy: 306, 331
+  xy: 2, 9
   size: 72, 45
   orig: 72, 45
   offset: 0, 0
   index: -1
 clouddragon_light_03_hand_02
-  rotate: false
-  xy: 219, 14
+  rotate: true
+  xy: 368, 23
   size: 39, 72
   orig: 39, 72
   offset: 0, 0
   index: -1
 clouddragon_light_03_head_01
   rotate: false
-  xy: 1, 19
+  xy: 153, 3
   size: 76, 70
   orig: 76, 70
   offset: 0, 0
   index: -1
 clouddragon_light_03_head_02
   rotate: false
-  xy: 152, 312
+  xy: 498, 95
   size: 85, 58
   orig: 85, 58
   offset: 0, 0
   index: -1
 clouddragon_light_03_head_03
   rotate: false
-  xy: 355, 78
+  xy: 554, 6
   size: 46, 39
   orig: 46, 39
   offset: 0, 0
   index: -1
 clouddragon_light_03_head_04
-  rotate: true
-  xy: 309, 153
+  rotate: false
+  xy: 957, 93
   size: 65, 69
   orig: 65, 69
   offset: 0, 0
   index: -1
 clouddragon_light_03_leg_01
   rotate: false
-  xy: 257, 222
+  xy: 972, 164
   size: 50, 90
   orig: 50, 90
   offset: 0, 0
   index: -1
 clouddragon_light_03_leg_02
-  rotate: false
-  xy: 261, 154
+  rotate: true
+  xy: 498, 47
   size: 46, 66
   orig: 46, 66
   offset: 0, 0
   index: -1
 clouddragon_light_03_mouth_01
-  rotate: true
-  xy: 487, 481
+  rotate: false
+  xy: 600, 74
   size: 29, 22
   orig: 29, 22
   offset: 0, 0
   index: -1
 clouddragon_light_03_tail_01
   rotate: false
-  xy: 152, 466
+  xy: 374, 210
   size: 223, 44
   orig: 223, 44
   offset: 0, 0
   index: -1
 clouddragon_light_03_tail_02
   rotate: false
-  xy: 309, 259
+  xy: 231, 3
   size: 68, 70
   orig: 68, 70
   offset: 0, 0
   index: -1
 clouddragon_light_03_wing_01
   rotate: false
-  xy: 1, 312
+  xy: 2, 56
   size: 149, 198
   orig: 149, 198
   offset: 0, 0
   index: -1
 clouddragon_light_03_wing_02
-  rotate: false
-  xy: 1, 91
+  rotate: true
+  xy: 153, 169
   size: 85, 219
   orig: 85, 219
   offset: 0, 0
   index: -1
 clouddragon_light_03_wool_01
   rotate: true
-  xy: 261, 97
+  xy: 585, 98
   size: 55, 44
   orig: 55, 44
   offset: 0, 0
   index: -1
 clouddragon_light_03_wool_02
   rotate: false
-  xy: 88, 69
+  xy: 731, 145
   size: 114, 109
   orig: 114, 109
   offset: 0, 0
