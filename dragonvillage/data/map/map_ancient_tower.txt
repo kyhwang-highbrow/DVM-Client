@@ -6,7 +6,7 @@
             "speed":0
 			"list":
 			[
-                {"res":"res/bg/ancient_tower/ancient_tower.vrp" "animation":"idle" "width":1920 "pos_x":640}
+                {"res":"res/bg/ancient_tower/ancient_tower.vrp" "animation":"idle" "width":1920 "pos_x":640 "scale":0.7}
             ]
         }
     ]
