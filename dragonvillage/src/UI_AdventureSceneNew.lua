@@ -226,15 +226,18 @@ function UI_AdventureSceneNew:click_prevBtn()
     local difficulty = self.m_currDifficulty
     local chapter = (self.m_currChapter - 1)
 
-    if g_adventureData:isOpenChapter(difficulty, chapter) then  
-        self:refreshChapter(chapter, difficulty)
-    else
-        local difficulty = g_adventureData:getChapterOpenDifficulty(chapter)
-        if (0 < difficulty) then
-            self:refreshChapter(chapter, difficulty)
-            UIManager:toastNotificationRed(Str('난이도가 변경되었습니다.'))
-        end
-    end
+    self:refreshChapter(chapter, difficulty)
+
+    -- sgkim 2017-08-01 오픈되지 않은 챕터도 진입할 수 있게 변경함
+    --if g_adventureData:isOpenChapter(difficulty, chapter) then  
+    --    self:refreshChapter(chapter, difficulty)
+    --else
+    --    local difficulty = g_adventureData:getChapterOpenDifficulty(chapter)
+    --    if (0 < difficulty) then
+    --        self:refreshChapter(chapter, difficulty)
+    --        UIManager:toastNotificationRed(Str('난이도가 변경되었습니다.'))
+    --    end
+    --end
 end
 
 -------------------------------------
@@ -244,17 +247,20 @@ function UI_AdventureSceneNew:click_nextBtn()
     local difficulty = self.m_currDifficulty
     local chapter = (self.m_currChapter + 1)
 
-    if g_adventureData:isOpenChapter(difficulty, chapter) then  
-        self:refreshChapter(chapter, difficulty)
-    else
-        local difficulty = g_adventureData:getChapterOpenDifficulty(chapter)
-        if (0 < difficulty) then
-            self:refreshChapter(chapter, difficulty)
-            UIManager:toastNotificationRed(Str('난이도가 변경되었습니다.'))
-        else
-            UIManager:toastNotificationRed(Str('{1}챕터를 먼저 모험하세요.', self.m_currChapter))
-        end
-    end
+    self:refreshChapter(chapter, difficulty)
+
+    -- sgkim 2017-08-01 오픈되지 않은 챕터도 진입할 수 있게 변경함
+    --if g_adventureData:isOpenChapter(difficulty, chapter) then  
+    --    self:refreshChapter(chapter, difficulty)
+    --else
+    --    local difficulty = g_adventureData:getChapterOpenDifficulty(chapter)
+    --    if (0 < difficulty) then
+    --        self:refreshChapter(chapter, difficulty)
+    --        UIManager:toastNotificationRed(Str('난이도가 변경되었습니다.'))
+    --    else
+    --        UIManager:toastNotificationRed(Str('{1}챕터를 먼저 모험하세요.', self.m_currChapter))
+    --    end
+    --end
 end
 
 -------------------------------------
@@ -276,11 +282,14 @@ function UI_AdventureSceneNew:click_selectDifficultyBtn(difficulty)
     local chapter = self.m_currChapter
     local force = false
 
-    if g_adventureData:isOpenChapter(difficulty, chapter) then  
-        self:refreshChapter(chapter, difficulty, nil, force)
-    else
-        UIManager:toastNotificationRed(Str('이전 난이도를 먼저 클리어하세요!'))
-    end
+    self:refreshChapter(chapter, difficulty, nil, force)
+
+    -- sgkim 2017-08-01 오픈되지 않은 챕터도 진입할 수 있게 변경함
+    --if g_adventureData:isOpenChapter(difficulty, chapter) then  
+    --    self:refreshChapter(chapter, difficulty, nil, force)
+    --else
+    --    UIManager:toastNotificationRed(Str('이전 난이도를 먼저 클리어하세요!'))
+    --end
 end
 
 -------------------------------------
@@ -493,7 +502,9 @@ function UI_AdventureSceneNew:click_stageBtn(stage_id, is_open)
         node:stopAllActions()
         node:runAction(cc.Sequence:create(start_action, end_action))
 
-        UIManager:toastNotificationRed(Str('{1}스테이지를 먼저 모험하세요.', self.m_openStage))
+        local msg = Str('{1}스테이지를 먼저 모험하세요.', self.m_openStage)
+        msg = Str('이전 스테이지를 먼저 모험하세요.')
+        UIManager:toastNotificationRed(msg)
     end
 end
 
@@ -513,9 +524,16 @@ function UI_AdventureSceneNew:focusStageButton(idx, immediately, b_force, stage_
 
     local next_btn = self.m_lStageButton[idx]
     if next_btn then
-        next_btn.vars['selectSprite']:setVisible(true)
-        next_btn.vars['arrowSprite']:setVisible(true)
+        do -- 열림 여부 체크
+            local _stage_id = makeAdventureID(self.m_currDifficulty, self.m_currChapter, idx)
+            if g_adventureData:isOpenStage(_stage_id) then
+                next_btn.vars['selectSprite']:setVisible(true)
+            else
+                next_btn.vars['selectSprite']:setVisible(false)
+            end
+        end
 
+        next_btn.vars['arrowSprite']:setVisible(true)
         next_btn.vars['arrowSprite']:stopAllActions()
         next_btn.vars['arrowSprite']:setPosition(0, 0)
         local sequence = cc.Sequence:create(cc.MoveTo:create(0.5, cc.p(0, 20)), cc.MoveTo:create(0.5, cc.p(0, -10)))

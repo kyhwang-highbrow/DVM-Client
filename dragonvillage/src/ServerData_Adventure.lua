@@ -448,7 +448,9 @@ function ServerData_Adventure:setFocusStage(stage_id)
     -- 모험모드만 저장
     if (game_mode == GAME_MODE_ADVENTURE) then
         -- 마지막에 진입한 스테이지 저장
-        g_localData:applyLocalData(stage_id, 'adventure_focus_stage')
+        if self:isOpenStage(stage_id) then
+            g_localData:applyLocalData(stage_id, 'adventure_focus_stage')
+        end
     end
 end
 
