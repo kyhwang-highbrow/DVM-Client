@@ -39,7 +39,9 @@ end
 -- function click_homeButton
 -------------------------------------
 function UI_GamePause:click_homeButton()
-    g_adventureData:goToAdventureScene()
+    local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
+    scene:runScene()
 end
 
 -------------------------------------
