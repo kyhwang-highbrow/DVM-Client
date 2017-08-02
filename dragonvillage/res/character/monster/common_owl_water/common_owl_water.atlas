@@ -1,55 +1,55 @@
 
 common_owl_water.png
-size: 512,128
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 owl_water_arm_01
   rotate: false
-  xy: 129, 37
-  size: 87, 86
-  orig: 87, 86
+  xy: 1, 73
+  size: 174, 172
+  orig: 174, 172
   offset: 0, 0
   index: -1
 owl_water_body_01
-  rotate: true
-  xy: 2, 2
-  size: 121, 125
-  orig: 121, 125
+  rotate: false
+  xy: 1, 247
+  size: 242, 250
+  orig: 242, 250
   offset: 0, 0
   index: -1
 owl_water_mouth_03
-  rotate: true
-  xy: 475, 67
-  size: 56, 35
-  orig: 56, 35
+  rotate: false
+  xy: 1, 1
+  size: 112, 70
+  orig: 112, 70
   offset: 0, 0
   index: -1
 owlbear_water_arm_01
   rotate: false
-  xy: 218, 59
-  size: 78, 64
-  orig: 78, 64
+  xy: 245, 369
+  size: 156, 128
+  orig: 156, 128
   offset: 0, 0
   index: -1
 owlbear_water_leg_01
   rotate: false
-  xy: 298, 77
-  size: 57, 46
-  orig: 57, 46
+  xy: 245, 275
+  size: 114, 92
+  orig: 114, 92
   offset: 0, 0
   index: -1
 owlbear_water_leg_02
-  rotate: false
-  xy: 357, 77
-  size: 57, 46
-  orig: 57, 46
+  rotate: true
+  xy: 403, 383
+  size: 114, 92
+  orig: 114, 92
   offset: 0, 0
   index: -1
 owlbear_water_tail_01
-  rotate: false
-  xy: 416, 77
-  size: 57, 46
-  orig: 57, 46
+  rotate: true
+  xy: 177, 131
+  size: 114, 92
+  orig: 114, 92
   offset: 0, 0
   index: -1
