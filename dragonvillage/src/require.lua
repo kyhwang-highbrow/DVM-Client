@@ -536,6 +536,7 @@ local t_module = {
     'UIC_ScrollLabel',
     'UIC_BroadcastLabel',
     'UIC_EggPicker',
+    'UIC_ExtendedUI',
 
     -- UI : CARD
     'UI_Card',

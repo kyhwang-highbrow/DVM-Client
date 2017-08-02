@@ -10,6 +10,7 @@ UI_Lobby = class(PARENT,{
         m_masterRoadTimeStamp = 'time',
 
         m_lobbyWorldAdapter = 'LobbyWorldAdapter',
+        m_etcExpendedUI = 'UIC_ExtendedUI',
     })
 
 -------------------------------------
@@ -46,6 +47,11 @@ function UI_Lobby:init()
 
     -- @ E.T.
     g_errorTracker:cleanupIngameLog()
+
+
+    local ui = UIC_ExtendedUI:create('lobby_etc_extended.ui')
+    self.m_etcExpendedUI = ui
+    vars['extendedNode']:addChild(ui.m_node)
 end
 
 -------------------------------------
@@ -500,6 +506,7 @@ end
 -- @brief 기타 버튼
 -------------------------------------
 function UI_Lobby:click_etcBtn()
+    self.m_etcExpendedUI:toggleVisibility()
 end
 
 
