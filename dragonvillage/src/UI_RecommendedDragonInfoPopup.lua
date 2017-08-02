@@ -170,18 +170,24 @@ function UI_RecommendedDragonInfoPopup:makeTableView_dungeon()
 	local node = vars['dungeonNode']
 
 	local l_dungeon_list = g_nestDungeonData:getNestDungeonInfo()
-
+    
 	do -- 테이블 뷰 생성
         node:removeAllChildren()
 
 		-- 생성 콜백
-		local create_cb_func = function(ui)
-			local function click_dungeonBtn()
-				self:refresh(ui.m_dungeonInfo['mode_id'], nil)
+		local create_cb_func = function(ui, data)
+			-- 버튼 콜백 등록
+            local function click_dungeonBtn()
+				self:refresh(data['mode_id'])
 			end
 			ui.vars['dungeonBtn']:registerScriptTapHandler(click_dungeonBtn)
-
-			ui:refresh(self.m_modeID)
+            
+            -- ui 최초 선택 갱신
+            if (data['mode_id'] == self.m_modeID) then
+                ccdump(data)
+                ui:refresh(data['mode_id'])
+                init_idx = data['idx']
+            end
 		end
 
         -- 테이블 뷰 인스턴스 생성
@@ -192,6 +198,14 @@ function UI_RecommendedDragonInfoPopup:makeTableView_dungeon()
         table_view:setItemList(l_dungeon_list)
 
         self.m_tableViewDungeon = table_view
+    end
+
+    -- 최초 선택 던전 포커스
+    for i, v in pairs(l_dungeon_list) do
+        if (v['mode_id'] == self.m_modeID) then
+            self.m_tableViewDungeon:update(0)           
+            self.m_tableViewDungeon:relocateContainerFromIndex(i, true)
+        end
     end
 end
 

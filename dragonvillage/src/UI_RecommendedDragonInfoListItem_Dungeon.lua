@@ -27,6 +27,10 @@ function UI_RecommendedDragonInfoListItem_Dungeon:initUI()
 
 	local dungeon_name = Str(self.m_dungeonInfo['t_name'])
 	vars['dungeonLabel']:setString(dungeon_name)
+
+    vars['btnNode']:removeAllChildren(true)
+    local dungeon_btn_spr = self:getDungeonBtnSpr()
+    vars['btnNode']:addChild(dungeon_btn_spr)
 end
 
 -------------------------------------
@@ -40,8 +44,35 @@ end
 -- function refresh
 -------------------------------------
 function UI_RecommendedDragonInfoListItem_Dungeon:refresh(mode_id)
+    local vars = self.vars
 	local is_selected = (mode_id == self.m_dungeonInfo['mode_id'])
-	self.vars['dungeonBtn']:setEnabled(not is_selected)
+	vars['dungeonBtn']:setEnabled(not is_selected)
+    vars['selectSprite']:setVisible(is_selected)
+end
+
+-------------------------------------
+-- function getDungeonBtnSpr
+-------------------------------------
+function UI_RecommendedDragonInfoListItem_Dungeon:getDungeonBtnSpr()
+    local mode = self.m_dungeonInfo['mode']
+    local sub_mode = self.m_dungeonInfo['sub_mode']
+    local attr = attributeNumToStr(sub_mode) or 'gem'
+    
+    local name
+
+    -- dragon
+    if (mode == 1) then
+        name = string.format('dragon_ranking_%s_%s', 'dragon', attr)
+    -- nightmare
+    elseif (mode == 2) then
+        name = string.format('dragon_ranking_%s', 'nightmare')
+    -- tree
+    elseif (mode == 3) then
+        name = string.format('dragon_ranking_%s_%s', 'tree', attr)
+    end
+   
+    local res = string.format('res/ui/buttons/%s.png', name)
+    return IconHelper:getIcon(res)
 end
 
 --@CHECK
