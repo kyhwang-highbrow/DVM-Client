@@ -14,8 +14,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 187;
-				height = 18;
+				width = 165;
+				height = 16;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -35,12 +35,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = -18.000000;
+				x = -24.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 98;
+				width = 78;
 				height = 12;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -65,12 +65,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = -18.000000;
+				x = -24.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 98;
+				width = 78;
 				height = 12;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -114,7 +114,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 52.000000;
+				x = 46.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -154,7 +154,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -16.000000;
+				x = -10.000000;
 				y = -7.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -197,7 +197,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 188;
+			width = 170;
 			height = 20;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -214,7 +214,7 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
-		width = -1092;
+		width = -1110;
 		height = -700;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
