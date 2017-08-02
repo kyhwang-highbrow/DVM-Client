@@ -192,6 +192,11 @@ function ScenarioViewingHistory:playScenario(scenario_name)
 
     -- 재생
     if play then
+        -- 자동 전투 중 시나리오 플레이된다면 해제시켜줌
+        if (g_autoPlaySetting:isAutoPlay()) then
+            g_autoPlaySetting:setAutoPlay(false)
+        end
+
         local ui = is_tutorial and UI_DialoguePlayer(scenario_name) or UI_ScenarioPlayer(scenario_name)
         self.m_playingScenario = ui
         return ui

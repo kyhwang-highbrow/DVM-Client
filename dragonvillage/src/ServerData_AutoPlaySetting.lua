@@ -26,6 +26,8 @@ function ServerData_AutoPlaySetting:init(server_data)
         t_auto_play_setting['stop_condition_dragon_inventory_max'] = true
         -- 룬 가방이 가득차면 연속 모험 종료
         t_auto_play_setting['stop_condition_rune_inventory_max'] = true
+        -- 인연던전 발견 시 연속 모험 종료
+        t_auto_play_setting['stop_condition_find_rel_dungeon'] = true
 
         do 
             -- 드래곤 공격 스킬 사용

@@ -1038,10 +1038,12 @@ function UI_GameResultNew:checkAutoPlay()
     end
 
     -- 인연 던전 발견 시 연속 전투 종료 (발견 팝업이 뜸. 종료 팝업 띄울 필요없음)
-    if (self.m_secretDungeon) then
-        auto_play_stop = true
+    if g_autoPlaySetting:get(stop_condition_find_rel_dungeon) then
+        if (self.m_secretDungeon) then
+            auto_play_stop = true
+        end
     end
-
+    
     if (auto_play_stop == true) then
         -- 메세지 있는 경우에만 팝업 출력
         if (msg) then MakeSimplePopup(POPUP_TYPE.OK, msg) end
