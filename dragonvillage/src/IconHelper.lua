@@ -3,10 +3,10 @@ IconHelper = {}
 -------------------------------------
 -- function getIcon
 -------------------------------------
-function IconHelper:getIcon(res_name)
+function IconHelper:getIcon(res_name, default_res)
 	local sprite = cc.Sprite:create(res_name)
     if (not sprite) then
-        sprite = cc.Sprite:create('res/ui/icon/cha/developing.png')
+        sprite = cc.Sprite:create(default_res or 'res/ui/icons/cha/developing.png')
         -- @E.T.
 		g_errorTracker:appendFailedRes(res_name)
     end
@@ -22,7 +22,7 @@ end
 function IconHelper:createWithSpriteFrameName(res_name)
 	local sprite = cc.Sprite:createWithSpriteFrameName(res_name)
     if (not sprite) then
-        sprite = cc.Sprite:create('res/ui/icon/cha/developing.png')
+        sprite = cc.Sprite:create('res/ui/icons/cha/developing.png')
         -- @E.T.
 		g_errorTracker:appendFailedRes(res_name)
     end
@@ -37,18 +37,9 @@ end
 -------------------------------------
 function IconHelper:getHeroIcon(res_name, evolution, attr)
     local res_name = res_name
-	if evolution then 
-		res_name = string.gsub(res_name, '#', '0' .. evolution)
-	end
-	if attr then
-		res_name = string.gsub(res_name, '@', attr)
-	end
+	res_name = string.gsub(res_name, '#', '0' .. evolution)
+	res_name = string.gsub(res_name, '@', attr)
     local sprite = self:getIcon(res_name)
-
-    if (not sprite) then
-        sprite = cc.Sprite:create('res/ui/icon/cha/developing.png')
-    end
-
     return sprite
 end
 
@@ -76,9 +67,6 @@ function IconHelper:getDragonIconFromTable(t_dragon_data, t_dragon)
     local evolution = t_dragon_data['evolution']
     local attr = t_dragon['attr']
 	local sprite = IconHelper:getHeroIcon(res, evolution, attr)
-	sprite:setDockPoint(CENTER_POINT)
-	sprite:setAnchorPoint(CENTER_POINT)
-
     return sprite
 end
 
@@ -144,11 +132,9 @@ function IconHelper:getDragonGradeIcon(t_dragon_data, type)
 		color = 'red'
 	end
 
-    local res = string.format('res/ui/icon/star_%s_%02d%02d.png', color, type, grade)
+    local res = string.format('res/ui/icons/star/star_%s_%02d%02d.png', color, type, grade)
 
     local sprite = self:getIcon(res)
-    sprite:setAnchorPoint(CENTER_POINT)
-    sprite:setDockPoint(CENTER_POINT)
 
 	if (type == 3) then
 		-- mskim : 별이 왼쪽에서 나와야 하는데 이미지는 오른쪽에 붙어있다.
@@ -214,17 +200,9 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
     -- 기타 아이템 아이콘 생성
     else
         local type_str = t_item['full_type']
-        local res_name = 'res/ui/icon/item/' .. type_str .. '.png'
+        local res_name = 'res/ui/icons/item/' .. type_str .. '.png'
         sprite = self:getIcon(res_name)
     end
-
-    -- 아이콘이 없을 경우
-    if (not sprite) then
-        sprite = self:getIcon('res/ui/icon/item/developing.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end
@@ -256,20 +234,12 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
     end
 
     local bg = self:getIcon('res/ui/icon/rune/rune_bg_' .. rarity_str .. '.png')
-    bg:setDockPoint(CENTER_POINT)
-    bg:setAnchorPoint(CENTER_POINT)
-
 
     local set_color = TableRuneSet:getRuneSetColor(set_id)
 
     -- 룬 아이콘
     local rune_icon_res = string.format('res/ui/icon/rune/%.2d_%s_%.2d.png', slot, set_color, grade)
     local rune_icon = self:getIcon(rune_icon_res)
-    if (not rune_icon) then
-        rune_icon = self:getIcon('res/ui/icon/item/developing.png')
-    end
-    rune_icon:setDockPoint(CENTER_POINT)
-    rune_icon:setAnchorPoint(CENTER_POINT)
 
     -- 1번 슬롯 삼각형은 제외
     if (slot ~= 1) then
@@ -332,13 +302,6 @@ function IconHelper:getSkillIcon(char_type, skill_id)
     local res_name = t_skill['res_icon']
     local sprite = self:getIcon(res_name)
 
-    if (not sprite) then
-        sprite = self:getIcon('res/ui/icon/skill/developing.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-
     return sprite
 end
 
@@ -363,14 +326,6 @@ function IconHelper:getSkillIconWithId(skill_id)
 
     local res_name = t_skill['res_icon']
     local sprite = self:getIcon(res_name)
-
-    if (not sprite) then
-        sprite = self:getIcon('res/ui/icon/skill/developing.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-
     return sprite
 end
 
@@ -392,9 +347,7 @@ end
 -- @brief
 -------------------------------------
 function IconHelper:getEmptySkillIcon()
-    local sprite = self:getIcon('res/ui/icon/skill/skill_empty.png')
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
+    local sprite = self:getIcon('res/ui/icons/skill/skill_empty.png')
     return sprite
 end
 
@@ -405,16 +358,8 @@ end
 function IconHelper:getAttributeIcon(attribute)
     attribute = attributeNumToStr(attribute)
 
-    local res_name = string.format('res/ui/icon/attr/attr_%s_02.png', attribute)
+    local res_name = string.format('res/ui/icons/attr/attr_%s_02.png', attribute)
     local sprite = self:getIcon(res_name)
-
-    if (not sprite) then
-        sprite = self:getIcon('res/ui/icon/item/developing.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-
     return sprite
 end
 
@@ -425,32 +370,6 @@ end
 function IconHelper:getRoleIcon(role)
     local res_name = string.format('res/ui/icon/role/dc_role_%s.png', role)
     local sprite = self:getIcon(res_name)
-
-    if (not sprite) then
-        sprite = self:getIcon('res/ui/icon/item/developing.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-
-    return sprite
-end
-
--------------------------------------
--- function getAttackTypeIcon
--- @brief 공격 타입 아이콘 생성
--------------------------------------
-function IconHelper:getAttackTypeIcon(attack_type)
-    local res_name = string.format('res/ui/icon_attack_%s.png', attack_type)
-    local sprite = self:getIcon(res_name)
-
-    if (not sprite) then
-        sprite = self:getIcon('res/ui/icon/item/developing.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-
     return sprite
 end
 
@@ -463,14 +382,6 @@ function IconHelper:getDragonRarityBG(rarity)
 
     local res_name = string.format('res/ui/icon/rarity/rarity_bg_%s.png', rarity)
     local sprite = self:getIcon(res_name)
-
-    if (not sprite) then
-        sprite = self:getIcon('res/ui/icon/item/developing.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-
     return sprite
 end
 
@@ -481,14 +392,6 @@ end
 function IconHelper:getDragonNamePng(dragon_id)
     local res_name = string.format('res/ui/dragon_card/dc_dragon_' .. dragon_id .. '.png')
     local sprite = self:getIcon(res_name)
-
-    if (not sprite) then
-        sprite = self:getIcon('res/ui/icon/item/developing.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-
     return sprite
 end
 
@@ -498,23 +401,7 @@ end
 -------------------------------------
 function IconHelper:getStatusEffectIcon(status_effect_type)
 	local res = TableStatusEffect():get(status_effect_type)['res_icon']
-	
-	if (res == 'x') then 
-		res = 'res/ui/icon/alarm_01.png' 
-	end 
-    
-	local sprite = self:getIcon(res)
-
-    if (not sprite) then
-        if (res ~= 'x') then
-		    --cclog(status_effect_type .. ' 상태 효과는 아이콘이 없음. 추가 해야함')
-        end
-        sprite = self:getIcon('res/ui/icon/alarm_01.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-
+	local sprite = self:getIcon(res, 'res/ui/icon/alarm_01.png' )
     return sprite
 end
 
@@ -524,16 +411,7 @@ end
 -------------------------------------
 function IconHelper:getRarityIcon(rarity)
 	local res = 'res/ui/icon/rarity/gem_' .. rarity .. '.png'
-    local sprite = self:getIcon(res)
-
-    if (not sprite) then
-		cclog('이 희귀도는 아이콘이 없네요 : ' .. rarity)
-        sprite = self:getIcon('res/ui/icon/rarity/gem_common.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-
+    local sprite = self:getIcon(res, 'res/ui/icon/rarity/gem_common.png')
     return sprite
 end
 
@@ -543,16 +421,7 @@ end
 -------------------------------------
 function IconHelper:getStaminaInboxIcon(type)
     local res = 'res/ui/icon/inbox/inbox_staminas_' .. type .. '.png'
-
-    local icon = self:getIcon(res)
-
-    if (not icon) then
-        icon = self:getIcon('res/ui/icon/inbox/inbox_staminas_st.png')
-    end
-
-    icon:setDockPoint(CENTER_POINT)
-    icon:setAnchorPoint(CENTER_POINT)
-
+    local icon = self:getIcon(res, 'res/ui/icons/inbox/inbox_staminas_st.png')
     return icon
 end
 
@@ -561,17 +430,8 @@ end
 -- @breif
 -------------------------------------
 function IconHelper:getTamerProfileIcon(type)
-    local res = 'res/ui/icon/tamer/tamer_profile_' .. type .. '_0101.png'
-
+    local res = 'res/ui/icons/tamer/tamer_manage_' .. type .. '_0101.png'
     local icon = self:getIcon(res)
-
-    if (not icon) then
-        icon = self:getIcon('res/ui/icon/item/developing.png')
-    end
-
-    icon:setDockPoint(CENTER_POINT)
-    icon:setAnchorPoint(CENTER_POINT)
-
     return icon
 end
 
@@ -581,21 +441,8 @@ end
 -------------------------------------
 function IconHelper:getFormationIcon(formation_type, is_activated)
 	local sub_str = is_activated and '02' or '01'
-	if (formation_type == 'protect') then
-		ccdisplay('임시 처리 코드 통과 - formation_type ')
-		formation_type = 'critical'
-	end
-
-    local res_name = string.format('res/ui/icon/fomation/%s_%s.png', formation_type, sub_str)
+    local res_name = string.format('res/ui/icons/fomation/%s_%s.png', formation_type, sub_str)
     local sprite = self:getIcon(res_name)
-
-    if (not sprite) then
-        sprite = self:getIcon('res/ui/icon/item/developing.png')
-    end
-
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-
     return sprite
 end
 
@@ -605,13 +452,7 @@ end
 function IconHelper:getEggIconByEggID(egg_id)
     local table_item = TableItem()
     local res = table_item:getValue(tonumber(egg_id), 'icon')
-    
     local sprite = self:getIcon(res)
-    if (not sprite) then
-		error('res : ' .. res)
-    end
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
     return sprite
 end
 
@@ -619,16 +460,12 @@ end
 -- function getPriceIcon
 -------------------------------------
 function IconHelper:getPriceIcon(price_type)
-    local res = string.format('res/ui/icon/inbox/inbox_%s.png', price_type)
-
     -- 현금 상품
     if (price_type == 'money') then
-        res = 'res/ui/icon/inbox/inbox_krw.png'
+        price_type = 'krw'
     end
-
+    
+    local res = string.format('res/ui/icons/inbox/inbox_%s.png', price_type)
     local icon = IconHelper:getIcon(res)
-    if (not icon) then
-        icon = self:getIcon('res/ui/icon/item/developing.png')
-    end
     return icon
 end
