@@ -26,7 +26,7 @@ UIManager = {
 
 	m_tutorialNode = nil,
     m_tutorialClippingNode = nil,
-    m_lTutorialBtnList = 'list<button>',
+    m_tTutorialBtnInfoTable = nil,
 
     m_topUserInfo = nil,
 
@@ -276,7 +276,7 @@ function UIManager:doTutorial()
 	self.m_uiLayer:addChild(tutorial_node, 128)
 
     self.m_tutorialNode = tutorial_node
-    self.m_lTutorialBtnInfoList = {}
+    self.m_tTutorialBtnInfoTable = {}
 end
 
 -------------------------------------
@@ -307,6 +307,8 @@ end
 -- @brief 튜토리얼 해제
 -------------------------------------
 function UIManager:releaseTutorial()
+    self:revertNodeAll()
+
 	if (self.m_tutorialNode) then 
 		self.m_tutorialNode:removeFromParent(true)
 		self.m_tutorialNode = nil
@@ -326,12 +328,42 @@ function UIManager:attachToTutorialNode(uic_node)
     -- 돌아갈 정보 저장
     local parent = node:getParent()
     local pos = {node:getPosition()}
-    table.insert(self.m_lTutorialBtnInfoList, {parent = parent, node = node, pos = pos})
+    local z_order = node:getLocalZOrder()
+    self.m_tTutorialBtnInfoTable[uic_node] = {parent = parent, pos = pos, z_order = z_order}
 
     -- tutorialNode에 붙여버린다.
     UIHelper:reattachNode(self.m_tutorialNode, node, 2)
 
     uic_node:setPosition(world_pos['x'], world_pos['y'])
+end
+
+-------------------------------------
+-- function revertTutorialBtn
+-- @brief m_tutorialNode에 붙여놓은 uic_node를 되돌린다.
+-------------------------------------
+function UIManager:revertNode(uic_node)
+    local t_info = self.m_tTutorialBtnInfoTable[uic_node]
+    local parent = t_info['parent']
+    local pos = t_info['pos']
+    local z_order = t_info['z_order']
+
+    -- 원래의 부모에게 붙여줌
+    UIHelper:reattachNode(parent, uic_node.m_node, z_order)
+    
+    uic_node:setPosition(pos[1], pos[2])
+end
+
+-------------------------------------
+-- function revertTutorialBtn
+-- @brief 전부 되돌린다.
+-------------------------------------
+function UIManager:revertNodeAll()
+    if (self.m_tTutorialBtnInfoTable) then
+        for uic_node, _ in pairs(self.m_tTutorialBtnInfoTable) do
+            self:revertNode(uic_node)
+        end
+    end
+    self.m_tTutorialBtnInfoTable = nil
 end
 
 -------------------------------------
