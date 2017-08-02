@@ -850,6 +850,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Card.lua" />
     <None Include="..\src\UI_DragonGoodbyeResult.lua" />
     <None Include="..\src\UI_Help.lua" />
+    <None Include="..\src\UI_LobbyOld.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
     <None Include="..\src\UI_RelationCard.lua" />
     <None Include="..\src\UI_ChangeNickPopup.lua" />

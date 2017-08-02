@@ -2559,6 +2559,9 @@
     <None Include="..\src\SkillCross.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_LobbyOld.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

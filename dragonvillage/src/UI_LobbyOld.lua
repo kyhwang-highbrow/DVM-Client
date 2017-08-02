@@ -1,11 +1,10 @@
-require 'UI_LobbyOld'
-
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
--- class UI_Lobby
+-- class UI_LobbyOld
 -------------------------------------
-UI_Lobby = class(PARENT,{
+UI_LobbyOld = class(PARENT,{
+        m_infoBoard = 'UI_NotificationInfo',
         m_hilightTimeStamp = 'time',
         m_masterRoadTimeStamp = 'time',
 
@@ -16,9 +15,9 @@ UI_Lobby = class(PARENT,{
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_Lobby:initParentVariable()
+function UI_LobbyOld:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_Lobby'
+    self.m_uiName = 'UI_LobbyOld'
     self.m_bVisible = true
     self.m_titleStr = nil
     self.m_bUseExitBtn = false
@@ -28,18 +27,20 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Lobby:init()
-    local vars = self:load('lobby_new.ui')
+function UI_LobbyOld:init()
+    local vars = self:load('lobby.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Lobby')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_LobbyOld')
 
     self:sceneFadeInAction()
 
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self:initInfoBoard()
 
     -- 로비 진입 시
     self:entryCoroutine()
@@ -51,7 +52,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_Lobby:initUI()
+function UI_LobbyOld:initUI()
     self:initLobbyWorldAdapter()
 
     -- 테이머 아이콘 갱신
@@ -61,7 +62,7 @@ end
 -------------------------------------
 -- function init_after
 -------------------------------------
-function UI_Lobby:init_after()
+function UI_LobbyOld:init_after()
     PARENT.init_after(self)
     g_topUserInfo:doActionReset()
 end
@@ -69,7 +70,7 @@ end
 -------------------------------------
 -- function entryCoroutine
 -------------------------------------
-function UI_Lobby:entryCoroutine()
+function UI_LobbyOld:entryCoroutine()
     -- UI 숨김
     self:doActionReset()
     g_topUserInfo:doActionReset()
@@ -153,7 +154,7 @@ end
 -------------------------------------
 -- function initLobbyWorldAdapter
 -------------------------------------
-function UI_Lobby:initLobbyWorldAdapter()
+function UI_LobbyOld:initLobbyWorldAdapter()
     local vars = self.vars
 
     local lobby_ui = self
@@ -183,7 +184,7 @@ end
 -- function refresh_userTamer
 -- @breif 유저의 로비맵 테이머를 갱신한다
 -------------------------------------
-function UI_Lobby:refresh_userTamer()
+function UI_LobbyOld:refresh_userTamer()
     local vars = self.vars
     do -- 테이머 아이콘 갱신
         local type = g_tamerData:getCurrTamerTable('type')
@@ -196,26 +197,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_Lobby:initButton()
-    local vars = self.vars
-
-    vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) -- 드래곤
-    vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
-    vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
-    vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end) -- 전투
-    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end) -- 상점
-    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
-    vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
-
-    vars['tamerBtn2']:registerScriptTapHandler(function() self:click_userInfoBtn() end)
-
-    vars['masterRoadBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-    vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
-    vars['etcBtn']:registerScriptTapHandler(function() self:click_etcBtn() end)
-
-    if true then
-        return
-    end
+function UI_LobbyOld:initButton()
     local vars = self.vars
     
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
@@ -228,6 +210,7 @@ function UI_Lobby:initButton()
     vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end)
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end)
 	vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
+    vars['buffBtn']:registerScriptTapHandler(function() self:click_buffBtn() end)
 	vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
     vars['tamerBtn2']:registerScriptTapHandler(function() self:click_userInfoBtn() end)
     vars['explorationBtn']:registerScriptTapHandler(function() self:click_explorationBtn() end) -- 탐험 버튼
@@ -244,7 +227,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_Lobby:refresh()
+function UI_LobbyOld:refresh()
     -- 유저 정보 갱신
     self:refresh_userInfo()
 
@@ -258,19 +241,7 @@ end
 -------------------------------------
 -- function refresh_highlight
 -------------------------------------
-function UI_Lobby:refresh_highlight()
-    local vars = self.vars
-
-    -- 마스터의 길
-    local has_reward, _ = g_masterRoadData:hasRewardRoad()
-    vars['masterRoadNotiSprite']:setVisible(has_reward)
-
-
-
-    if true then
-        return
-    end
-
+function UI_LobbyOld:refresh_highlight()
     local vars = self.vars
 
     local function highlight_func()
@@ -318,7 +289,7 @@ end
 -- function refresh_userInfo
 -- @brief 유저 정보 갱신
 -------------------------------------
-function UI_Lobby:refresh_userInfo()
+function UI_LobbyOld:refresh_userInfo()
    local vars = self.vars
 
     -- TODO 어떤 기준으로 출력??
@@ -343,7 +314,7 @@ end
 -------------------------------------
 -- function refresh_masterRoad
 -------------------------------------
-function UI_Lobby:refresh_masterRoad()
+function UI_LobbyOld:refresh_masterRoad()
     -- 현재 목표 출력
     local t_road = TableMasterRoad():get(g_masterRoadData:getFocusRoad())
     local desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
@@ -353,7 +324,7 @@ end
 -------------------------------------
 -- function refresh_google
 -------------------------------------
-function UI_Lobby:refresh_google()
+function UI_LobbyOld:refresh_google()
     local vars = self.vars
 
     if (g_serverData:isGooglePlayConnected()) then
@@ -367,7 +338,7 @@ end
 -- function click_adventureBtn
 -- @brief 모험 버튼
 -------------------------------------
-function UI_Lobby:click_adventureBtn()
+function UI_LobbyOld:click_adventureBtn()
     local refresh_adventure_server_data
     local fede_out
     local go_to_adventure_scene
@@ -391,7 +362,7 @@ end
 -- function click_colosseumBtn
 -- @brief "콜로세움" 버튼
 -------------------------------------
-function UI_Lobby:click_colosseumBtn()
+function UI_LobbyOld:click_colosseumBtn()
     UI_BattleMenu()
 end
 
@@ -399,7 +370,7 @@ end
 -- function click_battleBtn
 -- @brief "전투" 버튼
 -------------------------------------
-function UI_Lobby:click_battleBtn()
+function UI_LobbyOld:click_battleBtn()
     if (TARGET_SERVER == 'FGT') then
         UIManager:toastNotificationRed('"전투"는 준비 중입니다.')
         return
@@ -412,7 +383,7 @@ end
 -- function click_dragonManageBtn
 -- @brief 드래곤 관리 버튼
 -------------------------------------
-function UI_Lobby:click_dragonManageBtn()
+function UI_LobbyOld:click_dragonManageBtn()
     local func = function()
         local ui = UI_DragonManageInfo()
         local function close_cb()
@@ -429,7 +400,7 @@ end
 -- function click_shopBtn
 -- @brief 상점 버튼
 -------------------------------------
-function UI_Lobby:click_shopBtn()
+function UI_LobbyOld:click_shopBtn()
     g_shopDataNew:openShopPopup()
 end
 
@@ -437,7 +408,7 @@ end
 -- function click_questBtn
 -- @brief 퀘스트 버튼
 -------------------------------------
-function UI_Lobby:click_questBtn()
+function UI_LobbyOld:click_questBtn()
     UI_QuestPopup()
 end
 
@@ -445,7 +416,7 @@ end
 -- function click_masterRoadBtn
 -- @brief 마스터의 길 버튼
 -------------------------------------
-function UI_Lobby:click_masterRoadBtn()
+function UI_LobbyOld:click_masterRoadBtn()
     UI_MasterRoadPopup():setCloseCB(function()
         -- 노티 정보를 갱신하기 위해서 호출
         g_highlightData:setLastUpdateTime()
@@ -453,18 +424,10 @@ function UI_Lobby:click_masterRoadBtn()
 end
 
 -------------------------------------
--- function click_etcBtn
--- @brief 기타 버튼
--------------------------------------
-function UI_Lobby:click_etcBtn()
-end
-
-
--------------------------------------
 -- function click_inventoryBtn
 -- @brief 가방 버튼
 -------------------------------------
-function UI_Lobby:click_inventoryBtn()
+function UI_LobbyOld:click_inventoryBtn()
     UI_Inventory()
 end
 
@@ -472,7 +435,7 @@ end
 -- function click_friendBtn
 -- @brief 친구
 -------------------------------------
-function UI_Lobby:click_friendBtn()
+function UI_LobbyOld:click_friendBtn()
     UI_FriendPopup()
 end
 
@@ -480,7 +443,7 @@ end
 -- function click_drawBtn
 -- @brief 드래곤 소환 (가챠)
 -------------------------------------
-function UI_Lobby:click_drawBtn()
+function UI_LobbyOld:click_drawBtn()
     local function close_cb()
         -- 노티 정보를 갱신하기 위해서 호출
         g_highlightData:setLastUpdateTime()
@@ -492,7 +455,7 @@ end
 -- function click_mailBtn
 -- @brief 우편함
 -------------------------------------
-function UI_Lobby:click_mailBtn()
+function UI_LobbyOld:click_mailBtn()
     UI_MailPopup():setCloseCB(function(is_dirty)
         -- 노티 정보를 갱신하기 위해서 호출
         g_highlightData:setLastUpdateTime()
@@ -505,9 +468,47 @@ function UI_Lobby:click_mailBtn()
 end
 
 -------------------------------------
+-- function initInfoBoard
+-------------------------------------
+function UI_LobbyOld:initInfoBoard()
+    local buff_board = UI_NotificationInfo()
+    buff_board.root:setDockPoint(cc.p(1, 1))
+    self.vars['buffNode']:addChild(buff_board.root)
+    self.m_infoBoard = buff_board
+
+    do
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText('{@SKILL_NAME}[베스트프렌드 접속 버프] {@WHITE}(뀨뀨뀨, 김 성 구 접속 중)')
+        buff_info:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
+        buff_board:addElement(buff_info)
+
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText('{@SKILL_NAME}[친구 드래곤 사용 버프] {@SKILL_DESC}체력 +500')
+        buff_info:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
+        buff_board:addElement(buff_info)
+
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText('{@SKILL_NAME}[친구 드래곤 사용 버프] {@SKILL_DESC}체력 +500')
+        buff_info:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
+        buff_board:addElement(buff_info)
+
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText('{@YELLOW}[이벤트 중] 고급 드래곤 소환 250다이아몬드->200다이아몬드 {@RED}03:13:15{@YELLOW} 후 종료')
+        buff_board:addElement(buff_info)
+    end
+end
+
+-------------------------------------
+-- function click_buffBtn
+-------------------------------------
+function UI_LobbyOld:click_buffBtn()
+    self.m_infoBoard:show()
+end
+
+-------------------------------------
 -- function click_userInfoBtn
 -------------------------------------
-function UI_Lobby:click_userInfoBtn()
+function UI_LobbyOld:click_userInfoBtn()
     -- @ comment mskim
     -- 로비맵 테이머&드래곤은 채팅서버에 의해 변경되고
     -- 클라에서 직접 조작할 것은 좌상단 테이머 아이콘뿐
@@ -521,7 +522,7 @@ end
 -------------------------------------
 -- function click_tamerBtn
 -------------------------------------
-function UI_Lobby:click_tamerBtn()
+function UI_LobbyOld:click_tamerBtn()
     -- @ comment 상단과 동일
 	local function close_cb()
 		self:refresh_userTamer()
@@ -532,7 +533,7 @@ end
 -------------------------------------
 -- function click_explorationBtn
 -------------------------------------
-function UI_Lobby:click_explorationBtn()
+function UI_LobbyOld:click_explorationBtn()
     local function finish_cb()
         UI_Exploration()
     end
@@ -542,7 +543,7 @@ end
 -------------------------------------
 -- function click_collectionBtn
 -------------------------------------
-function UI_Lobby:click_collectionBtn()
+function UI_LobbyOld:click_collectionBtn()
     local function close_cb()
     	-- 노티 정보를 갱신하기 위해서 호출
         g_highlightData:setLastUpdateTime()
@@ -553,7 +554,7 @@ end
 -------------------------------------
 -- function click_eventBtn
 -------------------------------------
-function UI_Lobby:click_eventBtn()
+function UI_LobbyOld:click_eventBtn()
     g_eventData:openEventPopup()
 end
 
@@ -561,28 +562,28 @@ end
 -- function click_subscriptionBtn
 -- @brief 월정액 버튼
 -------------------------------------
-function UI_Lobby:click_subscriptionBtn()
+function UI_LobbyOld:click_subscriptionBtn()
     g_subscriptionData:openSubscriptionPopup()
 end
 
 -------------------------------------
 -- function click_guildBtn
 -------------------------------------
-function UI_Lobby:click_guildBtn()
+function UI_LobbyOld:click_guildBtn()
     UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
 end
 
 -------------------------------------
 -- function click_rankingBtn
 -------------------------------------
-function UI_Lobby:click_rankingBtn()
+function UI_LobbyOld:click_rankingBtn()
     UI_OverallRankingPopup()
 end
 
 -------------------------------------
 -- function click_googleAchievementBtn
 -------------------------------------
-function UI_Lobby:click_googleAchievementBtn()
+function UI_LobbyOld:click_googleAchievementBtn()
     GoogleHelper.showAchievement()
 end
 
@@ -590,7 +591,7 @@ end
 -- function click_exitBtn
 -- @brief 종료
 -------------------------------------
-function UI_Lobby:click_exitBtn()
+function UI_LobbyOld:click_exitBtn()
     local function yes_cb()
         closeApplication()
     end
@@ -601,7 +602,7 @@ end
 -- function update
 -- @brief
 -------------------------------------
-function UI_Lobby:update(dt)
+function UI_LobbyOld:update(dt)
     -- noti 갱신
     if (g_highlightData.m_lastUpdateTime ~= self.m_hilightTimeStamp) then
         self.m_hilightTimeStamp = g_highlightData.m_lastUpdateTime
@@ -625,7 +626,7 @@ end
 -- function onDestroyUI
 -- @brief
 -------------------------------------
-function UI_Lobby:onDestroyUI()
+function UI_LobbyOld:onDestroyUI()
     PARENT.onDestroyUI(self)
 
     if (self.m_lobbyWorldAdapter) then
@@ -637,4 +638,4 @@ end
 
 
 --@CHECK
-UI:checkCompileError(UI_Lobby)
+UI:checkCompileError(UI_LobbyOld)
