@@ -545,7 +545,6 @@ local t_module = {
     'UI_RuneCard',
     'UI_MonsterCard',
 	'UI_RewardCard',
-    'UI_SkillCard',
     'UI_DragonSkillCard',
     'UI_MonsterSkillCard',
 

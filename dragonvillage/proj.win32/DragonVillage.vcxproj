@@ -1051,7 +1051,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ConfirmPopup.lua" />
     <None Include="..\src\UI_SimpleDragonInfoPopup.lua" />
     <None Include="..\src\UI_SimplePopup.lua" />
-    <None Include="..\src\UI_SkillCard.lua" />
     <None Include="..\src\UI_SkillDetailPopup.lua" />
     <None Include="..\src\UI_SkillDetailPopupListItem_Tamer.lua" />
     <None Include="..\src\UI_SkillDetailPopup_Tamer.lua" />

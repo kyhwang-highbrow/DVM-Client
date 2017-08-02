@@ -255,21 +255,24 @@ function UI_DragonManagementEvolution:refresh_nextSkillInfo(t_dragon_data, t_dra
     if (skill_id == '') then
         vars['skillInfoLabel']:setString('스킬이 지정되지 않았습니다.')
     else
+        local skill_individual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
+        skill_individual_info:applySkillLevel()
+        skill_individual_info:applySkillDesc()
+
         -- 스킬 아이콘
-        local icon = UI_SkillCard('dragon', skill_id, skill_type, skill_lv)
-		icon:setSkillTypeVisible(false)
-        vars['skillNode']:addChild(icon.root)
+        local spr = IconHelper:getSkillIcon('dragon', skill_id)
+        vars['skillNode']:addChild(spr)
 
         -- 스킬 이름
-        local str = icon:getSkillNameStr(skill_id)
+        local str = skill_individual_info:getSkillName()
         vars['skillNameLabel']:setString(str)
 
         -- 스킬 타입
-        local str = icon:getSkillTypeStr(skill_type)
+        local str = skill_individual_info:getSkillType()
         vars['skillTypeLabel']:setString(str)
 
         -- 스킬 설명
-        local str = icon:getSkillDescStrPure(skill_id, skill_type)
+        local str = skill_individual_info:getSkillDesc()
         vars['skillInfoLabel']:setString(str)
 
         -- 스킬 타입

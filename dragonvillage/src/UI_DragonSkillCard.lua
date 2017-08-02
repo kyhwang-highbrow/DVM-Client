@@ -174,7 +174,7 @@ function UI_DragonSkillCard:setTypeText(skill_type)
 end
 
 -------------------------------------
--- function setSkillTypeText
+-- function setTypeTextColor
 -- @brief skill_type
 -------------------------------------
 function UI_DragonSkillCard.setTypeTextColor(skill_type)

@@ -2454,9 +2454,6 @@
     <None Include="..\src\UI_CharacterCard.lua">
       <Filter>lua\UI_Card</Filter>
     </None>
-    <None Include="..\src\UI_SkillCard.lua">
-      <Filter>lua\UI_Card</Filter>
-    </None>
     <None Include="..\src\UI_RuneCard.lua">
       <Filter>lua\UI_Card</Filter>
     </None>
