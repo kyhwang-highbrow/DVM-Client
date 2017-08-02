@@ -37,7 +37,6 @@ function UI_Game:initTamerUI(tamer)
 			    vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
 		    else
 			    vars['tamerSkillBtn' .. i]:setEnabled(false)
-			    vars['tamerSkillGauge' .. i]:setPercentage(100)
 		    end
         end
 	end
@@ -60,8 +59,7 @@ function UI_Game:click_tamerSkillBtn(idx)
 
 	if (tamer.m_bActiveSKillUsable and tamer.m_state ~= 'active') then
         vars['tamerSkillVisual']:setVisible(false)
-		vars['tamerSkillGauge' .. idx]:setPercentage(100)
-
+		
         tamer:changeState('active')
 	else
 		UIManager:toastNotificationRed(Str('더 이상 사용 할 수 없습니다.'))
