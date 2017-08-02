@@ -1,4 +1,4 @@
-local PARENT = UI_Lobby
+local PARENT = UI_LobbyOld
 
 -------------------------------------
 -- class Tutorial_Lobby
@@ -12,10 +12,13 @@ Tutorial_Lobby = class(PARENT,{
 function Tutorial_Lobby:init()
     local vars = self.vars
 
-	UIManager:tutorial()
+	UIManager:doTutorial()
+
 	UIManager:attachToTutorialNode(vars['adventureBtn'])
 	UIManager:attachToTutorialNode(vars['inventoryBtn'])
 	UIManager:attachToTutorialNode(vars['mailBtn'])
+
+    UIManager:setTutorialStencil(vars['masterRoadBtn'].m_node)
 end
 
 -------------------------------------

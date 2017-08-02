@@ -25,6 +25,7 @@ UIManager = {
     m_toastBroadcastLayer = 'cc.Node',
 
 	m_tutorialNode = nil,
+    m_tutorialClippingNode = nil,
     m_lTutorialBtnList = 'list<button>',
 
     m_topUserInfo = nil,
@@ -230,11 +231,14 @@ function UIManager:makeTouchBlock(ui, bNotBlendBGLayer)
 end
 
 -------------------------------------
--- function 가제
+-- function doTutorial
+-- @brief 튜토리얼 실행
 -------------------------------------
-function UIManager:tutorial()
+function UIManager:doTutorial()
     -- 초기화
     self:releaseTutorial()
+
+    local visible_size = cc.Director:getInstance():getVisibleSize()
 
     -- 하위 UI가 클릭되지 않도록 레이어 생성
 	local block_layer = cc.Layer:create()
@@ -252,13 +256,22 @@ function UIManager:tutorial()
 	local color_layer = self:makeMaskingLayer()
     color_layer:setDockPoint(ZERO_POINT)
     color_layer:setAnchorPoint(ZERO_POINT)
+	
+    -- clipping 생성
+    local clipping_node = cc.ClippingNode:create()
+	clipping_node:setContentSize(visible_size['width'], visible_size['height'])
+    clipping_node:setInverted(true)
+    clipping_node:addChild(color_layer)
+    self.m_tutorialClippingNode = clipping_node
+
+    -- 기본 스텐실 생성
+	self:releaseTutorialStencil()
 
     -- tutorial node 생성
-	local visible_size = cc.Director:getInstance():getVisibleSize()
 	local tutorial_node = cc.Menu:create()
 	tutorial_node:setNormalSize(visible_size['width'], visible_size['height'])
-	tutorial_node:addChild(block_layer, -1)
-	tutorial_node:addChild(color_layer, -1)
+    tutorial_node:addChild(block_layer, -1)
+	tutorial_node:addChild(clipping_node, -1)
 
 	self.m_uiLayer:addChild(tutorial_node, 128)
 
@@ -267,7 +280,31 @@ function UIManager:tutorial()
 end
 
 -------------------------------------
--- function 가제
+-- function setTutorialStencil
+-- @brief 튜토리얼 스텐실 설정
+-------------------------------------
+function UIManager:setTutorialStencil(node)
+	local stencil = cc.DrawNode:create()
+    stencil:clear()
+    local rectangle = TutorialHelper:getStencilRectangle(node)
+    local white = cc.c4b(1,1,1,1) 
+    stencil:drawPolygon(rectangle, 4, white, 1, white)
+    self.m_tutorialClippingNode:setStencil(stencil)
+end
+
+-------------------------------------
+-- function setTutorialStencil
+-- @brief 튜토리얼 스텐실 해제
+-------------------------------------
+function UIManager:releaseTutorialStencil()
+    local node = cc.Node:create()
+    node:retain()
+    self.m_tutorialClippingNode:setStencil(node)
+end
+
+-------------------------------------
+-- function releaseTutorial
+-- @brief 튜토리얼 해제
 -------------------------------------
 function UIManager:releaseTutorial()
 	if (self.m_tutorialNode) then 
@@ -277,14 +314,8 @@ function UIManager:releaseTutorial()
 end
 
 -------------------------------------
--- function 가제
--------------------------------------
-function UIManager:getTutorialNode()
-	return self.m_tutorialNode
-end
-
--------------------------------------
--- function 가제
+-- function attachToTutorialNode
+-- @brief m_tutorialNode에 받아온 uic_node를 붙인다.
 -------------------------------------
 function UIManager:attachToTutorialNode(uic_node)
 	local node = uic_node.m_node

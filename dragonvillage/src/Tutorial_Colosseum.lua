@@ -1,27 +1,24 @@
-local PARENT = UI_DragonManagementEvolution
+local PARENT = UI_Colosseum
 
 -------------------------------------
--- class Tutorial_DragonEvolution
+-- class Tutorial_Colosseum
 -------------------------------------
-Tutorial_DragonEvolution = class(PARENT,{
+Tutorial_Colosseum = class(PARENT,{
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function Tutorial_DragonEvolution:init()
+function Tutorial_Colosseum:init()
     local vars = self.vars
 
     UIManager:doTutorial()
-	UIManager:attachToTutorialNode(vars['moveBtn1'])
-    UIManager:attachToTutorialNode(vars['moveBtn2'])
-    UIManager:attachToTutorialNode(vars['moveBtn3'])
 end
 
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function Tutorial_DragonEvolution:click_exitBtn()
+function Tutorial_Colosseum:click_exitBtn()
     UIManager:releaseTutorial()
     PARENT.click_exitBtn(self)
 end

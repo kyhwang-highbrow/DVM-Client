@@ -12,9 +12,11 @@ Tutorial_DragonManageInfo = class(PARENT,{
 function Tutorial_DragonManageInfo:init()
     local vars = self.vars
 
-    UIManager:tutorial()
+    UIManager:doTutorial()
 	UIManager:attachToTutorialNode(vars['collectionBtn'])
     UIManager:attachToTutorialNode(vars['evolutionBtn'])
+
+    UIManager:setTutorialStencil(vars['infoNode'])
 end
 
 -------------------------------------

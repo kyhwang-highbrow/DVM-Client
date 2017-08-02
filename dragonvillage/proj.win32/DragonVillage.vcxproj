@@ -787,6 +787,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TriggerHpPercent.lua" />
     <None Include="..\src\TriggerTime.lua" />
     <None Include="..\src\TutorialHelper.lua" />
+    <None Include="..\src\Tutorial_AncientTower.lua" />
+    <None Include="..\src\Tutorial_Colosseum.lua" />
     <None Include="..\src\Tutorial_DragonEvolution.lua" />
     <None Include="..\src\Tutorial_DragonManageInfo.lua" />
     <None Include="..\src\Tutorial_Lobby.lua" />

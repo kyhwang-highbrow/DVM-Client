@@ -1,5 +1,5 @@
 -------------------------------------
--- table Tutorial_Lobby
+-- table TutorialHelper
 -------------------------------------
 TutorialHelper = {}
 
@@ -29,4 +29,30 @@ function TutorialHelper:convertToWorldSpace(new_parent, node)
     world_y = world_y - (dock_point['y'] * content_size['height']) + (anchor_point['y'] * node_size['height'])
 
     return {x = world_x, y = world_y}
+end
+
+-------------------------------------
+-- function getStencilRectangle
+-- @brief 받아온 node를 0,0 을 기준으로 스텐실을 생성할 좌표를 계산한다
+-------------------------------------
+function TutorialHelper:getStencilRectangle(node)
+    -- 화면상에서 보이는 0,0 기준 좌표
+	local transform = node:getNodeToWorldTransform() 
+	local world_x = transform[12 + 1]
+	local world_y = transform[13 + 1]
+
+    -- node의 크기 계산
+    local node_size = node:getContentSize()
+    local width = node_size['width']
+    local height = node_size['height']
+   
+    -- 사각형 좌표
+    local retangle = {
+        cc.p(world_x, world_y),
+        cc.p(world_x + width, world_y),
+        cc.p(world_x + width, world_y + height),
+        cc.p(world_x, world_y + height),
+    }
+
+    return retangle
 end

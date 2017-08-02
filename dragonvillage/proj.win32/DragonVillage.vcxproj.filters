@@ -2559,6 +2559,12 @@
     <None Include="..\src\UI_LobbyOld.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\Tutorial_Colosseum.lua">
+      <Filter>lua\tutorial</Filter>
+    </None>
+    <None Include="..\src\Tutorial_AncientTower.lua">
+      <Filter>lua\tutorial</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
