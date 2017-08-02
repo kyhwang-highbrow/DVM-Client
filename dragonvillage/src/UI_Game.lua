@@ -55,7 +55,7 @@ end
 function UI_Game:initUI()
 	local vars = self.vars
     
-    vars['goldLabel']:setString('0')
+    --vars['goldLabel']:setString('0')
     
     -- 스테이지명 지정
     local stage_name = g_stageData:getStageName(self.m_gameScene.m_stageID)
@@ -388,6 +388,8 @@ end
 function UI_Game:init_goldUI()
     local vars = self.vars
 
+    -- UI파일에서 금화노드 정리됨(17/08/02)
+    --[[
     vars['goldNode']:setVisible(true)
 
     -- 금화 갯수 이미지 폰트 생성
@@ -397,6 +399,7 @@ function UI_Game:init_goldUI()
     vars['goldLabel']:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
     vars['goldLabel']:setAdditionalKerning(0)
     vars['goldNode']:addChild(vars['goldLabel'])
+    ]]--
 end
 
 -------------------------------------
@@ -426,8 +429,8 @@ function UI_Game:setGold(gold, prev_gold)
     end
     local tween_action = cc.ActionTweenForLua:create(1, prev_gold, gold, func)
 
-    vars['goldLabel']:stopAllActions()
-    vars['goldLabel']:runAction(tween_action)
+    --vars['goldLabel']:stopAllActions()
+    --vars['goldLabel']:runAction(tween_action)
 end
 
 -------------------------------------
