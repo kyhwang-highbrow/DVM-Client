@@ -135,7 +135,8 @@ end
 -- function click_copyBtn
 -------------------------------------
 function UI_ErrorPopup:click_copyBtn()
-	UIManager:toastNotificationGreen('클립보드 복사 기능 준비중')
+    PerpSocial:SDKEvent('clipboard_setText', self.m_errorStr, '')
+	UIManager:toastNotificationGreen('클립보드 복사 완료!')
 end
 
 -------------------------------------
