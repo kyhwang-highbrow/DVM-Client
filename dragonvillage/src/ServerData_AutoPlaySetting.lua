@@ -26,8 +26,6 @@ function ServerData_AutoPlaySetting:init(server_data)
         t_auto_play_setting['stop_condition_dragon_inventory_max'] = true
         -- 룬 가방이 가득차면 연속 모험 종료
         t_auto_play_setting['stop_condition_rune_inventory_max'] = true
-        -- 레이드 보스 등장시 연속 모험 종료
-        t_auto_play_setting['stop_condition_raid_appeared'] = true
 
         do 
             -- 드래곤 공격 스킬 사용

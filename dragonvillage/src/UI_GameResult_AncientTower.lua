@@ -263,6 +263,7 @@ end
 -- function direction_showScore_click
 -------------------------------------
 function UI_GameResult_AncientTower:direction_showScore_click()
+    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------

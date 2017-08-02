@@ -240,6 +240,7 @@ end
 -- function direction_showTamer_click
 -------------------------------------
 function UI_GameResultNew:direction_showTamer_click()
+    if (self:checkAutoPlayRelease()) then return end
     self:doNextWork()
 end
 
@@ -262,6 +263,7 @@ end
 -- function direction_hideTamer_click
 -------------------------------------
 function UI_GameResultNew:direction_hideTamer_click()
+    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -326,6 +328,7 @@ end
 -- function direction_start_click
 -------------------------------------
 function UI_GameResultNew:direction_start_click()
+    if (self:checkAutoPlayRelease()) then return end
     self:doNextWork()
 end
 
@@ -377,6 +380,8 @@ end
 -- function direction_end_click
 -------------------------------------
 function UI_GameResultNew:direction_end_click()
+    if (self:checkAutoPlayRelease()) then return end
+
     -- @개발 스테이지
     if (self.m_stageID == DEV_STAGE_ID) then
         return
@@ -419,6 +424,7 @@ end
 -- @brief 상자 연출 시작
 -------------------------------------
 function UI_GameResultNew:direction_showBox_click()
+    if (self:checkAutoPlayRelease()) then return end
     self:doNextWork()
 end
 
@@ -449,6 +455,7 @@ end
 -- @brief
 -------------------------------------
 function UI_GameResultNew:direction_openBox_click()
+    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -514,6 +521,7 @@ end
 -- @brief
 -------------------------------------
 function UI_GameResultNew:direction_dropItem_click()
+    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -542,7 +550,6 @@ function UI_GameResultNew:direction_showButton()
     vars['quickBtn']:setVisible(true)
 
     self:set_modeButton()
-    self:checkAutoPlay()
     self:doNextWork()
 end
 
@@ -605,6 +612,7 @@ end
 -- function direction_showButton_click
 -------------------------------------
 function UI_GameResultNew:direction_showButton_click()
+    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -614,7 +622,7 @@ function UI_GameResultNew:direction_moveMenu()
     local vars = self.vars
     local switch_btn = vars['switchBtn']
     self:action_switchBtn(function() 
-        switch_btn:setVisible(true) 
+        switch_btn:setVisible(true)
         self:doNextWork()
     end)
     self:show_staminaInfo()
@@ -624,6 +632,7 @@ end
 -- function direction_moveMenu_click
 -------------------------------------
 function UI_GameResultNew:direction_moveMenu_click()
+    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -644,6 +653,9 @@ function UI_GameResultNew:direction_masterRoad()
 
     -- @ GOOGLE ACHIEVEMENT
     GoogleHelper.updateAchievement(t_data)
+
+    -- 마스터 로드 기록 후 연속 전투 체크
+    self:checkAutoPlay()
 end
 
 -------------------------------------
@@ -993,7 +1005,8 @@ function UI_GameResultNew:checkAutoPlay()
 
     local msg = nil
 
-    -- 연속 전투 20회 제한
+    -- 연속 전투 20회 제한 -> 무제한으로 변경
+    --[[
     local max_cnt = 20
     if (g_autoPlaySetting.m_autoPlayCnt >= max_cnt) then
         auto_play_stop = true
@@ -1001,6 +1014,7 @@ function UI_GameResultNew:checkAutoPlay()
             msg = Str('연속 전투 {1}회가 종료되었습니다.', max_cnt)
         end
     end
+    ]]--
 
     -- 패배 시 연속 전투 종료
     if g_autoPlaySetting:get(stop_condition_lose) then
@@ -1023,13 +1037,46 @@ function UI_GameResultNew:checkAutoPlay()
         end
     end
 
+    -- 인연 던전 발견 시 연속 전투 종료 (발견 팝업이 뜸. 종료 팝업 띄울 필요없음)
+    if (self.m_secretDungeon) then
+        auto_play_stop = true
+    end
+
     if (auto_play_stop == true) then
-        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        -- 메세지 있는 경우에만 팝업 출력
+        if (msg) then MakeSimplePopup(POPUP_TYPE.OK, msg) end
         return
     end
 
     -- 빠른 재시작
     self:click_quickBtn()
+end
+
+-------------------------------------
+-- function checkAutoPlayRelease
+-- @brief 연속 전투일 경우 스크린 터치시 연속 전투 해제 팝업 출력
+-------------------------------------
+function UI_GameResultNew:checkAutoPlayRelease()
+    if (not g_autoPlaySetting:isAutoPlay()) then return false end
+
+    local function f_pause(node) node:pause() end
+    local function f_resume(node) node:resume() end
+    doAllChildren(self.root, f_pause)
+
+    local function ok_cb()
+        -- 자동 전투 off
+        g_autoPlaySetting:setAutoPlay(false)
+        doAllChildren(self.root, f_resume)
+    end
+
+    local function cancel_cb()
+        doAllChildren(self.root, f_resume)
+    end
+
+    local msg = Str('연속 전투 진행 중입니다. \n연속 전투를 종료하시겠습니까?')
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb, cancel_cb)
+    
+    return true
 end
 
 -------------------------------------

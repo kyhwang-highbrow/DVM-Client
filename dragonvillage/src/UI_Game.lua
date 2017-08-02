@@ -502,7 +502,7 @@ function UI_Game:setAutoPlayUI()
     local vars = self.vars
 
     vars['autoStartNode']:setVisible(g_autoPlaySetting:isAutoPlay())
-    vars['autoStartNumberLabel']:setString(Str('{1}/20', g_autoPlaySetting:getAutoPlayCnt()))
+    vars['autoStartNumberLabel']:setString(Str('{1}회 반복중', g_autoPlaySetting:getAutoPlayCnt()))
     vars['autoStartVisual']:setVisible(g_autoPlaySetting:isAutoPlay())
 end
 

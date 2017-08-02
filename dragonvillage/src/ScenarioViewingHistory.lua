@@ -142,7 +142,9 @@ function ScenarioViewingHistory:checkIntroScenario(finish_cb)
 
     -- 같은 계정으로 다른 기기에 접속한 경우 서버에서 준 튜토리얼 정보로 검사
     check_tutorial = function(ret)
-        if (ret['tutorial'] == false) then
+        local is_viewd = ret['tutorial']
+
+        if (not is_viewd) then
             play_intro_start()
         else
             self:addViewed(intro_start_name)
@@ -150,7 +152,7 @@ function ScenarioViewingHistory:checkIntroScenario(finish_cb)
         end
     end
 
-    g_tutorialData:request_tutorialInfo(TUTORIAL_INTRO_FIGHT, check_tutorial)
+    g_tutorialData:request_tutorialInfo(TUTORIAL_INTRO_FIGHT, check_tutorial, finish_cb)
 end
 
 -------------------------------------
