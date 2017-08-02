@@ -56,6 +56,11 @@ function UI_Lobby:initUI()
 
     -- 테이머 아이콘 갱신
     self:refresh_userTamer()
+
+    -- 임시 처리
+    local vars = self.vars
+    vars['hotTimeMarbleBtn']:setVisible(false)
+    vars['subscriptionLabel']:setVisible(false)
 end
 
 -------------------------------------
@@ -213,6 +218,8 @@ function UI_Lobby:initButton()
     vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
     vars['etcBtn']:registerScriptTapHandler(function() self:click_etcBtn() end)
 
+    vars['subscriptionBtn']:registerScriptTapHandler(function() self:click_subscriptionBtn() end) -- 월정액
+
     if true then
         return
     end
@@ -260,6 +267,42 @@ end
 -------------------------------------
 function UI_Lobby:refresh_highlight()
     local vars = self.vars
+
+    local function highlight_func()
+        -- 탐험
+        --vars['explorationNotiSprite']:setVisible(g_highlightData:isHighlightExploration())
+
+        -- 퀘스트
+        vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
+
+        -- 우편함
+        --vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
+
+        -- 드래곤
+        vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
+
+        -- 친구 
+        --vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
+    end
+
+    g_highlightData:request_highlightInfo(highlight_func)
+
+    do -- 드래곤 소환
+        local highlight, t_highlight = g_hatcheryData:checkHighlight()
+        vars['drawNotiSprite']:setVisible(highlight)
+    end
+
+    -- 테이머
+    vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
+
+	-- 도감
+	--vars['collectionNotiSprite']:setVisible(g_bookData:isHighlightBook())
+
+    -- 모험 핫타임 
+    --vars['adventureHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
+
+    -- 이벤트
+    --vars['eventNotiSprite']:setVisible(g_eventData:isHighlightEvent())
 
     -- 마스터의 길
     local has_reward, _ = g_masterRoadData:hasRewardRoad()
