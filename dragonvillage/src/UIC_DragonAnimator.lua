@@ -68,6 +68,11 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
     vars['dragonNode']:removeAllChildren()
     self.m_animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
     vars['dragonNode']:addChild(self.m_animator.m_node)
+    
+    -- 자코 몹들은 1.5배로 키워서 출력!
+    if (t_dragon['birthgrade'] == 1) then
+        self.m_animator:setScale(1.5)
+    end
 
     -- 랜덤 에니메이션 리스트 생성
     self.m_randomAnimationList = {}
