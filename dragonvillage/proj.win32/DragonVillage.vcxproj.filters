@@ -939,9 +939,6 @@
     <None Include="..\src\CharacterStateDelegate.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ChargeSystem_Touch.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ChatManager.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2548,6 +2545,9 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_AncientTower.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameDebug_InfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\SkillIndicator_Cross.lua">

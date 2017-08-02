@@ -1,6 +1,18 @@
 -- 전역 함수들을 모아놓는 위치
 
 -------------------------------------
+-- function IS_TEST_MODE
+-- @brief 테스트 모드 여부를 리턴
+-------------------------------------
+function IS_TEST_MODE()
+    if (TEST_MODE_VER == nil) then
+        TEST_MODE_VER = true
+    end
+
+    return (TEST_MODE_VER)
+end
+
+-------------------------------------
 -- function PrintClassName
 -- @brief instance의 클래스명을 리턴
 --        클래스명을 찍기 위해 instance는 m_className 변수를 가지고 있어야 한다.

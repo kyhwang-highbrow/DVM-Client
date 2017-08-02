@@ -529,7 +529,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\CharacterSkill.lua" />
     <None Include="..\src\CharacterState.lua" />
     <None Include="..\src\CharacterStateDelegate.lua" />
-    <None Include="..\src\ChargeSystem_Touch.lua" />
     <None Include="..\src\CommonMissile.lua" />
     <None Include="..\src\CommonMissile_Bounce.lua" />
     <None Include="..\src\CommonMissile_Cruise.lua" />
@@ -848,6 +847,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Book.lua" />
     <None Include="..\src\UI_BookDetailPopup.lua" />
     <None Include="..\src\UI_Card.lua" />
+    <None Include="..\src\UI_GameDebug_InfoPopup.lua" />
     <None Include="..\src\UI_DragonGoodbyeResult.lua" />
     <None Include="..\src\UI_Help.lua" />
     <None Include="..\src\UI_LobbyOld.lua" />

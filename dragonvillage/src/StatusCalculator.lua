@@ -312,12 +312,29 @@ end
 -- @DEBUG
 -------------------------------------
 function StatusCalculator:printAllStat()
+    local str = self:getAllStatString()
+    cclog(str)
+end
+
+-------------------------------------
+-- function getAllStatString
+-- @DEBUG
+-------------------------------------
+function StatusCalculator:getAllStatString()
+    local str = ''
+
+    local printLine = function(_str)
+        str = str .. _str .. '\n'
+    end
+
 	for stat_type, indivisual_status in pairs(self.m_lStatusList) do
         local buff_multi = indivisual_status.m_buffMulti
         local buff_add = indivisual_status.m_buffAdd
 
-		cclog('- ' .. stat_type .. ' : ' .. indivisual_status:getFinalStat() .. ' (' .. buff_multi .. '%, ' .. buff_add .. ')')
+		printLine('- ' .. stat_type .. ' : ' .. indivisual_status:getFinalStat() .. ' (' .. buff_multi .. '%, ' .. buff_add .. ')')
 	end
+
+    return str
 end
 
 -------------------------------------

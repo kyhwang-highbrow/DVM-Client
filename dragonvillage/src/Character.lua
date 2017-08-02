@@ -2485,21 +2485,38 @@ end
 -- @DEBUG
 -------------------------------------
 function Character:printAllInfomation()
-	cclog('-------------------------------------------------------')
-	cclog('NAME : ' .. self.m_charTable['t_name'])
-    cclog('CURR_STATE = ' .. self.m_state)
-    cclog('## STATUS EFFECT LIST ##')
-    for type, se in pairs(self:getStatusEffectList()) do
-		cclog('- ' .. type, se.m_overlabCnt, se.m_state, luadump(se.m_bApply))
-	end
-    cclog('## HIDDEN STATUS EFFECT LIST ##')
-    for type, se in pairs(self:getHiddenStatusEffectList()) do
-		cclog('- ' .. type, se.m_overlabCnt, se.m_state, luadump(se.m_bApply))
-	end
-	cclog('## STAT LIST ##')
-	self.m_statusCalc:printAllStat()
+    local str = self:getAllInfomationString()
+    cclog(str)
+end
 
-	cclog('=======================================================')
+-------------------------------------
+-- function getAllInfomationString
+-- @DEBUG
+-------------------------------------
+function Character:getAllInfomationString()
+    local str = '\n'
+
+    local printLine = function(_str)
+        str = str .. _str .. '\n'
+    end
+
+    printLine('-------------------------------------------------------')
+	printLine('NAME : ' .. self.m_charTable['t_name'])
+    printLine('CURR_STATE = ' .. self.m_state)
+    printLine('## STATUS EFFECT LIST ##')
+    for type, se in pairs(self:getStatusEffectList()) do
+		printLine(string.format('- %s : overlap:%d time:%d', type, se.m_overlabCnt, se:getLatestTimer()))
+	end
+    printLine('## HIDDEN STATUS EFFECT LIST ##')
+    for type, se in pairs(self:getHiddenStatusEffectList()) do
+		printLine(string.format('- %s : overlap:%d time:%d', type, se.m_overlabCnt, se:getLatestTimer()))
+	end
+	printLine('## STAT LIST ##')
+	printLine(self.m_statusCalc:getAllStatString())
+
+	printLine('=======================================================')
+
+    return str
 end
 
 -------------------------------------

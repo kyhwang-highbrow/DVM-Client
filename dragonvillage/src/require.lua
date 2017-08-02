@@ -716,6 +716,7 @@ local t_module = {
 	'UI_GameDPSPopup',
 	'UI_GameDPSListItem',
     'UI_GameDebug',
+    'UI_GameDebug_InfoPopup',
 	'UI_GameDebug_RealTime',
     'UI_IngameDragonPanel',
     'UI_IngameDragonPanelItem',
