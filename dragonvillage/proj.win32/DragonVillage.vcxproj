@@ -471,6 +471,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillCharge.lua" />
     <None Include="..\src\SkillConditionalAddEffect.lua" />
+    <None Include="..\src\SkillCross.lua" />
     <None Include="..\src\SkillEnumrate.lua" />
     <None Include="..\src\SkillEnumrate_Curve.lua" />
     <None Include="..\src\SkillEnumrate_Normal.lua" />
@@ -489,6 +490,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_AoESquare_Width.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Width_Right.lua" />
     <None Include="..\src\SkillIndicator_AoEWedge.lua" />
+    <None Include="..\src\SkillIndicator_Cross.lua" />
     <None Include="..\src\SkillIndicator_Penetration.lua" />
     <None Include="..\src\SkillIndicator_X.lua" />
     <None Include="..\src\SkillLaser_Darknix.lua" />

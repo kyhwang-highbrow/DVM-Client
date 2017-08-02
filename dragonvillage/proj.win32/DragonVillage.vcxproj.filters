@@ -2553,6 +2553,12 @@
     <None Include="..\src\UI_AncientTower.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillIndicator_Cross.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SkillCross.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

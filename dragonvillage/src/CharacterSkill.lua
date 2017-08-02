@@ -250,6 +250,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillVoltesX:makeSkillInstance(self, t_skill, t_data)
 				return true
 
+            elseif (skill_type == 'skill_cross') then
+                SkillCross:makeSkillInstance(self, t_skill, t_data)
+                return true
+
 			elseif (skill_type == 'skill_enumrate_normal') then
 				SkillEnumrate_Normal:makeSkillInstance(self, t_skill, t_data)
 				return true

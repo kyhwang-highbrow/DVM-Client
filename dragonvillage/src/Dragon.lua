@@ -401,6 +401,8 @@ function Dragon:initSkillIndicator()
     elseif (indicator_type == 'square_multi') then
 		self.m_skillIndicator = SkillIndicator_AoESquare_Multi(self, t_skill)
 
+    elseif (indicator_type == 'cross') then
+        self.m_skillIndicator = SkillIndicator_Cross(self, t_skill)
 	-- 미정의 인디케이터
 	else
 		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, false)

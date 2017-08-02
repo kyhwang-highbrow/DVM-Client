@@ -446,6 +446,7 @@ local t_module = {
     'SkillSummon',
     'SkillTransform',
     'SkillSpatter',
+    'SkillCross',
 	'SkillLeap',
 	'SkillExplosion',
     'SkillSuicideExplosion',
@@ -490,6 +491,7 @@ local t_module = {
 	'SkillIndicator_AoEWedge',
 	'SkillIndicator_X',
 	'SkillIndicator_Penetration',
+    'SkillIndicator_Cross',
 
 	'WaveMgr',
     'WaveMgr_AncientTower',

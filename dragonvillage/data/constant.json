@@ -408,7 +408,8 @@
             "target_cone" : [30, 45, 60],
             "wedge" : [15, 20, 25],
             "leaf" : [],
-            "voltes_x" : []
+            "voltes_x" : [],
+            "cross" : [100, 150, 200]
         },
         // 인디케이터 리소스 사이즈
         "INDICATOR_RES_SIZE" : {
@@ -449,7 +450,8 @@
             "wedge30" : "res/indicator/wedge_30/wedge_30.vrp",
             "wedge40" : "res/indicator/wedge_40/wedge_40.vrp",
             "leaf" : "res/indicator/leaf/leaf.vrp",
-            "voltes_x" : "res/indicator/voltes_x/voltes_x.vrp"
+            "voltes_x" : "res/indicator/voltes_x/voltes_x.vrp",
+            "cross" : "res/indicator/cross/cross.vrp"
         }
     },
     
