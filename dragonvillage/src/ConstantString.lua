@@ -212,10 +212,16 @@ function getSkillTypeStr(skill_type, is_use_brakets)
         skill_type_str = Str('패시브 스킬')
 
     elseif (skill_type == 'active') then
-        skill_type_str = Str('액티브 스킬')
+        skill_type_str = Str('드래그 스킬')
 
 	elseif (skill_type == 'leader') then
         skill_type_str = Str('리더 스킬')
+
+    elseif (skill_type == 'colosseum') then
+        skill_type_str = Str('콜로세움 스킬')
+
+    elseif (skill_type == 'normal') then
+        skill_type_str = Str('일반 스킬')
 
     else
         skill_type_str = Str('패시브 스킬')
@@ -234,21 +240,21 @@ end
 -- @brief 진화 단계에 따른 스킬 타입명
 -------------------------------------
 function getSkillType_byEvolution(evolution)
-    local str = ''
+    local skill_type = ''
 
 	if (evolution == 0) then
-        str = Str('일반 스킬')
+        skill_type = 'normal'
     elseif (evolution == 1) then
-        str = Str('패시브 스킬')
+        skill_type = 'passive'
     elseif (evolution == 2) then
-        str = Str('패시브 스킬')
+        skill_type = 'passive'
     elseif (evolution == 3) then
-        str = Str('액티브 스킬')
+        skill_type = 'active'
     else
         error('evolution : ' .. evolution)
     end
 
-	return str
+	return getSkillTypeStr(skill_type, false)
 end
 
 -------------------------------------
@@ -256,21 +262,21 @@ end
 -- @brief 테이머 스킬 이름
 -------------------------------------
 function getSkillType_Tamer(skill_idx)
-    local str = ''
+    local skill_type = ''
 
 	if (skill_idx == 1) then
-        str = Str('액티브 스킬')
+        skill_type = 'active'
     elseif (skill_idx == 2) then
-        str = Str('패시브 스킬')
+        skill_type = 'passive'
     elseif (skill_idx == 3) then
-        str = Str('패시브 스킬')
+        skill_type = 'passive'
     elseif (skill_idx == 4) then
-        str = Str('콜로세움 스킬')
+        skill_type = 'colosseum'
     else
         error('skill_idx : ' .. skill_idx)
     end
 
-	return str
+	return getSkillTypeStr(skill_type, false)
 end
 
 -------------------------------------

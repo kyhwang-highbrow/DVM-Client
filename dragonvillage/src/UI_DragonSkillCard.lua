@@ -156,7 +156,7 @@ function UI_DragonSkillCard:setTypeText(skill_type)
         vars['typeLabel']:setString('리더')
 
     elseif (skill_type == 'active') then
-        vars['typeLabel']:setString('액티브')
+        vars['typeLabel']:setString('드래그')
 
     elseif (skill_type == 'passive') then
         vars['typeLabel']:setString('패시브')
