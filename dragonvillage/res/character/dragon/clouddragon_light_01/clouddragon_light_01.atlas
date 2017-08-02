@@ -1,194 +1,194 @@
 
 clouddragon_light_01.png
-size: 512,512
+size: 1024,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 clouddragon_light_01_arm_01
-  rotate: true
-  xy: 466, 404
+  rotate: false
+  xy: 921, 126
   size: 49, 45
   orig: 49, 45
   offset: 0, 0
   index: -1
 clouddragon_light_01_arm_02
-  rotate: false
-  xy: 469, 455
+  rotate: true
+  xy: 295, 19
   size: 42, 56
   orig: 42, 56
   offset: 0, 0
   index: -1
 clouddragon_light_01_body_01
-  rotate: true
-  xy: 88, 181
+  rotate: false
+  xy: 599, 156
   size: 130, 91
   orig: 130, 91
   offset: 0, 0
   index: -1
 clouddragon_light_01_effect_01 copy
   rotate: false
-  xy: 152, 373
+  xy: 153, 68
   size: 141, 92
   orig: 141, 92
   offset: 0, 0
   index: -1
 clouddragon_light_01_effect_02
-  rotate: true
-  xy: 181, 188
+  rotate: false
+  xy: 847, 173
   size: 123, 74
   orig: 123, 74
   offset: 0, 0
   index: -1
 clouddragon_light_01_effect_03
   rotate: false
-  xy: 204, 70
+  xy: 76, 3
   size: 71, 44
   orig: 71, 44
   offset: 0, 0
   index: -1
 clouddragon_light_01_effect_05
   rotate: false
-  xy: 295, 368
+  xy: 296, 63
   size: 55, 97
   orig: 55, 97
   offset: 0, 0
   index: -1
 clouddragon_light_01_effect_06
-  rotate: false
-  xy: 79, 12
+  rotate: true
+  xy: 539, 136
   size: 65, 56
   orig: 65, 56
   offset: 0, 0
   index: -1
 clouddragon_light_01_eye_01
   rotate: false
-  xy: 466, 370
+  xy: 597, 122
   size: 45, 32
   orig: 45, 32
   offset: 0, 0
   index: -1
 clouddragon_light_01_eye_02
-  rotate: true
-  xy: 285, 316
+  rotate: false
+  xy: 675, 134
   size: 16, 20
   orig: 16, 20
   offset: 0, 0
   index: -1
 clouddragon_light_01_foot_01
-  rotate: false
-  xy: 257, 242
+  rotate: true
+  xy: 847, 134
   size: 37, 72
   orig: 37, 72
   offset: 0, 0
   index: -1
 clouddragon_light_01_foot_02
-  rotate: true
-  xy: 285, 334
+  rotate: false
+  xy: 423, 75
   size: 32, 66
   orig: 32, 66
   offset: 0, 0
   index: -1
 clouddragon_light_01_hand_01
-  rotate: true
-  xy: 419, 387
+  rotate: false
+  xy: 2, 2
   size: 72, 45
   orig: 72, 45
   offset: 0, 0
   index: -1
 clouddragon_light_01_hand_02
   rotate: true
-  xy: 214, 29
+  xy: 153, 27
   size: 39, 72
   orig: 39, 72
   offset: 0, 0
   index: -1
 clouddragon_light_01_head_01
   rotate: false
-  xy: 1, 20
+  xy: 461, 131
   size: 76, 70
   orig: 76, 70
   offset: 0, 0
   index: -1
 clouddragon_light_01_head_02
   rotate: false
-  xy: 152, 313
+  xy: 374, 143
   size: 85, 58
   orig: 85, 58
   offset: 0, 0
   index: -1
 clouddragon_light_01_head_03
-  rotate: true
-  xy: 257, 194
+  rotate: false
+  xy: 972, 116
   size: 46, 39
   orig: 46, 39
   offset: 0, 0
   index: -1
 clouddragon_light_01_head_04
-  rotate: false
-  xy: 352, 390
+  rotate: true
+  xy: 457, 64
   size: 65, 69
   orig: 65, 69
   offset: 0, 0
   index: -1
 clouddragon_light_01_leg_01
-  rotate: true
-  xy: 377, 461
+  rotate: false
+  xy: 972, 157
   size: 50, 90
   orig: 50, 90
   offset: 0, 0
   index: -1
 clouddragon_light_01_leg_02
   rotate: true
-  xy: 146, 22
+  xy: 227, 20
   size: 46, 66
   orig: 46, 66
   offset: 0, 0
   index: -1
 clouddragon_light_01_mouth_01
-  rotate: true
-  xy: 274, 163
+  rotate: false
+  xy: 644, 132
   size: 29, 22
   orig: 29, 22
   offset: 0, 0
   index: -1
 clouddragon_light_01_tail_01
   rotate: false
-  xy: 152, 467
+  xy: 374, 203
   size: 223, 44
   orig: 223, 44
   offset: 0, 0
   index: -1
 clouddragon_light_01_tail_02
   rotate: false
-  xy: 204, 116
+  xy: 353, 71
   size: 68, 70
   orig: 68, 70
   offset: 0, 0
   index: -1
 clouddragon_light_01_wing_01
   rotate: false
-  xy: 1, 313
+  xy: 2, 49
   size: 149, 198
   orig: 149, 198
   offset: 0, 0
   index: -1
 clouddragon_light_01_wing_02
-  rotate: false
-  xy: 1, 92
+  rotate: true
+  xy: 153, 162
   size: 85, 219
   orig: 85, 219
   offset: 0, 0
   index: -1
 clouddragon_light_01_wool_01
-  rotate: true
-  xy: 239, 316
+  rotate: false
+  xy: 353, 25
   size: 55, 44
   orig: 55, 44
   offset: 0, 0
   index: -1
 clouddragon_light_01_wool_02
   rotate: false
-  xy: 88, 70
+  xy: 731, 138
   size: 114, 109
   orig: 114, 109
   offset: 0, 0
