@@ -542,17 +542,19 @@ end
 -- function onKeyReleased
 -------------------------------------
 function UIManager:onKeyReleased(keyCode, event)
-	-- UI 클래스 이름 출력
+	-- UI 클래스 이름 출력 및 클립보드 복사
 	if (keyCode == KEY_U) then
 		local last_ui = table.getLast(self.m_uiList)
 		local class_name = last_ui.m_uiName or 'Class 이름이 정의되지 않았습니다.'
 		self:toastNotificationGreen('## UI CLASS NAME : ' .. class_name)
+        PerpSocial:SDKEvent('clipboard_setText',class_name, '')
 
-	-- ui 파일 이름 출력
+	-- ui 파일 이름 출력 및 클립보드 복사
 	elseif (keyCode == KEY_I) then
 		local last_ui = table.getLast(self.m_uiList)
 		local ui_name = last_ui.m_resName or 'ui 파일이 없습니다'
 		self:toastNotificationGreen('## UI FILE : ' .. ui_name)
+        PerpSocial:SDKEvent('clipboard_setText', ui_name, '')
 
 	-- 등록된 UI 리스트 출력
 	elseif (keyCode == KEY_A) then
