@@ -51,7 +51,8 @@ public class Cocos2dxWebView extends WebView {
 
         this.setFocusable(true);
         this.setFocusableInTouchMode(true);
-
+		this.setBackgroundColor(0x00000000);
+		
         this.getSettings().setSupportZoom(false);
 
         this.getSettings().setJavaScriptEnabled(true);
