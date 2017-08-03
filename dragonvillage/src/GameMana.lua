@@ -54,7 +54,7 @@ end
 
 -------------------------------------
 -- function updateGauge
--- @param updated_int : Á¤¼ö°ªÀÌ °»½ÅµÇ¾ú´ÂÁö ¿©ºÎ
+-- @param updated_int : ì •ìˆ˜ê°’ì´ ê°±ì‹ ë˜ì—ˆëŠ”ì§€ ì—¬ë¶€
 -------------------------------------
 function GameMana:updateGauge(updated_int)
     if (not self.m_inGameUI) then return end
