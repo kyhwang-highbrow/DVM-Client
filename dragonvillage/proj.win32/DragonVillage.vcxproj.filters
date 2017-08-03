@@ -2571,8 +2571,10 @@
     <None Include="..\src\UI_Game_Mana.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_BattleMenuOld.lua" />
     <None Include="..\src\UI_BattleMenuItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_BattleMenuOld.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

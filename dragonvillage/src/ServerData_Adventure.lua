@@ -45,6 +45,34 @@ function ServerData_Adventure:goToAdventureScene(stage_id, skip_request)
 end
 
 -------------------------------------
+-- function goToAdventureScene_portable
+-- @brief 모험 씬을 팝업으로 처리할 때 사용
+-------------------------------------
+function ServerData_Adventure:goToAdventureScene_portable(stage_id, skip_request)
+    local function finish_cb()
+        if stage_id then
+            UI_AdventureSceneNew(stage_id)
+            UI_ReadyScene(stage_id, true) -- stage_id, with_friend
+        else
+            UI_AdventureSceneNew()
+        end
+    end
+
+    -- 네트워크 통신으로 서버 데이터를 갱신하지 않고 즉시 실행할 경우
+    if skip_request then
+        finish_cb()
+        return
+    end
+
+    local function fail_cb()
+
+    end
+    
+    self:request_adventureInfo(finish_cb, fail_cb)
+end
+
+
+-------------------------------------
 -- function request_adventureInfo
 -------------------------------------
 function ServerData_Adventure:request_adventureInfo(finish_cb, fail_cb)

@@ -79,6 +79,8 @@ end
 -------------------------------------
 function UI_BattleMenuItem:initButton()
     local vars = self.vars
+
+    vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end)
 end
 
 -------------------------------------
@@ -113,4 +115,116 @@ function UI_BattleMenuItem:getDescStr(content_type)
     end
 
     return desc
+end
+
+-------------------------------------
+-- function click_enterBtn
+-------------------------------------
+function UI_BattleMenuItem:click_enterBtn()
+    local content_type = self.m_contentType
+
+    -- 잠금 확인
+    if (not g_contentLockData:checkContentLock(content_type)) then
+        return
+    end
+
+    -- 모험
+    if (content_type == 'adventure') then
+        self:click_adventureBtn()
+
+    -- 탐험
+    elseif (content_type == 'exploation') then
+        self:click_explorationBtn()
+
+    -- 고대의 탑
+    elseif (content_type == 'ancient') then
+        self:click_ancientBtn()
+
+    -- 콜로세움
+    elseif (content_type == 'colosseum') then
+        self:click_colosseumBtn()
+
+    -- 진화재료 던전
+    elseif (content_type == 'nest_evo_stone') then
+        self:click_evoStoneBtn()
+
+    -- 거목 던전
+    elseif (content_type == 'nest_tree') then
+        self:click_treeBtn()
+
+    -- 악몽 던전
+    elseif (content_type == 'nest_nightmare') then
+        self:click_nightmareBtn()
+
+    -- 인연 던전
+    elseif (content_type == 'secret_relation') then
+        self:click_relationBtn()
+    end
+end
+
+-------------------------------------
+-- function click_adventureBtn
+-- @brief 모험 버튼
+-------------------------------------
+function UI_BattleMenuItem:click_adventureBtn()
+    g_adventureData:goToAdventureScene_portable(nil, false) -- stage_id, skip_request
+end
+
+-------------------------------------
+-- function click_explorationBtn
+-- @brief 탐험 버튼
+-------------------------------------
+function UI_BattleMenuItem:click_explorationBtn()
+    local function finish_cb()
+        UI_Exploration()
+    end
+    g_explorationData:request_explorationInfo(finish_cb)
+end
+
+-------------------------------------
+-- function click_colosseumBtn
+-- @brief 콜로세움 진입 버튼
+-------------------------------------
+function UI_BattleMenuItem:click_colosseumBtn()
+    g_colosseumData:goToColosseum()
+end
+
+-------------------------------------
+-- function click_ancientBtn
+-- @brief 고대의 탑 진입 버튼
+-------------------------------------
+function UI_BattleMenuItem:click_ancientBtn()
+    g_ancientTowerData:goToAncientTowerScene()
+end
+
+-------------------------------------
+-- function click_evoStoneBtn
+-- @brief 진화재료 던전
+-------------------------------------
+function UI_BattleMenuItem:click_evoStoneBtn()
+    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_EVO_STONE)
+end
+
+-------------------------------------
+-- function click_treeBtn
+-- @brief 거목 던전
+-------------------------------------
+function UI_BattleMenuItem:click_treeBtn()
+    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_TREE)
+end
+
+-------------------------------------
+-- function click_nightmareBtn
+-- @brief 악몽 던전
+-------------------------------------
+function UI_BattleMenuItem:click_nightmareBtn()
+    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_NIGHTMARE)
+end
+
+-------------------------------------
+-- function click_relationBtn
+-- @brief 인연 던전
+-------------------------------------
+function UI_BattleMenuItem:click_relationBtn()
+    g_secretDungeonData:goToSecretDungeonScene()
 end

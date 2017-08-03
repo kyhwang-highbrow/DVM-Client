@@ -48,6 +48,7 @@ function UI_AdventureSceneNew:init(stage_id)
 
     local vars = self:load('adventure_scene_new.ui')
     UIManager:open(self, UIManager.NORMAL)
+    SoundMgr:playBGM('bgm_dungeon_ready')
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_AdventureSceneNew')
@@ -207,9 +208,7 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_AdventureSceneNew:click_exitBtn()
-	local is_use_loading = false
-    local scene = SceneLobby(is_use_loading)
-    scene:runScene()
+    self:close()
 end
 
 -------------------------------------
