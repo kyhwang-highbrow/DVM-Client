@@ -83,4 +83,5 @@ namespace CocosDenshion {
     void SimpleAudioEngine::unloadEffect(const char* pszFilePath) { }
 	void SimpleAudioEngine::playVibrate(long millisecond) { }
 	void SimpleAudioEngine::cancelVibrate() { }
+    void SimpleAudioEngine::setEngineMode(int mode) { }
 }

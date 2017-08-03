@@ -270,6 +270,11 @@ public:
 	*/
 	virtual void cancelVibrate();
 
+	/**
+	@brief
+	*/
+	virtual void setEngineMode(int mode);
+    
 protected:
     /**
     * Constructor of SimpleAudioEngine.

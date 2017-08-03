@@ -306,7 +306,10 @@ void SimpleAudioEngine::playVibrate(long millisecond)
 
 void SimpleAudioEngine::cancelVibrate()
 {
-    
+}
+
+void SimpleAudioEngine::setEngineMode(int mode)
+{
 }
 
 } // endof namespace CocosDenshion {

@@ -327,10 +327,24 @@ void AndroidJavaEngine::unloadEffect(const char* filePath)
     }
 }
 
-void AndroidJavaEngine::playVibrate(long millisecond) {
+void AndroidJavaEngine::playVibrate(long millisecond)
+{
     JniHelper::callStaticVoidMethod(helperClassName, "playVibrate", (long long)millisecond);
 }
 
-void AndroidJavaEngine::cancelVibrate() {
+void AndroidJavaEngine::cancelVibrate()
+{
     JniHelper::callStaticVoidMethod(helperClassName, "cancelVibrate");
+}
+
+void AudioJavaEngine::setEngineMode(int mode)
+{
+    if (mode == 1)
+    {
+        _implementBaseOnAudioEngine = true;
+    }
+    else
+    {
+        _implementBaseOnAudioEngine = false;
+    }
 }
