@@ -68,7 +68,7 @@ function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
         end
         ]]
         
-        -- ´ë»çÃ¢ À§Ä¡ Ã³¸®
+        -- ëŒ€ì‚¬ì°½ ìœ„ì¹˜ ì²˜ë¦¬
         if (text_pos == 'top') then
             vars['talkMenu']:setPositionY(450)
             vars['nameNode_left']:setPositionY(-30)

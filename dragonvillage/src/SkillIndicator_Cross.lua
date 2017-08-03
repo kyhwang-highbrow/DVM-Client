@@ -29,11 +29,11 @@ function SkillIndicator_Cross:onTouchMoved(x, y)
     self.m_targetPosX = x
     self.m_targetPosY = y
 
-    -- ÀÌÆåÆ® À§Ä¡
+    -- ì´í™íŠ¸ ìœ„ì¹˜
     self.m_indicatorEffect:setPosition(x - pos_x, y - pos_y)
 	self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
 
-	-- ÇÏÀÌ¶óÀÌÆ® °»½Å
+	-- í•˜ì´ë¼ì´íŠ¸ ê°±ì‹ 
     self:setHighlightEffect(l_collision)
 end
 
@@ -73,9 +73,9 @@ end
 -- function onChangeTargetCount
 -------------------------------------
 function SkillIndicator_Cross:onChangeTargetCount(old_target_count, cur_target_count)
-    -- È°¼ºÈ­
+    -- í™œì„±í™”
     if (cur_target_count > 0) then
-		-- Å¸°Ù¼ö¿¡ µû¸¥ º¸³Ê½º µî±Ş ÀúÀå
+		-- íƒ€ê²Ÿìˆ˜ì— ë”°ë¥¸ ë³´ë„ˆìŠ¤ ë“±ê¸‰ ì €ì¥
 		self.m_bonus = DragonSkillBonusHelper:getBonusLevel(self.m_hero, cur_target_count)
 
 		if (self.m_preBonusLevel ~= self.m_bonus) then
@@ -83,7 +83,7 @@ function SkillIndicator_Cross:onChangeTargetCount(old_target_count, cur_target_c
 			self:onChangeIndicatorEffect(self.m_indicatorAddEffect, self.m_bonus, self.m_preBonusLevel)
 		end
 
-    -- ºñÈ°¼ºÈ­
+    -- ë¹„í™œì„±í™”
     elseif (old_target_count > 0) and (cur_target_count == 0) then
 		self.m_bonus = -1
 		self:initIndicatorEffect(self.m_indicatorEffect)
@@ -107,7 +107,7 @@ function SkillIndicator_Cross:findCollision(pos_x, pos_y)
     local collisions1 = self:findCollisionEachLine(l_target, target_x, target_y, 0, std_height, 1)
     local collisions2 = self:findCollisionEachLine(l_target, target_x, target_y, std_width, 0, 2)
     
-	-- ¸ÊÇüÅÂ·Î ÀÓ½Ã ÀúÀå(Áßº¹ Á¦°Å¸¦ À§ÇÔ)
+	-- ë§µí˜•íƒœë¡œ ì„ì‹œ ì €ì¥(ì¤‘ë³µ ì œê±°ë¥¼ ìœ„í•¨)
     local m_temp = {}
     local l_temp = {
         collisions1,
@@ -127,7 +127,7 @@ function SkillIndicator_Cross:findCollision(pos_x, pos_y)
         end
     end
     
-    -- ÀÎµ¦½º Å×ÀÌºí·Î ´Ù½Ã ´ã´Â´Ù
+    -- ì¸ë±ìŠ¤ í…Œì´ë¸”ë¡œ ë‹¤ì‹œ ë‹´ëŠ”ë‹¤
     local l_ret = {}
     
     for _, map in pairs(m_temp) do
@@ -136,12 +136,12 @@ function SkillIndicator_Cross:findCollision(pos_x, pos_y)
         end
     end
 
-    -- °Å¸®¼øÀ¸·Î Á¤·Ä(ÇÊ¿äÇÒ °æ¿ì)
+    -- ê±°ë¦¬ìˆœìœ¼ë¡œ ì •ë ¬(í•„ìš”í•  ê²½ìš°)
     table.sort(l_ret, function(a, b)
         return (a:getDistance() < b:getDistance())
     end)
 
-    -- Å¸°Ù ¼ö ¸¸Å­¸¸ ¾ò¾î¿È
+    -- íƒ€ê²Ÿ ìˆ˜ ë§Œí¼ë§Œ ì–»ì–´ì˜´
     l_ret = table.getPartList(l_ret, self.m_targetLimit)
 	
 	return l_ret

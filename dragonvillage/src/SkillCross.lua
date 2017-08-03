@@ -27,13 +27,13 @@ end
 function SkillCross:init_skill(attack_count)
     PARENT.init_skill(self)
 
-	-- ¸â¹öº¯¼ö ÃÊ±âÈ­
+	-- ë©¤ë²„ë³€ìˆ˜ ì´ˆê¸°í™”
 	self.m_lineSize = g_constant:get('SKILL', 'VOLTES_LINE_SIZE')
     self.m_attackStep = CROSS_ATK_STEP_1
 
 	self.m_skillAniName = 'idle'
 
-	-- ½ºÅ³ À§Ä¡ Å¸°Ù À§Ä¡·Î 
+	-- ìŠ¤í‚¬ ìœ„ì¹˜ íƒ€ê²Ÿ ìœ„ì¹˜ë¡œ 
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
 end
 
@@ -57,7 +57,7 @@ function SkillCross.st_idle(owner, dt)
             owner.m_attackStep = CROSS_ATK_STEP_FINAL
         end
         
-		-- ÀÏ¹İ ½ºÅ³ÀÌ¶ó¸é ATK STEP FINAL ÀÏ‹š Å»Ãâ
+		-- ì¼ë°˜ ìŠ¤í‚¬ì´ë¼ë©´ ATK STEP FINAL ì¼ë–„ íƒˆì¶œ
 	    if (owner.m_attackStep == CROSS_ATK_STEP_FINAL) then 
 		    owner.m_animator:addAniHandler(function()
                     owner:changeState('dying')
@@ -68,7 +68,7 @@ end
 
 -------------------------------------
 -- function doStatusEffect
--- @brief l_start_con Á¶°Ç¿¡ ÇØ´çÇÏ´Â statusEffect¸¦ Àû¿ë
+-- @brief l_start_con ì¡°ê±´ì— í•´ë‹¹í•˜ëŠ” statusEffectë¥¼ ì ìš©
 -------------------------------------
 function SkillCross:doStatusEffect(l_start_con, t_target)
     if (not t_target) then return end
@@ -78,7 +78,7 @@ end
 
 -------------------------------------
 -- function runAttack
--- @brief findCollisionÀ¸·Î Ã£Àº bodyº°·Î °ø°İ
+-- @brief findCollisionìœ¼ë¡œ ì°¾ì€ bodyë³„ë¡œ ê³µê²©
 -------------------------------------
 function SkillCross:runAttack()
 
@@ -103,7 +103,7 @@ function SkillCross:findCollision()
 	local collisions1 = self:findCollisionEachLine(l_target, target_x, target_y, 0, std_height, 1)
     local collisions2 = self:findCollisionEachLine(l_target, target_x, target_y, std_width, 0, 2)
     
-	-- ¸ÊÇüÅÂ·Î ÀÓ½Ã ÀúÀå(Áßº¹ Á¦°Å¸¦ À§ÇÔ)
+	-- ë§µí˜•íƒœë¡œ ì„ì‹œ ì €ì¥(ì¤‘ë³µ ì œê±°ë¥¼ ìœ„í•¨)
     local m_temp = {}
     local l_temp = {
         collisions1,
@@ -123,7 +123,7 @@ function SkillCross:findCollision()
         end
     end
     
-    -- ÀÎµ¦½º Å×ÀÌºí·Î ´Ù½Ã ´ã´Â´Ù
+    -- ì¸ë±ìŠ¤ í…Œì´ë¸”ë¡œ ë‹¤ì‹œ ë‹´ëŠ”ë‹¤
     local l_ret = {}
     
     for _, map in pairs(m_temp) do
@@ -132,12 +132,12 @@ function SkillCross:findCollision()
         end
     end
 
-    -- °Å¸®¼øÀ¸·Î Á¤·Ä(ÇÊ¿äÇÒ °æ¿ì)
+    -- ê±°ë¦¬ìˆœìœ¼ë¡œ ì •ë ¬(í•„ìš”í•  ê²½ìš°)
     table.sort(l_ret, function(a, b)
         return (a:getDistance() < b:getDistance())
     end)
 
-    -- Å¸°Ù ¼ö ¸¸Å­¸¸ ¾ò¾î¿È
+    -- íƒ€ê²Ÿ ìˆ˜ ë§Œí¼ë§Œ ì–»ì–´ì˜´
     l_ret = table.getPartList(l_ret, self.m_targetLimit)
 	
 	return l_ret
@@ -158,19 +158,19 @@ end
 
 -------------------------------------
 -- function findTarget
--- @brief ¸ğµç ´ë»ó Ã£À½(Character ±âÁØ)
+-- @brief ëª¨ë“  ëŒ€ìƒ ì°¾ìŒ(Character ê¸°ì¤€)
 -------------------------------------
 function SkillCross:findTarget(idx)
     local l_collision = self:findCollision(idx)
     local m_temp = {}
 
-    -- ¸ÊÇüÅÂ·Î ÀÓ½Ã ÀúÀå(Áßº¹µÈ ´ë»ó Ã³¸®¸¦ À§ÇÔ)
+    -- ë§µí˜•íƒœë¡œ ì„ì‹œ ì €ì¥(ì¤‘ë³µëœ ëŒ€ìƒ ì²˜ë¦¬ë¥¼ ìœ„í•¨)
     for _, collision in ipairs(l_collision) do
         local target = collision:getTarget()
         m_temp[target] = collision
     end
 
-    -- ¸®½ºÆ® ÇüÅÂ·Î º¯È¯
+    -- ë¦¬ìŠ¤íŠ¸ í˜•íƒœë¡œ ë³€í™˜
     local l_target = {}
 
     for _, collision in pairs(m_temp) do
@@ -184,25 +184,25 @@ end
 -- function makeSkillInstance
 -------------------------------------
 function SkillCross:makeSkillInstance(owner, t_skill, t_data)
-	-- º¯¼ö ¼±¾ğºÎ
+	-- ë³€ìˆ˜ ì„ ì–¸ë¶€
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local attack_count = t_skill['hit']
 	
-	-- ÀÎ½ºÅÏ½º »ı¼ººÎ
+	-- ì¸ìŠ¤í„´ìŠ¤ ìƒì„±ë¶€
 	------------------------------------------------------
-	-- 1. ½ºÅ³ »ı¼º
+	-- 1. ìŠ¤í‚¬ ìƒì„±
     local skill = SkillCross(missile_res)
 
-	-- 2. ÃÊ±âÈ­ °ü·Ã ÇÔ¼ö
+	-- 2. ì´ˆê¸°í™” ê´€ë ¨ í•¨ìˆ˜
 	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(attack_count)
 	skill:initState()
 
-	-- 3. state ½ÃÀÛ 
+	-- 3. state ì‹œì‘ 
     skill:changeState('delay')
 
-    -- 4. Physics, Node, GameMgr¿¡ µî·Ï
+    -- 4. Physics, Node, GameMgrì— ë“±ë¡
     local world = skill.m_owner.m_world
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
