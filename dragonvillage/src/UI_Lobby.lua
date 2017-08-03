@@ -47,17 +47,17 @@ function UI_Lobby:init()
 
     -- @ E.T.
     g_errorTracker:cleanupIngameLog()
-
-
-    local ui = UIC_ExtendedUI:create('lobby_etc_extended.ui')
-    self.m_etcExpendedUI = ui
-    vars['extendedNode']:addChild(ui.m_node)
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_Lobby:initUI()
+    -- 기타 버튼 생성
+    local ui = UIC_ExtendedUI:create('lobby_etc_extended.ui')
+    self.m_etcExpendedUI = ui
+    self.vars['extendedNode']:addChild(ui.m_node)
+
     self:initLobbyWorldAdapter()
 
     -- 테이머 아이콘 갱신
@@ -210,6 +210,7 @@ end
 function UI_Lobby:initButton()
     local vars = self.vars
 
+    -- 하단
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) -- 드래곤
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
     vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
@@ -218,13 +219,25 @@ function UI_Lobby:initButton()
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
 
+    -- 상단
     vars['tamerBtn2']:registerScriptTapHandler(function() self:click_userInfoBtn() end)
 
+    -- 마스터의 길
     vars['masterRoadBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
     vars['etcBtn']:registerScriptTapHandler(function() self:click_etcBtn() end)
 
+    -- 우측 UI
     vars['subscriptionBtn']:registerScriptTapHandler(function() self:click_subscriptionBtn() end) -- 월정액
+
+    do -- 기타 UI
+        local etc_vars = self.m_etcExpendedUI.vars
+        etc_vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end) -- 설정
+        etc_vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end) -- 종합 랭킹
+        etc_vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end) -- 친구
+        etc_vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
+        etc_vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
+    end
 
     if true then
         return
@@ -590,9 +603,9 @@ function UI_Lobby:click_explorationBtn()
 end
 
 -------------------------------------
--- function click_collectionBtn
+-- function click_bookBtn
 -------------------------------------
-function UI_Lobby:click_collectionBtn()
+function UI_Lobby:click_bookBtn()
     local function close_cb()
     	-- 노티 정보를 갱신하기 위해서 호출
         g_highlightData:setLastUpdateTime()
@@ -620,6 +633,14 @@ end
 -------------------------------------
 function UI_Lobby:click_guildBtn()
     UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
+end
+
+-------------------------------------
+-- function click_settingBtn
+-- @설정
+-------------------------------------
+function UI_Lobby:click_settingBtn()
+    UI_Setting()
 end
 
 -------------------------------------
