@@ -4,13 +4,14 @@ import os
 # .\DragonVillageM\build\outputs\apk
 
 # clean
+os.system('clean.py')
 #os.system('gradlew clean')
 
 # build
-#os.system('gradlew assembleDebug')
-#os.system('gradlew installDebug')
 os.system('gradlew assembleRelease')
 #os.system('gradlew installRelease')
+#os.system('gradlew assembleDebug')
+#os.system('gradlew installDebug')
 
 # apk copy
 src_path = './DragonVillageM/build/outputs/apk'
