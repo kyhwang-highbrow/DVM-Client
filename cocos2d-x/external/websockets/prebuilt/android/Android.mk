@@ -1,8 +1,8 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE    := websockets_static
-LOCAL_MODULE_FILENAME := libwebsockets_static
+LOCAL_MODULE := websockets_static
+LOCAL_MODULE_FILENAME := libwebsockets
 LOCAL_SRC_FILES := $(TARGET_ARCH_ABI)/libwebsockets.a
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../include/android
 LOCAL_CPPFLAGS := -D__STDC_LIMIT_MACROS=1
