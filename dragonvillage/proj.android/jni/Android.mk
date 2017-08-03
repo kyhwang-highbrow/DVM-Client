@@ -24,9 +24,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../../cocos2d-x/external/json \
 					$(LOCAL_PATH)/../../../libraries/perplesdk/include
 
-LOCAL_STATIC_LIBRARIES := curl_static_prebuilt
-LOCAL_STATIC_LIBRARIES += perplesdklua_static
-
+LOCAL_STATIC_LIBRARIES := perplesdklua_static
 LOCAL_SHARED_LIBRARIES := perplesdk_shared
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_lua_static
