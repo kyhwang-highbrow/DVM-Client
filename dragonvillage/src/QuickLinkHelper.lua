@@ -31,7 +31,7 @@ end
 -------------------------------------
 -- function gameModeLink
 -------------------------------------
-function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode)
+function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
     local link_type
 
     if (game_mode == GAME_MODE_NEST_DUNGEON) then
@@ -68,7 +68,7 @@ function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode)
     end
 
     -- 바로 가기를 활용한다.
-    QuickLinkHelper.quickLink(link_type, nil)
+    QuickLinkHelper.quickLink(link_type, condition)
 end
 
 
@@ -105,23 +105,27 @@ T_LINK_FUNC = {
     end,
 
     -- 공통 진화 던전 플레이
-    ['ply_ev'] = function()
-        g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_EVO_STONE, true)
+    ['ply_ev'] = function(condition)
+        local stage_id = condition
+        g_nestDungeonData:goToNestDungeonScene(stage_id, NEST_DUNGEON_EVO_STONE, true)
     end,
 
     -- 거목 던전 플레이
-    ['ply_tree'] = function()
-        g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_TREE, true)
+    ['ply_tree'] = function(condition)
+        local stage_id = condition
+        g_nestDungeonData:goToNestDungeonScene(stage_id, NEST_DUNGEON_TREE, true)
     end,
 
     -- 악몽 던전 플레이
-    ['ply_nm'] = function()
-        g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_NIGHTMARE, true)
+    ['ply_nm'] = function(condition)
+        local stage_id = condition
+        g_nestDungeonData:goToNestDungeonScene(stage_id, NEST_DUNGEON_NIGHTMARE, true)
     end,
     
     -- 악몽던전 클리어
-    ['clr_nm'] = function()
-        g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_NIGHTMARE, true)
+    ['clr_nm'] = function(condition)
+        local stage_id = condition
+        g_nestDungeonData:goToNestDungeonScene(stage_id, NEST_DUNGEON_NIGHTMARE, true)
     end,
 
     -- 탐험 플레이

@@ -102,7 +102,7 @@ end
 -- @brief 친구 초대
 -------------------------------------
 function ServerData_Friend:request_invite(friend_uid, finish_cb)
-    --if (not self:checkInviteCondition(friend_uid)) then return end
+    if (not self:checkInviteCondition(friend_uid)) then return end
 
     -- 파라미터
     local uid = g_userData:get('uid')
@@ -233,6 +233,19 @@ function ServerData_Friend:getFriendCount()
 end
 
 -------------------------------------
+-- function getRequestFriendCount
+-- @brief 요청 친구 갯수 받아옴
+-------------------------------------
+function ServerData_Friend:getRequestFriendCount()
+    local count = 0
+    for _, v in pairs(self.m_lFriendInviteRequestList) do
+        count = (count + 1)
+    end
+
+    return count
+end
+
+-------------------------------------
 -- function getMaxFriendCount
 -- @brief 친구 갯수 받아옴
 -------------------------------------
@@ -256,19 +269,23 @@ end
 -- function checkInviteCondition
 -------------------------------------
 function ServerData_Friend:checkInviteCondition(friend_uid)
-    if self:isMyFriend(friend_uid) then
-        local msg = Str('이미 친구입니다.')
-        UIManager:toastNotificationGreen(msg)
-        return false
+    local is_possible = true
+    local msg = nil
+
+    if (self:getFriendCount() >= MAX_FRIEND_CNT) then
+        msg = Str('친구 목록이 가득 찼습니다.')
+        is_possible = false
+    
+    elseif (self:getRequestFriendCount() >= MAX_REQUEST_CNT) then
+        msg = Str('더 이상 친구 요청을 할 수 없습니다.')
+        is_possible = false
     end
 
-    if (table.count >= MAX_FRIEND_CNT) then
-        local msg = Str('친구 목록이 가득 찼습니다.')
-        UIManager:toastNotificationGreen(msg)
-        return false
+    if (not is_possible) then
+        UIManager:toastNotificationRed(msg)
     end
     
-    return true
+    return is_possible
 end
 
 -------------------------------------

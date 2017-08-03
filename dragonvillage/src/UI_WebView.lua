@@ -35,8 +35,11 @@ end
 -------------------------------------
 function UI_WebView:initUI()
     local vars = self.vars
-    local node = vars['viewNode']
+    local loading_node = vars['emptySprite']
+    loading_node:setVisible(true)
+    cca.pickMePickMe(loading_node)
 
+    local node = vars['viewNode']
     local url = self.m_url
     local content_size = node:getContentSize()
     local webview = ccexp.WebView:create()

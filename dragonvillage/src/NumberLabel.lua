@@ -160,6 +160,6 @@ end
 -- function tweenCallback
 -------------------------------------
 function NumberLabel_Percent.tweenCallback(number, label)
-    local str = comma_value(math_floor(number)) .. '%'
+    local str = comma_value(string.format('%.1f', number)) .. '%'
     label:setString(str)
 end

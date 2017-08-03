@@ -18,11 +18,12 @@ function UI_EventPopupTab_Notice:init(owner, struct_event_popup_tab)
 
     do
         if isWin32() then return end 
+        local loading_node = vars['emptySprite']
+        loading_node:setVisible(true)
+        cca.pickMePickMe(loading_node)
+
         local node = vars['webviewNode']
-
-        -- 공지 홈페이지 나오면 연결
         local url = self.m_structBannerData['url']
-
         local content_size = node:getContentSize()
         local webview = ccexp.WebView:create()
         webview:setContentSize(content_size.width, content_size.height)
@@ -30,15 +31,6 @@ function UI_EventPopupTab_Notice:init(owner, struct_event_popup_tab)
         webview:setBounces(false)
         webview:setAnchorPoint(cc.p(0,0))
         webview:setDockPoint(cc.p(0,0))
-
-        --webview:setVisible(false)
-        --[[
-        local function callbackFromJS()
-            webview:setVisible(true)
-        end
-        webview:setOnJSCallback(callbackFromJS)
-        ]]--
-
         node:addChild(webview)
 
         self.m_webView = webview

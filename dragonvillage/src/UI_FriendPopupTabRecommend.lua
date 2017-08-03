@@ -31,7 +31,6 @@ function UI_FriendPopupTabRecommend:onEnterFriendPopupTab(first)
 
         local function finish_cb()
             self:init_tableView()
-            self:init_tableViewFacebook()
         end
 
         local force = true
@@ -108,36 +107,6 @@ function UI_FriendPopupTabRecommend:init_tableView()
     --]]
 
     self.m_tableView = table_view
-end
-
--------------------------------------
--- function init_tableViewFacebook
--------------------------------------
-function UI_FriendPopupTabRecommend:init_tableViewFacebook()
-    if self.m_tableViewFacebook then
-        return
-    end
-
-    local node = self.vars['recommendNode1']
-    --node:removeAllChildren()
-
-    local l_item_list = {}
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-    end
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(564, 108)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setCellUIClass(UI_FriendRecommendUserListItem, create_func)
-    table_view:setItemList(l_item_list)
-
-    -- 리스트가 비었을 때
-    table_view:makeDefaultEmptyDescLabel(Str('페이스북 연동이 되어있지 않습니다.'))
-
-    self.m_tableViewFacebook = table_view
 end
 
 -------------------------------------

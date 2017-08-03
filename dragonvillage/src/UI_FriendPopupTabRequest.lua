@@ -104,7 +104,7 @@ function UI_FriendPopupTabRequest:init_tableView()
 
     
     -- 리스트가 비었을 때
-    table_view:makeDefaultEmptyDescLabel(Str('친구 신청 요청이 없습니다.'))
+    table_view:makeDefaultEmptyDescLabel(Str('보낸 요청이 없습니다.'))
 
     --[[
     -- 정렬

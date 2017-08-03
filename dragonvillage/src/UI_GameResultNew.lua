@@ -841,7 +841,8 @@ end
 function UI_GameResultNew:click_backBtn()
     local game_mode = g_gameScene.m_gameMode
     local dungeon_mode = g_gameScene.m_dungeonMode
-    QuickLinkHelper.gameModeLink(game_mode, dungeon_mode)
+    local condition = self.m_stageID
+    QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
 end
 
 -------------------------------------
@@ -1031,7 +1032,7 @@ function UI_GameResultNew:checkAutoPlay()
     ]]--
 
     -- 패배 시 연속 전투 종료
-    if g_autoPlaySetting:get(stop_condition_lose) then
+    if g_autoPlaySetting:get('stop_condition_lose') then
         if (not self.m_bSuccess) then
             auto_play_stop = true
             msg = Str('패배로 인해 연속 전투가 종료되었습니다.')
@@ -1052,7 +1053,7 @@ function UI_GameResultNew:checkAutoPlay()
     end
 
     -- 인연 던전 발견 시 연속 전투 종료 (발견 팝업이 뜸. 종료 팝업 띄울 필요없음)
-    if g_autoPlaySetting:get(stop_condition_find_rel_dungeon) then
+    if g_autoPlaySetting:get('stop_condition_find_rel_dungeon') then
         if (self.m_secretDungeon) then
             auto_play_stop = true
         end
