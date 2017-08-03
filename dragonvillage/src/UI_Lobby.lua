@@ -286,6 +286,7 @@ end
 -------------------------------------
 function UI_Lobby:refresh_highlight()
     local vars = self.vars
+    local etc_vars = self.m_etcExpendedUI.vars
 
     local function highlight_func()
         -- 탐험
@@ -301,7 +302,7 @@ function UI_Lobby:refresh_highlight()
         vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
 
         -- 친구 
-        --vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
+        etc_vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
     end
 
     g_highlightData:request_highlightInfo(highlight_func)
@@ -315,13 +316,13 @@ function UI_Lobby:refresh_highlight()
     vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
 
 	-- 도감
-	--vars['collectionNotiSprite']:setVisible(g_bookData:isHighlightBook())
+	etc_vars['bookNotiSprite']:setVisible(g_bookData:isHighlightBook())
 
     -- 모험 핫타임 
     --vars['adventureHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
 
     -- 이벤트
-    --vars['eventNotiSprite']:setVisible(g_eventData:isHighlightEvent())
+    vars['eventManageNotiSprite']:setVisible(g_eventData:isHighlightEvent())
 
     -- 마스터의 길
     local has_reward, _ = g_masterRoadData:hasRewardRoad()

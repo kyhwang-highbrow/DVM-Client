@@ -278,7 +278,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'friendSprite';
+					lua_name = 'friendNotiSprite';
 					file_name = 'ui/icons/noti_icon_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
