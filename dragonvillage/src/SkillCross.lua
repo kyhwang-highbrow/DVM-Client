@@ -65,7 +65,7 @@ function SkillCross.st_idle(owner, dt)
         
 		-- 일반 스킬이라면 ATK STEP FINAL 일떄 탈출
 	    if (owner.m_attackStep == CROSS_ATK_STEP_FINAL) then
-            if (owner.m_tSkill['val_2'] - 1 > 0) then
+            if (owner.m_tData['val_2'] - 1 > 0) then
                 for _, v in ipairs(owner.m_lNextTarget) do  
                     SkillCross:makeNewInstance(owner, v)
                 end
@@ -185,13 +185,13 @@ function SkillCross:makeSkillInstance(owner, t_skill, t_data)
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)   
 	local attack_count = t_skill['hit']
     local is_upgraded = (t_skill['val_1'] == 1)
-    local cnt = tonumber(t_skill['val_2'])
+    local cnt = t_data['val_2'] or tonumber(t_skill['val_2'])
     if (cnt > 3) then 
         cnt = 3
     elseif (cnt < 1) then
         cnt = 1
     end
-    t_skill['val_2'] = cnt
+    t_data['val_2'] = cnt
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
@@ -219,7 +219,10 @@ end
 -------------------------------------
 function SkillCross:makeNewInstance(owner, target)
     if (owner.m_isUpgraded) then
-        local t_data = clone(owner.m_tData)
+        local t_data = {}
+        t_data['bonus'] = owner.m_tData['bonus']
+        t_data['target'] = owner.m_tData['target']
+        t_data['target_list'] = owner.m_tData['target_list']
         t_data['x'] = target.m_posX
         t_data['y'] = target.m_posY
 
@@ -234,8 +237,7 @@ function SkillCross:makeNewInstance(owner, target)
             t_data['critical'] = 0
         end
 
-        local t_skill = clone(owner.m_tSkill)
-        t_skill['val_2'] = t_skill['val_2'] - 1
-        SkillCross:makeSkillInstance(owner.m_owner, t_skill, t_data)
+        t_data['val_2'] = owner.m_tData['val_2'] - 1
+        SkillCross:makeSkillInstance(owner.m_owner, owner.m_tSkill, t_data)
     end
 end
