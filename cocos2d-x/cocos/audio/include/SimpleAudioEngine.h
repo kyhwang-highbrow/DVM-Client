@@ -274,7 +274,12 @@ public:
 	@brief
 	*/
 	virtual void setEngineMode(int mode);
-    
+
+	/**
+	@brief
+	*/
+	virtual int getEngineMode();
+
 protected:
     /**
     * Constructor of SimpleAudioEngine.

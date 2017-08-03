@@ -84,4 +84,5 @@ namespace CocosDenshion {
 	void SimpleAudioEngine::playVibrate(long millisecond) { }
 	void SimpleAudioEngine::cancelVibrate() { }
     void SimpleAudioEngine::setEngineMode(int mode) { }
+    int SimpleAudioEngine::getEngineMode() { }
 }

@@ -63,6 +63,7 @@ namespace CocosDenshion {
 			virtual void playVibrate(long millisecond);
 			virtual void cancelVibrate();
             virtual void setEngineMode(int mode);
+            virtual int getEngineMode();
 
         private :
             bool _implementBaseOnAudioEngine;

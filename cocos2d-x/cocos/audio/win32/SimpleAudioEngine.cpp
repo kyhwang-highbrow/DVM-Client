@@ -30,12 +30,8 @@ THE SOFTWARE.
 #include "MciPlayer.h"
 #include "platform/CCFileUtils.h"
 
-#define USE_AUDIO_ENGINE 1
-
-#if USE_AUDIO_ENGINE
 #include "audio/include/AudioEngine.h"
 using namespace cocos2d::experimental;
-#endif
 
 USING_NS_CC;
 
@@ -50,12 +46,12 @@ static char     s_szRootPath[MAX_PATH];
 static DWORD    s_dwRootLen;
 static char     s_szFullPath[MAX_PATH];
 
-#if USE_AUDIO_ENGINE
 static int s_BGMusicId = -1;
 static bool s_IsBGPlaying = false;
-#endif
 
 static int s_VoiceId = -1;
+
+static int s_EngineMode = 1;
 
 static std::string _FullPath(const char * szPath);
 static unsigned int _Hash(const char *key);
@@ -90,22 +86,25 @@ SimpleAudioEngine* SimpleAudioEngine::getInstance()
 
 void SimpleAudioEngine::end()
 {
-#if USE_AUDIO_ENGINE
-    AudioEngine::end();
-    s_BGMusicId = -1;
-    s_VoiceId = -1;
-    s_IsBGPlaying = false;
-#else
-    sharedMusic().Close();
-    for (auto& iter : sharedList())
-    {
-        delete iter.second;
-        iter.second = nullptr;
-    }
-    sharedList().clear();
-    s_VoiceId = -1;
-    return;
-#endif
+	if (s_EngineMode == 1)
+	{
+		AudioEngine::end();
+		s_BGMusicId = -1;
+		s_VoiceId = -1;
+		s_IsBGPlaying = false;
+	}
+	else
+	{
+		sharedMusic().Close();
+		for (auto& iter : sharedList())
+		{
+			delete iter.second;
+			iter.second = nullptr;
+		}
+		sharedList().clear();
+		s_VoiceId = -1;
+		return;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -114,110 +113,132 @@ void SimpleAudioEngine::end()
 
 void SimpleAudioEngine::playBackgroundMusic(const char* pszFilePath, bool bLoop)
 {
-#if USE_AUDIO_ENGINE
-    if (s_BGMusicId != -1)
-    {
-        stopBackgroundMusic();
-    }
+	if (s_EngineMode == 1)
+	{
+		if (s_BGMusicId != -1)
+		{
+			stopBackgroundMusic();
+		}
 
-    s_BGMusicId = AudioEngine::play2d(pszFilePath, bLoop);
-    s_IsBGPlaying = true;
-#else
-    if (!pszFilePath)
-    {
-        return;
-    }
+		s_BGMusicId = AudioEngine::play2d(pszFilePath, bLoop);
+		s_IsBGPlaying = true;
+	}
+	else
+	{
+		if (!pszFilePath)
+		{
+			return;
+		}
 
-    sharedMusic().Open(_FullPath(pszFilePath).c_str(), _Hash(pszFilePath));
-    sharedMusic().Play((bLoop) ? -1 : 1);
-#endif
+		sharedMusic().Open(_FullPath(pszFilePath).c_str(), _Hash(pszFilePath));
+		sharedMusic().Play((bLoop) ? -1 : 1);
+	}
 }
 
 void SimpleAudioEngine::stopBackgroundMusic(bool bReleaseData)
 {
-#if USE_AUDIO_ENGINE
-    if (s_BGMusicId != -1)
-    {
-        AudioEngine::stop(s_BGMusicId);
-        s_BGMusicId = -1;
-        s_IsBGPlaying = false;
-    }
-#else
-    if (bReleaseData)
-    {
-        sharedMusic().Close();
-    }
-    else
-    {
-        sharedMusic().Stop();
-    }
-#endif
+	if (s_EngineMode == 1)
+	{
+		if (s_BGMusicId != -1)
+		{
+			AudioEngine::stop(s_BGMusicId);
+			s_BGMusicId = -1;
+			s_IsBGPlaying = false;
+		}
+	}
+	else
+	{
+		if (bReleaseData)
+		{
+			sharedMusic().Close();
+		}
+		else
+		{
+			sharedMusic().Stop();
+		}
+	}
 }
 
 void SimpleAudioEngine::playVoice(const char* pszFilePath, bool bLoop)
 {
-#if USE_AUDIO_ENGINE
-    if (s_VoiceId != -1)
-    {
-        stopVoice();
-    }
+	if (s_EngineMode == 1)
+	{
+		if (s_VoiceId != -1)
+		{
+			stopVoice();
+		}
 
-    s_VoiceId = AudioEngine::play2d(pszFilePath, bLoop);
-#else
-    s_VoiceId = playEffect(pszFilePath, bLoop);
-#endif
+		s_VoiceId = AudioEngine::play2d(pszFilePath, bLoop);
+	}
+	else
+	{
+		s_VoiceId = playEffect(pszFilePath, bLoop);
+	}
 }
 
 void SimpleAudioEngine::stopVoice(bool bReleaseData)
 {
-#if USE_AUDIO_ENGINE
-    if (s_VoiceId != -1)
-    {
-        AudioEngine::stop(s_VoiceId);
-        s_VoiceId = -1;
-    }
-#else
-    stopEffect(s_VoiceId);
-    s_VoiceId = -1;
-#endif
+	if (s_EngineMode == 1)
+	{
+
+		if (s_VoiceId != -1)
+		{
+			AudioEngine::stop(s_VoiceId);
+			s_VoiceId = -1;
+		}
+	}
+	else
+	{
+		stopEffect(s_VoiceId);
+		s_VoiceId = -1;
+	}
 }
 
 void SimpleAudioEngine::pauseBackgroundMusic()
 {
-#if USE_AUDIO_ENGINE
-    if (s_BGMusicId != -1)
-    {
-        AudioEngine::pause(s_BGMusicId);
-        s_IsBGPlaying = false;
-    }
-#else
-    sharedMusic().Pause();
-#endif
+	if (s_EngineMode == 1)
+	{
+		if (s_BGMusicId != -1)
+		{
+			AudioEngine::pause(s_BGMusicId);
+			s_IsBGPlaying = false;
+		}
+	}
+	else
+	{
+		sharedMusic().Pause();
+	}
 }
 
 void SimpleAudioEngine::resumeBackgroundMusic()
 {
-#if USE_AUDIO_ENGINE
-    if (s_BGMusicId != -1)
-    {
-        AudioEngine::resume(s_BGMusicId);
-        s_IsBGPlaying = true;
-    }
-#else
-    sharedMusic().Resume();
-#endif
+	if (s_EngineMode == 1)
+	{
+		if (s_BGMusicId != -1)
+		{
+			AudioEngine::resume(s_BGMusicId);
+			s_IsBGPlaying = true;
+		}
+	}
+	else
+	{
+		sharedMusic().Resume();
+	}
 }
 
 void SimpleAudioEngine::rewindBackgroundMusic()
 {
-#if USE_AUDIO_ENGINE
-    if (s_BGMusicId != -1)
-    {
-        AudioEngine::setCurrentTime(s_BGMusicId, 0);
-    }
-#else
-    sharedMusic().Rewind();
-#endif
+	if (s_EngineMode == 1)
+	{
+		if (s_BGMusicId != -1)
+		{
+			AudioEngine::setCurrentTime(s_BGMusicId, 0);
+		}
+	}
+	else
+	{
+		sharedMusic().Rewind();
+	}
 }
 
 bool SimpleAudioEngine::willPlayBackgroundMusic()
@@ -227,11 +248,14 @@ bool SimpleAudioEngine::willPlayBackgroundMusic()
 
 bool SimpleAudioEngine::isBackgroundMusicPlaying()
 {
-#if USE_AUDIO_ENGINE
-    return s_IsBGPlaying;
-#else
-    return sharedMusic().IsPlaying();
-#endif
+	if (s_EngineMode == 1)
+	{
+		return s_IsBGPlaying;
+	}
+	else
+	{
+		return sharedMusic().IsPlaying();
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -241,161 +265,188 @@ bool SimpleAudioEngine::isBackgroundMusicPlaying()
 unsigned int SimpleAudioEngine::playEffect(const char* pszFilePath, bool bLoop,
                                            float pitch, float pan, float gain)
 {
-#if USE_AUDIO_ENGINE
-    int audioId = AudioEngine::play2d(pszFilePath, bLoop);
-    return audioId;
-#else
-    unsigned int nRet = _Hash(pszFilePath);
+	if (s_EngineMode == 1)
+	{
+		int audioId = AudioEngine::play2d(pszFilePath, bLoop);
+		return audioId;
+	}
+	else
+	{
+		unsigned int nRet = _Hash(pszFilePath);
 
-    preloadEffect(pszFilePath);
+		preloadEffect(pszFilePath);
 
-    EffectList::iterator p = sharedList().find(nRet);
-    if (p != sharedList().end())
-    {
-        p->second->Play((bLoop) ? -1 : 1);
-    }
+		EffectList::iterator p = sharedList().find(nRet);
+		if (p != sharedList().end())
+		{
+			p->second->Play((bLoop) ? -1 : 1);
+		}
 
-    return nRet;
-#endif
+		return nRet;
+	}
 }
 
 void SimpleAudioEngine::stopEffect(unsigned int nSoundId)
 {
-#if USE_AUDIO_ENGINE
-    AudioEngine::stop(nSoundId);
-#else
-    EffectList::iterator p = sharedList().find(nSoundId);
-    if (p != sharedList().end())
-    {
-        p->second->Stop();
-    }
-#endif
+	if (s_EngineMode == 1)
+	{
+		AudioEngine::stop(nSoundId);
+	}
+	else
+	{
+		EffectList::iterator p = sharedList().find(nSoundId);
+		if (p != sharedList().end())
+		{
+			p->second->Stop();
+		}
+	}
 }
 
 void SimpleAudioEngine::preloadEffect(const char* pszFilePath)
 {
-#if USE_AUDIO_ENGINE
-    AudioEngine::preload(pszFilePath);
-#else
-    int nRet = 0;
-    do
-    {
-        BREAK_IF(! pszFilePath);
+	if (s_EngineMode == 1)
+	{
+		AudioEngine::preload(pszFilePath);
+	}
+	else
+	{
+		int nRet = 0;
+		do
+		{
+			BREAK_IF(!pszFilePath);
 
-        nRet = _Hash(pszFilePath);
+			nRet = _Hash(pszFilePath);
 
-        BREAK_IF(sharedList().end() != sharedList().find(nRet));
+			BREAK_IF(sharedList().end() != sharedList().find(nRet));
 
-        sharedList().insert(Effect(nRet, new MciPlayer()));
-        MciPlayer * pPlayer = sharedList()[nRet];
-        pPlayer->Open(_FullPath(pszFilePath).c_str(), nRet);
+			sharedList().insert(Effect(nRet, new MciPlayer()));
+			MciPlayer * pPlayer = sharedList()[nRet];
+			pPlayer->Open(_FullPath(pszFilePath).c_str(), nRet);
 
-        BREAK_IF(nRet == pPlayer->GetSoundID());
+			BREAK_IF(nRet == pPlayer->GetSoundID());
 
-        delete pPlayer;
-        sharedList().erase(nRet);
-        nRet = 0;
-    } while (0);
-#endif
+			delete pPlayer;
+			sharedList().erase(nRet);
+			nRet = 0;
+		} while (0);
+	}
 }
 
 void SimpleAudioEngine::pauseEffect(unsigned int nSoundId)
 {
-#if USE_AUDIO_ENGINE
-    AudioEngine::pause(nSoundId);
-#else
-    EffectList::iterator p = sharedList().find(nSoundId);
-    if (p != sharedList().end())
-    {
-        p->second->Pause();
-    }
-#endif
+	if (s_EngineMode == 1)
+	{
+		AudioEngine::pause(nSoundId);
+	}
+	else
+	{
+		EffectList::iterator p = sharedList().find(nSoundId);
+		if (p != sharedList().end())
+		{
+			p->second->Pause();
+		}
+	}
 }
 
 void SimpleAudioEngine::pauseAllEffects()
 {
-#if USE_AUDIO_ENGINE
-    AudioEngine::pauseAll();
-    if (s_BGMusicId != -1)
-    {
-        s_IsBGPlaying = false;
-    }
-#else
-    for (auto& iter : sharedList())
-    {
-        iter.second->Pause();
-    }
-#endif
+	if (s_EngineMode == 1)
+	{
+		AudioEngine::pauseAll();
+		if (s_BGMusicId != -1)
+		{
+			s_IsBGPlaying = false;
+		}
+	}
+	else
+	{
+		for (auto& iter : sharedList())
+		{
+			iter.second->Pause();
+		}
+	}
 }
 
 void SimpleAudioEngine::resumeEffect(unsigned int nSoundId)
 {
-#if USE_AUDIO_ENGINE
-    AudioEngine::resume(nSoundId);
-#else
-    EffectList::iterator p = sharedList().find(nSoundId);
-    if (p != sharedList().end())
-    {
-        p->second->Resume();
-    }
-#endif
+	if (s_EngineMode == 1)
+	{
+		AudioEngine::resume(nSoundId);
+	}
+	else
+	{
+		EffectList::iterator p = sharedList().find(nSoundId);
+		if (p != sharedList().end())
+		{
+			p->second->Resume();
+		}
+	}
 }
 
 void SimpleAudioEngine::resumeAllEffects()
 {
-#if USE_AUDIO_ENGINE
-    AudioEngine::resumeAll();
-    if (s_BGMusicId != -1)
-    {
-        s_IsBGPlaying = true;
-    }
-#else
-    for (auto& iter : sharedList())
-    {
-        iter.second->Resume();
-    }
-#endif
+	if (s_EngineMode == 1)
+	{
+		AudioEngine::resumeAll();
+		if (s_BGMusicId != -1)
+		{
+			s_IsBGPlaying = true;
+		}
+	}
+	else
+	{
+		for (auto& iter : sharedList())
+		{
+			iter.second->Resume();
+		}
+	}
 }
 
 void SimpleAudioEngine::stopAllEffects()
 {
-#if USE_AUDIO_ENGINE
-    AudioEngine::stopAll();
-    s_BGMusicId = -1;
-    s_IsBGPlaying = false;
-    s_VoiceId = -1;
-#else
-    for (auto& iter : sharedList())
-    {
-        iter.second->Stop();
-    }
-    s_VoiceId = -1;
-#endif
+	if (s_EngineMode == 1)
+	{
+		AudioEngine::stopAll();
+		s_BGMusicId = -1;
+		s_IsBGPlaying = false;
+		s_VoiceId = -1;
+	}
+	else
+	{
+		for (auto& iter : sharedList())
+		{
+			iter.second->Stop();
+		}
+		s_VoiceId = -1;
+	}
 }
 
 void SimpleAudioEngine::preloadBackgroundMusic(const char* pszFilePath)
 {
-#if USE_AUDIO_ENGINE
-    AudioEngine::preload(pszFilePath);
-#else
-#endif
+	if (s_EngineMode == 1)
+	{
+		AudioEngine::preload(pszFilePath);
+	}
 }
 
 void SimpleAudioEngine::unloadEffect(const char* pszFilePath)
 {
-#if USE_AUDIO_ENGINE
-    AudioEngine::uncache(pszFilePath);
-#else
-    unsigned int nID = _Hash(pszFilePath);
+	if (s_EngineMode == 1)
+	{
+		AudioEngine::uncache(pszFilePath);
+	}
+	else
+	{
+		unsigned int nID = _Hash(pszFilePath);
 
-    EffectList::iterator p = sharedList().find(nID);
-    if (p != sharedList().end())
-    {
-        delete p->second;
-        p->second = nullptr;
-        sharedList().erase(nID);
-    }
-#endif
+		EffectList::iterator p = sharedList().find(nID);
+		if (p != sharedList().end())
+		{
+			delete p->second;
+			p->second = nullptr;
+			sharedList().erase(nID);
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -434,6 +485,12 @@ void SimpleAudioEngine::setEffectsVolume(float volume)
 
 void SimpleAudioEngine::setEngineMode(int mode)
 {
+	s_EngineMode = mode;
+}
+
+int SimpleAudioEngine::getEngineMode()
+{
+	return s_EngineMode;
 }
 
 //////////////////////////////////////////////////////////////////////////

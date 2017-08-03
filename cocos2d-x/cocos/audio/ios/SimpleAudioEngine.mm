@@ -312,4 +312,9 @@ void SimpleAudioEngine::setEngineMode(int mode)
 {
 }
 
+int SimpleAudioEngine::getEngineMode()
+{
+    return 0;
+}
+
 } // endof namespace CocosDenshion {
