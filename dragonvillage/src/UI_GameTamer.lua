@@ -11,7 +11,7 @@ function UI_Game:initTamerUI(tamer)
     do -- 테이머 아이콘
         local tamer_id = tamer.m_tamerID
         local tamer_type = TableTamer:getTamerType(tamer_id)
-        local res = 'res/ui/icon/cha/tamer_' .. tamer_type .. '.png'
+        local res = 'res/ui/icons/tamer/colosseum_ready_' .. tamer_type .. '.png'
         local icon = cc.Sprite:create(res)
         if icon then
             icon:setDockPoint(cc.p(0.5, 0.5))
@@ -59,6 +59,7 @@ function UI_Game:click_tamerSkillBtn(idx)
 
 	if (tamer.m_bActiveSKillUsable and tamer.m_state ~= 'active') then
         vars['tamerSkillVisual']:setVisible(false)
+        vars['tamerSkilllLockSprite']:setVisible(true)
 		
         tamer:changeState('active')
 	else

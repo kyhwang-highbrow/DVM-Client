@@ -12,6 +12,10 @@ function UI_Game:initManaUI()
         visual:setAnimationPause(true)
         visual:setFrame(0)
     end
+
+    self.m_bVisible_ManaUI = true
+    self.m_posX_ManaUI = vars['manaVisual']:getPositionX()
+    self.m_posY_ManaUI = vars['manaVisual']:getPositionY()
 end
 
 -------------------------------------

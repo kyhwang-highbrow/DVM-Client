@@ -168,7 +168,7 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
     -- 드래곤 사망 시
     elseif (event_name == 'character_dead') then
         local vars = self.vars
-        --vars['disableSprite']:setVisible(true)
+        vars['dieSprite']:setVisible(true)
         vars['skillFullVisual1']:setVisible(false)
         vars['skillFullVisual2']:setVisible(false)
         cca.stopAction(vars['topMenu'], ACTIVE_ACTION__TAG)
@@ -177,7 +177,7 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
     -- 드래곤 부활 시
     elseif (event_name == 'character_revive') then
         local vars = self.vars
-        --vars['disableSprite']:setVisible(false)
+        vars['dieSprite']:setVisible(false)
         
     end
 end
@@ -198,11 +198,6 @@ function UI_IngameDragonPanelItem:refreshHP(hp, max_hp)
 
     -- 체력바 가감 연출
     vars['hpGauge']:setScaleX(percentage)
-    --[[
-    vars['hpGauge1']:setPercentage(percentage)
-    local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ProgressTo:create(0.5, percentage))
-    vars['hpGauge2']:runAction(cc.EaseIn:create(action, 2))
-    ]]--
 end
 
 -------------------------------------

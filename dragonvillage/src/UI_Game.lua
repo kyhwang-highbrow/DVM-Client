@@ -11,6 +11,11 @@ UI_Game = class(UI, {
         m_posX_TamerUI = '',
         m_posY_TamerUI = '',
 
+        -- 마나 UI 정보
+        m_bVisible_ManaUI = '',
+        m_posX_ManaUI = '',
+        m_posY_ManaUI = '',
+
         -- 패널 버튼 이미지
         m_panelBtnIcon1 = '',
         m_panelBtnIcon2 = '',
@@ -505,6 +510,12 @@ function UI_Game:setTemporaryPause(pause)
 
         -- 테이머 UI 숨김
         self:toggleVisibility_TamerUI(false)
+
+        -- 마나 UI 숨김
+        self:toggleVisibility_ManaUI(false)
+
+        -- 하단 프레임
+        vars['panelBgSprite']:setVisible(false)
     else
         -- 패널 UI 표시
         if (g_autoPlaySetting:get('dragon_panel')) then
@@ -513,6 +524,12 @@ function UI_Game:setTemporaryPause(pause)
 
         -- 테이머 UI 표시
         self:toggleVisibility_TamerUI(true)
+
+        -- 마나 UI 표시
+        self:toggleVisibility_ManaUI(true)
+
+        -- 하단 프레임
+        vars['panelBgSprite']:setVisible(true)
     end
 end
 
@@ -556,6 +573,47 @@ function UI_Game:toggleVisibility_TamerUI(b, is_immediately)
 
     if (is_immediately) then
         vars['tamerMenu']:setVisible(b)
+   end
+end
+
+-------------------------------------
+-- function toggleVisibility_ManaUI
+-------------------------------------
+function UI_Game:toggleVisibility_ManaUI(b, is_immediately)
+    local vars = self.vars
+
+    if (not vars['manaSprite'] or self.m_bVisible_ManaUI == nil) then return end
+    if (self.m_bVisible_ManaUI == b) then return end
+    self.m_bVisible_ManaUI = b
+
+    local duration = 0.3
+
+    if (b) then
+        vars['manaSprite']:setVisible(true)
+        vars['manaVisual']:setVisible(true)
+
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_ManaUI, self.m_posY_ManaUI - 32)), 2)
+        vars['manaSprite']:stopAllActions()
+        vars['manaSprite']:runAction(move_action)
+
+        local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_ManaUI, self.m_posY_ManaUI)), 2)
+        vars['manaVisual']:stopAllActions()
+        vars['manaVisual']:runAction(move_action)
+    else
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_ManaUI, self.m_posY_ManaUI - 150 - 32)), 2)
+		local seq_action = cc.Sequence:create(move_action, cc.Hide:create())
+        vars['manaSprite']:stopAllActions()
+        vars['manaSprite']:runAction(seq_action)
+
+        local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_ManaUI, self.m_posY_ManaUI - 150)), 2)
+		local seq_action = cc.Sequence:create(move_action, cc.Hide:create())
+        vars['manaVisual']:stopAllActions()
+        vars['manaVisual']:runAction(seq_action)
+    end
+
+    if (is_immediately) then
+        vars['manaSprite']:setVisible(b)
+        vars['manaVisual']:setVisible(b)
    end
 end
 
