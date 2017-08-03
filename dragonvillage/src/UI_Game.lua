@@ -582,7 +582,7 @@ end
 function UI_Game:toggleVisibility_ManaUI(b, is_immediately)
     local vars = self.vars
 
-    if (not vars['manaSprite'] or self.m_bVisible_ManaUI == nil) then return end
+    if (not vars['manaVisual'] or self.m_bVisible_ManaUI == nil) then return end
     if (self.m_bVisible_ManaUI == b) then return end
     self.m_bVisible_ManaUI = b
 
@@ -592,23 +592,29 @@ function UI_Game:toggleVisibility_ManaUI(b, is_immediately)
         vars['manaSprite']:setVisible(true)
         vars['manaVisual']:setVisible(true)
 
-		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_ManaUI, self.m_posY_ManaUI - 32)), 2)
-        vars['manaSprite']:stopAllActions()
-        vars['manaSprite']:runAction(move_action)
-
-        local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_ManaUI, self.m_posY_ManaUI)), 2)
-        vars['manaVisual']:stopAllActions()
-        vars['manaVisual']:runAction(move_action)
+        do
+		    local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(vars['manaSprite']:getPositionX(), self.m_posY_ManaUI + 32)), 2)
+            vars['manaSprite']:stopAllActions()
+            vars['manaSprite']:runAction(move_action)
+        end
+        do
+            local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_ManaUI, self.m_posY_ManaUI)), 2)
+            vars['manaVisual']:stopAllActions()
+            vars['manaVisual']:runAction(move_action)
+        end
     else
-		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_ManaUI, self.m_posY_ManaUI - 150 - 32)), 2)
-		local seq_action = cc.Sequence:create(move_action, cc.Hide:create())
-        vars['manaSprite']:stopAllActions()
-        vars['manaSprite']:runAction(seq_action)
-
-        local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_ManaUI, self.m_posY_ManaUI - 150)), 2)
-		local seq_action = cc.Sequence:create(move_action, cc.Hide:create())
-        vars['manaVisual']:stopAllActions()
-        vars['manaVisual']:runAction(seq_action)
+        do
+		    local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(vars['manaSprite']:getPositionX(), self.m_posY_ManaUI - 150 + 32)), 2)
+		    local seq_action = cc.Sequence:create(move_action, cc.Hide:create())
+            vars['manaSprite']:stopAllActions()
+            vars['manaSprite']:runAction(seq_action)
+        end
+        do
+            local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_ManaUI, self.m_posY_ManaUI - 150)), 2)
+		    local seq_action = cc.Sequence:create(move_action, cc.Hide:create())
+            vars['manaVisual']:stopAllActions()
+            vars['manaVisual']:runAction(seq_action)
+        end
     end
 
     if (is_immediately) then
