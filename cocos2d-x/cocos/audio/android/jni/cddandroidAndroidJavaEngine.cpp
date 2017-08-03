@@ -337,7 +337,7 @@ void AndroidJavaEngine::cancelVibrate()
     JniHelper::callStaticVoidMethod(helperClassName, "cancelVibrate");
 }
 
-void AudioJavaEngine::setEngineMode(int mode)
+void AndroidJavaEngine::setEngineMode(int mode)
 {
     if (mode == 1)
     {
