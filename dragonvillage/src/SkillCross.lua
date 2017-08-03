@@ -2,7 +2,7 @@ local PARENT = Skill
 
 local CROSS_ATK_STEP_1 = 1
 local CROSS_ATK_STEP_FINAL = CROSS_ATK_STEP_1 + 1
-
+local CROSS_ATK_STEP_END = CROSS_ATK_STEP_FINAL + 1
 -------------------------------------
 -- class SkillCross
 -------------------------------------
@@ -10,7 +10,10 @@ SkillCross = class(PARENT, {
 		m_lineSize = 'num',
         m_attackStep = 'num',
 		m_skillAniName = 'str',
-
+        m_isUpgraded = 'bool',
+        m_tSkill = 'table',
+        m_tData = 'table',
+        m_lNextTarget = 'list',
      })
 
 -------------------------------------
@@ -19,21 +22,24 @@ SkillCross = class(PARENT, {
 -- @param body
 -------------------------------------
 function SkillCross:init(file_name, body, ...)    
+    self.m_lNextTarget = {}
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillCross:init_skill(attack_count)
+function SkillCross:init_skill(attack_count, is_upgraded, t_skill, t_data)
     PARENT.init_skill(self)
 
 	-- 멤버변수 초기화
 	self.m_lineSize = g_constant:get('SKILL', 'VOLTES_LINE_SIZE')
     self.m_attackStep = CROSS_ATK_STEP_1
-
+    self.m_isUpgraded = is_upgraded
+    self.m_tSkill= t_skill
+    self.m_tData= t_data
 	self.m_skillAniName = 'idle'
 
-	-- 스킬 위치 타겟 위치로 
+	-- 스킬 위치 타겟 위치로
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
 end
 
@@ -51,17 +57,24 @@ end
 function SkillCross.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 
-    elseif (owner.m_stateTimer > 0.8) then
+    elseif (owner.m_stateTimer > 0.4) then
         if (owner.m_attackStep == CROSS_ATK_STEP_1) then
             owner:runAttack()
             owner.m_attackStep = CROSS_ATK_STEP_FINAL
         end
         
 		-- 일반 스킬이라면 ATK STEP FINAL 일떄 탈출
-	    if (owner.m_attackStep == CROSS_ATK_STEP_FINAL) then 
-		    owner.m_animator:addAniHandler(function()
+	    if (owner.m_attackStep == CROSS_ATK_STEP_FINAL) then
+            if (owner.m_tSkill['val_2'] - 1 > 0) then
+                for _, v in ipairs(owner.m_lNextTarget) do  
+                    SkillCross:makeNewInstance(owner, v)
+                end
+            end
+            owner.m_animator:addAniHandler(function()
                     owner:changeState('dying')
 		    end)
+
+            owner.m_attackStep = CROSS_ATK_STEP_END
 	    end	
     end
 end
@@ -82,12 +95,18 @@ end
 -------------------------------------
 function SkillCross:runAttack()
 
-    local collisions = self:findCollision()
-    for _, collision in ipairs(collisions) do
+    local l_collision = self:findCollision()
+    for i, collision in ipairs(l_collision) do
+        local target_hp_before = collision:getTarget().m_hp
+   
         self:attack(collision)
+        
+        if (collision:getTarget().m_hp <= 0 and target_hp_before > 0) then
+            table.insert(self.m_lNextTarget, collision)
+        end
     end
     
-	self:doCommonAttackEffect()
+	self:doCommonAttackEffect() 
 end
 
 -------------------------------------
@@ -156,29 +175,6 @@ function SkillCross:findCollisionEachLine(l_target, target_x, target_y, std_widt
 	return SkillTargetFinder:findCollision_Bar(l_target, start_x, start_y, end_x, end_y, self.m_lineSize/2)
 end
 
--------------------------------------
--- function findTarget
--- @brief 모든 대상 찾음(Character 기준)
--------------------------------------
-function SkillCross:findTarget(idx)
-    local l_collision = self:findCollision(idx)
-    local m_temp = {}
-
-    -- 맵형태로 임시 저장(중복된 대상 처리를 위함)
-    for _, collision in ipairs(l_collision) do
-        local target = collision:getTarget()
-        m_temp[target] = collision
-    end
-
-    -- 리스트 형태로 변환
-    local l_target = {}
-
-    for _, collision in pairs(m_temp) do
-        table.insert(l_target, collision)
-    end
-
-	return l_target, l_collision
-end
 
 -------------------------------------
 -- function makeSkillInstance
@@ -186,9 +182,16 @@ end
 function SkillCross:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
+	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)   
 	local attack_count = t_skill['hit']
-	
+    local is_upgraded = (t_skill['val_1'] == 1)
+    local cnt = tonumber(t_skill['val_2'])
+    if (cnt > 3) then 
+        cnt = 3
+    elseif (cnt < 1) then
+        cnt = 1
+    end
+    t_skill['val_2'] = cnt
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
@@ -196,7 +199,7 @@ function SkillCross:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(attack_count)
+    skill:init_skill(attack_count, is_upgraded, t_skill, t_data)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -207,4 +210,32 @@ function SkillCross:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+end
+
+
+
+-------------------------------------
+-- function makeNewInstance
+-------------------------------------
+function SkillCross:makeNewInstance(owner, target)
+    if (owner.m_isUpgraded) then
+        local t_data = clone(owner.m_tData)
+        t_data['x'] = target.m_posX
+        t_data['y'] = target.m_posY
+
+        local critical_chance = owner.m_owner:getStat('cri_chance')
+        local critical_avoid = 0
+        local final_critical_chance = CalcCriticalChance(critical_chance, critical_avoid)
+
+        local is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
+        if (is_critical) then
+            t_data['critical'] = 1
+        else
+            t_data['critical'] = 0
+        end
+
+        local t_skill = clone(owner.m_tSkill)
+        t_skill['val_2'] = t_skill['val_2'] - 1
+        SkillCross:makeSkillInstance(owner.m_owner, t_skill, t_data)
+    end
 end
