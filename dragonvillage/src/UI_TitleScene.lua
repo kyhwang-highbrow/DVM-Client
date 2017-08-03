@@ -242,6 +242,23 @@ function UI_TitleScene:doNextWork()
 end
 
 -------------------------------------
+-- function doPreviousWork
+-------------------------------------
+function UI_TitleScene:doPreviousWork()
+    self.m_workIdx = (self.m_workIdx - 1)
+    local func_name = self.m_lWorkList[self.m_workIdx]
+
+    if func_name and (self[func_name]) then
+        cclog('\n')
+        cclog('############################################################')
+        cclog('# idx : ' .. self.m_workIdx .. ', func_name : ' .. func_name)
+        cclog('############################################################')
+        self[func_name](self)
+        return
+    end
+end
+
+-------------------------------------
 -- function retryCurrWork
 -------------------------------------
 function UI_TitleScene:retryCurrWork()
@@ -422,7 +439,16 @@ function UI_TitleScene:workPlatformLogin()
                 -- 약관 동의 팝업
                 local ui = UI_TermsPopup()
                 local function close_cb()
-                    self:doNextWork()
+                    local agree_terms = g_serverData:get('local', 'agree_terms')
+                    if (agree_terms == 0) then
+                        -- 약관 동의 창에서 백키를 누르면 로그인 팝업 단계로 돌아간다.
+                        -- 이때 바로 이전 단계로 돌아가면 autoLogin 이 성공하면서 로그인 팝업이 뜨지 않으므로
+                        -- 로그아웃을 먼저 하고 돌아가야 함.
+                        PerpleSDK:logout()
+                        self:doPreviousWork()
+                    else
+                        self:doNextWork()
+                    end
                 end
                 ui:setCloseCB(close_cb)
             else
@@ -440,7 +466,7 @@ function UI_TitleScene:workPlatformLogin()
 
     local game_id = 1003
     local fuid = g_serverData:get('local', 'uid')
-    local rcode = nil
+    local rcode = g_serverData:get('local', 'recovery_code')
     local os = 0 -- ( 0 : Android / 1 : iOS )
     local game_push = 1 -- on - 1, off - 0
     local pushToken = g_serverData:get('local', 'push_token')
