@@ -1,13 +1,14 @@
 local PARENT = class(UI, IEventListener:getCloneTable())
 
+local ACTIVE_ACTION__TAG = 100
+
 -------------------------------------
 -- class UI_IngameDragonPanelItem
 -------------------------------------
 UI_IngameDragonPanelItem = class(PARENT, {
         m_world = 'GameWorld',
         m_dragon = 'Dragon',
-        m_dragonIdx = 'number', -- 999번일 경우 친구?!
-
+        m_dragonIdx = 'number', -- 999번일 경우 친구?! 
         ----
 
         m_hp = 'number',
@@ -17,6 +18,8 @@ UI_IngameDragonPanelItem = class(PARENT, {
         m_bPossibleControl = 'boolean',
 
 		m_haveActive = 'boolean',
+
+        m_bAttackSkill = 'boolean', -- 공격 스킬인지 여부
      })
 
 -------------------------------------
@@ -29,10 +32,14 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     self.m_bPossibleControl = nil
 	self.m_skillGaugePercentage = 0
 
-	local vars = self:load('ingame_dragon_panel_item.ui')
+    local skill_id = dragon:getSkillID('active')
+    local t_skill = dragon:getSkillTable(skill_id)
+
+    self.m_bAttackSkill = (string.find(t_skill['target_type'], 'enemy') ~= nil)
+
+	local vars = self:load('ingame_panel.ui', false, true)
 
     dragon:addListener('character_set_hp', self)
-    dragon:addListener('basic_time_skill_gauge', self)
     dragon:addListener('dragon_skill_gauge', self)
     dragon:addListener('touch_began', self)
     dragon:addListener('character_dead', self)
@@ -55,19 +62,27 @@ function UI_IngameDragonPanelItem:initUI()
     local vars = self.vars
     
     local dragon = self.m_dragon
+    local skill_id = dragon:getSkillID('active')
+    local t_skill = dragon:getSkillTable(skill_id)
+    local str_target = (self.m_bAttackSkill and 'atk' or 'heal')
 
-    -- 드래곤 속성 아이콘
+    vars['topMenu']:setPositionY(0)
+    vars['skillGaugeVisual']:setVisible(true)
+    vars['skillFullVisual1']:changeAni('dragon_full_' .. str_target .. '_idle_1', true)
+    vars['skillFullVisual2']:changeAni('dragon_full_' .. str_target .. '_idle_2', true)
+
+    -- 속성 아이콘
     if (vars['attrNode']) then
         local attr_str = dragon:getAttribute()
-        local res = 'res/ui/icon/attr/attr_' .. attr_str .. '.png'
-        local icon = cc.Sprite:create(res)
+        local res = 'ingame_panel_attr_' .. attr_str .. '.png'
+        local icon = cc.Sprite:createWithSpriteFrameName(res)
         if icon then
-            icon:setDockPoint(cc.p(0.5, 0.5))
-            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            icon:setDockPoint(CENTER_POINT)
+            icon:setAnchorPoint(CENTER_POINT)
             vars['attrNode']:addChild(icon)
         end
     end
-
+    
     do -- 드래곤 아이콘
 	    local sprite = IconHelper:getDragonIconFromTable(dragon.m_tDragonInfo, dragon.m_charTable)
 	    if (sprite) then
@@ -75,20 +90,7 @@ function UI_IngameDragonPanelItem:initUI()
 	    end
     end
 
-    -- 드래곤 아이콘 배경
-    do
-        local attr_str = dragon:getAttribute()
-        local res = 'res/ui/frame/dragon_item_bg_' .. attr_str .. '.png'
-	    local sprite = cc.Sprite:create(res)
-	    if (sprite) then
-            sprite:setDockPoint(cc.p(0.5, 0.5))
-            sprite:setAnchorPoint(cc.p(0.5, 0.5))
-		    vars['bgNode']:addChild(sprite)
-	    end
-    end
-
-    do -- 드래곤 드래그 스킬 아이콘
-        local skill_id = dragon:getSkillID('active')
+    do -- 드래그 스킬 아이콘
         local skill_icon
 
         if (skill_id ~= 0) then
@@ -104,8 +106,31 @@ function UI_IngameDragonPanelItem:initUI()
 
         skill_icon:setDockPoint(CENTER_POINT)
         skill_icon:setAnchorPoint(CENTER_POINT)
+        vars['skillNode']:addChild(skill_icon)
+    end
 
-        vars['skillIconNode']:addChild(skill_icon)
+    -- 인디케이터 아이콘
+    do
+        local indicator_type = t_skill['indicator']
+        local res = 'ingame_panel_indicater_' .. str_target .. '_' .. indicator_type .. '.png'
+        local icon = cc.Sprite:createWithSpriteFrameName(res)
+        if icon then
+            icon:setDockPoint(CENTER_POINT)
+            icon:setAnchorPoint(CENTER_POINT)
+            vars['indicaterNode']:addChild(icon)
+        end
+    end
+
+    -- 대상 수
+    do
+        local target_count = t_skill['target_count']
+        local res = 'ingame_panel_target_' .. str_target .. '_' .. target_count .. '.png'
+        local icon = cc.Sprite:createWithSpriteFrameName(res)
+        if (icon) then
+            icon:setDockPoint(CENTER_POINT)
+            icon:setAnchorPoint(CENTER_POINT)
+            vars['targetNode']:addChild(icon)
+        end
     end
 end
 
@@ -129,10 +154,6 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
     if (event_name == 'character_set_hp') then
         self:refreshHP(t_event['hp'], t_event['max_hp'])
 
-    -- 드래곤 basic_time 스킬 게이지 변경 Event
-    elseif (event_name == 'basic_time_skill_gauge') then
-        self:refreshBasicTimeSkillGauge(t_event['cur'], t_event['max'], t_event['run_skill'])
-
     -- 드래곤 드래그 스킬 게이지 변경 Event
     elseif (event_name == 'dragon_skill_gauge') then
         self:refreshSkillGauge(t_event['percentage'], t_event['enough_mana'])
@@ -148,10 +169,10 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
     elseif (event_name == 'character_dead') then
         local vars = self.vars
         vars['disableSprite']:setVisible(true)
-        vars['skillVisual']:setVisible(false)
-        vars['skillVisual2']:setVisible(false)
-        cca.stopAction(vars['skillNode'], 100)
-        vars['skillNode']:setPositionY(-2)
+        vars['skillFullVisual1']:setVisible(false)
+        vars['skillFullVisual2']:setVisible(false)
+        cca.stopAction(vars['topMenu'], ACTIVE_ACTION__TAG)
+        vars['topMenu']:setPositionY(0)
 
     -- 드래곤 부활 시
     elseif (event_name == 'character_revive') then
@@ -176,9 +197,11 @@ function UI_IngameDragonPanelItem:refreshHP(hp, max_hp)
     local percentage = (hp / max_hp) * 100
 
     -- 체력바 가감 연출
+    --[[
     vars['hpGauge1']:setPercentage(percentage)
     local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ProgressTo:create(0.5, percentage))
     vars['hpGauge2']:runAction(cc.EaseIn:create(action, 2))
+    ]]--
 end
 
 -------------------------------------
@@ -189,28 +212,22 @@ function UI_IngameDragonPanelItem:refreshManaCost(mana_cost)
     local vars = self.vars
     local mana_cost = math_floor(mana_cost)
 
-    vars['manaLabel']:setString(mana_cost)
-end
+    if (vars['manaNode']) then
+        vars['manaNode']:removeAllChildren()
 
--------------------------------------
--- function refreshBasicTimeSkillGauge
--- @brief 드래곤 basic_time 스킬 게이지 변경 Event
--------------------------------------
-function UI_IngameDragonPanelItem:refreshBasicTimeSkillGauge(cur, max, run_skill)
-    local vars = self.vars
-    local percentage = (cur / max) * 100
-    vars['normalSKillGauge']:setPercentage(percentage)
-
-    if run_skill then
-        vars['normalSkillVisual']:setVisible(true)
-        vars['normalSkillVisual']:changeAni('dragon_normal_skill', false)
-        vars['normalSkillVisual']:addAniHandler(function() vars['normalSkillVisual']:setVisible(false) end)
+        local res = 'ingame_panel_mana_' .. mana_cost .. '.png'
+        local icon = cc.Sprite:createWithSpriteFrameName(res)
+        if icon then
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            vars['manaNode']:addChild(icon)
+        end
     end
 end
 
 -------------------------------------
 -- function refreshSkillGauge
--- @brief 드래곤 드래그 스킬 게이지 변경 Event
+-- @brief 드래곤 드래그 스킬 쿨타임 갱신
 -------------------------------------
 function UI_IngameDragonPanelItem:refreshSkillGauge(percentage, enough_mana)
     local vars = self.vars
@@ -220,23 +237,23 @@ function UI_IngameDragonPanelItem:refreshSkillGauge(percentage, enough_mana)
 		return
 	end
 
-    if (self.m_skillGaugePercentage == percentage and vars['skillVisual']:isVisible() == enough_mana) then
+    if (self.m_skillGaugePercentage == percentage and vars['skillFullVisual1']:isVisible() == enough_mana) then
         return
     end
     
-    local prev_percentage = self.m_skillGaugePercentage or 0
     self.m_skillGaugePercentage = percentage
 
-    vars['dragSKillGauge']:setPercentage(100 - percentage)
+    vars['skillGaugeVisual']:setAnimationPause(true)
+    vars['skillGaugeVisual']:setFrame(percentage)
 
-    if (enough_mana) then
-        vars['skillVisual']:setVisible(true)
-        vars['skillVisual2']:setVisible(true)
-        cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(25, 10)), 100)
-    elseif (vars['skillVisual']:isVisible()) then
-        vars['skillVisual']:setVisible(false)
-        vars['skillVisual2']:setVisible(false)
-        cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(25, -2)), 100)
+    if (enough_mana and self.m_skillGaugePercentage >= 100) then
+        vars['skillFullVisual1']:setVisible(true)
+        vars['skillFullVisual2']:setVisible(true)
+        cca.runAction(vars['topMenu'], cc.MoveTo:create(0.2, cc.p(0, 54)), ACTIVE_ACTION__TAG)
+    elseif (vars['skillFullVisual1']:isVisible()) then
+        vars['skillFullVisual1']:setVisible(false)
+        vars['skillFullVisual2']:setVisible(false)
+        cca.runAction(vars['topMenu'], cc.MoveTo:create(0.2, cc.p(0, 0)), ACTIVE_ACTION__TAG)
     end
 end
 
@@ -248,14 +265,15 @@ function UI_IngameDragonPanelItem:onTouchBegan(t_event)
     local vars = self.vars
 
     local location = t_event['location']
+    local node = vars['topMenu']
 
-    local node_pos = vars['skillNode']:convertToNodeSpace(location)
-    local size = vars['skillNode']:getContentSize()
+    local node_pos = node:convertToNodeSpace(location)
+    local size = node:getContentSize()
     local half_size = (size['width'] / 2)
     local distance = math_distance(size['width'] / 2, size['height'] / 2, node_pos['x'], node_pos['y'])
     if (distance <= half_size) then
         t_event['touch'] = true
-        cca.uiReactionSlow(vars['skillNode'])
+        cca.uiReactionSlow(self.root)
     end
 end
 
@@ -264,21 +282,18 @@ end
 -- @brief
 -------------------------------------
 function UI_IngameDragonPanelItem:setPossibleControl(possible)
-    if (self.m_bPossibleControl == possible) then
-        return
-    end
+    if (self.m_bPossibleControl == possible) then return end
+    if (self.m_dragon:isDead()) then return end
 
     local vars = self.vars
 
     self.m_bPossibleControl = possible
 
     if possible then
-        if (not self.m_dragon:isDead() and 100 <= self.m_skillGaugePercentage) then
-            vars['skillVisual']:setVisible(true)
-            vars['skillVisual2']:setVisible(true)
-        end
+        local enough_mana = (self.m_dragon.m_activeSkillManaCost <= self.m_world.m_heroMana:getCurrMana())
+
+        self:refreshSkillGauge(self.m_skillGaugePercentage, enough_mana)
     else
-        vars['skillVisual']:setVisible(false)
-        vars['skillVisual2']:setVisible(false)
+        self:refreshSkillGauge(self.m_skillGaugePercentage, false)
     end
 end

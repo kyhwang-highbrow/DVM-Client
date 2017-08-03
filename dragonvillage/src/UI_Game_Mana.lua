@@ -30,7 +30,9 @@ function UI_Game:setMana(mana, updated_int)
 
         -- 마나 텍스트의 위치를 이동시킴
         do
-            local slot_idx = math_min(cur_mana_idx, MAX_MANA)
+            local slot_idx = math_min(integer_part, MAX_MANA)
+            slot_idx = math_max(slot_idx, 1)
+
             local socket_x = vars['manaVisual'].m_node:getSocketPosX('ingame_panel_mana_slot_' .. slot_idx)
             local pos_x = vars['manaVisual']:getPositionX() + socket_x
             vars['manaSprite']:setPositionX(pos_x)

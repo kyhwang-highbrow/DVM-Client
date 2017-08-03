@@ -677,36 +677,6 @@ function Dragon:getSoundNameForSkill(type)
 end
 
 -------------------------------------
--- function updateBasicSkillTimer
--- @brief
--------------------------------------
-function Dragon:updateBasicSkillTimer(dt)
-    PARENT.updateBasicSkillTimer(self, dt)
-
-    if (self.m_lSkillIndivisualInfo['indie_time']) then
-        -- 기획적으로 indie_time스킬은 1개만을 사용하도록 한다.
-        local skill_info = table.getFirst(self.m_lSkillIndivisualInfo['indie_time'])
-
-        -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
-        if (skill_info) then
-		    local max = skill_info.m_tSkill['chance_value']
-            local cur = max - skill_info.m_timer
-            local remain_time = skill_info.m_timer
-        
-            -- 글로벌 쿨타임 적용
-            local remain_global_time = self.m_world.m_gameCoolTime:get(GLOBAL_COOL_TIME.PASSIVE_SKILL)
-            if (remain_time < remain_global_time) then
-                max = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
-                cur = max - remain_global_time
-            end
-                
-            local t_event = { ['cur'] = cur, ['max'] = max, ['run_skill'] = (cur == max) }
-            self:dispatch('basic_time_skill_gauge', t_event)
-        end
-    end
-end
-
--------------------------------------
 -- function runAction_Highlight
 -------------------------------------
 function Dragon:runAction_Highlight(duration, level)
