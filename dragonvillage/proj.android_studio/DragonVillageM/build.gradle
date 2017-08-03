@@ -59,7 +59,25 @@ android {
 
     signingConfigs {
         release {
-            if (project.hasProperty("RELEASE_STORE_FILE")) {
+            if (project.hasProperty("PROP_UPLOAD_RELEASE_KEY") && PROP_UPLOAD_RELEASE_KEY.compareTo('1') ) {
+                storeFile file(UPLOAD_RELEASE_STORE_FILE)
+                storePassword UPLOAD_RELEASE_STORE_PASSWORD
+                keyAlias UPLOAD_RELEASE_KEY_ALIAS
+                keyPassword UPLOAD_RELEASE_KEY_PASSWORD
+            } else {
+                storeFile file(RELEASE_STORE_FILE)
+                storePassword RELEASE_STORE_PASSWORD
+                keyAlias RELEASE_KEY_ALIAS
+                keyPassword RELEASE_KEY_PASSWORD
+            }
+        }
+        debug {
+            if (project.hasProperty("PROP_UPLOAD_RELEASE_KEY") && PROP_UPLOAD_RELEASE_KEY.compareTo('1') ) {
+                storeFile file(UPLOAD_RELEASE_STORE_FILE)
+                storePassword UPLOAD_RELEASE_STORE_PASSWORD
+                keyAlias UPLOAD_RELEASE_KEY_ALIAS
+                keyPassword UPLOAD_RELEASE_KEY_PASSWORD
+            } else {
                 storeFile file(RELEASE_STORE_FILE)
                 storePassword RELEASE_STORE_PASSWORD
                 keyAlias RELEASE_KEY_ALIAS
@@ -72,9 +90,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            if (project.hasProperty("RELEASE_STORE_FILE")) {
-                signingConfig signingConfigs.release
-            }
+            signingConfig signingConfigs.release
 
             externalNativeBuild {
                 ndkBuild {
@@ -83,6 +99,8 @@ android {
             }
         }
         debug {
+            signingConfig signingConfigs.debug
+
             externalNativeBuild {
                 ndkBuild {
                     arguments 'NDK_DEBUG=1'
