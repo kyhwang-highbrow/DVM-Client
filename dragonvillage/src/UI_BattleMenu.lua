@@ -4,6 +4,9 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_BattleMenu
 -------------------------------------
 UI_BattleMenu = class(PARENT, {
+        m_lAdventureBtnUI = '',
+        m_lDungeonBtnUI = '',
+        m_lCompetitionBtnUI = '',
      })
 
 local THIS = UI_BattleMenu
@@ -133,6 +136,16 @@ function UI_BattleMenu:onChangeTab(tab, first)
             self:initCompetitionTab() 
         end
     end
+
+    if (tab == 'adventure') then
+        self:runBtnAppearAction(self.m_lAdventureBtnUI)
+
+    elseif (tab == 'dungeon') then
+        self:runBtnAppearAction(self.m_lDungeonBtnUI)
+
+    elseif (tab == 'competition') then
+        self:runBtnAppearAction(self.m_lCompetitionBtnUI)
+    end
 end
 
 -------------------------------------
@@ -142,15 +155,21 @@ end
 function UI_BattleMenu:initAdventureTab()
     local vars = self.vars
 
+    local l_btn_ui = {}
+
     -- 모험
-    local ui = UI_BattleMenuItem()
+    local ui = UI_BattleMenuItem('adventure')
     ui.root:setPosition(-184, -94)
     vars['adventureMenu']:addChild(ui.root)
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=-184, ['y']=-94})
 
     -- 탐험
-    local ui = UI_BattleMenuItem()
+    local ui = UI_BattleMenuItem('exploation')
     ui.root:setPosition(184, -94)
     vars['adventureMenu']:addChild(ui.root)
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=184, ['y']=-94})
+
+    self.m_lAdventureBtnUI = l_btn_ui
 end
 
 -------------------------------------
@@ -160,25 +179,33 @@ end
 function UI_BattleMenu:initDungeonTab()
     local vars = self.vars
 
-    -- 거대용 던전
-    local ui = UI_BattleMenuItem()
+    local l_btn_ui = {}
+
+    -- 진화재료 던전
+    local ui = UI_BattleMenuItem('nest_evo_stone')
     ui.root:setPosition(-472, -94)
     vars['dungeonMenu']:addChild(ui.root)
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=-472, ['y']=-94})
 
     -- 거목 던전
-    local ui = UI_BattleMenuItem()
+    local ui = UI_BattleMenuItem('nest_tree')
     ui.root:setPosition(-158, -94)
     vars['dungeonMenu']:addChild(ui.root)
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=-158, ['y']=-94})
 
     -- 악몽 던전
-    local ui = UI_BattleMenuItem()
+    local ui = UI_BattleMenuItem('nest_nightmare')
     ui.root:setPosition(158, -94)
     vars['dungeonMenu']:addChild(ui.root)
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=158, ['y']=-94})
 
     -- 인연 던전
-    local ui = UI_BattleMenuItem()
+    local ui = UI_BattleMenuItem('secret_relation')
     ui.root:setPosition(472, -94)
     vars['dungeonMenu']:addChild(ui.root)
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=472, ['y']=-94})
+
+    self.m_lDungeonBtnUI = l_btn_ui
 end
 
 -------------------------------------
@@ -188,17 +215,41 @@ end
 function UI_BattleMenu:initCompetitionTab()
     local vars = self.vars
 
+    local l_btn_ui = {}
+
     -- 콜로세움
-    local ui = UI_BattleMenuItem()
+    local ui = UI_BattleMenuItem('colosseum')
     ui.root:setPosition(-184, -94)
     vars['competitionMenu']:addChild(ui.root)
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=-184, ['y']=-94})
 
     -- 고대의 탑
-    local ui = UI_BattleMenuItem()
+    local ui = UI_BattleMenuItem('ancient')
     ui.root:setPosition(184, -94)
     vars['competitionMenu']:addChild(ui.root)
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=184, ['y']=-94})
+
+    self.m_lCompetitionBtnUI = l_btn_ui
 end
 
+-------------------------------------
+-- function runBtnAppearAction
+-- @brief 모험 초기화
+-------------------------------------
+function UI_BattleMenu:runBtnAppearAction(l_btn_ui)
+    for i,t_data in pairs(l_btn_ui) do
+        local x = t_data['x']
+        local y = t_data['y']
+
+        local ui = t_data['ui']
+
+        ui.root:setPositionX(x + 1280)
+        local move_to = cc.MoveTo:create(0.5, cc.p(x, y))
+        local ease_in_out = cc.EaseInOut:create(move_to, 2)
+        local action = cc.Sequence:create(cc.DelayTime:create((i-1) * 0.05), ease_in_out)
+        ui.root:runAction(action)
+    end
+end
 
 --@CHECK
 UI:checkCompileError(UI_BattleMenu)

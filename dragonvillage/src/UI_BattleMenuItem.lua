@@ -4,6 +4,17 @@ local PARENT = UI
 -- class UI_BattleMenuItem
 -------------------------------------
 UI_BattleMenuItem = class(PARENT, {
+        m_contentType = 'string',
+        -- sgkim 2017-08-03
+        -- table_content_lock.csv와 용어 통일
+        -- adventure	모험
+        -- exploation	탐험
+        -- nest_tree	[네스트] 거목 던전
+        -- nest_evo_stone	[네스트] 진화재료 던전
+        -- ancient	고대의 탑
+        -- colosseum	콜로세움
+        -- nest_nightmare	[네스트] 악몽 던전
+        -- secret_relation 인연던전
      })
 
 local THIS = UI_BattleMenuItem
@@ -11,7 +22,9 @@ local THIS = UI_BattleMenuItem
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BattleMenuItem:init()
+function UI_BattleMenuItem:init(content_type)
+    self.m_contentType = content_type
+
     local vars = self:load('battle_menu_item.ui')
 
     self:initUI()
@@ -23,6 +36,42 @@ end
 -- function initUI
 -------------------------------------
 function UI_BattleMenuItem:initUI()
+    local vars = self.vars
+
+    local content_type = self.m_contentType
+
+    -- 컨텐츠에 따라 사용하는 레이아웃이 다름
+    if isExistValue(content_type, 'adventure', 'exploation', 'colosseum', 'ancient') then
+        vars['itemMenu1']:setVisible(true)
+        vars['itemMenu2']:setVisible(false)
+
+        vars['enterBtn'] = vars['enterBtn1']
+        vars['itemVisual'] = vars['itemVisual1']
+        vars['titleLabel'] = vars['titleLabel1']
+        vars['dscLabel'] = vars['dscLabel1']
+    else
+        vars['itemMenu1']:setVisible(false)
+        vars['itemMenu2']:setVisible(true)
+
+        vars['enterBtn'] = vars['enterBtn2']
+        vars['itemVisual'] = vars['itemVisual2']
+        vars['titleLabel'] = vars['titleLabel2']
+        vars['dscLabel'] = vars['dscLabel2']
+    end
+    
+    -- 버튼 잠금 상태 처리
+    local is_content_lock, req_user_lv = g_contentLockData:isContentLock(content_type)
+    if is_content_lock then
+        vars['lockSprite']:setVisible(true)
+        vars['lockLabel']:setString(Str('레벨 {1}', req_user_lv))
+    else
+        vars['lockSprite']:setVisible(false)
+    end
+
+    -- 컨텐츠 타입별 지정
+    vars['itemVisual']:changeAni(content_type, true)
+    vars['titleLabel']:setString(getContentName(content_type))
+    vars['dscLabel']:setString(self:getDescStr(content_type))
 end
 
 -------------------------------------
@@ -36,4 +85,32 @@ end
 -- function refresh
 -------------------------------------
 function UI_BattleMenuItem:refresh()
+end
+
+-------------------------------------
+-- function getDescStr
+-------------------------------------
+function UI_BattleMenuItem:getDescStr(content_type)
+    local content_type = (content_type or self.m_contentType)
+
+    local desc = ''
+
+    -- 진화재료 던전
+    if (content_type == 'nest_evo_stone') then
+        desc = Str('진화재료 획득 가능')
+
+    -- 거목 던전
+    elseif (content_type == 'nest_tree') then
+        desc = Str('친밀도 열매 획득 가능')
+
+    -- 악몽 던전
+    elseif (content_type == 'nest_nightmare') then
+        desc = Str('룬 획득 가능')
+
+    -- 인연 던전
+    elseif (content_type == 'secret_relation') then
+        desc = Str('인연포인트 획득 가능')
+    end
+
+    return desc
 end

@@ -280,6 +280,55 @@ function getSkillType_Tamer(skill_idx)
 end
 
 -------------------------------------
+-- function getContentName
+-- @brief 컨텐츠 이름
+-- @param content_type string
+        -- sgkim 2017-08-03
+        -- table_content_lock.csv와 용어 통일
+        -- adventure	모험
+        -- exploation	탐험
+        -- nest_tree	[네스트] 거목 던전
+        -- nest_evo_stone	[네스트] 진화재료 던전
+        -- ancient	고대의 탑
+        -- colosseum	콜로세움
+        -- nest_nightmare	[네스트] 악몽 던전
+        -- secret_relation 인연던전
+-------------------------------------
+function getContentName(content_type)
+    local content_name = ''
+
+    if (content_type == 'adventure') then
+        content_name = Str('모험')
+    
+    elseif (content_type == 'exploation') then
+        content_name = Str('탐험')
+    
+    elseif (content_type == 'colosseum') then
+        content_name = Str('콜로세움')
+    
+    elseif (content_type == 'ancient') then
+        content_name = Str('고대의 탑')
+
+    elseif (content_type == 'nest_tree') then
+        content_name = Str('거목 던전')
+
+    elseif (content_type == 'nest_evo_stone') then
+        content_name = Str('진화재료 던전')
+
+    elseif (content_type == 'nest_nightmare') then
+        content_name = Str('악몽 던전')
+
+    elseif (content_type == 'secret_relation') then
+        content_name = Str('인연 던전')
+
+    else
+        error('content_type : ' .. content_type)
+    end
+
+    return content_name
+end
+
+-------------------------------------
 -- function getUserInfoText
 -- @brief 유저 상세 정보의 텍스트
 -------------------------------------
