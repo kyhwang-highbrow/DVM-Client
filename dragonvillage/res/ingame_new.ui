@@ -293,7 +293,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'manaNumberSprite';
+			lua_name = 'manaSprite';
 			file_name = 'ui/a2d/ingame_panel/ingame_panel_bubble.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
