@@ -65,6 +65,17 @@ function UI_TermsPopup:refresh()
 end
 
 -------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_BattleMenu:click_closeBtn()
+    -- 약관 창은 임의로 닫을 수 없으며, 백키를 누를 경우 앱 종료 팝업을 출력한다.
+    local function yes_cb()
+        closeApplication()
+    end
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('종료하시겠습니까?'), yes_cb)
+end
+
+-------------------------------------
 -- function click_viewBtn1
 -------------------------------------
 function UI_TermsPopup:click_viewBtn1()
