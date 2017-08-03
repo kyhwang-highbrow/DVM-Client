@@ -504,6 +504,10 @@ end
 function UI_Game:setAutoPlayUI()
     local vars = self.vars
 
+    local game_mode = self.m_gameScene.m_gameMode
+    local is_auto_mode = not (game_mode == GAME_MODE_ANCIENT_TOWER) 
+    vars['autoStartButton']:setVisible(is_auto_mode)
+
     vars['autoStartNode']:setVisible(g_autoPlaySetting:isAutoPlay())
     vars['autoStartNumberLabel']:setString(Str('{1}회 반복중', g_autoPlaySetting:getAutoPlayCnt()))
     vars['autoStartVisual']:setVisible(g_autoPlaySetting:isAutoPlay())

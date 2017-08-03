@@ -11,9 +11,10 @@ ServerData_AncientTower = class({
 
         m_challengingInfo = 'StructAncientTowerFloorData',
         m_challengingStageID = 'number', -- 현재 진행중인 층의 스테이지 아이디
+        m_clearStageID = 'number', -- 최종 클리어한 층의 스테이지 아이디
+
         m_challengingFloor = 'number', -- 현재 진행중인 층    
         m_challengingCount = 'number', -- 도전 횟수
-        
         m_clearFloor = 'number', -- 최종 클리어한 층
 
         m_lStage = 'table',
@@ -56,7 +57,22 @@ function ServerData_AncientTower:getNextStageID(stage_id)
     if t_drop then
         return stage_id + 1
     else
-        return nil
+        return stage_id
+    end
+end
+
+-------------------------------------
+-- function getSimplePrevStageID
+-- @brief
+-------------------------------------
+function ServerData_AncientTower:getSimplePrevStageID(stage_id)
+    local table_drop = TableDrop()
+    local t_drop = table_drop:get(stage_id - 1)
+
+    if t_drop then
+        return stage_id - 1
+    else
+        return stage_id
     end
 end
 
@@ -83,7 +99,7 @@ end
 -------------------------------------
 -- function goToAncientTowerScene
 -------------------------------------
-function ServerData_AncientTower:goToAncientTowerScene(use_scene)
+function ServerData_AncientTower:goToAncientTowerScene(use_scene, stage_id)
     local function finish_cb()
         if use_scene then
             local function close_cb()
@@ -106,7 +122,7 @@ function ServerData_AncientTower:goToAncientTowerScene(use_scene)
 		    end
         end        
     end    
-    self:request_ancientTowerInfo(nil, finish_cb, fail_cb)
+    self:request_ancientTowerInfo(stage_id, finish_cb, fail_cb)
 end
 
 -------------------------------------
@@ -125,6 +141,8 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
         self.m_challengingInfo = StructAncientTowerFloorData(t_challenging_info)
         self.m_challengingStageID = t_challenging_info['stage']
         self.m_challengingFloor = (self.m_challengingStageID % ANCIENT_TOWER_STAGE_ID_START)
+
+        self.m_clearStageID = ret['ancient_clear_stage']
         self.m_clearFloor = (ret['ancient_clear_stage'] % ANCIENT_TOWER_STAGE_ID_START)
 
         self.m_challengingCount = t_challenging_info['fail_cnt']
@@ -334,7 +352,7 @@ end
 -- @brief stage_id에 해당하는 스테이지가 입장 가능한지를 리턴
 -------------------------------------
 function ServerData_AncientTower:isOpenStage(stage_id)
-    local is_open = (stage_id <= self.m_challengingStageID)
+    local is_open = (stage_id <= self.m_clearStageID + 1)
     return is_open
 end
 

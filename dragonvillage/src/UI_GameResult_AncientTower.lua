@@ -22,10 +22,19 @@ function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tam
 
     vars['againBtn']:setVisible(false)
     vars['quickBtn']:setVisible(false)
+end
 
-    self.root:stopAllActions()
-    self:setWorkList()
-    self:doNextWork()
+-------------------------------------
+-- function init_difficultyIcon
+-- @brief 스테이지 난이도를 표시
+--        모험모드에서 사용하므로 고대의 탑에선 off
+-------------------------------------
+function UI_GameResult_AncientTower:init_difficultyIcon(stage_id)
+    local vars = self.vars
+    vars['difficultySprite']:setVisible(false)
+    vars['gradeLabel']:setVisible(false)
+    vars['titleLabel']:setPositionX(0)
+    vars['titleLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 end
 
 -------------------------------------
@@ -85,11 +94,9 @@ function UI_GameResult_AncientTower:makeScoreAnimation()
 
     local score_node    = vars['scoreNode']
     local total_node    = vars['totalSprite']
-    local result_menu   = vars['resultMenu']
 
     score_node:setVisible(true)
     total_node:setVisible(true)
-    result_menu:setVisible(false)
 
     doAllChildren(score_node,   function(node) node:setOpacity(0) end)
     doAllChildren(total_node,   function(node) node:setOpacity(0) end)
@@ -169,7 +176,6 @@ function UI_GameResult_AncientTower:removeScore()
     local vars          = self.vars
     local score_node    = vars['scoreNode']
     local total_node    = vars['totalSprite']
-    local result_menu   = vars['resultMenu']
 
     local delay_time = 2.0
 
@@ -186,23 +192,11 @@ function UI_GameResult_AncientTower:removeScore()
     doAllChildren(score_node, function(node)
         local act1 = cc.DelayTime:create(delay_time)
         local act2 = cc.FadeOut:create(0.2)
-        local act3 = cc.CallFunc:create(function() self:makeResultUI() end)
-        local action = cc.Sequence:create(act1, act2, act3)
+        local action = cc.Sequence:create(act1, act2)
         node:runAction(action) 
     end)
-end
 
--------------------------------------
--- function init_difficultyIcon
--- @brief 스테이지 난이도를 표시
---        모험모드에서 사용하므로 고대의 탑에선 off
--------------------------------------
-function UI_GameResult_AncientTower:init_difficultyIcon(stage_id)
-    local vars = self.vars
-    vars['difficultySprite']:setVisible(false)
-    vars['gradeLabel']:setVisible(false)
-    vars['titleLabel']:setPositionX(0)
-    vars['titleLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time + 0.5), cc.CallFunc:create(function() self:doNextWork() end)))
 end
 
 -------------------------------------
@@ -218,36 +212,30 @@ end
 -- function click_nextBtn
 -------------------------------------
 function UI_GameResult_AncientTower:click_nextBtn()
-    g_ancientTowerData:goToAncientTowerScene()
+    local stage_id = self.m_stageID
+    local use_scene = true
+    local next_stage_id = g_stageData:getNextStage(stage_id)
+    
+    g_ancientTowerData:goToAncientTowerScene(use_scene, next_stage_id)
 end
 
 -------------------------------------
--- function setWorkList
+-- function click_prevBtn
 -------------------------------------
-function UI_GameResult_AncientTower:setWorkList()
-    self.m_workIdx = 0
+function UI_GameResult_AncientTower:click_prevBtn()
+    local stage_id = self.m_stageID
+    local use_scene = true
+    local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
 
-    self.m_lWorkList = {}
-    table.insert(self.m_lWorkList, 'direction_showTamer')
-    table.insert(self.m_lWorkList, 'direction_hideTamer')
-    table.insert(self.m_lWorkList, 'direction_showScore')
-    table.insert(self.m_lWorkList, 'direction_end')
-    table.insert(self.m_lWorkList, 'direction_showBox')
-    table.insert(self.m_lWorkList, 'direction_openBox')
-    table.insert(self.m_lWorkList, 'direction_dropItem')
-    table.insert(self.m_lWorkList, 'direction_secretDungeon')
-    table.insert(self.m_lWorkList, 'direction_showButton')
-    table.insert(self.m_lWorkList, 'direction_moveMenu')
-    table.insert(self.m_lWorkList, 'direction_masterRoad')
+    g_ancientTowerData:goToAncientTowerScene(use_scene, prev_stage_id)
 end
 
 -------------------------------------
 -- function direction_showScore
 -------------------------------------
 function UI_GameResult_AncientTower:direction_showScore()
-    local is_success = self.m_bSuccess
     self.root:stopAllActions()
-
+    local is_success = self.m_bSuccess
     self:setSuccessVisual_Ancient()
 
     -- 성공시에만 스코어 연출
@@ -255,15 +243,8 @@ function UI_GameResult_AncientTower:direction_showScore()
         self:setAnimationData()
         self:makeScoreAnimation()
     else
-        self:makeResultUI()
+        self:doNextWork()
     end
-end
-
--------------------------------------
--- function direction_showScore_click
--------------------------------------
-function UI_GameResult_AncientTower:direction_showScore_click()
-    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -274,14 +255,23 @@ function UI_GameResult_AncientTower:setSuccessVisual_Ancient()
     local is_success = self.m_bSuccess
     local vars = self.vars
 
-    self:setSuccessVisual()
-
+    vars['successVisual']:setVisible(true)
     if (is_success == true) then
+        SoundMgr:playBGM('bgm_dungeon_victory', false)  
         vars['successVisual']:changeAni('success_tower_appear', false)
         vars['successVisual']:addAniHandler(function()
             vars['successVisual']:changeAni('success_tower_idle', true)
         end)
+    else
+        SoundMgr:playBGM('bgm_dungeon_lose', false)
+        vars['successVisual']:changeAni('fail')
     end
+end
+
+-------------------------------------
+-- function setSuccessVisual
+-------------------------------------
+function UI_GameResult_AncientTower:setSuccessVisual()
 end
 
 -------------------------------------
@@ -302,33 +292,3 @@ function UI_GameResult_AncientTower:setTotalScoreLabel()
     self.m_totalScore = total_score
 end
 
--------------------------------------
--- function makeResultUI
--- @brief 성공 연출 후 결과 화면 다시 보여주고 doNextWork()로 원래 워크 플로우 진행
--------------------------------------
-function UI_GameResult_AncientTower:makeResultUI()
-    
-    local is_success = self.m_bSuccess
-    local vars = self.vars
-    vars['resultMenu']:setVisible(true)
-	vars['statsBtn']:setVisible(false)
-    vars['homeBtn']:setVisible(false)
-    vars['againBtn']:setVisible(false)
-    vars['nextBtn']:setVisible(false)
-    vars['quickBtn']:setVisible(false)
-    vars['skipLabel']:setVisible(false)
-    vars['againBtn']:setVisible(false)
-
-    -- 드래곤 레벨업 연출 node
-    vars['dragonResultNode']:setVisible(true)
-
-    -- 플레이 시간, 획득 골드
-    self.m_lNumberLabel['time']:setNumber(self.m_time)
-    self.m_lNumberLabel['gold']:setNumber(self.m_gold)
-
-    -- 레벨업 연출 시작
-    self:startLevelUpDirector()
-
-    self.root:stopAllActions()
-    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2.0), cc.CallFunc:create(function() self:doNextWork() end)))
-end

@@ -163,6 +163,11 @@ function ServerData_Stage:getSimplePrevStage(stage_id)
     -- 비밀 던전 모드
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         ret = g_secretDungeonData:getSimplePrevStageID(stage_id)
+
+    -- 고대의 탑 모드
+    elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        ret = g_ancientTowerData:getSimplePrevStageID(stage_id)
+
     end
 
     return ret

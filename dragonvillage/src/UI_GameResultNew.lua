@@ -163,6 +163,7 @@ function UI_GameResultNew:setWorkList()
     self.m_lWorkList = {}
     table.insert(self.m_lWorkList, 'direction_showTamer')
     table.insert(self.m_lWorkList, 'direction_hideTamer')
+    table.insert(self.m_lWorkList, 'direction_showScore')
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')
     table.insert(self.m_lWorkList, 'direction_showBox')
@@ -263,6 +264,20 @@ end
 -- function direction_hideTamer_click
 -------------------------------------
 function UI_GameResultNew:direction_hideTamer_click()
+    if (self:checkAutoPlayRelease()) then return end
+end
+
+-------------------------------------
+-- function direction_showScore
+-------------------------------------
+function UI_GameResultNew:direction_showScore()
+    self:doNextWork()
+end
+
+-------------------------------------
+-- function direction_showScore_click
+-------------------------------------
+function UI_GameResultNew:direction_showScore_click()
     if (self:checkAutoPlayRelease()) then return end
 end
 
@@ -387,7 +402,7 @@ function UI_GameResultNew:direction_end_click()
         return
     end
 
-    self.root:stopAllActions()
+    
     self:doNextWork()
 end
 
@@ -541,7 +556,6 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_showButton()
     local vars = self.vars
-
 	vars['statsBtn']:setVisible(true)
     vars['skipBtn']:setVisible(false)
     vars['homeBtn']:setVisible(true)
