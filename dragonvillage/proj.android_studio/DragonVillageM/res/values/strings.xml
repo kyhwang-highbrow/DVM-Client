@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="true">DragonVillage M</string>
+    <string name="app_name" translatable="true">Dragon Village M</string>
     <string name="app_id">983890984134</string>
     <string name="igaworks_app_key">547246367</string>
     <string name="igaworks_hash_key">7193c7e787b34fd9</string>
