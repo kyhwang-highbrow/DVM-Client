@@ -328,7 +328,29 @@ function Animator:setPositionY(y)
 end
 
 -------------------------------------
--- function setPosition
+-- function getPositionX
+-------------------------------------
+function Animator:getPositionX()
+    if (not self.m_node) then
+        return
+    end
+
+    return self.m_node:getPositionX()
+end
+
+-------------------------------------
+-- function getPositionY
+-------------------------------------
+function Animator:getPositionY()
+    if (not self.m_node) then
+        return
+    end
+
+    return self.m_node:getPositionY()
+end
+
+-------------------------------------
+-- function setDockPoint
 -------------------------------------
 function Animator:setDockPoint(x, y)
     if (not self.m_node) then
@@ -338,7 +360,7 @@ function Animator:setDockPoint(x, y)
 end
 
 -------------------------------------
--- function setPosition
+-- function setAnchorPoint
 -------------------------------------
 function Animator:setAnchorPoint(x, y)
     if (not self.m_node) then

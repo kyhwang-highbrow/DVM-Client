@@ -1,6 +1,6 @@
 local PARENT = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable())
 
-local MAX_MANA = 5
+MAX_MANA = 5
 
 -------------------------------------
 -- class GameMana
@@ -28,7 +28,7 @@ function GameMana:init(world, left_formation)
 
     self.m_bLeftFormation = left_formation
 
-    self.m_prevValue = 0
+    self.m_prevValue = -1
     self.m_value = 0
     self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL')
     self.m_bEnable = true
@@ -44,25 +44,23 @@ function GameMana:update(dt)
         add = self.m_incValuePerSec * dt
     end
 
-    if (self.m_value > MAX_MANA) then
-        self.m_value = MAX_MANA
-    else
-        self.m_value = self.m_value + add
-    end
+    self.m_value = self.m_value + add
+    self.m_value = math_min(self.m_value, MAX_MANA)
+    
+    self:updateGauge(self.m_prevValue ~= math_floor(self.m_value))
 
-    self:updateGauge()
-
-    self.m_prevValue = self.m_value
+    self.m_prevValue = math_floor(self.m_value)
 end
 
 -------------------------------------
 -- function updateGauge
+-- @param updated_int : 정수값이 갱신되었는지 여부
 -------------------------------------
-function GameMana:updateGauge()
+function GameMana:updateGauge(updated_int)
     if (not self.m_inGameUI) then return end
 
     if (self.m_bLeftFormation) then
-        self.m_inGameUI:setMana(self.m_value, MAX_MANA)
+        self.m_inGameUI:setMana(self.m_value, updated_int)
     end
 end
 

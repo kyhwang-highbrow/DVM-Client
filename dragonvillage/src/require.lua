@@ -702,6 +702,7 @@ local t_module = {
 
 	-- UI : 인게임
 	'UI_Game',
+    'UI_Game_Mana',
 	'UI_GameTamer',
     'UI_GameColosseum',
     'UI_GameResultNew',
