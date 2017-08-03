@@ -6,38 +6,38 @@
         Note that such a download could have been initiated by a variety of
         applications, including (but not limited to) the browser, an email
         application, a content marketplace. -->
-    <string name="notification_download_complete">Download complete</string>
+    <string name="notification_download_complete" translatable="false">Download complete</string>
 
     <!-- When a download completes, a notification is displayed, and this
         string is used to indicate that the download failed.
         Note that such a download could have been initiated by a variety of
         applications, including (but not limited to) the browser, an email
         application, a content marketplace. -->
-    <string name="notification_download_failed">Download unsuccessful</string>
+    <string name="notification_download_failed" translatable="false">Download unsuccessful</string>
 
 
-    <string name="state_unknown">Starting..."</string>
-    <string name="state_idle">Waiting for download to start</string>
-    <string name="state_fetching_url">Looking for resources to download</string>
-    <string name="state_connecting">Connecting to the download server</string>
-    <string name="state_downloading">Downloading resources</string>
-    <string name="state_completed">Download finished</string>
-    <string name="state_paused_network_unavailable">Download paused because no network is available</string>
-    <string name="state_paused_network_setup_failure">Download paused. Test a website in browser</string>
-    <string name="state_paused_by_request">Download paused</string>
-    <string name="state_paused_wifi_unavailable">Download paused because wifi is unavailable</string>
-    <string name="state_paused_wifi_disabled">Download paused because wifi is disabled</string>
-    <string name="state_paused_roaming">Download paused because you are roaming</string>
-    <string name="state_paused_sdcard_unavailable">Download paused because the external storage is unavailable</string>
-    <string name="state_failed_unlicensed">Download failed because you may not have purchased this app</string>
-    <string name="state_failed_fetching_url">Download failed because the resources could not be found</string>
-    <string name="state_failed_sdcard_full">Download failed because the external storage is full</string>
-    <string name="state_failed_cancelled">Download cancelled</string>
-    <string name="state_failed_write_storage_permission_denied">Download failed because the write permission was denied</string>
-    <string name="state_failed_no_google_account">Download failed because a google account is not logged in</string>
-    <string name="state_failed">Download failed</string>
+    <string name="state_unknown" translatable="false">Starting..."</string>
+    <string name="state_idle" translatable="false">Waiting for download to start</string>
+    <string name="state_fetching_url" translatable="false">Looking for resources to download</string>
+    <string name="state_connecting" translatable="false">Connecting to the download server</string>
+    <string name="state_downloading" translatable="false">Downloading resources</string>
+    <string name="state_completed" translatable="false">Download finished</string>
+    <string name="state_paused_network_unavailable" translatable="false">Download paused because no network is available</string>
+    <string name="state_paused_network_setup_failure" translatable="false">Download paused. Test a website in browser</string>
+    <string name="state_paused_by_request" translatable="false">Download paused</string>
+    <string name="state_paused_wifi_unavailable" translatable="false">Download paused because wifi is unavailable</string>
+    <string name="state_paused_wifi_disabled" translatable="false">Download paused because wifi is disabled</string>
+    <string name="state_paused_roaming" translatable="false">Download paused because you are roaming</string>
+    <string name="state_paused_sdcard_unavailable" translatable="false">Download paused because the external storage is unavailable</string>
+    <string name="state_failed_unlicensed" translatable="false">Download failed because you may not have purchased this app</string>
+    <string name="state_failed_fetching_url" translatable="false">Download failed because the resources could not be found</string>
+    <string name="state_failed_sdcard_full" translatable="false">Download failed because the external storage is full</string>
+    <string name="state_failed_cancelled" translatable="false">Download cancelled</string>
+    <string name="state_failed_write_storage_permission_denied" translatable="false">Download failed because the write permission was denied</string>
+    <string name="state_failed_no_google_account" translatable="false">Download failed because a google account is not logged in</string>
+    <string name="state_failed" translatable="false">Download failed</string>
 
-    <string name="kilobytes_per_second">%1$s KB/s</string>
-    <string name="time_remaining">Time remaining: %1$s</string>
-    <string name="time_remaining_notification">%1$s left</string>
+    <string name="kilobytes_per_second" translatable="false">%1$s KB/s</string>
+    <string name="time_remaining" translatable="false">Time remaining: %1$s</string>
+    <string name="time_remaining_notification" translatable="false">%1$s left</string>
 </resources>
