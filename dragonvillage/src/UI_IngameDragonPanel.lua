@@ -48,13 +48,13 @@ function UI_IngameDragonPanel:initUI()
         self:insertPanelItem(dragon, dragon_idx)
     end
 
-
-    local interval = 160
+    local start_pos = 92
+    local interval = 142
     local count = #self.m_lPanelItemList
     local l_pos_list = getSortPosList(interval, count)
 
     for i,v in ipairs(self.m_lPanelItemList) do
-        v.root:setPositionX(l_pos_list[i])
+        v.root:setPositionX(start_pos + l_pos_list[i])
     end
 end
 
@@ -66,6 +66,8 @@ function UI_IngameDragonPanel:insertPanelItem(dragon, dragon_idx)
     local world = self.m_world
 
     local ui = UI_IngameDragonPanelItem(world, dragon, dragon_idx)
+    ui.root:setDockPoint(cc.p(0.5, 0))
+    ui.root:setAnchorPoint(cc.p(0.5, 0))
     vars['panelMenu']:addChild(ui.root)
     table.insert(self.m_lPanelItemList, ui)
 end

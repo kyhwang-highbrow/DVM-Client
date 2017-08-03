@@ -511,6 +511,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 4;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'manaVisual';
 			file_name = 'ui/a2d/ingame_panel/ingame_panel.vrp';
 			auto_play = true;
@@ -616,6 +620,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 4;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'manaSprite';
 			file_name = 'ui/a2d/ingame_panel/ingame_panel_bubble.png';
 			color = { 255; 255; 255; };
@@ -814,7 +822,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			action_type = 2;
+			action_type = 1;
 			action_delay_1 = 0.000000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
