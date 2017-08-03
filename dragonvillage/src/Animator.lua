@@ -627,6 +627,15 @@ function Animator:setContentSize(width, height)
 end
 
 -------------------------------------
+-- function setOpacity
+-------------------------------------
+function Animator:setOpacity(opacity)
+    if self.m_node then
+        return self.m_node:setOpacity(opacity)
+    end
+end
+
+-------------------------------------
 -- function printAnimatorError
 -------------------------------------
 function Animator:printAnimatorError()

@@ -363,7 +363,7 @@ end
 -- @brief "콜로세움" 버튼
 -------------------------------------
 function UI_LobbyOld:click_colosseumBtn()
-    UI_BattleMenu()
+    UI_BattleMenuOld()
 end
 
 -------------------------------------

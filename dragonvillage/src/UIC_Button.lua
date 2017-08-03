@@ -192,7 +192,7 @@ function UIC_Button:onButtonStateChange(button_state)
         node:setPosition(self.m_originPosX, self.m_originPosY)
 
         if (self.m_actionType ~= UIC_Button.ACTION_TYPE_WITHOUT_SCAILING) then
-            node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
+            node:setScale(self.m_originScaleX * 0.95, self.m_originScaleY * 0.95)
         end
 
         node:setRotation(0)
@@ -220,7 +220,7 @@ function UIC_Button:onButtonStateChange(button_state)
         node:setRotation(0)
 
         if (self.m_actionType ~= UIC_Button.ACTION_TYPE_WITHOUT_SCAILING) then
-            node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
+            node:setScale(self.m_originScaleX * 0.95, self.m_originScaleY * 0.95)
         end
 
         -- 클릭 액션

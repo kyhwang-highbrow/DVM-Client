@@ -4,6 +4,7 @@
 -------------------------------------
 ITabUI = {
         m_bInitDefaultTab = 'boolean',
+        m_prevTab = 'any_type',
         m_currTab = 'any_type',
         m_mTabData = 'map',
         m_cbChangeTab = 'function(tab, first)',
@@ -14,6 +15,7 @@ ITabUI = {
 -------------------------------------
 function ITabUI:init()
     self.m_bInitDefaultTab = false
+    self.m_prevTab = nil
     self.m_currTab = nil
     self.m_mTabData = {}
 end
@@ -75,6 +77,7 @@ function ITabUI:setTab(tab, force)
         end
     end
 
+    self.m_prevTab = self.m_currTab
     self.m_currTab = tab
 
     local first = self.m_mTabData[self.m_currTab]['first']

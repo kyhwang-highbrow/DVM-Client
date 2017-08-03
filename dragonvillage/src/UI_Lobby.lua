@@ -226,6 +226,9 @@ function UI_Lobby:initButton()
     vars['masterRoadBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
     vars['etcBtn']:registerScriptTapHandler(function() self:click_etcBtn() end)
+    
+    -- 좌측 UI
+    vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
 
     -- 우측 UI
     vars['subscriptionBtn']:registerScriptTapHandler(function() self:click_subscriptionBtn() end) -- 월정액
@@ -296,7 +299,7 @@ function UI_Lobby:refresh_highlight()
         vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
 
         -- 우편함
-        --vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
+        vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
 
         -- 드래곤
         vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
@@ -455,7 +458,7 @@ end
 -- @brief "콜로세움" 버튼
 -------------------------------------
 function UI_Lobby:click_colosseumBtn()
-    UI_BattleMenu()
+    UI_BattleMenuOld()
 end
 
 -------------------------------------
@@ -468,7 +471,7 @@ function UI_Lobby:click_battleBtn()
         return
     end
 
-    UI_DungeonMenu()
+    UI_BattleMenu()
 end
 
 -------------------------------------
