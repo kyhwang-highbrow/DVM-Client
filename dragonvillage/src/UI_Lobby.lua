@@ -603,8 +603,8 @@ function UI_Lobby:click_googleGameBtn()
     -- 닫혀 있는 상태 -> 열기
     else
         vars['googleAchievementBtn']:runAction(cc.Sequence:create(
-            cc.Show:create(),
             cc.MoveTo:create(0, cc.p(game_pos_x, achv_pos_y)),
+            cc.Show:create(),
             cca.makeBasicEaseMove(0.2, game_pos_x + 100, achv_pos_y)
         ))
     end
