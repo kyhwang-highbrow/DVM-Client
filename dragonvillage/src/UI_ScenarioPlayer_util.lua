@@ -70,6 +70,7 @@ end
 
 -------------------------------------
 -- function applyEffect
+-- @comment https://docs.google.com/spreadsheets/d/1_obKDht0MJRJV2GtO3RCEwxY-8NE4Eb4LR2svlix8BU/edit#gid=0 기능일람과 동기화 해주세요!
 -------------------------------------
 function UI_ScenarioPlayer:applyEffect(effect)
     if (not effect) then
@@ -116,12 +117,6 @@ function UI_ScenarioPlayer:applyEffect(effect)
     elseif (effect == 'title') then
         self:effect_title(effect, val_1, val_2, val_3)
 
-    elseif (effect == 'clear_all') then
-        for i,v in pairs(self.m_mCharacter) do
-            v:hide()
-        end
-        self.m_scenarioPlayerTalk:hide()
-
     elseif (effect == 'vrp') then
         local key = val_1
         local vrp = self.m_bgAnimator
@@ -129,7 +124,18 @@ function UI_ScenarioPlayer:applyEffect(effect)
         vrp:changeAni(key, loop)
         vrp:addAniHandler(function() self:next() end)
 
-    elseif (effect == 'clear_text') or (effect == 'cleartext') then
+    elseif (effect == 'clear_text') then
+        self.m_scenarioPlayerTalk:hide()
+
+    elseif (effect == 'clear_char') then
+        for i,v in pairs(self.m_mCharacter) do
+            v:hide()
+        end
+
+    elseif (effect == 'clear_all') then
+        for i,v in pairs(self.m_mCharacter) do
+            v:hide()
+        end
         self.m_scenarioPlayerTalk:hide()
 
     elseif effect == 'skip_invisible' then
