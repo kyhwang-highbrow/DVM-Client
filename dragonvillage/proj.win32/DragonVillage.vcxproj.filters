@@ -2580,6 +2580,9 @@
     <None Include="..\src\UI_QuickPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src_tool\StageAnalysis.lua">
+      <Filter>lua_tool</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

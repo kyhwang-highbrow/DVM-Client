@@ -1090,6 +1090,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src_tool\SceneIngameTest.lua" />
     <None Include="..\src_tool\SceneViewer.lua" />
     <None Include="..\src_tool\Scene_UIViewer.lua" />
+    <None Include="..\src_tool\StageAnalysis.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
