@@ -20,6 +20,8 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
         m_highestRarity = 'number',         -- 현재 웨이브에서 가장 높은 rarity
         m_bDeadHighestRarity = 'boolean',   -- 가장 높은 rarity가 죽었는지 여부
 
+        m_bossId = 'number',
+
 		-- regen 전용
         m_mRegenGroup = 'table',
         m_isRegenWave = 'bool',		-- regen Wave 가 있는지 여부
@@ -244,6 +246,7 @@ function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
     
 	            if (rarity > self.m_highestRarity) then
 		            self.m_highestRarity = rarity
+                    self.m_bossId = enemy_id
 	            end
             end
 
@@ -529,4 +532,11 @@ end
 -------------------------------------
 function WaveMgr:getHighestRariry()
     return self.m_highestRarity
+end
+
+-------------------------------------
+-- function getBossId
+-------------------------------------
+function WaveMgr:getBossId()
+    return self.m_bossId
 end

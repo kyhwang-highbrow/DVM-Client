@@ -26,11 +26,23 @@ end
 -- function initUI
 -------------------------------------
 function UI_IngameBossInfo:initUI()
-    PARENT.initUI(self)
-
     local vars = self.vars
     local boss = self.m_owner
     local t_boss = boss.m_charTable
+
+    if (vars['attrNode']) then
+        local attr_str = boss:getAttribute()
+        local res = 'res/ui/icons/attr/attr_' .. attr_str .. '_02.png'
+        local icon = cc.Sprite:create(res)
+        if icon then
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            vars['attrNode']:addChild(icon)
+        end
+    end
+	
+	-- 디버깅용 label
+	self:makeDebugingLabel()
 
     vars['bossSKillGauge']:setPercentage(0)
 

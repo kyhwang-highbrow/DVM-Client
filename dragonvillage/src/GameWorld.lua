@@ -873,7 +873,7 @@ function GameWorld:makeInstantEffect(res, ani_name, x, y)
     local effect = MakeAnimator(res)
     effect:setPosition(x, y)
     effect:changeAni(ani_name, false)
-    local duration = effect.m_node:getDuration()
+    local duration = effect:getDuration()
     effect.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
     return effect
 end

@@ -5,6 +5,8 @@ local PARENT = GameWorld
 -------------------------------------
 GameWorldColosseum = class(PARENT, {
         m_enemyTamer = '',
+
+        m_leaderEnemy = '',
 		m_lEnemyDragons = '',
     })
 
@@ -144,6 +146,19 @@ function GameWorldColosseum:initTamer()
 end
 
 -------------------------------------
+-- function passiveActivate_Right
+-- @brief 패시브 발동
+-------------------------------------
+function GameWorld:passiveActivate_Right()
+    PARENT.passiveActivate_Right(self)
+
+    -- 적 리더 버프
+	if (self.m_leaderEnemy) then
+		self.m_leaderEnemy:doSkill_leader()
+	end
+end
+
+-------------------------------------
 -- function bindEnemy
 -------------------------------------
 function GameWorldColosseum:bindEnemy(enemy)
@@ -273,8 +288,9 @@ function GameWorldColosseum:makeEnemyDeck()
     local user_info = g_colosseumData:getMatchUserInfo()
 
     -- 상대방의 덱 정보를 얻어옴
-    local l_deck, formation = user_info:getDeck('def')
-
+    local l_deck, formation, deck_name, leader = user_info:getDeck('def')
+    --local l_deck, formation, deck_name, leader = g_deckData:getDeck()
+    
     -- 덱에 배치된 드래곤들 생성
     for i, doid in pairs(l_deck) do
         local t_dragon_data = user_info:getDragonObject(doid)
@@ -294,6 +310,11 @@ function GameWorldColosseum:makeEnemyDeck()
 
                 -- 진형 버프 적용
                 enemy.m_statusCalc:applyFormationBonus(formation, i)
+
+                -- 리더 등록
+				if (i == leader) then
+					self.m_leaderEnemy = hero
+				end
             end
         end
     end

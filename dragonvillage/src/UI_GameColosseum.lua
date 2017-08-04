@@ -15,6 +15,14 @@ function UI_GameColosseum:getUIFileName()
 end
 
 -------------------------------------
+-- function init
+-------------------------------------
+function UI_GameColosseum:init(game_scene)
+    -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_GameColosseum')
+end
+
+-------------------------------------
 -- function initUI
 -------------------------------------
 function UI_GameColosseum:initUI()
@@ -39,8 +47,7 @@ function UI_GameColosseum:initUI()
     -- 하단 패널
     vars['panelBgSprite']:setLocalZOrder(-1)
 
-    -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_GameColosseum')
+    self:initManaUI()
 end
 
 -------------------------------------
@@ -83,27 +90,25 @@ function UI_GameColosseum:initTamerUI(tamer1, tamer2)
     do
         local tamer_id = tamer1.m_tamerID
         local tamer_type = TableTamer:getTamerType(tamer_id)
-        --local res_icon = string.format('res/ui/icons/tamer/tamer_manage_%s_0101.png', tamer_type)
         local res_icon = 'res/ui/icons/tamer/colosseum_ready_' .. tamer_type .. '.png'
         local sprite = cc.Sprite:create(res_icon)
 
         sprite:setDockPoint(cc.p(0.5, 0.5))
         sprite:setAnchorPoint(cc.p(0.5, 0.5))
     
-        self.vars['tamerNode1']:addChild(sprite)
+        self.vars['tamerNode1']:addChild(sprite, 1)
     end
 
     do
         local tamer_id = tamer2.m_tamerID
         local tamer_type = TableTamer:getTamerType(tamer_id)
-        --local res_icon = string.format('res/ui/icons/tamer/tamer_manage_%s_0101.png', tamer_type)
         local res_icon = 'res/ui/icons/tamer/colosseum_ready_' .. tamer_type .. '.png'
         local sprite = cc.Sprite:create(res_icon)
 
         sprite:setDockPoint(cc.p(0.5, 0.5))
         sprite:setAnchorPoint(cc.p(0.5, 0.5))
     
-        self.vars['tamerNode2']:addChild(sprite)
+        self.vars['tamerNode2']:addChild(sprite, 1)
     end
 end
 

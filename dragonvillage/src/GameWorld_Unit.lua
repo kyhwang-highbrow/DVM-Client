@@ -309,8 +309,6 @@ function GameWorld:passiveActivate_Left()
 	if (self.m_leaderDragon) then
 		self.m_leaderDragon:doSkill_leader()
 	end
-
-    -- 친구 버프
 end
 
 -------------------------------------

@@ -67,6 +67,18 @@ function TableMonster:isBossMonster(monster_id)
 end
 
 -------------------------------------
+-- function getMonsterName
+-------------------------------------
+function TableMonster:getMonsterName(mid)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local monster_name = self:getValue(mid, 't_name')
+    return Str(monster_name)
+end
+
+-------------------------------------
 -- function getMonsterRes
 -- @brief
 -------------------------------------

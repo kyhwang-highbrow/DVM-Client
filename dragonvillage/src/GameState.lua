@@ -49,6 +49,8 @@ GameState = class(PARENT, {
         m_waveNoti = 'Animator',
         m_waveNum = 'Animator',
         m_waveMaxNum = 'Animator',
+
+        m_labelBossName = 'RichLabel',
     })
 
 -------------------------------------
@@ -76,10 +78,26 @@ end
 -- function initUI
 -------------------------------------
 function GameState:initUI()
-    self.m_waveEffect = MakeAnimator('res/ui/a2d/ui_boss_warning/ui_boss_warning.vrp')
+    -- 보스 등장시 연출
+    self.m_waveEffect = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
     self.m_waveEffect:setVisible(false)
     --g_gameScene.m_containerLayer:addChild(self.m_waveEffect.m_node)
     self.m_world.m_inGameUI.root:addChild(self.m_waveEffect.m_node, 9)
+
+    -- 보스 이름
+    local rich_label = UIC_RichLabel()
+    rich_label.m_defaultColor = cc.c3b(255, 255, 255)
+    rich_label:setString('')
+    rich_label:setFontSize(40)
+    rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    rich_label:enableOutline(cc.c4b(0, 0, 0, 255), 2)
+
+    self.m_labelBossName = rich_label
+
+    local socket_node = self.m_waveEffect.m_node:getSocketNode('ingame_text_boss_name')
+    if (socket_node) then
+        socket_node:addChild(rich_label.m_node)
+    end
 
     -- 웨이브
     self.m_waveNoti = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
@@ -253,7 +271,7 @@ function GameState.update_fight(self, dt)
     end
 
     do -- 아군 스킬 쿨타임 증가
-        for _,dragon in pairs(world:getDragonList()) do
+        for _ ,dragon in pairs(world:getDragonList()) do
             dragon:updateActiveSkillCool(dt)
         end
     end
@@ -460,21 +478,16 @@ end
 function GameState.update_final_wave(self, dt)
     if (self:isBeginningStep(0)) then
         self.m_waveEffect:setVisible(true)
-        self.m_waveEffect:changeAni('final_appear', false)
-        self.m_waveEffect:addAniHandler(function()
-            self:nextStep()
-        end)
-		
-		SoundMgr:stopBGM()
-
-    elseif (self:isBeginningStep(1)) then
-        self.m_waveEffect:setVisible(true)
-        self.m_waveEffect:changeAni('final_disappear', false)
+        self.m_waveEffect:changeAni('leader', false)
         self.m_waveEffect:addAniHandler(function()
             self.m_waveEffect:setVisible(false)
             self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
 
+        -- 보스 이름
+        local boss_name = self:getBossName()
+        self.m_labelBossName:setString(boss_name)
+		
 		-- 엘리트 배경음
         SoundMgr:playBGM('bgm_dungeon_midboss')
     end
@@ -487,36 +500,23 @@ end
 function GameState.update_boss_wave(self, dt)
     if (self:isBeginningStep(0)) then
         self.m_waveEffect:setVisible(true)
-        self.m_waveEffect:changeAni('boss_warning_width_720', false)
-        self.m_waveEffect:addAniHandler(function()
-            self:nextStep()
-        end)
-
-        SoundMgr:stopBGM()
-
-        -- 웨이브 표시 숨김
-        self.m_world.m_inGameUI.vars['waveVisual']:setVisible(false)
-
-    elseif (self:isBeginningStep(1)) then
-        self.m_waveEffect:setVisible(true)
-        self.m_waveEffect:changeAni('boss_appear', false)
-        self.m_waveEffect:addAniHandler(function()
-            self:nextStep()
-        end)
-
-        self.m_world:dispatch('boss_wave')
-
-    elseif (self:isBeginningStep(2)) then
-        self.m_waveEffect:setVisible(true)
-        self.m_waveEffect:changeAni('boss_disappear', false)
+        self.m_waveEffect:changeAni('boss', false)
         self.m_waveEffect:addAniHandler(function()
             self.m_waveEffect:setVisible(false)
             self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
 
+        -- 보스 이름
+        local boss_name = self:getBossName()
+        self.m_labelBossName:setString(boss_name)
+
         -- 보스 배경음
         SoundMgr:playBGM(self.m_bgmBoss)
 
+        self.m_world:dispatch('boss_wave')
+
+        -- 웨이브 표시 숨김
+        self.m_world.m_inGameUI.vars['waveVisual']:setVisible(false)
     end
 end
 
@@ -1101,4 +1101,20 @@ end
 -------------------------------------
 function GameState:resume()
     self.m_bPause = false
+end
+
+-------------------------------------
+-- function getBossName
+-------------------------------------
+function GameState:getBossName()
+    local boss_id = self.m_world.m_waveMgr:getBossId()
+    local name = ''
+
+    if (isMonster(boss_id)) then
+        name = TableMonster():getMonsterName(boss_id)
+    elseif (isDragon(boss_id)) then
+        name = TableDragon():getDragonName(boss_id)
+    end
+
+    return name
 end

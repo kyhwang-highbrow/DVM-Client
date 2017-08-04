@@ -116,7 +116,9 @@ function SkillEnumrate:getSkillTargetList()
 	if (self.m_enumTargetType == 'random') then
 		return self:getSkillTargetList_Random()
 	elseif (self.m_enumTargetType == 'one') then
-		return {self.m_targetChar}
+		return { self.m_targetChar }
+    else
+        error('invalid enum target type : ' .. self.m_enumTargetType)
 	end	
 end
 

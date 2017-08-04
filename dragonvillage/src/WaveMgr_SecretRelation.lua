@@ -90,3 +90,15 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
 
 	return enemy
 end
+
+-------------------------------------
+-- function getBossId
+-------------------------------------
+function WaveMgr_SecretRelation:getBossId()
+    if (isMonster(self.m_bossId)) then
+        return self.m_bossId
+    end
+
+    local boss_id = math_floor(self.m_bossId / 10)
+    return boss_id
+end
