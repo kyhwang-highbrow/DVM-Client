@@ -591,17 +591,22 @@ end
 function UI_Lobby:click_googleGameBtn()
     local vars = self.vars
     local game_pos_x = vars['googleGameBtn']:getPositionX()
-    local achv_pos_x, achv_pos_y = vars['googleAchievementBtn']:getPosition()
+    local achv_pos_y = vars['googleAchievementBtn']:getPositionY()
+
+    -- 구글 업적 버튼 열려있는 상태 -> 닫기
     if (vars['googleAchievementBtn']:isVisible()) then
-        vars['googleAchievementBtn']:setPositionX(game_pos_x + 100)
         vars['googleAchievementBtn']:runAction(cc.Sequence:create(
             cca.makeBasicEaseMove(0.2, game_pos_x, achv_pos_y),
-            cc.CallFunc:create(function() vars['googleAchievementBtn']:setVisible(false) end)  
+            cc.Hide:create()  
         ))
+
+    -- 닫혀 있는 상태 -> 열기
     else
-        vars['googleAchievementBtn']:setVisible(true)
-        vars['googleAchievementBtn']:setPositionX(game_pos_x)
-        vars['googleAchievementBtn']:runAction(cca.makeBasicEaseMove(0.2, game_pos_x + 100, achv_pos_y))
+        vars['googleAchievementBtn']:runAction(cc.Sequence:create(
+            cc.Show:create(),
+            cc.MoveTo:create(0, cc.p(game_pos_x, achv_pos_y)),
+            cca.makeBasicEaseMove(0.2, game_pos_x + 100, achv_pos_y)
+        ))
     end
 end
 
