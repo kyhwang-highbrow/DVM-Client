@@ -2577,6 +2577,9 @@
     <None Include="..\src\UI_BattleMenuOld.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_QuickPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

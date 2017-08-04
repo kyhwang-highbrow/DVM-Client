@@ -633,6 +633,7 @@ local t_module = {
     'UI_WebView',
     'UI_Help',
     'UI_DragonGoodbyeResult',
+    'UI_QuickPopup',
 
     -- UI : 약관 동의
     'UI_TermsPopup',

@@ -27,11 +27,7 @@ function SceneLobby:onEnter()
 
 	-- self.m_bUseLoadingUI가 false라면 prepare가 동작하지 않으므로 별도로 선언
 	if (not self.m_bUseLoadingUI) then
-        if DEVELOPMENT_SEONG_GOO_KIM then
-            UI_Lobby()
-        else
-            UI_LobbyOld()
-        end
+        UI_Lobby()
 	end
 end
 
@@ -40,11 +36,7 @@ end
 -------------------------------------
 function SceneLobby:prepare()
 	self:addLoading(function()
-		if DEVELOPMENT_SEONG_GOO_KIM then
-            UI_Lobby()
-        else
-            UI_LobbyOld()
-        end
+        UI_Lobby()
 	end)
 end
 

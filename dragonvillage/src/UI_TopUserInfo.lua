@@ -24,7 +24,8 @@ function UI_TopUserInfo:init()
 
     vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['st_ad_btn']:registerScriptTapHandler(function() self:click_st_ad_btn() end)
-    vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
+    --vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
+    vars['settingBtn']:registerScriptTapHandler(function() self:click_quickPopupBtn() end)    
     vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)
 
     self.m_lNumberLabel = {}
@@ -106,6 +107,13 @@ end
 -------------------------------------
 function UI_TopUserInfo:click_settingBtn()
     UI_Setting()
+end
+
+-------------------------------------
+-- function click_quickPopupBtn
+-------------------------------------
+function UI_TopUserInfo:click_quickPopupBtn()
+    UI_QuickPopup()
 end
 
 -------------------------------------

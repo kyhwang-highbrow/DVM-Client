@@ -14,7 +14,7 @@ UI_NestDungeonListItem = class(PARENT, {
 function UI_NestDungeonListItem:init(t_data)
     self.m_tData = t_data
 
-    local vars = self:load('dungeon_item.ui')
+    local vars = self:load('dungeon_item_new.ui')
 
     self:initUI(t_data)
     self:initButton()
@@ -62,7 +62,7 @@ function UI_NestDungeonListItem:refresh()
     vars['dayLabel']:setString('')
 
     vars['titleLabel']:setString(Str(self.m_tData['t_name']))
-    vars['infoLabel']:setString(Str(self.m_tData['t_info']))
+    vars['rewardLabel']:setString(Str(self.m_tData['t_info']))
 
     -- 요일 정보 출력
     self:refresh_dayLabel(self.m_tData['major_day'], self.m_tData['days'], self.m_tData['mode'])
