@@ -139,6 +139,19 @@ function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
         g_serverData:networkCommonRespone(ret)
 
         if ret['nest_info'] then
+            -- 황금던전은 나중에 다시 들어갈 것이 자명함으로 클라에서 처리
+            do
+                local remove_idx
+                for i, v in pairs(ret['nest_info']) do
+                    if (v['mode_id'] == 1240000) then
+                        remove_idx = i
+                    end
+                end
+                if (remove_idx) then
+                    table.remove(ret['nest_info'], remove_idx)
+                end
+            end
+
             self:applyNestDungeonInfo(ret['nest_info'])
         end
 

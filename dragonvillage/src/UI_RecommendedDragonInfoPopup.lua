@@ -184,7 +184,6 @@ function UI_RecommendedDragonInfoPopup:makeTableView_dungeon()
             
             -- ui 최초 선택 갱신
             if (data['mode_id'] == self.m_modeID) then
-                ccdump(data)
                 ui:refresh(data['mode_id'])
                 init_idx = data['idx']
             end
@@ -265,8 +264,10 @@ function UI_RecommendedDragonInfoPopup:makeUICSortList_DungeonLV(button, label)
 	uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
 	uic:setNormalSize(width, height)
     uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    
     uic:init_container()
-
     uic:setExtendButton(button)
     uic:setSortTypeLabel(label)
 
