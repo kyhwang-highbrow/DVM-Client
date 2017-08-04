@@ -24,7 +24,7 @@ function UIHelper:makePriceNodeVariable(bg_node, icon_node, price_label)
 end
 
 -------------------------------------
--- function makePriceNodeVariable
+-- function repeatTest
 -- @brief 반복 테스트용
 -------------------------------------
 function UIHelper:repeatTest(sequence_action)
@@ -91,4 +91,33 @@ function UIHelper:reattachNode(new_parent, node, z_order)
 	node:removeFromParent(false)
 	new_parent:addChild(node, z_order)
 	node:release()
+end
+
+-------------------------------------
+-- function autoNoti
+-- @brief 탭이나 버튼 등에 자동으로 노티를 붙여준다.
+-- @param category_bool_map : {항목 : true/false} 의 맵 
+-- @param noti_ui_table : noti 아이콘 테이블
+-- @param ui_key : category와 조합하여 noti 아이콘을 붙일 node를 찾음
+-------------------------------------
+function UIHelper:autoNoti(category_bool_map, noti_ui_table, ui_key, vars)
+    for _, spr in pairs(noti_ui_table) do
+		spr:setVisible(false)
+	end
+
+	for category, _ in pairs(category_bool_map) do
+    	-- 없으면 생성
+		if (not noti_ui_table[category]) then
+			local icon = IconHelper:getNotiIcon()
+			icon:setDockPoint(cc.p(1, 1))
+			icon:setPosition(-5, -5)
+			vars[category .. ui_key]:addChild(icon)
+			noti_ui_table[category] = icon
+
+		-- 있으면 킴
+		else
+			noti_ui_table[category]:setVisible(true)
+
+		end
+    end
 end

@@ -469,3 +469,10 @@ function IconHelper:getPriceIcon(price_type)
     local icon = IconHelper:getIcon(res)
     return icon
 end
+
+-------------------------------------
+-- function getNotiIcon
+-------------------------------------
+function IconHelper:getNotiIcon()
+    return IconHelper:getIcon('res/ui/icons/noti_icon_0101.png')
+end

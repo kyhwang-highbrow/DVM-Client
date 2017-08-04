@@ -34,6 +34,28 @@ function ServerData_Mail:getMailList(category)
 end
 
 -------------------------------------
+-- function hasNewMail
+-- @brief 메일이 있는지 검사한다.
+-------------------------------------
+function ServerData_Mail:hasNewMail(category)
+    return (table.count(self.m_mMailMap[category]) > 0)
+end
+
+-------------------------------------
+-- function getNewMailMap
+-- @brief category : 새메일 여부 의 맵
+-------------------------------------
+function ServerData_Mail:getNewMailMap()
+    local t_ret = {}
+    for _, category in pairs(self.m_lCategory) do
+        if (self:hasNewMail(category)) then
+            t_ret[category] = true
+        end
+    end
+    return t_ret
+end
+
+-------------------------------------
 -- function deleteMailData
 -------------------------------------
 function ServerData_Mail:deleteMailData(moid)

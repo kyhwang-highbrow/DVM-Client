@@ -8,6 +8,7 @@ UI_MailPopup = class(PARENT, {
 		m_mTableView = '',
 		m_preRenewTime = 'time',
         m_dirty = 'bool',
+        m_tNotiSpriteTable = 'sprite',
     })
 
 -------------------------------------
@@ -28,6 +29,7 @@ function UI_MailPopup:init()
 	self:doAction(nil, false)
 
     self.m_dirty = false
+    self.m_tNotiSpriteTable = {}
 
 	-- 통신 후 UI 출력
 	local cb_func = function()
@@ -89,6 +91,16 @@ function UI_MailPopup:refresh(tab)
     
     -- 아이템 탭은 모두받기 불가능
     vars['rewardAllBtn']:setVisible(tab ~= 'item')
+
+    -- noti 갱신
+    self:refresh_noti()
+end
+
+-------------------------------------
+-- function refresh_noti
+-------------------------------------
+function UI_MailPopup:refresh_noti()
+    UIHelper:autoNoti(g_mailData:getNewMailMap(), self.m_tNotiSpriteTable, 'Btn', self.vars)
 end
 
 -------------------------------------

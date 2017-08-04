@@ -151,32 +151,7 @@ end
 -- function refresh_noti
 -------------------------------------
 function UI_Book:refresh_noti()
-	-- 노티를 전부 끈다.
-	do
-		for _, spr in pairs(self.m_tNotiSpriteTable) do
-			spr:setVisible(false)
-		end
-	end
-
-	-- 노티를 켠다
-	local vars = self.vars
-	local t_noti = g_bookData:getBookNotiList()
-	for noti, _ in pairs(t_noti) do
-		-- 없으면 생성
-		if (not self.m_tNotiSpriteTable[noti]) then
-			local spr = cc.Sprite:create('res/ui/icons/noti_icon_0101.png')
-			spr:setAnchorPoint(CENTER_POINT)
-			spr:setDockPoint(cc.p(1, 1))
-			spr:setPosition(-5, -5)
-			vars[noti .. 'Btn']:addChild(spr)
-			self.m_tNotiSpriteTable[noti] = spr
-
-		-- 있으면 킴
-		else
-			self.m_tNotiSpriteTable[noti]:setVisible(true)
-
-		end
-	end
+    UIHelper:autoNoti(g_bookData:getBookNotiList(), self.m_tNotiSpriteTable, 'Btn', self.vars)
 end
 
 -------------------------------------
