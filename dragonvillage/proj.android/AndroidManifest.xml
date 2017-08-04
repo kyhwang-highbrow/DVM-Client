@@ -51,6 +51,9 @@
             android:name="android.app.lib_name"
             android:value="cocos2dlua" />
 
+        <!-- PerplelabIntentService -->
+        <service android:name="org.cocos2dx.lua.PerplelabIntentService" />
+
         <!-- @firebase, @adbrix -->
         <receiver
             android:name="org.cocos2dx.lua.MultipleInstallReceiver"
