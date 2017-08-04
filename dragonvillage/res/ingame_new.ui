@@ -757,8 +757,8 @@
 				visible = false;
 				lua_name = 'tamerSkilllLockSprite';
 				file_name = 'ui/a2d/ingame_panel/ingame_panel_tamer_skill_lock.png';
-				color = { 0; 0; 0; };
-				opacity = 180;
+				color = { 255; 255; 255; };
+				opacity = 255;
 				flip_x = false;
 				flip_y = false;
 				src_blend = 770;
