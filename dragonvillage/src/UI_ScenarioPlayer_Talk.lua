@@ -34,32 +34,46 @@ function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
     local vars = self.vars
 
     if pos and (self.m_currPos ~= pos) then
+        -- 현재 위치 이름택 숨김
         if self.m_currPos and vars['nameNode_' .. self.m_currPos] then
             vars['nameNode_' .. self.m_currPos]:setVisible(false)
         end
 
         self.m_currPos = pos
 
+        -- 새로운 현재 위치 이름택 나타남
         if vars['nameNode_' .. self.m_currPos] then
             vars['nameNode_' .. self.m_currPos]:setVisible(true)
         end
 
+        -- 이름도 붙여줌
         if vars['nameLabel_' .. self.m_currPos] then
             vars['nameLabel_' .. self.m_currPos]:setString(name or '')
         end
         self.m_currName = name
 
+    -- 현재위치에서 이름만 바뀐다면
     elseif name and (self.m_currName ~= name) then
         
         if vars['nameLabel_' .. self.m_currPos] then
             vars['nameLabel_' .. self.m_currPos]:setString(name or '')
         end
         self.m_currName = name
+
+    -- 이름도 위치도 없다면
+    elseif (not name) and (not pos) then
+        -- 숨김
+        if self.m_currPos and vars['nameNode_' .. self.m_currPos] then
+            vars['nameNode_' .. self.m_currPos]:setVisible(false)
+        end
+
     end
 
+    -- 대사 처리
     if text then
         vars['talkLabel']:setString(text)
         
+        -- 대사 효과
         --[[
         if (text_type == 'bold') then
             vars['talkLabel']:enableOutline(nil, 1)
@@ -67,7 +81,7 @@ function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
             vars['talkLabel']:enableOutline(nil, 0)
         end
         ]]
-        
+
         -- 대사창 위치 처리
         if (text_pos == 'top') then
             vars['talkMenu']:setPositionY(450)
@@ -86,6 +100,10 @@ function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
         end
 
         self:show()
+
+    else
+        vars['talkLabel']:setString('')
+
     end
 end
 

@@ -7,6 +7,9 @@ UI_ScenarioPlayer_Character = class({
         m_charKey = '',
         m_charAnimator = 'Animator',
 
+        m_charAniKey = '',
+
+        -- left 가 false, right가 true
         m_bCharFlip = '',
 
         m_charNode = '',
@@ -77,11 +80,13 @@ end
 -- function setCharacter
 -------------------------------------
 function UI_ScenarioPlayer_Character:setCharacter(key)
+    -- 중복 캐릭터 거름
     if (self.m_charKey == key) then
         return
     end
 
     self.m_charKey = key
+    self.m_charAniKey = nil
 
     if (self.m_charAnimator) then
         self.m_charAnimator:release()
@@ -207,7 +212,13 @@ end
 -- function setCharAni
 -------------------------------------
 function UI_ScenarioPlayer_Character:setCharAni(ani)
+    -- 중복애니 거름
+    if (self.m_charAniKey == ani) then
+        return
+    end
+
     self.m_charAnimator:changeAni(ani, true)
+    self.m_charAniKey = ani
 end
 
 
@@ -271,10 +282,11 @@ function UI_ScenarioPlayer_Character:appearSide()
 
         -- 먼저 화면 밖으로 보냄
         animator:setPosition(pos_x - (500 * x_factor), pos_y)
+        animator:setAlpha(0)
 
-        -- 슬금 슬금 나타남
+        -- fadein 하면서 등장
         local action = cc.Sequence:create(
-            cc.MoveTo:create(0.5, cc.p(pos_x, pos_y))
+            cc.Spawn:create(cc.MoveTo:create(0.5, cc.p(pos_x, pos_y)), cc.FadeIn:create(0.5))
         )
 
         animator:runAction(action)
@@ -314,15 +326,10 @@ function UI_ScenarioPlayer_Character:disappearSide()
             animator:release()
         end
 
-        local interval = 100
-        if (self.m_bCharFlip) then
-            interval = -interval
-        end
+        local interval = self.m_bCharFlip and 100 or -100
 
         local move_action = cc.Sequence:create(
-            cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.DelayTime:create(0.5),
-            cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.DelayTime:create(0.5),
-            cc.Spawn:create(cc.MoveBy:create(0.2, cc.p(interval, 0)), cc.FadeOut:create(0.2))
+            cc.Spawn:create(cc.MoveBy:create(0.5, cc.p(interval, 0)), cc.FadeOut:create(0.5))
         )
 
         local action = cc.Sequence:create(move_action, cc.CallFunc:create(release))
