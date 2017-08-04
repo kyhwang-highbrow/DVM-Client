@@ -1,6 +1,6 @@
 {
     "init_cfg": {
-        "appVer": "0.2.6",
+        "appVer": "0.2.7",
         "name": "Galaxy S5 - 16:9 (1280x720)",
         "width": 1280,
         "height": 720,
