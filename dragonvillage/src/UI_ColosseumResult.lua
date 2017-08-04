@@ -135,13 +135,16 @@ function UI_ColosseumResult:direction_start()
     -- 성공 or 실패
     if (is_win == true) then
         SoundMgr:playBGM('bgm_dungeon_victory', false)    
-        visual_node:changeAni('success', false)
+        visual_node:changeAni('victory_appear', false)
         visual_node:addAniHandler(function()
-            visual_node:changeAni('success_idle', true)
+            visual_node:changeAni('victory_idle', true)
         end)
     else
         SoundMgr:playBGM('bgm_dungeon_lose', false)
-        visual_node:changeAni('fail')
+        visual_node:changeAni('defeat_appear', false)
+        visual_node:addAniHandler(function()
+            visual_node:changeAni('defeat_idle', true)
+        end)
     end
 
     self:doNextWorkWithDelayTime(0.5)
