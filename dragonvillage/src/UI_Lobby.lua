@@ -210,6 +210,10 @@ end
 function UI_Lobby:initButton()
     local vars = self.vars
 
+    vars['bottomMasterNode']:setLocalZOrder(1)
+    vars['bottomButtonMenu']:setLocalZOrder(2)
+
+
     -- 하단
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) -- 드래곤
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
