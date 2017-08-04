@@ -138,9 +138,9 @@ function GameWorldColosseum:initTamer()
         self.m_enemyTamer.m_animator.m_node:pause()
 
         self.m_enemyTamer:addListener('enemy_tamer_skill_gauge', self)
-
-        self.m_inGameUI:initTamerUI(t_tamer)
     end
+
+    self.m_inGameUI:initTamerUI(self.m_tamer, self.m_enemyTamer)
 end
 
 -------------------------------------
