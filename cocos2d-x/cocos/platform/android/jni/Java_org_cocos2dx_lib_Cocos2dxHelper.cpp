@@ -424,8 +424,8 @@ int getObbAssetFileDescriptorJNI(const char* path, long* startOffset, long* size
             jboolean copy = JNI_FALSE;
             jlong *array = methodInfo.env->GetLongArrayElements(newArray, &copy);
             fd = static_cast<int>(array[0]);
-            *startOffset = array[1];
-            *size = array[2];
+            *startOffset = static_cast<long>array[1];
+            *size = static_cast<long>array[2];
             methodInfo.env->ReleaseLongArrayElements(newArray, array, 0);
         }
         
