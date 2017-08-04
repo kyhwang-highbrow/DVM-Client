@@ -169,10 +169,14 @@ function UI_LoginPopup:loginSuccess(info)
     local t_info = dkjson.decode(info)
     local fuid = t_info.fuid
     local push_token = t_info.pushToken
-    local platform_id = 'firebase'
-    local account_info = 'Guest'
-    if t_info.providerData[2] ~= nil then
-        platform_id = t_info.providerData[2].providerId
+    local platform_id = t_info.providerId
+    local account_info = t_info.name
+
+    local app_ver = getAppVer()
+    if app_ver == '0.2.2' then
+        local idx = #t_info.providerData
+        platform_id = t_info.providerData[idx].providerId
+        account_info = 'Guest'
         if platform_id == 'google.com' then
             account_info = 'Google'
             if t_info.google then
