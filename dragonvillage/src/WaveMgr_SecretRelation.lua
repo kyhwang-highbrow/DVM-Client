@@ -100,5 +100,6 @@ function WaveMgr_SecretRelation:getBossId()
     end
 
     local boss_id = math_floor(self.m_bossId / 10)
-    return boss_id
+    local evolution = boss_id % 10
+    return boss_id, evolution
 end
