@@ -169,7 +169,7 @@ function UI_Setting:click_googleBtn()
             end
 
             -- 구글 계정을 사용하지 않다가 최초 연동 시 업적을 한번 체크하여 클리어 하도록 한다.
-            GoogleHelper.allAcheivementCheck()
+            GoogleHelper.allAchievementCheck()
 
         elseif ret == 'already_in_use' then
 
