@@ -18,6 +18,7 @@ function UI_Setting:init_devTab()
     vars['addFpBtn']:registerScriptTapHandler(function() self:click_addFpBtn() end)
     vars['addRpBtn']:registerScriptTapHandler(function() self:click_addRpBtn() end)
     vars['uidCopyBtn']:registerScriptTapHandler(function() self:click_uidCopyBtn() end)
+    vars['soundModuleBtn']:registerScriptTapHandler(function() self:click_soundModuleBtn() end)
     self:refresh_devTap()
 end
 
@@ -477,6 +478,13 @@ function UI_Setting:refresh_devTap()
     else
         vars['fpsLabel']:setString('OFF')
     end
+
+    -- new sound module
+    if g_serverData:get('local', 'new_sound_module') then
+        vars['soundModuleLabel']:setString('ON')
+    else
+        vars['soundModuleLabel']:setString('OFF')
+    end
 end
 
 -------------------------------------
@@ -497,4 +505,15 @@ function UI_Setting:click_uidCopyBtn()
 
     PerpSocial:SDKEvent('clipboard_setText', tostring(uid), '', function() end)
     UIManager:toastNotificationGreen(Str('UID를 복사하였습니다.'))
+end
+
+-------------------------------------
+-- function click_soundModuleBtn
+-- @brief 신규 사운드 모듈 적용
+-------------------------------------
+function UI_Setting:click_soundModuleBtn()
+    local value = g_serverData:get('local', 'new_sound_module')
+    g_serverData:applyServerData(not value, 'local', 'new_sound_module')
+    g_serverData:applySetting()
+    self:refresh_devTap()
 end
