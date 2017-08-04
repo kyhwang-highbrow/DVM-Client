@@ -40,3 +40,10 @@ end
 function UI_TitleSceneLoading:hideLoading()
     self.root:setVisible(false)
 end
+
+-------------------------------------
+-- function onLoading
+-------------------------------------
+function UI_TitleSceneLoading:onLoading()
+    return self.root:isVisible()
+end

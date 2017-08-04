@@ -81,6 +81,10 @@ end
 -- @brief 종료
 -------------------------------------
 function UI_TitleScene:click_exitBtn()
+    if self.m_loadingUI:onLoading() then
+        return
+    end
+
     local function yes_cb()
         closeApplication()
     end
