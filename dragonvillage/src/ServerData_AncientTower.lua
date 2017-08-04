@@ -352,7 +352,9 @@ end
 -- @brief stage_id에 해당하는 스테이지가 입장 가능한지를 리턴
 -------------------------------------
 function ServerData_AncientTower:isOpenStage(stage_id)
-    local is_open = (stage_id <= self.m_clearStageID + 1)
+    local clear_stage = self.m_clearStageID 
+    clear_stage = (clear_stage == 0) and ANCIENT_TOWER_STAGE_ID_START or clear_stage
+    local is_open = (stage_id <= clear_stage + 1)
     return is_open
 end
 
