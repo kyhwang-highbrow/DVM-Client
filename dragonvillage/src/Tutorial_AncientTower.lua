@@ -12,7 +12,7 @@ Tutorial_AncientTower = class(PARENT,{
 function Tutorial_AncientTower:init()
     local vars = self.vars
 
-    UIManager:doTutorial(
+    UIManager:doTutorial()
 end
 
 -------------------------------------

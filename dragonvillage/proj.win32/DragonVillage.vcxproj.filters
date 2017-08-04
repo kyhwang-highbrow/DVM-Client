@@ -2583,6 +2583,9 @@
     <None Include="..\src_tool\StageAnalysis.lua">
       <Filter>lua_tool</Filter>
     </None>
+    <None Include="..\src\uilib\UIManager_tutorial.lua">
+      <Filter>lua\tutorial</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

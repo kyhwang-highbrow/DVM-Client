@@ -386,7 +386,7 @@ function UI_CharacterCard:setHighlightSpriteVisible(visible)
     elseif (visible) then
         self:makeSprite(lua_name, res)
         -- 깜빡임 액션
-        sprite:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255))))
+        sprite:runAction(cca.flash())
     end
 end
 

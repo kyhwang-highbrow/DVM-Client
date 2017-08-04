@@ -10,6 +10,7 @@ local t_module = {
     'lib/math',
     'lib/Radian',
     'uilib/UIManager',
+    'uilib/UIManager_tutorial',
     'uilib/UI',
     'uilib/UILoader',
     'uilib/TableView',

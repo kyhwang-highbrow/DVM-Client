@@ -245,7 +245,16 @@ function cca.uiImpossibleAction(node, level)
 end
 
 -------------------------------------
+-- function flash
+-- @brief 깜빡깜빡
+-------------------------------------
+function cca.flash()
+    return cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255)))
+end
+
+-------------------------------------
 -- function pickMePickMe
+-- @brief 나를 골라줘! 하는 느낌의 무한 반복 점프 액션
 -------------------------------------
 function cca.pickMePickMe(node)
 	local jump_cnt = 3
@@ -260,6 +269,7 @@ end
 
 -------------------------------------
 -- function actGetObject
+-- @brief 마이홈에서 재화를 획득하는 모습을 따라한 액션 부르르 떤 후에 베지어 이동
 -------------------------------------
 function cca.actGetObject(node, tar_pos)
 	-- 부르르르 떠는 액션
