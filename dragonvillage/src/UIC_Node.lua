@@ -68,6 +68,16 @@ function UIC_Node:getPosition()
     return self.m_node:getPosition()
 end
 
+function UIC_Node:getPositionX()
+    local pos_x, pos_y = self.m_node:getPosition()
+    return pos_x
+end
+
+function UIC_Node:getPositionY()
+    local pos_x, pos_y = self.m_node:getPosition()
+    return pos_y
+end
+
 function UIC_Node:setPosition(x, y)
     return self.m_node:setPosition(x, y)
 end

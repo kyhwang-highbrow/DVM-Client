@@ -229,6 +229,8 @@ function UI_Lobby:initButton()
     
     -- 좌측 UI
     vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
+    vars['googleGameBtn']:registerScriptTapHandler(function() self:click_googleGameBtn() end)
+    vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
 
     -- 우측 UI
     vars['subscriptionBtn']:registerScriptTapHandler(function() self:click_subscriptionBtn() end) -- 월정액
@@ -241,33 +243,6 @@ function UI_Lobby:initButton()
         etc_vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
         etc_vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
     end
-
-    if true then
-        return
-    end
-    local vars = self.vars
-    
-    vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
-	vars['colosseumBtn']:registerScriptTapHandler(function() self:click_colosseumBtn() end)
-    vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end)
-    vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end)
-    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
-	vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end)
-    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
-    vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end)
-    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end)
-	vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
-	vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
-    vars['tamerBtn2']:registerScriptTapHandler(function() self:click_userInfoBtn() end)
-    vars['explorationBtn']:registerScriptTapHandler(function() self:click_explorationBtn() end) -- 탐험 버튼
-    vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 도감 버튼
-    vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
-    vars['subscriptionBtn']:registerScriptTapHandler(function() self:click_subscriptionBtn() end) -- 월정액
-    vars['guildBtn']:registerScriptTapHandler(function() self:click_guildBtn() end) -- 길드
-	vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end)
-    vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
-
-    vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
 end
 
 -------------------------------------
@@ -330,54 +305,6 @@ function UI_Lobby:refresh_highlight()
     -- 마스터의 길
     local has_reward, _ = g_masterRoadData:hasRewardRoad()
     vars['masterRoadNotiSprite']:setVisible(has_reward)
-
-
-
-    if true then
-        return
-    end
-
-    local vars = self.vars
-
-    local function highlight_func()
-        -- 탐험
-        vars['explorationNotiSprite']:setVisible(g_highlightData:isHighlightExploration())
-
-        -- 퀘스트
-        vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
-
-        -- 우편함
-        vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
-
-        -- 드래곤
-        vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
-
-        -- 친구 
-        vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
-    end
-
-    g_highlightData:request_highlightInfo(highlight_func)
-
-    do -- 드래곤 소환
-        local highlight, t_highlight = g_hatcheryData:checkHighlight()
-        vars['drawNotiSprite']:setVisible(highlight)
-    end
-
-    -- 테이머
-    vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
-
-	-- 도감
-	vars['collectionNotiSprite']:setVisible(g_bookData:isHighlightBook())
-
-    -- 모험 핫타임 
-    vars['adventureHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
-
-    -- 이벤트
-    vars['eventNotiSprite']:setVisible(g_eventData:isHighlightEvent())
-
-    -- 마스터의 길
-    local has_reward, _ = g_masterRoadData:hasRewardRoad()
-    vars['masterRoadNotiSprite']:setVisible(has_reward)
 end
 
 -------------------------------------
@@ -423,9 +350,9 @@ function UI_Lobby:refresh_google()
     local vars = self.vars
 
     if (g_serverData:isGooglePlayConnected()) then
-        vars['googleAchievementBtn']:setVisible(true)
+        vars['googleGameBtn']:setVisible(true)
     else
-        vars['googleAchievementBtn']:setVisible(false)
+        vars['googleGameBtn']:setVisible(false)
     end
 end
 
@@ -652,6 +579,26 @@ end
 -------------------------------------
 function UI_Lobby:click_rankingBtn()
     UI_OverallRankingPopup()
+end
+
+-------------------------------------
+-- function click_googleGameBtn
+-------------------------------------
+function UI_Lobby:click_googleGameBtn()
+    local vars = self.vars
+    local game_pos_x = vars['googleGameBtn']:getPositionX()
+    local achv_pos_x, achv_pos_y = vars['googleAchievementBtn']:getPosition()
+    if (vars['googleAchievementBtn']:isVisible()) then
+        vars['googleAchievementBtn']:setPositionX(game_pos_x + 100)
+        vars['googleAchievementBtn']:runAction(cc.Sequence:create(
+            cca.makeBasicEaseMove(0.2, game_pos_x, achv_pos_y),
+            cc.CallFunc:create(function() vars['googleAchievementBtn']:setVisible(false) end)  
+        ))
+    else
+        vars['googleAchievementBtn']:setVisible(true)
+        vars['googleAchievementBtn']:setPositionX(game_pos_x)
+        vars['googleAchievementBtn']:runAction(cca.makeBasicEaseMove(0.2, game_pos_x + 100, achv_pos_y))
+    end
 end
 
 -------------------------------------
