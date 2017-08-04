@@ -90,6 +90,9 @@ function UI_Game:initUI()
         vars['tamerMenu']:setVisible(false)
     end
 
+    -- 하단 패널
+    vars['panelBgSprite']:setLocalZOrder(-1)
+
     self:initManaUI()
     self:initHotTimeUI()
 end
