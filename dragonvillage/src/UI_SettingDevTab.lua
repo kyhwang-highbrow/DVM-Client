@@ -480,7 +480,7 @@ function UI_Setting:refresh_devTap()
     end
 
     -- new sound module
-    if g_serverData:get('local', 'new_sound_module') then
+    if cc.SimpleAudioEngine:getInstance():getEngineMode() == 1 then
         vars['soundModuleLabel']:setString('ON')
     else
         vars['soundModuleLabel']:setString('OFF')
@@ -512,8 +512,8 @@ end
 -- @brief 신규 사운드 모듈 적용
 -------------------------------------
 function UI_Setting:click_soundModuleBtn()
-    local value = g_serverData:get('local', 'new_sound_module')
-    g_serverData:applyServerData(not value, 'local', 'new_sound_module')
-    g_serverData:applySetting()
+    local value = cc.SimpleAudioEngine:getInstance():getEngineMode()
+    cc.SimpleAudioEngine:getInstance():setEngineMode(1 - value)
+
     self:refresh_devTap()
 end
