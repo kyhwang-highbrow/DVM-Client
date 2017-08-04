@@ -448,6 +448,10 @@ function ServerData_Friend:request_inviteResponseAccept(friend_uid, finish_cb)
         
         if finish_cb then
             finish_cb(ret)
+
+            -- @ MASTER ROAD
+            local t_data = {clear_key = 'make_frd'}
+            g_masterRoadData:updateMasterRoad(t_data)
         end
     end
 
