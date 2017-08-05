@@ -29,7 +29,7 @@ import android.os.PowerManager;
 public class PerplelabNotificationMgr extends Activity {
     public static Context mContext = null;
     private static final Boolean DEBUG = false;
-    private static final String TAG = "PerplelabNotificationMgr";
+    private static final String TAG = "PerpleNotificationMgr";
     private static final int COLOR_BG           = Color.parseColor("#a71197");
     private static final int COLOR_TITLE_TEXT   = Color.parseColor("#fcff29");
     private static final int COLOR_MESSAGE_TEXT = Color.parseColor("#ffffff");
