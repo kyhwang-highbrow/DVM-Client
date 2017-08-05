@@ -53,7 +53,10 @@ AndroidJavaEngine::AndroidJavaEngine()
     if (sdkVer > 0)
     {
         __android_log_print(ANDROID_LOG_DEBUG, "cocos2d", "android SDK version:%d", sdkVer);
-        _implementBaseOnAudioEngine = true;
+        if (sdkVer >= 21)
+        {
+            //_implementBaseOnAudioEngine = true;
+        }
     }
     else
     {
@@ -336,6 +339,12 @@ void AndroidJavaEngine::cancelVibrate()
 
 void AndroidJavaEngine::setEngineMode(int mode)
 {
+    int sdkVer = getSDKVersion();
+    if (sdkVer < 21)
+    {
+        return;
+    }
+
     if (mode == 1)
     {
         _implementBaseOnAudioEngine = true;
