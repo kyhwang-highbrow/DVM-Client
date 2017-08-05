@@ -90,7 +90,7 @@ static int fdGetter(const std::string& url, off_t* start, off_t* length)
         fd = getObbAssetFileDescriptorJNI(url.c_str(), start, length);
     }
 
-    if (fd < 0)
+    if (fd <= 0)
     {
         auto asset = AAssetManager_open(cocos2d::FileUtilsAndroid::getAssetManager(), url.c_str(), AASSET_MODE_UNKNOWN);
         // open asset as file descriptor

@@ -413,7 +413,7 @@ int getDeviceAudioBufferSizeInFrames()
 // @obb
 int getObbAssetFileDescriptorJNI(const char* path, long* startOffset, long* size) {
     JniMethodInfo methodInfo;
-    int fd = -1;
+    int fd = 0;
     
     if (JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "getObbAssetFileDescriptor", "(Ljava/lang/String;)[J")) {
         jstring stringArg = methodInfo.env->NewStringUTF(path);
@@ -424,8 +424,8 @@ int getObbAssetFileDescriptorJNI(const char* path, long* startOffset, long* size
             jboolean copy = JNI_FALSE;
             jlong *array = methodInfo.env->GetLongArrayElements(newArray, &copy);
             fd = static_cast<int>(array[0]);
-            *startOffset = static_cast<long>(array[1]);
-            *size = static_cast<long>(array[2]);
+            *startOffset = array[1];
+            *size = array[2];
             methodInfo.env->ReleaseLongArrayElements(newArray, array, 0);
         }
         

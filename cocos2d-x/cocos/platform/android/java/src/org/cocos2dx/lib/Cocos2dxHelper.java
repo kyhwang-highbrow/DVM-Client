@@ -207,7 +207,7 @@ public class Cocos2dxHelper {
 
     // @obb
     public static long[] getObbAssetFileDescriptor(final String path) {
-        long[] array = new long[]{-1, 0, 0};
+        long[] array = new long[3];
         if (Cocos2dxHelper.sOBBFile != null) {
             AssetFileDescriptor descriptor = Cocos2dxHelper.sOBBFile.getAssetFileDescriptor(path);
             if (descriptor != null) {
