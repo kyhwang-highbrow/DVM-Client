@@ -300,17 +300,17 @@ Data FileUtilsAndroid::getData(const std::string& filename, bool forString)
             }
     
             off_t fileSize = AAsset_getLength(asset);
-    
-            //if (forString)
+
+            if (forString)
             {
                 data = (unsigned char*) malloc(fileSize + 1);
                 data[fileSize] = '\0';
             }
-            //else
-            //{
-            //    data = (unsigned char*) malloc(fileSize);
-            //}
-    
+            else
+            {
+                data = (unsigned char*) malloc(fileSize);
+            }
+
             int bytesread = AAsset_read(asset, (void*)data, fileSize);
             size = bytesread;
     

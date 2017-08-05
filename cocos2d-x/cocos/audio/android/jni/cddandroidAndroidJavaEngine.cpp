@@ -40,6 +40,8 @@ THE SOFTWARE.
 // Java class
 static const std::string helperClassName = "org/cocos2dx/lib/Cocos2dxHelper";
 
+static const int MINSDK = 16;
+
 using namespace cocos2d;
 using namespace cocos2d::experimental;
 using namespace CocosDenshion::android;
@@ -53,9 +55,9 @@ AndroidJavaEngine::AndroidJavaEngine()
     if (sdkVer > 0)
     {
         __android_log_print(ANDROID_LOG_DEBUG, "cocos2d", "android SDK version:%d", sdkVer);
-        if (sdkVer >= 21)
+        if (sdkVer >= MINSDK)
         {
-            //_implementBaseOnAudioEngine = true;
+            _implementBaseOnAudioEngine = true;
         }
     }
     else
@@ -340,7 +342,7 @@ void AndroidJavaEngine::cancelVibrate()
 void AndroidJavaEngine::setEngineMode(int mode)
 {
     int sdkVer = getSDKVersion();
-    if (sdkVer < 21)
+    if (sdkVer < MINSDK)
     {
         return;
     }

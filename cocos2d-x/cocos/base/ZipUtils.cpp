@@ -37,6 +37,8 @@ unsigned int ZipUtils::s_uEncryptedPvrKeyParts[4] = {0,0,0,0};
 unsigned int ZipUtils::s_uEncryptionKey[1024];
 bool ZipUtils::s_bEncryptionKeyIsValid = false;
 
+pthread_mutex_t s_asynctt;
+
 // --------------------- ZipUtils ---------------------
 
 inline void ZipUtils::decodeEncodedPvr(unsigned int *data, ssize_t len)
@@ -514,12 +516,16 @@ ZipFile *ZipFile::createWithBuffer(const void* buffer, uLong size)
 ZipFile::ZipFile()
 : _data(new ZipFilePrivate)
 {
+    pthread_mutex_init(&s_asynctt, NULL);
+
     _data->zipFile = nullptr;
 }
 
 ZipFile::ZipFile(const std::string &zipFile, const std::string &filter)
 : _data(new ZipFilePrivate)
 {
+    pthread_mutex_init(&s_asynctt, NULL);
+
     _data->zipFile = unzOpen(FileUtils::getInstance()->getSuitableFOpen(zipFile).c_str());
     setFilter(filter);
 }
@@ -532,6 +538,8 @@ ZipFile::~ZipFile()
     }
 
     CC_SAFE_DELETE(_data);
+
+    pthread_mutex_destroy(&s_asynctt);
 }
 
 bool ZipFile::setFilter(const std::string &filter)
@@ -599,6 +607,7 @@ unsigned char *ZipFile::getFileData(const std::string &fileName, ssize_t *size)
     if (size)
         *size = 0;
 
+    pthread_mutex_lock(&s_asynctt);
     do
     {
         CC_BREAK_IF(!_data->zipFile);
@@ -615,10 +624,8 @@ unsigned char *ZipFile::getFileData(const std::string &fileName, ssize_t *size)
         nRet = unzOpenCurrentFile(_data->zipFile);
         CC_BREAK_IF(UNZ_OK != nRet);
         
-        //buffer = (unsigned char*)malloc(fileInfo.uncompressed_size);
-        buffer = (unsigned char*)malloc(fileInfo.uncompressed_size + 1);
-        buffer[fileInfo.uncompressed_size] = '\0';
-        
+        buffer = (unsigned char*)malloc(fileInfo.uncompressed_size);
+
         int CC_UNUSED nSize = unzReadCurrentFile(_data->zipFile, buffer, static_cast<unsigned int>(fileInfo.uncompressed_size));
         CCASSERT(nSize == 0 || nSize == (int)fileInfo.uncompressed_size, "the file size is wrong");
         
@@ -628,13 +635,16 @@ unsigned char *ZipFile::getFileData(const std::string &fileName, ssize_t *size)
         }
         unzCloseCurrentFile(_data->zipFile);
     } while (0);
-    
+    pthread_mutex_unlock(&s_asynctt);
+
     return buffer;
 }
 
 bool ZipFile::getFileData(const std::string &fileName, ResizableBuffer* buffer)
 {
     bool res = false;
+
+    pthread_mutex_lock(&s_asynctt);
     do
     {
         CC_BREAK_IF(!_data->zipFile);
@@ -657,7 +667,8 @@ bool ZipFile::getFileData(const std::string &fileName, ResizableBuffer* buffer)
         unzCloseCurrentFile(_data->zipFile);
         res = true;
     } while (0);
-    
+    pthread_mutex_unlock(&s_asynctt);
+
     return res;
 }
 
