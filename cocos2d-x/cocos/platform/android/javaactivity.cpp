@@ -40,7 +40,7 @@ THE SOFTWARE.
 #define  LOG_TAG    "main"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
 
-void cocos_android_app_init(JNIEnv* env, jobject thiz) __attribute__((weak));
+void cocos_android_app_init(JNIEnv* env) __attribute__((weak));
 void cocos_audioengine_focus_change(int focusChange);
 
 using namespace cocos2d;
@@ -51,6 +51,8 @@ extern "C"
 jint JNI_OnLoad(JavaVM *vm, void *reserved)
 {
     JniHelper::setJavaVM(vm);
+
+    cocos_android_app_init(JniHelper::getEnv());
 
     return JNI_VERSION_1_4;
 }
@@ -64,8 +66,6 @@ JNIEXPORT void Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeInit(JNIEnv*  env, j
         glview = cocos2d::GLView::create("Android app");
         glview->setFrameSize(w, h);
         director->setOpenGLView(glview);
-
-        cocos_android_app_init(env, thiz);
 
         cocos2d::Application::getInstance()->run();
     }
