@@ -6,11 +6,11 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
-public class PerplelabIntentService extends IntentService {
+public class PerpleIntentService extends IntentService {
 
     private static long mUpdatePeriod = 1000 * 1;
     private static final Boolean DEBUG = false;
-    private static final String TAG = "PerplelabIntentService";
+    private static final String TAG = "PerpleIntentService";
 
     private boolean mActive = false;
 
@@ -30,9 +30,9 @@ public class PerplelabIntentService extends IntentService {
 
     private int mPastNotiCnt = 0;   // 처리된 Noti의 갯수(최초 실행 시 시간이 지났거나, Noti를 보낼 때마다 증가)
 
-    public PerplelabIntentService() {
-        super("PerplelabIntentService");
-        if(DEBUG) Log.d(TAG, "PerplelabIntentService()");
+    public PerpleIntentService() {
+        super("PerpleIntentService");
+        if(DEBUG) Log.d(TAG, "PerpleIntentService()");
     }
 
     @Override
@@ -162,7 +162,7 @@ public class PerplelabIntentService extends IntentService {
                 String message = mNotiMsg.get(i);
                 String alert = mAlert.get(i);
                 if(!AppActivity.sIsRun) {
-                    PerplelabNotificationMgr.doNotify(this, type, message, alert.equals("t"), mLinkTitle, mLinkUrl, mCafeUrl, mBGColor, mTitleColor, mMessageColor);
+                    PerpleNotificationMgr.doNotify(this, type, message, alert.equals("t"), mLinkTitle, mLinkUrl, mCafeUrl, mBGColor, mTitleColor, mMessageColor);
                 }
 
                 if(DEBUG) Log.d(TAG, "updateNotice() " + message);

@@ -177,9 +177,8 @@ public class APKExpansionDownloader implements IDownloaderClient {
     }
 
     public void initExpansionDownloader(Context c) {
-        String pkgName = c.getApplicationContext().getPackageName();
-        Intent launchIntent = c.getPackageManager().getLaunchIntentForPackage(pkgName);
-        PendingIntent pendingIntent = PendingIntent.getActivity(c, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(c, AppActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(c, AppActivity.RC_OBB_DOWNLOAD_STATE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         int startResult = 0;
         try {

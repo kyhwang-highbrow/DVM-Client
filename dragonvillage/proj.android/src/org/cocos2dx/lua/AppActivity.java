@@ -79,6 +79,7 @@ public class AppActivity extends Cocos2dxActivity{
 
     static final int RC_APP_RESTART                 = 1000;
     static final int RC_LOCAL_PUSH                  = 1001;
+    static final int RC_OBB_DOWNLOAD_STATE          = 1002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +115,11 @@ public class AppActivity extends Cocos2dxActivity{
 
         // @adbrix
         PerpleSDK.getInstance().initAdbrix();
+    }
+
+    @Override
+    protected void onNewIntent(Intent i) {
+        super.onNewIntent(i);
     }
 
     @Override
@@ -430,13 +436,13 @@ public class AppActivity extends Cocos2dxActivity{
 
                 } else if (id.equals("localpush_register")) {
 
-                    Intent intent = PerplelabIntentFactory.makeIntentService(sActivity);
+                    Intent intent = PerpleIntentFactory.makeIntentService(sActivity);
                     sActivity.startService(intent);
 
                 } else if (id.equals("localpush_cancel")) {
 
-                    PerplelabIntentFactory.clear();
-                    Intent intent = PerplelabIntentFactory.makeIntentService(sActivity);
+                    PerpleIntentFactory.clear();
+                    Intent intent = PerpleIntentFactory.makeIntentService(sActivity);
                     sActivity.stopService(intent);
 
                 } else if (id.equals("localpush_add")) {
@@ -453,7 +459,7 @@ public class AppActivity extends Cocos2dxActivity{
                         }
                     }
 
-                    PerplelabIntentFactory.addNoti(type, sec, msg, bAlert);
+                    PerpleIntentFactory.addNoti(type, sec, msg, bAlert);
 
                 } else if (id.equals("localpush_setColor")) {
 
@@ -462,7 +468,7 @@ public class AppActivity extends Cocos2dxActivity{
                     String titleColor = array[1];
                     String messageColor = array[2];
 
-                    PerplelabIntentFactory.setColor(bgColor, titleColor, messageColor);
+                    PerpleIntentFactory.setColor(bgColor, titleColor, messageColor);
 
                 } else if (id.equals("localpush_setLinkUrl")) {
 
@@ -471,7 +477,7 @@ public class AppActivity extends Cocos2dxActivity{
                     String linkUrl = array[1];
                     String cafeUrl = array[2];
 
-                    PerplelabIntentFactory.setLinkUrlInfo(linkTitle, linkUrl, cafeUrl);
+                    PerpleIntentFactory.setLinkUrlInfo(linkTitle, linkUrl, cafeUrl);
 
                 } else if (id.equals("clipboard_setText")) {
 

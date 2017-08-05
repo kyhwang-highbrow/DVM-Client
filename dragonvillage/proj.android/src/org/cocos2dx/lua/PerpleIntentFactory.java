@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 
-public class PerplelabIntentFactory {
+public class PerpleIntentFactory {
     public static ArrayList<String> mType = new ArrayList<String>();
     public static ArrayList<Long> mNotiTime = new ArrayList<Long>();
     public static ArrayList<String> mNotiMsg = new ArrayList<String>();
@@ -52,7 +52,7 @@ public class PerplelabIntentFactory {
     }
 
     public static Intent makeIntentService(Context context) {
-        Intent intent = new Intent(context, PerplelabIntentService.class);
+        Intent intent = new Intent(context, PerpleIntentService.class);
 
         // Intent에서 Extra로 LongArrayList를 지원하지 않기 때문에 long[]로 변환하여 사용
         Long[] longArr = mNotiTime.toArray(new Long[mNotiTime.size()]);
