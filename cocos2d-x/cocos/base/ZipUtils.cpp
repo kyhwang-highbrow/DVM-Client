@@ -37,7 +37,9 @@ unsigned int ZipUtils::s_uEncryptedPvrKeyParts[4] = {0,0,0,0};
 unsigned int ZipUtils::s_uEncryptionKey[1024];
 bool ZipUtils::s_bEncryptionKeyIsValid = false;
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 pthread_mutex_t s_asynctt;
+#endif
 
 // --------------------- ZipUtils ---------------------
 
@@ -516,17 +518,21 @@ ZipFile *ZipFile::createWithBuffer(const void* buffer, uLong size)
 ZipFile::ZipFile()
 : _data(new ZipFilePrivate)
 {
-    pthread_mutex_init(&s_asynctt, NULL);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	pthread_mutex_init(&s_asynctt, NULL);
+#endif
 
-    _data->zipFile = nullptr;
+	_data->zipFile = nullptr;
 }
 
 ZipFile::ZipFile(const std::string &zipFile, const std::string &filter)
 : _data(new ZipFilePrivate)
 {
-    pthread_mutex_init(&s_asynctt, NULL);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	pthread_mutex_init(&s_asynctt, NULL);
+#endif
 
-    _data->zipFile = unzOpen(FileUtils::getInstance()->getSuitableFOpen(zipFile).c_str());
+	_data->zipFile = unzOpen(FileUtils::getInstance()->getSuitableFOpen(zipFile).c_str());
     setFilter(filter);
 }
 
@@ -539,7 +545,9 @@ ZipFile::~ZipFile()
 
     CC_SAFE_DELETE(_data);
 
-    pthread_mutex_destroy(&s_asynctt);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	pthread_mutex_destroy(&s_asynctt);
+#endif
 }
 
 bool ZipFile::setFilter(const std::string &filter)
@@ -607,7 +615,9 @@ unsigned char *ZipFile::getFileData(const std::string &fileName, ssize_t *size)
     if (size)
         *size = 0;
 
-    pthread_mutex_lock(&s_asynctt);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	pthread_mutex_lock(&s_asynctt);
+#endif
     do
     {
         CC_BREAK_IF(!_data->zipFile);
@@ -635,7 +645,9 @@ unsigned char *ZipFile::getFileData(const std::string &fileName, ssize_t *size)
         }
         unzCloseCurrentFile(_data->zipFile);
     } while (0);
-    pthread_mutex_unlock(&s_asynctt);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	pthread_mutex_unlock(&s_asynctt);
+#endif
 
     return buffer;
 }
@@ -644,7 +656,9 @@ bool ZipFile::getFileData(const std::string &fileName, ResizableBuffer* buffer)
 {
     bool res = false;
 
-    pthread_mutex_lock(&s_asynctt);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	pthread_mutex_lock(&s_asynctt);
+#endif
     do
     {
         CC_BREAK_IF(!_data->zipFile);
@@ -667,7 +681,9 @@ bool ZipFile::getFileData(const std::string &fileName, ResizableBuffer* buffer)
         unzCloseCurrentFile(_data->zipFile);
         res = true;
     } while (0);
-    pthread_mutex_unlock(&s_asynctt);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	pthread_mutex_unlock(&s_asynctt);
+#endif
 
     return res;
 }
