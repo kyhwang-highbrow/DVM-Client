@@ -480,7 +480,10 @@ function UI_Setting:refresh_devTap()
     end
 
     -- new sound module
-    if cc.SimpleAudioEngine:getInstance():getEngineMode() == 1 then
+    local sound_engine_mode = cc.SimpleAudioEngine:getInstance():getEngineMode()
+    cclog('Audio Engine Mode: ' .. sound_engine_mode)
+
+    if sound_engine_mode == 1 then
         vars['soundModuleLabel']:setString('ON')
     else
         vars['soundModuleLabel']:setString('OFF')

@@ -67869,7 +67869,7 @@ int lua_cocos2dx_SimpleAudioEngine_getEngineMode(lua_State* tolua_S)
 		if (!ok)
 			return 0;
 		int ret = cobj->getEngineMode();
-		tolua_pushvalue(tolua_S, ret);
+		tolua_pushnumber(tolua_S, (lua_Number)ret);
 		return 1;
 	}
 	CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getEngineMode", argc, 0);
