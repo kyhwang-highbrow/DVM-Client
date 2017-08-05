@@ -404,6 +404,11 @@ public class Cocos2dxHelper {
         Cocos2dxHelper.sCocos2dSound.stopAllEffects();
     }
 
+    static void setAudioFocus(boolean isAudioFocus) {
+        sCocos2dMusic.setAudioFocus(isAudioFocus);
+        sCocos2dSound.setAudioFocus(isAudioFocus);
+    }
+
     public static void end() {
         Cocos2dxHelper.sCocos2dMusic.end();
         Cocos2dxHelper.sCocos2dSound.end();

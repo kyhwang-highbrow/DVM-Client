@@ -152,6 +152,8 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
     protected void onResume() {
         super.onResume();
 
+        Cocos2dxAudioFocusManager.registerAudioFocusListener(this);
+
         this.hideVirtualButton();
         Cocos2dxHelper.onResume();
         this.mGLSurfaceView.onResume();
@@ -162,6 +164,8 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
     protected void onPause() {
         super.onPause();
 
+        Cocos2dxAudioFocusManager.unregisterAudioFocusListener(this);
+        
         if (mWakeLock != null && mWakeLock.isHeld()) {
             mWakeLock.release();
             mWakeLock = null;
@@ -171,6 +175,13 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
         this.mGLSurfaceView.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        Cocos2dxAudioFocusManager.unregisterAudioFocusListener(this);
+
+        super.onDestroy();
+    }
+    
     @Override
     public void showDialog(final String pTitle, final String pMessage) {
         Message msg = new Message();
