@@ -38,7 +38,7 @@ unsigned int ZipUtils::s_uEncryptionKey[1024];
 bool ZipUtils::s_bEncryptionKeyIsValid = false;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-pthread_mutex_t s_asynctt;
+//pthread_mutex_t s_asynctt;
 #endif
 
 // --------------------- ZipUtils ---------------------
@@ -519,7 +519,7 @@ ZipFile::ZipFile()
 : _data(new ZipFilePrivate)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	pthread_mutex_init(&s_asynctt, NULL);
+	//pthread_mutex_init(&s_asynctt, NULL);
 #endif
 
 	_data->zipFile = nullptr;
@@ -529,7 +529,7 @@ ZipFile::ZipFile(const std::string &zipFile, const std::string &filter)
 : _data(new ZipFilePrivate)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	pthread_mutex_init(&s_asynctt, NULL);
+	//pthread_mutex_init(&s_asynctt, NULL);
 #endif
 
 	_data->zipFile = unzOpen(FileUtils::getInstance()->getSuitableFOpen(zipFile).c_str());
@@ -546,7 +546,7 @@ ZipFile::~ZipFile()
     CC_SAFE_DELETE(_data);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	pthread_mutex_destroy(&s_asynctt);
+	//pthread_mutex_destroy(&s_asynctt);
 #endif
 }
 
@@ -616,7 +616,7 @@ unsigned char *ZipFile::getFileData(const std::string &fileName, ssize_t *size)
         *size = 0;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	pthread_mutex_lock(&s_asynctt);
+	//pthread_mutex_lock(&s_asynctt);
 #endif
     do
     {
@@ -646,7 +646,7 @@ unsigned char *ZipFile::getFileData(const std::string &fileName, ssize_t *size)
         unzCloseCurrentFile(_data->zipFile);
     } while (0);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	pthread_mutex_unlock(&s_asynctt);
+	//pthread_mutex_unlock(&s_asynctt);
 #endif
 
     return buffer;
@@ -657,7 +657,7 @@ bool ZipFile::getFileData(const std::string &fileName, ResizableBuffer* buffer)
     bool res = false;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	pthread_mutex_lock(&s_asynctt);
+	//pthread_mutex_lock(&s_asynctt);
 #endif
     do
     {
@@ -682,7 +682,7 @@ bool ZipFile::getFileData(const std::string &fileName, ResizableBuffer* buffer)
         res = true;
     } while (0);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	pthread_mutex_unlock(&s_asynctt);
+	//pthread_mutex_unlock(&s_asynctt);
 #endif
 
     return res;

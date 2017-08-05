@@ -41,6 +41,8 @@ NS_CC_BEGIN
 AAssetManager* FileUtilsAndroid::assetmanager = nullptr;
 ZipFile* FileUtilsAndroid::obbfile = nullptr;
 
+static std::mutex __SLFileUtilsMutex;
+
 void FileUtilsAndroid::setassetmanager(AAssetManager* a) {
     if (nullptr == a) {
         CCLOG("setassetmanager : received unexpected nullptr parameter");
@@ -279,11 +281,14 @@ Data FileUtilsAndroid::getData(const std::string& filename, bool forString)
 
         if (obbfile)
         {
+            std::lock_guard<std::mutex> lk(__SLFileUtilsMutex);
             data = obbfile->getFileData(relativePath, &size);
         }
 
         if (data == nullptr || size == 0)
         {
+            std::lock_guard<std::mutex> lk(__SLFileUtilsMutex);
+
             if (nullptr == FileUtilsAndroid::assetmanager) {
                 CCLOG("FileUtilsAndroid::assetmanager is nullptr");
                 return Data::Null;
@@ -319,6 +324,7 @@ Data FileUtilsAndroid::getData(const std::string& filename, bool forString)
     }
     else
     {
+        std::lock_guard<std::mutex> lk(__SLFileUtilsMutex);
         return FileUtils::getData(filename, forString);
     }
     
@@ -346,7 +352,10 @@ FileUtils::Status FileUtilsAndroid::getContents(const std::string& filename, Res
     string fullPath = fullPathForFilename(filename);
 
     if (fullPath[0] == '/')
+    {
+        std::lock_guard<std::mutex> lk(__SLFileUtilsMutex);
         return FileUtils::getContents(fullPath, buffer);
+    }
 
     string relativePath = string();
     size_t position = fullPath.find(apkprefix);
@@ -359,6 +368,7 @@ FileUtils::Status FileUtilsAndroid::getContents(const std::string& filename, Res
     
     if (obbfile)
     {
+        std::lock_guard<std::mutex> lk(__SLFileUtilsMutex);
         if (obbfile->getFileData(relativePath, buffer))
             return FileUtils::Status::OK;
     }
@@ -368,22 +378,26 @@ FileUtils::Status FileUtilsAndroid::getContents(const std::string& filename, Res
         return FileUtils::Status::NotInitialized;
     }
 
-    AAsset* asset = AAssetManager_open(assetmanager, relativePath.data(), AASSET_MODE_UNKNOWN);
-    if (nullptr == asset) {
-        CCLOG("asset is nullptr");
-        return FileUtils::Status::OpenFailed;
-    }
+    {
+        std::lock_guard<std::mutex> lk(__SLFileUtilsMutex);
+        AAsset *asset = AAssetManager_open(assetmanager, relativePath.data(), AASSET_MODE_UNKNOWN);
+        if (nullptr == asset) {
+            CCLOG("asset is nullptr");
+            return FileUtils::Status::OpenFailed;
+        }
 
-    auto size = AAsset_getLength(asset);
-    buffer->resize(size);
+        auto size = AAsset_getLength(asset);
+        buffer->resize(size);
 
-    int readsize = AAsset_read(asset, buffer->buffer(), size);
-    AAsset_close(asset);
+        int readsize = AAsset_read(asset, buffer->buffer(), size);
+        AAsset_close(asset);
 
-    if (readsize < size) {
-        if (readsize >= 0)
-            buffer->resize(readsize);
-        return FileUtils::Status::ReadFailed;
+        if (readsize < size) {
+            if (readsize >= 0)
+                buffer->resize(readsize);
+
+            return FileUtils::Status::ReadFailed;
+        }
     }
 
     return FileUtils::Status::OK;
