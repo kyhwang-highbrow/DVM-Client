@@ -71,8 +71,8 @@ struct AudioFileIndicator
 static AudioFileIndicator __audioFileIndicator[] = {
         {"default", 128000}, // If we could not handle the audio format, return default value, the position should be first.
         {".wav",    1024000},
-        {".ogg",    128000},
-        {".mp3",    160000}
+        {".ogg",    1024000},
+        {".mp3",    1024000}
 };
 
 AudioPlayerProvider::AudioPlayerProvider(SLEngineItf engineItf, SLObjectItf outputMixObject,
