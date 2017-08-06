@@ -603,25 +603,25 @@ void FileUtils::purgeCachedEntries()
 
 std::string FileUtils::getStringFromFile(const std::string& filename)
 {
-    std::string s;
-    getContents(filename, &s);
-    return s;
+    //std::string s;
+    //getContents(filename, &s);
+    //return s;
 
-    //Data data = getData(filename, true);
-    //if (data.isNull())
-    //	return "";
-	//
-    //std::string ret((const char*)data.getBytes());
-    //return ret;
+    Data data = getData(filename, true);
+    if (data.isNull())
+    	return "";
+
+    std::string ret((const char*)data.getBytes());
+    return ret;
 }
 
 Data FileUtils::getDataFromFile(const std::string& filename)
 {
-    Data d;
-    getContents(filename, &d);
-    return d;
+    //Data d;
+    //getContents(filename, &d);
+    //return d;
 
-    //return getData(filename, false);
+    return getData(filename, false);
 }
 
 Data FileUtils::getData(const std::string& filename, bool forString)
