@@ -235,6 +235,12 @@ end
 -- @brief 테스트 모드로 진입
 -------------------------------------
 function UI_Colosseum:click_testModeBtn()
+    local combat_power = g_colosseumData.m_playerUserInfo:getDefDeckCombatPower(true)
+    if (combat_power == 0) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 방어 덱이 설정되지 않았습니다.'))
+        return
+    end
+
     UI_ColosseumReadyForDev()
 end
 

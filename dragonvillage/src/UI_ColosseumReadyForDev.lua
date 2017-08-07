@@ -72,16 +72,15 @@ function UI_ColosseumReadyForDev:initUI()
         self.root:addChild(player_3d_deck.root)
         player_3d_deck:initUI()
 
-        local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
+        local l_dragon_obj = g_colosseumData.m_playerUserInfo:getDefDeck_dragonList()
         player_3d_deck:setDragonObjectList(l_dragon_obj)
         self.m_enemy3DDeck = player_3d_deck
 
         -- 진형 설정
-        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
+        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpDefDeck
         local formation = 'attack'
         if t_pvp_deck then
             formation = t_pvp_deck['formation'] or 'attack'
-            formation = 'attack'
         end
         player_3d_deck:setFormation(formation)
     end
@@ -125,43 +124,14 @@ function UI_ColosseumReadyForDev:initUI_userInfo()
         vars['userLabel2']:setString(user_info:getUserText())
 
         -- 전투력
-        local str = user_info:getAtkDeckCombatPower()
+        local str = user_info:getDefDeckCombatPower()
         vars['powerLabel2']:setString(Str('전투력 : {1}', str))
 
         -- 아이콘
-        local icon = user_info:getAtkDeckTamerReadyIcon()
+        local icon = user_info:getDefDeckTamerReadyIcon()
         vars['tamerNode2']:removeAllChildren()
         vars['tamerNode2']:addChild(icon)
     end
-end
-
--------------------------------------
--- function click_deckBtn
--- @brief 출전 덱 변경
--------------------------------------
-function UI_ColosseumReadyForDev:click_deckBtn()
-    local with_friend = nil
-    local ui = UI_ColosseumDeckSettings(COLOSSEUM_STAGE_ID, with_friend, 'atk')
-    local function close_cb()
-        local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
-        
-        self.m_player3DDeck:setDragonObjectList(l_dragon_obj)
-        self.m_enemy3DDeck:setDragonObjectList(l_dragon_obj)
-
-        -- 진형 설정
-        local formation = 'attack'
-        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
-        if t_pvp_deck then
-            formation = t_pvp_deck['formation'] or 'attack'
-        end
-        
-        self.m_player3DDeck:setFormation(formation)
-        self.m_enemy3DDeck:setFormation(formation)
-
-        -- 유저 정보도 변경 (테이머가 갱신될 수 있음)
-        self:initUI_userInfo()
-    end
-    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

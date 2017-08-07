@@ -294,8 +294,8 @@ function GameWorldColosseum:makeEnemyDeck()
     local getDragonObject
     
     if (self.m_bDevelopMode) then
-        -- 개발모드에선 자신의 덱을 상대로 설정
-        l_deck, formation, deck_name, leader = g_deckData:getDeck()
+        -- 개발모드에선 자신의 방어덱을 상대로 설정
+        l_deck, formation, deck_name, leader = g_colosseumData.m_playerUserInfo:getDeck('def')
 
         getDragonObject = function(doid) return g_dragonsData:getDragonDataFromUid(doid) end
     else

@@ -20,7 +20,6 @@ GameAuto = class(IEventListener:getCloneClass(), {
         m_world = 'GameWorld',
         m_bActive = 'boolean',
         m_lRandomAllyList = 'table',    -- 스킬 사용 순서대로 정렬된 아군 리스트
-        m_lCastingEnemyList = 'table',  -- 상대편에서 캐스팅 중인 대상 리스트
         m_aiDelayTime = 'number',       -- 스킬 사용 직후 일정 시간 뒤 다음 스킬을 사용하도록 하기 위한 딜레이 시간
      })
 
@@ -35,7 +34,6 @@ function GameAuto:init(world)
     self.m_aiDelayTime = self:getAiDelayTime()
 
     self.m_lRandomAllyList = {}
-    self.m_lCastingEnemyList = {}
 end
 
 -------------------------------------
@@ -124,12 +122,6 @@ function GameAuto:proccess_dragon()
                 -- AI 딜레이 시간 설정
                 self.m_aiDelayTime = self:getAiDelayTime()
 
-                -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
-                local idx = table.find(self.m_lCastingEnemyList, target)
-                if (idx) then
-                    table.remove(self.m_lCastingEnemyList, idx)
-                end
-
                 -- 해당 드래곤을 랜덤 리스트에서 삭제
                 table.pop(self.m_lRandomAllyList)
             end
@@ -176,38 +168,8 @@ function GameAuto:checkSkill(owner, t_skill, aiAttack, aiHeal)
         end
 
     elseif startsWith(target_type, 'enemy_') then
-        -- 공격형
-        if (aiAttack == GAME_AUTO_AI_ATTACK__COOLTIME) then
-            -- 쿨타임만 된다면 즉시 사용
-            return true
-
-        elseif (aiAttack == GAME_AUTO_AI_ATTACK__ENEMY_SKILL) then
-            -- 캐스팅 중인 적 존재 여부에 따라 사용
-            local enemyList = self.m_lCastingEnemyList
-            local target = nil
-            local t_remove = {}
-                        
-            for i, enemy in ipairs(enemyList) do
-                if (not enemy:isDead() and enemy:isCasting()) then
-                    target = enemy
-                    break
-                else
-                    table.insert(t_remove, i)
-                end
-            end
-
-            if #t_remove > 1 then
-                table.sort(t_remove, function(a, b) return a > b end)
-            end
-
-            for i, idx in ipairs(t_remove) do
-                table.remove(enemyList, idx)
-            end
-
-            if (target) then
-                return true, target
-            end
-        end
+        -- 쿨타임만 된다면 즉시 사용
+        return true
 
     elseif startsWith(target_type, 'all_') then
         -- 쿨타임만 된다면 즉시 사용
