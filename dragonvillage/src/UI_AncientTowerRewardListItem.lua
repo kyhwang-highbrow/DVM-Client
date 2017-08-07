@@ -7,8 +7,6 @@ UI_AncientTowerRewardListItem = class(PARENT, {
         m_rewardInfo = '',
     })
 
-local REWARD_CNT = 3
-
 -------------------------------------
 -- function init
 -------------------------------------
@@ -29,7 +27,7 @@ function UI_AncientTowerRewardListItem:initUI()
     vars['rankingLabel']:setString(t_reward_info['t_name'])
 
     local l_reward = TableClass:seperate(t_reward_info['reward'], ',', true)
-    for i = 1, REWARD_CNT do
+    for i = 1, #l_reward do
         local l_str = seperate(l_reward[i], ';')
         local item_type = l_str[1]
         local id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
