@@ -21,7 +21,7 @@ StatusEffect = class(PARENT, {
         m_bDirtyPos = 'bollean',
         m_bHarmful = 'boolean',
         m_bAbs = 'boolean',     -- 절대값
-
+        m_bStopUntilSkillEnd = 'boolean',   -- 스킬 연출 중(일시정지) 일 경우 시간 흐름 여부(false일 경우 일시정지 이후에 걸린 경우는 시간이 흘러감)
         m_bInfinity = 'boolean', -- 타이머없이 계속 유지되는지 여부
         m_latestTimer = 'number',
 
@@ -60,7 +60,7 @@ function StatusEffect:init(file_name, body)
     self.m_bApply = false
     self.m_bDirtyPos = true
     self.m_bHarmful = false
-
+    self.m_bStopUntilSkillEnd = true
     self.m_bInfinity = false
     self.m_latestTimer = 0
 
@@ -91,6 +91,11 @@ function StatusEffect:initFromTable(t_status_effect, target_char)
     self.m_owner = target_char
     self.m_bHarmful = StatusEffectHelper:isHarmful(t_status_effect['category'])
     self.m_bAbs = (t_status_effect['abs_switch'] and (t_status_effect['abs_switch'] == 1) or false)
+
+    -- 스킬 연출 중(일시정지) 일 경우 시간 흐름 여부
+    if (string.find(self.m_type, 'add_dmg')) then
+        self.m_bStopUntilSkillEnd = false
+    end
 
     -- status 배율 지정
     do
@@ -264,6 +269,7 @@ function StatusEffect.st_start(owner, dt)
         -- 중첩에 상관없이 한번만 적용되어야하는 효과 적용
         owner:apply()
 
+        -- 상태효과 적용 이벤트
         local t_event = {}
         t_event['name'] = owner.m_statusEffectName
         t_event['category'] = owner.m_category
@@ -271,6 +277,7 @@ function StatusEffect.st_start(owner, dt)
         if (not (owner.m_owner.m_world.m_gameState:isFightWait() and owner.m_owner.m_world.m_waveMgr:isFirstWave())) then
             owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
         end
+
 		-- 힐 사운드
 		if (not owner.m_bHarmful) then
 			SoundMgr:playEffect('SFX', 'sfx_buff_get')
@@ -326,6 +333,15 @@ end
 -- function update
 -------------------------------------
 function StatusEffect:update(dt)
+    -- 전투 중이 아닐 경우 지속시간이 감소하지 않도록 처리
+    if (not self.m_world.m_gameState:isFight()) then
+        dt = 0
+    end
+    -- 스킬 연출 중일 경우 지속시간이 감소하지 않도록 처리
+    if (self.m_bStopUntilSkillEnd and self.m_world.m_gameDragonSkill:isPlaying()) then
+        dt = 0
+    end
+
     if (self.m_bApply) then
         -- 대상자의 디법 유지 시간 관련 스텟을 실시간으로 적용
         local modified_dt
@@ -336,7 +352,7 @@ function StatusEffect:update(dt)
                 modified_dt = 9999
             else
                 local debuff_time = self.m_owner:getStat('debuff_time')
-                debuff_time = math_max(debuff_time, -100)
+                debuff_time = math_max(debuff_time, -99)    -- 만약의 경우 분모가 0이 되는 경우를 방지
 
                 modified_dt = dt / (1 + (debuff_time / 100))
             end

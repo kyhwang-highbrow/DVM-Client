@@ -17,6 +17,8 @@ StatusEffect_AddDmgOneTime = class(PARENT, {
 -------------------------------------
 function StatusEffect_AddDmgOneTime:init(file_name, body, ...)
 	self.m_savedDmg = 0
+
+    self.m_bStopUntilSkillEnd = false
 end
 
 -------------------------------------

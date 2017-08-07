@@ -159,7 +159,7 @@ end
 -- @brief findCollision으로 찾은 body별로 공격
 -------------------------------------
 function SkillVoltesX:runAttack(idx)
-	local collisions = self:findCollision(idx)
+	local collisions = self:findCollisionEachLine(idx)
 	
     for _, collision in ipairs(collisions) do
         self:attack(collision)
@@ -171,17 +171,43 @@ end
 -------------------------------------
 -- function findCollision
 -------------------------------------
-function SkillVoltesX:findCollision(idx)
-	local l_target = self:getProperTargetList()
-	local t_ret = {}
-	
-    local std_width = CRITERIA_RESOLUTION_X
-	local std_height = CRITERIA_RESOLUTION_Y
-	
-	local target_x, target_y = self.m_targetPos.x, self.m_targetPos.y
+function SkillVoltesX:findCollision()
+	local collisions1 = self:findCollisionEachLine(1)
+    local collisions2 = self:findCollisionEachLine(2)
+    
+	-- 맵형태로 임시 저장(중복 제거를 위함)
+    local m_temp = {}
+    local l_temp = {
+        collisions1,
+        collisions2
+    }
 
-	-- 레이저에 충돌된 모든 객체 리턴
-	local l_ret = self:findCollisionEachLine(l_target, target_x, target_y, std_width, std_height, idx)
+    for _, collisions in ipairs(l_temp) do
+        for _, collision in ipairs(collisions) do
+            local target = collision:getTarget()
+            local body_key = collision:getBodyKey()
+
+            if (not m_temp[target]) then
+                m_temp[target] = {}
+            end
+
+            m_temp[target][body_key] = collision
+        end
+    end
+    
+    -- 인덱스 테이블로 다시 담는다
+    local l_ret = {}
+    
+    for _, map in pairs(m_temp) do
+        for _, collision in pairs(map) do
+            table.insert(l_ret, collision)
+        end
+    end
+
+    -- 거리순으로 정렬(필요할 경우)
+    table.sort(l_ret, function(a, b)
+        return (a:getDistance() < b:getDistance())
+    end)
 
     -- 타겟 수 만큼만 얻어옴
     l_ret = table.getPartList(l_ret, self.m_targetLimit)
@@ -192,7 +218,14 @@ end
 -------------------------------------
 -- function findCollisionEachLine
 -------------------------------------
-function SkillVoltesX:findCollisionEachLine(l_target, target_x, target_y, std_width, std_height, idx)
+function SkillVoltesX:findCollisionEachLine(idx)
+    local l_target = self.m_lTargetChar or self:getProperTargetList()
+		
+    local std_width = CRITERIA_RESOLUTION_X
+	local std_height = CRITERIA_RESOLUTION_Y
+	
+	local target_x, target_y = self.m_targetPos.x, self.m_targetPos.y
+
 	local start_x = target_x - std_width
 	local start_y = target_y - (std_height * (math_pow(-1, idx)))
 		
@@ -200,30 +233,6 @@ function SkillVoltesX:findCollisionEachLine(l_target, target_x, target_y, std_wi
 	local end_y = target_y + (std_height * (math_pow(-1, idx)))
 
 	return SkillTargetFinder:findCollision_Bar(l_target, start_x, start_y, end_x, end_y, self.m_lineSize/2)
-end
-
--------------------------------------
--- function findTarget
--- @brief 모든 대상 찾음(Character 기준)
--------------------------------------
-function SkillVoltesX:findTarget(idx)
-    local l_collision = self:findCollision(idx)
-    local m_temp = {}
-
-    -- 맵형태로 임시 저장(중복된 대상 처리를 위함)
-    for _, collision in ipairs(l_collision) do
-        local target = collision:getTarget()
-        m_temp[target] = collision
-    end
-
-    -- 리스트 형태로 변환
-    local l_target = {}
-
-    for _, collision in pairs(m_temp) do
-        table.insert(l_target, collision)
-    end
-
-	return l_target, l_collision
 end
 
 -------------------------------------

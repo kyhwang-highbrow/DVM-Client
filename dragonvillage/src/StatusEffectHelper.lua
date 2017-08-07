@@ -382,14 +382,16 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
         status_effect = StatusEffect(res)
     end
 
+    local world = target_char.m_world
+
     -- 초기값 설정
+    status_effect:initWorld(world)
     status_effect:initFromTable(t_status_effect, target_char)
 
     -- 타켓에게 status_effect 저장
 	target_char:insertStatusEffect(status_effect)
 
     -- 객체 생성
-    local world = target_char.m_world
     world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
     world:addToUnitList(status_effect)
 

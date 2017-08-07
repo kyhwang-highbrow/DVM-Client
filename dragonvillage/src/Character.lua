@@ -995,7 +995,7 @@ function Character:makeDamageFont(damage, x, y, tParam)
             label:setColor(cc.c3b(198, 198, 198))	-- 회색
 	    
 	    else
-            -- 일반 데미지
+            -- 일반 데미지(크리 데미지 포함)
             if (self.m_bLeftFormation) then
                 label:setColor(cc.c3b(235, 71, 42))	-- 빨강
             end
