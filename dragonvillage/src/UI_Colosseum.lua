@@ -105,6 +105,15 @@ function UI_Colosseum:initButton()
     vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
     vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
     vars['defDeckBtn']:registerScriptTapHandler(function() self:click_defDeckBtn() end)
+
+    if (vars['testModeBtn']) then
+        if (IS_TEST_MODE()) then
+            vars['testModeBtn']:registerScriptTapHandler(function() self:click_testModeBtn() end)
+            vars['testModeBtn']:setVisible(true)
+        else
+            vars['testModeBtn']:setVisible(false)
+        end
+    end
 end
 
 -------------------------------------
@@ -221,6 +230,13 @@ function UI_Colosseum:click_defDeckBtn()
     ui:setCloseCB(close_cb)
 end
 
+-------------------------------------
+-- function click_testModeBtn
+-- @brief 테스트 모드로 진입
+-------------------------------------
+function UI_Colosseum:click_testModeBtn()
+    UI_ColosseumReadyForDev()
+end
 
 -------------------------------------
 -- function initTab

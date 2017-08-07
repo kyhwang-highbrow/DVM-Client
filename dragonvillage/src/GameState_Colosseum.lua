@@ -298,6 +298,30 @@ function GameState_Colosseum:fight()
 end
 
 -------------------------------------
+-- function checkWaveClear
+-------------------------------------
+function GameState_Colosseum:checkWaveClear(dt)
+    local world = self.m_world
+    local enemy_count = #world:getEnemyList()
+
+    -- 클리어 여부 체크
+    if (enemy_count <= 0) then
+        self.m_waveClearTimer = self.m_waveClearTimer + dt
+
+        if (self.m_waveClearTimer > 0.5) then
+            self.m_waveClearTimer = 0
+
+            self:changeState(GAME_STATE_SUCCESS_WAIT)
+            return true
+        end
+    else
+        self.m_waveClearTimer = 0
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function doDirectionForIntermission
 -------------------------------------
 function GameState_Colosseum:doDirectionForIntermission()
@@ -318,21 +342,27 @@ end
 -- function makeResultUI
 -------------------------------------
 function GameState_Colosseum:makeResultUI(is_win)
-    -- 작업 함수들
-    local func_network_game_finish
-    local func_ui_result
-
-    -- 1. 네트워크 통신
-    func_network_game_finish = function()
-        g_colosseumData:request_colosseumFinish(is_win, func_ui_result)
-    end
-
-    -- 2. UI 생성
-    func_ui_result = function(ret)
-        local t_data = ret
+    if (self.m_world.m_bDevelopMode) then
+        local t_data = { added_rp = 0, added_honor = 0 }
         UI_ColosseumResult(is_win, t_data)
-    end
 
-    -- 최초 실행
-    func_network_game_finish()
+    else
+        -- 작업 함수들
+        local func_network_game_finish
+        local func_ui_result
+
+        -- 1. 네트워크 통신
+        func_network_game_finish = function()
+            g_colosseumData:request_colosseumFinish(is_win, func_ui_result)
+        end
+
+        -- 2. UI 생성
+        func_ui_result = function(ret)
+            local t_data = ret
+            UI_ColosseumResult(is_win, t_data)
+        end
+
+        -- 최초 실행
+        func_network_game_finish()
+    end
 end

@@ -11,7 +11,7 @@ SceneGameColosseum = class(PARENT, {
 -------------------------------------
 function SceneGameColosseum:init(game_key, stage_id, stage_name, develop_mode)
     self.m_stageName = 'stage_colosseum'
-    self.m_bDevelopMode = true
+    self.m_bDevelopMode = develop_mode
 
     g_deckData:setSelectedDeck('pvp_atk')
 end

@@ -689,6 +689,7 @@ local t_module = {
     'UI_ColosseumMatchRewardItem',
     'UI_ColosseumAttackListItem',
     'UI_ColosseumReady',
+    'UI_ColosseumReadyForDev',
     'UI_ColosseumRankListItem',
     'UI_ColosseumRankingRewardPopup',
     'UI_ColosseumHistoryListItem',

@@ -40,8 +40,12 @@ function UI_GameColosseum:initUI()
         local user_info = g_colosseumData.m_playerUserInfo
         vars['userNameLabel1']:setString(user_info.m_nickname)
 
-        user_info = g_colosseumData:getMatchUserInfo()
-        vars['userNameLabel2']:setString(user_info.m_nickname)
+        if (self.m_gameScene.m_bDevelopMode) then
+            vars['userNameLabel2']:setString(user_info.m_nickname)
+        else
+            user_info = g_colosseumData:getMatchUserInfo()
+            vars['userNameLabel2']:setString(user_info.m_nickname)
+        end
     end
 
     -- 하단 패널

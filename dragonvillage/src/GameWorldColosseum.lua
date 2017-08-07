@@ -123,9 +123,14 @@ function GameWorldColosseum:initTamer()
     
     -- 적군 테이머 생성
     do
-        local user_info = g_colosseumData:getMatchUserInfo()
-        local tid = user_info.m_tamerID
-        local t_tamer = TableTamer():get(tid)
+        local t_tamer
+
+        if (self.m_bDevelopMode) then
+            t_tamer = g_tamerData:getCurrTamerTable()
+        else
+            local user_info = g_colosseumData:getMatchUserInfo()
+            t_tamer = TableTamer():get(user_info.m_tamerID)
+        end
 
         -- 설정이 제대로 안된 경우라면 고니로 강제 설정
         if (not t_tamer) then
@@ -256,7 +261,7 @@ function GameWorldColosseum:onEvent(event_name, t_event, ...)
         end
 
         -- 진형에 따라 HP게이지 갱신
-        for i, v in ipairs(unitList) do
+        for _, v in pairs(unitList) do
             totalHp = totalHp + v.m_hp
             totalMaxHp = totalMaxHp + v.m_maxHp
         end
@@ -285,15 +290,26 @@ end
 -- @TODO 상대편 덱 정보를 받아서 생성해야함
 -------------------------------------
 function GameWorldColosseum:makeEnemyDeck()
-    local user_info = g_colosseumData:getMatchUserInfo()
-
-    -- 상대방의 덱 정보를 얻어옴
-    local l_deck, formation, deck_name, leader = user_info:getDeck('def')
-    --local l_deck, formation, deck_name, leader = g_deckData:getDeck()
+    local l_deck, formation, deck_name, leader
+    local getDragonObject
     
+    if (self.m_bDevelopMode) then
+        -- 개발모드에선 자신의 덱을 상대로 설정
+        l_deck, formation, deck_name, leader = g_deckData:getDeck()
+
+        getDragonObject = function(doid) return g_dragonsData:getDragonDataFromUid(doid) end
+    else
+        local user_info = g_colosseumData:getMatchUserInfo()
+
+        -- 상대방의 덱 정보를 얻어옴
+        l_deck, formation, deck_name, leader = user_info:getDeck('def')
+
+        getDragonObject = function(doid) return user_info:getDragonObject(doid) end
+    end
+        
     -- 덱에 배치된 드래곤들 생성
     for i, doid in pairs(l_deck) do
-        local t_dragon_data = user_info:getDragonObject(doid)
+        local t_dragon_data = getDragonObject(doid)
         if (t_dragon_data) then
             local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
             local is_right = true
