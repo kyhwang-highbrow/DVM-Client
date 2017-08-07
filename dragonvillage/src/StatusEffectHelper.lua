@@ -228,8 +228,15 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 
 	-- 면역 효과
 	if (target_char:isImmuneSE() and self:isHarmful(status_effect_category)) then 
+        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'])
 		return nil
 	end
+
+    if (target_char.m_charType == 'monster' and target_char:getRarity() ~= 1 and t_status_effect['type'] == 'cc') then
+        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'])
+        return nil
+    end
+
 
     -- 적용값(status_effect_value)이 수식인 경우 수식을 계산
     if (type(status_effect_value) == 'function') then

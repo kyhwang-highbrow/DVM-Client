@@ -461,6 +461,8 @@ DEPTH_PASSIVE_FONT = counter:get()
 DEPTH_LUCKY_WING_MOTION_STREAK = counter:get()
 DEPTH_LUCKY_WING = counter:get()
 
+DEPTH_IMMUNE_FONT = counter:get()
+
 -------------------------------------
 -- function addChildWorld
 -------------------------------------
