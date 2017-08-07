@@ -94,6 +94,7 @@ local function main()
     math.randomseed(seed)
 
 	ErrorTracker:getInstance()
+    PatchChecker:getInstance()
 
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()
