@@ -197,7 +197,7 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@style/com_facebook_activity_theme"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
