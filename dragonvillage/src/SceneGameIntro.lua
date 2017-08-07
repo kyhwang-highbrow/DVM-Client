@@ -159,7 +159,7 @@ function SceneGameIntro:update(dt)
     end
 
     -- 세번째 웨이브 - 번개고룡 스킬
-    if (idx == 6) and (recorder:getLog('use_skill') > 1 and self.m_focusingDragon.m_state == 'attackDelay') then
+    if (idx == 6) and (recorder:getLog('use_skill') > 1 and self.m_focusingDragon.m_state == 'attackDelay' and not world.m_gameDragonSkill:isPlaying()) then
         self:play_tutorialTalk(false, true)
 
         -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴

@@ -44,12 +44,7 @@ function GameMana:update(dt)
         add = self.m_incValuePerSec * dt
     end
 
-    self.m_value = self.m_value + add
-    self.m_value = math_min(self.m_value, MAX_MANA)
-    
-    self:updateGauge(self.m_prevValue ~= math_floor(self.m_value))
-
-    self.m_prevValue = math_floor(self.m_value)
+    self:addMana(add)
 end
 
 -------------------------------------
@@ -93,16 +88,9 @@ function GameMana:addMana(value)
     self.m_value = self.m_value + value
     self.m_value = math_min(self.m_value, MAX_MANA)
 
-    self:updateGauge()
-end
+    self:updateGauge(self.m_prevValue ~= math_floor(self.m_value))
 
--------------------------------------
--- function setMaxMana
--------------------------------------
-function GameMana:setMaxMana()
-    self.m_value = MAX_MANA
-
-    self:updateGauge()
+    self.m_prevValue = math_floor(self.m_value)
 end
 
 -------------------------------------
@@ -111,7 +99,9 @@ end
 function GameMana:resetMana()
     self.m_value = 0
 
-    self:updateGauge()
+    self:updateGauge(self.m_prevValue ~= math_floor(self.m_value))
+
+    self.m_prevValue = 0
 end
 
 -------------------------------------
