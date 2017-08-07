@@ -79,7 +79,8 @@ end
 -- @brief 중점 0 기준
 -------------------------------------
 function UIHelper:getCardPosX(total_cnt, idx)
-	return -(150/2 * (total_cnt - 1)) + (150 * (idx - 1))
+    local card_size =  155
+	return -(card_size/2 * (total_cnt - 1)) + (card_size * (idx - 1))
 end
 
 -------------------------------------

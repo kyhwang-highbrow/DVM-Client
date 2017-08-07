@@ -106,7 +106,7 @@ function UI_MasterRoadPopup:refresh(t_data)
 
 	-- 보상 아이콘
 	vars['rewardNode']:removeAllChildren(true)
-	self.makeRewardCard(vars['rewardNode'], t_data['t_reward'], false)
+	self.makeRewardCard(vars['rewardNode'], t_data['t_reward'], false, 'center')
 
     -- 보상 상태에 따른 버튼 처리
     local reward_state = g_masterRoadData:getRewardState(t_data['rid'])
@@ -208,14 +208,19 @@ end
 -- @static
 -- @brief 보상 아이콘 생성
 -------------------------------------
-function UI_MasterRoadPopup.makeRewardCard(reward_node, t_reward, block_btn)
+function UI_MasterRoadPopup.makeRewardCard(reward_node, t_reward, block_btn, allign)
 	local reward_cnt = #t_reward
 	for idx, t_item in pairs(t_reward) do
         -- 데이터 및 카드 생성
 		local item_id = TableItem:getItemIDFromItemType(t_item['item_type']) or tonumber(t_item['item_type'])
 		local item_cnt = t_item['count']
         local item_card = UI_ItemCard(item_id, item_cnt)
-		local pos_x = UIHelper:getCardPosX(reward_cnt, idx)
+		local pos_x
+        if (allign == 'left') then
+            pos_x = 155 * (idx - 1)
+        elseif (allign == 'center') then
+            pos_x = UIHelper:getCardPosX(reward_cnt, idx)
+        end
 
         -- 카드 속성 부여
         item_card.root:setPositionX(pos_x)
@@ -274,7 +279,7 @@ function UI_MasterRoadPopup.makeCellUI(t_data)
 
 	-- 보상 아이콘
 	vars['rewardNode']:removeAllChildren(true)
-	UI_MasterRoadPopup.makeRewardCard(vars['rewardNode'], t_data['t_reward'], 'be block')
+	UI_MasterRoadPopup.makeRewardCard(vars['rewardNode'], t_data['t_reward'], 'be block', 'left')
     
     -- 진행중 및 보상 표시
     UI_MasterRoadPopup.refreshCell(ui, t_data)

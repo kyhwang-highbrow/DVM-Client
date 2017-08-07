@@ -160,7 +160,6 @@ function UI_StartTamerSelect:setTamerAni(tid)
     local vars = self.vars
     local t_tamer = TableTamer():get(tid)
     local ani_tamer = AnimatorHelper:makeTamerAnimator(t_tamer['res'])
-    ani_tamer:setScale(0.6)
     vars['tamerNode']:removeAllChildren()
 	vars['tamerNode']:addChild(ani_tamer.m_node)
 
