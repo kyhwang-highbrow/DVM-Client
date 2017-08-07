@@ -197,16 +197,24 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:theme="@style/com_facebook_activity_theme"
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
-            android:exported="true" >
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name="com.facebook.CustomTabMainActivity" />
         <provider
-            android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider1959320877684820"
-            android:exported="true" />
+            android:name="com.facebook.internal.FacebookInitProvider"
+            android:authorities = "com.perplelab.dragonvillagem.kr.FacebookInitProvider"
+            android:exported="false" />
 
         <!-- @obb, APK expansion file downloading -->
         <service
