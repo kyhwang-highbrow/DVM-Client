@@ -37,7 +37,7 @@ end
 -- @brief 버전과 패치정보를 삽입
 ----------------------------------------
 function PatchChecker:addPatchInfo(t_param)
-    if t_param then
+    if t_param and g_patchData then
 		t_param['app_ver'] = self.m_app_version
 
         -- test (중간에 로컬에 저장된 패치 데이터 넘버 변경한 후 통신)
