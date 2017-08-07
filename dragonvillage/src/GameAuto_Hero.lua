@@ -124,14 +124,6 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
 
     elseif (event_name == 'auto_end') then
         self:onEnd()
-
-    elseif (event_name == 'hero_casting_start') then
-               
-    elseif (event_name == 'enemy_casting_start') then
-        local arg = {...}
-        local enemy = arg[1]
-
-        table.insert(self.m_lCastingEnemyList, enemy)
         
     elseif (event_name == 'hero_active_skill') then
         self.m_aiDelayTime = self:getAiDelayTime()
