@@ -75,11 +75,32 @@
 				0:
 				[
 					"132101;10;Basic;RO04;RF24;3;roam"
-					"131042;1;Basic;TO11;RM12;3;roam"
-					"131042;1;Basic;BO11;RM16;3;roam"
-					"131042;1;Basic;RO04;RB14;3;roam"
 				]
-            }
+            },
+			
+			"regen":
+			[
+				{
+					0:
+					[
+						"131042;1;Basic;TO11;RM12;3;roam"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131042;1;Basic;BO11;RM16;3;roam"
+					]
+				},
+				
+				{
+					0:
+					[
+						"131042;1;Basic;RO04;RB14;3;roam"
+					]
+				}
+			]
         }
     ]
 }

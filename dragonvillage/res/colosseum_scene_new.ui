@@ -724,20 +724,20 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 208.000000;
+				y = 196.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 370;
-				height = 370;
-				scale_x = 0.800000;
-				scale_y = 0.800000;
+				width = 254;
+				height = 316;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frames/rune_enhance_slot_0101.png';
+				file_name = 'ui/frames/colosseum_tier_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -747,36 +747,29 @@
 			};
 			[4] =
 			{
-				type = 'Scale9Sprite';
+				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 110.000000;
+				y = 208.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 460;
-				height = 50;
+				width = 162;
+				height = 162;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
-				file_name = 'ui/frames/title_frame_0101.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
+				lua_name = 'tierIconNode';
 			};
 			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 110.000000;
+				y = 124.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -813,29 +806,36 @@
 			};
 			[6] =
 			{
-				type = 'Node';
+				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 1.000000;
-				y = 208.000000;
+				x = 0.000000;
+				y = 110.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 162;
-				height = 162;
+				width = 460;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
-				lua_name = 'tierIconNode';
+				visible = false;
+				lua_name = '';
+				file_name = 'ui/frames/title_frame_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
 			};
 			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 60.000000;
-				y = 10.000000;
+				y = -10.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -875,7 +875,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 60.000000;
-				y = -94.000000;
+				y = -104.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -915,7 +915,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -60.000000;
-				y = 10.000000;
+				y = -10.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -955,7 +955,7 @@
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = 60.000000;
-				y = -170.000000;
+				y = -180.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -995,7 +995,7 @@
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = 60.000000;
-				y = -145.000000;
+				y = -155.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1182,7 +1182,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = -82.000000;
-				y = -102.000000;
+				y = -112.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1220,8 +1220,8 @@
 				visible = true;
 				lua_name = 'rankDetailBtn';
 				enable = true;
-				normal = 'ui/buttons/64_plus_btn_0101.png';
-				selected = 'ui/buttons/64_plus_btn_0102.png';
+				normal = 'ui/buttons/64_detail_btn_0101.png';
+				selected = 'ui/buttons/64_detail_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};

@@ -4,603 +4,198 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>skill_height_heal_res_0008.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,12}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{967,1611},{320,12}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0012.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,14}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{1009,1},{320,14}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0016.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,16}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{999,1289},{320,16}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0020.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,18}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{1005,323},{320,18}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0024.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,20}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{999,967},{320,20}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0028.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,22}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{1001,645},{320,22}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0032.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,26}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{645,1599},{320,26}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0036.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,28}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{1,1639},{320,28}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0040.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,30}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{967,967},{320,30}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0044.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,30}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{967,1289},{320,30}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0048.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,32}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{967,645},{320,32}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0052.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,36}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{967,323},{320,36}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0056.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{320,40}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{967,1},{320,40}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>skill_height_heal_res_0060.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-6}</string>
-                <key>spriteSize</key>
-                <string>{320,62}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{323,1597},{320,62}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0064.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-7}</string>
-                <key>spriteSize</key>
-                <string>{320,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{323,1505},{320,90}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0066.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-10}</string>
-                <key>spriteSize</key>
-                <string>{320,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{645,1489},{320,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0068.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-11}</string>
-                <key>spriteSize</key>
-                <string>{320,124}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{645,1363},{320,124}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0070.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-13}</string>
-                <key>spriteSize</key>
-                <string>{320,136}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{1,1501},{320,136}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0072.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-14}</string>
-                <key>spriteSize</key>
-                <string>{320,148}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{323,1355},{320,148}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0074.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-15}</string>
-                <key>spriteSize</key>
-                <string>{320,156}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{1,1343},{320,156}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0076.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-17}</string>
-                <key>spriteSize</key>
-                <string>{320,170}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{1,1171},{320,170}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0078.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-18}</string>
-                <key>spriteSize</key>
-                <string>{320,184}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{323,1169},{320,184}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0080.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-19}</string>
-                <key>spriteSize</key>
-                <string>{320,196}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{645,1165},{320,196}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0082.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-17}</string>
-                <key>spriteSize</key>
-                <string>{320,206}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{645,957},{320,206}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0084.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-14}</string>
-                <key>spriteSize</key>
-                <string>{320,212}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{1,957},{320,212}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0086.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-12}</string>
-                <key>spriteSize</key>
-                <string>{320,216}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{323,951},{320,216}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0088.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-9}</string>
-                <key>spriteSize</key>
-                <string>{320,222}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{323,727},{320,222}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0090.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-6}</string>
-                <key>spriteSize</key>
-                <string>{320,228}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{1,727},{320,228}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0092.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-4}</string>
-                <key>spriteSize</key>
-                <string>{320,232}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{645,723},{320,232}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0094.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-2}</string>
-                <key>spriteSize</key>
-                <string>{320,236}</string>
-                <key>spriteSourceSize</key>
-                <string>{320,240}</string>
-                <key>textureRect</key>
-                <string>{{645,485},{320,236}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_res_0096.png</key>
+            <key>skill_height_heal_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{320,240}</string>
+                <string>{215,215}</string>
                 <key>spriteSourceSize</key>
-                <string>{320,240}</string>
+                <string>{215,215}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{320,240}}</string>
+                <string>{{196,1},{215,215}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>skill_height_heal_res_0098.png</key>
+            <key>skill_height_heal_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{320,240}</string>
+                <string>{52,76}</string>
                 <key>spriteSourceSize</key>
-                <string>{320,240}</string>
+                <string>{52,76}</string>
                 <key>textureRect</key>
-                <string>{{323,1},{320,240}}</string>
+                <string>{{196,430},{52,76}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>skill_height_heal_res_0100.png</key>
+            <key>skill_height_heal_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{320,240}</string>
+                <string>{80,61}</string>
                 <key>spriteSourceSize</key>
-                <string>{320,240}</string>
+                <string>{80,61}</string>
                 <key>textureRect</key>
-                <string>{{645,1},{320,240}}</string>
+                <string>{{196,348},{80,61}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>skill_height_heal_res_0102.png</key>
+            <key>skill_height_heal_04.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{320,240}</string>
+                <string>{70,46}</string>
                 <key>spriteSourceSize</key>
-                <string>{320,240}</string>
+                <string>{70,46}</string>
                 <key>textureRect</key>
-                <string>{{1,243},{320,240}}</string>
+                <string>{{97,464},{70,46}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>skill_height_heal_res_0104.png</key>
+            <key>skill_height_heal_05.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{320,240}</string>
+                <string>{57,57}</string>
                 <key>spriteSourceSize</key>
-                <string>{320,240}</string>
+                <string>{57,57}</string>
                 <key>textureRect</key>
-                <string>{{323,243},{320,240}}</string>
+                <string>{{250,430},{57,57}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>skill_height_heal_res_0106.png</key>
+            <key>skill_height_heal_06.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{320,240}</string>
+                <string>{55,55}</string>
                 <key>spriteSourceSize</key>
-                <string>{320,240}</string>
+                <string>{55,55}</string>
                 <key>textureRect</key>
-                <string>{{645,243},{320,240}}</string>
+                <string>{{309,319},{55,55}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>skill_height_heal_res_0108.png</key>
+            <key>skill_height_heal_07.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{320,240}</string>
+                <string>{82,87}</string>
                 <key>spriteSourceSize</key>
-                <string>{320,240}</string>
+                <string>{82,87}</string>
                 <key>textureRect</key>
-                <string>{{1,485},{320,240}}</string>
+                <string>{{413,91},{82,87}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>skill_height_heal_res_0110.png</key>
+            <key>skill_height_heal_08.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{320,240}</string>
+                <string>{128,128}</string>
                 <key>spriteSourceSize</key>
-                <string>{320,240}</string>
+                <string>{128,128}</string>
                 <key>textureRect</key>
-                <string>{{323,485},{320,240}}</string>
+                <string>{{383,218},{128,128}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>skill_height_heal_s_01.png</key>
+            <key>skill_height_heal_09.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,2}</string>
+                <key>spriteSize</key>
+                <string>{94,164}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,168}</string>
+                <key>textureRect</key>
+                <string>{{1,333},{94,164}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>skill_height_heal_10.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,2}</string>
+                <key>spriteSize</key>
+                <string>{99,206}</string>
+                <key>spriteSourceSize</key>
+                <string>{105,210}</string>
+                <key>textureRect</key>
+                <string>{{175,218},{99,206}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>skill_height_heal_11.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-2,2}</string>
+                <key>spriteSize</key>
+                <string>{97,129}</string>
+                <key>spriteSourceSize</key>
+                <string>{135,135}</string>
+                <key>textureRect</key>
+                <string>{{97,333},{97,129}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>skill_height_heal_dark_01.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{3,39}</string>
+                <key>spriteSize</key>
+                <string>{172,330}</string>
+                <key>spriteSourceSize</key>
+                <string>{180,500}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{172,330}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>skill_height_heal_dark_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{153,106}</string>
+                <string>{88,88}</string>
                 <key>spriteSourceSize</key>
-                <string>{153,106}</string>
+                <string>{88,88}</string>
                 <key>textureRect</key>
-                <string>{{1,1933},{153,106}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>skill_height_heal_s_03.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{200,91}</string>
-                <key>spriteSourceSize</key>
-                <string>{228,97}</string>
-                <key>textureRect</key>
-                <string>{{156,1933},{200,91}}</string>
+                <string>{{413,1},{88,88}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -616,9 +211,9 @@
             <key>realTextureFileName</key>
             <string>skill_height_heal.png</string>
             <key>size</key>
-            <string>{1024,2048}</string>
+            <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:273842672a47f7b6ef44665242b7ece5:1867422d307fe11ef44bad092df81392:057047ad001767b0172aa0c0fc24caa5$</string>
+            <string>$TexturePacker:SmartUpdate:41baada63b26bdb55474bc50d3c15beb:eff19c9434edb91bab2c401cc7c21bc1:057047ad001767b0172aa0c0fc24caa5$</string>
             <key>textureFileName</key>
             <string>skill_height_heal.png</string>
         </dict>
