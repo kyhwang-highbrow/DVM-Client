@@ -232,7 +232,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 		return nil
 	end
 
-    if (target_char.m_charType == 'monster' and target_char:getRarity() ~= 1 and t_status_effect['type'] == 'cc') then
+    if (target_char:isBoss() and t_status_effect['type'] == 'cc') then
         target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'])
         return nil
     end
