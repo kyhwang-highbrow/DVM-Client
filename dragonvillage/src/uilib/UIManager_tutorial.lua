@@ -6,6 +6,17 @@
 UIManager['m_tutorialNode'] = nil
 UIManager['m_tutorialClippingNode'] = nil
 UIManager['m_tTutorialBtnInfoTable'] = nil
+UIManager['m_tutorialStencilEffect'] = nil
+
+-------------------------------------
+-- function doTutorial
+-- @brief 튜토리얼 실행
+-------------------------------------
+function UIManager:startTutorial(script, tar_ui)
+    self:doTutorial()
+    local ui = UI_DialoguePlayer(script, tar_ui)
+    ui:next()
+end
 
 -------------------------------------
 -- function doTutorial
@@ -50,7 +61,7 @@ function UIManager:doTutorial()
     tutorial_node:addChild(block_layer, -1)
 	tutorial_node:addChild(clipping_node, -1)
 
-	self.m_uiLayer:addChild(tutorial_node, 128)
+	self.m_uiLayer:addChild(tutorial_node, UI_ZORDER.TUTORIAL)
 
     self.m_tutorialNode = tutorial_node
     self.m_tTutorialBtnInfoTable = {}
@@ -77,6 +88,11 @@ end
 -- @brief 스텐실에 반짝이는 프레임 씌움
 -------------------------------------
 function UIManager:setStencilEffect(node)
+    if (self.m_tutorialStencilEffect) then
+        self.m_tutorialStencilEffect:removeFromParent()
+        self.m_tutorialStencilEffect = nil
+    end
+
     local effect = cc.Scale9Sprite:create('res/ui/deck_select.png')
     effect:setContentSize(node:getContentSize())
     effect:setAnchorPoint(node:getAnchorPoint())
@@ -90,6 +106,9 @@ function UIManager:setStencilEffect(node)
 
     -- 반짝반짝
     effect:runAction(cca.flash())
+    
+    -- 삭제를 위해 등록
+    self.m_tutorialStencilEffect = effect
 end
 
 -------------------------------------
@@ -100,6 +119,19 @@ function UIManager:releaseTutorialStencil()
     local node = cc.Node:create()
     node:retain()
     self.m_tutorialClippingNode:setStencil(node)
+    
+    if (self.m_tutorialStencilEffect) then
+        self.m_tutorialStencilEffect:removeFromParent()
+        self.m_tutorialStencilEffect = nil
+    end
+end
+
+-------------------------------------
+-- function setVisibleTutorial
+-- @brief 
+-------------------------------------
+function UIManager:setVisibleTutorial(b)
+    self.m_tutorialNode:setVisible(b)
 end
 
 -------------------------------------
@@ -107,9 +139,10 @@ end
 -- @brief 튜토리얼 해제
 -------------------------------------
 function UIManager:releaseTutorial()
-    self:revertNodeAll()
-
 	if (self.m_tutorialNode) then 
+        self:revertNodeAll()
+        self:releaseTutorialStencil()
+
 		self.m_tutorialNode:removeFromParent(true)
 		self.m_tutorialNode = nil
 	end
@@ -163,5 +196,5 @@ function UIManager:revertNodeAll()
             self:revertNode(uic_node)
         end
     end
-    self.m_tTutorialBtnInfoTable = nil
+    self.m_tTutorialBtnInfoTable = {}
 end

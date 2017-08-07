@@ -86,6 +86,19 @@ function UIC_Button:registerScriptTapHandler(func)
 end
 
 -------------------------------------
+-- function addScriptTapHandler
+-- @brief 클릭 콜백을 추가한다. 이전 콜백과 새로운 콜백은 서로 독립적이어야 한다.
+-------------------------------------
+function UIC_Button:addScriptTapHandler(add_func)
+    local pre_func = self.m_clickFunc
+    self:registerScriptTapHandler(nil)
+    self:registerScriptTapHandler(function()
+        pre_func()
+        add_func()
+    end)
+end
+
+-------------------------------------
 -- function registerScriptPressHandler
 -------------------------------------
 function UIC_Button:registerScriptPressHandler(func)

@@ -159,23 +159,19 @@ function UI_ScenarioPlayer:applyEffect(effect)
         self.vars['nextBtn']:setEnabled(false)
         self.vars['nextVisual']:setVisible(false)
 
+    elseif effect == 'next_enable' then
+        self.vars['nextBtn']:setEnabled(true)
+        self.vars['nextVisual']:setVisible(true)
+
     elseif (effect == 'hide_all') then
         self.root:setVisible(false)
 
     elseif (effect == 'show_all') then
         self.root:setVisible(true)
 
-
-    -- 시나리오 테이블 작업 끝난 후 지울것        
-    elseif (effect == 'black') then
-        self:fadeWholeLayer('black', 0, 100)
-    elseif (effect == 'fadein') then
-        vars['layerColor']:runAction(cc.FadeOut:create(0.3))
-        vars['layerColor2']:runAction(cc.FadeOut:create(0.3))
-
     else
         cclog('정의되지 않은 이펙트 ' .. effect)
-
+        return true
     end
 end
 
