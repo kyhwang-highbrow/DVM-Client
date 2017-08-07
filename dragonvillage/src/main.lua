@@ -154,6 +154,7 @@ local function main()
     ServerData:getInstance():applySetting()
     UserData:getInstance()
 	ErrorTracker:getInstance()
+    PatchChecker:getInstance()
 
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()

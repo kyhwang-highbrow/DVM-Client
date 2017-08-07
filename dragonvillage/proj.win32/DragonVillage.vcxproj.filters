@@ -2586,6 +2586,9 @@
     <None Include="..\src\uilib\UIManager_tutorial.lua">
       <Filter>lua\tutorial</Filter>
     </None>
+    <None Include="..\src\PatchChecker.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

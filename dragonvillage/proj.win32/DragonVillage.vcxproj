@@ -356,6 +356,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\NumberLoop.lua" />
     <None Include="..\src\packet\chat.proto" />
     <None Include="..\src\packet\session.proto" />
+    <None Include="..\src\PatchChecker.lua" />
     <None Include="..\src\perpleLib\lua_csv.lua" />
     <None Include="..\src\plSample.lua" />
     <None Include="..\src\plSample_test.lua" />

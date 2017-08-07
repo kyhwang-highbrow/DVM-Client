@@ -214,6 +214,9 @@ function Network:SimpleRequest(t, do_decode)
         data['uid'] = self['uid']
     end
 
+    -- 패치 정보 삽입
+    g_patchChecker:addPatchInfo(data)
+
 	local r = Network:request(url, data, method)
 	r['finishHandler'] = function(data)
 		local jsondata
@@ -224,6 +227,9 @@ function Network:SimpleRequest(t, do_decode)
 			jsondata = Network:decodeResult(data)
 		end
         Network:saveDump(t, jsondata)
+
+        -- 패치 업데이트 검사
+        if (g_patchChecker:isUpdated(jsondata)) then return end
 
         if (jsondata['status'] and (jsondata['status'] == -9999)) then
             fail(jsondata)

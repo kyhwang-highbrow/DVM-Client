@@ -27,6 +27,7 @@ local t_module = {
     'SoundMgrProtected',
     'PatchData',
     'PatchCore',
+    'PatchChecker',
     'ApkExpansion',
     'Coroutine',
 	'LocalPushMgr',

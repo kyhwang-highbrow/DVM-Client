@@ -50,7 +50,8 @@ function PatchCore:init(scene, type, app_ver)
     self.m_type = type
     
 	local patch_data = PatchData:getInstance()
-    
+    local patch_checker = PatchChecker:getInstance()
+
     -- 추가 리소스 다운로드
     if (type == 'res') then
         self.m_currPatchVer = patch_data:get('res_ver')
