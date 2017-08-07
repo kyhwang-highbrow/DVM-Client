@@ -279,11 +279,24 @@ function UI_ScenarioPlayer:changeBg(bg_name)
     -- 현재 배경 밑에 새로운 배경을 넣고
     local bg_res = TableScenarioResource:getScenarioRes(bg_name)
     local bg_animator = MakeAnimator(bg_res)
-    vars['bgNode']:addChild(bg_animator.m_node, 0)
+    vars['bgNode']:addChild(bg_animator.m_node)
+
+    -- 배경 현재 보이는 사이즈 기준으로 조정
+    local visible_size = cc.Director:getInstance():getVisibleSize()
+    local bg_size = bg_animator:getContentSize()
+
+    local width_scale, height_scale = 1, 1
+    if (bg_size['width'] > visible_size['width']) then
+        width_scale = (visible_size['width'] / bg_size['width'])
+    end
+    if (bg_size['height'] > visible_size['height']) then
+        height_scale = (visible_size['height'] / bg_size['height'])
+    end
+    bg_animator:setScale(math.maxdifl(width_scale, height_scale))
 
     -- 현재 배경이 서서히 사라지도록 한다.
     if (self.m_bgAnimator) then
-        local fade_out = cc.FadeOut:create(0.5)
+        local fade_out = cc.FadeOut:create(1)
         local cb_func = cc.CallFunc:create(function() bg_animator:setLocalZOrder(1) end)
         local remove_self = cc.RemoveSelf:create()
 
