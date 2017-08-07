@@ -12,6 +12,7 @@ require 'lib/class'
 require 'perpleLib/PerpleScene'
 require 'socket.core'
 require 'ErrorTracker'
+require 'PatchChecker'
 require 'SceneLogo'
 
 
