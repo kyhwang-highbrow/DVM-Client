@@ -292,7 +292,7 @@ function UI_ScenarioPlayer:changeBg(bg_name)
     if (bg_size['height'] > visible_size['height']) then
         height_scale = (visible_size['height'] / bg_size['height'])
     end
-    bg_animator:setScale(math.maxdifl(width_scale, height_scale))
+    bg_animator:setScale(math.max(width_scale, height_scale))
 
     -- 현재 배경이 서서히 사라지도록 한다.
     if (self.m_bgAnimator) then
