@@ -43,8 +43,8 @@ function UI_AncientTowerRankingRewardPopup:initUI(struct_user_info_ancient)
     vars['rankingLabel']:setString(info:getRankText(true))
 
     local item_info = info.m_userData
-    local reward_cnt = 3
     if (item_info) then
+        local reward_cnt = #item_info
         for i = 1, reward_cnt do
             local item_data = item_info[i]
             local item_id = item_data['item_id']
@@ -52,8 +52,23 @@ function UI_AncientTowerRankingRewardPopup:initUI(struct_user_info_ancient)
 
             local icon = IconHelper:getItemIcon(item_id)
             vars['rewardNode'..i]:addChild(icon)
-
             vars['rewardLabel'..i]:setString(comma_value(item_cnt))
+        end
+
+        -- 노드 보상 갯수에 따른 위치 변경
+        local max_cnt = 3
+        for i = 1, max_cnt do
+            if (i > reward_cnt) then
+                vars['rewardSprite'..i]:setVisible(false)
+            end
+        end
+
+        if (reward_cnt == 1) then
+            vars['rewardSprite1']:setPositionX(0)
+
+        elseif (reward_cnt == 2) then
+            vars['rewardSprite1']:setPositionX(-68)
+            vars['rewardSprite2']:setPositionX(68)
         end
     end
 end
