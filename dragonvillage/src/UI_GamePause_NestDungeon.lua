@@ -15,19 +15,14 @@ function UI_GamePause_NestDungeon:init(stage_id, start_cb, end_cb)
 end
 
 -------------------------------------
--- function click_homeButton
--------------------------------------
-function UI_GamePause_NestDungeon:click_homeButton()
-	local is_use_loading = true
-    local scene = SceneLobby(is_use_loading)
-    scene:runScene()
-end
-
--------------------------------------
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause_NestDungeon:click_retryButton()
-    local is_ready = true
-    local scene = SceneNestDungeon(self.m_stageID, nil, is_ready)
-    scene:runScene()
+    local function retry_func()
+        local is_ready = true
+        local scene = SceneNestDungeon(self.m_stageID, nil, is_ready)
+        scene:runScene()
+    end
+    
+    self:confirmExit(retry_func)
 end

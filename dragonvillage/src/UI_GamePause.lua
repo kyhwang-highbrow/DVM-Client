@@ -50,17 +50,25 @@ end
 -- function click_homeButton
 -------------------------------------
 function UI_GamePause:click_homeButton()
-    local is_use_loading = true
-    local scene = SceneLobby(is_use_loading)
-    scene:runScene()
+    local function home_func()
+        local is_use_loading = true
+        local scene = SceneLobby(is_use_loading)
+        scene:runScene()
+    end
+    
+    self:confirmExit(home_func)
 end
 
 -------------------------------------
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause:click_retryButton()
-    local stage_id = g_currScene.m_stageID
-    g_adventureData:goToAdventureScene(stage_id)
+    local function retry_func()
+        local stage_id = g_currScene.m_stageID
+        g_adventureData:goToAdventureScene(stage_id)
+    end
+    
+    self:confirmExit(retry_func)
 end
 
 -------------------------------------
@@ -112,4 +120,12 @@ function UI_GamePause:click_debug_enemyInfoButton()
     UI_GameDebug_InfoPopup(str, function()  
         self.root:setVisible(true)
     end)
+end
+
+-------------------------------------
+-- function confirmExit
+-------------------------------------
+function UI_GamePause:confirmExit(exit_cb)
+    local msg = Str('지금 종료하면 드래곤 경험치와 보상을 받을 수 없습니다.\n그래도 나가시겠습니까?')
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, exit_cb)
 end
