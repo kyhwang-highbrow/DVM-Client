@@ -92,9 +92,17 @@ function UI_MasterRoadPopup:refresh(t_data)
 	local npc_speech = Str(t_data['t_speech'])
 	vars['npcSpeechLabel']:setString(npc_speech)
 
+    -- 넘버링
+    local road_idx = g_masterRoadData:getRoadIdx(t_data['rid'])
+    local num_str = Str('{1}번째 임무입니다.', road_idx)
+    vars['titleNumLabel']:setString(num_str)
+
 	-- 목표
 	local desc = Str(t_data['t_desc'], t_data['desc_1'], t_data['desc_2'], t_data['desc_3'])
 	vars['descLabel']:setString(desc)
+
+    -- 스페셜 목표 선택할 경우 프레임 이펙트
+    vars['specialSprite']:setVisible(t_data['special'] == 1)
 
 	-- 보상 아이콘
 	vars['rewardNode']:removeAllChildren(true)
@@ -133,7 +141,7 @@ function UI_MasterRoadPopup:makeRoadTableView()
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(180, 120)
+        table_view.m_defaultCellSize = cc.size(250, 260)
         table_view:setCellUIClass(self.makeCellUI, after_create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
 		table_view:setItemList(l_road_list)
@@ -261,7 +269,7 @@ function UI_MasterRoadPopup.makeCellUI(t_data)
     local road_idx = g_masterRoadData:getRoadIdx(rid)
 	vars['numLabel']:setString(road_idx)
 
-	-- 스페셜 표시..?
+	-- 스페셜 보상 표시
 	vars['specialSprite']:setVisible(t_data['special'] == 1)
 
 	-- 보상 아이콘
