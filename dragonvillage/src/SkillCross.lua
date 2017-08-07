@@ -185,13 +185,16 @@ function SkillCross:makeSkillInstance(owner, t_skill, t_data)
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)   
 	local attack_count = t_skill['hit']
     local is_upgraded = (t_skill['val_1'] == 1)
-    local cnt = t_data['val_2'] or tonumber(t_skill['val_2'])
-    if (cnt > 3) then 
-        cnt = 3
-    elseif (cnt < 1) then
-        cnt = 1
+    local cnt = nil
+    if (is_upgraded) then
+        cnt = tonumber(t_data['val_2']) or tonumber(t_skill['val_2'])
+        if (cnt > 3) then 
+            cnt = 3
+        elseif (cnt < 1) then
+            cnt = 1
+        end
     end
-    t_data['val_2'] = cnt
+    t_data['val_2'] = cnt or 0
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
