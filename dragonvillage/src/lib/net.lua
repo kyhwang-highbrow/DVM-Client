@@ -228,11 +228,13 @@ function Network:SimpleRequest(t, do_decode)
 		end
         Network:saveDump(t, jsondata)
 
-        -- 패치 업데이트 검사
-        if (g_patchChecker:isUpdated(jsondata)) then return end
-
         if (jsondata['status'] and (jsondata['status'] == -9999)) then
             fail(jsondata)
+
+        -- 패치 업데이트 검사
+        elseif (g_patchChecker:isUpdated(jsondata, success)) then 
+            return
+
         else
             success(jsondata)
         end
