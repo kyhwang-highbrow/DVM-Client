@@ -870,12 +870,6 @@ function UI_ReadyScene:click_leaderBtn()
 	local l_doid = self.m_readySceneDeck.m_lDeckList
 	local leader_idx = self.m_readySceneDeck.m_currLeader
 
-	-- 덱에 드래곤이 존재하는지 체크
-	if (table.count(l_doid) == 0) then
-		UIManager:toastNotificationRed('리더로 설정할 드래곤이 없습니다.')
-		return
-	end
-
 	-- 리더버프 있는 드래곤 체크
 	do
 		local cnt = 0
@@ -884,10 +878,6 @@ function UI_ReadyScene:click_leaderBtn()
 				cnt = cnt + 1
 			end
 		end
-		if (cnt < 2) then
-			UIManager:toastNotificationRed('리더 버프 있는 드래곤이 2마리 이상이어야 활성화됩니다.')
-			return
-		end			
 	end
 
 	local ui = UI_ReadyScene_LeaderPopup(l_doid, leader_idx)

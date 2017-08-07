@@ -209,7 +209,7 @@
 			[5] =
 			{
 				type = 'LabelTTF';
-				ui_name = '';
+				ui_name = 'rich';
 				x = 114.000000;
 				y = -16.000000;
 				dock_point = { 0.000000; 0.500000; };

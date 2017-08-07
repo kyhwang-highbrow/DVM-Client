@@ -80,9 +80,14 @@ function UI_ReadyScene_LeaderPopup:makeTableView()
                 self:selectLeaderCellUI(ui, data)
             end)
 
+            -- 리더스킬이 없더라도 덱에서는 리더인덱스를 저장하기 때문에 생성시 data에 저장한 정보로 처리
+            if (data['no_leader_skill'] == true) then
+                ui.vars['selectSprite']:setVisible(false)
+
             -- 이미 선택되었는지 체크
-            if (self.m_leaderIdx == data['idx']) then
+            elseif (self.m_leaderIdx == data['idx']) then
                 ui.vars['selectSprite']:setVisible(true)
+
             end
 		end
 
@@ -144,8 +149,9 @@ function UI_ReadyScene_LeaderPopup.makeLeaderCellUI(t_data)
 		local desc = leader_skill_info:getSkillDesc()
 		vars['dscLabel']:setString(desc)
 	else
-		vars['dscLabel']:setString(Str('리더 스킬 없음'))
+		vars['dscLabel']:setString('{@SKILL_DESC}' .. Str('리더 스킬 없음'))
         vars['selectBtn']:setVisible(false)
+        t_data['no_leader_skill'] = true
 	end
 
 	return ui
