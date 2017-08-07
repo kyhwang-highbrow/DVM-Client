@@ -51,6 +51,16 @@ function UI_GameResult_NestDungeon:click_nextBtn()
 end
 
 -------------------------------------
+-- function click_prevBtn
+-------------------------------------
+function UI_GameResult_NestDungeon:click_prevBtn()
+    local prev_stage_id = g_stageData:getSimplePrevStage(self.m_stageID) or self.m_stageID
+    local is_ready = true
+    local scene = SceneNestDungeon(prev_stage_id, nil, is_ready)
+    scene:runScene()
+end
+
+-------------------------------------
 -- function click_quickBtn
 -------------------------------------
 function UI_GameResult_NestDungeon:click_quickBtn()

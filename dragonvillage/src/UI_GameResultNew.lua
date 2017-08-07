@@ -913,21 +913,12 @@ end
 function UI_GameResultNew:click_prevBtn()
     -- 이전 스테이지 ID 지정
     local stage_id = self.m_stageID
-    local game_mode = g_stageData:getGameMode(stage_id)
-    local prev_stage_id
-
-    -- 모험 모드는 결과화면에서 이전버튼 누르면 챕터와 상관없이 이전 스테이지 아이디로 이동
-    if (game_mode == GAME_MODE_ADVENTURE) then
-        prev_stage_id = getPrevStageID(stage_id)
-    else
-        prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
-    end
-     
+    prev_stage_id = getPrevStageID(stage_id)
     if prev_stage_id then
         g_stageData:setFocusStage(prev_stage_id)
     end
 
-    g_adventureData:goToAdventureScene(prev_stage_id)
+    g_adventureData:goToAdventureScene(prev_stage_id)    
 end
 
 -------------------------------------
