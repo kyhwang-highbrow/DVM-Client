@@ -45,8 +45,13 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
         local skill_type = skill_indivisual_info:getSkillType()
         if (skill_type == 'active') then
             local req_mana = skill_indivisual_info:getReqMana()
-            vars['manaNode']:setVisible(0 < req_mana)
-            vars['manaLabel']:setString(tostring(req_mana))
+            if (req_mana > 0) then
+                vars['manaNode']:setVisible(true)
+                vars['manaNode']:removeAllChildren(true)
+
+                local mana_icon = IconHelper:getManaIcon(req_mana)
+                vars['manaNode']:addChild(mana_icon)
+            end
         end
     end
 
@@ -140,6 +145,8 @@ function UI_DragonSkillCard:setSimple()
 
     -- 마나 소모량
     vars['manaNode']:setLocalZOrder(1)
+    vars['manaNode']:setPositionY(25)
+    vars['manaNode']:setScale(1.5)
 end
 
 -------------------------------------

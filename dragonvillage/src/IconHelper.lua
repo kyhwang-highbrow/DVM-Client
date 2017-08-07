@@ -476,3 +476,11 @@ end
 function IconHelper:getNotiIcon()
     return IconHelper:getIcon('res/ui/icons/noti_icon_0101.png')
 end
+
+-------------------------------------
+-- function getManaIcon
+-------------------------------------
+function IconHelper:getManaIcon(mana)
+    local res_path = string.format('res/ui/buttons/skill_mana_01%02d.png', mana)
+    return IconHelper:getIcon(res_path)
+end

@@ -188,8 +188,6 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 
 		for _, i in ipairs(IDragonSkillManager:getSkillKeyList()) do
             local skill_node = vars['skillNode' .. i]
-            --local skill_lv_label = vars['skillLevelLabel' .. i]
-
 			skill_node:removeAllChildren()
             
 			-- 스킬 아이콘 생성
@@ -201,11 +199,6 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
 					UI_SkillDetailPopup(t_dragon_data, i)
 				end)
-
-				-- 마나 소모량 표시 UI 위치 변경
-                local mana_node = l_skill_icon[i].vars['manaNode']
-                mana_node:setPositionX(0)
-                mana_node:setScale(2)
 
 			-- 비어있는 스킬 아이콘 생성
 			else
