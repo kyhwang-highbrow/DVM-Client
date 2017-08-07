@@ -5,6 +5,10 @@ local PARENT = class(Skill, ISkillMultiAttack:getCloneTable())
 -------------------------------------
 SkillAoERound = class(PARENT, {
 		m_aoeRes = 'str', 
+        m_aoe_res_predelay = 'num',
+        m_multiAttackEffectFlag = 'bool',
+        m_lTarget = 'table',
+        m_lCollision = 'table'
      })
 
 -------------------------------------
@@ -13,17 +17,21 @@ SkillAoERound = class(PARENT, {
 -- @param body
 -------------------------------------
 function SkillAoERound:init(file_name, body, ...)    
+    self.m_multiAttackEffectFlag = true
+    self.m_lTarget = {}
+    self.m_lCollision= {}
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoERound:init_skill(aoe_res, attack_count)
+function SkillAoERound:init_skill(aoe_res, attack_count, aoe_res_predelay)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
     self.m_maxAttackCount = attack_count 
 	self.m_aoeRes = aoe_res
+    self.m_aoe_res_predelay = aoe_res_predelay or 0
 	--self.m_hitInterval -> attack state에서 지정
 	
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
@@ -47,23 +55,17 @@ end
 function SkillAoERound:initState()
 	self:setCommonState(self)
     self:addState('start', PARENT.st_appear, 'appear', false)
-    self:addState('attack', PARENT.st_attack, 'idle', true)
+    self:addState('attack', self.st_attack, 'idle', true)
 	self:addState('disappear', PARENT.st_disappear, 'disappear', false)
 end
 
 -------------------------------------
 -- function runAttack
 -------------------------------------
-function SkillAoERound:runAttack()
-    local l_target, l_collision = self:findTarget()
+function SkillAoERound:runAttack(l_collision)
 
     for _, collision in ipairs(l_collision) do
         self:attack(collision)
-    end
-
-    -- 타겟별 리소스
-    for _, target in ipairs(l_target) do
-	    self:makeEffect(self.m_aoeRes, target.pos.x, target.pos.y)
     end
 
 	-- 특수한 부가 효과 구현
@@ -78,7 +80,7 @@ end
 -------------------------------------
 function SkillAoERound:setAttackInterval()
 	-- 이펙트 재생 단위 시간
-	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCount)
+	self.m_hitInterval = 1
 end
 
 -------------------------------------
@@ -108,7 +110,8 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local attack_count = t_skill['hit']	  -- 공격 횟수
-	
+	local aoe_res_predelay = tonumber(t_skill['val_1']) or 0
+
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	-- 스킬 본연의 리소스
 	local aoe_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)		-- 개별 타겟 이펙트 리소스
 
@@ -119,7 +122,7 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(aoe_res, attack_count)
+    skill:init_skill(aoe_res, attack_count, aoe_res_predelay)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -130,4 +133,42 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+end
+
+
+
+-------------------------------------
+-- function st_attack
+-------------------------------------
+function SkillAoERound.st_attack(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		owner:enterAttack()
+        owner.m_lTarget, owner.m_lCollision = owner:findTarget()
+    end
+    owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
+    if (owner.m_multiAttackEffectFlag) then
+        if (owner.m_attackCount < owner.m_maxAttackCount) then
+
+            -- 타겟별 리소스
+            for _, target in ipairs(owner.m_lTarget) do
+	            owner:makeEffect(owner.m_aoeRes, target.pos.x, target.pos.y)
+            end
+            owner.m_multiAttackEffectFlag = false
+        end
+    end
+
+	if (owner.m_aoe_res_predelay < owner.m_multiAtkTimer) then
+        -- 반복 공격
+        if (owner.m_multiAtkTimer > owner.m_hitInterval) then
+		    -- 공격 횟수 초과시 탈출
+		    if (owner.m_attackCount >= owner.m_maxAttackCount) then
+			    owner:escapeAttack()
+		    else
+			    owner:runAttack(owner.m_lCollision)
+                owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
+			    owner.m_attackCount = owner.m_attackCount + 1
+                owner.m_multiAttackEffectFlag = true
+		    end
+        end
+    end
 end
