@@ -74,13 +74,9 @@ function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
         vars['talkLabel']:setString(text)
         
         -- 대사 효과
-        --[[
-        if (text_type == 'bold') then
-            vars['talkLabel']:enableOutline(nil, 1)
-        else
-            vars['talkLabel']:enableOutline(nil, 0)
-        end
-        ]]
+        local text_type = text_type or 'none'
+        vars['talkLabel']:setBold(string.find(text_type, 'bold'))
+        vars['talkLabel']:setItalic(string.find(text_type, 'italic'))
 
         -- 대사창 위치 처리
         if (text_pos == 'top') then

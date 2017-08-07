@@ -516,6 +516,28 @@ function UIC_RichLabel:setAlignment(h_alignment, v_alignment)
 end
 
 -------------------------------------
+-- function setBold
+-------------------------------------
+function UIC_RichLabel:setBold(b)
+    if (b) then
+        self:enableOutline(cc.c4b(255, 255, 255, 100), 2)
+    else
+        self:enableOutline(nil, 0)
+    end
+end
+
+-------------------------------------
+-- function setItalic
+-------------------------------------
+function UIC_RichLabel:setItalic(b)
+    if (b) then
+        self.m_node:setSkewY(20)
+    else
+        self.m_node:setSkewY(0)
+    end
+end
+
+-------------------------------------
 -- function enableOutline
 -- @param color cc.c4b
 -- @param stroke_thickness number

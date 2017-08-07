@@ -87,8 +87,6 @@ function UIManager:setStencilEffect(node)
     -- tutorialNode에 맞는 좌표 계산
     local world_pos = TutorialHelper:convertToWorldSpace(self.m_tutorialNode, node)
     effect:setPosition(world_pos['x'], world_pos['y'])
-    
-    ccdump(world_pos)
 
     -- 반짝반짝
     effect:runAction(cca.flash())
