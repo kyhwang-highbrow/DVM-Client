@@ -792,7 +792,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Tutorial_Colosseum.lua" />
     <None Include="..\src\Tutorial_DragonEvolution.lua" />
     <None Include="..\src\Tutorial_DragonManageInfo.lua" />
-    <None Include="..\src\Tutorial_Lobby.lua" />
     <None Include="..\src\UIC_BroadcastLabel.lua" />
     <None Include="..\src\UIC_Button.lua" />
     <None Include="..\src\UIC_ChatTableView.lua" />
@@ -859,7 +858,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonGoodbyeResult.lua" />
     <None Include="..\src\UI_Game_Mana.lua" />
     <None Include="..\src\UI_Help.lua" />
-    <None Include="..\src\UI_LobbyOld.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
     <None Include="..\src\UI_QuickPopup.lua" />
     <None Include="..\src\UI_RelationCard.lua" />

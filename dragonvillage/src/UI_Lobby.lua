@@ -1,5 +1,3 @@
-require 'UI_LobbyOld'
-
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
@@ -382,14 +380,6 @@ function UI_Lobby:click_adventureBtn()
     end
 
     refresh_adventure_server_data()
-end
-
--------------------------------------
--- function click_colosseumBtn
--- @brief "콜로세움" 버튼
--------------------------------------
-function UI_Lobby:click_colosseumBtn()
-    UI_BattleMenuOld()
 end
 
 -------------------------------------

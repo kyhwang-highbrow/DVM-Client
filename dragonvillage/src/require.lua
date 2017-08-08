@@ -608,7 +608,6 @@ local t_module = {
     'UI_FruitFeedPress',
     'UI_UserDeckInfoPopup',
     'UI_DungeonMenu',
-    'UI_BattleMenuOld',
     'UI_BattleMenu',
     'UI_BattleMenuItem',
 	'UI_QuestPopup',
@@ -859,7 +858,6 @@ local t_module = {
 
     -- Tutorial
     'TutorialHelper',
-    'Tutorial_Lobby',
     'Tutorial_DragonManageInfo',
     'Tutorial_DragonEvolution',
     'Tutorial_AncientTower',
