@@ -337,6 +337,7 @@ function GameWorld:bindHero(hero)
     hero:addListener('character_set_hp', self)
     hero:addListener('character_dead', self)
     hero:addListener('get_status_effect', self)
+    hero:addListener('dragon_active_skill', self)
 end
 
 -------------------------------------

@@ -57,6 +57,11 @@ function Character:onEvent(event_name, t_event, ...)
     elseif (event_name == 'enemy_last_attack') then
         self:onEvent_lastAttack(event_name, t_event)
 
+    elseif (pl.stringx.endswith(event_name, '_active_skill')) then
+        local arg = {...}
+        local owner = arg[1]
+        self:onEvent_useActiveSkill(event_name, t_event, owner)
+
     elseif (pl.stringx.endswith(event_name, 'get_status_effect')) then
         local arg = {...}
         local target = arg[1]
@@ -277,6 +282,29 @@ function Character:onEvent_lastAttack(event_name, t_event)
     end
 end
 
+function Character:onEvent_useActiveSkill(event_name, t_event, owner)
+
+    if (not self.m_statusCalc) then return end
+    if (not self.m_lSkillIndivisualInfo[event_name]) then return end
+
+    for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
+        if (v:isEndCoolTime()) then
+            if (self.m_bLeftFormation == owner.m_bLeftFormation) then
+                local chance_value = tonumber(v.m_tSkill['chance_value'])
+                if ( (not chance_value) or (chance_value == '') ) then
+                    chance_value = 1
+                end
+                local table_skill = TABLE:get('dragon_skill')
+                
+                local cost = owner.m_activeSkillManaCost
+                if (cost >= chance_value) then
+                    self:doSkill(v.m_skillID, 0, 0)
+                end
+            end
+        end
+    end
+
+end
 
 -------------------------------------
 -- function onEvent_common

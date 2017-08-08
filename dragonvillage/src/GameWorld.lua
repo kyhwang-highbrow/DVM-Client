@@ -1304,6 +1304,22 @@ function GameWorld:onEvent(event_name, t_event, ...)
             opponent:dispatch('enemy_get_status_effect', t_event, unit)
         end
 
+    elseif (event_name == 'dragon_active_skill') then
+        local arg = {...}
+        local unit = arg[1]
+
+        unit:dispatch('self_active_skill', t_event)
+
+        for _, fellow in pairs(unit:getFellowList()) do
+            fellow:dispatch('ally_active_skill', t_event, unit)
+            if (unit ~= fellow) then
+                fellow:dispatch('teammate_active_skill', t_event, unit)
+            end
+        end
+
+        for _, opponent in pairs(unit:getOpponentList()) do
+            opponent:dispatch('enemy_active_skill', t_event, unit)
+        end
     end
 end
 

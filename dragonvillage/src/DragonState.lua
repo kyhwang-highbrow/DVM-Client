@@ -118,6 +118,8 @@ function Dragon.st_skillAppear(owner, dt)
         do        
             owner:dispatch('dragon_active_skill', { is_critical = is_critical }, owner)
         
+            owner.m_world:dispatch('dragon_active_skill', { is_critical = is_critical }, owner)
+
             if (owner.m_bLeftFormation) then
                 owner:dispatch('hero_active_skill', { is_critical = is_critical }, owner)
             else
