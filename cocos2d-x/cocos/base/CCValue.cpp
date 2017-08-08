@@ -23,6 +23,7 @@
 ****************************************************************************/
 
 #include "base/CCValue.h"
+#include <cmath>
 #include <sstream>
 #include <iomanip>
 
