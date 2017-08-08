@@ -52,6 +52,12 @@ Value::Value(int v)
     _field.intVal = v;
 }
 
+Value::Value(unsigned int v)
+: _type(Type::UNSIGNED)
+{
+    _field.unsignedVal = v;
+}
+
 Value::Value(float v)
 : _type(Type::FLOAT)
 {
@@ -73,7 +79,7 @@ Value::Value(bool v)
 Value::Value(const char* v)
 : _type(Type::STRING)
 {
-    _field.strVal = new std::string();
+    _field.strVal = new (std::nothrow) std::string();
     if (v)
     {
         *_field.strVal = v;
@@ -83,49 +89,49 @@ Value::Value(const char* v)
 Value::Value(const std::string& v)
 : _type(Type::STRING)
 {
-    _field.strVal = new std::string();
+    _field.strVal = new (std::nothrow) std::string();
     *_field.strVal = v;
 }
 
 Value::Value(const ValueVector& v)
 : _type(Type::VECTOR)
 {
-    _field.vectorVal = new ValueVector();
+    _field.vectorVal = new (std::nothrow) ValueVector();
     *_field.vectorVal = v;
 }
 
 Value::Value(ValueVector&& v)
 : _type(Type::VECTOR)
 {
-    _field.vectorVal = new ValueVector();
+    _field.vectorVal = new (std::nothrow) ValueVector();
     *_field.vectorVal = std::move(v);
 }
 
 Value::Value(const ValueMap& v)
 : _type(Type::MAP)
 {
-    _field.mapVal = new ValueMap();
+    _field.mapVal = new (std::nothrow) ValueMap();
     *_field.mapVal = v;
 }
 
 Value::Value(ValueMap&& v)
 : _type(Type::MAP)
 {
-    _field.mapVal = new ValueMap();
+    _field.mapVal = new (std::nothrow) ValueMap();
     *_field.mapVal = std::move(v);
 }
 
 Value::Value(const ValueMapIntKey& v)
 : _type(Type::INT_KEY_MAP)
 {
-    _field.intKeyMapVal = new ValueMapIntKey();
+    _field.intKeyMapVal = new (std::nothrow) ValueMapIntKey();
     *_field.intKeyMapVal = v;
 }
 
 Value::Value(ValueMapIntKey&& v)
 : _type(Type::INT_KEY_MAP)
 {
-    _field.intKeyMapVal = new ValueMapIntKey();
+    _field.intKeyMapVal = new (std::nothrow) ValueMapIntKey();
     *_field.intKeyMapVal = std::move(v);
 }
 
@@ -158,6 +164,9 @@ Value& Value::operator= (const Value& other)
             case Type::INTEGER:
                 _field.intVal = other._field.intVal;
                 break;
+            case Type::UNSIGNED:
+                _field.unsignedVal = other._field.unsignedVal;
+                break;
             case Type::FLOAT:
                 _field.floatVal = other._field.floatVal;
                 break;
@@ -177,21 +186,21 @@ Value& Value::operator= (const Value& other)
             case Type::VECTOR:
                 if (_field.vectorVal == nullptr)
                 {
-                    _field.vectorVal = new ValueVector();
+                    _field.vectorVal = new (std::nothrow) ValueVector();
                 }
                 *_field.vectorVal = *other._field.vectorVal;
                 break;
             case Type::MAP:
                 if (_field.mapVal == nullptr)
                 {
-                    _field.mapVal = new ValueMap();
+                    _field.mapVal = new (std::nothrow) ValueMap();
                 }
                 *_field.mapVal = *other._field.mapVal;
                 break;
             case Type::INT_KEY_MAP:
                 if (_field.intKeyMapVal == nullptr)
                 {
-                    _field.intKeyMapVal = new ValueMapIntKey();
+                    _field.intKeyMapVal = new (std::nothrow) ValueMapIntKey();
                 }
                 *_field.intKeyMapVal = *other._field.intKeyMapVal;
                 break;
@@ -214,6 +223,9 @@ Value& Value::operator= (Value&& other)
                 break;
             case Type::INTEGER:
                 _field.intVal = other._field.intVal;
+                break;
+            case Type::UNSIGNED:
+                _field.unsignedVal = other._field.unsignedVal;
                 break;
             case Type::FLOAT:
                 _field.floatVal = other._field.floatVal;
@@ -259,6 +271,13 @@ Value& Value::operator= (int v)
 {
     reset(Type::INTEGER);
     _field.intVal = v;
+    return *this;
+}
+
+Value& Value::operator= (unsigned int v)
+{
+    reset(Type::UNSIGNED);
+    _field.unsignedVal = v;
     return *this;
 }
 
@@ -339,6 +358,84 @@ Value& Value::operator= (ValueMapIntKey&& v)
     return *this;
 }
 
+bool Value::operator!= (const Value& v)
+{
+    return !(*this == v);
+}
+bool Value::operator!= (const Value& v) const
+{
+    return !(*this == v);
+}
+
+bool Value::operator== (const Value& v)
+{
+    const auto &t = *this;
+    return t == v;
+}
+bool Value::operator== (const Value& v) const
+{
+    if (this == &v) return true;
+    if (v._type != this->_type) return false;
+    if (this->isNull()) return true;
+    switch (_type)
+    {
+        case Type::BYTE:    return v._field.byteVal     == this->_field.byteVal;
+        case Type::INTEGER: return v._field.intVal      == this->_field.intVal;
+        case Type::UNSIGNED:return v._field.unsignedVal == this->_field.unsignedVal;
+        case Type::BOOLEAN: return v._field.boolVal     == this->_field.boolVal;
+        case Type::STRING:  return *v._field.strVal     == *this->_field.strVal;
+        case Type::FLOAT:   return std::abs(v._field.floatVal  - this->_field.floatVal)  <= FLT_EPSILON;
+        case Type::DOUBLE:  return std::abs(v._field.doubleVal - this->_field.doubleVal) <= DBL_EPSILON;
+        case Type::VECTOR:
+        {
+            const auto &v1 = *(this->_field.vectorVal);
+            const auto &v2 = *(v._field.vectorVal);
+            const auto size = v1.size();
+            if (size == v2.size())
+            {
+                for (size_t i = 0; i < size; i++)
+                {
+                    if (v1[i] != v2[i]) return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        case Type::MAP:
+        {
+            const auto &map1 = *(this->_field.mapVal);
+            const auto &map2 = *(v._field.mapVal);
+            for (const auto &kvp : map1)
+            {
+                auto it = map2.find(kvp.first);
+                if (it == map2.end() || it->second != kvp.second)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        case Type::INT_KEY_MAP:
+        {
+            const auto &map1 = *(this->_field.intKeyMapVal);
+            const auto &map2 = *(v._field.intKeyMapVal);
+            for (const auto &kvp : map1)
+            {
+                auto it = map2.find(kvp.first);
+                if (it == map2.end() || it->second != kvp.second)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        default:
+            break;
+    };
+
+    return false;
+}
+
 /// Convert value to a specified type
 unsigned char Value::asByte() const
 {
@@ -352,6 +449,11 @@ unsigned char Value::asByte() const
     if (_type == Type::INTEGER)
     {
         return static_cast<unsigned char>(_field.intVal);
+    }
+
+    if (_type == Type::UNSIGNED)
+    {
+        return static_cast<unsigned char>(_field.unsignedVal);
     }
 
     if (_type == Type::STRING)
@@ -385,6 +487,12 @@ int Value::asInt() const
         return _field.intVal;
     }
 
+    if (_type == Type::UNSIGNED)
+    {
+        CCASSERT(_field.unsignedVal < INT_MAX, "Can only convert values < INT_MAX");
+        return (int)_field.unsignedVal;
+    }
+
     if (_type == Type::BYTE)
     {
         return _field.byteVal;
@@ -413,6 +521,50 @@ int Value::asInt() const
     return 0;
 }
 
+
+unsigned int Value::asUnsignedInt() const
+{
+    CCASSERT(_type != Type::VECTOR && _type != Type::MAP && _type != Type::INT_KEY_MAP, "Only base type (bool, string, float, double, int) could be converted");
+    if (_type == Type::UNSIGNED)
+    {
+        return _field.unsignedVal;
+    }
+
+    if (_type == Type::INTEGER)
+    {
+        CCASSERT(_field.intVal >= 0, "Only values >= 0 can be converted to unsigned");
+        return static_cast<unsigned int>(_field.intVal);
+    }
+
+    if (_type == Type::BYTE)
+    {
+        return static_cast<unsigned int>(_field.byteVal);
+    }
+
+    if (_type == Type::STRING)
+    {
+        // NOTE: strtoul is required (need to augment on unsupported platforms)
+        return static_cast<unsigned int>(strtoul(_field.strVal->c_str(), nullptr, 10));
+    }
+
+    if (_type == Type::FLOAT)
+    {
+        return static_cast<unsigned int>(_field.floatVal);
+    }
+
+    if (_type == Type::DOUBLE)
+    {
+        return static_cast<unsigned int>(_field.doubleVal);
+    }
+
+    if (_type == Type::BOOLEAN)
+    {
+        return _field.boolVal ? 1u : 0u;
+    }
+
+    return 0u;
+}
+
 float Value::asFloat() const
 {
     CCASSERT(_type != Type::VECTOR && _type != Type::MAP && _type != Type::INT_KEY_MAP, "Only base type (bool, string, float, double, int) could be converted");
@@ -434,6 +586,11 @@ float Value::asFloat() const
     if (_type == Type::INTEGER)
     {
         return static_cast<float>(_field.intVal);
+    }
+
+    if (_type == Type::UNSIGNED)
+    {
+        return static_cast<float>(_field.unsignedVal);
     }
 
     if (_type == Type::DOUBLE)
@@ -472,6 +629,11 @@ double Value::asDouble() const
         return static_cast<double>(_field.intVal);
     }
 
+    if (_type == Type::UNSIGNED)
+    {
+        return static_cast<double>(_field.unsignedVal);
+    }
+
     if (_type == Type::FLOAT)
     {
         return static_cast<double>(_field.floatVal);
@@ -508,6 +670,11 @@ bool Value::asBool() const
         return _field.intVal == 0 ? false : true;
     }
 
+    if (_type == Type::UNSIGNED)
+    {
+        return _field.unsignedVal == 0 ? false : true;
+    }
+
     if (_type == Type::FLOAT)
     {
         return _field.floatVal == 0.0f ? false : true;
@@ -539,6 +706,9 @@ std::string Value::asString() const
             break;
         case Type::INTEGER:
             ret << _field.intVal;
+            break;
+        case Type::UNSIGNED:
+            ret << _field.unsignedVal;
             break;
         case Type::FLOAT:
             ret << std::fixed << std::setprecision( 7 )<< _field.floatVal;
@@ -636,10 +806,10 @@ static std::string visitMap(const T& v, int depth)
 
     ret << getTabs(depth) << "{\n";
 
-    for (auto iter = v.begin(); iter != v.end(); ++iter)
+    for (auto& iter : v)
     {
-        ret << getTabs(depth + 1) << iter->first << ": ";
-        ret << visit(iter->second, depth + 1);
+        ret << getTabs(depth + 1) << iter.first << ": ";
+        ret << visit(iter.second, depth + 1);
     }
 
     ret << getTabs(depth) << "}\n";
@@ -656,6 +826,7 @@ static std::string visit(const Value& v, int depth)
         case Value::Type::NONE:
         case Value::Type::BYTE:
         case Value::Type::INTEGER:
+        case Value::Type::UNSIGNED:
         case Value::Type::FLOAT:
         case Value::Type::DOUBLE:
         case Value::Type::BOOLEAN:
@@ -679,7 +850,7 @@ static std::string visit(const Value& v, int depth)
     return ret.str();
 }
 
-std::string Value::getDescription()
+std::string Value::getDescription() const
 {
     std::string ret("\n");
     ret += visit(*this, 0);
@@ -696,6 +867,9 @@ void Value::clear()
             break;
         case Type::INTEGER:
             _field.intVal = 0;
+            break;
+        case Type::UNSIGNED:
+            _field.unsignedVal = 0u;
             break;
         case Type::FLOAT:
             _field.floatVal = 0.0f;
@@ -736,16 +910,16 @@ void Value::reset(Type type)
     switch (type)
     {
         case Type::STRING:
-            _field.strVal = new std::string();
+            _field.strVal = new (std::nothrow) std::string();
             break;
         case Type::VECTOR:
-            _field.vectorVal = new ValueVector();
+            _field.vectorVal = new (std::nothrow) ValueVector();
             break;
         case Type::MAP:
-            _field.mapVal = new ValueMap();
+            _field.mapVal = new (std::nothrow) ValueMap();
             break;
         case Type::INT_KEY_MAP:
-            _field.intKeyMapVal = new ValueMapIntKey();
+            _field.intKeyMapVal = new (std::nothrow) ValueMapIntKey();
             break;
         default:
             break;
