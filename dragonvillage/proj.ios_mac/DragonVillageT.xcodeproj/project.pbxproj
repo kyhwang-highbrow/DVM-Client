@@ -37618,6 +37618,7 @@
 					"\"$(SRCROOT)/../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0\"",
 					"\"$(SRCROOT)/../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0\"",
 					"\"$(SRCROOT)/../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib\"",
+					"\"$(SRCROOT)/../../libraries/perplesdk/prebuilt/ios\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -37671,6 +37672,7 @@
 					"\"$(SRCROOT)/../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0\"",
 					"\"$(SRCROOT)/../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0\"",
 					"\"$(SRCROOT)/../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib\"",
+					"\"$(SRCROOT)/../../libraries/perplesdk/prebuilt/ios\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
