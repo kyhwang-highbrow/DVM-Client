@@ -232,6 +232,68 @@ function UINavigator:goTo_colosseum(...)
     g_colosseumData:request_colosseumInfo(finish_cb, fail_cb)
 end
 
+-------------------------------------
+-- function goTo_ancient
+-- @brief 고대의탑으로 이동
+-- @usage UINavigator:goTo('ancient', stage_id)
+-------------------------------------
+function UINavigator:goTo_ancient(...)
+    local args = {...}
+    local stage_id = args[1]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_AncientTower')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+
+    -- ???????????? sgkim
+    -- 고대의 탑은 점검시간이 없나요??
+    -- 보상 팝업은 UI_AncientTower 안에서 처리가 불가능한가요??
+    -- Tutorial은 UI_AncientTower 안에서 처리가 불가능한가요??
+
+    local function finish_cb()
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'adventure'이다.
+            ui:resetButtonsPosition()
+            UI_AncientTower()
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            battle_menu_ui:resetButtonsPosition()
+            UI_AncientTower()
+            return
+        end
+
+        do-- Scene으로 동작
+            local function close_cb()
+                UINavigator:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_AncientTower, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb()
+
+    end
+
+    -- 정보 요청
+    g_ancientTowerData:request_ancientTowerInfo(stage_id, finish_cb, fail_cb)
+end
+
 
 
 

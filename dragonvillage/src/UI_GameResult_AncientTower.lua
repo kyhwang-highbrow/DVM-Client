@@ -204,8 +204,7 @@ end
 -- @brief 다시하기
 -------------------------------------
 function UI_GameResult_AncientTower:click_againBtn()
-    local use_scene = true
-    g_ancientTowerData:goToAncientTowerScene(use_scene)
+    UINavigator:goTo('ancient')
 end
 
 -------------------------------------
@@ -216,7 +215,7 @@ function UI_GameResult_AncientTower:click_nextBtn()
     local use_scene = true
     local next_stage_id = g_stageData:getNextStage(stage_id)
     
-    g_ancientTowerData:goToAncientTowerScene(use_scene, next_stage_id)
+    UINavigator:goTo('ancient', next_stage_id)
 end
 
 -------------------------------------
@@ -227,7 +226,7 @@ function UI_GameResult_AncientTower:click_prevBtn()
     local use_scene = true
     local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
 
-    g_ancientTowerData:goToAncientTowerScene(use_scene, prev_stage_id)
+    UINavigator:goTo('ancient', prev_stage_id)
 end
 
 -------------------------------------

@@ -19,7 +19,7 @@ end
 -------------------------------------
 function UI_GamePause_AncientTower:click_retryButton()
     local function retry_func()
-        g_ancientTowerData:goToAncientTowerScene(true) -- use_scene
+        UINavigator:goTo('ancient')
     end
     
     self:confirmExit(retry_func)

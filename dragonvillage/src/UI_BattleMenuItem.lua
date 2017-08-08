@@ -138,7 +138,7 @@ function UI_BattleMenuItem:click_enterBtn()
 
     -- 고대의 탑
     elseif (content_type == 'ancient') then
-        self:click_ancientBtn()
+        UINavigator:goTo('ancient')
 
     -- 콜로세움
     elseif (content_type == 'colosseum') then
@@ -160,14 +160,6 @@ function UI_BattleMenuItem:click_enterBtn()
     elseif (content_type == 'secret_relation') then
         self:click_relationBtn()
     end
-end
-
--------------------------------------
--- function click_ancientBtn
--- @brief 고대의 탑 진입 버튼
--------------------------------------
-function UI_BattleMenuItem:click_ancientBtn()
-    g_ancientTowerData:goToAncientTowerScene()
 end
 
 -------------------------------------

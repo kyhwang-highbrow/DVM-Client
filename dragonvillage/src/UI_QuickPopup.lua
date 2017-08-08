@@ -52,7 +52,7 @@ function UI_QuickPopup:initButton()
     vars['secret_relationBtn']:registerScriptTapHandler(function() end)
 
     vars['colosseumBtn']:registerScriptTapHandler(function() UINavigator:goTo('colosseum') end)
-    vars['ancientBtn']:registerScriptTapHandler(function() end)
+    vars['ancientBtn']:registerScriptTapHandler(function() UINavigator:goTo('ancient') end)
 end
 
 -------------------------------------
@@ -78,14 +78,6 @@ end
 
 
 --[[
--------------------------------------
--- function click_ancientBtn
--- @brief 고대의 탑 진입 버튼
--------------------------------------
-function UI_QuickPopup:click_ancientBtn()
-    g_ancientTowerData:goToAncientTowerScene()
-end
-
 -------------------------------------
 -- function click_evoStoneBtn
 -- @brief 진화재료 던전

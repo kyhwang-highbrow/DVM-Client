@@ -86,12 +86,12 @@ T_LINK_FUNC = {
 
     -- 고대의 탑 플레이
     ['ply_tower'] = function()
-        g_ancientTowerData:goToAncientTowerScene(true)
+        UINavigator:goTo('ancient')
     end,
     
     -- 고대의 탑 클리어
     ['clr_tower'] = function()
-        g_ancientTowerData:goToAncientTowerScene(true)
+        UINavigator:goTo('ancient')
     end,
 
     -- 콜로세움 플레이
