@@ -25,6 +25,7 @@ THE SOFTWARE.
 ****************************************************************************/
 #import <Foundation/Foundation.h>
 
+#include <ftw.h>
 #include <string>
 #include <stack>
 #include "deprecated/CCString.h"
@@ -324,10 +325,7 @@ static id convertCCValueToNSObject(const cocos2d::Value &value)
             
         case Value::Type::INTEGER:
             return [NSNumber numberWithInt:value.asInt()];
-            
-        case Value::Type::UNSIGNED:
-            return [NSNumber numberWithUnsignedInt:value.asUnsignedInt()];
-            
+
         case Value::Type::FLOAT:
             return [NSNumber numberWithFloat:value.asFloat()];
             
@@ -622,7 +620,7 @@ bool FileUtilsApple::writeToFile(const ValueMap& dict, const std::string &fullPa
     return true;
 }
 
-bool FileUtils::writeValueMapToFile(const ValueMap& dict, const std::string& fullPath)
+bool FileUtilsApple::writeValueMapToFile(const ValueMap& dict, const std::string& fullPath)
 {
     valueMapCompact(const_cast<ValueMap&>(dict));
     //CCLOG("iOS||Mac Dictionary %d write to file %s", dict->_ID, fullPath.c_str());

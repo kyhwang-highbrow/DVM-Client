@@ -523,6 +523,7 @@ static tinyxml2::XMLElement* generateElementForArray(const ValueVector& array, t
 /* The subclass FileUtilsApple should override these two method. */
 ValueMap FileUtils::getValueMapFromFile(const std::string& filename) {return ValueMap();}
 ValueMap FileUtils::getValueMapFromData(const char* filedata, int filesize) {return ValueMap();}
+
 ValueVector FileUtils::getValueVectorFromFile(const std::string& filename) {return ValueVector();}
 bool FileUtils::writeToFile(const ValueMap& dict, const std::string &fullPath) {return false;}
 bool writeValueMapToFile(const ValueMap& dict, const std::string& fullPath) {return false;}
