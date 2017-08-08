@@ -49,7 +49,7 @@ public:
     
     virtual ValueMap getValueMapFromFile(const std::string& filename) override;
     virtual bool writeToFile(const ValueMap& dict, const std::string& fullPath) override;
-    
+
     virtual ValueVector getValueVectorFromFile(const std::string& filename) override;
 private:
     virtual bool isFileExistInternal(const std::string& filePath) const override;
