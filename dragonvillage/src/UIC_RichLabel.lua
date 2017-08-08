@@ -473,7 +473,7 @@ end
 -- function getColor
 -------------------------------------
 function UIC_RichLabel:getColor(color)
-    if (color == 'default') and self.m_defaultColor then
+    if (string.upper(color) == 'DEFAULT') and self.m_defaultColor then
         return self.m_defaultColor
     end
 

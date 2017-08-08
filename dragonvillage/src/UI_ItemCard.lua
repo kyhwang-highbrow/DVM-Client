@@ -230,7 +230,8 @@ function UI_ItemCard:getToolTipDesc()
     -- 설정된 별도의 이름이 있으면 우선 사용
     local name = (self.m_itemName or t_item['t_name'])
 
-    local str = '{@SKILL_NAME} ' .. name .. '\n {@SKILL_DESC}' .. desc
+    local str = '{@SKILL_NAME} ' .. name .. '\n {@DEFAULT}' .. desc
+    cclog(str)
     return str
 end
 
