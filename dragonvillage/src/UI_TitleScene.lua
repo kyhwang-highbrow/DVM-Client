@@ -419,6 +419,7 @@ function UI_TitleScene:workPlatformLogin()
     self.m_loadingUI:showLoading(Str('플랫폼 서버에 로그인 중...'))
 
     local success_cb = function(ret)
+        self.m_loadingUI:hideLoading()
         local t_status = ret['status']
         if (t_status['retcode'] == 0) then
             ccdump(ret)
@@ -453,6 +454,7 @@ function UI_TitleScene:workPlatformLogin()
     end
 
     local fail_cb = function(ret)
+        self.m_loadingUI:hideLoading()
         self:makeFailPopup(nil, ret)
     end
 
