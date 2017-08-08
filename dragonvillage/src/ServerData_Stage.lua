@@ -331,7 +331,7 @@ function ServerData_Stage:goToStage(stage_id)
         
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
-        g_nestDungeonData:goToNestDungeonScene(stage_id)
+        UINavigator:goTo('nestdungeon', stage_id)
 
     -- 비밀 던전 모드
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then

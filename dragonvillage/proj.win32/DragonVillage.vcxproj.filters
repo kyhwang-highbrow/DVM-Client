@@ -735,9 +735,6 @@
     <None Include="..\src\UI_LoadingGuide_Patch.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DungeonMenu.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_BattleMenu.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2623,9 +2620,6 @@
       <Filter>lua_tool</Filter>
     </None>
     <None Include="..\src\TableUILocation.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\StatusEffect_AccelMana.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_TutorialPlayer.lua">

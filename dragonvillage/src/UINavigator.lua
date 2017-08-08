@@ -6,6 +6,24 @@ UINavigator = {}
 -- @param location_name string
 -------------------------------------
 function UINavigator:goTo(location_name, ...)
+    -- 콘텐츠 잠금 상태를 확인하기 위함
+    if (not self:checkContentLock(location_name)) then
+        return
+    end
+
+    -- 모드별 실행 함수 호출
+    local function_name = 'goTo_' .. location_name
+    if self[function_name] then
+        self[function_name](self, ...)
+    end
+end
+
+-------------------------------------
+-- function checkContentLock
+-- @brief
+-- @return bool false일경우 잠겨있는 상태
+-------------------------------------
+function UINavigator:checkContentLock(location_name)
     local table_ui_location = TableUILocation()
 
     -- 콘텐츠 잠금 상태를 확인하기 위함 (string or nil이 리턴됨)
@@ -16,18 +34,12 @@ function UINavigator:goTo(location_name, ...)
         -- 콘텐츠가 잠금 상태일 경우 checkContentLock함수 안에서 안내 팝업이 나오게 되어 있음
         local is_open = g_contentLockData:checkContentLock(content_name)
         if (is_open == false) then
-            return
+            return false
         end
     end
 
-    -- 모드별 실행 함수 호출
-    local function_name = 'goTo_' .. location_name
-    if self[function_name] then
-        self[function_name](self, ...)
-    end
+    return true
 end
-
-
 
 
 
@@ -294,13 +306,147 @@ function UINavigator:goTo_ancient(...)
     g_ancientTowerData:request_ancientTowerInfo(stage_id, finish_cb, fail_cb)
 end
 
+-------------------------------------
+-- function goTo_nestdungeon
+-- @brief 네스트던전으로 이동
+-- @usage UINavigator:goTo('nestdungeon', stage_id, dungeon_type)
+-------------------------------------
+function UINavigator:goTo_nestdungeon(...)
+    local args = {...}
+    local stage_id = args[1]
+    local dungeon_type = args[2]
 
+    -- 던전 타입이 지정되지 않았을 경우 체크
+    if (not dungeon_type) then
+        local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(stage_id)
+        dungeon_type = t_dungeon_id_info['dungeon_mode']
+    end
 
+    do -- 네스트던전 세부 모드 잠금 확인
+        local location_name
+        if (dungeon_type == NEST_DUNGEON_EVO_STONE) then
+            location_name = 'nest_evo_stone'
 
+        elseif (dungeon_type == NEST_DUNGEON_NIGHTMARE) then
+            location_name = 'nest_nightmare'
 
+        elseif (dungeon_type == NEST_DUNGEON_TREE) then
+            location_name = 'nest_tree'
 
+        else
+            error('location_name : ' .. location_name)
+        end
 
+        -- 콘텐츠 잠금 상태를 확인하기 위함
+        if (not self:checkContentLock(location_name)) then
+            return
+        end
+    end
 
+    self:goTo_nestdungeon_core(stage_id, dungeon_type)
+end
+
+-------------------------------------
+-- function goTo_nest_evo_stone
+-- @brief 거대용 던전으로 이동
+-- @usage UINavigator:goTo('nest_evo_stone', stage_id)
+-------------------------------------
+function UINavigator:goTo_nest_evo_stone(...)
+    local args = {...}
+    local stage_id = args[1]
+    self:goTo_nestdungeon_core(stage_id, NEST_DUNGEON_EVO_STONE)
+end
+
+-------------------------------------
+-- function goTo_nest_tree
+-- @brief 거목 던전으로 이동
+-- @usage UINavigator:goTo('nest_tree', stage_id)
+-------------------------------------
+function UINavigator:goTo_nest_tree(...)
+    local args = {...}
+    local stage_id = args[1]
+    self:goTo_nestdungeon_core(stage_id, NEST_DUNGEON_TREE)
+end
+
+-------------------------------------
+-- function goTo_nest_nightmare
+-- @brief 악몽 던전으로 이동
+-- @usage UINavigator:goTo('nest_nightmare', stage_id)
+-------------------------------------
+function UINavigator:goTo_nest_nightmare(...)
+    local args = {...}
+    local stage_id = args[1]
+    self:goTo_nestdungeon_core(stage_id, NEST_DUNGEON_NIGHTMARE)
+end
+
+-------------------------------------
+-- function goTo_nestdungeon_core
+-- @brief 네스트던전으로 이동
+-- @usage UINavigator:goTo('nestdungeon', stage_id, dungeon_type)
+-------------------------------------
+function UINavigator:goTo_nestdungeon_core(...)
+    local args = {...}
+    local stage_id = args[1]
+    local dungeon_type = args[2]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_NestDungeonScene')
+    if (is_opend == true) then
+        self:closeUIList(idx, true) -- param : idx, include_idx
+        UI_NestDungeonScene(stage_id, dungeon_type)
+        return
+    end
+
+    local request_nest_dungeon_info
+    local request_nest_dungeon_stage_list
+    local open_ui
+
+    -- 네스트 던전 리스트 정보 얻어옴
+    request_nest_dungeon_info = function()
+        g_nestDungeonData:requestNestDungeonInfo(request_nest_dungeon_stage_list)
+    end
+
+    -- 네스트 던전 스테이지 리스트 얻어옴
+    request_nest_dungeon_stage_list = function()
+        g_nestDungeonData:requestNestDungeonStageList(open_ui)
+    end
+
+    -- 네스트 던전 UI 오픈
+    open_ui = function()
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'adventure'이다.
+            ui:resetButtonsPosition()
+            UI_NestDungeonScene(stage_id, dungeon_type)
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            battle_menu_ui:resetButtonsPosition()
+            UI_NestDungeonScene(stage_id, dungeon_type)
+            return
+        end
+
+        do-- Scene으로 동작
+            local function close_cb()
+                UINavigator:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_NestDungeonScene, close_cb, stage_id, dungeon_type)
+            scene:runScene()
+        end
+    end
+
+    -- 정보 요청
+    request_nest_dungeon_info()
+end
 
 
 
@@ -354,8 +500,14 @@ end
 -- function closeUIList
 -- @brief 오픈된 UI에서 idx이후의 UI들을 닫음
 -------------------------------------
-function UINavigator:closeUIList(idx)
-    for i=#UIManager.m_uiList, idx+1, -1 do
+function UINavigator:closeUIList(idx, include_idx)
+    local dest_idx = idx+1
+
+    if (include_idx == true) then
+        dest_idx = idx
+    end
+
+    for i=#UIManager.m_uiList, dest_idx, -1 do
         local ui = UIManager.m_uiList[i]
         ui:close()
     end

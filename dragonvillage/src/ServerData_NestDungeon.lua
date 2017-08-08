@@ -156,7 +156,7 @@ function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
         end
 
         if cb_func then
-            cb_func()
+            cb_func(ret)
         end
     end
 
@@ -164,7 +164,7 @@ function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
     ui_network:setUrl('/game/nest/info')
     ui_network:setParam('uid', uid)
     ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:setSuccessCB(success_cb)
     ui_network:request()
 end
 
@@ -372,7 +372,7 @@ function ServerData_NestDungeon:requestNestDungeonStageList(cb_func)
     ui_network:setParam('uid', uid)
     ui_network:setParam('type', GAME_MODE_NEST_DUNGEON)
     ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:setSuccessCB(success_cb)
     ui_network:request()
 end
 
@@ -534,38 +534,6 @@ function ServerData_NestDungeon:getStageCategoryStr(stage_id)
 
     return '네스트던전' .. ' > ' .. mode_str
 end
-
--------------------------------------
--- function goToNestDungeonScene
--------------------------------------
-function ServerData_NestDungeon:goToNestDungeonScene(stage_id, dungeon_type, use_scene)
-    local request_nest_dungeon_info
-    local request_nest_dungeon_stage_list
-    local replace_scene
-
-    -- 네스트 던전 리스트 정보 얻어옴
-    request_nest_dungeon_info = function()
-        g_nestDungeonData:requestNestDungeonInfo(request_nest_dungeon_stage_list)
-    end
-
-    -- 네스트 던전 스테이지 리스트 얻어옴
-    request_nest_dungeon_stage_list = function()
-        g_nestDungeonData:requestNestDungeonStageList(replace_scene)
-    end
-
-    -- 네스트 던전 씬으로 전환
-    replace_scene = function()
-        if (use_scene) then
-            local scene = SceneNestDungeon(stage_id, dungeon_type)
-            scene:runScene()
-        else
-		    UI_NestDungeonScene(stage_id, dungeon_type)
-        end
-    end
-
-    request_nest_dungeon_info()
-end
-
 
 -------------------------------------
 -- function getNestModeStaminaType

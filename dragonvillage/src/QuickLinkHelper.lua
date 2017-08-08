@@ -107,25 +107,25 @@ T_LINK_FUNC = {
     -- 공통 진화 던전 플레이
     ['ply_ev'] = function(condition)
         local stage_id = condition
-        g_nestDungeonData:goToNestDungeonScene(stage_id, NEST_DUNGEON_EVO_STONE, true)
+        UINavigator:goTo('nest_evo_stone', stage_id)
     end,
 
     -- 거목 던전 플레이
     ['ply_tree'] = function(condition)
         local stage_id = condition
-        g_nestDungeonData:goToNestDungeonScene(stage_id, NEST_DUNGEON_TREE, true)
+        UINavigator:goTo('nest_tree', stage_id)
     end,
 
     -- 악몽 던전 플레이
     ['ply_nm'] = function(condition)
         local stage_id = condition
-        g_nestDungeonData:goToNestDungeonScene(stage_id, NEST_DUNGEON_NIGHTMARE, true)
+        UINavigator:goTo('nest_nightmare', stage_id)
     end,
     
     -- 악몽던전 클리어
     ['clr_nm'] = function(condition)
         local stage_id = condition
-        g_nestDungeonData:goToNestDungeonScene(stage_id, NEST_DUNGEON_NIGHTMARE, true)
+        UINavigator:goTo('nest_nightmare', stage_id)
     end,
 
     -- 탐험 플레이

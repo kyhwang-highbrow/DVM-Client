@@ -46,9 +46,9 @@ function UI_QuickPopup:initButton()
     vars['adventureBtn']:registerScriptTapHandler(function() UINavigator:goTo('adventure') end)
     vars['explorationBtn']:registerScriptTapHandler(function() UINavigator:goTo('exploration') end)
 
-    vars['nest_evo_stoneBtn']:registerScriptTapHandler(function() end)
-    vars['nest_treeBtn']:registerScriptTapHandler(function() end)
-    vars['nest_nightmareBtn']:registerScriptTapHandler(function() end)
+    vars['nest_evo_stoneBtn']:registerScriptTapHandler(function() UINavigator:goTo('nest_evo_stone') end)
+    vars['nest_treeBtn']:registerScriptTapHandler(function() UINavigator:goTo('nest_tree') end)
+    vars['nest_nightmareBtn']:registerScriptTapHandler(function() UINavigator:goTo('nest_nightmare') end)
     vars['secret_relationBtn']:registerScriptTapHandler(function() end)
 
     vars['colosseumBtn']:registerScriptTapHandler(function() UINavigator:goTo('colosseum') end)
@@ -75,38 +75,3 @@ end
 function UI_QuickPopup:click_settingBtn()
     UI_Setting()
 end
-
-
---[[
--------------------------------------
--- function click_evoStoneBtn
--- @brief 진화재료 던전
--------------------------------------
-function UI_QuickPopup:click_evoStoneBtn()
-    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_EVO_STONE)
-end
-
--------------------------------------
--- function click_treeBtn
--- @brief 거목 던전
--------------------------------------
-function UI_QuickPopup:click_treeBtn()
-    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_TREE)
-end
-
--------------------------------------
--- function click_nightmareBtn
--- @brief 악몽 던전
--------------------------------------
-function UI_QuickPopup:click_nightmareBtn()
-    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_NIGHTMARE)
-end
-
--------------------------------------
--- function click_relationBtn
--- @brief 인연 던전
--------------------------------------
-function UI_QuickPopup:click_relationBtn()
-    g_secretDungeonData:goToSecretDungeonScene()
-end
---]]

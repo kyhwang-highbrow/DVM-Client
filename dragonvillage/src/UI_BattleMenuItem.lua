@@ -146,44 +146,20 @@ function UI_BattleMenuItem:click_enterBtn()
 
     -- 진화재료 던전
     elseif (content_type == 'nest_evo_stone') then
-        self:click_evoStoneBtn()
+        UINavigator:goTo('nest_evo_stone')
 
     -- 거목 던전
     elseif (content_type == 'nest_tree') then
-        self:click_treeBtn()
+        UINavigator:goTo('nest_tree')
 
     -- 악몽 던전
     elseif (content_type == 'nest_nightmare') then
-        self:click_nightmareBtn()
+        UINavigator:goTo('nest_nightmare')
 
     -- 인연 던전
     elseif (content_type == 'secret_relation') then
         self:click_relationBtn()
     end
-end
-
--------------------------------------
--- function click_evoStoneBtn
--- @brief 진화재료 던전
--------------------------------------
-function UI_BattleMenuItem:click_evoStoneBtn()
-    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_EVO_STONE)
-end
-
--------------------------------------
--- function click_treeBtn
--- @brief 거목 던전
--------------------------------------
-function UI_BattleMenuItem:click_treeBtn()
-    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_TREE)
-end
-
--------------------------------------
--- function click_nightmareBtn
--- @brief 악몽 던전
--------------------------------------
-function UI_BattleMenuItem:click_nightmareBtn()
-    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_NIGHTMARE)
 end
 
 -------------------------------------

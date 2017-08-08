@@ -519,7 +519,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffectUnit_Dot.lua" />
     <None Include="..\src\StatusEffectUnit_Dot_Damage.lua" />
     <None Include="..\src\StatusEffectUnit_Dot_Heal.lua" />
-    <None Include="..\src\StatusEffect_AccelMana.lua" />
     <None Include="..\src\StatusEffect_AddDmgOneTime.lua" />
     <None Include="..\src\StatusEffect_AddMana.lua" />
     <None Include="..\src\StatusEffect_AttributeChange.lua" />
@@ -890,7 +889,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonSell.lua" />
     <None Include="..\src\UI_DragonSkillEnhance.lua" />
     <None Include="..\src\UI_DragonSkillEnhance_Result.lua" />
-    <None Include="..\src\UI_DungeonMenu.lua" />
     <None Include="..\src\UI_BlockPopup.lua" />
     <None Include="..\src\UI_ChapterAchieveRewardPopup.lua" />
     <None Include="..\src\UI_CharacterCard.lua" />
