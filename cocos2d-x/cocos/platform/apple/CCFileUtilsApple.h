@@ -54,6 +54,7 @@ public:
     virtual ValueVector getValueVectorFromFile(const std::string& filename) override;
 private:
     virtual bool isFileExistInternal(const std::string& filePath) const override;
+    virtual bool removeDirectory(const std::string& dirPath) override;
     virtual void valueMapCompact(ValueMap& valueMap) override;
     virtual void valueVectorCompact(ValueVector& valueVector) override;
 };

@@ -402,6 +402,31 @@ bool FileUtilsApple::isFileExistInternal(const std::string& filePath) const
     return ret;
 }
 
+static int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
+{
+    auto ret = remove(fpath);
+    if (ret)
+    {
+        log("Fail to remove: %s ",fpath);
+    }
+
+    return ret;
+}
+
+bool FileUtilsApple::removeDirectory(const std::string& path)
+{
+    if (path.empty())
+    {
+        CCLOGERROR("Fail to remove directory, path is empty!");
+        return false;
+    }
+
+    if (nftw(path.c_str(),unlink_cb, 64, FTW_DEPTH | FTW_PHYS))
+        return false;
+    else
+        return true;
+}
+
 std::string FileUtilsApple::getFullPathForDirectoryAndFilename(const std::string& directory, const std::string& filename) const
 {
     if (directory[0] != '/')
