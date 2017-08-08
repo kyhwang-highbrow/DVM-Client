@@ -1,69 +1,69 @@
 
 common_minion_water.png
-size: 512,128
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 common_minion_water_arm_01
-  rotate: false
-  xy: 266, 85
-  size: 44, 37
-  orig: 44, 37
+  rotate: true
+  xy: 2, 78
+  size: 88, 74
+  orig: 88, 74
   offset: 0, 0
   index: -1
 common_minion_water_arm_02
   rotate: false
-  xy: 353, 85
-  size: 37, 37
-  orig: 37, 37
+  xy: 2, 2
+  size: 74, 74
+  orig: 74, 74
   offset: 0, 0
   index: -1
 common_minion_water_body_01
   rotate: false
-  xy: 174, 58
-  size: 40, 64
-  orig: 40, 64
+  xy: 2, 168
+  size: 80, 128
+  orig: 80, 128
   offset: 0, 0
   index: -1
 common_minion_water_effect_01
   rotate: false
-  xy: 2, 2
+  xy: 176, 364
   size: 82, 120
   orig: 82, 120
   offset: 0, 0
   index: -1
 common_minion_water_head_01
   rotate: false
-  xy: 86, 29
-  size: 86, 93
-  orig: 86, 93
+  xy: 2, 298
+  size: 172, 186
+  orig: 172, 186
   offset: 0, 0
   index: -1
 common_minion_water_head_02
   rotate: false
-  xy: 312, 83
-  size: 39, 39
-  orig: 39, 39
+  xy: 260, 406
+  size: 78, 78
+  orig: 78, 78
   offset: 0, 0
   index: -1
 common_minion_water_leg_01
   rotate: true
-  xy: 174, 33
-  size: 23, 36
-  orig: 23, 36
+  xy: 176, 316
+  size: 46, 72
+  orig: 46, 72
   offset: 0, 0
   index: -1
 common_minion_water_mouth_01
   rotate: false
-  xy: 86, 8
-  size: 44, 19
-  orig: 44, 19
+  xy: 340, 446
+  size: 88, 38
+  orig: 88, 38
   offset: 0, 0
   index: -1
 common_minion_water_wing_01
-  rotate: false
-  xy: 216, 81
-  size: 48, 41
-  orig: 48, 41
+  rotate: true
+  xy: 84, 200
+  size: 96, 82
+  orig: 96, 82
   offset: 0, 0
   index: -1
