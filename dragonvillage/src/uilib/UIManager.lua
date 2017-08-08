@@ -1,8 +1,18 @@
+--[[
 Z_ORDER_NORMAL = 101
 Z_ORDER_TOOL_TIP = 300
 Z_ORDER_TOAST_MSG = 400
 Z_ORDER_LOADING = 500
+]]
 
+UI_ZORDER = {
+    NORMAL = 8,
+    TOOL_TIP = 32,
+    TOAST_MSG = 32,
+    TUTORIAL = 64,
+    TUTORIAL_DIALOGUE = 128,
+    LOADING = 256,
+}
 
 -------------------------------------
 -- class UIManager
@@ -13,6 +23,7 @@ UIManager = {
     POPUP = 2,
     TOOLTIP = 3,
     LOADING = 4,
+    TUTORIAL_DIALOGUE = 5,
 
     m_uiLayer = 'cc.Node',
     m_uiList = {},
@@ -141,19 +152,22 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
 	-- mode 별 z_order
     local z_order
     if (mode == UIManager.SCENE) then
-        z_order = Z_ORDER_NORMAL
+        z_order = UI_ZORDER.NORMAL
 
     elseif (mode == UIManager.NORMAL) then
-        z_order = Z_ORDER_NORMAL
+        z_order = UI_ZORDER.NORMAL
 
     elseif (mode == UIManager.POPUP) then
-        z_order = Z_ORDER_NORMAL
+        z_order = UI_ZORDER.NORMAL
 
     elseif (mode == UIManager.TOOLTIP) then
-        z_order = Z_ORDER_TOOL_TIP
+        z_order = UI_ZORDER.TOOL_TIP
 
+    elseif (mode == UIManager.TUTORIAL_DIALOGUE) then
+        z_order = UI_ZORDER.TUTORIAL_DIALOGUE
+        
     elseif (mode == UIManager.LOADING) then
-        z_order = Z_ORDER_NORMAL
+        z_order = UI_ZORDER.LOADING
         
     end
 
@@ -472,14 +486,16 @@ function UIManager:onKeyReleased(keyCode, event)
 		local last_ui = table.getLast(self.m_uiList)
 		local class_name = last_ui.m_uiName or 'Class 이름이 정의되지 않았습니다.'
 		self:toastNotificationGreen('## UI CLASS NAME : ' .. class_name)
-        PerpSocial:SDKEvent('clipboard_setText',class_name, '')
+
+        SDKManager:copyOntoClipBoard(class_name)
 
 	-- ui 파일 이름 출력 및 클립보드 복사
 	elseif (keyCode == KEY_I) then
 		local last_ui = table.getLast(self.m_uiList)
 		local ui_name = last_ui.m_resName or 'ui 파일이 없습니다'
 		self:toastNotificationGreen('## UI FILE : ' .. ui_name)
-        PerpSocial:SDKEvent('clipboard_setText', ui_name, '')
+
+        SDKManager:copyOntoClipBoard(ui_name)
 
 	-- 등록된 UI 리스트 출력
 	elseif (keyCode == KEY_A) then
