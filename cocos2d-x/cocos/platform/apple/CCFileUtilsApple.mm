@@ -41,6 +41,11 @@ NS_CC_BEGIN
 static void addValueToDict(id nsKey, id nsValue, ValueMap& dict);
 static void addObjectToNSDict(const std::string& key, const Value& value, NSMutableDictionary *dict);
 
+static void addNSObjectToCCMap(id nsKey, id nsValue, ValueMap& dict);
+static void addCCValueToNSDictionary(const std::string& key, const Value& value, NSMutableDictionary *dict);
+static void addNSObjectToCCVector(id item, ValueVector& array);
+static void addCCValueToNSArray(const Value& value, NSMutableArray *array);
+
 static void addItemToArray(id item, ValueVector& array)
 {
     // add string value into array
@@ -301,6 +306,29 @@ static void addObjectToNSDict(const std::string& key, const Value& value, NSMuta
     }
 }
 
+static void addNSObjectToCCVector(id item, ValueVector& array)
+{
+    array.push_back(convertNSObjectToCCValue(item));
+}
+
+static void addCCValueToNSArray(const Value& value, NSMutableArray *array)
+{
+    [array addObject:convertCCValueToNSObject(value)];
+}
+
+static void addNSObjectToCCMap(id nsKey, id nsValue, ValueMap& dict)
+{
+    // the key must be a string
+    CCASSERT([nsKey isKindOfClass:[NSString class]], "The key should be a string!");
+    std::string key = [nsKey UTF8String];
+    dict[key] = convertNSObjectToCCValue(nsValue);
+}
+
+static void addCCValueToNSDictionary(const std::string& key, const Value& value, NSMutableDictionary *dict)
+{
+    NSString *NSkey = [NSString stringWithCString:key.c_str() encoding:NSUTF8StringEncoding];
+    [dict setObject:convertCCValueToNSObject(value) forKey:NSkey];
+}
 
 #pragma mark - FileUtils
 
@@ -449,6 +477,37 @@ bool FileUtilsApple::writeToFile(const ValueMap& dict, const std::string &fullPa
     // do it atomically
     [nsDict writeToFile:file atomically:YES];
     
+    return true;
+}
+
+bool FileUtils::writeValueMapToFile(const ValueMap& dict, const std::string& fullPath)
+{
+    valueMapCompact(const_cast<ValueMap&>(dict));
+    //CCLOG("iOS||Mac Dictionary %d write to file %s", dict->_ID, fullPath.c_str());
+    NSMutableDictionary *nsDict = [NSMutableDictionary dictionary];
+
+    for (auto& iter : dict)
+    {
+        addCCValueToNSDictionary(iter.first, iter.second, nsDict);
+    }
+
+    NSString *file = [NSString stringWithUTF8String:fullPath.c_str()];
+    // do it atomically
+    return [nsDict writeToFile:file atomically:YES];
+}
+
+bool FileUtils::writeValueVectorToFile(const ValueVector& vecData, const std::string& fullPath)
+{
+    NSString* path = [NSString stringWithUTF8String:fullPath.c_str()];
+    NSMutableArray* array = [NSMutableArray array];
+
+    for (const auto &e : vecData)
+    {
+        addCCValueToNSArray(e, array);
+    }
+
+    [array writeToFile:path atomically:YES];
+
     return true;
 }
 
