@@ -28,6 +28,38 @@ function UINavigator:goTo(location_name, ...)
 end
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- function goTo_lobby
+-- @brief 로비로 이동
+-- @usage UINavigator:goTo('lobby')
+-------------------------------------
+function UINavigator:goTo_lobby(...)
+    -- 로비가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    local scene = SceneLobby()
+    scene:runScene()
+end
+
 -------------------------------------
 -- function goTo_adventure
 -- @brief 모험 모드로 이동
@@ -47,30 +79,99 @@ function UINavigator:goTo_adventure(...)
         return
     end
 
-    -- 전투 메뉴가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
-    if (is_opend == true) then
-        self:closeUIList(idx)
-        ui:setTab('adventure')
-        g_adventureData:goToAdventureScene_portable(stage_id, false) -- stage_id, skip_request
-        return
+    local function finish_cb()
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('adventure')
+            ui:resetButtonsPosition()
+            UI_AdventureSceneNew(stage_id)
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('adventure')
+            battle_menu_ui:resetButtonsPosition()
+            UI_AdventureSceneNew(stage_id)
+            return
+        end
+
+        
+        do-- Scene으로 모험 모드 동작
+            local function close_cb()
+                UINavigator:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_AdventureSceneNew, close_cb, stage_id)
+            scene:runScene()
+        end
     end
 
-    -- 로비가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
-    if (is_opend == true) then
-        self:closeUIList(idx)
-        local battle_menu_ui = UI_BattleMenu()
-        battle_menu_ui:setTab('adventure')
-        g_adventureData:goToAdventureScene_portable(stage_id, false) -- stage_id, skip_request
-        return
+    local function fail_cb()
+
     end
 
-    -- Scene으로 모험 모드 동작
-    g_adventureData:goToAdventureScene()
+    -- 모험 정보 요청
+    g_adventureData:request_adventureInfo(finish_cb, fail_cb)
 end
 
+-------------------------------------
+-- function goTo_exploration
+-- @brief 탐험 모드로 이동
+-- @usage UINavigator:goTo('exploration')
+-------------------------------------
+function UINavigator:goTo_exploration(...)
+    -- 탐험 모드가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Exploration')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
 
+    local function finish_cb()
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('adventure') -- 전투 메뉴에서 tab의 이름이 'adventure'이다.
+            ui:resetButtonsPosition()
+            UI_Exploration()
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('adventure') -- 전투 메뉴에서 tab의 이름이 'adventure'이다.
+            battle_menu_ui:resetButtonsPosition()
+            UI_Exploration()
+            return
+        end
+
+        do-- Scene으로 탐험 모드 동작
+            local function close_cb()
+                UINavigator:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_Exploration, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb()
+
+    end
+
+    -- 탐험 정보 요청
+    g_explorationData:request_explorationInfo(finish_cb, fail_cb)
+end
 
 
 

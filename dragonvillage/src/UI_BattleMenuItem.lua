@@ -41,7 +41,7 @@ function UI_BattleMenuItem:initUI()
     local content_type = self.m_contentType
 
     -- 컨텐츠에 따라 사용하는 레이아웃이 다름
-    if isExistValue(content_type, 'adventure', 'exploration', 'colosseum', 'ancient') then
+    if isExistValue(content_type, 'adventure', 'exploation', 'colosseum', 'ancient') then
         vars['itemMenu1']:setVisible(true)
         vars['itemMenu2']:setVisible(false)
 
@@ -133,8 +133,8 @@ function UI_BattleMenuItem:click_enterBtn()
         UINavigator:goTo('adventure')
 
     -- 탐험
-    elseif (content_type == 'exploration') then
-        self:click_explorationBtn()
+    elseif (content_type == 'exploation') then
+        UINavigator:goTo('exploration')
 
     -- 고대의 탑
     elseif (content_type == 'ancient') then
@@ -160,17 +160,6 @@ function UI_BattleMenuItem:click_enterBtn()
     elseif (content_type == 'secret_relation') then
         self:click_relationBtn()
     end
-end
-
--------------------------------------
--- function click_explorationBtn
--- @brief 탐험 버튼
--------------------------------------
-function UI_BattleMenuItem:click_explorationBtn()
-    local function finish_cb()
-        UI_Exploration()
-    end
-    g_explorationData:request_explorationInfo(finish_cb)
 end
 
 -------------------------------------

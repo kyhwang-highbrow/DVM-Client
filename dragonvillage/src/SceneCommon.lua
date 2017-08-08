@@ -5,15 +5,15 @@
 SceneCommon = class(PerpleScene, {
         m_classUI = 'class',
         m_uiCloseCB = 'function',
-        m_data = 'table',
+        m_args = 'list',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SceneCommon:init(class_ui, t_data, close_cb)
+function SceneCommon:init(class_ui, close_cb, ...)
     self.m_classUI = class_ui
-    self.m_data = t_data
+    self.m_args = {...}
     self.m_uiCloseCB = close_cb
     assert(self.m_classUI, 'class_ui is nil')
 end
@@ -25,7 +25,9 @@ function SceneCommon:onEnter()
     PerpleScene.onEnter(self)
 
     if self.m_classUI then
-        local ui = self.m_classUI(self.m_data)
+        local args = self.m_args
+		-- 매개변수가 10개를 넘지 않는다는 가정 sgkim 2017-08-08
+        local ui = self.m_classUI(args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10])
         ui:setCloseCB(self.m_uiCloseCB)
     end
 end

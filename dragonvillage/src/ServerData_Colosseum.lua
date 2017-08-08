@@ -49,7 +49,7 @@ function ServerData_Colosseum:goToColosseum(use_scene)
             local function close_cb()
                 SceneLobby():runScene()
             end
-            local scene = SceneCommon(UI_Colosseum, nil, close_cb)
+            local scene = SceneCommon(UI_Colosseum, close_cb)
             scene:runScene()
         else
             UI_Colosseum()

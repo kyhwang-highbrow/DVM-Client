@@ -143,7 +143,7 @@ function UI_Network.success(self, ret)
         self.m_successCB(ret)
     end
 
-    if (self.m_bReuse == false) then
+    if (self.m_bReuse == false) and (self.closed == false) then
         self:close()
     end
 end

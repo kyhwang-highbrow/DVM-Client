@@ -55,7 +55,7 @@ end
 -------------------------------------
 -- function request_explorationInfo
 -------------------------------------
-function ServerData_Exploration:request_explorationInfo(finish_cb)
+function ServerData_Exploration:request_explorationInfo(finish_cb, fail_cb)
     -- 탐험 정보가 갱신되어야하는지 여부를 확인
     self:ckechUpdateExplorationInfo()
 
@@ -85,6 +85,7 @@ function ServerData_Exploration:request_explorationInfo(finish_cb)
     ui_network:setParam('uid', uid)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()

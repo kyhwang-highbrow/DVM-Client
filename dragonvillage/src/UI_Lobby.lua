@@ -494,16 +494,6 @@ function UI_Lobby:click_tamerBtn()
 end
 
 -------------------------------------
--- function click_explorationBtn
--------------------------------------
-function UI_Lobby:click_explorationBtn()
-    local function finish_cb()
-        UI_Exploration()
-    end
-    g_explorationData:request_explorationInfo(finish_cb)
-end
-
--------------------------------------
 -- function click_bookBtn
 -------------------------------------
 function UI_Lobby:click_bookBtn()

@@ -130,7 +130,7 @@ T_LINK_FUNC = {
 
     -- 탐험 플레이
     ['ply_epl'] = function()
-        g_explorationData:request_explorationInfo(function() UI_Exploration() end)
+        UINavigator:goTo('exploration')
     end,
     
     -- 인연 던전 플레이

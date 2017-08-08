@@ -148,6 +148,7 @@ function UI_BattleMenu:onChangeTab(tab, first)
     end
 end
 
+
 -------------------------------------
 -- function initAdventureTab
 -- @brief 모험 초기화
@@ -236,18 +237,40 @@ end
 -- function runBtnAppearAction
 -- @brief 모험 초기화
 -------------------------------------
-function UI_BattleMenu:runBtnAppearAction(l_btn_ui)
+function UI_BattleMenu:runBtnAppearAction(l_btn_ui, immediately)
     for i,t_data in pairs(l_btn_ui) do
         local x = t_data['x']
         local y = t_data['y']
 
         local ui = t_data['ui']
+        ui.root:stopAllActions()
 
-        ui.root:setPositionX(x + 1280)
-        local move_to = cc.MoveTo:create(0.5, cc.p(x, y))
-        local ease_in_out = cc.EaseInOut:create(move_to, 2)
-        local action = cc.Sequence:create(cc.DelayTime:create((i-1) * 0.05), ease_in_out)
-        ui.root:runAction(action)
+        if immediately then
+            ui.root:setPosition(x, y)
+        else
+            ui.root:setPositionX(x + 1280)
+            local move_to = cc.MoveTo:create(0.5, cc.p(x, y))
+            local ease_in_out = cc.EaseInOut:create(move_to, 2)
+            local action = cc.Sequence:create(cc.DelayTime:create((i-1) * 0.05), ease_in_out)
+            ui.root:runAction(action)
+        end       
+    end
+end
+
+-------------------------------------
+-- function resetButtonsPosition
+-- @brief
+-------------------------------------
+function UI_BattleMenu:resetButtonsPosition()
+    local tab = self.m_currTab
+    if (tab == 'adventure') then
+        self:runBtnAppearAction(self.m_lAdventureBtnUI, true) -- param : l_btn_ui, immediately
+
+    elseif (tab == 'dungeon') then
+        self:runBtnAppearAction(self.m_lDungeonBtnUI, true) -- param : l_btn_ui, immediately
+
+    elseif (tab == 'competition') then
+        self:runBtnAppearAction(self.m_lCompetitionBtnUI, true) -- param : l_btn_ui, immediately
     end
 end
 

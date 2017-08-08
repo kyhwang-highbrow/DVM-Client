@@ -105,7 +105,7 @@ function ServerData_AncientTower:goToAncientTowerScene(use_scene, stage_id)
             local function close_cb()
                 SceneLobby():runScene()
             end
-            local scene = SceneCommon(UI_AncientTower, nil, close_cb)
+            local scene = SceneCommon(UI_AncientTower, close_cb)
             scene:runScene()
         else
             local ui = UI_AncientTower()

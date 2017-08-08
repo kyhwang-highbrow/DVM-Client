@@ -313,7 +313,7 @@ function getContentName(content_type)
         content_name = Str('거목 던전')
 
     elseif (content_type == 'nest_evo_stone') then
-        content_name = Str('진화재료 던전')
+        content_name = Str('거대용 던전')
 
     elseif (content_type == 'nest_nightmare') then
         content_name = Str('악몽 던전')
@@ -353,4 +353,18 @@ function getUserInfoTitle(key)
     local title = T_TITLE[key] or Str('미정의된 플레이 기록')
 
 	return Str(title)
+end
+
+-------------------------------------
+-- function FixTypingError
+-- @brief 오탈자 수정
+-------------------------------------
+local T_FIX_TYPING_ERROR = {}
+T_FIX_TYPING_ERROR['exploation'] = 'exploration'
+function FixTypingError(str)
+    if T_FIX_TYPING_ERROR[str] then
+        return T_FIX_TYPING_ERROR[str]
+    else
+        return str
+    end
 end

@@ -42,9 +42,9 @@ function UI_QuickPopup:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
 
-    vars['homeBtn']:registerScriptTapHandler(function() end)
+    vars['homeBtn']:registerScriptTapHandler(function() UINavigator:goTo('lobby') end)
     vars['adventureBtn']:registerScriptTapHandler(function() UINavigator:goTo('adventure') end)
-    vars['explorationBtn']:registerScriptTapHandler(function() end)
+    vars['explorationBtn']:registerScriptTapHandler(function() UINavigator:goTo('exploration') end)
 
     vars['nest_evo_stoneBtn']:registerScriptTapHandler(function() end)
     vars['nest_treeBtn']:registerScriptTapHandler(function() end)
@@ -76,27 +76,8 @@ function UI_QuickPopup:click_settingBtn()
     UI_Setting()
 end
 
--------------------------------------
--- function click_adventureBtn
--- @brief 모험 버튼
--------------------------------------
-function UI_QuickPopup:click_adventureBtn()
-    g_adventureData:goToAdventureScene_portable(nil, false) -- stage_id, skip_request
-end
-
 
 --[[
--------------------------------------
--- function click_explorationBtn
--- @brief 탐험 버튼
--------------------------------------
-function UI_QuickPopup:click_explorationBtn()
-    local function finish_cb()
-        UI_Exploration()
-    end
-    g_explorationData:request_explorationInfo(finish_cb)
-end
-
 -------------------------------------
 -- function click_colosseumBtn
 -- @brief 콜로세움 진입 버튼
