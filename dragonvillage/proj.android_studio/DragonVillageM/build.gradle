@@ -59,7 +59,7 @@ android {
 
     signingConfigs {
         release {
-            if (project.hasProperty("PROP_UPLOAD_RELEASE_KEY") && PROP_UPLOAD_RELEASE_KEY.compareTo('1') ) {
+            if (project.hasProperty("PROP_UPLOAD_RELEASE_KEY") && (PROP_UPLOAD_RELEASE_KEY.compareTo('1') == 0)) {
                 storeFile file(UPLOAD_RELEASE_STORE_FILE)
                 storePassword UPLOAD_RELEASE_STORE_PASSWORD
                 keyAlias UPLOAD_RELEASE_KEY_ALIAS
@@ -72,7 +72,7 @@ android {
             }
         }
         debug {
-            if (project.hasProperty("PROP_UPLOAD_RELEASE_KEY") && PROP_UPLOAD_RELEASE_KEY.compareTo('1') ) {
+            if (project.hasProperty("PROP_UPLOAD_RELEASE_KEY") && (PROP_UPLOAD_RELEASE_KEY.compareTo('1') == 0)) {
                 storeFile file(UPLOAD_RELEASE_STORE_FILE)
                 storePassword UPLOAD_RELEASE_STORE_PASSWORD
                 keyAlias UPLOAD_RELEASE_KEY_ALIAS
