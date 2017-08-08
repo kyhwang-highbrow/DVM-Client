@@ -214,5 +214,5 @@ function ScenarioViewingHistory:playTutorial(scenario_name, tar_ui)
     self:addViewed(scenario_name)
 
     -- 시작
-    TutorialManager:getInstance():startTutorial(scenario_name, tar_ui)
+    TutorialManager.getInstance():startTutorial(scenario_name, tar_ui)
 end

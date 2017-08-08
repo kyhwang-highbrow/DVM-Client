@@ -37,7 +37,7 @@ function UI_TutorialPlayer:close()
         self.m_pointingHand.m_node:release()
         self.m_pointingHand = nil
     end
-    TutorialManager:getInstance():releaseTutorial()
+    TutorialManager.getInstance():releaseTutorial()
 end
 
 -------------------------------------
@@ -119,13 +119,13 @@ end
 -------------------------------------
 function UI_TutorialPlayer:setStencil(node_name)
     if (node_name == 'release') then
-        TutorialManager:getInstance():releaseTutorialStencil()
+        TutorialManager.getInstance():releaseTutorialStencil()
         return
     end
 
     local tar_node = self.m_targetUI.vars[node_name]
     if (tar_node) then
-        TutorialManager:getInstance():setTutorialStencil(tar_node)
+        TutorialManager.getInstance():setTutorialStencil(tar_node)
     end
 end
 
@@ -143,7 +143,7 @@ function UI_TutorialPlayer:pointingNode(node_name)
     local tar_node = self.m_targetUI.vars[node_name]
     if (tar_node) then
         if (not self.m_pointingHand) then
-            self.m_pointingHand = TutorialManager:getInstance():makePointingHand()
+            self.m_pointingHand = TutorialManager.getInstance():makePointingHand()
         end
         self.m_pointingHand.m_node:removeFromParent()
         self.m_pointingHand:setVisible(true)
@@ -156,13 +156,13 @@ end
 -------------------------------------
 function UI_TutorialPlayer:activeNode(node_name)
     if (node_name == 'release') then
-        TutorialManager:getInstance():revertNodeAll()
+        TutorialManager.getInstance():revertNodeAll()
         return
     end
 
     local tar_node = self.m_targetUI.vars[node_name]
     if (tar_node) then
-        TutorialManager:getInstance():attachToTutorialNode(tar_node)
+        TutorialManager.getInstance():attachToTutorialNode(tar_node)
         tar_node:addScriptTapHandler(function()
             if (self) then
                 self:next()
@@ -176,5 +176,5 @@ end
 -------------------------------------
 function UI_TutorialPlayer:tutorialOnOff(cmd)
     local b = (cmd == 'on')
-    TutorialManager:getInstance():setVisibleTutorial(b)
+    TutorialManager.getInstance():setVisibleTutorial(b)
 end
