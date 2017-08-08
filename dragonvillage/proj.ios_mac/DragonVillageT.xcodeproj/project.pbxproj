@@ -25,12 +25,13 @@
 		373E2D841A038712004EF0DB /* AppDelegate_Custom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */; };
 		373E2D851A038712004EF0DB /* PerpSupportLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D801A038712004EF0DB /* PerpSupportLua.cpp */; };
 		373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; };
+		374376861F3A7FE100AC6C7C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374376851F3A7FE100AC6C7C /* SafariServices.framework */; };
+		374376881F3A800F00AC6C7C /* libPerpleSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374376871F3A800F00AC6C7C /* libPerpleSDK.a */; };
 		3744D21519FDD5DE003D7120 /* ioapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D20C19FDD5DE003D7120 /* ioapi.cpp */; };
 		3744D21719FDD5DE003D7120 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; };
 		37519C041A6657A200406F47 /* PerpLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C031A6657A200406F47 /* PerpLua.cpp */; };
 		37519C101A6657B300406F47 /* PerpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C0E1A6657B300406F47 /* PerpUtils.cpp */; };
 		3758D8311A93AE6F00833D47 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3758D8301A93AE6F00833D47 /* FacebookSDK.framework */; };
-		375CDB171CB25F8B007F5054 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375CDB161CB25F8B007F5054 /* SafariServices.framework */; };
 		376B77271B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 376B77241B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a */; };
 		376B77281B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 376B77251B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a */; };
 		376B77291B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 376B77261B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a */; };
@@ -10589,6 +10590,8 @@
 		373E2D811A038712004EF0DB /* PerpSupportLua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSupportLua.h; path = ../Classes/PerpSupportLua.h; sourceTree = "<group>"; };
 		373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSupportPatch.cpp; path = ../Classes/PerpSupportPatch.cpp; sourceTree = "<group>"; };
 		373E2D831A038712004EF0DB /* PerpSupportPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSupportPatch.h; path = ../Classes/PerpSupportPatch.h; sourceTree = "<group>"; };
+		374376851F3A7FE100AC6C7C /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
+		374376871F3A800F00AC6C7C /* libPerpleSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerpleSDK.a; path = ../../libraries/perplesdk/prebuilt/ios/libPerpleSDK.a; sourceTree = "<group>"; };
 		3744D20B19FDD5DE003D7120 /* e_os2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = e_os2.h; path = ../Classes/e_os2.h; sourceTree = "<group>"; };
 		3744D20C19FDD5DE003D7120 /* ioapi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ioapi.cpp; path = ../Classes/ioapi.cpp; sourceTree = "<group>"; };
 		3744D20D19FDD5DE003D7120 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = ../Classes/ioapi.h; sourceTree = "<group>"; };
@@ -10601,7 +10604,6 @@
 		37519C0E1A6657B300406F47 /* PerpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpUtils.cpp; path = ../Classes/PerpExt/PerpUtils.cpp; sourceTree = "<group>"; };
 		37519C0F1A6657B300406F47 /* PerpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpUtils.h; path = ../Classes/PerpExt/PerpUtils.h; sourceTree = "<group>"; };
 		3758D8301A93AE6F00833D47 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../libraries/facebook/ios/FacebookSDK.framework; sourceTree = "<group>"; };
-		375CDB161CB25F8B007F5054 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		376B77241B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDK-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDK-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
 		376B77251B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKFacebook-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKFacebook-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
 		376B77261B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
@@ -10736,10 +10738,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374376881F3A800F00AC6C7C /* libPerpleSDK.a in Frameworks */,
+				374376861F3A7FE100AC6C7C /* SafariServices.framework in Frameworks */,
 				1EE7C4811D924545005EF89F /* AdBrix.framework in Frameworks */,
 				1EE7C4801D9244DE005EF89F /* IgaworksCore.framework in Frameworks */,
 				1E1607C11D922EAB00CA2C71 /* Tapjoy.framework in Frameworks */,
-				375CDB171CB25F8B007F5054 /* SafariServices.framework in Frameworks */,
 				37CEDF901C9288FB009A8F7E /* libtnksdk.a in Frameworks */,
 				37E128DE1B45398400200C23 /* AdSupport.framework in Frameworks */,
 				37E128C01B4538AE00200C23 /* AssetsLibrary.framework in Frameworks */,
@@ -36493,11 +36496,12 @@
 		F293B3CB15EB7BE500256477 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				374376871F3A800F00AC6C7C /* libPerpleSDK.a */,
 				1E1607C61D92365800CA2C71 /* build */,
 				1E162ADD1D92367100CA2C71 /* libraries */,
+				374376851F3A7FE100AC6C7C /* SafariServices.framework */,
 				1E1607C01D922EAB00CA2C71 /* Tapjoy.framework */,
 				3788EBAB1CB34AB5007A54DA /* Partytrack.framework */,
-				375CDB161CB25F8B007F5054 /* SafariServices.framework */,
 				37E128DD1B45398400200C23 /* AdSupport.framework */,
 				37E128BF1B4538AE00200C23 /* AssetsLibrary.framework */,
 				F293B3D215EB7BE500256477 /* AudioToolbox.framework */,
