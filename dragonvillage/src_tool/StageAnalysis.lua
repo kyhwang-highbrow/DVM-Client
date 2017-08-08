@@ -44,8 +44,8 @@ function StageAnalysis:run()
     local stopwatch = Stopwatch()
     stopwatch:start()
 
-    --self:test1()
-    self:checkTheRegenform()
+    self:test1()
+    --self:checkTheRegenform()
 
     stopwatch:stop()
     io.write('\n\n')

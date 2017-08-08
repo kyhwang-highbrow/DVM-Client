@@ -318,24 +318,6 @@
     <None Include="..\src\UI_GameDebug_RealTime.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src_tool\Scene_UIViewer.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\SceneIngameTest.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\SceneViewer.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\entry_ui_viewer.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\entry_viewer.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\entry_wave_maker.lua">
-      <Filter>lua_tool</Filter>
-    </None>
     <None Include="..\src\UIC_TableView.lua">
       <Filter>lua\UIC</Filter>
     </None>
@@ -2580,9 +2562,6 @@
     <None Include="..\src\UI_QuickPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src_tool\StageAnalysis.lua">
-      <Filter>lua_tool</Filter>
-    </None>
     <None Include="..\src\uilib\UIManager_tutorial.lua">
       <Filter>lua\tutorial</Filter>
     </None>
@@ -2591,6 +2570,69 @@
     </None>
     <None Include="..\src\PatchChecker.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src_tool\LuaGlobal.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\LuaTool.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\redefine.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\Scene_UIViewer.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\SceneIngameTest.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\SceneViewer.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\SceneWaveMaker.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\StageAnalysis.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\TranslateExtractor.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\UI_WaveMaker.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\UISourceCodeGenerator.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\UnusedFileExtractor.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\AssetMaker.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\AssetRemover_100MB.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\DataTableValidator.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\entry_ingame_test.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\entry_preload_generator.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\entry_ui_viewer.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\entry_viewer.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\entry_wave_maker.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\LuaBridgeWindows.lua">
+      <Filter>lua_tool</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

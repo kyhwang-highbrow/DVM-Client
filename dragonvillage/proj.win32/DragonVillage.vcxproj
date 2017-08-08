@@ -1087,13 +1087,27 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\WaveMgr_AncientTower.lua" />
     <None Include="..\src\WaveMgr_Colosseum.lua" />
     <None Include="..\src\WaveMgr_SecretRelation.lua" />
+    <None Include="..\src_tool\AssetMaker.lua" />
+    <None Include="..\src_tool\AssetRemover_100MB.lua" />
+    <None Include="..\src_tool\DataTableValidator.lua" />
+    <None Include="..\src_tool\entry_ingame_test.lua" />
+    <None Include="..\src_tool\entry_preload_generator.lua" />
     <None Include="..\src_tool\entry_ui_viewer.lua" />
     <None Include="..\src_tool\entry_viewer.lua" />
     <None Include="..\src_tool\entry_wave_maker.lua" />
+    <None Include="..\src_tool\LuaBridgeWindows.lua" />
+    <None Include="..\src_tool\LuaGlobal.lua" />
+    <None Include="..\src_tool\LuaTool.lua" />
+    <None Include="..\src_tool\redefine.lua" />
     <None Include="..\src_tool\SceneIngameTest.lua" />
     <None Include="..\src_tool\SceneViewer.lua" />
+    <None Include="..\src_tool\SceneWaveMaker.lua" />
     <None Include="..\src_tool\Scene_UIViewer.lua" />
     <None Include="..\src_tool\StageAnalysis.lua" />
+    <None Include="..\src_tool\TranslateExtractor.lua" />
+    <None Include="..\src_tool\UISourceCodeGenerator.lua" />
+    <None Include="..\src_tool\UI_WaveMaker.lua" />
+    <None Include="..\src_tool\UnusedFileExtractor.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
