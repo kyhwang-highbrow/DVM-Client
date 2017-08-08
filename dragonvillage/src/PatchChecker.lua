@@ -3,8 +3,6 @@
 -------------------------------------
 PatchChecker = class({
 	    m_app_version = '', -- 현재 앱 버전
-        m_caching_ret = '',
-        m_pass_func = '',
     })
 
 -- 업데이트가 필요한 상태
