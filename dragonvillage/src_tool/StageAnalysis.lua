@@ -23,14 +23,33 @@ end
 -------------------------------------
 function StageAnalysis:run()
     cclog('##### StageAnalysis:run')
+    
+    --[[
+    cclog('counting start')
+    for i=1,100 do 
+        --io.flush()
+        --io.write('', '\r')
+        io.write('개발 중인 idx : ' .. i, '\r')  --os.execute"sleep 1"
+        --io.flush()
+        if i==50 then
+            --error()
+        end
+        for z=1, 999999 do
+        end
+    end
+    io.write('\n')
+    cclog('counting end')
+    --]]
 
     local stopwatch = Stopwatch()
     stopwatch:start()
 
-    self:test1()
-    --self:checkTheRegenform()
+    --self:test1()
+    self:checkTheRegenform()
 
     stopwatch:stop()
+    io.write('\n\n')
+
     stopwatch:print()
 end
 
@@ -41,11 +60,22 @@ function StageAnalysis:test1()
     local table_drop = TableDrop()
 
     local table_info = {}
+    
+    local total_cnt = table.count(table_drop.m_orgTable)
+    local done_cnt = 0
 
+    io.write('\n\n')
+    cclog('#### START')
     for stage_id,v in pairs(table_drop.m_orgTable) do
+        done_cnt = done_cnt + 1
+        local percent_str = string.format('(%d/%d, %d%%)', done_cnt, total_cnt, done_cnt / total_cnt * 100)
+
+        io.write(percent_str .. ' 작업 중 : stage_' .. stage_id, '\r')
         local t_data = self:individualStageAnalysis(stage_id)
         table.insert(table_info, t_data)
     end
+    io.write('', '\n')
+    cclog('#### END')
 
     self:makeStageInfoCsvFile(table_info)
 end
@@ -54,31 +84,36 @@ end
 -- function checkTheRegenform
 -------------------------------------
 function StageAnalysis:checkTheRegenform()
-    local table_drop = TableDrop()
-    for stage_id,v in pairs(table_drop.m_orgTable) do
-        
+
+    local function checkTheRegenform_(stage_id)
         local stage_name = 'stage_' .. stage_id
         local t_data = TABLE:loadStageScript(stage_name)
 
-        if t_data then
+        if (not t_data) then
+            return nil
+        end
 
-        -- 등장 몬스터 저장
+        if (not t_data['wave']) then
+            return nil
+        end
+        
         for _,t_wave in ipairs(t_data['wave']) do
-
             if t_wave['regen'] then
-                for _,group_list in pairs(t_wave['regen']) do
+                for _,group_list in ipairs(t_wave['regen']) do
                     for _,t_time_line in pairs(group_list) do
-
                         if (type(t_time_line) == 'string') then
                             cclog(stage_name)
+                            --return true
                         end
-
                     end
                 end
             end
         end
+    end
 
-        end
+    local table_drop = TableDrop()
+    for stage_id,v in pairs(table_drop.m_orgTable) do
+        checkTheRegenform_(stage_id)
     end
 end
 
@@ -122,7 +157,10 @@ function StageAnalysis:individualStageAnalysis(stage_id)
             for _,group_list in pairs(t_wave['regen']) do
                 for _,t_time_line in pairs(group_list) do
 
-                    if (type(t_time_line) == 'table') then
+                    if (type(t_time_line) ~= 'table') then
+                        --error(stage_name .. '의 regen 폼이 맞지 않습니다.')
+                    else
+
                     for _,monster_str in ipairs(t_time_line) do
                         --cclog(monster_str)
 
@@ -233,12 +271,18 @@ function StageAnalysis:makeStageInfoCsvFile(table_info)
 
 
     pl.file.write('../bat/'.. 'stage_info.csv', csv_str)
+    io.write('\n\n')
+    cclog('output : ' .. 'stage_info.csv')
 end
 
 -------------------------------------
 -- ############ RUN ################
 -- lua class 파일 자체에서 실행되도록 함
 -------------------------------------
-if (arg[1] == 'run') then
-    StageAnalysis():run()
+local function main()
+    if (arg[1] == 'run') then
+        StageAnalysis():run()
+    end
 end
+
+local status, msg = xpcall(main, __G__TRACKBACK__)

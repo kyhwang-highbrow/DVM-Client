@@ -29,6 +29,8 @@ end
 -- @brief for CCLuaEngine traceback
 -------------------------------------
 function __G__TRACKBACK__(msg)
+    io.flush()
+    io.write('\n')
 	local error_msg = "LUA ERROR: " .. tostring(msg) .. "\n\n" .. debug.traceback()
 
     cclog("----------------------------------------")
