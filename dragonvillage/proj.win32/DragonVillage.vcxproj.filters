@@ -2631,6 +2631,9 @@
     <None Include="..\src\TableUILocation.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StatusEffect_AccelMana.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

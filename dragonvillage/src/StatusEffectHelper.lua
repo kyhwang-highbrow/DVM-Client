@@ -312,6 +312,9 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
         status_effect = StatusEffect_ManaReduce(res)
         status_effect:init_status(status_effect_value)
 
+    elseif (status_effect_group == 'accel_mana') then
+        status_effect = StatusEffect_AccelMana(res)
+
     ---------- 조건부 버프 ---------------------
     elseif (status_effect_group == 'conditional_buff') then
         status_effect = StatusEffect_ConditionalBuff(res)

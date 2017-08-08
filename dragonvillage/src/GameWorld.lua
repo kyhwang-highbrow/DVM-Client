@@ -1434,3 +1434,10 @@ function GameWorld:getDragonBatchNodeSprite(res, scale)
     local sprite = self.m_mDragonRenderTextureBatchNode[res]:getSprite()
     return sprite
 end
+
+-------------------------------------
+-- function setManaAccelValue
+-------------------------------------
+function GameWorld:setManaAccelValue(b)
+    self.m_heroMana.m_accelValue = b
+end

@@ -411,6 +411,7 @@ local t_module = {
     'StatusEffect_ConditionalBuff',
     'StatusEffect_ConsumeToMissile',
     'StatusEffect_ConditionalModify',
+    'StatusEffect_AccelMana',
 
     'StatusEffectEdgeDirector',
 	'StatusEffectIcon',
