@@ -34,16 +34,9 @@ function GameAuto_Hero:initUI()
 end
 
 -------------------------------------
--- function update
+-- function doWork
 -------------------------------------
-function GameAuto_Hero:update(dt)
-    self:update_fight(dt)
-end
-
--------------------------------------
--- function update_fight
--------------------------------------
-function GameAuto_Hero:update_fight(dt)
+function GameAuto_Hero:doWork(dt)
     -- 인디케이터 조작중일 경우
     if (self.m_world.m_skillIndicatorMgr:isControlling()) then
         return
@@ -53,37 +46,7 @@ function GameAuto_Hero:update_fight(dt)
         return
     end
 
-    PARENT.update_fight(self, dt)
-end
-
--------------------------------------
--- function proccess_tamer
--------------------------------------
-function GameAuto_Hero:proccess_tamer()
-    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
-        return false
-    end
-
-    local tamer = self.m_world.m_tamer
-    if (not tamer) then return end
-
-    if (not tamer:isEndActiveSkillCool()) then
-        return false
-    end
-
-    local t_skill = tamer:getActiveSkillTable()
-
-    -- TODO : 스킬 타입별 고유한 조건으로 체크되어야함
-    if (self:checkSkill(tamer, t_skill, GAME_AUTO_AI_ATTACK__COOLTIME, GAME_AUTO_AI_HEAL__LOW_HP)) then
-        --tamer:doSkillActive()
-
-        -- AI 딜레이 시간 설정
-        self.m_aiDelayTime = self:getAiDelayTime()
-
-        return true
-    end
-
-    return false
+    PARENT.doWork(self, dt)
 end
 
 -------------------------------------
@@ -109,13 +72,6 @@ function GameAuto_Hero:onEnd()
 end
 
 -------------------------------------
--- function getUnitList
--------------------------------------
-function GameAuto_Hero:getUnitList()
-    return self.m_world:getDragonList()
-end
-
--------------------------------------
 -- function onEvent
 -------------------------------------
 function GameAuto_Hero:onEvent(event_name, t_event, ...)
@@ -126,7 +82,7 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
         self:onEnd()
         
     elseif (event_name == 'hero_active_skill') then
-        self.m_aiDelayTime = self:getAiDelayTime()
+        self:setWorkTimer()
 
     end
 end

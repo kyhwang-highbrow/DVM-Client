@@ -47,6 +47,7 @@ MAP_KEY_FUNC[KEY_5] = 'resurrect_dragon'
 MAP_KEY_FUNC[KEY_6] = 'kill_one_dragon'
 MAP_KEY_FUNC[KEY_7] = 'print_skill_info'
 MAP_KEY_FUNC[KEY_8] = 'camera_info'
+MAP_KEY_FUNC[KEY_9] = 'auto_info'
 
 -------------------------------------
 -- function onKeyReleased
@@ -405,4 +406,11 @@ end
 -------------------------------------
 function GameWorld:camera_info()
     self.m_gameCamera:printInfo()
+end
+
+-------------------------------------
+-- function auto_info
+-------------------------------------
+function GameWorld:auto_info()
+    self.m_gameAutoHero:printInfo()
 end

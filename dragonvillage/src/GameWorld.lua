@@ -5,6 +5,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gameMode = 'number',
         m_stageID = 'number',
         m_inGameUI = 'UI_Game',
+        m_bDevelopMode = 'boolean',
 
         m_worldLayer = 'cc.Node',
         m_gameNode1 = 'cc.Node',
@@ -65,18 +66,14 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_worldSize = '',
         m_worldScale = '',
 
-        m_bDebugGrid = '',
-
         m_missileRange = 'table',
-
-        m_bDevelopMode = 'boolean',
 
         -- callback
         m_lWorldScaleChangeCB = 'list',
 
         -- mana
-        m_heroMana = '',
-        m_enemyMana = '',
+        m_heroMana = 'GameMana',
+        m_enemyMana = 'GameMana',
         
         -- # GameWorld_Formation
         m_leftFormationMgr = '',
@@ -88,9 +85,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 		-- 테이머 관련
         m_tamer = 'Tamer',
                         
-        -- 조작 막음 여부
-        m_bPreventControl = 'boolean',
-
         m_formationDebugNode = '',
 
         m_touchMotionStreak = 'cc.MotionStreak',
@@ -133,8 +127,6 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameNode3 = game_node3
         
     self.m_bDevelopMode = develop_mode or false
-
-    self.m_bPreventControl = false
 
     self.m_bgNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_bgNode, INGAME_LAYER_Z_ORDER.BG_LAYER)
@@ -1064,11 +1056,6 @@ end
 -- function isPossibleControl
 -------------------------------------
 function GameWorld:isPossibleControl()
-    -- 강제적 조작 막음
-    if (self.m_bPreventControl) then
-        return false
-    end
-
     -- 전투 중일 때에만
     if (not self.m_gameState:isFight()) then
         return false

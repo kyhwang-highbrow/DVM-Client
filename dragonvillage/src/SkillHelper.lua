@@ -166,6 +166,53 @@ function SkillHelper:getSizeAndScale(size_type, skill_size)
 end
 
 -------------------------------------
+-- function makeAiAttrMap
+-------------------------------------
+function SkillHelper:makeAiAttrMap(t_skill)
+    local mAiAttr = {}
+
+    -- 스킬 테이블의 skill_type 칼럼값을 체크
+	if (string.find(t_skill['skill_type'], 'heal')) then
+        mAiAttr[SKILL_AI_ATTR__HEAL] = true
+
+    elseif (string.find(t_skill['skill_type'], 'guardian')) then
+        mAiAttr[SKILL_AI_ATTR__GUARDIAN] = true
+
+    elseif (t_skill['skill_type'] ~= 'status_effect') then
+        mAiAttr[SKILL_AI_ATTR__ATTACK] = true
+
+    else
+        -- 스킬 테이블의 add_option을 체크
+        for i = 1, 2 do
+            local status_effect_type = t_skill['add_option_type_' .. i]
+            if (status_effect_type and status_effect_type ~= '') then
+                local t_status_effect = TableStatusEffect():get(status_effect_type)
+                local category = t_status_effect['category']
+
+                if (t_status_effect['type'] == 'dot_heal') then
+                    mAiAttr[SKILL_AI_ATTR__RECOVERY] = true
+                
+                elseif (string.find(t_status_effect['name'], 'cure')) then
+                    mAiAttr[SKILL_AI_ATTR__DISPELL] = true
+                
+                elseif (StatusEffectHelper:isHelpful(category) and not string.find(t_status_effect['type'], 'add_dmg')) then
+                    mAiAttr[SKILL_AI_ATTR__BUFF] = true
+                
+                elseif (StatusEffectHelper:isHarmful(category)) then
+                    mAiAttr[SKILL_AI_ATTR__DEBUFF] = true
+                end
+            end
+        end
+    end
+
+    if (table.count(mAiAttr) == 0) then
+        mAiAttr[SKILL_AI_ATTR__ATTACK] = true
+    end
+
+    return mAiAttr
+end
+
+-------------------------------------
 -- function printTargetNotExist
 -- @brief
 -------------------------------------

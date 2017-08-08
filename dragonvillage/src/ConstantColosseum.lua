@@ -4,8 +4,23 @@ COLOSSEUM__TIME_SCALE = 1
 -- # 콜로세움 적군 캐스팅 시간
 COLOSSEUM__ENEMY_CASTING_TIME = 2
 
--- # 콜로세움 적군 게이지
-COLOSSEUM__ENEMY_START_GAUGE_LIST = { 80, 60, 40, 20, 0 }
+-- 스킬(드래그)들의 AI 속성
+SKILL_AI_ATTR__ATTACK = 'attack'
+SKILL_AI_ATTR__BUFF = 'buff'
+SKILL_AI_ATTR__DEBUFF = 'debuff'
+SKILL_AI_ATTR__RECOVERY = 'recovery'
+SKILL_AI_ATTR__DISPELL = 'dispell'
+SKILL_AI_ATTR__HEAL = 'heal'
+SKILL_AI_ATTR__GUARDIAN = 'guardian'
 
--- # 콜로세움 적군의 테스트용 덱을 사용
-COLOSSEUM__USE_TEST_ENEMY_DECK = false
+-- 스킬 사용 불가 시 원인 타입
+REASON_TO_DO_NOT_USE_SKILL = {
+    DEAD            = 1,
+    NO_INDICATOR    = 2,
+    COOL_TIME       = 3,
+    MANA_LACK       = 4,
+    NO_MANA         = 5,
+    SILENCE         = 6,
+    STUN            = 7,
+    USING_SKILL     = 8,
+}

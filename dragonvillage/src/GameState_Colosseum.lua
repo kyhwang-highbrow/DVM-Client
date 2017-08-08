@@ -135,8 +135,15 @@ function GameState_Colosseum.update_wave_intermission(self, dt)
     	
 	if (self.m_stateTimer > getInGameConstant("WAVE_INTERMISSION_TIME")) then
         world:dispatch('game_start')
+
+        -- 패시브 효과 적용
         world:passiveActivate_Left()
 		world:passiveActivate_Right()
+
+        -- AI 초기화
+        world.m_gameAutoHero:prepare(world:getDragonList())
+        world.m_gameAutoEnemy:prepare(world:getEnemyList())
+
         world.m_inGameUI:doAction()
 
         self:fight()

@@ -429,6 +429,9 @@ function GameState.update_enemy_appear(self, dt)
             world.m_inGameUI:doAction()
 			-- 아군 패시브 효과 적용
 			world:passiveActivate_Left()
+
+            -- 아군 AI 초기화
+            world.m_gameAutoHero:prepare(world:getDragonList())
         end
         
         -- 웨이브 알림
@@ -462,6 +465,11 @@ function GameState.update_enemy_appear(self, dt)
         -- 적 이동패턴 정보 초기화
         if (world.m_enemyMovementMgr) then
             world.m_enemyMovementMgr:reset()
+        end
+
+        -- 적 AI 초기화
+        if (world.m_gameAutoEnemy) then
+            world.m_gameAutoEnemy:prepare(world:getEnemyList())
         end
                 
         self:changeState(GAME_STATE_FIGHT_WAIT)
@@ -1099,9 +1107,6 @@ function GameState:onEvent(event_name, t_event, ...)
         else
             self.m_nAppearedEnemys = self.m_nAppearedEnemys + 1
         end
-    elseif (event_name == 'character_dead') then
-        --if (self:checkToDieHighestRariry()) then
-        --end
     end
 end
 

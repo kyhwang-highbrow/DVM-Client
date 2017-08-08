@@ -370,13 +370,6 @@ function Character.st_casting(owner, dt)
                 cc.RemoveSelf:create()
             ))
         end
-
-        -- 스킬 캐스팅 이벤트
-        if (owner.m_bLeftFormation) then
-            owner:dispatch('hero_casting_start', {}, owner)
-        else
-            owner:dispatch('enemy_casting_start', {}, owner)
-        end
     end
 
     if (owner.m_reservedSkillCastTime <= owner.m_stateTimer) then

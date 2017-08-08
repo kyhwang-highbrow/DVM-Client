@@ -492,45 +492,48 @@ end
 -------------------------------------
 function Dragon:isPossibleSkill()
     if (self:isDead()) then
-		return false
+		return false, REASON_TO_DO_NOT_USE_SKILL.DEAD
 	end
 
     if (not self.m_skillIndicator) then
-        return
+        return false, REASON_TO_DO_NOT_USE_SKILL.NO_INDICATOR
     end
 
     -- 쿨타임 체크
 	if (not self:isEndActiveSkillCool()) then
-		return false
+		return false, REASON_TO_DO_NOT_USE_SKILL.COOL_TIME
 	end
 
     -- 마나 체크
     if (self.m_bLeftFormation) then
         if (self.m_activeSkillManaCost > self.m_world.m_heroMana:getCurrMana()) then
-            return false
+            return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
         end
 
     elseif (self.m_world.m_enemyMana) then
         if (self.m_activeSkillManaCost > self.m_world.m_enemyMana:getCurrMana()) then
-            return false
+            return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
         end
         
     else
-        return false
+        return false, REASON_TO_DO_NOT_USE_SKILL.NO_MANA
     end
 
     if (self.m_isSilence) then
-		return false
+		return false, REASON_TO_DO_NOT_USE_SKILL.SILENCE
 	end
 
-    -- 스킬 사용 불가 상태
-    if (isExistValue(self.m_state, 'delegate', 'stun')) then
-        return false
+    if (isExistValue(self.m_state, 'stun')) then
+        return false, REASON_TO_DO_NOT_USE_SKILL.STUN
+    end
+
+    if (isExistValue(self.m_state, 'delegate')) then
+        return false, REASON_TO_DO_NOT_USE_SKILL.USING_SKILL
     end
 
     -- 이미 스킬을 사용하기 위한 상태일 경우
     if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle')) then
-        return false
+        return false, REASON_TO_DO_NOT_USE_SKILL.USING_SKILL
     end
 
 	return true

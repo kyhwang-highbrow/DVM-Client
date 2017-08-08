@@ -330,8 +330,12 @@ function GameWorld:bindHero(hero)
     hero:addListener('dragon_active_skill', self.m_heroMana)
     hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
-    hero:addListener('hero_active_skill', self.m_gameAutoHero)
 
+    -- 자동 AI를 위한 이벤트
+    hero:addListener('hero_active_skill', self.m_gameAutoHero)
+    --hero:addListener('get_debuff', self.m_gameAutoHero)
+    --hero:addListener('release_debuff', self.m_gameAutoHero)
+    
     -- 월드에서 중계되는 이벤트
     hero:addListener('character_recovery', self)
     hero:addListener('character_set_hp', self)
@@ -384,7 +388,6 @@ end
 -- function bindEnemy
 -------------------------------------
 function GameWorld:bindEnemy(enemy)
-    enemy:addListener('character_dead', self.m_gameState)
     if self.m_dropItemMgr then
         enemy:addListener('character_dead', self.m_dropItemMgr)
     end
@@ -392,14 +395,16 @@ function GameWorld:bindEnemy(enemy)
     -- 등장 완료 콜백 등록
     enemy:addListener('enemy_appear_done', self.m_gameState)
 
-    -- 스킬 캐스팅
-    enemy:addListener('enemy_casting_start', self.m_gameAutoHero)
-    
     if (enemy.m_charType == 'dragon') then
         enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
         enemy:addListener('dragon_active_skill', self.m_enemyMana)
-        enemy:addListener('enemy_active_skill', self.m_gameState)
-        enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
+        
+        if (self.m_gameAutoEnemy) then
+            -- 자동 AI를 위한 이벤트
+            enemy:addListener('enemy_active_skill', self.m_gameAutoEnemy)
+            --enemy:addListener('get_debuff', self.m_gameAutoEnemy)
+            --enemy:addListener('release_debuff', self.m_gameAutoEnemy)
+        end
     end
 
     -- 월드에서 중계되는 이벤트

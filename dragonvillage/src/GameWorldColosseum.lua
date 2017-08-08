@@ -171,10 +171,17 @@ function GameWorldColosseum:bindEnemy(enemy)
     enemy:addListener('dragon_active_skill', self.m_enemyMana)
     enemy:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     enemy:addListener('set_global_cool_time_active', self.m_gameCoolTime)
-    enemy:addListener('enemy_active_skill', self.m_gameAutoEnemy)
 
-    -- HP 변경시 콜백 등록
+    -- 자동 AI를 위한 이벤트
+    enemy:addListener('enemy_active_skill', self.m_gameAutoEnemy)
+    --enemy:addListener('get_debuff', self.m_gameAutoEnemy)
+    --enemy:addListener('release_debuff', self.m_gameAutoEnemy)
+
+    -- 월드에서 중계되는 이벤트
+    enemy:addListener('character_recovery', self)
+    enemy:addListener('character_dead', self)
     enemy:addListener('character_set_hp', self)
+    enemy:addListener('get_status_effect', self)
 end
 
 -------------------------------------
@@ -287,7 +294,6 @@ end
 
 -------------------------------------
 -- function makeEnemyDeck
--- @TODO 상대편 덱 정보를 받아서 생성해야함
 -------------------------------------
 function GameWorldColosseum:makeEnemyDeck()
     local l_deck, formation, deck_name, leader
