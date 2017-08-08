@@ -723,6 +723,12 @@ protected:
      */
     static FileUtils* s_sharedFileUtils;
 
+    /**
+     *  Remove null value key (for iOS)
+     */
+    virtual void valueMapCompact(ValueMap& valueMap);
+    virtual void valueVectorCompact(ValueVector& valueVector);
+
 };
 
 // end of platform group
