@@ -25,15 +25,6 @@ function SkillAoESquare_Width_Right:init_skill(hit)
 	self:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), self.m_targetPos.y)
 end
 
--------------------------------------
--- function initState
--------------------------------------
-function SkillAoESquare_Width_Right:initState()
-	self:setCommonState(self)
-	-- @TODO 임시로 통짜리소스 동작되도록 처리... appear, disapper애니 추가 필요
-	self:addState('start', SkillAoESquare_Width_Right.st_attack, 'idle', false)
-	self:addState('disappear', SkillAoESquare_Width_Right.st_dying, nil, nil, 10)
-end
 
 -------------------------------------
 -- function initSkillSize

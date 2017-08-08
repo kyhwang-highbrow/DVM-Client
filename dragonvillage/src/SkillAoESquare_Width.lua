@@ -26,16 +26,6 @@ function SkillAoESquare_Width:init_skill(hit)
 end
 
 -------------------------------------
--- function initState
--------------------------------------
-function SkillAoESquare_Width:initState()
-	self:setCommonState(self)
-	-- @TODO 임시로 통짜리소스 동작되도록 처리... appear, disapper애니 추가 필요
-	self:addState('start', SkillAoESquare_Width.st_attack, 'idle', false)
-	self:addState('disappear', SkillAoESquare_Width.st_dying, nil, nil, 10)
-end
-
--------------------------------------
 -- function initSkillSize
 -------------------------------------
 function SkillAoESquare_Width:initSkillSize()
