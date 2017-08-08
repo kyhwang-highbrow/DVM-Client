@@ -890,7 +890,7 @@ end
 -------------------------------------
 function UI_GameResultNew:click_againBtn()
     local stage_id = self.m_stageID
-    g_adventureData:goToAdventureScene(stage_id)
+    UINavigator:goTo('adventure', stage_id)
 end
 
 -------------------------------------
@@ -904,7 +904,7 @@ function UI_GameResultNew:click_nextBtn()
         g_stageData:setFocusStage(next_stage_id)
     end
 
-    g_adventureData:goToAdventureScene(next_stage_id)
+    UINavigator:goTo('adventure', next_stage_id)
 end
 
 -------------------------------------
@@ -918,7 +918,7 @@ function UI_GameResultNew:click_prevBtn()
         g_stageData:setFocusStage(prev_stage_id)
     end
 
-    g_adventureData:goToAdventureScene(prev_stage_id)    
+    UINavigator:goTo('adventure', prev_stage_id)
 end
 
 -------------------------------------

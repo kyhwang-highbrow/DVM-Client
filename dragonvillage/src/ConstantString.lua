@@ -286,7 +286,7 @@ end
         -- sgkim 2017-08-03
         -- table_content_lock.csv와 용어 통일
         -- adventure	모험
-        -- exploation	탐험
+        -- exploration	탐험
         -- nest_tree	[네스트] 거목 던전
         -- nest_evo_stone	[네스트] 진화재료 던전
         -- ancient	고대의 탑
@@ -300,7 +300,7 @@ function getContentName(content_type)
     if (content_type == 'adventure') then
         content_name = Str('모험')
     
-    elseif (content_type == 'exploation') then
+    elseif (content_type == 'exploration') or (content_type == 'exploation') then
         content_name = Str('탐험')
     
     elseif (content_type == 'colosseum') then

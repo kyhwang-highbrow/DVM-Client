@@ -52,7 +52,6 @@ function ServerData_Adventure:goToAdventureScene_portable(stage_id, skip_request
     local function finish_cb()
         if stage_id then
             UI_AdventureSceneNew(stage_id)
-            UI_ReadyScene(stage_id, true) -- stage_id, with_friend
         else
             UI_AdventureSceneNew()
         end

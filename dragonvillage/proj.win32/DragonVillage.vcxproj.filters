@@ -2628,6 +2628,9 @@
     <None Include="..\src_tool\LuaBridgeWindows.lua">
       <Filter>lua_tool</Filter>
     </None>
+    <None Include="..\src\TableUILocation.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

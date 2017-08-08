@@ -516,7 +516,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'dragonBtn';
+				lua_name = 'nest_evo_stoneBtn';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -632,7 +632,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'treeBtn';
+				lua_name = 'nest_treeBtn';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -748,7 +748,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'nightmareBtn';
+				lua_name = 'nest_nightmareBtn';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -864,7 +864,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'relationBtn';
+				lua_name = 'secret_relationBtn';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -1096,7 +1096,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'towerBtn';
+				lua_name = 'ancientBtn';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';

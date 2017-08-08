@@ -3,51 +3,129 @@ UINavigator = {}
 -------------------------------------
 -- function goTo
 -- @brief UI 이동
+-- @param location_name string
 -------------------------------------
-function UINavigator:goTo(location, val_1, val_2)
-    if (location == 'transcend') then
-        self:goTo_transcend(val_1)
-    end
-end
+function UINavigator:goTo(location_name, ...)
+    local table_ui_location = TableUILocation()
 
--------------------------------------
--- function goTo_transcend
--- @brief UI 이동
--------------------------------------
-function UINavigator:goTo_transcend(doid)
-    local b_find, idx = self:find_DragonManageInfoUI()
+    -- 콘텐츠 잠금 상태를 확인하기 위함 (string or nil이 리턴됨)
+    local content_name = table_ui_location:getContentName(location_name)
 
-    if (b_find) then
-        self:closeUIList(idx)
-
-        local ui = UIManager.m_uiList[idx]
-        if doid then
-            local b_force = true
-            ui:setSelectDragonData(doid, b_force)
+    -- 콘텐츠 이름이 있을 경우 잠금 상태 확인
+    if content_name then
+        -- 콘텐츠가 잠금 상태일 경우 checkContentLock함수 안에서 안내 팝업이 나오게 되어 있음
+        local is_open = g_contentLockData:checkContentLock(content_name)
+        if (is_open == false) then
+            return
         end
-        ui:click_transcendBtn()
+    end
+
+    -- 모드별 실행 함수 호출
+    local function_name = 'goTo_' .. location_name
+    if self[function_name] then
+        self[function_name](self, ...)
     end
 end
 
+
 -------------------------------------
--- function find_DragonManageInfoUI
--- @brief 오픈된 UI에서 드래곤 관리 UI를 찾음
+-- function goTo_adventure
+-- @brief 모험 모드로 이동
+-- @usage UINavigator:goTo('adventure', stage_id)
 -------------------------------------
-function UINavigator:find_DragonManageInfoUI()
+function UINavigator:goTo_adventure(...)
+    local args = {...}
+    local stage_id = args[1]
+
+    -- 모험 모드가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_AdventureSceneNew')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        if stage_id then
+            ui:focusByStageID(stage_id)
+        end
+        return
+    end
+
+    -- 전투 메뉴가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        ui:setTab('adventure')
+        g_adventureData:goToAdventureScene_portable(stage_id, false) -- stage_id, skip_request
+        return
+    end
+
+    -- 로비가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        local battle_menu_ui = UI_BattleMenu()
+        battle_menu_ui:setTab('adventure')
+        g_adventureData:goToAdventureScene_portable(stage_id, false) -- stage_id, skip_request
+        return
+    end
+
+    -- Scene으로 모험 모드 동작
+    g_adventureData:goToAdventureScene()
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- function findOpendUI
+-- @brief 오픈된 UI에서 특정 UI를 찾음
+-------------------------------------
+function UINavigator:findOpendUI(ui_class_name)
     local idx = nil
+    local opend_ui = nil
 
     for i=#UIManager.m_uiList, 1, -1 do
         local ui = UIManager.m_uiList[i]
-        if (ui.m_uiName == 'UI_DragonManageInfo') then
+        if (ui.m_uiName == ui_class_name) then
             idx = i
+            opend_ui = ui
             break
         end
     end
 
     if (idx) then
-        return true, idx
+        return true, idx, opend_ui
     else
-        return false
+        return false, idx, opend_ui
     end
 end
 

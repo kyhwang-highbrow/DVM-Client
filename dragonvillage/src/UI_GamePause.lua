@@ -65,7 +65,7 @@ end
 function UI_GamePause:click_retryButton()
     local function retry_func()
         local stage_id = g_currScene.m_stageID
-        g_adventureData:goToAdventureScene(stage_id)
+        UINavigator:goTo('adventure', stage_id)
     end
     
     self:confirmExit(retry_func)

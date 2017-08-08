@@ -8,7 +8,7 @@ UI_BattleMenuItem = class(PARENT, {
         -- sgkim 2017-08-03
         -- table_content_lock.csv와 용어 통일
         -- adventure	모험
-        -- exploation	탐험
+        -- exploration	탐험
         -- nest_tree	[네스트] 거목 던전
         -- nest_evo_stone	[네스트] 진화재료 던전
         -- ancient	고대의 탑
@@ -41,7 +41,7 @@ function UI_BattleMenuItem:initUI()
     local content_type = self.m_contentType
 
     -- 컨텐츠에 따라 사용하는 레이아웃이 다름
-    if isExistValue(content_type, 'adventure', 'exploation', 'colosseum', 'ancient') then
+    if isExistValue(content_type, 'adventure', 'exploration', 'colosseum', 'ancient') then
         vars['itemMenu1']:setVisible(true)
         vars['itemMenu2']:setVisible(false)
 
@@ -130,10 +130,10 @@ function UI_BattleMenuItem:click_enterBtn()
 
     -- 모험
     if (content_type == 'adventure') then
-        self:click_adventureBtn()
+        UINavigator:goTo('adventure')
 
     -- 탐험
-    elseif (content_type == 'exploation') then
+    elseif (content_type == 'exploration') then
         self:click_explorationBtn()
 
     -- 고대의 탑
@@ -160,14 +160,6 @@ function UI_BattleMenuItem:click_enterBtn()
     elseif (content_type == 'secret_relation') then
         self:click_relationBtn()
     end
-end
-
--------------------------------------
--- function click_adventureBtn
--- @brief 모험 버튼
--------------------------------------
-function UI_BattleMenuItem:click_adventureBtn()
-    g_adventureData:goToAdventureScene_portable(nil, false) -- stage_id, skip_request
 end
 
 -------------------------------------

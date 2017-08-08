@@ -327,7 +327,7 @@ function ServerData_Stage:goToStage(stage_id)
 
     -- 모험 모드
     if (game_mode == GAME_MODE_ADVENTURE) then
-        g_adventureData:goToAdventureScene(stage_id)
+        UINavigator:goTo('adventure', stage_id)
         
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then

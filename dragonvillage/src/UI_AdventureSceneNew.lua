@@ -76,6 +76,15 @@ end
 
 
 -------------------------------------
+-- function focusByStageID
+-- @brief
+-------------------------------------
+function UI_AdventureSceneNew:focusByStageID(stage_id)
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+    self:refreshChapter(chapter, difficulty, stage)
+end
+
+-------------------------------------
 -- function initButton
 -- @brief
 -------------------------------------

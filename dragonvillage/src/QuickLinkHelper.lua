@@ -76,12 +76,12 @@ T_LINK_FUNC = {
     -- stage clear
     ['clr_stg'] = function(condition)
         local stage_id = condition
-        g_adventureData:goToAdventureScene(stage_id)
+        UINavigator:goTo('adventure', stage_id)
     end,
 
     -- 모험 플레이
     ['ply_adv'] = function()
-        g_adventureData:goToAdventureScene()
+        UINavigator:goTo('adventure')
     end,
 
     -- 고대의 탑 플레이
@@ -147,7 +147,7 @@ T_LINK_FUNC = {
 
     -- 유저 레벨 달성
     ['u_lv'] = function()
-        g_adventureData:goToAdventureScene()
+        UINavigator:goTo('adventure')
     end,
 
     -- 친구 n명 달성

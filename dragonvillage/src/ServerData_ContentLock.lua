@@ -30,8 +30,8 @@ function ServerData_ContentLock:isContentLock(content_name)
 
     -- 지정되지 않은 콘텐츠 이름일 경우
     if (not t_content_lock) then
-        error('content_name : ' .. content_name)
-        return true
+        --error('content_name : ' .. content_name)
+        return false
     end
 
     -- 필요 유저 레벨 지정

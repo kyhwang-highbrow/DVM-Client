@@ -41,6 +41,18 @@ function UI_QuickPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
+
+    vars['homeBtn']:registerScriptTapHandler(function() end)
+    vars['adventureBtn']:registerScriptTapHandler(function() UINavigator:goTo('adventure') end)
+    vars['explorationBtn']:registerScriptTapHandler(function() end)
+
+    vars['nest_evo_stoneBtn']:registerScriptTapHandler(function() end)
+    vars['nest_treeBtn']:registerScriptTapHandler(function() end)
+    vars['nest_nightmareBtn']:registerScriptTapHandler(function() end)
+    vars['secret_relationBtn']:registerScriptTapHandler(function() end)
+
+    vars['colosseumBtn']:registerScriptTapHandler(function() end)
+    vars['ancientBtn']:registerScriptTapHandler(function() end)
 end
 
 -------------------------------------
@@ -63,3 +75,73 @@ end
 function UI_QuickPopup:click_settingBtn()
     UI_Setting()
 end
+
+-------------------------------------
+-- function click_adventureBtn
+-- @brief 모험 버튼
+-------------------------------------
+function UI_QuickPopup:click_adventureBtn()
+    g_adventureData:goToAdventureScene_portable(nil, false) -- stage_id, skip_request
+end
+
+
+--[[
+-------------------------------------
+-- function click_explorationBtn
+-- @brief 탐험 버튼
+-------------------------------------
+function UI_QuickPopup:click_explorationBtn()
+    local function finish_cb()
+        UI_Exploration()
+    end
+    g_explorationData:request_explorationInfo(finish_cb)
+end
+
+-------------------------------------
+-- function click_colosseumBtn
+-- @brief 콜로세움 진입 버튼
+-------------------------------------
+function UI_QuickPopup:click_colosseumBtn()
+    g_colosseumData:goToColosseum()
+end
+
+-------------------------------------
+-- function click_ancientBtn
+-- @brief 고대의 탑 진입 버튼
+-------------------------------------
+function UI_QuickPopup:click_ancientBtn()
+    g_ancientTowerData:goToAncientTowerScene()
+end
+
+-------------------------------------
+-- function click_evoStoneBtn
+-- @brief 진화재료 던전
+-------------------------------------
+function UI_QuickPopup:click_evoStoneBtn()
+    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_EVO_STONE)
+end
+
+-------------------------------------
+-- function click_treeBtn
+-- @brief 거목 던전
+-------------------------------------
+function UI_QuickPopup:click_treeBtn()
+    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_TREE)
+end
+
+-------------------------------------
+-- function click_nightmareBtn
+-- @brief 악몽 던전
+-------------------------------------
+function UI_QuickPopup:click_nightmareBtn()
+    g_nestDungeonData:goToNestDungeonScene(nil, NEST_DUNGEON_NIGHTMARE)
+end
+
+-------------------------------------
+-- function click_relationBtn
+-- @brief 인연 던전
+-------------------------------------
+function UI_QuickPopup:click_relationBtn()
+    g_secretDungeonData:goToSecretDungeonScene()
+end
+--]]

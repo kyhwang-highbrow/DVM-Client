@@ -660,7 +660,7 @@ end
 -------------------------------------
 function UI_DragonRunes:click_adventureBtn()
     local stage_id = g_localData:get('adventure_focus_stage')
-    g_adventureData:goToAdventureScene(stage_id)
+    UINavigator:goTo('adventure', stage_id)
 end
 
 

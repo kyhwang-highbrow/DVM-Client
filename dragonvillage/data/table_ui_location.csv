@@ -1,0 +1,20 @@
+location_name,r_comment,content_name,type
+adventure,모험,adventure,content
+exploration,탐험,exploration,content
+colosseum,콜로세움,colosseum,content
+ancient,고대의 탑,ancient,content
+nest_evo_stone,[네스트] 진화재료 던전,nest_evo_stone,content
+nest_tree,[네스트] 거목 던전,nest_tree,content
+nest_nightmare,[네스트] 악몽 던전,nest_nightmare,content
+secret_relation,[시크릿] 인연 던전,secret_relation,content
+dragon,드래곤 관리 UI,,ui
+dragon_skillup,드래곤 스킬 레벨업 UI,,ui
+dragon_evolution,드래곤 진화 UI,,ui
+dragon_levelup,드래곤 레벨업 UI,,ui
+dragon_gradeup,드래곤 승급 UI,,ui
+dragon_friendship,드래곤 친밀도 UI,,ui
+friend,친구 UI,,ui
+tamer,테이머 관리 UI,,ui
+hatchery,부화소 UI,,ui
+hatchery_combination,부화소 드래곤 조합 UI,,ui
+rune,룬 관리,,ui
