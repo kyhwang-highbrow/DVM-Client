@@ -14,7 +14,6 @@
 		15A8A4841834C73500142BE0 /* libcocos2dx-extensions Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4191834BDA200142BE0 /* libcocos2dx-extensions Mac.a */; };
 		15A8A4851834C73500142BE0 /* libCocosDenshion Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A41F1834BDA200142BE0 /* libCocosDenshion Mac.a */; };
 		1AF4C403178663F200122817 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF4C402178663F200122817 /* libz.dylib */; };
-		1E1607C11D922EAB00CA2C71 /* Tapjoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1607C01D922EAB00CA2C71 /* Tapjoy.framework */; };
 		1EE7C4801D9244DE005EF89F /* IgaworksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E162B4A1D92367100CA2C71 /* IgaworksCore.framework */; };
 		1EE7C4811D924545005EF89F /* AdBrix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E162B451D92367100CA2C71 /* AdBrix.framework */; };
 		373E2D841A038712004EF0DB /* AppDelegate_Custom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */; };
@@ -36,9 +35,6 @@
 		37519C041A6657A200406F47 /* PerpLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C031A6657A200406F47 /* PerpLua.cpp */; };
 		37519C101A6657B300406F47 /* PerpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C0E1A6657B300406F47 /* PerpUtils.cpp */; };
 		3758D8311A93AE6F00833D47 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3758D8301A93AE6F00833D47 /* FacebookSDK.framework */; };
-		376B77271B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 376B77241B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a */; };
-		376B77281B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 376B77251B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a */; };
-		376B77291B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 376B77261B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a */; };
 		377033A5198F5FF00091C231 /* ConfigParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3770339F198F5FF00091C231 /* ConfigParser.cpp */; };
 		377033A6198F5FF00091C231 /* Runtime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A1198F5FF00091C231 /* Runtime.cpp */; };
 		377033A7198F5FF00091C231 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A3198F5FF00091C231 /* VisibleRect.cpp */; };
@@ -46,9 +42,6 @@
 		377033B7198F73060091C231 /* libcocos2dx iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4251834BDA200142BE0 /* libcocos2dx iOS.a */; };
 		377033B8198F731C0091C231 /* libcocos2dx-extensions iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4271834BDA200142BE0 /* libcocos2dx-extensions iOS.a */; };
 		377033B9198F732F0091C231 /* libluabindings iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C03781B618BF654500FE4F13 /* libluabindings iOS.a */; };
-		3788EBAC1CB34AB5007A54DA /* Partytrack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3788EBAB1CB34AB5007A54DA /* Partytrack.framework */; };
-		37AC86821B3D452D00240266 /* Moloco.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC86811B3D452D00240266 /* Moloco.framework */; };
-		37CEDF901C9288FB009A8F7E /* libtnksdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CEDF8F1C9288FB009A8F7E /* libtnksdk.a */; };
 		37D8E3F11A304EB9005E479B /* PerpSocial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */; };
 		37E128A81B45379300200C23 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128A71B45379300200C23 /* Twitter.framework */; };
 		37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128AF1B45380F00200C23 /* EventKit.framework */; };
@@ -93,8 +86,6 @@
 		50D7C96E17EBBEE6005D0B91 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96D17EBBEE6005D0B91 /* AppKit.framework */; };
 		50D7C97017EBBEEC005D0B91 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96F17EBBEEC005D0B91 /* IOKit.framework */; };
 		7D50CB851C04459600F8FE3E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5023811317EBBCAC00990C9B /* Info.plist */; };
-		7DD5DF0E1C03F83100F610BF /* libMobClickGameLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD5DF0D1C03F83100F610BF /* libMobClickGameLibrary.a */; };
-		7DD5DF101C03F83D00F610BF /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD5DF0F1C03F83D00F610BF /* libUMessage_Sdk_1.1.0.a */; };
 		C03781CF18BF656A00FE4F13 /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BD18BF656900FE4F13 /* AudioEngine.lua */; };
 		C03781D018BF656A00FE4F13 /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BD18BF656900FE4F13 /* AudioEngine.lua */; };
 		C03781D118BF656A00FE4F13 /* CCBReaderLoad.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BE18BF656900FE4F13 /* CCBReaderLoad.lua */; };
@@ -427,7 +418,6 @@
 		15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
 		1AF4C402178663F200122817 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = ../../../../../../../../usr/lib/libz.dylib; sourceTree = "<group>"; };
 		1CC28FA01B69003F00F75BE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1E1607C01D922EAB00CA2C71 /* Tapjoy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tapjoy.framework; path = ../../libraries/tapjoy/ios/TapjoySDK_iOS_v11.8.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework; sourceTree = "<group>"; };
 		1E1607C91D92365800CA2C71 /* Ask.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Ask.js; sourceTree = "<group>"; };
 		1E1607CA1D92365800CA2C71 /* BackupFile.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = BackupFile.js; sourceTree = "<group>"; };
 		1E1607CB1D92365800CA2C71 /* build.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = build.js; sourceTree = "<group>"; };
@@ -10606,9 +10596,6 @@
 		37519C0E1A6657B300406F47 /* PerpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpUtils.cpp; path = ../Classes/PerpExt/PerpUtils.cpp; sourceTree = "<group>"; };
 		37519C0F1A6657B300406F47 /* PerpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpUtils.h; path = ../Classes/PerpExt/PerpUtils.h; sourceTree = "<group>"; };
 		3758D8301A93AE6F00833D47 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../libraries/facebook/ios/FacebookSDK.framework; sourceTree = "<group>"; };
-		376B77241B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDK-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDK-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
-		376B77251B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKFacebook-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKFacebook-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
-		376B77261B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
 		3770339F198F5FF00091C231 /* ConfigParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigParser.cpp; path = ../Classes/ConfigParser.cpp; sourceTree = "<group>"; };
 		377033A0198F5FF00091C231 /* ConfigParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigParser.h; path = ../Classes/ConfigParser.h; sourceTree = "<group>"; };
 		377033A1198F5FF00091C231 /* Runtime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Runtime.cpp; path = ../Classes/Runtime.cpp; sourceTree = "<group>"; };
@@ -10616,12 +10603,7 @@
 		377033A3198F5FF00091C231 /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VisibleRect.cpp; path = ../Classes/VisibleRect.cpp; sourceTree = "<group>"; };
 		377033A4198F5FF00091C231 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleRect.h; path = ../Classes/VisibleRect.h; sourceTree = "<group>"; };
 		377033AA198F60A50091C231 /* Runtime_ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = "Runtime_ios-mac.mm"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		3780069D1B75BF79003AAE61 /* libkakao-ios-sdk-i386-armv7-armv7s-arm64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libkakao-ios-sdk-i386-armv7-armv7s-arm64.a"; path = "../../libraries/pati/prebuilt/ios/external/libkakao-ios-sdk-i386-armv7-armv7s-arm64.a"; sourceTree = "<group>"; };
-		3788EBAB1CB34AB5007A54DA /* Partytrack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Partytrack.framework; path = ../../libraries/partytrack/ios/Partytrack.framework; sourceTree = "<group>"; };
-		37AC86811B3D452D00240266 /* Moloco.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moloco.framework; path = ../../libraries/moloco/ios/Moloco.framework; sourceTree = "<group>"; };
-		37B4F3E51B75BF2B00DF354C /* libPatiSDKKakao-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKKakao-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKKakao-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
 		37CB753A1B676EA5002BF6F6 /* LoginPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginPlatform.h; path = ../Classes/LoginPlatform.h; sourceTree = "<group>"; };
-		37CEDF8F1C9288FB009A8F7E /* libtnksdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtnksdk.a; path = ../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib/libtnksdk.a; sourceTree = "<group>"; };
 		37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSocial.cpp; path = ../Classes/PerpSocial.cpp; sourceTree = "<group>"; };
 		37D8E3F01A304EB9005E479B /* PerpSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSocial.h; path = ../Classes/PerpSocial.h; sourceTree = "<group>"; };
 		37E0007E1B26905C00F23F9E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -10670,8 +10652,6 @@
 		50D7C96D17EBBEE6005D0B91 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		50D7C96F17EBBEEC005D0B91 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		7D50CB821C04453500F8FE3E /* Images-china.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images-china.xcassets"; path = "ios/Images-china.xcassets"; sourceTree = SOURCE_ROOT; };
-		7DD5DF0D1C03F83100F610BF /* libMobClickGameLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobClickGameLibrary.a; path = ../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0/libMobClickGameLibrary.a; sourceTree = "<group>"; };
-		7DD5DF0F1C03F83D00F610BF /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUMessage_Sdk_1.1.0.a; path = "../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0/libUMessage_Sdk_1.1.0.a"; sourceTree = "<group>"; };
 		C03781AE18BF654500FE4F13 /* cocos2d_lua_bindings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_lua_bindings.xcodeproj; path = "../../cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/cocos2d_lua_bindings.xcodeproj"; sourceTree = "<group>"; };
 		C03781BD18BF656900FE4F13 /* AudioEngine.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AudioEngine.lua; path = "../../cocos2d-x/cocos/scripting/lua-bindings/script/AudioEngine.lua"; sourceTree = "<group>"; };
 		C03781BE18BF656900FE4F13 /* CCBReaderLoad.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CCBReaderLoad.lua; path = "../../cocos2d-x/cocos/scripting/lua-bindings/script/CCBReaderLoad.lua"; sourceTree = "<group>"; };
@@ -10742,8 +10722,6 @@
 				374376861F3A7FE100AC6C7C /* SafariServices.framework in Frameworks */,
 				1EE7C4811D924545005EF89F /* AdBrix.framework in Frameworks */,
 				1EE7C4801D9244DE005EF89F /* IgaworksCore.framework in Frameworks */,
-				1E1607C11D922EAB00CA2C71 /* Tapjoy.framework in Frameworks */,
-				37CEDF901C9288FB009A8F7E /* libtnksdk.a in Frameworks */,
 				37E128DE1B45398400200C23 /* AdSupport.framework in Frameworks */,
 				37E128C01B4538AE00200C23 /* AssetsLibrary.framework in Frameworks */,
 				F293B3D315EB7BE500256477 /* AudioToolbox.framework in Frameworks */,
@@ -10754,7 +10732,6 @@
 				F293B3DB15EB7BE500256477 /* CoreGraphics.framework in Frameworks */,
 				37E128C21B4538B800200C23 /* CoreLocation.framework in Frameworks */,
 				37E128C41B4538C200200C23 /* CoreMotion.framework in Frameworks */,
-				3788EBAC1CB34AB5007A54DA /* Partytrack.framework in Frameworks */,
 				37E128DC1B45397400200C23 /* CoreTelephony.framework in Frameworks */,
 				37E128D01B45390D00200C23 /* CoreText.framework in Frameworks */,
 				37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */,
@@ -10765,18 +10742,15 @@
 				C2897C021A90034C00B343BB /* GooglePlayGames.framework in Frameworks */,
 				C2897C001A90033100B343BB /* GooglePlus.framework in Frameworks */,
 				37E128CA1B4538DF00200C23 /* iAd.framework in Frameworks */,
-				7DD5DF0E1C03F83100F610BF /* libMobClickGameLibrary.a in Frameworks */,
 				37E128DA1B45396200200C23 /* ImageIO.framework in Frameworks */,
 				37E128E21B4539A900200C23 /* MediaPlayer.framework in Frameworks */,
 				37E128D81B45394900200C23 /* MessageUI.framework in Frameworks */,
 				37E128CE1B4538FB00200C23 /* MobileCoreServices.framework in Frameworks */,
-				37AC86821B3D452D00240266 /* Moloco.framework in Frameworks */,
 				F293B3D115EB7BE500256477 /* OpenAL.framework in Frameworks */,
 				37E128C61B4538CC00200C23 /* OpenGLES.framework in Frameworks */,
 				F293B3CD15EB7BE500256477 /* QuartzCore.framework in Frameworks */,
 				37E128D61B45393100200C23 /* Security.framework in Frameworks */,
 				37E128CC1B4538E800200C23 /* Social.framework in Frameworks */,
-				7DD5DF101C03F83D00F610BF /* libUMessage_Sdk_1.1.0.a in Frameworks */,
 				37E128C81B4538D600200C23 /* StoreKit.framework in Frameworks */,
 				37E128E01B45399A00200C23 /* SystemConfiguration.framework in Frameworks */,
 				37E128A81B45379300200C23 /* Twitter.framework in Frameworks */,
@@ -10785,9 +10759,6 @@
 				37E128BC1B45389300200C23 /* libsqlite3.0.dylib in Frameworks */,
 				37E128B81B45387700200C23 /* libxml2.dylib in Frameworks */,
 				1AF4C403178663F200122817 /* libz.dylib in Frameworks */,
-				376B77271B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a in Frameworks */,
-				376B77281B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a in Frameworks */,
-				376B77291B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a in Frameworks */,
 				377033B9198F732F0091C231 /* libluabindings iOS.a in Frameworks */,
 				377033B7198F73060091C231 /* libcocos2dx iOS.a in Frameworks */,
 				377033B8198F731C0091C231 /* libcocos2dx-extensions iOS.a in Frameworks */,
@@ -36500,8 +36471,6 @@
 				1E1607C61D92365800CA2C71 /* build */,
 				1E162ADD1D92367100CA2C71 /* libraries */,
 				374376851F3A7FE100AC6C7C /* SafariServices.framework */,
-				1E1607C01D922EAB00CA2C71 /* Tapjoy.framework */,
-				3788EBAB1CB34AB5007A54DA /* Partytrack.framework */,
 				37E128DD1B45398400200C23 /* AdSupport.framework */,
 				37E128BF1B4538AE00200C23 /* AssetsLibrary.framework */,
 				F293B3D215EB7BE500256477 /* AudioToolbox.framework */,
@@ -36528,7 +36497,6 @@
 				37E128E11B4539A800200C23 /* MediaPlayer.framework */,
 				37E128D71B45394900200C23 /* MessageUI.framework */,
 				37E128CD1B4538FB00200C23 /* MobileCoreServices.framework */,
-				37AC86811B3D452D00240266 /* Moloco.framework */,
 				F293B3D015EB7BE500256477 /* OpenAL.framework */,
 				50D7C96B17EBBEDF005D0B91 /* OpenGL.framework */,
 				37E128C51B4538CC00200C23 /* OpenGLES.framework */,
@@ -36543,14 +36511,6 @@
 				37E128BB1B45389300200C23 /* libsqlite3.0.dylib */,
 				37E128B71B45387700200C23 /* libxml2.dylib */,
 				1AF4C402178663F200122817 /* libz.dylib */,
-				3780069D1B75BF79003AAE61 /* libkakao-ios-sdk-i386-armv7-armv7s-arm64.a */,
-				376B77241B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a */,
-				376B77251B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a */,
-				376B77261B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a */,
-				37B4F3E51B75BF2B00DF354C /* libPatiSDKKakao-armv7-armv7s-arm64-i386.a */,
-				7DD5DF0D1C03F83100F610BF /* libMobClickGameLibrary.a */,
-				7DD5DF0F1C03F83D00F610BF /* libUMessage_Sdk_1.1.0.a */,
-				37CEDF8F1C9288FB009A8F7E /* libtnksdk.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -37599,9 +37559,6 @@
 					"$(PROJECT_DIR)/../../libraries/google_play_services/ios/GooglePlayGames-iOS-SDK.v3.1.1",
 					"$(PROJECT_DIR)/../../libraries/facebook/ios",
 					"$(PROJECT_DIR)/../../libraries/adbrix/ios/IGAWorks_iOS_SDK_Full_Package_160906_v1",
-					"$(PROJECT_DIR)/../../libraries/partytrack/ios",
-					"$(PROJECT_DIR)/../../libraries/moloco/ios",
-					"$(PROJECT_DIR)/../../libraries/tapjoy/ios/TapjoySDK_iOS_v11.8.1/Libraries/Tapjoy.embeddedframework",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -37613,13 +37570,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../../libraries/pati/prebuilt/ios",
-					"\"$(SRCROOT)/../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0\"",
-					"\"$(SRCROOT)/../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0\"",
-					"\"$(SRCROOT)/../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib\"",
-					"\"$(SRCROOT)/../../libraries/perplesdk/prebuilt/ios\"",
-				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../libraries/perplesdk/prebuilt/ios\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-DPATISDK_FACEBOOK",
@@ -37631,7 +37582,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/pati/include \"$(SRCROOT)/../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0\" \"$(SRCROOT)/../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0\" \"$(SRCROOT)/../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib\" \"$(SRCROOT)/../../libraries/partytrack/ios/Partytrack.framework/Versions/1.69/Headers\" \"$(SRCROOT)/../../libraries/perplesdk/include\"";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -37654,9 +37605,6 @@
 					"$(PROJECT_DIR)/../../libraries/google_play_services/ios/GooglePlayGames-iOS-SDK.v3.1.1",
 					"$(PROJECT_DIR)/../../libraries/facebook/ios",
 					"$(PROJECT_DIR)/../../libraries/adbrix/ios/IGAWorks_iOS_SDK_Full_Package_160906_v1",
-					"$(PROJECT_DIR)/../../libraries/partytrack/ios",
-					"$(PROJECT_DIR)/../../libraries/moloco/ios",
-					"$(PROJECT_DIR)/../../libraries/tapjoy/ios/TapjoySDK_iOS_v11.8.1/Libraries/Tapjoy.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -37667,13 +37615,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../../libraries/pati/prebuilt/ios",
-					"\"$(SRCROOT)/../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0\"",
-					"\"$(SRCROOT)/../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0\"",
-					"\"$(SRCROOT)/../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib\"",
-					"\"$(SRCROOT)/../../libraries/perplesdk/prebuilt/ios\"",
-				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../libraries/perplesdk/prebuilt/ios\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-DNS_BLOCK_ASSERTIONS=1",
@@ -37686,7 +37628,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/pati/include \"$(SRCROOT)/../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0\" \"$(SRCROOT)/../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0\" \"$(SRCROOT)/../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib\" \"$(SRCROOT)/../../libraries/partytrack/ios/Partytrack.framework/Versions/1.69/Headers\" \"$(SRCROOT)/../../libraries/perplesdk/include\"";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
