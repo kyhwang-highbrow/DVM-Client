@@ -9,17 +9,26 @@ TutorialManager = class({
     m_tutorialPlayer = '',
 })
 
-local private_obj
+local _instance
 -------------------------------------
 -- function startTutorial
 -- @brief 튜토리얼 실행
 -------------------------------------
-function TutorialManager:getInstance()
-    if (not private_obj) then
-        private_obj = TutorialManager() 
+function TutorialManager.getInstance()
+    if (not _instance) then
+        _instance = TutorialManager(true)
     end
 
-    return private_obj
+    return _instance
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function TutorialManager:init(is_singleton)
+    if (not is_singleton) then
+        error('Singleton class can not be initiated')
+    end
 end
 
 -------------------------------------

@@ -2625,7 +2625,7 @@
     <None Include="..\src\UI_TutorialPlayer.lua">
       <Filter>lua\tutorial</Filter>
     </None>
-    <None Include="..\src\uilib\TutorialManager.lua">
+    <None Include="..\src\TutorialManager.lua">
       <Filter>lua\tutorial</Filter>
     </None>
   </ItemGroup>

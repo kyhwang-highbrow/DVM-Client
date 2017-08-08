@@ -789,6 +789,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TriggerHpPercent.lua" />
     <None Include="..\src\TriggerTime.lua" />
     <None Include="..\src\TutorialHelper.lua" />
+    <None Include="..\src\TutorialManager.lua" />
     <None Include="..\src\Tutorial_AncientTower.lua" />
     <None Include="..\src\Tutorial_Colosseum.lua" />
     <None Include="..\src\Tutorial_DragonEvolution.lua" />
@@ -826,7 +827,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\uilib\UI.lua" />
     <None Include="..\src\uilib\UILoader.lua" />
     <None Include="..\src\uilib\UIManager.lua" />
-    <None Include="..\src\uilib\TutorialManager.lua" />
     <None Include="..\src\UINavigator.lua" />
     <None Include="..\src\UI_3DDeck.lua" />
     <None Include="..\src\UI_AccessTimeDataListItem.lua" />
