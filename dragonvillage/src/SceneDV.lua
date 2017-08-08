@@ -543,7 +543,7 @@ function SceneDV:scenarioTest()
     doPlay = function()
         if l_scenario[1] then
             local scenario_name = l_scenario[1]
-            local ui = UI_DialoguePlayer(scenario_name)
+            local ui = UI_ScenarioPlayer(scenario_name)
             ui:setCloseCB(doPlay)
             ui:next()
             table.remove(l_scenario, 1)
