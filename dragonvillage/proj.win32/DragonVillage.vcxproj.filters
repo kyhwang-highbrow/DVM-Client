@@ -2340,9 +2340,6 @@
     <None Include="..\src\GameState_Intro.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_DialoguePlayer.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\packet\chat.proto">
       <Filter>lua\packet</Filter>
     </None>
@@ -2556,9 +2553,6 @@
     <None Include="..\src\UI_QuickPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\uilib\UIManager_tutorial.lua">
-      <Filter>lua\tutorial</Filter>
-    </None>
     <None Include="..\src\UI_ColosseumReadyForDev.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2633,6 +2627,12 @@
     </None>
     <None Include="..\src\StatusEffect_AccelMana.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_TutorialPlayer.lua">
+      <Filter>lua\tutorial</Filter>
+    </None>
+    <None Include="..\src\uilib\TutorialManager.lua">
+      <Filter>lua\tutorial</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

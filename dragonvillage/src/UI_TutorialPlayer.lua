@@ -1,10 +1,10 @@
 local PARENT = UI_ScenarioPlayer
 
 -------------------------------------
--- class UI_DialoguePlayer
+-- class UI_TutorialPlayer
 -- @brief 사실상 TutorialPlayer
 -------------------------------------
-UI_DialoguePlayer = class(PARENT,{
+UI_TutorialPlayer = class(PARENT,{ 
         m_nextCallBack = '',
         m_nextEffectName = '',
         m_targetUI = 'UI',
@@ -14,17 +14,17 @@ UI_DialoguePlayer = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DialoguePlayer:init(scenario_name, tar_ui)
+function UI_TutorialPlayer:init(scenario_name, tar_ui)
     self.m_targetUI = tar_ui
 end
 
 -------------------------------------
 -- function init_player
 -------------------------------------
-function UI_DialoguePlayer:init_player()
+function UI_TutorialPlayer:init_player()
     local vars = self:load_keepZOrder('scenario_talk_new.ui', false)
 
-	UIManager:open(self, UIManager.TUTORIAL_DIALOGUE)
+	UIManager:open(self)
 	vars['skipBtn']:setVisible(false)
 	self.m_bSkipEnable = false
 end
@@ -32,19 +32,18 @@ end
 -------------------------------------
 -- function close
 -------------------------------------
-function UI_DialoguePlayer:close()
+function UI_TutorialPlayer:close()
     if (self.m_pointingHand) then
         self.m_pointingHand.m_node:release()
         self.m_pointingHand = nil
     end
-    UIManager:releaseTutorial()
-    PARENT.close(self)
+    TutorialManager:getInstance():releaseTutorial()
 end
 
 -------------------------------------
 -- function set_nextFunc
 -------------------------------------
-function UI_DialoguePlayer:set_nextFunc(cb, effect_name)
+function UI_TutorialPlayer:set_nextFunc(cb, effect_name)
     self.m_nextCallBack = cb
     self.m_nextEffectName = effect_name
 end
@@ -52,7 +51,7 @@ end
 -------------------------------------
 -- function next
 -------------------------------------
-function UI_DialoguePlayer:next(next_effect)
+function UI_TutorialPlayer:next(next_effect)
     self.m_currPage = self.m_currPage + 1
 
     local function excute_next_func()
@@ -85,7 +84,7 @@ end
 -- @comment https://docs.google.com/spreadsheets/d/1_obKDht0MJRJV2GtO3RCEwxY-8NE4Eb4LR2svlix8BU/edit#gid=0 기능일람과 동기화 해주세요!
 -- @brief 튜토리얼 전용 기능들 포함
 -------------------------------------
-function UI_DialoguePlayer:applyEffect(effect)
+function UI_TutorialPlayer:applyEffect(effect)
     -- UI_ScenarioPlayer_util 에 있다면 굳이 또 통과하지 않는다.
     if (not PARENT.applyEffect(self, effect)) then
         return
@@ -107,7 +106,7 @@ function UI_DialoguePlayer:applyEffect(effect)
     elseif (effect == 'activate') then
         self:activeNode(val_1)
 
-    elseif (effect == 'tutorial') then
+    elseif (effect == 'black_layer') then
         self:tutorialOnOff(val_1)
 
     else
@@ -118,22 +117,22 @@ end
 -------------------------------------
 -- function setStencil
 -------------------------------------
-function UI_DialoguePlayer:setStencil(node_name)
+function UI_TutorialPlayer:setStencil(node_name)
     if (node_name == 'release') then
-        UIManager:releaseTutorialStencil()
+        TutorialManager:getInstance():releaseTutorialStencil()
         return
     end
 
     local tar_node = self.m_targetUI.vars[node_name]
     if (tar_node) then
-        UIManager:setTutorialStencil(tar_node)
+        TutorialManager:getInstance():setTutorialStencil(tar_node)
     end
 end
 
 -------------------------------------
 -- function pointingNode
 -------------------------------------
-function UI_DialoguePlayer:pointingNode(node_name)
+function UI_TutorialPlayer:pointingNode(node_name)
     if (node_name == 'release') then
         if (self.m_pointingHand) then
             self.m_pointingHand:setVisible(false)
@@ -144,7 +143,7 @@ function UI_DialoguePlayer:pointingNode(node_name)
     local tar_node = self.m_targetUI.vars[node_name]
     if (tar_node) then
         if (not self.m_pointingHand) then
-            self.m_pointingHand = UIManager:makePointingHand()
+            self.m_pointingHand = TutorialManager:getInstance():makePointingHand()
         end
         self.m_pointingHand.m_node:removeFromParent()
         self.m_pointingHand:setVisible(true)
@@ -155,15 +154,15 @@ end
 -------------------------------------
 -- function activeNode
 -------------------------------------
-function UI_DialoguePlayer:activeNode(node_name)
+function UI_TutorialPlayer:activeNode(node_name)
     if (node_name == 'release') then
-        UIManager:revertNodeAll()
+        TutorialManager:getInstance():revertNodeAll()
         return
     end
 
     local tar_node = self.m_targetUI.vars[node_name]
     if (tar_node) then
-        UIManager:attachToTutorialNode(tar_node)
+        TutorialManager:getInstance():attachToTutorialNode(tar_node)
         tar_node:addScriptTapHandler(function()
             if (self) then
                 self:next()
@@ -175,7 +174,7 @@ end
 -------------------------------------
 -- function activeNode
 -------------------------------------
-function UI_DialoguePlayer:tutorialOnOff(cmd)
+function UI_TutorialPlayer:tutorialOnOff(cmd)
     local b = (cmd == 'on')
-    UIManager:setVisibleTutorial(b)
+    TutorialManager:getInstance():setVisibleTutorial(b)
 end

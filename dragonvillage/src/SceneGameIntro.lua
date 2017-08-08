@@ -7,7 +7,7 @@ SceneGameIntro = class(PARENT, {
         m_nIdx = 'number',
         m_bDoAction = 'boolean',
 
-        m_dialogPlayer = 'UI_DialoguePlayer',
+        m_tutorialPlayer = 'UI_TutorialPlayer',
 
         m_focusingDragon = 'Dragon',
     })
@@ -96,10 +96,11 @@ function SceneGameIntro:prepareDone()
     
     -- 인트로 시나리오
     local scenario_name = 'scenario_intro_fight'
-    local ui = UI_DialoguePlayer(scenario_name)
+    local ui = UI_TutorialPlayer(scenario_name)
+    self.m_scene:addChild(ui.root, SCENE_ZORDER.TUTORIAL_DLG)
     ui:next()
 
-    self.m_dialogPlayer = ui
+    self.m_tutorialPlayer = ui
 
     start()
 end
@@ -208,7 +209,8 @@ end
 -- function checkScenario()
 -------------------------------------
 function SceneGameIntro:checkScenario()
-    self.m_dialogPlayer:close()
+    self.m_tutorialPlayer.root:removeFromParent()
+    self.m_tutorialPlayer = nil
 
     local tid = g_userData:get('start_tamer')
     local tamer_name = TableTamer():getTamerType(tid) or 'goni'
@@ -257,22 +259,22 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
     world.m_gameHighlight:setToForced(no_use_next_btn)
 
     self.m_nIdx = self.m_nIdx + 1
-    self.m_dialogPlayer:next()
+    self.m_tutorialPlayer:next()
 
     -- 스킵은 항상 불가능
-    self.m_dialogPlayer.vars['skipBtn']:setVisible(false)
+    self.m_tutorialPlayer.vars['skipBtn']:setVisible(false)
 
     -- PC에서 스킵 가능 
     if (isWin32()) then
-        self.m_dialogPlayer.vars['skipBtn']:registerScriptTapHandler(function()  
+        self.m_tutorialPlayer.vars['skipBtn']:registerScriptTapHandler(function()  
             self:checkScenario()
         end)
 
-        self.m_dialogPlayer.vars['skipBtn']:setVisible(true)
+        self.m_tutorialPlayer.vars['skipBtn']:setVisible(true)
     end
 
-    self.m_dialogPlayer.vars['nextBtn']:setVisible(not no_use_next_btn)
-    self.m_dialogPlayer.vars['layerColor2']:setVisible(not no_color_layer)
+    self.m_tutorialPlayer.vars['nextBtn']:setVisible(not no_use_next_btn)
+    self.m_tutorialPlayer.vars['layerColor2']:setVisible(not no_color_layer)
 
        
     -- 튜토리얼 대사 후 콜백 함수
@@ -291,7 +293,7 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
         end
     end
 
-    self.m_dialogPlayer:set_nextFunc(next_cb, 'hide_all') 
+    self.m_tutorialPlayer:set_nextFunc(next_cb, 'hide_all') 
 end
 
 -------------------------------------
@@ -301,6 +303,6 @@ function SceneGameIntro:next_intro()
     local world = self.m_gameWorld
     world.m_gameHighlight:setToForced(false)
 
-    self.m_dialogPlayer:next()
+    self.m_tutorialPlayer:next()
 end
 

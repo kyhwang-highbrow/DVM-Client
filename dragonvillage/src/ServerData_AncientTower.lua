@@ -110,9 +110,6 @@ function ServerData_AncientTower:goToAncientTowerScene(use_scene, stage_id)
         else
             local ui = UI_AncientTower()
 
-            -- @ TUTORIAL
-            TutorialHelper:playTutorial('tutorial_ancient_tower', ui)
-
             -- 시즌 보상 팝업
             if (self.m_tSeasonRewardInfo) then
                 local info = self.m_tSeasonRewardInfo

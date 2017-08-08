@@ -50,6 +50,9 @@ function UI_AncientTower:init()
 
 	-- 필요한 부분은 중복처리 되어있으므로 다 박아야할듯 (게임 결과 화면에서 돌아올 경우 재생을 안한다)
 	SoundMgr:playBGM('bgm_lobby')
+
+    -- @ TUTORIAL
+    TutorialHelper:playTutorial('tutorial_ancient_tower', self)
 end
 
 -------------------------------------

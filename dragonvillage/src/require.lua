@@ -648,7 +648,7 @@ local t_module = {
     'UI_ScenarioPlayer_Character',
     'UI_ScenarioPlayer_Talk',
     'UI_ScenarioPlayer_Narrate',
-    'UI_DialoguePlayer',
+    'UI_TutorialPlayer',
 
 	-- UI : 상점 관련
 	'UI_Shop',

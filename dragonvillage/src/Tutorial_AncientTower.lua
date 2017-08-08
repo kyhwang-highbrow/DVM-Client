@@ -10,5 +10,5 @@ Tutorial_AncientTower = class(PARENT,{
 -- function init
 -------------------------------------
 function Tutorial_AncientTower:init()
-    UIManager:startTutorial('tutorial_ancient_tower', self)
+    -- 사용 계획 없음
 end

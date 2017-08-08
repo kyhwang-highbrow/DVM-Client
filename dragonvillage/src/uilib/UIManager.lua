@@ -5,6 +5,13 @@ Z_ORDER_TOAST_MSG = 400
 Z_ORDER_LOADING = 500
 ]]
 
+SCENE_ZORDER = {
+    UI = 16,
+    TOAST = 32,
+    TUTORIAL = 64,
+    TUTORIAL_DLG = 128,
+}
+
 UI_ZORDER = {
     NORMAL = 8,
     TOOL_TIP = 32,
@@ -35,8 +42,6 @@ UIManager = {
 
     m_toastBroadcastLayer = 'cc.Node',
 
-
-
     m_topUserInfo = nil,
 
 	m_debugUI = nil, --'UI_GameDebug_RealTime',
@@ -55,7 +60,7 @@ function UIManager:init(perple_scene)
 
     self.m_scene = scene
     self.m_uiLayer = cc.Node:create()
-    self.m_scene:addChild(self.m_uiLayer, 20)
+    self.m_scene:addChild(self.m_uiLayer, SCENE_ZORDER.UI)
     self.m_uiList = {}
     self:invalidateUI()
 
@@ -64,8 +69,7 @@ function UIManager:init(perple_scene)
     self.m_toastNotiLayer:setDockPoint(cc.p(0.5, 0.5))
     self.m_toastNotiLayer:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_toastNotiLayer:setPositionY(220)
-    --self.m_uiLayer:addChild(self.m_toastNotiLayer, Z_ORDER_TOAST_MSG)
-    self.m_scene:addChild(self.m_toastNotiLayer, 21)
+    self.m_scene:addChild(self.m_toastNotiLayer, SCENE_ZORDER.TOAST)
     self.m_toastNotiList = {}
     self.m_toastNotiTime = nil
 
@@ -73,7 +77,7 @@ function UIManager:init(perple_scene)
     self.m_toastBroadcastLayer = cc.Node:create()
     self.m_toastBroadcastLayer:setDockPoint(cc.p(0.5, 0.5))
     self.m_toastBroadcastLayer:setAnchorPoint(cc.p(0.5, 0.5))
-    self.m_scene:addChild(self.m_toastBroadcastLayer, 21)
+    self.m_scene:addChild(self.m_toastBroadcastLayer, SCENE_ZORDER.TOAST)
 
     -- TopUserInfo를 사용하는 Scene일 경우 초기화
     if perple_scene.m_bShowTopUserInfo then
@@ -114,7 +118,7 @@ function UIManager:cleanUp()
 
 	self:removeDebugUI()
 
-	self:releaseTutorial()
+	--self:releaseTutorial()
 end
 
 -------------------------------------
@@ -503,10 +507,6 @@ function UIManager:onKeyReleased(keyCode, event)
 		for i, v in pairs(self.m_uiList) do
 			cclog(v.m_resName, v.m_uiName)
 		end
-
-	-- 
-	elseif (keyCode == KEY_Q) then
-		self:releaseTutorial()
 
 	-- debug 영역 활성화/비활성화
 	elseif (keyCode == KEY_G) then

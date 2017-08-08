@@ -1,28 +1,45 @@
+-------------------------------------
+-- class TutorialManager
+-------------------------------------
+TutorialManager = class({
+    m_tutorialNode = '',
+    m_tutorialClippingNode = '',
+    m_tTutorialBtnInfoTable = '',
+    m_tutorialStencilEffect = '',
+    m_tutorialPlayer = '',
+})
 
--- UIManager가 class가 아닌 테이블이라 이렇게 해봄.
--- partial class 처럼 사용하면서 lua 테이블 특성을 살려 사용할 멤버 변수는 
--- 사용하는 곳에서 선언한다면 더 직관적이지 않을까 하는 상상
+local private_obj
+-------------------------------------
+-- function startTutorial
+-- @brief 튜토리얼 실행
+-------------------------------------
+function TutorialManager:getInstance()
+    if (not private_obj) then
+        private_obj = TutorialManager() 
+    end
 
-UIManager['m_tutorialNode'] = nil
-UIManager['m_tutorialClippingNode'] = nil
-UIManager['m_tTutorialBtnInfoTable'] = nil
-UIManager['m_tutorialStencilEffect'] = nil
+    return private_obj
+end
 
 -------------------------------------
 -- function startTutorial
 -- @brief 튜토리얼 실행
 -------------------------------------
-function UIManager:startTutorial(script, tar_ui)
+function TutorialManager:startTutorial(script, tar_ui)
     self:doTutorial()
-    local ui = UI_DialoguePlayer(script, tar_ui)
+    local ui = UI_TutorialPlayer(script, tar_ui)
+    UIManager.m_scene:addChild(ui.root, SCENE_ZORDER.TUTORIAL_DLG)
     ui:next()
+
+    self.m_tutorialPlayer = ui
 end
 
 -------------------------------------
 -- function doTutorial
 -- @brief 튜토리얼 실행
 -------------------------------------
-function UIManager:doTutorial()
+function TutorialManager:doTutorial()
     -- 초기화
     self:releaseTutorial()
 
@@ -38,10 +55,10 @@ function UIManager:doTutorial()
 			return false
 		end
 	end
-	self:setLayerToEventListener(block_layer, onTouch)
+	UIManager:setLayerToEventListener(block_layer, onTouch)
 
     -- 배경을 어둡게
-	local color_layer = self:makeMaskingLayer()
+	local color_layer = UIManager:makeMaskingLayer()
     color_layer:setDockPoint(ZERO_POINT)
     color_layer:setAnchorPoint(ZERO_POINT)
 	
@@ -61,7 +78,7 @@ function UIManager:doTutorial()
     tutorial_node:addChild(block_layer, -1)
 	tutorial_node:addChild(clipping_node, -1)
 
-	self.m_uiLayer:addChild(tutorial_node, UI_ZORDER.TUTORIAL)
+	UIManager.m_scene:addChild(tutorial_node, SCENE_ZORDER.TUTORIAL)
 
     -- 멤버 변수 할당
     self.m_tutorialNode = tutorial_node
@@ -75,7 +92,7 @@ end
 -- function setGlobalLock
 -- @brief 
 -------------------------------------
-function UIManager:setGlobalLock(b)
+function TutorialManager:setGlobalLock(b)
     g_broadcastManager:setEnable(not b)
     g_broadcastManager:setEnableNotice(not b)
     g_topUserInfo:clearBroadcast()
@@ -86,7 +103,7 @@ end
 -- function setVisibleTutorial
 -- @brief 
 -------------------------------------
-function UIManager:setVisibleTutorial(b)
+function TutorialManager:setVisibleTutorial(b)
     self.m_tutorialNode:setVisible(b)
 end
 
@@ -94,7 +111,7 @@ end
 -- function releaseTutorial
 -- @brief 튜토리얼 해제
 -------------------------------------
-function UIManager:releaseTutorial()
+function TutorialManager:releaseTutorial()
     -- m_tutorialNode가 없다면 정상적으로 동작하지 않은것
 	if (self.m_tutorialNode) then 
         self:revertNodeAll()
@@ -104,6 +121,11 @@ function UIManager:releaseTutorial()
 		self.m_tutorialNode = nil
 
         self:setGlobalLock(false)
+
+        if (self.m_tutorialPlayer) then
+            self.m_tutorialPlayer.root:removeFromParent()
+            self.m_tutorialPlayer = nil
+        end
 	end
 end
 
@@ -111,7 +133,7 @@ end
 -- function setTutorialStencil
 -- @brief 튜토리얼 스텐실 설정
 -------------------------------------
-function UIManager:setTutorialStencil(node)
+function TutorialManager:setTutorialStencil(node)
 	local stencil = cc.DrawNode:create()
     stencil:clear()
     local rectangle = TutorialHelper:getStencilRectangle(node)
@@ -127,7 +149,7 @@ end
 -- function setStencilEffect
 -- @brief 스텐실에 반짝이는 프레임 씌움
 -------------------------------------
-function UIManager:setStencilEffect(node)
+function TutorialManager:setStencilEffect(node)
     if (self.m_tutorialStencilEffect) then
         self.m_tutorialStencilEffect:removeFromParent()
         self.m_tutorialStencilEffect = nil
@@ -160,7 +182,7 @@ end
 -- function setTutorialStencil
 -- @brief 튜토리얼 스텐실 해제
 -------------------------------------
-function UIManager:releaseTutorialStencil()
+function TutorialManager:releaseTutorialStencil()
     local node = cc.Node:create()
     node:retain()
     self.m_tutorialClippingNode:setStencil(node)
@@ -175,7 +197,7 @@ end
 -- function attachToTutorialNode
 -- @brief m_tutorialNode에 받아온 uic_node를 붙인다.
 -------------------------------------
-function UIManager:attachToTutorialNode(uic_node)
+function TutorialManager:attachToTutorialNode(uic_node)
 	local node = uic_node.m_node
 
     -- tutorialNode에 맞는 좌표 계산
@@ -197,7 +219,7 @@ end
 -- function revertTutorialBtn
 -- @brief m_tutorialNode에 붙여놓은 uic_node를 되돌린다.
 -------------------------------------
-function UIManager:revertNode(uic_node)
+function TutorialManager:revertNode(uic_node)
     local t_info = self.m_tTutorialBtnInfoTable[uic_node]
     local parent = t_info['parent']
     local pos = t_info['pos']
@@ -213,7 +235,7 @@ end
 -- function revertNodeAll
 -- @brief 튜토리얼 노드에 붙인 버튼을 전부 되돌린다.
 -------------------------------------
-function UIManager:revertNodeAll()
+function TutorialManager:revertNodeAll()
     if (self.m_tTutorialBtnInfoTable) then
         for uic_node, _ in pairs(self.m_tTutorialBtnInfoTable) do
             self:revertNode(uic_node)
@@ -226,7 +248,7 @@ end
 -- function makePointingHand
 -- @brief 가리키는 손가락을 만든다.
 -------------------------------------
-function UIManager:makePointingHand()
+function TutorialManager:makePointingHand()
     local res = 'res/ui/a2d/tutorial/tutorial.vrp'
     local hand = MakeAnimator(res)
     hand:changeAni('hand_02', true)
