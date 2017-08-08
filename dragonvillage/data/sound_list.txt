@@ -9,7 +9,7 @@
 		"bgm_dungeon_ready": {"res":"sound/bgm/bgm_dungeon_ready.ogg"}
 		
 		"bgm_dungeon": {"res":"sound/bgm/bgm_dungeon_general.ogg"}
-		"bgm_dungeon_special": {"res":"sound/bgm/bgm_dundeon_special.ogg"}
+		"bgm_dungeon_special": {"res":"sound/bgm/bgm_dungeon_special.ogg"}
 		"bgm_colosseum": {"res":"sound/bgm/bgm_colosseum.ogg"}
 
 		"bgm_dungeon_midboss": {"res":"sound/bgm/bgm_dungeon_midboss.ogg"}
