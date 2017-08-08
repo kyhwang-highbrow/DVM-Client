@@ -326,6 +326,9 @@ static id convertCCValueToNSObject(const cocos2d::Value &value)
         case Value::Type::INTEGER:
             return [NSNumber numberWithInt:value.asInt()];
 
+        case Value::Type::UNSIGNED:
+            return [NSNumber numberWithUnsignedInt:value.asUnsignedInt()];
+
         case Value::Type::FLOAT:
             return [NSNumber numberWithFloat:value.asFloat()];
             
