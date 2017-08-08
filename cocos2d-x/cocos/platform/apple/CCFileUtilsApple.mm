@@ -41,6 +41,9 @@ NS_CC_BEGIN
 static void addValueToDict(id nsKey, id nsValue, ValueMap& dict);
 static void addObjectToNSDict(const std::string& key, const Value& value, NSMutableDictionary *dict);
 
+static id convertCCValueToNSObject(const cocos2d::Value &value);
+static cocos2d::Value convertNSObjectToCCValue(id object);
+
 static void addNSObjectToCCMap(id nsKey, id nsValue, ValueMap& dict);
 static void addCCValueToNSDictionary(const std::string& key, const Value& value, NSMutableDictionary *dict);
 static void addNSObjectToCCVector(id item, ValueVector& array);
@@ -304,6 +307,120 @@ static void addObjectToNSDict(const std::string& key, const Value& value, NSMuta
         [dict setObject:arrElement forKey:NSkey];
         return;
     }
+}
+
+static id convertCCValueToNSObject(const cocos2d::Value &value)
+{
+    switch (value.getType())
+    {
+        case Value::Type::NONE:
+            return [NSNull null];
+            
+        case Value::Type::STRING:
+            return [NSString stringWithCString:value.asString().c_str() encoding:NSUTF8StringEncoding];
+            
+        case Value::Type::BYTE:
+            return [NSNumber numberWithInt:value.asByte()];
+            
+        case Value::Type::INTEGER:
+            return [NSNumber numberWithInt:value.asInt()];
+            
+        case Value::Type::UNSIGNED:
+            return [NSNumber numberWithUnsignedInt:value.asUnsignedInt()];
+            
+        case Value::Type::FLOAT:
+            return [NSNumber numberWithFloat:value.asFloat()];
+            
+        case Value::Type::DOUBLE:
+            return [NSNumber numberWithDouble:value.asDouble()];
+            
+        case Value::Type::BOOLEAN:
+            return [NSNumber numberWithBool:value.asBool()];
+            
+        case Value::Type::VECTOR: {
+            NSMutableArray *array = [NSMutableArray array];
+            const ValueVector &vector = value.asValueVector();
+            for (const auto &e : vector) {
+                addCCValueToNSArray(e, array);
+            }
+            return array;
+        }
+            
+        case Value::Type::MAP: {
+            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+            const ValueMap &map = value.asValueMap();
+            for (auto& iter : map) {
+                addCCValueToNSDictionary(iter.first, iter.second, dictionary);
+            }
+            return dictionary;
+        }
+            
+        case Value::Type::INT_KEY_MAP:
+            break;
+    }
+    
+    return [NSNull null];
+}
+
+static cocos2d::Value convertNSObjectToCCValue(id item)
+{
+    // add string value into array
+    if ([item isKindOfClass:[NSString class]])
+    {
+        return Value([item UTF8String]);
+    }
+    
+    // add number value into array(such as int, float, bool and so on)
+    // the value is a number
+    if ([item isKindOfClass:[NSNumber class]])
+    {
+        NSNumber* num = item;
+        const char* numType = [num objCType];
+        if(num == (void*)kCFBooleanFalse || num == (void*)kCFBooleanTrue)
+        {
+            bool v = [num boolValue];
+            return Value(v);
+        }
+        else if(strcmp(numType, @encode(float)) == 0)
+        {
+            return Value([num floatValue]);
+        }
+        else if(strcmp(numType, @encode(double)) == 0)
+        {
+            return Value([num doubleValue]);
+        }
+        else
+        {
+            return Value([num intValue]);
+        }
+    }
+    
+    
+    // add dictionary value into array
+    if ([item isKindOfClass:[NSDictionary class]])
+    {
+        ValueMap dict;
+        for (id subKey in [item allKeys])
+        {
+            id subValue = [item objectForKey:subKey];
+            addNSObjectToCCMap(subKey, subValue, dict);
+        }
+        
+        return Value(dict);
+    }
+    
+    // add array value into array
+    if ([item isKindOfClass:[NSArray class]])
+    {
+        ValueVector subArray;
+        for (id subItem in item)
+        {
+            addNSObjectToCCVector(subItem, subArray);
+        }
+        return Value(subArray);
+    }
+    
+    return Value::Null;
 }
 
 static void addNSObjectToCCVector(id item, ValueVector& array)
