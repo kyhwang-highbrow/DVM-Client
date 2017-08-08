@@ -49,7 +49,7 @@ function UI_QuickPopup:initButton()
     vars['nest_evo_stoneBtn']:registerScriptTapHandler(function() UINavigator:goTo('nest_evo_stone') end)
     vars['nest_treeBtn']:registerScriptTapHandler(function() UINavigator:goTo('nest_tree') end)
     vars['nest_nightmareBtn']:registerScriptTapHandler(function() UINavigator:goTo('nest_nightmare') end)
-    vars['secret_relationBtn']:registerScriptTapHandler(function() end)
+    vars['secret_relationBtn']:registerScriptTapHandler(function() UINavigator:goTo('secret_relation') end)
 
     vars['colosseumBtn']:registerScriptTapHandler(function() UINavigator:goTo('colosseum') end)
     vars['ancientBtn']:registerScriptTapHandler(function() UINavigator:goTo('ancient') end)

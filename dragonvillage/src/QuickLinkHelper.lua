@@ -135,12 +135,12 @@ T_LINK_FUNC = {
     
     -- 인연 던전 플레이
     ['ply_rel'] = function()
-        g_secretDungeonData:goToSecretDungeonScene(nil, true)
+        UINavigator:goTo('secret_relation')
     end,
 
     -- 인연 던전 발견
     ['fnd_rel'] = function()
-        g_secretDungeonData:goToSecretDungeonScene()
+        UINavigator:goTo('secret_relation')
     end,
 
 

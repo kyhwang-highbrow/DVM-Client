@@ -40,7 +40,7 @@ end
 -- function click_againBtn
 -------------------------------------
 function UI_GameResult_SecretDungeon:click_againBtn()
-    g_secretDungeonData:goToSecretDungeonScene(self.m_stageID, true) -- use_scene
+    UINavigator:goTo('secret_relation', self.m_stageID)
 end
 
 -------------------------------------

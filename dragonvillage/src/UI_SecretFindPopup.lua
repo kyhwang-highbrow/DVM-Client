@@ -45,7 +45,7 @@ end
 function UI_SecretFindPopup:initButton()
     self.vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
     self.vars['enterBtn']:registerScriptTapHandler(function()
-        g_secretDungeonData:goToSecretDungeonScene(self.m_dungeonID)
+        UINavigator:goTo('secret_relation', self.m_dungeonID)
     end)
 end
 

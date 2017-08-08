@@ -417,7 +417,7 @@ function UINavigator:goTo_nestdungeon_core(...)
         local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
         if (is_opend == true) then
             self:closeUIList(idx)
-            ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'adventure'이다.
+            ui:setTab('dungeon') -- 전투 메뉴에서 tab의 이름이 'dungeon'이다.
             ui:resetButtonsPosition()
             UI_NestDungeonScene(stage_id, dungeon_type)
             return
@@ -428,7 +428,7 @@ function UINavigator:goTo_nestdungeon_core(...)
         if (is_opend == true) then
             self:closeUIList(idx)
             local battle_menu_ui = UI_BattleMenu()
-            battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            battle_menu_ui:setTab('dungeon') -- 전투 메뉴에서 tab의 이름이 'dungeon'이다.
             battle_menu_ui:resetButtonsPosition()
             UI_NestDungeonScene(stage_id, dungeon_type)
             return
@@ -446,6 +446,76 @@ function UINavigator:goTo_nestdungeon_core(...)
 
     -- 정보 요청
     request_nest_dungeon_info()
+end
+
+-------------------------------------
+-- function goTo_secret_relation
+-- @brief 시크릿 던전 인연 던전
+-- @usage UINavigator:goTo('secret_relation', stage_id)
+-------------------------------------
+function UINavigator:goTo_secret_relation(...)
+    local args = {...}
+    local stage_id = args[1]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_SecretDungeonScene')
+    if (is_opend == true) then
+        self:closeUIList(idx, true) -- param : idx, include_idx
+        UI_SecretDungeonScene(stage_id)
+        return
+    end
+
+    local request_secret_dungeon_info
+    local request_secret_dungeon_stage_list
+    local open_ui
+
+    -- 씬 바뀔때는 정보 갱신 해주기 
+    g_secretDungeonData.m_bDirtySecretDungeonInfo = true
+
+    -- 비밀 던전 리스트 정보 얻어옴
+    request_secret_dungeon_info = function()
+        g_secretDungeonData:requestSecretDungeonInfo(request_secret_dungeon_stage_list)
+    end
+
+    -- 비밀 던전 스테이지 리스트 얻어옴
+    request_secret_dungeon_stage_list = function()
+        g_secretDungeonData:requestSecretDungeonStageList(open_ui)
+    end
+
+    -- 비밀 던전 씬으로 전환
+    open_ui = function()
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('dungeon') -- 전투 메뉴에서 tab의 이름이 'dungeon'이다.
+            ui:resetButtonsPosition()
+            UI_SecretDungeonScene(stage_id)
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('dungeon') -- 전투 메뉴에서 tab의 이름이 'dungeon'이다.
+            battle_menu_ui:resetButtonsPosition()
+            UI_SecretDungeonScene(stage_id)
+            return
+        end
+
+        do-- Scene으로 동작
+            local function close_cb()
+                UINavigator:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_SecretDungeonScene, close_cb, stage_id)
+            scene:runScene()
+        end
+    end
+
+    request_secret_dungeon_info()
 end
 
 

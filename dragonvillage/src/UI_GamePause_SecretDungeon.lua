@@ -20,8 +20,7 @@ end
 function UI_GamePause_SecretDungeon:click_retryButton()
     local function retry_func()
         local stage_id = self.m_stageID
-        local use_scene = true
-        g_secretDungeonData:goToSecretDungeonScene(stage_id, use_scene)
+        UINavigator:goTo('secret_relation', stage_id)
     end
     
     self:confirmExit(retry_func)

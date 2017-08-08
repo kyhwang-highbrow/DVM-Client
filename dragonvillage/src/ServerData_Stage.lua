@@ -335,7 +335,8 @@ function ServerData_Stage:goToStage(stage_id)
 
     -- 비밀 던전 모드
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
-        g_secretDungeonData:goToSecretDungeonScene(stage_id)
+        UINavigator:goTo('secret_relation', stage_id)
+
     end
 end
 

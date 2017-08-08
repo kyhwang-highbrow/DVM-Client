@@ -158,14 +158,6 @@ function UI_BattleMenuItem:click_enterBtn()
 
     -- 인연 던전
     elseif (content_type == 'secret_relation') then
-        self:click_relationBtn()
+        UINavigator:goTo('secret_relation')
     end
-end
-
--------------------------------------
--- function click_relationBtn
--- @brief 인연 던전
--------------------------------------
-function UI_BattleMenuItem:click_relationBtn()
-    g_secretDungeonData:goToSecretDungeonScene()
 end
