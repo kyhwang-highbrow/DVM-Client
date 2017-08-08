@@ -158,7 +158,7 @@ function StageAnalysis:individualStageAnalysis(stage_id)
                 for _,t_time_line in pairs(group_list) do
 
                     if (type(t_time_line) ~= 'table') then
-                        --error(stage_name .. '의 regen 폼이 맞지 않습니다.')
+                        error(stage_name .. '의 regen 폼이 맞지 않습니다.')
                     else
 
                     for _,monster_str in ipairs(t_time_line) do
