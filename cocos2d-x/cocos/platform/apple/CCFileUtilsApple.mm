@@ -496,6 +496,58 @@ bool FileUtils::writeValueMapToFile(const ValueMap& dict, const std::string& ful
     return [nsDict writeToFile:file atomically:YES];
 }
 
+void FileUtilsApple::valueMapCompact(ValueMap& valueMap)
+{
+    auto itr = valueMap.begin();
+    while(itr != valueMap.end()){
+        auto vtype = itr->second.getType();
+        switch(vtype){
+            case Value::Type::NONE:{
+                itr = valueMap.erase(itr);
+                continue;
+            }
+                break;
+            case Value::Type::MAP:{
+                valueMapCompact(itr->second.asValueMap());
+            }
+                break;
+            case Value::Type::VECTOR:{
+                valueVectorCompact(itr->second.asValueVector());
+            }
+                break;
+            default:
+                break;
+        }
+        ++itr;
+    }
+}
+
+void FileUtilsApple::valueVectorCompact(ValueVector& valueVector)
+{
+    auto itr = valueVector.begin();
+    while(itr != valueVector.end()){
+        auto vtype = (*itr).getType();
+        switch(vtype){
+            case Value::Type::NONE:{
+                itr = valueVector.erase(itr);
+                continue;
+            }
+                break;
+            case Value::Type::MAP:{
+                valueMapCompact((*itr).asValueMap());
+            }
+                break;
+            case Value::Type::VECTOR:{
+                valueVectorCompact((*itr).asValueVector());
+            }
+                break;
+            default:
+                break;
+        }
+        ++itr;
+    }
+}
+
 bool FileUtils::writeValueVectorToFile(const ValueVector& vecData, const std::string& fullPath)
 {
     NSString* path = [NSString stringWithUTF8String:fullPath.c_str()];
