@@ -139,3 +139,10 @@ function FilterMsg(str)
 
     return true
 end
+
+-------------------------------------
+-- function Is022Ver
+-------------------------------------
+function Is022Ver()
+    return (getAppVer() == '0.2.2')
+end
