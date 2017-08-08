@@ -1,5 +1,5 @@
 
-common_monster_plant_fire_fire.png
+common_monster_plant_fire.png
 size: 512,512
 format: RGBA8888
 filter: Linear,Linear
