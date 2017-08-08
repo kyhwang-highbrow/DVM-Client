@@ -77,7 +77,7 @@ function ApkExpansion:doStep()
     end
 
     -- APK 확장 파일 다운로드 초기화 및 시작
-    PerpSocial:SDKEvent('apkexp_start', param_str, md5, callback)
+    SDKManager:apkExpansionStart(param_str, md5, callback)
 end
 
 -------------------------------------
@@ -221,7 +221,7 @@ function ApkExpansion:apkExpansionErrorHandler(info_str)
     local code = info_json['code']
 
     local STATE_PAUSED_NETWORK_UNAVAILABLE  = 6 -- 네트워크가 연결되어 있지 않은 경우
-    local STATE_PAUSED_BY_REQUEST  = 7          -- PerpSocial:SDKEvent('apkexp_pause', '', '') 로 강제로 다운로드 중단시킨 경우
+    local STATE_PAUSED_BY_REQUEST  = 7          -- SDKManager:apkExpansionPause() 로 강제로 다운로드 중단시킨 경우
     local STATE_PAUSED_ROAMING = 12             -- 로밍 중, 로밍 중이므로 요금에 대한 경고를 하고 계속 진행/중단 처리한다.
     local STATE_FAILED_UNLICENSED = 15          -- 정식으로 앱을 다운로드 받지 않은 경우, APK를 별도로 설치하여 테스트하는 개발 버전에선 실패 처리하지 않고 그대로 진행시킨다.
     local STATE_FAILED_SDCARD_FULL = 17         -- 외부 저장 장치의 용량이 부족한 경우
@@ -231,7 +231,7 @@ function ApkExpansion:apkExpansionErrorHandler(info_str)
         local msg = Str('네트워크 연결을 확인하세요.')
         return self:errorHandler(msg)
 
-    -- 7 PerpSocial:SDKEvent('apkexp_pause', '', '') 로 강제로 다운로드 중단시킨 경우
+    -- 7 SDKManager:apkExpansionPause() 로 강제로 다운로드 중단시킨 경우
     elseif (code == STATE_PAUSED_BY_REQUEST) then
         -- 아직은 별도로 처리하지 않음 (sgkim 2017-07-27)
         return self:errorHandler(msg)
@@ -241,7 +241,7 @@ function ApkExpansion:apkExpansionErrorHandler(info_str)
         local msg = Str('데이터 로밍 시 과다한 요금이 청구될 수 있습니다. 계속 진행하시겠습니까?')
         local function ok_btn_cb()
             -- APK 확장파일 다운로드, 중단된 다운로드를 재개함
-            PerpSocial:SDKEvent('apkexp_continue', '', '')
+            SDKManager:apkExpansionContinue()
         end
         local function cancel_btn_cb()
             self:openFailPopup()

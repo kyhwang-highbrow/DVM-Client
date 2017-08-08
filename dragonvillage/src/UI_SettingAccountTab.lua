@@ -24,8 +24,8 @@ end
 -------------------------------------
 function UI_Setting:click_copyBtn()
     local recovery_code = g_serverData:get('local', 'recovery_code')
-    
-    PerpSocial:SDKEvent('clipboard_setText', tostring(recovery_code), '', function() end)
+
+    SDKManager:copyOntoClipBoard(tostring(recovery_code))
     UIManager:toastNotificationGreen(Str('복구코드를 복사하였습니다.'))
 end
 

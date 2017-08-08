@@ -506,7 +506,7 @@ function UI_Setting:click_uidCopyBtn()
     local vars = self.vars
     local uid = g_userData:get('uid')
 
-    PerpSocial:SDKEvent('clipboard_setText', tostring(uid), '', function() end)
+    SDKManager:copyOntoClipBoard(tostring(uid))
     UIManager:toastNotificationGreen(Str('UID를 복사하였습니다.'))
 end
 

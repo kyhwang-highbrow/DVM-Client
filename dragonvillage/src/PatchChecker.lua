@@ -107,5 +107,5 @@ end
 -- function gotoAppStore
 ----------------------------------------
 function PatchChecker:gotoAppStore()
-    PerpSocial:SDKEvent('app_gotoStore', '', '')
+    SDKManager:goToAppStore()
 end

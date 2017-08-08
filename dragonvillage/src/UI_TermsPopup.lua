@@ -76,14 +76,14 @@ end
 -- function click_viewBtn1
 -------------------------------------
 function UI_TermsPopup:click_viewBtn1()
-    PerpSocial:SDKEvent('app_gotoWeb', 'http://www.perplelab.com/agreement', '', function() end)
+    SDKManager:goToWeb('http://www.perplelab.com/agreement')
 end
 
 -------------------------------------
 -- function click_viewBtn2
 -------------------------------------
 function UI_TermsPopup:click_viewBtn2()
-    PerpSocial:SDKEvent('app_gotoWeb', 'http://www.perplelab.com/personalinformation', '', function() end)
+    SDKManager:goToWeb('http://www.perplelab.com/personalinformation')
 end
 
 -------------------------------------

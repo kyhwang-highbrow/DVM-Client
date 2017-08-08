@@ -128,6 +128,7 @@ local t_module = {
 	'ISkillMultiAttack',
 
     -- Util
+    'SDKManager',
 	'ErrorTracker',
     'Action',
     'TimeLib',
