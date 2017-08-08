@@ -226,7 +226,7 @@ function AnimatorVrp:setFrame(frame)
     return self.m_node:setFrame(frame)
 end
 function AnimatorVrp:getContentSize()
-    return 0,0
+    return {width = 0, height = 0}
 end
 function AnimatorVrp:setContentSize()
     -- nothing to do
