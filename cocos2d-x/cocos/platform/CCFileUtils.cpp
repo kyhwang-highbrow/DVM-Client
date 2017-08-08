@@ -525,6 +525,8 @@ ValueMap FileUtils::getValueMapFromFile(const std::string& filename) {return Val
 ValueMap FileUtils::getValueMapFromData(const char* filedata, int filesize) {return ValueMap();}
 ValueVector FileUtils::getValueVectorFromFile(const std::string& filename) {return ValueVector();}
 bool FileUtils::writeToFile(const ValueMap& dict, const std::string &fullPath) {return false;}
+bool writeValueMapToFile(const ValueMap& dict, const std::string& fullPath) {return false;}
+bool writeValueVectorToFile(const ValueVector& vecData, const std::string& fullPath) {return false;}
 
 #endif /* (CC_TARGET_PLATFORM != CC_PLATFORM_IOS) && (CC_TARGET_PLATFORM != CC_PLATFORM_MAC) */
 
