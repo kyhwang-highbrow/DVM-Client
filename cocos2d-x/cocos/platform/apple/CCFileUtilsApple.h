@@ -45,10 +45,10 @@ class CC_DLL FileUtilsApple : public FileUtils
 public:
     /* override funtions */
     virtual std::string getWritablePath() const override;
-    virtual std::string getFullPathForDirectoryAndFilename(const std::string& directory, const std::string& filename) override;
+    virtual std::string getFullPathForDirectoryAndFilename(const std::string& directory, const std::string& filename) const override;
     
     virtual ValueMap getValueMapFromFile(const std::string& filename) override;
-    virtual bool writeToFile(ValueMap& dict, const std::string& fullPath) override;
+    virtual bool writeToFile(const ValueMap& dict, const std::string& fullPath) override;
     
     virtual ValueVector getValueVectorFromFile(const std::string& filename) override;
 private:

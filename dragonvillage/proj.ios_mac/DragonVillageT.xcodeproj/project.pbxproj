@@ -41,7 +41,6 @@
 		3761E8071B75B77C00FB7801 /* PerpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C0E1A6657B300406F47 /* PerpUtils.cpp */; };
 		3761E8081B75B77C00FB7801 /* Runtime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A1198F5FF00091C231 /* Runtime.cpp */; };
 		3761E8091B75B77C00FB7801 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A3198F5FF00091C231 /* VisibleRect.cpp */; };
-		3761E80A1B75B77C00FB7801 /* Runtime_ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 377033AA198F60A50091C231 /* Runtime_ios-mac.mm */; };
 		3761E80B1B75B77C00FB7801 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; };
 		3761E80C1B75B77C00FB7801 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
 		3761E80D1B75B77C00FB7801 /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; };
@@ -189,7 +188,6 @@
 		7DE4D5501C044036005643BA /* PerpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C0E1A6657B300406F47 /* PerpUtils.cpp */; };
 		7DE4D5511C044036005643BA /* Runtime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A1198F5FF00091C231 /* Runtime.cpp */; };
 		7DE4D5531C044036005643BA /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A3198F5FF00091C231 /* VisibleRect.cpp */; };
-		7DE4D5541C044036005643BA /* Runtime_ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 377033AA198F60A50091C231 /* Runtime_ios-mac.mm */; };
 		7DE4D5551C044036005643BA /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; };
 		7DE4D5561C044036005643BA /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
 		7DE4D5571C044036005643BA /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; };
@@ -37569,7 +37567,6 @@
 				3761E8071B75B77C00FB7801 /* PerpUtils.cpp in Sources */,
 				3761E8081B75B77C00FB7801 /* Runtime.cpp in Sources */,
 				3761E8091B75B77C00FB7801 /* VisibleRect.cpp in Sources */,
-				3761E80A1B75B77C00FB7801 /* Runtime_ios-mac.mm in Sources */,
 				3761E80B1B75B77C00FB7801 /* unzip.cpp in Sources */,
 				3761E80C1B75B77C00FB7801 /* AppController.mm in Sources */,
 				3761E80D1B75B77C00FB7801 /* PerpSupportPatch.cpp in Sources */,
@@ -37601,7 +37598,6 @@
 				7DE4D5501C044036005643BA /* PerpUtils.cpp in Sources */,
 				7DE4D5511C044036005643BA /* Runtime.cpp in Sources */,
 				7DE4D5531C044036005643BA /* VisibleRect.cpp in Sources */,
-				7DE4D5541C044036005643BA /* Runtime_ios-mac.mm in Sources */,
 				7DE4D5551C044036005643BA /* unzip.cpp in Sources */,
 				7DE4D5561C044036005643BA /* AppController.mm in Sources */,
 				7DE4D5571C044036005643BA /* PerpSupportPatch.cpp in Sources */,
@@ -38430,7 +38426,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/pati/include \"$(SRCROOT)/../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0\" \"$(SRCROOT)/../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0\" \"$(SRCROOT)/../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib\" \"$(SRCROOT)/../../libraries/partytrack/ios/Partytrack.framework/Versions/1.69/Headers\"";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/pati/include \"$(SRCROOT)/../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0\" \"$(SRCROOT)/../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0\" \"$(SRCROOT)/../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib\" \"$(SRCROOT)/../../libraries/partytrack/ios/Partytrack.framework/Versions/1.69/Headers\" \"$(SRCROOT)/../../libraries/perplesdk/include\"";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -38484,7 +38480,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/pati/include \"$(SRCROOT)/../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0\" \"$(SRCROOT)/../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0\" \"$(SRCROOT)/../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib\" \"$(SRCROOT)/../../libraries/partytrack/ios/Partytrack.framework/Versions/1.69/Headers\"";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/pati/include \"$(SRCROOT)/../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0\" \"$(SRCROOT)/../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0\" \"$(SRCROOT)/../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib\" \"$(SRCROOT)/../../libraries/partytrack/ios/Partytrack.framework/Versions/1.69/Headers\" \"$(SRCROOT)/../../libraries/perplesdk/include\"";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;

@@ -374,7 +374,7 @@ bool FileUtilsApple::isFileExistInternal(const std::string& filePath) const
     return ret;
 }
 
-std::string FileUtilsApple::getFullPathForDirectoryAndFilename(const std::string& directory, const std::string& filename)
+std::string FileUtilsApple::getFullPathForDirectoryAndFilename(const std::string& directory, const std::string& filename) const
 {
     if (directory[0] != '/')
     {
@@ -415,7 +415,7 @@ ValueMap FileUtilsApple::getValueMapFromFile(const std::string& filename)
     return ret;
 }
 
-bool FileUtilsApple::writeToFile(ValueMap& dict, const std::string &fullPath)
+bool FileUtilsApple::writeToFile(const ValueMap& dict, const std::string &fullPath)
 {
     //CCLOG("iOS||Mac Dictionary %d write to file %s", dict->_ID, fullPath.c_str());
     NSMutableDictionary *nsDict = [NSMutableDictionary dictionary];
