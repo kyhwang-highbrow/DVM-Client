@@ -142,7 +142,7 @@ function UI_BattleMenuItem:click_enterBtn()
 
     -- 콜로세움
     elseif (content_type == 'colosseum') then
-        self:click_colosseumBtn()
+        UINavigator:goTo('colosseum')
 
     -- 진화재료 던전
     elseif (content_type == 'nest_evo_stone') then
@@ -160,14 +160,6 @@ function UI_BattleMenuItem:click_enterBtn()
     elseif (content_type == 'secret_relation') then
         self:click_relationBtn()
     end
-end
-
--------------------------------------
--- function click_colosseumBtn
--- @brief 콜로세움 진입 버튼
--------------------------------------
-function UI_BattleMenuItem:click_colosseumBtn()
-    g_colosseumData:goToColosseum()
 end
 
 -------------------------------------

@@ -248,8 +248,7 @@ end
 -- @brief "확인" 버튼
 -------------------------------------
 function UI_ColosseumResult:click_okBtn()
-	local use_scene = true
-    g_colosseumData:goToColosseum(use_scene)
+	UINavigator:goTo('colosseum')
 end
 
 -------------------------------------

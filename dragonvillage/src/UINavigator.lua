@@ -173,6 +173,64 @@ function UINavigator:goTo_exploration(...)
     g_explorationData:request_explorationInfo(finish_cb, fail_cb)
 end
 
+-------------------------------------
+-- function goTo_colosseum
+-- @brief 콜로세움으로 이동
+-- @usage UINavigator:goTo('colosseum')
+-------------------------------------
+function UINavigator:goTo_colosseum(...)
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Colosseum')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    local function finish_cb()
+        -- 오픈 상태 여부 체크
+        if (not g_colosseumData:isOpenColosseum()) then
+            UIManager:toastNotificationGreen('콜로세움 오픈 전입니다.\n오픈까지 ' .. g_colosseumData:getColosseumStatusText())
+            return
+		end
+
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'adventure'이다.
+            ui:resetButtonsPosition()
+            UI_Colosseum()
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            battle_menu_ui:resetButtonsPosition()
+            UI_Colosseum()
+            return
+        end
+
+        do-- Scene으로 동작
+            local function close_cb()
+                UINavigator:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_Colosseum, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb()
+
+    end
+
+    -- 정보 요청
+    g_colosseumData:request_colosseumInfo(finish_cb, fail_cb)
+end
 
 
 

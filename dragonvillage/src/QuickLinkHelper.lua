@@ -96,12 +96,12 @@ T_LINK_FUNC = {
 
     -- 콜로세움 플레이
     ['ply_clsm'] = function()
-        g_colosseumData:goToColosseum(true)
+        UINavigator:goTo('colosseum')
     end,
 
     -- 콜로세움 {1} 연승
     ['cwin_clsm'] = function()
-        g_colosseumData:goToColosseum(true)
+        UINavigator:goTo('colosseum')
     end,
 
     -- 공통 진화 던전 플레이

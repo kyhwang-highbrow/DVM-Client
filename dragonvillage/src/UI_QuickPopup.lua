@@ -51,7 +51,7 @@ function UI_QuickPopup:initButton()
     vars['nest_nightmareBtn']:registerScriptTapHandler(function() end)
     vars['secret_relationBtn']:registerScriptTapHandler(function() end)
 
-    vars['colosseumBtn']:registerScriptTapHandler(function() end)
+    vars['colosseumBtn']:registerScriptTapHandler(function() UINavigator:goTo('colosseum') end)
     vars['ancientBtn']:registerScriptTapHandler(function() end)
 end
 
@@ -78,14 +78,6 @@ end
 
 
 --[[
--------------------------------------
--- function click_colosseumBtn
--- @brief 콜로세움 진입 버튼
--------------------------------------
-function UI_QuickPopup:click_colosseumBtn()
-    g_colosseumData:goToColosseum()
-end
-
 -------------------------------------
 -- function click_ancientBtn
 -- @brief 고대의 탑 진입 버튼

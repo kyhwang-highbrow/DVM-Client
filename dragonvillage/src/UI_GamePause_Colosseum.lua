@@ -34,7 +34,7 @@ end
 -------------------------------------
 function UI_GamePause_Colosseum:click_retryButton()
     local function ok_cb()
-        g_colosseumData:goToColosseum(true) -- param : use_scene
+        UINavigator:goTo('colosseum')
     end
 
     self:confirmExit(ok_cb)

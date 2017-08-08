@@ -36,30 +36,6 @@ function ServerData_Colosseum:init(server_data)
 end
 
 -------------------------------------
--- function goToColosseum
--------------------------------------
-function ServerData_Colosseum:goToColosseum(use_scene)
-    local function cb(ret)
-		if (not self:isOpenColosseum()) then
-            UIManager:toastNotificationGreen('콜로세움 오픈 전입니다.\n오픈까지 ' .. self:getColosseumStatusText())
-            return
-		end
-
-        if use_scene then
-            local function close_cb()
-                SceneLobby():runScene()
-            end
-            local scene = SceneCommon(UI_Colosseum, close_cb)
-            scene:runScene()
-        else
-            UI_Colosseum()
-        end
-    end
-
-    self:request_colosseumInfo(cb)
-end
-
--------------------------------------
 -- function request_colosseumInfo
 -------------------------------------
 function ServerData_Colosseum:request_colosseumInfo(finish_cb, fail_cb)
