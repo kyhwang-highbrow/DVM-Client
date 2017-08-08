@@ -3,7 +3,6 @@
 -------------------------------------
 ScenarioViewingHistory = class({
         m_rootTable = 'table',
-        m_playingScenario = 'UI_ScenarioPlayer',
     })
 
 -------------------------------------
@@ -171,9 +170,6 @@ function ScenarioViewingHistory:playScenario(scenario_name)
         setting = g_localData:get('scenario_playback_rules')
     end
 
-    -- tutorial 여부 파악
-    local is_tutorial = string.find(scenario_name, 'tutorial')
-
     -- 설정 정보에 따라 재생 여부 결정
     if (setting == 'off') then
         play = false
@@ -197,8 +193,26 @@ function ScenarioViewingHistory:playScenario(scenario_name)
             g_autoPlaySetting:setAutoPlay(false)
         end
 
-        local ui = is_tutorial and UI_DialoguePlayer(scenario_name) or UI_ScenarioPlayer(scenario_name)
-        self.m_playingScenario = ui
+        local ui = UI_ScenarioPlayer(scenario_name)
         return ui
     end
+end
+
+-------------------------------------
+-- function playScenario
+-------------------------------------
+function ScenarioViewingHistory:playTutorial(scenario_name, tar_ui)
+    if (not TABLE:isFileExist('scenario/'..scenario_name, '.csv')) then
+        return 
+    end 
+
+    if (self:isViewed(scenario_name)) then
+        return
+    end    
+
+    -- 튜토리얼 기록에 등록
+    self:addViewed(scenario_name)
+
+    -- 시작
+    UIManager:startTutorial(scenario_name, tar_ui)
 end

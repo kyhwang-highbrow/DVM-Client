@@ -9,7 +9,7 @@ UIManager['m_tTutorialBtnInfoTable'] = nil
 UIManager['m_tutorialStencilEffect'] = nil
 
 -------------------------------------
--- function doTutorial
+-- function startTutorial
 -- @brief 튜토리얼 실행
 -------------------------------------
 function UIManager:startTutorial(script, tar_ui)
@@ -63,8 +63,48 @@ function UIManager:doTutorial()
 
 	self.m_uiLayer:addChild(tutorial_node, UI_ZORDER.TUTORIAL)
 
+    -- 멤버 변수 할당
     self.m_tutorialNode = tutorial_node
     self.m_tTutorialBtnInfoTable = {}
+
+    -- 튜토리얼하는 동안 전역 블럭 처리
+    self:setGlobalLock(true)
+end
+
+-------------------------------------
+-- function setGlobalLock
+-- @brief 
+-------------------------------------
+function UIManager:setGlobalLock(b)
+    g_broadcastManager:setEnable(not b)
+    g_broadcastManager:setEnableNotice(not b)
+    g_topUserInfo:clearBroadcast()
+    g_currScene:blockBackkey(b)
+end
+
+-------------------------------------
+-- function setVisibleTutorial
+-- @brief 
+-------------------------------------
+function UIManager:setVisibleTutorial(b)
+    self.m_tutorialNode:setVisible(b)
+end
+
+-------------------------------------
+-- function releaseTutorial
+-- @brief 튜토리얼 해제
+-------------------------------------
+function UIManager:releaseTutorial()
+    -- m_tutorialNode가 없다면 정상적으로 동작하지 않은것
+	if (self.m_tutorialNode) then 
+        self:revertNodeAll()
+        self:releaseTutorialStencil()
+
+		self.m_tutorialNode:removeFromParent(true)
+		self.m_tutorialNode = nil
+
+        self:setGlobalLock(false)
+	end
 end
 
 -------------------------------------
@@ -93,10 +133,15 @@ function UIManager:setStencilEffect(node)
         self.m_tutorialStencilEffect = nil
     end
 
-    local effect = cc.Scale9Sprite:create('res/ui/deck_select.png')
-    effect:setContentSize(node:getContentSize())
+    local res = 'res/ui/frames/tutorial_highlight_0101.png'
+    local effect = cc.Scale9Sprite:create(res)
     effect:setAnchorPoint(node:getAnchorPoint())
     effect:setDockPoint(node:getDockPoint())
+    
+    -- 10px 정도 더 크게 만듬
+    local size = node:getContentSize()
+    size = {['width'] = size['width'] + 10, ['height'] = size['height'] + 10}
+    effect:setContentSize(size)
 
     self.m_tutorialNode:addChild(effect, 2)
 
@@ -124,28 +169,6 @@ function UIManager:releaseTutorialStencil()
         self.m_tutorialStencilEffect:removeFromParent()
         self.m_tutorialStencilEffect = nil
     end
-end
-
--------------------------------------
--- function setVisibleTutorial
--- @brief 
--------------------------------------
-function UIManager:setVisibleTutorial(b)
-    self.m_tutorialNode:setVisible(b)
-end
-
--------------------------------------
--- function releaseTutorial
--- @brief 튜토리얼 해제
--------------------------------------
-function UIManager:releaseTutorial()
-	if (self.m_tutorialNode) then 
-        self:revertNodeAll()
-        self:releaseTutorialStencil()
-
-		self.m_tutorialNode:removeFromParent(true)
-		self.m_tutorialNode = nil
-	end
 end
 
 -------------------------------------
@@ -187,8 +210,8 @@ function UIManager:revertNode(uic_node)
 end
 
 -------------------------------------
--- function revertTutorialBtn
--- @brief 전부 되돌린다.
+-- function revertNodeAll
+-- @brief 튜토리얼 노드에 붙인 버튼을 전부 되돌린다.
 -------------------------------------
 function UIManager:revertNodeAll()
     if (self.m_tTutorialBtnInfoTable) then
@@ -197,4 +220,23 @@ function UIManager:revertNodeAll()
         end
     end
     self.m_tTutorialBtnInfoTable = {}
+end
+
+-------------------------------------
+-- function makePointingHand
+-- @brief 가리키는 손가락을 만든다.
+-------------------------------------
+function UIManager:makePointingHand()
+    local res = 'res/ui/a2d/tutorial/tutorial.vrp'
+    local hand = MakeAnimator(res)
+    hand:changeAni('hand_02', true)
+    hand:setScale(0.8)
+    hand:setAnchorPoint(cc.p(0, 1))
+    hand:setDockPoint(cc.p(1, 0))
+    hand:setPosition(0, 0)
+
+    -- retain이 포인트
+    hand.m_node:retain()
+
+    return hand
 end

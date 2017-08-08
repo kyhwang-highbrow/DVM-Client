@@ -1312,6 +1312,158 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
+		[9] =
+		{
+			[1] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 74.000000;
+				y = -109.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 113;
+				height = 116;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stc_reward';
+			};
+			[2] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 282.000000;
+				y = 60.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 559;
+				height = 202;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stc_info';
+			};
+			[3] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 208.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 1.000000; };
+				relative_size_type = 0;
+				width = 192;
+				height = 60;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stc_stamina';
+			};
+			[4] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 332.000000;
+				y = -111.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 368;
+				height = 115;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stc_monster';
+			};
+			[5] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 489.000000;
+				y = 267.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 274;
+				height = 61;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stc_time';
+			};
+			[6] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 284.000000;
+				y = -118.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 660;
+				height = 450;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stc_ranking';
+			};
+			[7] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 284.000000;
+				y = -118.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 660;
+				height = 450;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stc_rewardList';
+			};
+			type = 'Node';
+			ui_name = 'tutorial';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+		};
 		type = 'Menu';
 		ui_name = '';
 		x = 0.000000;

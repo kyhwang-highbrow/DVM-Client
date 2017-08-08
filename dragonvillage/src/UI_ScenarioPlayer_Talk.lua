@@ -80,7 +80,7 @@ function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
 
         -- 대사창 위치 처리
         if (text_pos == 'top') then
-            vars['talkMenu']:setPositionY(450)
+            vars['talkMenu']:setPositionY(470)
             vars['nameNode_left']:setPositionY(-30)
             vars['nameNode_right']:setPositionY(-30)
         

@@ -4,6 +4,14 @@
 TutorialHelper = {}
 
 -------------------------------------
+-- function playTutorial
+-- @brief wrapping
+-------------------------------------
+function TutorialHelper:playTutorial(scenario_name, tar_ui)
+    g_scenarioViewingHistory:playTutorial(scenario_name, tar_ui)
+end
+
+-------------------------------------
 -- function convertToWorldSpace
 -- @brief 
 --[[

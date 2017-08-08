@@ -115,3 +115,12 @@ function UIC_BroadcastLabel:runScrollAction()
     local sequence = cc.Sequence:create(cc.DelayTime:create(1), cc.MoveTo:create(2, pos), cc.DelayTime:create(2), call_func)
     container:runAction(sequence)
 end
+
+-------------------------------------
+-- function clear
+-------------------------------------
+function UIC_BroadcastLabel:clear()
+    -- RichLabel에 문자열 설정
+    self.m_richLabel:setString('')
+    self:setVisible(false)
+end

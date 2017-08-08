@@ -108,7 +108,10 @@ function ServerData_AncientTower:goToAncientTowerScene(use_scene, stage_id)
             local scene = SceneCommon(UI_AncientTower, nil, close_cb)
             scene:runScene()
         else
-            UI_AncientTower()
+            local ui = UI_AncientTower()
+
+            -- @ TUTORIAL
+            TutorialHelper:playTutorial('tutorial_ancient_tower', ui)
 
             -- 시즌 보상 팝업
             if (self.m_tSeasonRewardInfo) then

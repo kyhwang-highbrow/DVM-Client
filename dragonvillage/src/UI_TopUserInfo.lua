@@ -310,6 +310,13 @@ function UI_TopUserInfo:noticeBroadcast(msg, duration)
 end
 
 -------------------------------------
+-- function clearBroadcast
+-------------------------------------
+function UI_TopUserInfo:clearBroadcast()
+    self.m_broadcastLabel:clear()
+end
+
+-------------------------------------
 -- function chatBroadcast
 -------------------------------------
 function UI_TopUserInfo:chatBroadcast(t_data)

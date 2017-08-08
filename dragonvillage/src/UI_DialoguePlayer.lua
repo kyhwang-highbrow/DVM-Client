@@ -2,11 +2,13 @@ local PARENT = UI_ScenarioPlayer
 
 -------------------------------------
 -- class UI_DialoguePlayer
+-- @brief 사실상 TutorialPlayer
 -------------------------------------
 UI_DialoguePlayer = class(PARENT,{
         m_nextCallBack = '',
         m_nextEffectName = '',
-        m_targetUI = '',
+        m_targetUI = 'UI',
+        m_pointingHand = 'Animator',
     })
 
 -------------------------------------
@@ -25,6 +27,18 @@ function UI_DialoguePlayer:init_player()
 	UIManager:open(self, UIManager.TUTORIAL_DIALOGUE)
 	vars['skipBtn']:setVisible(false)
 	self.m_bSkipEnable = false
+end
+
+-------------------------------------
+-- function close
+-------------------------------------
+function UI_DialoguePlayer:close()
+    if (self.m_pointingHand) then
+        self.m_pointingHand.m_node:release()
+        self.m_pointingHand = nil
+    end
+    UIManager:releaseTutorial()
+    PARENT.close(self)
 end
 
 -------------------------------------
@@ -63,8 +77,6 @@ function UI_DialoguePlayer:next(next_effect)
         end
     else
         self:close()
-        -- 튜토리얼도 같이 종료
-        UIManager:releaseTutorial()
     end
 end
 
@@ -123,13 +135,20 @@ end
 -------------------------------------
 function UI_DialoguePlayer:pointingNode(node_name)
     if (node_name == 'release') then
-
+        if (self.m_pointingHand) then
+            self.m_pointingHand:setVisible(false)
+        end
         return
     end
 
     local tar_node = self.m_targetUI.vars[node_name]
     if (tar_node) then
-
+        if (not self.m_pointingHand) then
+            self.m_pointingHand = UIManager:makePointingHand()
+        end
+        self.m_pointingHand.m_node:removeFromParent()
+        self.m_pointingHand:setVisible(true)
+        tar_node:addChild(self.m_pointingHand.m_node, 99)
     end
 end
 
