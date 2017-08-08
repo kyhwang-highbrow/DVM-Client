@@ -10,7 +10,6 @@ local t_module = {
     'lib/math',
     'lib/Radian',
     'uilib/UIManager',
-    'uilib/UIManager_tutorial',
     'uilib/UI',
     'uilib/UILoader',
     'uilib/TableView',
@@ -648,7 +647,6 @@ local t_module = {
     'UI_ScenarioPlayer_Character',
     'UI_ScenarioPlayer_Talk',
     'UI_ScenarioPlayer_Narrate',
-    'UI_TutorialPlayer',
 
 	-- UI : 상점 관련
 	'UI_Shop',
@@ -859,6 +857,8 @@ local t_module = {
     'UI_InvenDevApiPopup',
 
     -- Tutorial
+    'UI_TutorialPlayer',
+    'TutorialManager',
     'TutorialHelper',
     'Tutorial_DragonManageInfo',
     'Tutorial_DragonEvolution',
