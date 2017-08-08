@@ -7,6 +7,46 @@
 		{
 			[1] =
 			{
+				[1] =
+				{
+					type = 'SocketNode';
+					socket_name = 'skill_bubble';
+				};
+				[2] =
+				{
+					type = 'SocketNode';
+					socket_name = 'skill_dsc';
+				};
+				[3] =
+				{
+					type = 'SocketNode';
+					socket_name = 'skill_title';
+				};
+				type = 'Visual';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'gaugeVisual';
+				file_name = 'ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;gg_full_heal';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[2] =
+			{
 				type = 'Sprite';
 				ui_name = '';
 				x = 12.000000;
@@ -31,7 +71,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[2] =
+			[3] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -57,7 +97,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[3] =
+			[4] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -83,8 +123,34 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[4] =
+			[5] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 26;
+					height = 26;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/ingame_cha_info/ingame_cha_info_attr_dark_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Node';
 				ui_name = '';
 				x = -34.000000;
