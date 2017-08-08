@@ -526,8 +526,8 @@ ValueMap FileUtils::getValueMapFromData(const char* filedata, int filesize) {ret
 
 ValueVector FileUtils::getValueVectorFromFile(const std::string& filename) {return ValueVector();}
 bool FileUtils::writeToFile(const ValueMap& dict, const std::string &fullPath) {return false;}
-bool writeValueMapToFile(const ValueMap& dict, const std::string& fullPath) {return false;}
-bool writeValueVectorToFile(const ValueVector& vecData, const std::string& fullPath) {return false;}
+bool FileUtils::writeValueMapToFile(const ValueMap& dict, const std::string& fullPath) {return false;}
+bool FileUtils::writeValueVectorToFile(const ValueVector& vecData, const std::string& fullPath) {return false;}
 
 #endif /* (CC_TARGET_PLATFORM != CC_PLATFORM_IOS) && (CC_TARGET_PLATFORM != CC_PLATFORM_MAC) */
 
@@ -706,7 +706,7 @@ FileUtils::Status FileUtils::getContents(const std::string& filename, ResizableB
         fclose(fp);
         return Status::ReadFailed;
     }
-    size_t size = statBuf.st_size;
+    size_t size = (size_t)statBuf.st_size;
 
     buffer->resize(size);
     size_t readsize = fread(buffer->buffer(), 1, size, fp);

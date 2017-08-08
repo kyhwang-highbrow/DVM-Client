@@ -691,7 +691,7 @@ void FileUtilsApple::valueVectorCompact(ValueVector& valueVector)
     }
 }
 
-bool FileUtils::writeValueVectorToFile(const ValueVector& vecData, const std::string& fullPath)
+bool FileUtilsApple::writeValueVectorToFile(const ValueVector& vecData, const std::string& fullPath)
 {
     NSString* path = [NSString stringWithUTF8String:fullPath.c_str()];
     NSMutableArray* array = [NSMutableArray array];
