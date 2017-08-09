@@ -43,7 +43,7 @@ string* StringSplit(string strTarget, string strTok)
     int nIndex = 0;
     string* strResult = new string[3];
 
-    while ((nCutPos = strTarget.find_first_of(strTok)) != strTarget.npos)
+    while ((nCutPos = (int)strTarget.find_first_of(strTok)) != strTarget.npos)
     {
         if (nCutPos > 0)
         {
@@ -114,9 +114,9 @@ void AppDelegate::setPathForPatch()
     { // 이전 버전 폴더 삭제
         string app_ver = ConfigParser::getInstance()->getAppVer();
         string* tok = StringSplit(app_ver, ".");
-        int ver_major = strtol(tok[0].c_str(), NULL, 10);
-        int ver_minor = strtol(tok[1].c_str(), NULL, 10);
-        int ver_build = strtol(tok[2].c_str(), NULL, 10);
+        int ver_major = (int)strtol(tok[0].c_str(), NULL, 10);
+        int ver_minor = (int)strtol(tok[1].c_str(), NULL, 10);
+        int ver_build = (int)strtol(tok[2].c_str(), NULL, 10);
 
         int ver = (ver_major * 100) + (ver_minor * 10) + ver_build;
         for (int idx = ver; 0 < idx; --idx)
