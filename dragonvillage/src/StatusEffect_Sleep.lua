@@ -20,7 +20,7 @@ end
 function StatusEffect_Sleep:initFromTable(t_status_effect, target_char)
     PARENT.initFromTable(self, t_status_effect, target_char)
 
-    self:addTrigger('undergo_attack', self:getTriggerFunction(), g_constant:get('INGAME', 'STATUEEFFECT_GLOBAL_COOL'))
+    self:addTrigger('under_atk', self:getTriggerFunction(), g_constant:get('INGAME', 'STATUEEFFECT_GLOBAL_COOL'))
 end
 
 -------------------------------------
@@ -28,9 +28,7 @@ end
 -------------------------------------
 function StatusEffect_Sleep:getTriggerFunction()
 	local trigger_func = function()
-		if (not self.m_bApply) then
-			-- 생성된 이후 아직 미적용 상태인 경우
-		else
+        if (self.m_bApply) then
 			self:changeState('end')
 			return true
 		end

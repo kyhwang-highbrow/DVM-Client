@@ -194,8 +194,8 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             -- 경직 중이라면 즉시 해제
             self.m_selectHero:setSpasticity(false)
 
-            local active_skill_id = self.m_selectHero:getSkillID('active')
-            local t_skill = TableDragonSkill():get(active_skill_id)
+            local skill_indivisual_info = self.m_selectHero:getSkillIndivisualInfo('active')
+            local t_skill = skill_indivisual_info:getSkillTable()
 
             if t_skill['casting_time'] > 0 then
                 self.m_selectHero:changeState('casting')
@@ -217,10 +217,22 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
         -- 터치 스킬 발동
         ---------------------------------------------------
         if (self.m_touchedHero:isPossibleSkill()) then
-            local active_skill_id = self.m_touchedHero:getSkillID('active')
-            local t_skill = TableDragonSkill():get(active_skill_id)
-            
-            self.m_world.m_gameAutoHero:doSkill(self.m_touchedHero, t_skill)
+            local skill_indivisual_info = self.m_touchedHero:getSkillIndivisualInfo('active')
+            local t_skill = skill_indivisual_info:getSkillTable()
+
+            if (self.m_touchedHero:checkTarget(t_skill)) then
+                -- 인디게이터에 스킬 사용 정보 설정
+                self.m_touchedHero.m_skillIndicator:setIndicatorDataByChar(self.m_touchedHero.m_targetChar)
+
+                -- 경직 중이라면 즉시 해제
+                self.m_touchedHero:setSpasticity(false)
+
+                if t_skill['casting_time'] > 0 then
+                    self.m_touchedHero:changeState('casting')
+                else
+                    self.m_touchedHero:changeState('skillAppear')
+                end
+            end
         end
 
         self.m_touchedHero = nil

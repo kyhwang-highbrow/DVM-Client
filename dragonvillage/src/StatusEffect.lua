@@ -161,8 +161,10 @@ function StatusEffect:init_direction(direction_type)
     end
 
     if (func[direction_type]) then
-        self.m_animator:release()
-        self.m_animator = nil
+        if (direction_type == 'polygons') then
+            self.m_animator:release()
+            self.m_animator = nil
+        end
 
         func[direction_type]()
 
@@ -395,7 +397,7 @@ function StatusEffect:update(dt)
     end
 
     -- 타이머
-    self:updateLatestTimer(dt)
+    self:updateTimer(dt)
 
     return ret
 end
@@ -418,12 +420,18 @@ function StatusEffect:updatePos()
 end
 
 -------------------------------------
--- function updateLatestTimer
+-- function updateTimer
 -------------------------------------
-function StatusEffect:updateLatestTimer(dt)
-    if (self:isInfinity()) then return end
+function StatusEffect:updateTimer(dt)
+    -- 남은 시간
+    if (not self:isInfinity()) then
+        self.m_latestTimer = self.m_latestTimer - dt
+    end
 
-    self.m_latestTimer = self.m_latestTimer - dt
+    -- 트리거 함수별 마지막 호출 이후 지난 시간
+    for k, v in pairs(self.m_lTriggerFuncTimer) do
+        self.m_lTriggerFuncTimer[k] = v + dt
+    end
 end
 
 -------------------------------------
@@ -778,7 +786,7 @@ function StatusEffect:addTrigger(event_name, func, interval)
     if (interval and interval > 0) then
         local idx = #self.m_lTriggerFunc[event_name]
         local key = event_name .. idx
-        self.m_lTriggerFuncTimer[key] = time
+        self.m_lTriggerFuncTimer[key] = 0
         self.m_lTriggerFuncInterval[key] = interval
     end
 end

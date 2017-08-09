@@ -540,17 +540,17 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local damage_multifly = 1
 
         -- 크리티컬
-        if is_critical then
+        if (is_critical) then
             local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
             damage_multifly = (cri_dmg / 100)
         end
 
         -- 속성
-        if t_attr_effect['damage'] then
+        if (t_attr_effect['damage']) then
             local attr_dmg_multifly = (t_attr_effect['damage'] / 100)
-            attr_bonus_dmg = (damage * attr_dmg_multifly)
             damage_multifly = damage_multifly + attr_dmg_multifly
         end
+
         -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
         local additional_dmg_adj_rate = 0
         for k, v in pairs(attacker_char:getStatusEffectList()) do
@@ -664,7 +664,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local hp_drain = attacker_char:getStat('hp_drain')
         if (hp_drain > 0) then
             local heal_abs = damage * (hp_drain / 100)
-			attacker_char:healAbs(attacker_char, heal_abs, true)
+			attacker_char:healAbs(attacker_char, heal_abs, false, true)
         end
     end
 
@@ -989,16 +989,19 @@ function Character:makeDamageFont(damage, x, y, tParam)
 	    -- 추가 데미지
         if (g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT') and is_add_dmg) then
 		    label:setColor(cc.c3b(225, 229, 0))	-- 노랑
+
+        elseif (is_critical) then
+            -- 치명타
+            label:setColor(cc.c3b(233, 84, 255))
         
         elseif (is_miss) then
             -- 빚맞힘
             label:setColor(cc.c3b(198, 198, 198))	-- 회색
 	    
-	    else
-            -- 일반 데미지(크리 데미지 포함)
-            if (self.m_bLeftFormation) then
-                label:setColor(cc.c3b(235, 71, 42))	-- 빨강
-            end
+	    elseif (is_bash) then
+            -- 강타
+            label:setColor(cc.c3b(235, 71, 42))	-- 빨강
+
         end
                
 	    node:addChild(label)
@@ -1028,25 +1031,53 @@ end
 -------------------------------------
 -- function makeHealFont
 -------------------------------------
-function Character:makeHealFont(heal)
+function Character:makeHealFont(heal, is_critical)
     local heal = math_floor(heal)
-    if (heal == 0) then
-        return
-    end
+    if (heal == 0) then return end
 
     local x = self.pos.x + math_random(-25, 25)
     local y = self.pos.y + math_random(-25, 25)
-
-    -- 일반 데미지
-    local label = nil
     local scale = 1
+
+    -- root node 생성
+    local node = cc.Node:create()
+    node:setPosition(x, y)
     
-    label = cc.Label:createWithBMFont('res/font/heal.fnt', tostring(heal))
-    --label:setColor(cc.c3b(0,255,0))
-    label:setPosition(x, y)
-    label:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
-    --label:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 170)), 0.5))
-    self.m_world:addChild3(label, DEPTH_HEAL_FONT)
+    node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
+
+    self.m_world:addChild3(node, DEPTH_HEAL_FONT)
+
+    -- label 생성
+    do
+        local font_res = 'res/font/heal.fnt'
+	    if (is_critical) then
+		    font_res = 'res/font/critical.fnt'	-- 보라계열
+	    end
+
+        local label = cc.Label:createWithBMFont(font_res, tostring(heal))
+
+        if (is_critical) then
+            label:setColor(cc.c3b(102, 255, 0))
+        end
+
+        node:addChild(label)
+    end
+
+    -- 판정 표시
+    do
+        local sprite
+
+        if (is_critical) then
+            sprite = cc.Sprite:create('res/font/ingame_maximization.png')
+        end
+
+        if (sprite) then
+            sprite:setAnchorPoint(cc.p(0.5, 0.5))
+            sprite:setDockPoint(cc.p(0.5, 0.5))
+            sprite:setPosition(0, 25)
+            node:addChild(sprite)
+        end
+    end
 end
 
 
@@ -1120,22 +1151,39 @@ function Character:healPercent(caster, percent, b_make_effect)
     local heal = self.m_maxHp * percent
     heal = math_min((self.m_maxHp - self.m_hp) , heal)
 
-    self:healAbs(caster, heal, b_make_effect)
+    self:healAbs(caster, heal, false, b_make_effect)
 end
 
 -------------------------------------
 -- function healAbs
 -------------------------------------
-function Character:healAbs(caster, heal, b_make_effect)
+function Character:healAbs(caster, heal, is_critical, b_make_effect)
     local heal = math_floor(heal)
+    if (heal == 0) then return end
 
-    -- 시전자 회복 스킬 효과 증가 처리
     if (caster) then
-         local heal_power = caster:getStat('heal_power')
-         if (heal_power ~= 0) then
+        -- 크리 여부 검사
+        if (is_critical == nil) then
+            local critical_chance = caster:getStat('cri_chance') or 0
+            local critical_avoid = 0
+            local final_critical_chance = CalcCriticalChance(critical_chance, critical_avoid)
+
+            is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
+
+            if (is_critical) then
+                local cri_dmg = caster:getStat('cri_dmg') or 0
+                local multifly = (cri_dmg / 100)
+
+                heal = heal * multifly 
+            end
+        end
+
+        -- 시전자 회복 스킬 효과 증가 처리
+        local heal_power = caster:getStat('heal_power')
+        if (heal_power ~= 0) then
             heal_power = math_max(heal_power, -100)
             heal = heal + math_floor(heal * (heal_power / 100))
-         end
+        end
     end
 
     -- 대상자 받는 치유 효과 증가 처리
@@ -1147,13 +1195,10 @@ function Character:healAbs(caster, heal, b_make_effect)
         end
     end
 
-    -- 회복량이 0일 경우 표시하지 않음
-    --if (heal <= 0) then return end
-
     local heal_for_text = heal
     heal = math_min(heal, (self.m_maxHp-self.m_hp))
 
-    self:makeHealFont(heal_for_text)
+    self:makeHealFont(heal_for_text, is_critical)
     self:setHp(self.m_hp + heal)
 
     if (b_make_effect) then
