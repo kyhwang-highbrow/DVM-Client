@@ -109,17 +109,6 @@ function ServerData_AncientTower:goToAncientTowerScene(use_scene, stage_id)
             scene:runScene()
         else
             local ui = UI_AncientTower()
-
-            -- 시즌 보상 팝업
-            if (self.m_tSeasonRewardInfo) then
-                local info = self.m_tSeasonRewardInfo
-                local t_ret = self.m_tRet
-
-                UI_AncientTowerRankingRewardPopup(info, t_ret)
-
-                self.m_tSeasonRewardInfo = nil
-                self.m_tRet = nil
-		    end
         end        
     end    
     self:request_ancientTowerInfo(stage_id, finish_cb, fail_cb)

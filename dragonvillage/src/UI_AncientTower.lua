@@ -138,6 +138,17 @@ function UI_AncientTower:initUI()
         local floor = g_ancientTowerData:getFloorFromStageID(self.m_selectedStageID)
         self.m_tableView:relocateContainerFromIndex(floor + 1)
     end
+
+    -- 시즌 보상 팝업 (보상이 있다면)
+    if (g_ancientTowerData.m_tSeasonRewardInfo) then
+        local info = g_ancientTowerData.m_tSeasonRewardInfo
+        local t_ret = g_ancientTowerData.m_tRet
+
+        UI_AncientTowerRankingRewardPopup(info, t_ret)
+
+        g_ancientTowerData.m_tSeasonRewardInfo = nil
+        g_ancientTowerData.m_tRet = nil
+	end
 end
 
 -------------------------------------

@@ -108,4 +108,5 @@ end
 ----------------------------------------
 function PatchChecker:gotoAppStore()
     SDKManager:goToAppStore()
+    closeApplication()
 end
