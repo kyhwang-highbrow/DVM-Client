@@ -96,24 +96,19 @@ local function main()
 	ErrorTracker:getInstance()
     PatchChecker:getInstance()
 
-    if DV_SCENE_ACTIVE then
-        SceneDV():runScene()
-    else
-        local function start_cb()
-            loadModule()
-        end
-
-        local function finish_cb()
-            local scene = ScenePatch()
-            scene:runScene()
-        end
-
-        local logoScene = SceneLogo()
-        logoScene:setStartCB(start_cb)
-        logoScene:setFinishCB(finish_cb)
-        logoScene:runScene()
+    local function start_cb()
+        loadModule()
     end
 
+    local function finish_cb()
+        local scene = ScenePatch()
+        scene:runScene()
+    end
+
+    local logoScene = SceneLogo()
+    logoScene:setStartCB(start_cb)
+    logoScene:setFinishCB(finish_cb)
+    logoScene:runScene()
 end
 
 local status, msg = xpcall(main, __G__TRACKBACK__)
