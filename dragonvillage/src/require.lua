@@ -861,10 +861,6 @@ local t_module = {
     'UI_TutorialPlayer',
     'TutorialManager',
     'TutorialHelper',
-    'Tutorial_DragonManageInfo',
-    'Tutorial_DragonEvolution',
-    'Tutorial_AncientTower',
-    'Tutorial_Colosseum',
 
     -- Network
     'Network',

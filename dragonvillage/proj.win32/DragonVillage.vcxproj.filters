@@ -2349,12 +2349,6 @@
     <None Include="..\src\DropItemMgr_Intro.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\Tutorial_DragonEvolution.lua">
-      <Filter>lua\tutorial</Filter>
-    </None>
-    <None Include="..\src\Tutorial_DragonManageInfo.lua">
-      <Filter>lua\tutorial</Filter>
-    </None>
     <None Include="..\src\TutorialHelper.lua">
       <Filter>lua\tutorial</Filter>
     </None>
@@ -2528,12 +2522,6 @@
     </None>
     <None Include="..\src\SkillCross.lua">
       <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\Tutorial_Colosseum.lua">
-      <Filter>lua\tutorial</Filter>
-    </None>
-    <None Include="..\src\Tutorial_AncientTower.lua">
-      <Filter>lua\tutorial</Filter>
     </None>
     <None Include="..\src\UIC_ExtendedUI.lua">
       <Filter>lua\UIC</Filter>
