@@ -29,6 +29,7 @@
 
 #include "audio/apple/AudioEngine-inl.h"
 
+#import <UIKit/UIKit.h>
 #import <OpenAL/alc.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -201,7 +202,7 @@ AudioEngineImpl::~AudioEngineImpl()
 {
     if (_scheduler != nullptr)
     {
-        _scheduler->unschedule(CC_SCHEDULE_SELECTOR(AudioEngineImpl::update), this);
+        _scheduler->unschedule(schedule_selector(AudioEngineImpl::update), this);
     }
 
     if (s_ALContext) {
@@ -395,7 +396,7 @@ int AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float volume
 
     if (_lazyInitLoop) {
         _lazyInitLoop = false;
-        _scheduler->schedule(CC_SCHEDULE_SELECTOR(AudioEngineImpl::update), this, 0.05f, false);
+        _scheduler->schedule(schedule_selector(AudioEngineImpl::update), this, 0.05f, false);
     }
 
     return _currentAudioID++;
@@ -640,7 +641,7 @@ void AudioEngineImpl::update(float dt)
 
     if(_audioPlayers.empty()){
         _lazyInitLoop = true;
-        _scheduler->unschedule(CC_SCHEDULE_SELECTOR(AudioEngineImpl::update), this);
+        _scheduler->unschedule(schedule_selector(AudioEngineImpl::update), this);
     }
 }
 

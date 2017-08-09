@@ -26,7 +26,19 @@ THE SOFTWARE.
 #include "audio/ios/SimpleAudioEngine_objc.h"
 #include "platform/CCFileUtils.h"
 
+#include "audio/include/AudioEngine.h"
+using namespace cocos2d::experimental;
+
 USING_NS_CC;
+
+
+static int s_EngineMode = 1;
+
+static int s_BGMusicId = -1;
+static bool s_IsBGMPlaying = false;
+
+static int s_VoiceId = -1;
+
 
 static bool __isAudioPreloadOrPlayed = false;
 
@@ -43,12 +55,14 @@ static void static_end()
 static void static_preloadBackgroundMusic(const char* pszFilePath)
 {
     __isAudioPreloadOrPlayed = true;
+
     [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic: [NSString stringWithUTF8String: pszFilePath]];
 }
 
 static void static_playBackgroundMusic(const char* pszFilePath, bool bLoop)
 {
     __isAudioPreloadOrPlayed = true;
+
     [[SimpleAudioEngine sharedEngine] playBackgroundMusic: [NSString stringWithUTF8String: pszFilePath] loop: bLoop];
 }
 
@@ -65,7 +79,7 @@ static void static_pauseBackgroundMusic()
     if (!__isAudioPreloadOrPlayed)
         return;
 
-     [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
+    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
 }
 
 static void static_resumeBackgroundMusic()
@@ -74,7 +88,7 @@ static void static_resumeBackgroundMusic()
         return;
 
     [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
-} 
+}
 
 static void static_rewindBackgroundMusic()
 {
@@ -116,7 +130,7 @@ static void static_setBackgroundMusicVolume(float volume)
     volume = MAX( MIN(volume, 1.0), 0 );
     [SimpleAudioEngine sharedEngine].backgroundMusicVolume = volume;
 }
-     
+
 static float static_getEffectsVolume()
 {
     if (!__isAudioPreloadOrPlayed)
@@ -124,7 +138,7 @@ static float static_getEffectsVolume()
 
     return [[SimpleAudioEngine sharedEngine] effectsVolume];
 }
-     
+
 static void static_setEffectsVolume(float volume)
 {
     if (!__isAudioPreloadOrPlayed)
@@ -137,9 +151,10 @@ static void static_setEffectsVolume(float volume)
 static unsigned int static_playEffect(const char* pszFilePath, bool bLoop, Float32 pszPitch, Float32 pszPan, Float32 pszGain)
 {
     __isAudioPreloadOrPlayed = true;
+
     return [[SimpleAudioEngine sharedEngine] playEffect:[NSString stringWithUTF8String: pszFilePath] loop:bLoop pitch:pszPitch pan: pszPan gain:pszGain];
 }
-     
+
 static void static_stopEffect(int nSoundId)
 {
     if (!__isAudioPreloadOrPlayed)
@@ -147,13 +162,14 @@ static void static_stopEffect(int nSoundId)
 
     [[SimpleAudioEngine sharedEngine] stopEffect: nSoundId];
 }
-     
+
 static void static_preloadEffect(const char* pszFilePath)
 {
     __isAudioPreloadOrPlayed = true;
+
     [[SimpleAudioEngine sharedEngine] preloadEffect: [NSString stringWithUTF8String: pszFilePath]];
 }
-     
+
 static void static_unloadEffect(const char* pszFilePath)
 {
     if (!__isAudioPreloadOrPlayed)
@@ -170,20 +186,20 @@ static void static_pauseEffect(unsigned int uSoundId)
     [[SimpleAudioEngine sharedEngine] pauseEffect: uSoundId];
 }
 
-static void static_pauseAllEffects()
-{
-    if (!__isAudioPreloadOrPlayed)
-        return;
-
-    [[SimpleAudioEngine sharedEngine] pauseAllEffects];
-}
-
 static void static_resumeEffect(unsigned int uSoundId)
 {
     if (!__isAudioPreloadOrPlayed)
         return;
 
     [[SimpleAudioEngine sharedEngine] resumeEffect: uSoundId];
+}
+
+static void static_pauseAllEffects()
+{
+    if (!__isAudioPreloadOrPlayed)
+        return;
+
+    [[SimpleAudioEngine sharedEngine] pauseAllEffects];
 }
 
 static void static_resumeAllEffects()
@@ -218,7 +234,7 @@ SimpleAudioEngine::~SimpleAudioEngine()
 
 SimpleAudioEngine* SimpleAudioEngine::getInstance()
 {
-    if (! s_pEngine)
+    if (!s_pEngine)
     {
         s_pEngine = new (std::nothrow) SimpleAudioEngine();
     }
@@ -228,77 +244,189 @@ SimpleAudioEngine* SimpleAudioEngine::getInstance()
 
 void SimpleAudioEngine::end()
 {
-    if (s_pEngine)
+    if (s_EngineMode == 1)
     {
-        delete s_pEngine;
-        s_pEngine = nullptr;
+        AudioEngine::end();
     }
-    
-    static_end();
+    else
+    {
+        if (s_pEngine)
+        {
+            delete s_pEngine;
+            s_pEngine = nullptr;
+        }
+
+        static_end();
+    }
 }
 
 void SimpleAudioEngine::preloadBackgroundMusic(const char* pszFilePath)
 {
     // Changing file path to full path
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(pszFilePath);
-    static_preloadBackgroundMusic(fullPath.c_str());
+
+    if (s_EngineMode == 1)
+    {
+        AudioEngine::preload(pszFilePath);
+    }
+    else
+    {
+        static_preloadBackgroundMusic(fullPath.c_str());
+    }
 }
 
 void SimpleAudioEngine::playBackgroundMusic(const char* pszFilePath, bool bLoop)
 {
     // Changing file path to full path
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(pszFilePath);
-    static_playBackgroundMusic(fullPath.c_str(), bLoop);
+    if (s_EngineMode == 1)
+    {
+        if (s_BGMusicId != -1)
+        {
+            stopBackgroundMusic();
+        }
+
+        s_BGMusicId = AudioEngine::play2d(pszFilePath, bLoop);
+        s_IsBGMPlaying = true;
+    }
+    else
+    {
+        static_playBackgroundMusic(fullPath.c_str(), bLoop);
+    }
 }
 
 void SimpleAudioEngine::stopBackgroundMusic(bool bReleaseData)
 {
-    static_stopBackgroundMusic();
+    if (s_EngineMode == 1)
+    {
+        if (s_BGMusicId != -1)
+        {
+            AudioEngine::stop(s_BGMusicId);
+            s_BGMusicId = -1;
+            s_IsBGMPlaying = false;
+        }
+    }
+    else
+    {
+        static_stopBackgroundMusic();
+    }
 }
 
 void SimpleAudioEngine::pauseBackgroundMusic()
 {
-    static_pauseBackgroundMusic();
+    if (s_EngineMode == 1)
+    {
+        if (s_BGMusicId != -1)
+        {
+            AudioEngine::pause(s_BGMusicId);
+            s_IsBGMPlaying = false;
+        }
+    }
+    else
+    {
+        static_pauseBackgroundMusic();
+    }
 }
 
 void SimpleAudioEngine::resumeBackgroundMusic()
 {
-    static_resumeBackgroundMusic();
-} 
+    if (s_EngineMode == 1)
+    {
+        if (s_BGMusicId != -1)
+        {
+            AudioEngine::resume(s_BGMusicId);
+            s_IsBGMPlaying = true;
+        }
+    }
+    else
+    {
+        static_resumeBackgroundMusic();
+    }
+}
 
 void SimpleAudioEngine::rewindBackgroundMusic()
 {
-    static_rewindBackgroundMusic();
+    if (s_EngineMode == 1)
+    {
+        if (s_BGMusicId != -1)
+        {
+            AudioEngine::setCurrentTime(s_BGMusicId, 0);
+        }
+    }
+    else
+    {
+        static_rewindBackgroundMusic();
+    }
 }
 
 bool SimpleAudioEngine::willPlayBackgroundMusic()
 {
-    return static_willPlayBackgroundMusic();
+    if (s_EngineMode == 1)
+    {
+        return false;
+    }
+    else
+    {
+        return static_willPlayBackgroundMusic();
+    }
 }
 
 bool SimpleAudioEngine::isBackgroundMusicPlaying()
 {
-    return static_isBackgroundMusicPlaying();
+    if (s_EngineMode == 1)
+    {
+        return s_IsBGMPlaying;
+    }
+    else
+    {
+        return static_isBackgroundMusicPlaying();
+    }
 }
 
 float SimpleAudioEngine::getBackgroundMusicVolume()
 {
-    return static_getBackgroundMusicVolume();
+    if (s_EngineMode == 1)
+    {
+        return 0.0f;
+    }
+    else
+    {
+        return static_getBackgroundMusicVolume();
+    }
 }
 
 void SimpleAudioEngine::setBackgroundMusicVolume(float volume)
 {
-    static_setBackgroundMusicVolume(volume);
+    if (s_EngineMode == 1)
+    {
+    }
+    else
+    {
+        static_setBackgroundMusicVolume(volume);
+    }
 }
 
 float SimpleAudioEngine::getEffectsVolume()
 {
-    return static_getEffectsVolume();
+    if (s_EngineMode == 1)
+    {
+        return 0.0f;
+    }
+    else
+    {
+        return static_getEffectsVolume();
+    }
 }
 
 void SimpleAudioEngine::setEffectsVolume(float volume)
 {
-    static_setEffectsVolume(volume);
+    if (s_EngineMode == 1)
+    {
+    }
+    else
+    {
+        static_setEffectsVolume(volume);
+    }
 }
 
 unsigned int SimpleAudioEngine::playEffect(const char *pszFilePath, bool bLoop,
@@ -306,59 +434,156 @@ unsigned int SimpleAudioEngine::playEffect(const char *pszFilePath, bool bLoop,
 {
     // Changing file path to full path
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(pszFilePath);
-    return static_playEffect(fullPath.c_str(), bLoop, pitch, pan, gain);
+    if (s_EngineMode == 1)
+    {
+        return AudioEngine::play2d(pszFilePath, bLoop);
+    }
+    else
+    {
+        return static_playEffect(fullPath.c_str(), bLoop, pitch, pan, gain);
+    }
 }
 
 void SimpleAudioEngine::stopEffect(unsigned int nSoundId)
 {
-    static_stopEffect(nSoundId);
+    if (s_EngineMode == 1)
+    {
+        AudioEngine::stop(nSoundId);
+    }
+    else
+    {
+        static_stopEffect(nSoundId);
+    }
 }
 
 void SimpleAudioEngine::preloadEffect(const char* pszFilePath)
 {
     // Changing file path to full path
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(pszFilePath);
-    static_preloadEffect(fullPath.c_str());
+    if (s_EngineMode == 1)
+    {
+        AudioEngine::preload(pszFilePath);
+    }
+    else
+    {
+        static_preloadEffect(fullPath.c_str());
+    }
 }
 
 void SimpleAudioEngine::unloadEffect(const char* pszFilePath)
 {
     // Changing file path to full path
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(pszFilePath);
-    static_unloadEffect(fullPath.c_str());
+    if (s_EngineMode == 1)
+    {
+        AudioEngine::uncache(pszFilePath);
+    }
+    else
+    {
+        static_unloadEffect(fullPath.c_str());
+    }
 }
 
 void SimpleAudioEngine::pauseEffect(unsigned int uSoundId)
 {
-    static_pauseEffect(uSoundId);
+    if (s_EngineMode == 1)
+    {
+        AudioEngine::pause(uSoundId);
+    }
+    else
+    {
+        static_pauseEffect(uSoundId);
+    }
 }
 
 void SimpleAudioEngine::resumeEffect(unsigned int uSoundId)
 {
-    static_resumeEffect(uSoundId);
+    if (s_EngineMode == 1)
+    {
+        AudioEngine::resume(uSoundId);
+    }
+    else
+    {
+        static_resumeEffect(uSoundId);
+    }
 }
 
 void SimpleAudioEngine::pauseAllEffects()
 {
-    static_pauseAllEffects();
+    if (s_EngineMode == 1)
+    {
+        AudioEngine::pauseAll();
+        if (s_BGMusicId != -1)
+        {
+            s_IsBGMPlaying = false;
+        }
+    }
+    else
+    {
+        static_pauseAllEffects();
+    }
 }
 
 void SimpleAudioEngine::resumeAllEffects()
 {
-    static_resumeAllEffects();
+    if (s_EngineMode == 1)
+    {
+        AudioEngine::resumeAll();
+        if (s_BGMusicId != -1)
+        {
+            s_IsBGMPlaying = true;
+        }
+    }
+    else
+    {
+        static_resumeAllEffects();
+    }
 }
 
 void SimpleAudioEngine::stopAllEffects()
 {
-    static_stopAllEffects();
+    if (s_EngineMode == 1)
+    {
+        AudioEngine::stopAll();
+    }
+    else
+    {
+        static_stopAllEffects();
+    }
 }
 
 void SimpleAudioEngine::playVoice(const char* pszFilePath, bool bLoop)
 {
+    if (s_EngineMode == 1)
+    {
+        if (s_VoiceId != -1)
+        {
+            stopVoice();
+        }
+
+        s_VoiceId = AudioEngine::play2d(pszFilePath, bLoop);
+    }
+    else
+    {
+        s_VoiceId = playEffect(pszFilePath, bLoop);
+    }
 }
 
 void SimpleAudioEngine::stopVoice(bool bReleaseData)
 {
+    if (s_EngineMode == 1)
+    {
+        if (s_VoiceId != -1)
+        {
+            AudioEngine::stop(s_VoiceId);
+            s_VoiceId = -1;
+        }
+    }
+    else
+    {
+        stopEffect(s_VoiceId);
+        s_VoiceId = -1;
+    }
 }
 
 void SimpleAudioEngine::playVibrate(long millisecond)
@@ -372,11 +597,12 @@ void SimpleAudioEngine::cancelVibrate()
 
 void SimpleAudioEngine::setEngineMode(int mode)
 {
+    s_EngineMode = mode;
 }
 
 int SimpleAudioEngine::getEngineMode()
 {
-    return 0;
+    return s_EngineMode;
 }
 
 } // endof namespace CocosDenshion {

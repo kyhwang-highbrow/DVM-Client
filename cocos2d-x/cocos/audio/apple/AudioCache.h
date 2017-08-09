@@ -33,7 +33,7 @@
 #include <mutex>
 #include <vector>
 
-#include "platform/CCPlatformMacros.h"
+#include "base/CCPlatformMacros.h"
 #include "audio/apple/AudioMacros.h"
 
 NS_CC_BEGIN
