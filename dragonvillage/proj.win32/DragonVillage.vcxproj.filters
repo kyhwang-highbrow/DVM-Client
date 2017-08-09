@@ -2628,6 +2628,9 @@
     <None Include="..\src\TutorialManager.lua">
       <Filter>lua\tutorial</Filter>
     </None>
+    <None Include="..\src\UINavigatorDefinition.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
