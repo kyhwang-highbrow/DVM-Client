@@ -56,18 +56,18 @@
             {
 				0:
 				[
-					"RandomDragon1;20;Appear;RO04;RF24;0.5"
+					"RandomDragon1;25;Appear;RO04;RF24;0.5"
 				]
 				
 				0.2:
 				[
-					"RandomDragon1;20;Appear;RO02;RM22;0.5"
-					"RandomDragon1;20;Appear;RO06;RM26;0.5"
+					"RandomDragon1;25;Appear;RO02;RM22;0.5"
+					"RandomDragon1;25;Appear;RO06;RM26;0.5"
 				],
 				
 				0.3:
 				[
-					"RandomDragon1;20;Appear;RO04;RB24;0.5"
+					"RandomDragon1;25;Appear;RO04;RB24;0.5"
 				]
             }
 		},
@@ -84,12 +84,12 @@
             {
 				0:
 				[
-					"RandomDragon1;30;Appear;RO02;RF24;0.5"
+					"RandomDragon1;40;Appear;RO02;RF24;0.5"
 				],
 				
 				0.1:
 				[
-					"RandomDragon2;35;Appear;RO04;RB14;0.5"
+					"RandomDragon2;45;Appear;RO04;RB14;0.5"
 				]
             }
 		},
@@ -106,13 +106,13 @@
             {
 				0:
 				[
-					"RandomDragon1;40;Appear;RO02;RF22;0.5"
-					"RandomDragon1;40;Appear;RO06;RF26;0.5"
+					"RandomDragon1;60;Appear;RO02;RF22;0.5"
+					"RandomDragon1;60;Appear;RO06;RF26;0.5"
 				],
 				
 				0.1:
 				[
-					"RandomDragon2;45;Appear;RO04;RB14;0.5"
+					"RandomDragon2;65;Appear;RO04;RB14;0.5"
 				]
             }
 		},
@@ -129,10 +129,10 @@
             {
 				0:
 				[
-					"RandomDragon2;55;Basic2;RM24;RF24;0.5"
-					"RandomDragon1;50;Basic2;RB13;RM22;0.5"
-					"RandomDragon1;50;Basic2;RB15;RM26;0.5"
-					"RandomDragon1;50;Basic2;RB24;RB24;0.5"
+					"RandomDragon2;85;Basic2;RM24;RF24;0.5"
+					"RandomDragon1;80;Basic2;RB13;RM22;0.5"
+					"RandomDragon1;80;Basic2;RB15;RM26;0.5"
+					"RandomDragon1;80;Basic2;RB24;RB24;0.5"
 				]
             }
 		},
@@ -149,9 +149,9 @@
             {
 				0:
 				[
-					"RandomDragon3;65;Basic2;RB24;RF24;0.5"
-					"RandomDragon1;60;Basic2;RM22;RM23;0.5"
-					"RandomDragon1;60;Basic2;RB26;RM25;0.5"
+					"RandomDragon3;105;Basic2;RB24;RF24;0.5"
+					"RandomDragon1;100;Basic2;RM22;RM23;0.5"
+					"RandomDragon1;100;Basic2;RB26;RM25;0.5"
 				]
             }
 		},
@@ -168,13 +168,13 @@
             {
 				0:
 				[
-					"RandomDragon2;70;Appear;RO02;RF22;0.5"
-					"RandomDragon2;70;Appear;RO06;RF26;0.5"
+					"RandomDragon2;120;Appear;RO02;RF22;0.5"
+					"RandomDragon2;120;Appear;RO06;RF26;0.5"
 				],
 				
 				0.1:
 				[
-					"RandomDragon3;75;Appear;RO04;RB14;0.5"
+					"RandomDragon3;125;Appear;RO04;RB14;0.5"
 				]
             }
 		},
@@ -192,18 +192,18 @@
             {
 				0:
 				[
-					"RandomDragon2;80;Appear;RO04;RF24;0.5"
+					"RandomDragon2;150;Appear;RO04;RF24;0.5"
 				]
 				
 				0.2:
 				[
-					"RandomDragon2;80;Appear;RO02;RM22;0.5"
-					"RandomDragon2;80;Appear;RO06;RM26;0.5"
+					"RandomDragon2;150;Appear;RO02;RM22;0.5"
+					"RandomDragon2;150;Appear;RO06;RM26;0.5"
 				],
 				
 				0.3:
 				[
-					"RandomDragon3;85;Appear;RO04;RB24;0.5"
+					"RandomDragon3;155;Appear;RO04;RB24;0.5"
 				]
             }
 		},
@@ -221,15 +221,15 @@
             {
 				0:
 				[
-					"RandomDragon1;90;Appear;RO02;RF22;0.5"
-					"RandomDragon1;90;Appear;RO06;RF26;0.5"
+					"RandomDragon1;200;Appear;RO02;RF22;0.5"
+					"RandomDragon1;200;Appear;RO06;RF26;0.5"
 				],
 				
 				0.2:
 				[
-					"RandomDragon3;95;Appear;RO04;RM24;0.5"
-					"RandomDragon2;90;Appear;RO03;RB23;0.5"
-					"RandomDragon2;90;Appear;RO05;RB25;0.5"
+					"RandomDragon3;205;Appear;RO04;RM24;0.5"
+					"RandomDragon2;200;Appear;RO03;RB23;0.5"
+					"RandomDragon2;200;Appear;RO05;RB25;0.5"
 				]
             }
 		}

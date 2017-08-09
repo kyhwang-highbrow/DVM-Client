@@ -16,7 +16,7 @@
             {
 				0:
 				[
-					"135031;30;SecretGold;RO04;RM24;3"
+					"135031;1;SecretGold;RO04;RM24;3"
 				]
             },
 			
