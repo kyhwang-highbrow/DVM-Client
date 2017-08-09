@@ -127,7 +127,7 @@ function UI_FriendPopup:initFrinedPopupTab()
 
     local vars = self.vars
     self:addTab('friends', vars['listBtn'], vars['listMenu'])
-    self:addTab('recommend', vars['recommendBtn'], vars['recommendNode1'], vars['recommendMenu2'])
+    self:addTab('recommend', vars['recommendBtn'], vars['recommendMenu2'])
     self:addTab('response', vars['responseBtn'], vars['responseNode']) -- 받은 요청
     self:addTab('request', vars['requestBtn'], vars['requestNode']) -- 보낸 요청
     

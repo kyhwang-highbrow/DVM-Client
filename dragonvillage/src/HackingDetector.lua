@@ -195,7 +195,7 @@ function HackingDetector:checkPackage()
 
 	if (t_running) then
         cclog('t_running exist!')
-        ccdump(t_running)
+        
 		for i, v in ipairs(t_package) do
 			if t_running[v] then
 				table.insert(t_ret, v)
@@ -203,6 +203,7 @@ function HackingDetector:checkPackage()
 		end
 
 		for k, v in pairs(t_running) do
+            cclog('t_running k '..luadump(k))
 			if string.match(k, 'aqua.qq') then
 				table.insert(t_ret, k)
 			elseif string.match(k, 'aqua.gg') then

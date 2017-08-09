@@ -81,6 +81,7 @@ end
 -- @brief 권장 업데이트
 ----------------------------------------
 function PatchChecker:needRecommendAppUpdate(pass_update_func)
+    HideLoading()
     local msg = Str('새로운 버전의 게임이 업데이트 되었습니다.\n스토어를 통해 업데이트를 하기바랍니다.')
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, function() self:gotoAppStore() end, function() pass_update_func() end)
 end
@@ -90,6 +91,7 @@ end
 -- @brief 필수 업데이트
 ----------------------------------------
 function PatchChecker:needNecessaryAppUpdate()
+    HideLoading()
     local msg = Str('버전이 낮아서 게임에 접속할 수 없습니다.\n스토어를 통해 업데이트를 하기바랍니다.')
     MakeSimplePopup(POPUP_TYPE.OK, msg, function() self:gotoAppStore() end)
 end
@@ -99,6 +101,7 @@ end
 -- @brief 패치 업데이트
 ----------------------------------------
 function PatchChecker:needPatchUpdate()
+    HideLoading()
     local msg = Str('새로운 패치가 있습니다.\n게임이 종료됩니다.\n자동으로 재시작된 후 패치가 적용됩니다.')
     MakeSimplePopup(POPUP_TYPE.OK, msg, function() restart() end)
 end
