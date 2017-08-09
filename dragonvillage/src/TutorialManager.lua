@@ -41,20 +41,24 @@ end
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
 function TutorialManager:startTutorial(tutorial_key, tar_ui)
-    -- 본 튜토리얼이라면 실행하지 않는다.
-    if (g_tutorialData:isTutorialDone(tutorial_key)) then 
-        return false
+    local function cb_func(ret)
+        -- 이미 완료한 튜토리얼이라면 실행하지 않는다.
+        if (ret['tutorial']) then
+            return
+        end
+        
+        -- 튜토리얼 실행 : UI세팅
+        self:doTutorial()
+
+        -- 튜토리얼 플레이어 -> 종료 하면서 튜토리얼 기록 저장
+        local ui = UI_TutorialPlayer(tutorial_key, tar_ui)
+        UIManager.m_scene:addChild(ui.root, SCENE_ZORDER.TUTORIAL_DLG)
+        self.m_tutorialPlayer = ui
+        ui:setCloseCB(function() g_tutorialData:request_tutorialSave(tutorial_key) end)
+        ui:next()
     end
 
-    -- 튜토리얼 실행 : UI세팅
-    self:doTutorial()
-
-    -- 튜토리얼 플레이어 -> 종료 하면서 튜토리얼 기록 저장
-    local ui = UI_TutorialPlayer(tutorial_key, tar_ui)
-    UIManager.m_scene:addChild(ui.root, SCENE_ZORDER.TUTORIAL_DLG)
-    self.m_tutorialPlayer = ui
-    ui:setCloseCB(function() g_tutorialData:request_tutorialSave(tutorial_key) end)
-    ui:next()
+    g_tutorialData:isTutorialDone(tutorial_key, cb_func)
 end
 
 -------------------------------------

@@ -24,22 +24,19 @@ end
 -- function checkTutorialDone
 -- @brief 해당 튜토리얼 클리어 여부
 -------------------------------------
-function ServerData_Tutorial:isTutorialDone(tutorial_key)
-    -- 저장해둔 것이 있다면 그것을 사용
-    if (self.m_tTutorialClearInfo[tutorial_key] ~= nil) then
-        return self.m_tTutorialClearInfo[tutorial_key]
-    end
+function ServerData_Tutorial:isTutorialDone(tutorial_key, cb_func)
+    local is_done = self.m_tTutorialClearInfo[tutorial_key]
 
-    -- 저장한 것이 없다면 통신
-    local success_cb = function(ret)
-        return ret['tutorial']
-    end
+    if (is_done == true) then
+        -- nothing to do
 
-    local fail_cb = function(ret)
-        return true
-    end
+    elseif (is_done == false) then
+        cb_func()
 
-    self:request_tutorialInfo(tutorial_key, success_cb, fail_cb)
+    elseif (is_done == nil) then
+        self:request_tutorialInfo(tutorial_key, cb_func)
+
+    end
 end
 
 -------------------------------------
@@ -89,6 +86,8 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, finish_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        self.m_tTutorialClearInfo[tutorial_key] = ret['tutorial']
+
         if finish_cb then
             finish_cb(ret)
         end
