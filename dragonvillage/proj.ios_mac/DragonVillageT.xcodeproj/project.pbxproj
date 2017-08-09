@@ -14,8 +14,6 @@
 		15A8A4841834C73500142BE0 /* libcocos2dx-extensions Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4191834BDA200142BE0 /* libcocos2dx-extensions Mac.a */; };
 		15A8A4851834C73500142BE0 /* libCocosDenshion Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A41F1834BDA200142BE0 /* libCocosDenshion Mac.a */; };
 		1AF4C403178663F200122817 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF4C402178663F200122817 /* libz.dylib */; };
-		1EE7C4801D9244DE005EF89F /* IgaworksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E162B4A1D92367100CA2C71 /* IgaworksCore.framework */; };
-		1EE7C4811D924545005EF89F /* AdBrix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E162B451D92367100CA2C71 /* AdBrix.framework */; };
 		373E2D841A038712004EF0DB /* AppDelegate_Custom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */; };
 		373E2D851A038712004EF0DB /* PerpSupportLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D801A038712004EF0DB /* PerpSupportLua.cpp */; };
 		373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; };
@@ -10710,8 +10708,6 @@
 			files = (
 				374376881F3A800F00AC6C7C /* libPerpleSDK.a in Frameworks */,
 				374376861F3A7FE100AC6C7C /* SafariServices.framework in Frameworks */,
-				1EE7C4811D924545005EF89F /* AdBrix.framework in Frameworks */,
-				1EE7C4801D9244DE005EF89F /* IgaworksCore.framework in Frameworks */,
 				37E128DE1B45398400200C23 /* AdSupport.framework in Frameworks */,
 				37E128C01B4538AE00200C23 /* AssetsLibrary.framework in Frameworks */,
 				F293B3D315EB7BE500256477 /* AudioToolbox.framework in Frameworks */,
