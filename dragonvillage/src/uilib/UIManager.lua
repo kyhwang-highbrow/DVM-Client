@@ -500,7 +500,7 @@ function UIManager:onKeyReleased(keyCode, event)
 	-- 등록된 UI 리스트 출력
 	elseif (keyCode == KEY_A) then
 		cclog('----------------opened ui list----------------------')
-		for i, v in pairs(self.m_uiList) do
+		for i, v in pairs(table.reverse(self.m_uiList)) do
 			cclog(v.m_resName, v.m_uiName)
 		end
 

@@ -3,11 +3,13 @@
 -- @brief tutorial의 시작과 끝을 관장하고 ServerData_Tutorial로 부터 튜토리얼 플레이 여부 받아옴
 -------------------------------------
 TutorialManager = class({
-    m_tutorialNode = '',
-    m_tutorialClippingNode = '',
-    m_tTutorialBtnInfoTable = '',
-    m_tutorialStencilEffect = '',
-    m_tutorialPlayer = '',
+    m_isTutorialDoing = 'bool',
+
+    m_tutorialNode = 'cc.Node',
+    m_tutorialClippingNode = 'cc.ClippingNode',
+    m_tTutorialBtnInfoTable = 'table',
+    m_tutorialStencilEffect = 'cc.Sprite',
+    m_tutorialPlayer = 'UI',
 })
 
 local _instance
@@ -30,6 +32,7 @@ function TutorialManager:init(is_singleton)
     if (not is_singleton) then
         error('Singleton class can not be initiated')
     end
+    self.m_isTutorialDoing = false
 end
 
 -------------------------------------
@@ -105,6 +108,9 @@ function TutorialManager:doTutorial()
 
     -- 튜토리얼하는 동안 전역 블럭 처리
     self:setGlobalLock(true)
+
+    -- 튜토리얼 실행중 명시
+    self.m_isTutorialDoing = true
 end
 
 -------------------------------------
@@ -138,14 +144,19 @@ function TutorialManager:releaseTutorial()
 
 		self.m_tutorialNode:removeFromParent(true)
 		self.m_tutorialNode = nil
-
-        self:setGlobalLock(false)
-
-        if (self.m_tutorialPlayer) then
-            self.m_tutorialPlayer.root:removeFromParent()
-            self.m_tutorialPlayer = nil
-        end
 	end
+
+    -- tutorial 재생기 해제
+    if (self.m_tutorialPlayer) then
+        self.m_tutorialPlayer.root:removeFromParent()
+        self.m_tutorialPlayer = nil
+    end
+
+    -- 전역 블럭 해제
+    self:setGlobalLock(false)
+
+    -- 튜토리얼 종료 명시
+    self.m_isTutorialDoing = false
 end
 
 -------------------------------------
@@ -255,11 +266,22 @@ end
 -- @brief 튜토리얼 노드에 붙인 버튼을 전부 되돌린다.
 -------------------------------------
 function TutorialManager:revertNodeAll()
-    if (self.m_tTutorialBtnInfoTable) then
-        for uic_node, _ in pairs(self.m_tTutorialBtnInfoTable) do
-            self:revertNode(uic_node)
-        end
+    for uic_node, _ in pairs(self.m_tTutorialBtnInfoTable) do
+        self:revertNode(uic_node)
     end
+
+    self.m_tTutorialBtnInfoTable = {}
+end
+
+-------------------------------------
+-- function deleteNodeAll
+-- @brief 튜토리얼 노드에 붙인 버튼을 전부 삭제해버림
+-------------------------------------
+function TutorialManager:deleteNodeAll()
+    for uic_node, _ in pairs(self.m_tTutorialBtnInfoTable) do
+        uic_node.m_node:removeFromParent(true)
+    end
+
     self.m_tTutorialBtnInfoTable = {}
 end
 
@@ -288,4 +310,26 @@ end
 -------------------------------------
 function TutorialManager:changeTargetUI(tar_ui)
     self.m_tutorialPlayer:setTargetUI(tar_ui)
+end
+
+-------------------------------------
+-- function findTargetUI
+-- @brief target ui 찾아서 변경
+-------------------------------------
+function TutorialManager:findTargetUI()
+    local tar_ui
+    for _, ui in pairs(table.reverse(UIManager.m_uiList)) do
+        if (ui.m_uiName ~= 'UI_Network') then
+            return ui
+        end
+    end
+end
+
+
+-------------------------------------
+-- function isDoing
+-- @brief 튜토리얼 실행중 여부
+-------------------------------------
+function TutorialManager:isDoing()
+    return self.m_isTutorialDoing
 end

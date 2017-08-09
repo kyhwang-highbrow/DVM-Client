@@ -177,10 +177,26 @@ function UI_TutorialPlayer:activeNode(node_name)
     end
 
     local tar_node = self.m_targetUI.vars[node_name]
+    local tutorial_mgr = TutorialManager.getInstance()
+
     if (tar_node) then
-        TutorialManager.getInstance():attachToTutorialNode(tar_node)
+        tutorial_mgr:attachToTutorialNode(tar_node)
+    end
+
+    -- 버튼이라면 스크립트를 추가한다.
+    if (isInstanceOf(tar_node, UIC_Button)) then 
         tar_node:addScriptTapHandler(function()
-            if (self) then
+            if (tutorial_mgr:isDoing()) then
+                -- 가장 상위의 UI가 변경되었다면 targetUI 교체
+                local new_tar_ui = tutorial_mgr:findTargetUI()
+                if (self.m_targetUI.m_uiName ~= new_tar_ui.m_uiName) then
+                    -- 기존 UI가 닫힌 경우라면 활성화 시킨 버튼을 날려버린다.
+                    if (self.m_targetUI:isClosed()) then
+                        tutorial_mgr:deleteNodeAll()
+                    end    
+                    tutorial_mgr:changeTargetUI(new_tar_ui)
+                end
+                -- 다음페이지
                 self:next()
             end
         end)

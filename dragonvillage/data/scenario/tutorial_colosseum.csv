@@ -18,11 +18,11 @@ page,bg,illustration,char,t_char_name,char_pos,char_ani,char_effect,t_text,text_
 13,,,,,,,,이 곳에서 방어덱을 설정할 수 있습니다.,bot,,,black_layer;off,,,,,
 14,,,,,,,,"방어에 효율적인 드래곤, 테이머, 진형을 자유롭게 세팅할 수 있습니다.",top,,,black_layer;on,stencil;stc_buff,,,,
 15,,,,,,,,,,,0,stencil;release,,,,,
-16,,,,,,,,추천배치로 세팅해보겠습니다.,top,,,pointing;defenceBtn,activate;defenceBtn,next_disable,,,
+16,,,,,,,,추천배치로 세팅해보겠습니다.,top,,,pointing;autoBtn,activate;autoBtn,next_disable,,,
 17,,,,,,,,,,,0,pointing;release,activate;release,next_enable,,,
 18,,,,,,,,세팅된 덱은 언제든지 변경할 수 있습니다.,bot,,,black_layer;off,,,,,
 19,,,,,,,,,,,0,black_layer;on,,,,,
-20,,,,,,,,변경완료 버튼을 눌러 덱을 저장할 수 있습니다.,bot,,,pointing;defenceBtn,activate;defenceBtn,next_disable,,,
+20,,,,,,,,변경완료 버튼을 눌러 덱을 저장할 수 있습니다.,top,,,pointing;startBtn,activate;startBtn,next_disable,,,
 21,,,,,,,,,,,0,pointing;release,activate;release,next_enable,,,
 22,,,,,,,,"콜로세움 튜토리얼이 종료되었습니다.
 마스터 테이머가 될수 있도록 응원하겠습니다.",bot,,,black_layer;off,,,,,

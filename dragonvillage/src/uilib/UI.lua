@@ -84,6 +84,13 @@ end
 -------------------------------------
 -- function close
 -------------------------------------
+function UI:isClosed()
+    return self.closed
+end
+
+-------------------------------------
+-- function close
+-------------------------------------
 function UI:close()
     if self.closed then
         cclog('attempted to close twice')
