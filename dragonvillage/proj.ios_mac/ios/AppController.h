@@ -28,6 +28,9 @@
 #import <StoreKit/StoreKit.h>
 #endif
 
+// @perplesdk
+#import "PerpleSDK.h"
+
 @class RootViewController;
 
 #ifdef USE_BILLING

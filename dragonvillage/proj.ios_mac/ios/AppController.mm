@@ -34,6 +34,12 @@
 #import "CCEAGLView.h"
 #import "ConfigParser.h"
 
+// @perplesdk
+static NSString *SENDER_ID = @"983890984134";
+static NSString *CLIENT_ID = @"983890984134-krrfuti1qgk3k09j87gobkq96322v48v.apps.googleusercontent.com";
+static NSString *ADBRIX_APP_KEY = @"696293230";
+static NSString *ADBRIX_HASH_KEY = @"5c67709eb5c349c6";
+
 // @idfa
 #import <AdSupport/ASIdentifierManager.h>
 
@@ -88,7 +94,7 @@ static AppDelegate s_sharedApplication;
 
     // Use RootViewController manage CCEAGLView
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.wantsFullScreenLayout = YES;
+    viewController.extendedLayoutIncludesOpaqueBars = YES;
     viewController.view = eaglView;
 
     // Set RootViewController to window
@@ -113,6 +119,14 @@ static AppDelegate s_sharedApplication;
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
 
+    // @perplesdk
+    if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:NO sandbox:YES]) {
+        [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID];
+        [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
+        [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
+        [[PerpleSDK sharedInstance] initBilling];
+    }
+
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLView::createWithEAGLView(eaglView);
     cocos2d::Director::getInstance()->setOpenGLView(glview);
@@ -131,14 +145,18 @@ static AppDelegate s_sharedApplication;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    // @perplesdk
+    [[PerpleSDK sharedInstance] applicationDidBecomeActive:application];
+
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
-
     cocos2d::Director::getInstance()->resume();
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    // @perplesdk
+    [[PerpleSDK sharedInstance] applicationDidEnterBackground:application];
     /*
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
      If your application supports background execution, called instead of applicationWillTerminate: when the user quits.
@@ -147,6 +165,9 @@ static AppDelegate s_sharedApplication;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    // @perplesdk
+    [[PerpleSDK sharedInstance] applicationWillEnterForeground:application];
+
     [application setApplicationIconBadgeNumber:0];
 
     /*
@@ -163,14 +184,21 @@ static AppDelegate s_sharedApplication;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // @perplesdk
+    [[PerpleSDK sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
-// @umeng push notification
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    // @perplesdk
+    [[PerpleSDK sharedInstance] application:application didReceiveRemoteNotification:userInfo];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // @perplesdk
+    [[PerpleSDK sharedInstance] application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    // @patisdk
     // @todo, 푸시 관련 에러 처리
 }
 
@@ -180,7 +208,13 @@ static AppDelegate s_sharedApplication;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return YES;
+    // @perplesdk
+    return [[PerpleSDK sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+    // @perplesdk
+    return [[PerpleSDK sharedInstance] application:application openURL:url options:options];
 }
 
 - (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg
@@ -419,6 +453,8 @@ static AppDelegate s_sharedApplication;
     self.skuDict = nil;
 #endif
 
+    // @perplesdk
+    [[PerpleSDK sharedInstance] dealloc];
 
     [super dealloc];
 }
