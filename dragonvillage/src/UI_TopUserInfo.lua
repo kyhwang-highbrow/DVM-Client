@@ -277,7 +277,6 @@ function UI_TopUserInfo:setStaminaType(stamina_type)
         return
     end
 
-    ccdump(stamina_type)
     self.m_staminaInfo:setStaminaType(stamina_type)
 end
 

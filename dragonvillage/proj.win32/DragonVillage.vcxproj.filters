@@ -2622,6 +2622,12 @@
     <None Include="..\src\HackingDetector.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_GoodsInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_StaminaInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
