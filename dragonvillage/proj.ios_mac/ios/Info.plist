@@ -23,33 +23,15 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.perplelab.dragonvillagem.kr</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.perplelab.dragonvillagem.kr</string>
+				<string>com.googleusercontent.apps.983890984134-krrfuti1qgk3k09j87gobkq96322v48v</string>
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.perplelab.dragonvillagem.kr</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb1959320877684820</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.perplelab.hod</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>hod</string>
 			</array>
 		</dict>
 	</array>
@@ -59,12 +41,6 @@
 	<string>1959320877684820</string>
 	<key>FacebookDisplayName</key>
 	<string>DragonVillageM</string>
-	<key>GooglePlusClientId</key>
-	<string>173059103932-ns4c0l1mjc5ps7bevc9ngi53gpje7g6q.apps.googleusercontent.com</string>
-	<key>GooglePlusScopes</key>
-	<array>
-		<string>https://www.googleapis.com/auth/games</string>
-	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
