@@ -140,7 +140,6 @@ void send_event_to_app(const char *param1, const char *param2)
 
 }
 
-// @google+, @adbrix, @tapjoy, @patisdk, @ppsdk
 void sdkEvent(const char *id, const char *arg0, const char *arg1)
 {
     if (strcmp(id, "clipboard_setText") == 0)
@@ -177,94 +176,6 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         [appController billingConfirm];
     }
 #endif
-    else if (strcmp(id, "adbrix_userInfo") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController adbrixUserInfo:_arg0];
-    }
-    else if (strcmp(id, "adbrix_firstTimeExperience") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        NSString *_arg1 = [NSString stringWithUTF8String:arg1];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController adbrixFirstTimeExperience:_arg0 param:_arg1];
-    }
-    else if (strcmp(id, "adbrix_retention") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        NSString *_arg1 = [NSString stringWithUTF8String:arg1];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController adbrixRetention:_arg0 param:_arg1];
-    }
-    else if (strcmp(id, "adbrix_buy") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        NSString *_arg1 = [NSString stringWithUTF8String:arg1];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController adbrixBuy:_arg0 param:_arg1];
-    }
-    else if (strcmp(id, "adbrix_customCohort") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        NSString *_arg1 = [NSString stringWithUTF8String:arg1];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController adbrixCustomCohort:_arg0 param:_arg1];
-    }
-    else if (strcmp(id, "5rocks_userInfo") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController fiverocksUserInfo:_arg0];
-    }
-    else if (strcmp(id, "5rocks_trackEvent") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController fiverocksTrackEvent:_arg0];
-    }
-    else if (strcmp(id, "5rocks_trackPurchase") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController fiverocksTrackPurchase:_arg0];
-    }
-    else if (strcmp(id, "5rocks_customCohort") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        NSString *_arg1 = [NSString stringWithUTF8String:arg1];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController fiverocksCustomCohort:_arg0 param:_arg1];
-    }
-    else if (strcmp(id, "5rocks_appDataVersion") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController fiverocksAppDataVersion:_arg0];
-    }
-    else if (strcmp(id, "tnk_action") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController tnkAction:_arg0];
-    }
-    else if (strcmp(id, "tnk_setUserName") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController tnkSetUserName:_arg0];
-    }
-    else if (strcmp(id, "tnk_prepareInterstitialAd") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        [(RootViewController *)[UIApplication sharedApplication].keyWindow.rootViewController tnkPrepareInterstitialAd:_arg0];
-    }
-    else if (strcmp(id, "tnk_showInterstitialAd") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        NSString *_arg1 = [NSString stringWithUTF8String:arg1];
-        [(RootViewController *)[UIApplication sharedApplication].keyWindow.rootViewController tnkShowInterstitialAd:_arg0 param:_arg1];
-    }
 }
 
 void sdkEventResult(const char *id, const char *result, const char *info)

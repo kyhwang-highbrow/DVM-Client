@@ -28,7 +28,6 @@
 #import "CCEAGLView.h"
 #import "ConfigParser.h"
 
-// @google+, @adbrix, @5rocks, @tapjoy, @patisdk, @ppsdk
 extern void sdkEventResult(const char *id, const char *result, const char *info);
 
 @implementation RootViewController

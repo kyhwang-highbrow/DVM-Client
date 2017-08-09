@@ -180,6 +180,7 @@ static AppDelegate s_sharedApplication;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return YES;
 }
 
 - (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg
