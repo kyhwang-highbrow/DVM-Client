@@ -90,7 +90,7 @@ function MakeLobbyObjectUI(parent, ui_lobby, type)
             ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_dragonManageBtn() end)
 
         elseif (type == UI_LobbyObject.SHIP) then
-            ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_adventureBtn() end)
+            ui.vars['clickBtn']:registerScriptTapHandler(function() UINavigator:goTo('adventure') end)
 
         elseif (type == UI_LobbyObject.SHOP) then
             ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_shopBtn() end)

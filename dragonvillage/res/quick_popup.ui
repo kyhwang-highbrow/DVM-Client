@@ -1186,7 +1186,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'characterNode';
 				file_name = 'ui/icons/mandragora/mandragora_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;

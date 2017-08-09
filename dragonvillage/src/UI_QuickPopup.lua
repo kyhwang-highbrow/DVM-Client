@@ -32,6 +32,9 @@ end
 -------------------------------------
 function UI_QuickPopup:initUI()
     local vars = self.vars
+
+    -- 대사를 하는 캐릭터 통통 튀게
+    cca.pickMePickMe(vars['characterNode'])
 end
 
 -------------------------------------
