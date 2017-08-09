@@ -187,13 +187,15 @@ function HackingDetector:checkPackage()
 	-- getRunningApps함수가 있을 경우에만 적용
 	if (getRunningApps) then
 		running = getRunningApps()
-        
+        cclog('getRunningApps exist!')
 		if running then
 			t_running = dkjson.decode(running)
 		end
 	end
 
 	if (t_running) then
+        cclog('t_running exist!')
+        ccdump(t_running)
 		for i, v in ipairs(t_package) do
 			if t_running[v] then
 				table.insert(t_ret, v)
