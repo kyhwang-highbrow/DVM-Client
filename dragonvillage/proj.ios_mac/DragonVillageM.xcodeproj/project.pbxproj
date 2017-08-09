@@ -82,7 +82,6 @@
 		50D7C96C17EBBEDF005D0B91 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96B17EBBEDF005D0B91 /* OpenGL.framework */; };
 		50D7C96E17EBBEE6005D0B91 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96D17EBBEE6005D0B91 /* AppKit.framework */; };
 		50D7C97017EBBEEC005D0B91 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96F17EBBEEC005D0B91 /* IOKit.framework */; };
-		7946AD51027D500B6BE08305 /* libPods-DragonVillageT iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9951A2F98CF43B369578D7A0 /* libPods-DragonVillageT iOS.a */; };
 		7D50CB851C04459600F8FE3E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5023811317EBBCAC00990C9B /* Info.plist */; };
 		A1034B9C65750BF42424539D /* libPods-DragonVillageM Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D9EBDB9D000E4AAE8DC84A /* libPods-DragonVillageM Mac.a */; };
 		C03781CF18BF656A00FE4F13 /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BD18BF656900FE4F13 /* AudioEngine.lua */; };
@@ -125,7 +124,6 @@
 		C06E23C418CEF9740093C81A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C06E23C318CEF9740093C81A /* main.cpp */; };
 		C23B44371A90264F00529743 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C23B44361A90264F00529743 /* Images.xcassets */; };
 		C255B3C51A8FEAB100A270F8 /* libbox2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A42B1834BDA200142BE0 /* libbox2d iOS.a */; };
-		E198585051BDC5989387597F /* libPods-DragonVillageT Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 068EFD8C62333A582645BDC2 /* libPods-DragonVillageT Mac.a */; };
 		F293B3CD15EB7BE500256477 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3CC15EB7BE500256477 /* QuartzCore.framework */; };
 		F293B3D115EB7BE500256477 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3D015EB7BE500256477 /* OpenAL.framework */; };
 		F293B3D315EB7BE500256477 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3D215EB7BE500256477 /* AudioToolbox.framework */; };
@@ -413,7 +411,6 @@
 
 /* Begin PBXFileReference section */
 		02073C79B8E4F93B3727FD4F /* Pods-DragonVillageM iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageM iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageM iOS/Pods-DragonVillageM iOS.release.xcconfig"; sourceTree = "<group>"; };
-		068EFD8C62333A582645BDC2 /* libPods-DragonVillageT Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DragonVillageT Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
 		1AF4C402178663F200122817 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = ../../../../../../../../usr/lib/libz.dylib; sourceTree = "<group>"; };
 		1C414383B493D1248EDE6883 /* Pods-DragonVillageM Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageM Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageM Mac/Pods-DragonVillageM Mac.debug.xcconfig"; sourceTree = "<group>"; };
@@ -10657,7 +10654,6 @@
 		6E029427B4D8BFD265188CE7 /* Pods-DragonVillageM Mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageM Mac.release.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageM Mac/Pods-DragonVillageM Mac.release.xcconfig"; sourceTree = "<group>"; };
 		7D50CB821C04453500F8FE3E /* Images-china.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images-china.xcassets"; path = "ios/Images-china.xcassets"; sourceTree = SOURCE_ROOT; };
 		7D7A2500A4C49ABE4AA8493A /* Pods-DragonVillageM iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageM iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageM iOS/Pods-DragonVillageM iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		9951A2F98CF43B369578D7A0 /* libPods-DragonVillageT iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DragonVillageT iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03781AE18BF654500FE4F13 /* cocos2d_lua_bindings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_lua_bindings.xcodeproj; path = "../../cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/cocos2d_lua_bindings.xcodeproj"; sourceTree = "<group>"; };
 		C03781BD18BF656900FE4F13 /* AudioEngine.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AudioEngine.lua; path = "../../cocos2d-x/cocos/scripting/lua-bindings/script/AudioEngine.lua"; sourceTree = "<group>"; };
 		C03781BE18BF656900FE4F13 /* CCBReaderLoad.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CCBReaderLoad.lua; path = "../../cocos2d-x/cocos/scripting/lua-bindings/script/CCBReaderLoad.lua"; sourceTree = "<group>"; };
@@ -10715,7 +10711,6 @@
 				15A8A4841834C73500142BE0 /* libcocos2dx-extensions Mac.a in Frameworks */,
 				15A8A4851834C73500142BE0 /* libCocosDenshion Mac.a in Frameworks */,
 				15A8A4821834C73500142BE0 /* libchipmunk Mac.a in Frameworks */,
-				E198585051BDC5989387597F /* libPods-DragonVillageT Mac.a in Frameworks */,
 				A1034B9C65750BF42424539D /* libPods-DragonVillageM Mac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10764,7 +10759,6 @@
 				15A8A4471834C43700142BE0 /* libCocosDenshion iOS.a in Frameworks */,
 				15A8A4441834C43700142BE0 /* libchipmunk iOS.a in Frameworks */,
 				C255B3C51A8FEAB100A270F8 /* libbox2d iOS.a in Frameworks */,
-				7946AD51027D500B6BE08305 /* libPods-DragonVillageT iOS.a in Frameworks */,
 				3D7B4A218CFC3A0F93085297 /* libPods-DragonVillageM iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36523,8 +36517,6 @@
 				37E128BB1B45389300200C23 /* libsqlite3.0.dylib */,
 				37E128B71B45387700200C23 /* libxml2.dylib */,
 				1AF4C402178663F200122817 /* libz.dylib */,
-				068EFD8C62333A582645BDC2 /* libPods-DragonVillageT Mac.a */,
-				9951A2F98CF43B369578D7A0 /* libPods-DragonVillageT iOS.a */,
 				69D9EBDB9D000E4AAE8DC84A /* libPods-DragonVillageM Mac.a */,
 				545F8E325CF94052593370CF /* libPods-DragonVillageM iOS.a */,
 			);
