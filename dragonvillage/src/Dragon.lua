@@ -144,6 +144,8 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
     
     if (self.m_animator.m_node) then
         self.m_rootNode:addChild(self.m_animator.m_node)
+
+        -- scale을 강제로 조정...
 		if (scale) then
 			self.m_animator:setScale(scale / 2)
 		end

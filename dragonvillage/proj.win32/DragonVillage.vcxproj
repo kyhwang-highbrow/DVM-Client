@@ -858,6 +858,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Game_Mana.lua" />
     <None Include="..\src\UI_GoodsInfo.lua" />
     <None Include="..\src\UI_Help.lua" />
+    <None Include="..\src\UI_IngameTamerPanelItem.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
     <None Include="..\src\UI_QuickPopup.lua" />
     <None Include="..\src\UI_RelationCard.lua" />
@@ -999,7 +1000,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_StartTamerSelect.lua" />
     <None Include="..\src\UI_StatisticsListItem.lua" />
     <None Include="..\src\UI_StatisticsPopup.lua" />
-    <None Include="..\src\UI_GameTamer.lua" />
     <None Include="..\src\UI_IngameBossInfo.lua" />
     <None Include="..\src\UI_GameDebug.lua" />
     <None Include="..\src\UI_GameDebug_RealTime.lua" />

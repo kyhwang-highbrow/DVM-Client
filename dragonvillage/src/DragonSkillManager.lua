@@ -15,9 +15,6 @@ IDragonSkillManager = {
         m_lSkillIndivisualInfo = 'list',
 		m_mSkillInfoMap = 'map',			-- 외부 접근용 맵테이블 key : skill_id
         m_lReserveTurnSkillID = 'number',
-
-		-- Indicator Tool Tip 등을 위해 일반 액티브 스킬은 따로 저장
-		m_normalActiveInfo = '',
     }
 
 -------------------------------------
@@ -53,7 +50,6 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolutio
     -- 기본 드래그 스킬 지정
     if (t_character['skill_active']) and (t_character['skill_active'] ~= '') then
         self:setSkillID('active', t_character['skill_active'], self:getSkillLevel(0))
-		self.m_normalActiveInfo = self.m_lSkillIndivisualInfo['active']
     end
 
 	-- 리더 버프 지정

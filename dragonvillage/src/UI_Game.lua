@@ -1,10 +1,14 @@
+local PARENT = class(UI, IEventListener:getCloneTable())
+
 -------------------------------------
 -- class UI_Game
 -------------------------------------
-UI_Game = class(UI, {
+UI_Game = class(PARENT, {
         m_gameScene = '',
         m_buffBoard = 'UI_NotificationInfo',
+        
         m_panelUI = '',
+        m_tamerUI = '',
 
         -- 테이머 UI 정보
         m_bVisible_TamerUI = '',
@@ -84,12 +88,7 @@ function UI_Game:initUI()
     do
         self:initInfoBoard()
     end
-
-    -- 테이머(initTamerUI에서 visible 활성화시킴)
-    if (vars['tamerMenu']) then
-        vars['tamerMenu']:setVisible(false)
-    end
-
+    
     -- 하단 패널
     vars['panelBgSprite']:setLocalZOrder(-1)
 
@@ -376,6 +375,21 @@ function UI_Game:init_panelUI()
 end
 
 -------------------------------------
+-- function initTamerUI
+-- @brief 테이머 패널 UI
+-------------------------------------
+function UI_Game:initTamerUI(tamer)
+	local world = self.m_gameScene.m_gameWorld
+    local panel = UI_IngameTamerPanelItem(world, tamer)
+    self.m_tamerUI = panel
+    self.root:addChild(panel.root)
+
+    -- 액션 등록
+    self:addAction(panel.root, UI_ACTION_TYPE_LEFT, 0, 0.5)
+    self:doActionReset()
+end
+
+-------------------------------------
 -- function init_debugUI
 -- @brief 인게임에서 실시간으로 각종 설정을 할 수 있도록 하는 UI생성
 --        모든 기능은 UI_GameDebug안에서 구현
@@ -554,28 +568,13 @@ end
 -- function toggleVisibility_TamerUI
 -------------------------------------
 function UI_Game:toggleVisibility_TamerUI(b, is_immediately)
-    local vars = self.vars
+    if (not self.m_tamerUI) then return end
+   if (b == self.m_tamerUI.m_bVisible) then return end
 
-    if (not vars['tamerMenu'] or self.m_bVisible_TamerUI == nil) then return end
-    if (self.m_bVisible_TamerUI == b) then return end
-    self.m_bVisible_TamerUI = b
+   self.m_tamerUI:toggleVisibility()
 
-    local duration = 0.3
-
-    if (b) then
-        vars['tamerMenu']:setVisible(true)
-		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_TamerUI, self.m_posY_TamerUI)), 2)
-        vars['tamerMenu']:stopAllActions()
-        vars['tamerMenu']:runAction(move_action)
-    else
-		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(self.m_posX_TamerUI, self.m_posY_TamerUI - 150)), 2)
-		local seq_action = cc.Sequence:create(move_action, cc.Hide:create())
-        vars['tamerMenu']:stopAllActions()
-        vars['tamerMenu']:runAction(seq_action)
-    end
-
-    if (is_immediately) then
-        vars['tamerMenu']:setVisible(b)
+   if (is_immediately) then
+        self.m_tamerUI.vars['panelMenu']:setVisible(b)
    end
 end
 

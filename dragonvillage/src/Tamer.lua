@@ -15,6 +15,8 @@ Tamer = class(PARENT, {
         -- 기본 정보
         m_tamerID = '',    -- 드래곤의 고유 ID
 
+        m_skillIndicator = '',
+
         m_barrier = '',
 
         m_bWaitState = 'boolean',

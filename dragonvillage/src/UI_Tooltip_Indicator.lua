@@ -47,23 +47,10 @@ end
 -------------------------------------
 -- function init_data
 -------------------------------------
-function UI_Tooltip_Indicator:init_data(dragon)
+function UI_Tooltip_Indicator:init_data(hero)
 	self.m_lSkillDataList = {}
 
-	self.m_lSkillDataList['active_normal'] = dragon.m_normalActiveInfo
-	--[[
-	if (self.m_lSkillDataList['active_normal'] == dragon:getSkillIndivisualInfo('active')) then
-		local skill_id = dragon.m_charTable['skill_3']
-		local skill_lv = 0
-		local skill_indivisual_info = DragonSkillIndivisualInfo(dragon.m_charType, 'active', skill_id, skill_lv)
-		skill_indivisual_info:applySkillLevel()
-		skill_indivisual_info:applySkillDesc()
-
-		self.m_lSkillDataList['active_ultimate'] = skill_indivisual_info
-	else
-		self.m_lSkillDataList['active_ultimate'] = dragon:getSkillIndivisualInfo('active')
-	end
-	]]
+	self.m_lSkillDataList['active'] = hero:getSkillIndivisualInfo('active')
 end
 
 -------------------------------------
@@ -205,7 +192,7 @@ function UI_Tooltip_Indicator:getSkillDescStr(t_skill, is_activated)
 
 	-- 1. 스킬 이름
     local skill_type_str = t_skill['t_name']
-	
+    	
 	-- 2. 스킬 설명
     local desc = DragonSkillCore.getSkillDescPure(t_skill)
 	desc = string.gsub(desc, '@SKILL_DESC', '@WHITE')

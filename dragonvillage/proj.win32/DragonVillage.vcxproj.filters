@@ -579,9 +579,6 @@
     <None Include="..\src\UI_DragonRunesEnhance.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_GameTamer.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_IngameDragonPanel.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2618,6 +2615,9 @@
     </None>
     <None Include="..\src\UINavigatorDefinition.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_IngameTamerPanelItem.lua">
+      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\HackingDetector.lua">
       <Filter>lua\src</Filter>

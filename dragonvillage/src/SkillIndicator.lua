@@ -246,7 +246,7 @@ function SkillIndicator:update()
     end
 
     self:onTouchMoved(self.m_indicatorTouchPosX, self.m_indicatorTouchPosY)
-	self.m_skillIndicatorMgr:updateToolTipUI(self.m_hero.pos.x, self.m_hero.pos.y, self.m_indicatorTouchPosX, self.m_indicatorTouchPosY)
+	--self.m_skillIndicatorMgr:updateToolTipUI(self.m_hero.pos.x, self.m_hero.pos.y, self.m_indicatorTouchPosX, self.m_indicatorTouchPosY)
 end
 
 -------------------------------------

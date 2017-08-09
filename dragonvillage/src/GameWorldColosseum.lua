@@ -147,6 +147,7 @@ function GameWorldColosseum:initTamer()
         self.m_enemyTamer:addListener('enemy_tamer_skill_gauge', self)
     end
 
+    -- 테이머 UI 생성
     self.m_inGameUI:initTamerUI(self.m_tamer, self.m_enemyTamer)
 end
 

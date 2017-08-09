@@ -89,7 +89,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     local world = self.m_world
 
     -- 조작 가능 상태일 때에만
-    if (not self.m_world:isPossibleControl()) then
+    if (not world:isPossibleControl()) then
         return false
     end
 
@@ -101,38 +101,56 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     -- 월드상의 터치 위치 얻어옴
     local location = touch:getLocation()
     local node_pos = self.m_touchNode:convertToNodeSpace(location)
+    local t_event = {['touch']=false, ['location']=location}
 
     -- 터치된 캐릭터 결정
     local near_distance = nil
     local select_hero = nil
-    for i, v in pairs(self.m_world:getDragonList()) do
 
-        local t_event = {['touch']=false, ['location']=location}
-        v:dispatch('touch_began', t_event)
+    -- 테이머 검사
+    if (world.m_tamer) then
+        world.m_tamer:dispatch('touch_began', t_event)
+
         if t_event['touch'] then
             near_distance = 0
-            select_hero = v
-        else
-            local x, y = v:getCenterPos()
-		    local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
-
-		    if (distance <= 100) then
-			    if (near_distance == nil) or (distance < near_distance) then
-				    near_distance = distance
-				    select_hero = v
-			    end
-		    end
+            select_hero = world.m_tamer
         end
-    end 
+    end
 
-    if (select_hero and select_hero.m_skillIndicator) then
+    -- 드래곤 검사
+    if (not select_hero) then
+        for i, v in pairs(world:getDragonList()) do
+            v:dispatch('touch_began', t_event)
+
+            if t_event['touch'] then
+                near_distance = 0
+                select_hero = v
+                break
+            else
+                local x, y = v:getCenterPos()
+		        local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
+
+		        if (distance <= 100) then
+			        if (near_distance == nil) or (distance < near_distance) then
+				        near_distance = distance
+				        select_hero = v
+                        break
+			        end
+		        end
+            end
+        end 
+    end
+
+    if (select_hero) then
+        self.m_firstTouchPos = node_pos
+        self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
+
         if (select_hero:isPossibleSkill()) then
-            -- 드래곤 클릭
-            self.m_firstTouchPos = node_pos
-            self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
-        
             self.m_touchedHero = select_hero
-            self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+
+            if(select_hero.m_skillIndicator) then
+                select_hero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+            end
         end
 
         -- 튤팁 표시
@@ -152,24 +170,34 @@ end
 -------------------------------------
 function SkillIndicatorMgr:onTouchMoved(touch, event)
     if (not self.m_touchedHero) then return end
-    
+
+    local hero = self.m_touchedHero
+        
     -- 월드상의 터치 위치 얻어옴
     local location = touch:getLocation()
     local node_pos = self.m_touchNode:convertToNodeSpace(location)
+    local ui_pos = self.m_world.m_inGameUI.root:convertToNodeSpace(location)
+    local distance = getDistance(self.m_firstTouchUIPos['x'], self.m_firstTouchUIPos['y'], ui_pos['x'], ui_pos['y'])
 
-    self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
-    
-    if (self.m_bSlowMode == false) then
-        local ui_pos = self.m_world.m_inGameUI.root:convertToNodeSpace(location)
-        local distance = getDistance(self.m_firstTouchUIPos['x'], self.m_firstTouchUIPos['y'], ui_pos['x'], ui_pos['y'])
-        if (distance >= 50) then
-            if (self.m_touchedHero:isPossibleSkill()) then
-                self.m_bSlowMode = true
+    if (hero.m_skillIndicator) then
+        -- 튤팁 UI
+        self:updateToolTipUI(hero.pos.x, hero.pos.y, node_pos['x'], node_pos['y'])
 
-                self:setSelectHero(self.m_touchedHero)
-                event:stopPropagation()
+        hero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+
+        if (self.m_bSlowMode == false) then
+            if (distance >= 50) then
+                if (hero:isPossibleSkill()) then
+                    self.m_bSlowMode = true
+
+                    self:setSelectHero(hero)
+                    event:stopPropagation()
+                end
             end
         end
+    else
+        -- 튤팁 UI
+        self:updateToolTipUI(0, 0, node_pos['x'], node_pos['y'])
     end
 end
 
@@ -177,6 +205,8 @@ end
 -- function onTouchEnded
 -------------------------------------
 function SkillIndicatorMgr:onTouchEnded(touch, event)
+    local location = touch:getLocation()
+
     if (self.m_selectHero) then
         if (self.m_selectHero:isDead()) then
             -- 스킬 사용 주체 대상이 이미 죽었을 경우 취소 처리
@@ -220,17 +250,25 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             local skill_indivisual_info = self.m_touchedHero:getSkillIndivisualInfo('active')
             local t_skill = skill_indivisual_info:getSkillTable()
 
-            if (self.m_touchedHero:checkTarget(t_skill)) then
-                -- 인디게이터에 스킬 사용 정보 설정
-                self.m_touchedHero.m_skillIndicator:setIndicatorDataByChar(self.m_touchedHero.m_targetChar)
+            if (self.m_touchedHero.m_charType == 'tamer') then
+                local tamer = self.m_touchedHero
+                local t_event = {['touch']=false, ['location']=location}
 
-                -- 경직 중이라면 즉시 해제
-                self.m_touchedHero:setSpasticity(false)
+                tamer:dispatch('touch_ended', t_event)
 
-                if t_skill['casting_time'] > 0 then
-                    self.m_touchedHero:changeState('casting')
-                else
-                    self.m_touchedHero:changeState('skillAppear')
+            elseif (self.m_touchedHero.m_skillIndicator) then
+                if (self.m_touchedHero:checkTarget(t_skill)) then
+                    -- 인디게이터에 스킬 사용 정보 설정
+                    self.m_touchedHero.m_skillIndicator:setIndicatorDataByChar(self.m_touchedHero.m_targetChar)
+
+                    -- 경직 중이라면 즉시 해제
+                    self.m_touchedHero:setSpasticity(false)
+
+                    if t_skill['casting_time'] > 0 then
+                        self.m_touchedHero:changeState('casting')
+                    else
+                        self.m_touchedHero:changeState('skillAppear')
+                    end
                 end
             end
         end
@@ -266,20 +304,6 @@ function SkillIndicatorMgr:update(dt)
             return
         end
     end
-
-    -- TODO : 누르고 있을 경우 일정시간 뒤 인디케이터 활성화
-    --[[
-    elseif (self.m_touchedHero) then
-        if (self.m_bSlowMode == false) then
-            self.m_startTimer = self.m_startTimer + dt
-            if (0.5 < self.m_startTimer) then
-                self.m_bSlowMode = true
-
-                self:setSelectHero(self.m_touchedHero)
-            end
-        end
-    end
-    ]]--
 end
 
 -------------------------------------
@@ -324,11 +348,8 @@ end
 -------------------------------------
 -- function makeSkillToolTip
 -------------------------------------
-function SkillIndicatorMgr:makeSkillToolTip(dragon)
-	-- 드래곤만 툴팁을 띄울수 있다
-	if (dragon.m_charType ~= 'dragon') then return end 
-
-	self.m_uiToolTip:init_data(dragon)
+function SkillIndicatorMgr:makeSkillToolTip(hero)
+	self.m_uiToolTip:init_data(hero)
 	self.m_uiToolTip:displayData()
     self.m_uiToolTip:setVisible(true)
 end

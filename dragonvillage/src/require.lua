@@ -712,7 +712,6 @@ local t_module = {
 	-- UI : 인게임
 	'UI_Game',
     'UI_Game_Mana',
-	'UI_GameTamer',
     'UI_GameColosseum',
     'UI_GameResultNew',
     'UI_GameResult_Adventure',
@@ -731,6 +730,7 @@ local t_module = {
 	'UI_GameDebug_RealTime',
     'UI_IngameDragonPanel',
     'UI_IngameDragonPanelItem',
+    'UI_IngameTamerPanelItem',
     'UI_IngameUnitInfo',
     'UI_IngameDragonInfo',
     'UI_IngameBossInfo',
