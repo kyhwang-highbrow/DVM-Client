@@ -66,6 +66,7 @@
 		37E128E21B4539A900200C23 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128E11B4539A800200C23 /* MediaPlayer.framework */; };
 		37E128E61B4539C500200C23 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128E51B4539C500200C23 /* CFNetwork.framework */; };
 		37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37EF84281B268F3B00EFA299 /* InfoPlist.strings */; };
+		37FB64931F3AD0BF00378EE8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37FB64921F3AD0BE00378EE8 /* GameKit.framework */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; };
 		5023812517EBBCAC00990C9B /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023811717EBBCAC00990C9B /* RootViewController.mm */; };
@@ -10633,6 +10634,8 @@
 		37E128E51B4539C500200C23 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		37EF842A1B268F4C00EFA299 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		37EF842B1B268F7200EFA299 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		37FB64921F3AD0BE00378EE8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillage.entitlements; sourceTree = "<group>"; };
 		3D1A129B749AC451AD40A97F /* Pods-DragonVillageT Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageT Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageT Mac/Pods-DragonVillageT Mac.debug.xcconfig"; sourceTree = "<group>"; };
 		45A8F369AC48C70B07989DD8 /* libPods-DragonVillageM Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DragonVillageM Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		49FA42D918718EB105DB6BD8 /* Pods-DragonVillageT iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageT iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageT iOS/Pods-DragonVillageT iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -10727,6 +10730,7 @@
 				F293B3D515EB7BE500256477 /* AVFoundation.framework in Frameworks */,
 				37E128E61B4539C500200C23 /* CFNetwork.framework in Frameworks */,
 				37E128D21B45391900200C23 /* CoreData.framework in Frameworks */,
+				37FB64931F3AD0BF00378EE8 /* GameKit.framework in Frameworks */,
 				F293B3DB15EB7BE500256477 /* CoreGraphics.framework in Frameworks */,
 				37E128C21B4538B800200C23 /* CoreLocation.framework in Frameworks */,
 				37E128C41B4538C200200C23 /* CoreMotion.framework in Frameworks */,
@@ -36451,6 +36455,7 @@
 		F293B3BD15EB7BE500256477 = {
 			isa = PBXGroup;
 			children = (
+				37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */,
 				C03781AE18BF654500FE4F13 /* cocos2d_lua_bindings.xcodeproj */,
 				15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */,
 				377033AA198F60A50091C231 /* Runtime_ios-mac.mm */,
@@ -36477,6 +36482,7 @@
 		F293B3CB15EB7BE500256477 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37FB64921F3AD0BE00378EE8 /* GameKit.framework */,
 				374376871F3A800F00AC6C7C /* libPerpleSDK.a */,
 				1E1607C61D92365800CA2C71 /* build */,
 				1E162ADD1D92367100CA2C71 /* libraries */,
@@ -36641,7 +36647,7 @@
 						DevelopmentTeam = Z769FPRMPG;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
 								enabled = 1;
@@ -36651,6 +36657,9 @@
 							};
 							com.apple.Passbook = {
 								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
 							};
 							com.apple.iCloud = {
 								enabled = 0;
@@ -37667,6 +37676,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -37710,6 +37720,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
