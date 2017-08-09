@@ -64,6 +64,10 @@ function UI_SecretDungeonScene:makeSecretTitle()
     ui.root:setAnchorPoint(cc.p(0.5, 0.5))
     self.root:addChild(ui.root)
     
+    -- 첫 위치 잡아주기
+    local pos_y = vars['dungeonNode']:getPositionY()
+    ui.root:setPositionY(pos_y)
+
     local target_pos = convertToAnoterNodeSpace(ui.root, vars['dungeonNode'])
     ui:cellMoveTo(0.5, target_pos)
 end
