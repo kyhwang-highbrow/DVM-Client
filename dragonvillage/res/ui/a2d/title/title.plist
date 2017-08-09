@@ -4,186 +4,43 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>title_bg.png</key>
+            <key>title_11.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{1280,960}</string>
-                <key>spriteSourceSize</key>
-                <string>{1280,960}</string>
-                <key>textureRect</key>
+                <key>frame</key>
                 <string>{{1,1},{1280,960}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>title_bg_s.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{128,96}</string>
-                <key>spriteSourceSize</key>
-                <string>{128,96}</string>
-                <key>textureRect</key>
-                <string>{{155,1889},{128,96}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>title_dragon_light.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{1,-5}</string>
-                <key>spriteSize</key>
-                <string>{152,142}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{1,1889},{152,142}}</string>
-                <key>textureRotated</key>
-                <false/>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{1280,960}}</string>
+                <key>sourceSize</key>
+                <string>{1280,960}</string>
             </dict>
             <key>title_logo_0101.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1,1283},{560,308}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{560,308}}</string>
+                <key>sourceSize</key>
                 <string>{560,308}</string>
-                <key>spriteSourceSize</key>
-                <string>{560,308}</string>
-                <key>textureRect</key>
-                <string>{{539,963},{560,308}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>title_tamer_0101.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{16,22}</string>
-                <key>spriteSize</key>
-                <string>{476,482}</string>
-                <key>spriteSourceSize</key>
-                <string>{720,720}</string>
-                <key>textureRect</key>
-                <string>{{1193,1351},{476,482}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>title_tamer_0102.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{17,-5}</string>
-                <key>spriteSize</key>
-                <string>{478,634}</string>
-                <key>spriteSourceSize</key>
-                <string>{720,720}</string>
-                <key>textureRect</key>
-                <string>{{1283,715},{478,634}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>title_tamer_0103.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{3,12}</string>
-                <key>spriteSize</key>
-                <string>{524,474}</string>
-                <key>spriteSourceSize</key>
-                <string>{720,720}</string>
-                <key>textureRect</key>
-                <string>{{1,1363},{524,474}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>title_tamer_0104.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{-28,38}</string>
-                <key>spriteSize</key>
-                <string>{398,536}</string>
-                <key>spriteSourceSize</key>
-                <string>{720,720}</string>
-                <key>textureRect</key>
-                <string>{{1,963},{398,536}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>title_tamer_0105.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{-21,-20}</string>
-                <key>spriteSize</key>
-                <string>{712,686}</string>
-                <key>spriteSourceSize</key>
-                <string>{900,900}</string>
-                <key>textureRect</key>
-                <string>{{1283,1},{712,686}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>title_tamer_0106.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{-8,-32}</string>
-                <key>spriteSize</key>
-                <string>{434,424}</string>
-                <key>spriteSourceSize</key>
-                <string>{720,720}</string>
-                <key>textureRect</key>
-                <string>{{477,1525},{434,424}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>title_tamer_0107.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{342,536}</string>
-                <key>spriteSourceSize</key>
-                <string>{342,536}</string>
-                <key>textureRect</key>
-                <string>{{849,963},{342,536}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>3</integer>
-            <key>pixelFormat</key>
-            <string>RGBA8888</string>
-            <key>premultiplyAlpha</key>
-            <false/>
+            <integer>2</integer>
             <key>realTextureFileName</key>
             <string>title.png</string>
             <key>size</key>
-            <string>{2048,2048}</string>
+            <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2c200ad6a6dec17226eb20a83ae17607:02026577194836ef3a14cc95521ceb3c:eac3319ae54fe6d043150c971d4e6759$</string>
+            <string>$TexturePacker:SmartUpdate:5728d23a65ac97c12b61c5090c304bc0:c2ffb15159bd494d168fd5d71f3f785f:eac3319ae54fe6d043150c971d4e6759$</string>
             <key>textureFileName</key>
             <string>title.png</string>
         </dict>
