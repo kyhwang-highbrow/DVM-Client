@@ -69,7 +69,31 @@ function UI_Game:setMana(mana, updated_int)
         local i = cur_mana_idx
         local visual = vars['manaSlotVisual' .. i]
         if (visual) then
+            -- 가속 및 감속 여부에 따라 비주얼 변경
+            local world = self.m_gameScene.m_gameWorld
+            local accel_value = world:getManaAccelValue()
             local guage = math_floor(decimal_part * 100)
+            local ani
+
+            if (accel_value > 0) then
+                ani = 'mana_gg_buff'
+
+                vars['manaConditionVisual']:setVisible(true)
+                vars['manaConditionVisual']:changeAni('mana_condition_buff', true, true)
+
+            elseif (accel_value < 0) then
+                ani = 'mana_gg_debuff'
+
+                vars['manaConditionVisual']:setVisible(true)
+                vars['manaConditionVisual']:changeAni('mana_condition_debuff', true, true)
+            else
+                ani = 'mana_gg'
+
+                vars['manaConditionVisual']:setVisible(false)
+            end
+
+            visual:changeAni(ani, false)
+            visual:setAnimationPause(true)
             visual:setFrame(guage)
         end
     end

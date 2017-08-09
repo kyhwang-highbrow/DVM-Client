@@ -107,6 +107,17 @@ function GameMana:resetMana()
 end
 
 -------------------------------------
+-- function setManaAccelValue
+-------------------------------------
+function GameMana:setManaAccelValue(value)
+    if (self.m_accelValue ~= value) then
+        self.m_accelValue = value
+
+        self:updateGauge(false)
+    end
+end
+
+-------------------------------------
 -- function setEnable
 -------------------------------------
 function GameMana:setEnable(b)

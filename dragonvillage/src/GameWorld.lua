@@ -1425,6 +1425,13 @@ end
 -------------------------------------
 -- function setManaAccelValue
 -------------------------------------
-function GameWorld:setManaAccelValue(b)
-    self.m_heroMana.m_accelValue = b
+function GameWorld:setManaAccelValue(value)
+    self.m_heroMana:setManaAccelValue(value)
+end
+
+-------------------------------------
+-- function getManaAccelValue
+-------------------------------------
+function GameWorld:getManaAccelValue()
+    return self.m_heroMana.m_accelValue
 end
