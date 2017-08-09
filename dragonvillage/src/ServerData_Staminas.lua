@@ -226,9 +226,16 @@ end
 
 -------------------------------------
 -- function checkStageStamina
+-- @brief stage_id에 해당하는 stamina가 있는지 확인
 -------------------------------------
 function ServerData_Staminas:checkStageStamina(stage_id)
     local stamina_type, req_count = TableDrop:getStageStaminaType(stage_id)
+
+    -- 핫타임 확인 (모험모드만 적용됨)
+    local game_mode = g_stageData:getGameMode(stage_id)
+    if (game_mode == GAME_MODE_ADVENTURE) and g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
+        req_count = math_floor(req_count / 2)
+    end
     
     local is_enough, insufficient_num = self:hasStaminaCount(stamina_type, req_count)
 
@@ -237,12 +244,6 @@ function ServerData_Staminas:checkStageStamina(stage_id)
     end
 
     return false
-
-    --[[
-    if self:canDailyCharge(stamina_type) then
-
-    end
-    --]]
 end
 
 -------------------------------------
