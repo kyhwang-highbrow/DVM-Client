@@ -2628,6 +2628,9 @@
     <None Include="..\src\UI_StaminaInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StatusEffect_AccelMana.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\SkillBind.lua">
       <Filter>lua\src</Filter>
     </None>
