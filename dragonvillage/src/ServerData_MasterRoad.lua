@@ -239,7 +239,7 @@ function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
 
             -- 보상을 수령하였을 때 다음 3가지는 항상 검사
             for _, key in pairs({'t_get', 'make_frd', 'u_lv'}) do
-                if (self:updateMasterRoad({road_key = key})) then
+                if (self:updateMasterRoad({['clear_key'] = key})) then
                     break
                 end
             end
