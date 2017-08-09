@@ -472,6 +472,7 @@ local t_module = {
 	'SkillEnumrate_Curve',
 	'SkillEnumrate_Normal',
 	'SkillEnumrate_Penetration',
+    'SkillBind',
 
     'SkillHealSingle',
     'SkillHealAround',

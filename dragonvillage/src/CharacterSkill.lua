@@ -315,6 +315,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillSpiderWeb:makeSkillInstance(self, t_skill, t_data)
 				return true
 
+            elseif (skill_type == 'skill_bind') then
+                SkillBind:makeSkillInstance(self, t_skill, t_data)
+                return true
+
 			elseif (skill_type == 'skill_status_effect_burst') then
 				SkillBurst:makeSkillInstance(self, t_skill, t_data)
 				return true

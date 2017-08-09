@@ -2608,3 +2608,10 @@ function Character:getEnemySpeechNode()
 
     return self.m_enemySpeechNode
 end
+
+-------------------------------------
+-- function getSizeType
+-- 하위 클래스에서 재정의 필요
+-------------------------------------
+function Character:getSizeType()
+end

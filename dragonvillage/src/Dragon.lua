@@ -13,6 +13,8 @@ Dragon = class(PARENT, {
         m_skillOffsetX = 'number',
         m_skillOffsetY = 'number',
 
+        m_evolutionLv = 'number',
+
         -- 스킬 마나
         m_activeSkillManaCost = 'number',
 
@@ -65,6 +67,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, 
     self.m_tDragonInfo = t_dragon_data
     self.m_bLeftFormation = bLeftFormation
     self.m_bPossibleRevive = bPossibleRevive or false
+    self.m_evolutionLv = evolution
 
 	-- 각종 init 함수 실행
 	do
@@ -707,4 +710,11 @@ end
 -------------------------------------
 function Dragon:getSkillManaCost()
     return self.m_activeSkillManaCost
+end
+
+-------------------------------------
+-- function getSizeType
+-------------------------------------
+function Character:getSizeType()
+    return self.m_evolutionLv, 'dragon'
 end

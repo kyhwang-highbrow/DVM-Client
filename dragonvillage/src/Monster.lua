@@ -516,3 +516,15 @@ function Monster:getRarity()
     
     return monsterRarityStrToNum(t_monster['rarity'])
 end
+
+-------------------------------------
+-- function getSizeType
+-------------------------------------
+function Character:getSizeType()
+    local t_monster = TableMonster():get(self.m_charID)
+    if (not t_monster) then
+        error('invalid enemy_id : ' .. self.m_charID)
+    end
+    
+    return t_monster['size_type'], 'monster'
+end
