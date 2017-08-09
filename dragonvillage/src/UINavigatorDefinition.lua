@@ -518,6 +518,37 @@ function UINavigatorDefinition:goTo_secret_relation(...)
     request_secret_dungeon_info()
 end
 
+-------------------------------------
+-- function goTo_dragon
+-- @brief 드래곤 관리로 이동
+-- @usage UINavigatorDefinition:goTo('dragon')
+-------------------------------------
+function UINavigatorDefinition:goTo_dragon(...)
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_DragonManageInfo')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    -- 로비가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        UI_DragonManageInfo()
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        local scene = SceneCommon(UI_DragonManageInfo, close_cb)
+        scene:runScene()
+    end
+end
+
 
 
 

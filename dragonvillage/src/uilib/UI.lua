@@ -108,6 +108,17 @@ function UI:close()
 end
 
 -------------------------------------
+-- function safeClose
+-------------------------------------
+function UI:safeClose()
+    if self:isClosed() then
+        return
+    end
+
+    self:close()
+end
+
+-------------------------------------
 -- function closeWithAction
 -- @brief doActionReverse를 간편하게 사용할 수 있는 함수
 -------------------------------------

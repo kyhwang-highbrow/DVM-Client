@@ -295,25 +295,50 @@ function UI_ExplorationReady:click_explorationBtn()
         return
     end
 
-    local function request()
-        local function finish_cb(ret)
-            UIManager:toastNotificationGreen('드래곤 5마리가 탐험을 떠났습니다.')
-            self.m_bActive = true
-            self:close()
+    local check_dragon_inven
+    local check_item_inven
+    local start_game
 
-            -- 덱 저장
-            local l_doid = g_localData:setExplorationDec(self.m_eprID, self.m_selectedDragonList)
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_dragon_inven = function()
+        local function manage_func()
+            UINavigator:goTo('dragon')
         end
-
-        -- params
-        local epr_id = self.m_eprID
-        local doids = listToCsv(self.m_selectedDragonList)
-
-        g_explorationData:request_explorationStart(epr_id, doids, finish_cb)
+        g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
     end
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('드래곤 5마리를 탐험을 보내시겠습니까?'), request)
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            UI_Inventory()
+        end
+        g_inventoryData:checkMaximumItems(start_game, manage_func)
+    end
+
+    start_game = function()
+        local function request()
+            local function finish_cb(ret)
+                UIManager:toastNotificationGreen('드래곤 5마리가 탐험을 떠났습니다.')
+                self.m_bActive = true
+                self:close()
+
+                -- 덱 저장
+                local l_doid = g_localData:setExplorationDec(self.m_eprID, self.m_selectedDragonList)
+            end
+
+            -- params
+            local epr_id = self.m_eprID
+            local doids = listToCsv(self.m_selectedDragonList)
+
+            g_explorationData:request_explorationStart(epr_id, doids, finish_cb)
+        end
+
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('드래곤 5마리를 탐험을 보내시겠습니까?'), request)
+    end
+
+    check_dragon_inven()
 end
+
 
 -------------------------------------
 -- function init_dragonSortMgr

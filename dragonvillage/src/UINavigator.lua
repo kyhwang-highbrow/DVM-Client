@@ -9,7 +9,7 @@ function UINavigator:goTo(location_name, ...)
     return UINavigatorDefinition:goTo(location_name, ...)
 end
 
--- 사용 설명
+-- 사용 설명 CONTENT
 if false then
     -- @brief 로비로 이동
     UINavigator:goTo('lobby')
@@ -48,4 +48,11 @@ if false then
     -- @brief 인연 던전으로 이동
     -- @param optional stage_id(number) 
     UINavigator:goTo('secret_relation', stage_id)
+end
+
+
+-- 사용 설명 UI
+if false then
+    -- @brief 드래곤 관리로 이동
+    UINavigator:goTo('dragon')
 end

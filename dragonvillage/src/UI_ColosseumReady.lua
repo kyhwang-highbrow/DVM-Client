@@ -206,30 +206,74 @@ function UI_ColosseumReady:click_startBtn()
         return
     end
 
-    -- 콜로세움 시작 요청
-    local is_cash = false
-    local function request()
-        local function cb(ret)
-            -- 시작이 두번 되지 않도록 하기 위함
-            UI_BlockPopup()
+    local check_dragon_inven
+    local check_item_inven
+    local start_game
 
-            local scene = SceneGameColosseum()
-            scene:runScene()
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_dragon_inven = function()
+        local function manage_func()
+            self:click_manageBtn()
         end
-
-        g_colosseumData:request_colosseumStart(is_cash, g_colosseumData.m_matchUserID, cb)
+        g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
     end
 
-    if (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
-        is_cash = true
-        local cash = 50
-        local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', cash)
-        MakeSimplePopup_Confirm('cash', cash, msg, request)
-    else
-        is_cash = false
-        request()
-    end    
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            UI_Inventory()
+        end
+        g_inventoryData:checkMaximumItems(start_game, manage_func)
+    end
+
+
+    start_game = function()
+        -- 콜로세움 시작 요청
+        local is_cash = false
+        local function request()
+            local function cb(ret)
+                -- 시작이 두번 되지 않도록 하기 위함
+                UI_BlockPopup()
+
+                local scene = SceneGameColosseum()
+                scene:runScene()
+            end
+
+            g_colosseumData:request_colosseumStart(is_cash, g_colosseumData.m_matchUserID, cb)
+        end
+
+        if (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then
+            is_cash = true
+            local cash = 50
+            local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', cash)
+            MakeSimplePopup_Confirm('cash', cash, msg, request)
+        else
+            is_cash = false
+            request()
+        end
+    end
+
+    check_dragon_inven()
 end
+
+
+-------------------------------------
+-- function click_manageBtn
+-- @brief 시작 버튼
+-------------------------------------
+function UI_ColosseumReady:click_manageBtn()
+    local ui = UI_DragonManageInfo()
+    local function close_cb()
+        local function func()
+            -- 콜로세움 덱(atk, def)에 출전 중인 드래곤은
+            -- 삭제(작별or판매)가 불가하기 때문에 덱 정보가 변경되지 않는다는 가정 하에
+            -- refresh 작업을 별도로 하지 않음
+        end
+        self:sceneFadeInAction(func)
+    end
+    ui:setCloseCB(close_cb)
+end
+
 
 -------------------------------------
 -- function click_exitBtn
