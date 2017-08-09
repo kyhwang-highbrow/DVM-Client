@@ -788,6 +788,8 @@ function UI_TitleScene:workFinish_click()
     if (self.m_bNewUser) then
         check_intro_func()
     else
+        -- 해킹 체크
+	    if (HackingDetector:checkHack()) then return end
         lobby_func()
     end
 end

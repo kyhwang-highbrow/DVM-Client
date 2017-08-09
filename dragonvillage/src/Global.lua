@@ -146,3 +146,10 @@ end
 function Is022Ver()
     return (getAppVer() == '0.2.2')
 end
+
+-------------------------------------
+-- function Is026Ver
+-------------------------------------
+function Is026Ver()
+    return (getAppVer() == '0.2.6')
+end

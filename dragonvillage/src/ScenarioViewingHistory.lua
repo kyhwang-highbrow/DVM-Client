@@ -141,9 +141,9 @@ function ScenarioViewingHistory:checkIntroScenario(finish_cb)
 
     -- 같은 계정으로 다른 기기에 접속한 경우 서버에서 준 튜토리얼 정보로 검사
     check_tutorial = function(ret)
-        local is_viewd = ret['tutorial']
+        local is_viewed = ret['tutorial']
 
-        if (not is_viewd) then
+        if (not is_viewed) then
             play_intro_start()
         else
             self:addViewed(intro_start_name)

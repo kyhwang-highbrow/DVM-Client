@@ -2631,6 +2631,9 @@
     <None Include="..\src\UINavigatorDefinition.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\HackingDetector.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

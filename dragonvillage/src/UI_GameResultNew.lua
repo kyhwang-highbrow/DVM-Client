@@ -179,6 +179,9 @@ end
 -- function doNextWork
 -------------------------------------
 function UI_GameResultNew:doNextWork()
+    -- runAction으로 딜레이 건 후 doNextWork 하는 경우와 클릭하여 doNextWork하는 경우 미세한 차이면 겹칠 수 있음
+    -- stopAction으로 처리
+    self.root:stopAllActions()
     self.m_workIdx = (self.m_workIdx + 1)
     local func_name = self.m_lWorkList[self.m_workIdx]
 

@@ -30,6 +30,7 @@ local t_module = {
     'ApkExpansion',
     'Coroutine',
 	'LocalPushMgr',
+    'HackingDetector',
 
 	-- CONSTANT 
     'Constant',
