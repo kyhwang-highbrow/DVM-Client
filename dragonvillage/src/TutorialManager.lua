@@ -1,5 +1,6 @@
 -------------------------------------
 -- class TutorialManager
+-- @brief tutorial의 시작과 끝을 관장하고 ServerData_Tutorial로 부터 튜토리얼 플레이 여부 받아옴
 -------------------------------------
 TutorialManager = class({
     m_tutorialNode = '',
@@ -34,14 +35,23 @@ end
 -------------------------------------
 -- function startTutorial
 -- @brief 튜토리얼 실행
+-- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
-function TutorialManager:startTutorial(script, tar_ui)
-    self:doTutorial()
-    local ui = UI_TutorialPlayer(script, tar_ui)
-    UIManager.m_scene:addChild(ui.root, SCENE_ZORDER.TUTORIAL_DLG)
-    ui:next()
+function TutorialManager:startTutorial(tutorial_key, tar_ui)
+    -- 본 튜토리얼이라면 실행하지 않는다.
+    if (g_tutorialData:isTutorialDone(tutorial_key)) then 
+        return false
+    end
 
+    -- 튜토리얼 실행 : UI세팅
+    self:doTutorial()
+
+    -- 튜토리얼 플레이어 -> 종료 하면서 튜토리얼 기록 저장
+    local ui = UI_TutorialPlayer(tutorial_key, tar_ui)
+    UIManager.m_scene:addChild(ui.root, SCENE_ZORDER.TUTORIAL_DLG)
     self.m_tutorialPlayer = ui
+    ui:setCloseCB(function() g_tutorialData:request_tutorialSave(tutorial_key) end)
+    ui:next()
 end
 
 -------------------------------------
@@ -99,7 +109,7 @@ end
 
 -------------------------------------
 -- function setGlobalLock
--- @brief 
+-- @brief 전역 블럭
 -------------------------------------
 function TutorialManager:setGlobalLock(b)
     g_broadcastManager:setEnable(not b)
@@ -270,4 +280,12 @@ function TutorialManager:makePointingHand()
     hand.m_node:retain()
 
     return hand
+end
+
+-------------------------------------
+-- function changeTargetUI
+-- @brief target ui 변경
+-------------------------------------
+function TutorialManager:changeTargetUI(tar_ui)
+    self.m_tutorialPlayer:setTargetUI(tar_ui)
 end

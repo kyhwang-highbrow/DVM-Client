@@ -52,7 +52,7 @@ function UI_AncientTower:init()
 	SoundMgr:playBGM('bgm_lobby')
 
     -- @ TUTORIAL
-    TutorialHelper:playTutorial('tutorial_ancient_tower', self)
+    TutorialManager.getInstance():startTutorial(TUTORIAL.ANCIENT, self)
 end
 
 -------------------------------------

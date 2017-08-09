@@ -117,8 +117,6 @@ function UIManager:cleanUp()
     self.m_uiList = {}
 
 	self:removeDebugUI()
-
-	--self:releaseTutorial()
 end
 
 -------------------------------------
@@ -128,8 +126,6 @@ function UIManager:invalidateUI()
     local scrSize = cc.Director:getInstance():getWinSize()
     self.viewSize = cc.size(scrSize.width, scrSize.height)
     self.m_uiLayer:setContentSize(self.viewSize)
-
-    -- cclog("ui layer size = %d,%d", self.viewSize.width, self.viewSize.height)
 end
 
 -------------------------------------

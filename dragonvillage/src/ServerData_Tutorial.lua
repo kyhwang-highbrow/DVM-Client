@@ -1,10 +1,15 @@
-TUTORIAL_INTRO_FIGHT = 'intro'
+TUTORIAL = {
+    INTRO_FIGHT = 'intro',
+    COLOSSEUM = 'tutorial_colosseum',
+    ANCIENT = 'tutorial_ancient_tower',
+}
 
 -------------------------------------
 -- class ServerData_Tutorial
 -------------------------------------
 ServerData_Tutorial = class({
         m_serverData = 'ServerData',
+        m_tTutorialClearInfo = 'table',
     })
 
 -------------------------------------
@@ -12,6 +17,7 @@ ServerData_Tutorial = class({
 -------------------------------------
 function ServerData_Tutorial:init(server_data)
     self.m_serverData = server_data
+    self.m_tTutorialClearInfo = {}
 end
 
 -------------------------------------
@@ -19,6 +25,12 @@ end
 -- @brief 해당 튜토리얼 클리어 여부
 -------------------------------------
 function ServerData_Tutorial:isTutorialDone(tutorial_key)
+    -- 저장해둔 것이 있다면 그것을 사용
+    if (self.m_tTutorialClearInfo[tutorial_key] ~= nil) then
+        return self.m_tTutorialClearInfo[tutorial_key]
+    end
+
+    -- 저장한 것이 없다면 통신
     local success_cb = function(ret)
         return ret['tutorial']
     end
@@ -27,7 +39,7 @@ function ServerData_Tutorial:isTutorialDone(tutorial_key)
         return true
     end
 
-    self:request_tutorialInfo(event_key, success_cb, fail_cb)
+    self:request_tutorialInfo(tutorial_key, success_cb, fail_cb)
 end
 
 -------------------------------------
@@ -42,6 +54,9 @@ function ServerData_Tutorial:request_tutorialInfo(tutorial_key, finish_cb, fail_
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- 다시 호출하지 않도록 저장해둠
+        self.m_tTutorialClearInfo[tutorial_key] = ret['tutorial']
+
         if finish_cb then
             finish_cb(ret)
         end

@@ -151,7 +151,7 @@ function ScenarioViewingHistory:checkIntroScenario(finish_cb)
         end
     end
 
-    g_tutorialData:request_tutorialInfo(TUTORIAL_INTRO_FIGHT, check_tutorial, finish_cb)
+    g_tutorialData:request_tutorialInfo(TUTORIAL.INTRO_FIGHT, check_tutorial, finish_cb)
 end
 
 -------------------------------------
@@ -196,23 +196,4 @@ function ScenarioViewingHistory:playScenario(scenario_name)
         local ui = UI_ScenarioPlayer(scenario_name)
         return ui
     end
-end
-
--------------------------------------
--- function playScenario
--------------------------------------
-function ScenarioViewingHistory:playTutorial(scenario_name, tar_ui)
-    if (not TABLE:isFileExist('scenario/'..scenario_name, '.csv')) then
-        return 
-    end 
-
-    if (self:isViewed(scenario_name)) then
-        return
-    end    
-
-    -- 튜토리얼 기록에 등록
-    self:addViewed(scenario_name)
-
-    -- 시작
-    TutorialManager.getInstance():startTutorial(scenario_name, tar_ui)
 end

@@ -15,7 +15,7 @@ UI_TutorialPlayer = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_TutorialPlayer:init(scenario_name, tar_ui)
-    self.m_targetUI = tar_ui
+    self:setTargetUI(tar_ui)
 end
 
 -------------------------------------
@@ -24,7 +24,7 @@ end
 function UI_TutorialPlayer:init_player()
     local vars = self:load_keepZOrder('scenario_talk_new.ui', false)
 
-	UIManager:open(self)
+	--UIManager:open(self)
 	vars['skipBtn']:setVisible(false)
 	self.m_bSkipEnable = false
 end
@@ -33,11 +33,24 @@ end
 -- function close
 -------------------------------------
 function UI_TutorialPlayer:close()
+    -- pointingHand는 retain걸려있는 상태이므로 release해줌
     if (self.m_pointingHand) then
         self.m_pointingHand.m_node:release()
         self.m_pointingHand = nil
     end
+    -- 콜백 실행
+    if (self.m_closeCB) then
+        self.m_closeCB()
+    end
+    -- 튜토리얼 해제
     TutorialManager.getInstance():releaseTutorial()
+end
+
+-------------------------------------
+-- function setTargetUI
+-------------------------------------
+function UI_TutorialPlayer:setTargetUI(tar_ui)
+    self.m_targetUI = tar_ui
 end
 
 -------------------------------------
@@ -107,7 +120,7 @@ function UI_TutorialPlayer:applyEffect(effect)
         self:activeNode(val_1)
 
     elseif (effect == 'black_layer') then
-        self:tutorialOnOff(val_1)
+        self:blackLayerOnOff(val_1)
 
     else
         cclog('정말 없는 effect : ' .. effect)
@@ -116,6 +129,7 @@ end
 
 -------------------------------------
 -- function setStencil
+-- @brief 지정된 노드를 스텐실로 만든다.
 -------------------------------------
 function UI_TutorialPlayer:setStencil(node_name)
     if (node_name == 'release') then
@@ -131,6 +145,7 @@ end
 
 -------------------------------------
 -- function pointingNode
+-- @brief 지정된 노드에 터치 손가락 a2d 붙인다.
 -------------------------------------
 function UI_TutorialPlayer:pointingNode(node_name)
     if (node_name == 'release') then
@@ -153,6 +168,7 @@ end
 
 -------------------------------------
 -- function activeNode
+-- @brief 지정된 노드를 활성화 한다.
 -------------------------------------
 function UI_TutorialPlayer:activeNode(node_name)
     if (node_name == 'release') then
@@ -172,9 +188,11 @@ function UI_TutorialPlayer:activeNode(node_name)
 end
 
 -------------------------------------
--- function activeNode
+-- function blackLayerOnOff
+-- @brief 튜토리얼 노드 전체를 on/off
+-- @comment 함수명은 사용도에 따른 건데 혹시 필요하다면 정말 마스킹 레이어만 on/off하도록 수정
 -------------------------------------
-function UI_TutorialPlayer:tutorialOnOff(cmd)
+function UI_TutorialPlayer:blackLayerOnOff(cmd)
     local b = (cmd == 'on')
     TutorialManager.getInstance():setVisibleTutorial(b)
 end
