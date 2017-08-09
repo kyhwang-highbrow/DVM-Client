@@ -34,7 +34,6 @@
 		3744D21719FDD5DE003D7120 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; };
 		37519C041A6657A200406F47 /* PerpLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C031A6657A200406F47 /* PerpLua.cpp */; };
 		37519C101A6657B300406F47 /* PerpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C0E1A6657B300406F47 /* PerpUtils.cpp */; };
-		3758D8311A93AE6F00833D47 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3758D8301A93AE6F00833D47 /* FacebookSDK.framework */; };
 		377033A5198F5FF00091C231 /* ConfigParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3770339F198F5FF00091C231 /* ConfigParser.cpp */; };
 		377033A6198F5FF00091C231 /* Runtime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A1198F5FF00091C231 /* Runtime.cpp */; };
 		377033A7198F5FF00091C231 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A3198F5FF00091C231 /* VisibleRect.cpp */; };
@@ -43,7 +42,6 @@
 		377033B8198F731C0091C231 /* libcocos2dx-extensions iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4271834BDA200142BE0 /* libcocos2dx-extensions iOS.a */; };
 		377033B9198F732F0091C231 /* libluabindings iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C03781B618BF654500FE4F13 /* libluabindings iOS.a */; };
 		37D8E3F11A304EB9005E479B /* PerpSocial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */; };
-		37E128A81B45379300200C23 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128A71B45379300200C23 /* Twitter.framework */; };
 		37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128AF1B45380F00200C23 /* EventKit.framework */; };
 		37E128B41B45384000200C23 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128B31B45384000200C23 /* EventKitUI.framework */; };
 		37E128B61B45385800200C23 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128B51B45385800200C23 /* libc++.dylib */; };
@@ -126,9 +124,6 @@
 		C06E23C418CEF9740093C81A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C06E23C318CEF9740093C81A /* main.cpp */; };
 		C23B44371A90264F00529743 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C23B44361A90264F00529743 /* Images.xcassets */; };
 		C255B3C51A8FEAB100A270F8 /* libbox2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A42B1834BDA200142BE0 /* libbox2d iOS.a */; };
-		C2897BFE1A90031700B343BB /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2897BFD1A90031700B343BB /* GoogleOpenSource.framework */; };
-		C2897C001A90033100B343BB /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2897BFF1A90033100B343BB /* GooglePlus.framework */; };
-		C2897C021A90034C00B343BB /* GooglePlayGames.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2897C011A90034C00B343BB /* GooglePlayGames.framework */; };
 		F293B3CD15EB7BE500256477 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3CC15EB7BE500256477 /* QuartzCore.framework */; };
 		F293B3D115EB7BE500256477 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3D015EB7BE500256477 /* OpenAL.framework */; };
 		F293B3D315EB7BE500256477 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3D215EB7BE500256477 /* AudioToolbox.framework */; };
@@ -10595,7 +10590,6 @@
 		37519C031A6657A200406F47 /* PerpLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpLua.cpp; path = ../Classes/PerpLua.cpp; sourceTree = "<group>"; };
 		37519C0E1A6657B300406F47 /* PerpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpUtils.cpp; path = ../Classes/PerpExt/PerpUtils.cpp; sourceTree = "<group>"; };
 		37519C0F1A6657B300406F47 /* PerpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpUtils.h; path = ../Classes/PerpExt/PerpUtils.h; sourceTree = "<group>"; };
-		3758D8301A93AE6F00833D47 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../libraries/facebook/ios/FacebookSDK.framework; sourceTree = "<group>"; };
 		3770339F198F5FF00091C231 /* ConfigParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigParser.cpp; path = ../Classes/ConfigParser.cpp; sourceTree = "<group>"; };
 		377033A0198F5FF00091C231 /* ConfigParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigParser.h; path = ../Classes/ConfigParser.h; sourceTree = "<group>"; };
 		377033A1198F5FF00091C231 /* Runtime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Runtime.cpp; path = ../Classes/Runtime.cpp; sourceTree = "<group>"; };
@@ -10609,7 +10603,6 @@
 		37E0007E1B26905C00F23F9E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		37E0007F1B26906300F23F9E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		37E000801B26906900F23F9E /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		37E128A71B45379300200C23 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Twitter.framework; sourceTree = DEVELOPER_DIR; };
 		37E128AF1B45380F00200C23 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
 		37E128B31B45384000200C23 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKitUI.framework; sourceTree = DEVELOPER_DIR; };
 		37E128B51B45385800200C23 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "../../../../usr/lib/libc++.dylib"; sourceTree = DEVELOPER_DIR; };
@@ -10677,9 +10670,6 @@
 		C25DF5CE1AAA70A300A56E96 /* PatiPublishPlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PatiPublishPlatform.h; path = ../../libraries/pati/include/PatiPublishPlatform.h; sourceTree = "<group>"; };
 		C25DF5CF1AAA70A300A56E96 /* PatiPublishSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PatiPublishSDK.h; path = ../../libraries/pati/include/PatiPublishSDK.h; sourceTree = "<group>"; };
 		C25DF5D01AAA70A300A56E96 /* PatiTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PatiTypes.h; path = ../../libraries/pati/include/PatiTypes.h; sourceTree = "<group>"; };
-		C2897BFD1A90031700B343BB /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "../../libraries/google_play_services/ios/google-plus-ios-sdk-1.7.1/GoogleOpenSource.framework"; sourceTree = "<group>"; };
-		C2897BFF1A90033100B343BB /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "../../libraries/google_play_services/ios/google-plus-ios-sdk-1.7.1/GooglePlus.framework"; sourceTree = "<group>"; };
-		C2897C011A90034C00B343BB /* GooglePlayGames.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlayGames.framework; path = "../../libraries/google_play_services/ios/GooglePlayGames-iOS-SDK.v3.1.1/GooglePlayGames.framework"; sourceTree = "<group>"; };
 		F293B3C815EB7BE500256477 /* DragonVillage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonVillage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F293B3CC15EB7BE500256477 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F293B3D015EB7BE500256477 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -10736,11 +10726,7 @@
 				37E128D01B45390D00200C23 /* CoreText.framework in Frameworks */,
 				37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */,
 				37E128B41B45384000200C23 /* EventKitUI.framework in Frameworks */,
-				3758D8311A93AE6F00833D47 /* FacebookSDK.framework in Frameworks */,
 				F293B3D915EB7BE500256477 /* Foundation.framework in Frameworks */,
-				C2897BFE1A90031700B343BB /* GoogleOpenSource.framework in Frameworks */,
-				C2897C021A90034C00B343BB /* GooglePlayGames.framework in Frameworks */,
-				C2897C001A90033100B343BB /* GooglePlus.framework in Frameworks */,
 				37E128CA1B4538DF00200C23 /* iAd.framework in Frameworks */,
 				37E128DA1B45396200200C23 /* ImageIO.framework in Frameworks */,
 				37E128E21B4539A900200C23 /* MediaPlayer.framework in Frameworks */,
@@ -10753,7 +10739,6 @@
 				37E128CC1B4538E800200C23 /* Social.framework in Frameworks */,
 				37E128C81B4538D600200C23 /* StoreKit.framework in Frameworks */,
 				37E128E01B45399A00200C23 /* SystemConfiguration.framework in Frameworks */,
-				37E128A81B45379300200C23 /* Twitter.framework in Frameworks */,
 				37E128D41B45392400200C23 /* UIKit.framework in Frameworks */,
 				37E128B61B45385800200C23 /* libc++.dylib in Frameworks */,
 				37E128BC1B45389300200C23 /* libsqlite3.0.dylib in Frameworks */,
@@ -36486,11 +36471,7 @@
 				37E128CF1B45390D00200C23 /* CoreText.framework */,
 				37E128AF1B45380F00200C23 /* EventKit.framework */,
 				37E128B31B45384000200C23 /* EventKitUI.framework */,
-				3758D8301A93AE6F00833D47 /* FacebookSDK.framework */,
 				F293B3D815EB7BE500256477 /* Foundation.framework */,
-				C2897BFD1A90031700B343BB /* GoogleOpenSource.framework */,
-				C2897C011A90034C00B343BB /* GooglePlayGames.framework */,
-				C2897BFF1A90033100B343BB /* GooglePlus.framework */,
 				37E128C91B4538DF00200C23 /* iAd.framework */,
 				37E128D91B45396200200C23 /* ImageIO.framework */,
 				50D7C96F17EBBEEC005D0B91 /* IOKit.framework */,
@@ -36505,7 +36486,6 @@
 				37E128CB1B4538E800200C23 /* Social.framework */,
 				37E128C71B4538D600200C23 /* StoreKit.framework */,
 				37E128DF1B45399A00200C23 /* SystemConfiguration.framework */,
-				37E128A71B45379300200C23 /* Twitter.framework */,
 				37E128D31B45392400200C23 /* UIKit.framework */,
 				37E128B51B45385800200C23 /* libc++.dylib */,
 				37E128BB1B45389300200C23 /* libsqlite3.0.dylib */,
@@ -37555,10 +37535,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/../../libraries/google_play_services/ios/google-plus-ios-sdk-1.7.1",
-					"$(PROJECT_DIR)/../../libraries/google_play_services/ios/GooglePlayGames-iOS-SDK.v3.1.1",
-					"$(PROJECT_DIR)/../../libraries/facebook/ios",
-					"$(PROJECT_DIR)/../../libraries/adbrix/ios/IGAWorks_iOS_SDK_Full_Package_160906_v1",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -37572,10 +37548,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../libraries/perplesdk/prebuilt/ios\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"-DPATISDK_FACEBOOK",
-					"-DPATISDK_GOOGLEPLUS",
-				);
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dvtest;
 				PRODUCT_NAME = DragonVillage;
@@ -37601,10 +37574,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/../../libraries/google_play_services/ios/google-plus-ios-sdk-1.7.1",
-					"$(PROJECT_DIR)/../../libraries/google_play_services/ios/GooglePlayGames-iOS-SDK.v3.1.1",
-					"$(PROJECT_DIR)/../../libraries/facebook/ios",
-					"$(PROJECT_DIR)/../../libraries/adbrix/ios/IGAWorks_iOS_SDK_Full_Package_160906_v1",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -37617,11 +37586,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../libraries/perplesdk/prebuilt/ios\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"-DPATISDK_FACEBOOK",
-					"-DPATISDK_GOOGLEPLUS",
-				);
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dvtest;
 				PRODUCT_NAME = DragonVillage;
