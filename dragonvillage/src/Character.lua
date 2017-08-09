@@ -787,14 +787,14 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     else
 		local damage = math_min(damage, self.m_hp)
 		self:setHp(self.m_hp - damage)
-
-		-- @LOG_CHAR : 공격자 데미지
-        if (attacker) then
-		    attacker.m_activityCarrier:getActivityOwner().m_charLogRecorder:recordLog('damage', damage)
-        end
-		-- @LOG_CHAR : 방어지 피해량
-		self.m_charLogRecorder:recordLog('be_damaged', damage)
 	end
+
+    -- @LOG_CHAR : 공격자 데미지
+    if (attacker) then
+		attacker.m_activityCarrier:getActivityOwner().m_charLogRecorder:recordLog('damage', damage)
+    end
+	-- @LOG_CHAR : 방어지 피해량
+	self.m_charLogRecorder:recordLog('be_damaged', damage)
 
     -----------------------------------------------------------------
     -- 죽음 체크
