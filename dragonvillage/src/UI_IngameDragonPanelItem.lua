@@ -34,8 +34,9 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
 
     local skill_id = dragon:getSkillID('active')
     local t_skill = dragon:getSkillTable(skill_id)
-
-    self.m_bAttackSkill = (string.find(t_skill['target_type'], 'enemy') ~= nil)
+    if (t_skill) then
+        self.m_bAttackSkill = (string.find(t_skill['target_type'], 'enemy') ~= nil)
+    end
 
 	local vars = self:load('ingame_panel.ui', false, true)
 
@@ -66,8 +67,12 @@ function UI_IngameDragonPanelItem:initUI()
     local t_skill = dragon:getSkillTable(skill_id)
     local str_target = (self.m_bAttackSkill and 'atk' or 'heal')
 
+    self.m_haveActive = (t_skill ~= nil)
+
     vars['topMenu']:setPositionY(0)
-    vars['skillGaugeVisual']:setVisible(true)
+    vars['skillGaugeVisual']:setVisible(self.m_haveActive)
+    vars['skillFullVisual1']:setVisible(self.m_haveActive)
+    vars['skillFullVisual2']:setVisible(self.m_haveActive)
     vars['skillFullVisual1']:changeAni('dragon_full_' .. str_target .. '_idle_1', true)
     vars['skillFullVisual2']:changeAni('dragon_full_' .. str_target .. '_idle_2', true)
 
@@ -93,15 +98,13 @@ function UI_IngameDragonPanelItem:initUI()
     do -- 드래그 스킬 아이콘
         local skill_icon
 
-        if (skill_id ~= 0) then
+        if (t_skill) then
             skill_icon = IconHelper:getSkillIcon('dragon', skill_id)
-			self.m_haveActive = true
-
+			
 		-- 액티브 스킬이 없는 케이스
         else
             skill_icon = cc.Sprite:create('res/ui/icon/skill/skill_empty.png')
-			self.m_haveActive = false
-
+			
         end
 
         skill_icon:setDockPoint(CENTER_POINT)
@@ -110,7 +113,7 @@ function UI_IngameDragonPanelItem:initUI()
     end
 
     -- 인디케이터 아이콘
-    do
+    if (t_skill) then
         local indicator_type = t_skill['indicator']
         local res = 'ingame_panel_indicater_' .. str_target .. '_' .. indicator_type .. '.png'
         local icon = cc.Sprite:createWithSpriteFrameName(res)
@@ -122,7 +125,7 @@ function UI_IngameDragonPanelItem:initUI()
     end
 
     -- 대상 수
-    do
+    if (t_skill) then
         local target_count = t_skill['target_count']
         local res = 'ingame_panel_target_' .. str_target .. '_' .. target_count .. '.png'
         local icon = cc.Sprite:createWithSpriteFrameName(res)
@@ -211,12 +214,14 @@ function UI_IngameDragonPanelItem:refreshManaCost(mana_cost)
     if (vars['manaNode']) then
         vars['manaNode']:removeAllChildren()
 
-        local res = 'ingame_panel_mana_' .. mana_cost .. '.png'
-        local icon = cc.Sprite:createWithSpriteFrameName(res)
-        if icon then
-            icon:setDockPoint(cc.p(0.5, 0.5))
-            icon:setAnchorPoint(cc.p(0.5, 0.5))
-            vars['manaNode']:addChild(icon)
+        if (mana_cost > 0) then
+            local res = 'ingame_panel_mana_' .. mana_cost .. '.png'
+            local icon = cc.Sprite:createWithSpriteFrameName(res)
+            if icon then
+                icon:setDockPoint(cc.p(0.5, 0.5))
+                icon:setAnchorPoint(cc.p(0.5, 0.5))
+                vars['manaNode']:addChild(icon)
+            end
         end
     end
 end
