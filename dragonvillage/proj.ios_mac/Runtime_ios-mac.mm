@@ -91,17 +91,17 @@ string getAndroidID()
     return "";
 }
 
-void send_event_to_app(const char *param1, const char *param2)
+void sdkEvent(const char *id, const char *arg0, const char *arg1)
 {
-    if (strcmp(param1, "app_terminate") == 0) {
+    if (strcmp(id, "app_terminate") == 0) {
         //do nothing in ios
     }
-    else if (strcmp(param1, "goto_web") == 0) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithUTF8String:param2]];
+    else if (strcmp(id, "app_gotoWeb") == 0) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithUTF8String:arg0]];
         [[UIApplication sharedApplication] openURL:url];
     }
-    else if (strcmp(param1, "alert") == 0) {
-        NSArray *params = [[NSString stringWithUTF8String:param2] componentsSeparatedByString:@";"];
+    else if (strcmp(id, "app_alert") == 0) {
+        NSArray *params = [[NSString stringWithUTF8String:arg0] componentsSeparatedByString:@";"];
 
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[params objectAtIndex:0]
                                                             message:[params objectAtIndex:1]
@@ -111,13 +111,13 @@ void send_event_to_app(const char *param1, const char *param2)
         [alertView show];
         [alertView release];
     }
-    else if (strcmp(param1, "send_email") == 0) {
+    else if (strcmp(id, "app_sendMail") == 0) {
         //do nothing in ios
     }
-    else if (strcmp(param1, "goto_store") == 0) {
+    else if (strcmp(id, "app_gotoStore") == 0) {
         NSString *marketUrl;
-        if (param2 && strlen(param2) > 1) {
-            marketUrl = [NSString stringWithUTF8String:param2];
+        if (arg0 && strlen(arg0) > 1) {
+            marketUrl = [NSString stringWithUTF8String:arg0];
         }
         else {
             marketUrl = @"http://itunes.apple.com/kr/app/id721512161?mt=8&uo=4";
@@ -125,24 +125,19 @@ void send_event_to_app(const char *param1, const char *param2)
         NSURL *url = [NSURL URLWithString:marketUrl];
         [[UIApplication sharedApplication] openURL:url];
     }
-    else if (strcmp(param1, "local_noti_add") == 0) {
+    else if (strcmp(id, "localpush_add") == 0) {
         AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        NSArray *params = [[NSString stringWithUTF8String:param2] componentsSeparatedByString:@";"];
+        NSArray *params = [[NSString stringWithUTF8String:arg0] componentsSeparatedByString:@";"];
         NSString *type = [params objectAtIndex:0];
         int sec = [[params objectAtIndex:1] intValue];
         NSString *msg = [params objectAtIndex:2];
         [appController sendLocalNotification:type withTime:sec withMsg:msg];
     }
-    else if (strcmp(param1, "local_noti_cancel") == 0) {
+    else if (strcmp(id, "localpush_cancel") == 0) {
         AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
         [appController cancelNotification];
     }
-
-}
-
-void sdkEvent(const char *id, const char *arg0, const char *arg1)
-{
-    if (strcmp(id, "clipboard_setText") == 0)
+    else if (strcmp(id, "clipboard_setText") == 0)
     {
         NSString *_arg0 = [NSString stringWithUTF8String:arg0];
         AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
@@ -154,28 +149,6 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
         [appController clipboardGetText:_arg0];
     }
-#ifdef USE_BILLING
-    // @billing
-    else if (strcmp(id, "billing_prepare") == 0)
-    {
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController billingPrepare];
-    }
-    // @billing
-    else if (strcmp(id, "billing_request") == 0)
-    {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
-        NSString *_arg1 = [NSString stringWithUTF8String:arg1];
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController billingRequest:_arg0 param:_arg1];
-    }
-    // @billing
-    else if (strcmp(id, "billing_confirm") == 0)
-    {
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController billingConfirm];
-    }
-#endif
 }
 
 void sdkEventResult(const char *id, const char *result, const char *info)

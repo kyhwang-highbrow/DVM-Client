@@ -110,26 +110,25 @@ static AppDelegate s_sharedApplication;
 
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
+    // IMPORTANT: Setting the GLView should be done after creating the RootViewController
+    cocos2d::GLView *glview = cocos2d::GLView::createWithEAGLView(eaglView);
+    cocos2d::Director::getInstance()->setOpenGLView(glview);
+
     // local notification
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
-    } else {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
 
     // @perplesdk
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:YES sandbox:YES]) {
         [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
-        [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
-        [[PerpleSDK sharedInstance] initBilling];
     }
-
-    // IMPORTANT: Setting the GLView should be done after creating the RootViewController
-    cocos2d::GLView *glview = cocos2d::GLView::createWithEAGLView(eaglView);
-    cocos2d::Director::getInstance()->setOpenGLView(glview);
+    [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
+    [[PerpleSDK sharedInstance] initBilling];
+    [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
     cocos2d::Application::getInstance()->run();
 
@@ -358,13 +357,12 @@ static AppDelegate s_sharedApplication;
 // @clipboard
 - (void)clipboardSetText:(NSString *)arg0 {
     [[UIPasteboard generalPasteboard] setString:arg0];
-    sdkEventResult("clipboard_setText", "true", "");
 }
 
 // @clipboard
 - (void)clipboardGetText:(NSString *)arg0 {
     NSString *text = [[UIPasteboard generalPasteboard] string];
-    sdkEventResult("clipboard_getText", "true", [text UTF8String]);
+    sdkEventResult("clipboard_getText", "success", [text UTF8String]);
 }
 
 // @wifi
