@@ -1,13 +1,13 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, ‘8.0’
+platform :ios, '8.0'
 
 target 'DragonVillageM iOS' do
   # Uncomment this line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
   # Pods for DragonVillageM iOS
-  # Pods for Firebase
 
+  # Pods for Firebase
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Messaging'
