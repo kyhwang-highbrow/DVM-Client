@@ -32,7 +32,7 @@ using namespace cocos2d::experimental;
 USING_NS_CC;
 
 
-static int s_EngineMode = 1;
+static int s_EngineMode = 0;
 
 static int s_BGMusicId = -1;
 static bool s_IsBGMPlaying = false;
@@ -218,6 +218,20 @@ static void static_stopAllEffects()
     [[SimpleAudioEngine sharedEngine] stopAllEffects];
 }
 
+static std::string ogg2mp3(const char *pszFilePath)
+{
+    std::string filePath = pszFilePath;
+    std::string ext = FileUtils::getInstance()->getFileExtension(pszFilePath);
+    if (ext == ".ogg")
+    {
+        std::string path = pszFilePath;
+        int idx = (int)path.rfind(".");
+        filePath = path.substr(0, idx);
+        filePath += ".mp3";
+    }
+    return filePath;
+}
+
 namespace CocosDenshion {
 
 static SimpleAudioEngine *s_pEngine = nullptr;
@@ -263,11 +277,11 @@ void SimpleAudioEngine::end()
 void SimpleAudioEngine::preloadBackgroundMusic(const char* pszFilePath)
 {
     // Changing file path to full path
-    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(pszFilePath);
+    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(ogg2mp3(pszFilePath));
 
     if (s_EngineMode == 1)
     {
-        AudioEngine::preload(pszFilePath);
+        AudioEngine::preload(fullPath);
     }
     else
     {
@@ -278,7 +292,8 @@ void SimpleAudioEngine::preloadBackgroundMusic(const char* pszFilePath)
 void SimpleAudioEngine::playBackgroundMusic(const char* pszFilePath, bool bLoop)
 {
     // Changing file path to full path
-    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(pszFilePath);
+    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(ogg2mp3(pszFilePath));
+
     if (s_EngineMode == 1)
     {
         if (s_BGMusicId != -1)
@@ -286,7 +301,7 @@ void SimpleAudioEngine::playBackgroundMusic(const char* pszFilePath, bool bLoop)
             stopBackgroundMusic();
         }
 
-        s_BGMusicId = AudioEngine::play2d(pszFilePath, bLoop);
+        s_BGMusicId = AudioEngine::play2d(fullPath, bLoop);
         s_IsBGMPlaying = true;
     }
     else
@@ -444,10 +459,11 @@ unsigned int SimpleAudioEngine::playEffect(const char *pszFilePath, bool bLoop,
                                            float pitch, float pan, float gain)
 {
     // Changing file path to full path
-    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(pszFilePath);
+    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(ogg2mp3(pszFilePath));
+
     if (s_EngineMode == 1)
     {
-        return AudioEngine::play2d(pszFilePath, bLoop);
+        return AudioEngine::play2d(fullPath, bLoop);
     }
     else
     {
@@ -470,10 +486,11 @@ void SimpleAudioEngine::stopEffect(unsigned int nSoundId)
 void SimpleAudioEngine::preloadEffect(const char* pszFilePath)
 {
     // Changing file path to full path
-    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(pszFilePath);
+    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(ogg2mp3(pszFilePath));
+
     if (s_EngineMode == 1)
     {
-        AudioEngine::preload(pszFilePath);
+        AudioEngine::preload(fullPath);
     }
     else
     {
@@ -484,10 +501,11 @@ void SimpleAudioEngine::preloadEffect(const char* pszFilePath)
 void SimpleAudioEngine::unloadEffect(const char* pszFilePath)
 {
     // Changing file path to full path
-    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(pszFilePath);
+    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(ogg2mp3(pszFilePath));
+
     if (s_EngineMode == 1)
     {
-        AudioEngine::uncache(pszFilePath);
+        AudioEngine::uncache(fullPath);
     }
     else
     {
@@ -565,6 +583,9 @@ void SimpleAudioEngine::stopAllEffects()
 
 void SimpleAudioEngine::playVoice(const char* pszFilePath, bool bLoop)
 {
+    // Changing file path to full path
+    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(ogg2mp3(pszFilePath));
+
     if (s_EngineMode == 1)
     {
         if (s_VoiceId != -1)
@@ -572,11 +593,11 @@ void SimpleAudioEngine::playVoice(const char* pszFilePath, bool bLoop)
             stopVoice();
         }
 
-        s_VoiceId = AudioEngine::play2d(pszFilePath, bLoop);
+        s_VoiceId = AudioEngine::play2d(fullPath, bLoop);
     }
     else
     {
-        s_VoiceId = playEffect(pszFilePath, bLoop);
+        s_VoiceId = playEffect(fullPath.c_str(), bLoop);
     }
 }
 
