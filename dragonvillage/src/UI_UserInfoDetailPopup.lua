@@ -410,7 +410,7 @@ end
 -- @brief 상대의 방어덱을 본다.. 왜 방어덱만?
 -------------------------------------
 function UI_UserInfoDetailPopup:click_deckBtn()
-    local uid = tonumber(self.m_tUserInfo['uid'])
+    local uid = self.m_tUserInfo['uid']
     local deck_name = 'def'
     RequestUserDeckInfoPopup(uid, deck_name)
 end

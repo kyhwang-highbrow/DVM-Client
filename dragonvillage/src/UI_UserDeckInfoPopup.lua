@@ -67,6 +67,12 @@ end
 -------------------------------------
 function UI_UserDeckInfoPopup:refresh_dragons()
     local l_dragons = self.m_structUserInfoColosseum:getDefDeck_dragonList()
+
+	-- 초기화를 하기 위함
+    for idx=1, 5 do
+        self:refresh_dragon(idx, nil)
+    end
+
     for idx, dragon in pairs(l_dragons) do
         self:refresh_dragon(idx, dragon)
     end
@@ -152,6 +158,9 @@ function RequestUserDeckInfoPopup(peer_uid, deck_name)
         UI_UserDeckInfoPopup(struct_user_info)
     end
 
+    local function fail_cb(ret)
+    end
+
     local ui_network = UI_Network()
     ui_network:setRevocable(true)
     ui_network:setUrl('/game/pvp/user_info')
@@ -159,5 +168,6 @@ function RequestUserDeckInfoPopup(peer_uid, deck_name)
     ui_network:setParam('peer', peer_uid)
     ui_network:setParam('deck_name', deck_name)
     ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:request()    
 end
