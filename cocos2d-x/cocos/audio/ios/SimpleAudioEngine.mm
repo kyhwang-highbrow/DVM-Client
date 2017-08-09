@@ -387,7 +387,14 @@ float SimpleAudioEngine::getBackgroundMusicVolume()
 {
     if (s_EngineMode == 1)
     {
-        return 0.0f;
+        if (s_BGMusicId != -1)
+        {
+            return AudioEngine::getVolume(s_BGMusicId);
+        }
+        else
+        {
+            return 0.0f;
+        }
     }
     else
     {
@@ -399,6 +406,10 @@ void SimpleAudioEngine::setBackgroundMusicVolume(float volume)
 {
     if (s_EngineMode == 1)
     {
+        if (s_BGMusicId != -1)
+        {
+            AudioEngine::setVolume(s_BGMusicId, volume);
+        }
     }
     else
     {
