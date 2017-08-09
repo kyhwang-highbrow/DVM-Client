@@ -596,6 +596,8 @@ local t_module = {
 	'UI_Tooltip_Indicator',
     'UI_Tooltip_Skill',
     'UI_TopUserInfo',
+    'UI_GoodsInfo',
+    'UI_StaminaInfo',
 
     'UI_GachaResult_Dragon',
     'UI_DragonAppear',

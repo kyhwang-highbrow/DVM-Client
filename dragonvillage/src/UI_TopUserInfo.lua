@@ -7,36 +7,30 @@ UI_TopUserInfo = class(PARENT,{
         m_lOwnerUI = 'list',
         m_ownerUIIdx = 'number',
 
-        m_lNumberLabel = 'list',
 		m_staminaType = 'string',
 
         m_mAddedSubCurrency = 'table',
 
         m_broadcastLabel = 'UIC_BroadcastLabel',
         m_chatBroadcastLabel = 'UIC_BroadcastLabel',
+
+        m_mGoodsInfo = 'map[UI_GoodsInfo]',
+        m_staminaInfo = 'UI_StaminaInfo',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_TopUserInfo:init()
-    local vars = self:load('top_user_info.ui')
+    local vars = self:load('top_user_info_new.ui')
 
     vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
-    vars['st_ad_btn']:registerScriptTapHandler(function() self:click_st_ad_btn() end)
+    --vars['st_ad_btn']:registerScriptTapHandler(function() self:click_st_ad_btn() end)
     --vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
-    vars['settingBtn']:registerScriptTapHandler(function() self:click_quickPopupBtn() end)    
+    vars['quickBtn']:registerScriptTapHandler(function() self:click_quickPopupBtn() end)    
     vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)
 
-    self.m_lNumberLabel = {}
-    self.m_lNumberLabel['gold'] = NumberLabel(vars['goldLabel'], 0, 0.3)
-    self.m_lNumberLabel['cash'] = NumberLabel(vars['cashLabel'], 0, 0.3)
-    self.m_lNumberLabel['amethyst'] = NumberLabel(vars['amethystLabel'], 0, 0.3)
-    self.m_lNumberLabel['st_ad'] = NumberLabel(vars['actingPowerLabel'], 0, 0.3)
-    self.m_lNumberLabel['fp'] = NumberLabel(vars['fpLabel'], 0, 0.3)
-    
-    self.m_mAddedSubCurrency = {}
-
+    self:initGoodsUI()
     self:clearOwnerUI()
 
     -- UI가 enter로 진입되었을 때 update함수 호출
@@ -46,41 +40,42 @@ function UI_TopUserInfo:init()
         end
     end)
 
-
     self.m_broadcastLabel = UIC_BroadcastLabel:create(vars['noticeBroadcastNode'], vars['noticeBroadcastLabel'])
     self.m_chatBroadcastLabel = UIC_BroadcastLabel:create(vars['chatBroadcastNode'], vars['chatBroadcastLabel'])
+end
+
+-------------------------------------
+-- function initGoodsUI
+-------------------------------------
+function UI_TopUserInfo:initGoodsUI()
+    self.m_mGoodsInfo = {}
+    self.m_mAddedSubCurrency = {}
+
+    -- 붙박이 재화
+    self:makeGoodsUI('gold', 2) -- param : goods_type, x_pos_idx
+    self:makeGoodsUI('cash', 3) -- param : goods_type, x_pos_idx
+
+    self.m_staminaInfo = UI_StaminaInfo:create()
+    do -- addChild, 위치 조정
+        local ui = self.m_staminaInfo
+        local x_pos_idx = 1
+        ui.root:setDockPoint(cc.p(1, 0.5))
+        local pos_x = -258 - ((x_pos_idx-1) * 190)
+        ui.root:setPosition(pos_x, 0)
+        self.vars['actionNode']:addChild(ui.root)
+    end
 end
 
 -------------------------------------
 -- function refreshData
 -------------------------------------
 function UI_TopUserInfo:refreshData()
-    local vars = self.vars
 
-    local gold = g_userData:get('gold')
-    local cash = g_userData:get('cash')
-    local amethyst = g_userData:get('amethyst')
-    local fp = g_userData:get('fp')
-    
-    self.m_lNumberLabel['gold']:setNumber(gold)
-    self.m_lNumberLabel['cash']:setNumber(cash)
-    self.m_lNumberLabel['amethyst']:setNumber(amethyst)
-
-    -- 스태미너
-    local st_ad = g_staminasData:getStaminaCount(self.m_staminaType)
-    local max_cnt = g_staminasData:getStaminaMaxCnt(self.m_staminaType)
-    --self.m_lNumberLabel['st_ad']:setNumber(st_ad)
-    vars['actingPowerLabel']:setString(Str('{1}/{2}', st_ad, max_cnt))
-
-    local str = g_staminasData:getChargeRemainText(self.m_staminaType)
-    vars['actingPowerTimeLabel']:setString(str)
-
-    self.m_lNumberLabel['fp']:setNumber(fp)
-
-    for k, numberLabel in pairs(self.m_mAddedSubCurrency) do
-        local value = g_userData:get(k) or 0
-        numberLabel:setNumber(value)
+    for _,ui in pairs(self.m_mGoodsInfo) do
+        ui:refresh()
     end
+
+    self.m_staminaInfo:refresh()
 end
 
 -------------------------------------
@@ -226,53 +221,41 @@ end
 -- function setSubCurrency
 -------------------------------------
 function UI_TopUserInfo:setSubCurrency(subCurrency)
-
     if isExistValue(subCurrency, 'money', 'cash', 'gold', 'package', 'st') then
         return
     end
 
+    local goods_type = subCurrency
+
+    -- 해당 타입의 ui가 생성되지 않았을 경우 생성
+    if (not self.m_mGoodsInfo[goods_type]) then
+        local ui = self:makeGoodsUI(goods_type, 4) -- param : goods_type, x_pos_idx
+        self.m_mAddedSubCurrency[goods_type] = ui
+    end
+
+    -- 현재 지정된 서브 재화만 visible true
+    for k, ui in pairs(self.m_mAddedSubCurrency) do
+        ui.root:setVisible(k == goods_type)
+    end
+end
+
+-------------------------------------
+-- function makeGoodsUI
+-- @brief 재화별 UI 생성
+-------------------------------------
+function UI_TopUserInfo:makeGoodsUI(goods_type, x_pos_idx)
     local vars = self.vars
 
-    -- 서브 재화
-    vars['amethystNode']:setVisible(subCurrency == 'amethyst')
-    vars['fpNode']:setVisible(subCurrency == 'fp')
+    local ui = UI_GoodsInfo(goods_type)
+    self.m_mGoodsInfo[goods_type] = ui
 
-    for k, _ in pairs(self.m_mAddedSubCurrency) do
-        if (vars[k .. 'Node']) then
-            vars[k .. 'Node']:setVisible(k == subCurrency)
-        end
-    end
+    -- addChild, 위치 조정
+    ui.root:setDockPoint(cc.p(1, 0.5))
+    local pos_x = -258 - ((x_pos_idx-1) * 190)
+    ui.root:setPosition(pos_x, 0)
+    vars['actionNode']:addChild(ui.root)
 
-    -- 해당 재화 타입의 노드가 없다면 추가
-    if (not vars[subCurrency .. 'Node']) then
-
-        local ui = UI()
-        ui:load('top_user_info_goods.ui')
-
-        do -- 재화 아이콘 생성
-            local res_icon = string.format('res/ui/icon/inbox/inbox_%s.png', subCurrency)
-            local icon = cc.Sprite:create(res_icon)
-            if (icon) then
-                icon:setDockPoint(cc.p(0.5, 0.5))
-                icon:setAnchorPoint(cc.p(0.5, 0.5))
-                ui.vars['iconNode']:addChild(icon)
-            end
-        end
-
-        -- 메인 클래스에서 관리 가능하도록 vars에 저장
-        vars[subCurrency .. 'Node'] = ui.root
-        vars[subCurrency .. 'Label'] = ui.vars['label']
-
-        -- NumberLabel객체 생성
-        local value = g_userData:get(subCurrency) or 0
-        local numberLabel = NumberLabel(ui.vars['label'], 0, 0.3)
-        numberLabel:setNumber(value)
-        self.m_mAddedSubCurrency[subCurrency] = numberLabel
-
-        -- addChild, 위치 조정
-        ui.root:setPosition(-170, 0)
-        vars['actionNode']:addChild(ui.root)
-    end
+    return ui
 end
 
 -------------------------------------
@@ -294,12 +277,8 @@ function UI_TopUserInfo:setStaminaType(stamina_type)
         return
     end
 
-    local vars = self.vars
-
-    self.m_staminaType = stamina_type
-    vars['staminaIconNode']:removeAllChildren()
-    local icon = IconHelper:getStaminaInboxIcon(stamina_type)
-    vars['staminaIconNode']:addChild(icon)
+    ccdump(stamina_type)
+    self.m_staminaInfo:setStaminaType(stamina_type)
 end
 
 -------------------------------------
