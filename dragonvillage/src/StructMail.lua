@@ -30,6 +30,13 @@ end
 -- function applyTableData
 -------------------------------------
 function StructMail:applyTableData(data)
+    -- @TODO ret_fp를 마냥 기다릴 수 없어 클라에서 처리
+    if (data.mail_type == 'fp') then
+        if (data.nick == nil) then
+            data.mail_type = 'ret_fp'
+        end
+    end
+
     for key,value in pairs(data) do
         self[key] = value
     end

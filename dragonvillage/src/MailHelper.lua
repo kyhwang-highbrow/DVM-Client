@@ -43,17 +43,7 @@ function MailHelper:getMailText(struct_mail)
 		-- 닉네임
         elseif (value == 'nick') then
             t_value[i] = struct_mail:getNickName()
-        --[[
-		-- 드래곤 이름
-		elseif (value == 'dragon') then
-			local did = struct_mail['did'] or 120011
-			t_value[i] = TableDragon:getDragonName(did)
-
-		-- 드래곤의 선물 문구
-		elseif (value == 'phrase') then
-			local did = struct_mail['did'] or 120011
-			t_value[i] = TableDragonPhrase:getMailPhrase(did)
-        ]]
+        
         end
     end
 
