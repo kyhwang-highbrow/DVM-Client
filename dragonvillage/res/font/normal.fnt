@@ -1,17 +1,17 @@
 info face=normal size=34 bold=0 italic=0 charset= unicode= stretchH=100 smooth=1 aa=1 padding=2,2,2,2 spacing=0,0 outline=0
-common lineHeight=34 base=28 scaleW=71 scaleH=325 pages=1 packed=0
+common lineHeight=34 base=26 scaleW=77 scaleH=289 pages=1 packed=0
 page id=0 file="normal.png"
 chars count=11
-char id=49 x=2 y=2 width=17 height=38 xoffset=3 yoffset=2 xadvance=17 page=0 chnl=15
-char id=50 x=2 y=42 width=23 height=38 xoffset=1 yoffset=1 xadvance=17 page=0 chnl=15
-char id=51 x=21 y=2 width=23 height=38 xoffset=1 yoffset=1 xadvance=17 page=0 chnl=15
-char id=52 x=2 y=82 width=25 height=38 xoffset=0 yoffset=1 xadvance=17 page=0 chnl=15
-char id=53 x=27 y=42 width=23 height=38 xoffset=1 yoffset=2 xadvance=17 page=0 chnl=15
-char id=54 x=46 y=2 width=23 height=38 xoffset=1 yoffset=1 xadvance=17 page=0 chnl=15
-char id=55 x=2 y=122 width=23 height=38 xoffset=1 yoffset=2 xadvance=17 page=0 chnl=15
-char id=56 x=2 y=162 width=23 height=38 xoffset=1 yoffset=1 xadvance=17 page=0 chnl=15
-char id=57 x=2 y=202 width=23 height=38 xoffset=1 yoffset=1 xadvance=17 page=0 chnl=15
-char id=48 x=2 y=242 width=23 height=38 xoffset=1 yoffset=1 xadvance=17 page=0 chnl=15
-char id=33 x=2 y=282 width=13 height=41 xoffset=2 yoffset=0 xadvance=10 page=0 chnl=15
-char id=32 x=0 y=0 width=0 height=0 xoffset=2 yoffset=0 xadvance=10 page=0 chnl=15
+char id=49 x=2 y=2 width=19 height=36 xoffset=3 yoffset=0 xadvance=17 page=0 chnl=15
+char id=50 x=2 y=40 width=25 height=36 xoffset=1 yoffset=0 xadvance=17 page=0 chnl=15
+char id=51 x=23 y=2 width=25 height=36 xoffset=1 yoffset=0 xadvance=17 page=0 chnl=15
+char id=52 x=2 y=78 width=27 height=36 xoffset=0 yoffset=0 xadvance=17 page=0 chnl=15
+char id=53 x=29 y=40 width=25 height=36 xoffset=1 yoffset=0 xadvance=17 page=0 chnl=15
+char id=54 x=50 y=2 width=25 height=36 xoffset=1 yoffset=0 xadvance=17 page=0 chnl=15
+char id=55 x=2 y=116 width=25 height=36 xoffset=1 yoffset=1 xadvance=17 page=0 chnl=15
+char id=56 x=2 y=154 width=25 height=36 xoffset=1 yoffset=0 xadvance=17 page=0 chnl=15
+char id=57 x=2 y=192 width=25 height=36 xoffset=1 yoffset=0 xadvance=17 page=0 chnl=15
+char id=48 x=2 y=230 width=25 height=36 xoffset=1 yoffset=0 xadvance=17 page=0 chnl=15
+char id=44 x=2 y=268 width=17 height=19 xoffset=1 yoffset=21 xadvance=8 page=0 chnl=15
+char id=32 x=0 y=0 width=0 height=0 xoffset=1 yoffset=21 xadvance=10 page=0 chnl=15
 kernings count=0
