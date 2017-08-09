@@ -67,6 +67,7 @@ function UI_ColosseumResult:setWorkList()
     table.insert(self.m_lWorkList, 'direction_hideTamer')
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')
+    table.insert(self.m_lWorkList, 'direction_masterRoad')
 end
 
 -------------------------------------
@@ -205,12 +206,26 @@ function UI_ColosseumResult:direction_end()
     end)
 
     resultMenu:runAction(cc.Sequence:create(show_act, number_act))
+
+    self:doNextWorkWithDelayTime(0.5)
 end
 
 -------------------------------------
 -- function direction_end
 -------------------------------------
 function UI_ColosseumResult:direction_end_click()
+end
+
+-------------------------------------
+-- function direction_masterRoad
+-------------------------------------
+function UI_ColosseumResult:direction_masterRoad()
+    -- @ MASTER ROAD
+    local t_data = {game_mode = GAME_MODE_COLOSSEUM}
+    g_masterRoadData:updateMasterRoad(t_data)
+
+    -- @ GOOGLE ACHIEVEMENT
+    GoogleHelper.updateAchievement(t_data)
 end
 
 -------------------------------------
