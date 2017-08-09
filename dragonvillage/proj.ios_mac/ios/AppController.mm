@@ -120,7 +120,7 @@ static AppDelegate s_sharedApplication;
     }
 
     // @perplesdk
-    if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:NO sandbox:YES]) {
+    if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:YES sandbox:YES]) {
         [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
         [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
