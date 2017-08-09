@@ -641,6 +641,7 @@ local t_module = {
     'UI_Help',
     'UI_DragonGoodbyeResult',
     'UI_QuickPopup',
+    'UI_CouponPopup',
 
     -- UI : 약관 동의
     'UI_TermsPopup',
