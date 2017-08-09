@@ -229,6 +229,12 @@ function UI_ColosseumResult:direction_masterRoad()
 end
 
 -------------------------------------
+-- function direction_masterRoad_click
+-------------------------------------
+function UI_ColosseumResult:direction_masterRoad_click()
+end
+
+-------------------------------------
 -- function doNextWork
 -------------------------------------
 function UI_ColosseumResult:doNextWork()

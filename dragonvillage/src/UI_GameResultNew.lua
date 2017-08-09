@@ -676,6 +676,12 @@ function UI_GameResultNew:direction_masterRoad()
 end
 
 -------------------------------------
+-- function direction_masterRoad_click
+-------------------------------------
+function UI_GameResultNew:direction_masterRoad_click()
+end
+
+-------------------------------------
 -- function addLevelUpDirector
 -- @brief 레벨업 연출 클래스 추가
 -------------------------------------
