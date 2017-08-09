@@ -167,7 +167,6 @@ end
 -------------------------------------
 function UI_MasterRoadPopup:click_rewardBtn()
     local function cb_func(ret)
-
         -- 보상 획득
         ItemObtainResult(ret)
         
@@ -180,6 +179,12 @@ function UI_MasterRoadPopup:click_rewardBtn()
         local next_idx = g_masterRoadData:getRoadIdx(g_masterRoadData:getFocusRoad())
         t_cell = self.m_tableView:getItem(next_idx)
         self:selectCell(t_cell['ui'], t_cell['data'])
+
+        -- 보상 수령 후에는 전역 항목에 대해 다시 검사한다. 이것들은 클리어 타이밍이 애매하기 때문
+        local function re_cb_func()
+            self.refreshCell(t_cell['ui'], t_cell['data'])
+        end
+        g_masterRoadData:updateMasterRoadAfterReward(re_cb_func)
     end
     g_masterRoadData:request_roadReward(self.m_currRid, cb_func)
 end

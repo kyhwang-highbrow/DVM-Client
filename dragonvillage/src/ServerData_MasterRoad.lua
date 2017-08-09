@@ -136,6 +136,24 @@ function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
 end
 
 -------------------------------------
+-- function updateMasterRoadAfterReward
+-- @brief 보상 수령 후에 기본 항목 체크
+-------------------------------------
+function ServerData_MasterRoad:updateMasterRoadAfterReward(cb_func)
+    for _, key in pairs({'t_get', 'make_frd', 'u_lv'}) do
+
+        local t_data = {['clear_key'] = key}
+        if (self:checkFocusRoadClear(t_data)) then
+            self:request_roadClear(self.m_focusRoad, cb_func)
+            return true
+        end
+
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function checkFocusRoadClear
 -------------------------------------
 function ServerData_MasterRoad:checkFocusRoadClear(t_data)
@@ -236,13 +254,6 @@ function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
 
         if (finish_cb) then
             finish_cb(ret)
-
-            -- 보상을 수령하였을 때 다음 3가지는 항상 검사
-            for _, key in pairs({'t_get', 'make_frd', 'u_lv'}) do
-                if (self:updateMasterRoad({['clear_key'] = key})) then
-                    break
-                end
-            end
         end
     end
 
