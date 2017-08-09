@@ -153,3 +153,24 @@ end
 function Is026Ver()
     return (getAppVer() == '0.2.6')
 end
+
+-------------------------------------
+-- function KeepOrderOfArrival
+-- @brief ZOrder가 같은 Node들이 뒤죽박죽 섞이는 것을 방지
+-------------------------------------
+function KeepOrderOfArrival(node)
+    if (not node) then
+        return
+    end
+
+    if (type(node) == 'table') then
+        node = node.m_node
+    end
+
+    local l_children = node:getChildren()
+    for i,child in ipairs(l_children) do
+        --node:reorderChild(child, child:getLocalZOrder())
+        child:setOrderOfArrival(i)
+    end
+    node:sortAllChildren()
+end

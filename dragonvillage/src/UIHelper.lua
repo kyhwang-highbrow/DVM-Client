@@ -109,10 +109,15 @@ function UIHelper:autoNoti(category_bool_map, noti_ui_table, ui_key, vars)
 	for category, _ in pairs(category_bool_map) do
     	-- 없으면 생성
 		if (not noti_ui_table[category]) then
+            
+            -- ZOrder가 같은 Node들이 뒤죽박죽 섞이는 것을 방지
+            local parent = vars[category .. ui_key]
+            KeepOrderOfArrival(parent)
+
 			local icon = IconHelper:getNotiIcon()
 			icon:setDockPoint(cc.p(1, 1))
 			icon:setPosition(-5, -5)
-			vars[category .. ui_key]:addChild(icon)
+			parent:addChild(icon)
 			noti_ui_table[category] = icon
 
 		-- 있으면 킴
