@@ -93,6 +93,6 @@ function MirrorDirectory(src_dir, tar_dir)
     -- /MIR : mirroring
     -- /NFL : No File List - don't log file names.
     -- /NDL : No Directory List - don't log directory names.
-
-    os.execute(string.format('robocopy "%s" "%s" /MIR /NFL /NDL', src_dir, tar_dir))
+    -- /XD dirs : 지정된 이름/경로와 일치하는 디렉토리 제외 
+    os.execute(string.format('robocopy "%s" "%s" /MIR /NFL /NDL /XD .svn', src_dir, tar_dir))
 end
