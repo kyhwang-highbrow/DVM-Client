@@ -21,7 +21,7 @@ function IS_ENABLE_ANALYTICS()
         return false
     end
     
-    return (getAppVer() == '0.2.6')
+    return true
 end
 
 -------------------------------------
