@@ -33,6 +33,18 @@ function SkillHelper:getValid(value, default)
 end
 
 -------------------------------------
+-- function isEnemyTargetingType
+-- @brief 적을 대상으로 하는 스킬인지 여부
+-------------------------------------
+function SkillHelper:isEnemyTargetingType(t_skill)
+    if (string.find(t_skill['target_type'], 'enemy')) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function makeStructStatusEffectList
 -------------------------------------
 function SkillHelper:makeStructStatusEffectList(t_skill)

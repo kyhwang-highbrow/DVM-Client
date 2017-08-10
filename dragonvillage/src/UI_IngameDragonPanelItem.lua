@@ -35,7 +35,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     local skill_id = dragon:getSkillID('active')
     local t_skill = dragon:getSkillTable(skill_id)
     if (t_skill) then
-        self.m_bAttackSkill = (string.find(t_skill['target_type'], 'enemy') ~= nil)
+        self.m_bAttackSkill = SkillHelper:isEnemyTargetingType(t_skill)
     end
 
 	local vars = self:load('ingame_panel.ui', false, true)
