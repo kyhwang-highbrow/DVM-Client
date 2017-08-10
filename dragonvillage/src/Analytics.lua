@@ -3,7 +3,7 @@ Adbrix = {}
 
 local function isTest()
     -- 0.2.6 에서 테스트
-    if (Is026Ver()) and (not isWin32()) then 
+    if (getAppVer() == '0.2.6') and (not isWin32()) then 
         return false
     else
         return true

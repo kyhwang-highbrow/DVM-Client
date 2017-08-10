@@ -148,13 +148,6 @@ function Is022Ver()
 end
 
 -------------------------------------
--- function Is026Ver
--------------------------------------
-function Is026Ver()
-    return (getAppVer() == '0.2.6')
-end
-
--------------------------------------
 -- function KeepOrderOfArrival
 -- @brief ZOrder가 같은 Node들이 뒤죽박죽 섞이는 것을 방지
 -------------------------------------
