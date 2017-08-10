@@ -379,6 +379,8 @@ end
 -- @brief 테이머 패널 UI
 -------------------------------------
 function UI_Game:initTamerUI(tamer)
+    if (not tamer:getSkillIndivisualInfo('active')) then return end
+
 	local world = self.m_gameScene.m_gameWorld
     local panel = UI_IngameTamerPanelItem(world, tamer)
     self.m_tamerUI = panel

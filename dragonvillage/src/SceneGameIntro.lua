@@ -66,7 +66,7 @@ function SceneGameIntro:prepare()
         -- 리소스 프리로드
         resCaching('res/ui/a2d/tutorial/tutorial')
 
-        local ret = self.m_resPreloadMgr:loadForColosseum()
+        local ret = self.m_resPreloadMgr:loadFromStageName(self.m_stageName)
         return ret
     end)
 
