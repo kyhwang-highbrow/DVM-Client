@@ -632,8 +632,9 @@ function formatMessage(str, ...)
 end
 
 -------------------------------------
--- function strSplit
+-- function stringSplit
 -- @brief 문자열을 sep문자 기준으로 분리
+-- @comment 사용하는 곳이 없음
 -------------------------------------
 function stringSplit(inputstr, sep)
 	if (not inputstr) then 
@@ -648,6 +649,18 @@ function stringSplit(inputstr, sep)
         t[i] = str
         i = i + 1
     end
+    return t
+end
+
+-------------------------------------
+-- function plSplit
+-- @brief penlight 사용한 split
+-------------------------------------
+function plSplit(inputstr, sep)
+    if (not inputstr) or (not sep) then
+        return
+    end
+    local t = pl.stringx.split(inputstr, sep)
     return t
 end
 

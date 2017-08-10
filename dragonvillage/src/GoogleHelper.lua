@@ -115,17 +115,26 @@ end
 -- 다만 서버와 연동없이 가능한 부분만을 체크한다.
 -------------------------------------
 function GoogleHelper.allAchievementCheck()
-    local clear_type, is_clear
+    local clear_type, clear_value, is_clear
     for _, t_acheivement in pairs(TableGoogleQuest().m_orgTable) do
         clear_type = t_acheivement['clear_type']
+        clear_value = t_acheivement['clear_value']
         is_clear = false
 
+        -- 스테이지 클리어 체크
         if (clear_type == 'clr_stg') then
+            local list = plSplit(clear_value, '-')
+            local stage_id = makeAdventureID(1, list[1], list[2])
             is_clear = g_adventureData:isClearStage(stage_id)
+
+        -- 레벨 달성 체크
         elseif (clear_type == 'u_lv') then
-            is_clear = (t_acheivement['clear_value'] < g_userData:get('lv'))
+            is_clear = (clear_value < g_userData:get('lv'))
+
+        -- 테이머 획득 체크
         elseif (clear_type == 't_get') then
-            is_clear = (t_acheivement['clear_value'] < g_tamerData:getTamerCount())
+            is_clear = (clear_value < g_tamerData:getTamerCount())
+
         end
 
         if (is_clear) then
