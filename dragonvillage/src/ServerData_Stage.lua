@@ -291,6 +291,31 @@ function ServerData_Stage:getStageCategoryStr(stage_id)
 end
 
 -------------------------------------
+-- function isBossStage
+-- @brief stage_id에 해당하는 스테이지가 보스 스테이지인지 여부
+-------------------------------------
+function ServerData_Stage:isBossStage(stage_id)
+    local game_mode = self:getGameMode(stage_id)
+
+    local is_boss_stage = false
+    local boss_monster_id = nil
+
+    -- 비밀 던전 모드
+    if (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo(stage_id)
+        local dragon_id = t_dungeon_info['dragon']
+        is_boss_stage = true -- 비밀(인연) 던전은 보스 스테이지로 간주
+        boss_monster_id = (dragon_id + 20000) -- dragon_id에서 20000을 더하면 monster_id가 됨
+        
+    -- 다른 모드들
+    else
+        is_boss_stage, boss_monster_id = TableStageDesc:isBossStage(stage_id)
+    end
+
+    return is_boss_stage, boss_monster_id
+end
+
+-------------------------------------
 -- function getMonsterIDList
 -- @brief
 -------------------------------------

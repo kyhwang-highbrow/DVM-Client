@@ -181,7 +181,7 @@ function UI_AdventureStageInfo:refresh()
     end
 
     do -- 보스 스테이지
-        local is_boss_stage, monster_id = TableStageDesc:isBossStage(stage_id)
+        local is_boss_stage, monster_id = g_stageData:isBossStage(stage_id)
         vars['bossSprite']:setVisible(is_boss_stage)
         vars['bossNode']:setVisible(is_boss_stage)
 
