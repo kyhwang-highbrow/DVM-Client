@@ -1,7 +1,0 @@
-page,effect_1,effect_2,effect_3,auto_skip,bg,illustration,bgm,bgm_action,sound,char,t_char_name,char_pos,char_effect,char_ani,t_text,t_text_mono,t_narrate
-1,,,,,,,,,,tamer,tamer,right,,sorrow,그동안 정말 고생했어,,
-2,,,,,,,,,,,,,,,행복하게 살아야 해,,
-3,,,,,,,,,,,,,,,잘 가......,,
-4,,,,,,,,,,dragon,떠나가는 드래곤들,left,,pose_1,응 갈게~ 행운을 빌어,,
-5,,,,,,,,,,,,left,disappear_side,,,,
-6,flash,,,0.3,,,,,,,,,,,,,

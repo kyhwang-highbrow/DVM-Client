@@ -1,9 +1,0 @@
-set_id,t_name,color,need_equip,key,value
-1,체력,yellow,2,hp_multi,15
-2,기회,purple,2,cri_chance_add,12
-3,적중,green,2,accuracy_add,20
-4,견고,orange,2,def_multi,15
-5,저항,bluegreen,2,resistance_add,20
-6,강렬,red,4,atk_multi,30
-7,피해,pink,4,cri_dmg_add,40
-8,쾌속,blue,4,aspd_add,25
