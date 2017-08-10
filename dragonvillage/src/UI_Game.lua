@@ -520,7 +520,7 @@ end
 -------------------------------------
 function UI_Game:setTemporaryPause(pause)
     local vars = self.vars
-
+    --[[
     if (pause) then
         -- 패널 UI 숨김
         self:toggleVisibility_PanelUI(false)
@@ -548,6 +548,7 @@ function UI_Game:setTemporaryPause(pause)
         -- 하단 프레임
         vars['panelBgSprite']:setVisible(true)
     end
+    ]]--
 end
 
 -------------------------------------
