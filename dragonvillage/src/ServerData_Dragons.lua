@@ -481,7 +481,7 @@ function ServerData_Dragons:checkDragonEvolution(doid)
 
 	local did = t_dragon_data['did']
 	if (TableDragon:isUnderling(did)) then
-		return false, Str('자코는 진화 할 수 없습니다.') 
+		return false, Str('몬스터는 진화 할 수 없습니다.') 
 	end
 
     if (t_dragon_data.m_objectType == 'slime') then
