@@ -15,16 +15,16 @@ function MailHelper:getMailText(struct_mail)
 		    return {title = '형식 없음', content = '내용 없음'}
 	    end
 
-        -- system인 경우 포함된 텍스트 반환
-        if (mail_type == 'system') then
-            return {title = '시스템', content = struct_mail:getMessage() or "시스템 메세지"}
-        end
-
 	    -- 테이블에 템플릿이 없다면 탈출
         t_template = table_template[mail_type]
 	    if (not t_template) then
 		    return {title = mail_type, content = '정의 되지 않은 mail_type 입니다.'}
 	    end
+
+        -- system인 경우 포함된 텍스트 반환
+        if (mail_type == 'system') then
+            return {title = Str(t_template['t_title']), content = struct_mail:getMessage() or Str(t_template['t_content'])}
+        end
     end
 
     -- 생성 시작
@@ -44,6 +44,10 @@ function MailHelper:getMailText(struct_mail)
         elseif (value == 'nick') then
             t_value[i] = struct_mail:getNickName()
         
+        -- 메세지
+        elseif (value == 'msg') then
+            t_value[i] = struct_mail:getMessage()
+
         end
     end
 
