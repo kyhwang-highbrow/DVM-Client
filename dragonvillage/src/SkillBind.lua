@@ -32,7 +32,6 @@ function SkillBind:init_skill()
 
     local scale, type = self.m_targetChar:getSizeType()
     self.m_scale = self:calcScale(type, scale)
-    print(self.m_scale)
 end
 
 -------------------------------------
@@ -115,19 +114,18 @@ end
 -- function calcScale
 -------------------------------------
 function SkillBind:calcScale(type, scale)
-    print(type, scale)
     if (type == 'monster') then
         if (scale == 'm') then
-            return 1.5 --@TODO
+            return 1.5
         elseif (scale == 'l') then
-            return 2 -- @TODO
+            return 2
         elseif (scale == 'xl') then
-            return 2.5 -- @TODO
+            return 2.5
         else
-            return 1  -- @TODO
+            return 1  
         end
     else
-        return scale  -- @TODO
+        return scale
     end
 end
 
