@@ -269,11 +269,8 @@ function ServerData_Book:request_bookReward(did, evolution, finish_cb)
 		
         -- @analytics
         Analytics:firstTimeExperience('Book_Rewrad')
-
-		-- 탑바 갱신
-		g_topUserInfo:refreshData()
-
-		-- 보상 수령한 정보 처리
+		
+        -- 보상 수령한 정보 처리
 		self.m_tBookReward = ret['reward_info']
 
 		-- 시간 갱신        

@@ -351,11 +351,8 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
         -- 드래곤 정보 갱신
         g_dragonsData:applyDragonData(ret['modified_dragon'])
 
-        -- 골드 갱신
-        if ret['gold'] then
-            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
-            g_topUserInfo:refreshData()
-        end
+        -- 갱신
+        g_serverData:networkCommonRespone(ret)
 
 		-- 재료 제거
 		if (self.m_selectedMtrl) then

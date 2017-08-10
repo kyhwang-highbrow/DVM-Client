@@ -187,7 +187,6 @@ function ServerData_Inventory:request_extendInventory(inven_type, finish_cb)
     -- 콜백 함수
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
-        g_topUserInfo:refreshData()
 
         local str_target = self:getTargetInventoryName(inven_type)
         UIManager:toastNotificationGreen(Str('{1} 가방이 확장되었습니다.', str_target))

@@ -460,11 +460,8 @@ function UI_DragonManagementEvolution:click_evolutionBtn()
             g_dragonsData:applyDragonData(ret['dragon'])
         end
 
-        -- 골드 갱신
-        if ret['gold'] then
-            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
-            g_topUserInfo:refreshData()
-        end
+        -- 갱신
+        g_serverData:networkCommonRespone(ret)
 
         self.m_bChangeDragonList = true
 

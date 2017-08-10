@@ -388,6 +388,11 @@ function ServerData:networkCommonRespone(ret)
 
     -- UI 하일라이트 정보 갱신
     g_highlightData:applyHighlightInfo(ret)
+    
+    -- 탑바 갱신
+    if (g_topUserInfo) then
+        g_topUserInfo:refreshData()
+    end
 end
 
 -------------------------------------
@@ -536,6 +541,11 @@ function ServerData:networkCommonRespone_addedItems(ret)
                 self:applyServerData(v, 'user', k)
             end
         end
+    end
+
+    -- 탑바 갱신
+    if (g_topUserInfo) then
+        g_topUserInfo:refreshData()
     end
 end
 

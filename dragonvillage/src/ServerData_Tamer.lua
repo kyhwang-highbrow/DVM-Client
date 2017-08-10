@@ -292,11 +292,8 @@ function ServerData_Tamer:request_tamerSkillEnhance(tid, skill_idx, enhance_leve
 		self:applyTamerInfo(ret['tamer'])
 		self:reMappingTamerInfo()
 
-		-- 골드 갱신
-        if ret['gold'] then
-            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
-            g_topUserInfo:refreshData()
-        end
+		-- 갱신
+        g_serverData:networkCommonRespone(ret)
 
 		if (cb_func) then
 			cb_func()

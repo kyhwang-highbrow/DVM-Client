@@ -127,8 +127,6 @@ function ServerData_Exchange:request_exchange(product_id, finish_cb, fail_cb)
     local function success_cb(ret)        
         g_serverData:networkCommonRespone_addedItems(ret)
 
-        g_topUserInfo:refreshData()
-
         if (finish_cb) then
             finish_cb(ret)
         end

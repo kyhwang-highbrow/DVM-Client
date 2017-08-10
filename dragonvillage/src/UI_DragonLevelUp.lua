@@ -472,10 +472,7 @@ function UI_DragonLevelUp:response_levelup(ret, bonus_rate)
     g_dragonsData:applyDragonData(ret['modified_dragon'])
 
     -- 골드 갱신
-    if ret['gold'] then
-        g_serverData:applyServerData(ret['gold'], 'user', 'gold')
-        g_topUserInfo:refreshData()
-    end
+    g_serverData:networkCommonRespone(ret)
 
     self.m_bChangeDragonList = true
 

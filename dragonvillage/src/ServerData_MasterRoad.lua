@@ -249,9 +249,6 @@ function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
         -- 재화 수령 처리
         self.m_serverData:networkCommonRespone_addedItems(ret)
 		
-		-- 탑바 갱신
-		g_topUserInfo:refreshData()
-
         -- @analytics
         Analytics:firstTimeExperience('MasterRoad_Reward')
 

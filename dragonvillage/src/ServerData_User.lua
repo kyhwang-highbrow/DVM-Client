@@ -189,8 +189,6 @@ function ServerData_User:requestDragonGift(cb_func)
         g_serverData:networkCommonRespone_addedItems(ret)
 		-- 선물 받을 수 있는 시간 갱신
 		self:applyServerData(ret['lobby_gift_box_at'], 'lobby_gift_box_at')
-		-- 탑바 갱신
-		g_topUserInfo:refreshData()
 
 		if (cb_func) then
 			cb_func(ret)

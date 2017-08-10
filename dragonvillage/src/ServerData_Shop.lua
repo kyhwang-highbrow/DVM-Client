@@ -365,10 +365,6 @@ function ServerData_Shop:request_buy(struct_product, finish_cb, fail_cb)
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
-        if g_topUserInfo then
-            g_topUserInfo:refreshData()
-        end
-
         -- 상품 구매 후 갱신이 필요한지 여부 체크
         if struct_product:needRenewAfterBuy() then
             self.m_bDirty = true
@@ -432,10 +428,6 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
         
         -- @analytics
         Analytics:purchase(product_id, sku)
-
-        if g_topUserInfo then
-            g_topUserInfo:refreshData()
-        end
 
         -- 상품 구매 후 갱신이 필요한지 여부 체크
         if struct_product and struct_product:needRenewAfterBuy() then

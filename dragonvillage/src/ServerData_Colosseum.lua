@@ -306,14 +306,9 @@ function ServerData_Colosseum:request_atkListRefresh(finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     -- 성공 콜백
-    local function success_cb(ret)
-        
+    local function success_cb(ret)        
         -- cash 정보를 갱신
         g_serverData:networkCommonRespone(ret)
-
-        if g_topUserInfo then
-            g_topUserInfo:refreshData()
-        end
 
         -- 매치 리스트 갱신
         self:refresh_matchList(ret['matchlist'])

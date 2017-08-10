@@ -1130,7 +1130,6 @@ function ServerData_Dragons:request_dragonSell(doids, soids, cb_func)
 
 		-- 골드 갱신
 		self.m_serverData:networkCommonRespone(ret)
-		g_topUserInfo:refreshData()
 
 		-- 콜백
 		if (cb_func) then

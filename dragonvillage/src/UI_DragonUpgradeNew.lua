@@ -428,11 +428,8 @@ function UI_DragonUpgradeNew:click_upgradeBtn()
         -- 드래곤 정보 갱신
         g_dragonsData:applyDragonData(ret['modified_dragon'])
 
-        -- 골드 갱신
-        if ret['gold'] then
-            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
-            g_topUserInfo:refreshData()
-        end
+        -- 갱신
+        g_serverData:networkCommonRespone(ret)
 
         self.m_bChangeDragonList = true
 
