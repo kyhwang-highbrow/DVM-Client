@@ -114,7 +114,7 @@ function closeApplication()
     LocalPushMgr():applyLocalPush()
     
     -- @perpelsdk
-    if isAndroid() then
+    if isAndroid() or isIos() then
         EndPerpleSDKScheduler()
     end
 
@@ -136,7 +136,8 @@ local function main()
     cc.Director:getInstance():setIdleTimerDisabled(true)
 
     -- @perpelsdk
-    if isAndroid() then
+    if isAndroid() or isIos() then
+        PerpleSDK:resetLuaBinding()
         StartPerpleSDKScheduler()
     end
 
