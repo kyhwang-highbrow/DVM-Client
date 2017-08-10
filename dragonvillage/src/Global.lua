@@ -13,6 +13,18 @@ function IS_TEST_MODE()
 end
 
 -------------------------------------
+-- function IS_ENABLE_ANALYTICS
+-- @brief 지표 수집 활성화 (true면 활성화, win32에서는 활성화할 경우 PerpleSDK 오류남)
+-------------------------------------
+function IS_ENABLE_ANALYTICS()
+    if (isWin32()) then 
+        return false
+    end
+    
+    return (getAppVer() == '0.2.6')
+end
+
+-------------------------------------
 -- function PrintClassName
 -- @brief instance의 클래스명을 리턴
 --        클래스명을 찍기 위해 instance는 m_className 변수를 가지고 있어야 한다.

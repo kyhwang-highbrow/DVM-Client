@@ -1,20 +1,11 @@
 Analytics = {}
 Adbrix = {}
 
-local function isTest()
-    -- 0.2.6 에서 테스트
-    if (getAppVer() == '0.2.6') and (not isWin32()) then 
-        return false
-    else
-        return true
-    end
-end
-
 -------------------------------------
 -- function userInfo
 -------------------------------------
 function Analytics:userInfo()
-    if isTest() then return end
+    if (not IS_ENABLE_ANALYTICS()) then return end
 
     local uid = g_userData:get('uid')
     Adbrix:userInfo(uid)
@@ -24,7 +15,7 @@ end
 -- function cohort
 -------------------------------------
 function Analytics:cohort(cohortNo, cohortDesc)
-    if isTest() then return end
+    if (not IS_ENABLE_ANALYTICS()) then return end
 
     Adbrix:customCohort(cohortNo, cohortDesc)
 end
@@ -33,7 +24,7 @@ end
 -- function firstTimeExperience
 -------------------------------------
 function Analytics:firstTimeExperience(arg1, arg2)
-    if isTest() then return end
+    if (not IS_ENABLE_ANALYTICS()) then return end
 
     Adbrix:firstTimeExperience(arg1, arg2)
 end
@@ -42,7 +33,7 @@ end
 -- function purchase
 -------------------------------------
 function Analytics:purchase(productId, productName)
-    if isTest() then return end
+    if (not IS_ENABLE_ANALYTICS()) then return end
 
     local productId = productId..';'..productName
     local price = 0
@@ -62,7 +53,7 @@ end
 -- function userInfo
 -------------------------------------
 function Adbrix:userInfo(uid)
-    if isTest() then return end
+    if (not IS_ENABLE_ANALYTICS()) then return end
 
     local arg1 = tostring(uid)
 
@@ -75,7 +66,7 @@ end
 -- function buy
 -------------------------------------
 function Adbrix:buy(productId, price)
-    if isTest() then return end
+    if (not IS_ENABLE_ANALYTICS()) then return end
 
     local arg1 = tostring(productId)
     local arg2 = tostring(price)
@@ -94,7 +85,7 @@ end
 -- 3 : 인게임에서 자수정의 수
 -------------------------------------
 function Adbrix:customCohort(cohortNo, cohortDesc)
-    if isTest() then return end
+    if (not IS_ENABLE_ANALYTICS()) then return end
 
     local arg1 = 'COHORT_'..tostring(cohortNo)
     local arg2 = tostring(cohortDesc)
@@ -108,7 +99,7 @@ end
 -- function retention
 -------------------------------------
 function Adbrix:retention(arg1, arg2)
-    if isTest() then return end
+    if (not IS_ENABLE_ANALYTICS()) then return end
 
     local arg1 = tostring(arg1)
     local arg2 = arg2 or ''
@@ -122,12 +113,12 @@ end
 -- function firstTimeExperience
 -------------------------------------
 -- [실제 적용한 항목들 (50개 제한)]
--- 게임실행 (StartApp) v
--- 패치다운로드 (PatchDownload) v
--- 프롤로그 (Prologue) v
--- 로그인 (Login) v
--- 인트로 튜토리얼 완료 (Tutorial_Intro) v
--- 1-1 클리어 (Stage_1_1_Clear) v
+-- 게임실행 (StartApp) 
+-- 패치다운로드 (PatchDownload) 
+-- 프롤로그 (Prologue) 
+-- 로그인 (Login) 
+-- 인트로 튜토리얼 완료 (Tutorial_Intro) 
+-- 1-1 클리어 (Stage_1_1_Clear) 
 -- 1-2 클리어 (Stage_1_2_Clear)
 -- 1-3 클리어 (Stage_1_3_Clear)
 -- 1-4 클리어 (Stage_1_4_Clear)
@@ -137,26 +128,26 @@ end
 -- 2-1 클리어 (Stage_2_1_Clear)
 -- 2-4 클리어 (Stage_2_4_Clear)
 -- 2-7 클리어 (Stage_2_7_Clear)
--- 마스터의 길 첫번째 보상 수령 (MasterRoad_Reward) v
--- 도감 보상 수령 (Book_Rewrad) v
--- 종합 랭킹 확인 (TotalRanking_Confirm) v
--- 드래곤 승급 (3 → 4)(DragonUpgrade_3to4) v
--- 드래곤 승급 (4 → 5) (DragonUpgrade_4to5) v
--- 드래곤 승급 (5 → 6) (DragonUpgrade_5to6) v
--- 콜로세움 1승 (Colosseum_Win) v
--- 고대의탑 1층 클리어 (AncientTower_1_Clear) v
--- 드래곤 진화 (DragonEvolution) v
--- 친밀도 열매 먹이기(FriendshipUp) v
--- 드래곤 부화 (DragonIncubate) v
--- 드래곤 11회 확률업 소환 (DragonSummonEvent_11) v
--- 드래곤 11회 고급 소환 (DragonSummonCash_11) v
--- 퀘스트 클리어 (Quest_Clear) v
--- 테이머 변경 (Change_Tamer) v
--- 전설 드래곤 획득 (LegendDragon_Get) v
--- 6성 60레벨 달성(DragonLevelUp_6_60) v
+-- 마스터의 길 첫번째 보상 수령 (MasterRoad_Reward) 
+-- 도감 보상 수령 (Book_Rewrad) 
+-- 종합 랭킹 확인 (TotalRanking_Confirm) 
+-- 드래곤 승급 (3 → 4)(DragonUpgrade_3to4) 
+-- 드래곤 승급 (4 → 5) (DragonUpgrade_4to5) 
+-- 드래곤 승급 (5 → 6) (DragonUpgrade_5to6) 
+-- 콜로세움 1승 (Colosseum_Win) 
+-- 고대의탑 1층 클리어 (AncientTower_1_Clear) 
+-- 드래곤 진화 (DragonEvolution) 
+-- 친밀도 열매 먹이기(FriendshipUp) 
+-- 드래곤 부화 (DragonIncubate) 
+-- 드래곤 11회 확률업 소환 (DragonSummonEvent_11) 
+-- 드래곤 11회 고급 소환 (DragonSummonCash_11) 
+-- 퀘스트 클리어 (Quest_Clear) 
+-- 테이머 변경 (Change_Tamer) 
+-- 전설 드래곤 획득 (LegendDragon_Get) 
+-- 6성 60레벨 달성(DragonLevelUp_6_60) 
 -------------------------------------
 function Adbrix:firstTimeExperience(arg1, arg2)
-    if isTest() then return end
+    if (not IS_ENABLE_ANALYTICS()) then return end
 
     local arg1 = tostring(arg1)
     local arg2 = arg2 or ''

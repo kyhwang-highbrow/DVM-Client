@@ -13,9 +13,9 @@ require 'perpleLib/PerpleScene'
 require 'socket.core'
 require 'ErrorTracker'
 require 'PatchChecker'
+require 'Global'
 require 'Analytics'
 require 'SceneLogo'
-
 
 -------------------------------------
 -- function cclog
