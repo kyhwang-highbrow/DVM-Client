@@ -5,6 +5,7 @@ require 'TableDrop'
 require 'IEventDispatcher'
 require 'WaveMgr'
 require 'DynamicWave'
+require 'lib/math'
 
 -------------------------------------
 -- class StageAnalysis
@@ -195,12 +196,15 @@ function StageAnalysis:individualStageAnalysis(stage_id)
             if (monster_list_str == '') then
                 monster_list_str = (monster_list_str .. v)
             else
-                monster_list_str = (monster_list_str .. ',' .. v)
+                monster_list_str = (monster_list_str .. ', ' .. v)
             end
         end
 
         t_ret['wave_monster'] = monster_list_str
         t_ret['wave_monster_number'] = #l_monster_id
+
+        -- table_stage_desc의 monster_id
+        t_ret['display_monster_id'] = self:makeDisplayMonsterIDStr(l_monster_id)
     end
 
     do -- 리젠 몬스터
@@ -218,7 +222,7 @@ function StageAnalysis:individualStageAnalysis(stage_id)
             if (monster_list_str == '') then
                 monster_list_str = (monster_list_str .. v)
             else
-                monster_list_str = (monster_list_str .. ',' .. v)
+                monster_list_str = (monster_list_str .. ', ' .. v)
             end
         end
 
@@ -230,11 +234,56 @@ function StageAnalysis:individualStageAnalysis(stage_id)
 end
 
 -------------------------------------
+-- function makeDisplayMonsterIDStr
+-- @brief table_stage_desc에서 사용하는 monster_id 문자열 생성
+-------------------------------------
+function StageAnalysis:makeDisplayMonsterIDStr(l_monster_id)
+    local l_display_monster = {}
+    local l_dragon_id = {}
+
+    -- monster id가 높은 순서대로 뽑기위해 역순으로
+    for i=#l_monster_id, 1, -1 do
+        local monster_id = tonumber(l_monster_id[i])
+                
+        if monster_id then
+            local identifier = getDigit(monster_id, 10000, 2)
+
+            -- 드래곤 ID를 찾는다
+            if (identifier == 12) then
+                table.insert(l_dragon_id, monster_id)
+
+            -- 몬스터
+            elseif (#l_display_monster < 5) then
+                table.insert(l_display_monster, 1, monster_id)
+            end
+        end
+    end
+
+    for i,v in pairs(l_dragon_id) do
+        if (#l_display_monster == 5) then
+            table.remove(l_display_monster, 1)
+        end
+        table.insert(l_display_monster, v)
+    end
+
+    local str = ''
+    for i,v in ipairs(l_display_monster) do
+        if (str == '') then
+            str = (str .. v)
+        else
+            str = (str .. '; ' .. v)
+        end
+    end
+    
+    return str
+end
+
+-------------------------------------
 -- function makeStageInfoCsvFile
 -------------------------------------
 function StageAnalysis:makeStageInfoCsvFile(table_info)
 
-    local l_header = {'stage_id', 'wave_number', 'wave_monster', 'wave_monster_number', 'regen_monster', 'regen_monster_number'}
+    local l_header = {'stage_id', 'wave_number', 'wave_monster', 'wave_monster_number', 'regen_monster', 'regen_monster_number', 'display_monster_id'}
     local csv_str = ''
 
     local line_str = ''
@@ -247,7 +296,14 @@ function StageAnalysis:makeStageInfoCsvFile(table_info)
     end
     csv_str = csv_str .. line_str
 
+    -- stage_id의 값으로 오름차순 정렬
+    local table_list = {}
     for i,v in pairs(table_info) do
+        table.insert(table_list, v)
+    end
+    table.sort(table_list, function(a, b) return a['stage_id'] < b['stage_id'] end)
+
+    for _,v in ipairs(table_list) do
         local line_str = ''
         for i,key in ipairs(l_header) do
 
