@@ -71,7 +71,7 @@ function GameMana:onEvent(event_name, t_event, ...)
         local dragon = arg[1]
         
         if (self.m_bLeftFormation == dragon.m_bLeftFormation) then
-            self.m_value = self.m_value - dragon.m_activeSkillManaCost
+            self:subtractMana(dragon.m_activeSkillManaCost)
         end
     end
 end
@@ -89,6 +89,18 @@ end
 function GameMana:addMana(value)
     self.m_value = self.m_value + value
     self.m_value = math_min(self.m_value, MAX_MANA)
+
+    self:updateGauge(self.m_prevValue ~= math_floor(self.m_value))
+
+    self.m_prevValue = math_floor(self.m_value)
+end
+
+-------------------------------------
+-- function subtractMana
+-------------------------------------
+function GameMana:subtractMana(value)
+    self.m_value = self.m_value - value
+    self.m_value = math_max(self.m_value, 0)
 
     self:updateGauge(self.m_prevValue ~= math_floor(self.m_value))
 
