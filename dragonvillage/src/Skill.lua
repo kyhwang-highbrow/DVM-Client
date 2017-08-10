@@ -167,7 +167,7 @@ function Skill:adjustAnimator()
 	if (self.m_resScale) and (not (self.m_resScale == '')) then
 		-- res_scale 의 경우 ;가 있으면 x,y 각각 개별로 들어간다...
 		if string.find(self.m_resScale, ';') then
-			local l_scale = stringSplit(self.m_resScale, ';')
+			local l_scale = plSplit(self.m_resScale, ';')
 			self.m_animator.m_node:setScaleX(tonumber(l_scale[1]))
 			self.m_animator.m_node:setScaleY(tonumber(l_scale[2]))
 		else

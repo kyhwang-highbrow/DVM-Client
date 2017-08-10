@@ -68,7 +68,7 @@ function TableStageDesc:getMonsterIDList(stage_id)
     local t_table = self:get(stage_id)
 
     local str = t_table['monster_id']
-    local l_moster_id = stringSplit(str, ';')
+    local l_moster_id = plSplit(str, ';')
 
     for i,v in ipairs(l_moster_id) do
         l_moster_id[i] = tonumber(trim(v))

@@ -694,7 +694,7 @@ function GameWorld:addMissile(missile, object_key, res_depth)
     self:addToMissileList(missile)
     self.m_physWorld:addObject(object_key, missile)
     
-	local t_res_depth = stringSplit(res_depth, ';') or {}
+	local t_res_depth = plSplit(res_depth, ';') or {}
 
 	local depth_type = t_res_depth[1]
 	local z_order = t_res_depth[2] or WORLD_Z_ORDER.MISSILE

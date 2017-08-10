@@ -118,7 +118,7 @@ function StructRuneObject:parseRuneOptionStr(option_str)
         return nil
     end
 
-    local l_str = stringSplit(option_str, ';')
+    local l_str = plSplit(option_str, ';')
     local option = l_str[1]
     local value = l_str[2]
 

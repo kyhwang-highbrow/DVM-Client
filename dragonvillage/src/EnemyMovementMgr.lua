@@ -128,7 +128,7 @@ EnemyMovement = class(IEventListener:getCloneClass(), {
 
         -- 패턴 정보 예("wait:0", "move_1:2", "move_2:1")
         local pattern = self.m_tPattern[self.m_curIdx]
-        local l_data = stringSplit(pattern, ';')
+        local l_data = plSplit(pattern, ';')
 
         -- 현재 패턴 정보를 세팅
         self.m_curType = l_data[1]

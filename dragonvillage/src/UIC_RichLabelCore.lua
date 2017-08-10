@@ -101,7 +101,7 @@ end
 -- @brief 문자열을 sep문자 기준으로 분리
 -------------------------------------
 function UIC_RichLabel:strSplit(inputstr, sep)
-    local t = pl.stringx.split(inputstr, sep)
+    local t = plSplit(inputstr, sep)
     
     -- 구분자가 처음에 있을 경우 1번 index에 ''이 들어오는 경우가 있어서 예외처리함
     if (t[1] == '') then
@@ -109,24 +109,6 @@ function UIC_RichLabel:strSplit(inputstr, sep)
     end
 
     return t
-
-    -------------------------------------------------
-    -- sgkim 2017-07-27
-    -- penlight의 stringx를 적용하기 전에 사용하던 코드
-    -- 혹시 몰라서 남겨둠
-    -------------------------------------------------
-    --if (sep == nil) then
-    --    sep = "%s"
-    --end
-    --
-    --local t={}
-    --local i = 1
-    --
-    --for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-    --    t[i] = str
-    --    i = i + 1
-    --end
-    --return t
 end
 
 -------------------------------------

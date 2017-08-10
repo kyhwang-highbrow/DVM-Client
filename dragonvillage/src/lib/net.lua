@@ -531,7 +531,7 @@ function Network:saveDump(t_request, ret)
 
     if (not file_name) then
         if t_request['full_url'] then
-            local l_str = stringSplit(t_request['full_url'], '/')
+            local l_str = plSplit(t_request['full_url'], '/')
             file_name = '/' .. l_str[#l_str]
         else
             file_name = '/none'
