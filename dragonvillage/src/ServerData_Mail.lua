@@ -120,12 +120,12 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 		local mail_type = t_mail['mail_type']
 		local category
         
-		-- 우정포인트를 패키지에서 받는다면 위의 '재화'로 가게 되고 친구가 보낸다면 '우정'으로 간다.
-        -- 'fp'와 'use_fp'
+        -- mail_type으로 구분 가능한 것을 미리 구분한다. 
+        -- 'fp'와 'use_fp' and 'ret_fp'
 		if pl.stringx.endswith(mail_type, 'fp') then
 			category = 'friend'
 
-		-- 우정포인트로 보낸게 아니라면 아이템에 따라 나눈다.
+		-- 아이템에 따라 분류한다.
 		else
 			local t_item = t_mail['items_list'][1]
 			local item_id = t_item['item_id']
@@ -137,6 +137,10 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 				-- staminas는 '활동력'에 속함		
 				if string.find(item_type, 'stamina') then
 					category = 'st'
+				
+                -- fp는 '우정'로 보내준다.		
+			    elseif string.find(item_type, 'fp') then
+					category = 'friend'
 				
 				-- stamina가 없고 item type이 있다면 모두 '재화'에 해당
 				else
