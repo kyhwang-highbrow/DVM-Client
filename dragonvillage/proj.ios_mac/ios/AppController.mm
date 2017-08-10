@@ -187,15 +187,17 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     // @perplesdk
     [[PerpleSDK sharedInstance] application:application didReceiveRemoteNotification:userInfo];
 }
-
+#else
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // @perplesdk
     [[PerpleSDK sharedInstance] application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
 }
+#endif
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     // @todo, 푸시 관련 에러 처리
@@ -206,15 +208,17 @@ static AppDelegate s_sharedApplication;
     application.applicationIconBadgeNumber = 0;
 }
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_9_0
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     // @perplesdk
     return [[PerpleSDK sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
-
+#else
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
     // @perplesdk
     return [[PerpleSDK sharedInstance] application:application openURL:url options:options];
 }
+#endif
 
 - (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg
 {
