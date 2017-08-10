@@ -44,6 +44,8 @@ function ServerData_Ranking:request_getRank(rank_type, offset, cb_func)
 
     -- 콜백 함수
     local function success_cb(ret)
+        -- @analytics
+        Analytics:firstTimeExperience('TotalRanking_Confirm')
 
 		-- 한번 본 랭킹은 맵 형태로 저장
 		self:setRankData(rank_type, ret)

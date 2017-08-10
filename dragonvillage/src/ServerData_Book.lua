@@ -267,6 +267,9 @@ function ServerData_Book:request_bookReward(did, evolution, finish_cb)
 		-- 들어온 재화 적용
 		g_serverData:networkCommonRespone(ret)
 		
+        -- @analytics
+        Analytics:firstTimeExperience('Book_Rewrad')
+
 		-- 탑바 갱신
 		g_topUserInfo:refreshData()
 

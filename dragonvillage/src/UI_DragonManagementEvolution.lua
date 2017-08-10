@@ -446,6 +446,9 @@ function UI_DragonManagementEvolution:click_evolutionBtn()
     local doid = self.m_selectDragonOID
 
     local function success_cb(ret)
+        -- @analytics
+        Analytics:firstTimeExperience('DragonEvolution')
+
         -- 진화 재료 갱신
         if ret['evolution_stones'] then
             g_serverData:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')

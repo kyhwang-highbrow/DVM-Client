@@ -397,6 +397,14 @@ function UI_DragonUpgradeNew:click_upgradeBtn()
     local function success_cb(ret)
         local t_prev_dragon_data = self.m_selectDragonData
 
+        -- @analytics
+        do
+            local pre_grade = tostring(t_prev_dragon_data['grade'])
+            local grade = tostring(pre_grade + 1)
+            local msg = string.format('DragonUpgrade_%sto%s', pre_grade, grade)
+            Analytics:firstTimeExperience(msg)
+        end
+
         -- 재료로 사용된 드래곤 삭제
         if ret['deleted_dragons_oid'] then
             for _,doid in pairs(ret['deleted_dragons_oid']) do

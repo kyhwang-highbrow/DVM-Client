@@ -88,6 +88,11 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, finish_cb)
     local function success_cb(ret)
         self.m_tTutorialClearInfo[tutorial_key] = ret['tutorial']
 
+        if (tutorial_key == TUTORIAL.INTRO_FIGHT) then
+            -- @analytics
+            Analytics:firstTimeExperience('Tutorial_Intro')
+        end
+
         if finish_cb then
             finish_cb(ret)
         end

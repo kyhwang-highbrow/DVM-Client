@@ -505,7 +505,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('gamekey', self.m_gameKey)
     ui_network:setParam('bonus_items', t_param['bonus_items'])
     ui_network:setParam('clear_time', t_param['clear_time'])
-
+    ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
     if (send_score) then
         ui_network:setParam('score', t_param['score'])
     end
@@ -734,12 +734,35 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
 
     -- 리스트 형태로 넘어와서 한개만 추출
     local stage_clear_info = table.getFirst(ret['stage_clear_info'])
-
     local stage_id = ret['stage']
 
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         local stage_info = g_adventureData:getStageInfo(stage_id)
         stage_info:applyTableData(stage_clear_info)
+
+        -- 스테이지 클리어 통계
+        do
+            local difficulty, chapter, stage = parseAdventureID(stage_id)
+            local save_key = Str('{1}_{2}', chapter, stage)
+            local msg
+
+            if (chapter == 1) then
+                msg = string.format('Stage_%s_Clear', save_key)
+
+            elseif (chapter == 2) then
+                local save_list = {'2_1','2_4','2_7'}
+                for _, v in save_list do
+                    if (save_key == v) then
+                        msg = string.format('Stage_%s_Clear', save_key)
+                    end
+                end
+            end
+            
+            if (msg) then
+                -- @analytics
+                Analytics:firstTimeExperience(msg)
+            end
+        end
 
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         local t_stage_clear_info = g_nestDungeonData:getNestDungeonStageClearInfoRef(stage_id)
@@ -747,6 +770,11 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
 
     elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
 
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        if (stage_id == ANCIENT_TOWER_STAGE_ID_START + 1) then
+            -- @analytics
+            Analytics:firstTimeExperience('AncientTower_1_Clear')
+        end
     end
 end
 

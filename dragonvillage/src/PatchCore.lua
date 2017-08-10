@@ -327,6 +327,9 @@ function PatchCore:st_downloadPatchFile(ret)
     end
  
     do -- 다운로드 진행
+        -- @analytics
+        Analytics:firstTimeExperience('PatchDownload')
+
         local local_path = t_download_res['local_path']
         local web_path = t_download_res['web_path']
 

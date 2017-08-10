@@ -3,6 +3,7 @@
 -------------------------------------
 PatchChecker = class({
 	    m_app_version = '', -- 현재 앱 버전
+        m_bRecommend = 'boolean',
     })
 
 -- 업데이트가 필요한 상태
@@ -16,6 +17,7 @@ local NEED_UPDATE_STATUS = {
 -------------------------------------
 function PatchChecker:init()
     self.m_app_version = getAppVer()
+    self.m_bRecommend = false
 end
 
 -------------------------------------
@@ -63,11 +65,11 @@ function PatchChecker:isUpdated(ret, pass_func)
         end
         return true
 
-    elseif (recommend) then
+    elseif (recommend) and (not self.m_bRecommend) then
         local function pass_update_func()
             pass_func(ret)
         end
-
+        self.m_bRecommend = true -- 권장 업데이트 팝업은 최초 1회만 띄워줌
         self:needRecommendAppUpdate(pass_update_func)
         return true
 

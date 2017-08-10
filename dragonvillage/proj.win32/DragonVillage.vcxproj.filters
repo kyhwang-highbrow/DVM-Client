@@ -2619,9 +2619,6 @@
     <None Include="..\src\UI_IngameTamerPanelItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\HackingDetector.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_GoodsInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2636,6 +2633,9 @@
     </None>
     <None Include="..\src\UI_CouponPopup.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\Analytics.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

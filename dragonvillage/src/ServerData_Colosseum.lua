@@ -463,7 +463,13 @@ function ServerData_Colosseum:request_colosseumFinish(is_win, finish_cb, fail_cb
         g_serverData:networkCommonRespone_addedItems(ret)
 
         -- 플레이어 정보 갱신
-        self:refresh_playerUserInfo(ret['season'])
+        local season_data = ret['season']
+        self:refresh_playerUserInfo(season_data)
+
+        if (season_data['win'] == 1) then
+            -- @analytics
+            Analytics:firstTimeExperience('Colosseum_Win')
+        end
 
         -- 변경 데이터
         --ret['added_rp'] = (self.m_playerUserInfo.m_rp - prev_rp)

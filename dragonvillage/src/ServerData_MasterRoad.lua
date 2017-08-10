@@ -252,6 +252,9 @@ function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
 		-- 탑바 갱신
 		g_topUserInfo:refreshData()
 
+        -- @analytics
+        Analytics:firstTimeExperience('MasterRoad_Reward')
+
         if (finish_cb) then
             finish_cb(ret)
         end

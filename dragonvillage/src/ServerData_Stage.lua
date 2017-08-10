@@ -219,6 +219,9 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
 
         -- 핫타임 정보 저장
         g_hotTimeData:setIngameHotTimeList(game_key, ret['hottime'])
+
+        -- 스피드핵 방지 실제 플레이 시간 기록
+        g_accessTimeData:startCheckTimer()
     end
 
     local friend_uid = nil

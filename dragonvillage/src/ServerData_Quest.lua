@@ -259,6 +259,9 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
 
     -- 성공 시 콜백
     local function success_cb(ret)
+        -- @analytics
+        Analytics:firstTimeExperience('Quest_Clear')
+
 		-- 받은 정보 갱신 
         if (ret['quest_info']) then
 		    self:applyQuestInfo(ret['quest_info'])

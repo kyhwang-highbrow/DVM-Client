@@ -13,6 +13,8 @@ ServerData_AccessTime = class({
 
         m_lEventData = 'list', -- 이벤트 보상 리스트
         m_lRewardData = 'list', -- 받은 보상 리스트
+
+        m_checkTime = 'number',
     })
 
 local TIMER_TICK = 1
@@ -26,6 +28,7 @@ function ServerData_AccessTime:init(server_data)
     self.m_oriTime = 0
     self.m_addTime = 0
     self.m_timer = 0
+    self.m_checkTime = 0
 
     self.m_bRecord = true
     self.m_bEvent = false
@@ -163,6 +166,7 @@ function ServerData_AccessTime:recordTime(scene)
         if (self.m_timer >= tick) then
             self.m_timer = (self.m_timer - tick)
             self.m_addTime = self.m_addTime + TIMER_TICK
+            self.m_checkTime = self.m_checkTime + TIMER_TICK
         end
     end
 
@@ -178,6 +182,20 @@ function ServerData_AccessTime:getTime(is_minute)
     if (is_minute) then access_time = math_floor(access_time/60) end
     
     return access_time
+end
+
+-------------------------------------
+-- function startCheckTimer
+-------------------------------------
+function ServerData_AccessTime:startCheckTimer()
+    self.m_checkTime = 0
+end
+
+-------------------------------------
+-- function getCheckTime
+-------------------------------------
+function ServerData_AccessTime:getCheckTime()
+    return self.m_checkTime
 end
 
 -------------------------------------

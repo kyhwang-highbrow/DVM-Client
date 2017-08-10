@@ -165,6 +165,18 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
                 g_runesData:applyEquippedRuneInfo(roid, doid)
             end
         end
+
+        -- @analytics
+        local did = t_dragon_data['did']
+        if (TableDragon:getBirthGrade(did) == 5) then
+            Analytics:firstTimeExperience('LegendDragon_Get')
+        end
+        
+        local grade = t_dragon_data['grade']
+        local lv = t_dragon_data['lv']
+        if (grade == 6) and (lv == 60) then
+            Analytics:firstTimeExperience('DragonLevelUp_6_60')
+        end
     end
 
     -- 드래곤 오브젝트 생성

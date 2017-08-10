@@ -199,13 +199,21 @@ function UI_Network:statusHandler(ret)
         return false
     end
 
+    -- speedhack (클리어 시간이 맞지 않음) 
+    if (status == -1386) then
+        local msg = Str('불법적인 클라이언트 데이터 조작 프로그램 또는 매크로 프로그램이 감지되었습니다.\n\n회원번호가 수집되었으며 지속적인 클라이언트 조작 시도, 관련 파일 배포 등의 행위가 감지될 경우 고소 등 법적 처분의 대상이 될 수 있음을 알려 드립니다. 정상적인 방법으로 재접속해 주시기 바랍니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg, function() closeApplication() end)
+        self:close()
+        return true
+    end
+
     -- invalid session (세션이 맞지 않음)
     if (status == -1397) then
         local msg = Str('세션키가 만료되었습니다.\n앱을 완전 종료 후 다시 접속해주세요.')
         MakeSimplePopup(POPUP_TYPE.OK, msg, function() closeApplication() end)
+        self:close()
         return true
     end
-
 
     local error_str = S_ERROR_STATUS[status]
     local shop_tab = S_ERROR_STATUS_SHOP[status]

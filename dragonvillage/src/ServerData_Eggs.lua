@@ -23,6 +23,8 @@ function ServerData_Eggs:request_incubate(egg_id, cnt, finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- @analytics
+        Analytics:firstTimeExperience('DragonIncubate')
 
         -- Eggs 갱신
         g_serverData:networkCommonRespone(ret)

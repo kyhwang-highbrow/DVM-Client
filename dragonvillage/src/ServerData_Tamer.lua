@@ -208,6 +208,9 @@ function ServerData_Tamer:request_setTamer(tid, cb_func)
 
     -- 콜백 함수
     local function success_cb()
+        -- @analytics
+        Analytics:firstTimeExperience('Change_Tamer')
+
         -- 바뀐 테이머 저장
         self.m_serverData:applyServerData(tid, 'user', 'tamer')
 

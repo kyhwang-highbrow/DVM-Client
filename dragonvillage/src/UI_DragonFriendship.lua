@@ -373,6 +373,9 @@ function UI_DragonFriendship:request_friendshipUp(fid, fcnt, fcnt_120p, fcnt_150
         self.m_bChangeDragonList = true
         --]]
 
+        -- @analytics
+        Analytics:firstTimeExperience('FriendshipUp')
+
         -- @ MASTER ROAD
         local t_data = {clear_key = 'fruit'}
         g_masterRoadData:updateMasterRoad(t_data)

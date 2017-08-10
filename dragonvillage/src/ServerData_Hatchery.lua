@@ -132,6 +132,11 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
 
     -- 성공 콜백
     local function success_cb(ret)
+        
+        if (is_bundle) then
+            -- @analytics
+            Analytics:firstTimeExperience('DragonSummonCash_11')
+        end
 
         -- cash(캐시) 갱신
         g_serverData:networkCommonRespone(ret)
@@ -181,6 +186,11 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
 
     -- 성공 콜백
     local function success_cb(ret)
+        
+        if (is_bundle) then
+            -- @analytics
+            Analytics:firstTimeExperience('DragonSummonEvent_11')
+        end
 
         -- cash(캐시) 갱신
         g_serverData:networkCommonRespone(ret)

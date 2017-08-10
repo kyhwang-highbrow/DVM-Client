@@ -429,6 +429,9 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
+        
+        -- @analytics
+        Analytics:purchase(product_id, sku)
 
         if g_topUserInfo then
             g_topUserInfo:refreshData()

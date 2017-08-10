@@ -478,6 +478,9 @@ function UI_TitleScene:workGameLogin()
 
     local uid = g_serverData:get('local', 'uid')
     local success_cb = function(ret)
+        -- @analytics
+        Analytics:firstTimeExperience('Login')
+
         -- 최초 로그인인 경우 계정 생성
         if ret['newuser'] then
             self.m_bNewUser = true
@@ -771,6 +774,8 @@ function UI_TitleScene:workFinish_click()
     -- 모든 작업이 끝난 경우 로비로 전환
     local lobby_func
     local check_intro_func
+    
+    Analytics:userInfo()
 
     -- 로비 진입
     lobby_func = function()
@@ -788,8 +793,6 @@ function UI_TitleScene:workFinish_click()
     if (self.m_bNewUser) then
         check_intro_func()
     else
-        -- 해킹 체크
-	    if (HackingDetector:checkHack()) then return end
         lobby_func()
     end
 end
@@ -825,6 +828,9 @@ function UI_TitleScene:createAccount()
     local login_func        -- 계정 생성후 재로그인
 
     prologue_func = function()
+        -- @analytics
+        Analytics:firstTimeExperience('Prologue')
+
         local scenario_name = 'scenario_prologue'
         local prologue = UI_ScenarioPlayer(scenario_name)
         prologue:setCloseCB(tamer_sel_func)
