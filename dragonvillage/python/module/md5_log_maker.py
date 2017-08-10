@@ -2,7 +2,8 @@
 import os
 import hashlib
 import base64
-    
+import utility
+
 # 파일을 읽어 MD5를 생성
 def file2md5(filename):
     BLOCKSIZE = 65536
@@ -31,11 +32,15 @@ def iterstart(workd_path, rootdir, subdir, hash_dic):
     
 def iterfunc(workd_path, rootdir, subdir, hash_dic):
     path = os.path.join(rootdir, subdir)
-    
+
     if os.path.isdir(path) == False:
         print('\t"' + subdir + '" directory not found!')
         return
     
+    if (utility.is_hidden(path)):
+        print('hidden folder!')
+        return
+
     for item in os.listdir(path):
         fullpath = os.path.join(path, item)
         
@@ -62,8 +67,8 @@ def makePatchLog(source_path, plg_path):
     iterstart(workd_path, source_path, 'res', hash_dic)
     iterstart(workd_path, source_path, 'sound', hash_dic)
     iterstart(workd_path, source_path, 'translate', hash_dic)
-    
-    # 파일에 세이브
+
+    # # 파일에 세이브
     f = open(plg_path, 'w')
     for key in sorted(hash_dic):
         f.writelines(key + '\t' + hash_dic[key] + '\n')
