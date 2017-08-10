@@ -136,7 +136,7 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
         self.uiWebView = [[[UIWebView alloc] init] autorelease];
         self.uiWebView.delegate = self;
 		self.uiWebView.opaque = NO;
-		self.uiWebView.bakgroundColor = [UIColor clearColor];
+		self.uiWebView.backgroundColor = [UIColor clearColor];
 		
     }
     if (!self.uiWebView.superview) {
