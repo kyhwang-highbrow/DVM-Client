@@ -302,7 +302,7 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
         -- 룬 강화
         elseif (clear_type == 'r_enc') then
             local rune_lv = clear_cond
-            return (t_data['road_value'] >= rune_lv)
+            return (t_data['clear_value'] >= rune_lv)
 
         -----------------------------------
         -- 별도의 비교값이 필요없는 타입
