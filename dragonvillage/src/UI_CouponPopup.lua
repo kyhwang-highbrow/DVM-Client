@@ -17,7 +17,7 @@ function UI_CouponPopup:init()
     self:doAction()
 
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_okBtn() end, 'UI_CouponPopup')
+    g_currScene:pushBackKeyListener(self, function() self:closeWithAction() end, 'UI_CouponPopup')
 
     self:initUI()
     self:initButton()

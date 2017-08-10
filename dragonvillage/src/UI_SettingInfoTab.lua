@@ -49,7 +49,7 @@ end
 -- @brief 쿠폰 입력
 -------------------------------------
 function UI_Setting:click_couponBtn()
-    UIManager:toastNotificationRed(Str('"쿠폰 입력"은 준비 중입니다.'))
+    UI_CouponPopup()
 end
 
 -------------------------------------
