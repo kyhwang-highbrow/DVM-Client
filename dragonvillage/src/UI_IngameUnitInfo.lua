@@ -89,15 +89,9 @@ function UI_IngameUnitInfo:getPositionForStatusIcon(bLeftFormation, idx)
 
     local x, y
     
-	if (bLeftFormation) then 
-        x = 60 + 18 * (idx - 1)
-        y = -8 + factor_y
-	else
-        x = -20 + 18 * (idx - 1)
-        y = -23 + factor_y
-		
-	end
-
+	x = 20 - 18 * (idx - 1)
+    y = -23 + factor_y
+	
     return x, y
 end
 

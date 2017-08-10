@@ -44,6 +44,25 @@ function UI_IngameDragonInfo:initUI()
 end
 
 -------------------------------------
+-- function getPositionForStatusIcon
+-------------------------------------
+function UI_IngameDragonInfo:getPositionForStatusIcon(bLeftFormation, idx)
+    -- 4개를 넘어가면 y 값 조정
+	local factor_y = 0
+	if idx > 4 then 
+		idx = idx - 4
+		factor_y = -20
+	end
+
+    local x, y
+    
+	x = -20 + 18 * (idx - 1)
+    y = -23 + factor_y
+	
+    return x, y
+end
+
+-------------------------------------
 -- function onEvent
 -------------------------------------
 function UI_IngameDragonInfo:onEvent(event_name, t_event, ...)
