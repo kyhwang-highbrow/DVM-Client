@@ -374,6 +374,9 @@ function UI_TitleScene:workCheckUserID()
             -- 계정 정보(이름 or 이메일)
             g_serverData:applyServerData(account_info, 'local', 'account_info')
 
+            -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
+            UnlinkBrokenPlatform(t_info, platform_id)
+
             if platform_id == 'google.com' then
                 local app_ver = getAppVer()
                 if app_ver == '0.2.2' then

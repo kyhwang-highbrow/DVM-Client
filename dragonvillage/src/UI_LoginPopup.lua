@@ -95,7 +95,6 @@ function UI_LoginPopup:click_facebookBtn()
             cclog('Firebase Facebook login was successful.')
             self:loginSuccess(info)
             self:close()
-
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
@@ -114,7 +113,11 @@ function UI_LoginPopup:click_gamecenterBtn()
         self.m_loadingUI:hideLoading()
 
         if ret == 'success' then
+            cclog('Firebase GameCenter login was successful.')
+            self:loginSuccess(info)
+            self:close()
         elseif ret == 'fail' then
+            self:loginFail(info)
         elseif ret == 'cancel' then
         end
     end)
@@ -149,7 +152,6 @@ function UI_LoginPopup:click_guestBtn()
     self.m_loadingUI:showLoading(Str('로그인 중...'))
 
     PerpleSDK:loginAnonymously(function(ret, info)
-
         self.m_loadingUI:hideLoading()
 
         if ret == 'success' then
@@ -205,6 +207,9 @@ function UI_LoginPopup:loginSuccess(info)
     else
         g_serverData:applyServerData('off', 'local', 'googleplay_connected')
     end
+
+    -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
+    UnlinkBrokenPlatform(t_info, platform_id)
 end
 
 -------------------------------------

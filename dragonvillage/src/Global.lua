@@ -179,3 +179,35 @@ function KeepOrderOfArrival(node)
     end
     node:sortAllChildren()
 end
+
+-------------------------------------
+-- function UnlinkBrokenPlatform
+-- @brief 시스템 오류로 다중연동된 경우 현재 로그인된 플랫폼 이외에는 unlink 시킨다.
+-------------------------------------
+function UnlinkBrokenPlatform(info, platform_id)
+
+    for idx = 1, #info.providerData do
+        local providerId = info.providerData[idx].providerId
+        if providerId ~= platform_id and providerId ~= 'firebase' then
+            if providerId == 'google.com' then
+                PerpleSDK:unlinkWithGoogle(function(ret, info)
+                    if ret == 'success' then
+                        cclog('Firebase unlink from Google was successful.')
+                    elseif ret == 'fail' then
+                        cclog('Firebase unlink from Google failed.')
+                    end
+                end)
+            end
+            if providerId == 'facebook.com' then
+                PerpleSDK:unlinkWithFacebook(function(ret, info)
+                    if ret == 'success' then
+                        cclog('Firebase unlink from Facebook was successful.')
+                    elseif ret == 'fail' then
+                        cclog('Firebase unlink from Facebook failed.')
+                    end
+                end)
+            end
+        end
+    end
+
+end
