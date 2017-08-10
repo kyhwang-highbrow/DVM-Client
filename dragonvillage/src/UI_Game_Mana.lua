@@ -46,7 +46,7 @@ function UI_Game:setMana(mana, updated_int)
         for i = 1, integer_part do
             local visual = vars['manaSlotVisual' .. i]
 
-            if (visual.m_currAnimation == 'mana_gg') then
+            if (string.find(visual.m_currAnimation, 'mana_gg')) then
                 visual:changeAni('mana_full_appear', false)
                 visual:setAnimationPause(false)
                 visual:addAniHandler(function()
