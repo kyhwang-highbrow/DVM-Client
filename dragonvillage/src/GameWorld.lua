@@ -1425,13 +1425,22 @@ end
 -------------------------------------
 -- function setManaAccelValue
 -------------------------------------
-function GameWorld:setManaAccelValue(value)
-    self.m_heroMana:setManaAccelValue(value)
+function GameWorld:setManaAccelValue(value, left_formation)
+    if (left_formation) then
+        self.m_heroMana:setManaAccelValue(value)
+    else
+        self.m_enemyMana:setManaAccelValue(value)
+    end
 end
 
 -------------------------------------
 -- function getManaAccelValue
 -------------------------------------
-function GameWorld:getManaAccelValue()
-    return self.m_heroMana.m_accelValue
+function GameWorld:getManaAccelValue(left_formation)
+    left_formation = left_formation or true
+    if (left_formation) then
+        return self.m_heroMana.m_accelValue
+    else
+        return self.m_enemyMana.m_accelValue
+    end
 end
