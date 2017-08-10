@@ -37,7 +37,9 @@ function UI_RelationCard:init(t_dragon_data, count)
     self.ui_res = 'card_relation.ui'
     self:getUIInfo()
 
+    t_dragon_data['grade'] = t_dragon_data:getBirthGrade()
     self.m_dragonData = t_dragon_data
+
     self.m_count = count
     self:refreshDragonInfo()
 end
@@ -169,7 +171,8 @@ end
 -------------------------------------
 function UI_RelationCard:makeNumberLabel()
     local vars = self.vars
-    local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 2, cc.size(100, 30), 2, 1)
+    local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 2, cc.size(100, 50), 2, 1)
+    label:enableShadow(cc.c4b(0,0,0,255), cc.size(3, -3), 1)
     self:setCardInfo('numberNode', label)
 
     -- 인연 포인트 수치

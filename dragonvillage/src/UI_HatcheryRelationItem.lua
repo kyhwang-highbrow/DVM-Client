@@ -26,8 +26,7 @@ end
 -------------------------------------
 function UI_HatcheryRelationItem:initUI(t_data)
     local vars = self.vars
-
-    local character_card = UI_CharacterCard(t_data)
+    local character_card = UI_RelationCard(t_data)
     self.m_characterCard = character_card
     character_card.root:setSwallowTouch(false)
     vars['dragonNode']:addChild(character_card.root)
