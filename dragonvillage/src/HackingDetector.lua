@@ -131,9 +131,13 @@ HackingDetector = {}
 
 -------------------------------------
 -- function checkHack
+-- @breif 해킹 여부를 확인
+-- @return bool true일 경우 해킹유저
 -------------------------------------
 function HackingDetector:checkHack()
-    if (not Is026Ver()) then return false end
+    if (not Is026Ver()) then
+        return false
+    end
 
 	local check1 = self:checkDat()
 	local check2 = self:checkPackage()
@@ -143,9 +147,13 @@ end
 
 -------------------------------------
 -- function checkDat
+-- @breif data(.csv) 파일 해킹 여부 확인
+-- @return bool true일 경우 해킹유저
 -------------------------------------
 function HackingDetector:checkDat()
-	if isWin32() then return false end
+	if isWin32() then
+        return false
+    end
 
     --[[
 	local t_hash = TABLE:get('col')
@@ -178,6 +186,8 @@ end
 
 -------------------------------------
 -- function checkPackage
+-- @breif 해킹 툴 package 확인 (aos에서만 동작)
+-- @return bool true일 경우 해킹유저
 -------------------------------------
 function HackingDetector:checkPackage()
 	local t_ret = {}
@@ -228,26 +238,31 @@ end
 
 -------------------------------------
 -- function requestToSnitch
+-- @breif 해킹 유저의 정보를 서버에 저장
 -------------------------------------
 function HackingDetector:requestToSnitch(t)
 	local t_ret = t
-	if not t_ret then return end
+	if (not t_ret) then
+        return
+    end
 
-	local package_name = t_ret.type or ''
+	local package_name = (t_ret.type or '')
 
 	local table_name = ''
-	if t_ret.data then
-		if type(t_ret.data) == 'table' then
-			for i,v in ipairs(t_ret.data) do
-				local comma = i == 1 and '' or ','
+	if t_ret['data'] then
+		if (type(t_ret['data']) == 'table') then
+			for i,v in ipairs(t_ret['data']) do
+				local comma = (i == 1) and '' or ','
 				table_name = table_name .. comma .. v
 			end
 		else
-			table_name = t_ret.data
+			table_name = t_ret['data']
 		end
 	end
 
-	if string.len(package_name) <= 0 and string.len(table_name) <= 0 then return end
+	if (string.len(package_name) <= 0) and (string.len(table_name) <= 0) then
+        return
+    end
 
 	-- 유저 ID
     local uid = g_userData:get('uid')
@@ -270,7 +285,7 @@ function HackingDetector:requestToSnitch(t)
     ui_network:setParam('table_name', table_name)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
+    ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
 
@@ -283,13 +298,15 @@ end
 function HackingDetector:notice(t)
 	local msg = Str('\n\n회원번호가 수집되었으며 지속적인 클라이언트 조작 시도, 관련 파일 배포 등의 행위가 감지될 경우 고소 등 법적 처분의 대상이 될 수 있음을 알려 드립니다. 정상적인 방법으로 재접속해 주시기 바랍니다.')
 
-	if t.type == 'table_local_hack' then
+    local type = t['type']
+	if (type == 'table_local_hack') then
 		msg = Str('클라이언트 데이터 파일 변조가 감지되었습니다.') .. msg
 		MakeSimplePopup(POPUP_TYPE.OK, msg, function() closeApplication() end)
 
-	elseif t.type == 'table_mem_hack' then
+	elseif (type == 'table_mem_hack') then
 		msg = Str('클라이언트 메모리 변조가 감지되었습니다.') .. msg
 		MakeSimplePopup(POPUP_TYPE.OK, msg, function() closeApplication() end)
+
 	else
 		msg = Str('불법적인 클라이언트 데이터 조작 프로그램 또는 매크로 프로그램이 감지되었습니다.') .. msg
 		MakeSimplePopup(POPUP_TYPE.OK, msg, function() closeApplication() end)
