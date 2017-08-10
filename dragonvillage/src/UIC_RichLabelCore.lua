@@ -3,7 +3,7 @@
 -- @brief 
 -------------------------------------
 function UIC_RichLabel:makeContentListByRichText(text)
-    if (not self:stringStarts(text, '{@')) then
+    if (not pl.stringx.startswith(text, '{@')) then
         text = '{@default}' .. text
     end
 
@@ -42,18 +42,6 @@ end
 function UIC_RichLabel:makeContentData(key, text)
     -- 개행 처리
     local l_line = self:strSplit(text, '\n')
-    
-    -- 시작 문자가 개행일 경우
-    local _, cnt = self:stringStarts(text, '\n')
-    for i=1, cnt do
-        table.insert(l_line, 1, '')
-    end
-
-    -- 종료 문자가 개행일 경우
-    local _, cnt = self:stringEnds(text, '\n')
-    for i=1, cnt do
-        table.insert(l_line, '')
-    end
 
     -- 버튼인지 체크
     local is_button = false
@@ -140,55 +128,6 @@ function UIC_RichLabel:strSplit(inputstr, sep)
     --end
     --return t
 end
-
--------------------------------------
--- function stringStarts
--- @brief 문자열이 start_str문자열로 시작되는지 확인
--------------------------------------
-function UIC_RichLabel:stringStarts(str, start_str)
-    local str_len = string.len(start_str)
-    local cnt = 0
-    local idx = 1
-    while true do
-        local sub_str = string.sub(str, idx, idx + (str_len- 1))
-
-        if (sub_str ~= start_str) then
-            break
-        end
-
-        cnt = cnt + 1
-        idx = idx + str_len
-    end
-
-    return (0 < cnt), cnt
-end
-
--------------------------------------
--- function stringEnds
--- @brief 문자열이 start_str문자열로 종료되는지 확인
--------------------------------------
-function UIC_RichLabel:stringEnds(str, end_str)
-   if (end_str == '') then
-    return true
-   end
-
-   local str_len = string.len(end_str)
-   local cnt = 0
-   local idx = string.len(str)
-    while true do
-        local sub_str = string.sub(str, idx - (str_len- 1), idx)
-
-        if (sub_str ~= end_str) then
-            break
-        end
-
-        cnt = cnt + 1
-        idx = idx - str_len
-    end
-
-    return (0 < cnt), cnt
-end
-
 
 -------------------------------------
 -- function contentListToPureText
