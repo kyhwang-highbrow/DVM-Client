@@ -277,8 +277,7 @@ end
 -- function st_casting
 -------------------------------------
 function Character.st_casting(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        
+    if (owner.m_stateTimer == 0) then     
         local cast_time = owner.m_reservedSkillCastTime
 
         -- 캐스팅 게이지
@@ -372,7 +371,10 @@ function Character.st_casting(owner, dt)
         end
     end
 
-    if (owner.m_reservedSkillCastTime <= owner.m_stateTimer) then
+    if (owner.m_isSilence) then
+        owner:changeState('attackDelay')
+        
+    elseif (owner.m_reservedSkillCastTime <= owner.m_stateTimer) then
         if owner.m_tStateFunc['skillAppear'] then
             owner:changeState('skillAppear')
         else

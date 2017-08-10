@@ -349,6 +349,8 @@ end
 -- function makeSkillToolTip
 -------------------------------------
 function SkillIndicatorMgr:makeSkillToolTip(hero)
+    if (not hero:getSkillIndivisualInfo('active')) then return end
+
 	self.m_uiToolTip:init_data(hero)
 	self.m_uiToolTip:displayData()
     self.m_uiToolTip:setVisible(true)

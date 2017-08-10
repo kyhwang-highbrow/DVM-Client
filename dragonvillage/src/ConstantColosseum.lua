@@ -13,6 +13,17 @@ SKILL_AI_ATTR__DISPELL = 'dispell'
 SKILL_AI_ATTR__HEAL = 'heal'
 SKILL_AI_ATTR__GUARDIAN = 'guardian'
 
+-- 스킬(드래그)들의 AI 속성별 타겟 타입
+SKILL_AI_ATTR_TARGET = {}
+SKILL_AI_ATTR_TARGET[SKILL_AI_ATTR__ATTACK] = 'enemy_random'
+SKILL_AI_ATTR_TARGET[SKILL_AI_ATTR__BUFF] = 'ally_random'
+SKILL_AI_ATTR_TARGET[SKILL_AI_ATTR__DEBUFF] = 'enemy_random'
+SKILL_AI_ATTR_TARGET[SKILL_AI_ATTR__RECOVERY] = 'enemy_random'
+SKILL_AI_ATTR_TARGET[SKILL_AI_ATTR__DISPELL] = 'ally_debuff'
+SKILL_AI_ATTR_TARGET[SKILL_AI_ATTR__HEAL] = 'ally_hp_low'
+SKILL_AI_ATTR_TARGET[SKILL_AI_ATTR__GUARDIAN] = 'ally_hp_low'
+
+
 -- 스킬 사용 불가 시 원인 타입
 REASON_TO_DO_NOT_USE_SKILL = {
     DEAD            = 1,
