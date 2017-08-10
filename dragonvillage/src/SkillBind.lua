@@ -52,7 +52,7 @@ function SkillBind.st_appear(owner, dt)
         owner.m_animator:setScale(owner.m_scale)
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('idle')
-			-- »óÅÂÈ¿°ú
+			-- ìƒíƒœíš¨ê³¼
 			owner:dispatch(CON_SKILL_HIT, {l_target = {owner.m_targetChar}})
 		end)
 	end
@@ -67,7 +67,7 @@ function SkillBind.st_idle(owner, dt)
 		owner:changeState('end')
 
 	else
-		-- ÇØ´ç »óÅÂÈ¿°ú°¡ Á¦°ÅµÇ¾ú´ÂÁö Ã¼Å©
+		-- í•´ë‹¹ ìƒíƒœíš¨ê³¼ê°€ ì œê±°ë˜ì—ˆëŠ”ì§€ ì²´í¬
 		local isExist = false
 		for _, v  in pairs(owner.m_targetChar:getStatusEffectList()) do
 			if (owner.m_statusName == v:getTypeName()) then 
@@ -97,13 +97,13 @@ end
 -------------------------------------
 function SkillBind:update(dt)
 	if (self.m_state ~= 'dying') then
-		-- Å¸°Ù »ç¸Á Ã¼Å©
+		-- íƒ€ê²Ÿ ì‚¬ë§ ì²´í¬
 		if (self.m_targetChar:isDead()) then
 			self:changeState('dying')
 		end
 	end
 
-	-- µå·¡°ïÀÇ ¾Ö´Ï¿Í °´Ã¼, ½ºÅ³ À§Ä¡ µ¿±âÈ­
+	-- ë“œë˜ê³¤ì˜ ì• ë‹ˆì™€ ê°ì²´, ìŠ¤í‚¬ ìœ„ì¹˜ ë™ê¸°í™”
 	self.m_targetChar:syncAniAndPhys()
 	self:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
 
@@ -133,24 +133,24 @@ end
 -- function makeSkillInstance
 -------------------------------------
 function SkillBind:makeSkillInstance(owner, t_skill, t_data)
-	-- º¯¼ö ¼±¾ğºÎ
+	-- ë³€ìˆ˜ ì„ ì–¸ë¶€
 	------------------------------------------------------
-	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	  -- ±¤¿ª ½ºÅ³ ¸®¼Ò½º
+	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	  -- ê´‘ì—­ ìŠ¤í‚¬ ë¦¬ì†ŒìŠ¤
 
-	-- ÀÎ½ºÅÏ½º »ı¼ººÎ
+	-- ì¸ìŠ¤í„´ìŠ¤ ìƒì„±ë¶€
 	------------------------------------------------------
-	-- 1. ½ºÅ³ »ı¼º
+	-- 1. ìŠ¤í‚¬ ìƒì„±
     local skill = SkillBind(missile_res)
 
-	-- 2. ÃÊ±âÈ­ °ü·Ã ÇÔ¼ö
+	-- 2. ì´ˆê¸°í™” ê´€ë ¨ í•¨ìˆ˜
 	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill()
 	skill:initState()
 
-	-- 3. state ½ÃÀÛ 
+	-- 3. state ì‹œì‘ 
     skill:changeState('delay')
 
-    -- 4. Physics, Node, GameMgr¿¡ µî·Ï
+    -- 4. Physics, Node, GameMgrì— ë“±ë¡
     local world = skill.m_owner.m_world
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
