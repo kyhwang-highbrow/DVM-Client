@@ -17,6 +17,7 @@ Dragon = class(PARENT, {
 
         -- 스킬 마나
         m_activeSkillManaCost = 'number',
+        m_originActiveSkillManaCost = 'number',
 
         -- 스킬 쿨타임
         m_activeSkillCoolTimer = 'number',
@@ -41,7 +42,8 @@ function Dragon:init(file_name, body, ...)
     self.m_skillOffsetX = 0
     self.m_skillOffsetY = 0
 
-    self.m_activeSkillManaCost = 0
+    self.m_activeSkillManaCost = 0 -- Mana Reduce 등에 의해 가변
+    self.m_originActiveSkillManaCost = 0 -- 테이블의 값 그대로 가지고 있음. 불변.
 
     self.m_activeSkillCoolTimer = 0
     self.m_activeSkillCoolTime = 0
@@ -106,6 +108,7 @@ function Dragon:setStatusCalc(status_calc)
 
         local t_skill = skill_indivisual_info.m_tSkill
         self.m_activeSkillManaCost = t_skill['req_mana'] or 0
+        self.m_originActiveSkillManaCost = t_skill['req_mana'] or 0
     end
 
     -- 스킬 쿨타임 지정

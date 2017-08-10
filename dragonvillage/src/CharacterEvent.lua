@@ -294,9 +294,7 @@ function Character:onEvent_useActiveSkill(event_name, t_event, owner)
                 if ( (not chance_value) or (chance_value == '') ) then
                     chance_value = 1
                 end
-                local table_skill = TABLE:get('dragon_skill')
-                
-                local cost = owner.m_activeSkillManaCost
+                local cost = owner.m_originActiveSkillManaCost
                 if (cost >= chance_value) then
                     self:doSkill(v.m_skillID, 0, 0)
                 end
