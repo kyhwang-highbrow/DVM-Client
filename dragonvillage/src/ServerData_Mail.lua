@@ -14,7 +14,7 @@ ServerData_Mail = class({
 -------------------------------------
 function ServerData_Mail:init(server_data)
     self.m_serverData = server_data
-	self.m_lCategory = {'goods', 'st', 'friend', 'item'}
+	self.m_lCategory = {'goods', 'st', 'friend', 'item', 'coupon'}
 end
 
 -------------------------------------
@@ -114,6 +114,8 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 		self.m_mMailMap[mail_type] = {}
 	end
 
+    local table_item = TableItem()
+
 	-- mail map 생성
 	for i, t_mail in pairs(l_mail_list) do
 		local moid = t_mail['id']
@@ -130,7 +132,7 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 			local t_item = t_mail['items_list'][1]
 			local item_id = t_item['item_id']
 
-			-- 클라에서 미리 정의한 item type을 가져온다.
+			-- 클라에서 미리 정의한 item type을 가져온다. goods와 item 구분이 모호하기 때문에!
 			local item_type = TableItem:getItemTypeFromItemID(item_id)
 			
 			if item_type then
@@ -141,16 +143,23 @@ function ServerData_Mail:makeMailMap(l_mail_list)
                 -- fp는 '우정'로 보내준다.		
 			    elseif string.find(item_type, 'fp') then
 					category = 'friend'
-				
+
 				-- stamina가 없고 item type이 있다면 모두 '재화'에 해당
 				else
 					category = 'goods'
 				end
 
-			-- 클라에서 미리 정의 하지 않은 것은 '아이템'에 속한다.
+			-- 클라에서 미리 정의 하지 않은 것
 			else
-				category = 'item'
+                item_type = table_item:getItemType(item_id)
 
+                if (item_type == 'coupon') then
+                    category = 'coupon'
+
+                else
+				    category = 'item'
+
+                end
 			end
 
 		end

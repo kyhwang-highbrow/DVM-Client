@@ -1,7 +1,9 @@
+local PARENT = Structure
+
 -------------------------------------
 -- class StructMail
 -------------------------------------
-StructMail = class({
+StructMail = class(PARENT, {
         id = 'string', -- mid
         uid = 'number',
         
@@ -17,30 +19,38 @@ StructMail = class({
         items_list = 'list',
     })
 
+local THIS = StructMail
+
 -------------------------------------
 -- function init
 -------------------------------------
 function StructMail:init(data)
     if data then
+        -- @TODO ret_fp를 마냥 기다릴 수 없어 클라에서 처리
+        if (data.mail_type == 'fp') then
+            if (data.nick == nil) then
+                data.mail_type = 'ret_fp'
+            end
+        end
+
         self:applyTableData(data)
+        
+        self:setExpireRemainTime()
     end
 end
 
 -------------------------------------
--- function applyTableData
+-- function getClassName
 -------------------------------------
-function StructMail:applyTableData(data)
-    -- @TODO ret_fp를 마냥 기다릴 수 없어 클라에서 처리
-    if (data.mail_type == 'fp') then
-        if (data.nick == nil) then
-            data.mail_type = 'ret_fp'
-        end
-    end
+function StructMail:getClassName()
+    return 'StructMail'
+end
 
-    for key,value in pairs(data) do
-        self[key] = value
-    end
-    self:setExpireRemainTime()
+-------------------------------------
+-- function getThis
+-------------------------------------
+function StructMail:getThis()
+    return THIS
 end
 
 -------------------------------------
