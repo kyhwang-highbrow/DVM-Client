@@ -253,7 +253,7 @@ function GameAuto:doWork_skill(unit, priority)
         t_skill = skill_indivisual_info:getSkillTable()
 
         -- 대상을 찾는다
-        target = unit:findTarget(unit, t_skill)
+        target = self:findTarget(unit, t_skill)
 
     elseif (priority == 1) then
         if (reason == REASON_TO_DO_NOT_USE_SKILL.MANA_LACK or reason == REASON_TO_DO_NOT_USE_SKILL.COOL_TIME) then
@@ -286,7 +286,8 @@ function GameAuto:findTarget(unit, t_skill)
         target_type = SKILL_AI_ATTR_TARGET[ai_division]
     end
 
-    return unit:getTargetListByType(target_type, target_count, target_formation)
+    local l_target = unit:getTargetListByType(target_type, target_count, target_formation)
+    return l_target[1]
 end
 
 -------------------------------------
