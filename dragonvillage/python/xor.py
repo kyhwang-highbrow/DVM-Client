@@ -18,9 +18,9 @@ def copy_files(src, dst):
 		for item in os.listdir(src):
 			path = os.path.join(src, item)
 			# Android can not package the file that ends with ".gz"
-			if not item.startswith('.') and not item.endswith('.gz') and os.path.isfile(path):
+			if os.path.isfile(path) and not item.startswith('.') and not item.endswith('.gz'):
 				shutil.copy(path, dst)
-			if os.path.isdir(path):
+			if os.path.isdir(path) and not item.startswith('.'):
 				new_dst = os.path.join(dst, item)
 				os.mkdir(new_dst)
 				copy_files(path, new_dst)
