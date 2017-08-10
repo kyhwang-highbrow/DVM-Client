@@ -135,6 +135,9 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
     if (!self.uiWebView) {
         self.uiWebView = [[[UIWebView alloc] init] autorelease];
         self.uiWebView.delegate = self;
+		self.uiWebView.opaque = NO;
+		self.uiWebView.bakgroundColor = [UIColor clearColor];
+		
     }
     if (!self.uiWebView.superview) {
         auto view = cocos2d::Director::getInstance()->getOpenGLView();
