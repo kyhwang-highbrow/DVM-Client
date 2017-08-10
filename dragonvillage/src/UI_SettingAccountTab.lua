@@ -20,13 +20,122 @@ function UI_Setting:init_accountTab()
 end
 
 -------------------------------------
--- function click_gamecenterBtn
+-- function click_copyBtn
 -------------------------------------
 function UI_Setting:click_copyBtn()
     local recovery_code = g_serverData:get('local', 'recovery_code')
 
     SDKManager:copyOntoClipBoard(tostring(recovery_code))
     UIManager:toastNotificationGreen(Str('복구코드를 복사하였습니다.'))
+end
+
+-------------------------------------
+-- function click_gamecenterBtn
+-------------------------------------
+function UI_Setting:click_gamecenterBtn()
+    if isWin32() then
+        UIManager:toastNotificationRed(Str('Windows에서는 동작하지 않습니다.'))
+        return
+    end
+
+    self.m_loadingUI:showLoading(Str('계정 연결 중...'))
+
+    local old_platform_id = g_serverData:get('local', 'platform_id')
+
+    PerpleSDK:linkWithGameCenter('', function(ret, info)
+
+        if ret == 'success' then
+
+            cclog('Firebase GameCenter link was successful.')
+            self:loginSuccess(info)
+
+            -- 기존 구글 연결은 끊는다.
+            if old_platform_id == 'google.com' then
+                local app_ver = getAppVer()
+                if app_ver == '0.2.2' then
+                    PerpleSDK:googleLogout()
+                else
+                    PerpleSDK:googleLogout(1)
+                end
+                PerpleSDK:unlinkWithGoogle(function(ret, info)
+                    self.m_loadingUI:hideLoading()
+                    if ret == 'success' then
+                        cclog('Firebase unlink from Google was successful.')
+                    elseif ret == 'fail' then
+                        cclog('Firebase unlink from Google failed.')
+                    end
+                end)
+            -- 기존 페이스북 연결은 끊는다.
+            elseif old_platform_id == 'facebook.com' then
+                PerpleSDK:unlinkWithFacebook(function(ret, info)
+                    self.m_loadingUI:hideLoading()
+                    if ret == 'success' then
+                        cclog('Firebase unlink from Facebook was successful.')
+                    elseif ret == 'fail' then
+                        cclog('Firebase unlink from Facebook failed.')
+                    end
+                end)
+            else
+                self.m_loadingUI:hideLoading()
+            end
+
+        elseif ret == 'already_in_use' then
+
+            local ok_btn_cb = function()
+                self.m_loadingUI:showLoading(Str('계정 전환 중...'))
+                PerpleSDK:logout()
+                PerpleSDK:loginWithGameCenter('', function(ret, info)
+                    self.m_loadingUI:hideLoading()
+                    if ret == 'success' then
+                        cclog('Firebase GameCenter link was successful.(already_in_use)')
+
+                        self:loginSuccess(info)
+
+                        if (old_platform_id == 'google.com') then
+                            local app_ver = getAppVer()
+                            if app_ver == '0.2.2' then
+                                PerpleSDK:googleLogout()
+                            else
+                                PerpleSDK:googleLogout(1)
+                            end
+                        end
+
+                        -- 앱 재시작
+                        restart()
+
+                    elseif ret == 'fail' then
+                        local t_info = dkjson.decode(info)
+                        local msg = t_info.msg
+                        cclog('Firebase unknown error !!!- ' .. msg)
+                    elseif ret == 'cancel' then
+                        cclog('Firebase unknown error !!!')
+                    end
+                end)
+            end
+
+            local cancel_btn_cb = nil
+
+            self.m_loadingUI:hideLoading()
+            local msg = Str('이미 연결되어 있는 계정입니다. 계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까? (현재의 게임데이터는 유실되므로 주의바랍니다. 만약을 대비하여 복구코드를 메모해 두시기 바랍니다.)')
+            MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb, cancel_btn_cb)
+
+        elseif ret == 'fail' then
+
+            local t_info = dkjson.decode(info)
+            local msg = t_info.msg
+            cclog('Firebase GameCenter link failed - ' .. msg)
+
+            self.m_loadingUI:hideLoading()
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+
+        elseif ret == 'cancel' then
+
+            cclog('Firebase GameCenter link canceled.')
+            self.m_loadingUI:hideLoading()
+
+        end
+    end)
+
 end
 
 -------------------------------------
@@ -63,6 +172,16 @@ function UI_Setting:click_facebookBtn()
                         cclog('Firebase unlink from Google was successful.')
                     elseif ret == 'fail' then
                         cclog('Firebase unlink from Google failed.')
+                    end
+                end)
+            -- 기존 게임센터 연결은 끊는다.
+            elseif old_platform_id == 'gamecenter' then
+                PerpleSDK:unlinkWithGameCenter(function(ret, info)
+                    self.m_loadingUI:hideLoading()
+                    if ret == 'success' then
+                        cclog('Firebase unlink from GameCenter was successful.')
+                    elseif ret == 'fail' then
+                        cclog('Firebase unlink from GameCenter failed.')
                     end
                 end)
             else
@@ -129,13 +248,6 @@ function UI_Setting:click_facebookBtn()
 end
 
 -------------------------------------
--- function click_gamecenterBtn
--------------------------------------
-function UI_Setting:click_gamecenterBtn()
-    UIManager:toastNotificationRed(Str('준비 중입니다.'))
-end
-
--------------------------------------
 -- function click_googleBtn
 -------------------------------------
 function UI_Setting:click_googleBtn()
@@ -162,6 +274,16 @@ function UI_Setting:click_googleBtn()
                         cclog('Firebase unlink from Facebook was successful.')
                     elseif ret == 'fail' then
                         cclog('Firebase unlink from Facebook failed.')
+                    end
+                end)
+            -- 기존 게임센터 연결은 끊는다.
+            elseif old_platform_id == 'gamecenter' then
+                PerpleSDK:unlinkWithGameCenter(function(ret, info)
+                    self.m_loadingUI:hideLoading()
+                    if ret == 'success' then
+                        cclog('Firebase unlink from GameCenter was successful.')
+                    elseif ret == 'fail' then
+                        cclog('Firebase unlink from GameCenter failed.')
                     end
                 end)
             else
@@ -387,6 +509,8 @@ function UI_Setting:updateInfo()
     self.vars['googleDisableSprite']:setVisible(platform_id == 'google.com')
     self.vars['facebookBtn']:setEnabled(platform_id ~= 'facebook.com')
     self.vars['facebookDisableSprite']:setVisible(platform_id == 'facebook.com')
+    self.vars['gamecenterBtn']:setEnabled(platform_id ~= 'gamecenter')
+    self.vars['gamecenterDisableSprite']:setVisible(platform_id == 'gamecenter')
 
     self.vars['accountLabel']:setString(account_info)
     self.vars['uidLabel']:setString(recovery_code)
@@ -398,6 +522,8 @@ function UI_Setting:updateInfo()
         sprite = cc.Sprite:create('res/ui/icons/login_google.png')
     elseif platform_id == 'facebook.com' then
         sprite = cc.Sprite:create('res/ui/icons/login_facebook.png')
+    elseif platform_id == 'gamecenter' then
+        sprite = cc.Sprite:create('res/ui/icons/login_gamecenter.png')
     end
 
     if sprite then
