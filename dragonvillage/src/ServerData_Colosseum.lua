@@ -675,6 +675,18 @@ function ServerData_Colosseum:request_playerColosseumDeck(deckname, finish_cb, f
         end
     end
 
+    -- 응답 상태 처리 함수
+    local function response_status_cb(ret)
+        -- 상대방의 덱 정보가 없는 경우 skip 처리
+        if (ret['status'] == -1160) then -- not exist deck
+            if finish_cb then
+                finish_cb(ret)
+            end
+            return true
+        end
+        return false
+    end
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/game/pvp/user_info')
@@ -683,6 +695,7 @@ function ServerData_Colosseum:request_playerColosseumDeck(deckname, finish_cb, f
     ui_network:setParam('name', deckname)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(false)
     ui_network:request()
     

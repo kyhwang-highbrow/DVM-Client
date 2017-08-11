@@ -14,6 +14,7 @@ UI_Network = class(PARENT,{
 
         m_successCB = 'function',
         m_failCB = 'function',
+        m_responseStatusCB = 'function',
     })
 
 -------------------------------------
@@ -109,6 +110,13 @@ function UI_Network:setFailCB(fail_cb)
 end
 
 -------------------------------------
+-- function setResponseStatusCB
+-------------------------------------
+function UI_Network:setResponseStatusCB(response_status_cb)
+    self.m_responseStatusCB = response_status_cb
+end
+
+-------------------------------------
 -- function setParam
 -------------------------------------
 function UI_Network:setParam(key, value)
@@ -197,6 +205,18 @@ function UI_Network:statusHandler(ret)
 
     if (status == 0) then
         return false
+    end
+
+    if (status == 0) then
+        return false
+    end
+
+    -- 응답 상태 처리 함수 확인
+    if (self.m_responseStatusCB) then
+        if self.m_responseStatusCB(ret) then
+            self:close()
+            return true
+        end
     end
 
     -- speedhack (클리어 시간이 맞지 않음) 
