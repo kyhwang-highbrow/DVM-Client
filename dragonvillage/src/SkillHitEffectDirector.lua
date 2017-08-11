@@ -7,8 +7,7 @@ local PARENT = UI
 SkillHitEffectDirector = class(PARENT, {
         m_hero = '',
         m_hitCount = 'number',
-        m_bonusLevel = 'string',
-
+        
         m_rightNode = '',
         m_leftNode = '',
 
@@ -19,10 +18,9 @@ SkillHitEffectDirector = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillHitEffectDirector:init(owner, bonus_level)
+function SkillHitEffectDirector:init(owner)
     self.m_hero = owner
     self.m_hitCount = 0
-    self.m_bonusLevel = bonus_level or 0
     self.m_bEndSkill = false
     self.m_bEndAction = true
 
@@ -30,40 +28,17 @@ function SkillHitEffectDirector:init(owner, bonus_level)
 
     local shot_node
     local hit_node
-    local bonus_label
-
-    for i = 1, 3 do
-        local b = (i - 1 == self.m_bonusLevel)
-
-        vars['hitMenu' .. i]:setVisible(b)
-
-        if (b) then
-            shot_node = vars['shotNode' .. i]
-            hit_node = vars['hitNode' .. i]
-            bonus_label = vars['bonusLabel' .. i]
-
-            self.m_leftNode = vars['leftNode' .. i]
-            self.m_rightNode = vars['rightNode' .. i]
-        end
-    end
-
-    if (shot_node) then
-        local label
-        if (self.m_bonusLevel >= 2) then
-            label = cc.Label:createWithBMFont('res/font/hit_graet.fnt', '')
-        elseif (self.m_bonusLevel >= 1) then
-            label = cc.Label:createWithBMFont('res/font/hit_good.fnt', '')
-        else
-            label = cc.Label:createWithBMFont('res/font/hit_normal.fnt', '')
-        end
-
-        label:setDockPoint(cc.p(1, 0.5))
-        label:setAnchorPoint(cc.p(1, 0.5))
-        label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-        shot_node:addChild(label)
-        vars['shotLabel'] = label
-    end
     
+    for i = 1, 1 do
+        vars['hitMenu' .. i]:setVisible(true)
+
+        shot_node = vars['shotNode' .. i]
+        hit_node = vars['hitNode' .. i]
+            
+        self.m_leftNode = vars['leftNode' .. i]
+        self.m_rightNode = vars['rightNode' .. i]
+    end
+        
     if (hit_node) then
         local label = cc.Label:createWithBMFont('res/font/hit_hit.fnt', '')
         
@@ -72,15 +47,6 @@ function SkillHitEffectDirector:init(owner, bonus_level)
         label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         hit_node:addChild(label)
         vars['hitLabel'] = label
-    end
-
-    if (bonus_label) then
-        --[[
-        local desc = DragonSkillBonusHelper:getBonusDesc(self.m_hero, self.m_bonusLevel)
-        if (desc) then
-            bonus_label:setString(Str(desc))
-        end
-        ]]--
     end
 
     self.root:setDockPoint(cc.p(0.5, 1))
@@ -131,12 +97,7 @@ function SkillHitEffectDirector:doWork(count)
         self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create(), cc.CallFunc:create(finish_cb)))
         self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration * 2.5 / 3), cc.FadeOut:create(duration * 0.5 / 3)))
     end
-
-    local shot_label = vars['shotLabel']
-    if (shot_label) then
-        shot_label:setString(tostring(count))
-    end
-
+    
     local hit_label = vars['hitLabel']
     if (hit_label) then
         hit_label:setString(tostring(self.m_hitCount))

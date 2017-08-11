@@ -478,6 +478,7 @@ function GameWorld:removeAllEnemy()
             v:changeState('dying')
         end
     end
+
     for i, v in pairs(self.m_rightNonparticipants) do
         -- GameWorld:updateUnit에서 삭제하도록 하기 위함
         v.m_bPossibleRevive = false

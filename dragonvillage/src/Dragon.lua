@@ -302,7 +302,14 @@ function Dragon:makeHPGauge(hp_ui_offset)
         self.m_infoUI = nil
     end
 
-    local ui = UI_IngameDragonInfo(self)
+    local ui
+
+    if (self.m_bLeftFormation) then
+        ui = UI_IngameDragonInfo(self)
+    else
+        ui = UI_IngameUnitInfo(self)
+    end
+
     self.m_hpNode = ui.root
     self.m_hpNode:setDockPoint(cc.p(0.5, 0.5))
     self.m_hpNode:setAnchorPoint(cc.p(0.5, 0.5))

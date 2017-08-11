@@ -45,7 +45,6 @@ Skill = class(PARENT, {
 		m_bSkillHitEffect = 'bool', -- 사용 여부
         
         -- 스킬 종료시 피드백(보너스) 관련
-        m_bonusLevel = 'number',
         m_hitTargetList = 'table',
         m_hitCollisionList = 'table',
         
@@ -251,11 +250,10 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_targetFormation = SkillHelper:getValid(t_skill['target_formation'])
 
 	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
-    self.m_bonusLevel = t_data['bonus'] or 0
-    
+        
     -- 생성
     if (self.m_bSkillHitEffect) then
-        self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner,  self.m_bonusLevel)
+        self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner)
     end
 end
 
@@ -314,19 +312,6 @@ function Skill.st_dying(owner, dt)
             owner:doStatusEffect(event_name, l_target) 
         end
     end
-
-    -- 보너스 버프
-    --[[
-    if (owner.m_bonusLevel > 0) then
-        local l_target = {}
-        for target, _ in pairs(owner.m_hitTargetList) do
-            table.insert(l_target, target)
-        end
-
-        -- 보너스 효과 적용 및 연출
-        DragonSkillBonusHelper:doInvoke(owner.m_owner, l_target, owner.m_bonusLevel)
-    end
-    ]]--
 
     return true
 end
