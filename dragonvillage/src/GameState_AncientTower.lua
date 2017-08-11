@@ -22,6 +22,7 @@ function GameState_AncientTower:initState()
     PARENT.initState(self)
     
     self:addState(GAME_STATE_WAVE_INTERMISSION, GameState_AncientTower.update_wave_intermission)
+    self:addState(GAME_STATE_FINAL_WAVE, GameState_AncientTower.update_final_wave)
 end
 
 -------------------------------------
@@ -65,6 +66,18 @@ function GameState_AncientTower.update_wave_intermission(self, dt)
 
         self:changeState(GAME_STATE_ENEMY_APPEAR)
 	end
+end
+
+-------------------------------------
+-- function update_final_wave
+-------------------------------------
+function GameState_AncientTower.update_final_wave(self, dt)
+    PARENT.update_final_wave(self, dt)
+
+    if (self:isBeginningStep(0)) then
+        -- 웨이브 표시 숨김
+        self.m_world.m_inGameUI.vars['waveVisual']:setVisible(false)
+    end
 end
 
 -------------------------------------
