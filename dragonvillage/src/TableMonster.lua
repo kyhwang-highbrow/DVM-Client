@@ -25,8 +25,15 @@ function TableMonster:getMonsterIcon(monster_id)
 
     local type = t_monster['type']
     local attr = t_monster['attr']
+    local icon_path = t_monster['icon']
 
-    local res_name = string.format('res/ui/icon/mon/%s_%s.png', type, attr)
+    local res_name = string.format('res/ui/icons/mon/%s_%s.png', type, attr)
+
+    if (icon_path == '') or (icon_path == nil) then
+        res_name = string.format('res/ui/icons/mon/%s_%s.png', type, attr)
+    else
+        res_name = string.gsub(icon_path, '@', attr)
+    end
     local sprite = cc.Sprite:create(res_name)
 
     if (not sprite) then
@@ -109,6 +116,12 @@ function TableMonster:getMonsterInfoWithDragon(monster_id)
     else
         is_dragon_monster = true
         t_monster = TableDragon():get(monster_id)
+    end
+
+    -- 드래곤인지 여부 체크 (monster_id의 식별자로 확인)
+    local identifier = getDigit(monster_id, 10000, 2)
+    if (identifier == 12) then
+        is_dragon_monster = true
     end
 
     return t_monster, is_dragon_monster
