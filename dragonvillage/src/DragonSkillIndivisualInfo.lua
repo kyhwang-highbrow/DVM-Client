@@ -209,13 +209,13 @@ function DragonSkillIndivisualInfo:getCoolTimeDesc()
     -- 텍스트 처리
     local desc
     if (cooltime == '') then
-        desc = Str('없음')
+        desc = nil
     elseif (cooltime == 999) then
-        desc = Str('{1}회', 1)
+        desc = nil
     elseif (cooltime == 0) then
         desc = nil
     elseif (cooltime == 1) then
-        desc = Str('없음')
+        desc = nil
     else
         desc = Str('{1}초', cooltime)
     end
