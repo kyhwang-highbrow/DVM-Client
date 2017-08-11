@@ -472,10 +472,10 @@ function UI_Setting:loginSuccess(info)
         end
     end
 
-    cclog('fuid: ' .. fuid)
-    cclog('push_token: ' .. push_token)
-    cclog('platform_id:' .. platform_id)
-    cclog('account_info:' .. account_info)
+    cclog('fuid: ' .. tostring(fuid))
+    cclog('push_token: ' .. tostring(push_token))
+    cclog('platform_id:' .. tostring(platform_id))
+    cclog('account_info:' .. tostring(account_info))
 
     g_serverData:applyServerData(fuid, 'local', 'uid')
     g_serverData:applyServerData(push_token, 'local', 'push_token')

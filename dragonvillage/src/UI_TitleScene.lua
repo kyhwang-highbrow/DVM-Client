@@ -345,10 +345,10 @@ function UI_TitleScene:workCheckUserID()
                 account_info = g_serverData:get('local', 'account_info') or 'Guest'
             end
 
-            cclog('fuid: ' .. fuid)
-            cclog('push_token: ' .. push_token)
-            cclog('platform_id:' .. platform_id)
-            cclog('account_info:' .. account_info)
+            cclog('fuid: ' .. tostring(fuid))
+            cclog('push_token: ' .. tostring(push_token))
+            cclog('platform_id:' .. tostring(platform_id))
+            cclog('account_info:' .. tostring(account_info))
 
             -- Firebase에서 발급하는 uid
             -- 게임 uid로 그대로 사용하면 됨
