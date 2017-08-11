@@ -341,6 +341,7 @@ end
 function UI_Setting:click_testCodeBtn()
     ccdisplay('진동 테스트')
     cc.SimpleAudioEngine:getInstance():playVibrate(1000)
+    error()
 end
 
 -------------------------------------

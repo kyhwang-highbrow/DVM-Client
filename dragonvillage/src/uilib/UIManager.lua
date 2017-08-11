@@ -19,7 +19,7 @@ UI_ZORDER = {
     TUTORIAL = 64,
     TUTORIAL_DIALOGUE = 128,
     LOADING = 256,
-    ERROR_POPUP = 257,
+    ERROR_POPUP = 300,
 }
 
 -------------------------------------
@@ -32,6 +32,7 @@ UIManager = {
     TOOLTIP = 3,
     LOADING = 4,
     TUTORIAL_DIALOGUE = 5,
+    ERROR_POPUP = 6,
 
     m_uiLayer = 'cc.Node',
     m_uiList = {},
@@ -169,6 +170,9 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
         
     elseif (mode == UIManager.LOADING) then
         z_order = UI_ZORDER.LOADING
+
+    elseif (mode == UIManager.ERROR_POPUP) then
+        z_order = UI_ZORDER.ERROR_POPUP
         
     end
 
