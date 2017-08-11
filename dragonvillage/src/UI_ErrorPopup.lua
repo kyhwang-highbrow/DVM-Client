@@ -18,7 +18,7 @@ UI_ErrorPopup = class(PARENT, {
 -------------------------------------
 function UI_ErrorPopup:init(str)
     self:load('empty.ui')
-    UIManager:open(self, UIManager.POPUP, true)
+    UIManager:open(self, UIManager.ERROR_POPUP, true)
 
     self.m_uiName = 'UI_ErrorPopup'
 

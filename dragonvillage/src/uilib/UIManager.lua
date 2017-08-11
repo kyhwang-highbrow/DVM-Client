@@ -19,6 +19,7 @@ UI_ZORDER = {
     TUTORIAL = 64,
     TUTORIAL_DIALOGUE = 128,
     LOADING = 256,
+    ERROR_POPUP = 257,
 }
 
 -------------------------------------
