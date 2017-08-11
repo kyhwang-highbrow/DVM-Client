@@ -55,7 +55,7 @@
 
 // @clipboard
 - (void)clipboardSetText:(NSString *)arg0;
-- (void)clipboardGetText:(NSString *)arg0;
+- (NSString *)clipboardGetText;
 
 // @wifi
 - (int)isWifiConnected;
@@ -69,5 +69,7 @@
 - (void)billingRequest:(NSString *)arg0 param:(NSString *)arg1;
 - (void)billingConfirm;
 #endif
+
++ (NSString *) getJSONStringFromNSDictionary:(NSDictionary *)obj;
 
 @end

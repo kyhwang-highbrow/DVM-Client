@@ -145,9 +145,19 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
     }
     else if (strcmp(id, "clipboard_getText") == 0)
     {
-        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
         AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController clipboardGetText:_arg0];
+        NSString *text = [appController clipboardGetText];
+        sdkEvent(id, "success", [text UTF8String]);
+    }
+    else if (strcmp(id, "app_deviceInfo") == 0)
+    {
+        NSDictionary *dict = @{ @"name":[UIDevice currentDevice].name,
+                                @"model":[UIDevice currentDevice].model,
+                                @"localizedModel":[UIDevice currentDevice].localizedModel,
+                                @"systemName":[UIDevice currentDevice].systemName,
+                                @"systemVersion":[UIDevice currentDevice].systemVersion };
+        NSString *info = [AppController getJSONStringFromNSDictionary:dict];
+        sdkEvent(id, "success", [info UTF8String]);
     }
 }
 

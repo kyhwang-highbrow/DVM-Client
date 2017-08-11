@@ -370,9 +370,8 @@ static AppDelegate s_sharedApplication;
 }
 
 // @clipboard
-- (void)clipboardGetText:(NSString *)arg0 {
-    NSString *text = [[UIPasteboard generalPasteboard] string];
-    sdkEventResult("clipboard_getText", "success", [text UTF8String]);
+- (NSString *)clipboardGetText {
+    return [[UIPasteboard generalPasteboard] string];
 }
 
 // @wifi
@@ -465,6 +464,27 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] dealloc];
 
     [super dealloc];
+}
+
++ (NSString *) getJSONStringFromNSDictionary:(NSDictionary *)obj {
+    if (obj != nil) {
+        NSError *error;
+        NSData *data = [NSJSONSerialization dataWithJSONObject:obj
+                                                       options:0
+                                                         error:&error];
+        if (data != nil) {
+            NSString *result = [[NSString alloc] initWithData:data
+                                                     encoding:NSUTF8StringEncoding];
+            if (result != nil) {
+                return result;
+            }
+        } else {
+            if ([PerpleSDK isDebug]) {
+                NSLog(@"Error in getJSONStringFromNSDictionary - %@", error);
+            }
+        }
+    }
+    return @"";
 }
 
 @end
