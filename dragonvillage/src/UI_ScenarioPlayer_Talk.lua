@@ -32,7 +32,7 @@ end
 -------------------------------------
 function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
     local vars = self.vars
-
+    ccdump({pos, name, text, text_type, text_pos})
     if pos and (self.m_currPos ~= pos) then
         -- 현재 위치 이름택 숨김
         if self.m_currPos and vars['nameNode_' .. self.m_currPos] then
@@ -66,7 +66,8 @@ function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
         if self.m_currPos and vars['nameNode_' .. self.m_currPos] then
             vars['nameNode_' .. self.m_currPos]:setVisible(false)
         end
-
+        self.m_currName = name
+        self.m_currPos = pos
     end
 
     -- 대사 처리
