@@ -46,7 +46,7 @@ function SkillRolling:init_skill(spin_res, atk_count)
 
     self.m_lCollisionList = self:findCollision()
     self.m_targetCollision = table.pop(self.m_lCollisionList)
-
+        
 	-- 최초 위치 지정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
@@ -81,16 +81,14 @@ end
 -- function update
 -------------------------------------
 function SkillRolling:update(dt)
-	-- 사망 체크
-    if (self.m_owner:isDead()) and (self.m_state ~= 'dying') then
-        self:changeState('dying')
-    end
 	-- 드래곤의 애니와 객체, 스킬 위치 동기화
-	self.m_owner:syncAniAndPhys()
-	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
-	if (nil ~= self.m_spinAnimator) then
-		self.m_spinAnimator:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
-	end
+    do
+	    self.m_owner:syncAniAndPhys()
+	    self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
+	    if (nil ~= self.m_spinAnimator) then
+		    self.m_spinAnimator:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
+	    end
+    end
 	
     return PARENT.update(self, dt)
 end
@@ -103,7 +101,7 @@ function SkillRolling.st_move(owner, dt)
 		owner.m_owner.m_animator:setVisible(false)
 
 		-- 스핀 이펙트
-		if (nil == owner.m_spinAnimator) then 
+		if (not owner.m_spinAnimator) then 
 			local animator = MakeAnimator(owner.m_spinRes)
 			animator:changeAni('idle', true)
 			animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
@@ -144,7 +142,6 @@ function SkillRolling.st_attack(owner, dt)
 		owner.m_hitInterval = 5/30
 		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
         owner.m_multiAtkTimer = owner.m_hitInterval
-		owner.m_attackCnt = 0
     end
 
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
@@ -219,6 +216,8 @@ function SkillRolling.st_move_attack(owner, dt)
 				owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300)
 
 				owner:attack(owner.m_targetCollision)
+
+                owner.m_targetCollision = nil
                 owner.m_bMoving = false
 			end)
 
@@ -245,24 +244,6 @@ function SkillRolling.st_comeback(owner, dt)
 		
 		owner.m_owner:runAction(cc.Sequence:create(cc.EaseOut:create(action, 2), cbFunc))
     end
-end
-
--------------------------------------
--- function findCollision
--------------------------------------
-function SkillRolling:findCollision()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetLimit, self.m_targetFormation)
-	
-	local x = self.m_targetPos.x
-	local y = self.m_targetPos.y
-	local range = self.m_range
-
-	local l_ret = SkillTargetFinder:findCollision_AoERound(l_target, x, y, range)
-
-    -- 타겟 수 만큼만 얻어옴
-    l_ret = table.getPartList(l_ret, self.m_targetLimit)
-
-    return l_ret
 end
 
 -------------------------------------
