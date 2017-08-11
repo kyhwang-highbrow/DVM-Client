@@ -11,7 +11,7 @@ SkillCharge = class(PARENT, {
         m_collisionCount = 'num',
 
         m_physObject = 'PhysObject',	-- 돌진 바디
-		m_preCollisionTime = 'number',	-- 충돌 시간
+		m_prevCollisionTime = 'number',	-- 충돌 시간
 		m_chargePos = 'number',			-- 돌진 위치
 		m_atkPhysPosX = 'number',		-- 돌진 바디 위치
 
@@ -39,7 +39,7 @@ function SkillCharge:init_skill(attack_count, animation_name)
 	self.m_animationName = animation_name
 	self.m_tAttackCount = {}
 	self.m_maxAttackCount = attack_count
-	self.m_preCollisionTime = 0
+	self.m_prevCollisionTime = 0
 
     self.m_collisionCount = 0
 	
@@ -106,15 +106,19 @@ function SkillCharge.st_charge(owner, dt)
     local char = owner.m_owner
 
     if (owner.m_stateTimer == 0) then
+        owner:makeCrashPhsyObject()
+
+        -- 이동 및 ani 변경
 		char:setMove(owner.m_chargePos.x ,owner.m_chargePos.y, owner.m_speedMove)
 		char.m_animator:changeAni(owner.m_animationName .. '_idle', true) 
         char:setAfterImage(true)
 
-        owner:makeCrashPhsyObject()
-
     elseif (char.m_isOnTheMove == false) then
         owner:changeState('comeback')
 
+    elseif (owner.m_stateTimer > owner.m_prevCollisionTime + 0.3) then
+        owner.m_owner:setMove(owner.m_chargePos.x ,owner.m_chargePos.y, owner.m_speedMove)
+		owner.m_prevCollisionTime = owner.m_stateTimer
     end
 end
 
@@ -135,22 +139,6 @@ function SkillCharge.st_comeback(owner, dt)
 		owner:changeState('dying')
 
     end
-end
-
--------------------------------------
--- function update
--------------------------------------
-function SkillCharge:update(dt)
-    if (self.m_owner:isDead()) then
-        self:changeState('dying')
-	elseif (self.m_state == 'charge') then
-		if (self.m_stateTimer > self.m_preCollisionTime + 0.3) then
-			self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, self.m_speedMove)
-			self.m_preCollisionTime = self.m_stateTimer
-		end
-    end
-
-    return PARENT.update(self, dt)
 end
 
 -------------------------------------
@@ -202,7 +190,7 @@ function SkillCharge:doChargeAttack(defender, body_key)
 		return 
 	end
 	-- 공격 간격 설정
-	if (self.m_stateTimer < self.m_preCollisionTime + 0.1) then
+	if (self.m_stateTimer < self.m_prevCollisionTime + 0.1) then
 		return 
 	end
 
@@ -220,7 +208,7 @@ function SkillCharge:doChargeAttack(defender, body_key)
 	self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, self.m_speedCollision)
 
 	-- 충돌 시간 저장
-	self.m_preCollisionTime = self.m_stateTimer
+	self.m_prevCollisionTime = self.m_stateTimer
 end
 
 -------------------------------------

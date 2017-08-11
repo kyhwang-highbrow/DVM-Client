@@ -40,6 +40,7 @@ function SkillRush:init_skill(hit, charge_res)
 
 	-- 참조 좌표값 선언
 	self.m_chargePos = {x = 0, y = self.m_targetPos.y}
+
 	local std_pos_x = self.m_owner.m_homePosX
 	if (self.m_owner.m_bLeftFormation) then
 		self.m_readyPosX = std_pos_x - 800
@@ -112,9 +113,9 @@ function SkillRush.st_charge(owner, dt)
 
 		-- 이동 및 ani 변경
 		char:setMove(owner.m_chargePos.x, owner.m_chargePos.y, owner.m_speedMove)
+        char.m_animator:changeAni('skill_rush', true)
 		char:setAfterImage(true)
-		char.m_animator:changeAni('skill_rush', true)
-
+		
 		-- 돌격시 캐릭터 스케일 키움
 		char.m_animator:setScale(owner.m_chargeScale)
 
@@ -134,6 +135,10 @@ function SkillRush.st_charge(owner, dt)
 		char:setAfterImage(false)
 
         owner:changeState('comeback')
+
+    elseif (owner.m_stateTimer > owner.m_prevCollisionTime + 0.3) then
+        owner.m_owner:setMove(owner.m_chargePos.x ,owner.m_chargePos.y, owner.m_speedMove)
+		owner.m_prevCollisionTime = owner.m_stateTimer
 
 	end
 end
