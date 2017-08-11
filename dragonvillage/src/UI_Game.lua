@@ -114,32 +114,19 @@ function UI_Game:initHotTimeUI()
     vars['hotTimeExpBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('exp_2x', vars['hotTimeExpBtn']) end)
 
     local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key)
-    local t_ui_name = {}
-    t_ui_name['stamina_50p'] = 'hotTimeStBtn'
-    t_ui_name['gold_2x'] = 'hotTimeGoldBtn'
-    t_ui_name['exp_2x'] = 'hotTimeExpBtn'
-
-    do -- 처리되지 않은 타입 제거
-        local l_remove = {}
-        for i,v in ipairs(l_hottime) do
-            if (not t_ui_name[v]) then
-                table.insert(l_remove, 1, i)
-            end
-        end
-
-        for i,v in ipairs(l_remove) do
-            table.remove(l_hottime, v)
+    local t_ui_name = {
+        ['stamina_50p'] = 'hotTimeStBtn'
+        ['gold_2x'] = 'hotTimeGoldBtn'
+        ['exp_2x'] = 'hotTimeExpBtn'
+    }
+    -- hottime key를 ui name으로 변환
+    local l_item_ui = {}
+    for i, hot_key in pairs(l_hottime) do
+        if (t_ui_name[hot_key]) then
+            table.insert(l_item_ui, 1, t_ui_name[hot_key])
         end
     end
-
-    for i,v in pairs(l_hottime) do
-        local ui_name = t_ui_name[v]
-        local ui = vars[ui_name]
-
-        ui:setVisible(true)
-        local pos_x = -97 + ((i-1) * 50)
-        ui:setPositionX(pos_x)
-    end
+    self:arrangeItemUI(l_item_ui)
 end
 
 -------------------------------------
@@ -686,13 +673,20 @@ function UI_Game:showAutoItemPickUI()
     end
 
     table.insert(l_hottime, 'hotTimeMarbleBtn')
+    self:arrangeItemUI(l_hottime)
+end
 
-    for i,ui_name in pairs(l_hottime) do
-        local ui = vars[ui_name]
+-------------------------------------
+-- function arrangeItemUI
+-- @brief itemUI들을 정렬한다!
+-------------------------------------
+function UI_Game:arrangeItemUI(l_hottime)
+    ccdump(l_hottime)
+    for i, ui_name in pairs(l_hottime) do
+        local ui = self.vars[ui_name]
 
         ui:setVisible(true)
-        local pos_x = -97 + ((i-1) * 50)
-        ui:setPositionX(pos_x)
+        local pos_y = 100 - ((i-1) * 50)
+        ui:setPositionY(pos_y)
     end
-
 end
