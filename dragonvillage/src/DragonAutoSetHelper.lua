@@ -107,9 +107,8 @@ function DragonAutoSetHelper:getAutoDeck()
 
         local l_temp = self.m_lDragonPool
         self.m_lDragonPool = {}
-
         -- 전투력 상위 4마리를 뽑되 동종동속성은 배제
-        while ((table.count(self.m_lDragonPool) < 4) or (table.count(l_temp) > 0)) do
+        while ((table.count(self.m_lDragonPool) < 4) and (table.count(l_temp) > 0)) do
             if (not self:checkSameDid(l_temp[1], self.m_lDragonPool)) then
                 table.insert(self.m_lDragonPool, l_temp[1])
             end
