@@ -1,4 +1,4 @@
-local CHECK_INTERVAL_TIME = 2
+local CHECK_INTERVAL_TIME = 1
 local WORK_INTERVAL_TIME = 0.5
 
 -- AI에서 구분하는 현재 상태
@@ -106,6 +106,7 @@ function GameAuto:update(dt)
     -- 상태 검사
     if (self.m_checkTimer <= 0) then
         self.m_checkTimer = CHECK_INTERVAL_TIME
+        self.m_workTimer = 0
         
         self:doCheck()
     else
