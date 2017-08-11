@@ -46,16 +46,6 @@ function UI_TitleScene:initUI()
 
     do -- 앱버전과 패치 정보를 출력
         local patch_idx_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
-        if (TARGET_SERVER == nil) then
-            patch_idx_str = patch_idx_str
-        elseif (TARGET_SERVER == 'FGT') then
-            patch_idx_str = patch_idx_str .. ' (FGT server)'
-		elseif (TARGET_SERVER == 'PUBLIC') then
-            patch_idx_str = patch_idx_str .. ' (PUBLIC server)'
-        else
-            error('TARGET_SERVER : ' .. TARGET_SERVER)
-        end
-
         vars['patchIdxLabel']:setString(patch_idx_str)
     end    
 
@@ -136,6 +126,9 @@ function UI_TitleScene:initChatClientSocket()
 
     if (TARGET_SERVER == 'PUBLIC') then
         port = '9015'
+    elseif (TARGET_SERVER == 'QA') then
+        ip = 'dv-qa.perplelab.com'
+        port = '9013'
     end
 
     local chat_client_socket = ChatClientSocket(ip, port)

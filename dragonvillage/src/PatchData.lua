@@ -131,6 +131,19 @@ function PatchData:getAppVersionAndPatchIdxString()
 	local cur_app_ver = getAppVer()
     local patch_idx = self:get('patch_ver')
     local patch_idx_str = string.format('ver : %s, patch : %d', cur_app_ver, patch_idx)
+
+    if (TARGET_SERVER == nil) then
+        patch_idx_str = patch_idx_str .. ' (TEST server)'
+    elseif (TARGET_SERVER == 'FGT') then
+        patch_idx_str = patch_idx_str .. ' (FGT server)'
+	elseif (TARGET_SERVER == 'PUBLIC') then
+        patch_idx_str = patch_idx_str .. ' (PUBLIC server)'
+    elseif (TARGET_SERVER == 'QA') then
+        patch_idx_str = patch_idx_str .. ' (QA server)'
+    else
+        error('TARGET_SERVER : ' .. TARGET_SERVER)
+    end
+
     return patch_idx_str
 end
 

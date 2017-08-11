@@ -13,8 +13,8 @@ DEVELOPMENT_KMS = false
 -- 김성진 버전
 DEVELOPMENT_KSJ = false
 
+-- nil('TEST"), 'QA', 'LIVE', 'FGT', 'PUBLIC'
 TARGET_SERVER = nil
---TARGET_SERVER = 'FGT'
 
 -- APK 확장 파일 다운로드 스킵 여부
 SKIP_OBB_DOWNLOAD = false
