@@ -97,10 +97,12 @@ extern void sdkEventResult(const char *id, const char *result, const char *info)
     }
 }
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_7_0
 // Fix not hide status on iOS7.
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
+#endif
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
