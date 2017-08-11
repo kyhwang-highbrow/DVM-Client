@@ -70,9 +70,9 @@ end
 -------------------------------------
 -- function makeMonsterAnimator
 -------------------------------------
-function AnimatorHelper:makeMonsterAnimator(res_name, attr)
+function AnimatorHelper:makeMonsterAnimator(res_name, attr, evolution)
 
-    local res_name = self:getMonsterResName(res_name, attr)
+    local res_name = self:getMonsterResName(res_name, attr, evolution)
     local animator = MakeAnimator(res_name)
 
     if (not animator.m_node) then
@@ -107,7 +107,10 @@ end
 -------------------------------------
 -- function getMonsterResName
 -------------------------------------
-function AnimatorHelper:getMonsterResName(res_name, attr)
+function AnimatorHelper:getMonsterResName(res_name, attr, evolution)
+	if evolution then 
+		res_name = string.gsub(res_name, '#', '0' .. evolution)
+	end
     local res_name = string.gsub(res_name, '@', attr)
     return res_name
 end

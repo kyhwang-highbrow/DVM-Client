@@ -96,7 +96,8 @@ function TableMonster:getMonsterRes(monster_id)
 
     local res = self:getValue(monster_id, 'res')
     local attr = self:getValue(monster_id, 'attr')
-    return res, attr
+    local evolution = 3
+    return res, attr, evolution
 end
 
 -------------------------------------
@@ -125,4 +126,19 @@ function TableMonster:getMonsterInfoWithDragon(monster_id)
     end
 
     return t_monster, is_dragon_monster
+end
+
+-------------------------------------
+-- function getValue
+-- @brief
+-------------------------------------
+function TableMonster:getValue(primary, column)
+    local t_data = PARENT.get(self, primary)
+    if t_data then
+        return PARENT.getValue(self, primary, column)
+    end
+
+    local primary = (primary - 20000)
+    local table_dragon = TableDragon()
+    return table_dragon:getValue(primary, column)
 end

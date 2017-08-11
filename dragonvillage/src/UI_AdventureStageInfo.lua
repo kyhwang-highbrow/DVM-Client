@@ -187,8 +187,8 @@ function UI_AdventureStageInfo:refresh()
 
         vars['bossNode']:removeAllChildren()
         if is_boss_stage then
-            local res, attr = TableMonster:getMonsterRes(monster_id)
-            local animator = AnimatorHelper:makeMonsterAnimator(res, attr)
+            local res, attr, evolution = TableMonster:getMonsterRes(monster_id)
+            local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
             animator:changeAni('idle', true)
             vars['bossNode']:addChild(animator.m_node)
             
