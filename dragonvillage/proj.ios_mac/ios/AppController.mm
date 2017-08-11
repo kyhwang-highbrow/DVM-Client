@@ -94,7 +94,12 @@ static AppDelegate s_sharedApplication;
 
     // Use RootViewController manage CCEAGLView
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.extendedLayoutIncludesOpaqueBars = YES;
+
+    if ([[UIDevice currentDevice].systemVersion floatValue] < 7.0) {
+        viewController.wantsFullScreenLayout = YES;
+    } else {
+        viewController.extendedLayoutIncludesOpaqueBars = YES;
+    }
     viewController.view = eaglView;
 
     // Set RootViewController to window
@@ -144,35 +149,36 @@ static AppDelegate s_sharedApplication;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // @perplesdk
-    [[PerpleSDK sharedInstance] applicationDidBecomeActive:application];
-
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     cocos2d::Director::getInstance()->resume();
+
+    // @perplesdk
+    [[PerpleSDK sharedInstance] applicationDidBecomeActive:application];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // @perplesdk
-    [[PerpleSDK sharedInstance] applicationDidEnterBackground:application];
     /*
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
      If your application supports background execution, called instead of applicationWillTerminate: when the user quits.
      */
     cocos2d::Application::getInstance()->applicationDidEnterBackground();
+
+    // @perplesdk
+    [[PerpleSDK sharedInstance] applicationDidEnterBackground:application];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // @perplesdk
-    [[PerpleSDK sharedInstance] applicationWillEnterForeground:application];
-
-    [application setApplicationIconBadgeNumber:0];
-
     /*
      Called as part of transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
     cocos2d::Application::getInstance()->applicationWillEnterForeground();
+
+    [application setApplicationIconBadgeNumber:0];
+
+    // @perplesdk
+    [[PerpleSDK sharedInstance] applicationWillEnterForeground:application];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
