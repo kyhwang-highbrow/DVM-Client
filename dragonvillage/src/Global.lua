@@ -17,6 +17,11 @@ end
 -- @brief 지표 수집 활성화 (true면 활성화, win32에서는 활성화할 경우 PerpleSDK 오류남)
 -------------------------------------
 function IS_ENABLE_ANALYTICS()
+    -- sgkim 2017-08-11 테스트할 시간이 없어서 일단 주석처리함
+    if true then
+        return false
+    end
+
     if (isWin32()) then 
         return false
     end
