@@ -5,7 +5,8 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 -------------------------------------
 SkillCharge = class(PARENT, {
 		m_animationName = 'str', 
-		m_tAttackCount = 'num',
+		m_tAttackCount = 'table',       -- 타겟 바디별 공격 횟수
+        m_tAttackTime = 'table',        -- 타겟 바디별 공격 시간
 		m_maxAttackCount = 'num',
 
         m_collisionCount = 'num',
@@ -38,6 +39,7 @@ function SkillCharge:init_skill(attack_count, animation_name)
 	-- 멤버변수
 	self.m_animationName = animation_name
 	self.m_tAttackCount = {}
+    self.m_tAttackTime = {}
 	self.m_maxAttackCount = attack_count
 	self.m_prevCollisionTime = 0
 
@@ -174,9 +176,11 @@ function SkillCharge:doChargeAttack(defender, body_key)
     -- 충돌 횟수 초기화
     if (not self.m_tAttackCount[defender]) then
 		self.m_tAttackCount[defender] = {}
+        self.m_tAttackTime[defender] = {}
 	end
 	if (not self.m_tAttackCount[defender][body_key]) then
 		self.m_tAttackCount[defender][body_key] = 0
+        self.m_tAttackTime[defender][body_key] = 0
         self.m_collisionCount = self.m_collisionCount + 1
 	end
 
@@ -189,8 +193,10 @@ function SkillCharge:doChargeAttack(defender, body_key)
 	if (self.m_tAttackCount[defender][body_key] >= self.m_maxAttackCount) then 
 		return 
 	end
+
 	-- 공격 간격 설정
-	if (self.m_stateTimer < self.m_prevCollisionTime + 0.1) then
+	--if (self.m_stateTimer < self.m_prevCollisionTime + 0.1) then
+    if (self.m_stateTimer < self.m_tAttackTime[defender][body_key] + 0.1) then
 		return 
 	end
 
@@ -200,9 +206,14 @@ function SkillCharge:doChargeAttack(defender, body_key)
     local target_y = defender.pos.y + body.y
     local collision = StructCollisionData(defender, body_key, 0, target_x, target_y)
             
-	-- 공격 및 카운트
+	-- 공격
     self:attack(collision)
+
+    -- 공격 카운트
 	self.m_tAttackCount[defender][body_key] = self.m_tAttackCount[defender][body_key] + 1
+
+    -- 공격 시간
+    self.m_tAttackTime[defender][body_key] = self.m_stateTimer
 
 	-- 충돌 중에는 속도 줄임
 	self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, self.m_speedCollision)
