@@ -17,6 +17,15 @@ end
 
 
 
+-- 기기정보 관련
+-------------------------------------
+-- function deviceInfo
+-- @brief 
+-------------------------------------
+function SDKManager:deviceInfo(cb_func)
+    self:sendEvent('app_deviceInfo', '', '', cb_func)
+end
+
 
 
 -- 로컬푸시 관련

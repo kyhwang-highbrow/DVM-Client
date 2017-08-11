@@ -2637,6 +2637,9 @@
     <None Include="..\src\Analytics.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SDKManager.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
