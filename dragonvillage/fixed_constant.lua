@@ -18,3 +18,6 @@ TARGET_SERVER = nil
 
 -- APK 확장 파일 다운로드 스킵 여부
 SKIP_OBB_DOWNLOAD = false
+
+-- 퍼플랩 테스트 버전
+PERPLELAB_EVENT_MODE = false
