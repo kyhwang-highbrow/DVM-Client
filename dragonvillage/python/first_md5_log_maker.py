@@ -6,8 +6,14 @@ root_dir의 patch_0.plg파일명으로 패치로그파일이 생성됨
 '''
 
 import os
+import sys
 import hashlib
 import base64
+
+#모듈을 사용하기 위해 시스템 경로 추가
+file_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(file_path, 'module'))
+import utility
 
 root_dir = ''           # 실행되는 기본 경로
 
@@ -62,6 +68,10 @@ def iterfunc(rootdir, subdir, hash_dic):
     
     if os.path.isdir(path) == False:
         print('"' + subdir + '" directory not found!')
+        return
+        
+    if (utility.is_hidden(path)):
+        print('hidden folder!')
         return
     
     for item in os.listdir(path):
