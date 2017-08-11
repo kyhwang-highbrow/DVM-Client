@@ -4,19 +4,20 @@ local PARENT = Structure
 -- class StructMail
 -------------------------------------
 StructMail = class(PARENT, {
+        -- 서버에서 받음
         id = 'string', -- mid
         uid = 'number',
-        
         nick = 'string',
+        mail_type = 'string',
+        items_list = 'list',
+        expired_at = 'time',
+        custom = 'table',
+
         msg = 'string',
 
-        mail_type = 'string',
+        -- 클라에서 편의를 위해 생성하는 데이터
         category = 'string',
-        
-        expired_at = 'time',
         expire_remain_time = 'time',
-
-        items_list = 'list',
     })
 
 local THIS = StructMail
@@ -82,10 +83,28 @@ function StructMail:getMailType()
 end
 
 -------------------------------------
+-- function getTitle
+-------------------------------------
+function StructMail:getTitle()
+    if (self.custom) then
+        return self.custom['title']
+    else
+        return ''
+    end
+end
+
+-------------------------------------
 -- function getMessage
 -------------------------------------
 function StructMail:getMessage()
     return self.msg
+end
+
+-------------------------------------
+-- function getCustom
+-------------------------------------
+function StructMail:getCustom()
+    return self.custom
 end
 
 -------------------------------------
