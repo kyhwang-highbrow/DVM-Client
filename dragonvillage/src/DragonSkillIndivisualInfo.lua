@@ -200,6 +200,30 @@ function DragonSkillIndivisualInfo:isActivated()
 end
 
 -------------------------------------
+-- function getCoolTimeDesc
+-- @brief 순수한 의미의 쿨타임..
+-------------------------------------
+function DragonSkillIndivisualInfo:getCoolTimeDesc()
+    local cooltime = self.m_tSkill['cooldown'] 
+
+    -- 텍스트 처리
+    local desc
+    if (cooltime == '') then
+        desc = Str('없음')
+    elseif (cooltime == 999) then
+        desc = Str('{1}회', 1)
+    elseif (cooltime == 0) then
+        desc = nil
+    elseif (cooltime == 1) then
+        desc = Str('없음')
+    else
+        desc = Str('{1}초', cooltime)
+    end
+
+    return desc
+end
+
+-------------------------------------
 -- function getReqMana
 -- @brief 필요 마나 리턴 (active 스킬만 유효한 값을 가짐)
 -------------------------------------

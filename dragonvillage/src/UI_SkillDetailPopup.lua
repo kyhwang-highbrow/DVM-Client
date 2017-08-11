@@ -140,6 +140,15 @@ function UI_SkillDetailPopup:refresh(idx)
 	-- 스킬 설명
     local desc = skill_indivisual_info:getSkillDesc()
     vars['skillDscLabel']:setString(desc)
+
+    -- 스킬 쿨타임 표시
+    local cooltime = skill_indivisual_info:getCoolTimeDesc()
+    if (cooltime) then
+        vars['skillCoolTimeNode']:setVisible(true)
+        vars['cooltimeLabel']:setString(cooltime)
+    else
+        vars['skillCoolTimeNode']:setVisible(false)
+    end
 end
 
 -------------------------------------
