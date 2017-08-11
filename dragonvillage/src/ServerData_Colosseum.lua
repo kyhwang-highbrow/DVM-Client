@@ -654,3 +654,37 @@ function ServerData_Colosseum:getStraightTimeText()
     local time = (buff_time - curr_time)
     return Str('{1} 남음', datetime.makeTimeDesc(time, true)), true
 end
+
+
+
+-------------------------------------
+-- function request_playerColosseumDeck
+-- @brief 플레이어 유저의 덱 정보를 저장하기 위한 임시 용도 (sgkim)
+-------------------------------------
+function ServerData_Colosseum:request_playerColosseumDeck(deckname, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        local l_deck = {ret['pvpuser_info']['deck']}
+        self:refresh_playerUserInfo(nil, l_deck) -- param : t_data, l_deck
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/user_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('peer', uid)
+    ui_network:setParam('name', deckname)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(false)
+    ui_network:request()
+    
+    return ui_network
+end

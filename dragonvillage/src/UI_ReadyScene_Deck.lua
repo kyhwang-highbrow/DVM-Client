@@ -489,7 +489,18 @@ end
 -- function checkChangeDeck
 -------------------------------------
 function UI_ReadyScene_Deck:checkChangeDeck(next_func)
+
     local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
+
+    -- 최소 1명 출전 확인 (일단 콜로세움만)
+    if (deckname == 'pvp_atk') or (deckname == 'pvp_def') then
+        local setted_number = table.count(self.m_lDeckList)
+        if (setted_number <= 0) then
+            local msg = Str('최소 1명 이상은 출전시켜야 합니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+        end
+    end
 
     local b_change = false
 

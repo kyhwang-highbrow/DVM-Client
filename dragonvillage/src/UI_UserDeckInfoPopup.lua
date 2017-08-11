@@ -169,5 +169,5 @@ function RequestUserDeckInfoPopup(peer_uid, deck_name)
     ui_network:setParam('name', deck_name)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
-    ui_network:request()    
+    ui_network:request()
 end

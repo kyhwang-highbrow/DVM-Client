@@ -346,7 +346,7 @@ end
 -- function getAtkDeck_dragonList
 -- @brief
 -------------------------------------
-function StructUserInfoColosseum:getAtkDeck_dragonList(user_doid)
+function StructUserInfoColosseum:getAtkDeck_dragonList(use_doid)
     if (not self.m_pvpAtkDeck) then
         return {}
     end
@@ -358,7 +358,7 @@ function StructUserInfoColosseum:getAtkDeck_dragonList(user_doid)
         local doid = v
         
         -- doid로 저장 혹은 오브젝트로 저장
-        if user_doid then
+        if use_doid then
             t_deck[idx] = doid
         else
             t_deck[idx] = self:getDragonObject(doid)
@@ -391,7 +391,7 @@ end
 -- function getDefDeck_dragonList
 -- @brief
 -------------------------------------
-function StructUserInfoColosseum:getDefDeck_dragonList(user_doid)
+function StructUserInfoColosseum:getDefDeck_dragonList(use_doid)
     if (not self.m_pvpDefDeck) then
         return {}
     end
@@ -403,7 +403,7 @@ function StructUserInfoColosseum:getDefDeck_dragonList(user_doid)
         local doid = v
 
         -- doid로 저장 혹은 오브젝트로 저장
-        if user_doid then
+        if use_doid then
             t_deck[idx] = doid
         else
             t_deck[idx] = self:getDragonObject(doid)

@@ -686,6 +686,15 @@ end
 -- @brief 드래곤 판매
 -------------------------------------
 function UI_DragonManageInfo:click_sellBtn()
+    -- 작별 가능한지 체크
+    if self.m_selectDragonOID then
+	    local possible, msg = g_dragonsData:possibleMaterialDragon(self.m_selectDragonOID)
+	    if (not possible) then
+		    UIManager:toastNotificationRed(msg)
+            return
+	    end
+    end
+
 	local ui = UI_DragonSell()
 
 	local function close_cb()

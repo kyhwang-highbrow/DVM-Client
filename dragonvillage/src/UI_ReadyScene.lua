@@ -575,7 +575,7 @@ function UI_ReadyScene:init_battleGift()
 end
 
 -------------------------------------
--- function checkChangeDeck
+-- function checkBattleGift
 -------------------------------------
 function UI_ReadyScene:checkBattleGift(cb_func)
     -- 대상 드래곤

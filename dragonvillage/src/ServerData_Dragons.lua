@@ -378,6 +378,24 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
         return false, Str('리더로 설정된 드래곤입니다.')
     end
 
+    -- 콜로세움 정보 확인
+    if g_colosseumData then
+        local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo() -- return : StructUserInfoColosseum
+        if struct_user_info then
+            -- 공격 덱
+            local l_pvp_atk = struct_user_info:getAtkDeck_dragonList(true) -- param : use_doid
+            if table.find(l_pvp_atk, doid) then
+                return false, Str('콜로세움 공격덱에 설정된 드래곤입니다.')
+            end
+
+            -- 방어 덱
+            local l_pvp_def =struct_user_info:getDefDeck_dragonList(true) -- param : use_doid
+            if table.find(l_pvp_def, doid) then
+                return false, Str('콜로세움 방어덱에 설정된 드래곤입니다.')
+            end
+        end
+    end
+
     return true
 end
 
