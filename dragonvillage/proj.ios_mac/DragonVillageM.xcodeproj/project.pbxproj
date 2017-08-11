@@ -804,6 +804,7 @@
 				TargetAttributes = {
 					F293B3C715EB7BE500256477 = {
 						DevelopmentTeam = Z769FPRMPG;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1431,7 +1432,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7db9a177-191b-4a36-a5e5-808d78dea08a";
+				PROVISIONING_PROFILE_SPECIFIER = "PerpleLab DVM Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include $(SRCROOT)/../../libraries/perplesdk/include/ios";
@@ -1477,7 +1479,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7db9a177-191b-4a36-a5e5-808d78dea08a";
+				PROVISIONING_PROFILE_SPECIFIER = "PerpleLab DVM Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include $(SRCROOT)/../../libraries/perplesdk/include/ios";
