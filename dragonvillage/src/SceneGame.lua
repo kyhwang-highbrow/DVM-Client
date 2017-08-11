@@ -250,7 +250,7 @@ end
 -- function prepareDone
 -------------------------------------
 function SceneGame:prepareDone()
-    local function start()
+    local function cb_func()
         -- scenario 종료후 사운드 재생
         if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
             SoundMgr:playBGM('bgm_dungeon_special')
@@ -273,20 +273,8 @@ function SceneGame:prepareDone()
         self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
     end
     
-    -- 임시 시나리오
-    local scenario_name = TableStageDesc:getScenarioName(self.m_stageID, 'snro_start')
-    if scenario_name then
-        local ui = g_scenarioViewingHistory:playScenario(scenario_name)
-
-        if ui then
-            self.m_containerLayer:setVisible(false)
-            ui:setCloseCB(start)
-            ui:next()
-            return 
-        end
-    end
-
-    start()
+    -- 시나리오 체크 및 시작
+    g_gameScene:startIngameScenario('snro_start', cb_func)     
 end
 
 -------------------------------------
@@ -796,4 +784,34 @@ function SceneGame:networkGameFinish_response_chapter_achievement_info(ret)
         local chapter_achieve_info = g_adventureData:getChapterAchieveInfo(chapter_id)
         chapter_achieve_info:applyTableData(data)
     end
+end
+
+-------------------------------------
+-- function startIngameScenario
+-- @breif 여기서 주관하는게 맞을까
+-------------------------------------
+function SceneGame:startIngameScenario(scenario_type, cb_func)
+    -- 콜백
+    local function start()
+        self.m_containerLayer:setVisible(true)
+        if (cb_func) then
+            cb_func()
+        end
+    end
+    
+    -- 스테이지 id와 시나리오 타입(start or finish)로 시나리오를 찾아와 있으면 재생
+    local stage_id = self.m_stageID
+    local scenario_name = TableStageDesc:getScenarioName(stage_id, scenario_type)
+    if scenario_name then
+        local ui = g_scenarioViewingHistory:playScenario(scenario_name)
+        if ui then
+            self.m_containerLayer:setVisible(false)
+            ui:setCloseCB(start)
+            ui:next()
+            return 
+        end
+    end
+
+    -- 시나리오를 재생 못하고 콜백 콜
+    start()       
 end

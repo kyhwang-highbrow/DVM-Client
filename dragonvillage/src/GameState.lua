@@ -648,32 +648,17 @@ function GameState.update_success(self, dt)
 
         self.m_stateParam = true
 
-        self.m_world:dispatch('stage_clear')
+        world:dispatch('stage_clear')
 
     elseif (self.m_stateTimer >= 3.5) then
         if self.m_stateParam then
             self.m_stateParam = false
 
-            local function start()
-                --world.m_containerLayer:setVisible(true)
+            local function cb_func()
                 self:makeResultUI(true)
             end
-    
-            -- 임시 시나리오
-            local world = self.m_world
-            local stage_id = world.m_stageID
-            local scenario_name = TableStageDesc:getScenarioName(stage_id, 'snro_finish')
-            if scenario_name then
-                local ui = g_scenarioViewingHistory:playScenario(scenario_name)
-                if ui then
-                    --world.m_containerLayer:setVisible(false)
-                    ui:setCloseCB(start)
-                    ui:next()
-                    return 
-                end
-            end
-
-            start()            
+            -- 시나리오 체크 및 시작
+            g_gameScene:startIngameScenario('snro_finish', cb_func)        
         end
     end
 end
