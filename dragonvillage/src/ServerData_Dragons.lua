@@ -1053,6 +1053,24 @@ function ServerData_Dragons:haveLeaderSkill(doid)
 end
 
 -------------------------------------
+-- function isSameDid
+-- @brief 동종 동속성 드래곤 검사!
+-------------------------------------
+function ServerData_Dragons:isSameDid(doid_a, doid_b)
+    if (not doid_a) or (not doid_b) then
+        return false
+    end
+
+    local t_dragon_data = self:getDragonDataFromUidRef(doid_a)
+    local did_a = t_dragon_data:getDid()
+    
+    t_dragon_data = self:getDragonDataFromUidRef(doid_b)
+    local did_b = t_dragon_data:getDid()
+
+    return (did_a == did_b)
+end
+
+-------------------------------------
 -- function request_dragonLock
 -------------------------------------
 function ServerData_Dragons:request_dragonLock(doids, soids, lock, cb_func)

@@ -500,16 +500,10 @@ function UI_ReadyScene_Deck:checkSameDid(idx, doid)
         return false
     end
 
-    local t_dragon_data = g_dragonsData:getDragonDataFromUidRef(doid)
-    local did = t_dragon_data:getDid()
-    
-    local e_did 
     local e_t_dragon_data
     for e_idx, e_doid in pairs(self.m_lDeckList) do
-        e_t_dragon_data = g_dragonsData:getDragonDataFromUidRef(e_doid)
-        e_did = e_t_dragon_data:getDid()
         -- 같은 did면서 idx가 다른 경우 (해제되는 드래곤과 새로 추가되는 드래곤은 같아도 됨)
-        if (e_did == did) and (e_idx ~= idx) then
+        if (g_dragonsData:isSameDid(doid, e_doid)) and (idx ~= e_idx) then
             return true
         end
     end

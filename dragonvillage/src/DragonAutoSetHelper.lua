@@ -108,12 +108,12 @@ function DragonAutoSetHelper:getAutoDeck()
         local l_temp = self.m_lDragonPool
         self.m_lDragonPool = {}
 
-        for i=1, 4 do
-            if (not l_temp[i]) then
-                break
+        -- 전투력 상위 4마리를 뽑되 동종동속성은 배제
+        while ((table.count(self.m_lDragonPool) < 4) or (table.count(l_temp) > 0)) do
+            if (not self:checkSameDid(l_temp[1], self.m_lDragonPool)) then
+                table.insert(self.m_lDragonPool, l_temp[1])
             end
-
-            table.insert(self.m_lDragonPool, l_temp[i])
+            table.remove(l_temp, 1)
         end
     end
 
@@ -176,6 +176,19 @@ function DragonAutoSetHelper:getAutoDeck()
 
     local l_ret = self:makeDeckTable(l_location_info, l_tanker, l_dealer, l_supporter)
     return l_ret
+end
+
+-------------------------------------
+-- function checkSameDid
+-------------------------------------
+function DragonAutoSetHelper:checkSameDid(t_dragon, l_dragon_list)
+    local did = t_dragon['did']
+    for _, t_dragon_x in pairs(l_dragon_list) do
+        if (did == t_dragon_x['did']) then
+            return true
+        end
+    end
+    return false 
 end
 
 -------------------------------------
