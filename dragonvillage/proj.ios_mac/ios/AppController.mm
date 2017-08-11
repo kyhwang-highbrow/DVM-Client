@@ -130,6 +130,7 @@ static AppDelegate s_sharedApplication;
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:YES sandbox:YES]) {
         [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
+        [[PerpleSDK sharedInstance] initGameCenterWithParentView:viewController];
     }
     [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
     [[PerpleSDK sharedInstance] initBilling];
