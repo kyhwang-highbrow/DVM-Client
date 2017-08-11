@@ -200,23 +200,36 @@ function DragonSkillIndivisualInfo:isActivated()
 end
 
 -------------------------------------
--- function getCoolTimeDesc
+-- function getCoolTime
 -- @brief 순수한 의미의 쿨타임..
 -------------------------------------
-function DragonSkillIndivisualInfo:getCoolTimeDesc()
+function DragonSkillIndivisualInfo:getCoolTime()
     local cooltime = self.m_tSkill['cooldown'] 
+
+    -- 예외처리
+    if (cooltime == '') then
+        return nil
+    elseif (cooltime == 999) then
+        return nil
+    elseif (cooltime == 0) then
+        return nil
+    elseif (cooltime == 1) then
+        return nil
+    end
+
+    return cooltime
+end
+
+-------------------------------------
+-- function getCoolTimeDesc
+-- @brief 쿨타임 표기용
+-------------------------------------
+function DragonSkillIndivisualInfo:getCoolTimeDesc()
+    local cooltime = self:getCoolTime()
 
     -- 텍스트 처리
     local desc
-    if (cooltime == '') then
-        desc = nil
-    elseif (cooltime == 999) then
-        desc = nil
-    elseif (cooltime == 0) then
-        desc = nil
-    elseif (cooltime == 1) then
-        desc = nil
-    else
+    if (cooltime) then
         desc = Str('{1}초', cooltime)
     end
 
