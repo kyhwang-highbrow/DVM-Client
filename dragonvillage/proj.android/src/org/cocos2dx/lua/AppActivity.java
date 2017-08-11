@@ -40,6 +40,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -401,6 +402,38 @@ public class AppActivity extends Cocos2dxActivity{
             .show();
     }
 
+    private static String getDeviceInfo() {
+        String info = "";
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("desc", Build.MANUFACTURER + " " + Build.MODEL + "(Android " + Build.VERSION.RELEASE + ", API " + Build.VERSION.SDK_INT + ")");
+            obj.put("OS_VERSION", System.getProperty("os.version"));
+            obj.put("VERSION_RELEASE", Build.VERSION.RELEASE);
+            obj.put("VERSION_INCREMENTAL", Build.VERSION.INCREMENTAL);
+            obj.put("VERSION_SDK_INT", Build.VERSION.SDK_INT);
+            obj.put("MANUFACTURER", Build.MANUFACTURER);
+            obj.put("DISPLAY", Build.DISPLAY);
+            obj.put("BRAND", Build.BRAND);
+            obj.put("BOARD", Build.BOARD);
+            obj.put("DEVICE", Build.DEVICE);
+            obj.put("FINGERPRINT", Build.FINGERPRINT);
+            obj.put("HARDWARE", Build.HARDWARE);
+            obj.put("HOST", Build.HOST);
+            obj.put("ID", Build.ID);
+            obj.put("MODEL", Build.MODEL);
+            obj.put("PRODUCT", Build.PRODUCT);
+            obj.put("SERIAL", Build.SERIAL);
+            obj.put("TAGS", Build.TAGS);
+            obj.put("TIME", Build.TIME);
+            obj.put("TYPE", Build.TYPE);
+            obj.put("USER", Build.USER);
+            info = obj.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return info;
+    }
+
     // Cpp(Native) -> Java (in UIThread(Main Thread))
     public static void sdkEvent(final String id, final String arg0, final String arg1) {
 
@@ -517,6 +550,12 @@ public class AppActivity extends Cocos2dxActivity{
 
                     String[] array = arg0.split(";");
                     appAlert(array[0], array[1]);
+
+                } else if (id.equals("app_deviceInfo")) {
+
+                    String info = getDeviceInfo();
+                    sdkEventResult(id, "success", info);
+
                 }
             }
         });
