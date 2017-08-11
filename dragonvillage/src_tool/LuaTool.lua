@@ -55,7 +55,7 @@ end
 -- RemoveDirectory
 -- @brief 디렉토리 및 하위 파일 전부 삭제
 -------------------------------------
-function RemoveDirectory(dir)
+function RemoveDirectory(dir, leave_top_dir)
     for file in lfs.dir(dir) do
         local file_path = dir..'\\'..file
         if (file ~= ".") and (file ~= "..") then
@@ -77,8 +77,10 @@ function RemoveDirectory(dir)
     end
 
     -- 최상위 디렉토리 삭제, 파일이 있다면 삭제가 되지 않는다.
-    lfs.rmdir(dir)
-    print('remove dir', dir)
+    if (not leave_top_dir) then
+        lfs.rmdir(dir)
+        print('remove dir', dir)
+    end
 end
 
 -------------------------------------

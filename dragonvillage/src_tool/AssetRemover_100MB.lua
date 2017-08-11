@@ -42,6 +42,8 @@ end
 function AssetRemover_100MB:removeFor100MB()
     cclog('##### AssetRemover_100MB:removeFor100MB')
 
+    RemoveDirectory(TARGET_PATH .. '\\sound', 'leave')
+
     RemoveDirectory(TARGET_PATH .. '\\res\\bg')
     RemoveDirectory(TARGET_PATH .. '\\res\\effect')
     RemoveDirectory(TARGET_PATH .. '\\res\\lobby')
