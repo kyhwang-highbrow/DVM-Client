@@ -197,20 +197,6 @@ function SceneGame:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
 
-    if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
-        SoundMgr:playBGM('bgm_dungeon_special')
-	
-	elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
-		SoundMgr:playBGM('bgm_dungeon_special')
-
-	elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-		SoundMgr:playBGM('bgm_dungeon_special')
-
-    else
-        SoundMgr:playBGM('bgm_dungeon')
-
-    end
-
     self.m_inGameUI = UI_Game(self)
     self.m_resPreloadMgr = ResPreloadMgr()
 
@@ -265,6 +251,20 @@ end
 -------------------------------------
 function SceneGame:prepareDone()
     local function start()
+        -- scenario 종료후 사운드 재생
+        if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+            SoundMgr:playBGM('bgm_dungeon_special')
+	
+	    elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
+		    SoundMgr:playBGM('bgm_dungeon_special')
+
+	    elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+		    SoundMgr:playBGM('bgm_dungeon_special')
+
+        else
+            SoundMgr:playBGM('bgm_dungeon')
+        end
+
         self.m_containerLayer:setVisible(true)
         self.m_scheduleNode = cc.Node:create()
         self.m_scene:addChild(self.m_scheduleNode)

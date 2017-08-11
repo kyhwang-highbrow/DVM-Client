@@ -681,7 +681,6 @@ end
 -- @brief itemUI들을 정렬한다!
 -------------------------------------
 function UI_Game:arrangeItemUI(l_hottime)
-    ccdump(l_hottime)
     for i, ui_name in pairs(l_hottime) do
         local ui = self.vars[ui_name]
 
