@@ -9,8 +9,10 @@ UI_IngameDragonInfo = class(PARENT, {})
 -- function init
 -------------------------------------
 function UI_IngameDragonInfo:init(unit)
-    unit:addListener('dragon_skill_gauge', self)
-    unit:addListener('character_dead', self)
+    if (unit.m_bLeftFormation) then
+        unit:addListener('dragon_skill_gauge', self)
+        unit:addListener('character_dead', self)
+    end
 end
 
 -------------------------------------
