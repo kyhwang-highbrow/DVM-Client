@@ -528,7 +528,7 @@ function UI_FriendDragonCard(t_dragon_data)
 
     -- 쿨타임 추가 - 중앙
     if (not use_enable) then
-        local sprite = cc.Sprite:createWithSpriteFrameName('character_card_bg.png')
+        local sprite = cc.Sprite:createWithSpriteFrameName('card_cha_frame_disable.png')
         sprite:setDockPoint(CENTER_POINT)
         sprite:setAnchorPoint(CENTER_POINT)
         sprite:setOpacity(150)
