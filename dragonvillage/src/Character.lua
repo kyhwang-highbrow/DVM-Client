@@ -1923,11 +1923,8 @@ end
 -- function getName
 -------------------------------------
 function Character:getName()
-	if (self.m_charTable) 
-	and (self.m_charTable['t_name']) then 
+	if (self.m_charTable and self.m_charTable['t_name']) then 
 		return self.m_charTable['t_name']
-	else
-		return '까미'
 	end
 end
 

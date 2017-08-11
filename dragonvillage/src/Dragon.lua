@@ -461,6 +461,7 @@ function Dragon:updateActiveSkillCool(dt)
     if (self.m_bLeftFormation) then
 	    local t_event = clone(EVENT_DRAGON_SKILL_GAUGE)
 	    t_event['owner'] = self
+        t_event['cool_time'] = self.m_activeSkillCoolTimer
 	    t_event['percentage'] = (self.m_activeSkillCoolTime - self.m_activeSkillCoolTimer) / self.m_activeSkillCoolTime * 100
         
         if (self.m_bLeftFormation) then

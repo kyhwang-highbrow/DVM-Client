@@ -334,6 +334,10 @@ function GameWorldColosseum:makeEnemyDeck()
                 -- 진형 버프 적용
                 enemy.m_statusCalc:applyFormationBonus(formation, i)
 
+                -- 스테이지 버프 적용
+                enemy.m_statusCalc:applyStageBonus(self.m_stageID)
+                enemy:setStatusCalc(enemy.m_statusCalc)
+
                 -- 리더 등록
 				if (i == leader) then
 					self.m_leaderEnemy = hero

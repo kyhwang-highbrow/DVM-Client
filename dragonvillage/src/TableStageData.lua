@@ -19,9 +19,16 @@ end
 -------------------------------------
 -- function getStageBuff
 -------------------------------------
-function TableStageData:getStageBuff(stage_id, key)
+function TableStageData:getStageBuff(stage_id, is_enemy)
     if (self == THIS) then
         self = THIS()
+    end
+
+    local key
+    if (is_enemy) then
+        key = 'enemy'
+    else
+        key = 'user'
     end
 
     local str = self:getValue(tonumber(stage_id), 'buff_' .. key)
@@ -53,18 +60,4 @@ function TableStageData:getStageBuff(stage_id, key)
     end
 
     return l_ret
-end
-
--------------------------------------
--- function getStageHeroBuff
--------------------------------------
-function TableStageData:getStageHeroBuff(stage_id)
-    return self:getStageBuff(stage_id, 'user')
-end
-
--------------------------------------
--- function getStageEnemyBuff
--------------------------------------
-function TableStageData:getStageEnemyBuff(stage_id)
-    return self:getStageBuff(stage_id, 'enemy')
 end

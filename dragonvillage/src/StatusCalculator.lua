@@ -203,15 +203,22 @@ end
 -- @brief 스테이지 보너스 적용
 -------------------------------------
 function StatusCalculator:applyStageBonus(stage_id, is_enemy)
-    if (stage_id == COLOSSEUM_STAGE_ID) then return end
-
     local t_info
 
-    if (is_enemy) then
-        t_info = TableStageData():getStageEnemyBuff(stage_id)
+    if (stage_id == COLOSSEUM_STAGE_ID) then
+        -- 콜로세움에서는 아군과 적군의 체력을 3배로
+        t_info = {
+            {
+                condition_type = 'all',
+                condition_value = 0,
+                buff_type = 'hp_multi',
+                buff_value = 300
+            }
+        }
     else
-        t_info = TableStageData():getStageHeroBuff(stage_id)
+        t_info = TableStageData():getStageBuff(stage_id, is_enemy)
     end
+
     if (not t_info) then return end
     
     local t_char = self.m_charTable[self.m_chapterID]

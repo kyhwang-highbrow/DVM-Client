@@ -13,7 +13,9 @@ UI_IngameDragonPanelItem = class(PARENT, {
 
         m_hp = 'number',
         m_maxHP = 'number',
-        m_skillGaugePercentage = 'number',
+
+        m_skillCoolTime = 'number',         -- 스킬 재사용 대기 시간(초)
+        m_skillGaugePercentage = 'number',  -- 스킬 재사용 대기 시간(%)
 
         m_bPossibleControl = 'boolean',
 
@@ -30,6 +32,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     self.m_dragon = dragon
     self.m_dragonIdx = dragon_idx
     self.m_bPossibleControl = nil
+    self.m_skillCoolTime = 0
 	self.m_skillGaugePercentage = 0
 
     local skill_id = dragon:getSkillID('active')
@@ -159,7 +162,7 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
 
     -- 드래곤 드래그 스킬 게이지 변경 Event
     elseif (event_name == 'dragon_skill_gauge') then
-        self:refreshSkillGauge(t_event['percentage'], t_event['enough_mana'])
+        self:refreshSkillGauge(t_event['cool_time'], t_event['percentage'], t_event['enough_mana'])
 
     elseif (event_name == 'touch_began') then
         self:onTouchBegan(t_event)
@@ -230,7 +233,7 @@ end
 -- function refreshSkillGauge
 -- @brief 드래곤 드래그 스킬 쿨타임 갱신
 -------------------------------------
-function UI_IngameDragonPanelItem:refreshSkillGauge(percentage, enough_mana)
+function UI_IngameDragonPanelItem:refreshSkillGauge(cool_time, percentage, enough_mana)
     local vars = self.vars
 
 	-- 액티브가 없다면 갱신하지 않음
@@ -242,7 +245,14 @@ function UI_IngameDragonPanelItem:refreshSkillGauge(percentage, enough_mana)
         return
     end
     
+    self.m_skillCoolTime = math_floor(cool_time)
     self.m_skillGaugePercentage = percentage
+
+    if (cool_time > 0) then
+        vars['cooltimeLabel']:setString(self.m_skillCoolTime)
+    else
+        vars['cooltimeLabel']:setString('')
+    end
 
     vars['skillGaugeVisual']:setAnimationPause(true)
     vars['skillGaugeVisual']:setFrame(percentage)
@@ -293,8 +303,8 @@ function UI_IngameDragonPanelItem:setPossibleControl(possible)
     if possible then
         local enough_mana = (self.m_dragon.m_activeSkillManaCost <= self.m_world.m_heroMana:getCurrMana())
 
-        self:refreshSkillGauge(self.m_skillGaugePercentage, enough_mana)
+        self:refreshSkillGauge(self.m_skillCoolTime, self.m_skillGaugePercentage, enough_mana)
     else
-        self:refreshSkillGauge(self.m_skillGaugePercentage, false)
+        self:refreshSkillGauge(self.m_skillCoolTime, self.m_skillGaugePercentage, false)
     end
 end

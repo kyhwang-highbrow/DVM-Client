@@ -136,7 +136,7 @@ function GameAuto:doCheck()
         totalHp = unit.m_hp
         totalMaxHp = unit.m_maxHp
 
-        if ((unit.m_hp / unit.m_maxHp) <= 0.3) then
+        if ((unit.m_hp / unit.m_maxHp) < 0.5) then
             nextState = TEAM_STATE.DANGER
             break
 
