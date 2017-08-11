@@ -198,7 +198,7 @@ function SkillCharge:doChargeAttack(defender, body_key)
     end
 
 	-- 최대 공격수 도달했다면 원속으로 복귀
-	if (self.m_tAttackCount[defender][body_key] > self.m_maxAttackCount) then 
+	if (self.m_tAttackCount[defender][body_key] >= self.m_maxAttackCount) then 
 		return 
 	end
 	-- 공격 간격 설정

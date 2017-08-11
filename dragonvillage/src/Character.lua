@@ -2291,6 +2291,12 @@ function Character:getStat(stat_type)
 	if (self.m_charType == 'tamer') then
 		return 0
 	end
+
+    if (not self.m_statusCalc) then
+        self:printAllInfomation()
+        error('statusCalc is nil')
+    end
+
 	return self.m_statusCalc:getFinalStat(stat_type)
 end
 
