@@ -56,8 +56,13 @@ function UI_DragonManageInfo:initUI()
 
     -- 드래곤 정보 보드 생성
     self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
-    self.m_dragonInfoBoardUI.vars['equipmentBtn']:setVisible(true)
-    self.m_dragonInfoBoardUI.vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
+
+    if IS_TEST_MODE() then
+        self.m_dragonInfoBoardUI.vars['equipmentBtn']:setVisible(true)
+        self.m_dragonInfoBoardUI.vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
+    else
+        self.m_dragonInfoBoardUI.vars['equipmentBtn']:setVisible(false)
+    end
     self.vars['infoNode']:addChild(self.m_dragonInfoBoardUI.root)
     --self.root:addChild(self.m_dragonInfoBoardUI.root)
     -- @TODO77

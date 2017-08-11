@@ -65,14 +65,22 @@ end
 -- function initTab
 -------------------------------------
 function UI_Setting:initTab()
+    local vars = self.vars
+
     local tab_list = {}
     table.insert(tab_list, 'game')
     table.insert(tab_list, 'account')
     table.insert(tab_list, 'alarm')
     table.insert(tab_list, 'info')
-    table.insert(tab_list, 'dev')
-
-    local vars = self.vars
+    
+    if IS_TEST_MODE() then
+        table.insert(tab_list, 'dev')
+        vars['devBtn']:setVisible(true)
+    else
+        vars['devBtn']:setVisible(false)
+        vars['devMenu']:setVisible(false)
+    end
+    
     for i,v in ipairs(tab_list) do
         local key = v
         local btn = vars[v .. 'Btn']
