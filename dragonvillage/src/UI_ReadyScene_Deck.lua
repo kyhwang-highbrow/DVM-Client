@@ -438,6 +438,12 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
         end
     end
 
+    -- 동종 동속성의 드래곤 제외
+    if (self:checkSameDid(idx, doid)) then
+        UIManager:toastNotificationRed('같은 드래곤은 동시에 출전할 수 없습니다.')
+        return false
+    end
+
     -- 친구 드래곤 슬롯 세팅 조건
     if (not g_friendData:checkSetSlotCondition(doid)) then
         return false
@@ -483,6 +489,32 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
 
     self:setDirtyDeck()
     return true
+end
+
+-------------------------------------
+-- function checkSameDid
+-- @brief 동종 동속성 드래곤 검사!
+-------------------------------------
+function UI_ReadyScene_Deck:checkSameDid(idx, doid)
+    if (not doid) then
+        return false
+    end
+
+    local t_dragon_data = g_dragonsData:getDragonDataFromUidRef(doid)
+    local did = t_dragon_data:getDid()
+    
+    local e_did 
+    local e_t_dragon_data
+    for e_idx, e_doid in pairs(self.m_lDeckList) do
+        e_t_dragon_data = g_dragonsData:getDragonDataFromUidRef(e_doid)
+        e_did = e_t_dragon_data:getDid()
+        -- 같은 did면서 idx가 다른 경우 (해제되는 드래곤과 새로 추가되는 드래곤은 같아도 됨)
+        if (e_did == did) and (e_idx ~= idx) then
+            return true
+        end
+    end
+
+    return false
 end
 
 -------------------------------------
