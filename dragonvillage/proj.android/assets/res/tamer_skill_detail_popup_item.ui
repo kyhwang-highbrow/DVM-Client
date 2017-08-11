@@ -119,7 +119,7 @@
 			[5] =
 			{
 				type = 'LabelTTF';
-				ui_name = '';
+				ui_name = 'rich';
 				x = 0.000000;
 				y = -68.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -137,7 +137,7 @@
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
 				text = 'skillDscLabel';
-				h_alignment = 1;
+				h_alignment = 0;
 				v_alignment = 0;
 				color = { 161; 125; 93; };
 				opacity = 255;

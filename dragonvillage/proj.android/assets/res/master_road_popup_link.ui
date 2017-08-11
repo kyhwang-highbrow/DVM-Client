@@ -28,29 +28,6 @@
 		};
 		[2] =
 		{
-			type = 'Node';
-			ui_name = '';
-			x = -352.000000;
-			y = -127.999985;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			action_type = 4;
-			action_delay_1 = 0.100000;
-			action_delay_2 = 0.000000;
-			action_duration = 0.500000;
-			lua_name = 'npcNode';
-		};
-		[3] =
-		{
 			[1] =
 			{
 				type = 'Scale9Sprite';
@@ -59,9 +36,9 @@
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 500;
-				height = 350;
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -88,8 +65,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 50;
+					width = 190;
+					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -98,14 +75,14 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 28;
 					text = '바로가기';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 106;
-					dimension_height = 50;
+					dimension_width = 190;
+					dimension_height = 60;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -121,13 +98,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 100.000000;
-				y = -120.000000;
-				dock_point = { 0.500000; 0.500000; };
+				x = 162.000000;
+				y = 50.000000;
+				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 180;
-				height = 60;
+				width = 200;
+				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -152,8 +129,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 50;
+					width = 190;
+					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -162,14 +139,14 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
-					text = '다음';
+					font_size = 28;
+					text = '나중에 하기';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 106;
-					dimension_height = 50;
+					dimension_width = 190;
+					dimension_height = 60;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -185,13 +162,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -100.000000;
-				y = -120.000000;
-				dock_point = { 0.500000; 0.500000; };
+				x = -58.000000;
+				y = 50.000000;
+				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 180;
-				height = 60;
+				width = 200;
+				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -209,13 +186,13 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 0.000000;
-				y = 30.000000;
+				x = 52.000000;
+				y = 38.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 310;
-				height = 200;
+				width = 484;
+				height = 210;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -230,8 +207,8 @@
 				v_alignment = 1;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 310;
-				dimension_height = 200;
+				dimension_width = 484;
+				dimension_height = 210;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -247,13 +224,13 @@
 			};
 			type = 'Menu';
 			ui_name = '';
-			x = 214.000000;
+			x = 140.000000;
 			y = 55.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 500;
-			height = 350;
+			width = 770;
+			height = 340;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -265,6 +242,29 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = '';
+		};
+		[3] =
+		{
+			type = 'Node';
+			ui_name = '';
+			x = -352.000000;
+			y = -127.999985;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			action_type = 4;
+			action_delay_1 = 0.100000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
+			lua_name = 'npcNode';
 		};
 		type = 'Menu';
 		ui_name = '';

@@ -21,7 +21,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'bg/ui/dragon_evolution_result/dragon_evolution_result.vrp';
+			file_name = 'bg/ui/master_road/master_road.vrp';
 			auto_play = true;
 			is_repeat = true;
 			visual_id = 'group;idle';
@@ -29,29 +29,6 @@
 			opacity = 255;
 		};
 		[2] =
-		{
-			type = 'LayerColor';
-			ui_name = '';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 3;
-			width = 0;
-			height = 0;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-			color = { 0; 0; 0; };
-			opacity = 100;
-			src_blend = 770;
-			dest_blend = 771;
-		};
-		[3] =
 		{
 			[1] =
 			{
@@ -84,12 +61,12 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -14.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 402;
-				height = 272;
+				width = 420;
+				height = 960;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -97,9 +74,9 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frames/base_frame_0201.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
-				opacity = 150;
+				opacity = 255;
 				center_rect_x = 0;
 				center_rect_y = 0;
 				center_rect_width = 0;
@@ -116,7 +93,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 230;
+					width = 374;
 					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -132,17 +109,17 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 230;
+					dimension_width = 374;
 					dimension_height = 60;
 					letter_spacing = 0.000000;
-					has_stroke = false;
+					has_stroke = true;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 96; 50; 29; };
+					stroke_color = { 0; 0; 0; };
 					has_shadow = true;
-					shadow_color = { 96; 50; 29; };
+					shadow_color = { 0; 0; 0; };
 					shadow_opacity = 100;
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
@@ -223,7 +200,7 @@
 				visible = true;
 				lua_name = 'infoLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '다른 차원의 세상에서 넘어온 모험가';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -232,14 +209,14 @@
 				dimension_width = 360;
 				dimension_height = 186;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 96; 50; 29; };
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 96; 50; 29; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 100;
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
@@ -260,7 +237,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				file_name = 'ui/frames/title_frame_0101.png';
 				color = { 255; 255; 255; };
@@ -272,10 +249,36 @@
 			};
 			[7] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 264.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 428;
+				height = 86;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frames/master_road_title.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[8] =
+			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 270.000000;
+				y = 264.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -310,12 +313,12 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[8] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 2.000000;
+				y = 17.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -329,8 +332,8 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 28;
-				text = '스킬';
+				font_size = 24;
+				text = '보유 스킬';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 155; 126; 82; };
@@ -338,24 +341,24 @@
 				dimension_width = 382;
 				dimension_height = 56;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 96; 50; 29; };
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 96; 50; 29; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 100;
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[9] =
+			[10] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -100.000000;
-				y = -88.000000;
+				y = -73.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -369,12 +372,12 @@
 				visible = true;
 				lua_name = 'skillNode1';
 			};
-			[10] =
+			[11] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -88.000000;
+				y = -73.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -388,12 +391,12 @@
 				visible = true;
 				lua_name = 'skillNode2';
 			};
-			[11] =
+			[12] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 100.000000;
-				y = -88.000000;
+				y = -73.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -406,6 +409,29 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'skillNode3';
+			};
+			[13] =
+			{
+				type = 'LayerColor';
+				ui_name = '';
+				x = 0.000000;
+				y = 50.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 300;
+				height = 1;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				color = { 211; 164; 126; };
+				opacity = 100;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';
@@ -424,7 +450,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[4] =
+		[3] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -443,26 +469,26 @@
 			visible = true;
 			lua_name = 'dragonNode';
 		};
-		[5] =
+		[4] =
 		{
 			type = 'Node';
 			ui_name = '';
 			x = -82.000000;
-			y = -169.000000;
+			y = -230.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 100;
 			height = 100;
-			scale_x = 1.500000;
-			scale_y = 1.500000;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
 			lua_name = 'tamerNode';
 		};
-		[6] =
+		[5] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -481,7 +507,7 @@
 			visible = true;
 			lua_name = 'profileNode1';
 		};
-		[7] =
+		[6] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -500,7 +526,7 @@
 			visible = true;
 			lua_name = 'profileNode2';
 		};
-		[8] =
+		[7] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -524,7 +550,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[9] =
+		[8] =
 		{
 			type = 'Button';
 			ui_name = '';

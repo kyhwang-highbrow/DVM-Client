@@ -1,83 +1,83 @@
 
 common_blowshark_earth.png
-size: 512,128
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 common_blowshark_earth_arm_01
   rotate: false
-  xy: 310, 34
-  size: 30, 29
-  orig: 30, 29
+  xy: 440, 452
+  size: 60, 58
+  orig: 60, 58
   offset: 0, 0
   index: -1
 common_blowshark_earth_body_01
   rotate: false
-  xy: 2, 2
-  size: 121, 104
-  orig: 121, 104
+  xy: 2, 302
+  size: 242, 208
+  orig: 242, 208
   offset: 0, 0
   index: -1
 common_blowshark_earth_body_02
   rotate: false
-  xy: 391, 70
-  size: 28, 36
-  orig: 28, 36
+  xy: 68, 18
+  size: 56, 72
+  orig: 56, 72
   offset: 0, 0
   index: -1
 common_blowshark_earth_body_03
   rotate: false
-  xy: 459, 77
-  size: 32, 29
-  orig: 32, 29
+  xy: 368, 376
+  size: 64, 58
+  orig: 64, 58
   offset: 0, 0
   index: -1
 common_blowshark_earth_body_04
-  rotate: true
-  xy: 294, 3
-  size: 29, 30
-  orig: 29, 30
+  rotate: false
+  xy: 126, 30
+  size: 58, 60
+  orig: 58, 60
   offset: 0, 0
   index: -1
 common_blowshark_earth_body_07
   rotate: false
-  xy: 125, 2
-  size: 121, 104
-  orig: 121, 104
+  xy: 2, 92
+  size: 242, 208
+  orig: 242, 208
   offset: 0, 0
   index: -1
 common_blowshark_earth_effect_01
   rotate: false
-  xy: 248, 38
-  size: 60, 68
-  orig: 60, 68
+  xy: 246, 374
+  size: 120, 136
+  orig: 120, 136
   offset: 0, 0
   index: -1
 common_blowshark_earth_eye_01
   rotate: false
-  xy: 421, 80
-  size: 36, 26
-  orig: 36, 26
+  xy: 246, 236
+  size: 72, 52
+  orig: 72, 52
   offset: 0, 0
   index: -1
 common_blowshark_earth_eye_02
-  rotate: false
-  xy: 248, 4
-  size: 44, 32
-  orig: 44, 32
+  rotate: true
+  xy: 2, 2
+  size: 88, 64
+  orig: 88, 64
   offset: 0, 0
   index: -1
 common_blowshark_earth_horn_01
   rotate: false
-  xy: 310, 65
-  size: 42, 41
-  orig: 42, 41
+  xy: 246, 290
+  size: 84, 82
+  orig: 84, 82
   offset: 0, 0
   index: -1
 common_blowshark_earth_mouth_01
   rotate: false
-  xy: 354, 69
-  size: 35, 37
-  orig: 35, 37
+  xy: 368, 436
+  size: 70, 74
+  orig: 70, 74
   offset: 0, 0
   index: -1

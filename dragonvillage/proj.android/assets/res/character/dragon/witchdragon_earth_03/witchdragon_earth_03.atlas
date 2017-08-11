@@ -4,191 +4,191 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-wichdragon_earth_3_body_1
+witchdragon_earth_3_body_1
   rotate: true
-  xy: 598, 736
+  xy: 599, 737
   size: 168, 260
   orig: 168, 260
   offset: 0, 0
   index: -1
-wichdragon_earth_3_cape_1
+witchdragon_earth_3_cape_1
   rotate: false
-  xy: 223, 195
+  xy: 224, 196
   size: 122, 168
   orig: 122, 168
   offset: 0, 0
   index: -1
-wichdragon_earth_3_cape_2
+witchdragon_earth_3_cape_2
   rotate: false
-  xy: 223, 37
+  xy: 224, 38
   size: 123, 156
   orig: 123, 156
   offset: 0, 0
   index: -1
-wichdragon_earth_3_earring_1
+witchdragon_earth_3_earring_1
   rotate: false
-  xy: 979, 994
+  xy: 980, 995
   size: 15, 26
   orig: 15, 26
   offset: 0, 0
   index: -1
-wichdragon_earth_3_eff_1
+witchdragon_earth_3_eff_1
   rotate: false
-  xy: 1, 365
+  xy: 2, 366
   size: 328, 277
   orig: 328, 277
   offset: 0, 0
   index: -1
-wichdragon_earth_3_eff_2
+witchdragon_earth_3_eff_2
   rotate: false
-  xy: 1, 644
+  xy: 2, 645
   size: 361, 376
   orig: 361, 376
   offset: 0, 0
   index: -1
-wichdragon_earth_3_eff_3
+witchdragon_earth_3_eff_3
   rotate: false
-  xy: 604, 598
+  xy: 605, 599
   size: 118, 136
   orig: 118, 136
   offset: 0, 0
   index: -1
-wichdragon_earth_3_eff_4
+witchdragon_earth_3_eff_4
   rotate: false
-  xy: 331, 386
+  xy: 332, 387
   size: 149, 155
   orig: 149, 155
   offset: 0, 0
   index: -1
-wichdragon_earth_3_eff_5
+witchdragon_earth_3_eff_5
   rotate: false
-  xy: 1, 103
+  xy: 2, 104
   size: 220, 260
   orig: 220, 260
   offset: 0, 0
   index: -1
-wichdragon_earth_3_eye_1
+witchdragon_earth_3_eye_1
   rotate: false
-  xy: 830, 603
+  xy: 831, 604
   size: 64, 49
   orig: 64, 49
   offset: 0, 0
   index: -1
-wichdragon_earth_3_ghost_1
+witchdragon_earth_3_ghost_1
   rotate: false
-  xy: 485, 260
+  xy: 486, 261
   size: 92, 127
   orig: 92, 127
   offset: 0, 0
   index: -1
-wichdragon_earth_3_ghost_2
+witchdragon_earth_3_ghost_2
   rotate: false
-  xy: 348, 99
+  xy: 349, 100
   size: 122, 136
   orig: 122, 136
   offset: 0, 0
   index: -1
-wichdragon_earth_3_ghost_3
+witchdragon_earth_3_ghost_3
   rotate: false
-  xy: 1, 1
+  xy: 2, 2
   size: 135, 100
   orig: 135, 100
   offset: 0, 0
   index: -1
-wichdragon_earth_3_hair_1
+witchdragon_earth_3_hair_1
   rotate: true
-  xy: 604, 546
+  xy: 605, 547
   size: 50, 92
   orig: 50, 92
   offset: 0, 0
   index: -1
-wichdragon_earth_3_hair_2
+witchdragon_earth_3_hair_2
   rotate: true
-  xy: 347, 237
+  xy: 348, 238
   size: 147, 136
   orig: 147, 136
   offset: 0, 0
   index: -1
-wichdragon_earth_3_hair_3
+witchdragon_earth_3_hair_3
   rotate: false
-  xy: 830, 654
+  xy: 831, 655
   size: 77, 80
   orig: 77, 80
   offset: 0, 0
   index: -1
-wichdragon_earth_3_head_1
+witchdragon_earth_3_head_1
   rotate: false
-  xy: 364, 543
+  xy: 365, 544
   size: 157, 150
   orig: 157, 150
   offset: 0, 0
   index: -1
-wichdragon_earth_3_leg_1
+witchdragon_earth_3_leg_1
   rotate: false
-  xy: 523, 550
+  xy: 524, 551
   size: 79, 143
   orig: 79, 143
   offset: 0, 0
   index: -1
-wichdragon_earth_3_leg_2
+witchdragon_earth_3_leg_2
   rotate: false
-  xy: 482, 389
+  xy: 483, 390
   size: 66, 152
   orig: 66, 152
   offset: 0, 0
   index: -1
-wichdragon_earth_3_leg_3
+witchdragon_earth_3_leg_3
   rotate: true
-  xy: 348, 29
+  xy: 349, 30
   size: 68, 109
   orig: 68, 109
   offset: 0, 0
   index: -1
-wichdragon_earth_3_leg_4
+witchdragon_earth_3_leg_4
   rotate: false
-  xy: 724, 609
+  xy: 725, 610
   size: 104, 125
   orig: 104, 125
   offset: 0, 0
   index: -1
-wichdragon_earth_3_magic_1
+witchdragon_earth_3_magic_1
   rotate: false
-  xy: 364, 906
+  xy: 365, 907
   size: 465, 114
   orig: 465, 114
   offset: 0, 0
   index: -1
-wichdragon_earth_3_tail_1
+witchdragon_earth_3_tail_1
   rotate: false
-  xy: 831, 916
+  xy: 832, 917
   size: 146, 104
   orig: 146, 104
   offset: 0, 0
   index: -1
-wichdragon_earth_3_tailring_1
+witchdragon_earth_3_tailring_1
   rotate: false
-  xy: 550, 485
+  xy: 551, 486
   size: 47, 63
   orig: 47, 63
   offset: 0, 0
   index: -1
-wichdragon_earth_3_thing_1
+witchdragon_earth_3_thing_1
   rotate: false
-  xy: 138, 12
+  xy: 139, 13
   size: 76, 89
   orig: 76, 89
   offset: 0, 0
   index: -1
-wichdragon_earth_3_wing_1
+witchdragon_earth_3_wing_1
   rotate: false
-  xy: 364, 695
+  xy: 365, 696
   size: 232, 209
   orig: 232, 209
   offset: 0, 0
   index: -1
-wichdragon_earth_3_wing_2
+witchdragon_earth_3_wing_2
   rotate: false
-  xy: 860, 752
+  xy: 861, 753
   size: 118, 162
   orig: 118, 162
   offset: 0, 0

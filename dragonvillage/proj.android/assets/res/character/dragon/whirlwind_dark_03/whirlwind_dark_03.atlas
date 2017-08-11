@@ -1,201 +1,271 @@
 
 whirlwind_dark_03.png
-size: 1024,1024
+size: 2048,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 whirlwind_dark_03_arm_01
   rotate: true
-  xy: 285, 797
+  xy: 648, 28
   size: 64, 97
   orig: 64, 97
   offset: 0, 0
   index: -1
+whirlwind_dark_03_arm_01_01
+  rotate: false
+  xy: 838, 146
+  size: 95, 90
+  orig: 95, 90
+  offset: 0, 0
+  index: -1
 whirlwind_dark_03_arm_02
-  rotate: true
-  xy: 241, 196
+  rotate: false
+  xy: 844, 51
   size: 75, 93
   orig: 75, 93
   offset: 0, 0
   index: -1
 whirlwind_dark_03_body_01
-  rotate: false
-  xy: 160, 230
+  rotate: true
+  xy: 1293, 315
   size: 79, 155
   orig: 79, 155
   offset: 0, 0
   index: -1
 whirlwind_dark_03_body_02
-  rotate: false
-  xy: 2, 59
-  size: 126, 155
-  orig: 126, 155
-  offset: 0, 0
-  index: -1
-whirlwind_dark_03_body_03
-  rotate: false
-  xy: 159, 640
+  rotate: true
+  xy: 2, 2
   size: 126, 155
   orig: 126, 155
   offset: 0, 0
   index: -1
 whirlwind_dark_03_body_04
-  rotate: true
-  xy: 2, 382
-  size: 192, 155
-  orig: 192, 155
+  rotate: false
+  xy: 2, 354
+  size: 341, 155
+  orig: 341, 155
   offset: 0, 0
   index: -1
 whirlwind_dark_03_body_05
   rotate: false
-  xy: 159, 387
+  xy: 1590, 298
   size: 113, 96
   orig: 113, 96
   offset: 0, 0
   index: -1
+whirlwind_dark_03_effect_01
+  rotate: false
+  xy: 796, 396
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_dark_03_effect_02
+  rotate: false
+  xy: 1706, 396
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_dark_03_effect_03
+  rotate: false
+  xy: 1876, 396
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_dark_03_effect_04
+  rotate: false
+  xy: 159, 24
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_dark_03_effect_05
+  rotate: false
+  xy: 968, 281
+  size: 168, 113
+  orig: 168, 113
+  offset: 0, 0
+  index: -1
+whirlwind_dark_03_effect_06
+  rotate: false
+  xy: 978, 396
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_dark_03_effect_07
+  rotate: false
+  xy: 1160, 396
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_dark_03_effect_08
+  rotate: false
+  xy: 1342, 396
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_dark_03_effect_09
+  rotate: false
+  xy: 1524, 396
+  size: 180, 113
+  orig: 180, 113
+  offset: 0, 0
+  index: -1
+whirlwind_dark_03_effect_10
+  rotate: false
+  xy: 159, 139
+  size: 150, 213
+  orig: 150, 213
+  offset: 0, 0
+  index: -1
 whirlwind_dark_03_eye_01
   rotate: true
-  xy: 2, 4
+  xy: 1293, 260
   size: 53, 59
   orig: 53, 59
   offset: 0, 0
   index: -1
 whirlwind_dark_03_hand_01
-  rotate: true
-  xy: 221, 119
-  size: 75, 93
-  orig: 75, 93
+  rotate: false
+  xy: 747, 26
+  size: 95, 90
+  orig: 95, 90
   offset: 0, 0
   index: -1
 whirlwind_dark_03_hand_02
-  rotate: false
-  xy: 530, 802
+  rotate: true
+  xy: 1067, 204
   size: 75, 62
   orig: 75, 62
   offset: 0, 0
   index: -1
 whirlwind_dark_03_head_01
-  rotate: true
-  xy: 130, 103
+  rotate: false
+  xy: 1819, 305
   size: 111, 89
   orig: 111, 89
   offset: 0, 0
   index: -1
 whirlwind_dark_03_head_02
-  rotate: false
-  xy: 384, 790
-  size: 71, 71
-  orig: 71, 71
-  offset: 0, 0
-  index: -1
-whirlwind_dark_03_head_03
-  rotate: false
-  xy: 382, 717
-  size: 73, 71
-  orig: 73, 71
+  rotate: true
+  xy: 1932, 315
+  size: 79, 110
+  orig: 79, 110
   offset: 0, 0
   index: -1
 whirlwind_dark_03_head_04
-  rotate: false
-  xy: 457, 793
-  size: 71, 71
-  orig: 71, 71
+  rotate: true
+  xy: 968, 208
+  size: 71, 97
+  orig: 71, 97
   offset: 0, 0
   index: -1
 whirlwind_dark_03_head_05
   rotate: false
-  xy: 130, 2
-  size: 78, 99
-  orig: 78, 99
+  xy: 743, 118
+  size: 93, 99
+  orig: 93, 99
   offset: 0, 0
   index: -1
 whirlwind_dark_03_head_06
-  rotate: false
-  xy: 159, 485
+  rotate: true
+  xy: 1138, 289
   size: 105, 153
   orig: 105, 153
   offset: 0, 0
   index: -1
 whirlwind_dark_03_head_07
   rotate: false
-  xy: 285, 863
+  xy: 311, 193
   size: 165, 159
   orig: 165, 159
   offset: 0, 0
   index: -1
 whirlwind_dark_03_head_08
-  rotate: false
-  xy: 950, 884
+  rotate: true
+  xy: 1450, 324
   size: 70, 138
   orig: 70, 138
   offset: 0, 0
   index: -1
+whirlwind_dark_03_head_09
+  rotate: true
+  xy: 329, 26
+  size: 165, 159
+  orig: 165, 159
+  offset: 0, 0
+  index: -1
 whirlwind_dark_03_leg_01
-  rotate: false
-  xy: 287, 683
+  rotate: true
+  xy: 1705, 301
   size: 93, 112
   orig: 93, 112
   offset: 0, 0
   index: -1
 whirlwind_dark_03_leg_02
   rotate: false
-  xy: 241, 273
-  size: 93, 112
-  orig: 93, 112
+  xy: 648, 94
+  size: 93, 123
+  orig: 93, 123
   offset: 0, 0
   index: -1
 whirlwind_dark_03_mouth_01
   rotate: false
-  xy: 287, 641
+  xy: 1354, 273
   size: 45, 40
   orig: 45, 40
   offset: 0, 0
   index: -1
 whirlwind_dark_03_wing_01
-  rotate: false
-  xy: 159, 797
+  rotate: true
+  xy: 569, 385
   size: 124, 225
   orig: 124, 225
   offset: 0, 0
   index: -1
 whirlwind_dark_03_wing_02
   rotate: false
-  xy: 452, 866
+  xy: 478, 196
   size: 164, 156
   orig: 164, 156
   offset: 0, 0
   index: -1
 whirlwind_dark_03_wing_02_01
-  rotate: false
-  xy: 618, 866
+  rotate: true
+  xy: 490, 30
   size: 164, 156
   orig: 164, 156
   offset: 0, 0
   index: -1
 whirlwind_dark_03_wing_02_02
-  rotate: false
-  xy: 784, 866
+  rotate: true
+  xy: 644, 219
   size: 164, 156
   orig: 164, 156
   offset: 0, 0
   index: -1
 whirlwind_dark_03_wing_02_03
-  rotate: true
-  xy: 2, 216
+  rotate: false
+  xy: 802, 238
   size: 164, 156
   orig: 164, 156
   offset: 0, 0
   index: -1
 whirlwind_dark_03_wing_03
   rotate: false
-  xy: 2, 800
+  xy: 2, 130
   size: 155, 222
   orig: 155, 222
   offset: 0, 0
   index: -1
 whirlwind_dark_03_wing_04
-  rotate: false
-  xy: 2, 576
+  rotate: true
+  xy: 345, 354
   size: 155, 222
   orig: 155, 222
   offset: 0, 0

@@ -7,7 +7,7 @@
             <key>dragon_bg_dark_cloud_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1709},{432,297}}</string>
+                <string>{{675,1739},{432,297}}</string>
                 <key>offset</key>
                 <string>{-19,3}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>dragon_bg_dark_cloud_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{446,1284},{476,311}}</string>
+                <string>{{286,1284},{476,311}}</string>
                 <key>offset</key>
                 <string>{12,1}</string>
                 <key>rotated</key>
@@ -33,11 +33,11 @@
             <key>dragon_bg_dark_cloud_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{446,1597},{494,246}}</string>
+                <string>{{2,1340},{494,246}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{3,127},{494,246}}</string>
                 <key>sourceSize</key>
@@ -46,20 +46,33 @@
             <key>dragon_bg_dark_cloud_03_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{436,1845},{278,138}}</string>
+                <string>{{964,376},{278,138}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{111,181},{278,138}}</string>
                 <key>sourceSize</key>
                 <string>{500,500}</string>
             </dict>
+            <key>dragon_bg_dark_cloud_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{764,1322},{415,275}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{66,136},{415,275}}</string>
+                <key>sourceSize</key>
+                <string>{547,547}</string>
+            </dict>
             <key>dragon_bg_dark_crystal_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{716,1845},{152,151}}</string>
+                <string>{{964,223},{152,151}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,11 +98,11 @@
             <key>dragon_bg_dark_l_leaf_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,632},{76,125}}</string>
+                <string>{{964,656},{76,125}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{262,221},{76,125}}</string>
                 <key>sourceSize</key>
@@ -98,11 +111,11 @@
             <key>dragon_bg_dark_l_leaf_02_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,759},{112,83}}</string>
+                <string>{{964,916},{112,83}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{244,242},{112,83}}</string>
                 <key>sourceSize</key>
@@ -111,11 +124,11 @@
             <key>dragon_bg_dark_l_leaf_02_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{870,1845},{170,97}}</string>
+                <string>{{964,2},{170,97}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{215,235},{170,97}}</string>
                 <key>sourceSize</key>
@@ -124,11 +137,11 @@
             <key>dragon_bg_dark_l_leaf_02_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,509},{88,121}}</string>
+                <string>{{964,734},{88,121}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{256,223},{88,121}}</string>
                 <key>sourceSize</key>
@@ -137,11 +150,11 @@
             <key>dragon_bg_dark_l_leaf_02_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{924,1284},{120,161}}</string>
+                <string>{{964,101},{120,161}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{240,203},{120,161}}</string>
                 <key>sourceSize</key>
@@ -150,11 +163,11 @@
             <key>dragon_bg_dark_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1284},{442,423}}</string>
+                <string>{{250,1597},{442,423}}</string>
                 <key>offset</key>
                 <string>{2,-35}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{81,107},{442,423}}</string>
                 <key>sourceSize</key>
@@ -163,7 +176,7 @@
             <key>dragon_bg_dark_light_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{986,481},{26,25}}</string>
+                <string>{{1091,656},{26,25}}</string>
                 <key>offset</key>
                 <string>{4,3}</string>
                 <key>rotated</key>
@@ -176,11 +189,11 @@
             <key>dragon_bg_dark_light_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{986,428},{50,51}}</string>
+                <string>{{1087,778},{50,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{275,258},{50,51}}</string>
                 <key>sourceSize</key>
@@ -189,7 +202,7 @@
             <key>dragon_bg_dark_light_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,2},{20,505}}</string>
+                <string>{{1118,223},{20,505}}</string>
                 <key>offset</key>
                 <string>{0,6}</string>
                 <key>rotated</key>
@@ -199,10 +212,23 @@
                 <key>sourceSize</key>
                 <string>{600,567}</string>
             </dict>
+            <key>dragon_bg_dark_light_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,1836},{201,203}}</string>
+                <key>offset</key>
+                <string>{-7,9}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{166,163},{201,203}}</string>
+                <key>sourceSize</key>
+                <string>{547,547}</string>
+            </dict>
             <key>dragon_bg_dark_m_leaf_01_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{436,1985},{34,89}}</string>
+                <string>{{964,1156},{34,89}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -215,11 +241,11 @@
             <key>dragon_bg_dark_m_leaf_01_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,1192},{42,77}}</string>
+                <string>{{1043,1296},{42,77}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{279,245},{42,77}}</string>
                 <key>sourceSize</key>
@@ -228,11 +254,11 @@
             <key>dragon_bg_dark_m_leaf_01_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{986,206},{52,83}}</string>
+                <string>{{964,1192},{52,83}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{274,242},{52,83}}</string>
                 <key>sourceSize</key>
@@ -241,11 +267,11 @@
             <key>dragon_bg_dark_m_leaf_01_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,1025},{90,57}}</string>
+                <string>{{964,1097},{90,57}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{255,255},{90,57}}</string>
                 <key>sourceSize</key>
@@ -254,7 +280,7 @@
             <key>dragon_bg_dark_m_leaf_01_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{986,105},{52,99}}</string>
+                <string>{{1085,876},{52,99}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -267,11 +293,11 @@
             <key>dragon_bg_dark_m_leaf_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{983,1784},{48,45}}</string>
+                <string>{{191,1284},{48,45}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{276,261},{48,45}}</string>
                 <key>sourceSize</key>
@@ -280,11 +306,11 @@
             <key>dragon_bg_dark_m_leaf_02_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{969,1831},{46,47}}</string>
+                <string>{{1091,730},{46,47}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{277,260},{46,47}}</string>
                 <key>sourceSize</key>
@@ -293,7 +319,7 @@
             <key>dragon_bg_dark_m_leaf_02_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{969,1974},{40,41}}</string>
+                <string>{{205,1882},{40,41}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -306,7 +332,7 @@
             <key>dragon_bg_dark_m_leaf_02_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{942,1675},{78,55}}</string>
+                <string>{{1049,1239},{78,55}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -319,7 +345,7 @@
             <key>dragon_bg_dark_m_leaf_02_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{983,1732},{50,37}}</string>
+                <string>{{2,1284},{50,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -332,11 +358,11 @@
             <key>dragon_bg_dark_m_leaf_02_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{986,366},{60,43}}</string>
+                <string>{{1071,1080},{60,43}}</string>
                 <key>offset</key>
                 <string>{2,4}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{272,258},{60,43}}</string>
                 <key>sourceSize</key>
@@ -345,11 +371,11 @@
             <key>dragon_bg_dark_s_leaf_01_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{924,1447},{90,119}}</string>
+                <string>{{964,824},{90,119}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{255,224},{90,119}}</string>
                 <key>sourceSize</key>
@@ -358,11 +384,11 @@
             <key>dragon_bg_dark_s_leaf_01_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,946},{74,77}}</string>
+                <string>{{964,1246},{74,77}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{263,245},{74,77}}</string>
                 <key>sourceSize</key>
@@ -371,7 +397,7 @@
             <key>dragon_bg_dark_s_leaf_01_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,873},{82,71}}</string>
+                <string>{{1056,1125},{82,71}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -384,11 +410,11 @@
             <key>dragon_bg_dark_sphere_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{969,1929},{44,43}}</string>
+                <string>{{205,1836},{44,43}}</string>
                 <key>offset</key>
                 <string>{14,-12}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{292,274},{44,43}}</string>
                 <key>sourceSize</key>
@@ -397,7 +423,7 @@
             <key>dragon_bg_dark_sphere_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{969,1880},{46,47}}</string>
+                <string>{{238,1284},{46,47}}</string>
                 <key>offset</key>
                 <string>{14,-11}</string>
                 <key>rotated</key>
@@ -410,11 +436,11 @@
             <key>dragon_bg_dark_stone_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{942,1568},{94,105}}</string>
+                <string>{{964,1001},{94,105}}</string>
                 <key>offset</key>
                 <string>{-9,1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{244,230},{94,105}}</string>
                 <key>sourceSize</key>
@@ -423,11 +449,11 @@
             <key>dragon_bg_dark_stone_02_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,1117},{48,73}}</string>
+                <string>{{41,1284},{48,73}}</string>
                 <key>offset</key>
                 <string>{-6,2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{270,245},{48,73}}</string>
                 <key>sourceSize</key>
@@ -436,11 +462,11 @@
             <key>dragon_bg_dark_stone_02_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{986,291},{48,73}}</string>
+                <string>{{116,1284},{48,73}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{276,247},{48,73}}</string>
                 <key>sourceSize</key>
@@ -449,7 +475,7 @@
             <key>dragon_bg_dark_stone_03_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{986,2},{60,101}}</string>
+                <string>{{1078,977},{60,101}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -462,11 +488,11 @@
             <key>dragon_bg_dark_stone_03_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1008,1192},{44,53}}</string>
+                <string>{{1085,830},{44,53}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{278,256},{44,53}}</string>
                 <key>sourceSize</key>
@@ -475,11 +501,11 @@
             <key>dragon_bg_dark_stone_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{942,1732},{82,39}}</string>
+                <string>{{1049,1198},{82,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{259,264},{82,39}}</string>
                 <key>sourceSize</key>
@@ -493,9 +519,9 @@
             <key>realTextureFileName</key>
             <string>dragon_bg_dark.png</string>
             <key>size</key>
-            <string>{1054,2021}</string>
+            <string>{1140,2041}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:fad50d48db8309f86da15527a97fb698:363d1ca276d98f08368bb1b4ee442366:566a745fe6c0576f468fa05ee5da4216$</string>
+            <string>$TexturePacker:SmartUpdate:3a3fb7ba47a50659574cf843c9c26f98:8784657cddbd974da7c621d10d8587cb:566a745fe6c0576f468fa05ee5da4216$</string>
             <key>textureFileName</key>
             <string>dragon_bg_dark.png</string>
         </dict>

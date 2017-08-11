@@ -561,7 +561,7 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
-						text = '치유형';
+						text = '회복형';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
@@ -651,7 +651,7 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
-						text = '보조형';
+						text = '지원형';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };

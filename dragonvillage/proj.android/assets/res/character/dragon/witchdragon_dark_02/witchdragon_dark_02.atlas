@@ -1,13 +1,167 @@
 
 witchdragon_dark_02.png
-size: 512,512
+size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-witchdragon_dark_02_00
+witchdragon_dark_2_body_1
   rotate: false
-  xy: 2, 57
-  size: 496, 441
-  orig: 496, 441
+  xy: 366, 676
+  size: 169, 230
+  orig: 169, 230
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_cape_1
+  rotate: false
+  xy: 224, 195
+  size: 122, 169
+  orig: 122, 169
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_cape_2
+  rotate: true
+  xy: 537, 631
+  size: 123, 156
+  orig: 123, 156
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_earring_1
+  rotate: true
+  xy: 2, 7
+  size: 15, 26
+  orig: 15, 26
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_eff_1
+  rotate: false
+  xy: 2, 366
+  size: 327, 278
+  orig: 327, 278
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_eff_2
+  rotate: false
+  xy: 2, 646
+  size: 362, 376
+  orig: 362, 376
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_eff_3
+  rotate: false
+  xy: 860, 630
+  size: 118, 136
+  orig: 118, 136
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_eff_4
+  rotate: false
+  xy: 696, 751
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_eff_5
+  rotate: false
+  xy: 2, 104
+  size: 220, 260
+  orig: 220, 260
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_eye_1
+  rotate: false
+  xy: 477, 615
+  size: 39, 59
+  orig: 39, 59
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_hair_1
+  rotate: false
+  xy: 961, 929
+  size: 50, 93
+  orig: 50, 93
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_hair_2
+  rotate: true
+  xy: 847, 768
+  size: 148, 132
+  orig: 148, 132
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_hair_3
+  rotate: false
+  xy: 398, 594
+  size: 77, 80
+  orig: 77, 80
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_head_1
+  rotate: false
+  xy: 537, 756
+  size: 157, 150
+  orig: 157, 150
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_leg_1
+  rotate: true
+  xy: 2, 24
+  size: 78, 148
+  orig: 78, 148
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_leg_2
+  rotate: false
+  xy: 331, 491
+  size: 65, 153
+  orig: 65, 153
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_leg_3
+  rotate: false
+  xy: 331, 381
+  size: 67, 108
+  orig: 67, 108
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_leg_4
+  rotate: true
+  xy: 834, 918
+  size: 104, 125
+  orig: 104, 125
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_magic_1
+  rotate: false
+  xy: 366, 908
+  size: 466, 114
+  orig: 466, 114
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_tail_1
+  rotate: false
+  xy: 224, 99
+  size: 131, 94
+  orig: 131, 94
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_thing_1
+  rotate: false
+  xy: 263, 8
+  size: 75, 89
+  orig: 75, 89
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_wing_1
+  rotate: false
+  xy: 152, 2
+  size: 109, 95
+  orig: 109, 95
+  offset: 0, 0
+  index: -1
+witchdragon_dark_2_wing_2
+  rotate: true
+  xy: 695, 630
+  size: 119, 163
+  orig: 119, 163
   offset: 0, 0
   index: -1

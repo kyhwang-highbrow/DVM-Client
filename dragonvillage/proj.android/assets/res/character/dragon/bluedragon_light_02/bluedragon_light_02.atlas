@@ -1,152 +1,152 @@
 
 bluedragon_light_02.png
-size: 1024,256
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 bluedragon_light_02_arm_01
   rotate: false
-  xy: 692, 46
+  xy: 294, 136
   size: 50, 56
   orig: 50, 56
   offset: 0, 0
   index: -1
 bluedragon_light_02_arm_02
   rotate: false
-  xy: 821, 67
+  xy: 309, 194
   size: 67, 64
   orig: 67, 64
   offset: 0, 0
   index: -1
 bluedragon_light_02_bead_01
   rotate: false
-  xy: 245, 25
+  xy: 142, 206
   size: 88, 84
   orig: 88, 84
   offset: 0, 0
   index: -1
 bluedragon_light_02_bead_02
   rotate: true
-  xy: 856, 11
+  xy: 246, 2
   size: 54, 42
   orig: 54, 42
   offset: 0, 0
   index: -1
 bluedragon_light_02_bead_03
-  rotate: true
-  xy: 452, 85
+  rotate: false
+  xy: 2, 17
   size: 164, 172
   orig: 164, 172
   offset: 0, 0
   index: -1
 bluedragon_light_02_bead_04
-  rotate: false
-  xy: 744, 133
+  rotate: true
+  xy: 393, 380
   size: 130, 116
   orig: 130, 116
   offset: 0, 0
   index: -1
 bluedragon_light_02_body_01
-  rotate: true
-  xy: 246, 111
+  rotate: false
+  xy: 2, 191
   size: 138, 204
   orig: 138, 204
   offset: 0, 0
   index: -1
 bluedragon_light_02_body_02
   rotate: false
-  xy: 142, 31
+  xy: 142, 292
   size: 101, 103
   orig: 101, 103
   offset: 0, 0
   index: -1
 bluedragon_light_02_body_03
   rotate: false
-  xy: 2, 136
+  xy: 2, 397
   size: 242, 113
   orig: 242, 113
   offset: 0, 0
   index: -1
 bluedragon_light_02_body_04
-  rotate: false
-  xy: 335, 33
+  rotate: true
+  xy: 168, 39
   size: 79, 76
   orig: 79, 76
   offset: 0, 0
   index: -1
 bluedragon_light_02_effect_01
   rotate: false
-  xy: 2, 2
+  xy: 245, 260
   size: 138, 132
   orig: 138, 132
   offset: 0, 0
   index: -1
 bluedragon_light_02_eye_01
-  rotate: true
-  xy: 744, 20
+  rotate: false
+  xy: 295, 78
   size: 50, 56
   orig: 50, 56
   offset: 0, 0
   index: -1
 bluedragon_light_02_foot_01
   rotate: false
-  xy: 953, 90
+  xy: 459, 305
   size: 50, 73
   orig: 50, 73
   offset: 0, 0
   index: -1
 bluedragon_light_02_foot_02
-  rotate: true
-  xy: 626, 55
+  rotate: false
+  xy: 246, 58
   size: 47, 64
   orig: 47, 64
   offset: 0, 0
   index: -1
 bluedragon_light_02_hand_01
   rotate: false
-  xy: 744, 72
+  xy: 232, 199
   size: 75, 59
   orig: 75, 59
   offset: 0, 0
   index: -1
 bluedragon_light_02_hand_02
   rotate: false
-  xy: 802, 13
+  xy: 346, 140
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: -1
 bluedragon_light_02_head_01
-  rotate: false
-  xy: 626, 104
+  rotate: true
+  xy: 246, 394
   size: 116, 145
   orig: 116, 145
   offset: 0, 0
   index: -1
 bluedragon_light_02_head_02
   rotate: false
-  xy: 876, 143
+  xy: 385, 272
   size: 72, 106
   orig: 72, 106
   offset: 0, 0
   index: -1
 bluedragon_light_02_leg_01
   rotate: false
-  xy: 890, 68
+  xy: 231, 124
   size: 61, 73
   orig: 61, 73
   offset: 0, 0
   index: -1
 bluedragon_light_02_leg_02
   rotate: false
-  xy: 950, 165
+  xy: 168, 120
   size: 61, 84
   orig: 61, 84
   offset: 0, 0
   index: -1
 bluedragon_light_02_mouth_01
-  rotate: false
-  xy: 900, 30
+  rotate: true
+  xy: 168, 2
   size: 35, 36
   orig: 35, 36
   offset: 0, 0

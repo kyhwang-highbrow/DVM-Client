@@ -1,76 +1,76 @@
 
 common_harpy_junior_water.png
-size: 256,128
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 common_harpy_junior_water_body_02
   rotate: false
-  xy: 73, 2
-  size: 67, 58
-  orig: 67, 58
+  xy: 2, 224
+  size: 134, 116
+  orig: 134, 116
   offset: 0, 0
   index: -1
 common_harpy_junior_water_effect_01
   rotate: false
-  xy: 142, 22
+  xy: 92, 180
   size: 29, 42
   orig: 29, 42
   offset: 0, 0
   index: -1
 common_harpy_junior_water_eye_01
   rotate: false
-  xy: 206, 51
-  size: 30, 30
-  orig: 30, 30
+  xy: 2, 2
+  size: 60, 60
+  orig: 60, 60
   offset: 0, 0
   index: -1
 common_harpy_junior_water_eye_02
   rotate: false
-  xy: 73, 62
+  xy: 332, 422
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 common_harpy_junior_water_foot_01
   rotate: false
-  xy: 199, 83
-  size: 36, 43
-  orig: 36, 43
+  xy: 258, 400
+  size: 72, 86
+  orig: 72, 86
   offset: 0, 0
   index: -1
 common_harpy_junior_water_foot_02
   rotate: false
-  xy: 2, 8
-  size: 44, 44
-  orig: 44, 44
+  xy: 2, 134
+  size: 88, 88
+  orig: 88, 88
   offset: 0, 0
   index: -1
 common_harpy_junior_water_hair_01
   rotate: false
-  xy: 173, 30
-  size: 31, 34
-  orig: 31, 34
+  xy: 2, 64
+  size: 62, 68
+  orig: 62, 68
   offset: 0, 0
   index: -1
 common_harpy_junior_water_head_01
   rotate: false
-  xy: 2, 54
-  size: 69, 72
-  orig: 69, 72
+  xy: 2, 342
+  size: 138, 144
+  orig: 138, 144
   offset: 0, 0
   index: -1
 common_harpy_junior_water_wing_01
   rotate: false
-  xy: 140, 66
-  size: 57, 60
-  orig: 57, 60
+  xy: 142, 366
+  size: 114, 120
+  orig: 114, 120
   offset: 0, 0
   index: -1
 common_harpy_junior_water_wing_02
   rotate: true
-  xy: 206, 25
-  size: 24, 33
-  orig: 24, 33
+  xy: 399, 438
+  size: 48, 66
+  orig: 48, 66
   offset: 0, 0
   index: -1

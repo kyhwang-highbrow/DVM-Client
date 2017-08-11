@@ -1,215 +1,222 @@
 
 karna_dark_03.png
-size: 1024,1024
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 karna_dark_03_arm_l_01
   rotate: true
-  xy: 398, 797
+  xy: 783, 205
   size: 52, 98
   orig: 52, 98
   offset: 0, 0
   index: -1
 karna_dark_03_arm_l_02
-  rotate: false
-  xy: 134, 111
+  rotate: true
+  xy: 652, 147
   size: 65, 122
   orig: 65, 122
   offset: 0, 0
   index: -1
 karna_dark_03_arm_l_deco
   rotate: false
-  xy: 609, 855
+  xy: 981, 447
   size: 32, 60
   orig: 32, 60
   offset: 0, 0
   index: -1
 karna_dark_03_arm_l_ef
-  rotate: true
-  xy: 1, 1
+  rotate: false
+  xy: 899, 259
   size: 75, 77
   orig: 75, 77
   offset: 0, 0
   index: -1
 karna_dark_03_arm_r_01
   rotate: false
-  xy: 904, 947
+  xy: 652, 3
   size: 110, 76
   orig: 110, 76
   offset: 0, 0
   index: -1
 karna_dark_03_arm_r_02
-  rotate: true
-  xy: 656, 924
+  rotate: false
+  xy: 467, 39
   size: 99, 138
   orig: 99, 138
   offset: 0, 0
   index: -1
 karna_dark_03_arm_r_deco
-  rotate: false
-  xy: 80, 1
+  rotate: true
+  xy: 857, 81
   size: 44, 75
   orig: 44, 75
   offset: 0, 0
   index: -1
 karna_dark_03_arm_r_ef
-  rotate: false
-  xy: 219, 660
+  rotate: true
+  xy: 796, 259
   size: 77, 101
   orig: 77, 101
   offset: 0, 0
   index: -1
 karna_dark_03_body_01
   rotate: false
-  xy: 1, 654
+  xy: 330, 287
   size: 216, 220
   orig: 216, 220
   offset: 0, 0
   index: -1
 karna_dark_03_body_ef
-  rotate: false
-  xy: 1, 78
+  rotate: true
+  xy: 310, 46
   size: 131, 155
   orig: 131, 155
   offset: 0, 0
   index: -1
+karna_dark_03_effect_01
+  rotate: false
+  xy: 2, 181
+  size: 326, 326
+  orig: 326, 326
+  offset: 0, 0
+  index: -1
 karna_dark_03_eye_01
   rotate: true
-  xy: 449, 767
+  xy: 67, 2
   size: 28, 34
   orig: 28, 34
   offset: 0, 0
   index: -1
 karna_dark_03_eye_02
-  rotate: false
-  xy: 243, 624
+  rotate: true
+  xy: 103, 2
   size: 28, 34
   orig: 28, 34
   offset: 0, 0
   index: -1
 karna_dark_03_eye_03
-  rotate: false
-  xy: 243, 588
+  rotate: true
+  xy: 139, 2
   size: 28, 34
   orig: 28, 34
   offset: 0, 0
   index: -1
 karna_dark_03_hair_01
   rotate: false
-  xy: 513, 917
+  xy: 548, 214
   size: 141, 106
   orig: 141, 106
   offset: 0, 0
   index: -1
 karna_dark_03_head_01
-  rotate: true
-  xy: 188, 495
+  rotate: false
+  xy: 865, 127
   size: 72, 64
   orig: 72, 64
   offset: 0, 0
   index: -1
 karna_dark_03_head_02
-  rotate: true
-  xy: 398, 768
+  rotate: false
+  xy: 981, 396
   size: 27, 49
   orig: 27, 49
   offset: 0, 0
   index: -1
 karna_dark_03_horn_l
   rotate: true
-  xy: 520, 853
+  xy: 776, 141
   size: 62, 87
   orig: 62, 87
   offset: 0, 0
   index: -1
 karna_dark_03_horn_r
-  rotate: true
-  xy: 796, 933
+  rotate: false
+  xy: 691, 214
   size: 90, 106
   orig: 90, 106
   offset: 0, 0
   index: -1
 karna_dark_03_leg_l_01
   rotate: true
-  xy: 429, 851
+  xy: 883, 193
   size: 64, 89
   orig: 64, 89
   offset: 0, 0
   index: -1
 karna_dark_03_leg_l_02
-  rotate: false
-  xy: 188, 569
+  rotate: true
+  xy: 772, 86
   size: 53, 83
   orig: 53, 83
   offset: 0, 0
   index: -1
 karna_dark_03_leg_r_01
   rotate: true
-  xy: 309, 851
+  xy: 652, 81
   size: 64, 118
   orig: 64, 118
   offset: 0, 0
   index: -1
 karna_dark_03_leg_r_02
   rotate: false
-  xy: 219, 763
+  xy: 568, 101
   size: 82, 111
   orig: 82, 111
   offset: 0, 0
   index: -1
 karna_dark_03_leg_r_deco
-  rotate: true
-  xy: 188, 409
+  rotate: false
+  xy: 981, 348
   size: 24, 46
   orig: 24, 46
   offset: 0, 0
   index: -1
 karna_dark_03_mouth_01
   rotate: false
-  xy: 188, 435
+  xy: 939, 133
   size: 51, 58
   orig: 51, 58
   offset: 0, 0
   index: -1
 karna_dark_03_neck_ef
-  rotate: true
-  xy: 303, 767
+  rotate: false
+  xy: 568, 6
   size: 82, 93
   orig: 82, 93
   offset: 0, 0
   index: -1
 karna_dark_03_tail_01
-  rotate: false
-  xy: 1, 406
+  rotate: true
+  xy: 548, 322
   size: 185, 246
   orig: 185, 246
   offset: 0, 0
   index: -1
 karna_dark_03_wing_ef
   rotate: false
-  xy: 1, 235
+  xy: 796, 338
   size: 183, 169
   orig: 183, 169
   offset: 0, 0
   index: -1
 karna_dark_03_wing_l_01
   rotate: false
-  xy: 309, 917
+  xy: 330, 179
   size: 202, 106
   orig: 202, 106
   offset: 0, 0
   index: -1
 karna_dark_03_wing_r_01
   rotate: false
-  xy: 1, 876
+  xy: 2, 32
   size: 306, 147
   orig: 306, 147
   offset: 0, 0
   index: -1
 karna_dark_03_wing_r_deco
   rotate: true
-  xy: 134, 87
+  xy: 2, 8
   size: 22, 63
   orig: 22, 63
   offset: 0, 0
