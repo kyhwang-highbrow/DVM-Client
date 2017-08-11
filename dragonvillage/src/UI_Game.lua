@@ -115,9 +115,9 @@ function UI_Game:initHotTimeUI()
 
     local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key)
     local t_ui_name = {
-        ['stamina_50p'] = 'hotTimeStBtn'
-        ['gold_2x'] = 'hotTimeGoldBtn'
-        ['exp_2x'] = 'hotTimeExpBtn'
+        ['stamina_50p'] = 'hotTimeStBtn',
+        ['gold_2x'] = 'hotTimeGoldBtn',
+        ['exp_2x'] = 'hotTimeExpBtn',
     }
     -- hottime key를 ui name으로 변환
     local l_item_ui = {}
