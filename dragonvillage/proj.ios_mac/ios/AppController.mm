@@ -209,7 +209,8 @@ static AppDelegate s_sharedApplication;
 }
 #endif
 
-- (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg
+// @localpush
++ (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg
 {
     NSNumber *key = [NSNumber numberWithInt:1];
     UILocalNotification *localNoti = [[[UILocalNotification alloc] init] autorelease];
@@ -223,13 +224,14 @@ static AppDelegate s_sharedApplication;
     [[UIApplication sharedApplication] scheduleLocalNotification:localNoti];
 }
 
-- (void)cancelNotification
+// @localpush
++ (void)cancelNotification
 {
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 // @wifi
-- (int)isWifiConnected {
++ (int)isWifiConnected {
     SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, "8.8.8.8");
     SCNetworkReachabilityFlags flags;
     BOOL success = SCNetworkReachabilityGetFlags(reachability, &flags);
@@ -251,7 +253,7 @@ static AppDelegate s_sharedApplication;
 }
 
 // @memory info
-- (NSString *)getFreeMemory {
++ (NSString *)getFreeMemory {
     // @usedMemory
     // struct task_basic_info info;
     // mach_msg_type_number_t size = sizeof(info);

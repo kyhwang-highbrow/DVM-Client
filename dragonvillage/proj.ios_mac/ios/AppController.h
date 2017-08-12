@@ -34,14 +34,15 @@
     RootViewController *viewController;
 }
 
-- (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg;
-- (void)cancelNotification;
+// @localpush
++ (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg;
++ (void)cancelNotification;
 
 // @wifi
-- (int)isWifiConnected;
++ (int)isWifiConnected;
 
 // @memory info
-- (NSString *)getFreeMemory;
++ (NSString *)getFreeMemory;
 
 + (NSString *)getJSONStringFromNSDictionary:(NSDictionary *)obj;
 

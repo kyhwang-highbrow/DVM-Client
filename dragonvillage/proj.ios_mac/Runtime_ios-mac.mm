@@ -76,14 +76,12 @@ string getLocale()
 
 int isWifiConnected()
 {
-    AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-    return [appController isWifiConnected];
+    return [AppController isWifiConnected];
 }
 
 string getFreeMemory()
 {
-    AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-    return [[appController getFreeMemory] UTF8String];
+    return [[AppController getFreeMemory] UTF8String];
 }
 
 string getAndroidID()
@@ -126,16 +124,14 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         [[UIApplication sharedApplication] openURL:url];
     }
     else if (strcmp(id, "localpush_add") == 0) {
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
         NSArray *params = [[NSString stringWithUTF8String:arg0] componentsSeparatedByString:@";"];
         NSString *type = [params objectAtIndex:0];
         int sec = [[params objectAtIndex:1] intValue];
         NSString *msg = [params objectAtIndex:2];
-        [appController sendLocalNotification:type withTime:sec withMsg:msg];
+        [AppController sendLocalNotification:type withTime:sec withMsg:msg];
     }
     else if (strcmp(id, "localpush_cancel") == 0) {
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        [appController cancelNotification];
+        [AppController cancelNotification];
     }
     else if (strcmp(id, "clipboard_setText") == 0)
     {
