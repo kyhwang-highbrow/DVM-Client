@@ -110,7 +110,7 @@ static AppDelegate s_sharedApplication;
 
     // @perplesdk
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:YES]) {
-        [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID];
+        [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID view:viewController];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
         [[PerpleSDK sharedInstance] initGameCenterWithParentView:viewController];
     }
