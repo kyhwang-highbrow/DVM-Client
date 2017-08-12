@@ -178,7 +178,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 
 // Initialization
 // AppDelegate, application:didFinishLaunchingWithOptions:에서 호출
-- (BOOL) initSDKWithGcmSenderId:(NSString *)gcmSenderId debug:(BOOL)isDebug sandbox:(BOOL)isSandbox;
+- (BOOL) initSDKWithGcmSenderId:(NSString *)gcmSenderId debug:(BOOL)isDebug;
 - (BOOL) initGoogleWithClientId:(NSString *)clientId;
 - (BOOL) initFacebookWithParentView:(UIViewController *)parentView;
 - (BOOL) initAdbrixWithAppKey:(NSString *)appKey hashKey:(NSString *)hashKey logLevel:(int)logLevel;
