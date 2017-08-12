@@ -91,14 +91,14 @@ string getAndroidID()
 
 void sdkEvent(const char *id, const char *arg0, const char *arg1)
 {
-    if (strcmp(id, "app_terminate") == 0) {
-        //do nothing in ios
-    }
-    else if (strcmp(id, "app_gotoWeb") == 0) {
+    if (strcmp(id, "app_restart") == 0) {
+        // @todo
+    } else if (strcmp(id, "app_terminate") == 0) {
+        // do nothing in iOS
+    } else if (strcmp(id, "app_gotoWeb") == 0) {
         NSURL *url = [NSURL URLWithString:[NSString stringWithUTF8String:arg0]];
         [[UIApplication sharedApplication] openURL:url];
-    }
-    else if (strcmp(id, "app_alert") == 0) {
+    } else if (strcmp(id, "app_alert") == 0) {
         NSArray *params = [[NSString stringWithUTF8String:arg0] componentsSeparatedByString:@";"];
 
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[params objectAtIndex:0]
@@ -108,11 +108,9 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
                                                   otherButtonTitles:nil];
         [alertView show];
         [alertView release];
-    }
-    else if (strcmp(id, "app_sendMail") == 0) {
-        //do nothing in ios
-    }
-    else if (strcmp(id, "app_gotoStore") == 0) {
+    } else if (strcmp(id, "app_sendMail") == 0) {
+        // @todo
+    } else if (strcmp(id, "app_gotoStore") == 0) {
         NSString *marketUrl;
         if (arg0 && strlen(arg0) > 1) {
             marketUrl = [NSString stringWithUTF8String:arg0];
@@ -122,29 +120,23 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         }
         NSURL *url = [NSURL URLWithString:marketUrl];
         [[UIApplication sharedApplication] openURL:url];
-    }
-    else if (strcmp(id, "localpush_add") == 0) {
+    } else if (strcmp(id, "localpush_register") == 0) {
+        // no nothing in iOS
+    } else if (strcmp(id, "localpush_add") == 0) {
         NSArray *params = [[NSString stringWithUTF8String:arg0] componentsSeparatedByString:@";"];
         NSString *type = [params objectAtIndex:0];
         int sec = [[params objectAtIndex:1] intValue];
         NSString *msg = [params objectAtIndex:2];
         [AppController sendLocalNotification:type withTime:sec withMsg:msg];
-    }
-    else if (strcmp(id, "localpush_cancel") == 0) {
+    } else if (strcmp(id, "localpush_cancel") == 0) {
         [AppController cancelNotification];
-    }
-    else if (strcmp(id, "clipboard_setText") == 0)
-    {
+    } else if (strcmp(id, "clipboard_setText") == 0) {
         NSString *_arg0 = [NSString stringWithUTF8String:arg0];
         [[UIPasteboard generalPasteboard] setString:_arg0];
-    }
-    else if (strcmp(id, "clipboard_getText") == 0)
-    {
+    } else if (strcmp(id, "clipboard_getText") == 0) {
         NSString *text = [[UIPasteboard generalPasteboard] string];
         sdkEvent(id, "success", [text UTF8String]);
-    }
-    else if (strcmp(id, "app_deviceInfo") == 0)
-    {
+    } else if (strcmp(id, "app_deviceInfo") == 0) {
         NSDictionary *dict = @{ @"name":[UIDevice currentDevice].name,
                                 @"model":[UIDevice currentDevice].model,
                                 @"localizedModel":[UIDevice currentDevice].localizedModel,
