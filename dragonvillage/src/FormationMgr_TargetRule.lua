@@ -258,15 +258,18 @@ function TargetRule_getTargetList_random(org_list)
     local t_ret = {}
     local t_random = {}
 
-    for i,v in pairs(org_list) do
+    if (not org_list or #org_list == 0) then
+        return t_ret
+    end
+
+    for i, v in ipairs(org_list) do
         table.insert(t_random, i)
     end
 
-    while (0 < #t_random) do
-        local rand_num = math_random(1, #t_random)
-        local rand_idx = t_random[rand_num]
-        table.insert(t_ret, org_list[rand_idx])
-        table.remove(t_random, rand_num)
+    t_random = randomShuffle(t_random)
+
+    for i, v in ipairs(t_random) do
+        table.insert(t_ret, org_list[v])
     end
 
     return t_ret
