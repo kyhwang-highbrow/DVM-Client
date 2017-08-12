@@ -111,6 +111,20 @@ function ServerData_MasterRoad:hasRewardRoad()
 end
 
 -------------------------------------
+-- function isClearAllRoad
+-- @brief 마지막 마스터의길까지 클리어했는지 여부
+-------------------------------------
+function ServerData_MasterRoad:isClearAllRoad()
+    local last_road = TableMasterRoad:getLastRoad()
+    local focus_road = self.m_focusRoad
+
+    return (last_road < focus_road)
+end
+
+
+
+
+-------------------------------------
 -- function updateMasterRoad
 -- @brief 매프레임 도는 것이 아님
 -------------------------------------

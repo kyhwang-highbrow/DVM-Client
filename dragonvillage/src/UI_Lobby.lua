@@ -338,9 +338,19 @@ end
 -- function refresh_masterRoad
 -------------------------------------
 function UI_Lobby:refresh_masterRoad()
+    local desc = ''
+    
+    -- 마지막까지 클리어했다면..?
+    if (g_masterRoadData:isClearAllRoad()) then
+        desc = Str('마스터의 길은 계속될겁니다.')
+    
     -- 현재 목표 출력
-    local t_road = TableMasterRoad():get(g_masterRoadData:getFocusRoad())
-    local desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
+    else
+        local rid = g_masterRoadData:getFocusRoad()
+        local t_road = TableMasterRoad():get(rid)
+        desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
+
+    end
     self.vars['roadDescLabel']:setString(desc)
 end
 
