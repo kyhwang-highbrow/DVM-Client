@@ -64,7 +64,7 @@ function SceneGameColosseum:prepare()
 
     self:addLoading(function()
         -- FGT 에서는 디버그 기능을 제한한다
-		if (not (TARGET_SERVER == 'FGT')) then 
+		if (IS_TEST_MODE()) then
 			self.m_inGameUI:init_debugUI()
 		end
 
