@@ -161,7 +161,7 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
 
 void sdkEventResult(const char *id, const char *result, const char *info)
 {
-    AppDelegate *pDelegate = (AppDelegate *)CCApplication::getInstance();
+    AppDelegate *pDelegate = (AppDelegate *)Application::getInstance();
     pDelegate->sdkEventHandler(id, result, info);
 }
 
