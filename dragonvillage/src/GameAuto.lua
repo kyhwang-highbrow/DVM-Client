@@ -284,6 +284,7 @@ function GameAuto:findTarget(unit, t_skill)
     local ai_division = t_skill['ai_division']
 
     if (not string.find(target_type, 'enemy')) then
+        -- AI 대상으로 변경
         target_type = SKILL_AI_ATTR_TARGET[ai_division]
 
         if (not target_type) then

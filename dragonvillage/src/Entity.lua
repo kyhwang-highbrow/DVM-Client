@@ -244,14 +244,18 @@ end
 -- function runAction
 -------------------------------------
 function Entity:runAction(action)
-    self.m_rootNode:runAction(action)
+    if (self.m_rootNode) then
+        self.m_rootNode:runAction(action)
+    end
 end
 
 -------------------------------------
 -- function stopAllActions
 -------------------------------------
 function Entity:stopAllActions()
-    self.m_rootNode:stopAllActions()
+    if (self.m_rootNode) then
+        self.m_rootNode:stopAllActions()
+    end
 end
 
 -------------------------------------
