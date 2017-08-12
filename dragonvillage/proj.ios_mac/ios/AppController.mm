@@ -35,10 +35,10 @@
 #import "ConfigParser.h"
 
 // @perplesdk
-static NSString *SENDER_ID = @"983890984134";
-static NSString *CLIENT_ID = @"983890984134-krrfuti1qgk3k09j87gobkq96322v48v.apps.googleusercontent.com";
-static NSString *ADBRIX_APP_KEY = @"696293230";
-static NSString *ADBRIX_HASH_KEY = @"5c67709eb5c349c6";
+#define SENDER_ID       @"983890984134"
+#define CLIENT_ID       @"983890984134-krrfuti1qgk3k09j87gobkq96322v48v.apps.googleusercontent.com"
+#define ADBRIX_APP_KEY  @"696293230"
+#define ADBRIX_HASH_KEY @"5c67709eb5c349c6"
 
 // @idfa
 #import <AdSupport/ASIdentifierManager.h>
@@ -109,7 +109,7 @@ static AppDelegate s_sharedApplication;
     }
 
     // @perplesdk
-    if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:YES sandbox:YES]) {
+    if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:YES]) {
         [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
         [[PerpleSDK sharedInstance] initGameCenterWithParentView:viewController];
