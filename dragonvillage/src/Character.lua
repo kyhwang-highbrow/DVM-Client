@@ -2495,7 +2495,6 @@ function Character:referenceForSlaveCharacter(t_body, adj_x, adj_y)
 	char.m_charTable = {attr = self:getAttribute(), rarity = self.m_charTable['rarity']}
 	
 	char.m_bLeftFormation = self.m_bLeftFormation
-	char.m_cbChangePos = self.m_cbChangePos
 	char.m_world = self.m_world
 
 	char.m_isSlaveCharacter = true
