@@ -23,39 +23,19 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifdef USE_BILLING
-// @billing
-#import <StoreKit/StoreKit.h>
-#endif
-
 // @perplesdk
 #import "PerpleSDK.h"
 
 @class RootViewController;
 
-#ifdef USE_BILLING
-// @billing
-@interface AppController : NSObject <UIAccelerometerDelegate, UIAlertViewDelegate, UITextFieldDelegate, UIApplicationDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver>
-#else
 @interface AppController : NSObject <UIAccelerometerDelegate, UIAlertViewDelegate, UITextFieldDelegate, UIApplicationDelegate>
-#endif
 {
     UIWindow *window;
     RootViewController *viewController;
 }
 
-#ifdef USE_BILLING
-// @billing
-@property (nonatomic, retain) NSMutableDictionary *skuDict;
-@property (assign) bool canBilling;
-#endif
-
 - (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg;
 - (void)cancelNotification;
-
-// @clipboard
-- (void)clipboardSetText:(NSString *)arg0;
-- (NSString *)clipboardGetText;
 
 // @wifi
 - (int)isWifiConnected;
@@ -63,13 +43,6 @@
 // @memory info
 - (NSString *)getFreeMemory;
 
-#ifdef USE_BILLING
-// @billing
-- (void)billingPrepare;
-- (void)billingRequest:(NSString *)arg0 param:(NSString *)arg1;
-- (void)billingConfirm;
-#endif
-
-+ (NSString *) getJSONStringFromNSDictionary:(NSDictionary *)obj;
++ (NSString *)getJSONStringFromNSDictionary:(NSDictionary *)obj;
 
 @end

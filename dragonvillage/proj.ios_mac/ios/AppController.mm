@@ -47,12 +47,6 @@ extern void sdkEventResult(const char *id, const char *result, const char *info)
 
 @implementation AppController
 
-#ifdef USE_BILLING
-// @billing
-@synthesize skuDict;
-@synthesize canBilling;
-#endif
-
 #pragma mark -
 #pragma mark Application lifecycle
 
@@ -65,18 +59,6 @@ static AppDelegate s_sharedApplication;
     // Override point for customization after application launch.
 
     [application setApplicationIconBadgeNumber:0];
-
-#ifdef USE_BILLING
-    // @billing
-    if ([SKPaymentQueue canMakePayments] == NO) {
-        self.canBilling = false;
-    }
-    else {
-        self.canBilling = true;
-        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    }
-    self.skuDict = [[NSMutableDictionary alloc] init];
-#endif
 
     ConfigParser::getInstance()->readConfig();
 
@@ -246,135 +228,6 @@ static AppDelegate s_sharedApplication;
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
-#ifdef USE_BILLING
-// @billing
-- (void)requestProductData:(NSString*)sku withPayload:(NSString*)payload
-{
-    NSString *ios_sku = [NSString stringWithFormat:@"%@", sku];
-    NSSet *productIdentifiers = [NSSet setWithObject:ios_sku];
-    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
-    request.delegate = self;
-
-    NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:payload, @"payload", sku, @"sku", nil];
-    [self.skuDict setObject:info forKey:ios_sku];
-
-    [request start];
-}
-
-// @billing
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
-{
-    NSLog(@"InAppPurchase didReceiveResponse");
-    for (SKProduct *product in response.products) {
-        if (product != nil) {
-            NSLog(@"InAppPurchase Product id: %@", product.productIdentifier);
-            NSLog(@"InAppPurchase Product title: %@", product.localizedTitle);
-            NSLog(@"InAppPurchase Product desc: %@", product.localizedDescription);
-            NSLog(@"InAppPurchase Product price: %@", product.price);
-
-            SKPayment *payment = [SKPayment paymentWithProduct:product];
-            [[SKPaymentQueue defaultQueue] addPayment:payment];
-            break;
-        }
-    }
-
-    [request release];
-
-    for (NSString *invalidProductId in response.invalidProductIdentifiers) {
-        NSLog(@"InAppPurchase Invalid product id: %@", invalidProductId);
-
-        sdkEventResult("billing_request", "fail", "");
-    }
-}
-
-// @billing
-- (void)completeTransaction:(SKPaymentTransaction *)transaction
-{
-    //NSLog(@"InAppPurchase completeTransaction");
-    //NSLog(@"InAppPurchase Transaction Identifier: %@", transaction.transactionIdentifier);
-    //NSLog(@"InAppPurchase Transaction Date: %@", transaction.transactionDate);
-
-    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-    //NSLog(@"base64 : %@", [transaction.transactionReceipt base64Encoding]);
-    NSDictionary *info = [self.skuDict objectForKey:[transaction.payment productIdentifier]];
-    if (info) {
-        NSString *payload = [info objectForKey:@"payload"];
-        NSString *sku = [info objectForKey:@"sku"];
-        if (payload && sku) {
-            NSString *result = [NSString stringWithFormat:@"%@;%@;%@;%@"
-                                , sku
-                                , transaction.transactionIdentifier
-                                , payload
-                                , [transaction.transactionReceipt base64Encoding]];
-
-            sdkEventResult("billing_request", "success", [result UTF8String]);
-        }
-    }
-}
-
-// @billing
-- (void)failedTransaction:(SKPaymentTransaction *)transaction
-{
-    //NSLog(@"InAppPurchase failedTransaction");
-    //NSLog(@"InAppPurchase Transaction Identifier: %@", transaction.transactionIdentifier);
-    //NSLog(@"InAppPurchase Transaction Date: %@", transaction.transactionDate);
-
-    if (transaction.error.code != SKErrorPaymentCancelled) {
-        NSLog(@"InAppPurchase failedTransaction SKErrorDomain - %d", (int)transaction.error.code);
-        sdkEventResult("billing_request", "fail", "");
-    }
-    else {
-        sdkEventResult("billing_request", "cancel", "");
-    }
-
-    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-}
-
-// @billing
-- (void)restoreTransaction:(SKPaymentTransaction *)transaction
-{
-    //NSLog(@"InAppPurchase restoreTransaction");
-    //NSLog(@"InAppPurchase Transaction Identifier: %@", transaction.transactionIdentifier);
-    //NSLog(@"InAppPurchase Transaction Date: %@", transaction.transactionDate);
-
-    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-}
-
-// @billing
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
-{
-    for (SKPaymentTransaction *transaction in transactions) {
-        switch (transaction.transactionState) {
-            case SKPaymentTransactionStatePurchasing:
-                NSLog(@"InAppPurchase SKPaymentTransactionStatePurchasing");
-                break;
-            case SKPaymentTransactionStatePurchased:
-                [self completeTransaction:transaction];
-                break;
-            case SKPaymentTransactionStateFailed:
-                [self failedTransaction:transaction];
-                break;
-            case SKPaymentTransactionStateRestored:
-                [self restoreTransaction:transaction];
-                break;
-            case SKPaymentTransactionStateDeferred:
-                NSLog(@"InAppPurchase SKPaymentTransactionStateDeferred");
-                break;
-        }
-    }
-}
-#endif
-
-// @clipboard
-- (void)clipboardSetText:(NSString *)arg0 {
-    [[UIPasteboard generalPasteboard] setString:arg0];
-}
-
-// @clipboard
-- (NSString *)clipboardGetText {
-    return [[UIPasteboard generalPasteboard] string];
-}
-
 // @wifi
 - (int)isWifiConnected {
     SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, "8.8.8.8");
@@ -423,28 +276,6 @@ static AppDelegate s_sharedApplication;
     return [NSString stringWithFormat:@"%@;%@", freeMemory, totalMemory];
 }
 
-#ifdef USE_BILLING
-// @billing
-- (void)billingPrepare {
-    if (self.canBilling) {
-        sdkEventResult("billing_prepare", "true", "");
-    }
-    else {
-        sdkEventResult("billing_prepare", "false", "");
-    }
-}
-
-// @billing
-- (void)billingRequest:(NSString *)arg0 param:(NSString *)arg1 {
-    [self requestProductData:arg0 withPayload:arg1];
-}
-
-// @billing
-- (void)billingConfirm {
-
-}
-#endif
-
 #pragma mark -
 #pragma mark Memory management
 
@@ -456,10 +287,6 @@ static AppDelegate s_sharedApplication;
 }
 
 - (void)dealloc {
-#ifdef USE_BILLING
-    // @billing
-    self.skuDict = nil;
-#endif
 
     // @perplesdk
     [[PerpleSDK sharedInstance] dealloc];
@@ -467,7 +294,7 @@ static AppDelegate s_sharedApplication;
     [super dealloc];
 }
 
-+ (NSString *) getJSONStringFromNSDictionary:(NSDictionary *)obj {
++ (NSString *)getJSONStringFromNSDictionary:(NSDictionary *)obj {
     if (obj != nil) {
         NSError *error;
         NSData *data = [NSJSONSerialization dataWithJSONObject:obj
@@ -489,4 +316,3 @@ static AppDelegate s_sharedApplication;
 }
 
 @end
-
