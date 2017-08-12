@@ -285,6 +285,10 @@ function GameAuto:findTarget(unit, t_skill)
 
     if (not string.find(target_type, 'enemy')) then
         target_type = SKILL_AI_ATTR_TARGET[ai_division]
+
+        if (not target_type) then
+            error('invalid ai_division : ' .. ai_division)
+        end
     end
 
     local l_target = unit:getTargetListByType(target_type, target_count, target_formation)
