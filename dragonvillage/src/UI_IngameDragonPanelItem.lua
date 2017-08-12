@@ -79,6 +79,8 @@ function UI_IngameDragonPanelItem:initUI()
     vars['skillFullVisual1']:changeAni('dragon_full_' .. str_target .. '_idle_1', true)
     vars['skillFullVisual2']:changeAni('dragon_full_' .. str_target .. '_idle_2', true)
 
+    vars['cooltimeLabel']:setString('')
+
     -- 속성 아이콘
     if (vars['attrNode']) then
         local attr_str = dragon:getAttribute()

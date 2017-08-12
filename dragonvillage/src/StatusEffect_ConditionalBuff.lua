@@ -200,7 +200,7 @@ function StatusEffect_ConditionalBuff.st_start(owner, dt)
 		
 		-- 힐 사운드
 		if (not owner.m_bHarmful) then
-			SoundMgr:playEffect('SFX', 'sfx_buff_get')
+			--SoundMgr:playEffect('SFX', 'sfx_buff_get')
 		end
 
 		-- 에니메이션이 0프레임일 경우 즉시 상태를 변경

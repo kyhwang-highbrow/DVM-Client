@@ -236,16 +236,6 @@ function FormationMgr:changeFormation()
 end
 
 -------------------------------------
--- function getEntireCharList
--------------------------------------
-function FormationMgr:getEntireCharList()
-	local t_ret = {}
-	t_ret = table.merge(self.m_frontCharList, self.m_middleCharList)
-	t_ret = table.merge(t_ret, self.m_rearCharList)
-	return t_ret
-end
-
--------------------------------------
 -- function getTypicalTarget
 -- @brief 일반적인 타겟
 -- @param cahr 반대 진형의 캐릭터

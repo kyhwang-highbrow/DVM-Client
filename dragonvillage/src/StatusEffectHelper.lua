@@ -227,7 +227,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 	end
 
 	-- 면역 효과
-	if (target_char:isImmuneSE() and self:isHarmful(status_effect_category)) then 
+	if (self:isHarmful(status_effect_category) and target_char:isImmuneSE()) then 
         target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'])
 		return nil
 	end

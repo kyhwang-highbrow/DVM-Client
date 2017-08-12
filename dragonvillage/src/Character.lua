@@ -2292,12 +2292,7 @@ function Character:getStat(stat_type)
 		return 0
 	end
 
-    if (not self.m_statusCalc) then
-        self:printAllInfomation()
-        error('statusCalc is nil')
-    end
-
-	return self.m_statusCalc:getFinalStat(stat_type)
+    return self.m_statusCalc:getFinalStat(stat_type)
 end
 
 -------------------------------------
@@ -2339,6 +2334,11 @@ end
 -------------------------------------
 function Character:isImmuneSE()
 	if (self.m_isImmuneSE) then
+        return true
+    end
+
+    -- 임시 예외처리
+    if (not self.m_statusCalc) then
         return true
     end
 
