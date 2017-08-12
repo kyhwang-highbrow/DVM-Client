@@ -219,7 +219,7 @@ function SoundMgr:setMusicVolume(volume)
     end
 
     -- BGM사운드가 너무 커서 70%로 줄였음
-    real_volume = real_volume -- * 0.7
+    real_volume = real_volume * 0.7
     cc.SimpleAudioEngine:getInstance():setMusicVolume(real_volume)
 end
 
