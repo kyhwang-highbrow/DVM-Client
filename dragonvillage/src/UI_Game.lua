@@ -247,6 +247,8 @@ end
 -- function click_autoButton
 -------------------------------------
 function UI_Game:click_autoButton()
+    if (not self.m_gameScene.m_gameWorld) then return end
+
     local gameAuto = self.m_gameScene.m_gameWorld.m_gameAutoHero
 
     self:setAutoMode(not gameAuto:isActive())

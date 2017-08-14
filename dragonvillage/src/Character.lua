@@ -578,6 +578,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 음수일 경우 0으로 변경
         damage = math_max(damage, 0)
+
+        -- nan 체크
+        if (damage ~= damage) then
+            damage = 0
+        end
     end
 
     -- Event Carrier 세팅

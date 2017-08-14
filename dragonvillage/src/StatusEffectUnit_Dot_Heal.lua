@@ -36,7 +36,10 @@ function StatusEffectUnit_Dot_Heal:calculateDotHeal()
     local heal
     
     -- 힐 계산
-    if (t_status_effect['abs_switch'] == 1) then 
+    if (t_status_effect['val_1'] == 'hp_target') then 
+        heal = self.m_owner.m_maxHp * (self.m_value / 100)
+
+    elseif (t_status_effect['abs_switch'] == 1) then 
         heal = self.m_value
 
     else
