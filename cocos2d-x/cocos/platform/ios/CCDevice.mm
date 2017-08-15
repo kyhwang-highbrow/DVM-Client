@@ -128,6 +128,9 @@ static CCAccelerometerDispatcher* s_pAccelerometerDispatcher;
             
         case UIInterfaceOrientationPortrait:
             break;
+
+        case UIInterfaceOrientationUnknown:
+            break;
     }
 
     cocos2d::EventAcceleration event(*_acceleration);
