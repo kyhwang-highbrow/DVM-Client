@@ -11,6 +11,7 @@
 
 #import "AppController.h"
 #import "RootViewController.h"
+#import "DeviceDetector.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -142,11 +143,17 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         NSString *text = [[UIPasteboard generalPasteboard] string];
         sdkEvent(id, "success", [text UTF8String]);
     } else if (strcmp(id, "app_deviceInfo") == 0) {
-        NSDictionary *dict = @{ @"name":[UIDevice currentDevice].name,
+        NSString *systemName = [UIDevice currentDevice].systemName;
+        NSString *systemVersion = [UIDevice currentDevice].systemVersion;
+        NSString *device = [DeviceDetector deviceName];
+        NSString *desc = [NSString stringWithFormat:@"Apple %@(%@ %@)", device, systemName, systemVersion];
+        NSDictionary *dict = @{ @"desc":desc,
+                                @"device":device,
+                                @"name":[UIDevice currentDevice].name,
                                 @"model":[UIDevice currentDevice].model,
                                 @"localizedModel":[UIDevice currentDevice].localizedModel,
-                                @"systemName":[UIDevice currentDevice].systemName,
-                                @"systemVersion":[UIDevice currentDevice].systemVersion };
+                                @"systemName":systemName,
+                                @"systemVersion":systemVersion };
         NSString *info = [AppController getJSONStringFromNSDictionary:dict];
         sdkEvent(id, "success", [info UTF8String]);
     }

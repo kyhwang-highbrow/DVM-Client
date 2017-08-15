@@ -30,6 +30,7 @@
 		3743769A1F3A837300AC6C7C /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 374376991F3A837300AC6C7C /* config.json */; };
 		3744D21519FDD5DE003D7120 /* ioapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D20C19FDD5DE003D7120 /* ioapi.cpp */; };
 		3744D21719FDD5DE003D7120 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; };
+		374D47A71F42E70600D5AC0F /* DeviceDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 374D47A61F42E70600D5AC0F /* DeviceDetector.m */; };
 		37519C041A6657A200406F47 /* PerpLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C031A6657A200406F47 /* PerpLua.cpp */; };
 		37519C101A6657B300406F47 /* PerpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C0E1A6657B300406F47 /* PerpUtils.cpp */; };
 		377033A5198F5FF00091C231 /* ConfigParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3770339F198F5FF00091C231 /* ConfigParser.cpp */; };
@@ -337,6 +338,8 @@
 		3744D21219FDD5DE003D7120 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = ../Classes/unzip.h; sourceTree = "<group>"; };
 		3744D21319FDD5DE003D7120 /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zconf.h; path = ../Classes/zconf.h; sourceTree = "<group>"; };
 		3744D21419FDD5DE003D7120 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = ../Classes/zlib.h; sourceTree = "<group>"; };
+		374D47A51F42E70600D5AC0F /* DeviceDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetector.h; sourceTree = "<group>"; };
+		374D47A61F42E70600D5AC0F /* DeviceDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetector.m; sourceTree = "<group>"; };
 		37519C031A6657A200406F47 /* PerpLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpLua.cpp; path = ../Classes/PerpLua.cpp; sourceTree = "<group>"; };
 		37519C0E1A6657B300406F47 /* PerpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpUtils.cpp; path = ../Classes/PerpExt/PerpUtils.cpp; sourceTree = "<group>"; };
 		37519C0F1A6657B300406F47 /* PerpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpUtils.h; path = ../Classes/PerpExt/PerpUtils.h; sourceTree = "<group>"; };
@@ -574,6 +577,8 @@
 				5023811717EBBCAC00990C9B /* RootViewController.mm */,
 				5023811317EBBCAC00990C9B /* Info.plist */,
 				37EF84281B268F3B00EFA299 /* InfoPlist.strings */,
+				374D47A51F42E70600D5AC0F /* DeviceDetector.h */,
+				374D47A61F42E70600D5AC0F /* DeviceDetector.m */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -1184,6 +1189,7 @@
 				3744D21719FDD5DE003D7120 /* unzip.cpp in Sources */,
 				5023811817EBBCAC00990C9B /* AppController.mm in Sources */,
 				373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */,
+				374D47A71F42E70600D5AC0F /* DeviceDetector.m in Sources */,
 				3744D21519FDD5DE003D7120 /* ioapi.cpp in Sources */,
 				373E2D841A038712004EF0DB /* AppDelegate_Custom.cpp in Sources */,
 			);
