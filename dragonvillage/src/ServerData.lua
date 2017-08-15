@@ -315,6 +315,10 @@ function ServerData:applySetting()
     -- 효과음
     local sfx = self:get('local', 'sfx')
     SoundMgr:setSfxOnOff(sfx)
+
+    -- 사운드 엔진
+    local engine_mode = self:get('local', 'sound_module') or cc.SimpleAudioEngine:getInstance():getEngineMode()
+    cc.SimpleAudioEngine:getInstance():setEngineMode(engine_mode)
 end
 
 -------------------------------------
