@@ -141,8 +141,6 @@ extern void sdkEventResult(const char *id, const char *result, const char *info)
         default:
             break;
     }
-
-    // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
