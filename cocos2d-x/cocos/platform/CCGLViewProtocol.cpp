@@ -183,8 +183,8 @@ Vec2 GLViewProtocol::getVisibleOrigin() const
 {
     if (_resolutionPolicy == ResolutionPolicy::NO_BORDER)
     {
-        return Vec2((_designResolutionSize.width - _screenSize.width/_scaleX)/2, 
-                           (_designResolutionSize.height - _screenSize.height/_scaleY)/2);
+        return Vec2((_designResolutionSize.width - getVisibleSize().width) / 2,
+                    (_designResolutionSize.height - getVisibleSize().height) / 2);
     }
     else 
     {
