@@ -740,56 +740,20 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
     double aniDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
     CGSize viewSize = self.frame.size;
-    CGFloat tmp;
-    
+
     switch ([[UIApplication sharedApplication] statusBarOrientation])
     {
         case UIInterfaceOrientationPortrait:
-            begin.origin.y = viewSize.height - begin.origin.y - begin.size.height;
-            end.origin.y = viewSize.height - end.origin.y - end.size.height;
-            break;
-            
         case UIInterfaceOrientationPortraitUpsideDown:
-            begin.origin.x = viewSize.width - (begin.origin.x + begin.size.width);
-            end.origin.x = viewSize.width - (end.origin.x + end.size.width);
+            begin.origin.y = viewSize.height - (begin.origin.y + begin.size.height);
+            end.origin.y = viewSize.height - (end.origin.y + end.size.height);
             break;
             
         case UIInterfaceOrientationLandscapeLeft:
-            tmp = begin.size.width;
-            begin.size.width = begin.size.height;
-            begin.size.height = tmp;
-            tmp = end.size.width;
-            end.size.width = end.size.height;
-            end.size.height = tmp;
-            tmp = viewSize.width;
-            viewSize.width = viewSize.height;
-            viewSize.height = tmp;
-            
-            tmp = begin.origin.x;
-            begin.origin.x = begin.origin.y;
-            begin.origin.y = viewSize.height - tmp - begin.size.height;
-            tmp = end.origin.x;
-            end.origin.x = end.origin.y;
-            end.origin.y = viewSize.height - tmp - end.size.height;
-            break;
-            
         case UIInterfaceOrientationLandscapeRight:
-            tmp = begin.size.width;
-            begin.size.width = begin.size.height;
-            begin.size.height = tmp;
-            tmp = end.size.width;
-            end.size.width = end.size.height;
-            end.size.height = tmp;
-            tmp = viewSize.width;
-            viewSize.width = viewSize.height;
-            viewSize.height = tmp;
-            
-            tmp = begin.origin.x;
-            begin.origin.x = begin.origin.y;
-            begin.origin.y = tmp;
-            tmp = end.origin.x;
-            end.origin.x = end.origin.y;
-            end.origin.y = tmp;
+            begin.origin.y = viewSize.height - begin.origin.y;
+            end.origin.y = viewSize.height - end.origin.y;
+            std::swap(begin.origin, end.origin);
             break;
             
         default:
@@ -804,7 +768,6 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
     if (self.contentScaleFactor == 2.0f)
     {
         // Convert to pixel coordinate
-        
         begin = CGRectApplyAffineTransform(begin, CGAffineTransformScale(CGAffineTransformIdentity, 2.0f, 2.0f));
         end = CGRectApplyAffineTransform(end, CGAffineTransformScale(CGAffineTransformIdentity, 2.0f, 2.0f));
     }
@@ -883,19 +846,10 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
     switch ([[UIApplication sharedApplication] statusBarOrientation])
     {
         case UIInterfaceOrientationPortrait:
-            self.frame = CGRectMake(originalRect_.origin.x, originalRect_.origin.y - dis, originalRect_.size.width, originalRect_.size.height);
-            break;
-            
         case UIInterfaceOrientationPortraitUpsideDown:
-            self.frame = CGRectMake(originalRect_.origin.x, originalRect_.origin.y + dis, originalRect_.size.width, originalRect_.size.height);
-            break;
-            
         case UIInterfaceOrientationLandscapeLeft:
-            self.frame = CGRectMake(originalRect_.origin.x - dis, originalRect_.origin.y , originalRect_.size.width, originalRect_.size.height);
-            break;
-            
         case UIInterfaceOrientationLandscapeRight:
-            self.frame = CGRectMake(originalRect_.origin.x + dis, originalRect_.origin.y , originalRect_.size.width, originalRect_.size.height);
+            self.frame = CGRectMake(originalRect_.origin.x, originalRect_.origin.y - dis, originalRect_.size.width, originalRect_.size.height);
             break;
             
         default:
