@@ -31,15 +31,6 @@ using namespace cocos2d::experimental;
 
 USING_NS_CC;
 
-
-static int s_EngineMode = 0;
-
-static int s_BGMusicId = -1;
-static bool s_IsBGMPlaying = false;
-
-static int s_VoiceId = -1;
-
-
 static bool __isAudioPreloadOrPlayed = false;
 
 static void static_end()
@@ -234,16 +225,26 @@ static std::string ogg2mp3(const char *pszFilePath)
 
 namespace CocosDenshion {
 
+// AudioEngine
+static int s_EngineMode = 0;
+static int s_BGMId = AudioEngine::INVALID_AUDIO_ID;
+static float s_BGMVolume = 1.0f;
+static std::list<int> s_SoundIds;
+static float s_EffectVolume = 1.0f;
+static int s_VoiceId = AudioEngine::INVALID_AUDIO_ID;
+
 static SimpleAudioEngine *s_pEngine = nullptr;
+static int s_SimpleAudioVoiceId = -1;
 
 SimpleAudioEngine::SimpleAudioEngine()
 {
-
 }
 
 SimpleAudioEngine::~SimpleAudioEngine()
 {
-
+    stopAllEffects();
+    stopBackgroundMusic();
+    end();
 }
 
 SimpleAudioEngine* SimpleAudioEngine::getInstance()
@@ -261,6 +262,10 @@ void SimpleAudioEngine::end()
     if (s_EngineMode == 1)
     {
         AudioEngine::end();
+
+        s_SoundIds.clear();
+        s_BGMId = AudioEngine::INVALID_AUDIO_ID;
+        s_VoiceId = AudioEngine::INVALID_AUDIO_ID;
     }
     else
     {
@@ -271,6 +276,8 @@ void SimpleAudioEngine::end()
         }
 
         static_end();
+
+        s_SimpleAudioVoiceId = -1;
     }
 }
 
@@ -296,13 +303,12 @@ void SimpleAudioEngine::playBackgroundMusic(const char* pszFilePath, bool bLoop)
 
     if (s_EngineMode == 1)
     {
-        if (s_BGMusicId != -1)
+        if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
         {
             stopBackgroundMusic();
         }
 
-        s_BGMusicId = AudioEngine::play2d(fullPath, bLoop);
-        s_IsBGMPlaying = true;
+        s_BGMId = AudioEngine::play2d(fullPath, bLoop, s_BGMVolume);
     }
     else
     {
@@ -314,11 +320,10 @@ void SimpleAudioEngine::stopBackgroundMusic(bool bReleaseData)
 {
     if (s_EngineMode == 1)
     {
-        if (s_BGMusicId != -1)
+        if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
         {
-            AudioEngine::stop(s_BGMusicId);
-            s_BGMusicId = -1;
-            s_IsBGMPlaying = false;
+            AudioEngine::stop(s_BGMId);
+            s_BGMId = AudioEngine::INVALID_AUDIO_ID;
         }
     }
     else
@@ -331,10 +336,9 @@ void SimpleAudioEngine::pauseBackgroundMusic()
 {
     if (s_EngineMode == 1)
     {
-        if (s_BGMusicId != -1)
+        if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
         {
-            AudioEngine::pause(s_BGMusicId);
-            s_IsBGMPlaying = false;
+            AudioEngine::pause(s_BGMId);
         }
     }
     else
@@ -347,10 +351,9 @@ void SimpleAudioEngine::resumeBackgroundMusic()
 {
     if (s_EngineMode == 1)
     {
-        if (s_BGMusicId != -1)
+        if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
         {
-            AudioEngine::resume(s_BGMusicId);
-            s_IsBGMPlaying = true;
+            AudioEngine::resume(s_BGMId);
         }
     }
     else
@@ -363,9 +366,9 @@ void SimpleAudioEngine::rewindBackgroundMusic()
 {
     if (s_EngineMode == 1)
     {
-        if (s_BGMusicId != -1)
+        if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
         {
-            AudioEngine::setCurrentTime(s_BGMusicId, 0);
+            AudioEngine::setCurrentTime(s_BGMId, 0);
         }
     }
     else
@@ -378,7 +381,7 @@ bool SimpleAudioEngine::willPlayBackgroundMusic()
 {
     if (s_EngineMode == 1)
     {
-        return false;
+        return true;
     }
     else
     {
@@ -390,7 +393,11 @@ bool SimpleAudioEngine::isBackgroundMusicPlaying()
 {
     if (s_EngineMode == 1)
     {
-        return s_IsBGMPlaying;
+        if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
+        {
+            return (AudioEngine::getState(s_BGMId) == AudioEngine::AudioState::PLAYING);
+        }
+        return false;
     }
     else
     {
@@ -402,14 +409,7 @@ float SimpleAudioEngine::getBackgroundMusicVolume()
 {
     if (s_EngineMode == 1)
     {
-        if (s_BGMusicId != -1)
-        {
-            return AudioEngine::getVolume(s_BGMusicId);
-        }
-        else
-        {
-            return 0.0f;
-        }
+        return s_BGMVolume;
     }
     else
     {
@@ -421,9 +421,13 @@ void SimpleAudioEngine::setBackgroundMusicVolume(float volume)
 {
     if (s_EngineMode == 1)
     {
-        if (s_BGMusicId != -1)
+        if (s_BGMVolume != volume)
         {
-            AudioEngine::setVolume(s_BGMusicId, volume);
+            s_BGMVolume = volume;
+            if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
+            {
+                AudioEngine::setVolume(s_BGMId, s_BGMVolume);
+            }
         }
     }
     else
@@ -436,7 +440,7 @@ float SimpleAudioEngine::getEffectsVolume()
 {
     if (s_EngineMode == 1)
     {
-        return 0.0f;
+        return s_EffectVolume;
     }
     else
     {
@@ -448,6 +452,23 @@ void SimpleAudioEngine::setEffectsVolume(float volume)
 {
     if (s_EngineMode == 1)
     {
+        if (volume > 1.0f)
+        {
+            volume = 1.0f;
+        }
+        else if (volume < 0.0f)
+        {
+            volume = 0.0f;
+        }
+
+        if (s_EffectVolume != volume)
+        {
+            s_EffectVolume = volume;
+            for (auto it : s_SoundIds)
+            {
+                AudioEngine::setVolume(it, volume);
+            }
+        }
     }
     else
     {
@@ -463,7 +484,17 @@ unsigned int SimpleAudioEngine::playEffect(const char *pszFilePath, bool bLoop,
 
     if (s_EngineMode == 1)
     {
-        return AudioEngine::play2d(fullPath, bLoop);
+        auto soundId = AudioEngine::play2d(fullPath, bLoop, s_EffectVolume);
+        if (soundId != AudioEngine::INVALID_AUDIO_ID)
+        {
+            s_SoundIds.push_back(soundId);
+
+            AudioEngine::setFinishCallback(soundId, [this](int id, const std::string& filePath){
+                s_SoundIds.remove(id);
+            });
+        }
+
+        return soundId;
     }
     else
     {
@@ -476,6 +507,7 @@ void SimpleAudioEngine::stopEffect(unsigned int nSoundId)
     if (s_EngineMode == 1)
     {
         AudioEngine::stop(nSoundId);
+        s_SoundIds.remove(nSoundId);
     }
     else
     {
@@ -541,10 +573,9 @@ void SimpleAudioEngine::pauseAllEffects()
 {
     if (s_EngineMode == 1)
     {
-        AudioEngine::pauseAll();
-        if (s_BGMusicId != -1)
+        for (auto it : s_SoundIds)
         {
-            s_IsBGMPlaying = false;
+            AudioEngine::pause(it);
         }
     }
     else
@@ -557,10 +588,9 @@ void SimpleAudioEngine::resumeAllEffects()
 {
     if (s_EngineMode == 1)
     {
-        AudioEngine::resumeAll();
-        if (s_BGMusicId != -1)
+        for (auto it : s_SoundIds)
         {
-            s_IsBGMPlaying = true;
+            AudioEngine::resume(it);
         }
     }
     else
@@ -573,7 +603,11 @@ void SimpleAudioEngine::stopAllEffects()
 {
     if (s_EngineMode == 1)
     {
-        AudioEngine::stopAll();
+        for (auto it : s_SoundIds)
+        {
+            AudioEngine::stop(it);
+        }
+        s_SoundIds.clear();
     }
     else
     {
@@ -588,16 +622,22 @@ void SimpleAudioEngine::playVoice(const char* pszFilePath, bool bLoop)
 
     if (s_EngineMode == 1)
     {
-        if (s_VoiceId != -1)
+        auto soundId = AudioEngine::play2d(fullPath, bLoop, s_EffectVolume);
+        if (soundId != AudioEngine::INVALID_AUDIO_ID)
         {
-            stopVoice();
+            s_SoundIds.push_back(soundId);
+
+            AudioEngine::setFinishCallback(soundId, [this](int id, const std::string& filePath){
+                s_SoundIds.remove(id);
+                s_VoiceId = AudioEngine::INVALID_AUDIO_ID;
+            });
         }
 
-        s_VoiceId = AudioEngine::play2d(fullPath, bLoop);
+        s_VoiceId = soundId;
     }
     else
     {
-        s_VoiceId = playEffect(fullPath.c_str(), bLoop);
+        s_SimpleAudioVoiceId = playEffect(fullPath.c_str(), bLoop);
     }
 }
 
@@ -605,16 +645,17 @@ void SimpleAudioEngine::stopVoice(bool bReleaseData)
 {
     if (s_EngineMode == 1)
     {
-        if (s_VoiceId != -1)
+        if (s_VoiceId != AudioEngine::INVALID_AUDIO_ID)
         {
             AudioEngine::stop(s_VoiceId);
-            s_VoiceId = -1;
+            s_SoundIds.remove(s_VoiceId);
+            s_VoiceId = AudioEngine::INVALID_AUDIO_ID;
         }
     }
     else
     {
-        stopEffect(s_VoiceId);
-        s_VoiceId = -1;
+        stopEffect(s_SimpleAudioVoiceId);
+        s_SimpleAudioVoiceId = -1;
     }
 }
 
