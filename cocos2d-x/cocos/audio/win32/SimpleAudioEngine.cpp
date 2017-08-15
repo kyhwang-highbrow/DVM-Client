@@ -46,12 +46,16 @@ static char     s_szRootPath[MAX_PATH];
 static DWORD    s_dwRootLen;
 static char     s_szFullPath[MAX_PATH];
 
-static int s_BGMusicId = -1;
-static bool s_IsBGPlaying = false;
-
-static int s_VoiceId = -1;
-
+// AudioEngine
 static int s_EngineMode = 1;
+static int s_BGMId = AudioEngine::INVALID_AUDIO_ID;
+static float s_BGMVolume = 1.0f;
+static std::list<int> s_SoundIds;
+static float s_EffectVolume = 1.0f;
+static int s_VoiceId = AudioEngine::INVALID_AUDIO_ID;
+
+// SimpleAudioEngine
+static int s_SimpleAudioVoiceId = -1;
 
 static std::string _FullPath(const char * szPath);
 static unsigned int _Hash(const char *key);
@@ -76,6 +80,9 @@ SimpleAudioEngine::SimpleAudioEngine()
 
 SimpleAudioEngine::~SimpleAudioEngine()
 {
+	stopAllEffects();
+	stopBackgroundMusic();
+	end();
 }
 
 SimpleAudioEngine* SimpleAudioEngine::getInstance()
@@ -89,9 +96,10 @@ void SimpleAudioEngine::end()
 	if (s_EngineMode == 1)
 	{
 		AudioEngine::end();
-		s_BGMusicId = -1;
-		s_VoiceId = -1;
-		s_IsBGPlaying = false;
+
+		s_SoundIds.clear();
+		s_BGMId = AudioEngine::INVALID_AUDIO_ID;
+		s_VoiceId = AudioEngine::INVALID_AUDIO_ID;
 	}
 	else
 	{
@@ -113,23 +121,22 @@ void SimpleAudioEngine::end()
 
 void SimpleAudioEngine::playBackgroundMusic(const char* pszFilePath, bool bLoop)
 {
+	if (!pszFilePath)
+	{
+		return;
+	}
+
 	if (s_EngineMode == 1)
 	{
-		if (s_BGMusicId != -1)
+		if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
 		{
 			stopBackgroundMusic();
 		}
 
-		s_BGMusicId = AudioEngine::play2d(pszFilePath, bLoop);
-		s_IsBGPlaying = true;
+		s_BGMId = AudioEngine::play2d(pszFilePath, bLoop, s_BGMVolume);
 	}
 	else
 	{
-		if (!pszFilePath)
-		{
-			return;
-		}
-
 		sharedMusic().Open(_FullPath(pszFilePath).c_str(), _Hash(pszFilePath));
 		sharedMusic().Play((bLoop) ? -1 : 1);
 	}
@@ -139,11 +146,10 @@ void SimpleAudioEngine::stopBackgroundMusic(bool bReleaseData)
 {
 	if (s_EngineMode == 1)
 	{
-		if (s_BGMusicId != -1)
+		if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
 		{
-			AudioEngine::stop(s_BGMusicId);
-			s_BGMusicId = -1;
-			s_IsBGPlaying = false;
+			AudioEngine::stop(s_BGMId);
+			s_BGMId = AudioEngine::INVALID_AUDIO_ID;
 		}
 	}
 	else
@@ -163,16 +169,22 @@ void SimpleAudioEngine::playVoice(const char* pszFilePath, bool bLoop)
 {
 	if (s_EngineMode == 1)
 	{
-		if (s_VoiceId != -1)
+		auto soundId = AudioEngine::play2d(pszFilePath, bLoop, s_EffectVolume);
+		if (soundId != AudioEngine::INVALID_AUDIO_ID)
 		{
-			stopVoice();
+			s_SoundIds.push_back(soundId);
+
+			AudioEngine::setFinishCallback(soundId, [this](int id, const std::string& filePath){
+				s_SoundIds.remove(id);
+				s_VoiceId = AudioEngine::INVALID_AUDIO_ID;
+			});
 		}
 
-		s_VoiceId = AudioEngine::play2d(pszFilePath, bLoop);
+		s_VoiceId = soundId;
 	}
 	else
 	{
-		s_VoiceId = playEffect(pszFilePath, bLoop);
+		s_SimpleAudioVoiceId = playEffect(pszFilePath, bLoop);
 	}
 }
 
@@ -180,17 +192,17 @@ void SimpleAudioEngine::stopVoice(bool bReleaseData)
 {
 	if (s_EngineMode == 1)
 	{
-
-		if (s_VoiceId != -1)
+		if (s_VoiceId != AudioEngine::INVALID_AUDIO_ID)
 		{
 			AudioEngine::stop(s_VoiceId);
-			s_VoiceId = -1;
+			s_SoundIds.remove(s_VoiceId);
+			s_VoiceId = AudioEngine::INVALID_AUDIO_ID;
 		}
 	}
 	else
 	{
-		stopEffect(s_VoiceId);
-		s_VoiceId = -1;
+		stopEffect(s_SimpleAudioVoiceId);
+		s_SimpleAudioVoiceId = -1;
 	}
 }
 
@@ -198,10 +210,9 @@ void SimpleAudioEngine::pauseBackgroundMusic()
 {
 	if (s_EngineMode == 1)
 	{
-		if (s_BGMusicId != -1)
+		if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
 		{
-			AudioEngine::pause(s_BGMusicId);
-			s_IsBGPlaying = false;
+			AudioEngine::pause(s_BGMId);
 		}
 	}
 	else
@@ -214,10 +225,9 @@ void SimpleAudioEngine::resumeBackgroundMusic()
 {
 	if (s_EngineMode == 1)
 	{
-		if (s_BGMusicId != -1)
+		if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
 		{
-			AudioEngine::resume(s_BGMusicId);
-			s_IsBGPlaying = true;
+			AudioEngine::resume(s_BGMId);
 		}
 	}
 	else
@@ -230,9 +240,9 @@ void SimpleAudioEngine::rewindBackgroundMusic()
 {
 	if (s_EngineMode == 1)
 	{
-		if (s_BGMusicId != -1)
+		if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
 		{
-			AudioEngine::setCurrentTime(s_BGMusicId, 0);
+			AudioEngine::setCurrentTime(s_BGMId, 0);
 		}
 	}
 	else
@@ -243,14 +253,18 @@ void SimpleAudioEngine::rewindBackgroundMusic()
 
 bool SimpleAudioEngine::willPlayBackgroundMusic()
 {
-    return false;
+    return true;
 }
 
 bool SimpleAudioEngine::isBackgroundMusicPlaying()
 {
 	if (s_EngineMode == 1)
 	{
-		return s_IsBGPlaying;
+		if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
+		{
+			return (AudioEngine::getState(s_BGMId) == AudioEngine::AudioState::PLAYING);
+		}
+		return false;
 	}
 	else
 	{
@@ -267,8 +281,17 @@ unsigned int SimpleAudioEngine::playEffect(const char* pszFilePath, bool bLoop,
 {
 	if (s_EngineMode == 1)
 	{
-		int audioId = AudioEngine::play2d(pszFilePath, bLoop);
-		return audioId;
+		auto soundId = AudioEngine::play2d(pszFilePath, bLoop, s_EffectVolume);
+		if (soundId != AudioEngine::INVALID_AUDIO_ID)
+		{
+			s_SoundIds.push_back(soundId);
+
+			AudioEngine::setFinishCallback(soundId, [this](int id, const std::string& filePath){
+				s_SoundIds.remove(id);
+			});
+		}
+
+		return soundId;
 	}
 	else
 	{
@@ -291,6 +314,7 @@ void SimpleAudioEngine::stopEffect(unsigned int nSoundId)
 	if (s_EngineMode == 1)
 	{
 		AudioEngine::stop(nSoundId);
+		s_SoundIds.remove(nSoundId);
 	}
 	else
 	{
@@ -352,10 +376,9 @@ void SimpleAudioEngine::pauseAllEffects()
 {
 	if (s_EngineMode == 1)
 	{
-		AudioEngine::pauseAll();
-		if (s_BGMusicId != -1)
+		for (auto it : s_SoundIds)
 		{
-			s_IsBGPlaying = false;
+			AudioEngine::pause(it);
 		}
 	}
 	else
@@ -387,10 +410,9 @@ void SimpleAudioEngine::resumeAllEffects()
 {
 	if (s_EngineMode == 1)
 	{
-		AudioEngine::resumeAll();
-		if (s_BGMusicId != -1)
+		for (auto it : s_SoundIds)
 		{
-			s_IsBGPlaying = true;
+			AudioEngine::resume(it);
 		}
 	}
 	else
@@ -406,10 +428,11 @@ void SimpleAudioEngine::stopAllEffects()
 {
 	if (s_EngineMode == 1)
 	{
-		AudioEngine::stopAll();
-		s_BGMusicId = -1;
-		s_IsBGPlaying = false;
-		s_VoiceId = -1;
+		for (auto it : s_SoundIds)
+		{
+			AudioEngine::stop(it);
+		}
+		s_SoundIds.clear();
 	}
 	else
 	{
@@ -467,20 +490,61 @@ void SimpleAudioEngine::cancelVibrate()
 
 float SimpleAudioEngine::getBackgroundMusicVolume()
 {
+	if (s_EngineMode == 1)
+	{
+		return s_BGMVolume;
+	}
+
     return 1.0;
 }
 
 void SimpleAudioEngine::setBackgroundMusicVolume(float volume)
 {
+	if (s_EngineMode == 1)
+	{
+		if (s_BGMVolume != volume)
+		{
+			s_BGMVolume = volume;
+			if (s_BGMId != AudioEngine::INVALID_AUDIO_ID)
+			{
+				AudioEngine::setVolume(s_BGMId, s_BGMVolume);
+			}
+		}
+	}
 }
 
 float SimpleAudioEngine::getEffectsVolume()
 {
-    return 1.0;
+	if (s_EngineMode == 1)
+	{
+		return s_EffectVolume;
+	}
+
+	return 1.0;
 }
 
 void SimpleAudioEngine::setEffectsVolume(float volume)
 {
+	if (s_EngineMode == 1)
+	{
+		if (volume > 1.0f)
+		{
+			volume = 1.0f;
+		}
+		else if (volume < 0.0f)
+		{
+			volume = 0.0f;
+		}
+
+		if (s_EffectVolume != volume)
+		{
+			s_EffectVolume = volume;
+			for (auto it : s_SoundIds)
+			{
+				AudioEngine::setVolume(it, volume);
+			}
+		}
+	}
 }
 
 void SimpleAudioEngine::setEngineMode(int mode)
