@@ -145,6 +145,38 @@ int SupportPatch::unzipFiles(const char *src, const char *md5, const char *tar, 
 	return ret;
 }
 
+static std::thread* s_unzipThread = nullptr;
+
+void SupportPatch::unzipThreadFunc(const char *src, const char *md5, const char *tar, const char *fakeStr, std::function<void(int)> callback)
+{
+	int ret = unzipFiles(src, md5, tar, fakeStr);
+
+	// callback 처리
+	if (callback != nullptr)
+	{
+		callback(ret);
+	}
+
+	// thread 삭제
+	CC_SAFE_DELETE(s_unzipThread);
+}
+
+void SupportPatch::startUnzipThread(const char *src, const char *md5, const char *tar, const char *fakeStr, std::function<void(int)> callback)
+{
+	if (s_unzipThread == nullptr)
+	{
+		s_unzipThread = new std::thread(&SupportPatch::unzipThreadFunc, src, md5, tar, fakeStr, callback);
+	}
+	else
+	{
+		// callback 처리
+		if (callback != nullptr)
+		{
+			callback(UNZ_THREAD_DUPLICATED);
+		}
+	}
+}
+
 string SupportPatch::makeFakePath(string path, string fakeStr)
 {
 	int latestPos = 0;

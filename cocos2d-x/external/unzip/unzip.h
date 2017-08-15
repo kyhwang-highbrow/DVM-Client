@@ -78,6 +78,7 @@ typedef voidp unzFile;
 #define UNZ_INTERNALERROR               (-104)
 #define UNZ_CRCERROR                    (-105)
 #define UNZ_CUSTOM						(-110)
+#define UNZ_THREAD_DUPLICATED			(-111)
 
 namespace cocos2d {
 
