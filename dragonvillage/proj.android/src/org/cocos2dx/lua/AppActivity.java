@@ -370,11 +370,6 @@ public class AppActivity extends Cocos2dxActivity{
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 
-    private static void appGotoWeb(String url) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        sActivity.startActivity(browserIntent);
-    }
-
     private static void appSendMail(String email, String subject, String text) {
         String[] tos = { email };
         Intent it = new Intent(Intent.ACTION_SEND);
@@ -385,12 +380,16 @@ public class AppActivity extends Cocos2dxActivity{
         sActivity.startActivity(Intent.createChooser(it, "Choose Email Client"));
     }
 
-    private static void appGotoStore() {
-        String appName = "com.perplelab.dragonvillagem.kr";
+    private static void appGotoWeb(String url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        sActivity.startActivity(browserIntent);
+    }
+
+    private static void appGotoStore(String appId) {
         try {
-            sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appName)));
+            sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appId)));
         } catch (android.content.ActivityNotFoundException anfe) {
-            sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appName)));
+            sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appId)));
         }
     }
 
@@ -533,18 +532,18 @@ public class AppActivity extends Cocos2dxActivity{
 
                     appTerminate();
 
-                } else if (id.equals("app_gotoWeb")) {
-
-                    appGotoWeb(arg0);
-
                 } else if (id.equals("app_sendMail")) {
 
                     String[] array = arg0.split(";");
                     appSendMail(array[0], array[1], array[2]);
 
+                } else if (id.equals("app_gotoWeb")) {
+
+                    appGotoWeb(arg0);
+
                 } else if (id.equals("app_gotoStore")) {
 
-                    appGotoStore();
+                    appGotoStore(arg0);
 
                 } else if (id.equals("app_alert")) {
 
