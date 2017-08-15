@@ -96,9 +96,6 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         // @todo
     } else if (strcmp(id, "app_terminate") == 0) {
         // do nothing in iOS
-    } else if (strcmp(id, "app_gotoWeb") == 0) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithUTF8String:arg0]];
-        [[UIApplication sharedApplication] openURL:url];
     } else if (strcmp(id, "app_alert") == 0) {
         NSArray *params = [[NSString stringWithUTF8String:arg0] componentsSeparatedByString:@";"];
 
@@ -116,14 +113,12 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         NSString *body = [params objectAtIndex:2];
         AppController *appController = (AppController *)[[UIApplication sharedApplication] delegate];
         [appController sendMail:recipient title:title body:body];
+    } else if (strcmp(id, "app_gotoWeb") == 0) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithUTF8String:arg0]];
+        [[UIApplication sharedApplication] openURL:url];
     } else if (strcmp(id, "app_gotoStore") == 0) {
-        NSString *marketUrl;
-        if (arg0 && strlen(arg0) > 1) {
-            marketUrl = [NSString stringWithUTF8String:arg0];
-        }
-        else {
-            marketUrl = @"http://itunes.apple.com/kr/app/id721512161?mt=8&uo=4";
-        }
+        NSString *appStoreId = [NSString stringWithUTF8String:arg0];
+        NSString *marketUrl = [NSString stringWithFormat:@"http://itunes.apple.com/kr/app/id%@?mt=8&uo=4", appStoreId];
         NSURL *url = [NSURL URLWithString:marketUrl];
         [[UIApplication sharedApplication] openURL:url];
     } else if (strcmp(id, "localpush_register") == 0) {
