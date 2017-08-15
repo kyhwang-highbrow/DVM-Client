@@ -117,8 +117,8 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         NSURL *url = [NSURL URLWithString:[NSString stringWithUTF8String:arg0]];
         [[UIApplication sharedApplication] openURL:url];
     } else if (strcmp(id, "app_gotoStore") == 0) {
-        NSString *appStoreId = [NSString stringWithUTF8String:arg0];
-        NSString *marketUrl = [NSString stringWithFormat:@"http://itunes.apple.com/kr/app/id%@?mt=8&uo=4", appStoreId];
+        NSString *appId = [NSString stringWithUTF8String:arg0];
+        NSString *marketUrl = [NSString stringWithFormat:@"http://itunes.apple.com/kr/app/id%@?mt=8&uo=4", appId];
         NSURL *url = [NSURL URLWithString:marketUrl];
         [[UIApplication sharedApplication] openURL:url];
     } else if (strcmp(id, "localpush_register") == 0) {
