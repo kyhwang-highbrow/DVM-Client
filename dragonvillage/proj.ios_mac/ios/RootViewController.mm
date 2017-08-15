@@ -122,6 +122,7 @@ extern void sdkEventResult(const char *id, const char *result, const char *info)
     [super dealloc];
 }
 
+#pragma mark - MFMailComposeViewControllerDelegate
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     switch (result)
