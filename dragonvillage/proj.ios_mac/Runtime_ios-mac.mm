@@ -109,7 +109,12 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         [alertView show];
         [alertView release];
     } else if (strcmp(id, "app_sendMail") == 0) {
-        // @todo
+        NSArray *params = [[NSString stringWithUTF8String:arg0] componentsSeparatedByString:@";"];
+        NSString *recipient = [params objectAtIndex:0];
+        NSString *title = [params objectAtIndex:1];
+        NSString *body = [params objectAtIndex:2];
+        AppController *appController = (AppController *)[[UIApplication sharedApplication] delegate];
+        [appController sendMail:recipient title:title body:body];
     } else if (strcmp(id, "app_gotoStore") == 0) {
         NSString *marketUrl;
         if (arg0 && strlen(arg0) > 1) {

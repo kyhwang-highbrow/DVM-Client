@@ -34,6 +34,9 @@
     RootViewController *viewController;
 }
 
+// @send mail
+- (void)sendMail:(NSString *)recipient title:(NSString *)title body:(NSString *)body;
+
 // @localpush
 + (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg;
 + (void)cancelNotification;

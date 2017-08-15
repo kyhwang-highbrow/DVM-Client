@@ -24,8 +24,9 @@
  ****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface RootViewController : UIViewController
+@interface RootViewController : UIViewController <MFMailComposeViewControllerDelegate>
 {
 }
 

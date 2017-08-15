@@ -25,6 +25,8 @@
 
 #import <UIKit/UIKit.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <MessageUI/MessageUI.h>
+
 #import "mach/mach.h"
 #import "cocos2d.h"
 
@@ -208,6 +210,24 @@ static AppDelegate s_sharedApplication;
     return [[PerpleSDK sharedInstance] application:application openURL:url options:options];
 }
 #endif
+
+// @send mail
+- (void)sendMail:(NSString *)recipient
+           title:(NSString *)title
+            body:(NSString *)body {
+    NSString *emailTitle = title;
+    NSString *messageBody = body;
+    NSArray *toRecipients = [NSArray arrayWithObject:recipient];
+
+    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+    mc.mailComposeDelegate = viewController;
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+    [mc setToRecipients:toRecipients];
+
+    // Present mail view controller on screen
+    [viewController presentViewController:mc animated:YES completion:NULL];
+}
 
 // @localpush
 + (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg
