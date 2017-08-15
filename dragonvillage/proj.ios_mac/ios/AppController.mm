@@ -215,15 +215,15 @@ static AppDelegate s_sharedApplication;
 - (void)sendMail:(NSString *)recipient
            title:(NSString *)title
             body:(NSString *)body {
+    NSArray *recipients = [NSArray arrayWithObject:recipient];
     NSString *emailTitle = title;
     NSString *messageBody = body;
-    NSArray *toRecipients = [NSArray arrayWithObject:recipient];
 
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc.mailComposeDelegate = viewController;
     [mc setSubject:emailTitle];
     [mc setMessageBody:messageBody isHTML:NO];
-    [mc setToRecipients:toRecipients];
+    [mc setToRecipients:recipients];
 
     // Present mail view controller on screen
     [viewController presentViewController:mc animated:YES completion:NULL];
