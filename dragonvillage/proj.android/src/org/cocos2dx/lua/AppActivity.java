@@ -76,6 +76,9 @@ public class AppActivity extends Cocos2dxActivity{
     // @billing
     static final String BASE64_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2AOyhy0owSekR+QEpAUb2fV/wBtRmuD8UNEsku6iGM+Qx5o7iBMlGlcb7kjCJ86hMAu6g+1cdGFTQGCGTKrDZS6AfTv8NDB5EFwxvLa8Rn9aUU0nkaLFGNQvEo+gplP1PZQZLd30RMmJy/uYkzA2+vCdGaOQRTckwbczDBQyKWtQ5k5aj/1HQ/X8XxZneaKAM2JyFgFcjSYtlep9/XOQ6K2aR0VLoMse2rGkaFJQAFOBgNlNbvC3cbvaZe1hnZ4ypjadsPzw83ZpQYaMRTUF1k/TpB6CuSIX4L2ykUkEDyWn0RECpO3jR1fJ1Lb2ddYTpb8gORou9mhIK9Nfr8Cn4wIDAQAB";
 
+    // @tapjoy
+    static final String TAPJOY_SDK_KEY = "MZ5hVosGT1eLIW00UXCPvgEC7RNJdi2ZS0Kjtpd7IgoRLXg6N96edKY8h5cA";
+
     static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
 
     static final int RC_APP_RESTART                 = 1000;
@@ -116,6 +119,9 @@ public class AppActivity extends Cocos2dxActivity{
 
         // @adbrix
         PerpleSDK.getInstance().initAdbrix();
+
+        // @tapjoy
+        PerpleSDK.getInstance().initTapjoy(TAPJOY_SDK_KEY, "", isDebug);
     }
 
     @Override
