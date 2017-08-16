@@ -239,7 +239,7 @@ function UI_Network:statusHandler(ret)
         return true
     end
 
-    local error_str = S_ERROR_STATUS_STOP[status]
+    local error_str = S_ERROR_STATUS_CLOSE[status]
     if (error_str) then
         MakeSimplePopup(POPUP_TYPE.OK, error_str, function() closeApplication() end)
         self:close()
