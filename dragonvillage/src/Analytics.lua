@@ -164,7 +164,7 @@ function FiveRocks:userInfo(userId)
 
     cclog('FiveRocks:userInfo : ' .. arg0)
 
-    PerpSocial:SDKEvent('5rocks_userInfo', arg0, '', function(ret)
+    PerpSocial:SDKEvent('userID', arg0, '', function(ret)
     end)
 end
 
@@ -181,7 +181,7 @@ function FiveRocks:trackPurchase(productId, price)
 
     cclog('FiveRocks:trackPurchase : ' .. arg0)
 
-    PerpSocial:SDKEvent('5rocks_trackPurchase', arg0, '', function(ret)
+    PerpSocial:SDKEvent('trackPurchase', arg0, '', function(ret)
     end)
 end
 
@@ -196,7 +196,7 @@ function FiveRocks:customCohort(cohortNo, cohortDesc)
 
     cclog('FiveRocks:customCohort : ' .. arg0 .. ',' .. arg1)
 
-    PerpSocial:SDKEvent('5rocks_customCohort', arg0, arg1, function(ret)
+    PerpSocial:SDKEvent('userCohortVariable', arg0, arg1, function(ret)
     end)
 end
 
@@ -210,7 +210,7 @@ function FiveRocks:setAppDataVersion()
 
     cclog('FiveRocks:setAppDataVersion : ' .. arg0)
 
-    PerpSocial:SDKEvent('5rocks_appDataVersion', arg0, '', function(ret)
+    PerpSocial:SDKEvent('appDataVersion', arg0, '', function(ret)
     end)
 end
 
@@ -236,7 +236,7 @@ function FiveRocks:trackEvent(category, name, param1, param2, value1Name, value1
 
     cclog('FiveRocks:trackEvent : ' .. arg0)
 
-    PerpSocial:SDKEvent('5rocks_trackEvent', arg0, '', function(ret)
+    PerpSocial:SDKEvent('trackEvent', arg0, '', function(ret)
     end)
 end
 
