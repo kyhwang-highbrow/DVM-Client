@@ -233,6 +233,18 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
             
+        <!-- @unity-ads -->
+        <activity
+            android:name="com.unity3d.ads.adunit.AdUnitActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+            android:hardwareAccelerated="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            
         <!-- @obb, APK expansion file downloading -->
         <service
             android:name="org.cocos2dx.lua.APKExpansionDownloaderService" />
