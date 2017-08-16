@@ -75,6 +75,8 @@
 #define PERPLESDK_ERROR_GAMECENTER_LOGIN                    "-1701"
 #define PERPLESDK_ERROR_GAMECENTER_GETCUSTOMTOKEN           "-1702"
 
+#define PERPLESDK_ERROR_UNITYADS_NOTINITIALIZED             "-1800"
+
 #pragma mark -
 
 @class PerpleFirebase;
@@ -84,6 +86,7 @@
 @class PerpleTapjoy;
 @class PerpleNaver;
 @class PerpleGameCenter;
+@class PerpleUnityAds;
 @class PerpleBilling;
 
 typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
@@ -99,6 +102,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @property (nonatomic, retain) PerpleTapjoy *mTapjoy;
 @property (nonatomic, retain) PerpleNaver *mNaver;
 @property (nonatomic, retain) PerpleGameCenter *mGameCenter;
+@property (nonatomic, retain) PerpleUnityAds *mUnityAds;
 @property (nonatomic, retain) PerpleBilling *mBilling;
 
 #pragma mark - APIs
@@ -169,6 +173,10 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) googleUpdateAchievements:(NSString *)achievementId numSteps:(NSString *)numSteps completion:(PerpleSDKCallback)callback;
 - (void) googleUpdateLeaderboards:(NSString *)leaderboardId finalScore:(NSString *)finalScore completion:(PerpleSDKCallback)callback;
 - (void) googleUpdateQuestEvents:(NSString *)eventId incrementCount:(NSString *)incrementCount completion:(PerpleSDKCallback)callback;
+
+- (void) unityAdsStart:(BOOL)isTestMode completion:(PerpleSDKCallback)callback;
+- (void) unityAdsShow:(NSString *)placementId;
+
 - (void) billingSetup:(NSString *)checkReceiptServerUrl completion:(PerpleSDKCallback)callback;
 - (void) billingConfirm:(NSString *)orderId;
 - (void) billingPurchase:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
@@ -185,6 +193,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initTapjoyWithAppKey:(NSString *)appKey usePush:(BOOL)isUsePush debug:(BOOL)isDebug;
 - (BOOL) initNaverWithParentView:(UIViewController *)parentView isLandspape:(BOOL)isLandscape clientId:(NSString *)clientId clientSecret:(NSString *)clientSecret cafeId:(NSInteger)cafeId;
 - (BOOL) initGameCenterWithParentView:(UIViewController *)parentView;
+- (BOOL) initUnityAdsWithParentView:(UIViewController *)parentView gameId:(NSString *)gameId debug:(BOOL)isDebug;
 - (BOOL) initBilling;
 
 #pragma mark - Static methods
