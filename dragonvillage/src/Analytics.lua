@@ -64,6 +64,9 @@ end
 function Adbrix:buy(productId, price)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
+    local arg1 = tostring(productId)
+    local arg2 = tostring(price)
+
     cclog('Adbrix:buy : ' .. arg1 .. ',' .. arg2)
 
     PerpleSDK:adbrixEvent('buy', arg1, arg2)
