@@ -1,5 +1,6 @@
 Analytics = {}
 Adbrix = {}
+FiveRocks = {}
 
 -------------------------------------
 -- function userInfo
@@ -9,6 +10,7 @@ function Analytics:userInfo()
 
     local uid = g_userData:get('uid')
     Adbrix:userInfo(uid)
+    FiveRocks:userInfo(uid)
 end
 
 -------------------------------------
@@ -148,5 +150,93 @@ function Adbrix:firstTimeExperience(arg1, arg2)
 end
 
 
+-------------------------------------
+-- function userInfo
+-------------------------------------
+function FiveRocks:userInfo(userId)
+    if (not IS_ENABLE_ANALYTICS()) then return end
+
+    local arg0 = tostring(userId)
+
+    cclog('FiveRocks:userInfo : ' .. arg0)
+
+    PerpSocial:SDKEvent('5rocks_userInfo', arg0, '', function(ret)
+    end)
+end
+
+-------------------------------------
+-- function trackPurchase
+-------------------------------------
+function FiveRocks:trackPurchase(productId, price, currencyCode, campaignId)
+    if (not IS_ENABLE_ANALYTICS()) then return end
+
+    local arg0 = tostring(productId)
+    if price ~= nil then
+        arg0 = arg0 .. ';' .. currencyCode .. ';' .. tostring(price)
+    end
+    if campaignId ~= nil then
+        arg0 = arg0 .. ';' .. tostring(campaignId)
+    end
+
+    cclog('FiveRocks:trackPurchase : ' .. arg0)
+
+    PerpSocial:SDKEvent('5rocks_trackPurchase', arg0, '', function(ret)
+    end)
+end
+
+-------------------------------------
+-- function customCohort
+-------------------------------------
+function FiveRocks:customCohort(cohortNo, cohortDesc)
+    if (not IS_ENABLE_ANALYTICS()) then return end
+
+    local arg0 = tostring(cohortNo)
+    local arg1 = cohortDesc
+
+    cclog('FiveRocks:customCohort : ' .. arg0 .. ',' .. arg1)
+
+    PerpSocial:SDKEvent('5rocks_customCohort', arg0, arg1, function(ret)
+    end)
+end
+
+-------------------------------------
+-- function setAppDataVersion
+-------------------------------------
+function FiveRocks:setAppDataVersion()
+    if (not IS_ENABLE_ANALYTICS()) then return end
+
+    local arg0 = getAppVer()
+
+    cclog('FiveRocks:setAppDataVersion : ' .. arg0)
+
+    PerpSocial:SDKEvent('5rocks_appDataVersion', arg0, '', function(ret)
+    end)
+end
+
+-------------------------------------
+-- function setAppDataVersion
+-------------------------------------
+function FiveRocks:trackEvent(category, name, param1, param2, value1Name, value1, value2Name, value2, value3Name, value3)
+    if (not IS_ENABLE_ANALYTICS()) then return end
+
+    local arg0 = category .. ';' .. name .. ';' .. param1 .. ';' .. param2
+
+    if value1Name ~= nil and value1 ~= nil then
+        arg0 = arg0 .. ';' .. value1Name .. ';' .. value1
+    end
+
+    if value2Name ~= nil and value2 ~= nil then
+        arg0 = arg0 .. ';' .. value2Name .. ';' .. value2
+    end
+
+    if value3Name ~= nil and value3 ~= nil then
+        arg0 = arg0 .. ';' .. value3Name .. ';' .. value3
+    end
+
+    cclog('FiveRocks:trackEvent : ' .. arg0)
+
+    PerpSocial:SDKEvent('5rocks_trackEvent', arg0, '', function(ret)
+    end)
+end
 
 
