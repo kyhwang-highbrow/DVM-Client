@@ -163,18 +163,12 @@ void SupportPatch::unzipThreadFunc(const char *src, const char *md5, const char 
 
 void SupportPatch::startUnzipThread(const char *src, const char *md5, const char *tar, const char *fakeStr, std::function<void(int)> callback)
 {
-	if (s_unzipThread == nullptr)
-	{
-		s_unzipThread = new std::thread(&SupportPatch::unzipThreadFunc, src, md5, tar, fakeStr, callback);
-	}
-	else
-	{
-		// callback 처리
-		if (callback != nullptr)
-		{
-			callback(UNZ_THREAD_DUPLICATED);
-		}
-	}
+    if (s_unzipThread != nullptr)
+    {
+        s_unzipThread->join();
+    }
+
+    s_unzipThread = new std::thread(&SupportPatch::unzipThreadFunc, src, md5, tar, fakeStr, callback);
 }
 
 string SupportPatch::makeFakePath(string path, string fakeStr)

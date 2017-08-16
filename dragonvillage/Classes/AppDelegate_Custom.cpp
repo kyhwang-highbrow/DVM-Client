@@ -7,6 +7,7 @@
 #include "PerpExt/PerpUtils.h"
 #include "ConfigParser.h"
 #include "LoginPlatform.h"
+#include "tolua_fix.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 // @perplesdk
@@ -272,6 +273,26 @@ static int l_unzip(lua_State* L)
 	return 1;
 }
 
+static int l_unzipAsync(lua_State* L)
+{
+    const char *zip = tolua_tostring(L, 1, 0);
+    const char *target = tolua_tostring(L, 2, 0);
+    const char *md5 = tolua_tostring(L, 3, 0);
+    const int funcId = toluafix_ref_function(L, 4, 0);
+
+    SupportPatch::startUnzipThread(zip, md5, target, "__", [=](int ret){
+        if (funcId > 0)
+        {
+            lua_pushnumber(L, (lua_Number)ret);
+            LuaStack* stack = LuaEngine::getInstance()->getLuaStack();
+            stack->executeFunctionByHandler(funcId, 1);
+            stack->clean();
+        }
+    });
+
+    return 0;
+}
+
 static int l_getMd5(lua_State* L)
 {
 	const char *target = lua_tostring(L, 1);
@@ -424,6 +445,7 @@ void AppDelegate::initLuaEngine()
 			{ "isWifiConnected", l_isWifiConnected },
             { "getFreeMemory", l_getFreeMemory },
 			{ "unzip", l_unzip },
+            { "unzipAsync", l_unzipAsync },
 			{ "getMarketName", l_getMarketName },
 			{ "ppsdkLoginInfo", l_ppsdkLoginInfo },
 			{ "gcsdkLoginInfo", l_gcsdkLoginInfo },
