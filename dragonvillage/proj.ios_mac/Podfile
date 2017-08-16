@@ -24,6 +24,9 @@ target 'DragonVillageM iOS' do
   pod 'IgaworksCore'
   pod 'AdBrix'
 
+  # Pods for Tapjoy
+  pod 'TapjoySDK'
+
 end
 
 target 'DragonVillageM Mac' do
