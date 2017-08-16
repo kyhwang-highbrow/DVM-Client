@@ -57,6 +57,8 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
         }), true)
 
         if (isBoss) then
+            self.m_boss = enemy
+
             enemy.m_animator:setScale(0.6)
 
             -- 스테이지별 boss_hp_ratio 적용.

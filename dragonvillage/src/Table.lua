@@ -433,8 +433,6 @@ end
 -- function reloadForGame
 -------------------------------------
 function TABLE:reloadForGame()
-    cclog('reloadForGame')
-
     -- 인게임 데이터 관련 테이블
     local l_table = {
         'dragon',

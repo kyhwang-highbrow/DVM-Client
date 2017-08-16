@@ -223,13 +223,13 @@ function GameAuto:doWork(dt)
         end
     end
 
-    local do_next = true
+    local used = true
     
     if (self.m_curUnit) then
-        do_next = self:doWork_skill(self.m_curUnit, self.m_curPriority)
+        used = self:doWork_skill(self.m_curUnit, self.m_curPriority)
     end
 
-    if (do_next) then
+    if (used) then
         self.m_curUnit = nil
 
         if (self.m_curPriority >= 3) then

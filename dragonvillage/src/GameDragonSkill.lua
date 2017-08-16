@@ -121,13 +121,6 @@ function GameDragonSkill:initState()
 end
 
 -------------------------------------
--- function update
--------------------------------------
-function GameDragonSkill:update(dt)
-    return PARENT.update(self, dt)
-end
-
--------------------------------------
 -- function update_play_drag_skill
 -------------------------------------
 function GameDragonSkill.st_playDragSkill(self, dt)

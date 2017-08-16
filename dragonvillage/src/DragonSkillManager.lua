@@ -332,6 +332,9 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
 	if (idx == 'Leader') then
 		skill_id = t_character['skill_leader']
 
+    elseif (idx == 'Basic') then
+		skill_id = t_character['skill_basic']
+
     elseif (idx == 0) then
         skill_id = t_character['skill_active']
 

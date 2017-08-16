@@ -130,7 +130,7 @@ function resCaching(res_name)
 		local res_name = string.gsub(res_name, '%.vrp', '')
 		
         --[[
-		-- plist 등록(SpriteFrame 캐싱)
+		-- loadPlistFiles함수에서 자동으로 load되기때문에 주석처리
 		local plist_name = res_name .. '.plist'
 		if cc.FileUtils:getInstance():isFileExist(plist_name) then
 			cc.SpriteFrameCache:getInstance():addSpriteFrames(plist_name)
@@ -195,8 +195,9 @@ function getPreloadList_Tamer()
 	local ret = {
         g_tamerData:getCurrTamerTable('res_sd'),
 
-        -- TODO: 컷씬도 정리되면 추가
-        'res/effect/cutscene_tamer_a_type/cutscene_tamer_a_type_t.plist'
+        'res/effect/tamer_magic_1/tamer_magic_1.plist',
+        'res/effect/effect_tamer_shield/effect_tamer_shield.plist',
+        'res/effect/cutscene_tamer_a_type/cutscene_tamer_a_type_t.plist',
     }
     
     return ret
@@ -208,13 +209,11 @@ end
 function getPreloadList_HeroDeck()
     local ret = {}
 
-    local t_skillList = { 'skill_basic', 'skill_active', 'skill_1', 'skill_3' }
-
     local l_deck = g_deckData:getDeck()
     for _, v in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
         if (t_dragon_data) then
-            local list = getPreloadList_Dragon(t_dragon_data['did'], t_dragon_data['evolution'])
+            local list = getPreloadList_Dragon(t_dragon_data)
             for i, v in ipairs(list) do
                 table.insert(ret, v)
             end
@@ -227,12 +226,16 @@ end
 -------------------------------------
 -- function getPreloadList_Dragon
 -------------------------------------
-function getPreloadList_Dragon(did, evolution)
+function getPreloadList_Dragon(t_dragon_data)
+    local did = t_dragon_data['did']
+    local evolution = t_dragon_data['evolution']
+    local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+	
     local ret = {}
 
     -- 영웅
     local t_dragon = TableDragon():get(did)
-    if t_dragon then return ret end
+    if (not t_dragon) then return ret end
 
     local evolution = evolution or 1
     local attr = t_dragon['attr']
@@ -241,20 +244,34 @@ function getPreloadList_Dragon(did, evolution)
     table.insert(ret, res_name)
      
     -- 스킬
-    local t_skillList = { 'skill_basic', 'skill_active', 'skill_1', 'skill_3' }
+    local t_skillIdx = { 'Leader', 'Basic', 0, 1, 2, 3 }
 
-	local table_skill = TableDragonSkill()
-
-    for _, k in pairs(t_skillList) do
-        local t_skill = table_skill:get(t_dragon[k])
-        if t_skill then
+	for _, idx in pairs(t_skillIdx) do
+        local skill_indivisual_info = skill_mgr:getSkillIndivisualInfo_usingIdx(idx)
+        if (skill_indivisual_info) then
+            local t_skill = skill_indivisual_info:getSkillTable()
+            
             if t_skill['skill_form'] == 'script' then
                 countSkillResListFromScript(ret, t_skill['skill_type'], attr)
             else
                 for i = 1, 3 do
-                    if (t_skill['res_' .. i] ~= 'x') then
+                    if (t_skill['res_' .. i] ~= '') then
                         local res_name = string.gsub(t_skill['res_' .. i], '@', attr)
                         table.insert(ret, res_name)
+                    end
+                end
+            end
+            
+            -- 상태효과
+            for i = 1, 2 do
+                local type = t_skill['add_option_type_' .. i]
+                if (type ~= '') then
+                    local t_status_effect = TableStatusEffect():get(type)
+                    if (t_status_effect) then
+                        if (t_status_effect['res'] ~= '') then
+                            local res_name = t_status_effect['res']
+                            table.insert(ret, res_name)
+                        end
                     end
                 end
             end
@@ -274,6 +291,9 @@ function getPreloadList_Stage(stageName)
     for i = 1, 9 do
         table.insert(t_skillList, 'skill_' .. i)
     end
+
+    -- 스테이지 공통 리소스
+    table.insert(ret, 'res/effect/effect_attack_ready/effect_attack_ready.plist')
 
     local script = TABLE:loadStageScript(stageName)
     if script and script['wave'] then
@@ -318,6 +338,20 @@ function getPreloadList_Stage(stageName)
                                             if (t_skill['res_' .. i] ~= 'x') then
                                                 local res_name = string.gsub(t_skill['res_' .. i], '@', attr)
                                                 table.insert(ret, res_name)
+                                            end
+                                        end
+                                    end
+
+                                    -- 상태효과
+                                    for i = 1, 2 do
+                                        local type = t_skill['add_option_type_' .. i]
+                                        if (type ~= '') then
+                                            local t_status_effect = TableStatusEffect():get(type)
+                                            if (t_status_effect) then
+                                                if (t_status_effect['res'] ~= '') then
+                                                    local res_name = t_status_effect['res']
+                                                    table.insert(ret, res_name)
+                                                end
                                             end
                                         end
                                     end
