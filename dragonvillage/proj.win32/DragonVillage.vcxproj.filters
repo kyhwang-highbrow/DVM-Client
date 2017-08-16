@@ -2526,9 +2526,6 @@
     <None Include="..\src\UI_BattleMenuItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_BattleMenuOld.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_QuickPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2636,6 +2633,12 @@
     </None>
     <None Include="..\src\SDKManager.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTab_HBShop.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTab_HBAttendance.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

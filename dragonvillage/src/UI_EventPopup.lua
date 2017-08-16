@@ -172,7 +172,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     local ui = nil
     local item = self.m_tableView:getItem(tab)
     local struct_event_popup_tab = item['data']
-
+    ccdisplay(tab)
     -- 출석 (일반)
     if (tab == 'attendance_basic') then
         ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
@@ -185,8 +185,16 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab == 'access_time') then
         ui = UI_EventPopupTab_AccessTime(self)
 
+    -- 하이브로 상점
+    elseif (tab == 'highbrow_shop') then
+        ui = UI_EventPopupTab_HBShop()
+
+    -- 하이브로 출석체크
+    elseif (tab == 'highbrow_atdc') then
+        ui = UI_EventPopupTab_HBAttendance()
+
     -- 상점
-    elseif (string.find(tab, 'shop')) then
+    elseif (tab == 'shop') then
         local product_id = struct_event_popup_tab.m_eventData['event_id']
         local l_item_list = g_shopDataNew:getProductList('package')
         local product = l_item_list[product_id]
