@@ -29,6 +29,7 @@ end
 -------------------------------------
 function UI_EventPopupTab_HBAttendance:initButton()
 	local vars = self.vars
+    vars['homepageBtn']:registerScriptTapHandler(function() self:click_homepageBtn() end)
 end
 
 -------------------------------------
@@ -37,4 +38,16 @@ end
 -------------------------------------
 function UI_EventPopupTab_HBAttendance:onEnterTab()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function click_homepageBtn
+-------------------------------------
+function UI_EventPopupTab_HBAttendance:click_homepageBtn()
+    -- 하이브로 연동 된 경우
+    if (false) then
+        SDKManager:goToWeb('http://www.dragonvillage.net')
+    else
+        SDKManager:goToWeb('https://www.perplelab.com')
+    end
 end

@@ -146,6 +146,9 @@ function ServerData:getInstance()
     -- 튜토리얼
     g_tutorialData = ServerData_Tutorial(g_serverData)
 
+    -- 하이브로
+    g_highbrowData = ServerData_Highbrow(g_serverData)
+
     return g_serverData
 end
 

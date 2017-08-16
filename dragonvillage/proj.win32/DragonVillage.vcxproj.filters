@@ -2640,6 +2640,12 @@
     <None Include="..\src\UI_EventPopupTab_HBAttendance.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructHighbrowProduct.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ServerData_Highbrow.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

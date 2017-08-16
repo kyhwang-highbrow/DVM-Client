@@ -235,6 +235,7 @@ function UI_Lobby:initButton()
 
     -- 우측 UI
     vars['subscriptionBtn']:registerScriptTapHandler(function() self:click_subscriptionBtn() end) -- 월정액
+    vars['capsuleBtn']:registerScriptTapHandler(function() self:click_capsuleBtn() end)
 
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
@@ -580,6 +581,13 @@ end
 -------------------------------------
 function UI_Lobby:click_googleAchievementBtn()
     GoogleHelper.showAchievement()
+end
+
+-------------------------------------
+-- function click_capsuleBtn
+-------------------------------------
+function UI_Lobby:click_capsuleBtn()
+    g_eventData:openEventPopup('highbrow_shop')
 end
 
 -------------------------------------

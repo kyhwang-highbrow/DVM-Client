@@ -73,6 +73,7 @@ local t_module = {
     'StructProductSubscription',
     'StructMail',
     'StructSubscribedInfo',
+    'StructHighbrowProduct',
 
 	-- ServerData
     'ServerData',
@@ -116,6 +117,7 @@ local t_module = {
     'ServerData_ContentLock',
     'ServerData_AutoItemPick',
     'ServerData_Tutorial',
+    'ServerData_Highbrow',
 
     -- Interface
     'IEventDispatcher',

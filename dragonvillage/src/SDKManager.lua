@@ -71,33 +71,6 @@ end
 
 
 
--------------------------------------
--- function copyOntoClipBoard
--- @brief 
--------------------------------------
-function SDKManager:copyOntoClipBoard(copy_str)
-    self:sendEvent('clipboard_setText', copy_str)
-end
-
--------------------------------------
--- function goToWeb
--- @brief 
--------------------------------------
-function SDKManager:goToWeb(url)
-    self:sendEvent('app_gotoWeb', url)
-end
-
--------------------------------------
--- function goToAppStore
--- @brief 
--------------------------------------
-function SDKManager:goToAppStore()
-    self:sendEvent('app_gotoStore')
-end
-
-
-
-
 -- APK EXPANSION
 -------------------------------------
 -- function apkExpansionStart
@@ -122,3 +95,31 @@ end
 function SDKManager:apkExpansionContinue()
     self:sendEvent('apkexp_continue')
 end
+
+
+
+-- 기타
+-------------------------------------
+-- function copyOntoClipBoard
+-- @brief 
+-------------------------------------
+function SDKManager:copyOntoClipBoard(copy_str)
+    self:sendEvent('clipboard_setText', copy_str)
+end
+
+-------------------------------------
+-- function goToWeb
+-- @brief 
+-------------------------------------
+function SDKManager:goToWeb(url)
+    self:sendEvent('app_gotoWeb', url)
+end
+
+-------------------------------------
+-- function goToAppStore
+-- @brief 
+-------------------------------------
+function SDKManager:goToAppStore()
+    self:sendEvent('app_gotoStore')
+end
+

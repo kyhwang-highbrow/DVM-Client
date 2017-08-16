@@ -98,7 +98,7 @@ end
 -------------------------------------
 -- function openEventPopup
 -------------------------------------
-function ServerData_Event:openEventPopup()
+function ServerData_Event:openEventPopup(tab)
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
@@ -119,9 +119,17 @@ function ServerData_Event:openEventPopup()
         co:work('# 접속시간 저장 중')
         g_accessTimeData:request_saveTime(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
+        
+        co:work('# 하이브로 상점 정보 받는 중')
+        g_highbrowData:request_getHbProductList(co.NEXT, co.ESCAPE)
+        if co:waitWork() then return end
 
         co:close()
-        UI_EventPopup()
+
+        local ui = UI_EventPopup()
+        if (tab) then
+            ui:setTab(tab, true)
+        end
     end
 
     Coroutine(coroutine_function, 'Event Popup 코루틴')

@@ -430,6 +430,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Formation.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
     <None Include="..\src\ServerData_Hatchery.lua" />
+    <None Include="..\src\ServerData_Highbrow.lua" />
     <None Include="..\src\ServerData_Highlight.lua" />
     <None Include="..\src\ServerData_HotTime.lua" />
     <None Include="..\src\ServerData_Inventory.lua" />
@@ -713,6 +714,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StructExchangeProductData.lua" />
     <None Include="..\src\StructFreeDragonSummonInfo.lua" />
     <None Include="..\src\StructFriendshipObject.lua" />
+    <None Include="..\src\StructHighbrowProduct.lua" />
     <None Include="..\src\StructIndividualStatus.lua" />
     <None Include="..\src\StructMail.lua" />
     <None Include="..\src\StructProduct.lua" />
