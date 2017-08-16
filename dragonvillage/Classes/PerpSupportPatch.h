@@ -29,6 +29,7 @@ public:
 
 	static void unzipThreadFunc(const char* src, const char* md5, const char* tar, const char* fakeStr, std::function<void(int)> callback);
 	static void startUnzipThread(const char* src, const char* md5, const char* tar, const char* fakeStr, std::function<void(int)> callback);
+	static void waitForUnzipThreadEnd();
 
 	static bool isSameMd5(const char* fileName, const char* md5);
 	static void getCheckSum(char output[], const unsigned char input[], unsigned int len);

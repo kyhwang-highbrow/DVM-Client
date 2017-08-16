@@ -146,6 +146,7 @@ int SupportPatch::unzipFiles(const char *src, const char *md5, const char *tar, 
 }
 
 static std::thread* s_unzipThread = nullptr;
+static std::mutex s_unzipThreadMutex;
 
 void SupportPatch::unzipThreadFunc(const char *src, const char *md5, const char *tar, const char *fakeStr, std::function<void(int)> callback)
 {
@@ -154,21 +155,24 @@ void SupportPatch::unzipThreadFunc(const char *src, const char *md5, const char 
 	// callback 처리
 	if (callback != nullptr)
 	{
+		std::lock_guard<std::mutex> lk(s_unzipThreadMutex);
 		callback(ret);
 	}
-
-	// thread 삭제
-	CC_SAFE_DELETE(s_unzipThread);
 }
 
 void SupportPatch::startUnzipThread(const char *src, const char *md5, const char *tar, const char *fakeStr, std::function<void(int)> callback)
 {
-    if (s_unzipThread != nullptr)
-    {
-        s_unzipThread->join();
-    }
-
+	waitForUnzipThreadEnd();
     s_unzipThread = new std::thread(&SupportPatch::unzipThreadFunc, src, md5, tar, fakeStr, callback);
+}
+
+void SupportPatch::waitForUnzipThreadEnd()
+{
+	if (s_unzipThread != nullptr)
+	{
+		s_unzipThread->join();
+		CC_SAFE_DELETE(s_unzipThread);
+	}
 }
 
 string SupportPatch::makeFakePath(string path, string fakeStr)
