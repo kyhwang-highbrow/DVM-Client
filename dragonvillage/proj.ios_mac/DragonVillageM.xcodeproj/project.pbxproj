@@ -1435,6 +1435,8 @@
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					CC_TARGET_OS_IPHONE,
+					USE_ADBRIX,
+					USE_TAPJOY,
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
@@ -1479,6 +1481,8 @@
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					CC_TARGET_OS_IPHONE,
+					USE_ADBRIX,
+					USE_TAPJOY,
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";

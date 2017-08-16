@@ -41,6 +41,7 @@
 #define CLIENT_ID       @"983890984134-krrfuti1qgk3k09j87gobkq96322v48v.apps.googleusercontent.com"
 #define ADBRIX_APP_KEY  @"696293230"
 #define ADBRIX_HASH_KEY @"5c67709eb5c349c6"
+#define TAPJOY_SDK_KEY  @"Ws1LafcqRzuuBd763wqDOAEBFg9MYTtlr04omXYpDVNJIVl4ivGW9cK37TA2"
 
 // @idfa
 #import <AdSupport/ASIdentifierManager.h>
@@ -117,6 +118,7 @@ static AppDelegate s_sharedApplication;
         [[PerpleSDK sharedInstance] initGameCenterWithParentView:viewController];
     }
     [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
+    [[PerpleSDK sharedInstance] initTapjoyWithAppKey:TAPJOY_SDK_KEY usePush:NO debug:YES];
     [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
