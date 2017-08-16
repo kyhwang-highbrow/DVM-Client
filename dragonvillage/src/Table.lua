@@ -18,7 +18,6 @@ local TableInfo = {
         dragon_type         = {'table_dragon_type',         'type',         false},
         dragon_skill        = {'table_dragon_skill',        'sid',          false},
 		dragon_skill_modify = {'table_dragon_skill_modify', 'slid',         false},
-        dragon_skill_bonus  = {'table_dragon_drag_bonus',   'did',          false},
         table_dragon_combine= {'table_dragon_combine',      'did',          false},
         monster				= {'table_monster',             'mid',          false},
         monster_hit_pos		= {'table_monster_hit_pos',     'mid',          false},
@@ -130,7 +129,7 @@ end
 function TABLE:loadCSVTable(filename, tablename, key, toString)
     local content = TABLE:loadTableFile(filename, '.csv')
     if (content == nil) then
-        cclog('ksj failed to load table file(' .. filename .. ')')
+        cclog('failed to load table file(' .. filename .. ')')
         return
     end
 
@@ -426,6 +425,35 @@ function TABLE:init()
     end
 
     TableGradeInfo:initGlobal()
+    --TableDragonSkill:initGlobal()
+    --TableMonsterSkill:initGlobal()
+end
+
+-------------------------------------
+-- function reloadForGame
+-------------------------------------
+function TABLE:reloadForGame()
+    cclog('reloadForGame')
+
+    -- 인게임 데이터 관련 테이블
+    local l_table = {
+        'dragon',
+        'dragon_skill',
+        'dragon_skill_modify',
+        'monster',
+        'monster_skill',
+        'tamer',
+        'tamer_skill',
+        'status',
+        'status_effect',
+        'stage_data',
+        'drop',
+    }
+
+    for k,v in pairs(TableInfo) do
+        TABLE:loadCSVTable(v[1], k, v[2], v[3])
+    end
+
     TableDragonSkill:initGlobal()
     TableMonsterSkill:initGlobal()
 end

@@ -1767,9 +1767,6 @@
     <None Include="..\src\TableDragonSkill.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\TableDragonSkillBonus.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableDragonType.lua">
       <Filter>lua\src</Filter>
     </None>

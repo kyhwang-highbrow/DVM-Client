@@ -266,7 +266,7 @@ function UI_Game:click_speedButton()
 
         gameTimeScale:setBase(1)
 
-         g_autoPlaySetting:set('quick_mode', false)
+        g_autoPlaySetting:set('quick_mode', false)
     else
         UIManager:toastNotificationGreen('빠른모드 활성화')
 

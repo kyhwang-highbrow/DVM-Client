@@ -737,7 +737,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableDragon.lua" />
     <None Include="..\src\TableDragonCombine.lua" />
     <None Include="..\src\TableDragonPhrase.lua" />
-    <None Include="..\src\TableDragonSkillBonus.lua" />
     <None Include="..\src\TableDragonExp.lua" />
     <None Include="..\src\TableDragonSkill.lua" />
     <None Include="..\src\TableDragonSkillModify.lua" />

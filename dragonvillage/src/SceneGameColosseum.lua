@@ -45,6 +45,11 @@ end
 -- function prepare
 -------------------------------------
 function SceneGameColosseum:prepare()
+    -- 테이블 리로드(메모리 보안을 위함)
+    self:addLoading(function()
+        TABLE:reloadForGame()
+    end)
+
     self:addLoading(function()
 
         -- 레이어 생성
