@@ -79,6 +79,9 @@ public class AppActivity extends Cocos2dxActivity{
     // @tapjoy
     static final String TAPJOY_SDK_KEY = "MZ5hVosGT1eLIW00UXCPvgEC7RNJdi2ZS0Kjtpd7IgoRLXg6N96edKY8h5cA";
 
+    // @unity-ads
+    static final String UNITY_ADS_GAME_ID = "1483284";
+
     static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
 
     static final int RC_APP_RESTART                 = 1000;
@@ -122,6 +125,9 @@ public class AppActivity extends Cocos2dxActivity{
 
         // @tapjoy
         PerpleSDK.getInstance().initTapjoy(TAPJOY_SDK_KEY, "", isDebug);
+
+        // @unity-ads
+        PerpleSDK.getInstance().initUnityAds(UNITY_ADS_GAME_ID, isDebug, true);
     }
 
     @Override
