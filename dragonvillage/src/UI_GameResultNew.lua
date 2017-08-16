@@ -1039,12 +1039,11 @@ function UI_GameResultNew:checkAutoPlay()
         end
     end
 
-    do -- 드래곤의 현재 승급 상태 중 레벨MAX가 되면 연속 모험 종료
-        local stop = false
+    -- 드래곤의 현재 승급 상태 중 레벨MAX가 되면 연속 모험 종료
+    if g_autoPlaySetting:get('stop_condition_dragon_lv_max') then 
         for i,v in pairs(self.m_lDragonList) do
             if v['levelup_data']['is_max_level'] then
                 if (v['levelup_data']['prev_lv'] < v['levelup_data']['curr_lv'])then
-                    stop = true
                     auto_play_stop = true
                     msg = Str('최대레벨에 도달한 드래곤이 있어서\n연속 전투가 종료되었습니다.')
                 end

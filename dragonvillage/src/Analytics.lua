@@ -42,6 +42,7 @@ function Analytics:purchase(productId, productName, price)
     local arg2 = tostring(price)
 
     Adbrix:buy(arg1, arg2)
+    FiveRocks:trackPurchase(arg1, arg2)
 end
 
 -------------------------------------
@@ -167,15 +168,12 @@ end
 -------------------------------------
 -- function trackPurchase
 -------------------------------------
-function FiveRocks:trackPurchase(productId, price, currencyCode, campaignId)
+function FiveRocks:trackPurchase(productId, price)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
     local arg0 = tostring(productId)
     if price ~= nil then
-        arg0 = arg0 .. ';' .. currencyCode .. ';' .. tostring(price)
-    end
-    if campaignId ~= nil then
-        arg0 = arg0 .. ';' .. tostring(campaignId)
+        arg0 = arg0 .. ';' .. tostring(price)
     end
 
     cclog('FiveRocks:trackPurchase : ' .. arg0)
