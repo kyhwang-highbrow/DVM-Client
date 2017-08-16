@@ -115,21 +115,25 @@ function SkillRolling.st_move(owner, dt)
 		local releaseFunc = cc.CallFunc:create(function() owner.m_spinAnimator:release(); owner.m_spinAnimator = nil end)
 
         -- 이동
-        local target = owner.m_targetCollision:getTarget()
-        local body_key = owner.m_targetCollision:getBodyKey()
+        if (owner.m_targetCollision) then
+            local target = owner.m_targetCollision:getTarget()
+            local body_key = owner.m_targetCollision:getBodyKey()
 
-        local body = target:getBody(body_key)
-        local target_pos = cc.p(
-            target.pos.x - 40 + body.x, 
-            target.pos.y + body.y
-        )
-        local action = cc.MoveTo:create(0.2, target_pos)
-		local delay = cc.DelayTime:create(0.5)
+            local body = target:getBody(body_key)
+            local target_pos = cc.p(
+                target.pos.x - 40 + body.x, 
+                target.pos.y + body.y
+            )
+            local action = cc.MoveTo:create(0.2, target_pos)
+		    local delay = cc.DelayTime:create(0.5)
 
-		-- state chnage 함수 콜
-		local cbFunc = cc.CallFunc:create(function() owner:changeState('attack') end)
+		    -- state chnage 함수 콜
+		    local cbFunc = cc.CallFunc:create(function() owner:changeState('attack') end)
 		
-		owner.m_owner:runAction(cc.Sequence:create(delay, releaseFunc, cc.EaseIn:create(action, 2), cbFunc))
+		    owner.m_owner:runAction(cc.Sequence:create(delay, releaseFunc, cc.EaseIn:create(action, 2), cbFunc))
+        else
+            owner:changeState('comeback')
+        end
     end
 end
 

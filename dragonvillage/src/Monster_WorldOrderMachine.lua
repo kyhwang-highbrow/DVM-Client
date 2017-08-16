@@ -98,6 +98,8 @@ function Monster_WorldOrderMachine:doMagicAttack()
 		
 		-- attack
 		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
+        if (not target_char) then return end
+
 		self:attack(target_char)
 		
 		-- effect
@@ -118,6 +120,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 	elseif (state == STATE_STUN_ATTACK) then 
 		-- status effect
 		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
+        if (not target_char) then return end
 
 		-- effect
 		local effect = self:makeEffect(STUN_EFFECT_RES, target_char.pos.x, target_char.pos.y)
