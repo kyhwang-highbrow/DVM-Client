@@ -127,7 +127,7 @@ public class AppActivity extends Cocos2dxActivity{
         PerpleSDK.getInstance().initTapjoy(TAPJOY_SDK_KEY, "", isDebug);
 
         // @unity-ads
-        PerpleSDK.getInstance().initUnityAds(UNITY_ADS_GAME_ID, isDebug, true);
+        PerpleSDK.getInstance().initUnityAds(UNITY_ADS_GAME_ID, isDebug);
     }
 
     @Override
