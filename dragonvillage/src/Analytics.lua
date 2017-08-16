@@ -32,21 +32,14 @@ end
 -------------------------------------
 -- function purchase
 -------------------------------------
-function Analytics:purchase(productId, productName)
+function Analytics:purchase(productId, productName, price)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
     local productId = productId..';'..productName
-    local price = 0
-    local table_shop_cash = TABLE:loadCSVTable('table_shop_cash', nil, 'product_id')
-    t_product = table_shop_cash[product_id]
-    
-    if (t_product) then
-        price = t_product['price']
-    end
-
     local arg1 = tostring(productId)
     local arg2 = tostring(price)
-    PerpleSDK:adbrixEvent('buy', arg1, arg2)
+
+    Adbrix:buy(arg1, arg2)
 end
 
 -------------------------------------
@@ -67,9 +60,6 @@ end
 -------------------------------------
 function Adbrix:buy(productId, price)
     if (not IS_ENABLE_ANALYTICS()) then return end
-
-    local arg1 = tostring(productId)
-    local arg2 = tostring(price)
 
     cclog('Adbrix:buy : ' .. arg1 .. ',' .. arg2)
 

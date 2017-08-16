@@ -180,7 +180,7 @@ local S_ERROR_STATUS = {
     [-1223] = Str('진화재료가 부족합니다.'), -- not enough evolution stone
 
     [-1351] = Str('잘못된 시간 정보입니다.'), -- invalid time
-
+    [-1364] = Str('시즌이 종료되었습니다.'), -- invalid season
 
     [-3026] = Str('이미 존재하는 닉네임입니다.'), -- already exist nick
     [-3259] = Str('이미 요청한 친구입니다.'), -- already send friend request

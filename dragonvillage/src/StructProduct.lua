@@ -454,7 +454,7 @@ function StructProduct:payment(cb_func)
                 co.ESCAPE()
             end
             local iswin = false
-            g_shopDataNew:request_checkReceiptValidation(self, validation_key, sku, product_id, iswin, finish_cb, fail_cb)
+            g_shopDataNew:request_checkReceiptValidation(self, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -537,7 +537,7 @@ function StructProduct:payment_win(cb_func)
                 co.ESCAPE()
             end
             local iswin = true
-            g_shopDataNew:request_checkReceiptValidation(self, validation_key, sku, product_id, iswin, finish_cb, fail_cb)
+            g_shopDataNew:request_checkReceiptValidation(self, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -611,7 +611,7 @@ function StructProduct:handlingMissingPayments(l_payload, cb_func, finish_cb)
                         co.ESCAPE()
                     end
                     local iswin = false
-                    g_shopDataNew:request_checkReceiptValidation(nil, validation_key, sku, product_id, iswin, finish_cb, fail_cb)
+                    g_shopDataNew:request_checkReceiptValidation(nil, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb)
                     if co:waitWork() then return end
                 end
                 --------------------------------------------------------
