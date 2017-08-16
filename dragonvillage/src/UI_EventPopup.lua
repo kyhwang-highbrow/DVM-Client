@@ -172,7 +172,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     local ui = nil
     local item = self.m_tableView:getItem(tab)
     local struct_event_popup_tab = item['data']
-    ccdisplay(tab)
+
     -- 출석 (일반)
     if (tab == 'attendance_basic') then
         ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
@@ -193,8 +193,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab == 'highbrow_atdc') then
         ui = UI_EventPopupTab_HBAttendance()
 
+
+    -- * shop, banner는 중복가능 (string.find로 처리해야함)
     -- 상점
-    elseif (tab == 'shop') then
+    elseif (string.find(tab, 'shop')) then
         local product_id = struct_event_popup_tab.m_eventData['event_id']
         local l_item_list = g_shopDataNew:getProductList('package')
         local product = l_item_list[product_id]
