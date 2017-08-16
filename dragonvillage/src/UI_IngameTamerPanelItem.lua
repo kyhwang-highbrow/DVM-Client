@@ -130,7 +130,7 @@ function UI_IngameTamerPanelItem:onTouchBegan(t_event)
     local distance = math_distance(size['width'] / 2, size['height'] / 2, node_pos['x'], node_pos['y'])
     if (distance <= half_size) then
         t_event['touch'] = true
-        cca.uiReactionSlow(self.root)
+        cca.uiReactionSlow(vars['panelMenu'])
     end
 end
 
@@ -150,8 +150,7 @@ function UI_IngameTamerPanelItem:onTouchEnded(t_event)
     local distance = math_distance(size['width'] / 2, size['height'] / 2, node_pos['x'], node_pos['y'])
     if (distance <= half_size) then
         t_event['touch'] = true
-        cca.uiReactionSlow(self.root)
-
+        
         self:click_tamerSkillBtn()
     end
 end

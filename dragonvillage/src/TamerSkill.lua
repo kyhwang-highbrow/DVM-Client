@@ -316,6 +316,8 @@ function Tamer:resetActiveSkillCool()
     skill_indivisual_info:resetCoolTime()
 
     self.m_bActiveSKillUsable = true
+
+    -- TODO: UI 변경
 end
 
 -------------------------------------
