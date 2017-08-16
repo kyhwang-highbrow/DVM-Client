@@ -493,7 +493,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('gamekey', self.m_gameKey)
     ui_network:setParam('bonus_items', t_param['bonus_items'])
     ui_network:setParam('clear_time', t_param['clear_time'])
---    ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
+    ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
 
     if (send_score) then
         ui_network:setParam('score', t_param['score'])

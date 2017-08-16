@@ -19,6 +19,8 @@ ServerData_AncientTower = class({
 
         m_lStage = 'table',
         m_nStage = 'number',
+
+        m_startTime = 'number', -- 시즌 시작 시간
         m_endTime = 'number', -- 시즌 종료 시간
 
         m_lWeakGradeCount = 'list', -- 약화등급 기준
@@ -135,6 +137,7 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
         self.m_clearFloor = (ret['ancient_clear_stage'] % ANCIENT_TOWER_STAGE_ID_START)
 
         self.m_challengingCount = t_challenging_info['fail_cnt']
+        self.m_startTime = ret['start_time']
         self.m_endTime = ret['end_time']
 
         self.m_nTotalRank = ret['myrank']
@@ -408,17 +411,40 @@ function ServerData_AncientTower:getEnemyDeBuffValue()
 end
 
 -------------------------------------
--- function getEndTimeText
--- @breif 시즌 남은 시간
+-- function isOpenAncientTower
+-- @breif 고대의탑 오픈 여부
 -------------------------------------
-function ServerData_AncientTower:getEndTimeText()
-    local server_time = Timer:getServerTime()
+function ServerData_AncientTower:isOpenAncientTower()
+    local curr_time = Timer:getServerTime()
+    local start_time = (self.m_startTime / 1000)
+    local end_time = (self.m_endTime / 1000)
+	
+	return (start_time <= curr_time) and (curr_time <= end_time)
+end
+
+-------------------------------------
+-- function getAncientTowerStatusText
+-------------------------------------
+function ServerData_AncientTower:getAncientTowerStatusText()
+    local curr_time = Timer:getServerTime()
+
+    local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
 
-    local showSeconds = false
-    local time_text = datetime.makeTimeDesc((end_time - server_time), showSeconds)
-    local text = Str('{1} 후 초기화', time_text)
-    return text
+    local str = ''
+    if (curr_time < start_time) then
+        local time = (start_time - curr_time)
+        str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
+
+    elseif (start_time <= curr_time) and (curr_time <= end_time) then
+        local time = (end_time - curr_time)
+        str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
+
+    else
+        str = Str('시즌이 종료되었습니다.')
+    end
+
+    return str
 end
 
 -------------------------------------

@@ -76,7 +76,7 @@ function UI_AncientTower:initUI()
     local vars = self.vars
 
     do -- 시즌 남은 시간 표시
-        local str_time = g_ancientTowerData:getEndTimeText()
+        local str_time = g_ancientTowerData:getAncientTowerStatusText()
         vars['timeLabel']:setString(str_time)
     end
 

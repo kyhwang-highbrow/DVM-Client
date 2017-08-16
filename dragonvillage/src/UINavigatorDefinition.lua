@@ -260,13 +260,13 @@ function UINavigatorDefinition:goTo_ancient(...)
         return
     end
 
-
-    -- ???????????? sgkim
-    -- 고대의 탑은 점검시간이 없나요??
-    -- 보상 팝업은 UI_AncientTower 안에서 처리가 불가능한가요??
-    -- Tutorial은 UI_AncientTower 안에서 처리가 불가능한가요??
-
     local function finish_cb()
+        -- 오픈 상태 여부 체크
+        if (not g_ancientTowerData:isOpenAncientTower()) then
+            UIManager:toastNotificationGreen('고대의 탑 오픈 전입니다.\n오픈까지 ' .. g_ancientTowerData:getAncientTowerStatusText())
+            return
+		end
+
         -- 전투 메뉴가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
         if (is_opend == true) then
