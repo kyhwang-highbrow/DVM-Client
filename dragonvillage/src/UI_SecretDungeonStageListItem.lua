@@ -53,7 +53,10 @@ function UI_SecretDungeonStageListItem:refresh(t_data)
     local t_drop = TableDrop():get(stage_id)
 
     do -- 스테이지 이름
-        local name = Str(t_drop['t_name'])
+        local did = t_data['dragon']
+        local dragon_name = (did) and TableDragon:getDragonName(did) or ''
+        local dungeon_name = Str(t_drop['t_name'])
+        local name = Str('{1} {2}', dragon_name, dungeon_name)
         vars['dungeonNameLabel']:setString(name)
     end
 
