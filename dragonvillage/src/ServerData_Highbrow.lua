@@ -36,7 +36,7 @@ function ServerData_Highbrow:applyHBItemList(item_list)
             if (a.type == b.type) then
                 if (a.game_key == 'dv1') then
                     return true
-                else
+                elseif (b.game_key == 'dv1') then
                     return false
                 end
             else
@@ -82,7 +82,6 @@ function ServerData_Highbrow:request_getHbProductList(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/highbrow/item_list')
     ui_network:setParam('uid', uid)
-    ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -116,7 +115,6 @@ function ServerData_Highbrow:request_buyHbProcduct(code, game_key, finish_cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('code', code)
     ui_network:setParam('game', game_key)
-    ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
@@ -147,7 +145,6 @@ function ServerData_Highbrow:request_buyHBProductTutorial(code, game_key, finish
     ui_network:setParam('uid', uid)
     ui_network:setParam('code', code)
     ui_network:setParam('game', game_key)
-    ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

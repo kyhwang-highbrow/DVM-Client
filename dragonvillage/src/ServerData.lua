@@ -381,6 +381,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['tickets'] then
             self:applyServerData(ret['tickets'], 'user', 'tickets')
         end
+
+        -- 캡슐
+        if ret['capsule'] then
+            self:applyServerData(ret['capsule'], 'user', 'capsule')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -479,6 +484,12 @@ function ServerData:networkCommonRespone_addedItems(ret)
     if t_added_items['badge'] then
         self:applyServerData(t_added_items['badge'], 'user', 'badge')
         t_added_items['badge'] = nil
+    end
+
+    -- 캡슐 (갱신)
+    if t_added_items['capsule'] then
+        self:applyServerData(ret['capsule'], 'user', 'capsule')
+        t_added_items['capsule'] = nil
     end
 
     -- 열매 갯수 (전체 갱신)

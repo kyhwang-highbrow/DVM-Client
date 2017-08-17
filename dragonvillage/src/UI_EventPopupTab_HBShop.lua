@@ -30,6 +30,8 @@ function UI_EventPopupTab_HBShop:initUI()
 
     -- 시간 표시하지 않는다.
     vars['timeLabel']:setVisible(false)
+
+    vars['capsuleLabel'] = NumberLabel(vars['capsuleLabel'], 0, 0.3)
 end
 
 -------------------------------------
@@ -46,7 +48,8 @@ function UI_EventPopupTab_HBShop:refresh()
 	local vars = self.vars
     
     -- 캡슐 수
-    vars['capsuleLabel']:setString(g_userData:get('capsule'))
+    local capsule = g_userData:get('capsule')
+    vars['capsuleLabel']:setNumber(capsule)
 end
 
 -------------------------------------
@@ -63,6 +66,8 @@ function UI_EventPopupTab_HBShop:init_tableView()
             data:buyProduct(function() 
                 self:refresh()
                 self.refreshCell(ui, data)
+
+                UI_ToastPopup(Str('우편으로 쿠폰이 발송되었습니다.'))
             end)
         end)
     end

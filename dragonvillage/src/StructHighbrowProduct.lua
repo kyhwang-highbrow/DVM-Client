@@ -85,11 +85,6 @@ function StructHighbrowProduct:checkBuyable()
     local price_type = self['price_type']
     local price_value = self['price_value']
 
-    -- 무료로 구매
-    if (price_type == '') then
-        return true
-    end
-
     return UIHelper:checkPrice(price_type, price_value)
 end
 
