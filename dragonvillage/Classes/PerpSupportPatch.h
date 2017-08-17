@@ -8,9 +8,9 @@ using namespace std;
 #include "../cocos2d-x/external/unzip/unzip.h"
 #include "LoginPlatform.h"
 
-#define UNZ_MD5ERROR					(UNZ_CUSTOM-1)
-#define UNZ_TARGETFILE_OPENFAIL			(UNZ_CUSTOM-2)
-#define UNZ_TARGETFILE_WRITEFAIL		(UNZ_CUSTOM-3)
+#define UNZ_MD5ERROR					(-111)
+#define UNZ_TARGETFILE_OPENFAIL			(-112)
+#define UNZ_TARGETFILE_WRITEFAIL		(-113)
 
 class SupportPatch {
 

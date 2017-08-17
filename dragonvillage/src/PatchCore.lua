@@ -178,7 +178,7 @@ function PatchCore:errorHandler(msg)
     end
 
     local function cancel_btn_cb()
-        MakeSimplePopup(POPUP_TYPE.OK, '정상적인 앱을 시작할 수 없습니다.\n앱을 완전 종료 후 다시 접속해주세요.', function() closeApplication() end)
+        MakeSimplePopup(POPUP_TYPE.OK, '정상적인 앱 시작이 불가능하여 앱을 종료합니다. 종료 후 다시 실행해 주세요.', function() closeApplication() end)
     end
 
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb, cancel_btn_cb)
@@ -225,7 +225,7 @@ end
 -------------------------------------
 function PatchCore:st_requestPatchInfo_successCB(ret)
     if (not ret) or (not ret['cur_patch_ver']) or (not ret['list']) then
-        self:errorHandler(Str('패치 정보 오류\n다시 시도하시겠습니까?'))
+        self:errorHandler(Str('패치 정보에 오류가 있습니다.\n다시 시도하시겠습니까?'))
         return
     end
 
@@ -343,7 +343,7 @@ function PatchCore:st_downloadPatchFile(ret)
         -- 다운 실패 콜백
         local function fail_cb(error_msg)
             os.remove(local_path)
-            local msg = Str('패치 파일 다운로드 실패.')
+            local msg = Str('패치 파일을 다운로드하는데 실패하였습니다.')
             if error_msg and (error_msg ~= '') then
                 msg = msg .. '\n(' .. error_msg .. ')'
             end
@@ -449,7 +449,15 @@ function PatchCore:st_decompression()
             self:doStep()
             return
         else
-            local msg = Str('추가 리소스 패치 중 오류({1})가 발생하였습니다. 불필요한 앱과 파일을 삭제 후 다시 시도해 주세요.', ret)
+            local msg = Str('추가 리소스 패치 중 오류({1})가 발생하였습니다. 다시 시도하시겠습니까?', ret)
+            local popup_type = ''
+            if ret == -111 then
+                msg = Str('다운로드받은 패치 파일에 오류가 있습니다. 다운로드를 다시 시도하시겠습니까?')
+            elseif ret == -112 then
+                msg = Str('저장 공간이 부족하여 패치 파일을 설치하는데 실패하였습니다.\n불필요한 앱과 파일을 삭제 후 다시 시도해 주세요.')
+            elseif ret == -113 then
+                msg = Str('저장 공간이 부족하여 패치 파일을 저장하는데 실패하였습니다.\n불필요한 앱과 파일을 삭제 후 다시 시도해 주세요.')
+            end
             self:errorHandler(msg)
         end
     end
