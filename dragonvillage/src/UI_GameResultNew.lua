@@ -767,7 +767,7 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
         local evolution = user_data['evolution']
         local grade = user_data['grade']
 		local attr = table_data['attr']
-		local scale = table_data['scale']
+		local scale = table_data['scale_'.. evolution]
 
         local animaotr = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
         animaotr.m_node:setDockPoint(cc.p(0.5, 0.5))
