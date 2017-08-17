@@ -113,8 +113,12 @@ function UI_AncientTowerFloorInfo:refresh_monsterList()
 
     -- 스테이지 레벨로 몬스터와 드래곤 레벨 설정 (전투력 계산에 쓰임)
     local stage_id = info.m_stage
+    local boss_id = l_item_list[#l_item_list]
+
     local function make_func(data)
-        local ui = UI_MonsterCard(data)
+        -- 마지막 몬스터 = 보스
+        local is_boss = (boss_id == data)
+        local ui = UI_MonsterCard(data, is_boss)
         ui:setStageID(stage_id)
         return ui
     end

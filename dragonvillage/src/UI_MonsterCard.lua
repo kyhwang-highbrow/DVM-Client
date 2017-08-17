@@ -19,12 +19,13 @@ UI_MonsterCard = class(PARENT,{
 
         m_bDragonMonster = 'boolean',
         m_nStageID = 'number',
+        m_bBoss = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_MonsterCard:init(monster_id)
+function UI_MonsterCard:init(monster_id, is_boss)
     cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/character_card/character_card.plist')
 
     self.root = cc.Menu:create()
@@ -33,6 +34,7 @@ function UI_MonsterCard:init(monster_id)
     self.root:setAnchorPoint(CENTER_POINT)
     self.root:setPosition(0, 0)
     self.m_bDragonMonster = false
+    self.m_bBoss = is_boss or false
 
     self.vars = {}
     self.m_monsterID = monster_id
@@ -72,7 +74,7 @@ function UI_MonsterCard:refreshMonsterInfo()
 
     do -- 보스류 프레임 표시
         local rarity = t_monster['rarity']
-        if isExistValue(rarity, 'elite', 'subboss', 'boss') then
+        if (isExistValue(rarity, 'elite', 'subboss', 'boss')) or (self.m_bBoss) then
             self:makeFrame('character_card_frame_boss.png')
         else
             local res = 'character_card_frame.png'
