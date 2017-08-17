@@ -1,4 +1,4 @@
-DV_SCENE_ACTIVE = true
+DV_SCENE_ACTIVE = false
 
 -------------------------------------
 -- class SceneDV
