@@ -872,9 +872,34 @@ function UI_GameResultNew:click_quickBtn()
         scene:runScene()
     end
 
-    local deck_name = g_deckData:getSelectedDeckName()
-    local combat_power = g_deckData:getDeckCombatPower(deck_name)
-    g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+    local check_dragon_inven
+    local check_item_inven
+    local start_game
+
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_dragon_inven = function()
+        local function manage_func()
+            self:click_manageBtn()
+        end
+        g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
+    end
+
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            UI_Inventory()
+        end
+        g_inventoryData:checkMaximumItems(start_game, manage_func)
+    end
+
+    start_game = function()
+        -- 빠른 재시작
+        local deck_name = g_deckData:getSelectedDeckName()
+        local combat_power = g_deckData:getDeckCombatPower(deck_name)
+        g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+    end
+
+    check_dragon_inven()
 end
 
 -------------------------------------
@@ -1017,19 +1042,7 @@ function UI_GameResultNew:checkAutoPlay()
     end
         
     local auto_play_stop = false
-
     local msg = nil
-
-    -- 연속 전투 20회 제한 -> 무제한으로 변경
-    --[[
-    local max_cnt = 20
-    if (g_autoPlaySetting.m_autoPlayCnt >= max_cnt) then
-        auto_play_stop = true
-        if (not msg) then
-            msg = Str('연속 전투 {1}회가 종료되었습니다.', max_cnt)
-        end
-    end
-    ]]--
 
     -- 패배 시 연속 전투 종료
     if g_autoPlaySetting:get('stop_condition_lose') then
@@ -1112,4 +1125,15 @@ function UI_GameResultNew:setHotTimeInfo(l_hottime)
             vars['hotTimeLabel' .. i]:setVisible(true)
         end
     end
+end
+
+-------------------------------------
+-- function click_manageBtn
+-------------------------------------
+function UI_GameResultNew:click_manageBtn()
+    local ui = UI_DragonManageInfo()
+    local function close_cb()
+        self:sceneFadeInAction(func)
+    end
+    ui:setCloseCB(close_cb)
 end

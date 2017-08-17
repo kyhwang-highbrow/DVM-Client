@@ -35,13 +35,13 @@ function UI_NotificationFullInventoryPopup:initUI(noti_type, curr_cnt, max_cnt)
     local vars = self.vars
 
     if (noti_type == 'dragon') then
-        vars['dscLabel']:setString(Str('드래곤이 가득 찼습니다.\n가방의 공간을 확보 후 전투를 시작할 수 있습니다.'))
+        vars['dscLabel']:setString(Str('드래곤 보유 수가 가득 차면 콘텐츠를 이용할 수 없습니다.\n드래곤 보유 공간을 확보해 주세요.'))
         vars['titleLabel']:setString(Str('보유 드래곤'))
         vars['inventoryLabel']:setString(Str('드래곤 관리'))
 
     elseif (noti_type == 'inventory') then
-        vars['dscLabel']:setString(Str('아이템이 가득 찼습니다.\n가방의 공간을 확보 후 전투를 시작할 수 있습니다.'))
-        vars['titleLabel']:setString(Str('보유 아이템'))
+        vars['dscLabel']:setString(Str('룬이 가득 차면 콘텐츠를 이용할 수 없습니다.\n룬 가방 공간을 확보해 주세요.'))
+        vars['titleLabel']:setString(Str('보유 룬'))
         vars['inventoryLabel']:setString(Str('가방'))
 
     else

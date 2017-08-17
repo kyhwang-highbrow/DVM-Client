@@ -754,7 +754,9 @@ end
 -- function getDragonsCnt
 -------------------------------------
 function ServerData_Dragons:getDragonsCnt()
-    return self.m_dragonsCnt
+    -- 드래곤 카운트에 슬라임 추가됨
+    local slime_cnt = g_slimesData.m_slimesCnt or 0
+    return self.m_dragonsCnt + slime_cnt
 end
 
 -------------------------------------
