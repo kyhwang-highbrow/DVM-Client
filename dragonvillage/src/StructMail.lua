@@ -119,7 +119,7 @@ end
 -- @brief mail의 제목과 내용 받아온다
 -------------------------------------
 function StructMail:getMailTitleAndContext()
-    return MailHelper:getMailText(self)
+    return MailHelper.getMailText(self)
 end
 
 -------------------------------------
