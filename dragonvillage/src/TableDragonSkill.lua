@@ -176,6 +176,7 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' local def = owner:getStat(\'def\')' ..
             ' local hp = owner:getHp()' ..
             ' local max_hp = owner:getStat(\'hp\')' ..
+            ' local hp_rate = owner:getHpRate()' ..
             ' local aspd = owner:getStat(\'aspd\')' ..
             ' local cri_chance = owner:getStat(\'cri_chance\')' ..
             ' local cri_dmg = owner:getStat(\'cri_dmg\')' ..
@@ -208,6 +209,7 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' local target_def = target and target:getStat(\'def\') or 0' ..
             ' local target_hp = target and target:getHp() or 0' ..
             ' local target_max_hp = target and target:getStat(\'hp\') or 0' ..
+            ' local target_hp_rate = target and target:getHpRate() or 0' ..
             ' local target_aspd = target and target:getStat(\'aspd\') or 0' ..
             ' local target_cri_chance = target and target:getStat(\'cri_chance\') or 0' ..
             ' local target_cri_dmg = target and target:getStat(\'cri_dmg\') or 0' ..
@@ -224,6 +226,7 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' local skill_target_def = skill_target and skill_target:getStat(\'def\') or 0' ..
             ' local skill_target_hp = skill_target and skill_target:getHp() or 0' ..
             ' local skill_target_max_hp = skill_target and skill_target:getStat(\'hp\') or 0' ..
+            ' local skill_target_hp_rate = skill_target and skill_target:getHpRate() or 0' ..
             ' local skill_target_aspd = skill_target and skill_target:getStat(\'aspd\') or 0' ..
             ' local skill_target_cri_chance = skill_target and skill_target:getStat(\'cri_chance\') or 0' ..
             ' local skill_target_cri_dmg = skill_target and skill_target:getStat(\'cri_dmg\') or 0' ..

@@ -87,7 +87,7 @@ function StatusEffect_Protection:onApplyOverlab(unit)
     else
         local t_status_effect = self.m_statusEffectTable
         local adj_value = t_status_effect['val_1'] * (unit:getValue() / 100)
-	    local shield_hp = self.m_owner.m_maxHp * (adj_value / 100)
+	    local shield_hp = self.m_owner:getStat('hp') * (adj_value / 100)
 
         -- 해당 정보를 임시 저장
         unit:setParam('shield_hp', shield_hp)

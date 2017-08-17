@@ -51,14 +51,15 @@ StatusCalculator = class({
 
         -- 세부 능력치 적용
         m_attackTick = 'number',
-
-
+        
         m_charType = 'string',
         m_chapterID = 'number',
 
         m_charTable = '',
         m_evolutionTable = '',
         m_gradeTable = '',
+
+        m_tHiddenInfo = 'table',   -- 스테이터스 관련된 추가 정보를 저장하기 위한 테이블
     })
 
 -------------------------------------
@@ -77,6 +78,8 @@ function StatusCalculator:init(char_type, cid, lv, grade, evolution, eclv)
 
     -- # 세부 능력치 적용
     self.m_attackTick = self:getAttackTick()
+    
+    self.m_tHiddenInfo = {}
 end
 
 -------------------------------------
@@ -157,6 +160,13 @@ function StatusCalculator:getAttackTick()
 end
 
 -------------------------------------
+-- function getHiddenInto
+-------------------------------------
+function StatusCalculator:getHiddenInto(key)
+    return self.m_tHiddenInfo[key]
+end
+
+-------------------------------------
 -- function applyFormationBonus
 -- @brief 진형 버프 적용 (다른 status effect처럼 패시브 형태로 동작함)
 -------------------------------------
@@ -207,38 +217,31 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
 
     if (stage_id == COLOSSEUM_STAGE_ID) then
         -- 콜로세움에서는 아군과 적군의 체력을 3배로
-        t_info = {
-            {
-                condition_type = 'all',
-                condition_value = 0,
-                buff_type = 'hp_multi',
-                buff_value = 300
-            }
-        }
+        self.m_tHiddenInfo['hp_multi'] = 3
+
     else
-        t_info = TableStageData():getStageBuff(stage_id, is_enemy)
-    end
-
-    if (not t_info) then return end
+        local t_info = TableStageData():getStageBuff(stage_id, is_enemy)
+        if (not t_info) then return end
     
-    local t_char = self.m_charTable[self.m_chapterID]
+        local t_char = self.m_charTable[self.m_chapterID]
 
-    for i, v in ipairs(t_info) do
-        if (v['condition_type'] ~= 'all'
-            and t_char[v['condition_type']] ~= v['condition_value']) then return end
+        for i, v in ipairs(t_info) do
+            if (v['condition_type'] ~= 'all'
+                and t_char[v['condition_type']] ~= v['condition_value']) then return end
 
-        local buff_type = v['buff_type']
-        local buff_value = v['buff_value']
+            local buff_type = v['buff_type']
+            local buff_value = v['buff_value']
 
-        local t_option = TableOption():get(buff_type)
-        if (not t_option) then return end
+            local t_option = TableOption():get(buff_type)
+            if (not t_option) then return end
 
-        local status_type = t_option['status']
-        if (not status_type) then return end
+            local status_type = t_option['status']
+            if (not status_type) then return end
 
-        self:addOption(t_option['action'], status_type, buff_value)
+            self:addOption(t_option['action'], status_type, buff_value)
     
-        --cclog('applyStageBonus ' .. Str(t_option['t_desc'], math_abs(buff_value)))
+            --cclog('applyStageBonus ' .. Str(t_option['t_desc'], math_abs(buff_value)))
+        end
     end
 end
 

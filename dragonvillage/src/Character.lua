@@ -16,6 +16,7 @@ Character = class(PARENT, {
         m_lv = '',
         m_maxHp = '',
         m_hp = '',
+        m_hpRatio = '',
 		m_attribute = '',
 		m_attributeOrg = '',
 
@@ -150,6 +151,8 @@ local SpasticityTime = 0.2
 -- @param body
 -------------------------------------
 function Character:init(file_name, body, ...)
+    self.m_hpRatio = 1
+
     self.m_bActive = false
     self.m_bDead = false
 	self.m_attribute = nil
@@ -351,8 +354,9 @@ function Character:setStatusCalc(status_calc)
 
     -- hp 설정
     local hp = self:getStat('hp')
-    self.m_maxHp = hp
-    self.m_hp = hp
+    local hp_multi = self.m_statusCalc:getHiddenInto('hp_multi') or 1
+    self.m_maxHp = hp * hp_multi
+    self.m_hp = self.m_maxHp
 end
 
 -------------------------------------
@@ -914,7 +918,7 @@ function Character:doRevive(hp_rate)
     if (not self.m_bDead or not self.m_bPossibleRevive) then return end
     self.m_bDead = false
 
-    local hp = math_floor(self.m_maxHp * hp_rate)
+    local hp = math_floor(self:getStat('hp') * hp_rate)
     self:setHp(hp, true)
     self.m_hpNode:setVisible(true)
 
@@ -1158,8 +1162,9 @@ end
 -- function healPercent
 -------------------------------------
 function Character:healPercent(caster, percent, b_make_effect)
-    local heal = self.m_maxHp * percent
-    heal = math_min((self.m_maxHp - self.m_hp) , heal)
+    local max_hp = self:getStat('hp')
+    local heal = max_hp * percent
+    heal = math_min(max_hp - self.m_hp, heal)
 
     self:healAbs(caster, heal, false, b_make_effect)
 end
@@ -1206,7 +1211,7 @@ function Character:healAbs(caster, heal, is_critical, b_make_effect)
     end
 
     local heal_for_text = heal
-    heal = math_min(heal, (self.m_maxHp-self.m_hp))
+    heal = math_min(heal, (self.m_maxHp - self.m_hp))
 
     self:makeHealFont(heal_for_text, is_critical)
     self:setHp(self.m_hp + heal)
@@ -2311,6 +2316,14 @@ end
 -------------------------------------
 function Character:getHp()
     return self.m_hp
+end
+
+-------------------------------------
+-- function getHpRate
+-- @brief 현재 HP 정보를 가져온다
+-------------------------------------
+function Character:getHpRate()
+    return (self.m_hp / self.m_maxHp)
 end
 
 -------------------------------------
