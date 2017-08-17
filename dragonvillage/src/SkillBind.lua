@@ -125,7 +125,13 @@ function SkillBind:calcScale(type, scale)
             return 1  
         end
     else
-        return scale
+        if (scale == 2) then
+            return 1.25
+        elseif (scale == 3) then
+            return 1.5
+        else
+            return 1
+        end
     end
 end
 

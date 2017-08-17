@@ -523,7 +523,7 @@ end
 function Character:getSizeType()
     local t_monster = TableMonster():get(self.m_charID)
     if (not t_monster) then
-        error('invalid enemy_id : ' .. self.m_charID)
+        return self.m_evolutionLv, 'dragon'
     end
     
     return t_monster['size_type'], 'monster'
