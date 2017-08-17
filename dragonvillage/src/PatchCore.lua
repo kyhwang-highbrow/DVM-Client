@@ -178,10 +178,10 @@ function PatchCore:errorHandler(msg)
     end
 
     local function cancel_btn_cb()
-        self:finish()
+        MakeSimplePopup(POPUP_TYPE.OK, '정상적인 앱을 시작할 수 없습니다.\n앱을 완전 종료 후 다시 접속해주세요.', function() closeApplication() end)
     end
 
-    MakeSimplePopup(POPUP_TYPE.OK, msg, ok_btn_cb, cancel_btn_cb)
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb, cancel_btn_cb)
 end
 
 -------------------------------------
