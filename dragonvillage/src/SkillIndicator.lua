@@ -256,7 +256,7 @@ function SkillIndicator:onEnterAppear()
 	if (not self.m_indicatorEffect) then 
 		return
 	end
-
+    self.m_indicatorEffect:setIgnoreLowEndMode(true)
     self.m_indicatorEffect:changeAni('appear')
 	self.m_indicatorEffect:addAniHandler(function()
 		self.m_indicatorEffect:changeAni('idle', true)
