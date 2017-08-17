@@ -62,6 +62,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, 
     local evolution = t_dragon_data['evolution'] or 1
     local eclv = t_dragon_data['eclv'] or 0
 	local attr = t_dragon['attr']
+    local scale = t_dragon['scale_' .. evolution] or 0.8
 
 	-- 기본 정보 저장
     self.m_dragonID = dragon_id
@@ -77,7 +78,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, 
 		self:initDragonSkillManager('dragon', dragon_id, evolution)
 		self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
     
-		self:initAnimatorDragon(t_dragon['res'], evolution, attr, t_dragon['scale'])
+		self:initAnimatorDragon(t_dragon['res'], evolution, attr, scale)
 		self:makeCastingNode()
 		self:initTriggerListener()
 		self:initLogRecorder(doid or dragon_id)
