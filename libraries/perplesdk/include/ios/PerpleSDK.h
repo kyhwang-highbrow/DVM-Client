@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <StoreKit/StoreKit.h>
 
 #pragma mark -
 
@@ -144,6 +145,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 #endif
 #ifdef USE_TAPJOY
 - (void) tapjoyEvent:(NSString *)cmd param1:(NSString *)param1 param2:(NSString *)param2;
+- (void) tapjoySetTrackPurchase:(BOOL)flag;
 - (void) tapjoySetPlacement:(NSString *)placemantName completion:(PerpleSDKCallback)callback;
 - (void) tapjoyShowPlacement:(NSString *)placemantName completion:(PerpleSDKCallback)callback;
 - (void) tapjoyGetCurrencyWithCompletion:(PerpleSDKCallback)callback;
@@ -232,5 +234,6 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 // iOS 7.0
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
 
+- (void) payment:(SKPaymentTransaction *)transaction product:(SKProduct *)product;
 
 @end
