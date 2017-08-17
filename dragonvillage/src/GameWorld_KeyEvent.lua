@@ -36,6 +36,7 @@ MAP_KEY_FUNC[KEY_A] = 'pause_on_off_auto'
 
 MAP_KEY_FUNC[KEY_1] = 'tamer_active_skill'
 MAP_KEY_FUNC[KEY_2] = 'tamer_event_skill'
+MAP_KEY_FUNC[KEY_3] = 'print_total_damage_to_hero'
 
 MAP_KEY_FUNC[KEY_LEFT_ARROW] = 'camera_move_left'
 MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'camera_move_right'
@@ -256,6 +257,18 @@ function GameWorld:tamer_event_skill()
     if (self.m_tamer) then
 		self.m_tamer:changeState('event')
     end
+end
+
+-------------------------------------
+-- function print_total_damage_to_hero
+-- @brief 아군이 받은 누적 피해량 표시(표시 후 리셋됨)
+-------------------------------------
+function GameWorld:print_total_damage_to_hero()
+    local total_damage = self.m_logRecorder:getLog('total_damage_to_hero')
+    cclog('아군이 받은 누적 피해량 : ' .. total_damage)
+    
+    self.m_logRecorder.m_totalDamageToHero = 0
+    cclog('아군이 받은 누적 피해량 리셋')
 end
 
 -------------------------------------

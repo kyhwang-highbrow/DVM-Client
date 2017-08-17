@@ -801,6 +801,11 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 	-- @LOG_CHAR : 방어지 피해량
 	self.m_charLogRecorder:recordLog('be_damaged', damage)
 
+    -- @LOG : 유저 드래곤이 총 받은 피해
+    if (self.m_bLeftFormation) then
+        self.m_world.m_logRecorder:recordLog('total_damage_to_hero', damage)
+    end
+
     -----------------------------------------------------------------
     -- 죽음 체크
     -----------------------------------------------------------------
