@@ -158,22 +158,24 @@ function UI_RuneBulkSalePopup:getRuneList()
     local l_ret_list = {}
     local vars = self.vars
 
-    local l_active = {}
-    l_active[1] = vars['starBtn1']:isChecked()
-    l_active[2] = vars['starBtn2']:isChecked()
-    l_active[3] = vars['starBtn3']:isChecked()
-    l_active[4] = vars['starBtn4']:isChecked()
-    l_active[5] = vars['starBtn5']:isChecked()
-    l_active[6] = vars['starBtn6']:isChecked()
-    l_active[4] = vars['rarityBtn4']:isChecked()
-    l_active[3] = vars['rarityBtn3']:isChecked()
-    l_active[2] = vars['rarityBtn2']:isChecked()
-    l_active[1] = vars['rarityBtn1']:isChecked()
+    local l_stars = {}
+    l_stars[1] = vars['starBtn1']:isChecked()
+    l_stars[2] = vars['starBtn2']:isChecked()
+    l_stars[3] = vars['starBtn3']:isChecked()
+    l_stars[4] = vars['starBtn4']:isChecked()
+    l_stars[5] = vars['starBtn5']:isChecked()
+    l_stars[6] = vars['starBtn6']:isChecked()
+
+    local l_rarity = {}
+    l_rarity[1] = vars['rarityBtn1']:isChecked()
+    l_rarity[2] = vars['rarityBtn2']:isChecked()
+    l_rarity[3] = vars['rarityBtn3']:isChecked()
+    l_rarity[4] = vars['rarityBtn4']:isChecked()
 
     for i,v in pairs(l_rune_list) do
         local grade = v['grade']
         local rarity = v['rarity']
-        if (l_active[grade] and l_active[rarity]) then
+        if (l_stars[grade] and l_rarity[rarity]) then
             l_ret_list[i] = v
         end
     end
