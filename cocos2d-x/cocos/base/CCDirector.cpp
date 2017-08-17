@@ -374,6 +374,11 @@ bool Director::isIdleTimerDisabled()
 	return Device::isIdleTimerDisabled();
 }
 
+size_t Director::getDrawnBatches()
+{
+    return _renderer->getDrawnBatches();
+}
+
 void Director::setOpenGLView(GLView *openGLView)
 {
     CCASSERT(openGLView, "opengl view should not be null");

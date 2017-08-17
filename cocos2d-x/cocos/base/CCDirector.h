@@ -415,6 +415,11 @@ public:
 	*/
 	bool isIdleTimerDisabled();
 
+    /**
+    *  get getDrawnBatches
+    */
+    size_t getDrawnBatches();
+
 protected:
     void purgeDirector();
     bool _purgeDirectorInNextLoop; // this flag will be set to true in end()

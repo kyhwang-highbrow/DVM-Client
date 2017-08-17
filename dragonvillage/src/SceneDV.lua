@@ -26,8 +26,21 @@ function SceneDV:onEnter()
     g_currScene:addKeyKeyListener(self)
 	--self:doUpdate()
 
-    self:scenarioTest()
+    --self:scenarioTest()
 	--self:penlightTest()
+
+    self:glCallsTest()
+end
+
+-------------------------------------
+-- function glCallsTest
+-------------------------------------
+function SceneDV:glCallsTest()
+    local function update() 
+        local drawnBatches = cc.Director:getInstance():getDrawnBatches()
+        cclog('drawnBatches : ' .. drawnBatches)
+    end
+    self.m_scene:scheduleUpdateWithPriorityLua(update, 0)
 end
 
 -------------------------------------
