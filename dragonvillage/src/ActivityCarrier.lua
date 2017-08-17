@@ -89,6 +89,16 @@ function ActivityCarrier:getHp()
 end
 
 -------------------------------------
+-- function getHpRate
+-- @brief 공격자의 현재 HP 비율값을 가져온다
+-------------------------------------
+function ActivityCarrier:getHpRate()
+    if (not self.m_activityCarrierOwner) then return 0 end
+
+    return self.m_activityCarrierOwner:getHpRate()
+end
+
+-------------------------------------
 -- function getRole
 -- @breif 공격자의 role정보를 리턴
 -------------------------------------
