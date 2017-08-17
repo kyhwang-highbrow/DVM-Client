@@ -73,4 +73,5 @@ end
 -------------------------------------
 function UI_CouponPopup:click_okBtn()
 	ccdisplay('OK~')
+    UI_CouponPopup_Confirm()
 end
