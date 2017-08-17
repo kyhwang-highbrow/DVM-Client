@@ -782,13 +782,13 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
         end
     end
     local formation_mgr = self:getFormationMgr(false)
-
+    local cover_coef = g_constant:get('INGAME', 'COVER_COEF') or 0.5
     if (formation_mgr:isFrontLineAlive() and not formation_mgr:isFrontLine(self)) then
         if (self.m_bLeftFormation) then
-            damage = damage * 0.5
+            damage = damage * cover_coef
         else
             if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
-                damage = damage * 0.5
+                damage = damage * cover_coef
             end
         end
     end
