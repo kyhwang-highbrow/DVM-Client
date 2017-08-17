@@ -235,6 +235,7 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data)
     node:retain()
     node:removeFromParent()
     node:setPosition(node_pos['x'], node_pos['y'])
+    node:setScale(1)
 
     self.root:addChild(node)
     node:release()
@@ -243,10 +244,8 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data)
     local t_item = self.m_tableView:getItem(key)
     t_item['ui'] = nil
 
-
     local target_pos = convertToAnoterNodeSpace(node, self.vars['dungeonNode'])
     ui:cellMoveTo(0.5, target_pos)
-    --ui:cellMoveTo(0.5, cc.p(210, 360))
 
     vars['tableViewNode']:setVisible(false)
 
