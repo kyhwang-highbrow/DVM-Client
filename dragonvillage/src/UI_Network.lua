@@ -295,6 +295,7 @@ function UI_Network:makeFailPopup(msg, ret)
     end
 
     MakeSimplePopup(popup_type, msg, ok_btn_cb, cancel_btn_cb)
+    self:close()
 end
 
 -------------------------------------
