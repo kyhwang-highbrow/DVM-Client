@@ -60,7 +60,10 @@ function UI_EventPopupTab_HBShop:init_tableView()
     -- 생성 콜백
     local function create_func(ui, data)
         ui.vars['buyBtn']:registerScriptTapHandler(function()
-            data:buyProduct(function() self:refresh() end)
+            data:buyProduct(function() 
+                self:refresh()
+                self.refreshCell(ui, data)
+            end)
         end)
     end
 
@@ -98,13 +101,8 @@ function UI_EventPopupTab_HBShop.makeCellUI(struct_product)
     local product_icon = struct_product:getIcon()
     vars['itemNode']:addChild(product_icon)
 
-    -- 튜토리얼 보상은 1회만 수령 가능하므로 따로 처리
-    if (struct_product:isDone()) then
-        vars['buyBtn']:setEnabled(false)
-        vars['priceLabel']:setString(Str('수령 완료'))
-    else
-        vars['priceLabel']:setString(struct_product:getPrice())
-    end
+    -- refresh
+    UI_EventPopupTab_HBShop.refreshCell(ui, struct_product)
 
 	return ui
 end
@@ -114,6 +112,14 @@ end
 -- @static
 -- @brief 테이블 셀 갱신
 -------------------------------------
-function UI_MasterRoadPopup.refreshCell(ui, struct_product)
+function UI_EventPopupTab_HBShop.refreshCell(ui, struct_product)
     local vars = ui.vars
+    
+    -- 튜토리얼 보상은 1회만 수령 가능하므로 따로 처리
+    if (struct_product:isDone()) then
+        vars['buyBtn']:setEnabled(false)
+        vars['priceLabel']:setString(Str('수령 완료'))
+    else
+        vars['priceLabel']:setString(struct_product:getPrice())
+    end
 end
