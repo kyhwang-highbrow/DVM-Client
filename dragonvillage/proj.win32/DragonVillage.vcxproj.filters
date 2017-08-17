@@ -2652,8 +2652,8 @@
     <None Include="..\src\TableHighbrow.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src_tool\StageInfoWave.lua">
-      <Filter>lua_tool</Filter>
+    <None Include="..\src\UI_SimplePopup2.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

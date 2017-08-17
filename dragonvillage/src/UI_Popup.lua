@@ -20,6 +20,14 @@ function MakeSimplePopup(type, msg, ok_btn_cb, cancel_btn_cb)
 end
 
 -------------------------------------
+-- function MakeSimplePopup2
+-------------------------------------
+function MakeSimplePopup2(type, msg, submsg, ok_btn_cb, cancel_btn_cb)
+    local popup = UI_SimplePopup2(type, msg, submsg, ok_btn_cb, cancel_btn_cb)
+    return popup
+end
+
+-------------------------------------
 -- function MakeSimplePopup_Confirm
 -- @brief 단일 재화인 경우를 상정
 -------------------------------------

@@ -581,6 +581,7 @@ local t_module = {
     'UI_RewardListPopup',
     'UI_Popup',
     'UI_SimplePopup',
+    'UI_SimplePopup2',
 	'UI_ConfirmPopup',
 	'UI_ObtainPopup',
 	'UI_ErrorPopup',
@@ -644,6 +645,7 @@ local t_module = {
     'UI_DragonGoodbyeResult',
     'UI_QuickPopup',
     'UI_CouponPopup',
+    'UI_CouponPopup_Confirm',
 
     -- UI : 약관 동의
     'UI_TermsPopup',

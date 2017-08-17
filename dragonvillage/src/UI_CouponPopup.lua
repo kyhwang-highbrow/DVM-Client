@@ -2,6 +2,7 @@
 -- class UI_CouponPopup
 -------------------------------------
 UI_CouponPopup = class(UI, {
+        m_couponCode = 'string'
      })
 
 -------------------------------------
@@ -10,6 +11,8 @@ UI_CouponPopup = class(UI, {
 -- @param body
 -------------------------------------
 function UI_CouponPopup:init()
+    self.m_couponCode = ''
+
     local vars = self:load('coupon_input.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -52,8 +55,8 @@ function UI_CouponPopup:initEditHandler()
 	local function editBoxTextEventHandle(strEventName, pSender)
         if (strEventName == "return") then
             -- editLabel에 글자를 찍어준다.
-            local context = vars['editBox']:getText()
-            vars['editLabel']:setString(context)
+            self.m_couponCode = vars['editBox']:getText()
+            vars['editLabel']:setString(self.m_couponCode)
         end
     end
     vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
@@ -72,6 +75,28 @@ end
 -- @brief ok~
 -------------------------------------
 function UI_CouponPopup:click_okBtn()
+
+    -- 쿠폰코드 길이 검증
+    if string.len(self.m_couponCode or '') ~= 12 then
+        local msg = Str('쿠폰 번호의 길이가 맞지 않습니다.')
+        local submsg = Str('12자리의 쿠폰 번호를 입력해 주세요.')
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg)
+
+        return
+    end
+
 	ccdisplay('OK~')
-    UI_CouponPopup_Confirm()
+
+    --[[
+    -- @todo-coupon, 서버에 쿠폰 조회
+    local couponId = '1'
+    local couponData = {}
+    couponData['type'] = '1'
+    couponData['no'] = '골드'
+    couponData['cnt'] = 5000000
+
+    UI_CouponPopup_Confirm(couponId, couponData)
+
+    self:close()
+    --]]
 end
