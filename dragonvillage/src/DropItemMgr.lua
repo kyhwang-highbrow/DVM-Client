@@ -54,6 +54,31 @@ function DropItemMgr:designateDropMonster()
         return
     end
 
+    -- 하루 최대 재화 드랍 체크
+    local is_max = false
+    local drop_item_max = g_stageData:getIngameMaxDropTable(stage_id)
+    if (drop_item_max) then
+        local str_type = self.m_tableDropIngame:getDropItemType(self.m_chapterID)
+        local n_spare = 0
+
+        -- 해당 챕터에서 드랍되는 재화에서만 최대치 체크
+        for k, v in pairs(drop_item_max) do
+            if string.find(str_type, k) then
+                n_spare = n_spare + math_max(tonumber(v), 0)
+            end
+        end
+        
+        if (n_spare <= 0) then
+            is_max = true
+        end
+    end
+
+    -- 최대치를 넘은 경우 지정하지 않음
+    if (is_max) then
+        self.m_remainItemCnt = 0
+        return
+    end
+
     -- 총 드랍할 개수를 지정
     local drop_item_count = self.m_tableDropIngame:getDropItemCount(self.m_chapterID)
     self.m_remainItemCnt = drop_item_count
@@ -333,7 +358,10 @@ function DropItemMgr:obtainItem(item)
         return
     end
 
-    local type, count = self.m_tableDropIngame:decideDropItem(self.m_chapterID)
+    local stage_id = self.m_world.m_stageID
+    local drop_item_max = g_stageData:getIngameMaxDropTable(stage_id)
+
+    local type, count = self.m_tableDropIngame:decideDropItem(self.m_chapterID, drop_item_max)
     item:setObtained(type, count)
 
     -- 정보 저장

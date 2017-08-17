@@ -3,6 +3,7 @@
 -------------------------------------
 ServerData_Stage = class({
         m_serverData = 'ServerData',
+        m_ingameMaxDrop = '',
     })
 
 -------------------------------------
@@ -217,6 +218,11 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         local game_key = ret['gamekey']
         finish_cb(game_key)
 
+        -- 인게임 하루 최대 드랍 정보 저장
+        if ret['ingame_drop'] then
+            self.m_ingameMaxDrop = ret['ingame_drop']
+        end
+
         -- 핫타임 정보 저장
         g_hotTimeData:setIngameHotTimeList(game_key, ret['hottime'])
 
@@ -375,4 +381,18 @@ function ServerData_Stage:getNumOfStarsAchieved(stage_id)
     local game_mode = self:getGameMode(stage_id)
 
 
+end
+
+-------------------------------------
+-- function getIngameMaxDropTable
+-------------------------------------
+function ServerData_Stage:getIngameMaxDropTable(stage_id)
+    local game_mode = self:getGameMode(stage_id)
+
+    -- 모험 모드에서만 사용
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        return self.m_ingameMaxDrop
+    else
+        return nil
+    end
 end
