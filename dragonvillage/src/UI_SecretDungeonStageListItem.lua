@@ -54,9 +54,9 @@ function UI_SecretDungeonStageListItem:refresh(t_data)
 
     do -- 스테이지 이름
         local did = t_data['dragon']
-        local dragon_name = (did) and TableDragon:getDragonName(did) or ''
+        local dragon_name = TableDragon:getDragonName(did)
         local dungeon_name = Str(t_drop['t_name'])
-        local name = Str('{1} {2}', dragon_name, dungeon_name)
+        local name = Str('{1} - {2}', dungeon_name, dragon_name)
         vars['dungeonNameLabel']:setString(name)
     end
 
