@@ -205,8 +205,8 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 			table.insert(l_region, 'empty')
 		end
 
-	-- 룬
-	elseif (item_type == 'rune') then
+	-- 룬, 과일, 진화재료 및 기타 다른것들
+	else
 		l_region = TableItem:getRegionList(item_id)
 
 	end
