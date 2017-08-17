@@ -44,12 +44,6 @@ end
 -- function click_homepageBtn
 -------------------------------------
 function UI_EventPopupTab_HBAttendance:click_homepageBtn()
-    -- 하이브로 연동 전
-    if (false) then
-        SDKManager:goToWeb('http://www.dragonvillage.net')
-
-    -- 하이브로 연동 후
-    else
-        SDKManager:goToWeb('http://www.dragonvillage.net/dvm')
-    end
+   local url = 'http://account.game.highbrow-inc.com:8080/interop/Interop.php?uid=' .. g_userData:get('uid')
+   SDKManager:goToWeb(url)
 end
