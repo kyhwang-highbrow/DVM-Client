@@ -450,7 +450,7 @@ function PatchCore:st_decompression()
             return
         else
             local msg = Str('추가 리소스 패치 중 오류({1})가 발생하였습니다. 불필요한 앱과 파일을 삭제 후 다시 시도해 주세요.', ret)
-            self:errorHandler(Str('추가 리소스 패치 중 오류({1})가 발생하였습니다.\n다시 시도하시겠습니까?'))
+            self:errorHandler(msg)
         end
     end
 
