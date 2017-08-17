@@ -781,6 +781,17 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
             dir = attacker.movement_theta
         end
     end
+    local formation_mgr = self:getFormationMgr(false)
+
+    if (formation_mgr:isFrontLineAlive() and not formation_mgr:isFrontLine(self)) then
+        if (self.m_bLeftFormation) then
+            damage = damage * 0.5
+        else
+            if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+                damage = damage * 0.5
+            end
+        end
+    end
 
     -- 데미지 폰트 출력
     self:makeDamageEffect(i_x, i_y, dir, t_info['is_critical'])

@@ -551,6 +551,27 @@ function FormationMgr:printCharList()
 end
 
 -------------------------------------
+-- function isFrontLineAlive
+-------------------------------------
+function FormationMgr:isFrontLineAlive()
+    for _, v in pairs(self.m_frontCharList) do
+        if (not v:isDead()) then return true end
+    end
+    return false
+end
+
+-------------------------------------
+-- function isFrontLine
+-------------------------------------
+function FormationMgr:isFrontLine(char)
+    for _, v in pairs(self.m_frontCharList) do
+        if (v == char) then return true end
+    end
+    return false
+end
+
+
+-------------------------------------
 -- class FormationMgrDelegate
 -- @brief 전방(front), 중간(middle), 후방(rear)
 -------------------------------------
@@ -603,7 +624,6 @@ function FormationMgrDelegate:addList(std_list, add_list)
         table.insert(std_list, v)
     end
 end
-
 -------------------------------------
 -- function getTargetList
 -------------------------------------
