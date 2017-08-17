@@ -120,6 +120,19 @@ end
 -- @brief 
 -------------------------------------
 function SDKManager:goToAppStore()
-    self:sendEvent('app_gotoStore')
+    local appId = 'com.perplelab.dragonvillagem.kr'
+    if isIos() then
+        -- AppStore App ID
+    end
+    self:sendEvent('app_gotoStore', appId)
 end
 
+-------------------------------------
+-- function sendMail
+-- @brief 
+-------------------------------------
+function SDKManager:sendMail(info)
+    -- info
+    -- recipient;title;body
+    self:sendEvent('app_sendMail', info)
+end

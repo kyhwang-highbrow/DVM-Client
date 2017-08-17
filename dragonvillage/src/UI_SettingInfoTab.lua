@@ -37,7 +37,7 @@ end
 -- @brief 이용약관
 -------------------------------------
 function UI_Setting:click_agreementBtn()
-    UIManager:toastNotificationRed(Str('"이용약관"은 준비 중입니다.'))
+    SDKManager:goToWeb('http://www.perplelab.com/agreement')
 end
 
 -------------------------------------
