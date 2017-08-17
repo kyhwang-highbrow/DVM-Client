@@ -1,4 +1,4 @@
-DV_SCENE_ACTIVE = false
+DV_SCENE_ACTIVE = true
 
 -------------------------------------
 -- class SceneDV
@@ -613,4 +613,33 @@ function SceneDV:videoPlayerTest()
     end
 
     videoPlayer:scheduleUpdateWithPriorityLua(function(dt) update_func(dt) end, 0)   
+end
+
+-------------------------------------
+-- function richLabelTest
+-------------------------------------
+function SceneDV:richLabelTest()
+    -- 글자가 잘보이게 프레임배경 생성
+    local bubble = cc.Scale9Sprite:create('res/ui/frames/adventure_map_reward_0101.png')
+    bubble:setDockPoint(CENTER_POINT)
+    bubble:setAnchorPoint(CENTER_POINT)
+    bubble:setContentSize(500, 300)
+    bubble:setPosition(0, 0)
+    self.m_scene:addChild(bubble)
+
+    local str = '{@BLACK}15초마다 생명력이 가장 낮은 아군 2명{@RED}에게 공격력의 {@MUSTARD}200%{@BLACK} 만큼 생명력 회복'
+    
+    -- rich 생성 
+    local rich_label = UIC_RichLabel()
+    rich_label:setString(str)
+    rich_label:setFontSize(20)
+    rich_label:setDimension(284, 154)
+    rich_label:setPosition(0, 0)
+    rich_label:setDockPoint(CENTER_POINT)
+    rich_label:setAnchorPoint(CENTER_POINT)
+    rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    self.m_scene:addChild(rich_label.m_node)
+    
+    -- rich label 영역 그리기
+    rich_label:initGLNode()
 end

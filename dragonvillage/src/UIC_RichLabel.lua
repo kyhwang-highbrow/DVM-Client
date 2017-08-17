@@ -233,6 +233,8 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             label:setDockPoint(cc.p(0, 1))
             label:setAnchorPoint(cc.p(0, 1))
             
+            local pre_text = work_text
+
             -- 가로 길이 체크
             pos_x, idx_y, work_text, carriage_return = self:makeContent_checkTextWidth(label, work_text, pos_x, idx_y, line_height, is_button)
 
@@ -260,7 +262,9 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             
             -- 다음 pos_x
             local prev_x = pos_x
-            pos_x = pos_x + label:getStringWidth() - self.m_outlineSize -- (outline의 경우 자간에 영향을 줌)
+            if (pre_text ~= work_text) then
+                pos_x = pos_x + label:getStringWidth() - self.m_outlineSize -- (outline의 경우 자간에 영향을 줌)
+            end
 
             -- 컨텐츠 넓이
             self.m_contentWidth = math_max(self.m_contentWidth, pos_x)
