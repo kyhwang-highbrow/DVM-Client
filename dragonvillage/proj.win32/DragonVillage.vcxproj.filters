@@ -2649,6 +2649,9 @@
     <None Include="..\src\UI_CouponPopup_Confirm.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableHighbrow.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

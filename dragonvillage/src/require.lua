@@ -260,6 +260,7 @@ local t_module = {
     'TableGoogleQuest',
     'TableSummonGacha',
     'TableUILocation',
+    'TableHighbrow',
 
     -- Scene
     'SceneCommon',
