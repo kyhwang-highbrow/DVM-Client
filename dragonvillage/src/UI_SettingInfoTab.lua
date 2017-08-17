@@ -4,10 +4,6 @@
 function UI_Setting:init_infoTab()
     local vars = self.vars
 
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-    vars['uidLabel']:setString(tostring(uid))
-
     -- 게임 버전
     local version_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
     vars['versionLabel']:setString(version_str)
