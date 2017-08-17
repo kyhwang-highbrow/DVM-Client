@@ -146,28 +146,19 @@ int SupportPatch::unzipFiles(const char *src, const char *md5, const char *tar, 
 }
 
 static std::thread* s_unzipThread = nullptr;
-static std::mutex s_unzipThreadMutex;
-static std::vector<std::function<void()>> s_unzipCallbacks;
 
-void SupportPatch::unzipThreadFunc(const char *src, const char *md5, const char *tar, const char *fakeStr, std::function<void(int)> callback)
+void unzipThreadFunc(const char *src, const char *md5, const char *tar, const char *fakeStr, std::function<void(int)> callback)
 {
-	const int ret = unzipFiles(src, md5, tar, fakeStr);
-
-	// callback 처리
-	if (callback != nullptr)
-	{
-		std::lock_guard<std::mutex> lk(s_unzipThreadMutex);
-		//callback(ret);
-		s_unzipCallbacks.push_back([=]() {
-			callback(ret);
-		});
-	}
+    const int ret = SupportPatch::unzipFiles(src, md5, tar, fakeStr);
+    Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]{
+        callback(ret);
+    });
 }
 
 void SupportPatch::startUnzipThread(const char *src, const char *md5, const char *tar, const char *fakeStr, std::function<void(int)> callback)
 {
 	endUnzipThread();
-    s_unzipThread = new std::thread(&SupportPatch::unzipThreadFunc, src, md5, tar, fakeStr, callback);
+    s_unzipThread = new std::thread(&unzipThreadFunc, src, md5, tar, fakeStr, callback);
 }
 
 void SupportPatch::endUnzipThread()

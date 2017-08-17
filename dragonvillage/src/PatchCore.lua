@@ -473,17 +473,12 @@ function PatchCore:st_decompression()
         end
     end
 
-    --[[
     if unzipAsync then
         unzipAsync(local_path, download_path, md5, result_cb)
     else
         local ret = unzip(local_path, download_path, md5)
         result_cb(ret)
     end
-    --]]
-
-    local ret = unzip(local_path, download_path, md5)
-    result_cb(ret)
 end
 
 -------------------------------------
