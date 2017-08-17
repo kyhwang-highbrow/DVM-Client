@@ -242,9 +242,6 @@ SimpleAudioEngine::SimpleAudioEngine()
 
 SimpleAudioEngine::~SimpleAudioEngine()
 {
-    stopAllEffects();
-    stopBackgroundMusic();
-    end();
 }
 
 SimpleAudioEngine* SimpleAudioEngine::getInstance()
