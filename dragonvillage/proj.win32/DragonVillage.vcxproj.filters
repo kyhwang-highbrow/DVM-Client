@@ -2652,6 +2652,9 @@
     <None Include="..\src\TableHighbrow.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src_tool\StageInfoWave.lua">
+      <Filter>lua_tool</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
