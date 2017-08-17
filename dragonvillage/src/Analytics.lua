@@ -37,12 +37,10 @@ end
 function Analytics:purchase(productId, productName, price)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
-    local productId = productId..';'..productName
-    local arg1 = tostring(productId)
-    local arg2 = tostring(price)
+    local currencyCode = 'KRW' 
 
-    Adbrix:buy(arg1, arg2)
-    FiveRocks:trackPurchase(arg1, arg2)
+    Adbrix:buy(productId, price)
+    FiveRocks:trackPurchase(productName, currencyCode, price)
 end
 
 -------------------------------------
@@ -164,24 +162,23 @@ function FiveRocks:userInfo(userId)
 
     cclog('FiveRocks:userInfo : ' .. arg0)
 
-    PerpSocial:SDKEvent('userID', arg0, '', function(ret)
+    PerpSocial:tabjoyEvent('userID', arg0, '', function(ret)
     end)
 end
 
 -------------------------------------
 -- function trackPurchase
 -------------------------------------
-function FiveRocks:trackPurchase(productId, price)
+function FiveRocks:trackPurchase(productName, currencyCode, price)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
-    local arg0 = tostring(productId)
-    if price ~= nil then
-        arg0 = arg0 .. ';' .. tostring(price)
-    end
+    local arg0 = tostring(productName)
+    arg0 = arg0 .. ';' .. tostring(currencyCode)
+    arg0 = arg0 .. ';' .. tostring(price)
 
     cclog('FiveRocks:trackPurchase : ' .. arg0)
 
-    PerpSocial:SDKEvent('trackPurchase', arg0, '', function(ret)
+    PerpSocial:tabjoyEvent('trackPurchase', arg0, '', function(ret)
     end)
 end
 
@@ -196,7 +193,7 @@ function FiveRocks:customCohort(cohortNo, cohortDesc)
 
     cclog('FiveRocks:customCohort : ' .. arg0 .. ',' .. arg1)
 
-    PerpSocial:SDKEvent('userCohortVariable', arg0, arg1, function(ret)
+    PerpSocial:tabjoyEvent('userCohortVariable', arg0, arg1, function(ret)
     end)
 end
 
@@ -210,7 +207,7 @@ function FiveRocks:setAppDataVersion()
 
     cclog('FiveRocks:setAppDataVersion : ' .. arg0)
 
-    PerpSocial:SDKEvent('appDataVersion', arg0, '', function(ret)
+    PerpleSDK:tabjoyEvent('appDataVersion', arg0, '', function(ret)
     end)
 end
 
@@ -236,7 +233,7 @@ function FiveRocks:trackEvent(category, name, param1, param2, value1Name, value1
 
     cclog('FiveRocks:trackEvent : ' .. arg0)
 
-    PerpSocial:SDKEvent('trackEvent', arg0, '', function(ret)
+    PerpSocial:tabjoyEvent('trackEvent', arg0, '', function(ret)
     end)
 end
 
