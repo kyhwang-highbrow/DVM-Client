@@ -15,9 +15,9 @@ UI_Tooltip_Indicator = class(PARENT, {
         m_bubbleImage = 'cc.Scale9Sprite',
         m_richLabel1 = 'UIC_RichLabel',
 		m_richLabel2 = 'UIC_RichLabel',
-		m_richLabel3 = 'UIC_RichLabel',
 
-		m_lSkillDataList = 'list',
+		m_skillInfo = 'DragonSkillIndivisualInfo',
+        m_oldSkillInfo = 'DragonSkillIndivisualInfo',
     })
 
 -------------------------------------
@@ -32,11 +32,12 @@ function UI_Tooltip_Indicator:init()
     self.m_bubbleImage = cc.Scale9Sprite:create('res/ui/frame_03.png')
     self.m_bubbleImage:setDockPoint(cc.p(0, 0))
     self.m_bubbleImage:setAnchorPoint(cc.p(0, 0))
-    self.m_bubbleImage:setContentSize(0, 0)
+    self.m_bubbleImage:setContentSize(600, 150)
     self.root:addChild(self.m_bubbleImage)
 
     for i = 1, 2 do
-        local rich_label = self:makeRichLabel(' ')
+        local rich_label = self:makeRichLabel('')
+        rich_label:setPosition(10, - 10 - LABEL_GAP * (i - 1))
         self.m_bubbleImage:addChild(rich_label.m_root)
         self['m_richLabel' .. i] = rich_label
     end
@@ -47,10 +48,17 @@ end
 -------------------------------------
 -- function init_data
 -------------------------------------
-function UI_Tooltip_Indicator:init_data(hero)
-	self.m_lSkillDataList = {}
+function UI_Tooltip_Indicator:init_data(dragon)
+    -- active skill info를 꺼내옴
+	self.m_skillInfo = dragon:getSkillIndivisualInfo('active')
 
-	self.m_lSkillDataList['active'] = hero:getSkillIndivisualInfo('active')
+    -- 현재 skill_info 스킬아이디와 드래곤의 액티브스킬 아이디를 비교하여 다르다면
+    -- 스킬 강화 된것으로 보고 강화되기전 스킬을 꺼내온다.
+    local curr_skill_id = self.m_skillInfo:getSkillID()
+    local active_skill_id = dragon.m_charTable['skill_active']
+    if (curr_skill_id ~= active_skill_id) then
+        self.m_oldSkillInfo = dragon:getSkillInfoByID(active_skill_id)
+    end
 end
 
 -------------------------------------
@@ -58,14 +66,22 @@ end
 -- @brief public으로 사용
 -------------------------------------
 function UI_Tooltip_Indicator:displayData()
-	local idx = 1
-	for i, v in pairs(self.m_lSkillDataList) do
-		local t_skill = v.m_tSkill
-		local is_activated = (v.m_skillLevel > 0)
-		local str = self:getSkillDescStr(t_skill, is_activated)
-        self:setSkillText(idx, str)
-		idx = idx + 1
-	end
+    local skill_info = self.m_skillInfo
+    local old_skill_info = self.m_oldSkillInfo
+    
+    local idx = 1
+    local skill_desc = nil
+
+    -- 강화로 덮어씌워진 스킬이 있다면 그 스킬의 텍스트를 1번에 놓는다.
+    if (old_skill_info) then
+        skill_desc = self:getPrettyDesc(old_skill_info) 
+        self:setSkillText(idx, skill_desc)
+        idx = idx + 1
+    end
+
+    -- 본래 스킬의 텍스트를 다음 idx에 놓는다.
+    skill_desc = self:getPrettyDesc(skill_info)
+    self:setSkillText(idx, skill_desc)
 end
 
 -------------------------------------
@@ -73,15 +89,7 @@ end
 -------------------------------------
 function UI_Tooltip_Indicator:setSkillText(idx, text)
     local rich_label = self['m_richLabel' .. idx]
-
     rich_label:setString(text)
-    
-	-- 위치는 왼쪽 위에서 10, 10 띈 후 일정 간격 씩 내려옴
-	rich_label.m_root:setPosition(10, - 10 - LABEL_GAP * (idx - 1) )
-	rich_label.m_root:setAnchorPoint(cc.p(0, 1))
-    	
-    -- 배경 이미지의 ContentSize를 갱신한다. 갭 * 갯수 + 여유분
-    self.m_bubbleImage:setContentSize(600, LABEL_GAP * idx + 20)
 end
 
 -------------------------------------
@@ -89,7 +97,6 @@ end
 -------------------------------------
 function UI_Tooltip_Indicator:doActionReset()
     PARENT.doActionReset(self)
-
     self.m_bubbleImage:setScale(0)
 end
 
@@ -99,12 +106,8 @@ end
 function UI_Tooltip_Indicator:doAction(complete_func, no_action)
     PARENT.doAction(self, complete_func, no_action)
 
-
-    local scale_action = cc.ScaleTo:create(0.2, 1)
-    local secuence = cc.Sequence:create(cc.EaseBackInOut:create(scale_action))
-        --cc.DelayTime:create(3),
-        --cc.EaseBackInOut:create(cc.ScaleTo:create(0.2, 0)),
-        --cc.CallFunc:create(function() self:close() end))
+    local scale_action = cc.ScaleTo:create(1.0, 1)
+    local secuence = cc.EaseElasticOut:create(scale_action, 1.5)
 
     self.m_bubbleImage:stopAllActions()
     self.m_bubbleImage:runAction(secuence)
@@ -119,93 +122,80 @@ function UI_Tooltip_Indicator:makeRichLabel(text)
     rich_label:setFontSize(FONT_SIZE)
     rich_label:setDimension(MAX_WIDTH - FONT_SIZE, MAX_HEIGHT)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
-	rich_label:setDockPoint(cc.p(0, 1))
-    rich_label:setAnchorPoint(CENTER_POINT)
-	rich_label:setPosition(0, 0)
+    rich_label:setDockPoint(cc.p(0, 1))	
+	rich_label:setAnchorPoint(cc.p(0, 1))
 
     return rich_label
 end
 
 -------------------------------------
--- function autoPositioning
--------------------------------------
-function UI_Tooltip_Indicator:autoPositioning(node)
-    local x, y = node:getPosition()
-    local parent = node:getParent()
-    local bounding_box = node:getBoundingBox()
-
-    local world_pos = node:convertToWorldSpaceAR(cc.p(x, y))
-    local local_pos = self.root:convertToNodeSpaceAR(world_pos)
-
-    local pos_x = local_pos['x']
-    local pos_y = local_pos['y']
-    local anchor_x = 0.5
-    local anchor_y = 0.5
-
-    -- X축 위치 지정
-    local width = self.m_richLabel:getStringWidth()
-    local scr_size = cc.Director:getInstance():getWinSize()
-    if (pos_x < 0) then
-        local min_x = -(scr_size['width'] / 2)
-        local left_pos = pos_x - (width/2)
-        if (left_pos < min_x) then
-            pos_x = min_x + (width/2)
-        end
-    else
-        local max_x = (scr_size['width'] / 2)
-        local right_pos = pos_x + (width/2)
-        if (max_x < right_pos) then
-            pos_x = max_x - (width/2)
-        end
-    end
-
-    -- Y축 위치 지정
-    if (pos_y < 0) then
-        pos_y = pos_y + (bounding_box['height'] / 2)
-        anchor_y = 0
-    else
-        pos_y = pos_y - (bounding_box['height'] / 2)
-        anchor_y = 1
-    end
-
-    self.m_bubbleImage:setAnchorPoint(cc.p(anchor_x, anchor_y))
-    self.m_bubbleImage:setPosition(pos_x, pos_y)
-
-    --self.m_bubbleImage:setPosition(node_pos['x'], node_pos['y'])
-end
-
--------------------------------------
--- function autoRelease
--------------------------------------
-function UI_Tooltip_Indicator:autoRelease(duration)
-    local duration = duration or 3
-    local action = cc.Sequence:create(cc.DelayTime:create(duration), cc.FadeOut:create(1), cc.CallFunc:create(function() self:close() end))
-    self.root:runAction(action)
-end
-
--------------------------------------
 -- function getSkillDescStr
 -------------------------------------
-function UI_Tooltip_Indicator:getSkillDescStr(t_skill, is_activated)
-	local name_color = is_activated and '{@SKILL_NAME}' or '{@GRAY}'
-	local text_color = is_activated and '{@WHITE}' or '{@GRAY}'
-
+function UI_Tooltip_Indicator:getPrettyDesc(skill_info)
 	-- 1. 스킬 이름
-    local skill_type_str = t_skill['t_name']
+    local skill_type_str = skill_info:getSkillName()
     	
 	-- 2. 스킬 설명
-    local desc = DragonSkillCore.getSkillDescPure(t_skill)
-	desc = string.gsub(desc, '@SKILL_DESC', '@WHITE')
+    local desc = skill_info:getSkillDesc()
 
 	-- 3. rich_text
-    local str = name_color .. skill_type_str .. ' : ' .. text_color .. desc
+    local str = string.format('{@SKILL_NAME}%s {@default}: %s', skill_type_str, desc)
 
     return str
 end
 
 -------------------------------------
--- function setVisible
+-- function show
 -------------------------------------
-function UI_Tooltip_Indicator:setVisible(b)
-    self.root:setVisible(b)
+function UI_Tooltip_Indicator:show()
+    self:doActionReset()
+    self:doAction()
+    self.root:setVisible(true)
+end
+
+-------------------------------------
+-- function hide
+-------------------------------------
+function UI_Tooltip_Indicator:hide()
+    self.m_skillInfo = nil
+    self.m_oldSkillInfo = nil
+    self.m_richLabel1:setString('')
+    self.m_richLabel2:setString('')
+
+    self.root:setVisible(false)
+end
+
+-------------------------------------
+-- function setRelativePosY
+-------------------------------------
+function UI_Tooltip_Indicator:setRelativePosY(hero_pos_y)
+    -- 영웅 위치에 따라 y좌표 고정
+    local y = 0
+	if (hero_pos_y >= 0)  then 
+		y = 20
+	else
+		y = 500
+	end
+
+    self.root:setPositionY(y)
+end
+
+-------------------------------------
+-- function updateRelativePosX
+-------------------------------------
+function UI_Tooltip_Indicator:updateRelativePosX(touch_pos_x)
+    -- 터치 좌표에 따라 X이동
+	local x = 0 
+	if (touch_pos_x > CRITERIA_RESOLUTION_X/2) then
+		x = 20
+	else
+		x = 650
+	end
+
+    -- 변화가 있는 경우에만 이동
+    if (self.root:getPositionX() ~= x) then
+        self.root:stopAllActions()
+	    self.root:setPositionX(x)
+        cca.uiReactionSlow(self.root, 1, 1, 0.9)
+    end
 end

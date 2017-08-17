@@ -174,13 +174,13 @@ function DragonSkillCore.getSkillDescPure(t_skill)
 end
 
 local L_CASE = {
-    '(%d*)({@SKILL_DESC})(명)',
-    '(%d*)({@SKILL_DESC})(회)',
-    '(%d*)({@SKILL_DESC})(번)',
-    '(%d*)({@SKILL_DESC})(초)',
-    '(%d*)({@SKILL_DESC})(개)',
-    '(%d*)({@SKILL_DESC})(%%)',
-    '(%d.%d*)({@SKILL_DESC})(배)',
+    '(%d*)({@default})(명)',
+    '(%d*)({@default})(회)',
+    '(%d*)({@default})(번)',
+    '(%d*)({@default})(초)',
+    '(%d*)({@default})(개)',
+    '(%d*)({@default})(%%)',
+    '(%d.%d*)({@default})(배)',
 
 }
 local L_CASE_2 = {
@@ -200,10 +200,10 @@ function DragonSkillCore.getRichTemplate(desc)
             desc = desc:gsub(case, '%1%3%2')
         end
         for _, case in pairs(L_CASE_2) do
-            desc = desc:gsub(case, '{@SKILL_VALUE}%1{@SKILL_DESC}')
+            desc = desc:gsub(case, '{@SKILL_VALUE}%1{@default}')
         end
 
-        return '{@SKILL_DESC}' .. desc
+        return '{@default}' .. desc
     end
 end
 
@@ -220,7 +220,7 @@ function DragonSkillCore.getRichValue(value)
     end
 
     if (value) then
-        return '{@SKILL_VALUE}' .. value .. '{@SKILL_DESC}'
+        return '{@SKILL_VALUE}' .. value .. '{@default}'
         --return value
     end
 end

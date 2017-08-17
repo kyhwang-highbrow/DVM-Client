@@ -175,7 +175,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
 	-- skill 입력 및 덮어씌우기
 	local old_skill_info
 
-	-- 액티브 스킬은 강화 가능
+	-- 액티브 스킬
 	if (skill_type == 'active') then
 		-- 덮어씌우기전에 임시로 저장해둔다
 		old_skill_info = self.m_lSkillIndivisualInfo[skill_type]

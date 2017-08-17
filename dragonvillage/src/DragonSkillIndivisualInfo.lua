@@ -11,8 +11,8 @@ DragonSkillIndivisualInfo = class({
         m_turnCount = 'number', -- 턴 공격 횟수 저장용
         m_timer = 'number',     -- 타임 공격 저장용
         m_cooldownTimer = 'number', -- 쿨타임 시간 저장용
-
         m_skillLevel = 'number',
+
 		m_tAddedValue = 'table',
     })
 
@@ -102,16 +102,16 @@ end
 -- function mergeSkillInfo
 -- @brief 성룡 강화의 경우 기존 스킬 info를 가져와 레벨업된 부분만 합쳐버린다.
 -------------------------------------
-function DragonSkillIndivisualInfo:mergeSkillInfo(other_skill_info)
-	if not (other_skill_info) then
+function DragonSkillIndivisualInfo:mergeSkillInfo(old_skill_info)
+	if not (old_skill_info) then
 		return
 	end
 
-	if (self:getSkillType() ~= other_skill_info:getSkillType()) then
+	if (self:getSkillType() ~= old_skill_info:getSkillType()) then
 		error('강화될 스킬과 성룡 강화 스킬의 타입이 다르다.')
 	end
 
-	DragonSkillCore.applyModification(self.m_tSkill, other_skill_info.m_tAddedValue)
+	DragonSkillCore.applyModification(self.m_tSkill, old_skill_info:getAddValueTable())
 end
 
 -------------------------------------
@@ -190,6 +190,13 @@ end
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillTable()
     return self.m_tSkill
+end
+
+-------------------------------------
+-- function getAddValueTable
+-------------------------------------
+function DragonSkillIndivisualInfo:getAddValueTable()
+    return self.m_tAddedValue
 end
 
 -------------------------------------

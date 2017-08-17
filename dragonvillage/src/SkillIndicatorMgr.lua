@@ -65,7 +65,7 @@ function SkillIndicatorMgr:init(world)
     self.m_firstTouchUIPos = nil
 	
     self.m_uiToolTip = UI_Tooltip_Indicator()
-    self.m_uiToolTip:setVisible(false)
+    self.m_uiToolTip:hide()
 end
 
 -------------------------------------
@@ -155,7 +155,8 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
 
         -- 튤팁 표시
         self:makeSkillToolTip(select_hero)
-        self:updateToolTipUI(0, 0, node_pos['x'], node_pos['y'])
+        -- 툴팁 y좌표 설정
+        self.m_uiToolTip:setRelativePosY(select_hero.pos.y)
 
         event:stopPropagation()
 
@@ -179,10 +180,8 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
     local ui_pos = self.m_world.m_inGameUI.root:convertToNodeSpace(location)
     local distance = getDistance(self.m_firstTouchUIPos['x'], self.m_firstTouchUIPos['y'], ui_pos['x'], ui_pos['y'])
 
+    -- 인디케이터 위치 업데이트
     if (hero.m_skillIndicator) then
-        -- 튤팁 UI
-        self:updateToolTipUI(hero.pos.x, hero.pos.y, node_pos['x'], node_pos['y'])
-
         hero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
 
         if (self.m_bSlowMode == false) then
@@ -195,9 +194,11 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
                 end
             end
         end
-    else
-        -- 튤팁 UI
-        self:updateToolTipUI(0, 0, node_pos['x'], node_pos['y'])
+    end
+
+    -- 튤팁 UI X좌표 업데이트
+    if (self.m_uiToolTip) then
+        self.m_uiToolTip:updateRelativePosX(node_pos['x'])
     end
 end
 
@@ -348,12 +349,12 @@ end
 -------------------------------------
 -- function makeSkillToolTip
 -------------------------------------
-function SkillIndicatorMgr:makeSkillToolTip(hero)
-    if (not hero:getSkillIndivisualInfo('active')) then return end
+function SkillIndicatorMgr:makeSkillToolTip(dragon)
+    if (not dragon:getSkillIndivisualInfo('active')) then return end
 
-	self.m_uiToolTip:init_data(hero)
+	self.m_uiToolTip:init_data(dragon)
 	self.m_uiToolTip:displayData()
-    self.m_uiToolTip:setVisible(true)
+    self.m_uiToolTip:show()
 end
 
 -------------------------------------
@@ -361,30 +362,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:closeSkillToolTip()
 	if (not self.m_uiToolTip) then return end
-	self.m_uiToolTip:setVisible(false)
-end
-
--------------------------------------
--- function updateToolTipUI
--------------------------------------
-function SkillIndicatorMgr:updateToolTipUI(hero_pos_x, hero_pos_y, touch_pos_x, touch_pos_y)
-	if (not self.m_uiToolTip) then return end
-    	
-	local x = 0 
-	local y = 0
-	
-	if (hero_pos_y >= 0)  then 
-		y = 20
-	else
-		y = 500
-	end
-
-	if (touch_pos_x > 640) then
-		x = 20
-	else
-		x = 650
-	end
-	self.m_uiToolTip.root:setPosition(x, y)
+	self.m_uiToolTip:hide()
 end
 
 -------------------------------------
