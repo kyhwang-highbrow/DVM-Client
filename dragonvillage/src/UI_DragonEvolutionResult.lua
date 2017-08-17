@@ -19,7 +19,7 @@ function UI_DragonEvolutionResult:init(dragon_object)
     self:doActionReset()
     
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonEvolutionResult')
+    g_currScene:pushBackKeyListener(self, function() end, 'UI_DragonEvolutionResult')
     vars['okBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 
     self:setResultText(dragon_object)
