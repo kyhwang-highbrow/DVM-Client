@@ -502,13 +502,15 @@ function IDragonSkillManager:checkSkillRate(skill_type)
 	local t_skill_info = self.m_lSkillIndivisualInfo[skill_type]
     if (not t_skill_info) then return end
 
-	if (table.count(t_skill_info) > 0) then
+    if (table.count(t_skill_info) > 0) then
         local sum_random = SumRandom()
 
         for i,v in pairs(self.m_lSkillIndivisualInfo[skill_type]) do
-            local rate = v.m_tSkill['chance_value']
-            local skill_id = v.m_skillID
-            sum_random:addItem(rate, skill_id)
+            if (v:isEndCoolTime()) then
+                local rate = v.m_tSkill['chance_value']
+                local skill_id = v.m_skillID
+                sum_random:addItem(rate, skill_id)
+            end
         end
 
         local remain_rate = math_max(0, (100 - sum_random.m_rateSum))
@@ -532,10 +534,12 @@ function IDragonSkillManager:checkSkillTurn(skill_type)
 
 	if (table.count(t_skill_info) > 0) then
         for i,v in pairs(t_skill_info) do
-            v.m_turnCount = (v.m_turnCount + 1)
-            if (v.m_tSkill['chance_value'] <= v.m_turnCount) then
-                v.m_turnCount = 0
-                table.insert(self.m_lReserveTurnSkillID, v.m_skillID)
+            if (v:isEndCoolTime()) then
+                v.m_turnCount = (v.m_turnCount + 1)
+                if (v.m_tSkill['chance_value'] <= v.m_turnCount) then
+                    v.m_turnCount = 0
+                    table.insert(self.m_lReserveTurnSkillID, v.m_skillID)
+                end
             end
         end
 
