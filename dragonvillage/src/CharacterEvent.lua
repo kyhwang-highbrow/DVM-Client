@@ -49,7 +49,7 @@ function Character:onEvent(event_name, t_event, ...)
         self:onEvent_underTeammateHp(hp, max_hp)
     
 	elseif (event_name == 'stat_changed') then
-		self:onEvent_updateStat()
+		self:onEvent_updateStat(t_event)
 
     elseif (event_name == 'dead') then
 		self:onEvent_dead(t_event)
@@ -186,13 +186,11 @@ end
 -------------------------------------
 -- function onEvent_updateStat
 -------------------------------------
-function Character:onEvent_updateStat()
+function Character:onEvent_updateStat(t_event)
 	if (not self.m_statusCalc) then return end
 
-    local new_max_hp = self:getStat('hp') * (self.m_statusCalc:getHiddenInto('hp_multi') or 1)
-
-	-- 체력 버프 발동시 실시간 변화
-	if (new_max_hp ~= self.m_maxHp) then
+    if (t_event['hp']) then
+        local new_max_hp = self:getStat('hp') * (self.m_statusCalc:getHiddenInto('hp_multi') or 1)
         local game_state = self.m_world.m_gameState
         local is_start_buff = false -- 시작 버프 여부
 
@@ -215,6 +213,10 @@ function Character:onEvent_updateStat()
 
         self:setHp(self.m_hp)
 	end
+
+    if (t_event['aspd']) then
+        self:calcAttackPeriod(true)
+    end
 end
 
 -------------------------------------

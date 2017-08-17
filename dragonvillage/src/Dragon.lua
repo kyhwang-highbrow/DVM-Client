@@ -177,6 +177,22 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
             end
         end
     end
+
+    -- 차지 이펙트 생성
+    do
+        local res = 'res/effect/effect_melee_charge/effect_melee_charge.vrp'
+        local animator = MakeAnimator(res)
+        animator:changeAni('idle_' .. attr, false)
+        animator:setPosition(0, -50)
+        animator:setVisible(false)
+        self.m_rootNode:addChild(animator.m_node)
+        
+        self.m_chargeDuration = animator:getDuration()
+        self.m_chargeEffect = animator
+
+        -- 하이라이트 노드 설정
+        self:addHighlightNode(self.m_chargeEffect.m_node)
+    end
 end
 
 -------------------------------------
@@ -608,8 +624,6 @@ function Dragon:makeSkillPrepareEffect()
     self.m_skillPrepareEffect = MakeAnimator(res)
     self.m_skillPrepareEffect:changeAni('start_' .. attr, true)
     self.m_rootNode:addChild(self.m_skillPrepareEffect.m_node)
-
-    --self.m_skillPrepareEffect.m_node:setTimeScale(10)
 end
 
 -------------------------------------

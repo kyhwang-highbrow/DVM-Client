@@ -99,8 +99,8 @@ function StatusEffect_ConditionalBuff:buffOn()
         v:onApply(self.m_lStatus, self.m_lStatusAbs)
     end
     
-    -- @EVENT : 스탯 변화 적용(최대 체력)
-	self.m_owner:dispatch('stat_changed')
+    -- @EVENT : 스탯 변화 적용(최대 체력 or 공속)
+    self:dispatchEvent_statChange()
 end
 
 -------------------------------------
@@ -112,8 +112,8 @@ function StatusEffect_ConditionalBuff:buffOff()
         v:onUnapply(self.m_lStatus, self.m_lStatusAbs)
     end
 
-    -- @EVENT : 스탯 변화 적용(최대 체력)
-	self.m_owner:dispatch('stat_changed')
+    -- @EVENT : 스탯 변화 적용(최대 체력 or 공속)
+    self:dispatchEvent_statChange()
 end
 
 
@@ -165,9 +165,7 @@ function StatusEffect_ConditionalBuff:addOverlabUnit(caster, skill_id, value, so
         self:buffOff()
     end
 
-    -- @EVENT : 스탯 변화 적용(최대 체력)
-	self.m_owner:dispatch('stat_changed')
-        -- 최대 중첩 횟수를 넘을 경우 젤 앞의 unit을 삭제
+    -- 최대 중첩 횟수를 넘을 경우 젤 앞의 unit을 삭제
     if (self.m_maxOverlab > 0 and self.m_overlabCnt > self.m_maxOverlab) then
         local unit = table.remove(self.m_mUnit[char_id], 1)
         self:unapplyOverlab(unit)

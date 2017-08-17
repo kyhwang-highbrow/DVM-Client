@@ -17,6 +17,7 @@ Character = class(PARENT, {
         m_maxHp = '',
         m_hp = '',
         m_hpRatio = '',
+        m_aspdRatio = '',
 		m_attribute = '',
 		m_attributeOrg = '',
 
@@ -86,6 +87,9 @@ Character = class(PARENT, {
         -- @status UI
         m_statusNode = '',
 
+        -- @charge
+        m_chargeEffect = '',
+
         -- @casting UI
         m_castingNode = '',
         m_castingGauge = '',
@@ -152,6 +156,7 @@ local SpasticityTime = 0.2
 -------------------------------------
 function Character:init(file_name, body, ...)
     self.m_hpRatio = 1
+    self.m_aspdRatio = 1
 
     self.m_bActive = false
     self.m_bDead = false
@@ -357,6 +362,9 @@ function Character:setStatusCalc(status_calc)
     local hp_multi = self.m_statusCalc:getHiddenInto('hp_multi') or 1
     self.m_maxHp = hp * hp_multi
     self.m_hp = self.m_maxHp
+
+    -- 공속 설정
+    self:calcAttackPeriod(true)
 end
 
 -------------------------------------
@@ -1460,13 +1468,35 @@ end
 -- function calcAttackPeriod
 -- @brief 공격 주기 계산
 -------------------------------------
-function Character:calcAttackPeriod()
-    local cast_time = self.m_reservedSkillCastTime
+function Character:calcAttackPeriod(calc_attack_tick)
+    local calc_attack_tick = calc_attack_tick or false
+    local cast_time = self.m_reservedSkillCastTime or 0
+    local attack_duration = self.m_attackAnimaDuration
+    local charge_duration = self.m_chargeDuration
+    
+    -- attack tick 재계산
+    if (calc_attack_tick) then
+        self.m_statusCalc.m_attackTick = self.m_statusCalc:getAttackTick()
+
+        -- 애니메이션 속도 조절(드래곤만 처리)
+        if (self.m_charType == 'dragon') then
+            -- 공속 버프 비율
+            local aspd_ratio = 1 + (self:getBuffStat('aspd') / 100)
+            self.m_aspdRatio = math_max(aspd_ratio, 0.2)
+
+            -- 공속 버프 비율만큼 애니메이션 속도를 보정
+            self:setTimeScale(self.m_aspdRatio)
+            
+            attack_duration = attack_duration / self.m_aspdRatio
+            charge_duration = charge_duration / self.m_aspdRatio
+        end
+    end
 
     -- 공격 주기 공식
-    if self.m_bFirstAttack then
+    if (self.m_bFirstAttack) then
         self.m_bFirstAttack = false
 
+        -- 전투 시작 후 첫 공격까지 시간 설정
         if (self.m_bLeftFormation) then
             self.m_attackPeriod = 0
         else
@@ -1481,10 +1511,10 @@ function Character:calcAttackPeriod()
     end
 
     -- 공격 주기에서 'attack'에니메이션의 길이는 제외
-    if cast_time > 0 then
+    if (cast_time > 0) then
         self.m_attackPeriod = self.m_attackPeriod
     else
-        self.m_attackPeriod = self.m_attackPeriod - self.m_attackAnimaDuration - self.m_chargeDuration
+        self.m_attackPeriod = self.m_attackPeriod - attack_duration - charge_duration
     end
 
     -- 음수가 나오지 않도록 보정
@@ -2278,13 +2308,13 @@ function Character:setSpasticity(b)
     
     if (b and self.m_bEnableSpasticity) then
         
-        self.m_animator:setTimeScale(0)
+        self:setTimeScale(0)
 
         self.m_isSpasticity = true
         self.m_delaySpasticity = SpasticityTime
     else
         if (not self.m_temporaryPause) then
-            self.m_animator:setTimeScale(1)
+            self:setTimeScale()
         end
 
         self.m_isSpasticity = false
@@ -2566,6 +2596,20 @@ function Character:setTemporaryPause(pause)
     end
 
     return false
+end
+
+-------------------------------------
+-- function setTimeScale
+-------------------------------------
+function Character:setTimeScale(time_scale)
+    local time_scale = time_scale or self.m_aspdRatio
+
+    if (self.m_animator) then
+        self.m_animator:setTimeScale(time_scale)
+    end
+    if (self.m_chargeEffect) then
+        self.m_chargeEffect:setTimeScale(time_scale)
+    end
 end
 
 -------------------------------------

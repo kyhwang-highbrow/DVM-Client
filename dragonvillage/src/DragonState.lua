@@ -64,20 +64,17 @@ end
 -------------------------------------
 function Dragon.st_charge(owner, dt)
     if (owner.m_stateTimer == 0) then
-        local attr = owner:getAttribute()
+        if (owner.m_chargeEffect) then
+            local attr = owner:getAttribute()
 
-        -- 차지 이팩트 재생
-        local res = 'res/effect/effect_melee_charge/effect_melee_charge.vrp'
-        local animator = MakeAnimator(res)
-        animator:changeAni('idle_' .. attr, false)
-        animator:setPosition(0, -50)
-        owner.m_rootNode:addChild(animator.m_node)
-        local duration = animator:getDuration()
-        animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-
-    elseif (owner.m_stateTimer >= 0.5) then
-        owner.m_chargeDuration = owner.m_stateTimer
-        owner:changeState('attack')
+            owner.m_chargeEffect:setVisible(true)
+            owner.m_chargeEffect:changeAni('idle_' .. attr, false)
+            owner.m_chargeEffect:addAniHandler(function()
+                owner:changeState('attack')
+            end)
+        else
+            owner:changeState('attack')
+        end
     end
 end
 

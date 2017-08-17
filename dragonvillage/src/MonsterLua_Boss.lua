@@ -368,29 +368,6 @@ function MonsterLua_Boss:setHp(hp)
 end
 
 -------------------------------------
--- function cancelSkill
--------------------------------------
-function MonsterLua_Boss:cancelSkill()
-    local b = PARENT.cancelSkill(self)
-    
-    -- 보스별 음성
-    if b then
-        if self.m_tEffectSound['skill_cancel'] then
-            if self.m_tEffectSound['skill_1'] then
-                SoundMgr:stopEffect('VOICE', self.m_tEffectSound['skill_1'])
-            end
-            if self.m_tEffectSound['skill_2'] then
-                SoundMgr:stopEffect('VOICE', self.m_tEffectSound['skill_2'])
-            end
-            
-            SoundMgr:playEffect('VOICE', self.m_tEffectSound['skill_cancel'])
-        end
-    end
-    
-    return b
-end
-
--------------------------------------
 -- function getBasePatternList
 -- @brief 기본 패턴 리스트를 얻음(기본 패턴 리스트가 다수일 경우 랜덤하게 하나만 가져옴)
 -------------------------------------

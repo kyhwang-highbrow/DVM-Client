@@ -160,7 +160,10 @@ function Character.st_attack(owner, dt)
             owner.m_attackOffsetX = x
             owner.m_attackOffsetY = y
 
-            owner:doAttack(skill_id, x, y)
+            if (skill_id == owner.m_reservedSkillId) then
+                owner:doAttack(skill_id, x, y)
+            end
+
             owner.m_bFinishAttack = true
         end
 

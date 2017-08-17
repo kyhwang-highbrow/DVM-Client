@@ -13,6 +13,9 @@ StatusEffect = class(PARENT, {
         m_lStatus = 'list', -- key:능력치명, value:수치
         m_lStatusAbs = 'list', -- key:능력치명, value:수치
 
+        m_bHasHpStatus = 'boolean',     -- hp 옵션 존재 여부
+        m_bHasAspdStatus = 'boolean',   -- aspd 옵션 존재 여부
+
         m_lUnit = 'table',  -- 해당 상태효과에 추가된 StatusEffectUnit의 리스트
         m_mUnit = 'table',  -- 시전자의 char_id값을 키값으로 StatusEffectUnit의 리스트를 가지는 맵
 
@@ -52,6 +55,9 @@ function StatusEffect:init(file_name, body)
 
 	self.m_lStatus = {}
     self.m_lStatusAbs = {}
+
+    self.m_bHasHpStatus = false
+    self.m_bHasAspdStatus = false
 
     self.m_lUnit = {}
     self.m_mUnit = {}
@@ -454,6 +460,13 @@ function StatusEffect:insertStatus(type, value, is_abs)
         end
         self.m_lStatus[type] = self.m_lStatus[type] + value
     end
+
+    if (type == 'hp') then
+        self.m_bHasHpStatus = true
+    end
+    if (type == 'aspd') then
+        self.m_bHasAspdStatus = true
+    end
 end
 
 -------------------------------------
@@ -527,6 +540,9 @@ function StatusEffect:applyOverlab(unit)
 
     self.m_overlabCnt = (self.m_overlabCnt + 1)
 
+    -- @EVENT : 스탯 변화 적용(최대 체력 or 공속)
+    self:dispatchEvent_statChange()
+
     self:onApplyOverlab(unit)
 
     if (self.m_edgeDirector) then
@@ -547,10 +563,16 @@ end
 -- function unapplyOverlab
 -- @brief 중첩될때마다 적용되어야하는 효과를 해제
 -------------------------------------
-function StatusEffect:unapplyOverlab(unit)
+function StatusEffect:unapplyOverlab(unit, is_skip_event)
     local b = unit:onUnapply(self.m_lStatus, self.m_lStatusAbs)
 
     self.m_overlabCnt = (self.m_overlabCnt - 1)
+
+    -- @EVENT : 스탯 변화 적용(최대 체력 or 공속)
+    if (not is_skip_event) then
+        -- @EVENT : 스탯 변화 적용(최대 체력 or 공속)
+        self:dispatchEvent_statChange()
+    end
 
     self:onUnapplyOverlab(unit)
 
@@ -580,15 +602,15 @@ function StatusEffect:unapplyAll()
     -- 중첩 효과 해제
     do
         for _, unit in pairs(self.m_lUnit) do
-            self:unapplyOverlab(unit)
+            self:unapplyOverlab(unit, true)
         end
 
         self.m_lUnit = {}
         self.m_mUnit = {}
         self.m_overlabCnt = 0
 
-        -- @EVENT : 스탯 변화 적용(최대 체력)
-		self.m_owner:dispatch('stat_changed')
+        -- @EVENT : 스탯 변화 적용(최대 체력 or 공속)
+        self:dispatchEvent_statChange()
     end
 end
 
@@ -652,9 +674,6 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
         local idx = table.find(self.m_lUnit, unit)
         table.remove(self.m_lUnit, idx)
     end
-
-    -- @EVENT : 스탯 변화 적용(최대 체력)
-	self.m_owner:dispatch('stat_changed')
 
     -- 해당 상태효과의 종료시간을 구해서 저장
     local latestTime = self:calcLatestTime()
@@ -824,5 +843,23 @@ function StatusEffect:onEvent(event_name, t_event, ...)
         else
             func(t_event, ...)    
         end
+    end
+end
+
+-------------------------------------
+-- function dispatchEvent_statChange
+-------------------------------------
+function StatusEffect:dispatchEvent_statChange()
+    -- @EVENT : 스탯 변화 적용(최대 체력 or 공속)
+    if (self.m_bHasHpStatus or self.m_bHasAspdStatus) then
+        local t_event = clone(EVENT_STAT_CHANGED_CARRIER)
+        if (self.m_bHasHpStatus) then
+            t_event['hp'] = true
+        end
+        if (self.m_bHasAspdStatus) then
+            t_event['aspd'] = true
+        end
+
+	    self.m_owner:dispatch('stat_changed', t_event)
     end
 end

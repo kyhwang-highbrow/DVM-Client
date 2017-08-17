@@ -195,7 +195,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
             -- 드래곤 애니메이션 속도 조정
             local duration = dragon:getAniDuration()
-            dragon.m_animator:setTimeScale(duration / delayTime)
+            dragon:setTimeScale(duration / delayTime)
 
             if (self.m_skipLevel < 2) then
                 -- 카메라 줌인
@@ -225,7 +225,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
         elseif (self:isPassedStepTime(delayTime)) then
             -- 애니메이션 속도 되돌림
-            dragon.m_animator:setTimeScale(1)
+            dragon:setTimeScale()
 
             self:nextStep()
 

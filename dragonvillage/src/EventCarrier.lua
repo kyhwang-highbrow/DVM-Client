@@ -51,3 +51,11 @@ EVENT_STATUS_EFFECT['status_effect_name'] = ''
 EVENT_DEAD_CARRIER = clone(EVENT_CARRIER)
 EVENT_DEAD_CARRIER['is_dead'] = true
 EVENT_DEAD_CARRIER['hp'] = 0
+
+------------------------------
+-- event stat_changed
+-- @brief 스텟 변화 관련
+------------------------------
+EVENT_STAT_CHANGED_CARRIER = clone(EVENT_CARRIER)
+EVENT_STAT_CHANGED_CARRIER['hp'] = false
+EVENT_STAT_CHANGED_CARRIER['aspd'] = false

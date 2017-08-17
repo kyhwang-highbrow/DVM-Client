@@ -13,10 +13,6 @@ Monster = class(PARENT, {
 
         -- 몬스터 드래곤 관련
         m_mBoneEffect = 'table',        -- 본 위치에 표시되는 추가 이펙트(m_mBoneEffect[effect] = bone_name 형태로 사용)
-
-        -- 본 위치를 사용할 경우 본 동기화를 위해 별도로 수행될 스케줄의 ID
-        -- (해당 오브젝트의 pause 등의 상태에 상관없이 동기화 시키기 위함)
-        m_boneScheduleHandlerID = 'number', 
      })
 
 -------------------------------------
@@ -32,7 +28,6 @@ function Monster:init(file_name, body, ...)
     self.m_lBodyToUseBone = {}
 
     self.m_mBoneEffect = {}
-    self.m_boneScheduleHandlerID = nil
 end
 
 -------------------------------------
@@ -108,12 +103,6 @@ function Monster:init_monster(t_monster, monster_id, level, stage_id)
                     self.m_world.m_groundNode:addChild(effect.m_node)
                 end
             end
-
-            -- 본 정보의 동기화를 맞추기 위한 스케줄 추가
-            if (not self.m_boneScheduleHandlerID) then
-                --self.m_boneScheduleHandlerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(function(dt) self:updateBonePos() end, 0, false)
-                --self.m_rootNode:scheduleUpdateWithPriorityLua(function() self:updateBonePos() end, 0)
-            end
         end
     end
 end
@@ -161,6 +150,30 @@ function Monster:initAnimatorMonster(file_name, attr, scale)
 
     -- 하이라이트 노드 설정
     self:addHighlightNode(self.m_animator.m_node)
+
+    -- 차지 이펙트 생성
+    local size_type = self.m_charTable['size_type']
+    if (size_type ~= 'xl') then
+        local res = 'res/effect/effect_attack_ready/effect_attack_ready.vrp'
+        local animator = MakeAnimator(res)
+        animator:changeAni('idle', false)
+        animator:setVisible(false)
+        self.m_rootNode:addChild(animator.m_node)
+        
+        if (size_type == 's') then
+            animator:setPosition(0, -25)
+        elseif (size_type == 'm') then
+            animator:setPosition(0, -50)
+        elseif (size_type == 'l') then
+            animator:setPosition(0, -75)
+        end
+
+        self.m_chargeDuration = animator:getDuration()
+        self.m_chargeEffect = animator
+
+        -- 하이라이트 노드 설정
+        self:addHighlightNode(self.m_chargeEffect.m_node)
+    end
 end
 
 -------------------------------------
@@ -179,12 +192,6 @@ function Monster:initPhys(body)
                 self.m_animator.m_node:useBonePosition(body['bone'])
 
                 table.insert(self.m_lBodyToUseBone, body)
-
-                -- 본 정보의 동기화를 맞추기 위한 스케줄 추가
-                if (not self.m_boneScheduleHandlerID) then
-                    --self.m_boneScheduleHandlerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(function(dt) self:updateBonePos() end, 0, false)
-                    --self.m_rootNode:scheduleUpdateWithPriorityLua(function() self:updateBonePos() end, 0)
-                end
             end
         end
     end
@@ -319,31 +326,17 @@ end
 -------------------------------------
 function Monster.st_charge(owner, dt)
     if (owner.m_stateTimer == 0) then
-        local size_type = owner.m_charTable['size_type']
-        if (size_type ~= 'xl') then
-            -- 차지 이팩트 재생
-            local res = 'res/effect/effect_attack_ready/effect_attack_ready.vrp'
-            local animator = MakeAnimator(res)
-            if (animator.m_node) then
-                animator:changeAni('idle', false)
-                owner.m_rootNode:addChild(animator.m_node)
-                local duration = animator:getDuration()
-                animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+        if (owner.m_chargeEffect) then
+            local attr = owner:getAttribute()
 
-                local size_type = owner.m_charTable['size_type']
-                if (size_type == 's') then
-                    animator:setPosition(0, -25)
-                elseif (size_type == 'm') then
-                    animator:setPosition(0, -50)
-                elseif (size_type == 'l') then
-                    animator:setPosition(0, -75)
-                end
-            end
+            owner.m_chargeEffect:setVisible(true)
+            owner.m_chargeEffect:setFrame(0)
+            owner.m_chargeEffect:addAniHandler(function()
+                owner:changeState('attack')
+            end)
+        else
+            owner:changeState('attack')
         end
-
-    elseif (owner.m_stateTimer >= 0.5) then
-        owner.m_chargeDuration = owner.m_stateTimer
-        owner:changeState('attack')
     end
 end
 
@@ -389,12 +382,7 @@ function Monster:release()
     for effect, _ in pairs(self.m_mBoneEffect) do
         effect:release()
     end
-
-    if (self.m_boneScheduleHandlerID) then
-        cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.m_boneScheduleHandlerID)
-        self.m_boneScheduleHandlerID = nil
-    end
-
+    
     PARENT.release(self)
 end
 
