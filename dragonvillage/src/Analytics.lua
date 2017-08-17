@@ -162,7 +162,7 @@ function FiveRocks:userInfo(userId)
 
     cclog('FiveRocks:userInfo : ' .. arg0)
 
-    PerpSocial:tabjoyEvent('userID', arg0, '', function(ret)
+    PerpleSDK:tabjoyEvent('userID', arg0, '', function(ret)
     end)
 end
 
@@ -178,7 +178,7 @@ function FiveRocks:trackPurchase(productName, currencyCode, price)
 
     cclog('FiveRocks:trackPurchase : ' .. arg0)
 
-    PerpSocial:tabjoyEvent('trackPurchase', arg0, '', function(ret)
+    PerpleSDK:tabjoyEvent('trackPurchase', arg0, '', function(ret)
     end)
 end
 
@@ -193,7 +193,7 @@ function FiveRocks:customCohort(cohortNo, cohortDesc)
 
     cclog('FiveRocks:customCohort : ' .. arg0 .. ',' .. arg1)
 
-    PerpSocial:tabjoyEvent('userCohortVariable', arg0, arg1, function(ret)
+    PerpleSDK:tabjoyEvent('userCohortVariable', arg0, arg1, function(ret)
     end)
 end
 
@@ -233,7 +233,7 @@ function FiveRocks:trackEvent(category, name, param1, param2, value1Name, value1
 
     cclog('FiveRocks:trackEvent : ' .. arg0)
 
-    PerpSocial:tabjoyEvent('trackEvent', arg0, '', function(ret)
+    PerpleSDK:tabjoyEvent('trackEvent', arg0, '', function(ret)
     end)
 end
 
