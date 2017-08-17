@@ -437,25 +437,6 @@ function PatchCore:st_decompression()
     local download_path = self:getDownloadPath()
     local md5 = t_download_res['md5']
 
-    --[[
-    local ret = unzip(local_path, download_path, md5)
-
-    if (ret == 0) then
-        -- 압축해제가 완료된 zip파일은 삭제
-        os.remove(local_path)
-        self.m_currDownloadRes = nil
-        self:savePatchData()
-
-        -- 다음 스텝으로 이동
-        self.m_state = PATCH_STATE.download_patch_file 
-        self:doStep()
-        return
-    else
-        local msg = Str('추가 리소스 패치 중 오류({0})가 발생하였습니다. 불필요한 앱과 파일을 삭제 후 다시 시도해 주세요.', ret)
-        self:errorHandler(Str('추가 리소스 패치 중 오류({0})가 발생하였습니다.\n다시 시도하시겠습니까?'))
-    end
-    --]]
-
     local function result_cb(ret)
         if (ret == 0) then
             -- 압축해제가 완료된 zip파일은 삭제
@@ -468,8 +449,8 @@ function PatchCore:st_decompression()
             self:doStep()
             return
         else
-            local msg = Str('추가 리소스 패치 중 오류({0})가 발생하였습니다. 불필요한 앱과 파일을 삭제 후 다시 시도해 주세요.', ret)
-            self:errorHandler(Str('추가 리소스 패치 중 오류({0})가 발생하였습니다.\n다시 시도하시겠습니까?'))
+            local msg = Str('추가 리소스 패치 중 오류({1})가 발생하였습니다. 불필요한 앱과 파일을 삭제 후 다시 시도해 주세요.', ret)
+            self:errorHandler(Str('추가 리소스 패치 중 오류({1})가 발생하였습니다.\n다시 시도하시겠습니까?'))
         end
     end
 
