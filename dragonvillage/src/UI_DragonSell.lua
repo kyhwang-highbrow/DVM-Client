@@ -317,6 +317,7 @@ function UI_DragonSell:click_sellBtn()
 		-- 다시 초기화
 		self.m_price = 0
 		self.m_tSellTable = {}
+        self:refresh_inventoryLabel()
 		self:refresh_dragonMaterialTableView()
         self:refresh_selectedMaterial()
 
