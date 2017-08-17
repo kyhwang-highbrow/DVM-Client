@@ -64,6 +64,12 @@ function UI_ItemInfoPopup:initUI()
 
     -- 하위 UI가 모두 opacity값을 적용되도록
     self:setOpacityChildren(true)
+
+    -- 획득 장소가 없다면 버튼을 꺼버린다.
+    local l_region = UI_AcquisitionRegionInformation:makeRegionList(self.m_itemID)
+    if (table.count(l_region) == 0) then
+        vars['locationBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
