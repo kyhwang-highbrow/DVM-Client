@@ -7,9 +7,6 @@ UI_ReadyScene_Select = class({
 
         m_tableViewExtMine = 'UIC_TableViewTD',
         m_tableViewExtFriend = 'UIC_TableViewTD',
-
-        m_selectedFriendUid = '',
-        m_selectedFriendInfo = '',
     })
 
 local DC_SCALE = 0.61
@@ -23,12 +20,6 @@ function UI_ReadyScene_Select:init(ui_ready_scene)
 
 	self:initUI()
     self:initButton()
-
-    -- 선택되어 있는 친구
-    self.m_selectedFriendInfo = g_friendData:getSelectedShareFriendData()
-    if self.m_selectedFriendInfo then
-        self.m_selectedFriendUid = self.m_selectedFriendInfo['uid']
-    end
 end
 
 -------------------------------------
