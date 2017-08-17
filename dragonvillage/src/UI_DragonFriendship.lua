@@ -30,7 +30,7 @@ end
 function UI_DragonFriendship:init(doid)
     self.m_bLevelUp = false
 
-    local vars = self:load('dragon_friendship.ui')
+    local vars = self:load_keepZOrder('dragon_friendship.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -317,7 +317,7 @@ function UI_DragonFriendship:feedDirecting(fruit_id, fruit_node, finish_cb)
     -- 아이콘 생성
     local icon = IconHelper:getItemIcon(fruit_id)
     icon:setPosition(pos_x, pos_y)
-    self.root:addChild(icon)
+    self.root:addChild(icon, 128)
 
     do -- 액션 실행
         local distance = getDistance(pos_x, pos_y, dest_pos_x, dest_pos_y)
@@ -342,37 +342,6 @@ function UI_DragonFriendship:request_friendshipUp(fid, fcnt, fcnt_120p, fcnt_150
 
 
     local function success_cb(ret)
-        --[[
-        -- 드래곤 갱신
-        if ret['dragon'] then
-            g_dragonsData:applyDragonData(ret['dragon'])
-        end
-
-        -- 골드 갱신
-        if ret['gold'] then
-            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
-            g_topUserInfo:refreshData()
-        end
-
-        -- 열매 갯수 동기화
-        if ret['fruits'] then
-            g_serverData:applyServerData(ret['fruits'], 'user', 'fruits')
-        end
-
-        -- 서버에서 새로 받은 드래곤 정보로 갱신
-        self:setSelectDragonDataRefresh()
-
-        -- 드래곤 정보 갱신
-        self:refresh_dragonFriendshipInfo()
-
-        -- 열매 정보 갱신
-        self:refresh_fruitListTab(attr)
-        
-        self:friendshipDirecting(ret['is_flevelup'], ret['bonus_grade'], self.m_prevFriendshipData, ret['dragon'])
-
-        self.m_bChangeDragonList = true
-        --]]
-
         -- @analytics
         Analytics:firstTimeExperience('FriendshipUp')
 
