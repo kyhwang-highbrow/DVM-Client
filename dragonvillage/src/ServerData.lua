@@ -325,6 +325,17 @@ function ServerData:applySetting()
 end
 
 -------------------------------------
+-- function RefreshGoods
+-- @breif 이런 단순 반복적인 로직은 로컬함수나 Helper로 사용
+-------------------------------------
+local function RefreshGoods(t_ret, goods)
+    if t_ret[goods] then
+        g_serverData:applyServerData(t_ret[goods], 'user', goods)
+        t_ret[goods] = nil
+    end
+end
+
+-------------------------------------
 -- function networkCommonRespone
 -- @breif 중복되는 코드를 방지하기 위해 ret값에 예약된 데이터를 한번에 처리
 -------------------------------------
@@ -343,49 +354,31 @@ function ServerData:networkCommonRespone(ret)
 
     do -- 재화 관련
         -- 캐시
-        if ret['cash'] then
-            self:applyServerData(ret['cash'], 'user', 'cash')    
-        end
+        RefreshGoods(ret, 'cash')
 
         -- 골드
-        if ret['gold'] then
-            self:applyServerData(ret['gold'], 'user', 'gold')    
-        end
+        RefreshGoods(ret, 'gold')
 
         -- 우정포인트
-        if ret['fp'] then
-            self:applyServerData(ret['fp'], 'user', 'fp')
-        end
+        RefreshGoods(ret, 'fp')
 
         -- 마일리지
-        if ret['mileage'] then
-            self:applyServerData(ret['mileage'], 'user', 'mileage')
-        end
+        RefreshGoods(ret, 'mileage')
 
         -- 열매 갯수
-        if ret['fruits'] then
-            self:applyServerData(ret['fruits'], 'user', 'fruits')
-        end
+        RefreshGoods(ret, 'fruits')
 
         -- 알 갯수
-        if ret['eggs'] then
-            self:applyServerData(ret['eggs'], 'user', 'eggs')
-        end
+        RefreshGoods(ret, 'eggs')
 
         -- 진화 재료 갱신
-        if ret['evolution_stones'] then
-            self:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
-        end
+        RefreshGoods(ret, 'evolution_stones')
 
         -- 티켓 갱신
-        if ret['tickets'] then
-            self:applyServerData(ret['tickets'], 'user', 'tickets')
-        end
+        RefreshGoods(ret, 'tickets')
 
         -- 캡슐
-        if ret['capsule'] then
-            self:applyServerData(ret['capsule'], 'user', 'capsule')
-        end
+        RefreshGoods(ret, 'capsule')
     end
 
 	-- 퀘스트 갱신
@@ -445,82 +438,43 @@ function ServerData:networkCommonRespone_addedItems(ret)
     t_added_items = clone(t_added_items)
 
     -- 캐시 (갱신)
-    if t_added_items['cash'] then
-        self:applyServerData(t_added_items['cash'], 'user', 'cash')
-        t_added_items['cash'] = nil
-    end
+    RefreshGoods(t_added_items, 'cash')
 
     -- 자수정 (갱신)
-    if t_added_items['amethyst'] then
-        self:applyServerData(t_added_items['amethyst'], 'user', 'amethyst')
-        t_added_items['amethyst'] = nil
-    end
+    RefreshGoods(t_added_items, 'amethyst')
 
     -- 골드 (갱신)
-    if t_added_items['gold'] then
-        self:applyServerData(t_added_items['gold'], 'user', 'gold')
-        t_added_items['gold'] = nil
-    end
+    RefreshGoods(t_added_items, 'gold')
 
     -- 우정포인트 (갱신)
-    if t_added_items['fp'] then
-        self:applyServerData(t_added_items['fp'], 'user', 'fp')
-        t_added_items['fp'] = nil
-    end
+    RefreshGoods(t_added_items, 'fp')
 
     -- 마일리지 (갱신)
-    if t_added_items['mileage'] then
-        self:applyServerData(t_added_items['mileage'], 'user', 'mileage')
-        t_added_items['mileage'] = nil
-    end
+    RefreshGoods(t_added_items, 'mileage')
 
     -- 명예 (갱신)
-    if t_added_items['honor'] then
-        self:applyServerData(t_added_items['honor'], 'user', 'honor')
-        t_added_items['honor'] = nil
-    end
+    RefreshGoods(t_added_items, 'honor')
 
     -- 훈장 (갱신)
-    if t_added_items['badge'] then
-        self:applyServerData(t_added_items['badge'], 'user', 'badge')
-        t_added_items['badge'] = nil
-    end
+    RefreshGoods(t_added_items, 'badge')
 
     -- 캡슐 (갱신)
-    if t_added_items['capsule'] then
-        self:applyServerData(ret['capsule'], 'user', 'capsule')
-        t_added_items['capsule'] = nil
-    end
+    RefreshGoods(t_added_items, 'capsule')
 
     -- 열매 갯수 (전체 갱신)
-    if t_added_items['fruits'] then
-        self:applyServerData(t_added_items['fruits'], 'user', 'fruits')
-        t_added_items['fruits'] = nil
-    end
+    RefreshGoods(t_added_items, 'fruits')
 
     -- 알 갯수 (전체 갱신)
-    if t_added_items['eggs'] then
-        self:applyServerData(t_added_items['eggs'], 'user', 'eggs')
-        t_added_items['eggs'] = nil
-    end
+    RefreshGoods(t_added_items, 'eggs')
 
     -- 진화 재료 갱신 (전체 갱신)
-    if t_added_items['evolution_stones'] then
-        self:applyServerData(t_added_items['evolution_stones'], 'user', 'evolution_stones')
-        t_added_items['evolution_stones'] = nil
-    end
+    RefreshGoods(t_added_items, 'evolution_stones')
 
     -- 티켓 갱신 (전체 갱신)
-    if t_added_items['tickets'] then
-        self:applyServerData(t_added_items['tickets'], 'user', 'tickets')
-        t_added_items['tickets'] = nil
-    end
+    RefreshGoods(t_added_items, 'tickets')
 
     -- 스태미나 동기화 (전체 갱신)
-    if (t_added_items['staminas']) then
-        self:applyServerData(t_added_items['staminas'], 'user', 'staminas')
-        t_added_items['staminas'] = nil
-    end
+    RefreshGoods(t_added_items, 'staminas')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then
@@ -544,11 +498,6 @@ function ServerData:networkCommonRespone_addedItems(ret)
     if (t_added_items['relation']) then
         g_bookData:applyRelationPoints(t_added_items['relation'])
         t_added_items['relation'] = nil
-    end
-
-    -- 알 갯수
-    if t_added_items['eggs'] then
-        self:applyServerData(t_added_items['eggs'], 'user', 'eggs')
     end
 
     -- 이외에도 아이템 테이블에 존재하는 재화 정보는 갱신
