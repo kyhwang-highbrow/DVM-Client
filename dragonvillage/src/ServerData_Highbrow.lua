@@ -153,3 +153,57 @@ function ServerData_Highbrow:request_buyHBProductTutorial(code, game_key, finish
 
     return ui_network
 end
+
+-------------------------------------
+-- function request_couponCheck
+-------------------------------------
+function ServerData_Highbrow:request_couponCheck(coupon, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/highbrow/coupon_check')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('coupon', coupon)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_couponUse
+-------------------------------------
+function ServerData_Highbrow:request_couponUse(coupon, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/highbrow/coupon_use')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('coupon', coupon)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end

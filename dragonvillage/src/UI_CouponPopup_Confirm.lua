@@ -38,10 +38,14 @@ function UI_CouponPopup_Confirm:initUI()
     --self.m_couponData['type']
     --self.m_couponData['no']
     --self.m_couponData['cnt']
-
-    local desc = self.m_couponData['no'] .. ' ' .. tostring(self.m_couponData['cnt']) .. ' ' .. '개'
-    -- 임시
+    
+    local t_item = {
+        ['item_id'] = self.m_couponData['type'],
+        ['count'] = self.m_couponData['cnt']
+    }
+    local desc = UIHelper:makeItemName(t_item)
     vars['itemLabel']:setString(desc)
+
     local icon = IconHelper:getIcon('res/ui/icons/item/shop_gold_06.png')
     if (icon) then
         vars['itemNode']:addChild(icon)
@@ -62,8 +66,10 @@ end
 -- @brief ok~
 -------------------------------------
 function UI_CouponPopup_Confirm:click_okBtn()
-	ccdisplay('OK~')
-
     -- @todo-coupon, 서버에 쿠폰 사용 요청
-    --self.m_couponId
+    local function cb_func(t_ret)
+        UI_ToastPopup()
+        self:closeWithAction()
+    end
+    g_highbrowData:request_couponUse(self.m_couponId, cb_func)
 end

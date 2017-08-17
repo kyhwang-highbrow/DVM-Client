@@ -32,7 +32,7 @@ end
 -------------------------------------
 function UI_CouponPopup:initUI()
     local vars = self.vars
-    vars['editBox']:setMaxLength(12)
+    vars['editBox']:setMaxLength(16)
 end
 
 -------------------------------------
@@ -75,28 +75,24 @@ end
 -- @brief ok~
 -------------------------------------
 function UI_CouponPopup:click_okBtn()
-
     -- 쿠폰코드 길이 검증
-    if string.len(self.m_couponCode or '') ~= 12 then
+    if string.len(self.m_couponCode or '') ~= 16 then
         local msg = Str('쿠폰 번호의 길이가 맞지 않습니다.')
-        local submsg = Str('12자리의 쿠폰 번호를 입력해 주세요.')
+        local submsg = Str('16자리의 쿠폰 번호를 입력해 주세요.')
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg)
-
         return
     end
 
-	ccdisplay('OK~')
-
-    --[[
     -- @todo-coupon, 서버에 쿠폰 조회
-    local couponId = '1'
-    local couponData = {}
-    couponData['type'] = '1'
-    couponData['no'] = '골드'
-    couponData['cnt'] = 5000000
+    local function cb_func(t_ret)
+        local couponId = '1'
+        local couponData = {}
+        couponData['type'] = 700002
+        couponData['no'] = '골드'
+        couponData['cnt'] = 5000000
 
-    UI_CouponPopup_Confirm(couponId, couponData)
-
-    self:close()
-    --]]
+        UI_CouponPopup_Confirm(couponId, couponData)
+        self:closeWithAction()
+    end
+    g_highbrowData:request_couponCheck(self.m_couponCode, cb_func)
 end
