@@ -65,7 +65,6 @@ function StageInfoWave:test1()
     io.write('', '\n')
     cclog('#### END')
 
-    --ccdump(table_info_include_regen)
     self:makeStageInfoCsvFile(table_info_include_regen, max_wave)
 end
 
@@ -132,7 +131,7 @@ function StageInfoWave:individualStageInfoWave(stage_id)
                     --cclog('monster_id : ' .. monster_id)
                     t_monster_id_map[monster_id] = true
 
-                    self:addMonsterInfo(t_wave_monster, wave_idx, monster_id, level)
+                    --self:addMonsterInfo(t_wave_monster, wave_idx, monster_id, level)
                     self:addMonsterInfo(t_regen_monster_id_map, wave_idx, monster_id, level)
                 end
             end
@@ -190,6 +189,7 @@ function StageInfoWave:individualStageInfoWave(stage_id)
     end
 
     for wave_idx,t_wave in pairs(t_regen_monster_id_map) do
+        local monster_idx = 1
         for monster_id,t_monster in pairs(t_wave) do
 
             local t_monster_list = {}
@@ -198,7 +198,7 @@ function StageInfoWave:individualStageInfoWave(stage_id)
             end
             table.sort(t_monster_list, function(a, b) return a['monster_id'] < b['monster_id'] end)
 
-            for monster_idx,data in pairs(t_monster_list) do
+            for _,data in pairs(t_monster_list) do
                 
                 local id_key = string.format('w%d_m%d_id', wave_idx, monster_idx)
                 t_ret_include_regen[id_key] = data['monster_id']
@@ -208,6 +208,8 @@ function StageInfoWave:individualStageInfoWave(stage_id)
 
                 local count_key = string.format('w%d_m%d_count', wave_idx, monster_idx)
                 t_ret_include_regen[count_key] = data['count']
+
+                monster_idx = (monster_idx + 1)
             end
         end
     end
