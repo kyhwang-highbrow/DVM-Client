@@ -185,7 +185,7 @@ local S_ERROR_STATUS = {
     [-3026] = Str('이미 존재하는 닉네임입니다.'), -- already exist nick
     [-3259] = Str('이미 요청한 친구입니다.'), -- already send friend request
     [-3907] = Str('이미 친구입니다.'), -- already friend
-    [-1407] = Str('상대방의 친구가 가득 찼습니다.'), -- full friend
+    [-1407] = Str('상대방에게 더 이상 친구요청을 할 수 없습니다.'), -- full friend
 }
 
 local S_ERROR_STATUS_SHOP = {
