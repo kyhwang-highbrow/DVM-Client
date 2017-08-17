@@ -77,6 +77,8 @@ local TableInfo = {
         table_ban_word_chat	  = {'table_ban_word_chat',		 'wid',         false},
         table_ban_word_naming = {'table_ban_word_naming',    'wid',         false},
         table_ui_location     = {'table_ui_location',        'location_name', false},
+
+        table_highbrow		  = {'table_highbrow',		     'id',	    false},
     }
 
 -------------------------------------

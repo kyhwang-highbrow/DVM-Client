@@ -18,16 +18,40 @@ end
 -- @brief 하이브로 상점 목록 사용하기 좋게 만듬
 -------------------------------------
 function ServerData_Highbrow:applyHBItemList(item_list)
-    local t_ret = {}
+    local l_ret = {}
 
     for game_key, v in pairs(item_list) do 
         for _, t_item in pairs(v) do
             t_item['game_key'] = game_key
-            table.insert(t_ret, StructHighbrowProduct(t_item))
+            table.insert(l_ret, StructHighbrowProduct(t_item))
         end
     end
+    
+    -- 정렬 순서
+    -- 1. 수령하지 않은 것
+    -- 2. 튜토리얼 보상 먼저
+    -- 3. 드빌1
+    table.sort(l_ret, function(a, b)
+        if (a.done == b.done) then
+            if (a.type == b.type) then
+                if (a.game_key == 'dv1') then
+                    return true
+                else
+                    return false
+                end
+            else
+                return a.type < b.type
+            end
+        else
+            if (a.done == false) then
+                return true
+            elseif (b.done == false) then
+                return false
+            end
+        end            
+    end)
 
-    self.m_hbItemList = t_ret
+    self.m_hbItemList = l_ret
 end
 
 -------------------------------------
@@ -36,36 +60,6 @@ end
 -------------------------------------
 function ServerData_Highbrow:getHBItemList()
     return self.m_hbItemList
-end
-
--------------------------------------
--- function request_HbProductHistory
--------------------------------------
-function ServerData_Highbrow:request_HbProductHistory(code, game_key, finish_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-
-    -- 콜백
-    local function success_cb(ret)
-        if finish_cb then
-            finish_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/highbrow/tutorial')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('code', code)
-    ui_network:setParam('game', game_key)
-    ui_network:hideLoading()
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
-
-    return ui_network
 end
 
 -------------------------------------
@@ -109,6 +103,7 @@ function ServerData_Highbrow:request_buyHbProcduct(code, game_key, finish_cb)
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
+        g_highlightData:applyHighlightInfo(ret)
 
         if finish_cb then
             finish_cb(ret)
@@ -123,6 +118,38 @@ function ServerData_Highbrow:request_buyHbProcduct(code, game_key, finish_cb)
     ui_network:setParam('game', game_key)
     ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_buyHBProductTutorial
+-------------------------------------
+function ServerData_Highbrow:request_buyHBProductTutorial(code, game_key, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        g_highlightData:applyHighlightInfo(ret)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/highbrow/tutorial')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('code', code)
+    ui_network:setParam('game', game_key)
+    ui_network:hideLoading()
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()

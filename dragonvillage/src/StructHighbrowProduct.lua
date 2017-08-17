@@ -4,17 +4,22 @@ local PARENT = Structure
 -- class StructHighbrowProduct
 -------------------------------------
 StructHighbrowProduct = class(PARENT, {
-        code = '',
-        cnt = '',
-
+        -- 서버에서 받는 정보
         type = '',
         name = '',
+        code = '',
+        game_key = '',
+        done = '',
+
+        -- 사용 안함
+        cnt = '',
         limit = '',
 
+        -- 테이블에서 받아오는 정보
         desc = '',
-        icon = '',
-        price = '',
-        game_key = '',
+        res = '',  
+        price_type = '',
+        price_value = '',
     })
 
 local THIS = StructHighbrowProduct
@@ -23,8 +28,7 @@ local THIS = StructHighbrowProduct
 -- function init
 -------------------------------------
 function StructHighbrowProduct:init(data)
-    self.price = 100
-    self.icon = 'res/ui/shop_gacha0102.png'
+    self:mergeTable()
 end
 
 -------------------------------------
@@ -42,6 +46,18 @@ function StructHighbrowProduct:getThis()
 end
 
 -------------------------------------
+-- function mergeTable
+-------------------------------------
+function StructHighbrowProduct:mergeTable()
+    local t_item = TableHighbrow:find(self:getGameKey(), self:getCode())
+    
+    self.desc = Str(t_item['t_desc'])
+    self.res = t_item['res']
+    self.price_type = t_item['price_type']
+    self.price_value = t_item['price_value']
+end
+
+-------------------------------------
 -- function buyProduct
 -------------------------------------
 function StructHighbrowProduct:buyProduct(finish_cb)
@@ -51,20 +67,30 @@ function StructHighbrowProduct:buyProduct(finish_cb)
 
     local code = self:getCode()
     local game_key = self:getGameKey()
-    g_highbrowData:request_buyHbProcduct(code, game_key, finish_cb)
+
+    -- 튜토리얼 보상 구매
+    if (self:isTutorialProduct()) then
+        g_highbrowData:request_buyHBProductTutorial(code, game_key, finish_cb)
+
+    -- 일반 상품 구매
+    else
+        g_highbrowData:request_buyHbProcduct(code, game_key, finish_cb)
+    end
 end
 
 -------------------------------------
 -- function checkBuyable
 -------------------------------------
 function StructHighbrowProduct:checkBuyable()
-    local capsule = g_userData:get('capsule')
-    if (capsule < self.price) then
-        MakeSimplePopup(POPUP_TYPE.OK, Str('캡슐이 부족합니다.'))
-        return false
+    local price_type = self['price_type']
+    local price_value = self['price_value']
+
+    -- 무료로 구매
+    if (price_type == '') then
+        return true
     end
 
-    return true
+    return UIHelper:checkPrice(price_type, price_value)
 end
 
 
@@ -95,21 +121,14 @@ end
 -- function getPrice
 -------------------------------------
 function StructHighbrowProduct:getPrice()
-    return self.price
-end
-
--------------------------------------
--- function getIconRes
--------------------------------------
-function StructHighbrowProduct:getIconRes()
-    return self.icon
+    return self.price_value
 end
 
 -------------------------------------
 -- function getIcon
 -------------------------------------
 function StructHighbrowProduct:getIcon()
-    return IconHelper:getIcon(self.icon)
+    return IconHelper:getIcon(self.res)
 end
 
 -------------------------------------
@@ -124,4 +143,18 @@ end
 -------------------------------------
 function StructHighbrowProduct:getGameKey()
     return self.game_key
+end
+
+-------------------------------------
+-- function isDone
+-------------------------------------
+function StructHighbrowProduct:isDone()
+    return self.done
+end
+
+-------------------------------------
+-- function isTutorialProduct
+-------------------------------------
+function StructHighbrowProduct:isTutorialProduct()
+    return (self.type == 1)
 end

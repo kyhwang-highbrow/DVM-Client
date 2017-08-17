@@ -127,3 +127,72 @@ function UIHelper:autoNoti(category_bool_map, noti_ui_table, ui_key, vars)
 		end
     end
 end
+
+-------------------------------------
+-- function checkPrice
+-------------------------------------
+function UIHelper:checkPrice(price_type, price)
+    if (price_type == 'money') then
+
+    -- 다이아몬드 확인
+    elseif (price_type == 'cash') then
+        local cash = g_userData:get('cash')
+        if (cash < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('다이아몬드가 부족합니다.'))
+            return false
+        end
+
+    -- 자수정 확인
+    elseif (price_type == 'amethyst') then
+        local amethyst = g_userData:get('amethyst')
+        if (amethyst < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('자수정이 부족합니다.'))
+            return false
+        end
+
+    -- 토파즈 확인
+    elseif (price_type == 'topaz') then
+        local topaz = g_userData:get('topaz')
+        if (topaz < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('토파즈가 부족합니다.'))
+            return false
+        end
+
+    -- 마일리지 확인
+    elseif (price_type == 'mileage') then
+        local mileage = g_userData:get('mileage')
+        if (mileage < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('마일리지가 부족합니다.'))
+            return false
+        end
+
+    -- 명예 확인
+    elseif (price_type == 'honor') then
+        local honor = g_userData:get('honor')
+        if (honor < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('명예가 부족합니다.'))
+            return false
+        end
+
+    -- 캡슐 확인
+    elseif (price_type == 'capsule') then
+        local capsule = g_userData:get('capsule')
+        if (capsule < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('캡슐이 부족합니다.'))
+            return false
+        end
+
+    -- 골드 확인
+    elseif (price_type == 'gold') then
+        local gold = g_userData:get('gold')
+        if (gold < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('골드가 부족합니다.'))
+            return false
+        end
+
+    else
+        error('price_type : ' .. price_type)
+    end
+
+	return true
+end

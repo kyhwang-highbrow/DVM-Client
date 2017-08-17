@@ -28,7 +28,7 @@ function UI_EventPopupTab_HBShop:initUI()
     local vars = self.vars
     self:init_tableView()
 
-    -- ½Ã°£ Ç¥½ÃÇÏÁö ¾Ê´Â´Ù.
+    -- ì‹œê°„ í‘œì‹œí•˜ì§€ ì•ŠëŠ”ë‹¤.
     vars['timeLabel']:setVisible(false)
 end
 
@@ -45,7 +45,7 @@ end
 function UI_EventPopupTab_HBShop:refresh()
 	local vars = self.vars
     
-    -- Ä¸½¶ ¼ö
+    -- ìº¡ìŠ ìˆ˜
     vars['capsuleLabel']:setString(g_userData:get('capsule'))
 end
 
@@ -57,14 +57,14 @@ function UI_EventPopupTab_HBShop:init_tableView()
 
     local l_item_list = self.m_hbItemList
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
     local function create_func(ui, data)
         ui.vars['buyBtn']:registerScriptTapHandler(function()
             data:buyProduct(function() self:refresh() end)
         end)
     end
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(920, 170 + 3)
     table_view:setCellUIClass(self.makeCellUI, create_func)
@@ -85,19 +85,26 @@ end
 -------------------------------------
 -- function makeCellUI
 -- @static
--- @brief Å×ÀÌºí ¼¿ »ı¼º
+-- @brief í…Œì´ë¸” ì…€ ìƒì„±
 -------------------------------------
-function UI_EventPopupTab_HBShop.makeCellUI(t_data)
+function UI_EventPopupTab_HBShop.makeCellUI(struct_product)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('event_capsule_item.ui')
 
-    -- »óÇ°¿¡ °üÇÑ Á¤º¸
-    vars['itemLabel']:setString(t_data:getName())
-    vars['dscLabel']:setString(t_data:getDesc())
-    vars['priceLabel']:setString(t_data:getPrice())
+    -- ìƒí’ˆì— ê´€í•œ ì •ë³´
+    vars['itemLabel']:setString(struct_product:getName())
+    vars['dscLabel']:setString(struct_product:getDesc())
 
-    local product_icon = t_data:getIcon()
+    local product_icon = struct_product:getIcon()
     vars['itemNode']:addChild(product_icon)
+
+    -- íŠœí† ë¦¬ì–¼ ë³´ìƒì€ 1íšŒë§Œ ìˆ˜ë ¹ ê°€ëŠ¥í•˜ë¯€ë¡œ ë”°ë¡œ ì²˜ë¦¬
+    if (struct_product:isDone()) then
+        vars['buyBtn']:setEnabled(false)
+        vars['priceLabel']:setString(Str('ìˆ˜ë ¹ ì™„ë£Œ'))
+    else
+        vars['priceLabel']:setString(struct_product:getPrice())
+    end
 
 	return ui
 end
@@ -105,8 +112,8 @@ end
 -------------------------------------
 -- function refreshCell
 -- @static
--- @brief Å×ÀÌºí ¼¿ °»½Å
+-- @brief í…Œì´ë¸” ì…€ ê°±ì‹ 
 -------------------------------------
-function UI_MasterRoadPopup.refreshCell(ui, t_data)
+function UI_MasterRoadPopup.refreshCell(ui, struct_product)
     local vars = ui.vars
 end

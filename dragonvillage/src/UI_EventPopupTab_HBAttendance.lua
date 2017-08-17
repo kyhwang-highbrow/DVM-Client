@@ -44,10 +44,12 @@ end
 -- function click_homepageBtn
 -------------------------------------
 function UI_EventPopupTab_HBAttendance:click_homepageBtn()
-    -- ÇÏÀÌºê·Î ¿¬µ¿ µÈ °æ¿ì
+    -- í•˜ì´ë¸Œë¡œ ì—°ë™ ì „
     if (false) then
         SDKManager:goToWeb('http://www.dragonvillage.net')
+
+    -- í•˜ì´ë¸Œë¡œ ì—°ë™ í›„
     else
-        SDKManager:goToWeb('https://www.perplelab.com')
+        SDKManager:goToWeb('http://www.dragonvillage.net/dvm')
     end
 end
