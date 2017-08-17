@@ -144,18 +144,48 @@ local function main()
     local seed = os.time()
     math.randomseed(seed)
 	
+    local stopwatch = Stopwatch()
+    stopwatch:start()
+
+    
     TABLE:init()
+    stopwatch:record('TABLE:init()')
+
 	ConstantData:getInstance()
+    stopwatch:record('ConstantData:getInstance()')
+
     SoundMgr:entry()
+    stopwatch:record('SoundMgr:entry()')
+
     ShaderCache:init()
+    stopwatch:record('ShaderCache:init()')
+
     TimeLib:initInstance()
+    stopwatch:record('TimeLib:initInstance()')
+
     LocalData:getInstance()
+    stopwatch:record('LocalData:getInstance()')
+
     ChatIgnoreList:getInstance()
+    stopwatch:record('ChatIgnoreList:getInstance()')
+
     ScenarioViewingHistory:getInstance()
+    stopwatch:record('ScenarioViewingHistory:getInstance()')
+
     ServerData:getInstance():applySetting()
+    stopwatch:record('ServerData:getInstance():applySetting()')
+
     UserData:getInstance()
+    stopwatch:record('UserData:getInstance()')
+
 	ErrorTracker:getInstance()
+    stopwatch:record('ErrorTracker:getInstance()')
+
     PatchChecker:getInstance()
+    stopwatch:record('PatchChecker:getInstance()')
+
+    stopwatch:stop()
+    stopwatch:print()
 
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()
