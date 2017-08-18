@@ -67,11 +67,11 @@ function Stopwatch:print()
     cclog('## Stopwatch:print() ##')
     
     for i,v in ipairs(self.m_recordList) do
-        local str = string.format('시간 : %.2f, 간격 : %.2f, [%s]', v['time'], v['gap'], v['msg'])
+        local str = string.format('Time : %.2f, Interval : %.2f, [%s]', v['time'], v['gap'], v['msg'])
         cclog(str)
     end
 
-    local str = string.format('총 소요시간 : %.2f', self.m_totalTime)
+    local str = string.format('Total time required : %.2f', self.m_totalTime)
     cclog(str)
 
     cclog('#######################')

@@ -104,7 +104,7 @@ function CsvToLuaTableStr:work()
         done_cnt = done_cnt + 1
         local percent_str = string.format('(%d/%d, %d%%)', done_cnt, total_cnt, done_cnt / total_cnt * 100)
 
-        io.write(percent_str .. ' 작업 중 : ' .. v[1], '\r')
+        io.write(percent_str .. ' Working : ' .. v[1], '\r')
 
         local t_table = TABLE:get(i)
         local table_str = self:luadump(t_table)
