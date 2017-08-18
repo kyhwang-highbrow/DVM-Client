@@ -134,7 +134,7 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
     if (isAndroid and isAndroid()) or (isIos and isIos()) then
         local tables = nil
         local function load_func()
-            tables = require ('src/table/' .. filename .. '.lua')
+            tables = require ('table/' .. filename)
             if tablename then
                 TABLE[tablename] = tables
             end
@@ -444,13 +444,10 @@ end
 -- function init
 -------------------------------------
 function TABLE:init()
-    --[[
     for k,v in pairs(TableInfo) do
         TABLE:loadCSVTable(v[1], k, v[2], v[3])
     end
-    --]]
 
-    TABLE:get('grade_info')
     TableGradeInfo:initGlobal()
     TableDragonSkill:initGlobal()
     TableMonsterSkill:initGlobal()
