@@ -124,10 +124,24 @@ function UI_GameColosseum:setHeroHpGauge(percentage)
 end
 
 -------------------------------------
+-- function getHeroHpGaugePercentage
+-------------------------------------
+function UI_GameColosseum:getHeroHpGaugePercentage()
+    return self.vars['hpGauge1']:getPercentage()
+end
+
+-------------------------------------
 -- function setEnemyHpGauge
 -------------------------------------
 function UI_GameColosseum:setEnemyHpGauge(percentage)
     self.vars['hpGauge2']:runAction(cc.ProgressTo:create(0.2, percentage)) 
+end
+
+-------------------------------------
+-- function getEnemyHpGaugePercentage
+-------------------------------------
+function UI_GameColosseum:getEnemyHpGaugePercentage()
+    return self.vars['hpGauge2']:getPercentage()
 end
 
 -------------------------------------

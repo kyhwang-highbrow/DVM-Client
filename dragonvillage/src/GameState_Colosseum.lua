@@ -346,6 +346,22 @@ function GameState_Colosseum:doDirectionForIntermission()
 end
 
 -------------------------------------
+-- function processTimeOut
+-------------------------------------
+function GameState_Colosseum:processTimeOut()
+    local inGameUi = self.m_world.m_inGameUI
+
+    local hero_hp = inGameUi:getHeroHpGaugePercentage()
+    local enemy_hp = inGameUi:getEnemyHpGaugePercentage()
+
+    if (hero_hp < enemy_hp) then
+        self:changeState(GAME_STATE_FAILURE)
+    else
+        self:changeState(GAME_STATE_SUCCESS_WAIT)
+    end
+end
+
+-------------------------------------
 -- function makeResultUI
 -------------------------------------
 function GameState_Colosseum:makeResultUI(is_win)
