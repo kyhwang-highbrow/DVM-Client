@@ -1172,8 +1172,8 @@ function Character:makeImmuneFont(x, y, scale)
     scale = scale or 1
 
     sprite:setPosition(x, y)
-    sprite:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(1.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
-    sprite:runAction(cc.EaseIn:create(cc.MoveTo:create(2, cc.p(x, y + 170)), 1))
+    sprite:runAction(cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(1.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
+    sprite:runAction(cc.Sequence:create(cc.DelayTime:create(.5), cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 170)), 1)))
     self.m_world:addChild3(sprite, DEPTH_IMMUNE_FONT)
 end
 
