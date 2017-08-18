@@ -214,7 +214,9 @@ end
 -- function doWork
 -------------------------------------
 function GameAuto:doWork(dt)
-    if (not self.m_curUnit) then
+    if (not self.m_curUnit or self.m_curUnit:isDead()) then
+        self.m_curUnit = nil
+
         local list = self.m_lUnitListPerPriority[self.m_curPriority]
         local count = #list
         if (count > 0) then
