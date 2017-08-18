@@ -42,7 +42,7 @@ function Monster:init_monster(t_monster, monster_id, level, stage_id)
 		self:initDragonSkillManager('monster', monster_id, 6) -- monster는 skill_1~skill_6을 모두 사용
 		self:initStatus(t_monster, level, 0, 0, 0)
 
-		self:initAnimatorMonster(t_monster['res'], t_monster['attr'], t_monster['scale'])
+		self:initAnimatorMonster(t_monster['res'], t_monster['attr'], t_monster['scale'], t_monster['size_type'])
 		self:makeCastingNode()
 		self:initTriggerListener()
 		self:initLogRecorder(monster_id)
@@ -126,7 +126,7 @@ end
 -------------------------------------
 -- function initAnimatorMonster
 -------------------------------------
-function Monster:initAnimatorMonster(file_name, attr, scale)
+function Monster:initAnimatorMonster(file_name, attr, scale, size_type)
     -- Animator 삭제
     if self.m_animator then
         if self.m_animator.m_node then
@@ -152,7 +152,6 @@ function Monster:initAnimatorMonster(file_name, attr, scale)
     self:addHighlightNode(self.m_animator.m_node)
 
     -- 차지 이펙트 생성
-    local size_type = self.m_charTable['size_type']
     if (size_type ~= 'xl') then
         local res = 'res/effect/effect_attack_ready/effect_attack_ready.vrp'
         local animator = MakeAnimator(res)

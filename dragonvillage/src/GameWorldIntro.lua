@@ -90,7 +90,7 @@ function GameWorldIntro:tryPatternMonster(t_monster, body)
         monster = MonsterLua_Boss(t_monster['res'], body)
     end
 
-    monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
+    monster:initAnimatorMonster(t_monster['res'], t_monster['attr'], nil, t_monster['size_type'])
     monster:initScript(script_name, t_monster['mid'], is_boss)
 
     self.m_boss = monster
