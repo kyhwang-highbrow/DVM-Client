@@ -1096,6 +1096,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\WaveMgr_SecretRelation.lua" />
     <None Include="..\src_tool\AssetMaker.lua" />
     <None Include="..\src_tool\AssetRemover_100MB.lua" />
+    <None Include="..\src_tool\CsvToLuaTableStr.lua" />
     <None Include="..\src_tool\DataTableValidator.lua" />
     <None Include="..\src_tool\entry_ingame_test.lua" />
     <None Include="..\src_tool\entry_preload_generator.lua" />

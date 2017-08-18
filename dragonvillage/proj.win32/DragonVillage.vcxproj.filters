@@ -2655,6 +2655,10 @@
     <None Include="..\src\UI_SimplePopup2.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src_tool\StageInfoWave.lua" />
+    <None Include="..\src_tool\CsvToLuaTableStr.lua">
+      <Filter>lua_tool</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
