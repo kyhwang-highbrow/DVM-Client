@@ -53,7 +53,7 @@ function __G__TRACKBACK__(msg)
 		UI_ErrorPopup(error_msg)
 	end
 
-    return msg
+    return mgs
 end
 
 local GAME_RESTART_TIME = 0
@@ -132,12 +132,6 @@ local function main()
     -- 절전모드 설정(동작하지 않도록)
     cc.Director:getInstance():setIdleTimerDisabled(true)
 
-    -- @perpelsdk
-    if isAndroid() or isIos() then
-        PerpleSDK:resetLuaBinding()
-        StartPerpleSDKScheduler()
-    end
-
     local seed = os.time()
     math.randomseed(seed)
 	
@@ -150,6 +144,12 @@ local function main()
     require 'require'
     loadModule()
     stopwatch:record('loadModule()')
+
+    -- @perpelsdk 루아 파일이 require된 후에 동작해야 함
+    if isAndroid() or isIos() then
+        PerpleSDK:resetLuaBinding()
+        StartPerpleSDKScheduler()
+    end
 
     TABLE:init()
     stopwatch:record('TABLE:init()')
