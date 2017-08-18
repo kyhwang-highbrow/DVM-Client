@@ -31,6 +31,7 @@ local t_module = {
     'Coroutine',
 	'LocalPushMgr',
     'Analytics',
+    'AdsManager',
 
 	-- CONSTANT 
     'Constant',
