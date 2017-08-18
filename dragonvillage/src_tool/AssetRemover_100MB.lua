@@ -20,14 +20,14 @@ end
 -- function run
 -------------------------------------
 function AssetRemover_100MB:run()
-    cclog('##### AssetMaker:run')
+    cclog('##### AssetRemover_100MB:run')
 
     local stopwatch = Stopwatch()
     stopwatch:start()
 
     -- diretory를 루트로 이동
     lfs.chdir('..')
-    cclog(lfs.currentdir())
+    cclog('### Current Diretory : ' .. lfs.currentdir())
 
     self:removeFor100MB()
 
