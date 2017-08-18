@@ -124,8 +124,10 @@ end
 -- function makeFunctions
 -------------------------------------
 function TableDragonSkill:makeFunctions()
-    EQUATION_FUNC[self.m_tableName] = {}
+    if (EQUATION_FUNC[self.m_tableName]) then return end
 
+    EQUATION_FUNC[self.m_tableName] = {}
+    
     -- 칼럼별로 수식이 포함된 경우 해당 수식을 위한 함수 생성
     if (self.m_orgTable) then
         for i, column in ipairs(l_columnToUseEquation) do
@@ -237,7 +239,6 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' local skill_target_role = skill_target and skill_target:getRole()' ..
             ' local skill_target_rarity = skill_target and skill_target:getRarity() or 0' ..
             
-
             ' local STATUSEFFECT = function(name, column)' ..
             ' if (column) then' ..
             ' return owner:isExistStatusEffect(column, name) and 1 or 0' ..
@@ -277,7 +278,7 @@ function TableDragonSkill:addFunctionsForEquation(sid, column, source)
             ' local SKILL_TARGET_STATUSEFFECT_COUNT = function(name, column)' ..
             ' return skill_target and skill_target:getStatusEffectCount(column, name) or 0' ..
             ' end' ..
-
+            
             -- 추가 정보
             ' local hit_target_count = 0' ..
             ' local boss_rarity = 5' ..
