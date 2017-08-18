@@ -444,8 +444,11 @@ function StructProduct:payment(cb_func)
                 cclog('#### ret : ')
                 ccdump(ret)
 
-                cb_func(ret)
-                co.NEXT()
+                local msg = Str('결제에 성공하였습니다.')
+                MakeSimplePopup(POPUP_TYPE.OK, msg, function()
+                        cb_func(ret)
+                        co.NEXT()
+                    end)
             end
 
             local function fail_cb(ret)
@@ -527,8 +530,11 @@ function StructProduct:payment_win(cb_func)
                 cclog('#### ret : ')
                 ccdump(ret)
 
-                cb_func(ret)
-                co.NEXT()
+                local msg = Str('결제에 성공하였습니다.')
+                MakeSimplePopup(POPUP_TYPE.OK, msg, function()
+                        cb_func(ret)
+                        co.NEXT()
+                    end)
             end
 
             local function fail_cb(ret)
