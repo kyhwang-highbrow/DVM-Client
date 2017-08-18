@@ -227,21 +227,17 @@ function SkillSpatter:makeSpatterTargetList()
 
     for _ = 1, #self.m_lTargetChar do
         if (b_next_formation == self.m_owner.m_bLeftFormation) then
-            if (ally_target_idx <= #l_ally_target) then
-                table.insert(t_temp_target, l_ally_target[ally_target_idx])
-                ally_target_idx = ally_target_idx + 1
-            else 
-                table.insert(t_temp_target, l_enemy_target[enemy_target_idx])
-                enemy_target_idx = enemy_target_idx + 1
+            if (ally_target_idx > #l_ally_target) then
+                ally_target_idx = ally_target_idx - 1
             end
+            table.insert(t_temp_target, l_ally_target[ally_target_idx])
+            ally_target_idx = ally_target_idx + 1
         else 
-            if (enemy_target_idx <= #l_enemy_target) then
-                table.insert(t_temp_target, l_enemy_target[enemy_target_idx])
-                enemy_target_idx = enemy_target_idx + 1
-            else 
-                table.insert(t_temp_target, l_ally_target[ally_target_idx])
-                ally_target_idx = ally_target_idx + 1
+            if (enemy_target_idx > #l_enemy_target) then
+                enemy_target_idx = enemy_target_idx - 1
             end
+            table.insert(t_temp_target, l_enemy_target[enemy_target_idx])
+            enemy_target_idx = enemy_target_idx + 1
         end
         b_next_formation = not b_next_formation
     end
