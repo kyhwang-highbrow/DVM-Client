@@ -176,8 +176,8 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) googleUpdateLeaderboards:(NSString *)leaderboardId finalScore:(NSString *)finalScore completion:(PerpleSDKCallback)callback;
 - (void) googleUpdateQuestEvents:(NSString *)eventId incrementCount:(NSString *)incrementCount completion:(PerpleSDKCallback)callback;
 
-- (void) unityAdsStart:(BOOL)isTestMode completion:(PerpleSDKCallback)callback;
-- (void) unityAdsShow:(NSString *)placementId;
+- (void) unityAdsStart:(BOOL)isTestMode metaData:(NSString *)metaData completion:(PerpleSDKCallback)callback;
+- (void) unityAdsShow:(NSString *)placementId metaData:(NSString *)metaData;
 
 - (void) billingSetup:(NSString *)checkReceiptServerUrl completion:(PerpleSDKCallback)callback;
 - (void) billingConfirm:(NSString *)orderId;
