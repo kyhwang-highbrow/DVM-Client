@@ -73,6 +73,18 @@ function UI_SubscriptionPopup:initButton()
     vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn(self.m_basicProduct) end)
     vars['buyBtn2']:registerScriptTapHandler(function() self:click_buyBtn(self.m_premiumProduct) end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    
+    if vars['infoBtn'] then
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    end
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_SubscriptionPopup:click_infoBtn()
+    cclog('## UI_SubscriptionPopup:click_infoBtn()')
+    SDKManager:goToWeb('http://www.perplelab.com/agreement')
 end
 
 -------------------------------------

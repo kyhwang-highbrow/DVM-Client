@@ -57,6 +57,7 @@ function UI_Package:initButton()
 	local vars = self.vars
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -71,6 +72,14 @@ function UI_Package:click_buyBtn()
         ItemObtainResult_Shop(ret)
 	end
 	struct_product:buy(cb_func)
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_Package:click_infoBtn()
+    cclog('## UI_Package:click_infoBtn()')
+    SDKManager:goToWeb('http://www.perplelab.com/agreement')
 end
 
 -------------------------------------
