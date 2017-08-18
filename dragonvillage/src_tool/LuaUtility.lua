@@ -1,57 +1,8 @@
--- penlight 라이브러리 로드
-pl = require 'pl.import_into'()
-
--- ../src경로를 package.path에 추가
-pl.app.require_here('../res')
-pl.app.require_here('../src')
-pl.app.require_here('..')
-pl.app.require_here()
-
-csv = require 'perpleLib/lua_csv'
-require 'LuaBridgeWindows'
-require 'lib/class'
-require 'perpleLib/StringUtils'
-require 'io'
-require 'socket.core'
-require 'StopWatch'
-
-require 'Table'
-require 'TableClass'
 require 'TableLoadingGuide'
 require 'TableDragon'
 
 -------------------------------------
--- function main
--- @brief
--------------------------------------
-function main()
-end
-
--------------------------------------
--- function __G__TRACKBACK__
--- @brief for CCLuaEngine traceback
--------------------------------------
-function __G__TRACKBACK__(msg)
-    io.flush()
-    io.write('\n')
-	local error_msg = "LUA ERROR: " .. tostring(msg) .. "\n\n" .. debug.traceback()
-
-    cclog("----------------------------------------")
-    cclog(error_msg)
-    cclog("----------------------------------------")
-
-
-    return msg
-end
-
-local status, msg = xpcall(main, __G__TRACKBACK__)
-if not status then
-    error(msg)
-end
-
-
--------------------------------------
--- Utility
+-- LuaUtility
 -------------------------------------
 util = {}
 
@@ -77,7 +28,7 @@ end
 -------------------------------------
 function util.changeDir(dir)
     lfs.chdir(dir)
-    cclog('### Current Diretory : ' .. lfs.currentdir())
+    cclog('## Current Diretory : ' .. lfs.currentdir())
 end
 
 -------------------------------------
@@ -116,7 +67,6 @@ function util.removeDirectory(dir, leave_top_dir)
     -- 최상위 디렉토리 삭제, 파일이 있다면 삭제가 되지 않는다.
     if (not leave_top_dir) then
         lfs.rmdir(dir)
-        print('## Remove Directory : ' .. dir)
     end
 end
 
@@ -126,12 +76,17 @@ end
 -------------------------------------
 function util.moveDirectory(src_dir, tar_dir)
     -- robocopy 원본경로 대상경로 [파일 ...] [옵션]
-    -- /E : 하위 디렉토리 포함 복사
+    
     -- /MOVE : 파일 및 디렉토리 이동. 복사한 후 원본 삭제
+    -- /E : 하위 디렉토리 포함 복사
+    
     -- /NFL : No File List - don't log file names.
     -- /NDL : No Directory List - don't log directory names.
+    -- /NJH : No Job Header.
+    -- /NJS : No Job Summary.
     -- /XD dirs : 지정된 이름/경로와 일치하는 디렉토리 제외 
-    os.execute(string.format('robocopy "%s" "%s" /MOVE /E /NFL /NDL /XD .svn', src_dir, tar_dir))
+    
+    os.execute(string.format('robocopy "%s" "%s" /MOVE /E /NFL /NDL /NJH /NJS /XD .svn', src_dir, tar_dir))
 end
 
 -------------------------------------
@@ -140,11 +95,16 @@ end
 -------------------------------------
 function util.mirrorDirectory(src_dir, tar_dir)
     -- robocopy 원본경로 대상경로 [파일 ...] [옵션]
+   
     -- /MIR : mirroring
+   
     -- /NFL : No File List - don't log file names.
     -- /NDL : No Directory List - don't log directory names.
+    -- /NJH : No Job Header.
+    -- /NJS : No Job Summary.
     -- /XD dirs : 지정된 이름/경로와 일치하는 디렉토리 제외 
-    os.execute(string.format('robocopy "%s" "%s" /MIR /NFL /NDL /XD .svn', src_dir, tar_dir))
+   
+    os.execute(string.format('robocopy "%s" "%s" /MIR /NFL /NDL /NJH /NJS /XD .svn', src_dir, tar_dir))
 end
 
 

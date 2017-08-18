@@ -1,6 +1,4 @@
-
-require 'LuaTool'
-require 'LuaGlobal'
+require 'LuaStandAlone'
 
 -------------------------------------
 -- class AssetRemover_100MB

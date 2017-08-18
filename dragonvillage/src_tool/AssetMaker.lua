@@ -1,5 +1,4 @@
-require 'LuaTool'
-require 'LuaGlobal'
+require 'LuaStandAlone'
 
 -------------------------------------
 -- class AssetMaker
@@ -18,7 +17,8 @@ end
 -- function run
 -------------------------------------
 function AssetMaker:run(target_path)
-    cclog('##### AssetMaker:run')
+    cclog('## AssetMaker:run')
+    cclog('## AssetMAker - target path : ' .. target_path)
     
     self.targetPath = target_path
     
@@ -49,14 +49,14 @@ end
 -- @brief 암호화
 -------------------------------------
 function AssetMaker:encryptSrcAndData()
-    cclog('##### AssetMaker:encryptSrcAndData')
+    cclog('## AssetMaker:encryptSrcAndData')
     
+    -- 실행할 파일 경로
     local ecncrypt_path_src = 'python\\xor.py'
     local ecncrypt_path_data = 'python\\xor_data.py'
     
-    -- src 암호화
+    -- 암호화
     os.execute('python ' .. ecncrypt_path_src)
-    -- data 암호화
     os.execute('python ' .. ecncrypt_path_data)
 end
 
@@ -65,7 +65,7 @@ end
 -- @brief 
 -------------------------------------
 function AssetMaker:mirroring()
-    cclog('##### AssetMaker:mirroring')
+    cclog('## AssetMaker:mirroring')
 
     self:mirror('ps')
     self:mirror('data_dat')
@@ -79,6 +79,7 @@ end
 -- @brief 
 -------------------------------------
 function AssetMaker:mirror(dir)
+    cclog('## AssetMaker:mirror : ' .. dir)
     util.mirrorDirectory(dir, string.format('%s\\%s', self.targetPath, dir))
 end
 
@@ -87,7 +88,7 @@ end
 -- @brief 암호화 파일 삭제
 -------------------------------------
 function AssetMaker:deleteEncrypt()
-    cclog('##### AssetMaker:deleteEncrypt')
+    cclog('## AssetMaker:deleteEncrypt')
 
     util.removeDirectory('ps')
     util.removeDirectory('data_dat')

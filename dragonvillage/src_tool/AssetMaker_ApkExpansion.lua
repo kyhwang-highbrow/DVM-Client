@@ -1,6 +1,4 @@
-
-require 'LuaTool'
-require 'LuaGlobal'
+require 'LuaStandAlone'
 
 -------------------------------------
 -- class AssetMaker_ApkExpansion
@@ -64,6 +62,7 @@ end
 -- @brief assets 경로에서 akp_expansion 경로로 이동
 -------------------------------------
 function AssetMaker_ApkExpansion:move(dir)
+    cclog('## AssetMaker_ApkExpansion:move : ' .. dir)
     util.moveDirectory(ASSETS_PATH .. dir, ASSETS_PATH_EXPANSION .. dir)
 end
 
@@ -74,26 +73,20 @@ end
 function AssetMaker_ApkExpansion:moveDragonRes()
     cclog('## AssetMaker_ApkExpansion:moveNotUseDragonRes')
     
+    -- 패치에서 사용하는 드래곤 가져옴
     local t_loading_dragon_res = util.makeGuideDragonTable()
 
+    -- 리소스 경로
     local dragon_path = '\\res\\character\\dragon'
 
-    
-    -- local full_path = ASSETS_PATH .. dragon_path
-    -- for file in lfs.dir(full_path) do
-    --     if (file ~= ".") and (file ~= "..") then
-    --         if not (t_loading_dragon_res[file]) then
-    --             -- 디렉토리 이동
-    --             self:move(dragon_path .. '\\' .. file)
-    --         end
-    --     end
-    -- end
-
+    -- robocopy 커맨드에 넣기 위해 제외할 폴더명 문자열로 변경
     local exception_list_str = ''
     for res, _ in pairs(t_loading_dragon_res) do
         exception_list_str = string.format('%s %s', exception_list_str, res)
     end
-    os.execute(string.format('robocopy "%s" "%s" /MOVE /E /XD .svn %s', ASSETS_PATH .. dragon_path, ASSETS_PATH_EXPANSION .. dragon_path, exception_list_str))
+
+    -- robocopy move
+    os.execute(string.format('robocopy "%s" "%s" /MOVE /E /NFL /NDL /NJH /NJS /XD .svn %s', ASSETS_PATH .. dragon_path, ASSETS_PATH_EXPANSION .. dragon_path, exception_list_str))
 end
 
 -------------------------------------
