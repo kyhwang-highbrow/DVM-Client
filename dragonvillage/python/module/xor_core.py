@@ -81,8 +81,8 @@ def xor_encrypter(file_path, file):
     os.remove(file_path)
 
     # 진행하는 것이 보이게 path 출력
-    sys.stdout.write(file_path + '\r')
-    sys.stdout.flush()
+    # sys.stdout.write(file_path + '\r')
+    # sys.stdout.flush()
 
 def xor(data, key):
     l = len(key)
