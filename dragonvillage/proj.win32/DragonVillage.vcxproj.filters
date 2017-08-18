@@ -2659,6 +2659,9 @@
     <None Include="..\src_tool\CsvToLuaTableStr.lua">
       <Filter>lua_tool</Filter>
     </None>
+    <None Include="..\src\AdsManager.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
