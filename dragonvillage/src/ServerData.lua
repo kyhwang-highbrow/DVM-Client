@@ -149,6 +149,9 @@ function ServerData:getInstance()
     -- 하이브로
     g_highbrowData = ServerData_Highbrow(g_serverData)
 
+    -- 광고
+    g_advertisingData = ServerData_Advertising(g_serverData)
+
     return g_serverData
 end
 

@@ -1,7 +1,9 @@
+local PARENT = UI
+
 -------------------------------------
 -- class UI_GameResultNew
 -------------------------------------
-UI_GameResultNew = class(UI, {
+UI_GameResultNew = class(PARENT, {
         m_stageID = 'number',
         m_bSuccess = 'boolean',
         m_time = 'number',
@@ -98,6 +100,15 @@ function UI_GameResultNew:initUI()
 
     self:doActionReset()
     self:doAction()
+
+    -- 자동 재화 줍기 
+    local game_mode = g_stageData:getGameMode(stage_id)
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        local node = vars['itemAutoLabel']
+        node:setVisible(true)
+        g_autoItemPickData:setCountLabel(node)
+        g_autoItemPickData:updateOn() -- onDestroyUI()에서 updateOff() 반드시 호출해야함
+    end
 end
 
 -------------------------------------
@@ -124,6 +135,9 @@ function UI_GameResultNew:initButton()
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
     vars['switchBtn']:registerScriptTapHandler(function() self:click_switchBtn() end)
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
+
+    -- 자동재화 버튼
+    vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end)
 end
 
 -------------------------------------
@@ -951,6 +965,14 @@ function UI_GameResultNew:click_nextBtn()
 end
 
 -------------------------------------
+-- function click_itemAutoBtn
+-- @brief 자동재화 버튼 (광고 보기)
+-------------------------------------
+function UI_GameResultNew:click_itemAutoBtn()
+    g_advertisingData:showAdvPopup(AD_TYPE.LOBBY)
+end
+
+-------------------------------------
 -- function click_nextBtn
 -------------------------------------
 function UI_GameResultNew:click_prevBtn()
@@ -1148,4 +1170,13 @@ function UI_GameResultNew:click_manageBtn()
         self:sceneFadeInAction(func)
     end
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function onDestroyUI
+-- @brief
+-------------------------------------
+function UI_GameResultNew:onDestroyUI()
+    PARENT.onDestroyUI(self)
+    g_autoItemPickData:updateOff()
 end

@@ -119,6 +119,7 @@ local t_module = {
     'ServerData_AutoItemPick',
     'ServerData_Tutorial',
     'ServerData_Highbrow',
+    'ServerData_Advertising',
 
     -- Interface
     'IEventDispatcher',
@@ -647,6 +648,7 @@ local t_module = {
     'UI_QuickPopup',
     'UI_CouponPopup',
     'UI_CouponPopup_Confirm',
+    'UI_AdvertisingPopup',
 
     -- UI : 약관 동의
     'UI_TermsPopup',

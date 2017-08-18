@@ -268,6 +268,10 @@ end
 function StructProduct:makePriceIcon()
     local price_type = self['price_type']
 
+    if (price_type == 'advertising') then
+        return nil
+    end
+
     if (price_type == 'money') then
         price_type = 'krw'
     end
@@ -279,7 +283,13 @@ end
 -- function getPriceStr
 -------------------------------------
 function StructProduct:getPriceStr()
-    return comma_value(self['price'])
+    local price_type = self['price_type']
+
+    if (price_type == 'advertising') then
+        return Str('광고 보기')
+    else
+        return comma_value(self['price'])
+    end
 end
 
 -------------------------------------

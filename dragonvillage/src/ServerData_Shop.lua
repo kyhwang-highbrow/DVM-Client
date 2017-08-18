@@ -208,6 +208,11 @@ function ServerData_Shop:request_shopInfo(cb_func)
     local function success_cb(ret)
         self:response_shopInfo(ret)
 
+        local adv_cool_time = ret['adv_cool_time']
+        if (adv_cool_time) then
+            g_advertisingData.m_adv_cool_time = adv_cool_time
+        end
+
 		if (cb_func) then
 			cb_func(ret)
 		end

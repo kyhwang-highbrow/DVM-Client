@@ -45,8 +45,18 @@ function UI_Product:initUI()
 
 	-- 가격 아이콘
     local icon = struct_product:makePriceIcon()
-    vars['priceNode']:addChild(icon)
-	
+    local price_node = vars['priceNode']
+    if (icon) then
+        price_node:addChild(icon)
+	else
+        price_node:setScale(0)
+    end
+
+    -- 광고인 경우 버튼 활성화 체크
+    if (struct_product.price_type == 'advertising') then
+        vars['buyBtn']:setEnabled(g_advertisingData:getEnableShopAdv())
+    end
+    
 	-- 가격 아이콘 및 라벨, 배경 조정
 	UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
 end
@@ -75,6 +85,14 @@ function UI_Product:click_buyBtn()
 
 	if (struct_product:getTabCategory() == 'package') then
 		UI_Package(struct_product)
+
+    -- 광고 시청
+    elseif (struct_product.price_type == 'advertising') then
+        local function refresh_btn()
+            self.vars['buyBtn']:setEnabled(g_advertisingData:getEnableShopAdv())
+        end
+        g_advertisingData:showAdvPopup(AD_TYPE.SHOP, refresh_btn)
+
 	else
         local function cb_func(ret)
             if (self.m_cbBuy) then

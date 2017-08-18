@@ -416,6 +416,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_AccessTime.lua" />
     <None Include="..\src\ServerData_Adventure.lua" />
     <None Include="..\src\ServerData_AdventureFirstReward.lua" />
+    <None Include="..\src\ServerData_Advertising.lua" />
     <None Include="..\src\ServerData_AncientTower.lua" />
     <None Include="..\src\ServerData_Attendance.lua" />
     <None Include="..\src\ServerData_AutoItemPick.lua" />
@@ -842,6 +843,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AdventureStageButton.lua" />
     <None Include="..\src\UI_AdventureStageInfo.lua" />
     <None Include="..\src\UI_AdventureStageMissionInfo.lua" />
+    <None Include="..\src\UI_AdvertisingPopup.lua" />
     <None Include="..\src\UI_AncientTower.lua" />
     <None Include="..\src\UI_AncientTowerFloorInfo.lua" />
     <None Include="..\src\UI_AncientTowerListItem.lua" />

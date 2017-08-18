@@ -46,7 +46,7 @@ end
 -- @brief 고객 센터
 -------------------------------------
 function UI_Setting:click_serviceBtn()
-    local url = http://www.dragonvillage.net/support/customer/faq
+    local url = 'http://www.dragonvillage.net/support/customer/faq'
     --SDKManager:goToWeb(url)
     UI_WebView(url)
 end
