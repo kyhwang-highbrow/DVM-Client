@@ -4,7 +4,8 @@ require 'LuaGlobal'
 -------------------------------------
 -- class AssetMaker
 -------------------------------------
-AssetMaker = class({     
+AssetMaker = class({   
+        targetPath = 'string',  
     })
 
 -------------------------------------
@@ -16,18 +17,19 @@ end
 -------------------------------------
 -- function run
 -------------------------------------
-function AssetMaker:run()
+function AssetMaker:run(target_path)
     cclog('##### AssetMaker:run')
-
+    
+    self.targetPath = target_path
+    
     local stopwatch = Stopwatch()
     stopwatch:start()
 
     -- diretory를 루트로 이동
-    lfs.chdir('..')
-    cclog(lfs.currentdir())
+    util.changeDir('..')
 
     -- assets dirtory 만듬
-    self:makeAssets()
+    util.makeDirectory(self.targetPath)
 
     -- 암호화
     self:encryptSrcAndData()
@@ -40,15 +42,6 @@ function AssetMaker:run()
 
     stopwatch:stop()
     stopwatch:print()
-end
-
--------------------------------------
--- function makeAssets
--------------------------------------
-function AssetMaker:makeAssets()
-    cclog('##### AssetMaker:makeAssets')
-
-    lfs.mkdir(TARGET_PATH)
 end
 
 -------------------------------------
@@ -74,11 +67,19 @@ end
 function AssetMaker:mirroring()
     cclog('##### AssetMaker:mirroring')
 
-    MirrorDirectory('ps', string.format('%s\\%s', TARGET_PATH, 'ps'))
-    MirrorDirectory('data_dat', string.format('%s\\%s', TARGET_PATH, 'data_dat'))
-    MirrorDirectory('res', string.format('%s\\%s', TARGET_PATH, 'res'))
-    MirrorDirectory('translate', string.format('%s\\%s', TARGET_PATH, 'translate'))
-    MirrorDirectory('sound', string.format('%s\\%s', TARGET_PATH, 'sound'))
+    self:mirror('ps')
+    self:mirror('data_dat')
+    self:mirror('res')
+    self:mirror('translate')
+    self:mirror('sound')
+end
+
+-------------------------------------
+-- function mirror
+-- @brief 
+-------------------------------------
+function AssetMaker:mirror(dir)
+    util.mirrorDirectory(dir, string.format('%s\\%s', self.targetPath, dir))
 end
 
 -------------------------------------
@@ -88,21 +89,9 @@ end
 function AssetMaker:deleteEncrypt()
     cclog('##### AssetMaker:deleteEncrypt')
 
-    RemoveDirectory('ps')
-    RemoveDirectory('data_dat')
+    util.removeDirectory('ps')
+    util.removeDirectory('data_dat')
 end
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 -------------------------------------
@@ -110,5 +99,9 @@ end
 -- lua class 파일 자체에서 실행되도록 함
 -------------------------------------
 if (arg[1] == 'run') then
-    AssetMaker():run()
+    if (arg[2] == 'full') then
+        AssetMaker():run(ASSETS_PATH_FULL)
+    else
+        AssetMaker():run(ASSETS_PATH)
+    end
 end
