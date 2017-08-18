@@ -51,6 +51,10 @@ end
                     MakeSimplePopup(POPUP_TYPE.OK, Str('광고 시청 완료!'))
                 end
             end
+        elseif ret == 'error' then
+            if info == 'NOT_READY' then
+                -- 광고가 없는 경우 또는 못 가져오는 경우
+            end
         end
     end)
 --]]
