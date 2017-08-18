@@ -143,7 +143,7 @@ function SceneGameIntro:update(dt)
     end
 
     -- 세번째 웨이브 - 빙하고룡 스킬
-    if (idx == 4) and (world.m_heroMana.m_value > 1) then
+    if (idx == 4) and (world.m_heroMana:getCurrMana() > 1) then
         self:play_tutorialTalk(false, true)
 
         -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴

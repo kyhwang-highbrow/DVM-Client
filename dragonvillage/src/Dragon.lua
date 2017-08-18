@@ -16,8 +16,8 @@ Dragon = class(PARENT, {
         m_evolutionLv = 'number',
 
         -- 스킬 마나
-        m_activeSkillManaCost = 'number',
-        m_originActiveSkillManaCost = 'number',
+        m_activeSkillManaCost = 'SecurityNumberClass',
+        m_originActiveSkillManaCost = 'SecurityNumberClass',
 
         -- 스킬 쿨타임
         m_activeSkillCoolTimer = 'number',
@@ -42,8 +42,8 @@ function Dragon:init(file_name, body, ...)
     self.m_skillOffsetX = 0
     self.m_skillOffsetY = 0
 
-    self.m_activeSkillManaCost = 0 -- Mana Reduce 등에 의해 가변
-    self.m_originActiveSkillManaCost = 0 -- 테이블의 값 그대로 가지고 있음. 불변.
+    self.m_activeSkillManaCost = SecurityNumberClass(0) -- Mana Reduce 등에 의해 가변
+    self.m_originActiveSkillManaCost = SecurityNumberClass(0) -- 테이블의 값 그대로 가지고 있음. 불변.
 
     self.m_activeSkillCoolTimer = 0
     self.m_activeSkillCoolTime = 0
@@ -108,8 +108,9 @@ function Dragon:setStatusCalc(status_calc)
         if (not skill_indivisual_info) then return end
 
         local t_skill = skill_indivisual_info.m_tSkill
-        self.m_activeSkillManaCost = t_skill['req_mana'] or 0
-        self.m_originActiveSkillManaCost = t_skill['req_mana'] or 0
+        local req_mana = t_skill['req_mana'] or 0
+        self.m_activeSkillManaCost:set(req_mana)
+        self.m_originActiveSkillManaCost:set(req_mana)
     end
 
     -- 스킬 쿨타임 지정
@@ -489,7 +490,7 @@ function Dragon:updateActiveSkillCool(dt)
 	    t_event['percentage'] = (self.m_activeSkillCoolTime - self.m_activeSkillCoolTimer) / self.m_activeSkillCoolTime * 100
         
         if (self.m_bLeftFormation) then
-            t_event['enough_mana'] = (self.m_activeSkillManaCost <= self.m_world.m_heroMana:getCurrMana())
+            t_event['enough_mana'] = (self.m_activeSkillManaCost:get() <= self.m_world.m_heroMana:getCurrMana())
         end
 
         self:dispatch('dragon_skill_gauge', t_event)
@@ -539,12 +540,12 @@ function Dragon:isPossibleSkill()
 
     -- 마나 체크
     if (self.m_bLeftFormation) then
-        if (self.m_activeSkillManaCost > self.m_world.m_heroMana:getCurrMana()) then
+        if (self.m_activeSkillManaCost:get() > self.m_world.m_heroMana:getCurrMana()) then
             return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
         end
 
     elseif (self.m_world.m_enemyMana) then
-        if (self.m_activeSkillManaCost > self.m_world.m_enemyMana:getCurrMana()) then
+        if (self.m_activeSkillManaCost:get() > self.m_world.m_enemyMana:getCurrMana()) then
             return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
         end
         
@@ -732,10 +733,24 @@ function Dragon:getRarity()
 end
 
 -------------------------------------
+-- function getOriginSkillManaCost
+-------------------------------------
+function Dragon:getOriginSkillManaCost()
+    return self.m_originActiveSkillManaCost:get()
+end
+
+-------------------------------------
 -- function getSkillManaCost
 -------------------------------------
 function Dragon:getSkillManaCost()
-    return self.m_activeSkillManaCost
+    return self.m_activeSkillManaCost:get()
+end
+
+-------------------------------------
+-- function setSkillManaCost
+-------------------------------------
+function Dragon:setSkillManaCost(value)
+    self.m_activeSkillManaCost:set(value)
 end
 
 -------------------------------------

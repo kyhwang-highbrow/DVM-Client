@@ -52,7 +52,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     dragon:addListener('dragon_mana_reduce_finish', self)
 
     self:refreshHP(dragon.m_hp, dragon.m_maxHp)
-    self:refreshManaCost(dragon.m_activeSkillManaCost)
+    self:refreshManaCost(dragon:getSkillManaCost())
     self:refreshSkillGauge(0)
 
     self:initUI()
@@ -303,7 +303,7 @@ function UI_IngameDragonPanelItem:setPossibleControl(possible)
     self.m_bPossibleControl = possible
 
     if possible then
-        local enough_mana = (self.m_dragon.m_activeSkillManaCost <= self.m_world.m_heroMana:getCurrMana())
+        local enough_mana = (self.m_dragon:getSkillManaCost() <= self.m_world.m_heroMana:getCurrMana())
 
         self:refreshSkillGauge(self.m_skillCoolTime, self.m_skillGaugePercentage, enough_mana)
     else

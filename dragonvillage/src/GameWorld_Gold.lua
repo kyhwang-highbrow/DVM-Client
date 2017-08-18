@@ -17,7 +17,7 @@ GameWorld_Gold = class(PARENT, {
         m_bActiveBonusGoldSystem = 'boolean',
 
         -- 획득 골드량 보안 처리
-        m_snGold = 'SecurityNumber',
+        m_snGold = 'SecurityNumberClass',
     })
 
 -------------------------------------
@@ -47,7 +47,7 @@ function GameWorld_Gold:init(world)
     end
 
     -- 획득 골드량 보안 처리
-    self.m_snGold = SecurityNumber(0)
+    self.m_snGold = SecurityNumberClass(0)
 
     -- 보너스 골드 시스템 활성이 된 경우에 초기화
     if self.m_bActiveBonusGoldSystem then

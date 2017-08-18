@@ -211,13 +211,13 @@ function LogRecorderWorld:getLog(key)
     elseif (key == 'basic_attack_cnt') then
 		return self.m_attackCnt
 
+    elseif (key == 'drop_item_cnt') then
+		return self.m_dropItemCnt
+
     elseif (key == 'total_damage_to_hero') then
 		return self.m_totalDamageToHero
 
-    elseif (key == '') then
-		return self.m_dropItemCnt
-
-	else
+    else
 		return 0
 	end
 end

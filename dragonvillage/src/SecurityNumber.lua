@@ -13,21 +13,21 @@ local function get_crc(v)
 end
 
 
-SecurityNumber = class({
+SecurityNumberClass = class({
     m_data = ''
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SecurityNumber:init(v)
+function SecurityNumberClass:init(v)
     self:set(v)
 end
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SecurityNumber:get()
+function SecurityNumberClass:get()
     -- crc가 다르면 값을 지워버리고 0을 리턴
 	local c = get_crc(self.m_data.x)
 	if not self.m_data.z or c ~= self.m_data.z then
@@ -41,7 +41,7 @@ end
 -------------------------------------
 -- function set
 -------------------------------------
-function SecurityNumber:set(v)
+function SecurityNumberClass:set(v)
     local t = {x=0,y=0,z=0}
 	local r = math.random(-6758472,7637467)
 	t.x = r + v
@@ -54,7 +54,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function SecurityNumber:add(v)
+function SecurityNumberClass:add(v)
     local t = {x=0,y=0,z=0}
 	local r = math.random(-6758472,7637467)
 	if self.m_data then

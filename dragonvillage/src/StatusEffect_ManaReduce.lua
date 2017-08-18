@@ -5,7 +5,6 @@ local PARENT = StatusEffect
 -------------------------------------
 StatusEffect_ManaReduce = class(PARENT, {
     m_reduceValue = 'number',
-    m_originValue = 'number',
     m_isInCondition = 'boolean',
 })
 
@@ -33,13 +32,15 @@ function StatusEffect_ManaReduce:onStart()
     if (self.m_owner.m_charType == 'dragon' and type(self.m_owner:getSkillIndivisualInfo('active')) == 'table') then
         self.m_isInCondition = true
 
-        self.m_originValue = self.m_owner.m_activeSkillManaCost
-        self.m_owner.m_activeSkillManaCost = self.m_owner.m_activeSkillManaCost - self.m_reduceValue 
-        if(self.m_owner.m_activeSkillManaCost < 1) then
-            self.m_owner.m_activeSkillManaCost = 1
-        end
+        local originValue = self.m_owner:getOriginSkillManaCost()
+
+        local new_mana_cost = originValue - self.m_reduceValue
+        new_mana_cost = math_max(new_mana_cost, 1)
+        
+        self.m_owner:setSkillManaCost(new_mana_cost)
+                
         local t_event = {}
-        t_event['value'] = self.m_owner.m_activeSkillManaCost
+        t_event['value'] = new_mana_cost
         self.m_owner:dispatch('dragon_mana_reduce', t_event)
     end
 end
@@ -49,9 +50,12 @@ end
 -------------------------------------
 function StatusEffect_ManaReduce:onEnd()
     if (self.m_isInCondition) then
-        self.m_owner.m_activeSkillManaCost = self.m_originValue
+        local originValue = self.m_owner:getOriginSkillManaCost()
+
+        self.m_owner:setSkillManaCost(originValue)
+
         local t_event = {}
-        t_event['value'] = self.m_owner.m_activeSkillManaCost
+        t_event['value'] = originValue
         self.m_owner:dispatch('dragon_mana_reduce_finish', t_event)
     end
 end

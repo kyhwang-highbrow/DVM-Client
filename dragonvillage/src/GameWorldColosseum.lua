@@ -8,6 +8,7 @@ GameWorldColosseum = class(PARENT, {
 
         m_leaderEnemy = '',
 		m_lEnemyDragons = '',
+        m_enemyDeckFormation = '',
     })
 
 -------------------------------------
@@ -61,7 +62,8 @@ function GameWorldColosseum:initGame(stage_name)
 
     -- 진형 시스템 초기화
     self:setBattleZone(self.m_deckFormation, true)
-
+    self:setBattleZone(self.m_enemyDeckFormation, true, true)
+    
     do -- 스킬 조작계 초기화
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
     end
@@ -113,7 +115,10 @@ function GameWorldColosseum:initTamer()
 
     -- 아군 테이머 생성
     do
-        local t_tamer = g_tamerData:getCurrTamerTable()
+        local user_info = g_colosseumData.m_playerUserInfo
+        local tamer_id = user_info:getAtkDeckTamerID()
+        local t_tamer = TableTamer():get(tamer_id)
+
         self.m_tamer = self:makeTamerNew(t_tamer)
         self.m_tamer:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
         self.m_tamer:setAnimatorScale(1)
@@ -126,18 +131,23 @@ function GameWorldColosseum:initTamer()
         local t_tamer
 
         if (self.m_bDevelopMode) then
-            t_tamer = g_tamerData:getCurrTamerTable()
+            local user_info = g_colosseumData.m_playerUserInfo
+            local tamer_id = user_info:getDefDeckTamerID()
+            
+            t_tamer = TableTamer():get(tamer_id)
         else
             local user_info = g_colosseumData:getMatchUserInfo()
-            t_tamer = TableTamer():get(user_info.m_tamerID)
+            local tamer_id = user_info:getDefDeckTamerID()
+            
+            t_tamer = TableTamer():get(tamer_id)
         end
 
         -- 설정이 제대로 안된 경우라면 고니로 강제 설정
         if (not t_tamer) then
-			local tid = g_constant:get('INGAME', 'TAMER_ID')
-            t_tamer = TableTamer():get(tid)
+            local tamer_id = g_constant:get('INGAME', 'TAMER_ID')
+            t_tamer = TableTamer():get(tamer_id)
         end
-    
+
         self.m_enemyTamer = self:makeTamerNew(t_tamer, true)
         self.m_enemyTamer:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
         self.m_enemyTamer:setAnimatorScale(1)
@@ -303,6 +313,7 @@ function GameWorldColosseum:makeEnemyDeck()
     if (self.m_bDevelopMode) then
         -- 개발모드에선 자신의 방어덱을 상대로 설정
         l_deck, formation, deck_name, leader = g_colosseumData.m_playerUserInfo:getDeck('def')
+        self.m_enemyDeckFormation = formation
 
         getDragonObject = function(doid) return g_dragonsData:getDragonDataFromUid(doid) end
     else
@@ -310,10 +321,11 @@ function GameWorldColosseum:makeEnemyDeck()
 
         -- 상대방의 덱 정보를 얻어옴
         l_deck, formation, deck_name, leader = user_info:getDeck('def')
+        self.m_enemyDeckFormation = formation
 
         getDragonObject = function(doid) return user_info:getDragonObject(doid) end
     end
-        
+
     -- 덱에 배치된 드래곤들 생성
     for i, doid in pairs(l_deck) do
         local t_dragon_data = getDragonObject(doid)

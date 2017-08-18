@@ -72,7 +72,6 @@ function SkillIndicatorMgr_Intro:onTouchBegan(touch, event)
         
         -- 튤팁 표시
         self:makeSkillToolTip(select_hero)
-        self:updateToolTipUI(0, 0, node_pos['x'], node_pos['y'])
 
         event:stopPropagation()
 

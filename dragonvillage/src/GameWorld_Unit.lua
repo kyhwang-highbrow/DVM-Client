@@ -3,13 +3,6 @@
 -------------------------------------
 function GameWorld:makeTamerNew(t_tamer, bRightFormation)
     local bLeftFormation = not bRightFormation
-
-	-- @TODO 실제로 존재하는 테이머인지 검증하여 없으면 고니로 대체
-	if not g_tamerData:hasTamer(t_tamer['tid']) then
-		local tid = g_constant:get('INGAME', 'TAMER_ID')
-		t_tamer = TableTamer():get(tid)
-	end
-
     local res = t_tamer['res_sd']
 
     local tamer = Tamer(res, {0, 0, 0})

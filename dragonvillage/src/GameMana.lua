@@ -1,4 +1,5 @@
 local PARENT = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable())
+local security_key = math.random(-6758472,7637467)
 
 MAX_MANA = 5
 
@@ -13,7 +14,7 @@ GameMana = class(PARENT, {
         
         m_prevValue = 'number',
         m_value = 'number',
-
+        
         m_incValuePerSec = 'number',
 
         m_bEnable = 'boolean',
@@ -30,7 +31,8 @@ function GameMana:init(world, left_formation)
     self.m_bLeftFormation = left_formation
 
     self.m_prevValue = -1
-    self.m_value = 0
+    self.m_value = security_key
+    
     self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL')
     self.m_bEnable = true
     self.m_accelValue = 0
@@ -57,7 +59,7 @@ function GameMana:updateGauge(updated_int)
     if (not self.m_inGameUI) then return end
 
     if (self.m_bLeftFormation) then
-        self.m_inGameUI:setMana(self.m_value, updated_int)
+        self.m_inGameUI:setMana(self:getCurrMana(), updated_int)
     end
 end
 
@@ -71,7 +73,7 @@ function GameMana:onEvent(event_name, t_event, ...)
         local dragon = arg[1]
         
         if (self.m_bLeftFormation == dragon.m_bLeftFormation) then
-            self:subtractMana(dragon.m_activeSkillManaCost)
+            self:subtractMana(dragon:getSkillManaCost())
         end
     end
 end
@@ -80,40 +82,51 @@ end
 -- function getCurrMana
 -------------------------------------
 function GameMana:getCurrMana()
-    return math_floor(self.m_value)
+    local value = self.m_value - security_key
+    return value
+end
+
+-------------------------------------
+-- function setCurrMana
+-------------------------------------
+function GameMana:setCurrMana(value)
+    self.m_value = value + security_key
 end
 
 -------------------------------------
 -- function addMana
 -------------------------------------
 function GameMana:addMana(value)
-    self.m_value = self.m_value + value
-    self.m_value = math_min(self.m_value, MAX_MANA)
+    local value = self:getCurrMana() + value
+    value = math_min(value, MAX_MANA)
 
-    self:updateGauge(self.m_prevValue ~= math_floor(self.m_value))
+    self:setCurrMana(value)
+    self:updateGauge(self.m_prevValue ~= math_floor(value))
 
-    self.m_prevValue = math_floor(self.m_value)
+    self.m_prevValue = math_floor(value)
 end
 
 -------------------------------------
 -- function subtractMana
 -------------------------------------
 function GameMana:subtractMana(value)
-    self.m_value = self.m_value - value
-    self.m_value = math_max(self.m_value, 0)
+    local value = self:getCurrMana() - value
+    value = math_max(value, 0)
 
-    self:updateGauge(self.m_prevValue ~= math_floor(self.m_value))
+    self:setCurrMana(value)
+    self:updateGauge(self.m_prevValue ~= math_floor(value))
 
-    self.m_prevValue = math_floor(self.m_value)
+    self.m_prevValue = math_floor(value)
 end
 
 -------------------------------------
 -- function resetMana
 -------------------------------------
 function GameMana:resetMana()
-    self.m_value = 0
-
-    self:updateGauge(self.m_prevValue ~= math_floor(self.m_value))
+    local value = 0
+    
+    self:setCurrMana(value)
+    self:updateGauge(self.m_prevValue ~= value)
 
     self.m_prevValue = 0
 end
