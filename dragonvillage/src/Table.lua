@@ -449,8 +449,8 @@ function TABLE:init()
     end
 
     TableGradeInfo:initGlobal()
-    TableDragonSkill:initGlobal()
-    TableMonsterSkill:initGlobal()
+    --TableDragonSkill:initGlobal()
+    --TableMonsterSkill:initGlobal()
 end
 
 -------------------------------------

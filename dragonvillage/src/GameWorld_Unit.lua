@@ -100,7 +100,7 @@ function GameWorld:makeMonsterNew(monster_id, level)
     self:addToUnitList(monster)
     self:bindEnemy(monster)
 
-    monster:init_monster(t_monster, monster_id, level, self.m_stageID)
+    monster:init_monster(t_monster, monster_id, level)
     monster:initState()
 	monster:initFormation(body_size)
 

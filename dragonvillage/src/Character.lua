@@ -2647,7 +2647,8 @@ function Character:getAllInfomationString()
 
     printLine('-------------------------------------------------------')
 	printLine('NAME : ' .. self.m_charTable['t_name'])
-    printLine('CURR_STATE = ' .. self.m_state)
+    printLine('LEVEL : ' .. self.m_lv)
+    printLine('CURR_STATE = ' .. (self.m_state or ''))
     printLine('## STATUS EFFECT LIST ##')
     for type, se in pairs(self:getStatusEffectList()) do
 		printLine(string.format('- %s : overlap:%d time:%d', type, se.m_overlabCnt, se:getLatestTimer()))

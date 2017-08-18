@@ -14,7 +14,7 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
 
     -- Enemy 생성
     if isMonster(enemy_id) then
-        enemy = self.m_world:makeMonsterNew(enemy_id, level)
+        enemy = self.m_world:makeMonsterNew(enemy_id, level + self.m_addLevel)
 
     else
         local rarity = self:getRarity(enemy_id, level)
@@ -22,7 +22,7 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
 
         enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
-            lv = level,
+            lv = level + self.m_addLevel,
             grade = 1,
             evolution = 3,
             skill_0 = 1,

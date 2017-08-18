@@ -37,7 +37,7 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
 
     -- Enemy 생성
     if (isMonster(enemy_id)) then
-        enemy = self.m_world:makeMonsterNew(enemy_id, level)
+        enemy = self.m_world:makeMonsterNew(enemy_id, level + self.m_addLevel)
 
     else
         local evolution = enemy_id % 10
@@ -47,7 +47,7 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
 
         enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
-            lv = level,
+            lv = level + self.m_addLevel,
             grade = 1,
             evolution = evolution,
             skill_0 = self.m_currWave,

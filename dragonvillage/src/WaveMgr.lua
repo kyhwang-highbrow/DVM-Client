@@ -27,6 +27,9 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
 		-- regen 전용
         m_mRegenGroup = 'table',
         m_isRegenWave = 'bool',		-- regen Wave 가 있는지 여부
+
+        -- 추가 레벨
+        m_addLevel = 'number',
     })
 
 -------------------------------------
@@ -61,7 +64,9 @@ function WaveMgr:init(world, stage_name, develop_mode)
 	-- regen 전용 멤버 변수
     self.m_mRegenGroup = nil
     self.m_isRegenWave = false
-	
+
+    -- 스테이지별 추가 레벨
+    self.m_addLevel = TableStageData():getValue(self.m_world.m_stageID, 'level') or 0
 
     -- 리스너 등록
     self:addListener('change_wave', self.m_world)
@@ -381,7 +386,7 @@ end
 -- function spawnEnemy_dynamic
 -------------------------------------
 function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement)
-
+    
     local enemy
 
     -- Enemy 생성
@@ -389,12 +394,12 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         -- @TODO 드래곤일 경우 등급 및 진화, 친밀도의 데이터도 추가 정리 필요
         enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
-            lv = level,
+            lv = level + self.m_addLevel,
             grade = 1,
             skill_0 = 1
         }), true)
     else
-        enemy = self.m_world:makeMonsterNew(enemy_id, level)
+        enemy = self.m_world:makeMonsterNew(enemy_id, level + self.m_addLevel)
     end
 
     local rarity = self:getRarity(enemy_id, level)

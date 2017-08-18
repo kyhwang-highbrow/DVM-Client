@@ -220,7 +220,7 @@ end
 function SceneGame:prepare()
     -- 테이블 리로드(메모리 보안을 위함)
     self:addLoading(function()
-        --TABLE:reloadForGame()
+        TABLE:reloadForGame()
     end)
 
     self:addLoading(function()
