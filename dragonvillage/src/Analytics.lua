@@ -162,7 +162,7 @@ function FiveRocks:userInfo(userId)
 
     cclog('FiveRocks:userInfo : ' .. arg0)
 
-    PerpleSDK:tabjoyEvent('userID', arg0, '', function(ret)
+    PerpleSDK:tapjoyEvent('userID', arg0, '', function(ret)
     end)
 end
 
@@ -178,7 +178,7 @@ function FiveRocks:trackPurchase(productName, currencyCode, price)
 
     cclog('FiveRocks:trackPurchase : ' .. arg0)
 
-    PerpleSDK:tabjoyEvent('trackPurchase', arg0, '', function(ret)
+    PerpleSDK:tapjoyEvent('trackPurchase', arg0, '', function(ret)
     end)
 end
 
@@ -193,7 +193,7 @@ function FiveRocks:customCohort(cohortNo, cohortDesc)
 
     cclog('FiveRocks:customCohort : ' .. arg0 .. ',' .. arg1)
 
-    PerpleSDK:tabjoyEvent('userCohortVariable', arg0, arg1, function(ret)
+    PerpleSDK:tapjoyEvent('userCohortVariable', arg0, arg1, function(ret)
     end)
 end
 
@@ -207,7 +207,7 @@ function FiveRocks:setAppDataVersion()
 
     cclog('FiveRocks:setAppDataVersion : ' .. arg0)
 
-    PerpleSDK:tabjoyEvent('appDataVersion', arg0, '', function(ret)
+    PerpleSDK:tapjoyEvent('appDataVersion', arg0, '', function(ret)
     end)
 end
 
@@ -233,7 +233,7 @@ function FiveRocks:trackEvent(category, name, param1, param2, value1Name, value1
 
     cclog('FiveRocks:trackEvent : ' .. arg0)
 
-    PerpleSDK:tabjoyEvent('trackEvent', arg0, '', function(ret)
+    PerpleSDK:tapjoyEvent('trackEvent', arg0, '', function(ret)
     end)
 end
 
