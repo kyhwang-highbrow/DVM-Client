@@ -9,7 +9,7 @@ PATCH_STATE.finish = 10             -- 종료
 
 MIN_GUIDE_TIME = 3                  -- 패치 가이드 노출시 최소 노출 시간 
  
-BYTE_TO_MB = 1024 * 1024
+MB_TO_BYTE = 1024 * 1024
   
 -------------------------------------
 -- class PatchCore
@@ -129,22 +129,25 @@ function PatchCore:update(dt)
         end
         return
     end
-
+    --[[
 	-- 다운로드 사이즈와 퍼센트 계산
-	local curr_size = string.format('%.2f', self.m_downloadedSize/BYTE_TO_MB)
-	local total_size = string.format('%.2f', self.m_totalSize/BYTE_TO_MB)
-	local download_percent = curr_size / total_size * 100
-	local download_str = string.format('%.2f', download_percent)
+	local curr_size = (self.m_downloadedSize / MB_TO_BYTE)
+	local total_size = (self.m_totalSize / MB_TO_BYTE)
+    local download_percent = (curr_size / total_size * 100) -- 100% 넘어가는지 확인하기 위해서
+	-- @TODO
+    --local download_percent = math.min(curr_size / total_size * 100, 100) -- 100%는 넘지 않도록 함
 
 	-- UI 출력 (패치 가이드가 있는 경우 패치가이드의 label과 gauge를 가리킨다)
-    if self.m_patchLabel then
-	    self.m_patchLabel:setString(curr_size .. 'MB /' .. total_size .. 'MB (' .. download_str .. '%)')
+    do
+        if self.m_patchLabel then
+            local patch_str = string.format('%.2fMB / %.2fMB (%.2f%%)', curr_size, total_size, download_percent)
+	        self.m_patchLabel:setString(patch_str)
+        end
+        if self.m_patchGauge then
+	        self.m_patchGauge:setPercentage(download_percent)
+        end
     end
-
-    if self.m_patchGauge then
-	    self.m_patchGauge:setPercentage(download_percent)
-    end
-
+    --]]
 	-- 패치가이드 있을 시 패치가이드 업데이트
 	if (self.m_patchGuideUI) then
 		self.m_patchGuideUI:update(dt)
@@ -194,6 +197,67 @@ function PatchCore:getDownloadPath()
     return path .. dir
 end
 
+
+-------------------------------------
+-- function makeLocalPath
+-- @brief 
+-------------------------------------
+function PatchCore:makeLocalPath(name)
+	local l_word = seperate(name, '/')
+	local local_path = self:getDownloadPath() .. l_word[#l_word]
+    return local_path
+end
+
+
+-------------------------------------
+-- function checkFileExist
+-- @brief 파일이 (용량까지) 완전히 존재하는지 확인한다.
+-------------------------------------
+function PatchCore:checkFileExist(down_name, down_size)
+    local local_path = self:makeLocalPath(down_name)
+
+    -- 파일 존재 유무 확인
+    local f = io.open(local_path, 'r')
+    if (not f) then
+        return false, 0
+    end
+
+    -- 파일 사이즈 얻어옴
+    local size = f:seek("end")
+    f:close()
+
+    -- 파일 사이즈가 같을 경우 true 리턴
+    if (down_size == size) then
+        return true
+    end
+
+    return false, size
+end
+
+-------------------------------------
+-- function getTotalSize
+-- @brief 이어 받기를 고려한 토탈 사이즈를 구한다.
+-------------------------------------
+function PatchCore:getTotalSize(l_download_res_list)
+    local total_size = 0
+    local exist_size, res_size
+    local is_exist
+
+    -- 다운로드 받을 리소스 목록을 순회하며 다운로드 받을 사이즈를 취합하며
+    -- 이미 받은 것이 있다면 용량을 체크하며 이어받기 사이즈를 적용한다.
+    for i, v in pairs(l_download_res_list) do
+        res_size = v['size']
+        is_exist, exist_size = self:checkFileExist(v['name'], res_size)
+        if (not is_exist) then
+            res_size = res_size - exist_size
+            total_size = total_size + res_size
+            v['size'] = res_size
+        end
+    end
+
+    return total_size
+end
+
 -------------------------------------
 -- function st_requestPatchInfo
 -- @brief 패치 파일 정보 요청
@@ -232,25 +296,31 @@ function PatchCore:st_requestPatchInfo_successCB(ret)
     -- 최신패치버전 정보 및 패치 파일 리스트 셋팅
     self.m_latestPatchVer = ret['cur_patch_ver']
     self.m_lDownloadRes = {}
-    self.m_totalSize = 0
+
     for i,v in ipairs(ret['list']) do
         local version = v['version']
-        local size = v['size']
         if (self.m_currPatchVer < version) and (version <= self.m_latestPatchVer) then
             self.m_lDownloadRes[version] = v
-            self.m_totalSize = self.m_totalSize + size
         end
+    end
+
+    -- 앱 구동 후 최초 한번만 계산한다.
+    -- case 0 : 정상적으로 최초 패치 호출 -> 현재 받아야 할 총 패치 사이즈 계산
+    -- case 1 : 네트워크 불안정으로 인해 에러나서 다시 받는 경우 -> 토탈사이즈를 갱신하지 않는다.
+    -- case 2 : 패치 중 앱 종료된 경우 현재 남은 패치 사이즈를 계산하여 토탈사이즈로 보여준다.
+    if (self.m_totalSize == 0) then
+        self.m_totalSize = self:getTotalSize(self.m_lDownloadRes)
     end
 
 	cclog('## TOTAL PATCH SIZE ' .. self.m_totalSize)
 
-	-- 다음 스텝으로 이동
+	-- [함수] 다음 스텝으로 이동
 	local function do_next_step()
 		self.m_state = PATCH_STATE.download_patch_file 
 		self:doStep()
 	end
 
-    -- 받을 패치 있으면 패치 가이드 UI 무조건 호출로 변경
+    -- [함수] 패치 가이드 UI 호출
 	local function show_patch_guide()
 		local vars = self.m_patchScene.m_vars
 		local ui = UI_LoadingGuide_Patch()
@@ -271,19 +341,19 @@ function PatchCore:st_requestPatchInfo_successCB(ret)
 	end
 
 	-- 50MB 보다 클 경우 확인 메세지 출력
-	local std_size = 50 * BYTE_TO_MB
+	local std_size = 50 * MB_TO_BYTE
     if (std_size < self.m_totalSize) then
         -- 메가바이트로 크기 환산
-        local size_mb = string.format('%.2f', self.m_totalSize / BYTE_TO_MB)
+        local size_mb = string.format('%.2f', self.m_totalSize / MB_TO_BYTE)
 		local patch_str = Str('추가 데이터가 다운로드 됩니다.({1}MB).\n다운로드 하시겠습니까?\n[WIFI 연결을 권장하며 3G/LTE을 사용할 경우 과도한 요금이 부과 될 수 있습니다.]', size_mb)
 
-        -- 수락 -> 다운로드 시작 및 패치 가이드 UI 호출
+        -- [함수] 수락 -> 다운로드 시작 및 패치 가이드 UI 호출
         local function ok_func()
             do_next_step()
             show_patch_guide()
         end
 		
-		-- 거절 -> 앱 종료!
+		-- [함수] 거절 -> 앱 종료!
 		local function cancel_func()
 			local function close_cb()
 				cc.Director:getInstance():endToLua()
@@ -293,10 +363,12 @@ function PatchCore:st_requestPatchInfo_successCB(ret)
 
 		MakeSimplePopup(POPUP_TYPE.YES_NO, patch_str, ok_func, cancel_func)
 
+    -- 패치 받을 것이 있음 -> 다운로드 시작 및 패치 가이드 UI 호출
     elseif (0 < self.m_totalSize) then
         do_next_step()
         show_patch_guide()
 
+    -- 패치가 없음
 	else
 		do_next_step()
     end
@@ -319,7 +391,9 @@ function PatchCore:st_downloadPatchFile(ret)
     local t_download_res = self.m_currDownloadRes
 
     -- zip파일이 이미 다운로드 되어있다면..
-    if self:st_downloadPatchFile_checkExist(t_download_res) then
+    -- 다운받고자 하는 zip파일이 존재하고, 용량까지 같은 경우 true 리턴
+    -- 다운로드 과정을 건너뛰고 압축 해제로 상태 변경
+    if self:checkFileExist(t_download_res['name'], t_download_res['size']) then
         -- 다음 스텝으로 이동
         self.m_state = PATCH_STATE.decompression 
         self:doStep()
@@ -332,10 +406,15 @@ function PatchCore:st_downloadPatchFile(ret)
 
         local local_path = t_download_res['local_path']
         local web_path = t_download_res['web_path']
+        
+        -- 다운로드 검증용
+        local total_size = t_download_res['size']
+        local downed_size = 0
 
         -- 다운 성공 콜백
         local function success_cb()
             -- 다음 스텝으로 이동
+            io.write('\n')
             self.m_state = PATCH_STATE.decompression 
             self:doStep()
         end
@@ -353,8 +432,20 @@ function PatchCore:st_downloadPatchFile(ret)
 
         -- 진행 정도 콜백
         local function progress(size)
-            cclog('## PatchCore : size ' .. size)
+            -- 정해진 용량 이상 출력하지 않도록 한다.nb
+            -- 간혹 total_size 보다 훨씬 많은 량을 다운받기도 하는데
+            -- 연결이 잠시 불안정한 동안 계속 같은 값의 size가 반복해서 들어오는 것으로 추정됨.
+            -- 이를 막기 위해서 해당 패치의 총 다운로드 용량을 지정하여 거기까지만 출력하도록 함
+            self:printDebug(downed_size, total_size)
+
+            -- 현재 리소스 사이즈 보다 받은 사이즈가 크다면 더이상 처리하지 않는다.
+            if (downed_size > total_size) then
+                return
+            end
+
+            io.write(string.format('## PatchCore - curr_progress : %d%% \r', (downed_size/total_size*100)))
 			self.m_downloadedSize = self.m_downloadedSize + size
+            downed_size = downed_size + size
         end
 
         -- 다운로드 요청
@@ -393,37 +484,12 @@ function PatchCore:st_downloadPatchFile_setCurrDownloadRes()
 	    --writeable경로에 저장하기 위해 파일명만 추출
 	    --local web_path = 'http://test.perplelab.com/dv_test/' .. self.m_currDownloadRes['name']  -- v0.0.9까지 사용하던 이전 패치 url
         local web_path = 'http://patch-12.perplelab.net/dv_test/' .. self.m_currDownloadRes['name']
-	    local l_word = seperate(web_path, '/')
-	    local local_path = self:getDownloadPath() .. l_word[#l_word]
+	    local local_path = self:makeLocalPath(self.m_currDownloadRes['name'])
         self.m_currDownloadRes['web_path'] = web_path
         self.m_currDownloadRes['local_path'] = local_path
     end
 
     return true
-end
-
--------------------------------------
--- function st_downloadPatchFile_checkExist
--- @brief 다운받고자 하는 zip파일이 존재하고, 용량까지 같은 경우 true 리턴
---        다운로드 과정을 건너뛰고 압축 해제로 상태 변경
--------------------------------------
-function PatchCore:st_downloadPatchFile_checkExist(t_download_res)
-    -- 파일 존재 유무 확인
-    local f = io.open(t_download_res['local_path'], 'r')
-    if (not f) then
-        return false
-    end
-
-    -- 파일 사이즈 얻어옴
-    local size = f:seek("end")
-    f:close()
-
-    -- 파일 사이즈가 같을 경우 true 리턴
-    if (t_download_res['size'] == size) then
-        return true
-    end
-
-    return false
 end
 
 -------------------------------------
@@ -444,10 +510,15 @@ function PatchCore:st_decompression()
             self.m_currDownloadRes = nil
             self:savePatchData()
 
+            -- 패치 화면의 버전 표시 업데이트
+            self.m_patchScene:refreshPatchIdxLabel()
+
             -- 다음 스텝으로 이동
             self.m_state = PATCH_STATE.download_patch_file 
             self:doStep()
             return
+
+        -- 압축 해제 에러 케이스
         else
             local msg = Str('추가 리소스 패치 중 오류({1})가 발생하였습니다. 다시 시도하시겠습니까?', ret)
             local popup_type = ''
@@ -523,4 +594,19 @@ function PatchCore:close_patch_guide()
 
     self.m_patchLabel = nil
     self.m_patchGauge = nil
+end
+
+-------------------------------------
+-- function printDebug
+-- @brief
+-------------------------------------
+function PatchCore:printDebug(downed_size, total_size)
+    self.m_patchLabel:setString(
+        string.format('## curr_down : %.2fMB / curr_total : %.2fMB :: whole_down : %.2fMB / whole_total : %.2fMB',
+            (downed_size or 0)/MB_TO_BYTE,
+            (total_size or 0)/MB_TO_BYTE,
+            self.m_downloadedSize/MB_TO_BYTE,
+            self.m_totalSize/MB_TO_BYTE
+        )
+    )
 end
