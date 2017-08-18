@@ -100,9 +100,6 @@ function UI_BookDetailPopup:initButton()
 
 	-- 획득 방법
 	vars['getBtn']:registerScriptTapHandler(function() self:click_getBtn() end)
-
-	-- 스킬 미리보기
-	vars['skillViewBtn']:registerScriptTapHandler(function() self:click_skillViewBtn() end)
 end
 
 -------------------------------------
@@ -547,23 +544,6 @@ function UI_BookDetailPopup:click_getBtn()
 	local item_id = TableItem:getItemIDByDid(did, evolution)
     UI_AcquisitionRegionInformation:create(item_id)
 end
-
--------------------------------------
--- function click_skillViewBtn
--- @brief 획득방법
--------------------------------------
-function UI_BookDetailPopup:click_skillViewBtn()
-	if (self.m_tDragon['bookType'] == 'slime') then
-		UIManager:toastNotificationRed(Str('슬라임은 스킬 미리보기를 할 수 없습니다.'))
-		return	
-	end
-
-    ccdisplay('스킬 미리보기는 구상중입니다.')
-end
-
-
-
-
 
 -------------------------------------
 -- function setDragon
