@@ -2484,8 +2484,13 @@ end
 -- @brief boss, sub_boss, elite 체크
 -------------------------------------
 function Character:isBoss()
-	local rarity = self.m_charTable['rarity']
-    return isExistValue(rarity, 'elite', 'subboss', 'boss') 
+    -- 고대의 탑 드래곤 몬스터인 경우 보스처리
+    if (self.m_world.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        return (self.m_charType == 'dragon')
+    else
+        local rarity = self.m_charTable['rarity']
+        return isExistValue(rarity, 'elite', 'subboss', 'boss') 
+    end
 end
 
 -------------------------------------

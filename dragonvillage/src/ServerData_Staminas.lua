@@ -271,7 +271,7 @@ end
 -------------------------------------
 -- function staminaCharge
 -------------------------------------
-function ServerData_Staminas:staminaCharge(stage_id)
+function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
     local stamina_type, req_count = TableDrop:getStageStaminaType(stage_id)
 
 
@@ -292,7 +292,7 @@ function ServerData_Staminas:staminaCharge(stage_id)
                     return
                 end
                 
-                self:request_staminaCharge(stamina_type)
+                self:request_staminaCharge(stamina_type, finish_cb)
             end
 
             UI_ConfirmPopup('cash', price, msg, ok_btn_cb)

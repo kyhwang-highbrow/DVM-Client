@@ -10,6 +10,7 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
         m_aniNum = 'num',
 
         m_eggID = 'num',
+        m_bAnimate = 'boolean',
         m_bRareSummon = 'boolean', -- 고등급용 소환
         m_bLegend= 'boolean', 
     })
@@ -53,7 +54,8 @@ function UIC_DragonAnimatorDirector_Summon:startDirecting()
     self.m_bottomEffect:setVisible(false)
     self.vars['skipBtn']:setVisible(true)
     self.m_currStep = 1
-	
+	self.m_bAnimate = false
+
 	-- 연출 시작
 	self:directingIdle()
 end
@@ -102,13 +104,16 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
     else
         crack_ani = string.format('crack_%02d', self.m_currStep)
     end
+
 	self.m_topEffect:changeAni(crack_ani, false)
+    self.m_bAnimate = true
 	self.m_topEffect:addAniHandler(function()
 		if (self.m_currStep > self.m_maxStep) then
             self:checkMaxGradeEffect()
 		else
 			self:directingIdle()
 		end
+        self.m_bAnimate = false
 	end)
 end
 
@@ -168,7 +173,6 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
     else
         self.m_maxStep = 3
     end
- 
     self.m_bLegend = false
 
 	-- 전설등급의 경우 추가 연출을 붙여준다
@@ -193,6 +197,11 @@ end
 -- function click_skipBtn
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:click_skipBtn()
+    -- 알 애니메이션일 경우 입렵 받지 않도록 수정
+    if (self.m_bAnimate) then 
+        return
+    end
+
 	-- 마지막 스텝일 경우 입력을 받지 않는다.
 	if (self.m_currStep > self.m_maxStep) then
 		return

@@ -93,8 +93,7 @@ end
 -------------------------------------
 function AncientTowerScoreCalc:calcKillBossBonus()
     local recorder_info = self.m_lrecorder
-    local finish_type   = recorder_info:getLog('finish_')
-
+    local finish_type   = recorder_info:getLog('finish_atk')
     return (finish_type == 'active') and BOSS_BONUS or 0
 end
 

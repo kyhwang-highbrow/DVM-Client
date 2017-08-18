@@ -68,7 +68,7 @@ function ServerData_AccessTime:request_accessTime(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_accessTime
+-- function request_saveTime
 -------------------------------------
 function ServerData_AccessTime:request_saveTime(finish_cb, fail_cb)
     -- 유저 ID
@@ -80,7 +80,11 @@ function ServerData_AccessTime:request_saveTime(finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
         self:networkCommonRespone(ret)
-        
+        -- 접속시간 저장 후에도 보상정보 갱신 (날짜변경된 경우 갱신해줘야함)
+        if (ret['reward']) then
+            self.m_lRewardData = ret['reward']
+        end
+
         if finish_cb then
             finish_cb(ret)
         end

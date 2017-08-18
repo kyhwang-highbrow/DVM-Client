@@ -858,6 +858,8 @@ end
 -- function click_quickBtn
 -------------------------------------
 function UI_GameResultNew:click_quickBtn()
+    local stage_id = self.m_stageID
+
     local function finish_cb(game_key)
 
         -- 연속 전투일 경우 횟수 증가
@@ -865,11 +867,18 @@ function UI_GameResultNew:click_quickBtn()
             g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
         end
 
-        local stage_id = self.m_stageID
-
         local stage_name = 'stage_' .. stage_id
         local scene = SceneGame(game_key, stage_id, stage_name, false)
         scene:runScene()
+    end
+
+    -- 활동력도 체크 (준비화면에 가는게 아니므로)
+    if (not g_staminasData:checkStageStamina(stage_id)) then
+        local function finish_cb()
+            self:show_staminaInfo()
+        end
+        g_staminasData:staminaCharge(stage_id, finish_cb)
+        return
     end
 
     local check_dragon_inven
@@ -1072,6 +1081,9 @@ function UI_GameResultNew:checkAutoPlay()
     end
     
     if (auto_play_stop == true) then
+        -- 자동 전투 off
+        g_autoPlaySetting:setAutoPlay(false)
+
         -- 메세지 있는 경우에만 팝업 출력
         if (msg) then MakeSimplePopup(POPUP_TYPE.OK, msg) end
         return
