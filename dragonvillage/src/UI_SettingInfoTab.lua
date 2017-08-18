@@ -8,20 +8,11 @@ function UI_Setting:init_infoTab()
     local version_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
     vars['versionLabel']:setString(version_str)
 
-    vars['makeBtn']:registerScriptTapHandler(function() self:click_makeBtn() end)
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
     vars['agreementBtn']:registerScriptTapHandler(function() self:click_agreementBtn() end)
 
     vars['couponBtn']:registerScriptTapHandler(function() self:click_couponBtn() end)
     vars['serviceBtn']:registerScriptTapHandler(function() self:click_serviceBtn() end) 
-end
-
--------------------------------------
--- function click_makeBtn
--- @brief 만든 사람들
--------------------------------------
-function UI_Setting:click_makeBtn()
-    UIManager:toastNotificationRed(Str('"만든 사람들"은 준비 중입니다.'))
 end
 
 -------------------------------------
