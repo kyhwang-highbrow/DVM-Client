@@ -59,7 +59,9 @@ end
 -------------------------------------
 function UI_SubscriptionPopup_Ing:click_infoBtn()
     cclog('## UI_SubscriptionPopup_Ing:click_infoBtn()')
-    SDKManager:goToWeb('http://www.perplelab.com/agreement')
+    local url = 'http://www.perplelab.com/agreement'
+    --SDKManager:goToWeb(url)
+    UI_WebView(url)
 end
 
 -------------------------------------

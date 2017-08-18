@@ -79,7 +79,9 @@ end
 -------------------------------------
 function UI_Package:click_infoBtn()
     cclog('## UI_Package:click_infoBtn()')
-    SDKManager:goToWeb('http://www.perplelab.com/agreement')
+    local url = 'http://www.perplelab.com/agreement'
+    --SDKManager:goToWeb(url)
+    UI_WebView(url)
 end
 
 -------------------------------------

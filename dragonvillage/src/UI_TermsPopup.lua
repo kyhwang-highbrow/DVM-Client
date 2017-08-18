@@ -76,14 +76,18 @@ end
 -- function click_viewBtn1
 -------------------------------------
 function UI_TermsPopup:click_viewBtn1()
-    SDKManager:goToWeb('http://www.perplelab.com/agreement')
+    local url = 'http://www.perplelab.com/agreement'
+    --SDKManager:goToWeb(url)
+    UI_WebView(url)
 end
 
 -------------------------------------
 -- function click_viewBtn2
 -------------------------------------
 function UI_TermsPopup:click_viewBtn2()
-    SDKManager:goToWeb('http://www.perplelab.com/personalinformation')
+    local url = 'http://www.perplelab.com/personalinformation'
+    --SDKManager:goToWeb(url)
+    UI_WebView(url)
 end
 
 -------------------------------------
