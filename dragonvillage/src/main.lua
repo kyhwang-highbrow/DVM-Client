@@ -56,9 +56,6 @@ function __G__TRACKBACK__(msg)
     return msg
 end
 
-require 'require'
-loadModule()
-
 local GAME_RESTART_TIME = 0
 
 -------------------------------------
@@ -144,10 +141,16 @@ local function main()
     local seed = os.time()
     math.randomseed(seed)
 	
+    require('socket.core')
+    require('lib/class')
+    require('Stopwatch')
     local stopwatch = Stopwatch()
     stopwatch:start()
 
-    
+    require 'require'
+    loadModule()
+    stopwatch:record('loadModule()')
+
     TABLE:init()
     stopwatch:record('TABLE:init()')
 

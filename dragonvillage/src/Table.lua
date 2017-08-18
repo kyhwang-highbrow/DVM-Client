@@ -129,6 +129,27 @@ end
 -- function loadCSVTable
 -------------------------------------
 function TABLE:loadCSVTable(filename, tablename, key, toString)
+
+    -- lua파일에서 읽는 부분 테스트
+    if (isAndroid and isAndroid()) or (isIos and isIos()) then
+        local tables = nil
+        local function load_func()
+            tables = require ('src/table/' .. filename .. '.lua')
+            if tablename then
+                TABLE[tablename] = tables
+            end
+        end
+
+        local function error_handler(msg)
+            --cclog('msg : ' .. tostring(msg))
+        end
+        
+        local status, msg = xpcall(load_func, error_handler)
+        if status and tables then
+            return tables
+        end
+    end
+
     local content = TABLE:loadTableFile(filename, '.csv')
     if (content == nil) then
         cclog('failed to load table file(' .. filename .. ')')
@@ -374,6 +395,7 @@ function TABLE:get(name)
     if (not self[name]) then
         local t_info = TableInfo[name]
         if t_info then
+            --cclog('TABLE:get() first load : ' .. name)
             TABLE:loadCSVTable(t_info[1], name, t_info[2], t_info[3])
         end
     end
@@ -422,10 +444,13 @@ end
 -- function init
 -------------------------------------
 function TABLE:init()
+    --[[
     for k,v in pairs(TableInfo) do
         TABLE:loadCSVTable(v[1], k, v[2], v[3])
     end
+    --]]
 
+    TABLE:get('grade_info')
     TableGradeInfo:initGlobal()
     TableDragonSkill:initGlobal()
     TableMonsterSkill:initGlobal()
@@ -456,4 +481,11 @@ function TABLE:reloadForGame()
 
     TableDragonSkill:initGlobal()
     TableMonsterSkill:initGlobal()
+end
+
+-------------------------------------
+-- function getTableInfo
+-------------------------------------
+function TABLE:getTableInfo()
+    return TableInfo
 end
