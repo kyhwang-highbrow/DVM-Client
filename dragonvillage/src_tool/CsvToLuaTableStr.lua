@@ -59,9 +59,7 @@ function CsvToLuaTableStr:luadump(value, depth)
 
         local s = '{\n'
         local n = #value
-        for i = 1, n do
-            s = s .. newdepth .. self:luadump(value[i], newdepth) .. ';\n'
-        end
+
         for k, v in pairs(value) do
             -- key타입이 숫자일 경우 그냥 숫자로 사용
             if type(k) == 'number' then
