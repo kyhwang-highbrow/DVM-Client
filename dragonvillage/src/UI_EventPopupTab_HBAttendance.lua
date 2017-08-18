@@ -45,5 +45,6 @@ end
 -------------------------------------
 function UI_EventPopupTab_HBAttendance:click_homepageBtn()
    local url = 'http://account.game.highbrow-inc.com:8080/interop/Interop.php?uid=' .. g_userData:get('uid')
+   --SDKManager:gotoWeb(url)
    UI_WebView(url)
 end
