@@ -41,13 +41,7 @@ function UI_IngameDragonPanel:initUI()
             self:insertPanelItem(dragon, dragon_idx)
         end
     end
-
-    if world.m_friendDragon then
-        local dragon = world.m_friendDragon
-        local dragon_idx = 999
-        self:insertPanelItem(dragon, dragon_idx)
-    end
-
+    
     local start_pos = 92
     local interval = 142
     local count = #self.m_lPanelItemList
