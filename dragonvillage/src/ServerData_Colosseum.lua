@@ -321,6 +321,13 @@ function ServerData_Colosseum:request_atkListRefresh(finish_cb, fail_cb)
         if finish_cb then
             finish_cb(ret)
         end
+
+        -- 매치 리스트가 갱신이 되지 않았을 경우 안내 팝업
+        if ret['nomatch'] then
+            local msg = Str('더 이상 대전상대를 찾을 수 없습니다.\n잠시 후에 다시 시도해 주세요.')
+            local submsg = Str('(대전상대를 찾지 못하면 무료횟수 및 다이아가 소비되지 않습니다.)')
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg)
+        end
     end
 
     -- 네트워크 통신
