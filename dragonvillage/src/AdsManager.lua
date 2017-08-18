@@ -1,31 +1,22 @@
 AdsManager = {
     callback = function() end,
     mode = 'test',
-    initialized = false,
 }
+
+function AdsManager:prepare()
+    self:start('', nil)
+end
 
 function AdsManager:start(placementId, result_cb)
     self.callback = result_cb or function() end
-
-    if self.initialized == true then
-        self.callback('ready', placementId)
-        return
-    end
-
     PerpleSDK:unityAdsStart(self.mode, '', function(ret, info)
-        if self.initialized == false then
-            if ret ~= 'error' then
-                self.initialized = true
-            end
-        end
-
         cclog('UnityAds Callback - ret:' .. ret .. ',info:' .. info)
         self.callback(ret, info)
     end)
 end
 
 function AdsManager:show(placementId, result_cb)
-    self.callback = result_cb
+    self.callback = result_cb or function() end
     PerpleSDK:unityAdsShow(placementId, '')
 end
 

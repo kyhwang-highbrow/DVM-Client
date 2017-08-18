@@ -59,6 +59,9 @@ function ScenePatch:onEnter()
 	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     self:refreshPatchIdxLabel()
 
+    -- 광고 프리로드
+    AdsManager:prepare()
+
     -- 패치 시작
     self:runPatchCore()
 end
