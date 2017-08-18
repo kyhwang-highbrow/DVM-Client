@@ -247,14 +247,14 @@ function UI_Network:statusHandler(ret)
     if (error_str) then
         local notice = ret['notice']
         error_str = (notice) and notice 
-        MakeSimplePopup(POPUP_TYPE.OK, error_str, function() restart() end)
+        MakeNetworkPopup(POPUP_TYPE.OK, error_str, function() restart() end)
         self:close()
         return true
     end
 
     local error_str = S_ERROR_STATUS_CLOSE[status]
     if (error_str) then
-        MakeSimplePopup(POPUP_TYPE.OK, error_str, function() closeApplication() end)
+        MakeNetworkPopup(POPUP_TYPE.OK, error_str, function() closeApplication() end)
         self:close()
         return true
     end
@@ -306,7 +306,7 @@ function UI_Network:makeFailPopup(msg, ret)
         popup_type = POPUP_TYPE.OK
     end
 
-    MakeSimplePopup(popup_type, msg, ok_btn_cb, cancel_btn_cb)
+    MakeNetworkPopup(popup_type, msg, ok_btn_cb, cancel_btn_cb)
     self:close()
 end
 
@@ -320,7 +320,7 @@ function UI_Network:makeShopPopup(msg, ret, type)
         g_shopDataNew:openShopPopup(type)
     end
     
-    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, cb)
+    MakeNetworkPopup(POPUP_TYPE.YES_NO, msg, cb)
 end
 
 -------------------------------------
@@ -329,7 +329,7 @@ end
 -------------------------------------
 function UI_Network:makeCommonPopup(msg)
     self:close()
-    MakeSimplePopup(POPUP_TYPE.OK, Str(msg), self.m_failCB)
+    MakeNetworkPopup(POPUP_TYPE.OK, Str(msg), self.m_failCB)
 end
 
 

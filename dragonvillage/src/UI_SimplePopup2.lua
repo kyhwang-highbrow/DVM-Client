@@ -14,7 +14,7 @@ UI_SimplePopup2 = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SimplePopup2:init(popup_type, msg, submsg, ok_btn_cb, cancel_btn_cb)
+function UI_SimplePopup2:init(popup_type, msg, submsg, ok_btn_cb, cancel_btn_cb, ui_z_order)
     self.m_popupType = popup_type
     self.m_msg = submsg
     self.m_submsg = msg
@@ -22,7 +22,7 @@ function UI_SimplePopup2:init(popup_type, msg, submsg, ok_btn_cb, cancel_btn_cb)
     self.m_cbCancelBtn = cancel_btn_cb
 
     local vars = self:load('popup_02.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, ui_z_order or UIManager.POPUP)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_backKey() end, 'UI_SimplePopup2')

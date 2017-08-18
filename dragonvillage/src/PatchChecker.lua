@@ -45,6 +45,8 @@ end
 ----------------------------------------
 -- function isUpdated
 -- @brief 앱 업데이트와 패치 업데이트 검사
+-- @return bool true : 패치나 업데이트가 있음
+--              false : 최신 버전의 상태
 ----------------------------------------
 function PatchChecker:isUpdated(ret, pass_func)
     local status = ret['status']
@@ -85,7 +87,7 @@ end
 function PatchChecker:needRecommendAppUpdate(pass_update_func)
     HideLoading()
     local msg = Str('새로운 버전의 게임이 업데이트 되었습니다.\n스토어를 통해 업데이트를 하기바랍니다.')
-    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, function() self:gotoAppStore() end, function() pass_update_func() end)
+    MakeNetworkPopup(POPUP_TYPE.YES_NO, msg, function() self:gotoAppStore() end, function() pass_update_func() end)
 end
 
 ----------------------------------------
@@ -95,7 +97,7 @@ end
 function PatchChecker:needNecessaryAppUpdate()
     HideLoading()
     local msg = Str('버전이 낮아서 게임에 접속할 수 없습니다.\n스토어를 통해 업데이트를 하기바랍니다.')
-    MakeSimplePopup(POPUP_TYPE.OK, msg, function() self:gotoAppStore() end)
+    MakeNetworkPopup(POPUP_TYPE.OK, msg, function() self:gotoAppStore() end)
 end
 
 ----------------------------------------
@@ -105,7 +107,7 @@ end
 function PatchChecker:needPatchUpdate()
     HideLoading()
     local msg = Str('새로운 패치가 있습니다.\n게임이 종료됩니다.\n자동으로 재시작된 후 패치가 적용됩니다.')
-    MakeSimplePopup(POPUP_TYPE.OK, msg, function() restart() end)
+    MakeNetworkPopup(POPUP_TYPE.OK, msg, function() restart() end)
 end
 
 ----------------------------------------

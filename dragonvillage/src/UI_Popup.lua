@@ -28,6 +28,26 @@ function MakeSimplePopup2(type, msg, submsg, ok_btn_cb, cancel_btn_cb)
 end
 
 -------------------------------------
+-- function MakeNetworkPopup
+-- @brief 네트워크 통신에서 사용되는 SimplePopup
+--        LOADING과 NETWORK POPUP은 동일한 레이어를 사용
+-------------------------------------
+function MakeNetworkPopup(type, msg, ok_btn_cb, cancel_btn_cb)
+    local popup = UI_SimplePopup(type, msg, ok_btn_cb, cancel_btn_cb, UIManager.LOADING)
+    return popup
+end
+
+-------------------------------------
+-- function MakeNetworkPopup2
+-- @brief 네트워크 통신에서 사용되는 SimplePopup2
+--        LOADING과 NETWORK POPUP은 동일한 레이어를 사용
+-------------------------------------
+function MakeNetworkPopup2(type, msg, submsg, ok_btn_cb, cancel_btn_cb)
+    local popup = UI_SimplePopup2(type, msg, submsg, ok_btn_cb, cancel_btn_cb, UIManager.LOADING)
+    return popup
+end
+
+-------------------------------------
 -- function MakeSimplePopup_Confirm
 -- @brief 단일 재화인 경우를 상정
 -------------------------------------
