@@ -80,7 +80,7 @@ public class AppActivity extends Cocos2dxActivity{
     static final String TAPJOY_SDK_KEY = "MZ5hVosGT1eLIW00UXCPvgEC7RNJdi2ZS0Kjtpd7IgoRLXg6N96edKY8h5cA";
 
     // @unity-ads
-    static final String UNITY_ADS_GAME_ID = "1483284";
+    static final String UNITY_ADS_GAME_ID = "1515686";
 
     static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
 

@@ -42,7 +42,7 @@
 #define ADBRIX_APP_KEY      @"696293230"
 #define ADBRIX_HASH_KEY     @"5c67709eb5c349c6"
 #define TAPJOY_SDK_KEY      @"Ws1LafcqRzuuBd763wqDOAEBFg9MYTtlr04omXYpDVNJIVl4ivGW9cK37TA2"
-#define UNITY_ADS_GAME_ID   @"1513227"
+#define UNITY_ADS_GAME_ID   @"1515685"
 
 // @idfa
 #import <AdSupport/ASIdentifierManager.h>
