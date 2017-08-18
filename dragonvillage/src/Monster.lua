@@ -330,12 +330,13 @@ function Monster.st_charge(owner, dt)
 
             owner.m_chargeEffect:setVisible(true)
             owner.m_chargeEffect:setFrame(0)
-            owner.m_chargeEffect:addAniHandler(function()
-                owner:changeState('attack')
-            end)
         else
             owner:changeState('attack')
         end
+
+    elseif (owner.m_stateTimer >= owner.m_chargeDuration) then
+        owner:changeState('attack')
+
     end
 end
 

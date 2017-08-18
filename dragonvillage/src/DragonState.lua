@@ -69,12 +69,13 @@ function Dragon.st_charge(owner, dt)
 
             owner.m_chargeEffect:setVisible(true)
             owner.m_chargeEffect:changeAni('idle_' .. attr, false)
-            owner.m_chargeEffect:addAniHandler(function()
-                owner:changeState('attack')
-            end)
         else
             owner:changeState('attack')
         end
+
+    elseif (owner.m_stateTimer >= owner.m_chargeDuration) then
+        owner:changeState('attack')
+
     end
 end
 
