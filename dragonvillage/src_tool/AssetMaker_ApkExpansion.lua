@@ -62,7 +62,7 @@ end
 -- @brief assets 경로에서 akp_expansion 경로로 이동
 -------------------------------------
 function AssetMaker_ApkExpansion:move(dir)
-    cclog('## AssetMaker_ApkExpansion:move : ' .. dir)
+    cclog('## AssetMaker_ApkExpansion:move - ' .. dir)
     util.moveDirectory(ASSETS_PATH .. dir, ASSETS_PATH_EXPANSION .. dir)
 end
 

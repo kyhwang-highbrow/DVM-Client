@@ -79,7 +79,7 @@ end
 -- @brief 
 -------------------------------------
 function AssetMaker:mirror(dir)
-    cclog('## AssetMaker:mirror : ' .. dir)
+    cclog('## AssetMaker:mirror - ' .. dir)
     util.mirrorDirectory(dir, string.format('%s\\%s', self.targetPath, dir))
 end
 
