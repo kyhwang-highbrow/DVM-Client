@@ -325,28 +325,21 @@ function ServerData:applySetting()
 end
 
 -------------------------------------
--- function RefreshGoods
--- @breif 이런 단순 반복적인 로직은 로컬함수나 Helper로 사용
--------------------------------------
-local function RefreshGoods(t_ret, goods)
-    if t_ret[goods] then
-        g_serverData:applyServerData(t_ret[goods], 'user', goods)
-        t_ret[goods] = nil
-    end
-end
-
--------------------------------------
 -- function networkCommonRespone
 -- @breif 중복되는 코드를 방지하기 위해 ret값에 예약된 데이터를 한번에 처리
 -------------------------------------
 function ServerData:networkCommonRespone(ret)
+    if (not ret) then
+        return
+    end
+
     -- 서버 시간 동기화
     if (ret['server_info'] and ret['server_info']['server_time']) then
         local server_time = math_floor(ret['server_info']['server_time'] / 1000)
         Timer:setServerTime(server_time)
     end
 
-    -- 스태미나 동기화
+       -- 스태미나 동기화
     if (ret['staminas']) then
         local data = ret['staminas']
         self:applyServerData(data, 'user', 'staminas')
@@ -354,31 +347,49 @@ function ServerData:networkCommonRespone(ret)
 
     do -- 재화 관련
         -- 캐시
-        RefreshGoods(ret, 'cash')
+        if ret['cash'] then
+            self:applyServerData(ret['cash'], 'user', 'cash')    
+        end
 
         -- 골드
-        RefreshGoods(ret, 'gold')
+        if ret['gold'] then
+            self:applyServerData(ret['gold'], 'user', 'gold')    
+        end
 
         -- 우정포인트
-        RefreshGoods(ret, 'fp')
+        if ret['fp'] then
+            self:applyServerData(ret['fp'], 'user', 'fp')
+        end
 
         -- 마일리지
-        RefreshGoods(ret, 'mileage')
+        if ret['mileage'] then
+            self:applyServerData(ret['mileage'], 'user', 'mileage')
+        end
 
         -- 열매 갯수
-        RefreshGoods(ret, 'fruits')
+        if ret['fruits'] then
+            self:applyServerData(ret['fruits'], 'user', 'fruits')
+        end
 
         -- 알 갯수
-        RefreshGoods(ret, 'eggs')
+        if ret['eggs'] then
+            self:applyServerData(ret['eggs'], 'user', 'eggs')
+        end
 
         -- 진화 재료 갱신
-        RefreshGoods(ret, 'evolution_stones')
+        if ret['evolution_stones'] then
+            self:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
+        end
 
         -- 티켓 갱신
-        RefreshGoods(ret, 'tickets')
+        if ret['tickets'] then
+            self:applyServerData(ret['tickets'], 'user', 'tickets')
+        end
 
         -- 캡슐
-        RefreshGoods(ret, 'capsule')
+        if ret['capsule'] then
+            self:applyServerData(ret['capsule'], 'user', 'capsule')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -420,6 +431,17 @@ function ServerData:unlockSaveData()
             self:saveServerDataFile()
         end
         self.m_bDirtyDataTable = false
+    end
+end
+
+-------------------------------------
+-- function RefreshGoods
+-- @breif 이런 단순 반복적인 로직은 로컬함수나 Helper로 사용
+-------------------------------------
+local function RefreshGoods(t_ret, goods)
+    if t_ret[goods] then
+        g_serverData:applyServerData(t_ret[goods], 'user', goods)
+        t_ret[goods] = nil
     end
 end
 
