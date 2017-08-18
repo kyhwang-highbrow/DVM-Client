@@ -1165,16 +1165,16 @@ end
 -------------------------------------
 -- function makeImmuneFont
 -------------------------------------
-function Character:makeImmuneFont(x, y)
+function Character:makeImmuneFont(x, y, scale)
 
     local sprite = cc.Sprite:create('res/font/ingame_immunity.png')
 
-    local scale = 1
+    scale = scale or 1
 
     sprite:setPosition(x, y)
     sprite:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
     sprite:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 170)), 1))
-    self.m_world:addChild3(sprite, DEPTH_IMMUNE_FONT) --TODO
+    self.m_world:addChild3(sprite, DEPTH_IMMUNE_FONT)
 end
 
 -------------------------------------

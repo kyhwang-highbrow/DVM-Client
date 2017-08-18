@@ -233,7 +233,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 	end
 
     if (target_char:isBoss() and t_status_effect['type'] == 'cc') then
-        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'])
+        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1.5)
         return nil
     end
 
