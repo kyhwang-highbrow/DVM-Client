@@ -563,8 +563,12 @@ function ccdisplay(...)
 	
 	local str = ''
 	for i, v in pairs({...}) do
-		str = str .. ' ' .. v
+        if (not v) then
+            v = 'nil'
+        end
+		str = str .. v
 	end
+
     UIManager:toastNotificationGreen(str)
 end
 
