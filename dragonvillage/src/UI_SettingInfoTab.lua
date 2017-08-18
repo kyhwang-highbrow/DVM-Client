@@ -44,5 +44,5 @@ end
 -- @brief 고객 센터
 -------------------------------------
 function UI_Setting:click_serviceBtn()
-    UIManager:toastNotificationRed(Str('"고객 센터"은 준비 중입니다.'))
+    SDKManager:goToWeb('http://www.dragonvillage.net/dvm')
 end
