@@ -199,11 +199,6 @@ function SceneGame:onEnter()
 
     self.m_inGameUI = UI_Game(self)
     self.m_resPreloadMgr = ResPreloadMgr()
-
-    -- 임시 fps 미터기
-    if (g_serverData and g_serverData:get('local', 'fps')) then
-        FpsMeter()
-    end
 end
 
 -------------------------------------
@@ -248,6 +243,12 @@ function SceneGame:prepare()
 
 		self.m_inGameUI:init_dpsUI()
 		self.m_inGameUI:init_panelUI()
+
+        -- fps 미터기
+        if (g_serverData and g_serverData:get('local', 'fps')) then
+            local fps_meter = FpsMeter()
+            fps_meter:init_physWolrd(self.m_gameWorld.m_physWorld)
+        end
     end)
 end
 
