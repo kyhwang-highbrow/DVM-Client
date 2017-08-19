@@ -398,11 +398,11 @@ function PhysObject:updatePhys(dt)
     -- 이동이 허용되고 일시 정지가 아닌 객체만 이동
     if (not self.apply_movement or self.m_temporaryPause) then return end
 
-    movement_x = self.speed * self.movement_x
-    movement_y = self.speed * self.movement_y
+    local movement_x = self.speed * self.movement_x
+    local movement_y = self.speed * self.movement_y
 
-    pos_x = self.pos.x + (movement_x * dt)
-    pos_y = self.pos.y + (movement_y * dt)
+    local pos_x = self.pos.x + (movement_x * dt)
+    local pos_y = self.pos.y + (movement_y * dt)
 
     if (pos_x ~= self.pos.x) or (pos_y ~= self.pos.y) then
         self:setPosition(pos_x, pos_y)
