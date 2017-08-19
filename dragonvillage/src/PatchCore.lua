@@ -129,7 +129,7 @@ function PatchCore:update(dt)
         end
         return
     end
-    --[[
+
 	-- 다운로드 사이즈와 퍼센트 계산
 	local curr_size = (self.m_downloadedSize / MB_TO_BYTE)
 	local total_size = (self.m_totalSize / MB_TO_BYTE)
@@ -147,7 +147,7 @@ function PatchCore:update(dt)
 	        self.m_patchGauge:setPercentage(download_percent)
         end
     end
-    --]]
+
 	-- 패치가이드 있을 시 패치가이드 업데이트
 	if (self.m_patchGuideUI) then
 		self.m_patchGuideUI:update(dt)
@@ -436,7 +436,7 @@ function PatchCore:st_downloadPatchFile(ret)
             -- 간혹 total_size 보다 훨씬 많은 량을 다운받기도 하는데
             -- 연결이 잠시 불안정한 동안 계속 같은 값의 size가 반복해서 들어오는 것으로 추정됨.
             -- 이를 막기 위해서 해당 패치의 총 다운로드 용량을 지정하여 거기까지만 출력하도록 함
-            self:printDebug(downed_size, total_size)
+            -- self:printDebug(downed_size, total_size)
 
             -- 현재 리소스 사이즈 보다 받은 사이즈가 크다면 더이상 처리하지 않는다.
             if (downed_size > total_size) then
