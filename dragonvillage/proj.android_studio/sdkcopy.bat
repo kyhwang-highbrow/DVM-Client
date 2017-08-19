@@ -1,1 +1,1 @@
-xcopy /y .\DragonVillageM\build\outputs\apk\*.* %USERPROFILE%\Desktop\apk
+xcopy /y .\app\build\outputs\apk\*.* %USERPROFILE%\Desktop\apk

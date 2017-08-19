@@ -4,8 +4,8 @@ import shutil
 directories = '''\
 ./.gradle
 ./build
-./DragonVillageM/.externalNativeBuild
-./DragonVillageM/build
+./app/.externalNativeBuild
+./app/build
 ../../cocos2d-x/cocos/platform/android/libcocos2dx/build
 ../../libraries/apk_expansion/downloader_library/build
 ../../libraries/apk_expansion/market_licensing/build

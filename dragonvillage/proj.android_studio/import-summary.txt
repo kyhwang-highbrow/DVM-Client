@@ -63,11 +63,11 @@ In market_licensing:
 * src\ => market_licensing\src\main\java\
 * src\com\android\vending\licensing\ILicenseResultListener.aidl => market_licensing\src\main\aidl\com\android\vending\licensing\ILicenseResultListener.aidl
 * src\com\android\vending\licensing\ILicensingService.aidl => market_licensing\src\main\aidl\com\android\vending\licensing\ILicensingService.aidl
-In DragonVillageM:
-* AndroidManifest.xml => DragonVillageM\src\main\AndroidManifest.xml
-* jni\ => DragonVillageM\src\main\jni\
-* res\ => DragonVillageM\src\main\res\
-* src\ => DragonVillageM\src\main\java\
+In app:
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* jni\ => app\src\main\jni\
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
 
 Next Steps:
 -----------
