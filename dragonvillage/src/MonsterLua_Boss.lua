@@ -39,7 +39,7 @@ end
 function MonsterLua_Boss:initScript(pattern_script_name, mid, is_boss)
     self.m_patternScriptName = pattern_script_name
 
-    local script = TABLE:loadPatternScript(pattern_script_name)
+    local script = self:getPatternTableFromScript(pattern_script_name)
     
     self.m_tOrgPattern = self:getBasePatternList()
     self.m_tCurrPattern = clone(self.m_tOrgPattern)
@@ -88,6 +88,49 @@ function MonsterLua_Boss:initScript(pattern_script_name, mid, is_boss)
     end
 end
 
+-------------------------------------
+-- function getPatternTableFromScript
+-------------------------------------
+function MonsterLua_Boss:getPatternTableFromScript(pattern_script_name)
+    local script = TABLE:loadPatternScript(pattern_script_name)
+
+    -- 2017-08-19 sgkim
+    -- 개발용으로 hp_trriger와 time_trriger를 기본 패턴에 삽입
+    if false then
+        local dev_pattern = {}
+
+        -- 기본 패턴
+        for _,v in ipairs(script[pattern_script_name]) do
+            for _,cmd in ipairs(v) do
+                table.insert(dev_pattern, cmd)
+            end
+        end
+        
+        -- 체력 트리거
+        if script['hp_trriger'] and script['hp_trriger']['list'] then
+            for _,v in ipairs(script['hp_trriger']['list']) do
+                for _,cmd in ipairs(v['pattern']) do
+                    table.insert(dev_pattern, cmd)
+                end
+            end
+        end
+
+        -- 시간 트리거
+        if script['time_trriger'] and script['time_trriger']['list'] then
+            for _,v in ipairs(script['time_trriger']['list']) do
+                for _,cmd in ipairs(v['pattern']) do
+                    table.insert(dev_pattern, cmd)
+                end
+            end
+        end
+
+        script[pattern_script_name] = {dev_pattern}
+        script['hp_trriger'] = nil
+        script['time_trriger'] = nil
+    end
+
+    return script
+end
 
 MonsterLua_Boss.st_attack = PARENT.st_attack
 
@@ -373,7 +416,7 @@ end
 -------------------------------------
 function MonsterLua_Boss:getBasePatternList()
     local pattern_script_name = self.m_patternScriptName
-    local script = TABLE:loadPatternScript(pattern_script_name)
+    local script = self:getPatternTableFromScript(pattern_script_name)
     local pattern_list_set = script[pattern_script_name]
     local pattern_list = pattern_list_set[math_random(1, #pattern_list_set)]
     local ret = {}
