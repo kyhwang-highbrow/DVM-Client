@@ -1,33 +1,80 @@
+-------------------------------------
+-- table AdsManager
+-- @brief 광고 SDK 매니져
+-------------------------------------
 AdsManager = {
     callback = function() end,
     mode = 'test',
 }
 
+-------------------------------------
+-- function skip
+-------------------------------------
+local function skip()
+    if (isWin32()) then 
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function prepare
+-------------------------------------
 function AdsManager:prepare()
+    if (skip()) then 
+        return
+    end
+
     self:start('', nil)
 end
 
+-------------------------------------
+-- function start
+-------------------------------------
 function AdsManager:start(placementId, result_cb)
+    if (skip()) then 
+        return
+    end
+
     self.callback = result_cb or function() end
-    PerpleSDK:unityAdsStart(self.mode, '', function(ret, info)
+
+    local function _result_cb(ret, info)
         cclog('UnityAds Callback - ret:' .. ret .. ',info:' .. info)
         self.callback(ret, info)
-    end)
+    end
+    PerpleSDK:unityAdsStart(self.mode, '', _result_cb)
 end
 
+-------------------------------------
+-- function show
+-------------------------------------
 function AdsManager:show(placementId, result_cb)
+    if (skip()) then 
+        return
+    end
+
     self.callback = result_cb or function() end
     PerpleSDK:unityAdsShow(placementId, '')
 end
 
+-------------------------------------
+-- function showPlacement
+-------------------------------------
 function AdsManager:showPlacement(placementId, result_cb)
-    self:start(placementId, function(ret, info)
-        if ret == 'ready' and info == placementId then
+    if (skip()) then 
+        return
+    end
+
+    local function _result_cb(ret, info)
+        if (ret == 'ready') and (info == placementId) then
             self:show(placementId, function(ret, info)
                 result_cb(ret, info)
             end)
         end
-    end)
+    end
+
+    self:start(placementId, _result_cb)
 end
 
 -- 호출 방법
