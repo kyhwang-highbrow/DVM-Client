@@ -1,0 +1,27 @@
+
+shot_heal_around.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shot_heal_around_01
+  rotate: false
+  xy: 2, 2
+  size: 302, 302
+  orig: 302, 302
+  offset: 0, 0
+  index: -1
+shot_heal_around_03
+  rotate: false
+  xy: 306, 63
+  size: 241, 241
+  orig: 241, 241
+  offset: 0, 0
+  index: -1
+shot_heal_around_05
+  rotate: false
+  xy: 549, 74
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1

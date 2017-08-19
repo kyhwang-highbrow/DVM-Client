@@ -1,0 +1,160 @@
+
+crescentdragon_fire_02.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+crescentdragon_fire_02_arm_01
+  rotate: true
+  xy: 269, 130
+  size: 34, 53
+  orig: 34, 53
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_arm_02
+  rotate: false
+  xy: 396, 138
+  size: 27, 47
+  orig: 27, 47
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_body_01
+  rotate: false
+  xy: 224, 166
+  size: 95, 88
+  orig: 95, 88
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_body_02
+  rotate: false
+  xy: 321, 187
+  size: 87, 67
+  orig: 87, 67
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_body_03
+  rotate: false
+  xy: 75, 39
+  size: 55, 60
+  orig: 55, 60
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_body_04
+  rotate: false
+  xy: 183, 100
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_effect_01
+  rotate: false
+  xy: 2, 101
+  size: 116, 153
+  orig: 116, 153
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_effect_02
+  rotate: true
+  xy: 474, 156
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_effect_03
+  rotate: false
+  xy: 425, 163
+  size: 47, 34
+  orig: 47, 34
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_eye_01
+  rotate: true
+  xy: 221, 54
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_foot_01
+  rotate: false
+  xy: 180, 53
+  size: 39, 45
+  orig: 39, 45
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_foot_02
+  rotate: true
+  xy: 425, 131
+  size: 30, 37
+  orig: 30, 37
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_hand_01
+  rotate: false
+  xy: 360, 135
+  size: 34, 50
+  orig: 34, 50
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_hand_02
+  rotate: true
+  xy: 75, 2
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_head_01
+  rotate: false
+  xy: 120, 145
+  size: 102, 109
+  orig: 102, 109
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_head_02
+  rotate: false
+  xy: 224, 88
+  size: 37, 27
+  orig: 37, 27
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_head_03
+  rotate: false
+  xy: 224, 117
+  size: 43, 47
+  orig: 43, 47
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_head_04
+  rotate: false
+  xy: 132, 48
+  size: 46, 54
+  orig: 46, 54
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_leg_01
+  rotate: true
+  xy: 120, 104
+  size: 39, 61
+  orig: 39, 61
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_leg_02
+  rotate: false
+  xy: 324, 134
+  size: 34, 51
+  orig: 34, 51
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_wing_01
+  rotate: false
+  xy: 2, 2
+  size: 71, 97
+  orig: 71, 97
+  offset: 0, 0
+  index: -1
+crescentdragon_fire_02_wing_02
+  rotate: true
+  xy: 410, 199
+  size: 55, 96
+  orig: 55, 96
+  offset: 0, 0
+  index: -1

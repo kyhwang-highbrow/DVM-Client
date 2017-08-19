@@ -1,0 +1,83 @@
+
+missile_gastric_juice_fire.png
+size: 2048,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+missile_gastric_juice_fire_01
+  rotate: false
+  xy: 2, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+missile_gastric_juice_fire_02
+  rotate: false
+  xy: 132, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+missile_gastric_juice_fire_03
+  rotate: false
+  xy: 262, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+missile_gastric_juice_fire_04
+  rotate: false
+  xy: 392, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+missile_gastric_juice_fire_05
+  rotate: false
+  xy: 522, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+missile_gastric_juice_fire_06
+  rotate: false
+  xy: 652, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+missile_gastric_juice_fire_07
+  rotate: false
+  xy: 782, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+missile_gastric_juice_fire_08
+  rotate: false
+  xy: 912, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+missile_gastric_juice_fire_09
+  rotate: false
+  xy: 1042, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+missile_gastric_juice_fire_10
+  rotate: false
+  xy: 1172, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+missile_gastric_juice_fire_11
+  rotate: false
+  xy: 1302, 2
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1

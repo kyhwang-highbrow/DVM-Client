@@ -1,0 +1,223 @@
+
+ladydragon_fire_03.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ladydragon_fire_03_acc_01
+  rotate: false
+  xy: 916, 116
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_acc_02
+  rotate: true
+  xy: 232, 2
+  size: 41, 28
+  orig: 41, 28
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_arm_01
+  rotate: true
+  xy: 859, 71
+  size: 42, 54
+  orig: 42, 54
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_arm_02
+  rotate: false
+  xy: 775, 2
+  size: 65, 78
+  orig: 65, 78
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_body_01
+  rotate: false
+  xy: 232, 45
+  size: 138, 209
+  orig: 138, 209
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_ear_01
+  rotate: true
+  xy: 876, 164
+  size: 54, 50
+  orig: 54, 50
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_effect_01
+  rotate: false
+  xy: 2, 24
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_effect_02
+  rotate: false
+  xy: 859, 115
+  size: 55, 47
+  orig: 55, 47
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_elbow_01
+  rotate: false
+  xy: 262, 14
+  size: 38, 29
+  orig: 38, 29
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_eye_l_01
+  rotate: true
+  xy: 967, 124
+  size: 36, 17
+  orig: 36, 17
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_eye_l_02
+  rotate: false
+  xy: 1009, 232
+  size: 13, 22
+  orig: 13, 22
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_eye_l_03
+  rotate: false
+  xy: 302, 20
+  size: 25, 23
+  orig: 25, 23
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_eye_l_04
+  rotate: false
+  xy: 372, 49
+  size: 23, 11
+  orig: 23, 11
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_eye_r_01
+  rotate: false
+  xy: 608, 188
+  size: 17, 14
+  orig: 17, 14
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_eye_r_02
+  rotate: true
+  xy: 262, 2
+  size: 10, 18
+  orig: 10, 18
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_eye_r_03
+  rotate: false
+  xy: 992, 184
+  size: 12, 18
+  orig: 12, 18
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_eye_r_04
+  rotate: false
+  xy: 842, 69
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_hair_01
+  rotate: true
+  xy: 505, 57
+  size: 114, 98
+  orig: 114, 98
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_hair_02
+  rotate: true
+  xy: 703, 67
+  size: 89, 70
+  orig: 89, 70
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_hair_04
+  rotate: true
+  xy: 372, 173
+  size: 29, 234
+  orig: 29, 234
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_hair_06
+  rotate: true
+  xy: 928, 204
+  size: 50, 79
+  orig: 50, 79
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_hair_07
+  rotate: false
+  xy: 775, 82
+  size: 82, 85
+  orig: 82, 85
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_hair_08
+  rotate: false
+  xy: 774, 220
+  size: 152, 34
+  orig: 152, 34
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_hair_09
+  rotate: true
+  xy: 372, 62
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_hand_01
+  rotate: true
+  xy: 928, 162
+  size: 40, 62
+  orig: 40, 62
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_head_01
+  rotate: false
+  xy: 605, 68
+  size: 96, 88
+  orig: 96, 88
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_head_s_01
+  rotate: true
+  xy: 1009, 216
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_leg_01
+  rotate: true
+  xy: 774, 169
+  size: 49, 100
+  orig: 49, 100
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_mouth_01
+  rotate: false
+  xy: 302, 2
+  size: 18, 16
+  orig: 18, 16
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_tail_01
+  rotate: false
+  xy: 372, 204
+  size: 256, 50
+  orig: 256, 50
+  offset: 0, 0
+  index: -1
+ladydragon_fire_03_wing_01
+  rotate: false
+  xy: 630, 158
+  size: 142, 96
+  orig: 142, 96
+  offset: 0, 0
+  index: -1

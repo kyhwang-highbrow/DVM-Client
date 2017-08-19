@@ -1,0 +1,111 @@
+
+common_lumiere_dark.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_lumiere_dark_armor_01
+  rotate: false
+  xy: 293, 35
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_armor_02
+  rotate: false
+  xy: 318, 35
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_body_01
+  rotate: false
+  xy: 358, 62
+  size: 61, 64
+  orig: 61, 64
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_effect_01
+  rotate: false
+  xy: 214, 61
+  size: 70, 65
+  orig: 70, 65
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_effect_02
+  rotate: false
+  xy: 128, 47
+  size: 84, 79
+  orig: 84, 79
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_effect_03
+  rotate: false
+  xy: 421, 86
+  size: 56, 40
+  orig: 56, 40
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_effect_04
+  rotate: false
+  xy: 265, 30
+  size: 26, 29
+  orig: 26, 29
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_effect_05
+  rotate: false
+  xy: 244, 20
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_hand_01
+  rotate: false
+  xy: 128, 5
+  size: 56, 40
+  orig: 56, 40
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_hand_02
+  rotate: false
+  xy: 421, 44
+  size: 56, 40
+  orig: 56, 40
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_head_01
+  rotate: false
+  xy: 286, 61
+  size: 70, 65
+  orig: 70, 65
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_head_02
+  rotate: false
+  xy: 2, 11
+  size: 124, 115
+  orig: 124, 115
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_head_03
+  rotate: false
+  xy: 186, 2
+  size: 56, 40
+  orig: 56, 40
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_leg_01
+  rotate: false
+  xy: 479, 92
+  size: 27, 34
+  orig: 27, 34
+  offset: 0, 0
+  index: -1
+common_lumiere_dark_leg_02
+  rotate: false
+  xy: 479, 56
+  size: 27, 34
+  orig: 27, 34
+  offset: 0, 0
+  index: -1

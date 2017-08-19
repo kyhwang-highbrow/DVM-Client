@@ -1,0 +1,55 @@
+
+skill_heal_moon.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_heal_moon_02
+  rotate: false
+  xy: 1, 265
+  size: 221, 215
+  orig: 221, 215
+  offset: 0, 0
+  index: -1
+skill_heal_moon_03
+  rotate: false
+  xy: 1, 1
+  size: 103, 89
+  orig: 103, 89
+  offset: 0, 0
+  index: -1
+skill_heal_moon_04
+  rotate: false
+  xy: 302, 633
+  size: 152, 176
+  orig: 152, 176
+  offset: 0, 0
+  index: -1
+skill_heal_moon_05
+  rotate: false
+  xy: 1, 482
+  size: 299, 327
+  orig: 299, 327
+  offset: 0, 0
+  index: -1
+skill_heal_moon_effect_01
+  rotate: false
+  xy: 302, 492
+  size: 105, 139
+  orig: 105, 139
+  offset: 0, 0
+  index: -1
+skill_heal_moon_sing_06
+  rotate: false
+  xy: 1, 92
+  size: 154, 171
+  orig: 154, 171
+  offset: 0, 0
+  index: -1
+skill_heal_moon_straw_04
+  rotate: false
+  xy: 456, 638
+  size: 154, 171
+  orig: 154, 171
+  offset: 0, 0
+  index: -1

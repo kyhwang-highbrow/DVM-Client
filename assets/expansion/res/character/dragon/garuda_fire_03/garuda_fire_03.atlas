@@ -1,0 +1,230 @@
+
+garuda_fire_03.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+garuda_fire_03_arm_01
+  rotate: false
+  xy: 1, 181
+  size: 130, 195
+  orig: 130, 195
+  offset: 0, 0
+  index: -1
+garuda_fire_03_arm_02
+  rotate: false
+  xy: 390, 603
+  size: 130, 195
+  orig: 130, 195
+  offset: 0, 0
+  index: -1
+garuda_fire_03_arm_03
+  rotate: false
+  xy: 390, 502
+  size: 130, 99
+  orig: 130, 99
+  offset: 0, 0
+  index: -1
+garuda_fire_03_arm_04
+  rotate: false
+  xy: 912, 1043
+  size: 89, 99
+  orig: 89, 99
+  offset: 0, 0
+  index: -1
+garuda_fire_03_arm_horn_01
+  rotate: false
+  xy: 133, 236
+  size: 157, 140
+  orig: 157, 140
+  offset: 0, 0
+  index: -1
+garuda_fire_03_arm_horn_02
+  rotate: false
+  xy: 1886, 1831
+  size: 85, 140
+  orig: 85, 140
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_01
+  rotate: false
+  xy: 779, 1144
+  size: 301, 189
+  orig: 301, 189
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_02
+  rotate: false
+  xy: 390, 800
+  size: 351, 214
+  orig: 351, 214
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0059
+  rotate: false
+  xy: 1, 1654
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0060
+  rotate: false
+  xy: 1, 1335
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0061
+  rotate: false
+  xy: 390, 1654
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0062
+  rotate: false
+  xy: 1, 1016
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0063
+  rotate: false
+  xy: 390, 1335
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0064
+  rotate: false
+  xy: 779, 1654
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0065
+  rotate: false
+  xy: 1, 697
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0066
+  rotate: false
+  xy: 390, 1016
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0067
+  rotate: false
+  xy: 779, 1335
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0068
+  rotate: false
+  xy: 1168, 1654
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_body_effect_01_s0069
+  rotate: false
+  xy: 1, 378
+  size: 387, 317
+  orig: 387, 317
+  offset: 0, 0
+  index: -1
+garuda_fire_03_eye_01
+  rotate: false
+  xy: 522, 684
+  size: 115, 114
+  orig: 115, 114
+  offset: 0, 0
+  index: -1
+garuda_fire_03_foot_01
+  rotate: true
+  xy: 779, 1033
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_fire_03_foot_02
+  rotate: true
+  xy: 1168, 1351
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_fire_03_hand_01
+  rotate: false
+  xy: 1557, 1690
+  size: 142, 89
+  orig: 142, 89
+  offset: 0, 0
+  index: -1
+garuda_fire_03_hand_02
+  rotate: true
+  xy: 292, 260
+  size: 116, 92
+  orig: 116, 92
+  offset: 0, 0
+  index: -1
+garuda_fire_03_head_01
+  rotate: false
+  xy: 1737, 1810
+  size: 147, 161
+  orig: 147, 161
+  offset: 0, 0
+  index: -1
+garuda_fire_03_head_02
+  rotate: false
+  xy: 1301, 1374
+  size: 90, 86
+  orig: 90, 86
+  offset: 0, 0
+  index: -1
+garuda_fire_03_head_03
+  rotate: false
+  xy: 1168, 1462
+  size: 276, 190
+  orig: 276, 190
+  offset: 0, 0
+  index: -1
+garuda_fire_03_head_04
+  rotate: false
+  xy: 1557, 1781
+  size: 178, 190
+  orig: 178, 190
+  offset: 0, 0
+  index: -1
+garuda_fire_03_head_05
+  rotate: false
+  xy: 1082, 1253
+  size: 55, 80
+  orig: 55, 80
+  offset: 0, 0
+  index: -1
+garuda_fire_03_head_06
+  rotate: true
+  xy: 1446, 1464
+  size: 55, 80
+  orig: 55, 80
+  offset: 0, 0
+  index: -1
+garuda_fire_03_leg_01
+  rotate: false
+  xy: 1446, 1521
+  size: 109, 131
+  orig: 109, 131
+  offset: 0, 0
+  index: -1
+garuda_fire_03_leg_02
+  rotate: false
+  xy: 1, 58
+  size: 109, 121
+  orig: 109, 121
+  offset: 0, 0
+  index: -1

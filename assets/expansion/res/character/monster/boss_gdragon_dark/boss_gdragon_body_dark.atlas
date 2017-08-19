@@ -1,0 +1,82 @@
+
+boss_gdragon_body_dark.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_gdragon_dark_body_01
+  rotate: true
+  xy: 2, 210
+  size: 1348, 688
+  orig: 1348, 688
+  offset: 0, 0
+  index: -1
+boss_gdragon_dark_body_02
+  rotate: false
+  xy: 692, 1142
+  size: 1267, 416
+  orig: 1267, 416
+  offset: 0, 0
+  index: -1
+boss_gdragon_dark_foot_01
+  rotate: false
+  xy: 1286, 2
+  size: 512, 624
+  orig: 512, 624
+  offset: 0, 0
+  index: -1
+boss_gdragon_dark_hand_01
+  rotate: true
+  xy: 1286, 628
+  size: 512, 692
+  orig: 512, 692
+  offset: 0, 0
+  index: -1
+boss_gdragon_dark_hand_02
+  rotate: false
+  xy: 692, 304
+  size: 592, 836
+  orig: 592, 836
+  offset: 0, 0
+  index: -1
+boss_gdragon_dark_jaw_02
+  rotate: false
+  xy: 692, 2
+  size: 489, 300
+  orig: 489, 300
+  offset: 0, 0
+  index: -1
+boss_gdragon_dark_wing_01
+  rotate: false
+  xy: 2, 1560
+  size: 1992, 483
+  orig: 1992, 483
+  offset: 0, 0
+  index: -1
+
+boss_gdragon_body_dark2.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_gdragon_dark_foot_02
+  rotate: false
+  xy: 2, 2
+  size: 644, 650
+  orig: 644, 650
+  offset: 0, 0
+  index: -1
+boss_gdragon_dark_head_01
+  rotate: false
+  xy: 1322, 100
+  size: 588, 552
+  orig: 588, 552
+  offset: 0, 0
+  index: -1
+boss_gdragon_dark_wing_02
+  rotate: false
+  xy: 648, 100
+  size: 672, 552
+  orig: 672, 552
+  offset: 0, 0
+  index: -1

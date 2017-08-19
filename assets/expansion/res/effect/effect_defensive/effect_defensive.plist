@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>effect_defensive_07.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{266,428}}</string>
+                <key>offset</key>
+                <string>{-84,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{88,72},{266,428}}</string>
+                <key>sourceSize</key>
+                <string>{610,572}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>effect_defensive.png</string>
+            <key>size</key>
+            <string>{270,432}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:f347f7240bdbd756872ac09d44e5ccd6:f865d49cce18c5bc7ab1dfef8a38dbf1:7b01bea176099b61eeb3942f0241c97a$</string>
+            <key>textureFileName</key>
+            <string>effect_defensive.png</string>
+        </dict>
+    </dict>
+</plist>

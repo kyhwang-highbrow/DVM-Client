@@ -1,0 +1,27 @@
+
+effect_hit_physical_fire.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_hit_physical_fire_01
+  rotate: false
+  xy: 374, 120
+  size: 88, 84
+  orig: 88, 84
+  offset: 0, 0
+  index: -1
+effect_hit_physical_fire_02
+  rotate: false
+  xy: 216, 40
+  size: 156, 164
+  orig: 156, 164
+  offset: 0, 0
+  index: -1
+effect_hit_physical_fire_03
+  rotate: false
+  xy: 2, 2
+  size: 212, 202
+  orig: 212, 202
+  offset: 0, 0
+  index: -1

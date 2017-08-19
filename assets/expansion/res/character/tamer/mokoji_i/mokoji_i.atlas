@@ -1,0 +1,398 @@
+
+mokoji_i.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mokoji_i_acc_01
+  rotate: false
+  xy: 541, 1107
+  size: 70, 55
+  orig: 70, 55
+  offset: 0, 0
+  index: -1
+mokoji_i_acc_02
+  rotate: false
+  xy: 1884, 1744
+  size: 40, 38
+  orig: 40, 38
+  offset: 0, 0
+  index: -1
+mokoji_i_acc_03
+  rotate: false
+  xy: 646, 1132
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+mokoji_i_acc_04
+  rotate: true
+  xy: 238, 1115
+  size: 115, 46
+  orig: 115, 46
+  offset: 0, 0
+  index: -1
+mokoji_i_arm_01
+  rotate: false
+  xy: 1833, 1784
+  size: 188, 262
+  orig: 188, 262
+  offset: 0, 0
+  index: -1
+mokoji_i_arm_02
+  rotate: true
+  xy: 1436, 1553
+  size: 134, 193
+  orig: 134, 193
+  offset: 0, 0
+  index: -1
+mokoji_i_arm_03
+  rotate: true
+  xy: 462, 1095
+  size: 67, 77
+  orig: 67, 77
+  offset: 0, 0
+  index: -1
+mokoji_i_back_01
+  rotate: true
+  xy: 1223, 1689
+  size: 357, 411
+  orig: 357, 411
+  offset: 0, 0
+  index: -1
+mokoji_i_belt_01
+  rotate: false
+  xy: 238, 991
+  size: 93, 109
+  orig: 93, 109
+  offset: 0, 0
+  index: -1
+mokoji_i_belt_02
+  rotate: false
+  xy: 218, 633
+  size: 49, 54
+  orig: 49, 54
+  offset: 0, 0
+  index: -1
+mokoji_i_body_01
+  rotate: false
+  xy: 309, 1533
+  size: 507, 513
+  orig: 507, 513
+  offset: 0, 0
+  index: -1
+mokoji_i_body_02
+  rotate: true
+  xy: 2, 376
+  size: 234, 208
+  orig: 234, 208
+  offset: 0, 0
+  index: -1
+mokoji_i_body_03
+  rotate: false
+  xy: 309, 1315
+  size: 274, 216
+  orig: 274, 216
+  offset: 0, 0
+  index: -1
+mokoji_i_brow_01
+  rotate: true
+  xy: 1761, 1459
+  size: 48, 31
+  orig: 48, 31
+  offset: 0, 0
+  index: -1
+mokoji_i_brow_02
+  rotate: true
+  xy: 613, 1130
+  size: 35, 31
+  orig: 35, 31
+  offset: 0, 0
+  index: -1
+mokoji_i_effect_01
+  rotate: false
+  xy: 2, 139
+  size: 183, 235
+  orig: 183, 235
+  offset: 0, 0
+  index: -1
+mokoji_i_effect_02
+  rotate: false
+  xy: 333, 1013
+  size: 80, 87
+  orig: 80, 87
+  offset: 0, 0
+  index: -1
+mokoji_i_effect_03
+  rotate: true
+  xy: 238, 895
+  size: 94, 90
+  orig: 94, 90
+  offset: 0, 0
+  index: -1
+mokoji_i_eye_01
+  rotate: true
+  xy: 1761, 1409
+  size: 48, 33
+  orig: 48, 33
+  offset: 0, 0
+  index: -1
+mokoji_i_eye_02
+  rotate: false
+  xy: 1926, 1749
+  size: 34, 33
+  orig: 34, 33
+  offset: 0, 0
+  index: -1
+mokoji_i_eye_03
+  rotate: false
+  xy: 1962, 1749
+  size: 34, 33
+  orig: 34, 33
+  offset: 0, 0
+  index: -1
+mokoji_i_eye_04
+  rotate: false
+  xy: 218, 798
+  size: 68, 53
+  orig: 68, 53
+  offset: 0, 0
+  index: -1
+mokoji_i_eye_05
+  rotate: true
+  xy: 1805, 1687
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+mokoji_i_eye_06
+  rotate: false
+  xy: 680, 1163
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+mokoji_i_eye_07
+  rotate: false
+  xy: 647, 1162
+  size: 31, 31
+  orig: 31, 31
+  offset: 0, 0
+  index: -1
+mokoji_i_eye_08
+  rotate: false
+  xy: 1838, 1738
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+mokoji_i_eye_09
+  rotate: true
+  xy: 1805, 1726
+  size: 46, 31
+  orig: 46, 31
+  offset: 0, 0
+  index: -1
+mokoji_i_eye_10
+  rotate: false
+  xy: 610, 1167
+  size: 35, 26
+  orig: 35, 26
+  offset: 0, 0
+  index: -1
+mokoji_i_face_01
+  rotate: false
+  xy: 764, 1350
+  size: 167, 177
+  orig: 167, 177
+  offset: 0, 0
+  index: -1
+mokoji_i_face_02
+  rotate: false
+  xy: 933, 1350
+  size: 167, 177
+  orig: 167, 177
+  offset: 0, 0
+  index: -1
+mokoji_i_face_03
+  rotate: false
+  xy: 1102, 1350
+  size: 167, 177
+  orig: 167, 177
+  offset: 0, 0
+  index: -1
+mokoji_i_face_04
+  rotate: false
+  xy: 1271, 1374
+  size: 167, 177
+  orig: 167, 177
+  offset: 0, 0
+  index: -1
+mokoji_i_finger_01
+  rotate: false
+  xy: 218, 689
+  size: 51, 57
+  orig: 51, 57
+  offset: 0, 0
+  index: -1
+mokoji_i_finger_02
+  rotate: false
+  xy: 405, 1119
+  size: 55, 74
+  orig: 55, 74
+  offset: 0, 0
+  index: -1
+mokoji_i_finger_03
+  rotate: false
+  xy: 218, 748
+  size: 63, 48
+  orig: 63, 48
+  offset: 0, 0
+  index: -1
+mokoji_i_finger_04
+  rotate: true
+  xy: 238, 853
+  size: 40, 69
+  orig: 40, 69
+  offset: 0, 0
+  index: -1
+mokoji_i_hair_01
+  rotate: true
+  xy: 2, 612
+  size: 246, 214
+  orig: 246, 214
+  offset: 0, 0
+  index: -1
+mokoji_i_hair_02
+  rotate: false
+  xy: 1636, 1661
+  size: 167, 111
+  orig: 167, 111
+  offset: 0, 0
+  index: -1
+mokoji_i_hair_03
+  rotate: true
+  xy: 1609, 1362
+  size: 145, 150
+  orig: 145, 150
+  offset: 0, 0
+  index: -1
+mokoji_i_hair_04
+  rotate: true
+  xy: 818, 1529
+  size: 145, 211
+  orig: 145, 211
+  offset: 0, 0
+  index: -1
+mokoji_i_hair_back01
+  rotate: false
+  xy: 1636, 1774
+  size: 195, 272
+  orig: 195, 272
+  offset: 0, 0
+  index: -1
+mokoji_i_hair_back02
+  rotate: false
+  xy: 2, 2
+  size: 103, 135
+  orig: 103, 135
+  offset: 0, 0
+  index: -1
+mokoji_i_hair_back03
+  rotate: true
+  xy: 1031, 1529
+  size: 145, 196
+  orig: 145, 196
+  offset: 0, 0
+  index: -1
+mokoji_i_hand_01
+  rotate: true
+  xy: 1229, 1553
+  size: 134, 205
+  orig: 134, 205
+  offset: 0, 0
+  index: -1
+mokoji_i_head_01
+  rotate: false
+  xy: 1440, 1374
+  size: 167, 177
+  orig: 167, 177
+  offset: 0, 0
+  index: -1
+mokoji_i_head_02
+  rotate: false
+  xy: 309, 1195
+  size: 151, 118
+  orig: 151, 118
+  offset: 0, 0
+  index: -1
+mokoji_i_head_03
+  rotate: true
+  xy: 1761, 1359
+  size: 48, 33
+  orig: 48, 33
+  offset: 0, 0
+  index: -1
+mokoji_i_neck_01
+  rotate: false
+  xy: 462, 1164
+  size: 146, 149
+  orig: 146, 149
+  offset: 0, 0
+  index: -1
+mokoji_i_reg_01
+  rotate: false
+  xy: 818, 1676
+  size: 403, 370
+  orig: 403, 370
+  offset: 0, 0
+  index: -1
+mokoji_i_reg_02
+  rotate: false
+  xy: 2, 860
+  size: 234, 370
+  orig: 234, 370
+  offset: 0, 0
+  index: -1
+mokoji_i_sholder_01
+  rotate: false
+  xy: 1631, 1509
+  size: 160, 150
+  orig: 160, 150
+  offset: 0, 0
+  index: -1
+mokoji_i_sholder_02
+  rotate: false
+  xy: 107, 16
+  size: 99, 121
+  orig: 99, 121
+  offset: 0, 0
+  index: -1
+mokoji_i_wepon_01
+  rotate: false
+  xy: 2, 1232
+  size: 305, 814
+  orig: 305, 814
+  offset: 0, 0
+  index: -1
+mokoji_i_wepon_02
+  rotate: false
+  xy: 610, 1195
+  size: 125, 132
+  orig: 125, 132
+  offset: 0, 0
+  index: -1
+mokoji_i_wepon_03
+  rotate: false
+  xy: 585, 1329
+  size: 177, 202
+  orig: 177, 202
+  offset: 0, 0
+  index: -1
+mokoji_i_wepon_04
+  rotate: false
+  xy: 286, 1102
+  size: 117, 91
+  orig: 117, 91
+  offset: 0, 0
+  index: -1

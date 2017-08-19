@@ -1,0 +1,188 @@
+
+elite_owlbear_fire.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+owlbear_fire_arm_01
+  rotate: true
+  xy: 872, 146
+  size: 96, 158
+  orig: 96, 158
+  offset: 0, 0
+  index: -1
+owlbear_fire_arm_02
+  rotate: true
+  xy: 1192, 146
+  size: 96, 122
+  orig: 96, 122
+  offset: 0, 0
+  index: -1
+owlbear_fire_arm_03
+  rotate: false
+  xy: 1708, 151
+  size: 96, 91
+  orig: 96, 91
+  offset: 0, 0
+  index: -1
+owlbear_fire_arm_04
+  rotate: true
+  xy: 1032, 146
+  size: 96, 158
+  orig: 96, 158
+  offset: 0, 0
+  index: -1
+owlbear_fire_body_01
+  rotate: false
+  xy: 728, 93
+  size: 142, 149
+  orig: 142, 149
+  offset: 0, 0
+  index: -1
+owlbear_fire_body_02
+  rotate: false
+  xy: 1882, 186
+  size: 67, 56
+  orig: 67, 56
+  offset: 0, 0
+  index: -1
+owlbear_fire_eye_01
+  rotate: true
+  xy: 2011, 208
+  size: 34, 35
+  orig: 34, 35
+  offset: 0, 0
+  index: -1
+owlbear_fire_eye_02
+  rotate: true
+  xy: 1951, 186
+  size: 56, 58
+  orig: 56, 58
+  offset: 0, 0
+  index: -1
+owlbear_fire_eye_03
+  rotate: false
+  xy: 1131, 113
+  size: 29, 31
+  orig: 29, 31
+  offset: 0, 0
+  index: -1
+owlbear_fire_eye_04
+  rotate: false
+  xy: 1162, 118
+  size: 25, 26
+  orig: 25, 26
+  offset: 0, 0
+  index: -1
+owlbear_fire_foot_01
+  rotate: false
+  xy: 931, 104
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+owlbear_fire_foot_02
+  rotate: false
+  xy: 971, 104
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+owlbear_fire_foot_03
+  rotate: false
+  xy: 1011, 104
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+owlbear_fire_foot_04
+  rotate: false
+  xy: 1051, 104
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+owlbear_fire_foot_05
+  rotate: true
+  xy: 872, 102
+  size: 42, 57
+  orig: 42, 57
+  offset: 0, 0
+  index: -1
+owlbear_fire_hand_01
+  rotate: false
+  xy: 1316, 150
+  size: 96, 92
+  orig: 96, 92
+  offset: 0, 0
+  index: -1
+owlbear_fire_hand_02
+  rotate: false
+  xy: 1414, 150
+  size: 96, 92
+  orig: 96, 92
+  offset: 0, 0
+  index: -1
+owlbear_fire_hand_03
+  rotate: false
+  xy: 1512, 150
+  size: 96, 92
+  orig: 96, 92
+  offset: 0, 0
+  index: -1
+owlbear_fire_hand_04
+  rotate: false
+  xy: 1610, 150
+  size: 96, 92
+  orig: 96, 92
+  offset: 0, 0
+  index: -1
+owlbear_fire_head_01
+  rotate: false
+  xy: 728, 16
+  size: 74, 75
+  orig: 74, 75
+  offset: 0, 0
+  index: -1
+owlbear_fire_head_02
+  rotate: false
+  xy: 804, 16
+  size: 53, 75
+  orig: 53, 75
+  offset: 0, 0
+  index: -1
+owlbear_fire_head_03
+  rotate: false
+  xy: 1806, 167
+  size: 74, 75
+  orig: 74, 75
+  offset: 0, 0
+  index: -1
+owlbear_fire_head_04
+  rotate: false
+  xy: 1091, 104
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+owlbear_fire_skill_01
+  rotate: false
+  xy: 2, 2
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+owlbear_fire_skill_02
+  rotate: false
+  xy: 244, 2
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+owlbear_fire_skill_03
+  rotate: false
+  xy: 486, 2
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1

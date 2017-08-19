@@ -1,0 +1,132 @@
+
+bomber_dark.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bomber_dark_body_01
+  rotate: false
+  xy: 2, 59
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+bomber_dark_body_02
+  rotate: true
+  xy: 39, 4
+  size: 53, 34
+  orig: 53, 34
+  offset: 0, 0
+  index: -1
+bomber_dark_body_03
+  rotate: false
+  xy: 162, 24
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+bomber_dark_body_04
+  rotate: false
+  xy: 163, 164
+  size: 52, 38
+  orig: 52, 38
+  offset: 0, 0
+  index: -1
+bomber_dark_effect_03
+  rotate: false
+  xy: 217, 163
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
+bomber_dark_effect_04
+  rotate: false
+  xy: 65, 67
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+bomber_dark_effect_05
+  rotate: true
+  xy: 84, 126
+  size: 57, 64
+  orig: 57, 64
+  offset: 0, 0
+  index: -1
+bomber_dark_effect_06
+  rotate: false
+  xy: 163, 204
+  size: 74, 50
+  orig: 74, 50
+  offset: 0, 0
+  index: -1
+bomber_dark_effect_07
+  rotate: true
+  xy: 75, 15
+  size: 50, 43
+  orig: 50, 43
+  offset: 0, 0
+  index: -1
+bomber_dark_hand_01
+  rotate: false
+  xy: 150, 126
+  size: 41, 36
+  orig: 41, 36
+  offset: 0, 0
+  index: -1
+bomber_dark_hand_02
+  rotate: false
+  xy: 120, 19
+  size: 40, 46
+  orig: 40, 46
+  offset: 0, 0
+  index: -1
+bomber_dark_hand_03
+  rotate: false
+  xy: 199, 99
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+bomber_dark_head_01
+  rotate: false
+  xy: 84, 185
+  size: 77, 69
+  orig: 77, 69
+  offset: 0, 0
+  index: -1
+bomber_dark_head_02
+  rotate: true
+  xy: 170, 75
+  size: 49, 27
+  orig: 49, 27
+  offset: 0, 0
+  index: -1
+bomber_dark_head_03
+  rotate: false
+  xy: 193, 134
+  size: 31, 27
+  orig: 31, 27
+  offset: 0, 0
+  index: -1
+bomber_dark_shoulder_01
+  rotate: false
+  xy: 2, 2
+  size: 35, 55
+  orig: 35, 55
+  offset: 0, 0
+  index: -1
+bomber_dark_weapon_01
+  rotate: false
+  xy: 2, 160
+  size: 80, 94
+  orig: 80, 94
+  offset: 0, 0
+  index: -1
+bomber_dark_weapon_02
+  rotate: false
+  xy: 125, 68
+  size: 43, 56
+  orig: 43, 56
+  offset: 0, 0
+  index: -1

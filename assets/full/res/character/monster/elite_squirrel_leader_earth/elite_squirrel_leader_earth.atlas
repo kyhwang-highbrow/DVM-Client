@@ -1,0 +1,160 @@
+
+elite_squirrel_leader_earth.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_squirrel_leader_earth_acc_01
+  rotate: false
+  xy: 2, 78
+  size: 125, 173
+  orig: 125, 173
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_acc_02
+  rotate: false
+  xy: 351, 56
+  size: 48, 66
+  orig: 48, 66
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_arm_01
+  rotate: false
+  xy: 277, 55
+  size: 72, 67
+  orig: 72, 67
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_arm_02
+  rotate: true
+  xy: 973, 158
+  size: 93, 45
+  orig: 93, 45
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_arm_03
+  rotate: false
+  xy: 795, 100
+  size: 93, 45
+  orig: 93, 45
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_body_01
+  rotate: false
+  xy: 129, 113
+  size: 142, 138
+  orig: 142, 138
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_effect_01
+  rotate: false
+  xy: 544, 127
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_effect_02
+  rotate: false
+  xy: 795, 147
+  size: 106, 104
+  orig: 106, 104
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_effect_04
+  rotate: false
+  xy: 273, 124
+  size: 136, 127
+  orig: 136, 127
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_effect_05
+  rotate: false
+  xy: 455, 75
+  size: 52, 50
+  orig: 52, 50
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_effect_06
+  rotate: false
+  xy: 903, 154
+  size: 68, 97
+  orig: 68, 97
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_effect_07
+  rotate: false
+  xy: 137, 14
+  size: 68, 97
+  orig: 68, 97
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_foot_01
+  rotate: false
+  xy: 601, 85
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_foot_02
+  rotate: false
+  xy: 631, 85
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_hand_01
+  rotate: false
+  xy: 509, 84
+  size: 44, 41
+  orig: 44, 41
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_hand_02
+  rotate: false
+  xy: 555, 84
+  size: 44, 41
+  orig: 44, 41
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_head_01
+  rotate: false
+  xy: 411, 127
+  size: 131, 124
+  orig: 131, 124
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_leg_01
+  rotate: true
+  xy: 207, 36
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_leg_02
+  rotate: true
+  xy: 401, 65
+  size: 57, 52
+  orig: 57, 52
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_weapon_01
+  rotate: false
+  xy: 277, 16
+  size: 58, 37
+  orig: 58, 37
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_weapon_02
+  rotate: false
+  xy: 674, 134
+  size: 119, 117
+  orig: 119, 117
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_weapon_03
+  rotate: false
+  xy: 2, 2
+  size: 133, 74
+  orig: 133, 74
+  offset: 0, 0
+  index: -1

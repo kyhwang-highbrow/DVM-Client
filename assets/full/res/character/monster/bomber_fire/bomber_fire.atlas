@@ -1,0 +1,118 @@
+
+bomber_fire.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bomber_fire_body_01
+  rotate: false
+  xy: 2, 27
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+bomber_fire_body_02
+  rotate: false
+  xy: 372, 92
+  size: 53, 34
+  orig: 53, 34
+  offset: 0, 0
+  index: -1
+bomber_fire_body_03
+  rotate: false
+  xy: 65, 2
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+bomber_fire_body_04
+  rotate: false
+  xy: 318, 88
+  size: 52, 38
+  orig: 52, 38
+  offset: 0, 0
+  index: -1
+bomber_fire_effect_03
+  rotate: true
+  xy: 475, 109
+  size: 17, 35
+  orig: 17, 35
+  offset: 0, 0
+  index: -1
+bomber_fire_effect_04
+  rotate: true
+  xy: 214, 2
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+bomber_fire_effect_05
+  rotate: false
+  xy: 214, 62
+  size: 57, 64
+  orig: 57, 64
+  offset: 0, 0
+  index: -1
+bomber_fire_effect_07
+  rotate: true
+  xy: 273, 18
+  size: 50, 43
+  orig: 50, 43
+  offset: 0, 0
+  index: -1
+bomber_fire_hand_01
+  rotate: true
+  xy: 107, 3
+  size: 41, 36
+  orig: 41, 36
+  offset: 0, 0
+  index: -1
+bomber_fire_hand_02
+  rotate: true
+  xy: 427, 86
+  size: 40, 46
+  orig: 40, 46
+  offset: 0, 0
+  index: -1
+bomber_fire_hand_03
+  rotate: true
+  xy: 475, 83
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+bomber_fire_head_01
+  rotate: false
+  xy: 135, 57
+  size: 77, 69
+  orig: 77, 69
+  offset: 0, 0
+  index: -1
+bomber_fire_head_02
+  rotate: false
+  xy: 318, 2
+  size: 49, 27
+  orig: 49, 27
+  offset: 0, 0
+  index: -1
+bomber_fire_shoulder_01
+  rotate: false
+  xy: 318, 31
+  size: 35, 55
+  orig: 35, 55
+  offset: 0, 0
+  index: -1
+bomber_fire_weapon_01
+  rotate: false
+  xy: 65, 46
+  size: 68, 80
+  orig: 68, 80
+  offset: 0, 0
+  index: -1
+bomber_fire_weapon_02
+  rotate: false
+  xy: 273, 70
+  size: 43, 56
+  orig: 43, 56
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,188 @@
+
+subboss_mushqueen2_earth.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mushqueen2_earth_acc_01
+  rotate: false
+  xy: 842, 153
+  size: 100, 101
+  orig: 100, 101
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_acc_02
+  rotate: true
+  xy: 266, 2
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_acc_03
+  rotate: false
+  xy: 944, 192
+  size: 78, 62
+  orig: 78, 62
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_arm_01
+  rotate: false
+  xy: 944, 142
+  size: 60, 48
+  orig: 60, 48
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_arm_02
+  rotate: false
+  xy: 204, 31
+  size: 60, 48
+  orig: 60, 48
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_body_01
+  rotate: true
+  xy: 605, 136
+  size: 118, 123
+  orig: 118, 123
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_body_02
+  rotate: false
+  xy: 2, 18
+  size: 155, 70
+  orig: 155, 70
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_body_03
+  rotate: false
+  xy: 480, 70
+  size: 118, 70
+  orig: 118, 70
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_cape_01
+  rotate: false
+  xy: 223, 81
+  size: 130, 59
+  orig: 130, 59
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_cape_02
+  rotate: false
+  xy: 600, 92
+  size: 134, 42
+  orig: 134, 42
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_cape_03
+  rotate: false
+  xy: 736, 82
+  size: 106, 59
+  orig: 106, 59
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_effect_01
+  rotate: false
+  xy: 304, 3
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_effect_02
+  rotate: true
+  xy: 204, 2
+  size: 27, 29
+  orig: 27, 29
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_effect_03
+  rotate: false
+  xy: 223, 142
+  size: 189, 112
+  orig: 189, 112
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_eye_01
+  rotate: false
+  xy: 382, 43
+  size: 34, 36
+  orig: 34, 36
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_eye_02
+  rotate: false
+  xy: 994, 104
+  size: 28, 36
+  orig: 28, 36
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_face_01
+  rotate: true
+  xy: 159, 9
+  size: 79, 43
+  orig: 79, 43
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_hair_01
+  rotate: false
+  xy: 2, 90
+  size: 219, 164
+  orig: 219, 164
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_hair_02
+  rotate: false
+  xy: 414, 142
+  size: 189, 112
+  orig: 189, 112
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_hair_03
+  rotate: false
+  xy: 844, 72
+  size: 87, 79
+  orig: 87, 79
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_head_01
+  rotate: false
+  xy: 730, 143
+  size: 110, 111
+  orig: 110, 111
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_head_02
+  rotate: false
+  xy: 933, 88
+  size: 59, 52
+  orig: 59, 52
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_leg_01
+  rotate: true
+  xy: 266, 39
+  size: 40, 56
+  orig: 40, 56
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_leg_02
+  rotate: true
+  xy: 324, 39
+  size: 40, 56
+  orig: 40, 56
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_mouth_01
+  rotate: false
+  xy: 600, 72
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+mushqueen2_earth_wepon_01
+  rotate: true
+  xy: 355, 81
+  size: 59, 123
+  orig: 59, 123
+  offset: 0, 0
+  index: -1

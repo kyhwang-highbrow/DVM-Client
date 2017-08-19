@@ -1,0 +1,167 @@
+
+elite_chandelier_dark.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_chandelier_dark_arm_01
+  rotate: false
+  xy: 1279, 79
+  size: 67, 62
+  orig: 67, 62
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_arm_02
+  rotate: false
+  xy: 1348, 79
+  size: 67, 62
+  orig: 67, 62
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_body_01
+  rotate: false
+  xy: 2, 2
+  size: 200, 233
+  orig: 200, 233
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_body_02
+  rotate: true
+  xy: 1846, 154
+  size: 81, 101
+  orig: 81, 101
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_body_03
+  rotate: false
+  xy: 584, 37
+  size: 143, 198
+  orig: 143, 198
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_body_04
+  rotate: false
+  xy: 729, 37
+  size: 143, 198
+  orig: 143, 198
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_body_05
+  rotate: false
+  xy: 874, 37
+  size: 143, 198
+  orig: 143, 198
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_body_06
+  rotate: false
+  xy: 1019, 37
+  size: 143, 198
+  orig: 143, 198
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_effect_01
+  rotate: false
+  xy: 204, 2
+  size: 200, 233
+  orig: 200, 233
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_effect_02
+  rotate: false
+  xy: 1417, 79
+  size: 67, 62
+  orig: 67, 62
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_effect_03
+  rotate: false
+  xy: 1486, 79
+  size: 67, 62
+  orig: 67, 62
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_eye_01
+  rotate: false
+  xy: 406, 6
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_eye_02
+  rotate: false
+  xy: 1164, 49
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_hand_01
+  rotate: false
+  xy: 1279, 143
+  size: 112, 92
+  orig: 112, 92
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_hand_02
+  rotate: false
+  xy: 1393, 143
+  size: 112, 92
+  orig: 112, 92
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_hand_03
+  rotate: false
+  xy: 1507, 143
+  size: 112, 92
+  orig: 112, 92
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_head_01
+  rotate: false
+  xy: 1949, 155
+  size: 68, 80
+  orig: 68, 80
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_head_02
+  rotate: true
+  xy: 1621, 160
+  size: 75, 115
+  orig: 75, 115
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_head_03
+  rotate: true
+  xy: 1738, 160
+  size: 75, 106
+  orig: 75, 106
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_head_04
+  rotate: false
+  xy: 406, 33
+  size: 176, 202
+  orig: 176, 202
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_head_05
+  rotate: false
+  xy: 1164, 76
+  size: 113, 159
+  orig: 113, 159
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_mouth_01
+  rotate: false
+  xy: 1555, 101
+  size: 34, 40
+  orig: 34, 40
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_mouth_02
+  rotate: false
+  xy: 1591, 101
+  size: 34, 40
+  orig: 34, 40
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,52 @@
+package Network.packet;
+
+option java_outer_classname = "Session";
+
+message CLoginReq {
+	required string uid = 1;
+	optional string nickname = 2;
+	optional string sessionKey = 3;
+	optional int32 recvCounter = 4;
+	optional int32 offset = 5;
+	optional string did = 6;
+	optional int32 level = 7;
+    optional int32 tamerTitleID = 8;
+}
+
+message SLoginRes {
+	required LoginResult ret = 1;
+	required string channelName = 2;
+	optional int32 numOfUsers = 3;
+	optional int32 encKey = 4;
+	optional string sessionKey = 5;
+	optional int32 sentCounter = 6;
+	optional string json = 7;
+	optional string channelGuild = 8;
+}
+
+message SUser {
+    required string uid = 1;
+    optional string tamer = 2;
+	optional string nickname = 3;
+    optional string did = 4;
+	optional int32 level = 5;
+    
+    // 플레이어 위치
+    optional float x = 6;
+    optional float y = 7;
+
+    // 테이머 칭호 ID
+    optional int32 tamerTitleID = 8;
+}
+
+message SLobbyUserList {
+    repeated SUser user = 1;
+}
+
+enum LoginResult {
+	Success = 0;
+	NoVacancy = 1;
+	RestartSession = 2;
+	UnknownError = 3;
+	InvalidAccess = 4;
+}

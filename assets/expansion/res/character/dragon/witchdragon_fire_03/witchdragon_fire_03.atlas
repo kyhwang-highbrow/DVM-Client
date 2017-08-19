@@ -1,0 +1,195 @@
+
+witchdragon_fire_03.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+witchdragon_fire_3_body_1
+  rotate: true
+  xy: 599, 734
+  size: 168, 260
+  orig: 168, 260
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_cape_1
+  rotate: false
+  xy: 224, 186
+  size: 122, 169
+  orig: 122, 169
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_cape_2
+  rotate: false
+  xy: 224, 28
+  size: 123, 156
+  orig: 123, 156
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_earring_1
+  rotate: false
+  xy: 341, 614
+  size: 14, 26
+  orig: 14, 26
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_eff_1
+  rotate: false
+  xy: 2, 357
+  size: 337, 283
+  orig: 337, 283
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_eff_2
+  rotate: false
+  xy: 2, 642
+  size: 362, 376
+  orig: 362, 376
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_eff_3
+  rotate: false
+  xy: 492, 401
+  size: 118, 136
+  orig: 118, 136
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_eff_4
+  rotate: false
+  xy: 341, 384
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_eff_5
+  rotate: false
+  xy: 2, 95
+  size: 220, 260
+  orig: 220, 260
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_eye_1
+  rotate: false
+  xy: 612, 429
+  size: 45, 49
+  orig: 45, 49
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_ghost_1
+  rotate: true
+  xy: 349, 2
+  size: 92, 128
+  orig: 92, 128
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_ghost_2
+  rotate: false
+  xy: 349, 96
+  size: 122, 136
+  orig: 122, 136
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_ghost_3
+  rotate: false
+  xy: 599, 633
+  size: 135, 99
+  orig: 135, 99
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_hair_1
+  rotate: false
+  xy: 940, 654
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_hair_2
+  rotate: true
+  xy: 348, 234
+  size: 148, 135
+  orig: 148, 135
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_hair_3
+  rotate: false
+  xy: 612, 480
+  size: 77, 81
+  orig: 77, 81
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_head_1
+  rotate: false
+  xy: 366, 541
+  size: 157, 150
+  orig: 157, 150
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_leg_1
+  rotate: true
+  xy: 2, 15
+  size: 78, 144
+  orig: 78, 144
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_leg_2
+  rotate: false
+  xy: 525, 539
+  size: 64, 152
+  orig: 64, 152
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_leg_3
+  rotate: true
+  xy: 591, 563
+  size: 68, 109
+  orig: 68, 109
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_leg_4
+  rotate: true
+  xy: 736, 628
+  size: 104, 125
+  orig: 104, 125
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_magic_1
+  rotate: false
+  xy: 366, 904
+  size: 466, 114
+  orig: 466, 114
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_tail_1
+  rotate: false
+  xy: 834, 913
+  size: 146, 105
+  orig: 146, 105
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_tailring_1
+  rotate: false
+  xy: 148, 30
+  size: 47, 63
+  orig: 47, 63
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_thing_1
+  rotate: false
+  xy: 863, 657
+  size: 75, 89
+  orig: 75, 89
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_wing_1
+  rotate: false
+  xy: 366, 693
+  size: 231, 209
+  orig: 231, 209
+  offset: 0, 0
+  index: -1
+witchdragon_fire_3_wing_2
+  rotate: false
+  xy: 861, 748
+  size: 119, 163
+  orig: 119, 163
+  offset: 0, 0
+  index: -1

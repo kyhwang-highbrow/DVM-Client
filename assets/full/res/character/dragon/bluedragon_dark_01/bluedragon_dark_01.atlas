@@ -1,0 +1,125 @@
+
+bluedragon_dark_01.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bluedragon_dark_01_arm_01
+  rotate: true
+  xy: 271, 298
+  size: 62, 45
+  orig: 62, 45
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_arm_02
+  rotate: true
+  xy: 77, 4
+  size: 62, 45
+  orig: 62, 45
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_bead_01
+  rotate: false
+  xy: 168, 262
+  size: 101, 98
+  orig: 101, 98
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_bead_02
+  rotate: true
+  xy: 441, 364
+  size: 67, 65
+  orig: 67, 65
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_bead_03
+  rotate: false
+  xy: 2, 334
+  size: 164, 172
+  orig: 164, 172
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_bead_04
+  rotate: false
+  xy: 2, 68
+  size: 130, 116
+  orig: 130, 116
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_body_01
+  rotate: false
+  xy: 318, 391
+  size: 121, 115
+  orig: 121, 115
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_body_02
+  rotate: false
+  xy: 134, 92
+  size: 87, 70
+  orig: 87, 70
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_body_03
+  rotate: false
+  xy: 318, 274
+  size: 121, 115
+  orig: 121, 115
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_effect_01
+  rotate: false
+  xy: 2, 186
+  size: 151, 146
+  orig: 151, 146
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_eye_01
+  rotate: false
+  xy: 155, 164
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_foot_01
+  rotate: false
+  xy: 441, 289
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_foot_02
+  rotate: false
+  xy: 223, 89
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_head_01
+  rotate: false
+  xy: 168, 362
+  size: 148, 144
+  orig: 148, 144
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_leg_01
+  rotate: true
+  xy: 2, 5
+  size: 61, 73
+  orig: 61, 73
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_leg_02
+  rotate: false
+  xy: 441, 433
+  size: 61, 73
+  orig: 61, 73
+  offset: 0, 0
+  index: -1
+bluedragon_dark_01_mouth_01
+  rotate: false
+  xy: 271, 277
+  size: 28, 19
+  orig: 28, 19
+  offset: 0, 0
+  index: -1

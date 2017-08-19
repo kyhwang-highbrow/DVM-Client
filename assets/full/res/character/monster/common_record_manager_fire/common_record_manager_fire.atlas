@@ -1,0 +1,69 @@
+
+common_record_manager_fire.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_record_manager_fire_body_01
+  rotate: false
+  xy: 2, 11
+  size: 101, 96
+  orig: 101, 96
+  offset: 0, 0
+  index: -1
+common_record_manager_fire_body_02
+  rotate: true
+  xy: 298, 2
+  size: 40, 55
+  orig: 40, 55
+  offset: 0, 0
+  index: -1
+common_record_manager_fire_body_03
+  rotate: false
+  xy: 361, 57
+  size: 61, 50
+  orig: 61, 50
+  offset: 0, 0
+  index: -1
+common_record_manager_fire_book_01
+  rotate: false
+  xy: 298, 44
+  size: 61, 63
+  orig: 61, 63
+  offset: 0, 0
+  index: -1
+common_record_manager_fire_hand _01
+  rotate: false
+  xy: 105, 11
+  size: 101, 96
+  orig: 101, 96
+  offset: 0, 0
+  index: -1
+common_record_manager_fire_hand _02
+  rotate: true
+  xy: 424, 56
+  size: 51, 52
+  orig: 51, 52
+  offset: 0, 0
+  index: -1
+common_record_manager_fire_hand _03
+  rotate: true
+  xy: 361, 4
+  size: 51, 52
+  orig: 51, 52
+  offset: 0, 0
+  index: -1
+common_record_manager_fire_hand _04
+  rotate: false
+  xy: 478, 77
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+common_record_manager_fire_head_01
+  rotate: false
+  xy: 208, 18
+  size: 88, 89
+  orig: 88, 89
+  offset: 0, 0
+  index: -1

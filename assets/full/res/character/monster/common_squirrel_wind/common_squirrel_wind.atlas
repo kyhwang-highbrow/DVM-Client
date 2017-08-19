@@ -1,0 +1,97 @@
+
+common_squirrel_wind.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_squirrel_wind_acc_01
+  rotate: false
+  xy: 86, 36
+  size: 53, 39
+  orig: 53, 39
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_acc_02
+  rotate: true
+  xy: 106, 6
+  size: 28, 39
+  orig: 28, 39
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_arm_01
+  rotate: false
+  xy: 160, 49
+  size: 33, 25
+  orig: 33, 25
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_arm_02
+  rotate: true
+  xy: 141, 50
+  size: 25, 17
+  orig: 25, 17
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_body_01
+  rotate: false
+  xy: 216, 74
+  size: 38, 47
+  orig: 38, 47
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_head_01
+  rotate: false
+  xy: 2, 34
+  size: 82, 87
+  orig: 82, 87
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_head_02
+  rotate: false
+  xy: 195, 50
+  size: 18, 24
+  orig: 18, 24
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_head_03
+  rotate: false
+  xy: 2, 2
+  size: 50, 30
+  orig: 50, 30
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_head_04
+  rotate: false
+  xy: 54, 2
+  size: 50, 30
+  orig: 50, 30
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_leg_01
+  rotate: false
+  xy: 215, 29
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_leg_02
+  rotate: false
+  xy: 215, 51
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_tail_01
+  rotate: false
+  xy: 86, 77
+  size: 74, 44
+  orig: 74, 44
+  offset: 0, 0
+  index: -1
+common_squirrel_wind_weapon_01
+  rotate: true
+  xy: 162, 76
+  size: 45, 52
+  orig: 45, 52
+  offset: 0, 0
+  index: -1

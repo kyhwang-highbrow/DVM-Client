@@ -1,0 +1,40 @@
+package Network.packet;
+
+option java_outer_classname = "Chat";
+
+message CChatNormalMsg {
+	required string	message = 1;
+	required string nickname = 2;
+}
+
+message CChatChangeChannel {
+	required string channelName = 1;
+}
+
+message SChatChangeChannel {
+	required ChatChangeChannelResult ret = 1;
+	required string	channelName = 2;
+	optional int32 numOfUsers = 3;
+    optional bytes user = 4;
+}
+
+message SChatResponse {
+	required string	json = 1;
+	optional bytes dataBytes = 2;
+}
+
+message SWhisperResponse {
+	required string	json = 1;
+	optional bytes dataBytes = 2;
+}
+
+enum ChatChannelType {
+	Normal = 0;
+	Guild = 1;
+}
+
+enum ChatChangeChannelResult {
+	Success = 0;
+	NoVacancy = 1;
+	NotExist = 2;
+}

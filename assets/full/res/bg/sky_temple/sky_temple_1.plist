@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>sky_temple_1_a.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{1920,800}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{1920,800}}</string>
+                <key>sourceSize</key>
+                <string>{1920,800}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>sky_temple_1.png</string>
+            <key>size</key>
+            <string>{1924,804}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:6c9d20585b38045f6bd9e295b462a238:12bf33683b563eda99586c6c3fc3c77c:9360c5d9425cf3a256bc7272c2f74177$</string>
+            <key>textureFileName</key>
+            <string>sky_temple_1.png</string>
+        </dict>
+    </dict>
+</plist>

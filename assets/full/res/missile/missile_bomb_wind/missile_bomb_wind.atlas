@@ -1,0 +1,34 @@
+
+missile_bomb_wind.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+missile_bomb_wind_01
+  rotate: false
+  xy: 2, 45
+  size: 68, 80
+  orig: 68, 80
+  offset: 0, 0
+  index: -1
+missile_bomb_wind_02
+  rotate: false
+  xy: 72, 70
+  size: 51, 55
+  orig: 51, 55
+  offset: 0, 0
+  index: -1
+missile_bomb_wind_03
+  rotate: true
+  xy: 2, 2
+  size: 41, 48
+  orig: 41, 48
+  offset: 0, 0
+  index: -1
+missile_bomb_wind_04
+  rotate: true
+  xy: 72, 28
+  size: 40, 43
+  orig: 40, 43
+  offset: 0, 0
+  index: -1

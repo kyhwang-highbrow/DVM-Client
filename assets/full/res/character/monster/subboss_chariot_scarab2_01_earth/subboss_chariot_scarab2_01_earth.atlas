@@ -1,0 +1,90 @@
+
+subboss_chariot_scarab2_01_earth.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+subboss_chariot_scarab2_01_earth_arm_01
+  rotate: false
+  xy: 1956, 128
+  size: 78, 82
+  orig: 78, 82
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_arm_02
+  rotate: true
+  xy: 644, 69
+  size: 141, 227
+  orig: 141, 227
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_body_01
+  rotate: false
+  xy: 1075, 50
+  size: 182, 160
+  orig: 182, 160
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_body_02
+  rotate: false
+  xy: 463, 18
+  size: 179, 192
+  orig: 179, 192
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_body_03
+  rotate: false
+  xy: 272, 5
+  size: 189, 205
+  orig: 189, 205
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_head_01
+  rotate: true
+  xy: 2, 2
+  size: 208, 268
+  orig: 208, 268
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_leg_01
+  rotate: false
+  xy: 1849, 112
+  size: 105, 98
+  orig: 105, 98
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_leg_02
+  rotate: true
+  xy: 873, 81
+  size: 129, 200
+  orig: 129, 200
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_leg_03
+  rotate: false
+  xy: 1425, 54
+  size: 156, 156
+  orig: 156, 156
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_leg_04
+  rotate: true
+  xy: 1583, 93
+  size: 117, 172
+  orig: 117, 172
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_leg_05
+  rotate: false
+  xy: 1757, 93
+  size: 90, 117
+  orig: 90, 117
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_01_earth_line
+  rotate: false
+  xy: 1259, 48
+  size: 164, 162
+  orig: 164, 162
+  offset: 0, 0
+  index: -1

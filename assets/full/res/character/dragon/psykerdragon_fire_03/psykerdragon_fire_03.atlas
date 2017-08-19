@@ -1,0 +1,160 @@
+
+psykerdragon_fire_03.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+psykerdragon_fire_03_arm_01
+  rotate: true
+  xy: 1295, 1554
+  size: 182, 211
+  orig: 182, 211
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_body_01
+  rotate: false
+  xy: 1, 1682
+  size: 552, 358
+  orig: 552, 358
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_body_02
+  rotate: false
+  xy: 1087, 1540
+  size: 206, 196
+  orig: 206, 196
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_effect_01
+  rotate: false
+  xy: 311, 78
+  size: 49, 82
+  orig: 49, 82
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_effect_02
+  rotate: false
+  xy: 1, 1378
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_effect_03
+  rotate: false
+  xy: 555, 1738
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_effect_04
+  rotate: false
+  xy: 1, 1074
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_effect_05
+  rotate: false
+  xy: 1087, 1738
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_effect_06
+  rotate: false
+  xy: 1, 770
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_effect_07
+  rotate: false
+  xy: 1, 466
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_effect_08
+  rotate: false
+  xy: 1, 162
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_effect_09
+  rotate: false
+  xy: 555, 1434
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_eye_01
+  rotate: false
+  xy: 311, 51
+  size: 27, 25
+  orig: 27, 25
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_eye_02
+  rotate: false
+  xy: 1580, 1723
+  size: 37, 13
+  orig: 37, 13
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_eye_03
+  rotate: false
+  xy: 1238, 1509
+  size: 43, 29
+  orig: 43, 29
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_eye_04
+  rotate: false
+  xy: 159, 12
+  size: 60, 34
+  orig: 60, 34
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_head_01
+  rotate: true
+  xy: 1619, 1692
+  size: 348, 421
+  orig: 348, 421
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_head_02
+  rotate: false
+  xy: 1, 2
+  size: 156, 158
+  orig: 156, 158
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_head_03
+  rotate: false
+  xy: 1508, 1662
+  size: 70, 74
+  orig: 70, 74
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_mouth_01
+  rotate: false
+  xy: 1087, 1435
+  size: 149, 103
+  orig: 149, 103
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_mouth_02
+  rotate: false
+  xy: 1508, 1631
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+psykerdragon_fire_03_wing_01
+  rotate: false
+  xy: 159, 48
+  size: 150, 112
+  orig: 150, 112
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,104 @@
+
+common_elemental_wind.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_elemental_wind_attack_01
+  rotate: false
+  xy: 2, 2
+  size: 109, 118
+  orig: 109, 118
+  offset: 0, 0
+  index: -1
+common_elemental_wind_attack_02
+  rotate: false
+  xy: 113, 2
+  size: 109, 118
+  orig: 109, 118
+  offset: 0, 0
+  index: -1
+common_elemental_wind_attack_03
+  rotate: false
+  xy: 224, 2
+  size: 109, 118
+  orig: 109, 118
+  offset: 0, 0
+  index: -1
+common_elemental_wind_body_01
+  rotate: false
+  xy: 335, 4
+  size: 72, 26
+  orig: 72, 26
+  offset: 0, 0
+  index: -1
+common_elemental_wind_body_02
+  rotate: false
+  xy: 409, 4
+  size: 72, 26
+  orig: 72, 26
+  offset: 0, 0
+  index: -1
+common_elemental_wind_body_03
+  rotate: false
+  xy: 870, 88
+  size: 72, 32
+  orig: 72, 32
+  offset: 0, 0
+  index: -1
+common_elemental_wind_body_04
+  rotate: false
+  xy: 870, 54
+  size: 72, 32
+  orig: 72, 32
+  offset: 0, 0
+  index: -1
+common_elemental_wind_hair_01
+  rotate: false
+  xy: 335, 32
+  size: 114, 88
+  orig: 114, 88
+  offset: 0, 0
+  index: -1
+common_elemental_wind_hair_02
+  rotate: false
+  xy: 451, 32
+  size: 114, 88
+  orig: 114, 88
+  offset: 0, 0
+  index: -1
+common_elemental_wind_hair_03
+  rotate: false
+  xy: 567, 32
+  size: 114, 88
+  orig: 114, 88
+  offset: 0, 0
+  index: -1
+common_elemental_wind_hair_04
+  rotate: false
+  xy: 683, 32
+  size: 114, 88
+  orig: 114, 88
+  offset: 0, 0
+  index: -1
+common_elemental_wind_head_01
+  rotate: false
+  xy: 799, 51
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+common_elemental_wind_lowerbody_01
+  rotate: false
+  xy: 944, 74
+  size: 55, 46
+  orig: 55, 46
+  offset: 0, 0
+  index: -1
+common_elemental_wind_lowerbody_02
+  rotate: false
+  xy: 944, 26
+  size: 55, 46
+  orig: 55, 46
+  offset: 0, 0
+  index: -1

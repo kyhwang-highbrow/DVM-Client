@@ -1,0 +1,195 @@
+
+sitael_light_02.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sitael_light_02_arm_01
+  rotate: true
+  xy: 658, 792
+  size: 77, 85
+  orig: 77, 85
+  offset: 0, 0
+  index: -1
+sitael_light_02_arm_02
+  rotate: true
+  xy: 307, 637
+  size: 52, 100
+  orig: 52, 100
+  offset: 0, 0
+  index: -1
+sitael_light_02_body_01
+  rotate: false
+  xy: 2, 793
+  size: 301, 223
+  orig: 301, 223
+  offset: 0, 0
+  index: -1
+sitael_light_02_body_armor_01
+  rotate: false
+  xy: 232, 624
+  size: 73, 167
+  orig: 73, 167
+  offset: 0, 0
+  index: -1
+sitael_light_02_body_armor_02
+  rotate: true
+  xy: 68, 261
+  size: 120, 96
+  orig: 120, 96
+  offset: 0, 0
+  index: -1
+sitael_light_02_calf_01
+  rotate: false
+  xy: 166, 315
+  size: 43, 60
+  orig: 43, 60
+  offset: 0, 0
+  index: -1
+sitael_light_02_effect_01
+  rotate: false
+  xy: 2, 561
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+sitael_light_02_elbow_01
+  rotate: true
+  xy: 765, 887
+  size: 47, 115
+  orig: 47, 115
+  offset: 0, 0
+  index: -1
+sitael_light_02_elbow_02
+  rotate: true
+  xy: 930, 922
+  size: 94, 86
+  orig: 94, 86
+  offset: 0, 0
+  index: -1
+sitael_light_02_eye_01
+  rotate: false
+  xy: 398, 694
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+sitael_light_02_eye_02
+  rotate: false
+  xy: 62, 96
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+sitael_light_02_foot_01
+  rotate: false
+  xy: 2, 87
+  size: 58, 130
+  orig: 58, 130
+  offset: 0, 0
+  index: -1
+sitael_light_02_foot_armor_01
+  rotate: false
+  xy: 2, 3
+  size: 46, 82
+  orig: 46, 82
+  offset: 0, 0
+  index: -1
+sitael_light_02_hand_01
+  rotate: true
+  xy: 232, 564
+  size: 58, 72
+  orig: 58, 72
+  offset: 0, 0
+  index: -1
+sitael_light_02_hand_02
+  rotate: false
+  xy: 62, 132
+  size: 46, 76
+  orig: 46, 76
+  offset: 0, 0
+  index: -1
+sitael_light_02_hand_armor_01
+  rotate: true
+  xy: 536, 801
+  size: 68, 120
+  orig: 68, 120
+  offset: 0, 0
+  index: -1
+sitael_light_02_hand_armor_02
+  rotate: false
+  xy: 307, 691
+  size: 89, 112
+  orig: 89, 112
+  offset: 0, 0
+  index: -1
+sitael_light_02_head_01
+  rotate: false
+  xy: 536, 871
+  size: 227, 145
+  orig: 227, 145
+  offset: 0, 0
+  index: -1
+sitael_light_02_head_armor_01
+  rotate: false
+  xy: 398, 730
+  size: 118, 73
+  orig: 118, 73
+  offset: 0, 0
+  index: -1
+sitael_light_02_horn_01
+  rotate: true
+  xy: 68, 383
+  size: 176, 97
+  orig: 176, 97
+  offset: 0, 0
+  index: -1
+sitael_light_02_horn_02
+  rotate: false
+  xy: 765, 936
+  size: 163, 80
+  orig: 163, 80
+  offset: 0, 0
+  index: -1
+sitael_light_02_mouth_01
+  rotate: false
+  xy: 68, 210
+  size: 79, 49
+  orig: 79, 49
+  offset: 0, 0
+  index: -1
+sitael_light_02_mouth_02
+  rotate: true
+  xy: 882, 887
+  size: 47, 20
+  orig: 47, 20
+  offset: 0, 0
+  index: -1
+sitael_light_02_neck_01
+  rotate: true
+  xy: 167, 377
+  size: 62, 48
+  orig: 62, 48
+  offset: 0, 0
+  index: -1
+sitael_light_02_tail_01
+  rotate: true
+  xy: 2, 219
+  size: 340, 64
+  orig: 340, 64
+  offset: 0, 0
+  index: -1
+sitael_light_02_thigh_01
+  rotate: false
+  xy: 167, 441
+  size: 49, 118
+  orig: 49, 118
+  offset: 0, 0
+  index: -1
+sitael_light_02_wing_01
+  rotate: true
+  xy: 305, 805
+  size: 211, 229
+  orig: 211, 229
+  offset: 0, 0
+  index: -1

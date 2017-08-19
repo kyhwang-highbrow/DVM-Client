@@ -1,0 +1,69 @@
+
+boss_gdragon_head_fire.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_gdragon_fire_body_01
+  rotate: false
+  xy: 1, 1349
+  size: 1348, 688
+  orig: 1348, 688
+  offset: 0, 0
+  index: -1
+boss_gdragon_fire_eff_01
+  rotate: false
+  xy: 1351, 1421
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+boss_gdragon_fire_hand_01
+  rotate: true
+  xy: 1351, 1525
+  size: 512, 692
+  orig: 512, 692
+  offset: 0, 0
+  index: -1
+boss_gdragon_fire_hand_02
+  rotate: false
+  xy: 1, 511
+  size: 592, 836
+  orig: 592, 836
+  offset: 0, 0
+  index: -1
+boss_gdragon_fire_head_01
+  rotate: false
+  xy: 595, 795
+  size: 588, 552
+  orig: 588, 552
+  offset: 0, 0
+  index: -1
+boss_gdragon_fire_head_02
+  rotate: false
+  xy: 1, 1
+  size: 180, 206
+  orig: 180, 206
+  offset: 0, 0
+  index: -1
+boss_gdragon_fire_jaw_01
+  rotate: false
+  xy: 595, 519
+  size: 294, 274
+  orig: 294, 274
+  offset: 0, 0
+  index: -1
+boss_gdragon_fire_jaw_02
+  rotate: false
+  xy: 1, 209
+  size: 489, 300
+  orig: 489, 300
+  offset: 0, 0
+  index: -1
+boss_gdragon_fire_jaw_03
+  rotate: false
+  xy: 891, 519
+  size: 294, 274
+  orig: 294, 274
+  offset: 0, 0
+  index: -1

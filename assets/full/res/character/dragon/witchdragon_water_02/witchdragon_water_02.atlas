@@ -1,0 +1,167 @@
+
+witchdragon_water_02.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+witchdragon_water_2_body_1
+  rotate: false
+  xy: 366, 646
+  size: 168, 260
+  orig: 168, 260
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_cape_1
+  rotate: true
+  xy: 834, 900
+  size: 122, 169
+  orig: 122, 169
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_cape_2
+  rotate: false
+  xy: 345, 204
+  size: 123, 156
+  orig: 123, 156
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_earring_1
+  rotate: false
+  xy: 470, 334
+  size: 15, 26
+  orig: 15, 26
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_eff_1
+  rotate: false
+  xy: 2, 362
+  size: 335, 282
+  orig: 335, 282
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_eff_2
+  rotate: false
+  xy: 2, 646
+  size: 362, 376
+  orig: 362, 376
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_eff_3
+  rotate: false
+  xy: 824, 762
+  size: 118, 136
+  orig: 118, 136
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_eff_4
+  rotate: false
+  xy: 536, 751
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_eff_5
+  rotate: false
+  xy: 2, 100
+  size: 220, 260
+  orig: 220, 260
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_eye_1
+  rotate: false
+  xy: 664, 692
+  size: 37, 57
+  orig: 37, 57
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_hair_1
+  rotate: true
+  xy: 351, 82
+  size: 50, 93
+  orig: 50, 93
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_hair_2
+  rotate: true
+  xy: 687, 758
+  size: 148, 135
+  orig: 148, 135
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_hair_3
+  rotate: false
+  xy: 157, 18
+  size: 77, 80
+  orig: 77, 80
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_head_1
+  rotate: false
+  xy: 339, 494
+  size: 157, 150
+  orig: 157, 150
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_leg_1
+  rotate: false
+  xy: 944, 747
+  size: 78, 151
+  orig: 78, 151
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_leg_2
+  rotate: true
+  xy: 2, 33
+  size: 65, 153
+  orig: 65, 153
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_leg_3
+  rotate: true
+  xy: 351, 134
+  size: 68, 109
+  orig: 68, 109
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_leg_4
+  rotate: true
+  xy: 536, 645
+  size: 104, 126
+  orig: 104, 126
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_magic_1
+  rotate: false
+  xy: 366, 908
+  size: 466, 114
+  orig: 466, 114
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_tail_1
+  rotate: false
+  xy: 224, 108
+  size: 125, 87
+  orig: 125, 87
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_thing_1
+  rotate: true
+  xy: 236, 31
+  size: 75, 89
+  orig: 75, 89
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_wing_1
+  rotate: false
+  xy: 339, 362
+  size: 151, 130
+  orig: 151, 130
+  offset: 0, 0
+  index: -1
+witchdragon_water_2_wing_2
+  rotate: false
+  xy: 224, 197
+  size: 119, 163
+  orig: 119, 163
+  offset: 0, 0
+  index: -1

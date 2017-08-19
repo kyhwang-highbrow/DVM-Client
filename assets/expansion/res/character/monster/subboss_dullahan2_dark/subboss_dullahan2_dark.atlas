@@ -1,0 +1,370 @@
+
+subboss_dullahan2_dark.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+subboss_dullahan2_dark_arm_01
+  rotate: false
+  xy: 1064, 496
+  size: 229, 175
+  orig: 229, 175
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_arm_02
+  rotate: false
+  xy: 1924, 869
+  size: 117, 153
+  orig: 117, 153
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_arm_03
+  rotate: false
+  xy: 678, 2
+  size: 125, 160
+  orig: 125, 160
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_arm_04
+  rotate: true
+  xy: 983, 190
+  size: 109, 83
+  orig: 109, 83
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_armor_01
+  rotate: true
+  xy: 1912, 532
+  size: 95, 102
+  orig: 95, 102
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_armor_02
+  rotate: false
+  xy: 1893, 428
+  size: 95, 102
+  orig: 95, 102
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_body_01
+  rotate: false
+  xy: 456, 632
+  size: 410, 390
+  orig: 410, 390
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_body_02
+  rotate: false
+  xy: 1637, 277
+  size: 125, 107
+  orig: 125, 107
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_body_03
+  rotate: true
+  xy: 805, 37
+  size: 125, 107
+  orig: 125, 107
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_body_04
+  rotate: false
+  xy: 1924, 629
+  size: 109, 83
+  orig: 109, 83
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_body_05
+  rotate: false
+  xy: 1068, 284
+  size: 109, 83
+  orig: 109, 83
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_body_06
+  rotate: false
+  xy: 1179, 284
+  size: 109, 83
+  orig: 109, 83
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_body_07
+  rotate: false
+  xy: 1068, 199
+  size: 109, 83
+  orig: 109, 83
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_body_08
+  rotate: true
+  xy: 367, 103
+  size: 201, 139
+  orig: 201, 139
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_cloak_01
+  rotate: false
+  xy: 868, 673
+  size: 352, 349
+  orig: 352, 349
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_cloak_02
+  rotate: false
+  xy: 1222, 673
+  size: 352, 349
+  orig: 352, 349
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_effect_01
+  rotate: false
+  xy: 1758, 417
+  size: 133, 115
+  orig: 133, 115
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_effect_02
+  rotate: false
+  xy: 886, 301
+  size: 133, 115
+  orig: 133, 115
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_effect_03
+  rotate: false
+  xy: 848, 184
+  size: 133, 115
+  orig: 133, 115
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_effect_04
+  rotate: true
+  xy: 1501, 500
+  size: 171, 133
+  orig: 171, 133
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_effect_05
+  rotate: true
+  xy: 914, 57
+  size: 125, 107
+  orig: 125, 107
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_effect_06
+  rotate: false
+  xy: 2, 665
+  size: 452, 357
+  orig: 452, 357
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_effect_07
+  rotate: false
+  xy: 1023, 70
+  size: 104, 118
+  orig: 104, 118
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_effect_08
+  rotate: false
+  xy: 1576, 689
+  size: 346, 333
+  orig: 346, 333
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_effect_09
+  rotate: true
+  xy: 456, 310
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_foot_01
+  rotate: false
+  xy: 508, 130
+  size: 168, 199
+  orig: 168, 199
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_foot_02
+  rotate: true
+  xy: 1293, 331
+  size: 163, 210
+  orig: 163, 210
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_foot_03
+  rotate: false
+  xy: 1290, 252
+  size: 95, 77
+  orig: 95, 77
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_haed_01
+  rotate: true
+  xy: 1295, 496
+  size: 175, 204
+  orig: 175, 204
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_haed_02
+  rotate: false
+  xy: 1505, 327
+  size: 130, 171
+  orig: 130, 171
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_haed_04
+  rotate: true
+  xy: 1179, 208
+  size: 74, 107
+  orig: 74, 107
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_haed_07
+  rotate: false
+  xy: 456, 331
+  size: 220, 299
+  orig: 220, 299
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_haed_08
+  rotate: true
+  xy: 2, 6
+  size: 82, 121
+  orig: 82, 121
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_haed_09
+  rotate: true
+  xy: 1764, 282
+  size: 133, 115
+  orig: 133, 115
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_hand_01
+  rotate: false
+  xy: 1924, 714
+  size: 117, 153
+  orig: 117, 153
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_hand_02
+  rotate: false
+  xy: 1793, 534
+  size: 117, 153
+  orig: 117, 153
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_hand_03
+  rotate: true
+  xy: 508, 28
+  size: 100, 121
+  orig: 100, 121
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_hand_04
+  rotate: true
+  xy: 125, 6
+  size: 82, 121
+  orig: 82, 121
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_hand_05
+  rotate: true
+  xy: 1288, 192
+  size: 58, 81
+  orig: 58, 81
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_knee_01
+  rotate: true
+  xy: 1472, 247
+  size: 78, 79
+  orig: 78, 79
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_knee_02
+  rotate: true
+  xy: 1553, 247
+  size: 78, 79
+  orig: 78, 79
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_knee_03
+  rotate: true
+  xy: 248, 6
+  size: 82, 121
+  orig: 82, 121
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_knife_01
+  rotate: false
+  xy: 2, 306
+  size: 452, 357
+  orig: 452, 357
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_leg_01
+  rotate: false
+  xy: 678, 365
+  size: 206, 265
+  orig: 206, 265
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_leg_02
+  rotate: false
+  xy: 678, 164
+  size: 168, 199
+  orig: 168, 199
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_leg_03
+  rotate: false
+  xy: 1637, 386
+  size: 119, 146
+  orig: 119, 146
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_leg_04
+  rotate: false
+  xy: 371, 18
+  size: 120, 83
+  orig: 120, 83
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_line_01
+  rotate: false
+  xy: 1064, 369
+  size: 227, 125
+  orig: 227, 125
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_mouth_01
+  rotate: true
+  xy: 1387, 247
+  size: 82, 83
+  orig: 82, 83
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_neck_01
+  rotate: false
+  xy: 886, 418
+  size: 176, 253
+  orig: 176, 253
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_saddle_01
+  rotate: false
+  xy: 1636, 534
+  size: 155, 153
+  orig: 155, 153
+  offset: 0, 0
+  index: -1
+subboss_dullahan2_dark_tail_01
+  rotate: true
+  xy: 2, 90
+  size: 214, 363
+  orig: 214, 363
+  offset: 0, 0
+  index: -1

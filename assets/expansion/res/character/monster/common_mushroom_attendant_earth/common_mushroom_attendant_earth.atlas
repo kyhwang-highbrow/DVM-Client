@@ -1,0 +1,48 @@
+
+common_mushroom_attendant_earth.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attendant_arm_01
+  rotate: false
+  xy: 142, 23
+  size: 69, 79
+  orig: 69, 79
+  offset: 0, 0
+  index: -1
+attendant_arm_02
+  rotate: false
+  xy: 213, 23
+  size: 69, 79
+  orig: 69, 79
+  offset: 0, 0
+  index: -1
+attendant_body_01
+  rotate: false
+  xy: 284, 23
+  size: 69, 79
+  orig: 69, 79
+  offset: 0, 0
+  index: -1
+attendant_body_03
+  rotate: false
+  xy: 426, 38
+  size: 80, 64
+  orig: 80, 64
+  offset: 0, 0
+  index: -1
+attendant_body_04
+  rotate: false
+  xy: 2, 2
+  size: 138, 100
+  orig: 138, 100
+  offset: 0, 0
+  index: -1
+attendant_mouth_01
+  rotate: false
+  xy: 355, 23
+  size: 69, 79
+  orig: 69, 79
+  offset: 0, 0
+  index: -1

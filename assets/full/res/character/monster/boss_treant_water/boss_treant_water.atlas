@@ -1,0 +1,180 @@
+
+boss_treant_water.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_treant_water_acc_01
+  rotate: true
+  xy: 686, 856
+  size: 396, 563
+  orig: 396, 563
+  offset: 0, 0
+  index: -1
+boss_treant_water_arm_01
+  rotate: true
+  xy: 1272, 19
+  size: 474, 659
+  orig: 474, 659
+  offset: 0, 0
+  index: -1
+boss_treant_water_body_01
+  rotate: false
+  xy: 1260, 922
+  size: 784, 1118
+  orig: 784, 1118
+  offset: 0, 0
+  index: -1
+boss_treant_water_eff_02
+  rotate: true
+  xy: 363, 856
+  size: 104, 106
+  orig: 104, 106
+  offset: 0, 0
+  index: -1
+boss_treant_water_eff_03
+  rotate: true
+  xy: 2, 2
+  size: 54, 51
+  orig: 54, 51
+  offset: 0, 0
+  index: -1
+boss_treant_water_eye_01
+  rotate: true
+  xy: 1090, 618
+  size: 236, 135
+  orig: 236, 135
+  offset: 0, 0
+  index: -1
+boss_treant_water_finger_03
+  rotate: true
+  xy: 341, 962
+  size: 290, 343
+  orig: 290, 343
+  offset: 0, 0
+  index: -1
+boss_treant_water_finger_05
+  rotate: true
+  xy: 2, 928
+  size: 324, 337
+  orig: 324, 337
+  offset: 0, 0
+  index: -1
+boss_treant_water_finger_06
+  rotate: false
+  xy: 822, 515
+  size: 266, 339
+  orig: 266, 339
+  offset: 0, 0
+  index: -1
+boss_treant_water_hand_01
+  rotate: false
+  xy: 1251, 495
+  size: 758, 425
+  orig: 758, 425
+  offset: 0, 0
+  index: -1
+boss_treant_water_hand_02
+  rotate: false
+  xy: 363, 10
+  size: 444, 483
+  orig: 444, 483
+  offset: 0, 0
+  index: -1
+boss_treant_water_jaw_01
+  rotate: true
+  xy: 363, 500
+  size: 354, 457
+  orig: 354, 457
+  offset: 0, 0
+  index: -1
+boss_treant_water_leaf_01
+  rotate: false
+  xy: 2, 1254
+  size: 1256, 786
+  orig: 1256, 786
+  offset: 0, 0
+  index: -1
+boss_treant_water_leaf_02
+  rotate: true
+  xy: 2, 58
+  size: 862, 359
+  orig: 862, 359
+  offset: 0, 0
+  index: -1
+boss_treant_water_shoulder_01
+  rotate: true
+  xy: 809, 13
+  size: 480, 461
+  orig: 480, 461
+  offset: 0, 0
+  index: -1
+
+boss_treant_water2.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_treant_water_eff_01
+  rotate: false
+  xy: 2, 201
+  size: 753, 744
+  orig: 753, 744
+  offset: 0, 0
+  index: -1
+boss_treant_water_eff_04
+  rotate: false
+  xy: 613, 72
+  size: 127, 127
+  orig: 127, 127
+  offset: 0, 0
+  index: -1
+boss_treant_water_finger_01
+  rotate: false
+  xy: 1394, 114
+  size: 228, 252
+  orig: 228, 252
+  offset: 0, 0
+  index: -1
+boss_treant_water_finger_02
+  rotate: true
+  xy: 2, 2
+  size: 197, 380
+  orig: 197, 380
+  offset: 0, 0
+  index: -1
+boss_treant_water_finger_04
+  rotate: false
+  xy: 1394, 368
+  size: 241, 256
+  orig: 241, 256
+  offset: 0, 0
+  index: -1
+boss_treant_water_finger_07
+  rotate: true
+  xy: 384, 9
+  size: 190, 227
+  orig: 190, 227
+  offset: 0, 0
+  index: -1
+boss_treant_water_fruit_01
+  rotate: false
+  xy: 757, 626
+  size: 1170, 319
+  orig: 1170, 319
+  offset: 0, 0
+  index: -1
+boss_treant_water_head_01
+  rotate: true
+  xy: 757, 72
+  size: 552, 635
+  orig: 552, 635
+  offset: 0, 0
+  index: -1
+boss_treant_water_mouth_01
+  rotate: false
+  xy: 1637, 460
+  size: 216, 164
+  orig: 216, 164
+  offset: 0, 0
+  index: -1

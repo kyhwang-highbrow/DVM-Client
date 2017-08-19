@@ -1,0 +1,48 @@
+
+effect_hit_bomb_water.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_hit_bomb_water_01
+  rotate: false
+  xy: 100, 39
+  size: 81, 82
+  orig: 81, 82
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_water_02
+  rotate: false
+  xy: 2, 2
+  size: 96, 119
+  orig: 96, 119
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_water_03
+  rotate: false
+  xy: 376, 329
+  size: 152, 155
+  orig: 152, 155
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_water_04
+  rotate: false
+  xy: 2, 123
+  size: 372, 361
+  orig: 372, 361
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_water_05
+  rotate: false
+  xy: 530, 397
+  size: 80, 87
+  orig: 80, 87
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_water_07
+  rotate: false
+  xy: 376, 247
+  size: 103, 80
+  orig: 103, 80
+  offset: 0, 0
+  index: -1

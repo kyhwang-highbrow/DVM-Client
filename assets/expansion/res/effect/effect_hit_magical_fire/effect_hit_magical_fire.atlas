@@ -1,0 +1,48 @@
+
+effect_hit_magical_fire.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_hit_magical_fire_01
+  rotate: false
+  xy: 2, 2
+  size: 440, 413
+  orig: 440, 413
+  offset: 0, 0
+  index: -1
+effect_hit_magical_fire_02
+  rotate: true
+  xy: 1520, 122
+  size: 96, 119
+  orig: 96, 119
+  offset: 0, 0
+  index: -1
+effect_hit_magical_fire_03
+  rotate: false
+  xy: 1520, 220
+  size: 198, 195
+  orig: 198, 195
+  offset: 0, 0
+  index: -1
+effect_hit_magical_fire_04
+  rotate: false
+  xy: 444, 54
+  size: 372, 361
+  orig: 372, 361
+  offset: 0, 0
+  index: -1
+effect_hit_magical_fire_05
+  rotate: false
+  xy: 818, 54
+  size: 372, 361
+  orig: 372, 361
+  offset: 0, 0
+  index: -1
+effect_hit_magical_fire_06
+  rotate: false
+  xy: 1192, 100
+  size: 326, 315
+  orig: 326, 315
+  offset: 0, 0
+  index: -1

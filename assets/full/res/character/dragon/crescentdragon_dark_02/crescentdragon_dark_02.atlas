@@ -1,0 +1,167 @@
+
+crescentdragon_dark_02.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+crescentdragon_dark_02_arm_01
+  rotate: true
+  xy: 340, 2
+  size: 34, 53
+  orig: 34, 53
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_arm_02
+  rotate: false
+  xy: 484, 2
+  size: 27, 47
+  orig: 27, 47
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_body_01
+  rotate: false
+  xy: 340, 38
+  size: 95, 88
+  orig: 95, 88
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_body_02
+  rotate: false
+  xy: 534, 59
+  size: 87, 67
+  orig: 87, 67
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_body_03
+  rotate: false
+  xy: 671, 54
+  size: 77, 72
+  orig: 77, 72
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_body_04
+  rotate: false
+  xy: 879, 83
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_effect_01
+  rotate: true
+  xy: 2, 10
+  size: 116, 153
+  orig: 116, 153
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_effect_02
+  rotate: false
+  xy: 957, 92
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_effect_03
+  rotate: true
+  xy: 448, 2
+  size: 47, 34
+  orig: 47, 34
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_effect_04
+  rotate: false
+  xy: 437, 51
+  size: 95, 75
+  orig: 95, 75
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_eye_01
+  rotate: true
+  xy: 791, 43
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_foot_01
+  rotate: false
+  xy: 838, 81
+  size: 39, 45
+  orig: 39, 45
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_foot_02
+  rotate: true
+  xy: 709, 22
+  size: 30, 37
+  orig: 30, 37
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_hand_01
+  rotate: false
+  xy: 632, 2
+  size: 34, 50
+  orig: 34, 50
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_hand_02
+  rotate: false
+  xy: 920, 83
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_head_01
+  rotate: false
+  xy: 157, 17
+  size: 102, 109
+  orig: 102, 109
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_head_02
+  rotate: false
+  xy: 668, 23
+  size: 39, 29
+  orig: 39, 29
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_head_03
+  rotate: false
+  xy: 791, 77
+  size: 45, 49
+  orig: 45, 49
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_head_04
+  rotate: false
+  xy: 623, 72
+  size: 46, 54
+  orig: 46, 54
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_leg_01
+  rotate: false
+  xy: 750, 65
+  size: 39, 61
+  orig: 39, 61
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_leg_02
+  rotate: true
+  xy: 395, 2
+  size: 34, 51
+  orig: 34, 51
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_wing_01
+  rotate: false
+  xy: 261, 19
+  size: 77, 107
+  orig: 77, 107
+  offset: 0, 0
+  index: -1
+crescentdragon_dark_02_wing_02
+  rotate: true
+  xy: 534, 2
+  size: 55, 96
+  orig: 55, 96
+  offset: 0, 0
+  index: -1

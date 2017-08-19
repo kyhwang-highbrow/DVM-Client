@@ -1,0 +1,20 @@
+
+missile_bomb_water.png
+size: 128,64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+missile_bomb_water_01
+  rotate: true
+  xy: 2, 2
+  size: 59, 73
+  orig: 59, 73
+  offset: 0, 0
+  index: -1
+missile_bomb_water_04
+  rotate: false
+  xy: 77, 14
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1

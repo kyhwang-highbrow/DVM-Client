@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>lobby_indicator_circle.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,25},{176,76}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{9,1},{176,76}}</string>
+				<key>sourceSize</key>
+				<string>{193,79}</string>
+			</dict>
+
+			<key>lobby_indicator_line.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{1267,24}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{8,16},{1267,24}}</string>
+				<key>sourceSize</key>
+				<string>{1280,56}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{2048,128}</string>
+			<key>textureFileName</key>
+			<string>lobby_indicator.png</string>
+			</dict>
+		</dict>
+</plist>
