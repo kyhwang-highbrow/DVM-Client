@@ -31,18 +31,21 @@ function AssetMaker_ApkExpansion:run()
     util.makeDirectory(ASSETS_PATH_EXPANSION)
 
     -- 이동
-    self:moveForExpansion()
+    self:moveToExpansion()
+
+    -- 압축
+    self:compress()
 
     stopwatch:stop()
     stopwatch:print()
 end
 
 -------------------------------------
--- function moveForExpansion
+-- function moveToExpansion
 -- @brief 100mb 이하로 만들기 위해 패치 받는 동안은 없어도 되는 것들 삭제
 -------------------------------------
-function AssetMaker_ApkExpansion:moveForExpansion()
-    cclog('## AssetMaker_ApkExpansion:moveForExpansion')
+function AssetMaker_ApkExpansion:moveToExpansion()
+    cclog('## AssetMaker_ApkExpansion:moveToExpansion')
 
     -- 파일 이동
     self:move('\\sound')
@@ -87,6 +90,25 @@ function AssetMaker_ApkExpansion:moveDragonRes()
 
     -- robocopy move
     os.execute(string.format('robocopy "%s" "%s" /MOVE /E /NFL /NDL /NJH /NJS /XD .svn %s', ASSETS_PATH .. dragon_path, ASSETS_PATH_EXPANSION .. dragon_path, exception_list_str))
+end
+
+-------------------------------------
+-- function compress
+-- @brief expansion 압축 파일 생성
+-------------------------------------
+function AssetMaker_ApkExpansion:compress()
+    cclog('## AssetMaker_ApkExpansion:compress')
+
+    util.changeDir(ASSETS_PATH_EXPANSION)
+
+    local version_code = 11
+    local package_name = 'com.perplelab.dragonvillagem.kr'
+    local obb_path = string.format(OBB_FORMAT, version_code, package_name)
+
+    -- -r : recurse into directories
+    -- -n : don't compress these suffixes
+    -- -q : quiet operation
+    os.execute(string.format('..\\..\\..\\..\\res\\tools\\zip\\zip.exe -rqn ".mp3;.ogg" %s *', obb_path))
 end
 
 -------------------------------------
