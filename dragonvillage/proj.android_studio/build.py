@@ -8,7 +8,7 @@ import os
 
 # clean
 os.system('clean.py')
-#os.system('gradlew clean')
+os.system('gradlew clean')
 
 # build
 os.system('gradlew assembleRelease')
