@@ -4,7 +4,7 @@
 -------------------------------------
 AdsManager = {
     callback = function() end,
-    mode = 'test',
+    mode = '',
 }
 
 -------------------------------------
@@ -48,6 +48,10 @@ function AdsManager:start(placementId, result_cb)
     local function _result_cb(ret, info)
         cclog('UnityAds Callback - ret:' .. ret .. ',info:' .. info)
         self.callback(ret, info)
+    end
+
+    if (isTestMode()) then
+        self.mode = 'test'
     end
 
     PerpleSDK:unityAdsStart(self.mode, '', _result_cb)
