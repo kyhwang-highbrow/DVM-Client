@@ -6,7 +6,7 @@
 
 #include "cocos2d.h"
 #include "../Classes/AppDelegate.h"
-#include "../Classes/LoginPlatform.h"
+#include "../Classes/PerpConstant.h"
 
 using namespace std;
 using namespace cocos2d;

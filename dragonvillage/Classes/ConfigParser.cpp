@@ -60,80 +60,14 @@ void ConfigParser::readConfig()
                          _initViewSize.width = tmpvalue;
                     }
                 }
-                if (objectInitView.HasMember("name") && objectInitView["name"].IsString())
-                {
-                    _viewName = objectInitView["name"].GetString();
-                }
                 if (objectInitView.HasMember("isLandscape") && objectInitView["isLandscape"].IsBool())
                 {
                     _isLandscape = objectInitView["isLandscape"].GetBool();
-                }
-                if (objectInitView.HasMember("entry") && objectInitView["entry"].IsString())
-                {
-                    _entryfile = objectInitView["entry"].GetString();
-                }
-                if (objectInitView.HasMember("isTestMode") && objectInitView["isTestMode"].IsBool())
-                {
-                    _isTestMode = objectInitView["isTestMode"].GetBool();
                 }
 				if (objectInitView.HasMember("scale") && objectInitView["scale"].GetDouble())
                 {
 					_scale = objectInitView["scale"].GetDouble();
 				}
-				if (objectInitView.HasMember("useIdeDebug") && objectInitView["useIdeDebug"].IsBool())
-                {
-					_useIdeDebug = objectInitView["useIdeDebug"].GetBool();
-				}
-				if (objectInitView.HasMember("useDebugConsole") && objectInitView["useDebugConsole"].IsBool())
-                {
-					_useDebugConsole = objectInitView["useDebugConsole"].GetBool();
-				}
-                if (objectInitView.HasMember("useLuaExtension") && objectInitView["useLuaExtension"].GetBool())
-                {
-                    _useLuaExtension = objectInitView["useLuaExtension"].GetBool();
-                }
-                if (objectInitView.HasMember("usePatch") && objectInitView["usePatch"].GetBool())
-                {
-                    _usePatch = objectInitView["usePatch"].GetBool();
-                }
-                if (objectInitView.HasMember("appVer") && objectInitView["appVer"].IsString())
-                {
-                    _appVer = objectInitView["appVer"].GetString();
-                }
-            }
-        }
-		if (_docRootjson.HasMember("ppsdk_login"))
-		{
-			if (_docRootjson["ppsdk_login"].IsObject())
-			{
-				const rapidjson::Value& object = _docRootjson["ppsdk_login"];
-				if (object.HasMember("creator"))
-				{
-					_ppsdkLoginInfo.creator = object["creator"].GetString();
-				}
-				if (object.HasMember("accountId"))
-				{
-					_ppsdkLoginInfo.accountId = object["accountId"].GetString();
-				}
-				if (object.HasMember("nickName"))
-				{
-					_ppsdkLoginInfo.nickName = object["nickName"].GetString();
-				}
-			}
-		}
-        if (_docRootjson.HasMember("gcsdk_login"))
-        {
-            if (_docRootjson["gcsdk_login"].IsObject())
-            {
-                const rapidjson::Value& object = _docRootjson["gcsdk_login"];
-                if (object.HasMember("localPlayerID"))
-                {
-                    _gcsdkLoginInfo.localPlayerID = object["localPlayerID"].GetString();
-                }
-                if (object.HasMember("idfa"))
-                {
-                    _gcsdkLoginInfo.idfa = object["idfa"].GetString();
-                }
             }
         }
         if (_docRootjson.HasMember("simulator_screen_size"))
@@ -154,34 +88,14 @@ void ConfigParser::readConfig()
     }
 }
 
-ConfigParser::ConfigParser(void) : _isInit(false), _isLandscape(true), _isTestMode(true), _scale(1), _currScreenSizeIdx(-1), _useIdeDebug(true), _useDebugConsole(true), _useLuaExtension(false), _usePatch(false)
+ConfigParser::ConfigParser(void) : _isInit(false), _isLandscape(true), _scale(1), _currScreenSizeIdx(-1)
 {
     _initViewSize.setSize(960, 640);
-    _viewName = "EngineSample";
-    _entryfile = "src/main.lua";
-
-	_ppsdkLoginInfo.creator = "";
-	_ppsdkLoginInfo.accountId = "";
-	_ppsdkLoginInfo.nickName = "";
-
-    _gcsdkLoginInfo.localPlayerID = "";
-    _gcsdkLoginInfo.idfa = "";
-    _appVer = "0.0.0";
 }
 
 rapidjson::Document& ConfigParser::getConfigJsonRoot()
 {
     return _docRootjson;
-}
-
-string ConfigParser::getInitViewName()
-{
-    return _viewName;
-}
-
-string ConfigParser::getEntryFile()
-{
-    return _entryfile;
 }
 
 Size ConfigParser::getInitViewSize()
@@ -194,34 +108,9 @@ bool ConfigParser::isLandscape()
     return _isLandscape;
 }
 
-bool ConfigParser::isTestMode()
-{
-    return _isTestMode;
-}
-
 double ConfigParser::getScale()
 {
 	return _scale;
-}
-
-bool ConfigParser::useIdeDebug()
-{
-	return _useIdeDebug;
-}
-
-bool ConfigParser::useDebugConsole()
-{
-	return _useDebugConsole;
-}
-
-bool ConfigParser::useLuaExtension()
-{
-    return _useLuaExtension;
-}
-
-bool ConfigParser::usePatch()
-{
-    return _usePatch;
 }
 
 int ConfigParser::getScreenSizeCount(void)
@@ -242,19 +131,4 @@ const SimulatorScreenSize ConfigParser::getNextScreenSize()
 	_currScreenSizeIdx %= cnt;
 
 	return getScreenSize(_currScreenSizeIdx);
-}
-
-const PPSDKLoginInfo ConfigParser::getPPSDKLoginInfo()
-{
-	return _ppsdkLoginInfo;
-}
-
-const GCSDKLoginInfo ConfigParser::getGCSDKLoginInfo()
-{
-    return _gcsdkLoginInfo;
-}
-
-string ConfigParser::getAppVer()
-{
-    return _appVer;
 }

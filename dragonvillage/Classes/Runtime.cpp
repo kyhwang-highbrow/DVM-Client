@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include "LuaBasicConversions.h"
 #include "VisibleRect.h"
 #include "ConfigParser.h"
+#include "PerpConstant.h"
 
 #ifdef _WIN32
 #include <direct.h>
@@ -72,7 +73,7 @@ void startScript(string strDebugArg)
         engine->executeString(strDebugArg.c_str());
     }
     cocos2d::log("debug args = %s", strDebugArg.c_str());
-    engine->executeScriptFile(ConfigParser::getInstance()->getEntryFile().c_str());
+    engine->executeScriptFile(ENTRY_LUA);
 }
 
 bool reloadScript(const string &modulefile)
@@ -80,7 +81,7 @@ bool reloadScript(const string &modulefile)
     string strfile = modulefile;
     if (strfile.empty())
     {
-        strfile = ConfigParser::getInstance()->getEntryFile().c_str();
+        strfile = ENTRY_LUA;
     }
 
     auto director = Director::getInstance();
@@ -726,7 +727,7 @@ public:
                 {
                     rapidjson::Value bodyvalue(rapidjson::kObjectType);
                     rapidjson::Value entryFileValue(rapidjson::kStringType);
-                    entryFileValue.SetString(ConfigParser::getInstance()->getEntryFile().c_str(), dReplyParse.GetAllocator());
+                    entryFileValue.SetString(ENTRY_LUA, dReplyParse.GetAllocator());
                     bodyvalue.AddMember("entryfile", entryFileValue, dReplyParse.GetAllocator());
                     dReplyParse.AddMember("body", bodyvalue, dReplyParse.GetAllocator());
                     dReplyParse.AddMember("code", 0, dReplyParse.GetAllocator());

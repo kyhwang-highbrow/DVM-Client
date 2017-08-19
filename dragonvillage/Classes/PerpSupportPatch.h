@@ -6,7 +6,7 @@ USING_NS_CC;
 using namespace std;
 #include <string>
 #include "../cocos2d-x/external/unzip/unzip.h"
-#include "LoginPlatform.h"
+#include "PerpConstant.h"
 
 #define UNZ_MD5ERROR					(-111)
 #define UNZ_TARGETFILE_OPENFAIL			(-112)

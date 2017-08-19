@@ -4,7 +4,6 @@
 #include "Runtime.h"
 #include "ConfigParser.h"
 #include "HttpClient.h"
-#include "LoginPlatform.h"
 #include "SimpleAudioEngine.h"
 #include "PerpSupportPatch.h"
 
@@ -110,7 +109,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	setPathForPatch();
 
 #if (COCOS2D_DEBUG>0)
-	if (ConfigParser::getInstance()->useIdeDebug())
+    if (USE_IDE_DEBUG)
 	{
 		initRuntime();
 	}
@@ -122,7 +121,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     if (!glview)
     {
         Size viewSize = ConfigParser::getInstance()->getInitViewSize();
-        string title = ConfigParser::getInstance()->getInitViewName();
+        string title = APP_NAME;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
         extern void createSimulator(const char *viewName, float width, float height, bool isLandscape = true, float frameZoomFactor = 1.0f);
         bool isLandscape = ConfigParser::getInstance()->isLandscape();
@@ -211,10 +210,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #endif
 
     configChange();
-	startLuaScript(ConfigParser::getInstance()->getEntryFile().c_str());
-
-    // 필요한 entry 파일 넣고 빌드
-    // startLuaScript("src_tool/entry_ingame_test.lua");
+    startLuaScript(ENTRY_LUA);
 
     return true;
 }

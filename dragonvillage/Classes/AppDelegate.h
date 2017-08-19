@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "CCApplication.h"
-#include "LoginPlatform.h"
+#include "PerpConstant.h"
 
 class ReloadLuaHelper : public cocos2d::Scene
 {

@@ -5,7 +5,7 @@ USING_NS_CC;
 
 using namespace std;
 #include <string>
-#include "LoginPlatform.h"
+#include "PerpConstant.h"
 
 class SupportLua
 {

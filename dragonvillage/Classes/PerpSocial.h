@@ -2,7 +2,7 @@
 #define _PerpSocail_H_
 
 #include "cocos2d.h"
-#include "LoginPlatform.h"
+#include "PerpConstant.h"
 #include <map>
 
 class PerpSocial

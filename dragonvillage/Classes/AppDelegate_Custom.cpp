@@ -5,8 +5,8 @@
 #include "PerpSupportLua.h"
 #include "PerpSocial.h"
 #include "PerpExt/PerpUtils.h"
+#include "PerpConstant.h"
 #include "ConfigParser.h"
-#include "LoginPlatform.h"
 #include "tolua_fix.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -64,10 +64,9 @@ string* StringSplit(string strTarget, string strTok)
 void AppDelegate::setPathForPatch()
 {
 	// 리소스 다운로드 경로
-    string app_ver = ConfigParser::getInstance()->getAppVer();
+    string app_ver = APP_VERSION;
 	string res_path = SupportPatch::getExtensionPath();
     string patch_path = SupportPatch::getPatchPath(app_ver.c_str());
-
 
 	FileUtils* fileUtils = FileUtils::getInstance();
 
@@ -78,11 +77,7 @@ void AppDelegate::setPathForPatch()
 	vector<string> finalSearchPathArray = vector<string>();
 	string writable_path = fileUtils->getWritablePath();
 
-    bool use_patch = ConfigParser::getInstance()->usePatch();;
-#ifdef SHIPPING_BUILD
-    use_patch = true;
-#endif
-
+    bool use_patch = USE_PATCH;
     if (use_patch)
     {
 		finalSearchPathArray.push_back(writable_path + patch_path);
@@ -113,7 +108,7 @@ void AppDelegate::setPathForPatch()
     SupportPatch::makePath(writable_path + "network_dump/");
 
     { // 이전 버전 폴더 삭제
-        string app_ver = ConfigParser::getInstance()->getAppVer();
+        string app_ver = APP_VERSION;
         string* tok = StringSplit(app_ver, ".");
         int ver_major = (int)strtol(tok[0].c_str(), NULL, 10);
         int ver_minor = (int)strtol(tok[1].c_str(), NULL, 10);
@@ -207,7 +202,7 @@ static int l_useKakao(lua_State* L)
 
 static int l_isTestMode(lua_State* L)
 {
-    bool isTestMode = ConfigParser::getInstance()->isTestMode();
+    bool isTestMode = IS_TEST_MODE;
     if (isTestMode)
     {
         lua_pushboolean(L, (int)1);
@@ -221,11 +216,7 @@ static int l_isTestMode(lua_State* L)
 
 static int l_usePatch(lua_State* L)
 {
-    bool usePatch = ConfigParser::getInstance()->usePatch();
-#ifdef SHIPPING_BUILD
-    usePatch = true;
-#endif
-
+    bool usePatch = USE_PATCH;
     if (usePatch)
     {
         lua_pushboolean(L, (int)1);
@@ -237,9 +228,31 @@ static int l_usePatch(lua_State* L)
     return 1;
 }
 
+static int l_useObb(lua_State* L)
+{
+    bool usePatch = USE_OBB;
+    if (usePatch)
+    {
+        lua_pushboolean(L, (int)1);
+    }
+    else
+    {
+        lua_pushboolean(L, (int)0);
+    }
+    return 1;
+}
+
+static int l_getServerUrl(lua_State* L)
+{
+    string server_url = SERVER_URL;
+    lua_pushlstring(L, server_url.c_str(), strlen(server_url.c_str()));
+
+    return 1;
+}
+
 static int l_getAppVer(lua_State* L)
 {
-    string app_ver = ConfigParser::getInstance()->getAppVer();
+    string app_ver = APP_VERSION;
     lua_pushlstring(L, app_ver.c_str(), strlen(app_ver.c_str()));
 
 	return 1;
@@ -379,27 +392,6 @@ static int l_getFreeMemory(lua_State* L)
     return 1;
 }
 
-static int l_ppsdkLoginInfo(lua_State* L)
-{
-	PPSDKLoginInfo ppsdkLoginInfo = ConfigParser::getInstance()->getPPSDKLoginInfo();
-
-	lua_pushstring(L, ppsdkLoginInfo.creator.c_str());
-	lua_pushstring(L, ppsdkLoginInfo.accountId.c_str());
-	lua_pushstring(L, ppsdkLoginInfo.nickName.c_str());
-
-	return 3;
-}
-
-static int l_gcsdkLoginInfo(lua_State* L)
-{
-    GCSDKLoginInfo gcsdkLoginInfo = ConfigParser::getInstance()->getGCSDKLoginInfo();
-
-    lua_pushstring(L, gcsdkLoginInfo.localPlayerID.c_str());
-    lua_pushstring(L, gcsdkLoginInfo.idfa.c_str());
-
-    return 2;
-}
-
 static int l_openFileDialog(lua_State *L)
 {
     /*
@@ -434,7 +426,9 @@ void AppDelegate::initLuaEngine()
 			{ "useFacebook", l_useFacebook },
 			{ "useKakao", l_useKakao },
 			{ "isTestMode", l_isTestMode },
-            { "usePatch", l_usePatch },
+            { "usePatch", l_usePatch }, 
+            { "useObb", l_useObb },
+            { "getServerUrl", l_getServerUrl },
 			{ "getAppVer", l_getAppVer },
 			{ "getMd5", l_getMd5 },
             { "isSameMd5", l_isSameMd5 },
@@ -447,8 +441,6 @@ void AppDelegate::initLuaEngine()
 			{ "unzip", l_unzip },
             { "unzipAsync", l_unzipAsync },
 			{ "getMarketName", l_getMarketName },
-			{ "ppsdkLoginInfo", l_ppsdkLoginInfo },
-			{ "gcsdkLoginInfo", l_gcsdkLoginInfo },
             { "openFileDialog", l_openFileDialog },
 			{ NULL, NULL }
 	};

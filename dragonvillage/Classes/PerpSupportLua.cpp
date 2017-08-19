@@ -36,11 +36,7 @@ int SupportLua::luaLoader(lua_State *L)
 	char* buffer;
 	ssize_t size;
     
-    bool use_lua_extention = ConfigParser::getInstance()->useLuaExtension();
-#ifdef SHIPPING_BUILD
-    use_lua_extention = false;
-#endif
-
+    bool use_lua_extention = USE_LUA_EXT;
     if (use_lua_extention)
     {
         data = FileUtils::getInstance()->getDataFromFile(filename + ".lua");

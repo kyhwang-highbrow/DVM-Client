@@ -79,7 +79,7 @@
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\LoginPlatform.h">
+    <ClInclude Include="..\Classes\PerpConstant.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>

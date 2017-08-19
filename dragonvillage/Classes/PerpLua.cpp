@@ -5,7 +5,7 @@
 
 #include "cocos2d.h"
 #include "tolua++.h"
-#include "LoginPlatform.h"
+#include "PerpConstant.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
