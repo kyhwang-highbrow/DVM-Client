@@ -12,7 +12,7 @@ UI_GameDPSPopup = class(PARENT, {
 		m_bDPS = 'bool',
 		m_logKey = 'str',
 
-		m_rootWidth = 'num',
+		m_rootHeight = 'num',
 
 		m_dpsTimer = 'timer',
 		m_interval = 'num',
@@ -34,7 +34,7 @@ function UI_GameDPSPopup:init(world)
 	self.m_bShow = true
 	self.m_bDPS = true
 	self.m_logKey = 'damage'
-	self.m_rootWidth = vars['listNode']:getContentSize()['width']
+	self.m_rootHeight = vars['listNode']:getContentSize()['height']
 	self.m_dpsTimer = 0
 	self.m_interval = g_constant:get('INGAME', 'DPS_INTERVAL')
 
@@ -197,7 +197,7 @@ function UI_GameDPSPopup:click_dpsBtn()
         vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 360))
     else
 		-- 닫기 (이동 하고 visible 끄기)
-		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p((self.m_rootWidth), 0)), 2)
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, -self.m_rootHeight)), 2)
 		local seq_action = cc.Sequence:create(move_action, visible_action)
 		root_node:runAction(seq_action)
 

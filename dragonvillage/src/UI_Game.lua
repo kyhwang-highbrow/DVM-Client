@@ -27,8 +27,7 @@ UI_Game = class(PARENT, {
         -- 연출 버튼 이미지
         m_effectBtnIcon1 = '',
         m_effectBtnIcon2 = '',
-        m_effectBtnIcon3 = '',
-
+        
         -- 방송 라벨
         m_broadcastLabel = 'UIC_BroadcastLabel',
      })
@@ -139,12 +138,13 @@ function UI_Game:initButton()
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
-    vars['panelBtn']:registerScriptTapHandler(function() self:click_panelBtn() end)
+    --vars['panelBtn']:registerScriptTapHandler(function() self:click_panelBtn() end)
     vars['effectBtn']:registerScriptTapHandler(function() self:click_effectBtn() end)
     vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)
 
     -- 패널 버튼 이미지
     do
+        --[[
         local b = g_autoPlaySetting:get('dragon_panel') or false
 
         self.m_panelBtnIcon1 = MakeAnimator('res/ui/buttons/ingame_top_panel_0101.png')
@@ -154,26 +154,23 @@ function UI_Game:initButton()
         self.m_panelBtnIcon2 = MakeAnimator('res/ui/buttons/ingame_top_panel_0102.png')
         self.m_panelBtnIcon2:setVisible(b)
         vars['panelBtn']:addChild(self.m_panelBtnIcon2.m_node)
+        ]]--
+        if (vars['panelBtn']) then
+            vars['panelBtn']:setVisible(false)
+        end
     end
 
     -- 연출 버튼 이미지
     do
-        local level = g_autoPlaySetting:get('skip_level') or 0
+        local b = g_autoPlaySetting:get('skip_mode') or false
 
-        self.m_effectBtnIcon1 = MakeAnimator('res/ui/buttons/ingame_top_effect_0103.png')
-        self.m_effectBtnIcon1:setVisible((level == 0))
+        self.m_effectBtnIcon1 = MakeAnimator('res/ui/buttons/ingame_top_effect_0101.png')
+        self.m_effectBtnIcon1:setVisible(not b)
         vars['effectBtn']:addChild(self.m_effectBtnIcon1.m_node)
 
         self.m_effectBtnIcon2 = MakeAnimator('res/ui/buttons/ingame_top_effect_0102.png')
-        self.m_effectBtnIcon2:setVisible((level == 1))
+        self.m_effectBtnIcon2:setVisible(b)
         vars['effectBtn']:addChild(self.m_effectBtnIcon2.m_node)
-
-        self.m_effectBtnIcon3 = MakeAnimator('res/ui/buttons/ingame_top_effect_0101.png')
-        self.m_effectBtnIcon3:setVisible((level == 2))
-        vars['effectBtn']:addChild(self.m_effectBtnIcon3.m_node)
-
-        -- 임시 처리... 연출 버튼 숨김
-        vars['effectBtn']:setVisible(false)
     end
 end
 
@@ -309,21 +306,18 @@ end
 -- function click_effectBtn
 -------------------------------------
 function UI_Game:click_effectBtn()
-    g_autoPlaySetting:setNextSkipLevel()
+    local skip_mode = g_autoPlaySetting:get('skip_mode') or false
 
-    local skip_level = g_autoPlaySetting:get('skip_level') or 0
+    if (skip_mode) then
+        UIManager:toastNotificationGreen('연출 표시')
 
-    self.m_effectBtnIcon1:setVisible((skip_level == 0))
-    self.m_effectBtnIcon2:setVisible((skip_level == 1))
-    self.m_effectBtnIcon3:setVisible((skip_level == 2))
+        g_autoPlaySetting:set('skip_mode', false)
+    else
+        UIManager:toastNotificationGreen('연출 스킵')
 
-    local gameDragonSkill = self.m_gameScene.m_gameWorld.m_gameDragonSkill
-    gameDragonSkill:setSkipLevel(skip_level)
+        g_autoPlaySetting:set('skip_mode', true)
 
-    local gameHighlight = self.m_gameScene.m_gameWorld.m_gameHighlight
-    gameHighlight:setSkipLevel(skip_level)
-
-    UIManager:toastNotificationGreen('연출 단계 ' .. (skip_level + 1))
+    end
 end
 
 -------------------------------------

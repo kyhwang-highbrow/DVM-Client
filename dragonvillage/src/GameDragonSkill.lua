@@ -13,8 +13,7 @@ GameDragonSkill = class(PARENT, {
 
         m_node = 'cc.Node',
 
-        m_nextSkipLevel = 'number',
-        m_skipLevel = 'number',
+        m_bSkipMode = 'boolean',
                 
         -- 스킬을 사용할 드래곤 정보
         m_dragon = 'Dragon',
@@ -40,8 +39,7 @@ function GameDragonSkill:init(world)
     self.m_node = cc.Node:create()
     g_gameScene.m_viewLayer:addChild(self.m_node)
 
-    self.m_nextSkipLevel = g_autoPlaySetting:get('skip_level') or 0
-    self.m_skipLevel = self.m_nextSkipLevel
+    self.m_bSkipMode = g_autoPlaySetting:get('skip_mode') or false
 
     self.m_state = STATE.WAIT
 
@@ -139,7 +137,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             -- 화면 쉐이킹 멈춤
             world.m_shakeMgr:stopShake()
 
-            if (self.m_skipLevel > 0) then
+            if (self.m_bSkipMode) then
                 self:nextStep()
             else
                 -- UI 숨김
@@ -161,7 +159,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
 			
-            if (self.m_skipLevel > 0) then
+            if (self.m_bSkipMode) then
                 self:nextStep()
             else
                 -- UI 표시
@@ -197,7 +195,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             local duration = dragon:getAniDuration()
             dragon:setTimeScale(duration / delayTime)
 
-            if (self.m_skipLevel < 2) then
+            if (not self.m_bSkipMode) then
                 -- 카메라 줌인
                 do
                     local offset_x = 0
@@ -236,7 +234,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             -- 드래곤 스킬 애니메이션 시작
             dragon:changeState('skillIdle')
 
-            if (self.m_skipLevel < 2) then
+            if (not self.m_bSkipMode) then
                 -- 카메라 연출
                 self:doCameraWork(dragon)
 
@@ -295,7 +293,7 @@ function GameDragonSkill.st_playTimeSkill(self, dt)
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
 
-            if (self.m_skipLevel < 2) then
+            if (not self.m_bSkipMode) then
                 -- 카메라 줌인
                 local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
             
@@ -499,13 +497,6 @@ function GameDragonSkill:doCameraWork(dragon)
 end
 
 -------------------------------------
--- function setSkipLevel
--------------------------------------
-function GameDragonSkill:setSkipLevel(skip_level)
-    self.m_nextSkipLevel = skip_level
-end
-
--------------------------------------
 -- function setVisible_UnitInfo
 -------------------------------------
 function GameDragonSkill:setVisible_UnitInfo(b)
@@ -520,17 +511,19 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local arg = {...}
         local dragon = arg[1]
 
-        do -- 크리티컬 시에만 연출 표시
-            local skip_level = 2
+        local skip_mode = g_autoPlaySetting:get('skip_mode') or false
 
+        if (not skip_mode) then
+            -- 연출 스킵 모드가 아닐 경우
+            -- 크리티컬 시에만 연출 표시
             if (t_event['is_critical']) then
-                skip_level = 0
+                skip_mode = false
+            else
+                skip_mode = true
             end
-
-            self:setSkipLevel(skip_level)
-            self.m_world.m_gameHighlight:setSkipLevel(skip_level)
         end
-        self.m_skipLevel = self.m_nextSkipLevel
+
+        self.m_bSkipMode = skip_mode
         
         self:setFocusingDragon(dragon)
         self:changeState(STATE.PLAY_DRAG_SKILL)

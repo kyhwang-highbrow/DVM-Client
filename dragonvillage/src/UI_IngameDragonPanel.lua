@@ -42,8 +42,8 @@ function UI_IngameDragonPanel:initUI()
         end
     end
     
-    local start_pos = 92
-    local interval = 142
+    local start_pos = 122
+    local interval = 132
     local count = #self.m_lPanelItemList
     local l_pos_list = getSortPosList(interval, count)
 

@@ -1,7 +1,7 @@
 local PARENT = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable())
 local security_key = math.random(-6758472,7637467)
 
-MAX_MANA = 5
+MAX_MANA = 7
 
 -------------------------------------
 -- class GameMana

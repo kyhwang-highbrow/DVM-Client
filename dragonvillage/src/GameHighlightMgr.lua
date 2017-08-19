@@ -4,8 +4,6 @@
 GameHighlightMgr = class({
         m_world = 'GameWorld',
 
-        m_skipLevel = 'number',
-
         m_darkLayer = '',
         m_darkLevel = 'number',     -- 어둡기 정도(0~255)
 
@@ -18,8 +16,6 @@ GameHighlightMgr = class({
 -------------------------------------
 function GameHighlightMgr:init(world, darkLayer)
     self.m_world = world
-
-    self.m_skipLevel = g_autoPlaySetting:get('skip_level') or 0
 
     self.m_darkLevel = 0
 
@@ -81,18 +77,15 @@ function GameHighlightMgr:update(dt)
         Add(self.m_forcedHighlightList)
     end
 
-    if (self.m_skipLevel < 2) then
+    -- 테이머 스킬 연출 중
+    if (not bPass and world.m_tamer and world.m_tamer:isRequiredHighLight()) then
+        darkLevel = math_max(darkLevel, 170)
 
-        -- 테이머 스킬 연출 중
-        if (not bPass and world.m_tamer and world.m_tamer:isRequiredHighLight()) then
-            darkLevel = math_max(darkLevel, 170)
+        local dragons = self.m_world:getDragonList()
+        local enemys = self.m_world:getEnemyList()
 
-            local dragons = self.m_world:getDragonList()
-            local enemys = self.m_world:getEnemyList()
-
-            Add(dragons)
-            Add(enemys)
-        end
+        Add(dragons)
+        Add(enemys)
     end
 
     self:setDarkLayer(darkLevel)
@@ -133,13 +126,6 @@ function GameHighlightMgr:setUnits(mHighlightList)
             end
         end
     end
-end
-
--------------------------------------
--- function setSkipLevel
--------------------------------------
-function GameHighlightMgr:setSkipLevel(skip_level)
-    self.m_skipLevel = skip_level
 end
 
 -------------------------------------

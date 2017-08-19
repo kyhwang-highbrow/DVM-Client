@@ -618,7 +618,7 @@ function Tamer:isRequiredHighLight()
 
     -- 발동형 스킬 연출 중
     elseif (self.m_state == 'event') then
-        return true
+        return false
 
     end
 
