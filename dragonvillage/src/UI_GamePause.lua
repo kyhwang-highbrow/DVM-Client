@@ -29,7 +29,7 @@ function UI_GamePause:init(stage_id, start_cb, end_cb)
     vars['continueButton']:registerScriptTapHandler(function() self:click_continueButton() end)
 
     -- 디버그용 버튼
-    if (IS_TEST_MODE()) then
+    if (isTestMode()) then
         vars['heroInfoButton']:setVisible(true)
         vars['enemyInfoButton']:setVisible(true)
         vars['heroInfoButton']:registerScriptTapHandler(function() self:click_debug_heroInfoButton() end)

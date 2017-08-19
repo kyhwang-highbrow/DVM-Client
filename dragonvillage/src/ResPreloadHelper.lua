@@ -160,7 +160,7 @@ function resCaching(res_name)
         end
 	end
 
-    if b and DEVELOPMENT_KSJ then
+    if bs then
         cclog('resCaching ' .. res_name)
     end
 

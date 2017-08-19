@@ -1,49 +1,25 @@
 {
     "init_cfg": {
-        "appVer": "9.9.9",
-        "name": "Galaxy S5 - 16:9 (1280x720)",
         "width": 1280,
         "height": 720,
         "scale": 1,
-        "useIdeDebug": false,
-        "useDebugConsole": true,
-        "isLandscape": true,
-        "isTestMode": true,
-        "usePatch": false,
-        "useLuaExtension": true,
-        "entry": "entry_patch.lua"
-    },
-    "gcsdk_login": {
-        "localPlayerID_EVA" : "G:8455620284",
-        "idfa_EVA" : "9C8D3E63-A64C-4717-AB9D-1A95C71AC8D1",
-        "localPlayerID" : "G:000000000",
-        "idfa" : "00000000-0000-0000-0000-000000000000"
+        "isLandscape": true
     },
     "simulator_screen_size": [
         {
-            "title": "Galaxy S2 - 5:3 (1280x769)",
+            "title": "16:9 (1280x720)",
             "width": 1280,
-            "height": 769
+            "height": 720
         },
         {
-            "title": "Galaxy Note 10.1 - 16:10 (1280x800)",
+            "title": "16:10 (1280x800)",
             "width": 1280,
             "height": 800
         },
         {
-            "title": "3:2 (1280x854)",
-            "width": 1280,
-            "height": 854
-        },
-        {
-            "title": "iPad - 4:3 (1280x960)",
+            "title": "4:3 (1280x960)",
             "width": 1280,
             "height": 960
-        },
-        {
-            "title": "Galaxy S5 - 16:9 (1280x720)",
-            "width": 1280,
-            "height": 720
         }
     ]
 }

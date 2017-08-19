@@ -365,86 +365,9 @@ function Network:getApiUrl()
         self:resetServerType()
     end
 
-    --[[
-    -- @TODO
-    local api_url = CONSTANT['API_URL']
-
-    if self.server_type == 'korea' then
-        api_url = CONSTANT['API_URL']
-    elseif self.server_type == 'global' then
-        api_url = CONSTANT['API_URL_GLOBAL']
-    elseif self.server_type == 'kakao' then
-        api_url = CONSTANT['API_URL_KAKAO']
-    elseif self.server_type == 'china' then
-        api_url = CONSTANT['API_URL_CHINA']
-    end
-    --]]
-
-    local api_url = 'http://dv-test.perplelab.com:9003' --/get_patch_info?app_ver=0.0.0
-
-    -- nil == default
-    if (TARGET_SERVER == nil) then
-        api_url = 'http://dv-test.perplelab.com:9003'
-        --api_url = '192.168.1.42:9003' -- 이원기님 개발용 로컬 서버 (sgkim 2017-07-26)
-    elseif (TARGET_SERVER == 'FGT') then
-        api_url = 'http://dv-test.perplelab.com:9004'
-	elseif (TARGET_SERVER == 'PUBLIC') then
-        api_url = 'http://dv-test.perplelab.com:9005'
-    elseif (TARGET_SERVER == 'QA') then
-        api_url = 'http://dv-qa.perplelab.com:9003'
-    else
-        error('TARGET_SERVER : ' .. TARGET_SERVER)
-    end
+    local api_url = getServerUrl() 
 
     return api_url
-end
-
--------------------------------------
--- function getChatServerIP
--- @brief 채팅 서버 IP
--------------------------------------
-function Network:getChatServerIP()
-    if (not self.server_type) then
-        self:resetServerType()
-    end
-
-    local ip = CONSTANT['CTSERVER_IP']
-
-    if self.server_type == 'korea' then
-        ip = CONSTANT['CTSERVER_IP']
-    elseif self.server_type == 'global' then
-        ip = CONSTANT['CTSERVER_IP_GLOBAL']
-    elseif self.server_type == 'kakao' then
-        ip = CONSTANT['CTSERVER_IP_KAKAO']
-    elseif self.server_type == 'china' then
-        ip = CONSTANT['CTSERVER_IP_CHINA']
-    end
-
-    return ip
-end
-
--------------------------------------
--- function getChatServerPort
--- @brief 채팅 서버 Port
--------------------------------------
-function Network:getChatServerPort()
-    if (not self.server_type) then
-        self:resetServerType()
-    end
-
-    local port = CONSTANT['CTSERVER_PORT']
-
-    if self.server_type == 'korea' then
-        port = CONSTANT['CTSERVER_PORT']
-    elseif self.server_type == 'global' then
-        port = CONSTANT['CTSERVER_PORT_GLOBAL']
-    elseif self.server_type == 'kakao' then
-        port = CONSTANT['CTSERVER_PORT_KAKAO']
-    elseif self.server_type == 'china' then
-        port = CONSTANT['CTSERVER_PORT_CHINA']
-    end
-
-    return port
 end
 
 -------------------------------------

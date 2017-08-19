@@ -95,11 +95,6 @@ function UI_AdventureSceneNew:initButton()
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end) -- 다음 챕터
 
     vars['devStageBtn']:registerScriptTapHandler(function() self:openAdventureStageInfoPopup(DEV_STAGE_ID) end)
-    if (TARGET_SERVER == 'FGT') then
-        if (not DEVELOPMENT_KSJ) then
-            vars['devStageBtn']:setVisible(false)
-        end
-    end
 end
 
 -------------------------------------

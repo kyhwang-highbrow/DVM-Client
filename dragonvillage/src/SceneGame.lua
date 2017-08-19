@@ -255,8 +255,8 @@ function SceneGame:prepare()
     end)
     
     self:addLoading(function()
-		-- FGT 에서는 디버그 기능을 제한한다
-		if (IS_TEST_MODE()) then
+		-- 테스트 모드에서만 디버그패널 on
+		if (isTestMode()) then
 			self.m_inGameUI:init_debugUI()
 		end
 

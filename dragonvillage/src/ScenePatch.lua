@@ -91,7 +91,7 @@ function ScenePatch:runApkExpansion()
     local app_ver = getAppVer()
 
     -- APK 확장 파일 다운로드 스킵 체크
-    if (SKIP_OBB_DOWNLOAD == true) then
+    if (not useObb() == true) then
         self:finishPatch()
         return
     end
