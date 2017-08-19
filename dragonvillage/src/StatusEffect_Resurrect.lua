@@ -20,5 +20,5 @@ end
 function StatusEffect_Resurrect:onApplyOverlab(unit)
     local hp_rate = unit:getValue() / 100
         
-    self.m_owner:doRevive(hp_rate)
+    self.m_owner:doRevive(hp_rate, unit:getCaster())
 end

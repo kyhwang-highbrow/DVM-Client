@@ -933,7 +933,7 @@ end
 -- function doRevive
 -- @brief 부할
 -------------------------------------
-function Character:doRevive(hp_rate)
+function Character:doRevive(hp_rate, caster)
     if (not self.m_bDead or not self.m_bPossibleRevive) then return end
     self.m_bDead = false
 
@@ -946,6 +946,13 @@ function Character:doRevive(hp_rate)
     self.m_world:addHero(self)
 
     self:dispatch('character_revive', {}, self)
+
+    -- @LOG_CHAR : 피회복자 피회복량
+	self.m_charLogRecorder:recordLog('be_healed', hp)
+	-- @LOG_CHAR : 회복시전자 회복량
+	if (caster) then
+		caster.m_charLogRecorder:recordLog('heal', hp)
+	end
 end
 
 -------------------------------------

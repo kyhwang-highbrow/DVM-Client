@@ -443,8 +443,8 @@ end
 -- @breif PhysObject 제거
 -------------------------------------
 function PhysObject:removePhysObject(phys_obj)
-    for i,v in pairs(self.m_lAdditionalPhysObject) do
-        if (phys_obj == v) then
+    for obj, v in pairs(self.m_lAdditionalPhysObject) do
+        if (phys_obj == obj) then
             self.m_physWorld:removeObject(phys_obj)
             table.remove(self.m_lAdditionalPhysObject, i)
             break
