@@ -18,8 +18,13 @@ function MissileGuid:init(file_name, body, is_hero)
     self.m_bHero = is_hero
     self.m_target = nil
     self.m_tergatTimer = 0
-    self.m_angularVelocityGuid = 360
     self.m_straightWaitTime = 0.3
+
+    if self.m_bHero then
+        self.m_angularVelocityGuid = 240
+    else
+        self.m_angularVelocityGuid = 500
+    end
 end
 
 -------------------------------------
@@ -42,7 +47,7 @@ end
 function MissileGuid.st_move(owner, dt)
     -- 0.3초동안 직선 운동
     if owner.m_stateTimer == 0 then
-        owner.m_aiParam = 500
+        owner.m_aiParam = self.m_angularVelocityGuid
 
     elseif (owner.m_stateTimer >= 0.3) and (owner.m_aiParam > 0) then
         owner.m_tergatTimer = owner.m_tergatTimer + dt
@@ -90,7 +95,7 @@ function MissileGuid.st_move_hero(owner, dt)
 
     -- 0.3초동안 직선 운동
     if owner.m_stateTimer == 0 then
-        owner.m_aiParam = 240
+        owner.m_aiParam = self.m_angularVelocityGuid
 
     elseif (owner.m_stateTimer >= owner.m_straightWaitTime) and (owner.m_aiParam > 0) then
         owner.m_tergatTimer = owner.m_tergatTimer + dt
