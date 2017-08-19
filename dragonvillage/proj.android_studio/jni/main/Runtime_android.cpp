@@ -3,7 +3,6 @@
 #include "jni/JniHelper.h"
 #include <string>
 #include <vector>
-#include "LoginPlatform.h"
 
 #define CLASS_NAME  "org/cocos2dx/lua/AppActivity"
 

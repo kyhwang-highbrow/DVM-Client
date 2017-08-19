@@ -4,7 +4,6 @@
 #include <jni.h>
 #include <android/log.h>
 #include "ConfigParser.h"
-#include "LoginPlatform.h"
 
 #define LOG_TAG     "main"
 #define LOGD(...)   __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
@@ -34,26 +33,6 @@ JNIEXPORT bool JNICALL Java_org_cocos2dx_lua_AppActivity_nativeIsDebug(JNIEnv *e
         return false;
     #else
         return true;
-    #endif
-}
-
-JNIEXPORT bool JNICALL Java_org_cocos2dx_lua_AppActivity_nativeIsTestMode(JNIEnv *env, jobject thisz)
-{
-    if (!ConfigParser::getInstance()->isInit())
-    {
-        ConfigParser::getInstance()->readConfig();
-    }
-    return ConfigParser::getInstance()->isTestMode();
-}
-
-JNIEXPORT int JNICALL Java_org_cocos2dx_lua_AppActivity_nativeLoginPlatform(JNIEnv *env, jobject thisz)
-{
-    #if (LOGIN_PLATFORM == LOGIN_PLATFORM_PATISDK)
-        return 1;
-    #elif (LOGIN_PLATFORM == LOGIN_PLATFORM_PPSDK)
-        return 2;
-    #else
-        return 0;
     #endif
 }
 
