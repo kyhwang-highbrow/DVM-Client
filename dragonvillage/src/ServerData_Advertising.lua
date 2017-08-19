@@ -1,9 +1,20 @@
+AD_TYPE = {
+    AUTO_ITEM_PICK = 1,     -- 광고 보기 보상 : 자동획득
+    RANDOM_BOX = 2,         -- 광고 보기 보상 : 랜덤박스
+    NONE = 3,               -- 광고 없음(에러코드 처리) : 보상은 존재
+}
+
 -------------------------------------
 -- class ServerData_Advertising
 -------------------------------------
 ServerData_Advertising = class({
         m_serverData = 'ServerData',
         m_rewardList = 'list',
+
+        m_selAdtype = 'AD_TYPE',
+
+        m_countLabel = 'LabelTTF',
+        m_scheduleHandlerID = 'number',
 
         m_is_fail = 'boolean',
         m_adv_cool_time = 'number',
@@ -14,10 +25,12 @@ ServerData_Advertising = class({
 -------------------------------------
 function ServerData_Advertising:init(server_data)
     self.m_serverData = server_data
+    self.m_scheduleHandlerID = nil
 end
 
 -------------------------------------
 -- function showAdvPopup
+-- @brief 광고 보기 팝업 노출
 -------------------------------------
 function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
     local function show_popup()
@@ -27,8 +40,8 @@ function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
         end
     end
     
-    if (ad_type == AD_TYPE.LOBBY) then
-        -- 자동 재화 줍기 적용되있다면 로비에서는 광고 못봄
+    if (ad_type == AD_TYPE.AUTO_ITEM_PICK) then
+        -- 자동획득 적용되있다면 로비에서는 광고 못봄
         if (g_autoItemPickData:isActiveAutoItemPick()) then
             local msg = Str('이미 자동 획득이 적용되어 광고를 볼 수 없습니다.')
             UIManager:toastNotificationRed(msg)
@@ -36,7 +49,7 @@ function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
             show_popup()
         end
     
-    elseif (ad_type == AD_TYPE.SHOP) then
+    elseif (ad_type == AD_TYPE.RANDOM_BOX) then
         -- 보상 정보 있다면 호출 x
         if (self.m_rewardList) then
             show_popup()
@@ -51,6 +64,7 @@ end
 
 -------------------------------------
 -- function showAdv
+-- @brief 광고 보기
 -------------------------------------
 function ServerData_Advertising:showAdv(ad_type, fnish_cb)
     if (isWin32()) then 
@@ -59,9 +73,10 @@ function ServerData_Advertising:showAdv(ad_type, fnish_cb)
     end
 
     self.m_is_fail = false
+    ShowLoading(Str('광고 정보 요청중'))
 
-    -- 광고 보기
     AdsManager:showPlacement('rewardedVideo', function(ret, info)
+        HideLoading()
         if ret == 'finish' then
             local t_info = dkjson.decode(info)
             if t_info.placementId == 'rewardedVideo' then
@@ -95,6 +110,39 @@ function ServerData_Advertising:getEnableShopAdv()
 
     local time = (self.m_adv_cool_time/1000 - server_time)
     return (time <= 0) 
+end
+
+
+-------------------------------------
+-- function getCoolTimeStr
+-- @brief 다음 광고 보기까지 쿨타임 텍스트
+-------------------------------------
+function ServerData_Advertising:getCoolTimeStr(ad_type)
+    local str = ''
+
+    -- 남은 시간
+    local expired
+    if (ad_type == AD_TYPE.AUTO_ITEM_PICK) then
+        expired = g_autoItemPickData:getAutoItemPickExpired()
+        if (not expired) then 
+            return str
+        end
+
+    elseif (ad_type == AD_TYPE.RANDOM_BOX) then
+        expired = self.m_adv_cool_time
+    end
+
+    -- 서버상의 시간을 얻어옴
+    local server_time = Timer:getServerTime()
+    local time = (expired/1000 - server_time)
+
+    if (time > 0) then
+        local show_second = true
+        local first_only = true
+        str = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
+    end
+
+    return str
 end
 
 -------------------------------------

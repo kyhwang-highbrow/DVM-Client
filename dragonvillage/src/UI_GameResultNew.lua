@@ -104,10 +104,13 @@ function UI_GameResultNew:initUI()
     -- 자동 재화 줍기 
     local game_mode = g_stageData:getGameMode(stage_id)
     if (game_mode == GAME_MODE_ADVENTURE) then
-        local node = vars['itemAutoLabel']
-        node:setVisible(true)
-        g_autoItemPickData:setCountLabel(node)
-        g_autoItemPickData:updateOn() -- onDestroyUI()에서 updateOff() 반드시 호출해야함
+        vars['itemAutoBtn']:setVisible(true)
+        vars['itemAutoLabel']:setVisible(true)
+        
+        local function update(dt)
+            vars['itemAutoLabel']:setString(g_advertisingData:getCoolTimeStr(AD_TYPE.AUTO_ITEM_PICK))
+        end
+        self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
     end
 end
 
@@ -969,7 +972,7 @@ end
 -- @brief 자동재화 버튼 (광고 보기)
 -------------------------------------
 function UI_GameResultNew:click_itemAutoBtn()
-    g_advertisingData:showAdvPopup(AD_TYPE.LOBBY)
+    g_advertisingData:showAdvPopup(AD_TYPE.AUTO_ITEM_PICK)
 end
 
 -------------------------------------
@@ -1170,13 +1173,4 @@ function UI_GameResultNew:click_manageBtn()
         self:sceneFadeInAction(func)
     end
     ui:setCloseCB(close_cb)
-end
-
--------------------------------------
--- function onDestroyUI
--- @brief
--------------------------------------
-function UI_GameResultNew:onDestroyUI()
-    PARENT.onDestroyUI(self)
-    g_autoItemPickData:updateOff()
 end

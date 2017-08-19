@@ -51,14 +51,20 @@ function UI_Product:initUI()
 	else
         price_node:setScale(0)
     end
-
-    -- 광고인 경우 버튼 활성화 체크
-    if (struct_product.price_type == 'advertising') then
-        vars['buyBtn']:setEnabled(g_advertisingData:getEnableShopAdv())
-    end
     
 	-- 가격 아이콘 및 라벨, 배경 조정
 	UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
+
+    -- 광고
+    if (struct_product.price_type == 'advertising') then
+        local function update(dt)
+            local visible = (not g_advertisingData:getEnableShopAdv())
+            vars['timeNode']:setVisible(visible)
+            vars['timeLabel']:setVisible(visible)
+            vars['timeLabel']:setString(g_advertisingData:getCoolTimeStr(AD_TYPE.RANDOM_BOX))
+        end
+        self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+    end 
 end
 
 -------------------------------------
@@ -77,7 +83,7 @@ function UI_Product:refresh()
 	local struct_product = self.m_structProduct
 end
 
--------------------------------------
+-------------------------------
 -- function click_buyBtn
 -------------------------------------
 function UI_Product:click_buyBtn()
@@ -88,10 +94,10 @@ function UI_Product:click_buyBtn()
 
     -- 광고 시청
     elseif (struct_product.price_type == 'advertising') then
-        local function refresh_btn()
-            self.vars['buyBtn']:setEnabled(g_advertisingData:getEnableShopAdv())
+        if (not g_advertisingData:getEnableShopAdv()) then
+            return
         end
-        g_advertisingData:showAdvPopup(AD_TYPE.SHOP, refresh_btn)
+        g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX, function() self:refresh() end)
 
 	else
         local function cb_func(ret)

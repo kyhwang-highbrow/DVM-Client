@@ -7,12 +7,6 @@ UI_AdvertisingPopup = class(PARENT,{
         m_selType = 'number',
     })
 
-AD_TYPE = {
-    LOBBY = 1, -- 로비 광고 보기
-    SHOP = 2, -- 상점 광고 보기
-    NONE = 3, -- 광고 없음
-}
-
 -------------------------------------
 -- function init
 -------------------------------------
@@ -71,7 +65,7 @@ function UI_AdvertisingPopup:refresh()
     vars['cancelBtn']:setVisible(ad_type ~= AD_TYPE.NONE)
     vars['okBtn']:setVisible(ad_type == AD_TYPE.NONE)
 
-    if (ad_type == AD_TYPE.SHOP) then
+    if (ad_type == AD_TYPE.RANDOM_BOX) then
         self:setRewardList()
     end
 end

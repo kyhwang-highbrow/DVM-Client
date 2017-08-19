@@ -64,13 +64,6 @@ function UI_Lobby:initUI()
     -- 임시 처리
     local vars = self.vars
     vars['subscriptionLabel']:setVisible(false) -- 월정액 시간 표기 label
-
-    -- 자동 재화 줍기 
-    do
-        local node = vars['itemAutoLabel']
-        g_autoItemPickData:setCountLabel(node)
-        g_autoItemPickData:updateOn() -- onDestroyUI()에서 updateOff() 반드시 호출해야함
-    end
 end
 
 -------------------------------------
@@ -542,7 +535,7 @@ end
 -- @brief 자동재화 버튼 (광고 보기)
 -------------------------------------
 function UI_Lobby:click_itemAutoBtn()
-    g_advertisingData:showAdvPopup(AD_TYPE.LOBBY)
+    g_advertisingData:showAdvPopup(AD_TYPE.AUTO_ITEM_PICK)
 end
 
 -------------------------------------
@@ -639,6 +632,12 @@ function UI_Lobby:update(dt)
         GoogleHelper.setDirty(false)
         self:refresh_google()
     end
+
+    -- 자동 획득 처리
+    do
+        local node = self.vars['itemAutoLabel']
+        node:setString(g_advertisingData:getCoolTimeStr(AD_TYPE.AUTO_ITEM_PICK))
+    end
 end
 
 -------------------------------------
@@ -652,8 +651,6 @@ function UI_Lobby:onDestroyUI()
         self.m_lobbyWorldAdapter:onDestroy()
         self.m_lobbyWorldAdapter = nil
     end
-
-    g_autoItemPickData:updateOff()
 end
 
 
