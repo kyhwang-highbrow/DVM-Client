@@ -49,6 +49,7 @@ function AdsManager:start(placementId, result_cb)
         cclog('UnityAds Callback - ret:' .. ret .. ',info:' .. info)
         self.callback(ret, info)
     end
+
     PerpleSDK:unityAdsStart(self.mode, '', _result_cb)
 end
 
@@ -61,6 +62,7 @@ function AdsManager:show(placementId, result_cb)
     end
 
     self.callback = result_cb or function() end
+
     PerpleSDK:unityAdsShow(placementId, '')
 end
 
