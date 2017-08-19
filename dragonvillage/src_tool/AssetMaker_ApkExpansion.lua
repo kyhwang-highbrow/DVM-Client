@@ -23,7 +23,7 @@ function AssetMaker_ApkExpansion:run()
 
     -- diretory를 루트로 이동
     util.changeDir('..')
-
+ 
     -- 일단 폴더 삭제
     util.removeDirectory(ASSETS_PATH_EXPANSION)
 
@@ -58,6 +58,7 @@ function AssetMaker_ApkExpansion:moveToExpansion()
     self:move('\\res\\character\\npc')
     self:move('\\res\\character\\monster')
     self:moveDragonRes()
+    self:checkAssetsUnder100MB()
 end
 
 -------------------------------------
@@ -90,6 +91,22 @@ function AssetMaker_ApkExpansion:moveDragonRes()
 
     -- robocopy move
     os.execute(string.format('robocopy "%s" "%s" /MOVE /E /NFL /NDL /NJH /NJS /XD .svn %s', ASSETS_PATH .. dragon_path, ASSETS_PATH_EXPANSION .. dragon_path, exception_list_str))
+end
+
+-------------------------------------
+-- function checkAssetsUnder100MB
+-- @brief asstes 폴더가 기준 사이즈에 부합한지 확인한다.
+-------------------------------------
+function AssetMaker_ApkExpansion:checkAssetsUnder100MB()
+    cclog('## AssetMaker_ApkExpansion:checkAssetsUnder100MB')
+
+    local assets_size = util.getDirectorySize(ASSETS_PATH)
+    cclog('## ../assets/100mb directory size : ' .. string.format('%.2fMB', assets_size/MB_TO_BYTE))
+
+    -- 기준 사이즈에 부합한지 비교한다.
+    if (assets_size > UNDER_100MB) then
+        error('## ASSETS OVER 100MB !!')
+    end
 end
 
 -------------------------------------

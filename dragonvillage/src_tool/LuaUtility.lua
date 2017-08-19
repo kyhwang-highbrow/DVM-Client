@@ -40,6 +40,38 @@ function util.makeDirectory(dir)
 end
 
 -------------------------------------
+-- local function _getDirectorySize
+-- @brief 디렉토리 사이즈 계산 실 연산부
+-------------------------------------
+local function _getDirectorySize(dir, t_size)
+    for file in lfs.dir(dir) do
+        local file_path = dir..'\\'..file
+        if (file ~= ".") and (file ~= "..") then
+            -- 파일
+            if util.isFile(file_path) then
+                -- 파일 사이즈 가산
+                t_size['size'] = t_size['size'] + lfs.attributes(file_path, 'size')
+
+            -- 디렉토리
+            elseif util.isDirectory(file_path) then
+                -- 하위 파일을 위한 재귀적 호출
+                _getDirectorySize(file_path, t_size)
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function getDirectorySize
+-- @brief 디렉토리 사이즈를 계산한다.
+-------------------------------------
+function util.getDirectorySize(dir)
+    local t_size = {['size'] = 0}
+    _getDirectorySize(dir, t_size)
+    return t_size['size']
+end
+
+-------------------------------------
 -- function removeDirectory
 -- @brief 디렉토리 및 하위 파일 전부 삭제
 -------------------------------------
