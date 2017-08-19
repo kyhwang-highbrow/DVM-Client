@@ -238,3 +238,66 @@ function UnlinkBrokenPlatform(info, platform_id)
     end
 
 end
+
+-------------------------------------
+-- function AppVer_strToNum
+-- @brief 앱 버전 string을 number로 변경
+--        '.'으로 구분되는 숫자는 최대 세자리를 사용
+-- @ex AppVer_strToNum('1.8.13') -> 1008013
+-------------------------------------
+function AppVer_strToNum(app_ver_str)
+    if (type(app_ver_str) == 'number') then
+        return app_ver_str
+    end
+
+    local l_num = pl.stringx.split(app_ver_str, '.')
+    l_num = table.reverse(l_num)
+
+    local app_ver_num = 0
+    for i,v in ipairs(l_num) do
+        if (i == 1) then
+            app_ver_num = (app_ver_num + v)
+        else
+            app_ver_num = (app_ver_num + (v * math_pow(1000, i-1)))
+        end
+    end
+
+    return app_ver_num
+end
+
+-------------------------------------
+-- function AppVer_numToStr
+-- @brief 앱 버전 number를 string으로 변경
+--        '.'으로 구분되는 숫자는 최대 세자리를 사용
+-- @ex AppVer_numToStr(1008013) -> '1.8.13'
+-------------------------------------
+function AppVer_numToStr(app_ver_num)
+    if (type(app_ver_num) == 'string') then
+        return app_ver_num
+    end
+
+    local comma_app_ver_num = comma_value(app_ver_num)
+    local l_num = pl.stringx.split(comma_app_ver_num, ',')
+
+    local app_ver_str = ''
+    for i,v in ipairs(l_num) do
+        local num = tonumber(v)
+        if (i == 1) then
+            app_ver_str = (app_ver_str .. num)
+        else
+            app_ver_str = (app_ver_str .. '.' .. num)
+        end
+    end
+
+    return app_ver_str
+end
+
+-------------------------------------
+-- function getAppVerNum
+-- @brief 앱 버전 number
+-------------------------------------
+function getAppVerNum()
+    local app_ver = getAppVer()
+    local app_ver_num = AppVer_strToNum(app_ver)
+    return app_ver_num
+end
