@@ -32,6 +32,7 @@ end
 function SceneGameIntro:init_gameMode()
     self.m_stageID = INTRO_STAGE_ID
     self.m_gameMode = GAME_MODE_INTRO
+    self.m_bgmName = 'bgm_colosseum'
 end
 
 -------------------------------------
@@ -41,7 +42,7 @@ function SceneGameIntro:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
 
-    SoundMgr:playBGM('bgm_colosseum')
+    SoundMgr:playBGM(self.m_bgmName)
 
     self.m_inGameUI = UI_Game(self)
     self.m_resPreloadMgr = ResPreloadMgr()

@@ -32,6 +32,7 @@ local t_module = {
 	'LocalPushMgr',
     'Analytics',
     'AdsManager',
+    'ScriptCache',
 
 	-- CONSTANT 
     'Constant',

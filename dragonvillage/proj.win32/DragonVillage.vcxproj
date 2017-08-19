@@ -410,6 +410,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SceneGameIntro.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
     <None Include="..\src\SceneSecretDungeon.lua" />
+    <None Include="..\src\ScriptCache.lua" />
     <None Include="..\src\SDKManager.lua" />
     <None Include="..\src\SecurityNumber.lua" />
     <None Include="..\src\SensitivityHelper.lua" />

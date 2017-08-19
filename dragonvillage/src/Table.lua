@@ -350,7 +350,8 @@ end
 -------------------------------------
 function TABLE:loadPatternScript(filename, extention, remove_comment)
     local filename = 'pattern/' .. filename
-    return self:loadJsonTable(filename, extention, remove_comment)
+    return ScriptCache:get(filename, extention, remove_comment)
+    --return self:loadJsonTable(filename, extention, remove_comment)
 end
 
 -------------------------------------
@@ -358,7 +359,8 @@ end
 -------------------------------------
 function TABLE:loadSkillScript(filename, extention, remove_comment)
     local filename = 'skill/' .. filename
-    return self:loadJsonTable(filename, extention, remove_comment)
+    return ScriptCache:get(filename, extention, remove_comment)
+    --return self:loadJsonTable(filename, extention, remove_comment)
 end
 
 -------------------------------------

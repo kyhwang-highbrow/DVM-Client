@@ -10,6 +10,7 @@ SceneGame = class(PerpleScene, {
 
         m_gameMode = 'GAME_MODE',
         m_dungeonMode = 'NEST_DUNGEON_MODE',
+        m_bgmName = '',
 
         m_scheduleNode = 'cc.Node',
         m_gameWorld = 'GameWorld',
@@ -71,6 +72,7 @@ end
 function SceneGame:init_gameMode(stage_id)
     self.m_stageID = stage_id
 
+    -- game mode
     if (self.m_stageID == DEV_STAGE_ID) then
         self.m_gameMode = GAME_MODE_ADVENTURE
     else
@@ -79,6 +81,20 @@ function SceneGame:init_gameMode(stage_id)
             local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
             self.m_dungeonMode = t_dungeon['dungeon_mode']
         end
+    end
+
+    -- bgm
+    if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+        self.m_bgmName = 'bgm_dungeon_special'
+            	
+	elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
+        self.m_bgmName = 'bgm_dungeon_special'
+
+	elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+		self.m_bgmName = 'bgm_dungeon_special'
+
+    else
+        self.m_bgmName = 'bgm_dungeon'
     end
 
     -- @E.T.
@@ -206,6 +222,9 @@ end
 -------------------------------------
 function SceneGame:onExit()
 	g_gameScene = nil
+
+    ScriptCache:clear()
+
     PerpleScene.onExit(self)
 end
 
@@ -258,17 +277,8 @@ end
 function SceneGame:prepareDone()
     local function cb_func()
         -- scenario 종료후 사운드 재생
-        if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
-            SoundMgr:playBGM('bgm_dungeon_special')
-	
-	    elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
-		    SoundMgr:playBGM('bgm_dungeon_special')
-
-	    elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-		    SoundMgr:playBGM('bgm_dungeon_special')
-
-        else
-            SoundMgr:playBGM('bgm_dungeon')
+        if (self.m_bgmName) then
+            SoundMgr:playBGM(self.m_bgmName)
         end
 
         self.m_containerLayer:setVisible(true)

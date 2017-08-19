@@ -2673,6 +2673,9 @@
     <None Include="..\src_tool\AssetMaker_ApkExpansion.lua">
       <Filter>lua_tool</Filter>
     </None>
+    <None Include="..\src\ScriptCache.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

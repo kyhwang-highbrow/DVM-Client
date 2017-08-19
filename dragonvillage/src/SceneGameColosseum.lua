@@ -23,6 +23,7 @@ end
 function SceneGameColosseum:init_gameMode()
     self.m_stageID = COLOSSEUM_STAGE_ID
     self.m_gameMode = GAME_MODE_COLOSSEUM
+    self.m_bgmName = 'bgm_colosseum'
 
     -- @E.T.
 	g_errorTracker:set_lastStage(self.m_stageID)
@@ -35,7 +36,7 @@ function SceneGameColosseum:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
 
-    SoundMgr:playBGM('bgm_colosseum')
+    SoundMgr:playBGM(self.m_bgmName)
     
     self.m_inGameUI = UI_GameColosseum(self)
     self.m_resPreloadMgr = ResPreloadMgr()
@@ -76,6 +77,24 @@ function SceneGameColosseum:prepare()
 		self.m_inGameUI:init_dpsUI()
 		self.m_inGameUI:init_panelUI()
     end)
+end
+
+
+-------------------------------------
+-- function prepareDone
+-------------------------------------
+function SceneGameColosseum:prepareDone()
+    local function cb_func()
+        self.m_containerLayer:setVisible(true)
+        self.m_scheduleNode = cc.Node:create()
+        self.m_scene:addChild(self.m_scheduleNode)
+        self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+    
+        self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
+    end
+    
+    -- 시나리오 체크 및 시작
+    g_gameScene:startIngameScenario('snro_start', cb_func)     
 end
 
 -------------------------------------
