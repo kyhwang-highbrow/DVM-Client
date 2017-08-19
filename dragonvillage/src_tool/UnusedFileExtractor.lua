@@ -1,4 +1,4 @@
-require 'LuaTool'
+require 'LuaStandAlone'
 
 -------------------------------------
 -- class UnusedFileExtractor

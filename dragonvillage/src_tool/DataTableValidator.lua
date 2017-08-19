@@ -1,4 +1,4 @@
-require 'LuaTool'
+require 'LuaStandAlone'
 
 require 'slack'
 
