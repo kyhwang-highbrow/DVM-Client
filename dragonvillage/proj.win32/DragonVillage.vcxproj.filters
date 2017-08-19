@@ -2538,9 +2538,6 @@
     <None Include="..\src_tool\LuaGlobal.lua">
       <Filter>lua_tool</Filter>
     </None>
-    <None Include="..\src_tool\LuaTool.lua">
-      <Filter>lua_tool</Filter>
-    </None>
     <None Include="..\src_tool\redefine.lua">
       <Filter>lua_tool</Filter>
     </None>
@@ -2655,7 +2652,6 @@
     <None Include="..\src\UI_SimplePopup2.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src_tool\StageInfoWave.lua" />
     <None Include="..\src_tool\CsvToLuaTableStr.lua">
       <Filter>lua_tool</Filter>
     </None>
@@ -2667,6 +2663,12 @@
     </None>
     <None Include="..\src\UI_AdvertisingPopup.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src_tool\StageInfoWave.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\LuaStandAlone.lua">
+      <Filter>lua_tool</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
