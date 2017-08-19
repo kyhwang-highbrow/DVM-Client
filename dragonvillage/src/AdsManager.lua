@@ -15,6 +15,19 @@ local function skip()
         return true
     end
 
+    -- 특정 앱 버전 skip
+    local t_skip_ver = {}
+    table.insert(t_skip_ver, '0.2.2')
+    table.insert(t_skip_ver, '0.3.1')
+    table.insert(t_skip_ver, '0.3.2')
+    table.insert(t_skip_ver, '0.3.3')
+    local app_ver = getAppVer()
+    for i,v in ipairs(t_skip_ver) do
+        if (app_ver == v) then
+            return true
+        end
+    end
+
     return false
 end
 
