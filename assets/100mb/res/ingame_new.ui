@@ -254,6 +254,16 @@
 						type = 'SocketNode';
 						socket_name = 'ingame_panel_mana_slot_5';
 					};
+					[6] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_6';
+					};
+					[7] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_7';
+					};
 					type = 'Visual';
 					ui_name = '';
 					x = 0.000000;
@@ -308,6 +318,16 @@
 					{
 						type = 'SocketNode';
 						socket_name = 'ingame_panel_mana_slot_5';
+					};
+					[6] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_6';
+					};
+					[7] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_7';
 					};
 					type = 'Visual';
 					ui_name = '';
@@ -364,6 +384,16 @@
 						type = 'SocketNode';
 						socket_name = 'ingame_panel_mana_slot_5';
 					};
+					[6] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_6';
+					};
+					[7] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_7';
+					};
 					type = 'Visual';
 					ui_name = '';
 					x = 0.000000;
@@ -418,6 +448,16 @@
 					{
 						type = 'SocketNode';
 						socket_name = 'ingame_panel_mana_slot_5';
+					};
+					[6] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_6';
+					};
+					[7] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_7';
 					};
 					type = 'Visual';
 					ui_name = '';
@@ -474,6 +514,16 @@
 						type = 'SocketNode';
 						socket_name = 'ingame_panel_mana_slot_5';
 					};
+					[6] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_6';
+					};
+					[7] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_7';
+					};
 					type = 'Visual';
 					ui_name = '';
 					x = 0.000000;
@@ -500,9 +550,139 @@
 				type = 'SocketNode';
 				socket_name = 'ingame_panel_mana_slot_5';
 			};
+			[6] =
+			{
+				[1] =
+				{
+					[1] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_1';
+					};
+					[2] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_2';
+					};
+					[3] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_3';
+					};
+					[4] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_4';
+					};
+					[5] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_5';
+					};
+					[6] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_6';
+					};
+					[7] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_7';
+					};
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'manaSlotVisual6';
+					file_name = 'ui/a2d/ingame_panel/ingame_panel.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;mana_slot';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				type = 'SocketNode';
+				socket_name = 'ingame_panel_mana_slot_6';
+			};
+			[7] =
+			{
+				[1] =
+				{
+					[1] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_1';
+					};
+					[2] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_2';
+					};
+					[3] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_3';
+					};
+					[4] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_4';
+					};
+					[5] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_5';
+					};
+					[6] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_6';
+					};
+					[7] =
+					{
+						type = 'SocketNode';
+						socket_name = 'ingame_panel_mana_slot_7';
+					};
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'manaSlotVisual7';
+					file_name = 'ui/a2d/ingame_panel/ingame_panel.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;mana_slot';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				type = 'SocketNode';
+				socket_name = 'ingame_panel_mana_slot_7';
+			};
 			type = 'Visual';
 			ui_name = '';
-			x = -381.000000;
+			x = -350.000000;
 			y = 32.000000;
 			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.000000; };
@@ -549,7 +729,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '/5';
+				text = '/7';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -913,7 +1093,7 @@
 		{
 			type = 'Button';
 			ui_name = '';
-			x = -253.000000;
+			x = -181.000000;
 			y = -36.000000;
 			dock_point = { 1.000000; 1.000000; };
 			anchor_point = { 0.500000; 0.500000; };
@@ -941,40 +1121,14 @@
 		{
 			[1] =
 			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
-				width = 0;
-				height = 0;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frames/base_frame_0202.png';
-				color = { 255; 255; 255; };
-				opacity = 150;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[2] =
-			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
 				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 129;
+				width = 130;
 				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -986,11 +1140,11 @@
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
 				text = '{1}회 반복중';
-				h_alignment = 1;
+				h_alignment = 0;
 				v_alignment = 1;
 				color = { 255; 215; 0; };
 				opacity = 255;
-				dimension_width = 129;
+				dimension_width = 130;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -1007,13 +1161,13 @@
 			};
 			type = 'Node';
 			ui_name = '';
-			x = -565.000000;
-			y = 262.000000;
+			x = -570.000000;
+			y = 270.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 133;
-			height = 50;
+			width = 130;
+			height = 30;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -1295,7 +1449,7 @@
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = -120.000000;
+			y = -108.000000;
 			dock_point = { 0.000000; 1.000000; };
 			anchor_point = { 0.000000; 1.000000; };
 			relative_size_type = 0;

@@ -7,10 +7,10 @@
 		{
 			[1] =
 			{
-				type = 'Visual';
+				type = 'Node';
 				ui_name = '';
-				x = 50.000000;
-				y = 50.000000;
+				x = 0.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -22,13 +22,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'animator';
-				file_name = 'ui/a2d/title/title.vrp';
-				auto_play = true;
-				is_repeat = false;
-				visual_id = 'group;patch';
-				color = { 255; 255; 255; };
-				opacity = 255;
+				lua_name = 'animatorNode';
 			};
 			[2] =
 			{
