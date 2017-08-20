@@ -369,7 +369,7 @@ function Network:getApiUrl()
     local api_url = 'http://dv-test.perplelab.com:9003' --/get_patch_info?app_ver=0.0.0
 
     -- nil == default
-    if (not target_server) or (target_server == 'TEST') then
+    if (not target_server) or (target_server == 'DEV') then
         api_url = 'http://dv-test.perplelab.com:9003'
         --api_url = '192.168.1.42:9003' -- 이원기님 개발용 로컬 서버 (sgkim 2017-07-26)
     elseif (target_server == 'FGT') then

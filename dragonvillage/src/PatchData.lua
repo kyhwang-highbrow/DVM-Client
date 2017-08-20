@@ -132,16 +132,15 @@ function PatchData:getAppVersionAndPatchIdxString()
     local patch_idx = self:get('patch_ver')
     local patch_idx_str = string.format('ver : %s, patch : %d', cur_app_ver, patch_idx)
 
-    if (TARGET_SERVER == nil) then
-        patch_idx_str = patch_idx_str .. ' (TEST server)'
-    elseif (TARGET_SERVER == 'FGT') then
-        patch_idx_str = patch_idx_str .. ' (FGT server)'
-	elseif (TARGET_SERVER == 'PUBLIC') then
-        patch_idx_str = patch_idx_str .. ' (PUBLIC server)'
-    elseif (TARGET_SERVER == 'QA') then
+    local target_server = CppFunctions:getTargetServer()
+    if (target_server == 'DEV') then
+        patch_idx_str = patch_idx_str .. ' (DEV server)'
+    elseif (target_server == 'QA') then
         patch_idx_str = patch_idx_str .. ' (QA server)'
+    elseif (target_server == 'LIVE') then
+        patch_idx_str = patch_idx_str .. ' (LIVE server)'
     else
-        error('TARGET_SERVER : ' .. TARGET_SERVER)
+        error('TARGET_SERVER : ' .. target_server)
     end
 
     return patch_idx_str

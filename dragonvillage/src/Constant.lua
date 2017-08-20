@@ -1,6 +1,3 @@
--- nil('TEST"), 'QA', 'LIVE', 'FGT', 'PUBLIC'
-TARGET_SERVER = nil
-
 -- 기준 해상도 (16:9 비율)
 CRITERIA_RESOLUTION_X = 1280
 CRITERIA_RESOLUTION_Y = 720

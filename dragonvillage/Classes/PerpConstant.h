@@ -5,46 +5,37 @@
 #define APP_NAME "DragonVillageM"
 #define ENTRY_LUA "entry_patch.lua"
 
-// 빌드 타입
-#define BUILD_TYPE_TEST 0
-#define BUILD_TYPE_QA 1
-#define BUILD_TYPE_LIVE 101
-
-#define BUILD_TARGET_TYPE BUILD_TYPE_TEST
-
-// 서버 및 채팅 서버 url
-#if (BUILD_TARGET_TYPE == BUILD_TYPE_LIVE)
-#define TARGET_SERVER "LIVE"
-
-#elif (BUILD_TARGET_TYPE == BUILD_TYPE_QA)
-#define TARGET_SERVER "QA"
-
-#elif (BUILD_TARGET_TYPE == BUILD_TYPE_TEST)
-#define TARGET_SERVER "TEST"
-
+// TARGET SERVER는 NDK에서 넘겨준다. 없으면 'DEV'로 설정
+#ifndef TARGET_SERVER
+#define TARGET_SERVER "DEV"
 #endif
 
-// 플랫폼별 처리
+// 윈도우인 경우
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #define USE_PATCH false
+#define USE_OBB false
 #define USE_LUA_EXT true
+#define IS_TEST_MODE true
+#endif
 
-#else
+// USE_PATCH : 패치 사용 여부
+#ifndef USE_PATCH
 #define USE_PATCH true
-#define USE_LUA_EXT false
-
 #endif
 
+// USE_OBB : apk_expansion 사용 여부
 #ifndef USE_OBB
-    #define USE_OBB false
+#define USE_OBB true
 #endif
 
+// USE_LUA_EXT : ps 대신 lua 사용 여부
+#ifndef USE_LUA_EXT
+#define USE_LUA_EXT false
+#endif
+
+// IS_TEST_MODE : test 기능 사용 여부
 #ifndef IS_TEST_MODE
-    #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-        #define IS_TEST_MODE true
-    #else
-        #define IS_TEST_MODE false
-    #endif
+#define IS_TEST_MODE false
 #endif
 
 

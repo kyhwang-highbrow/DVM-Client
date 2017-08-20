@@ -55,7 +55,7 @@ end
 
 -------------------------------------
 -- function getTargetServer
--- @return string 'TEST', 'QA', 'LIVE'
+-- @return string 'DEV', 'QA', 'LIVE'
 -------------------------------------
 function CppFunctionsClass:getTargetServer()
     return getTargetServer()
