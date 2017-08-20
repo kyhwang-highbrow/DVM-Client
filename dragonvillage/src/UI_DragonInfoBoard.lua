@@ -217,7 +217,7 @@ end
 function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
     local vars = self.vars
 
-    --[[ 2017-07-07 sgkim UI스타일 변경되면서 빠짐
+
     do -- 희귀도
         local rarity = t_dragon_data:getRarity()
         vars['rarityNode']:removeAllChildren()
@@ -226,28 +226,24 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
 
         vars['rarityLabel']:setString(dragonRarityName(rarity))
     end
-    --]]
 
-    
     do -- 드래곤 속성
         local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
         local icon = IconHelper:getAttributeIcon(attr)
         vars['attrNode']:addChild(icon)
 
-        --vars['attrLabel']:setString(dragonAttributeName(attr))
+        vars['attrLabel']:setString(dragonAttributeName(attr))
     end
 
-    --[[
     do -- 드래곤 역할(role)
         local role_type = t_dragon_data:getRole()
-        vars['roleNode']:removeAllChildren()
+        vars['typeNode']:removeAllChildren()
         local icon = IconHelper:getRoleIcon(role_type)
-        vars['roleNode']:addChild(icon)
+        vars['typeNode']:addChild(icon)
 
-        vars['roleLabel']:setString(dragonRoleName(role_type))
+        vars['typeLabel']:setString(dragonRoleName(role_type))
     end
-    --]]
 
     -- 드래곤 역할
     local role_type = t_dragon_data:getRole()

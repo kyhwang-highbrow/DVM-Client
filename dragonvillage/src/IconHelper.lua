@@ -375,7 +375,17 @@ end
 -- @brief 역할 생성
 -------------------------------------
 function IconHelper:getRoleIcon(role)
-    local res_name = string.format('res/ui/icon/role/dc_role_%s.png', role)
+    local res_name = string.format('res/ui/icons/book/role_%s.png', role)
+    local sprite = self:getIcon(res_name)
+    return sprite
+end
+
+-------------------------------------
+-- function getRarityIcon
+-- @brief 희귀도 아이콘
+-------------------------------------
+function IconHelper:getRarityIcon(role)
+    local res_name = string.format('res/ui/icons/rarity/gem_%s.png', role)
     local sprite = self:getIcon(res_name)
     return sprite
 end
