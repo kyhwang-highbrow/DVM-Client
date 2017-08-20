@@ -5,7 +5,7 @@ apply plugin: 'com.android.application'
 
 // task preBuild excuted before android build 
 preBuild {
-    println 'do it before build'
+    println '[TASK preBuild] do it before build'
 }
 
 // task android build
@@ -17,8 +17,8 @@ android {
         applicationId "com.perplelab.dragonvillagem.kr"
         minSdkVersion 16
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 13
-        versionName "0.3.2"
+        versionCode 14
+        versionName "0.3.4"
 
         externalNativeBuild {
             ndkBuild {
@@ -31,6 +31,10 @@ android {
                     // Android-21 미만 기기에서 실행하기 위함
                     arguments 'APP_PLATFORM=android-16'
 
+                    // cpp flags
+                    cppFlags.addAll(PROP_CPP_FLAGS.split(':').collect { it as String })
+
+                    // module path
                     def module_paths = [project.file("../../../cocos2d-x").absolutePath,
                                         project.file("../../../cocos2d-x/cocos").absolutePath,
                                         project.file("../../../cocos2d-x/external").absolutePath]
@@ -41,7 +45,11 @@ android {
                     } else {
                         arguments 'NDK_MODULE_PATH=' + module_paths.join(':')
                     }
+
+                    // processors
                     arguments '-j' + Runtime.runtime.availableProcessors()
+
+                    // abi
                     abiFilters.addAll(PROP_APP_ABI.split(':').collect { it as String })
                 }
             }
@@ -50,12 +58,25 @@ android {
 
     // productFlavors or buildType 에 따른 개별적인 source 설정 가능
     sourceSets{
-        full {
+        dev100mbTest{
+            assets.srcDir "../../../assets/100mb"
+        }
+        devFullTest{
             assets.srcDir "../../../assets/full"
         }
 
-        market {
-            assets.srcDir "../../../assets/100mb"                  
+        qa100mbTest{
+            assets.srcDir "../../../assets/100mb"
+        }
+        qaFullTest{
+            assets.srcDir "../../../assets/full"
+        }
+
+        live100mb{
+            assets.srcDir "../../../assets/100mb"
+        }
+        liveFull{
+            assets.srcDir "../../../assets/full"
         }
 
         main {
@@ -98,33 +119,97 @@ android {
     * optional, and the build system does not create them by default.
     */
     productFlavors {
-        // 100mb under assets 사용
-        market {
-            // applicationId "com.perplelab.dragonvillagem.market.kr" ?
-            // applicationIdSuffix ".market"
-            // versionNameSuffix "-market"
-            signingConfig signingConfigs.live_key
+        // DEV
+        dev100mbTest{
+            signingConfig signingConfigs.test_key
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=true")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
+                }
+            }
+        }
+        devFullTest{            
+            signingConfig signingConfigs.test_key
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=false")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
+                }
+            }
         }
 
-        // full assests 사용
-        full {
-            // applicationIdSuffix ".full"
-            // versionNameSuffix "-full"
+        // QA
+        qa100mbTest{
             signingConfig signingConfigs.test_key
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_QA")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=true")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
+                }
+            }
+        }
+        qaFullTest{
+            signingConfig signingConfigs.test_key
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_QA")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=false")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
+                }
+            }
+        }
+
+        // LIVE
+        live100mb{
+            signingConfig signingConfigs.test_key
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=true")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=false")
+                }
+            }
+        }
+        liveFull{
+            signingConfig signingConfigs.test_key
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=false")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=false")
+                }
+            }
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-
             // signingConfig initialize
             signingConfig null
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
 
             externalNativeBuild {
                 ndkBuild {
                     arguments 'NDK_DEBUG=0'
+                    cppFlags.add("-DNDEBUG")
                 }
             }
         }
@@ -135,6 +220,7 @@ android {
             externalNativeBuild {
                 ndkBuild {
                     arguments 'NDK_DEBUG=1'
+                    cppFlags.add("-DCOCOS2D_DEBUG=1")
                 }
             }
         }
