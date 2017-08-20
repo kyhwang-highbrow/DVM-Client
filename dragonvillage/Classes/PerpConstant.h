@@ -1,16 +1,21 @@
-#ifndef __LOGIN_PLATFORM_H__
+ï»¿#ifndef __LOGIN_PLATFORM_H__
 #define __LOGIN_PLATFORM_H__
 
 
 #define APP_NAME "DragonVillageM"
 #define ENTRY_LUA "entry_patch.lua"
 
-// TARGET SERVER´Â NDK¿¡¼­ ³Ñ°ÜÁØ´Ù. ¾øÀ¸¸é 'DEV'·Î ¼³Á¤
+// SERVER LIST
+#define SERVER_LIVE "LIVE"
+#define SERVER_QA "QA"
+#define SERVER_DEV "DEV"
+
+// TARGET SERVERëŠ” NDKì—ì„œ ë„˜ê²¨ì¤€ë‹¤. ì—†ìœ¼ë©´ 'DEV'ë¡œ ì„¤ì •
 #ifndef TARGET_SERVER
 #define TARGET_SERVER "DEV"
 #endif
 
-// À©µµ¿ìÀÎ °æ¿ì
+// ìœˆë„ìš°ì¸ ê²½ìš°
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #define USE_PATCH false
 #define USE_OBB false
@@ -18,22 +23,22 @@
 #define IS_TEST_MODE true
 #endif
 
-// USE_PATCH : ÆĞÄ¡ »ç¿ë ¿©ºÎ
+// USE_PATCH : íŒ¨ì¹˜ ì‚¬ìš© ì—¬ë¶€
 #ifndef USE_PATCH
 #define USE_PATCH true
 #endif
 
-// USE_OBB : apk_expansion »ç¿ë ¿©ºÎ
+// USE_OBB : apk_expansion ì‚¬ìš© ì—¬ë¶€
 #ifndef USE_OBB
 #define USE_OBB true
 #endif
 
-// USE_LUA_EXT : ps ´ë½Å lua »ç¿ë ¿©ºÎ
+// USE_LUA_EXT : ps ëŒ€ì‹  lua ì‚¬ìš© ì—¬ë¶€
 #ifndef USE_LUA_EXT
 #define USE_LUA_EXT false
 #endif
 
-// IS_TEST_MODE : test ±â´É »ç¿ë ¿©ºÎ
+// IS_TEST_MODE : test ê¸°ëŠ¥ ì‚¬ìš© ì—¬ë¶€
 #ifndef IS_TEST_MODE
 #define IS_TEST_MODE false
 #endif
