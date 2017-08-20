@@ -32,6 +32,7 @@ local t_module = {
     'Analytics',
     'AdsManager',
     'ScriptCache',
+    'CppFunctions',
 
 	-- CONSTANT 
     'Constant',

@@ -422,7 +422,7 @@ function TABLE:makeCol()
         if i ~= 'col' then
             local name = v[1]
             local path = LuaBridge:fullPathForFilename('data_dat/' .. name .. '.dat')
-            local md5 = getMd5(path)
+            local md5 = CppFunctions:getMd5(path)
             f:write(name .. ',' .. md5 .. '\n')
         end
     end

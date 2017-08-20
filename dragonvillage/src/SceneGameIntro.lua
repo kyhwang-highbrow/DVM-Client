@@ -78,7 +78,7 @@ function SceneGameIntro:prepare()
 
     self:addLoading(function()
 		-- 테스트 모드에서만 디버그패널 on
-		if (isTestMode()) then
+		if (CppFunctions:isTestMode()) then
 			self.m_inGameUI:init_debugUI()
 		end
 

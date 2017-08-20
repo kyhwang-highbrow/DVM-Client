@@ -365,7 +365,22 @@ function Network:getApiUrl()
         self:resetServerType()
     end
 
-    local api_url = getServerUrl() 
+    local target_server = CppFunctions:getTargetServer()
+    local api_url = 'http://dv-test.perplelab.com:9003' --/get_patch_info?app_ver=0.0.0
+
+    -- nil == default
+    if (not target_server) or (target_server == 'TEST') then
+        api_url = 'http://dv-test.perplelab.com:9003'
+        --api_url = '192.168.1.42:9003' -- 이원기님 개발용 로컬 서버 (sgkim 2017-07-26)
+    elseif (target_server == 'FGT') then
+        api_url = 'http://dv-test.perplelab.com:9004'
+	elseif (target_server == 'PUBLIC') then
+        api_url = 'http://dv-test.perplelab.com:9005'
+    elseif (target_server == 'QA') then
+        api_url = 'http://dv-qa.perplelab.com:9003'
+    else
+        error('target_server : ' .. target_server)
+    end
 
     return api_url
 end

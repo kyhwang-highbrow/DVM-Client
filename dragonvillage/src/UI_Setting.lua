@@ -73,7 +73,7 @@ function UI_Setting:initTab()
     table.insert(tab_list, 'alarm')
     table.insert(tab_list, 'info')
     
-    if (isTestMode()) then
+    if (CppFunctions:isTestMode()) then
         table.insert(tab_list, 'dev')
         vars['devBtn']:setVisible(true)
     else

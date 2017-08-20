@@ -101,7 +101,7 @@ function UI_Setting:click_gamecenterBtn()
                         end
 
                         -- 앱 재시작
-                        restart()
+                        CppFunctions:restart()
 
                     elseif ret == 'fail' then
                         local t_info = dkjson.decode(info)
@@ -211,7 +211,7 @@ function UI_Setting:click_facebookBtn()
                         end
 
                         -- 앱 재시작
-                        restart()
+                        CppFunctions:restart()
 
                     elseif ret == 'fail' then
                         local t_info = dkjson.decode(info)
@@ -308,7 +308,7 @@ function UI_Setting:click_googleBtn()
                         self:loginSuccess(info)
 
                         -- 앱 재시작
-                        restart()
+                        CppFunctions:restart()
 
                     elseif ret == 'fail' then
                         local t_info = dkjson.decode(info)
@@ -386,7 +386,7 @@ function UI_Setting:click_clearBtn()
         removeLocalFiles()
 
         -- AppDelegate_Custom.cpp에 구현되어 있음
-        restart()
+        CppFunctions:restart()
     end
     
     ask_popup()
@@ -432,7 +432,7 @@ function UI_Setting:click_logoutBtn()
         removeLocalFiles()
 
         -- AppDelegate_Custom.cpp에 구현되어 있음
-        restart()
+        CppFunctions:restart()
     end
 
     ask_popup()

@@ -2676,6 +2676,9 @@
     <None Include="..\src\ScriptCache.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\CppFunctions.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

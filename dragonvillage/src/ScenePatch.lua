@@ -91,7 +91,7 @@ function ScenePatch:runApkExpansion()
     local app_ver = getAppVer()
 
     -- APK 확장 파일 다운로드 스킵 체크
-    if (not useObb() == true) then
+    if (not CppFunctions:useObb() == true) then
         self:finishPatch()
         return
     end
@@ -147,7 +147,7 @@ function ScenePatch:finishPatch()
     self.m_bFinishPatch = true
 
     -- C++ function(AppDelegate_Custom.cpp에 구현되어 있음)
-    finishPatch()
+    CppFunctions:finishPatch()
 end
 
 -------------------------------------
@@ -168,5 +168,5 @@ function ScenePatch:click_screenBtn()
     end
 
     -- C++ function(AppDelegate_Custom.cpp에 구현되어 있음)
-    finishPatch()
+    CppFunctions:finishPatch()
 end

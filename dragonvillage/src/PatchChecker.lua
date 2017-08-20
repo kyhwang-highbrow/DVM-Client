@@ -107,7 +107,7 @@ end
 function PatchChecker:needPatchUpdate()
     HideLoading()
     local msg = Str('새로운 패치가 있습니다.\n게임이 종료됩니다.\n자동으로 재시작된 후 패치가 적용됩니다.')
-    MakeNetworkPopup(POPUP_TYPE.OK, msg, function() restart() end)
+    MakeNetworkPopup(POPUP_TYPE.OK, msg, function() CppFunctions:restart() end)
 end
 
 ----------------------------------------
