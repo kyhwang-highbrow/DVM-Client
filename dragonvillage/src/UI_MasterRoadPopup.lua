@@ -60,7 +60,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_MasterRoadPopup:refresh(t_data)
+function UI_MasterRoadPopup:refresh(t_data, b_force)
 	local vars = self.vars
 
 	if (not t_data) then
@@ -68,7 +68,7 @@ function UI_MasterRoadPopup:refresh(t_data)
 	end
 	
 	-- 중복 호출 막음
-	if (self.m_currRid == t_data['rid']) then
+	if (not b_force) and (self.m_currRid == t_data['rid']) then
 		return
 	end
 
@@ -182,6 +182,7 @@ function UI_MasterRoadPopup:click_rewardBtn()
 
         -- 보상 수령 후에는 전역 항목에 대해 다시 검사한다. 이것들은 클리어 타이밍이 애매하기 때문
         local function re_cb_func()
+            self:refresh(t_cell['data'], true)
             self.refreshCell(t_cell['ui'], t_cell['data'])
         end
         g_masterRoadData:updateMasterRoadAfterReward(re_cb_func)
