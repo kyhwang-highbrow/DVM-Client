@@ -106,6 +106,10 @@ function ServerData_MasterRoad:hasRewardRoad()
         end
     end
 
+    -- 실제 마지막 미션과 비교
+    local real_last_road = TableMasterRoad:getLastRoad()
+    last_rid = math_min(last_rid, real_last_road)
+
     -- 위의 계산을 통해서 last_rid가 0이라면 보상이 하나도 없는 것을 알 수 있다.
     return (last_rid ~= 0), last_rid
 end

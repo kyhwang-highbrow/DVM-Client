@@ -307,7 +307,7 @@ function UI_MasterRoadPopup.refreshCell(ui, t_data)
 	-- 진행중
 	vars['ingSprite']:setVisible(rid == g_masterRoadData:getFocusRoad())
 
-    -- 보상 상태에 따른 버튼 처리
+    -- 보상 상태에 따른 처리
     local reward_state = g_masterRoadData:getRewardState(rid)
     vars['rewardNotiSprite']:setVisible(reward_state == 'has_reward')
     vars['completeSprite']:setVisible(reward_state == 'already_done')
