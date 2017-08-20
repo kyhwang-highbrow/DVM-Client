@@ -192,6 +192,7 @@ end
 
 -------------------------------------
 -- function click_questLinkBtn
+-- @brief 바로가기
 -------------------------------------
 function UI_MasterRoadPopup:click_questLinkBtn()
     local t_road = TableMasterRoad():get(self.m_currRid)
@@ -200,6 +201,7 @@ function UI_MasterRoadPopup:click_questLinkBtn()
     local clear_cond = t_road['clear_value']
 
     QuickLinkHelper.quickLink(clear_type, clear_cond)
+    self:closeWithAction()
 end
 
 -------------------------------------
