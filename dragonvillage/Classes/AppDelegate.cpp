@@ -40,7 +40,7 @@ void ReloadLuaHelper::onEnter()
         if (_spine != NULL)
         {
             _spine->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
-            _spine->setAnimation(0, "idle", true);
+            _spine->setAnimation(0, "02_scene_replace", true);
             _spine->setToSetupPose();
             _spine->update(0);
             this->addChild(_spine);
