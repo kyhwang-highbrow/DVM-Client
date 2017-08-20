@@ -120,6 +120,9 @@ function LocalData:makeDefaultLocalData()
     -- 시나리오 재생 룰
     root_table['scenario_playback_rules'] = 'first' -- 'always', 'off'
 
+    -- 테스트 모드 on/off (빌드 자체에서 테스트 모드가 막혀있으면 무시하는 값)
+    root_table['test_mode'] = nil
+
     return root_table
 end
 

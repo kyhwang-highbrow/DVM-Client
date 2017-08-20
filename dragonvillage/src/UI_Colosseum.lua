@@ -110,7 +110,7 @@ function UI_Colosseum:initButton()
     vars['defDeckBtn']:registerScriptTapHandler(function() self:click_defDeckBtn() end)
 
     if (vars['testModeBtn']) then
-        if (CppFunctions:isTestMode()) then
+        if (IS_TEST_MODE()) then
             vars['testModeBtn']:registerScriptTapHandler(function() self:click_testModeBtn() end)
             vars['testModeBtn']:setVisible(true)
         else

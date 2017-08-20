@@ -5,11 +5,23 @@
 -- @brief 테스트 모드 여부를 리턴
 -------------------------------------
 function IS_TEST_MODE()
-    if (TEST_MODE_VER == nil) then
-        TEST_MODE_VER = true
+    -- 빌드 자체에서 test_mode가 아니면 무조건 false를 리턴
+    if (not CppFunctions:isTestMode()) then
+        return false
     end
 
-    return (TEST_MODE_VER)
+    local local_test_mode = g_localData:get('test_mode')
+
+    -- 설정이 되어있지 않을 경우 test_mode로 간주
+    if (local_test_mode == nil) then
+        return true
+
+    elseif (local_test_mode == true) then
+        return true
+
+    elseif (local_test_mode == false) then
+        return false
+    end
 end
 
 -------------------------------------

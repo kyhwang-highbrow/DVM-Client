@@ -50,7 +50,7 @@ function AdsManager:start(placementId, result_cb)
         self.callback(ret, info)
     end
 
-    if (CppFunctions:isTestMode()) then
+    if (IS_TEST_MODE()) then
         self.mode = 'test'
     end
 

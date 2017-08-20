@@ -57,7 +57,7 @@ function UI_DragonManageInfo:initUI()
     -- 드래곤 정보 보드 생성
     self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
 
-    if (CppFunctions:isTestMode()) then
+    if (IS_TEST_MODE()) then
         self.m_dragonInfoBoardUI.vars['equipmentBtn']:setVisible(true)
         self.m_dragonInfoBoardUI.vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
     else

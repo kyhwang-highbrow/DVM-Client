@@ -37,6 +37,34 @@ end
 function UI_Setting:initUI()
     local vars = self.vars
     self:initTab()
+
+    -- 테스트 모드 버튼
+    if CppFunctionsClass:isTestMode() then
+        vars['testModeBtn']:setVisible(true)
+        local local_test_mode = g_localData:get('test_mode')
+        if (local_test_mode == nil) then
+            local_test_mode = true
+        end
+
+        -- 활성 여부 출력
+        if (local_test_mode == true) then
+            vars['testModeLabel']:setString('테스트 모드 off')
+        else
+            vars['testModeLabel']:setString('테스트 모드 on')
+        end
+        
+        -- 버튼 설정
+        local function click()
+            local function ok_cb()
+                g_localData:applyLocalData(not local_test_mode, 'test_mode')
+                CppFunctions:restart()
+            end
+            MakeSimplePopup(POPUP_TYPE.YES_NO, '설정을 변경하면 앱이 재시작됩니다.\n진행하시겠습니까?', ok_cb)
+        end
+        vars['testModeBtn']:registerScriptTapHandler(click)
+    else
+        vars['testModeBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -73,7 +101,7 @@ function UI_Setting:initTab()
     table.insert(tab_list, 'alarm')
     table.insert(tab_list, 'info')
     
-    if (CppFunctions:isTestMode()) then
+    if (IS_TEST_MODE()) then
         table.insert(tab_list, 'dev')
         vars['devBtn']:setVisible(true)
     else
