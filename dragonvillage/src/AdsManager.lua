@@ -82,7 +82,7 @@ function AdsManager:showPlacement(placementId, result_cb)
         if (ret == 'error') then
             self:showErrorPopup(info, function()
                 result_cb(ret, info)
-            end
+            end)
         else
             result_cb(ret, info)
         end
@@ -103,6 +103,9 @@ function AdsManager:showPlacement(placementId, result_cb)
     self:start(placementId, _result_cb)
 end
 
+-------------------------------------
+-- function showErrorPopup
+-------------------------------------
 function AdsManager:showErrorPopup(errorCode, result_cb)
     local msg = ''
 

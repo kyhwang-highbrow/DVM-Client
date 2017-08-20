@@ -19,7 +19,6 @@ local t_module = {
     'perpleLib/sn',
     'perpleLib/crand',
     'perpleLib/PerpleScene',
-    'fixed_constant',
     'LuaBridge',
     'SoundMgr',
     'SoundMgrController',
