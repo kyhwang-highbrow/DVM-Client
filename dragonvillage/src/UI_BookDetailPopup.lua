@@ -191,28 +191,37 @@ function UI_BookDetailPopup:onChangeDragon()
         vars['bgNode']:addChild(animator.m_node)
     end   
 
+    do -- 희귀도
+        local rarity = t_dragon['rarity']
+        vars['rarityNode']:removeAllChildren()
+        local icon = IconHelper:getRarityIcon(rarity)
+        vars['rarityNode']:addChild(icon)
+
+        vars['rarityLabel']:setString(dragonRarityName(rarity))
+    end
+
     do -- 드래곤 속성
         local attr = t_dragon['attr']
         vars['attrNode']:removeAllChildren()
         local icon = IconHelper:getAttributeIcon(attr)
         vars['attrNode']:addChild(icon)
+
+        vars['attrLabel']:setString(dragonAttributeName(attr))
     end
 
     do -- 드래곤 역할(role)
         local role_type = t_dragon['role']
-        vars['roleLabel']:setString(dragonRoleTypeName(role_type))
+        vars['typeNode']:removeAllChildren()
+        local icon = IconHelper:getRoleIcon(role_type)
+        vars['typeNode']:addChild(icon)
+
+        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
     end    
 
     do -- 드래곤 스토리
         local story_str = t_dragon['t_desc']
         vars['storyLabel']:setString(story_str)
     end
-
-    do -- 속성과 역할 아이콘 위치 조정
-		local label_width = vars['nameLabel']:getStringWidth()
-		vars['attrNode']:setPositionX(-(label_width/2 + 50))
-        vars['roleLabel']:setPositionX((label_width/2 + 50))
-	end
 end
 
 -------------------------------------
