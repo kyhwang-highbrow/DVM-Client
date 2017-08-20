@@ -17,9 +17,7 @@ android {
         applicationId "com.perplelab.dragonvillagem.kr"
         minSdkVersion 16
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 14
-        versionName "0.3.4"
-
+        
         externalNativeBuild {
             ndkBuild {
                 if (!project.hasProperty("PROP_NDK_MODE") || PROP_NDK_MODE.compareTo('none') != 0) {
@@ -121,6 +119,8 @@ android {
     productFlavors {
         // DEV
         dev100mbTest{
+			versionCode 1
+			versionName "9.9.9"
             signingConfig signingConfigs.test_key
             externalNativeBuild {
                 ndkBuild {
@@ -132,7 +132,9 @@ android {
                 }
             }
         }
-        devFullTest{            
+        devFullTest{
+			versionCode 1
+			versionName "9.9.9"
             signingConfig signingConfigs.test_key
             externalNativeBuild {
                 ndkBuild {
@@ -147,6 +149,8 @@ android {
 
         // QA
         qa100mbTest{
+			versionCode 14
+			versionName "0.3.4"
             signingConfig signingConfigs.test_key
             externalNativeBuild {
                 ndkBuild {
@@ -159,6 +163,8 @@ android {
             }
         }
         qaFullTest{
+			versionCode 14
+			versionName "0.3.4"
             signingConfig signingConfigs.test_key
             externalNativeBuild {
                 ndkBuild {
@@ -173,6 +179,8 @@ android {
 
         // LIVE
         live100mb{
+			versionCode 100 + 1
+			versionName "1.0.1"
             signingConfig signingConfigs.test_key
             externalNativeBuild {
                 ndkBuild {
@@ -185,6 +193,8 @@ android {
             }
         }
         liveFull{
+			versionCode 100 + 1
+			versionName "1.0.1"
             signingConfig signingConfigs.test_key
             externalNativeBuild {
                 ndkBuild {
@@ -196,6 +206,32 @@ android {
                 }
             }
         }
+		
+		/* dimension 활용하여 다음과 같이 구성하는 것도 고민중
+		dev{
+			dimension "server"
+		}
+		qa{
+			dimension "server"
+		}
+		live{
+			dimension "server"
+		}
+		
+		100mb{
+			dimension "assets"
+		}
+		market{
+			dimension "assets"
+		}
+		
+		test{
+			dimension "mode"
+		}
+		normal{
+			dimension "mode"
+		}
+		*/
     }
 
     buildTypes {
