@@ -6,10 +6,12 @@
 #include "HttpClient.h"
 #include "SimpleAudioEngine.h"
 #include "PerpSupportPatch.h"
+#include "editor-support/spine/spine-cocos2dx.h"
 
 USING_NS_CC;
 using namespace std;
 using namespace CocosDenshion;
+using namespace spine;
 
 ReloadLuaHelper *ReloadLuaHelper::create(EEntryLua eEntryLua)
 {
@@ -33,6 +35,18 @@ void ReloadLuaHelper::onEnter()
 		Size visibleSize = CCDirector::getInstance()->getVisibleSize();
 		Vec2 origin = CCDirector::getInstance()->getVisibleOrigin();
 
+        // 타이틀 화면이 VRP에서 spine으로 변경되어 교체
+        SkeletonAnimation* _spine = SkeletonAnimation::createWithFile("res/ui/spine/title/title.json", "res/ui/spine/title/title.atlas", 1);
+        if (_spine != NULL)
+        {
+            _spine->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
+            _spine->setAnimation(0, "idle", true);
+            _spine->setToSetupPose();
+            _spine->update(0);
+            this->addChild(_spine);
+        }
+
+        /*
         // 타이틀 화면이 PNG에서 A2D(vrp)로 변경되어 교체
         AzVRP* visual = AzVRP::create("res/ui/a2d/title/title.vrp");
 
@@ -44,6 +58,7 @@ void ReloadLuaHelper::onEnter()
             visual->setVisual("group", "02_scene_replace");
             this->addChild(visual);
         }
+        */
 
         /*
         CCSprite* sprite = CCSprite::create("res/ui/logo/title.png");
@@ -53,8 +68,16 @@ void ReloadLuaHelper::onEnter()
             this->addChild(sprite);
         }
         */
-	}
 
+        CallFunc *runCallback = CallFunc::create(CC_CALLBACK_0(ReloadLuaHelper::run, this));
+        this->runAction(Sequence::create(DelayTime::create(0.001), runCallback, nullptr));
+
+        Scene::onEnter();
+	}
+}
+
+void ReloadLuaHelper::run()
+{
     // 각종 Cache정리, 사운드 정지
     Director::getInstance()->getScheduler()->unscheduleAllWithMinPriority(Scheduler::PRIORITY_NON_SYSTEM_MIN);
     Director::getInstance()->getTextureCache()->removeAllTextures();
@@ -63,6 +86,8 @@ void ReloadLuaHelper::onEnter()
     SimpleAudioEngine::end();
 
     AzVRP::removeCacheAll();
+    SkeletonAnimation::removeCacheAll();
+
 
     CCFileUtils::getInstance()->purgeCachedEntries();
 
@@ -70,14 +95,14 @@ void ReloadLuaHelper::onEnter()
     cocos2d::Label::resetDefaultFallbackFontTTF();
 
     AppDelegate* pDelegate = (AppDelegate*)CCApplication::getInstance();
-	pDelegate->initLuaEngine();
+    pDelegate->initLuaEngine();
 
-	switch (m_eEntryLua)
-	{
-	default:
-	case ENTRY_PATCH: pDelegate->startLuaScript("entry_patch.lua"); break;
-	case ENTRY_TITLE: pDelegate->startLuaScript("entry_main.lua"); break;
-	}
+    switch (m_eEntryLua)
+    {
+    default:
+    case ENTRY_PATCH: pDelegate->startLuaScript("entry_patch.lua"); break;
+    case ENTRY_TITLE: pDelegate->startLuaScript("entry_main.lua"); break;
+    }
 }
 
 AppDelegate::AppDelegate()

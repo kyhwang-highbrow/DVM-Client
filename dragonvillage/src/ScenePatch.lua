@@ -54,7 +54,12 @@ function ScenePatch:onEnter()
         patch_data:save()
     end
 
-    self.m_vars['animator']:changeAni('01_patch')
+    do -- spine으로 리소스 변경
+        local animator = MakeAnimator('res/ui/spine/title/title.spine')
+        self.m_vars['animatorNode']:addChild(animator.m_node)
+        self.m_vars['animator'] = animator
+        self.m_vars['animator']:changeAni('01_patch')
+    end
 
 	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     self:refreshPatchIdxLabel()

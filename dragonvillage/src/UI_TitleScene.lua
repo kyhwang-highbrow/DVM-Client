@@ -40,6 +40,12 @@ end
 function UI_TitleScene:initUI()
     local vars = self.vars
 
+    do -- spine으로 리소스 변경
+        local animator = MakeAnimator('res/ui/spine/title/title.spine')
+        vars['animatorNode']:addChild(animator.m_node)
+        vars['animator'] = animator
+    end
+
     vars['messageLabel']:setVisible(false)
     vars['downloadLabel']:setVisible(false)
 	vars['downloadGauge']:setVisible(false)

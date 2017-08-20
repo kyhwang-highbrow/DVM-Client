@@ -19,7 +19,8 @@ public:
 	ReloadLuaHelper(EEntryLua eEntryLua) : m_eEntryLua(eEntryLua) {}
 	virtual ~ReloadLuaHelper() {}
 
-	virtual void onEnter();
+    virtual void onEnter();
+    void run();
 	EEntryLua m_eEntryLua;
 };
 

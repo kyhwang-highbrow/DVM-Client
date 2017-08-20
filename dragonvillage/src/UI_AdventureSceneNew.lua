@@ -94,7 +94,13 @@ function UI_AdventureSceneNew:initButton()
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end) -- 이전 챕터
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end) -- 다음 챕터
 
-    vars['devStageBtn']:registerScriptTapHandler(function() self:openAdventureStageInfoPopup(DEV_STAGE_ID) end)
+    -- 개발 스테이지 테스트 모드에서만 on
+    if IS_TEST_MODE() then
+        vars['devStageBtn']:setVisible(true)
+        vars['devStageBtn']:registerScriptTapHandler(function() self:openAdventureStageInfoPopup(DEV_STAGE_ID) end)
+    else
+        vars['devStageBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
