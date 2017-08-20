@@ -374,11 +374,6 @@ end
 -- @brief "전투" 버튼
 -------------------------------------
 function UI_Lobby:click_battleBtn()
-    if (TARGET_SERVER == 'FGT') then
-        UIManager:toastNotificationRed('"전투"는 준비 중입니다.')
-        return
-    end
-
     UI_BattleMenu()
 end
 

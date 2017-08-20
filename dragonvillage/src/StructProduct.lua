@@ -320,12 +320,6 @@ function StructProduct:buy(cb_func)
 
         -- 마켓에서 구매하는 상품
         if self:isPaymentProduct() then
-
-            if IS_PERPLELAB_EVENT_MODE() then
-                OpenPerplelabEventPopup()
-                return
-            end
-
             if isWin32() then
                 self:payment_win(finish_cb)
             else

@@ -357,10 +357,6 @@ function UI_Setting:click_clearBtn()
     -- 1. 계정 초기화 여부를 물어보는 팝업
     ask_popup = function()
         local ok_btn_cb = function()
-            if IS_PERPLELAB_EVENT_MODE() then
-                OpenPerplelabEventPopup()
-                return
-            end
             request()
         end
     
@@ -406,11 +402,6 @@ function UI_Setting:click_logoutBtn()
     -- 1. 계정 초기화 여부를 물어보는 팝업
     ask_popup = function()
         local ok_btn_cb = function()
-            if IS_PERPLELAB_EVENT_MODE() then
-                OpenPerplelabEventPopup()
-                return
-            end
-
             if isWin32() then
                 clear()
             else
