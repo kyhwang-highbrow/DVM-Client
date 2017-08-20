@@ -1,5 +1,5 @@
-﻿#ifndef __LOGIN_PLATFORM_H__
-#define __LOGIN_PLATFORM_H__
+﻿#ifndef __PERP_CONSTANT_H__
+#define __PERP_CONSTANT_H__
 
 
 #define APP_NAME "DragonVillageM"
@@ -12,7 +12,7 @@
 
 // TARGET SERVER는 NDK에서 넘겨준다. 없으면 'DEV'로 설정
 #ifndef TARGET_SERVER
-#define TARGET_SERVER "DEV"
+#define TARGET_SERVER SERVER_DEV
 #endif
 
 // 윈도우인 경우
