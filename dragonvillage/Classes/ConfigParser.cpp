@@ -68,6 +68,10 @@ void ConfigParser::readConfig()
                 {
 					_scale = objectInitView["scale"].GetDouble();
 				}
+                if (objectInitView.HasMember("appVer") && objectInitView["appVer"].IsString())
+                {
+                    _appVer = objectInitView["appVer"].GetString();
+                }
             }
         }
         if (_docRootjson.HasMember("simulator_screen_size"))
@@ -88,7 +92,7 @@ void ConfigParser::readConfig()
     }
 }
 
-ConfigParser::ConfigParser(void) : _isInit(false), _isLandscape(true), _scale(1), _currScreenSizeIdx(-1)
+ConfigParser::ConfigParser(void) : _isInit(false), _isLandscape(true), _scale(1), _currScreenSizeIdx(-1), _appVer("9.9.9")
 {
     _initViewSize.setSize(960, 640);
 }
@@ -131,4 +135,9 @@ const SimulatorScreenSize ConfigParser::getNextScreenSize()
 	_currScreenSizeIdx %= cnt;
 
 	return getScreenSize(_currScreenSizeIdx);
+}
+
+string ConfigParser::getAppVer()
+{
+    return _appVer;
 }

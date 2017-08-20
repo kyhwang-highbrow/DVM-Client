@@ -42,6 +42,7 @@ public:
     bool isLandscape();
     bool isInit();
     double getScale();
+    string getAppVer();
 
 private:
     ConfigParser(void);
@@ -52,6 +53,7 @@ private:
     bool _isInit;
     double _scale;
     int _currScreenSizeIdx;
+    string _appVer;
 
     rapidjson::Document _docRootjson;
 };

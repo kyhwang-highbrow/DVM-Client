@@ -64,7 +64,7 @@ string* StringSplit(string strTarget, string strTok)
 void AppDelegate::setPathForPatch()
 {
 	// 리소스 다운로드 경로
-    string app_ver = APP_VERSION;
+    string app_ver = ConfigParser::getInstance()->getAppVer();
 	string res_path = SupportPatch::getExtensionPath();
     string patch_path = SupportPatch::getPatchPath(app_ver.c_str());
 
@@ -108,7 +108,7 @@ void AppDelegate::setPathForPatch()
     SupportPatch::makePath(writable_path + "network_dump/");
 
     { // 이전 버전 폴더 삭제
-        string app_ver = APP_VERSION;
+        string app_ver = ConfigParser::getInstance()->getAppVer();
         string* tok = StringSplit(app_ver, ".");
         int ver_major = (int)strtol(tok[0].c_str(), NULL, 10);
         int ver_minor = (int)strtol(tok[1].c_str(), NULL, 10);
@@ -164,42 +164,6 @@ static int l_isIos(lua_State* L)
     return 1;
 }
 
-static int l_loginPlatform(lua_State* L)
-{
-    lua_pushnumber(L, (int)0);
-    return 1;
-}
-
-static int l_useGoogleplay(lua_State* L)
-{
-#ifdef USE_GOOGLEPLAY
-	lua_pushnumber(L, (int)1);
-#else
-	lua_pushnumber(L, (int)0);
-#endif
-	return 1;
-}
-
-static int l_useFacebook(lua_State* L)
-{
-#ifdef USE_FACEBOOK
-	lua_pushnumber(L, (int)1);
-#else
-	lua_pushnumber(L, (int)0);
-#endif
-	return 1;
-}
-
-static int l_useKakao(lua_State* L)
-{
-#ifdef USE_KAKAO
-	lua_pushnumber(L, (int)1);
-#else
-	lua_pushnumber(L, (int)0);
-#endif
-	return 1;
-}
-
 static int l_isTestMode(lua_State* L)
 {
     bool isTestMode = IS_TEST_MODE;
@@ -242,17 +206,17 @@ static int l_useObb(lua_State* L)
     return 1;
 }
 
-static int l_getServerUrl(lua_State* L)
+static int l_getTargetServer(lua_State* L)
 {
-    string server_url = SERVER_URL;
-    lua_pushlstring(L, server_url.c_str(), strlen(server_url.c_str()));
+    string tar_server = TARGET_SERVER;
+    lua_pushlstring(L, tar_server.c_str(), strlen(tar_server.c_str()));
 
     return 1;
 }
 
 static int l_getAppVer(lua_State* L)
 {
-    string app_ver = APP_VERSION;
+    string app_ver = ConfigParser::getInstance()->getAppVer();
     lua_pushlstring(L, app_ver.c_str(), strlen(app_ver.c_str()));
 
 	return 1;
@@ -421,14 +385,10 @@ void AppDelegate::initLuaEngine()
 			{ "isWin32", l_isWin32 },
             { "isAndroid", l_isAndroid },
             { "isIos", l_isIos },
-            { "loginPlatform", l_loginPlatform },
-			{ "useGoogleplay", l_useGoogleplay },
-			{ "useFacebook", l_useFacebook },
-			{ "useKakao", l_useKakao },
 			{ "isTestMode", l_isTestMode },
             { "usePatch", l_usePatch }, 
             { "useObb", l_useObb },
-            { "getServerUrl", l_getServerUrl },
+            { "getServerTarget", l_getTargetServer },
 			{ "getAppVer", l_getAppVer },
 			{ "getMd5", l_getMd5 },
             { "isSameMd5", l_isSameMd5 },

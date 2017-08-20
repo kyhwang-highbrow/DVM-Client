@@ -108,13 +108,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	setPathForPatch();
 
-#if (COCOS2D_DEBUG>0)
-    if (USE_IDE_DEBUG)
-	{
-		initRuntime();
-	}
-#endif
-
     // Initialize director.
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
