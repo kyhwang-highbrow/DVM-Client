@@ -19,6 +19,7 @@ function UI_Setting:init_devTab()
     vars['addRpBtn']:registerScriptTapHandler(function() self:click_addRpBtn() end)
     vars['uidCopyBtn']:registerScriptTapHandler(function() self:click_uidCopyBtn() end)
     vars['soundModuleBtn']:registerScriptTapHandler(function() self:click_soundModuleBtn() end)
+    vars['benchmarkBtn']:registerScriptTapHandler(function() self:click_benchmarkBtn() end)
     self:refresh_devTap()
 end
 
@@ -520,4 +521,15 @@ function UI_Setting:click_soundModuleBtn()
     g_serverData:applySetting()
 
     self:refresh_devTap()
+end
+
+-------------------------------------
+-- function click_benchmarkBtn
+-- @brief 벤치마크
+-------------------------------------
+function UI_Setting:click_benchmarkBtn()
+    BenchmarkManager:getInstance()
+
+    g_benchmarkMgr:setStageIDList(1220005, 1230106)
+    g_benchmarkMgr:startStage()
 end

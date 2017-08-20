@@ -292,6 +292,24 @@ function GameState.update_fight(self, dt)
         end
     end
 
+    -- 벤치마크 중 60초를 넘어가면 웨이브 종료
+    if g_benchmarkMgr and g_benchmarkMgr:isActive() then
+        local time = 30
+        if self.m_world.m_waveMgr:isFinalWave() then
+            time = 60
+        end
+        if (self.m_stateTimer >= time) then
+            self.m_world:removeAllEnemy()
+
+            if (not self.m_world.m_waveMgr:isFinalWave()) then
+		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
+		    else
+			    self:changeState(GAME_STATE_SUCCESS_WAIT)
+		    end
+            return
+        end
+    end
+
     -- 클리어 여부 체크
     self:checkWaveClear(dt)
 end
@@ -600,6 +618,13 @@ function GameState.update_success_wait(self, dt)
     end
 
     if (b or self.m_stateTimer >= 8) then
+
+        -- 벤치마크 중
+        if g_benchmarkMgr and g_benchmarkMgr:isActive() then
+            g_benchmarkMgr:finishStage()
+            self:pause() -- update를 멈추기 위해
+            return
+        end
         self:changeState(GAME_STATE_SUCCESS)
     end    
 end

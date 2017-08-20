@@ -806,7 +806,9 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     self:makeDamageFont(damage, i_x, i_y, t_info)
 
     -- 무적 체크 후 데미지 적용
-	if (self.m_bLeftFormation and g_constant:get('DEBUG', 'PLAYER_INVINCIBLE')) then
+    if (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
+        -- NOTHING TO DO
+	elseif (self.m_bLeftFormation and g_constant:get('DEBUG', 'PLAYER_INVINCIBLE')) then
 		-- NOTHING TO DO
 	elseif (not self.m_bLeftFormation and g_constant:get('DEBUG', 'ENEMY_INVINCIBLE')) then
 		-- NOTHING TO DO

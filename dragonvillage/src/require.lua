@@ -322,6 +322,7 @@ local t_module = {
     'DropItemMgr',
     'DropItemMgr_Intro',
 	'ShakeManager',
+    'BenchmarkManager',
     
 	-- CARRIER
 	'ActivityCarrier',

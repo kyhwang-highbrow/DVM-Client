@@ -112,7 +112,7 @@ function UI_Game:initHotTimeUI()
     vars['hotTimeGoldBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('gold_2x', vars['hotTimeGoldBtn']) end)
     vars['hotTimeExpBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('exp_2x', vars['hotTimeExpBtn']) end)
 
-    local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key)
+    local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key) or {}
     local t_ui_name = {
         ['stamina_50p'] = 'hotTimeStBtn',
         ['gold_2x'] = 'hotTimeGoldBtn',
