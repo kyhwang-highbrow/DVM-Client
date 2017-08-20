@@ -388,7 +388,7 @@ void AppDelegate::initLuaEngine()
 			{ "isTestMode", l_isTestMode },
             { "usePatch", l_usePatch }, 
             { "useObb", l_useObb },
-            { "getServerTarget", l_getTargetServer },
+            { "getTargetServer", l_getTargetServer },
 			{ "getAppVer", l_getAppVer },
 			{ "getMd5", l_getMd5 },
             { "isSameMd5", l_isSameMd5 },
