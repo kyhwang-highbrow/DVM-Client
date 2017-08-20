@@ -172,7 +172,10 @@ end
 function UI_UserInfoDetailPopup:refresh_title()
 	local vars = self.vars
 
-    local title = g_userData:getTamerTitleStr() or Str('타이틀 없음')
+    local title = g_userData:getTamerTitleStr()
+    if (not title) or (title == '') then
+        title = Str('칭호가 설정되어있지 않습니다.')
+    end
 	vars['titleLabel']:setString(title)
 end
 
