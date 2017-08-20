@@ -11,9 +11,11 @@ os.system('clean.py')
 os.system('gradlew clean')
 
 # build
-os.system('gradlew assembleRelease')
-#os.system('gradlew assembleDebug')
-#os.system('gradlew assembleMarket')
-#os.system('gradlew assembleFull')
+#os.system('gradlew assembleDev100mbTest')
+#os.system('gradlew assembleDevFullTest')
+#os.system('gradlew assembleQa100mbTest')
+os.system('gradlew assembleQaFullTest')
+#os.system('gradlew assembleLive100mb')
+#os.system('gradlew assembleLiveFull')
 
 os.system('pause')
