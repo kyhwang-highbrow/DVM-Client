@@ -24,6 +24,10 @@ function UIC_RadioButton:addButton(name, button, sprite, cb)
     t_button_data['sprite'] = sprite
     t_button_data['cb'] = cb
 
+    if (not button) then
+        error('there is not button : ' .. name)
+    end
+
     self.m_buttonMap[name] = t_button_data
 
     button:registerScriptTapHandler(function()

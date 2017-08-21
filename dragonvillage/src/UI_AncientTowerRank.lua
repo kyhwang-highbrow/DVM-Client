@@ -27,6 +27,9 @@ function UI_AncientTowerRank:init(ui_scene)
     self:initButton()
 end
 
+UI_AncientTowerRank.RANKING = 'rankingList'
+UI_AncientTowerRank.REWARD = 'rewardList'
+
 -------------------------------------
 -- function initUI
 -------------------------------------
@@ -47,8 +50,8 @@ function UI_AncientTowerRank:initButton()
 
     -- radio button 선언
     local radio_button = UIC_RadioButton()
-    radio_button:addButton('rank', vars['rankingListBtn'])
-    radio_button:addButton('reward', vars['rewardListBtn'])
+    radio_button:addButtonAuto(UI_AncientTowerRank.RANKING, vars)
+    radio_button:addButtonAuto(UI_AncientTowerRank.REWARD, vars)
     radio_button:setChangeCB(function() self:onChangeOption() end)
     self.m_typeRadioButton = radio_button
 end
@@ -59,15 +62,15 @@ end
 function UI_AncientTowerRank:onChangeOption()
     local vars = self.m_uiScene.vars
     local type = self.m_typeRadioButton.m_selectedButton
-    vars['rewardListNode']:setVisible(type == 'reward')
-    vars['rankingListNode']:setVisible(type == 'rank')
-    vars['rankingMeNode']:setVisible(type == 'rank')
+    vars['rewardListNode']:setVisible(type == UI_AncientTowerRank.REWARD)
+    vars['rankingListNode']:setVisible(type == UI_AncientTowerRank.RANKING)
+    vars['rankingMeNode']:setVisible(type == UI_AncientTowerRank.RANKING)
 
-    if (type == 'rank') then
+    if (type == UI_AncientTowerRank.RANKING) then
         if (self.m_rankTableView) then return end
         self:request_Rank()
 
-    elseif (type == 'reward') then
+    elseif (type == UI_AncientTowerRank.REWARD) then
         if (self.m_rewardTableView) then return end
 
         local function finish_cb(ret)

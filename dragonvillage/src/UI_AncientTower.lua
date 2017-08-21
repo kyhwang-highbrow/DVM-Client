@@ -156,8 +156,8 @@ end
 -------------------------------------
 function UI_AncientTower:initTab()
     local vars = self.vars
-    self:addTab(UI_AncientTower.TAB_INFO, vars['towerBtn'], vars['towerMenu'])
-    self:addTab(UI_AncientTower.TAB_RANK, vars['rankingBtn'], vars['rankingMenu'])
+    self:addTabWithLabel(UI_AncientTower.TAB_INFO, vars['towerTabBtn'], vars['towerTabLabel'], vars['towerMenu'])
+    self:addTabWithLabel(UI_AncientTower.TAB_RANK, vars['rankingTabBtn'], vars['rankingTabLabel'], vars['rankingMenu'])
     self:setTab(UI_AncientTower.TAB_INFO)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
@@ -219,7 +219,7 @@ function UI_AncientTower:onChangeTab(tab, first)
 
     -- 최초 탭 누를 경우에만 랭킹 정보 가져옴
     if (tab == UI_AncientTower.TAB_RANK) then
-        self.m_rankInfo.m_typeRadioButton:setSelectedButton('rank')
+        self.m_rankInfo.m_typeRadioButton:setSelectedButton(UI_AncientTowerRank.RANKING)
     end
 end
 
