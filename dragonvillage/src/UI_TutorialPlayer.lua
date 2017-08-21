@@ -22,7 +22,7 @@ end
 -- function init_player
 -------------------------------------
 function UI_TutorialPlayer:init_player()
-    local vars = self:load_keepZOrder('scenario_talk_new.ui', false)
+    local vars = self:load_keepZOrder('scenario_talk.ui', false)
 
 	--UIManager:open(self)
 	vars['skipBtn']:setVisible(false)
