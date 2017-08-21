@@ -693,7 +693,7 @@ end
 -- function addMissile
 -- @param res_depth : 어느 노드에 addchild 할지 결정한다. ;를 사용하여 z-order를 명시할수도 있다. ex) 'res_depth':'bottom;1'
 -------------------------------------
-function GameWorld:addMissile(missile, object_key, res_depth)
+function GameWorld:addMissile(missile, object_key, layer_depth, res_depth)
     self:addToMissileList(missile)
     self.m_physWorld:addObject(object_key, missile)
     
@@ -701,6 +701,10 @@ function GameWorld:addMissile(missile, object_key, res_depth)
 
 	local depth_type = t_res_depth[1]
 	local z_order = t_res_depth[2] or WORLD_Z_ORDER.MISSILE
+
+	-- 미사일 리소스명으로 layer_depth를 나눔. 퍼포먼스 개선을 위해
+	-- 동일한 리소스는 동일한 레이어에 찍는 것이 목적 sgkim 2017-08-21
+    z_order = (layer_depth * 100) + z_order
 
 	local target_node = self:getMissileNode(depth_type)
     target_node:addChild(missile.m_rootNode, z_order)

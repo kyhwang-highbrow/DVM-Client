@@ -65,6 +65,12 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
     if (not script) then
         error(script_name .. " DO NOT EXIST!!")
     end
+
+    if isWin32() then
+		-- 퍼포먼스 개발 중 스크립트명을 확인하기 위함 sgkim 2017-08-21
+        --cclog('## script_name : ' .. script_name)
+    end
+
     local script_data = script[script_name]
     
     self.m_tAttackValueBase = script_data['attack_value']

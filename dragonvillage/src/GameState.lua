@@ -934,6 +934,9 @@ function GameState:waveChange()
     local map_manager = world.m_mapManager
     local t_wave_data, is_final_wave = world.m_waveMgr:getNextWaveScriptData()
 
+    -- 미사일 레이어 클리어
+    world.m_missileFactory:clearMissileDepthMap()
+
     -- 다음 웨이브가 없을 경우 클리어
     if (not t_wave_data) then
         self:changeState(GAME_STATE_SUCCESS)

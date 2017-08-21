@@ -3,6 +3,8 @@
 -------------------------------------
 MissileFactory = class({
         m_world = 'GameWorld',
+        m_missileDepthMap = 'table key:res, value:depth',
+        m_missileDepthIdx = 'number',
     })
     
 -------------------------------------
@@ -10,6 +12,8 @@ MissileFactory = class({
 -------------------------------------
 function MissileFactory:init(world)
     self.m_world = world
+    self.m_missileDepthMap = {}
+    self.m_missileDepthIdx = 1
 end
 
 -------------------------------------
@@ -392,9 +396,12 @@ function MissileFactory:makeMissile_(t_option, is_hero)
                 missile.m_activityCarrier:setPowerRate(damage_rate)
             end
         end
+		
+		-- 퍼포먼스 개선을 위해 동일한 리소스 명은 동일한 레이어에 찍도록 처리
+        local layer_depth = self:getMissileDepth(missile_res_name)
 
         -- Physics, Node, GameMgr에 등록
-		self.m_world:addMissile(missile, object_key, res_depth)
+		self.m_world:addMissile(missile, object_key, layer_depth, res_depth)
 
 		if (disable_body) then
 			missile.enable_body = false
@@ -527,4 +534,32 @@ function MissileFactory:makeInstantMissile(res, visual, x, y, body_size, owner, 
     t_option['movement'] = 'instant'
     t_option['missile_type'] = 'PASS'
     self:makeMissile(t_option)
+end
+
+-------------------------------------
+-- class clearMissileDepthMap
+-------------------------------------
+function MissileFactory:clearMissileDepthMap()
+    self.m_missileDepthMap = {}
+    self.m_missileDepthIdx = 1
+end
+
+-------------------------------------
+-- class getMissileDepth
+-- @brief 리소스명으로 미사일 레이어를 정함
+--        GL calls 최적화가 목적 sgkim 2017-08-21
+-------------------------------------
+function MissileFactory:getMissileDepth(res)
+    if (not res) then
+        return self.m_missileDepthIdx
+    end
+
+    if (not self.m_missileDepthMap[res]) then
+        self.m_missileDepthMap[res] = self.m_missileDepthIdx
+        self.m_missileDepthIdx = (self.m_missileDepthIdx + 1)
+    end
+
+    local depth = self.m_missileDepthMap[res]
+
+    return depth
 end
