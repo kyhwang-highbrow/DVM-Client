@@ -853,7 +853,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AncientTowerRank.lua" />
     <None Include="..\src\UI_AncientTowerRankListItem.lua" />
     <None Include="..\src\UI_AncientTowerRewardListItem.lua" />
-    <None Include="..\src\UI_AncientTowerSweepReward.lua" />
     <None Include="..\src\UI_AttendanceBasicListItem.lua" />
     <None Include="..\src\UI_AttendanceSpecialListItem.lua" />
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
@@ -1088,7 +1087,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_UserDeckInfoPopup.lua" />
     <None Include="..\src\UI_UserInfoDetailPopup.lua" />
     <None Include="..\src\UI_UserInfoDetailPopup_SetLeader.lua" />
-    <None Include="..\src\UI_UserInfoDetailPopup_SetProfile.lua" />
     <None Include="..\src\UI_UserInfoDetailPopup_SetTitle.lua" />
     <None Include="..\src\UI_UserInfoMini.lua" />
     <None Include="..\src\UI_UserLevelUp.lua" />

@@ -675,9 +675,6 @@
     <None Include="..\src\UI_GameResult_AncientTower.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_AncientTowerSweepReward.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_SettingDevTab.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1954,9 +1951,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_UserInfoDetailPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_UserInfoDetailPopup_SetProfile.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_UserInfoDetailPopup_SetLeader.lua">
