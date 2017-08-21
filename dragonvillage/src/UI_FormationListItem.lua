@@ -15,7 +15,7 @@ UI_FormationListItem = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_FormationListItem:init(t_data)
-    self:load('fomation_popup_item_new.ui')
+    self:load('fomation_popup_item.ui')
 
 	self:makeDataPretty(t_data)
 	self.m_isActivated = false
