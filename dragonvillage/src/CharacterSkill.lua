@@ -101,7 +101,6 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             -- 텍스트
             if ( self.m_charType == 'dragon') then
                 if ( t_skill['sid'] == self.m_charTable['skill_1'] or t_skill['sid'] == self.m_charTable['skill_2']) then
-                    print(t_skill['t_name'])
                     SkillHelper:makePassiveSkillSpeech(self, t_skill['t_name'])
                 end
             end
