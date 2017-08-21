@@ -48,6 +48,10 @@ function UI_LoadingGuide:initUI(guide_type)
 		vars['loadingLabel']:setString('')
 		vars['loadingGauge']:setPercentage(0)
 	end
+
+    -- 일반 로딩 간에는 dragon 사용하지 않는중
+    vars['dragonMenu']:setVisible(false)
+    vars['tipMenu']:setVisible(true)
 end
 
 -------------------------------------

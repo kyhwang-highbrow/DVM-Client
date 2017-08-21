@@ -14,7 +14,7 @@ UI_LoadingGuide_Patch = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_LoadingGuide_Patch:init()
-    local vars = self:load('loading_tip_new.ui')
+    local vars = self:load('loading_tip.ui')
 	local guide_type = 'patch'
 
 	-- 멤버 변수
