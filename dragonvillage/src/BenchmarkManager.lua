@@ -126,7 +126,7 @@ function BenchmarkManager:runGameScene(stage_id)
 
     -- 밴치마크가 활성화되어있다면 즉시 활성화시킴
     g_autoPlaySetting:set('quick_mode', true)
-    g_autoPlaySetting:set('auto_mode', true)
+    g_autoPlaySetting:set('auto_mode', false)
 
     self.m_bActive = true
     local stage_name = 'stage_' .. stage_id
