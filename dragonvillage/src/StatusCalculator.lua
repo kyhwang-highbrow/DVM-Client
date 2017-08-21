@@ -352,7 +352,11 @@ end
 -- @brief Hp ratio를 적용함.
 -------------------------------------
 function StatusCalculator:appendHpRatio(hp_ratio)
-    self.m_lStatusList['hp'].m_finalStat = self.m_lStatusList['hp'].m_finalStat * hp_ratio
+    if (not self.m_tHiddenInfo['hp_multi']) then
+        self.m_tHiddenInfo['hp_multi'] = 1
+    end
+
+    self.m_tHiddenInfo['hp_multi'] = self.m_tHiddenInfo['hp_multi'] * hp_ratio
 end
 
 -------------------------------------
