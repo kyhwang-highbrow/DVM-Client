@@ -65,7 +65,7 @@ end
 function UI_BookDetailPopup:initTab()
     local vars = self.vars
 	for i = 1, 3 do 
-        self:addTab(i, vars['evolutionBtn' .. i], nil)
+        self:addTabWithLabel(i, vars['evolutionTabBtn' .. i], vars['evolutionTabLabel' .. i], nil)
 	end
     self:setTab(self.m_evolution)
 end
@@ -131,7 +131,7 @@ function UI_BookDetailPopup:refresh_exception()
 
 	-- 진화 버튼
 	for i = 1, 3 do
-		self.vars['evolutionBtn' .. i]:setVisible(not (underling or is_slime))
+		self.vars['evolutionTabBtn' .. i]:setVisible(not (underling or is_slime))
 	end
 end
 
