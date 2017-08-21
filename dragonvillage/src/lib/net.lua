@@ -8,7 +8,7 @@ Network = {
 
 -- 암호화 키
 CONSTANT = {}
-CONSTANT['HMAC_KEY'] = 'Vjpmgg6MhKSBkSj4k36MQNyUwqS68qJCzRaXmID+45RQO07myxHJakFYY4i7Af6B/rIdUvyUkLouH+TxgLISVw=='
+CONSTANT['HMAC_KEY'] = 'Vjpmgg6MhKSBkSj4k36MQNyUwqS68qJCzRaXmID+45RQO07myxHJakFYY4i7Af6B'
 CONSTANT['AES_KEY'] = '809AF879E5A3CEAC82FF7E4584939E8D'
 
 -- !! '\n'이 혹시 있어서 문제가 발생한다면 '%0A'로 인코딩하자
