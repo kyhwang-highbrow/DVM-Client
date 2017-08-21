@@ -748,7 +748,7 @@ function UI_TitleScene:workBillingSetup()
     end
 
     -- 영수증 검증 API 주소
-    local url = 'http://dev.platform.perplelab.com/1003/payment/receiptValidation/'
+    local url = Network:getPlatformApiUrl() .. '/payment/receiptValidation/'
     PerpleSDK:billingSetup(url, call_back)
 end
 function UI_TitleScene:workBillingSetup_click()

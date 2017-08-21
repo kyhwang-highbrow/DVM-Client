@@ -42,7 +42,10 @@ function UI_Network:init_MemberVariable()
 
     self.m_url = nil
     self.m_method = 'POST' or 'GET'
-    self.m_bHmac = true or false
+
+    -- 라이브 서버에서는 true, 그외에는 false
+    self.m_bHmac = false
+
     self.m_tData = {}
 
     self.m_successCB = nil
@@ -347,8 +350,7 @@ function UI_Network:request()
     t_request['fail'] = function(ret) UI_Network.fail(self, ret) end
     
     if (self.m_bHmac == true) then
-        -- 우선 둘 다 simpleRequest를 사용
-        Network:SimpleRequest(t_request)
+        Network:HMacRequest(t_request)
     else
         Network:SimpleRequest(t_request)
     end

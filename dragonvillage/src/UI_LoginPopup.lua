@@ -109,7 +109,7 @@ end
 function UI_LoginPopup:click_gamecenterBtn()
     self.m_loadingUI:showLoading(Str('로그인 중...'))
 
-    PerpleSDK:loginWithGameCenter('http://dev.platform.perplelab.com/1003/user/customToken', function(ret, info)
+    PerpleSDK:loginWithGameCenter(Network:getPlatformApiUrl() .. '/user/customToken', function(ret, info)
         self.m_loadingUI:hideLoading()
 
         if ret == 'success' then

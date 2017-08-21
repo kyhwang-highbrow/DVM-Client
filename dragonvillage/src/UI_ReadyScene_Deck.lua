@@ -596,7 +596,6 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
 
             local ui_network = UI_Network()
             ui_network:setUrl('/users/set_deck')
-            ui_network:setHmac(false)
             ui_network:setRevocable(true)
             ui_network:setParam('uid', uid)
             ui_network:setParam('deckname', deckname)

@@ -42,7 +42,7 @@ function UI_Setting:click_gamecenterBtn()
 
     local old_platform_id = g_serverData:get('local', 'platform_id')
 
-    PerpleSDK:linkWithGameCenter('http://dev.platform.perplelab.com/1003/user/customToken', function(ret, info)
+    PerpleSDK:linkWithGameCenter(Network:getPlatformApiUrl() .. '/user/customToken', function(ret, info)
 
         if ret == 'success' then
 
@@ -84,7 +84,7 @@ function UI_Setting:click_gamecenterBtn()
             local ok_btn_cb = function()
                 self.m_loadingUI:showLoading(Str('계정 전환 중...'))
                 PerpleSDK:logout()
-                PerpleSDK:loginWithGameCenter('http://dev.platform.perplelab.com/1003/user/customToken', function(ret, info)
+                PerpleSDK:loginWithGameCenter(Network:getPlatformApiUrl() .. '/user/customToken', function(ret, info)
                     self.m_loadingUI:hideLoading()
                     if ret == 'success' then
                         cclog('Firebase GameCenter link was successful.(already_in_use)')
@@ -377,7 +377,6 @@ function UI_Setting:click_clearBtn()
         ui_network:setSuccessCB(success_cb)
         ui_network:setRevocable(true)
         ui_network:setMethod('GET')
-        ui_network:setHmac(false)
         ui_network:request()
     end
 

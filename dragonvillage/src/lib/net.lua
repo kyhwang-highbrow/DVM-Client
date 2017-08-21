@@ -5,6 +5,12 @@ Network = {
     server_type = nil,
 }
 
+
+-- 암호화 키
+CONSTANT = {}
+CONSTANT['HMAC_KEY'] = 'Vjpmgg6MhKSBkSj4k36MQNyUwqS68qJCzRaXmID+45RQO07myxHJakFYY4i7Af6B/rIdUvyUkLouH+TxgLISVw=='
+CONSTANT['AES_KEY'] = '809AF879E5A3CEAC82FF7E4584939E8D'
+
 -- !! '\n'이 혹시 있어서 문제가 발생한다면 '%0A'로 인코딩하자
 --function urlencode(s) return s and (s:gsub("[^a-zA-Z0-9.~_-]", function (c) return format("%%%02x", c:byte()); end)); end
 function urlencode(s) return s and (s:gsub("[&=+%%%c]", function (c) return format("%%%02x", c:byte()); end)); end
@@ -380,6 +386,26 @@ function Network:getApiUrl()
         api_url = 'http://dv-qa.perplelab.com:9003'
     else
         error('target_server : ' .. target_server)
+    end
+
+    return api_url
+end
+
+-------------------------------------
+-- function getPlatformApiUrl
+-- @brief 플랫폼 서버 API URL
+-------------------------------------
+function Network:getPlatformApiUrl()
+    if (not self.server_type) then
+        self:resetServerType()
+    end
+
+    local target_server = CppFunctions:getTargetServer()
+    local api_url = 'http://dev.platform.perplelab.com/1003'
+
+    -- nil == default
+    if (target_server == 'QA') then
+        api_url = 'platform.perplelab.com'
     end
 
     return api_url
