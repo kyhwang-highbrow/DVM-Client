@@ -36,7 +36,7 @@ UI_Game = class(PARENT, {
 -- function getUIFileName
 -------------------------------------
 function UI_Game:getUIFileName()
-    return 'ingame_new.ui'
+    return 'ingame.ui'
 end
 
 -------------------------------------
