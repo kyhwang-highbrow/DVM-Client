@@ -68,12 +68,12 @@ void ReloadLuaHelper::onEnter()
             this->addChild(sprite);
         }
         */
-
-        CallFunc *runCallback = CallFunc::create(CC_CALLBACK_0(ReloadLuaHelper::run, this));
-        this->runAction(Sequence::create(DelayTime::create(0.001), runCallback, nullptr));
-
-        Scene::onEnter();
 	}
+
+    CallFunc *runCallback = CallFunc::create(CC_CALLBACK_0(ReloadLuaHelper::run, this));
+    this->runAction(Sequence::create(DelayTime::create(0.001), runCallback, nullptr));
+
+    Scene::onEnter();
 }
 
 void ReloadLuaHelper::run()
