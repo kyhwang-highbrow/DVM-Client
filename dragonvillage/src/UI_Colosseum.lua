@@ -40,7 +40,7 @@ function UI_Colosseum:init()
     SoundMgr:playBGM('bgm_lobby')
     self.m_rankOffset = 1 -- 최상위 랭크를 받겠다는 뜻
 
-    local vars = self:load_keepZOrder('colosseum_scene_new.ui')
+    local vars = self:load_keepZOrder('colosseum_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
