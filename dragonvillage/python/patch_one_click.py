@@ -178,51 +178,51 @@ def main():
     # 전역변수 초기화
     init_global_var()
     
-    # # 1. 패치정보 받아오기
-    # latest_patch_ver = get_patch_info(app_ver)
+    # 1. 패치정보 받아오기
+    latest_patch_ver = get_patch_info(app_ver)
     
-    # # 2. 패치 로그 파일 찾기
-    # exist_plg_file, latest_plg_path, next_plg_path = find_patch_log(patch_work_path, app_ver, latest_patch_ver)
+    # 2. 패치 로그 파일 찾기
+    exist_plg_file, latest_plg_path, next_plg_path = find_patch_log(patch_work_path, app_ver, latest_patch_ver)
     
-    # # 2-1. 기본 패치파일 생성
-    # latest_plg_hash = {}
-    # next_plg_hash = {}
-    # if exist_plg_file == False:
-    #     md5_log_maker.makePatchLog(source_path, latest_plg_path)
-    #     print('ERROR: The latest "plg file" does not exist. : ' + latest_plg_path)
-    #     exit(-1)
-    # else:
-    #     latest_plg_hash = md5_log_maker.loadPatchLog(latest_plg_path)
-    #     next_plg_hash = make_next_plg(source_path, next_plg_path)
+    # 2-1. 기본 패치파일 생성
+    latest_plg_hash = {}
+    next_plg_hash = {}
+    if exist_plg_file == False:
+        md5_log_maker.makePatchLog(source_path, latest_plg_path)
+        print('ERROR: The latest "plg file" does not exist. : ' + latest_plg_path)
+        exit(-1)
+    else:
+        latest_plg_hash = md5_log_maker.loadPatchLog(latest_plg_path)
+        next_plg_hash = make_next_plg(source_path, next_plg_path)
 
-    # # 3. 패치파일 리스트 추출(변경된 파일만 추출)
-    # new_plg_hash = get_patch_list(latest_plg_hash, next_plg_hash)
+    # 3. 패치파일 리스트 추출(변경된 파일만 추출)
+    new_plg_hash = get_patch_list(latest_plg_hash, next_plg_hash)
     
-    # if len(new_plg_hash) == 0:
-    #     os.remove(next_plg_path)
-    #     print('# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')')
-    #     exit(0)
+    if len(new_plg_hash) == 0:
+        os.remove(next_plg_path)
+        print('# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')')
+        exit(0)
     
     
-    # # 4. 패치파일 복사, 압축
-    # zip_file = patch_files_copy_and_zip(source_path, patch_work_path, app_ver, latest_patch_ver + 1, new_plg_hash)
+    # 4. 패치파일 복사, 압축
+    zip_file = patch_files_copy_and_zip(source_path, patch_work_path, app_ver, latest_patch_ver + 1, new_plg_hash)
     
-    # # 5. 복사
-    # dst_dir = os.path.join(dest_path, 'patch_' + app_ver.replace('.', '_'))
+    # 5. 복사
+    dst_dir = os.path.join(dest_path, 'patch_' + app_ver.replace('.', '_'))
     
-    # copy(zip_file, dst_dir)
+    copy(zip_file, dst_dir)
     
-    # print('# update_patch_dv')
-    # r = requests.get('http://192.168.1.41:7777/maintenance/update_patch_dv')
-    # #print(r.text)
+    print('# update_patch_dv')
+    r = requests.get('http://192.168.1.41:7777/maintenance/update_patch_dv')
+    #print(r.text)
     
-    # print('# upload_patch_dv')
-    # r = requests.get('http://192.168.1.41:7777/maintenance/upload_patch_dv')
-    # #print(r.text)
-    # print "###################################"
-    # print "done"
-    # print "###################################"
-    # raw_input() 
+    print('# upload_patch_dv')
+    r = requests.get('http://192.168.1.41:7777/maintenance/upload_patch_dv')
+    #print(r.text)
+    print "###################################"
+    print "done"
+    print "###################################"
+    raw_input() 
     
     
 if __name__ == '__main__':
