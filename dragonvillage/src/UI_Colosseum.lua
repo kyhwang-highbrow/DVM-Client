@@ -16,6 +16,9 @@ UI_Colosseum = class(PARENT, {
         m_rankOffset = 'number',
      })
 
+UI_Colosseum.ATK = 'atk'
+UI_Colosseum.DEF = 'def'
+UI_Colosseum.RANKING = 'ranking'
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
@@ -252,11 +255,11 @@ end
 -------------------------------------
 function UI_Colosseum:initTab()
     local vars = self.vars
-    self:addTab('atk_tab', vars['atkBtn'], vars['atkListNode'], vars['refreshBtn'], vars['powerLabel'])
-    self:addTab('def_tab', vars['defBtn'], vars['defListNode'], vars['powerLabel'], vars['defDeckBtn'])
-    self:addTab('ranking_tab', vars['rankingBtn'], vars['rankingListNode'], vars['myRankingListNode'])
+    self:addTabAuto(UI_Colosseum.ATK, vars, vars['atkListNode'], vars['refreshBtn'], vars['powerLabel'])
+    self:addTabAuto(UI_Colosseum.DEF, vars, vars['defListNode'], vars['powerLabel'], vars['defDeckBtn'])
+    self:addTabAuto(UI_Colosseum.RANKING, vars, vars['rankingListNode'], vars['myRankingListNode'])
 
-    self:setTab('atk_tab')
+    self:setTab(UI_Colosseum.ATK)
 end
 
 -------------------------------------
@@ -266,14 +269,14 @@ function UI_Colosseum:onChangeTab(tab, first)
     PARENT.onChangeTab(self, tab, first)
 
     local vars = self.vars
-    if (tab == 'atk_tab') then
+    if (tab == UI_Colosseum.ATK) then
         self:refresh_combatPower('atk')
 
-    elseif (tab == 'def_tab') then
+    elseif (tab == UI_Colosseum.DEF) then
         self:refresh_combatPower('def')
         self:request_matchHistory()
 
-    elseif (tab == 'ranking_tab') then
+    elseif (tab == UI_Colosseum.RANKING) then
         self:request_Rank()
     end
 
@@ -281,7 +284,7 @@ function UI_Colosseum:onChangeTab(tab, first)
         return
     end
 
-    if (tab == 'atk_tab') then
+    if (tab == UI_Colosseum.ATK) then
         self:init_atkTab()
     end
 end
