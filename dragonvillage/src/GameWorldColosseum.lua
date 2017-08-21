@@ -60,6 +60,10 @@ function GameWorldColosseum:initGame(stage_name)
     -- 적군 덱에 세팅된 드래곤 생성
     self:makeEnemyDeck()
 
+    -- 초기 마나 설정
+    self.m_heroMana:addMana(START_MANA)
+    self.m_enemyMana:addMana(START_MANA)
+
     -- 진형 시스템 초기화
     self:setBattleZone(self.m_deckFormation, true)
     self:setBattleZone(self.m_enemyDeckFormation, true, true)

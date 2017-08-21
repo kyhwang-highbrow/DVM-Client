@@ -84,20 +84,28 @@ end
 -------------------------------------
 -- function initTamerUI
 -------------------------------------
-function UI_GameColosseum:initTamerUI()
+function UI_GameColosseum:initTamerUI(hero_tamer, enemy_tamer)
     local vars = self.vars
 
+    local makeTamerReadyIcon = function(tamer_id)
+        local table_tamer = TableTamer()
+        local type = table_tamer:getValue(tamer_id, 'type')
+        local res = string.format('res/ui/icons/tamer/colosseum_ready_%s.png', type)
+
+        local icon = cc.Sprite:create(res)
+        icon:setDockPoint(cc.p(0.5, 0.5))
+        icon:setAnchorPoint(cc.p(0.5, 0.5))
+
+        return icon
+    end
+
     do
-        local user_info = g_colosseumData.m_playerUserInfo
-        local sprite = user_info:getAtkDeckTamerReadyIcon()
-    
+        local sprite = makeTamerReadyIcon(hero_tamer.m_tamerID)
         vars['tamerNode1']:addChild(sprite, 1)
     end
 
     do
-        local user_info = g_colosseumData:getMatchUserInfo()
-        local sprite = user_info:getDefDeckTamerReadyIcon()
-    
+        local sprite = makeTamerReadyIcon(enemy_tamer.m_tamerID)
         vars['tamerNode2']:addChild(sprite, 1)
     end
 end

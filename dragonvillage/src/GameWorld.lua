@@ -352,6 +352,9 @@ function GameWorld:initGame(stage_name)
     -- 친구 드래곤 생성
     self:makeFriendHero()
 
+    -- 초기 마나 설정
+    self.m_heroMana:addMana(START_MANA)
+
     do -- 진형 시스템 초기화
         self:setBattleZone(self.m_deckFormation, true)
     end
