@@ -54,8 +54,8 @@ end
 -------------------------------------
 function UI_QuestPopup:initTab()
     local vars = self.vars
-    self:addTab(TableQuest.DAILY, vars['dailyBtn'], vars['dailyListNode'])
-    self:addTab(TableQuest.CHALLENGE, vars['challengeBtn'], vars['challengeListNode'])
+    self:addTabAuto(TableQuest.DAILY, vars, vars['dailyListNode'])
+    self:addTabAuto(TableQuest.CHALLENGE, vars, vars['challengeListNode'])
     self:setTab(TableQuest.DAILY)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
