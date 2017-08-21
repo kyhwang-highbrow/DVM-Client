@@ -28,7 +28,7 @@ end
 -- function init
 -------------------------------------
 function UI_Lobby:init()
-    local vars = self:load('lobby_new.ui')
+    local vars = self:load('lobby.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
