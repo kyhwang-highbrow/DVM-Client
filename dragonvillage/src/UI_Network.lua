@@ -194,9 +194,9 @@ local S_ERROR_STATUS = {
     [-1407] = Str('상대방에게 더 이상 친구요청을 할 수 없습니다.'), -- full friend
 
     -- highbrow coupon
-    [-1355] = Str('일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'), -- invalid item 연결이 안되거나 에러인 경우
-    [-1155] = Str('존재하지 않는 쿠폰입니다.'), -- not exist item 존재하지 않는 쿠폰
-    [-3355] = Str('이미 사용한 쿠폰입니다.'), -- already receive item 이미 사용한 쿠폰
+    [-1367] = Str('일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'), -- invalid item 연결이 안되거나 에러인 경우
+    [-1167] = Str('존재하지 않는 쿠폰입니다.'), -- not exist item 존재하지 않는 쿠폰
+    [-3367] = Str('이미 사용한 쿠폰입니다.'), -- already receive item 이미 사용한 쿠폰
     [-187] = Str('하이브로 서버가 점검중입니다.\n잠시 후에 다시 시도 해주세요.'), -- maintenance access 서버가 점검중인 경우
 }
 
