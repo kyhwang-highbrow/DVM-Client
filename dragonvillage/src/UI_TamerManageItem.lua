@@ -12,7 +12,7 @@ UI_TamerManageItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_TamerManageItem:init(t_tamer, new_user)
-    local vars = self:load('tamer_manage_scene_item_new.ui')
+    local vars = self:load('tamer_manage_scene_item.ui')
 	
 	self.m_tamerID = t_tamer['tid']
 	self.m_tamerTable = t_tamer
