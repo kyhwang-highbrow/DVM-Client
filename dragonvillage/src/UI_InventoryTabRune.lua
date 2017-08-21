@@ -19,12 +19,9 @@ function UI_InventoryTabRune:init(inventory_ui)
     local vars = self.vars
 
     -- 'inventory.ui'를 사용
-    self:addTab(1, vars['runeBtn1'], vars['runeTableViewNode1'])
-    self:addTab(2, vars['runeBtn2'], vars['runeTableViewNode2'])
-    self:addTab(3, vars['runeBtn3'], vars['runeTableViewNode3'])
-    self:addTab(4, vars['runeBtn4'], vars['runeTableViewNode4'])
-    self:addTab(5, vars['runeBtn5'], vars['runeTableViewNode5'])
-    self:addTab(6, vars['runeBtn6'], vars['runeTableViewNode6'])
+    for i = 1, 6 do
+        self:addTabWithLabel(i, vars['runeTabBtn' .. i], vars['runeTabLabel' .. i], vars['runeTableViewNode' .. i])
+    end
 end
 
 -------------------------------------

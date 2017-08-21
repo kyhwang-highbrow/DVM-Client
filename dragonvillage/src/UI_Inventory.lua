@@ -55,9 +55,9 @@ function UI_Inventory:initUI()
 
     do
         self.m_mainTabMgr = UIC_TabManager()
-        self.m_mainTabMgr:addTab('rune', vars['runeBtn'], vars['runeNode'])
-        self.m_mainTabMgr:addTab('material', vars['materialBtn'], vars['materialNode'])
-        self.m_mainTabMgr:addTab('fruit', vars['fruitBtn'], vars['fruitNode'])
+        self.m_mainTabMgr:addTabAuto('rune', vars, vars['runeNode'])
+        self.m_mainTabMgr:addTabAuto('material', vars, vars['materialNode'])
+        self.m_mainTabMgr:addTabAuto('fruit', vars, vars['fruitNode'])
     
 		
         self.m_mainTabMgr:setChangeTabCB(function(tab, first) self:onChangeMainTab(tab, first) end)
