@@ -49,17 +49,10 @@ end
 function UI_Shop:initTab()
     local vars = self.vars
 
-    self:addTabWidthTabUI('st', vars['stBtn'], UI_ShopTab(self, 'st'))
-    self:addTabWidthTabUI('gold', vars['goldBtn'], UI_ShopTab(self, 'gold'))
-    self:addTabWidthTabUI('cash', vars['cashBtn'], UI_ShopTab(self, 'cash'))
-    self:addTabWidthTabUI('amethyst', vars['amethystBtn'], UI_ShopTab(self, 'amethyst'))
-    self:addTabWidthTabUI('topaz', vars['topazBtn'], UI_ShopTab(self, 'topaz'))
-    self:addTabWidthTabUI('mileage', vars['mileageBtn'], UI_ShopTab(self, 'mileage'))
-    self:addTabWidthTabUI('honor', vars['honorBtn'], UI_ShopTab(self, 'honor'))
-    self:addTabWidthTabUI('package', vars['packageBtn'], UI_ShopTab(self, 'package'))
-
-    self:addTabWidthTabUI('cash', vars['cashBtn'], UI_ShopTab(self, 'cash'))
-    self:addTabWidthTabUI('capsule', vars['capsuleBtn'], UI_ShopTab(self, 'capsule'))
+    local l_shop = {'st', 'gold', 'cash', 'amethyst', 'topaz', 'mileage', 'honor', 'package'}
+    for _, tab in pairs(l_shop) do
+        self:addTabWithTabUIAuto(tab, vars, UI_ShopTab(self, tab))
+    end
 
     self:setTab('cash')
 end

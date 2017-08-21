@@ -35,12 +35,15 @@ function ITabUI:addTab(tab, button, ...)
     t_tab_data['first'] = true
     t_tab_data['ui'] = nil
 
+    if (not button) then
+        error('there is not button : ' .. tab)
+    end
+
     self.m_mTabData[tab] = t_tab_data
 
     local function click()
         self:setTab(tab)
     end
-
     button:registerScriptTapHandler(click)
 
     return t_tab_data
@@ -61,7 +64,9 @@ end
 -- @breif 탭 추가 : 버튼과 라벨을 자동으로 찾아옴
 -------------------------------------
 function ITabUI:addTabAuto(tab, vars, ...)
-    self:addTabWithLabel(tab, vars[tab .. 'TabBtn'], vars[tab .. 'TabLabel'], ...)
+    local button = vars[tab .. 'TabBtn']
+    local label = vars[tab .. 'TabLabel']
+    self:addTabWithLabel(tab, button, label, ...)
 end
 
 -------------------------------------
@@ -84,6 +89,17 @@ function ITabUI:addTabWithTabUIAndLabel(tab, button, label, ui, ...)
     t_tab_data['label'] = label
     return t_tab_data
 end
+
+-------------------------------------
+-- function addTabAuto
+-- @breif 탭 추가 : 버튼과 라벨을 자동으로 찾아옴
+-------------------------------------
+function ITabUI:addTabWithTabUIAuto(tab, vars, ui, ...)
+    local button = vars[tab .. 'TabBtn']
+    local label = vars[tab .. 'TabLabel']
+    self:addTabWithTabUIAndLabel(tab, button, label, ui, ...)
+end
+
 
 -------------------------------------
 -- function setTab
