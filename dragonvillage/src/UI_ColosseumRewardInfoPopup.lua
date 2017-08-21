@@ -6,6 +6,9 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_ColosseumRewardInfoPopup = class(PARENT,{
     })
 
+UI_ColosseumRewardInfoPopup.RANK = 'rankReward'
+UI_ColosseumRewardInfoPopup.MATCH = 'matchReward'
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -54,10 +57,10 @@ end
 -------------------------------------
 function UI_ColosseumRewardInfoPopup:initTab()
     local vars = self.vars
-    self:addTab('rank_reward', vars['rankRewardBtn'], vars['rankRewardNode'])
-    self:addTab('match_reward', vars['matchRewardBtn'], vars['matchRewardNode'])
+    self:addTabAuto(UI_ColosseumRewardInfoPopup.RANK, vars, vars['rankRewardNode'])
+    self:addTabAuto(UI_ColosseumRewardInfoPopup.MATCH, vars, vars['matchRewardNode'])
 
-    self:setTab('rank_reward')
+    self:setTab(UI_ColosseumRewardInfoPopup.RANK)
 end
 
 -------------------------------------
@@ -71,11 +74,11 @@ function UI_ColosseumRewardInfoPopup:onChangeTab(tab, first)
     end
 
     -- 주간 랭킹 보상
-    if (tab == 'rank_reward') then
+    if (tab == UI_ColosseumRewardInfoPopup.RANK) then
         self:init_tableViewRankReward()
 
     -- 매치 보상
-    elseif (tab == 'match_reward') then
+    elseif (tab == UI_ColosseumRewardInfoPopup.MATCH) then
         self:init_tableViewMatchReward()
     end
     
