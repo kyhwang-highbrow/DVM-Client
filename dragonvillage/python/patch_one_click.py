@@ -14,6 +14,7 @@ import md5_log_maker
 source_path = ''
 patch_work_path = ''
 dest_path = ''
+SERVER_PATH = ''
 app_ver = ''
 latest_patch_ver = ''
 
@@ -64,6 +65,7 @@ def init_global_var():
     global source_path
     global patch_work_path
     global dest_path
+    global SERVER_PATH
     global app_ver
     
     # TODO 경로들은 추후에 파라미터로 받을 것!
@@ -78,12 +80,20 @@ def init_global_var():
     # 패치 .zip파일을 생성하여 카피하는 경로 192.168.1.20
     dest_path = os.path.join(r'\\', 'PERPLELAB-NAS', 'Dev', 'patch', 'dv_test')
     
+    # 패치 타겟 서버
+    tar_server = sys.argv[1]
+    if tar_server == 'DEV':
+        SERVER_PATH = 'http://dv-test.perplelab.com:9003'
+    elif tar_server == 'QA':
+        SERVER_PATH = 'http://dv-qa.perplelab.com:9003'
+
     # 패치를 진행할 앱 버전
-    app_ver = sys.argv[1]
+    app_ver = sys.argv[2]
 
     print('\t' + source_path)
     print('\t' + patch_work_path)
     print('\t' + dest_path)
+    print('\t' + tar_server + SERVER_PATH)
     print('\t' + app_ver)
     
 # 서버로부터 패치 정보 얻어옴
@@ -93,7 +103,7 @@ def get_patch_info(app_ver):
     install_and_import('requests')
     
     params = {'app_ver': app_ver}
-    r = requests.get('http://dv-test.perplelab.com:9003/get_patch_info', params=params)
+    r = requests.get(SERVER_PATH + '/get_patch_info', params=params)
     ret_data = r.json()
 
     # 현재 패치 ver를 리턴
@@ -222,9 +232,7 @@ def main():
     print "###################################"
     print "done"
     print "###################################"
-    raw_input() 
-    
-    
+
 if __name__ == '__main__':
     print('----------------------------------------')
     main()
