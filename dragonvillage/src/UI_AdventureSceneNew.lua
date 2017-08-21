@@ -46,7 +46,7 @@ end
 function UI_AdventureSceneNew:init(stage_id)
     self.m_lAchieveRewardButtons = {}
 
-    local vars = self:load('adventure_scene_new.ui')
+    local vars = self:load('adventure_scene.ui')
     UIManager:open(self, UIManager.SCENE)
     SoundMgr:playBGM('bgm_dungeon_ready')
 
