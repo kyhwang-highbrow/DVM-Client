@@ -98,6 +98,8 @@ end
 -- function addMana
 -------------------------------------
 function GameMana:addMana(value)
+    if (value < 0) then return end
+
     local value = self:getCurrMana() + value
     value = math_min(value, MAX_MANA)
 
@@ -111,6 +113,8 @@ end
 -- function subtractMana
 -------------------------------------
 function GameMana:subtractMana(value)
+    if (value < 0) then return end
+
     local value = self:getCurrMana() - value
     value = math_max(value, 0)
 

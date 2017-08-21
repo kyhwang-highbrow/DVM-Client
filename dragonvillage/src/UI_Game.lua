@@ -628,7 +628,7 @@ function UI_Game:initIntroFight()
     local vars = self.vars
     local off_list = {'autoStartButton', 'autoButton', 'speedButton', 
                       'hottimeNode', 'chatBtn', 'pauseButton',
-                      'panelBtn', 'buffBtn', 'dpsInfoNode'}
+                      'effectBtn', 'buffBtn', 'dpsInfoNode'}
 
     for i, v in ipairs(off_list) do
         if (vars[v]) then
