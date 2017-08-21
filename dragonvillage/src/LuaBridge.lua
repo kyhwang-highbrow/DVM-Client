@@ -6,6 +6,8 @@
 -------------------------------------
 LuaBridge = {}
 
+cc.FileUtils:getInstance():setPopupNotify(false)
+
 -------------------------------------
 -- function isFileExist
 -------------------------------------

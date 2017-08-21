@@ -466,7 +466,7 @@ end
 -------------------------------------
 function GameWorld:removeAllEnemy()
     for i, v in pairs(self:getEnemyList()) do
-		cclog('REMOVE ALL ' .. v:getName())
+		--cclog('REMOVE ALL ' .. v:getName())
         if (not v:isDead()) then
             v:changeState('dying')
         end
