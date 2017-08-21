@@ -41,7 +41,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_secretDungeon = secret_dungeon
     self.m_staminaType = 'st'
 
-    local vars = self:load('ingame_result_new.ui')
+    local vars = self:load('ingame_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self:initUI()
