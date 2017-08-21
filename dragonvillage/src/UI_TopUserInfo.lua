@@ -22,7 +22,7 @@ UI_TopUserInfo = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_TopUserInfo:init()
-    local vars = self:load('top_user_info_new.ui')
+    local vars = self:load('top_user_info.ui')
 
     vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     --vars['st_ad_btn']:registerScriptTapHandler(function() self:click_st_ad_btn() end)
