@@ -11,7 +11,7 @@ UI_HatcherySummonTab = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_HatcherySummonTab:init(owner_ui)
-    local vars = self:load('hatchery_summon_new.ui')
+    local vars = self:load('hatchery_summon.ui')
 end
 
 -------------------------------------
