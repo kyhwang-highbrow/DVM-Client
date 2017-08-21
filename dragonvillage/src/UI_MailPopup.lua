@@ -65,7 +65,7 @@ function UI_MailPopup:initTab()
     local vars = self.vars
 	local l_tab = g_mailData:getMailCategoryList()
 	for _, tab in pairs(l_tab) do
-		self:addTab(tab, vars[tab .. 'Btn'], vars[tab .. 'ListNode'])
+		self:addTabAuto(tab, vars, vars[tab .. 'ListNode'])
 	end
     self:setTab('goods')
 end
@@ -101,7 +101,7 @@ end
 -- function refresh_noti
 -------------------------------------
 function UI_MailPopup:refresh_noti()
-    UIHelper:autoNoti(g_mailData:getNewMailMap(), self.m_tNotiSpriteTable, 'Btn', self.vars)
+    UIHelper:autoNoti(g_mailData:getNewMailMap(), self.m_tNotiSpriteTable, 'TabBtn', self.vars)
 end
 
 -------------------------------------
