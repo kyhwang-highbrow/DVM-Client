@@ -19,8 +19,8 @@ UI_RecommendedDragonInfoPopup = class(PARENT,{
 		m_mStageInfoMap = 'Map',
     })
 
-UI_RecommendedDragonInfoPopup.PARTY = 1
-UI_RecommendedDragonInfoPopup.DRAGON = 2
+UI_RecommendedDragonInfoPopup.PARTY = 'party'
+UI_RecommendedDragonInfoPopup.DRAGON = 'dragon'
 
 --[[
 	['key'] = ['mode_id']
@@ -95,8 +95,8 @@ end
 -------------------------------------
 function UI_RecommendedDragonInfoPopup:initTab()
     local vars = self.vars
-    self:addTab(UI_RecommendedDragonInfoPopup.PARTY, vars['partyBtn'], vars['partyNode'])
-    self:addTab(UI_RecommendedDragonInfoPopup.DRAGON, vars['dragonBtn'], vars['dragonNode'])
+    self:addTabAuto(UI_RecommendedDragonInfoPopup.PARTY, vars, vars['partyNode'])
+    self:addTabAuto(UI_RecommendedDragonInfoPopup.DRAGON, vars, vars['dragonNode'])
     self:setTab(UI_RecommendedDragonInfoPopup.PARTY)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
