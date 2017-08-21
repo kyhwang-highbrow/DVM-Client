@@ -25,6 +25,6 @@ function TableFruit:getFruitFeel(fid)
         self = THIS()
     end
 
-    local feel = self:getValue(fid, 'feel')
+    local feel = self:getValue(fid, 'cumulative_exp')
     return feel
 end

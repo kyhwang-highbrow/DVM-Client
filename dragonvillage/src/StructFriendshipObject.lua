@@ -63,15 +63,11 @@ function StructFriendshipObject:getFriendshipInfo(flv)
 
     -- 기분 게이지
     local table_friendship_variables = TableFriendshipVariables()
-    local feel_percent = (self['fexp'] / table_friendship_variables:getFeelMax()) * 100
---    feel_percent = math_clamp(feel_percent, 0, 100)
-
     local nickname = g_userData:get('nick')
 
     local t_friendship_info = {}
     t_friendship_info['name'] = Str(t_table['t_name'])
     t_friendship_info['desc'] = Str(t_table['t_desc'], nickname)
-    t_friendship_info['feel_percent'] = feel_percent
     t_friendship_info['atk_max'] = table_friendship_variables:getAtkMax()
     t_friendship_info['def_max'] = table_friendship_variables:getDefMax()
     t_friendship_info['hp_max'] = table_friendship_variables:getHpMax()

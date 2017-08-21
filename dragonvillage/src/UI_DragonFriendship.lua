@@ -203,7 +203,7 @@ function UI_DragonFriendship:refreshFriendship()
     if friendship_obj:isMaxFriendshipLevel() then
         self:setHeartGauge(100)
     else
-        self:setHeartGauge(t_friendship_info['feel_percent'])
+        self:setHeartGauge(t_friendship_info['exp_percent'])
     end
 end
 

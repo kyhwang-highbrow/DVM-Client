@@ -47,13 +47,6 @@ function TableFriendship:getFriendshipReqExp(flv)
         return 0
     end
 
-    -- 이전 레벨의 필요 경험치를 제거
-    if (0 < flv) then
-        local t_table = self:get(flv - 1)
-        local req_exp2 = t_table['cumulative_req_exp']
-        req_exp = (req_exp - req_exp2)
-    end
-
     return req_exp
 end
 
