@@ -10,7 +10,7 @@ UI_Shop = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_Shop:init()
-    local vars = self:load('shop_new.ui')
+    local vars = self:load('shop.ui')
     UIManager:open(self, UIManager.SCENE)
     
 	-- 백키 지정
