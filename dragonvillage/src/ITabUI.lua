@@ -61,7 +61,7 @@ end
 -- @breif 탭 추가 : 버튼과 라벨을 자동으로 찾아옴
 -------------------------------------
 function ITabUI:addTabAuto(tab, vars, ...)
-    self:addTab(tab, vars[tab .. 'TabBtn'], vars[tab .. 'TabLabel'], ...)
+    self:addTabWithLabel(tab, vars[tab .. 'TabBtn'], vars[tab .. 'TabLabel'], ...)
 end
 
 -------------------------------------
@@ -134,10 +134,10 @@ function ITabUI:deactivate(tab)
     local button = t_tab_data['button']
     button:setEnabled(true)
 
-    if (t_tab_data['label']) then
-        t_tab_data['label']:setTextColor(cc.c4b(255, 255, 0, 255))
+    local label = t_tab_data['label']
+    if (label) then
+        label:setTextColor(cc.c4b(240, 215, 159, 255))
     end
-
 
     for i,v in ipairs(t_tab_data['tab_node_list']) do
         v:setVisible(false)
@@ -162,8 +162,9 @@ function ITabUI:activate(tab, first)
     local button = t_tab_data['button']
     button:setEnabled(false)
 
-    if (t_tab_data['label']) then
-        t_tab_data['label']:setTextColor(cc.c4b(0, 255, 255, 255))
+    local label = t_tab_data['label']
+    if (label) then
+        label:setTextColor(cc.c4b(0, 0, 0, 255))
     end
 
     for i,v in ipairs(t_tab_data['tab_node_list']) do

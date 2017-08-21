@@ -36,6 +36,24 @@ function UIC_RadioButton:addButton(name, button, sprite, cb)
 end
 
 -------------------------------------
+-- function addButtonWithLabel
+-------------------------------------
+function UIC_RadioButton:addButtonWithLabel(name, button, label, sprite, cb)
+    self:addButton(name, button, sprite, cb)
+    self.m_buttonMap[name]['label'] = label
+end
+
+-------------------------------------
+-- function addButtonAuto
+-------------------------------------
+function UIC_RadioButton:addButtonAuto(name, vars, cb)
+    local button = vars[name .. 'RadioBtn']
+    local label = vars[name .. 'RadioLabel']
+    local sprite = vars[name .. 'RadioSprite']
+    self:addButtonWithLabel(name, button, label, sprite, cb)
+end
+
+-------------------------------------
 -- function setSelectedButton
 -------------------------------------
 function UIC_RadioButton:setSelectedButton(button_name)
@@ -68,6 +86,11 @@ function UIC_RadioButton:deactivate(button_name)
     local button = t_button_data['button']
     button:setEnabled(true)
 
+    local label = t_button_data['label']
+    if (label) then
+        label:setTextColor(cc.c4b(240, 215, 159, 255))
+    end
+
     local sprite = t_button_data['sprite']
     if sprite then
         sprite:setVisible(false)
@@ -82,6 +105,11 @@ function UIC_RadioButton:activate(button_name)
 
     local button = t_button_data['button']
     button:setEnabled(false)
+    
+    local label = t_button_data['label']
+    if (label) then
+        label:setTextColor(cc.c4b(0, 0, 0, 255))
+    end
 
     local sprite = t_button_data['sprite']
     if sprite then

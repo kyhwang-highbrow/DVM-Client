@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_AdventureStageInfo
@@ -12,6 +12,9 @@ UI_AdventureStageInfo = class(PARENT,{
         m_orgWidth = 'number',
         m_orgHeight = 'number',
     })
+
+UI_AdventureStageInfo.REWARD = 'reward'
+UI_AdventureStageInfo.ENEMY = 'enemyInfo'
 
 -------------------------------------
 -- function init
@@ -50,7 +53,19 @@ function UI_AdventureStageInfo:initUI()
     self.m_orgWidth = size['width']
     self.m_orgHeight = size['height']
     
-    self:click_tabBtn('item')
+    self:initTab()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_AdventureStageInfo:initTab()
+    local vars = self.vars
+    self:addTabAuto(UI_AdventureStageInfo.REWARD, vars, vars['dropListNode'])
+    self:addTabAuto(UI_AdventureStageInfo.ENEMY, vars, vars['monsterListNode'])
+    self:setTab(UI_AdventureStageInfo.REWARD)
+
+	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
 
 -------------------------------------
@@ -61,8 +76,6 @@ function UI_AdventureStageInfo:initButton()
     local stage_id = self.m_stageID
     local game_mode = g_stageData:getGameMode(stage_id)
 
-    vars['rewardBtn']:registerScriptTapHandler(function() self:click_tabBtn('item') end)
-    vars['enemyInfoBtn']:registerScriptTapHandler(function() self:click_tabBtn('monster') end)
     vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 
@@ -324,33 +337,19 @@ end
 -- function click_tabBtn
 -- @brief '획득 가능 보상', '출현 정보'
 -------------------------------------
-function UI_AdventureStageInfo:click_tabBtn(tab_type, force)
-    if (not force) and (self.m_currTab == tab_type) then
+function UI_AdventureStageInfo:onChangeTab(tab, first)
+    if (not first) and (self.m_currTab == tab_type) then
         return
     end
 
-    self.m_currTab = tab_type
-
-    local vars = self.vars
-
-    vars['rewardBtn']:setEnabled(true)
-    vars['enemyInfoBtn']:setEnabled(true)
-
-    if (self.m_currTab == 'item') then
-        vars['monsterListNode']:setVisible(false)
-        vars['dropListNode']:setVisible(true)
-        vars['rewardBtn']:setEnabled(false)
-        
+    self.m_currTab = tab
+    if (self.m_currTab == UI_AdventureStageInfo.REWARD) then
         if (not self.m_bInitItemTableView) then
             self:refresh_rewardInfo()
             self.m_bInitItemTableView = true
         end
 
-    elseif (self.m_currTab == 'monster') then
-        vars['monsterListNode']:setVisible(true)
-        vars['dropListNode']:setVisible(false)
-        vars['enemyInfoBtn']:setEnabled(false)
-
+    elseif (self.m_currTab == UI_AdventureStageInfo.ENEMY) then
         if (not self.m_bInitMonsterTableView) then
            self:refresh_monsterList()
            self.m_bInitMonsterTableView = true
@@ -422,7 +421,7 @@ function UI_AdventureStageInfo:changeStageID(stage_id)
 
     self.m_bInitItemTableView = false
     self.m_bInitMonsterTableView = false
-    self:click_tabBtn(self.m_currTab, true)
+    self:onChangeTab(self.m_currTab, true)
 end
 
 
