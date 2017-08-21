@@ -71,11 +71,11 @@ end
 -------------------------------------
 function UI_OverallRankingPopup:initTab()
     local vars = self.vars
-    self:addTab(UI_OverallRankingPopup.OVERALL, vars['totalBtn'], vars['totalNode'])
-    self:addTab(UI_OverallRankingPopup.PVP, vars['pvpBtn'], vars['pvpNode'])
-	self:addTab(UI_OverallRankingPopup.QUEST, vars['questBtn'], vars['questNode'])
-    self:addTab(UI_OverallRankingPopup.COMBAT, vars['cpBtn'], vars['cpNode'])
-	self:addTab(UI_OverallRankingPopup.COLLECTION, vars['collectionBtn'], vars['collectionNode'])
+
+    local l_rank_word = {[0] = 'total', 'pvp', 'quest', 'cp', 'book'}
+    for idx, tab in pairs(l_rank_word) do
+        self:addTabWithLabel(idx, vars[tab .. 'TabBtn'], vars[tab .. 'TabLabel'], vars[tab .. 'Node'])
+    end
 
     self:setTab(UI_OverallRankingPopup.OVERALL)
 
