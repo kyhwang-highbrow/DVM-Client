@@ -11,7 +11,7 @@ UI_Setting = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_Setting:init()
-    local vars = self:load('setting_popup_new.ui')
+    local vars = self:load('setting_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
