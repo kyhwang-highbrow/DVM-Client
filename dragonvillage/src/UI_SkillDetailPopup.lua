@@ -30,7 +30,7 @@ function UI_SkillDetailPopup:init(dragon_object, focus_idx)
         end
     end
 
-    local vars = self:load('dragon_skill_detail_popup_new_new.ui')
+    local vars = self:load('dragon_skill_detail_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
