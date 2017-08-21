@@ -126,10 +126,10 @@ function UI_FriendPopup:initFrinedPopupTab()
     self.m_tTabClass['request'] = UI_FriendPopupTabRequest(self)
 
     local vars = self.vars
-    self:addTab('friends', vars['listBtn'], vars['listMenu'])
-    self:addTab('recommend', vars['recommendBtn'], vars['recommendMenu2'])
-    self:addTab('response', vars['responseBtn'], vars['responseNode']) -- 받은 요청
-    self:addTab('request', vars['requestBtn'], vars['requestNode']) -- 보낸 요청
+    self:addTabWithLabel('friends', vars['listTabBtn'], vars['listTabLabel'], vars['listMenu'])
+    self:addTabAuto('recommend', vars, vars['recommendMenu2'])
+    self:addTabAuto('response', vars, vars['responseNode']) -- 받은 요청
+    self:addTabAuto('request', vars, vars['requestNode']) -- 보낸 요청
     
     self:setTab('friends')
 end
