@@ -11,7 +11,7 @@ UI_ColosseumReady = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ColosseumReady:init()
-    local vars = self:load('colosseum_ready_new.ui')
+    local vars = self:load('colosseum_ready.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
