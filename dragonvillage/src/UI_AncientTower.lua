@@ -20,7 +20,7 @@ UI_AncientTower.TAB_RANK = 2
 -- function init
 -------------------------------------
 function UI_AncientTower:init()
-    local vars = self:load_keepZOrder('tower_scene_new.ui')
+    local vars = self:load_keepZOrder('tower_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
