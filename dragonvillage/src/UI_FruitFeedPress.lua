@@ -138,10 +138,10 @@ function UI_FruitFeedPress:initPressInfo(fruit_id)
     -- 보유한 열매 갯수
     self.m_fruitCount = g_userData:getFruitCount(fruit_id)
 
-    local t_friendship_info = friendship_obj:getFriendshipInfo()
+    local t_friendship_info = self.m_friendshipObj:getFriendshipInfo()
 
-    -- 기분업까지 필요한 feel -> exp로 변경
-    self.m_reqFeel = t_friendship_info['exp_percent']
+    -- 기분업까지 필요한 feel -> max_exp로 변경
+    self.m_reqFeel = t_friendship_info['max_exp']
 
     -- 드래곤의 현재 feel -> exp로 변경
     self.m_currFeel = self.m_friendshipObj['fexp']
