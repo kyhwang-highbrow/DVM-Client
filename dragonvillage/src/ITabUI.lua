@@ -75,10 +75,10 @@ function ITabUI:addTabWidthTabUI(tab, button, ui, ...)
 end
 
 -------------------------------------
--- function addTabWidthTabUIAndLabel
+-- function addTabWithTabUIAndLabel
 -- @breif 탭 추가 : 버튼과 TabUI 및 라벨 등록
 -------------------------------------
-function ITabUI:addTabWidthTabUIAndLabel(tab, button, label, ui, ...)
+function ITabUI:addTabWithTabUIAndLabel(tab, button, label, ui, ...)
     local t_tab_data = self:addTab(tab, button, ...)
     t_tab_data['ui'] = ui
     t_tab_data['label'] = label
