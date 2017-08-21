@@ -12,7 +12,7 @@ UI_ChatPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_ChatPopup:init()
-    local vars = self:load('chat_new.ui')
+    local vars = self:load('chat.ui')
     --UIManager:open(self, UIManager.NORMAL)
 
     -- backkey 지정
