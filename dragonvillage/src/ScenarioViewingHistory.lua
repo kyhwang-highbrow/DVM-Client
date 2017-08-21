@@ -158,6 +158,11 @@ end
 -- function playScenario
 -------------------------------------
 function ScenarioViewingHistory:playScenario(scenario_name)
+    -- 벤치마크 도중에는 재생하지 않도록 수정
+    if (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
+        return
+    end
+
     local setting = 'first'
     local play = false
 

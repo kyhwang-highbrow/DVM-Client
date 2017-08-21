@@ -529,7 +529,6 @@ end
 -------------------------------------
 function UI_Setting:click_benchmarkBtn()
     BenchmarkManager:getInstance()
-
-    g_benchmarkMgr:setStageIDList(1220005, 1230106)
+    g_benchmarkMgr:setBenchmarkJson()
     g_benchmarkMgr:startStage()
 end

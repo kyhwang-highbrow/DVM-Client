@@ -621,7 +621,7 @@ function GameState.update_success_wait(self, dt)
 
         -- 벤치마크 중
         if g_benchmarkMgr and g_benchmarkMgr:isActive() then
-            g_benchmarkMgr:finishStage()
+            g_benchmarkMgr:finishStage(g_gameScene.m_fpsMeter)
             self:pause() -- update를 멈추기 위해
             return
         end

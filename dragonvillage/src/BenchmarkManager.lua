@@ -8,6 +8,9 @@ BenchmarkManager = class({
 
         m_waveTime = '',
         m_lastWaveTime = '',
+
+        m_recordTable = '',
+        m_outputFileName = '',
     })
 
 -------------------------------------
@@ -17,6 +20,7 @@ function BenchmarkManager:init()
     self.m_bActive = false
     self.m_waveTime = 10
     self.m_lastWaveTime = 30
+    self.m_outputFileName = 'benchmark.csv'
 end
 
 -------------------------------------
@@ -46,6 +50,49 @@ function BenchmarkManager:setStageIDList(...)
 end
 
 -------------------------------------
+-- function setBenchmarkJson
+-------------------------------------
+function BenchmarkManager:setBenchmarkJson()
+    local info = TABLE:loadJsonTable('benchmark', '.json')
+    
+    ccdump(info)
+
+    self.m_waveTime = info['wave_time']
+    self.m_lastWaveTime = info['last_wave_time']
+    
+    local t_skip = {}
+    t_skip[999999] = true   -- 개발 스테이지
+    t_skip[1010001] = true  -- 튜토리얼 스테이지
+    
+
+    if info['all_test'] then
+        local table_drop = TableDrop()
+        local t_list = {}
+        for i,v in pairs(table_drop.m_orgTable) do
+            local _stage_id = tonumber(i)
+            if (not t_skip[_stage_id]) then
+                table.insert(t_list, _stage_id)
+            end
+        end
+        table.sort(t_list, function(a, b) return a < b end)
+
+        self.m_lStageID = t_list
+
+        self.m_currIdx = 0
+    else
+        self.m_lStageID = info['stage_list']
+        self.m_currIdx = 0
+    end
+
+    do
+        local os_time = os.time()
+        local date_str = os.date('%Y-%m-%d-%H-%M', os_time)
+        self.m_outputFileName = 'benchmark' .. date_str .. '.csv'
+        cclog('# self.m_outputFileName : ' .. self.m_outputFileName)
+    end
+end
+
+-------------------------------------
 -- function startStage
 -------------------------------------
 function BenchmarkManager:startStage()
@@ -53,6 +100,10 @@ function BenchmarkManager:startStage()
     local stage_id = self.m_lStageID[self.m_currIdx]
 
     if stage_id then
+
+        cclog('## BenchmarkManager:startStage() : ' .. stage_id)
+        cclog(string.format('## BenchmarkManager:startStage() : %d/%d, %d%%', self.m_currIdx, #self.m_lStageID, math_floor(self.m_currIdx/#self.m_lStageID*100)))
+
         self:runGameScene(stage_id)
         return true
     else
@@ -93,9 +144,9 @@ end
 -------------------------------------
 -- function finishStage
 -------------------------------------
-function BenchmarkManager:finishStage()
+function BenchmarkManager:finishStage(fpsmeter)
     local stage_id = self.m_lStageID[self.m_currIdx]
-    ccdump(stage_id)
+    self:recordStage(stage_id, fpsmeter)
 
     if self:startStage() then
 
@@ -107,6 +158,53 @@ function BenchmarkManager:finishStage()
         self:stop()
         MakeSimplePopup(POPUP_TYPE.OK, '벤치마크 종료!!', ok_cb)
     end
+end
+
+-------------------------------------
+-- function recordStage
+-------------------------------------
+function BenchmarkManager:recordStage(stage_id, fpsmeter)
+    if (not self.m_recordTable) then
+        self.m_recordTable = {}
+    end
+
+    local t_data = {}
+    t_data['stage_id'] =  stage_id
+
+    local table_drop = TableDrop()
+
+    do -- info
+        t_data['t_name'] = table_drop:getValue(stage_id, 't_name')
+        t_data['r_chapter_info'] = table_drop:getValue(stage_id, 'r_chapter_info')
+        t_data['r_stage_info'] = table_drop:getValue(stage_id, 'r_stage_info')
+    end
+
+    do -- fps
+        local curr_time = socket.gettime()
+        local dt = (curr_time - fpsmeter.m_prevTime)
+        fpsmeter.m_prevTime = curr_time
+        local fps = fpsmeter.m_frameCnt / (curr_time - fpsmeter.m_startTime)
+        t_data['fps'] = math_floor(fps)
+    end
+
+    do -- glcalls
+        local average = math_floor(fpsmeter.m_cumulativeGLCalls / fpsmeter.m_frameCnt)
+        t_data['glcalls'] = math_floor(average)
+        t_data['glcalls_min'] = fpsmeter.m_minGLCalls
+        t_data['glcalls_max'] = fpsmeter.m_maxGLCalls
+    end
+
+    do -- phys
+        local average = math_floor(fpsmeter.m_cumulativePhysObj / fpsmeter.m_frameCnt)
+        t_data['phys'] = math_floor(average)
+        t_data['phys_min'] = fpsmeter.m_minPhysObj
+        t_data['phys_max'] = fpsmeter.m_maxPhysObj
+    end
+
+    table.insert(self.m_recordTable, t_data)
+
+    ccdump(t_data)
+    self:benchmark(self.m_recordTable)
 end
 
 -------------------------------------
@@ -136,4 +234,58 @@ function BenchmarkManager:stop()
                 '###################################################################'
     cclog(msg)
     self.m_bActive = false
+end
+
+
+-------------------------------------
+-- function saveCsv
+-------------------------------------
+function BenchmarkManager:benchmark(table_info)
+
+    local l_header = {'stage_id', 't_name', 'r_chapter_info', 'r_stage_info', 'fps', 'glcalls', 'glcalls_min', 'glcalls_max', 'phys', 'phys_min', 'phys_max'}
+    local csv_str = ''
+
+    local line_str = ''
+    for i,v in ipairs(l_header) do
+        if (line_str == '') then
+            line_str = v
+        else
+            line_str = line_str .. ',' .. v
+        end
+    end
+    csv_str = csv_str .. line_str
+
+    -- stage_id의 값으로 오름차순 정렬
+    local table_list = {}
+    for i,v in pairs(table_info) do
+        table.insert(table_list, v)
+    end
+    table.sort(table_list, function(a, b) return a['stage_id'] < b['stage_id'] end)
+
+    for _,v in ipairs(table_list) do
+        local line_str = ''
+        for i,key in ipairs(l_header) do
+
+            local value = v[key] or ''
+
+            if (type(value) == 'string') then
+                if string.find(value, ',') then
+                    value = '"' .. value .. '"'
+                end
+            end
+
+            if (i==1) then
+                line_str = value
+            else
+                line_str = line_str .. ',' .. value
+            end
+        end
+
+        csv_str = csv_str .. '\n' .. line_str
+    end
+
+
+    pl.file.write(self.m_outputFileName, csv_str)
+    io.write('\n\n')
+    cclog('output : ' .. self.m_outputFileName)
 end

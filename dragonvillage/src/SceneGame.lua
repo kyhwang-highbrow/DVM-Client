@@ -40,6 +40,7 @@ SceneGame = class(PerpleScene, {
 
         m_gameKey = 'number', -- 서버에서 넘어오는 고유 Key
         m_resPreloadMgr = 'ResPreloadMgr',
+        m_fpsMeter = 'FpsMeter',
 
     })
 
@@ -270,9 +271,11 @@ function SceneGame:prepare()
 		self.m_inGameUI:init_panelUI()
 
         -- fps 미터기
-        if (g_serverData and g_serverData:get('local', 'fps')) then
+        if (g_benchmarkMgr and g_benchmarkMgr:isActive()) or
+            (g_serverData and g_serverData:get('local', 'fps')) then
             local fps_meter = FpsMeter()
             fps_meter:init_physWolrd(self.m_gameWorld.m_physWorld)
+            self.m_fpsMeter = fps_meter
         end
     end)
 end
