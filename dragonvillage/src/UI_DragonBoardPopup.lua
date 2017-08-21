@@ -191,7 +191,7 @@ function UI_DragonBoardPopup:makeAttrOptionRadioBtn()
 	for i = 1, 5 do
 		local t_char = table_char:get(did_source + i)
 		local attr = attributeNumToStr(i)
-		local attr_btn = vars[attr .. 'Btn']
+		local attr_btn = vars[attr .. 'RadioBtn']
 		-- 드래곤이 있다면 버튼 등록
 		if (t_char) then
 			radio_button:addButton(attr, attr_btn)
