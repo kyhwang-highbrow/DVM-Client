@@ -16,7 +16,7 @@ local ARROW_POS_Y = 110
 -- function init
 -------------------------------------
 function UI_ReadyScene_LeaderPopup:init(l_doid, leader_idx)
-    local vars = self:load('battle_ready_leader_popup_new.ui')
+    local vars = self:load('battle_ready_leader_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
