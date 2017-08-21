@@ -33,7 +33,7 @@ function UI_ReadyScene:init(stage_id, with_friend, sub_info)
 
     self.m_bWithFriend = with_friend or false
 
-    local vars = self:load('battle_ready_new.ui')
+    local vars = self:load('battle_ready.ui')
     UIManager:open(self, UIManager.SCENE)
 
 	-- 들어온 경로에 따라 sound가 다름
