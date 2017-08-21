@@ -47,11 +47,41 @@ function ITabUI:addTab(tab, button, ...)
 end
 
 -------------------------------------
+-- function addTabWithLabel
+-- @breif 탭 추가 : 버튼과 라벨 등록
+-------------------------------------
+function ITabUI:addTabWithLabel(tab, button, label, ...)
+    local t_tab_data = self:addTab(tab, button, ...)
+    t_tab_data['label'] = label
+    return t_tab_data
+end
+
+-------------------------------------
+-- function addTabAuto
+-- @breif 탭 추가 : 버튼과 라벨을 자동으로 찾아옴
+-------------------------------------
+function ITabUI:addTabAuto(tab, vars, ...)
+    self:addTab(tab, vars[tab .. 'TabBtn'], vars[tab .. 'TabLabel'], ...)
+end
+
+-------------------------------------
 -- function addTabWidthTabUI
+-- @breif 탭 추가 : 버튼과 TabUI 등록
 -------------------------------------
 function ITabUI:addTabWidthTabUI(tab, button, ui, ...)
     local t_tab_data = self:addTab(tab, button, ...)
     t_tab_data['ui'] = ui
+    return t_tab_data
+end
+
+-------------------------------------
+-- function addTabWidthTabUIAndLabel
+-- @breif 탭 추가 : 버튼과 TabUI 및 라벨 등록
+-------------------------------------
+function ITabUI:addTabWidthTabUIAndLabel(tab, button, label, ui, ...)
+    local t_tab_data = self:addTab(tab, button, ...)
+    t_tab_data['ui'] = ui
+    t_tab_data['label'] = label
     return t_tab_data
 end
 
@@ -104,6 +134,11 @@ function ITabUI:deactivate(tab)
     local button = t_tab_data['button']
     button:setEnabled(true)
 
+    if (t_tab_data['label']) then
+        t_tab_data['label']:setTextColor(cc.c4b(255, 255, 0, 255))
+    end
+
+
     for i,v in ipairs(t_tab_data['tab_node_list']) do
         v:setVisible(false)
     end
@@ -126,6 +161,10 @@ function ITabUI:activate(tab, first)
 
     local button = t_tab_data['button']
     button:setEnabled(false)
+
+    if (t_tab_data['label']) then
+        t_tab_data['label']:setTextColor(cc.c4b(0, 255, 255, 255))
+    end
 
     for i,v in ipairs(t_tab_data['tab_node_list']) do
         v:setVisible(true)
