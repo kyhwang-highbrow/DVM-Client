@@ -51,8 +51,6 @@ function Dragon.st_attack(owner, dt)
             local duration = animator:getDuration()
             animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
 
-            -- 텍스트
-            SkillHelper:makePassiveSkillSpeech(owner, t_skill['t_name'])
         end
     end
 
@@ -124,6 +122,7 @@ function Dragon.st_skillAppear(owner, dt)
                 owner:dispatch('enemy_active_skill', { is_critical = is_critical }, owner)
             end
         end
+
     end
 end
 
