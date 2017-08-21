@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_InvenDevApiPopup
@@ -32,7 +32,18 @@ end
 -------------------------------------
 function UI_InvenDevApiPopup:initUI()
     local vars = self.vars
-    self:click_tabBtn('dragon')
+    self:initTab()
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_InvenDevApiPopup:initTab()
+    local vars = self.vars
+    for _,tab_name in ipairs(self.m_lTabNameList) do
+        self:addTabAuto(tab_name, vars, vars[tab_name .. 'ListNode'])
+    end
+    self:setTab(self.m_lTabNameList[1])
 end
 
 -------------------------------------
@@ -41,36 +52,26 @@ end
 function UI_InvenDevApiPopup:initButton()
     local vars = self.vars
 
-    for _,tab_name in ipairs(self.m_lTabNameList) do
-        vars[tab_name .. 'Tab']:registerScriptTapHandler(function() self:click_tabBtn(tab_name) end)
-    end
-
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------
--- function click_tabBtn
+-- function onChangeTab
 -------------------------------------
-function UI_InvenDevApiPopup:click_tabBtn(tab_name)
-    local vars = self.vars
-    self.m_currTabName = tab_name
-
-    for i,v in ipairs(self.m_lTabNameList) do
-        local lua_name = v .. 'ListNode'
-        vars[lua_name]:setVisible(tab_name == v)
-    end
-
-
-    if (tab_name == 'dragon') then
-        self:init_dragonTableView()
-    elseif (tab_name == 'fruit') then
-        self:init_fruitTableView()
-    elseif (tab_name == 'evolutionStone') then
-        self:init_evolutionStoneTableView()
-    elseif (tab_name == 'rune') then
-        self:init_runeTableView()
-    elseif (tab_name == 'egg') then
-        self:init_eggTableView()
+function UI_InvenDevApiPopup:onChangeTab(tab, first)
+    PARENT.onChangeTab(self, tab, first)
+    if (first) then
+        if (tab == 'dragon') then
+            self:init_dragonTableView()
+        elseif (tab == 'fruit') then
+            self:init_fruitTableView()
+        elseif (tab == 'evolutionStone') then
+            self:init_evolutionStoneTableView()
+        elseif (tab == 'rune') then
+            self:init_runeTableView()
+        elseif (tab == 'egg') then
+            self:init_eggTableView()
+        end
     end
 end
 

@@ -103,17 +103,16 @@ function UI_Setting:initTab()
     
     if (IS_TEST_MODE()) then
         table.insert(tab_list, 'dev')
-        vars['devBtn']:setVisible(true)
+        vars['devTabBtn']:setVisible(true)
     else
-        vars['devBtn']:setVisible(false)
+        vars['devTabBtn']:setVisible(false)
         vars['devMenu']:setVisible(false)
     end
     
     for i,v in ipairs(tab_list) do
         local key = v
-        local btn = vars[v .. 'Btn']
         local menu = vars[v .. 'Menu']
-        self:addTab(key, btn, menu)
+        self:addTabAuto(key, vars, menu)
     end
     
     self:setTab('game')
