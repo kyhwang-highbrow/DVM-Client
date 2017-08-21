@@ -26,7 +26,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonManageInfo:init(doid)
-    local vars = self:load('dragon_manage_new.ui')
+    local vars = self:load('dragon_manage.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
