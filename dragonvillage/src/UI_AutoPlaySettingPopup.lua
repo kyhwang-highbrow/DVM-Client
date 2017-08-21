@@ -15,7 +15,7 @@ UI_AutoPlaySettingPopup.TAB_CONTINUOUS_BATTLE = 2
 -- function init
 -------------------------------------
 function UI_AutoPlaySettingPopup:init(t_user_info)
-    local vars = self:load('battle_ready_auto_popup_new.ui')
+    local vars = self:load('battle_ready_auto_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
