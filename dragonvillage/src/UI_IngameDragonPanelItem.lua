@@ -187,7 +187,7 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
 
     -- 드래곤 부활 시
     elseif (event_name == 'character_revive') then
-        self.m_bEnable = true
+        self.m_bEnabled = true
 
         self:setPossibleControl(true)
 
@@ -196,11 +196,11 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
 
     -- 스킬을 사용할 수 없게 되었을 시
     elseif (event_name == 'skill_disabled') then
-        self.m_bEnable = false
+        self.m_bEnabled = false
 
     -- 스킬을 사용할 수 있게 되었을 시
     elseif (event_name == 'skill_enabled') then
-        self.m_bEnable = true
+        self.m_bEnabled = true
         
     end
 end
