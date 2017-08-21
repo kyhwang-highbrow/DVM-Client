@@ -104,6 +104,7 @@ function BenchmarkManager:finishStage()
             local scene = SceneLobby()
             scene:runScene()
         end
+        self:stop()
         MakeSimplePopup(POPUP_TYPE.OK, '벤치마크 종료!!', ok_cb)
     end
 end
@@ -120,6 +121,19 @@ function BenchmarkManager:checkStageID(stage_id)
                     '###################################################################\n' ..
                     '###################################################################'
         cclog(msg)
-        self.m_bActive = false
+        self:stop()
     end
+end
+
+-------------------------------------
+-- function stop
+-------------------------------------
+function BenchmarkManager:stop()
+    local msg = '\n###################################################################\n' ..
+                '###################################################################\n' ..
+                '## 밴치마크가 종료 되었습니다.\n' ..
+                '###################################################################\n' ..
+                '###################################################################'
+    cclog(msg)
+    self.m_bActive = false
 end
