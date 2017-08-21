@@ -13,7 +13,7 @@ UI_DragonInfoBoard = class(PARENT,{
 -------------------------------------
 function UI_DragonInfoBoard:init(is_simple_mode)
     self.m_bSimpleMode = is_simple_mode
-    local vars = self:load('dragon_info_board_new.ui')
+    local vars = self:load('dragon_info_board.ui')
     
     self:initUI()
     self:initButton()
