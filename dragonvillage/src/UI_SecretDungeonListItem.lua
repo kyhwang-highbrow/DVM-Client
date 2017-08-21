@@ -9,7 +9,7 @@ UI_SecretDungeonListItem = class(PARENT, {})
 -- function init
 -------------------------------------
 function UI_SecretDungeonListItem:init()
-    local vars = self:load('dungeon_item_new.ui')
+    local vars = self:load('dungeon_item.ui')
 
     self:initUI(t_data)
     self:initButton()

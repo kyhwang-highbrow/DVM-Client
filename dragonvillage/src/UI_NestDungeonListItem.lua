@@ -14,7 +14,7 @@ UI_NestDungeonListItem = class(PARENT, {
 function UI_NestDungeonListItem:init(t_data)
     self.m_tData = t_data
 
-    local vars = self:load('dungeon_item_new.ui')
+    local vars = self:load('dungeon_item.ui')
 
     self:initUI(t_data)
     self:initButton()
