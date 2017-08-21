@@ -248,9 +248,8 @@ function UI_ChatPopup:initTab()
     self.m_mTabUI['whisper'] = UI_ChatPopup_WhisperTab(self)
 
     local vars = self.vars
-    self:addTab('general', vars['generalTabBtn'], vars['generalMenu'])
-    --self:addTab('guild_chat', vars['guildTabBtn'], vars['guildChatNode'])
-    self:addTab('whisper', vars['whisperTapBtn'], vars['whisperMenu'])
+    self:addTabAuto('general', vars, vars['generalMenu'])
+    self:addTabAuto('whisper', vars, vars['whisperMenu'])
     self:setTab('general')
 end
 
