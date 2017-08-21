@@ -14,7 +14,7 @@ UI_DragonSkillCard = class(PARENT, {
 function UI_DragonSkillCard:init(skill_indivisual_info)
     self.m_skillIndivisualInfo = skill_indivisual_info
 
-    local vars = self:load('icon_skill_item_new.ui')
+    local vars = self:load('icon_skill_item.ui')
 
 	local char_type = skill_indivisual_info.m_charType
     local skill_id = skill_indivisual_info.m_skillID

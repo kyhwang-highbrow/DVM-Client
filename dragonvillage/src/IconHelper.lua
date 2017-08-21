@@ -342,7 +342,7 @@ end
 -------------------------------------
 function IconHelper:getEmptySkillCard()
     local ui = UI()
-    local vars = ui:load('icon_skill_item_new.ui')
+    local vars = ui:load('icon_skill_item.ui')
     vars['typeLabel']:setVisible(false)
     vars['levelLabel']:setVisible(false)
     vars['emptySprite']:setVisible(true)
