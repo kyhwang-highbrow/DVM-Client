@@ -54,7 +54,7 @@ end
 -- function setIcon
 -------------------------------------
 function UI_NotificationInfoElement:setIcon(res)
-    res = res or 'res/ui/icon/buff_dsc_icon.png'
+    res = res or 'res/ui/icons/buff_dsc_icon.png'
     local icon = cc.Sprite:create(res)
     icon:setAnchorPoint(cc.p(0.5, 0.5))
     icon:setDockPoint(cc.p(0, 1))

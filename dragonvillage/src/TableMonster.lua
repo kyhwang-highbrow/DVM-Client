@@ -37,7 +37,7 @@ function TableMonster:getMonsterIcon(monster_id)
     local sprite = cc.Sprite:create(res_name)
 
     if (not sprite) then
-        sprite = cc.Sprite:create('res/ui/icon/cha/developing.png')
+        sprite = cc.Sprite:create('res/ui/icons/cha/developing.png')
     end
 
     sprite:setDockPoint(cc.p(0.5, 0.5))

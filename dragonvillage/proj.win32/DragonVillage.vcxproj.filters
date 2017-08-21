@@ -987,9 +987,6 @@
     <None Include="..\src\DragonAutoSetHelper.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\DragonCard.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\DragonSkillBonusHelper.lua">
       <Filter>lua\src</Filter>
     </None>

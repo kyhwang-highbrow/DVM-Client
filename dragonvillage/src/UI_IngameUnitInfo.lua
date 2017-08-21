@@ -49,8 +49,6 @@ function UI_IngameUnitInfo:initUI()
 
     if (vars['attrNode']) then
         local attr_str = unit:getAttribute()
-        --local res = 'res/ui/icon/attr/attr_' .. attr_str .. '.png'
-        --local icon = cc.Sprite:create(res)
         local res = 'ingame_cha_info_attr_' .. attr_str .. '_0101.png'
         local icon = cc.Sprite:createWithSpriteFrameName(res)
         if icon then

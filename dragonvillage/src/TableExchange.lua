@@ -114,19 +114,19 @@ function TableExchange:makePriceIconRes(price_type)
     if (price_type == 'x') then
 
     elseif (price_type == 'cash') then
-        res = 'res/ui/icon/inbox/inbox_cash.png'
+        res = 'res/ui/icons/inbox/inbox_cash.png'
 
     elseif (price_type == 'gold') then
-        res = 'res/ui/icon/inbox/inbox_gold.png'
+        res = 'res/ui/icons/inbox/inbox_gold.png'
 
     elseif (price_type == 'stamina') then
-        res = 'res/ui/icon/inbox/inbox_staminas_st.png'
+        res = 'res/ui/icons/inbox/inbox_staminas_st.png'
 
     elseif (price_type == 'amethyst') then
-        res = 'res/ui/icon/inbox/inbox_amethyst.png'
+        res = 'res/ui/icons/inbox/inbox_amethyst.png'
 
     else
-        res = string.format('res/ui/icon/inbox/inbox_%s.png', price_type)
+        res = string.format('res/ui/icons/inbox/inbox_%s.png', price_type)
 
     end
     

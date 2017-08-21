@@ -518,7 +518,6 @@ local t_module = {
     'FormationMgr_TargetRule',
     'StatusCalculator',
     'StatusCalculatorFormula',
-    'DragonCard',
     'TriggerHpPercent',
     'TriggerTime',
     'EffectTimer',

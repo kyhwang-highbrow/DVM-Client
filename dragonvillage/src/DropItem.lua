@@ -158,7 +158,7 @@ function DropItem:setObtained(item_type, item_count)
     self.m_itemCount = item_count
 
     if (not self.m_checkSprite) then
-        local sprite = MakeAnimator('res/ui/icon/stage_box_check.png')
+        local sprite = MakeAnimator('res/ui/icons/stage_box_check.png')
         sprite:setDockPoint(cc.p(0.5, 0.5))
         sprite:setAnchorPoint(cc.p(0.5, 0.5))
         self.m_animator:addChild(sprite.m_node)
@@ -175,7 +175,7 @@ end
 function DropItem:makeObtainEffect()
     local type, count = self.m_itemType, self.m_itemCount
 
-    local res = 'res/ui/icon/inbox/inbox_' .. type .. '.png'
+    local res = 'res/ui/icons/inbox/inbox_' .. type .. '.png'
     if (res) then
         local node = cc.Node:create()
         node:setPosition(self.pos.x, self.pos.y)

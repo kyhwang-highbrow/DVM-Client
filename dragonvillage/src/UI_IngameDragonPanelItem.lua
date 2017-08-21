@@ -111,7 +111,7 @@ function UI_IngameDragonPanelItem:initUI()
 			
 		-- 액티브 스킬이 없는 케이스
         else
-            skill_icon = cc.Sprite:create('res/ui/icon/skill/skill_empty.png')
+            skill_icon = cc.Sprite:create('res/ui/icons/skill/skill_empty.png')
 			
         end
 

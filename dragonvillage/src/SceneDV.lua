@@ -202,12 +202,6 @@ function SceneDV:onKeyReleased(keyCode, event)
 		local rand_y = math_random(200, 600)
 		local res_name = 'res/effect/skill_thunder_cloud/skill_thunder_cloud_fire.vrp'
 		self:setAni(res_name, rand_x, rand_y)
-	
-	elseif keyCode == KEY_D then
-		local rand_x = math_random(100, 900)
-		local rand_y = math_random(200, 600)
-		local json_name = 'res/ui/icon/cha/lightningdragon_03.png'
-		self:setAni(json_name, rand_x, rand_y)
 
 	elseif keyCode == KEY_Q then
 		self:shaderTest_sample()

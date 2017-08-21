@@ -138,7 +138,7 @@ end
 function SensitivityHelper:makeObtainEffect(gift_type, gift_count, parent_node)
     local type, count = gift_type, gift_count
 
-    local res = 'res/ui/icon/inbox/inbox_' .. type .. '.png'
+    local res = 'res/ui/icons/inbox/inbox_' .. type .. '.png'
     if (res) then
         local node = cc.Node:create()
         node:setPosition(0, 250)

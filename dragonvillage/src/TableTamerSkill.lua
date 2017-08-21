@@ -38,7 +38,7 @@ function TableTamerSkill:getSkillIcon(key)
     local sprite = cc.Sprite:create(res_name)
 
     if (not sprite) then
-        sprite = cc.Sprite:create('res/ui/icon/skill/developing.png')
+        sprite = cc.Sprite:create('res/ui/icons/skill/developing.png')
     end
 
     sprite:setDockPoint(cc.p(0.5, 0.5))

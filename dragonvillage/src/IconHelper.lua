@@ -240,12 +240,12 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
         error('rarity(rune_rarity) : ' .. rarity)
     end
 
-    local bg = self:getIcon('res/ui/icon/rune/rune_bg_' .. rarity_str .. '.png')
+    local bg = self:getIcon('res/ui/icons/rune/rune_bg_' .. rarity_str .. '.png')
 
     local set_color = TableRuneSet:getRuneSetColor(set_id)
 
     -- 룬 아이콘
-    local rune_icon_res = string.format('res/ui/icon/rune/%.2d_%s_%.2d.png', slot, set_color, grade)
+    local rune_icon_res = string.format('res/ui/icons/rune/%.2d_%s_%.2d.png', slot, set_color, grade)
     local rune_icon = self:getIcon(rune_icon_res)
 
     -- 1번 슬롯 삼각형은 제외
@@ -256,7 +256,7 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
 
     -- 룬문자 (set_id로 결정됨)
     if slot and (0 < slot and slot <= 6) then
-        local alphabet_sprite = self:getIcon(string.format('res/ui/icon/rune/rune_number_%.2d.png', slot))
+        local alphabet_sprite = self:getIcon(string.format('res/ui/icons/rune/rune_number_%.2d.png', slot))
         if alphabet_sprite then
             alphabet_sprite:setDockPoint(CENTER_POINT)
             alphabet_sprite:setAnchorPoint(CENTER_POINT)
@@ -268,7 +268,7 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
     end
 
     -- 룬 등급 (1성~5성)
-    local grade_sprite = self:getIcon(string.format('res/ui/icon/rune/rune_star_%.2d.png', grade))
+    local grade_sprite = self:getIcon(string.format('res/ui/icons/rune/rune_star_%.2d.png', grade))
     if grade_sprite then
         grade_sprite:setDockPoint(CENTER_POINT)
         grade_sprite:setAnchorPoint(CENTER_POINT)
@@ -391,18 +391,6 @@ function IconHelper:getRarityIcon(role)
 end
 
 -------------------------------------
--- function getDragonRarityBG
--- @brief 드래곤 희귀도
--------------------------------------
-function IconHelper:getDragonRarityBG(rarity)
-    rarity = dragonRarityNumToStr(rarity)
-
-    local res_name = string.format('res/ui/icon/rarity/rarity_bg_%s.png', rarity)
-    local sprite = self:getIcon(res_name)
-    return sprite
-end
-
--------------------------------------
 -- function getDragonNamePng
 -- @brief 드래곤 이름 png
 -------------------------------------
@@ -418,7 +406,7 @@ end
 -------------------------------------
 function IconHelper:getStatusEffectIcon(status_effect_type)
 	local res = TableStatusEffect():get(status_effect_type)['res_icon']
-	local sprite = self:getIcon(res, 'res/ui/icon/alarm_01.png' )
+	local sprite = self:getIcon(res, 'res/ui/icons/noti_icon_0101.png' )
     return sprite
 end
 
@@ -427,8 +415,8 @@ end
 -- @brief 희귀도 아이콘
 -------------------------------------
 function IconHelper:getRarityIcon(rarity)
-	local res = 'res/ui/icon/rarity/gem_' .. rarity .. '.png'
-    local sprite = self:getIcon(res, 'res/ui/icon/rarity/gem_common.png')
+	local res = 'res/ui/icons/rarity/gem_' .. rarity .. '.png'
+    local sprite = self:getIcon(res, 'res/ui/icons/rarity/gem_common.png')
     return sprite
 end
 
@@ -437,7 +425,7 @@ end
 -- @breif 입장권 아이콘 생성
 -------------------------------------
 function IconHelper:getStaminaInboxIcon(type)
-    local res = 'res/ui/icon/inbox/inbox_staminas_' .. type .. '.png'
+    local res = 'res/ui/icons/inbox/inbox_staminas_' .. type .. '.png'
     local icon = self:getIcon(res, 'res/ui/icons/inbox/inbox_staminas_st.png')
     return icon
 end

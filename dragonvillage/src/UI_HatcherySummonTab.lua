@@ -258,9 +258,9 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
         local price_type = t_egg_data['price_type']
         local price_icon
         if (price_type == 'cash') then
-            price_icon = cc.Sprite:create('res/ui/icon/item/cash.png')
+            price_icon = cc.Sprite:create('res/ui/icons/item/cash.png')
         elseif (price_type == 'fp') then
-            price_icon = cc.Sprite:create('res/ui/icon/item/fp.png')
+            price_icon = cc.Sprite:create('res/ui/icons/item/fp.png')
         else
             error('price_icon ' .. price_icon)
         end

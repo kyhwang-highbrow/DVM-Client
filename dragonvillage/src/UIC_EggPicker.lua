@@ -113,7 +113,7 @@ function UIC_EggPicker:sample(scene)
     -- 200개의 아이템 임시 추가
     for i=1, 200 do
         local scale = 0.8
-        local res = 'res/ui/icon/colosseum_result_01.png'
+        local res = 'res/ui/icons/colosseum_match.png'
         local ui = cc.Sprite:create(res)
         ui:setDockPoint(cc.p(0.5, 0.5))
         ui:setAnchorPoint(cc.p(0.5, 0.5))

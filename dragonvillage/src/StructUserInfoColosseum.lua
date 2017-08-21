@@ -201,9 +201,9 @@ function StructUserInfoColosseum:makeTierIcon(tier, type)
     local pure_tier, tier_grade = self:perseTier(tier)
 
     if (type == 'big') then
-        res = string.format('res/ui/icon/pvp_tier/pvp_tier_%s.png', pure_tier)
+        res = string.format('res/ui/icons/pvp_tier/pvp_tier_%s.png', pure_tier)
     else
-        res = string.format('res/ui/icon/pvp_tier/pvp_tier_s_%s.png', pure_tier)
+        res = string.format('res/ui/icons/pvp_tier/pvp_tier_s_%s.png', pure_tier)
     end
 
     local icon = cc.Sprite:create(res)
