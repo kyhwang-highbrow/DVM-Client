@@ -14,7 +14,7 @@ UI_FormationPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_FormationPopup:init(curr_formation_type)
-    local vars = self:load('fomation_popup_new.ui')
+    local vars = self:load('fomation_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
