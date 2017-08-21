@@ -453,6 +453,14 @@ function TABLE:init()
     TableGradeInfo:initGlobal()
     --TableDragonSkill:initGlobal()
     --TableMonsterSkill:initGlobal()
+
+    -- 드래곤 스킬 레벨업 테이블 테스트
+    --[[
+    local table = TableDragon().m_orgTable
+    for k, v in pairs(table) do
+        TestDragonSkillManager(k)
+    end
+    ]]--
 end
 
 -------------------------------------

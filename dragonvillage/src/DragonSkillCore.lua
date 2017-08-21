@@ -39,7 +39,7 @@ function DragonSkillCore.applySkillLevel(char_type, t_skill, skill_lv)
 					
 					    -- 해당 column 최초 적용 시
                         if (not t_modify) then
-                            t_modify = {column=column, modify=modify, value=value}
+                            t_modify = {column=column, modify=modify, value=value, mod_skill_id = mod_skill_id}
                             t_modify_list[column] = t_modify
 
                         else
@@ -90,10 +90,18 @@ function DragonSkillCore.applyModification(t_skill, t_modify_list)
             t_skill[column] = value
 
         elseif (modify == 'add') then
-            t_skill[column] = t_skill[column] + value
+            if (type(t_skill[column]) == 'number') then
+                t_skill[column] = t_skill[column] + value
+            else
+                cclog('invalid skill modify slid : ' .. t_modify['mod_skill_id'])
+            end
 
         elseif (modify == 'multiply') then
-            t_skill[column] = t_skill[column] + (t_skill[column] * value)
+            if (type(t_skill[column]) == 'number') then
+                t_skill[column] = t_skill[column] + (t_skill[column] * value)
+            else
+                cclog('invalid skill modify slid : ' .. t_modify['mod_skill_id'])
+            end
 
         end
     end

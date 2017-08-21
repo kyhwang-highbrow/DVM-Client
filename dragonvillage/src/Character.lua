@@ -2393,6 +2393,12 @@ end
 -------------------------------------
 function Character:setSilence(b)
 	self.m_isSilence = b
+
+    if (b) then
+        self:dispatch('skill_disabled')
+    else
+        self:dispatch('skill_enabled')
+    end
 end
 
 -------------------------------------
@@ -2444,6 +2450,8 @@ function Character:addGroggy(statusEffectName)
     
     if (self.m_state ~= 'stun') then
         self:changeState('stun')
+
+        self:dispatch('skill_disabled')
     end
 end
 
@@ -2456,6 +2464,8 @@ function Character:removeGroggy(statusEffectName)
     if (not self:hasGroggyStatusEffect()) then
         if (self.m_state == 'stun') then
             self:changeState('stun_esc')
+
+            self:dispatch('skill_enabled')
         end
     end
 end

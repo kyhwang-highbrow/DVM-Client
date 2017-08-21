@@ -19,8 +19,8 @@ UI_IngameDragonPanelItem = class(PARENT, {
 
         m_bPossibleControl = 'boolean',
 
-		m_haveActive = 'boolean',
-
+        m_bEnabled = 'boolean',
+		m_bHaveActive = 'boolean',  -- 액티브 스킬 보유 여부
         m_bAttackSkill = 'boolean', -- 공격 스킬인지 여부
      })
 
@@ -34,6 +34,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     self.m_bPossibleControl = nil
     self.m_skillCoolTime = 0
 	self.m_skillGaugePercentage = 0
+    self.m_bEnabled = true
 
     local skill_id = dragon:getSkillID('active')
     local t_skill = dragon:getSkillTable(skill_id)
@@ -50,6 +51,8 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     dragon:addListener('character_revive', self)
     dragon:addListener('dragon_mana_reduce', self)
     dragon:addListener('dragon_mana_reduce_finish', self)
+    dragon:addListener('skill_disabled', self)
+    dragon:addListener('skill_enabled', self)
 
     self:refreshHP(dragon.m_hp, dragon.m_maxHp)
     self:refreshManaCost(dragon:getSkillManaCost())
@@ -70,12 +73,12 @@ function UI_IngameDragonPanelItem:initUI()
     local t_skill = dragon:getSkillTable(skill_id)
     local str_target = (self.m_bAttackSkill and 'atk' or 'heal')
 
-    self.m_haveActive = (t_skill ~= nil)
+    self.m_bHaveActive = (t_skill ~= nil)
 
     vars['topMenu']:setPositionY(0)
-    vars['skillGaugeVisual']:setVisible(self.m_haveActive)
-    vars['skillFullVisual1']:setVisible(self.m_haveActive)
-    vars['skillFullVisual2']:setVisible(self.m_haveActive)
+    vars['skillGaugeVisual']:setVisible(self.m_bHaveActive)
+    vars['skillFullVisual1']:setVisible(self.m_bHaveActive)
+    vars['skillFullVisual2']:setVisible(self.m_bHaveActive)
     vars['skillFullVisual1']:changeAni('dragon_full_' .. str_target .. '_idle_1', true)
     vars['skillFullVisual2']:changeAni('dragon_full_' .. str_target .. '_idle_2', true)
 
@@ -184,8 +187,20 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
 
     -- 드래곤 부활 시
     elseif (event_name == 'character_revive') then
+        self.m_bEnable = true
+
+        self:setPossibleControl(true)
+
         local vars = self.vars
         vars['dieSprite']:setVisible(false)
+
+    -- 스킬을 사용할 수 없게 되었을 시
+    elseif (event_name == 'skill_disabled') then
+        self.m_bEnable = false
+
+    -- 스킬을 사용할 수 있게 되었을 시
+    elseif (event_name == 'skill_enabled') then
+        self.m_bEnable = true
         
     end
 end
@@ -236,37 +251,45 @@ end
 -- @brief 드래곤 드래그 스킬 쿨타임 갱신
 -------------------------------------
 function UI_IngameDragonPanelItem:refreshSkillGauge(cool_time, percentage, enough_mana)
+    if (not self.m_bHaveActive) then return end
+
     local vars = self.vars
+    local is_enabled = self.m_bEnabled
 
-	-- 액티브가 없다면 갱신하지 않음
-	if (not self.m_haveActive) then
-		return
-	end
-
-    if (self.m_skillGaugePercentage == percentage and vars['skillFullVisual1']:isVisible() == enough_mana) then
-        return
-    end
-    
-    self.m_skillCoolTime = math_floor(cool_time)
-    self.m_skillGaugePercentage = percentage
-
-    if (cool_time > 0) then
-        vars['cooltimeLabel']:setString(self.m_skillCoolTime)
-    else
-        vars['cooltimeLabel']:setString('')
+    if (percentage < 100) then
+        is_enabled = false
     end
 
-    vars['skillGaugeVisual']:setAnimationPause(true)
-    vars['skillGaugeVisual']:setFrame(percentage)
+    if (not enough_mana) then
+        is_enabled = false
+    end
 
-    if (enough_mana and self.m_skillGaugePercentage >= 100) then
-        vars['skillFullVisual1']:setVisible(true)
-        vars['skillFullVisual2']:setVisible(true)
-        cca.runAction(vars['topMenu'], cc.MoveTo:create(0.2, cc.p(0, 54)), ACTIVE_ACTION__TAG)
-    elseif (vars['skillFullVisual1']:isVisible()) then
-        vars['skillFullVisual1']:setVisible(false)
-        vars['skillFullVisual2']:setVisible(false)
-        cca.runAction(vars['topMenu'], cc.MoveTo:create(0.2, cc.p(0, 0)), ACTIVE_ACTION__TAG)
+    if (self.m_skillGaugePercentage ~= percentage) then
+        self.m_skillCoolTime = math_floor(cool_time)
+        self.m_skillGaugePercentage = percentage
+
+        if (cool_time > 0) then
+            vars['cooltimeLabel']:setString(self.m_skillCoolTime)
+        else
+            vars['cooltimeLabel']:setString('')
+        end
+
+        vars['skillGaugeVisual']:setAnimationPause(true)
+        vars['skillGaugeVisual']:setFrame(percentage)
+    end
+
+    if (vars['skillFullVisual1']:isVisible() ~= is_enabled) then
+        vars['skillFullVisual1']:setVisible(is_enabled)
+        vars['skillFullVisual2']:setVisible(is_enabled)
+
+        -- 연출 액션
+        cca.stopAction(vars['topMenu'], ACTIVE_ACTION__TAG)
+
+        if (is_enabled) then
+            cca.runAction(vars['topMenu'], cc.MoveTo:create(0.2, cc.p(0, 54)), ACTIVE_ACTION__TAG)
+        else
+            cca.runAction(vars['topMenu'], cc.MoveTo:create(0.2, cc.p(0, 0)), ACTIVE_ACTION__TAG)
+        end
     end
 end
 

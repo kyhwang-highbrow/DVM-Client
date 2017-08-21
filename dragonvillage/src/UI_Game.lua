@@ -162,15 +162,16 @@ function UI_Game:initButton()
 
     -- 연출 버튼 이미지
     do
-        local b = g_autoPlaySetting:get('skip_mode') or false
+        local skip_mode = g_autoPlaySetting:get('skip_mode') or false
 
         self.m_effectBtnIcon1 = MakeAnimator('res/ui/buttons/ingame_top_effect_0101.png')
-        self.m_effectBtnIcon1:setVisible(not b)
         vars['effectBtn']:addChild(self.m_effectBtnIcon1.m_node)
 
         self.m_effectBtnIcon2 = MakeAnimator('res/ui/buttons/ingame_top_effect_0102.png')
-        self.m_effectBtnIcon2:setVisible(b)
         vars['effectBtn']:addChild(self.m_effectBtnIcon2.m_node)
+
+        self.m_effectBtnIcon1:setVisible(skip_mode)
+        self.m_effectBtnIcon2:setVisible(not skip_mode)
     end
 end
 
@@ -307,17 +308,18 @@ end
 -------------------------------------
 function UI_Game:click_effectBtn()
     local skip_mode = g_autoPlaySetting:get('skip_mode') or false
+    local new_skip_mode = (not skip_mode)
 
-    if (skip_mode) then
-        UIManager:toastNotificationGreen('연출 표시')
-
-        g_autoPlaySetting:set('skip_mode', false)
-    else
+    if (new_skip_mode) then
         UIManager:toastNotificationGreen('연출 스킵')
-
-        g_autoPlaySetting:set('skip_mode', true)
-
+    else
+        UIManager:toastNotificationGreen('연출 표시')
     end
+
+    g_autoPlaySetting:set('skip_mode', new_skip_mode)
+
+    self.m_effectBtnIcon1:setVisible(new_skip_mode)
+    self.m_effectBtnIcon2:setVisible(not new_skip_mode)
 end
 
 -------------------------------------

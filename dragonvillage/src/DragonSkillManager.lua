@@ -72,7 +72,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolutio
     end
 
 	-- @TEST 활성화 스킬 확인 로그
-	if g_constant:get('DEBUG', 'PRINT_DRAGON_SKILL') then 
+	if g_constant and g_constant:get('DEBUG', 'PRINT_DRAGON_SKILL') then 
 		self:printSkillManager()
 	end
 end
@@ -812,4 +812,20 @@ function GetSkillTable(char_type)
 	elseif (char_type == 'tamer') then
 		return TableTamerSkill()
 	end
+end
+
+
+-------------------------------------
+-- function TestDragonSkillManager
+-------------------------------------
+function TestDragonSkillManager(did)
+    
+    -- 드래곤 스킬 매니저 생성
+    local dragon_skill_mgr = DragonSkillManager()
+
+    -- 스킬 레벨 설정
+    dragon_skill_mgr:setDragonSkillLevelList(5, 5, 5, 1)
+
+    -- 스킬들 설정
+    dragon_skill_mgr:initDragonSkillManager('dragon', did, 3)
 end

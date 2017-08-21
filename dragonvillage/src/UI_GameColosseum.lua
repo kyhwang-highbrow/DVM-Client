@@ -68,22 +68,16 @@ function UI_GameColosseum:initButton()
 
     -- 연출 버튼 이미지
     do
-        local level = g_autoPlaySetting:get('skip_level') or 0
+        local skip_mode = g_autoPlaySetting:get('skip_mode') or false
 
-        self.m_effectBtnIcon1 = MakeAnimator('res/ui/btn/ingame_top_effect_0103.png')
-        self.m_effectBtnIcon1:setVisible((level == 0))
+        self.m_effectBtnIcon1 = MakeAnimator('res/ui/buttons/ingame_top_effect_0101.png')
         vars['effectBtn']:addChild(self.m_effectBtnIcon1.m_node)
 
-        self.m_effectBtnIcon2 = MakeAnimator('res/ui/btn/ingame_top_effect_0102.png')
-        self.m_effectBtnIcon2:setVisible((level == 1))
+        self.m_effectBtnIcon2 = MakeAnimator('res/ui/buttons/ingame_top_effect_0102.png')
         vars['effectBtn']:addChild(self.m_effectBtnIcon2.m_node)
 
-        self.m_effectBtnIcon3 = MakeAnimator('res/ui/btn/ingame_top_effect_0101.png')
-        self.m_effectBtnIcon3:setVisible((level == 2))
-        vars['effectBtn']:addChild(self.m_effectBtnIcon3.m_node)
-
-        -- 임시 처리... 연출 버튼 숨김
-        vars['effectBtn']:setVisible(false)
+        self.m_effectBtnIcon1:setVisible(skip_mode)
+        self.m_effectBtnIcon2:setVisible(not skip_mode)
     end
 end
 
