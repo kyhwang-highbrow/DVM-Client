@@ -96,7 +96,8 @@ function MonsterLua_Boss:getPatternTableFromScript(pattern_script_name)
 
     -- 2017-08-19 sgkim
     -- 개발용으로 hp_trriger와 time_trriger를 기본 패턴에 삽입
-    if false then
+	-- 벤치마크에 사용
+    if g_benchmarkMgr and g_benchmarkMgr:isActive() then
         local dev_pattern = {}
 
         -- 기본 패턴

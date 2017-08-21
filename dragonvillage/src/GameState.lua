@@ -294,9 +294,9 @@ function GameState.update_fight(self, dt)
 
     -- 벤치마크 중 60초를 넘어가면 웨이브 종료
     if g_benchmarkMgr and g_benchmarkMgr:isActive() then
-        local time = 30
+        local time = g_benchmarkMgr.m_waveTime
         if self.m_world.m_waveMgr:isFinalWave() then
-            time = 60
+            time = g_benchmarkMgr.m_lastWaveTime
         end
         if (self.m_stateTimer >= time) then
             self.m_world:removeAllEnemy()

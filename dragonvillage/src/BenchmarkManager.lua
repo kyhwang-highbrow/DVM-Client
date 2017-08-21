@@ -15,8 +15,8 @@ BenchmarkManager = class({
 -------------------------------------
 function BenchmarkManager:init()
     self.m_bActive = false
-    self.m_waveTime = 30
-    self.m_lastWaveTime = 60
+    self.m_waveTime = 10
+    self.m_lastWaveTime = 30
 end
 
 -------------------------------------
@@ -82,12 +82,12 @@ function BenchmarkManager:runGameScene(stage_id)
     local scene = SceneGame(nil, stage_id, stage_name)
     scene:runScene()
 
-    -- 아군, 적군 무적
-    -- 1.5배속
-    -- 자동 플레이
-    -- 웨이브당 n초 지속
-    -- n초 후 웨이브 종료
-    -- 보스 패턴은 모두 쓰도록 변경
+    -- 아군, 적군 무적 O
+    -- 1.5배속 O
+    -- 자동 플레이 O
+    -- 웨이브당 n초 지속 O
+    -- n초 후 웨이브 종료 O
+    -- 보스 패턴은 모두 쓰도록 변경 O
 end
 
 -------------------------------------
@@ -105,5 +105,21 @@ function BenchmarkManager:finishStage()
             scene:runScene()
         end
         MakeSimplePopup(POPUP_TYPE.OK, '벤치마크 종료!!', ok_cb)
+    end
+end
+
+-------------------------------------
+-- function checkStageID
+-------------------------------------
+function BenchmarkManager:checkStageID(stage_id)
+    if (self.m_lStageID[self.m_currIdx] ~= stage_id) then
+        local msg = '\n###################################################################\n' ..
+                    '###################################################################\n' ..
+                    '## 유효하지 않은 stage_id입니다.(' .. stage_id .. ')\n' ..
+                    '## 밴치마크가 비활성화 되었습니다.\n' ..
+                    '###################################################################\n' ..
+                    '###################################################################'
+        cclog(msg)
+        self.m_bActive = false
     end
 end

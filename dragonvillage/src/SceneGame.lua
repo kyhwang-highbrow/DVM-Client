@@ -47,6 +47,12 @@ SceneGame = class(PerpleScene, {
 -- function init
 -------------------------------------
 function SceneGame:init(game_key, stage_id, stage_name, develop_mode, stage_param)
+
+	-- 벤치마크가 활성화 되었을 때 stage_id가 유효한지 체크
+    if g_benchmarkMgr and g_benchmarkMgr:isActive() then
+        g_benchmarkMgr:checkStageID(stage_id)
+    end
+
     self.m_gameKey = game_key
     self.m_stageName = stage_name
     self.m_stageParam = stage_param
