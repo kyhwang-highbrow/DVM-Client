@@ -149,7 +149,7 @@ function SceneGameIntro:update(dt)
 
         -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴
         self.m_focusingDragon = world:getDragonList()[2]
-        world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost() - 1 - START_MANA)
+        world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost() - 1)
         world.m_gameHighlight:setToForced(true)
         world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
     end

@@ -36,7 +36,13 @@ L_SPECIAL_STATUS_TYPE = {
 }
 
 -- 스텟 타입 체크를 위한 맵 생성
-M_SPECIAL_STATUS_TYPE = {}
+M_SPECIAL_STATUS_TYPE = {
+    cri_chance = true,
+    cri_dmg = true,
+    cri_avoid = true,
+    hit_rate = true,
+    avoid = true
+}
 for i, v in ipairs(L_SPECIAL_STATUS_TYPE) do
     M_SPECIAL_STATUS_TYPE[v] = true
 end
@@ -156,7 +162,7 @@ end
 -- function getAttackTick
 -------------------------------------
 function StatusCalculator:getAttackTick()
-    return self:calcAttackTick(self:getFinalStat('aspd'))
+    return CalcAttackTick(self:getFinalStat('aspd'))
 end
 
 -------------------------------------

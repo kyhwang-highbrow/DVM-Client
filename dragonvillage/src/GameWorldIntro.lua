@@ -33,6 +33,9 @@ end
 function GameWorldIntro:initGame(stage_name)
     PARENT.initGame(self, stage_name)
 
+    -- 튜토리얼에서는 시작마나를 없앰
+    self.m_heroMana:subtractMana(START_MANA)
+
     self.m_skillIndicatorMgr = SkillIndicatorMgr_Intro(self)
 
     self.m_dropItemMgr = DropItemMgr_Intro(self)

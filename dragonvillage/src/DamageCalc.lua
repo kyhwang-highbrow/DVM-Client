@@ -69,13 +69,15 @@ end
 function CalcAvoidChance(hit_rate, avoid)
     -- 최종 적중률 100 이상일 경우 100% 적중
     local final_hit_rates = hit_rate - avoid
-	
-	if final_hit_rates > 100 then
-		final_hit_rates = 100
-	end
 
-    -- 회피율 0~100 (100 이상일 경우 100% 회피)
+    local min_value = g_constant:get('INGAME', 'FINAL_RATE_HIT')[1]
+    local max_value = g_constant:get('INGAME', 'FINAL_RATE_HIT')[2]
+    final_hit_rates = math_max(final_hit_rates, min_value)
+    final_hit_rates = math_min(final_hit_rates, max_value)
+    	
+	-- 회피율 0~100 (100 이상일 경우 100% 회피)
     local avoid_chance = (100 - final_hit_rates)
+    avoid_chance = math_max(avoid_chance, 0)
 
     return avoid_chance
 end
@@ -85,5 +87,42 @@ end
 -- @brief 크리티컬 발생 계산 (%)
 -------------------------------------
 function CalcCriticalChance(critical_chance, critical_avoid)
-    return critical_chance - critical_avoid
+    local value = critical_chance - critical_avoid
+
+    local min_value = g_constant:get('INGAME', 'FINAL_RATE_CRITICAL')[1]
+    local max_value = g_constant:get('INGAME', 'FINAL_RATE_CRITICAL')[2]
+    value = math_max(value, min_value)
+    value = math_min(value, max_value)
+    
+    return value
+end
+
+-------------------------------------
+-- function CalcAttackTick
+-- @brief 공격 주기 계산 (초)
+-------------------------------------
+function CalcAttackTick(attack_speed)
+    local value = 3 - (2 * ((attack_speed - 100) / 100))
+
+    local min_value = g_constant:get('INGAME', 'FINAL_ATTACK_TICK')[1]
+    local max_value = g_constant:get('INGAME', 'FINAL_ATTACK_TICK')[2]
+    value = math_max(value, min_value)
+    value = math_min(value, max_value)
+
+    return value
+end
+
+-------------------------------------
+-- function CalcAccuracyChance
+-- @brief 효과 적중 계산 (%)
+-------------------------------------
+function CalcAccuracyChance(accuracy, resistance)
+    local value = accuracy - resistance + 100
+
+    local min_value = g_constant:get('INGAME', 'FINAL_RATE_ACCURACY')[1]
+    local max_value = g_constant:get('INGAME', 'FINAL_RATE_ACCURACY')[2]
+    value = math_max(value, min_value)
+    value = math_min(value, max_value)
+
+    return value
 end

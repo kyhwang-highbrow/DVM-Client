@@ -448,7 +448,7 @@ function StatusEffectHelper:checkStatus(caster, target_char, status_effect_categ
 	end
 
 	-- 확률 permill 로 체크
-	local adj_rate = 100 + (accuracy - resistance)
+	local adj_rate = CalcAccuracyChance(accuracy, resistance)
 	return (math_random(1, 100) > adj_rate)
 end
 

@@ -46,7 +46,7 @@ end
 -------------------------------------
 function MissileGuid.st_move(owner, dt)
     -- 0.3초동안 직선 운동
-    if owner.m_stateTimer == 0 then
+    if (owner.m_stateTimer == 0) then
         owner.m_aiParam = owner.m_angularVelocityGuid
 
     elseif (owner.m_stateTimer >= 0.3) and (owner.m_aiParam > 0) then
@@ -94,7 +94,7 @@ end
 function MissileGuid.st_move_hero(owner, dt)
 
     -- 0.3초동안 직선 운동
-    if owner.m_stateTimer == 0 then
+    if (owner.m_stateTimer == 0) then
         owner.m_aiParam = owner.m_angularVelocityGuid
 
     elseif (owner.m_stateTimer >= owner.m_straightWaitTime) and (owner.m_aiParam > 0) then

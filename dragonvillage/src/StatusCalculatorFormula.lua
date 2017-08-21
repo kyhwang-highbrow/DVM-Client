@@ -53,12 +53,3 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
 
     return basic_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat
 end
-
--- # 세부 능력치의 실제 적용
--------------------------------------
--- function calcAttackTick
--------------------------------------
-function StatusCalculator:calcAttackTick(attack_speed)
-    local tick = 3 - (2 * ((attack_speed-100)/100))
-    return tick
-end
