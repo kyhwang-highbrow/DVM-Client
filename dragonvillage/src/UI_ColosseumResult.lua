@@ -20,7 +20,7 @@ function UI_ColosseumResult:init(is_win, t_data)
     self.m_isWin = is_win
     self.m_resultData = t_data
 
-    local vars = self:load('colosseum_result_new.ui')
+    local vars = self:load('colosseum_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self:doActionReset()
