@@ -715,7 +715,6 @@ local t_module = {
     'UI_AncientTowerFloorInfo',
     'UI_AncientTowerRank',
     'UI_AncientTowerListItem',
-    'UI_AncientTowerSweepReward',
     'UI_AncientTowerRankListItem',
     'UI_AncientTowerRewardListItem',
     'UI_AncientTowerRankingRewardPopup',
@@ -820,7 +819,6 @@ local t_module = {
 	-- UI: 유저 상세 정보
 	'UI_UserInfoDetailPopup',
 	'UI_UserInfoDetailPopup_SetLeader',
-	'UI_UserInfoDetailPopup_SetProfile',
     'UI_UserInfoDetailPopup_SetTitle',
 
 	-- UI : 출석 이벤트
