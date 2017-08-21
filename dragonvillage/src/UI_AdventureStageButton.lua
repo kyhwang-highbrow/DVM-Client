@@ -11,7 +11,7 @@ UI_AdventureStageButton = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_AdventureStageButton:init(parent_ui, stage_id)
-    local vars = self:load('adventure_stage_icon_new.ui')
+    local vars = self:load('adventure_stage_icon.ui')
 
     local stage_info = g_adventureData:getStageInfo(stage_id)
 
