@@ -82,7 +82,6 @@ function MonsterLua_Boss:initScript(pattern_script_name, mid, is_boss)
         
             self.m_tEffectSound['skill_1'] = string.format('vo_boss%d_skill_1', chapter)
             self.m_tEffectSound['skill_2'] = string.format('vo_boss%d_skill_2', chapter)
-            self.m_tEffectSound['skill_cancel'] = string.format('vo_boss%d_skill_cancel', chapter)
             self.m_tEffectSound['die'] = string.format('vo_boss%d_die', chapter)
         end
     end

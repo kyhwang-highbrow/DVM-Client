@@ -327,10 +327,10 @@ function getAttrSynastryEffect(attr1, attr2, atk_attr_adj_rate, def_attr_adj_rat
 	local attr_dmg = t_attr_synastry_effect['damage']
 	local atk_attr_adj_rate = atk_attr_adj_rate or 0
 	local def_attr_adj_rate = def_attr_adj_rate or 0
-	if (attr_dmg > 0) then 
-		attr_dmg = attr_dmg + atk_attr_adj_rate + def_attr_adj_rate
+    if (t_attr_synastry_effect['damage'] > 0) then 
+		t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] + atk_attr_adj_rate - def_attr_adj_rate
 	end
-	
+    
     return t_attr_synastry_effect, attr_synastry
 end
 
