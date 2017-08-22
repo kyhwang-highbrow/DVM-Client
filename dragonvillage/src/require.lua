@@ -36,6 +36,7 @@ local t_module = {
 
 	-- CONSTANT 
     'Constant',
+    'ConstantUrl',
 	'ConstantGameMode',
     'ConstantDragonEvolution',
     'ConstantDragonGrade',

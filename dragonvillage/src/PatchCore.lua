@@ -1,5 +1,4 @@
 -- @TODO : UI 연동하는 부분 관련해서 리스너(콜백 함수들)을 구현해야한다.
--- @TODO : web_path = 'http://test.perplelab.com/dv_test/'가 하드코딩되어있는데 적절한 위치로 이동해야 한다.
 
 local PATCH_STATE = {}
 PATCH_STATE.request_patch_info = 1  -- 패치 정보를 요청
@@ -482,8 +481,7 @@ function PatchCore:st_downloadPatchFile_setCurrDownloadRes()
     do
         --local에 파일로 저장할땐 web에 업로드된 패스와 상관없이
 	    --writeable경로에 저장하기 위해 파일명만 추출
-	    --local web_path = 'http://test.perplelab.com/dv_test/' .. self.m_currDownloadRes['name']  -- v0.0.9까지 사용하던 이전 패치 url
-        local web_path = 'http://patch-12.perplelab.net/dv_test/' .. self.m_currDownloadRes['name']
+        local web_path = URL['PATCH_DEV'] .. self.m_currDownloadRes['name']
 	    local local_path = self:makeLocalPath(self.m_currDownloadRes['name'])
         self.m_currDownloadRes['web_path'] = web_path
         self.m_currDownloadRes['local_path'] = local_path

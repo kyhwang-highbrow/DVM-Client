@@ -406,20 +406,13 @@ function Network:getApiUrl()
     end
 
     local target_server = CppFunctions:getTargetServer()
-    local api_url = 'http://dv-test.perplelab.com:9003' --/get_patch_info?app_ver=0.0.0
+    local api_url = URL['SERVER_DEV']
+    
+    if (target_server == 'QA') then
+        api_url = URL['SERVER_QA']
 
-    -- nil == default
-    if (not target_server) or (target_server == 'DEV') then
-        api_url = 'http://dv-test.perplelab.com:9003'
-        --api_url = '192.168.1.42:9003' -- 이원기님 개발용 로컬 서버 (sgkim 2017-07-26)
-    elseif (target_server == 'FGT') then
-        api_url = 'http://dv-test.perplelab.com:9004'
-	elseif (target_server == 'PUBLIC') then
-        api_url = 'http://dv-test.perplelab.com:9005'
-    elseif (target_server == 'QA') then
-        api_url = 'http://dv-qa.perplelab.com:9003'
-    else
-        error('target_server : ' .. target_server)
+    elseif (target_server == 'LIVE') then
+        api_url = URL['SERVER_LIVE']
     end
 
     return api_url
@@ -435,12 +428,14 @@ function Network:getPlatformApiUrl()
     end
 
     local target_server = CppFunctions:getTargetServer()
-    local api_url = 'http://dev.platform.perplelab.com/1003'
-    --local api_url = 'http://192.168.1.44:3000/1003'
+    local api_url = URL['PLATFORM_DEV']
 
-    -- nil == default
     if (target_server == 'QA') then
-        api_url = 'http://platform.perplelab.com/1003'
+        api_url = URL['PLATFORM_QA']
+    
+    elseif (target_server == 'LIVE') then
+        api_url = URL['PLATFORM_LIVE']
+
     end
 
     return api_url

@@ -28,7 +28,7 @@ end
 -- @brief 이용약관
 -------------------------------------
 function UI_Setting:click_agreementBtn()
-    local url = 'http://www.perplelab.com/agreement'
+    local url = URL['PERPLELAB_AGREEMENT']
     --SDKManager:goToWeb(url)
     UI_WebView(url)
 end
@@ -46,7 +46,7 @@ end
 -- @brief 고객 센터
 -------------------------------------
 function UI_Setting:click_serviceBtn()
-    local url = 'http://www.dragonvillage.net/support/customer/faq'
+    local url = URL['HIGHBROW_CS']
     --SDKManager:goToWeb(url)
     UI_WebView(url)
 end
