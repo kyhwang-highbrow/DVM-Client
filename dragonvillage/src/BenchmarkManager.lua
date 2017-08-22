@@ -61,8 +61,14 @@ function BenchmarkManager:setBenchmarkJson()
     self.m_lastWaveTime = info['last_wave_time']
     
     local t_skip = {}
-    t_skip[999999] = true   -- 개발 스테이지
-    t_skip[1010001] = true  -- 튜토리얼 스테이지
+    t_skip[999999] = true  -- 개발 스테이지
+    t_skip[1010001] = true -- 튜토리얼 스테이지
+	t_skip[1240001] = true -- 금화 던전
+    t_skip[1240002] = true -- 금화 던전
+    t_skip[1240003] = true -- 금화 던전
+    t_skip[1240004] = true -- 금화 던전
+    t_skip[1240005] = true -- 금화 던전
+    t_skip[1240006] = true -- 금화 던전
     
 
     if info['all_test'] then
