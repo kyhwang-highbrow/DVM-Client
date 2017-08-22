@@ -32,12 +32,21 @@ function UI_AutoPlaySettingPopup:init(t_user_info)
 end
 
 -------------------------------------
+-- function click_autoStartOnBtn
+-------------------------------------
+function UI_AutoPlaySettingPopup:click_autoStartOnBtn()
+    local vars = self.vars
+    if (vars['autoStartOnBtn']:isChecked()) then
+        self:close()
+    end
+end
+
+-------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_AutoPlaySettingPopup:click_exitBtn()
     self:close()
 end
-
 
 -------------------------------------
 -- function initUI
@@ -84,6 +93,7 @@ function UI_AutoPlaySettingPopup:initButton(t_user_info)
     radio_button:addButton('at_event', vars['skillBtn4'], vars['skillSprite4'])    
 
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
+    vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)
 end
 
 -------------------------------------

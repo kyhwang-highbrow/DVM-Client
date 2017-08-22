@@ -829,8 +829,20 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_autoStartOnBtn()
-    local ui = UI_AutoPlaySettingPopup()
-    ui:setCloseCB(function() self.vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay()) end)
+    local function refresh_btn()
+        self.vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay())
+    end
+
+    local is_auto = g_autoPlaySetting:isAutoPlay()
+
+    -- 바로 해제
+    if (is_auto) then
+        g_autoPlaySetting:setAutoPlay(false)
+        refresh_btn()
+    else
+        local ui = UI_AutoPlaySettingPopup()
+        ui:setCloseCB(refresh_btn)
+    end
 end
 
 -------------------------------------

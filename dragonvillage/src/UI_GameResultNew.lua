@@ -23,6 +23,7 @@ UI_GameResultNew = class(PARENT, {
         m_workIdx = 'number',
 
         m_staminaType = 'string',
+        m_autoCount = 'boolean',
      })
 
 -------------------------------------
@@ -40,6 +41,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_lDropItemList = l_drop_item_list
     self.m_secretDungeon = secret_dungeon
     self.m_staminaType = 'st'
+    self.m_autoCount = false
 
     local vars = self:load('ingame_result.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -326,7 +328,6 @@ function UI_GameResultNew:direction_start()
     vars['itemAutoBtn']:setVisible(true)
     vars['itemAutoLabel']:setVisible(true)
     cca.stampShakeAction(vars['itemAutoBtn'], 1.8, 0.2, 0, 0)
-    cca.stampShakeAction(vars['itemAutoLabel'], 1.8, 0.2, 0, 0)
 
     -- 드래곤 레벨업 연출 node
     vars['dragonResultNode']:setVisible(true)
@@ -397,7 +398,7 @@ function UI_GameResultNew:direction_end()
     end
 
     if (is_success == true) then
-        local duration = 1.5
+        local duration = 1.3
         if g_autoPlaySetting:isAutoPlay() then
             duration = 0.5
         end
@@ -408,7 +409,6 @@ function UI_GameResultNew:direction_end()
     else
         vars['skipLabel']:setVisible(false)
         vars['noRewardMenu']:setVisible(true)
-        vars['skipBtn']:setVisible(false)
         vars['prevBtn']:setVisible(true)
 		vars['statsBtn']:setVisible(true)
         vars['againBtn']:setVisible(true)
@@ -584,7 +584,6 @@ end
 function UI_GameResultNew:direction_showButton()
     local vars = self.vars
 	vars['statsBtn']:setVisible(true)
-    vars['skipBtn']:setVisible(false)
     vars['homeBtn']:setVisible(true)
     vars['againBtn']:setVisible(true)
     vars['nextBtn']:setVisible(true)
@@ -703,6 +702,8 @@ end
 -- function direction_masterRoad_click
 -------------------------------------
 function UI_GameResultNew:direction_masterRoad_click()
+    cclog('direction_masterRoad_click')
+    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -979,6 +980,7 @@ end
 -- @brief 자동재화 버튼 (광고 보기)
 -------------------------------------
 function UI_GameResultNew:click_itemAutoBtn()
+    if (not g_autoPlaySetting:isAutoPlay()) then return false end
     g_advertisingData:showAdvPopup(AD_TYPE.AUTO_ITEM_PICK)
 end
 
@@ -1121,8 +1123,7 @@ function UI_GameResultNew:checkAutoPlay()
         return
     end
 
-    -- 빠른 재시작
-    self:click_quickBtn()
+    self:countAutoPlay() 
 end
 
 -------------------------------------
@@ -1140,6 +1141,12 @@ function UI_GameResultNew:checkAutoPlayRelease()
         -- 자동 전투 off
         g_autoPlaySetting:setAutoPlay(false)
         doAllChildren(self.root, f_resume)
+
+        -- 카운트 중이었다면 off
+        if (self.m_autoCount) then
+            self.root:stopAllActions()
+            self.vars['autoBattleNode']:setVisible(false)
+        end
     end
 
     local function cancel_cb()
@@ -1150,6 +1157,41 @@ function UI_GameResultNew:checkAutoPlayRelease()
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb, cancel_cb)
     
     return true
+end
+
+-------------------------------------
+-- function countAutoPlay
+-- @brief 연속 전투일 경우 재시작 하기전 카운트 해줌
+-------------------------------------
+function UI_GameResultNew:countAutoPlay()
+    self.m_autoCount = true
+    local vars = self.vars
+    vars['autoBattleNode']:setVisible(true)
+
+    local count_label = vars['countLabel']
+    
+    local count_num = 3
+    local count_time = 1
+
+    -- count ani
+    for i = count_num, 1, -1 do
+        local act1 = cc.DelayTime:create((count_num - i) * count_time)
+        local act2 = cc.CallFunc:create(function() 
+            count_label:setString(tostring(i)) 
+            count_label:setOpacity(255)
+            count_label:setScale(1)
+        end)
+        local act3 = cc.Spawn:create(cc.FadeOut:create(count_time), cc.ScaleTo:create(count_time, 0.8))
+
+        count_label:runAction(cc.Sequence:create(act1, act2, act3))        
+    end
+
+    -- close
+    do
+        local act1 = cc.DelayTime:create(count_num * count_time)
+        local act2 = cc.CallFunc:create(function() self:click_quickBtn() end)
+        self.root:runAction(cc.Sequence:create(act1, act2))
+    end
 end
 
 -------------------------------------

@@ -202,8 +202,16 @@ function UI_Game:click_autoStartButton()
         self.m_gameScene:gameResume()
     end
 
-    local ui = UI_AutoPlaySettingPopup()
-    ui:setCloseCB(close_cb)
+    local is_auto = g_autoPlaySetting:isAutoPlay()
+
+    -- 바로 해제
+    if (is_auto) then
+        g_autoPlaySetting:setAutoPlay(false)
+        close_cb()
+    else
+        local ui = UI_AutoPlaySettingPopup()
+        ui:setCloseCB(close_cb)
+    end
 end
 
 -------------------------------------
