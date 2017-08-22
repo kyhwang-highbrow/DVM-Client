@@ -8,10 +8,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 class ShouldStartLoadingWorker implements Runnable {
     private CountDownLatch mLatch;
@@ -39,6 +41,8 @@ public class Cocos2dxWebView extends WebView {
     private int mViewTag;
     private String mJSScheme;
 
+    public static WebView sMainWebView;
+
     public Cocos2dxWebView(Context context) {
         this(context, -1);
     }
@@ -49,12 +53,15 @@ public class Cocos2dxWebView extends WebView {
         this.mViewTag = viewTag;
         this.mJSScheme = "";
 
+        sMainWebView = this;
+
         this.setFocusable(true);
         this.setFocusableInTouchMode(true);
 		this.setBackgroundColor(0x00000000);
 		
         this.getSettings().setSupportZoom(false);
         this.getSettings().setJavaScriptEnabled(true);
+
         this.getSettings().setSupportMultipleWindows(true);
 
         // `searchBoxJavaBridge_` has big security risk. http://jvn.jp/en/jp/JVN53768697
@@ -66,7 +73,29 @@ public class Cocos2dxWebView extends WebView {
         }
 
         this.setWebViewClient(new Cocos2dxWebViewClient());
-        this.setWebChromeClient(new WebChromeClient());
+
+        this.setWebChromeClient(new WebChromeClient()
+        {
+            @Override
+            public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, android.os.Message resultMsg) {
+                WebView newWebView = new WebView(view.getContext());
+                newWebView.getSettings().setJavaScriptEnabled(true);
+                newWebView.setWebChromeClient(this);
+                newWebView.setWebViewClient(new WebViewClient());
+                newWebView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+                sMainWebView.addView(newWebView);
+                WebView.WebViewTransport transport = (WebView.WebViewTransport)resultMsg.obj;
+                transport.setWebView(newWebView);
+                resultMsg.sendToTarget();
+                return true;
+            }
+
+            @Override
+            public void onCloseWindow(WebView view) {
+                view.setVisibility(View.GONE);
+                sMainWebView.removeView(view);
+            }
+        });
     }
 
     public void setJavascriptInterfaceScheme(String scheme) {
