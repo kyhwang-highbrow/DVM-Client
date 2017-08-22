@@ -466,8 +466,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	local attack_activity_carrier = attacker.m_activityCarrier
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
-    local is_critical = attack_activity_carrier:getCritical() 
-
+    local is_critical = nil
+    local is_indicator_critical = attack_activity_carrier:getCritical()
+    local is_cri_avoid = false
 
     -- 속성 효과
     local t_attr_effect, attr_synastry = self:checkAttributeCounter(attacker_char)
@@ -534,7 +535,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             -- 빚맞힘일 경우 크리티컬 없도록 처리
             is_critical = false
 
-        elseif (is_critical == nil) then
+        else
             local critical_chance = attack_activity_carrier:getStat('cri_chance') or 0
             local critical_avoid = self:getStat('cri_avoid')
             local final_critical_chance = CalcCriticalChance(critical_chance, critical_avoid)
@@ -552,9 +553,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local damage_multifly = 1
 
         -- 크리티컬
-        if (is_critical) then
-            local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
-            damage_multifly = (cri_dmg / 100)
+        if (is_indicator_critical == 1) then
+            if (is_critical) then
+                local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
+                damage_multifly = (cri_dmg / 100)
+            end
         end
 
         -- 속성
@@ -653,6 +656,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		t_info['attack_type'] = attack_type
 		t_info['attr'] = attack_activity_carrier.m_attribute
 		t_info['is_critical'] = is_critical
+        t_info['is_indicator_critical'] = is_indicator_critical
+
 		t_info['is_add_dmg'] = attack_activity_carrier:getParam('add_dmg')
         t_info['is_bash'] = is_bash
         t_info['is_miss'] = is_miss
@@ -987,6 +992,7 @@ function Character:makeDamageFont(damage, x, y, tParam)
     local tParam = tParam or {}
 
     local is_critical = tParam['is_critical'] or false
+    local is_indicator_critical = tParam['is_indicator_critical'] or false
     local is_add_dmg = tParam['is_add_dmg'] or false
     local is_bash = tParam['is_bash'] or false
     local is_miss = tParam['is_miss'] or false
@@ -1044,6 +1050,9 @@ function Character:makeDamageFont(damage, x, y, tParam)
             -- 강타
             label:setColor(cc.c3b(235, 71, 42))	-- 빨강
 
+        elseif (is_indicator_critical) then
+            -- 치명 회피
+            label:setColor(cc.c3b(0, 190, 245)) -- 하늘색
         end
                
 	    node:addChild(label)
@@ -1059,6 +1068,8 @@ function Character:makeDamageFont(damage, x, y, tParam)
             sprite = cc.Sprite:create('res/font/bash.png')
         elseif (is_miss) then
             sprite = cc.Sprite:create('res/font/miss.png')
+        elseif (is_indicator_critical) then
+            sprite = cc.Sprite:create('res/font/ingame_critical_dodge.png')
         end
 
         if (sprite) then
