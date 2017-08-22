@@ -5,6 +5,11 @@ Network = {
     server_type = nil,
 }
 
+HEX			= crypto['hex']
+HEX2BIN		= crypto['hex2bin']
+AES_Encrypt = crypto['aes128']['encrypt']
+AES_Decrypt = crypto['aes128']['decrypt']
+HMAC		= crypto['hmac']['digest']
 
 -- 암호화 키
 CONSTANT = {}

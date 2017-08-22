@@ -1014,9 +1014,3 @@ function changeAnchorPointWithOutTransPos(node, cha_anchor)
     node:setAnchorPoint(cha_anchor)
     node:setPosition(cha_pos_x, cha_pos_y)
 end
-
-HEX			= crypto['hex']
-HEX2BIN		= crypto['hex2bin']
-AES_Encrypt = crypto['aes128']['encrypt']
-AES_Decrypt = crypto['aes128']['decrypt']
-HMAC		= crypto['hmac']['digest']
