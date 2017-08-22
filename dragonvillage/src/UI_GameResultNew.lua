@@ -533,8 +533,9 @@ function UI_GameResultNew:direction_dropItem()
         local item_id = v[1]
         local count = v[2]
         local from = v[3]
+        local t_sub_data = v[4]
 
-        local item_card = UI_ItemCard(item_id, count)
+        local item_card = UI_ItemCard(item_id, count, t_sub_data)
         item_card:setRarityVisibled(true)
 
         if (from == 'bonus') then

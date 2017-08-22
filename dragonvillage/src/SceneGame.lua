@@ -694,16 +694,41 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
         local item_id = v['item_id']
         local count = v['count']
         local from = v['from']
+        local data = nil
+
         
+        if v['oids'] then
+            -- Object는 하나만 리턴한다고 가정 (dragon or rune)
+            local oid = v['oids'][1]
+            if oid then
+                -- 드래곤에서 정보 검색
+                for _,obj_data in ipairs(ret['added_items']['dragons']) do
+                    if (obj_data['id'] == oid) then
+                        data = StructDragonObject(obj_data)
+                        break
+                    end
+                end
+
+                -- 룬에서 정보 검색
+                if (not obj_data) then
+                    for _,obj_data in ipairs(ret['added_items']['runes']) do
+                        if (obj_data['id'] == oid) then
+                            data = StructRuneObject(obj_data)
+                            break
+                        end
+                    end
+                end
+            end
+        end
 
         -- 기본으로 주는 골드도 표기하기로 결정함
         if (from == 'drop') then
-            local t_data = {item_id, count}
+            local t_data = {item_id, count, from, data}
             table.insert(drop_reward_list, t_data)
 
         -- 스테이지에서 기본으로 주는 골드 량
         elseif (from == 'default') then
-            local t_data = {item_id, count}
+            local t_data = {item_id, count, from, data}
             table.insert(drop_reward_list, t_data)
 
         -- 드랍 아이템에 의한 보너스
@@ -715,7 +740,7 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
 
         -- 첫 클리어 보상, 반복 보상(고대의 탑에서 사용)
         elseif (from == 'reward_first') or (from == 'reward_repeat') then
-            local t_data = {item_id, count}
+            local t_data = {item_id, count, from, data}
             table.insert(drop_reward_list, t_data)
 
         end
