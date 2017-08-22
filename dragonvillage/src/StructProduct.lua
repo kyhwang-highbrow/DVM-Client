@@ -153,6 +153,12 @@ end
 -- function getDesc
 -------------------------------------
 function StructProduct:getDesc()
+
+    -- 테이블에 blank라고 입력되면 내용을 출력하지 않음
+    if (self['t_desc'] == 'blank') then
+        return ''
+    end
+
 	-- t_desc가 있다면 출력
     if self['t_desc'] and (self['t_desc'] ~= '') and (self['t_desc'] ~= ' ') then
         return Str(self['t_desc'])
