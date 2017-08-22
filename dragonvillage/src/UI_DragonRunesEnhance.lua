@@ -148,6 +148,12 @@ function UI_DragonRunesEnhance:show_upgradeEffect(is_success)
 
         block_ui:close()
     end)
+
+    if (is_success) then
+        SoundMgr:playEffect('UI', 'ui_rune_success')
+    else
+        SoundMgr:playEffect('UI', 'ui_rune_fail')
+    end
 end
 
 -------------------------------------
