@@ -277,7 +277,7 @@ function UI_ReadyScene:initUI()
     end
 
     -- 배경
-    local attr = TableDrop:getStageAttr(self.m_stageID)
+    local attr = TableStageData:getStageAttr(self.m_stageID)
     if self:checkVarsKey('bgNode', attr) then
         vars['bgNode']:removeAllChildren()
         local animator = ResHelper:getUIDragonBG(attr, 'idle')

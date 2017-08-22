@@ -196,6 +196,6 @@ function UI_MonsterCard:press_clickBtn()
     local monster_id = self.m_monsterID
 
     -- 몬스터의 레벨은 해당 스테이지의 레벨
-    local monster_lv = (self.m_nStageID) and TableDrop:getStageLevel(self.m_nStageID) or 1
+    local monster_lv = (self.m_nStageID) and TableStageData:getStageLevel(self.m_nStageID) or 1
     UI_SimpleMonsterInfoPopup(monster_id, monster_lv)
 end

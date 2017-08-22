@@ -61,3 +61,27 @@ function TableStageData:getStageBuff(stage_id, is_enemy)
 
     return l_ret
 end
+
+-------------------------------------
+-- function getStageAttr
+-------------------------------------
+function TableStageData:getStageAttr(stage_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local attr = self:getValue(stage_id, 'attr')
+    return attr
+end
+
+-------------------------------------
+-- function getStageLevel
+-------------------------------------
+function TableStageData:getStageLevel(stage_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local level = self:getValue(stage_id, 'level') or 0
+    return level + 1
+end

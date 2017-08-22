@@ -82,27 +82,3 @@ function TableDrop:getStageBonusGoldInfo(stage_id)
 
     return gold_per_hit, gold_per_damage, gold_per_limit
 end
-
--------------------------------------
--- function getStageAttr
--------------------------------------
-function TableDrop:getStageAttr(stage_id)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local attr = self:getValue(stage_id, 'attr')
-    return attr
-end
-
--------------------------------------
--- function getStageLevel
--------------------------------------
-function TableDrop:getStageLevel(stage_id)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local level = self:getValue(stage_id, 'level') or 0
-    return level + 1
-end
