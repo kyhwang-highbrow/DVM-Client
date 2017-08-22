@@ -231,7 +231,6 @@ function UI_ItemCard:getToolTipDesc()
     local name = (self.m_itemName or t_item['t_name'])
 
     local str = '{@SKILL_NAME} ' .. name .. '\n {@DEFAULT}' .. desc
-    cclog(str)
     return str
 end
 
