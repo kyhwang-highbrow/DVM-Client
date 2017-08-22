@@ -443,7 +443,7 @@ end
 -- function makeScrollEndSprite
 -------------------------------------
 function UIC_TableView:makeScrollEndSprite()
-	local spr = cc.Sprite:create('res/ui/btn/result_btn_retry.png')
+	local spr = cc.Sprite:create('res/ui/button/refresh_tableview.png')
 	self.m_scrollEndSprite = cc.ProgressTimer:create(spr)
 
 	self.m_scrollEndSprite:setDockPoint(cc.p(0.5, 0))
