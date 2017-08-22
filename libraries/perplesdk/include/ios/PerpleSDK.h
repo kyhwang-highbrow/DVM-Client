@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <StoreKit/StoreKit.h>
+#import <CommonCrypto/CommonHMAC.h>
 
 #pragma mark -
 
@@ -106,8 +107,12 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @property (nonatomic, retain) PerpleUnityAds *mUnityAds;
 @property (nonatomic, retain) PerpleBilling *mBilling;
 
+@property (nonatomic, copy) NSString *mPlatformServerEncryptSecretKey;
+@property (nonatomic, copy) NSString *mPlatformServerEncryptAlgorithm;
+
 #pragma mark - APIs
 
+- (void) setPlatformServerSecretKey:(NSString *)secretKey algorithm:(NSString *)algorithm;
 - (void) setFCMPushOnForeground:(BOOL)isReceive;
 - (void) setFCMTokenRefreshWithCompletion:(PerpleSDKCallback)callback;
 - (void) getFCMTokenWithCompletion:(PerpleSDKCallback)callback;
@@ -212,6 +217,10 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 + (NSString *) getJSONStringFromNSArray:(NSArray *)obj;
 + (NSDictionary *) getNSDictionaryFromJSONString:(NSString *)str;
 + (NSArray *) getNSArrayFromJSONString:(NSString *)str;
++ (NSString *) getHmacEncrypt:(NSString *)secret data:(NSString *)data;
++ (NSString *) getHmacEncryptMD5:(NSString *)secret data:(NSString *)data;
++ (NSString *) getHmacEncryptSHA1:(NSString *)secret data:(NSString *)data;
++ (NSString *) getHmacEncryptSHA256:(NSString *)secret data:(NSString *)data;
 + (void) requestHttpPostWithUrl:(NSString *)url contentBody:(NSDictionary *)contentBody result:(NSString **)result error:(NSError **)error;
 
 // @fcm
