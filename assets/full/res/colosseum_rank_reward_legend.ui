@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/icon/pvp_tier/pvp_tier_08.png';
+				file_name = 'ui/icons/pvp_tier/pvp_tier_08.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -197,7 +197,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/colosseum_reward.png';
+					file_name = 'ui/icons/colosseum_reward.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -263,7 +263,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/colosseum_score.png';
+					file_name = 'ui/icons/colosseum_score.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;

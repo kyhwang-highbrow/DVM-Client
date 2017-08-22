@@ -69,8 +69,8 @@
 				visible = false;
 				lua_name = 'infoBtn';
 				enable = true;
-				normal = 'ui/btn/info_0101.png';
-				selected = 'ui/btn/info_0102.png';
+				normal = 'ui/buttons/temp/info_0101.png';
+				selected = 'ui/buttons/temp/info_0102.png';
 				disable = '';
 				image_type = 0;
 			};
@@ -114,7 +114,7 @@
 					visible = true;
 					lua_name = 'fruitBtn4';
 					enable = true;
-					normal = 'ui/empty.png';
+					normal = 'ui/temp/empty.png';
 					selected = '';
 					disable = '';
 					image_type = 0;
@@ -157,7 +157,7 @@
 					visible = true;
 					lua_name = 'fruitBtn3';
 					enable = true;
-					normal = 'ui/empty.png';
+					normal = 'ui/temp/empty.png';
 					selected = '';
 					disable = '';
 					image_type = 0;
@@ -200,7 +200,7 @@
 					visible = true;
 					lua_name = 'fruitBtn2';
 					enable = true;
-					normal = 'ui/empty.png';
+					normal = 'ui/temp/empty.png';
 					selected = '';
 					disable = '';
 					image_type = 0;
@@ -243,7 +243,7 @@
 					visible = true;
 					lua_name = 'fruitBtn1';
 					enable = true;
-					normal = 'ui/empty.png';
+					normal = 'ui/temp/empty.png';
 					selected = '';
 					disable = '';
 					image_type = 0;
@@ -1148,41 +1148,6 @@
 		};
 		[4] =
 		{
-			[1] =
-			{
-				type = 'SocketNode';
-				socket_name = 'friendship_emoticon';
-			};
-			[2] =
-			{
-				type = 'SocketNode';
-				socket_name = 'friendship_emoticon_gray';
-			};
-			type = 'Visual';
-			ui_name = '';
-			x = -296.000000;
-			y = -111.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			lua_name = 'friendshipFxVisual';
-			file_name = 'ui/a2d/friendship/friendship.vrp';
-			auto_play = false;
-			is_repeat = false;
-			visual_id = 'frindship;fx';
-			color = { 255; 255; 255; };
-			opacity = 255;
-		};
-		[5] =
-		{
 			type = 'Menu';
 			ui_name = 'left';
 			x = -322.000000;
@@ -1200,42 +1165,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[6] =
-		{
-			[1] =
-			{
-				type = 'SocketNode';
-				socket_name = 'friendship_emoticon';
-			};
-			[2] =
-			{
-				type = 'SocketNode';
-				socket_name = 'friendship_emoticon_gray';
-			};
-			type = 'Visual';
-			ui_name = '';
-			x = 50.000000;
-			y = 50.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			lua_name = 'friendshipVisual';
-			file_name = 'ui/a2d/friendship/friendship.vrp';
-			auto_play = false;
-			is_repeat = false;
-			visual_id = 'group;friendship_up_disappear';
-			color = { 255; 255; 255; };
-			opacity = 255;
-		};
-		[7] =
+		[5] =
 		{
 			[1] =
 			{
@@ -1299,7 +1229,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'sortOrderSprite';
-					file_name = 'ui/a_dialogue_0102_2.png';
+					file_name = 'ui/temp/a_dialogue_0102_2.png';
 					color = { 240; 215; 159; };
 					opacity = 255;
 					flip_x = false;
@@ -1410,7 +1340,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[8] =
+		[6] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1435,7 +1365,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[9] =
+		[7] =
 		{
 			type = 'ProgressTimer';
 			ui_name = '';
@@ -1465,7 +1395,7 @@
 			mid_point_y = 0.000000;
 			percentage = 100;
 		};
-		[10] =
+		[8] =
 		{
 			type = 'LabelTTF';
 			ui_name = 'rich';

@@ -46,7 +46,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = 'markGauge';
-			file_name = 'ui/gauge/enemy_skill_mark_01.png';
+			file_name = 'ui/gauges/temp/enemy_skill_mark_01.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;

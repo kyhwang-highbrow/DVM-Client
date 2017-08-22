@@ -116,7 +116,7 @@
 				visible = true;
 				lua_name = 'facebookBtn';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -206,7 +206,7 @@
 				visible = true;
 				lua_name = 'googleBtn';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -296,7 +296,7 @@
 				visible = false;
 				lua_name = 'gamecenterBtn';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -423,7 +423,7 @@
 				visible = true;
 				lua_name = 'guestBtn';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;

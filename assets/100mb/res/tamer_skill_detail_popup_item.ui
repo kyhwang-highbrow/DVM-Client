@@ -264,7 +264,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/icon_lock_0102.png';
+					file_name = 'ui/icons/icon_lock_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -393,7 +393,7 @@
 				type = 'Visual';
 				ui_name = '';
 				x = 0.000000;
-				y = 121.000000;
+				y = 146.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -488,7 +488,7 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = '';
-			file_name = 'ui/frame/a_frame_04.png';
+			file_name = 'ui/frames/temp/a_frame_04.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			center_rect_x = 0;

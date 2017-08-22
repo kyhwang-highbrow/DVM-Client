@@ -153,7 +153,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/recommand.png';
+						file_name = 'ui/icons/recommand.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -403,7 +403,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = '';
+						lua_name = 'evolutionTabLabel1';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
 						text = '해치';
@@ -441,11 +441,11 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'evolutionBtn1';
+					lua_name = 'evolutionTabBtn1';
 					enable = true;
-					normal = 'ui/buttons/base_btn_0201.png';
-					selected = 'ui/buttons/base_btn_0202.png';
-					disable = 'ui/buttons/base_btn_0101.png';
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
 				[11] =
@@ -467,7 +467,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = '';
+						lua_name = 'evolutionTabLabel2';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
 						text = '해츨링';
@@ -505,11 +505,11 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'evolutionBtn2';
+					lua_name = 'evolutionTabBtn2';
 					enable = true;
-					normal = 'ui/buttons/base_btn_0201.png';
-					selected = 'ui/buttons/base_btn_0202.png';
-					disable = 'ui/buttons/base_btn_0101.png';
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
 				[12] =
@@ -531,7 +531,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = '';
+						lua_name = 'evolutionTabLabel3';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
 						text = '성룡';
@@ -569,11 +569,11 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'evolutionBtn3';
+					lua_name = 'evolutionTabBtn3';
 					enable = true;
-					normal = 'ui/buttons/base_btn_0201.png';
-					selected = 'ui/buttons/base_btn_0202.png';
-					disable = 'ui/buttons/base_btn_0101.png';
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
 				[13] =
@@ -860,7 +860,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/star_bg_01.png';
+					file_name = 'ui/icons/star_bg_01.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;

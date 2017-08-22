@@ -25,7 +25,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/pvp_tier/pvp_tier_01.png';
+					file_name = 'ui/icons/pvp_tier/pvp_tier_01.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -190,7 +190,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/inbox/inbox_honor.png';
+					file_name = 'ui/icons/inbox/inbox_honor.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -322,7 +322,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/inbox/inbox_honor.png';
+					file_name = 'ui/icons/inbox/inbox_honor.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;

@@ -181,7 +181,7 @@
 				action_delay_2 = 0.000000;
 				action_duration = 0.500000;
 				lua_name = '';
-				file_name = 'ui/frame/result_status_bg.png';
+				file_name = 'ui/frames/temp/result_status_bg.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -430,7 +430,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/dragon_reserch_next.png';
+					file_name = 'ui/frames/temp/dragon_reserch_next.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -498,7 +498,7 @@
 				action_delay_2 = 0.000000;
 				action_duration = 1.500000;
 				lua_name = '';
-				file_name = 'ui/frame/result_status_bg.png';
+				file_name = 'ui/frames/temp/result_status_bg.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -606,7 +606,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/dragon_reserch_next.png';
+					file_name = 'ui/frames/temp/dragon_reserch_next.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -674,7 +674,7 @@
 				action_delay_2 = 0.000000;
 				action_duration = 1.500000;
 				lua_name = '';
-				file_name = 'ui/frame/result_status_bg.png';
+				file_name = 'ui/frames/temp/result_status_bg.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -782,7 +782,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/dragon_reserch_next.png';
+					file_name = 'ui/frames/temp/dragon_reserch_next.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -850,7 +850,7 @@
 				action_delay_2 = 0.000000;
 				action_duration = 1.500000;
 				lua_name = '';
-				file_name = 'ui/frame/result_status_bg.png';
+				file_name = 'ui/frames/temp/result_status_bg.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -880,7 +880,7 @@
 				action_delay_2 = 0.000000;
 				action_duration = 0.500000;
 				lua_name = '';
-				file_name = 'ui/frame/dragon_reserch_next.png';
+				file_name = 'ui/frames/temp/dragon_reserch_next.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

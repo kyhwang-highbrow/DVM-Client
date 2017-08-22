@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/icon/icon_lock_0101.png';
+				file_name = 'ui/icons/icon_lock_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/title_bg_02.png';
+				file_name = 'ui/frames/temp/title_bg_02.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -113,7 +113,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/frame/tamer_profile_0101.png';
+			file_name = 'ui/frames/temp/tamer_profile_0101.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;

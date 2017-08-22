@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'closeSprite';
-				file_name = 'ui/icon/stage_box_02.png';
+				file_name = 'ui/icons/stage_box_02.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -74,7 +74,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'openSprite';
-				file_name = 'ui/icon/stage_box_01.png';
+				file_name = 'ui/icons/stage_box_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -100,7 +100,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'checkSprite';
-				file_name = 'ui/icon/stage_box_check.png';
+				file_name = 'ui/icons/stage_box_check.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -166,7 +166,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/icon/character_card_star0101.png';
+				file_name = 'ui/icons/character_card_star0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -191,7 +191,7 @@
 			visible = true;
 			lua_name = 'starBoxBtn';
 			enable = true;
-			normal = 'ui/empty.png';
+			normal = 'ui/temp/empty.png';
 			selected = '';
 			disable = '';
 			image_type = 0;

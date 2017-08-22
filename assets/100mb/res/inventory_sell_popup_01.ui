@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
+				file_name = 'ui/frames/temp/a_frame_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;

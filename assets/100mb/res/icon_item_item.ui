@@ -48,7 +48,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'bgSprite';
-				file_name = 'ui/frame/icon_bg_01.png';
+				file_name = 'ui/frames/temp/icon_bg_01.png';
 				color = { 255; 255; 255; };
 				opacity = 230;
 				flip_x = false;
@@ -93,7 +93,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'commonSprite';
-				file_name = 'ui/frame/icon_frame_01.png';
+				file_name = 'ui/frames/temp/icon_frame_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -119,7 +119,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'rareSprite';
-				file_name = 'ui/frame/icon_frame_rare.png';
+				file_name = 'ui/frames/temp/icon_frame_rare.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -145,7 +145,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'heroSprite';
-				file_name = 'ui/frame/icon_frame_hero.png';
+				file_name = 'ui/frames/temp/icon_frame_hero.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -171,7 +171,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'legendSprite';
-				file_name = 'ui/frame/icon_frame_legend.png';
+				file_name = 'ui/frames/temp/icon_frame_legend.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -197,7 +197,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'disableSprite';
-				file_name = 'ui/frame/icon_bg_01.png';
+				file_name = 'ui/frames/temp/icon_bg_01.png';
 				color = { 0; 0; 0; };
 				opacity = 150;
 				center_rect_x = 0;
@@ -223,7 +223,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'highlightSprite';
-				file_name = 'ui/frame/icon_frame_02.png';
+				file_name = 'ui/frames/temp/icon_frame_02.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -289,7 +289,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'bonusSprite';
-				file_name = 'ui/frame/icon_bonus_bg.png';
+				file_name = 'ui/frames/temp/icon_bonus_bg.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -380,7 +380,7 @@
 			visible = true;
 			lua_name = 'clickBtn';
 			enable = true;
-			normal = 'ui/empty.png';
+			normal = 'ui/temp/empty.png';
 			selected = '';
 			disable = '';
 			image_type = 0;

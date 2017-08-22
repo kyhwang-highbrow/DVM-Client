@@ -44,7 +44,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'positionNode5';
-					file_name = 'ui/icon/ready_fomation_bg.png';
+					file_name = 'ui/icons/ready_fomation_bg.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -89,7 +89,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'positionNode4';
-					file_name = 'ui/icon/ready_fomation_bg.png';
+					file_name = 'ui/icons/ready_fomation_bg.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -134,7 +134,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'positionNode3';
-					file_name = 'ui/icon/ready_fomation_bg.png';
+					file_name = 'ui/icons/ready_fomation_bg.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -179,7 +179,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'positionNode2';
-					file_name = 'ui/icon/ready_fomation_bg.png';
+					file_name = 'ui/icons/ready_fomation_bg.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -224,7 +224,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'positionNode1';
-					file_name = 'ui/icon/ready_fomation_bg.png';
+					file_name = 'ui/icons/ready_fomation_bg.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -250,7 +250,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'selectArrowSprite';
-					file_name = 'ui/icon/arrow_05.png';
+					file_name = 'ui/icons/arrow_05.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -276,7 +276,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'arrowSprite';
-					file_name = 'ui/icon/arrow_04.png';
+					file_name = 'ui/icons/arrow_04.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -302,7 +302,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'selectBgSprite';
-					file_name = 'ui/icon/ready_fomation_bg_select.png';
+					file_name = 'ui/icons/ready_fomation_bg_select.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -368,7 +368,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/ready_fomation_bg.png';
+						file_name = 'ui/icons/ready_fomation_bg.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -413,7 +413,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/ready_fomation_bg.png';
+						file_name = 'ui/icons/ready_fomation_bg.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -458,7 +458,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/ready_fomation_bg.png';
+						file_name = 'ui/icons/ready_fomation_bg.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -503,7 +503,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/ready_fomation_bg.png';
+						file_name = 'ui/icons/ready_fomation_bg.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -548,7 +548,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/ready_fomation_bg.png';
+						file_name = 'ui/icons/ready_fomation_bg.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;

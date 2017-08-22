@@ -1754,7 +1754,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = '';
-				file_name = 'ui/frame/exploration_map_paper_10.png';
+				file_name = 'ui/frames/temp/exploration_map_paper_10.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

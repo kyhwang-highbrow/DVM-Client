@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -89,7 +89,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_02.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -101,13 +101,13 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 20.000000;
-				y = 20.000000;
+				x = -24.000000;
+				y = -24.000000;
 				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 1.000000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 80;
-				height = 80;
+				width = 64;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -116,8 +116,8 @@
 				visible = true;
 				lua_name = 'closeBtn';
 				enable = true;
-				normal = 'ui/btn/close_01.png';
-				selected = 'ui/btn/close_02.png';
+				normal = 'ui/buttons/64_close_btn_0101.png';
+				selected = 'ui/buttons/64_close_btn_0102.png';
 				disable = '';
 				image_type = 0;
 			};
@@ -140,13 +140,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'dragonTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
 					text = '드래곤';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 243; 236; 225; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 180;
 					dimension_height = 50;
@@ -178,11 +178,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'dragonTab';
+				lua_name = 'dragonTabBtn';
 				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[5] =
@@ -204,13 +204,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'fruitTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
 					text = '열매';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 243; 236; 225; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 180;
 					dimension_height = 50;
@@ -242,11 +242,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'fruitTab';
+				lua_name = 'fruitTabBtn';
 				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[6] =
@@ -268,13 +268,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'evolutionStoneTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
 					text = '진화재료';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 243; 236; 225; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 180;
 					dimension_height = 50;
@@ -306,11 +306,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'evolutionStoneTab';
+				lua_name = 'evolutionStoneTabBtn';
 				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[7] =
@@ -332,13 +332,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'runeTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
 					text = '룬';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 243; 236; 225; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 180;
 					dimension_height = 50;
@@ -370,11 +370,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'runeTab';
+				lua_name = 'runeTabBtn';
 				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[8] =
@@ -396,13 +396,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'eggTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
 					text = '알';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 243; 236; 225; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 180;
 					dimension_height = 50;
@@ -434,11 +434,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'eggTab';
+				lua_name = 'eggTabBtn';
 				enable = true;
-				normal = 'ui/btn/a_tab_0103.png';
-				selected = 'ui/btn/a_tab_0102.png';
-				disable = 'ui/btn/a_tab_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[9] =
@@ -459,7 +459,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_03.png';
+				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;

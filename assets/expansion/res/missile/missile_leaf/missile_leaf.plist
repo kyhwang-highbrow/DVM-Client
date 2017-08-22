@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>missile_leaf_dark_01.png</key>
+            <key>missile_leaf_res_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -15,11 +15,11 @@
                 <key>spriteSourceSize</key>
                 <string>{56,87}</string>
                 <key>textureRect</key>
-                <string>{{2,337},{40,59}}</string>
+                <string>{{2,2},{40,59}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>missile_leaf_dark_02.png</key>
+            <key>missile_leaf_res_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -30,127 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{56,87}</string>
                 <key>textureRect</key>
-                <string>{{2,2},{46,65}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>missile_leaf_earth_01.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{40,59}</string>
-                <key>spriteSourceSize</key>
-                <string>{56,87}</string>
-                <key>textureRect</key>
-                <string>{{2,398},{40,59}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>missile_leaf_earth_02.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{46,65}</string>
-                <key>spriteSourceSize</key>
-                <string>{56,87}</string>
-                <key>textureRect</key>
-                <string>{{2,69},{46,65}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>missile_leaf_fire_01.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{40,59}</string>
-                <key>spriteSourceSize</key>
-                <string>{56,87}</string>
-                <key>textureRect</key>
-                <string>{{2,459},{40,59}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>missile_leaf_fire_02.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{46,65}</string>
-                <key>spriteSourceSize</key>
-                <string>{56,87}</string>
-                <key>textureRect</key>
-                <string>{{2,136},{46,65}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>missile_leaf_light_01.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{40,59}</string>
-                <key>spriteSourceSize</key>
-                <string>{56,87}</string>
-                <key>textureRect</key>
-                <string>{{2,520},{40,59}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>missile_leaf_light_02.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{46,65}</string>
-                <key>spriteSourceSize</key>
-                <string>{56,87}</string>
-                <key>textureRect</key>
-                <string>{{2,203},{46,65}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>missile_leaf_water_01.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{40,59}</string>
-                <key>spriteSourceSize</key>
-                <string>{56,87}</string>
-                <key>textureRect</key>
-                <string>{{2,581},{40,59}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>missile_leaf_water_02.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{46,65}</string>
-                <key>spriteSourceSize</key>
-                <string>{56,87}</string>
-                <key>textureRect</key>
-                <string>{{2,270},{46,65}}</string>
+                <string>{{44,2},{46,65}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -166,9 +46,9 @@
             <key>realTextureFileName</key>
             <string>missile_leaf.png</string>
             <key>size</key>
-            <string>{50,642}</string>
+            <string>{128,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:0404ba775a74d471394cdbd050212902:34c8a801e519c5d71f253450cf38cb0c:37b6a250e18a0a53c6ebaa972d340307$</string>
+            <string>$TexturePacker:SmartUpdate:2a97a2e755d67f8b956b8f0b452b03f8:efa590ef56d8c472a177786e1b08ba3a:37b6a250e18a0a53c6ebaa972d340307$</string>
             <key>textureFileName</key>
             <string>missile_leaf.png</string>
         </dict>

@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{347,585},{65,56}}</string>
+                <string>{{357,381},{65,56}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>missile_ice_01_s_0009.png</key>
             <dict>
@@ -30,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{405,641},{81,70}}</string>
+                <string>{{432,310},{81,70}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>missile_ice_01_s_0011.png</key>
             <dict>
@@ -45,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{178,382},{91,74}}</string>
+                <string>{{432,217},{91,74}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>missile_ice_01_s_0015.png</key>
             <dict>
@@ -60,9 +60,9 @@
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{151,581},{105,84}}</string>
+                <string>{{118,523},{105,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>missile_ice_01_s_0017.png</key>
             <dict>
@@ -75,9 +75,9 @@
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{407,528},{111,90}}</string>
+                <string>{{204,529},{111,90}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>missile_ice_01_s_0019.png</key>
             <dict>
@@ -90,9 +90,9 @@
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{407,411},{115,104}}</string>
+                <string>{{1,523},{115,104}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>missile_ice_01_s_0021.png</key>
             <dict>
@@ -105,9 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{151,458},{121,118}}</string>
+                <string>{{1,403},{121,118}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>missile_ice_01_s_0023.png</key>
             <dict>
@@ -120,7 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{271,411},{125,134}}</string>
+                <string>{{357,477},{125,134}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -131,13 +131,13 @@
                 <key>spriteOffset</key>
                 <string>{-9,-16}</string>
                 <key>spriteSize</key>
-                <string>{147,148}</string>
+                <string>{147,146}</string>
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{1,433},{147,148}}</string>
+                <string>{{208,381},{147,146}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>missile_ice_01_s_0027.png</key>
             <dict>
@@ -146,11 +146,11 @@
                 <key>spriteOffset</key>
                 <string>{-8,-20}</string>
                 <key>spriteSize</key>
-                <string>{175,164}</string>
+                <string>{175,162}</string>
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{1,267},{175,164}}</string>
+                <string>{{255,217},{175,162}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -159,13 +159,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-8,-20}</string>
+                <string>{-8,-19}</string>
                 <key>spriteSize</key>
-                <string>{205,188}</string>
+                <string>{205,186}</string>
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{280,221},{205,188}}</string>
+                <string>{{1,215},{205,186}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -174,13 +174,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-18,-27}</string>
+                <string>{-18,-25}</string>
                 <key>spriteSize</key>
-                <string>{231,218}</string>
+                <string>{229,214}</string>
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{280,1},{231,218}}</string>
+                <string>{{262,1},{229,214}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -189,13 +189,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-22,-30}</string>
+                <string>{-30,-4}</string>
                 <key>spriteSize</key>
-                <string>{277,264}</string>
+                <string>{259,212}</string>
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{277,264}}</string>
+                <string>{{1,1},{259,212}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -210,7 +210,7 @@
                 <key>spriteSourceSize</key>
                 <string>{82,87}</string>
                 <key>textureRect</key>
-                <string>{{258,585},{82,87}}</string>
+                <string>{{424,393},{82,87}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -225,9 +225,9 @@
                 <key>spriteSourceSize</key>
                 <string>{49,137}</string>
                 <key>textureRect</key>
-                <string>{{271,538},{45,107}}</string>
+                <string>{{208,215},{45,107}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>missile_ice_res_02.png</key>
             <dict>
@@ -240,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{113,95}</string>
                 <key>textureRect</key>
-                <string>{{178,267},{113,95}}</string>
+                <string>{{1,629},{113,95}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -258,7 +258,7 @@
             <key>size</key>
             <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6be453f554ee83b63b8e64166a766ec8:e1631707bca83a25e6e1ea30384a9cad:51b4cf9b95621d34f722132ea86b9b5c$</string>
+            <string>$TexturePacker:SmartUpdate:a7c96f4a1aa5d210a5e61261153dce4c:24397ba8cd313bd4a3aa84195ae7fd29:51b4cf9b95621d34f722132ea86b9b5c$</string>
             <key>textureFileName</key>
             <string>missile_ice.png</string>
         </dict>

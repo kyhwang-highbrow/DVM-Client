@@ -176,7 +176,7 @@
 				visible = true;
 				lua_name = 'infoBtn';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;

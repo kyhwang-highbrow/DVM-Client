@@ -309,7 +309,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'starSprite5';
-					file_name = 'ui/btn/assess_star_02.png';
+					file_name = 'ui/buttons/temp/assess_star_02.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -334,7 +334,7 @@
 				visible = true;
 				lua_name = 'assessBtn5';
 				enable = true;
-				normal = 'ui/btn/assess_star_01.png';
+				normal = 'ui/buttons/temp/assess_star_01.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -359,7 +359,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'starSprite4';
-					file_name = 'ui/btn/assess_star_02.png';
+					file_name = 'ui/buttons/temp/assess_star_02.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -384,7 +384,7 @@
 				visible = true;
 				lua_name = 'assessBtn4';
 				enable = true;
-				normal = 'ui/btn/assess_star_01.png';
+				normal = 'ui/buttons/temp/assess_star_01.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -409,7 +409,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'starSprite3';
-					file_name = 'ui/btn/assess_star_02.png';
+					file_name = 'ui/buttons/temp/assess_star_02.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -434,7 +434,7 @@
 				visible = true;
 				lua_name = 'assessBtn3';
 				enable = true;
-				normal = 'ui/btn/assess_star_01.png';
+				normal = 'ui/buttons/temp/assess_star_01.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -459,7 +459,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'starSprite2';
-					file_name = 'ui/btn/assess_star_02.png';
+					file_name = 'ui/buttons/temp/assess_star_02.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -484,7 +484,7 @@
 				visible = true;
 				lua_name = 'assessBtn2';
 				enable = true;
-				normal = 'ui/btn/assess_star_01.png';
+				normal = 'ui/buttons/temp/assess_star_01.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -509,7 +509,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'starSprite1';
-					file_name = 'ui/btn/assess_star_02.png';
+					file_name = 'ui/buttons/temp/assess_star_02.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -534,7 +534,7 @@
 				visible = true;
 				lua_name = 'assessBtn1';
 				enable = true;
-				normal = 'ui/btn/assess_star_01.png';
+				normal = 'ui/buttons/temp/assess_star_01.png';
 				selected = '';
 				disable = '';
 				image_type = 0;

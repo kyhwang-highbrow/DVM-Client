@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_03.png';
+				file_name = 'ui/frames/temp/a_frame_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_01.png';
+				file_name = 'ui/frames/temp/a_frame_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -279,7 +279,7 @@
 							rotation = 0.000000;
 							visible = true;
 							lua_name = '';
-							file_name = 'ui/icon/inbox/inbox_gold.png';
+							file_name = 'ui/icons/inbox/inbox_gold.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -360,7 +360,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/price_0101.png';
+					file_name = 'ui/frames/temp/price_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -385,9 +385,9 @@
 				visible = true;
 				lua_name = 'enhanceBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0101.png';
-				selected = 'ui/btn/a_btn_0102.png';
-				disable = 'ui/btn/a_btn_0102.png';
+				normal = 'ui/buttons/temp/a_btn_0101.png';
+				selected = 'ui/buttons/temp/a_btn_0102.png';
+				disable = 'ui/buttons/temp/a_btn_0102.png';
 				image_type = 1;
 			};
 			[9] =
@@ -410,7 +410,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/icon_lock_0102.png';
+					file_name = 'ui/icons/icon_lock_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -436,7 +436,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/a_frame_01.png';
+					file_name = 'ui/frames/temp/a_frame_01.png';
 					color = { 0; 0; 0; };
 					opacity = 150;
 					center_rect_x = 0;
@@ -460,7 +460,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'lockSprite';
-				file_name = 'ui/btn/a_btn_0101.png';
+				file_name = 'ui/buttons/temp/a_btn_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 100;
 				center_rect_x = 0;
@@ -526,7 +526,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'maxSprite';
-				file_name = 'ui/frame/a_frame_05.png';
+				file_name = 'ui/frames/temp/a_frame_05.png';
 				color = { 255; 255; 255; };
 				opacity = 200;
 				center_rect_x = 0;
@@ -592,7 +592,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/a_frame_04.png';
+				file_name = 'ui/frames/temp/a_frame_04.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -658,7 +658,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'skillOpenSprite';
-				file_name = 'ui/frame/sub_frame_01.png';
+				file_name = 'ui/frames/temp/sub_frame_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;

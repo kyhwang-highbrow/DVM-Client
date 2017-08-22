@@ -93,7 +93,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'rewardCheckSprite';
-				file_name = 'ui/icon/stage_box_check.png';
+				file_name = 'ui/icons/stage_box_check.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -118,7 +118,7 @@
 			visible = true;
 			lua_name = 'rewardBtn';
 			enable = true;
-			normal = 'ui/empty.png';
+			normal = 'ui/temp/empty.png';
 			selected = '';
 			disable = '';
 			image_type = 0;

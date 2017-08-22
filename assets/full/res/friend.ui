@@ -98,13 +98,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'requestTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
 					text = '보낸 요청';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 64;
@@ -162,11 +162,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'requestBtn';
+				lua_name = 'requestTabBtn';
 				enable = true;
-				normal = 'ui/buttons/base_btn_0201.png';
-				selected = 'ui/buttons/base_btn_0202.png';
-				disable = 'ui/buttons/base_btn_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[3] =
@@ -188,13 +188,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'responseTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
 					text = '받은 요청';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 64;
@@ -252,11 +252,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'responseBtn';
+				lua_name = 'responseTabBtn';
 				enable = true;
-				normal = 'ui/buttons/base_btn_0201.png';
-				selected = 'ui/buttons/base_btn_0202.png';
-				disable = 'ui/buttons/base_btn_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[4] =
@@ -278,13 +278,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'recommendTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
 					text = '추천 친구';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 64;
@@ -342,11 +342,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'recommendBtn';
+				lua_name = 'recommendTabBtn';
 				enable = true;
-				normal = 'ui/buttons/base_btn_0201.png';
-				selected = 'ui/buttons/base_btn_0202.png';
-				disable = 'ui/buttons/base_btn_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[5] =
@@ -368,13 +368,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'listTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
 					text = '친구 목록';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 64;
@@ -432,11 +432,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'listBtn';
+				lua_name = 'listTabBtn';
 				enable = true;
-				normal = 'ui/buttons/base_btn_0201.png';
-				selected = 'ui/buttons/base_btn_0202.png';
-				disable = 'ui/buttons/base_btn_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[6] =

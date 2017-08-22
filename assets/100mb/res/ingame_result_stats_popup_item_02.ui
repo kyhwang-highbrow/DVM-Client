@@ -91,7 +91,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'dealtGauge';
-					file_name = 'ui/gauge/battle_stats_0202.png';
+					file_name = 'ui/gauges/temp/battle_stats_0202.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -121,7 +121,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'takenGauge';
-					file_name = 'ui/gauge/battle_stats_0203.png';
+					file_name = 'ui/gauges/temp/battle_stats_0203.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -151,7 +151,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'healingGauge';
-					file_name = 'ui/gauge/battle_stats_0204.png';
+					file_name = 'ui/gauges/temp/battle_stats_0204.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -179,7 +179,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/gauge/battle_stats_0201.png';
+				file_name = 'ui/gauges/temp/battle_stats_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

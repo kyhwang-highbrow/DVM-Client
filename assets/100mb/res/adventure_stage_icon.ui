@@ -21,7 +21,7 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'lightSprite';
-			file_name = 'ui/empty.png';
+			file_name = 'ui/icons/empty.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -47,7 +47,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = 'openSprite';
-			file_name = 'ui/icon/stage_open.png';
+			file_name = 'ui/icons/adventure_map/stage_open.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -73,7 +73,7 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'completeSprite';
-			file_name = 'ui/icon/stage_complete.png';
+			file_name = 'ui/icons/adventure_map/stage_complete.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -101,7 +101,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/icon_lock_0101.png';
+				file_name = 'ui/icons/adventure_map/icon_lock_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -125,7 +125,7 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'lockSprite';
-			file_name = 'ui/stage_open.png';
+			file_name = 'ui/icons/adventure_map/stage_open.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -151,7 +151,7 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'arrowSprite';
-			file_name = 'ui/stage_select_arrow.png';
+			file_name = 'ui/icons/adventure_map/stage_select_arrow.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -177,7 +177,7 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'selectSprite';
-			file_name = 'ui/icon/stage_select.png';
+			file_name = 'ui/icons/adventure_map/stage_select.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -203,7 +203,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = 'easySprite';
-			file_name = 'ui/icon/stage_icon_easy.png';
+			file_name = 'ui/icons/adventure_map/stage_icon_easy.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -229,7 +229,7 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'normalSprite';
-			file_name = 'ui/icon/stage_icon_normal.png';
+			file_name = 'ui/icons/adventure_map/stage_icon_normal.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -255,7 +255,7 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'hardSprite';
-			file_name = 'ui/icon/stage_icon_hard.png';
+			file_name = 'ui/icons/adventure_map/stage_icon_hard.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -322,7 +322,7 @@
 			visible = true;
 			lua_name = 'stageBtn';
 			enable = true;
-			normal = 'ui/empty.png';
+			normal = 'ui/icons/empty.png';
 			selected = '';
 			disable = '';
 			image_type = 0;

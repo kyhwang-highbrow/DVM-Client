@@ -70,7 +70,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/cha/blackdragon_dark_03.png';
+					file_name = 'ui/icons/cha/blackdragon_dark_03.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;

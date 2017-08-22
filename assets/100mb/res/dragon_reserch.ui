@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/dragon_research.png';
+				file_name = 'ui/frames/temp/dragon_research.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -143,8 +143,8 @@
 					visible = true;
 					lua_name = 'lacteaBtn';
 					enable = true;
-					normal = 'ui/btn/a_btn_0101.png';
-					selected = 'ui/btn/a_btn_0102.png';
+					normal = 'ui/buttons/temp/a_btn_0101.png';
+					selected = 'ui/buttons/temp/a_btn_0102.png';
 					disable = '';
 					image_type = 1;
 				};
@@ -185,7 +185,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/dragon_resech_text_bg.png';
+					file_name = 'ui/frames/temp/dragon_resech_text_bg.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -316,7 +316,7 @@
 								rotation = 0.000000;
 								visible = true;
 								lua_name = '';
-								file_name = 'ui/icon/inbox/inbox_lactea.png';
+								file_name = 'ui/icons/inbox/inbox_lactea.png';
 								color = { 255; 255; 255; };
 								opacity = 255;
 								flip_x = false;
@@ -397,7 +397,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/frame/price_0101.png';
+						file_name = 'ui/frames/temp/price_0101.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						center_rect_x = 0;
@@ -422,8 +422,8 @@
 					visible = true;
 					lua_name = 'reserchBtn';
 					enable = true;
-					normal = 'ui/btn/a_btn_0101.png';
-					selected = 'ui/btn/a_btn_0102.png';
+					normal = 'ui/buttons/temp/a_btn_0101.png';
+					selected = 'ui/buttons/temp/a_btn_0102.png';
 					disable = '';
 					image_type = 1;
 				};
@@ -805,7 +805,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchSprite1';
-					file_name = 'ui/frame/dragon_reserch_point.png';
+					file_name = 'ui/frames/temp/dragon_reserch_point.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -831,7 +831,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchSprite2';
-					file_name = 'ui/frame/dragon_reserch_point.png';
+					file_name = 'ui/frames/temp/dragon_reserch_point.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -857,7 +857,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchSprite3';
-					file_name = 'ui/frame/dragon_reserch_point.png';
+					file_name = 'ui/frames/temp/dragon_reserch_point.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -883,7 +883,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchSprite4';
-					file_name = 'ui/frame/dragon_reserch_point.png';
+					file_name = 'ui/frames/temp/dragon_reserch_point.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -909,7 +909,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchSprite5';
-					file_name = 'ui/frame/dragon_reserch_point.png';
+					file_name = 'ui/frames/temp/dragon_reserch_point.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -935,7 +935,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchSprite6';
-					file_name = 'ui/frame/dragon_reserch_point.png';
+					file_name = 'ui/frames/temp/dragon_reserch_point.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -961,7 +961,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchSprite7';
-					file_name = 'ui/frame/dragon_reserch_point.png';
+					file_name = 'ui/frames/temp/dragon_reserch_point.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -987,7 +987,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchSprite8';
-					file_name = 'ui/frame/dragon_reserch_point.png';
+					file_name = 'ui/frames/temp/dragon_reserch_point.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1013,7 +1013,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchSprite9';
-					file_name = 'ui/frame/dragon_reserch_point.png';
+					file_name = 'ui/frames/temp/dragon_reserch_point.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1039,7 +1039,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'reserchSprite10';
-					file_name = 'ui/frame/dragon_reserch_point.png';
+					file_name = 'ui/frames/temp/dragon_reserch_point.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1212,7 +1212,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'sortOrderSprite';
-					file_name = 'ui/a_dialogue_0102_2.png';
+					file_name = 'ui/temp/a_dialogue_0102_2.png';
 					color = { 240; 215; 159; };
 					opacity = 255;
 					flip_x = false;
@@ -1237,8 +1237,8 @@
 				visible = true;
 				lua_name = 'sortOrderBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0101.png';
-				selected = 'ui/btn/a_btn_0102.png';
+				normal = 'ui/buttons/temp/a_btn_0101.png';
+				selected = 'ui/buttons/temp/a_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -1301,8 +1301,8 @@
 				visible = true;
 				lua_name = 'sortBtn';
 				enable = true;
-				normal = 'ui/btn/a_btn_0101.png';
-				selected = 'ui/btn/a_btn_0102.png';
+				normal = 'ui/buttons/temp/a_btn_0101.png';
+				selected = 'ui/buttons/temp/a_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};

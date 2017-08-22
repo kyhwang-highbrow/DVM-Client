@@ -118,7 +118,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/base_0604.png';
+					file_name = 'ui/frames/temp/base_0604.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -144,7 +144,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = '';
-					file_name = 'ui/frame/base_0603.png';
+					file_name = 'ui/frames/temp/base_0603.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;

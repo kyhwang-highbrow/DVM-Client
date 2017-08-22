@@ -108,7 +108,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'emptySprite';
-				file_name = 'ui/icon/mandragora_03.png';
+				file_name = 'ui/icons/mandragora/mandragora_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -310,7 +310,7 @@
 							rotation = 0.000000;
 							visible = true;
 							lua_name = '';
-							file_name = 'ui/icon/inbox/inbox_gold.png';
+							file_name = 'ui/icons/inbox/inbox_gold.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;

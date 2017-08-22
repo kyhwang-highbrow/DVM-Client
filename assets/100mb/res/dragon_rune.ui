@@ -877,7 +877,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/icon/emtpy_0102.png';
+				file_name = 'ui/icons/emtpy_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -1521,7 +1521,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'sortOrderSprite';
-					file_name = 'ui/a_dialogue_0102_2.png';
+					file_name = 'ui/temp/a_dialogue_0102_2.png';
 					color = { 240; 215; 159; };
 					opacity = 255;
 					flip_x = false;
@@ -1867,7 +1867,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'runeSortOrderSprite';
-					file_name = 'ui/a_dialogue_0102_2.png';
+					file_name = 'ui/temp/a_dialogue_0102_2.png';
 					color = { 240; 215; 159; };
 					opacity = 255;
 					flip_x = false;
@@ -2013,7 +2013,7 @@
 				visible = true;
 				lua_name = 'runeSlotBtn1';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -2108,7 +2108,7 @@
 				visible = true;
 				lua_name = 'runeSlotBtn2';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -2203,7 +2203,7 @@
 				visible = true;
 				lua_name = 'runeSlotBtn3';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -2298,7 +2298,7 @@
 				visible = true;
 				lua_name = 'runeSlotBtn4';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -2393,7 +2393,7 @@
 				visible = true;
 				lua_name = 'runeSlotBtn5';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -2488,7 +2488,7 @@
 				visible = true;
 				lua_name = 'runeSlotBtn6';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;

@@ -112,7 +112,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'sortSelectOrderSprite';
-					file_name = 'ui/a_dialogue_0102_2.png';
+					file_name = 'ui/temp/a_dialogue_0102_2.png';
 					color = { 240; 215; 159; };
 					opacity = 255;
 					flip_x = false;
@@ -270,7 +270,7 @@
 							rotation = 0.000000;
 							visible = true;
 							lua_name = '';
-							file_name = 'ui/icon/inbox/inbox_gold.png';
+							file_name = 'ui/icons/inbox/inbox_gold.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -601,7 +601,7 @@
 			visible = true;
 			lua_name = 'inventoryBtn';
 			enable = true;
-			normal = 'ui/empty.png';
+			normal = 'ui/temp/empty.png';
 			selected = '';
 			disable = '';
 			image_type = 0;

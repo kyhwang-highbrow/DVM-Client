@@ -108,7 +108,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'sortSelectOrderSprite';
-					file_name = 'ui/a_dialogue_0102_2.png';
+					file_name = 'ui/temp/a_dialogue_0102_2.png';
 					color = { 240; 215; 159; };
 					opacity = 255;
 					flip_x = false;

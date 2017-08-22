@@ -253,7 +253,7 @@
 				visible = true;
 				lua_name = 'clickBtn';
 				enable = true;
-				normal = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
 				selected = '';
 				disable = '';
 				image_type = 0;

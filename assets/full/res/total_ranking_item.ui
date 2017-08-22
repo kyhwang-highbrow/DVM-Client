@@ -51,7 +51,7 @@
 				lua_name = 'rankingLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 40;
-				text = '{1}';
+				text = '';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 161; 125; 93; };
@@ -212,6 +212,25 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'pvpTierNode';
+			};
+			[8] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 90.000000;
+				y = 0.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 66;
+				height = 66;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'rankNode';
 			};
 			type = 'Menu';
 			ui_name = '';

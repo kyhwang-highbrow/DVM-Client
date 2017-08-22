@@ -50,13 +50,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'rankRewardTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 28;
 					text = '주간 보상';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 220;
 					dimension_height = 52;
@@ -88,11 +88,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'rankRewardBtn';
+				lua_name = 'rankRewardTabBtn';
 				enable = true;
-				normal = 'ui/buttons/base_btn_0201.png';
-				selected = 'ui/buttons/base_btn_0202.png';
-				disable = 'ui/buttons/base_btn_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[3] =
@@ -114,13 +114,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'matchRewardTabLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 28;
 					text = '한판 보상';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 220;
 					dimension_height = 52;
@@ -152,11 +152,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'matchRewardBtn';
+				lua_name = 'matchRewardTabBtn';
 				enable = true;
-				normal = 'ui/buttons/base_btn_0201.png';
-				selected = 'ui/buttons/base_btn_0202.png';
-				disable = 'ui/buttons/base_btn_0101.png';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
 				image_type = 1;
 			};
 			[4] =

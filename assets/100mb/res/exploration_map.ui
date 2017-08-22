@@ -95,7 +95,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/frame/exploration_map.png';
+			file_name = 'ui/frames/temp/exploration_map.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -144,7 +144,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/icon_lock_0101.png';
+					file_name = 'ui/icons/icon_lock_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -168,7 +168,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'mapLockSprite6';
-				file_name = 'ui/frame/exploration_map_disable_06.png';
+				file_name = 'ui/frames/temp/exploration_map_disable_06.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -196,7 +196,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'completeSprite6';
-					file_name = 'ui/frame/exploration_map_paper_04.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_04.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -304,7 +304,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/time.png';
+						file_name = 'ui/icons/time.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -328,7 +328,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'timeNode6';
-					file_name = 'ui/frame/exploration_map_paper_06.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_06.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = true;
@@ -394,7 +394,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/exploration_map_paper_05.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_05.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = true;
@@ -420,7 +420,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'lockSprite6';
-					file_name = 'ui/frame/exploration_map_paper_04.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_04.png';
 					color = { 0; 0; 0; };
 					opacity = 150;
 					center_rect_x = 0;
@@ -444,7 +444,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/exploration_map_paper_03.png';
+				file_name = 'ui/frames/temp/exploration_map_paper_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -534,7 +534,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/icon_lock_0101.png';
+					file_name = 'ui/icons/icon_lock_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -558,7 +558,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'mapLockSprite5';
-				file_name = 'ui/frame/exploration_map_disable_05.png';
+				file_name = 'ui/frames/temp/exploration_map_disable_05.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -586,7 +586,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'completeSprite5';
-					file_name = 'ui/frame/exploration_map_paper_02.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_02.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					center_rect_x = 0;
@@ -694,7 +694,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/time.png';
+						file_name = 'ui/icons/time.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -718,7 +718,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'timeNode5';
-					file_name = 'ui/frame/exploration_map_paper_06.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_06.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -784,7 +784,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/exploration_map_paper_05.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_05.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -810,7 +810,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'lockSprite5';
-					file_name = 'ui/frame/exploration_map_paper_02.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_02.png';
 					color = { 0; 0; 0; };
 					opacity = 150;
 					center_rect_x = 0;
@@ -834,7 +834,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/exploration_map_paper_01.png';
+				file_name = 'ui/frames/temp/exploration_map_paper_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -924,7 +924,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/icon_lock_0101.png';
+					file_name = 'ui/icons/icon_lock_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -948,7 +948,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'mapLockSprite4';
-				file_name = 'ui/frame/exploration_map_disable_04.png';
+				file_name = 'ui/frames/temp/exploration_map_disable_04.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -976,7 +976,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'completeSprite4';
-					file_name = 'ui/frame/exploration_map_paper_04.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_04.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1042,7 +1042,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/exploration_map_paper_05.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_05.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = true;
@@ -1110,7 +1110,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/time.png';
+						file_name = 'ui/icons/time.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -1134,7 +1134,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'timeNode4';
-					file_name = 'ui/frame/exploration_map_paper_06.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_06.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = true;
@@ -1200,7 +1200,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'lockSprite4';
-					file_name = 'ui/frame/exploration_map_paper_04.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_04.png';
 					color = { 0; 0; 0; };
 					opacity = 150;
 					flip_x = false;
@@ -1224,7 +1224,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/exploration_map_paper_03.png';
+				file_name = 'ui/frames/temp/exploration_map_paper_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -1314,7 +1314,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/icon_lock_0101.png';
+					file_name = 'ui/icons/icon_lock_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1338,7 +1338,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'mapLockSprite3';
-				file_name = 'ui/frame/exploration_map_disable_03.png';
+				file_name = 'ui/frames/temp/exploration_map_disable_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -1366,7 +1366,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'completeSprite3';
-					file_name = 'ui/frame/exploration_map_paper_02.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_02.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1432,7 +1432,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/exploration_map_paper_05.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_05.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1500,7 +1500,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/time.png';
+						file_name = 'ui/icons/time.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -1524,7 +1524,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'timeNode3';
-					file_name = 'ui/frame/exploration_map_paper_06.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_06.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1590,7 +1590,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'lockSprite3';
-					file_name = 'ui/frame/exploration_map_paper_02.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_02.png';
 					color = { 0; 0; 0; };
 					opacity = 150;
 					flip_x = false;
@@ -1614,7 +1614,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/exploration_map_paper_01.png';
+				file_name = 'ui/frames/temp/exploration_map_paper_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -1704,7 +1704,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/icon_lock_0101.png';
+					file_name = 'ui/icons/icon_lock_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1728,7 +1728,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'mapLockSprite2';
-				file_name = 'ui/frame/exploration_map_disable_02.png';
+				file_name = 'ui/frames/temp/exploration_map_disable_02.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -1756,7 +1756,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'completeSprite2';
-					file_name = 'ui/frame/exploration_map_paper_04.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_04.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1822,7 +1822,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/exploration_map_paper_05.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_05.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = true;
@@ -1890,7 +1890,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/time.png';
+						file_name = 'ui/icons/time.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -1914,7 +1914,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'timeNode2';
-					file_name = 'ui/frame/exploration_map_paper_06.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_06.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = true;
@@ -1980,7 +1980,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'lockSprite2';
-					file_name = 'ui/frame/exploration_map_paper_04.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_04.png';
 					color = { 0; 0; 0; };
 					opacity = 150;
 					flip_x = false;
@@ -2004,7 +2004,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/exploration_map_paper_03.png';
+				file_name = 'ui/frames/temp/exploration_map_paper_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -2094,7 +2094,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/icon_lock_0101.png';
+					file_name = 'ui/icons/icon_lock_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -2118,7 +2118,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'mapLockSprite1';
-				file_name = 'ui/frame/exploration_map_disable_01.png';
+				file_name = 'ui/frames/temp/exploration_map_disable_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -2146,7 +2146,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'completeSprite1';
-					file_name = 'ui/frame/exploration_map_paper_02.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_02.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -2212,7 +2212,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/frame/exploration_map_paper_05.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_05.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -2280,7 +2280,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon/time.png';
+						file_name = 'ui/icons/time.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -2304,7 +2304,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'timeNode1';
-					file_name = 'ui/frame/exploration_map_paper_06.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_06.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -2370,7 +2370,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'lockSprite1';
-					file_name = 'ui/frame/exploration_map_paper_02.png';
+					file_name = 'ui/frames/temp/exploration_map_paper_02.png';
 					color = { 0; 0; 0; };
 					opacity = 150;
 					flip_x = false;
@@ -2394,7 +2394,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/exploration_map_paper_01.png';
+				file_name = 'ui/frames/temp/exploration_map_paper_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

@@ -43,9 +43,9 @@
 				visible = true;
 				lua_name = 'okButton';
 				enable = true;
-				normal = 'ui/empty.png';
-				selected = 'ui/empty.png';
-				disable = 'ui/empty.png';
+				normal = 'ui/temp/empty.png';
+				selected = 'ui/temp/empty.png';
+				disable = 'ui/temp/empty.png';
 				image_type = 0;
 			};
 			[3] =
@@ -85,7 +85,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'downloadGauge';
-				file_name = 'ui/gauge/upgarde_gg_01.png';
+				file_name = 'ui/gauges/temp/upgarde_gg_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

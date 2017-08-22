@@ -20,11 +20,11 @@
             <key>airship_back_anchor.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{96,590},{30,50}}</string>
+                <string>{{162,150},{30,50}}</string>
                 <key>offset</key>
                 <string>{44,-53}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{113,112},{30,50}}</string>
                 <key>sourceSize</key>
@@ -33,7 +33,7 @@
             <key>airship_front.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,172},{138,146}}</string>
+                <string>{{162,2},{138,146}}</string>
                 <key>offset</key>
                 <string>{4,-3}</string>
                 <key>rotated</key>
@@ -46,11 +46,11 @@
             <key>airship_front_anchor.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{128,452},{32,50}}</string>
+                <string>{{378,134},{32,50}}</string>
                 <key>offset</key>
                 <string>{-3,-59}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{65,118},{32,50}}</string>
                 <key>sourceSize</key>
@@ -59,11 +59,11 @@
             <key>airship_light_blue_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{96,642},{42,40}}</string>
+                <string>{{302,134},{42,40}}</string>
                 <key>offset</key>
                 <string>{-2,-5}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{61,69},{42,40}}</string>
                 <key>sourceSize</key>
@@ -72,7 +72,7 @@
             <key>airship_light_blue_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{152,571},{8,8}}</string>
+                <string>{{2,172},{8,8}}</string>
                 <key>offset</key>
                 <string>{-3,-2}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>airship_magic_circle.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,320},{130,130}}</string>
+                <string>{{302,2},{130,130}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -95,23 +95,10 @@
                 <key>sourceSize</key>
                 <string>{168,168}</string>
             </dict>
-            <key>airship_side.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,452},{124,136}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{22,16},{124,136}}</string>
-                <key>sourceSize</key>
-                <string>{168,168}</string>
-            </dict>
             <key>light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{128,504},{32,33}}</string>
+                <string>{{344,134},{32,33}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
@@ -121,84 +108,6 @@
                 <key>sourceSize</key>
                 <string>{66,65}</string>
             </dict>
-            <key>propeller.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,590},{92,92}}</string>
-                <key>offset</key>
-                <string>{-1,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{3,5},{92,92}}</string>
-                <key>sourceSize</key>
-                <string>{100,100}</string>
-            </dict>
-            <key>propeller_center.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{134,320},{24,26}}</string>
-                <key>offset</key>
-                <string>{2,-1}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{40,38},{24,26}}</string>
-                <key>sourceSize</key>
-                <string>{100,100}</string>
-            </dict>
-            <key>propeller_side.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{134,346},{10,14}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{45,43},{10,14}}</string>
-                <key>sourceSize</key>
-                <string>{100,100}</string>
-            </dict>
-            <key>smoke_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{128,539},{28,30}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{36,35},{28,30}}</string>
-                <key>sourceSize</key>
-                <string>{100,100}</string>
-            </dict>
-            <key>smoke_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{128,571},{22,22}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{39,39},{22,22}}</string>
-                <key>sourceSize</key>
-                <string>{100,100}</string>
-            </dict>
-            <key>smoke_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{142,172},{16,14}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{42,43},{16,14}}</string>
-                <key>sourceSize</key>
-                <string>{100,100}</string>
-            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -207,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>chapter_ship.png</string>
             <key>size</key>
-            <string>{162,684}</string>
+            <string>{434,182}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:aeae6e9b60fe72dd69f87ab8ef61bc3d:d9705f6ce5b429ace802f889f8d81115:1afa19d8036fa529bfe2b4dfe3c38bb8$</string>
+            <string>$TexturePacker:SmartUpdate:e158fa3225bc384ce9c36767920b52a6:40f3e38c82db9dd4fbf679417492355d:1afa19d8036fa529bfe2b4dfe3c38bb8$</string>
             <key>textureFileName</key>
             <string>chapter_ship.png</string>
         </dict>

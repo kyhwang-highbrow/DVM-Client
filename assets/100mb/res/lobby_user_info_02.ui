@@ -295,7 +295,7 @@
 				enable = true;
 				normal = 'ui/buttons/base_btn_0101.png';
 				selected = 'ui/buttons/base_btn_0102.png';
-				disable = 'ui/btn/a_btn_0202.png';
+				disable = 'ui/buttons/temp/a_btn_0202.png';
 				image_type = 1;
 			};
 			[8] =
