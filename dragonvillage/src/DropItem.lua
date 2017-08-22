@@ -158,13 +158,14 @@ function DropItem:setObtained(item_type, item_count)
     self.m_itemCount = item_count
 
     if (not self.m_checkSprite) then
-        local sprite = MakeAnimator('res/ui/icons/stage_box_check.png')
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        self.m_animator:addChild(sprite.m_node)
-        self.m_checkSprite = sprite
-
-        cca.uiReactionSlow(sprite.m_node, 1, 1, 2)
+        -- 체크 표시 일단 제거 sgkim 2017-08-22
+        --local sprite = MakeAnimator('res/ui/icons/stage_box_check.png')
+        --sprite:setDockPoint(cc.p(0.5, 0.5))
+        --sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        --self.m_animator:addChild(sprite.m_node)
+        --self.m_checkSprite = sprite
+        --
+        --cca.uiReactionSlow(sprite.m_node, 1, 1, 2)
     end
 end
 
