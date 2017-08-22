@@ -69,7 +69,7 @@ function UI_DragonUpgradeResult:refresh(dragon_object)
         local function cb()
             -- 액션 후 백키 블럭 해제
             self:doAction(function() UIManager:blockBackKey(false) end, false)
-			SoundMgr:playEffect('UI', 'ui_grow_result')
+			SoundMgr:playEffect('UI', 'ui_star_up')
             
             -- @ MASTER ROAD
             local t_data = {clear_key = 'd_grup'}
