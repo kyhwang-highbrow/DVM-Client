@@ -105,7 +105,7 @@ public class AppActivity extends Cocos2dxActivity{
         PerpleSDK.setGLSurfaceView(getGLSurfaceView());
 
         // 디버그 메시지 출력
-        boolean isDebug = true;
+        boolean isDebug = false;
 
         // @perplesdk
         if (PerpleSDK.getInstance().initSDK(getString(R.string.gcm_defaultSenderId), BASE64_PUBLIC_KEY, isDebug)) {
