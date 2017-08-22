@@ -22,7 +22,7 @@ function UI_Tooltip_Skill:init(x, y, text, skip_touch_layer)
     self.root:setDockPoint(cc.p(0.5, 0.5))
     self.root:setAnchorPoint(cc.p(0.5, 0.5))
 
-    self.m_bubbleImage = cc.Scale9Sprite:create('res/ui/frame_03.png')
+    self.m_bubbleImage = cc.Scale9Sprite:create('res/ui/temp/frame_03.png')
     self.m_bubbleImage:setDockPoint(cc.p(0.5, 0.5))
     self.m_bubbleImage:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_bubbleImage:setContentSize(600, 100)
