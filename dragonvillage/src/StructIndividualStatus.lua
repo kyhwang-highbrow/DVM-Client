@@ -169,7 +169,7 @@ end
 -------------------------------------
 function StructIndividualStatus:setRuneMulti(rune_multi)
     self.m_runeMulti = rune_multi
-    self:setDirtyFinalStat()
+    self:setDirtyT2()
 end
 
 -------------------------------------
@@ -177,7 +177,7 @@ end
 -------------------------------------
 function StructIndividualStatus:setRuneAdd(rune_add)
     self.m_runeAdd = rune_add
-    self:setDirtyFinalStat()
+    self:setDirtyT2()
 end
 
 
