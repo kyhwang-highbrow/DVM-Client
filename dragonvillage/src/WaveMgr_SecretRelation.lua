@@ -14,7 +14,12 @@ function WaveMgr_SecretRelation:init(world, stage_name, develop_mode)
     -- 해당 스테이지에서 가능한 적드래곤을 하나 지정
     local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
 
-    self.m_enemyDid = t_dungeon_info['dragon']
+    if t_dungeon_info then
+        self.m_enemyDid = t_dungeon_info['dragon']
+    else
+        -- 벤치마크를 할 때에 사용하기 위함
+        self.m_enemyDid = 120564
+    end
 
     -- RandomDragon으로 들어간 enemy_id값들을 지정된 드래곤 아이디로 치환
     if (self.m_scriptData and self.m_scriptData['wave']) then
