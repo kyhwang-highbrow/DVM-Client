@@ -7,7 +7,8 @@ StatusEffectUnit = class({
         m_owner = 'Character',		-- 대상자
 		m_caster = 'Character',		-- 시전자
         m_skillId = 'number',       -- 스킬 아이디(스킬로 부여된 경우)
-        m_bLeaderSkill = 'booleab', -- 해당 상태효과가 리더 스킬인지 여부
+        m_bHiddenSkill = 'boolean',
+        m_bLeaderSkill = 'boolean', -- 해당 상태효과가 리더 스킬인지 여부
 
         m_value = 'number',         -- 적용값
         m_source = 'string',        -- 적용스텟
@@ -35,6 +36,7 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
     self.m_owner = owner
     self.m_caster = caster
     self.m_skillId = skill_id
+    self.m_bHiddenSkill = StatusEffectHelper:isHidden(name)
     self.m_bLeaderSkill = false
 
     self.m_value = value
@@ -62,7 +64,7 @@ end
 -- @param modified_dt 디법 지속시간 스텟을 적용한 dt
 -------------------------------------
 function StatusEffectUnit:update(dt, modified_dt)
-    if (self.m_duration == -1) then
+    if (self.m_bHiddenSkill) then
         -- 리더 스킬이 아닌 경우
         if (not self.m_bLeaderSkill) then
             -- 시전자가 죽었는지 체크

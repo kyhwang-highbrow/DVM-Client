@@ -604,3 +604,12 @@ function StatusEffectHelper:isHelpful(param_1)
 
 	return (status_effect_category == 'good')
 end
+
+
+-------------------------------------
+-- function isHidden
+-- @breif 해제되지 않고 계속 유지되며 별도의 표시가 없는 상태효과(리더스킬 or 패시브 스킬)인지 여부 체크
+-------------------------------------
+function StatusEffectHelper:isHidden(effect_name)
+    return (string.find(effect_name, 'leader') or string.find(effect_name, 'passive'))
+end
