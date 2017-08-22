@@ -115,6 +115,8 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
 		end
         self.m_bAnimate = false
 	end)
+
+	SoundMgr:playEffect('UI', 'ui_egg_break')
 end
 
 -------------------------------------
@@ -123,6 +125,7 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:checkMaxGradeEffect()
     if (self.m_bLegend) then
+        SoundMgr:playEffect('UI', 'ui_egg_legend')
         self.m_topEffect:changeAni('crack_high_04', false)
         self.m_topEffect:addAniHandler(function()
             self:appearDragonAnimator()
@@ -189,6 +192,7 @@ end
 function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator()
 	self.m_topEffect:changeAni('top_appear', false)
 	self.m_topEffect:addAniHandler(function()
+        SoundMgr:playEffect('UI', 'ui_grow_result')
 		PARENT.appearDragonAnimator(self)
 	end)
 end

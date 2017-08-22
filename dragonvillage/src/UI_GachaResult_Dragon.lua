@@ -61,6 +61,8 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list, egg_id, e
 	self:initUI()
 	self:initButton()
     self:refresh()
+
+    SoundMgr:stopBGM()
 end
 
 -------------------------------------
@@ -344,4 +346,11 @@ function UI_GachaResult_Dragon:click_closeBtn()
     else
         self:close()
     end
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_GachaResult_Dragon:onClose()
+    SoundMgr:playPrevBGM()
 end

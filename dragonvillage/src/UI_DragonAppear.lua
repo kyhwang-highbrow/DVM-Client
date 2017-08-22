@@ -26,6 +26,8 @@ function UI_DragonAppear:init(struct_dragon_object)
 	self:initUI()
 	self:initButton()
     self:refresh()
+
+    SoundMgr:stopBGM()
 end
 
 -------------------------------------
@@ -190,4 +192,11 @@ end
 -------------------------------------
 function UI_DragonAppear:click_closeBtn()
     self:close()
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_DragonAppear:onClose()
+    SoundMgr:playPrevBGM()
 end
