@@ -176,8 +176,8 @@ end
 -- function applyFormationBonus
 -- @brief 진형 버프 적용 (다른 status effect처럼 패시브 형태로 동작함)
 -------------------------------------
-function StatusCalculator:applyFormationBonus(formation, slot_idx)
-    local l_buff = TableFormation:getBuffList(formation, slot_idx)
+function StatusCalculator:applyFormationBonus(formation, formation_lv, slot_idx)
+    local l_buff = TableFormation:getBuffList(formation, formation_lv, slot_idx)
 
     for i,v in ipairs(l_buff) do
         local action = v['action']

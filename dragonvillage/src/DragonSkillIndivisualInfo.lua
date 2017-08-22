@@ -256,3 +256,16 @@ function DragonSkillIndivisualInfo:getReqMana()
 
     return req_mana
 end
+
+-------------------------------------
+-- function getSkillTypeForUI
+-------------------------------------
+function DragonSkillIndivisualInfo:getSkillTypeForUI()
+    local t_skill = GetSkillTable(self.m_charType):get(self.m_skillID)
+
+    if (self.m_charType == 'tamer' and t_skill['game_mode'] == 'pvp') then
+        return 'colosseum'
+    end
+
+    return self.m_skillType
+end

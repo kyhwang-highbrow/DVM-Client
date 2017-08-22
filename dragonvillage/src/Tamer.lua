@@ -59,13 +59,16 @@ end
 -------------------------------------
 -- function init_tamer
 -------------------------------------
-function Tamer:init_tamer(t_tamer, bLeftFormationend)
+function Tamer:init_tamer(t_tamer_data, bLeftFormationend)
+    local tamer_id = t_tamer_data['tid']
+    local t_tamer = TableTamer():get(tamer_id)
+
     self.m_charTable = t_tamer
     self.m_attribute = t_tamer['attr']
     self.m_bLeftFormation = bLeftFormationend
 
 	-- Tamer Skill 설정
-	self:initSkill()
+	self:initSkill(t_tamer_data)
 
 	self:initLogRecorder(t_tamer['tid'])
 

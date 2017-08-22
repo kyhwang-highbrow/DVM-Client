@@ -89,7 +89,7 @@ end
 -- function getBuffList
 -- @breif 특정 포메이션 특정 슬롯이 가지는 버프 리스트 리턴
 -------------------------------------
-function TableFormation:getBuffList(formation, slot_idx)
+function TableFormation:getBuffList(formation, formation_lv, slot_idx)
     if (formation == '') or (formation == 'default') then
         formation = 'attack'
     end
@@ -98,9 +98,11 @@ function TableFormation:getBuffList(formation, slot_idx)
         self = TableFormation()
     end
 
-	-- @TODO
+    -- @TODO
 	local formation = self:temp(formation)
-	local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
+    if (not formation_lv) then
+        formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
+    end
 
     local t_formation = self:get(formation)
 

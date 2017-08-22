@@ -126,10 +126,11 @@ function GameWorldIntro:makeHeroDeck()
     -- 인트로 전투에 쓰이는 덱은 고정 - 테이블화?
     local l_deck = {120011, 120102, 120431, 120223, 120294}
     local formation = 'attack'
-    local deck_name = 'adv'
+    local formation_lv = 1
     local leader = 2
 
     self.m_deckFormation = formation
+    self.m_deckFormationLv = formation_lv
 
     -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
     self.m_myDragons = {}
@@ -159,7 +160,7 @@ function GameWorldIntro:makeHeroDeck()
                 self.m_leftFormationMgr:setChangePosCallback(hero)
 
                 -- 진형 버프 적용
-                hero.m_statusCalc:applyFormationBonus(formation, i)
+                hero.m_statusCalc:applyFormationBonus(formation, 1, i)
 
 				-- 리더 등록
 				if (i == leader) then

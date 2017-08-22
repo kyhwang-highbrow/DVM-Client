@@ -500,8 +500,10 @@ end
 -------------------------------------
 -- function startActiveSkillCoolTime
 -------------------------------------
-function Dragon:startActiveSkillCoolTime()
-    self.m_activeSkillCoolTimer = self.m_activeSkillCoolTime
+function Dragon:startActiveSkillCoolTime(ratio)
+    local ratio = ratio or 1
+
+    self.m_activeSkillCoolTimer = self.m_activeSkillCoolTime * ratio
 
     self:dispatch('set_global_cool_time_active')
 end

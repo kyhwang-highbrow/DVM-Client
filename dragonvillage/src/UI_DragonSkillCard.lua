@@ -18,7 +18,7 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
 
 	local char_type = skill_indivisual_info.m_charType
     local skill_id = skill_indivisual_info.m_skillID
-    local skill_type = skill_indivisual_info.m_skillType
+    local skill_type = skill_indivisual_info:getSkillTypeForUI()
     local icon = IconHelper:getSkillIcon(char_type, skill_id)
     vars['skillNode']:addChild(icon)
 
@@ -75,7 +75,7 @@ end
 -------------------------------------
 function UI_DragonSkillCard:getSkillDescStr()
     local t_skill = self.m_skillIndivisualInfo.m_tSkill
-    local skill_type = self.m_skillIndivisualInfo.m_skillType
+    local skill_type = self.m_skillIndivisualInfo:getSkillTypeForUI()
     local skill_type_str = getSkillTypeStr(skill_type, true)
     local desc = self.m_skillIndivisualInfo:getSkillDesc()
 

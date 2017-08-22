@@ -72,10 +72,6 @@ end
 function TableTamerSkill:getSkillType(key)
 	if (not key) or (key == '') then return end
     local t_skill = self:get(key)
-
-    if (t_skill['game_mode'] == 'pvp') then
-        return 'colosseum'
-    end
-
+    
     return t_skill['chance_type']
 end

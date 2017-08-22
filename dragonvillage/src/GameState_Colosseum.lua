@@ -162,6 +162,8 @@ function GameState_Colosseum.update_success(self, dt)
 
         -- 모든 적들을 죽임
         world:removeAllEnemy()
+        world:removeMissileAndSkill()
+
         world.m_enemyTamer:changeState('dying')
 
         -- 기본 배속으로 변경

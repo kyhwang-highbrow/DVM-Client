@@ -16,7 +16,7 @@ MissileGuide = class(Missile, {
 function MissileGuide:init(file_name, body)
     self.m_target = nil
     self.m_angularVelocityGuid = 240
-    self.m_accelAngularVelocityGuid = 90
+    self.m_accelAngularVelocityGuid = 60
 end
 
 -------------------------------------

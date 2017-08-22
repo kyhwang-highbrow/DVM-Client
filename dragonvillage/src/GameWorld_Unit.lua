@@ -1,15 +1,21 @@
 -------------------------------------
 -- function makeTamerNew
 -------------------------------------
-function GameWorld:makeTamerNew(t_tamer, bRightFormation)
+function GameWorld:makeTamerNew(t_tamer_data, bRightFormation)
+    local t_tamer_data = t_tamer_data
     local bLeftFormation = not bRightFormation
-    local res = t_tamer['res_sd']
 
-    local tamer = Tamer(res, {0, 0, 0})
+    local tamer_id = t_tamer_data['tid']
+
+    -- 테이블의 테이머 정보
+    local t_tamer = TableTamer():get(tamer_id)
+
+    -- tamer 생성 시작
+    local tamer = Tamer(t_tamer['res_sd'], {0, 0, 0})
     tamer.m_tamerID = t_tamer['tid']
     
     tamer:initWorld(self)
-    tamer:init_tamer(t_tamer, bLeftFormation)
+    tamer:init_tamer(t_tamer_data, bLeftFormation)
     tamer:initFormation()
     tamer:initState()
         
@@ -39,7 +45,6 @@ end
 -- function makeDragonNew
 -------------------------------------
 function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
-    -- 유저가 보유하고있는 드래곤의 정보
     local t_dragon_data = t_dragon_data
     local bLeftFormation = not bRightFormation
     local bPossibleRevive = true
@@ -178,8 +183,14 @@ end
 -------------------------------------
 function GameWorld:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
-    local l_deck, formation, deck_name, leader = g_deckData:getDeck()
+    local t_pvp_deck = g_colosseumData.m_playerUserInfo:getPvpAtkDeck()
+    local l_deck = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList(true)
+    local formation = t_pvp_deck['formation']
+    local formation_lv = t_pvp_deck['formationlv']
+    local leader = t_pvp_deck['leader']
+
     self.m_deckFormation = formation
+    self.m_deckFormationLv = formation_lv
 
     -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
     self.m_myDragons = {}
@@ -201,7 +212,7 @@ function GameWorld:makeHeroDeck()
                 self.m_leftFormationMgr:setChangePosCallback(hero)
 
                 -- 진형 버프 적용
-                hero.m_statusCalc:applyFormationBonus(formation, i)
+                hero.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
 
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
@@ -255,7 +266,7 @@ function GameWorld:joinFriendHero(posIdx)
     self.m_leftFormationMgr:setChangePosCallback(self.m_friendDragon)
 
     -- 진형 버프 적용
-    self.m_friendDragon.m_statusCalc:applyFormationBonus(self.m_deckFormation, posIdx)
+    self.m_friendDragon.m_statusCalc:applyFormationBonus(self.m_deckFormation, self.m_deckFormationLv, posIdx)
 
     -- 스테이지 버프 적용
     self.m_friendDragon.m_statusCalc:applyStageBonus(self.m_stageID)

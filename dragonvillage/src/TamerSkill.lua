@@ -8,11 +8,9 @@ local TAMER_SKILL_PVP = 4
 -------------------------------------
 -- function initSkill
 -------------------------------------
-function Tamer:initSkill()
+function Tamer:initSkill(t_tamer_data)
     local t_tamer = self.m_charTable
-	local table_tamer_skill = TableTamerSkill()
-	local t_tamer_data = clone(g_tamerData:getTamerServerInfo(t_tamer['tid']))
-
+	
     -- 아군 테이머의 경우 4번째 스킬을 사용하지 못하도록 처리
     if (self.m_bLeftFormation) then
         t_tamer_data['skill_lv4'] = 0

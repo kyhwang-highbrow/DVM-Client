@@ -42,6 +42,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_rightNonparticipants = 'table', -- 참여중인 적군 중 죽은 적군(부활 가능한 대상만)
 		
         m_deckFormation = 'string',
+        m_deckFormationLv = 'number',
 
         m_physWorld = 'PhysWorld',
 

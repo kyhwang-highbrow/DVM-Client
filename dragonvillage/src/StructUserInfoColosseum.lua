@@ -475,17 +475,25 @@ end
 -- @brief 공격덱 정보 리턴
 -- @return table
 -- {
---        ['tamer']=110001;
---        ['deck']={
---                ['4']='596ebc5ae891937ecf95612c';
---                ['1']='596ebc5ae891937ecf95612f';
---                ['5']='596ebc5ae891937ecf956130';
---                ['2']='596eba27e891937ecf9560ee';
---                ['3']='596ebabfe891937ecf956108';
---        };
---        ['formation']='attack';
---        ['leader']=1;
---        ['deckName']='atk';
+--      ['formationlv']=1;
+--      ['tamer']=110001;
+--      ['tamerInfo']={
+--          ['skill_lv4']=1;
+--  	    ['skill_lv3']=1;
+--          ['skill_lv2']=1;
+--		    ['tid']=110001;
+--		    ['skill_lv1']=1;
+--	    };
+--      ['deck']={
+--          ['4']='598dd775e8919371d1bdb64b';
+--          ['1']='598db431e8919371d1bdb157';
+--          ['5']='598eb17ae8919371d1bdc157';
+--          ['2']='598dcdade8919371d1bdb528';
+--          ['3']='598dd019e8919371d1bdb57d';
+--      };
+--      ['formation']='attack';
+--      ['leader']=5;
+--      ['deckName']='atk';
 -- }
 -------------------------------------
 function StructUserInfoColosseum:getPvpAtkDeck()
@@ -497,17 +505,25 @@ end
 -- @brief 방어덱 정보 리턴
 -- @return table
 -- {
---        ['tamer']=110001;
---        ['deck']={
---                ['4']='596ebc5ae891937ecf95612c';
---                ['1']='596ebc5ae891937ecf95612f';
---                ['5']='596ebc5ae891937ecf956130';
---                ['2']='596eba27e891937ecf9560ee';
---                ['3']='596ebabfe891937ecf956108';
---        };
---        ['formation']='attack';
---        ['leader']=1;
---        ['deckName']='def';
+--      ['formationlv']=1;
+--      ['tamer']=110001;
+--      ['tamerInfo']={
+--          ['skill_lv4']=1;
+--  	    ['skill_lv3']=1;
+--          ['skill_lv2']=1;
+--		    ['tid']=110001;
+--		    ['skill_lv1']=1;
+--	    };
+--      ['deck']={
+--          ['4']='598dd775e8919371d1bdb64b';
+--          ['1']='598db431e8919371d1bdb157';
+--          ['5']='598eb17ae8919371d1bdc157';
+--          ['2']='598dcdade8919371d1bdb528';
+--          ['3']='598dd019e8919371d1bdb57d';
+--      };
+--      ['formation']='attack';
+--      ['leader']=5;
+--      ['deckName']='def';
 -- }
 -------------------------------------
 function StructUserInfoColosseum:getPvpDefDeck()
@@ -532,6 +548,26 @@ end
 function StructUserInfoColosseum:getDefDeckTamerID()
     local tamer_id = self:getPvpDefDeck()['tamer'] or 110001
     return tamer_id
+end
+
+-------------------------------------
+-- function getAtkDeckTamerInfo
+-- @brief 공격덱 테이머
+-- @return tamer_id number
+-------------------------------------
+function StructUserInfoColosseum:getAtkDeckTamerInfo()
+    local tamer_info = self:getPvpAtkDeck()['tamerInfo']
+    return tamer_info
+end
+
+-------------------------------------
+-- function getDefDeckTamerInfo
+-- @brief 방어덱 테이머
+-- @return tamer_id number
+-------------------------------------
+function StructUserInfoColosseum:getDefDeckTamerInfo()
+    local tamer_info = self:getPvpDefDeck()['tamerInfo']
+    return tamer_info
 end
 
 -------------------------------------
