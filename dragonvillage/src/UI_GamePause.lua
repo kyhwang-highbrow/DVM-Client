@@ -39,6 +39,50 @@ function UI_GamePause:init(stage_id, start_cb, end_cb)
         vars['enemyInfoButton']:setVisible(false)
     end
 
+    -- 난이도
+    do 
+        local difficulty, chapter, stage = parseAdventureID(stage_id)
+        if (difficulty == 1) then
+            vars['difficultyLabel']:setColor(cc.c3b(121, 186, 58))
+            vars['difficultyLabel']:setString(Str('보통'))
+
+        elseif (difficulty == 2) then
+            vars['difficultyLabel']:setColor(cc.c3b(46, 162, 196))
+            vars['difficultyLabel']:setString(Str('어려움'))
+
+        elseif (difficulty == 3) then
+            vars['difficultyLabel']:setColor(cc.c3b(196, 74, 46))
+            vars['difficultyLabel']:setString(Str('지옥'))
+    
+        end
+    end
+    
+    -- 스테이지 이름
+    do
+        local stage_name = g_stageData:getStageName(stage_id)
+        vars['titleLabel']:setString(stage_name)
+    end
+
+    -- 획득한 별 표시 (모험 모드에서만)
+    local game_mode = g_stageData:getGameMode(stage_id)
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        local stage_info = g_adventureData:getStageInfo(stage_id)
+        local num_of_stars = stage_info:getNumberOfStars()
+        for i=1, 3 do
+            local visible = stage_info['mission_' .. i]
+            vars['starSprite' .. i]:setVisible(visible)
+        end
+
+        local desc_list = stage_info:getMissionDescList()
+        for i=1, 3 do
+            vars['infoLabel' .. i]:setString(desc_list[i])
+        end
+    else
+        vars['btnMenu']:setPositionY(0)
+        vars['starMenu']:setVisible(false)
+        vars['difficultyLabel']:setVisible(false)
+    end
+    
     self:doActionReset()
     self:doAction()
 
