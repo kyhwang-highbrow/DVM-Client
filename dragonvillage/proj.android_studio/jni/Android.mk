@@ -30,6 +30,8 @@ LOCAL_SHARED_LIBRARIES := perplesdk_shared
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_lua_static
 
+LOCAL_SHORT_COMMANDS := true
+
 include $(BUILD_SHARED_LIBRARY)
 
 include $(LOCAL_PATH)/../../../libraries/perplesdk/prebuilt/android/Android.mk

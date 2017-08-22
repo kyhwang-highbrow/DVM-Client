@@ -5,6 +5,8 @@ APP_CPPFLAGS := -frtti -DCC_ENABLE_CHIPMUNK_INTEGRATION=1 -std=c++11 -fsigned-ch
 APP_LDFLAGS := -latomic
 APP_ABI := armeabi armeabi-v7a x86
 
+APP_SHORT_COMMANDS := true
+
 APP_PLATFORM := android-16
 
 APP_DEBUG := $(strip $(NDK_DEBUG))
