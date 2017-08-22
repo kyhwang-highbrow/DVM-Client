@@ -11,7 +11,8 @@ function Character:doSkill(skill_id, x, y, t_data)
 	local t_skill = self:getSkillTable(skill_id)
 
     -- 스킬 사용 불가 상태
-    if (self.m_isSilence) then
+    local basic_skill_id = self:getSkillID('basic')
+    if (basic_skill_id ~= skill_id and self.m_isSilence) then
 		return false
 	end
 
