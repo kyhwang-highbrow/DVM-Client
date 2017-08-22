@@ -351,7 +351,7 @@ function UI_Network:request()
     t_request['fail'] = function(ret) UI_Network.fail(self, ret) end
     
     if (self.m_bHmac == true) then
-        Network:HMacRequest(t_request)
+        Network:HMacRequest(t_request, true)
     else
         Network:SimpleRequest(t_request)
     end

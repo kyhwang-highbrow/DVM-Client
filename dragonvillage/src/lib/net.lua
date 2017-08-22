@@ -2,7 +2,6 @@
 Network = {
     uid = nil,
     t_req = {},
-    server_type = nil,
 }
 
 HEX			= crypto['hex']
@@ -216,10 +215,6 @@ function Network:decodeResult(ret)
 end
 
 function Network:SimpleRequest(t, do_decode)
-	if not t['url'] then
-        --return
-    end
-
     local full_url = t['full_url']
 	local url = full_url or (self:getApiUrl() .. t['url'])
 	local data = t['data'] or {}
@@ -285,37 +280,26 @@ function Network:SimpleRequest(t, do_decode)
 	Network:start(r)
 end
 
-function Network:HMacRequest(t, do_decode)
-
-	if not t.url then return end
-	local url		= t.url
-	local data		= t.data or {}
-	local method	= t.method or 'POST'
-	local success	= t.success or function(ret) end
-	local fail		= t.fail or function(ret) end
-	local do_decode	= do_decode or false
-
-    -- 모든 요청은 파라미터로 uid가 들어간다.
-    if self.uid then
-        data['uid'] = self.uid
-        data['latest_app_ver'] = PatchData:get('latest_app_ver')
-        data['patch_ver'] = PatchData:get('patch_ver')
-    end
-
-	local query_str = ''
-
-	-- sort by key's name
+-------------------------------------
+-- function makeQueryStr
+-- @brief
+-------------------------------------
+function Network:makeQueryStr(t_data)
+    -- sort by key's name
 	local t_key = {}
-	for k in pairs(data) do t_key[#t_key + 1] = k end
+	for key,_ in pairs(t_data) do
+        table.insert(t_key, key)
+    end
 	table.sort(t_key)
 
-	-- make post data
-	for i, k in ipairs(t_key) do
-		local v = data[k]
-		if type(v) == 'table' then
-			for j = 1, #v do
-				if j == 1 then
-					if string.len(query_str) == 0 then
+    local query_str = ''
+
+    for i,k in ipairs(t_key) do
+		local v = t_data[k]
+		if (type(v) == 'table') then
+			for j=1, #v do
+				if (j == 1) then
+					if (string.len(query_str) == 0) then
 						query_str	= k .. '=' .. v[1]
 					else
 						query_str	= query_str .. '&' .. k .. '=' .. v[1]
@@ -325,7 +309,7 @@ function Network:HMacRequest(t, do_decode)
 				end
 			end
 		else
-			if string.len(query_str) == 0 then
+			if (string.len(query_str) == 0) then
 				query_str	= k .. '=' .. v
 			else
 				query_str	= query_str .. '&' .. k .. '=' .. v
@@ -333,10 +317,39 @@ function Network:HMacRequest(t, do_decode)
 		end
 	end
 
-	local text	= 'POST\n' .. url .. '\n' .. query_str
+    return query_str
+end
+
+-------------------------------------
+-- function HMacRequest
+-- @brief
+-------------------------------------
+function Network:HMacRequest(t, do_decode)
+
+    local full_url = t['full_url']
+	local url = full_url or (self:getApiUrl() .. t['url'])
+	local data = t['data'] or {}
+	local method = t['method'] or 'POST'
+	local success = t['success'] or function(ret) end
+	local fail = t['fail'] or function(ret) end
+	local do_decode = do_decode or false
+    local check_hmac_md5 = t['check_hmac_md5'] or false
+
+    -- 모든 요청은 파라미터로 uid가 들어간다.
+    if self['uid'] then
+        data['uid'] = self['uid']
+    end
+
+    -- 패치 정보 삽입
+    g_patchChecker:addPatchInfo(data)
+
+    -- 쿼리 문자열 생성
+	local query_str = self:makeQueryStr(data)
+	local text	= method .. '\n' .. (t['url'] or url) .. '\n' .. query_str
+    
     local hmac	= HMAC('sha1', text, CONSTANT['HMAC_KEY'], false)
-    local r		= Network:request(self:getApiUrl() .. url, data, method)
-    r.finishHandler = function(data)
+    local r		= Network:request(url, data, method)
+    r['finishHandler'] = function(data)
 
         -- 통신 데이터 크기 테스트
         --UserData:saveLuadump('temp/'..string.gsub(url,'/','-')..'_'..string.len(data), {url, string.len(data), data})
@@ -348,52 +361,26 @@ function Network:HMacRequest(t, do_decode)
 		else
 			jsondata = Network:decodeResult(data)
 		end
+        Network:saveDump(t, jsondata)
 
-        -- 버전 체크
-        if Network:appVersionCheck(jsondata) then
-            Network:saveDump(t, jsondata)
+        if (jsondata['status'] and (jsondata['status'] == -9999)) then
+            fail(jsondata)
 
-            if (jsondata['status'] and (jsondata['status'] == -9999)) then
-                fail(jsondata)
-            else
-                success(jsondata)
-            end
+        -- 패치 업데이트 검사
+        elseif (g_patchChecker:isUpdated(jsondata, success)) then 
+            return
+
+        else
+            success(jsondata)
         end
 	end
-	r.failHandler = function()
+	r['failHandler'] = function()
 		fail()
 	end
 
 	r.hmac = hmac
 
-	--cclog('header=' .. luadump(r.headers))
-
 	Network:start(r)
-end
-
--------------------------------------
--- function appVersionCheck
--- @brief 버전과 패치를 확인, 어플 재시작 유도
--------------------------------------
-function Network:appVersionCheck(jsondata)
-    if (not jsondata['status']) then
-        return true
-    end
-
-    local msg = ''
-    if jsondata['status'] == -9996 then
-        msg = Str('새로운 패치가 있습니다. 게임이 종료됩니다. 자동으로 재시작된 후 패치가 적용됩니다.')
-    elseif jsondata['status'] == -9997 then
-        msg = Str('서버점검 중입니다.')
-    else
-        return true
-    end
-
-    -- 팝업
-    HideLoading()
-    MakeSimplePopup(POPUP_TYPE.OK, msg, RestartApplication)
-
-    return false
 end
 
 -------------------------------------
@@ -401,10 +388,6 @@ end
 -- @brief 서버 API URL
 -------------------------------------
 function Network:getApiUrl()
-    if (not self.server_type) then
-        self:resetServerType()
-    end
-
     local target_server = CppFunctions:getTargetServer()
     local api_url = URL['SERVER_DEV']
     
@@ -423,10 +406,6 @@ end
 -- @brief 플랫폼 서버 API URL
 -------------------------------------
 function Network:getPlatformApiUrl()
-    if (not self.server_type) then
-        self:resetServerType()
-    end
-
     local target_server = CppFunctions:getTargetServer()
     local api_url = URL['PLATFORM_DEV']
 
@@ -439,79 +418,6 @@ function Network:getPlatformApiUrl()
     end
 
     return api_url
-end
-
--------------------------------------
--- function resetServerType
--- @brief 서버 타입 결정
--------------------------------------
-function Network:resetServerType()
-    self.server_type = 'korea'
-
-    --[[
-    -- 로그 출력 여부
-    local log = false
-
-    if log then
-        cclog('#################################################')
-        cclog('APP_TARGET = ' .. APP_TARGET)
-        cclog('#################################################')
-    end
-
-
-    if (APP_TARGET == 'GSP') then
-        -- 파티에 설정된 locale로 서버 지정
-        if g_Pati and g_Pati.info and g_Pati.info['locale'] then
-            if log then
-                cclog("use g_Pati.info['locale']")
-                cclog('locale = ' .. g_Pati.info['locale'])
-            end
-
-            if g_Pati.info['locale'] == 'KR' then
-                self.server_type = 'korea'
-            else
-                self.server_type = 'global'
-            end
-
-        -- 세이브데이터에 설정된 locale로 서버 설정
-        elseif UserData and UserData:get('locale') then
-            if log then
-                cclog("use UserData:get('locale')")
-                cclog('locale = ' .. UserData:get('locale'))
-            end
-            if UserData:get('locale') == 'KR' then
-                self.server_type = 'korea'
-            else
-                self.server_type = 'global'
-            end
-
-        -- 기기에 설정된 language로 서버 지정
-        elseif getDeviceLanguage then
-            local device_lan = getDeviceLanguage()
-            if log then
-                cclog("use getDeviceLanguage()")
-                cclog('locale = ' .. getDeviceLanguage())
-            end
-            if string.starts(device_lan, 'ko') then
-                self.server_type = 'korea'
-            else
-                self.server_type = 'global'
-            end
-        end
-    elseif (APP_TARGET == 'KAKAO') then
-        self.server_type = 'kakao'
-    elseif (APP_TARGET == 'CHINA') then
-        self.server_type = 'china'
-    else
-        self.server_type = 'korea'
-    end
-
-    if log then
-        cclog('### Network:resetServerType()' .. self.server_type)
-        cclog('#################################################')
-        error()
-    end
-    --]]
 end
 
 -------------------------------------
