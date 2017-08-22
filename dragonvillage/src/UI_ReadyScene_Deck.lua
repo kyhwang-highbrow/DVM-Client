@@ -150,7 +150,7 @@ end
 -------------------------------------
 function UI_ReadyScene_Deck:getFocusDeckSlotEffect()
     if (not self.m_focusDeckSlotEffect) then
-        self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/icons/notitle/ready_fomation_bg_select.png')
+        self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/icons/ready_fomation_bg_select.png')
         self.m_focusDeckSlotEffect:setDockPoint(CENTER_POINT)
         self.m_focusDeckSlotEffect:setAnchorPoint(CENTER_POINT)
     end

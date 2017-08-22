@@ -63,7 +63,7 @@ function UI_AdventureStageButton:init(parent_ui, stage_id)
     do -- 별 횟득 갯수 표시
         local stage_info = g_adventureData:getStageInfo(stage_id)
         local num_of_stars = stage_info:getNumberOfStars()
-        local star_icon = cc.Sprite:create('res/ui/icons/notitle/stage_star_0' .. num_of_stars .. '.png')
+        local star_icon = cc.Sprite:create('res/ui/icons/stage_star_0' .. num_of_stars .. '.png')
         star_icon:setDockPoint(cc.p(0.5, 0.5))
         star_icon:setAnchorPoint(cc.p(0.5, 0.5))
         vars['starNode']:addChild(star_icon)
